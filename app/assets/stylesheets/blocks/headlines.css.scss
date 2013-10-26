@@ -18,6 +18,9 @@ header.head {
     @include normal-link;
   }
 
+  a.link {
+    @include normal-link;
+  }
   &.misc {
     h1, h2 {
       float: left;

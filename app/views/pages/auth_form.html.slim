@@ -31,6 +31,8 @@
     .m5.oauth
       - User.omniauth_providers.each do |provider|
         = image_tag "/images/omniauth/#{provider}.png", alt: "Вход через #{provider.to_s.titleize}", title: "Вход через #{provider.to_s.titleize}", 'data-source' => "/users/auth/#{provider}"
+      = image_tag "/images/omniauth/google_apps.png", alt: "Вход через Google", title: "Вход через Google", 'data-source' => '/disabled_openid'
+      = image_tag "/images/omniauth/yandex.png", alt: "Вход через Yandex", title: "Вход через Yandex", 'data-source' => '/disabled_openid'
 
     p.form-buttons
       span.login.control
