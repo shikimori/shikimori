@@ -18,7 +18,6 @@
 /tmp/*
 /vendor/bundle
 capybara-*.html
-config/initializers/secret_token.rb
 db/*.sqlite3
 dump.rdb
 log
