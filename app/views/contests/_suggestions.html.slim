@@ -1,0 +1,20 @@
+.subheadline.m10 
+  = contest.uncertain_suggestions.any? ? 'Вероятные номинанты' : 'Номинанты'
+.subcontent.proposing
+  - if contest.certain_suggestions.any?
+    .first
+      = render partial: 'contests/suggestion', collection: contest.certain_suggestions.each_slice(2).map(&:first), locals: { contest: contest }
+    - if contest.certain_suggestions.size > 1
+      .second
+        = render partial: 'contests/suggestion', collection: contest.certain_suggestions.each_slice(2).map(&:last), locals: { contest: contest }
+  - else
+    p нет вариантов
+
+- if contest.uncertain_suggestions.any?
+  .subheadline.m10 Номинанты под вопросом
+  .subcontent.proposing
+    .first
+      = render partial: 'contests/suggestion', collection: contest.uncertain_suggestions.each_slice(2).map(&:first), locals: { contest: contest }
+    - if contest.uncertain_suggestions.size > 1
+      .second
+        = render partial: 'contests/suggestion', collection: contest.uncertain_suggestions.each_slice(2).map(&:last), locals: { contest: contest }

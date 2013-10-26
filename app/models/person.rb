@@ -1,0 +1,38 @@
+class Person < ActiveRecord::Base
+  has_many :person_roles, dependent: :destroy
+  has_many :animes, through: :person_roles, order: :id
+  has_many :mangas, through: :person_roles, order: :id
+  has_many :characters, through: :person_roles, order: :id
+
+  has_many :images,
+    class_name: AttachedImage.name,
+    foreign_key: :owner_id,
+    conditions: {owner_type: Person.name},
+    dependent: :destroy
+
+  has_attached_file :image,
+    styles: { preview: "80x120>", x64: "43x64#" },
+    url: "/images/person/:style/:id.:extension",
+    path: ":rails_root/public/images/person/:style/:id.:extension",
+    default_url: '/assets/globals/missing_:style.jpg'
+
+  SeyuRoles = %w{ English Italian Hungarian Japanese German Hebrew Brazilian French Spanish Korean }
+  MangakaRoles = ['Original Creator', 'Story & Art', 'Story', 'Art']
+
+  # является ли человек режиссёром
+  def producer?(role)
+    role.include?('Director')
+  end
+
+  def to_param
+    "%d-%s" % [id, name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, '')]
+  end
+
+  def russian
+    nil
+  end
+
+  def source
+    nil
+  end
+end

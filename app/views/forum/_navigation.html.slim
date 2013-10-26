@@ -1,0 +1,12 @@
+.forum-nav
+  nav.sections
+    - if user_signed_in?
+      a data-section="new" class="control section-new section-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url section: @section[:permalink], linked: @linked}"
+    - @sections.each do |section|
+      a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
+        = section[:name_short] || section[:name]
+
+  h1.title
+    = @h1 || @section[:name]
+  p.notice
+    = @notice || @section[:description]

@@ -1,0 +1,14 @@
+.item-content-editor
+  - if user_signed_in? && defined?(warning) && (warning)
+    p.m5 Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
+
+  = form_tag moderation_do_user_change_path, format: :json, remote: true, 'data-type' => :json do
+    = hidden_field_tag 'apply', ''
+    = hidden_field_tag 'change[model]', item.class.name
+    = hidden_field_tag 'change[column]', field
+    = hidden_field_tag 'change[item_id]', item.id
+    - if defined?(action)
+      = hidden_field_tag 'change[action]', action
+
+    p.label
+      = text_field_tag 'change[value]', item.send(field) || (defined?(from) ? item.send(from) : ''), class: 'common', 'autocomplete' => :off

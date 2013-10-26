@@ -1,0 +1,30 @@
+- matches.each do |date, group|
+  .match-day
+    .date
+      span.from с
+      = group.first.started_on.strftime '%d.%m.%Y'
+      span.to по
+      = group.first.finished_on.strftime '%d.%m.%Y'
+
+    .subcontent
+      - group.each do |match|
+        span.group #{match.group}
+        span.match-link.two-columns class="#{match.voted_for_class} #{match.right ? match.state_with_voted : (match.started? ? 'voted' : match.state)}" data-remote="true" data-action="#{contest_contest_match_url contest, match}" data-type="html" data-id="#{match.id}"
+          .column class="#{match.status match.left_id}"
+            - if match.left
+              - if match.finished?
+                span.matches-num #{match.left_percent}%
+              a.bubbled href="#{url_for match.left}" data-remote="true" data-delay="150"
+                = localized_name match.left
+            - else
+              | &hellip;
+
+          - if match.right_type || !match.left_type
+            .column class="#{match.status match.right_id}"
+              - if match.right
+                - if match.finished?
+                  span.matches-num #{match.right_percent}%
+                a.bubbled href="#{url_for match.right}" data-remote="true" data-delay="150"
+                  = localized_name match.right
+              - else
+                | &hellip;

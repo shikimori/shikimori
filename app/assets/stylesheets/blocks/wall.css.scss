@@ -1,0 +1,32 @@
+@import "compass/utilities/general/clearfix";
+
+.wall {
+  max-height: 160px;
+  overflow: hidden;
+}
+.shiki-wall {
+  @include clearfix;
+  /*background: #f8f8f8;*/
+  /*border: 1px solid #eee;*/
+  max-height: 320px;
+  position: relative;
+  width: 99%;
+  /*width: 682px;*/
+  /*overflow: hidden;*/
+
+  a {
+    /*display: inline-block;*/
+    /*float: left;*/
+    overflow: hidden;
+    position: absolute;
+  }
+  img {
+    display: inline-block;
+    /*max-height: 320px;*/
+    /*max-width: 682px;*/
+    /*outline: none;*/
+    /*position: absolute;*/
+    /*top: 0px!important;*/
+  }
+}
+

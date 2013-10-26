@@ -1,0 +1,50 @@
+@import "compass/utilities/general/clearfix";
+@import "compass/css3/box-sizing";
+
+@mixin columns {
+  @include clearfix;
+  margin: 0 -15px;
+
+  &>.column {
+    @include box-sizing(border-box);
+    float: left;
+    padding: 0 15px;
+    position: relative;
+
+    &:first-child:last-child {
+      width: 100%;
+    }
+  }
+}
+
+.two-columns {
+  @include columns;
+
+  &>.column {
+    width: 50%;
+  }
+}
+
+.one-third-columns {
+  @include columns;
+
+  &>.column {
+    width: 66.6%;
+
+    &:first-child {
+      width: 33.3%;
+    }
+  }
+}
+
+.two-third-columns {
+  @include columns;
+
+  &>.column {
+    width: 33.3%;
+
+    &:first-child {
+      width: 66.6%;
+    }
+  }
+}

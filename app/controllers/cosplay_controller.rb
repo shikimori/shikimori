@@ -1,0 +1,256 @@
+class CosplayController < ApplicationController
+  include ActionView::Helpers::TextHelper
+  include CosplayHelper
+
+  helper_method :breadcrumbs, :chronology
+  before_filter lambda { raise Unauthorized unless user_signed_in? && current_user.cosplay_moderator? }, only: [:mod, :new, :update, :edit, :create, :delete, :undelete]
+
+  # модерация косплея
+  def mod
+    set_meta_tags :noindex => true, :nofollow => true
+    @page_title = ['Косплей', 'Модерация']
+
+    @moderators = User.where(id: User::CosplayModerators - [1])
+    limit = 480
+    @cosplay = CosplaySession.where(confirmed: false, deleted: false)
+        .includes(:cosplayers)
+        .order('id desc')
+        .limit(limit)
+  end
+
+  # новый косплей
+  def new
+    @page_title = 'Новая галерея'
+    @gallery = CosplayGallery.new
+  end
+
+  # редактирование косплея
+  def edit
+    @chronology_size ||= 100
+    @chronology_window ||= 30
+
+    @cosplayer = Cosplayer.find params[:cosplay_id].to_i
+    @gallery = CosplayGallery.find(params[:id].to_i).becomes CosplayGallery
+    @gallery.becomes CosplayGallery
+
+    @page_title = ['Косплей', 'Модерация', @gallery.to_param]
+    #cosplayers_show
+
+    @characters = @gallery.characters
+    @animes = @gallery.animes
+    @mangas = @gallery.mangas
+    @tags = @gallery.tag_list
+
+    return if @gallery.confirmed?
+    @gallery.description_cos_rain.gsub!(/＇|&#65287;/, "'") if @gallery.description_cos_rain
+    if @characters.empty? || @animes.empty? || @mangas.empty? || @tags.empty?
+      if strip_tags(@gallery.description_cos_rain || '').match(/^(?:.*?) (?:is|are) cosplaying as (.*?) from (.*?)(?:$|\.)/)
+        animes = $2
+        mangas = $2
+        characters = $1
+        @anime_keywords = fix_keywords(animes.split(/&|and/).map {|v| v.strip }).
+                              map {|v| v.split(' ').size > 4 ? v : geta(v.split(' ')).map {|s| s.join(' ') } }.
+                              flatten
+        @manga_keywords = @anime_keywords
+        @gallery.target = 'Miku Hatsune' if animes == 'Vocaloid2' && characters == 'Miku Hatsune' && !@gallery.confirmed?
+
+        @character_keywords = fix_keywords(characters.split(/&|and/).map {|v| v.strip }).
+                                  map {|v| v.split(' ').size > 4 ? v : geta(v.split(' ')).map {|s| s.join(' ') } }.
+                                  flatten
+      end
+
+      unless @anime_keywords || @manga_keywords || @character_keywords
+        @keywords = extract_keywords(@gallery.description_cos_rain || '')
+        @all_keywords_combinations = @keywords.map {|v| v.split(' ').size > 4 ? v : geta(v.split(' ')).map {|s| s.join(' ') } }.flatten
+      else
+        @keywords = @anime_keywords + @manga_keywords + @character_keywords
+        @all_keywords_combinations = @anime_keywords + @manga_keywords + @character_keywords
+      end
+    end
+
+    #if @tags.empty?
+      #@tags = Tag.where(:name => @all_keywords_combinations).pluck(:name)
+      #@all_keywords_combinations = @all_keywords_combinations.select {|v| !@tags.include?(v) }
+      #@keywords = @keywords.select {|v| !@tags.include?(v) }
+    #end
+
+    if @animes.empty?
+      query = Anime.squeel { name.in my{@anime_keywords || @all_keywords_combinations} }
+      query |= Anime.squeel { name.eq my{@gallery.target} }
+      @animes = Anime.where(query).all
+      if @animes.empty?
+        (@anime_keywords || @keywords).select {|v| v.split(' ').size >= 3 }.map {|v| '%' + v + '%'}.each do |v|
+          query |= Anime.squeel { name.like my{v.gsub(' ', '%')} }
+          query |= Anime.squeel { english.like v }
+          query |= Anime.squeel { synonyms.like v }
+          if v.split(' ').size > 2
+            query |= Anime.squeel { english.like "%#{v}%" }
+            query |= Anime.squeel { synonyms.like "%#{v}%" }
+          end
+        end
+        @animes = Anime.where(query).all
+      end
+    end
+
+    if @mangas.empty?
+      query = Manga.squeel { name.in my{@manga_keywords || @all_keywords_combinations} }
+      query |= Manga.squeel { name.eq my{@gallery.target} }
+      @mangas = Manga.where(query).all
+      if @mangas.empty?
+        (@manga_keywords || @keywords).select {|v| v.split(' ').size >= 3 }.map {|v| '%' + v + '%'}.each do |v|
+          query |= Manga.squeel { name.like my{v.gsub(' ', '%')} }
+          query |= Manga.squeel { english.like v }
+          query |= Manga.squeel { synonyms.like v }
+          if v.split(' ').size > 2
+            query |= Manga.squeel { english.like "%#{v}%" }
+            query |= Manga.squeel { synonyms.like "%#{v}%" }
+          end
+        end
+        @mangas = Manga.where(query).all
+      end
+    end
+
+    if @characters.empty?
+      query = Character.squeel { name.in my{@character_keywords || @all_keywords_combinations} }# | {:name.like => "#{@gallery.target}_"}# | {:fullname.like => "%\"#{@gallery.target}\"%"}# | {:name.like => @gallery.target.gsub(/(.)/, '\1%')}
+      if @character_keywords
+        @character_keywords.each do |v|
+          query |= Character.squeel { name.like "#{v} %" }
+          query |= Character.squeel { name.like "% #{v}" }
+          query |= Character.squeel { fullname.like "%\"#{v}%" }
+          query |= Character.squeel { fullname.like "#{v} \"%" }
+          query |= Character.squeel { fullname.like "% #{v}\"%" }
+        end
+      end
+      query |= Character.squeel { fullname.in my{@character_keywords || @keywords} }
+      query |= Character.squeel { name.eq my{@gallery.target} }# unless @ctags.include?(@gallery.target)
+      if @animes.empty? && @mangas.empty?
+        @characters = (@animes.map {|v| v.characters.where(query).all }.flatten + @mangas.map {|v| v.characters.where(query).all }.flatten).uniq
+      end
+      @characters = Character.where(query) if @characters.empty?
+    end
+
+    if @animes.empty? && !@characters.empty?
+      @animes = @characters.map {|v| v.animes }.flatten
+    end
+    if @mangas.empty? && !@characters.empty?
+      @mangas = @characters.map {|v| v.mangas }.flatten
+    end
+
+    @animes = @gallery.animes
+    @mangas = @gallery.mangas
+  end
+
+  # создание галереи
+  def create
+    cosplayer = Cosplayer.find_or_create_by_name(:name => params[:cosplay_gallery][:name])
+    gallery = CosplaySession.create(target: params[:cosplay_gallery][:target],
+                                    date: DateTime.now,
+                                    source: params[:cosplay_gallery][:source],
+                                    user_id: current_user.id)
+
+    pos = CosplayImage::PositionStep
+    cosplayer.cosplay_galleries << gallery
+    params[:cosplay_gallery][:images].each do |url|
+      next if url == ''
+      image = CosplayImage.create(:url => url)
+      gallery.images << image
+
+      image_file_name = image.id.to_s + File.extname(url)
+      dir = Rails.root.to_s + '/public/images/' + image.class.name.downcase + '/original/'
+      if File.exists?(dir+image_file_name)
+        File.delete(dir+image_file_name)
+        print "deleted image %s\n" % [dir+image_file_name]
+      end
+      image.image = open_image(image.url)
+      image.cosplay_gallery_id = gallery.id
+      image.position = pos
+      image.save
+
+      pos += CosplayImage::PositionStep
+    end
+
+    redirect_to edit_cosplay_cosplay_gallery_url(cosplayer, gallery) and return
+  end
+
+  # обновление галереи
+  def update
+    gallery = CosplayGallery.find params[:id]
+
+    if params[:move_from][:confirm] == '1' && params[:move_from][:id] && params[:move_from][:id] != ''
+      @source = CosplayGallery.find(params[:move_from][:id].to_i)
+      @target = gallery
+    end
+    if params[:move_to][:confirm] == '1' && params[:move_to][:id] && params[:move_to][:id] != ''
+      @source = gallery
+      @target = CosplayGallery.find(params[:move_to][:id].to_i)
+    end
+    if @source && @target
+      if @target.cosplayers.all != @source.cosplayers.all
+        @source.cosplayers.each do |cosplayer|
+          @target.cosplayers << cosplayer unless @target.cosplayers.all.include?(cosplayer)
+        end
+      end
+      raise Forbidden if @target.id == @source.id
+      @source.move_to(@target)
+      redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], @target) and return
+    end
+
+    gallery.tag_list = ""
+    gallery.links.where { linked_type.not_eq 'Cosplayer' }.delete_all
+    if params[:characters]
+      params[:characters].each do |v|
+        gallery.characters << Character.find(v)
+      end
+    end
+    if params[:animes]
+      params[:animes].each do |v|
+        gallery.animes << Anime.find(v)
+      end
+    end
+    if params[:mangas]
+      params[:mangas].each do |v|
+        gallery.mangas << Manga.find(v)
+      end
+    end
+    if params[:tags]
+      gallery.tag_list = params[:tags].join(',')
+    end
+
+    if gallery.save && gallery.update_attributes!(params[:cosplay_gallery])
+      redirect_to edit_cosplay_cosplay_gallery_url params[:cosplay_id], gallery.to_param
+    else
+      render gallery.errors, :status => :unprocessable_entity
+    end
+  end
+
+  # удаление галереи
+  def delete
+    gallery = CosplayGallery.find params[:cosplay_gallery_id]
+
+    if gallery.update_attribute(:deleted, true)
+      redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], gallery.to_param)
+    else
+      render gallery.errors, :status => :unprocessable_entity
+    end
+  end
+
+  # отмена удаление галереи
+  def undelete
+    gallery = CosplayGallery.find params[:cosplay_gallery_id]
+
+    if gallery.update_attribute(:deleted, false)
+      redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], gallery.to_param)
+    else
+      render gallery.errors, :status => :unprocessable_entity
+    end
+  end
+
+private
+  def breadcrumbs
+    crumbs = { 'Модерация косплея' => mod_cosplay_index_url }
+  end
+
+  def chronology
+    super window: @chronology_window, source: @cosplayer.cosplay_galleries, date: :date, entry: @gallery
+  end
+end

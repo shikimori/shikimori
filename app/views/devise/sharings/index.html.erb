@@ -1,0 +1,50 @@
+<h1>Share something to your networks</h1>
+
+<% if !current_user.nil? %>
+    <div class="sharing_form">
+      <h2>Post to connected networks!</h2>
+      <%= render :partial => 'form' %>
+    </div>
+<% else %>
+    <div class="sharing_signup_call_to_action">
+      <%= link_to "Sign up", new_user_registration_path %> or
+      <%= link_to "sign in", new_user_session_path %> to share.
+      <%= render :partial => "devise/shared/social_unconnected" %>
+    </div>
+<% end %>
+
+<h2>What others have shared</h2>
+
+<% if @sharings.empty? %>
+  <P>Nobody has shared yet. Be the first!</P>
+<% end %>    
+
+<% @sharings.each do |sharing| %>
+    <div class="sharing" style="clear:both;">
+      <%= link_to image_tag(sharing.user.photo.url(:mini), :class => 'share_image'), profile_path(sharing.user) %>
+      <div class="share_text">
+        <%= sharing.content %>
+        <br/>
+        <br/>
+        <%= sharing.created_at.strftime("%m/%d/%Y %I:%M%p GMT") %> | <%= link_to "permalink", sharing_path(sharing) %> |
+
+        <a href="http://twitter.com/share" 
+           class="twitter-share-button"
+           data-url="<%= sharing_url(sharing) %>"
+           data-text="<%= sharing.content %>"
+           data-count="horizontal">Tweet</a>
+ 
+
+        <fb:like href="<%= sharing_url(sharing) %>"
+                 ref="unique_tracking_code_per_referrer_goes_here"
+                 layout="button_count"
+                 show_faces="false"
+                 width="10"
+                 action="like"
+                 font="verdana">
+        </fb:like>
+
+      </div>
+    </div>
+
+<% end %>

@@ -1,0 +1,39 @@
+- content_for :head do
+  = stylesheet_link_tag :calendar
+- content_for :tail do
+  = javascript_include_tag :calendar
+
+.ongoings.item-content.ajax
+  header.head.m15
+    h1
+      = @page_title
+    .notice
+      p Данный раздел отображает аниме онгоинги текущего сезона и близлежащие анонсы.
+      p Выходы серий отслеживаются автоматически по появлению эпизодов на торрент-трекерах, а время выхода эпизодов отображется либо исходя из информации с <a href="http://animecalendar.net/">animecalendar.net</a>, либо рассчитывается автоматически с учётом дат появления предыдущих эпизодов аниме.
+
+  - @ongoings.each do |k,group|
+    article
+      div class="group-title #{color_by_num(k == -1 ? -1 : (DateTime.now + k.days).day % 11)}"
+        = k == -1 ? "Уже должно было выйти" : date_title_for_ongoing(k)
+      div
+        - group.each do |anime|
+          div class="ongoing#{' in-list' if anime[:in_list]}"
+            = ani_manga_link(anime) do
+              img src="#{anime.image.url(:preview)}" alt="#{UserPresenter.localized_name(anime, current_user)}" title="#{UserPresenter.localized_name(anime, current_user)}"
+              span.title
+                = UserPresenter.localized_name(anime, current_user)
+              span.misc.time = time_of_next_episode(anime)
+              span.misc
+                - if (anime.last_episode || 1) == 1
+                  span.anons анонс
+                - elsif anime.last_episode == anime.episodes
+                  span.release релиз
+                - else
+                  = anime.last_episode || 1
+                  |  эпизод
+      .clearfix
+
+  .forum-container
+    .comments.zero-margin.zero-top-border
+      .headline Комментарии
+      = render partial: 'comments/comments', locals: { object: @topic.topic, comments: @topic.comments, bottom_add_block: true }

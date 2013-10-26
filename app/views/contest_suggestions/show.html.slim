@@ -1,0 +1,4 @@
+.voters
+  - @voters.each do |user|
+    a href="#{user_url user}" title="#{user.nickname}"
+      img src="#{gravatar_url user, 32}" alt="#{user.nickname}" title="#{user.nickname}"

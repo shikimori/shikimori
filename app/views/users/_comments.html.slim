@@ -1,0 +1,15 @@
+- if @page > 1
+  = render partial: 'comments/comment', collection: @comments, formats: :html
+  - if @add_postloader
+    = render partial: 'site/postloader_new', locals: { url: user_comments_url(page: @page+1) }, formats: :html
+- else
+  .subheadline Комментарии
+  - if @comments.any?
+    .forum-container
+      .comments.zero-margin.zero-top-border
+        .comments-container
+          = render partial: 'comments/comment', collection: @comments, formats: :html
+          - if @add_postloader
+            = render partial: 'site/postloader_new', locals: { url: user_comments_url(page: @page+1) }, formats: :html
+  - else
+    p Ничего нет.

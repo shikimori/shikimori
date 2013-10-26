@@ -1,0 +1,362 @@
+@import "globals/responsive";
+@import "globals";
+@import "globals/fonts";
+
+.forum-nav {
+  margin-bottom: 15px;
+  position: relative;
+
+  .sticked-topics {
+    position: absolute;
+    right: -250px;
+    top: 0;
+
+    a {
+      @include text-font;
+      @include normal-link;
+      display: block;
+      font-size: 11px;
+      line-height: 16px;
+      text-align: right;
+    }
+  }
+  .sections {
+    position: absolute;
+    right: 2px;
+    top: 48px;
+
+    a {
+      @include text-font;
+      @include normal-link;
+      border-right: 1px solid #CCC;
+      color: #333;
+      font-size: 11px;
+      padding: 0 9px;
+
+      &:last-child {
+        padding-right: 0;
+        border-right: none;
+      }
+      &.selected {
+        text-decoration: underline;
+        color: $default-selected-color;
+      }
+    }
+    .section-new {
+      @include icon-button('\e83d');
+      border-right: none;
+      padding: 0;
+
+      &:before {
+        font-size: 13px;
+        text-align: right;
+      }
+    }
+  }
+
+  .title {
+    @include new-header-font;
+  }
+  .notice {
+    color: #333;
+    margin-left: 1px;
+    white-space: nowrap;
+  }
+}
+/* для фаерфокса иконка создания топика будет сдвинута на 1 пиксель вниз */
+.firefox {
+  .forum-nav {
+    .section-create {
+      &:before {
+        float: left;
+        margin-top: 1px;
+      }
+    }
+  }
+}
+
+$comments-margin: 58px;
+.forum-container {
+  /*width: $slide-width;*/
+
+  h2 {
+    margin-bottom: 5px;
+  }
+
+  .topic-block {
+    border-bottom: none;
+    border-top: 1px solid #DDD;
+    margin: 0;
+    padding: 5px 0 0 0;
+
+    &:first-child {
+      border-top: none;
+      padding-top: 0!important;
+    }
+    &.ignored-block {
+      @include ignored-block;
+    }
+
+    .content {
+      margin-bottom: 5px;
+      min-height: 60px;
+
+      .title {
+        @include default-header-font-wo-color;
+        @include ellipsis;
+        margin-left: $comments-margin;
+        white-space: nowrap;
+
+        a:hover {
+          text-decoration: none;
+        }
+      }
+      .date {
+        color: $date-color;
+        display: inline;
+        font-size: 11px;
+        font-style: normal;
+        padding-left: 10px;
+      }
+      .image-name {
+        @include link-color(#333);
+        a {
+          color: inherit;
+        }
+        img {
+          float: left;
+          margin-right: 10px;
+          margin-top: 3px;
+          width: 48px;
+        }
+      }
+      .body {
+        @include text-font;
+        margin-left: 0;
+        margin-top: 4px;
+
+        a {
+          @include normal-link;
+        }
+        &.image-x64 {
+          min-height: 36px;
+        }
+      }
+      .votes-count {
+        font-size: 11px;
+        color: $gray-color-2;
+      }
+      .last-block {
+        @include ellipsis;
+        margin-top: 3px;
+
+        .date {
+          float: left;
+          padding-left: 2px;
+          padding-right: 5px;
+        }
+        .user16 {
+          float: left;
+          margin-top: -1px; // т.к. шрифт на 1 пиксель больше, чем у tags
+          padding-left: 2px;
+
+          a {
+            @include normal-link;
+          }
+        }
+        .tags {
+          float: right;
+          font-size: 11px;
+          /*padding-top: 1px;*/
+
+          .tag {
+            @include default-tag;
+            a {
+              @include transition(color, 0.2s);
+              @include transition(background-color, 0.2s);
+              color: inherit;
+              text-decoration: inherit;
+              &:hover {
+                color: inherit;
+                text-decoration: inherit;
+              }
+              &:active {
+                color: inherit!important;
+                text-decoration: inherit;
+              }
+            }
+          }
+        }
+      }
+      .buttons {
+        float: right;
+      }
+    }
+
+    .comments-shower, .comments-hider {
+      @include plashka;
+      border: 1px solid #F2F2F2;
+      clear: left;
+      margin: 0 0 5px 0;
+    }
+    .comments-shower + .comments-container .comment-block:first-child {
+      border-top: none;
+    }
+    .comments-hider {
+      display: none;
+    }
+    .shiki-wall {
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+    &:first-child {
+      padding-top: 5px;
+    }
+  }
+
+  .comments {
+    clear: left;
+    margin-left: $comments-margin;
+
+    .comments-placeholder {
+      overflow: hidden;
+    }
+    .comments-placeholder.hidden + .comment-block {
+      border-top: none;
+    }
+    .comment-block {
+      border-top: 1px dashed #DDD;
+      min-height: 70px;
+      padding-right: 0;
+
+      .buttons {
+        margin-right: 0;
+      }
+    }
+    .shiki-editor {
+      .body {
+        margin-left: 0;
+      }
+      .hidden-block {
+        clear: both;
+      }
+      textarea {
+        margin-top: 0;
+      }
+      &.preview {
+        border-top: 1px dashed #CCC;
+        padding-top: 0;
+
+        .hidden-block {
+          clear: none;
+        }
+      }
+    }
+
+    &.zero-margin {
+      margin-left: 0!important;
+    }
+    &.zero-top-border {
+      .comments-container > .comment-block:first-child {
+        border-top: none;
+      }
+    }
+  }
+  .preview {
+    margin-bottom: 20px;
+
+    .shiki-editor {
+      display: none;
+    }
+    .shortened {
+      max-height: 80px;
+      overflow: hidden;
+    }
+    .votes-count {
+      line-height: 20px;
+      margin-top: -5px;
+    }
+    .height-shortener {
+      @include plashka;
+
+      background-color: #F9F9F9;
+      line-height: 10px;
+      padding: 0;
+      margin: 5px 0 0 $comments-margin;
+
+      div {
+        font-weight: bold;
+        margin-top: -3px;
+        margin-bottom: 4px;
+        /*margin-left: 325px;*/
+        /*margin-top: -4px;*/
+        /*position: absolute;*/
+      }
+    }
+    .body .height-shortener {
+      margin-left: 0;
+    }
+    .content {
+      .body {
+        overflow: hidden;
+      }
+      .last-block {
+        margin-left: $comments-margin;
+      }
+    }
+  }
+
+  /* кнопки редактора видны только при наведении */
+  @include responsive(desktop) {
+    .comment-block, .topic-block .content {
+      .buttons {
+        display: none;
+      }
+      &:hover {
+        .buttons {
+          display: block;
+        }
+      }
+    }
+    .shiki-editor {
+      .buttons {
+        display: block;
+      }
+    }
+  }
+  @include responsive(tablet) {
+    .comment-block, .topic-block .content {
+      .buttons {
+        display: none;
+      }
+      &.mobile {
+        .buttons {
+          display: block;
+        }
+        .review-marker, .offtopic-marker, .new-marker {
+          display: none!important;
+        }
+      }
+    }
+    .shiki-editor {
+      .buttons {
+        display: block!important;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .faye-loader {
+    @include plashka;
+    clear: left;
+    margin: -5px 0 5px 0;
+  }
+  .faye-loader + .topic-block {
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+  .section-block .faye-loader:first-child {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

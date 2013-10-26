@@ -1,0 +1,135 @@
+- content_for :head do
+  = stylesheet_link_tag :main
+  link href="http://feeds.feedburner.com/shikimori/anime" rel="alternate" title="Новости аниме" type="application/rss+xml"
+  link href="http://feeds.feedburner.com/shikimori/site" rel="alternate" title="Новости сайта" type="application/rss+xml"
+
+- content_for :tail do
+  = javascript_include_tag :main
+
+div.m5
+div.page-content
+  h2.main-title
+    div.right
+      p.more.control.slider-control-favourites.selected
+        = link_to 'Избранное', root_url(:anchor => 'favourites')
+      p.more.control.slider-control-latest
+        = link_to 'Недавно вышедшее', root_url(:anchor => 'latest')
+      p.more.control.slider-control-tv
+        = link_to 'TV', root_url(:anchor => 'tv')
+      p.more.control.slider-control-movies
+        = link_to 'Фильмы', root_url(:anchor => 'movies')
+      p.more.control.slider-control-serials
+        = link_to 'Сериалы', root_url(:anchor => 'serials')
+      p.more.control.slider-control-ongoing
+        = link_to 'Онгоинги', root_url(:anchor => 'ongoing')
+    | С чего начать?
+
+  div.main-gallery
+    div.view-port
+      div.view-content
+        - @gallery.each_with_index do |slice,k|
+          div.slide
+            div class="#{@gallery_index_map[k] }"
+              - slice.each do |anime|
+                div.entry
+                  div.title
+                    h3 class="f#{anime.name.size > 10 ? 15 : 16 }"
+                      = ani_manga_link(anime) do 
+                        == anime.name
+                    p
+                      b Жанры: 
+                      - anime.genres.each do |genre|
+                        = genre.name
+                        - if genre != anime.genres.last
+                          | , 
+                    - if anime.episodes > 0
+                      p
+                        b Эпизодов: 
+                        = anime.episodes
+                    - unless anime.year.nil?
+                      p
+                        b Год: 
+                        = anime.year
+                    - if anime.rating && anime.rating != 'None'
+                      p
+                        b Рейтинг: 
+                        = t "RatingShort.%s" % anime.rating
+                  div.image
+                    = ani_manga_link(anime) do
+                      img.img src="#{anime.image.url(:preview) }" alt="#{{anime.name }}" title="#{{anime.name }}"
+
+  div.menu-right
+    div.forum.m20
+      h2 На форуме
+      - @last_sections.each do |section|
+        div.subblock-title
+          = link_to section.name, build_section_url(section)
+        ul.block-list.updates
+          - @last_topics[section.id].each do |topic|
+            li
+              = link_to topic_url(topic), :title => topic.title.html_safe do
+                span.date
+                  | <!--noindex-->
+                  = time_ago_in_words(topic.updated_at)
+                  | <!--/noindex-->
+                span.event
+                  = topic.title
+                  | &nbsp;
+
+    - if !user_signed_in? || current_user.social
+      div.social
+        div#vk_like data-page-id="#{request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '') }" data-page-url="#{request.url }"
+        div#fb-root
+        div.fb-like data-send="false" data-layout="button_count" data-width="100" data-show-faces="true" data-font="tahoma"
+        div.g-plusone data-size="medium" data-annotation="bubble"
+
+    /= cache('main_news_and_ongoings_view') do
+    div.ongoings
+      div.related-all
+        span.link.linkeable data-href="#{ongoings_path(:only_path => false) }" data-title="К графику онгоингов" все
+      h2 График онгоингов
+      ul.block-list-alt
+        - @ongoings.each do |anime|
+          li.ongoing-next
+            = ani_manga_link(anime) do
+              div.image-name
+                img src="#{anime.image.url(:x64) }" height="64" alt="#{{anime.name }}" title="#{{anime.name }}"
+                span.title
+                  == anime.name
+              span.misc
+                = anime[:last_episode] || 1
+                |  эпизод
+                - if (anime[:last_episode] || 1) == 1
+                  span.anons анонс
+                - elsif anime[:last_episode] == anime.episodes
+                  span.release релиз
+              span.misc
+                = time_of_next_episode(anime, true)
+
+  section.anime-tracker
+    h2 Трекер аниме
+    ul.half-column-left.block-list.updates
+      - @anime_news_blocks[0].each do |entry|
+        li
+          = link_to build_news_url(entry), :title => entry.title.html_safe do
+            span.date
+              | <!--noindex-->
+              = time_ago_in_words(entry.created_at)
+              | <!--/noindex-->
+            span.event
+              == entry.title
+              | &nbsp;
+    ul.half-column-right.block-list.updates
+      - @anime_news_blocks[1].each do |entry|
+        li
+          = link_to build_news_url(entry), :title => entry.title.html_safe do
+            span.date
+              | <!--noindex-->
+              = time_ago_in_words(entry.created_at)
+              | <!--/noindex-->
+            span.event
+              == entry.title
+              | &nbsp;
+  section.site-news
+    h2 Новости сайта
+    = render :partial => 'entries/block.html', :collection => @site_news

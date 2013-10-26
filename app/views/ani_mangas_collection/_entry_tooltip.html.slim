@@ -1,0 +1,56 @@
+p.m5
+  span.local-title itemprop="name" = entry.name
+
+p.m5 itemprop="description"
+  == ani_manga_description(entry)
+
+- if entry.rating.present? && entry.rating != 'None'
+  p.data
+    span.key Рейтинг:&nbsp;
+    span
+      = t("RatingShort.#{entry.rating}")
+
+- if entry.respond_to?(:episodes) && (entry.episodes > 0 || entry.episodes_aired > 0)
+  .data
+    = render :partial => 'ani_mangas/aired_chapters', :locals => { :entry => entry, :field_label => 'Эпизоды', :counter => :episodes, :counter_aired => :episodes_aired }, formats: :html
+
+- if entry.respond_to?(:volumes) && entry.volumes > 0
+  .data
+    = render :partial => 'ani_mangas/aired_chapters', :locals => { :entry => entry, :field_label => 'Тома', :counter => :volumes, :counter_aired => :volumes_aired }, formats: :html
+
+- if entry.respond_to?(:chapters) && entry.chapters > 0
+  .data
+    = render :partial => 'ani_mangas/aired_chapters', :locals => { :entry => entry, :field_label => 'Главы', :counter => :chapters, :counter_aired => :chapters_aired }, formats: :html
+
+- if entry.respond_to?(:studios) && entry.real_studios.any?
+  p
+    span.local-title Студи#{entry.real_studios.size > 1 ? 'и' : 'я'}:
+    - entry.real_studios.each do |studio|
+      span.studio.tag.tag-base data-type="studio" data-value="#{studio.to_param}"
+        = studio.name
+        /= truncate_studio(studio.name)
+
+- if entry.respond_to?(:publishers) && entry.real_publishers.any?
+  p
+    span.local-title Издател#{entry.real_publishers.size > 1 ? 'и' : 'ь'}:
+    - entry.real_publishers.each do |publisher|
+      span.publisher.tag.tag-base data-type="publisher" data-value="#{publisher.to_param}"
+        = publisher.name
+        /= truncate_publisher(publisher.name)
+
+p.genres
+  span.local-title Жанры:
+  - entry.main_genres.each do |genre|
+    span.genre.tag.tag-base data-type="genre" data-value="#{genre.to_param}" itemprop="genre"
+      = UserPresenter.localized_name genre, current_user
+
+- if entry.with_score?
+  div.rating[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+    meta itemprop="bestRating" content="10"
+    meta itemprop="ratingValue" content="#{entry.score}"
+    meta itemprop="ratingCount" content="#{entry.mal_scores.sum/20}"
+
+    span = '%.2f' % entry.score
+    span.text рейтинг
+- else
+  div.data

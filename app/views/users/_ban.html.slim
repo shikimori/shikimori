@@ -1,0 +1,10 @@
+- if @user.read_only_at && @user.banned?
+  .errors
+    .subheadline.red Забанен#{'а' if @user.female?}
+    .subcontent
+      p Время снятия бана #{@user.read_only_at.strftime '%H:%M %d.%m.%Y'}
+
+.subheadline Забанить
+.subcontent
+  p Данной страницей следует пользоваться только в случае невозможности забанить за комментарий, например, если комментарий удалён. Во всех остальных ситуациях баньте через форум в самом комментарии.
+  = render template: 'moderation/bans/new', formats: :html

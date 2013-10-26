@@ -1,0 +1,13 @@
+article.entry-block(class="entry-#{entry.id}" itemscope itemtype="http://schema.org/Person")
+  meta itemprop="image" content="#{{attachment_url entry.image, :original, false}}"
+  meta itemprop="thumbnailUrl" content="#{{attachment_url entry.image, :x64, false}}"
+
+  a href="#{character_url entry}"
+    img src="#{entry.image.url :original}" alt="#{localized_name entry}" title="#{localized_name entry}"
+
+    - if json? || user_signed_in?
+      span.title itemprop="name"
+        = localized_name entry
+    - else
+      a.title href="#{character_url entry}" title="#{localized_name entry}" itemprop="url"
+        = localized_name entry

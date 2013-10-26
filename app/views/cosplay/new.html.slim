@@ -1,0 +1,36 @@
+- content_for :head do
+  = stylesheet_link_tag :cosplay_edit
+
+- content_for :tail do
+  = javascript_include_tag :cosplay_new
+
+header.head.misc
+  h1
+    = @page_title
+  = render partial: 'site/breadcrumbs', object: breadcrumbs
+
+= form_for @gallery, url: cosplay_index_url do |f|
+  .cosplay-mod.edit.new
+    .menu-block
+      .subheadline Общая информация
+
+      .field-name Косплеер
+      .m10
+        = text_field_tag 'cosplay_gallery[name]', '', :class => 'common', :size => 45
+
+      .field-name Что косплеится (текстом имя персонажа, совпадающее с именем персонажа на сайте)
+      .m10
+        = f.text_field :target, class: 'common', size: 30
+
+      .field-name Источник (ссылка на страницу, откуда взят косплей)
+      .m10
+        = f.text_field :source, class: 'common', size: 30
+
+    .menu-block.links
+      span.right.anime.item-add
+      .subheadline Галерея
+      .notice Задаётся прямыми ссылками на картинки, например <a href="http://2.bp.blogspot.com/-MA-NZyZbwIM/UMP2Z4FBzEI/AAAAAAAAMS0/Aij-lUd43QU/s1600/1.jpg">http://2.bp.blogspot.com/-MA-NZyZbwIM/UMP2Z4FBzEI/AAAAAAAAMS0/Aij-lUd43QU/s1600/1.jpg</a>
+      p.m15.images
+
+      p.buttons.m30
+        span.save.button Создать

@@ -1,0 +1,49 @@
+.match
+  .entry
+    - if losers_finalist
+      - if match.right
+        p class="#{match.finished? ? (match.winner == match.right ? 'winner' : 'loser') : ''}"
+          - if match.finished?
+            span.matches-num
+              span.sep.zero ="("
+              span.val = match.right_votes
+              span.sep.zero =")"
+          a.bubbled href="#{url_for match.right}" data-remote="true"
+            = UserPresenter.localized_name match.right, current_user
+      - else
+        p.unknown ???
+    - else
+      - if match.left
+        p class="#{match.finished? ? (match.winner == match.left ? 'winner' : 'loser') : ''}"
+          - if match.finished?
+            span.matches-num
+              span.sep.zero ="("
+              span.val = match.left_votes
+              span.sep.zero =")"
+
+          a.bubbled href="#{url_for match.left}" data-remote="true"
+            = UserPresenter.localized_name match.left, current_user
+      - else
+        p.unknown ???
+  .entry.grid
+    - if match.right_type || !match.left_type
+      - if match.right
+        p class="#{match.finished? ? (match.winner == match.right ? 'winner' : 'loser') : ''}"
+          - if match.finished?
+            span.matches-num
+              span.sep.zero ="("
+              span.val = match.right_votes
+              span.sep.zero =")"
+
+          a.bubbled href="#{url_for match.right}" data-remote="true"
+            = UserPresenter.localized_name match.right, current_user
+      - else
+        p.unknown ???
+    - else
+      p нет участника
+    p.date
+      a href="#{round_match_contest_path contest.to_param, round.number, match.id}"
+        = Russian::strftime match.started_on, '%e %b'
+        - if match.started_on.strftime('%d.%m') != match.finished_on.strftime('%d.%m')
+          | &nbsp;&ndash;&nbsp;
+          = Russian::strftime match.finished_on, '%e %b'

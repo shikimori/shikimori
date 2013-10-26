@@ -1,0 +1,70 @@
+- if @presenter.about_above?
+  .about
+    .subheadline О себе
+    .text.subcontent.item-content
+      .description
+        = @presenter.about
+
+- if @user.profile_settings.statistics?
+  - if @kind == :anime
+    .genres
+      .subheadline.m10 Жанры
+      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Anime.name.downcase.to_sym, category: :genres, caption: 'Жанры' }, formats: :html
+
+    .studios
+      .subheadline.m10 Студии
+      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Anime.name.downcase.to_sym, category: :studios, caption: 'Студии' }, formats: :html
+  - else
+    .genres
+      .subheadline.m10 Жанры
+      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Manga.name.downcase.to_sym, category: :genres, caption: 'Жанры' }, formats: :html
+
+    .studios
+      .subheadline.m10 Издатели
+      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Manga.name.downcase.to_sym, category: :publishers, caption: 'Студии' }, formats: :html
+
+  .mini-charts
+    .scores
+      .options-floated
+        - if @presenter.stats[:anime?] && @presenter.stats[:manga?]
+          - if @user.profile_settings.manga_first?
+            a class="link #{@kind == :manga ? 'selected' : ''}" href="#{user_url(@user, :manga)}" Манга
+            | &nbsp;&nbsp;/&nbsp;&nbsp;
+            a class="link #{@kind == :anime ? 'selected' : ''}" href="#{user_url(@user, :anime)}" Аниме
+          - else
+            a class="link #{@kind == :anime ? 'selected' : ''}" href="#{user_url(@user, :anime)}" Аниме
+            | &nbsp;&nbsp;/&nbsp;&nbsp;
+            a class="link #{@kind == :manga ? 'selected' : ''}" href="#{user_url(@user, :manga)}" Манга
+      .subheadline Оценки
+      #scores data-stats="#{@presenter.stats[:scores][@kind].to_json}" data-bar="horizontal"
+
+    .types
+      .subheadline Типы
+      #types data-stats="#{@presenter.stats[:types][@kind].to_json}" data-bar="horizontal"
+
+    - if @kind != :manga
+      .ratings
+        .subheadline Рейтинги
+        #ratings data-stats="#{@presenter.stats[:ratings][@kind].to_json}" data-bar="horizontal"
+
+  .activity
+    .subheadline Активность
+    - if @presenter.stats[:activity].any?
+      #activity_inc data-stats="#{@presenter.stats[:activity].to_json}" data-bar="vertical" data-flattened="true"
+    - else
+      p.stat-sorry Недостаточно данных для формирования статистики
+
+  .clearfix
+
+- if @presenter.about_below?
+  .about
+    .subheadline О себе
+    .text.subcontent.item-content
+      .description
+        = @presenter.about
+
+- if @presenter.show_comments?
+  .forum-container
+    .comments.zero-margin.zero-top-border
+      .subheadline.m2 Лента
+      = render partial: 'comments/comments', locals: { object: @presenter.user, text: @reply_text || nil, comments: @presenter.comments, postloader: 15 }, formats: :html

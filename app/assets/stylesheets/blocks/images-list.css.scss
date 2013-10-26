@@ -1,0 +1,89 @@
+@import "globals";
+
+.images-list, .videos-list {
+  @include clearfix;
+
+  .related-all {
+    margin-top: 0px;
+  }
+}
+.image-delete, .image-delete-confirm, .image-delete-cancel {
+  @include icon('\e813', 12px);
+  @include transition('color,background', 0.25s);
+  background: $default-hover-color;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 999;
+
+  &:hover {
+    background-color: $default-light-hover-color;
+  }
+  &:active {
+    background-color: $default-active-color;
+  }
+  &:before {
+    margin-left: 0;
+  }
+}
+
+.image-delete-confirm {
+  right: 20px;
+  &:before {
+    content: '\e817';
+  }
+}
+.image-delete-cancel {
+  &:before {
+    content: '\e813';
+  }
+}
+
+.image-editor {
+  form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+  }
+
+  .upload-container {
+    float: right;
+
+    input {
+      margin-top: -50px;
+      margin-left: -164px;
+      -moz-opacity: 0;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      width: 162px;
+      height: 24px;
+    }
+  }
+}
+/**** Masonry Transitions ****/
+.loaded {
+  &.masonry,
+  &.masonry .masonry-brick {
+    -webkit-transition-duration: 0.7s;
+      -moz-transition-duration: 0.7s;
+        -o-transition-duration: 0.7s;
+            transition-duration: 0.7s;
+  }
+
+  &.masonry {
+    -webkit-transition-property: height, width;
+      -moz-transition-property: height, width;
+        -o-transition-property: height, width;
+            transition-property: height, width;
+  }
+
+  &.masonry .masonry-brick {
+    -webkit-transition-property: left, right, top;
+      -moz-transition-property: left, right, top;
+        -o-transition-property: left, right, top;
+            transition-property: left, right, top;
+  }
+}

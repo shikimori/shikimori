@@ -1,0 +1,44 @@
+AnimeLink
+  id string
+  kind enum
+Anime has many anime_links
+вынести world_art_id, anime_db_id в AnimeLink
+
+AnimeVideo
+  id integer
+  anime_id integer
+  url string
+  episode integer
+  kind subtitles|dub
+  author string
+Anime has many anime_videos
+
+FindAnimeParser
+FindAnimeImporter
+AnimeSpiritParser
+AnimeSpiritImporter
+
+отдельный ip и domain
+отдельные роуты
+
+отдельный AnimeVideoController
+  описание аниме
+  картинка аниме
+  сколько-то "отзывов" с шикимори
+  список видео, разбитый как-то по озвучке/субтитрам/авторам
+  возможно, отображение похожих аниме
+
+
+version 2
+---------
+
+авторизация через oauth2 на shikimori
+уведомления пользователей о выходе новых серий
+пометка видео просмотренными
+оставление отдельных комментариев, не отображаемых на shikimori
+проверка на наличие видео. поле type в AnimeVideo, каждый класс будет уметь проверять, что видео живое
+
+
+version 3
+---------
+чтение манги онлайн

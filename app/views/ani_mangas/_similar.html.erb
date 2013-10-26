@@ -1,0 +1,40 @@
+<% if defined?(tag_name) && tag_name == :div %>
+  <div class="subheadline">
+    <span class="linkeable" data-href="<%=@entry.page_url :similar %>">
+      <%=@entry.class == Anime ? 'Похожие аниме' : 'Похожая манга' %>
+    </span>
+  </div>
+<% else %>
+  <div class="subheadline"><%=@entry.class == Anime ? 'Похожие аниме' : 'Похожая манга' %></div>
+<% end %>
+
+<div>
+  <% similar ||= nil %>
+  <% (similar || @entry.related.similar).each do |similar| entry = similar.dst %>
+    <% next unless entry # временный костыль, пока все манги не будут импортированы %>
+    <article class="related-block clearfix m5 <%=entry.kind %>">
+      <%=ani_manga_link(entry) do %>
+        <div class="image-container">
+          <img width="64" height="96" src="<%=entry.image.url(:x96) %>" alt="<%=UserPresenter.localized_name entry, current_user %>" title="<%=UserPresenter.localized_name(entry, current_user) %>" />
+        </div>
+        <div class="name">
+          <%#<span class="<%=name_font(entry.name) % >"><%=entry.name % ></span>%>
+          <span class="f18"><%=UserPresenter.localized_name(entry, current_user) %></span>
+        </div>
+        <div class="description">
+          <p>
+            <% unless entry[:description] %><!--noindex--><% end %>
+            <%=raw truncate(remove_misc_data(entry.description), :length => 220, :separator => ' ') %>
+            <% unless entry[:description] %><!--/noindex--><% end %>
+          </p>
+        </div>
+        <div class="year"><%=entry.year %></div>
+        <% unless entry.kind.blank? %>
+          <div class="type">
+            <%=UserPresenter.localized_kind(entry, current_user, true).sub 'Спешиал', 'Спешл' %>
+          </div>
+        <% end %>
+      <% end %>
+    </article>
+  <% end %>
+</div>

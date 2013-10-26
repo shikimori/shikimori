@@ -1,0 +1,206 @@
+# код об уведомлениях пользователя
+module UserNotifications
+  # notification settings
+  ANONS_TV_NOTIFICATIONS         = 0x000001
+  ANONS_MOVIE_NOTIFICATIONS      = 0x000002
+  ANONS_OVA_NOTIFICATIONS        = 0x000004
+
+  ONGOING_TV_NOTIFICATIONS       = 0x000010
+  ONGOING_MOVIE_NOTIFICATIONS    = 0x000020
+  ONGOING_OVA_NOTIFICATIONS      = 0x000040
+
+  MY_ONGOING_TV_NOTIFICATIONS    = 0x000100
+  MY_ONGOING_MOVIE_NOTIFICATIONS = 0x000200
+  MY_ONGOING_OVA_NOTIFICATIONS   = 0x000400
+
+  RELEASE_TV_NOTIFICATIONS       = 0x001000
+  RELEASE_MOVIE_NOTIFICATIONS    = 0x002000
+  RELEASE_OVA_NOTIFICATIONS      = 0x004000
+
+  MY_RELEASE_TV_NOTIFICATIONS    = 0x010000
+  MY_RELEASE_MOVIE_NOTIFICATIONS = 0x020000
+  MY_RELEASE_OVA_NOTIFICATIONS   = 0x040000
+
+  MY_EPISODE_TV_NOTIFICATIONS    = 0x100000
+  MY_EPISODE_MOVIE_NOTIFICATIONS = 0x200000
+  MY_EPISODE_OVA_NOTIFICATIONS   = 0x400000
+
+  NOTIFICATIONS_TO_EMAIL_SIMPLE  = 0x000008
+  NOTIFICATIONS_TO_EMAIL_GROUP   = 0x000080
+  NOTIFICATIONS_TO_EMAIL_NONE    = 0x000800
+  PRIVATE_MESSAGES_TO_EMAIL      = 0x080000
+  NICKNAME_CHANGE_NOTIFICATIONS  = 0x800000
+
+  DEFAULT_NOTIFICATIONS = MY_ONGOING_TV_NOTIFICATIONS + MY_ONGOING_MOVIE_NOTIFICATIONS + MY_ONGOING_OVA_NOTIFICATIONS +
+      MY_RELEASE_TV_NOTIFICATIONS + MY_RELEASE_MOVIE_NOTIFICATIONS + MY_RELEASE_OVA_NOTIFICATIONS +
+      NOTIFICATIONS_TO_EMAIL_GROUP +
+      PRIVATE_MESSAGES_TO_EMAIL + NICKNAME_CHANGE_NOTIFICATIONS
+
+  def unread_count
+    unread_messages + unread_news + unread_notifications
+  end
+
+  # number of unread private messages
+  def unread_messages
+    ignored_ids = cached_ignores.map(&:target_id) << 0
+
+    @unread_messages ||= Message.where(dst_id: id, dst_type: self.class.name, src_type: self.class.name)
+        .where(kind: MessageType::Private)
+        .where(read: false)
+        .where { src_id.not_in(ignored_ids) & dst_id.not_in(ignored_ids) }
+        .count
+  end
+
+  # number of unread notifications
+  def unread_news
+    ignored_ids = cached_ignores.map(&:target_id) << 0
+    @unread_news ||= Message.where(dst_id: id, src_type: self.class.name, dst_type: self.class.name)
+        .where(kind: [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews])
+        .where(read: false)
+        .where { src_id.not_in(ignored_ids) & dst_id.not_in(ignored_ids) }
+        .count
+  end
+
+  # number of unread notifications
+  def unread_notifications
+    ignored_ids = cached_ignores.map(&:target_id) << 0
+    @unread_notifications ||= Message.where(dst_id: id, src_type: self.class.name, dst_type: self.class.name)
+        .where(kind: [
+          MessageType::FriendRequest, MessageType::GroupRequest, MessageType::Notification, MessageType::ProfileCommented,
+          MessageType::QuotedByUser, MessageType::SubscriptionCommented, MessageType::NicknameChanged,
+          MessageType::Banned, MessageType::Warned
+        ])
+        .where(read: false)
+        .where { src_id.not_in(ignored_ids) & dst_id.not_in(ignored_ids) }
+        .count
+  end
+
+  # возвращает подписан ли пользователь на новость
+  def subscribed_for_event?(entry)
+    if entry.class == Topic && entry.broadcast
+      entry.action = MessageType::SiteNews
+      return true
+    end
+
+    if entry.linked
+      return false if self.send("#{entry.linked.class.name.downcase}_rates").select do |v|
+        v.target_id == entry.linked_id && v.status == UserRateStatus.get('Dropped')
+      end.any?
+    end
+
+    case entry.action
+      # Anons
+      when AnimeHistoryAction::Anons
+        case entry.linked.kind
+          when 'TV'
+            self.notifications & ANONS_TV_NOTIFICATIONS != 0
+
+          when 'Movie'
+            self.notifications & ANONS_MOVIE_NOTIFICATIONS != 0
+
+          else
+            self.notifications & ANONS_OVA_NOTIFICATIONS != 0
+        end
+
+      # Ongoing
+      when AnimeHistoryAction::Ongoing
+        result = false
+        case entry.linked.kind
+          when 'TV'
+            result = self.notifications & ONGOING_TV_NOTIFICATIONS != 0
+
+          when 'Movie'
+            result = self.notifications & ONGOING_MOVIE_NOTIFICATIONS != 0
+
+          else
+            result = self.notifications & ONGOING_OVA_NOTIFICATIONS != 0
+        end
+        return true if result
+        self.anime_rates.any? do |rate|
+          if rate.target_id == entry.linked_id
+            case entry.linked.kind
+              when 'TV'
+                self.notifications & MY_ONGOING_TV_NOTIFICATIONS != 0
+
+              when 'Movie'
+                self.notifications & MY_ONGOING_MOVIE_NOTIFICATIONS != 0
+
+              else
+                self.notifications & MY_ONGOING_OVA_NOTIFICATIONS != 0
+            end
+          else
+            false
+          end
+        end
+
+      # Release
+      when AnimeHistoryAction::Release
+        result = false
+        case entry.linked.kind
+          when 'TV'
+            result = self.notifications & RELEASE_TV_NOTIFICATIONS != 0
+
+          when 'Movie'
+            result = self.notifications & RELEASE_MOVIE_NOTIFICATIONS != 0
+
+          else
+            result = self.notifications & RELEASE_OVA_NOTIFICATIONS != 0
+        end
+        return true if result
+        self.anime_rates.any? do |rate|
+          if rate.target_id == entry.linked_id
+            case entry.linked.kind
+              when 'TV'
+                self.notifications & MY_RELEASE_TV_NOTIFICATIONS != 0
+
+              when 'Movie'
+                self.notifications & MY_RELEASE_MOVIE_NOTIFICATIONS != 0
+
+              else
+                self.notifications & MY_RELEASE_OVA_NOTIFICATIONS != 0
+            end
+          else
+            false
+          end
+        end
+
+      # Episode
+      when AnimeHistoryAction::Episode
+        self.anime_rates.any? do |rate|
+          if rate.target_id == entry.linked_id
+            case entry.linked.kind
+              when 'TV'
+                self.notifications & MY_EPISODE_TV_NOTIFICATIONS != 0
+
+              when 'Movie'
+                self.notifications & MY_EPISODE_MOVIE_NOTIFICATIONS != 0
+
+              else
+                self.notifications & MY_EPISODE_OVA_NOTIFICATIONS != 0
+            end
+          else
+            false
+          end
+        end
+
+      else
+        false
+    end
+  end
+
+  # создает уведомление для пользователя о новости
+  def notify(entry, text=nil)
+    Message.wo_antispam do
+      Message.create!({
+        src_id: entry.user.id,
+        src_type: entry.user.class.name,
+        dst_id: id,
+        dst_type: self.class.name,
+        body: text,
+        kind: entry.action,
+        linked: entry,
+        created_at: entry.created_at
+      })
+    end
+  end
+end

@@ -1,0 +1,23 @@
+@import "globals";
+
+.upload-progress {
+  height: 0;
+  overflow: hidden;
+
+  .bar {
+    @include text-font;
+    @include ellipsis;
+    @include transition(all, 0.25s);
+    background-color: #2586D0;
+    color: white;
+    display: block;
+    font-size: 11px;
+    height: 12px;
+    line-height: 12px;
+    text-align: center;
+    width: 0;
+  }
+  &.active {
+    height: 12px;
+  }
+}

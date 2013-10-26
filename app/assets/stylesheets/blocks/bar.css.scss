@@ -1,0 +1,175 @@
+@import "globals";
+.bar.horizontal {
+  width: 215px;
+
+  .line {
+    clear: right;
+    padding: 0 5px 0 2px;
+    margin-bottom: 1px;
+
+    .x_label {
+      @include text-font;
+      color: #444;
+      font-size: 12px;
+      font-weight: bold;
+      float: right;
+      line-height: 16px;
+    }
+    .bar-container {
+      width: 180px;
+
+      .bar {
+        height: 16px;
+        &.min {
+          min-width: 1px;
+        }
+      }
+      .value {
+        @include text-font;
+        color: white;
+        cursor: default;
+        float: right;
+        font-size: 11px;
+        line-height: 16px;
+        padding-right: 3px;
+
+        &.narrow {
+          padding-right: 2px;
+        }
+      }
+    }
+  }
+}
+
+.bar.vertical {
+  border-bottom: 1px solid #999;
+  /*overflow: hidden;*/
+  padding-left: 2px;
+  padding-right: 2px;
+  position: relative;
+
+  .line {
+    float: left;
+    height: inherit;
+    margin-right: 1px;
+    width: 16px;
+
+    .x_label {
+      @include text-font;
+      bottom: -20px;
+      color: #444;
+      font-size: 10px;
+      line-height: 16px;
+      position: absolute;
+    }
+    .bar-container {
+      height: inherit;
+      width: inherit;
+      display: table-cell;
+      vertical-align: bottom;
+
+      .bar {
+        width: inherit;
+
+        &:hover .value {
+          display: block;
+        }
+        &.min {
+          min-height: 1px;
+        }
+      }
+      .value {
+        @include text-font;
+        color: white;
+        cursor: default;
+        display: none;
+        font-size: 10px;
+        line-height: 16px;
+        text-align: center;
+
+        width: 15px;
+        bottom: -3px;
+        position: absolute;
+
+        &.mini {
+          font-size: 9px;
+          text-align: left;
+        }
+      }
+    }
+  }
+  .y_label {
+    @include text-font;
+    color: #444;
+    font-size: 10px;
+    line-height: 16px;
+    position: absolute;
+    left: -26px;
+    margin-top: -7px;
+    text-align: right;
+    width: 23px;
+
+    /*right: -5px;*/
+    /*text-align: left;*/
+    /*width: 19px;*/
+  }
+  .ruler {
+    @include opacity(0.2);
+    background: white;
+    height: 1px;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.bar.simple {
+  .bar {
+    &.s0 {
+      background: #4682b4;
+    }
+    &.s1 {
+      background: #6295bd;
+    }
+    &.s2 {
+      background: #79a9cf;
+    }
+    &.s3 {
+      background: #98c2e3;
+    }
+    &:hover {
+      &.s0 {
+        background: #6295bd;
+      }
+      &.s1 {
+        background: #79a9cf;
+      }
+      &.s2 {
+        background: #98c2e3;
+      }
+      &.s3 {
+        background: #b3d7f2;
+      }
+    }
+  }
+}
+
+/*.bar.complex {*/
+  /*.s0 {*/
+    /*background: #b78bc7;*/
+  /*}*/
+  /*.s1 {*/
+    /*background: #edacd9;*/
+  /*}*/
+  /*.s2 {*/
+    /*background: #79a9cf;*/
+  /*}*/
+  /*.s3 {*/
+    /*background: #aaaadd;*/
+  /*}*/
+  /*.s4 {*/
+    /*background: #71718e;*/
+  /*}*/
+  /*.s5 {*/
+    /*background: #f7e1aa;*/
+  /*}*/
+/*}*/

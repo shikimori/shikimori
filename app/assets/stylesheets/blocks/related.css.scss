@@ -1,0 +1,112 @@
+@import "globals";
+
+/*************************************************/
+/* related animes */
+.related-anime {
+  margin-bottom: 30px;
+  clear: both;
+
+  .related-shower {
+    @include plashka;
+    border: 1px solid #F2F2F2;
+    clear: left;
+    margin: -5px 0 5px 0;
+  }
+  .subblock-title {
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 10px;
+  }
+}
+.related-block {
+  @include link-color(#333);
+  border-top: 1px dashed #DDDDDD;
+  height: 110px;
+  overflow: hidden;
+  padding-top: 5px;
+  position: relative;
+
+  &:first-child {
+    padding-top: 0px;
+    border: none;
+  }
+  a {
+    @include inner-image-selectable-decor;
+    color: inherit;
+    display: block;
+  }
+  .image-container {
+    float: left;
+    img {
+      @include image-selectable-decor;
+      float: left;
+      margin: 2px 10px 10px 0;
+      padding: 2px;
+      /*border: 1px solid #E0E0E0;*/
+      /*padding: 1px;*/
+    }
+  }
+  .relation {
+    color: #222222;
+    font-size: 14px;
+    font-weight: bold;
+    margin: -1px 0 3px 77px;
+  }
+  .name {
+    color: inherit;
+    display: inline;
+    /*color: #333333;*/
+    /*@include link-color(#333);*/
+    span {
+      @include ellipsis;
+      display: block;
+      padding-right: 75px;
+    }
+  }
+  .description {
+    color: #333;
+    margin-top: 5px;
+    padding-right: 75px;
+  }
+  .type {
+    color: #444444;
+    font-family:'Arial Black','Arial',sans-serif;
+    font-size: 16px;
+    position: absolute;
+    right: 5px;
+    text-align: center;
+    top: 35px;
+    width: 65px;
+  }
+  .year {
+    color: #555555;
+    font-family:'Arial Black','Arial',sans-serif;
+    font-size: 20px;
+    position: absolute;
+    right: 5px;
+    text-align: center;
+    top: 55px;
+    width: 65px;
+  }
+  &:first-child .type {
+    top: 30px;
+  }
+  &:first-child .year {
+    top: 50px;
+  }
+  &.Novel, &.Manhua {
+    .type,.year {
+      width: 75px;
+    }
+    .description {
+      padding-right: 85px;
+    }
+  }
+  &.Doujin {
+    .type,.year {
+      width: 85px;
+    }
+    .description {
+      padding-right: 95px;
+    }
+  }
+}

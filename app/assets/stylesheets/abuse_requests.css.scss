@@ -1,0 +1,63 @@
+/*
+= require pages/forum/common
+*/
+@import "compass/utilities/general/clearfix";
+
+.abuse-requests {
+  .abuse-request {
+    @include clearfix;
+    margin-bottom: 20px;
+
+    &:first-child .comment-block {
+      border-top: none;
+    }
+    .ban-form form {
+      margin-top: 10px;
+    }
+  }
+  .item-delete {
+    display: none;
+  }
+
+  .forum-container {
+    width: 100%;
+
+    .comment-block {
+      float: left;
+      margin-left: 0;
+      padding-left: 0;
+
+      p.first {
+        margin-bottom: 2px;
+        margin-left: 2px;
+      }
+    }
+    .item-delete {
+      display: none;
+    }
+    .request-control {
+      display: inline-block;
+      margin-left: 30px;
+
+      .bracket-actions {
+        padding-left: 0;
+        padding-right: 10px;
+        span {
+          padding: 0;
+        }
+      }
+      .review-marker, .offtopic-marker, .spoiler-marker, .abuse-marker {
+        cursor: default;
+        display: inline-block;
+        float: none;
+        margin-left: 3px;
+      }
+    }
+    .request-control:first-child + .comment-block {
+      border-top: none;
+    }
+    .comment-block {
+      width: 685px;
+    }
+  }
+}

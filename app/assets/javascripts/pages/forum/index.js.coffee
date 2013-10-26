@@ -1,0 +1,115 @@
+# инициализация раздела
+$(".ajax").live "index:success", ->
+  _log "index:success"
+
+# сокращение высоты топиков
+$(".ajax").live "height:check index:success", ->
+  # сокращение высоты топиков
+  $(".height-unchecked", @).each ->
+    $this = $(@)
+    $content = if $this.hasClass('inner-block')
+      $this
+    else
+      $this.find(".content .body")
+
+    if $content.height() > 140
+      $content.addClass "shortened"
+      $("<div class=\"height-shortener\" title=\"Развернуть\"><div>...</div></div>").insertAfter $content
+    $this.removeClass "height-unchecked"
+
+# при загрузке новой страницы инициация проверки высоты топиков
+$(".postloader").live "postloader:success", ->
+  _.delay ->
+    $(".ajax").trigger "height:check"
+
+# раскрытие содержимого топика по клику на сокращалку
+$(".height-shortener").live "click", ->
+  $this = $(@)
+  height = $this.prev().outerHeight() + $this.outerHeight()
+
+  $this.prev().removeClass("shortened")
+    .animated_expand(height)
+
+  $this.remove()
+
+# загрузка комментариев по клику на 'Показать N комментариев'
+$(".topic-block .content .delete-controls .item-delete-confirm").live "ajax:success", (e, data) ->
+  $block = $(@).parents(".topic-block")
+  $block.css(minHeight: "0px").animate
+    height: "0px"
+  , ->
+    $block.remove()
+
+# формиррование урла для загрузки комментариев по клику на 'Показать N комментариев'
+$(document).on 'ajax:before', '.topic-block .click-loader', (e) ->
+  $this = $(@)
+
+  # faye-loader делает совсем другое
+  return if $this.hasClass("faye-loader")
+
+  $this.data href: $this.data('href-template').replace('SKIP', $this.data('skip'))
+
+# загрузка комментариев по клику на 'Показать N комментариев'
+$(document).on 'ajax:success', '.topic-block .click-loader', (e, data) ->
+  $this = $(@)
+
+  # faye-loader делает совсем другое
+  return if $this.hasClass("faye-loader")
+
+  $comments = $("<div class=\"comments-placeholder\"></div>").html data
+  $container = $this.parents('.comments')
+  $container.find('.comments-container')
+      .prepend($comments)
+      .show()
+
+  $comments.animated_expand()
+
+  if $this.data 'infinite'
+    limit = $this.data('limit')
+    count = $this.data('count') - limit
+
+    if count > 0
+      $this.data
+        skip: $this.data('skip') + limit
+        count: count
+
+      $this.html "Показать #{p(_.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие')} #{_.min [limit, count]} #{p(count, 'комментарий', 'комментария', 'комментариев')}" + (
+          if count > limit then " (из #{count})" else ""
+        )
+    else
+      $this.remove()
+  else
+    $this.html($this.data 'html').removeClass("click-loader").hide()
+    $container.find(".comments-hider").show()
+
+# показ комментариев по клику на 'Показать N комментариев'
+$(".topic-block .comments-shower").live "click", ->
+  $this = $(@)
+
+  # до тех пор, пока висит click-loader, этот обработчик не нужен
+  return if $this.hasClass("click-loader")
+  # на этот класс навешен селектор, скрывающий border-top у следующего элементам
+  $(@).hide()
+      .parents(".comments")
+      .find(".comments-placeholder")
+      .animated_expand()
+        .parents(".comments")
+        .find(".comments-hider")
+        .show()
+
+# скрытие комментариев по клику на 'Скрыть комментарии'
+$(".topic-block .comments-hider").live "click", ->
+  $comments = $(@).hide()
+      .parents(".comments")
+      .find(".comments-placeholder")
+      .animated_collapse()
+        .parents(".comments")
+          .find(".comments-shower")
+          .show()
+
+# скрытие пустого редактора по снятию с него фокуса
+$(".preview .shiki-editor textarea").live "blur", ->
+  $this = $(@)
+  return unless $this.val() is ""
+  $editor = $this.parents(".shiki-editor")
+  $editor.hide()

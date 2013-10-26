@@ -1,0 +1,43 @@
+class FriendsController < ApplicationController
+  before_filter :check_auth
+
+  def create
+    @user = User.find(params[:id])
+
+    if current_user.friends.include?(@user)
+      render json: [
+        "#{@user.nickname} уже среди ваших друзей"
+      ], status: :unprocessable_entity
+    else
+      current_user.friends << @user
+
+      # если дружба не взаимная, то надо создать сообщение с запросом в друзья
+      unless @user.friends.include?(current_user)
+        Message.where(src_type: User.name, src_id: current_user.id, dst_type: @user.class.name, dst_id: @user.id)
+               .where(kind: MessageType::FriendRequest)
+               .delete_all
+
+        Message.create({
+          src_type: User.name,
+          src_id: current_user.id,
+          dst_type: @user.class.name,
+          dst_id: @user.id,
+          kind: MessageType::FriendRequest
+        })
+      end
+
+      render json: {
+        notice: "#{@user.nickname} добавлен#{'а' if @user.female?} в друзья"
+      }
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+
+    current_user.friends.delete(@user)
+    render json: {
+      notice: "#{@user.nickname} удален#{'а' if @user.female?} из друзей"
+    }
+  end
+end

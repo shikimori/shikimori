@@ -1,0 +1,17 @@
+li.entry
+  a href="#{entry.generated? ? url_for(entry.linked) : topic_url(entry)}" title="#{{entry.generated? ? entry.linked.name : h(entry.title)}}" rel="#{entry.generated? ? '' : :history}"
+    .image-name
+      img src="#{entry.linked ? entry.linked.image.url(:x64) : '/images/news_wo_linked.png' }" alt="#{{entry.linked ? entry.linked.name : h(entry.user.nickname)}}" title="#{{entry.linked ? entry.linked.name : h(entry.user.nickname)}}"
+      span.title
+        == entry.linked ? entry.linked.name : entry.user.nickname
+    span.misc
+      - if entry.generated?
+        - if entry.linked.kind.present?
+          span
+            = t "#{entry.linked.class.name}.Short.#{entry.linked.kind}"
+        span class="#{entry.action}"
+          = entry.title.sub(/ .*/, '').downcase
+      - else
+        = entry.title
+    span.misc.date
+      = time_ago_in_words entry.created_at, "%s назад"

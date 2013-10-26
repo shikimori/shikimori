@@ -1,0 +1,14 @@
+.index-item
+  .image-name
+    = link_to user_url(rate.user, :only_path => false) do
+      img.image src="#{gravatar_url(rate.user, 32)}" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
+    = link_to user_url(rate.user, :only_path => false), :title => rate.user.nickname, :class => :name do
+      = rate.user.nickname
+
+  .info
+    p
+      = t "#{@entry.class.name}RateStatus.%s" % UserRateStatus.get(rate.status)
+      - if rate.score && rate.score != 0
+        | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
+        b
+          = rate.score

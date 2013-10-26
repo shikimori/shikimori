@@ -1,0 +1,23 @@
+.results
+  - cache ['results', contest, russian_names_key, russian_genres_key] do
+    .animes.new
+      - contest.results.each_with_index do |entry, index|
+        .subheadline.m10 #{index+1} место
+        .rounds
+          p Соперники:
+          .match-day
+            - contest.matches_with(entry).each do |match|
+              .match
+                a.match-link title="#{match.round.title}" href="#{round_match_contest_url contest, round: match.round, match_id: match.id}"
+                  span class="#{entry.id == match.winner_id ? 'winner' : 'loser'}"
+                    span.group #{match.round.title true} #{match.group}
+                - if match.left_id && match.right_id
+                  a.bubbled href="#{url_for match.left_id == entry.id ? match.right : match.left}" title="#{localized_name match.left_id == entry.id ? match.right : match.left}" data-remote="true"
+                    = localized_name match.left_id == entry.id ? match.right : match.left
+                - else
+                  p нет
+        - if contest.anime?
+          = render partial: 'ani_mangas_collection/entry_new', object: entry, locals: { alter: true }, formats: :html
+        - else
+          = render partial: 'characters/entry', object: entry, formats: :html
+        .clearfix

@@ -1,0 +1,112 @@
+@import "globals";
+
+.messages {
+  .left-column-wrap {
+    margin-bottom: 20px;
+  }
+  .block-title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .block-list li {
+    span {
+      float: right;
+    }
+  }
+
+  .collapse {
+    margin-top: -20px;
+  }
+}
+.messages, .inbox, .talk {
+  position: relative;
+
+  .options-floated {
+    margin-right: 17px;
+
+    .unread-count {
+      padding-left: 5px;
+    }
+  }
+  .message-block {
+    min-height: 90px;
+    padding-right: 0;
+  }
+  .offtopic-marker, .item-offtopic, .comment-offtopic {
+    display: none!important;
+  }
+}
+.inbox {
+  h2 {
+    margin-bottom: 0;
+
+    .buttons {
+      @include default-selectable-decor;
+      @include default-link;
+
+      line-height: 12px;
+      font-weight: normal;
+    }
+  }
+  .no-messages {
+    margin-top: 10px;
+  }
+  .messages-block {
+    margin-top: 0px;
+    min-height: 190px;
+
+    &>p:first-child {
+      line-height: 10px;
+    }
+    .message-block {
+      &:first-child {
+        padding-top: 0px;
+        border-top: none;
+
+        .new-indicator {
+          top: 53px;
+        }
+      }
+      .anime-image {
+        float: right;
+        max-height: 180px;
+        margin: 5px 5px 15px 15px;
+      }
+    }
+  }
+  table {
+    tr {
+      td {
+        line-height: 15px;
+
+        &.num {
+          width: 50px;
+          text-align: center;
+        }
+      }
+      th.num {
+        width: 50px;
+        text-align: center;
+        padding-right: 10px;
+      }
+      &.border th {
+        border-top: 1px solid #DDDDDD;
+        cursor: pointer;
+        padding-bottom: 4px;
+        padding-top: 0px;
+        text-align: left;
+      }
+    }
+  }
+  .image-poster {
+    float: right;
+    margin-bottom: 10px!important;
+  }
+  .more {
+    margin-bottom: 10px;
+  }
+  .to-entry {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+}

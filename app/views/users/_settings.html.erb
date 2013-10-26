@@ -1,0 +1,441 @@
+<%=form_tag edit_user_url(@user), method: :put, multipart: true do %>
+  <div class="right-block menu-block">
+    <div class="buttons">
+      <span class="save button">Сохранить</span>
+    </div>
+    <div class="menu-block clearfix">
+      <div class="subheadline m10">Импорт / Экспорт списка</div>
+      <p>
+        <span id="import" class="mal-import" title="Если у вас есть аккаунт на myanimelist.net или на anime-planet.com, то вы можете импортировать оттуда свой список аниме и манги.">Выполнить</span>
+      </p>
+    </div>
+
+    <div class="menu-block">
+      <div class="subheadline">Настройки профиля</div>
+      <div class="value checkboxes m5">
+        <p><%=label_tag :user_anime, 'Отображать аниме' %> <%=check_box_tag 'user[anime]', '', params[:user]['anime'] || @user.profile_settings.anime? %></p>
+        <!--
+        <p><%=label_tag :user_anime_genres, 'Отображать жанры аниме' %> <%=check_box_tag 'user[anime_genres]', '', params[:user]['anime_genres'] || @user.profile_settings.anime_genres? %></p>
+        <p><%=label_tag :user_anime_studios, 'Отображать студии аниме' %> <%=check_box_tag 'user[anime_studios]', '', params[:user]['anime_studios'] || @user.profile_settings.anime_studios? %></p>
+        -->
+        <p><%=label_tag :user_manga, 'Отображать мангу' %> <%=check_box_tag 'user[manga]', '', params[:user]['manga'] || @user.profile_settings.manga?  %></p>
+        <p><%=label_tag :user_manga_first, 'Сначала манга, потом аниме' %> <%=check_box_tag 'user[manga_first]', '', params[:user]['manga_first'] || @user.profile_settings.manga_first?  %></p>
+        <!--
+        <p><%=label_tag :user_manga_genres, 'Отображать жанры манги' %> <%=check_box_tag 'user[manga_genres]', '', params[:user]['manga_genres'] || @user.profile_settings.manga_genres? %></p>
+        <p><%=label_tag :user_manga_publishers, 'Отображать издателей манги' %> <%=check_box_tag 'user[manga_publishers]', '', params[:user]['manga_publishers'] || @user.profile_settings.manga_publishers? %></p>
+        <p><%=label_tag :user_genres_graph, 'Отображать общий график с жанрами' %> <%=check_box_tag 'user[genres_graph]', '', params[:user]['genres_graph'] || @user.profile_settings.genres_graph? %></p>
+        -->
+        <p><%=label_tag :user_clubs, 'Отображать клубы' %> <%=check_box_tag 'user[clubs]', '', params[:user]['clubs'] || @user.profile_settings.clubs? %></p>
+        <p><%=label_tag :user_statistics, 'Отображать статистику' %> <%=check_box_tag 'user[statistics]', '', params[:user]['statistics'] || @user.profile_settings.statistics? %></p>
+        <p><%=label_tag :user_comments, 'Отображать ленту комментариев' %> <%=check_box_tag 'user[comments]', '', params[:user]['comments'] || @user.profile_settings.comments? %></p>
+      </div>
+
+      <div class="field-name statistics-date">
+        <span>Дата старта статистики&nbsp;</span>
+        <div class="comment-block">
+          <%=spoiler '(на что оно влияет)' do %>
+            <img src="/images/static/statistics_start.png" />
+          <% end %>
+        </div>
+      </div>
+      <div class="value">
+        <%=email_field_tag 'user[statistics_start]', (params[:user]['statistics_start'] || @user.profile_settings.statistics_start || '').to_s.sub(/(\d+)-(\d+)-(\d+)/, '\3.\2.\1'), class: 'common', placeholder: 'В формате дд.мм.гггг, например 20.10.2012' %></p>
+      </div>
+
+    </div>
+
+    <div class="menu-block">
+      <div class="subheadline">Настройки каталога аниме и манги</div>
+      <div class="value checkboxes">
+        <!--
+        <p>
+          <%=label_tag :stylo_bold, 'Шрифт StyloBold' %>
+          <%=check_box_tag 'stylo_bold', '', cookies.include?('StyloBold'), 'data-cookie' => 'StyloBold' %>
+          (<span class="notice" title="Работает через cookies браузера без привязки к аккаунту">?</span>)
+        </p>
+        -->
+
+        <p><%=label_tag :user_russian_genres, 'Русские названия жанров и типов' %> <%=check_box_tag 'user[russian_genres]', '', params[:user]['russian_genres'] || @user.profile_settings.russian_genres? %></p>
+        <p><%=label_tag :user_russian_names, 'Русские названия аниме и манги' %> <%=check_box_tag 'user[russian_names]', '', params[:user]['russian_names'] || @user.profile_settings.russian_names? %></p>
+        <p><%=label_tag :user_mylist_in_catalog, 'Подсвечивать находящееся в моём списке' %> <%=check_box_tag 'user[mylist_in_catalog]', '', params[:user]['mylist_in_catalog'] || @user.profile_settings.mylist_in_catalog? %></p>
+        <p><%=label_tag :user_postload_in_catalog, 'Подгрузка следующих страниц по мере прокрутки текущей' %> <%=check_box_tag 'user[postload_in_catalog]', '', params[:user]['user_postload_in_catalog'] || @user.profile_settings.postload_in_catalog %></p>
+        <p>
+          <%=label_tag :new_catalog, 'Старый вариант каталога' %>
+          <%=check_box_tag 'new_catalog', '', cookies.include?('OldCatalog'), 'data-cookie' => 'OldCatalog' %>
+          (<span class="notice" title="Работает через cookies браузера без привязки к аккаунту">?</span>)
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-block">
+      <div class="subheadline">Настройки сайта</div>
+      <div class="value checkboxes">
+        <p>
+          <%=label_tag :hentai_images, 'Без фильтрации картинок имиджборд' %>
+          <%=check_box_tag 'hentai_images', '', cookies.include?('HentaiImages'), 'data-cookie' => 'HentaiImages' %>
+          (<span class="notice" title="Работает через cookies браузера без привязки к аккаунту">?</span>)
+        </p>
+        <p><%=label_tag :user_social, 'Кнопки соц сетей' %> <%=check_box_tag 'user[social]', '', params[:user]['social'] || @user.social %></p>
+        <p><%=label_tag :user_smileys, 'Отображать смайлики' %> <%=check_box_tag 'user[smileys]', '', params[:user]['smileys'] || @user.smileys %></p>
+        <p><%=label_tag :user_menu_contest, 'Уведомление о голосовании в меню' %> <%=check_box_tag 'user[menu_contest]', '', params[:user]['menu_contest'] || @user.profile_settings.menu_contest? %></p>
+      </div>
+    </div>
+
+    <div class="hidden">
+      <div class="field-name">Контакты</div>
+      <span class="more subblockmore contacts-privacy" data-remote="true" action="<%=user_contacts_privacy_path(@user) %>" data-method="put" data-type="json"><%=t "User.ContactsPrivacy.%s" % @user.contacts_privacy %></span>
+      <div class="value contacts">
+        <div class="m2">
+          <p><span>Jabber:</span> <%=text_field_tag 'user[jabber]',params[:user]['jabber'] ||  @user.jabber || '', class: 'common' %></p>
+        </div>
+
+        <div class="m2">
+          <p><span>ICQ:</span> <%=text_field_tag 'user[icq]', params[:user]['icq'] || @user.icq || '', class: 'common' %></p>
+        </div>
+
+        <div class="m2">
+          <p><span>Skype:</span> <%=text_field_tag 'user[skype]', params[:user]['skype'] || @user.skype || '', class: 'common' %></p>
+        </div>
+
+        <div>
+          <p><span>E-mail:</span> <%=text_field_tag 'user[mail]', params[:user]['mail'] || @user.mail || '', class: 'common' %></p>
+        </div>
+      </div>
+    </div>
+
+    <% unless connected_providers_for(@user).empty? %>
+      <div class="menu-block">
+        <div class="subheadline m10">Подключенная авторизация</div>
+        <div class="value oauth remove">
+          <% connected_providers_for(@user).each do |provider| %>
+            <%=link_to user_remove_provider_path(@user, provider) do %>
+              <%=image_tag("/images/omniauth/#{provider}.png", alt: "Отключить авторизацию через #{provider.to_s.titleize}", title: "Отключить авторизацию через #{provider.to_s.titleize}") %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% unless unconnected_providers_for(@user).empty? %>
+      <div class="menu-block">
+        <div class="subheadline m10">Не подключенные сервисы</div>
+        <div class="value oauth add">
+          <% unconnected_providers_for(@user).each do |provider| %>
+            <%=link_to "/users/auth/#{provider}" do %>
+              <%=image_tag("/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}") %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="menu-block">
+      <div class="subheadline m5">Возврат заблокированных рекомендаций</div>
+      <div class="value font list-clean">
+        <p>
+          <%=link_to 'Вернуть заблокированные рекомендации аниме', cleanup_recommendation_ignores_path(target_type: :anime), 'data-confirm' => 'Вы действительно хотите очистить заблокированные рекомендации?' %>
+          (<span class="notice" title="На странице рекомендаций у любого аниме или манги можно нажать на крестик, заблокировав в дальнейшем отображение данного элемента в рекомендациях. Перейдя по ссылке «Очистить заблокированные рекомендации», вы очистите спиок заблокированного: всё, что вы ранее пометили крестиком, будет снова отображаться в рекомендациях.">?</span>)
+        </p>
+        <p>
+          <%=link_to 'Вернуть заблокированные рекомендации манги', cleanup_recommendation_ignores_path(target_type: :manga), 'data-confirm' => 'Вы действительно хотите очистить заблокированные рекомендации?' %>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-block">
+      <div class="subheadline m5">Очистка списка и истории</div>
+      <div class="value font list-clean">
+        <p>
+          <%=link_to 'Очистить список аниме', list_cleanup_url(type: :anime), 'data-confirm' => 'Вы действительно хотите очистить свой список аниме и потерять всю историю?' %>
+        </p>
+        <p>
+          <%=link_to 'Очистить список манги', list_cleanup_url(type: :manga), 'data-confirm' => 'Вы действительно хотите очистить свой список манги и потерять всю историю?' %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="left-block menu-block">
+    <div class="menu-block">
+      <div class="subheadline">Общие настройки</div>
+      <div class="field-name">Логин и никнейм<% unless params[:user].empty? %><p class="alert">изменения не сохранены!</p><% end %></div>
+      <div class="value">
+        <%=email_field_tag 'user[nickname]', params[:user]['nickname'] || @user.nickname, class: 'common' %></p>
+      </div>
+
+      <div class="value password">
+        <% unless @user.encrypted_password.blank? %>
+          <div class="field-name">Старый пароль</div>
+          <div class="m2">
+            <p><%=password_field_tag 'user[password_check]', '', class: 'common' %></p>
+          </div>
+        <% end %>
+
+        <div class="field-name">Новый пароль</div>
+        <div class="m2">
+          <p><%=password_field_tag 'user[password]', '', class: 'common' %></p>
+        </div>
+      </div>
+
+      <div class="field-name">E-mail</div>
+      <div class="value">
+        <%=email_field_tag 'user[email]', params[:user]['email'] || (@user.email =~ /generated.*@shikimori.org/ ? '' : (@user.email || '')), class: 'common' %></p>
+      </div>
+
+      <div class="field-name avatar-title">Аватар (160x160)</div>
+      <div class="value avatar-edit">
+        <% if @user.avatar.exists? %>
+          <img src="<%=gravatar_url(@user, 160) %>" alt="<%=@user.nickname %>" title="<%=@user.nickname %>">
+          <p class="avatar-delete">[<span>удалить</span>]</p>
+        <% end %>
+        <input type="file" class="common file avatar-file" name="user[avatar]" />
+      </div>
+
+      <div class="m10">
+        <p>
+          <div class="sex">
+            <span class="field-name">Пол</span>
+            <%=radio_button_tag 'user[sex]', :male, (params[:user]['sex'] && params[:user]['sex'] == 'male') || @user.male? %><%=label_tag :user_sex_male do %>муж.<% end %>
+            <%=radio_button_tag 'user[sex]', :female, (params[:user]['sex'] && params[:user]['sex'] == 'female') || @user.female? %><%=label_tag :user_sex_female do %>жен.<% end %>
+          </div>
+        </p>
+      </div>
+
+      <div class="value">
+        <span class="field-name">Дата рождения</span>
+        <select name="user[birth_at][day]">
+          <option value="0"></option>
+          <% 1.upto(31) do |day| %>
+            <option value="<%=day %>"<%="selected" if @user.birth_at && @user.birth_at.day == day %>><%=day %></option>
+          <% end %>
+        </select>
+        <select name="user[birth_at][month]">
+          <% [
+              [0, ''],
+              [1, 'Январь'],
+              [2, 'Февраль'],
+              [3, 'Март'],
+              [4, 'Апрель'],
+              [5, 'Май'],
+              [6, 'Июнь'],
+              [7, 'Июль'],
+              [8, 'Август'],
+              [9, 'Сентябрь'],
+              [10, 'Октябрь'],
+              [11, 'Ноябрь'],
+              [12, 'Декабрь']
+            ].each do |month,name| %>
+            <option value="<%=month %>"<%="selected" if @user.birth_at && @user.birth_at.month == month %>><%=name %></option>
+          <% end %>
+        </select>
+        <select name="user[birth_at][year]">
+          <option value="0"></option>
+          <% 1940.upto(DateTime.now.year-5) do |year| %>
+            <option value="<%=year %>"<%="selected" if @user.birth_at && @user.birth_at.year == year %>><%=year %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="field-name">Реальное имя</div>
+      <div class="value">
+        <%=text_field_tag 'user[name]', params[:user]['name'] || @user.name || '', class: 'common' %></p>
+      </div>
+
+      <div class="field-name">Откуда</div>
+      <div class="value">
+        <%=text_field_tag 'user[location]', params[:user]['location'] || @user.location || '', class: 'common' %></p>
+      </div>
+
+      <div class="field-name">Сайт</div>
+      <div class="value m30">
+        <%=text_field_tag 'user[website]', params[:user]['website'] || @user.website || '', class: 'common' %></p>
+      </div>
+    </div>
+
+    <div class="menu-block">
+      <input type="text" data-autocomplete="<%=autocomplete_users_url search: '' %>" class="ignore-suggest common suggest subheadline-input" />
+      <div class="subheadline">Игнорируемые пользователи</div>
+      <div class="value">
+        <%=hidden_field_tag 'ignores[]', '' %>
+        <ul class="container block-list ignores">
+          <% @user.ignored_users.each do |user| %>
+            <li>
+              <span class="item-minus"></span>
+              <%=hidden_field_tag 'ignores[]', user.nickname %>
+              <%=link_to user_url(user) do %><%=user.nickname %><% end %>
+            </li>
+          <% end  %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="menu-block backgrounds">
+      <div class="subheadline">Фон центральной области</div>
+      <div class="value">
+        <%=text_field_tag 'user[page_background]', params[:user]['page_background'] || @user.page_background || '0' %></p>
+        <div class="range-slider noUiSlider" data-value="<%=params[:user]['page_background'] || @user.page_background || '0' %>"></div>
+      </div>
+
+      <div class="subheadline">Фон боковой области</div>
+      <div class="value checkboxes m5">
+        <p><%=label_tag :user_page_border, 'Полупрозрачная рамка по бокам страницы' %> <%=check_box_tag 'user[page_border]', '', params[:user]['page_border'] || @user.page_border %></p>
+      </div>
+      <div class="value">
+        <%=text_field_tag 'user[body_background]', params[:user]['body_background'] || @user.body_background, class: :common %></p>
+        <ul class="samples">
+          <li class="bg1" data-background="/assets/background/square_bg.png"></li>
+          <li class="bg2" data-background="/assets/background/agsquare.png"></li>
+          <li class="bg3" data-background="/assets/background/fabric_of_squares_gray.png"></li>
+          <li class="bg4" data-background="/assets/background/furley_bg.png"></li>
+
+          <div class="collapse" style="display: none;">
+            <span class="action">развернуть</span>
+          </div>
+          <div class="collapsed tiny" style="display: block;">...</div>
+          <div style="display: none;">
+            <li class="bg5" data-background="/assets/background/gplaypattern.png"></li>
+            <li class="bg6" data-background="/assets/background/grey.png"></li>
+            <li class="bg7" data-background="/assets/background/greyfloral.png"></li>
+            <li class="bg8" data-background="/assets/background/hexellence.png"></li>
+            <li class="bg9" data-background="/assets/background/light_wool.png"></li>
+            <li class="bg10" data-background="/assets/background/snow.png"></li>
+            <li class="bg11" data-background="/assets/background/ice_age.png"></li>
+            <li class="bg12" data-background="/assets/background/paper_fibers.png"></li>
+            <li class="bg13" data-background="/assets/background/scribble_light.png"></li>
+            <li class="bg14" data-background="/assets/background/redox_02.png"></li>
+            <li class="bg15" data-background="/assets/background/bright_squares.png"></li>
+            <li class="bg16" data-background="/assets/background/shattered.png"></li>
+            <li class="bg17" data-background="/assets/background/tactile_noise.png"></li>
+            <li class="bg18" data-background="/assets/background/twinkle_twinkle.png"></li>
+            <li class="bg19" data-background="/assets/background/wild_oliva.png"></li>
+            <li class="bg20" data-background="/assets/background/use_your_illusion.png"></li>
+            <li class="bg21" data-background="/assets/background/noisy_net.png"></li>
+            <li class="bg22" data-background="/assets/background/dirty_old_shirt.png"></li>
+            <li class="bg23" data-background="/assets/background/cartographer.png"></li>
+            <li class="bg24" data-background="/assets/background/px_by_Gre3g.png"></li>
+            <li class="bg25" data-background="/assets/background/diagmonds.png"></li>
+            <li class="bg26" data-background="/assets/background/type.png"></li>
+            <li class="bg27" data-background="/assets/background/crissXcross.png"></li>
+            <li class="bg28" data-background="/assets/background/random_grey_variations.png"></li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-block clearfix">
+    <p class="options-floated about-options"><%=label_tag :user_about_on_top, 'Отображать над статистикой' %> <%=check_box_tag 'user[about_on_top]', '', params[:user]['about_on_top'] || @user.profile_settings.about_on_top?  %></p>
+    <div class="subheadline m2">О себе</div>
+    <div class="forum-container">
+      <div class="comments zero-margin zero-top-border">
+        <%=render partial: 'comments/add.html.erb', locals: {
+                                                      options: {
+                                                        text: params[:user]['about'] || @user.about || '',
+                                                        field_name: 'user[about]',
+                                                        no_save: true,
+                                                        no_subscribe: true,
+                                                        no_form: true,
+                                                        no_focus: true
+                                                      }
+                                                    } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="subheadline m10">Настройки уведомлений</div>
+  <div class="messages-settings">
+    <table class="default-table m20">
+      <tr>
+        <th class="name">Тип уведомления</th>
+        <th class="num">TV</th>
+        <th class="num">Movie</th>
+        <th class="num">OVA</th>
+      </tr>
+      <tr class="border"><th colspan="4"></th></tr>
+      <tr>
+        <td class="name">Новый анонс, появление нового анонсированного аниме на сайте</td>
+        <td class="num"><%=check_box_tag 'notifications[anons_tv]', User::ANONS_TV_NOTIFICATIONS, @user.notifications & User::ANONS_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ANONS_TV_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[anons_movie]', User::ANONS_MOVIE_NOTIFICATIONS, @user.notifications & User::ANONS_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ANONS_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[anons_ova]', User::ANONS_OVA_NOTIFICATIONS, @user.notifications & User::ANONS_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ANONS_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+      </tr>
+      <tr>
+        <td class="name">Новый онгоинг (выход первой серии любого онгоинга)</td>
+        <td class="num"><%=check_box_tag 'notifications[ongoing_tv]', User::ONGOING_TV_NOTIFICATIONS, @user.notifications & User::ONGOING_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ONGOING_TV_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[ongoing_movie]', User::ONGOING_MOVIE_NOTIFICATIONS, @user.notifications & User::ONGOING_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ONGOING_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[ongoing_ova]', User::ONGOING_OVA_NOTIFICATIONS, @user.notifications & User::ONGOING_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ONGOING_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+      </tr>
+      <tr>
+        <td class="name">Новый онгоинг (выход первой серии только добавленного в мой список онгоинга)</td>
+        <td class="num"><%=check_box_tag 'notifications[my_ongoing_tv]', User::MY_ONGOING_TV_NOTIFICATIONS, @user.notifications & User::MY_ONGOING_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_ONGOING_TV_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[my_ongoing_movie]', User::MY_ONGOING_MOVIE_NOTIFICATIONS, @user.notifications & User::MY_ONGOING_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_ONGOING_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[my_ongoing_ova]', User::MY_ONGOING_OVA_NOTIFICATIONS, @user.notifications & User::MY_ONGOING_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_ONGOING_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+      </tr>
+      <tr>
+        <td class="name">Новый релиз (выход последней серии любого онгоинга)</td>
+        <td class="num"><%=check_box_tag 'notifications[release_tv]', User::RELEASE_TV_NOTIFICATIONS, @user.notifications & User::RELEASE_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::RELEASE_TV_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[release_movie]', User::RELEASE_MOVIE_NOTIFICATIONS, @user.notifications & User::RELEASE_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::RELEASE_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[release_ova]', User::RELEASE_OVA_NOTIFICATIONS, @user.notifications & User::RELEASE_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::RELEASE_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+      </tr>
+      <tr>
+        <td class="name">Новый релиз (выход последней серии только добавленного в мой список онгоинга)</td>
+        <td class="num"><%=check_box_tag 'notifications[my_release_tv]', User::MY_RELEASE_TV_NOTIFICATIONS, @user.notifications & User::MY_RELEASE_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_RELEASE_TV_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[my_release_movie]', User::MY_RELEASE_MOVIE_NOTIFICATIONS, @user.notifications & User::MY_RELEASE_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_RELEASE_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[my_release_ova]', User::MY_RELEASE_OVA_NOTIFICATIONS, @user.notifications & User::MY_RELEASE_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_RELEASE_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+      </tr>
+      <tr>
+        <td class="name">Выход эпизода добавленного в мой список онгоинга</td>
+        <td class="num"><%=check_box_tag 'notifications[my_episode_tv]', User::MY_EPISODE_TV_NOTIFICATIONS, @user.notifications & User::MY_EPISODE_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_EPISODE_TV_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[my_episode_movie]', User::MY_EPISODE_MOVIE_NOTIFICATIONS, @user.notifications & User::MY_EPISODE_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_EPISODE_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+        <td class="num"><%=check_box_tag 'notifications[my_episode_ova]', User::MY_EPISODE_OVA_NOTIFICATIONS, @user.notifications & User::MY_EPISODE_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_EPISODE_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+      </tr>
+    </table>
+
+    <table class="default-table m20" style="display: none;">
+      <tr>
+        <th class="name">Уведомления на e-mail</th>
+        <th class="num">Тип</th>
+      </tr>
+      <tr class="border"><th colspan="4"></th></tr>
+      <tr>
+        <td class="name">По одному письму на каждое уведомления</td>
+        <td class="num"><%=radio_button_tag 'notifications[notifications_to_email]', User::NOTIFICATIONS_TO_EMAIL_SIMPLE, @user.notifications & User::NOTIFICATIONS_TO_EMAIL_SIMPLE != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NOTIFICATIONS_TO_EMAIL_SIMPLE != 0 %></td>
+      </tr>
+      <tr>
+        <td class="name">Группировать уведомления и слать мне один раз в сутки</td>
+        <td class="num"><%=radio_button_tag 'notifications[notifications_to_email]', User::NOTIFICATIONS_TO_EMAIL_GROUP, @user.notifications & User::NOTIFICATIONS_TO_EMAIL_GROUP != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NOTIFICATIONS_TO_EMAIL_GROUP != 0 %></td>
+      </tr>
+      <tr>
+        <td class="name">Не слать уведомления мне на e-mail</td>
+        <td class="num"><%=radio_button_tag 'notifications[notifications_to_email]', User::NOTIFICATIONS_TO_EMAIL_NONE, @user.notifications & User::NOTIFICATIONS_TO_EMAIL_NONE != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NOTIFICATIONS_TO_EMAIL_NONE != 0 %></td>
+      </tr>
+    </table>
+
+    <table class="default-table m20">
+      <tr>
+        <th class="name">Личные сообщения на e-mail</th>
+        <th class="num"></th>
+      </tr>
+      <tr class="border"><th colspan="4"></th></tr>
+      <tr>
+        <td class="name"><label for="notifications_private_messages_to_email">Отсылать личные сообщения мне на e-mail</label></td>
+        <td class="num"><%=check_box_tag 'notifications[private_messages_to_email]', User::PRIVATE_MESSAGES_TO_EMAIL, @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::PRIVATE_MESSAGES_TO_EMAIL != 0, 'autocomplete' => :off %></td>
+      </tr>
+    </table>
+
+    <table class="default-table m20">
+      <tr>
+        <th class="name">Прочее</th>
+        <th class="num"></th>
+      </tr>
+      <tr class="border"><th colspan="4"></th></tr>
+      <tr>
+        <td class="name"><label for="notifications_nickname_change_notifications">Уведомления о смене ников друзей</label></td>
+        <td class="num"><%=check_box_tag 'notifications[nickname_change_notifications]', User::NICKNAME_CHANGE_NOTIFICATIONS, @user.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NICKNAME_CHANGE_NOTIFICATIONS != 0, 'autocomplete' => :off %></td>
+      </tr>
+    </table>
+
+    <div class="buttons">
+      <span class="save button">Сохранить</span>
+    </div>
+  </div>
+<% end %>

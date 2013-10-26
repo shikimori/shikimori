@@ -1,0 +1,51 @@
+@import "globals";
+
+.files {
+  margin-bottom: 40px;
+
+  a {
+    @include default-link-hover;
+  }
+  table {
+    width: 99%;
+    h3 {
+      margin: 10px 0 5px 0;
+    }
+    h3:first-child {
+      margin-top: 0px;
+    }
+    th {
+      padding-right: 5px;
+      text-align: left;
+      font-weight: bold;
+    }
+    td {
+      vertical-align: top;
+      padding-bottom: 5px;
+      padding-right: 10px;
+
+      &:first-child {
+        padding-right: 10px!important;
+      }
+      .border {
+        border-top: 1px solid #DDDDDD;
+        cursor: pointer;
+        margin-top: 5px;
+        padding: 0 0 5px 0;
+        text-align: left;
+      }
+      .source {
+        margin-top: 10px;
+        a {
+          @include normal-link;
+        }
+      }
+      del {
+        color: red;
+      }
+      ins {
+        color: $default-selected-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+/*
+= require pages/forum/common
+= require pages/reviews/common
+*/
+@import "compass/utilities/text/ellipsis";
+
+.moderation.reviews {
+  .change {
+    .info {
+      @include ellipsis;
+      max-width: 760px;
+    }
+    .moderation {
+      a {
+        margin-left: 0!important;
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+.subheadline.m10 Персонажи
+.persons-container
+  div
+    - @entries.each do |character|
+      = render partial: 'blocks/person', locals: { person: character, role: nil, link_to_character: true, no_tooltip: true, remote: character_tooltip_url(character) }, formats: :html

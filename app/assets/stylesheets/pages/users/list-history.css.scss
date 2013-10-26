@@ -1,0 +1,22 @@
+@import "globals";
+
+.list-history {
+  a {
+    @include normal-link;
+  }
+  .history-interval {
+    margin-bottom: 25px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .date {
+      @include default-date-decor;
+      font-size: 12px;
+      float: right;
+    }
+  }
+  .postloader {
+    margin-top: -20px;
+  }
+}

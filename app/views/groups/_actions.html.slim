@@ -1,0 +1,19 @@
+ul.block-list.actions-list
+  - if user_signed_in? && group.can_be_uploaded_by?(current_user)
+    li.upload-image-container.upload title="Картинки так же загружаются перетаскиванием файлов на блок картинок"
+      = form_tag new_images_url(model: :group, id: @group.id), method: :post, multipart: true do
+        span Загрузить картинку
+        input type="file" name="image[image]" id="image_image"
+
+  - if user_signed_in? && group.can_send_invites?(current_user)
+    li.send-invite-container.invite
+      span Пригласить в группу
+      input.send-invite.hidden type="text" action="#{group_invites_path group, nickname: '$nickname'}" data-method="post" data-type="json"
+
+  - if user_signed_in? && group.can_be_joined_by?(current_user || nil) && !group.has_member?(current_user || nil)
+    li.join-group.join action="#{group_roles_path group}" data-remote="true" data-method="post" data-type="json"
+      | Вступить в группу
+
+  - if user_signed_in? && group.has_member?(current_user || nil)
+    li.leave-group.leave action="#{group_roles_path group}" data-remote="true" data-method="delete" data-type="json" data-confirm="Вы действительно хотите покинуть #{@group.name}?"
+      | Покинуть группу

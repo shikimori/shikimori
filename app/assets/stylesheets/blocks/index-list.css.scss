@@ -1,0 +1,52 @@
+@import "globals";
+
+.index-list {
+  .index-item {
+    border-bottom: 1px dashed #ddd;
+    margin-bottom: 5px;
+    height: 96px;
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .image-name {
+      @include link-color(#123);
+      display: inline;
+
+      /* надо будет сделать оформление картинок аналогично аниме и манге */
+      /*a {*/
+        /*@include inner-image-selectable-decor;*/
+      /*}*/
+      img {
+      }
+      .image {
+        /*@include image-selectable-decor;*/
+        /*padding: 2px;*/
+        float: left;
+        height: 73px;
+        padding: 2px 4px 4px 0;
+        vertical-align: middle;
+        width: 73px;
+      }
+      .name {
+        @include default-header-font;
+        color: inherit;
+        margin-left: 10px;
+        padding-top: 5px;
+
+        &:hover {
+          color: inherit;
+        }
+        &:active {
+          color: inherit;
+        }
+      }
+    }
+
+    .info {
+      margin-left: 86px;
+    }
+  }
+}

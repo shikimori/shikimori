@@ -1,0 +1,34 @@
+.screenshots {
+  width: 740px;
+
+  .subblock-title {
+    margin-bottom: 10px;
+  }
+  .image-container {
+    margin: 0 5px 10px 5px;
+    /*margin: 0 12px 15px 5px;*/
+
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+    img {
+      margin: 0;
+    }
+  }
+  .placeholder {
+    border: 1px dashed #BBB;
+    height: 93px;
+    width: 168px;
+    background-color: #F5F5F5;
+  }
+  .contributors {
+    float: right;
+  }
+  h2 {
+    margin-bottom: 10px;
+  }
+}
+.screenshots-title {
+  margin-top: -5px;
+  margin-bottom: 5px;
+}

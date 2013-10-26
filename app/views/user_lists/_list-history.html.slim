@@ -1,0 +1,28 @@
+- if @history.any?
+  - if @page == 1
+    = auto_discovery_link_tag :rss, user_url(@user, format: :rss), title: "История пользователя #{@user.nickname}"
+
+  - @history.each do |interval,history|
+    .subheadline
+      - if @page == 1 && interval == @history.keys.first
+        a.rss href="#{user_url @user, format: :rss}" title="RSS"
+      = interval
+    .history-interval
+      - history.each do |entry|
+        - next if entry.target_type && entry.target.nil?
+        p
+          span.date
+            = interval == 'Сегодня' ? "#{time_ago_in_words(entry.updated_at)} назад" : Russian::strftime(entry.updated_at, "%d %B").sub(/^0/, '')
+          - if entry.target
+            a.bubbled href="#{url_for(entry.target)}" data-remote="true"
+              == UserPresenter.localized_name(entry.target, current_user)
+            | &nbsp;
+            == Unicode.downcase(UserPresenter.history_entry_text(entry))
+          - else
+            == UserPresenter.history_entry_text(entry)
+  - if @add_postloader
+    = render partial: 'site/postloader_new', locals: { filter: 'history-entry', url: list_history_url(@user, page: @page+1, format: :json, only_path: false) }, formats: :html
+- else
+  - if @page == 1
+    .subheadline История
+    p Ничего нет

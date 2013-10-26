@@ -1,0 +1,30 @@
+- content_for :head do
+  = stylesheet_link_tag :people
+- content_for :tail do
+  = javascript_include_tag :characters
+
+header.head
+  h1 title="#{h1_text @entry}" itemprop="name"
+    = h1_text @entry, true
+  p.notice
+    = @entry.job_title
+
+.info
+  aside.character-left-menu.left-column
+    = render 'menu_left'
+
+  section.right-column
+    .entry-content-slider.view-port.vertical-slider class="#{@entry.class.name.downcase}-content-slider" data-width="770"
+      .view-content style="margin-left: #{-1*770*@director.page_index}px"
+        - @director.pages.each_with_index do |page, index|
+          .slide
+            - if @director.page_index == index
+              section class="#{page_class page} selected"
+                = render @director.partial
+            - else
+              div class="#{page_class page}"
+                - if params[:page] == 'info' && page == 'comments'
+                  = render @director.partial.sub(params[:page], page)
+                - else
+                  br
+.clearfix

@@ -1,0 +1,19 @@
+@import "globals";
+
+.contests {
+  .contest {
+    @include text-font;
+    margin: 0;
+  }
+  a, span {
+    padding-left: 7px;
+  }
+  a {
+    @include normal-link;
+  }
+  .date {
+    @include default-date-decor;
+    display: inline;
+    padding-left: 7px;
+  }
+}

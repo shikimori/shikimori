@@ -1,0 +1,33 @@
+@import "globals";
+
+.tipsy {
+  padding: 5px;
+  background-repeat: no-repeat;
+  background: inline-image("/bubble/tipsy_white.png");
+}
+.tipsy-inner {
+  @include border-radius(4px);
+  @include box-shadow(rgba(80, 80, 80, 0.6), 1px, 1px, 1px);
+  @include text-font;
+  /*@include text-shadow(rgba(100, 100, 100, 0.5), 1px, 1px, 1px);*/
+  background-color: white;
+  border: 1px solid #F5F5F5;
+  color: #333333;
+  font-size: 12px;
+  line-height: 17px;
+  max-width: 250px;
+  padding: 0 7px;
+  text-align: center;
+}
+.tipsy-north {
+  background-position: top center;
+}
+.tipsy-south {
+  background-position: bottom center;
+}
+.tipsy-east {
+  background-position: right center;
+}
+.tipsy-west {
+  background-position: left center;
+}

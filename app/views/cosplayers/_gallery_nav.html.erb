@@ -1,0 +1,9 @@
+<div class="ad-thumbs">
+  <ul class="ad-thumb-list">
+    <% gallery.images.each do |image| %>
+      <li>
+        <a href="<%=image.image.url %>"><img src="<%=image.image.url(:preview) %>" height="80" onload="$(this).attr('data-loaded', true);"></a>
+      </li>
+    <% end %>
+  </ul>
+</div>

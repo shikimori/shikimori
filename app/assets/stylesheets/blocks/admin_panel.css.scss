@@ -1,0 +1,47 @@
+@import "globals";
+
+.delayed_jobs {
+  position: relative;
+  margin-left: -280px;
+
+  /*position: absolute;*/
+  /*left: 169px;*/
+  /*top: 6px;*/
+
+  .tooltip-inner {
+    width: 230px;
+
+    .subblock-title {
+      margin-bottom: 5px;
+    }
+    .reload {
+      color: #666666;
+      cursor: pointer;
+      display: block;
+      float: right;
+      font-size: 20px;
+      margin-top: -4px;
+
+      &:before {
+        content: "\E801";
+        font-family: "shikimori";
+        font-size: 14px;
+      }
+      &:active {
+        @include text-shadow(#DDDDDD, 1px, 1px, 0px);
+      }
+      &:hover {
+        color: #333333;
+      }
+    }
+    .failed {
+      color: red;
+    }
+    .pending {
+      color: blue;
+    }
+    .executing {
+      color: green;
+    }
+  }
+}

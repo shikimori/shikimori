@@ -1,0 +1,168 @@
+module MalDeployer
+  # применение импортированных данных к элементу и сохранение элемента в базу
+  def deploy entry, data
+    deploy_genres entry, data[:entry][:genres] if data[:entry].include? :genres
+    deploy_studios entry, data[:entry][:studios] if data[:entry].include? :studios
+    deploy_publishers entry, data[:entry][:publishers] if data[:entry].include? :publishers
+
+    deploy_related entry, data[:entry][:related] if data[:entry].include? :related
+    deploy_recommendations entry, data[:recommendations] if data.include? :recommendations
+    deploy_attached_images entry, data[:images] if data.include? :images
+    deploy_characters entry, data[:characters] if data.include? :characters
+    deploy_people entry, data[:people] if data.include? :people
+
+    deploy_seyu entry, data[:entry][:seyu] if data[:entry].include? :seyu
+
+    # изменения самого элемента
+    data[:entry].except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
+        .each {|k,v| entry[k] = v }
+    entry.mal_scores = data[:scores] if data.include? :scores
+
+    if Rails.env != 'test' && !(data[:entry][:img].include?("na_series.gif") || data[:entry][:img].include?("na.gif"))
+      begin
+        if File.exists? "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
+          io = open_image "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
+        else
+          io = open_image data[:entry][:img]
+        end
+        entry.image = io.original_filename.blank? ? nil : io if data[:entry].include?(:img)# && !entry.image.exists?
+      rescue OpenURI::HTTPError => e
+        raise e unless e.message == "404 Not Found"
+        entry.image = nil
+      end
+    end
+
+    # дата импорта и сохранение элемента, делать надо обязательно в последнюю очередь
+    entry.imported_at = DateTime.now
+    entry.save!
+  end
+
+  # загрузка привязанных жанров
+  def deploy_genres entry, entry_genres
+    return if entry_genres.empty?
+    # добавление новых жанров
+    (entry_genres.map {|v| v[:id] } - self.genres.keys).map do |genre_id|
+      entry_genres.select {|v| v[:id] == genre_id }.first
+    end.each do |genre|
+      self.genres[genre[:id]] = Genre.find_or_create_by_id_and_name(genre[:id], genre[:name])
+      print "added genre %s\n" % genre[:name] if Rails.env != 'test'
+    end
+    # и привязка всех жанров элемента к элементу
+    entry.genres = entry_genres.map {|v| self.genres[v[:id]] }
+  end
+
+  # загрузка привязанных студий
+  def deploy_studios entry, entry_studios
+    return if entry_studios.empty?
+    # добавление новых студий
+    (entry_studios.map {|v| v[:id] } - self.studios.keys).map do |studio_id|
+      entry_studios.select {|v| v[:id] == studio_id }.first
+    end.each do |studio|
+      self.studios[studio[:id]] = Studio.find_or_create_by_id_and_name(studio[:id], studio[:name])
+      print "added studio %s\n" % studio[:name] if Rails.env != 'test'
+    end
+    # и привязка всех студий элемента к элементу
+    entry.studios = entry_studios.map {|v| self.studios[v[:id]] }
+  end
+
+  # загрузка привязанных издателей
+  def deploy_publishers entry, entry_publishers
+    return if entry_publishers.empty?
+    # добавление новых студий
+    (entry_publishers.map {|v| v[:id] } - self.publishers.keys).map do |publisher_id|
+      entry_publishers.select {|v| v[:id] == publisher_id }.first
+    end.each do |publisher|
+      self.publishers[publisher[:id]] = Publisher.find_or_create_by_id_and_name(publisher[:id], publisher[:name])
+      print "added publisher %s\n" % publisher[:name] if Rails.env != 'test'
+    end
+    # и привязка всех студий издателей к элементу
+    entry.publishers = entry_publishers.map {|v| self.publishers[v[:id]] }
+  end
+
+  # загрузка привязки похожих элементов
+  def deploy_recommendations entry, recommendations
+    return if recommendations.empty?
+    klass = Object.const_get("Similar#{type.camelize}")
+    klass.where(src_id: entry.id).delete_all
+
+    time = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
+    queries = recommendations.reverse.map do |rec|
+      "(#{entry.id}, #{rec["#{type}_id".to_sym]}, '#{time}', '#{time}')"
+    end
+    ActiveRecord::Base.connection.
+      execute("insert into #{klass.table_name} (`src_id`, `dst_id`, `created_at`, `updated_at`)
+                  values #{queries.join(',')}") unless queries.empty?
+  end
+
+  # загрузка привязанных картинок
+  def deploy_attached_images entry, images
+    # уже загруженные картинки
+    existed_images = AttachedImage.where(owner_id: entry.id, owner_type: entry.class.name).select(:url).all.map(&:url)
+    (images - existed_images).each do |url|
+      begin
+        if Rails.env != 'test' && !(url.include?("na_series.gif") || url.include?("na.gif"))
+          io = open_image url
+        end
+
+        AttachedImage.create! url: url, owner: entry, image: Rails.env != 'test' ? (io.original_filename.blank? ? nil : io) : ''
+
+      rescue ActiveRecord::RecordInvalid => e
+        raise unless e.message =~ /is not recognized by the 'identify' command/
+      rescue OpenURI::HTTPError => e
+        raise unless e.message == "404 Not Found"
+      end
+    end
+  end
+
+  # загрузка связанных элементов
+  def deploy_related entry, related
+    # похожие элементы
+    klass = Object.const_get("Related#{type.camelize}")
+    klass.where(source_id: entry.id).delete_all
+
+    time = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
+
+    queries = related.map do |relation,related_ids|
+      related_ids.map do |related_id|
+        "(#{entry.id},
+          #{(entry.class == Anime && relation != 'Adaptation') || (entry.class == Manga && relation == 'Adaptation') ? related_id.to_i : 'null'},
+          #{(entry.class == Anime && relation == 'Adaptation') || (entry.class == Manga && relation != 'Adaptation') ? related_id.to_i : 'null'},
+          '#{relation}',
+          '#{time}',
+          '#{time}')"
+      end
+    end.flatten
+
+    ActiveRecord::Base.connection.
+      execute("insert into #{klass.table_name} (`source_id`, `anime_id`, `manga_id`, `relation`, `created_at`, `updated_at`)
+                  values #{queries.join(',')}") unless queries.empty?
+  end
+
+  # загрузка привязок к персонажам
+  def deploy_characters entry, characters
+    # сперва удаляем все старые записи, затем создаём новые привязки
+    PersonRole.where("#{type}_id = ? and character_id is not null", entry.id).delete_all
+    time = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
+    queries = characters.map do |k,v|
+      "('#{v[:role]}', #{entry.id}, #{v[:id]}, '#{time}', '#{time}')"
+    end
+
+    ActiveRecord::Base.connection.
+      execute("insert into person_roles (`role`, `#{type}_id`, `character_id`, `created_at`, `updated_at`)
+                  values #{queries.join(',')}") unless queries.empty?
+  end
+
+  # загрузка привязок к людям
+  def deploy_people entry, people
+    # сперва удаляем все старые записи, затем создаём новые привязки
+    PersonRole.where("#{type}_id = ? and person_id is not null", entry.id).delete_all
+    time = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
+    queries = people.map do |k,v|
+      "('#{v[:role]}', #{entry.id}, #{v[:id]}, '#{time}', '#{time}')"
+    end
+
+    ActiveRecord::Base.connection.
+      execute("insert into person_roles (`role`, `#{type}_id`, `person_id`, `created_at`, `updated_at`)
+                  values #{queries.join(',')}") unless queries.empty?
+  end
+end

@@ -1,0 +1,19 @@
+- if params[:test]
+  - content_for :head do
+    = stylesheet_link_tag :ani_manga
+  - content_for :tail do
+    = javascript_include_tag :ani_manga
+
+  .person-block class="#{person_tooltip_class @entry}"
+    .tooltip
+      - if @entry.class == UserChange
+        = render partial: 'moderation/user_changes/tooltip'
+      - else
+        == person_tooltip_text @entry, @entry.class == Character
+
+- else
+  - if @entry.class == UserChange
+    = render partial: 'moderation/user_changes/tooltip', locals: { no_format: true }
+  - else
+   = cache ['tooltip', @entry], expires_in: 2.weeks
+     == person_tooltip_text @entry, @entry.class == Character, true

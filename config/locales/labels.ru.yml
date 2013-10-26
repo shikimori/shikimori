@@ -1,0 +1,168 @@
+ru:
+  Name:
+    Anime: Аниме
+    Character: Персонаж
+    Manga: Манга
+  Deleted:
+    Anime: Удалённое аниме
+    Character: Удалённый персонаж
+    Manga: Удалённая манга
+    Review: Удалённая рецензия
+  Genetive:
+    Anime: Аниме
+    Manga: Манги
+    Character: Персонажа
+    Group: Клуба
+  Anime:
+    Movie: Полнометражное
+    Music: Клип
+    ONA: ONA
+    OVA: OVA
+    Special: Спешиал
+    TV: Сериал
+    TV-13: Односезонное
+    TV-24: Двухсезонное
+    TV-48: Многосезонное
+    Plural:
+      TV: TV Сериалы
+      Movie: Полнометражные фильмы
+      OVA/ONA: OVA / ONA
+      Special: Спешиалы
+      Music: Клипы
+    Short:
+      Movie: Фильм
+      Music: Клип
+      ONA: ONA
+      OVA: OVA
+      Special: Спешиал
+      TV: Сериал
+    Full:
+      Movie: Полнометражные аниме
+      Music: Клипы
+      ONA: ONA
+      OVA: OVA
+      Special: Спешиалы
+      TV: Аниме сериалы
+      TV 13: Односезонные аниме сериалы
+      TV 24: Двухсезонные аниме сериалы
+      TV 48: Многосезонные аниме сериалы
+    Duration:
+      S: До 10 минут
+      D: До 30 минут
+      F: Более 30 минут
+  Manga:
+    Doujin: Додзинси
+    Manga: Манга
+    Manhua: Маньхуа
+    Manhwa: Манхва
+    Novel: Новелла
+    One Shot: Ваншот
+    Short:
+      Doujin: Додзинси
+      Manga: Манга
+      Manhua: Маньхуа
+      Manhwa: Манхва
+      Novel: Новелла
+      One Shot: Ваншот
+    Full:
+      Doujin: Додзинси
+      Manga: Манга
+      Manhua: Маньхуа
+      Manhwa: Манхва
+      Novel: Новеллы
+      One Shot: Ваншот манга
+  AniMangaStatus:
+    Currently Airing: онгоинг
+    Finished Airing: вышло
+    Finished: вышло
+    Not yet aired: анонс
+    Not yet published: анонс
+    Publishing: выходит
+  AniMangaStatusUpper:
+    Currently Airing: Онгоинг
+    Finished Airing: Вышло
+    Finished: Вышло
+    Not yet aired: Анонс
+    Not yet published: Анонс
+    Publishing: Выходит
+  AnimeRateStatus:
+    Plan to Watch: Запланировано
+    Watching: Смотрю
+    Completed: Просмотрено
+    On-Hold: Отложено
+    Dropped: Брошено
+  MangaRateStatus:
+    Plan to Watch: Запланировано
+    Watching: Читаю
+    Completed: Прочитано
+    On-Hold: Отложено
+    Dropped: Брошено
+  Rating:
+    G - All Ages: "Для всех возрастов"
+    PG - Children: "Рекомендуется присутствие родителей"
+    PG-13 - Teens 13 or older: "До 13 лет просмотр с родителями"
+    R+ - Mild Nudity: "До 17 лет просмотр с родителями"
+    R - 17+ (violence & profanity): "Запрет на просмотр до 17 лет"
+    R - 17+ (violence &amp; profanity): "Запрет на просмотр до 17 лет"
+    Rx - Hentai: "Только для совершеннолетних"
+  RatingShort:
+    G - All Ages: G
+    PG - Children: PG
+    PG-13 - Teens 13 or older: PG-13
+    R+ - Mild Nudity: R+
+    R - 17+ (violence & profanity): NC-17
+    R - 17+ (violence &amp; profanity): NC-17
+    Rx - Hentai: Rx
+  User:
+    ContactsPrivacy:
+      users: пользователи
+      friends: друзья
+      all: все
+  Relation:
+    Adaptation: Адаптация
+    Alternative setting: Альтернативная вселенная
+    Alternative version: Альтернативная история
+    Character: Общий персонаж
+    Full story: Развернутая история
+    Other: Прочее
+    Parent story: Изначальная история
+    Prequel: Предыстория
+    Sequel: Продолжение
+    Side story: Другая история
+    Spin-off: Ответвление от оригинала
+    Summary: Обобщение
+  UserList:
+    Short:
+      tv: Сериалы
+      manga: Манга
+      manhwa: Манхва
+      manhua: Маньхуа
+      doujin: Додзинси
+      novel: Новеллы
+      oneshot: Ваншоты
+      movie: Фильмы
+      ova: OVA
+      ona: ONA
+      special: Спешиалы
+      music: Клипы
+      episodes: Эпизоды
+      chapters: Главы
+      days: Дни
+  UserChangeStatus:
+    Pending: Ожидает рассмотрения
+    Accepted: Принято
+    Taken: Взято
+    Rejected: Отклонено
+    Deleted: Удалено
+    Locked: Забронировано
+  Torrents:
+    torrents_480p: Эпизоды 480p
+    torrents_720p: HD Эпизоды 720p
+    torrents_1080p: FullHD Эпизоды 1080p
+    torrents: Прочие эпизоды
+  Contest:
+    created: Подготовка
+    proposing: Сбор кандидатов
+    started: Запущено
+    finished: Завершено
+

@@ -1,0 +1,25 @@
+div.item-content-editor
+  p.m2 Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
+
+  /= form_tag user_change_path do
+  = form_tag moderation_do_user_change_path, :format => :json, :remote => true, 'data-type' => :json do
+    = hidden_field_tag 'apply', '', 'autocomplete' => :off
+    = hidden_field_tag 'change[model]', item.class.name, 'autocomplete' => :off
+    = hidden_field_tag 'change[column]', field, 'autocomplete' => :off
+    = hidden_field_tag 'change[item_id]', item.id, 'autocomplete' => :off
+
+    div.forum-container
+      div.comments.zero-margin.zero-top-border
+        = render partial: 'comments/add', locals: { options: { \
+                                                      text: item.send(field) || (defined?(from) ? item.send(from) : ''), \
+                                                      field_name: 'change[value]', \
+                                                      no_save: true, \
+                                                      no_subscribe: true, \
+                                                      no_form: true \
+                                                    } \
+                                                  }, formats: :html
+    p.source
+      | Источник (
+      span.notice title="Адрес страницы, откуда взят текст" ?
+      | ): 
+      = text_field_tag 'change[source]', item.source, 'autocomplete' => :off, :class => :common

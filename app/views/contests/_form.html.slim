@@ -1,0 +1,141 @@
+= form_for contest, html: { class: "edit contest #{contest.strategy_type}" } do |f|
+  - if contest.errors.any?
+    .errors
+      .subheadline.red Ошибки
+      .subcontent
+        == contest.errors.full_messages.join('<br>')
+      div
+
+  .subheadline Общее
+  .subcontent
+    .field-name Название
+    .m10
+      = text_field :contest, :title, class: 'common'
+
+    .hidden
+      .field-name.textarea Описание
+      = render partial: 'comments/add', locals: { options: { text: (params[:contest] ? params[:contest][:description] : nil) || contest.description, field_name: 'contest[description]', no_poster: true, no_save: true, no_subscribe: true, no_form: true } }
+
+    .field-name Тип номинантов
+    .m10
+      = f.select :member_type, Contest.member_type.options, {},  disabled: contest.persisted?
+
+    .field-name Стратегия
+    .m10
+      = f.select :strategy_type, Contest.strategy_type.options, {}, disabled: contest.started? || contest.finished?
+
+    .field-name Ключ в таблице пользователя
+    .m10
+      = f.select :user_vote_key, [:can_vote_1, :can_vote_2, :can_vote_3]
+      span.action-misc Не должно быть голосований, запущенных в одно время с одинаковым ключём. Иначе галочка в меню будет неправильно работать.
+
+  .two-columns.m30
+    .column
+      .subheadline Длительность
+      .subcontent
+        .field-name Голосований в этапе
+        .m10
+          = text_field :contest, :matches_per_round, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
+          - if contest.swiss?
+            span.action-misc Для швейцарской системы эту цифру желательно подобрать таким образом, чтобы каждый раунд разбивался не более, чем на три равных блока. Для 72 участников это будет 12, для 60 - 10.
+
+        .field-name Вариантов номинаций от одного пользователя
+        .m10
+          = text_field :contest, :suggestions_per_user, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
+
+        .field-name Дней между этапами
+        .m10
+          = text_field :contest, :matches_interval, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
+
+        .field-name Длительность голосования
+        .m10
+          = text_field :contest, :match_duration, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
+
+        .field-name Дата старта
+        .m0
+          = date_select :contest, :started_on, disabled: contest.started? || contest.finished?, start_year: [contest.started_on.year, Date.today.year].min, end_year: [contest.started_on.year, Date.today.year + 1].max
+
+        - if contest.rounds.any?
+          span.action-misc При изменении этих параметров голосования будут перетасованы.
+
+    .column
+      - if contest.persisted?
+        .subheadline Статус
+        .subcontent
+          p.m5 = t("Contest.#{contest.state}")
+
+        - if contest.can_propose? || contest.can_start?
+          .subheadline Действия
+          .subcontent
+            - if contest.can_propose?
+              a.action href="#{propose_contest_url contest}" Начать приём кандидатов от пользователей
+
+            - if contest.can_start?
+              a.action href="#{build_contest_url contest}"
+                - if contest.rounds.empty?
+                  | Сгенерировать голосования
+                - else
+                  | Перетасовать голосования
+              - if contest.can_start? & contest.rounds.any?
+                a.action href="#{start_contest_url contest}" data-confirm="Вы уверены? После запуска ничего изменить уже будет нельзя!" Запустить турнир
+              span.action-misc Действия перезагружают страницу без сохранения прочих изменений.
+
+              - if contest.links.count < Contest::MINIMUM_MEMBERS
+                span.action-misc.warn Для старта должно быть минимум #{Contest::MINIMUM_MEMBERS} аниме
+              - elsif contest.links.count > Contest::MAXIMUM_MEMBERS
+                span.action-misc.warn Для старта должно быть максимум #{Contest::MAXIMUM_MEMBERS} аниме
+              /- elsif Contest.all.any?(&:started?)
+                span.action-misc.warn Для старта не должно быть других запущенных опросов
+
+              span.action-misc.warn После старта ничего изменить будет нельзя!
+
+            /- if contest.can_finish?
+              /a.action href="#{finish_contest_url(contest)}" data-confirm="Вы уверены?" Остановить
+              /span.action-misc действие перезагрузит страницу без сохранения прочих изменений
+
+      - if contest.rounds.any?
+        .subheadline Турнирная сетка
+        .subcontent.grid
+          a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
+
+  - if contest.persisted?
+    - if contest.created? || contest.proposing?
+      input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
+
+      .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
+      .subcontent
+        = hidden_field_tag "members[]", ''
+        ul.container.m5
+          - contest.members.uniq(&:id).each do |member|
+            li
+              = hidden_field_tag 'members[]', member.id
+              a href="#{url_for member}" class="bubbled" data-remote="true"
+                = member.name
+              - if member.respond_to? :score
+                span.bracket-details
+                  = member.score
+              - if contest.created? || contest.proposing?
+                span.bracket-actions
+                  span.item-delete удалить
+
+      p
+        | Итого:&nbsp;
+        span.members-count #{contest.members.count}
+        | &nbsp;участников
+
+    - if contest.suggestions.any?
+      .suggestions
+        = render 'contests/suggestions', contest: contest
+
+  p.buttons.m30
+    span.save.button
+      = contest ? 'Сохранить' : 'Создать'
+  .clearfix
+
+  - if contest.persisted?
+    - if contest.rounds.any?
+      - contest.rounds.each do |round|
+        .subheadline
+          = round.title
+        .subcontent
+          = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(round)

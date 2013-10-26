@@ -1,0 +1,122 @@
+@import "globals";
+
+header.head {
+  margin-bottom: 15px;
+
+  h1, h2 {
+    @include new-header-font;
+  }
+  .notice, .breadcrumbs {
+    @include text-font;
+    color: #333;
+    line-height: 17px;
+    margin: 2px 0 2px 1px;
+    clear: left;
+    /*white-space: nowrap;*/
+  }
+  .breadcrumbs a {
+    @include normal-link;
+  }
+
+  &.misc {
+    h1, h2 {
+      float: left;
+      margin-bottom: 2px;
+    }
+    .misc {
+      @include text-font;
+      color: $gray-color;
+      display: inline-block;
+      font-size: 11px;
+      line-height: 12px;
+      padding: 17px 0 0 10px;
+    }
+    a.misc {
+      @include normal-link;
+    }
+  }
+}
+
+.headline {
+  @include transition(color, 0.2s);
+  @include default-font-family;
+  /*font-family: 'Times New Roman';*/
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  max-height: 20px;
+  padding: 8px 10px 6px;
+  text-transform: uppercase;
+
+  color: #123;
+  /*color: #2a333c;//#333;*/
+  background: #ebeef1;
+  border-left: 5px solid #dbe0e6;
+
+  a {
+    @include transition(color, 0.2s);
+    color: #123;
+    display: block;
+    text-decoration: none;
+
+    &:after {
+      @include transition(color, 0.2s);
+      color: $gray-color;
+      content: "\e81c";
+      display: block;
+      float: right;
+      font-family: "shikimori";
+      line-height: 17px;
+    }
+    &:hover {
+      color: $default-hover-color;
+      &:after {
+        color: $default-hover-color;
+      }
+    }
+    &:active {
+      color: $default-active-color;
+      &:after {
+        color: $default-active-color;
+      }
+    }
+  }
+}
+.subheadline {
+  @extend .headline;
+  font-size: 14px;
+  padding: 6px 10px 4px 8px;
+  /*border-left: 5px solid #dbe0e6;*/
+  margin-bottom: 5px;
+
+  /*font-size: 15px;*/
+  /*padding: 5px 10px 5px 8px;*/
+
+  /*font-family: 'Times New Roman';*/
+  /*font-weight: bold;*/
+  /*text-transform: none;*/
+}
+
+// инпунт с правого края заголовка
+.subheadline-input {
+  float: right;
+  font-size: 12px;
+  height: 16px;
+  line-height: 17px;
+  margin-right: 2px!important;
+  margin-top: 2px!important;
+  width: 155px!important;
+}
+.subcontent {
+  padding-left: 5px;
+  margin-bottom: 30px;
+}
+/*.subsuggest {*/
+  /*float: right;*/
+  /*font-size: 11px;*/
+  /*line-height: 14px;*/
+  /*margin: 3px 3px 0 0!important;*/
+  /*outline: none;*/
+  /*padding: 1px 3px;*/
+  /*width: 242px!important;*/
+/*}*/

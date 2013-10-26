@@ -1,0 +1,44 @@
+- content_for :head do
+  = stylesheet_link_tag :ani_mangas
+  = stylesheet_link_tag :abuse_requests
+  = stylesheet_link_tag :user_changes
+
+- content_for :tail do
+  = javascript_include_tag :abuse_requests
+
+header.head
+  h1
+    = @page_title
+  p.notice Список пометок комментариев сайта пользователями
+
+.abuse-requests
+  .subheadline Инструкция
+  .changes
+    .comment-block.m30
+      .description
+        .moderators
+          = render partial: 'blocks/user', collection: @moderators, locals: { avatar_size: 48 }, formats: :html
+        ul.m10
+          li: p Личные разговоры в топиках аниме - оффтоп.
+          li: p Комментарии от тех, у кого проблемы с русским языком - оффтоп.
+          li: p С негативных отзывов, если они культурно написаны, "отзыв" снимать не надо.
+
+        p Остальное на ваше усмотрение.
+
+  .item-editor.m20
+    .forum-container.changes
+      .comments.zero-margin.zero-top-border
+        .comments-container
+          - if @pending.any?
+            h2.subheadline Очередь
+            .abuse_requests.m30
+              = render partial: 'abuse_request', collection: @pending, formats: :html
+
+          - if @processed.any?
+            - if user_signed_in? && current_user.moderator?
+              .options-floated.r10
+                a href="#{moderation_bans_url}" баны + предупреждения
+            h2.subheadline История
+            .abuse_requests
+              = render partial: 'abuse_request', collection: @processed, formats: :html
+              = render partial: 'site/postloader_new', locals: { url: page_moderation_abuse_requests_url(page: @page+1) }, formats: :html

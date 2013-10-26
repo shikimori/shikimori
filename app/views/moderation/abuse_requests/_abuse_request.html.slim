@@ -1,0 +1,26 @@
+.abuse-request
+  = render partial: 'comments/comment', object: abuse_request.comment, formats: :html
+
+  .request-control.change
+    p
+      = link_to user_url(abuse_request.user) do
+        img.avatar src="#{gravatar_url abuse_request.user, 16}" alt="#{abuse_request.user.nickname}" title="#{abuse_request.user.nickname}"
+      = link_to abuse_request.user.nickname, user_url(abuse_request.user), class: 'nickname', title: "#{abuse_request.user.nickname}"
+      span #{abuse_request.value ? (abuse_request.user.female? ? ' отметила' : ' отметил') : (abuse_request.user.female? ? ' сняла' : ' снял')} <span class="#{abuse_request.kind}-marker">#{abuse_request.kind_text}</span>
+    - if abuse_request.pending?
+      - if abuse_request.punishable?
+        span.bracket-actions: span.ignore data-action="#{deny_moderation_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет нарушения
+        span.bracket-actions: span.warn data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
+        - unless abuse_request.spoiler?
+          span.bracket-actions: span.ban data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
+        .ban-form
+      - else
+        span.bracket-actions: span.take data-action="#{take_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" принять
+        span.bracket-actions: span.deny data-action="#{deny_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
+    - else
+      p.state
+        - if abuse_request.accepted?
+          span.result style="color: green;" принято
+        - else
+          span.result style="color: red;"  отклонено
+        span #{abuse_request.approver.nickname}

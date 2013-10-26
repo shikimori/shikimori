@@ -1,0 +1,61 @@
+@import "globals";
+
+.local-menu-block {
+  /*margin-bottom: 20px;*/
+
+  .entry-image {
+    img {
+      margin-bottom: 0;
+      max-width: 215px;
+      width: 100%;
+    }
+    a {
+      @include text-font;
+      @include normal-link;
+      display: block;
+      text-align: right;
+    }
+  }
+
+  .block-title {
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 5px;
+  }
+  .menu-topics-block .block-title {
+    margin-bottom: 2px;
+  }
+
+  .block-body {
+    margin-bottom: 15px;
+
+    p.key, p .key {
+      color: #555;
+    }
+    p.value, p .value {
+      color: #333;
+    }
+    .studio-logo {
+      max-width: 215px;
+    }
+    .anime-alt {
+      a {
+        @include default-link;
+        color: inherit;
+        img {
+          background: white!important;
+        }
+      }
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.forum-block .comments.zero-top-border {
+  .comment-block:first-child {
+    margin-top: -2px;
+  }
+}

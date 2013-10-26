@@ -1,0 +1,19 @@
+- content_for :head do
+  = stylesheet_link_tag :userlist_comparer
+- content_for :tail do
+  = javascript_include_tag :userlist_comparer
+
+header.head
+  h1
+    span Сравнение списка #{@klass == Anime ? 'аниме' : 'манги' }
+  p.notice
+    span На данной странице сравниваются списки пользователе <a href="#{url_for @user_1}">#{@user_1.nickname}</a> и <a href="#{url_for @user_2}">#{@user_2.nickname}</a>.&nbsp;
+    span <span style="background: #f2fff2">Зёленый</span> цвет означает совпадение оценок, а <span style="background: #fff2f2">красный</span> - различие.&nbsp;
+    span Чем насыщененй цвет, тем сильнее <span style="background: #e6ffe6">сходство</span> или <span style="background: #ffe6e6">различие</span> в оценках.
+  p.notice <span style="color: red">Важно!</span> Оценки сравниваются не по прямому совпадению цифр, а с учётом усреднённых оценкок, которые ставит каждый пользователь. Поэтому в некоторых случаях оценки 6 и 8 могут отображаться как сильно совпадающие, а оценки 8 и 8 как сильно различающиеся.
+
+.menu-left
+  = render partial: 'ani_mangas_collection/menu', locals: { special: false, links: false, mylist: false, options_filters: true, custom_sorts: [[:user_1, "По оценке #{@user_1.nickname}"], [:user_2, "По оценке #{@user_2.nickname}"]], klass: @klass }
+.ajax
+  = render partial: 'userlist_comparer/table'
+.clearfix

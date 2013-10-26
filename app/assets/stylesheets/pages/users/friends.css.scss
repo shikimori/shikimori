@@ -1,0 +1,28 @@
+@import "globals";
+
+.index-list {
+  h2 {
+    margin-bottom: 5px;
+  }
+  .index-item {
+    .info {
+      width: 280px;
+
+      .last-online {
+        font-size: 11px;
+        margin-top: -3px;
+        padding-left: 2px;
+
+        .date {
+          @include default-date-decor;
+        }
+      }
+    }
+    .changes {
+      float: right;
+      margin-right: 5px;
+      margin-top: -3px;
+      width: 400px;
+    }
+  }
+}

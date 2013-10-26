@@ -1,0 +1,28 @@
+.item-editor-container.videos data-kind="#{@entry.class.name.downcase}"
+  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.class.name.downcase}_url", @entry), item_name: @entry.class.name.downcase }, formats: :html
+  .subheadline Добавление нового ролика
+  .subcontent.item-content-editor.m30
+    = form_for Video.new, remote: true, 'data-type' => :json do |f|
+      = hidden_field_tag :apply, ''
+      .field-name Ссылка
+      .m10
+        = f.text_field :url, class: 'common'
+
+      .field-name Тип
+      .m10
+        /= f.select :kind, [Video::PV, Video::OP, Video::ED, Video::AMW]
+        = f.select :kind, [Video::PV, Video::OP, Video::ED]
+
+      .field-name Название (опционально)
+      .m10
+        = f.text_field :name, class: 'common'
+
+  - if @entry.videos.any? || @entry.changes[:videos].any?
+    .videos
+      .subheadline Изменение видео роликов
+      .subcontent
+        .videos-list.expanded
+          = render partial: 'videos/video', collection: @entry.videos, locals: { entry: @entry, expanded: true, with_deletion: true }, formats: :html
+
+  .no-change-details
+    = render partial: 'site/editor_changes', locals: { changes: @entry.changes[:video], moderation: true }, formats: :html

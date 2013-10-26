@@ -1,0 +1,24 @@
+.ajax-loading {
+  background: transparent inline-image('/globals/ajax.gif') no-repeat;
+  background-position: center;
+  min-height: 28px;
+  width: 100%;
+
+  &.top {
+    background-position: top center;
+  }
+  &.vk-like {
+    background: transparent inline-image('/globals/ajax-loading.gif') no-repeat;
+    background-position: center;
+    min-height: 21px;
+
+    &.left {
+      background-position: left;
+    }
+  }
+  &.cursor {
+    background: transparent inline-image('/globals/ajax-cursor.gif') no-repeat;
+    height: 31px;
+    width: 31px;
+  }
+}

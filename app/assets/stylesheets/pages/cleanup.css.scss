@@ -1,0 +1,7 @@
+@import "globals";
+
+.cleanup {
+  .link-color {
+    @include normal-link;
+  }
+}

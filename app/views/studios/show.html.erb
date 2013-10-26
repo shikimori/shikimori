@@ -1,0 +1,72 @@
+<div class="animes">
+  <div class="left-column-wrap">
+    <div class="right-column-wrap">
+      <div class="left-column">
+        <aside class="menu-left">
+          <%=render :partial => 'ani_mangas/menu_left', :locals => {:special => false, :links => false, :mylist => true, :klass => Anime } %>
+        </aside>
+      </div>
+      <div class="right-column">
+        <div class="ajax">
+          <%=render :partial => 'ani_mangas/entry', :collection => @animes %>
+        </div>
+      </div>
+      <div class="clearfix-full"></div>
+    </div>
+  </div>
+</div>
+
+
+<% content_for :before_page_content do %>
+  <div class="editable">
+    <header class="common-title">
+      <h1 class="h1" title="<%=@page_title %>"><%=@page_title %></h1>
+      <div class="buttons">
+        <%=render :partial => 'site/editor_buttons', :locals => {:apply_path => apply_studio_path, :item_name => 'studio'} %>
+      </div>
+    </header>
+
+    <div class="studio-block">
+      <div class="item-content">
+        <% if @studio.image.exists? %>
+          <img src="<%=@studio.image.url %>" alt="<%=@studio.name %>" title="<%=@studio.name %>" class="logo" />
+        <% end %>
+        <% if !@studio.description %>
+          <!--noindex-->
+        <% end %>
+        <div class="description">
+        <%=(@studio.description || @studio.ani_db_description).gsub(/<a href=/, '<a rel="nofollow" href=').html_safe if @studio.description || @studio.ani_db_description %>
+        <% if @studio.website %>
+          <p class="site"><span class="key">Сайт:</span> <span class="value"><%=sitelink @studio.website %></span></p>
+        <% end %>
+        </div>
+        <% if !@studio.description %>
+          <!--/noindex-->
+        <% end %>
+        <div class="changes">
+          <% if @studio_changes.empty? %>
+            <% if @studio.ani_db_description && @studio.ani_db_description != '' %><p class="key">Источник:</p><div class="user df">anidb.info</div><% end %>
+          <% end %>
+        </div>
+      </div>
+      <%=render :partial => 'site/editor_textarea', :locals => {:item => @studio, :field => 'description'} %>
+    </div>
+  </div>
+
+  <div>
+    <%=render :partial => 'ani_mangas/pagination', :locals => {:nofollow => params[:order] == 'ranked' && (params.size == 3 || (params.size == 4 && params.include?(:page))) ? false : true} %>
+  </div>
+<% end %>
+<% content_for :after_page_content do %>
+<div class="bottom-pages clearfix">
+  <%=render :partial => 'ani_mangas/pagination', :locals => {:nofollow => params[:order] == 'ranked' && (params.size == 3 || (params.size == 4 && params.include?(:page))) ? false : true} %>
+</div>
+<% end %>
+<% content_for :head do %>
+  <%=stylesheet_link_tag :studio %>
+<% end %>
+<% content_for :tail do %>
+  <%=javascript_include_tag :main %>
+  <%=javascript_include_tag :studio %>
+<% end %>
+<% content_for :title do %><%=@title %><% end %>

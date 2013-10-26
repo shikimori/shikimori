@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>shikimori.org</ShortName>
+  <Description>Поиск по базе аниме shikimori.org</Description>
+  <Image height="16" width="16" type="image/x-icon">http://shikimori.org/favicon.ico</Image>
+  <Url type="text/html"
+    method="get"
+    rel="results"
+    template="http://shikimori.org/animes/search/{searchTerms}/order-by/released_at"/>
+  <Url type="application/x-suggestions+json"
+    rel="suggestions"
+    template="http://shikimori.org/animes/search/{searchTerms}/order-by/released_at.os"/>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <InputEncoding>UTF-8</InputEncoding>
+  <SyndicationRight>open</SyndicationRight>
+  <AdultContent>false</AdultContent>
+  <Language>*</Language>
+  <Contact>takandar@gmail.com</Contact>
+</OpenSearchDescription>

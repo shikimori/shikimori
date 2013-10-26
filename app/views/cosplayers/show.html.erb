@@ -1,0 +1,110 @@
+<!--<h2 class="m5"><%=@title %></h2>-->
+
+<%#<% if @gallery.animes.length > 0 % >%>
+  <%#<div class="animes">%>
+    <%#<% @gallery.animes.each do |anime| % >%>
+      <%#<div class="anime">%>
+        <%#<img class="avatar" src="<%=anime.image.url(:preview) % >" title="<%=anime.name % >" name="<%=anime.name % >" />%>
+        <%#<h2><%=ani_manga_link(anime) do % ><%=anime.name % ><% end % ></h2>%>
+       <%#<p><%=raw truncate(strip_tags(anime.description), length: 430, separator: ' ') % ></p>%>
+      <%#</div>%>
+    <%#<% end % >%>
+  <%#</div>%>
+<%#<% end % >%>
+
+<div class="ajax">
+  <% if @gallery.characters.length > 0 %>
+    <div class="characters">
+      <% @gallery.characters.each do |character| %>
+        <div class="character">
+          <img class="avatar" src="<%=character.image.url(:preview) %>" title="<%=character.name %>" name="<%=character.name %>" />
+          <h2><%=character.fullname %> (<%=character.japanese %>)</h2>
+          <p><%=raw truncate(character.description || character.description_mal, length: 330, separator: ' ') %></p>
+        </div>
+      <% end %>
+    </div>
+
+    <div style="clear: both;">
+    <div class="gallery-hr"></div>
+  <% end %>
+
+  <div class="menu-right">
+    <% if @gallery.animes.length > 0 %>
+      <div class="animes">
+        <% @gallery.animes.take(1).each do |anime| %>
+          <div class="anime">
+            <h2><%=ani_manga_link(anime) do %><%=raw anime.name %><% end %></h2>
+            <%=ani_manga_link(anime) do %><img class="avatar" src="<%=anime.image.url(:preview) %>" title="<%=anime.name %>" name="<%=anime.name %>" /><% end %>
+            <p><%=raw truncate(strip_tags(anime.description), length: 430, separator: ' ') %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% @chronology.each do |month, group| %>
+      <div class="block-title"><%=month %></div>
+      <ul class="block-list cosplay-month m20">
+        <% group.each do |entry| %>
+        <li class="<%=" selected" if @gallery.id == entry.id %>">
+          <%=link_to cosplayer_path(@cosplayer, entry) do %>
+            <span class="num right"><%=entry.images.count %></span><%=entry.target %>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <% if (@gallery.description || @gallery.description_cos_rain || '').size > 0 %>
+    <p class="gallery-desc"><%=raw @gallery.description || @gallery.description_cos_rain %></p>
+  <% else %>
+    <p class="m10"></p>
+  <% end %>
+
+  <div class="gallery m20">
+    <div class="ad-gallery">
+      <div class="ad-image-wrapper">
+      </div>
+      <div class="ad-controls">
+      </div>
+      <div class="ad-nav">
+        <div class="ad-thumbs">
+          <ul class="ad-thumb-list">
+  <% @gallery.images.each do |image| %>
+            <li>
+              <a href="<%=image.image.url %>"><img src="<%=image.image.url(:preview) %>" height=80 onload="$(this).attr('data-loaded', true);"></a>
+            </li>
+  <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="comments m10">Отзывы</h2>
+  <%=render partial: 'comments/comments.html.erb', locals: { object: @gallery } %>
+</div>
+
+
+<% content_for :before_page_content do %>
+  <div class="common-title">
+    <h1 class="h1" title="<%=raw @title %>">
+      <%=raw @title %>
+      <% if user_signed_in? && current_user.moderator? %>
+        <div class="buttons" style="">
+          <span><%=link_to 'редактировать', cosplayer_moderation_path(@cosplayer, @gallery) %></span>
+        </div>
+      <% end %>
+    </h1>
+  </div>
+<% end %>
+
+<% content_for :head do %>
+  <%=stylesheet_link_tag :cosplayer %>
+<% end %>
+
+<% content_for :tail do %>
+  <%=javascript_include_tag :cosplayer %>
+<% end %>
+
+<% content_for :title do %><%=@title %><% end %>

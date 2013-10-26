@@ -1,0 +1,3 @@
+.index-list
+  .subheadline Друзья
+  = render :partial => 'users/user', :collection => @presenter.friends_with_history, formats: :html

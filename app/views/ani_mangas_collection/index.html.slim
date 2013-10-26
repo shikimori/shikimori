@@ -1,0 +1,34 @@
+- content_for :head do
+  = stylesheet_link_tag :ani_mangas
+
+- content_for :tail do
+  = javascript_include_tag :ani_mangas
+
+header.head.ajaxable
+  h1 itemprop="name"
+    = @page_title
+  p.notice itemprop="description"
+    = @title_notice
+
+= render partial: 'ani_mangas_collection/pagination', locals: { rel_nofollow: true, with_cache: true }
+
+.animes class="#{cookies.include?('OldCatalog') ? 'old' : 'new'}" data-entries-per-page="#{entries_per_page}"
+  .left-column-wrap
+    .right-column-wrap
+      .left-column
+        - if user_signed_in?
+          aside.menu-left.loaded
+            = render partial:  'ani_mangas_collection/menu', locals: { special: false, links: false, mylist: !params[:nosort], options_filters: true, klass: klass, social: true, nosort: params[:nosort] }
+        - else
+          aside.menu-left.postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating], nosort: params[:nosort]}"
+            .ajax-loading title="Загрузка..."
+      .right-column
+        section.ajax#ajax
+          - if @entries.any?
+            = render partial: 'ani_mangas_collection/entries'
+          - else
+            p Ничего не найдено.
+      .clearfix-full
+
+.bottom-pages.clearfix
+  = render partial: 'ani_mangas_collection/pagination', locals: { rel_nofollow: true, with_cache: true }

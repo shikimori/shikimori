@@ -1,0 +1,21 @@
+.suggestion
+  a href="#{url_for suggestion.item}" class="bubbled" data-remote="true"
+    = localized_name suggestion.item
+  - if suggestion.respond_to? :votes
+    span.bracket-details.show.ajaxable data-href="#{contest_contest_suggestion_url contest, suggestion}"
+      = suggestion.votes
+      span
+        = Russian.p suggestion.votes, 'голос', 'голоса', 'голосов'
+    span.bracket-details.hide скрыть
+
+    - unless contest.members.include? suggestion.item
+      span.bracket-actions.hidden
+        span.take data-id="#{suggestion.item.id}" data-text="#{suggestion.item.name}" взять
+
+    .voters-container
+      .ajax-loading.vk-like.left title="Загрузка..."
+
+  - else
+    span.bracket-actions
+      span.delete data-method="delete" data-action="#{contest_contest_suggestion_url contest, suggestion}" удалить
+

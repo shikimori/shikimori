@@ -1,0 +1,94 @@
+@import "globals";
+
+/*************************************************/
+/* pages */
+.pagination {
+  border-bottom: 1px solid #D5D6D7;
+  border-top: 1px solid #D5D6D7;
+  height: 32px;
+  /*margin: 0 20px 15px 20px;*/
+  margin: -5px 10px 15px 0px;
+  color: #555555;
+
+  .links {
+    margin: 11px 10px 5px 10px;
+  }
+  .no-hover {
+    cursor: pointer;
+  }
+  li {
+    font-size: 11px;
+    font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,Helvetica,sans-serif;
+
+    &.first {
+      float: left;
+    }
+    &.last {
+      float: right;
+    }
+    &.middle {
+      /*width: 290px;*/
+      margin-left: auto;
+      margin-right: auto;
+    /*}*/
+    /*&.with-input {*/
+      width: 310px;
+
+      input {
+        @include default-text-field;
+        /*@include text-font;*/
+        /*color: inherit;*/
+        /*font-size: inherit;*/
+        /*font-family: inherit;*/
+        /*color: #555555;*/
+        /*font-size: 11px;*/
+        /*font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,Helvetica,sans-serif;*/
+        /*border: none;*/
+        margin: -5px 0 0 0;
+        padding: 0;
+        text-align: center;
+        width: 30px;
+      }
+      .link-current {
+        border-bottom: 1px solid #333;
+      }
+    }
+  }
+  a {
+    color: inherit;
+    cursor: inherit;
+  }
+  .middle div {
+    margin: 0 5px;
+    display: inline;
+  }
+  .link {
+    @include default-link;
+  }
+  .disabled {
+    color: #CCCCCC;
+
+    &:hover {
+      background-color: white;
+      cursor: default;
+    }
+  }
+}
+.under-border {
+  .pagination {
+    border-top: none;
+    border-color: #BBBBBB;
+    height: 25px;
+    margin-left: 0;
+    margin-right: 0;
+
+    .links {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+.bottom-pages .pagination {
+  margin-top: 20px;
+  margin-bottom: 0;
+}

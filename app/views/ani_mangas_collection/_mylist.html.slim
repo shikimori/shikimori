@@ -1,0 +1,11 @@
+.menu-block.anime-params-block.mylist-block
+  - if special
+    .subheadline Список
+  - else
+    span.filter.block-filter.item-add
+    .subheadline Мой список
+  ul.block-list.mylist.anime-params
+    - UserRateStatus.statuses.each do |v|
+      li class="mylist-#{v[:id]}"
+        input type="checkbox" autocomplete="off"
+        =!links ? t("#{klass.name}RateStatus.#{v[:name]}") : history_link_to(klass, v[:id], t("#{klass.name}RateStatus.#{v[:name]}"), 'mylist')

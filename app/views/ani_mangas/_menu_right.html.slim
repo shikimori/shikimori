@@ -1,0 +1,225 @@
+nav.menu-block
+  .subheadline #{@entry.anime? ? 'Аниме' : 'Манга'}
+  ul.block-list.sections
+    li.slider-control.slider-control-info.info
+      - if params[:page] == 'info'
+        span.link data-href="#{@entry.url}" Главное
+      - else
+        a href="#{@entry.url}" title="Общая информация по #{{@entry.name}}" Главное
+
+    - if @director.pages.include? 'stats'
+      li.slider-control.slider-control-stats.stats
+        span.link data-href="#{@entry.page_url :stats}" Статистика
+      li.slider-control.slider-control-recent.hidden
+        span.link data-href="#{@entry.page_url :recent}"
+
+    - if @director.pages.include? 'characters'
+      li.slider-control.slider-control-characters.characters
+        span.link data-href="#{@entry.page_url :characters}" Персонажи
+
+    - if @director.pages.include? 'similar'
+      li.slider-control.slider-control-similar.similar
+        span.link data-href="#{@entry.page_url :similar}"
+          = @entry.anime? ? 'Похожие аниме' : 'Похожая манга'
+
+    - if @director.pages.include? 'chronology'
+      li.hidden.slider-control.slider-control-chronology.chronology
+        span.link data-href="#{@entry.page_url :chronology}"
+
+    - if @entry.cosplay.characters.any?
+      li.slider-control.slider-control-cosplay-all.cosplay
+        span.link data-href="#{@entry.cosplay_url :all}" Косплей
+      - if @entry.cosplay.characters.size > 1
+        - @entry.cosplay.characters.each do |character|
+          li class="slider-control sub slider-control-cosplay-#{character.to_param} level-down"
+            a href="#{@entry.cosplay_url character}" title="#{{character.name}}"
+              == character.name
+      /- if @cosplay_wo_characters
+        li.slider-control.sub.slider-control-cosplay-other
+          span.link data-href="#{self.send("cosplay_#{klass_lower}_url", @entry, character: 'other')}" Прочее
+
+    li.slider-control.slider-control-reviews.reviews-index style="#{'display: none;' unless @entry.reviews?}"
+      - if params[:page] == 'reviews' || !@entry.reviews?
+        span.link data-href="#{@entry.reviews_url}" Обзоры
+      - else
+        a href="#{@entry.reviews_url}" title="Обзоры #{{@entry.name}}" Обзоры
+
+    - if @director.pages.include? 'screenshots'
+      li.slider-control.slider-control-screenshots.screenshots
+        span.link data-href="#{@entry.page_url :screenshots}" Кадры
+
+    - if @director.pages.include? 'videos'
+      li.slider-control.slider-control-videos.videos
+        span.link data-href="#{@entry.page_url :videos}" Видео
+
+    - if @director.pages.include? 'images'
+      li.slider-control.slider-control-images.images
+        span.link data-href="#{@entry.page_url :images}"
+          = @entry.tags.blank? ? 'Галерея': 'Картинки с имиджборд'
+
+    - if @director.pages.include? 'files'
+      li.slider-control.slider-control-files.files
+        span.link data-href="#{@entry.page_url :files}" Файлы
+
+- if user_signed_in?
+  .menu-block.actions
+    .subheadline Действия
+    ul.block-list
+      li.list-add style="#{'display: none;' if @entry.rate}"
+        span#rate-add.add-to-list data-remote="true" action="#{@entry.rate_url}" data-method="post" data-type="json" Добавить в список
+
+      li.comment
+        span Комментировать
+
+      li.slider-control.slider-control-reviews-edit.reviews-edit
+        span.link data-href="#{@entry.new_review_url}" Написать обзор
+
+      li.fav-add style="#{'display: none;' if @entry.favoured?}"
+        span.favourite-add data-remote="true" action="#{favourites_url @entry.class.name, @entry}" data-method="post" data-type="json" Добавить в избранное
+
+      li.fav-remove style="#{'display: none;' unless @entry.favoured?}"
+        span.favourite-remove data-remote="true" action="#{favourites_url @entry.class.name, @entry}" data-method="delete" data-type="json" Удалить из избранных
+
+      li.list-remove style="#{'display: none;' unless @entry.rate}"
+        span#rate-del.remove-from-list data-remote="true" action="#{@entry.rate_url}" data-method="delete" data-type="json" Удалить из списка
+
+      li.edit-entry
+        span Редактировать #{@entry.anime? ? 'аниме' : 'мангу'}
+
+  .menu-block.editions
+    .subheadline Редактирование
+    ul.block-list
+      li.edit-description.slider-control.slider-control-edit-description
+        span.link data-href="#{@entry.edit_url :description}" Описание
+
+      li.edit-russian.slider-control.slider-control-edit-russian
+        span.link data-href="#{@entry.edit_url :russian}" Русское название
+
+      - if @entry.anime?
+        li.edit-screenshots.slider-control.slider-control-edit-screenshot
+          span.link data-href="#{@entry.edit_url :screenshot}" Кадры
+
+        li.edit-videos.slider-control.slider-control-edit-videos
+          span.link data-href="#{@entry.edit_url :videos}" Видео
+
+        - if user_signed_in? && current_user.admin?
+          li.edit-torrents_name.slider-control.slider-control-edit-torrents_name
+            span.link data-href="#{@entry.edit_url :torrents_name}" Название на торрентах
+
+      /li.edit-links.slider-control.slider-control-edit-links
+        span.link data-href="#{@entry.edit_url :links}" Ссылки
+
+      li.edit-cancel
+        span Отмена
+
+- if user_signed_in?
+  .menu-block
+    div#rate-block.user-rate-block style="#{'display: none;' unless @entry.rate}"
+      .subheadline Статус
+      = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-status-form') do
+        = hidden_field_tag 'rate[status]', @entry.rate ? @entry.rate.status : 0
+        ul.block-list.rate-statuses
+          - UserRateStatus.statuses.each do |status|
+            li id="rate-status-#{status[:id]}" class="#{'selected' if @entry.rate && @entry.rate.status == status[:id]}"
+              span
+                = t "#{@entry.class.name}RateStatus.#{status[:name]}"
+
+      .m10
+        - if @entry.respond_to? :episodes
+          = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-episodes-form') do
+            p.m2 style="#{'display: none;' if @entry.kind == 'Movie'}"
+              span.key Просмотрено:
+              = text_field_tag 'rate[episodes]', @entry.rate ? @entry.rate.episodes : 0, id: 'rate-episodes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.episodes : 0
+              - if @entry.episodes > 0
+                span.sep
+                  | /
+                = @entry.episodes
+              span.item-add
+
+        - elsif @entry.respond_to? :chapters
+          = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-chapters-form') do
+            p.m2
+              span.key Прочитано:
+              = text_field_tag 'rate[chapters]', @entry.rate ? @entry.rate.chapters : 0, id: 'rate-chapters', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.chapters : 0
+              - if @entry.chapters > 0
+                span.sep
+                  | /
+                = @entry.chapters
+              span.item-add
+
+          = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-volumes-form') do
+            = text_field_tag 'rate[volumes]', @entry.rate ? @entry.rate.volumes : 0, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.volumes : 0
+
+      p.m2
+        span.key Моя оценка:
+      .rate-block
+        = form_tag(@entry.rate_url, {format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-score-form'}) do
+          = hidden_field_tag 'rate[score]', 0
+          div#rate-rate.scores-user
+            = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }
+
+    - unless @entry.censored?
+      .subheadline На других сайтах
+      ul.block-list.sites
+        li
+          a href="#{@entry.mal_url}"
+            - if @klass != Manga && average_score(@entry.mal_scores).to_f > 0
+              span.right = average_score(@entry.mal_scores)
+            img.site-icon src="/images/favicons/myanimelist.ico" title="MyAnimeList"
+            | MyAnimeList
+
+        - if @entry.respond_to?(:ani_db_id) && @entry.ani_db_id != 0
+          li
+            a href="#{"http://anidb.net/perl-bin/animedb.pl?show=anime&aid=#{@entry.ani_db_id}"}"
+              - if average_score(@entry.ani_db_scores).to_f > 0
+                span.right = average_score(@entry.ani_db_scores)
+              img.site-icon src="/images/favicons/anidb.ico" title="AniDb"
+              | AniDb
+
+        - if @entry.respond_to?(:world_art_id) && @entry.world_art_id != 0
+          li
+            a href="#{"http://www.world-art.ru/animation/animation.php?id=#{@entry.world_art_id}"}"
+              - if average_score(@entry.world_art_scores).to_f > 0
+                span.right = average_score(@entry.world_art_scores)
+              img.site-icon src="/images/favicons/world-art.ico" title="WorldArt"
+              | WorldArt
+
+        - if @entry.respond_to?(:read_manga_id) && !@entry.read_manga_id.blank?
+          li
+            a href="#{@entry.read_manga_url}"
+              /*- if @entry.read_manga_scores > 0*/
+                span.right = @entry.read_manga_scores
+              img.site-icon src="/images/favicons/readmanga.ico" title="#{@entry.read_manga_name}"
+              = @entry.read_manga_name
+
+        - if Rails.env == 'development'
+          li
+            a href="#{"http://shikimori.org#{url_for(@entry)}"}"
+              img.site-icon src="/images/favicons/shikimori.ico" title="Shikimori"
+              | Shikimori
+
+= render partial: 'blocks/favoured', object: @entry.favoured, formats: :html
+
+- if @entry.topics.any?
+  .menu-block.menu-topics-block
+    .subheadline
+      a.link href="#{subsection_url @entry.thread}" Форум
+    ul.block-list
+      = render partial: 'ani_mangas/menu_topic', collection: @entry.topics, as: :topic
+
+- if @entry.news.any?
+  .menu-block.menu-topics-block.history.m30 data-remote="#{episode_torrents_anime_url @entry}"
+    .subheadline Новости
+    ul.block-list
+      = render partial: 'ani_mangas/menu_topic', collection: @entry.news, as: :topic, locals: { with_tooltip: true }
+
+- if !user_signed_in? || current_user.social
+  .menu-block
+    .subheadline.m10 Поделиться
+    .addthis_toolbox.addthis_default_style.addthis_32x32_style
+      a.addthis_button_vk
+      a.addthis_button_facebook
+      a.addthis_button_twitter
+      a.addthis_button_google_plusone_share
+      a.addthis_button_odnoklassniki_ru
+      a.addthis_button_compact

@@ -1,0 +1,41 @@
+- unless @user.fav_animes.empty?
+  .persons-container.animes-container
+    .subheadline.m10 Аниме
+    div
+      = render partial: 'blocks/ani_manga', collection: @user.fav_animes, locals: { extra_class: 'c%d' % @user.fav_animes.count }, formats: :html
+
+- unless @user.fav_mangas.empty?
+  .persons-container.mangas-container
+    .subheadline.m10 Манга
+    div
+      = render partial: 'blocks/ani_manga', collection: @user.fav_mangas, locals: { extra_class: 'c%d' % @user.fav_mangas.count }, formats: :html
+
+- unless @user.fav_characters.empty?
+  .persons-container
+    .subheadline.m10 Герои
+    div
+      = render partial: 'blocks/person', collection: @user.fav_characters, locals: { role: nil, link_to_character: true, no_tooltip: true, remote: :character_tooltip_url }, formats: :html
+
+- unless @user.fav_seyu.empty?
+  .persons-container
+    .subheadline.m10 Сейю
+    div
+      = render partial: 'blocks/person', collection: @user.fav_seyu, locals: { role: nil, link_to_seyu: true, no_tooltip: true, remote: :person_tooltip_url }, formats: :html
+
+- unless @user.fav_producers.empty?
+  .persons-container
+    .subheadline.m10 Режиссёры
+    div
+      = render partial: 'blocks/person', collection: @user.fav_producers, locals: { role: nil, no_tooltip: true, remote: :person_tooltip_url }, formats: :html
+
+- unless @user.fav_mangakas.empty?
+  .persons-container
+    .subheadline.m10 Мангаки
+    div
+      = render partial: 'blocks/person', collection: @user.fav_mangakas, locals: { role: nil, no_tooltip: true, remote: :person_tooltip_url }, formats: :html
+
+- unless @user.fav_persons.empty?
+  .persons-container
+    .subheadline.m10 Прочие люди
+    div
+      = render partial: 'blocks/person', collection: @user.fav_persons, locals: { role: nil, no_tooltip: true, remote: :person_tooltip_url }, formats: :html

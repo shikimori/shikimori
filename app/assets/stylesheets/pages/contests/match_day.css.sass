@@ -1,0 +1,121 @@
+@import globals
+
+.contest .match-day
+  +text-font
+  overflow: hidden
+  margin-left: 5px
+  margin-top: 10px
+
+  &:first-child
+    margin-top: 0
+
+  & > .date
+    margin-bottom: 2px
+
+    .from
+      color: $gray-color-2
+      margin-right: 5px
+
+    .to
+      color: $gray-color-2
+      margin-left: 5px
+      margin-right: 5px
+
+  .subcontent
+    margin-bottom: 0
+
+  .match-link
+    +default-selectable-decor
+    cursor: pointer
+    display: block
+
+    &.active
+      background: #f0f0f0
+
+    a
+      +normal-link
+      max-width: 100%
+      line-height: 14px
+
+    &.voted-none > .column a, &.voted-left > .column:last-child a, &.voted-right > .column:first-child a
+      +link-color(#112233)
+
+    .column
+      +ellipsis
+      padding: 0 10px
+
+      &:first-child
+        padding-left: 32px
+
+      &.loser a, &.created a
+        +link-color(#112233)
+
+    .voted, .winner, .loser, .created, .started, .finished
+      &:before
+        display: inline-block
+        font-family: 'shikimori'
+        font-size: 11px
+        font-weight: normal !important
+        margin-right: 4px
+        padding-left: 1px
+        padding-right: 3px
+
+    .created:before
+      color: $gray-color-2
+      content: '\e828'
+      padding-right: 5px
+
+    .started:before
+      color: #123
+      content: '\e818'
+
+    &.voted-left .started:first-child:before, &.voted-right .started:last-child:before
+      content: '\e825'
+      color: green
+
+    &.voted-none .started:before
+      color: $gray-color-2
+
+    &.voted-auto .started:before
+      content: '\e825'
+      color: $gray-color-2
+
+    &.voted-left .started:last-child:before, &.voted-right .started:first-child:before
+      color: red
+
+    .winner:before
+      color: green
+      content: '\e817'
+
+    .loser:before
+      color: red
+      content: '\e813'
+      padding-right: 5px
+
+  .group
+    color: $gray-color-2
+    position: absolute
+    line-height: 24px
+
+  .matches-num
+    cursor: default
+    font-size: 11px
+    line-height: inherit
+    padding-right: 6px
+
+    .winner &
+      color: green
+
+    .loser &
+      color: red
+
+  .matches-num
+    cursor: default
+    font-size: 11px
+    line-height: inherit
+    padding-right: 6px
+    color: $gray-color-2
+
+.contest.swiss
+  .match-day .match-link .column
+    padding-left: 15px

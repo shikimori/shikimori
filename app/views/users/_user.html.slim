@@ -1,0 +1,25 @@
+.user-block.index-item class="user-#{user.id}"
+  .changes
+    ul.event-list.block-list.updates
+      - user[:history].each do |entry|
+        li
+          a.bubbled href="#{url_for entry[:target]}" title="#{entry[:target][:name]}" data-remote="true" data-offset-left="-14"
+            span.date
+              = time_ago_in_words entry[:updated_at]
+            span.event
+              == entry[:name]
+
+  .image-name
+    = link_to user_url(user) do
+      img.image src="#{gravatar_url(user, 73)}" alt="#{user.nickname}" title="#{user.nickname}"
+    = link_to user_url(user), title: user.nickname, class: :name do
+      = user.nickname
+
+  .info
+    p.last-online
+      - if DateTime.now - 5.minutes <= user.last_online_at
+        | сейчас на сайте
+      - else
+        | онлайн&nbsp;
+        span.date
+          == time_ago_in_words(user.last_online_at, "%s</span> <span>назад")

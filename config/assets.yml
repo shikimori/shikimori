@@ -1,0 +1,40 @@
+embed_assets: on
+compress_assets: on
+gzip_assets: on
+javascript_compressor: uglifier
+template_function: off
+#allow_debugging: off
+
+javascripts:
+  main: # deprecated
+    - public/javascripts/main.js
+  group_new:
+    - public/javascripts/group/new.js
+  studio:
+    - public/javascripts/ani_manga_params_parser.js
+    - public/javascripts/item_editor_new.js
+    - public/javascripts/studio.js
+  person:
+    - public/javascripts/ani_manga_params_parser.js
+    - public/javascripts/item_editor_new.js
+    - public/javascripts/person.js
+  seyu:
+    - public/javascripts/seyu.js
+  review:
+    - public/coffeescripts/forum/appear.js
+    - public/coffeescripts/forum/index.js
+  cosplay:
+    - public/javascripts/cosplay/show.js
+  abuse_requests:
+    - public/javascripts/abuse_requests.js
+
+stylesheets:
+  main: # deprecated
+    - public/stylesheets/compiled/pages/main.css
+  ongoings:
+    - public/stylesheets/compiled/pages/forum/common.css
+    - public/stylesheets/compiled/pages/ongoings.css
+  cosplay:
+    - public/stylesheets/compiled/pages/cosplay/show.css
+  changes:
+    - public/stylesheets/compiled/pages/changes.css

@@ -1,0 +1,20 @@
+.image-container.video
+  - if defined?(user_signed_in?) && user_signed_in? && defined?(with_deletion)
+    span.image-delete.hidden title="Удалить видео"
+    span.image-delete-confirm.hidden title="Подтвердить удаление" data-remote="true" action="#{url_for video}" data-method="delete" data-type="json"
+    span.image-delete-cancel.hidden title="Отменить удаление"
+
+  - if defined?(expanded)
+    p
+      = video.kind
+      span = video.name
+
+  a href="#{video.url}" data-href="#{video.direct_url}"
+    /title="#{video.kind}#{video.name.present? ? " #{video.name}" : ''} видео из #{entry.name}"
+    img src="#{video.image_url}" data-id="#{video.id}"
+    / alt="#{video.kind}#{video.name.present? ? " #{video.name}" : ''} видео из #{entry.name}"
+    - if defined?(expanded) || defined?(marker) # marker изпользуется в youtube_to_html
+      p.video-marker youtube
+    - else
+      p.video-marker
+        = video.kind

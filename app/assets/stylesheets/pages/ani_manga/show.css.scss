@@ -1,0 +1,207 @@
+@import "globals";
+
+/*************************************************/
+/* main styles */
+.entry-content-slider {
+  position: relative;
+  width: $slide-width;
+  /*min-height: 845px;*/
+  /*margin-left: -5px;*/
+  /*padding-left: 5px;*/
+
+  .slide {
+    float: left;
+    margin-left: 0px;
+    margin-right: 30px;
+    overflow: hidden;
+    position: relative;
+    width: $slide-width;
+  }
+}
+/*************************************************/
+/* tooltip+title */
+.common-title {
+  .anime-title {
+    @include ellipsis;
+    cursor: default;
+    a {
+      color: inherit;
+    }
+  }
+}
+.favourite {
+  @include default-button;
+  float: right;
+
+  &:hover {
+    background-position: 0 -21px;
+  }
+  &:active {
+    background-position: 0 -63px;
+  }
+  &.active {
+    background-position: 0 -42px;
+  }
+  &.un {
+    background-position: 0 -42px;
+    &:hover {
+      background-position: 0 -63px;
+    }
+    &:active {
+      background-position: 0 -21px;
+    }
+    &.active {
+      background-position: 0 0px;
+    }
+  }
+}
+/*************************************************/
+/* info */
+.info {
+}
+.anime-image {
+  float: right;
+  margin: 5px 0 5px 15px;
+}
+.anime-alt {
+  &.url a {
+    @include normal-link;
+    &:hover {
+      background: inherit;
+    }
+  }
+  a {
+    @include default-link;
+    color: inherit;
+    img {
+      background: white!important;
+    }
+  }
+}
+
+.anime-russian .key,
+p.key,
+p .key {
+  color: $gray-color;
+}
+.anime-russian .value,
+p.value,
+p .value {
+  color: #232323;
+}
+.anime-russian {
+  @include text-font;
+  h2 {
+    border: none;
+    color: inherit;
+    display: inline;
+    font: inherit;
+    margin: inherit;
+    overflow: inherit;
+    padding: inherit;
+    white-space: inherit;
+  }
+}
+
+.dark {
+  color: black;
+}
+.item-content {
+  .description p {
+    margin-bottom: 2px;
+
+    a {
+      @include normal-link;
+    }
+  }
+  .lang-trigger {
+    margin: 0 0 0 15px;
+  }
+}
+.comments-extra {
+  clear: left;
+
+  .subblock-title {
+    margin-bottom: 15px;
+  }
+  .comments-nav {
+    display: block;
+    text-align: left;
+  }
+}
+
+/*************************************************/
+/* characters */
+.characters {
+  position: relative;
+}
+.people-container {
+  clear: left;
+  margin-bottom: 30px;
+  overflow: hidden;
+  /*padding-top: 15px;*/
+}
+.extra .person-block {
+  height: 162px;
+}
+.person-block-wide {
+  float: left;
+  width: 145px;
+  height: 180px;
+
+  .name {
+    line-height: 20px;
+    white-space: normal;
+  }
+  .role {
+    line-height: 13px;
+    margin-bottom: 5px;
+    white-space: normal;
+  }
+}
+
+/*************************************************/
+/* comments */
+.comments {
+  h2 {
+    /*margin-bottom: 0;*/
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 2px;
+  }
+  .add-comment-block textarea {
+    width: 96%;
+  }
+}
+
+/*************************************************/
+/* similar */
+.similar h2 {
+  margin-bottom: 5px;
+}
+/*************************************************/
+/* cosplay */
+.gallery-info {
+  height: 135px;
+
+  .gallery-selector {
+    margin-left: 18px;
+    float: left;
+    .ad-forward, .ad-back {
+      top: 25px;
+    }
+  }
+  .gallery-characters {
+    padding-left: 10px;
+    float: right;
+    img {
+      height: 120px;
+    }
+  }
+  .gallery-cosplayers {
+    padding-right: 10px;
+    float: left;
+    img {
+      height: 120px;
+    }
+  }
+}

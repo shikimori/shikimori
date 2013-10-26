@@ -1,0 +1,122 @@
+@import "globals";
+
+.statistics {
+  .stat-sorry {
+    color: $gray-color-0;
+    font-size: 12px;
+    margin: -7px 0 0 2px;
+  }
+  .genres, .studios {
+    float: left;
+    margin-bottom: 30px;
+    width: 355px;
+
+    .stat-categories {
+      .category {
+        float: left;
+        height: 21px;
+        line-height: 5px;
+        margin: 0 0 0 2px;
+        padding: 1px 5px;
+
+        &:hover {
+          color: $default-hover-color;
+          text-decoration: underline;
+        }
+        &:active {
+          color: $default-active-color;
+        }
+        a {
+          color: inherit;
+        }
+      }
+      .t0 {
+        @include link-color(#666);
+        font-size: 9px;
+      }
+      .t1 {
+        @include link-color(#555);
+        font-size: 11px;
+      }
+      .t2 {
+        @include link-color(#444);
+        font-size: 12px;
+      }
+      .t3 {
+        @include link-color(#333);
+        font-size: 13px;
+        font-weight: bold;
+      }
+      .t4 {
+        @include link-color(#333);
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  }
+  .genres {
+    margin-right: 30px;
+  }
+  .mini-charts {
+    clear: right;
+    float: right;
+    width: 215px;
+
+    .stat-sorry {
+      margin-top: -2px;
+    }
+    .scores, .ratings, .types {
+      margin-bottom: 30px;
+      position: relative;
+
+      &:last-child {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .activity {
+    clear: left;
+    margin-bottom: 40px;
+    position: relative;
+    width: 740px;
+
+    .stat-sorry {
+      margin-top: -2px;
+    }
+    #activity_inc {
+      width: 731px;
+      margin-left: 3px;
+      height: 250px;
+
+      &.y-axis {
+        margin-left: 20px;
+        width: 714px;
+      }
+    }
+    .forum-nav {
+      margin-bottom: 0;
+
+      .sections {
+        top: 3px;
+        right: 10px;
+      }
+    }
+  }
+  .ratings {
+    .bar-container {
+      width: 160px!important;
+    }
+  }
+  .types {
+    .bar-container {
+      width: 150px!important;
+    }
+  }
+  .about {
+    margin-bottom: 30px;
+
+    .text {
+      @include text-font;
+    }
+  }
+}

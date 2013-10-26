@@ -1,0 +1,34 @@
+@import "globals";
+
+body {
+  background-image: inline-image("/background/square_bg.png");
+
+  &.chrome {
+    text-rendering: auto;
+  }
+}
+.page {
+  background: white;
+  clear: both;
+  padding: 15px 10px 0 10px;
+  position: relative;
+  z-index: 1;
+
+  .bordered & {
+    &:before, &:after {
+      background: rgba(255,255,255,0.3);
+      content: "";
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 20px;
+    }
+    &:before {
+      left: -20px;
+    }
+    &:after {
+      display: block!important;
+      right: -20px;
+    }
+  }
+}

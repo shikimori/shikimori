@@ -1,0 +1,10 @@
+<div>
+  <%- if devise_mapping.omniauthable? %>
+      <ul id="social-icons">
+        <%- resource_class.omniauth_providers.each do |provider| %>
+            <li><%= link_to image_tag("social-icons/#{provider}_32.png", :alt => "Sign in with #{provider.to_s.titleize}"), omniauth_authorize_path(resource_name, provider) %></li>
+        <% end -%>
+      </ul>
+      <div class="clear"></div>
+  <% end -%>
+</div>

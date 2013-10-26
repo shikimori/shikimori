@@ -1,0 +1,212 @@
+@import "globals";
+
+@mixin season-tag {
+  color: white;
+  font-family: 'Arial Black','Arial',sans-serif;
+  letter-spacing: 0.8px;
+  padding-left: 5px;
+}
+
+.animes {
+  &.old {
+    .postloader.new {
+      width: 745px;
+    }
+    .entry-block {
+      @include border-radius(8px);
+      background: url(/images/anime_block4.png);
+      float: left;
+      margin: 0 30px 20px 0;
+      overflow: hidden;
+      width: 340px;
+      height: 240px;
+      padding: 10px;
+      border-color: #555555 #232323 #555555 #888888;
+      border-style: solid;
+      border-width: 1px;
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+      .image-container {
+        border: 1px solid #555555;
+        /*float: left;*/
+        height: 240px;
+        width: 160px;
+        position: relative;
+
+        .tag-base {
+          @include transition(background, 0.4s);
+          @include opacity(0.9);
+
+          cursor: pointer;
+          background: #222;
+          color: #fff;
+          white-space: nowrap;
+
+          &:hover {
+            background: $logo-hover-color;
+          }
+          &:active {
+            background: $logo-active-color;
+          }
+
+        }
+        .tag {
+          @include border-radius(6px);
+          clear: both;
+          float: left;
+          font-family: helvetica,arial,sans-serif;
+          font-size: 11px;
+          letter-spacing: 0.1em;
+          line-height: 130%;
+          margin-bottom: 3px;
+          padding: 1px 4px;
+        }
+        .rating {
+          @include border-radius(0 0 0 6px);
+          color: #eeeeee;
+          font-family: helvetica,arial,sans-serif;
+          font-size: 16px;
+          font-weight: bold;
+          letter-spacing: 0.1em;
+          line-height: 130%;
+          padding: 0px 2px 0px 5px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          background: #434343;
+          background-image: -moz-linear-gradient(100% 100%, #7c7c7c, #8c8c8c);
+          background-image: -webkit-gradient(linear, 100% 0%, 0% 0%, from(#8f8f8f), to(#989898));
+        }
+        .type {
+          @include border-radius(6px 0 0 0);
+          background: #cc1d00;
+          bottom: 0;
+          color: white;
+          font-family: helvetica,arial,sans-serif;
+          font-size: 12px;
+          font-weight: bold;
+          letter-spacing: 0.1em;
+          line-height: 130%;
+          padding: 2px 2px 0px 5px;
+          position: absolute;
+          right: 0;
+
+          &:hover {
+            background: #ff2400!important;
+          }
+          &:active {
+            background: #991600!important;
+          }
+        }
+        .release-tags .tag {
+          clear: none;
+          margin-left: 5px;
+          padding-bottom: 1px;
+        }
+        .year {
+          @include season-tag;
+          background: #222222;
+        }
+        .season-ongoing {
+          @include season-tag;
+          background: #1ea4d5;
+        }
+        .season-planned {
+          @include season-tag;
+          background: #ff24c9;
+        }
+        .studio,.publisher {
+          background: #368512;
+          color: white;
+
+          &:hover {
+            /*background: #2d6e0f!important;*/
+            background: #34a600!important;
+          }
+          &:active {
+            background: #24590c!important;
+          }
+        }
+        .tags-left-top {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        .tags-left-bottom {
+          position: absolute;
+          bottom: 0;
+          margin: 5px;
+        }
+        .tags-right-top {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin: 5px;
+
+          div {
+            float: right!important;
+          }
+        }
+      }
+      .text-container {
+        float: right;
+        padding: 0px 15px 5px 5px;
+        height: 235px;
+        width: 150px;
+        /*overflow: hidden;*/
+        position: relative;
+
+        a {
+          /*@include default-link-hover;*/
+          text-decoration: inherit;
+          color: inherit;
+        }
+        .name {
+          @include h1-font;
+          /*@include text-shadow(rgba(0, 0, 0, 0.2), 0, 2px, 5px);*/
+          /*font-family: StyloBold;*/
+          color: white;
+          margin-bottom: 3px;
+          text-align: center;
+        }
+        .description {
+          color: #EEEEEE;
+          font-family: "Lucida Grande",Verdana,Helvetica,Arial,sans-serif;
+          font-size: 12px;
+          max-height: 180px;
+          overflow: hidden;
+          width: 160px;
+
+          &.narrow p {
+            line-height: 18.5px;
+          }
+        }
+        .rate {
+          position: absolute;
+          bottom: -2px;
+          right: 0px;
+          color: #EEEEEE;
+          font-family: 'Arial Black','Arial',sans-serif;
+          font-size: 23px;
+          line-height: 18px;
+          margin: 1px 0;
+
+          .notice {
+            font-size: 9px;
+            text-transform: uppercase;
+            bottom: -5px;
+            right: 57px;
+            position: absolute;
+            color: #DDDDDD;
+          }
+        }
+      }
+    }
+  }
+}
+.firefox .old .entry-block .release-tags .tag {
+  padding-top: 1px;
+  padding-bottom: 3px;
+}

@@ -1,0 +1,9 @@
+<div class="translation">
+  <% @goals.each do |goal| %>
+    <div class="goal">
+      <h3><%=goal[0] %></h3>
+      <%=render :partial => 'animes/translate_block.html.erb', :object => goal[1] %>
+    </div>
+  <% end %>
+</div>
+<br clear="both"/>

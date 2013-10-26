@@ -1,0 +1,27 @@
+@import "globals";
+
+.groups {
+  .index-item {
+    overflow: hidden;
+
+    .info {
+      height: 60px;
+      overflow: hidden;
+      width: 889px!important;
+
+      .members-count {
+        font-size: 11px;
+        margin-top: -3px;
+        padding-left: 2px;
+        color: #666;
+      }
+      a {
+        @include normal-link;
+      }
+    }
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+  }
+}

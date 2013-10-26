@@ -1,0 +1,20 @@
+.group
+  header.head
+    h1 title="#{@group.name}"
+      = @group.name
+    = render partial: 'site/breadcrumbs', object: breadcrumbs, formats: :html
+
+  aside.menu-right
+    = render :partial => 'groups/menu_right'
+
+  section.page-content
+    .group-content-slider.view-port.vertical-slider
+      .view-content style="margin-left: #{-1*770*(@pages.index {|v| v == params[:type] || (v.class == Array && v.include?(params[:type])) } || 2)}px"
+        - @pages.each do |page|
+          .slide
+            div class="#{'masonry ' if page == 'images'}#{page.class == Array ? page.join(' ') : page}#{' no-height-resize' if page.class != Array && page == 'profile'}#{' selected' if page.class == Array ? page.include?(params[:type]) : params[:type] == page}"
+              - if page.class == Array ? page.include?(params[:type]) : params[:type] == page
+                = yield
+              - else
+                br
+  .clearfix

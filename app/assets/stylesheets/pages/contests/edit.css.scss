@@ -1,0 +1,78 @@
+@import "globals";
+
+.edit {
+  h2 {
+    margin-bottom: 10px;
+  }
+  .errors {
+    @include text-font;
+    color: red;
+  }
+
+  .input {
+    @include default-text-field;
+    width: 242px;
+
+    &.suggest {
+      float: right;
+      margin-top: -20px;
+      border: none;
+      outline: none;
+    }
+  }
+  .buttons {
+    @include clearfix;
+
+    .save {
+      float: right;
+    }
+  }
+
+  .container {
+    @include clearfix;
+    margin-top: 0px;
+
+    li {
+      float: left;
+      width: 33.3%;
+
+      a {
+        @include text-font;
+        @include normal-link;
+        @include ellipsis;
+        float: left;
+        max-width: 200px;
+      }
+    }
+    .name.tags {
+      float: left;
+      margin-right: 10px;
+    }
+    .item-minus {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+  .user-vote-key {
+    @include text-font;
+    .field_with_errors {
+      display: inline-block;
+    }
+  }
+  .action {
+    @include text-font;
+    @include normal-link;
+    display: block;
+  }
+
+  .subcontent:last-child {
+    margin-bottom: 0;
+  }
+  .grid a {
+    @include normal-link;
+    @include text-font;
+  }
+  .suggestions {
+    margin-top: 30px;
+  }
+}

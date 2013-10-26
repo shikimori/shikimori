@@ -1,0 +1,20 @@
+@import "compass/utilities/general/clearfix";
+
+.videos {
+  .contributors {
+    float: right;
+  }
+
+  .image-delete, .image-delete-confirm, .image-delete-cancel {
+    margin-top: 21px;
+  }
+  .video {
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  .videos-list.expanded {
+    @include clearfix;
+  }
+}

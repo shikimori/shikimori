@@ -1,0 +1,42 @@
+@import "globals";
+
+.contest .proposing {
+  @include clearfix;
+
+  .first {
+    float: left;
+    width: 49.9%;
+  }
+  .second {
+    overflow: hidden;
+  }
+  .suggestion {
+    @include text-font;
+
+    .show, .hide {
+      cursor: pointer;
+    }
+    .hide {
+      display: none;
+    }
+    &>a {
+      @include normal-link;
+      @include ellipsis;
+      float: left;
+      max-width: 265px;
+    }
+    .voters img {
+      padding-right: 5px;
+    }
+    .voters-container {
+      display: none;
+    }
+  }
+  .own-nominants .suggestion {
+    float: none;
+    width: auto;
+    a {
+      max-width: 650px;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+header.head.m15
+  h1 Восстановление пароля
+  p.notice На данной странице вы сможете завершить процедуру восстановления пароля, введя ваш новый пароль в расположенные ниже поля.
+
+.m15
+  = form_for resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put } do |f|
+    - unless devise_error_messages!.blank?
+      p.m10 style="color: red;" Введённые пароли не совпадают
+    = f.hidden_field :reset_password_token
+
+    .m15
+      p
+        label for="user_password" Новый пароль
+      = f.password_field :password, class: 'common'
+
+    .m20
+      p
+        label for="user_password_confirmation" Подтверждение пароля
+      = f.password_field :password_confirmation, class: 'common'
+
+    = f.submit "Изменить пароль", class: 'button'

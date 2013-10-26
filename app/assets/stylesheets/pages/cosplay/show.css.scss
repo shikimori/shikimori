@@ -1,0 +1,135 @@
+  @import "globals";
+
+  .menu-right {
+    border-left: 1px solid #BBBBBB;
+    float: right;
+    /*line-height: 130%;*/
+    margin: 0px 0 15px 15px;
+    padding-left: 15px;
+    width: 215px;
+
+    .block-title {
+      margin-bottom: 5px;
+    }
+    li a {
+      display: block;
+    }
+  }
+
+  .h1 {
+    padding-right: 0px;
+  }
+  .main-gallery {
+    .entry .title h3 {
+      margin-bottom: 0px!important;
+    }
+  }
+
+  .gallery-hr {
+    width: 100%;
+    border-bottom: 1px solid #BBBBBB;
+    margin-bottom: 5px;
+  }
+  .gallery-desc {
+    @include text-font;
+    margin-bottom: 10px;
+    /*font-size: 14px;*/
+    /*font-weight: bold;*/
+  }
+
+  .characters {
+    /*float: left;*/
+
+    .character {
+      float: left;
+      margin-bottom: 10px;
+      overflow: hidden;
+      width: 470px;
+
+      &:nth-child(odd) {
+        margin-right: 25px;
+      }
+
+      h2 {
+        @include ellipsis;
+        display: block;
+        /*margin-left: 87px;*/
+        margin-bottom: 5px;
+
+        a {
+          @include ellipsis;
+          display: block;
+          color: #333!important;
+        }
+      }
+      .avatar {
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  .animes {
+    /*float: right;*/
+    /*width: 480px;*/
+
+    .anime {
+      margin-bottom: 10px;
+
+      h2 {
+        /*margin-right: 180px;*/
+        margin-bottom: 10px;
+
+        a {
+          @include ellipsis;
+          display: block;
+          color: #333!important;
+        }
+      }
+      .avatar {
+        /*float: right;*/
+        display:block;
+        margin: 0 auto 4px auto;
+        /*margin-bottom: 4px;*/
+        /*margin-left: 27px;*/
+        /*margin-right: 10px;*/
+      }
+    }
+  }
+
+  .cosplayers {
+    .cosplayer {
+      float: left;
+    margin: 0 15px 15px 0;
+
+    .name {
+      color: #333!important;
+      font-family: StyloBold;
+      font-size: 20px;
+    }
+    .avatar {
+      @include border-radius(5px);
+      padding: 5px;
+      background: #333;
+      /*background: #AAA;*/
+      height: 234px;
+
+      img {
+        height: 234px;
+        width: 156px;
+      }
+    }
+  }
+}
+.cosplay-month a {
+  @include ellipsis;
+  display: block;
+}
+
+h2.comments {
+  overflow: hidden;
+}
+.add-comment-block {
+  overflow: hidden;
+}

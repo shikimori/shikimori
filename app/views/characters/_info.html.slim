@@ -1,0 +1,33 @@
+section.editable
+  .subheadline Описание
+  .item-content.menu-block
+    .description.df.m15
+      - if @entry.description.blank?
+        == format_html_text(@entry.description_mal)
+      - else
+        - if user_signed_in? && !@entry.description_mal.blank?
+          .lang-trigger
+            | [<span>eng</span>]
+          .english
+            == format_html_text @entry.description_mal
+        .russian
+          == BbCodeService.instance.format_comment @entry.description
+    = render partial: 'site/source', locals: { entry: @entry, authors: @entry.changes.authors(:description), field: 'description', default_source: "http://myanimelist.net/character/#{@entry.id}" }, formats: :html
+
+  - if @entry.seyu.present?
+    .people-container
+      .subheadline.m10 Сейю
+      .person-line
+        - @entry.seyu.each do |person|
+          = render partial: 'blocks/person', locals: { person: person, role: nil, link_to_seyu: true }, formats: :html
+
+  - if @entry.animes.any?
+    .anime-line.people-container
+      .subheadline.m10 Анимеграфия
+      = render partial: 'blocks/ani_manga', collection: @entry.animes, locals: { extra_class: "c#{@entry.animes.count}" }, formats: :html
+
+  - if @entry.mangas.any?
+    .manga-line.people-container
+      .subheadline.m10 Мангаграфия
+      = render partial: 'blocks/ani_manga', collection: @entry.mangas, locals: { extra_class: "c#{@entry.mangas.count}" }, formats: :html
+      .clearfix-full

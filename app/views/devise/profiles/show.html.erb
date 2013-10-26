@@ -1,0 +1,12 @@
+<h1><%= @user.display_name %>'s Profile</h1>
+
+<%= image_tag @user.photo.url %><br/>
+<%= image_tag @user.photo.url(:mini) %><br/>
+<%= image_tag @user.photo.url(:thumb) %><br/>
+<%= image_tag @user.photo.url(:small) %><br/>
+<%= image_tag @user.photo.url(:big) %><br/>
+
+<div>
+  Name: <%= @user.name   %><br/>
+  email: <%= @user.email %><br/>
+</div>

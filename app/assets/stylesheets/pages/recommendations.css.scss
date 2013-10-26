@@ -1,0 +1,38 @@
+@import "globals";
+
+.description {
+  color: #333;
+}
+.options-floated {
+  right: 20px!important;
+}
+.fail {
+  color: #850D07;
+}
+.ajax .entry-block {
+  &>a {
+    position: relative;
+    .mark-ignored {
+      line-height: 16px;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+  &.entry-ignored {
+    @include transition-duration(400ms);
+    @include transition-property('opacity');
+    cursor: default!important;
+    opacity: 0.3;
+
+    a {
+      cursor: default!important;
+    }
+    .entry-tooltip {
+      display: none!important;
+    }
+  }
+}
+.pending-loaded {
+  display: none;
+}

@@ -1,0 +1,72 @@
+@import "globals";
+
+.settings {
+  h2 {
+    margin-bottom: 10px;
+  }
+  .input {
+    @include default-text-field;
+    width: 242px;
+    &.suggest {
+      float: right;
+      margin-top: -20px;
+      border: none;
+      outline: none;
+    }
+  }
+  .checkboxes {
+    label {
+      cursor: pointer;
+      padding-left: 2px;
+    }
+    input {
+      vertical-align: middle;
+    }
+  }
+
+  .container {
+    margin-top: 0px;
+
+    li a {
+      @include text-font;
+      @include normal-link;
+      display: block;
+    }
+    .name.tags {
+      float: left;
+      margin-right: 10px;
+    }
+    .item-minus {
+      float: right;
+    }
+  }
+
+  .group-type label {
+    display: block;
+  }
+  .save {
+    float: right;
+  }
+  .item-save {
+    @include headline-icon-button('\e817');
+  }
+}
+.character-suggest {
+  .character.name {
+    width: 240px!important;
+  }
+  .character-animes {
+    div {
+      @include ellipsis;
+      color: #333333;
+      font: 11px "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+      margin-left: 10px;
+      margin-top: 2px;
+      width: 120px;
+    }
+  }
+  .character-avatar {
+    float: right;
+    height: 60px;
+  }
+}

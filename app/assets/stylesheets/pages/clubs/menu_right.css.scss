@@ -1,0 +1,61 @@
+@import "globals";
+
+.menu-right {
+  /*border-left: 1px solid #BBB;*/
+  float: right;
+  /*line-height: 130%;*/
+  margin: 0 0 0 15px;
+  padding-left: 15px;
+  width: $menu-width;
+
+  .logo-block {
+    margin-bottom: 20px;
+  }
+  .image-links {
+    a {
+      float: left;
+      margin: 0 9px 5px 0;
+
+      &:nth-child(4n) {
+        margin-right: 0;
+      }
+      img {
+        padding: 2px;
+        @include image-selectable-decor;
+      }
+    }
+  }
+  .block-list {
+    li {
+      .send-invite {
+        @include default-text-field;
+        background: transparent;
+        border: none;
+        line-height: 18px;
+        margin: -1px 0 0 1px;
+        outline: none;
+        padding: 2px 0 1px;
+        width: 180px;
+      }
+      a {
+        display: block;
+        color: #666;
+      }
+    }
+    &.links a {
+      @include ellipsis;
+    }
+  }
+  .upload-image-container {
+    overflow: hidden;
+    /*cursor: default;*/
+    /*color: #999;*/
+    input {
+      @include opacity(0);
+      height: 20px;
+      margin-left: -5px;
+      margin-top: -22px;
+      width: 225px;
+    }
+  }
+}

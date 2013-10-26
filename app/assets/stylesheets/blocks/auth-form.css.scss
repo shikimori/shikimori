@@ -1,0 +1,52 @@
+@import "compass/css3/opacity";
+@import "compass/css3/transition";
+
+// форма авторизации
+.auth-form {
+  @extend .hover-form;
+  margin-top: 5px;
+  width: 182px;
+
+  .oauth img {
+    @include opacity(0.8);
+    @include transition(opacity, 0.3s);
+    cursor: pointer;
+    margin-right: 5px;
+
+    &:hover {
+      @include opacity(1);
+    }
+    &:active {
+      @include opacity(0.9);
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .agreement {
+    margin-bottom: 5px;
+    line-height: 18px;
+  }
+  .nickname,
+  .password,
+  .registration-fields {
+    margin-bottom: 10px;
+  }
+
+  .registration-trigger {
+    margin-bottom: 5px;
+
+    input {
+      margin: 0 5px 0 0;
+      padding: 0;
+      line-height: 21px;
+    }
+    span:first-child {
+      display: block;
+      margin-bottom: 3px;
+    }
+  }
+  .registration-fields {
+    display: none;
+  }
+}

@@ -1,0 +1,30 @@
+span.item-content-editor-buttons
+  span.edit-controls
+    /span.control.item-change = defined?(change_icon_only) && change_icon_only ? '' : 'Изменить'
+    /*span.control.item-change title="Изменить"*/
+    span.control.item-cancel Отмена
+    - unless defined?(save_to_all) && save_to_all
+      span.control.item-save Сохранить
+    - if user_signed_in? && \
+          (current_user.user_changes_moderator? || \
+            (defined?(save_to_all) && save_to_all) || \
+            (defined?(item) && item && item.respond_to?(:can_be_edited_by?) && item.can_be_edited_by?(current_user)))
+      span.control.item-apply Применить
+
+      /= form_tag apply_path, :method => :put do
+        /span.control.item-apply
+          /- if defined?(save_to_all) && save_to_all
+            /= 'Сохранить'
+          /- else
+            /= defined?(change_icon_only) && change_icon_only ? '' : 'Применить'
+
+        = text_area_tag "#{item_name}[#{defined?(field) ? field : 'description'}]", '', :style => 'display: none'
+        - if defined?(with_source)
+          = text_field_tag "#{item_name}[source]", '', :style => 'display: none'
+    - if user_signed_in? && (defined?(item) && item && item.respond_to?(:can_be_deleted_by?) && item.can_be_deleted_by?(current_user))
+      span.control.item-delete Удалить
+
+  span.delete-controls
+    = form_tag apply_path, :method => :delete do
+      span.control.item-delete-confirm title="Удалить"
+    span.control.item-delete-cancel title="Отмена"

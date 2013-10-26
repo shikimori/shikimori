@@ -1,0 +1,103 @@
+<% content_for :before_page_content do %>
+  <!--<div class="common-title">
+    <h1 class="h1" title="<%=@title %>"><%=@title %></h1>
+  </div>-->
+<% end %>
+
+  <h2 class="main-title">
+    <div class="right">
+      <% @gallery_index_map.each do |cosplayer| %>
+        <p class="more control slider-control-<%=cosplayer.to_param %><%=" selected" if cosplayer.name == @gallery_index_map.first.name %>">
+          <%=link_to cosplayer.name, cosplayers_url(:anchor => cosplayer.to_param) %>
+        </p>
+      <% end %>
+    </div>
+    Галерея
+  </h2>
+
+  <div class="main-gallery">
+    <div class="view-port">
+      <div class="view-content">
+        <% @gallery.each_with_index do |slice,k| %>
+          <div class="slide">
+            <div class="<%=@gallery_index_map[k].to_param %>">
+              <% slice.each do |gallery| %>
+              <div class="entry">
+                <div class="title">
+                  <h3 class="f<%=@cosplayers[k].name.size > 10 ? 15 : 16 %>">
+                    <%=link_to(cosplayer_path(@cosplayers[k], gallery), :only_path => false) do %><%=gallery[:target] %><% end %>
+                  </h3>
+                  <%#<p><b>Жанры:</b>%>
+                    <%#<% gallery.genres.each do |genre| % >%>
+                      <%#<%=genre.name % ><%="," if genre != gallery.genres.last % >%>
+                    <%#<% end % >%>
+                  <%#</p>%>
+                  <%#<% if gallery.episodes > 0 % >%>
+                    <%#<p>%>
+                      <%#<b>Эпизодов:</b> <%=gallery.episodes % >%>
+                    <%#</p>%>
+                  <%#<% end % >%>
+                  <%#<% if gallery.rating != 'None' % >%>
+                    <%#<p>%>
+                      <%#<b>Рейтинг:</b> <%=t "RatingShort.%s" % gallery.rating % >%>
+                    <%#</p>%>
+                  <%#<% end % >%>
+                </div>
+                <div class="image">
+                  <%=link_to(cosplayer_path(@cosplayers[k], gallery), :only_path => false) do %>
+                    <img class="img" src="<%=gallery.images.first.image.url(:preview) %>" />
+                    <!--<div style="background: url(<%=gallery.images.first.url %>)"></div>-->
+                  <% end %>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+<!--
+<div class="cosplayers">
+  <% [].each do |cosplayer| %>
+    <div class="cosplayer">
+      <div class="avatar">
+        <%=link_to cosplayer, :only_path => false do %><img src="<%=cosplayer.cosplay_galleries.first.images.first.url %>" /><% end %>
+      </div>
+      <div class="name"><%#=link_to cosplayer.name, cosplayer, :only_path => false %></div>
+    </div>
+  <% end %>
+</div>
+-->
+
+<%=content_for :menu_right do %>
+  <%#<div class="menu-right">%>
+  <%#test%>
+    <%#<% @data.sort_by {|k,v| -1 * v[:date].to_datetime.to_i }.group_by {|k,v| Russian::strftime(v[:date], '%B %Y') }.each do |month,group| % >%>
+      <%#<div class="block-title"><%=month % ></div>%>
+      <%#<ul class="block-list m20">%>
+        <%#<% group.each do |k,entry| % >%>
+        <%#<li class="slider-control slider-control-info<%=" selected" if @entry[:target] == entry[:target] % >">%>
+          <%#<%=link_to cosplayer_url(:id => entry[:name].first, :target => entry[:target]) do % >%>
+            <%#<%=entry[:target] % ><span class="num right"><%=entry[:date].strftime('%d.%m.%Y') % ></span>%>
+          <%#<% end % >%>
+        <%#</li>%>
+        <%#<% end % >%>
+      <%#</ul>%>
+    <%#<% end % >%>
+  <%#</div>%>
+<% end %>
+
+<% content_for :head do %>
+  <%=stylesheet_link_tag :main %>
+  <%=stylesheet_link_tag :cosplayer %>
+<% end %>
+
+<% content_for :tail do %>
+  <%=javascript_include_tag :main %>
+  <%=javascript_include_tag :cosplayer %>
+<% end %>
+
+<% content_for :title do %><%=@title %><% end %>

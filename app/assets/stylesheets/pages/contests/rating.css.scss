@@ -1,0 +1,37 @@
+@import "globals";
+
+.contest .rating {
+  @include text-font;
+  margin-bottom: 30px;
+  padding-left: 5px;
+
+  .member {
+    @include clearfix;
+    @include ellipsis;
+    height: 22px;
+
+    .position {
+      float: left;
+      padding-right: 5px;
+      color: $gray-color-2;
+
+      &:after {
+        content: '.';
+      }
+    }
+    .progress {
+      padding-left: 5px;
+      float: right;
+
+      &.positive {
+        color: green;
+      }
+      &.negative {
+        color: red;
+      }
+    }
+    a {
+      @include normal-link;
+    }
+  }
+}

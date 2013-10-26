@@ -1,0 +1,74 @@
+- @list.each do |status,data|
+  header class="status-#{status}"
+    a name="#{UserRateStatus.get(status).downcase.gsub(' ', '-')}"
+    .options-floated.collapse id="collapse-#{UserRateStatus.get(status).downcase.gsub(' ', '-')}"
+      span.action свернуть (#{data[:size]})
+    .subheadline = t "#{params[:list_type].capitalize}RateStatus.%s" % UserRateStatus.get(status)
+    .collapsed.tiny ...
+
+  table.default-table
+    tr
+      th.index #
+      th class="name order-control#{' active' if params[:order] == 'name'}" data-order="name" Название
+      th class="num order-control#{' active' if params[:order] == 'my'}" data-order="my" Оценка
+      th class="num order-control#{' active' if params[:order] == 'episodes'}" data-order="episodes" #{params[:list_type] == 'anime' ? 'Эпизодов' : 'Глав'}
+      th class="num order-control#{' active' if params[:order] == 'kind'}" data-order="kind" Тип
+      - if status == UserRateStatus.get(UserRateStatus::Planned)
+        th class="num order-control#{' active' if params[:order] == 'status'}" data-order="status" Статус
+    tr.border
+      th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 6 : 5}"
+
+    - data[:entries].each do |entry_rate|
+      tr.unprocessed.selectable data-action="#{entry_rate[:rate_url]}" data-title="#{entry_rate[:name].downcase}"
+        td.index
+          span
+            = entry_rate[:index]
+          span.anime-remove title="Удалить из списка" data-remote="true" action="#{self.send("rate_#{params[:list_type]}_url", id: entry_rate[:id])}" data-method="delete" data-type="json"
+        td.name
+          /a.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" href="#{entry_rate[:url]}" data-delay="150"
+          a href="#{entry_rate[:url]}"
+            /span
+            span.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" data-delay="150"
+              == entry_rate[:name]
+          - if own_profile?
+            span.anime-status data-field="status"
+        td class="num #{'hoverable' if own_profile?}"
+          span.current-value data-field='score'
+            == entry_rate[:score]
+        td class="num #{'hoverable' if own_profile?}"
+          span.current-value data-field='#{@field_name}'
+            span
+              = entry_rate[:episodes_value]
+          span.misc-value
+            span.sep.inline
+              | /
+            = entry_rate[:episodes]
+        td.num
+          = entry_rate[:kind_localized]
+        - if status == UserRateStatus.get(UserRateStatus::Planned)
+          td.num
+            = entry_rate[:status_localized]
+    - if data[:stats]
+      tr.summary
+        td colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 6 : 5}"
+          - data[:stats].each do |stat,value|
+            = t "UserList.Short.#{stat}"
+            | :&nbsp;
+            span.stat-value = value
+            span.sep
+              | /
+
+- if @add_postloader
+  = render partial: 'site/postloader_new', locals: { filter: 'ani_manga_entry', url: ani_manga_filtered_list_path(params.merge(page: @page+1, format: :json, type: @params_type)) }, formats: :html
+- elsif @total_stats.any? && !(@list.size == 1 && @page == 1 && !@add_postloader)
+  header.summary
+    h2 
+  table.default-table
+    tr.summary.total
+      td colspan="5"
+        - @total_stats.each do |stat,value|
+          = t "UserList.Short.#{stat}"
+          | :&nbsp;
+          span.stat-value = value
+          span.sep
+            | /

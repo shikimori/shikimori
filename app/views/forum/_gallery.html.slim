@@ -1,0 +1,43 @@
+- cache @gallery.cache_key do
+  .welcome-gallery
+    .nav
+      p.control.slider-control-favourites.selected Избранное
+      p.control.slider-control-latest Недавно вышедшее
+      p.control.slider-control-tv TV
+      p.control.slider-control-movies Фильмы
+      p.control.slider-control-serials Сериалы
+      p.control.slider-control-ongoing Онгоинги
+
+    .gallery-body
+      .view-port
+        .view-content
+          - @gallery.data.each_with_index do |slice,k|
+            .slide
+              div class="#{@gallery.index[k] }"
+                - slice.each do |anime|
+                  .entry
+                    .title
+                      span.name class="f#{anime.name.size > 10 ? 15 : 16 }"
+                        a href="#{url_for anime}" title="#{{anime.name}}"
+                          == anime.name
+                      p
+                        span.bold Жанры:&nbsp;
+                        - anime.genres.each do |genre|
+                          = genre.russian || genre.name
+                          - if genre != anime.genres.last
+                            | , 
+                      - if anime.episodes > 0
+                        p
+                          span.bold Эпизодов:&nbsp;
+                          = anime.episodes
+                      - unless anime.year.nil?
+                        p
+                          span.bold Год:&nbsp;
+                          = anime.year
+                      - if anime.rating && anime.rating != 'None'
+                        p
+                          span.bold Рейтинг:&nbsp;
+                          = t "RatingShort.#{anime.rating}"
+                    .image
+                      a href="#{url_for anime}" title="#{{anime.name}}"
+                        img.img src="#{anime.image.url(:preview) }" alt="#{{anime.name}}" title="#{{anime.name}}"

@@ -1,0 +1,34 @@
+@import "globals";
+
+/* div обязательно должен быть - в теге <html> тоже вешается класс history */
+div.history {
+  margin-bottom: 10px;
+
+  .block-list li {
+    cursor: default;
+
+    .entry {
+      display: block;
+    }
+    .history-entry-tooltip {
+      display: none;
+    }
+    .tooltip-inner {
+      a {
+        @include normal-link;
+      }
+    }
+  }
+  .tooltip-arrow {
+    top: 20px;
+  }
+  .tooltip-inner {
+    min-height: 50px;
+  }
+  .tooltip-details {
+    @include ellipsis;
+  }
+}
+.firefox3 div.history .tooltip-details br {
+  display: none;
+}

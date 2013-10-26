@@ -1,0 +1,19 @@
+<div class="subheadline m2"><%=@page_title.last %></div>
+<div class="forum-container">
+  <div class="comments zero-margin zero-top-border">
+    <div class="comments-container">
+      <%=render :partial => 'comments/add', :locals => { :options => {
+                                                            :object => @user,
+                                                            :text => defined?(@reply) && @reply ? @reply : '',
+                                                            :no_subscribe => true
+                                                          },
+                                                          :comments_path => create_messages_path
+                                                        }, formats: :html %>
+      <%=render :partial => 'comments/comment', :collection => @messages, locals: { topic: nil }, formats: :html %>
+      <%#=render partial: 'messages/message', collection: @messages, formats: :html %>
+      <% if @add_postloader %>
+        <%=render :partial => 'site/postloader_new', locals: { filter: 'comment', url: @postloader_url }, formats: :html %>
+      <% end %>
+    </div>
+  </div>
+</div>

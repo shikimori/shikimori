@@ -1,0 +1,23 @@
+@import "globals";
+
+.tooltip {
+  z-index: 1;
+  .favourite {
+    margin-top: -4px;
+    float: right;
+  }
+  .block-title {
+    .title {
+      @include ellipsis;
+      line-height: 17px;
+    }
+    .japanese {
+      float: right;
+      margin-top: -3px;
+      margin-left: 5px;
+    }
+  }
+  .ajax-loading {
+    height: 140px;
+  }
+}

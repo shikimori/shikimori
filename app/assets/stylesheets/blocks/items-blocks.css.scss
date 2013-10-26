@@ -1,0 +1,77 @@
+@import "globals";
+
+.item-block {
+  float: left;
+  width: 123px;
+  height: 155px;
+  overflow: hidden;
+
+  .name,
+  .role {
+    @include ellipsis;
+    padding: 0px;
+    text-align: center;
+  }
+  .role {
+    font-size: 12px;
+    line-height: 12px;
+  }
+  &:hover .name {
+    text-decoration: underline;
+  }
+  .name {
+    @include normal-link;
+  }
+
+  .image {
+    height: 120px;
+  }
+
+  &.full-size {
+    height: 260px;
+    width: 190px;
+
+    .image {
+      height: auto;
+    }
+  }
+
+  &.c1,&.c2,&.c3,&.c4 {
+    height: 270px;
+    overflow: hidden;
+    width: 185px;
+    .image {
+      height: 240px;
+    }
+  }
+  &.c5 {
+    width: 145px;
+    height: 220px;
+    .image {
+      height: 190px;
+    }
+  }
+}
+.user-block {
+  height: 115px;
+}
+.person-block,.person-block-wide {
+  .image {
+    height: auto;
+    max-height: 120px;
+  }
+}
+
+.tooltip {
+  .item-block {
+    float: right;
+    .role {
+      color: #333;
+      margin-top: -5px;
+    }
+    .name {
+      @include normal-link;
+      line-height: 16px;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<div class="subblock-title m5">Лента</div>
+<div class="forum-container">
+  <div class="comments zero-margin zero-top-border">
+    <%=render partial: 'comments/comments', locals: { object: @group, comments: @group.comments.limit(11), postloader: 10 }, formats: :html %>
+  </div>
+</div>

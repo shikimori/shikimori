@@ -1,0 +1,15 @@
+- content_for :head do
+  = stylesheet_link_tag :people_search
+
+header.head.m15
+  h1
+    = @page_title.first
+  p.notice На данной странице отображён результат поиска по запросу "#{@page_title.last}"
+
+- if @people.empty?
+  p Ничего не найдено.
+
+div.index-list
+  = render partial: 'people/person', collection: @people, formats: :html
+  - if @add_postloader
+    = render partial: 'site/postloader_new', locals: { url: send(@director.entry_search_url_builder, search: params[:search], page: @page+1, format: :json) }, formats: :html

@@ -1,0 +1,15 @@
+class UserHistoryAction
+  Add = 'add'
+  Delete = 'delete'
+  Status = 'status'
+  CompleteWithScore = 'complete_with_score'
+  Episodes = 'episodes'
+  Volumes = 'volumes'
+  Chapters = 'chapters'
+  Rate = 'rate'
+  MalAnimeImport = 'mal_anime_import'
+  MalMangaImport = 'mal_manga_import'
+  ApAnimeImport = 'ap_anime_import'
+  ApMangaImport = 'ap_manga_import'
+  Registration = 'registration'
+end

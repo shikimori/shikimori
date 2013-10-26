@@ -1,0 +1,44 @@
+@import "globals";
+
+.contest {
+  .votes {
+    @include clearfix;
+
+    &>.menu-block {
+      @include clearfix;
+    }
+    .subheadline {
+      @include ellipsis;
+    }
+    .left-votes {
+      float: left;
+      position: relative;
+      width: 360px;
+    }
+    .right-votes {
+      float: right;
+      position: relative;
+      width: 360px;
+    }
+    p {
+      color: $gray-color-2;
+    }
+    .voters a {
+      margin: 0 6px 4px 0;
+      display: inline-block;
+
+      img {
+        @include image-selectable-decor;
+        padding: 1px;
+      }
+    }
+    /*.user-block {*/
+      /*height: 80px;*/
+      /*width: 80px;*/
+
+      /*a {*/
+        /*@include normal-link;*/
+      /*}*/
+    /*}*/
+  }
+}

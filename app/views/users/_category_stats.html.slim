@@ -1,0 +1,13 @@
+- key = (klass.to_s+'_'+category.to_s).to_sym
+
+- if presenter.stats.include?(key) && presenter.stats[key].any?
+  .stat-categories
+    - presenter.stats[key].each do |stat|
+      p class="category t#{stat[:scale]}"
+        a href="#{ani_manga_filtered_list_path @user, list_type: klass, type: nil, category.to_s.singularize => stat[:category]}"
+          - if category == :genres
+            = localized_name stat[:category]
+          - else
+            = stat[:category].name
+- else
+  p.stat-sorry Недостаточно данных для формирования статистики

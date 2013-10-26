@@ -1,0 +1,126 @@
+@import "globals";
+@import "globals/responsive";
+
+.usernav {
+  padding-bottom: 4px;
+  padding-top: 6px;
+
+  &>span {
+    float: left;
+  }
+  /*.img-reg {*/
+    /*cursor: pointer;*/
+    /*height: 16px;*/
+    /*margin-left: 3px;*/
+    /*margin-top: 2px;*/
+    /*width: 16px;*/
+    /*float: left;*/
+  /*}*/
+}
+.menu {
+  .unread-count, .contest {
+    @include border-radius(1px);
+    @include text-font;
+    @include transition(backround-color, 0.3s);
+    background: #5a5a5a;
+    color: #f9f9f9;
+    display: block;
+    float: right!important;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    width: 19px;
+    height: 19px;
+    line-height: 19px;
+
+    &:hover {
+      background: #7a7a7a!important;
+    }
+  }
+  .contest {
+    &:before {
+      color: white;
+      content: '\e817';
+      font-family: 'shikimori';
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 17px;
+    }
+  }
+  &:hover .unread-count, &:hover .contest {
+    background: #6a6a6a;
+    color: white;
+  }
+}
+
+@include responsive(desktop) {
+  .userbox {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    height: 30px!important;
+    white-space: nowrap;
+
+    &>a {
+      padding-top: 6px;
+      padding-bottom: 4px;
+      display: inline-block;
+      color: inherit;
+      /*float: left;*/
+
+      &>.avatar {
+        border: none;
+        height: 19px;
+        width: 19px;
+        padding-right: 2px;
+        vertical-align: top;
+      }
+      .graphics-arrow-down {
+        display: inline-block;
+        height: 14px;
+        margin-left: 3px;
+        margin-top: -2px;
+        vertical-align: middle;
+        width: 15px;
+      }
+    }
+    #sign_in {
+      @include icon("r");
+      display: block; // onlick bug in safari
+      margin-left: 0!important;
+
+      &:before {
+        font-size: 18px;
+        line-height: $menu-height;
+      }
+    }
+  }
+  .menu {
+    .unread-count {
+      margin-top: 6px;
+    }
+    .unread-count, .contest {
+      height: 15px;
+      line-height: 15px;
+      margin-left: 8px;
+      padding: 2px;
+      width: 15px;
+    }
+  }
+}
+
+@include responsive(tablet) {
+  .userbox {
+    height: $menu-height;
+
+    .avatar {
+      margin-top: 5px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+  .menu {
+    .unread-count, .contest {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+@import "globals";
+
+.files {
+  position: relative;
+
+  .options-floated {
+    right: 27px;
+    &.right-zero {
+      right: 10px;
+    }
+  }
+  .subtitles {
+    margin-top: 40px;
+  }
+  .search {
+    margin-bottom: 30px;
+    margin-top: 40px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    .toshokan, .rutracker {
+      float: left;
+      margin-right: 30px;
+      width: 355px;
+
+      a {
+        @include text-font;
+        @include normal-link;
+        display: block;
+      }
+      .content {
+        margin-left: 5px;
+      }
+      &.rutracker {
+        margin-right: 0;
+        margin-top: 0;
+      }
+    }
+  }
+  table {
+    font-size: 12px;
+    a {
+      @include ellipsis;
+      @include normal-link;
+      /*@include default-link-hover;*/
+    }
+    th {
+      font-size: 13px;
+      line-height: 16px;
+
+      &.num {
+        text-align: left;
+        width: 50px;
+      }
+    }
+    td {
+      &:first-child {
+        padding-left: 5px;
+      }
+      &.name a {
+        /*-moz-binding: url('/bindings.xml#ellipsis');*/
+        /*display: block;*/
+        /*width: 580px;*/
+      }
+      &.name.other-torrents a {
+        width: 490px;
+      }
+      &.name.subtitles a {
+        width: 655px;
+      }
+      &.name.full-subtitles a {
+        width: 705px;
+      }
+      &.num {
+        text-align: left;
+        width: 50px;
+      }
+    }
+  }
+}

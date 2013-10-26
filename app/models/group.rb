@@ -1,0 +1,121 @@
+class Group < ActiveRecord::Base
+  include PermissionsPolicy
+
+  has_many :member_roles, :class_name => GroupRole.name,
+                          :dependent => :destroy
+  has_many :members, :through => :member_roles,
+                     :source => :user
+
+  has_many :moderator_roles, :class_name => GroupRole.name,
+                             :conditions => {:role => GroupRole::Moderator}
+  has_many :moderators, :through => :moderator_roles,
+                        :source => :user
+
+  has_many :admin_roles, :class_name => GroupRole.name,
+                         :conditions => {:role => GroupRole::Admin}
+  has_many :admins, :through => :admin_roles,
+                    :source => :user
+
+  has_many :links, :class_name => GroupLink.name,
+                   :dependent => :destroy
+
+  has_many :animes, :through => :links,
+                    :source => :linked,
+                    :source_type => Anime.name,
+                    :order => :ranked
+
+  has_many :mangas, :through => :links,
+                    :source => :linked,
+                    :source_type => Manga.name,
+                    :order => :ranked
+
+  has_many :characters, :through => :links,
+                        :source => :linked,
+                        :source_type => Character.name,
+                        :order => :name
+
+  has_many :images, :as => :owner,
+                    :dependent => :destroy
+
+  belongs_to :owner, :class_name => User.name,
+                     :foreign_key => :owner_id
+
+  has_many :invites, :class_name => GroupInvite.name,
+                     :dependent => :destroy
+
+  has_many :topics, :class_name => Entry.name,
+                    :as => :linked,
+                    :order => 'updated_at desc',
+                    :dependent => :destroy
+
+  has_one :thread, :class_name => GroupComment.name,
+                   :foreign_key => :linked_id,
+                   :conditions => { :linked_type => self.name },
+                   :dependent => :destroy
+
+  before_save :update_permalink
+  after_create :create_thread
+  after_save :sync_thread
+
+  has_attached_file :logo, :styles => {
+                      :main => '215x215>',
+                      :x73 => '73x73#',
+                      :x48 => '48x48#'
+                    },
+                    :url  => '/images/group/:style/:id.:extension',
+                    :path => ':rails_root/public/images/group/:style/:id.:extension',
+                    :default_url => 'http://www.gravatar.com/avatar/group?s=73'
+
+  #validates_attachment_presence :logo
+
+  TranslatorsID = 2
+
+  # название группы
+  def name
+    self[:name] && self[:name].strip != '' ? self[:name] : 'без названия'
+  end
+
+  # для урлов
+  def to_param
+    "#{self.id}-#{self.permalink}"
+  end
+
+  # является ли пользователь членом группы
+  def has_member?(user)
+    member_roles.any? {|v| v.user_id == (user.class == User ? user.id : user) }
+  end
+
+  # является ли пользователь членом комманды группы
+  def has_staff?(user)
+    member_roles.any? {|v| (v.user_id == (user.class == User ? user.id : user)) && v.role != GroupRole::Member }
+  end
+
+  # группа ли это переводчиков
+  def belongs_to_translators?
+    self.id == TranslatorsID
+  end
+
+  # число участников группы
+  def members_count
+    group_roles_count
+  end
+
+  # отображать ли картинки в группе?
+  def display_images?
+    display_images
+  end
+
+private
+  def update_permalink
+    self.permalink = self.name.permalinked if self.changes.include? :name
+  end
+
+  def sync_thread
+    thread.update_attribute :title, name if thread.title != name
+  end
+
+  # создание AniMangaComment для элемента сразу после создания
+  def create_thread
+    GroupComment.create! linked: self, section_id: Section::GroupsId, title: name
+  end
+end

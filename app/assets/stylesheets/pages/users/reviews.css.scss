@@ -1,0 +1,12 @@
+.reviews {
+  .forum-container {
+    width: 100%;
+
+    .buttons {
+      display: none!important;
+    }
+    .comments .shiki-editor .body textarea {
+      width: 910px!important;
+    }
+  }
+}

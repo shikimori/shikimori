@@ -1,0 +1,21 @@
+.proposing
+  - cache [contest, 'proposing', russian_names_key] do
+    = render partial: 'contests/suggestions', locals: { contest: contest }
+
+  - if user_signed_in?
+    - cache [contest, 'proposing', russian_names_key, current_user.id] do
+      = form_for [contest, contest.new_suggestion] do |f|
+        = f.hidden_field :item_type
+        = f.hidden_field :item_id
+        - if contest.can_propose?
+          input.item-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.suggestion_url}"
+        .subheadline.m10
+          - if contest.can_propose?
+            | Ваши номинанты (ещё #{contest.proposals_left})
+          - else
+            | Ваши номинанты
+        .subcontent.own-nominants
+          - if contest.user_suggestions.any?
+            = render partial: 'contests/suggestion', collection: contest.user_suggestions, locals: { contest: contest }
+          - else
+            p нет вариантов

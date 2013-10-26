@@ -1,0 +1,21 @@
+// высота меню
+$menu-height: 31px;
+// ширина слайда
+$slide-width: 740px;
+// ширина меню
+$menu-width: 215px;
+// ширина меню
+$menu-width-narrow: 160px;
+
+// цвета
+
+// даты
+$date-color: #acb1b4;
+
+// adaptive
+/*320px for common smartphones including iPhone at portrait orientation*/
+/*480px and below for iPhones at landscape orientation and many of the HTC handsets*/
+/*768px – 980px for iPad and other tablets*/
+/*980px and upwards for desktop monitors*/
+/*1200px and upwards for larger desktop monitors*/
+$tablets-break: 768px;

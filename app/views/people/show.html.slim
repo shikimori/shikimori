@@ -1,0 +1,33 @@
+- content_for :head do
+  = stylesheet_link_tag :people
+
+header.head
+  h1 title="#{@page_title.last}" itemprop="name"
+    = @page_title.last
+  p.notice
+    = @entry.job_title
+
+.info
+  aside.left-column
+    = render 'menu_left'
+
+  section.right-column
+    .options-floated
+      span class="#{' selected' if params[:sort] == nil}"
+        - if params[:sort] == nil
+          | Рейтинг
+        - else
+          = link_to 'Рейтинг', person_url(@entry)
+      | &nbsp;&nbsp;/&nbsp;&nbsp;
+      span class="#{' selected' if params[:sort] == 'time'}"
+        - if params[:sort] == 'time'
+          | Дата
+        - else
+          = link_to 'Дата', person_url(@entry, sort: 'time')
+    .subheadline.m10
+      = @entry.occupation
+    .ajax
+      - @entry.works.each do |work|
+        = render partial: 'ani_mangas/related', object: work[:entry], locals: { info: format_person_role(work[:role], full: true), clearfix: false }, formats: :html
+
+  .clearfix-full

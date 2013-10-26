@@ -1,0 +1,212 @@
+@import "globals";
+
+.item-editor {
+  h2 {
+    margin-bottom: 5px;
+  }
+
+  .item-content-editor-buttons {
+    .item-apply {
+      @include headline-icon-button('\e821');
+      margin-left: 5px!important;
+    }
+    .item-save {
+      @include headline-icon-button('\e817');
+      margin-left: 5px!important;
+    }
+    .item-cancel {
+      @include headline-icon-button('\e813');
+      margin-left: 5px!important;
+    }
+  }
+  .item-content-editor {
+    margin-bottom: 20px;
+
+    a {
+      @include normal-link;
+    }
+    .shiki-editor {
+      border-top: none!important;
+    }
+    .item-offtopic, .image-name {
+      display: none!important;
+    }
+    .source {
+      margin-top: -5px;
+      white-space: nowrap;
+
+      input {
+        width: 635px;
+      }
+    }
+    .label {
+      input {
+        margin-left: 5px;
+        margin-top: 4px;
+        width: 722px;
+      }
+    }
+  }
+  .item-bbcontent {
+    display: none;
+  }
+
+  .changes {
+    clear: left;
+
+    .change {
+      @include text-font;
+      span {
+        padding-right: 5px;
+      }
+      .date {
+        @include default-date-decor;
+        padding-right: 8px;
+      }
+      a,.link {
+        @include normal-link;
+      }
+      .id-label {
+        padding-right: 1px;
+        color: #777;
+      }
+      .status {
+        padding-left: 5px;
+      }
+      .avatar {
+        position: absolute;
+        margin-top: 2px;
+      }
+      .nickname {
+        padding-left: 21px;
+      }
+      .spoiler {
+        @include spoiler-new;
+        &.collapse {
+          float: none;
+          display: inline;
+          text-decoration: underline;
+          font-size: 12px;
+        }
+        &.collapsed {
+          font-size: 12px;
+        }
+      }
+      .quoteable {
+        font-weight: bold;
+
+        span.name {
+          font-weight: normal;
+          padding-left: 5px;
+        }
+      }
+      .comment-block {
+        min-height: 0;
+        border-top: none;
+        blockquote {
+          margin-left: 5px;
+        }
+        del {
+          color: red;
+        }
+        ins {
+          color: $default-selected-color;
+        }
+      }
+      .moderation {
+        float: right;
+        margin-right: 12px;
+
+        a {
+          margin-left: 8px;
+          text-decoration: underline;
+        }
+      }
+      .screenshots-compare {
+        .before {
+          width: 170px;
+        }
+        .after {
+          margin-left: 200px;
+          position: absolute;
+          width: 170px;
+        }
+        img {
+          display: block;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  .alert {
+    color: red;
+  }
+  // отображение в режиме модерации но без дополнительной информации
+  .no-change-details {
+    .column, .id {
+      display: none;
+    }
+  }
+}
+.item-content {
+  .changes {
+    clear: both;
+    float: none;
+    height: 35px;
+
+    a {
+      @include normal-link;
+    }
+    p {
+      float: left;
+      margin-right: 5px;
+      color: $gray-color;
+
+      a {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+  .contributors {
+    float: left;
+    padding: 0 5px;
+  }
+  .source {
+    float: right;
+    padding: 0 5px 0 0;
+  }
+}
+.screenshots-editor {
+  .item-content-editor {
+    display: none;
+  }
+}
+.screenshots-uploader {
+  padding-bottom: 20px;
+
+  .comment-block {
+    overflow: initial;
+  }
+  .inner {
+    min-height: 50px!important;
+  }
+  .item-upload {
+    @include headline-icon-button('\e80c');
+    span {
+      width: 90px;
+    }
+    input {
+      @include opacity(0);
+      cursor: pointer;
+      height: 20px;
+      margin: 0px;
+      padding: 0px;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 90px;
+      z-index: 1;
+    }
+  }
+}

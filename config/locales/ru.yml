@@ -1,0 +1,77 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+ru:
+  activerecord:
+    # названия полей моделей
+    attributes:
+      contest:
+        title: Название
+        description: Описание
+        matches_per_round: Число голосований этапа
+        match_duration: Длительность голосования
+        matches_interval: Число дней между этапами
+        user_vote_key: Ключ в таблице пользователя
+        strategy_type: Стратегия
+        member_type: Тип участника
+      ban:
+        reason: Причина
+        duration: Срок
+
+    # сообщения валидаций
+    errors:
+      models:
+        comments:
+          not_a_moderator: '[ban] теги трогать нельзя'
+
+    state_machines:
+      contest:
+        states:
+          created: подготавливается
+          proposing: сбор номинантов
+          started: активно
+          finished: завершено
+
+      review:
+        states:
+          pending: ожидает рассмотрения
+          accepted: принято
+          rejected: отклонено
+
+  enumerize:
+    strategy_type:
+      double_elimination: Вылет после двух поражений
+      play_off: Вылет после первого поражения
+      swiss: Швейцарская система
+
+    member_type:
+      anime: Аниме
+      character: Персонажи
+
+    abuse_request:
+      kind:
+        offtopic: оффтоп
+        review: отзыв
+        spoiler: спойлер
+        abuse: нарушение
+
+  date_time:
+    week:
+      one: неделя
+      few: недели
+      many: недель
+    day:
+      one: день
+      few: дня
+      many: дней
+    hour:
+      one: час
+      few: часа
+      many: часов
+    minute:
+      one: минута
+      few: минуты
+      many: минут
+  messages:
+    user_banned: 'Пользователь забанен'
+    user_warned: 'Пользователь предупреждён'

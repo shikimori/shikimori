@@ -1,0 +1,52 @@
+- content_for :head do
+  = stylesheet_link_tag :contests
+- content_for :tail do
+  = javascript_include_tag :contests
+
+header.head.misc
+  h1
+    = @page_title.last
+  = render partial: 'site/breadcrumbs', object: breadcrumbs
+
+= render partial: 'contests/menu', locals: { contest: @contest }
+
+- cache "contests/users/#{@contest.displayed_match.id}-#{@contest.displayed_match.updated_at}-#{russian_names_key}", expires_in: @contest.displayed_match.finished? ? nil : 1.hour do
+  .contest.item-content
+    .votes
+      .menu-block
+        .left-votes
+          .options-floated.count
+            = @contest.left_voters.size
+          .subheadline.m10
+            = localized_name @contest.displayed_match.left
+          - if @contest.left_voters.any?
+            .voters
+              - @contest.left_voters.each do |user|
+                a href="#{user_url user}" title="#{user.nickname}"
+                  img src="#{gravatar_url user, 32}" alt="#{user.nickname}" title="#{user.nickname}"
+          - else
+            p Нет проголосовавших.
+
+        .right-votes
+          .options-floated.count
+            = @contest.right_voters.size
+          .subheadline.m10
+            = localized_name @contest.displayed_match.right
+          - if @contest.right_voters.any?
+            .voters
+              - @contest.right_voters.each do |user|
+                a href="#{user_url user}" title="#{user.nickname}"
+                  img src="#{gravatar_url user, 32}" alt="#{user.nickname}" title="#{user.nickname}"
+          - else
+            p Нет проголосовавших.
+
+      - if @contest.refrained_voters.any?
+        .refrained-votes
+          .options-floated.count
+            = @contest.refrained_voters.size
+          .subheadline.m10 Воздержались
+          .voters
+            - @contest.refrained_voters.each do |user|
+              a href="#{user_url user}" title="#{user.nickname}"
+                img src="#{gravatar_url user, 32}" alt="#{user.nickname}" title="#{user.nickname}"
+  .clearfix

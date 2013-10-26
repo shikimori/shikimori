@@ -1,0 +1,72 @@
+<div class="delayed_jobs">
+  <div class="tooltip-left">
+    <div class="tooltip-inner" style="">
+      <div class="tooltip-arrow"></div>
+      <div class="clearfix">
+        <div class="tooltip-details">
+          <div class="subblock-title"><div class="reload"></div>Disk space</div>
+          <p class="m10"><%=@disk_space %>%</p>
+          <div class="subblock-title">Memmory</div>
+          <p class="m10">
+            <%=@mem_space %>%
+          </p>
+          <div class="subblock-title">Swap</div>
+          <p class="m10">
+            <%=@swap_space %>%
+          </p>
+          <div class="subblock-title">Memcached</div>
+          <p class="m10">
+            <%=@memcached_space %>%
+          </p>
+          <div class="subblock-title">Redis keys</div>
+          <p class="m10"><%=@redis_keys %></p>
+          <div class="subblock-title">Job Workers</div>
+          <p class="m10">
+            <%=@job_workers %>
+          </p>
+<% if Delayed::Job.count > 0 %>
+          <div class="subblock-title">Jobs Queue</div>
+          <div class="m10">
+            <% @jobs_queue.each do |job| %>
+              <p><span class="right"><%=time_ago_in_words(job.run_at) %></span><span class="<%=job.status %>"><%=job.handler.match(Delayed::Job::ParseObjectFromYaml)[1] %></span><% if job.status == 'failed' %> [<%=link_to 'перезапуск', restart_job_url(job) %>]<% end %></p>
+            <% end %>
+          </div>
+<% end %>
+          <div class="subblock-title">Proxies</div>
+          <p class="m10"><%=@proxies_count %></p>
+
+<% if @calendar_update %>
+          <div class="subblock-title">Calendar Update</div>
+          <p class="m10"><%=@calendar_update.to_date.to_s %></p>
+<% end %>
+
+          <% if @calendar_unrecognized.present? && @calendar_unrecognized.any? %>
+            <div class="subblock-title">Calendar Unrecognized</div>
+            <div class="m10">
+              <% @calendar_unrecognized.each do |name| %>
+                <p class="m5"><%=name %></p>
+              <% end %>
+            </div>
+          <% end %>
+
+          <div class="subblock-title">Animes to import</div>
+          <p class="m10"><%=@animes_to_import %></p>
+          <div class="subblock-title">Mangas to import</div>
+          <p class="m10"><%=@mangas_to_import %></p>
+          <div class="subblock-title">Characters to import</div>
+          <p class="m10"><%=@characters_to_import %></p>
+          <div class="subblock-title">People to import</div>
+          <p class="m0"><%=@people_to_import %></p>
+        </div>
+      </div>
+      <div class="dropshadow-top"></div>
+      <div class="dropshadow-top-right"></div>
+      <div class="dropshadow-right"></div>
+      <div class="dropshadow-bottom-right"></div>
+      <div class="dropshadow-bottom"></div>
+      <div class="dropshadow-bottom-left"></div>
+      <div class="dropshadow-left"></div>
+      <div class="dropshadow-top-left"></div>
+    </div>
+  </div>
+</div>

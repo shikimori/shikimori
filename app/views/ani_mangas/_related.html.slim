@@ -1,0 +1,21 @@
+article class="related-block #{'clearfix' if (defined?(clearfix) && clearfix) || !defined?(clearfix) } m5 #{related.kind}"
+  = ani_manga_link(related) do
+    div.image-container
+      img width="64" height="96" src="#{related.image.url(:x96)}" alt="#{UserPresenter.localized_name(related, current_user)}" title="#{UserPresenter.localized_name(related, current_user)}"
+    div.name
+      - if defined?(info) && info.present?
+        p.relation = info
+      span.f18
+        = UserPresenter.localized_name related, current_user
+    div.description
+      p
+        - unless related[:description]
+          | <!--noindex-->
+        == truncate(remove_misc_data(related.description), :length => 220, :separator => ' ')
+        - unless related[:description]
+          | <!--/noindex-->
+    - if related.year
+      div.year = related.year
+    - unless related.kind.blank?
+      div.type
+        = UserPresenter.localized_kind(related, current_user, true).sub 'Спешиал', 'Спешл'

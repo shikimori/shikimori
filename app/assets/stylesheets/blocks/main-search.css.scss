@@ -1,0 +1,165 @@
+@import "compass/css3/transition";
+@import "globals/responsive";
+@import "globals";
+
+.main-search {
+  .input {
+    background-color: #FCFCFC;
+    border-color: #DDD;
+    color: #333;
+    cursor: pointer;
+
+    input {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .popup {
+    li {
+      @include transition(backround-color, 0.3s);
+      @include transition(color, 0.3s);
+      color: #f9f9f9;
+      background-color: transparent;
+      cursor: pointer;
+      height: 21px;
+
+      &:hover {
+        background-color: #555;
+        color: white;
+      }
+      &.active {
+        background-color: #282828;
+        cursor: inherit;
+      }
+      &:active {
+        background-color: #333;
+      }
+    }
+  }
+}
+
+// основной поиск
+@include responsive(desktop) {
+  .main-search {
+    padding-left: 0!important;
+    padding-right: 9px!important;
+
+    &:hover {
+      background: transparent!important;
+    }
+    .input {
+      height: 16px;
+      margin: 0;
+      overflow: hidden;
+      padding: 3px 5px 0;
+      width: 175px;
+
+      input {
+        font-family: Tahoma;
+        font-size: 11px;
+        line-height: 12px;
+        width: 175px;
+
+        &.ac_loading {
+          width: 159px;
+          padding-right: 19px;
+        }
+      }
+    }
+    &.hovered .popup {
+      height: 175px;
+      margin-top: 5px;
+    }
+    ul.popup {
+      @include transition(height, 0.3s);
+      background: #3F3F3F;
+      border: 2px solid #363636;
+      border-top: none;
+      margin-left: -2px;
+      margin-top: 5px;
+      overflow: hidden;
+      position: absolute;
+      z-index: 1000;
+
+      margin-top: 0;
+      height: 0;
+
+      &.disabled {
+        margin-top: 0!important;
+        height: 0!important;
+      }
+      li {
+        border-bottom: 1px solid #aaa;
+        font-family: Tahoma;
+        font-size: 11px;
+        line-height: 22px;
+        padding: 0 5px 0 8px;
+        width: 172px;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+    .suggest-placeholder {
+      margin-top: -5px;
+      margin-left: -6px;
+    }
+  }
+  .chrome .suggest-placeholder {
+    margin-top: -3px;
+  }
+}
+@include responsive(tablet) {
+  .menu-suggest {
+    display: none!important;
+  }
+  .menu-search {
+    .main-search {
+      padding-right: 25px!important;
+      padding-left: 10!important;
+    }
+    .input {
+      height: 20px;
+      margin: 3px;
+      padding: 3px 5px 3px;
+      width: 100%;
+    }
+    input {
+      @include text-font;
+      font-size: 14px;
+      line-height: 20px;
+      width: 100%;
+
+      &.ac_loading {
+        background: transparent!important;
+        /*width: 100%;*/
+        /*padding-right: 0;*/
+      }
+    }
+    .popup {
+      padding: 5px;
+      line-height: 20px;
+
+      li {
+        @include text-font;
+        display: inline-block;
+        line-height: 23px;
+        font-size: 13px;
+        padding: 2px 8px 4px 8px;
+      }
+    }
+  }
+}
+/*@include responsive(phone) {*/
+  /*.menu-search {*/
+    /*.main-search {*/
+      /*padding-right: 18px!important;*/
+      /*padding-left: 0!important;*/
+    /*}*/
+  /*}*/
+/*}*/

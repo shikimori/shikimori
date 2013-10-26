@@ -1,0 +1,33 @@
+- content_for :head do
+  = stylesheet_link_tag :people
+
+header.head
+  h1 title="#{@page_title.last}" itemprop="name"
+    = @page_title.last
+  p.notice Сейю
+
+.info
+  aside.left-column
+    = render 'menu_left'
+
+  section.right-column
+    .options-floated
+      span class="#{' selected' if params[:sort] == nil}"
+        - if params[:sort] == nil
+          | Рейтинг
+        - else
+          = link_to 'Рейтинг', seyu_url(@entry)
+      | &nbsp;&nbsp;/&nbsp;&nbsp;
+      span class="#{' selected' if params[:sort] == 'time'}"
+        - if params[:sort] == 'time'
+          | Дата
+        - else
+          = link_to 'Дата', seyu_url(@entry, sort: 'time')
+
+    .subheadline.m10 Персонажи и аниме
+    - @entry.works.each do |group|
+      .char-ani-block
+        - group[:characters].each do |character|
+          = render partial: 'blocks/person', locals: { person: character, role: nil, link_to_character: true, no_seyu: true, no_tooltip: true, remote: :character_tooltip_url }, formats: :html
+        = render partial: 'blocks/ani_manga', collection: group[:animes], formats: :html
+  .clearfix-full

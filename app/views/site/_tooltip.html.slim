@@ -1,0 +1,17 @@
+div
+  .tooltip-inner
+    .tooltip-arrow
+    .clearfix
+      .tooltip-details
+        - if defined?(template_name)
+          = render partial: template_name, locals: objects, formats: :html
+        - else
+          .ajax-loading title="Загрузка..."
+    .dropshadow-top
+    .dropshadow-top-right
+    .dropshadow-right
+    .dropshadow-bottom-right
+    .dropshadow-bottom
+    .dropshadow-bottom-left
+    .dropshadow-left
+    .dropshadow-top-left

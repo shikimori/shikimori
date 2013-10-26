@@ -1,0 +1,30 @@
+<h2>Edit Profile</h2>
+
+<%= image_tag @user.photo.url(:thumb) %><br/>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <% devise_error_messages! %>
+
+    <h3>About</h3>
+    <%= f.input :name, :label => "Name" %>
+    <%= f.input :email, :label => "Email" %>
+    <%= f.input :slug, :label => "Personal URL" %>
+
+    <br/>
+    <h3>Password</h3>
+    <%= f.input :password, :label => "Password",
+                :hint => "leave blank if you don't want to change it" %>
+
+    <%= f.input :password_confirmation, :label => "Password Confirmation" %>
+
+    <%= f.input :current_password, :label => "Current Password",
+                :hint => "we need your current password to confirm a password change" %>
+
+    <%= f.input :photo %>
+
+    <p><%= f.submit "Update" %></p>
+<% end %>
+
+<br/>
+<br/>
+<%= render :partial => "devise/shared/social_connect_and_unconnect" %>

@@ -1,0 +1,43 @@
+/div class="comment-block message-block appear-block type-#{message.kind } comment-#{message.id }#{' comment-new new-pending' if message.new?(params) }"
+.comment-block.message-block.appear-block class="type-#{message.kind} comment-#{message.id}#{' comment-new' if message.new?(params) }"
+  - if message.new?(params)
+    p.new-marker новое
+  .buttons
+    .main-controls
+      - unless ['sent','notifications'].include?(params[:type]) || message.src.bot?
+        a.item-reply href="#{talk_url message.src, message_id: message.id, page: nil}" title="Ответить"
+      - if ![MessageType::FriendRequest, MessageType::GroupRequest].include?(message.kind) || !message.new?(params)
+        span.item-delete
+      - else
+        - if message.kind == MessageType::FriendRequest
+          span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.src_id}" title="Принять"
+          span.item-request-reject title="Отклонить"
+        - else
+          span.item-request-confirm data-remote="true" data-method="put" data-type="json" action="#{group_invites_accept_url message.subject}" title="Принять"
+          span.item-request-reject data-remote="true" data-method="put" data-type="json" action="#{group_invites_reject_url message.subject}" title="Отклонить"
+    .delete-controls
+      span.item-delete-confirm action="#{url_for message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+      span.item-delete-cancel title="Отмена"
+
+  .image-name
+    - if params[:type] != 'sent'
+      = link_to user_url(message.src) do
+        img src="#{gravatar_url message.src, 64}" alt="#{message.src.nickname }"
+      = link_to message.src.nickname, user_url(message.src), class: :name
+    - else
+      = link_to user_url(message.dst) do
+        img src="#{gravatar_url message.dst, 64}" alt="#{message.dst.nickname }"
+      = link_to "@#{message.dst.nickname}", user_url(message.dst), class: :name
+    p.date
+      = time_ago_in_words(message.created_at, "%s назад")
+
+  .body
+    - if message.linked.class == AnimeNews && message.linked.anime.image.exists?# && !message.body.include?('anime_poster')
+      = ani_manga_link(message.linked.anime) do
+        img.anime-image src="#{message.linked.anime.image.url :preview}" title="#{{message.linked.anime.name}}" alt="#{{message.linked.anime.name}}"
+    == get_message_body message
+
+    - if should_show_more? message
+      = link_to "к новости→", topic_url(message.linked), class: 'right to-entry'
+
+    .appear-marker class="appear-#{message.id}" data-href="#{read_messages_url}" data-disabled="#{[MessageType::FriendRequest, MessageType::GroupRequest].include?(message.kind) ? 'true' : 'false'}"

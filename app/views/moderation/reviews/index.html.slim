@@ -1,0 +1,35 @@
+- content_for :head do
+  = stylesheet_link_tag :moderation_reviews
+
+- content_for :tail do
+  = javascript_include_tag :moderation_reviews
+
+header.head
+  h1
+    = @page_title
+  p.notice История модерации рецензий
+
+.moderation.reviews
+  .subheadline Инструкция
+  .changes
+    .comment-block.m30
+      .description
+        .b-moderators
+          = render partial: 'blocks/user', collection: @moderators, locals: { avatar_size: 48 }, formats: :html
+        ul.m10
+          li: p Рецензия должна в целом соответствовать <a href="http://shikimori.org/animes/1-Cowboy-Bebop/reviews/new">критериям</a>.
+          li: p Отклонённые рецензии превращаются в топик оффтопика без возможности восстановления.
+          li: p Отклоняйте рецензии, содержащие троллинг, "быдлоязык", написанные с целью вызывать срач.
+
+    .item-editor
+      - if @pending.any?
+        h2.subheadline Очередь
+        .changes.m30
+          = render partial: 'moderation/reviews/review', collection: @pending
+
+      - if @processed.any?
+        h2.subheadline История
+        .changes
+          = render partial: 'moderation/reviews/review', collection: @processed
+          - if @add_postloader
+            = render partial: 'site/postloader_new', locals: { url: page_moderation_reviews_url(page: @page+1, format: :json) }, formats: :html

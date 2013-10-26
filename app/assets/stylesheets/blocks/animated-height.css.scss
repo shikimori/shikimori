@@ -1,0 +1,9 @@
+@import "compass/css3/transition";
+
+.animated-height {
+  @include transition-property(height);
+  @include transition-duration(500ms);
+}
+.animated-overflow {
+  overflow: hidden;
+}

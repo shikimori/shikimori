@@ -1,0 +1,10 @@
+- cache ['rating', contest, round, russian_names_key] do
+  .column
+    .subheadline Рейтинг
+    .rating
+      - contest.rating_stats(round).each do |stats|
+        .member
+          .position = stats.position
+          .progress class="#{stats.status}" = stats.progress
+          a.bubbled href="#{url_for stats.member}" title="#{localized_name stats.member}" data-remote="true" data-delay="150"
+            = localized_name stats.member

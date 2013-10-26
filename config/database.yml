@@ -1,0 +1,28 @@
+# SQLite version 3.x
+#   gem install sqlite3-ruby (not necessary on OS X Leopard)
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: shikimori
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+  pool: 1000
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: shikimori_test<%= ENV['TEST_ENV_NUMBER'] %>
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+  pool: 200
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: shikimori
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+  pool: 1000

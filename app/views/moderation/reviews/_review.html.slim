@@ -1,0 +1,29 @@
+.change
+  - if review.pending?
+    .moderation
+      span.bracket-actions: a.accept href="#{accept_moderation_review_path review}" data-method="post" принять
+      span.bracket-actions: a.reject href="#{reject_moderation_review_path review}" data-method="post" переместить в оффтопик
+
+  .info
+    span.id-label #
+    span
+      a href="#{url_for [review.entry, review]}" = review.id
+    span.date
+      = review.created_at.strftime('%d.%m.%Y')
+    span
+      = link_to user_url(review.user) do
+        img.avatar src="#{gravatar_url(review.user, 16)}" alt="#{review.user.nickname}" title="#{review.user.nickname}"
+      = link_to review.user.nickname, user_url(review.user), class: 'nickname', title: "#{review.user.nickname}"
+    span.column
+      = review.target_type
+    span.id
+      - if review.target
+        = link_to review.target.name, url_for(review.target), class: 'bubbled', 'data-href' => url_for(review.target)+'/tooltip', 'data-remote' => true
+      - else
+        = t "Deleted.#{review.model}"
+    span.status style="color: #{user_change_status_color review.state}"
+      = review.human_state_name
+    - if review.approver.present?
+      span = review.approver.nickname
+    span.date
+      = review.votes_text

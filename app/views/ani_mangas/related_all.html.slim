@@ -1,0 +1,31 @@
+- if @entry.related.any?
+  .related-anime
+    .options-floated
+      span.link.selected Напрямую
+      | &nbsp;&nbsp;/&nbsp;&nbsp;
+      span.link.linkeable data-href="#{@entry.page_url :chronology}" Вся хронология
+    .subheadline
+      = @entry.class == Anime ? (@entry.related.one? ? "Связанное аниме" : "Связанные аниме") : 'Связанная манга'
+    div
+      - if @entry.related.many?
+        - @entry.related.all.take(2).each do |relation|
+          = render partial: 'ani_mangas/related', object: relation.anime || relation.manga, locals: { info: t("Relation.%s" % relation.relation) }, formats: :html
+        .related-shower style="display: block;" Показать остальное
+        div style="display: none;"
+          div
+          - @entry.related.all[2..-1].each do |relation|
+            = render partial: 'ani_mangas/related', object: relation.anime || relation.manga, locals: { info: t("Relation.%s" % relation.relation) }, formats: :html
+      - else
+        - @entry.related.all.each do |relation|
+          = render partial: 'ani_mangas/related', object: relation.anime || relation.manga, locals: { info: t("Relation.%s" % relation.relation) }, formats: :html
+
+- if @entry.related.adaptations.any?
+  .related-anime
+    .subheadline
+      = @entry.class == Anime ? 'Адаптация' : "Аниме адаптация"
+    div
+      - @entry.related.adaptations.each do |relation|
+        = render partial: 'ani_mangas/related', object: relation.anime || relation.manga, locals: { info: t("Relation.%s" % relation.relation) }, formats: :html
+
+- if @entry.related.similar.any?
+  = render partial: 'ani_mangas/similar', locals: { similar: @entry.related.similar.take(3), tag_name: :div }, formats: :html

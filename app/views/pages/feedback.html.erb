@@ -1,0 +1,31 @@
+<%
+  guest_user = !user_signed_in?
+  def self.user_signed_in?
+    true
+  end if guest_user
+  def self.current_user
+    User.find(User::GuestID)
+  end if guest_user
+%>
+
+<div class="feedback-container">
+  <div class="subheadline">Нам интересно ваше мнение</div>
+  <p class="text">Возможно, у вас возникла интересная идея? Или вам тут что-то не нравится и чего-то не хватает? Или, может быть, на сайте что-то неправильно работает, а вы нашли ошибку? А может быть, просто хотите что-то сказать или спросить? Напишите нам &ndash; мы обязательно ответим.</p>
+  <p class="text warn">Это не комментарий к текущей странице! Данная форма предназначена для связи с администрацией сайта.</p>
+  <p class="post-here">Нажмите на иконку для отправки сообщения</p>
+  <img class="post-here-arrow" src="/images/static/feedback-arrow.png" />
+  <div class="comments-container">
+    <%=render :partial => 'comments/add', :locals => { :options => {
+                                                          :object => User.find(1),
+                                                          :text => '',
+                                                          :no_subscribe => true
+                                                        },
+                                                        :comments_path => create_messages_path
+                                                      }, formats: :html %>
+  </div>
+</div>
+<%
+  def self.user_signed_in?
+    false
+  end if guest_user
+%>

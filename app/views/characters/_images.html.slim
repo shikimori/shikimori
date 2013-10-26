@@ -1,0 +1,13 @@
+.search-tag.options-floated title="тег для поиска"
+  = @entry.tags
+.subheadline.m10 Галерея
+
+.original-gallery-container
+  .images-list.mal
+    = render partial: 'images/image', collection: @entry.images, locals: { group_name: 'images', style: :original }, formats: :html
+
+= render partial: 'images/tag_suggest', formats: :html
+
+.danbooru.positioned
+  .images-list data-tags="#{@entry.tags}"
+  = render partial: 'site/postloader', :locals => { url: '' }, formats: :html

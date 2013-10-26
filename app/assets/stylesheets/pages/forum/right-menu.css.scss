@@ -1,0 +1,129 @@
+/*@import "globals";*/
+@import "blocks/menu-block";
+
+// блок в меню с текстом и ссылкой
+@mixin menu-block-with-text-link {
+  padding: 1px 3px 0 5px;
+  border-top: 1px dashed #DDD;
+  padding-top: 5px;
+  margin-top: 2px;
+
+  &:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  &:hover a.url {
+    color: $default-hover-color;
+    &:after {
+      color: $default-hover-color;
+    }
+  }
+  &:active a.url {
+    color: $default-active-color;
+    &:after {
+      color: $default-active-color;
+    }
+  }
+
+  a.url {
+    @include link-color(#333);
+    @include text-font;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+
+    &:after {
+      color: $gray-color;
+      content: "\e81c";
+      cursor: pointer;
+      float: right;
+      font-family: "shikimori";
+      line-height: 24px;
+    }
+    &:hover {
+      color: $default-hover-color;
+      &:after {
+        color: $default-hover-color;
+      }
+    }
+    &:active {
+      color: $default-active-color;
+      &:after {
+        color: $default-active-color;
+      }
+    }
+
+  }
+  p {
+    font-size: 11px;
+    margin-top: -2px;
+    color: $gray-color;
+  }
+  .misc {
+    @include menu-block-misc-text;
+  }
+}
+
+.menu-right {
+  padding-top: 45px;
+
+  .show-more {
+    @include text-font;
+    @include link-color(#333);
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 2px;
+    font-size: 11px;
+  }
+  .calendar .entry,
+  .reviews .entry,
+  .news .entry,
+  .groups .entry,
+  .mylist .entry {
+    @include menu-block-with-image;
+  }
+  .groups .entry img {
+    width: 35px;
+    height: 35px;
+  }
+  .more {
+    display: none;
+  }
+}
+
+.seasons {
+  .season {
+    @include menu-block-with-text-link;
+  }
+}
+.contests {
+  @include clearfix;
+  margin-bottom: 25px;
+
+  .contest {
+    @include menu-block-with-text-link;
+
+    a {
+      @include ellipsis;
+      max-width: 195px;
+
+      &:after {
+        position: absolute;
+        right: 10px;
+      }
+    }
+    .finished {
+      color: $gray-color-0;
+    }
+    .started {
+      color: $gray-color-2;
+    }
+    .can-vote {
+      color: #307A3D;
+    }
+  }
+  .show-more {
+    float: right;
+  }
+}

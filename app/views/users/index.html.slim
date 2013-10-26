@@ -1,0 +1,55 @@
+- content_for :head do
+  = stylesheet_link_tag :users
+- content_for :tail do
+  = javascript_include_tag :similar_users
+
+header.head.misc
+  h1 = @page_title
+  - if params[:similar]
+    - if @klass == Anime
+      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по аниме
+    - else
+      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по манге
+  - elsif user_signed_in?
+    a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
+  - if params[:similar]
+    .header-filters.clearfix
+      p
+        span.title Список #{@klass == Anime ? 'просмотренного' : 'прочитанного'}:
+        - UsersController::Thresholds.each do |threshold|
+          - if threshold != UsersController::Thresholds.first
+            span.sep.inline #{'/'}
+          a class="#{:current if @threshold == threshold}" href="#{users_url similar: 'similar', threshold: threshold}" #{threshold}+
+  p.notice
+    - if params[:similar]
+      | На данной странице сайт автоматически подбирает пользователей c близкими вам вкусами.
+    - elsif params[:search]
+      | На данной странице отображён результат поиска пользователя по запросу "#{params[:search]}"
+    - else
+      | В данном разделе представлены все пользователи сайта, отсортированные по дате последнего захода на сайт
+
+.index-list
+  - if params[:similar] && @similar_ids.nil?
+    p.pending Ищем похожих на вас пользователей. Пожалуйста, подождите, процесс может занять некоторое время.
+    .ajax-loading.vk-like.left title="Загрузка..."
+    .clearfix
+
+  - elsif params[:similar] && @similar_ids.empty?
+    div
+      .comment-block
+        .description
+          p.m3
+            span.fail Невозможно подобрать похожих пользователей.
+            span &nbsp;Для отображения похожих на вас пользователей необходимо выполнение двух условий:
+          ul.m10
+            li
+              p регистрация на сайте;
+            li
+              - if @klass == Anime
+                p наличие в вашем списке аниме 20-30 просмотренных и оценённых тайтлов;
+              - else
+                p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
+  - else
+    = render partial: 'users/user', collection: @users, formats: :html
+    - if @add_postloader
+      = render partial: 'site/postloader_new', locals: { filter: 'user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html

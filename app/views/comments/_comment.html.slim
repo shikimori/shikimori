@@ -1,0 +1,38 @@
+- if user_signed_in? && current_user.ignores?(comment.user)
+  = render partial: 'site/ignored', object: comment, formats: :html
+- else
+
+  .comment-block.appear-block class="comment-#{comment.id}#{' comment-new' unless comment.viewed?}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
+    a name="comment-#{comment.id}"
+
+    - if user_signed_in?
+      span.item-mobile title="Действия"
+    - if comment.respond_to?(:commentable) && (defined?(topic) && topic ? topic.class.name : comment.commentable_type) == AniMangaComment.name
+      span.review-marker data-action="#{review_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва" отзыв
+
+    span.offtopic-marker data-action="#{offtopic_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" style="#{'display: none;' unless comment.offtopic?}" title="Снять метку оффтопика" оффтоп
+    - unless comment.viewed?
+      p.new-marker новое
+
+    - if user_signed_in?
+      - if current_user.moderator?
+        .moderation-ban
+      = render partial: 'comments/buttons', locals: { comment: comment, topic: defined?(topic) ? topic : nil }, formats: :html
+
+    .image-name
+      a href="#{comment[:topic_url] || user_url(comment.user)}" title="#{comment.user.nickname}"
+        img src="#{gravatar_url comment.user, 48}" alt="#{comment.user.nickname}"
+      .name-date
+        a.name href="#{comment[:topic_url] || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
+          == comment[:topic_name] || h(comment.user.nickname)
+        p.date
+          = time_ago_in_words comment.created_at, "%s назад"
+
+    meta itemprop="commentTime" content="#{comment.created_at.iso8601}"
+    .body itemprop="commentText"
+      - if comment.kind_of? Comment
+        == comment.html_body
+      - else
+        == format_comment comment.body, comment.user
+    - unless comment.viewed?
+      .appear-marker class="appear-comment-#{comment.id}" data-href="#{appear_url}"

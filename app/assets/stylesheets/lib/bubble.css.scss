@@ -1,0 +1,194 @@
+@import "globals";
+
+.tooltip-inner {
+  background: #F7F7F7;
+  background: none repeat scroll 0 0 white;
+  border: 1px solid #999999;
+  color: #333333;
+  font-size: 12px;
+  font: 12px/20px "Trebuchet MS",Tahoma,Arial,Helvetica,sans-serif;
+  height: auto !important;
+  margin-top: 4px;
+  min-height: 120px;
+  padding:10px;
+  position:absolute;
+  width: 480px;
+  z-index: 2;
+
+  li {
+    margin-bottom: 5px;
+  }
+}
+.tooltip {
+  position: absolute;
+  padding: 40px 0 0 20px;
+  z-index: 2000!important;
+}
+.tooltip-default {
+  /*background: url("/images/tooltip/black_arrow.png") repeat scroll 0 0 transparent;*/
+  color: #FFFFFF;
+  display: none;
+  height: 80px;
+  margin-bottom: 10px;
+  padding: 13px 25px 25px 25px;
+  width: 160px;
+
+  a {
+    color: inherit;
+  }
+}
+.tooltip-wide .tooltip-inner {
+  width: 540px;
+}
+.tooltip-image .tooltip-inner {
+  padding-left: 20px;
+  width: auto;
+}
+.tooltip h2 {
+  margin-bottom: 8px;
+}
+
+.tooltip-details,
+.tooltip-details p,
+.tooltip-details .prgrph,
+.tooltip-details .spoiler {
+  font-size: 11px;
+  margin-bottom: 4px;
+  line-height: 20px!important;
+}
+.tooltip-details {
+  p.role, p.name {
+    margin-bottom: 0!important;
+  }
+  .item-block {
+    height: 160px;
+  }
+  ul {
+    margin-left: 0!important;
+    li {
+      list-style-position: inside!important;
+    }
+  }
+  h3 {
+    color:#333333;
+    font-size:14px;
+    margin:4px 0 0;
+  }
+}
+.tooltip-img {
+  float: left;
+  padding: 0 10px 10px 0;
+}
+.tooltip-restrictions {
+  border-bottom:1px solid #DDDDDD;
+  color:#333333;
+  font-size:11px;
+  font-style:italic;
+  margin:0 20px 10px 0;
+  padding-bottom:2px;
+}
+.tooltip-metadata div {
+  color:#333333;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.tooltip-arrow {
+  background: inline-image("/bubble/popup-arrow-left.png") no-repeat scroll 0 0 transparent !important;
+  height:26px;
+  position:absolute;
+  right:100%;
+  top:40px;
+  width:22px;
+  z-index:10;
+}
+.tooltip-left .tooltip-arrow {
+  background: inline-image("/bubble/popup-arrow-right.png") no-repeat scroll 0 0 transparent !important;
+  left: 100%;
+  right: none;
+}
+.tooltip-bottom .tooltip-arrow {
+  bottom: 40px;
+  top: auto;
+}
+.tooltip-center .tooltip-arrow {
+  top: 50%;
+  margin-top: -11px;
+}
+.tooltip-moved .tooltip-arrow {
+  display: none;
+}
+
+.dropshadow-top {
+  background: inline-image("/bubble/dropshadow/top.png") repeat-x scroll 0 0 transparent;
+  height: 19px;
+  left: 0;
+  position: absolute;
+  top: -19px;
+  width: 100%;
+  z-index: -1;
+}
+.dropshadow-top-right {
+  background: inline-image("/bubble/dropshadow/top-right.png") no-repeat scroll 0 0 transparent;
+  height: 19px;
+  position: absolute;
+  right: -19px;
+  top: -19px;
+  width: 19px;
+  z-index: -1;
+}
+.dropshadow-right {
+  background: inline-image("/bubble/dropshadow/right.png") repeat-y scroll 0 0 transparent;
+  height: 100%;
+  position: absolute;
+  right: -19px;
+  top: 0;
+  width: 19px;
+  z-index: -1;
+}
+.dropshadow-bottom-right {
+  background: inline-image("/bubble/dropshadow/bottom-right.png") no-repeat scroll 0 0 transparent;
+  bottom: -19px;
+  height: 19px;
+  position: absolute;
+  right: -19px;
+  width: 19px;
+  z-index: -1;
+}
+.dropshadow-bottom {
+  background: inline-image("/bubble/dropshadow/bottom.png") repeat-x scroll 0 0 transparent;
+  clear: both;
+  bottom: -19px;
+  height: 19px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+.dropshadow-bottom-left {
+  background: inline-image("/bubble/dropshadow/bottom-left.png") no-repeat scroll 0 0 transparent;
+  bottom: -19px;
+  height: 19px;
+  left: -19px;
+  position: absolute;
+  width: 19px;
+  z-index: -1;
+}
+.dropshadow-left {
+  background: inline-image("/bubble/dropshadow/left.png") repeat-y scroll 0 0 transparent;
+  height: 100%;
+  left: -19px;
+  position: absolute;
+  top: 0;
+  width: 19px;
+  z-index: -1;
+}
+.dropshadow-top-left {
+  background: inline-image("/bubble/dropshadow/top-left.png") no-repeat scroll 0 0 transparent;
+  height: 19px;
+  left: -19px;
+  position: absolute;
+  top: -19px;
+  width: 19px;
+  z-index: -1;
+}

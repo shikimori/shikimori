@@ -1,0 +1,26 @@
+@import "globals";
+
+.sitemap {
+  @include clearfix;
+
+  a {
+    @include normal-link;
+    text-decoration: underline;
+  }
+  .common-title {
+    margin-bottom: 10px;
+  }
+  .left-block {
+    float: left;
+    width: 477px;
+    margin-bottom: 10px;
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .right-block {
+    margin-bottom: 10px;
+  }
+}

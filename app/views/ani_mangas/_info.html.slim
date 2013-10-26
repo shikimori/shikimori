@@ -1,0 +1,131 @@
+meta itemprop="headline" content="#{{@entry.name}}"
+- if @entry.russian
+  meta itemprop="alternativeHeadline" content="#{{@entry.russian}}"
+
+- if @entry.kind == 'Movie' && (@entry.aired_at || @entry.released_at)
+  meta itemprop="datePublished" content="#{@entry.aired_at.to_s || @entry.released_at.to_s}"
+- elsif @entry.class == Anime
+  - if @entry.aired_at
+    meta itemprop="startDate" content="#{@entry.aired_at.to_s}"
+  - if @entry.released_at
+    meta itemprop="endDate" content="#{@entry.released_at.to_s}"
+
+aside.left-column.menu-block
+  .menu-block
+    .subheadline Информация
+    .subblock-content
+      = render partial: 'ani_mangas/common_info', locals: { entry: @entry.entry, details: true }, formats: :html
+
+  - if @entry.genres.any?
+    .menu-block
+      .subheadline
+        = @entry.genres.size > 1 ? 'Жанры' : 'Жанр'
+      .subblock-genres.subblock-content
+        = render partial: 'ani_mangas/genres_info', locals: { entry: @entry }, formats: :html
+
+  - if @entry.respond_to?(:studios) && @entry.studios.any?
+    .menu-block
+      .subheadline
+        = @entry.real_studios.size > 1 ? 'Студии' : 'Студия'
+      .subblock-content
+        = render partial: 'animes/studios_info', locals: { entry: @entry }, formats: :html
+
+  - if @entry.respond_to?(:publishers) && @entry.publishers.any?
+    .menu-block
+      .subheadline
+        = @entry.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
+      .subblock-content
+        = render partial: 'mangas/publishers_info', locals: { entry: @entry }, formats: :html
+
+  .menu-block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+    - if @entry.with_score?
+      .subheadline.m5 Рейтинг
+      .scores.rate-block
+        meta itemprop="bestRating" content="10"
+        meta itemprop="ratingValue" content="#{@entry.score}"
+        meta itemprop="ratingCount" content="#{@entry.mal_scores.sum/20}"
+        = render partial: 'ani_mangas/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
+
+.right-column.menu-block
+  .subheadline.m5 Описание
+  .item-content
+    img.anime-image src="#{attachment_url @entry.image}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
+    meta itemprop="image" content="#{{attachment_url @entry.image, :original, false}}"
+    meta itemprop="thumbnailUrl" content="#{{attachment_url @entry.image, :x64, false}}"
+
+    .description.df.m20 itemprop="description"
+      - if @entry.description_html.blank?
+        == format_html_text @entry.description_mal
+      - else
+        - if user_signed_in? && !@entry.description_mal.blank?
+          .lang-trigger
+            | [<span>eng</span>]
+          .english
+            == format_html_text @entry.description_mal
+        .russian
+          == @entry.description_html
+
+    = render partial: 'site/source', locals: { entry: @entry, authors: @entry.changes.authors(:description, false), field: 'description', default_source: @entry.mal_url }, formats: :html
+    = render partial: 'additional_links', locals: { entry: @entry }, formats: :html
+
+.extra
+  div
+    - if @director.pages.include? 'screenshots'
+      .people-container.first class="v#{@entry.main_videos.size}"
+        .subheadline.m10
+          span.linkeable data-href="#{@entry.page_url :screenshots}" Кадры
+        .images-list
+          = render partial: 'images/image', collection: @entry.screenshots(4).take(4 - @entry.main_videos.size), locals: {group_name: 'screenshots-info', style: :original, alt: "Кадр из #{@entry.name}"}, formats: :html
+
+    - if @director.pages.include? 'videos'
+      .people-container.second class="v#{@entry.main_videos.size} s#{@director.pages.include?('screenshots') ? 1 : 0}"
+        .subheadline.m10
+          span.linkeable data-href="#{@entry.page_url :videos}" Видео
+        .videos-list
+          = render partial: 'videos/video', collection: @entry.main_videos, locals: { entry: @entry }, formats: :html
+
+  - if @entry.roles.main_characters.any?
+    .people-container class="c#{@entry.roles.main_characters.size} p#{@entry.roles.directors.size} t#{@entry.roles.main_characters.size + @entry.roles.directors.size} first"
+      .subheadline.m10
+        span.linkeable data-href="#{@entry.page_url :characters}" Главные герои
+      div
+        - @entry.roles.main_characters.each do |person|
+          = render partial: 'blocks/person', locals: { person: person.character, role: nil, link_to_character: true, no_tooltip: true, remote: character_tooltip_url(person.character) }, formats: :html
+
+  - if @entry.roles.directors.any?
+    .people-container class="c#{@entry.roles.main_characters.size} p#{@entry.roles.directors.size} t#{@entry.roles.main_characters.size + @entry.roles.directors.size}"
+      .subheadline.m10
+        span.linkeable data-href="#{@entry.page_url :characters}" Создатели
+      div
+        - @entry.roles.directors.each do |person|
+          = render partial: 'blocks/person', locals: { person: person.person, role: person.role, no_seyu: true, no_tooltip: true, remote: person_tooltip_url(person.person) }, formats: :html
+
+  - if user_signed_in?
+    .related-entries
+      = render template: 'ani_mangas/related_all', formats: :html
+  - else
+    .related-entries.related-entries-loader.postloaded data-href="#{@entry.related_url}"
+      .ajax-loading.vk-like title="Загрузка..."
+
+  - if user_signed_in? || @entry.comments_count > 0
+    .forum-container.entry-comments
+      .comments.zero-margin.zero-top-border
+        - if @entry.comment_reviews? && @entry.comments_count != @entry.comment_reviews_count
+          .options-floated
+            span.link.selected.link-comment-reviews data-disabled="true" data-remote="true" data-type="json" data-action="#{@entry.comments_reviews_url}"
+              | Отзывы&nbsp;
+              span.sep.zero.inline
+                | (
+              = @entry.comment_reviews_count
+              span.sep.zero.inline
+                | )
+            | &nbsp;&nbsp;/&nbsp;&nbsp;
+            span.link.link-comments data-remote="true" data-type="json" data-action="#{@entry.comments_all_url}"
+              | Все комментарии&nbsp;
+              span.sep.zero.inline
+                | (
+              = @entry.comments_count
+              span.sep.zero.inline
+                | )
+        .subheadline.m3 Обсуждение
+        = render partial: 'comments/comments', locals: { object: @entry.thread, comments: @entry.comments(true), postloader: 15, review: @entry.comment_reviews? }, formats: :html

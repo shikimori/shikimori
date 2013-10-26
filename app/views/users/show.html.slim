@@ -1,0 +1,19 @@
+- content_for :head do
+  = stylesheet_link_tag :users
+- content_for :tail do
+  = javascript_include_tag :users
+
+- if own_profile?
+  - content_for(:form) do
+    = render partial: 'users/import'
+
+section
+  - if params[:controller] == 'messages'
+    - if params[:action] == 'new'
+      = render partial: 'messages/new'
+    - elsif params[:action] == 'talk'
+      = render partial: 'messages/talk'
+    - else
+      = render partial: 'messages/messages'
+  - else
+    = render partial: @partial, formats: :html

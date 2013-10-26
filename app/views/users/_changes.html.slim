@@ -1,0 +1,9 @@
+- if @page == 1
+  .subheadline Правки
+.item-editor
+  - if @changes.any?
+    = render partial: 'site/editor_changes', locals: { changes: @changes, moderation: false }, formats: :html
+    - if @add_postloader
+      = render partial: 'site/postloader_new', locals: { url: user_changes_url(page: @page+1) }, formats: :html
+  - else
+    p Ничего нет.

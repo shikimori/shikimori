@@ -1,0 +1,76 @@
+- if @entry.image.exists?
+  .avatar
+    center
+      img src="#{@entry.image.url}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
+.menu-block
+  .subheadline Общая информация
+  .subblock-content
+    - if @entry.with_credentials?
+      - if @entry.name.present?
+        p
+          span.key
+            | По-английски:&nbsp;
+            span.anime-alt.value
+              == @entry.name
+
+      - if @entry.japanese.present?
+        p
+          span.key
+            | По-японски:&nbsp;
+            span.anime-alt.value
+              == @entry.japanese
+
+    - if @entry.birthday.present?
+      p
+        span.key
+          | Дата рождения:&nbsp;
+          span.anime-alt.value
+            == rus_date(@entry.birthday, true)
+
+    - if @entry.website.present?
+      p.site-link
+        span.key
+          | Сайт:
+          span.anime-alt.value.url
+            = sitelink @entry.website
+
+.menu-block
+  .subheadline Роли в проектах
+  .subblock-content
+    - @entry.groupped_roles.each do |role, times|
+      p
+        span.key
+          == format_person_role(role)
+          | :&nbsp;
+          span.anime-alt.value
+            = times
+
+- if user_signed_in?
+  .menu-block
+    .subheadline Действия
+    ul.block-list.actions
+      - if @entry.producer? || @entry.producer_favoured?
+        li.fav-add style="#{'display: none;' if @entry.producer_favoured?}"
+          span.favourite-add data-kind="producer" data-remote="true" data-action="#{favourites_producer_path @entry.class.name, @entry.id}" data-method="post" data-type="json" В избранные режиссёры
+        li.fav-remove style="#{'display: none;' unless @entry.producer_favoured?}"
+          span.favourite-remove data-kind="producer" data-remote="true" data-action="#{favourites_producer_path @entry.class.name, @entry.id}" data-method="delete" data-type="json" Из избранных режиссёров
+
+      - if @entry.mangaka? || @entry.mangaka_favoured?
+        li.fav-add style="#{'display: none;' if @entry.mangaka_favoured?}"
+          span.favourite-add data-kind="mangaka" data-remote="true" data-action="#{favourites_mangaka_path @entry.class.name, @entry.id}" data-method="post" data-type="json" В избранные мангаки
+        li.fav-remove style="#{'display: none;' unless @entry.mangaka_favoured?}"
+          span.favourite-remove data-kind="mangaka" data-remote="true" data-action="#{favourites_mangaka_path @entry.class.name, @entry.id}" data-method="delete" data-type="json" Из избранных мангак
+
+      - if @entry.seyu? || @entry.seyu_favoured?
+        li.fav-add style="#{'display: none;' if @entry.seyu_favoured?}"
+          span.favourite-add data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @entry.class.name, @entry.id}" data-method="post" data-type="json" В избранные сейю
+        li.fav-remove style="#{'display: none;' unless @entry.seyu_favoured?}"
+          span.favourite-remove data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @entry.class.name, @entry.id}" data-method="delete" data-type="json" Из избранных сейю
+
+      - if !(@entry.seyu? || @entry.producer? || @entry.mangaka?) || @entry.person_favoured?
+        li.fav-add style="#{'display: none;' if @entry.person_favoured?}"
+          span.favourite-add data-kind="person" data-remote="true" data-action="#{favourites_person_path @entry.class.name, @entry.id}" data-method="post" data-type="json" В избранные люди
+        li.fav-remove style="#{'display: none;' unless @entry.person_favoured?}"
+          span.favourite-remove data-kind="person" data-remote="true" data-action="#{favourites_person_path @entry.class.name, @entry.id}" data-method="delete" data-type="json" Из избранных людей
+
+= render partial: 'blocks/favoured', object: @entry.favoured, formats: :html

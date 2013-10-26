@@ -1,0 +1,17 @@
+.lang-trigger {
+  background: transparent;
+  float: right;
+  font-size: 11px;
+  padding: 0;
+  margin: -5px 0 5px 15px;
+
+  span {
+    color: #666;
+    cursor: pointer;
+  }
+}
+.item-content {
+  .english {
+    display: none;
+  }
+}

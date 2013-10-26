@@ -1,0 +1,230 @@
+@import "globals";
+
+.settings {
+  position: relative;
+
+  label {
+    cursor: pointer;
+  }
+  .field-name {
+    @include text-font;
+    border-bottom: none;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-bottom: 10px;
+
+    .buttons {
+      font-weight: normal;
+      line-height: 12px;
+    }
+  }
+  .mal-import {
+    @include normal-link;
+  }
+  .subblock-title {
+    font-size: 14px;
+  }
+  .alert {
+    color: red;
+    float: right;
+    margin-top: -2px;
+  }
+  .value {
+    margin-bottom: 15px;
+
+    input {
+      /*@include default-text-field;*/
+      width: 470px;
+    }
+    &.checkboxes input {
+      vertical-align: middle;
+      width: 16px;
+    }
+    .file {
+      padding: 0;
+    }
+  }
+  select {
+    font-size: 12px;
+  }
+  .password span {
+    display: block;
+    float: left;
+    width: 60px;
+  }
+  .contacts span {
+    display: block;
+    float: left;
+    width: 50px;
+  }
+  .oauth {
+    cursor: pointer;
+
+    form {
+      display: inline;
+    }
+  }
+  .left-block {
+    width: 48.5%;
+  }
+  .right-block {
+    width: 48.5%;
+    float: right;
+  }
+  .avatar-edit {
+    @include clearfix;
+    img {
+      margin-top: 5px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      float: left;
+    }
+  }
+  .avatar-delete {
+    cursor: pointer;
+
+    span {
+      color: #555;
+    }
+  }
+  .avatar-file {
+    max-width: 305px;
+  }
+  .list-clean {
+    cursor: pointer;
+
+    a {
+      @include normal-link;
+    }
+  }
+  .forum-container {
+    width: 100%;
+    .shiki-editor {
+      border-top: none!important;
+    }
+  }
+  .menu-block > .buttons {
+    display: block;
+    height: 40px;
+
+    .save {
+      float: right;
+    }
+  }
+
+  table {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+
+    th {
+      font-weight: bold;
+      padding-left: 4px;
+      padding-right: 4px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .item-minus {
+    float: right;
+  }
+  .item-offtopic {
+    display: none;
+  }
+  .statistics-date {
+    span {
+      float: left;
+    }
+    .comment-block {
+      display: inline;
+      min-height: 0;
+      padding: 0;
+      border: none;
+      img {
+        width: 100%!important;
+      }
+    }
+  }
+  .about-options {
+    margin-top: 3px;
+    right: 3px;
+
+    label {
+      float: left;
+      margin-top: 4px;
+      color: #333;
+    }
+  }
+  .messages-settings {
+    td.num {
+      width: 60px;
+    }
+  }
+  .backgrounds {
+    .range-slider {
+      margin-top: 20px;
+      margin-left: 10px;
+      margin-bottom: 25px;
+    }
+    #user_page_background {
+      display: none;
+    }
+    .samples {
+      @include clearfix;
+      margin-top: 15px;
+
+      .collapsed {
+        clear: both;
+      }
+      li {
+        float: left;
+        height: 104px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        margin-right: 20px;
+        width: 104px;
+
+        &:nth-child(4n) {
+          margin-right: 0;
+        }
+      }
+      .bg1 { background: image-url('/assets/background/square_bg.png') repeat; }
+      .bg2 { background: image-url('/assets/background/agsquare.png') repeat; }
+      .bg3 { background: image-url('/assets/background/fabric_of_squares_gray.png') repeat; }
+      .bg4 { background: image-url('/assets/background/furley_bg.png') repeat; }
+      .bg5 { background: image-url('/assets/background/gplaypattern.png') repeat; }
+      .bg6 { background: image-url('/assets/background/grey.png') repeat; }
+      .bg7 { background: image-url('/assets/background/greyfloral.png') repeat; }
+      .bg8 { background: image-url('/assets/background/hexellence.png') repeat; }
+      .bg9 { background: image-url('/assets/background/light_wool.png') repeat; }
+      .bg10 { background: image-url('/assets/background/snow.png') repeat; }
+      .bg11 { background: image-url('/assets/background/ice_age.png') repeat; }
+      .bg12 { background: image-url('/assets/background/paper_fibers.png') repeat; }
+      .bg13 { background: image-url('/assets/background/scribble_light.png') repeat; }
+      .bg14 { background: image-url('/assets/background/redox_02.png') repeat; }
+      .bg15 { background: image-url('/assets/background/bright_squares.png') repeat; }
+      .bg16 { background: image-url('/assets/background/shattered.png') repeat; }
+      .bg17 { background: image-url('/assets/background/tactile_noise.png') repeat; }
+      .bg18 { background: image-url('/assets/background/twinkle_twinkle.png') repeat; }
+      .bg19 { background: image-url('/assets/background/wild_oliva.png') repeat; }
+      .bg20 { background: image-url('/assets/background/use_your_illusion.png') repeat; }
+      .bg21 { background: image-url('/assets/background/noisy_net.png') repeat; }
+      .bg22 { background: image-url('/assets/background/dirty_old_shirt.png') repeat; }
+      .bg23 { background: image-url('/assets/background/cartographer.png') repeat; }
+      .bg24 { background: image-url('/assets/background/px_by_Gre3g.png') repeat; }
+      .bg25 { background: image-url('/assets/background/diagmonds.png') repeat; }
+      .bg26 { background: image-url('/assets/background/type.png') repeat; }
+      .bg27 { background: image-url('/assets/background/crissXcross.png') repeat; }
+      .bg28 { background: image-url('/assets/background/random_grey_variations.png') repeat; }
+    }
+  }
+}
+#import_form {
+  margin-left: 142px;
+  margin-top: -26px;
+}

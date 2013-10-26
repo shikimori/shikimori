@@ -1,0 +1,15 @@
+- content_for :head do
+  = stylesheet_link_tag :clubs
+- content_for :tail do
+  = javascript_include_tag :clubs
+
+header.head
+  h1
+    = @page_title
+  = render partial: 'site/breadcrumbs', object: breadcrumbs, formats: :html
+
+.slide
+  .settings.selected
+    = render partial: 'groups/settings', formats: :html
+.clearfix
+br

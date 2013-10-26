@@ -1,0 +1,61 @@
+- cache @match.show_cache_key, expires_in: 1.hour do
+  - if @match.right.nil? && @match.left.nil?
+    .vote
+      .vs.empty
+        p.help Номинанты ещё не определены
+
+  - elsif @match.right && @match.left
+    .vote data-id="#{@match.id}" data-state="#{@match.state}" data-voted="#{@match.started? ? @match.voted_for : (@match.finished? ? (@match.winner_id == @match.left_id ? 'left' : 'right') : nil)}"
+      .match-member data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
+        - if @match.contest.anime?
+          = render partial: 'ani_mangas_collection/entry_new', object: @match.left, locals: { alter: true }, formats: :html
+        - else
+          = render partial: 'characters/entry', object: @match.left, formats: :html
+      .vs
+        div vs
+        - if @match.started?
+          p.help Выберите один из двух вариантов
+          p.help.success Ваш голос учтён!
+          p.help.refrained Вы воздержались в этом голосовании
+          span.refrain data-type="json" data-method="post" data-remote="true" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'none'}"
+            | Воздержаться
+          p.next К следующей паре
+          p.finish На сегодня всё. Спасибо за участие.
+
+        - elsif @match.finished?
+          p.help.success Голосование завершено
+          p.help.refrained Голосование завершено
+          .refrain
+
+        - else
+          p.help Голосование ещё не началось
+
+      .match-member data-variant="right" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'right'}"
+        - if @match.contest.anime?
+          = render partial: 'ani_mangas_collection/entry_new', object: @match.right, locals: { alter: true }, formats: :html
+        - else
+          = render partial: 'characters/entry', object: @match.right, formats: :html
+
+      - if @match.round.number > 1 && (@match.contest.defeated_by(@match.left, @match.round) + @match.contest.defeated_by(@match.right, @match.round)).any?
+        .match-losers
+          = render partial: 'contest_matches/losers', object: @match.contest.defeated_by(@match.left, @match.round.prior_round), locals: { position: 'left' }
+          = render partial: 'contest_matches/losers', object: @match.contest.defeated_by(@match.right, @match.round.prior_round), locals: { position: 'right' }
+
+      - if @match.finished?
+        a.vote-graph href="#{round_match_users_contest_url @match.contest, round: @match.round, match_id: @match.id}"
+          .left-part title="#{@match.left_votes} #{Russian.p @match.left_votes, 'голос', 'голоса', 'голосов'} за &ldquo;#{@match.left.name}&rdquo;"
+            span #{@match.left_percent}% (#{@match.left_votes})
+            .right-part style="width: #{[[@match.right_votes.to_f / ([@match.left_votes + @match.right_votes, 1].max) * 100 - 0.75, 4].max, 95].min}%" title="#{@match.right_votes} #{Russian.p @match.right_votes, 'голос', 'голоса', 'голосов'} за &ldquo;#{@match.right.name}&rdquo;"
+              span #{@match.right_percent}% (#{@match.right_votes})
+
+  - else
+    .vote data-id="#{@match.id}" data-voted="#{@match.started? ? @match.voted_for : false}"
+      .match-member.voted.centered data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}" 
+        - if @match.contest.anime?
+          = render partial: 'ani_mangas_collection/entry_new', object: @match.left, locals: { alter: true }, formats: :html
+        - else
+          = render partial: 'characters/entry', object: @match.left, formats: :html
+
+      - if @match.contest.defeated_by(@match.left, @match.round).any?
+        .match-losers
+          = render 'contest_matches/losers', losers: @match.contest.defeated_by(@match.left, @match.round), position: 'center'

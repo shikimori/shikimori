@@ -1,0 +1,69 @@
+@import globals
+
+.contest.swiss .results
+  .group
+    width: 8px !important
+    margin-left: 2px !important
+
+.contest .results
+  .rounds
+    float: right
+    width: 220px
+
+    & > p
+      font-size: 12px
+      font-weight: bold
+      color: #444
+
+    .match-day
+      margin-top: 0
+
+      .match
+        +ellipsis
+
+      .group
+        position: initial
+
+    a
+      +normal-link
+
+    .match-link
+      display: inline
+
+      &:hover
+        text-decoration: none
+
+        .group
+          text-decoration: underline
+
+      .group
+        color: $gray-color-2
+        display: inline-block
+        float: none
+        font-size: inherit
+        line-height: inherit
+        margin: 0 7px 0 4px
+        width: 22px
+
+  .entry-block
+    height: 240px
+    margin-bottom: 40px
+
+    .title, .misc
+      display: none
+
+    .tooltip-arrow, .dropshadow-top, .dropshadow-top-right,
+    .dropshadow-right, .dropshadow-bottom-right, .dropshadow-bottom,
+    .dropshadow-bottom-left, .dropshadow-left, .dropshadow-top-left, .rating
+      display: none
+
+    .tooltip-inner
+      border: none
+      padding-left: 0
+      width: 295px
+      padding-top: 0
+      margin-top: 0
+
+    .tooltip-details > p:first-child span
+      font-size: 13px
+      color: #123

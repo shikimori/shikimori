@@ -1,0 +1,43 @@
+.hover-form.auth-form
+  p.agreement Находясь на сайте, вы принимаете #{link_to 'соглашение', user_agreement_url}.
+  = form_tag '', format: :json, remote: true, 'data-type' => :json, 'data-login' => new_user_session_path, 'data-register' => user_registration_path do
+    p
+      = label_tag :login_nickname, 'Логин / Никнейм'
+      br
+    .nickname
+      = text_field_tag 'user[nickname]', '', id: :login_nickname, class: 'common'
+
+    p.hidden
+      = check_box_tag 'user[remember_me]', true, true
+      = label_tag :user_remember_me, "Запомнить меня"
+    p
+      = label_tag :login_password, 'Пароль'
+      br
+    .password
+      = password_field_tag 'user[password]', '', id: :login_password, class: 'common'
+
+    p.registration-trigger
+      span
+        = check_box_tag 'registration'
+        = label_tag :registration, 'Хочу зарегистрироваться '
+      span Или&nbsp;
+      = link_to 'восстановить пароль', new_user_password_url
+
+    p.registration-fields
+      = label_tag :register_email, 'E-mail'
+      = email_field_tag 'user[email]', '', id: :register_email, class: 'common'
+
+    p.m3 Или войти через
+    .m5.oauth
+      - User.omniauth_providers.each do |provider|
+        = image_tag "/images/omniauth/#{provider}.png", alt: "Вход через #{provider.to_s.titleize}", title: "Вход через #{provider.to_s.titleize}", 'data-source' => "/users/auth/#{provider}"
+
+    p.form-buttons
+      span.login.control
+        span.link Вход
+
+      span.register.control
+        span.link Регистрация
+
+      span.cancel.control
+        span.link Отмена

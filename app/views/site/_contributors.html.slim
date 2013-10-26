@@ -1,0 +1,13 @@
+- if authors.any?
+  .contributors
+    p.key
+      - if entry.source.blank? && field.to_sym != :video && field.to_sym != :screenshots
+        = authors.size > 1 ? 'Авторы:' : 'Автор:'
+      - else
+        = authors.size > 1 ? 'Добавили:' : "Добавил#{authors.last.female? ? 'а' : ''}:"
+    - authors.reverse.each do |author|
+      .user16
+        a href="#{user_url author}"
+          img src="#{gravatar_url author, 16}" alt="#{author.nickname}"
+        a href="#{user_url author}"
+          = author.nickname

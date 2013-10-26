@@ -1,0 +1,53 @@
+= cache @cache_key do
+  .comparer
+    - @entries.each do |type,title,collection|
+      - next if collection.empty?
+      .options-floated.collapse id="collapse-comparer-#{type}"
+        span.action свернуть <span class="sep zero">(</span>#{collection.size}<span class="sep zero inline">)</span>
+      .subheadline
+        = title
+      .collapsed ...
+      table.default-table
+        tr
+          th.name
+            = t "Name.#{params[:list_type].downcase.capitalize}"
+          - if type == :both || type == :user_1_only
+            th.num
+              = @user_1.nickname
+            /th.num
+            /th.num
+          - if type == :both || type == :user_2_only
+            th.num
+              = @user_2.nickname
+            /th.num
+            /th.num
+          /- if type == :both
+            /th.num Разница
+        tr.border
+          th colspan="4"
+        - collection.each do |entry|
+          /tr.selectable data-href="#{entry[:url]}/tooltip" data-remote="true"
+          tr class="selectable #{entry[:variety]}" data-href="#{entry[:url]}/tooltip" data-remote="true"
+            td.name
+              a href="#{entry[:url]}"
+                = entry[:name]
+            - if type == :both || type == :user_1_only
+              td.num
+                a href="#{entry[:url]}"
+                  == entry[:rate_1_title]
+              /td.num
+                /= entry[:norm_rate_1_]
+              /td.num
+                /= entry[:norm_rate_1]
+            - if type == :both || type == :user_2_only
+              td.num
+                a href="#{entry[:url]}"
+                  == entry[:rate_2_title]
+              /td.num
+                /= entry[:norm_rate_2_]
+              /td.num
+                /= entry[:norm_rate_2]
+            /- if type == :both
+              /td.num
+                /a href="#{entry[:url]}"
+                  /== entry[:diff]

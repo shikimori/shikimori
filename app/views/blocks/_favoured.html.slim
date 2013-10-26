@@ -1,0 +1,12 @@
+- if favoured.any?
+  .menu-block
+    .subheadline.m10 В избранном
+    .favoured
+      - favoured.each_slice(6) do |favs|
+        - favs.each do |fav|
+          - if user_signed_in?
+            a href="#{user_url fav.user}" title="#{fav.user.nickname}"
+              img src="#{gravatar_url fav.user, 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
+          - else
+            img src="#{gravatar_url fav.user, 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
+        br

@@ -1,0 +1,34 @@
+- content_for :head do
+  = stylesheet_link_tag :ani_manga
+- content_for :tail do
+  = javascript_include_tag :ani_manga
+
+header.head
+  - if params[:page] != 'cosplay'
+    h1 title="#{h1_text @entry}" itemprop="name"
+      = h1_text @entry, true
+  - else
+    h2.h1-like title="#{h1_text @entry}" itemprop="name"
+      = h1_text @entry, true
+
+  = render partial: 'site/breadcrumbs', object: @director.breadcrumbs, formats: :html
+
+aside.menu-right.animanga-right-menu
+  .menu-right-inner
+    = render partial: 'ani_mangas/menu_right', formats: :html
+
+.entry-content-slider.view-port.vertical-slider class=" #{@entry.class.name.downcase}-content-slider" data-width="770"
+  .view-content style="margin-left: #{-1*770*@director.page_index}px"
+    - @director.pages.each_with_index do |page, index|
+      .slide
+        - if @director.page_index == index
+          section class="#{page_class page} selected"
+            = render @director.partial
+        - else
+          div class="#{page_class page}"
+            br
+
+.danbooru.positioned
+  .images-list data-tags="#{@entry.tags}"
+  = render partial: 'site/postloader', locals: { url: '' }, formats: :html
+.clearfix

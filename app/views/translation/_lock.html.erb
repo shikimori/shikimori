@@ -1,0 +1,15 @@
+<% if (anime.description == nil || anime.description == '' || anime.description == anime.description_mal) && !changes.include?(anime.id) %>
+  <% if locks.include?(anime.id) %>
+    <% if user_signed_in? && locks[anime.id].user_id == current_user.id %>
+      <span class="locked-by unlockable" title="Отменить свой перевод" data-remote="true" action="<%=moderation_anime_lock_path anime %>" data-method="delete" data-type="json">
+        <%=locks[anime.id].user.nickname %>
+      </span>
+    <% else %>
+      <span class="locked-by" title="Забрано на перевод пользователем">
+        <%=locks[anime.id].user.nickname %>
+      </span>
+    <% end %>
+  <% else %>
+    <span class="translate-lock" title="Забрать на перевод" data-remote="true" action="<%=moderation_anime_lock_path anime %>" data-method="post" data-type="json"></span>
+  <% end %>
+<% end %>

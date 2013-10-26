@@ -1,0 +1,51 @@
+@import "compass/utilities/text/ellipsis";
+@import "compass/utilities/general/clearfix";
+
+.image-container, .video {
+  display: inline-block;
+  position: relative;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  img {
+    &.preload {
+      /*width: 178px;*/
+      height: 178px;
+    }
+  }
+
+  &.video {
+    @include ellipsis;
+    @include clearfix;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    width: 235px;
+
+    p {
+      @include ellipsis;
+      font-weight: bold;
+
+      span {
+        padding-left: 5px;
+        font-weight: normal;
+      }
+    }
+    img {
+      height: 132px;
+    }
+  }
+
+  .video-marker {
+    @include ellipsis;
+    background: white;
+    color: #123;
+    font-size: 11px!important;
+    font-weight: bold!important;
+    line-height: 18px!important;
+    margin-top: -21px;
+    max-width: 169px;
+    padding: 0 4px;
+    position: absolute;
+    text-align: center;
+    text-indent: 0!important;
+  }
+}

@@ -1,0 +1,16 @@
+header.head.m15
+  h1 Авторизация
+  p.notice На данной странице вы сможете авторизоваться на нашем сайте.
+
+= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  .m20
+    p
+      label for="user_nickname" Логин
+    = f.text_field :nickname, class: 'common'
+
+  .m20
+    p
+      label for="user_password" Пароль
+    = f.text_field :password, class: 'common'
+
+  = f.submit 'Войти', class: 'button'

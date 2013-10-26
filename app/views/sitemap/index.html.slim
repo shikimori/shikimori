@@ -1,0 +1,36 @@
+- content_for :head do
+  = stylesheet_link_tag :sitemap
+
+header.head
+  h1
+    = @page_title
+  p.notice На данной странице представлены основные разделы сайта
+
+.sitemap
+  .subheadline Общее
+  .block.m30
+    - @sections.each do |title, url|
+      p
+        = link_to title, url
+
+  .left-block
+    .subheadline Список аниме
+    .m30
+      - @anime_sections.each do |title, url|
+        p
+          = link_to title, url
+
+    .subheadline Список манги
+    - @manga_sections.each do |title, url|
+      p
+        = link_to title, url
+
+  .left-block
+    .subheadline Жанры аниме
+    - @anime_genres.each do |title, url|
+      p
+        = link_to title, url
+
+    - @anime_misc_genres.each do |title, url|
+      p
+        = link_to title, url

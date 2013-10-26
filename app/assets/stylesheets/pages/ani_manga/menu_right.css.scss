@@ -1,0 +1,105 @@
+@import "globals";
+@import "globals/fonts";
+
+/*************************************************/
+/* right menu */
+.animanga-right-menu {
+  float: right;
+  /*line-height: 130%;*/
+  width: 245px;
+  margin: 0;
+
+  .menu-right-inner {
+    border-left: none;
+    position: relative;
+    z-index: 999;
+  }
+  .right {
+    margin: 0px;
+  }
+  .block-title {
+    margin-bottom: 2px;
+  }
+  .input {
+    @include default-text-field;
+  }
+  .block-list {
+    .date {
+      float: right;
+      font-size: 10px;
+    }
+  }
+  .block-list li, .block-list-alt li {
+    width: auto;
+
+    &.sub {
+      margin-left: 30px;
+    }
+  }
+  .site-icon {
+    float: left;
+    margin-right: 5px;
+    margin-top: 1px;
+    height: 16px;
+  }
+  .addthis_toolbox {
+    margin-top: -5px;
+    width: 220px;
+    /*margin-left: 35px;*/
+  }
+  .user-rate-block {
+    margin-bottom: 20px;
+
+    .item-add {
+      margin-left: 5px;
+    }
+    input.common {
+      font-size: 12px;
+      line-height: 10px;
+      margin-left: 3px;
+      padding-left: 0;
+      text-align: center;
+      width: 25px;
+    }
+    .rate-statuses {
+      margin-bottom: 10px;
+    }
+    #rate-volumes {
+      display: none;
+    }
+    p .key {
+      color: #444;
+    }
+  }
+}
+.menu-topics-block {
+  a.entry {
+    display: block;
+  }
+  .history-avatar {
+    float: right;
+    margin-left: 5px;
+    margin-top: 1px;
+  }
+  .name {
+    @include ellipsis;
+    display: block;
+  }
+  .date {
+    color: #777;
+    float: right;
+    font-size: 10px;
+  }
+  .history li {
+    cursor: default;
+  }
+  .history-entry-tooltip {
+    display: none;
+    a {
+      @include normal-link;
+    }
+    .tooltip-details {
+      @include ellipsis;
+    }
+  }
+}

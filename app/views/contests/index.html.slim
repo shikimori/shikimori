@@ -1,0 +1,26 @@
+- content_for :head do
+  = stylesheet_link_tag :contests
+- content_for :tail do
+  = javascript_include_tag :contests
+
+header.head.misc
+  h1
+    = @page_title.last
+  - if user_signed_in? && current_user.contests_moderator?
+    = link_to 'создать', new_contest_url, title: 'Создать новый опрос', class: 'misc'
+  p.notice.clearfix Список всех опросов сайта
+
+.contests
+  - @contests_groups.each do |state, group|
+    .menu-block
+      .subheadline #{t("activerecord.state_machines.contest.states.#{state}").capitalize}
+      - group.each_with_index do |contest, index|
+        .contest
+          | #{index + 1}.
+          - if !contest.created? || (user_signed_in? && current_user.contests_moderator?)
+            - if !contest.created? && !contest.proposing?
+              .date #{contest.started_on.strftime '%d.%m.%Y'} - #{contest.rounds.last.matches.last.finished_on.strftime '%d.%m.%Y'}
+            a href="#{contest_url contest}"
+              = contest.title
+          - else
+            = contest.title

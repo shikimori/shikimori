@@ -1,0 +1,91 @@
+aside.left-block
+  .user-avatar
+    img src="#{gravatar_url @user, 160}" alt="#{@user.nickname}" title="#{@user.nickname}"
+
+  .menu-block.user-menu-container
+    - if user_signed_in? && !own_profile?
+      .options-floated.icon-actions
+        a.talk href="#{talk_url @user}" title="Диалог"
+        span.fav-add.friend-action style="#{'display: none;' if @presenter.favoured?}" data-remote="true" action="#{friend_add_url @user.id}" data-method="post" data-type="json" title="Добавить в друзья"
+        span.fav-remove.friend-action style="#{'display: none;' unless @presenter.favoured?}" data-remote="true" action="#{friend_remove_url @user.id}" data-method="delete" data-type="json" title="Удалить из друзей"
+        span.ignore-add.ignore-action style="#{'display: none;' if @presenter.ignored?}" data-remote="true" action="#{ignore_add_url @user.id}" data-method="post" data-type="json" title="Добавить в игнор"
+        span.ignore-remove.ignore-action style="#{'display: none;' unless @presenter.ignored?}" data-remote="true" action="#{ignore_remove_url @user.id}" data-method="delete" data-type="json" title="Удалить из игнора"
+        - if current_user.moderator?
+          a.ban href="#{ban_user_url @user}" title="Забанить"
+
+    .subheadline Профиль
+    ul.block-list.user-menu
+      li.profile.slider-control class="slider-control-statistics#{' selected' if params[:type] == 'profile'}"
+        = link_to 'Статистика', user_url(@user)
+
+      - if own_profile?
+        li.inbox.slider-control class="slider-control-inbox#{' selected' if ['inbox','notifications','sent'].include?(params[:type])}#{' hidden' unless own_profile?}"
+          = link_to unread_messages_url(current_user), rel: :nofollow do
+            - if current_user.unread_count > 0
+              span.unread-count = current_user.unread_count
+            span Почта
+
+      li.slider-control.hidden class="slider-control-animelist#{' selected' if params[:type] == 'animelist'}"
+        = link_to 'Список аниме', ani_manga_list_url(@user, list_type: 'anime')
+
+      li.slider-control.hidden class="slider-control-mangalist#{' selected' if params[:type] == 'mangalist'}"
+        = link_to 'Список манги', ani_manga_list_url(@user, list_type: 'manga')
+
+      - unless @user.friends.empty?
+        li.friends.slider-control class="slider-control-friends#{' selected' if params[:type] == 'friends'}"
+          = link_to 'Друзья', user_friends_url(@user)
+
+      - unless @user.favourites.empty?
+        li.favourites.slider-control.hidden class="slider-control-favourites#{' selected' if params[:type] == 'favourites'}"
+          = link_to '', user_favourites_url(@user), rel: :nofollow
+
+      li.slider-control.hidden class="slider-control-clubs#{' selected' if params[:type] == 'clubs'}"
+        = link_to '', user_clubs_url(@user), rel: :nofollow
+
+      li.comments.slider-control class="slider-control-comments#{' selected' if params[:type] == 'comments'}"
+        = link_to 'Комментарии', user_comments_url(@user)
+
+      li.reviews.slider-control class="slider-control-reviews#{' selected' if params[:type] == 'reviews'}"
+        = link_to 'Обзоры', user_reviews_url(@user)
+
+      li.changes.slider-control class="slider-control-changes#{' selected' if params[:type] == 'changes'}"
+        = link_to 'Правки', user_changes_url(@user)
+
+      li.settings.slider-control class="slider-control-settings#{' selected' if params[:type] == 'settings'}#{' hidden' unless own_profile?}"
+        = link_to 'Настройки', user_settings_url(@user), rel: :nofollow
+
+      li.slider-control.hidden class="slider-control-list-history#{' selected' if params[:type] == 'list-history'}"
+        = link_to '', list_history_url(@user), rel: :nofollow
+
+      li.talk.slider-control.hidden class="slider-control-talk#{' selected' if params[:type] == 'talk'}"
+        = link_to '', talk_url(@user), rel: :nofollow
+
+      li.ban.slider-control.hidden class="slider-control-ban#{' selected' if params[:type] == 'ban'}"
+        = link_to '', ban_user_url(@user), rel: :nofollow
+
+aside.right-block
+  .menu-block.history-block
+    - if @presenter.history.any?
+      .subheadline.m13
+        a href="#{list_history_url @user}" История
+      ul.block-list-alt
+        - @presenter.formatted_history.each do |entry|
+          li.entry
+            a href="#{entry[:url]}" title="#{entry[:name]}"
+              .image-name
+                img src="#{entry[:image]}" alt="#{entry[:name]}" title="#{entry[:name]}"
+                span.title
+                  == entry[:name]
+              span.misc title="#{entry[:reversed_action]}"
+                = entry[:reversed_action]
+              span.misc.date
+                = entry[:time]
+
+  - if @presenter.groups.any?
+    .menu-block.groups-block
+      .subheadline.m10
+        a href="#{user_clubs_url @user}" title="Клубы" Клубы
+      .image-links
+        - @presenter.groups.each do |entry|
+          a href="#{club_url entry}"
+            img src="#{entry.logo.url :x73}" alt="#{entry.name}" title="#{entry.name}"

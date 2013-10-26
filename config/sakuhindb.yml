@@ -1,0 +1,450 @@
+---
+:ignores:
+  - Suicide Shop
+  - A MONSTER IN PARIS
+  - Frozen
+  - Rio
+  - Dororo
+  - Nobara no July
+  - Rated A for Awesome
+  - "Cars Toons: Mater's Tall Tales"
+  - "Les Contes de la nuit 2 (Samenai Yume)"
+  - GOLDING
+  - Amalka
+  - The Old Man and the Sea
+  - Allegro non Troppo
+  - TATSUMI
+  - Totally Spies!
+  - Nyurunyuru!! KAKUSEN-kun
+  - Mad box zombies
+  - "The Robinson Family lost at sea (Kazoku robinson hyouryuki fushigina shima no furoone)"
+  - "Madagascar 3: Europe's Most Wanted"
+  - "Dr. Seuss' The Lorax"
+  - Despicable Me 2
+  - Une vie de chat
+  - IRON KID
+  - Eagle Talon side story Mukashi no Yoshida-kun
+  - Transformer Prime
+  - "Doraemon the Movie : Nobita\"s Secret Gadget Museum"
+  - DerupowerX bakuhatsu miracle genki !!
+  - Hustle punch
+  - LOVE LOVE
+  - Madeline
+  - Hi Hi PUFFY AmiYumi
+  - Transformers The Rebirth
+  - TRANSFORMERS BEAST WARS RETURNS
+  - Konnnako irukana
+  - Atomic Betty
+  - Gijoetheanimation
+  - Parman
+  - Nijuuichi Emon
+  - Poko Nyan
+  - Transformers Animated
+  - TRANSFORMERS 2010
+  - Transfomers
+  - Korpokkur adventure
+  - Dororonpa!
+  - Gegege no Kitaro
+  - The SIMPSONS
+  - Valcuria of battlefield3 -Ta ga tame no juusou-
+  - Story of the Alps My Annette (Arupusu monogatari watashi no annetto)
+  - Transformer Carobot
+  - Dominion(TOSHIBA EMI)
+  - RUBY GLOOM
+  - Starginger
+  - TickenTacken
+  - Secret bud
+  - Beast King Raiger
+  - UFO Fighter Daiaporon
+  - Power Pafu Girls
+  - Dr. Slump Ararechan
+  - Battle Mecha Zabungle
+  - Sunset in sanchoume
+  - Information on hero knight
+  - SNOOPY
+  - True Getter Robo
+  - "Keroro Gunso the Super Movie 2: Shinkai no Princess"
+  - CODE LYOKO
+  - Monsters University
+  - Happy Feet Two
+  - "Kung Fu Panda 2: The Kaboom of Doom"
+  - The Simpsons MOVIE
+  - "Dr. Seuss\" The Lorax"
+  - Na Pude
+  - Franken Weenie
+  - Toy Story 3
+  - Tinker Bell and the Lost Treasure
+  - SHREK FOREVER AFTER
+  - Wreck-It Ralph
+  - Cars2
+  - Despicable Me
+  - Pocahontas
+  - Tales of the Night
+  - ParaNorman
+  - Hotel Transylvania
+  - Monster vs Aliens
+  - "Madagascar 3: Europe\"s Most Wanted"
+  - Friends Naki on Monster Island (friends Mononokejima no Naki )
+  - The Princess and the Frog
+  - 9 (2009)
+  - TOY STORY
+  - Waltz with Bashir
+  - Mars Needs Moms
+  - Coraline
+  - Gyokairui Yamaoka Maiko no Tomo Yudeta Kaniyuki
+  - Tiny twin bears (Ganbare! lululolo)
+  - Up
+  - The Lost Thing
+  - Wallace & Gromit in A Matter of Loaf and Death
+  - WALL E
+  - The Illusionist
+  - Arthur Christmas
+  - "Ice Age: Dawn of the Dinosaurs"
+  - "Madagascar: Escape 2 Africa"
+  - Kaizoku ouji
+  - Kuroneko Lucy
+  - Pokemon movie 09
+  - Inazumaeleven GO Kyukyoku no kizuna GRIFFON
+  - Anime document Munchen he no michi
+  - The Third Baseball Part Of A Distinguished Family
+  - "Pokemon: Kyurem VS The Sacred Swordsmen"
+  - Pokemon Best Wishes! Meloetta no kirakira Recital
+  - Tatakae osper
+  - Korokke!
+  - My Little Pony -Friendship is Magic-
+  - Kimba the White Lion 1966
+  - Mainichi Kasan
+  - Phineas and Ferb The Movie
+  - Rango
+  - "The Adventures of Tintin: Secret of the Unicorn"
+  - Joshikousei Nobunaga chan
+  - Day of the Diesels
+  - Hanakappa the Movie -Hanasake! pakkaan chou no kuni no daibouken-
+  - Nihon fushigi hakken sumo no fushigi hen
+  - HELLS
+  - Meitantei konan tokei jikake no matenrou
+  - The Smurfs 2
+  - Peter Pan
+  - BEAUTY AND THE BEAST
+  - LADY AND THE TRAMP
+  - BAMBI
+  - DUMBO
+  - PINOCCHIO
+  - "Cinderella II: Dreams Come True"
+  - The Aristocats
+  - "Atlantis: The Lost Empire"
+  - Home on the Range
+  - Arrugas
+  - Planes
+  - Hello Spunk
+
+:matches:
+  'Kick Off to the Galaxy!!': 'Ginga e Kickoff!!'
+  'DD Hokuto no Ken (2012)': 'DD Hokuto no Ken (2013)'
+  'IXION SAGA Dimension Transfer': 'IXION SAGA DT'
+  'GJbu (Goodjob)': 'GJ-bu'
+  'Yokoyama Mitsuki Sangokushi': 'Yokoyama Mitsuteru Sangokushi'
+  'Chou Seimeitai Transformer Beast Wars Metals': 'Chou Seimeitai Transformers Beast Wars Metals'
+  'Tokimeki Twunaito': 'Tokimeki Tonight'
+  'Cyber adventure Webdiver': 'Dennou Boukenki Webdiver'
+  'KABUTOBORG VICTORY BY VICTORY': 'Jinzou Konchuu Kabutoborg VxV'
+  'Bakuretsu Etorenjaa': '12 Senshi Bakuretsu Eto Ranger'
+  'SLAYERS The Movie': 'Slayers: The Motion Picture'
+  'Ginga Reppuu Baxinger (Galactic Gale Baxinger)': 'Ginga Reppuu Baxingar'
+  'Fighting Beauty Wooron REBIRTH': 'Fighting Beauty Wulong Rebirth'
+  'Makyo Densetsu Akurobanchi': 'Makyou Densetsu Acrobunch'
+  'Spica (Futatsu no Supica)': 'Futatsu no Spica'
+  'She, the ultimate weapon (Saisyu Heiki Kanojyo)': 'Saikano'
+  'Kamen no Ninjya Akakage': 'Kamen no Ninja Akakage'
+  'Ikkyu San': 'Ikkyuu-san'
+  'Kagaku Ninjyatai Gatchaman': 'Kagaku Ninja-Tai Gatchaman'
+  'Sexy command out story Great!! Masaru-san': 'Sexy Commando Gaiden: Sugoiyo!! Masaru-san'
+  'Duel Masters Victory V': 'Duel Masters Victory'
+  'Hayate no Gotoku!! OVA Atsu ga natsui ze Mizugi-han!': 'Hayate no Gotoku!!: Atsu ga Natsuize - Mizugihen!'
+  "Hell Teacher Nube LA MAS GRANDE BATALLA! ZEKKI ESTA AQU!": 'Jigoku Sensei Nube'
+  "Jigoku Sensei Nube Kessenn!Youshinnnojutsu vs Kabeotoko": 'Jigoku Sensei Nube'
+  'Hell Teacher Nube Nazonazo Nanafushigi Bukimichann': 'Jigoku Sensei Nube'
+  'Hell Teacher Nube Shijou Saidai No Gekisenn! Zekki Raishuu!': 'Jigoku Sensei Nube'
+  'Hell Teacher Nube Kessenn!Youshinnnojutsu vs Kabeotoko': 'Jigoku Sensei Nube'
+  'Heart Catch Precure': 'Heartcatch Precure!'
+  'Precure all stars DX 2 kibou no hikari rainbow jewel o mamore!': 'Precure All Stars Movie DX2: Kibou no Hikari - Rainbow Jewel wo Mamore!'
+  'Baka to Test to Shokanju matsuri': 'Baka to Test to Shoukanjuu: Matsuri'
+  'Jewelpet kira deko!': 'Jewelpet Kira Deco!'
+  'RAVE!': 'Groove Adventure Rave'
+  'C3 -C-cube-': 'C Cube'
+  'Sora no otoshimono the movie tokeijikake no engeloid': 'Sora no Otoshimono: Tokeijikake no Angeloid'
+  'Kuroko no Basketball': 'Kuroko no Basket'
+  'KAKYUSEITVANIMATION': 'Kakyuusei (1999)'
+  'ELFKAKYUSEI': 'Elf Ban Kakyuusei'
+  'Amagami SS plus': 'Amagami SS+'
+  'Maji de watashi ni Koi shinasai!!': 'Maji de Watashi ni Koi Shinasai!'
+  'Kenran Buyousai The Mars Day Break': 'Mars Daybreak'
+  'La storia della Arcana Famigila': 'Arcana Famiglia'
+  'Yoroshiku Mekadokku': 'Yoroshiku Mechadock'
+  'Muteki Robo Tryder G7': 'Trider G7'
+  'Muteki Chojin Zanbot 3': 'Muteki Choujin Zanbot 3'
+  'Battle Programmer Sirase': 'Battle Programmer Shirase'
+  'Armor Rescue Unit RESTOL': 'RESTOL: Special Rescue Team'
+  'Secret of the Lovely Eyepatch 2 (Jubei-chan 2)': 'Jubei Chan the Ninja Girl 2'
+  'Fancy Science World Gulliver Boy': 'Kuso Kagaku Sekai Gulliver Boy'
+  'Fighting Beauty Wooron': 'Fighting Beauty Wulong'
+  'Otome ha boku ni koi siteru': 'Otome wa Boku ni Koishiteru'
+  'Weiss Kreuz Gruhen': 'Weiß Kreuz Glühen'
+  "Iriya's sky, the summer of UFO": 'Iriya no Sora, UFO no Natsu'
+  'Arison And Rillia': 'Allison & Lillia'
+  "JOJO'S BIZARRE ADVENTURE THE ANIMATION": "JoJo's Bizarre Adventure (2012)"
+  'Maoyu Mao Yusha': 'Maoyuu Maou Yuusha'
+  "Hayate the combat butler CAN'T TAKE MY EYES OFF YOU": "Hayate no Gotoku! Can't Take My Eyes Off You"
+  'Kami nomizo shiru sekai saikai kaikou': 'Kami nomi zo Shiru Sekai: Tenri-hen'
+  'Chojuu Kishin Dancouga GOD BLESS DANCOUGA': 'Choujuu Kishin Dancougar'
+  'Chojuu Kishin Dancouga Requiem for Victims': 'Choujuu Kishin Dancougar: Hakunetsu no Shuushou'
+  'Oniichan dakedo ai sae areba kankeinai yone': 'Onii-chan Dakedo Ai Sae Areba Kankeinai yo ne!'
+  'Chunibyou demo koi ga shitai': 'Chuunibyou demo Koi ga Shitai!'
+  "Say ''I love you''.": 'Sukitte Ii na yo.'
+  'PATALIROSTARDUST': 'Pataliro! Stardust Keikaku'
+  'Yuruyuri 2': 'Yuru Yuri♪♪'
+  'Baka to test to shoukanju': 'Baka to Test to Shoukanjuu'
+  'Siawasesou no Okojyosan': 'Shiawase Sou no Okojo-san'
+  'Tsuyoshi, Cheer up! (Tsuyoshi Sikkari Sinasai)': 'Tsuyoshi Shikkari Shinasai'
+  'Stop Hibari Kun': 'Stop! Hibari-kun!'
+  'GassinsentaiMechanderrobo': 'Gasshin Sentai Mechander Robo'
+  'Mama loves Poyopoyo zaurs': 'Mama wa Poyopoyo Saurus ga Osuki'
+  'Anmitsu Princess': 'Anmitsu Hime'
+  'Spoon woman': 'Spoon Oba-San'
+  'Magical hut': 'Magical Hat'
+  'Renkin 3 kyu Magical Poka-n': 'Renkin San-kyuu Magical? Pokaan'
+  'Supermariobrothersbigmissionofrescuingprinsesspeach': 'Super Mario Brothers: Peach-hime Kyuushutsu Daisakusen'
+  'Hakusyon Daimaou': 'Hakushon Daimaou'
+  'Kami nomizo shiru sekai 4nin to idle': 'Magical☆Star Kanon 100%'
+  "Uta no prince sama maji LOVE 2000%": "Uta no☆Prince-sama♪ Maji Love 2000%"
+  "D.C. III Da Capo: III": "Da Capo III"
+  "Zettai karen children The unlimited Hyoubu kyousuke": "Zettai Karen Children: The Unlimited - Hyoubu Kyousuke"
+  "Kannaduki no miko": "Kannazuki no Miko"
+  "Inu Boku Secret Service": "Inu x Boku SS"
+  "Ore no Imouto ga Konnani Kawai Wakeganai": "Ore no Imouto ga Konna Kawaii Wake ga Nai"
+  "Mazinkaizer SKL": "Mazinkaiser SKL"
+  "Shinryaku!? Ika musume 2": "Shinryaku! Ika Musume 2"
+  "Tottoko hamutaro dechu": "Tottoko Hamtaro Dechu"
+  "Yuruani?": "Honto ni Atta! Reibai Sensei"
+  "Nichijou TV series": "Nichijou"
+  "Yokohama kaidashi kiko": "Yokohama Kaidashi Kikou"
+  "Ring ni kakero1 World Championship": "Ring ni Kakero 1"
+  "Seikon no Qwaser2": "Seikon no Qwaser II"
+  "Mitsudomoe zouryochu!": "Mitsudomoe Zouryouchuu!"
+  "Let's take a consult with Dr. Rin": "Dr. Rin ni Kiitemite!"
+  "BRAIGADOON Marin and Meran": "Brigadoon"
+  "Ginsou Kikou Ordian": "Platinumhugen Ordian"
+  "Boogiepop and Others": "Boogiepop Phantom"
+  "Gyakuten ippatu man": "Time Bokan Series: Gyakuten Ippatsu-man"
+  "Time Patrol Party Otasuke Man": "Time Bokan Series: Time Patrol-Tai Otasukeman"
+  "All Purpose Cultural Cat Girl": "Nuku Nuku"
+  "Metal Fighters Miku": "Metal Fighter Miku"
+  "Gokujyou Seitokai": "Gokujou Seitokai"
+  "Japan old story (Manga Nihon Mukashi Banashi)": "Manga Nihon Emaki"
+  "Blue dragon tennkai no sitiryuu": "Blue Dragon: Tenkai no Shichi Ryuu"
+  "Invention Boy Kanipan": "Hatsumei Boy Kanipan"
+  "Psybustar": "Masou Kishin Cybuster"
+  "Space Aircraft Carrier Blue Noah": "Uchuu Kuubo Blue Noah"
+  "Invincibility King trizenon": "Tri-Zenon"
+  "Rekka no Honou": "Flame of Recca"
+  "Nekketu saikyou gou zaura-": "Nekketsu Saikyou Go-Saurer"
+  "Soredemo machi ha mawatte iru": "Soredemo Machi wa Mawatteiru"
+  "Hakuoki Hekketsuroku": "Hakuouki Hekketsuroku"
+  "Iron man Mad house Version": "Iron Man"
+  "MAJOR": "Major S1"
+  "Memories Off #5 THE ANIMATION": "Memories Off"
+  "Shuffle": "Shuffle!"
+  "Nangoku Syoune Papuwa kun": "Nangoku Shounen Papuwa-kun"
+  "Ommmyou-taisennki": "Onmyou Tai Senki"
+  "Spiral": "Spiral: Suiri no Kizuna"
+  "GRENDAIZERGETTAERROBOGGUREATMAZINGER": "Grendizer: Getter Robo G - Great Mazinger Kessen! Daikaijuu"
+  "MY YOUTH IN ARCADHIA": "Arcadia of My Youth"
+  "UFOROBOTTGURENDAIZERVARSUSGREATMAZINGER": "Grendizer: Getter Robo G - Great Mazinger Kessen! Daikaijuu"
+  "Harlocksaga Das Of Reavengerg": "Harlock Saga"
+  "Jungle King Ta-chan": "Jungle no Ouja Taa-chan"
+  "Inukami": "Inukami!"
+  "Enban koujyo warukyure": "UFO Princess Valkyrie"
+  "Maria sama ga miteru 4th season": "Maria-sama ga Miteru 4th"
+  "Genesis of Aquarion (OVA)": "Sousei no Aquarion OVA"
+  "NEO HUMAN CASSHERN": "Shinzou Ningen Casshern"
+  "Pretear (Shin Sirayukihime densetsu Priitia)": "Shin Shirayuki-hime Densetsu Pretear"
+  "Gosyushousama Ninomiya kun": "Goshuushou-sama Ninomiya-kun"
+  "Neon Genesis Evangelion Air Magokoro wo Kimini": "Neon Genesis Evangelion: The End of Evangelion"
+  "Tokyo Majin Gakuen Tou": "Tokyo Majin Gakuen Kenpucho: Tou"
+  "NARUTO sippuuden": "Naruto: Shippuuden"
+  "Ancient king dinosaur King": "Kodai Ouja Kyouryuu King"
+  "Full Metal Panic": "Full Metal Panic!"
+  "UMI-SHO: Kenko Zenra-kei Suiei-bu": "Kenkou Zenrakei Suieibu Umishou"
+  "Kyoran Kazoku Nikki": "Kyouran Kazoku Nikki"
+  "Masquerade Maidguy": "Kamen no Maid Guy"
+  "Ichigo Mashimaro Original Video Animation": "Ichigo Mashimaro"
+  "Jyunjyo romantica": "Junjou Romantica"
+  "Okami kakushi": "Ookami Kakushi"
+  "Kagakuninjyataigachamanfighter": "Kagaku Ninja-Tai Gatchaman F"
+  "OVA Kimi ga Nozomu Eien Next Season": "Kimi ga Nozomu Eien: Next Season "
+  "Ribon Knight": "Ribbon no Kishi"
+  "Muteki Koujin Daitaan": "Muteki Koujin Daitarn 3"
+  "My-Otome 0~S.ifr~": "Mai-Otome 0: S.ifr"
+  "Battle Spirits shonen toppa Bashin": "Battle Spirits: Shounen Toppa Version"
+  "The tower of DRUAGA the Aegis of URUK": "Druaga no Tou: The Aegis of Uruk"
+  "SAINT SEIYA THE HADES Chapter ELUSION": "Saint Seiya: The Hades Chapter - Elysion"
+  "Shouwa Aho Sousi Akanuke Ichiban": "Shouwa Ahozoushi Akanuke Ichiban!"
+  "Jeeg The God Of Steel": "Koutetsushin Jeeg"
+  "Gegege no Kitaro 2007": "Gegege no Kitarou (2007)"
+  "CLANNAD TVSeries": "Clannad"
+  "Kinnikuman 2": "Kinnikuman II Sei: Ultimate Muscle"
+  "Kagaku Ninjyatai Gatchaman 2": "Kagaku Ninja-Tai Gatchaman II"
+  "SpacegodDaikengo": "Uchuu Mazin Daikengo"
+  "RD Senno Chosashitsu": "RD Sennou Chousashitsu"
+  "Eiga Doraemon shin Nobita no uchu kaitakushi": "Doraemon: Nobita and the New Steel Troops - Angel Wings"
+  "Movie The Violinist of Harmeln (Hamelun no violinhiki)": "Violinist of Hamelin"
+  "Movie Mahoujin GuruGuru": "Mahoujin Guru Guru Movie"
+  "PRECURE Max Heart": "Futari wa Precure: Max Heart"
+  "Precure Splash Star": "Futari wa Precure: Splash☆Star"
+  "Cosmic Baton Girl Commet-san": "Cosmic Baton Girl Comet-san"
+  "Romeo&Juliet": "Romeo x Juliet"
+  "Eiga De Tojo Tamagotchi Dokidoki Uchuu No Maigotchi": "Eiga de Toujou! Tamagotchi Doki Doki! Uchuu no Maigotchi!?"
+  "Record of Lodoss Wars": "Lodoss-tou Senki"
+  "SAKURA WARS NEW YORK NY": "Sakura Taisen: New York"
+  "Sakura Wars ouka kenran": "Sakura Taisen: Ouka Kenran"
+  "Sakigake! Otokojuku": "Sakigake!! Otokojuku"
+  "St. Luminous Woman Institute": "St. Luminous Mission High School"
+  "Aoki densetu shoot": "Aoki Densetsu Shoot!"
+  "Lupin the 3rd Castle of Kariosutoro": "Lupin III: Cagliostro no Shiro"
+  "Let's go! Anpanman": "Sore Ike! Anpanman"
+  "Super Doll Rika Chan": "Super Doll Licca-Chan"
+  "Kanokon: Manatsu no Daishanikusai (OVA)": "Kanokon: Manatsu no Dai Shanikusai"
+  "GA Art department art design class": "GA: Geijutsuka Art Design Class"
+  "Cybog 009": "Cyborg 009"
+  "Change Getter Robo the End of the World": "Getter Robo: Armageddon"
+  "Gowapper Godam": "Gowappa 5 Gordam"
+  "Zettai shogeki. Platonic Heart": "Zettai Shougeki: Platonic Heart"
+  "Cobra Space Adventure": "Space Adventure Cobra"
+  "GUN SWORD": "Gun x Sword"
+  "Nadia The Secret of Blue Water": "Fushigi no Umi no Nadia"
+  "Fight Ippatsu! Juden chan": "Fight Ippatsu! Juuden-Chan!!"
+  "Macross Do You Remember Love": "Macross: Do You Remember Love?"
+  "Akane iro ni Somaru Saka: Hard-core (OVA)": "Akane-iro ni Somaru Saka Hardcore"
+  "Kujibiki unbarance (2006)": "Kujibiki♥Unbalance (TV)"
+  "The Misterious Cities of Gold": "Mysterious Cities of Gold"
+  "Yoku Wakaru Gendai Maho": "Yokuwakaru Gendaimahou"
+  "DNA2": "DNA²"
+  "Asura Cryin": "Asura Cryin'"
+  "Koutetu sangokushi": "Koutetsu Sangokushi"
+  "TOWARD THE TERRA TV ANIMATION": "Toward the Terra"
+  "OVA Utawareru mono": "Utawarerumono OVA"
+  "BACCANO": "Baccano!"
+  "TSUKISASE !! RYOFUKO-CHAN": "Yawaraka Sangokushi Tsukisase!! Ryofuko-chan"
+  "Kaiji": "Gyakkyou Burai Kaiji: Ultimate Survivor"
+  "Wonderful detective Labyrins": "Suteki Tantei Labyrinth"
+  "ADIEYU GALAXY EXPRESS 999": "Adieu Galaxy Express 999"
+  "Gundam X": "After War Gundam X"
+  "Akikan": "Akikan!"
+  "Yes!precure5gogo": "Yes! Precure 5"
+  "Yusha Exkaizer": "Yuusha Exkaiser"
+  "Shikabamehime kaku": "Shikabane Hime: Aka"
+  "The Beast Player": "Kemono no Souja Erin: Soushuuhen"
+  "Kindaichi syonen no jikenbo": "Kindaichi Shounen no Jikenbo (1997)"
+  "Zoku Natsume Yujin Chou": "Zoku Natsume Yuujinchou"
+  "Kenshin's Rurouni": "Rurouni Kenshin "
+  "Ring ni kakero": "Ring ni Kakero 1"
+  "DradonBallGT": "Dragon Ball GT"
+  "Great Majinger": "Great Mazinger"
+  "YAT": "YAT Anshin! Uchuu Ryokou"
+  "Mahou Shoujo Raraberu": "Mahou Shoujo Lalabel"
+  "Ring Ni Kakero VS USA": "Ring ni Kakero 1: Nichibei Kessen Hen"
+  "Tatakae Ramenman": "Tatakae!! Ramenman"
+  "Gdgdfairys 2nd season": "gdgd Fairies 2"
+  "BERSERK: Goleden Age Arc III -Descent-": "Berserk Ougon Jidaihen III: Kourin"
+  "Nasu: Migrant of suitcase": "Nasu: A Migratory Bird with Suitcase"
+  "Koutetsu no vandetta": "Koutetsu no Vendetta Episode 0"
+  "Crayon Shinchan Bakauma B kyu Gurume Savival": "Crayon Shin-chan Movie 21: Bakauma! B-Kyuu Gourmet Survival Battle!!"
+  "Boku no imouto wa 'Oosaka okan'": 'Boku no Imouto wa "Osaka Okan"'
+  "Yozakura Quartet hosinoumi": "Yozakura Quartet: Hoshi no Umi"
+  "DEAD GIRL's": "Red Garden: Dead Girls"
+  "Puella Magi Madoka Magica Movie": "Mahou Shoujo Madoka★Magica Movie 2: Eien no Monogatari"
+  "AKB0048": "AKB0048 First Stage"
+  "THE LEGEND OF HEROES Sora no kiseki THE ANIMATION": "Eiyuu Densetsu: Sora no Kiseki"
+  "Steins;Gate the Movie Fuka ryouiki no deja vu": "Steins;Gate: Fuka Ryouiki no Dejà vu"
+  "Gintama the Movie kanketsuhen Yorozuya yo eien nare": "Gintama: Kanketsu-hen - Yorozuya yo Eien Nare"
+  "The 'HENTAI' prince and the stony cat.": "Hentai Ouji to Warawanai Neko."
+  "Ore no imouto ga konnani kawaii wake ga nai. 2nd season": "Ore no Imouto ga Konnani Kawaii Wake ga Nai."
+  "Kaiketsu Zorori Da Da Da Daibouken": "Kaiketsu Zorori Da-Da-Da-Daibouken!"
+  "Lucky Star OVA Original na Visual to Animation.": "Lucky☆Star OVA"
+  "Monhan Nikki Pokapoka Airumura G": "MonHun Nikki Girigiri Airuu Mura: Airuu Kiki Ippatsu"
+  "MoeCan-change!": "Ai Mai! Moe Can Change!"
+  "BERSERK: Goleden Age I -The Egg of the Supreme King-": "Berserk Ougon Jidaihen I: Haou no Tamago"
+  "Eden of the East The movie": "Higashi no Eden Movie I: The King of Eden"
+  "Bakuten Shoot Beyblade THE MOVIE Gekitou! DAICHI VS TAKAO": "Bakuten Shoot Beyblade the Movie: Gekitou!! Takao vs. Daichi"
+  "Natsume yujinchou 3": "Natsume Yuujinchou San"
+  "Tofu Kozo": "Toufu Kozou"
+  "Shin Kimagure Orange Road Ano Natsu no Hajimari": "Kimagure Orange Road: Summer's Beginning"
+  "Kono danshi uchujin to tatakae masu. -Bokura no sekai no mamori kata-": "Kono Danshi, Uchuujin to Tatakaemasu."
+  "Bungaku Shoujo The Movie": "Bungaku Shoujo"
+  "Haruka naru Toki no Naka de the Movie Maihitoyo": "Harukanaru Toki no Naka de: Hachiyou Shou"
+  "The Prince of Tennis Eikokushiki Teikyujo Kessen!": "Prince of Tennis: Another Story II - Ano Toki no Bokura"
+  "Atashinchi the movie 3D Jonetsu no cho chonoryoku haha daiboso": "Atashin'chi 3D Movie: Jounetsu no Chou Chounouryoku Haha Dai Bousou"
+  "Kaito Reinya": "Kaitou Reinya"
+  "Eiga Heartcatch Pretty Cure!: Hana no Miyako de Fashion Show ...Desu ka!?": "Precure All Stars Movie DX2: Kibou no Hikari - Rainbow Jewel wo Mamore!"
+  "Ippatsu hichuu Devander": "Ippatsu Hicchuu!! Devander"
+  "DETECTIVE CONAN 2011 Quarter of Silence": "Detective Conan Movie 15: Quarter of Silence"
+  "Chouon senshi Borgman": 'Sonic Soldier Borgman'
+  "Futago no Monchichi": 'Futago no Monchhichi'
+  "Shippu! Iron Leaguer Silver no hata no moto ni": 'Shippuu! Iron Leaguer: Silver no Hata no Moto ni'
+  "Hayate The Combat butler Cuties": 'Hayate no Gotoku! Cuties'
+  "Boku ha ousama 2013": 'Boku wa Ou-sama'
+  "Inazuma eleven go garaxy": 'Inazuma Eleven Go: Galaxy'
+  "Infinite Stratos encore Koi ni kogareru rokujusou": 'IS: Infinite Stratos Encore: Koi ni Kogareru Sextet'
+  "Crayon Shinchan Arashi wo yobu Ora to Utyu no Princess": 'Crayon Shin-chan Movie 20: Arashi wo Yobu! Ora to Uchuu no Princess'
+  "DETECTIVE CONAN 2012 The Eleventh Striker": 'Detective Conan Movie 16: The Eleventh Striker'
+  "DETECTIVE CONAN 2007 Jorry Roger in the Deep Azure.": 'Detective Conan Movie 11: Jolly Roger in the Deep Azure'
+  "FAIRY TAIL the Movie": 'Fairy Tail: Houou no Miko'
+  "Ebiten -Ebisugawa Public High School Astronomical(?) Club-": 'Ebiten: Kouritsu Ebisugawa Koukou Tenmonbu'
+  "Danball Seni WARS": 'Danball Senki Wars'
+  "MONOGATARI series 2nd season": 'Monogatari Series: Second Season'
+  "Suite PreCure Torimodose! Kokoro ga tsunagu kiseki no melody": 'Suite Precure♪ Movie: Torimodose! Kokoro ga Tsunaku Kiseki no Melody♪'
+  "Space Pirate Captain HARLOCK (2013)": 'Uchuu Kaizoku Captain Harlock'
+  "Scryed ALTERATION": 'Scryed Alteration II: Quan'
+  "NARUTO the MOVIE ROAD TO NINJA": 'Naruto: Shippuuden Movie 6 - Road to Ninja'
+  "Chouon senshi Borgman 2 Shinseiki 2058": "Sonic Soldier Borgman II: New Century 2058"
+  "Battle spirits sword eyes (Gekitou den)": "Battle Spirits: Sword Eyes"
+  "Morita san wa mukuchi (TV series)": "Morita-san wa Mukuchi."
+  "Teekyuu season2": "Teekyuu 2"
+  "Hyperdimension Neptunia The Animation": "Choujigen Game Neptune: The Animation"
+  "Hori san to Miyamura kun": "Hori-san to Miyamura-kun: Shingakki"
+  "Stella jogakuin koutouka c cube": "Stella Jogakuin Koutou-ka C³-bu"
+  "KOKYO SHIHEN EUREKA SEVEN : Pocket ga Niji de ippai (Pocketful of Rainbows)": "Eureka Seven: Pocket ga Niji de Ippai"
+  "SHIN MAZINGER Shougeki Zhen On Television": "Shin Mazinger Shougeki! Z-Hen"
+  "Digimon xros wars Toki o kakeru shonen hunter tachi": 'Digimon Xros Wars: Toki wo Kakeru Shounen Hunter-tachi'
+  "The tale of lovestory Cuore": "Ai no Gakko Cuore Monogatari"
+  "Original Video Series Fushigi Yuugi": "Fushigi Yuugi OVA"
+  "Fushigi Yuugi Eikouden": "Fushigi Yuugi: Eikoden"
+  "Doraemon the Movie : Nobita's Secret Gadget Museum": "Doraemon: Nobita no Himitsu Dougu Museum"
+  "Lucy of the Southern Rainbows (Minami no niji no ruusii)": "Minami no Niji no Lucy"
+  "Peeping Life The Perfect Edition": "Peeping Life: The Perfect Explosion"
+  "The ''HENTAI'' prince and the stony cat.": "Hentai Ouji to Warawanai Neko."
+  "Futari wa milky-homes": "Futari wa Milky Holmes"
+  "Giniro no Olynssis": "Gin'iro no Olynsis"
+  "MACHINEROBO BUTTIGIRI BATTLE HACKERS": "Machine Robo: Butchigiri Battle Hackers"
+  "Ng Knight Lamune 40": "NG Knight Ramune & 40"
+  "Chouon senshi Borgman LOVERS RAIN": "Sonic Soldier Borgman: Lover's Rain"
+  "Takanasi Rikka kai Gekijouban Chouunibyou demo koi ga shitai": "Takanashi Rikka Kai: Chuunibyou demo Koi ga Shitai! Movie"
+  "The Garden of sinners recalled out summer (Kara no kyoukai mirai fukuin)": "Kara no Kyoukai: Mirai Fukuin"
+  "Genshiken 2daime": "Genshiken Nidaime"
+  "Haruka naru toki no naka de Ajisai yume katari": "Harukanaru Toki no Naka de: Hachiyou Shou"
+  "Love Live!": "Love Live! School Idol Project"
+  "This Ugly and Beautiful World (Kono Minikukumo Utsukushii Sekai)": "Kono Minikuku mo Utsukushii Sekai"
+  "Sinkyokusoukaipolyphonica": "Shinkyoku Soukai Polyphonica"
+  "Gohst in the shell STAND ALONE COMPLEX 2ndGIG{Kou kaku ki dou tai}": "Ghost in the Shell: Stand Alone Complex 2nd GIG"
+  "Kindaichi syonen no jikenbo": "Kindaichi Shounen no Jikenbo (TV)"
+  "Pocket Monster THE ORIGIN": "Pokemon: The Origin"
+  "Dokidoki Precure Mana ga kekkon!? Mirai ni tsunagu kibou no dress": "Dokidoki! Precure Movie: Mana Kekkon!!? Mirai ni Tsunagu Kibou no Dress"
+  "Majokko Shimai no Nene to Yone": "Majokko Shimai no Yoyo to Nene"
+  "Infinite Stratos 2 Long Vacation Edition": "IS: Infinite Stratos 2 - Hitonatsu no Omoide"
+  "ROBOT GIRLS Z": "Toei Robot Girls Z"
+  "PERSONA3 THE MOVIE #1 Spring of Birth": "Persona 3 the Movie"
+  "Hidamari Sketch Sae&Hiro sotsugyou hen": "Hidamari Sketch: Sae Hiro Sotsugyou-hen"
+  "Koroshiya san": "Koroshiya-san: The Hired Gun"
+  "Kyousougiga TV series": "Kyousou Giga (TV)"
+  "BUDDHA 2 the endless journey": "Tezuka Osamu no Buddha: Akai Sabaku yo! Utsukushiku"
+  "Te-kyu 3rd season": "Teekyuu 3"

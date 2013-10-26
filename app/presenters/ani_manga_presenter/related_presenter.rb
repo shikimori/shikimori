@@ -1,0 +1,51 @@
+class AniMangaPresenter::RelatedPresenter < BasePresenter
+  # адаптации аниме
+  def adaptations
+    @adaptations ||= related_entries.select do |v|
+      v.relation == BaseMalParser::RelatedAdaptationName
+    end
+  end
+
+  # связанные аниме
+  def all
+    @related ||= related_entries.select do |v|
+      v.relation != BaseMalParser::RelatedAdaptationName
+    end
+  end
+
+  # похожие аниме
+  def similar
+    @similar ||= entry.similar
+        .includes(:dst)
+        .all
+          .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
+  end
+
+  # есть ли они вообще?
+  def any?
+    all.any?
+  end
+
+  # одно ли связанное аниме?
+  def one?
+    all.size == 1
+  end
+
+  # достаточно ли большое число связанных аниме?
+  def many?
+    all.size > 3
+  end
+
+private
+  def related_entries
+    @all_realted ||= entry.related
+        .includes(:anime, :manga)
+        .all
+          .select { |v| (v.anime_id && v.anime && v.anime.name) || (v.manga_id && v.manga && v.manga.name) }
+          .sort_by do |v|
+            (v.anime_id ? v.anime.aired_at : nil) ||
+              (v.manga_id ? v.manga.aired_at : nil) ||
+              Date.new(9999)
+          end
+  end
+end

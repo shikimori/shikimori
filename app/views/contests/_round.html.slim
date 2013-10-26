@@ -1,0 +1,48 @@
+.item-content
+  /- if contest.description.present?
+    /.comment-block.contest-description
+      /.description
+        /= contest.description
+
+  .options-floated
+    - contest.nearby_rounds.each do |round|
+      span.linkeable data-href="#{round_contest_url contest, round: round}" title="#{round.title}"
+        = round.title
+      - if contest.nearby_rounds.size == 2 && round != contest.nearby_rounds.last
+        | &nbsp;&nbsp;/&nbsp;&nbsp;
+
+  .subheadline.m30
+    = contest.displayed_round.title
+
+  - if user_signed_in? && contest.displayed_round.started?
+    .warning.m20
+      span.red-warning Внимание!
+      | &nbsp;Если вы не смотрели хотя бы один из вариантов, то мы рекомендуем вам воздержаться от голосования по данной паре. Это повысит объективность результатов опроса.
+
+  .animes.new.match-container data-id="#{params[:match_id]}"
+    .ajax-loading title="Загрузка..."
+
+  .one-third-columns
+    - if contest.displayed_round.finished?
+      = render 'contests/rating', contest: contest, round: contest.displayed_round
+
+    .column
+      .options-floated
+          span.selected = contest.displayed_round.title
+      .subheadline В этом раунде
+      .subcontent
+        = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.displayed_round)
+
+  - if contest.displayed_round.number > 1 && contest.prior_round.finished?
+    - cache ['prior_round', contest, contest.displayed_round, contest.prior_round, russian_names_key] do
+      .one-third-columns
+        .column
+          = render 'contests/rating', contest: contest, round: contest.prior_round
+
+        .column
+          .options-floated
+            span.linkeable data-href="#{round_contest_url contest, round: contest.prior_round}" title="#{contest.prior_round.title}"
+              = contest.prior_round.title
+          .subheadline В прошлом раунде
+          .subcontent
+            = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.prior_round)

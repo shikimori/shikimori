@@ -1,0 +1,50 @@
+DOCTYPE html
+html
+  = render partial: 'site/head'
+  body class="#{page_border} #{'no-smileys' if user_signed_in? && !current_user.smileys} #{controller_name == 'topics' ? 'adaptive' : 'static'}" style="#{body_background}"
+    - if defined?(notice) && notice
+      p.flash-notice
+        == notice
+    - if defined?(alert) && alert
+      p.flash-alert
+        == alert
+    header.header
+      = render partial: 'site/main-menu'
+
+    .page style="#{page_background}"
+      - if Rails.env.development?
+        javascript:
+          window.DEVELOP = true;
+
+      - if user_signed_in? && current_user.admin? && !Rails.env.development?
+        javascript:
+          $(function() {
+            $('.admin_panel').load('/apanel');
+          });
+          $('.admin_panel .reload').live('click', function() {
+            $(this).hide();
+            $('.admin_panel').load('/apanel');
+          });
+        .admin_panel
+
+      - if defined?(@itemtype) && @itemtype.present?
+        section[itemscope itemtype="#{{@itemtype}}"]
+          = render partial: 'site/page_container'
+      - else
+        section
+          = render partial: 'site/page_container'
+      footer
+        = render partial: 'site/footer'
+
+    #shade
+    .to-top
+      .slide
+      .arrow ↑
+    .feedback-hover-activator
+    span.feedback data-remote="true" data-action="#{feedback_url}" data-type="html"
+      .graphics-feedback title="Оставить отзыв"
+    | <!--noindex-->
+    = yield :form
+    | <!--/noindex-->
+    = javascript_include_tag :common
+    = yield :tail

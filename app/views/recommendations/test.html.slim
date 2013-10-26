@@ -1,0 +1,33 @@
+header.head
+  h1 Тест системы рекомендаций
+  p.notice Здесь расположены тестовые выборки по различным вариантам подбора рекомендаций
+
+img.m5 src="https://api.monosnap.com/image/download?id=ybg90kD4G9PZd0hWskxkzOslm"
+
+/.subheadline.orange Экспериментально повышающие точность предсказания методы
+/.subcontent
+  /p Выкидываем все оценки равные нулю (40-50% к точности)
+  /p Выкидываем оценки от спешиалов (0.01-0.02 к точности)
+  /p Приравнением к 5 все оценки ниже 5 (0.1 к точности)
+
+- @users.each do |user|
+  .subheadline class="#{'blue' if user.id == -1}"
+    = user.nickname
+  .subcontent
+    table.default-table
+      tr
+        th Метрика
+        th style="width: 50px; text-align: center;" RMSE
+      tr.border
+        th colspan="2"
+      - @metrics.each do |metric, results|
+        tr
+          td.name #{metric}#{" (лучшее / среднее / медианное / худшее)" if user.id == -1}
+          td.num style="white-space: nowrap; text-align: center;"
+            - if user.id == -1
+              == "%.2f / <b>%.2f</b> / %.2f / %.2f" % [results.values.min, results.values.sum / results.keys.size, results.values.sort[results.size/2], results.values.max]
+            - else
+              - if results[user.id]
+                = "%.2f" % results[user.id]
+              - else
+                | -

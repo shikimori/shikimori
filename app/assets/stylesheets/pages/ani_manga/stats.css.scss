@@ -1,0 +1,99 @@
+@import "globals";
+
+.stats {
+  position: relative;
+
+  .friend-rates {
+    width: 100%;
+    .status {
+      font-size: 12px;
+    }
+  }
+  .index-list {
+    margin-bottom: 20px;
+    margin-left: 5px;
+
+    .index-item {
+      border-bottom: none;
+      float: left;
+      height: 48px;
+      width: 181px;
+
+      .name {
+        @include ellipsis;
+        display: block;
+        font-size: 14px;
+        margin-left: 40px;
+        padding-top: 0;
+        width: 133px;
+      }
+      .image {
+        float: left;
+        height: 32px;
+        padding: 2px 4px 4px 0;
+        vertical-align: middle;
+        width: 32px;
+      }
+      .info {
+        margin-left: 41px;
+        margin-top: 0;
+
+        p {
+          color: $gray-color;
+          font-size: 11px;
+        }
+        b {
+          color: darken($gray-color-2, 10%);
+          font-size: 11px;
+        }
+      }
+    }
+  }
+  .block, .stat-block {
+    margin-bottom: 30px;
+
+    .collapse {
+      margin-top: -42px;
+    }
+    .collapsed {
+      margin-top: 5px;
+    }
+    .stat-chart {
+      height: 250px;
+      margin-left: -20px;
+      width: 750px;
+    }
+    .stat-data {
+      display: none;
+    }
+    &>p {
+      margin-left: 5px;
+    }
+  }
+  #stat-AniDb {
+    margin-bottom: 25px;
+  }
+  td {
+    line-height: 26px;
+  }
+  td.num {
+    width: 120px;
+  }
+  .user {
+    color: #333333;
+    margin-right: 10px;
+
+    img {
+      display: block;
+      float: left;
+      margin: 5px 5px 0 0;
+    }
+    a {
+      @include normal-link;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

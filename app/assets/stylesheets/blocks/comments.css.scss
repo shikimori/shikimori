@@ -1,0 +1,395 @@
+@import "globals";
+
+$quote_odd: #F9F9F9;
+$quote_even: #F6F6F6;
+
+/* comments */
+h2.comments-header {
+  margin-bottom: 0;
+  /*margin-bottom: 5px;*/
+}
+.bottom-add .comments-container {
+  margin-top: 0;
+}
+
+$blue-color: #6cb2e4;
+$dark-blue-color: #619fcc;
+
+$grey-color: #6c6c6c;
+$dark-grey-color: #545454;
+
+.message-block,
+.comment-block {
+  border-top: 1px solid #DDDDDD;
+  min-height: 80px;
+  overflow: hidden;
+  padding-right: 5px;
+  position: relative;
+
+  .new-indicator {
+    @include border-radius(3px 0 3px 3px);
+    @include box-shadow(rgba(0, 0, 0, 0.25), 1px, 1px, 3px);
+
+    background: $grey-color;
+    border: 1px solid $dark-grey-color;
+    color: rgb(252, 252, 255);
+    cursor: pointer;
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    left: 38px;
+    margin-right: -4px;
+    padding: 1px 5px;
+    position: absolute;
+    top: 58px;
+    z-index: 99;
+
+    span {
+      @include border-radius(0 3px 0 0);
+      background-color: $dark-grey-color;
+      height: 4px;
+      position: absolute;
+      right: -1px;
+      top: -4px;
+      width: 5px;
+    }
+    &:hover {
+      background: $blue-color;
+      border: 1px solid $dark-blue-color;
+      span {
+        background-color: $dark-blue-color;
+      }
+    }
+    &:active {
+      background: $dark-blue-color;
+      border: 1px solid $dark-blue-color;
+    }
+  }
+  &.kinda-new .new-indicator,
+  &.new .new-indicator {
+    background: $blue-color;
+    border: 1px solid $dark-blue-color;
+    span {
+      background-color: $dark-blue-color;
+    }
+
+    &:hover {
+      background: $grey-color;
+      border: 1px solid $dark-grey-color;
+      span {
+        background-color: $dark-grey-color;
+      }
+    }
+    &:active {
+      background: $dark-grey-color;
+      border: 1px solid $dark-grey-color;
+    }
+  }
+  &.ignored-block {
+    @include ignored-block;
+  }
+
+  .moderation-ban {
+    float: right;
+    margin: 5px 0 15px 15px;
+  }
+  .image-name {
+    @include link-color(#111);
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      @inlclude default-avatar-decor;
+      float: left;
+      margin: 5px 10px 10px 0;
+      width: 48px;
+    }
+    .name-date {
+      @include ellipsis;
+      display: block;
+    }
+    .name {
+      @include text-font;
+      font-size: 14px;
+      font-weight: bold;
+
+      .normal {
+        @include text-font;
+        color: #555;
+        font-size: 13px;
+      }
+      &:hover {
+        color: inherit;
+        text-decoration: none;
+      }
+      &:active {
+        color: inherit;
+      }
+    }
+
+    .date {
+      @include ellipsis;
+      color: $date-color;
+      display: inline;
+      font-size: 11px;
+      padding-left: 10px;
+    }
+  }
+  .body {
+    @include text-font;
+    margin: 0 0 15px 0;
+    /*clear: right;*/
+
+    p {
+      @include text-font;
+      margin-bottom: 3px;
+      text-indent: 15px;
+    }
+    li {
+      @include text-font;
+    }
+    .text-poster {
+      float: left;
+      margin-right: 15px
+    }
+    .image-poster {
+      margin: 5px;
+      height: 180px;
+    }
+    a {
+      @include normal-link;
+    }
+    .bubbled,.bubbled-initialized {
+      @include normal-link;
+    }
+  }
+  .poster-image {
+    float: right;
+    margin: 5px 5px 5px 15px;
+  }
+  .moderation {
+    @include text-font;
+    color: #FF0000;
+    font-size: 10px;
+    header, footer {
+      color: #DD0000;
+      line-height: 10px;
+    }
+    article {
+      font-size: 12px;
+
+    }
+  }
+  h3 {
+    margin-bottom: 3px;
+  }
+  &:first-child {
+    border-top: none;
+  }
+  .ban-message {
+    .details {
+      color: red;
+    }
+    img {
+      vertical-align: middle;
+    }
+  }
+}
+.message-block,
+.comment-block,
+.topic-block {
+  blockquote {
+    background: $quote_odd;
+    border: 1px dashed #DDDDDD;
+    color: #333333;
+    font-style: italic;
+    margin: 5px 5px 5px 5px;
+    overflow: hidden;
+    padding: 5px 10px;
+
+    .quoteable {
+      font-style: normal;
+      margin: -4px 0 0 -3px;
+      line-height: 21px;
+
+      &:before {
+        color: #333;
+        content: '"';
+        font-family: "shikimori";
+        font-size: 12px;
+        margin-right: 5px;
+        position: relative;
+        top: 2px;
+      }
+
+      a {
+        background-color: transparent;
+        padding: inherit;
+        margin-left: 17px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+        &:hover {
+          background-color: transparent;
+        }
+        &:active {
+          background-color: transparent!important;
+        }
+      }
+      img {
+        position: absolute;
+        margin-top: 3px;
+      }
+    }
+    blockquote {
+      background: $quote_even;
+      margin-left: 5px!important;
+
+      blockquote {
+        background: $quote_odd;
+
+        blockquote {
+          background: $quote_even;
+        }
+      }
+    }
+  }
+}
+.topic-block .content blockquote {
+  margin-left: 0;
+}
+/* в тултипе кнопок управления комментом не показываем и ставим другие отступы */
+.tooltip-details {
+  .comment-block, .topic-block {
+    padding: 0;
+    margin: 0;
+
+    .buttons {
+      display: none;
+    }
+    .body {
+      margin-bottom: 0px;
+    }
+    .new-marker {
+      display: none;
+    }
+  }
+}
+.topic-block .body,
+.message-block,
+.comment-block,
+.tooltip-details,
+.item-content {
+  .description a {
+    @include normal-link;
+  }
+  ul {
+    margin-left: 25px;
+
+    li {
+      list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANCAMAAABW4lS6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFAFKM////QIUK9QAAAAJ0Uk5T/wDltzBKAAAAGklEQVR42mJgBAEGokgGBjBGBxBxsBqAAAMACHwALd5r8ygAAAAASUVORK5CYII=);
+      list-style-position: outside;
+      list-style-type: square;
+      margin-bottom: 5px;
+    }
+  }
+  .collapsed {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .spoiler {
+    @include spoiler-new;
+    display: inline;
+  }
+}
+/*.comments-container:first-child .comment-block:first-child {*/
+  /*border-top: none;*/
+  /*padding-top: 0;*/
+/*}*/
+
+.edit-comment-block {
+  margin: 30px 0 15px 0!important;
+}
+
+.fullsize .add-comment-block .submit {
+  margin-left: 440px;
+}
+.bottom-add .add-comment-block {
+  margin-bottom: 5px;
+}
+.smileys {
+  .loader {
+    margin: 215px 0 0 360px;
+  }
+}
+.smiley {
+  vertical-align: middle;
+  height: 38px;
+}
+
+.new-marker, .review-marker, .offtopic-marker, .abuse-marker, .spoiler-marker {
+  @include default-font-family;
+  cursor: pointer;
+  display: inline;
+  float: right;
+  font-size: 10px;
+  line-height: 15px;
+  margin-left: 15px;
+  margin-top: 4px;
+  padding: 0 3px;
+}
+
+.new-marker, .spoiler-marker {
+  @include transition(all, 0.25s);
+  @include transition(opacity, 0.75s);
+  background-color: $default-hover-color;
+  color: white;
+
+  &:hover {
+    background-color: $default-light-hover-color;
+  }
+  &:active {
+    background-color: $default-active-color;
+  }
+}
+.review-marker {
+  @include transition(all, 0.25s);
+  @include transition(opacity, 0.75s);
+  background-color: #4AAA4A;
+  color: white;
+
+  &:hover {
+    background-color: darken(#4AAA4A, 6%);
+  }
+  &:active {
+    background-color: lighten(#4AAA4A, 4%);
+  }
+}
+.offtopic-marker {
+  @include transition(all, 0.25s);
+  @include transition(opacity, 0.75s);
+  background-color: #fdebf3;
+  color: #f58ebb;
+
+  &:hover {
+    background-color: darken(#fdebf3, 3%);
+  }
+  &:active {
+    background-color: lighten(#fdebf3, 0.5%);
+  }
+}
+.abuse-marker {
+  @include transition(all, 0.25s);
+  @include transition(opacity, 0.75s);
+  background-color: darken(red, 3%);
+  color: white;
+
+  &:hover {
+    background-color: darken(darken(red, 3%), 10%);
+  }
+  &:active {
+    background-color: lighten(darken(red, 3%), 3%);
+  }
+}

@@ -1,0 +1,249 @@
+---
+:anime:
+  355:
+    :russian: "Пламенный взор Шаны"
+  756:
+    :synonyms:
+  777:
+    :synonyms:
+  1067:
+    :name: "Kishin Houkou Demonbane"
+  1575:
+    :name: "Code Geass"
+    :russian: "Код Гиас"
+    :synonyms:
+      - "Code Geass: Hangyaku no Lelouch"
+  2025:
+    :name: "Darker than Black"
+    :synonyms:
+      - "Darker than Black: Kuro no Keiyakusha"
+  2158:
+    :name: "Toward the Terra"
+  2448:
+    :japanese:
+      - "攻殻機動隊 S.A.C. 2nd GIG Individual Eleven"
+  2829:
+    :episodes: 26
+  6336:
+    :synonyms:
+      - "Kidou Senshi Gundam Unicorn"
+  6773:
+    :name: "Shakugan no Shana III"
+    :synonyms:
+  7059:
+    :name: "Black★Rock Shooter"
+  7762:
+    :synonyms:
+      - "Yondemasu yo, Azazel-san OVA"
+  8310:
+    :episodes: 0
+  9617:
+    :name: "Eiga K-On!"
+  9756:
+    :name: "Mahou Shoujo Madoka★Magika"
+  9919:
+    :russian: "Синий экзорцист"
+  9922:
+    :synonyms:
+      - "Oretsuba, We Don't Have Wings"
+      - "Without Wings - Under the Innocent Sky"
+  9936:
+    :synonyms:
+      - "Maken-Ki"
+  9938:
+    :name: "Ikoku Meiro no Croisee"
+    :synonyms:
+      - "Ikoku Meiro no Croisée"
+      - "Ikoku Meiro no Croisée The Animation"
+      - "Ikoku Meiro No Croisee The Animation"
+      - "La croisée dans un labyrinthe étranger"
+  10033:
+    :synonyms:
+      - "Toriko (2011)"
+  10163:
+    :english:
+      - "C - The Money of Soul and Possibility Control"
+  10187:
+    :name: "Hen Zemi"
+  10271:
+    :synonyms:
+      - "Gyakkyou Burai Kaiji: Hakairoku Hen"
+      - "Kaiji 2"
+      - "Kaiji 2nd"
+  10216:
+    :name: "Yondemasu yo, Azazel-san"
+  10336:
+    :aired_at: 2011-10-15
+  10378:
+    :name: "Shinryaku! Ika Musume 2"
+    :synonyms:
+      - "The Invader Comes From the Bottom of the Sea! 2"
+    :russian: "Вторжение Кальмарки 2"
+  10588:
+    :name: "Persona 4"
+    :russian: "Персона 4"
+  10227:
+    :aired_at: 2012-01-08
+  10620:
+    :name: "Mirai Nikki"
+  11111:
+    :japanese:
+      - "アナザー"
+  11235:
+    :name: "Amagami SS+"
+    :synonyms:
+      - "Amagami SS Dai Ni Ki"
+      - "Amagami SS 2"
+      - "Amagami SS Second Series"
+      - "Amagami SS 2nd Season"
+      - "Amagami SS+ plus"
+  11285:
+    :name: "Black★Rock Shooter"
+    :synonyms:
+      - "BRS (TV)"
+      - "Black Rock Shooter"
+  11385:
+    :synonyms:
+      - "Digimon Xros Wars II"
+  11371:
+    :synonyms:
+      - "Shin Tennis no Ouji-sama"
+      - "The Prince of Tennis II"
+  11757:
+    :aired_at: 2012-07-07
+  11783:
+    :episodes: 13
+  11887:
+    :episodes: 13
+    :status: "Finished Airing"
+    :released_at: 2012-09-29
+  12531:
+    :released_at: 2012-06-30
+  12281:
+    :aired_at: 2012-07-09
+  13115:
+    :aired_at: 2012-07-10
+  14467:
+    :aired_at: 2012-10-04
+  16524:
+    :aired_at: 2013-04-01
+
+:character:
+  66:
+    :russian: "Шрам"
+  69:
+    :russian: "Маэс Хьюз"
+  168:
+    :japanese: "相良 宗介"
+  253:
+    :russian: "Микуру Асахина"
+  256:
+    :russian: "Цуруя-сан"
+  272:
+    :japanese: "千鳥 かなめ"
+  384:
+    :japanese: "荻野 千尋"
+  385:
+    :japanese: "ハク/ニギハヤミコハクヌシ"
+  567:
+    :russian: "Сидзука Домэки"
+  613:
+    :russian: "Макс Монтана. Майор"
+  616:
+    :russian: "Рип Ван Винкль"
+  617:
+    :russian: "Ганс Гюнше"
+  620:
+    :russian: "Шрёдингер"
+  623:
+    :russian: "Эйвондейл Нейпьер. Доктор"
+  885:
+    :japanese: "多丸 圭一"
+  1200:
+    :russian: "Наги Дай Артай"
+  1201:
+    :russian: "Сергей Ван"
+  1207:
+    :russian: "Микото Кошкобогиня"
+  1220:
+    :russian: "Нина Ван"
+  1872:
+    :russian: "Сестра Мияко"
+  1942:
+    :japanese: "狩人フリアグネ"
+  1944:
+    :japanese: "屍拾いラミー"
+  2168:
+    :japanese: "クルツ・ウェーバー"
+  2747:
+    :russian: "Андрей Сергеевич Калинин"
+  2439:
+    :russian: "Баск Гран"
+  2609:
+    :japanese: "宮下藤花"
+  3696:
+    :russian: "Шy Такер"
+  3934:
+    :russian: "Оливия Мила Армстронг"
+  5428:
+    :russian: "Барри-мясник"
+  6998:
+    :russian: "Сэлсия Мэри-Клер"
+  7252:
+    :japanese: "虹の翼メリヒム"
+  7338:
+    :name: "Tasha"
+  8298:
+    :russian: "Безликий Бог Каонаси"
+  8300:
+    :japanese: "荻野 悠子"
+  8301:
+    :japanese: "釜爺"
+  8302:
+    :japanese: "坊"
+  8305:
+    :japanese: "銭婆"
+  9792:
+    :russian: "Ван Хоэнхайм"
+  10976:
+    :russian: "Мистер Доминик"
+  10990:
+    :russian: "Лион"
+  13530:
+    :russian: "Фрэнк Арчер"
+  14796:
+    :russian: "Россия"
+  14503:
+    :japanese: "根岸 崇一"
+  15534:
+    :russian: "Занпано"
+  15540:
+    :russian: "Майор Майлз"
+  15541:
+    :russian: "Капитан Буканир"
+  15542:
+    :russian: "Отец"
+  19899:
+    :japanese: "ブギーポップ・ファントム"
+  23106:
+    :russian: "Дэни Блош"
+  23461:
+    :russian: "Старик Фу"
+  27028:
+    :russian: "Доктор Нокс"
+  34341:
+    :japanese: "徳川 千姫"
+:manga:
+  455:
+    :chapters: 0
+  16748:
+    :chapters: 6
+  8341:
+    :name: "Code: Breaker"
+  21639:
+    :volumes: 2
+    :chapters: 17
+  36213:
+    :synonyms:
+      - "Everyday That There is a Monster Girl"
+      - "Daily Life With A Monster Girl"
