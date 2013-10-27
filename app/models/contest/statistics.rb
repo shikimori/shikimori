@@ -4,7 +4,7 @@ class Contest::Statistics
   end
 
   def sorted_scores round = nil
-    Hash[scores(round).sort_by {|k,v| [-v, -average_votes(round)[k], scores(round).keys.index(k)] }]
+    Hash[scores(round).sort_by {|k,v| [-v, -users_votes(round)[k], scores(round).keys.index(k)] }]
   end
 
   def scores round = nil
