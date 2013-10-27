@@ -18,7 +18,7 @@ class DanbooruController < ApplicationController
     unless File.exists?(filename)
       data = open(url, UserAgent).read
       File.open(filename, 'wb') {|h| h.write(data) }
-      Delayed::Job.enqueue DanbooruJob.new(md5, url, filename) unless Rails.env == 'test'
+      #Delayed::Job.enqueue DanbooruJob.new(md5, url, filename) unless Rails.env == 'test'
     end
     redirect_to "/images/#{TmpImagesDir}/#{md5}"
 
