@@ -146,4 +146,10 @@ class PagesController < ApplicationController
     @gallery = WellcomeGalleryPresenter.new
     render partial: 'forum/gallery', formats: :html
   end
+
+  def tableau
+    render json: {
+      messages: user_signed_in? ? current_user.unread_count : 0
+    }
+  end
 end

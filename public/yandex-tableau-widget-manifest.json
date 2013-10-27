@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "api_version": 1,
+
+  "layout": {
+    "logo": "http://shikimori.org/assets/globals/logo.png",
+    "color": "#111111",
+    "show_title": false
+  },
+
+  "feed": {
+    "url": "http://shikimori.org/tableau",
+    "format": "json",
+    "notifiers": [
+      {
+        "name": "messages",
+        "icon": "%MESSAGE%"
+      }
+    ]
+  }
+}

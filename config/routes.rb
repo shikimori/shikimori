@@ -235,6 +235,7 @@ Site::Application.routes.draw do
   get "feedback" => 'pages#feedback'
   get 'disabled_registration' => 'pages#disabled_registration'
   get 'disabled_openid' => 'pages#disabled_openid'
+  get 'tableau' => 'pages#tableau'
 
   # картинки с danbooru
   get 'd/autocomplete/:search' => 'danbooru#autocomplete', as: :autocomplete_danbooru_tags, format: :json
