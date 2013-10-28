@@ -4,6 +4,10 @@ Site::Application.routes.draw do
     scope module: :v1 do
       resources :comments, only: [:show, :index]
       resource :authenticity_token, only: [:show]
+
+      devise_scope :user do
+        resources :sessions, only: [:create]
+      end
     end
 
     resources :animes, only: [:index, :show]

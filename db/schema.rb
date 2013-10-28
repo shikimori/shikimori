@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016044736) do
+ActiveRecord::Schema.define(:version => 20131028190957) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -915,10 +915,6 @@ ActiveRecord::Schema.define(:version => 20131016044736) do
     t.integer  "notifications",                         :default => 1601776
     t.datetime "last_online_at"
     t.text     "about"
-    t.string   "jabber"
-    t.string   "icq"
-    t.string   "skype"
-    t.string   "mail"
     t.string   "sex"
     t.string   "contacts_privacy",                      :default => "users"
     t.string   "website"
