@@ -929,13 +929,13 @@ ActiveRecord::Schema.define(:version => 20131016044736) do
     t.date     "birth_at"
     t.boolean  "social",                                :default => true
     t.datetime "read_only_at"
-    t.boolean  "smileys",                             :default => true
-    t.boolean  "can_vote_1",                          :default => false,   :null => false
-    t.boolean  "can_vote_2",                          :default => false,   :null => false
+    t.boolean  "smileys",                               :default => true
+    t.boolean  "can_vote_1",                            :default => false,   :null => false
+    t.boolean  "can_vote_2",                            :default => false,   :null => false
     t.string   "page_background"
     t.string   "body_background"
-    t.boolean  "page_border",                         :default => false,   :null => false
-    t.boolean  "can_vote_3",                          :default => false,   :null => false
+    t.boolean  "page_border",                           :default => false,   :null => false
+    t.boolean  "can_vote_3",                            :default => false,   :null => false
     t.datetime "reset_password_sent_at"
   end
 

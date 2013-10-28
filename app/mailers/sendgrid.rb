@@ -2,13 +2,13 @@ class Sendgrid < ActionMailer::Base
   default from: "mail@shikimori.org"
   default_url_options[:host] = 'shikimori.org'
 
-  def test(email='takandar@gmail.com')
+  def test email = 'takandar@gmail.com'
     return if generated?(email)
 
     mail(to: email, subject: 'Test', body: 'test body')
   end
 
-  def private_message_email(message)
+  def private_message_email message
     return if message.read?
     return if generated?(message.dst.email)
 
@@ -32,7 +32,7 @@ class Sendgrid < ActionMailer::Base
 
   # send password reset instructions
 
-  def reset_password_instructions(user)
+  def reset_password_instructions user, token, options
     @resource = user
     return if generated?(@resource.email)
 
@@ -42,7 +42,7 @@ class Sendgrid < ActionMailer::Base
   end
 
 private
-  def generated?(email)
+  def generated? email
     !!(email.blank? || email =~ /^generated_/)
   end
 end
