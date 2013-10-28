@@ -34,6 +34,7 @@ class Sendgrid < ActionMailer::Base
 
   def reset_password_instructions user, token, options
     @resource = user
+    @token = token
     return if generated?(@resource.email)
 
     mail(to: @resource.email, subject: "Reset password instructions", tag: 'password-reset', content_type: "text/html") do |format|
