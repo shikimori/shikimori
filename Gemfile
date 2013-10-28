@@ -98,7 +98,7 @@ group :development do
   gem 'sextant'
   gem 'mactag'
   gem 'better_errors'
-  gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
+  #gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
   gem 'sql-logging'
 end
 

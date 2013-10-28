@@ -6,6 +6,7 @@ module MessagesHelper
   end
 
   def get_message_body(message)
+    Rails.logger.info message.to_yaml
     case message.kind
       when MessageType::ProfileCommented
         "%s %s что-то в вашем %s..." % [
@@ -34,17 +35,19 @@ module MessagesHelper
           ]
 
       when MessageType::Warned
-        "Вам вынесено предупреждение за комментарий %s" % [
-            format_entity_name(message)
-          ]
+        msg = "Вам вынесено предупреждение за "
+
+        if message.linked.comment
+          "#{msg} комментарий #{format_entity_name(message)}"
+        else
+          "#{msg} удалённый комментарий. Причина: \"#{message.linked.reason}\""
+        end
 
       when MessageType::Banned
         msg = "Вы забанены на #{message.linked.duration.humanize}"
 
         if message.linked.comment
-          "#{msg} за комментарий %s" % [
-              format_entity_name(message)
-            ]
+          "#{msg} за комментарий #{format_entity_name(message)}"
         else
           "#{msg}. Причина: \"#{message.linked.reason}\""
         end
