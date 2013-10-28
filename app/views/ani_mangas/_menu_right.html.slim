@@ -127,7 +127,7 @@ nav.menu-block
       .m10
         - if @entry.respond_to? :episodes
           = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-episodes-form') do
-            p.m2 style="#{'display: none;' if @entry.kind == 'Movie'}"
+            p.m2 style="#{'display: none;' if @entry.kind == 'Movie' && (!@entry.episodes || @entry.episodes == 1)}"
               span.key Просмотрено:
               = text_field_tag 'rate[episodes]', @entry.rate ? @entry.rate.episodes : 0, id: 'rate-episodes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.episodes : 0
               - if @entry.episodes > 0
