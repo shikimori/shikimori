@@ -234,20 +234,6 @@ module UsersHelper
       ]
   end
 
-  def render_profile_field(user, field)
-    if [:mail, :icq, :skype, :jabber].include?(field) && user.contacts_privacy != ContactsPrivacy::All
-      if !user_signed_in? || (user.contacts_privacy == ContactsPrivacy::Friends && !user.friends.include?(current_user))
-        return '<span class="empty">kinsoku jikō</span>'.html_safe
-      end
-    end
-    if field == :website
-      url_wo_http = h(user[field]).sub(/^https?:\/\//, '')
-      ('<a href="http://%s">%s</a>' % [url_wo_http, url_wo_http.sub(/(?::|\/).*/, '')]).html_safe
-    else
-      !user[field] || user[field].empty? ? '<span class="empty">нет информации</span>'.html_safe : user[field]
-    end
-  end
-
   def unread_messages_url(user)
     if current_user.unread_messages > 0 || (current_user.unread_news == 0 && current_user.unread_notifications == 0)
        messages_url :inbox

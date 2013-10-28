@@ -81,28 +81,6 @@
       </div>
     </div>
 
-    <div class="hidden">
-      <div class="field-name">Контакты</div>
-      <span class="more subblockmore contacts-privacy" data-remote="true" action="<%=user_contacts_privacy_path(@user) %>" data-method="put" data-type="json"><%=t "User.ContactsPrivacy.%s" % @user.contacts_privacy %></span>
-      <div class="value contacts">
-        <div class="m2">
-          <p><span>Jabber:</span> <%=text_field_tag 'user[jabber]',params[:user]['jabber'] ||  @user.jabber || '', class: 'common' %></p>
-        </div>
-
-        <div class="m2">
-          <p><span>ICQ:</span> <%=text_field_tag 'user[icq]', params[:user]['icq'] || @user.icq || '', class: 'common' %></p>
-        </div>
-
-        <div class="m2">
-          <p><span>Skype:</span> <%=text_field_tag 'user[skype]', params[:user]['skype'] || @user.skype || '', class: 'common' %></p>
-        </div>
-
-        <div>
-          <p><span>E-mail:</span> <%=text_field_tag 'user[mail]', params[:user]['mail'] || @user.mail || '', class: 'common' %></p>
-        </div>
-      </div>
-    </div>
-
     <% unless connected_providers_for(@user).empty? %>
       <div class="menu-block">
         <div class="subheadline m10">Подключенная авторизация</div>
