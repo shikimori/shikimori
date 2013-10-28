@@ -9,7 +9,7 @@ Site::Application.configure do
   #config.cache_classes = false
   #config.cache_classes = true
   config.cache_classes = !(ENV['DRB'] == 'true')
-  config.cache_store = :no_store
+  config.cache_store = :null_store
 
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
