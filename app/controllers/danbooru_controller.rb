@@ -25,7 +25,7 @@ class DanbooruController < ApplicationController
   rescue OpenURI::HTTPError
     raise NotFound, url
 
-  rescue Timeout::Error
+  rescue Timeout::Error, Net::ReadTimeout
     @retries ||= 2
     @retries -= 1
 
