@@ -173,7 +173,6 @@ class User < ActiveRecord::Base
   end
 
   def populate_from_facebook(omni)
-    raise 'test'
     self.location = omni.extra.raw_info['location']['name'] if self.location.blank? && omni.extra.raw_info['location'] && omni.extra.raw_info['location']['name'].present?
 
     if self.sex.blank? && omni.extra.raw_info['gender'].present?
