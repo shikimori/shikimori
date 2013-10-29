@@ -155,16 +155,16 @@ Devise.setup do |config|
 
   config.secret_key = YAML.load_file(Rails.root.join('config', 'devise_secret_key.yml'))[Rails.env]
 
-  config.omniauth :facebook,
-                  OAUTH_CREDENTIALS[:facebook][:app_id],
-                  OAUTH_CREDENTIALS[:facebook][:app_secret],
-                  scope: OAUTH_CREDENTIALS[:facebook][:app_permissions],
-                  client_options: { ssl: { ca_path: "/etc/ssl/certs" } }
-
   config.omniauth :vkontakte,
                   OAUTH_CREDENTIALS[:vkontakte][:app_id],
                   OAUTH_CREDENTIALS[:vkontakte][:app_secret],
                   scope: OAUTH_CREDENTIALS[:vkontakte][:app_permissions],
+                  client_options: { ssl: { ca_path: "/etc/ssl/certs" } }
+
+  config.omniauth :facebook,
+                  OAUTH_CREDENTIALS[:facebook][:app_id],
+                  OAUTH_CREDENTIALS[:facebook][:app_secret],
+                  scope: OAUTH_CREDENTIALS[:facebook][:app_permissions],
                   client_options: { ssl: { ca_path: "/etc/ssl/certs" } }
 
   config.omniauth :twitter,
