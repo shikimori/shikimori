@@ -6,6 +6,7 @@ require 'spork'
 #require 'shoulda'
 require 'paperclip/matchers'
 require 'webmock/rspec'
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
