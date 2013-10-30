@@ -96,6 +96,8 @@ class Anime < ActiveRecord::Base
 
   has_many :anime_calendars
 
+  has_many :anime_videos
+
   has_attached_file :image, :styles => {
                       :preview => "160x240>",
                       :short => "160x120#",
