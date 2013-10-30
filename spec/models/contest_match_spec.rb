@@ -265,7 +265,7 @@ describe ContestMatch do
 
       context :right_type_is_nil do
         before { vote_with_user_vote.right_type = nil }
-        it { should be_false }
+        it { should be_true }
       end
     end
   end
