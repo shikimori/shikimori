@@ -94,7 +94,7 @@ class Anime < ActiveRecord::Base
                                     :foreign_key => :target_id,
                                     :dependent => :destroy
 
-  has_many :anime_calendars
+  has_many :anime_calendars, dependent: :destroy
 
   has_many :anime_videos, dependent: :destroy
 
