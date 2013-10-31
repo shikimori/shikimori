@@ -9,7 +9,7 @@ class AnimeVideo < ActiveRecord::Base
 
   attr_accessible :episode, :kind, :url
 
-  enumerize :kind, in: [:subtitle, :dub], predicates: true
+  enumerize :kind, in: [:subtitles, :dubbed], predicates: true
 
   validates :url, presence: true
 end
