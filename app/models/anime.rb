@@ -96,7 +96,7 @@ class Anime < ActiveRecord::Base
 
   has_many :anime_calendars
 
-  has_many :anime_videos
+  has_many :anime_videos, dependent: :destroy
 
   has_attached_file :image, :styles => {
                       :preview => "160x240>",
