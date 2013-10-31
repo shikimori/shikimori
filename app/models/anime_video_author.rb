@@ -1,5 +1,5 @@
 class AnimeVideoAuthor < ActiveRecord::Base
-  has_many :anime_videos
+  has_many :anime_videos, dependent: :destroy
 
   attr_accessible :name
 
