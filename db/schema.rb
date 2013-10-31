@@ -55,12 +55,14 @@ ActiveRecord::Schema.define(:version => 20131030045940) do
 
   create_table "anime_videos", :force => true do |t|
     t.integer  "anime_id"
-    t.string   "url"
+    t.string   "url",                   :limit => 1000
+    t.string   "source",                :limit => 1000
     t.integer  "episode"
     t.string   "kind"
+    t.string   "language"
     t.integer  "anime_video_author_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   add_index "anime_videos", ["anime_id"], :name => "index_anime_videos_on_anime_id"
