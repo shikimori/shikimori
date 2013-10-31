@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20131030045940) do
   end
 
   create_table "anime_video_authors", :force => true do |t|
-    t.string   "name"
+    t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

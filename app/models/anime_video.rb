@@ -11,5 +11,6 @@ class AnimeVideo < ActiveRecord::Base
 
   enumerize :kind, in: [:subtitles, :dubbed], predicates: true
 
+  validates :anime, presence: true
   validates :url, presence: true
 end
