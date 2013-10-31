@@ -10,4 +10,5 @@ describe AnimeVideo do
 
   it { should validate_presence_of :anime }
   it { should validate_presence_of :url }
+  it { should validate_presence_of :source }
 end
