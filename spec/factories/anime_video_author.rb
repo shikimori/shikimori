@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :anime_video_author do
-    name 'test author'
+    sequence(:name) { |n| "author_#{n}" }
   end
 end

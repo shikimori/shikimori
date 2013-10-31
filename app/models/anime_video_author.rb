@@ -3,5 +3,5 @@ class AnimeVideoAuthor < ActiveRecord::Base
 
   attr_accessible :name
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 end
