@@ -130,6 +130,34 @@ jQuery(function ($) {
     });
 
     /**
+     * remote handlers
+     */
+    $('a[data-method]:not([data-remote]),span[data-method]:not([data-remote])').live('click', function (e){
+        var link = $(this),
+            href = link.attr('href') || link.data('action'),
+            method = link.attr('data-method'),
+            form = $('<form method="post" action="'+href+'"></form>'),
+            metadata_input = '<input name="_method" value="'+method+'" type="hidden" />';
+
+        if (link.attr('data-confirm') && !confirm(link.attr('data-confirm'))) {
+            e.stopImmediatePropagation();
+            return false;
+        }
+
+        if (csrf_param != null && csrf_token != null) {
+          metadata_input += '<input name="'+csrf_param+'" value="'+csrf_token+'" type="hidden" />';
+        }
+
+        form.hide()
+            .append(metadata_input)
+            .appendTo('body');
+
+        e.preventDefault();
+        form.submit();
+    });
+
+
+    /**
      *  confirmation handler
      */
     $('a[data-confirm],input[data-confirm]').live('click', function () {
@@ -160,25 +188,6 @@ jQuery(function ($) {
         }
         $this.callRemote();
         e.preventDefault();
-    });
-
-    $('a[data-method]:not([data-remote]),span[data-method]:not([data-remote])').live('click', function (e){
-        var link = $(this),
-            href = link.attr('href') || link.data('action'),
-            method = link.attr('data-method'),
-            form = $('<form method="post" action="'+href+'"></form>'),
-            metadata_input = '<input name="_method" value="'+method+'" type="hidden" />';
-
-        if (csrf_param != null && csrf_token != null) {
-          metadata_input += '<input name="'+csrf_param+'" value="'+csrf_token+'" type="hidden" />';
-        }
-
-        form.hide()
-            .append(metadata_input)
-            .appendTo('body');
-
-        e.preventDefault();
-        form.submit();
     });
 
     /**

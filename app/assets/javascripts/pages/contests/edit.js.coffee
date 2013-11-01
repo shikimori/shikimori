@@ -17,6 +17,7 @@ $(document.body).on 'click', '.edit .item-delete', ->
   update_members_count()
 
 $('.edit .proposing .take').on 'click', ->
+  $(@).parent().hide()
   $('.edit.contest .member-suggest').trigger 'autocomplete:success', [$(@).data('id'), $(@).data('text')]
   $('.edit.contest .member-suggest').trigger 'blur'
 
