@@ -18,12 +18,12 @@
   #import_phase_1
     p Откуда будем импортировать?
     p.form-buttons
-      span#myanimelist.control data-final-step="import_mal" title="myanimelist.net"
+      /span#myanimelist.control data-final-step="import_mal" title="myanimelist.net"
         span.link MyAnimeList
+      span#xml.control data-final-step="import_xml"
+        span.link MyAnimeList-XML
       span#anime_planet.control data-final-step="import_anime_planet" title="anime-planet.com"
         span.link AnimePlanet
-      span#xml.control data-final-step="import_xml"
-        span.link XML
     /img src="/images/import/myanimelist.gif" id="myanimelist" alt="myanimelist.net" title="myanimelist.net" data-final-step="import_mal"
     /img src="/images/import/anime-planet.png" id="anime_planet" alt="anime-planet.com" title="anime-planet.com" data-final-step="import_anime_planet"
 
@@ -66,7 +66,7 @@
 
       p.m5
         = label_tag :import_login do
-          | XML файл формата MAL
+          | XML файл формата MAL <a href="http://myanimelist.net/panel.php?go=export" target="_blank">взять его можно отсюда</a>
           br
         = file_field_tag :file, class: :common
       p.form-buttons
