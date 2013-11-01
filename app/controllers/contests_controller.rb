@@ -18,7 +18,7 @@ class ContestsController < ApplicationController
     contests = Contest.order('id desc')
     @contests_groups = contests
       .includes(rounds: :matches)
-      .sort_by {|v| ['started', 'proposing', 'created', 'finished'].index v.state }
+      .sort_by {|v| [['started', 'proposing', 'created', 'finished'].index(v.state), -(v.finished_on || Date.today).to_time.to_i] }
       .group_by(&:state)
   end
 
