@@ -56,8 +56,8 @@ describe BbCodeService do
 
     describe 'english' do
       context 'anime' do
-        let(:anime) { create :anime }
-        let(:text) { "[#{anime.name}]" }
+        let(:anime) { create :anime, name: "Hayate no Gotoku! Can't Take My Eyes Off You" }
+        let(:text) { "[Hayate no Gotoku! Can&#x27;t Take My Eyes Off You]" }
         it { should eq "[anime=#{anime.id}]#{anime.name}[/anime]" }
 
         context 'score order' do

@@ -149,7 +149,8 @@ module CommentHelper
 
   def db_entry_mention(text)
     text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes).map {|v| "#{v}\b" }.join('|') })(.*?)\]} do |matched|
-      name = $1
+      name = $1.gsub('&#x27;', "'").gsub('&quot;', '"')
+
       splitted_name = name.split(' ')
 
       entry = if name.contains_russian?
