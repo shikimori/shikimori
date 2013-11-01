@@ -11,6 +11,7 @@ class ContestMatch < ActiveRecord::Base
   scope :with_user_vote, lambda { |user, ip|
     if user
       joins("left join #{ContestUserVote.table_name} cuv on cuv.contest_match_id=`#{table_name}`.`id` and (cuv.id is null or cuv.user_id=#{sanitize user.id} or cuv.ip=#{sanitize ip})")
+        .group("`#{table_name}`.id")
         .select("`#{table_name}`.*, cuv.item_id as voted_id")
     else
       select("`#{table_name}`.*, null as voted_id")
