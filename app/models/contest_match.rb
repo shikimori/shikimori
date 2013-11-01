@@ -149,7 +149,7 @@ class ContestMatch < ActiveRecord::Base
 
   # число голосов за правого кандидата
   def right_votes
-    @right_votes ||= self[:right_votes] ||  cached_votes.select {|v| v.item_id == right_id }.size
+    @right_votes ||= self[:right_votes] || cached_votes.select {|v| v.item_id == right_id }.size
   end
 
   # число голосов за правого кандидата
