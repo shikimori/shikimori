@@ -3,7 +3,7 @@ class Contest < ActiveRecord::Base
   include PermissionsPolicy
 
   MINIMUM_MEMBERS = 5
-  MAXIMUM_MEMBERS = 128
+  MAXIMUM_MEMBERS = 196
 
   belongs_to :user
 
