@@ -95,7 +95,7 @@ class ContestsController < ApplicationController
       # сброс сгенерённых
       @contest.prepare if @contest.can_start? && @contest.rounds.any?
 
-      redirect_to edit_contest_url(@contest)
+      redirect_to edit_contest_url @contest
     else
       edit and render :edit
     end
@@ -104,13 +104,19 @@ class ContestsController < ApplicationController
   # запуск контеста
   def start
     @contest.start!
-    redirect_to edit_contest_url(@contest)
+    redirect_to edit_contest_url @contest
   end
 
   # запуск приёма варинатов
   def propose
     @contest.propose!
-    redirect_to edit_contest_url(@contest)
+    redirect_to edit_contest_url @contest
+  end
+
+  # остановка приёма варинатов
+  def stop_propose
+    @contest.stop_propose!
+    redirect_to edit_contest_url @contest
   end
 
   # остановка контеста

@@ -64,20 +64,23 @@
         .subcontent
           p.m5 = t("Contest.#{contest.state}")
 
-        - if contest.can_propose? || contest.can_start?
+        - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
           .subheadline Действия
           .subcontent
-            - if contest.can_propose?
-              a.action href="#{propose_contest_url contest}" Начать приём кандидатов от пользователей
+            - if contest.object.can_propose?
+              a.action href="#{propose_contest_url contest}" data-method="post" Начать приём кандидатов от пользователей
+
+            - if contest.can_stop_propose?
+              a.action href="#{stop_propose_contest_url contest}" data-method="post" Остановить приём кандидатов от пользователей
 
             - if contest.can_start?
-              a.action href="#{build_contest_url contest}"
+              a.action href="#{build_contest_url contest}"  data-method="post"
                 - if contest.rounds.empty?
                   | Сгенерировать голосования
                 - else
                   | Перетасовать голосования
               - if contest.can_start? & contest.rounds.any?
-                a.action href="#{start_contest_url contest}" data-confirm="Вы уверены? После запуска ничего изменить уже будет нельзя!" Запустить турнир
+                a.action href="#{start_contest_url contest}" data-method="post" data-confirm="Вы уверены? После запуска ничего изменить уже будет нельзя!" Запустить турнир
               span.action-misc Действия перезагружают страницу без сохранения прочих изменений.
 
               - if contest.links.count < Contest::MINIMUM_MEMBERS

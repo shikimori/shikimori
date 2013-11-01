@@ -153,7 +153,7 @@ describe ContestsController do
 
   describe :start do
     let(:contest) { create :contest_with_5_members }
-    before { get :start, id: contest.id }
+    before { post :start, id: contest.id }
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
@@ -162,11 +162,20 @@ describe ContestsController do
 
   describe :propose do
     let(:contest) { create :contest }
-    before { get :propose, id: contest.id }
+    before { post :propose, id: contest.id }
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
     it { assigns(:contest).proposing?.should be_true }
+  end
+
+  describe :stop_propose do
+    let(:contest) { create :contest, state: :proposing }
+    before { post :stop_propose, id: contest.id }
+
+    it { should respond_with 302 }
+    it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
+    it { assigns(:contest).created?.should be_true }
   end
 
   #describe :finish do
@@ -183,7 +192,7 @@ describe ContestsController do
 
   describe :build do
     let(:contest) { create :contest_with_5_members }
-    before { get :build, id: contest.id }
+    before { post :build, id: contest.id }
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
