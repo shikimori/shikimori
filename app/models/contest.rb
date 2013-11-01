@@ -61,8 +61,12 @@ public
     end
     state :started
     state :finished
+
     event :propose do
-      transition [:created] => :proposing
+      transition created: :proposing
+    end
+    event :stop_propose do
+      transition proposing: :created
     end
     event :start do
       transition [:created, :proposing] => :started, :if => lambda { |contest| contest.links.count >= MINIMUM_MEMBERS && contest.links.count <= MAXIMUM_MEMBERS } # && Contest.all.none?(&:started?)
@@ -74,7 +78,6 @@ public
     after_transition created: [:proposing, :started] do |contest, transition|
       contest.send :create_thread unless contest.thread
     end
-
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Date.today if contest.started_on < Date.today
       if contest.rounds.empty? || contest.rounds.any? { |v| v.matches.any? { |v| v.started_on < Date.today } }
@@ -84,7 +87,6 @@ public
     after_transition [:created, :proposing] => :started do |contest, transition|
       contest.rounds.first.start!
     end
-
     after_transition started: :finished do |contest, transition|
       contest.update_attribute :finished_on, Date.today
       User.update_all contest.user_vote_key => false

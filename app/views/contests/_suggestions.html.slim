@@ -1,4 +1,6 @@
-.subheadline.m10 
+.options-floated.count
+  = contest.certain_suggestions.size
+.subheadline.m10
   = contest.uncertain_suggestions.any? ? 'Вероятные номинанты' : 'Номинанты'
 .subcontent.proposing
   - if contest.certain_suggestions.any?
@@ -11,6 +13,8 @@
     p нет вариантов
 
 - if contest.uncertain_suggestions.any?
+  .options-floated.count
+    = contest.uncertain_suggestions.size
   .subheadline.m10 Номинанты под вопросом
   .subcontent.proposing
     .first
