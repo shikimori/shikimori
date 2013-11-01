@@ -160,7 +160,17 @@ class UserListsController < UsersController
       added, updated, not_imported = parser.import_list(current_user, list, rewrite, params[:wont_watch_strategy] == UserRateStatus::Dropped ? UserRateStatus::Dropped : nil)
 
     elsif params[:list_type].to_sym == :xml
-      prepared_list = Hash.from_xml(Rails.env.test? ? params[:file] : params[:file].read)['myanimelist'][params[:klass]]
+      raw_xml = if params[:file].kind_of? ActionDispatch::Http::UploadedFile
+        if params[:file].original_filename =~ /\.gz$/
+          Zlib::GzipReader.open(params[:file].tempfile).read
+        else
+          params[:file].read
+        end
+      else
+        Rails.env.test? ? params[:file] : params[:file].read
+      end
+
+      prepared_list = Hash.from_xml(raw_xml)['myanimelist'][params[:klass]]
       prepared_list = [prepared_list] if prepared_list.kind_of?(Hash)
       prepared_list.map! do |v|
         {
