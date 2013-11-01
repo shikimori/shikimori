@@ -211,6 +211,7 @@ module ReadMangaImportData
       paradise: -1,
       blue: -1,
       code_geass_dj___rainy_day: -1,
+      virgin_blooms_at_night: -1,
       #katekyo_hitman_reborn__dj___sanctuary: -1
     }.inject({}) {|rez,v| rez[v[0].to_s] = v[1] and rez }
 end
