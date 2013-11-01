@@ -9,12 +9,4 @@ class Contest::PlayOffStrategy < Contest::DoubleEliminationStrategy
 
   def advance_loser match
   end
-
-  def round_results round
-    if round.next_round.nil?
-      round_winners(round) + round_losers(round)
-    else
-      round_losers(round)
-    end
-  end
 end
