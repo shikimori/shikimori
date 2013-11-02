@@ -39,6 +39,8 @@ describe Anime do
     it { should have_many :reviews }
 
     it { should have_many :recommendation_ignores }
+
+    it { should have_many :anime_videos }
   end
 
   context '#hooks' do
