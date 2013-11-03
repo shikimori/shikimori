@@ -5,6 +5,6 @@ class CreateAnimeVideoAuthors < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :anime_video_authors_name, [:name], :unique => true
+    add_index :anime_video_authors, [:name], unique: true
   end
 end
