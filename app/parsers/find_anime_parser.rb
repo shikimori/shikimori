@@ -10,7 +10,6 @@ class FindAnimeParser < ReadMangaParser
       .css('.chapters-link tr a')
       .map {|v| parse_chapter v }
       .select {|v| v[:episode].present? }
-      .map {|v| fetch_episode v }
 
     { episodes: episodes }
   end
