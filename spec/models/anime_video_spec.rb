@@ -16,9 +16,9 @@ describe AnimeVideo do
       it { should eq 'vk.com' }
     end
 
-    context :empty_url do
-      let(:url) { nil }
-      it { should be_nil }
+    context :remove_www do
+      let(:url) { 'http://www.vk.com?id=1' }
+      it { should eq 'vk.com' }
     end
   end
 end
