@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Anime do
-  context '#relations' do
+  context :relations do
     it { should have_and_belong_to_many :genres }
     it { should have_and_belong_to_many :studios }
 
@@ -17,6 +17,7 @@ describe Anime do
     it { should have_many :related_mangas }
 
     it { should have_many :similar }
+    it { should have_many :links }
 
     it { should have_one :thread }
 
@@ -43,7 +44,7 @@ describe Anime do
     it { should have_many :anime_videos }
   end
 
-  context '#hooks' do
+  context :hooks do
     it { expect{create :anime, :with_thread}.to change(AniMangaComment, :count).by 1 }
   end
 

@@ -1,4 +1,5 @@
 # TODO: переделать kind в enumerize (https://github.com/brainspec/enumerize)
+# TODO: extract torrents to value object
 class Anime < ActiveRecord::Base
   include AniManga
   EXCLUDED_ONGOINGS = [516,966,6116,1199,2406,1960,3975,4459,6149,8189,8687,9947,8336,7511,7261,6195,8025,8176,9371,9536,6962,9518,6900,8143,7643,10349,9893,10506,9561,9562,10177,10528,10513,8495,11017,11177,10524,10995,10797,10847,12181,9799,6119,11541,15897,15749,16347,18469]
@@ -16,100 +17,109 @@ class Anime < ActiveRecord::Base
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :studios
 
-  has_many :person_roles, :dependent => :destroy
-  has_many :characters, :through => :person_roles
-  has_many :people, :through => :person_roles
+  has_many :person_roles, dependent: :destroy
+  has_many :characters, through: :person_roles
+  has_many :people, through: :person_roles
 
   has_many :rates,
-           :class_name => UserRate.name,
-           :foreign_key => :target_id,
-           :conditions => { :target_type => self.name },
-           :dependent => :destroy
+   class_name: UserRate.name,
+   foreign_key: :target_id,
+   conditions: { target_type: self.name },
+   dependent: :destroy
 
-  has_many :topics, :class_name => Entry.name,
-                    :as => :linked,
-                    :order => 'updated_at desc',
-                    :dependent => :destroy
+  has_many :topics,
+    class_name: Entry.name,
+    as: :linked,
+    order: 'updated_at desc',
+    dependent: :destroy
 
-  has_many :news, :class_name => AnimeNews.name,
-                  :as => :linked,
-                  :order => 'created_at desc'
+  has_many :news,
+    class_name: AnimeNews.name,
+    as: :linked,
+    order: 'created_at desc'
 
-  has_many :episodes_news, :class_name => AnimeNews.name,
-                           :as => :linked,
-                           :conditions => { :action => AnimeHistoryAction::Episode },
-                           :order => 'created_at desc'
+  has_many :episodes_news,
+    class_name: AnimeNews.name,
+    as: :linked,
+    conditions: { action: AnimeHistoryAction::Episode },
+    order: 'created_at desc'
 
-  has_many :related, :dependent => :destroy,
-                     :foreign_key => :source_id,
-                     :class_name => RelatedAnime.name
-  has_many :related_animes, :through => :related,
-                            :source => :anime,
-                            :conditions => 'anime_id is not null'
-  has_many :related_mangas, :through => :related,
-                            :source => :manga,
-                            :conditions => 'manga_id is not null'
+  has_many :related,
+    dependent: :destroy,
+    foreign_key: :source_id,
+    class_name: RelatedAnime.name
+  has_many :related_animes,
+    through: :related,
+    source: :anime,
+    conditions: 'anime_id is not null'
+  has_many :related_mangas,
+    through: :related,
+    source: :manga,
+    conditions: 'manga_id is not null'
 
-  has_many :similar, :class_name => SimilarAnime.name,
-                     :foreign_key => :src_id,
-                     :order => 'id desc',
-                     :dependent => :destroy
+  has_many :similar,
+    class_name: SimilarAnime.name,
+    foreign_key: :src_id,
+    order: 'id desc',
+    dependent: :destroy
+  has_many :links, class_name: AnimeLink.name, dependent: :destroy
 
-  has_many :user_histories, :foreign_key => :target_id,
-                            :conditions => { :target_type => Anime.name },
-                            :dependent => :destroy
+  has_many :user_histories,
+    foreign_key: :target_id,
+    conditions: { target_type: Anime.name },
+    dependent: :destroy
 
-  has_many :cosplay_gallery_links, :as => :linked,
-                                   :dependent => :destroy
+  has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
+  has_many :cosplay_galleries,
+    through: :cosplay_gallery_links,
+    class_name: CosplaySession.name,
+    conditions: { deleted: false, confirmed: true }
 
-  has_many :cosplay_galleries, :through => :cosplay_gallery_links,
-                               :class_name => CosplaySession.name,
-                               :conditions => { :deleted => false, confirmed: true }
+  has_one :thread,
+    class_name: AniMangaComment.name,
+    foreign_key: :linked_id,
+    conditions: { linked_type: self.name },
+    dependent: :destroy
 
-  has_one :thread, :class_name => AniMangaComment.name,
-                   :foreign_key => :linked_id,
-                   :conditions => { :linked_type => self.name },
-                   :dependent => :destroy
+  has_many :reviews,
+    foreign_key: :target_id,
+    conditions: { target_type: self.name },
+    dependent: :destroy
 
-  has_many :reviews, :foreign_key => :target_id,
-                     :conditions => { :target_type => self.name },
-                     :dependent => :destroy
+  has_many :images,
+    class_name: AttachedImage.name,
+    foreign_key: :owner_id,
+    conditions: { owner_type: self.name },
+    dependent: :destroy
 
-  has_many :images, :class_name => AttachedImage.name,
-                    :foreign_key => :owner_id,
-                    :conditions => { :owner_type => self.name },
-                    :dependent => :destroy
+  has_many :screenshots, order: [:position, :id], conditions: { status: nil }
+  has_many :all_screenshots, class_name: Screenshot.name, dependent: :destroy
 
-  has_many :screenshots, :order => [:position, :id],
-                         :conditions => { status: nil }
-  has_many :all_screenshots, :class_name => Screenshot.name,
-                             :dependent => :destroy
+  has_many :videos, order: [:id], conditions: { state: 'confirmed' }
+  has_many :all_videos, class_name: Video.name, dependent: :destroy
 
-  has_many :videos, :order => [:id],
-                    :conditions => { state: 'confirmed' }
-  has_many :all_videos, :class_name => Video.name,
-                        :dependent => :destroy
-
-  has_many :recommendation_ignores, :conditions => { target_type: Anime.name },
-                                    :foreign_key => :target_id,
-                                    :dependent => :destroy
+  has_many :recommendation_ignores,
+    conditions: { target_type: Anime.name },
+    foreign_key: :target_id,
+    dependent: :destroy
 
   has_many :anime_calendars, dependent: :destroy
 
   has_many :anime_videos, dependent: :destroy
 
-  has_attached_file :image, :styles => {
-                      :preview => "160x240>",
-                      :short => "160x120#",
-                      :x96 => "64x96#",
-                      :x64 => "43x64#"
-                    }, # params: > #
-                    :url  => "/images/anime/:style/:id.:extension",
-                    :path => ":rails_root/public/images/anime/:style/:id.:extension"
-                    #:default_url => '/images/anime_:style_missing.png'
-                    #:url  => "/anime/:id/:style/:basename.:extension",
-                    #:path => ":rails_root/public/anime/:id/:style/:basename.:extension"
-  validates_attachment_content_type :image, :content_type => [/^image\/(?:jpeg)$/, nil]
+  has_attached_file :image,
+    styles: {
+      preview: "160x240>",
+      short: "160x120#",
+      x96: "64x96#",
+      x64: "43x64#"
+    }, # params: > #
+    :url  => "/images/anime/:style/:id.:extension",
+    path: ":rails_root/public/images/anime/:style/:id.:extension"
+    #default_url: '/images/anime_:style_missing.png'
+    #:url  => "/anime/:id/:style/:basename.:extension",
+    #path: ":rails_root/public/anime/:id/:style/:basename.:extension"
+  validates_attachment_content_type :image, content_type: [/^image\/(?:jpeg)$/, nil]
 
   # Hooks
   after_create :create_thread
@@ -132,7 +142,7 @@ class Anime < ActiveRecord::Base
     #self[:name] ? self[:name].gsub(/\(movie\)$/i, '').gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip.html_safe : nil
     if self[:name]
       # временный костыль после миграции на 1.9.3
-      (self[:name].encoding.name == 'ASCII-8BIT' ? self[:name].encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '') : self[:name]).
+      (self[:name].encoding.name == 'ASCII-8BIT' ? self[:name].encode('utf-8', undef: :replace, invalid: :replace, replace: '') : self[:name]).
         gsub(/\(movie\)$/i, '').gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip.html_safe
     else
       nil
@@ -161,11 +171,11 @@ class Anime < ActiveRecord::Base
 
   # есть ли файлы у аниме?
   def has_files?
-    BlobData.where({:key => "anime_%d_torrents" % id} |
-                   {:key => "anime_%d_torrents_480p" % id} |
-                   {:key => "anime_%d_torrents_720p" % id} |
-                   {:key => "anime_%d_torrents_1080p" % id} |
-                   {:key => "anime_%d_subtitles" % id}).any?
+    BlobData.where({key: "anime_%d_torrents" % id} |
+                   {key: "anime_%d_torrents_480p" % id} |
+                   {key: "anime_%d_torrents_720p" % id} |
+                   {key: "anime_%d_torrents_1080p" % id} |
+                   {key: "anime_%d_subtitles" % id}).any?
   end
 
   # Torrents
