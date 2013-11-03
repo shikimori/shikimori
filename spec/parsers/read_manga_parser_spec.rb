@@ -1,86 +1,34 @@
-
 require 'spec_helper'
 
 describe ReadMangaParser do
-  before (:each) { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
+  before { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
+  before { SiteParserWithCache.stub :save_cache }
 
-  let (:parser) {
-    p = ReadMangaParser.new
-    p.stub(:save_cache)
-    p
-  }
+  let(:parser) { ReadMangaParser.new }
 
-  it 'pages num' do
-    parser.fetch_pages_num.should be(64)
-  end
-
-  it 'page entries' do
-    parser.fetch_page_links(0).should have(ReadMangaParser::PageSize).items
-  end
-
-  it 'correct page entries' do
-    parser.fetch_page_links(parser.fetch_pages_num - 1).last.should eq 'wild_kiss'
-  end
+  it { parser.fetch_pages_num.should eq 66 }
+  it { parser.fetch_page_links(0).should have(ReadMangaParser::PageSize).items }
+  it { parser.fetch_page_links(parser.fetch_pages_num - 1).last.should eq 'wild_kiss' }
 
   describe 'cleanup description' do
-    it 'replaces \n' do
-      parser.normalize_line("Яяя\r\nыыы.\r\nЗзз").should eq "Яяя ыыы.\nЗзз"
-    end
-
-    it 'fixes spaces' do
-      parser.normalize_line("a  a").should eq "a a"
-      parser.normalize_line("a a").should eq "a a"
-    end
+    it { parser.normalize_line("Яяя\r\nыыы.\r\nЗзз").should eq "Яяя ыыы.\nЗзз" }
+    it { parser.normalize_line("a  a").should eq "a a" }
+    it { parser.normalize_line("a a").should eq "a a" }
   end
 
   describe 'extracts source' do
-    it 'sitename w/o http' do
-      parser.extract_source('Site.ru').should eq 'http://site.ru'
-    end
-
-    it 'sitename w http' do
-      parser.extract_source('http://site.ru').should eq 'http://site.ru'
-    end
-
-    it 'copyright' do
-      parser.extract_source('© Алексей Мелихов, World Art').should eq '© Алексей Мелихов, http://world-art.ru'
-    end
-
-    it 'copyright at end' do
-      parser.extract_source('Espada Clan (c)').should eq ReadMangaImportData::MangaTeams['espada clan']
-    end
-
-    it 'copyright word' do
-      parser.extract_source('Copyright © Nomad Team').should eq ReadMangaImportData::MangaTeams['nomad team']
-    end
-
-    it 'link w/o link' do
-      parser.extract_source('Взято с animeshare.su').should eq 'http://animeshare.su'
-    end
-
-    it 'link in ()' do
-      parser.extract_source('(взято с animeshare.su)').should eq 'http://animeshare.su'
-    end
-
-    it 'person' do
-      parser.extract_source('Kair', 'url').should eq '© Kair, url'
-    end
-
-    it 'person with text' do
-      parser.extract_source('Описание составлено: BlaBlaBla', 'url').should eq '© BlaBlaBla, url'
-    end
-
-    it 'team name' do
-      parser.extract_source('Death Note - Kira Revival Project').should eq 'http://deathnote.ru'
-    end
-
-    it 'Описание с' do
-      parser.extract_source('Описание с goldenwind.ucoz.org').should eq 'http://goldenwind.ucoz.org'
-    end
-
-    it 'fails on blablabla' do
-      parser.extract_source('bla-bla-bla').should be_nil
-    end
+    it { parser.extract_source('Site.ru').should eq 'http://site.ru' }
+    it { parser.extract_source('http://site.ru').should eq 'http://site.ru' }
+    it { parser.extract_source('© Алексей Мелихов, World Art').should eq '© Алексей Мелихов, http://world-art.ru' }
+    it { parser.extract_source('Espada Clan (c)').should eq ReadMangaImportData::MangaTeams['espada clan'] }
+    it { parser.extract_source('Copyright © Nomad Team').should eq ReadMangaImportData::MangaTeams['nomad team'] }
+    it { parser.extract_source('Взято с animeshare.su').should eq 'http://animeshare.su' }
+    it { parser.extract_source('(взято с animeshare.su)').should eq 'http://animeshare.su' }
+    it { parser.extract_source('Kair', 'url').should eq '© Kair, url' }
+    it { parser.extract_source('Описание составлено: BlaBlaBla', 'url').should eq '© BlaBlaBla, url' }
+    it { parser.extract_source('Death Note - Kira Revival Project').should eq 'http://deathnote.ru' }
+    it { parser.extract_source('Описание с goldenwind.ucoz.org').should eq 'http://goldenwind.ucoz.org' }
+    it { parser.extract_source('bla-bla-bla').should be_nil }
   end
 
   describe 'fetches entry' do
@@ -121,15 +69,14 @@ describe ReadMangaParser do
     end
 
     it 'w/o russian' do
-      parser.fetch_entry('trinity_blood_rage_against_the_moons').should == {
-        id: "trinity_blood_rage_against_the_moons",
-        kind: "One Shot",
-        names: ["Trinity Blood Rage Against the Moons"],
-        russian: "Trinity Blood Rage Against the Moons",
-        score: 9.06,
-        source: "http://readmanga.ru/trinity_blood_rage_against_the_moons",
-        description: "Красивые иллюстрации к роману, выполненные THORES Shibamoto."
-      }
+      entry = parser.fetch_entry 'trinity_blood_rage_against_the_moons'
+      entry[:id].should eq "trinity_blood_rage_against_the_moons"
+      entry[:kind].should eq "One Shot"
+      entry[:names].should eq ["Trinity Blood Rage Against the Moons"]
+      entry[:russian].should eq "Trinity Blood Rage Against the Moons"
+      entry[:description].should eq "Красивые иллюстрации к роману, выполненные THORES Shibamoto."
+      entry[:score].should eq 9.16
+      entry[:source].should eq "http://readmanga.ru/trinity_blood_rage_against_the_moons"
     end
   end
 
@@ -142,6 +89,8 @@ describe ReadMangaParser do
   end
 
   it 'fetch pages' do
+    parser.stub(:fetch_entry).and_return id: true
+
     items = nil
     expect {
       items = parser.fetch_pages(0..2)

@@ -35,13 +35,13 @@ class ReadMangaParser < SiteParserWithCache
   # число страниц в каталоге
   def fetch_pages_num
     content = get(@catalog_url % 0)
-    doc = Nokogiri::HTML(content)
+    doc = Nokogiri::HTML content
     last_page_link = doc.css('.pagination').first.css('a')[-2]
     last_page_link.text.to_i
   end
 
   # загрузка элементов со страницы
-  def fetch_pages(pages)
+  def fetch_pages pages
     data = []
     pages.each do |page|
       fetch_entries(fetch_page_links(page)).compact.each do |entry|
@@ -54,7 +54,7 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # ссылки с конкретной страницы
-  def fetch_page_links(page)
+  def fetch_page_links page
     content = get(@catalog_url % [page*PageSize])
     doc = Nokogiri::HTML(content)
 
@@ -64,12 +64,12 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # загрузка пачки элементов
-  def fetch_entries(ids)
+  def fetch_entries ids
     ids.map { |id| fetch_entry(id) }
   end
 
   # загрузка одного элемента
-  def fetch_entry(id)
+  def fetch_entry id
     url = @entry_url % id
     content = get(url)
     return nil if moved_entry?(content)
@@ -79,15 +79,8 @@ class ReadMangaParser < SiteParserWithCache
     doc = Nokogiri::HTML(content.gsub(/<br ?\/?>/, "\n").gsub(/<!--[\s\S]*?-->/, ''))
     h1_tag = doc.css('h1').first()
 
-    entry[:kind] = translate_kind(h1_tag.css('.additional').text.strip)
-
-    #raw_name = h1_tag.children.last.text.strip
-    #if raw_name =~ /(.*)\((.*)\)/
-      entry[:names] = [h1_tag.css('.name').text, h1_tag.css('.eng-name').text, h1_tag.css('.jp-name').text].compact.map(&:strip).select(&:present?)
-      entry[:russian] = h1_tag.css('.name').text
-    #else
-      #entry[:names] = [raw_name.strip]
-    #end
+    entry[:names] = [h1_tag.css('.name').text, h1_tag.css('.eng-name').text, h1_tag.css('.jp-name').text].compact.map(&:strip).select(&:present?)
+    entry[:russian] = h1_tag.css('.name').text
 
     if entry[:names].first.include?(':')
       names = entry[:names].first.split(':').map(&:strip)
@@ -109,11 +102,17 @@ class ReadMangaParser < SiteParserWithCache
     entry[:description] = build_description(lines, entry[:id])
     return nil if moved_entry?(entry[:description])
 
+    entry.merge! extract_additional(doc)
     entry
   end
 
+  def extract_additional doc
+    kind = doc.css('h1').first().css('.additional').text.strip
+    { kind: extract_kind(kind) }
+  end
+
   # перевод русского типа манги в английский
-  def translate_kind(kind)
+  def extract_kind kind
     case kind
       when 'Манга' then 'Manga'
       when 'Сингл' then 'One Shot'
@@ -123,7 +122,7 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # поиск источника в сточках изи возврат дефолтного урла
-  def find_source(lines, url=nil)
+  def find_source lines, url=nil
     lines.reverse_each do |line|
       next if line.size > 100
       source = extract_source(line, url)
@@ -133,7 +132,7 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # попытка вытащить источник из строки
-  def extract_source(line, url=nil)
+  def extract_source line, url=nil
     line = line.gsub(/\([cCсС]\)/, '©').gsub(/^\(|\)$/, '')
     if line =~ /
         ^
@@ -184,18 +183,18 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # преобразование названия проекта его урл
-  def recognize_project(name)
+  def recognize_project name
     MangaTeams[name.downcase.gsub(/\.$|~$|^~|^\(|\)$/, '').strip]
   end
 
   # определение переводчика из строки
-  def recognize_translator(text)
+  def recognize_translator text
     cleaned = text.gsub(/^by |\^-\^$|^Только ваш,|^~/, '').strip
     Translators.include?(cleaned.downcase) ? cleaned : nil
   end
 
   # построние описания из строк
-  def build_description(lines, id)
+  def build_description lines, id
     return "" if NoDescription.include?(id)
 
     should_stop = false
@@ -215,7 +214,7 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # вытаскивание строк с описанием из дом дерева
-  def extract_description_lines(doc)
+  def extract_description_lines doc
     nodes = doc.css('.manga-description').children()
 
     nodes.map do |node|
@@ -238,7 +237,7 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # нормализация строки
-  def normalize_line(text)
+  def normalize_line text
     text.blank? ? '' : text.gsub(' ', ' ')
                            .gsub(/([A-zА-яё] ?)\r?\n([ёА-яA-z])/, '\1 \2')
                            .gsub(/([A-zА-я.ё] ?)\r?\n([ёа-яa-z])/, '\1 \2')
@@ -293,7 +292,7 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   # перенесена ли манга на другой сайт?
-  def moved_entry?(content)
+  def moved_entry? content
     content =~ /(расположена|находится|можно прочитать|Читать эту мангу) на (сайте )?Adult ?Manga/i || content =~ /МАНГА РАСПОЛОЖЕНА НА (сайте )?Adult ?Manga/i
   end
 end

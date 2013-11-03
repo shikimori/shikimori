@@ -1,7 +1,7 @@
 require "digest"
 
 # TODO: отрефакторить толстый контроллер
-# TODO: users#show вынести в новый ProfileController
+# TODO: users#show вынести в ProfilesController
 class UsersController < ApplicationController
   include MessagesHelper # для работы хелпера format_linked_name
   include TopicsHelper # для работы MesasgesHelper - topic_url там хелпер
