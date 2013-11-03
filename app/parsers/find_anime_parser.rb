@@ -2,7 +2,7 @@
 class FindAnimeParser < ReadMangaParser
   def initialize
     super
-    @proxy_log = true
+    #@proxy_log = true
   end
 
   def extract_additional doc
@@ -15,24 +15,25 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def fetch_episode episode
-    content = get episode[:url]
-
-    episode[:videos] = Nokogiri::HTML(content).css('.chapter-link').map do |node|
+    episode[:videos] = Nokogiri::HTML(get(episode[:url])).css('.chapter-link').map do |node|
       description = node.css('.video-info .details').text.strip
-      kind, author = $1, $2 if description =~ /(.*)[\s\S]*\((.*)\)/
-      embed_source = node.css('.embed_source').first
-      kind = extract_kind(kind || description)
 
-      episode.reverse_merge({
+      kind, author = $1, $2 if description =~ /(.*)[\s\S]*\((.*)\)/
+      kind = extract_kind kind || description
+      author ||= node.css('.video-info').to_html[/<span class="additional">.*?<\/span>([\s\S]*)<span/, 1].try :strip
+
+      embed_source = node.css('.embed_source').first
+
+      OpenStruct.new episode.merge({
         kind: kind,
         language: extract_language(kind || description),
         source: episode[:url],
         url: extract_url(embed_source.attr('value'), episode[:url]),
-        author: author
+        author: HTMLEntities.new.decode(author)
       }) if embed_source && kind
     end
 
-    episode
+    OpenStruct.new episode
   end
 
   def extract_kind kind

@@ -22,17 +22,41 @@ describe FindAnimeParser do
 
       entry[:episodes][0][:episode].should eq 26
       entry[:episodes][0][:url].should eq 'http://findanime.ru/attack_on_titan/series26?mature=1'
-      entry[:episodes][0][:videos].should have(9).items
-
-      entry[:episodes][0][:videos][3][:kind].should eq :dubbed
-      entry[:episodes][0][:videos][3][:language].should eq :russian
-      entry[:episodes][0][:videos][3][:author].should eq 'JazzWay Anime'
-      #entry[:episodes][0][:videos][3][:author].should eq 'JazzWay Anime'
-      entry[:episodes][0][:videos][3][:episode].should eq 26
 
       entry[:episodes][25][:episode].should eq 1
       entry[:episodes][25][:url].should eq 'http://findanime.ru/attack_on_titan/series1?mature=1'
-      entry[:episodes][25][:videos].should have(14).items
+    end
+  end
+
+  describe :fetch_episode do
+    subject(:data) { parser.fetch_episode episode: episode, url: url }
+    let(:episode) { 1 }
+    let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
+
+    its(:episode) { should eq episode }
+    its(:url) { should eq url }
+
+    describe :videos do
+      subject(:videos) { data.videos }
+
+      it { should have(11).items }
+
+      describe :first do
+        subject { videos.first }
+
+        its(:episode) { should eq 1 }
+        its(:url) { should eq "https://vk.com/video_ext.php?oid=-51137404&id=166106853&hash=ccd5e4a17d189206&hd=3" }
+        its(:kind) { should eq :raw }
+        its(:language) { should eq :russian }
+        its(:source) { should eq "http://findanime.ru/strike_the_blood/series1?mature=1" }
+        its(:author) { should eq '' }
+      end
+
+      describe :special do
+        subject { videos[-4] }
+        its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
+        its(:author) { should eq 'JAM & Ancord & Nika Lenina' }
+      end
     end
   end
 
