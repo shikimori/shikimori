@@ -17,6 +17,10 @@ Site::Application.routes.draw do
     resources :reviews, only: [:show]
   end
 
+  # anime_video - как-то будет изолировано от основного сайта
+  namespace :anime_online do
+    resources :anime_videos, path: 'videos', only: [:show]
+  end
 
   # форум
   root to: 'topics#index'

@@ -1,0 +1,6 @@
+h1 = @anime.name
+h2 = "Video: #{ @anime.anime_videos.size }"
+ul
+  - @anime.anime_videos.each do |video|
+    li
+      a href="#{video.url}" target='blank' = video.hosting
