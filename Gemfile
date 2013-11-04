@@ -74,6 +74,7 @@ gem 'unicode' # для downcase русских слов
 gem 'daemons' # for delayed_job
 gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'
 gem 'slim'
+gem 'slim-rails'
 gem 'icalendar' # для аниме календраря
 gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
