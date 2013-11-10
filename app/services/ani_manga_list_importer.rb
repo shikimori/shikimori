@@ -5,7 +5,7 @@ module AniMangaListImporter
   # импорт списка
   # третьим параметром ожидается массив хешей с ключами :id, :score, :status, :episodes, :chapters, :volumes
   # :status должен быть словом, не циферкой
-  def import(user, klass, list_to_import, rewrite_existed)
+  def import user, klass, list_to_import, rewrite_existed
     # уже имеющееся у пользователя в списке
     rates = user.send("#{klass.name.downcase}_rates").all.inject({}) do |data,entry|
       data[entry.target_id] = entry
@@ -38,7 +38,8 @@ module AniMangaListImporter
       Counters.each do |counter|
         rate[counter] = entry[counter] if entry.include? counter
       end
-      rate.status = UserRateStatus.get(entry[:status])
+
+      rate.status = UserRateStatus.get entry[:status]
       rate.score = entry[:score].to_i
       rate.score = 10 if rate.score > 10
       rate.score = 0 if rate.score < 0

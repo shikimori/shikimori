@@ -178,7 +178,7 @@ class UserListsController < UsersController
           episodes: v['my_watched_episodes'] || 0,
           volumes: v['my_read_volumes'] || 0,
           chapters: v['my_read_chapters'] || 0,
-          status: v['my_status'] =~ /^\d+$/ ? UserRateStatus.get(v['my_status'].to_i) : v['my_status'].sub('Plan to Read', 'Plan to Watch'),
+          status: v['my_status'] =~ /^\d+$/ ? UserRateStatus.get(v['my_status'].to_i) : v['my_status'].sub('Plan to Read', 'Plan to Watch').sub('Reading', 'Watching'),
           score: v['my_score'] || 0
         }
       end
