@@ -88,7 +88,7 @@ class Proxy < ActiveRecord::Base
             uri = URI.parse(url)
             content = if options[:method] == :get
               #Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
-              open(URI.encode(url), proxy: proxy.to_s(true)).read
+              open(URI.encode(url), proxy: proxy.to_s(true), 'User-Agent' => user_agent(url)).read
             else
               Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(uri, options[:data]).body
             end
@@ -155,11 +155,19 @@ class Proxy < ActiveRecord::Base
       #content
     #end
 
+    def user_agent url
+      if url =~ /myanimelist.net/
+        'Mozilla/4.0 (compatible; ICS)'
+      else
+        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:18.0) Gecko/20100101 Firefox/18.0'
+      end
+    end
+
     # выполнение get запроса без прокси
     def no_proxy_get(url, options)
       log "GET #{url}", options
 
-      resp = open(URI.encode(url), 'User-Agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:18.0) Gecko/20100101 Firefox/18.0')
+      resp = open URI.encode(url), 'User-Agent' => user_agent(url)
       if resp.meta["content-encoding"] == "gzip"
         Zlib::GzipReader.new(StringIO.new(resp.read)).read
       else

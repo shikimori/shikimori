@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030045940) do
+ActiveRecord::Schema.define(:version => 20131103155713) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -47,11 +47,23 @@ ActiveRecord::Schema.define(:version => 20131030045940) do
     t.integer  "topic_id",   :default => 0,     :null => false
   end
 
+  create_table "anime_links", :force => true do |t|
+    t.integer  "anime_id"
+    t.string   "service",    :null => false
+    t.string   "identifier", :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "anime_links", ["anime_id", "service", "identifier"], :name => "index_anime_links_on_anime_id_and_service_and_identifier", :unique => true
+
   create_table "anime_video_authors", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "anime_video_authors", ["name"], :name => "index_anime_video_authors_on_name", :unique => true
 
   create_table "anime_videos", :force => true do |t|
     t.integer  "anime_id"

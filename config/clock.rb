@@ -15,13 +15,13 @@ every(10.minutes, 'history.toshokan') do
 end
 
 # NOTICE: отключено пока на MAL антиддос защита
-#every(1.minute, 'import', :at => ['**:15', '**:45']) do
-  #Delayed::Job.enqueue_uniq PrepareImportListJob.new pages_limit: 3
-  #Delayed::Job.enqueue_uniq PrepareImportListJob.new pages_limit: 3, klass: Manga
-  #Delayed::Job.enqueue_uniq PrepareImportListJob.new source: :anons, hours_limit: 12
-  #Delayed::Job.enqueue_uniq PrepareImportListJob.new source: :ongoing, hours_limit: 8
+every(1.minute, 'import', :at => ['**:15', '**:45']) do
+  Delayed::Job.enqueue_uniq PrepareImportListJob.new pages_limit: 3
+  Delayed::Job.enqueue_uniq PrepareImportListJob.new pages_limit: 3, klass: Manga
+  Delayed::Job.enqueue_uniq PrepareImportListJob.new source: :anons, hours_limit: 12
+  Delayed::Job.enqueue_uniq PrepareImportListJob.new source: :ongoing, hours_limit: 8
 
-  #Delayed::Job.enqueue_uniq ImportAnimesJob.new
-#end
+  Delayed::Job.enqueue_uniq ImportAnimesJob.new
+end
 
 every(1.minute, 'proxies', :at => '**:45') { Delayed::Job.enqueue_uniq ProxyGetJob.new }
