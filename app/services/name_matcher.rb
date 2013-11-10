@@ -6,6 +6,7 @@ class NameMatcher
     @match_order = [:name, :alt, :alt2]
 
     @klass = klass
+    @ids = ids
 
     # хеш с названиями, по которому будем искать
     @cache = {
@@ -14,50 +15,7 @@ class NameMatcher
       alt2: {}
     }
 
-    ds = @klass.select([:name, :id, :english, :synonyms, :kind, :aired_at])
-    ds = ds.where(id: ids) unless ids.nil?
-    # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
-    ds.all.sort_by {|v| v.kind == 'TV' ? 0 : 1 }.each do |entry|
-      all_names = {
-        name:
-          ["#{entry.name} #{entry.kind}"] +
-          (entry.synonyms ?
-            entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (
-              entry.aired_at ? entry.synonyms.map {|v| "#{v} #{entry.aired_at.year}" } : []
-            ) :
-            []
-          ) +
-          (entry.english ?
-            entry.english.map {|v| "#{v} #{entry.kind}" }  + (
-              entry.aired_at ? entry.english.map {|v| "#{v} #{entry.aired_at.year}" } : []
-              ):
-            []
-          ) +
-          (entry.aired_at ? ["#{entry.name} #{entry.aired_at.year}"] : []),
-        alt:
-          [entry.name] +
-          (entry.synonyms ? entry.synonyms : []) +
-          (entry.english ? entry.english : [])
-      }
-      all_names.each {|k,v| v.map!(&:downcase) }
-
-      # отдельно будем пытаться матчить то, что содержит запятые, двоеточия и тире
-      all_names[:alt2] = all_names[:alt].map do |name|
-        phrase_variants(name, entry.kind)
-      end.compact.flatten
-      all_names[:alt2] = (all_names[:alt2] + all_names[:alt2].map {|v| v.gsub('!', '') }).uniq
-
-      all_names.each do |k,v|
-        all_names[k] = (v + v.map {|name| fix name }).uniq
-      end
-
-      all_names.each do |group,names|
-        names.each do |name|
-          @cache[group][name] ||= []
-          @cache[group][name] << entry.id
-        end
-      end
-    end
+    build_cache
   end
 
   # поиск id аниме по переданному наванию
@@ -149,5 +107,54 @@ private
     (name =~ /,/ ?
       name.split(/,/).select {|s| s.size > 10 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
       [])
+  end
+
+  # заполнение кеша
+  def build_cache
+    datasource.each do |entry|
+      all_names = {
+        name: main_names(entry),
+        alt: alt_names(entry)
+      }
+      all_names.each {|k,v| v.map!(&:downcase) }
+
+      # отдельно будем пытаться матчить то, что содержит запятые, двоеточия и тире
+      all_names[:alt2] = all_names[:alt].map {|name| phrase_variants name, entry.kind }.compact.flatten
+      all_names[:alt2] = (all_names[:alt2] + all_names[:alt2].map {|v| v.gsub('!', '') }).uniq
+
+      all_names.each {|k,v| all_names[k] = (v + v.map {|name| fix name }).uniq }
+
+      all_names.each do |group,names|
+        names.each do |name|
+          @cache[group][name] ||= []
+          @cache[group][name] << entry.id
+        end
+      end
+    end
+  end
+
+  def main_names entry
+    names = ["#{entry.name} #{entry.kind}"]
+    synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_at ? entry.synonyms.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.synonyms
+    english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_at ? entry.english.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.english
+    aired_at = ["#{entry.name} #{entry.aired_at.year}"] if entry.aired_at
+
+    names + (synonyms || []) + (english || []) + (aired_at || [])
+  end
+
+  def alt_names entry
+    [entry.name] + (entry.synonyms ? entry.synonyms : []) + (entry.english ? entry.english : [])
+  end
+
+  def datasource
+    ds = if @ids.present?
+      @klass.where(id: @ids)
+    else
+      @klass
+    end
+
+    ds.select([:name, :id, :english, :synonyms, :kind, :aired_at])
+      .all
+      .sort_by {|v| v.kind == 'TV' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
   end
 end
