@@ -69,7 +69,7 @@ every 32.days, at: '4:13 am' do
 end
 
 every 2.months, at: '0:09 am' do # макс цифра минус 1
-  runner "Delayed::Job.enqueue_uniq PrepareImportListJob.new(pages_limit: 1261, source: :all, klass: Manga), PrepareImportListJob.new(pages_limit: 417, source: :all, klass: Anime)"
+  runner "Delayed::Job.enqueue_uniq PrepareImportListJob.new(pages_limit: 1309, source: :all, klass: Manga), PrepareImportListJob.new(pages_limit: 424, source: :all, klass: Anime)"
 end
 
 #every 2.weeks, at: '9:35 am' do
