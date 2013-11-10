@@ -102,13 +102,14 @@ class ReadMangaParser < SiteParserWithCache
     entry[:description] = build_description(lines, entry[:id])
     return nil if moved_entry?(entry[:description])
 
-    entry.merge! extract_additional(doc)
+    extract_additional entry, doc
+
     entry
   end
 
-  def extract_additional doc
+  def extract_additional entry, doc
     kind = doc.css('h1').first().children().first().text.strip
-    { kind: extract_kind(kind) }
+    entry[:kind] = extract_kind kind
   end
 
   # перевод русского типа манги в английский

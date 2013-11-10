@@ -6,7 +6,7 @@ FactoryGirl.define do
     author  nil
 
     after :build do |v|
-      v.anime = FactoryGirl.build_stubbed(:anime)
+      v.anime = FactoryGirl.build_stubbed(:anime) unless v.anime_id
     end
   end
 end

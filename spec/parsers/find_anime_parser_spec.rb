@@ -10,53 +10,64 @@ describe FindAnimeParser do
   it { parser.fetch_page_links(0).should have(FindAnimeParser::PageSize).items }
 
   describe :fetch_entry do
-    it 'common entry' do
-      entry = parser.fetch_entry 'attack_on_titan'
-      entry[:id].should eq 'attack_on_titan'
-      entry[:names].should eq ['Вторжение гигантов', 'Attack on Titan', 'Shingeki no Kyojin']
-      entry[:russian].should eq 'Вторжение гигантов'
-      entry[:score].should be_within(1).of 9
-      entry[:description].should be_present
-      entry[:source].should eq 'http://findanime.ru/attack_on_titan'
-      entry[:episodes].should have(26).items
+    subject(:entry) { parser.fetch_entry identifier }
 
-      entry[:episodes][0][:episode].should eq 26
-      entry[:episodes][0][:url].should eq 'http://findanime.ru/attack_on_titan/series26?mature=1'
+    describe :common_entry do
+      let(:identifier) { 'attack_on_titan' }
 
-      entry[:episodes][25][:episode].should eq 1
-      entry[:episodes][25][:url].should eq 'http://findanime.ru/attack_on_titan/series1?mature=1'
+      its(:id) { should eq 'attack_on_titan' }
+      its(:names) { should eq ['Вторжение гигантов', 'Attack on Titan', 'Shingeki no Kyojin', "Атака титанов", "Вторжение Титанов"] }
+      its(:russian) { should eq 'Вторжение гигантов' }
+      its(:score) { should be_within(1).of 9 }
+      its(:description) { should be_present }
+      its(:source) { should eq 'http://findanime.ru/attack_on_titan' }
+      its(:episodes) { should have(26).items }
+
+      describe :last_episode do
+        subject { entry.episodes.first }
+        it { should eq episode: 26, url: 'http://findanime.ru/attack_on_titan/series26?mature=1' }
+      end
+
+      describe :first_episode do
+        subject { entry.episodes.last }
+        it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
+      end
+    end
+
+    describe :additioanl_names do
+      let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
+
+      its(:names) { should eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
+    end
+
+    describe :inline_videos do
+      let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
+      its(:episodes) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova'}] }
     end
   end
 
-  describe :fetch_episode do
-    subject(:data) { parser.fetch_episode episode: episode, url: url }
+  describe :fetch_videos do
+    subject(:videos) { parser.fetch_videos episode, url }
     let(:episode) { 1 }
     let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
 
-    its(:episode) { should eq episode }
-    its(:url) { should eq url }
+    it { should have(12).items }
 
-    describe :videos do
-      subject(:videos) { data.videos }
+    describe :first do
+      subject { videos.first }
 
-      it { should have(12).items }
+      its(:episode) { should eq episode }
+      its(:url) { should eq "https://vk.com/video_ext.php?oid=-51137404&id=166106853&hash=ccd5e4a17d189206&hd=3" }
+      its(:kind) { should eq :raw }
+      its(:language) { should eq :russian }
+      its(:source) { should eq "http://findanime.ru/strike_the_blood/series1?mature=1" }
+      its(:author) { should eq '' }
+    end
 
-      describe :first do
-        subject { videos.first }
-
-        its(:episode) { should eq 1 }
-        its(:url) { should eq "https://vk.com/video_ext.php?oid=-51137404&id=166106853&hash=ccd5e4a17d189206&hd=3" }
-        its(:kind) { should eq :raw }
-        its(:language) { should eq :russian }
-        its(:source) { should eq "http://findanime.ru/strike_the_blood/series1?mature=1" }
-        its(:author) { should eq '' }
-      end
-
-      describe :special do
-        subject { videos[-5] }
-        its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
-        its(:author) { should eq 'JAM & Ancord & Nika Lenina' }
-      end
+    describe :special do
+      subject { videos[-5] }
+      its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
+      its(:author) { should eq 'JAM & Ancord & Nika Lenina' }
     end
   end
 
@@ -79,12 +90,12 @@ describe FindAnimeParser do
 
     describe :озвучка do
       let(:text) { 'Озвучка+сабы' }
-      it { should eq :dubbed }
+      it { should eq :fandub }
     end
 
     describe :озвучка do
       let(:text) { 'Озвучка' }
-      it { should eq :dubbed }
+      it { should eq :fandub }
     end
 
     describe :сабы do

@@ -5,17 +5,28 @@ class FindAnimeParser < ReadMangaParser
     #@proxy_log = true
   end
 
-  def extract_additional doc
+  def fetch_entry id
+    OpenStruct.new super
+  end
+
+  def extract_additional entry, doc
     episodes = doc
       .css('.chapters-link tr a')
       .map {|v| parse_chapter v }
       .select {|v| v[:episode].present? }
 
-    { episodes: episodes }
+    if episodes.empty? && doc.css('.chapter-link').to_html =~ /Озвучка|Сабы/
+      episodes = [{episode: 1, url: "http://#{@domain}#{doc.css('h3 a').first.attr('href').sub /#.*/, ''}"}]
+    end
+
+    names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
+
+    entry[:episodes] = episodes
+    entry[:names] = entry[:names] + names
   end
 
-  def fetch_episode episode
-    episode[:videos] = Nokogiri::HTML(get(episode[:url])).css('.chapter-link').map do |node|
+  def fetch_videos episode, url
+    Nokogiri::HTML(get(url)).css('.chapter-link').map do |node|
       description = node.css('.video-info .details').text.strip
 
       kind, author = $1, $2 if description =~ /(.*)[\s\S]*\((.*)\)/
@@ -24,21 +35,20 @@ class FindAnimeParser < ReadMangaParser
 
       embed_source = node.css('.embed_source').first
 
-      OpenStruct.new episode.merge({
+      OpenStruct.new({
+        episode: episode,
         kind: kind,
         language: extract_language(kind || description),
-        source: episode[:url],
-        url: extract_url(embed_source.attr('value'), episode[:url]),
+        source: url,
+        url: extract_url(embed_source.attr('value'), url),
         author: HTMLEntities.new.decode(author)
       }) if embed_source && kind
-    end
-
-    OpenStruct.new episode
+    end.compact
   end
 
   def extract_kind kind
     case kind
-      when 'Озвучка', 'Озвучка+сабы' then :dubbed
+      when 'Озвучка', 'Озвучка+сабы' then :fandub
       when 'Сабы', 'Английские сабы' then :subtitles
       when 'Оригинал' then :raw
       when '' then :unknown
