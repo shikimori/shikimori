@@ -10,21 +10,34 @@ describe FindAnimeParser do
   it { parser.fetch_page_links(0).should have(FindAnimeParser::PageSize).items }
 
   describe :fetch_entry do
-    it 'common entry' do
-      entry = parser.fetch_entry 'attack_on_titan'
-      entry[:id].should eq 'attack_on_titan'
-      entry[:names].should eq ['Вторжение гигантов', 'Attack on Titan', 'Shingeki no Kyojin']
-      entry[:russian].should eq 'Вторжение гигантов'
-      entry[:score].should be_within(1).of 9
-      entry[:description].should be_present
-      entry[:source].should eq 'http://findanime.ru/attack_on_titan'
-      entry[:episodes].should have(26).items
+    subject(:entry) { parser.fetch_entry identifier }
 
-      entry[:episodes][0][:episode].should eq 26
-      entry[:episodes][0][:url].should eq 'http://findanime.ru/attack_on_titan/series26?mature=1'
+    describe :common_entry do
+      let(:identifier) { 'attack_on_titan' }
 
-      entry[:episodes][25][:episode].should eq 1
-      entry[:episodes][25][:url].should eq 'http://findanime.ru/attack_on_titan/series1?mature=1'
+      its(:id) { should eq 'attack_on_titan' }
+      its(:names) { should eq ['Вторжение гигантов', 'Attack on Titan', 'Shingeki no Kyojin', "Атака титанов", "Вторжение Титанов"] }
+      its(:russian) { should eq 'Вторжение гигантов' }
+      its(:score) { should be_within(1).of 9 }
+      its(:description) { should be_present }
+      its(:source) { should eq 'http://findanime.ru/attack_on_titan' }
+      its(:episodes) { should have(26).items }
+
+      describe :last_episode do
+        subject { entry.episodes.first }
+        it { should eq episode: 26, url: 'http://findanime.ru/attack_on_titan/series26?mature=1' }
+      end
+
+      describe :first_episode do
+        subject { entry.episodes.last }
+        it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
+      end
+    end
+
+    describe :additioanl_names do
+      let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
+
+      its(:names) { should eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
     end
   end
 

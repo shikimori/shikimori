@@ -5,13 +5,20 @@ class FindAnimeParser < ReadMangaParser
     #@proxy_log = true
   end
 
-  def extract_additional doc
+  def fetch_entry id
+    OpenStruct.new super
+  end
+
+  def extract_additional entry, doc
     episodes = doc
       .css('.chapters-link tr a')
       .map {|v| parse_chapter v }
       .select {|v| v[:episode].present? }
 
-    { episodes: episodes }
+    names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
+
+    entry[:episodes] = episodes
+    entry[:names] = entry[:names] + names
   end
 
   def fetch_videos episode, url
