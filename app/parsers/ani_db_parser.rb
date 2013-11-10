@@ -1,4 +1,6 @@
 require 'progressbar'
+
+# TODO: переделать матчинг аниме на NameMatcher по аналогии с FindAnimeImporter
 class AniDbParser < SiteParserWithCache
   alias :super_load_cache :load_cache
 
