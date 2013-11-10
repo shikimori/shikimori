@@ -15,6 +15,10 @@ class FindAnimeParser < ReadMangaParser
       .map {|v| parse_chapter v }
       .select {|v| v[:episode].present? }
 
+    if episodes.empty? && doc.css('.chapter-link').to_html =~ /Озвучка|Сабы/
+      episodes = [{episode: 1, url: "http://#{@domain}#{doc.css('h3 a').first.attr('href').sub /#.*/, ''}"}]
+    end
+
     names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
 
     entry[:episodes] = episodes

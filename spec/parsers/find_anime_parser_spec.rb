@@ -39,6 +39,11 @@ describe FindAnimeParser do
 
       its(:names) { should eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
     end
+
+    describe :inline_videos do
+      let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
+      its(:episodes) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova'}] }
+    end
   end
 
   describe :fetch_videos do
