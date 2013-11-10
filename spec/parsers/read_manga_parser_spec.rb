@@ -6,7 +6,7 @@ describe ReadMangaParser do
 
   let(:parser) { ReadMangaParser.new }
 
-  it { parser.fetch_pages_num.should eq 66 }
+  it { parser.fetch_pages_num.should eq 67 }
   it { parser.fetch_page_links(0).should have(ReadMangaParser::PageSize).items }
   it { parser.fetch_page_links(parser.fetch_pages_num - 1).last.should eq 'wild_kiss' }
 

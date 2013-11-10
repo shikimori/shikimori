@@ -107,7 +107,7 @@ class ReadMangaParser < SiteParserWithCache
   end
 
   def extract_additional doc
-    kind = doc.css('h1').first().css('.additional').text.strip
+    kind = doc.css('h1').first().children().first().text.strip
     { kind: extract_kind(kind) }
   end
 
