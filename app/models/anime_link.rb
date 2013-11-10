@@ -6,5 +6,5 @@ class AnimeLink < ActiveRecord::Base
 
   validates :anime, presence: true
   validates :service, presence: true
-  validates :identifier, presence: true#, uniqueness: { scope: [:service, :anime_id] }
+  validates :identifier, presence: true, uniqueness: { scope: [:service, :anime_id] }
 end

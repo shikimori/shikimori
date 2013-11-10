@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe NameMatcher do
-  let(:matcher) { NameMatcher.new(Anime) }
+  let(:matcher) { NameMatcher.new Anime }
 
   describe :get_id do
     describe 'single match' do
@@ -109,5 +109,14 @@ describe NameMatcher do
     let!(:anime2) { create :anime, kind: 'TV', name: 'zzz' }
 
     it { should be anime1.id }
+  end
+
+  describe :by_link do
+    subject { matcher.by_link link.identifier, :findanime }
+    let(:matcher) { NameMatcher.new Anime, nil, [:findanime] }
+    let!(:anime) { create :anime }
+    let!(:link) { create :anime_link, service: :findanime, identifier: 'zxcvbn', anime: anime }
+
+    it { should be anime.id }
   end
 end

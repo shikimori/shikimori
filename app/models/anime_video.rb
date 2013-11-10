@@ -7,8 +7,6 @@ class AnimeVideo < ActiveRecord::Base
     class_name: AnimeVideoAuthor.name,
     foreign_key: :anime_video_author_id
 
-  attr_accessible :episode, :kind, :url, :source, :language
-
   enumerize :kind, in: [:raw, :subtitles, :fandub, :unknown], predicates: true
   enumerize :language, in: [:russian, :english], predicates: true
 

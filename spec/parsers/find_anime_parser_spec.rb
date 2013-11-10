@@ -79,12 +79,12 @@ describe FindAnimeParser do
 
     describe :озвучка do
       let(:text) { 'Озвучка+сабы' }
-      it { should eq :dubbed }
+      it { should eq :fandub }
     end
 
     describe :озвучка do
       let(:text) { 'Озвучка' }
-      it { should eq :dubbed }
+      it { should eq :fandub }
     end
 
     describe :сабы do

@@ -1,12 +1,13 @@
 # матчер названий аниме и манги со сторонних сервисов с названиями на сайте
 class NameMatcher
   # конструктор
-  def initialize klass, ids=nil
+  def initialize klass, ids=nil, services=[]
     # в каком порядке будем обходить кеш
     @match_order = [:name, :alt, :alt2]
 
     @klass = klass
     @ids = ids
+    @services = services
 
     # хеш с названиями, по которому будем искать
     @cache = {
@@ -14,6 +15,7 @@ class NameMatcher
       alt: {},
       alt2: {}
     }
+    services.each {|service| @cache[service] = {} }
 
     build_cache
   end
@@ -50,6 +52,11 @@ class NameMatcher
     else
       nil
     end
+  end
+
+  # поиск id аниме по идентификатору связанного сайта
+  def by_link identifier, service
+    @cache[service][identifier]
   end
 
 private
@@ -112,24 +119,30 @@ private
   # заполнение кеша
   def build_cache
     datasource.each do |entry|
-      all_names = {
+      names = {
         name: main_names(entry),
         alt: alt_names(entry)
       }
-      all_names.each {|k,v| v.map!(&:downcase) }
+      names.each {|k,v| v.map!(&:downcase) }
 
       # отдельно будем пытаться матчить то, что содержит запятые, двоеточия и тире
-      all_names[:alt2] = all_names[:alt].map {|name| phrase_variants name, entry.kind }.compact.flatten
-      all_names[:alt2] = (all_names[:alt2] + all_names[:alt2].map {|v| v.gsub('!', '') }).uniq
+      names[:alt2] = names[:alt].map {|name| phrase_variants name, entry.kind }.compact.flatten
+      names[:alt2] = (names[:alt2] + names[:alt2].map {|v| v.gsub('!', '') }).uniq
 
-      all_names.each {|k,v| all_names[k] = (v + v.map {|name| fix name }).uniq }
+      names.each {|k,v| names[k] = (v + v.map {|name| fix name }).uniq }
 
-      all_names.each do |group,names|
+      names.each do |group,names|
         names.each do |name|
           @cache[group][name] ||= []
           @cache[group][name] << entry.id
         end
       end
+
+      # идентификаторы привязанных сервисов
+      entry
+        .links
+        .select {|v| @services.include?(v.service.to_sym) }
+        .each {|link| @cache[link.service.to_sym][link.identifier] = entry.id } if @services.present?
     end
   end
 
@@ -147,11 +160,9 @@ private
   end
 
   def datasource
-    ds = if @ids.present?
-      @klass.where(id: @ids)
-    else
-      @klass
-    end
+    ds = @klass
+    ds = ds.where id: @ids if @ids.present?
+    ds = ds.includes(:links) if @services.present?
 
     ds.select([:name, :id, :english, :synonyms, :kind, :aired_at])
       .all
