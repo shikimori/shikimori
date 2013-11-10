@@ -1,5 +1,5 @@
 class InvalidId < Exception
-  def initialize(url)
-    super("invalid id for #{url}")
+  def initialize url
+    super "invalid id for #{url}"
   end
 end

@@ -22,11 +22,11 @@ describe FindAnimeImporter do
             episode += 1
             { episode: episode }
           end
-          AnimeVideo.stub(:import).and_return true
+          AnimeVideo.stub :import
           importer.should_receive(:build_video).exactly(13).times
         end
 
-        it { subject.should be_true }
+        it { should be_nil }
       end
 
       context :partial_import do
@@ -38,11 +38,11 @@ describe FindAnimeImporter do
             episode += 1
             { episode: episode }
           end
-          AnimeVideo.stub(:import).and_return true
+          AnimeVideo.stub :import
           importer.should_receive(:build_video).exactly(6).times
         end
 
-        it { subject.should be_true }
+        it { should be_nil }
       end
     end
 
@@ -84,6 +84,11 @@ describe FindAnimeImporter do
         let!(:author) { create :anime_video_author, name: 'Ancord & Nika Lenina' }
         it { expect{subject}.to_not change AnimeVideoAuthor, :count }
       end
+    end
+
+    describe :unmatched_entries do
+      let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
+      it { expect{subject}.to raise_error UnmatchedEntries }
     end
   end
 end

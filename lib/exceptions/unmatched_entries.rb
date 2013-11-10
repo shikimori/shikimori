@@ -1,0 +1,2 @@
+class UnmatchedEntries < Exception
+end
