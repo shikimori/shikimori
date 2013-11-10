@@ -81,7 +81,7 @@ class NameMatcher
 
   # выборка id аниме по однозначному совпадению по простым алгоритмам поиска AniMangaQuery
   def fetch_id name
-    results = AniMangaQuery.new(Anime, search: name).fetch
+    results = AniMangaQuery.new(@klass, search: name).fetch
 
     if results.count == 1
       results.first.id
