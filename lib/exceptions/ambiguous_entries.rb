@@ -1,0 +1,2 @@
+class AmbiguousEntries < Exception
+end

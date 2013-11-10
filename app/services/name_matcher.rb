@@ -36,7 +36,7 @@ class NameMatcher
   def get_ids names
     variants(names).map do |variant|
       @match_order.map {|group| @cache[group][variant] }
-    end.flatten.compact
+    end.flatten.compact.uniq
   end
 
   # выборка id аниме по однозначному совпадению по простым алгоритмам поиска AniMangaQuery

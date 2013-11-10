@@ -4,10 +4,13 @@ class FindAnimeImporter
   def initialize
     @parser = FindAnimeParser.new
     @matcher = NameMatcher.new Anime, nil, [:findanime]
+
     @authors = AnimeVideoAuthor.all.each_with_object({}) do |author,memo|
       memo[author.name] = author
     end
+
     @unmatched = []
+    @ambiguous = []
   end
 
   def import pages, is_full
@@ -18,6 +21,7 @@ class FindAnimeImporter
     end
 
     raise UnmatchedEntries, @unmatched.join(', ') if @unmatched.any?
+    raise AmbiguousEntries, @ambiguous.join(', ') if @ambiguous.any?
   end
 
 private
@@ -58,10 +62,15 @@ private
     anime_id = @matcher.by_link entry[:id], SERVICE
 
     unless anime_id
-      anime_id = @matcher.get_id entry[:names]
+      anime_ids = @matcher.get_ids entry[:names]
 
-      if anime_id
+      if anime_ids.size == 1
+        anime_id = anime_ids.first
         save_link entry[:id], anime_id
+
+      elsif anime_ids.size > 1
+        @ambiguous << "#{entry[:id]} (#{anime_ids.join ', '})"
+
       else
         @unmatched << entry[:id]
       end

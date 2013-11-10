@@ -86,9 +86,15 @@ describe FindAnimeImporter do
       end
     end
 
-    describe :unmatched_entries do
+    describe :unmatched do
       let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
       it { expect{subject}.to raise_error UnmatchedEntries }
+    end
+
+    describe :ambiguous do
+      let!(:anime_2) { create :anime, name: 'Триплексоголик: Весенний сон' }
+
+      it { expect{subject}.to raise_error AmbiguousEntries }
     end
   end
 end
