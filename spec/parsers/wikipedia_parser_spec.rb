@@ -372,6 +372,15 @@ describe WikipediaParser do
   | сэйю     = {{nl|Мэгуми|Тоёгути}}
 }}").should eq [{russian: 'Аква', japanese: 'アクア', description: 'DESCRIPTION'}]
       end
+
+      it 'extracts full name' do
+        parser.extract_default("
+{{Описание персонажа
+ | имя      = Кирхе (полное имя Кирхе [[Екатерина II|Августа Фредерика фон Анхальт-Цербст]])
+ | описание = DESCRIPTION
+ | сэйю     = {{nl|Нанако|Иноуэ}}
+}}").should eq [{russian: 'Кирхе Августа Фредерика фон Анхальт-Цербст', japanese: nil, description: 'DESCRIPTION'}]
+      end
     end
 
     describe 'old default' do
@@ -582,28 +591,28 @@ ZXC").should eq [{
 
       chars.should have(13).items
 
-      chars.first[:russian].should eq 'Луиза'
-      chars.first[:english].should eq 'Louise'
-      chars.first[:japanese].should eq 'ルイズ'
+      chars.first[:russian].should eq 'Луиза Франсуаза ле Блан де ла Вальер де Тристейн'
+      chars.first[:english].should be_nil
+      chars.first[:japanese].should be_nil
 
       chars.last[:russian].should eq 'Лонгвиль'
-      chars.last[:english].should eq 'Longueville'
-      chars.last[:japanese].should eq 'ロングビル'
+      chars.last[:english].should be_nil
+      chars.last[:japanese].should be_nil
     end
 
     it 'Toradora!' do
-      parser.extract_characters(toradora).should have(5).items
+      parser.extract_characters(toradora).should have_at_least(5).items
     end
 
     it 'Spice and Wolf' do
       chars = parser.extract_characters(create :anime, name: 'Spice and Wolf')
 
-      chars.should have(4).items
-      chars[0][:english].should eq 'Craft Lawrence'
+      chars.should have_at_least(4).items
+      chars[0][:russian].should eq 'Крафт Лоурэнс'
     end
 
     it 'Shiki' do
-      parser.extract_characters(create :anime, name: 'Shiki').should have(7).items
+      parser.extract_characters(create :anime, name: 'Shiki').should have(8).items
     end
 
     it 'Myself ; Yourself' do

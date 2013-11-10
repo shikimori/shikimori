@@ -216,12 +216,12 @@ class WikipediaParser < SiteParserWithCache
         ^\}\}$
     /x).map do |matches|
       traits = matches[0].split("\n").each_with_object({}) do |line, memo|
-        splits = line.sub(/^\s+\|\s+/, '').split('=').map(&:strip)
+        splits = line.sub(/^\s*\|\s*/, '').split('=').map(&:strip)
         memo[splits.first] = splits.last
       end
 
       {
-        russian: traits['имя'],
+        russian: traits['имя'].sub(/.*\(полное имя (.*)\)/, '\1').sub(/\[\[.*\|(.*)\]\]/, '\1'),
         japanese: traits['кандзи'],
         description: traits['описание']
       }
