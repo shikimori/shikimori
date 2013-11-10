@@ -4,7 +4,7 @@ describe FindAnimeImporter do
   let(:importer) { FindAnimeImporter.new }
 
   describe :import do
-    subject { importer.import 0..0, import_all }
+    subject { importer.import 0, import_all }
     let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki' }
     let(:identifier) { 'xxxholic__shunmuki' }
     let(:import_all) { true }

@@ -14,7 +14,7 @@ class FindAnimeImporter
   end
 
   def import pages, is_full
-    @parser.fetch_pages(0..0).each do |entry|
+    @parser.fetch_pages(0..pages).each do |entry|
       anime_id = find_match entry
 
       import_episodes anime_id, entry[:episodes], is_full if anime_id
@@ -28,7 +28,7 @@ private
   def import_episodes anime_id, episodes, is_full
     anime = Anime.find(anime_id)
     imported_videos = anime.anime_videos.all
-    last_episode = imported_videos.any? ? imported_videos.max(&:episode).episode : 0
+    last_episode = imported_videos.any? ? imported_videos.max {|v| v.episode }.episode : 0
     filtered_episodes = episodes.select {|episode| is_full ? true : episode[:episode] > last_episode - 3 }
 
     AnimeVideo.import fetch_videos(filtered_episodes, anime, imported_videos)
