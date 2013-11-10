@@ -1,35 +1,42 @@
 class FindAnimeImporter
   SERVICE = :findanime
 
-  def import pages
+  def import pages, is_full
     parser.fetch_pages(0..0).each do |entry|
       anime_id = find_match entry
 
-      import_episodes anime_id, entry[:episodes] if anime_id
+      import_episodes anime_id, entry[:episodes], is_full if anime_id
     end
   end
 
 private
-  def import_episodes anime_id, episodes
-    anime = Anime.find anime_id
-    videos = episodes.map {|episode| parser.fetch_episode(episode)[:videos] }.flatten
+  def import_episodes anime_id, episodes, is_full
+    anime = Anime.find(anime_id)
+    imported_videos = anime.anime_videos.all
+    last_episode = imported_videos.any? ? imported_videos.max(&:episode).episode : 0
+    filtered_episodes = episodes.select {|episode| is_full ? true : episode[:episode] > last_episode - 3 }
 
-    import_videos anime, videos
+    AnimeVideo.import fetch_videos(filtered_episodes, anime, imported_videos)
   end
 
-  def import_videos anime, videos
-    videos.each do |video|
-      next if anime.anime_videos.any? {|v| v.url == video.url }
+  def fetch_videos episodes, anime, imported_videos
+    episodes
+      .map {|episode| parser.fetch_videos episode[:episode], episode[:url] }
+      .flatten
+      .select {|video| imported_videos.none? {|v| v.url == video[:url] && v.source == video[:source] } }
+      .map {|video| build_video video, anime.id }
+  end
 
-      anime.anime_videos.create!({
-        episode: video.episode,
-        url: video.url,
-        kind: video.kind,
-        language: video.language,
-        source: video.source,
-        anime_video_author_id: find_or_create_author(video.author).try(:id)
-      })
-    end
+  def build_video video, anime_id
+    AnimeVideo.new({
+      anime_id: anime_id,
+      episode: video.episode,
+      url: video.url,
+      kind: video.kind,
+      language: video.language,
+      source: video.source,
+      anime_video_author_id: find_or_create_author(video.author).try(:id)
+    })
   end
 
   def parser

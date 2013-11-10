@@ -14,8 +14,8 @@ class FindAnimeParser < ReadMangaParser
     { episodes: episodes }
   end
 
-  def fetch_episode episode
-    episode[:videos] = Nokogiri::HTML(get(episode[:url])).css('.chapter-link').map do |node|
+  def fetch_videos episode, url
+    Nokogiri::HTML(get(url)).css('.chapter-link').map do |node|
       description = node.css('.video-info .details').text.strip
 
       kind, author = $1, $2 if description =~ /(.*)[\s\S]*\((.*)\)/
@@ -24,16 +24,15 @@ class FindAnimeParser < ReadMangaParser
 
       embed_source = node.css('.embed_source').first
 
-      OpenStruct.new episode.merge({
+      OpenStruct.new({
+        episode: episode,
         kind: kind,
         language: extract_language(kind || description),
-        source: episode[:url],
-        url: extract_url(embed_source.attr('value'), episode[:url]),
+        source: url,
+        url: extract_url(embed_source.attr('value'), url),
         author: HTMLEntities.new.decode(author)
       }) if embed_source && kind
-    end
-
-    OpenStruct.new episode
+    end.compact
   end
 
   def extract_kind kind
