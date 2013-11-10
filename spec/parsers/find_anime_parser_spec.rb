@@ -39,7 +39,7 @@ describe FindAnimeParser do
     describe :videos do
       subject(:videos) { data.videos }
 
-      it { should have(11).items }
+      it { should have(12).items }
 
       describe :first do
         subject { videos.first }
@@ -53,7 +53,7 @@ describe FindAnimeParser do
       end
 
       describe :special do
-        subject { videos[-4] }
+        subject { videos[-5] }
         its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
         its(:author) { should eq 'JAM & Ancord & Nika Lenina' }
       end
