@@ -6,7 +6,7 @@ class FindAnimeImporter
     @matcher = NameMatcher.new Anime, nil, [:findanime]
 
     @authors = AnimeVideoAuthor.all.each_with_object({}) do |author,memo|
-      memo[author.name] = author
+      memo[author.name.downcase] = author
     end
 
     @unmatched = []
@@ -82,10 +82,10 @@ private
   def find_or_create_author name
     return nil if name.blank?
 
-    if @authors[name]
-      @authors[name]
+    if @authors[name.downcase]
+      @authors[name.downcase]
     else
-      @authors[name] = AnimeVideoAuthor.create! name: name
+      @authors[name.downcase] = AnimeVideoAuthor.create! name: name
     end
   end
 end
