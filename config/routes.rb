@@ -8,6 +8,10 @@ Site::Application.routes.draw do
       devise_scope :user do
         resources :sessions, only: [:create]
       end
+
+      resource :profile, only: [] do
+        resources :friends, only: [:index]
+      end
     end
 
     resources :animes, only: [:index, :show]

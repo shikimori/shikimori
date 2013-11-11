@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe UserRatesController do
   [:anime, :manga].each do |kind|
-    let (:user) { create :user }
-    let (:entry) { create kind }
-    let (:user_rate) { create :user_rate, user: user, target: entry }
+    let(:user) { create :user }
+    let(:entry) { create kind }
+    let(:user_rate) { create :user_rate, user: user, target: entry }
 
-    let (:defaults) do
+    let(:defaults) do
       { id: entry.to_param, type: entry.class.name }
     end
 
