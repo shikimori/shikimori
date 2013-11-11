@@ -1,6 +1,6 @@
 class Favourite < ActiveRecord::Base
-  belongs_to :linked, :polymorphic => true
-  belongs_to :user
+  belongs_to :linked, polymorphic: true
+  belongs_to :user, touch: true
 
   Seyu = 'seyu'
   Mangaka = 'mangaka'

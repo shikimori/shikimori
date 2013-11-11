@@ -12,6 +12,7 @@ Site::Application.routes.draw do
       namespace :profile do
         resources :friends, only: [:index]
         resources :clubs, only: [:index]
+        resources :favourites, only: [:index]
       end
     end
 
