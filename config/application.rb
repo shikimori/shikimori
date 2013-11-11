@@ -9,7 +9,6 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-
 module Site
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -67,5 +66,13 @@ module Site
       authentication: 'plain',
       enable_starttls_auto: true
     }
+
+    config.generators do |g|
+      g.template_engine :slim
+      g.stylesheets     false
+      g.helper          false
+      g.helper_specs    false
+      g.view_specs      false
+    end
   end
 end
