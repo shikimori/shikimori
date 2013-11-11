@@ -23,7 +23,7 @@ Site::Application.routes.draw do
     resources :reviews, only: [:show]
   end
 
-  constraints(AnimeVideoDomain) do
+  constraints(AnimeOnlineDomain) do
     resources :anime_videos, path: 'videos', only: [:show], controller: 'anime_online/anime_videos'
   end
 
