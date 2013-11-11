@@ -12,7 +12,7 @@ class Api::V1::Profile::FavouritesController < Api::V1::ApiController
         people: current_user.fav_persons.all,
         mangakas: current_user.fav_mangakas.all,
         seyu: current_user.fav_seyu.all,
-        producers: current_user.fav_producer.alls
+        producers: current_user.fav_producers.all
       }
     end
     @resource = OpenStruct.new favourites

@@ -13,6 +13,9 @@ Site::Application.routes.draw do
         resources :friends, only: [:index]
         resources :clubs, only: [:index]
         resources :favourites, only: [:index]
+        resources :messages, only: [] do
+          get :unread, on: :collection
+        end
       end
     end
 
