@@ -9,8 +9,9 @@ Site::Application.routes.draw do
         resources :sessions, only: [:create]
       end
 
-      resource :profile, only: [] do
+      namespace :profile do
         resources :friends, only: [:index]
+        resources :clubs, only: [:index]
       end
     end
 
