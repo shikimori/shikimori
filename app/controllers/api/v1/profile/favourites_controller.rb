@@ -4,14 +4,17 @@ class Api::V1::Profile::FavouritesController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/profile/favourites", "List favourites"
   def index
-    @resource = OpenStruct.new({
-      animes: current_user.fav_animes,
-      mangas: current_user.fav_mangas,
-      characters: current_user.fav_characters,
-      people: current_user.fav_persons,
-      mangakas: current_user.fav_mangakas,
-      seyu: current_user.fav_seyu,
-      producers: current_user.fav_producers
-    })
+    favourites = Rails.cache.fetch [current_user, :favourites] do
+      {
+        animes: current_user.fav_animes.all,
+        mangas: current_user.fav_mangas.all,
+        characters: current_user.fav_characters.all,
+        people: current_user.fav_persons.all,
+        mangakas: current_user.fav_mangakas.all,
+        seyu: current_user.fav_seyu.all,
+        producers: current_user.fav_producer.alls
+      }
+    end
+    @resource = OpenStruct.new favourites
   end
 end
