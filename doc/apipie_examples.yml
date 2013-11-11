@@ -8,7 +8,7 @@
     - query: ''
     - request_data: 
     - response_data:
-        token: RafxzqChn62frYrqjAxyQsbLmaLN/XrFQtSUE4uEqlg=
+        token: CnUXUYkDvOQYhmJQ80l4c9I4koKKWNBMKcgNi9L4qVQ=
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -20,7 +20,7 @@
     - query: ''
     - request_data: 
     - response_data:
-        token: nZQyzZ85MIwC7wiwKjLeXcl7h2GXoqkGhTj084zpkW0=
+        token: AJQh+O+o2mjldYDlwjCwMcLQmGLX+gYNSqd9IgQXPFU=
     - code: '200'
     - show_in_doc: 0
     - recorded: true
@@ -33,7 +33,7 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 30
+      - id: 32
         name: group_1
         logo: http://www.gravatar.com/avatar/group?s=73
     - code: '200'
@@ -45,37 +45,37 @@
     - path: /api/comments
     - versions:
       - '1'
-    - query: commentable_id=412&commentable_type=User&desc=1&limit=10&page=1
+    - query: commentable_id=443&commentable_type=User&desc=1&limit=10&page=1
     - request_data: 
     - response_data:
-      - id: 124
-        user_id: 412
-        commentable_id: 412
+      - id: 136
+        user_id: 443
+        commentable_id: 443
         commentable_type: User
         body: comment_body_4
         html_body: comment_body_4
-        created_at: '2013-11-11T21:43:41+04:00'
-        updated_at: '2013-11-11T21:43:41+04:00'
+        created_at: '2013-11-11T21:46:57+04:00'
+        updated_at: '2013-11-11T21:46:57+04:00'
         offtopic: false
         review: false
         user:
-          id: 412
-          nickname: user_3
-          avatar: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon
-      - id: 123
-        user_id: 412
-        commentable_id: 412
+          id: 443
+          nickname: user_4
+          avatar: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
+      - id: 135
+        user_id: 443
+        commentable_id: 443
         commentable_type: User
         body: comment_body_3
         html_body: comment_body_3
-        created_at: '2013-11-11T21:43:41+04:00'
-        updated_at: '2013-11-11T21:43:41+04:00'
+        created_at: '2013-11-11T21:46:57+04:00'
+        updated_at: '2013-11-11T21:46:57+04:00'
         offtopic: false
         review: false
         user:
-          id: 412
-          nickname: user_3
-          avatar: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon
+          id: 443
+          nickname: user_4
+          avatar: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -84,88 +84,88 @@
     - path: /api/comments
     - versions:
       - '1'
-    - query: commentable_id=413&commentable_type=User&desc=1&limit=10&page=1
+    - query: commentable_id=444&commentable_type=User&desc=1&limit=10&page=1
     - request_data: 
     - response_data:
-      - id: 126
-        user_id: 413
-        commentable_id: 413
+      - id: 138
+        user_id: 444
+        commentable_id: 444
         commentable_type: User
         body: comment_body_6
         html_body: comment_body_6
-        created_at: '2013-11-11T21:43:42+04:00'
-        updated_at: '2013-11-11T21:43:42+04:00'
+        created_at: '2013-11-11T21:46:57+04:00'
+        updated_at: '2013-11-11T21:46:57+04:00'
         offtopic: false
         review: false
         user:
-          id: 413
-          nickname: user_4
-          avatar: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
-      - id: 125
-        user_id: 413
-        commentable_id: 413
+          id: 444
+          nickname: user_5
+          avatar: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
+      - id: 137
+        user_id: 444
+        commentable_id: 444
         commentable_type: User
         body: comment_body_5
         html_body: comment_body_5
-        created_at: '2013-11-11T21:43:42+04:00'
-        updated_at: '2013-11-11T21:43:42+04:00'
+        created_at: '2013-11-11T21:46:57+04:00'
+        updated_at: '2013-11-11T21:46:57+04:00'
         offtopic: false
         review: false
         user:
-          id: 413
-          nickname: user_4
-          avatar: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
+          id: 444
+          nickname: user_5
+          avatar: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - comments#show:
   - !omap
     - verb: :GET
-    - path: /api/comments/121
+    - path: /api/comments/133
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 121
-        user_id: 410
-        commentable_id: 237
+        id: 133
+        user_id: 441
+        commentable_id: 247
         commentable_type: Entry
         body: comment_body_1
         html_body: comment_body_1
-        created_at: '2013-11-11T21:43:41+04:00'
-        updated_at: '2013-11-11T21:43:41+04:00'
+        created_at: '2013-11-11T21:46:57+04:00'
+        updated_at: '2013-11-11T21:46:57+04:00'
         offtopic: false
         review: false
         user:
-          id: 410
-          nickname: user_1
-          avatar: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=48&d=identicon
+          id: 441
+          nickname: user_2
+          avatar: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/comments/122
+    - path: /api/comments/134
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 122
-        user_id: 411
-        commentable_id: 238
+        id: 134
+        user_id: 442
+        commentable_id: 248
         commentable_type: Entry
         body: comment_body_2
         html_body: comment_body_2
-        created_at: '2013-11-11T21:43:41+04:00'
-        updated_at: '2013-11-11T21:43:41+04:00'
+        created_at: '2013-11-11T21:46:57+04:00'
+        updated_at: '2013-11-11T21:46:57+04:00'
         offtopic: false
         review: false
         user:
-          id: 411
-          nickname: user_2
-          avatar: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon
+          id: 442
+          nickname: user_3
+          avatar: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon
     - code: '200'
     - show_in_doc: 0
     - recorded: true
@@ -179,47 +179,47 @@
     - request_data: 
     - response_data:
         animes:
-        - id: 11299
+        - id: 11319
           name: anime_1
           russian: russian_anime_1
           image: /images/x48/missing.png
-          url: /animes/11299-anime_1
+          url: /animes/11319-anime_1
         mangas:
-        - id: 61
+        - id: 64
           name: manga_1
           russian: манга_1
           image: /images/x48/missing.png
-          url: /mangas/61-manga_1
+          url: /mangas/64-manga_1
         characters:
-        - id: 44
+        - id: 47
           name: character_1
           russian: персонаж_1
           image: /assets/globals/missing_x48.jpg
-          url: /characters/44-character_1
+          url: /characters/47-character_1
         seyu:
-        - id: 117
+        - id: 129
           name: prson_4
           russian: 
           image: /assets/globals/missing_x48.jpg
-          url: /person/117-prson_4
+          url: /person/129-prson_4
         mangakas:
-        - id: 115
+        - id: 127
           name: prson_2
           russian: 
           image: /assets/globals/missing_x48.jpg
-          url: /person/115-prson_2
+          url: /person/127-prson_2
         producers:
-        - id: 116
+        - id: 128
           name: prson_3
           russian: 
           image: /assets/globals/missing_x48.jpg
-          url: /person/116-prson_3
+          url: /person/128-prson_3
         people:
-        - id: 114
+        - id: 126
           name: prson_1
           russian: 
           image: /assets/globals/missing_x48.jpg
-          url: /person/114-prson_1
+          url: /person/126-prson_1
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -232,9 +232,24 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 414
-        nickname: user_5
-        avatar: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
+      - id: 447
+        nickname: user_8
+        avatar: http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=48&d=identicon
+    - code: '200'
+    - show_in_doc: 1
+    - recorded: true
+- messages#unread:
+  - !omap
+    - verb: :GET
+    - path: /api/profile/messages/unread
+    - versions:
+      - '1'
+    - query: ''
+    - request_data: 
+    - response_data:
+        messages: 0
+        news: 0
+        notifications: 0
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -264,7 +279,7 @@
           nickname: test
           password: '123456'
     - response_data:
-        id: 421
+        id: 450
         nickname: test
         email: email11@factory.com
         avatar: http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=32&d=identicon
@@ -282,7 +297,7 @@
           nickname: test
           password: '123456'
     - response_data:
-        id: 422
+        id: 451
         nickname: test
         email: email12@factory.com
         avatar: http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=32&d=identicon
