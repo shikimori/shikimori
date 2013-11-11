@@ -1,5 +1,6 @@
 # TODO: переделать kind в enumerize (https://github.com/brainspec/enumerize)
 # TODO: extract torrents to value object
+# TODO: выпилить matches_for и заменить на использование NameMatcher
 class Anime < ActiveRecord::Base
   include AniManga
   EXCLUDED_ONGOINGS = [516,966,6116,1199,2406,1960,3975,4459,6149,8189,8687,9947,8336,7511,7261,6195,8025,8176,9371,9536,6962,9518,6900,8143,7643,10349,9893,10506,9561,9562,10177,10528,10513,8495,11017,11177,10524,10995,10797,10847,12181,9799,6119,11541,15897,15749,16347,18469]

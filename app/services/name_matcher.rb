@@ -3,7 +3,7 @@ class NameMatcher
   # конструктор
   def initialize klass, ids=nil, services=[]
     # в каком порядке будем обходить кеш
-    @match_order = [:name, :alt, :alt2]
+    @match_order = [:name, :alt, :alt2, :russian, :predefined]
 
     @klass = klass
     @ids = ids
@@ -13,7 +13,9 @@ class NameMatcher
     @cache = {
       name: {},
       alt: {},
-      alt2: {}
+      alt2: {},
+      russian: {},
+      predefined: load_predefined_matches
     }
     services.each {|service| @cache[service] = {} }
 
@@ -22,7 +24,7 @@ class NameMatcher
 
   # поиск id аниме по переданному наванию
   def get_id name
-    variants([name]).each do |variant|
+    variants(name).each do |variant|
       @match_order.each do |group|
         ids = @cache[group][variant]
         return ids.first if ids
@@ -62,47 +64,43 @@ class NameMatcher
 private
   # фикс имени - вырезание из него всего, что можно
   def fix name
-    if name
-      name.downcase
-          .force_encoding('utf-8')
-          .gsub(/[-:,.~)(]/, '')
-          .gsub(/`/, '\'')
-          .gsub(/([A-z])0(\d)/, '\1\2')
-          .gsub(/ /, '')
-          .gsub(/☆|†|♪/, '')
-          .strip
-    end
+    (name || '')
+      .downcase
+      .force_encoding('utf-8')
+      .gsub(/[-:,.~)(\/]/, '')
+      .gsub(/`/, '\'')
+      .gsub(/ /, '')
+      .gsub(/☆|†|♪/, '')
+      .strip
+      #.gsub(/([A-z])0(\d)/, '\1\2')
   end
 
   # получение различных вариантов написания фразы
   def phrase_variants name, kind=nil
-    variants = split_by_delimiters(name, kind) +
-      [name =~ / and / ? name.sub(' and ', ' & ') : nil,
-       name =~ / & / ? name.sub(' & ', ' and ') : nil,
-       name =~ / season (\d)/ ? name.sub(/ season (\d+)/, ' s\1') : nil,
-       name =~ / s(\d)/ ? name.sub(/ s(\d+)/, ' season \1') : nil,
-       name =~ /^the / ? name.sub(/^the /, '') : nil,
-       name =~ /magika/ ? name.sub(/magika/, 'magica') : nil,
-       name =~ /magica/ ? name.sub(/magica/, 'magika') : nil,
-      ]
+    phrases = split_by_delimiters(name, kind) + [
+      name =~ / and / ? name.sub(' and ', ' & ') : nil,
+      name =~ / & / ? name.sub(' & ', ' and ') : nil,
+      name =~ / season (\d)/ ? name.sub(/ season (\d+)/, ' s\1') : nil,
+      name =~ / s(\d)/ ? name.sub(/ s(\d+)/, ' season \1') : nil,
+      name =~ /^the / ? name.sub(/^the /, '') : nil,
+      name =~ /magika/ ? name.sub(/magika/, 'magica') : nil,
+      name =~ /(?<= )2$/ ? name.sub(/(?<= )2$/, '2nd season') : nil,
+      name =~ /(?<= )3$/ ? name.sub(/(?<= )3$/, '3rd season') : nil,
+      name =~ /(?<= )[456789]$/ ? name.sub(/(?<= )([456789])$/, '\1th season') : nil,
+      kind && name.include?("(#{kind.downcase})") ? name.sub("(#{kind.downcase})", '').strip : nil
+    ].compact
 
-      # с альтернативным названием в скобках
-      if name =~ /\(.{5}.*?\)/
-        variants.concat name.split(/\(|\)/).map(&:strip)
-      end
-
-      variants.compact
+    # с альтернативным названием в скобках
+    phrases.concat name.split(/\(|\)/).map(&:strip) if name =~ /\(.{5}.*?\)/
+    phrases.flatten.map {|name| fix name }
   end
 
   # все возможные варианты написания имён
   def variants names
-    [names].flatten.map do |name|
+    [names].flatten.map(&:downcase).map do |name|
       fixed_name = fix name
 
-      binding.pry if name.nil?
-      [name.downcase, fixed_name, fixed_name.gsub('!', '')] +
-          phrase_variants(name.downcase) +
-          phrase_variants(fixed_name)
+      [name, fixed_name, fixed_name.gsub('!', '')] + phrase_variants(name) + phrase_variants(fixed_name)
     end.flatten.uniq
   end
 
@@ -121,13 +119,11 @@ private
     datasource.each do |entry|
       names = {
         name: main_names(entry),
-        alt: alt_names(entry)
+        alt: alt_names(entry),
+        russian: russian_names(entry)
       }
       names.each {|k,v| v.map!(&:downcase) }
-
-      # отдельно будем пытаться матчить то, что содержит запятые, двоеточия и тире
-      names[:alt2] = names[:alt].map {|name| phrase_variants name, entry.kind }.compact.flatten
-      names[:alt2] = (names[:alt2] + names[:alt2].map {|v| v.gsub('!', '') }).uniq
+      names[:alt2] = alt2_names(entry, names[:alt])
 
       names.each {|k,v| names[k] = (v + v.map {|name| fix name }).uniq }
 
@@ -159,13 +155,33 @@ private
     [entry.name] + (entry.synonyms ? entry.synonyms : []) + (entry.english ? entry.english : [])
   end
 
+  def alt2_names entry, alt1_names
+    names = alt1_names.map {|name| phrase_variants name, entry.kind }.compact.flatten
+    (
+      names +
+      names.map {|v| v.gsub('!', '') } +
+      alt1_names.select {|v| v =~ /!/ }.map {|v| v.gsub('!', '') }
+    ).uniq
+  end
+
+  def russian_names entry
+    [entry.russian, fix(entry.russian)].compact.map(&:downcase)
+  end
+
   def datasource
     ds = @klass
     ds = ds.where id: @ids if @ids.present?
     ds = ds.includes(:links) if @services.present?
 
-    ds.select([:name, :id, :english, :synonyms, :kind, :aired_at])
+    ds.select([:id, :name, :russian,:english, :synonyms, :kind, :aired_at])
       .all
       .sort_by {|v| v.kind == 'TV' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
+  end
+
+  def load_predefined_matches
+    config = YAML::load(File.open("#{::Rails.root.to_s}/config/alternative_names.yml"))
+    config.each_with_object({}) do |(k,v),memo|
+      memo[fix k] = [v]
+    end
   end
 end

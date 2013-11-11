@@ -108,6 +108,11 @@ describe FindAnimeParser do
       it { should eq :subtitles }
     end
 
+    describe :хардсаб do
+      let(:text) { 'Хардсаб' }
+      it { should eq :subtitles }
+    end
+
     describe :оригинал do
       let(:text) { 'Оригинал' }
       it { should eq :raw }
