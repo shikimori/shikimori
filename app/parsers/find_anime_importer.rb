@@ -11,7 +11,8 @@ class FindAnimeImporter
 
     @unmatched = []
     @ambiguous = []
-    @ignores = Set.new YAML::load(File.open("#{::Rails.root.to_s}/config/findanime.yml"))[:ignores]
+    @config = YAML::load(File.open("#{::Rails.root.to_s}/config/findanime.yml"))
+    @ignores = Set.new(@config[:ignores] + @config[:ignores_until].select {|k,v| v > DateTime.now }.keys)
   end
 
   def import pages, is_full

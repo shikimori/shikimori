@@ -1,4 +1,8 @@
 ---
 :ignores:
   - the_last_airbender__the_legend_of_korra_first_book_air
+  - maou_from_now_on___tv_2 # первый и второй сезона на шики слиты в одно аниме
 
+# временно игнорируемое: аниме, которые в дальнейшем могут появиться в базе шики
+:ignores_until:
+  k_2nd_season: 2014-01-01
