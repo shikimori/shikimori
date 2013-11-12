@@ -77,6 +77,8 @@ private
 
   # получение различных вариантов написания фразы
   def phrase_variants name, kind=nil
+    return [] if name.nil?
+
     phrases = [name]
 
     phrases.concat split_by_delimiters(name, kind).flatten
