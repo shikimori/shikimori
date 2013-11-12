@@ -1,9 +1,8 @@
 class AnimeOnlineDomain
-  IP = '1.2.3.4'
-  DOMAINS = ['animeonline.dev', 'animeonline.production'].freeze
+  HOSTS = ['0.0.0.0', 'animeonline.dev', 'animeonline.production'].freeze
 
   def self.matches? request
-    DOMAINS.include? request.host#and request.parameters[:controller] =~ /^anime_online\/.*/
+    HOSTS.include? request.host
   end
 end
 
