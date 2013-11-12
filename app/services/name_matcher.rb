@@ -67,7 +67,7 @@ private
     (name || '')
       .downcase
       .force_encoding('utf-8')
-      .gsub(/[-:,.~)(\/]/, '')
+      .gsub(/[-:,.~)(\/～]/, '')
       .gsub(/`/, '\'')
       .gsub(/ /, '')
       .gsub(/☆|†|♪/, '')
@@ -77,22 +77,23 @@ private
 
   # получение различных вариантов написания фразы
   def phrase_variants name, kind=nil
-    phrases = split_by_delimiters(name, kind) + [
-      name =~ / and / ? name.sub(' and ', ' & ') : nil,
-      name =~ / & / ? name.sub(' & ', ' and ') : nil,
-      name =~ / season (\d)/ ? name.sub(/ season (\d+)/, ' s\1') : nil,
-      name =~ / s(\d)/ ? name.sub(/ s(\d+)/, ' season \1') : nil,
-      name =~ /^the / ? name.sub(/^the /, '') : nil,
-      name =~ /magika/ ? name.sub(/magika/, 'magica') : nil,
-      name =~ /(?<= )2$/ ? name.sub(/(?<= )2$/, '2nd season') : nil,
-      name =~ /(?<= )3$/ ? name.sub(/(?<= )3$/, '3rd season') : nil,
-      name =~ /(?<= )[456789]$/ ? name.sub(/(?<= )([456789])$/, '\1th season') : nil,
-      kind && name.include?("(#{kind.downcase})") ? name.sub("(#{kind.downcase})", '').strip : nil
-    ].compact
+    phrases = split_by_delimiters name, kind
+    phrases << name.sub(' and ', ' & ')           if name =~ / and /
+    phrases << name.sub(' & ', ' and ')           if name =~ / & /
+    phrases << name.sub(/ eason (\d+)/, ' s\1')   if name =~ / season (\d)/
+    phrases << name.sub(/ s(\d+)/, ' season \1')  if name =~ / s(\d)/
+    phrases << name.sub(/^the /, '')              if name =~ /^the /
+    phrases << name.sub(/magika/, 'magica')       if name =~ /magika/
+    phrases << name.sub(/(?<= )2$/, '2nd season') if name =~ /(?<= )2$/
+    phrases << name.sub(/(?<= )3$/, '3rd season') if name =~ /(?<= )3$/
+    phrases << name.sub(/s(?!h)/, 'sh')           if name =~ /s(?!h)/
+    phrases << name.sub(/ the animation/, '')     if name =~ / the animation/
+    phrases << name.sub(/(?<= )([456789])$/, '\1th season') if name =~ /(?<= )[456789]$/
+    phrases << name.sub("(#{kind.downcase})", '').strip if kind && name.include?("(#{kind.downcase})")
 
     # с альтернативным названием в скобках
     phrases.concat name.split(/\(|\)/).map(&:strip) if name =~ /\(.{5}.*?\)/
-    phrases.flatten.map {|name| fix name }
+    phrases.flatten.compact.map {|name| fix name }.uniq
   end
 
   # все возможные варианты написания имён
@@ -165,7 +166,12 @@ private
   end
 
   def russian_names entry
-    [entry.russian, fix(entry.russian)].compact.map(&:downcase)
+    names = [entry.russian, fix(entry.russian), phrase_variants(entry.russian)]
+      .flatten
+      .compact
+      .map(&:downcase)
+
+    (names + names.map {|v| v.gsub('!', '') }).uniq
   end
 
   def datasource

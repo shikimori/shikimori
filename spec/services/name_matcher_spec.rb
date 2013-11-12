@@ -130,6 +130,18 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
+    describe 'russian with !' do
+      subject { matcher.get_id 'Гинтама: Финальная арка: Йорозуя навсегда' }
+      let!(:anime) { create :anime, kind: 'TV', russian: 'Гинтама: Финальная арка: Йорозуя навсегда!' }
+      it { should be anime.id }
+    end
+
+    describe '～' do
+      subject { matcher.get_id 'Little Busters～Refrain～' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Little Busters!: Refrain' }
+      it { should be anime.id }
+    end
+
     describe 'space delimiter' do
       subject { matcher.get_id 'Kyousougiga' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Kyousou Giga (TV)' }
@@ -145,6 +157,18 @@ describe NameMatcher do
     describe 'alternative names in config' do
       subject { matcher.get_id 'Охотник х Охотник [ТВ -2]' }
       let!(:anime) { create :anime, kind: 'TV', id: 11061 }
+      it { should be anime.id }
+    end
+
+    describe '"s" as "sh"' do
+      subject { matcher.get_id 'YuShibu' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Yusibu' }
+      it { should be anime.id }
+    end
+
+    describe 'the animation' do
+      subject { matcher.get_id 'Baton The Animation' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Baton' }
       it { should be anime.id }
     end
   end
