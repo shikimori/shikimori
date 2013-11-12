@@ -76,6 +76,12 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
+    describe 'more 2nd season' do
+      subject { matcher.get_id 'Major 2nd Season' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Major S2' }
+      it { should be anime.id }
+    end
+
     describe '3rd season' do
       subject { matcher.get_id 'Kingdom 3' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Kingdom 3rd Season' }
@@ -97,6 +103,12 @@ describe NameMatcher do
     describe 'long lines in brackets' do
       subject { matcher.get_id "My youth romantic comedy is wrong as I expected. (Yahari ore no seishun rabukome wa machigatte iru.)" }
       let!(:anime) { create :anime, kind: 'TV', name: 'Yahari Ore no Seishun Love Come wa Machigatteiru.', english: ["My youth romantic comedy is wrong as I expected."] }
+      it { should be anime.id }
+    end
+
+    describe 'without [ТВ-N]' do
+      subject { matcher.get_id 'Hayate no Gotoku! Cuties [ТВ- 4]' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Hayate no Gotoku! Cuties' }
       it { should be anime.id }
     end
 

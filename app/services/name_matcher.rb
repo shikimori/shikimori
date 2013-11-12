@@ -83,14 +83,20 @@ private
 
     phrases.concat split_by_delimiters(name, kind).flatten
 
+    phrases = multiply_phrases phrases, /\[тв\s*-?\s*\d\]$/, ''
+
     phrases = multiply_phrases phrases, / season (\d+)/, ' s\1'
     phrases = multiply_phrases phrases, / s(\d+)/, ' season \1'
+    phrases = multiply_phrases phrases, / 2nd season$/, ' s2'
+
     phrases = multiply_phrases phrases, /^the /, ''
     phrases = multiply_phrases phrases, /magika/, 'magica'
     phrases = multiply_phrases phrases, /(?<= )2$/, '2nd season'
     phrases = multiply_phrases phrases, /(?<= )3$/, '3rd season'
     phrases = multiply_phrases phrases, / plus$/, '+'
     phrases = multiply_phrases phrases, / the animation$/, ''
+
+    phrases = multiply_phrases phrases, '!', ''
 
     # разлинчные варианты написания одних и тех же слов и фраз
     phrases = multiply_phrases phrases, ' and ', ' & '
@@ -115,11 +121,7 @@ private
 
   # все возможные варианты написания имён
   def variants names
-    [names].flatten.map(&:downcase).map do |name|
-      fixed_name = fix name
-
-      [name, fixed_name, fixed_name.gsub('!', '')] + phrase_variants(name) + phrase_variants(fixed_name)
-    end.flatten.uniq
+    [names].flatten.map(&:downcase).map {|name| phrase_variants name }.flatten.uniq
   end
 
   # разбитие фразы по запятым, двоеточиям и тире
