@@ -49,7 +49,7 @@ class FindAnimeParser < ReadMangaParser
   def extract_kind kind
     case kind
       when 'Озвучка', 'Озвучка+сабы' then :fandub
-      when 'Сабы', 'Английские сабы', 'Хардсаб' then :subtitles
+      when 'Сабы', 'Английские сабы', 'Хардсаб', 'Хардсаб+сабы' then :subtitles
       when 'Оригинал' then :raw
       when '' then :unknown
       else

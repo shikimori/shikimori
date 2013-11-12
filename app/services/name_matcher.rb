@@ -67,7 +67,7 @@ private
     (name || '')
       .downcase
       .force_encoding('utf-8')
-      .gsub(/[-:,.~)(\/]/, '')
+      .gsub(/[-:,.~)(\/～]/, '')
       .gsub(/`/, '\'')
       .gsub(/ /, '')
       .gsub(/☆|†|♪/, '')
@@ -77,22 +77,38 @@ private
 
   # получение различных вариантов написания фразы
   def phrase_variants name, kind=nil
-    phrases = split_by_delimiters(name, kind) + [
-      name =~ / and / ? name.sub(' and ', ' & ') : nil,
-      name =~ / & / ? name.sub(' & ', ' and ') : nil,
-      name =~ / season (\d)/ ? name.sub(/ season (\d+)/, ' s\1') : nil,
-      name =~ / s(\d)/ ? name.sub(/ s(\d+)/, ' season \1') : nil,
-      name =~ /^the / ? name.sub(/^the /, '') : nil,
-      name =~ /magika/ ? name.sub(/magika/, 'magica') : nil,
-      name =~ /(?<= )2$/ ? name.sub(/(?<= )2$/, '2nd season') : nil,
-      name =~ /(?<= )3$/ ? name.sub(/(?<= )3$/, '3rd season') : nil,
-      name =~ /(?<= )[456789]$/ ? name.sub(/(?<= )([456789])$/, '\1th season') : nil,
-      kind && name.include?("(#{kind.downcase})") ? name.sub("(#{kind.downcase})", '').strip : nil
-    ].compact
+    phrases = [name]
+
+    phrases.concat split_by_delimiters(name, kind).flatten
+
+    phrases = multiply_phrases phrases, / season (\d+)/, ' s\1'
+    phrases = multiply_phrases phrases, / s(\d+)/, ' season \1'
+    phrases = multiply_phrases phrases, /^the /, ''
+    phrases = multiply_phrases phrases, /magika/, 'magica'
+    phrases = multiply_phrases phrases, /(?<= )2$/, '2nd season'
+    phrases = multiply_phrases phrases, /(?<= )3$/, '3rd season'
+    phrases = multiply_phrases phrases, / plus$/, '+'
+    phrases = multiply_phrases phrases, / the animation$/, ''
+
+    # разлинчные варианты написания одних и тех же слов и фраз
+    phrases = multiply_phrases phrases, ' and ', ' & '
+    phrases = multiply_phrases phrases, ' & ', ' and '
+    phrases = multiply_phrases phrases, ' o ', ' wo '
+    phrases = multiply_phrases phrases, ' wo ', ' o '
+    phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
+    phrases = multiply_phrases phrases, /s(?!h)/, 'sh'
+    phrases = multiply_phrases phrases, /(?<=[wrtpsdfghjklzxcvbnm])o/, 'ou'
+
+    phrases = multiply_phrases phrases, /(?<= )([456789])$/, '\1th season'
+    phrases = multiply_phrases phrases, "(#{kind.downcase})", '' if kind && name.include?("(#{kind.downcase})")
 
     # с альтернативным названием в скобках
     phrases.concat name.split(/\(|\)/).map(&:strip) if name =~ /\(.{5}.*?\)/
-    phrases.flatten.map {|name| fix name }
+    phrases.flatten.compact.map {|name| fix name }.uniq
+  end
+
+  def multiply_phrases phrases, from, to
+    (phrases + phrases.map {|v| v.sub from, to }).uniq
   end
 
   # все возможные варианты написания имён
@@ -165,7 +181,12 @@ private
   end
 
   def russian_names entry
-    [entry.russian, fix(entry.russian)].compact.map(&:downcase)
+    names = [entry.russian, fix(entry.russian), phrase_variants(entry.russian)]
+      .flatten
+      .compact
+      .map(&:downcase)
+
+    (names + names.map {|v| v.gsub('!', '') }).uniq
   end
 
   def datasource

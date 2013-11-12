@@ -11,10 +11,13 @@ class FindAnimeImporter
 
     @unmatched = []
     @ambiguous = []
+    @config = YAML::load(File.open("#{::Rails.root.to_s}/config/findanime.yml"))
+    @ignores = Set.new(@config[:ignores] + @config[:ignores_until].select {|k,v| v > DateTime.now }.keys)
   end
 
   def import pages, is_full
     @parser.fetch_pages(0..pages).each do |entry|
+      next if @ignores.include?(entry[:id])
       anime_id = find_match entry
 
       import_episodes anime_id, entry[:episodes], is_full if anime_id

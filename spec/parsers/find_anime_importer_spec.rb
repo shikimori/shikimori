@@ -96,5 +96,13 @@ describe FindAnimeImporter do
 
       it { expect{subject}.to raise_error AmbiguousEntries }
     end
+
+    describe :ignores do
+      let(:identifier) { 'the_last_airbender__the_legend_of_korra_first_book_air' }
+      let!(:anime_2) { create :anime, name: 'The Last Airbender: The Legend of Korra.First book:Air' }
+      before { importer.should_receive(:import_episodes).exactly(0).times }
+
+      it { should be_nil }
+    end
   end
 end

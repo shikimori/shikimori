@@ -130,6 +130,18 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
+    describe 'russian with !' do
+      subject { matcher.get_id 'Гинтама: Финальная арка: Йорозуя навсегда' }
+      let!(:anime) { create :anime, kind: 'TV', russian: 'Гинтама: Финальная арка: Йорозуя навсегда!' }
+      it { should be anime.id }
+    end
+
+    describe '～' do
+      subject { matcher.get_id 'Little Busters～Refrain～' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Little Busters!: Refrain' }
+      it { should be anime.id }
+    end
+
     describe 'space delimiter' do
       subject { matcher.get_id 'Kyousougiga' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Kyousou Giga (TV)' }
@@ -142,7 +154,55 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
-    describe 'alternative names in config' do
+    describe 'the animation' do
+      subject { matcher.get_id 'Baton The Animation' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Baton' }
+      it { should be anime.id }
+    end
+
+    describe '"s" as "sh"' do
+      subject { matcher.get_id 'YuShibu' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Yusibu' }
+      it { should be anime.id }
+    end
+
+    describe '"u" as "uu"' do
+      subject { matcher.get_id 'Kyuu' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Kyu' }
+      it { should be anime.id }
+    end
+
+    describe '" o " as " wo "' do
+      subject { matcher.get_id 'Papa no Iukoto o Kikinasai! OVA' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Papa no Iukoto wo Kikinasai! OVA' }
+      it { should be anime.id }
+    end
+
+    describe '" wo " as " o "' do
+      subject { matcher.get_id 'Papa no Iukoto wo Kikinasai! OVA' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Papa no Iukoto o Kikinasai! OVA' }
+      it { should be anime.id }
+    end
+
+    describe '"o" as "ou"' do
+      subject { matcher.get_id 'Rou' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Ro' }
+      it { should be anime.id }
+    end
+
+    describe '"Plus" as "+"' do
+      subject { matcher.get_id 'Amagami SS Plus' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Amagami SS+' }
+      it { should be anime.id }
+    end
+
+    describe 'multiple replacements' do
+      subject { matcher.get_id 'Rou Kyuu Bu! SS' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Ro-Kyu-Bu! SS' }
+      it { should be anime.id }
+    end
+
+    describe 'alternative names from config' do
       subject { matcher.get_id 'Охотник х Охотник [ТВ -2]' }
       let!(:anime) { create :anime, kind: 'TV', id: 11061 }
       it { should be anime.id }

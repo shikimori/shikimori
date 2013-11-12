@@ -570,7 +570,6 @@ DEPENDENCIES
   sextant
   shoulda
   shoulda-matchers
-  slim
   slim-rails
   spork
   sql-logging
