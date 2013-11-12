@@ -20,7 +20,7 @@ class FindAnimeImporter
       next if @ignores.include?(entry[:id])
       anime_id = find_match entry
 
-      import_episodes anime_id, entry[:episodes], is_full if anime_id
+      import_episodes anime_id, entry[:episodes], is_full if anime_id && entry[:episodes].any?
     end
 
     raise UnmatchedEntries, @unmatched.join(', ') if @unmatched.any?

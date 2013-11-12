@@ -118,4 +118,11 @@ class FindAnimeParser < ReadMangaParser
       url: "http://#{@domain}#{node.attr 'href'}?mature=1"
     }
   end
+
+  def load_cache
+    @cache = {entries: {}}
+  end
+
+  def save_cache
+  end
 end

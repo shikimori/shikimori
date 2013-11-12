@@ -104,5 +104,13 @@ describe FindAnimeImporter do
 
       it { should be_nil }
     end
+
+    describe :no_episodes do
+      let(:identifier) { 'aria_the_scarlet_ammo_ova' }
+      let!(:anime_2) { create :anime, name: 'Hidan no Aria OVA' }
+      before { importer.should_receive(:import_episodes).exactly(0).times }
+
+      it { should be_nil }
+    end
   end
 end
