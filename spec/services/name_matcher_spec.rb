@@ -100,6 +100,12 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
+    describe 'series' do
+      subject { matcher.get_id 'Kigeki [Sweat Punch Series 3]' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Sweat Punch' }
+      it { should be anime.id }
+    end
+
     describe 'long lines in brackets' do
       subject { matcher.get_id "My youth romantic comedy is wrong as I expected. (Yahari ore no seishun rabukome wa machigatte iru.)" }
       let!(:anime) { create :anime, kind: 'TV', name: 'Yahari Ore no Seishun Love Come wa Machigatteiru.', english: ["My youth romantic comedy is wrong as I expected."] }
@@ -112,11 +118,41 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
+    describe 'without ТВ-N' do
+      subject { matcher.get_id 'Buzzer Beater ТВ-1' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Buzzer Beater' }
+      it { should be anime.id }
+    end
+
+    describe 'without [OVA-N]' do
+      subject { matcher.get_id 'JoJo no Kimyou na Bouken [OVA-2]' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'JoJo no Kimyou na Bouken' }
+      it { should be anime.id }
+    end
+
+    describe 'without year' do
+      subject { matcher.get_id 'JoJo no Kimyou na Bouken' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'JoJo no Kimyou na Bouken (2000)' }
+      it { should be anime.id }
+    end
+
     describe 'short lines in brackets' do
       subject { matcher.get_id 'Cyborg009 (1968ver.)' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Cyborg 009' }
       it { should be anime.id }
     end
+
+    describe 'reversed words' do
+      subject { matcher.get_id 'Lain - Serial Experiments' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Serial Experiments Lain' }
+      it { should be anime.id }
+    end
+
+    #describe 'translit' do
+      #subject { matcher.get_id 'dokidoki!preсure' }
+      #let!(:anime) { create :anime, kind: 'TV', name: 'dokidoki!precure' }
+      #it { should be anime.id }
+    #end
 
     describe 'year at end' do
       subject { matcher.get_id 'The Genius Bakabon 1975' }
@@ -139,6 +175,12 @@ describe NameMatcher do
     describe '!' do
       subject { matcher.get_id 'Upotte' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Upotte!!' }
+      it { should be anime.id }
+    end
+
+    describe '"' do
+      subject { matcher.get_id 'Boku no Imouto wa Osaka Okan' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Boku no Imouto wa "Osaka Okan": Haishin Gentei Osaka Okan.' }
       it { should be anime.id }
     end
 
@@ -178,6 +220,12 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
+    describe '"o" as "h"' do
+      subject { matcher.get_id "Yuu-Gi-Ou! 5D's" }
+      let!(:anime) { create :anime, kind: 'TV', name: "Yu-Gi-Oh! 5D's" }
+      it { should be anime.id }
+    end
+
     describe '"u" as "uu"' do
       subject { matcher.get_id 'Kyuu' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Kyu' }
@@ -190,12 +238,6 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
-    describe '" wo " as " o "' do
-      subject { matcher.get_id 'Papa no Iukoto wo Kikinasai! OVA' }
-      let!(:anime) { create :anime, kind: 'TV', name: 'Papa no Iukoto o Kikinasai! OVA' }
-      it { should be anime.id }
-    end
-
     describe '"o" as "ou"' do
       subject { matcher.get_id 'Rou' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Ro' }
@@ -205,6 +247,12 @@ describe NameMatcher do
     describe '"Plus" as "+"' do
       subject { matcher.get_id 'Amagami SS Plus' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Amagami SS+' }
+      it { should be anime.id }
+    end
+
+    describe '"special" as "specials"' do
+      subject { matcher.get_id 'Suisei no Gargantia Special' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Suisei no Gargantia Specials' }
       it { should be anime.id }
     end
 

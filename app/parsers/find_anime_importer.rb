@@ -17,10 +17,10 @@ class FindAnimeImporter
 
   def import pages, is_full
     @parser.fetch_pages(0..pages).each do |entry|
-      next if @ignores.include?(entry[:id])
+      next if @ignores.include?(entry[:id]) || entry[:episodes].none? || entry[:categories].include?('AMV')
       anime_id = find_match entry
 
-      import_episodes anime_id, entry[:episodes], is_full if anime_id && entry[:episodes].any?
+      import_episodes anime_id, entry[:episodes], is_full if anime_id
     end
 
     raise UnmatchedEntries, @unmatched.join(', ') if @unmatched.any?

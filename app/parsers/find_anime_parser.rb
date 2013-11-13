@@ -21,6 +21,9 @@ class FindAnimeParser < ReadMangaParser
 
     names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
 
+    categories = doc.css('.elem_category').map(&:text).map(&:strip)
+
+    entry[:categories] = categories
     entry[:episodes] = episodes
     entry[:names] = entry[:names] + names
   end
@@ -114,7 +117,7 @@ class FindAnimeParser < ReadMangaParser
 
   def parse_chapter node
     {
-      episode: node.text.match(/Серия (\d+)/) ? node.text.match(/Серия (\d+)/)[1].to_i : nil,
+      episode: node.text.match(/Серия (\d+)/) ? node.text.match(/Серия (\d+)/)[1].to_i : (node.text.match(/Фильм полностью/) ? 1 : nil),
       url: "http://#{@domain}#{node.attr 'href'}?mature=1"
     }
   end

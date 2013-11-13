@@ -67,7 +67,7 @@ private
     (name || '')
       .downcase
       .force_encoding('utf-8')
-      .gsub(/[-:,.~)(\/～]/, '')
+      .gsub(/[-:,.~)(\/～"']/, '')
       .gsub(/`/, '\'')
       .gsub(/ /, '')
       .gsub(/☆|†|♪/, '')
@@ -83,7 +83,25 @@ private
 
     phrases.concat split_by_delimiters(name, kind).flatten
 
-    phrases = multiply_phrases phrases, /\[тв\s*-?\s*\d\]$/, ''
+    # альтернативные названия в скобках
+    phrases = phrases + phrases
+      .select {|v| v =~ /[\[\(].{5}.*?[\]\)]/ }
+      .map {|v| v.split(/[\(\)\[\]]/).map(&:strip) }
+      .flatten
+
+    # перестановки
+    phrases = phrases + phrases
+      .select {|v| v =~ /-/ }
+      .map {|v| v.split(/-/).map(&:strip).reverse.join(' ') }
+      .flatten
+
+    # транслит
+    #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
+
+    # [ТВ-1]
+    phrases = multiply_phrases phrases, /\[?(тв|ova)\s*-?\s*\d\]?$/, ''
+    # (2000)
+    phrases = multiply_phrases phrases, /[\[\(]\d{4}[\]\)]$/, ''
 
     phrases = multiply_phrases phrases, / season (\d+)/, ' s\1'
     phrases = multiply_phrases phrases, / s(\d+)/, ' season \1'
@@ -95,6 +113,8 @@ private
     phrases = multiply_phrases phrases, /(?<= )3$/, '3rd season'
     phrases = multiply_phrases phrases, / plus$/, '+'
     phrases = multiply_phrases phrases, / the animation$/, ''
+    phrases = multiply_phrases phrases, / series \d$/, ''
+    phrases = multiply_phrases phrases, /\bspecial\b/, 'specials'
 
     phrases = multiply_phrases phrases, '!', ''
 
@@ -103,6 +123,8 @@ private
     phrases = multiply_phrases phrases, ' & ', ' and '
     phrases = multiply_phrases phrases, ' o ', ' wo '
     phrases = multiply_phrases phrases, ' wo ', ' o '
+    phrases = multiply_phrases phrases, 'u', 'h'
+
     phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
     phrases = multiply_phrases phrases, /s(?!h)/, 'sh'
     phrases = multiply_phrases phrases, /(?<=[wrtpsdfghjklzxcvbnm])o/, 'ou'
@@ -110,13 +132,11 @@ private
     phrases = multiply_phrases phrases, /(?<= )([456789])$/, '\1th season'
     phrases = multiply_phrases phrases, "(#{kind.downcase})", '' if kind && name.include?("(#{kind.downcase})")
 
-    # с альтернативным названием в скобках
-    phrases.concat name.split(/\(|\)/).map(&:strip) if name =~ /\(.{5}.*?\)/
-    phrases.flatten.compact.map {|name| fix name }.uniq
+    phrases.map {|name| fix name }.uniq
   end
 
   def multiply_phrases phrases, from, to
-    (phrases + phrases.map {|v| v.sub from, to }).uniq
+    (phrases + phrases.map {|v| v.sub(from, to).strip }).uniq
   end
 
   # все возможные варианты написания имён

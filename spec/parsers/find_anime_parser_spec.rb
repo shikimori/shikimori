@@ -36,13 +36,22 @@ describe FindAnimeParser do
 
     describe :additioanl_names do
       let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
-
       its(:names) { should eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
     end
 
     describe :inline_videos do
       let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
       its(:episodes) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova'}] }
+    end
+
+    describe :episode_0_or_movie do
+      let(:identifier) { 'seikai_no_dansho___tanjyou_ova' }
+      its(:episodes) { should eq [{episode: 1, url: 'http://findanime.ru/seikai_no_dansho___tanjyou_ova/series0?mature=1'}] }
+    end
+
+    describe :amv do
+      let(:identifier) { 'steel_fenders' }
+      its(:categories) { should eq ['AMV'] }
     end
   end
 
