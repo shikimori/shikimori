@@ -1,16 +1,18 @@
 class Redirecter
-  def initialize(app)
+  VALID_HOSTS = (ShikimoriDomain::HOSTS + AnimeOnlineDomain::HOSTS).freeze
+
+  def initialize app
     @app = app
   end
 
-  def call(env)
-    request = Rack::Request.new(env)
+  def call env
+    request = Rack::Request.new env
 
-    if request.host != 'dev.shikimori.de' && request.host != 'dev.shikimori.org' && request.host != 'shikimori.dev' && request.host != 'shikimori.org' && request.host != 'shikimori.de'
+    if !VALID_HOSTS.include? request.host
       [301, {"Location" => request.url.sub(request.host, 'shikimori.org')}, []]
 
-    elsif request.host.starts_with?("www.")
-      [301, {"Location" => request.url.sub("//www.", "//")}, self]
+    elsif request.host.starts_with? 'www.'
+      [301, {"Location" => request.url.sub('//www.', '//')}, self]
 
     elsif request.url.end_with?('/') && request.path != '/'
       [301, {"Location" => request.url.sub(/\/$/, '')}, []]
