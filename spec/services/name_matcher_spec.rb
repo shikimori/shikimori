@@ -124,6 +124,12 @@ describe NameMatcher do
       it { should be anime.id }
     end
 
+    describe 'without TV' do
+      subject { matcher.get_id 'Tenchi Universe' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Tenchi Universe TV' }
+      it { should be anime.id }
+    end
+
     describe 'without [OVA-N]' do
       subject { matcher.get_id 'JoJo no Kimyou na Bouken [OVA-2]' }
       let!(:anime) { create :anime, kind: 'TV', name: 'JoJo no Kimyou na Bouken' }

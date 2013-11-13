@@ -3,15 +3,52 @@
   - the_last_airbender__the_legend_of_korra_first_book_air
   - maou_from_now_on___tv_2 # первый и второй сезона на шики слиты в одно аниме
   - gekijouban_doubutsu_no_mori
-  - rwby # не аниме
   - the_making_of_kuroshitsuji_ii_ova_3
   - what_s_up__human
   - azureus_rising
   - fukumoto_s_thirteen
-  - mobile_suit_gundam_x # хз что это такое, не нахожу такого 39серийного гандама в базе
-  - dead_space__downfall # не аниме
-  - wakfu__tb_2 # не аниме
   - shakugan_no_shana_ova # какой-то второстепенный спешиал, непонятно, куда его приткнуть
+  - thundercats # хз что это
+  - mobile_suit_gundam_x # такого 39 серийного гандама в базе
+  - pokemon_black_and_white_rival_destinies # 38 серийного покемона не нашёл в базе
+  - toriko_x_one_piece_x_dragon_ball
+  - final_fantasy_vii_crisis_core_movie
+  - japanese_anime_classic_collection
+  - doraemon_and_the_robot_of_bugs__mini
+  - lensman__secret_of_the_lens
+
+  # не аниме
+  - rwby
+  - level_up
+  - avatar__the_last_airbender
+  - avatar__the_last_airbender_2004
+  - avatar__the_last_airbender__2_season
+  - dead_space__downfall
+  - wakfu
+  - mini_wakfu
+  - wakfu__tb_2
+  - pieklo_dantego
+  - exaella
+
+  # не нашёл
+  - shinryaku___ika_musume_ova
+  - grappler_baki_ova
+  - meguriau_sekai
+  - maho_shojo_pretty_sammy_ova
+
+  # руками залить видео для:
+  # 5578
+  - aoyama_gosho_short_story_collection_ova_1
+  - aoyama_gosho_short_story_collection_ova_2
+  # 9445
+  - gunparade_orchestra_ova_1
+  - gunparade_orchestra_ova_2
+  - gunparade_orchestra_ova_3
+  # http://shikimori.org/animes/type/Special/search/+Sailor+Moon
+  - sailor_moon_special_movies
+  # http://shikimori.org/animes/search/Runner+Kuromi
+  - animation_runner_kuromi_1_2
+
 
 # временно игнорируемое: аниме, которые в дальнейшем могут появиться в базе шики
 :ignores_until:
