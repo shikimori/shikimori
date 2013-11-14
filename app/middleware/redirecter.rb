@@ -1,5 +1,5 @@
 class Redirecter
-  VALID_HOSTS = (ShikimoriDomain::HOSTS + AnimeOnlineDomain::HOSTS).freeze
+  VALID_HOSTS = ShikimoriDomain::HOSTS + AnimeOnlineDomain::HOSTS
 
   def initialize app
     @app = app
