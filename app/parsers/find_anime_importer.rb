@@ -17,10 +17,10 @@ class FindAnimeImporter
 
   def import pages, is_full
     @parser.fetch_pages(0..pages).each do |entry|
-      next if @ignores.include?(entry[:id]) || entry[:episodes].none? || entry[:categories].include?('AMV')
-      anime_id = find_match entry
+      next if @ignores.include?(entry[:id]) || entry[:videos].none? || entry[:categories].include?('AMV')
+      anime = find_match entry
 
-      import_episodes anime_id, entry[:episodes], is_full if anime_id
+      import_videos anime, entry[:videos], is_full if anime
     end
 
     raise UnmatchedEntries, @unmatched.join(', ') if @unmatched.any?
@@ -28,17 +28,16 @@ class FindAnimeImporter
   end
 
 private
-  def import_episodes anime_id, episodes, is_full
-    anime = Anime.find(anime_id)
+  def import_videos anime, videos, is_full
     imported_videos = anime.anime_videos.all
     last_episode = imported_videos.any? ? imported_videos.max {|v| v.episode }.episode : 0
-    filtered_episodes = episodes.select {|episode| is_full ? true : episode[:episode] > last_episode - 3 }
+    filtered_videos = videos.select {|episode| is_full ? true : episode[:episode] > last_episode - 3 }
 
-    AnimeVideo.import fetch_videos(filtered_episodes, anime, imported_videos)
+    AnimeVideo.import fetch_videos(filtered_videos, anime, imported_videos)
   end
 
-  def fetch_videos episodes, anime, imported_videos
-    episodes
+  def fetch_videos videos, anime, imported_videos
+    videos
       .map {|episode| @parser.fetch_videos episode[:episode], episode[:url] }
       .flatten
       .select {|video| imported_videos.none? {|v| v.url == video[:url] && v.source == video[:source] } }
@@ -62,24 +61,24 @@ private
   end
 
   def find_match entry
-    anime_id = @matcher.by_link entry[:id], SERVICE
+    anime = @matcher.by_link entry[:id], SERVICE
 
-    unless anime_id
-      anime_ids = @matcher.get_ids entry[:names]
+    unless anime
+      animes = @matcher.matches entry[:names], year: entry[:year], episodes: entry[:episodes]
 
-      if anime_ids.size == 1
-        anime_id = anime_ids.first
-        save_link entry[:id], anime_id
+      if animes.size == 1
+        anime = animes.first
+        save_link entry[:id], anime.id
 
-      elsif anime_ids.size > 1
-        @ambiguous << "#{entry[:id]} (#{anime_ids.join ', '})"
+      elsif animes.size > 1
+        @ambiguous << "#{entry[:id]} (#{animes.map(&:id).join ', '})"
 
       else
         @unmatched << entry[:id]
       end
     end
 
-    anime_id
+    anime
   end
 
   def find_or_create_author name

@@ -21,15 +21,16 @@ describe FindAnimeParser do
       its(:score) { should be_within(1).of 9 }
       its(:description) { should be_present }
       its(:source) { should eq 'http://findanime.ru/attack_on_titan' }
-      its(:episodes) { should have(26).items }
+      its(:videos) { should have(26).items }
+      its(:year) { should eq 2013 }
 
       describe :last_episode do
-        subject { entry.episodes.first }
+        subject { entry.videos.first }
         it { should eq episode: 26, url: 'http://findanime.ru/attack_on_titan/series26?mature=1' }
       end
 
       describe :first_episode do
-        subject { entry.episodes.last }
+        subject { entry.videos.last }
         it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
       end
     end
@@ -41,17 +42,22 @@ describe FindAnimeParser do
 
     describe :inline_videos do
       let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
-      its(:episodes) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova'}] }
+      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova'}] }
     end
 
     describe :episode_0_or_movie do
       let(:identifier) { 'seikai_no_dansho___tanjyou_ova' }
-      its(:episodes) { should eq [{episode: 1, url: 'http://findanime.ru/seikai_no_dansho___tanjyou_ova/series0?mature=1'}] }
+      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/seikai_no_dansho___tanjyou_ova/series0?mature=1'}] }
     end
 
     describe :amv do
       let(:identifier) { 'steel_fenders' }
       its(:categories) { should eq ['AMV'] }
+    end
+
+    describe :episodes do
+      let(:identifier) { 'full_moon_wo_sagashite' }
+      its(:episodes) { should eq 52 }
     end
   end
 
