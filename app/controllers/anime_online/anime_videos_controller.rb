@@ -1,4 +1,6 @@
 class AnimeOnline::AnimeVideosController < ApplicationController
+  layout 'anime_online'
+
   def show
     @anime = Anime.includes(:anime_videos).find params[:id]
 
