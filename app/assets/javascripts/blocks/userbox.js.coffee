@@ -54,7 +54,7 @@ $ ->
   $('#sign_in').on 'ajax:success', (e, data) ->
     $(data).insertAfter $('body header').first()
     $(@).attr('data-remote', null).click(->
-      $('.b-auth-form').trigger 'show'
+      $('.auth-form').trigger 'show'
     ).trigger 'click'
 
     # сабмит формы авторизации по кнопкам Вход/Регистрация
@@ -67,10 +67,10 @@ $ ->
 
   # скрытие формы по эскейпу
   $(document.body).on 'keydown', '.hover-form input', (e) ->
-    $('.b-auth-form').trigger 'hide' if e.keyCode is 27
+    $('.auth-form').trigger 'hide' if e.keyCode is 27
 
   # клик на oauth авторизацию
-  $(document.body).on 'click', '.b-auth-form .oauth img', ->
+  $(document.body).on 'click', '.auth-form .oauth div', ->
     $this = $(@)
     _.delay ->
       $.flash notice: 'Выполняется авторизация...'
@@ -87,7 +87,7 @@ $ ->
     $('input[type!=hidden]', $form).first().focus()
 
   # показ/скрытие формы авторизации
-  $(document.body).on 'show', '.b-auth-form', ->
+  $(document.body).on 'show', '.auth-form', ->
     $('#registration', @).attr 'checked', false
     $('.registration-trigger', @).show()
     $('.registration-fields', @).hide()
@@ -99,8 +99,8 @@ $ ->
     show_form $form, $link
 
   # после успешной авторизации
-  $(document.body).on 'submit', '.b-auth-form form', ->
+  $(document.body).on 'submit', '.auth-form form', ->
     $.flash notice: 'Выполняется авторизация...'
 
-  $(document.body).on 'ajax:success', '.b-auth-form form', ->
+  $(document.body).on 'ajax:success', '.auth-form form', ->
     location.reload()
