@@ -38,11 +38,14 @@ class NameMatcher
 
   # поиск всех подходящих id аниме по переданным наваниям
   def matches names, options={}
-    entries = variants(names)
-      .map {|variant| @match_order.map {|group| @cache[group][variant] } }
-      .flatten
-      .compact
-      .uniq
+    entries = variants(names).each_with_object({}) do |variant,memo|
+      @match_order.each do |group|
+        memo[group] ||= []
+        memo[group] << @cache[group][variant] if @cache[group][variant]
+      end
+    end.find do |group, matches|
+      matches.any?
+    end.second.flatten.compact.uniq
 
     entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
   end
@@ -87,7 +90,7 @@ private
 
     phrases = [name]
 
-    phrases.concat split_by_delimiters(name, kind).flatten
+    phrases.concat split_by_delimiters(name, kind)
 
     # альтернативные названия в скобках
     phrases = phrases + phrases
@@ -155,18 +158,21 @@ private
       .flatten
       .uniq
       .select(&:present?)
-      .select {|v| v !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+)\Z/ }
-      .select {|v| v.size > 3 }
   end
 
   # разбитие фразы по запятым, двоеточиям и тире
   def split_by_delimiters name, kind=nil
-    (name =~ /:|-/ ?
+    names = (name =~ /:|-/ ?
       name.split(/:|-/).select {|s| s.size > 7 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
       []) +
     (name =~ /,/ ?
       name.split(/,/).select {|s| s.size > 10 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
       [])
+
+    names
+      .flatten
+      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason)\Z/ }
+      .select {|v| fix(v).size > 3 }
   end
 
   # заполнение кеша
@@ -198,7 +204,7 @@ private
   end
 
   def main_names entry
-    names = ["#{entry.name} #{entry.kind}"]
+    names = [entry.name, "#{entry.name} #{entry.kind}"]
     synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_at ? entry.synonyms.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.synonyms
     english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_at ? entry.english.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.english
     aired_at = ["#{entry.name} #{entry.aired_at.year}"] if entry.aired_at

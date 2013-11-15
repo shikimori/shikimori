@@ -275,13 +275,23 @@ describe NameMatcher do
     end
   end
 
-  describe :matches, :focus do
-    subject { matcher.matches anime2.name, year: 2001 }
-    let!(:anime1) { create :anime, aired_at: DateTime.parse('2001-01-01'), kind: 'TV', name: 'test' }
-    let!(:anime2) { create :anime, kind: 'Movie', name: anime1.name }
-    let!(:anime3) { create :anime, aired_at: DateTime.parse('2001-01-01'), name: anime1.name }
+  describe :matches do
+    describe :common_case do
+      subject { matcher.matches anime2.name, year: 2001 }
+      let!(:anime1) { create :anime, aired_at: DateTime.parse('2001-01-01'), kind: 'TV', name: 'test' }
+      let!(:anime2) { create :anime, kind: 'Movie', name: anime1.name }
+      let!(:anime3) { create :anime, aired_at: DateTime.parse('2001-01-01'), name: anime1.name }
 
-    it { should eq [anime1, anime3] }
+      it { should eq [anime1, anime3] }
+    end
+
+    describe :only_one_match do
+      subject { matcher.matches anime1.name, year: 2001 }
+      let!(:anime1) { create :anime, name: 'Yowamushi Pedal' }
+      let!(:anime2) { create :anime, name: 'Yowamushi Pedal: Special Ride' }
+
+      it { should eq [anime1] }
+    end
   end
 
   describe :fetch do
