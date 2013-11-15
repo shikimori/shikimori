@@ -41,13 +41,16 @@ Site::Application.configure do
     Pry.config.auto_indent = false
     Pry.config.editor = 'mvim'
   end
+
   if defined?(Rails::Console)
     ActiveRecord::Base.logger = Logger.new(STDOUT)
     ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
   end
 
-  SqlLogging::Statistics.show_top_sql_queries = false
-  SqlLogging::Statistics.show_sql_backtrace = false
+  if defined? SqlLogging
+    SqlLogging::Statistics.show_top_sql_queries = false
+    SqlLogging::Statistics.show_sql_backtrace = false
+  end
 
   if defined? BetterErrors
     BetterErrors::Middleware.allow_ip! '127.0.0.1'
