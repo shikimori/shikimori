@@ -105,7 +105,7 @@
     {
       "uid": "5408be43f7c42bccee419c6be53fdef5",
       "css": "doc-text",
-      "code": 59456,
+      "code": 59405,
       "src": "fontawesome"
     },
     {
@@ -355,9 +355,27 @@
       "src": "mfglabs"
     },
     {
+      "uid": "12db1f260b5b2ccd1aa4d8942cc7f6dd",
+      "css": "vk",
+      "code": 59472,
+      "src": "zocial"
+    },
+    {
       "uid": "d0ce443b8d7376716584f5f660a6bf72",
       "css": "dropbox-2",
       "code": 59419,
+      "src": "zocial"
+    },
+    {
+      "uid": "6f7586c6f99798c3c1de6123d1f6cfa9",
+      "css": "facebook-1",
+      "code": 59473,
+      "src": "zocial"
+    },
+    {
+      "uid": "90d3360c550556afb7e5d3ea58a34e43",
+      "css": "tumblr-1",
+      "code": 59474,
       "src": "zocial"
     },
     {
