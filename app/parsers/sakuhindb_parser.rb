@@ -61,12 +61,12 @@ private
   def fill_ids(data)
     data.each do |entry|
       fixed_name = @matches.include?(entry[:anime]) ? @matches[entry[:anime]] : entry[:anime]
-      entry[:anime_id] = matcher.get_id fixed_name
+      entry[:anime_id] = matcher.match(fixed_name).try(:id)
 
       if entry[:anime_id].nil?
         entry[:anime2] = alt_name entry[:anime]
         if entry[:anime2].present?
-          entry[:anime_id] = matcher.get_id(entry[:anime2]) || matcher.fetch_id(entry[:anime2])
+          entry[:anime_id] = (matcher.match(entry[:anime2]) || matcher.fetch(entry[:anime2])).try :id
         end
       end
 

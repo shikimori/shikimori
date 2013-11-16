@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :anime do
     sequence(:name) { |n| "anime_#{n}" }
     sequence(:ranked)
-    sequence(:russian) { |n| "russian_anime_#{n}" }
+    #sequence(:russian) { |n| "russian_anime_#{n}" }
     description ''
     description_mal ''
     score 1

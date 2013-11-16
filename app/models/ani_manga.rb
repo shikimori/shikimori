@@ -26,7 +26,7 @@ module AniManga
   end
 
   def year
-    self.aired_at ? self.aired_at.strftime('%Y') : nil
+    aired_at ? aired_at.year : nil
   end
 
   # костыль от миграеции на 1.9.3

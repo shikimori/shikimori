@@ -10,21 +10,21 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def extract_additional entry, doc
-    episodes = doc
+    videos = doc
       .css('.chapters-link tr a')
       .map {|v| parse_chapter v }
       .select {|v| v[:episode].present? }
 
-    if episodes.empty? && doc.css('.chapter-link').to_html =~ /Озвучка|Сабы/
-      episodes = [{episode: 1, url: "http://#{@domain}#{doc.css('h3 a').first.attr('href').sub /#.*/, ''}"}]
+    if videos.empty? && doc.css('.chapter-link').to_html =~ /Озвучка|Сабы/
+      videos = [{episode: 1, url: "http://#{@domain}#{doc.css('h3 a').first.attr('href').sub /#.*/, ''}"}]
     end
 
     names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
 
-    categories = doc.css('.elem_category').map(&:text).map(&:strip)
-
-    entry[:categories] = categories
-    entry[:episodes] = episodes
+    entry[:episodes] = doc.css('.subject-meta').text[/Серий:\s*(\d+)/, 1].try(&:to_i)
+    entry[:year] = doc.css('.elem_year').map(&:text).map(&:strip).map(&:to_i).first
+    entry[:categories] = doc.css('.elem_category').map(&:text).map(&:strip)
+    entry[:videos] = videos
     entry[:names] = entry[:names] + names
   end
 

@@ -1,5 +1,7 @@
 # матчер названий аниме и манги со сторонних сервисов с названиями на сайте
 class NameMatcher
+  FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
+
   # конструктор
   def initialize klass, ids=nil, services=[]
     # в каком порядке будем обходить кеш
@@ -15,7 +17,7 @@ class NameMatcher
       alt: {},
       alt2: {},
       russian: {},
-      predefined: load_predefined_matches
+      predefined: predefined_matches
     }
     services.each {|service| @cache[service] = {} }
 
@@ -23,7 +25,7 @@ class NameMatcher
   end
 
   # поиск id аниме по переданному наванию
-  def get_id name
+  def match name
     variants(name).each do |variant|
       @match_order.each do |group|
         ids = @cache[group][variant]
@@ -35,18 +37,25 @@ class NameMatcher
   end
 
   # поиск всех подходящих id аниме по переданным наваниям
-  def get_ids names
-    variants(names).map do |variant|
-      @match_order.map {|group| @cache[group][variant] }
-    end.flatten.compact.uniq
+  def matches names, options={}
+    entries = variants(names).each_with_object({}) do |variant,memo|
+      @match_order.each do |group|
+        memo[group] ||= []
+        memo[group] << @cache[group][variant] if @cache[group][variant]
+      end
+    end.find do |group, matches|
+      matches.any?
+    end.second.flatten.compact.uniq
+
+    entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
   end
 
   # выборка id аниме по однозначному совпадению по простым алгоритмам поиска AniMangaQuery
-  def fetch_id name
+  def fetch name
     results = AniMangaQuery.new(@klass, search: name).fetch
 
     if results.count == 1
-      results.first.id
+      results.first
 
     elsif results.any?
       puts "ambiguous result: \"#{results.map(&:name).join("\", \"")}\""
@@ -81,7 +90,7 @@ private
 
     phrases = [name]
 
-    phrases.concat split_by_delimiters(name, kind).flatten
+    phrases.concat split_by_delimiters(name, kind)
 
     # альтернативные названия в скобках
     phrases = phrases + phrases
@@ -142,17 +151,28 @@ private
 
   # все возможные варианты написания имён
   def variants names
-    [names].flatten.map(&:downcase).map {|name| phrase_variants name }.flatten.uniq
+    [names]
+      .flatten
+      .map(&:downcase)
+      .map {|name| phrase_variants name }
+      .flatten
+      .uniq
+      .select(&:present?)
   end
 
   # разбитие фразы по запятым, двоеточиям и тире
   def split_by_delimiters name, kind=nil
-    (name =~ /:|-/ ?
+    names = (name =~ /:|-/ ?
       name.split(/:|-/).select {|s| s.size > 7 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
       []) +
     (name =~ /,/ ?
       name.split(/,/).select {|s| s.size > 10 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
       [])
+
+    names
+      .flatten
+      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason)\Z/ }
+      .select {|v| fix(v).size > 3 }
   end
 
   # заполнение кеша
@@ -171,7 +191,7 @@ private
       names.each do |group,names|
         names.each do |name|
           @cache[group][name] ||= []
-          @cache[group][name] << entry.id
+          @cache[group][name] << entry
         end
       end
 
@@ -179,12 +199,12 @@ private
       entry
         .links
         .select {|v| @services.include?(v.service.to_sym) }
-        .each {|link| @cache[link.service.to_sym][link.identifier] = entry.id } if @services.present?
+        .each {|link| @cache[link.service.to_sym][link.identifier] = entry } if @services.present?
     end
   end
 
   def main_names entry
-    names = ["#{entry.name} #{entry.kind}"]
+    names = [entry.name, "#{entry.name} #{entry.kind}"]
     synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_at ? entry.synonyms.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.synonyms
     english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_at ? entry.english.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.english
     aired_at = ["#{entry.name} #{entry.aired_at.year}"] if entry.aired_at
@@ -219,15 +239,20 @@ private
     ds = ds.where id: @ids if @ids.present?
     ds = ds.includes(:links) if @services.present?
 
-    ds.select([:id, :name, :russian,:english, :synonyms, :kind, :aired_at])
+    ds.select(FIELDS)
       .all
       .sort_by {|v| v.kind == 'TV' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
   end
 
-  def load_predefined_matches
-    config = YAML::load(File.open("#{::Rails.root.to_s}/config/alternative_names.yml"))
+  def predefined_matches
+    config = YAML::load(File.open("#{::Rails.root.to_s}/config/alternative_names.yml"))[@klass.table_name]
+    entries_by_id = @klass
+      .where(id: config.values)
+      .select(FIELDS)
+      .each_with_object({}) {|v,memo| memo[v.id] = v }
+
     config.each_with_object({}) do |(k,v),memo|
-      memo[fix k] = [v]
+      memo[fix k] = [entries_by_id[v]]
     end
   end
 end

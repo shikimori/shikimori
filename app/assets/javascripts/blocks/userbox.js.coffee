@@ -70,7 +70,7 @@ $ ->
     $('.auth-form').trigger 'hide' if e.keyCode is 27
 
   # клик на oauth авторизацию
-  $(document.body).on 'click', '.auth-form .oauth img', ->
+  $(document.body).on 'click', '.auth-form .oauth div', ->
     $this = $(@)
     _.delay ->
       $.flash notice: 'Выполняется авторизация...'

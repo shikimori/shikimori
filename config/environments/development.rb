@@ -41,19 +41,35 @@ Site::Application.configure do
     Pry.config.auto_indent = false
     Pry.config.editor = 'mvim'
   end
+
   if defined?(Rails::Console)
     ActiveRecord::Base.logger = Logger.new(STDOUT)
     ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
   end
 
-  SqlLogging::Statistics.show_top_sql_queries = false
-  SqlLogging::Statistics.show_sql_backtrace = false
+  if defined? SqlLogging
+    SqlLogging::Statistics.show_top_sql_queries = false
+    SqlLogging::Statistics.show_sql_backtrace = false
+  end
 
   if defined? BetterErrors
     BetterErrors::Middleware.allow_ip! '127.0.0.1'
     BetterErrors.editor = :macvim
     BetterErrors.use_pry!
   end
+
+  # Disable Rails's static asset server (Apache or nginx will already do this)
+  config.serve_static_assets = false
+
+  # Compress JavaScripts and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
 
   #Debugger.start_remote
 end

@@ -100,7 +100,7 @@ describe FindAnimeImporter do
     describe :ignores do
       let(:identifier) { 'the_last_airbender__the_legend_of_korra_first_book_air' }
       let!(:anime) { create :anime, name: 'The Last Airbender: The Legend of Korra.First book:Air' }
-      before { importer.should_receive(:import_episodes).exactly(0).times }
+      before { importer.should_receive(:import_videos).exactly(0).times }
 
       it { should be_nil }
     end
@@ -108,7 +108,7 @@ describe FindAnimeImporter do
     describe :no_episodes do
       let(:identifier) { 'aria_the_scarlet_ammo_ova' }
       let!(:anime) { create :anime, name: 'Hidan no Aria OVA' }
-      before { importer.should_receive(:import_episodes).exactly(0).times }
+      before { importer.should_receive(:import_videos).exactly(0).times }
 
       it { should be_nil }
     end
@@ -118,9 +118,9 @@ describe FindAnimeImporter do
       let!(:anime) { create :anime, name: 'Steel Fenders' }
       before do
         FindAnimeParser.any_instance.stub(:fetch_pages).and_return do
-          [{ episodes: [{episode: 1}], categories: ['AMV'], names: ['Steel Fenders'], id: 'test' }]
+          [{ videos: [{episode: 1}], categories: ['AMV'], names: ['Steel Fenders'], id: 'test' }]
         end
-        importer.should_receive(:import_episodes).exactly(0).times
+        importer.should_receive(:import_videos).exactly(0).times
       end
 
       it { should be_nil }

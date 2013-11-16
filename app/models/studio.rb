@@ -204,6 +204,7 @@ class Studio < ActiveRecord::Base
     "h5",
     "highlander productions",
     "hong ying animation",
+    "hoods entertainment",
     "ilion animation studios",
     "illumination entertainment",
     "imagi animation studios",

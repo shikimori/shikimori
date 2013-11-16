@@ -72,7 +72,7 @@ class AnimePlanetParser < SiteParserWithCache
     # обход полного списка для импорта
     prepared_list = list.map do |entry|
       entry_status = convert_status(entry[:status], wont_watch_strategy)
-      entry_id = matcher.get_id(entry[:name])
+      entry_id = matcher.match(entry[:name]).try :id
 
       if entry_id.nil? || (wont_watch_strategy.nil? && entry_status.nil?)
         @not_matched << entry[:name] unless entry_status.nil?
