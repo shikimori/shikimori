@@ -1,6 +1,6 @@
 Site::Application.routes.draw do
   constraints AnimeOnlineDomain  do
-    resources :anime_videos, path: 'videos', only: [:show], controller: 'anime_online/anime_videos'
+    resources :anime_videos, path: 'videos', only: [:show, :index], controller: 'anime_online/anime_videos'
   end
 
   constraints ShikimoriDomain  do

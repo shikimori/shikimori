@@ -63,8 +63,6 @@ ActiveRecord::Schema.define(:version => 20131103155713) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "anime_video_authors", ["name"], :name => "index_anime_video_authors_on_name", :unique => true
-
   create_table "anime_videos", :force => true do |t|
     t.integer  "anime_id"
     t.string   "url",                   :limit => 1000

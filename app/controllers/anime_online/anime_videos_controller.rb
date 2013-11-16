@@ -1,8 +1,11 @@
 class AnimeOnline::AnimeVideosController < ApplicationController
   layout 'anime_online'
 
+  def index
+  end
+
   def show
-    @anime = Anime.includes(:anime_videos).find params[:id]
+    @anime = AnimeVideoDecorator.new(Anime.includes(:anime_videos).find(params[:id]))
 
     # for test
     #@anime.anime_videos << AnimeVideo.new(url: 'http://my.mail.ru/video/mail/bel_comp1/14985/15777.html#video=/mail/bel_comp1/14985/15777')

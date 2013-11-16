@@ -1,6 +1,38 @@
-h1 = @anime.name
-h2 = "Video: #{ @anime.anime_videos.size }"
-ul
-  - @anime.anime_videos.each do |video|
-    li
-      a href="#{video.url}" target='blank' = video.hosting
+.p-anime_video_show
+  = render partial: 'anime_online/blocks/ad_top'
+
+  h1 = @anime.name
+  .row
+    .col-md-2
+      img.anime-image src="#{attachment_url @anime.image}" title="#{{@anime.name}}" alt="#{{@anime.name}}"
+
+      .info
+        h4 Информация
+        - if @anime.kind != ''
+          p
+            .key Тип:
+            .value
+              = UserPresenter.localized_kind @anime.object, current_user
+
+
+    .col-md-8
+      == @anime.description
+      .reviews
+        - if @anime.comments.any?
+          h4 Отзывы
+          - @anime.comments.each do |comment|
+            .media
+              a.pull-left href='#'
+                img.media-object src='http://shikimori.org/images/user/x48/8385.png?1373799566' alt=''
+              .media-body
+                h4.media-heading name
+                p review
+
+    .col-md-2
+      = render partial: 'anime_online/blocks/ad_vertical'
+
+  /h2 = "Video: #{ @anime.anime_videos.size }"
+  /ul
+    /- @anime.anime_videos.each do |video|
+      /li
+        /a href="#{video.url}" target='blank' = video.hosting
