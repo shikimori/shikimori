@@ -26,8 +26,12 @@ class AnimeVideoDecorator < Draper::Decorator
     @video ||= anime_videos.group_by {|v| v.episode}
   end
 
-  def current_videos
+  def current_videos kind = nil
     videos[current_episode]
+  end
+
+  def current_kinds
+    current_videos.collect {|v| v.kind }
   end
 
   def comments
