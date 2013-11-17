@@ -25,7 +25,7 @@ set :job_template, "/usr/bin/zsh -i -c ':job'"
 # здесь только редкие/долгие таски, которые нельзя на clockwork положить
 
 every 1.day, at: '0:05 am' do
-  runner "Delayed::Job.enqueue_uniq AnimeCalendarJob.new, ProcessContestsJob.new, SakuhindbJob.new(false), PrepareImportListJob.new(source: :latest, hours_limit: 24*7), CleanupOldLocksJob.new"
+  runner "Delayed::Job.enqueue_uniq AnimeCalendarJob.new, ProcessContestsJob.new, PrepareImportListJob.new(source: :latest, hours_limit: 24*7), CleanupOldLocksJob.new" # SakuhindbJob.new(false)
 end
 
 every 1.day, at: '2:30 am' do
@@ -45,7 +45,7 @@ every 1.day, at: '3:00 am' do
 end
 
 every 1.week, at: '3:25 am' do
-  runner "Delayed::Job.enqueue_uniq DanbooruTagsJob.new, CleanupOldMessagesJob.new, CleanupUserImagesJob.new, SakuhindbJob.new"
+  runner "Delayed::Job.enqueue_uniq DanbooruTagsJob.new, CleanupOldMessagesJob.new, CleanupUserImagesJob.new" # , SakuhindbJob.new
 end
 
 every 1.week, at: '3:48 am' do
@@ -61,7 +61,7 @@ every 1.weeks, at: '3:35 am' do
 end
 
 every 2.weeks, at: '3:35 am' do
-  runner "Delayed::Job.enqueue_uniq SakuhindbJob.new(true)"
+  #runner "Delayed::Job.enqueue_uniq SakuhindbJob.new(true)"
 end
 
 every 32.days, at: '4:13 am' do
