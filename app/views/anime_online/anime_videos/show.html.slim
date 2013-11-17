@@ -1,22 +1,32 @@
 .p-anime_video_show
   = render partial: 'anime_online/blocks/ad_top'
 
-  h1 = @anime.name
+  .title = @anime.name
   .row
-    .col-md-2
-      img.anime-image src="#{attachment_url @anime.image}" title="#{{@anime.name}}" alt="#{{@anime.name}}"
+    .col-md-3
+      img.img-thumbnail src="http://shikimori.org#{@anime.image}" title="#{{@anime.name}}" alt="#{{@anime.name}}"
 
       .info
-        h4 Информация
-        - if @anime.kind != ''
+        /h4 Информация
+        - unless @anime.kind.blank?
           p
             .key Тип:
             .value
               = UserPresenter.localized_kind @anime.object, current_user
 
 
-    .col-md-8
+    .col-md-7
       == @anime.description
+      .videos.well
+        .episodes
+          span Эпизоды
+          ul.pagination.pagination-sm
+            - @anime.videos.each_pair do |episode, video|
+              li class="#{ :active if episode == @anime.current_episode }": a href="#{anime_videos_show_url(@anime.id, episode)}" = episode
+
+        - @anime.current_videos.each do |video|
+          iframe src="#{video.url}"
+
       .reviews
         - if @anime.comments.any?
           h4 Отзывы
@@ -30,9 +40,3 @@
 
     .col-md-2
       = render partial: 'anime_online/blocks/ad_vertical'
-
-  /h2 = "Video: #{ @anime.anime_videos.size }"
-  /ul
-    /- @anime.anime_videos.each do |video|
-      /li
-        /a href="#{video.url}" target='blank' = video.hosting
