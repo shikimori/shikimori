@@ -99,27 +99,7 @@ class ContestMatch < ActiveRecord::Base
     end
 
     after_transition started: :finished do |match, transition|
-      winner_id = if match.right_id.nil?
-        match.left_id
-
-      elsif match.left_votes > match.right_votes
-        match.left_id
-
-      elsif match.right_votes > match.left_votes
-        match.right_id
-
-      elsif match.left.respond_to?(:score) && match.right.respond_to?(:score)
-        if match.right.score > match.left.score
-          match.right_id
-        else
-          match.left_id
-        end
-
-      else
-        match.left_id
-      end
-
-      match.update_attribute :winner_id, winner_id
+      match.obtain_winner_id!
     end
   end
 
@@ -166,6 +146,31 @@ class ContestMatch < ActiveRecord::Base
   # стратегия турнира
   def strategy
     round.contest.strategy
+  end
+
+  # сохранение результатов матча
+  def obtain_winner_id!
+    winner_id = if right_id.nil?
+      left_id
+
+    elsif left_votes > right_votes
+      left_id
+
+    elsif right_votes > left_votes
+      right_id
+
+    elsif left.respond_to?(:score) && right.respond_to?(:score)
+      if right.score > left.score
+        right_id
+      else
+        left_id
+      end
+
+    else
+      left_id
+    end
+
+    update_attribute :winner_id, winner_id
   end
 
 private
