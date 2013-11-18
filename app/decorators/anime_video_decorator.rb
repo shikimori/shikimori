@@ -17,6 +17,18 @@ class AnimeVideoDecorator < Draper::Decorator
     end
   end
 
+  def episodes
+    object.episodes.to_i
+  end
+
+  def duration
+    object.duration.to_i
+  end
+
+  def rating
+    object.rating if object.rating and object.rating != 'None'
+  end
+
   def current_episode
     @current_episode ||= [h.params[:episode_id].to_i, 1].max
   end

@@ -55,6 +55,13 @@ ru:
         spoiler: спойлер
         abuse: нарушение
 
+    anime_video:
+      kind:
+        raw: Оригинал
+        subtitles: Субтитры
+        fandub: Дублирование
+        unknown: Не определено
+
   date_time:
     week:
       one: неделя

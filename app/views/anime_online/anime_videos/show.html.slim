@@ -11,32 +11,43 @@
         - unless @anime.kind.blank?
           p
             .key Тип:
-            .value
-              = UserPresenter.localized_kind @anime.object, current_user
+            .value = UserPresenter.localized_kind @anime.object, current_user
+        - if @anime.episodes > 0
+          p
+            .key Эпизоды:
+            .value = @anime.episodes
+        - if @anime.duration > 0
+          p
+            .key Длительность эпизода:
+            .value = "#{@anime.duration} мин."
+        - if @anime.rating
+          p
+            .key Рейтинг:
+            .value = @anime.rating
 
 
     .col-md-7
       == @anime.description
-      hr
+
       .videos
         ul.nav.nav-pills
           li.dropdown.episodes
             a data-toggle="dropdown" href="#" role="button"
               | Эпизоды
               b.caret
-            ul.dropdown-menu
+            ul.dropdown-menu class="#{ :long if @anime.videos.size > 20 }"
               - @anime.videos.each_pair do |episode, video|
                 li class="#{ :active if episode == @anime.current_episode }"
                   a href="#{anime_videos_show_url(@anime.id, episode)}" title="Эпизод #{episode}" = episode
 
           - unless @anime.current_videos.blank?
-            li.dropdown
+            li.dropdown.kinds
               a data-toggle="dropdown" href="#" role="button"
                 | Озвучка
                 b.caret
               ul.dropdown-menu
                 - @anime.current_videos.each_with_index do |video, index|
-                  li: a href="#variant#{index}" data-url="#{video.url}" = video.kind
+                  li: a href="#variant#{index}" data-url="#{video.url}" = t "enumerize.anime_video.kind.#{video.kind}"
 
       - if @anime.current_videos.blank?
         .alert.alert-danger = "Серии #{@anime.current_episode} нет"
