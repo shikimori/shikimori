@@ -17,29 +17,35 @@
 
     .col-md-7
       == @anime.description
-      .videos.well
-        /data-urls="#{@anime.current_videos.map(&:url).to_json}"
-        /span Эпизоды
-        .episodes
-          ul.pagination.pagination-sm
-            - @anime.videos.each_pair do |episode, video|
-              li class="#{ :active if episode == @anime.current_episode }"
-                a href="#{anime_videos_show_url(@anime.id, episode)}" title="Эпизод #{episode}" = episode
-
-        .kinds
-          .dropdown#kinds
+      hr
+      .videos
+        ul.nav.nav-pills
+          li.dropdown.episodes
             a data-toggle="dropdown" href="#" role="button"
-              | Озвучка
+              | Эпизоды
               b.caret
             ul.dropdown-menu
-              - @anime.current_videos.each_with_index do |video, index|
-                li: a href="#variant#{index}" data-url="#{video.url}" = video.kind
+              - @anime.videos.each_pair do |episode, video|
+                li class="#{ :active if episode == @anime.current_episode }"
+                  a href="#{anime_videos_show_url(@anime.id, episode)}" title="Эпизод #{episode}" = episode
 
+          - unless @anime.current_videos.blank?
+            li.dropdown
+              a data-toggle="dropdown" href="#" role="button"
+                | Озвучка
+                b.caret
+              ul.dropdown-menu
+                - @anime.current_videos.each_with_index do |video, index|
+                  li: a href="#variant#{index}" data-url="#{video.url}" = video.kind
+
+      - if @anime.current_videos.blank?
+        .alert.alert-danger = "Серии #{@anime.current_episode} нет"
+      - else
         .video
-          - if @anime.current_videos.any?
-            iframe src="#{@anime.current_videos.first.url}"
+          iframe src="#{@anime.current_videos.first.url}"
 
       .reviews
+        hr
         - if @anime.comments.any?
           h4 Отзывы
           - @anime.comments.each do |comment|
