@@ -5,9 +5,13 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   end
 
   def show
-    @anime = AnimeVideoDecorator.new(Anime.includes(:anime_videos).find(params[:id]))
+    @anime = AnimeVideoDecorator.new(Anime
+        .includes(:anime_videos, :genres)
+        .find(params[:id]))
 
-    # for test
-    #@anime.anime_videos << AnimeVideo.new(url: 'http://my.mail.ru/video/mail/bel_comp1/14985/15777.html#video=/mail/bel_comp1/14985/15777')
+    @reviews = Comment.reviews
+      .includes(:user)
+      .where(commentable_id: @anime.id)
+      .order('id desc').limit(5).to_a
   end
 end

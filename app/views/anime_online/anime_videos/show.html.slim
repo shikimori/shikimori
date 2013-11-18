@@ -12,19 +12,35 @@
           p
             .key Тип:
             .value = UserPresenter.localized_kind @anime.object, current_user
+            J
         - if @anime.episodes > 0
           p
             .key Эпизоды:
             .value = @anime.episodes
+
         - if @anime.duration > 0
           p
             .key Длительность эпизода:
             .value = "#{@anime.duration} мин."
+
         - if @anime.rating
           p
             .key Рейтинг:
             .value = @anime.rating
 
+        - if @anime.with_score?
+          p
+            .key Оценка:
+            .label.label-warning
+              = @anime.score
+            | из 10
+
+        - unless @anime.genres.blank?
+          p
+            .key Жанры:
+            .value
+              - @anime.genres.each do |genre|
+                .label.label-success = genre.russian
 
     .col-md-7
       == @anime.description
@@ -50,22 +66,22 @@
                   li: a href="#variant#{index}" data-url="#{video.url}" = t "enumerize.anime_video.kind.#{video.kind}"
 
       - if @anime.current_videos.blank?
-        .alert.alert-danger = "Серии #{@anime.current_episode} нет"
+        .alert.alert-danger = "Серии №#{@anime.current_episode} нет"
       - else
         .video
           iframe src="#{@anime.current_videos.first.url}"
 
       .reviews
         hr
-        - if @anime.comments.any?
+        - if @reviews.any?
           h4 Отзывы
-          - @anime.comments.each do |comment|
+          - @reviews.each do |review|
             .media
               a.pull-left href='#'
                 img.media-object src='http://shikimori.org/images/user/x48/8385.png?1373799566' alt=''
               .media-body
-                h4.media-heading name
-                p review
+                h4.media-heading = review.user.nickname
+                p == review.html_body
 
     .col-md-2
       = render partial: 'anime_online/blocks/ad_vertical'

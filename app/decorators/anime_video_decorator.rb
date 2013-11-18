@@ -45,8 +45,4 @@ class AnimeVideoDecorator < Draper::Decorator
   def current_kinds
     current_videos.collect {|v| v.kind }
   end
-
-  def comments
-    @comments ||= [1,2,3]
-  end
 end
