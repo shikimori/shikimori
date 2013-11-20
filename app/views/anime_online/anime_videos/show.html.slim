@@ -45,41 +45,43 @@
     .col-md-7
       == @anime.description
 
-      .videos
-        ul.nav.nav-pills
-          li.dropdown.episodes
-            a data-toggle="dropdown" href="#" role="button"
-              | Эпизоды
-              b.caret
-            ul.dropdown-menu class="#{ :long if @anime.videos.size > 20 }"
-              - @anime.videos.each_pair do |episode, video|
-                li class="#{ :active if episode == @anime.current_episode }"
-                  a href="#{anime_videos_show_url(@anime.id, episode)}" title="Эпизод #{episode}" = episode
-
-          - unless @anime.current_videos.blank?
-            li.dropdown.kinds
-              a data-toggle="dropdown" href="#" role="button"
-                | Озвучка
-                b.caret
-              ul.dropdown-menu
-                - @anime.current_videos.each_with_index do |video, index|
-                  li: a href="#variant#{index}" data-url="#{video.url}" = t "enumerize.anime_video.kind.#{video.kind}"
-
-      - if @anime.current_videos.blank?
-        .alert.alert-danger = "Серии №#{@anime.current_episode} нет"
+      - if @anime.videos.empty?
+        .alert.alert-danger = "Видео пока нет"
       - else
-        .video
-          iframe src="#{@anime.current_videos.first.url}"
+        .videos
+          ul.nav.nav-pills
+            li.dropdown.episodes
+              a data-toggle="dropdown" href="#" role="button"
+                | Эпизоды
+                b.caret
+              ul.dropdown-menu class="#{ :long if @anime.videos.size > 20 }"
+                - @anime.videos.each_pair do |episode, video|
+                  li class="#{ :active if episode == @anime.current_episode }"
+                    a href="#{anime_videos_show_url(@anime.id, episode)}" title="Эпизод #{episode}" = episode
 
-      .reviews
-        hr
-        - if @reviews.any?
+            - unless @anime.current_videos.blank?
+              li.dropdown.kinds
+                a data-toggle="dropdown" href="#" role="button"
+                  | Озвучка
+                  b.caret
+                ul.dropdown-menu
+                  - @anime.current_videos.each_with_index do |video, index|
+                    li: a href="#variant#{index}" data-url="#{video.url}" = t "enumerize.anime_video.kind.#{video.kind}"
+
+        - if @anime.current_videos.blank?
+          .alert.alert-danger = "Серии №#{@anime.current_episode} нет"
+        - else
+          .video
+            iframe src="#{@anime.current_videos.first.url}"
+
+      - if @reviews.any?
+        .reviews
+          hr
           h4 Отзывы
           - @reviews.each do |review|
             .media
               a.pull-left href='#'
                 img.media-object src="#{gravatar_url review.user, 48}" alt="#{review.user.nickname}"
-                /img.media-object src="http://shikimori.org/images/user/x48/#{review.user.id}.png?1373799566" alt=''
               .media-body
                 h4.media-heading = review.user.nickname
                 p == review.html_body
