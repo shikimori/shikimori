@@ -1,0 +1,9 @@
+DOCTYPE html
+html
+  head
+    = stylesheet_link_tag 'anime_online/application', media: 'all'
+    = javascript_include_tag 'anime_online/application'
+  body
+    = render partial: 'anime_online/menu'
+    .container
+      = yield

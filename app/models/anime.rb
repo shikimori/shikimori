@@ -106,7 +106,7 @@ class Anime < ActiveRecord::Base
 
   has_many :anime_calendars, dependent: :destroy
 
-  has_many :anime_videos, dependent: :destroy
+  has_many :anime_videos, order: [:episode], dependent: :destroy
 
   has_attached_file :image,
     styles: {
