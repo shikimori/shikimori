@@ -1,2 +1,7 @@
 h1 Index
 p anime_videos#index
+ul
+  - @anime_list.each do |anime|
+    li = anime.russian
+
+= will_paginate @anime_ids, renderer: BootstrapPagination::Rails
