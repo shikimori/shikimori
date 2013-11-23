@@ -12,7 +12,7 @@
       == @anime.description
 
       - if @anime.videos.empty?
-        .alert.alert-danger = "Видео пока нет"
+        .alert.alert-info = "Видео пока нет"
       - else
         .videos
           ul.nav.nav-pills
@@ -35,7 +35,7 @@
                     li: a href="#variant#{index}" data-url="#{video.url}" = t "enumerize.anime_video.kind.#{video.kind}"
 
         - if @anime.current_videos.blank?
-          .alert.alert-danger = "Серии №#{@anime.current_episode} нет"
+          .alert.alert-info = "Серии №#{@anime.current_episode} нет"
         - else
           .video
             iframe src="#{@anime.current_videos.first.url}"
