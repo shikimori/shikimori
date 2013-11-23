@@ -2,9 +2,18 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   layout 'anime_online'
 
   def index
-    @anime_ids = AnimeVideo
-      .select('distinct anime_id')
-      .paginate page: page, per_page: per_page
+    if params[:search].blank?
+      @anime_ids = AnimeVideo
+        .select('distinct anime_id')
+        .paginate page: page, per_page: per_page
+    else
+      search = "%#{params[:search]}%"
+      @anime_ids = AnimeVideo
+        .select('distinct anime_id')
+        .joins(:anime)
+        .where('name like ? or russian like ?', search, search)
+        .paginate page: page, per_page: per_page
+    end
 
     @anime_list = AnimeVideoPreviewDecorator.decorate_collection Anime.where(id: @anime_ids.map(&:anime_id))
   end
