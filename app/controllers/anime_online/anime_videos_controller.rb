@@ -18,13 +18,11 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   end
 
   def show
-    unless search.blank?
-      redirect_to anime_videos_url(search: search)
-    end
+    redirect_to anime_videos_url search: search  unless search.blank?
 
     @anime = AnimeVideoDecorator.new(Anime
         .includes(:anime_videos, :genres)
-        .find(params[:id]))
+        .find params[:id])
 
     @reviews = Comment.reviews
       .includes(:user)
