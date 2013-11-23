@@ -82,3 +82,8 @@ ru:
   messages:
     user_banned: 'Пользователь забанен'
     user_warned: 'Пользователь предупреждён'
+
+  will_paginate:
+    previous_label: '<'
+    next_label: '>'
+    page_gap: ...

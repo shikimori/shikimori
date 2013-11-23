@@ -1,2 +1,14 @@
-h1 Index
-p anime_videos#index
+.p-anime_video-index
+  .row.previews
+    - @anime_list.each do |anime|
+      .item
+        a href="#{anime_videos_show_url anime.id}"
+          .cover
+            img width="160" height="240" src="http://shikimori.org#{anime.image.url(:preview) }" alt="#{{anime.name}}" title="#{{anime.name}}"
+            .title = anime.russian
+
+          .info
+            = render 'anime_online/blocks/info', anime: anime
+
+  .row
+    = will_paginate @anime_ids, renderer: BootstrapPagination::Rails

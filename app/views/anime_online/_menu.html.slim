@@ -1,4 +1,10 @@
-nav.navbar.navbar-default.navbar-fixed-top role="navigation"
+.nav.navbar.navbar-default.navbar-fixed-top role='navigation'
   .container
     .navbar-header
-      a.navbar-brand href="#{anime_videos_url}" AnimeOnline
+      a.navbar-brand href="/" AnimeOnline
+
+    .collapse.navbar-collapse
+      form.navbar-form.navbar-left role='search'
+        .form-group
+          input.search.form-control name='search' type='text' placeholder='Поиск' value="#{params[:search]}"
+
