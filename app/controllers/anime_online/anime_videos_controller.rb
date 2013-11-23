@@ -2,16 +2,11 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   layout 'anime_online'
 
   def index
-    #@anime_list = Anime.paginate page: page, per_page: per_page
-    @anime_list = Anime
-      .joins(:anime_videos)
-      .select('distinct animes.*')
-      .paginate page: page, per_page: per_page
-
-    # в один запрос will_paginate с distinct-ом total_pages - возвращает слишком много / Kalinichev /
     @anime_ids = AnimeVideo
       .select('distinct anime_id')
       .paginate page: page, per_page: per_page
+
+    @anime_list = AnimeVideoPreviewDecorator.decorate_collection Anime.where(id: @anime_ids.map(&:anime_id))
   end
 
   def show
