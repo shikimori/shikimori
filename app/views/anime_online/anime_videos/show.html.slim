@@ -11,7 +11,7 @@
     .col-md-7
       == @anime.description
 
-      - if @anime.videos.empty?
+      - if @anime.videos.blank?
         .alert.alert-info = "Видео пока нет"
       - else
         .videos
@@ -33,6 +33,8 @@
                 ul.dropdown-menu
                   - @anime.current_videos.each_with_index do |video, index|
                     li: a href="#variant#{index}" data-url="#{video.url}" = t "enumerize.anime_video.kind.#{video.kind}"
+
+            li.pull-right: a href="http://shikimori.org#{anime_path @anime}" target='blank' На shikimori.org
 
         - if @anime.current_videos.blank?
           .alert.alert-info = "Серии №#{@anime.current_episode} нет"

@@ -3,7 +3,6 @@ Site::Application.routes.draw do
     root to: 'anime_online/anime_videos#index'
     get 'videos/:id(/:episode_id)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode_id: /\d+/ }
     get 'videos' => 'anime_online/anime_videos#index', as: :anime_videos
-    #resources :anime_videos, path: 'videos', only: [:show, :index], controller: 'anime_online/anime_videos'
   end
 
   constraints ShikimoriDomain  do
