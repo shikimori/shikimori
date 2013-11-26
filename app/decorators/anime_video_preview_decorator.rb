@@ -9,14 +9,6 @@ class AnimeVideoPreviewDecorator < Draper::Decorator
     end
   end
 
-  def description
-    if object.description_html.blank?
-      h.format_html_text object.description_mal
-    else
-      object.description_html
-    end
-  end
-
   def episodes
     object.episodes.to_i
   end
@@ -27,6 +19,16 @@ class AnimeVideoPreviewDecorator < Draper::Decorator
 
   def rating
     object.rating if object.rating and object.rating != 'None'
+  end
+
+  def score
+    if object.score >= 8
+      'отлично'
+    elsif object.score >= 6
+      'хорошо'
+    else
+      'нормально'
+    end
   end
 end
 

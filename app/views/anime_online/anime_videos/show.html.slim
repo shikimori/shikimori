@@ -4,8 +4,7 @@
   .title = @anime.name
   .row
     .col-md-3
-      img.img-thumbnail src="http://shikimori.org#{@anime.image}" title="#{{@anime.name}}" alt="#{{@anime.name}}"
-
+      img src="http://shikimori.org#{@anime.image}" title="#{{@anime.name}}" alt="#{{@anime.name}}"
       = render 'anime_online/blocks/info', anime: @anime
 
     .col-md-7

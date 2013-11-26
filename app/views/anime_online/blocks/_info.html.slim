@@ -1,34 +1,34 @@
 .b-info
+  - if anime.with_score?
+    .pair
+      .key Оценка:
+      .label.label-warning
+        = anime.score
+
   - unless anime.kind.blank?
-    p
+    .pair
       .key Тип:
       .value = UserPresenter.localized_kind anime.object, current_user
-      J
+
   - if anime.episodes > 0
-    p
+    .pair
       .key Эпизоды:
       .value = anime.episodes
 
   - if anime.duration > 0
-    p
+    .pair
       .key Длительность эпизода:
       .value = "#{anime.duration} мин."
 
   - if anime.rating
-    p
+    .pair
       .key Рейтинг:
       .value = anime.rating
 
-  - if anime.with_score?
-    p
-      .key Оценка:
-      .label.label-warning
-        = anime.score
-      /| из 10
-
   - unless anime.genres.blank?
-    p
+    .pair
       .key Жанры:
       .value
-        - anime.genres.each do |genre|
-          .label.label-primary = genre.russian
+        = anime.genres.map(&:russian).join ', '
+        /- anime.genres.each do |genre|
+          /.label.label-primary = genre.russian
