@@ -57,10 +57,10 @@ ru:
 
     anime_video:
       kind:
+        unknown: Субтитры
         raw: Оригинал
         subtitles: Субтитры
         fandub: Дублирование
-        unknown: Не определено
 
   date_time:
     week:
