@@ -31,15 +31,18 @@
                   b.caret
                 ul.dropdown-menu
                   - @anime.current_videos.each_with_index do |video, index|
-                    li: a href="#variant#{index}" data-url="#{video.url}" = t "enumerize.anime_video.kind.#{video.kind}"
+                    li
+                      a href="#{anime_videos_show_url @anime.id, @anime.current_episode, video.id}"
+                        = t "enumerize.anime_video.kind.#{video.kind}"
+                        span.author == "#{video.author.name}".html_safe
 
             li.pull-right: a href="http://shikimori.org#{anime_path @anime}" target='blank' На shikimori.org
 
-        - if @anime.current_videos.blank?
-          .alert.alert-info = "Серии №#{@anime.current_episode} нет"
+        - if @anime.current_video.nil?
+          .alert.alert-info = "Такого видео нет"
         - else
           .video
-            iframe src="#{@anime.current_videos.first.url}"
+            iframe src="#{@anime.current_video.url}"
 
       - if @reviews.any?
         .reviews
