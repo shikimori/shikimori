@@ -23,12 +23,10 @@
   - if anime.rating
     .pair
       .key Рейтинг:
-      .value = anime.rating
+      .value = t "RatingShort.#{anime.rating}"
 
   - unless anime.genres.blank?
     .pair
       .key Жанры:
       .value
         = anime.genres.map(&:russian).join ', '
-        /- anime.genres.each do |genre|
-          /.label.label-primary = genre.russian
