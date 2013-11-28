@@ -44,7 +44,7 @@
           .video
             iframe src="#{@anime.current_video.url}"
 
-      - if @reviews.any?
+      - unless @reviews.blank?
         .reviews
           ul.nav.nav-tabs
             li.active

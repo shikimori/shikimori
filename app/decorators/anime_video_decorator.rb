@@ -33,7 +33,6 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
     end
   end
 
-private
   def episode_id
     h.params[:episode_id].to_i
   end
