@@ -46,8 +46,11 @@
 
       - if @reviews.any?
         .reviews
-          hr
-          h4 Отзывы
+          ul.nav.nav-tabs
+            li.active
+              h4
+                | Отзывы
+                span.badge = @reviews.size
           - @reviews.each do |review|
             .media
               a.pull-left href='#'

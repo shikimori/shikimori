@@ -24,10 +24,10 @@ class AnimeOnline::AnimeVideosController < ApplicationController
         .includes(:anime_videos, :genres)
         .find params[:id])
 
-    @reviews = Comment.reviews
+    @reviews = Comment
       .includes(:user)
-      .where(commentable_id: @anime.id)
-      .order('id desc').limit(5).to_a
+      .where(commentable_id: @anime.thread)
+      .reviews.order('id desc').limit 10
   end
 
 private
