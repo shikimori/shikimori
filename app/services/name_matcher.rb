@@ -38,16 +38,21 @@ class NameMatcher
 
   # поиск всех подходящих id аниме по переданным наваниям
   def matches names, options={}
-    entries = variants(names).each_with_object({}) do |variant,memo|
+    found = variants(names).each_with_object({}) do |variant,memo|
       @match_order.each do |group|
         memo[group] ||= []
         memo[group] << @cache[group][variant] if @cache[group][variant]
       end
     end.find do |group, matches|
       matches.any?
-    end.second.flatten.compact.uniq
+    end
 
-    entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
+    if found
+      entries = found.second.flatten.compact.uniq
+      entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
+    else
+      []
+    end
   end
 
   # выборка id аниме по однозначному совпадению по простым алгоритмам поиска AniMangaQuery
@@ -171,7 +176,7 @@ private
 
     names
       .flatten
-      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason)\Z/ }
+      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime)\Z/ }
       .select {|v| fix(v).size > 3 }
   end
 
