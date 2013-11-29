@@ -34,7 +34,8 @@
                     li
                       a href="#{anime_videos_show_url @anime.id, @anime.current_episode, video.id}"
                         = t "enumerize.anime_video.kind.#{video.kind}"
-                        span.author == "#{video.author.name}".html_safe
+                        - if video.author
+                          span.author == "#{video.author.name}".html_safe
 
             li.pull-right: a href="http://shikimori.org#{anime_path @anime}" target='blank' На shikimori.org
 
