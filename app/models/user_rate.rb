@@ -4,11 +4,9 @@ class UserRate < ActiveRecord::Base
   # максимальное значение эпизодов/частей
   MaximumNumber = 2000
 
-  belongs_to :target, :polymorphic => true
-  belongs_to :anime, :class_name => Anime.name,
-                     :foreign_key => :target_id
-  belongs_to :manga, :class_name => Manga.name,
-                     :foreign_key => :target_id
+  belongs_to :target, polymorphic: true
+  belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
+  belongs_to :manga, class_name: Manga.name, foreign_key: :target_id
 
   belongs_to :user, touch: true
 
