@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MessagesController do
   let!(:user) { create :user, email: email }
 
-  describe 'bounce' do
+  describe :bounce do
     let(:email) { 'test@gmail.com' }
     before { post :bounce, Email: email }
 

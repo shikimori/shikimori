@@ -20,7 +20,7 @@ Site::Application.routes.draw do
           resources :friends, only: [:index]
           resources :clubs, only: [:index]
           resources :favourites, only: [:index]
-          resources :messages, only: [] do
+          resources :messages, only: [:index] do
             get :unread, on: :collection
           end
           resources :history, only: [:index]

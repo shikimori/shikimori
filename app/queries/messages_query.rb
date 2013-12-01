@@ -9,6 +9,7 @@ class MessagesQuery
       .where(src_type: User.name, dst_type: User.name, kind: kinds)
       .where(id_field => @user.id, del_field => false)
       .where { src_id.not_in(my{ignores_ids}) & dst_id.not_in(my{ignores_ids}) }
+      .includes(:linked, :src, :dst)
       .order('`read`, created_at desc')
       .offset(limit * (page-1))
       .limit(limit + 1)

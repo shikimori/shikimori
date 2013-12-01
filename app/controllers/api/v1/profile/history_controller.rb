@@ -12,6 +12,5 @@ class Api::V1::Profile::HistoryController < Api::V1::ApiController
       .order { updated_at.desc }
       .offset(@limit * (@page-1))
       .limit(@limit + 1)
-
   end
 end
