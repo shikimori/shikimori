@@ -4,7 +4,6 @@ class MessagesController < UsersController
   alias :super_show :show
 
   @@limit = 15
-  DefaultOrder = '`read`, created_at desc'
 
   DISABLED_NOTIFICATIONS = User::MY_EPISODE_MOVIE_NOTIFICATIONS + User::MY_EPISODE_OVA_NOTIFICATIONS +
     User::NOTIFICATIONS_TO_EMAIL_SIMPLE + User::NOTIFICATIONS_TO_EMAIL_GROUP + User::NOTIFICATIONS_TO_EMAIL_NONE# +
@@ -27,16 +26,11 @@ class MessagesController < UsersController
       when 'sent' then UsersController.profile_title('Отправленные сообщения', @user)
     end
 
-    ignores_ids ||= current_user.ignores.map(&:target_id) << 0
-    @messages = Message.where(message_type_selector(params[:type]))
-        .where { src_id.not_in(ignores_ids) & dst_id.not_in(ignores_ids) }
-        .order(MessagesController::DefaultOrder)
-
-    @messages = @messages.limit(@@limit + 1).all
+    @page = (params[:page] || 1).to_i
+    @messages = MessagesQuery.new(current_user, params[:type]).fetch @page, @@limit
     @add_postloader = @messages.size > @@limit
     @messages = @messages.take(@@limit)
 
-    @page = (params[:page] || 1).to_i
     @postloader_url = messages_list_url(page: @page+1, format: :json)
 
     respond_to do |format|
@@ -64,7 +58,7 @@ class MessagesController < UsersController
         dst_id: @user.id,
       })
       .where { kind.not_eq(MessageType::Private) }
-      .order(MessagesController::DefaultOrder)
+      .order('`read`, created_at desc')
       .includes(:linked)
       .limit(25)
       .all
@@ -107,14 +101,7 @@ class MessagesController < UsersController
   # список сообщений
   def list
     @page = (params[:page] || 1).to_i
-    ignores_ids ||= current_user.ignores.map(&:target_id) << 0
-    @messages = Message.where(message_type_selector(params[:type]))
-        .where { src_id.not_in(ignores_ids) & dst_id.not_in(ignores_ids) }
-        .offset(@@limit * (@page-1))
-        .limit(@@limit + 1)
-        .order(MessagesController::DefaultOrder)
-
-    @messages = @messages.limit(@@limit + 1).all
+    @messages = MessagesQuery.new(current_user, params[:type]).fetch @page, @@limit
     add_postloader = @messages.size > @@limit
     @messages = @messages.take(@@limit)
 
@@ -184,12 +171,6 @@ class MessagesController < UsersController
                    #{@@limit * (@page-1)}, #{@@limit + 1}
               ").each {|v| ids[v[1].to_sym] << v[0].to_i }
 
-    #@messages = Message.where(kind: MessageType::Private).
-                        #where({src: @user, dst: current_user} |
-                              #{src: current_user, dst: @user}).
-                        #offset(@@limit * (@page-1)).
-                        #limit(@@limit + 1).
-                        #order(MessagesController::DefaultOrder)
     @messages = (Message.where(id: ids[:messages]) + Comment.where(id: ids[:comments])).sort_by(&:created_at).reverse
     @add_postloader = @messages.size > @@limit
     @messages = @messages.take(@@limit)
@@ -313,67 +294,6 @@ class MessagesController < UsersController
   end
   def unsubscribe_key(user, kind)
     MessagesController.unsubscribe_key(user, kind)
-  end
-
-  # селектор для выбора сообщений
-  def message_type_selector(type)
-    case type
-      when 'inbox'
-        {
-          src_type: User.name,
-          dst_type: User.name,
-          dst_id: current_user.id,
-          dst_del: false,
-          kind: MessageType::Private
-        }
-
-      when 'sent'
-        {
-          src_type: User.name,
-          dst_type: User.name,
-          src_id: current_user.id,
-          src_del: false,
-          kind: [MessageType::Private, MessageType::Notification]
-        }
-
-      when 'news'
-        {
-          src_type: User.name,
-          dst_type: User.name,
-          dst_id: current_user.id,
-          dst_del: false,
-          kind: [
-              MessageType::Anons,
-              MessageType::Ongoing,
-              MessageType::Episode,
-              MessageType::Release,
-              MessageType::SiteNews
-            ]
-        }
-
-      when 'notifications'
-        {
-          src_type: User.name,
-          dst_type: User.name,
-          dst_id: current_user.id,
-          dst_del: false,
-          kind: [
-              MessageType::FriendRequest,
-              MessageType::GroupRequest,
-              MessageType::Notification,
-              MessageType::ProfileCommented,
-              MessageType::QuotedByUser,
-              MessageType::SubscriptionCommented,
-              MessageType::NicknameChanged,
-              MessageType::Banned,
-              MessageType::Warned
-            ]
-        }
-
-      else
-        { kind: '-1' }
-
-    end
   end
 
   def bounce
