@@ -1,6 +1,7 @@
 require 'set'
 
 # TODO: вынести Fixes в yml конфиг
+# TODO: использовать NameMatcher вместо собственного кривого сравнения
 class AnimeCalendar < ActiveRecord::Base
   belongs_to :anime
 
@@ -47,7 +48,8 @@ class AnimeCalendar < ActiveRecord::Base
   }
 
   EpisodesDiff = {
-    'gintama\' enchousen' => 252
+    'gintama\' enchousen' => 252,
+    'diabolik lovers' => 1
   }
 
   # импорт аниме календаря с animecalendar.net
