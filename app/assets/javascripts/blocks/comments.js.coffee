@@ -54,7 +54,7 @@ $('.entry-container .description, .comment-block .body').live 'mouseup', ->
       .find('.item-quote')
       .data(quote: text)
       .css(display: 'inline-block')
-  console.log $quote[0]
+
   _.delay ->
     $(document).one 'click', ->
       unless $.getSelectionText().length

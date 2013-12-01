@@ -142,6 +142,8 @@ $.Autocompleter = function(input, options) {
           event.preventDefault();
           blockSubmit = true;
           return false;
+        } else {
+          event.preventDefault();
         }
         break;
 

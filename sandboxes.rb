@@ -33,6 +33,10 @@ Message.where(linked_id: 101064).group(:dst_id).having('count(*) > 1').count
 ###########################
 Manga.where(imported_at: nil).includes(:rates).select{|v| v.rates.empty? }.each(&:destroy)
 ###########################
+# изменение column collation
+###########################
+ALTER TABLE anime_video_authors MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci
+###########################
 # оценки пользователей в CSV после сбора их через SVD
 ###########################
 ------user
