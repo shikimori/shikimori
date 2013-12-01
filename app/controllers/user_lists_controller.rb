@@ -170,7 +170,7 @@ class UserListsController < UsersController
         Rails.env.test? ? params[:file] : params[:file].read
       end
 
-      prepared_list = Hash.from_xml(raw_xml)['myanimelist'][params[:klass]]
+      prepared_list = Hash.from_xml(raw_xml.fix_encoding)['myanimelist'][params[:klass]]
       prepared_list = [prepared_list] if prepared_list.kind_of?(Hash)
       prepared_list.map! do |v|
         {
