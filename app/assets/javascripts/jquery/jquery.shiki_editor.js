@@ -179,14 +179,14 @@ $.fn.extend({
       // сабмит цитаты в текстовом поле
       $('.quotes input[type=text]', $root).keypress(function(e) {
         if (e.keyCode == 13) {
-          $editor.insertAtCaret('[quote'+(this.value === '' ? '' : '='+this.value)+']', '[/quote]');
+          $editor.insertAtCaret('[quote'+(this.value.isBlank() ? '' : '='+this.value)+']', '[/quote]');
           $('.editor-quote', $root).trigger('click');
           return false;
         }
       });
       // автокомплит для поля ввода цитаты
       $('.quotes input[type=text]', $root).make_completable(null, function(e, id, text) {
-        $editor.insertAtCaret('[quote='+text+']', '[/quote]');
+        $editor.insertAtCaret('[quote='+(text.isBlank() ? '' : '='+text)+']', '[/quote]');
         $('.editor-quote', $root).trigger('click');
       });
       // построение бб тега для url
