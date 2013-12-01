@@ -1,8 +1,8 @@
 class AnimeHistory < ActiveRecord::Base
   belongs_to :user
   belongs_to :anime
-  has_one :topic, :dependent => :destroy
-  has_many :messages, :dependent => :destroy
+  has_one :topic, dependent: :destroy
+  has_many :messages, dependent: :destroy
   belongs_to :topic
 
   after_create :create_topic
@@ -74,11 +74,11 @@ class AnimeHistory < ActiveRecord::Base
         body = anime_history_processor.new_ongoing_topic_text(self.anime, self)
     end
 
-    topic, comment = Topic.custom_create({:title => subject,
-                                          :section_id => Section::AnimeNewsId,
-                                          :created_at => self.created_at},
-                                         {:body => body,
-                                          :created_at => self.created_at},
+    topic, comment = Topic.custom_create({title: subject,
+                                          section_id: Section::AnimeNewsId,
+                                          created_at: self.created_at},
+                                         {body: body,
+                                          created_at: self.created_at},
                                          BotsService.get_poster.id)
     raise "can't create topic for anime_history_id=%d" % [self.id] if topic == nil || topic.id == nil
     raise "can't create comment for anime_history_id=%d" % [self.id] and topic.destroy if comment == nil || comment.id == nil

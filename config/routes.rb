@@ -23,6 +23,7 @@ Site::Application.routes.draw do
           resources :messages, only: [] do
             get :unread, on: :collection
           end
+          resources :history, only: [:index]
         end
       end
 

@@ -1,22 +1,20 @@
 require 'spec_helper'
 
 describe UserListsController do
-  let (:user) { create :user }
+  let(:user) { create :user }
+  let!(:anime1) { create :anime, name: 'Zombie-Loan' }
+  let!(:anime2) { create :anime, name: 'Zombie-Loan Specials' }
 
-  before (:each) do
-    sign_in user
-
-    @anime1 = create :anime, name: "Zombie-Loan"
-    @anime2 = create :anime, name: "Zombie-Loan Specials"
-
+  before { sign_in user }
+  before do
     @list = [{
-        id: @anime1.id,
+        id: anime1.id,
         status: 1,
         score: 5.0,
         name: "Zombie-Loan Specials",
         episodes: 1
       }, {
-        id: @anime2.id,
+        id: anime2.id,
         status: 2,
         score: 5.0,
         name: "Zombie-Loan,.",
@@ -36,7 +34,7 @@ describe UserListsController do
     end
 
     it 'with rewrite' do
-      create :user_rate, user: user, target: @anime1
+      create :user_rate, user: user, target: anime1
       expect {
         post :list_import, id: user.to_param, klass: 'anime', rewrite: true, list_type: :mal, data: @list.to_json
       }.to change(UserRate, :count).by 1
@@ -58,10 +56,10 @@ describe UserListsController do
     end
 
     describe 'xml' do
-      let (:manga1) { create :manga, name: "07 Ghost" }
-      let (:manga2) { create :manga, name: "20th Century Boys" }
+      let(:manga1) { create :manga, name: "07 Ghost" }
+      let(:manga2) { create :manga, name: "20th Century Boys" }
 
-      let (:xml) {
+      let(:xml) {
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>

@@ -9,7 +9,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   api :GET, "/comments", "List comments"
   def index
     @limit = [[params[:limit].to_i, 1].max, 100].min
-    @page = params[:page].to_i
+    @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
 
     @resources = CommentsQuery

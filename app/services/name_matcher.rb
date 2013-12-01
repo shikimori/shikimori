@@ -1,6 +1,7 @@
 # матчер названий аниме и манги со сторонних сервисов с названиями на сайте
 class NameMatcher
-  FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
+  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
+  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :chapters]
 
   # конструктор
   def initialize klass, ids=nil, services=[]
@@ -244,7 +245,7 @@ private
     ds = ds.where id: @ids if @ids.present?
     ds = ds.includes(:links) if @services.present?
 
-    ds.select(FIELDS)
+    ds.select(db_fields)
       .all
       .sort_by {|v| v.kind == 'TV' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
   end
@@ -253,11 +254,15 @@ private
     config = YAML::load(File.open("#{::Rails.root.to_s}/config/alternative_names.yml"))[@klass.table_name]
     entries_by_id = @klass
       .where(id: config.values)
-      .select(FIELDS)
+      .select(db_fields)
       .each_with_object({}) {|v,memo| memo[v.id] = v }
 
     config.each_with_object({}) do |(k,v),memo|
       memo[fix k] = [entries_by_id[v]]
     end
+  end
+
+  def db_fields
+    @klass == Anime ? ANIME_FIELDS : MANGA_FIELDS
   end
 end

@@ -74,11 +74,12 @@ class UserListsController < UsersController
     limit = 90
     @page = (params[:page] || 1).to_i
 
-    history = @user.all_history.
-                    order('updated_at desc').
-                    offset(limit * (@page-1)).
-                    limit(limit + 1).
-                    all
+    history = @user
+      .all_history
+      .order { updated_at.desc }
+      .offset(limit * (@page-1))
+      .limit(limit + 1)
+      .all
 
     @add_postloader = history.size > limit
     history = history.take(limit) if history.size > limit
