@@ -235,7 +235,7 @@ class UserPresenter < BasePresenter
         }
       end
     end.compact.each do |entry|
-      entry[:reversed_action] = entry[:action].split(', ').reverse.join(', ').gsub(/<.*?>/, '')
+      entry[:reversed_action] = entry[:action].split(/(?<!\d[йяюо]), /).reverse.join(', ').gsub(/<.*?>/, '')
     end
   end
 
