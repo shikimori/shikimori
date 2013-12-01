@@ -4,7 +4,7 @@
       = [99, current_user.unread_count].min
   a href="#{user_url current_user}" title="#{current_user.nickname}"
     img.avatar src="#{gravatar_url current_user, 32}" title="#{current_user.nickname}" alt="#{current_user.nickname}"
-    - unless (current_user.unread_count > 0) || current_user.can_vote_1? || current_user.can_vote_2? || current_user.can_vote_3?
+    - unless current_user.unread_count > 0
       span.graphics-arrow-down
   .submenu.right
     - if current_user.profile_settings.manga_first?
