@@ -22,7 +22,7 @@ class DanbooruController < ApplicationController
     end
     redirect_to "/images/#{TmpImagesDir}/#{md5}"
 
-  rescue OpenURI::HTTPError
+  rescue OpenURI::HTTPError, URI::InvalidURIError
     raise NotFound, url
 
   rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError
