@@ -27,6 +27,6 @@ class VerifyMangasJob
         description.like('%Описание представлено')
       }
       .where { id.not_in [2423] }
-      .pluck(&:id)
+      .pluck(:id)
   end
 end
