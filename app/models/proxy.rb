@@ -107,6 +107,7 @@ class Proxy < ActiveRecord::Base
             File.open(tmpfile.path, 'wb') {|f| f.write content }
             unless system("djpeg -fast -grayscale -onepass #{tmpfile.path} > /dev/null")
               content = nil
+              # тут можно бы обнулять tmpfile, но если мы 8 раз не смогли загрузить файл, то наверное его и правда нет, падать не будем
               log "bad image", options
             end
           end
