@@ -14,14 +14,16 @@ child dst: :to do
   extends 'api/v1/users/preview'
 end
 
-child linked: :linked do |message|
+child linked: :linked do |linked|
   attributes :id, :type
 
-  node :url do |message|
-    topic_url message.linked if should_show_more? message
+  node :url do
+    topic_url linked if linked
   end
 
-  child :linked do |linked|
+  child linked: :linked do |linked|
+    node(:type) {|v| v.class.name }
+
     if linked.kind_of? Anime
       extends 'api/v1/animes/preview'
     else

@@ -8,3 +8,7 @@ node :image do |entry|
     x64: entry.image.url(:x64),
   }
 end
+
+node :url do |entry|
+  anime_url entry
+end
