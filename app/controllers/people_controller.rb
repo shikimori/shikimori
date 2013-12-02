@@ -5,8 +5,7 @@ class PeopleController < ApplicationController
   respond_to :html, :json, :only => :index
   respond_to :json, :only => :autocomplete
 
-  caches_action :index, :page, :show, :tooltip,
-                CacheHelper.cache_settings
+  caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   # отображение списка людей
   def index
