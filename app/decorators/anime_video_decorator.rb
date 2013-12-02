@@ -1,3 +1,4 @@
+# TODO need specs!!! / @blackchestnut /
 class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   delegate_all
 
@@ -19,7 +20,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
 
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
   def dropdown_videos
-    current_videos.sort_by {|v| [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.hosting == 'vk.com' ? '' : v.hosting, v.author] }
+    current_videos.sort_by {|v| [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.hosting == 'vk.com' ? '' : v.hosting, v.author]}
   end
 
   def current_video
@@ -27,7 +28,26 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
       if video_id > 0
         current_videos.select {|v| v.id == video_id}.first
       else
-        current_videos.first
+        try_select_by h.cookies[:preference_kind], h.cookies[:preference_hosting], h.cookies[:preference_author_id]
+      end
+    end
+  end
+
+  def try_select_by kind, hosting, author_id
+    by_kind = current_videos.select {|v| v.kind == kind}
+    if by_kind.blank?
+      current_videos.first
+    else
+      by_hosting = by_kind.select {|v| v.hosting == hosting}
+      if by_hosting.blank?
+        by_kind.first
+      else
+        by_author = by_hosting.select {|v| v.author.id == author_id}
+        if by_author.blank?
+          by_hosting.first
+        else
+          by_author.first
+        end
       end
     end
   end
@@ -52,12 +72,12 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
     #end
   #end
 
-  def dropdown_kinds
-    kinds.collect {|v| I18n.t("enumerize.anime_video.kind.#{v}")}.uniq.join ', '
+  def dropdown_kinds videos
+    videos.map(&:kind).uniq.collect {|v| I18n.t("enumerize.anime_video.kind.#{v}")}.uniq.join ', '
   end
 
-  def hostings
-    @hostings ||= current_videos.map(&:hosting).uniq.join ', '
+  def hostings videos
+    videos.map(&:hosting).uniq.sort_by{|h| h == 'vk.com' ? '' : h}.join ', '
   end
 
   def current_first?

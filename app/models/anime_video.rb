@@ -16,6 +16,7 @@ class AnimeVideo < ActiveRecord::Base
 
   def hosting
     parts = URI.parse(url).host.split('.')
-    "#{parts[-2]}.#{parts[-1]}"
+    domain = "#{parts[-2]}.#{parts[-1]}"
+    domain == 'vkontakte.ru' ? 'vk.com' : domain
   end
 end

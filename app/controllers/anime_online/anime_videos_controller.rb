@@ -1,6 +1,8 @@
 class AnimeOnline::AnimeVideosController < ApplicationController
   layout 'anime_online'
 
+  after_filter :save_preferences, only: :show
+
   def index
     if search.blank?
       @anime_ids = AnimeVideo
@@ -43,5 +45,15 @@ private
 
   def search
     params[:search]
+  end
+
+  def save_preferences
+    if params[:video_id].to_i > 0
+      if video = AnimeVideo.find_by_id(params[:video_id])
+        cookies[:preference_kind] = video.kind
+        cookies[:preference_hosting] = video.hosting
+        cookies[:preference_author_id] = video.anime_video_author_id
+      end
+    end
   end
 end

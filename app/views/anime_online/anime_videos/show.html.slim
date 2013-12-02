@@ -14,14 +14,13 @@
       - if @anime.current_videos.blank?
         .alert.alert-info = "Видео пока нет"
       - else
-        /div
-          /= @anime.current_episode
-        /div
-          /= @anime.current_videos.last.episode
-        /div
-          /= @anime.current_videos.map(&:episode).to_a
-        /div
-          /= @anime.videos.keys.to_a
+        /div = @anime.current_episode
+        /div = @anime.current_videos.last.episode
+        /div = @anime.current_videos.map(&:episode).to_a
+        /div = @anime.videos.keys.to_a
+        /div = cookies[:preference_kind]
+        /div = cookies[:preference_hosting]
+        /div = cookies[:preference_author_id]
         .videos
           ul.nav.nav-pills
             li
@@ -33,12 +32,12 @@
                     = "Эпизод #{@anime.current_episode}"
                     span.caret
                   ul.dropdown-menu
-                    - @anime.videos.each_pair do |episode, video|
+                    - @anime.videos.each_pair do |episode, videos|
                       li class="#{ :active if episode == @anime.current_episode }"
                         a href="#{@anime.url episode}"
                           span.num = "##{episode}"
-                          span.kinds = "#{@anime.dropdown_kinds}"
-                          span.hostings = "/ #{@anime.hostings}"
+                          span.kinds = "#{@anime.dropdown_kinds videos}"
+                          span.hostings = "/ #{@anime.hostings videos}"
 
                 a.btn.btn-default class="#{:disabled if @anime.current_last?}" href="#{ @anime.next_url }" >
 
