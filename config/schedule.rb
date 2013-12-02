@@ -29,7 +29,11 @@ every 1.day, at: '0:05 am' do
 end
 
 every 1.day, at: '2:30 am' do
-  runner "Delayed::Job.enqueue_uniq ImportMangasJob.new, ReadMangaJob.new, MangaDescriptionsVerificationJob.new, AnimedbRuScreenshotsJob.new, ImportCharactersJob.new, ImportPeopleJob.new"
+  runner "Delayed::Job.enqueue_uniq ImportMangasJob.new, ReadMangaJob.new, AnimedbRuScreenshotsJob.new, ImportCharactersJob.new, ImportPeopleJob.new"
+end
+
+every 1.day, at: '3:00 am' do
+  runner "Delayed::Job.enqueue_uniq VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new"
 end
 
 every 1.day, at: '4:30 am' do
