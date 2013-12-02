@@ -15,6 +15,7 @@ class AnimeVideo < ActiveRecord::Base
   validates :source, presence: true
 
   def hosting
-    URI.parse(url).host.gsub /^www\./, ''
+    parts = URI.parse(url).host.split('.')
+    "#{parts[-2]}.#{parts[-1]}"
   end
 end
