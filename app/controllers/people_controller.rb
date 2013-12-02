@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  layout false, only: [:tooltip]
+  layout false, only: [:tooltip, :autocomplete]
 
   respond_to :html, :only => [:show, :tooltip]
   respond_to :html, :json, :only => :index
