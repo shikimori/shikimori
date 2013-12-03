@@ -20,5 +20,15 @@ describe AnimeVideo do
       let(:url) { 'http://www.vk.com?id=1' }
       it { should eq 'vk.com' }
     end
+
+    context :second_level_domain do
+      let(:url) { 'http://www.foo.bar.com/video?id=1' }
+      it { should eq 'bar.com' }
+    end
+
+    context :alias_vk_com do
+      let(:url) { 'http://vkontakte.ru/video?id=1' }
+      it { should eq 'vk.com' }
+    end
   end
 end

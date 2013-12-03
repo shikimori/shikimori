@@ -8,36 +8,58 @@
       = render 'anime_online/blocks/info', anime: @anime
 
     .col-md-7
-      == @anime.description
+      - if @anime.description
+        .description == @anime.description
 
-      - if @anime.videos.blank?
+      - if @anime.current_videos.blank?
         .alert.alert-info = "Видео пока нет"
       - else
+        /div = @anime.current_episode
+        /div = @anime.current_videos.last.episode
+        /div = @anime.current_videos.map(&:episode).to_a
+        /div = @anime.videos.keys.to_a
+        /div = cookies[:preference_kind]
+        /div = cookies[:preference_hosting]
+        /div = cookies[:preference_author_id]
         .videos
           ul.nav.nav-pills
-            li.dropdown.episodes
-              a data-toggle="dropdown" href="#" role="button"
-                | Эпизоды
-                b.caret
-              ul.dropdown-menu class="#{ :long if @anime.videos.size > 20 }"
-                - @anime.videos.each_pair do |episode, video|
-                  li class="#{ :active if episode == @anime.current_episode }"
-                    a href="#{anime_videos_show_url(@anime.id, episode)}" title="Эпизод #{episode}" = episode
+            li
+              .btn-group
+                a.btn.btn-default class="#{:disabled if @anime.current_first?}" href="#{ @anime.prev_url }" <
+
+                .btn-group
+                  button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
+                    = "Эпизод #{@anime.current_episode}"
+                    span.caret
+                  ul.dropdown-menu
+                    - @anime.videos.each_pair do |episode, videos|
+                      li class="#{ :active if episode == @anime.current_episode }"
+                        a href="#{@anime.url episode}"
+                          span.num = "##{episode}"
+                          span.kinds = "#{@anime.dropdown_kinds videos}"
+                          span.hostings = "/ #{@anime.hostings videos}"
+
+                a.btn.btn-default class="#{:disabled if @anime.current_last?}" href="#{ @anime.next_url }" >
 
             - unless @anime.current_videos.blank?
-              li.dropdown.kinds
-                a data-toggle="dropdown" href="#" role="button"
-                  | Озвучка
-                  b.caret
-                ul.dropdown-menu
-                  - @anime.current_videos.each_with_index do |video, index|
-                    li
-                      a href="#{anime_videos_show_url @anime.id, @anime.current_episode, video.id}"
-                        = t "enumerize.anime_video.kind.#{video.kind}"
-                        - if video.author
-                          span.author == "#{video.author.name}".html_safe
+              li
+                .btn-group
+                  button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
+                    span.kind = t ".dropdown.kind.#{@anime.current_video.kind}"
+                    span.hosting = @anime.current_video.hosting
+                    span.author = @anime.current_author
+                    span.caret
+                  ul.dropdown-menu
+                    - @anime.dropdown_videos.each_with_index do |video, index|
+                      li
+                        a href="#{anime_videos_show_url @anime.id, @anime.current_episode, video.id}"
+                          span.kind = t ".dropdown.kind.#{video.kind}"
+                          span.hosting = video.hosting
+                          - if video.author
+                            span.author = strip_tags video.author.name
 
-            li.pull-right: a href="http://shikimori.org#{anime_path @anime}" target='blank' На shikimori.org
+
+            /li.pull-right: a href="http://shikimori.org#{anime_path @anime}" target='blank' На shikimori.org
 
         - if @anime.current_video.nil?
           .alert.alert-info = "Такого видео нет"
@@ -50,7 +72,8 @@
           ul.nav.nav-tabs
             li.active
               h4
-                | Отзывы
+                | Отзывы с&nbsp;
+                a href="http://shikimori.org#{anime_path @anime}" target='blank' shikimori.org
                 span.badge = @reviews.size
           - @reviews.each do |review|
             .media

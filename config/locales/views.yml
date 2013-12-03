@@ -1,0 +1,10 @@
+ru:
+  anime_online:
+    anime_videos:
+      show:
+        dropdown:
+          kind:
+            raw: оригинал
+            subtitles: сабы
+            fandub: озвучка
+            unknown: озвучка

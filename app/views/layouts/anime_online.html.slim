@@ -4,6 +4,6 @@ html
     = stylesheet_link_tag 'anime_online/application', media: 'all'
     = javascript_include_tag 'anime_online/application'
   body
-    = render partial: 'anime_online/menu'
+    = render partial: 'anime_online/menu' if Rails.env.development?
     .container
       = yield
