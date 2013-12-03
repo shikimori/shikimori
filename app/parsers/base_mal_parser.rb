@@ -66,7 +66,7 @@ class BaseMalParser < SiteParserWithCache
   # импорт всех новых и помеченных к импорту элементов
   def import(ids=nil)
     Proxy.preload
-    ThreadPool.defaults = {:threads => 60#
+    ThreadPool.defaults = {:threads => 30#
                            #:timeout => 90#,
                            #:log => true
                            #:debug_log => true
