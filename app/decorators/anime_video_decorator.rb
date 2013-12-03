@@ -3,7 +3,12 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   delegate_all
 
   def description
-    object[:description] unless current_episode > 1
+    return if current_episode > 1 || object[:description].blank?
+    if object.description_html.blank?
+      h.format_html_text object.description_mal
+    else
+      object.description_html
+    end
   end
 
   def current_episode
