@@ -237,9 +237,13 @@ describe BbCodeService do
     end
 
     describe 'nested [spoiler]' do
-      #let(:text) { '[spoiler=спойлер]:ololo:\r\n[spoiler=спойлер];)[/spoiler][/spoiler]' }
       let(:text) { '[spoiler=test] [spoiler=1]test[/spoiler][/spoiler]' }
       it { should_not include '[spoiler' }
+    end
+
+    describe 'malware domains' do
+      let(:text) { 'http://images.webpark.ru' }
+      it { should eq 'malware.domain' }
     end
   end
 end

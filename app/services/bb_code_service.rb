@@ -7,7 +7,10 @@ class BbCodeService
 
   include CommentHelper
   include Rails.application.routes.url_helpers
+
   default_url_options[:host] ||= 'shikimori.org'
+
+  MALWARE_DOMAINS = /(https?:\/\/)?images.webpark.ru/i
 
   # форматирование описания чего-либо
   def format_description(text, entry)
@@ -23,6 +26,7 @@ class BbCodeService
   # форматирование текста комментариев
   def format_comment(initial_text)
     text = remove_wiki_codes initial_text
+    text = strip_malware text
     text = user_mention text
     text = super text
     text = cleanup text
@@ -32,6 +36,11 @@ class BbCodeService
 
   def preprocess_comment(text)
     user_mention(text)
+  end
+
+  # удаление из текста вредоносных доменов
+  def strip_malware text
+    text.gsub MALWARE_DOMAINS, 'malware.domain'
   end
 
   # замена концов строк на параграфы
