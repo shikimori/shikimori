@@ -29,7 +29,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
       if video_id > 0
         current_videos.select {|v| v.id == video_id}.first
       else
-        try_select_by h.cookies[:preference_kind], h.cookies[:preference_hosting], h.cookies[:preference_author_id]
+        try_select_by h.cookies[:preference_kind], h.cookies[:preference_hosting], h.cookies[:preference_author_id].to_i
       end
     end
   end
