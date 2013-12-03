@@ -69,42 +69,42 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def extract_url html, source
-    if html =~ %r{src="(https?://(?:vk.com|vkontakte.ru)/video_ext[^"]+)"}
+    if html =~ %r{src="((?:https?:)?//(?:vk.com|vkontakte.ru)/video_ext[^"]+)"}
       $1.sub /&hd=\d/, '&hd=3'
-    elsif html =~ %r{(?:src|value)="(https?://myvi.ru/(?:ru/flash/)?player[^"]+)"}
+    elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.ru/(?:ru/flash/)?player[^"]+)"}
       $1
-    elsif html =~ %r{src="(https?://api.video.mail.ru/videos[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//api.video.mail.ru/videos[^"]+)"}
       $1
-    elsif html =~ %r{src="(https?://img.mail.ru/r/video2/player_v2.swf\?[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//img.mail.ru/r/video2/player_v2.swf\?[^"]+)"}
       $1
     elsif html =~ %r{value="movieSrc=([^"]+)"}
       "http://api.video.mail.ru/videos/embed/#{$1.sub /&autoplay=\d/, ''}.html"
-    elsif html =~ %r{src="(https?://rutube.ru/(?:video|embed)[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//rutube.ru/(?:video|embed)[^"]+)"}
       $1
-    elsif html =~ %r{src="(https?://video.rutube.ru/[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//video.rutube.ru/[^"]+)"}
       $1
-    elsif html =~ %r{src="(https?://video.sibnet.ru/shell[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//video.sibnet.ru/shell[^"]+)"}
       $1
-    elsif html =~ %r{src="(https?://v.kiwi.\w+/(?:v|v2)/[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//v.kiwi.\w+/(?:v|v2)/[^"]+)"}
       $1
-    elsif html =~ %r{value="(https?://p.kiwi.\w+/static/player2/player.swf\?config=[^"]+)"}
+    elsif html =~ %r{value="((?:https?:)?//p.kiwi.\w+/static/player2/player.swf\?config=[^"]+)"}
       $1
-    elsif html =~ %r{src="((?:https?:)?//(?:www.)?youtube.com/(?:embed|v)/[^"]+)"}
+    elsif html =~ %r{src="((?:(?:https?:)?)?//(?:www.)?youtube.com/(?:embed|v)/[^"]+)"}
       $1.sub /^\/\//, 'http://'
-    elsif html =~ %r{src="(https?://i.i.ua/video/evp.swf\?[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//i.i.ua/video/evp.swf\?[^"]+)"}
       $1
-    elsif html =~ %r{src="(https?://video.yandex.ru[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//video.yandex.ru[^"]+)"}
       $1
 
-    elsif html =~ %r{http://animeonline.su/player/videofiles}
+    elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
       puts 'animeonline.su skipped' unless Rails.env.test?
       nil
 
-    elsif html =~ %r{http://clipiki.ru/flash}
+    elsif html =~ %r{(?:https?:)?//clipiki.ru/flash}
       puts 'clipiki.ru skipped' unless Rails.env.test?
       nil
 
-    elsif html =~ %r{https?://(?:vk.com|vkontakte)/video\?q}
+    elsif html =~ %r{(?:https?:)?//(?:vk.com|vkontakte)/video\?q}
       puts 'vk direct link skipped' unless Rails.env.test?
       nil
 

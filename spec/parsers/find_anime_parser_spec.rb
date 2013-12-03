@@ -197,6 +197,11 @@ describe FindAnimeParser do
       it { should eq 'http://rutube.ru/embed/6127963' }
     end
 
+    describe :rutube_4 do
+      let(:html) { '<iframe width="730" height="480" src="//rutube.ru/video/embed/6661157" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
+      it { should eq '//rutube.ru/video/embed/6661157' }
+    end
+
     describe :sibnet do
       let(:html) { "<iframe width=\"730\" height=\"480\" src=\"http://video.sibnet.ru/shell.php?videoid=1186077\" frameborder=\"0\" scrolling=\"no\" allowfullscreen></iframe>" }
       it { should eq 'http://video.sibnet.ru/shell.php?videoid=1186077' }
