@@ -11,7 +11,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def videos
-    @video ||= anime_videos.group_by {|v| v.episode}
+    @video ||= anime_videos.group_by(&:episode)
   end
 
   def current_videos
@@ -20,6 +20,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
 
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
   def dropdown_videos
+    return [] if current_videos.blank?
     current_videos.sort_by {|v| [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.hosting == 'vk.com' ? '' : v.hosting, v.author]}
   end
 
@@ -59,18 +60,6 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   def kinds
     @kinds ||= current_videos.map(&:kind).uniq
   end
-
-  #def kinds? value
-    #kinds.include? value.to_s
-  #end
-
-  #def kind_active? value
-    #if current_video.kind.unknown? && value == :fandub
-      #true
-    #else
-      #current_video.kind == value.to_s
-    #end
-  #end
 
   def dropdown_kinds videos
     videos.map(&:kind).uniq.collect {|v| I18n.t("enumerize.anime_video.kind.#{v}")}.uniq.join ', '

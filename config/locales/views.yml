@@ -1,13 +1,10 @@
 ru:
-  #buttons:
-    #kind:
-      #raw: Оригинал
-      #subtitles: Сабы
-      #fandub: Озвучка
-
-  dropdown:
-    kind:
-      raw: оригинал
-      subtitles: сабы
-      fandub: озвучка
-      unknown: озвучка
+  anime_online:
+    anime_videos:
+      show:
+        dropdown:
+          kind:
+            raw: оригинал
+            subtitles: сабы
+            fandub: озвучка
+            unknown: озвучка
