@@ -23,7 +23,7 @@ module MalDeployer
         if File.exists? "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
           io = open_image "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
         else
-          io = open_image data[:entry][:img]
+          io = mal_image data[:entry][:img]
         end
         entry.image = io.original_filename.blank? ? nil : io if data[:entry].include?(:img)# && !entry.image.exists?
       rescue OpenURI::HTTPError => e
@@ -101,7 +101,7 @@ module MalDeployer
     (images - existed_images).each do |url|
       begin
         if Rails.env != 'test' && !(url.include?("na_series.gif") || url.include?("na.gif"))
-          io = open_image url
+          io = mal_image url
         end
 
         AttachedImage.create! url: url, owner: entry, image: Rails.env != 'test' ? (io.original_filename.blank? ? nil : io) : ''
@@ -164,5 +164,14 @@ module MalDeployer
     ActiveRecord::Base.connection.
       execute("insert into person_roles (`role`, `#{type}_id`, `person_id`, `created_at`, `updated_at`)
                   values #{queries.join(',')}") unless queries.empty?
+  end
+
+  # загрузка картинки с mal
+  def mal_image url
+    if url =~ /\.jpe?g$/
+      Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
+    else
+      open_image url
+    end
   end
 end

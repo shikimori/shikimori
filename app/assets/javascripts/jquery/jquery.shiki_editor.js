@@ -19,6 +19,9 @@ $.fn.extend({
 
       // сохранение по ctrl+enter
       $editor.keypress(function(e) {
+        if ((e.keyCode == 10 || e.keyCode == 13)) {
+          console.log(e.keyCode)
+        }
         if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
           $root.find('form').submit();
         }
@@ -129,9 +132,6 @@ $.fn.extend({
           }
           $('.links input[type=radio]:checked', $root).trigger('tag:build', param);
         }
-        //if (id && text) {
-          //$('.links input[type=radio]:checked', $root).trigger('tag:build', {id: id, text: text});
-        //}
       });
       // изменение типа ссылки
       $('.links input[type=radio]', $root).change(function() {
@@ -147,13 +147,6 @@ $.fn.extend({
               //.attr('value', '') // чистим текущий введённый текст
               .focus();
       });
-      // сабмит ссылки в текстовом поле
-      //$('.links input[type=text]', $root).keypress(function(e) {
-        //if (e.keyCode == 13) {
-          //$('.links input[type=radio]:checked', $root).trigger('tag:build', this.value);
-          //return false;
-        //}
-      //});
       // общий обработчик для всех радио кнопок, закрывающий блок со ссылками
       $('.links input[type=radio]', $root).bind('tag:build', function(e, id, text) {
         $('.editor-link', $root).trigger('click');
@@ -179,14 +172,14 @@ $.fn.extend({
       // сабмит цитаты в текстовом поле
       $('.quotes input[type=text]', $root).keypress(function(e) {
         if (e.keyCode == 13) {
-          $editor.insertAtCaret('[quote'+(this.value === '' ? '' : '='+this.value)+']', '[/quote]');
+          $editor.insertAtCaret('[quote'+(!this.value || this.value.isBlank() ? '' : '='+this.value)+']', '[/quote]');
           $('.editor-quote', $root).trigger('click');
           return false;
         }
       });
       // автокомплит для поля ввода цитаты
       $('.quotes input[type=text]', $root).make_completable(null, function(e, id, text) {
-        $editor.insertAtCaret('[quote='+text+']', '[/quote]');
+        $editor.insertAtCaret('[quote'+(!text || text.isBlank() ? '' : '='+text)+']', '[/quote]');
         $('.editor-quote', $root).trigger('click');
       });
       // построение бб тега для url

@@ -1,3 +1,4 @@
+# sudo apt-get install libjpeg-progs
 class Proxy < ActiveRecord::Base
   SafeErrors = /queue empty|execution expired|banned|connection refused|connection reset by peer|no route to host|end of file reached/i
   cattr_accessor :use_proxy, :use_cache, :show_log
@@ -100,6 +101,17 @@ class Proxy < ActiveRecord::Base
           content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
           raise "#{proxy.to_s} banned" if content.blank?
 
+          # проверка валидности jpg
+          if options[:validate_jpg]
+            tmpfile = Tempfile.new 'jpg'
+            File.open(tmpfile.path, 'wb') {|f| f.write content }
+            unless system("djpeg -fast -grayscale -onepass #{tmpfile.path} > /dev/null")
+              content = nil
+              # тут можно бы обнулять tmpfile, но если мы 8 раз не смогли загрузить файл, то наверное его и правда нет, падать не будем
+              log "bad image", options
+            end
+          end
+
           # проверка на наличие запрошенного текста
           if options[:required_text]
             requires = if options[:required_text].kind_of?(Array)
@@ -139,7 +151,12 @@ class Proxy < ActiveRecord::Base
       end
 
       log "can't get page #{url}", options if content.nil?
-      content
+
+      if options[:return_file]
+        tmpfile
+      else
+        content
+      end
     end
 
     # приведение кодировки в нормальный вид

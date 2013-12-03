@@ -233,6 +233,7 @@
     :russian: "Доктор Нокс"
   34341:
     :japanese: "徳川 千姫"
+
 :manga:
   455:
     :chapters: 0
@@ -243,6 +244,11 @@
   21639:
     :volumes: 2
     :chapters: 17
+  26479:
+    :volumes: 2
+    :chapters: 6
+    :status: "Finished Airing"
+    :released_at: 2012-01-01
   36213:
     :synonyms:
       - "Everyday That There is a Monster Girl"

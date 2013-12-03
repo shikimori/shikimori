@@ -16,7 +16,6 @@ module AniManga
   end
 
   def to_param
-    #HTMLEntities.new.decode( ☆ ß
     "%d-%s" % [id, name.gsub(/&#szlig;|ß/, 'ss')
                        .gsub(/&#\d{4};/, '-')
                        .gsub('Ä', 'A')

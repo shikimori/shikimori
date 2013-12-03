@@ -25,11 +25,15 @@ set :job_template, "/usr/bin/zsh -i -c ':job'"
 # здесь только редкие/долгие таски, которые нельзя на clockwork положить
 
 every 1.day, at: '0:05 am' do
-  runner "Delayed::Job.enqueue_uniq AnimeCalendarJob.new, ProcessContestsJob.new, PrepareImportListJob.new(source: :latest, hours_limit: 24*7), CleanupOldLocksJob.new" # SakuhindbJob.new(false)
+  runner "Delayed::Job.enqueue_uniq AnimeCalendarJob.new, ProcessContestsJob.new, PrepareImportListJob.new(source: :latest, hours_limit: 24*7), CleanupOldLocksJob.new, SakuhindbJob.new(false)"
 end
 
 every 1.day, at: '2:30 am' do
-  runner "Delayed::Job.enqueue_uniq ImportMangasJob.new, ReadMangaJob.new, MangaDescriptionsVerificationJob.new, AnimedbRuScreenshotsJob.new, ImportCharactersJob.new, ImportPeopleJob.new"
+  runner "Delayed::Job.enqueue_uniq ImportMangasJob.new, ReadMangaJob.new, AnimedbRuScreenshotsJob.new, ImportCharactersJob.new, ImportPeopleJob.new"
+end
+
+every 1.day, at: '3:00 am' do
+  runner "Delayed::Job.enqueue_uniq VerifyAnimesJob.new, VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new"
 end
 
 every 1.day, at: '4:30 am' do
@@ -45,7 +49,7 @@ every 1.day, at: '3:00 am' do
 end
 
 every 1.week, at: '3:25 am' do
-  runner "Delayed::Job.enqueue_uniq DanbooruTagsJob.new, CleanupOldMessagesJob.new, CleanupUserImagesJob.new" # , SakuhindbJob.new
+  runner "Delayed::Job.enqueue_uniq DanbooruTagsJob.new, CleanupOldMessagesJob.new, CleanupUserImagesJob.new, SakuhindbJob.new"
 end
 
 every 1.week, at: '3:48 am' do

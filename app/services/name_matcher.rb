@@ -1,6 +1,7 @@
 # матчер названий аниме и манги со сторонних сервисов с названиями на сайте
 class NameMatcher
-  FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
+  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
+  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :chapters]
 
   # конструктор
   def initialize klass, ids=nil, services=[]
@@ -38,16 +39,21 @@ class NameMatcher
 
   # поиск всех подходящих id аниме по переданным наваниям
   def matches names, options={}
-    entries = variants(names).each_with_object({}) do |variant,memo|
+    found = variants(names).each_with_object({}) do |variant,memo|
       @match_order.each do |group|
         memo[group] ||= []
         memo[group] << @cache[group][variant] if @cache[group][variant]
       end
     end.find do |group, matches|
       matches.any?
-    end.second.flatten.compact.uniq
+    end
 
-    entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
+    if found
+      entries = found.second.flatten.compact.uniq
+      entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
+    else
+      []
+    end
   end
 
   # выборка id аниме по однозначному совпадению по простым алгоритмам поиска AniMangaQuery
@@ -171,7 +177,7 @@ private
 
     names
       .flatten
-      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason)\Z/ }
+      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime)\Z/ }
       .select {|v| fix(v).size > 3 }
   end
 
@@ -239,7 +245,7 @@ private
     ds = ds.where id: @ids if @ids.present?
     ds = ds.includes(:links) if @services.present?
 
-    ds.select(FIELDS)
+    ds.select(db_fields)
       .all
       .sort_by {|v| v.kind == 'TV' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
   end
@@ -248,11 +254,15 @@ private
     config = YAML::load(File.open("#{::Rails.root.to_s}/config/alternative_names.yml"))[@klass.table_name]
     entries_by_id = @klass
       .where(id: config.values)
-      .select(FIELDS)
+      .select(db_fields)
       .each_with_object({}) {|v,memo| memo[v.id] = v }
 
     config.each_with_object({}) do |(k,v),memo|
       memo[fix k] = [entries_by_id[v]]
     end
+  end
+
+  def db_fields
+    @klass == Anime ? ANIME_FIELDS : MANGA_FIELDS
   end
 end

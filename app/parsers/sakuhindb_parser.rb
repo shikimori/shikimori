@@ -10,6 +10,7 @@ class SakuhindbParser
   def fetch_and_merge
     data = extract_data
     filter_data data
+
     fill_ids data
     assert_unmatched data
 
@@ -18,7 +19,7 @@ class SakuhindbParser
 
 private
   # мерж в базу данных
-  def merge(data)
+  def merge data
     videos = data.map do |entry|
       Video.create({
         name: entry[:title],
@@ -49,7 +50,7 @@ private
   end
 
   # фильтрация записей от ненужных нам
-  def filter_data(data)
+  def filter_data data
     data.select! do |v|
       v[:kind] != Video::OST &&
         !@ignores.include?(v[:anime]) &&
@@ -58,24 +59,17 @@ private
   end
 
   # заполнение id для аниме
-  def fill_ids(data)
+  def fill_ids data
     data.each do |entry|
       fixed_name = @matches.include?(entry[:anime]) ? @matches[entry[:anime]] : entry[:anime]
-      entry[:anime_id] = matcher.match(fixed_name).try(:id)
 
-      if entry[:anime_id].nil?
-        entry[:anime2] = alt_name entry[:anime]
-        if entry[:anime2].present?
-          entry[:anime_id] = (matcher.match(entry[:anime2]) || matcher.fetch(entry[:anime2])).try :id
-        end
-      end
-
-      #raise "Can't match name: #{entry.to_json}" if entry[:anime_id].nil?
+      matches = matcher.matches [fixed_name, entry[:anime2]].compact
+      entry[:anime_id] = matches.first.id if matches.size == 1
     end
   end
 
   # финальная проверка с падением при наличии незаматченных данных
-  def assert_unmatched(data)
+  def assert_unmatched data
     unmatched = data.select {|v| v[:anime_id].nil? }.map {|v| v[:anime] }.uniq
     if @fail_on_unmatched && unmatched.any?
       ap unmatched
@@ -97,7 +91,7 @@ private
 
 
   # альтернативное название с источника
-  def alt_name(name)
+  def alt_name name
     content = open("http://en.sakuhindb.com/anime/search.asp?todo=&key=#{URI.encode name}&lang=e").read
     File.open('/tmp/test.html', 'w') {|v| v.write content }
     doc = Nokogiri::HTML content
@@ -110,7 +104,7 @@ private
     @matcher ||= NameMatcher.new Anime
   end
 
-  def utf_hack(str)
+  def utf_hack str
     str.unpack('C*').pack('U*').encode('utf-8', 'utf-8', undef: :replace, invalid: :replace, replace: '')
   end
 
@@ -118,7 +112,7 @@ private
     @present_videos ||= Set.new Video.all.map(&:key)
   end
 
-  def decode(str, with_ignore)
+  def decode str, with_ignore
     if str =~ /^\d_/
       if str =~ /^7_/ && (!with_ignore || (with_ignore && str !~ /(_\w{2}){3}/))
         str = utf_hack str.sub(/^7_/, '').gsub('_', '%')
@@ -135,7 +129,7 @@ private
     end
   end
 
-  def normalize_kind(kind)
+  def normalize_kind kind
     case kind
       when 'opening' then Video::OP
       when 'ending' then Video::ED

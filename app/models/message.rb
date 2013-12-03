@@ -13,6 +13,7 @@ class Message < ActiveRecord::Base
   before_create :filter_quotes
   before_save :antispam
 
+  cattr_writer :antispam
   # включен ли антиспам
   @@antispam = true
 
@@ -28,10 +29,10 @@ class Message < ActiveRecord::Base
   def antispam
     return unless @@antispam
     return unless src_type == 'User' && dst_type == 'User'
-    return if self.id != nil
-    return if self.src_type == 'User' && BotsService.posters.include?(self.src_id)
-    return if self.kind == MessageType::Notification
-    return if self.kind == MessageType::GroupRequest
+    return if id != nil
+    return if src_type == 'User' && BotsService.posters.include?(src_id)
+    return if kind == MessageType::Notification
+    return if kind == MessageType::GroupRequest
 
     prior_comment = Message.includes(:src)
         .includes(:dst)

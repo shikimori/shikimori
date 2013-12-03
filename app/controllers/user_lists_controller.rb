@@ -74,11 +74,12 @@ class UserListsController < UsersController
     limit = 90
     @page = (params[:page] || 1).to_i
 
-    history = @user.all_history.
-                    order('updated_at desc').
-                    offset(limit * (@page-1)).
-                    limit(limit + 1).
-                    all
+    history = @user
+      .all_history
+      .order { updated_at.desc }
+      .offset(limit * (@page-1))
+      .limit(limit + 1)
+      .all
 
     @add_postloader = history.size > limit
     history = history.take(limit) if history.size > limit
@@ -170,7 +171,7 @@ class UserListsController < UsersController
         Rails.env.test? ? params[:file] : params[:file].read
       end
 
-      prepared_list = Hash.from_xml(raw_xml)['myanimelist'][params[:klass]]
+      prepared_list = Hash.from_xml(raw_xml.fix_encoding)['myanimelist'][params[:klass]]
       prepared_list = [prepared_list] if prepared_list.kind_of?(Hash)
       prepared_list.map! do |v|
         {

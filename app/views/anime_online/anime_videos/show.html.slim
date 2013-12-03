@@ -55,7 +55,8 @@
                         a href="#{anime_videos_show_url @anime.id, @anime.current_episode, video.id}"
                           span.kind = t ".dropdown.kind.#{video.kind}"
                           span.hosting = video.hosting
-                          span.author = strip_tags video.author.name
+                          - if video.author
+                            span.author = strip_tags video.author.name
 
 
             /li.pull-right: a href="http://shikimori.org#{anime_path @anime}" target='blank' На shikimori.org

@@ -1,3 +1,4 @@
+# TODO: refactor to Message.enumerize
 class MessageType
   # личное сообщение
   Private = 'Private'

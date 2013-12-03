@@ -20,9 +20,10 @@ Site::Application.routes.draw do
           resources :friends, only: [:index]
           resources :clubs, only: [:index]
           resources :favourites, only: [:index]
-          resources :messages, only: [] do
+          resources :messages, only: [:index] do
             get :unread, on: :collection
           end
+          resources :history, only: [:index]
         end
       end
 
@@ -422,10 +423,10 @@ Site::Application.routes.draw do
     get 'person/:id/tooltip(/:test)' => 'people#tooltip', as: :person_tooltip # это должно идти перед person_path
     get "person/:id/(/:sort)" => 'people#show', as: :person, constraints: { id: /\d[^\/]*/, sort: /time/ }
     get "seyu/:id/(/:sort)" => 'seyu#show', as: :seyu, constraints: { id: /\d[^\/]*/, sort: /time/ }
-    get "seyu/:search(/page/:page)" => 'seyu#index', as: :seyu_search, kind: 'seyu', constraints: { page: /\d+/ }
-    get "producer/:search(/page/:page)" => 'people#index', as: :producer_search, kind: 'producer', constraints: { page: /\d+/ }
-    get "mangaka/:search(/page/:page)" => 'people#index', as: :mangaka_search, kind: 'mangaka', constraints: { page: /\d+/ }
-    get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
+    get "seyu/:search(/page/:page)" => 'seyu#index', as: :seyu_search, kind: 'seyu', constraints: { page: /\d+/ }, format: :json
+    get "producer/:search(/page/:page)" => 'people#index', as: :producer_search, kind: 'producer', constraints: { page: /\d+/ }, format: :json
+    get "mangaka/:search(/page/:page)" => 'people#index', as: :mangaka_search, kind: 'mangaka', constraints: { page: /\d+/ }, format: :json
+    get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }, format: :json
     #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
     #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 

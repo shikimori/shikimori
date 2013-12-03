@@ -156,12 +156,12 @@ $gray-color-2: #7b8084;
 
 /* стандартная подсветка выбираемых элементов */
 @mixin default-selectable-decor {
-  background-color: #FFFFFF;
+  /*background-color: #FFFFFF;*/
   &:hover {
-    background-color: #f5f5f5;
+    background-color: #eaeaea;
   }
   &:active {
-    background-color: #f0f0f0!important;
+    background-color: #e5e5e5 !important;
   }
 }
 @mixin inner-image-selectable-decor {

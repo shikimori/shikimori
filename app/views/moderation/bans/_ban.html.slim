@@ -21,7 +21,12 @@
   - elsif ban.comment_id
     span за удалённый комментарий
 
-  span.moderator = ban.moderator.nickname
+  span.moderator
+    = ban.moderator.nickname
+    - if ban.abuse_request
+      |  (
+      = ban.abuse_request.user.nickname
+      | )
 
   = spoiler 'причина', display: 'inline' do
    = ban.reason

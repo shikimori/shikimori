@@ -1,6 +1,16 @@
-class MangaDescriptionsVerificationJob
+class VerifyMangasJob
   def perform
-    bad_mangas = Manga.where {
+    MangaMalParser.import bad_entries if bad_entries.any?
+    raise "Broken manga descriptions found: #{bad_descriptions.join ', '}" if bad_descriptions.any?
+    raise "Broken mangas found: #{bad_entries.join ', '}" if bad_entries.any?
+  end
+
+  def bad_entries
+    Manga.where(name: nil).pluck :id
+  end
+
+  def bad_descriptions
+    @bad_descriptions ||= Manga.where {
         description.like('%adultmanga%') |
         description.like('%doramatv%') |
         description.like('%readmanga%') |
@@ -17,9 +27,6 @@ class MangaDescriptionsVerificationJob
         description.like('%Описание представлено')
       }
       .where { id.not_in [2423] }
-      .select(:id)
-      .map(&:id)
-      .map(&:to_s)
-    raise "Broken manga descriptions found: #{bad_mangas.join(' ')}" if bad_mangas.any?
+      .pluck(:id)
   end
 end

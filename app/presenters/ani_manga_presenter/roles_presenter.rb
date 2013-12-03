@@ -30,6 +30,7 @@ class AniMangaPresenter::RolesPresenter < BasePresenter
 
       entry.characters
           .includes(:seyu)
+          .select {|v| v.name.present? }
           .sort_by(&:name)
           .map do |v|
         {

@@ -46,7 +46,7 @@ private
   # выборка реальных имён с транскрипцией из текста
   def extract_transcribed_matches(text, characters, people)
     text.gsub(/
-      (?<name> (?: [А-ЯЁA-Z][А-ЯЁа-яё\w\.-]+(\s де)? (?: \s (?=[А-ЯЁA-Z]) )? )+ )
+      (?<name> (?: [А-ЯЁA-Z][А-ЯЁа-яё\w\.-]+(\s д[е'])? (?: \s (?=[А-ЯЁA-Z]) )? )+ )
       \s*
       (?: \( | \[ ) (?<japanese> .*? ) (?: \) | \] )
     /x).map do |v|

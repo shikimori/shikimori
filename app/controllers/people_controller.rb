@@ -1,12 +1,11 @@
 class PeopleController < ApplicationController
-  layout false, only: [:tooltip]
+  layout false, only: [:tooltip, :autocomplete]
 
   respond_to :html, :only => [:show, :tooltip]
   respond_to :html, :json, :only => :index
   respond_to :json, :only => :autocomplete
 
-  caches_action :index, :page, :show, :tooltip,
-                CacheHelper.cache_settings
+  caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   # отображение списка людей
   def index

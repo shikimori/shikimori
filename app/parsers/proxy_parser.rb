@@ -82,7 +82,7 @@ private
     @sources ||= Sources + Nokogiri::HTML(RestClient.get(Proxies24Url)).css('.post-title.entry-title a').map {|v| v.attr('href') }
   end
 
-  Proxies24Url = 'http://proxies24.blogspot.ru/search?max-results=10'
+  Proxies24Url = 'http://www.proxies24.org/'
 
   # http://forum.antichat.ru/thread59009.html
   Sources = [
