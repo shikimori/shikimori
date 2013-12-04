@@ -14,23 +14,12 @@ module MalDeployer
     deploy_seyu entry, data[:entry][:seyu] if data[:entry].include? :seyu
 
     # изменения самого элемента
-    data[:entry].except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
+    data[:entry]
+        .except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
         .each {|k,v| entry[k] = v }
     entry.mal_scores = data[:scores] if data.include? :scores
 
-    if Rails.env != 'test' && !(data[:entry][:img].include?("na_series.gif") || data[:entry][:img].include?("na.gif"))
-      begin
-        if File.exists? "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
-          io = open_image "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
-        else
-          io = mal_image data[:entry][:img]
-        end
-        entry.image = io.original_filename.blank? ? nil : io if data[:entry].include?(:img)# && !entry.image.exists?
-      rescue OpenURI::HTTPError => e
-        raise e unless e.message == "404 Not Found"
-        entry.image = nil
-      end
-    end
+    entry.image = reload_image entry, data if reload_image? entry, data
 
     # дата импорта и сохранение элемента, делать надо обязательно в последнюю очередь
     entry.imported_at = DateTime.now
@@ -100,7 +89,7 @@ module MalDeployer
     existed_images = AttachedImage.where(owner_id: entry.id, owner_type: entry.class.name).select(:url).all.map(&:url)
     (images - existed_images).each do |url|
       begin
-        if Rails.env != 'test' && !(url.include?("na_series.gif") || url.include?("na.gif"))
+        unless Rails.env.test? || url.include?("na_series.gif") || url.include?("na.gif")
           io = mal_image url
         end
 
@@ -173,5 +162,36 @@ module MalDeployer
     else
       open_image url
     end
+  end
+
+  # загрузка картинки
+  def reload_image entry, data
+    if File.exists? "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
+      io = open_image "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
+    else
+      io = mal_image data[:entry][:img]
+    end
+
+    io.original_filename.blank? ? nil : io if data[:entry].include?(:img)
+
+  rescue OpenURI::HTTPError => e
+    raise e unless e.message == "404 Not Found"
+    nil
+  end
+
+  # надо ли загружать картинку?
+  def reload_image? entry, data
+    return false if Rails.env.test? || data[:entry][:img].include?("na_series.gif") || data[:entry][:img].include?("na.gif")
+    return true unless entry.image.exists?
+
+    interval = if entry.respond_to?(:ongoing?) && entry.ongoing?
+      1.week
+    elsif entry.respond_to?(:latest?) && entry.latest?
+      3.months
+    else
+      6.months
+    end
+
+    File.ctime(entry.image.path).to_datetime > DateTime.now - interval
   end
 end
