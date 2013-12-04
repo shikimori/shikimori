@@ -18,7 +18,7 @@ private
   end
 
   def resolve_by_episodes entries, episodes
-    range = episodes > 5 ? (episodes-episodes/10)..(episodes+episodes/10) : episodes..episdoes
+    range = episodes > 5 ? (episodes-episodes/10)..(episodes+episodes/10) : episodes..episodes
     resolved = entries.select {|v| range.include? v.episodes }
     resolved.any? ? resolved : entries
   end
