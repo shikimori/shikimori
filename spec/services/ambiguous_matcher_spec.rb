@@ -27,7 +27,7 @@ describe AmbiguousMatcher do
   end
 
   describe :episodes do
-    let(:options) { {episodes: 20} }
+    let(:options) { {episodes: 21} }
 
     describe :no_exact_matches do
       it { should eq animes }

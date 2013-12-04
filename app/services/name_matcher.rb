@@ -133,6 +133,7 @@ private
     phrases = multiply_phrases phrases, / 2nd season$/, ' s2'
 
     phrases = multiply_phrases phrases, /^the /, ''
+    phrases = multiply_phrases phrases, /\b2\b/, 'II'
     phrases = multiply_phrases phrases, /magika/, 'magica'
     phrases = multiply_phrases phrases, /(?<= )2$/, '2nd season'
     phrases = multiply_phrases phrases, /(?<= )3$/, '3rd season'
@@ -186,7 +187,7 @@ private
 
     names
       .flatten
-      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime)\Z/ }
+      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/ }
       .select {|v| fix(v).size > 3 }
   end
 

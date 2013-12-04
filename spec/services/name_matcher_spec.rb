@@ -256,6 +256,12 @@ describe NameMatcher do
       it { should eq [anime] }
     end
 
+    describe '"2" as "II"' do
+      subject { matcher.matches 'Sekai-ichi Hatsukoi II' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Sekai-ichi Hatsukoi 2' }
+      it { should eq [anime] }
+    end
+
     describe 'multiple replacements' do
       subject { matcher.matches 'Rou Kyuu Bu! SS' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Ro-Kyu-Bu! SS' }

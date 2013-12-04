@@ -21,7 +21,7 @@ class FindAnimeParser < ReadMangaParser
 
     names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
 
-    entry[:episodes] = doc.css('.subject-meta').text[/Серий:\s*(\d+)/, 1].try(&:to_i)
+    entry[:episodes] = doc.css('.subject-meta').text[/Серий:\s*(\d+)/, 1].try(&:to_i) || 1
     entry[:year] = doc.css('.elem_year').map(&:text).map(&:strip).map(&:to_i).first
     entry[:categories] = doc.css('.elem_category').map(&:text).map(&:strip)
     entry[:videos] = videos
