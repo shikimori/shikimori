@@ -4,6 +4,10 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   after_filter :save_preferences, only: :show
 
   def index
+    unless Rails.env.development?
+      raise ActionController::RoutingError.new 'Not Found'
+    end
+
     if search.blank?
       @anime_ids = AnimeVideo
         .select('distinct anime_id')
