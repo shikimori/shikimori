@@ -21,11 +21,12 @@
         /div = cookies[:preference_kind]
         /div = cookies[:preference_hosting]
         /div = cookies[:preference_author_id]
+
         .videos
           ul.nav.nav-pills
             li
               .btn-group
-                a.btn.btn-default class="#{:disabled if @anime.current_first?}" href="#{ @anime.prev_url }" <
+                a.btn.btn-default class="#{:disabled if @anime.current_first?}" href="#{ @anime.prev_url }" title="Следующий эпизод" &larr;
 
                 .btn-group
                   button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
@@ -39,7 +40,7 @@
                           span.kinds = "#{@anime.dropdown_kinds videos}"
                           span.hostings = "/ #{@anime.hostings videos}"
 
-                a.btn.btn-default class="#{:disabled if @anime.current_last?}" href="#{ @anime.next_url }" >
+                a.btn.btn-default class="#{:disabled if @anime.current_last?}" href="#{ @anime.next_url }" title="Предыдущий эпизод" &rarr;
 
             - unless @anime.current_videos.blank?
               li
