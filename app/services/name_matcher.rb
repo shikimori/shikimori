@@ -3,10 +3,12 @@ class NameMatcher
   ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
   MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :chapters]
 
+  attr_reader :cache
+
   # конструктор
   def initialize klass, ids=nil, services=[]
     # в каком порядке будем обходить кеш
-    @match_order = [:name, :alt, :alt2, :russian, :predefined]
+    @match_order = [:predefined, :name, :alt, :alt2, :alt3, :russian]
 
     @klass = klass
     @ids = ids
@@ -17,6 +19,7 @@ class NameMatcher
       name: {},
       alt: {},
       alt2: {},
+      alt3: {},
       russian: {},
       predefined: predefined_matches
     }
@@ -25,8 +28,21 @@ class NameMatcher
     build_cache
   end
 
+  # поиск всех подходящих id аниме по переданным наваниям
+  def matches names, options={}
+    found = matching_groups(names, false).first || matching_groups(names, true).first
+
+    if found
+      entries = found.second.flatten.compact.uniq
+      entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
+    else
+      []
+    end
+  end
+
   # поиск id аниме по переданному наванию
   def match name
+    ActiveSupport::Deprecation.warn "use .matches instead.", caller
     variants(name).each do |variant|
       @match_order.each do |group|
         ids = @cache[group][variant]
@@ -37,27 +53,9 @@ class NameMatcher
     nil
   end
 
-  # поиск всех подходящих id аниме по переданным наваниям
-  def matches names, options={}
-    found = variants(names).each_with_object({}) do |variant,memo|
-      @match_order.each do |group|
-        memo[group] ||= []
-        memo[group] << @cache[group][variant] if @cache[group][variant]
-      end
-    end.find do |group, matches|
-      matches.any?
-    end
-
-    if found
-      entries = found.second.flatten.compact.uniq
-      entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
-    else
-      []
-    end
-  end
-
   # выборка id аниме по однозначному совпадению по простым алгоритмам поиска AniMangaQuery
   def fetch name
+    ActiveSupport::Deprecation.warn "use .matches instead.", caller
     results = AniMangaQuery.new(@klass, search: name).fetch
 
     if results.count == 1
@@ -90,13 +88,24 @@ private
       #.gsub(/([A-z])0(\d)/, '\1\2')
   end
 
+  def matching_groups names, with_split
+    found_matches = variants(names, with_split).each_with_object({}) do |variant,memo|
+      @match_order.each do |group|
+        memo[group] ||= []
+        memo[group] << @cache[group][variant] if @cache[group][variant]
+      end
+    end
+
+    found_matches.select {|group, matches| matches.any? }
+  end
+
   # получение различных вариантов написания фразы
-  def phrase_variants name, kind=nil
+  def phrase_variants name, kind=nil, with_split=true
     return [] if name.nil?
 
     phrases = [name]
 
-    phrases.concat split_by_delimiters(name, kind)
+    phrases.concat split_by_delimiters(name, kind) if with_split
 
     # альтернативные названия в скобках
     phrases = phrases + phrases
@@ -156,11 +165,11 @@ private
   end
 
   # все возможные варианты написания имён
-  def variants names
+  def variants names, with_splits=true
     [names]
       .flatten
       .map(&:downcase)
-      .map {|name| phrase_variants name }
+      .map {|name| phrase_variants name, nil, with_splits }
       .flatten
       .uniq
       .select(&:present?)
@@ -187,10 +196,11 @@ private
       names = {
         name: main_names(entry),
         alt: alt_names(entry),
+        alt2: alt2_names(entry),
         russian: russian_names(entry)
       }
       names.each {|k,v| v.map!(&:downcase) }
-      names[:alt2] = alt2_names(entry, names[:alt])
+      names[:alt3] = alt3_names(entry, names[:alt2])
 
       names.each {|k,v| names[k] = (v + v.map {|name| fix name }).uniq }
 
@@ -211,18 +221,23 @@ private
 
   def main_names entry
     names = [entry.name, "#{entry.name} #{entry.kind}"]
-    synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_at ? entry.synonyms.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.synonyms
-    english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_at ? entry.english.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.english
     aired_at = ["#{entry.name} #{entry.aired_at.year}"] if entry.aired_at
 
-    names + (synonyms || []) + (english || []) + (aired_at || [])
+    names + (aired_at || [])
   end
 
   def alt_names entry
+    synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_at ? entry.synonyms.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.synonyms
+    english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_at ? entry.english.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.english
+
+    (synonyms || []) + (english || [])
+  end
+
+  def alt2_names entry
     [entry.name] + (entry.synonyms ? entry.synonyms : []) + (entry.english ? entry.english : [])
   end
 
-  def alt2_names entry, alt1_names
+  def alt3_names entry, alt1_names
     names = alt1_names.map {|name| phrase_variants name, entry.kind }.compact.flatten
     (
       names +
