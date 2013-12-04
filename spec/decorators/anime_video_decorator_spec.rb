@@ -6,12 +6,12 @@ describe AnimeVideoDecorator do
     subject { AnimeVideoDecorator.new(anime).description }
 
     context :first_episode do
-      it { should eq 'test' }
+      it { should eq BbCodeService.instance.format_description('test', anime) }
     end
 
     context :second_episode do
       before { AnimeVideoDecorator.any_instance.stub(:current_episode).and_return 2 }
-      it { should be_nil }
+      it { should eq BbCodeService.instance.format_description('test', anime) }
     end
   end
 
@@ -89,6 +89,32 @@ describe AnimeVideoDecorator do
       before { anime.anime_videos << [video_sublitles, video_unknown] }
 
       its(:first) { should eq video_unknown }
+    end
+  end
+
+  describe :current_author do
+    subject { AnimeVideoDecorator.new(anime).current_author }
+    let(:anime) { build :anime }
+    before { AnimeVideoDecorator.any_instance.stub(:current_video).and_return video }
+
+    context :current_video_nil do
+      let(:video) { nil }
+      it { should be_blank }
+    end
+
+    context :author_nil do
+      let(:video) { build :anime_video, author: nil }
+      it { should be_blank }
+    end
+
+    context :author_valid do
+      let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test') }
+      it { should eq 'test' }
+    end
+
+    context :author_very_long do
+      let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test12345678901234567890') }
+      it { should eq 'test1234567890123...' }
     end
   end
 end

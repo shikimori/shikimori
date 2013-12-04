@@ -6,4 +6,3 @@ jQuery ->
 
   frame = $('iframe', $page)
   frame.height(frame.width() * 9 / 16)
-  console.log frame.width()

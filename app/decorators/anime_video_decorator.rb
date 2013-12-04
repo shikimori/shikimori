@@ -3,7 +3,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   delegate_all
 
   def description
-    return if current_episode > 1 || object[:description].blank?
+    return if object[:description].blank?
     if object.description_html.blank?
       h.format_html_text object.description_mal
     else
@@ -58,8 +58,9 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
     end
   end
 
+  # TODO move in VideoDecorator
   def current_author
-    h.truncate h.strip_tags(current_video.author.name), :length => 20, :omission => '...'
+    h.truncate h.strip_tags(current_video.author.name), :length => 20, :omission => '...' if current_video && current_video.author
   end
 
   def kinds
