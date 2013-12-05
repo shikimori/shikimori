@@ -12,7 +12,11 @@
         .description == @anime.description
 
       - if @anime.current_videos.blank?
-        .alert.alert-info = "Видео пока нет"
+        .alert.alert-info
+          h4 Такого видео нет!
+          p
+            | Последний&nbsp;
+            a.alert-link href="#{@anime.url @anime.videos.max().first}" = "эпизод #{@anime.videos.max().first}"
       - else
         /div = @anime.current_episode
         /div = @anime.current_videos.last.episode
@@ -59,14 +63,8 @@
                           - if video.author
                             span.author = strip_tags video.author.name
 
-
-            /li.pull-right: a href="http://shikimori.org#{anime_path @anime}" target='blank' На shikimori.org
-
-        - if @anime.current_video.nil?
-          .alert.alert-info = "Такого видео нет"
-        - else
-          .video
-            iframe src="#{@anime.current_video.url}"
+        .video
+          iframe src="#{@anime.current_video.url}"
 
       - unless @reviews.blank?
         .reviews
