@@ -30,7 +30,7 @@
           ul.nav.nav-pills
             li
               .btn-group.episodes
-                a.btn.btn-default class="#{:disabled if @anime.current_first?}" href="#{ @anime.prev_url }" title="Следующий эпизод" &larr;
+                a.btn.btn-default class="#{:disabled if @anime.current_first?}" href="#{ @anime.prev_url }" title="Предыдущий эпизод" &nbsp;<&nbsp;
 
                 .btn-group
                   button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
@@ -44,7 +44,7 @@
                           span.kinds = "#{@anime.dropdown_kinds videos}"
                           span.hostings = "/ #{@anime.hostings videos}"
 
-                a.btn.btn-default class="#{:disabled if @anime.current_last?}" href="#{ @anime.next_url }" title="Предыдущий эпизод" &rarr;
+                a.btn.btn-default class="#{:disabled if @anime.current_last?}" href="#{ @anime.next_url }" title="Следующий эпизод" &nbsp;>&nbsp;
 
             - unless @anime.current_videos.blank?
               li
