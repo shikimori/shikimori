@@ -4,7 +4,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   after_filter :save_preferences, only: :show
 
   def index
-    unless Rails.env.development?
+    if Rails.env.production?
       raise ActionController::RoutingError.new 'Not Found'
     end
 
@@ -29,6 +29,8 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     @anime = AnimeVideoDecorator.new(Anime
         .includes(:anime_videos, :genres)
         .find params[:id])
+
+    raise ActionController::RoutingError.new 'Not Found' if @anime.anime_videos.blank?
 
     unless @anime.episode_id > 1
       @reviews = Comment
