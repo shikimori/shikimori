@@ -134,6 +134,8 @@ private
 
     phrases = multiply_phrases phrases, /^the /, ''
     phrases = multiply_phrases phrases, /\b2\b/, 'II'
+    phrases = multiply_phrases phrases, /\bi\b/, ''
+
     phrases = multiply_phrases phrases, /magika/, 'magica'
     phrases = multiply_phrases phrases, /(?<= )2$/, '2nd season'
     phrases = multiply_phrases phrases, /(?<= )3$/, '3rd season'
@@ -150,6 +152,8 @@ private
     phrases = multiply_phrases phrases, ' o ', ' wo '
     phrases = multiply_phrases phrases, ' wo ', ' o '
     phrases = multiply_phrases phrases, 'u', 'h'
+    phrases = multiply_phrases phrases, 'ß', 'ss'
+    phrases = multiply_phrases phrases, 'ü', 'u'
 
     phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
     phrases = multiply_phrases phrases, /s(?!h)/, 'sh'

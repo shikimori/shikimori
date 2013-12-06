@@ -220,6 +220,18 @@ describe NameMatcher do
       it { should eq [anime] }
     end
 
+    describe '"ß" as "ss"' do
+      subject { matcher.matches 'Weiss Kreuz Gluhen' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Weiß Kreuz Gluhen' }
+      it { should eq [anime] }
+    end
+
+    describe '"ü" as "u"' do
+      subject { matcher.matches 'Weiss Kreuz Gluhen' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Weiss Kreuz Glühen' }
+      it { should eq [anime] }
+    end
+
     describe '"o" as "h"' do
       subject { matcher.matches "Yuu-Gi-Ou! 5D's" }
       let!(:anime) { create :anime, kind: 'TV', name: "Yu-Gi-Oh! 5D's" }
@@ -256,9 +268,15 @@ describe NameMatcher do
       it { should eq [anime] }
     end
 
-    describe '"2" as "II"' do
+    describe '"II" as "2"' do
       subject { matcher.matches 'Sekai-ichi Hatsukoi II' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Sekai-ichi Hatsukoi 2' }
+      it { should eq [anime] }
+    end
+
+    describe '"I" as nothing' do
+      subject { matcher.matches 'Sekai-ichi Hatsukoi I' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Sekai-ichi Hatsukoi' }
       it { should eq [anime] }
     end
 
