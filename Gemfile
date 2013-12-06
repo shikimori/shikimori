@@ -4,7 +4,7 @@ ruby '2.0.0'
 #Encoding.default_internal = Encoding::UTF_8
 
 gem 'rake'
-gem 'rails', '3.2.15'
+gem 'rails', '3.2.16'
 
 gem 'aws-s3', require: 'aws/s3'
 
