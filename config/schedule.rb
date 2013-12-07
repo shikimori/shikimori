@@ -29,31 +29,28 @@ every 1.day, at: '0:05 am' do
 end
 
 every 1.day, at: '2:30 am' do
-  runner "Delayed::Job.enqueue_uniq ImportMangasJob.new, ReadMangaJob.new, AnimedbRuScreenshotsJob.new, ImportCharactersJob.new, ImportPeopleJob.new"
+  runner "Delayed::Job.enqueue_uniq ImportMangasJob.new, ReadMangaJob.new"
 end
 
 every 1.day, at: '3:00 am' do
-  runner "Delayed::Job.enqueue_uniq VerifyAnimesJob.new, VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new"
+  runner "Delayed::Job.enqueue_uniq ImportCharactersJob.new"
+  command "backup perform --trigger shikimori"
+end
+
+every 1.week, at: '3:30 am' do
+  runner "Delayed::Job.enqueue_uniq ImportPeopleJob.new, DanbooruTagsJob.new, CleanupOldMessagesJob.new, CleanupUserImagesJob.new, SakuhindbJob.new"
+end
+
+every 1.week, at: '4:00 am' do
+  runner "Delayed::Job.enqueue_uniq SubtitlesJob.new(latest: true), DeleteBadVideosJob.new"
 end
 
 every 1.day, at: '4:30 am' do
   runner "Delayed::Job.enqueue_uniq SubtitlesJob.new(ongoing: true), ActualizeReadMangaLinksJob.new"
 end
 
-#every 1.day, at: '8:12 pm' do
-  #runner "Delayed::Job.enqueue_uniq IdzumiReviewsJob.new"
-#end
-
-every 1.day, at: '3:00 am' do
-  command "backup perform --trigger shikimori"
-end
-
-every 1.week, at: '3:25 am' do
-  runner "Delayed::Job.enqueue_uniq DanbooruTagsJob.new, CleanupOldMessagesJob.new, CleanupUserImagesJob.new, SakuhindbJob.new"
-end
-
-every 1.week, at: '3:48 am' do
-  runner "Delayed::Job.enqueue_uniq SubtitlesJob.new(latest: true), DeleteBadVideosJob.new"
+every 1.day, at: '8:00 am' do
+  runner "Delayed::Job.enqueue_uniq VerifyAnimesJob.new, VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new"
 end
 
 #every 1.day, at: '0:45 am' do
