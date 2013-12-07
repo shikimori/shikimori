@@ -1,3 +1,6 @@
+mangas:
+  no_matches_yet: true
+
 animes:
   'Охотник х Охотник [ТВ-1]': 136
   'Охотник х Охотник [ТВ -2]': 11061
@@ -73,7 +76,7 @@ animes:
   'Дораэмон-1979': 2471
   'Детектив Конан (фильм 08)': 1367
   'Inuyasha Movie 1': 452
-  'Wish upon a Star | Hoshi ni Negai wo': 7230
+  'Wish upon a Star': 7230
   "Tales of Symphonia: Tethe'alla Chapter": 5306
   'Konan tai Kid tai Yaiba: Houtou Soudatsu Daikessen!!': 1369
   'Akahori Gedou Hour Rabuge': 309
@@ -85,6 +88,28 @@ animes:
   'Pokemon the Movie 9: Umino Ouji - Manafi': 2201
   'Pocket Monsters Advanced': 1526
   'Air - Theatrical Feature': 713
-
-mangas:
-  no_matches_yet: true
+  'Hakkenden: Eight Dogs of the East [TV-2]': 18055
+  'Toriko TV-1': 10033
+  'Gekijouban Hunter x Hunter: Phantom Rouge': 13271
+  'Kami nomi zo Shiru Sekai: Magical Star Kanon': 17725
+  'Saint Seiya Omega: New Cloth Hen': 12929
+  'Rinne no Lagrange TV-2': 12281
+  'Gall Force: Eternal Story': 2060
+  'Rinne no Lagrange TV-1': 11227
+  'Magic Teacher Negima! Spring, OVA-1': 1619
+  'Poltergeist Report: Fight': 2125
+  'Project ARMS TV-1': 1492
+  'Project Arms TV-2': 1493
+  'Loups-Garous': 7598
+  'Superbook season 2': 3936
+  'One Piece: The Detective Memoirs of Boss Straw Hat Luffy': 2020
+  'One Piece: Protect! The Last Great Stage': 1238
+  "One Piece: Open Upon the Great Sea! A Father's Huge, HUGE Dream!": 1237
+  'Gekijouban Gintama: Shinyaku Benizakura Hen': 7472
+  'Hell Teacher Nube 1997': 8228
+  'Hidou Senshi Gundam 0083 - Zeon no Zankou': 2695
+  'Detective Conan: Count Down to Heaven': 1364
+  'Detective Conan: Captured In Her Eyes': 1363
+  "Detective Conan: High School Girl Detective Sonoko Suzuki's Case File": 6198
+  'Detective Conan: The Timed Skyscraper': 779
+  'Meitantei Conan: 10 Nengo no Strange': 6438
