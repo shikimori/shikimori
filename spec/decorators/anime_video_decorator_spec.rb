@@ -117,4 +117,18 @@ describe AnimeVideoDecorator do
       it { should eq 'test1234567890123...' }
     end
   end
+
+  describe :try_select_by do
+    subject { AnimeVideoDecorator.new(anime).try_select_by kind.to_s, hosting, author_id }
+    before { AnimeVideoDecorator.any_instance.stub(:current_videos).and_return videos }
+    let(:anime) { build :anime }
+
+    context :author_nil do
+      let(:kind) { :fandub }
+      let(:hosting) { 'vk.com' }
+      let(:author_id) { 1 }
+      let(:videos) { [build(:anime_video, kind: kind, url: 'http://vk.com', author: nil)] }
+      it { should eq videos.first }
+    end
+  end
 end

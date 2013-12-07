@@ -48,7 +48,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
       if by_hosting.blank?
         by_kind.first
       else
-        by_author = by_hosting.select {|v| v.author.id == author_id}
+        by_author = by_hosting.select {|v| v.anime_video_author_id == author_id}
         if by_author.blank?
           by_hosting.first
         else
