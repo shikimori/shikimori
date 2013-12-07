@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
         @sub_layout = nil
         render 'pages/page404.html', layout: 'application', status: 404
       else
-        render text: 'Страница не найдена', content_type: 'text/plain', status: 404
+        render text: '404 - Страница не найдена', content_type: 'text/plain', status: 404
       end
 
     elsif e.is_a?(Forbidden)
@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
         @page_title = "Ошибка"
         render 'pages/page503.html', layout: 'application', status: 503
       else
-        render text: 'Произошла ошибка', content_type: 'text/plain', status: 503
+        render text: '503 - Произошла ошибка', content_type: 'text/plain', status: 503
       end
     end
   end
