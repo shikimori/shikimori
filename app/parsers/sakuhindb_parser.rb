@@ -5,6 +5,7 @@ class SakuhindbParser
     config = YAML::load(File.open("#{::Rails.root.to_s}/config/sakuhindb.yml"))
     @ignores = Set.new config[:ignores]
     @matches = config[:matches]
+    @deleted = config[:deleted]
   end
 
   def fetch_and_merge
@@ -54,7 +55,8 @@ private
     data.select! do |v|
       v[:kind] != Video::OST &&
         !@ignores.include?(v[:anime]) &&
-        !present_videos.include?(v[:youtube])
+        !present_videos.include?(v[:youtube]) &&
+        !@deleted.include?(v[:youtube])
     end
   end
 
