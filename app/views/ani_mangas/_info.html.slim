@@ -43,7 +43,7 @@ aside.left-column.menu-block
       .scores.rate-block
         meta itemprop="bestRating" content="10"
         meta itemprop="ratingValue" content="#{@entry.score}"
-        meta itemprop="ratingCount" content="#{@entry.mal_scores.sum/20}"
+        meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/20).to_i}"
         = render partial: 'ani_mangas/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
 
 .right-column.menu-block

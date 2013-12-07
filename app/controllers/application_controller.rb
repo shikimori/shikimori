@@ -1,5 +1,3 @@
-class StatusCodeError < StandardError; end
-
 class ApplicationController < ActionController::Base
   include SEO
 
@@ -10,17 +8,10 @@ class ApplicationController < ActionController::Base
   before_filter :update_last_online if Rails.env != 'test'
   before_filter :mailer_set_url_options
   before_filter :force_vary_accept
-  #before_filter :authorize_rack_mini_profiler if Rails.env.development?
 
   helper_method :resource_class
   helper_method :remote_addr
   helper_method :json?
-
-  before_filter :logging
-  def logging
-    #logger.info "[PID:#{Process.pid}]" if logger
-    logger.info "[USER:#{current_user.id}] #{current_user.nickname}" if logger && user_signed_in?
-  end
 
   def mailer_set_url_options
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
@@ -32,13 +23,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #if Rails.env == 'development'
-    #def current_user
-      #return User.find_by_nickname('Daiver')
-    #end
-  #end
-
-  #unless ['test', 'development'].include? Rails.env
   unless Rails.env.test?
     rescue_from Exception, with: :runtime_error
     rescue_from SyntaxError, with: :runtime_error
@@ -51,68 +35,48 @@ class ApplicationController < ActionController::Base
     rescue_from StatusCodeError, with: :runtime_error
   end
 
-  def runtime_error(e)
-    ExceptionNotifier.notify_exception(e, env: request.env, data: {
-      nickname: user_signed_in? ? current_user.nickname : nil
-    })
+  # для руссификации
+  I18n.exception_handler = lambda do |exception, locale, key, options|
+    raise "missing translation #{locale} #{key}"# unless Rails.env.production?
+  end
 
+  def runtime_error e
+    ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? current_user.nickname : nil })
     raise e if remote_addr == '127.0.0.1'
 
-    #logger.error e.message
-    #logger.error e.backtrace.join("\n")
-
     if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, NotFound].include?(e.class)
-      @page_title = "Страница не найдена"
-      @sub_layout = nil
-      render 'pages/page404.html', layout: 'application', status: 404
+      if shikimori?
+        @page_title = "Страница не найдена"
+        @sub_layout = nil
+        render 'pages/page404.html', layout: 'application', status: 404
+      else
+        render text: 'Страница не найдена', content_type: 'text/plain', status: 404
+      end
+
     elsif e.is_a?(Forbidden)
       render text: e.message, status: e.status
+
     elsif e.is_a?(StatusCodeError)
       render json: {}, status: e.status
+
     else
-      @page_title = "Ошибка"
-      logger.error e.message
-      logger.error e.backtrace.join("\n")
-      render 'pages/page503.html', layout: 'application', status: 503
+      if shikimori?
+        @page_title = "Ошибка"
+        render 'pages/page503.html', layout: 'application', status: 503
+      else
+        render text: 'Произошла ошибка', content_type: 'text/plain', status: 503
+      end
     end
   end
 
+  # трогаем lastonline у текущего пользователя
   def update_last_online
     return unless user_signed_in? && !params.include?(:format) && current_user.class != Symbol
     current_user.update_last_online if current_user.id != 1
   end
 
-  #def http_status_code(e)
-    #logger.info(e.class)
-    #logger.info(e.status)
-    ##Xmpp.message e.class
-    ##Xmpp.message e.status
-    #render json: {}, status: e.status
-    ##respond_to do |format|
-      ##format.html { render template: "shared/status_#{status.to_s}", status: status }
-      ##format.any  { head status } # only return the status code
-    ##end
-  #end
-
-  #def local_request?
-    #false
-  #end
-
-  #def rescue_action_in_public(exception)
-    #case exception
-    #when ActiveRecord::RecordNotFound
-      #Xmpp.send "test"
-      #render file: "#{RAILS_ROOT}/public/404.html", status: 404
-    #else
-      #super
-    #end
-  #end
-
-  def debug(object)
-    render inline: '<%=debug(object) %>', locals: {object: object}
-  end
-
-  def chronology(params)
+  # TODO: выпилить
+  def chronology params
     collection = params[:source]
         .where("`#{params[:date]}` >= #{Entry.sanitize params[:entry][params[:date]]}")
         .where("#{params[:entry].class.table_name}.id != #{Entry.sanitize params[:entry].id}")
@@ -140,25 +104,8 @@ class ApplicationController < ActionController::Base
                end
   end
 
-  # для руссификации
-  I18n.exception_handler = lambda do |exception, locale, key, options|
-    raise "missing translation #{locale} #{key}"# unless Rails.env.production?
-    #case exception
-      #when I18n::MissingTranslationData, I18n::MissingTranslation
-        #unless locale == :en
-          #I18n.translate key, (options || {}).merge(locale: :en)
-          #ExceptionNotifier.notify_exception exception
-        #else
-          #key
-        #end
-
-      #else
-        #raise exception.message
-    #end
-  end
-
   # создание презентера
-  def present(object, klass = nil)
+  def present object, klass=nil
     klass ||= case object.class.name
       when Anime.name, Manga.name
         AniMangaPresenter
@@ -178,17 +125,11 @@ class ApplicationController < ActionController::Base
   end
 
   # создание директора
-  def direct(object=nil)
+  def direct object=nil
     klass = "#{self.class.name.sub(/Controller$/, '').sub(/^(Animes|Mangas)$/, 'AniMangas').sub(/Controller::/, 'Director::')}Director".constantize
     director = klass.new(self)
     director.send params[:action]
     director
-  end
-
-  def _log(*args)
-    Rails.logger.info '-----------------'
-    Rails.logger.info *args
-    Rails.logger.info '-----------------'
   end
 
   # хром некорректно обрабатывает Back кнопку, если на аякс ответ не послан заголовок Vary: Accept
@@ -218,7 +159,7 @@ private
 
   # пагинация датасорса
   # задаёт переменные класса @page, @limit, @add_postloader
-  def postload_paginate(page, limit)
+  def postload_paginate page, limit
     @page = (page || 1).to_i
     @limit = limit.to_i
 
@@ -241,7 +182,7 @@ private
     request.format == Mime::Type.lookup_by_extension('json') || params[:format] == 'json'
   end
 
-  def redirect_to_back_or_to(default, *args)
+  def redirect_to_back_or_to default, *args
     if request.env["HTTP_REFERER"].present? and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
       redirect_to :back, *args
     else
@@ -249,7 +190,8 @@ private
     end
   end
 
-  #def authorize_rack_mini_profiler
-    #Rack::MiniProfiler.authorize_request if user_signed_in? && current_user.admin?
-  #end
+  # находимся ли сейчас на домене шикимори?
+  def shikimori?
+    ShikimoriOnlineDomain::HOSTS.include? request.host
+  end
 end
