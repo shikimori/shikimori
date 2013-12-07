@@ -192,6 +192,6 @@ private
 
   # находимся ли сейчас на домене шикимори?
   def shikimori?
-    ShikimoriOnlineDomain::HOSTS.include? request.host
+    ShikimoriDomain::HOSTS.include? request.host
   end
 end
