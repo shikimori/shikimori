@@ -3,37 +3,10 @@ Site::Application.routes.draw do
     root to: 'anime_online/anime_videos#index'
     get 'videos/:id(/:episode_id)(/:video_id)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode_id: /\d+/, video_id: /\d+/ }
     get 'videos' => 'anime_online/anime_videos#index', as: :anime_videos
+    get 'robots.txt' => 'robots#animeonline'
   end
 
   constraints ShikimoriDomain  do
-    apipie
-    namespace :api, defaults: { format: 'json' } do
-      scope module: :v1 do
-        resources :comments, only: [:show, :index]
-        resource :authenticity_token, only: [:show]
-
-        devise_scope :user do
-          resources :sessions, only: [:create]
-        end
-
-        namespace :profile do
-          resources :friends, only: [:index]
-          resources :clubs, only: [:index]
-          resources :favourites, only: [:index]
-          resources :messages, only: [:index] do
-            get :unread, on: :collection
-          end
-          resources :history, only: [:index]
-        end
-      end
-
-      resources :animes, only: [:index, :show]
-      resources :genres, only: [:index]
-      resources :studios, only: [:index]
-      resources :user_rates, only: [:index]
-      resources :reviews, only: [:show]
-    end
-
     # форум
     root to: 'topics#index'
     get '/' => 'topics#index', as: :forum
@@ -449,6 +422,34 @@ Site::Application.routes.draw do
     #post 'blogs/create' => 'entries#create', as: :create_news
 
     get 'sitemap' => 'sitemap#index'
+    get 'robots.txt' => 'robots#shikimori'
+    apipie
+    namespace :api, defaults: { format: 'json' } do
+      scope module: :v1 do
+        resources :comments, only: [:show, :index]
+        resource :authenticity_token, only: [:show]
+
+        devise_scope :user do
+          resources :sessions, only: [:create]
+        end
+
+        namespace :profile do
+          resources :friends, only: [:index]
+          resources :clubs, only: [:index]
+          resources :favourites, only: [:index]
+          resources :messages, only: [:index] do
+            get :unread, on: :collection
+          end
+          resources :history, only: [:index]
+        end
+      end
+
+      resources :animes, only: [:index, :show]
+      resources :genres, only: [:index]
+      resources :studios, only: [:index]
+      resources :user_rates, only: [:index]
+      resources :reviews, only: [:show]
+    end
 
     if Rails.env.development?
       get 'users/by-id/:user_id' => 'users#statistics', type: 'statistics', kind: 'anime'

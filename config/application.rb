@@ -38,10 +38,8 @@ module Site
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    if Rails.env.production?
-      config.middleware.use "Redirecter"
-    end
-    config.middleware.insert_before 0, "ProxyTest"
+    config.middleware.use 'Redirecter'# if Rails.env.production?
+    config.middleware.insert_before 0, 'ProxyTest'
     Paperclip.logger.level = 2
 
     # Enable the asset pipeline

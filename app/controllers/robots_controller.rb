@@ -1,3 +1,13 @@
+class RobotsController < ApplicationController
+  def animeonline
+    render content_type: 'text/plain', text: <<-EOS
+User-agent: *
+Disallow: /
+EOS
+  end
+
+  def shikimori
+    render content_type: 'text/plain', text: <<-EOS
 User-agent: *
 Disallow: /*?
 Disallow: /*?rel=nofollow
@@ -34,3 +44,6 @@ User-agent: YoudaoBot
 User-agent: Yahoo Pipes 1.0
 User-agent: Yahoo Pipes 2.0
 Disallow: /
+EOS
+  end
+end
