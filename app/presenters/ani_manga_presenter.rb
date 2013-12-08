@@ -186,6 +186,11 @@ class AniMangaPresenter < BasePresenter
     @main_videos ||= entry.videos.limit(2)
   end
 
+  # есть ли видео для просмотра онлайн?
+  def anime_videos?
+    entry.respond_to?(:anime_videos) && entry.anime_videos.any?
+  end
+
   def seo_keywords
     [
       entry.name, entry.russian,

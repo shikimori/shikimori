@@ -1,0 +1,159 @@
+@import globals
+
+.info
+  .item-content
+    +clearfix
+    .changes + .additional-links
+      margin-top: -10px
+      clear: left
+
+    .additional-links
+      p
+        float: left
+        margin-left: 5px
+
+      .sep
+        float: left
+        padding: 0
+        margin: 0
+
+      .link-reviews, .link-comments, .link-comment-reviews
+        +normal-link
+        +text-font
+        float: left
+        margin-left: 5px
+
+    .content-right
+      float: right
+
+      .anime-image
+        margin: 5px 0 5px 15px
+
+      .watch-online
+        +text-font
+        margin: 5px 0 5px 15px
+        text-align: center
+        width: 202px
+
+        a
+          +normal-link
+          &:after
+            line-height: 20px
+
+  .right-column
+    margin-left: $menu-width + 30px
+    position: relative
+
+  .left-column
+    float: left
+    width: $menu-width
+    .other-names.click-loader
+      +plashka
+      height: 12px
+      line-height: 15px
+      margin-top: 4px
+      padding: 0 17px 0 12px
+      position: absolute
+      text-align: center
+      span
+        margin-top: -4px
+        position: absolute
+      img
+        margin: 0 -10px 2px -2px
+    .subblock-content
+      margin-bottom: 20px
+      margin-left: 2px
+    div.anime-russian, p
+      line-height: 20px
+      margin-bottom: 2px
+      padding-left: 3px
+      text-indent: -3px
+    .subblock-genres p
+      padding-left: 0px
+      text-indent: 0px
+
+  .being-translated
+    margin-top: 2px
+
+  .related-entries-loader
+    +plashka
+
+  .related-entries
+    clear: left
+    margin-bottom: 30px
+
+  .extra
+    clear: both
+    .images-list, .videos-list
+      height: 111px
+      .image-container
+        margin-right: 12px
+        padding: 3px 3px 0
+        img
+          height: 95px
+        &:last-child
+          margin-right: 0
+
+    .images-list .image-container
+      background: #E5E5E5
+
+    .videos-list .video
+      position: relative
+      width: auto
+
+    .people-container
+      clear: none
+      &.p0, &.c0
+        width: 100%
+      &.t2, &.t3, &.t4, &.t5, &.t6
+        margin-bottom: 0
+
+        &.first
+          float: left
+          margin-right: 30px
+
+        .item-block
+          height: 175px
+
+        .person-block-wide
+          width: 123px
+          .image
+            max-height: 102px
+
+      &.second.s1, &.first.v1, &.first.v2
+        .image-container
+          background: transparent
+
+      // блоки с персонажами
+      &.first
+        clear: both
+        &.c1.p1, &.c1.p2, &.c2.p1, &.c2.p2, &.t4.c2
+          width: 369px
+        &.c2.p3
+          width: 340px
+        &.t5.c4
+          width: 495px
+      &.t6.c2, &.t6.c3, &.t6.c4, &.t6.c5
+        .item-block
+          width: 118px !important
+
+      // блоки с видео
+      &.s0
+        float: right
+      &.first.v1, &.s1.v1, &.s0.v1
+        width: 170px
+        .image-container
+          padding: 0 2px 0 0
+      &.first.v2, &.s1.v2, &.s0.v2
+        width: 355px
+        .image-container
+          padding: 0 1px 0 0
+      &.v1, &.v2
+        &.first
+          float: left
+          margin-right: 30px
+      &.v1.first
+        width: 540px
+
+.studio-logo
+  max-width: 195px

@@ -49,9 +49,13 @@ aside.left-column.menu-block
 .right-column.menu-block
   .subheadline.m5 Описание
   .item-content
-    img.anime-image src="#{attachment_url @entry.image}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
     meta itemprop="image" content="#{{attachment_url @entry.image, :original, false}}"
     meta itemprop="thumbnailUrl" content="#{{attachment_url @entry.image, :x64, false}}"
+    .content-right
+      img.anime-image src="#{attachment_url @entry.image}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
+      - if @entry.anime_videos? && current_user.admin?
+        .watch-online.subheadline.blue
+          a href="#{anime_videos_show_url @entry.id, 1, domain: AnimeOnlineDomain::HOST}" Смотреть онлайн
 
     .description.df.m20 itemprop="description"
       - if @entry.description_html.blank?

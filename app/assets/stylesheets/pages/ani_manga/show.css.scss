@@ -57,12 +57,6 @@
 }
 /*************************************************/
 /* info */
-.info {
-}
-.anime-image {
-  float: right;
-  margin: 5px 0 5px 15px;
-}
 .anime-alt {
   &.url a {
     @include normal-link;
