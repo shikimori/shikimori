@@ -35,9 +35,9 @@ $(".other-names.click-loader").live "ajax:success", (e, data) ->
 
 # клик по смотреть онлайн
 $(".watch-online a").live 'click', ->
-  episode = parseInt($(".user-rate-block input[name='rate[episodes]']").val()) || 1
+  episode = parseInt($(".user-rate-block input[name='rate[episodes]']").val())
   total_episodes = parseInt($(".user-rate-block .total-episodes").html()) || 9999
-  watch_episode = if episode == total_episodes then 1 else episode + 1
+  watch_episode = if !episode || episode == total_episodes then 1 else episode + 1
 
   $(@).attr href: $(@).attr('href').replace(/\d+$/, watch_episode)
 
