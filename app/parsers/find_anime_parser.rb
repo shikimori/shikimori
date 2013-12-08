@@ -10,9 +10,9 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def extract_additional entry, doc
-    videos = doc
-      .css('.chapters-link tr a')
-      .map {|v| parse_chapter v }
+    video_links = doc.css('.chapters-link tr a')
+    videos = video_links
+      .map {|v| parse_chapter v, video_links.count }
       .select {|v| v[:episode].present? }
 
     if videos.empty? && doc.css('.chapter-link').to_html =~ /Озвучка|Сабы/
@@ -21,7 +21,7 @@ class FindAnimeParser < ReadMangaParser
 
     names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
 
-    entry[:episodes] = doc.css('.subject-meta').text[/Серий:\s*(\d+)/, 1].try(&:to_i) || 1
+    entry[:episodes] = doc.css('.subject-meta').text[/Серий:\s*(\d+)/, 1].try(&:to_i) || 0
     entry[:year] = doc.css('.elem_year').map(&:text).map(&:strip).map(&:to_i).first
     entry[:categories] = doc.css('.elem_category').map(&:text).map(&:strip)
     entry[:videos] = videos
@@ -115,9 +115,13 @@ class FindAnimeParser < ReadMangaParser
     end
   end
 
-  def parse_chapter node
+  def parse_chapter node, total_episodes=1
     {
-      episode: node.text.match(/Серия (\d+)/) ? node.text.match(/Серия (\d+)/)[1].to_i : (node.text.match(/Фильм полностью/) ? 1 : nil),
+      episode: node.text.match(/Серия (\d+)/) ?
+                 node.text.match(/Серия (\d+)/)[1].to_i :
+                 (node.text.match(/Фильм полностью/) ?
+                   (total_episodes > 5 ? 0 : 1) :
+                   nil),
       url: "http://#{@domain}#{node.attr 'href'}?mature=1"
     }
   end
