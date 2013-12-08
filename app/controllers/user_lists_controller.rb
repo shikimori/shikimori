@@ -122,12 +122,12 @@ class UserListsController < UsersController
   # импорт списка
   def list_import
     raise Unauthorized unless user_signed_in?
-    if Rails.cache.read('import-lock') && Rails.env == 'production'
-      redirect_to user_url(current_user)
-      flash[:notice] = "В данный момент система нагружена импортами. Пожалуйста, повторите попытку через несколько минут."
-      return
-    end
-    Rails.cache.write('import-lock', current_user.id, :expires_in => 1.minute)
+    #if Rails.cache.read('import-lock') && Rails.env.production?
+      #redirect_to user_url(current_user)
+      #flash[:notice] = "В данный момент система нагружена импортами. Пожалуйста, повторите попытку через несколько минут."
+      #return
+    #end
+    #Rails.cache.write('import-lock', current_user.id, :expires_in => 1.minute)
 
     klass = Object.const_get(params[:klass].capitalize)
     rewrite = params[:rewrite] == true || params[:rewrite] == '1'
