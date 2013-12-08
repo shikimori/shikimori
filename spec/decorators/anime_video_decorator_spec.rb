@@ -22,7 +22,7 @@ describe AnimeVideoDecorator do
 
     context :episode_id_params_eq_zero do
       let(:episode) { 0 }
-      it { should eq 1 }
+      it { should eq 0 }
     end
 
     context :episode_id_params_less_zero do

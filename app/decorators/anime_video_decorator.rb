@@ -12,7 +12,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def current_episode
-    @current_episode ||= episode_id
+    @current_episode ||= episode_id.zero? ? 0 : [episode_id, 1].max
   end
 
   def videos
