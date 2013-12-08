@@ -1,0 +1,2 @@
+class TwiceMatchedEntries < Exception
+end

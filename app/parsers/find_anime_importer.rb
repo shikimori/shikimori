@@ -11,23 +11,40 @@ class FindAnimeImporter
 
     @unmatched = []
     @ambiguous = []
+    @twice_matched = []
     @config = YAML::load(File.open("#{::Rails.root.to_s}/config/findanime.yml"))
     @ignores = Set.new(@config[:ignores] + @config[:ignores_until].select {|k,v| v > DateTime.now }.keys)
   end
 
   def import pages, is_full
-    @parser.fetch_pages(0..pages).each do |entry|
-      next if @ignores.include?(entry[:id]) || entry[:videos].none? || entry[:categories].include?('AMV')
-      anime = find_match entry
-
-      import_videos anime, entry[:videos], is_full if anime
+    fetch_data(pages, is_full).each do |(id, anime, videos)|
+      import_videos anime, videos, is_full
     end
 
     raise UnmatchedEntries, @unmatched.join(', ') if @unmatched.any?
     raise AmbiguousEntries, @ambiguous.join(', ') if @ambiguous.any?
+    raise TwiceMatchedEntries, @twice_matched.join(', ') if @twice_matched.any?
   end
 
 private
+  def fetch_data pages, is_full
+    data = @parser.fetch_pages(0..pages).map do |entry|
+      next if @ignores.include?(entry[:id]) || entry[:videos].none? || entry[:categories].include?('AMV')
+      [entry[:id], find_match(entry), entry[:videos]]
+    end
+
+    data.delete_if {|(id, anime, videos)| anime.nil? }
+    data
+      .group_by {|(id, anime, videos)| anime.id }
+      .select {|anime_id, entries| entries.size > 1 }
+      .each do |anime_id, entries|
+        entries.each {|v| data.delete v }
+        @twice_matched << "#{anime_id} [#{entries.map {|(id, anime, videos)| id }.join ', '}]"
+      end
+
+    data
+  end
+
   def import_videos anime, videos, is_full
     imported_videos = anime.anime_videos.all
     last_episode = imported_videos.any? ? imported_videos.max {|v| v.episode }.episode : 0

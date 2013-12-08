@@ -88,13 +88,22 @@ describe FindAnimeImporter do
 
     describe :unmatched do
       let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
+      before { importer.should_receive(:import_videos).exactly(0).times }
       it { expect{subject}.to raise_error UnmatchedEntries }
     end
 
     describe :ambiguous do
       let!(:anime_2) { create :anime, name: 'Триплексоголик: Весенний сон' }
-
+      before { importer.should_receive(:import_videos).exactly(0).times }
       it { expect{subject}.to raise_error AmbiguousEntries }
+    end
+
+    describe :twice_matched do
+      let(:identifier2) { 'kuroko_no_basket_2' }
+      let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki', russian: 'Kuroko no Basket 2' }
+      before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier, identifier2] }
+      before { importer.should_receive(:import_videos).exactly(0).times }
+      it { expect{subject}.to raise_error TwiceMatchedEntries }
     end
 
     describe :ignores do
