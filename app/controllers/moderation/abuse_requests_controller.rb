@@ -42,7 +42,7 @@ class Moderation::AbuseRequestsController < ApplicationController
       req.comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
     end
 
-    @moderators = User.where(id: User::AbuseRequestsModerators - [1]).all.sort_by { |v| v.nickname.downcase }
+    @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
   end
 
   def offtopic

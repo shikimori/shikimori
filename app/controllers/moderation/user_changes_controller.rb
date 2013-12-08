@@ -58,7 +58,7 @@ class Moderation::UserChangesController < ApplicationController
       end
     end
 
-    @moderators = User.where(id: User::UserChangesModerators - [1,2]).all.sort_by { |v| v.nickname.downcase }
+    @moderators = User.where(id: User::UserChangesModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
   end
 
   # изменение пользователем чего-либо
