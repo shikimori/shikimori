@@ -12,11 +12,13 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def current_episode
-    @current_episode ||= [episode_id, 1].max
+    @current_episode ||= episode_id
   end
 
   def videos
-    @video ||= anime_videos.group_by(&:episode)
+    @video ||= anime_videos
+      .sort_by {|v| [v.episode.zero? ? 1 : 0, v.episode] }
+      .group_by(&:episode)
   end
 
   def current_videos
@@ -63,6 +65,14 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
     h.truncate h.strip_tags(current_video.author.name), :length => 20, :omission => '...' if current_video && current_video.author
   end
 
+  def current_episode_title
+    if current_episode.zero?
+      "Прочее"
+    else
+      "Эпизод #{current_episode}"
+    end
+  end
+
   def kinds
     @kinds ||= current_videos.map(&:kind).uniq
   end
@@ -88,15 +98,15 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def prev_url
-    url current_episode - 1
+    url videos.keys[videos.keys.index(current_episode)-1]
   end
 
   def next_url
-    url current_episode + 1
+    url videos.keys[videos.keys.index(current_episode)+1]
   end
 
   def episode_id
-    h.params[:episode_id].to_i
+    h.params[:episode_id] ? h.params[:episode_id].to_i : 1
   end
 
   def video_id

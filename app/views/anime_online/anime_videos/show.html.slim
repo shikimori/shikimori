@@ -34,13 +34,13 @@
 
                 .btn-group
                   button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
-                    = "Эпизод #{@anime.current_episode}"
+                    = @anime.current_episode_title
                     span.caret
                   ul.dropdown-menu
                     - @anime.videos.each_pair do |episode, videos|
                       li class="#{ :active if episode == @anime.current_episode }"
                         a href="#{@anime.url episode}"
-                          span.num = "##{episode}"
+                          span.num = "##{episode.zero? ? 'прочее' : episode}"
                           span.kinds = "#{@anime.dropdown_kinds videos}"
                           span.hostings = "/ #{@anime.hostings videos}"
 
