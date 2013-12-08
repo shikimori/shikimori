@@ -114,7 +114,7 @@ nav.menu-block
 
 - if user_signed_in?
   .menu-block
-    div#rate-block.user-rate-block style="#{'display: none;' unless @entry.rate}"
+    #rate-block.user-rate-block style="#{'display: none;' unless @entry.rate}"
       .subheadline Статус
       = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-status-form') do
         = hidden_field_tag 'rate[status]', @entry.rate ? @entry.rate.status : 0
@@ -133,7 +133,8 @@ nav.menu-block
               - if @entry.episodes > 0
                 span.sep
                   | /
-                = @entry.episodes
+                span.total-episodes
+                  = @entry.episodes
               span.item-add
 
         - elsif @entry.respond_to? :chapters
