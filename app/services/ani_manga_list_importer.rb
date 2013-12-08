@@ -26,7 +26,7 @@ module AniMangaListImporter
       rate = rates[entry[:id]]
 
       if rate.nil?
-        rate = UserRate.new(user_id: user.id, target_id: entry[:id], target_type: klass.name)
+        rate = UserRate.new user_id: user.id, target_id: entry[:id], target_type: klass.name
         add = true
       elsif rate && !rewrite_existed
         #not_imported << entry[:id]

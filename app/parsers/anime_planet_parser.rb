@@ -42,14 +42,14 @@ class AnimePlanetParser < SiteParserWithCache
       doc = Nokogiri::HTML(content)
       doc.css('.entryTable tr:has(td)').map do |tr|
         {
-          :name => tr.css('.tableTitle').first.text.gsub(/^(.*), The$/, 'The \1'),
-          :status => tr.css('.tableStatus').first.text.strip,
-          :score => tr.css('.tableRating img').first.attr('name').to_f*2,
+          name: tr.css('.tableTitle').first.text.gsub(/^(.*), The$/, 'The \1'),
+          status: tr.css('.tableStatus').first.text.strip,
+          score: tr.css('.tableRating img').first.attr('name').to_f*2,
         }.merge(@klass == Anime ? {
-          :episodes => tr.css('.tableEps').first.text.to_i
+          episodes: tr.css('.tableEps').first.text.to_i
         } : {
-          :volumes => tr.css('.tableVols').first.text.to_i,
-          :chapters => tr.css('.tableCh').first.text.to_i
+          volumes: tr.css('.tableVols').first.text.to_i,
+          chapters: tr.css('.tableCh').first.text.to_i
         })
       end
     end.flatten
@@ -66,21 +66,28 @@ class AnimePlanetParser < SiteParserWithCache
   end
 
   # импорт списка
-  def import_list(user, list, rewrite_existed, wont_watch_strategy)
+  def import_list user, list, rewrite_existed, wont_watch_strategy
     matcher = NameMatcher.new(@klass)
 
     # обход полного списка для импорта
     prepared_list = list.map do |entry|
       entry_status = convert_status(entry[:status], wont_watch_strategy)
-      entry_id = matcher.match(entry[:name]).try :id
+      matches = matcher.matches entry[:name]
 
-      if entry_id.nil? || (wont_watch_strategy.nil? && entry_status.nil?)
+      if matches.size != 1 || (wont_watch_strategy.nil? && entry_status.nil?)
         @not_matched << entry[:name] unless entry_status.nil?
         next
       else
-        entry.merge(:id => entry_id, :status => entry_status)
+        entry.merge id: matches.first.id, status: entry_status
       end
     end.compact
+    # дубликаты перемещаем в not_matched
+    prepared_list.group_by {|v| v[:id] }.select {|k,v| v.size > 1 }.each do |id,group|
+      group.each do |entry|
+        @not_matched << entry[:name]
+        prepared_list.delete entry
+      end
+    end
 
     @imported, @updated, @not_imported = import(user, @klass, prepared_list, rewrite_existed)
 
@@ -88,12 +95,12 @@ class AnimePlanetParser < SiteParserWithCache
   end
 
 private
-  def fix_name(name)
+  def fix_name name
     super_fix_name(name).gsub(/([A-z])0(\d)/, '\1\2').gsub(/ /, '').gsub(/☆|†/, '').strip
   end
 
   # переведение статус из анимепланетного в локальный
-  def convert_status(planet_status, wont_watch_strategy=nil)
+  def convert_status planet_status, wont_watch_strategy=nil
     case planet_status
       when "Watched", "Read"
         UserRateStatus::Completed
@@ -119,7 +126,7 @@ private
   end
 
   # получение страницы с Anime-Planet
-  def get(url, required_text='Anime-Planet</title>')
+  def get url, required_text='Anime-Planet</title>'
     content = super(url, required_text)
     raise EmptyContent.new(url) unless content
     raise InvalidId.new(url) if content.include?("You searched for")

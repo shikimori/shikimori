@@ -5,23 +5,21 @@ class AniMangaListImporter::ImporterTest
 end
 
 describe AniMangaListImporter do
-  before (:each) {
-    @anime1 = FactoryGirl.create :anime, :name => "Zombie-Loan", :episodes => 22
-    @anime2 = FactoryGirl.create :anime, :name => "Zombie-Loan Specials"
-  }
+  let(:anime1) { create :anime, name: "Zombie-Loan", episodes: 22 }
+  let(:anime2) { create :anime, name: "Zombie-Loan Specials" }
 
   let (:user) { FactoryGirl.create :user }
   let (:list) do
     [{
-      :status => UserRateStatus.get(UserRateStatus::Watching),
-      :score => 5,
-      :id => @anime1.id,
-      :episodes => 1
+      status: UserRateStatus.get(UserRateStatus::Watching),
+      score: 5,
+      id: anime1.id,
+      episodes: 1
     }, {
-      :status => UserRateStatus.get(UserRateStatus::Completed),
-      :score => 8,
-      :id => @anime2.id,
-      :episodes => 20
+      status: UserRateStatus.get(UserRateStatus::Completed),
+      score: 8,
+      id: anime2.id,
+      episodes: 20
     }]
   end
   let (:importer) { AniMangaListImporter::ImporterTest.new }
@@ -37,7 +35,7 @@ describe AniMangaListImporter do
   end
 
   it 'import with broken episodes num' do
-    list[0][:episodes] = @anime1.episodes + 1
+    list[0][:episodes] = anime1.episodes + 1
     expect {
       importer.import(user, Anime, [list[0]], false)
     }.to change(UserRate, :count).by(1)

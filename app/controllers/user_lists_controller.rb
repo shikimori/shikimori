@@ -224,7 +224,7 @@ class UserListsController < UsersController
     end
 
     if not_imported.size > 0
-      message << "Не удалось импортировать #{not_imported.size} #{klass == Manga ? Russian.p(not_imported.size, 'мангу', 'манги', 'манг') : 'аниме'}:"
+      message << "Не удалось импортировать (распознать) #{not_imported.size} #{klass == Manga ? Russian.p(not_imported.size, 'мангу', 'манги', 'манг') : 'аниме'}, пожалуйста, добавьте их в свой список самостоятельно:"
       message = message + not_imported.sort
     end
     message << "Ничего нового не импортировано." if message.empty?

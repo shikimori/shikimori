@@ -6,19 +6,19 @@ describe AnimePlanetParser do
   let (:nickname2) { 'morrr507' }
 
   [[Anime, 15, 713, {
-      :status => "Watching",
-      :score => 5.0,
-      :name => "Zombie-Loan Specials",
-      :episodes => 1
+      status: "Watching",
+      score: 5.0,
+      name: "Zombie-Loan Specials",
+      episodes: 1
     }], [Manga, 1, 16, {
-      :status => "Want to Read",
-      :volumes => 0,
-      :chapters => 0,
-      :name => "Watashitachi no Shiawase na Jikan",
-      :score => 0.0
+      status: "Want to Read",
+      volumes: 0,
+      chapters: 0,
+      name: "Watashitachi no Shiawase na Jikan",
+      score: 0.0
    }]].each do |klass, list_pages, list_count, last_element|
     describe klass do
-      let (:parser) { AnimePlanetParser.new(nickname, klass) }
+      let(:parser) { AnimePlanetParser.new(nickname, klass) }
 
       it "get list pages" do
         parser.get_pages_num.should eq(list_pages)
@@ -35,21 +35,21 @@ describe AnimePlanetParser do
 
   it 'basic import' do
     parser = AnimePlanetParser.new(nickname, Anime)
-    user = FactoryGirl.create :user
+    user = create :user
 
     list = [{
-      :status => "Watching",
-      :score => 5.0,
-      :name => "Zombie-Loan Specials",
-      :episodes => 1
+      status: "Watching",
+      score: 5.0,
+      name: "Zombie-Loan Specials",
+      episodes: 1
     }, {
-      :status => "Watching",
-      :score => 5.0,
-      :name => "Zombie-Loan,.",
-      :episodes => 1
+      status: "Watching",
+      score: 5.0,
+      name: "Zombie-Loan,.",
+      episodes: 1
     }]
-    FactoryGirl.create :anime, :name => "Zombie-Loan"
-    FactoryGirl.create :anime, :name => "Zombie-Loan Specials"
+    create :anime, name: "Zombie-Loan"
+    create :anime, name: "Zombie-Loan Specials"
 
     expect {
       parser.import_list(user, list, false, nil)
@@ -57,19 +57,19 @@ describe AnimePlanetParser do
   end
 
   describe 'real user import' do
-    let (:parser) { AnimePlanetParser.new(nickname2, Anime) }
-    let (:user) { FactoryGirl.create :user }
+    let(:parser) { AnimePlanetParser.new(nickname2, Anime) }
+    let(:user) { create :user }
 
     def prepare_data
       parser.get_pages_num.should eq(1)
       list = parser.get_list
       list.should have(3).items
-      list.each {|anime| FactoryGirl.create :anime, :name => anime[:name] }
+      list.each {|anime| create :anime, name: anime[:name] }
       list << {
-        :status => "Watching",
-        :score => 5.0,
-        :name => "Not matched anime",
-        :episodes => 1
+        status: "Watching",
+        score: 5.0,
+        name: "Not matched anime",
+        episodes: 1
       }
       list
     end
@@ -98,6 +98,26 @@ describe AnimePlanetParser do
       }.to change(UserRate, :count).by(list.size - 2)
 
       [added.size, updated.size, not_imported.size].should eq([2, 0, 1])
+    end
+
+    it 'ignores twice matched' do
+      create :anime, name: "Zombie-Loan"
+      list = [{
+        status: "Watching",
+        score: 5.0,
+        name: "Zombie-Loan",
+        episodes: 1
+      }, {
+        status: "Watching",
+        score: 5.0,
+        name: "Zombie-Loan",
+        episodes: 1
+      }]
+
+      added, updated, not_imported = 0, 0, 0
+      added, updated, not_imported = parser.import_list(user, list, true, nil)
+
+      [added.size, updated.size, not_imported.size].should eq([0, 0, 2])
     end
   end
 
