@@ -4,6 +4,7 @@ $ ->
 
 # пометка комментариев прочитанным и их последующее скрытие
 $('.comment-new .appear-marker').live 'appear', (e, $appeared, by_click) ->
+  return unless IS_LOGGED_IN
   $nodes = ($appeared || $(@)).not -> $(@).data 'disabled'
 
   $appear_blocks = $nodes.parents('.appear-block').removeClass('comment-new')
