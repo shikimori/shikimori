@@ -1,9 +1,11 @@
 # матчер названий аниме и манги со сторонних сервисов с названиями на сайте
 class NameMatcher
+  attr_reader :cache
+
   ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
   MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :chapters]
 
-  attr_reader :cache
+  BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
 
   # конструктор
   def initialize klass, ids=nil, services=[]
@@ -13,19 +15,8 @@ class NameMatcher
     @klass = klass
     @ids = ids
     @services = services
-
-    # хеш с названиями, по которому будем искать
-    @cache = {
-      name: {},
-      alt: {},
-      alt2: {},
-      alt3: {},
-      russian: {},
-      predefined: predefined_matches
-    }
-    services.each {|service| @cache[service] = {} }
-
-    build_cache
+    @cache = build_cache
+    #@cache.each {|k,v| ap v.keys }
   end
 
   # поиск всех подходящих id аниме по переданным наваниям
@@ -154,6 +145,8 @@ private
     phrases = multiply_phrases phrases, 'u', 'h'
     phrases = multiply_phrases phrases, 'ß', 'ss'
     phrases = multiply_phrases phrases, 'ü', 'u'
+    phrases = multiply_phrases phrases, 'â', 'a'
+    phrases = multiply_phrases phrases, 'è', 'e'
 
     phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
     phrases = multiply_phrases phrases, /s(?!h)/, 'sh'
@@ -191,12 +184,22 @@ private
 
     names
       .flatten
-      .select {|v| fix(v) !~ /\A(\d+|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/ }
+      .select {|v| fix(v) !~ BAD_NAMES }
       .select {|v| fix(v).size > 3 }
   end
 
   # заполнение кеша
   def build_cache
+    cache = {
+      name: {},
+      alt: {},
+      alt2: {},
+      alt3: {},
+      russian: {},
+      predefined: predefined_matches
+    }
+    @services.each {|service| cache[service] = {} }
+
     datasource.each do |entry|
       names = {
         name: main_names(entry),
@@ -211,8 +214,8 @@ private
 
       names.each do |group,names|
         names.each do |name|
-          @cache[group][name] ||= []
-          @cache[group][name] << entry
+          cache[group][name] ||= []
+          cache[group][name] << entry
         end
       end
 
@@ -220,8 +223,11 @@ private
       entry
         .links
         .select {|v| @services.include?(v.service.to_sym) }
-        .each {|link| @cache[link.service.to_sym][link.identifier] = entry } if @services.present?
+        .each {|link| cache[link.service.to_sym][link.identifier] = entry } if @services.present?
+
     end
+
+    cache
   end
 
   def main_names entry
