@@ -13,6 +13,8 @@
         span.bracket-actions: span.warn data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
         - unless abuse_request.spoiler?
           span.bracket-actions: span.ban data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
+        - if abuse_request.comment.created_at < DateTime.now - 1.week
+          p.outdated комментарий создан давно
         .ban-form
       - else
         span.bracket-actions: span.take data-action="#{take_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" принять

@@ -2,8 +2,15 @@
 = require pages/forum/common
 */
 @import "compass/utilities/general/clearfix";
+@import "globals";
 
 .abuse-requests {
+  .outdated {
+    @include text-font;
+    font-size: 11px;
+    color: green;
+  }
+
   .abuse-request {
     @include clearfix;
     margin-bottom: 20px;
