@@ -53,7 +53,7 @@ aside.left-column.menu-block
     meta itemprop="thumbnailUrl" content="#{{attachment_url @entry.image, :x64, false}}"
     .content-right
       img.anime-image src="#{attachment_url @entry.image}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
-      - if @entry.anime_videos? && current_user.admin?
+      - if @entry.anime_videos? && user_signed_in? && current_user.admin?
         .watch-online.subheadline.blue
           span.linkeable data-href=="#{anime_videos_show_url @entry.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
 
