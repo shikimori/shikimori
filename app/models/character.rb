@@ -15,9 +15,10 @@ class Character < ActiveRecord::Base
 
   has_attached_file :image,
     styles: {
-      preview: "80x120>",
-      x96: "64x96#",
-      x64: "43x64#"
+      original: ['225x350#', :jpg],
+      preview: ['80x120>', :jpg],
+      x96: ['64x96#', :jpg],
+      x64: ['43x64#', :jpg]
     },
     url: "/images/character/:style/:id.:extension",
     path: ":rails_root/public/images/character/:style/:id.:extension",

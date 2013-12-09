@@ -15,73 +15,90 @@ class Manga < ActiveRecord::Base
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :publishers
 
-  has_many :person_roles, :dependent => :destroy
-  has_many :characters, :through => :person_roles
-  has_many :people, :through => :person_roles
+  has_many :person_roles, dependent: :destroy
+  has_many :characters, through: :person_roles
+  has_many :people, through: :person_roles
 
-  has_many :rates, :class_name => UserRate.name,
-                   :foreign_key => :target_id,
-                   :conditions => {:target_type => self.name},
-                   :dependent => :destroy
+  has_many :rates,
+    class_name: UserRate.name,
+    foreign_key: :target_id,
+    conditions: {target_type: self.name},
+    dependent: :destroy
 
-  has_many :related, :dependent => :destroy,
-                     :foreign_key => :source_id,
-                     :class_name => RelatedManga.name
-  has_many :related_mangas, :through => :related,
-                            :foreign_key => :source_id,
-                            :conditions => 'manga_id is not null'
-  has_many :related_animes, :through => :related,
-                            :foreign_key => :source_id,
-                            :conditions => 'anime_id is not null'
+  has_many :related,
+    dependent: :destroy,
+    foreign_key: :source_id,
+    class_name: RelatedManga.name
+  has_many :related_mangas,
+    through: :related,
+    foreign_key: :source_id,
+    conditions: 'manga_id is not null'
+  has_many :related_animes,
+    through: :related,
+    foreign_key: :source_id,
+    conditions: 'anime_id is not null'
 
-  has_many :topics, :class_name => Entry.name,
-                    :order => ' updated_at desc',
-                    :as => :linked,
-                    :dependent => :destroy
+  has_many :topics,
+    class_name: Entry.name,
+    order: ' updated_at desc',
+    as: :linked,
+    dependent: :destroy
 
-  has_many :news, :class_name => MangaNews.name,
-                  :as => :linked,
-                  :order => 'created_at desc'
+  has_many :news,
+    class_name: MangaNews.name,
+    as: :linked,
+    order: 'created_at desc'
 
-  has_many :similar, :class_name => SimilarManga.name,
-                     :foreign_key => :src_id,
-                     :order => 'id desc',
-                     :dependent => :destroy
+  has_many :similar,
+    class_name: SimilarManga.name,
+    foreign_key: :src_id,
+    order: 'id desc',
+    dependent: :destroy
 
-  has_many :user_histories, :foreign_key => :target_id,
-                            :conditions => { :target_type => Manga.name },
-                            :dependent => :destroy
+  has_many :user_histories,
+    foreign_key: :target_id,
+    conditions: { target_type: Manga.name },
+    dependent: :destroy
 
-  has_many :cosplay_gallery_links, :as => :linked,
-                                   :dependent => :destroy
+  has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
 
-  has_many :cosplay_galleries, :through => :cosplay_gallery_links,
-                               :class_name => CosplaySession.name,
-                               :conditions => { :deleted => false, confirmed: true }
+  has_many :cosplay_galleries,
+    through: :cosplay_gallery_links,
+    class_name: CosplaySession.name,
+    conditions: { deleted: false, confirmed: true }
 
-  has_one :thread, :class_name => AniMangaComment.name,
-                    :foreign_key => :linked_id,
-                    :conditions => {:linked_type => self.name},
-                    :dependent => :destroy
+  has_one :thread,
+    class_name: AniMangaComment.name,
+    foreign_key: :linked_id,
+    conditions: {linked_type: self.name},
+    dependent: :destroy
 
-  has_many :reviews, :foreign_key => :target_id,
-                     :conditions => {:target_type => self.name},
-                     :dependent => :destroy
+  has_many :reviews,
+    foreign_key: :target_id,
+    conditions: {target_type: self.name},
+    dependent: :destroy
 
-  has_many :images, :class_name => AttachedImage.name,
-                    :foreign_key => :owner_id,
-                    :conditions => {:owner_type => self.name},
-                    :dependent => :destroy
+  has_many :images,
+    class_name: AttachedImage.name,
+    foreign_key: :owner_id,
+    conditions: {owner_type: self.name},
+    dependent: :destroy
 
-  has_many :recommendation_ignores, :conditions => { target_type: Anime.name },
-                                    :foreign_key => :target_id,
-                                    :dependent => :destroy
+  has_many :recommendation_ignores,
+    conditions: { target_type: Anime.name },
+    foreign_key: :target_id,
+    dependent: :destroy
 
-  has_attached_file :image, :styles => { :preview => "160x240>", :x96 => "64x96#", :x64 => "43x64#" }, # params: > #
-                            #:processors => [:time_stamper],
-                            :url  => "/images/manga/:style/:id.:extension",
-                            :path => ":rails_root/public/images/manga/:style/:id.:extension"
-  validates_attachment_content_type :image, :content_type => [/^image\/(?:jpeg)$/, nil]
+  has_attached_file :image,
+    styles: {
+      original: ['225x350#', :jpg],
+      preview: ['160x240>', :jpg],
+      x96: ['64x96#', :jpg],
+      x64: ['43x64#', :jpg]
+    },
+    url: "/images/manga/:style/:id.:extension",
+    path: ":rails_root/public/images/manga/:style/:id.:extension"
+  validates_attachment_content_type :image, content_type: [/^image\/(?:jpeg)$/, nil]
 
   # Hooks
   after_create :create_thread

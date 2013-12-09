@@ -110,12 +110,13 @@ class Anime < ActiveRecord::Base
 
   has_attached_file :image,
     styles: {
-      preview: "160x240>",
-      short: "160x120#",
-      x96: "64x96#",
-      x64: "43x64#"
-    }, # params: > #
-    :url  => "/images/anime/:style/:id.:extension",
+      original: ['225x350#', :jpg],
+      preview: ['160x240>', :jpg],
+      short: ['160x120#', :jpg],
+      x96: ['64x96#', :jpg],
+      x64: ['43x64#', :jpg]
+    },
+    url: "/images/anime/:style/:id.:extension",
     path: ":rails_root/public/images/anime/:style/:id.:extension"
     #default_url: '/images/anime_:style_missing.png'
     #:url  => "/anime/:id/:style/:basename.:extension",
