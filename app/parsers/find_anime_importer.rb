@@ -74,7 +74,7 @@ private
   end
 
   def save_link findanime_id, anime_id
-    AnimeLink.create! service: SERVICE, anime_id: anime_id, identifier: findanime_id
+    AnimeLink.create service: SERVICE, anime_id: anime_id, identifier: findanime_id
   end
 
   def find_match entry
