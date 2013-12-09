@@ -38,7 +38,7 @@ aside.left-column.menu-block
         = render partial: 'mangas/publishers_info', locals: { entry: @entry }, formats: :html
 
   .menu-block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
-    - if @entry.with_score?
+    - if @entry.with_score? && !@entry.anons?
       .subheadline.m5 Рейтинг
       .scores.rate-block
         meta itemprop="bestRating" content="10"
