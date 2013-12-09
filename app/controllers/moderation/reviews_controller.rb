@@ -5,7 +5,7 @@ class Moderation::ReviewsController < ApplicationController
   def index
     @page_title = 'Модерация рецензий'
 
-    @moderators = User.where(id: User::ReviewsModerators - [1]).all.sort_by { |v| v.nickname.downcase }
+    @moderators = User.where(id: User::ReviewsModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
     @processed = postload_paginate(params[:page], 25) do
       Review
         .where(state: ['accepted', 'rejected'])
