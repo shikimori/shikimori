@@ -40,6 +40,11 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     end
   end
 
+  def complaint
+    render :nothing => true
+    #render :text => params[:id] + params[:kind]
+  end
+
 private
   def per_page
     40

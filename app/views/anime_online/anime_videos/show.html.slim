@@ -63,6 +63,14 @@
                           - if video.author
                             span.author = strip_tags video.author.name
 
+              li.dropdown.complaint.pull-right
+                a.dropdown-toggle data-toggle="dropdown" href="#"
+                  span F
+                  b.caret
+                ul.dropdown-menu
+                  li: a#broken_vidoe href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :broken_video}" Видео не работает
+                  li: a#wrong_vidoe href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :wrong_video}" Видео не то
+
         iframe.video src="#{@anime.current_video.url}"
 
       - unless @reviews.blank?
