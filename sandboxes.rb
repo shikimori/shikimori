@@ -37,6 +37,16 @@ Manga.where(imported_at: nil).includes(:rates).select{|v| v.rates.empty? }.each(
 ###########################
 ALTER TABLE anime_video_authors MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci
 ###########################
+# Починка битых каринок, если они загрузились без расширения
+###########################
+Dir.foreach(Rails.root.join 'public', 'images', 'person', 'original').select {|v| v =~ /\d+\.$/ }.each do |id|
+  entry = Person.find id
+  FileUtils.mv entry.image.path.sub(/jpg$/, ''), entry.image.path
+  entry.image.reprocess!
+end
+###########################
+ALTER TABLE anime_video_authors MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci
+###########################
 # оценки пользователей в CSV после сбора их через SVD
 ###########################
 ------user
