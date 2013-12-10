@@ -3,6 +3,7 @@ Site::Application.routes.draw do
     root to: 'anime_online/anime_videos#index'
     get 'videos/:id(/:episode_id)(/:video_id)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode_id: /\d+/, video_id: /\d+/ }
     get 'videos' => 'anime_online/anime_videos#index', as: :anime_videos
+    post 'videos/:id/complaint/:kind' => 'anime_online/anime_videos#complaint', as: :anime_videos_complaint, constraints: { kind: /broken_video|wrong_video/ }
     get 'robots.txt' => 'robots#animeonline'
   end
 

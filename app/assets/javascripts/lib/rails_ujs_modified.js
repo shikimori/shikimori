@@ -179,7 +179,7 @@ jQuery(function ($) {
     });
 
     $('a[data-remote],input[data-remote],span[data-remote],li[data-remote],button[data-remote]').live('click', function (e) {
-        if (in_new_tab(e)) {
+        if ('in_new_tab' in window && in_new_tab(e)) {
           return;
         }
         var $this = $(this);

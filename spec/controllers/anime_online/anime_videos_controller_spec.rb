@@ -27,4 +27,10 @@ describe AnimeOnline::AnimeVideosController do
     it { should respond_with_content_type :html }
     it { response.should be_success }
   end
+
+  describe :complaint do
+    before { post :index }
+    it { should respond_with_content_type :html }
+    it { response.should be_success }
+  end
 end

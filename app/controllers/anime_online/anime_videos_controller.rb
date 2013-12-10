@@ -40,6 +40,12 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     end
   end
 
+  def complaint
+    user = user_signed_in? ? current_user : User.find(User::GuestID)
+    Complaint.new.from(user).send_message "#{anime_videos_show_url params[:id]}", params[:id], params[:kind]
+    render nothing: true
+  end
+
 private
   def per_page
     40
