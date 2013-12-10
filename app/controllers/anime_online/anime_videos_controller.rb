@@ -41,8 +41,9 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   end
 
   def complaint
-    render :nothing => true
-    #render :text => params[:id] + params[:kind]
+    user = user_signed_in? ? current_user : User.find(User::GuestID)
+    Complaint.new.from(user).send_message "#{anime_videos_show_url params[:id]}", params[:id], params[:kind]
+    render nothing: true
   end
 
 private

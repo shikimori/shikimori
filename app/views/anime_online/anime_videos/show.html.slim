@@ -68,8 +68,8 @@
                   span F
                   b.caret
                 ul.dropdown-menu
-                  li: a#broken_vidoe href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :broken_video}" Видео не работает
-                  li: a#wrong_vidoe href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :wrong_video}" Видео не то
+                  li: a href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :broken_video}" Видео не работает
+                  li: a href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :wrong_video}" Видео не то
 
         iframe.video src="#{@anime.current_video.url}"
 
