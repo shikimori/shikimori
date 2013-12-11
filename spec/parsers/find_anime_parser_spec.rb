@@ -21,7 +21,7 @@ describe FindAnimeParser do
       its(:score) { should be_within(1).of 9 }
       its(:description) { should be_present }
       its(:source) { should eq 'http://findanime.ru/attack_on_titan' }
-      its(:videos) { should have(26).items }
+      its(:videos) { should have(27).items }
       its(:year) { should eq 2013 }
 
       describe :last_episode do
@@ -31,7 +31,7 @@ describe FindAnimeParser do
 
       describe :first_episode do
         subject { entry.videos.last }
-        it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
+        it { should eq episode: 0, url: 'http://findanime.ru/attack_on_titan/series0?mature=1' }
       end
     end
 
@@ -42,7 +42,7 @@ describe FindAnimeParser do
 
     describe :inline_videos do
       let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
-      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova'}] }
+      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova/series0?mature=1'}] }
     end
 
     describe :episode_0_or_movie do
@@ -66,7 +66,7 @@ describe FindAnimeParser do
     let(:episode) { 1 }
     let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
 
-    it { should have(12).items }
+    it { should have(13).items }
 
     describe :first do
       subject { videos.first }
@@ -79,11 +79,20 @@ describe FindAnimeParser do
       its(:author) { should eq '' }
     end
 
+    describe :last do
+      subject { videos.last }
+
+      its(:kind) { should eq :fandub }
+      its(:author) { should eq 'Луналикая' }
+    end
+
     describe :special do
-      subject { videos[-5] }
+      subject { videos[-6] }
       its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
+      its(:kind) { should eq :fandub }
       its(:author) { should eq 'JAM & Ancord & Nika Lenina' }
     end
+
   end
 
   describe :extract_language do

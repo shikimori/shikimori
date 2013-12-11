@@ -86,25 +86,38 @@ describe FindAnimeImporter do
       end
     end
 
-    describe :unmatched do
-      let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
-      before { importer.should_receive(:import_videos).exactly(0).times }
-      it { expect{subject}.to raise_error UnmatchedEntries }
+    describe :mismatched_entries do
+      describe :unmatched do
+        let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
+        before { importer.should_receive(:import_videos).exactly(0).times }
+        it { expect{subject}.to raise_error MismatchedEntries, "unmatched: #{identifier}" }
+      end
+
+      describe :ambiguous do
+        let!(:anime_2) { create :anime, name: 'Триплексоголик: Весенний сон' }
+        before { importer.should_receive(:import_videos).exactly(0).times }
+        it { expect{subject}.to raise_error MismatchedEntries, "ambiguous: #{identifier} (#{anime_2.id}, #{anime.id})" }
+      end
+
+      describe :twice_matched do
+        let(:identifier2) { 'kuroko_no_basket_2' }
+        let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki', russian: 'Kuroko no Basket 2' }
+        before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier, identifier2] }
+        before { importer.should_receive(:import_videos).exactly(0).times }
+
+        it { expect{subject}.to raise_error MismatchedEntries, "twice matched: #{anime.id} (#{identifier}, #{identifier2})" }
+
+        it 'does not creates links' do
+          expect {
+            begin
+              subject
+            rescue MismatchedEntries
+            end
+          }.to_not change(AnimeLink, :count)
+        end
+      end
     end
 
-    describe :ambiguous do
-      let!(:anime_2) { create :anime, name: 'Триплексоголик: Весенний сон' }
-      before { importer.should_receive(:import_videos).exactly(0).times }
-      it { expect{subject}.to raise_error AmbiguousEntries }
-    end
-
-    describe :twice_matched do
-      let(:identifier2) { 'kuroko_no_basket_2' }
-      let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki', russian: 'Kuroko no Basket 2' }
-      before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier, identifier2] }
-      before { importer.should_receive(:import_videos).exactly(0).times }
-      it { expect{subject}.to raise_error TwiceMatchedEntries }
-    end
 
     describe :ignores do
       let(:identifier) { 'the_last_airbender__the_legend_of_korra_first_book_air' }

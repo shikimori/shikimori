@@ -34,7 +34,7 @@ class FindAnimeParser < ReadMangaParser
 
       kind, author = $1, $2 if description =~ /(.*)[\s\S]*\((.*)\)/
       kind = extract_kind kind || description
-      author ||= node.css('.video-info').to_html[/<span class="additional">.*?<\/span>([\s\S]*)<span/, 1].try :strip
+      author ||= node.css('.video-info').to_html[/<span class="additional">.*?<\/span>(?:<\/span>)?([\s\S]*)<span/, 1].try :strip
 
       embed_source = node.css('.embed_source').first
 

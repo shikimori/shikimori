@@ -1,2 +1,0 @@
-class TwiceMatchedEntries < Exception
-end

@@ -21,9 +21,7 @@ class FindAnimeImporter
       import_videos anime, videos, is_full
     end
 
-    raise UnmatchedEntries, @unmatched.join(', ') if @unmatched.any?
-    raise AmbiguousEntries, @ambiguous.join(', ') if @ambiguous.any?
-    raise TwiceMatchedEntries, @twice_matched.join(', ') if @twice_matched.any?
+    raise MismatchedEntries.new @unmatched, @ambiguous, @twice_matched if @unmatched.any? || @ambiguous.any? || @twice_matched.any?
   end
 
 private
@@ -39,7 +37,12 @@ private
       .select {|anime_id, entries| entries.uniq_by {|v| v.first }.size > 1 }
       .each do |anime_id, entries|
         entries.each {|v| data.delete v }
-        @twice_matched << "#{anime_id} [#{entries.map {|(id, anime, videos)| id }.join ', '}]"
+        @twice_matched << "#{anime_id} (#{entries.map {|(id, anime, videos)| id }.join ', '})"
+        AnimeLink.where(
+          service: SERVICE.to_s,
+          anime_id: anime_id,
+          identifier: entries.map {|(id, anime, videos)| id }
+        ).delete_all
       end
 
     data
