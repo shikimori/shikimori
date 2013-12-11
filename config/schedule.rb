@@ -50,7 +50,7 @@ every 1.day, at: '4:30 am' do
 end
 
 every 1.day, at: '8:00 am' do
-  runner "Delayed::Job.enqueue_uniq VerifyAnimesJob.new, VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new"
+  runner "Delayed::Job.enqueue_uniq VerifyAnimesJob.new, VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new, VerifyFindanimeLinksJob.new"
 end
 
 #every 1.day, at: '0:45 am' do
