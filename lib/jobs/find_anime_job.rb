@@ -2,9 +2,9 @@ class FindAnimeJob < Struct.new(:full_import)
   def perform
     if full_import
       pages = FindAnimeParser.new.fetch_pages_num
-      FindAnimeImporter.new.import pages-1, full_import
+      FindAnimeImporter.new.import pages: 0..pages-1, full: true
     else
-      FindAnimeImporter.new.import 0, false
+      FindAnimeImporter.new.import pages: [0], full: false
     end
   end
 end

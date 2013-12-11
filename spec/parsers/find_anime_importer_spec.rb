@@ -4,46 +4,64 @@ describe FindAnimeImporter do
   let(:importer) { FindAnimeImporter.new }
 
   describe :import do
-    subject { importer.import 0, import_all }
+    subject { importer.import pages: pages, ids: ids, full: full_import }
     let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki' }
     let(:identifier) { 'xxxholic__shunmuki' }
-    let(:import_all) { true }
+    let(:full_import) { true }
+    let(:pages) { [0] }
+    let(:ids) { [] }
     before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier] }
 
-    describe :imported_videos do
-      let!(:anime) { create :anime, name: 'Il Sole Penetra le Illusioni' }
-      let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
+    context :pages do
+      let(:pages) { [0] }
 
-      context :full_import do
-        let(:import_all) { true }
-        before do
-          episode = 0
-          FindAnimeParser.any_instance.stub(:fetch_videos).and_return do
-            episode += 1
-            { episode: episode }
+      describe :imported_videos do
+        let!(:anime) { create :anime, name: 'Il Sole Penetra le Illusioni' }
+        let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
+
+        context :full_import do
+          let(:full_import) { true }
+          before do
+            episode = 0
+            FindAnimeParser.any_instance.stub(:fetch_videos).and_return do
+              episode += 1
+              { episode: episode }
+            end
+            AnimeVideo.stub :import
+            importer.should_receive(:build_video).exactly(13).times
           end
-          AnimeVideo.stub :import
-          importer.should_receive(:build_video).exactly(13).times
+
+          it { should be_nil }
         end
 
-        it { should be_nil }
-      end
-
-      context :partial_import do
-        let(:import_all) { false }
-        let!(:anime_video) { create :anime_video, episode: 10, anime: anime }
-        before do
-          episode = 0
-          FindAnimeParser.any_instance.stub(:fetch_videos).and_return do
-            episode += 1
-            { episode: episode }
+        context :partial_import do
+          let(:full_import) { false }
+          let!(:anime_video) { create :anime_video, episode: 10, anime: anime }
+          before do
+            episode = 0
+            FindAnimeParser.any_instance.stub(:fetch_videos).and_return do
+              episode += 1
+              { episode: episode }
+            end
+            AnimeVideo.stub :import
+            importer.should_receive(:build_video).exactly(6).times
           end
-          AnimeVideo.stub :import
-          importer.should_receive(:build_video).exactly(6).times
-        end
 
-        it { should be_nil }
+          it { should be_nil }
+        end
       end
+    end
+
+    context :ids do
+      let!(:anime) { create :anime, name: 'Good Morning Call' }
+      let!(:anime_2) { create :anime, name: 'Dakara Boku wa, H ga Dekinai OVA' }
+      let(:ids) { ['good_morning_call', 'dakara_boku_wa__h_ga_dekinai_ova'] }
+      let(:pages) { [] }
+      before do
+        AnimeVideo.stub :import
+        importer.should_receive(:build_video).exactly(4).times
+      end
+      it { should be_nil }
     end
 
     describe :video do
