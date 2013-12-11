@@ -1,5 +1,5 @@
 class FindAnimeImporter
-  SERVICE = :findanime
+  SERVICE = 'findanime'
 
   def initialize
     @parser = FindAnimeParser.new
@@ -66,7 +66,7 @@ private
         entries.each {|v| data.delete v }
         @twice_matched << "#{anime_id} (#{entries.map {|(id, anime, videos)| id }.join ', '})"
         AnimeLink.where(
-          service: SERVICE.to_s,
+          service: SERVICE,
           anime_id: anime_id,
           identifier: entries.map {|(id, anime, videos)| id }
         ).delete_all
@@ -92,7 +92,7 @@ private
   end
 
   def find_match entry
-    anime = @matcher.by_link entry[:id], SERVICE
+    anime = @matcher.by_link entry[:id], SERVICE.to_sym
 
     unless anime
       animes = @matcher.matches entry[:names], year: entry[:year], episodes: entry[:episodes]
