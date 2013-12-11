@@ -28,7 +28,9 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
   def dropdown_videos
     return [] if current_videos.blank?
-    current_videos.sort_by {|v| [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.hosting == 'vk.com' ? '' : v.hosting, v.author]}
+    current_videos.sort_by do |v|
+      [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.hosting == 'vk.com' ? '' : v.hosting, v.author ? v.author.name : '']
+    end
   end
 
   def current_video

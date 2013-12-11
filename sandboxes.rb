@@ -35,7 +35,7 @@ Manga.where(imported_at: nil).includes(:rates).select{|v| v.rates.empty? }.each(
 ###########################
 # изменение column collation
 ###########################
-ALTER TABLE anime_video_authors MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci
+"ALTER TABLE anime_video_authors MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci"
 ###########################
 # Починка битых каринок, если они загрузились без расширения
 ###########################
@@ -45,15 +45,13 @@ Dir.foreach(Rails.root.join 'public', 'images', 'person', 'original').select {|v
   entry.image.reprocess!
 end
 ###########################
-ALTER TABLE anime_video_authors MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci
-###########################
 # оценки пользователей в CSV после сбора их через SVD
 ###########################
-------user
-|
-|
-|
-title
+#------user
+#|
+#|
+#|
+#title
 
 reload!;matrix,users,entries=Svd.generate! Svd::Full;
 CSV.open("/tmp/rates.csv", "wb") do |csv|
