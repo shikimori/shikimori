@@ -1,5 +1,5 @@
 .abuse-request
-  = render partial: 'comments/comment', object: abuse_request.comment, formats: :html
+  = render 'comments/comment', comment: abuse_request.comment, topic: abuse_request.comment.commentable, formats: :html
 
   .request-control.change
     p
