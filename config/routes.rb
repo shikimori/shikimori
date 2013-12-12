@@ -441,7 +441,7 @@ Site::Application.routes.draw do
           resources :messages, only: [:index] do
             get :unread, on: :collection
           end
-          resources :history, only: [:index]
+          resources :history, only: [:index, :show]
         end
       end
 
