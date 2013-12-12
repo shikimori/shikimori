@@ -13,3 +13,6 @@ jQuery ->
 
   frame = $('iframe', $page)
   frame.height(frame.width() * 9 / 16)
+
+  $("a.dropdown-toggle, .dropdown-menu a").on "touchstart", (e) ->
+    e.stopPropagation()
