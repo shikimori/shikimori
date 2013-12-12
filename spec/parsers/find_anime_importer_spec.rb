@@ -4,10 +4,10 @@ describe FindAnimeImporter do
   let(:importer) { FindAnimeImporter.new }
 
   describe :import do
-    subject { importer.import pages: pages, ids: ids, full: full_import }
+    subject { importer.import pages: pages, ids: ids, last_episodes: last_episodes }
     let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki' }
     let(:identifier) { 'xxxholic__shunmuki' }
-    let(:full_import) { true }
+    let(:last_episodes) { false }
     let(:pages) { [0] }
     let(:ids) { [] }
     before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier] }
@@ -19,8 +19,8 @@ describe FindAnimeImporter do
         let!(:anime) { create :anime, name: 'Il Sole Penetra le Illusioni' }
         let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
 
-        context :full_import do
-          let(:full_import) { true }
+        context :last_episodes do
+          let(:last_episodes) { false }
           before do
             episode = 0
             FindAnimeParser.any_instance.stub(:fetch_videos).and_return do
@@ -35,7 +35,7 @@ describe FindAnimeImporter do
         end
 
         context :partial_import do
-          let(:full_import) { false }
+          let(:last_episodes) { true }
           let!(:anime_video) { create :anime_video, episode: 10, anime: anime }
           before do
             episode = 0

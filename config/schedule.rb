@@ -24,6 +24,14 @@ set :job_template, "/usr/bin/zsh -i -c ':job'"
 
 # здесь только редкие/долгие таски, которые нельзя на clockwork положить
 
+every 1.hour do
+  runner "Delayed::Job.enqueue_uniq FindAnimeJob.new(:last_3_entries)"
+end
+
+every 6.hours do
+  runner "Delayed::Job.enqueue_uniq FindAnimeJob.new(:last_15_entries)"
+end
+
 every 1.day, at: '0:05 am' do
   runner "Delayed::Job.enqueue_uniq AnimeCalendarJob.new, ProcessContestsJob.new, PrepareImportListJob.new(source: :latest, hours_limit: 24*7), CleanupOldLocksJob.new, SakuhindbJob.new(false)"
 end
@@ -51,6 +59,10 @@ end
 
 every 1.day, at: '8:00 am' do
   runner "Delayed::Job.enqueue_uniq VerifyAnimesJob.new, VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new, VerifyFindanimeLinksJob.new"
+end
+
+every 3.days, at: '5:00 am' do
+  runner "Delayed::Job.enqueue_uniq FindAnimeJob.new(:first_page)"
 end
 
 #every 1.day, at: '0:45 am' do
