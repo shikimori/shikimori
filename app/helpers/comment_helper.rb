@@ -61,14 +61,14 @@ module CommentHelper
     @@smiley_groups
   end
 
-  def smileys_to_html(text, poster=nil)
+  def smileys_to_html text, poster=nil
     @@replaceable_smileys.each do |v|
       text.gsub!(v, '<img src="%s%s.gif" alt="%s" title="%s" class="smiley" />' % [@@smileys_path, v, v, v])
     end
     text
   end
 
-  def moderator_to_html(text, poster=nil)
+  def moderator_to_html text, poster=nil
     if self.respond_to?(:user_signed_in?) && poster && user_signed_in? && (current_user.id == poster.id || current_user.moderator?)
       text.gsub(/\[moderator\]([\s\S]*?)\[\/moderator\](?:<br ?\/?>|\n)?/mi, "
 <section class=\"moderation\">
@@ -87,18 +87,18 @@ module CommentHelper
     end
   end
 
-  def mention_to_html(text, poster=nil)
+  def mention_to_html text, poster=nil
     text.gsub /\[mention=\d+\]([\s\S]*?)\[\/mention\]/ do
       nickname = $1
       "<a href=\"#{user_url User.param_to(nickname)}\">@#{nickname}</a>"
     end
   end
 
-  def wall_container_to_html(text, poster=nil)
+  def wall_container_to_html text, poster=nil
     text.sub /(^[\s\S]*)(<div class="wall")/ , '<div class="height-unchecked inner-block">\1</div>\2'
   end
 
-  def spoiler_to_html(text, nesting = 0)
+  def spoiler_to_html text, nesting = 0
     return text if nesting > 2
 
     text = spoiler_to_html text, nesting + 1
@@ -120,7 +120,7 @@ module CommentHelper
 
   BbCodeReplacers = ComplexBbCodes.map { |v| "#{v}_to_html".to_sym }.reverse
 
-  def format_comment(text, poster=nil)
+  def format_comment text, poster=nil
     safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
 
     result = remove_wiki_codes(remove_old_tags(safe_text))
@@ -147,7 +147,7 @@ module CommentHelper
     result.html_safe
   end
 
-  def db_entry_mention(text)
+  def db_entry_mention text
     text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes).map {|v| "#{v}\b" }.join('|') })(.*?)\]} do |matched|
       name = $1.gsub('&#x27;', "'").gsub('&quot;', '"')
 
@@ -178,27 +178,28 @@ module CommentHelper
         #.gsub(/[\n\r\t ]+$/x, '')
   end
 
-  def youtube_html(hash)
+  def youtube_html hash, time
     video = Video.new url: "http://youtube.com/watch?v=#{hash}"
     fake_view = OpenStruct.new view_context: Sendgrid.send(:new).view_context
-    DummyRenderController.new(fake_view).render_to_string partial: 'videos/video', object: video, locals: { marker: true }
+    DummyRenderController.new(fake_view).render_to_string partial: 'videos/video', object: video, locals: { marker: true, time: time }
   end
 
-  def youtube_to_html(text, poster=nil)
+  def youtube_to_html text, poster=nil
     text = text.gsub %r{<a href="(?:https?://(?:www\.)?youtube.com/watch\?(?:feature=player_embedded&(?:amp;))?v=([^&\s"<>#]+)([^\s"<>]+)?)">[^<]+</a>(?:(?:<br ?/?>)*(?=<a href="https?:\/\/(?:www\.)?youtube.com)|)}mi do |match|
-      youtube_html $1
+      hash = $1
+      time = $2[/\bt\b=(\d+)/, 1]
+      youtube_html hash, time
     end
+
     text.gsub /([^"\]]|^)(?:https?:\/\/(?:www\.)?youtube.com\/watch\?(?:feature=player_embedded&(?:amp;)?)v=([^&\s<>#]+)([^\s<>]+)?)/mi do
-      $1 + youtube_html($2)
+      content = $1
+      hash = $2
+      time = $2[/\bt\b=(\d+)/, 1]
+      content + youtube_html(hash, time)
     end
   end
 
-
-  def twitch_to_html(text, poster=nil)
-    text
-  end
-
-  def quote_to_html(text, poster=nil)
+  def quote_to_html text, poster=nil
     return text unless text.include?("[quote") && text.include?("[/quote]")
 
     text.gsub(/\[quote\]/, '<blockquote>').
@@ -207,7 +208,7 @@ module CommentHelper
          gsub(/\[\/quote\](?:\r\n|\r|\n|<br \/>)?/, '</blockquote>')
   end
 
-  def posters_to_html(text, poster=nil)
+  def posters_to_html text, poster=nil
     return text unless text.include?("[anime_poster") || text.include?("[manga_poster")
 
     text.gsub(/\[(anime|manga)_poster=(\d+)\]/) do

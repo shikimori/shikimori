@@ -200,8 +200,11 @@ describe BbCodeService do
     end
 
     describe '[youtube]' do
-      let(:text) { 'https://www.youtube.com/watch?v=og2a5lngYeQ' }
+      let(:hash) { "og2a5lngYeQ" }
+      let(:time) { 22 }
+      let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
       it { should include "<div class=\"image-container video\"" }
+      it { should include "a data-href=\"http://youtube.com/v/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
     end
 
     describe '[url]' do

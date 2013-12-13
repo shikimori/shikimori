@@ -9,10 +9,8 @@
       = video.kind
       span = video.name
 
-  a href="#{video.url}" data-href="#{video.direct_url}"
-    /title="#{video.kind}#{video.name.present? ? " #{video.name}" : ''} видео из #{entry.name}"
+  a href="#{video.url}#{defined?(time) && time ? "#t=#{time}" : ''}" data-href="#{video.direct_url}#{defined?(time) && time ? "?start=#{time}" : ''}"
     img src="#{video.image_url}" data-id="#{video.id}"
-    / alt="#{video.kind}#{video.name.present? ? " #{video.name}" : ''} видео из #{entry.name}"
     - if defined?(expanded) || defined?(marker) # marker изпользуется в youtube_to_html
       p.video-marker youtube
     - else
