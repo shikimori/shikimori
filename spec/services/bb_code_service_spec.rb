@@ -200,6 +200,22 @@ describe BbCodeService do
     end
 
     describe '[youtube]' do
+      describe 'with time' do
+        let(:hash) { "og2a5lngYeQ" }
+        let(:time) { 22 }
+        let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
+        it { should include "<div class=\"image-container video\"" }
+        it { should include "a data-href=\"http://youtube.com/v/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
+      end
+
+      describe 'without time' do
+        let(:hash) { "og2a5lngYeQ" }
+        let(:text) { "[url=http://www.youtube.com/watch?feature=player_embedded&v=#{hash}]www.youtube.com[/url]" }
+        it { should include "<div class=\"image-container video\"" }
+        it { should include "a data-href=\"http://youtube.com/v/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
+      end
+    end
+    describe '[youtube]' do
       let(:hash) { "og2a5lngYeQ" }
       let(:time) { 22 }
       let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }

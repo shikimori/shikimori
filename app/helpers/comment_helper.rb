@@ -187,14 +187,14 @@ module CommentHelper
   def youtube_to_html text, poster=nil
     text = text.gsub %r{<a href="(?:https?://(?:www\.)?youtube.com/watch\?(?:feature=player_embedded&(?:amp;))?v=([^&\s"<>#]+)([^\s"<>]+)?)">[^<]+</a>(?:(?:<br ?/?>)*(?=<a href="https?:\/\/(?:www\.)?youtube.com)|)}mi do |match|
       hash = $1
-      time = $2[/\bt\b=(\d+)/, 1]
+      time = $2[/\bt\b=(\d+)/, 1] if $2
       youtube_html hash, time
     end
 
     text.gsub /([^"\]]|^)(?:https?:\/\/(?:www\.)?youtube.com\/watch\?(?:feature=player_embedded&(?:amp;)?)v=([^&\s<>#]+)([^\s<>]+)?)/mi do
       content = $1
       hash = $2
-      time = $2[/\bt\b=(\d+)/, 1]
+      time = $3[/\bt\b=(\d+)/, 1] if $3
       content + youtube_html(hash, time)
     end
   end
