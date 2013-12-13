@@ -9,3 +9,7 @@ html
     = render partial: 'anime_online/menu' if Rails.env.development?
     .container
       = yield
+
+  - if Rails.env.production?
+    = render partial: 'anime_online/stats/metrica_yandex'
+    = render partial: 'anime_online/stats/analytics_google'
