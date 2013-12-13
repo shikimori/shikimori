@@ -5,7 +5,7 @@ module CommentHelper
   include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :youtube, :twitch, :group, :contest, :mention, :user_change, :user,
+  ComplexBbCodes = [:moderator, :smileys, :youtube, :group, :contest, :mention, :user_change, :user,
                     :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler
                    ]
 
