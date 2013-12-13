@@ -25,7 +25,7 @@ class DanbooruController < ApplicationController
   rescue OpenURI::HTTPError, URI::InvalidURIError
     raise NotFound, url
 
-  rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError
+  rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ECONNREFUSED
     @retries ||= 2
     @retries -= 1
 
@@ -50,7 +50,7 @@ class DanbooruController < ApplicationController
 
     render json: json
 
-  rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
+  rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ECONNREFUSED
     @retries ||= 2
     @retries -= 1
 
