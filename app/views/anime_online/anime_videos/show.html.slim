@@ -3,11 +3,11 @@
 
   .title = @anime.name
   .row
-    .col-md-3
+    .col-md-3.col-sm-4
       img src="http://shikimori.org#{@anime.image}" title="#{{@anime.name}}" alt="#{{@anime.name}}"
       = render 'anime_online/blocks/info', anime: @anime
 
-    .col-md-7
+    .col-md-7.col-sm-8
       - if @anime.description
         .description == @anime.description
 
@@ -25,6 +25,8 @@
         /div = cookies[:preference_kind]
         /div = cookies[:preference_hosting]
         /div = cookies[:preference_author_id]
+
+        iframe.video.hidden-md.hidden-lg src="#{@anime.current_video.url}"
 
         .nav-video
           ul.nav.nav-pills
@@ -72,7 +74,7 @@
                     li: a href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :broken_video}" Видео не работает
                     li: a href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :wrong_video}" Видео не от этого аниме
 
-        iframe.video src="#{@anime.current_video.url}"
+      iframe.video.hidden-xs.hidden-sm src="#{@anime.current_video.url}"
 
       - unless @reviews.blank?
         .reviews

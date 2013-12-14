@@ -11,8 +11,8 @@ jQuery ->
       success: ->
         alert 'Ваше обращение принято. Спасибо!'
 
-  frame = $('iframe', $page)
-  frame.height(frame.width() * 9 / 16)
+  $(frame).height($(frame).width() * 9 / 16) for frame in $('iframe', $page)
+
 
   $("a.dropdown-toggle, .dropdown-menu a").on "touchstart", (e) ->
     e.stopPropagation()
