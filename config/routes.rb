@@ -3,7 +3,7 @@ Site::Application.routes.draw do
     root to: 'anime_online/anime_videos#index'
     get 'videos/:id(/:episode_id)(/:video_id)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode_id: /\d+/, video_id: /\d+/ }
     get 'videos' => 'anime_online/anime_videos#index', as: :anime_videos
-    post 'videos/:id/complaint/:kind' => 'anime_online/anime_videos#complaint', as: :anime_videos_complaint, constraints: { kind: /broken_video|wrong_video/ }
+    post 'videos/:id/:episode_id/:video_id/complaint/:kind' => 'anime_online/anime_videos#complaint', as: :anime_videos_complaint, constraints: { kind: /broken_video|wrong_video/ }
     get 'robots.txt' => 'robots#animeonline'
   end
 
@@ -134,6 +134,13 @@ Site::Application.routes.draw do
         member do
           post :accept
           post :reject
+        end
+      end
+
+      resources :complaint_anime_videos, only: [:index] do
+        member do
+          post :broken
+          post :wrong
         end
       end
     end

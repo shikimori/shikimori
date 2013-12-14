@@ -9,8 +9,9 @@ class Complaint
       src: @user,
       dst_id: 1077,
       dst_type: User.name,
+      subject: complaint_kind,
       kind: MessageType::Notification,
-      body: "Пожаловались на видео #{video_id} [#{complaint_kind}] #{url}"
+      body: "Пожаловались на видео id:#{video_id} [#{complaint_kind}] #{url}"
     })
   end
 end

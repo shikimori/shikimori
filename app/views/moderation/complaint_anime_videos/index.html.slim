@@ -1,0 +1,14 @@
+header.head
+  h1
+    = @page_title
+.abuse-requests
+  h2.subheadline Очередь
+  ul
+    - @messages.each do |message|
+      li
+        span = message.body
+        a href="#{message.body =~ /(http:\/\/.*)/;$1}" target="blank" Проверить
+        - if message.body =~ /id:(\d+)/
+          /a href="#{broken_moderation_complaint_anime_video_url(message.body =~ /id:(\d+)/;$1)}" data-method="get" data-remote="true" Удалить
+          /a href="#{broken_moderation_complaint_anime_video_url 1788}" data-method="get" data-remote="true" Удалить
+          a href="#" data-action="#{broken_moderation_complaint_anime_video_url 1788}" method="post" data-remote="true" удалить
