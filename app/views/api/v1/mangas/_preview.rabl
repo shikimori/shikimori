@@ -1,4 +1,4 @@
-attributes :id, :title, :russian
+attributes :id, :name, :russian
 
 node :image do |entry|
   {
