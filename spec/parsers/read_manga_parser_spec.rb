@@ -6,7 +6,7 @@ describe ReadMangaParser do
 
   let(:parser) { ReadMangaParser.new }
 
-  it { parser.fetch_pages_num.should eq 67 }
+  it { parser.fetch_pages_num.should eq 69 }
   it { parser.fetch_page_links(0).should have(ReadMangaParser::PageSize).items }
   it { parser.fetch_page_links(parser.fetch_pages_num - 1).last.should eq 'wild_kiss' }
 
@@ -63,7 +63,7 @@ describe ReadMangaParser do
         russian: 'Учитель мафиози Реборн',
         description: "Савада Тсунаёши — на первый взгляд самый обыкновенный мальчик. Слегка невезуч, слегка неуклюж, слегка паникёр. Хотя, может, и не слегка. И все в его жизни скучно и безрадостно, до того волшебного момента, как пред его взором предстаёт чудо-ребёнок Реборн. Который на деле оказывается давно зарекомендовавшим себя в мафиозном мире киллером. Реборн мило радует Тсуну, что отныне тот назначается наследником крупнейшей мафиозной семьи Вонгола, и что он, Реборн, обязуется сделать из него надлежащего босса. С этого дня жизнь Савады кардинально меняется...",
         source: 'http://animanga.ru',
-        score: 9.22,
+        score: 9.23,
         kind: 'Manga'
       }
     end
@@ -75,7 +75,7 @@ describe ReadMangaParser do
       entry[:names].should eq ["Trinity Blood Rage Against the Moons"]
       entry[:russian].should eq "Trinity Blood Rage Against the Moons"
       entry[:description].should eq "Красивые иллюстрации к роману, выполненные THORES Shibamoto."
-      entry[:score].should eq 9.16
+      entry[:score].should eq 9.24
       entry[:source].should eq "http://readmanga.ru/trinity_blood_rage_against_the_moons"
     end
   end
