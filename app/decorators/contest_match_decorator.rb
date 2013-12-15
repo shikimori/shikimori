@@ -48,6 +48,6 @@ class ContestMatchDecorator < Draper::Decorator
   end
 
   def voted_for_class
-    voted_for.present? ? "voted-#{voted_for}" : nil
+    !finished? && voted_for.present? ? "voted-#{voted_for}" : nil
   end
 end
