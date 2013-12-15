@@ -1,0 +1,149 @@
+@import globals
+
+$horizontal-offset: 90px
+$centered-block-offset: 283.5px
+
+.contest .contest-match
+  position: relative
+
+  .prev-match
+    +link-color(#acb1b4)
+    cursor: pointer
+    left: 10px
+    position: absolute
+    top: 93px
+
+    &:before
+      content: '\e83e'
+      font-family: shikimori
+      font-size: 54px
+
+  .next-match
+    +link-color(#acb1b4)
+    cursor: pointer
+    position: absolute
+    right: 10px
+    top: 93px
+
+    &:before
+      content: '\e83f'
+      font-family: shikimori
+      font-size: 54px
+
+  .entry-block
+    margin-right: 0
+
+  .match-member
+    +opacity(0.4)
+    +transition(opacity, 0.3s)
+    &.voted, &.hovered
+      +opacity(1)
+    &.unhovered
+      +opacity(0.4)
+    &:first-child
+      margin-left: $horizontal-offset
+      &.centered
+        margin-left: $centered-block-offset
+
+  .vs
+    color: darken($gray-color-2, 10%)
+    float: left
+    font-size: 64px
+    width: 217px
+    margin-top: 72px
+    text-align: center
+
+    &.empty
+      margin-top: 125px
+      width: 100%
+
+    .help, .next, .finish, .refrain, .refrained
+      +text-font
+      color: $gray-color-2
+      font-size: 11px
+      &.success, &.refrained
+        display: none
+
+    .finish
+      color: darken($gray-color-2, 10%)
+      display: none
+
+    .next
+      +normal-link
+      display: none
+
+    .refrain
+      +normal-link
+      display: block
+
+  .match-losers
+    +clearfix
+    clear: both
+    margin: -5px $horizontal-offset 15px
+
+    .left-part
+      float: left
+      width: 170px
+
+    .right-part
+      float: right
+      width: 170px
+
+    .center-part
+      width: 170px
+      margin-left: $centered-block-offset - $horizontal-offset
+
+    .title
+      color: #333
+      margin-bottom: 3px
+
+    a
+      float: left
+      margin: 0 8px 5px 0
+
+      &:nth-child(4n)
+        margin-right: 0
+
+      img
+        +image-selectable-decor
+        padding: 1px
+        width: 34px
+
+  .votes-percents
+    +default-text-field
+    clear: both
+    display: block
+    line-height: 18px
+    margin: 0 $horizontal-offset 15px
+    padding: 0
+
+    .left-part
+      background-color: #4682b4
+      color: white
+      cursor: pointer
+      overflow: hidden
+      height: 18px
+      width: 100%
+
+      span
+        padding: 0 5px
+
+      &:hover
+        background-color: #79a9cf
+        .right-part
+          background-color: #edacd9
+          &:before
+            border-right: 30px solid #edacd9
+    .right-part
+      background-color: #b78bc7
+      color: white
+      float: right
+      height: 18px
+      position: relative
+      text-align: right
+      &:before
+        border-right: 30px solid #b78bc7
+        border-top: 70px solid transparent
+        content: ''
+        left: -30px
+        position: absolute

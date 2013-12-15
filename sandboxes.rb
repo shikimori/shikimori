@@ -27,7 +27,7 @@ ProxyTools.use_cache = true
 ###########################
 # чистка продублировавшихся сообщений от перезапуска HistoryJob
 ###########################
-Message.where(linked_id: 101064).group(:dst_id).having('count(*) > 1').count
+Message.where(id: Message.where(linked_id: 114305).group(:dst_id).having('count(*) > 1').pluck(:id)).delete_all
 ###########################
 # чистка удалённой на MAL манги, которой нет ни в чьих списках
 ###########################

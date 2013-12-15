@@ -39,12 +39,12 @@ $(document.body).on 'ajax:success', '.match-container', (e) ->
     $('.match-member', e.target).removeClass 'hovered unhovered'
 
   # пометка проголосованным, если это указано
-  variant = $('.vote', e.target).data 'voted'
+  variant = $('.contest-match', e.target).data 'voted'
   if variant
     $('.refrain', e.target).trigger 'ajax:success'
 
   # включение/отключение предложения воздержаться
-  if $('.vote', e.target).data('state') == 'started'
+  if $('.contest-match', e.target).data('state') == 'started'
     $('.item-content .warning').show()
   else
     $('.item-content .warning').hide()
@@ -54,7 +54,7 @@ $(document.body).on 'ajax:success', '.match-container', (e) ->
 # клик по одному из вариантов голосования
 $(document.body).on 'click', '.match-member img', (e) ->
   return if in_new_tab(e)
-  state = $(e.target).closest('.vote').data 'state'
+  state = $(e.target).closest('.contest-match').data 'state'
   if state == 'started'
     $(e.target).closest('.match-member').callRemote()
   false
@@ -72,7 +72,7 @@ $(document.body).on 'ajax:success', '.match-member, .refrain', (e, data) ->
     data.ajax = true
   else
   # это просто загруженное голосование
-    $vote = $(e.target).closest('.vote')
+    $vote = $(e.target).closest('.contest-match')
     data =
       ajax: false
       variant: $vote.data 'voted'
@@ -119,7 +119,7 @@ $(document.body).on 'ajax:success', '.match-member, .refrain', (e, data) ->
     if data.ajax
       $('.menu .contest[data-count=1]').hide()
 
-# клик на переход к следующей паре
+# клик на переход к следующей не проголосованной паре
 $(document.body).on 'click', '.match-container .next', ->
   $('.match-link.pending').first().trigger 'click'
 
@@ -136,3 +136,23 @@ $(document.body).on 'ajax:success', '.match-link', (e, data) ->
       .stop(true, false)
       .trigger('ajax:success')
       .animate opacity: 1
+
+# клик переход на следующую пару
+$(document.body).on 'click', '.next-match', ->
+  $match = $('.match-link.active')
+  $matches = $match.closest('.match-day').parent().find('.match-link').toArray()
+  index = $matches.indexOf($match[0]) + 1
+  if index >= $matches.length
+    index = 0
+
+  $($matches[index]).click()
+
+# клик переход на предыдущую пару
+$(document.body).on 'click', '.prev-match', ->
+  $match = $('.match-link.active')
+  $matches = $match.closest('.match-day').parent().find('.match-link').toArray()
+  index = $matches.indexOf($match[0]) - 1
+  if index < 0
+    index = $matches.length - 1
+
+  $($matches[index]).click()

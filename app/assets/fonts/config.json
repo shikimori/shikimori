@@ -223,6 +223,18 @@
       "src": "entypo"
     },
     {
+      "uid": "884cfc3e6e2d456dd2a2ca0dbb9e6337",
+      "css": "left-open-big",
+      "code": 59454,
+      "src": "entypo"
+    },
+    {
+      "uid": "004882ab2d5c418c5b2060e80596279b",
+      "css": "right-open-big",
+      "code": 59455,
+      "src": "entypo"
+    },
+    {
       "uid": "3bd18d47a12b8709e9f4fe9ead4f7518",
       "css": "arrows-ccw",
       "code": 59393,
