@@ -74,7 +74,7 @@
                     li: a href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :broken_video}" Видео не работает
                     li: a href="#" data-url="#{anime_videos_complaint_url id: @anime.current_video.id, kind: :wrong_video}" Видео не от этого аниме
 
-      iframe.video.hidden-xs.hidden-sm src="#{@anime.current_video.url}"
+        iframe.video.hidden-xs.hidden-sm src="#{@anime.current_video.url}"
 
       - unless @reviews.blank?
         .reviews
