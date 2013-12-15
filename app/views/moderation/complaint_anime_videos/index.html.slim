@@ -1,14 +1,29 @@
+- content_for :head do
+  = stylesheet_link_tag :moderation_complaint_anime_videos
+
 header.head
   h1
     = @page_title
-.abuse-requests
+.complaints
   h2.subheadline Очередь
   ul
     - @messages.each do |message|
       li
         span = message.body
-        a href="#{message.body =~ /(http:\/\/.*)/;$1}" target="blank" Проверить
-        - if message.body =~ /id:(\d+)/
-          /a href="#{broken_moderation_complaint_anime_video_url(message.body =~ /id:(\d+)/;$1)}" data-method="get" data-remote="true" Удалить
-          /a href="#{broken_moderation_complaint_anime_video_url 1788}" data-method="get" data-remote="true" Удалить
-          a href="#" data-action="#{broken_moderation_complaint_anime_video_url 1788}" method="post" data-remote="true" удалить
+        span.actions
+          a href="#{message.body =~ /(http:\/\/.*)/;$1}" target="blank" Проверить
+          - if message.body =~ /id:(\d+)/
+            a href="#" data-action="#{broken_moderation_complaint_anime_video_url 1788}" method="post" data-remote="true" Не работает
+            a href="#" data-action="#{wrong_moderation_complaint_anime_video_url 1788}" method="post" data-remote="true" Неверное
+          a href="#" data-action="#{ignore_moderation_complaint_anime_video_url message.id}" method="post" data-remote="true" title="Игнорировать" x
+
+  br
+
+  h2.subheadline История
+  ul
+    - @complaint_videos.each do |v|
+      li
+        = "#{v.id} [#{v.id}]"
+        span.actions
+          a href="#" data-action="#{reset_moderation_complaint_anime_video_url v.id}" method="post" data-remote="true" Отменить
+

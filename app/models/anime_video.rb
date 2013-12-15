@@ -14,6 +14,22 @@ class AnimeVideo < ActiveRecord::Base
   validates :url, presence: true
   validates :source, presence: true
 
+  # ... -> broken_video, wrong_video, veri
+  #state_machine :state, initial: :... do
+    #state :...
+    #state :pending
+    #state :broken
+    #state :wrong
+
+    #event :mark_broken do
+      #transition ...: :broken
+    #end
+
+    #event :mark_wrong do
+      #transition ...: :wrong
+    #end
+  #end
+
   def hosting
     parts = URI.parse(url).host.split('.')
     domain = "#{parts[-2]}.#{parts[-1]}"
