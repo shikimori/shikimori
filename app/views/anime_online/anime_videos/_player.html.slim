@@ -1,1 +1,8 @@
-iframe src="#{video.url}"
+- if video.hosting == 'myvi.ru'
+  object
+    param name="movie" value="#{ video.url }"
+    param name="allowFullScreen" value="true"
+    param name="allowScriptAccess" value="always"
+    embed src="#{ video.url }" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
+- else
+  iframe src="#{video.url}"
