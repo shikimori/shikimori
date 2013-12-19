@@ -1,3 +1,14 @@
+resize_player = ($page) ->
+  console.log $page
+  $frame = $('iframe', $page)
+  $frame.height($frame.width() * 9 / 16) if $frame
+
+  $object = $('object', $page)
+  if $object
+    width = $object.parent().width()
+    $object.width(width).height(width * 9 / 16)
+    $('embed', $object).width(width).height(width * 9 / 16)
+
 jQuery ->
   $page = $('.p-anime_video-show')
 
@@ -11,8 +22,8 @@ jQuery ->
       success: ->
         alert 'Ваше обращение принято. Спасибо!'
 
-  $(frame).height($(frame).width() * 9 / 16) for frame in $('iframe', $page)
-
+  resize_player $page
+  $(window).resize -> resize_player($page)
 
   $("a.dropdown-toggle, .dropdown-menu a").on "touchstart", (e) ->
     e.stopPropagation()
