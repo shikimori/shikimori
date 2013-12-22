@@ -1,34 +1,33 @@
 class Moderation::ComplaintAnimeVideosController < ApplicationController
-  #before_filter :authenticate_user!
-  #before_filter :check_permissions
+  before_filter :authenticate_user!
+  before_filter :check_permissions
 
   def index
     @page_title = 'Модерация видео'
-    @messages = Message.where(dst_id: 1077, subject: [:broken_video.to_s, :wrong_video.to_s]).all
-    # replace kind on state
-    @complaint_videos = AnimeVideo.where(kind: [:broken.to_s, :wrong.to_s]).order('updated_at desc').all
+    @messages = Message.complaint_videos.all
+    @complaint_videos = AnimeVideo.where(state: [:broken.to_s, :wrong.to_s]).order('updated_at desc').all
   end
 
   def broken
-    video = AnimeVideo.find params[:id]
+    AnimeVideo.find(params[:id]).broken
     render nothing: true
   end
 
   def wrong
-    video = AnimeVideo.find params[:id]
+    AnimeVideo.find(params[:id]).wrong
     render nothing: true
   end
 
   def ignore
     message = Message.find params[:id]
-    #message.delete
+    message.delete
     render nothing: true
     #redirect_to_back_or_to moderation_complaint_anime_videos_url
     #redirect_to root_url
   end
 
-  def reset
-    video = AnimeVideo.find params[:id]
+  def work
+    AnimeVideo.find(params[:id]).work
     render nothing: true
   end
 

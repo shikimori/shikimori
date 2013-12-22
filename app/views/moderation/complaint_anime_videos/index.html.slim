@@ -23,7 +23,7 @@ header.head
   ul
     - @complaint_videos.each do |v|
       li
-        = "#{v.id} [#{v.id}]"
+        = "#{v.id} [#{v.state}]"
         span.actions
-          a href="#" data-action="#{reset_moderation_complaint_anime_video_url v.id}" method="post" data-remote="true" Отменить
+          a href="#" data-action="#{work_moderation_complaint_anime_video_url v.id}" method="post" data-remote="true" Работает
 

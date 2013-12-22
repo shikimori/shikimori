@@ -99,3 +99,7 @@
           .mod-block
             span Рецензии:
             a href="#{moderation_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
+        - if current_user.video_moderator? && Message.complaint_videos.count > 0
+          .mod-block
+            span Видео:
+            a href="#{moderation_complaint_anime_videos_url}" title="Модерация видео" #{Message.complaint_videos.count}

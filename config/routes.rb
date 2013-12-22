@@ -141,7 +141,7 @@ Site::Application.routes.draw do
         member do
           post :broken
           post :wrong
-          post :reset
+          post :work
           post :ignore
         end
       end

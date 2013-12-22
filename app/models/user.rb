@@ -132,6 +132,7 @@ class User < ActiveRecord::Base
   Translators = (Admins + [11, 28, 19, 31, 41, 188, 942]).uniq
   ContestsModerators = (Admins + [1483]).uniq # 1483 - Zula
   CosplayModerators = (Admins + [2043, 2046]).uniq # 2043 - laitqwerty, 2046 - Котейка
+  VideoModerators = (Admins + []).uniq
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -283,6 +284,11 @@ class User < ActiveRecord::Base
   # модератор ли косплея пользователь?
   def cosplay_moderator?
     CosplayModerators.include? self.id
+  end
+
+  # модератор ли видео пользователь?
+  def video_moderator?
+    VideoModerators.include? self.id
   end
 
   # ответственный ли за новости пользователь?
