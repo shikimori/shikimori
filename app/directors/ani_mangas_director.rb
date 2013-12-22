@@ -11,7 +11,7 @@ class AniMangasDirector < BaseDirector
   page :screenshots, -> { entry.screenshots.any? && entry.display_sensitive? }
   page :videos, -> { entry.videos.any? }
   page :images, -> { entry.tags.present? || entry.images.any? }
-  page :files, -> { entry.anime? && !entry.anons? && @entry.display_sensitive? }
+  page :files, -> { entry.anime? && !entry.anons? && entry.display_sensitive? }
 
   page [:reviews, [:index]]
   page [:reviews, [:edit]]
