@@ -191,6 +191,12 @@ class AniMangaPresenter < BasePresenter
     entry.respond_to?(:anime_videos) && entry.anime_videos.any?
   end
 
+  # показывать ли ссылки, если аниме или манга для взрослых?
+  def display_sensitive?
+    !entry.censored? ||
+      (user_signed_in? && current_user.created_at < DateTime.now - 6.months)
+  end
+
   def seo_keywords
     [
       entry.name, entry.russian,
