@@ -3,11 +3,7 @@ $('#social_image').hide()
 
 $ ->
   # отображалка новых комментариев
-  if IS_LOGGED_IN
-    window.comments_notifier = new CommentsNotifier()
-    entry_block_a = '.entry-block a'
-  else
-    entry_block_a = '.entry-block > a > div'
+  window.comments_notifier = new CommentsNotifier() if IS_LOGGED_IN
 
   # выбор первого голосования в списке
   vote_id = $('.match-container').data('id')
@@ -21,11 +17,12 @@ $ ->
   $.hideCursorMessage()
 
   # показ тултипов результатов
-  $('.results .uninitialized-tooltip').tooltip(ANIME_TOOLTIP_OPTIONS)
+  $('.results .entry-block > .uninitialized-tooltip')
+      .tooltip(ANIME_TOOLTIP_OPTIONS)
       .removeClass('uninitialized-tooltip')
-  $(entry_block_a).each ->
+  $('.entry-block > a').each ->
     $(@).data('no-align', true).tooltip().onBeforeShow().show()
-  $(entry_block_a+', .entry-block .entry-tooltip').off 'mouseenter mouseleave'
+  $('.entry-block > a').off 'mouseenter mouseleave'
 
 # голосование загружено
 $(document.body).on 'ajax:success', '.match-container', (e) ->
