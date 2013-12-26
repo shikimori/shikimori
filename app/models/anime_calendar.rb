@@ -45,6 +45,16 @@ class AnimeCalendar < ActiveRecord::Base
     "kuroko no basuke 2" => 16894,
     "yusha ni narenakatta ore wa shibushibu shushoku o ketsui shimashita." => 18677,
     "diabolik lovers" => 17513,
+    "wake up" => 19023,
+    "chunibyo demo koi ga shitai! ren" => 18671,
+    "toaru hikushi e no koiuta" => 19117,
+    "gin no saji dai-2-ki" => 19363,
+    "mikakunin de shinkokei" => 20541,
+    "hamatora" => 20689,
+    "wooser no sono higurashi kakusei-hen" => 20267,
+    "inari" => 20457,
+    "maken-ki! tsu" => 15565,
+    "sekai seifuku ~ boryaku no zvezda" => 20973,
   }
 
   EpisodesDiff = {
