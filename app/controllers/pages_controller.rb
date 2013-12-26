@@ -16,7 +16,7 @@ class PagesController < ApplicationController
   def calendar
     @page_title = 'Календарь онгоингов'
 
-    data = Rails.cache.fetch('calendar_' + WellcomeNewsPresenter.cache_key, :expires_in => 3.hours) do
+    data = Rails.cache.fetch('calendar_' + WellcomeNewsPresenter.cache_key, expires_in: 3.hours) do
       OngoingsQuery.new.prefetch
     end
     @ongoings = OngoingsQuery.new.process data, current_user, true

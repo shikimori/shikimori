@@ -59,23 +59,25 @@ class AnimeCalendar < ActiveRecord::Base
 
   EpisodesDiff = {
     'gintama\' enchousen' => 252,
-    'diabolik lovers' => 1
+    'diabolik lovers' => 1,
+    'kuroko no basuke 2' => 25
   }
 
   # импорт аниме календаря с animecalendar.net
   def self.parse
     calendar = self.load_calendar.first.events.map do |v|
-      name = v.categories
-              .first
-                .split(',')
-                  .first
-                  .downcase
-                  .sub(/episodes$/, '')
-                  .strip
-                  .gsub('ū', 'u')
-                  .gsub('ō', 'o')
-                  .gsub('×', 'x')
-                  .gsub('é', 'e')
+      name = v
+        .categories
+        .first
+          .split(',')
+            .first
+            .downcase
+            .sub(/episodes$/, '')
+            .strip
+            .gsub('ū', 'u')
+            .gsub('ō', 'o')
+            .gsub('×', 'x')
+            .gsub('é', 'e')
 
       id = Fixes.include?(name) ? Fixes[name] : nil
 

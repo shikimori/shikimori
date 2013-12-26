@@ -8,7 +8,7 @@ class OngoingsQuery
   end
 
   # обработка онгоингов до состояния, в котором их отображать на сайте
-  def process(entries, current_user, with_grouping)
+  def process entries, current_user, with_grouping
     expand entries
     fill entries
     sort entries
@@ -22,8 +22,8 @@ class OngoingsQuery
   end
 
 private
-  # определение в списки ли пользователя аниме
-  def fill_in_list(entries, current_user)
+  # определение в списке ли пользователя аниме
+  def fill_in_list entries, current_user
     rates = Set.new current_user.anime_rates.select(:target_id).map(&:target_id)
     entries.each do |anime|
       anime.in_list = rates.include? anime.id
@@ -31,7 +31,7 @@ private
   end
 
   # группировка выборки по датам
-  def group(entries)
+  def group entries
     entries = entries.group_by do |anime|
       key_date = if anime.status == AniMangaStatus::Ongoing
         anime.next_release_at || anime.episode_end_at || (anime.last_episode_date || anime.aired_at.to_datetime) + anime.average_interval
@@ -51,7 +51,7 @@ private
   end
 
   # заполнение дополнительных полей выборки данными
-  def fill(entries)
+  def fill entries
     entries.each do |v|
       if v.episodes_aired == 0
         v.average_interval = 0
@@ -78,7 +78,7 @@ private
   end
 
   # сортировка выборки
-  def sort(entries)
+  def sort entries
     entries.sort_by do |v|
       if v.status == AniMangaStatus::Ongoing && (v.episode_end_at || v.next_release_at || v.episodes_news.any?)
         if v.episode_end_at
@@ -97,7 +97,7 @@ private
   end
 
   # вычисление среднего интервала между выходами серий
-  def episode_average_interval(anime)
+  def episode_average_interval anime
     times = []
     prior_time = anime.episodes_news.first.created_at
     # учитываем только последние восемь записей
@@ -140,7 +140,7 @@ private
   end
 
   # добавление к записям новых полей
-  def expand(entries)
+  def expand entries
     entries.each do |entry|
       class << entry
         attr_accessor :average_interval, :best_works, :last_episode, :last_episode_date, :episode_start_at, :episode_end_at, :in_list

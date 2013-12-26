@@ -18,11 +18,11 @@
       div
         - group.each do |anime|
           div class="ongoing#{' in-list' if anime[:in_list]}"
-            = ani_manga_link(anime) do
-              img src="#{anime.image.url(:preview)}" alt="#{UserPresenter.localized_name(anime, current_user)}" title="#{UserPresenter.localized_name(anime, current_user)}"
+            = ani_manga_link anime do
+              img src="#{anime.image.url :preview}" alt="#{localized_name anime}" title="#{localized_name anime}"
               span.title
-                = UserPresenter.localized_name(anime, current_user)
-              span.misc.time = time_of_next_episode(anime)
+                = localized_name anime
+              span.misc.time = time_of_next_episode anime
               span.misc
                 - if (anime.last_episode || 1) == 1
                   span.anons анонс
