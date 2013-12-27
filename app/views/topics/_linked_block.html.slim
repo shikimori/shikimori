@@ -3,7 +3,7 @@
     span.linkeable data-href="#{linked.url}" data-title="#{linked.name}"
       img src="#{linked.image.url}" title="#{{linked.name}}" alt="#{{linked.name}}"
 
-  a href="#{linked.url}" title="#{linked.name}" На страницу #{Unicode.downcase(t 'Genetive.%s' % linked.class.name)} →
+  a href="#{linked.url}" title="#{linked.name}" На страницу #{Unicode.downcase(t 'Genetive.%s' % linked.object.class.name)} →
 
 - if linked.respond_to?(:kind)
   .menu-block
