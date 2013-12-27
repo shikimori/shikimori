@@ -22,4 +22,4 @@ javascript:
       = @entry.cosplay.gallery.full_title @entry
 
   .images-list
-    = render partial: 'images/image', collection: @entry.cosplay.gallery.images, locals: { group_name: 'images', style: :original }, formats: :html
+    = render partial: 'images/image.html.slim', collection: @entry.cosplay.gallery.images, locals: { group_name: 'images', style: :original }

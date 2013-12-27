@@ -26,7 +26,7 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
       url = @view_context.cosplay_url entry, gallery
       memo[url] = {
         title: gallery.full_title(entry),
-        html: controller.render_to_string(partial: 'images/image', collection: gallery.images, locals: { group_name: 'cosplay', style: :original }, formats: :html),
+        html: controller.render_to_string(partial: 'images/image.html.slim', collection: gallery.images, locals: { group_name: 'cosplay', style: :original }),
         edit: @view_context.edit_cosplay_cosplay_gallery_url(gallery.cosplayers.first, gallery)
       }
     end
