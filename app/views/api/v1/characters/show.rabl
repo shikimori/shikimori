@@ -2,10 +2,19 @@ object @resource
 
 extends 'api/v1/characters/preview'
 
-#attributes :id#, :user_id, :commentable_id, :commentable_type
-#attributes :body, :html_body, :created_at, :updated_at
-#attributes :offtopic, :review
+attributes :altname, :japanese, :description
+node :description_html do |character|
+  BbCodeService.instance.format_comment character.description
+end
 
-#child :user do
-  #extends 'api/v1/users/preview'
-#end
+child seyu: :seyu do
+  extends 'api/v1/people/preview'
+end
+
+child :animes do
+  extends 'api/v1/animes/preview'
+end
+
+child :mangas do
+  extends 'api/v1/animes/preview'
+end

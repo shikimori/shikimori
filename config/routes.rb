@@ -429,6 +429,7 @@ Site::Application.routes.draw do
     namespace :api, defaults: { format: 'json' } do
       scope module: :v1 do
         resources :characters, only: [:show]
+        resources :people, only: [:show]
         resources :comments, only: [:show, :index]
         resource :authenticity_token, only: [:show]
 
