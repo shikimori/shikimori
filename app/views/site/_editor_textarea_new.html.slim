@@ -4,7 +4,7 @@ div.item-content-editor
   /= form_tag user_change_path do
   = form_tag moderation_do_user_change_path, :format => :json, :remote => true, 'data-type' => :json do
     = hidden_field_tag 'apply', '', 'autocomplete' => :off
-    = hidden_field_tag 'change[model]', item.class.name, 'autocomplete' => :off
+    = hidden_field_tag 'change[model]', item.object.class.name, 'autocomplete' => :off
     = hidden_field_tag 'change[column]', field, 'autocomplete' => :off
     = hidden_field_tag 'change[item_id]', item.id, 'autocomplete' => :off
 

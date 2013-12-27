@@ -1,6 +1,7 @@
 # базовый класс презентера
+# TODO: выпилить все его проявления, заменив на декораторы через draper
 class BasePresenter
-  def self.inherited(base)
+  def self.inherited base
     # проксируем методы только для первого уровня иерархии
     if self.superclass != BasePresenter
       # алиас, т.к. class будет проксирован
@@ -8,10 +9,10 @@ class BasePresenter
     end
 
     # список методов для проксирования
-    base.instance_variable_set(:@respond_proxy_methods, [])
+    base.instance_variable_set :@respond_proxy_methods, []
   end
 
-  def initialize(object=nil, view_context=nil)
+  def initialize object=nil, view_context=nil
     @object = object
     @view_context = view_context
 
@@ -23,31 +24,35 @@ class BasePresenter
     @object
   end
 
-  def respond_to?(method, include_private = false)
+  def object
+    entry
+  end
+
+  def respond_to? method, include_private=false
     if respond_proxy_methods.include?(method) && @object.respond_to?(method)
       true
     else
-      super(method, include_private)
+      super method, include_private
     end
   end
 
 private
-  def self.presents(name)
-    define_method(name) do
+  def self.presents name
+    define_method name do
       @object
     end
   end
 
-  def h(text)
+  def h text
     @view_context.send :h, text
   end
 
   # кастомный render_to_string, не затрагивающий основной контроллер
-  def render_to_string(options)
+  def render_to_string options
     DummyRenderController.new(controller).render_to_string options
   end
 
-  def method_missing(method, *args, &block)
+  def method_missing method, *args, &block
     # проксирование методов среди, через class.respond_proxy *args
     if respond_proxy_methods.include?(method)
       @object.send(method, *args, &block)
@@ -59,10 +64,10 @@ private
   end
 
   # прокидывание указанных методов в презентуемый объект
-  def self.proxy(*names)
+  def self.proxy *names
     names.each do |name|
       define_method(name) do |*args|
-        @object.send(name, *args)
+        @object.send name, *args
       end
     end
   end
@@ -73,7 +78,7 @@ private
   end
 
   # прокидывание указанных методов в презентуемый объект, если эти методы присутствуют в объекте
-  def self.respond_proxy(*names)
-    @respond_proxy_methods.concat(names)
+  def self.respond_proxy *names
+    @respond_proxy_methods.concat names
   end
 end

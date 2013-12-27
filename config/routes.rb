@@ -424,9 +424,11 @@ Site::Application.routes.draw do
 
     get 'sitemap' => 'sitemap#index'
     get 'robots.txt' => 'robots#shikimori'
+
     apipie
     namespace :api, defaults: { format: 'json' } do
       scope module: :v1 do
+        resources :characters, only: [:show]
         resources :comments, only: [:show, :index]
         resource :authenticity_token, only: [:show]
 

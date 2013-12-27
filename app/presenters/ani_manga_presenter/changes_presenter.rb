@@ -1,4 +1,4 @@
-class AniMangaPresenter::ChangesPresenter < PersonPresenter
+class AniMangaPresenter::ChangesPresenter < BasePresenter
   def [](field)
     @changes ||= {}
     @changes[field.to_s] ||= UserChangesQuery.new(entry, field).fetch

@@ -48,6 +48,6 @@ class AnimesController < AniMangasController
     end
 
     response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
-    render :text => feed
+    render text: feed
   end
 end

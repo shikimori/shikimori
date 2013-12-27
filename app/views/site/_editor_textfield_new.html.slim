@@ -4,7 +4,7 @@
 
   = form_tag moderation_do_user_change_path, format: :json, remote: true, 'data-type' => :json do
     = hidden_field_tag 'apply', ''
-    = hidden_field_tag 'change[model]', item.class.name
+    = hidden_field_tag 'change[model]', item.object.class.name
     = hidden_field_tag 'change[column]', field
     = hidden_field_tag 'change[item_id]', item.id
     - if defined?(action)

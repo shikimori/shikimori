@@ -1,5 +1,5 @@
-.item-editor-container data-kind="#{@entry.class.name.downcase}"
-  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.class.name.downcase}_url", @entry), item_name: @entry.class.name.downcase, with_source: true }, formats: :html
+.item-editor-container data-kind="#{@entry.object.class.name.downcase}"
+  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase, with_source: true }, formats: :html
   .subheadline Изменение описания
   - if @entry.changes.locked?
     p.alert Описание этого персонажа в данный момент готовится пользователем #{@entry.lock.user.nickname}. Ваша правка может не быть принята!
