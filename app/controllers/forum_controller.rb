@@ -159,9 +159,9 @@ private
         end
       end
       @linked_presenter = if @linked.class == Review
-        @linked.entry.respond_to?(:decorate) ? @linked.entry.decorate : present(@linked.entry)
+        @linked.entry.class == Character || @linked.entry.class == Person ? @linked.entry.decorate : present(@linked.entry)
       elsif @linked
-        @linked.respond_to?(:decorate) ? @linked.decorate : present(@linked)
+        @linked.class == Character || @linked.class == Person ? @linked.decorate : present(@linked)
       end
     end
 
