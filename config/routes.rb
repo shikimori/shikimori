@@ -437,9 +437,18 @@ Site::Application.routes.draw do
     apipie
     namespace :api, defaults: { format: 'json' } do
       scope module: :v1 do
+        resources :animes, only: [:show]
+        resources :mangas, only: [:show]
+
         resources :characters, only: [:show]
         resources :people, only: [:show]
+
+        resources :studios, only: [:index]
+        resources :genres, only: [:index]
+        resources :publishers, only: [:index]
+
         resources :comments, only: [:show, :index]
+
         resource :authenticity_token, only: [:show]
 
         devise_scope :user do

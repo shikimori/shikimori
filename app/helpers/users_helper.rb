@@ -1,5 +1,5 @@
 module UsersHelper
-  def localized_name(entry)
+  def localized_name entry
     UserPresenter.localized_name entry, current_user
   end
 
@@ -33,9 +33,9 @@ module UsersHelper
 
   # форматирование истории аниме
   # obsolete
-  def format_user_history(entry, only_target_name=false, add_nazad=false, no_timestamp=false)
-    target_name = entry.target_id ? truncate(entry.target.name, :length => 55) : nil
-    #link = link_to truncate(target_name, :length => 40, :omission => '...'), build_anime_url(entry.target)
+  def format_user_history entry, only_target_name=false, add_nazad=false, no_timestamp=false
+    target_name = entry.target_id ? truncate(entry.target.name, length: 55) : nil
+    #link = link_to truncate(target_name, length: 40, omission: '...'), build_anime_url(entry.target)
     content = if only_target_name
       target_name
     else
@@ -51,8 +51,7 @@ module UsersHelper
           content = 'Удалено из списка <span class="highlight">%s</span>' % target_name
 
         when UserHistoryAction::Status
-          content = '%s <span class="highlight">%s</span>' % [t("#{entry.target.class.name}RateStatus.%s" % UserRateStatus.get(entry.value.to_i)),
-                                                              target_name]
+          content = '%s <span class="highlight">%s</span>' % [t("#{entry.target.class.name}RateStatus.%s" % UserRateStatus.get(entry.value.to_i)), target_name]
 
         when UserHistoryAction::Episodes, UserHistoryAction::Volumes, UserHistoryAction::Chapters
           counter = case entry.action
@@ -84,7 +83,7 @@ module UsersHelper
                   'Сброшено число томов и глав'
               end
             else
-              format_watched_episodes(entry.send("watched_#{counter}"), entry.prior_value.to_i, counter)
+              format_watched_episodes entry.send("watched_#{counter}"), entry.prior_value.to_i, counter
             end
           end + (' <span class="highlight">%s</span>' % target_name)
 
@@ -98,7 +97,7 @@ module UsersHelper
           end
 
         when UserHistoryAction::CompleteWithScore
-          "#{I18n.t("#{entry.target.class.name}RateStatus.#{UserRateStatus::Completed}")} и оценено <span class=\"highlight\">#{target_name}</span> на <b>#{entry.value}</b>"
+          "#{t "#{entry.target.class.name}RateStatus.#{UserRateStatus::Completed}"} и оценено <span class=\"highlight\">#{target_name}</span> на <b>#{entry.value}</b>"
 
         else
           content = target_name
@@ -150,7 +149,7 @@ module UsersHelper
     }
   }
   # obsolete
-  def format_watched_episodes(episodes, prior_value, counter)
+  def format_watched_episodes episodes, prior_value, counter
     suffix = counter == 'chapters' ? 'я' : 'й'
 
     if episodes.last && episodes.last < prior_value
@@ -174,28 +173,28 @@ module UsersHelper
   end
 
   # форматирование истории комментариев
-  def format_user_comment(entry)
+  def format_user_comment entry
     commentable_class = entry.commentable.class.name
     url = ''
     case commentable_class
       when Page.name
-        target = Page.find(entry.commentable_id)
+        target = Page.find entry.commentable_id
         url = '/'+target.permalink
         content = 'Комментарий на странице <span class="highlight">%s</span>' % [target.name]
 
       when Topic.name
-        target = Topic.find(entry.commentable_id)
-        url = topic_url(target)
-        content = 'Сообщение в теме <span class="highlight">%s</span>' % [truncate(target.title, :length => 40)]
+        target = Topic.find entry.commentable_id
+        url = topic_url target
+        content = 'Сообщение в теме <span class="highlight">%s</span>' % [truncate(target.title, length: 40)]
 
       when AniMangaComment.name
-        target = AniMangaComment.find(entry.commentable_id)
-        url = self.send("page_#{target.linked_type.downcase}_url", target.linked, :page => :comments, :only_path => false)
+        target = AniMangaComment.find entry.commentable_id
+        url = send "page_#{target.linked_type.downcase}_url", target.linked, page: :comments, only_path: false
         content = 'Отзыв на %s <span class="highlight">%s</span>' % [target.linked_type == Anime.name ? 'аниме' : 'мангу', target.linked.name]
 
       when CharacterComment.name
-        target = CharacterComment.find(entry.commentable_id)
-        url = self.send("page_#{target.linked_type.downcase}_url", target.linked, :page => :comments, :only_path => false)
+        target = CharacterComment.find entry.commentable_id
+        url = send "page_#{target.linked_type.downcase}_url", target.linked, page: :comments, only_path: false
         content = 'Отзыв о персонаже <span class="highlight">%s</span>' % [target.linked.name]
 
       when CosplaySession.name
@@ -203,25 +202,23 @@ module UsersHelper
         if target.animes.empty?
           content = entry.commentable_type
         else
-          url = cosplay_anime_url(target.animes.first, :character => :all,
-                                                       :gallery => target,
-                                                       :only_path => false)
+          url = cosplay_anime_url target.animes.first, character: :all, gallery: target, only_path: false
           content = 'Комментарий к косплею <span class="highlight">%s</span>>' % [target.target]
         end
 
       when AnimeNews.name
-        target = Entry.find(entry.commentable_id)
-        url = build_news_url(target)
+        target = Entry.find entry.commentable_id
+        url = build_news_url target
         content = 'Комментарий к новости аниме <span class="highlight">%s</span>' % [target.title]
 
       when User.name
-        target = User.find(entry.commentable_id)
-        url = user_url(target)
+        target = User.find entry.commentable_id
+        url = user_url target
         content = 'Сообщение в профиле пользователя <span class="highlight">%s</span>' % [target.nickname]
 
       when Group.name
-        target = Group.find(entry.commentable_id)
-        url = group_url(target)
+        target = Group.find entry.commentable_id
+        url = group_url target
         content = 'Сообщение в группе <span class="highlight">%s</span>' % [target.name]
 
       else
@@ -234,7 +231,7 @@ module UsersHelper
       ]
   end
 
-  def unread_messages_url(user)
+  def unread_messages_url user
     if current_user.unread_messages > 0 || (current_user.unread_news == 0 && current_user.unread_notifications == 0)
        messages_url :inbox
     elsif current_user.unread_news > 0

@@ -12,18 +12,18 @@ class Studio < ActiveRecord::Base
   # Relations
   has_and_belongs_to_many :animes
   has_attached_file :image,
-                    :url  => "/images/studio/:style/:id.:extension",
-                    :path => ":rails_root/public/images/studio/:style/:id.:extension"
+    url: "/images/studio/:style/:id.:extension",
+    path: ":rails_root/public/images/studio/:style/:id.:extension"
 
   @@studio_name_filter = /°|^studios? | studios?$| productions?$| entertainment?$| animation?$|^animation? /i
 
-  def self.filtered_name(name)
+  def self.filtered_name name
     #name.downcase.gsub(@@studio_name_filter, '')
     name.gsub(@@studio_name_filter, '')
   end
 
   def filtered_name
-    Studio.filtered_name(name)
+    Studio.filtered_name name
   end
 
   # создающая ли это аниме студия или просто продюссер
@@ -49,7 +49,7 @@ class Studio < ActiveRecord::Base
         .execute('SELECT * FROM animes_studios where studio_id in (%s)' % (Merged.select {|k,v| v == self.id }.map {|k,v| k } + [self.id]).join(',')).each do |v|
       ids << v[0]
     end
-    Anime.where(:id => ids)
+    Anime.where(id: ids)
   end
 
   def to_param

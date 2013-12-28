@@ -28,7 +28,7 @@
           - if entry.released_at.day != 1 && entry.released_at.month != 1 && entry.aired_at.day != 1 && entry.aired_at.month != 1
             - if defined?(details) && details
               |  (
-              span.notice.status-date title="С #{rus_date(entry.aired_at, true)} по #{rus_date(entry.released_at, true)}" ?
+              span.notice.status-date title="С #{rus_date entry.aired_at, true} по #{rus_date entry.released_at, true}" ?
               | )
         - else
           / вышло в 2011 г.
@@ -37,7 +37,7 @@
             / С 1 марта 2011 по 2 января 2012
             - if defined?(details) && details
               |  (
-              span.notice.status-date title="С #{rus_date(entry.aired_at, true)} по #{rus_date(entry.released_at, true)}" ?
+              span.notice.status-date title="С #{rus_date entry.aired_at, true} по #{rus_date entry.released_at, true}" ?
               | )
           - elsif (entry.released_at || entry.aired_at).day != 1 || (entry.released_at || entry.aired_at).month != 1
             / 1 марта 2011
@@ -64,7 +64,7 @@
   p
     span.key Рейтинг:&nbsp;
     span.value
-      = t("RatingShort.#{entry.rating}")
+      = t "RatingShort.#{entry.rating}"
       - if defined?(details) && details
         |  (
         span.notice.rating title="#{t "Rating.#{entry.rating}"}" ?
