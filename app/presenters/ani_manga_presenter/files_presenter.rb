@@ -59,7 +59,7 @@ class AniMangaPresenter::FilesPresenter < BasePresenter
 
   def episodes_data
     torrents = significant_torrents
-    topics = entry.news.limit AniMangaPresenter::NewsPerPage
+    topics = entry.news.limit AnimeDecorator::NewsPerPage
 
     data = topics.each_with_object({}) do |entry, memo|
       memo[entry.id] = torrents

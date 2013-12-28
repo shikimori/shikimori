@@ -1,6 +1,6 @@
 - content_for :head do
   - if params[:action] == 'show'
-    link rel="canonical" href="#{{self.send "#{@entry.class.name.downcase}_reviews_url", @entry}}"
+    link rel="canonical" href="#{{@entry.reviews_url}}"
 
 .subheadline Обзоры
 - if @entry.reviews.any?

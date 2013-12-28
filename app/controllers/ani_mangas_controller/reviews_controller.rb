@@ -24,15 +24,15 @@ class AniMangasController::ReviewsController < AniMangasController
   end
 
   def create
-    @review = Review.new(params[:review].merge({
+    @review = Review.new params[:review].merge(
       user: current_user,
-      target: @entry.entry
-    }))
+      target: @entry.object
+    )
 
     if @review.save
       render json: {
         notice: 'Обзор создан',
-        url: url_for([@entry, @review])
+        url: url_for([@entry.object, @review])
       }
     else
       render json: @review.errors, status: :unprocessable_entity

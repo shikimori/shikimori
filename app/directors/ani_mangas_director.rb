@@ -8,8 +8,8 @@ class AniMangasDirector < BaseDirector
   page :similar, -> { entry.related.similar.any? }
   page :chronology, -> { entry.related.any? }
   page lambda { ['cosplay', ['all'] + entry.cosplay.characters.map(&:to_param) ] }, -> { entry.cosplay.characters.any? }
-  page :screenshots, -> { entry.screenshots.any? && entry.display_sensitive? }
-  page :videos, -> { entry.videos.any? }
+  page :screenshots, -> { entry.anime? && entry.screenshots.any? && entry.display_sensitive? }
+  page :videos, -> { entry.anime? && entry.videos.any? }
   page :images, -> { entry.tags.present? || entry.images.any? }
   page :files, -> { entry.anime? && !entry.anons? && entry.display_sensitive? }
 
@@ -26,7 +26,7 @@ class AniMangasDirector < BaseDirector
     append_title! HTMLEntities.new.decode(entry.russian) if entry.russian.present?
     append_title! entry.name
 
-    noindex if entry.entry[:description].blank? || entry.kind == 'Special'
+    noindex if entry.object[:description].blank? || entry.kind == 'Special'
 
     description entry.seo_description
     keywords entry.seo_keywords
@@ -132,11 +132,11 @@ private
     end
 
     if entry.aired_at && [DateTime.now.year + 1, DateTime.now.year, DateTime.now.year - 1].include?(entry.aired_at.year)
-      append_crumb! "#{entry.aired_at.year} год", send("#{entry.class.name.downcase.pluralize}_url", season: entry.aired_at.year)
+      append_crumb! "#{entry.aired_at.year} год", send("#{entry.object.class.name.downcase.pluralize}_url", season: entry.aired_at.year)
     end
 
     if entry.genres.any?
-      append_crumb! localized_name(entry.main_genre), send("#{entry.class.name.downcase.pluralize}_url", genre: entry.main_genre.to_param)
+      append_crumb! localized_name(entry.main_genre), send("#{entry.object.class.name.downcase.pluralize}_url", genre: entry.main_genre.to_param)
     end
   end
 

@@ -14,7 +14,7 @@ aside.left-column.menu-block
   .menu-block
     .subheadline Информация
     .subblock-content
-      = render partial: 'ani_mangas/common_info', locals: { entry: @entry.entry, details: true }, formats: :html
+      = render partial: 'ani_mangas/common_info', locals: { entry: @entry.object, details: true }, formats: :html
 
   - if @entry.genres.any?
     .menu-block

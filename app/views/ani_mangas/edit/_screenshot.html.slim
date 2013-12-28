@@ -28,9 +28,9 @@
         .clearfix
 
 - if @entry.screenshots.any? || @entry.changes[:screenshots].any?
-  .screenshots-editor.item-editor-container data-kind="#{@entry.class.name.downcase}"
+  .screenshots-editor.item-editor-container data-kind="#{@entry.object.class.name.downcase}"
     - if @entry.screenshots.any?
-      = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.class.name.downcase}_url", @entry), item_name: @entry.class.name.downcase }, formats: :html
+      = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
       .subheadline.m10 Изменение кадров аниме
 
       .screenshots-title.subcontent.m5

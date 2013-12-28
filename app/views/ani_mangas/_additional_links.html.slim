@@ -1,6 +1,6 @@
 - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
   .additional-links
-    p.key У #{Unicode.downcase I18n.t("Genetive.#{entry.class.name}")}:
+    p.key У #{Unicode.downcase I18n.t("Genetive.#{entry.object.class.name}")}:
     - if entry.reviews_count > 0
       /span.linkeable data-action="#{entry.reviews_url}"
       span.link-reviews

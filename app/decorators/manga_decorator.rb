@@ -1,0 +1,2 @@
+class MangaDecorator < AniMangaDecorator
+end

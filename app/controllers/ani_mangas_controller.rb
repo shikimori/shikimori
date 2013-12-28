@@ -25,7 +25,7 @@ class AniMangasController < ApplicationController
 
   # отображение аниме или манги
   def show
-    @entry = present klass.find(entry_id.to_i)
+    @entry = klass.find(entry_id.to_i).decorate
     direct
   end
 
@@ -60,7 +60,7 @@ class AniMangasController < ApplicationController
 
   # торренты к эпизодам аниме
   def episode_torrents
-    @entry = present klass.find(params[:id].to_i)
+    @entry = klass.find(params[:id].to_i).decorate
     render json: @entry.files.episodes_data
   end
 

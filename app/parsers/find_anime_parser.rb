@@ -89,7 +89,7 @@ class FindAnimeParser < ReadMangaParser
       $1
     elsif html =~ %r{value="((?:https?:)?//p.kiwi.\w+/static/player2/player.swf\?config=[^"]+)"}
       $1
-    elsif html =~ %r{src="((?:(?:https?:)?)?//(?:www.)?youtube.com/(?:embed|v)/[^"]+)"}
+    elsif html =~ %r{src="((?:https?:)?//(?:www.)?youtube.com/(?:embed|v)/[^"]+)"}
       $1.sub /^\/\//, 'http://'
     elsif html =~ %r{src="((?:https?:)?//i.i.ua/video/evp.swf\?[^"]+)"}
       $1

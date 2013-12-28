@@ -9,28 +9,28 @@
   .menu-block
     .subheadline Инфо
     .block-body
-      = render partial: 'ani_mangas/common_info', locals: { entry: linked.entry }, formats: :html
+      = render partial: 'ani_mangas/common_info', locals: { entry: linked.object }, formats: :html
 
 - unless !linked.respond_to?(:genres) || linked.genres.empty?
   .menu-block
     .subheadline
       = "Жанр#{linked.genres.size > 1 ? 'ы' : ''}"
     .block-body
-      = render :partial => 'ani_mangas/genres_info', locals: { entry: linked.entry }, formats: :html
+      = render :partial => 'ani_mangas/genres_info', locals: { entry: linked.object }, formats: :html
 
 - unless !linked.respond_to?(:studios) || linked.real_studios.empty?
   .menu-block
     .subheadline
       = "Студи#{linked.real_studios.size > 1 ? 'и' : 'я'}"
     .block-body
-      = render :partial => 'animes/studios_info', locals: { entry: linked.entry }, formats: :html
+      = render :partial => 'animes/studios_info', locals: { entry: linked.object }, formats: :html
 
 - unless !linked.respond_to?(:publishers) || linked.publishers.empty?
   .menu-block
     .subheadline
       = "Издател#{linked.real_publishers.size > 1 ? 'и' : 'ь'}"
     .block-body
-      = render :partial => 'mangas/publishers_info', locals: { entry: linked.entry }, formats: :html
+      = render :partial => 'mangas/publishers_info', locals: { entry: linked.object }, formats: :html
 
 - if linked.respond_to?(:topics) && linked.topics.any?
   .menu-topics-block.menu-block
@@ -43,5 +43,5 @@
   .menu-topics-block.menu-block
     .subheadline Новости
     .block-body
-      ul.block-list.history data-remote="#{episode_torrents_anime_url(linked.entry)}"
+      ul.block-list.history data-remote="#{episode_torrents_anime_url linked.object}"
         = render partial: 'ani_mangas/menu_topic', collection: linked.news, as: :topic, locals: { with_tooltip: true }, formats: :html

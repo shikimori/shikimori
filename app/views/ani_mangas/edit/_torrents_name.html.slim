@@ -1,5 +1,5 @@
-.item-editor-container data-kind="#{@entry.class.name.downcase}"
-  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.class.name.downcase}_url", @entry), item_name: @entry.class.name.downcase }, formats: :html
+.item-editor-container data-kind="#{@entry.object.class.name.downcase}"
+  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
   .subheadline Изменение названия на торрентах
   .subcontent.m0
     p Если название не задано, то используется автоматическое распознавание имён торрентов, почти всегда работающее корректно. Если же задано, то сайт будет находить торренты с именем, полностью совпадающим с заданным тут.

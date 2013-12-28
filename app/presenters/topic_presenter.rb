@@ -28,12 +28,12 @@ class TopicPresenter < BasePresenter
 
   # адрес текста топика
   def body_url
-    entry_body_url(entry)
+    entry_body_url entry
   end
 
   # адрес прочих комментариев топика
   def comments_url
-    fetch_comments_url id: comments.first.id, topic_id: entry.id, skip: 'SKIP', limit: @fold_limit
+    @view_context.fetch_comments_url id: comments.first.id, topic_id: entry.id, skip: 'SKIP', limit: @fold_limit
   end
 
   # имя топика
