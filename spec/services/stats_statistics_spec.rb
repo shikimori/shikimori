@@ -7,7 +7,7 @@ describe SiteStatistics do
 
     describe :traffic do
       let(:traffic) { 'traff' }
-      before { YandexMetrika.any_instance.stub(:traffic_for_monthes).with(SiteStatistics::METRIKA_MONTHS).and_return traffic }
+      before { YandexMetrika.any_instance.stub(:traffic_for_months).with(SiteStatistics::METRIKA_MONTHS).and_return traffic }
 
       its(:traffic) { should eq traffic }
     end

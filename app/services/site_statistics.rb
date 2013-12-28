@@ -3,7 +3,7 @@ class SiteStatistics
   CLASS_MONTHS = 6
 
   def traffic
-     YandexMetrika.new.traffic_for_monthes METRIKA_MONTHS
+    YandexMetrika.new.traffic_for_months METRIKA_MONTHS
   end
 
   def comments

@@ -71,7 +71,7 @@ class PagesController < ApplicationController
 
   # тестовая страница
   def test
-    @traffic = Rails.cache.fetch("traffic_#{Date.today}") { YandexMetrika.new.traffic_for_monthes 18 }
+    @traffic = Rails.cache.fetch("traffic_#{Date.today}") { YandexMetrika.new.traffic_for_months 18 }
   end
 
   # страница для теста эксепшенов

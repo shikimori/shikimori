@@ -4,8 +4,8 @@ class YandexMetrika
   APP_TOKEN = 'a7ead542b7b54482be10a27598ec2731'
   APP_COUNTER_ID = 7915231
 
-  def traffic_for_monthes monthes
-    count = [3, monthes].max / 3 - 1
+  def traffic_for_months months
+    count = [3, months].max / 3 - 1
 
     count.downto(0).map do |i|
       traffic Date.yesterday - ((i+1)*3).month, Date.yesterday - ((i)*3).month
