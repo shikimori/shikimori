@@ -16,7 +16,8 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def videos
-    @video ||= anime_videos
+    @videos ||= anime_videos
+      .select {|v| v.working?}
       .sort_by {|v| [v.episode.zero? ? 1 : 0, v.episode] }
       .group_by(&:episode)
   end
@@ -113,5 +114,9 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
 
   def video_id
     h.params[:video_id].to_i
+  end
+
+  def last_episode
+    @last_episode ||= videos.max().first unless videos.blank?
   end
 end

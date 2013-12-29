@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131103155713) do
+ActiveRecord::Schema.define(:version => 20131222065247) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -73,8 +73,9 @@ ActiveRecord::Schema.define(:version => 20131103155713) do
     t.string   "kind"
     t.string   "language"
     t.integer  "anime_video_author_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+    t.string   "state",                                 :default => "working", :null => false
   end
 
   add_index "anime_videos", ["anime_id"], :name => "index_anime_videos_on_anime_id"

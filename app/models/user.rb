@@ -121,9 +121,10 @@ class User < ActiveRecord::Base
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
 
   GuestID = 5
+  Blackchestnut_ID = 1077
 
   # access rights
-  Admins = [1, 1077]
+  Admins = [1, Blackchestnut_ID]
   Moderators = (Admins + [921, 11, 188, 2033]).uniq # 2 - Adelor, 2033 - zmej1987
   ReviewsModerators = (Admins + []).uniq # + Moderators
   UserChangesModerators = (Admins + [11, 921, 188, 94, 942, 392]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 942 - Иштаран, 392 - Tehanu
@@ -132,6 +133,7 @@ class User < ActiveRecord::Base
   Translators = (Admins + [11, 28, 19, 31, 41, 188, 942]).uniq
   ContestsModerators = (Admins + [1483]).uniq # 1483 - Zula
   CosplayModerators = (Admins + [2043, 2046]).uniq # 2043 - laitqwerty, 2046 - Котейка
+  VideoModerators = (Admins + []).uniq
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -283,6 +285,11 @@ class User < ActiveRecord::Base
   # модератор ли косплея пользователь?
   def cosplay_moderator?
     CosplayModerators.include? self.id
+  end
+
+  # модератор ли видео пользователь?
+  def video_moderator?
+    VideoModerators.include? self.id
   end
 
   # ответственный ли за новости пользователь?

@@ -12,12 +12,13 @@
       - if @anime.description
         .description == @anime.description
 
-      - if @anime.current_videos.blank?
+      - if @anime.current_videos.blank? || @anime.current_video.blank?
         .alert.alert-info
           h4 Такого видео нет!
-          p
-            | Последний&nbsp;
-            a.alert-link href="#{@anime.url @anime.videos.max().first}" = "эпизод #{@anime.videos.max().first}"
+          - if @anime.last_episode
+            p
+              | Последний&nbsp;
+              a.alert-link href="#{@anime.url @anime.last_episode}" = "эпизод #{@anime.last_episode}"
       - else
         /div = @anime.current_episode
         /div = @anime.current_videos.last.episode

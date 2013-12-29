@@ -207,4 +207,27 @@ describe Message do
       #}.to_not change(Message, :count)
     #end
   #end
+
+  describe :scopes do
+    describe :complaint_videos do
+      subject { Message.complaint_videos.to_a }
+
+      context :no_messages do
+        it { should be_empty }
+      end
+
+      context :has_message do
+        let(:user) { create :user }
+        let(:moderator) { create :user, id: User::Blackchestnut_ID }
+        let(:message_complaint) { create :message, src: user, dst: moderator, subject: :broken_video, kind: MessageType::Notification }
+        let(:other_message) { create :message, src: user, dst: moderator, subject: 'foo', kind: MessageType::Notification }
+        before do
+          message_complaint
+        end
+
+        it { should have(1).item }
+        its(:first) { should eq message_complaint }
+      end
+    end
+  end
 end

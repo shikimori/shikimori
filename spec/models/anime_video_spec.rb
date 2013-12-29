@@ -31,4 +31,28 @@ describe AnimeVideo do
       it { should eq 'vk.com' }
     end
   end
+
+  describe :state_machine do
+    subject { video.state }
+    let(:video) { create :anime_video }
+
+    context :initial do
+      it { should eq 'working' }
+    end
+
+    context :broken do
+      before { video.broken }
+      it { should eq 'broken' }
+    end
+
+    context :wrong do
+      before { video.wrong }
+      it { should eq 'wrong' }
+    end
+
+    context :ban do
+      before { video.ban }
+      it { should eq 'banned' }
+    end
+  end
 end
