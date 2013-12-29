@@ -29,7 +29,10 @@ describe AnimeOnline::AnimeVideosController do
   end
 
   describe :complaint do
-    before { post :index }
+    let!(:moderator) { create :user, id: User::Blackchestnut_ID }
+    let!(:user) { create :user, id: User::GuestID }
+    let!(:anime) { create :anime, name: 'anime_test' }
+    before { post :complaint, id: anime.id, episode_id: 1, video_id: 1, kind: :broken_video }
     it { should respond_with_content_type :html }
     it { response.should be_success }
   end
