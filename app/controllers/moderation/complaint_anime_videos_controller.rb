@@ -1,6 +1,6 @@
 class Moderation::ComplaintAnimeVideosController < ApplicationController
-  #before_filter :authenticate_user!
-  #before_filter :check_permissions
+  before_filter :authenticate_user!
+  before_filter :check_permissions
 
   def index
     @page_title = 'Модерация видео'
