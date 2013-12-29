@@ -41,5 +41,5 @@
             span.glyphicon.glyphicon-flag
             span.caret
           ul.dropdown-menu
-            li: a href="#" data-url="#{anime_videos_complaint_url id: anime.current_video.id, kind: :broken_video}" Видео не работает
-            li: a href="#" data-url="#{anime_videos_complaint_url id: anime.current_video.id, kind: :wrong_video}" Видео не от этого аниме
+            li: a href="#" data-url="#{anime_videos_complaint_url anime.id, anime.current_episode, anime.current_video.id, kind: :broken_video}" Видео не работает
+            li: a href="#" data-url="#{anime_videos_complaint_url anime.id, anime.current_episode, anime.current_video.id, kind: :wrong_video}" Видео не от этого аниме
