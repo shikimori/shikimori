@@ -12,30 +12,32 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
   end
 
   def gallery
-    @gallery ||= if params[:gallery] =~ /\d+/
-      CosplaySession.find params[:gallery].to_i
+    @gallery ||= if @view_context.params[:gallery] =~ /\d+/
+      CosplaySession.find @view_context.params[:gallery].to_i
     else
       galleries.first
     end
   end
 
   def js_data
+    controller = DummyRenderController.new(OpenStruct.new view_context: @view_context)
+
     @js_data ||= galleries.each_with_object({}) do |gallery, memo|
-      url = cosplay_url entry, gallery
+      url = @view_context.cosplay_url entry, gallery
       memo[url] = {
         title: gallery.full_title(entry),
-        html: render_to_string(partial: 'images/image', collection: gallery.images, locals: { group_name: 'cosplay', style: :original }, formats: :html),
-        edit: edit_cosplay_cosplay_gallery_url(gallery.cosplayers.first, gallery)
+        html: controller.render_to_string(partial: 'images/image.html.slim', collection: gallery.images, locals: { group_name: 'cosplay', style: :original }),
+        edit: @view_context.edit_cosplay_cosplay_gallery_url(gallery.cosplayers.first, gallery)
       }
     end
   end
 
   def links
-    @links ||= if params[:character] == 'all'
+    @links ||= if @view_context.params[:character] == 'all'
       all_links
-    elsif params[:character] == 'other'
+    elsif @view_context.params[:character] == 'other'
       links_wo_characters
-    elsif params[:character] == '&'
+    elsif @view_context.params[:character] == '&'
       raise NotFound.new 'ampersand'
     else
       links_by_character
@@ -53,7 +55,7 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
   end
 
   def links_by_character
-    character_id = Character.find(params[:character].to_i).id
+    character_id = Character.find(@view_context.params[:character].to_i).id
 
     gallery_links = CosplayGalleryLink
         .where(linked_id: character_id)
@@ -73,11 +75,11 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
     }
   end
 
-  def cosplay_url(entry, gallery)
+  def cosplay_url entry, gallery
     if anime? || manga?
-      send "cosplay_#{entry.class.name.downcase}_url", entry, gallery, character: params[:character]
+      @view_context.send "cosplay_#{entry.class.name.downcase}_url", entry, gallery, character: @view_context.params[:character]
     else
-      cosplay_character_url entry, gallery, character: params[:character]
+      @view_context.cosplay_character_url entry, gallery, character: @view_context.params[:character]
     end
   end
 

@@ -78,7 +78,8 @@ class UserPresenter < BasePresenter
 
   # статистика по пользователю
   def stats
-    @stats ||= Rails.cache.fetch("user_stats_#{entry.cache_key}_#{!current_user || (current_user && current_user.profile_settings.russian_genres?) ? 'rus' : 'en'}") do
+    cache_key = Digest::MD5.hexdigest "user_stats_#{entry.cache_key}_#{!current_user || (current_user && current_user.profile_settings.russian_genres?) ? 'rus' : 'en'}"
+    @stats ||= Rails.cache.fetch cache_key do
       UserStatisticsService.new(entry, current_user).fetch
     end
   end

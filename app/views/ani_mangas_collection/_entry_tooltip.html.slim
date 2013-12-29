@@ -2,25 +2,25 @@ p.m5
   span.local-title itemprop="name" = entry.name
 
 p.m5 itemprop="description"
-  == ani_manga_description(entry)
+  == ani_manga_description entry
 
 - if entry.rating.present? && entry.rating != 'None'
   p.data
     span.key Рейтинг:&nbsp;
     span
-      = t("RatingShort.#{entry.rating}")
+      = t "RatingShort.#{entry.rating}"
 
 - if entry.respond_to?(:episodes) && (entry.episodes > 0 || entry.episodes_aired > 0)
   .data
-    = render :partial => 'ani_mangas/aired_chapters', :locals => { :entry => entry, :field_label => 'Эпизоды', :counter => :episodes, :counter_aired => :episodes_aired }, formats: :html
+    = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
 
 - if entry.respond_to?(:volumes) && entry.volumes > 0
   .data
-    = render :partial => 'ani_mangas/aired_chapters', :locals => { :entry => entry, :field_label => 'Тома', :counter => :volumes, :counter_aired => :volumes_aired }, formats: :html
+    = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
 
 - if entry.respond_to?(:chapters) && entry.chapters > 0
   .data
-    = render :partial => 'ani_mangas/aired_chapters', :locals => { :entry => entry, :field_label => 'Главы', :counter => :chapters, :counter_aired => :chapters_aired }, formats: :html
+    = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
 
 - if entry.respond_to?(:studios) && entry.real_studios.any?
   p

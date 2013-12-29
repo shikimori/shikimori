@@ -376,10 +376,10 @@ describe WikipediaParser do
       it 'extracts full name' do
         parser.extract_default("
 {{Описание персонажа
- | имя      = Кирхе (полное имя Кирхе [[Екатерина II|Августа Фредерика фон Анхальт-Цербст]])
+ | имя      = Луиза (полное имя Кирхе [[Екатерина II|Луиза Фредерика фон Анхальт-Цербст]])
  | описание = DESCRIPTION
  | сэйю     = {{nl|Нанако|Иноуэ}}
-}}").should eq [{russian: 'Кирхе Августа Фредерика фон Анхальт-Цербст', japanese: nil, description: 'DESCRIPTION'}]
+}}").should eq [{russian: 'Луиза Фредерика фон Анхальт-Цербст', japanese: nil, description: 'DESCRIPTION'}]
       end
     end
 
@@ -608,7 +608,7 @@ ZXC").should eq [{
       chars = parser.extract_characters(create :anime, name: 'Spice and Wolf')
 
       chars.should have_at_least(4).items
-      chars[0][:russian].should eq 'Крафт Лоурэнс'
+      chars[1][:russian].should eq 'Крафт Лоурэнс'
     end
 
     it 'Shiki' do

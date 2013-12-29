@@ -1,4 +1,8 @@
 class AbuseRequestsService
+  ABUSIVE_USERS = [
+    5779 # Lumennes
+  ]
+
   def initialize comment, reporter
     @comment = comment
     @reporter = reporter
@@ -32,7 +36,7 @@ class AbuseRequestsService
 
 private
   def make_request kind, value
-    AbuseRequest.create! comment_id: @comment.id, user_id: @reporter.id, kind: kind, value: value
+    AbuseRequest.create! comment_id: @comment.id, user_id: @reporter.id, kind: kind, value: value unless ABUSIVE_USERS.include?(@reporter.id)
     []
   rescue ActiveRecord::RecordNotUnique
     []

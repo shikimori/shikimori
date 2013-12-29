@@ -1,5 +1,6 @@
+/ TODO: player и nav_video сделать блоками и перенести стили в соответствующие папки. @blackchestnut
 .p-anime_video-show
-  = render partial: 'anime_online/blocks/ad_top'
+  /= render partial: 'anime_online/blocks/ad_top'
 
   .title = @anime.name
   .row
@@ -27,56 +28,12 @@
         /div = cookies[:preference_hosting]
         /div = cookies[:preference_author_id]
 
-        / На маленьких экранах видео выше кнопок, т.к. touch по меню над iframe не работает.
-        iframe.video.hidden-md.hidden-lg src="#{@anime.current_video.url}"
-
-        .nav-video
-          ul.nav.nav-pills
-            li
-              .btn-group.episodes
-                a.btn.btn-default class="#{:disabled if @anime.current_first?}" href="#{ @anime.prev_url }" title="Предыдущий эпизод" &nbsp;<&nbsp;
-
-                .btn-group
-                  button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
-                    = @anime.current_episode_title
-                    span.caret
-                  ul.dropdown-menu
-                    - @anime.videos.each_pair do |episode, videos|
-                      li class="#{ :active if episode == @anime.current_episode }"
-                        a href="#{@anime.url episode}"
-                          span.num = "##{episode.zero? ? 'прочее' : episode}"
-                          span.kinds = "#{@anime.dropdown_kinds videos}"
-                          span.hostings = "/ #{@anime.hostings videos}"
-
-                a.btn.btn-default class="#{:disabled if @anime.current_last?}" href="#{ @anime.next_url }" title="Следующий эпизод" &nbsp;>&nbsp;
-
-            - unless @anime.current_videos.blank?
-              li
-                .btn-group.video
-                  button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
-                    span.kind = t ".dropdown.kind.#{@anime.current_video.kind}"
-                    span.hosting = @anime.current_video.hosting
-                    span.author = @anime.current_author
-                    span.caret
-                  ul.dropdown-menu
-                    - @anime.dropdown_videos.each_with_index do |video, index|
-                      li
-                        a href="#{anime_videos_show_url @anime.id, @anime.current_episode, video.id}"
-                          span.kind = t ".dropdown.kind.#{video.kind}"
-                          span.hosting = video.hosting
-                          - if video.author
-                            span.author = strip_tags video.author.name
-
-              li.complaint.pull-right
-                .btn-group
-                  button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
-                    span.glyphicon.glyphicon-flag
-                    span.caret
-                  ul.dropdown-menu
-                    li: a href="#" data-url="#{anime_videos_complaint_url @anime.id, @anime.current_episode, @anime.current_video.id, kind: :broken_video}" Видео не работает
-                    li: a href="#" data-url="#{anime_videos_complaint_url @anime.id, @anime.current_episode, @anime.current_video.id, kind: :wrong_video}" Видео не от этого аниме
-
-        iframe.video.hidden-xs.hidden-sm src="#{@anime.current_video.url}"
+        .hidden-xs.hidden-sm
+          = render partial: 'nav_video', locals: { anime: @anime }
+        .video-player
+          = render partial: 'player', locals: { video: @anime.current_video }
+        .hidden-md.hidden-lg
+          = render partial: 'nav_video', locals: { anime: @anime }
 
       - unless @reviews.blank?
         .reviews
@@ -94,5 +51,5 @@
                 h4.media-heading = review.user.nickname
                 p == review.html_body
 
-    .col-md-2
-      = render partial: 'anime_online/blocks/ad_vertical'
+    .col-md-2.hidden-xs.hidden-sm
+      /= render partial: 'anime_online/blocks/ad_vertical'

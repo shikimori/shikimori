@@ -3,7 +3,7 @@ section.editable
   .item-content.menu-block
     .description.df.m15
       - if @entry.description.blank?
-        == format_html_text(@entry.description_mal)
+        == format_html_text @entry.description_mal
       - else
         - if user_signed_in? && !@entry.description_mal.blank?
           .lang-trigger

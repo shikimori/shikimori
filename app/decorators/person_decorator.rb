@@ -1,18 +1,18 @@
-class PersonPresenter < BasePresenter
-  presents :person
-  proxy :id, :to_param, :name, :japanese, :birthday, :image
+class PersonDecorator < Draper::Decorator
+  delegate_all
+  decorates_finders
 
   def with_credentials?
-    japanese.present? || person.name.present?
+    japanese.present? || object.name.present?
   end
 
   def url
-    person_url person
+    h.person_url object
   end
 
   def website
-    @website ||= if person.website.present?
-      'http://%s' % person.website.sub(/^(http:\/\/)?/, '')
+    @website ||= if object.website.present?
+      'http://%s' % object.website.sub(/^(http:\/\/)?/, '')
     else
       nil
     end
@@ -20,9 +20,9 @@ class PersonPresenter < BasePresenter
 
   def groupped_roles
     @groupped_roles ||= begin
-      person_roles = person.person_roles
-          .group(:role)
-          .select('role, count(*) as times')
+      person_roles = object.person_roles
+        .group(:role)
+        .select('role, count(*) as times')
 
       roles = {}
       person_roles.each do |person_role|
@@ -52,7 +52,7 @@ class PersonPresenter < BasePresenter
   end
 
   def favoured
-    @favoured ||= FavouritesQuery.new(person, 12).fetch
+    @favoured ||= FavouritesQuery.new(object, 12).fetch
   end
 
   def works
@@ -63,7 +63,7 @@ class PersonPresenter < BasePresenter
           entry: v.anime || v.manga
         }
       end
-      entries = if params[:sort] == 'time'
+      entries = if h.params[:sort] == 'time'
         entries.sort_by {|v| (v[:entry].aired_at || v[:entry].released_at || DateTime.now + 10.years).to_datetime.to_i * -1 }
       else
         entries.sort_by {|v| -(v[:entry].score || -999) }
@@ -115,7 +115,7 @@ class PersonPresenter < BasePresenter
   end
 
   def seyu_favoured?
-    user_signed_in? && current_user.favoured?(person, Favourite::Seyu)
+    h.user_signed_in? && h.current_user.favoured?(object, Favourite::Seyu)
   end
 
   def producer?
@@ -128,7 +128,7 @@ class PersonPresenter < BasePresenter
   end
 
   def producer_favoured?
-    @producer_favoured ||= user_signed_in? && current_user.favoured?(person, Favourite::Producer)
+    @producer_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Producer)
   end
 
   def mangaka?
@@ -140,11 +140,11 @@ class PersonPresenter < BasePresenter
   end
 
   def mangaka_favoured?
-    @mangaka_favoured ||= user_signed_in? && current_user.favoured?(person, Favourite::Mangaka)
+    @mangaka_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Mangaka)
   end
 
   def person_favoured?
-    @person_favoured ||= user_signed_in? && current_user.favoured?(person, Favourite::Person)
+    @person_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
   end
 
 private
@@ -161,7 +161,7 @@ private
   end
 
   def all_roles
-    @all_roles ||= person.person_roles.includes(:anime).includes(:manga).all
+    @all_roles ||= object.person_roles.includes(:anime).includes(:manga).all
   end
 
   def roles_names

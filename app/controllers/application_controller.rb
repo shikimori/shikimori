@@ -110,13 +110,6 @@ class ApplicationController < ActionController::Base
       when Anime.name, Manga.name
         AniMangaPresenter
 
-      when Person.name
-        if object.seyu && !object.producer && !object.mangaka
-          SeyuPresenter
-        else
-          PersonPresenter
-        end
-
       else
         "#{object.class.model_name}Presenter".constantize
     end

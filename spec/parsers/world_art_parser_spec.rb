@@ -33,7 +33,7 @@ describe WorldArtParser do
         ],
         :rus => "Ангелы Смерти [ТВ]",
         :score => 7.2,
-        :scores => [0, 5, 9, 27, 49, 71, 113, 121, 96, 41],
+        :scores => [0, 5, 9, 28, 50, 72, 113, 123, 97, 41],
         :url => "http://www.world-art.ru/animation/animation.php?id=2629",
         :year => 2004
       }

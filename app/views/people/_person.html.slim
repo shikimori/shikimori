@@ -1,4 +1,4 @@
-.index-item
+.people.index-item
   .image-name
     = link_to self.send(@director.entry_url_builder, person) do
       img.image src="#{person.image.url(:preview)}" alt="#{UserPresenter.localized_name(person, current_user)}" title="#{UserPresenter.localized_name(person, current_user)}"

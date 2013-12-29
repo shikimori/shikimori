@@ -8,10 +8,10 @@ class AniMangasDirector < BaseDirector
   page :similar, -> { entry.related.similar.any? }
   page :chronology, -> { entry.related.any? }
   page lambda { ['cosplay', ['all'] + entry.cosplay.characters.map(&:to_param) ] }, -> { entry.cosplay.characters.any? }
-  page :screenshots, -> { entry.screenshots.any? && (!entry.censored? || (entry.censored? && user_signed_in?)) }
+  page :screenshots, -> { entry.screenshots.any? && entry.display_sensitive? }
   page :videos, -> { entry.videos.any? }
   page :images, -> { entry.tags.present? || entry.images.any? }
-  page :files, -> { entry.anime? && !entry.anons? && !entry.censored? }
+  page :files, -> { entry.anime? && !entry.anons? && entry.display_sensitive? }
 
   page [:reviews, [:index]]
   page [:reviews, [:edit]]

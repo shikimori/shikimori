@@ -1,0 +1,2 @@
+class Seyu < Person
+end

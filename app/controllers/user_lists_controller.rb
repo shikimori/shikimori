@@ -248,9 +248,6 @@ class UserListsController < UsersController
 
     redirect_to messages_url(type: :inbox)
   rescue Exception => e
-    Rails.logger.error e.message.fix_encoding
-    Rails.logger.error e.backtrace.join("\n")
-
     flash[:alert] = 'Произошла ошибка. Возможно, некорректный формат файла.'
     redirect_to :back
   end

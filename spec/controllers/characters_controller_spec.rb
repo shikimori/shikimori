@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 describe CharactersController do
   let(:entry) { create :character, name: 'test' }
   let(:user) { create :user }

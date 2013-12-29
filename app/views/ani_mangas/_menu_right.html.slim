@@ -159,7 +159,7 @@ nav.menu-block
           div#rate-rate.scores-user
             = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }
 
-    - unless @entry.censored?
+    - if @entry.display_sensitive?
       .subheadline На других сайтах
       ul.block-list.sites
         li

@@ -45,27 +45,39 @@ class AnimeCalendar < ActiveRecord::Base
     "kuroko no basuke 2" => 16894,
     "yusha ni narenakatta ore wa shibushibu shushoku o ketsui shimashita." => 18677,
     "diabolik lovers" => 17513,
+    "wake up" => 19023,
+    "chunibyo demo koi ga shitai! ren" => 18671,
+    "toaru hikushi e no koiuta" => 19117,
+    "gin no saji dai-2-ki" => 19363,
+    "mikakunin de shinkokei" => 20541,
+    "hamatora" => 20689,
+    "wooser no sono higurashi kakusei-hen" => 20267,
+    "inari" => 20457,
+    "maken-ki! tsu" => 15565,
+    "sekai seifuku ~ boryaku no zvezda" => 20973,
   }
 
   EpisodesDiff = {
     'gintama\' enchousen' => 252,
-    'diabolik lovers' => 1
+    'diabolik lovers' => 1,
+    'kuroko no basuke 2' => 25
   }
 
   # импорт аниме календаря с animecalendar.net
   def self.parse
     calendar = self.load_calendar.first.events.map do |v|
-      name = v.categories
-              .first
-                .split(',')
-                  .first
-                  .downcase
-                  .sub(/episodes$/, '')
-                  .strip
-                  .gsub('ū', 'u')
-                  .gsub('ō', 'o')
-                  .gsub('×', 'x')
-                  .gsub('é', 'e')
+      name = v
+        .categories
+        .first
+          .split(',')
+            .first
+            .downcase
+            .sub(/episodes$/, '')
+            .strip
+            .gsub('ū', 'u')
+            .gsub('ō', 'o')
+            .gsub('×', 'x')
+            .gsub('é', 'e')
 
       id = Fixes.include?(name) ? Fixes[name] : nil
 

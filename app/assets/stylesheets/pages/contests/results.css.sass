@@ -5,6 +5,9 @@
     width: 8px !important
     margin-left: 2px !important
 
+    .letter
+      display: none
+
 .contest .results
   .rounds
     float: right
@@ -17,13 +20,10 @@
 
     .match-day
       margin-top: 0
-
       .match
         +ellipsis
-
         p
           display: inline
-
       .group
         position: initial
 
@@ -35,10 +35,8 @@
 
       &:hover
         text-decoration: none
-
         .group
           text-decoration: underline
-
       .group
         color: $gray-color-2
         display: inline-block
@@ -47,6 +45,8 @@
         line-height: inherit
         margin: 0 7px 0 4px
         width: 22px
+        .letter
+          padding-left: 5px
 
   .entry-block
     height: 240px

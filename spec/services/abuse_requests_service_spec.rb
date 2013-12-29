@@ -75,6 +75,13 @@ describe AbuseRequestsService do
         its(:comment_id) { should eq comment.id }
       end
 
+      context :abusive_user do
+        let(:user) { create :user, id: AbuseRequestsService::ABUSIVE_USERS.first }
+        before { act }
+        subject { user.abuse_requests.last }
+        it { should be_nil }
+      end
+
       context :already_acted do
         before { act }
         it { expect{act}.to change(AbuseRequest, :count).by 0 }

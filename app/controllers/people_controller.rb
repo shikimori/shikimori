@@ -17,11 +17,11 @@ class PeopleController < ApplicationController
 
   # отображение человка
   def show
-    @entry = present Person.find(params[:id].to_i)
+    @entry = PersonDecorator.find params[:id].to_i
     direct
 
     unless @director.redirected?
-      redirect_to seyu_url(@entry) if @entry.entry.seyu && !@entry.entry.producer && !@entry.entry.mangaka
+      redirect_to seyu_url(@entry) if @entry.seyu && !@entry.producer && !@entry.mangaka
     end
   end
 

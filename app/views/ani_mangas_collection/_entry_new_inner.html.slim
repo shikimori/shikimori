@@ -1,6 +1,6 @@
 img src="#{entry_new.image.url(defined?(shortened) && shortened ? :short : :preview)}" alt="#{localized_name entry_new}" title="#{localized_name entry_new}"
 
-- if json? || user_signed_in?
+- if json? || user_signed_in? || with_link
   span.title itemprop="name"
     = localized_name entry_new
 - else

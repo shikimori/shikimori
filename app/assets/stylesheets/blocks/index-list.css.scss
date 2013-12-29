@@ -15,15 +15,7 @@
       @include link-color(#123);
       display: inline;
 
-      /* надо будет сделать оформление картинок аналогично аниме и манге */
-      /*a {*/
-        /*@include inner-image-selectable-decor;*/
-      /*}*/
-      img {
-      }
       .image {
-        /*@include image-selectable-decor;*/
-        /*padding: 2px;*/
         float: left;
         height: 73px;
         padding: 2px 4px 4px 0;

@@ -159,9 +159,9 @@ private
         end
       end
       @linked_presenter = if @linked.class == Review
-        present @linked.entry
+        @linked.entry.class == Character || @linked.entry.class == Person ? @linked.entry.decorate : present(@linked.entry)
       elsif @linked
-        present @linked
+        @linked.class == Character || @linked.class == Person ? @linked.decorate : present(@linked)
       end
     end
 

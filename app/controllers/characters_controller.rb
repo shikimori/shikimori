@@ -24,7 +24,7 @@ class CharactersController < PeopleController
 
   # отображение персонажа
   def show
-    @entry = present Character.find(params[:id].to_i)
+    @entry = CharacterDecorator.find params[:id].to_i
     direct
   end
 

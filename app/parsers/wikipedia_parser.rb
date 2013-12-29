@@ -221,7 +221,7 @@ class WikipediaParser < SiteParserWithCache
       end
 
       {
-        russian: traits['имя'].sub(/.*\(полное имя (.*)\)/, '\1').sub(/\[\[.*\|(.*)\]\]/, '\1'),
+        russian: cleanup_name(traits['имя']),
         japanese: traits['кандзи'],
         description: traits['описание']
       }
@@ -275,12 +275,14 @@ class WikipediaParser < SiteParserWithCache
     if name.blank?
       name
     else
-      fixed = name.strip.
-                   gsub(/\[|\]/, '').
-                   gsub('(персонаж)', '').
-                   gsub(/^[= ]+|[= ]+$/, '').
-                   split('|').
-                   last
+      fixed = name
+        .strip
+        .gsub(/\[|\]/, '')
+        .gsub('(персонаж)', '')
+        .gsub(/^[= ]+|[= ]+$/, '')
+        .sub(/.*\(полное имя (.*)\)/, '\1').sub(/\[\[.*\|(.*)\]\]/, '\1')
+        .split('|')
+        .last
      fixed.blank? ? '' : fixed.strip
     end
   end

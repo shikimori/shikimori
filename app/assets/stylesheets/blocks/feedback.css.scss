@@ -41,6 +41,10 @@
 
   .text {
     margin-bottom: 8px;
+
+    a {
+      @include normal-link;
+    }
   }
   .editor-controls {
     margin-right: 40px;

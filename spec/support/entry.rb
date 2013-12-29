@@ -1,5 +1,5 @@
 shared_examples_for :entry_show_wo_json do |page|
-  let(:redirect_url) { send("#{assigns(:entry).class.name.downcase}_url", entry) }
+  let(:redirect_url) { send("#{assigns(:entry).object.class.name.downcase}_url", entry) }
 
   context 'guest' do
     context 'to_param' do

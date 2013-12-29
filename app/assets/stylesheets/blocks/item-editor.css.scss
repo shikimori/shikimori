@@ -1,4 +1,5 @@
 @import "globals";
+@import "mixins/log_entry";
 
 .item-editor {
   h2 {
@@ -55,87 +56,7 @@
     clear: left;
 
     .change {
-      @include text-font;
-      span {
-        padding-right: 5px;
-      }
-      .date {
-        @include default-date-decor;
-        padding-right: 8px;
-      }
-      a,.link {
-        @include normal-link;
-      }
-      .id-label {
-        padding-right: 1px;
-        color: #777;
-      }
-      .status {
-        padding-left: 5px;
-      }
-      .avatar {
-        position: absolute;
-        margin-top: 2px;
-      }
-      .nickname {
-        padding-left: 21px;
-      }
-      .spoiler {
-        @include spoiler-new;
-        &.collapse {
-          float: none;
-          display: inline;
-          text-decoration: underline;
-          font-size: 12px;
-        }
-        &.collapsed {
-          font-size: 12px;
-        }
-      }
-      .quoteable {
-        font-weight: bold;
-
-        span.name {
-          font-weight: normal;
-          padding-left: 5px;
-        }
-      }
-      .comment-block {
-        min-height: 0;
-        border-top: none;
-        blockquote {
-          margin-left: 5px;
-        }
-        del {
-          color: red;
-        }
-        ins {
-          color: $default-selected-color;
-        }
-      }
-      .moderation {
-        float: right;
-        margin-right: 12px;
-
-        a {
-          margin-left: 8px;
-          text-decoration: underline;
-        }
-      }
-      .screenshots-compare {
-        .before {
-          width: 170px;
-        }
-        .after {
-          margin-left: 200px;
-          position: absolute;
-          width: 170px;
-        }
-        img {
-          display: block;
-          margin-bottom: 10px;
-        }
-      }
+      @include log_entry;
     }
   }
   .alert {

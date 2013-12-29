@@ -131,8 +131,8 @@ describe NameMatcher do
     end
 
     describe 'without [OVA-N]' do
-      subject { matcher.matches 'JoJo no Kimyou na Bouken [OVA-2]' }
-      let!(:anime) { create :anime, kind: 'TV', name: 'JoJo no Kimyou na Bouken' }
+      subject { matcher.matches 'JoJo no na Bouken [OVA-2]' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'JoJo no na Bouken' }
       it { should eq [anime] }
     end
 
@@ -197,8 +197,8 @@ describe NameMatcher do
     end
 
     describe 'space delimiter' do
-      subject { matcher.matches 'Kyousougiga' }
-      let!(:anime) { create :anime, kind: 'TV', name: 'Kyousou Giga (TV)' }
+      subject { matcher.matches 'Kyousougig' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Kyousou Gig (TV)' }
       it { should eq [anime] }
     end
 

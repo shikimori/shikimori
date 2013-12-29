@@ -1,0 +1,36 @@
+@import globals
+@import mixins/log_entry
+
+.b-ban_log_entry
+  +log_entry
+
+  .duration-ban
+    color: red
+
+  .duration-warning
+    color: orange
+
+  .duration-ban, .duration-warning
+    display: inline-block
+
+  .duration
+    @include default-date-decor
+
+  .short
+    @include ellipsis
+
+  .user
+    display: inline-block
+    margin: 0 5px 0 0
+
+  .spoiler.collapsed, .spoiler .action
+    padding-left: 5px!important
+
+  .moderator
+    padding-left: 5px
+    padding-right: 0!important
+
+  .duration + .moderator, .duration-warning + .moderator
+    padding-left: 0
+
+

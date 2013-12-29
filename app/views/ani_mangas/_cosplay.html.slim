@@ -11,7 +11,7 @@ javascript:
           - @entry.cosplay.galleries.select {|v| v.images.present? }.each do |gallery|
             li
               = link_to gallery.images.first.image.url, :class => (params[:gallery] == gallery.to_param ? 'ad-active' : '') do
-                img src="#{gallery.images.first.image.url(:preview) }" height="114" onload="$(this).attr('data-loaded', true);" data-remote="#{self.send("cosplay_#{@entry.class.name.downcase}_url", @entry, gallery, character: params[:character]) }"
+                img src="#{gallery.images.first.image.url(:preview) }" height="114" onload="$(this).attr('data-loaded', true);" data-remote="#{self.send("cosplay_#{@entry.object.class.name.downcase}_url", @entry, gallery, character: params[:character]) }"
 
 .gallery-container.m10
   header
@@ -22,4 +22,4 @@ javascript:
       = @entry.cosplay.gallery.full_title @entry
 
   .images-list
-    = render partial: 'images/image', collection: @entry.cosplay.gallery.images, locals: { group_name: 'images', style: :original }, formats: :html
+    = render partial: 'images/image.html.slim', collection: @entry.cosplay.gallery.images, locals: { group_name: 'images', style: :original }

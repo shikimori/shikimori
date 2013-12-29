@@ -1,13 +1,13 @@
-class SeyuPresenter < PersonPresenter
+class SeyuDecorator < PersonDecorator
   def website_host
     @website_host ||= begin
-      URI.parse(@seyu.website).host
+      URI.parse(object.website).host
     rescue
     end
   end
 
   def url
-    seyu_url person
+    h.seyu_url object
   end
 
   def works
@@ -15,7 +15,7 @@ class SeyuPresenter < PersonPresenter
       # группировка по персонажам и аниме
       @characters = []
       backindex = {}
-      characters = person.characters.includes(:animes).each do |char|
+      characters = object.characters.includes(:animes).each do |char|
         entry = nil
         char.animes.each do |anime|
           if backindex.include?(anime.id)
@@ -61,7 +61,7 @@ class SeyuPresenter < PersonPresenter
         if animes.empty?
           0
         else
-          -1 * if params[:sort] == 'time'
+          -1 * if h.params[:sort] == 'time'
             animes.map {|v| (v.aired_at || v.released_at || DateTime.now + 10.years).to_datetime.to_i }.min
           else
             animes.max_by(&:score).score
