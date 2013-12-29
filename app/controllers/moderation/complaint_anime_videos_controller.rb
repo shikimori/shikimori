@@ -1,38 +1,37 @@
 class Moderation::ComplaintAnimeVideosController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :check_permissions
+  #before_filter :authenticate_user!
+  #before_filter :check_permissions
 
   def index
     @page_title = 'Модерация видео'
-    @messages = Message.complaint_videos.all
+    @messages = AnimeVideoComplaintDecorator.decorate_collection Message.complaint_videos.all
     @complaint_videos = AnimeVideo.where(state: [:broken.to_s, :wrong.to_s]).order('updated_at desc').all
   end
 
   def broken
-    AnimeVideo.find(params[:id]).broken
-    render nothing: true
+    AnimeVideo.find(params[:video_id]).broken!
+    Message.delete params[:id]
+    redirect_to_back_or_to moderation_complaint_anime_videos_url
   end
 
   def wrong
-    AnimeVideo.find(params[:id]).wrong
-    render nothing: true
+    AnimeVideo.find(params[:video_id]).wrong!
+    Message.delete params[:id]
+    redirect_to_back_or_to moderation_complaint_anime_videos_url
   end
 
   def ignore
-    message = Message.find params[:id]
-    message.delete
-    render nothing: true
-    #redirect_to_back_or_to moderation_complaint_anime_videos_url
-    #redirect_to root_url
+    Message.delete params[:id]
+    redirect_to_back_or_to moderation_complaint_anime_videos_url
   end
 
   def work
     AnimeVideo.find(params[:id]).work
-    render nothing: true
+    redirect_to_back_or_to moderation_complaint_anime_videos_url
   end
 
 private
   def check_permissions
-    raise Forbidden unless current_user.admin?
+    raise Forbidden unless current_user.video_moderator?
   end
 end

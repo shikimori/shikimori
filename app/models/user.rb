@@ -121,9 +121,10 @@ class User < ActiveRecord::Base
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
 
   GuestID = 5
+  Blackchestnut_ID = 1077
 
   # access rights
-  Admins = [1, 1077]
+  Admins = [1, Blackchestnut_ID]
   Moderators = (Admins + [921, 11, 188, 2033]).uniq # 2 - Adelor, 2033 - zmej1987
   ReviewsModerators = (Admins + []).uniq # + Moderators
   UserChangesModerators = (Admins + [11, 921, 188, 94, 942, 392]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 942 - Иштаран, 392 - Tehanu

@@ -11,11 +11,10 @@ header.head
       li
         span = message.body
         span.actions
-          a href="#{message.body =~ /(http:\/\/.*)/;$1}" target="blank" Проверить
-          - if message.body =~ /id:(\d+)/
-            a href="#" data-action="#{broken_moderation_complaint_anime_video_url 1788}" method="post" data-remote="true" Не работает
-            a href="#" data-action="#{wrong_moderation_complaint_anime_video_url 1788}" method="post" data-remote="true" Неверное
-          a href="#" data-action="#{ignore_moderation_complaint_anime_video_url message.id}" method="post" data-remote="true" title="Игнорировать" x
+          a href="#{message.video_url}" target="blank" Проверить
+          a href="#{broken_moderation_complaint_anime_video_url id: message.id, video_id: message.video_id}" Не работает
+          a href="#{wrong_moderation_complaint_anime_video_url id: message.id, video_id: message.video_id}" Неверное
+          a href="#{ignore_moderation_complaint_anime_video_url message.id}" title="Игнорировать" x
 
   br
 
@@ -25,5 +24,6 @@ header.head
       li
         = "#{v.id} [#{v.state}]"
         span.actions
-          a href="#" data-action="#{work_moderation_complaint_anime_video_url v.id}" method="post" data-remote="true" Работает
+          a href="#{anime_videos_show_url v.anime_id, v.episode, v.id}" target="blank" Проверить
+          a href="#{work_moderation_complaint_anime_video_url v.id}" Работает
 

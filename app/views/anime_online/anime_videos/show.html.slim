@@ -14,9 +14,10 @@
       - if @anime.current_videos.blank?
         .alert.alert-info
           h4 Такого видео нет!
-          p
-            | Последний&nbsp;
-            a.alert-link href="#{@anime.url @anime.videos.max().first}" = "эпизод #{@anime.videos.max().first}"
+          - if @anime.last_episode
+            p
+              | Последний&nbsp;
+              a.alert-link href="#{@anime.url @anime.last_episode}" = "эпизод #{@anime.last_episode}"
       - else
         /div = @anime.current_episode
         /div = @anime.current_videos.last.episode
@@ -75,7 +76,7 @@
                     li: a href="#" data-url="#{anime_videos_complaint_url @anime.id, @anime.current_episode, @anime.current_video.id, kind: :broken_video}" Видео не работает
                     li: a href="#" data-url="#{anime_videos_complaint_url @anime.id, @anime.current_episode, @anime.current_video.id, kind: :wrong_video}" Видео не от этого аниме
 
-      iframe.video.hidden-xs.hidden-sm src="#{@anime.current_video.url}"
+        iframe.video.hidden-xs.hidden-sm src="#{@anime.current_video.url}"
 
       - unless @reviews.blank?
         .reviews

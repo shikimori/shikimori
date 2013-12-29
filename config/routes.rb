@@ -139,10 +139,10 @@ Site::Application.routes.draw do
 
       resources :complaint_anime_videos, only: [:index] do
         member do
-          post :broken
-          post :wrong
-          post :work
-          post :ignore
+          get :broken
+          get :wrong
+          get :work
+          get :ignore
         end
       end
     end

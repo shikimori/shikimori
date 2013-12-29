@@ -17,7 +17,7 @@ class Message < ActiveRecord::Base
   # включен ли антиспам
   @@antispam = true
 
-  scope :complaint_videos, -> { Message.where dst_id: 1077, subject: [:broken_video.to_s, :wrong_video.to_s] }
+  scope :complaint_videos, -> { Message.where dst_id: User::Blackchestnut_ID, subject: [:broken_video.to_s, :wrong_video.to_s] }
 
   # выполнение кода без антиспама
   def self.wo_antispam(&block)

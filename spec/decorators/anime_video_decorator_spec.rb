@@ -57,6 +57,20 @@ describe AnimeVideoDecorator do
       before { anime.anime_videos << [video_1, video_2] }
       it { should eq episode => [video_1, video_2] }
     end
+
+    context :no_working do
+      let(:video_1) { build(:anime_video, episode: episode, state: :broken) }
+      before { anime.anime_videos << [video_1] }
+      it { should be_empty }
+    end
+
+    context :only_working do
+      let(:video_1) { build(:anime_video, episode: episode, state: 'working') }
+      let(:video_2) { build(:anime_video, episode: episode, state: 'broken') }
+      let(:video_3) { build(:anime_video, episode: episode, state: 'wrong') }
+      before { anime.anime_videos << [video_1, video_2, video_3] }
+      it { should eq episode => [video_1] }
+    end
   end
 
   describe :dropdown_videos do
@@ -129,6 +143,21 @@ describe AnimeVideoDecorator do
       let(:author_id) { 1 }
       let(:videos) { [build(:anime_video, kind: kind, url: 'http://vk.com', author: nil)] }
       it { should eq videos.first }
+    end
+  end
+
+  describe :last_episode do
+    subject { AnimeVideoDecorator.new(anime).last_episode }
+    let(:anime) { build :anime }
+    context :without_video do
+      it { should be_nil }
+    end
+
+    context :with_video do
+      let(:video_1) { build :anime_video, episode: 1 }
+      let(:video_2) { build :anime_video, episode: 2 }
+      before { anime.anime_videos << [video_1, video_2] }
+      it { should eq 2 }
     end
   end
 end
