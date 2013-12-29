@@ -12,7 +12,7 @@
       - if @anime.description
         .description == @anime.description
 
-      - if @anime.current_videos.blank?
+      - if @anime.current_videos.blank? || @anime.current_video.blank?
         .alert.alert-info
           h4 Такого видео нет!
           - if @anime.last_episode
