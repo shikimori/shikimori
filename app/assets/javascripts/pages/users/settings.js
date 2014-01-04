@@ -15,7 +15,7 @@ $('.slide .settings').live('ajax:success', function(e, data) {
 });
 
 
-//$('.slide > div.settings').live('ajax:success cache:success', function(e, data) {
+$('.slide > div.settings').live('ajax:success cache:success', function(e, data) {
   //if ('initialized' in arguments.callee) {
     //return;
   //}
@@ -43,33 +43,33 @@ $('.slide .settings').live('ajax:success', function(e, data) {
     //opacity: 1
   //});
 
-  //var $page_background = $('#user_page_background');
-  //var $page = $('.page');
-  //$(".range-slider").noUiSlider({
-    //range: [0, 12],
-    //start: parseFloat($(".range-slider").data('value')),
-    //handles: 1,
-    //slide: function() {
-      //var value = $(this).val();
-      //$page_background.val(value);
-      //var ceiled_value = 255 - Math.ceil(value);
-      //$page.css('background-color', 'rgb('+ceiled_value+','+ceiled_value+','+ceiled_value+')');
-    //}
-  //});
+  var $page_background = $('#user_preferences_attributes_page_background');
+  var $page = $('.page');
+  $(".range-slider").data('value', $page_background.val()).noUiSlider({
+    range: [0, 12],
+    start: parseFloat($(".range-slider").data('value')),
+    handles: 1,
+    slide: function() {
+      var value = $(this).val();
+      $page_background.val(value);
+      var ceiled_value = 255 - Math.ceil(value);
+      $page.css('background-color', 'rgb('+ceiled_value+','+ceiled_value+','+ceiled_value+')');
+    }
+  });
 
-  //var $body = $('body');
-  //var $body_background = $('#user_body_background');
-  //$('.backgrounds .samples li').on('click', function() {
-    //var value = $(this).data('background');
-    //$body_background.val("url("+value+") repeat").trigger('change');
-  //});
-  //$body_background.on('change', function() {
-    //$body.css('background', $(this).val());
-  //});
-  //$('#user_page_border').on('change', function() {
-    //$('.page').toggleClass('bordered', $(this).prop('checked'));
-  //});
-//});
+  var $body = $('body');
+  var $body_background = $('#user_preferences_attributes_body_background');
+  $('.backgrounds .samples li').on('click', function() {
+    var value = $(this).data('background');
+    $body_background.val("url("+value+") repeat").trigger('change');
+  });
+  $body_background.on('change', function() {
+    $body.css('background', $(this).val());
+  });
+  $('#user_preferences_attributes_page_border').on('change', function() {
+    $('body').toggleClass('bordered', $(this).prop('checked'));
+  });
+});
 //$('.settings .save').live('click', function() {
   //$.flash({notice: 'Сохранение изменений...'});
   //var $this = $(this);

@@ -1,6 +1,7 @@
 @import "compass/css3/box-shadow";
 @import "globals";
 @import "globals/responsive";
+@import "mixins/button";
 
 // всплывающие формы
 @include responsive(desktop) {

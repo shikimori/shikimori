@@ -1,5 +1,5 @@
 = simple_form_for @user do |f|
-  .right-block
+  .right-block.subcontent
     .menu-block
       = f.input :avatar, label: 'Аватар (160x160)'
       .value.avatar-edit
@@ -26,7 +26,7 @@
             = link_to "/users/auth/#{provider}" do
               = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
 
-  .left-block
+  .left-block.subcontent
     .menu-block
       = f.input :nickname
       - unless @user.encrypted_password.blank?
@@ -38,3 +38,5 @@
       = f.input :website
       = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
       = f.input :birth_on, start_year: Date.today.year - 90, end_year: Date.today.year - 8
+
+  = f.submit 'Сохранить'

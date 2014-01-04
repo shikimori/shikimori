@@ -28,6 +28,15 @@ ru:
         avatar: Аватар
         password: Пароль
         password_check: Старый пароль
+      user_preferences:
+        anime_in_profile: Отображать аниме
+        manga_in_profile: Отображать мангу
+        manga_first: Сначала манга, потом аниме
+        clubs_in_profile: Отображать клубы
+        statistics_in_profile: Отображать статистику
+        comments_in_profile: Отображать комментарии
+        body_background: Фон боковой области
+        page_border: Полупрозрачная рамка по бокам страницы
 
     # сообщения валидаций
     errors:

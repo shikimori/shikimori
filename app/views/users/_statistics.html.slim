@@ -5,7 +5,7 @@
       .description
         = @presenter.about
 
-- if @user.preferences.statistics?
+- if @user.preferences.statistics_in_profile?
   - if @kind == :anime
     .genres
       .subheadline.m10 Жанры

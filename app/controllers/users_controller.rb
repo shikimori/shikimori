@@ -256,6 +256,7 @@ class UsersController < ApplicationController
     raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
     @page_title = UsersController.profile_title('Настройки', @user)
     @months = [ [0, ''], [1, 'Январь'], [2, 'Февраль'], [3, 'Март'], [4, 'Апрель'], [5, 'Май'], [6, 'Июнь'], [7, 'Июль'], [8, 'Август'], [9, 'Сентябрь'], [10, 'Октябрь'], [11, 'Ноябрь'], [12, 'Декабрь'] ]
+    @user.preferences.statistics_start_on ||= @user.created_at.to_date
 
     params[:page] ||= 'account'
     params[:user] = {} unless params[:user]
@@ -290,7 +291,7 @@ class UsersController < ApplicationController
     @user.smileys = false
     @user.page_border = false
 
-    @user.preferences.statistics_start = params[:user][:statistics_start]
+    @user.preferences.statistics_start_on = params[:user][:statistics_start_on]
 
     # TODO: отрефакторить на нормальный simple_form_for
     params[:user].each do |k,v|

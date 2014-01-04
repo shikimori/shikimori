@@ -7,51 +7,33 @@ class User < ActiveRecord::Base
 
   CommentForbiddenMessage = 'Вы не можете писать этому пользователю'
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :nickname, :email, :password, :password_confirmation, :remember_me, :read_only_at
-
-  validates :nickname, presence: true, uniqueness: { case_sensitive: false }
-  #validates :email, presence: true, uniqueness: true
-
-  before_save :fix_nickname
-  before_update :log_nickname_change
-
-  # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
-  after_create :create_history_entry unless Rails.env.test?
-  after_create :create_preferences!
-  after_create :check_ban
-  # personal message from me
-  after_create :send_welcome_message unless Rails.env.test?
-
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :oauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   has_many :user_tokens do
     def facebook
-      target.detect {|t| t.provider == 'facebook'}
+      target.detect {|t| t.provider == 'facebook' }
     end
 
     def twitter
-      target.detect {|t| t.provider == 'twitter'}
+      target.detect {|t| t.provider == 'twitter' }
     end
   end
 
   has_attached_file :avatar,
-      styles: {
-        #original: ['300x300>', :png],
-        x160: ['160x160#', :png],
-        x148: ['148x148#', :png],
-        x80: ['80x80#', :png],
-        x73: ['73x73#', :png],
-        x64: ['64x64#', :png],
-        x48: ['48x48#', :png],
-        x32: ['32x32#', :png],
-        x20: ['20x20#', :png],
-        x16: ['16x16#', :png]
-      },
-      url: "/images/user/:style/:id.:extension",
-      path: ":rails_root/public/images/user/:style/:id.:extension"
+    styles: {
+      #original: ['300x300>', :png],
+      x160: ['160x160#', :png],
+      x148: ['148x148#', :png],
+      x80: ['80x80#', :png],
+      x73: ['73x73#', :png],
+      x64: ['64x64#', :png],
+      x48: ['48x48#', :png],
+      x32: ['32x32#', :png],
+      x20: ['20x20#', :png],
+      x16: ['16x16#', :png]
+    },
+    url: "/images/user/:style/:id.:extension",
+    path: ":rails_root/public/images/user/:style/:id.:extension"
   validates_attachment_content_type :avatar, content_type: [/^image\/(?:jpeg|png)$/, nil]
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
@@ -116,6 +98,24 @@ class User < ActiveRecord::Base
   has_many :recommendation_ignores, dependent: :destroy
 
   has_many :bans, dependent: :destroy
+
+  accepts_nested_attributes_for :preferences
+
+  validates :nickname, presence: true, uniqueness: { case_sensitive: false }
+
+  before_save :fix_nickname
+  before_update :log_nickname_change
+
+  # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
+  after_create :create_history_entry unless Rails.env.test?
+  after_create :create_preferences!
+  after_create :check_ban
+  # personal message from me
+  after_create :send_welcome_message unless Rails.env.test?
+
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :oauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
 

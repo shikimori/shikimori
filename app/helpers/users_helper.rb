@@ -4,21 +4,21 @@ module UsersHelper
   end
 
   def page_background
-    if user_signed_in? && current_user.page_background.to_f > 0
-      color = 255 - current_user.page_background.to_f.ceil
+    if user_signed_in? && current_user.preferences.page_background.to_f > 0
+      color = 255 - current_user.preferences.page_background.to_f.ceil
       "background-color: rgb(#{color},#{color},#{color});"
     end
   end
 
   def page_border
-    if user_signed_in? && current_user.page_border
+    if user_signed_in? && current_user.preferences.page_border
       :bordered
     end
   end
 
   def body_background
-    if user_signed_in? && current_user.body_background.present?
-      background = current_user.body_background
+    if user_signed_in? && current_user.preferences.body_background.present?
+      background = current_user.preferences.body_background
       if background =~ %r{^https?://}
         "background: url(#{background}) fixed no-repeat;"
       else

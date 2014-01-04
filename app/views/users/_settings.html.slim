@@ -5,6 +5,6 @@
   a class="#{:selected if params[:page] == 'list'}" href="#{user_settings_url @user, page: 'list'}" Список
   a class="#{:selected if params[:page] == 'notifications'}" href="#{user_settings_url @user, page: 'notifications'}" Уведомления
   a class="#{:selected if params[:page] == 'ignores'}" href="#{user_settings_url @user, page: 'ignores'}" Игнор
-.subheadline Настройки
+.subheadline.m10 Настройки
 
 = render partial: "users/settings/#{params[:page]}", formats: :html

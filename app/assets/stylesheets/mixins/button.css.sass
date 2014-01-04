@@ -1,0 +1,29 @@
+@import compass/css3/transition
+@import compass/css3/box-shadow
+
+// дефолтная кнопка
+=button
+  +box-shadow(#e1e1e1, 0, 3px, 8px)
+  +transition-duration(0.3s)
+  +transition-property('backround-color,color')
+
+  background-color: #525252
+  border: 0
+  clear: right
+  color: #FFFFFF
+  cursor: pointer
+  display: inline
+  font: normal 13px Tahoma,Calibri,Verdana,Geneva,sans-serif
+  padding: 4px 10px 4px 10px
+
+  span
+    font-size: 15px
+    font-weight: bold
+    display: inline
+
+  &:hover
+    background-color: rgb(102, 102, 102)
+    color: rgb(255, 255, 255)
+
+  &:active
+    background-color: rgb(80, 80, 80)

@@ -67,8 +67,8 @@
     width: 48.5%;
   }
   .right-block {
-    width: 48.5%;
     float: right;
+    width: 48.5%;
   }
   .oauth img {
     margin-right: 5px;
@@ -164,7 +164,7 @@
   }
   .backgrounds {
     .range-slider {
-      margin-top: 20px;
+      margin-top: 10px;
       margin-left: 10px;
       margin-bottom: 25px;
     }
@@ -186,7 +186,7 @@
         margin-right: 20px;
         width: 104px;
 
-        &:nth-child(4n) {
+        &:nth-child(8n) {
           margin-right: 0;
         }
       }

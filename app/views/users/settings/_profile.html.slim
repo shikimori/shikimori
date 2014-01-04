@@ -1,30 +1,12 @@
-= form_for @user do |f|
-  .menu-block
-    .value.checkboxes.m5
-      p
-        = label_tag :user_anime, 'Отображать аниме'
-        = check_box_tag 'user[anime]', '', params[:user]['anime'] || @user.preferences.anime?
-      p
-        = label_tag :user_manga, 'Отображать мангу'
-        = check_box_tag 'user[manga]', '', params[:user]['manga'] || @user.preferences.manga?
-      p
-        = label_tag :user_manga_first, 'Сначала манга, потом аниме'
-        = check_box_tag 'user[manga_first]', '', params[:user]['manga_first'] || @user.preferences.manga_first?
-      p
-        = label_tag :user_clubs, 'Отображать клубы'
-        = check_box_tag 'user[clubs]', '', params[:user]['clubs'] || @user.preferences.clubs?
-      p
-        = label_tag :user_statistics, 'Отображать статистику'
-        = check_box_tag 'user[statistics]', '', params[:user]['statistics'] || @user.preferences.statistics?
-      p
-        = label_tag :user_comments, 'Отображать ленту комментариев'
-        = check_box_tag 'user[comments]', '', params[:user]['comments'] || @user.preferences.comments?
+= simple_form_for @user do |f|
+  .menu-block.subcontent
+    = f.simple_fields_for :preferences do |pf|
+      = pf.input :anime_in_profile
+      = pf.input :manga_in_profile
+      = pf.input :manga_first
+      = pf.input :clubs_in_profile
+      = pf.input :statistics_in_profile
+      = pf.input :comments_in_profile
+      = pf.input :statistics_start_on, label: 'Отображать активность с даты', start_year: @user.created_at.year, end_year: Date.today.year, default: @user.created_at
 
-    .field-name.statistics-date
-      span Дата старта статистики&nbsp;
-      .comment-block
-        = spoiler '(на что оно влияет)' do
-          img src="/images/static/statistics_start.png"
-    .value
-      = email_field_tag 'user[statistics_start]', (params[:user]['statistics_start'] || @user.preferences.statistics_start || '').to_s.sub(/(\d+)-(\d+)-(\d+)/, '\3.\2.\1'), class: 'common', placeholder: 'В формате дд.мм.гггг, например 20.10.2012'
-
+  = f.submit 'Сохранить'

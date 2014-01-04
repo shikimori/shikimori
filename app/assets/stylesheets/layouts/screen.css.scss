@@ -1,5 +1,6 @@
 @import "globals";
 @import "mixins/input";
+@import "mixins/button";
 
 $page-offset: 40px;
 
@@ -666,6 +667,10 @@ input.common {
   margin-left: 10px;
 }
 
+input[type=submit] {
+  @include button;
+}
+// TODO: выпилить
 .button {
   @include button;
 }

@@ -43,14 +43,14 @@ class UserPresenter < BasePresenter
   # история
   def history
     @history ||= user.all_history
-        .order('updated_at desc')
-        .limit(@history_limit*4)
+      .order('updated_at desc')
+      .limit(@history_limit*4)
   end
 
   # группы
   def groups
-    @groups ||= if user.preferences.clubs?
-      user.groups.order(:name).limit(4)
+    @groups ||= if user.preferences.clubs_in_profile?
+      user.groups.order(:name).limit 4
     else
       []
     end
@@ -150,7 +150,7 @@ class UserPresenter < BasePresenter
 
   # показывать ли ленту сообщений у пользователя
   def show_comments?
-    (user_signed_in? || user.comments.any?) && user.preferences.comments?
+    (user_signed_in? || user.comments.any?) && user.preferences.comments_in_profile?
   end
 
   # изменения никнеймов пользователя

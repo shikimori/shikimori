@@ -4,40 +4,20 @@ class UserPreferences < ActiveRecord::Base
 
   belongs_to :user
 
-  def anime?
-    anime
+  def anime_in_profile?
+    anime_in_profile
   end
 
-  def anime_genres?
-    anime_genres
+  def manga_in_profile?
+    manga_in_profile
   end
 
-  def anime_studios?
-    anime_studios
+  def clubs_in_profile?
+    clubs_in_profile
   end
 
-  def manga?
-    manga
-  end
-
-  def magna_genres?
-    manga_genres
-  end
-
-  def manga_publishers?
-    manga_publishers
-  end
-
-  def genres_graph?
-    genres_graph
-  end
-
-  def clubs?
-    clubs
-  end
-
-  def comments?
-    comments
+  def comments_in_profile?
+    comments_in_profile
   end
 
   def manga_first?
@@ -56,8 +36,8 @@ class UserPreferences < ActiveRecord::Base
     about_on_top
   end
 
-  def statistics?
-    statistics
+  def statistics_in_profile?
+    statistics_in_profile
   end
 
   def mylist_in_catalog?

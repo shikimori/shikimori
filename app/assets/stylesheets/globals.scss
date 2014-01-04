@@ -378,36 +378,6 @@ $gray-block-background: #F9F9F9;
   }
 }
 
-// дефолтная кнопка
-@mixin button {
-  /*@include border-radius(0px);*/
-  @include box-shadow(#e1e1e1, 0, 3px, 8px);
-  @include transition(backround-color, 0.3s);
-  @include transition(color, 0.3s);
-
-  background-color: #525252;
-  border: 0;
-  clear: right;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline;
-  font: normal 13px Tahoma,Calibri,Verdana,Geneva,sans-serif;
-  padding: 4px 10px 4px 10px;
-
-  span {
-    font-size: 15px;
-    font-weight: bold;
-    display: inline;
-  }
-  &:hover {
-    background-color: rgb(102, 102, 102);
-    color: rgb(255, 255, 255);
-  }
-  &:active {
-    background-color: rgb(80, 80, 80);
-  }
-}
-
 /* цвета логотипа */
 $logo-color: #333333;
 $logo-hover-color: #176093;

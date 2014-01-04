@@ -16,32 +16,39 @@ class UserStatisticsService
     @seasons = AniMangaSeason.all
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
 
-    @anime_rates = @user.anime_rates
-                        .joins('join animes on animes.id = target_id')
-                        .select('user_rates.*, animes.rating, animes.kind, animes.duration, animes.episodes as entry_episodes, animes.episodes_aired as entry_episodes_aired')
-                        .all
-                        .each do |v|
-                          v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
-                        end
+    @anime_rates = @user
+      .anime_rates
+      .joins('join animes on animes.id = target_id')
+      .select('user_rates.*, animes.rating, animes.kind, animes.duration, animes.episodes as entry_episodes, animes.episodes_aired as entry_episodes_aired')
+      .all
+      .each do |v|
+        v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
+      end
+
     @anime_valuable_rates = @anime_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Completed) || v.status == UserRateStatus.get(UserRateStatus::Watching) }
-    @anime_history = @user.history.where(target_type: Anime.name)
-                                  .where { action.in([UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore]) |
-                                          (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
+    @anime_history = @user
+      .history
+      .where(target_type: Anime.name)
+      .where { action.in([UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore]) |
+              (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
 
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
 
-    @manga_rates = @user.manga_rates
-                        .joins('join mangas on mangas.id = target_id')
-                        .select('user_rates.*, mangas.rating, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired')
-                        .all
-                        .each do |v|
-                          v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
-                          v[:duration] = Manga::Duration
-                        end
+    @manga_rates = @user
+      .manga_rates
+      .joins('join mangas on mangas.id = target_id')
+      .select('user_rates.*, mangas.rating, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired')
+      .all
+      .each do |v|
+        v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
+        v[:duration] = Manga::Duration
+      end
     @manga_valuable_rates = @manga_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Completed) || v.status == UserRateStatus.get(UserRateStatus::Watching) }
-    @manga_history = @user.history.where(target_type: Manga.name)
-                                  .where { action.in([UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore]) |
-                                          (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
+    @manga_history = @user
+      .history
+      .where(target_type: Manga.name)
+      .where { action.in([UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore]) |
+              (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
   end
 
   # формирование статистики
@@ -114,8 +121,8 @@ private
     return {} if histories.empty?
 
     # минимальная дата старта статистики
-    if @settings.statistics_start
-      histories.select! { |v| v.created_at >= @settings.statistics_start }
+    if @settings.statistics_start_on
+      histories.select! { |v| v.created_at >= @settings.statistics_start_on }
     end
 
     imported = Set.new histories.select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
@@ -298,8 +305,8 @@ private
   # статистика по статусам аниме и манги в списке пользователя
   def by_statuses
     data = [
-      @settings.anime? ? [Anime.name, anime_statuses] : nil,
-      @settings.manga? ? [Manga.name, manga_statuses] : nil
+      @settings.anime_in_profile? ? [Anime.name, anime_statuses] : nil,
+      @settings.manga_in_profile? ? [Manga.name, manga_statuses] : nil
     ].compact.map do |klass,stat|
       [
         klass,
@@ -392,4 +399,3 @@ private
     end
   end
 end
-
