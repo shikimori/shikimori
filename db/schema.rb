@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140102232544) do
+ActiveRecord::Schema.define(:version => 20140104104731) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -647,33 +647,6 @@ ActiveRecord::Schema.define(:version => 20140102232544) do
   add_index "person_roles", ["role", "anime_id", "character_id"], :name => "i_person_role_role_anime_id"
   add_index "person_roles", ["role", "manga_id", "character_id"], :name => "i_person_role_role_manga_id"
 
-  create_table "profile_settings", :force => true do |t|
-    t.integer  "user_id"
-    t.boolean  "anime",               :default => true
-    t.boolean  "manga",               :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "anime_genres",        :default => true
-    t.boolean  "anime_studios",       :default => true
-    t.boolean  "manga_genres",        :default => true
-    t.boolean  "manga_publishers",    :default => true
-    t.boolean  "genres_graph",        :default => false
-    t.string   "default_sort",        :default => "name", :null => false
-    t.boolean  "clubs",               :default => true
-    t.boolean  "comments",            :default => true
-    t.boolean  "postload_in_catalog", :default => true
-    t.date     "statistics_start"
-    t.boolean  "manga_first",         :default => false
-    t.boolean  "russian_names",       :default => false
-    t.boolean  "about_on_top",        :default => false
-    t.boolean  "russian_genres",      :default => true,   :null => false
-    t.boolean  "mylist_in_catalog",   :default => false,  :null => false
-    t.boolean  "statistics",          :default => true
-    t.boolean  "menu_contest",        :default => true,   :null => false
-  end
-
-  add_index "profile_settings", ["user_id"], :name => "index_profile_settings_on_user_id"
-
   create_table "proxies", :id => false, :force => true do |t|
     t.string  "ip"
     t.integer "port"
@@ -902,6 +875,33 @@ ActiveRecord::Schema.define(:version => 20140102232544) do
 
   add_index "user_nickname_changes", ["user_id", "value"], :name => "index_user_nickname_changes_on_user_id_and_value", :unique => true
   add_index "user_nickname_changes", ["user_id"], :name => "index_user_nickname_changes_on_user_id"
+
+  create_table "user_preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "anime",               :default => true
+    t.boolean  "manga",               :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "anime_genres",        :default => true
+    t.boolean  "anime_studios",       :default => true
+    t.boolean  "manga_genres",        :default => true
+    t.boolean  "manga_publishers",    :default => true
+    t.boolean  "genres_graph",        :default => false
+    t.string   "default_sort",        :default => "name", :null => false
+    t.boolean  "clubs",               :default => true
+    t.boolean  "comments",            :default => true
+    t.boolean  "postload_in_catalog", :default => true
+    t.date     "statistics_start"
+    t.boolean  "manga_first",         :default => false
+    t.boolean  "russian_names",       :default => false
+    t.boolean  "about_on_top",        :default => false
+    t.boolean  "russian_genres",      :default => true,   :null => false
+    t.boolean  "mylist_in_catalog",   :default => false,  :null => false
+    t.boolean  "statistics",          :default => true
+    t.boolean  "menu_contest",        :default => true,   :null => false
+  end
+
+  add_index "user_preferences", ["user_id"], :name => "index_profile_settings_on_user_id"
 
   create_table "user_rates", :force => true do |t|
     t.integer  "user_id"

@@ -18,10 +18,9 @@ class User < ActiveRecord::Base
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry unless Rails.env.test?
-  after_create :create_profile_settings
+  after_create :create_preferences!
   after_create :check_ban
-  #after_create :xmpp_notify
-  # personal message for me
+  # personal message from me
   after_create :send_welcome_message unless Rails.env.test?
 
   # Include default devise modules. Others available are:
@@ -55,7 +54,7 @@ class User < ActiveRecord::Base
       path: ":rails_root/public/images/user/:style/:id.:extension"
   validates_attachment_content_type :avatar, content_type: [/^image\/(?:jpeg|png)$/, nil]
 
-  has_one :profile_settings, dependent: :destroy
+  has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
 
   has_many :comments_all, class_name: Comment.name, dependent: :destroy
   has_many :abuse_requests, dependent: :destroy
@@ -416,22 +415,9 @@ class User < ActiveRecord::Base
   end
 
 private
-  # уведомление по жабберу о создании пользователя
-  #def xmpp_notify
-    #Xmpp.message "Создан пользователь %d-%s" % [self.id, self.nickname] if Rails.env != 'test'
-  #rescue
-  #end
-
-  # создание profile_settings для пользователя сразу после создания самого пользователя
-  def create_profile_settings
-    self.profile_settings = ProfileSettings.create! user: self
-  end
-
   # создание первой записи в историю - о регистрации на сайте
   def create_history_entry
-    history.create!({
-      action: UserHistoryAction::Registration
-    })
+    history.create! action: UserHistoryAction::Registration
   end
 
   # запоминаем предыдущие никнеймы пользователя

@@ -8,7 +8,7 @@ module CacheHelper
   end
 
   def russian_names_key
-    if user_signed_in? && current_user.profile_settings.russian_names?
+    if user_signed_in? && current_user.preferences.russian_names?
       'rus'
     else
       'eng'
@@ -16,7 +16,7 @@ module CacheHelper
   end
 
   def russian_genres_key
-    if !user_signed_in? || !current_user.profile_settings.russian_genres?
+    if !user_signed_in? || !current_user.preferences.russian_genres?
       'eng'
     else
       'rus'

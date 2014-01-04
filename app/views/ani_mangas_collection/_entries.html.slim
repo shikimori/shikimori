@@ -8,6 +8,6 @@
 
 - else
   = render partial: (cookies.include?('OldCatalog') ? 'ani_mangas_collection/entry' : 'ani_mangas_collection/entry_new'), collection: @entries, formats: :html
-  - if !user_signed_in? || current_user.profile_settings.postload_in_catalog
+  - if !user_signed_in? || current_user.preferences.postload_in_catalog
     - if @next_page.present?
       = render partial: 'site/postloader_new', locals: { url: nil, filter: nil }, formats: :html

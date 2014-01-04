@@ -9,7 +9,7 @@ class UserPresenter < BasePresenter
   def initialize(*args)
     super *args
 
-    @history_limit = groups.any? ? 3 : 4#user.profile_settings.anime? && user.profile_settings.manga? ? 7 : 4
+    @history_limit = groups.any? ? 3 : 4#user.preferences.anime? && user.preferences.manga? ? 7 : 4
   end
 
   # общая личная информация
@@ -49,7 +49,7 @@ class UserPresenter < BasePresenter
 
   # группы
   def groups
-    @groups ||= if user.profile_settings.clubs?
+    @groups ||= if user.preferences.clubs?
       user.groups.order(:name).limit(4)
     else
       []
@@ -78,7 +78,7 @@ class UserPresenter < BasePresenter
 
   # статистика по пользователю
   def stats
-    cache_key = Digest::MD5.hexdigest "user_stats_#{entry.cache_key}_#{!current_user || (current_user && current_user.profile_settings.russian_genres?) ? 'rus' : 'en'}"
+    cache_key = Digest::MD5.hexdigest "user_stats_#{entry.cache_key}_#{!current_user || (current_user && current_user.preferences.russian_genres?) ? 'rus' : 'en'}"
     @stats ||= Rails.cache.fetch cache_key do
       UserStatisticsService.new(entry, current_user).fetch
     end
@@ -135,12 +135,12 @@ class UserPresenter < BasePresenter
 
   # показывать ли блок "О себе" над статистикой?
   def about_above?
-    !user.about.blank? && !user.about.strip.blank? && user.profile_settings.about_on_top?
+    !user.about.blank? && !user.about.strip.blank? && user.preferences.about_on_top?
   end
 
   # показывать ли блок "О себе" под статистикой?
   def about_below?
-    !user.about.blank? && !user.about.strip.blank? && !user.profile_settings.about_on_top?
+    !user.about.blank? && !user.about.strip.blank? && !user.preferences.about_on_top?
   end
 
   # блок "О себе"
@@ -150,7 +150,7 @@ class UserPresenter < BasePresenter
 
   # показывать ли ленту сообщений у пользователя
   def show_comments?
-    (user_signed_in? || user.comments.any?) && user.profile_settings.comments?
+    (user_signed_in? || user.comments.any?) && user.preferences.comments?
   end
 
   # изменения никнеймов пользователя
@@ -244,7 +244,7 @@ class UserPresenter < BasePresenter
   def self.localized_name(entry, current_user)
     if entry.class == Genre
       # жанры
-      if !current_user || (current_user && current_user.profile_settings.russian_genres? && entry.russian.present?)
+      if !current_user || (current_user && current_user.preferences.russian_genres? && entry.russian.present?)
         entry.russian || entry.name
       else
         entry.name
@@ -252,7 +252,7 @@ class UserPresenter < BasePresenter
 
     else
       # аниме
-      if current_user && current_user.profile_settings.russian_names? && entry.respond_to?(:russian) && entry.russian.present?
+      if current_user && current_user.preferences.russian_names? && entry.respond_to?(:russian) && entry.russian.present?
         entry.russian.html_safe
       else
         entry.name.html_safe
@@ -262,7 +262,7 @@ class UserPresenter < BasePresenter
 
   # название с учётом настроек отображения русского языка. русское название берётся оригинальное, не обрезанное
   def self.localized_original_name(entry, current_user)
-    if current_user && current_user.profile_settings.russian_names? && entry.russian.present?
+    if current_user && current_user.preferences.russian_names? && entry.russian.present?
       entry[:russian].html_safe
     else
       entry.name.html_safe
@@ -271,7 +271,7 @@ class UserPresenter < BasePresenter
 
   # тип с учётом настроек отображения русского языка
   def self.localized_kind(entry, current_user, short=false)
-    if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+    if !current_user || (current_user && current_user.preferences.russian_genres?)
       I18n.t("#{entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}")
     else
       entry.kind

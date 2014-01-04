@@ -17,7 +17,7 @@
       - if klass == Anime
         li.type-TV
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.TV')
           - else
             | TV
@@ -36,21 +36,21 @@
 
         li.type-Movie
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.Movie')
           - else
             | Movie
 
         li.type-OVA
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.OVA')
           - else
             | OVA
 
         li.type-ONA
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.ONA')
           - else
             | ONA
@@ -58,14 +58,14 @@
         - unless defined?(nosort) && nosort
           li.type-Special
             input type="checkbox" autocomplete="off"
-            - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+            - if !current_user || (current_user && current_user.preferences.russian_genres?)
               = t('Anime.Special')
             - else
               | Special
 
         li.type-Music
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.Music')
           - else
             | Music
@@ -73,42 +73,42 @@
       - else
         li.type-Manga
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Manga')
           - else
             | Manga
 
         li.type-Manhua
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Manhua')
           - else
             | Manhua
 
         li.type-Manhwa
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Manhwa')
           - else
             | Manhwa
 
         li.type-Novel
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Novel')
           - else
             | Novel
 
         li.type-One-Shot
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.One Shot')
           - else
             | One Shot
 
         li.type-Doujin
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.profile_settings.russian_genres?)
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Doujin')
           - else
             | Doujin

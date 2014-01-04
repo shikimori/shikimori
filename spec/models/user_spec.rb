@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   context :relations do
-    it { should have_one :profile_settings }
+    it { should have_one :preferences }
 
     it { should have_many :user_changes }
 
@@ -52,8 +52,8 @@ describe User do
   let(:topic) { create :topic }
 
   context :hooks do
-    it 'creates profile_settings' do
-      user.profile_settings.should_not be_nil
+    it 'creates preferences' do
+      user.preferences.should be_persisted
     end
 
     #it 'creates registration history entry' do

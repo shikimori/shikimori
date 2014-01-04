@@ -24,7 +24,7 @@
           input value="#{SearchHelper.unescape params[:search]}"
           .suggest-placeholder
         ul.popup
-          - if user_signed_in? && current_user.profile_settings.manga_first?
+          - if user_signed_in? && current_user.preferences.manga_first?
             li.type data-type="mangas" Манга
             li.type data-type="animes" Аниме
           - else
@@ -55,7 +55,7 @@
       a.entry.rel href="#{section_url :news}" title="Новости" Новости
       a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры
       .entry
-        - if user_signed_in? && (current_user.can_vote_1? || current_user.can_vote_2? || current_user.can_vote_3?) && current_user.profile_settings.menu_contest?
+        - if user_signed_in? && (current_user.can_vote_1? || current_user.can_vote_2? || current_user.can_vote_3?) && current_user.preferences.menu_contest?
           a.contest href="#{current_contests_url}" title="Активный опрос" data-count="#{[current_user.can_vote_1?, current_user.can_vote_2?, current_user.can_vote_3?].count {|v| v }}"
         a href="#{contests_url}" title="Опросы" Опросы
       a.entry class="#{'selected' if params[:controller] == 'recommendations'}" href="#{recommendations_url(:klass => manga_recommendations? ? 'manga' : 'anime')}" title="Рекомендации" Рекомендации

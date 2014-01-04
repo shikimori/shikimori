@@ -5,7 +5,7 @@
       .description
         = @presenter.about
 
-- if @user.profile_settings.statistics?
+- if @user.preferences.statistics?
   - if @kind == :anime
     .genres
       .subheadline.m10 Жанры
@@ -27,7 +27,7 @@
     .scores
       .options-floated
         - if @presenter.stats[:anime?] && @presenter.stats[:manga?]
-          - if @user.profile_settings.manga_first?
+          - if @user.preferences.manga_first?
             a class="link #{@kind == :manga ? 'selected' : ''}" href="#{user_url(@user, :manga)}" Манга
             | &nbsp;&nbsp;/&nbsp;&nbsp;
             a class="link #{@kind == :anime ? 'selected' : ''}" href="#{user_url(@user, :anime)}" Аниме

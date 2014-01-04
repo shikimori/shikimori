@@ -1,6 +1,5 @@
-
 require 'spec_helper'
 
-describe ProfileSettings do
+describe UserPreferences do
   it { should belong_to :user }
 end

@@ -7,7 +7,7 @@
     - unless current_user.unread_count > 0
       span.graphics-arrow-down
   .submenu.right
-    - if current_user.profile_settings.manga_first?
+    - if current_user.preferences.manga_first?
       a.entry href="#{ani_manga_list_url current_user, list_type: 'manga'}" Манга
       a.entry href="#{ani_manga_list_url current_user, list_type: 'anime'}" Аниме
     - else

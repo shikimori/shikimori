@@ -135,7 +135,7 @@ class UsersController < ApplicationController
   # страница профиля
   def statistics
     @history = @user.all_history.order('updated_at desc').limit(30) if params[:format] == 'rss'
-    @kind = (params[:kind] || (@user.profile_settings.manga_first? ? :manga : :anime)).to_sym
+    @kind = (params[:kind] || (@user.preferences.manga_first? ? :manga : :anime)).to_sym
 
     show
   end
@@ -269,28 +269,28 @@ class UsersController < ApplicationController
     raise Forbidden unless @user.can_be_edited_by?(current_user)
     raise 'not implemented yet'
 
-    @user.profile_settings.anime = false
-    @user.profile_settings.anime_genres = false
-    @user.profile_settings.anime_studios = false
-    @user.profile_settings.manga = false
-    @user.profile_settings.manga_genres = false
-    @user.profile_settings.manga_publishers = false
-    @user.profile_settings.genres_graph = false
-    @user.profile_settings.clubs = false
-    @user.profile_settings.comments = false
-    @user.profile_settings.statistics = false
-    @user.profile_settings.postload_in_catalog = false
-    @user.profile_settings.manga_first = false
-    @user.profile_settings.russian_names = false
-    @user.profile_settings.russian_genres = false
-    @user.profile_settings.about_on_top = false
-    @user.profile_settings.mylist_in_catalog = true
-    @user.profile_settings.menu_contest = false
+    @user.preferences.anime = false
+    @user.preferences.anime_genres = false
+    @user.preferences.anime_studios = false
+    @user.preferences.manga = false
+    @user.preferences.manga_genres = false
+    @user.preferences.manga_publishers = false
+    @user.preferences.genres_graph = false
+    @user.preferences.clubs = false
+    @user.preferences.comments = false
+    @user.preferences.statistics = false
+    @user.preferences.postload_in_catalog = false
+    @user.preferences.manga_first = false
+    @user.preferences.russian_names = false
+    @user.preferences.russian_genres = false
+    @user.preferences.about_on_top = false
+    @user.preferences.mylist_in_catalog = true
+    @user.preferences.menu_contest = false
     @user.social = false
     @user.smileys = false
     @user.page_border = false
 
-    @user.profile_settings.statistics_start = params[:user][:statistics_start]
+    @user.preferences.statistics_start = params[:user][:statistics_start]
 
     # TODO: отрефакторить на нормальный simple_form_for
     params[:user].each do |k,v|
@@ -316,39 +316,39 @@ class UsersController < ApplicationController
       elsif k == 'smileys'
         @user.smileys = true
       elsif k == 'anime'
-        @user.profile_settings.anime = true
+        @user.preferences.anime = true
       elsif k == 'anime_genres'
-        @user.profile_settings.anime_genres = true
+        @user.preferences.anime_genres = true
       elsif k == 'anime_studios'
-        @user.profile_settings.anime_studios = true
+        @user.preferences.anime_studios = true
       elsif k == 'manga'
-        @user.profile_settings.manga = true
+        @user.preferences.manga = true
       elsif k == 'manga_genres'
-        @user.profile_settings.manga_genres = true
+        @user.preferences.manga_genres = true
       elsif k == 'manga_publishers'
-        @user.profile_settings.manga_publishers = true
+        @user.preferences.manga_publishers = true
       elsif k == 'genres_graph'
-        @user.profile_settings.genres_graph = true
+        @user.preferences.genres_graph = true
       elsif k == 'clubs'
-        @user.profile_settings.clubs = true
+        @user.preferences.clubs = true
       elsif k == 'comments'
-        @user.profile_settings.comments = true
+        @user.preferences.comments = true
       elsif k == 'statistics'
-        @user.profile_settings.statistics = true
+        @user.preferences.statistics = true
       elsif k == 'postload_in_catalog'
-        @user.profile_settings.postload_in_catalog = true
+        @user.preferences.postload_in_catalog = true
       elsif k == 'manga_first'
-        @user.profile_settings.manga_first = true
+        @user.preferences.manga_first = true
       elsif k == 'about_on_top'
-        @user.profile_settings.about_on_top = true
+        @user.preferences.about_on_top = true
       elsif k == 'russian_names'
-        @user.profile_settings.russian_names = true
+        @user.preferences.russian_names = true
       elsif k == 'russian_genres'
-        @user.profile_settings.russian_genres = true
+        @user.preferences.russian_genres = true
       elsif k == 'mylist_in_catalog'
-        @user.profile_settings.mylist_in_catalog = true
+        @user.preferences.mylist_in_catalog = true
       elsif k == 'menu_contest'
-        @user.profile_settings.menu_contest = true
+        @user.preferences.menu_contest = true
       else
         @user[k] = v
       end
@@ -366,7 +366,7 @@ class UsersController < ApplicationController
       end
     end
 
-    if @user.errors.empty? && @user.save && @user.profile_settings.save
+    if @user.errors.empty? && @user.save && @user.preferences.save
       if params[:user].include? 'password'
         sign_out @user
         @user.remember_me = true

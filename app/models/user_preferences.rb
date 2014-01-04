@@ -1,5 +1,5 @@
 # настройки профиля пользователя
-class ProfileSettings < ActiveRecord::Base
+class UserPreferences < ActiveRecord::Base
   DefaultSort = 'name'
 
   belongs_to :user

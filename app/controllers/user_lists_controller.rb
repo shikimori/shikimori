@@ -12,11 +12,11 @@ class UserListsController < UsersController
   # отображение аниме листа пользователяс с наложенными фильтрами
   def show
     unless params[:order]
-      redirect_to ani_manga_filtered_list_url(params.merge(order: user_signed_in? ? current_user.profile_settings.default_sort : ProfileSettings::DefaultSort))
+      redirect_to ani_manga_filtered_list_url(params.merge(order: user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort))
       return
     end
     params[:with_censored] = true
-    current_user.profile_settings.update_sorting(params[:order]) if user_signed_in?
+    current_user.preferences.update_sorting(params[:order]) if user_signed_in?
 
     @params_type = params[:type]
     @page = (params[:page] || 1).to_i
@@ -255,7 +255,7 @@ class UserListsController < UsersController
 private
   # полный список пользователя
   def extract_full_list
-    params[:order] = 'russian' if user_signed_in? && current_user.profile_settings.russian_names? && params[:order] == 'name'
+    params[:order] = 'russian' if user_signed_in? && current_user.preferences.russian_names? && params[:order] == 'name'
     pars = params.clone.merge(:klass => @klass)
     pars.delete(:order)
 
@@ -378,7 +378,7 @@ private
 
   # ключ от кеша для списка пользователя
   def user_list_cache_key
-    "#{@user.cache_key}_#{Digest::MD5.hexdigest(request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, ''))}_#{user_signed_in? ? current_user.profile_settings.russian_names? : false}"
+    "#{@user.cache_key}_#{Digest::MD5.hexdigest(request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, ''))}_#{user_signed_in? ? current_user.preferences.russian_names? : false}"
   end
 
   def anime?

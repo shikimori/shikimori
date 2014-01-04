@@ -228,7 +228,7 @@ private
 
   # присоединение параметра в списке ли пользователя элемент?
   def apply_in_list(entries)
-    return entries unless user_signed_in? && current_user.profile_settings.mylist_in_catalog?
+    return entries unless user_signed_in? && current_user.preferences.mylist_in_catalog?
 
     rates = Set.new current_user.send("#{klass.name.downcase}_rates")
         .where(target_id: entries.map(&:id))

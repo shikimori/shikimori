@@ -11,7 +11,7 @@ class UserStatisticsService
   def initialize(user, current_user)
     @user = user
     @current_user = current_user
-    @settings = user.profile_settings
+    @settings = user.preferences
 
     @seasons = AniMangaSeason.all
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
@@ -49,14 +49,14 @@ class UserStatisticsService
     stats = {}
 
     stats[:statuses] = by_statuses
-    stats[:statuses].reverse! if @user.profile_settings.manga_first?
+    stats[:statuses].reverse! if @user.preferences.manga_first?
 
     stats[:anime_statuses] = anime_statuses
     stats[:manga_statuses] = manga_statuses
 
     stats[:scores] = by_criteria :score, 1.upto(10).to_a.reverse
 
-    i18n = if !@current_user || (@current_user && @current_user.profile_settings.russian_genres?)
+    i18n = if !@current_user || (@current_user && @current_user.preferences.russian_genres?)
       ':klass.Short.%s'
     else
       nil
