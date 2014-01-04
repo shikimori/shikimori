@@ -2,7 +2,6 @@
   .related-anime
     .options-floated
       span.link.selected Напрямую
-      | &nbsp;&nbsp;/&nbsp;&nbsp;
       span.link.linkeable data-href="#{@entry.page_url :chronology}" Вся хронология
     .subheadline
       = @entry.anime? ? (@entry.related.one? ? "Связанное аниме" : "Связанные аниме") : 'Связанная манга'

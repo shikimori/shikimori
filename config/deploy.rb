@@ -17,7 +17,7 @@ set :use_sudo, false
 set :deploy_via, :remote_cache
 set :rails_env, 'production'
 
-set :delayed_job_args, "-n 3"
+set :delayed_job_args, "-n 5"
 
 role :web, "178.63.23.138"                   # Your HTTP server, Apache/etc
 role :app, "178.63.23.138"                   # This may be the same as your `Web` server

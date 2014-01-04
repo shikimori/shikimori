@@ -1,30 +1,27 @@
 = auto_discovery_link_tag :rss, rss_notifications_url(@user.to_param, MessagesController.rss_key(@user)), title: 'RSS'
 .options-floated
-  a href="#{messages_url :inbox}" class="#{' selected' if params[:type] == 'inbox'}"
+  a href="#{messages_url :inbox}" class="#{:selected if params[:type] == 'inbox'}"
     span Переписка
     - if current_user.unread_messages > 0
       span.unread-count.inbox
         span.sep.zero.inline = "("
         = current_user.unread_messages
         span.sep.zero.inline = ")"
-  | &nbsp;&nbsp;/&nbsp;&nbsp;
-  a href="#{messages_url :news}" class="#{' selected' if params[:type] == 'news'}"
+  a href="#{messages_url :news}" class="#{:selected if params[:type] == 'news'}"
     span Новости
     - if current_user.unread_news > 0
       span.unread-count.news
         span.sep.zero.inline = "("
         = current_user.unread_news
         span.sep.zero.inline = ")"
-  | &nbsp;&nbsp;/&nbsp;&nbsp;
-  a href="#{messages_url :notifications}" class="#{' selected' if params[:type] == 'notifications'}"
+  a href="#{messages_url :notifications}" class="#{:selected if params[:type] == 'notifications'}"
     span Уведомления
     - if current_user.unread_notifications > 0
       span.unread-count.notifications
         span.sep.zero.inline = "("
         = current_user.unread_notifications
         span.sep.zero.inline = ")"
-  | &nbsp;&nbsp;/&nbsp;&nbsp;
-  a href="#{messages_url :sent}" class="#{' selected' if params[:type] == 'sent'}" Отправленное
+  a href="#{messages_url :sent}" class="#{:selected if params[:type] == 'sent'}" Отправленное
 .subheadline
   = @page_title.last
   a.rss href="#{rss_notifications_url @user.to_param, MessagesController.rss_key(@user)}" title="RSS"

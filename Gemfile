@@ -24,6 +24,7 @@ gem 'nokogiri'
 gem 'paperclip', '2.4.3'
 gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
+gem 'simple_form'
 
 gem 'devise'
 
@@ -103,7 +104,7 @@ group :development do
   gem 'mactag'
   gem 'better_errors'
   #gem 'sprockets_better_errors'
-  gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
+  #gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
   gem 'sql-logging'
 end
 

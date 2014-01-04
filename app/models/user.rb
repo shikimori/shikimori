@@ -163,7 +163,7 @@ class User < ActiveRecord::Base
     self.location = omni.info['location'].sub(/,\s*$/, '') if self.location.blank? && omni.info['location'].present? && omni.info['location'] !~ /^[ ,]$/
     # тут может какая-то хрень придти, не являющаяся датой
     begin
-      self.birth_at = DateTime.parse(omni.info['birth_date']) unless self.birth_at.present? || !omni.info['birth_date'].present?
+      self.birth_on = DateTime.parse(omni.info['birth_date']) unless self.birth_on.present? || !omni.info['birth_date'].present?
     rescue
     end
   end
@@ -202,7 +202,7 @@ class User < ActiveRecord::Base
     end
 
     begin
-      self.birth_at = DateTime.parse(omni.extra.raw_info['bdate']) unless self.birth_at.present? || !omni.extra.raw_info['bdate'].present?
+      self.birth_on = DateTime.parse(omni.extra.raw_info['bdate']) unless self.birth_on.present? || !omni.extra.raw_info['bdate'].present?
     rescue
     end
   end

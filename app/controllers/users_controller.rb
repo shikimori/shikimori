@@ -251,11 +251,15 @@ class UsersController < ApplicationController
 
   # настройки
   # TODO: отрефакторить erb шаблон в slim
-  # TODO: разнести нстройки по подвкладкам. подвкладки сделать подгружаемыми аяксом без смены урлы. дизайн подвкладок - см лист пользователя
+  # TODO: разнести нстройки по подвкладкам. подвкладки сделать подгружаемыми аяксом без смены урла. дизайн подвкладок - см лист пользователя
   def settings
     raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
     @page_title = UsersController.profile_title('Настройки', @user)
+    @months = [ [0, ''], [1, 'Январь'], [2, 'Февраль'], [3, 'Март'], [4, 'Апрель'], [5, 'Май'], [6, 'Июнь'], [7, 'Июль'], [8, 'Август'], [9, 'Сентябрь'], [10, 'Октябрь'], [11, 'Ноябрь'], [12, 'Декабрь'] ]
+
+    params[:page] ||= 'account'
     params[:user] = {} unless params[:user]
+
     show
   end
 
@@ -263,6 +267,7 @@ class UsersController < ApplicationController
   # TODO: переписать порнографию на simple_form
   def update
     raise Forbidden unless @user.can_be_edited_by?(current_user)
+    raise 'not implemented yet'
 
     @user.profile_settings.anime = false
     @user.profile_settings.anime_genres = false
@@ -296,11 +301,11 @@ class UsersController < ApplicationController
         else
           @user.errors['Введён'] = 'неверный пароль'
         end
-      elsif k == 'birth_at'
+      elsif k == 'birth_on'
         if v['year'].to_i > 0
-          @user.birth_at = DateTime.new(v['year'].to_i, [v['month'].to_i, 1].max, [v['day'].to_i, 1].max)
+          @user.birth_on = DateTime.new(v['year'].to_i, [v['month'].to_i, 1].max, [v['day'].to_i, 1].max)
         else
-          @user.birth_at = nil
+          @user.birth_on = nil
         end
       elsif k == 'avatar'
         @user.avatar = v.blank? ? nil : v

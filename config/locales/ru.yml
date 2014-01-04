@@ -17,6 +17,17 @@ ru:
       ban:
         reason: Причина
         duration: Срок
+      user:
+        birth_on: Дата рождения
+        sex: Пол
+        nickname: Логин
+        email: E-mail
+        name: Реальное имя
+        location: Откуда
+        website: Сайт
+        avatar: Аватар
+        password: Пароль
+        password_check: Старый пароль
 
     # сообщения валидаций
     errors:

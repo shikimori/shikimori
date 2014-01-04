@@ -3,6 +3,7 @@ class CharacterDecorator < PersonDecorator
     h.character_url object
   end
 
+  # хак, т.к. source переопределяется в декораторе
   def source
     object.source
   end

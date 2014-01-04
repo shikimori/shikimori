@@ -1,0 +1,48 @@
+.subheadline Фон центральной области
+.value
+  = text_field_tag 'user[page_background]', params[:user]['page_background'] || @user.page_background || '0'
+  .range-slider.noUiSlider data-value="#{params[:user]['page_background'] || @user.page_background || '0'}"
+
+.subheadline Фон боковой области
+.value.checkboxes.m5
+  p
+    = label_tag :user_page_border, 'Полупрозрачная рамка по бокам страницы'
+    = check_box_tag 'user[page_border]', '', params[:user]['page_border'] || @user.page_border
+
+.value
+  = text_field_tag 'user[body_background]', params[:user]['body_background'] || @user.body_background, class: :common
+  ul.samples
+    li.bg1 data-background="/assets/background/square_bg.png"
+    li.bg2 data-background="/assets/background/agsquare.png"
+    li.bg3 data-background="/assets/background/fabric_of_squares_gray.png"
+    li.bg4 data-background="/assets/background/furley_bg.png"
+
+    .collapse style="display: none;"
+      span.action развернуть
+
+    .collapsed.tiny style="display: block;" ...
+    div style="display: none;"
+      li.bg5 data-background="/assets/background/gplaypattern.png"
+      li.bg6 data-background="/assets/background/grey.png"
+      li.bg7 data-background="/assets/background/greyfloral.png"
+      li.bg8 data-background="/assets/background/hexellence.png"
+      li.bg9 data-background="/assets/background/light_wool.png"
+      li.bg10 data-background="/assets/background/snow.png"
+      li.bg11 data-background="/assets/background/ice_age.png"
+      li.bg12 data-background="/assets/background/paper_fibers.png"
+      li.bg13 data-background="/assets/background/scribble_light.png"
+      li.bg14 data-background="/assets/background/redox_02.png"
+      li.bg15 data-background="/assets/background/bright_squares.png"
+      li.bg16 data-background="/assets/background/shattered.png"
+      li.bg17 data-background="/assets/background/tactile_noise.png"
+      li.bg18 data-background="/assets/background/twinkle_twinkle.png"
+      li.bg19 data-background="/assets/background/wild_oliva.png"
+      li.bg20 data-background="/assets/background/use_your_illusion.png"
+      li.bg21 data-background="/assets/background/noisy_net.png"
+      li.bg22 data-background="/assets/background/dirty_old_shirt.png"
+      li.bg23 data-background="/assets/background/cartographer.png"
+      li.bg24 data-background="/assets/background/px_by_Gre3g.png"
+      li.bg25 data-background="/assets/background/diagmonds.png"
+      li.bg26 data-background="/assets/background/type.png"
+      li.bg27 data-background="/assets/background/crissXcross.png"
+      li.bg28 data-background="/assets/background/random_grey_variations.png"

@@ -18,9 +18,9 @@ class UserPresenter < BasePresenter
     info << h(user.name)
     info << 'муж' if user.male?
     info << 'жен' if user.female?
-    unless user.birth_at.blank?
-      years = DateTime.now.year - user.birth_at.year
-      full_years = Date.parse(DateTime.now.to_s) - years.years + 1.day > user.birth_at ? years : years - 1
+    unless user.birth_on.blank?
+      years = DateTime.now.year - user.birth_on.year
+      full_years = Date.parse(DateTime.now.to_s) - years.years + 1.day > user.birth_on ? years : years - 1
       info << "#{full_years} #{Russian.p(full_years, 'год', 'года', 'лет')}" if full_years > 9
     end
     info << user.location

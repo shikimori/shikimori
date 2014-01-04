@@ -31,47 +31,47 @@
     float: right;
     margin-top: -2px;
   }
-  .value {
-    margin-bottom: 15px;
+  .b-input input {
+    width: 470px;
+  }
+  // TODO: удалить
+  /*.value {*/
+    /*margin-bottom: 15px;*/
 
-    input {
-      /*@include default-text-field;*/
-      width: 470px;
-    }
-    &.checkboxes input {
-      vertical-align: middle;
-      width: 16px;
-    }
-    .file {
-      padding: 0;
-    }
-  }
-  select {
-    font-size: 12px;
-  }
-  .password span {
-    display: block;
-    float: left;
-    width: 60px;
-  }
-  .contacts span {
-    display: block;
-    float: left;
-    width: 50px;
-  }
-  .oauth {
-    cursor: pointer;
-
-    form {
-      display: inline;
-    }
-  }
+    /*input {*/
+      /*[>@include default-text-field;<]*/
+      /*width: 470px;*/
+    /*}*/
+    /*&.checkboxes input {*/
+      /*vertical-align: middle;*/
+      /*width: 16px;*/
+    /*}*/
+    /*.file {*/
+      /*padding: 0;*/
+    /*}*/
+  /*}*/
+  /*select {*/
+    /*font-size: 12px;*/
+  /*}*/
+  /*.password span {*/
+    /*display: block;*/
+    /*float: left;*/
+    /*width: 60px;*/
+  /*}*/
+  /*.contacts span {*/
+    /*display: block;*/
+    /*float: left;*/
+    /*width: 50px;*/
+  /*}*/
   .left-block {
     width: 48.5%;
   }
   .right-block {
     width: 48.5%;
     float: right;
+  }
+  .oauth img {
+    margin-right: 5px;
   }
   .avatar-edit {
     @include clearfix;
@@ -88,9 +88,6 @@
     span {
       color: #555;
     }
-  }
-  .avatar-file {
-    max-width: 305px;
   }
   .list-clean {
     cursor: pointer;

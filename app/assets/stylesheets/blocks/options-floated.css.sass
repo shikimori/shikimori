@@ -1,0 +1,53 @@
+@import globals
+
+.options-floated
+  +text-font
+  color: #acb1b4
+  font-size: 11px
+  line-height: 12px
+  margin-top: 6px
+  position: absolute
+  right: 10px
+
+  &.r10
+    margin-right: 10px
+
+  .pointer
+    cursor: pointer
+
+  // страница контестов - options-floated, отображающий количество участников
+  &.count
+    color: $gray-color-2
+
+  // страница персонажа - переключение типов
+  a,.link
+    +link-color(#acb1b4)
+    color: inherit
+    cursor: pointer
+    margin-right: 7px
+
+    &:after
+      content: '/'
+      color: $gray-color
+      padding-left: 7px
+
+    &:last-child
+      margin-right: 0
+      &:after
+        display: none
+
+  // список пользователя
+  .action
+    +link-color(#123)
+    +transition(color, 0.2s)
+    cursor: pointer
+
+  .selected
+    color: #123
+
+    &:hover
+      color: #123
+      cursor: default
+
+.column .options-floated
+  right: 25px

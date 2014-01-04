@@ -8,8 +8,6 @@
     - contest.nearby_rounds.each do |round|
       span.linkeable data-href="#{round_contest_url contest, round: round}" title="#{round.title}"
         = round.title
-      - if contest.nearby_rounds.size == 2 && round != contest.nearby_rounds.last
-        | &nbsp;&nbsp;/&nbsp;&nbsp;
 
   .subheadline.m30
     = contest.displayed_round.title

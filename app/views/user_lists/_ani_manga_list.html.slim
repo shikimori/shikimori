@@ -8,8 +8,6 @@
           span.sep.zero.inline = "("
           = stat[:size]
           span.sep.zero.inline = ")"
-      - if stat != @presenter.current_counts.last
-        | &nbsp;&nbsp;/&nbsp;&nbsp;
 
   .subheadline
     = "Список #{t("Genetive.#{params[:list_type].capitalize}").downcase}"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131222065247) do
+ActiveRecord::Schema.define(:version => 20140102232544) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -956,7 +956,7 @@ ActiveRecord::Schema.define(:version => 20131222065247) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.date     "birth_at"
+    t.date     "birth_on"
     t.boolean  "social",                                :default => true
     t.datetime "read_only_at"
     t.boolean  "smileys",                               :default => true

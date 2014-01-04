@@ -1,0 +1,30 @@
+= form_for @user do |f|
+  .menu-block
+    .value.checkboxes.m5
+      p
+        = label_tag :user_anime, 'Отображать аниме'
+        = check_box_tag 'user[anime]', '', params[:user]['anime'] || @user.profile_settings.anime?
+      p
+        = label_tag :user_manga, 'Отображать мангу'
+        = check_box_tag 'user[manga]', '', params[:user]['manga'] || @user.profile_settings.manga?
+      p
+        = label_tag :user_manga_first, 'Сначала манга, потом аниме'
+        = check_box_tag 'user[manga_first]', '', params[:user]['manga_first'] || @user.profile_settings.manga_first?
+      p
+        = label_tag :user_clubs, 'Отображать клубы'
+        = check_box_tag 'user[clubs]', '', params[:user]['clubs'] || @user.profile_settings.clubs?
+      p
+        = label_tag :user_statistics, 'Отображать статистику'
+        = check_box_tag 'user[statistics]', '', params[:user]['statistics'] || @user.profile_settings.statistics?
+      p
+        = label_tag :user_comments, 'Отображать ленту комментариев'
+        = check_box_tag 'user[comments]', '', params[:user]['comments'] || @user.profile_settings.comments?
+
+    .field-name.statistics-date
+      span Дата старта статистики&nbsp;
+      .comment-block
+        = spoiler '(на что оно влияет)' do
+          img src="/images/static/statistics_start.png"
+    .value
+      = email_field_tag 'user[statistics_start]', (params[:user]['statistics_start'] || @user.profile_settings.statistics_start || '').to_s.sub(/(\d+)-(\d+)-(\d+)/, '\3.\2.\1'), class: 'common', placeholder: 'В формате дд.мм.гггг, например 20.10.2012'
+

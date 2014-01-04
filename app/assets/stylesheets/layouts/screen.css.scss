@@ -1,4 +1,5 @@
 @import "globals";
+@import "mixins/input";
 
 $page-offset: 40px;
 
@@ -656,13 +657,7 @@ span.notice {
 /*************************************************/
 /* input */
 input.common {
-  background-color: #FCFCFC;
-  border-color: #DDD;
-  color: #333;
-  line-height: 14px;
-  margin: 0;
-  padding-left: 5px;
-  width: 375px;
+  @include input;
 }
 .form-cancel {
   @include text-font;
