@@ -31,7 +31,7 @@ module AniManga
 
   # манга ли это?
   def manga?
-    self.class == Anime
+    self.class == Manga
   end
 
   def year

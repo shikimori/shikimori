@@ -58,16 +58,16 @@ data.each do |anime_dir, files|
     time = 0
     i = 0
     target_file = nil
-    files = []
+    images = []
 
     begin
       target_file = "%s/%s_#{index}_%03d.jpg" % [target_path, anime_name, i]
       time = START_FROM[files.size == 1] + i * SCREEN_EVERY[files.size == 1]
       %x{/usr/local/bin/ffmpeg -ss #{time} -i #{Shellwords.escape file_path} -y #{Shellwords.escape target_file}}
-      files << target_file if File.exists?(target_file)
+      images << target_file if File.exists?(target_file)
       i += 1
     end while File.exists?(target_file)
 
-    files.reverse.take(7).each {|v| File.delete v }
+    images.reverse.take(7).each {|v| File.delete v }
   end
 end
