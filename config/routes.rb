@@ -484,7 +484,7 @@ Site::Application.routes.draw do
 
     constraints id: /[^\/]+?/, format: /json|rss/ do
       get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/
-      get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /profile|styles|list|ignores|notifications/, type: 'settings'
+      get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /profile|styles|ignores|notifications/, type: 'settings'
       #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
       #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
       put ':id/settings' => 'users#update', as: :edit_user

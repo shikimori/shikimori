@@ -9,4 +9,5 @@
       = pf.input :comments_in_profile
       = pf.input :statistics_start_on, label: 'Отображать активность с даты', start_year: @user.created_at.year, end_year: Date.today.year, default: @user.created_at
 
-  = f.submit 'Сохранить'
+    .buttons
+      = f.submit 'Сохранить'

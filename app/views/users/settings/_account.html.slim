@@ -1,42 +1,44 @@
 = simple_form_for @user do |f|
-  .right-block.subcontent
-    .menu-block
-      = f.input :avatar, label: 'Аватар (160x160)'
-      .value.avatar-edit
-        - if @user.avatar.exists?
-          img src="#{gravatar_url @user, 160}" alt="#{@user.nickname}" title="#{@user.nickname}"
-          p.avatar-delete
-            | [
-            span удалить
-            | ]
-
-    - unless connected_providers_for(@user).empty?
+  .menu-block.subcontent
+    .right-block
       .menu-block
-        .subheadline.m10 Подключенная авторизация
-        .value.oauth.remove
-          - connected_providers_for(@user).each do |provider|
-            = link_to user_remove_provider_path(@user, provider) do
-              = image_tag "/images/omniauth/#{provider}.png", alt: "Отключить авторизацию через #{provider.to_s.titleize}", title: "Отключить авторизацию через #{provider.to_s.titleize}"
+        = f.input :avatar, label: 'Аватар (160x160)'
+        .value.avatar-edit
+          - if @user.avatar.exists?
+            img src="#{gravatar_url @user, 160}" alt="#{@user.nickname}" title="#{@user.nickname}"
+            p.avatar-delete
+              | [
+              span удалить
+              | ]
 
-    - unless unconnected_providers_for(@user).empty?
+      - unless connected_providers_for(@user).empty?
+        .menu-block
+          .subheadline.m10 Подключенная авторизация
+          .value.oauth.remove
+            - connected_providers_for(@user).each do |provider|
+              = link_to user_remove_provider_path(@user, provider) do
+                = image_tag "/images/omniauth/#{provider}.png", alt: "Отключить авторизацию через #{provider.to_s.titleize}", title: "Отключить авторизацию через #{provider.to_s.titleize}"
+
+      - unless unconnected_providers_for(@user).empty?
+        .menu-block
+          .subheadline.m10 Не подключенные сервисы
+          .value.oauth.add
+            - unconnected_providers_for(@user).each do |provider|
+              = link_to "/users/auth/#{provider}" do
+                = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
+
+    .left-block
       .menu-block
-        .subheadline.m10 Не подключенные сервисы
-        .value.oauth.add
-          - unconnected_providers_for(@user).each do |provider|
-            = link_to "/users/auth/#{provider}" do
-              = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
+        = f.input :nickname
+        - unless @user.encrypted_password.blank?
+          = f.input :password_check, label: 'Старый пароль'
+        = f.input :password, label: 'Новый пароль'
+        = f.input :email
+        = f.input :name
+        = f.input :location
+        = f.input :website
+        = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
+        = f.input :birth_on, start_year: Date.today.year - 90, end_year: Date.today.year - 8
 
-  .left-block.subcontent
-    .menu-block
-      = f.input :nickname
-      - unless @user.encrypted_password.blank?
-        = f.input :password_check, label: 'Старый пароль'
-      = f.input :password, label: 'Новый пароль'
-      = f.input :email
-      = f.input :name
-      = f.input :location
-      = f.input :website
-      = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
-      = f.input :birth_on, start_year: Date.today.year - 90, end_year: Date.today.year - 8
-
-  = f.submit 'Сохранить'
+    .buttons
+      = f.submit 'Сохранить'
