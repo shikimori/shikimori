@@ -210,8 +210,9 @@ $dark-grey-color: #545454;
 
     .quoteable {
       font-style: normal;
-      margin: -4px 0 0 -3px;
       line-height: 21px;
+      margin: -4px 0 0 -3px;
+      position: relative;
 
       &:before {
         color: #333;
