@@ -53,8 +53,8 @@
       /li.comment
         span Комментировать
       li.fav-add style="#{'display: none;' if @entry.seyu_favoured?}"
-        span.favourite-add data-remote="true" action="#{favourites_seyu_path @entry.class.name, @entry.id}" data-method="post" data-type="json" Добавить в избранное
+        span.favourite-add data-remote="true" action="#{favourites_seyu_path @entry.object.class.name, @entry.id}" data-method="post" data-type="json" Добавить в избранное
       li.fav-remove style="#{'display: none;' unless @entry.seyu_favoured?}"
-        span.favourite-remove data-remote="true" action="#{favourites_seyu_path @entry.class.name, @entry.id}" data-method="delete" data-type="json" Удалить из избранных
+        span.favourite-remove data-remote="true" action="#{favourites_seyu_path @entry.object.class.name, @entry.id}" data-method="delete" data-type="json" Удалить из избранных
 
 = render partial: 'blocks/favoured', object: @entry.favoured, formats: :html
