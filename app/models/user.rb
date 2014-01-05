@@ -233,7 +233,7 @@ class User < ActiveRecord::Base
     nickname.gsub(/ /, '+')
   end
 
-  def self.param_totext
+  def self.param_to text
     text.gsub(/\+/, ' ')
   end
 

@@ -133,6 +133,11 @@
       }
     }
   }
+  .ignores {
+    a {
+      @include normal-link;
+    }
+  }
 
   .item-minus {
     float: right;

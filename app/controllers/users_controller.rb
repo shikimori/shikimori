@@ -284,6 +284,14 @@ class UsersController < ApplicationController
     params[:user].delete(:nickname) if params[:user][:nickname].blank?
     params[:user][:notifications] = params[:user][:notifications].sum {|k,v| v.to_i } + MessagesController::DISABLED_CHECKED_NOTIFICATIONS if params[:user][:notifications].present?
 
+    if params[:user][:ignores].present?
+      @user.ignored_users = []
+
+      params[:user][:ignores].select {|v| !v.blank? }.take(20).each do |v|
+        @user.ignores.create! target_id: User.find_by_nickname(v).id
+      end
+    end
+
     if @user.update_attributes user_params
       redirect_to user_settings_path(@user, params[:page]), notice: 'Изменения сохранены'
     else

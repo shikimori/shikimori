@@ -27,14 +27,35 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
     //opacity: 1
   //});
 
-  //// игнорируемые пользователи
-  //$('.ignore-suggest').make_completable('Имя пользователя...', apply_autocomplete);
-  //$('.ignore-suggest').keypress(function(e) {
-    //if (e.charCode == 13) {
-      //apply_autocomplete.apply(this, [e, this.value, this.value]);
-      //return false;
-    //}
-  //});
+  // игнорируемые пользователи
+  $('.ignore-suggest').make_completable('Имя пользователя...');
+  $('.ignore-suggest').on('autocomplete:success', function(e, id, text, label) {
+    if (!id) {
+      return;
+    }
+    var $this = $(this);
+    var url = '/'+text;
+
+    var $container = $this.parent().find('.container');
+    if ($container.find('[value="'+text+'"]').length) {
+      return;
+    }
+    $container.append(
+      '<li>' +
+        '<span class="item-minus"></span>' +
+        '<input type="hidden" name="user[ignores][]" value="'+text+'" />' +
+        '<a href="'+url+'">'+text+'</a>' +
+      '</li>'
+    );
+    $this.attr('value', '');
+  });
+
+  $('.ignore-suggest').keypress(function(e) {
+    if (e.charCode == 13) {
+      $(this).trigger('autocomplete:success', [this.value, this.value]);
+      return false;
+    }
+  });
 
   //// tooltips
   //$('.settings .notice').tipsy({
@@ -78,10 +99,10 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
   //});
 //});
 
-//// отмена игнора
-//$('.ignores .item-minus').live('click', function() {
-  //$(this).parent().remove();
-//});
+// отмена игнора
+$('.ignores .item-minus').live('click', function() {
+  $(this).parent().remove();
+});
 
 // удаление аватара
 $('.avatar-delete span').live('click', function() {
@@ -106,27 +127,3 @@ $('.avatar-delete span').live('click', function() {
     //$(document.body).removeClass(cookie);
   //}
 //});
-
-//// автозаполнение пользователей для игнора
-//function apply_autocomplete(e, id, text, label) {
-  //if (!id) {
-    //return;
-  //}
-  ////id = id.replace(/ /, '+');
-  //var $this = $(this);
-  //var type = 'ignores';
-  //var url = '/'+text;
-
-  //var $container = $this.parent().find('.container');
-  //if ($container.find('[value="'+text+'"]').length) {
-    //return;
-  //}
-  //$container.append(
-    //'<li>' +
-      //'<span class="item-minus"></span>' +
-      //'<input type="hidden" name="'+type+'[]" value="'+text+'" />' +
-      //'<a href="'+url+'">'+text+'</a>' +
-    //'</li>'
-  //);
-  //$this.attr('value', '');
-//}

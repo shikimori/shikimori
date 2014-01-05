@@ -25,6 +25,17 @@
           = link_to "/users/auth/#{provider}" do
             = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
 
+  input.ignore-suggest.common.suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
+  .subheadline Игнорируемые пользователи
+  .value
+    = hidden_field_tag 'user[ignores][]', ''
+    ul.container.block-list.ignores
+      - @user.ignored_users.each do |user|
+        li
+          span.item-minus
+          = hidden_field_tag 'user[ignores][]', user.nickname
+          a href="#{user_url user}" = user.nickname
+
 .left-block
   .menu-block
     = f.input :nickname
