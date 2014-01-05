@@ -484,7 +484,7 @@ Site::Application.routes.draw do
 
     constraints id: /[^\/]+?/, format: /json|rss/ do
       get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/
-      get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|ignores|notifications/, type: 'settings'
+      get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications/, type: 'settings'
       #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
       #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
       put ':id(/:type/:page)' => 'users#update'
@@ -517,8 +517,8 @@ Site::Application.routes.draw do
     end
 
     constraints type: /anime|manga/ do
-      get 'list/:type/cleanup' =>  'user_rates#cleanup_warning', as: :list_cleanup
       delete 'list/:type/cleanup' =>  'user_rates#cleanup', as: :list_cleanup
+      delete 'list/:type/scores/reset' =>  'user_rates#reset', as: :list_scores_reset
     end
 
     post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe

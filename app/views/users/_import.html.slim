@@ -1,19 +1,20 @@
-#import_form.hover-form
-  div id="import-export"
-    p Что будем делать?
+#import_form
+  #import-export
     p.form-buttons
-      span#to_import.control data-next-step="import_phase_1"
-        span.link Импортировать
-      span#to_export.control data-next-step="export_phase"
-        span.link Экспортировать
+      p#to_import.control data-next-step="import_phase_1"
+        span.link Импортировать список
+      p#to_export.control data-next-step="export_phase"
+        span.link Экспортировать список
 
   #export_phase
     p Что будем экспортировать?
     p.form-buttons
-      span#anime.control data-target="#{ani_manga_export_path(list_type: :anime, id: current_user)}"
+      span#anime.control data-target="#{ani_manga_export_path list_type: :anime, id: current_user}"
         span.link Аниме
-      span#manga.control data-target="#{ani_manga_export_path(list_type: :manga, id: current_user)}"
+      span#manga.control data-target="#{ani_manga_export_path list_type: :manga, id: current_user}"
         span.link Мангу
+      span.cancel
+        span.link Отмена
 
   #import_phase_1
     p Откуда будем импортировать?
@@ -24,6 +25,8 @@
         span.link MyAnimeList-XML
       span#anime_planet.control data-final-step="import_anime_planet" title="anime-planet.com"
         span.link AnimePlanet
+      span.cancel
+        span.link Отмена
     /img src="/images/import/myanimelist.gif" id="myanimelist" alt="myanimelist.net" title="myanimelist.net" data-final-step="import_mal"
     /img src="/images/import/anime-planet.png" id="anime_planet" alt="anime-planet.com" title="anime-planet.com" data-final-step="import_anime_planet"
 
@@ -34,6 +37,8 @@
         span.link Аниме
       span#manga.control data-klass="manga" data-anime-planet-status="Read"
         span.link Мангу
+      span.cancel
+        span.link Отмена
 
   #import_phase_3
     p Будем ли заменять уже добавленное на shikimori.org?
@@ -42,6 +47,8 @@
         span.link Нет, импорт только нового
       span#full_import.control data-rewrite="1"
         span.link Да, полный импорт
+      span.cancel
+        span.link Отмена
 
   #import_phase_4
     p.m5
@@ -55,7 +62,7 @@
         span.link Импортировать
       span#direct_mal.control
         span.link Попробовать иначе
-      span#cancel.control
+      span.cancel.control
         span.link Отмена
 
   #import_xml
@@ -102,7 +109,7 @@
       = hidden_field_tag :list_type, :anime_planet
 
       p
-        | Что будем делать со статусом Won't
+        | Что будем делать со статусом Won't&nbsp;
         span#import_anime_planet_status
         | ?
       p.form-buttons

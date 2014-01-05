@@ -24,6 +24,6 @@ module CacheHelper
   end
 
   def social_key
-    !user_signed_in? || current_user.social ? 'social' : 'no_social'
+    !user_signed_in? || current_user.preferences.show_social_buttons? ? 'social' : 'no_social'
   end
 end

@@ -1,0 +1,40 @@
+.m20
+  = render partial: 'users/import', formats: :html
+
+.scores-reset
+  .controls
+    p.link data-type="anime" Сбросить все оценки аниме
+    p.link data-type="manga" Сбросить все оценки манги
+
+  .form.anime
+    p
+      span.warn Данная операция необратима!
+      span Подтвердите намерение сбросить все выставленные оценки для аниме (сами аниме из списка не удалятся).
+    a href="#{list_scores_reset_url type: :anime}" data-method="delete" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
+    span.link.cancel Отмена
+
+  .form.manga
+    p
+      span.warn Данная операция необратима!
+      span Подтвердите намерение сбросить все выставленные оценки для манги (сама манга из списка не удалится).
+    a href="#{list_scores_reset_url type: :manga}" data-method="delete" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
+    span.link.cancel Отмена
+
+.list-cleanup
+  .controls
+    p.link data-type="anime" Очистить полностью список аниме
+    p.link data-type="manga" Очистить полностью список манги
+
+  .form.anime
+    p
+      span.warn Данная операция необратима!
+      span Подтвердите намерение очистить свой список аниме и удалить всю историю по аниме.
+    a href="#{list_cleanup_url type: :anime}" data-method="delete" data-confirm="Вы действительно хотите очистить свой список аниме и потерять всю историю?" Да, подтверждаю
+    span.link.cancel Отмена
+
+  .form.manga
+    p
+      span.warn Данная операция необратима!
+      span Подтвердите намерение очистить свой список манги и удалить всю историю по манге.
+    a href="#{list_cleanup_url type: :manga}" data-method="delete" data-confirm="Вы действительно хотите очистить свой список манги и потерять всю историю?" Да, подтверждаю
+    span.link.cancel Отмена

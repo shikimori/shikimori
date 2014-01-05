@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140104161607) do
+ActiveRecord::Schema.define(:version => 20140105205348) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -897,6 +897,9 @@ ActiveRecord::Schema.define(:version => 20140104161607) do
     t.string   "page_background"
     t.boolean  "page_border",           :default => false
     t.string   "body_background"
+    t.boolean  "show_smileys",          :default => true
+    t.boolean  "show_social_buttons",   :default => true
+    t.boolean  "show_hentai_images",    :default => false
   end
 
   add_index "user_preferences", ["user_id"], :name => "index_profile_settings_on_user_id"
@@ -948,16 +951,13 @@ ActiveRecord::Schema.define(:version => 20140104161607) do
     t.datetime "last_online_at"
     t.text     "about"
     t.string   "sex"
-    t.string   "contacts_privacy",                      :default => "users"
     t.string   "website"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.date     "birth_on"
-    t.boolean  "social",                                :default => true
     t.datetime "read_only_at"
-    t.boolean  "smileys",                               :default => true
     t.boolean  "can_vote_1",                            :default => false,   :null => false
     t.boolean  "can_vote_2",                            :default => false,   :null => false
     t.boolean  "can_vote_3",                            :default => false,   :null => false

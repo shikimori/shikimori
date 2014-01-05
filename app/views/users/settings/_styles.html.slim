@@ -1,5 +1,23 @@
-.backgrounds
-  = f.simple_fields_for :preferences do |pf|
+= f.simple_fields_for :preferences do |pf|
+  .menu-block
+    = pf.input :russian_genres
+    = pf.input :russian_names
+    = pf.input :mylist_in_catalog
+    = pf.input :postload_in_catalog
+
+  /<p>
+    /<%=label_tag :new_catalog, 'Старый вариант каталога' %>
+    /<%=check_box_tag 'new_catalog', '', cookies.include?('OldCatalog'), 'data-cookie' => 'OldCatalog' %>
+    /(<span class="notice" title="Работает через cookies браузера без привязки к аккаунту">?</span>)
+  /</p>
+
+  .menu-block
+    = pf.input :show_hentai_images
+    = pf.input :show_social_buttons
+    = pf.input :show_smileys
+    = pf.input :menu_contest
+
+  .backgrounds
     p Фон центральной области
     = pf.input :page_background, as: :hidden
     .range-slider.noUiSlider

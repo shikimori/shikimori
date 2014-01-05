@@ -153,6 +153,7 @@ jQuery(function ($) {
             .appendTo('body');
 
         e.preventDefault();
+        e.stopImmediatePropagation();
         form.submit();
     });
 

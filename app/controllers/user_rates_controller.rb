@@ -2,11 +2,6 @@ class UserRatesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :prepare_edition
 
-  # предупреждение перед очисткой списка
-  def cleanup_warning
-    raise Forbidden unless ['anime', 'manga'].include? params[:type]
-  end
-
   # очистка списка и истории
   def cleanup
     raise Forbidden unless ['anime', 'manga'].include? params[:type]
@@ -15,8 +10,20 @@ class UserRatesController < ApplicationController
     current_user.history.where(action: "mal_#{params[:type]}_import").delete_all
     current_user.history.where(action: "ap_#{params[:type]}_import").delete_all
     current_user.send("#{params[:type]}_rates").delete_all
+    current_user.touch
 
-    flash[:notice] = "Очистка списка #{params[:type] == 'anime' ? 'аниме' : 'манги'} и истории завершена"
+    flash[:notice] = "Выполнена очистка вашего #{params[:type] == 'anime' ? 'аниме' : 'манги'} списка и вашей истории по #{params[:type] == 'anime' ? 'аниме' : 'манге'}"
+    redirect_to user_url(current_user)
+  end
+
+  # сброс оценок в списке
+  def reset
+    raise Forbidden unless ['anime', 'manga'].include? params[:type]
+
+    current_user.send("#{params[:type]}_rates").update_all score: 0
+    current_user.touch
+
+    flash[:notice] = "Выполнен сброс оценок в вашем #{params[:type] == 'anime' ? 'аниме' : 'манги'} списке"
     redirect_to user_url(current_user)
   end
 

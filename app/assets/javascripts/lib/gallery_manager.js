@@ -10,7 +10,8 @@ function GalleryManager($container, $loader, image_width) {
     'oral', 'footjob', 'erect_nipples\b.*\bpanties', 'breasts\b.*\btopless', 'crotch_zipper', 'bdsm', 'side-tie_panties', 'anal', 'masturbation',
     'panty_pull', 'loli', 'print_panties'
   ];
-  if ($.cookie('HentaiImages')) {
+
+  if ($gallery.data('with-hentai-images')) {
     forbidden_tags = null;
   } else {
     forbidden_tags = new RegExp(_.map(forbidden_tags, function(v,k) { return '\\b' + v + '\\b'; }).join('|'));
@@ -105,6 +106,7 @@ function GalleryManager($container, $loader, image_width) {
     });
     _.each(images, function(image) {
       hashes[image.md5] = true;
+      image.preview_width = parseInt(image.preview_width);
       cache.push(image);
     });
     hashes_count += images.length;
@@ -163,7 +165,9 @@ function GalleryManager($container, $loader, image_width) {
 
   // генерация шаблона картинки
   var image_html = function(image) {
-    return '<div class="image-container"><a href="' + image.url + '" rel="danbooru"><img src="' + image.preview + '" width="' + (image.preview_width > default_image_width ? default_image_width : image.preview_width) + '" /></a></div>';
+    return '<div class="image-container"><a href="' + image.url + '" rel="danbooru">' +
+      '<img src="' + image.preview + '" style="max-width:' + default_image_width + 'px" /></a></div>';
+      //'<img src="' + image.preview + '" width="' + (image.preview_width > default_image_width ? default_image_width : image.preview_width) + '" /></a></div>';
   };
 
   // вставка в галерею готовых картинок

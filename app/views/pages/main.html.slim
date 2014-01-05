@@ -76,7 +76,7 @@ div.page-content
                   = topic.title
                   | &nbsp;
 
-    - if !user_signed_in? || current_user.social
+    - if !user_signed_in? || current_user.preferences.show_social_buttons?
       div.social
         div#vk_like data-page-id="#{request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '') }" data-page-url="#{request.url }"
         div#fb-root

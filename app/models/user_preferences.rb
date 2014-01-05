@@ -2,7 +2,7 @@
 class UserPreferences < ActiveRecord::Base
   DefaultSort = 'name'
 
-  belongs_to :user
+  belongs_to :user, touch: true
 
   def anime_in_profile?
     anime_in_profile
@@ -46,6 +46,18 @@ class UserPreferences < ActiveRecord::Base
 
   def menu_contest?
     menu_contest
+  end
+
+  def show_smileys?
+    show_smileys
+  end
+
+  def show_social_buttons?
+    show_social_buttons
+  end
+
+  def show_hentai_images?
+    show_hentai_images
   end
 
   def update_sorting(order)

@@ -3,10 +3,6 @@
 - content_for :tail do
   = javascript_include_tag :users
 
-- if own_profile?
-  - content_for(:form) do
-    = render partial: 'users/import'
-
 section
   - if params[:controller] == 'messages'
     - if params[:action] == 'new'

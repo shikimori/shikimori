@@ -580,9 +580,9 @@ div.title {
     margin-bottom: 5px;
     border-bottom: none;
   }
-  p {
-    font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,Helvetica,sans-serif;
-  }
+  /*p {*/
+    /*font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,Helvetica,sans-serif;*/
+  /*}*/
   .input {
     @include default-text-field;
     width: 99%;

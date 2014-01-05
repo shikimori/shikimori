@@ -10,8 +10,6 @@
 
   .options-floated.about-options
     = pf.input :about_on_top
-    /= label_tag :user_about_on_top, 'Отображать над статистикой'
-    /= check_box_tag 'user[about_on_top]', '', params[:user]['about_on_top'] || @user.profile_settings.about_on_top?
 
   .subheadline.m2 О себе
   .forum-container
