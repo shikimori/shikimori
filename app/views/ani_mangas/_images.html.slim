@@ -3,6 +3,5 @@
 .subheadline.m10 Галерея
 
 .images-list.mal
-  = render :partial => 'images/image', :collection => @entry.images, :locals => {:group_name => 'images', :style => :original}, formats: :html
-
-= render :partial => 'images/tag_suggest', formats: :html
+  = render partial: 'images/image', collection: @entry.images, locals: { group_name: 'images', style: :original }, formats: :html
+= render 'images/tag_suggest', entry: @entry.object, formats: :html

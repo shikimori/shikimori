@@ -66,4 +66,12 @@ class Character < ActiveRecord::Base
   def altname
     fullname.present? ? fullname.gsub(/^.*?"|".*?$/, '') : nil
   end
+
+  def anime?
+    false
+  end
+
+  def manga?
+    false
+  end
 end

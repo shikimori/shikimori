@@ -1,13 +1,13 @@
-div.danbooru-suggest
-  div.suggest-not-found
+.danbooru-suggest
+  .suggest-not-found
     p Дополнительных изображений не найдено.
-    p Возможно для #{@entry.anime? ? 'данного аниме' : 'данной манги'} был неверно задан тег поиска.
+    p Возможно для #{entry.anime? ? 'данного аниме' : (entry.manga? ? 'данной манги' : 'данного персонажа')} был неверно задан тег поиска.
   p
     span Вы очень поможете сайту, задав правильный тег:
     span.control.item-save Тег указан верно
     input.tag-suggest.common type="text" data-autocomplete="#{autocomplete_danbooru_tags_url search: ''}" value="#{@entry.tags}"
-  = form_tag moderation_do_user_change_path, :format => :json, :remote => true, 'data-type' => :json do
-    = hidden_field_tag 'change[model]', @entry.class.name, :autocomplete => :off
-    = hidden_field_tag 'change[column]', 'tags', :autocomplete => :off
-    = hidden_field_tag 'change[item_id]', @entry.id, :autocomplete => :off
-    = hidden_field_tag 'change[value]', '', :autocomplete => :off
+  = form_tag moderation_do_user_change_path, format: :json, remote: true, 'data-type' => :json do
+    = hidden_field_tag 'change[model]', entry.class.name, autocomplete: :off
+    = hidden_field_tag 'change[column]', 'tags', autocomplete: :off
+    = hidden_field_tag 'change[item_id]', entry.id, autocomplete: :off
+    = hidden_field_tag 'change[value]', '', autocomplete: :off
