@@ -75,10 +75,10 @@ nav.menu-block
         span.link data-href="#{@entry.new_review_url}" Написать обзор
 
       li.fav-add style="#{'display: none;' if @entry.favoured?}"
-        span.favourite-add data-remote="true" action="#{favourites_url @entry.class.name, @entry}" data-method="post" data-type="json" Добавить в избранное
+        span.favourite-add data-remote="true" action="#{favourites_url @entry.object.class.name, @entry}" data-method="post" data-type="json" Добавить в избранное
 
       li.fav-remove style="#{'display: none;' unless @entry.favoured?}"
-        span.favourite-remove data-remote="true" action="#{favourites_url @entry.class.name, @entry}" data-method="delete" data-type="json" Удалить из избранных
+        span.favourite-remove data-remote="true" action="#{favourites_url @entry.object.class.name, @entry}" data-method="delete" data-type="json" Удалить из избранных
 
       li.list-remove style="#{'display: none;' unless @entry.rate}"
         span#rate-del.remove-from-list data-remote="true" action="#{@entry.rate_url}" data-method="delete" data-type="json" Удалить из списка
@@ -122,7 +122,7 @@ nav.menu-block
           - UserRateStatus.statuses.each do |status|
             li id="rate-status-#{status[:id]}" class="#{'selected' if @entry.rate && @entry.rate.status == status[:id]}"
               span
-                = t "#{@entry.class.name}RateStatus.#{status[:name]}"
+                = t "#{@entry.object.class.name}RateStatus.#{status[:name]}"
 
       .m10
         - if @entry.respond_to? :episodes

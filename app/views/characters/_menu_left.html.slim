@@ -36,10 +36,10 @@
           span Комментировать
 
         li.fav-add style="#{'display: none;' if @entry.favoured?}"
-          span.favourite-add data-remote="true" action="#{favourites_path @entry.class.name, @entry.id}" data-method="post" data-type="json" Добавить в избранное
+          span.favourite-add data-remote="true" action="#{favourites_path @entry.object.class.name, @entry.id}" data-method="post" data-type="json" Добавить в избранное
 
         li.fav-remove style="#{'display: none;' unless @entry.favoured?}"
-          span.favourite-remove data-remote="true" action="#{favourites_path @entry.class.name, @entry.id}" data-method="delete" data-type="json" Удалить из избранных
+          span.favourite-remove data-remote="true" action="#{favourites_path @entry.object.class.name, @entry.id}" data-method="delete" data-type="json" Удалить из избранных
 
         li.edit-entry
           span Редактировать персонажа
