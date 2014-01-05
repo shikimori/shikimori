@@ -55,6 +55,8 @@ class AnimeCalendar < ActiveRecord::Base
     "inari" => 20457,
     "maken-ki! tsu" => 15565,
     "sekai seifuku ~ boryaku no zvezda" => 20973,
+    'saikin' => 17777,
+    'seitokai yakuindomo＊' => 20847
   }
 
   EpisodesDiff = {
