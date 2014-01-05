@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   CommentForbiddenMessage = 'Вы не можете писать этому пользователю'
 
-  attr_accessible :nickname, :email, :password, :password_confirmation, :remember_me, :read_only_at
+  #attr_accessible :nickname, :email, :password, :password_confirmation, :remember_me, :read_only_at
 
   has_many :user_tokens do
     def facebook
@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def apply_omniauth(omniauth)
+  def apply_omniauth omniauth
     self.omniauth = omniauth
     populate_from_omni(omniauth)
 
@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
     self.email = "generated_#{fast_token}@shikimori.org" if self.email.blank?
   end
 
-  def populate_from_omni(omni)
+  def populate_from_omni omni
     self.nickname = omni.info['nickname'] if self.nickname.blank? && omni.info['nickname'].present?
     self.nickname = omni.info['name'] if self.nickname.blank? && omni.info['name'].present?
     self.name = omni.info['name'] if self.name.blank? && omni.info['name'].present?
@@ -167,13 +167,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def populate_from_twitter(omni)
+  def populate_from_twitter omni
   end
 
-  def populate_from_google_apps(omni)
+  def populate_from_google_apps omni
   end
 
-  def populate_from_facebook(omni)
+  def populate_from_facebook omni
     self.location = omni.extra.raw_info['location']['name'] if self.location.blank? && omni.extra.raw_info['location'] && omni.extra.raw_info['location']['name'].present?
 
     if self.sex.blank? && omni.extra.raw_info['gender'].present?
@@ -185,10 +185,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def populate_from_yandex(omni)
+  def populate_from_yandex omni
   end
 
-  def populate_from_vkontakte(omni)
+  def populate_from_vkontakte omni
     self.avatar = open(omni.extra.raw_info['photo_big']) if !self.avatar.present? && omni.extra.raw_info['photo_big'].present? && omni.extra.raw_info['photo_big'] =~ /^https?:\/\//
     self.avatar = open(omni.info['image']) if !self.avatar.present? && omni.info['image'].present? && omni.info['image'] =~ /^https?:\/\//
 
@@ -233,11 +233,11 @@ class User < ActiveRecord::Base
     nickname.gsub(/ /, '+')
   end
 
-  def self.param_to(text)
+  def self.param_totext
     text.gsub(/\+/, ' ')
   end
 
-  def self.find_by_nickname(nick)
+  def self.find_by_nickname nick
     method_missing(:find_by_nickname, nick.gsub('+', ' '))
   end
 
@@ -334,7 +334,7 @@ class User < ActiveRecord::Base
   end
 
   # может ли пользователь сейчас голосовать за указанный контест?
-  def can_vote?(contest)
+  def can_vote? contest
     contest.started? && self[contest.user_vote_key]
   end
   # может ли пользователь сейчас голосовать за первый турнир?
@@ -350,13 +350,13 @@ class User < ActiveRecord::Base
     can_vote_3
   end
 
-  def favoured?(entry, kind=nil)
+  def favoured? entry, kind=nil
     @favs ||= favourites.all
     @favs.any? { |v| v.linked_id == entry.id && v.linked_type == entry.class.name && (kind.nil? || v.kind == kind) }
   end
 
   # колбек, который вызовет comments_controller при добавлении комментария в профиле пользователя
-  def comment_added(comment)
+  def comment_added comment
     return if self.messages.where(kind: MessageType::ProfileCommented).
                             where(read: false).
                             count > 0
@@ -371,22 +371,22 @@ class User < ActiveRecord::Base
   end
 
   # подписка на элемент
-  def subscribe(entry)
+  def subscribe entry
     subscriptions << Subscription.create!(user_id: self.id, target_id: entry.id, target_type: entry.class.name) unless subscribed?(entry)
   end
 
   # отписка от элемента
-  def unsubscribe(entry)
+  def unsubscribe entry
     subscriptions.select {|v| v.target_id == entry.id && v.target_type == entry.class.name }
                  .each {|v| v.destroy }
   end
 
   # подписан ли пользователь на элемент?
-  def subscribed?(entry)
+  def subscribed? entry
     subscriptions.any? {|v| v.target_id == entry.id && v.target_type == entry.class.name }
   end
 
-  def ignores?(user)
+  def ignores? user
     cached_ignores.any? { |v| v.target_id == user.id }
   end
 
@@ -413,6 +413,9 @@ class User < ActiveRecord::Base
   def remember_me
     true
   end
+
+  #def update_with_password u
+  #end
 
 private
   # создание первой записи в историю - о регистрации на сайте
@@ -460,7 +463,7 @@ private
       kind: MessageType::Private,
       body: "Добро пожаловать.
 [url=http://shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся овтеты на наиболее часто задаваемые вопросы.
-Импортировать список аниме и манги из [url=http://myanimelist.net]myanimelist.net[/url] или [url=http://anime-planet.com]anime-planet.com[/url] можно в [url=/#{self.to_param}/settings]настройках профиля[/url]. Там же можно изменить свой никнейм.
+Импортировать список аниме и манги из [url=http://myanimelist.net]myanimelist.net[/url] или [url=http://anime-planet.com]anime-planet.com[/url] можно в [url=/#{to_param}/settings]настройках профиля[/url]. Там же можно изменить свой никнейм.
 Перед постингом на форуме рекомендуем ознакомиться с [url=http://shikimori.org/s/79042-Pravila-sayta]правилами сайта[/url].
 
 Если возникнут вопросы или пожелания - пишите, мы постараемся вам ответить."
@@ -476,7 +479,7 @@ private
     })
   end
 
-  def truncated_message_with_url(message="", url="", length=140)
+  def truncated_message_with_url message="", url="", length=140
     if message.size + url.size > 140
       share = message[0..(136-url.size)] + "..." + url
     else
@@ -489,7 +492,7 @@ private
     @ignores ||= ignores
   end
 
-  def self.find_by_nickname(nickname)
+  def self.find_by_nickname nickname
     self.where(nickname: nickname).select {|v| v.nickname == nickname }.first
   end
 

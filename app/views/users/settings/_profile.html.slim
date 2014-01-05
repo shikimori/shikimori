@@ -1,13 +1,19 @@
-= simple_form_for @user do |f|
-  .menu-block.subcontent
-    = f.simple_fields_for :preferences do |pf|
-      = pf.input :anime_in_profile
-      = pf.input :manga_in_profile
-      = pf.input :manga_first
-      = pf.input :clubs_in_profile
-      = pf.input :statistics_in_profile
-      = pf.input :comments_in_profile
-      = pf.input :statistics_start_on, label: 'Отображать активность с даты', start_year: @user.created_at.year, end_year: Date.today.year, default: @user.created_at
+= f.simple_fields_for :preferences do |pf|
+  .menu-block
+    = pf.input :anime_in_profile
+    = pf.input :manga_in_profile
+    = pf.input :manga_first
+    = pf.input :clubs_in_profile
+    = pf.input :statistics_in_profile
+    = pf.input :comments_in_profile
+    = pf.input :statistics_start_on, label: 'Отображать активность с даты', start_year: @user.created_at.year, end_year: Date.today.year, default: @user.created_at
 
-    .buttons
-      = f.submit 'Сохранить'
+  .options-floated.about-options
+    = pf.input :about_on_top
+    /= label_tag :user_about_on_top, 'Отображать над статистикой'
+    /= check_box_tag 'user[about_on_top]', '', params[:user]['about_on_top'] || @user.profile_settings.about_on_top?
+
+  .subheadline.m2 О себе
+  .forum-container
+    .comments.zero-margin.zero-top-border
+      = render partial: 'comments/add', locals: { options: { text: @user.about || '', field_name: 'user[about]', no_save: true, no_subscribe: true, no_form: true, no_focus: true } }, formats: :html

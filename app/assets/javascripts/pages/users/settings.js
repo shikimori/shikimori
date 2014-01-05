@@ -45,7 +45,7 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
 
   var $page_background = $('#user_preferences_attributes_page_background');
   var $page = $('.page');
-  $(".range-slider").data('value', $page_background.val()).noUiSlider({
+  $(".range-slider").data('value', $page_background.val() || 0).noUiSlider({
     range: [0, 12],
     start: parseFloat($(".range-slider").data('value')),
     handles: 1,
@@ -87,8 +87,8 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
 $('.avatar-delete span').live('click', function() {
   $(this)
     .closest('form')
-    .find('.b-input.file input')
-    .replaceWith('<p class="avatar-delete">[<span>сохраните настройки профиля</span>]</p><input type="hidden" name="delete_avatar" value="1" />');
+    .find('.b-input.file #user_avatar')
+    .replaceWith('<p class="avatar-delete">[<span>сохраните настройки профиля</span>]</p><input type="hidden" name="user[avatar]" value="blank" />');
   $(this)
     .closest('.avatar-edit')
     .remove();

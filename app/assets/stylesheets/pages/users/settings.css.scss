@@ -34,6 +34,13 @@
   .b-input input {
     width: 470px;
   }
+  .change-password {
+    @include normal-link;
+    @include text-font;
+    display: inline-block;
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
   // TODO: удалить
   /*.value {*/
     /*margin-bottom: 15px;*/
@@ -148,13 +155,11 @@
     }
   }
   .about-options {
-    margin-top: 3px;
-    right: 3px;
+    margin-top: 2px;
 
     label {
-      float: left;
-      margin-top: 4px;
       color: #333;
+      font-size: 11px;
     }
   }
   .messages-settings {
@@ -165,7 +170,7 @@
   .backgrounds {
     .range-slider {
       margin-top: 10px;
-      margin-left: 10px;
+      margin-left: 5px;
       margin-bottom: 25px;
     }
     #user_page_background {

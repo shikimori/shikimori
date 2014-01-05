@@ -6,4 +6,13 @@
   a class="#{:selected if params[:page] == 'ignores'}" href="#{user_settings_url @user, page: 'ignores'}" Игнор
 .subheadline.m10 Настройки
 
-= render partial: "users/settings/#{params[:page]}", formats: :html
+.subcontent
+  - if params[:page] == 'password'
+    = render partial: "users/settings/#{params[:page]}", formats: :html
+  - else
+    = simple_form_for @user do |f|
+      input type="hidden" name="page" value="#{params[:page]}"
+      = render partial: "users/settings/#{params[:page]}", locals: { f: f }, formats: :html
+
+      .buttons
+        = f.submit 'Сохранить'

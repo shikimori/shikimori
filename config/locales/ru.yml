@@ -26,17 +26,20 @@ ru:
         location: Откуда
         website: Сайт
         avatar: Аватар
-        password: Пароль
-        password_check: Старый пароль
+        password: Новый пароль
+        password_confirmation: Подтверждение пароля
+        current_password: Текущий пароль
+
       user_preferences:
-        anime_in_profile: Отображать аниме
-        manga_in_profile: Отображать мангу
-        manga_first: Сначала манга, потом аниме
-        clubs_in_profile: Отображать клубы
-        statistics_in_profile: Отображать статистику
-        comments_in_profile: Отображать комментарии
+        anime_in_profile: Отображать аниме в профиле
+        manga_in_profile: Отображать мангу в профиле
+        manga_first: Отображать сначала мангу, потом аниме
+        clubs_in_profile: Отображать клубы в профиле
+        statistics_in_profile: Отображать статистику в профиле
+        comments_in_profile: Отображать комментарии в профиле
         body_background: Фон боковой области
         page_border: Полупрозрачная рамка по бокам страницы
+        about_on_top: Отображать над статистикой
 
     # сообщения валидаций
     errors:

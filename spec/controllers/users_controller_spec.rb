@@ -1,0 +1,72 @@
+require 'spec_helper'
+
+describe UsersController do
+  let(:user) { create :user, password: '123' }
+  before { sign_in user }
+
+  describe :settings do
+    describe :json do
+      before { get :show, id: user.to_param, type: 'settings', page: 'account', format: :json }
+      it { should respond_with_content_type :json }
+      it { should respond_with :success }
+    end
+
+    describe :account do
+      before { get :show, id: user.to_param, type: 'settings', page: 'account' }
+      it { should respond_with_content_type :html }
+      it { should respond_with :success }
+    end
+
+    describe :profile do
+      before { get :show, id: user.to_param, type: 'settings', page: 'profile' }
+      it { should respond_with :success }
+    end
+  end
+
+  describe :update_password do
+    context 'user without password' do
+      before do
+        user.update_column :encrypted_password, nil
+        controller.stub(:current_user).and_return user
+        put :update_password, id: user.to_param, user: { password: '1234', password_confirmation: '1234' }
+      end
+      it { should redirect_to user_settings_path(user) }
+    end
+
+    context 'user with password' do
+      context 'with correct password' do
+        before { put :update_password, id: user.to_param, user: { current_password: '123', password: '1234', password_confirmation: '1234' } }
+        it { should redirect_to user_settings_path(user) }
+      end
+
+      context 'invalid password' do
+        before { put :update_password, id: user.to_param, user: { current_password: '1234', password: '1234', password_confirmation: '1234' } }
+        it { should respond_with :success }
+      end
+
+      context 'no password' do
+        before { put :update_password, id: user.to_param, user: {} }
+        it { should respond_with :success }
+      end
+    end
+
+    context 'wrong user' do
+      let(:user2) { create :user }
+      before { put :update_password, id: user2.to_param, user: { current_password: '123', password: '1234', password_confirmation: '1234' } }
+      it { should respond_with :forbidden }
+    end
+  end
+
+  describe :update do
+    context 'wrong user' do
+      let(:user2) { create :user }
+      before { put :update, id: user2.to_param }
+      it { should respond_with :forbidden }
+    end
+
+    context 'nickname change' do
+      before { put :update, id: user.to_param, page: :account, user: { nickname: 'test2' } }
+      it { should redirect_to user_settings_url('test2', page: :account) }
+    end
+  end
+end
