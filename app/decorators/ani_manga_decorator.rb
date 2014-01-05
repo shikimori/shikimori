@@ -7,6 +7,10 @@ class AniMangaDecorator < Draper::Decorator
 
   delegate_all
 
+  def source
+    object.source
+  end
+
   # топики
   def topics
     @topics ||= object
