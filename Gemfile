@@ -25,6 +25,7 @@ gem 'paperclip', '2.4.3'
 gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
 gem 'simple_form'
+gem 'strong_parameters'
 
 gem 'devise'
 

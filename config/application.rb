@@ -46,6 +46,11 @@ module Site
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # strong parameters
+    # TODO: remove in rails 4
+    config.active_record.whitelist_attributes = false
+    ActiveRecord::Base.send(:include, ActiveModel::ForbiddenAttributesProtection)
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
