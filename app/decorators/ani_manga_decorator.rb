@@ -68,11 +68,6 @@ class AniMangaDecorator < Draper::Decorator
     @rate ||= h.user_signed_in? ? object.rates.find_by_user_id(h.current_user.id) : nil
   end
 
-  # аниме ли это?
-  def anime?
-    object.class == Anime
-  end
-
   # основной топик
   def thread
     @thread ||= object.thread

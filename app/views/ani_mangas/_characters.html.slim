@@ -11,7 +11,7 @@
 - if @entry.roles.people.any?
   .options-floated.collapse
     span.action свернуть (#{@entry.roles.people.size})
-  h2 class="subheadline m10 clearfix" Создатели #{@entry.class == Anime ? 'аниме' : 'манги'}
+  h2 class="subheadline m10 clearfix" Создатели #{@entry.anime? ? 'аниме' : 'манги'}
   .collapsed.tiny ...
   .people-container
     - @entry.roles.people.map {|v| v.role }.uniq.sort.each do |role|

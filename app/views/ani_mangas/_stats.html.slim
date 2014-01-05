@@ -46,7 +46,7 @@
         .comments-container.bottom-add
           = render partial: 'comments/add', locals: { options: { \
                   object: User.find(User::GuestID), \
-                  text: "[#{@entry.class.name.downcase}_poster=#{@entry.id}]Рекомендую #{@entry.class == Anime ? "посмотреть [anime=#{@entry.id}]#{@entry.name}[/anime]." : "почитать [manga=#{@entry.id}]#{@entry.name}[/manga]"}", \
+                  text: "[#{@entry.class.name.downcase}_poster=#{@entry.id}]Рекомендую #{@entry.anime? ? "посмотреть [anime=#{@entry.id}]#{@entry.name}[/anime]." : "почитать [manga=#{@entry.id}]#{@entry.name}[/manga]"}", \
                   no_subscribe: true,\
                   no_focus: true\
                 } \

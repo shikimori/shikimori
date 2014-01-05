@@ -4,7 +4,7 @@ meta itemprop="headline" content="#{{@entry.name}}"
 
 - if @entry.kind == 'Movie' && (@entry.aired_at || @entry.released_at)
   meta itemprop="datePublished" content="#{@entry.aired_at.to_s || @entry.released_at.to_s}"
-- elsif @entry.class == Anime
+- elsif @entry.anime?
   - if @entry.aired_at
     meta itemprop="startDate" content="#{@entry.aired_at.to_s}"
   - if @entry.released_at

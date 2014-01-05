@@ -24,6 +24,16 @@ module AniManga
               ]
   end
 
+  # аниме ли это?
+  def anime?
+    self.class == Anime
+  end
+
+  # манга ли это?
+  def manga?
+    self.class == Anime
+  end
+
   def year
     aired_at ? aired_at.year : nil
   end

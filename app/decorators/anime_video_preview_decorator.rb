@@ -1,4 +1,4 @@
-class AnimeVideoPreviewDecorator < Draper::Decorator
+class AnimeVideoPreviewDecorator < ApplicationDecorator
   delegate_all
 
   def name

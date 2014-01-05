@@ -1,11 +1,11 @@
 <% if defined?(tag_name) && tag_name == :div %>
   <div class="subheadline">
     <span class="linkeable" data-href="<%=@entry.page_url :similar %>">
-      <%=@entry.class == Anime ? 'Похожие аниме' : 'Похожая манга' %>
+      <%=@entry.anime? ? 'Похожие аниме' : 'Похожая манга' %>
     </span>
   </div>
 <% else %>
-  <div class="subheadline"><%=@entry.class == Anime ? 'Похожие аниме' : 'Похожая манга' %></div>
+  <div class="subheadline"><%=@entry.anime? ? 'Похожие аниме' : 'Похожая манга' %></div>
 <% end %>
 
 <div>

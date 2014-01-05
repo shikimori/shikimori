@@ -15,18 +15,18 @@ class ChronologyQuery
 
 private
   def related_klass
-     @entry.class == Anime ? RelatedAnime : RelatedManga
+     @entry.anime? ? RelatedAnime : RelatedManga
   end
 
   def related_field
-     @entry.class == Anime ? :anime_id : :manga_id
+     @entry.anime? ? :anime_id : :manga_id
   end
 
   def bad_relations
-    if @entry.class == Manga
+    if @entry.manga?
       [20566,25482,13721,27327]
     else
-      [6115]
+      [6115,17813,17819]
     end
   end
 
