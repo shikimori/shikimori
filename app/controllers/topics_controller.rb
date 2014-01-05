@@ -168,10 +168,7 @@ class TopicsController < ForumController
       Topic
     end
 
-    @topic = klass.new(params[:topic].merge({
-      user: current_user,
-      linked: linked
-    }))
+    @topic = klass.new(params[:topic].except(:type).merge user: current_user, linked: linked)
     @topic.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
 
     if @topic.save

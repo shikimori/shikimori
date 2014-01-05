@@ -21,21 +21,21 @@ aside.left-column.menu-block
       .subheadline
         = @entry.genres.size > 1 ? 'Жанры' : 'Жанр'
       .subblock-genres.subblock-content
-        = render partial: 'ani_mangas/genres_info', locals: { entry: @entry }, formats: :html
+        = render partial: 'ani_mangas/genres_info', locals: { entry: @entry.object }, formats: :html
 
   - if @entry.respond_to?(:studios) && @entry.studios.any?
     .menu-block
       .subheadline
         = @entry.real_studios.size > 1 ? 'Студии' : 'Студия'
       .subblock-content
-        = render partial: 'animes/studios_info', locals: { entry: @entry }, formats: :html
+        = render partial: 'animes/studios_info', locals: { entry: @entry.object }, formats: :html
 
   - if @entry.respond_to?(:publishers) && @entry.publishers.any?
     .menu-block
       .subheadline
         = @entry.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
       .subblock-content
-        = render partial: 'mangas/publishers_info', locals: { entry: @entry }, formats: :html
+        = render partial: 'mangas/publishers_info', locals: { entry: @entry.object }, formats: :html
 
   .menu-block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
     - if @entry.with_score? && !@entry.anons?
@@ -43,7 +43,7 @@ aside.left-column.menu-block
       .scores.rate-block
         meta itemprop="bestRating" content="10"
         meta itemprop="ratingValue" content="#{@entry.score}"
-        meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/20).to_i}"
+        meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/17).to_i}"
         = render partial: 'ani_mangas/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
 
 .right-column.menu-block
