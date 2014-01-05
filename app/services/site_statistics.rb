@@ -39,15 +39,15 @@ class SiteStatistics
   end
 
   def user_changes_moderators
-    User.where(id: User::UserChangesModerators - [1])
+    User.where(id: User::UserChangesModerators - User::Admins)
   end
 
   def forum_moderators
-    User.where(id: User::Moderators - [1])
+    User.where(id: User::Moderators - User::Admins)
   end
 
   def cosplay_moderators
-    User.where(id: User::CosplayModerators - [1])
+    User.where(id: User::CosplayModerators - User::Admins)
   end
 
   def translators
