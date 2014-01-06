@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
 
   CommentForbiddenMessage = 'Вы не можете писать этому пользователю'
 
-  #attr_accessible :nickname, :email, :password, :password_confirmation, :remember_me, :read_only_at
-
   has_many :user_tokens do
     def facebook
       target.detect {|t| t.provider == 'facebook' }

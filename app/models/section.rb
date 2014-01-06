@@ -4,8 +4,6 @@ class Section < ActiveRecord::Base
 
   before_create :set_permalink
 
-  attr_accessible :id, :name, :permalink, :description, :meta_title, :meta_keywords, :meta_description
-
   News = Section.new({
     name: 'Новости',
     permalink: 'news',

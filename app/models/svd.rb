@@ -6,8 +6,6 @@ class Svd < ActiveRecord::Base
   serialize :entry_ids
   serialize :user_ids
 
-  attr_accessible :scale, :kind
-
   validates :lsa, presence: true
   validates :entry_ids, presence: true
   validates :user_ids, presence: true

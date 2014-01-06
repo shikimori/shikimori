@@ -37,6 +37,10 @@ Manga.where(imported_at: nil).includes(:rates).select{|v| v.rates.empty? }.each(
 ###########################
 "ALTER TABLE anime_video_authors MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci"
 ###########################
+# Очистка пустых картинок
+###########################
+Person.where(image_file_name: ['na.gif', 'na_series.gif']).update_all image_file_name:nil, image_content_type: nil, image_file_size: nil
+###########################
 # Починка битых каринок, если они загрузились без расширения
 ###########################
 Dir.foreach(Rails.root.join 'public', 'images', 'person', 'original').select {|v| v =~ /\d+\.$/ }.each do |id|

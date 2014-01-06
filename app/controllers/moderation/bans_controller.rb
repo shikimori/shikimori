@@ -39,7 +39,15 @@ class Moderation::BansController < ApplicationController
   def create
     raise Forbidden unless current_user.moderator?
 
-    @ban = Ban.new params[:ban].merge moderator_id: current_user.id
+    @ban = Ban.new ban_params
     render json: @ban.errors.full_messages, status: :unprocessable_entity unless @ban.save
+  end
+
+private
+  def ban_params
+    params
+      .require(:ban)
+      .permit(:reason, :duration, :comment_id, :abuse_request_id, :user_id)
+      .merge(moderator_id: current_user.id)
   end
 end

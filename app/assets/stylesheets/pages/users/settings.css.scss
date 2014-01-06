@@ -126,25 +126,6 @@
       }
     }
   }
-  .ignores, .list-cleanup, .scores-reset {
-    margin-bottom: 20px;
-
-    a, .link {
-      @include normal-link;
-      @include text-font;
-    }
-    .form {
-      display: none;
-    }
-    .cancel {
-      padding-left: 15px;
-    }
-    .warn {
-      color: red;
-      padding-right: 5px;
-    }
-  }
-
   .item-minus {
     float: right;
   }
@@ -246,6 +227,24 @@
     }
     #import-export {
       display: block;
+    }
+  }
+  .ignores, .list-cleanup, .scores-reset, .recommendations-cleanup {
+    margin-bottom: 20px;
+
+    a, .link {
+      @include normal-link;
+      @include text-font;
+    }
+    .form {
+      display: none;
+    }
+    .cancel {
+      padding-left: 15px;
+    }
+    .warn {
+      color: red;
+      padding-right: 5px;
     }
   }
 }

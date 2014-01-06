@@ -13,6 +13,6 @@ describe Complaint do
 
     subject { Message.all }
     it { should have(1).item }
-    specify { subject.first.body.should eq "Пожаловались на видео 1 [broken_video] http://anime_online/videos/1" }
+    specify { subject.first.body.should eq "Пожаловались на видео id:1 [broken_video] http://anime_online/videos/1" }
   end
 end

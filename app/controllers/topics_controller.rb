@@ -168,7 +168,7 @@ class TopicsController < ForumController
       Topic
     end
 
-    @topic = klass.new(params[:topic].except(:type).merge user: current_user, linked: linked)
+    @topic = klass.new topic_params.merge(user: current_user, linked: linked)
     @topic.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
 
     if @topic.save
@@ -195,7 +195,7 @@ class TopicsController < ForumController
       params[:topic]['linked_type'].constantize.find(params[:topic]['linked_id'])
     end
 
-    if @topic.update_attributes(params[:topic])
+    if @topic.update_attributes params.require(:topic).permit(:text, :title)
       render json: {
         notice: 'Топик изменён',
         url: section_topic_path(section: @topic.section.to_param, linked: @linked, topic: @topic.to_param) # path, не url!
@@ -232,5 +232,10 @@ class TopicsController < ForumController
                   .map { |entry| TopicPresenter.new(object: entry, template: view_context, limit: @@first_page_comments) }
 
     render partial: 'topics/topic', collection: topics, layout: false, formats: :html
+  end
+
+private
+  def topic_params
+    params.require(:topic).permit(:text, :title, :section_id)
   end
 end

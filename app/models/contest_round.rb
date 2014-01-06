@@ -14,8 +14,6 @@ class ContestRound < ActiveRecord::Base
     foreign_key: :round_id,
     dependent: :destroy
 
-  attr_accessible :number, :additional
-
   state_machine :state, initial: :created do
     state :started
     state :finished

@@ -24,10 +24,7 @@ class AniMangasController::ReviewsController < AniMangasController
   end
 
   def create
-    @review = Review.new params[:review].merge(
-      user: current_user,
-      target: @entry.object
-    )
+    @review = Review.new review_params.merge(user: current_user, target: @entry.object)
 
     if @review.save
       render json: {
@@ -43,11 +40,8 @@ class AniMangasController::ReviewsController < AniMangasController
     @review = Review.find params[:id]
     raise Forbidden unless @review.can_be_edited_by?(current_user)
 
-    if @review.update_attributes(params[:review])
-      render json: {
-        notice: 'Обзор изменён',
-        url: review_url
-      }
+    if @review.update_attributes review_params
+      render json: { notice: 'Обзор изменён', url: review_url }
     else
       render json: @review.errors, status: :unprocessable_entity
     end
@@ -70,5 +64,11 @@ private
   # тип класса лежит в параметрах
   def klass
     @klass ||= params[:type].constantize
+  end
+
+  def review_params
+    params
+      .require(:review)
+      .permit(:text, :storyline, :characters, :animation, :music, :overall)
   end
 end

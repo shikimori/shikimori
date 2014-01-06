@@ -76,7 +76,7 @@ class Moderation::UserChangesController < ApplicationController
                                             #item_id: params[:change]['item_id'],
                                             #:user_id.not_eq => user.id,
                                             #status: UserChangeStatus::Locked).count == 0
-    change = UserChange.new(params[:change])
+    change = UserChange.new user_change_params
     change.user_id = user.id
 
     if change.value == change.current_value
@@ -213,5 +213,12 @@ class Moderation::UserChangesController < ApplicationController
         locks: TranslationController.locked_animes
       }, formats: :html)
     }
+  end
+
+private
+  def user_change_params
+    params
+      .require(:change)
+      .permit(:model, :column, :item_id, :value, :source)
   end
 end

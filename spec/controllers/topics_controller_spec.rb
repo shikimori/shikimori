@@ -142,7 +142,7 @@ describe TopicsController do
 
           it 'bad params' do
             expect {
-              post :create, format: format, topic: {}
+              post :create, format: format, topic: { id: 1 }
             }.to change(Topic, :count).by 0
 
             response.should be_unprocessible_entiy
@@ -159,8 +159,8 @@ describe TopicsController do
             response.should be_success
 
             topic = Topic.last
-            topic.text.should == 'test text'
-            topic.title.should == 'test title'
+            topic.text.should eq 'test text'
+            topic.title.should eq 'test title'
             topic.user_id.should eq(user.id)
             topic.section_id.should eq(section.id)
           end
@@ -178,8 +178,8 @@ describe TopicsController do
             response.should be_success
 
             topic = Topic.last
-            topic.linked_id.should == anime.id
-            topic.linked_type.should == anime.class.name
+            topic.linked_id.should eq anime.id
+            topic.linked_type.should eq anime.class.name
           end
         end
       end
@@ -195,7 +195,7 @@ describe TopicsController do
           topic2 = create :topic, user: create(:user)
 
           put :update, id: topic2.id, format: format, topic: { text: 'test text', title: 'test title' }
-          Topic.find(topic2.id).text.should == topic2.text
+          Topic.find(topic2.id).text.should eq topic2.text
 
           response.should be_forbidden
         end
@@ -209,8 +209,8 @@ describe TopicsController do
           response.should be_success
 
           topic = Topic.last
-          topic.text.should == 'test text'
-          topic.title.should == 'test title'
+          topic.text.should eq 'test text'
+          topic.title.should eq 'test title'
         end
       end
     end

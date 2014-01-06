@@ -17,8 +17,6 @@ class Review < ActiveRecord::Base
     conditions: { linked_type: name },
     dependent: :destroy
 
-  attr_protected :user_id, :created_at, :updated_at
-
   validates_presence_of :user, :target
   validates :text, length: { minimum: 1000, too_short: "слишком короткий (минимум 1000 знаков)" }
   validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"

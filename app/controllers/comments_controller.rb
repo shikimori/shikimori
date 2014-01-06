@@ -41,20 +41,20 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.new(params[:comment])
-    comment.user_id = current_user.id
+    @comment = Comment.new comment_params
+    @comment.user_id = current_user.id
 
-    if comment.save
+    if @comment.save
       # отправка уведомлений о создании комментария
-      FayePublisher.publish_comment(comment, params[:faye]) if Rails.env != 'test'
+      FayePublisher.publish_comment(@comment, params[:faye]) if Rails.env != 'test'
 
       render json: {
-        id: comment.id,
+        id: @comment.id,
         notice: 'Комментарий создан',
-        html: render_to_string(partial: 'comments/comment', layout: false, object: comment, locals: { topic: comment.commentable }), formats: :html
+        html: render_to_string(partial: 'comments/comment', layout: false, object: @comment, locals: { topic: @comment.commentable }), formats: :html
       }
     else
-      render json: comment.errors, status: :unprocessable_entity
+      render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
@@ -62,7 +62,7 @@ class CommentsController < ApplicationController
     raise Forbidden unless @comment.can_be_edited_by?(current_user)
     params.except! :offtopic, :review
 
-    if @comment.update_attributes(params[:comment].except(:html))
+    if @comment.update_attributes comment_params
       render json: {
         id: @comment.id,
         notice: 'Комментарий изменен',
@@ -155,5 +155,11 @@ private
     Rails.logger.info params.to_yaml
 
     @comment = Comment.find(params[:id]) if params[:id]
+  end
+
+  def comment_params
+    params
+      .require(:comment)
+      .permit(:body, :review, :offtopic, :commentable_id, :commentable_type)
   end
 end

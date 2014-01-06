@@ -7,8 +7,6 @@ class Contest < ActiveRecord::Base
 
   belongs_to :user
 
-  attr_accessible :title, :description, :started_on, :phases, :matches_per_round, :match_duration, :matches_interval, :user_vote_key, :wave_days, :strategy_type, :suggestions_per_user, :member_type
-
   validates :title, :user, :started_on, :user_vote_key, :strategy_type, :member_type, presence: true
   validates :matches_interval, :match_duration, :matches_per_round, numericality: { greater_than: 0 }, presence: true
 

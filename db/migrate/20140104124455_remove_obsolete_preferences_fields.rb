@@ -5,6 +5,8 @@ class RemoveObsoletePreferencesFields < ActiveRecord::Migration
     remove_column :user_preferences, :manga_genres
     remove_column :user_preferences, :manga_publishers
     remove_column :user_preferences, :genres_graph
+    remove_column :user_preferences, :created_at
+    remove_column :user_preferences, :updated_at
   end
 
   def down
@@ -13,5 +15,7 @@ class RemoveObsoletePreferencesFields < ActiveRecord::Migration
     add_column :user_preferences, :manga_genres, :boolean, default: true
     add_column :user_preferences, :manga_publishers, :boolean, default: true
     add_column :user_preferences, :genres_graph, :boolean, default: true
+    add_column :user_preferences, :created_at, :datetime
+    add_column :user_preferences, :updated_at, :datetime
   end
 end

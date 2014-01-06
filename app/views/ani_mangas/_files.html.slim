@@ -62,7 +62,7 @@
 
 - if user_signed_in? && current_user.admin?
   .subheadline.clearfix Новый торрент
-  = form_tag torrent_anime_path(@entry.entry), method: :post, class: :m20 do |f|
+  = form_tag torrent_anime_path(@entry.object), method: :post, class: :m20 do |f|
     .m5
       p Link
       = text_field_tag 'torrent[link]', params[:torrent] ? params[:torrent]['link'] : '', class: 'common', size: 100
@@ -76,7 +76,7 @@
       = submit_tag 'Добавить', class: 'button'
 
   .subheadline Распарсить страницу
-  = form_tag torrent_anime_path(@entry.entry), method: :post do |f|
+  = form_tag torrent_anime_path(@entry.object), method: :post do |f|
     .m5
       p URL
       = text_field_tag 'torrent[url]', params[:torrent] ? params[:torrent]['url'] : '', class: 'common', size: 100

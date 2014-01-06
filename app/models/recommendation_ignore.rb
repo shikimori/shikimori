@@ -2,8 +2,6 @@ class RecommendationIgnore < ActiveRecord::Base
   belongs_to :user
   belongs_to :target, polymorphic: true
 
-  attr_accessible :user_id, :target_id, :target_type
-
   # заблокировать франшизу для пользователя
   def self.block(entry, user)
     ids = ChronologyQuery.new(entry, false).fetch.map(&:id) + [entry.id]

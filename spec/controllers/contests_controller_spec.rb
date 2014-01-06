@@ -139,11 +139,11 @@ describe ContestsController do
 
       it { should respond_with :redirect }
       it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-      it { assigns(:contest).persisted?.should be_true }
+      it { assigns(:contest).should be_persisted }
     end
 
     context 'when validation errors' do
-      before { post :create, contest: {} }
+      before { post :create, contest: { id: 1 } }
 
       it { should respond_with :success }
       it { should respond_with_content_type :html }

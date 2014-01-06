@@ -73,7 +73,7 @@ class ContestsController < ApplicationController
   end
 
   def create
-    @contest = Contest.new(params[:contest]).decorate
+    @contest = Contest.new(contest_params).decorate
     @contest.user_id = current_user.id
 
     if @contest.save
@@ -91,7 +91,7 @@ class ContestsController < ApplicationController
       end
     end
 
-    if @contest.update_attributes params[:contest]
+    if @contest.update_attributes contest_params
       # сброс сгенерённых
       @contest.prepare if @contest.can_start? && @contest.rounds.any?
 
@@ -154,5 +154,9 @@ private
   def check_auth
     authenticate_user!
     raise Forbidden unless current_user.contests_moderator?
+  end
+
+  def contest_params
+    params.require(:contest).permit :title, :description, :started_on, :phases, :matches_per_round, :match_duration, :matches_interval, :user_vote_key, :wave_days, :strategy_type, :suggestions_per_user, :member_type
   end
 end

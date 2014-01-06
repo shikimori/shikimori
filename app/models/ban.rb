@@ -4,8 +4,6 @@ class Ban < ActiveRecord::Base
   belongs_to :comment, touch: true
   belongs_to :abuse_request, touch: true
 
-  attr_accessible :duration, :moderator_id, :reason, :comment_id, :user_id, :abuse_request_id
-
   validates :user, :moderator, presence: true
   validates :duration, :reason, presence: true
   #validates :comment, :abuse_request, presence: true

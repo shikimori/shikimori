@@ -196,7 +196,7 @@ describe AniMangasController::ReviewsController do
               post :create, defaults.merge(review: {})
             }.to change(Review, :count).by 0
 
-            response.should be_unprocessible_entiy
+            should respond_with 400
           end
 
           it 'success' do

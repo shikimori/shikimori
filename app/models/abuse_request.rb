@@ -11,8 +11,6 @@ class AbuseRequest < ActiveRecord::Base
   validates :user, presence: true
   validates :comment, presence: true
 
-  attr_accessible :comment_id, :user_id, :kind, :value
-
   scope :pending, -> { where state: 'pending', kind: ['offtopic', 'review'] }
   scope :abuses, -> { where state: 'pending', kind: ['spoiler', 'abuse'] }
 

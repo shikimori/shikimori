@@ -1,0 +1,14 @@
+.recommendations-cleanup
+  .controls
+    p.link data-type="anime" Восстановить заблокированные рекомендации аниме
+    p.link data-type="manga" Восстановить заблокированные рекомендации манги
+
+  .form.anime
+    p Подтвердите намерение восстановить все заблокированные вами рекомендации для аниме.
+    a href="#{cleanup_recommendation_ignores_path target_type: :anime}" data-method="delete" data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для аниме?" Да, подтверждаю
+    span.link.cancel Отмена
+
+  .form.manga
+    p Подтвердите намерение восстановить все заблокированные вами рекомендации для манги.
+    a href="#{cleanup_recommendation_ignores_path target_type: :manga}" data-method="delete" data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для манги?" Да, подтверждаю
+    span.link.cancel Отмена

@@ -6,6 +6,39 @@ describe CommentsController do
   let(:comment) { create :comment, commentable: topic, user: user }
   let(:comment2) { create :comment, commentable: topic, user: user }
 
+  describe :create do
+    let(:user) { create :user }
+    before { sign_in user }
+
+    context :success do
+      before { post :create, comment: { commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: false, review: false } }
+
+      it { should respond_with :success }
+      it { should respond_with_content_type :json }
+      specify { assigns(:comment).should be_persisted }
+    end
+
+    context :failure do
+      before { post :create, comment: { body: 'test', offtopic: false, review: false } }
+
+      it { should respond_with 422 }
+      it { should respond_with_content_type :json }
+    end
+  end
+
+  describe :update do
+    let(:user) { create :user }
+    before { sign_in user }
+
+    context :success do
+      before { put :update, id: comment.id, comment: { body: 'testzxc' } }
+
+      it { should respond_with :success }
+      it { should respond_with_content_type :json }
+      specify { assigns(:comment).body.should eq 'testzxc' }
+    end
+  end
+
   describe :fetch do
     it 'works' do
       get :fetch, id: comment.id, topic_id: topic.id, skip: 1

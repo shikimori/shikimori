@@ -10,8 +10,7 @@ class RecommendationIgnoresController < ApplicationController
 
   def cleanup
     current_user.recommendation_ignores.where(target_type: klass.name).delete_all
-    flash[:notice] = "Очистка списка заблокированных рекомендаций #{params[:target_type] == 'anime' ? 'аниме' : 'манги'} завершена"
-    redirect_to user_url current_user
+    redirect_to user_url(current_user), notice: "Очистка списка заблокированных рекомендаций #{params[:target_type] == 'anime' ? 'аниме' : 'манги'} завершена"
   end
 
 private
