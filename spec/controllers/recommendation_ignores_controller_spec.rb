@@ -15,13 +15,6 @@ describe RecommendationIgnoresController do
     it { json.should eql [anime.id] }
   end
 
-  describe :cleanup_warning do
-    before { get :cleanup_warning, target_type: 'anime' }
-
-    it { should respond_with 200 }
-    it { should respond_with_content_type :html }
-  end
-
   describe :cleanup do
     let(:anime1) { create :anime, kind: 'Special' }
     let(:anime2) { create :anime }
