@@ -158,7 +158,8 @@ module MalDeployer
   # загрузка картинки с mal
   def mal_image url
     if url =~ /\.jpe?g$/
-      Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
+      open URI.encode(url), 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)'
+      #Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
     else
       open_image url
     end
