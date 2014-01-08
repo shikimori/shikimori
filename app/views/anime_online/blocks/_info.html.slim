@@ -23,7 +23,7 @@
   - if anime.rating
     .pair
       .key Рейтинг:
-      .value.rate title="#{t("Rating.#{anime.rating}")}" = t "RatingShort.#{anime.rating}"
+      abbr title="#{t("Rating.#{anime.rating}")}" = t "RatingShort.#{anime.rating}"
 
   - unless anime.genres.blank?
     .pair
