@@ -97,7 +97,9 @@ class Manga < ActiveRecord::Base
       x64: ['43x64#', :jpg]
     },
     url: "/images/manga/:style/:id.:extension",
-    path: ":rails_root/public/images/manga/:style/:id.:extension"
+    path: ":rails_root/public/images/manga/:style/:id.:extension",
+    default_url: '/assets/globals/missing_:style.jpg'
+
   validates_attachment_content_type :image, content_type: [/^image\/(?:jpeg)$/, nil]
 
   # Hooks

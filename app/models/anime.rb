@@ -117,10 +117,9 @@ class Anime < ActiveRecord::Base
       x64: ['43x64#', :jpg]
     },
     url: "/images/anime/:style/:id.:extension",
-    path: ":rails_root/public/images/anime/:style/:id.:extension"
-    #default_url: '/images/anime_:style_missing.png'
-    #:url  => "/anime/:id/:style/:basename.:extension",
-    #path: ":rails_root/public/anime/:id/:style/:basename.:extension"
+    path: ":rails_root/public/images/anime/:style/:id.:extension",
+    default_url: '/assets/globals/missing_:style.jpg'
+
   validates_attachment_content_type :image, content_type: [/^image\/(?:jpeg)$/, nil]
 
   # Hooks
