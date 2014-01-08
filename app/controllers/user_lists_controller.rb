@@ -271,6 +271,9 @@ private
                  #{params[:list_type].tableize}.name,
                  #{params[:list_type].tableize}.russian,
                  #{params[:list_type].tableize}.status,
+                 #{params[:list_type].tableize}.aired_at,
+                 #{params[:list_type].tableize}.released_at,
+                 #{@klass == Anime ? "#{params[:list_type].tableize}.episodes_aired" : '0'} as episodes_aired,
                  #{params[:list_type].tableize}.#{@klass == Anime ? 'episodes' : 'chapters'}
                  #{@klass == Anime ? ",#{params[:list_type].tableize}.duration" : ''}")
         .all
@@ -295,6 +298,9 @@ private
         url: "/#{params[:list_type]}s/#{v.target_id}",
         rate_url: "/#{params[:list_type]}s/#{v.target_id}/rate",
         episodes_value: v[@field_name],
+        episodes_aired: target.episodes_aired,
+        ongoing?: target.ongoing?,
+        anons?: target.anons?,
         score: v.score && v.score != 0 ? v.score : '&ndash;',
         episodes: anime? ? (target.episodes == 0 ? '?' : target.episodes) :
                             (target.chapters == 0 ? '?' : target.chapters),

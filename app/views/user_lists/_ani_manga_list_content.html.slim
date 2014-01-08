@@ -30,6 +30,10 @@
             /span
             span.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" data-delay="150"
               == entry_rate[:name]
+            - if entry_rate[:ongoing?]
+              span.ongoing онгоинг
+            - elsif entry_rate[:anons?]
+              span.anons анонс
           - if own_profile?
             span.anime-status data-field="status"
         td class="num #{'hoverable' if own_profile?}"
@@ -42,7 +46,12 @@
           span.misc-value
             span.sep.inline
               | /
-            = entry_rate[:episodes]
+            - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0 && entry_rate[:episodes_aired] != entry_rate[@field_name]
+              = entry_rate[:episodes_aired]
+              span.episodes_total
+                = entry_rate[:episodes]
+            - else
+              = entry_rate[:episodes]
         td.num
           = entry_rate[:kind_localized]
         - if status == UserRateStatus.get(UserRateStatus::Planned)

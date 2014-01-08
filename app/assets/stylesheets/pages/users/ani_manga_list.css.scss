@@ -85,6 +85,30 @@
           display: none;
           margin-left: 0px!important;
         }
+        .ongoing {
+          color: green;
+          font-size: 11px;
+          padding-left: 6px;
+        }
+        .anons {
+          color: orange;
+          font-size: 11px;
+          padding-left: 6px;
+        }
+        .episodes_total {
+          color: #333;
+          font-size: 11px;
+
+          &:before {
+            content: '(';
+            color: $gray-color-0;
+            padding-left: 5px;
+          }
+          &:after {
+            content: ')';
+            color: $gray-color-0;
+          }
+        }
         .anime-status {
           @include menu-icon('\e814');
           @include link-color(#123);
