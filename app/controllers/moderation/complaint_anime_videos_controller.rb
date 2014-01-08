@@ -26,7 +26,7 @@ class Moderation::ComplaintAnimeVideosController < ApplicationController
   end
 
   def work
-    AnimeVideo.find(params[:id]).work
+    AnimeVideo.find(params[:id]).work!
     redirect_to_back_or_to moderation_complaint_anime_videos_url
   end
 
