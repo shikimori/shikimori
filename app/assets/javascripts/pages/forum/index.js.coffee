@@ -32,7 +32,19 @@ $(".height-shortener").live "click", ->
 
   $this.remove()
 
-# загрузка комментариев по клику на 'Показать N комментариев'
+# ask deletion
+$('.topic-block .content .item-delete').live 'click', ->
+  $block = $(@).parents(".topic-block")
+  $('.main-controls', $block).hide()
+  $('.delete-controls', $block).show()
+
+# cancel deletion
+$('.topic-block .content .item-delete-cancel').live 'click', ->
+  $block = $(@).parents(".topic-block")
+  $('.main-controls', $block).show()
+  $('.delete-controls', $block).hide()
+
+# удаление топика
 $(".topic-block .content .delete-controls .item-delete-confirm").live "ajax:success", (e, data) ->
   $block = $(@).parents(".topic-block")
   $block.css(minHeight: "0px").animate
