@@ -56,7 +56,8 @@ class AnimeCalendar < ActiveRecord::Base
     "maken-ki! tsu" => 15565,
     "sekai seifuku ~ boryaku no zvezda" => 20973,
     'saikin' => 17777,
-    'seitokai yakuindomo＊' => 20847
+    'seitokai yakuindomo＊' => 20847,
+    'nobunaga za furu' => 21177
   }
 
   EpisodesDiff = {
