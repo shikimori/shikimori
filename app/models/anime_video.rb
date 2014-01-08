@@ -13,6 +13,10 @@ class AnimeVideo < ActiveRecord::Base
   validates :url, presence: true
   validates :source, presence: true
 
+  before_save :check_ban
+
+  default_scope { where state: ['working', 'uploaded'] }
+
   state_machine :state, initial: :working do
     state :working
     state :uploaded
@@ -38,5 +42,10 @@ class AnimeVideo < ActiveRecord::Base
     parts = URI.parse(url).host.split('.')
     domain = "#{parts[-2]}.#{parts[-1]}"
     domain == 'vkontakte.ru' ? 'vk.com' : domain
+  end
+
+private
+  def check_ban
+    self.state = 'banned' if hosting == 'kiwi.kz'
   end
 end
