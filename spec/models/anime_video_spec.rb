@@ -8,6 +8,43 @@ describe AnimeVideo do
   it { should validate_presence_of :url }
   it { should validate_presence_of :source }
 
+  describe :default_scope do
+    subject { AnimeVideo.all }
+    before do
+      states.each do |s|
+        create :anime_video, state: s
+      end
+    end
+
+    context :good_states do
+      let(:states) { ['working', 'uploaded' ] }
+      it { should have(states.size).items }
+    end
+
+    context :bad_states do
+      let(:states) { ['broken', 'wrong', 'banned' ] }
+      it { should have(0).items }
+    end
+  end
+
+  describe :before_save do
+    describe :check_ban do
+      subject { anime.banned? }
+      let(:anime) { build :anime_video, url: url }
+      before { anime.save }
+
+      context :in_ban do
+        let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
+        it { should be_true }
+      end
+
+      context :no_ban do
+        let(:url) { 'http://vk.com/j8n3/' }
+        it { should be_false }
+      end
+    end
+  end
+
   describe :hosting do
     subject { build(:anime_video, url: url).hosting }
 
