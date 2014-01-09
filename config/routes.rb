@@ -139,10 +139,10 @@ Site::Application.routes.draw do
 
       resources :complaint_anime_videos, only: [:index] do
         member do
-          get :broken
-          get :wrong
-          get :work
+          get '/broken/:video_id' => 'complaint_anime_videos#broken', as: :broken
+          get '/wrong/:video_id' => 'complaint_anime_videos#wrong', as: :wrong
           get :ignore
+          get :work
         end
       end
     end
