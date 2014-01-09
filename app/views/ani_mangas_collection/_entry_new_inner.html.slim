@@ -4,7 +4,7 @@ img src="#{entry_new.image.url(defined?(shortened) && shortened ? :short : :prev
   span.title itemprop="name"
     = localized_name entry_new
 - else
-  a.title href="#{send("#{entry_new.class.name.downcase}_url", entry_new)}" title="#{localized_name entry_new}" itemprop="url"
+  a.title href="#{send "#{entry_new.class.name.downcase}_url", entry_new}" title="#{localized_name entry_new}" itemprop="url"
     = localized_name entry_new
 
 - if alter && entry_new.aired_at
@@ -16,4 +16,4 @@ img src="#{entry_new.image.url(defined?(shortened) && shortened ? :short : :prev
     span.year
       = entry_new.year
     - if entry_new.kind.present?
-      = UserPresenter.localized_kind entry_new, current_user, true
+      = localized_kind entry_new, true

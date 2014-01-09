@@ -1,8 +1,8 @@
 .people.index-item
   .image-name
     = link_to self.send(@director.entry_url_builder, person) do
-      img.image src="#{person.image.url(:preview)}" alt="#{UserPresenter.localized_name(person, current_user)}" title="#{UserPresenter.localized_name(person, current_user)}"
-    = link_to UserPresenter.localized_name(person, current_user), self.send(@director.entry_url_builder, person), :class => :name
+      img.image src="#{person.image.url(:preview)}" alt="#{localized_name person}" title="#{localized_name person}"
+    = link_to localized_name(person), self.send(@director.entry_url_builder, person), :class => :name
 
   .info
     ul.block-list.updates
@@ -13,7 +13,7 @@
               span.date
                 = (entry.aired_at || entry.released_at).year
             span.event
-              = UserPresenter.localized_name(entry, current_user)
+              = localized_name entry
     .char-ani-block
       - if person.best_works.any? && person.best_works.first.class == Character
         - person.best_works.each do |character|

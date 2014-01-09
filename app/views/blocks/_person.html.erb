@@ -3,7 +3,7 @@
     <% if person.class == Person && role && role.include?('Producer') %>itemprop="producer"<% end %>
     <% if person.class == Character %>itemprop="actors"<% end %>
     itemscope itemtype="http://schema.org/Person"
-    title="<%=UserPresenter.localized_name person, current_user %>">
+    title="<%=localized_name person %>">
   <%=render partial: 'blocks/person_content', locals: { person: person,
                                                           link_to_anime: person.class == Character && defined?(link_to_anime) && link_to_anime,
                                                           link_to_character: person.class == Character && defined?(link_to_character) && link_to_character,

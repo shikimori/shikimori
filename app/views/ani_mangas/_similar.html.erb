@@ -15,11 +15,11 @@
     <article class="related-block clearfix m5 <%=entry.kind %>">
       <%=ani_manga_link(entry) do %>
         <div class="image-container">
-          <img width="64" height="96" src="<%=entry.image.url(:x96) %>" alt="<%=UserPresenter.localized_name entry, current_user %>" title="<%=UserPresenter.localized_name(entry, current_user) %>" />
+          <img width="64" height="96" src="<%=entry.image.url(:x96) %>" alt="<%=localized_name entry %>" title="<%=localized_name entry %>" />
         </div>
         <div class="name">
           <%#<span class="<%=name_font(entry.name) % >"><%=entry.name % ></span>%>
-          <span class="f18"><%=UserPresenter.localized_name(entry, current_user) %></span>
+          <span class="f18"><%=localized_name entry %></span>
         </div>
         <div class="description">
           <p>
@@ -31,7 +31,7 @@
         <div class="year"><%=entry.year %></div>
         <% unless entry.kind.blank? %>
           <div class="type">
-            <%=UserPresenter.localized_kind(entry, current_user, true).sub 'Спешиал', 'Спешл' %>
+            <%=localized_kind(entry, true).sub 'Спешиал', 'Спешл' %>
           </div>
         <% end %>
       <% end %>

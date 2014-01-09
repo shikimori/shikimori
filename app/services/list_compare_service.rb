@@ -93,7 +93,7 @@ private
 
   def build_entry(id, user1_rates, user1_norm_rates, user2_rates, user2_norm_rates, entries)
     entry = {
-      name: UserPresenter.localized_name(entries[id], @user1),
+      name: UsersHelper.localized_name(entries[id], @user1),
       entry: entries[id],
       rate_1: user1_rates.include?(id) ? user1_rates[id][:rate] : nil,
       rate_2: user2_rates.include?(id) ? user2_rates[id][:rate] : nil,

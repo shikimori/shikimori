@@ -9,6 +9,7 @@
     }
     .subheadline {
       @include ellipsis;
+      padding-right: 25px;
     }
     .left-votes {
       float: left;

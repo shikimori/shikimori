@@ -1,32 +1,32 @@
-- if @presenter.about_above?
+- if @user.about_above?
   .about
     .subheadline О себе
     .text.subcontent.item-content
       .description
-        = @presenter.about
+        = @user.about_html
 
 - if @user.preferences.statistics_in_profile?
   - if @kind == :anime
     .genres
       .subheadline.m10 Жанры
-      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Anime.name.downcase.to_sym, category: :genres, caption: 'Жанры' }, formats: :html
+      = render partial: 'users/category_stats', locals: { presenter: @user, klass: Anime.name.downcase.to_sym, category: :genres, caption: 'Жанры' }, formats: :html
 
     .studios
       .subheadline.m10 Студии
-      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Anime.name.downcase.to_sym, category: :studios, caption: 'Студии' }, formats: :html
+      = render partial: 'users/category_stats', locals: { presenter: @user, klass: Anime.name.downcase.to_sym, category: :studios, caption: 'Студии' }, formats: :html
   - else
     .genres
       .subheadline.m10 Жанры
-      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Manga.name.downcase.to_sym, category: :genres, caption: 'Жанры' }, formats: :html
+      = render partial: 'users/category_stats', locals: { presenter: @user, klass: Manga.name.downcase.to_sym, category: :genres, caption: 'Жанры' }, formats: :html
 
     .studios
       .subheadline.m10 Издатели
-      = render partial: 'users/category_stats', locals: { presenter: @presenter, klass: Manga.name.downcase.to_sym, category: :publishers, caption: 'Студии' }, formats: :html
+      = render partial: 'users/category_stats', locals: { presenter: @user, klass: Manga.name.downcase.to_sym, category: :publishers, caption: 'Студии' }, formats: :html
 
   .mini-charts
     .scores
       .options-floated
-        - if @presenter.stats[:anime?] && @presenter.stats[:manga?]
+        - if @user.stats[:anime?] && @user.stats[:manga?]
           - if @user.preferences.manga_first?
             a class="link #{@kind == :manga ? 'selected' : ''}" href="#{user_url(@user, :manga)}" Манга
             | &nbsp;&nbsp;/&nbsp;&nbsp;
@@ -36,35 +36,35 @@
             | &nbsp;&nbsp;/&nbsp;&nbsp;
             a class="link #{@kind == :manga ? 'selected' : ''}" href="#{user_url(@user, :manga)}" Манга
       .subheadline Оценки
-      #scores data-stats="#{@presenter.stats[:scores][@kind].to_json}" data-bar="horizontal"
+      #scores data-stats="#{@user.stats[:scores][@kind].to_json}" data-bar="horizontal"
 
     .types
       .subheadline Типы
-      #types data-stats="#{@presenter.stats[:types][@kind].to_json}" data-bar="horizontal"
+      #types data-stats="#{@user.stats[:types][@kind].to_json}" data-bar="horizontal"
 
     - if @kind != :manga
       .ratings
         .subheadline Рейтинги
-        #ratings data-stats="#{@presenter.stats[:ratings][@kind].to_json}" data-bar="horizontal"
+        #ratings data-stats="#{@user.stats[:ratings][@kind].to_json}" data-bar="horizontal"
 
   .activity
     .subheadline Активность
-    - if @presenter.stats[:activity].any?
-      #activity_inc data-stats="#{@presenter.stats[:activity].to_json}" data-bar="vertical" data-flattened="true"
+    - if @user.stats[:activity].any?
+      #activity_inc data-stats="#{@user.stats[:activity].to_json}" data-bar="vertical" data-flattened="true"
     - else
       p.stat-sorry Недостаточно данных для формирования статистики
 
   .clearfix
 
-- if @presenter.about_below?
+- if @user.about_below?
   .about
     .subheadline О себе
     .text.subcontent.item-content
       .description
-        = @presenter.about
+        = @user.about_html
 
-- if @presenter.show_comments?
+- if @user.show_comments?
   .forum-container
     .comments.zero-margin.zero-top-border
       .subheadline.m2 Лента
-      = render partial: 'comments/comments', locals: { object: @presenter.user, text: @reply_text || nil, comments: @presenter.comments, postloader: 15 }, formats: :html
+      = render partial: 'comments/comments', locals: { object: @user.object, text: @reply_text || nil, comments: @user.comments, postloader: 15 }, formats: :html

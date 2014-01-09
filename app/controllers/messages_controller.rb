@@ -15,6 +15,9 @@ class MessagesController < UsersController
   #before_filter :authenticate_user!, exept: [:feed, :unsubscribe]
   before_filter :authenticate_user!, only: [:index, :show, :list, :talk, :create, :destroy, :read]
 
+  helper_method :message_types
+  helper_method :unread_counts
+
   # отображение страницы личных сообщений
   def index
     @user ||= current_user
@@ -312,5 +315,25 @@ class MessagesController < UsersController
 
     end
     head 200
+  end
+
+  # типы сообщений
+  def message_types
+     [
+      { id: 'inbox', name: 'Входящее' },
+      { id: 'news', name: 'Новости' },
+      { id: 'notifications', name: 'Уведомления' },
+      { id: 'sent', name: 'Отправленное' }
+    ]
+  end
+
+  # число прочитанных сообщений
+  def unread_counts
+    @unread ||= {
+      'inbox' => current_user.unread_messages,
+      'news' => current_user.unread_news,
+      'notifications' => current_user.unread_notifications,
+      'sent' => 0
+    }
   end
 end

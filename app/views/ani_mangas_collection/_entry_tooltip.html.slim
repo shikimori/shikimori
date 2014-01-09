@@ -42,7 +42,7 @@ p.genres
   span.local-title Жанры:
   - entry.main_genres.each do |genre|
     span.genre.tag.tag-base data-type="genre" data-value="#{genre.to_param}" itemprop="genre"
-      = UserPresenter.localized_name genre, current_user
+      = localized_name genre
 
 - if entry.with_score?
   div.rating[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]

@@ -16,9 +16,6 @@ class UsersController < ApplicationController
   @@messages_pages = ['inbox', 'news', 'notifications', 'sent']
   @@ani_manga_list_pages = ['animelist', 'mangalist']
 
-  helper_method :message_types
-  helper_method :unread_counts
-
   UsersPerPage = 15
   Thresholds = [25, 50, 100, 175, 350]
 
@@ -117,7 +114,7 @@ class UsersController < ApplicationController
       (@@ani_manga_list_pages & [params[:type], "#{params[:list_type] || ""}-#{params[:type]}"]).any? ?
         'ani_manga_list' : params[:type]
     ]
-    @presenter = present @user
+    #@presenter = present @user
 
     respond_to do |format|
       format.html { render 'users/show' }
@@ -335,37 +332,18 @@ private
     noindex and nofollow
 
     if params[:user_id] && Rails.env.development?
-      @user = User.find params[:user_id]
+      @user = ProfileDecorator.new User.find(params[:user_id])
       return
     end
 
     nickname = User.param_to params[:id]
-    @user = User.includes(:friends)
-                .where(nickname: nickname)
-                .select { |v| v.nickname == nickname }
-                .first
+    @user = ProfileDecorator.new User
+      .includes(:friends)
+      .where(nickname: nickname)
+      .select { |v| v.nickname == nickname }
+      .first
 
     raise NotFound, nickname unless @user
-  end
-
-  # число прочитанных сообщений
-  def unread_counts
-    @unread ||= {
-      'inbox' => current_user.unread_messages,
-      'news' => current_user.unread_news,
-      'notifications' => current_user.unread_notifications,
-      'sent' => 0
-    }
-  end
-
-  # типы сообщений
-  def message_types
-     [
-      { id: 'inbox', name: 'Входящее' },
-      { id: 'news', name: 'Новости' },
-      { id: 'notifications', name: 'Уведомления' },
-      { id: 'sent', name: 'Отправленное' }
-    ]
   end
 
   def user_params

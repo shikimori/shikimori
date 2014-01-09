@@ -142,7 +142,7 @@ class TopicPresenter < BasePresenter
   def tag
     return nil if linked.nil? || review? || contest?
 
-    UserPresenter.localized_name linked, current_user
+    h.localized_name linked
   end
 
   # по опросу ли данный топик

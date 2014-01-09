@@ -83,6 +83,7 @@ class UserListsController < UsersController
 
     @add_postloader = history.size > limit
     history = history.take(limit) if history.size > limit
+    history.map! &:decorate
 
     @history = history.group_by do |v|
       today = DateTime.parse(Date.today.to_s)
@@ -293,7 +294,7 @@ private
         id: target.id,
         name: UserPresenter.localized_original_name(target, current_user),
         kind: target.kind,
-        kind_localized: target.kind.blank? ? '' : UserPresenter.localized_kind(target, current_user, true),
+        kind_localized: target.kind.blank? ? '' : localized_kind(target, true),
         status_localized: target.status.present? ? I18n.t("AniMangaStatusUpper.#{target.status}") : '',
         url: "/#{params[:list_type]}s/#{v.target_id}",
         rate_url: "/#{params[:list_type]}s/#{v.target_id}/rate",

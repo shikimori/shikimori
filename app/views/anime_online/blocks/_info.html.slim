@@ -8,7 +8,7 @@
   - unless anime.kind.blank?
     .pair
       .key Тип:
-      .value = UserPresenter.localized_kind anime.object, current_user
+      .value = localized_kind anime.object
 
   - if anime.episodes > 0
     .pair
@@ -23,7 +23,7 @@
   - if anime.rating
     .pair
       .key Рейтинг:
-      abbr title="#{t("Rating.#{anime.rating}")}" = t "RatingShort.#{anime.rating}"
+      abbr title="#{t "Rating.#{anime.rating}"}" = t "RatingShort.#{anime.rating}"
 
   - unless anime.genres.blank?
     .pair

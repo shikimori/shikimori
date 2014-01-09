@@ -18,4 +18,4 @@ article.related-block.m5 class="#{'clearfix' if (defined?(clearfix) && clearfix)
       .year = related.year
     - unless related.kind.blank?
       .type
-        = UserPresenter.localized_kind(related, current_user, true).sub 'Спешиал', 'Спешл'
+        = localized_kind(related, true).sub 'Спешиал', 'Спешл'

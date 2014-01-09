@@ -131,9 +131,9 @@
       li.entry
         = ani_manga_link(anime) do
           .image-name
-            img src="#{anime.image.url(:x64)}" alt="#{UserPresenter.localized_name(anime, current_user)}" title="#{UserPresenter.localized_name(anime, current_user)}"
+            img src="#{anime.image.url(:x64)}" alt="#{localized_name anime}" title="#{localized_name anime}"
             span.title
-              = UserPresenter.localized_name(anime, current_user)
+              = localized_name anime
           span.misc
             = anime.last_episode || 1
             |  эпизод
