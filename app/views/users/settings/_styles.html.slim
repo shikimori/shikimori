@@ -1,9 +1,11 @@
-= f.simple_fields_for :preferences do |pf|
+= simple_form_for @user.preferences, url: update_user_preferences_url(@user) do |f|
+  input type="hidden" name="page" value="#{params[:page]}"
+
   .menu-block
-    = pf.input :russian_genres
-    = pf.input :russian_names
-    = pf.input :mylist_in_catalog
-    = pf.input :postload_in_catalog
+    = f.input :russian_genres
+    = f.input :russian_names
+    = f.input :mylist_in_catalog
+    = f.input :postload_in_catalog
 
   /<p>
     /<%=label_tag :new_catalog, 'Старый вариант каталога' %>
@@ -12,18 +14,18 @@
   /</p>
 
   .menu-block
-    = pf.input :show_hentai_images
-    = pf.input :show_social_buttons
-    = pf.input :show_smileys
-    = pf.input :menu_contest
+    = f.input :show_hentai_images
+    = f.input :show_social_buttons
+    = f.input :show_smileys
+    = f.input :menu_contest
 
   .backgrounds
     p Фон центральной области
-    = pf.input :page_background, as: :hidden
+    = f.input :page_background, as: :hidden
     .range-slider.noUiSlider
 
-    = pf.input :page_border
-    = pf.input :body_background
+    = f.input :page_border
+    = f.input :body_background
     ul.samples
       li.bg1 data-background="/assets/background/square_bg.png"
       li.bg2 data-background="/assets/background/agsquare.png"
@@ -53,3 +55,6 @@
       li.bg26 data-background="/assets/background/type.png"
       li.bg27 data-background="/assets/background/crissXcross.png"
       li.bg28 data-background="/assets/background/random_grey_variations.png"
+
+  .buttons
+    = f.submit 'Сохранить'

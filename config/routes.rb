@@ -443,6 +443,7 @@ Site::Application.routes.draw do
         resources :publishers, only: [:index]
 
         resources :comments, only: [:show, :index]
+        resources :users, only: [:show]
 
         resource :authenticity_token, only: [:show]
 
@@ -483,6 +484,7 @@ Site::Application.routes.draw do
       #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
       #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
       put ':id(/:type/:page)' => 'users#update'
+      put ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
       put ':id/password' => 'users#update_password', as: :update_user_password
       get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
       post ':id/ban' => 'users#do_ban'

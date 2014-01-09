@@ -8,12 +8,4 @@
 .subheadline.m10 Настройки
 
 .subcontent
-  - if params[:page] == 'password' || params[:page] == 'list'
-    = render partial: "users/settings/#{params[:page]}", formats: :html
-  - else
-    = simple_form_for @user do |f|
-      input type="hidden" name="page" value="#{params[:page]}"
-      = render partial: "users/settings/#{params[:page]}", locals: { f: f }, formats: :html
-
-      .buttons
-        = f.submit 'Сохранить'
+  = render partial: "users/settings/#{params[:page]}", formats: :html

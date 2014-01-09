@@ -64,7 +64,7 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
     //opacity: 1
   //});
 
-  var $page_background = $('#user_preferences_attributes_page_background');
+  var $page_background = $('#user_preferences_page_background');
   var $page = $('.page');
   $(".range-slider").data('value', $page_background.val() || 0).noUiSlider({
     range: [0, 12],
@@ -79,7 +79,7 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
   });
 
   var $body = $('body');
-  var $body_background = $('#user_preferences_attributes_body_background');
+  var $body_background = $('#user_preferences_body_background');
   $('.backgrounds .samples li').on('click', function() {
     var value = $(this).data('background');
     $body_background.val("url("+value+") repeat").trigger('change');
@@ -87,7 +87,7 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
   $body_background.on('change', function() {
     $body.css('background', $(this).val());
   });
-  $('#user_preferences_attributes_page_border').on('change', function() {
+  $('#user_preferences_page_border').on('change', function() {
     $('body').toggleClass('bordered', $(this).prop('checked'));
   });
 });
