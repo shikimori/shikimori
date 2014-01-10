@@ -42,7 +42,8 @@ private
         [MessageType::Private]
 
       when :sent
-        [MessageType::Private, MessageType::Notification]
+        #[MessageType::Private, MessageType::Notification]
+        [MessageType::Private]
 
       when :news
         [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews]

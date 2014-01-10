@@ -27,7 +27,7 @@ class Moderation::UserChangesController < ApplicationController
       UserChange.includes(:user)
                 .includes(:approver)
                 .where { status.not_in([UserChangeStatus::Pending, UserChangeStatus::Locked]) }
-                .order('updated_at desc')
+                .order { updated_at.desc }
     end
 
     render json: {
@@ -120,15 +120,6 @@ class Moderation::UserChangesController < ApplicationController
         body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] принята."
       }) unless change.user_id == current_user.id
 
-      Message.create({
-        src_type: current_user.class.name,
-        src_id: current_user.id,
-        dst_type: current_user.class.name,
-        dst_id: User::Admins.first,
-        kind: MessageType::Notification,
-        read: true,
-        body: "Правка [user_change=#{change.id}]##{change.id}[/user_change] #{change.model} #{change.column} от [url=#{url_for(change.user)}]#{change.user.nickname}[/url] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] #{params[:taken] ? 'взята' : 'принята'}."
-      }) unless current_user.admin?
       redirect_to_back_or_to moderation_users_changes_url, notice: 'Правка успешно применена'
     else
       render text: "Произошла ошибка при принятии правки. Номер правки ##{change.id}. Пожалуйста, напишите об этом администратору.", status: :unprocessable_entity
@@ -151,16 +142,6 @@ class Moderation::UserChangesController < ApplicationController
           body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] отклонена."
         }) unless change.user_id == current_user.id
       end
-
-      Message.create({
-        src_type: current_user.class.name,
-        src_id: current_user.id,
-        dst_type: current_user.class.name,
-        dst_id: User::Admins.first,
-        kind: MessageType::Notification,
-        read: true,
-        body: "Правка [user_change=#{change.id}]##{change.id}[/user_change] #{change.model} #{change.column} от [url=#{url_for(change.user)}]#{change.user.nickname}[/url] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] #{params[:notify] ? 'отклонена' : 'удалена'}."
-      }) unless current_user.admin?
 
       redirect_to :back
     else
