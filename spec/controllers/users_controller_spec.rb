@@ -11,15 +11,12 @@ describe UsersController do
       it { should respond_with :success }
     end
 
-    describe :account do
-      before { get :show, id: user.to_param, type: 'settings', page: 'account' }
-      it { should respond_with_content_type :html }
-      it { should respond_with :success }
-    end
-
-    describe :profile do
-      before { get :show, id: user.to_param, type: 'settings', page: 'profile' }
-      it { should respond_with :success }
+    %w{account profile password styles list notifications misc}.each do |page|
+      describe page do
+        before { get :show, id: user.to_param, type: 'settings', page: page }
+        it { should respond_with_content_type :html }
+        it { should respond_with :success }
+      end
     end
   end
 

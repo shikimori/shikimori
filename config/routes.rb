@@ -384,7 +384,11 @@ Site::Application.routes.draw do
     get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index', as: :recommendations, klass: /anime|manga/, metric: /euclid|pearson|pearson_mean|pearson_z|svd/, votes: /\d+/
     get "recommendations/anime" => 'recommendations#index', as: :recommendations_anime, klass: Anime.name.downcase
     get "recommendations/manga" => 'recommendations#index', as: :recommendations_manga, klass: Manga.name.downcase
-    resources :recommendation_ignores, only: [:create]
+    resources :recommendation_ignores, only: [:create] do
+      constraints target_type: /anime|manga/ do
+        delete 'cleanup/:target_type', action: :cleanup, on: :collection, as: :cleanup
+      end
+    end
 
     # userlist comparer
     get "comparer/:list_type/:user_1/vs/:user_2#{ani_manga_format}" => 'userlist_comparer#show', as: :userlist_comparer,

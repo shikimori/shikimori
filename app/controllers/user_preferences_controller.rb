@@ -3,7 +3,9 @@ class UserPreferencesController < UsersController
     raise Forbidden unless @user.can_be_edited_by? current_user
 
     if @user.preferences.update_attributes user_preferences_params
+      @user.update_attributes user_params if user_params.any?
       redirect_to user_settings_path(@user, params[:page]), notice: 'Изменения сохранены'
+
     else
       flash[:alert] = 'Изменения не сохранены!'
       params[:type] = 'settings'
