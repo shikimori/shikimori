@@ -28,12 +28,8 @@
         /div = cookies[:preference_hosting]
         /div = cookies[:preference_author_id]
 
-        .hidden-xs.hidden-sm
-          = render partial: 'nav_video', locals: { anime: @anime }
-        .video-player
-          = render partial: 'player', locals: { video: @anime.current_video }
-        .hidden-md.hidden-lg
-          = render partial: 'nav_video', locals: { anime: @anime }
+        .video-player = render partial: 'player', locals: { video: @anime.current_video }
+        = render partial: 'nav_video', locals: { anime: @anime }
 
       - unless @reviews.blank?
         .reviews
