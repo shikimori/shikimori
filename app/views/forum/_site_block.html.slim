@@ -44,7 +44,7 @@
 - cache "site_block/groups/#{presenter.groups_key}", expires_in: 6.hours do
   .menu-block.groups
     h2.subheadline.m13
-        a href="#{groups_url}" alt="К клубам" title="К клубам" Клубы
+        a href="#{clubs_url}" alt="К клубам" title="К клубам" Клубы
     ul.block-list-alt
       - presenter.groups.each do |entry|
         li.entry
@@ -80,13 +80,13 @@
             p.linkeable data-href="#{topic[:url]}"
               = topic[:description]
 
-- if user_presenter.present?
-  - cache "site_block/user_history/#{presenter.user_history_key current_user}", expires_in: 6.hours do
-    - if user_presenter.history.any?
+- if user_signed_in?
+  - cache [:site_block, :user_history, current_user], expires_in: 6.hours do
+    - if current_user.history.any?
       .menu-block.mylist
         h2.subheadline.m13 Мой список
         ul.block-list-alt
-          - user_presenter.formatted_history.each do |entry|
+          - current_user.history.formatted.take(2).each do |entry|
             li.entry
               a href="#{entry[:url]}" title="#{entry[:name]}"
                 .image-name

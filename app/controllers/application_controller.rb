@@ -104,6 +104,10 @@ class ApplicationController < ActionController::Base
                end
   end
 
+  def current_user
+    @decorated_current_user ||= super.try :decorate
+  end
+
   # создание презентера
   def present object, klass=nil
     klass ||= case object.class.name

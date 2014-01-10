@@ -5,12 +5,10 @@ class UserDecorator < Draper::Decorator
     User.model_name
   end
 
-  # блок "О себе"
   def about_html
     BbCodeService.instance.format_comment about
   end
 
-  # последний онлайн
   def last_online
     if object.admin?
       'всегда на сайте'
@@ -21,7 +19,6 @@ class UserDecorator < Draper::Decorator
     end
   end
 
-  # общая личная информация
   def common_info
     info = []
     info << h.h(name)
@@ -37,6 +34,28 @@ class UserDecorator < Draper::Decorator
     info << 'Нет личных данных' if info.empty?
 
     info
+  end
+
+  def history
+    @history ||= ProfileHistoryDecorator.new(object, clubs.any? ? 3 : 4)
+  end
+
+  def clubs
+    @clubs ||= if preferences.clubs_in_profile?
+      object.groups.order(:name).limit 4
+    else
+      []
+    end
+  end
+
+  def unread_messages_url
+    if unread_messages > 0 || (unread_news == 0 && unread_notifications == 0)
+       h.messages_url :inbox
+    elsif unread_news > 0
+       h.messages_url :news
+    else
+       h.messages_url :notifications
+    end
   end
 
 private

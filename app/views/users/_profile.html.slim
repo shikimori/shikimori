@@ -38,7 +38,7 @@
           a.klass-caption href="#{ani_manga_list_url(@user, list_type: klass.downcase)}"
             = "Список #{t("Genetive.#{klass}").downcase}"
           .stat-bar
-            span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
+            span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
               - if graph[:completed] > 0
                 span.completed-bar style="width: #{graph[:completed]*100.0/graph[:total]}%;" title="#{graph[:completed]} #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
                   - if graph[:completed]*100.0/graph[:total] > 2.5

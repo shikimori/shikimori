@@ -111,18 +111,18 @@ end
 
 gem 'marco-polo'
 # pry&debugger
-gem 'byebug'
-gem 'pry-byebug'
+#gem 'byebug'
+#gem 'pry-byebug'
 #gem 'debugger-completion'
 #gem 'debugger-pry', require: 'debugger/pry'
 gem 'pry-rails'
 
-gem 'pry-debugger'
-gem 'pry-docmore'
-gem 'pry-doc'
+#gem 'pry-debugger'
+#gem 'pry-docmore'
+#gem 'pry-doc'
 
 ##gem 'pry-plus'
-gem 'bond'
+#gem 'bond'
 ##gem 'pry-rescue' # ломает ctrl+c в консоли
 #gem 'pry-exception_explorer'
 #gem 'pry-stack_explorer'

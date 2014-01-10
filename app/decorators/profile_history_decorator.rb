@@ -22,8 +22,9 @@ private
   # история
   def history
     @history ||= all_history
-      .order { updated_at desc }
+      .order { updated_at.desc }
       .limit(@history_limit*4)
+      .decorate
   end
 
   def grouped_history
@@ -39,7 +40,7 @@ private
       {
         image: '/assets/blocks/history/shikimori.x43.png',
         name: 'shikimori.org',
-        action: entries.reverse.map {|v| UserPresenter.history_entry_text(v) }.join(', ').html_safe,
+        action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://shikimori.org'
       }
@@ -47,7 +48,7 @@ private
       {
         image: '/assets/blocks/history/mal.png',
         name: 'MyAnimeList',
-        action: entries.reverse.map {|v| UserPresenter.history_entry_text(v) }.join(', ').html_safe,
+        action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://myanimelist.net'
       }
@@ -55,7 +56,7 @@ private
       {
         image: '/assets/blocks/history/anime-planet.jpg',
         name: 'Anime-Planet',
-        action: entries.reverse.map {|v| UserPresenter.history_entry_text(v) }.join(', ').html_safe,
+        action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://anime-planet.com'
       }
@@ -64,12 +65,11 @@ private
     else
       {
         image: entry.target.image.url(:x64),
-        name: h.localized_name(entry.target),
-        action: entries.reverse.map {|v| UserPresenter.history_entry_text(v) }.join(', ').html_safe,
+        name: UsersHelper.localized_name(entry.target, object),
+        action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: h.url_for(entry.target)
       }
     end
   end
 end
-

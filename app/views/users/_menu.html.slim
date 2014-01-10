@@ -20,9 +20,9 @@ aside.left-block
 
       - if @user.own_profile?
         li.inbox.slider-control class="slider-control-inbox #{:selected if ['inbox','notifications','sent'].include?(params[:type])}#{' hidden' unless @user.own_profile?}"
-          = link_to unread_messages_url(current_user) do
-            - if current_user.unread_count > 0
-              span.unread-count = current_user.unread_count
+          a href="#{@user.unread_messages_url}" title="Почта"
+            - if @user.unread_count > 0
+              span.unread-count = @user.unread_count
             span Почта
 
       li.slider-control.hidden class="slider-control-animelist #{:selected if params[:type] == 'animelist'}"

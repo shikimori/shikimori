@@ -129,7 +129,7 @@ class UsersController < ApplicationController
 
   # страница профиля
   def statistics
-    @history = @user.all_history.order('updated_at desc').limit(30) if params[:format] == 'rss'
+    @history = @user.all_history.order { updated_at.desc }.limit(30) if params[:format] == 'rss'
     @kind = (params[:kind] || (@user.preferences.manga_first? ? :manga : :anime)).to_sym
 
     show

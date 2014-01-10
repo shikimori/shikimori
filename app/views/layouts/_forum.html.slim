@@ -16,7 +16,7 @@
 
       .site-menu-block data-remote="#{forum_site_block_url section: params[:section]}"
         - if user_signed_in?
-          = render partial: 'forum/site_block', locals: { presenter: @news, user_presenter: @user_presenter }, formats: :html
+          = render partial: 'forum/site_block', locals: { presenter: @news }, formats: :html
         - else
           .ajax-loading.top title="Загрузка..."
         = yield :site_menu_block

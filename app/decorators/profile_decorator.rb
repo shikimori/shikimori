@@ -18,24 +18,12 @@ class ProfileDecorator < UserDecorator
     h.link_to url_wo_http, "http://#{url_wo_http}", class: 'website'
   end
 
-  def clubs
-    @clubs ||= if preferences.clubs_in_profile?
-      object.groups.order(:name).limit 4
-    else
-      []
-    end
-  end
-
   def own_profile?
     h.user_signed_in? && h.current_user.id == object.id
   end
 
   def show_comments?
     (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
-  end
-
-  def history
-    @history ||= ProfileHistoryDecorator.new(object, clubs.any? ? 3 : 4)
   end
 
   def stats

@@ -2,7 +2,7 @@
   p
     span.key Тип:&nbsp;
     span.value
-      = UserPresenter.localized_kind entry, current_user
+      = localized_kind entry
 
 = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
 
@@ -10,7 +10,7 @@
   p
     span.key Длительность эпизода:&nbsp;
     span.value itemprop="#{entry.kind == 'Movie' ? 'duration' : ''}"
-      = humanize_minutes(entry.duration)
+      = humanize_minutes entry.duration
 
 = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
 = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html

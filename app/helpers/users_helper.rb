@@ -25,7 +25,7 @@ module UsersHelper
 
   # тип с учётом настроек отображения русского языка
   def localized_kind entry, short=false
-    if !h.current_user || (h.current_user && h.current_user.preferences.russian_genres?)
+    if !current_user || (current_user && current_user.preferences.russian_genres?)
       I18n.t "#{entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
     else
       entry.kind
@@ -258,15 +258,5 @@ module UsersHelper
         #time_ago_in_words(entry.created_at),
         #content
       #]
-  #end
-
-  #def unread_messages_url user
-    #if current_user.unread_messages > 0 || (current_user.unread_news == 0 && current_user.unread_notifications == 0)
-       #messages_url :inbox
-    #elsif current_user.unread_news > 0
-      #messages_url :news
-    #else
-      #messages_url :notifications
-    #end
   #end
 end

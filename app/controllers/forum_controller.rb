@@ -165,13 +165,6 @@ private
       end
     end
 
-    @user_presenter = if current_user
-      presenter = present current_user
-      presenter.history_limit = 2
-      presenter
-    else
-      nil
-    end
     raise NotFound.new("неизвестный раздел: #{params[:section]}") unless @section
 
     @news = WellcomeNewsPresenter.new if user_signed_in?
