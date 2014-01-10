@@ -36,8 +36,8 @@ class UsersController < ApplicationController
 
       if @similar_ids
         ids = @similar_ids
-            .drop(UsersPerPage * (@page - 1))
-            .take(UsersPerPage)
+          .drop(UsersPerPage * (@page - 1))
+          .take(UsersPerPage)
 
         @users = User.where(id: ids).sort_by {|v| ids.index v.id }
       end
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
       @users = @users.sort_by {|v| v.last_online_at }.reverse
     end
 
-    UserPresenter.fill_users_history @users, current_user if @users
+    @users.map!(&:decorate)
   end
 
   # поиск пользователей
@@ -73,7 +73,6 @@ class UsersController < ApplicationController
     @pages = ['statistics', 'friends', 'comments', 'reviews', 'changes', 'favourites', 'clubs', 'settings', 'list-history', @@messages_pages, 'talk', 'notifications-settings'] +
         (user_signed_in? && current_user.moderator? ? ['ban'] : []) +
         @@ani_manga_list_pages
-    #@pages = ['profile', 'friends', 'favourites', 'topics', 'settings', @messages_pages, 'new-message', 'talk', 'notifications-settings'] + @ani_manga_list_pages
     @sub_layout = 'user'
 
     if params.include?(:comment_id)
@@ -129,7 +128,11 @@ class UsersController < ApplicationController
 
   # страница профиля
   def statistics
-    @history = @user.all_history.order { updated_at.desc }.limit(30) if params[:format] == 'rss'
+    @history = @user
+      .all_history
+      .order { updated_at.desc }
+      .limit(30)
+      .decorate if params[:format] == 'rss'
     @kind = (params[:kind] || (@user.preferences.manga_first? ? :manga : :anime)).to_sym
 
     show
@@ -138,14 +141,6 @@ class UsersController < ApplicationController
   # список друзей
   def friends
     @page_title = UsersController.profile_title('Друзья', @user)
-    show
-  end
-
-  # страница бана пользователя
-  def ban
-    @page_title = UsersController.profile_title('Забанить', @user)
-
-    @ban = Ban.new user_id: @user.id
     show
   end
 
@@ -332,12 +327,12 @@ private
     noindex and nofollow
 
     if params[:user_id] && Rails.env.development?
-      @user = ProfileDecorator.new User.find(params[:user_id])
+      @user = UserProfileDecorator.new User.find(params[:user_id])
       return
     end
 
     nickname = User.param_to params[:id]
-    @user = ProfileDecorator.new User
+    @user = UserProfileDecorator.new User
       .includes(:friends)
       .where(nickname: nickname)
       .select { |v| v.nickname == nickname }

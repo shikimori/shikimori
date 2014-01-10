@@ -52,4 +52,4 @@ header.head.misc
   - else
     = render partial: 'users/user', collection: @users, formats: :html
     - if @add_postloader
-      = render partial: 'site/postloader_new', locals: { filter: 'user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html
+      = render partial: 'site/postloader_new', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html

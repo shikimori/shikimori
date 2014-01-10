@@ -191,25 +191,6 @@ h3 {
   a {
     color: #555555;
   }
-  &.updates {
-    li {
-      a {
-        display: block;
-        .date {
-          @include default-date-decor;
-          float: right;
-        }
-        .event {
-          @include ellipsis;
-          color: #123;
-          display: block;
-        }
-        .highlight {
-          color: #555;
-        }
-      }
-    }
-  }
 }
 .block-list-alt {
   @extend .block-list;
@@ -225,17 +206,6 @@ h3 {
   }
   a {
     @include link-color(#333);
-
-    /*.misc {*/
-      /*color: #555;*/
-
-      /*&:hover {*/
-        /*color: #555;*/
-      /*}*/
-      /*&:active {*/
-        /*color: #555;*/
-      /*}*/
-    /*}*/
   }
 }
 

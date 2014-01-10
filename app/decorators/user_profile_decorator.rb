@@ -1,0 +1,106 @@
+class UserProfileDecorator < UserDecorator
+  def about_above?
+    !about.blank? && !about.strip.blank? && preferences.about_on_top?
+  end
+
+  def about_below?
+    !about.blank? && !about.strip.blank? && !preferences.about_on_top?
+  end
+
+  def avatar_url
+    h.gravatar_url object, 160
+  end
+
+  def website
+    return if object.website.blank?
+
+    url_wo_http = h.h(object.website).sub(/^https?:\/\//, '')
+    h.link_to url_wo_http, "http://#{url_wo_http}", class: 'website'
+  end
+
+  def own_profile?
+    h.user_signed_in? && h.current_user.id == object.id
+  end
+
+  def show_comments?
+    (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
+  end
+
+  def stats
+    cache_key = Digest::MD5.hexdigest "user_stats_#{object.cache_key}_#{!h.current_user || (h.current_user && h.current_user.preferences.russian_genres?) ? 'rus' : 'en'}"
+    @stats ||= Rails.cache.fetch cache_key do
+      UserStatisticsService.new(object, h.current_user).fetch
+    end
+  end
+
+  def formatted_history
+    history.formatted.take clubs.any? ? 3 : 4
+  end
+
+  def nickname_changes?
+    nickname_changes.any?
+  end
+
+  def nickname_changes
+    @nickname_changes ||= object
+      .nickname_changes
+      .all
+      .select {|v| v.value != object.nickname }
+  end
+
+  def nicknames_tooltip
+    "Также #{object.female? ? 'известна' : 'известен'} как: " +
+      nickname_changes
+        .map {|v| "<b style='white-space: nowrap'>#{h.h v.value}</b>" }
+        .join("<span color='#555'>,</span> ")
+  end
+
+  # находится ли пользователь в друзьях у текущего пользователя?
+  def favoured?
+    @favored ||= h.current_user.friends.include?(object)
+  end
+
+  # заигнорен ли пользователь текущим пользователем?
+  def ignored?
+    @ignored ||= h.current_user.ignores.any? { |v| v.target_id == object.id }
+  end
+
+  def friends
+    @friends ||= object
+      .friends
+      .decorate
+      .sort_by {|v| v.last_online_at } # сортировка должна быть тут, а не в базе, т.к. метод last_online_at переопределён в классе
+      .reverse
+  end
+
+  # текст о совместимости
+  def compatibility_text number
+    if number < 5
+      'нет совместимости'
+    elsif number < 25
+      'слабая совместимость'
+    elsif number < 40
+      'средняя совместимость'
+    elsif number < 60
+      'высокая совместимость'
+    else
+      'полная совместимость'
+    end
+  end
+
+  # класс для контейнера текста совместимости
+  def compatibility_class number
+    if number < 5
+      'zero'
+    elsif number < 25
+      'weak'
+    elsif number < 40
+      'moderate'
+    elsif number < 60
+      'high'
+    else
+      'full'
+    end
+  end
+end
+

@@ -1,6 +1,6 @@
 aside.left-block
   .user-avatar
-    img src="#{@user.avatar}" alt="#{@user.nickname}" title="#{@user.nickname}"
+    img src="#{@user.avatar_url}" alt="#{@user.nickname}" title="#{@user.nickname}"
 
   .menu-block.user-menu-container
     - if user_signed_in? && !@user.own_profile?
@@ -69,7 +69,7 @@ aside.right-block
       .subheadline.m13
         a href="#{list_history_url @user}" История
       ul.block-list-alt
-        - @user.history.formatted.each do |entry|
+        - @user.formatted_history.each do |entry|
           li.entry
             a href="#{entry[:url]}" title="#{entry[:name]}"
               .image-name

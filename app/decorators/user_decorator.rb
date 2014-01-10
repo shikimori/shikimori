@@ -15,7 +15,7 @@ class UserDecorator < Draper::Decorator
     elsif DateTime.now - 5.minutes <= last_online_at
       'сейчас на сайте'
     else
-      "онлайн #{time_ago_in_words last_online_at, nil, true} назад"
+      "онлайн #{h.time_ago_in_words last_online_at, nil, true} назад"
     end
   end
 
@@ -37,7 +37,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def history
-    @history ||= ProfileHistoryDecorator.new(object, clubs.any? ? 3 : 4)
+    @history ||= UserProfileHistoryDecorator.new object
   end
 
   def clubs

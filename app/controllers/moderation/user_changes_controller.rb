@@ -24,10 +24,11 @@ class Moderation::UserChangesController < ApplicationController
     raise Forbidden unless current_user.user_changes_moderator?
 
     @processed = postload_paginate(params[:page], 25) do
-      UserChange.includes(:user)
-                .includes(:approver)
-                .where { status.not_in([UserChangeStatus::Pending, UserChangeStatus::Locked]) }
-                .order { updated_at.desc }
+      UserChange
+        .includes(:user)
+        .includes(:approver)
+        .where { status.not_in([UserChangeStatus::Pending, UserChangeStatus::Locked]) }
+        .order { updated_at.desc }
     end
 
     render json: {

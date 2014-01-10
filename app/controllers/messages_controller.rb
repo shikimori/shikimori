@@ -20,7 +20,7 @@ class MessagesController < UsersController
 
   # отображение страницы личных сообщений
   def index
-    @user ||= current_user
+    @user ||= UserProfileDecorator.new current_user.object
 
     @page_title ||= case params[:type]
       when 'inbox' then UsersController.profile_title('Личные сообщения', @user)

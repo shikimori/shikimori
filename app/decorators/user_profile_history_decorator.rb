@@ -1,17 +1,16 @@
-class ProfileHistoryDecorator < UserDecorator
-  def initialize object, history_limit = 3
-    super object
-    @history_limit = history_limit
-  end
+class UserProfileHistoryDecorator < UserDecorator
+  LIMIT = 4
 
   # отформатированная история
   def formatted
-    grouped_history
-      .map {|group,entries| format_entries entries }
-      .compact
-      .each do |entry|
-        entry[:reversed_action] = entry[:action].split(/(?<!\d[йяюо]), /).reverse.join(', ').gsub(/<.*?>/, '')
-      end
+    @formatted ||= Rails.cache.fetch [:history, :formatted, object, h.russian_names_key] do
+      grouped_history
+        .map {|group,entries| format_entries entries }
+        .compact
+        .each do |entry|
+          entry[:reversed_action] = entry[:action].split(/(?<!\d[йяюо]), /).reverse.join(', ').gsub(/<.*?>/, '')
+        end
+    end
   end
 
   def any?
@@ -23,14 +22,14 @@ private
   def history
     @history ||= all_history
       .order { updated_at.desc }
-      .limit(@history_limit*4)
+      .limit(LIMIT * 4)
       .decorate
   end
 
   def grouped_history
     history
       .group_by {|v| "#{v.target_id || v.action[0]}_#{v.updated_at.strftime "%d-%m-%y"}" }
-      .take(@history_limit)
+      .take(LIMIT)
   end
 
   def format_entries entries
@@ -42,7 +41,9 @@ private
         name: 'shikimori.org',
         action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
-        url: 'http://shikimori.org'
+        url: 'http://shikimori.org',
+        short_name: 'Регистрация на сайте',
+        special?: true
       }
     elsif [UserHistoryAction::MalAnimeImport, UserHistoryAction::MalMangaImport].include? entry.action
       {
@@ -50,7 +51,9 @@ private
         name: 'MyAnimeList',
         action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
-        url: 'http://myanimelist.net'
+        url: 'http://myanimelist.net',
+        short_name: 'Импорт с MyAnimeList',
+        special?: true
       }
     elsif [UserHistoryAction::ApAnimeImport, UserHistoryAction::ApMangaImport].include? entry.action
       {
@@ -58,18 +61,22 @@ private
         name: 'Anime-Planet',
         action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
-        url: 'http://anime-planet.com'
+        url: 'http://anime-planet.com',
+        short_name: 'Импорт с Anime-Planet',
+        special?: true
       }
     elsif entry.target.nil?
       nil
     else
       {
         image: entry.target.image.url(:x64),
-        name: UsersHelper.localized_name(entry.target, object),
+        name: UsersHelper.localized_name(entry.target, h.current_user),
         action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
-        url: h.url_for(entry.target)
+        url: h.url_for(entry.target),
+        special?: false
       }
     end
   end
 end
+

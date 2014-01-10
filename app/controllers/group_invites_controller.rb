@@ -11,6 +11,7 @@ class GroupInvitesController < ApplicationController
       return
     end
     raise Forbidden unless @group.has_member?(current_user)
+
     if @group.has_member?(current_user) && @group.has_member?(@user)
       render json: ['%s уже находится в этой группе' % @user.nickname], status: :unprocessable_entity
       return

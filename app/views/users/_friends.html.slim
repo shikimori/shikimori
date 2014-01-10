@@ -1,3 +1,2 @@
-.index-list
-  .subheadline Друзья
-  = render :partial => 'users/user', :collection => @presenter.friends_with_history, formats: :html
+.subheadline.m5 Друзья
+= render partial: 'users/user', collection: @user.friends, formats: :html
