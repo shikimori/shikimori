@@ -238,7 +238,7 @@ class UserListsController < UsersController
         src_id: poster.id,
         src_type: poster.class.name,
         dst_id: current_user.id,
-        dst_type: current_user.class.name,
+        dst_type: User.name,
         kind: MessageType::Private,
         body: message.join('<br>')
       })

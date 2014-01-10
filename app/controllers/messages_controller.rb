@@ -236,7 +236,7 @@ class MessagesController < UsersController
       dst_id: user.id,
       dst_type: user.class.name,
       src_id: current_user.id,
-      src_type: current_user.class.name,
+      src_type: User.name,
       kind: MessageType::Private
     })
 

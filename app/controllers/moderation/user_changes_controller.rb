@@ -113,9 +113,9 @@ class Moderation::UserChangesController < ApplicationController
 
     if change.apply(current_user.id, params[:taken])
       Message.create({
-        src_type: current_user.class.name,
+        src_type: User.name,
         src_id: current_user.id,
-        dst_type: current_user.class.name,
+        dst_type: User.name,
         dst_id: change.user_id,
         kind: MessageType::Notification,
         body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] принята."
@@ -135,9 +135,9 @@ class Moderation::UserChangesController < ApplicationController
     if change.deny(current_user.id, params[:notify])
       if params[:notify]
         Message.create({
-          src_type: current_user.class.name,
+          src_type: User.name,
           src_id: current_user.id,
-          dst_type: current_user.class.name,
+          dst_type: User.name,
           dst_id: change.user_id,
           kind: MessageType::Notification,
           body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] отклонена."

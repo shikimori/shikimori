@@ -83,7 +83,8 @@ private
       kind: video.kind,
       language: video.language,
       source: video.source,
-      anime_video_author_id: find_or_create_author(video.author).try(:id)
+      anime_video_author_id: find_or_create_author(video.author).try(:id),
+      state: 'working'
     })
   end
 

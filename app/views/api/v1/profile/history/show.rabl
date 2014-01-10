@@ -1,10 +1,7 @@
 collection @resources
 
 attribute :id, :created_at
-
-node :description do |entry|
-  UserPresenter.history_entry_text entry
-end
+attribute format: :description
 
 child target: :target do |linked|
   if linked
