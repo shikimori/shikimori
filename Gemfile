@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 #ruby '2.0.0'
 #Encoding.default_external = Encoding::UTF_8
 #Encoding.default_internal = Encoding::UTF_8
@@ -109,6 +109,7 @@ group :development do
   gem 'sql-logging'
 end
 
+gem 'marco-polo'
 # pry&debugger
 gem 'byebug'
 gem 'pry-byebug'
