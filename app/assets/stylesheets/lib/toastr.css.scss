@@ -114,13 +114,15 @@
 @media all and (max-width: 240px) {
   #toast-container > div {
     padding: 8px 8px 8px 50px;
-    width: 108px;
+    /*width: 108px;*/
+    width: 148px;
   }
 }
 @media all and (min-width: 241px) and (max-width: 320px) {
   #toast-container > div {
     padding: 8px 8px 8px 50px;
-    width: 128px;
+    /*width: 128px;*/
+    width: 148px;
   }
 }
 @media all and (min-width: 321px) and (max-width: 480px) {
