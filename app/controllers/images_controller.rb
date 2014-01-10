@@ -83,6 +83,9 @@ class ImagesController < ApplicationController
 
   # загрузка картинки на удалённый хостинг
   def remote_upload
+    render json: { error: 'Загрузка картинок временно недоступна. Мы знаем о проблеме, в ближайшее время будем чинить.' }
+    return
+
     #image = File.open(File.join(Rails.root, 'spec', 'images', 'anime.jpg'))
     image = params[:image]
     unless %x(file #{image.tempfile.path}) =~ /image/
