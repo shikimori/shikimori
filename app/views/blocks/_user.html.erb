@@ -1,7 +1,7 @@
 <div class="item-block user-block user-<%=user.id %>-block">
   <%=link_to user_url(user) do %>
     <center>
-      <img src="<%=gravatar_url(user, defined?(avatar_size) ? avatar_size : 80) %>" alt="<%=user.nickname %>" title="<%=user.nickname %>" />
+      <img src="<%=user.avatar_url(defined?(avatar_size) ? avatar_size : 80) %>" alt="<%=user.nickname %>" title="<%=user.nickname %>" />
     </center>
     <p class="name"><%=user.nickname %></p>
   <% end %>

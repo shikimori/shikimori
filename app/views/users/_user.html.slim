@@ -12,7 +12,7 @@
 
   .image-name
     a href="#{user_url user}" title="#{user.nickname}"
-      img.image src="#{gravatar_url user, 73}" alt="#{user.nickname}"
+      img.image src="#{user.avatar_url 73}" alt="#{user.nickname}"
     a.name href="#{user_url user}" title="#{user.nickname}"
       = user.nickname
 

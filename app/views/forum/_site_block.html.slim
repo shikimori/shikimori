@@ -50,7 +50,7 @@
         li.entry
           a href="#{club_url entry.linked}" title="#{entry.title}"
             .image-name
-              img src="#{entry.comments.first ? gravatar_url(entry.comments.first.user, 48) : gravatar_url(entry.linked.owner, 48)}" alt="#{entry.title}" title="#{entry.title}"
+              img src="#{entry.comments.first ? entry.comments.first.user.avatar_url(48) : entry.linked.owner.avatar_url(48)}" alt="#{entry.title}" title="#{entry.title}"
               span.title
                 = entry.title
             - if entry.comments.first

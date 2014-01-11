@@ -21,7 +21,7 @@
 
     .image-name
       a href="#{comment[:topic_url] || user_url(comment.user)}" title="#{comment.user.nickname}"
-        img src="#{gravatar_url comment.user, 48}" alt="#{comment.user.nickname}"
+        img src="#{comment.user.avatar_url 48}" alt="#{comment.user.nickname}"
       .name-date
         a.name href="#{comment[:topic_url] || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
           == comment[:topic_name] || h(comment.user.nickname)

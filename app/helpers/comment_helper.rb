@@ -275,7 +275,7 @@ module CommentHelper
               User.find $3
             end
 
-            text.gsub! $1, "<a href=\"#{user_url user}\" title=\"#{$4}\"><img src=\"#{gravatar_url user, 16}\" alt=\"#{$4}\" /></a>
+            text.gsub! $1, "<a href=\"#{user_url user}\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" alt=\"#{$4}\" /></a>
 <a href=\"#{url_for(user)}\" title=\"#{$4}\">#{$4}</a>" + (is_profile ? '' : " #{user.sex == 'male' ? 'написал' : 'написала'}:")
           rescue
             text.gsub! $1, "#{$4}#{is_profile ? '' : ' написал:'}"
@@ -286,7 +286,7 @@ module CommentHelper
           begin
             ban = Ban.find $2
 
-            moderator_html = "<a href=\"#{user_url ban.moderator}\" title=\"#{ban.moderator.nickname}\"><img src=\"#{gravatar_url ban.moderator, 16}\" alt=\"#{ban.moderator.nickname}\" /></a>
+            moderator_html = "<a href=\"#{user_url ban.moderator}\" title=\"#{ban.moderator.nickname}\"><img src=\"#{ban.moderator.avatar_url 16}\" alt=\"#{ban.moderator.nickname}\" /></a>
 <a href=\"#{user_url ban.moderator}\" title=\"#{ban.moderator.nickname}\">#{ban.moderator.nickname}</a>"
             text.gsub! $1, "<div class=\"ban-message\">#{moderator_html}: <span class=\"details\">#{ban.message}</span></div>"
           rescue ActiveRecord::RecordNotFound

@@ -58,6 +58,18 @@ class UserDecorator < Draper::Decorator
     end
   end
 
+  def avatar_url size
+    if avatar.exists?
+      if User::CensoredIds.include?(id) && (!h.user_signed_in? || (h.user_signed_in? && !User::CensoredIds.include?(h.current_user.id)))
+        "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
+      else
+        avatar.url "x#{size}".to_sym
+      end
+    else
+      "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
+    end
+  end
+
 private
   def years
     DateTime.now.year - birth_on.year if birth_on

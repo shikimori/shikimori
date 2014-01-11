@@ -5,7 +5,7 @@ describe Moderation::ComplaintAnimeVideosController do
 
   let(:user) { create :user }
   let(:moderator) { create :user, id: User::Blackchestnut_ID }
-  let(:message) { create :message, src: user, dst: moderator, subject: :broken_video, kind: MessageType::Notification }
+  let(:message) { create :message, from: user, to: moderator, subject: :broken_video, kind: MessageType::Notification }
   let(:video) { create :anime_video, anime: create(:anime) }
 
   describe :index do

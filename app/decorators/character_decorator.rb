@@ -8,6 +8,26 @@ class CharacterDecorator < PersonDecorator
     object.source
   end
 
+  def description_html
+    if description.present?
+      BbCodeService.instance.format_comment(description).html_safe
+    else
+      h.format_html_text(object.description_mal).html_safe
+    end
+  end
+
+  def description_mal
+    if object.description_mal.present?
+      h.format_html_text(object.description_mal).html_safe
+    else
+      'нет описания'
+    end
+  end
+
+  def show_mal_description?
+    h.user_signed_in? && object.description_mal.present? && description.present?
+  end
+
   def favoured
     @favoured ||= FavouritesQuery.new(object, 12).fetch
   end
@@ -30,14 +50,6 @@ class CharacterDecorator < PersonDecorator
 
   def comments
     @comments ||= object.thread.comments.with_viewed(h.current_user).limit(15)
-  end
-
-  def description_mal
-    if object.description_mal.present?
-      object.description_mal
-    else
-      'нет описания'
-    end
   end
 
   # презентер косплея

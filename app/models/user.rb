@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include Commentable
 
   CommentForbiddenMessage = 'Вы не можете писать этому пользователю'
+  CensoredIds = Set.new [4357]
 
   has_many :user_tokens do
     def facebook
@@ -216,7 +217,7 @@ class User < ActiveRecord::Base
   end
 
   def all_history
-    @all_history ||= history.includes(:anime).includes(:manga)
+    @all_history ||= history.includes(:anime, :manga)
   end
 
   def anime_history
@@ -412,8 +413,17 @@ class User < ActiveRecord::Base
     true
   end
 
-  #def update_with_password u
-  #end
+  def avatar_url size
+    if avatar.exists?
+      if CensoredIds.include?(id)
+        "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
+      else
+        avatar.url "x#{size}".to_sym
+      end
+    else
+      "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
+    end
+  end
 
 private
   # создание первой записи в историю - о регистрации на сайте

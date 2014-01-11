@@ -172,19 +172,6 @@ module AnimeHelper
     super(text.gsub('№', 'CODE_N').gsub('°', 'CODE_PER'), options).gsub('CODE_N', '№').gsub('CODE_PER', '°')
   end
 
-  def format_person_role(role, options = { full: false })
-    roles = role.split(/, */)
-    if roles.size > 1
-      if options[:full]
-        return roles.map {|v| t "Role.%s" % v }.sort.join(', ')
-      else
-        return "%s (+)" % (t "Role.%s" % roles.first)
-      end
-    else
-      return t "Role.%s" % roles.first
-    end
-  end
-
   def average_score(scores)
     return '' unless scores
     return '' if scores.respond_to?(:[]) && !scores.kind_of?(Fixnum) && (scores.empty? || scores.sum == 0)

@@ -9,12 +9,12 @@
       tr
         td.user
           = link_to user_url(rate.user) do
-            img src="#{gravatar_url(rate.user, 16)}" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
+            img src="#{rate.user.avatar_url 16}" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
           = link_to rate.user.nickname, user_url(rate.user)
         td.num
           == rate.score && rate.score != 0 ? rate.score : '&ndash;'
         td.num.status
-          = t "#{@entry.class.name}RateStatus.%s" % UserRateStatus.get(rate.status)
+          = t "#{@entry.class.name}RateStatus.#{UserRateStatus.get rate.status}"
 
 - if @entry.mal_scores && @entry.mal_scores.sum > 0
   = render partial: 'stat', locals: {name: 'MyAnimeList', key: :mal_scores }, formats: :html

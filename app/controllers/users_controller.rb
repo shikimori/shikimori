@@ -85,7 +85,7 @@ class UsersController < ApplicationController
 
     # если заходим в собственный профиль, и есть уведомления о новых сообщениях в профиле, то помечаем их прочитанными
     if params[:type] == 'statistics' && user_signed_in? && current_user.id == @user.id
-      Message.where(dst_id: current_user.id, dst_type: User.name, kind: MessageType::ProfileCommented, read: false).each do |v|
+      Message.where(to_id: current_user.id, kind: MessageType::ProfileCommented, read: false).each do |v|
         v.update_attribute(:read, true)
       end
     end
@@ -141,6 +141,14 @@ class UsersController < ApplicationController
   # список друзей
   def friends
     @page_title = UsersController.profile_title('Друзья', @user)
+    show
+  end
+
+  # страница бана пользователя
+  def ban
+    @page_title = UsersController.profile_title('Забанить', @user)
+
+    @ban = Ban.new user_id: @user.id
     show
   end
 

@@ -7,7 +7,7 @@ describe Api::V1::Profile::MessagesController do
   describe :index do
     let(:user_2) { create :user }
     let(:topic) { create :anime_news, linked: create(:anime) }
-    let!(:news) { create :message, kind: MessageType::Anons, dst: user, src: user_2, body: 'anime [b]anons[/b]', linked: topic }
+    let!(:news) { create :message, kind: MessageType::Anons, to: user, from: user_2, body: 'anime [b]anons[/b]', linked: topic }
     before { get :index, page: 1, limit: 20, type: 'news', format: :json }
 
     it { should respond_with :success }

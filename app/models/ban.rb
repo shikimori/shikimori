@@ -45,7 +45,7 @@ class Ban < ActiveRecord::Base
     end.sub /\.+\Z/, '.'
   end
 
-# callbacks
+  # callbacks
   def ban_user
     return if warning?
     user.update_column :read_only_at, [user.read_only_at || DateTime.now, DateTime.now].max + duration.minutes

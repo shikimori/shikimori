@@ -5,7 +5,7 @@
 
   .user
     = link_to user_url(ban.user) do
-      img.avatar src="#{gravatar_url ban.user, 16}" alt="#{ban.user.nickname}" title="#{ban.user.nickname}"
+      img.avatar src="#{ban.user.avatar_url 16}" alt="#{ban.user.nickname}" title="#{ban.user.nickname}"
     = link_to ban.user.nickname, user_url(ban.user), class: 'nickname short', title: "#{ban.user.nickname}"
 
   - if ban.warning?

@@ -23,7 +23,7 @@ header.head.misc
             .voters
               - @contest.left_voters.each do |user|
                 a href="#{user_url user}" title="#{user.nickname}"
-                  img src="#{gravatar_url user, 32}" alt="#{user.nickname}" title="#{user.nickname}"
+                  img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
           - else
             p Нет проголосовавших.
 
@@ -36,7 +36,7 @@ header.head.misc
             .voters
               - @contest.right_voters.each do |user|
                 a href="#{user_url user}" title="#{user.nickname}"
-                  img src="#{gravatar_url user, 32}" alt="#{user.nickname}" title="#{user.nickname}"
+                  img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
           - else
             p Нет проголосовавших.
 
@@ -48,5 +48,5 @@ header.head.misc
           .voters
             - @contest.refrained_voters.each do |user|
               a href="#{user_url user}" title="#{user.nickname}"
-                img src="#{gravatar_url user, 32}" alt="#{user.nickname}" title="#{user.nickname}"
+                img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
   .clearfix

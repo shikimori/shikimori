@@ -1,4 +1,6 @@
-class UserProfileHistoryDecorator < UserDecorator
+class UserProfileHistoryDecorator < Draper::Decorator
+  delegate_all
+
   LIMIT = 4
 
   # отформатированная история

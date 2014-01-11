@@ -22,11 +22,11 @@
   .image-name
     - if params[:type] != 'sent'
       = link_to user_url(message.from) do
-        img src="#{gravatar_url message.from, 64}" alt="#{message.from.nickname }"
+        img src="#{message.from.avatar_url 64}" alt="#{message.from.nickname }"
       = link_to message.from.nickname, user_url(message.from), class: :name
     - else
       = link_to user_url(message.to) do
-        img src="#{gravatar_url message.to, 64}" alt="#{message.to.nickname }"
+        img src="#{message.to.avatar_url 64}" alt="#{message.to.nickname }"
       = link_to "@#{message.to.nickname}", user_url(message.to), class: :name
     p.date
       = time_ago_in_words(message.created_at, "%s назад")

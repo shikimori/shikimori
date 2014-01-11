@@ -115,7 +115,7 @@ class MessagesController < UsersController
 
   # разговоро с пользователем
   def talk
-    @user = User.find_by_nickname(User.param_to params[:id])
+    @user = UserProfileDecorator.new User.find_by_nickname(User.param_to params[:id])
     raise NotFound.new params[:id] unless @user
 
     @page = (params[:page] || 1).to_i
@@ -152,9 +152,7 @@ class MessagesController < UsersController
                      select id,created_at,'messages' as type
                        from messages
                        where
-                         src_type='#{User.name}'
-                         and dst_type='#{User.name}'
-                         and kind='#{MessageType::Private}'
+                         kind='#{MessageType::Private}'
                          and ((
                              from_id=#{@user.id}
                              and to_id=#{current_user.id}
@@ -254,7 +252,6 @@ class MessagesController < UsersController
   def read
     Message.where(id: (params[:ids] || '').split(',').map(&:to_i))
            .where(to_id: current_user.id)
-           .where(dst_type: User.name)
            .update_all(read: params[:read])
 
     render json: {}

@@ -1,6 +1,6 @@
 aside.left-block
   .user-avatar
-    img src="#{@user.avatar_url}" alt="#{@user.nickname}" title="#{@user.nickname}"
+    img src="#{@user.avatar_url 160}" alt="#{@user.nickname}" title="#{@user.nickname}"
 
   .menu-block.user-menu-container
     - if user_signed_in? && !@user.own_profile?

@@ -119,7 +119,7 @@ class TopicPresenter < BasePresenter
     elsif review?
       topic.linked.entry.image.url(:x96)
     else
-      gravatar_url(entry.user, 48)
+      entry.user.avatar_url(48)
     end
   end
 

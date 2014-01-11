@@ -12,7 +12,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def avatar_url size=160
-    h.gravatar_url object, size
+    super size
   end
 
   def website
