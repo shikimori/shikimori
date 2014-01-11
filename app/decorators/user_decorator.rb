@@ -60,10 +60,10 @@ class UserDecorator < Draper::Decorator
 
 private
   def years
-    DateTime.now.year - birth_on.year
+    DateTime.now.year - birth_on.year if birth_on
   end
 
   def full_years
-    Date.parse(DateTime.now.to_s) - years.years + 1.day > birth_on ? years : years - 1
+    Date.parse(DateTime.now.to_s) - years.years + 1.day > birth_on ? years : years - 1 if birth_on
   end
 end

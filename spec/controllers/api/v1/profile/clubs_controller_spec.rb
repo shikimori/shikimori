@@ -5,7 +5,7 @@ describe Api::V1::Profile::ClubsController do
   before { sign_in user }
 
   describe :index do
-    before { get :index }
+    before { get :index, format: :json }
     it { should respond_with :success }
   end
 end

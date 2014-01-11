@@ -2,168 +2,120 @@
 - animes#show:
   - !omap
     - verb: :GET
-    - path: /api/animes/27144
+    - path: "/api/animes/40595"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-        id: 27144
-        name: anime_12
-        russian: 
-        image:
-          preview: /images/preview/missing.png
-          short: /images/short/missing.png
-          x96: /images/x96/missing.png
-          x64: /images/x64/missing.png
-        url: http://test.host/animes/27144-anime_12
-        rating: 
-        english: []
-        japanese: []
-        synonyms: []
-        kind: TV
-        aired_at: 
-        released_at: 
-        episodes: 0
-        episodes_aired: 0
-        score: 1.0
-        description: У этого аниме пока ещё нет описания.
-        description_html: ''
-        genres: []
-        studios: []
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/animes/27145
+    - path: "/api/animes/40596"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-        id: 27145
-        name: anime_13
-        russian: 
-        image:
-          preview: /images/preview/missing.png
-          short: /images/short/missing.png
-          x96: /images/x96/missing.png
-          x64: /images/x64/missing.png
-        url: http://test.host/animes/27145-anime_13
-        rating: 
-        english: []
-        japanese: []
-        synonyms: []
-        kind: TV
-        aired_at: 
-        released_at: 
-        episodes: 0
-        episodes_aired: 0
-        score: 1.0
-        description: У этого аниме пока ещё нет описания.
-        description_html: ''
-        genres: []
-        studios: []
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 0
     - recorded: true
 - authenticity_tokens#show:
   - !omap
     - verb: :GET
-    - path: /api/authenticity_token
+    - path: "/api/authenticity_token"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        token: 9A0X2BOoeFaMB3ZUGXnS+G56VyFIfx2SQxeRP5p/xs8=
-        authenticity_token: 9A0X2BOoeFaMB3ZUGXnS+G56VyFIfx2SQxeRP5p/xs8=
+        authenticity_token: 4HNgldBcL7+FxAo/ga3lqz7zK2tB1xfgn3d3vDeNqjE=
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/authenticity_token
+    - path: "/api/authenticity_token"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        token: p+H6iVbMu0HrhueZ/0dgH4jf6awRAlf2DvTqvLiFg18=
-        authenticity_token: p+H6iVbMu0HrhueZ/0dgH4jf6awRAlf2DvTqvLiFg18=
+        authenticity_token: n/9snBLCBrtl+WyMw2jh11d1PK31qxxyZ94iH7JJvA0=
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - characters#show:
   - !omap
     - verb: :GET
-    - path: /api/characters/33586
+    - path: "/api/characters/34563"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 33586
+        id: 34563
         name: character_1
-        russian: персонаж_1
+        russian: "персонаж_1"
         image:
-          preview: /assets/globals/missing_preview.jpg
-          short: /assets/globals/missing_short.jpg
-          x96: /assets/globals/missing_x96.jpg
-          x64: /assets/globals/missing_x64.jpg
-        url: http://test.host/characters/33586-character_1
+          original: "/assets/globals/missing_original.jpg"
+          preview: "/assets/globals/missing_preview.jpg"
+          x96: "/assets/globals/missing_x96.jpg"
+          x64: "/assets/globals/missing_x64.jpg"
+        url: http://test.host/characters/34563-character_1
         altname: 
         japanese: 
         description: ''
         description_html: ''
         seyu: []
         animes:
-        - id: 27136
-          name: anime_4
+        - id: 40593
+          name: anime_5
           russian: 
           image:
-            preview: /images/preview/missing.png
-            short: /images/short/missing.png
-            x96: /images/x96/missing.png
-            x64: /images/x64/missing.png
-          url: http://test.host/animes/27136-anime_4
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: http://test.host/animes/40593-anime_5
         mangas: []
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/characters/33587
+    - path: "/api/characters/34564"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 33587
+        id: 34564
         name: character_2
-        russian: персонаж_2
+        russian: "персонаж_2"
         image:
-          preview: /assets/globals/missing_preview.jpg
-          short: /assets/globals/missing_short.jpg
-          x96: /assets/globals/missing_x96.jpg
-          x64: /assets/globals/missing_x64.jpg
-        url: http://test.host/characters/33587-character_2
+          original: "/assets/globals/missing_original.jpg"
+          preview: "/assets/globals/missing_preview.jpg"
+          x96: "/assets/globals/missing_x96.jpg"
+          x64: "/assets/globals/missing_x64.jpg"
+        url: http://test.host/characters/34564-character_2
         altname: 
         japanese: 
         description: ''
         description_html: ''
         seyu: []
         animes:
-        - id: 27137
-          name: anime_5
+        - id: 40594
+          name: anime_6
           russian: 
           image:
-            preview: /images/preview/missing.png
-            short: /images/short/missing.png
-            x96: /images/x96/missing.png
-            x64: /images/x64/missing.png
-          url: http://test.host/animes/27137-anime_5
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: http://test.host/animes/40594-anime_6
         mangas: []
     - code: '200'
     - show_in_doc: 0
@@ -171,13 +123,13 @@
 - clubs#index:
   - !omap
     - verb: :GET
-    - path: /api/profile/clubs
+    - path: "/api/profile/clubs"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 440
+      - id: 683
         name: group_1
         logo: http://www.gravatar.com/avatar/group?s=73
     - code: '200'
@@ -186,393 +138,273 @@
 - comments#index:
   - !omap
     - verb: :GET
-    - path: /api/comments
+    - path: "/api/comments"
     - versions:
       - '1'
-    - query: commentable_id=18446&commentable_type=User&desc=1&limit=10&page=1
+    - query: commentable_id=24650&commentable_type=User&desc=1&limit=10&page=1
     - request_data: 
-    - response_data:
-      - id: 1426
-        user_id: 18446
-        commentable_id: 18446
-        commentable_type: User
-        body: comment_body_4
-        html_body: comment_body_4
-        created_at: '2013-12-28T17:34:27+04:00'
-        updated_at: '2013-12-28T17:34:27+04:00'
-        offtopic: false
-        review: false
-        user:
-          id: 18446
-          nickname: user_9
-          avatar: http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=48&d=identicon
-      - id: 1425
-        user_id: 18446
-        commentable_id: 18446
-        commentable_type: User
-        body: comment_body_3
-        html_body: comment_body_3
-        created_at: '2013-12-28T17:34:27+04:00'
-        updated_at: '2013-12-28T17:34:27+04:00'
-        offtopic: false
-        review: false
-        user:
-          id: 18446
-          nickname: user_9
-          avatar: http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=48&d=identicon
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/comments
+    - path: "/api/comments"
     - versions:
       - '1'
-    - query: commentable_id=18447&commentable_type=User&desc=1&limit=10&page=1
+    - query: commentable_id=24651&commentable_type=User&desc=1&limit=10&page=1
     - request_data: 
-    - response_data:
-      - id: 1428
-        user_id: 18447
-        commentable_id: 18447
-        commentable_type: User
-        body: comment_body_6
-        html_body: comment_body_6
-        created_at: '2013-12-28T17:34:27+04:00'
-        updated_at: '2013-12-28T17:34:27+04:00'
-        offtopic: false
-        review: false
-        user:
-          id: 18447
-          nickname: user_10
-          avatar: http://www.gravatar.com/avatar/1c0d137b065454cfcf0adb39d7f1f932?s=48&d=identicon
-      - id: 1427
-        user_id: 18447
-        commentable_id: 18447
-        commentable_type: User
-        body: comment_body_5
-        html_body: comment_body_5
-        created_at: '2013-12-28T17:34:27+04:00'
-        updated_at: '2013-12-28T17:34:27+04:00'
-        offtopic: false
-        review: false
-        user:
-          id: 18447
-          nickname: user_10
-          avatar: http://www.gravatar.com/avatar/1c0d137b065454cfcf0adb39d7f1f932?s=48&d=identicon
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 0
     - recorded: true
 - comments#show:
   - !omap
     - verb: :GET
-    - path: /api/comments/1423
+    - path: "/api/comments/2703"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-        id: 1423
-        user_id: 18444
-        commentable_id: 108868
-        commentable_type: Entry
-        body: comment_body_1
-        html_body: comment_body_1
-        created_at: '2013-12-28T17:34:26+04:00'
-        updated_at: '2013-12-28T17:34:26+04:00'
-        offtopic: false
-        review: false
-        user:
-          id: 18444
-          nickname: user_7
-          avatar: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=48&d=identicon
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/comments/1424
+    - path: "/api/comments/2704"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-        id: 1424
-        user_id: 18445
-        commentable_id: 108869
-        commentable_type: Entry
-        body: comment_body_2
-        html_body: comment_body_2
-        created_at: '2013-12-28T17:34:26+04:00'
-        updated_at: '2013-12-28T17:34:26+04:00'
-        offtopic: false
-        review: false
-        user:
-          id: 18445
-          nickname: user_8
-          avatar: http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=48&d=identicon
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 0
     - recorded: true
 - favourites#index:
   - !omap
     - verb: :GET
-    - path: /api/profile/favourites
+    - path: "/api/profile/favourites"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
         animes:
-        - id: 27138
-          name: anime_6
+        - id: 40598
+          name: anime_10
           russian: 
-          image: /images/x48/missing.png
-          url: /animes/27138-anime_6
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/animes/40598-anime_10"
         mangas:
-        - id: 1564
+        - id: 2559
           name: manga_3
-          russian: манга_3
-          image: /images/x48/missing.png
-          url: /mangas/1564-manga_3
+          russian: "манга_3"
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/mangas/2559-manga_3"
         characters:
-        - id: 33588
+        - id: 34565
           name: character_3
-          russian: персонаж_3
-          image: /assets/globals/missing_x48.jpg
-          url: /characters/33588-character_3
+          russian: "персонаж_3"
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/characters/34565-character_3"
         seyu:
-        - id: 7301
+        - id: 5817
+          name: prson_6
+          russian: 
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/person/5817-prson_6"
+        mangakas:
+        - id: 5815
           name: prson_4
           russian: 
-          image: /assets/globals/missing_x48.jpg
-          url: /person/7301-prson_4
-        mangakas:
-        - id: 7299
-          name: prson_2
-          russian: 
-          image: /assets/globals/missing_x48.jpg
-          url: /person/7299-prson_2
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/person/5815-prson_4"
         producers:
-        - id: 7300
+        - id: 5816
+          name: prson_5
+          russian: 
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/person/5816-prson_5"
+        people:
+        - id: 5814
           name: prson_3
           russian: 
-          image: /assets/globals/missing_x48.jpg
-          url: /person/7300-prson_3
-        people:
-        - id: 7298
-          name: prson_1
-          russian: 
-          image: /assets/globals/missing_x48.jpg
-          url: /person/7298-prson_1
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/person/5814-prson_3"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - friends#index:
   - !omap
     - verb: :GET
-    - path: /api/profile/friends
+    - path: "/api/profile/friends"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 18442
-        nickname: user_5
-        avatar: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
+      - id: 24661
+        nickname: user_12
+        avatar: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=48&d=identicon
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - genres#index:
   - !omap
     - verb: :GET
-    - path: /api/genres
+    - path: "/api/genres"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-      - id: 196
-        name: genre_1
-        russian: 
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/genres
+    - path: "/api/genres"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-      - id: 197
-        name: genre_2
-        russian: 
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 0
     - recorded: true
 - history#index:
   - !omap
     - verb: :GET
-    - path: /api/profile/history
+    - path: "/api/profile/history"
     - versions:
       - '1'
     - query: limit=10&page=1
     - request_data: 
     - response_data:
-      - id: 371
-        created_at: '2013-12-28T17:34:26+04:00'
-        description: Импортировано аниме - 522 записи
+      - id: 1169
+        created_at: '2014-01-11T23:03:31+04:00'
+        description: "Импортировано аниме - 522 записи"
         target: 
-      - id: 372
-        created_at: '2013-12-28T17:34:26+04:00'
-        description: Запланировано
+      - id: 1170
+        created_at: '2014-01-11T23:03:31+04:00'
+        description: "Запланировано"
         target:
-          id: 27133
-          name: anime_1
+          id: 40590
+          name: anime_2
           russian: 
           image:
-            preview: /images/preview/missing.png
-            short: /images/short/missing.png
-            x96: /images/x96/missing.png
-            x64: /images/x64/missing.png
-          url: http://test.host/animes/27133-anime_1
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: http://test.host/animes/40590-anime_2
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - history#show:
   - !omap
     - verb: :GET
-    - path: /api/profile/history/user_4
+    - path: "/api/profile/history/user_3"
     - versions:
       - '1'
     - query: climit=10&page=1
     - request_data: 
     - response_data:
-      - id: 373
-        created_at: '2013-12-28T17:34:26+04:00'
-        description: Импортировано аниме - 522 записи
+      - id: 1167
+        created_at: '2014-01-11T23:03:31+04:00'
+        description: "Импортировано аниме - 522 записи"
         target: 
-      - id: 374
-        created_at: '2013-12-28T17:34:26+04:00'
-        description: Запланировано
+      - id: 1168
+        created_at: '2014-01-11T23:03:31+04:00'
+        description: "Запланировано"
         target:
-          id: 27134
-          name: anime_2
+          id: 40589
+          name: anime_1
           russian: 
           image:
-            preview: /images/preview/missing.png
-            short: /images/short/missing.png
-            x96: /images/x96/missing.png
-            x64: /images/x64/missing.png
-          url: http://test.host/animes/27134-anime_2
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: http://test.host/animes/40589-anime_1
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - mangas#show:
   - !omap
     - verb: :GET
-    - path: /api/mangas/1562
+    - path: "/api/mangas/2557"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-        id: 1562
-        name: manga_1
-        russian: манга_1
-        image:
-          preview: /images/preview/missing.png
-          short: /images/short/missing.png
-          x96: /images/x96/missing.png
-          x64: /images/x64/missing.png
-        url: http://test.host/mangas/1562-manga_1
-        english: []
-        japanese: []
-        synonyms: []
-        kind: Manga
-        aired_at: 
-        released_at: 
-        volumes: 0
-        chapters: 0
-        score: 1.0
-        description: У этой манги пока ещё нет описания.
-        description_html: 
-        genres: []
-        publishers: []
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/mangas/1563
+    - path: "/api/mangas/2558"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-        id: 1563
-        name: manga_2
-        russian: манга_2
-        image:
-          preview: /images/preview/missing.png
-          short: /images/short/missing.png
-          x96: /images/x96/missing.png
-          x64: /images/x64/missing.png
-        url: http://test.host/mangas/1563-manga_2
-        english: []
-        japanese: []
-        synonyms: []
-        kind: Manga
-        aired_at: 
-        released_at: 
-        volumes: 0
-        chapters: 0
-        score: 1.0
-        description: У этой манги пока ещё нет описания.
-        description_html: 
-        genres: []
-        publishers: []
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 0
     - recorded: true
 - messages#index:
   - !omap
     - verb: :GET
-    - path: /api/profile/messages
+    - path: "/api/profile/messages"
     - versions:
       - '1'
     - query: limit=20&page=1&type=news
     - request_data: 
     - response_data:
-      - id: 599
+      - id: 1355
         kind: anons
         read: false
         body: anime [b]anons[/b]
-        created_at: '2013-12-28T17:34:27+04:00'
+        created_at: '2014-01-11T23:03:32+04:00'
         html_body: anime <strong>anons</strong>
         from:
-          id: 18451
-          nickname: user_12
-          avatar: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=48&d=identicon
+          id: 24665
+          nickname: user_16
+          avatar: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=64&d=identicon
+            x32: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=16&d=identicon
         to:
-          id: 18450
-          nickname: user_11
-          avatar: http://www.gravatar.com/avatar/8a26fef87b51362e95de958ee9f9e2c4?s=48&d=identicon
+          id: 24664
+          nickname: user_15
+          avatar: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=64&d=identicon
+            x32: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=16&d=identicon
         linked:
-          id: 108870
+          id: 109249
           type: AnimeNews
-          url: http://test.host/news/108870-entry-title-1
+          url: http://test.host/news/109249-entry-title-1
           linked:
-            id: 27135
-            name: anime_3
+            id: 40597
+            name: anime_9
             russian: 
             image:
-              preview: /images/preview/missing.png
-              short: /images/short/missing.png
-              x96: /images/x96/missing.png
-              x64: /images/x64/missing.png
-            url: http://test.host/animes/27135-anime_3
+              original: "/assets/globals/missing_original.jpg"
+              preview: "/assets/globals/missing_preview.jpg"
+              x96: "/assets/globals/missing_x96.jpg"
+              x64: "/assets/globals/missing_x64.jpg"
+            url: http://test.host/animes/40597-anime_9
             type: Anime
     - code: '200'
     - show_in_doc: 1
@@ -580,7 +412,7 @@
 - messages#unread:
   - !omap
     - verb: :GET
-    - path: /api/profile/messages/unread
+    - path: "/api/profile/messages/unread"
     - versions:
       - '1'
     - query: ''
@@ -595,19 +427,20 @@
 - people#show:
   - !omap
     - verb: :GET
-    - path: /api/people/7302
+    - path: "/api/people/5812"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 7302
-        name: prson_5
+        id: 5812
+        name: prson_1
         image:
-          preview: /assets/globals/missing_preview.jpg
-          x64: /assets/globals/missing_x64.jpg
-        url: http://test.host/person/7302-prson_5
-        job_title: Режиссёр аниме
+          original: "/assets/globals/missing_original.jpg"
+          preview: "/assets/globals/missing_preview.jpg"
+          x64: "/assets/globals/missing_x64.jpg"
+        url: http://test.host/person/5812-prson_1
+        job_title: "Режиссёр аниме"
         birthday: 
         website: 
         producer?: true
@@ -619,35 +452,36 @@
         roles: []
         works:
         - anime:
-            id: 27146
-            name: anime_14
+            id: 40591
+            name: anime_3
             russian: 
             image:
-              preview: /images/preview/missing.png
-              short: /images/short/missing.png
-              x96: /images/x96/missing.png
-              x64: /images/x64/missing.png
-            url: http://test.host/animes/27146-anime_14
+              original: "/assets/globals/missing_original.jpg"
+              preview: "/assets/globals/missing_preview.jpg"
+              x96: "/assets/globals/missing_x96.jpg"
+              x64: "/assets/globals/missing_x64.jpg"
+            url: http://test.host/animes/40591-anime_3
           manga: 
-          role: Продюсер
+          role: "Продюсер"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/people/7303
+    - path: "/api/people/5813"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 7303
-        name: prson_6
+        id: 5813
+        name: prson_2
         image:
-          preview: /assets/globals/missing_preview.jpg
-          x64: /assets/globals/missing_x64.jpg
-        url: http://test.host/person/7303-prson_6
-        job_title: Режиссёр аниме
+          original: "/assets/globals/missing_original.jpg"
+          preview: "/assets/globals/missing_preview.jpg"
+          x64: "/assets/globals/missing_x64.jpg"
+        url: http://test.host/person/5813-prson_2
+        job_title: "Режиссёр аниме"
         birthday: 
         website: 
         producer?: true
@@ -659,51 +493,47 @@
         roles: []
         works:
         - anime:
-            id: 27147
-            name: anime_15
+            id: 40592
+            name: anime_4
             russian: 
             image:
-              preview: /images/preview/missing.png
-              short: /images/short/missing.png
-              x96: /images/x96/missing.png
-              x64: /images/x64/missing.png
-            url: http://test.host/animes/27147-anime_15
+              original: "/assets/globals/missing_original.jpg"
+              preview: "/assets/globals/missing_preview.jpg"
+              x96: "/assets/globals/missing_x96.jpg"
+              x64: "/assets/globals/missing_x64.jpg"
+            url: http://test.host/animes/40592-anime_4
           manga: 
-          role: Продюсер
+          role: "Продюсер"
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - publishers#index:
   - !omap
     - verb: :GET
-    - path: /api/publishers
+    - path: "/api/publishers"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-      - id: 20
-        name: publisher_1
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/publishers
+    - path: "/api/publishers"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-      - id: 21
-        name: publisher_2
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 0
     - recorded: true
 - sessions#create:
   - !omap
     - verb: :POST
-    - path: /api/sessions
+    - path: "/api/sessions"
     - versions:
       - '1'
     - query: 
@@ -712,16 +542,16 @@
           nickname: test
           password: '123456'
     - response_data:
-        id: 18448
+        id: 24654
         nickname: test
-        email: email11@factory.com
-        avatar: http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=32&d=identicon
+        email: email9@factory.com
+        avatar: http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=32&d=identicon
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :POST
-    - path: /api/sessions
+    - path: "/api/sessions"
     - versions:
       - '1'
     - query: 
@@ -730,43 +560,64 @@
           nickname: test
           password: '123456'
     - response_data:
-        id: 18449
+        id: 24655
         nickname: test
-        email: email12@factory.com
-        avatar: http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=32&d=identicon
+        email: email10@factory.com
+        avatar: http://www.gravatar.com/avatar/1c0d137b065454cfcf0adb39d7f1f932?s=32&d=identicon
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - studios#index:
   - !omap
     - verb: :GET
-    - path: /api/studios
+    - path: "/api/studios"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-      - id: 414
-        name: studio_1
-        filtered_name: studio_1
-        real?: false
-        image: /images/original/missing.png
-    - code: '200'
+    - response_data: 
+    - code: '406'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: /api/studios
+    - path: "/api/studios"
     - versions:
       - '1'
     - query: ''
     - request_data: 
-    - response_data:
-      - id: 415
-        name: studio_2
-        filtered_name: studio_2
-        real?: false
-        image: /images/original/missing.png
-    - code: '200'
+    - response_data: 
+    - code: '406'
+    - show_in_doc: 0
+    - recorded: true
+- users#show:
+  - !omap
+    - verb: :GET
+    - path: "/api/users/24658"
+    - versions: []
+    - query: ''
+    - request_data: 
+    - response_data: 
+    - code: '406'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :GET
+    - path: "/api/users/24659"
+    - versions: []
+    - query: ''
+    - request_data: 
+    - response_data: 
+    - code: '406'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :GET
+    - path: "/api/users/24660"
+    - versions: []
+    - query: ''
+    - request_data: 
+    - response_data: 
+    - code: '406'
     - show_in_doc: 0
     - recorded: true

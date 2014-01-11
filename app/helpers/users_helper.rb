@@ -1,4 +1,20 @@
 module UsersHelper
+  CensoredUserIds = Set.new [4357]
+
+  # урл аватарки
+  def gravatar_url user, size
+    if user.avatar.exists?
+      # для поставивших пахабные аватарки меняем аватарку, но поставившему отображем его собственную
+      if CensoredUserIds.include?(user.id) && (!user_signed_in? || (user_signed_in? && !CensoredUserIds.include?(current_user.id)))
+        "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
+      else
+        user.avatar.url "x#{size}".to_sym
+      end
+    else
+      "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(user.email.downcase), size]
+    end
+  end
+
   def self.localized_name entry, current_user
     if entry.class == Genre
       # жанры
