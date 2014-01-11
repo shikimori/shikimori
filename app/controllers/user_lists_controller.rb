@@ -234,14 +234,12 @@ class UserListsController < UsersController
     messages = message.each_slice(400).to_a.reverse
     messages.each_with_index do |message,index|
       message = ['(продолжение предыдущего сообщения)<br>'] + message if index != messages.size - 1
-      Message.create!({
-        src_id: poster.id,
-        src_type: poster.class.name,
-        dst_id: current_user.id,
-        dst_type: User.name,
+      Message.create!(
+        from_id: poster.id,
+        to_id: current_user.id,
         kind: MessageType::Private,
         body: message.join('<br>')
-      })
+      )
       sleep(1)
     end
 

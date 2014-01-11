@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe AppearController do
   let!(:topic) { create :entry }
-  let(:user2) { build_stubbed :user }
-  let(:user3) { build_stubbed :user }
+  let(:user2) { create :user }
+  let(:user3) { create :user }
   let!(:comment) { create :comment, commentable_id: topic.id, commentable_type: topic.class.name, user_id: user2.id }
   let!(:comment2) { create :comment, commentable_id: topic.id, commentable_type: topic.class.name }
 
@@ -67,9 +67,9 @@ describe AppearController do
         # должно создаться уведомление о новом комменте
         message = Message.last
         message.read.should be_false
-        message.src_id.should eq(user3.id)
-        message.dst_id.should eq(user.id)
-        message.kind.should == MessageType::QuotedByUser
+        message.from_id.should eq user3.id
+        message.to_id.should eq user.id
+        message.kind.should eq MessageType::QuotedByUser
 
         post :read, ids: "comment-#{reply_comment.id}", log: true
 

@@ -123,7 +123,7 @@ describe Ban do
     describe :notify_user do
       let(:moderator) { create :user }
       subject(:ban) { create :ban, params }
-      let(:messages) { Message.where src_id: moderator.id, dst_id: user.id, linked_type: Ban.name, kind: MessageType::Banned }
+      let(:messages) { Message.where from_id: moderator.id, to_id: user.id, linked_type: Ban.name, kind: MessageType::Banned }
       it { expect{ban}.to change(messages, :count).by 1 }
     end
 

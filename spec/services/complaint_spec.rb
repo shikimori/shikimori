@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Complaint do
   let(:service) { Complaint.new }
-  let(:user) { build_stubbed :user }
+  let(:user) { create :user }
 
   describe :send_message do
     before do

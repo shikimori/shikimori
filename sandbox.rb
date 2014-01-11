@@ -197,11 +197,9 @@ Review.where(user_id: 2357).update_all state: :accepted, approver_id: 1
 exit
 Message.wo_antispam do
   User.where(id: UserToken.where(provider: ['google_apps', 'yandex']).map(&:user_id)).each do |user|
-    message = Message.create({
-      src_id: 1,
-      src_type: User.name,
-      dst_id: user.id,
-      dst_type: User.name,
+    message = Message.create(
+      from_id: 1,
+      to_id: user.id,
       kind: MessageType::Private,
       body: "Привет!
 Где-то во второй половине Июля на сайте произойдёт обновление, которое навсегда поломает авторизацию через Google и Yandex. Авторизация через эти сервисы будет отключена ([spoiler=возможно]позже может быть вернётся назад немного в другом виде, но войти в прежние аккаунты через неё не выйдет[/spoiler]).
@@ -214,7 +212,7 @@ Message.wo_antispam do
 [url=http://img43.imageshack.us/img43/9965/88820130613005332.png][img]http://img43.imageshack.us/img43/9965/88820130613005332.th.png[/img][/url]
 
 Прошу прощения за доставленные неудобства :bow:"
-    })
+    )
     Sendgrid.delay.private_message_email(message)
   end
 end

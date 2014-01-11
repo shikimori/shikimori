@@ -68,9 +68,9 @@ describe GroupInvitesController do
   end
 
   describe GroupInvite do
-    let (:group) { create :group }
-    let (:user) { create :user }
-    let (:invite) { create :group_invite, status: GroupInviteStatus::Pending, src_id: user.id, dst_id: user.id, group_id: group.id }
+    let(:group) { create :group }
+    let(:user) { create :user }
+    let(:invite) { create :group_invite, status: GroupInviteStatus::Pending, src_id: user.id, dst_id: user.id, group_id: group.id }
 
     it 'accepts invite' do
       put :accept, id: invite.id

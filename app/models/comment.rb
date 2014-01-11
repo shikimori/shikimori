@@ -94,7 +94,7 @@ class Comment < ActiveRecord::Base
   # уведомление для цитируемых пользователей о том, что им ответили
   def notify_quotes
     notified_users = []
-    self.body.scan(/\[(quote|comment|entry|mention)=([^\]]+)\](?:(?:\[quote.*?\][\s\S]*?\[\/quote\]|[\s\S])*?)\[\/(?:quote|comment|entry|mention)\]/).each do |quote|
+    body.scan(/\[(quote|comment|entry|mention)=([^\]]+)\](?:(?:\[quote.*?\][\s\S]*?\[\/quote\]|[\s\S])*?)\[\/(?:quote|comment|entry|mention)\]/).each do |quote|
       type = quote[0]
 
       quoted_user = if type == 'quote'
@@ -103,15 +103,19 @@ class Comment < ActiveRecord::Base
         else
           User.find_by_nickname quote[1]
         end
+
       elsif type == 'mention'
         User.find_by_id quote[1]
+
       else
-        type.capitalize
-            .constantize
-            .includes(:user)
-            .find(quote[1])
-            .user
+        type
+          .capitalize
+          .constantize
+          .includes(:user)
+          .find(quote[1])
+          .user
       end
+
       # игнорируем цитаты без юзера
       next unless quoted_user
       # игнорируем цитаты самому себе
@@ -119,23 +123,21 @@ class Comment < ActiveRecord::Base
       # игнорируем пользователей, которым уже создали уведомления
       next if notified_users.include?(quoted_user.id)
       # игнорируем пользователей, у которых уже есть не прочитанные уведомления о текущей теме
-      next if Message.where({
-          dst_id: quoted_user.id,
-          dst_type: quoted_user.class.name,
+      next if Message.where(
+          to_id: quoted_user.id,
           kind: MessageType::QuotedByUser,
           read: false,
           linked_type: self.class.name
-        }).includes(:linked)
-          .all
-          .any? {|v| v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
+        ).includes(:linked)
+         .any? {|v| v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
 
       Message.wo_antispam do
-        Message.create!({
-          src: self.user,
-          dst: quoted_user,
+        Message.create!(
+          from_id: user_id,
+          to_id: quoted_user.id,
           kind: MessageType::QuotedByUser,
           linked: self
-        })
+        )
       end
 
       notified_users << quoted_user.id

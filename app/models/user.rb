@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   has_many :fav_mangakas, through: :favourite_mangakas, source: :linked, source_type: Person.name
   has_many :fav_characters, through: :favourites, source: :linked, source_type: Character.name
 
-  has_many :messages, foreign_key: :dst_id, conditions: {dst_type: User.name}, dependent: :destroy
+  has_many :messages, foreign_key: :to_id, dependent: :destroy
 
   has_many :reviews, dependent: :destroy
   has_many :votes, dependent: :destroy
@@ -360,12 +360,11 @@ class User < ActiveRecord::Base
                             count > 0
     return if comment.user_id == comment.commentable_id &&
               comment.commentable_type == User.name
-    Message.create({
-      dst: self,
-      src_id: comment.user_id,
-      src_type: User.name,
+    Message.create(
+      to_id: id,
+      from_id: comment.user_id,
       kind: MessageType::ProfileCommented
-    })
+    )
   end
 
   # подписка на элемент
@@ -375,8 +374,9 @@ class User < ActiveRecord::Base
 
   # отписка от элемента
   def unsubscribe entry
-    subscriptions.select {|v| v.target_id == entry.id && v.target_type == entry.class.name }
-                 .each {|v| v.destroy }
+    subscriptions
+      .select {|v| v.target_id == entry.id && v.target_type == entry.class.name }
+      .each {|v| v.destroy }
   end
 
   # подписан ли пользователь на элемент?
@@ -428,15 +428,14 @@ private
 
       Message.wo_antispam do
         FriendLink.where(dst_id: id).includes(:src).each do |link|
-          Message.create!({
-            src: BotsService.get_poster,
-            dst_id: link.src.id,
-            dst_type: User.name,
+          Message.create!(
+            from_id: BotsService.get_poster.id,
+            to_id: link.src.id,
             kind: MessageType::NicknameChanged,
             body: female? ?
               "Ваша подруга [profile=#{id}]#{changes['nickname'][0]}[/profile] изменила никнейм на [profile=#{id}]#{changes['nickname'][1]}[/profile]." :
               "Ваш друг [profile=#{id}]#{changes['nickname'][0]}[/profile] изменил никнейм на [profile=#{id}]#{changes['nickname'][1]}[/profile]."
-          }) if link.src.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS != 0
+          ) if link.src.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS != 0
         end
       end
     end
@@ -445,19 +444,17 @@ private
 
   # зачистка никнейма от запрещённых символов
   def fix_nickname
-    self.nickname = self.nickname
-        .gsub(/[%&#\/\\?+\]\[:,]+/, '')
-        .strip
-        .gsub(/^\.$/, 'точка')
+    self.nickname = nickname
+      .gsub(/[%&#\/\\?+\]\[:,]+/, '')
+      .strip
+      .gsub(/^\.$/, 'точка')
   end
 
   # создание послерегистрационного приветственного сообщения пользователю
   def send_welcome_message
-    Message.create!({
-      src_id: 1,
-      src_type: User.name,
-      dst_id: self.id,
-      dst_type: User.name,
+    Message.create!(
+      from_id: 1,
+      to_id: self.id,
       kind: MessageType::Notification,
       body: "Добро пожаловать.
 [url=http://shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся овтеты на наиболее часто задаваемые вопросы.
@@ -465,16 +462,16 @@ private
 Перед постингом на форуме рекомендуем ознакомиться с [url=http://shikimori.org/s/79042-Pravila-sayta]правилами сайта[/url].
 
 Если возникнут вопросы или пожелания - пишите, мы постараемся вам ответить."
-    })
+    )
   end
 
   def twitter_client
-    client = TwitterOAuth::Client.new({
+    client = TwitterOAuth::Client.new(
       consumer_key: ::TWITTER_CONSUMER_KEY,
       consumer_secret: ::TWITTER_SECRET_KEY,
       token: user_tokens.twitter.token,
       secret: user_tokens.twitter.secret
-    })
+    )
   end
 
   def truncated_message_with_url message="", url="", length=140

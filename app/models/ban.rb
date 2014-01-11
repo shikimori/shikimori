@@ -54,8 +54,8 @@ class Ban < ActiveRecord::Base
   def notify_user
     Message.wo_antispam do
       Message.create!({
-        src: moderator,
-        dst: user,
+        from_id: moderator.id,
+        to_id: user.id,
         kind: warning? ? MessageType::Warned : MessageType::Banned,
         linked: self
       })

@@ -112,14 +112,12 @@ class Moderation::UserChangesController < ApplicationController
     change = UserChange.find(params[:id])
 
     if change.apply(current_user.id, params[:taken])
-      Message.create({
-        src_type: User.name,
-        src_id: current_user.id,
-        dst_type: User.name,
-        dst_id: change.user_id,
+      Message.create(
+        from_id: current_user.id,
+        to_id: change.user_id,
         kind: MessageType::Notification,
         body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] принята."
-      }) unless change.user_id == current_user.id
+      ) unless change.user_id == current_user.id
 
       redirect_to_back_or_to moderation_users_changes_url, notice: 'Правка успешно применена'
     else
@@ -134,14 +132,12 @@ class Moderation::UserChangesController < ApplicationController
 
     if change.deny(current_user.id, params[:notify])
       if params[:notify]
-        Message.create({
-          src_type: User.name,
-          src_id: current_user.id,
-          dst_type: User.name,
-          dst_id: change.user_id,
+        Message.create(
+          from_id: current_user.id,
+          to_id: change.user_id,
           kind: MessageType::Notification,
           body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] отклонена."
-        }) unless change.user_id == current_user.id
+        ) unless change.user_id == current_user.id
       end
 
       redirect_to :back

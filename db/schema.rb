@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140105205348) do
+ActiveRecord::Schema.define(:version => 20140111193741) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -588,10 +588,8 @@ ActiveRecord::Schema.define(:version => 20140105205348) do
   add_index "mangas_publishers", ["manga_id"], :name => "index_mangas_publishers_on_manga_id"
 
   create_table "messages", :force => true do |t|
-    t.integer  "src_id"
-    t.string   "src_type"
-    t.integer  "dst_id"
-    t.string   "dst_type"
+    t.integer  "from_id"
+    t.integer  "to_id"
     t.string   "kind"
     t.text     "body"
     t.boolean  "read",        :default => false, :null => false
@@ -605,9 +603,9 @@ ActiveRecord::Schema.define(:version => 20140105205348) do
     t.string   "linked_type"
   end
 
-  add_index "messages", ["dst_type", "dst_id", "kind", "read"], :name => "messages_for_profile"
+  add_index "messages", ["from_id", "src_del", "kind"], :name => "private_and_notifications"
   add_index "messages", ["linked_type", "linked_id"], :name => "index_messages_on_linked_type_and_linked_id"
-  add_index "messages", ["src_type", "dst_type", "src_id", "src_del", "kind"], :name => "private_and_notifications"
+  add_index "messages", ["to_id", "kind", "read"], :name => "messages_for_profile"
 
   create_table "people", :force => true do |t|
     t.string   "name"

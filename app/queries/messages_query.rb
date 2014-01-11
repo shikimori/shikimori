@@ -6,10 +6,10 @@ class MessagesQuery
 
   def fetch page, limit
     Message
-      .where(src_type: User.name, dst_type: User.name, kind: kinds)
+      .where(kind: kinds)
       .where(id_field => @user.id, del_field => false)
-      .where { src_id.not_in(my{ignores_ids}) & dst_id.not_in(my{ignores_ids}) }
-      .includes(:linked, :src, :dst)
+      .where { from_id.not_in(my{ignores_ids}) & to_id.not_in(my{ignores_ids}) }
+      .includes(:linked, :from, :to)
       .order('`read`, created_at desc')
       .offset(limit * (page-1))
       .limit(limit + 1)
@@ -22,9 +22,9 @@ private
 
   def id_field
     if @type == :sent
-      :src_id
+      :from_id
     else
-      :dst_id
+      :to_id
     end
   end
 

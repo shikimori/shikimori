@@ -33,8 +33,7 @@ class AppearController < ApplicationController
       # уведомления о прочтении в почте пользователя
       Message.where(
         read: false,
-        dst_id: current_user.id,
-        dst_type: User.name,
+        to_id: current_user.id,
         kind: MessageType::QuotedByUser,
         linked_id: new_ids,
         linked_type: klass.name

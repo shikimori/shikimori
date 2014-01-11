@@ -7,14 +7,14 @@ describe MessagesQuery do
 
   let(:user) { build_stubbed :user }
   let(:user_2) { build_stubbed :user }
-  let!(:private) { create :message, kind: MessageType::Private, dst: user, src: user_2 }
-  let!(:sent) { create :message, kind: MessageType::Private, dst: user_2, src: user }
-  let!(:news) { create :message, kind: MessageType::Anons, dst: user, src: user_2 }
-  let!(:notification) { create :message, kind: MessageType::FriendRequest, dst: user, src: user_2, read: true }
+  let!(:private) { create :message, kind: MessageType::Private, to: user, from: user_2 }
+  let!(:sent) { create :message, kind: MessageType::Private, to: user_2, from: user }
+  let!(:news) { create :message, kind: MessageType::Anons, to: user, from: user_2 }
+  let!(:notification) { create :message, kind: MessageType::FriendRequest, to: user, from: user_2, read: true }
 
   describe :fetch do
     describe :inbox do
-      let!(:private_2) { create :message, kind: MessageType::Private, dst: user, src: user_2, dst_del: true }
+      let!(:private_2) { create :message, kind: MessageType::Private, to: user, from: user_2, dst_del: true }
       let(:type) { :inbox }
 
       it { should have(1).item }
@@ -22,7 +22,7 @@ describe MessagesQuery do
     end
 
     describe :sent do
-      let!(:sent_2) { create :message, kind: MessageType::Private, dst: user_2, src: user, src_del: true }
+      let!(:sent_2) { create :message, kind: MessageType::Private, to: user_2, from: user, src_del: true }
       let(:type) { :sent }
 
       it { should have(1).item }
@@ -36,8 +36,8 @@ describe MessagesQuery do
     end
 
     describe :notifications do
-      let!(:notification_2) { create :message, kind: MessageType::GroupRequest, dst: user, src: user_2 }
-      let!(:notification_3) { create :message, kind: MessageType::GroupRequest, dst: user, src: user_2 }
+      let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2 }
+      let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2 }
       let(:type) { :notifications }
 
       it { should have(2).item }

@@ -207,10 +207,8 @@ users = UserToken.where(provider: ['google_apps', 'yandex']).includes(:user => [
 Message.wo_antispam do
   users.each do |(user_id,nickname)|
     message = Message.create({
-      src_id: 1,
-      src_type: User.name,
-      dst_id: user_id,
-      dst_type: User.name,
+      from_id: 1,
+      to_id: user_id,
       kind: MessageType::Private,
       body: "Привет!
   Где-то во второй половине Июля на сайте произойдёт обновление, которое навсегда поломает авторизацию через Google и Yandex. Авторизация через эти сервисы будет отключена ([spoiler=возможно]позже может быть вернётся назад немного в другом виде, но войти в прежние аккаунты через неё не выйдет[/spoiler]).
