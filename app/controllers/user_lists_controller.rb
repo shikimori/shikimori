@@ -32,7 +32,6 @@ class UserListsController < UsersController
     @add_postloader = @list.any? && (@list.keys.last != full_list.keys.last ||
         @list[@list.keys.last][:entries].size != full_list[full_list.keys.last].size)
 
-
     unless @add_postloader
       @total_stats = full_list.map {|k,v| list_stats(v, false) }.inject({}) do |rez,data|
         data.each do |k,v|

@@ -447,7 +447,6 @@ Site::Application.routes.draw do
         resources :publishers, only: [:index]
 
         resources :comments, only: [:show, :index]
-        resources :users, only: [:show]
 
         resource :authenticity_token, only: [:show]
 
@@ -455,6 +454,16 @@ Site::Application.routes.draw do
           resources :sessions, only: [:create]
         end
 
+        resources :users, only: [:show] do
+          member do
+            get :friends
+            get :clubs
+            get :favourites
+            get :messages
+            get :unread_messages
+            get :history
+          end
+        end
         namespace :profile do
           resources :friends, only: [:index]
           resources :clubs, only: [:index]
@@ -466,11 +475,7 @@ Site::Application.routes.draw do
         end
       end
 
-      resources :animes, only: [:index, :show]
-      resources :genres, only: [:index]
-      resources :studios, only: [:index]
       resources :user_rates, only: [:index]
-      resources :reviews, only: [:show]
     end
 
     if Rails.env.development?
