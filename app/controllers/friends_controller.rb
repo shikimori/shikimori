@@ -13,17 +13,15 @@ class FriendsController < ApplicationController
 
       # если дружба не взаимная, то надо создать сообщение с запросом в друзья
       unless @user.friends.include?(current_user)
-        Message.where(src_type: User.name, src_id: current_user.id, dst_type: @user.class.name, dst_id: @user.id)
+        Message.where(from_id: current_user.id, to_id: @user.id)
                .where(kind: MessageType::FriendRequest)
                .delete_all
 
-        Message.create({
-          src_type: User.name,
-          src_id: current_user.id,
-          dst_type: @user.class.name,
-          dst_id: @user.id,
+        Message.create(
+          from_id: current_user.id,
+          to_id: @user.id,
           kind: MessageType::FriendRequest
-        })
+        )
       end
 
       render json: {

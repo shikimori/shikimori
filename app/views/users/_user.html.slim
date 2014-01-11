@@ -1,18 +1,19 @@
-.user-block.index-item class="user-#{user.id}"
-  .changes
-    ul.event-list.block-list.updates
-      - user[:history].each do |entry|
-        li
-          a.bubbled href="#{url_for entry[:target]}" title="#{entry[:target][:name]}" data-remote="true" data-offset-left="-14"
-            span.date
-              = time_ago_in_words entry[:updated_at]
-            span.event
-              == entry[:name]
+.b-user-block class="user-#{user.id}"
+  .history
+    - user.history.formatted.each do |entry|
+      .line
+        - if entry[:special?]
+          span.date = entry[:time]
+          span.event = entry[:short_name]
+        - else
+          a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-remote="true" data-offset-left="-14"
+            span.date = entry[:time]
+            span.event = entry[:name]
 
   .image-name
-    = link_to user_url(user) do
-      img.image src="#{gravatar_url(user, 73)}" alt="#{user.nickname}" title="#{user.nickname}"
-    = link_to user_url(user), title: user.nickname, class: :name do
+    a href="#{user_url user}" title="#{user.nickname}"
+      img.image src="#{user.avatar_url 73}" alt="#{user.nickname}"
+    a.name href="#{user_url user}" title="#{user.nickname}"
       = user.nickname
 
   .info
@@ -22,4 +23,4 @@
       - else
         | онлайн&nbsp;
         span.date
-          == time_ago_in_words(user.last_online_at, "%s</span> <span>назад")
+          == time_ago_in_words user.last_online_at, "%s</span> <span>назад"

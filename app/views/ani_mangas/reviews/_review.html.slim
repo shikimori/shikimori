@@ -27,7 +27,7 @@
 
       .image-name
         = link_to user_url(review.user), title: review.user.nickname do
-          img src="#{gravatar_url review.user, 64}" alt="#{review.user.nickname}" title="#{review.user.nickname}"
+          img src="#{review.user.avatar_url 64}" alt="#{review.user.nickname}" title="#{review.user.nickname}"
         p.title
           = link_to review.user.nickname, user_url(review.user), title: review.user.nickname, class: 'name', itemprop: 'creator'
           - if review.votes_count > 0

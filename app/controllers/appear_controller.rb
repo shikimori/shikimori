@@ -19,8 +19,8 @@ class AppearController < ApplicationController
 
       # записи о прочтении прочтённых сущностей
       existed_views = klass_view.where(user_id: current_user.id, klass_id_key => existed_ids)
-          .select(klass_id_key)
-          .map { |v| v[klass_id_key] }
+        .select(klass_id_key)
+        .map { |v| v[klass_id_key] }
 
       # прочтённые сущности, о которых ещё нет записи о прочтении
       new_ids = existed_ids.select { |id| !existed_views.include?(id) }
@@ -31,14 +31,13 @@ class AppearController < ApplicationController
       klass_view.import batch
 
       # уведомления о прочтении в почте пользователя
-      Message.where({
-          read: false,
-          dst_id: current_user.id,
-          dst_type: current_user.class.name,
-          kind: MessageType::QuotedByUser,
-          linked_id: new_ids,
-          linked_type: klass.name
-        }).update_all(read: true)
+      Message.where(
+        read: false,
+        to_id: current_user.id,
+        kind: MessageType::QuotedByUser,
+        linked_id: new_ids,
+        linked_type: klass.name
+      ).update_all(read: true)
     end
 
     render json: {}

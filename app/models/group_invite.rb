@@ -13,19 +13,18 @@ class GroupInvite < ActiveRecord::Base
 
   # при создании инвайта автоматически создаётся связанное с ним сообщение
   def create_message
-    message = Message.create!({
+    message = Message.create!(
       kind: MessageType::GroupRequest,
-      src_id: self.src.id,
-      src_type: self.src.class.name,
-      dst_id: self.dst.id,
-      dst_type: self.dst.class.name,
-      subject: self.id,
-      body: "Приглашение на вступление в группу [group]%s[/group]." % [self.group_id]
-    })
+      from_id: src.id,
+      to_id: dst.id,
+      subject: id,
+      body: "Приглашение на вступление в группу [group]#{group_id}[/group]."
+    )
 
-    self.update_attribute(:message_id, message.id)
-    GroupInvite.where(dst_id: self.dst_id, group_id: self.group_id)
-               .where { id != my{id} }
-               .destroy_all
+    update_attribute(:message_id, message.id)
+    GroupInvite
+      .where(dst_id: dst_id, group_id: group_id)
+      .where { id != my{id} }
+      .destroy_all
   end
 end

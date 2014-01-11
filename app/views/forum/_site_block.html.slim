@@ -44,13 +44,13 @@
 - cache "site_block/groups/#{presenter.groups_key}", expires_in: 6.hours do
   .menu-block.groups
     h2.subheadline.m13
-        a href="#{groups_url}" alt="К клубам" title="К клубам" Клубы
+        a href="#{clubs_url}" alt="К клубам" title="К клубам" Клубы
     ul.block-list-alt
       - presenter.groups.each do |entry|
         li.entry
           a href="#{club_url entry.linked}" title="#{entry.title}"
             .image-name
-              img src="#{entry.comments.first ? gravatar_url(entry.comments.first.user, 48) : gravatar_url(entry.linked.owner, 48)}" alt="#{entry.title}" title="#{entry.title}"
+              img src="#{entry.comments.first ? entry.comments.first.user.avatar_url(48) : entry.linked.owner.avatar_url(48)}" alt="#{entry.title}" title="#{entry.title}"
               span.title
                 = entry.title
             - if entry.comments.first
@@ -80,13 +80,13 @@
             p.linkeable data-href="#{topic[:url]}"
               = topic[:description]
 
-- if user_presenter.present?
-  - cache "site_block/user_history/#{presenter.user_history_key current_user}", expires_in: 6.hours do
-    - if user_presenter.history.any?
+- if user_signed_in?
+  - cache [:site_block, :user_history, current_user], expires_in: 6.hours do
+    - if current_user.history.any?
       .menu-block.mylist
         h2.subheadline.m13 Мой список
         ul.block-list-alt
-          - user_presenter.formatted_history.each do |entry|
+          - current_user.history.formatted.take(2).each do |entry|
             li.entry
               a href="#{entry[:url]}" title="#{entry[:name]}"
                 .image-name
@@ -131,9 +131,9 @@
       li.entry
         = ani_manga_link(anime) do
           .image-name
-            img src="#{anime.image.url(:x64)}" alt="#{UserPresenter.localized_name(anime, current_user)}" title="#{UserPresenter.localized_name(anime, current_user)}"
+            img src="#{anime.image.url(:x64)}" alt="#{localized_name anime}" title="#{localized_name anime}"
             span.title
-              = UserPresenter.localized_name(anime, current_user)
+              = localized_name anime
           span.misc
             = anime.last_episode || 1
             |  эпизод

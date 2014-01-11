@@ -82,12 +82,12 @@ class Group < ActiveRecord::Base
 
   # является ли пользователь членом группы
   def has_member?(user)
-    member_roles.any? {|v| v.user_id == (user.class == User ? user.id : user) }
+    member_roles.any? {|v| v.user_id == (user.respond_to?(:id) ? user.id : user) }
   end
 
   # является ли пользователь членом комманды группы
   def has_staff?(user)
-    member_roles.any? {|v| (v.user_id == (user.class == User ? user.id : user)) && v.role != GroupRole::Member }
+    member_roles.any? {|v| (v.user_id == (user.respond_to?(:id) ? user.id : user)) && v.role != GroupRole::Member }
   end
 
   # группа ли это переводчиков

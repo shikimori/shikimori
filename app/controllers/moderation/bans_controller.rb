@@ -15,17 +15,17 @@ class Moderation::BansController < ApplicationController
     if user_signed_in? && current_user.moderator?
       @declined = AbuseRequest.where(state: 'rejected', kind: ['spoiler', 'abuse']).order('id desc').limit(15)
       @pending = AbuseRequest
-          .where(state: 'pending')
-          .includes(:user, :approver, comment: :commentable)
-          .order(:created_at)
-          .order(:created_at)
-          .all
-          .each do |req|
-        formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
+        .where(state: 'pending')
+        .includes(:user, :approver, comment: :commentable)
+        .order(:created_at)
+        .order(:created_at)
+        .all
+        .each do |req|
+          formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
 
-        req.comment[:topic_name] = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
-        req.comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
-      end
+          req.comment[:topic_name] = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
+          req.comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
+        end
     end
   end
 

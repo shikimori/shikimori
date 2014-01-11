@@ -7,19 +7,20 @@
       - if @page == 1 && interval == @history.keys.first
         a.rss href="#{user_url @user, format: :rss}" title="RSS"
       = interval
+
     .history-interval
       - history.each do |entry|
         - next if entry.target_type && entry.target.nil?
         p
           span.date
-            = interval == 'Сегодня' ? "#{time_ago_in_words(entry.updated_at)} назад" : Russian::strftime(entry.updated_at, "%d %B").sub(/^0/, '')
+            = entry.time_ago interval
           - if entry.target
             a.bubbled href="#{url_for entry.target}" data-remote="true"
-              == UserPresenter.localized_name(entry.target, current_user)
+              == localized_name entry.target
             | &nbsp;
-            == Unicode.downcase(UserPresenter.history_entry_text(entry))
+            == Unicode.downcase entry.format
           - else
-            == UserPresenter.history_entry_text(entry)
+            == entry.format
   - if @add_postloader
     = render partial: 'site/postloader_new', locals: { filter: 'history-entry', url: list_history_url(@user, page: @page+1, format: :json, only_path: false) }, formats: :html
 - else

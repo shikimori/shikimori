@@ -136,9 +136,9 @@ describe User do
             message = Message.last
 
             message.kind.should eq MessageType::NicknameChanged
-            message.dst_id.should eq user3.id
-            message.body.should include(@old_nickname)
-            message.body.should include(user.nickname)
+            message.to_id.should eq user3.id
+            message.body.should include @old_nickname
+            message.body.should include user.nickname
           end
         end
       end
@@ -211,13 +211,11 @@ describe User do
         user2 = create :user
         expect {
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
-        }.to change(Message, :count).by(1)
+        }.to change(Message, :count).by 1
         message = Message.last
         message.kind.should == MessageType::ProfileCommented
-        message.src_id.should == user1.id
-        message.src_type.should == User.name
-        message.dst_id.should == user2.id
-        message.dst_type.should == User.name
+        message.from_id.should eq user1.id
+        message.to_id.should eq user2.id
       end
 
       it "two times, then only one MessageType::ProfileCommented notification is created" do
@@ -227,20 +225,18 @@ describe User do
         expect {
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
-        }.to change(Message, :count).by(1)
+        }.to change(Message, :count).by 1
         message = Message.last
         message.kind.should == MessageType::ProfileCommented
-        message.src_id.should == user1.id
-        message.src_type.should == User.name
-        message.dst_id.should == user2.id
-        message.dst_type.should == User.name
+        message.from_id.should eq user1.id
+        message.to_id.should eq user2.id
       end
 
       it "by its owner, then no MessageType::ProfileCommented notification is created" do
         user1 = create :user
         expect {
           create :comment, :with_creation_callbacks, user: user1, commentable: user1
-        }.to_not change(Message, :count)
+        }.to_not change Message, :count
       end
 
       it "and user read it, and then commented again, then second MessageType::ProfileCommented notification is created" do
@@ -251,13 +247,11 @@ describe User do
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
           Message.last.update_attribute(:read, true)
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
-        }.to change(Message, :count).by(2)
+        }.to change(Message, :count).by 2
         message = Message.last
-        message.kind.should == MessageType::ProfileCommented
-        message.src_id.should == user3.id
-        message.src_type.should == User.name
-        message.dst_id.should == user2.id
-        message.dst_type.should == User.name
+        message.kind.should eq MessageType::ProfileCommented
+        message.from_id.should eq user3.id
+        message.to_id.should eq user2.id
       end
     end
 

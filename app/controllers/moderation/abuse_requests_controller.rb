@@ -13,7 +13,7 @@ class Moderation::AbuseRequestsController < ApplicationController
         .where(kind: ['review', 'offtopic'])
         .where { state.not_eq('pending') }
         .includes(:user, :approver, comment: :commentable)
-        .order('updated_at desc')
+        .order { updated_at.desc }
 
     end.each do |req|
       formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)

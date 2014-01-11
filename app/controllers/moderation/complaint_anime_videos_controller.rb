@@ -5,7 +5,7 @@ class Moderation::ComplaintAnimeVideosController < ApplicationController
   def index
     @page_title = 'Модерация видео'
     @messages = AnimeVideoComplaintDecorator.decorate_collection Message.complaint_videos.all
-    @complaint_videos = AnimeVideo.where(state: [:broken.to_s, :wrong.to_s]).order('updated_at desc').all
+    @complaint_videos = AnimeVideo.where(state: [:broken.to_s, :wrong.to_s]).order { updated_at.desc }.all
   end
 
   def broken

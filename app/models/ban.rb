@@ -45,7 +45,7 @@ class Ban < ActiveRecord::Base
     end.sub /\.+\Z/, '.'
   end
 
-# callbacks
+  # callbacks
   def ban_user
     return if warning?
     user.update_column :read_only_at, [user.read_only_at || DateTime.now, DateTime.now].max + duration.minutes
@@ -54,8 +54,8 @@ class Ban < ActiveRecord::Base
   def notify_user
     Message.wo_antispam do
       Message.create!({
-        src: moderator,
-        dst: user,
+        from_id: moderator.id,
+        to_id: user.id,
         kind: warning? ? MessageType::Warned : MessageType::Banned,
         linked: self
       })

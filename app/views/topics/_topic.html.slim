@@ -49,7 +49,7 @@
               - if topic.preview? && (topic.news? || topic.review?)
                 .user16
                   a href="#{user_url topic.user}" title="#{topic.user.nickname}"
-                    img src="#{gravatar_url topic.user, 16}" alt="#{topic.user.nickname}"
+                    img src="#{topic.user.avatar_url 16}" alt="#{topic.user.nickname}"
                   a href="#{user_url topic.user}" title="#{topic.user.nickname}"
                     = topic.user.nickname
               p.date

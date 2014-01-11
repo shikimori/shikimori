@@ -6,7 +6,7 @@
         - favs.each do |fav|
           - if user_signed_in?
             a href="#{user_url fav.user}" title="#{fav.user.nickname}"
-              img src="#{gravatar_url fav.user, 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
+              img src="#{fav.user.avatar_url 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
           - else
-            img src="#{gravatar_url fav.user, 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
+            img src="#{fav.user.avatar_url 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
         br

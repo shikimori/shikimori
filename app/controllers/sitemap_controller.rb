@@ -4,10 +4,10 @@ class SitemapController < ApplicationController
       @animes = Anime.where { description.not_eq('') | description.not_eq(nil) }
                      .where { source.eq('') | source.eq(nil) }
                      .where { kind.not_eq 'Special' }
-                     .order('updated_at desc')
+                     .order { updated_at.desc }
       @mangas = Manga.where { description.not_eq('') | description.not_eq(nil) }
                      .where { source.eq('') | source.eq(nil) }
-                     .order('updated_at desc')
+                     .order { updated_at.desc }
     end
 
     @page_title = 'Карта сайта'

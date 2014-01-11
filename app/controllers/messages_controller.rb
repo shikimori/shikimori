@@ -15,9 +15,12 @@ class MessagesController < UsersController
   #before_filter :authenticate_user!, exept: [:feed, :unsubscribe]
   before_filter :authenticate_user!, only: [:index, :show, :list, :talk, :create, :destroy, :read]
 
+  helper_method :message_types
+  helper_method :unread_counts
+
   # отображение страницы личных сообщений
   def index
-    @user ||= current_user
+    @user ||= UserProfileDecorator.new current_user.object
 
     @page_title ||= case params[:type]
       when 'inbox' then UsersController.profile_title('Личные сообщения', @user)
@@ -52,11 +55,7 @@ class MessagesController < UsersController
     raise NotFound.new('wrong rss key') if rss_key(@user) != params[:key]
 
     @messages = Rails.cache.fetch("notifications_feed_#{@user.id}", expires_in: 60.minutes) do
-      Message.where({
-        src_type: User.name,
-        dst_type: User.name,
-        dst_id: @user.id,
-      })
+      Message.where(to_id: @user.id)
       .where { kind.not_eq(MessageType::Private) }
       .order('`read`, created_at desc')
       .includes(:linked)
@@ -89,8 +88,8 @@ class MessagesController < UsersController
 
   # отображение сообщения
   def show
-    @message = Message.includes(:src).includes(:dst).find(params[:id])
-    raise NotFound.new('access denied') unless @message.src_id == current_user.id || @message.dst_id == current_user.id
+    @message = Message.find(params[:id])
+    raise NotFound.new('access denied') unless @message.from_id == current_user.id || @message.to_id == current_user.id
 
     respond_to do |format|
       format.html { render partial: 'comments/comment', layout: false, locals: { comment: @message }, formats: :html }
@@ -116,7 +115,7 @@ class MessagesController < UsersController
 
   # разговоро с пользователем
   def talk
-    @user = User.find_by_nickname(User.param_to params[:id])
+    @user = UserProfileDecorator.new User.find_by_nickname(User.param_to params[:id])
     raise NotFound.new params[:id] unless @user
 
     @page = (params[:page] || 1).to_i
@@ -127,7 +126,7 @@ class MessagesController < UsersController
     end
     if params.include? :message_id
       message = Message.find(params[:message_id])
-      raise NotFound.new params[:message_id] unless message.present? && (message.src_id == current_user.id || message.dst_id == current_user.id)
+      raise NotFound.new params[:message_id] unless message.present? && (message.from_id == current_user.id || message.to_id == current_user.id)
       @reply = "[quote=%s]%s[/quote]\n" % [message.user.nickname, message.body]
 
       # помечаем сообщение прочитанным
@@ -153,15 +152,13 @@ class MessagesController < UsersController
                      select id,created_at,'messages' as type
                        from messages
                        where
-                         src_type='#{User.name}'
-                         and dst_type='#{User.name}'
-                         and kind='#{MessageType::Private}'
+                         kind='#{MessageType::Private}'
                          and ((
-                             src_id=#{@user.id}
-                             and dst_id=#{current_user.id}
+                             from_id=#{@user.id}
+                             and to_id=#{current_user.id}
                            ) or (
-                             dst_id=#{@user.id}
-                             and src_id=#{current_user.id}
+                             to_id=#{@user.id}
+                             and from_id=#{current_user.id}
                            )
                          )
                    ) as t
@@ -228,18 +225,16 @@ class MessagesController < UsersController
       return
     end
 
-    message = Message.new({
-      body: params[:comment][:body],
-      dst_id: user.id,
-      dst_type: user.class.name,
-      src_id: current_user.id,
-      src_type: current_user.class.name,
-      kind: MessageType::Private
-    })
+    message = Message.new(
+      from_id: current_user.id,
+      to_id: user.id,
+      kind: MessageType::Private,
+      body: params[:comment][:body]
+    )
 
     if message.save
       # отправка увекдомления получателю
-      if message.kind == MessageType::Private && !message.dst.email.blank? && (message.dst.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0)
+      if message.kind == MessageType::Private && !message.to.email.blank? && (message.to.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0)
         Sendgrid.delay(run_at: DateTime.now + 10.minutes).private_message_email(message)
       end
 
@@ -256,8 +251,7 @@ class MessagesController < UsersController
   # пометка сообщения как прочитанного
   def read
     Message.where(id: (params[:ids] || '').split(',').map(&:to_i))
-           .where(dst_id: current_user.id)
-           .where(dst_type: User.name)
+           .where(to_id: current_user.id)
            .update_all(read: params[:read])
 
     render json: {}
@@ -265,16 +259,17 @@ class MessagesController < UsersController
 
   # пометка сообщения как удаленного
   def destroy
-    messages = Message.where(id: params[:id]).
-                      where('src_id = ? or dst_id = ?', current_user.id, current_user.id).
-                      all
+    messages = Message
+      .where(id: params[:id])
+      .where('from_id = ? or to_id = ?', current_user.id, current_user.id)
+      .all
     if messages.empty?
-      render json: {'' => 'Сообщение не найдено'}, status: :unprocessable_entity
+      render json: ['Сообщение не найдено'], status: :unprocessable_entity
       return
     end
     message = messages.first
-    message.update_attributes({ src_del: true }) if message.src_id == current_user.id
-    message.update_attributes({ dst_del: true, read: true }) if message.dst_id == current_user.id
+    message.update_attributes(src_del: true) if message.from_id == current_user.id
+    message.update_attributes(dst_del: true, read: true) if message.to_id == current_user.id
 
     render json: { notice: 'Сообщение удалено' }
   end
@@ -303,8 +298,8 @@ class MessagesController < UsersController
 
       Message.wo_antispam do
         Message.create!({
-          src: BotsService.get_poster,
-          dst: user,
+          from_id: BotsService.get_poster.id,
+          to_id: user.id,
           kind: MessageType::Notification,
           body: "Наш почтовый сервис не смог доставить письмо на вашу почту #{user.email}.\nРекомендуем сменить e-mail в настройках профиля, иначе при утере пароля вы не сможете восстановить аккаунт."
         })
@@ -312,5 +307,25 @@ class MessagesController < UsersController
 
     end
     head 200
+  end
+
+  # типы сообщений
+  def message_types
+     [
+      { id: 'inbox', name: 'Входящее' },
+      { id: 'news', name: 'Новости' },
+      { id: 'notifications', name: 'Уведомления' },
+      { id: 'sent', name: 'Отправленное' }
+    ]
+  end
+
+  # число прочитанных сообщений
+  def unread_counts
+    @unread ||= {
+      'inbox' => current_user.unread_messages,
+      'news' => current_user.unread_news,
+      'notifications' => current_user.unread_notifications,
+      'sent' => 0
+    }
   end
 end

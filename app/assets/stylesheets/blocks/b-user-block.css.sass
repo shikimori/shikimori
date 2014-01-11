@@ -1,0 +1,73 @@
+@import globals
+
+.b-user-block
+  border-bottom: 1px dashed #ddd
+  margin-bottom: 5px
+  height: 96px
+
+  &:last-child
+    border-bottom: none
+    margin-bottom: 0
+
+  .image-name
+    +link-color(#123)
+    display: inline
+
+    .image
+      float: left
+      height: 73px
+      padding: 2px 4px 4px 0
+      vertical-align: middle
+      width: 73px
+
+    .name
+      +default-header-font
+      color: inherit
+      margin-left: 10px
+      padding-top: 5px
+
+      &:hover
+        color: inherit
+
+      &:active
+        color: inherit
+
+  .info
+    margin-left: 86px
+    width: 280px
+
+    .last-online
+      font-size: 11px
+      margin-top: -3px
+      padding-left: 2px
+
+      .date
+        +default-date-decor
+
+  .history
+    float: right
+    margin-right: 5px
+    margin-top: -3px
+    width: 400px
+
+    .line
+      +text-font
+      font-size: 12px
+      line-height: 20.34px
+      margin: 1px 0 2px
+      padding: 1px 3px 0 3px
+
+      .date
+        +default-date-decor
+        float: right
+
+      .event
+        +ellipsis
+        color: #123
+        display: block
+
+      a
+        display: block
+
+        .event
+          +normal-link

@@ -16,9 +16,6 @@ class UsersController < ApplicationController
   @@messages_pages = ['inbox', 'news', 'notifications', 'sent']
   @@ani_manga_list_pages = ['animelist', 'mangalist']
 
-  helper_method :message_types
-  helper_method :unread_counts
-
   UsersPerPage = 15
   Thresholds = [25, 50, 100, 175, 350]
 
@@ -39,8 +36,8 @@ class UsersController < ApplicationController
 
       if @similar_ids
         ids = @similar_ids
-            .drop(UsersPerPage * (@page - 1))
-            .take(UsersPerPage)
+          .drop(UsersPerPage * (@page - 1))
+          .take(UsersPerPage)
 
         @users = User.where(id: ids).sort_by {|v| ids.index v.id }
       end
@@ -61,7 +58,7 @@ class UsersController < ApplicationController
       @users = @users.sort_by {|v| v.last_online_at }.reverse
     end
 
-    UserPresenter.fill_users_history @users, current_user if @users
+    @users.map!(&:decorate)
   end
 
   # поиск пользователей
@@ -76,7 +73,6 @@ class UsersController < ApplicationController
     @pages = ['statistics', 'friends', 'comments', 'reviews', 'changes', 'favourites', 'clubs', 'settings', 'list-history', @@messages_pages, 'talk', 'notifications-settings'] +
         (user_signed_in? && current_user.moderator? ? ['ban'] : []) +
         @@ani_manga_list_pages
-    #@pages = ['profile', 'friends', 'favourites', 'topics', 'settings', @messages_pages, 'new-message', 'talk', 'notifications-settings'] + @ani_manga_list_pages
     @sub_layout = 'user'
 
     if params.include?(:comment_id)
@@ -89,7 +85,7 @@ class UsersController < ApplicationController
 
     # если заходим в собственный профиль, и есть уведомления о новых сообщениях в профиле, то помечаем их прочитанными
     if params[:type] == 'statistics' && user_signed_in? && current_user.id == @user.id
-      Message.where(dst_id: current_user.id, dst_type: User.name, kind: MessageType::ProfileCommented, read: false).each do |v|
+      Message.where(to_id: current_user.id, kind: MessageType::ProfileCommented, read: false).each do |v|
         v.update_attribute(:read, true)
       end
     end
@@ -117,7 +113,7 @@ class UsersController < ApplicationController
       (@@ani_manga_list_pages & [params[:type], "#{params[:list_type] || ""}-#{params[:type]}"]).any? ?
         'ani_manga_list' : params[:type]
     ]
-    @presenter = present @user
+    #@presenter = present @user
 
     respond_to do |format|
       format.html { render 'users/show' }
@@ -132,7 +128,11 @@ class UsersController < ApplicationController
 
   # страница профиля
   def statistics
-    @history = @user.all_history.order('updated_at desc').limit(30) if params[:format] == 'rss'
+    @history = @user
+      .all_history
+      .order { updated_at.desc }
+      .limit(30)
+      .decorate if params[:format] == 'rss'
     @kind = (params[:kind] || (@user.preferences.manga_first? ? :manga : :anime)).to_sym
 
     show
@@ -335,37 +335,18 @@ private
     noindex and nofollow
 
     if params[:user_id] && Rails.env.development?
-      @user = User.find params[:user_id]
+      @user = UserProfileDecorator.new User.find(params[:user_id])
       return
     end
 
     nickname = User.param_to params[:id]
-    @user = User.includes(:friends)
-                .where(nickname: nickname)
-                .select { |v| v.nickname == nickname }
-                .first
+    @user = UserProfileDecorator.new User
+      .includes(:friends)
+      .where(nickname: nickname)
+      .select { |v| v.nickname == nickname }
+      .first
 
     raise NotFound, nickname unless @user
-  end
-
-  # число прочитанных сообщений
-  def unread_counts
-    @unread ||= {
-      'inbox' => current_user.unread_messages,
-      'news' => current_user.unread_news,
-      'notifications' => current_user.unread_notifications,
-      'sent' => 0
-    }
-  end
-
-  # типы сообщений
-  def message_types
-     [
-      { id: 'inbox', name: 'Входящее' },
-      { id: 'news', name: 'Новости' },
-      { id: 'notifications', name: 'Уведомления' },
-      { id: 'sent', name: 'Отправленное' }
-    ]
   end
 
   def user_params

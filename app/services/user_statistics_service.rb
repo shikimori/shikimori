@@ -8,7 +8,7 @@ class UserStatisticsService
   # стандартный формат дат для сравнения
   DateFormat = "%Y-%m-%d"
 
-  def initialize(user, current_user)
+  def initialize user, current_user
     @user = user
     @current_user = current_user
     @settings = user.preferences
@@ -73,8 +73,8 @@ class UserStatisticsService
 
     stats[:ratings] = by_criteria :rating, ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx'].reverse#, -> v { v[:rating] != 'None' }
 
-    stats[:anime?] = @anime_rates.any?
-    stats[:manga?] = @manga_rates.any?
+    stats[:has_anime?] = @anime_rates.any?
+    stats[:has_manga?] = @manga_rates.any?
 
     stats[:anime_genres] = by_categories 'genre', @genres, @anime_valuable_rates, [], 19
     stats[:manga_genres] = by_categories 'genre', @genres, [], @manga_valuable_rates, 19
@@ -260,7 +260,7 @@ private
   #end
 
   # статистика по определённому критерию
-  def by_criteria(criteria, variants, i18n = nil, filter = -> v { true })
+  def by_criteria criteria, variants, i18n = nil, filter = -> v { true }
     [{klass: Anime, rates: @anime_valuable_rates}, {klass: Manga, rates: @manga_valuable_rates}].each_with_object({}) do |stat, rez|
       #next unless @settings.send("#{stat[:klass].name.downcase}?")
 

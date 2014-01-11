@@ -44,34 +44,34 @@ module UserNotifications
   def unread_messages
     ignored_ids = cached_ignores.map(&:target_id) << 0
 
-    @unread_messages ||= Message.where(dst_id: id, dst_type: self.class.name, src_type: self.class.name)
+    @unread_messages ||= Message.where(to_id: id)
         .where(kind: MessageType::Private)
         .where(read: false)
-        .where { src_id.not_in(ignored_ids) & dst_id.not_in(ignored_ids) }
+        .where { from_id.not_in(ignored_ids) & to_id.not_in(ignored_ids) }
         .count
   end
 
   # number of unread notifications
   def unread_news
     ignored_ids = cached_ignores.map(&:target_id) << 0
-    @unread_news ||= Message.where(dst_id: id, src_type: self.class.name, dst_type: self.class.name)
+    @unread_news ||= Message.where(to_id: id)
         .where(kind: [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews])
         .where(read: false)
-        .where { src_id.not_in(ignored_ids) & dst_id.not_in(ignored_ids) }
+        .where { from_id.not_in(ignored_ids) & to_id.not_in(ignored_ids) }
         .count
   end
 
   # number of unread notifications
   def unread_notifications
     ignored_ids = cached_ignores.map(&:target_id) << 0
-    @unread_notifications ||= Message.where(dst_id: id, src_type: self.class.name, dst_type: self.class.name)
+    @unread_notifications ||= Message.where(to_id: id)
         .where(kind: [
           MessageType::FriendRequest, MessageType::GroupRequest, MessageType::Notification, MessageType::ProfileCommented,
           MessageType::QuotedByUser, MessageType::SubscriptionCommented, MessageType::NicknameChanged,
           MessageType::Banned, MessageType::Warned
         ])
         .where(read: false)
-        .where { src_id.not_in(ignored_ids) & dst_id.not_in(ignored_ids) }
+        .where { from_id.not_in(ignored_ids) & to_id.not_in(ignored_ids) }
         .count
   end
 
@@ -191,16 +191,14 @@ module UserNotifications
   # создает уведомление для пользователя о новости
   def notify(entry, text=nil)
     Message.wo_antispam do
-      Message.create!({
-        src_id: entry.user.id,
-        src_type: entry.user.class.name,
-        dst_id: id,
-        dst_type: self.class.name,
+      Message.create!(
+        from_id: entry.user.id,
+        to_id: id,
         body: text,
         kind: entry.action,
         linked: entry,
         created_at: entry.created_at
-      })
+      )
     end
   end
 end

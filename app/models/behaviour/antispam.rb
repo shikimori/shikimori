@@ -31,9 +31,12 @@ module Antispam
     return if id # если id есть, значит это редактирование
     return unless with_antispam?
 
-    prior = self.class.where(user_id: user_id)
-                      .order('id desc')
-                      .first
+    prior = self
+      .class
+      .where(user_id: user_id)
+      .order { id.desc }
+      .first
+
     return unless prior
     return if BotsService.posters.include?(self.user_id)
 

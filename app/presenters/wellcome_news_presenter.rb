@@ -53,19 +53,14 @@ class WellcomeNewsPresenter < LazyPresenter
   # последняя активность в группах
   def groups
     @groups ||= GroupComment.includes(:linked)
-      .order('updated_at desc')
+      .order { updated_at.desc }
       .limit(3)
       .all
   end
 
   # ключ кеша активности групп
   def groups_key
-    @groups_key ||= GroupComment.order('updated_at desc').limit(1).map {|v| "#{v.id}-#{v.updated_at}" }.first
-  end
-
-  # ключ кеша обновлений списка пользователя
-  def user_history_key(current_user)
-    @user_history_key ||= current_user.history.order('updated_at desc').limit(1).map {|v| "#{v.id}-#{v.updated_at}" }.first
+    @groups_key ||= GroupComment.order { updated_at.desc }.limit(1).map {|v| "#{v.id}-#{v.updated_at}" }.first
   end
 
   # ключ кеша опросов
@@ -83,7 +78,7 @@ class WellcomeNewsPresenter < LazyPresenter
   end
 
   # пояснительный текст к контесту
-  def contest_notice(contest, user_signed_in, current_user)
+  def contest_notice contest, user_signed_in, current_user
     if contest.finished?
       "Голосование завершено #{contest.finished_on.strftime '%d.%m.%Y'}"
     else

@@ -3,5 +3,5 @@ object resource
 attributes :id, :nickname, :email
 
 node :avatar do |user|
-  gravatar_url user, 32
+  user.avatar_url 32
 end

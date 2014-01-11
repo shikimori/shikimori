@@ -9,6 +9,7 @@
     }
     .subheadline {
       @include ellipsis;
+      padding-right: 25px;
     }
     .left-votes {
       float: left;
@@ -32,13 +33,5 @@
         padding: 1px;
       }
     }
-    /*.user-block {*/
-      /*height: 80px;*/
-      /*width: 80px;*/
-
-      /*a {*/
-        /*@include normal-link;*/
-      /*}*/
-    /*}*/
   }
 }

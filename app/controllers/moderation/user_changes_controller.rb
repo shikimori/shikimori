@@ -24,10 +24,11 @@ class Moderation::UserChangesController < ApplicationController
     raise Forbidden unless current_user.user_changes_moderator?
 
     @processed = postload_paginate(params[:page], 25) do
-      UserChange.includes(:user)
-                .includes(:approver)
-                .where { status.not_in([UserChangeStatus::Pending, UserChangeStatus::Locked]) }
-                .order('updated_at desc')
+      UserChange
+        .includes(:user)
+        .includes(:approver)
+        .where { status.not_in([UserChangeStatus::Pending, UserChangeStatus::Locked]) }
+        .order { updated_at.desc }
     end
 
     render json: {
@@ -111,24 +112,13 @@ class Moderation::UserChangesController < ApplicationController
     change = UserChange.find(params[:id])
 
     if change.apply(current_user.id, params[:taken])
-      Message.create({
-        src_type: current_user.class.name,
-        src_id: current_user.id,
-        dst_type: current_user.class.name,
-        dst_id: change.user_id,
+      Message.create(
+        from_id: current_user.id,
+        to_id: change.user_id,
         kind: MessageType::Notification,
         body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] принята."
-      }) unless change.user_id == current_user.id
+      ) unless change.user_id == current_user.id
 
-      Message.create({
-        src_type: current_user.class.name,
-        src_id: current_user.id,
-        dst_type: current_user.class.name,
-        dst_id: User::Admins.first,
-        kind: MessageType::Notification,
-        read: true,
-        body: "Правка [user_change=#{change.id}]##{change.id}[/user_change] #{change.model} #{change.column} от [url=#{url_for(change.user)}]#{change.user.nickname}[/url] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] #{params[:taken] ? 'взята' : 'принята'}."
-      }) unless current_user.admin?
       redirect_to_back_or_to moderation_users_changes_url, notice: 'Правка успешно применена'
     else
       render text: "Произошла ошибка при принятии правки. Номер правки ##{change.id}. Пожалуйста, напишите об этом администратору.", status: :unprocessable_entity
@@ -142,25 +132,13 @@ class Moderation::UserChangesController < ApplicationController
 
     if change.deny(current_user.id, params[:notify])
       if params[:notify]
-        Message.create({
-          src_type: current_user.class.name,
-          src_id: current_user.id,
-          dst_type: current_user.class.name,
-          dst_id: change.user_id,
+        Message.create(
+          from_id: current_user.id,
+          to_id: change.user_id,
           kind: MessageType::Notification,
           body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] отклонена."
-        }) unless change.user_id == current_user.id
+        ) unless change.user_id == current_user.id
       end
-
-      Message.create({
-        src_type: current_user.class.name,
-        src_id: current_user.id,
-        dst_type: current_user.class.name,
-        dst_id: User::Admins.first,
-        kind: MessageType::Notification,
-        read: true,
-        body: "Правка [user_change=#{change.id}]##{change.id}[/user_change] #{change.model} #{change.column} от [url=#{url_for(change.user)}]#{change.user.nickname}[/url] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] #{params[:notify] ? 'отклонена' : 'удалена'}."
-      }) unless current_user.admin?
 
       redirect_to :back
     else

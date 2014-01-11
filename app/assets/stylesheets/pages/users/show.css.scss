@@ -21,7 +21,15 @@
       clear: left;
 
       span {
-        color: $gray-color-0;
+
+        &:after {
+          color: $gray-color-0;
+          padding: 0 5px;
+          content: '/';
+        }
+        &:last-child:after {
+          content: '';
+        }
       }
     }
     .banned {

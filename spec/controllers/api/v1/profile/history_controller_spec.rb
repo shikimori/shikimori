@@ -7,12 +7,12 @@ describe Api::V1::Profile::HistoryController do
   let!(:entry_2) { create :user_history, target: create(:anime), user: user, action: 'status' }
 
   describe 'index' do
-    before { get :index, limit: 10, page: 1 }
+    before { get :index, limit: 10, page: 1, format: :json }
     it { should respond_with 200 }
   end
 
   describe 'show' do
-    before { get :show, id: user.to_param, climit: 10, page: 1 }
+    before { get :show, id: user.to_param, climit: 10, page: 1, format: :json }
     it { should respond_with 200 }
   end
 end

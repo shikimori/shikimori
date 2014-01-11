@@ -6,7 +6,7 @@
       = f.input :avatar, label: 'Аватар (160x160)'
       .value.avatar-edit
         - if @user.avatar.exists?
-          img src="#{gravatar_url @user, 160}" alt="#{@user.nickname}" title="#{@user.nickname}"
+          img src="#{@user.avatar_url}" alt="#{@user.nickname}" title="#{@user.nickname}"
           p.avatar-delete
             | [
             span удалить

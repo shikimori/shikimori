@@ -1,9 +1,9 @@
 - if user_signed_in?
   - if current_user.unread_count > 0
-    a.unread-count href="#{unread_messages_url current_user}" title="Почта"
+    a.unread-count href="#{current_user.unread_messages_url}" title="Почта"
       = [99, current_user.unread_count].min
   a href="#{user_url current_user}" title="#{current_user.nickname}"
-    img.avatar src="#{gravatar_url current_user, 32}" title="#{current_user.nickname}" alt="#{current_user.nickname}"
+    img.avatar src="#{current_user.avatar_url 32}" title="#{current_user.nickname}" alt="#{current_user.nickname}"
     - unless current_user.unread_count > 0
       span.graphics-arrow-down
   .submenu.right

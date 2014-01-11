@@ -16,7 +16,7 @@ class UserRatesQuery
   def recent_rates(limit)
     UserRate.where(target_id: @entry.id, target_type: @entry.class.name)
         .includes(:user)
-        .order('updated_at desc')
+        .order { updated_at.desc }
         .limit(limit)
   end
 end

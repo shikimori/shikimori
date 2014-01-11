@@ -98,6 +98,7 @@ describe Comment do
 
   describe 'notification when quoted' do
     let(:user) { create :user }
+    let(:user2) { create :user }
     let(:topic) { create :entry, user: user }
 
     it 'comment' do
@@ -110,8 +111,8 @@ describe Comment do
       # должно создаться уведомление о новом комменте
       message = Message.last
       message.read.should be_false
-      message.src_id.should eq user2.id
-      message.dst_id.should eq user.id
+      message.from_id.should eq user2.id
+      message.to_id.should eq user.id
       message.kind.should eq MessageType::QuotedByUser
       message.linked_type.should eq Comment.name
       message.linked_id.should eq comment2.id
@@ -127,8 +128,8 @@ describe Comment do
       # должно создаться уведомление о новом комменте
       message = Message.last
       message.read.should be_false
-      message.src_id.should eq user2.id
-      message.dst_id.should eq user.id
+      message.from_id.should eq user2.id
+      message.to_id.should eq user.id
       message.kind.should eq MessageType::QuotedByUser
       message.linked_type.should eq Comment.name
       message.linked_id.should eq comment2.id
@@ -176,9 +177,9 @@ describe Comment do
 
   describe :notify_quotes do
     let(:user) { create :user }
-    let(:user2) { build_stubbed :user }
+    let(:user2) { create :user }
     let(:topic) { create :topic, user: user }
-    let(:user_message) { Message.where(dst_id: user.id, dst_type: User.name, src_id: user2.id, src_type: User.name, kind: MessageType::QuotedByUser) }
+    let(:user_message) { Message.where(to_id: user.id, from_id: user2.id, kind: MessageType::QuotedByUser) }
     subject { create :comment, :with_notify_quotes, body: text, commentable: topic, user: user2 }
 
     context 'quote' do

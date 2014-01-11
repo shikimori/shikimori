@@ -8,6 +8,6 @@
     - authors.reverse.each do |author|
       .user16
         a href="#{user_url author}"
-          img src="#{gravatar_url author, 16}" alt="#{author.nickname}"
+          img src="#{author.avatar_url 16}" alt="#{author.nickname}"
         a href="#{user_url author}"
           = author.nickname

@@ -6,7 +6,7 @@ describe FindAnimeParser do
 
   let(:parser) { FindAnimeParser.new }
 
-  it { parser.fetch_pages_num.should eq 34 }
+  it { parser.fetch_pages_num.should eq 35 }
   it { parser.fetch_page_links(0).should have(FindAnimeParser::PageSize).items }
 
   describe :fetch_entry do
@@ -16,12 +16,12 @@ describe FindAnimeParser do
       let(:identifier) { 'attack_on_titan' }
 
       its(:id) { should eq 'attack_on_titan' }
-      its(:names) { should eq ['Вторжение гигантов', 'Attack on Titan', 'Shingeki no Kyojin', "Атака титанов", "Вторжение Титанов"] }
+      its(:names) { should eq ['Вторжение гигантов', 'Attack on Titan', 'Shingeki no Kyojin', "Атака титанов", "Вторжение Титанов", "Атака Гигантов"] }
       its(:russian) { should eq 'Вторжение гигантов' }
       its(:score) { should be_within(1).of 9 }
       its(:description) { should be_present }
       its(:source) { should eq 'http://findanime.ru/attack_on_titan' }
-      its(:videos) { should have(27).items }
+      its(:videos) { should have(26).items }
       its(:year) { should eq 2013 }
 
       describe :last_episode do
@@ -31,7 +31,7 @@ describe FindAnimeParser do
 
       describe :first_episode do
         subject { entry.videos.last }
-        it { should eq episode: 0, url: 'http://findanime.ru/attack_on_titan/series0?mature=1' }
+        it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
       end
     end
 
@@ -66,7 +66,7 @@ describe FindAnimeParser do
     let(:episode) { 1 }
     let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
 
-    it { should have(13).items }
+    it { should have(14).items }
 
     describe :first do
       subject { videos.first }
@@ -83,14 +83,13 @@ describe FindAnimeParser do
       subject { videos.last }
 
       its(:kind) { should eq :fandub }
-      its(:author) { should eq 'Луналикая' }
+      its(:author) { should eq 'JazzWay Anime' }
     end
 
     describe :special do
-      subject { videos[-6] }
+      subject { videos.find {|v| v.author == 'JAM & Ancord & Nika Lenina' } }
       its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
       its(:kind) { should eq :fandub }
-      its(:author) { should eq 'JAM & Ancord & Nika Lenina' }
     end
 
   end

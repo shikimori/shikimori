@@ -28,7 +28,7 @@ class GroupRolesController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     @user = params.include?(:user_id) ? User.find(params[:user_id]) : current_user
-    GroupRole.find_by_user_id_and_group_id(@user, @group).destroy
+    GroupRole.find_by_user_id_and_group_id(@user.id, @group.id).destroy
 
     render json: {
       notice: 'Вы покинули %s' % @group.name,
