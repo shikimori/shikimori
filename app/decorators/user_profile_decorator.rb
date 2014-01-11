@@ -1,3 +1,7 @@
+require_dependency 'genre'
+require_dependency 'studio'
+require_dependency 'publisher'
+
 class UserProfileDecorator < UserDecorator
   def about_above?
     !about.blank? && !about.strip.blank? && preferences.about_on_top?
@@ -7,8 +11,8 @@ class UserProfileDecorator < UserDecorator
     !about.blank? && !about.strip.blank? && !preferences.about_on_top?
   end
 
-  def avatar_url
-    h.gravatar_url object, 160
+  def avatar_url size=160
+    h.gravatar_url object, size
   end
 
   def website
@@ -27,8 +31,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def stats
-    cache_key = Digest::MD5.hexdigest "user_stats_#{object.cache_key}_#{!h.current_user || (h.current_user && h.current_user.preferences.russian_genres?) ? 'rus' : 'en'}"
-    @stats ||= Rails.cache.fetch cache_key do
+    @stats ||= Rails.cache.fetch [:user, :stats, object, h.russian_genres_key] do
       UserStatisticsService.new(object, h.current_user).fetch
     end
   end

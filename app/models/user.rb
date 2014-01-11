@@ -405,7 +405,7 @@ class User < ActiveRecord::Base
   end
 
   def banned?
-    read_only_at && read_only_at > DateTime.now
+    !!(read_only_at && read_only_at > DateTime.now)
   end
 
   def remember_me

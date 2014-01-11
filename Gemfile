@@ -26,6 +26,8 @@ gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
 gem 'simple_form'
 gem 'strong_parameters'
+# TODO: удалить строчку с переходом на rails 4
+gem 'active_model_serializers'
 
 gem 'devise'
 

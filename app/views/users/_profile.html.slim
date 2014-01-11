@@ -35,7 +35,7 @@
                     = @compatibility[klass.downcase.to_sym]
                   span.sep.zero.inline
                     | )
-          a.klass-caption href="#{ani_manga_list_url(@user, list_type: klass.downcase)}"
+          a.klass-caption href="#{ani_manga_list_url @user, list_type: klass.downcase}"
             = "Список #{t("Genetive.#{klass}").downcase}"
           .stat-bar
             span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"

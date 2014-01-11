@@ -6,7 +6,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def about_html
-    BbCodeService.instance.format_comment about
+    BbCodeService.instance.format_comment about || ''
   end
 
   def last_online

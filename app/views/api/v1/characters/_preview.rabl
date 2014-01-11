@@ -2,8 +2,8 @@ attributes :id, :name, :russian
 
 node :image do |entry|
   {
+    original: entry.image.url(:original),
     preview: entry.image.url(:preview),
-    short: entry.image.url(:short),
     x96: entry.image.url(:x96),
     x64: entry.image.url(:x64),
   }
