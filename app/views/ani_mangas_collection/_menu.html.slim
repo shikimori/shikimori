@@ -146,11 +146,7 @@
       /*.subheadline*/
         = klass == Anime ? 'Аниме' : 'Манга'
       .subheadline Сортировка
-      .collapse style="display: none;"
-        span.action развернуть
-      .collapsed.tiny style="display: block;" ...
-
-      ul.block-list.orders.anime-params style="display: none;"
+      ul.block-list.orders.anime-params.subcontent
         - if special
           li.order-by-my По оценке
         li.order-by-ranked По рейтингу
