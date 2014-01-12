@@ -13,7 +13,7 @@
     - else
       a.entry href="#{ani_manga_list_url current_user, list_type: 'anime'}" Аниме
       a.entry href="#{ani_manga_list_url current_user, list_type: 'manga'}" Манга
-    a.entry href="#{unread_messages_url current_user}"
+    a.entry href="#{current_user.unread_messages_url}"
       span Почта
       - if current_user.unread_count > 0
         | &nbsp;
