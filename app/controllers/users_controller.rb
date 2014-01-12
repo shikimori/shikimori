@@ -58,7 +58,7 @@ class UsersController < ApplicationController
       @users = @users.sort_by {|v| v.last_online_at }.reverse
     end
 
-    @users.map!(&:decorate)
+    @users.map!(&:decorate) if @users
   end
 
   # поиск пользователей

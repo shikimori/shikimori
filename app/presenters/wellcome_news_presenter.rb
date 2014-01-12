@@ -18,7 +18,7 @@ class WellcomeNewsPresenter < LazyPresenter
   # загрузка данных
   def lazy_load
     @news = Rails.cache.fetch(cache_key, expires_in: 3.hours) do
-      OngoingEntryAnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) & created_at.gte(LastNewsDate) } # & generated.eq(true)
+      AnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) & created_at.gte(LastNewsDate) } # & generated.eq(true)
         .joins('inner join animes on animes.id=linked_id and animes.censored=false')
         .includes(:user)
         .order { created_at.desc }
