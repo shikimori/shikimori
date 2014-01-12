@@ -1,3 +1,4 @@
+# TODO: refactor to MessageDecorator, не забыть MessageSerializer.body
 module MessagesHelper
   def should_show_more? message
     [Entry.name].include?(message.linked_type) &&
