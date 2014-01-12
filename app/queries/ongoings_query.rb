@@ -9,8 +9,9 @@ class OngoingsQuery
     expand entries
     fill entries
     sort entries
+    exclude_overdue entries
 
-    fill_in_list entries, current_user if current_user.present?
+    #fill_in_list entries, current_user if current_user.present?
     if with_grouping
       group entries
     else
@@ -20,12 +21,12 @@ class OngoingsQuery
 
 private
   # определение в списке ли пользователя аниме
-  def fill_in_list entries, current_user
-    rates = Set.new current_user.anime_rates.select(:target_id).map(&:target_id)
-    entries.each do |anime|
-      anime.in_list = rates.include? anime.id
-    end
-  end
+  #def fill_in_list entries, current_user
+    #rates = Set.new current_user.anime_rates.select(:target_id).map(&:target_id)
+    #entries.each do |anime|
+      #anime.in_list = rates.include? anime.id
+    #end
+  #end
 
   # группировка выборки по датам
   def group entries
@@ -105,11 +106,14 @@ private
       prior_time = news.created_at
     end
     # считаем только по половине интервалов, отсекаем четверть самых коротких и четверть самых длинных
-    times.size >= 4 ? (times.sort
-                            .slice(times.size/4, times.size)
-                            .take(times.size/2)
-                            .sum/(times.size/2)
-                      ) : times.sum/times.size
+    # и берём срок не менее недели
+    interval = if times.size >= 4
+      times.sort.slice(times.size/4, times.size).take(times.size/2).sum/(times.size/2)
+    else
+      times.sum/times.size
+    end
+
+    [7.days, interval].max
   end
 
   # выборка онгоингов
@@ -146,5 +150,10 @@ private
         attr_accessor :average_interval, :best_works, :last_episode, :last_episode_date, :episode_start_at, :episode_end_at, :in_list
       end
     end
+  end
+
+  # выкидывание просроченных аниме
+  def exclude_overdue entries
+    entries.select! {|v| v.next_release_at && v.next_release_at > DateTime.now - 1.week }
   end
 end
