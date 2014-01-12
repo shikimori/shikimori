@@ -20,13 +20,17 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
   end
 
   def js_data
-    controller = DummyRenderController.new(OpenStruct.new view_context: @view_context)
+    @template ||= Slim::Template.new Rails.root.join('app', 'views', 'images', '_image.html.slim').to_s
+    html = gallery
+      .images
+      .map {|image| @template.render OpenStruct.new(image: image, group_name: 'cosplay', style: :original) }
+      .join ''
 
     @js_data ||= galleries.each_with_object({}) do |gallery, memo|
       url = @view_context.cosplay_url entry, gallery
       memo[url] = {
         title: gallery.full_title(entry),
-        html: controller.render_to_string(partial: 'images/image.html.slim', collection: gallery.images, locals: { group_name: 'cosplay', style: :original }),
+        html: html,
         edit: @view_context.edit_cosplay_cosplay_gallery_url(gallery.cosplayers.first, gallery)
       }
     end
