@@ -44,8 +44,6 @@ class UserListsController < UsersController
       @total_stats.delete_if {|k,v| !(v > 0) }
     end
 
-    @presenter = present @user
-
     @page_title = UsersController.profile_title("Список #{params[:list_type] == 'anime' ? 'аниме' : 'манги'}", @user)
     params[:type] = "#{params[:list_type]}list"
 
@@ -289,9 +287,9 @@ private
       result[v.status] = [] unless result.include?(v.status)
       result[v.status] << {
         id: target.id,
-        name: UserPresenter.localized_original_name(target, current_user),
+        name: view_context.localized_name(target),
         kind: target.kind,
-        kind_localized: target.kind.blank? ? '' : localized_kind(target, true),
+        kind_localized: target.kind.blank? ? '' : view_context.localized_kind(target, true),
         status_localized: target.status.present? ? I18n.t("AniMangaStatusUpper.#{target.status}") : '',
         url: "/#{params[:list_type]}s/#{v.target_id}",
         rate_url: "/#{params[:list_type]}s/#{v.target_id}/rate",

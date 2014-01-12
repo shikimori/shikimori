@@ -1,6 +1,6 @@
 .ani-manga-list
   .options-floated.mylist
-    - @presenter.current_counts.each do |stat|
+    - @user.current_counts.each do |stat|
       span.link data-id="#{stat[:id]}" class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').map(&:to_i).include?(stat[:id])}"
         = t "#{params[:list_type].capitalize}RateStatus.#{stat[:name]}"
         | &nbsp;
@@ -21,7 +21,7 @@
   - if !@list || @list.empty?
     p Ничего нет
   - else
-    - if own_profile?
+    - if @user.own_profile?
       select.anime-status-selector
         - UserRateStatus.statuses.each do |status|
           option value="#{status[:id]}" = t "#{params[:list_type].capitalize}RateStatus.#{status[:name]}"

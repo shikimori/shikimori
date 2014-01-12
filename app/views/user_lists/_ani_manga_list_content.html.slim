@@ -34,12 +34,12 @@
               span.ongoing онгоинг
             - elsif entry_rate[:anons?]
               span.anons анонс
-          - if own_profile?
+          - if @user.own_profile?
             span.anime-status data-field="status"
-        td class="num #{'hoverable' if own_profile?}"
+        td class="num #{'hoverable' if @user.own_profile?}"
           span.current-value data-field='score'
             == entry_rate[:score]
-        td class="num #{'hoverable' if own_profile?}"
+        td class="num #{'hoverable' if @user.own_profile?}"
           span.current-value data-field='#{@field_name}'
             span
               = entry_rate[:episodes_value]

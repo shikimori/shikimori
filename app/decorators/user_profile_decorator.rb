@@ -36,6 +36,14 @@ class UserProfileDecorator < UserDecorator
     end
   end
 
+  def current_counts
+    if h.params[:list_type] == 'anime'
+      stats[:anime_statuses].select {|v| v[:size] > 0 }
+    else
+      stats[:manga_statuses].select {|v| v[:size] > 0 }
+    end
+  end
+
   def formatted_history
     history.formatted.take clubs.any? ? 3 : 4
   end
