@@ -340,13 +340,13 @@ private
     end
 
     nickname = User.param_to params[:id]
-    @user = UserProfileDecorator.new User
-      .includes(:friends)
+    user = User
       .where(nickname: nickname)
       .select { |v| v.nickname == nickname }
       .first
 
-    raise NotFound, nickname unless @user
+    raise NotFound, nickname unless user
+    @user = UserProfileDecorator.new user
   end
 
   def user_params

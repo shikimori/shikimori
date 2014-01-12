@@ -168,7 +168,6 @@ private
     raise NotFound.new("неизвестный раздел: #{params[:section]}") unless @section
 
     @news = WellcomeNewsPresenter.new if user_signed_in?
-    current_user.history.formatted if user_signed_in? # хак, чтобы победить странную поломку декоратора. в чём причина - понять не могу
 
     @json = if json?
       {

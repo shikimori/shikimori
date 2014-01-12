@@ -3,6 +3,14 @@ require_dependency 'studio'
 require_dependency 'publisher'
 
 class UserProfileDecorator < UserDecorator
+  def initialize *args
+    super
+    @russian_genres_key = h.russian_genres_key
+    @current_user = h.current_user
+    @user_signed_in = h.user_signed_in?
+    @history = history
+  end
+
   def about_above?
     !about.blank? && !about.strip.blank? && preferences.about_on_top?
   end
@@ -23,16 +31,16 @@ class UserProfileDecorator < UserDecorator
   end
 
   def own_profile?
-    h.user_signed_in? && h.current_user.id == object.id
+    @user_signed_in && @current_user.id == object.id
   end
 
   def show_comments?
-    (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
+    (@user_signed_in || comments.any?) && preferences.comments_in_profile?
   end
 
   def stats
-    @stats ||= Rails.cache.fetch [:user, :stats, object, h.russian_genres_key] do
-      UserStatisticsService.new(object, h.current_user).fetch
+    @stats ||= Rails.cache.fetch [:user, :stats, object, @russian_genres_key] do
+      UserStatisticsService.new(object, @current_user).fetch
     end
   end
 
@@ -45,7 +53,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def formatted_history
-    history.formatted.take clubs.any? ? 3 : 4
+    @history.formatted.take clubs.any? ? 3 : 4
   end
 
   def nickname_changes?
@@ -68,12 +76,12 @@ class UserProfileDecorator < UserDecorator
 
   # находится ли пользователь в друзьях у текущего пользователя?
   def favoured?
-    @favored ||= h.current_user.friends.include?(object)
+    @favored ||= @current_user.friends.include?(object)
   end
 
   # заигнорен ли пользователь текущим пользователем?
   def ignored?
-    @ignored ||= h.current_user.ignores.any? { |v| v.target_id == object.id }
+    @ignored ||= @current_user.ignores.any? { |v| v.target_id == object.id }
   end
 
   def friends

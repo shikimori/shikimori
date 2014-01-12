@@ -15,7 +15,7 @@ class UserDecorator < Draper::Decorator
     elsif DateTime.now - 5.minutes <= last_online_at
       'сейчас на сайте'
     else
-      "онлайн #{h.time_ago_in_words last_online_at, nil, true} назад"
+      "онлайн #{h.time_ago_in_words last_online_at} назад"
     end
   end
 
