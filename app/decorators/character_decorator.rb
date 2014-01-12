@@ -12,7 +12,7 @@ class CharacterDecorator < PersonDecorator
     if description.present?
       BbCodeService.instance.format_comment(description).html_safe
     else
-      h.format_html_text(object.description_mal).html_safe
+      description_mal
     end
   end
 
