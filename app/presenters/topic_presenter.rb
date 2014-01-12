@@ -1,3 +1,4 @@
+# TODO: refactor to decorator
 class TopicPresenter < BasePresenter
   CommentsFoldLimit = 20
 

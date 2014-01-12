@@ -21,7 +21,12 @@ class PagesController < ApplicationController
     end
     @ongoings = OngoingsQuery.new.process data, current_user, true
 
-    @topic = TopicPresenter.new object: Topic.find(94879), template: view_context, limit: 1000, with_user: true
+    @topic = TopicPresenter.new(
+      object: Topic.find(94879),
+      template: view_context,
+      limit: 5,
+      with_user: true
+    )
   end
 
   # rss с новостями
@@ -139,7 +144,12 @@ class PagesController < ApplicationController
   def about
     @page_title = 'О сайте'
     @statistics = SiteStatistics.new
-    @topic = TopicPresenter.new object: Topic.find(84739), template: view_context, limit: 1000, with_user: true
+    @topic = TopicPresenter.new(
+      object: Topic.find(84739),
+      template: view_context,
+      limit: 5,
+      with_user: true
+    )
   end
 
   def welcome_gallery

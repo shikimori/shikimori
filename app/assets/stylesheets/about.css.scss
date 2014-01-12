@@ -8,6 +8,12 @@
   .comment-block.menu-block, .members-block .members-block {
     margin-bottom: 0;
   }
+  .to-main-topic {
+    @include plashka;
+    margin-bottom: 7px;
+    margin-top: 7px;
+    display: block;
+  }
   .members-block {
     margin-bottom: 30px;
     overflow: hidden;

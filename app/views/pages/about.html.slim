@@ -94,4 +94,5 @@ header.head
   .forum-container
     .comments.zero-margin.zero-top-border
       .subheadline Комментарии
+      a.to-main-topic href="#{topic_url @topic.object}" Перейти к топику с основным обсуждением (#{@topic.folded_comments} #{Russian.p @topic.folded_comments, 'комментарий', 'комментария', 'комментариев'})
       = render partial: 'comments/comments', locals: { object: @topic.topic, comments: @topic.comments, bottom_add_block: true }

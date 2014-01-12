@@ -1,4 +1,4 @@
-div class="comments #{' zero-margin' unless topic.preview?}#{' zero-top-border' unless topic.show_body?}"
+div class="comments#{:' zero-margin' unless topic.preview?}#{:' zero-top-border' unless topic.show_body?}"
   - if topic.folded?
     .comments-hider Скрыть комментарии
     .comments-shower.click-loader data-href-template="#{topic.comments_url}" data-skip="#{topic.limit}" data-limit="#{topic.fold_limit}" data-count="#{topic.folded_comments}" data-infinite="#{!topic.preview?}"
