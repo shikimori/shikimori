@@ -181,7 +181,7 @@ module CommentHelper
   def youtube_html hash, time
     video = Video.new url: "http://youtube.com/watch?v=#{hash}"
     @template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
-    @template.render OpenStruct.new(video: video)
+    @template.render OpenStruct.new(video: video, time: time)
   end
 
   def youtube_to_html text, poster=nil
