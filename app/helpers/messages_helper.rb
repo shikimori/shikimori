@@ -11,21 +11,21 @@ module MessagesHelper
     case message.kind
       when MessageType::ProfileCommented
         "%s %s что-то в вашем %s..." % [
-            link_to(message.from.nickname, user_url(message.from)),
+            "<a href='#{user_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'написала' : 'написал',
             link_to('профиле', user_url(message.to), rel: :slider)
           ]
 
       when MessageType::FriendRequest
         "%s %s вас в список друзей. Занести %s в список ваших друзей?" % [
-            link_to(message.from.nickname, user_url(message.from)),
+            "<a href='#{user_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'добавила' : 'добавил',
             message.from.sex == 'female' ? 'её' : 'его'
           ]
 
       when MessageType::QuotedByUser
         "%s %s что-то вам %s" % [
-            link_to(message.from.nickname, user_url(message.from)),
+            "<a href='#{user_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'написала' : 'написал',
             format_entity_name(message)
           ]
