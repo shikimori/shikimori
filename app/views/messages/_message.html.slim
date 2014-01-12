@@ -10,7 +10,7 @@
         span.item-delete
       - else
         - if message.kind == MessageType::FriendRequest
-          span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.src_id}" title="Принять"
+          span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.from_id}" title="Принять"
           span.item-request-reject title="Отклонить"
         - else
           span.item-request-confirm data-remote="true" data-method="put" data-type="json" action="#{group_invites_accept_url message.subject}" title="Принять"

@@ -1,11 +1,11 @@
 module MessagesHelper
-  def should_show_more?(message)
+  def should_show_more? message
     [Entry.name].include?(message.linked_type) &&
       ![MessageType::QuotedByUser, MessageType::SubscriptionCommented].include?(message.kind) &&
         message.linked_id != 0
   end
 
-  def get_message_body(message)
+  def get_message_body message
     Rails.logger.info message.to_yaml
     case message.kind
       when MessageType::ProfileCommented
@@ -59,7 +59,7 @@ module MessagesHelper
     end
   end
 
-  def format_entity_name(message)
+  def format_entity_name message
     if message.linked_type == Comment.name
       format_linked_name message.linked.commentable_id, message.linked.commentable_type, message.linked.id
     elsif message.linked_type == Ban.name
@@ -69,7 +69,7 @@ module MessagesHelper
     end
   end
 
-  def format_linked_name(linked_id, linked_type, comment_id=nil)
+  def format_linked_name linked_id, linked_type, comment_id=nil
     url = ''
     content = case linked_type
       when AniMangaComment.name
