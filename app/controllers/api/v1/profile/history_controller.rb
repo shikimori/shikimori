@@ -1,16 +1,14 @@
-# TODO: выпилить посе 25.01.2014
 class Api::V1::Profile::HistoryController < Api::V1::ApiController
   before_filter :authenticate_user!
-  respond_to :json, :xml
 
   api :GET, "/profile/history", "Current user history"
   def index
-    respond_with fetch_history current_user
+    fetch_history current_user
   end
 
   api :GET, "/profile/history/:id", "Selected user history"
   def show
-    respond_with fetch_history User.find_by_nickname(SearchHelper.unescape params[:id])
+    fetch_history User.find_by_nickname(SearchHelper.unescape params[:id])
   end
 
 private

@@ -1,7 +1,5 @@
-# TODO: выпилить посе 25.01.2014
 class Api::V1::Profile::MessagesController < Api::V1::ApiController
   before_filter :authenticate_user!
-  respond_to :json, :xml
 
   api :GET, "/profile/messages", "List messages. Types: inbox, sent, news, notifications"
   def index
