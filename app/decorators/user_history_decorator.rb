@@ -3,7 +3,7 @@ class UserHistoryDecorator < Draper::Decorator
 
   def time_ago interval
     if interval == 'Сегодня'
-      "#{time_ago_in_words updated_at} назад"
+      "#{h.time_ago_in_words updated_at} назад"
     else
       Russian::strftime(updated_at, "%d %B").sub(/^0/, '')
     end
