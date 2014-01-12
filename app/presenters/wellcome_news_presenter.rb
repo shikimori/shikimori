@@ -10,29 +10,21 @@ class WellcomeNewsPresenter < LazyPresenter
     @key ||= WellcomeNewsPresenter.cache_key
   end
   def self.cache_key
-    last_calendar_id = (AnimeCalendar.last || { id: 'nil' })[:id]
     last_news_id = (AnimeNews.last || { id: 'nil' })[:id]
 
-    "#{self.name}_#{last_calendar_id}_#{last_news_id}"
+    "#{self.name}_#{last_news_id}"
   end
 
   # загрузка данных
   def lazy_load
-    @ongoings, @news = Rails.cache.fetch(cache_key, expires_in: 3.hours) do
-      [
-        OngoingsQuery.new.prefetch.take(15),
-        AnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) & created_at.gte(LastNewsDate) } # & generated.eq(true)
-            .joins('inner join animes on animes.id=linked_id and animes.censored=false')
-            .includes(:user)
-            .order('created_at desc')
-            .limit(10)
-            .all
-      ]
+    @news = Rails.cache.fetch(cache_key, expires_in: 3.hours) do
+      OngoingEntryAnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) & created_at.gte(LastNewsDate) } # & generated.eq(true)
+        .joins('inner join animes on animes.id=linked_id and animes.censored=false')
+        .includes(:user)
+        .order { created_at.desc }
+        .limit(10)
+        .all
     end
-  end
-
-  def decorated_ongoings
-    query = OngoingsQuery.new.process ongoings, nil, false
   end
 
   # последние обзоры

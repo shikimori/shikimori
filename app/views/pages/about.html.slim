@@ -8,7 +8,7 @@ header.head
   p.notice Немного о самом сайте, плюс список особо отличившихся
 
 .about.item-content.ajax
-  = cache "about_block_#{Date.today}" do
+  = cache [:about_block, Date.today] do
     .comment-block.menu-block
       .description
         p.m3 У многих из увлёкшихся мангой и японской анимацией рано или поздно возникают вопорсы:

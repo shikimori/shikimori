@@ -13,11 +13,11 @@
 
   - @ongoings.each do |k,group|
     article
-      div class="group-title #{color_by_num(k == -1 ? -1 : (DateTime.now + k.days).day % 11)}"
+      .group-title class="#{color_by_num(k == -1 ? -1 : (DateTime.now + k.days).day % 11)}"
         = k == -1 ? "Уже должно было выйти" : date_title_for_ongoing(k)
       div
         - group.each do |anime|
-          div class="ongoing#{' in-list' if anime[:in_list]}"
+          .ongoing class="#{:' in-list' if anime[:in_list]}"
             = ani_manga_link anime do
               img src="#{anime.image.url :preview}" alt="#{localized_name anime}" title="#{localized_name anime}"
               span.title

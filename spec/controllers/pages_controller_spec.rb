@@ -12,15 +12,14 @@ describe PagesController do
   describe 'calendar' do
     before do
       create :ongoing_anime
-      create :ongoing_anime
-      create :topic, id: 94879
+      create :anons_anime
+      create :topic, :with_section, id: 94879
       get :calendar
     end
 
     it { should respond_with :success }
     it { should respond_with_content_type :html }
     it { assigns(:ongoings).should have(1).item }
-    it { assigns(:ongoings).first[1].should have(2).items }
 
     describe 'signed_in user' do
       before do

@@ -1,22 +1,12 @@
 class OngoingsQuery
   # список онгоингов, сгруппированный по времени выхода
-  def prefetch
-    fetch_ongoings + fetch_anonses
-  end
+  def fetch
+    entries = (fetch_ongoings + fetch_anonses).map {|anime| OngoingEntry.new anime }
 
-  # обработка онгоингов до состояния, в котором их отображать на сайте
-  def process entries, current_user, with_grouping
-    expand entries
-    fill entries
     sort entries
     exclude_overdue entries
-
     #fill_in_list entries, current_user if current_user.present?
-    if with_grouping
-      group entries
-    else
-      entries
-    end
+    group entries
   end
 
 private
@@ -48,33 +38,6 @@ private
     Hash[entries.sort]
   end
 
-  # заполнение дополнительных полей выборки данными
-  def fill entries
-    entries.each do |v|
-      if v.episodes_aired == 0
-        v.average_interval = 0
-      else
-        v.average_interval = v.episodes_news.size < 2 ? 7.days : episode_average_interval(v)
-      end
-    end
-
-    entries.each do |v|
-      last_news = v.episodes_news.sort_by {|n| n.value.to_i }.last
-
-      if v.status == AniMangaStatus::Ongoing && last_news
-        v.last_episode = last_news.value.to_i+1
-        v.last_episode_date = last_news.created_at
-      end
-
-      if v.anime_calendars.any?
-        v.episode_start_at = v.anime_calendars.first.start_at
-        v.episode_end_at = v.episode_start_at + ((v.duration.zero? ? 26 : v.duration) + 5).minutes
-      end
-
-      v.next_release_at = v.episode_start_at if v.next_release_at.blank? && v.episode_start_at.present?
-    end
-  end
-
   # сортировка выборки
   def sort entries
     entries.sort_by do |v|
@@ -92,28 +55,6 @@ private
         (v.episode_end_at || v.aired_at).to_datetime.to_i
       end
     end
-  end
-
-  # вычисление среднего интервала между выходами серий
-  def episode_average_interval anime
-    times = []
-    prior_time = anime.episodes_news.first.created_at
-    # учитываем только последние восемь записей
-    anime.episodes_news.reverse.take(8).reverse.each do |news|
-    #anime.news.each do |news|
-      next if prior_time == news.created_at
-      times << (news.created_at - prior_time).abs#/60/60/24
-      prior_time = news.created_at
-    end
-    # считаем только по половине интервалов, отсекаем четверть самых коротких и четверть самых длинных
-    # и берём срок не менее недели
-    interval = if times.size >= 4
-      times.sort.slice(times.size/4, times.size).take(times.size/2).sum/(times.size/2)
-    else
-      times.sum/times.size
-    end
-
-    [7.days, interval].max
   end
 
   # выборка онгоингов
@@ -141,15 +82,6 @@ private
       .where("anime_calendars.episode=1 or (aired_at >= :from and aired_at <= :to and aired_at != :new_year)",
               from: Date.today - 1.week, to: Date.today + 1.month, new_year: Date.today.beginning_of_year)
       .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
-  end
-
-  # добавление к записям новых полей
-  def expand entries
-    entries.each do |entry|
-      class << entry
-        attr_accessor :average_interval, :best_works, :last_episode, :last_episode_date, :episode_start_at, :episode_end_at, :in_list
-      end
-    end
   end
 
   # выкидывание просроченных аниме

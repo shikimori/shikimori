@@ -1,4 +1,6 @@
 require_dependency 'traffic_entry'
+require_dependency 'ongoing_entry'
+require_dependency 'site_statistics'
 
 class PagesController < ApplicationController
   include CommentHelper
@@ -7,7 +9,6 @@ class PagesController < ApplicationController
   respond_to :html, except: [:news]
   respond_to :ress, only: [:news]
 
-
   # блок авторизации/регистрации
   def auth_form
   end
@@ -15,14 +16,25 @@ class PagesController < ApplicationController
   # график онгоингов
   def calendar
     @page_title = 'Календарь онгоингов'
-
-    data = Rails.cache.fetch('calendar_' + WellcomeNewsPresenter.cache_key, expires_in: 3.hours) do
-      OngoingsQuery.new.prefetch
+    @ongoings = Rails.cache.fetch [:calendar, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Date.today.to_s] do
+      OngoingsQuery.new.fetch
     end
-    @ongoings = OngoingsQuery.new.process data, current_user, true
 
     @topic = TopicPresenter.new(
       object: Topic.find(94879),
+      template: view_context,
+      limit: 5,
+      with_user: true
+    )
+  end
+
+  # о сайте
+  def about
+    @page_title = 'О сайте'
+    @statistics = SiteStatistics.new
+
+    @topic = TopicPresenter.new(
+      object: Topic.find(84739),
       template: view_context,
       limit: 5,
       with_user: true
@@ -138,18 +150,6 @@ class PagesController < ApplicationController
     @mangas_to_import = Manga.where(imported_at: nil).count
     @characters_to_import = Character.where(imported_at: nil).count
     @people_to_import = Person.where(imported_at: nil).count
-  end
-
-  # о сайте
-  def about
-    @page_title = 'О сайте'
-    @statistics = SiteStatistics.new
-    @topic = TopicPresenter.new(
-      object: Topic.find(84739),
-      template: view_context,
-      limit: 5,
-      with_user: true
-    )
   end
 
   def welcome_gallery
