@@ -9,20 +9,22 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with UserProfileDecorator.new(user), serializer: UserProfileSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/users/:id/friends"
+  api :GET, "/users/whoami", "Show current user brief info"
+  def whoami
+    respond_with current_user
+  end
+
+  api :GET, "/users/:id/friends", "Show user friends"
   def friends
     respond_with user.friends
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/users/:id/clubs"
+  api :GET, "/users/:id/clubs", "Show user clubs"
   def clubs
     respond_with user.groups
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/users/:id/favourites"
+  api :GET, "/users/:id/favourites", "Show user favourites"
   def favourites
     respond_with(
       animes: user.fav_animes.map {|v| FavouriteSerializer.new v },
@@ -35,8 +37,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     )
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/users/:id/messages"
+  api :GET, "/users/:id/messages", "Show current user messages. Authorization required."
   def messages
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
@@ -44,8 +45,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with MessagesQuery.new(current_user, params[:type] || '').fetch @page, @limit
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/users/:id/unread_messages"
+  api :GET, "/users/:id/unread_messages", "Show current user unread messages counts. Authorization required."
   def unread_messages
     respond_with ({
       messages: current_user.unread_messages,
@@ -54,8 +54,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     })
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/users/:id/history"
+  api :GET, "/users/:id/history", "Show user history"
   def history
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max

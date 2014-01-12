@@ -455,6 +455,9 @@ Site::Application.routes.draw do
         end
 
         resources :users, only: [:show] do
+          collection do
+            get :whoami
+          end
           member do
             get :friends
             get :clubs

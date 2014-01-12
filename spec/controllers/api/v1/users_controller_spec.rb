@@ -10,6 +10,26 @@ describe Api::V1::UsersController do
     it { should respond_with_content_type :json }
   end
 
+  describe :whoami do
+    describe :signed_in do
+      before { sign_in user }
+      before { get :whoami, format: :json }
+
+      it { should respond_with :success }
+
+      context :json do
+        subject { OpenStruct.new JSON.parse(response.body) }
+        its(:id) { should eq user.id }
+        its(:nickname) { should eq user.nickname }
+      end
+    end
+
+    describe :guest do
+      before { get :whoami, format: :json }
+      specify { response.body.should eq 'null' }
+    end unless ENV['APIPIE_RECORD']
+  end
+
   describe :friends do
     let(:user) { create :user, friends: [create(:user)] }
 
