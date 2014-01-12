@@ -7,7 +7,7 @@
 
   .info
     p
-      = t "#{@entry.class.name}RateStatus.%s" % UserRateStatus.get(rate.status)
+      = t "#{@entry.object.class.name}RateStatus.%s" % UserRateStatus.get(rate.status)
       - if rate.score && rate.score != 0
         | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
         b

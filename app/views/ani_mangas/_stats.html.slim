@@ -14,7 +14,7 @@
         td.num
           == rate.score && rate.score != 0 ? rate.score : '&ndash;'
         td.num.status
-          = t "#{@entry.class.name}RateStatus.#{UserRateStatus.get rate.status}"
+          = t "#{@entry.object.class.name}RateStatus.#{UserRateStatus.get rate.status}"
 
 - if @entry.mal_scores && @entry.mal_scores.sum > 0
   = render partial: 'stat', locals: {name: 'MyAnimeList', key: :mal_scores }, formats: :html
