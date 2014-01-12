@@ -1,18 +1,11 @@
 class UserProfileHistoryDecorator < Draper::Decorator
   delegate_all
 
-  def initialize *args
-    super
-    @russian_genres_key = h.russian_genres_key
-    @current_user = h.current_user
-    @user_signed_in = h.user_signed_in?
-  end
-
   LIMIT = 4
 
   # отформатированная история
   def formatted
-    @formatted ||= Rails.cache.fetch [:history, :formatted, object, @russian_names_key] do
+    @formatted ||= Rails.cache.fetch [:history, :formatted, object, h.russian_names_key] do
       grouped_history
         .map {|group,entries| format_entries entries }
         .compact
@@ -79,7 +72,7 @@ private
     else
       {
         image: entry.target.image.url(:x64),
-        name: UsersHelper.localized_name(entry.target, @current_user),
+        name: UsersHelper.localized_name(entry.target, h.current_user),
         action: entries.reverse.map(&:format).join(', ').html_safe,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: h.url_for(entry.target),

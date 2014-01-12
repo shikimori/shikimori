@@ -180,8 +180,8 @@ module CommentHelper
 
   def youtube_html hash, time
     video = Video.new url: "http://youtube.com/watch?v=#{hash}"
-    fake_view = OpenStruct.new view_context: Sendgrid.send(:new).view_context
-    DummyRenderController.new(fake_view).render_to_string partial: 'videos/video', object: video, locals: { marker: true, time: time }
+    @template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+    @template.render OpenStruct.new(video: video)
   end
 
   def youtube_to_html text, poster=nil

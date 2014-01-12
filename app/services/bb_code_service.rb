@@ -13,7 +13,7 @@ class BbCodeService
   MALWARE_DOMAINS = /(https?:\/\/)?images.webpark.ru/i
 
   # форматирование описания чего-либо
-  def format_description(text, entry)
+  def format_description text, entry
     if entry.class == Review || entry.class == Contest
       paragraphs(format_comment(text))
     elsif entry.respond_to? :characters
@@ -24,7 +24,7 @@ class BbCodeService
   end
 
   # форматирование текста комментариев
-  def format_comment(initial_text)
+  def format_comment initial_text
     text = remove_wiki_codes initial_text
     text = strip_malware text
     text = user_mention text
@@ -34,7 +34,7 @@ class BbCodeService
     text.html_safe
   end
 
-  def preprocess_comment(text)
+  def preprocess_comment text
     user_mention(text)
   end
 
@@ -44,17 +44,17 @@ class BbCodeService
   end
 
   # замена концов строк на параграфы
-  def paragraphs(text)
+  def paragraphs text
     text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<p class="prgrph">\1</p>')
   end
 
   # замена имён персонажей на ббкоды
-  def character_names(*args)
+  def character_names *args
     CharactersService.instance.process(*args)
   end
 
   # обработка обращений к пользователю
-  def user_mention(text)
+  def user_mention text
     text.gsub /@([^\n\r,]{1,20})/ do |matched|
       nickname = $1
       text = []
@@ -77,7 +77,7 @@ class BbCodeService
   end
 
   # удаление мусора из текста
-  def cleanup(text)
+  def cleanup text
     text.gsub(/!!!+/, '!')
         .gsub(/\?\?\?+/, '?')
         .gsub(/\.\.\.\.+/, '.')
