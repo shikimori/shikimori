@@ -93,7 +93,7 @@ module MalDeployer
           io = mal_image url
         end
 
-        AttachedImage.create! url: url, owner: entry, image: Rails.env != 'test' ? (io.original_filename.blank? ? nil : io) : ''
+        AttachedImage.create! url: url, owner: entry, image: Rails.env != 'test' ? (io && io.original_filename.blank? ? nil : io) : ''
 
       rescue ActiveRecord::RecordInvalid => e
         raise unless e.message =~ /is not recognized by the 'identify' command/
@@ -163,6 +163,8 @@ module MalDeployer
     else
       open_image url
     end
+  rescue RuntimeError => e
+    raise if e.message !~ /HTTP redirection loop/
   end
 
   # загрузка картинки
@@ -173,7 +175,7 @@ module MalDeployer
       io = mal_image data[:entry][:img]
     end
 
-    io.original_filename.blank? ? nil : io if data[:entry].include?(:img)
+    io && io.original_filename.blank? ? nil : io if data[:entry].include?(:img)
 
   rescue OpenURI::HTTPError => e
     raise e unless e.message == "404 Not Found"

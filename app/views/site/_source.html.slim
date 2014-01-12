@@ -1,6 +1,6 @@
 .changes
   - if authors.empty? && entry.source.blank?
-    - unless entry.description_mal.blank? || default_source.blank?
+    - unless entry.object.description_mal.blank? || default_source.blank?
       .source
         p.key Источник:
         p.val
