@@ -67,7 +67,7 @@ private
 
       if v.anime_calendars.any?
         v.episode_start_at = v.anime_calendars.first.start_at
-        v.episode_end_at = v.episode_start_at + ((v.duration || 24) + 5).minutes
+        v.episode_end_at = v.episode_start_at + ((v.duration.zero? ? 26 : v.duration) + 5).minutes
       end
 
       v.next_release_at = v.episode_start_at if v.next_release_at.blank? && v.episode_start_at.present?
@@ -119,11 +119,11 @@ private
       .where(AniMangaStatus.query_for('ongoing'))
       .where { kind.in(['TV', 'ONA']) } # 15133 - спешиал Aoi Sekai no Chuushin de
       .where { animes.id.not_in([15547]) } # 15547 - Cross Fight B-Daman eS
-      .where { duration.gte(5) | duration.eq(0) }
       .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
       .where { anime_calendars.episode.eq(nil) | anime_calendars.episode.eq(animes.episodes_aired+1) }
       .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
       .where { -(episodes_aired.eq(0) & aired_at.not_eq(nil) & aired_at.lt(DateTime.now - 1.months)) }
+      #.where { duration.gte(10) | duration.eq(0) }
   end
 
   # выборка анонсов
@@ -134,7 +134,8 @@ private
       .where(kind: ['TV', 'ONA'])
       .where(episodes_aired: 0)
       .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
-      .where { anime_calendars.episode.eq(1) }
+      .where("anime_calendars.episode=1 or (aired_at >= :from and aired_at <= :to and aired_at != :new_year)",
+              from: Date.today - 1.week, to: Date.today + 1.month, new_year: Date.today.beginning_of_year)
       .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
   end
 

@@ -22,7 +22,8 @@
               img src="#{anime.image.url :preview}" alt="#{localized_name anime}" title="#{localized_name anime}"
               span.title
                 = localized_name anime
-              span.misc.time = time_of_next_episode anime
+              - if time_of_next_episode(anime) != '00:00'
+                span.misc.time = time_of_next_episode anime
               span.misc
                 - if (anime.last_episode || 1) == 1
                   span.anons анонс

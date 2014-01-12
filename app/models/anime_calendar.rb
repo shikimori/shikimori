@@ -134,11 +134,11 @@ class AnimeCalendar < ActiveRecord::Base
       batch << AnimeCalendar.new({
           episode: v[:episode],
           start_at: v[:start_at],
-          anime_id: entry.id
+          anime: entry
         })
       imported << v[:anime_name]
     end
-    AnimeCalendar.import batch
+    AnimeCalendar.import batch.select {|v| v.episode > v.anime.episodes_aired }
 
     Rails.cache.write 'calendar_unrecognized', (calendar_names - imported.to_a)
 
