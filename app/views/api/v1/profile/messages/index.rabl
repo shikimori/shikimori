@@ -32,9 +32,36 @@ child linked: :linked do |linked|
       node(:type) {|v| v.class.name }
 
       if linked.kind_of? Anime
-        extends 'api/v1/animes/preview'
+
+        attributes :id, :name, :russian
+
+        node :image do |entry|
+          {
+            preview: entry.image.url(:preview),
+            short: entry.image.url(:short),
+            x96: entry.image.url(:x96),
+            x64: entry.image.url(:x64),
+          }
+        end
+
+        node :url do |entry|
+          anime_url entry
+        end
       else
-        extends 'api/v1/mangas/preview'
+        attributes :id, :name, :russian
+
+        node :image do |entry|
+          {
+            preview: entry.image.url(:preview),
+            short: entry.image.url(:short),
+            x96: entry.image.url(:x96),
+            x64: entry.image.url(:x64),
+          }
+        end
+
+        node :url do |entry|
+          manga_url entry
+        end
       end
     end
   else
