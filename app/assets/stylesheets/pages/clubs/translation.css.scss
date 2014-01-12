@@ -34,6 +34,7 @@
   .translate-lock {
     @include icon-button('\e838');
     cursor: pointer;
+    margin-left: 0!important;
 
     &:before {
       margin-left: 0;

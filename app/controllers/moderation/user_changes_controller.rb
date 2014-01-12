@@ -154,13 +154,15 @@ class Moderation::UserChangesController < ApplicationController
     end
     anime = Anime.find(params[:anime_id])
 
-    can_be_locked = UserChange.where(status: [UserChangeStatus::Locked, UserChangeStatus::Pending, UserChangeStatus::Accepted], item_id: anime, model: Anime.name).count == 0
+    can_be_locked = UserChange.where(status: [UserChangeStatus::Locked, UserChangeStatus::Pending, UserChangeStatus::Accepted])
+      .where(item_id: anime, model: Anime.name, column: 'description')
+      .empty?
     raise Forbidden unless can_be_locked
 
     if UserChange.where(status: UserChangeStatus::Locked, user_id: current_user.id).count > 4
       render json: ['Нельзя забрать на перевод более четырёх аниме'], status: :unprocessable_entity
     else
-      UserChange.create!(user_id: current_user.id, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Locked)
+      UserChange.create!(user_id: current_user.id, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Locked, column: 'description')
       render json: {
         success: true,
         notice: '%s забрано на перевод' % anime.name,
