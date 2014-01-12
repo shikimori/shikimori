@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       end
 
       @page_title = 'Похожие пользователи'
-      @similar_ids = SimilarUsersFetcher.new(current_user, @klass, @threshold).fetch
+      @similar_ids = SimilarUsersFetcher.new(user_signed_in? ? current_user.object : nil, @klass, @threshold).fetch
 
       if @similar_ids
         ids = @similar_ids

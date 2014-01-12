@@ -24,7 +24,7 @@ class RecommendationsController < AniMangasCollectionController
 
     # можно смотреть чужие рекоменадции
     user = if params[:user].blank? || !user_signed_in? || (user_signed_in? && current_user.id != 1 && current_user.id != 1945) # 1945 - Silicium
-      current_user
+      user_signed_in? ? current_user.object : nil
     else
       User.find_by_nickname(SearchHelper.unescape(params[:user])) || User.find_by_id(params[:user])
     end
