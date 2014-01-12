@@ -65,8 +65,12 @@ private
     data.each do |entry|
       fixed_name = @matches.include?(entry[:anime]) ? @matches[entry[:anime]] : entry[:anime]
 
-      matches = matcher.matches [fixed_name, entry[:anime2]].compact
-      entry[:anime_id] = matches.first.id if matches.size == 1
+      if @matches[entry[:anime]] && @matches[entry[:anime]].kind_of?(Integer)
+        entry[:anime_id] = @matches[entry[:anime]]
+      else
+        matches = matcher.matches [fixed_name, entry[:anime2]].compact
+        entry[:anime_id] = matches.first.id if matches.size == 1
+      end
     end
   end
 
