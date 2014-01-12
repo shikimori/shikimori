@@ -10,15 +10,15 @@ class Sendgrid < ActionMailer::Base
 
   def private_message_email message
     return if message.read?
-    return if generated?(message.dst.email)
+    return if generated?(message.to.email)
 
     mail({
-      to: message.dst.email,
+      to: message.to.email,
       subject: "Личное сообщение",
-      body: "#{message.dst.nickname}, на ваш аккаунт на shikimori поступило личное сообщение от пользователя #{message.src.nickname}.
+      body: "#{message.to.nickname}, на ваш аккаунт на shikimori поступило личное сообщение от пользователя #{message.from.nickname}.
 Прочитать можно тут #{messages_url :inbox}
 
-Отписаться от получения уведомлений о личных сообщениях можно перейдя по ссылке #{messages_unsubscribe_url name: message.dst.to_param, key: MessagesController::unsubscribe_key(message.dst, MessageType::Private)}"
+Отписаться от получения уведомлений о личных сообщениях можно перейдя по ссылке #{messages_unsubscribe_url name: message.to.to_param, key: MessagesController::unsubscribe_key(message.to, MessageType::Private)}"
     })
   end
 
