@@ -10,22 +10,22 @@ module MessagesHelper
     case message.kind
       when MessageType::ProfileCommented
         "%s %s что-то в вашем %s..." % [
-            link_to(message.src.nickname, user_url(message.src)),
-            message.src.sex == 'female' ? 'написала' : 'написал',
-            link_to('профиле', user_url(message.dst), rel: :slider)
+            link_to(message.from.nickname, user_url(message.from)),
+            message.from.sex == 'female' ? 'написала' : 'написал',
+            link_to('профиле', user_url(message.to), rel: :slider)
           ]
 
       when MessageType::FriendRequest
         "%s %s вас в список друзей. Занести %s в список ваших друзей?" % [
-            link_to(message.src.nickname, user_url(message.src)),
-            message.src.sex == 'female' ? 'добавила' : 'добавил',
-            message.src.sex == 'female' ? 'её' : 'его'
+            link_to(message.from.nickname, user_url(message.from)),
+            message.from.sex == 'female' ? 'добавила' : 'добавил',
+            message.from.sex == 'female' ? 'её' : 'его'
           ]
 
       when MessageType::QuotedByUser
         "%s %s что-то вам %s" % [
-            link_to(message.src.nickname, user_url(message.src)),
-            message.src.sex == 'female' ? 'написала' : 'написал',
+            link_to(message.from.nickname, user_url(message.from)),
+            message.from.sex == 'female' ? 'написала' : 'написал',
             format_entity_name(message)
           ]
 
@@ -38,7 +38,7 @@ module MessagesHelper
         msg = "Вам вынесено предупреждение за "
 
         if message.linked.comment
-          "#{msg} комментарий #{format_entity_name(message)}"
+          "#{msg} комментарий #{format_entity_name message}"
         else
           "#{msg} удалённый комментарий. Причина: \"#{message.linked.reason}\""
         end
@@ -47,7 +47,7 @@ module MessagesHelper
         msg = "Вы забанены на #{message.linked.duration.humanize}"
 
         if message.linked.comment
-          "#{msg} за комментарий #{format_entity_name(message)}"
+          "#{msg} за комментарий #{format_entity_name message}"
         else
           "#{msg}. Причина: \"#{message.linked.reason}\""
         end
@@ -55,7 +55,7 @@ module MessagesHelper
       else
         format_comment(cut(
           message.body || message.linked.text
-        ), message.src)
+        ), message.from)
     end
   end
 
