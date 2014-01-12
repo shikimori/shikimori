@@ -12,13 +12,13 @@ class TranslationController < GroupsController
                              order(:ranked).limit(50).
                              pluck(:id)
                      ).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{@translate_ignore} }.
                      where(censored: false).
                      order(:ranked)]
     @goals << ['Top 20 OVA',
                Anime.where(id: Anime.where("kind != 'TV' and kind != 'Movie'").where { ranked.not_eq 0 }.order(:ranked).limit(40).pluck(:id)).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{@translate_ignore} }.
                      where { id.not_in my{goals_ids} }.
                      where(censored: false).
@@ -26,7 +26,7 @@ class TranslationController < GroupsController
                      limit(20)]
     @goals << ['Top 30 Movies',
                Anime.where(id: Anime.where(kind: 'Movie').where { ranked.not_eq 0 }.order(:ranked).limit(100).pluck(:id)).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{@translate_ignore} }.
                      where { id.not_in my{goals_ids} }.
                      where(censored: false).
@@ -50,21 +50,21 @@ class TranslationController < GroupsController
                      limit(15)]
     @goals << ['Сериалы',
                Anime.where(id: AniMangaQuery::AnimeSerials).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{goals_ids} }.
                      where { id.not_in my{@translate_ignore} }.
                      where(censored: false).
                      order(:ranked)]
     @goals << ['Сиквелы',
                Anime.where(id: [477,861,793,16,71,73,3667,5355,6213,4654,1519,889,2159,5342]).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{goals_ids} }.
                      where { id.not_in my{@translate_ignore} }.
                      where(censored: false).
                      order(:ranked)]
     @goals << ['Фильмы этого года',
                Anime.where(AniMangaSeason.query_for(DateTime.now.year.to_s)).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [13409, 14093] }.
                      where { score.gte(7.5) | status.eq(AniMangaStatus::Anons) }.
@@ -266,7 +266,7 @@ class TranslationController < GroupsController
                      limit(12)]
     @goals << ['Фильмы прошлых лет',
                Anime.where(AniMangaSeason.query_for("#{DateTime.now.year-3}_#{DateTime.now.year-1}")).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [13409, 14093] }.
                      where { score.gte 7.5 }.
@@ -329,7 +329,7 @@ class TranslationController < GroupsController
                      order(:ranked)]
     @goals << ['Подборка 1',
                Anime.where(id: AniMangaQuery::AnimeFeatured).
-                     where { id.not_in OngoingsQuery::AnimeIgnored }.
+                     where { id.not_in Anime::EXCLUDED_ONGOINGS }.
                      where { id.not_in my{goals_ids} }.
                      where { id.not_in my{@translate_ignore} }.
                      where(censored: false).
@@ -356,7 +356,7 @@ class TranslationController < GroupsController
                      order(:name)]
     @goals << ['Miyazaki Hayao',
                Person.find(1870).animes.
-                      where('animes.id not in (?)', OngoingsQuery::AnimeIgnored).
+                      where('animes.id not in (?)', Anime::EXCLUDED_ONGOINGS).
                       where('animes.id not in (?)', @translate_ignore).
                       where('animes.kind != ?', 'Music').
                       where(censored: false).

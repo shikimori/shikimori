@@ -1,7 +1,4 @@
 class OngoingsQuery
-  # для ignored и торренты не будут искаться
-  AnimeIgnored = ([6119, 7643, 9799, 10856, 13143, 13165, 13261, 13433, 13463, 13465, 16908, 18155, 17733, 17115, 18191, 18137, 17873, 15795, 17727, 17873, 18137, 17917, 18097, 19305, 20451] + Anime::EXCLUDED_ONGOINGS).uniq
-
   # список онгоингов, сгруппированный по времени выхода
   def prefetch
     fetch_ongoings + fetch_anonses
@@ -117,26 +114,28 @@ private
 
   # выборка онгоингов
   def fetch_ongoings
-    Anime.includes(:episodes_news, :anime_calendars)
-        .where(AniMangaStatus.query_for('ongoing'))
-        .where { kind.in(['TV', 'ONA']) } # 15133 - спешиал Aoi Sekai no Chuushin de
-        .where { animes.id.not_in([15547]) } # 15547 - Cross Fight B-Daman eS
-        .where { duration.gte(10) | duration.eq(0) }
-        .where { animes.id.not_in(AnimeIgnored) }
-        .where { anime_calendars.episode.eq(nil) | anime_calendars.episode.eq(animes.episodes_aired+1) }
-        .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
-        .where { -(episodes_aired.eq(0) & aired_at.not_eq(nil) & aired_at.lt(DateTime.now - 1.months)) }
+    Anime
+      .includes(:episodes_news, :anime_calendars)
+      .where(AniMangaStatus.query_for('ongoing'))
+      .where { kind.in(['TV', 'ONA']) } # 15133 - спешиал Aoi Sekai no Chuushin de
+      .where { animes.id.not_in([15547]) } # 15547 - Cross Fight B-Daman eS
+      .where { duration.gte(5) | duration.eq(0) }
+      .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
+      .where { anime_calendars.episode.eq(nil) | anime_calendars.episode.eq(animes.episodes_aired+1) }
+      .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
+      .where { -(episodes_aired.eq(0) & aired_at.not_eq(nil) & aired_at.lt(DateTime.now - 1.months)) }
   end
 
   # выборка анонсов
   def fetch_anonses
-    Anime.includes(:episodes_news, :anime_calendars)
-        .where(AniMangaStatus.query_for('planned'))
-        .where(kind: ['TV', 'ONA'])
-        .where(episodes_aired: 0)
-        .where { animes.id.not_in(AnimeIgnored) }
-        .where { anime_calendars.episode.eq(1) }
-        .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
+    Anime
+      .includes(:episodes_news, :anime_calendars)
+      .where(AniMangaStatus.query_for('planned'))
+      .where(kind: ['TV', 'ONA'])
+      .where(episodes_aired: 0)
+      .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
+      .where { anime_calendars.episode.eq(1) }
+      .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
   end
 
   # добавление к записям новых полей

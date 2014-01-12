@@ -21,7 +21,7 @@ class WellcomeGalleryPresenter < LazyPresenter
             .all,
       Anime.where(AniMangaStatus.query_for('latest'))
             .where(kind: 'TV')
-            .where { id.not_in(OngoingsQuery::AnimeIgnored) }
+            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
             .where { id.not_in(AniMangaQuery::AnimeSerials) }
             .where { rating.not_eq('None') }
             .where { ranked.not_eq(0) }
@@ -31,7 +31,7 @@ class WellcomeGalleryPresenter < LazyPresenter
             .limit(12)
             .all,
       Anime.where(kind: 'TV')
-            .where { id.not_in(OngoingsQuery::AnimeIgnored) }
+            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
             .where { id.not_in(AniMangaQuery::AnimeSerials) }
             .where { rating.not_eq('None') }
             .where { ranked.not_eq(0) }
@@ -41,7 +41,7 @@ class WellcomeGalleryPresenter < LazyPresenter
             .limit(84)
             .all,
       Anime.where(kind: 'Movie')
-            .where { id.not_in(OngoingsQuery::AnimeIgnored) }
+            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
             .where { id.not_in(AniMangaQuery::AnimeSerials) }
             .where { rating.not_eq('None') }
             .where { ranked.not_eq(0) }
@@ -57,7 +57,7 @@ class WellcomeGalleryPresenter < LazyPresenter
             .all,
       Anime.where(AniMangaStatus.query_for('ongoing'))
             .where(kind: 'TV')
-            .where { id.not_in(OngoingsQuery::AnimeIgnored) }
+            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
             .where { id.not_in(AniMangaQuery::AnimeSerials) }
             .where { rating.not_eq('None') }
             .where { ranked.not_eq(0) }

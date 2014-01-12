@@ -3,7 +3,7 @@
 # TODO: выпилить matches_for и заменить на использование NameMatcher
 class Anime < ActiveRecord::Base
   include AniManga
-  EXCLUDED_ONGOINGS = [516,966,6116,1199,2406,1960,3975,4459,6149,8189,8687,9947,8336,7511,7261,6195,8025,8176,9371,9536,6962,9518,6900,8143,7643,10349,9893,10506,9561,9562,10177,10528,10513,8495,11017,11177,10524,10995,10797,10847,12181,9799,6119,11541,15897,15749,16347,18469]
+  EXCLUDED_ONGOINGS = [966, 1199, 1960, 2406, 4459, 6149, 7511, 7643, 8189, 8336, 8687, 9799, 9947, 10506, 10797, 10995, 15749, 7643, 9799, 10856, 13165, 13433, 13463, 13465, 16908, 17733, 18097, 18155, 18191, 19825, 18941]
 
   # Fields
   serialize :english
@@ -131,7 +131,7 @@ class Anime < ActiveRecord::Base
   # Scopes
   scope :translatable, where {
       kind.eq('TV') | (kind.eq('ONA') & score.gte(7.0)) | (kind.eq('OVA') & score.gte(7.5))
-    }.where { id.not_in OngoingsQuery::AnimeIgnored }
+    }.where { id.not_in Anime::EXCLUDED_ONGOINGS }
 
   # Methods
   def latest?

@@ -31,7 +31,7 @@ class AniMangaStatus
 
       when 'latest'
         "status = '%s' and (released_at > '%s 00:00:00' or (aired_at > '%s 00:00:00' and released_at is null)) " % [released_status, Date.today - 3.month, Date.today - 3.month] +
-        "and #{klass.name.tableize}.id not in (%s)" % (klass::EXCLUDED_ONGOINGS + OngoingsQuery::AnimeIgnored).join(',')
+        "and #{klass.name.tableize}.id not in (%s)" % (klass::EXCLUDED_ONGOINGS).join(',')
 
       when 'planned'
         "status in ('%s', '%s') and not (%s)" % [AniMangaStatus::Anons, AniMangaStatus::Upcoming, self.query_for('ongoing', klass)]
