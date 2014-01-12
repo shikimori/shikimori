@@ -8,7 +8,7 @@ class Api::V1::Profile::MessagesController < Api::V1::ApiController
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
 
-    respond_with MessagesQuery.new(current_user, params[:type] || '').fetch @page, @limit
+    @resources = MessagesQuery.new(current_user, params[:type] || '').fetch @page, @limit
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
