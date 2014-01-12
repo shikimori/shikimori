@@ -6,6 +6,9 @@ body {
   &.chrome {
     text-rendering: auto;
   }
+  &.no-smileys .smiley {
+    display: none;
+  }
 }
 .page {
   background: white;
