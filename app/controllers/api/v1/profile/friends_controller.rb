@@ -1,3 +1,4 @@
+# TODO: выпилить посе 25.01.2014
 class Api::V1::Profile::FriendsController < Api::V1::ApiController
   before_filter :authenticate_user!
   respond_to :json, :xml
