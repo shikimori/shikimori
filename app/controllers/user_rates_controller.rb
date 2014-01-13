@@ -6,9 +6,9 @@ class UserRatesController < ApplicationController
   def cleanup
     raise Forbidden unless ['anime', 'manga'].include? params[:type]
 
-    current_user.history.where(target_type: params[:type].capitalize).delete_all
-    current_user.history.where(action: "mal_#{params[:type]}_import").delete_all
-    current_user.history.where(action: "ap_#{params[:type]}_import").delete_all
+    current_user.object.history.where(target_type: params[:type].capitalize).delete_all
+    current_user.object.history.where(action: "mal_#{params[:type]}_import").delete_all
+    current_user.object.history.where(action: "ap_#{params[:type]}_import").delete_all
     current_user.send("#{params[:type]}_rates").delete_all
     current_user.touch
 
@@ -29,12 +29,12 @@ class UserRatesController < ApplicationController
 
   # добавление аниме в свой список
   def create
-    @rate = UserRate.find_or_create_by_user_id_and_target_id_and_target_type({
+    @rate = UserRate.find_or_create_by_user_id_and_target_id_and_target_type(
       user_id: current_user.id,
       target_id: params[:id],
       target_type: params[:type],
       status: UserRateStatus.default
-    })
+    )
 
     if @rate.save
       UserHistory.add current_user, @rate.target, UserHistoryAction::Add
