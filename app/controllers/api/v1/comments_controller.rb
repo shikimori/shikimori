@@ -4,7 +4,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/comments/:id", "Show a comment"
   def show
-    respond_with Comment.find(params[:id])
+    respond_with Comment.find(params[:id]).decorate
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -17,5 +17,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     respond_with CommentsQuery
       .new(params[:commentable_type], params[:commentable_id])
       .fetch(@page, @limit, @desc)
+      .with_viewed(current_user)
+      .decorate
   end
 end
