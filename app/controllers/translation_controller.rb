@@ -1,7 +1,7 @@
 class TranslationController < GroupsController
   # список аниме на перевод
   def index
-    @translate_ignore = [19067,19157,21447,3447,3485,2448,1335,8648,1430,1412,1425,10029,597,1029,7711,1972,1382,10444,10370,10349,10359,10347,10324,10257,10015,10533,10499,10507,10444,10177,9441,7761,5032,7463,7723,6582,6604,5670,5973,5460,1367,1364,781,1506,1363,372,1430,3014,3016,6467,2448,1366,4985,283,10797,10802,10847,10997,11017,15865,15545,14631,10694,14947,15537,18469,18097,18357,18355,13029,13231,12979,9204,19291,10703,10531,12963,16287,17141,17497,17703,17969,18227,17705,19099]
+    @translate_ignore = [19067,19157,21447,3447,3485,2448,1335,8648,1430,1412,1425,10029,597,1029,7711,1972,1382,10444,10370,10349,10359,10347,10324,10257,10015,10533,10499,10507,10444,10177,9441,7761,5032,7463,7723,6582,6604,5670,5973,5460,1367,1364,781,1506,1363,372,1430,3014,3016,6467,2448,1366,4985,283,10797,10802,10847,10997,11017,15865,15545,14631,10694,14947,15537,18469,18097,18357,18355,13029,13231,12979,9204,19291,10703,10531,12963,16287,17141,17497,17703,17969,18227,17705,19099,15069,17873,13207,14123,16347,17115]
     @translate_me = []
     @goals = []
     #@goals2 = {}
@@ -68,7 +68,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [13409, 14093] }.
                      where { score.gte(7.5) | status.eq(AniMangaStatus::Anons) }.
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      where(kind: 'Movie').
                      where(censored: false).
@@ -80,7 +80,7 @@ class TranslationController < GroupsController
                Anime.where(AniMangaSeason.query_for('winter_2014')).
                      where { id.not_in my{goals_ids} }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -90,7 +90,7 @@ class TranslationController < GroupsController
                Anime.where(AniMangaSeason.query_for('fall_2013')).
                      where { id.not_in my{goals_ids} }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -100,7 +100,7 @@ class TranslationController < GroupsController
                Anime.where(AniMangaSeason.query_for('summer_2013')).
                      where { id.not_in my{goals_ids} }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -110,7 +110,7 @@ class TranslationController < GroupsController
                Anime.where(AniMangaSeason.query_for('spring_2013')).
                      where { id.not_in my{goals_ids} }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -121,7 +121,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [13409, 14093] }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -133,7 +133,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [13409, 14093] }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -145,7 +145,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      where { id.not_in [13409, 14093] }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -157,7 +157,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [11385] }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -169,7 +169,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [11385] }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -181,7 +181,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      where { id.not_in [11385] }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -192,7 +192,7 @@ class TranslationController < GroupsController
                Anime.where(AniMangaSeason.query_for('summer_2011')).
                      where { id.not_in my{goals_ids} }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -203,7 +203,7 @@ class TranslationController < GroupsController
                Anime.where(AniMangaSeason.query_for('spring_2011')).
                      where { id.not_in my{goals_ids} }.
                      where('score > 0 or ranked > 0').
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      translatable.
                      where(censored: false).
@@ -270,7 +270,7 @@ class TranslationController < GroupsController
                      where { id.not_in my{goals_ids} }.
                      #where { id.not_in [13409, 14093] }.
                      where { score.gte 7.5 }.
-                     where('duration is null or duration = 0 or duration > 20').
+                     #where('duration is null or duration = 0 or duration > 20').
                      where { id.not_in my{@translate_ignore} }.
                      where(kind: 'Movie').
                      where(censored: false).
@@ -369,7 +369,19 @@ class TranslationController < GroupsController
     @page_title = [@group.name, 'Запланированные переводы']
     index
     @goals.each_with_index do |v,k|
-      v[1] = v[1].select {|anime| anime.description == nil || anime.description == '' || anime.description == anime.description_mal }
+      v[1] = v[1].select do |anime|
+        def anime.too_short?
+          ongoing? && score > 7 && kind == 'TV' &&
+            rating != 'G - All Ages' &&
+            (description || '').size < 450 &&
+            description != description_mal
+        end
+
+        anime.description == nil ||
+          anime.description == '' ||
+          anime.description == anime.description_mal ||
+          anime.too_short?
+      end
     end
     @locks = TranslationController.locked_animes
     @changes = TranslationController.pending_animes

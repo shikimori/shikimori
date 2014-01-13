@@ -154,7 +154,7 @@ class Moderation::UserChangesController < ApplicationController
     end
     anime = Anime.find(params[:anime_id])
 
-    can_be_locked = UserChange.where(status: [UserChangeStatus::Locked, UserChangeStatus::Pending, UserChangeStatus::Accepted])
+    can_be_locked = UserChange.where(status: [UserChangeStatus::Locked])
       .where(item_id: anime, model: Anime.name, column: 'description')
       .empty?
     raise Forbidden unless can_be_locked

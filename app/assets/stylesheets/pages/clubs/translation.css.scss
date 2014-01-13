@@ -1,5 +1,16 @@
 @import "globals";
 
+.translation_planned {
+  .examples {
+    margin-bottom: 10px;
+    p {
+      margin-bottom: 5px;
+    }
+    img {
+      width: 368px;
+    }
+  }
+}
 .translation {
   .goal {
     margin-bottom: 15px;

@@ -1,4 +1,4 @@
-<% if (anime.description == nil || anime.description == '' || anime.description == anime.description_mal) && !changes.include?(anime.id) %>
+<% if ((anime.respond_to?(:too_short?) && anime.too_short?) || anime.description == nil || anime.description == '' || anime.description == anime.description_mal) && !changes.include?(anime.id) %>
   <% if locks.include?(anime.id) %>
     <% if user_signed_in? && locks[anime.id].user_id == current_user.id %>
       <span class="locked-by unlockable" title="Отменить свой перевод" data-remote="true" action="<%=moderation_anime_lock_path anime %>" data-method="delete" data-type="json">
