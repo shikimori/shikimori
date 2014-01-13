@@ -6,11 +6,11 @@ node :html_body do |message|
   get_message_body message
 end
 
-child :from do
+child from: :from do
   extends 'api/v1/users/preview'
 end
 
-child :to do
+child to: :to do
   extends 'api/v1/users/preview'
 end
 
