@@ -12,4 +12,8 @@ class UserProfileSerializer < UserSerializer
   def manga_statuses
     object.stats[:manga_statuses]
   end
+
+  def website
+    (object.object.website || '').sub(/^https?:\/\//, '')
+  end
 end
