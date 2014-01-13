@@ -16,7 +16,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def website
-    return if object.website.blank?
+    return '' if object.website.blank?
 
     url_wo_http = h.h(object.website).sub(/^https?:\/\//, '')
     h.link_to url_wo_http, "http://#{url_wo_http}", class: 'website'
