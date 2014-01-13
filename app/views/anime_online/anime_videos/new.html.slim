@@ -1,20 +1,19 @@
-/= form_tag action="#{anime_online_anime_anime_videos_url}", method: :post do |f|
-= form_for [:anime_online, @video.anime, @video], role: 'form' do |f|
+= simple_form_for @video, url: anime_online_anime_anime_videos_url do |f|
   h3 #{@video.anime.name}
   legend Новое видео
-  = f.hidden_field :anime_id
-  = f.hidden_field :source
+  = f.input :anime_id, as: :hidden
+  = f.input :source, as: :hidden
 
   - unless @video.errors.blank?
-    .alert.alert-danger = @video.errors.full_messages.join ','
+    .alert.alert-danger = @video.errors.full_messages.join ', '
 
   .form-group
-    = f.text_field :episode, class: 'form-control', placeholder: 'Эпизод'
+    = f.input_field :episode, class: 'form-control', placeholder: 'Эпизод'
   .form-group
-    = f.text_field :url, class: 'form-control', placeholder: 'Ссылка на видео'
+    = f.input_field :url, class: 'form-control', placeholder: 'URL на видео, например: http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
     a href='#' как правильно получить ссылку
   .form-group
-    = f.text_field :author, class: 'form-control', placeholder: 'Автор озвучки'
+    = f.input_field :author, class: 'form-control', placeholder: 'Автор озвучки', value: (@video.author ? @video.author.name : '')
   .form-group
     label.radio-inline
       = f.radio_button :kind, :fandub, value: :fandub

@@ -7,6 +7,7 @@ describe AnimeVideo do
   it { should validate_presence_of :anime }
   it { should validate_presence_of :url }
   it { should validate_presence_of :source }
+  it { should validate_numericality_of :episode }
 
   describe :default_scope do
     subject { AnimeVideo.all }
