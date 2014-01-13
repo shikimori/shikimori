@@ -1,4 +1,6 @@
+meta itemprop="url" content="#{{@entry.url}}"
 meta itemprop="headline" content="#{{@entry.name}}"
+
 - if @entry.russian
   meta itemprop="alternativeHeadline" content="#{{@entry.russian}}"
 
@@ -43,7 +45,7 @@ aside.left-column.menu-block
       .scores.rate-block
         meta itemprop="bestRating" content="10"
         meta itemprop="ratingValue" content="#{@entry.score}"
-        meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/17).to_i}"
+        meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/37).to_i}"
         = render partial: 'ani_mangas/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
 
 .right-column.menu-block
@@ -57,7 +59,7 @@ aside.left-column.menu-block
         .watch-online.subheadline.blue
           span.linkeable data-href=="#{anime_videos_show_url @entry.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
 
-    .description.df.m20 itemprop="description"
+    .description.df.m20
       - if @entry.description_html.blank?
         == format_html_text @entry.description_mal
       - else
@@ -66,7 +68,7 @@ aside.left-column.menu-block
             | [<span>eng</span>]
           .english
             == format_html_text @entry.description_mal
-        .russian
+        .russian itemprop="description"
           == @entry.description_html
 
     = render partial: 'site/source', locals: { entry: @entry, authors: @entry.changes.authors(:description, false), field: 'description', default_source: @entry.mal_url }, formats: :html

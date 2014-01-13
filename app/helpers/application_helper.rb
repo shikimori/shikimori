@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def attachment_url(file, style = :original, with_timestamp = true)
-    "#{request.protocol}#{request.host_with_port}#{file.url(style, with_timestamp)}"
+    "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
   def rus_date(date, fix_1_1=false)

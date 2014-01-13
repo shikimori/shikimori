@@ -27,7 +27,7 @@ html
           });
         .admin_panel
 
-      - if defined?(@itemtype) && @itemtype.present?
+      - if @itemtype.present?
         section[itemscope itemtype="#{{@itemtype}}"]
           = render partial: 'site/page_container'
       - else

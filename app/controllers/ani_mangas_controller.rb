@@ -26,6 +26,7 @@ class AniMangasController < ApplicationController
   # отображение аниме или манги
   def show
     @entry = klass.find(entry_id.to_i).decorate
+    @itemtype = @entry.itemtype
     direct
   end
 

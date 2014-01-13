@@ -25,10 +25,9 @@
       .name-date
         a.name href="#{comment[:topic_url] || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
           == comment[:topic_name] || h(comment.user.nickname)
-        p.date
+        time.date itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
           = time_ago_in_words comment.created_at, "%s назад"
 
-    meta itemprop="commentTime" content="#{comment.created_at.iso8601}"
     .body itemprop="commentText"
       - if comment.kind_of? Comment
         == comment.html_body

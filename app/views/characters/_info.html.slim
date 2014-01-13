@@ -1,13 +1,19 @@
 section.editable
   .subheadline Описание
-  .item-content.menu-block
+  .item-content.menu-block[itemscope itemtype="http://schema.org/Person"]
+    meta itemprop="url" content="#{{@entry.url}}"
+    meta itemprop="name" content="#{{@entry.name}}"
+    - if @entry.russian.present?
+      meta itemprop="alternateName" content="#{{@entry.russian}}"
+    meta itemprop="image" content="#{{attachment_url @entry.image, :original, false}}"
+
     .description.df.m15
       - if @entry.show_mal_description?
         .lang-trigger
           | [<span>eng</span>]
         .english
           = @entry.description_mal
-      .russian
+      .russian itemprop="description"
         = @entry.description_html
     = render partial: 'site/source', locals: { entry: @entry, authors: @entry.changes.authors(:description), field: 'description', default_source: "http://myanimelist.net/character/#{@entry.id}" }, formats: :html
 
