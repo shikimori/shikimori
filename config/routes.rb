@@ -1,6 +1,11 @@
 Site::Application.routes.draw do
   constraints AnimeOnlineDomain  do
     root to: 'anime_online/anime_videos#index'
+    namespace :anime_online do
+      resources :anime do
+        resources :anime_videos, only: [:new, :create]
+      end
+    end
     get 'videos/:id(/:episode_id)(/:video_id)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode_id: /\d+/, video_id: /\d+/ }
     get 'videos' => 'anime_online/anime_videos#index', as: :anime_videos
     post 'videos/:id/:episode_id/:video_id/complaint/:kind' => 'anime_online/anime_videos#complaint', as: :anime_videos_complaint, constraints: { kind: /broken_video|wrong_video/ }
