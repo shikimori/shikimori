@@ -13,7 +13,11 @@ class Recommendations::Fetcher < UserDataFetcherBase
 
 private
   def job
-    RecommendationsJob.new @user.id, @klass.name, @metric, @threshold, cache_key, list_cache_key
+    RecommendationsWorker
+  end
+
+  def job_args
+    [@user.id, @klass.name, @metric, @threshold, cache_key, list_cache_key]
   end
 
   def cache_key

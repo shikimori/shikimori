@@ -1,7 +1,0 @@
-class CleanupOldMessagesJob
-  def perform
-    Message.where(:kind => [MessageType::Episode, MessageType::Anons, MessageType::Ongoing, MessageType::Release, MessageType::ProfileCommented, MessageType::QuotedByUser, MessageType::SubscriptionCommented])
-           .where { created_at.lte(3.month.ago) }
-           .delete_all
-  end
-end

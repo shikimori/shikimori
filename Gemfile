@@ -30,6 +30,12 @@ gem 'strong_parameters'
 gem 'active_model_serializers'
 
 gem 'devise'
+gem 'devise-async' # асинхронная отсылка писем для devise
+
+gem 'sidekiq'
+gem 'sidekiq-unique-jobs'
+gem 'sidekiq-limit_fetch'
+gem 'sinatra', '>= 1.3.0', require: nil
 
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -76,7 +82,6 @@ gem 'enumerize'
 gem 'draper'
 
 gem 'unicode' # для downcase русских слов
-gem 'daemons' # for delayed_job
 gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'
 gem 'slim-rails'
 gem 'icalendar' # для аниме календраря
@@ -97,8 +102,6 @@ gem 'apipie-rails'
 group :production, :development do # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
   gem 'composite_primary_keys' # для составного праймари кея у CommentView и EntryView
 end
-gem 'delayed_job', github: 'collectiveidea/delayed_job', tag: 'v3.0.1'
-gem 'delayed_job_active_record'
 
 group :development do
   gem 'letter_opener'
@@ -164,8 +167,8 @@ end
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable'
 
 gem 'chronic', git: 'git@github.com:mojombo/chronic.git' # хак для совместимости whenever и ruby 2.0
-gem 'whenever'
-gem 'clockwork'
+gem 'whenever', require: false
+gem 'clockwork', github: 'tomykaira/clockwork', require: false
 gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 
 gem 'thin'

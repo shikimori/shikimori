@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Site::Application.routes.draw do
   constraints AnimeOnlineDomain  do
     root to: 'anime_online/anime_videos#index'
@@ -440,6 +442,10 @@ Site::Application.routes.draw do
 
     get 'sitemap' => 'sitemap#index'
     get 'robots.txt' => 'robots#shikimori'
+
+    authenticate :user, lambda { |u| u.admin? } do
+      mount Sidekiq::Web => '/sidekiq'
+    end
 
     apipie
     namespace :api, defaults: { format: 'json' } do

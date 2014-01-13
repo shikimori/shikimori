@@ -1,0 +1,87 @@
+.tooltip-left
+  .tooltip-inner
+    .tooltip-arrow
+    .clearfix
+      .tooltip-details
+
+        .subblock-title
+          .reload
+          | Disk space
+        .m10
+          = @disk_space
+
+        .subblock-title Memmory
+        p.m10 #{@mem_space}%
+
+        .subblock-title Swap
+        p.m10 #{@swap_space}%
+
+        .subblock-title Memcached
+        p.m10 #{@memcached_space}%
+
+        .subblock-title Redis keys
+        p.m10 #{@redis_keys}
+
+        a.sidekiq-link href="/sidekiq/" stats
+        .subblock-title Sidekiq jobs
+        .m10
+          p Processed: #{@sidkiq_stats.processed}
+          p Failed: #{@sidkiq_stats.failed}
+
+          - @sidkiq_busy.each do |job|
+            p id="#{job['jid'].to_s}"
+              span.right
+                = time_ago_in_words Time.at(job['enqueued_at'])
+              span.busy
+                = job['class']
+
+          - @sidkiq_enqueued.each do |job|
+            p id="#{job['jid'].to_s}"
+              span.right
+                = time_ago_in_words Time.at(job['enqueued_at'])
+              span.enqueued
+                = job['class']
+
+          - @sidkiq_retries.each do |job|
+            p id="#{job['jid'].to_s}"
+              span.right
+                = time_ago_in_words Time.at(job['enqueued_at'])
+              span.retries
+                = job['class']
+
+        /.subblock-title Retries
+        /.m10
+
+        .subblock-title Proxies
+        p.m10 = @proxies_count
+
+        - if @calendar_update
+          .subblock-title Calendar Update
+          p.m10 = @calendar_update.to_date
+
+        - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
+          .subblock-title Calendar Unrecognized
+          .m10
+            - @calendar_unrecognized.each do |name|
+              p.m5 = name
+
+        .subblock-title Animes to import
+        p.m10 = @animes_to_import
+
+        .subblock-title Mangas to import
+        p.m10 = @mangas_to_import
+
+        .subblock-title Characters to import
+        p.m10 = @characters_to_import
+
+        .subblock-title People to import
+        p.m0 = @people_to_import
+
+    .dropshadow-top
+    .dropshadow-top-right
+    .dropshadow-right
+    .dropshadow-bottom-right
+    .dropshadow-bottom
+    .dropshadow-bottom-left
+    .dropshadow-left
+    .dropshadow-top-left

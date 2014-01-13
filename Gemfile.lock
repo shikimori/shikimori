@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/collectiveidea/delayed_job.git
-  revision: b1508e1d39dc14f22ac351628ea5093b934328c4
-  tag: v3.0.1
-  specs:
-    delayed_job (3.0.1)
-      activesupport (~> 3.0)
-
-GIT
   remote: git://github.com/flori/amatch.git
   revision: 87cc2e82af00196b20bf0588bd89c55ef2af63b6
   specs:
@@ -60,6 +52,14 @@ GIT
     htmldiff (0.0.1)
 
 GIT
+  remote: git://github.com/tomykaira/clockwork.git
+  revision: 30a018cf7b6e81a72013dd6117b3c2c27f859a23
+  specs:
+    clockwork (0.7.0)
+      activesupport
+      tzinfo (~> 0.3.35)
+
+GIT
   remote: git://github.com/yaroslav/russian.git
   revision: e2dde13672bcee176f8b0be364a55ac256913231
   specs:
@@ -68,9 +68,9 @@ GIT
 
 GIT
   remote: git@github.com:mojombo/chronic.git
-  revision: fc5427ae87d73f2502283c8d4406ab480f875bdf
+  revision: a3006f564b4aef7426bd4c59e8f09f34b764c997
   specs:
-    chronic (0.9.1)
+    chronic (0.10.2)
 
 GEM
   remote: https://rubygems.org/
@@ -141,11 +141,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.2.8)
-    clockwork (0.4.0)
-      tzinfo
     cocaine (0.2.1)
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -163,21 +163,21 @@ GEM
       compass (>= 0.12.2, < 0.14)
     composite_primary_keys (5.0.12)
       activerecord (~> 3.2.0, >= 3.2.9)
+    connection_pool (1.2.0)
     cookiejar (0.3.0)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
     daemons (1.1.9)
     database_rewinder (0.0.2)
     debug_inspector (0.0.2)
-    delayed_job_active_record (0.3.2)
-      activerecord (> 2.1.0)
-      delayed_job (~> 3.0.0)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise-async (0.8.0)
+      devise (>= 2.2, < 3.2)
     diff-lcs (1.2.4)
     draper (1.3.0)
       actionpack (>= 3.0)
@@ -201,7 +201,7 @@ GEM
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    exception_notification (4.0.0)
+    exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     execjs (2.0.2)
@@ -280,6 +280,7 @@ GEM
       oauth2
       yajl-ruby
     mime-types (1.25.1)
+    mock_redis (0.10.0)
     multi_json (1.8.4)
     multipart-post (1.2.0)
     mysql2 (0.3.11)
@@ -342,6 +343,8 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-protection (1.5.1)
+      rack
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -371,7 +374,9 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    redis (2.2.2)
+    redis (3.0.6)
+    redis-namespace (1.4.1)
+      redis (~> 3.0.4)
     ref (1.0.5)
     request_store (1.0.5)
     rest-client (1.6.7)
@@ -403,9 +408,24 @@ GEM
       rails (>= 3.2)
     shoulda (2.11.3)
     shoulda-matchers (1.0.0)
+    sidekiq (2.17.2)
+      celluloid (>= 0.15.2)
+      connection_pool (>= 1.0.0)
+      json
+      redis (>= 3.0.6)
+      redis-namespace (>= 1.3.1)
+    sidekiq-limit_fetch (2.1.2)
+      sidekiq (>= 2.6.5, < 3)
+    sidekiq-unique-jobs (2.7.0)
+      mock_redis
+      sidekiq (~> 2.6)
     simple_form (2.0.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
+    sinatra (1.4.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     slim (2.0.0)
       temple (~> 0.6.5)
       tilt (~> 1.3, >= 1.3.3)
@@ -448,6 +468,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    timers (1.1.0)
     tins (0.3.7)
     treetop (1.4.15)
       polyglot
@@ -469,7 +490,7 @@ GEM
     webmock (1.13.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
-    whenever (0.8.2)
+    whenever (0.9.0)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
     will_paginate (3.0.4)
@@ -499,15 +520,13 @@ DEPENDENCIES
   capistrano
   capybara
   chronic!
-  clockwork
+  clockwork!
   coffee-rails
   compass-rails
   composite_primary_keys
-  daemons
   database_rewinder
-  delayed_job!
-  delayed_job_active_record
   devise
+  devise-async
   draper
   enumerize
   exception_notification
@@ -559,7 +578,11 @@ DEPENDENCIES
   sextant
   shoulda
   shoulda-matchers
+  sidekiq
+  sidekiq-limit_fetch
+  sidekiq-unique-jobs
   simple_form
+  sinatra (>= 1.3.0)
   slim-rails
   spork
   sql-logging

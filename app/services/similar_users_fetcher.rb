@@ -7,7 +7,11 @@ class SimilarUsersFetcher < UserDataFetcherBase
 
 private
   def job
-    SimilarUsersJob.new @user.id, @klass.name, @threshold, cache_key
+    SimilarUsersWorker
+  end
+
+  def job_args
+    [@user.id, @klass.name, @threshold, cache_key]
   end
 
   def cache_key

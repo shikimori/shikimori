@@ -24,71 +24,23 @@ set :job_template, "/usr/bin/zsh -i -c ':job'"
 
 # здесь только редкие/долгие таски, которые нельзя на clockwork положить
 
-every 1.hour do
-  runner "Delayed::Job.enqueue_uniq FindAnimeJob.new(:last_3_entries)"
-end
-
-every 6.hours do
-  runner "Delayed::Job.enqueue_uniq FindAnimeJob.new(:last_15_entries)"
-end
-
-every 1.day, at: '0:05 am' do
-  runner "Delayed::Job.enqueue_uniq AnimeCalendarJob.new, ProcessContestsJob.new, PrepareImportListJob.new(source: :latest, hours_limit: 24*7), CleanupOldLocksJob.new, SakuhindbJob.new(false)"
-end
-
-every 1.day, at: '2:30 am' do
-  runner "Delayed::Job.enqueue_uniq ImportMangasJob.new, ReadMangaJob.new"
-end
-
 every 1.day, at: '3:00 am' do
-  runner "Delayed::Job.enqueue_uniq ImportCharactersJob.new"
   command "backup perform --trigger shikimori"
-end
-
-every 1.week, at: '3:30 am' do
-  runner "Delayed::Job.enqueue_uniq ImportPeopleJob.new, DanbooruTagsJob.new, CleanupOldMessagesJob.new, CleanupUserImagesJob.new, SakuhindbJob.new"
-end
-
-every 1.week, at: '4:00 am' do
-  runner "Delayed::Job.enqueue_uniq SubtitlesJob.new(latest: true), DeleteBadVideosJob.new"
-end
-
-every 1.day, at: '4:30 am' do
-  runner "Delayed::Job.enqueue_uniq SubtitlesJob.new(ongoing: true), ActualizeReadMangaLinksJob.new"
-end
-
-every 1.day, at: '8:00 am' do
-  runner "Delayed::Job.enqueue_uniq VerifyAnimesJob.new, VerifyMangasJob.new, VerifyCharactersJob.new, VerifyPeopleJob.new, VerifyFindanimeLinksJob.new"
-end
-
-every 3.days, at: '5:00 am' do
-  runner "Delayed::Job.enqueue_uniq FindAnimeJob.new(:first_page)"
 end
 
 #every 1.day, at: '0:45 am' do
   #runner "Delayed::Job.enqueue_uniq TorrentsLatestJob.new"
 #end
 
-every 1.weeks, at: '3:35 am' do
-  runner "Delayed::Job.enqueue_uniq PrepareImportListJob.new(pages_limit: 100)"
-end
-every 1.weeks, at: '5:35 am' do
-  runner "Delayed::Job.enqueue_uniq PrepareImportListJob.new(pages_limit: 100, klass: Manga)"
-end
-
-every 2.weeks, at: '3:35 am' do
-  #runner "Delayed::Job.enqueue_uniq SakuhindbJob.new(true)"
-end
-
 every 32.days, at: '4:13 am' do
-  runner "Delayed::Job.enqueue_uniq CharsDescriptionJob.new, UpdatePeopleJobsJob.new"
+  runner "WikipediaImporter.perform_async "
 end
 
 every 2.months, at: '0:09 am' do # макс цифра минус 1
-  runner "Delayed::Job.enqueue_uniq PrepareImportListJob.new(pages_limit: 1309, source: :all, klass: Manga)"
+  runner "ImportListWorker.perform_async pages_limit: 1309, source: :all, type: Manga.name"
 end
 every 2.months, at: '5:09 am' do # макс цифра минус 1
-  runner "Delayed::Job.enqueue_uniq PrepareImportListJob.new(pages_limit: 424, source: :all, klass: Anime)"
+  runner "ImportListWorker.perform_async pages_limit: 424, source: :all, type: Anime.name"
 end
 
 #every 2.weeks, at: '9:35 am' do
