@@ -72,7 +72,6 @@ class GroupsController < ApplicationController
     if @group.belongs_to_translators?
       @pages << 'translation_planned'
       @pages << 'translation_finished'
-      @pages << 'user_translations' if user_signed_in? && @group.has_member?(current_user)
     end
 
     respond_to do |format|

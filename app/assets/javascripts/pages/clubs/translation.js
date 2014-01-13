@@ -2,16 +2,16 @@
 $('.translate-lock,.locked-by.unlockable').live('ajax:success', function(e, data, status, xhr) {
   $(this).replaceWith(data.html);
 });
-$('.slide .translation,.slide .translation').live('ajax:success cache:success', function(e, data, status, xhr) {
- $(this).masonry({
+$('.slide .translation_finished, .slide .translation_planned').live('ajax:success cache:success', function(e, data, status, xhr) {
+  $('.translation', this).masonry({
     itemSelector : '.goal'
   });
 });
-$(function() {
-  var $node = $('.slide .translation,.slide .translation');
-  if ($node.children().length) {
-    $node.masonry({
-      itemSelector : '.goal'
-    })
-  }
-});
+//$(function() {
+  //var $node = $('.slide .translation,.slide .translation');
+  //if ($node.children().length) {
+    //$node.masonry({
+      //itemSelector : '.goal'
+    //})
+  //}
+//});

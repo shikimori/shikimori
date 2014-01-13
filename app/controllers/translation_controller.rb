@@ -76,6 +76,16 @@ class TranslationController < GroupsController
                      #order(:score.desc).
                      limit(45)]
 
+    @goals << ['Весна 2014',
+               Anime.where(AniMangaSeason.query_for('spring_2014')).
+                     where { id.not_in my{goals_ids} }.
+                     where('score > 0 or ranked > 0').
+                     #where('duration is null or duration = 0 or duration > 20').
+                     where { id.not_in my{@translate_ignore} }.
+                     translatable.
+                     where(censored: false).
+                     order(:ranked).
+                     limit(30)]
     @goals << ['Зима 2014',
                Anime.where(AniMangaSeason.query_for('winter_2014')).
                      where { id.not_in my{goals_ids} }.
@@ -371,14 +381,14 @@ class TranslationController < GroupsController
     @goals.each_with_index do |v,k|
       v[1] = v[1].select do |anime|
         def anime.too_short?
-          ongoing? && score > 7 && kind == 'TV' &&
+          (ongoing? || anons?) && score > 7 && kind == 'TV' &&
             rating != 'G - All Ages' &&
             (description || '').size < 450 &&
-            description != description_mal
+            description != description_mal &&
+            description != 'У этого аниме пока ещё нет описания.'
         end
 
-        anime.description == nil ||
-          anime.description == '' ||
+        anime[:description].blank?
           anime.description == anime.description_mal ||
           anime.too_short?
       end
