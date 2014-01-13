@@ -147,6 +147,7 @@ private
     phrases = multiply_phrases phrases, 'ü', 'u'
     phrases = multiply_phrases phrases, 'â', 'a'
     phrases = multiply_phrases phrases, 'è', 'e'
+    phrases = multiply_phrases phrases, 'ō', 'o'
 
     phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
     phrases = multiply_phrases phrases, /s(?!h)/, 'sh'

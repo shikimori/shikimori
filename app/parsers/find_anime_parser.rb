@@ -38,14 +38,14 @@ class FindAnimeParser < ReadMangaParser
 
       embed_source = node.css('.embed_source').first
 
-      OpenStruct.new({
+      OpenStruct.new(
         episode: episode,
         kind: kind,
         language: extract_language(kind || description),
         source: url,
         url: extract_url(embed_source.attr('value'), url),
         author: HTMLEntities.new.decode(author)
-      }) if embed_source && kind
+      ) if embed_source && kind
     end.compact
   end
 
