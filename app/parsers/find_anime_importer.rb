@@ -76,7 +76,7 @@ private
   end
 
   def build_video video, anime_id
-    AnimeVideo.new({
+    AnimeVideo.new(
       anime_id: anime_id,
       episode: video.episode,
       url: video.url,
@@ -85,7 +85,7 @@ private
       source: video.source,
       anime_video_author_id: find_or_create_author(video.author).try(:id),
       state: 'working'
-    })
+    )
   end
 
   def save_link findanime_id, anime_id

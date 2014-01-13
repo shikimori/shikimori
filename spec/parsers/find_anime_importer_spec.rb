@@ -4,7 +4,7 @@ describe FindAnimeImporter do
   let(:importer) { FindAnimeImporter.new }
 
   describe :import do
-    subject { importer.import pages: pages, ids: ids, last_episodes: last_episodes }
+    subject(:import) { importer.import pages: pages, ids: ids, last_episodes: last_episodes }
     let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki' }
     let(:identifier) { 'xxxholic__shunmuki' }
     let(:last_episodes) { false }
@@ -74,6 +74,20 @@ describe FindAnimeImporter do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
         let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9&hd=3', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
         it { expect{subject}.to change(videos, :count).by 5 }
+
+        describe :anime_video do
+          before { import }
+          subject { anime.anime_videos.last }
+
+          it { should be_working }
+          its(:anime_id) { should eq anime.id }
+          its(:url) { should eq 'http://video.rutube.ru/625ac634204b2c60adcb75a918dedb7d' }
+          its(:source) { should eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1' }
+          its(:episode) { should eq 2 }
+          its(:kind) { should eq 'unknown' }
+          its(:language) { should eq 'russian' }
+          its(:anime_video_author_id) { should be_nil }
+        end
       end
     end
 
@@ -136,7 +150,6 @@ describe FindAnimeImporter do
       end
     end
 
-
     describe :ignores do
       let(:identifier) { 'the_last_airbender__the_legend_of_korra_first_book_air' }
       let!(:anime) { create :anime, name: 'The Last Airbender: The Legend of Korra.First book:Air' }
@@ -145,10 +158,10 @@ describe FindAnimeImporter do
       it { should be_nil }
     end
 
-    describe :no_episodes do
+    describe :one_episode do
       let(:identifier) { 'aria_the_scarlet_ammo_ova' }
-      let!(:anime) { create :anime, name: 'Hidan no Aria OVA' }
-      before { importer.should_receive(:import_videos).exactly(0).times }
+      let!(:anime) { create :anime, name: 'Hidan no Aria OVA', id: 10604 }
+      before { importer.should_receive(:import_videos).exactly(1).times }
 
       it { should be_nil }
     end
