@@ -13,7 +13,7 @@ module MessagesHelper
         "%s %s что-то в вашем %s..." % [
             "<a href='#{user_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'написала' : 'написал',
-            link_to('профиле', user_url(message.to), rel: :slider)
+            "<a href='#{user_url(message.to)}' rel='slider'>профиле</a>"
           ]
 
       when MessageType::FriendRequest
