@@ -53,7 +53,6 @@ class Proxy < ActiveRecord::Base
       end
 
       # фиксим кодировки
-      #content = fix_encoding(content, url, options) if content
       content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
 
       # кешируем
@@ -97,7 +96,6 @@ class Proxy < ActiveRecord::Base
           raise "#{proxy.to_s} banned" if content.nil?
 
           # фикс кодировок перед проверкой текста
-          #content = fix_encoding(content, url, options)
           content = content.fix_encoding(options[:encoding]) if content && url !~ /\.(jpg|gif|png|jpeg)/i
           raise "#{proxy.to_s} banned" if content.blank?
 
@@ -159,19 +157,6 @@ class Proxy < ActiveRecord::Base
       end
     end
 
-    # приведение кодировки в нормальный вид
-    #def fix_encoding(content, url, options)
-      #content.force_encoding(options[:encoding] || 'utf-8') if content && content.encoding.name == "ASCII-8BIT"
-      #content = content.encode('utf-8') if content.encoding.name != 'UTF-8'
-
-      #if content && !content.valid_encoding? && url !~ /\.(jpg|gif|png|jpeg)/i
-        #content = content.unpack('C*').pack('U*')
-        #content = content.encode('utf-8', 'utf-8', undef: :replace, invalid: :replace, replace: '') unless content.valid_encoding?
-      #end
-
-      #content
-    #end
-
     def user_agent url
       if url =~ /myanimelist.net/
         'Mozilla/4.0 (compatible; ICS)'
@@ -185,11 +170,14 @@ class Proxy < ActiveRecord::Base
       log "GET #{url}", options
 
       resp = open URI.encode(url), 'User-Agent' => user_agent(url)
-      if resp.meta["content-encoding"] == "gzip"
-        Zlib::GzipReader.new(StringIO.new(resp.read)).read
+      file = if resp.meta["content-encoding"] == "gzip"
+        Zlib::GzipReader.new(StringIO.new(resp.read))
       else
-        resp.read
+        resp
       end
+
+      options[:return_file] ? file : file.read
+
     rescue Exception => e
       if e.message =~ SafeErrors
         log "#{e.message}", options

@@ -90,7 +90,7 @@ module MalDeployer
     (images - existed_images).each do |url|
       begin
         unless Rails.env.test? || url.include?("na_series.gif") || url.include?("na.gif")
-          io = mal_image url
+          io = mal_image url, false
         end
 
         AttachedImage.create! url: url, owner: entry, image: Rails.env != 'test' ? (io && io.original_filename.blank? ? nil : io) : ''
@@ -156,15 +156,20 @@ module MalDeployer
   end
 
   # загрузка картинки с mal
-  def mal_image url
+  def mal_image url, is_new_image
     if url =~ /\.jpe?g$/
-      open URI.encode(url), 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)'
-      #Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
+      if is_new_image
+        open URI.encode(url), 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)'
+      else
+        Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
+      end
     else
       open_image url
     end
+
   rescue RuntimeError => e
     raise if e.message !~ /HTTP redirection loop/
+    Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
   end
 
   # загрузка картинки
@@ -172,7 +177,7 @@ module MalDeployer
     if File.exists? "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
       io = open_image "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
     else
-      io = mal_image data[:entry][:img]
+      io = mal_image data[:entry][:img], !entry.image.exists?
     end
 
     io && io.original_filename.blank? ? nil : io if data[:entry].include?(:img)
