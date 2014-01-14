@@ -188,11 +188,11 @@ module MalDeployer
     return true unless entry.image.exists?
 
     interval = if entry.respond_to?(:ongoing?) && entry.ongoing?
-      1.week
+      2.weeks
     elsif entry.respond_to?(:latest?) && entry.latest?
-      3.months
+      4.months
     else
-      6.months
+      8.months
     end
 
     File.ctime(entry.image.path).to_datetime > DateTime.now - interval
