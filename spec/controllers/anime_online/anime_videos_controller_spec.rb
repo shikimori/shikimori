@@ -42,6 +42,12 @@ describe AnimeOnline::AnimeVideosController do
     it { response.should be_redirect }
   end
 
+  describe :help do
+    before { get :help }
+    it { should respond_with_content_type :html }
+    it { response.should be_success }
+  end
+
   describe :complaint do
     let!(:moderator) { create :user, id: User::Blackchestnut_ID }
     let!(:user) { create :user, id: User::GuestID }

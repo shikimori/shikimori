@@ -12,7 +12,7 @@
       = f.input_field :episode, class: 'form-control', placeholder: 'Эпизод'
     .form-group
       = f.input_field :url, class: 'form-control', placeholder: 'URL на видео, например: http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
-      a href='#' как правильно получить ссылку
+      a href='#{help_anime_online_anime_videos_url}' как правильно получить ссылку
     .form-group
       = f.input_field :author, class: 'form-control', placeholder: 'Автор озвучки (может быть пустым)', value: (@video.author ? @video.author.name : '')
     .form-group

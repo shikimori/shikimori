@@ -55,6 +55,9 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     end
   end
 
+  def help
+  end
+
   def complaint
     user = user_signed_in? ? current_user : User.find(User::GuestID)
     Complaint.new.from(user).send_message "#{anime_videos_show_url params[:id], params[:episode_id], params[:video_id]}", params[:video_id], params[:kind]
