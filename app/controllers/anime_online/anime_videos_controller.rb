@@ -47,7 +47,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
 
   def create
     @video = AnimeVideo.new video_params
-    @video.author = find_or_create_author params[:anime_video][:author]
+    @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
     if @video.save
       redirect_to anime_videos_show_url @video.anime.id, @video.episode, @video.id
     else

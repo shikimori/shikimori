@@ -28,6 +28,20 @@ describe AnimeOnline::AnimeVideosController do
     it { response.should be_success }
   end
 
+  describe :new do
+    let(:anime) { create :anime }
+    before { get :new, anime_id: anime.id }
+    it { should respond_with_content_type :html }
+    it { response.should be_success }
+  end
+
+  describe :create do
+    let(:anime) { create :anime }
+    before { post :create, anime_video: { episode: 1, url: 'http://foo.ru', anime_id: anime.id, source: 'test', kind: 'fandub', author: 'test_author' } }
+    it { should respond_with_content_type :html }
+    it { response.should be_redirect }
+  end
+
   describe :complaint do
     let!(:moderator) { create :user, id: User::Blackchestnut_ID }
     let!(:user) { create :user, id: User::GuestID }
