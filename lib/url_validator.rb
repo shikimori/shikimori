@@ -7,7 +7,7 @@ class UrlValidator < ActiveModel::EachValidator
       resp = false
     end
     unless resp == true
-      record.errors[attribute] << (options[:message] || 'имеет неверное значение')
+      record.errors[attribute] << (options[:message] || I18n.t('activerecord.errors.messages.invalid'))
     end
   end
 end
