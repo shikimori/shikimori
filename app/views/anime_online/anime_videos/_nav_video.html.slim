@@ -22,7 +22,7 @@
       li
         .btn-group.video
           button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
-            span.kind = t ".dropdown.kind.#{anime.current_video.kind}"
+            span.kind = t ".kind.#{anime.current_video.kind}"
             span.hosting = anime.current_video.hosting
             span.author = anime.current_author
             span.caret
@@ -30,7 +30,7 @@
             - anime.dropdown_videos.each_with_index do |video, index|
               li
                 a href="#{anime_videos_show_url anime.id, anime.current_episode, video.id}"
-                  span.kind = t ".dropdown.kind.#{video.kind}"
+                  span.kind = t ".kind.#{video.kind}"
                   span.hosting = video.hosting
                   - if video.author
                     span.author = strip_tags video.author.name

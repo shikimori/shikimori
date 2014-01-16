@@ -1,5 +1,4 @@
 resize_player = ($page) ->
-  console.log $page
   $frame = $('iframe', $page)
   $frame.height($frame.width() * 9 / 16) if $frame
 

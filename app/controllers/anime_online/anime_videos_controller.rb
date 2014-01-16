@@ -40,6 +40,24 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     end
   end
 
+  def new
+    anime = Anime.find params[:anime_id]
+    @video = AnimeVideo.new anime: anime, source: 'shikimori.org', kind: :fandub
+  end
+
+  def create
+    @video = AnimeVideo.new video_params
+    @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
+    if @video.save
+      redirect_to anime_videos_show_url @video.anime.id, @video.episode, @video.id
+    else
+      render :new
+    end
+  end
+
+  def help
+  end
+
   def complaint
     user = user_signed_in? ? current_user : User.find(User::GuestID)
     Complaint.new.from(user).send_message "#{anime_videos_show_url params[:id], params[:episode_id], params[:video_id]}", params[:video_id], params[:kind]
@@ -47,6 +65,18 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   end
 
 private
+  def video_params
+    #.merge(uploader_id: current_user.id)
+    params
+      .require(:anime_video)
+      .permit(:episode, :url, :anime_id, :source, :kind)
+      .merge(state: 'uploaded')
+  end
+
+  def find_or_create_author name
+    AnimeVideoAuthor.where(name: name).first || AnimeVideoAuthor.new(name: name)
+  end
+
   def per_page
     40
   end

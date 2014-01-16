@@ -1,0 +1,33 @@
+.p-anime_video-new
+  = simple_form_for @video, url: anime_online_anime_anime_videos_url do |f|
+    h3 #{@video.anime.name}
+    legend Новое видео
+    = f.input :anime_id, as: :hidden
+    = f.input :source, as: :hidden
+
+    - unless @video.errors.blank?
+      .alert.alert-danger = @video.errors.full_messages.join ', '
+
+    .form-group
+      = f.input_field :episode, class: 'form-control', placeholder: 'Эпизод'
+    .form-group
+      = f.input_field :url, class: 'form-control', placeholder: 'URL на видео, например: http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
+      a href='#{help_anime_online_anime_videos_url}' как правильно получить ссылку
+    .form-group
+      = f.input_field :author, class: 'form-control', placeholder: 'Автор озвучки (может быть пустым)', value: (@video.author ? @video.author.name : '')
+    .form-group
+      label.radio-inline
+        = f.radio_button :kind, :fandub, value: :fandub
+        = t '.kind.fandub'
+      label.radio-inline
+        = f.radio_button :kind, :subtitles, value: :subtitles
+        = t '.kind.subtitles'
+      label.radio-inline
+        = f.radio_button :kind, :raw, value: :raw
+        = t '.kind.raw'
+    .form-group
+      .alert.alert-info Перед сохранением необходимо проверить корректность введенного URL на видео, чтобы не добавлять видео, которое не работает.
+      a.btn.btn-primary.check Проверить
+      button.btn.btn-success.hidden.save type='submit' Видео работает, добавить
+    .form-group
+      iframe.hidden
