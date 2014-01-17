@@ -9,8 +9,6 @@ set :domain, 'shikimori.org'
 set :repository,  'git@github.com:morr/shikimori.git'
 set :branch, 'master'
 
-set :bundle_cmd, "LANG='en_US.UTF-8' bundle"
-
 set :scm, :git
 
 set :user, 'morr'

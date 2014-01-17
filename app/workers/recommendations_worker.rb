@@ -1,8 +1,8 @@
 class RecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options unique: true,
-                  queue: :cpu_intensive,
                   unique_args: -> (args) { args.first },
+                  queue: :cpu_intensive,
                   retry: false
 
   def perform user_id, type, metric, threshold, cache_key, user_list_cache_key
