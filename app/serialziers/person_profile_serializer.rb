@@ -1,9 +1,13 @@
 class PersonProfileSerializer < PersonSerializer
   include PeopleHelper
 
-  attributes :job_title, :birthday, :website, :producer?, :mangaka?, :seyu?, :groupped_roles
+  attributes :job_title, :birthday, :website, :groupped_roles
   attribute :roles
   attribute :works
+  attributes :person_favoured?
+  attributes :producer?, :producer_favoured?
+  attributes :mangaka?, :mangaka_favoured?
+  attributes :seyu?, :seyu_favoured?
 
   def roles
     []
