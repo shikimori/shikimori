@@ -19,7 +19,7 @@
   p.nowrap
     span.key Статус:&nbsp;
     span.value.nowrap
-      = t("AniMangaStatus.%s" % entry.status)
+      = t "AniMangaStatus.#{entry.status}"
       | &nbsp;
       - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_at || entry.aired_at)
         - if entry.released_at && entry.aired_at && entry.released_at.year != entry.aired_at.year

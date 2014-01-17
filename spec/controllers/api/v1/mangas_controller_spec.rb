@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::MangasController do
   describe :show do
-    let(:manga) { create :manga }
+    let(:manga) { create :manga, :with_thread }
     before { get :show, id: manga.id, format: :json }
 
     it { should respond_with :success }
