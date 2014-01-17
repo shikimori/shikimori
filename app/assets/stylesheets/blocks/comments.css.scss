@@ -130,6 +130,7 @@ $dark-grey-color: #545454;
 
     .date {
       @include ellipsis;
+      @include text-font;
       color: $date-color;
       display: inline;
       font-size: 11px;
