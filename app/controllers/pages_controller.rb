@@ -156,18 +156,20 @@ class PagesController < ApplicationController
       .map {|data| data.third }
       .flatten
       .map {|v| JSON.parse v }
+      .sort_by {|v| Time.at v['enqueued_at'] }
 
     @sidkiq_busy = Sidekiq.redis do |conn|
       conn.smembers('workers').map do |w|
         msg = conn.get("worker:#{w}")
         msg ? [w, Sidekiq.load_json(msg)] : (to_rem << w; nil)
       end.compact.sort { |x| x[1] ? -1 : 1 }
-    end.map {|v| v.second['payload'] }
+    end.map {|v| v.second['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
 
     @sidkiq_retries = page('retry', 'retries', 100)[2]
       .flatten
       .select {|v| v.kind_of? String }
       .map {|v| JSON.parse v }
+      .sort_by {|v| Time.at v['enqueued_at'] }
 
     @animes_to_import = Anime.where(imported_at: nil).count
     @mangas_to_import = Manga.where(imported_at: nil).count
