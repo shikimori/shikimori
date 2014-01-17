@@ -135,8 +135,3 @@ after 'deploy:update', 'foreman:export'  # Export foreman scripts
 after 'deploy:update', 'foreman:restart' # Restart application scripts
 after 'deploy:update', 'deploy:update_crontab'
 after 'deploy:update', 'deploy:cleanup'
-
-after 'deploy:stop',    'delayed_job:mystop'
-after 'deploy:start',   'delayed_job:mystart'
-after 'deploy:restart', 'delayed_job:myrestart'
-
