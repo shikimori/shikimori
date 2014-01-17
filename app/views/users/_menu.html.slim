@@ -79,7 +79,7 @@ aside.right-block
               span.misc title="#{entry[:reversed_action]}"
                 = entry[:reversed_action]
               span.misc.date
-                = entry[:time]
+                = time_ago_in_words entry[:created_at], "%s назад"
 
   - if @user.clubs.any?
     .menu-block.groups-block

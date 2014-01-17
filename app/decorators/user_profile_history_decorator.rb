@@ -1,3 +1,4 @@
+# TODO: выпилить ключ :time в хеше, он не актуален, т.к. всё кешируется
 class UserProfileHistoryDecorator < Draper::Decorator
   delegate_all
 
@@ -5,7 +6,7 @@ class UserProfileHistoryDecorator < Draper::Decorator
 
   # отформатированная история
   def formatted
-    @formatted ||= Rails.cache.fetch [:history, :formatted, object, h.russian_names_key] do
+    @formatted ||= Rails.cache.fetch [:history, :v2, :formatted, object, h.russian_names_key] do
       grouped_history
         .map {|group,entries| format_entries entries }
         .compact
@@ -42,6 +43,7 @@ private
         image: '/assets/blocks/history/shikimori.x43.png',
         name: 'shikimori.org',
         action: entries.reverse.map(&:format).join(', ').html_safe,
+        created_at: entry.created_at,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://shikimori.org',
         short_name: 'Регистрация на сайте',
@@ -52,6 +54,7 @@ private
         image: '/assets/blocks/history/mal.png',
         name: 'MyAnimeList',
         action: entries.reverse.map(&:format).join(', ').html_safe,
+        created_at: entry.created_at,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://myanimelist.net',
         short_name: 'Импорт с MyAnimeList',
@@ -62,6 +65,7 @@ private
         image: '/assets/blocks/history/anime-planet.jpg',
         name: 'Anime-Planet',
         action: entries.reverse.map(&:format).join(', ').html_safe,
+        created_at: entry.created_at,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://anime-planet.com',
         short_name: 'Импорт с Anime-Planet',
@@ -74,6 +78,7 @@ private
         image: entry.target.image.url(:x64),
         name: UsersHelper.localized_name(entry.target, h.current_user),
         action: entries.reverse.map(&:format).join(', ').html_safe,
+        created_at: entry.created_at,
         time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: h.url_for(entry.target),
         special?: false
