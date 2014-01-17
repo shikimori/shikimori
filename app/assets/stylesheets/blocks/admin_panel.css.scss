@@ -1,12 +1,8 @@
 @import "globals";
 
-.delayed_jobs {
+.admin_panel {
   position: relative;
   margin-left: -280px;
-
-  /*position: absolute;*/
-  /*left: 169px;*/
-  /*top: 6px;*/
 
   .tooltip-inner {
     width: 230px;
@@ -34,14 +30,18 @@
         color: #333333;
       }
     }
-    .failed {
-      color: red;
+    .sidekiq-link {
+      @include normal-link;
+      float: right;
     }
-    .pending {
+    .busy {
+      color: green;
+    }
+    .enqueued {
       color: blue;
     }
-    .executing {
-      color: green;
+    .retries {
+      color: red;
     }
   }
 }

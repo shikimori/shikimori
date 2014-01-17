@@ -8,34 +8,10 @@ class User < ActiveRecord::Base
   CommentForbiddenMessage = 'Вы не можете писать этому пользователю'
   CensoredIds = Set.new [4357]
 
-  has_many :user_tokens do
-    def facebook
-      target.detect {|t| t.provider == 'facebook' }
-    end
-
-    def twitter
-      target.detect {|t| t.provider == 'twitter' }
-    end
-  end
-
-  has_attached_file :avatar,
-    styles: {
-      #original: ['300x300>', :png],
-      x160: ['160x160#', :png],
-      x148: ['148x148#', :png],
-      x80: ['80x80#', :png],
-      x73: ['73x73#', :png],
-      x64: ['64x64#', :png],
-      x48: ['48x48#', :png],
-      x32: ['32x32#', :png],
-      x20: ['20x20#', :png],
-      x16: ['16x16#', :png]
-    },
-    url: "/images/user/:style/:id.:extension",
-    path: ":rails_root/public/images/user/:style/:id.:extension"
-  validates_attachment_content_type :avatar, content_type: [/^image\/(?:jpeg|png)$/, nil]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :async
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
+  accepts_nested_attributes_for :preferences
 
   has_many :comments_all, class_name: Comment.name, dependent: :destroy
   has_many :abuse_requests, dependent: :destroy
@@ -98,8 +74,33 @@ class User < ActiveRecord::Base
 
   has_many :bans, dependent: :destroy
 
-  accepts_nested_attributes_for :preferences
+  has_many :user_tokens do
+    def facebook
+      target.detect {|t| t.provider == 'facebook' }
+    end
 
+    def twitter
+      target.detect {|t| t.provider == 'twitter' }
+    end
+  end
+
+  has_attached_file :avatar,
+    styles: {
+      #original: ['300x300>', :png],
+      x160: ['160x160#', :png],
+      x148: ['148x148#', :png],
+      x80: ['80x80#', :png],
+      x73: ['73x73#', :png],
+      x64: ['64x64#', :png],
+      x48: ['48x48#', :png],
+      x32: ['32x32#', :png],
+      x20: ['20x20#', :png],
+      x16: ['16x16#', :png]
+    },
+    url: "/images/user/:style/:id.:extension",
+    path: ":rails_root/public/images/user/:style/:id.:extension"
+
+  validates_attachment_content_type :avatar, content_type: [/^image\/(?:jpeg|png)$/, nil]
   validates :nickname, presence: true, uniqueness: { case_sensitive: false }
 
   before_save :fix_nickname
@@ -111,10 +112,6 @@ class User < ActiveRecord::Base
   after_create :check_ban
   # personal message from me
   after_create :send_welcome_message unless Rails.env.test?
-
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :oauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
 
@@ -502,6 +499,6 @@ private
   end
 
   def check_ban
-    Delayed::Job.enqueue ProlongateBanJob.new(id)
+    ProlongateBan.delay_for(10.seconds).perform_async id
   end
 end

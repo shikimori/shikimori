@@ -1,6 +1,7 @@
 require 'rvm/capistrano'
 require 'bundler/capistrano'
 require 'whenever/capistrano'
+require 'sidekiq/capistrano'
 load 'deploy/assets'
 
 set :application, 'shikimori'
@@ -17,11 +18,9 @@ set :use_sudo, false
 set :deploy_via, :remote_cache
 set :rails_env, 'production'
 
-set :delayed_job_args, "-n 3"
-
 role :web, "178.63.23.138"                   # Your HTTP server, Apache/etc
 role :app, "178.63.23.138"                   # This may be the same as your `Web` server
-role :db,  "178.63.23.138", :primary => true # This is where Rails migrations will run
+role :db,  "178.63.23.138", primary: true # This is where Rails migrations will run
 
 default_run_options[:pty] = true
 
@@ -36,20 +35,20 @@ task :staging do
 end
 
 namespace :deploy do
-  task :start, :roles => :app do
+  task :start, roles: :app do
     run "touch #{current_path}/tmp/restart.txt"
   end
 
-  task :stop, :roles => :app do
+  task :stop, roles: :app do
     # Do nothing.
   end
 
   desc "Update the crontab file"
-  task :update_crontab, :roles => :app do
+  task :update_crontab, roles: :app do
     run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
   end
 
-  task :restart, :roles => :app, :except => { :no_release => true } do
+  task :restart, roles: :app, except: { no_release: true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
@@ -101,78 +100,24 @@ namespace :deploy do
   end
 end
 
-namespace :delayed_job do
-  def rails_env
-    fetch(:rails_env, false) ? "RAILS_ENV=#{fetch(:rails_env)}" : ''
-  end
-
-  def args
-    fetch(:delayed_job_args, "")
-  end
-
-  def roles
-    fetch(:delayed_job_server_role, :app)
-  end
-
-  def start
-    run "cd #{current_path};#{rails_env} script/delayed_job start #{args}"
-  end
-
-  def stop
-    run "cd #{current_path};#{rails_env} script/delayed_job stop"
-  end
-
-  desc "Stop the delayed_job process"
-  task :mystop, :roles => lambda { roles } do
-    stop
-  end
-
-  desc "Start the delayed_job process"
-  task :mystart, :roles => lambda { roles } do
-    start
-  end
-
-  desc "*HACK* Restart the delayed_job process"
-  task :myrestart do
-    stop
-    enforce_stop_delayed_job
-    run "cd #{current_path}/ && RAILS_ENV=production bundle exec rake jobs:restart"
-    start
-  end
-
-  # Send SIGTERM to delayed_job associated with current logfile and then
-  # wait for every delayed_job to finish
-  def enforce_stop_delayed_job
-    run %Q{
-      lsof '#{current_path}/log/delayed_job.log' | awk '/^ruby/ { system("kill " $2) }' ;
-      COUNT=1;
-      until [ $COUNT -eq 0 ]; do
-        COUNT=`lsof '#{current_path}/log/delayed_job.log' | grep '^ruby' |wc -l` ;
-        echo 'waiting for delayed_job to end' ;
-        sleep 2 ;
-      done
-    }.split("\n").join('')
-  end
-end
-
 namespace :foreman do
   desc 'Export the Procfile to Ubuntu upstart scripts'
-  task :export, :roles => :app do
+  task :export, roles: :app do
     run "cd #{current_path} && rvmsudo bundle exec foreman export upstart /etc/init -a #{application} -u #{user} -l #{current_path}/log/foreman"
   end
 
   desc "Start the application services"
-  task :start, :roles => :app do
+  task :start, roles: :app do
     run "rvmsudo start #{application}"
   end
 
   desc "Stop the application services"
-  task :stop, :roles => :app do
+  task :stop, roles: :app do
     run "rvmsudo stop #{application}"
   end
 
   desc "Restart the application services"
-  task :restart, :roles => :app do
+  task :restart, roles: :app do
     run "rvmsudo start #{application} || rvmsudo restart #{application}"
   end
 end

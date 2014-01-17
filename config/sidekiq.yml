@@ -1,0 +1,16 @@
+:concurrency: 5
+:pidfile: tmp/pids/sidekiq.pid
+
+staging:
+  :concurrency: 5
+
+production:
+  :concurrency: 10
+
+:queues:
+  - default
+  - cpu_intensive
+  - [critical, 5]
+
+:limits:
+  cpu_intensive: 2

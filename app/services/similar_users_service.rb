@@ -3,7 +3,7 @@
 class SimilarUsersService
   ResultsLimit = 510
 
-  def initialize(user, klass, threshold)
+  def initialize user, klass, threshold
     @user = user
     @klass = klass
     @threshold = threshold
@@ -11,10 +11,10 @@ class SimilarUsersService
 
   def fetch
     similarities
-        .select {|k,v| v.present? }
-        .sort_by {|k,v| -v}
-        .take(ResultsLimit)
-        .map(&:first)
+      .select {|k,v| v.present? }
+      .sort_by {|k,v| -v}
+      .take(ResultsLimit)
+      .map(&:first)
   end
 
 private
@@ -27,11 +27,12 @@ private
   def users
     table_name = "#{@klass.name.downcase}_rates".to_sym
 
-    User.joins(table_name)
-        .where(table_name => { status: UserRateStatus.get(UserRateStatus::Completed) })
-        .where { (user_rates.score.not_eq nil) & (user_rates.score > 0) }
-        .where { id.not_eq my{@user.id} }
-        .group('users.id')
-        .having("count(*) > #{@threshold}")
+    User
+      .joins(table_name)
+      .where(table_name => { status: UserRateStatus.get(UserRateStatus::Completed) })
+      .where { (user_rates.score.not_eq nil) & (user_rates.score > 0) }
+      .where { id.not_eq my{@user.id} }
+      .group('users.id')
+      .having("count(*) > #{@threshold}")
   end
 end

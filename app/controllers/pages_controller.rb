@@ -4,6 +4,7 @@ require_dependency 'site_statistics'
 
 class PagesController < ApplicationController
   include CommentHelper
+  include Sidekiq::Paginator
 
   layout false, only: [:auth_form, :feedback, :admin_panel]
   respond_to :html, except: [:news]
@@ -108,27 +109,29 @@ class PagesController < ApplicationController
     disk_free = df[3].to_f
     @disk_space = (((disk_total-disk_free) / disk_total)*100).round(2)
 
-    mem = %x(free -m).split(/\s+/)
+    mem = %x(free -m).try :split, /\s+/
 
-    mem_total = mem[8].to_f
-    mem_free = mem[17].to_f
-    @mem_space = (((mem_total-mem_free) / mem_total)*100).round(2)
+    if mem
+      mem_total = mem[8].to_f
+      mem_free = mem[17].to_f
+      @mem_space = (((mem_total-mem_free) / mem_total)*100).round(2)
 
-    swap_total = mem[19].to_f
-    swap_free = mem[21].to_f
-    @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
+      swap_total = mem[19].to_f
+      swap_free = mem[21].to_f
+      @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
+    end
 
-    @job_workers = %x{ps aux | grep delayed_jo}.split("morr").select {|v| v =~ /delayed_job/ }.size
+    #@job_workers = %x{ps aux | grep delayed_jo}.split("morr").select {|v| v =~ /delayed_job/ }.size
 
-    @jobs_queue = Delayed::Job.order(:run_at)
+    #@jobs_queue = Delayed::Job.order(:run_at)
 
     @calendar_update = AnimeCalendar.last.try :created_at
     @calendar_unrecognized = Rails.cache.read 'calendar_unrecognized'
 
     @proxies_count = Proxy.count
 
-    socket = TCPSocket.open('localhost', '11211')
-    socket.send("stats\r\n", 0)
+    socket = TCPSocket.open 'localhost', '11211'
+    socket.send "stats\r\n", 0
 
     statistics = []
     loop do
@@ -144,7 +147,27 @@ class PagesController < ApplicationController
     stat = statistics.join.split("\r\n").select {|v| v =~ /STAT (?:bytes|limit_maxbytes) / }.map {|v| v.match(/\d+/)[0].to_f }
     @memcached_space = ((1 - (stat[0]-stat[1]) / stat[0])*100).round(2)
 
-    @redis_keys = $redis.info['db0'].split(',')[0].split('=')[1]
+    @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1]
+
+    @sidkiq_stats = Sidekiq::Stats.new
+    @sidkiq_enqueued = Sidekiq::Queue
+      .all
+      .map {|queue| page "queue:#{queue.name}", queue.name, 100 }
+      .map {|data| data.third }
+      .flatten
+      .map {|v| JSON.parse v }
+
+    @sidkiq_busy = Sidekiq.redis do |conn|
+      conn.smembers('workers').map do |w|
+        msg = conn.get("worker:#{w}")
+        msg ? [w, Sidekiq.load_json(msg)] : (to_rem << w; nil)
+      end.compact.sort { |x| x[1] ? -1 : 1 }
+    end.map {|v| v.second['payload'] }
+
+    @sidkiq_retries = page('retry', 'retries', 100)[2]
+      .flatten
+      .select {|v| v.kind_of? String }
+      .map {|v| JSON.parse v }
 
     @animes_to_import = Anime.where(imported_at: nil).count
     @mangas_to_import = Manga.where(imported_at: nil).count
