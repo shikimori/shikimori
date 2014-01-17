@@ -5,7 +5,7 @@ staging:
   :concurrency: 5
 
 production:
-  :concurrency: 10
+  :concurrency: 5
 
 :queues:
   - default
@@ -13,4 +13,4 @@ production:
   - [critical, 5]
 
 :limits:
-  cpu_intensive: 2
+  cpu_intensive: 1
