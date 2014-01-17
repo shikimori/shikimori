@@ -1,6 +1,6 @@
 class AnimeHistoryService
   include Rails.application.routes.url_helpers
-  NewsExpireIn = 1.month
+  NewsExpireIn = 1.week
   default_url_options[:host] = 'shikimori.org'
 
   # обрабатывает всю небработанную историю, отправляет уведомления пользователям
@@ -12,27 +12,41 @@ class AnimeHistoryService
       .all
     return if entries.empty?
 
-    users = User.includes(anime_rates: [:anime]).all
+    users = User
+      .includes(anime_rates: [:anime])
+      .where {
+        (user_rates.id == nil) |
+          ((user_rates.target_type == Anime.name) &
+           (user_rates.target_id.in my{entries.map(&:linked_id)})
+          ) }
+      .all
+     []
 
-    processor = AnimeHistoryService.new
-
-    notifies = 0
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
-    entries.each do |entry|
+    messages = entries.map do |entry|
       # новости о уже не существующих элементах, или о зацензуренных элементах, или о музыке не создаём
-      entry.update_attribute(:processed, true) and next if entry.class == AnimeNews && (!entry.linked || entry.linked.censored || entry.linked.kind == 'Music')
+      next if entry.class == AnimeNews && (!entry.linked || entry.linked.censored || entry.linked.kind == 'Music')
       # протухшие новости тоже не нужны
-      entry.update_attribute(:processed, true) and next if entry.created_at + NewsExpireIn < DateTime.now
+      next if entry.created_at + NewsExpireIn < DateTime.now
 
-      users.each do |user|
-        if user.subscribed_for_event?(entry)
-          notifies += 1
-          user.notify entry
+      users
+        .select {|v| v.subscribed_for_event? entry }
+        .map do |user|
+          Message.new(
+            from_id: entry.user_id,
+            to_id: user.id,
+            body: nil,
+            kind: entry.action,
+            linked: entry,
+            created_at: entry.created_at
+          )
         end
-      end
-      entry.update_attribute(:processed, true)
     end
-    print "processed %d entries for %d users, created %d notifications\n" % [entries.size, users.size, notifies] if Rails.env != 'test'
+
+    ActiveRecord::Base.transaction do
+      Entry.where(id: entries.map(&:id)).update_all processed: true
+      Message.import messages.flatten.compact
+    end
   end
 
   def new_episode_topic_subject(anime, history)

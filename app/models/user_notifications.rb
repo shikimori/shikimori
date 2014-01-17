@@ -187,18 +187,4 @@ module UserNotifications
         false
     end
   end
-
-  # создает уведомление для пользователя о новости
-  def notify(entry, text=nil)
-    Message.wo_antispam do
-      Message.create!(
-        from_id: entry.user.id,
-        to_id: id,
-        body: text,
-        kind: entry.action,
-        linked: entry,
-        created_at: entry.created_at
-      )
-    end
-  end
 end

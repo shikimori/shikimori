@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
   scope :complaint_videos, -> { Message.where to_id: User::Blackchestnut_ID, subject: [:broken_video.to_s, :wrong_video.to_s] }
 
   # выполнение кода без антиспама
-  def self.wo_antispam(&block)
+  def self.wo_antispam &block
     @@antispam = false
     val = yield
     @@antispam = true
@@ -47,7 +47,7 @@ class Message < ActiveRecord::Base
     end
   end
 
-  def new?(params)
+  def new? params
     [
      'inbox',
      'news',
@@ -57,7 +57,7 @@ class Message < ActiveRecord::Base
 
   # фильтрафия цитирования более двух уровней вложенности
   def filter_quotes
-    self.body = QuoteExtractor.filter(self.body, 2) if self.body
+    self.body = QuoteExtractor.filter(body, 2) if body
   end
 
   def subject
@@ -77,10 +77,10 @@ class Message < ActiveRecord::Base
   def commentable_id
     to_id
   end
-  def can_be_edited_by?(user)
+  def can_be_edited_by? user
     false
   end
-  def can_be_deleted_by?(user)
+  def can_be_deleted_by? user
     false
   end
   def html
