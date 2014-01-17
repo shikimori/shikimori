@@ -44,7 +44,6 @@ private
         name: 'shikimori.org',
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
-        time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://shikimori.org',
         short_name: 'Регистрация на сайте',
         special?: true
@@ -55,7 +54,6 @@ private
         name: 'MyAnimeList',
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
-        time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://myanimelist.net',
         short_name: 'Импорт с MyAnimeList',
         special?: true
@@ -66,7 +64,6 @@ private
         name: 'Anime-Planet',
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
-        time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: 'http://anime-planet.com',
         short_name: 'Импорт с Anime-Planet',
         special?: true
@@ -79,7 +76,6 @@ private
         name: UsersHelper.localized_name(entry.target, h.current_user),
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
-        time: h.time_ago_in_words(entry.created_at, "%s назад"),
         url: h.url_for(entry.target),
         special?: false
       }
