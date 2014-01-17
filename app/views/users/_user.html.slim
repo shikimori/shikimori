@@ -3,11 +3,11 @@
     - user.history.formatted.each do |entry|
       .line
         - if entry[:special?]
-          span.date = entry[:time]
+          span.date = time_ago_in_words entry[:created_at], "%s назад"
           span.event = entry[:short_name]
         - else
           a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-remote="true" data-offset-left="-14"
-            span.date = entry[:time]
+            span.date = time_ago_in_words entry[:created_at], "%s назад"
             span.event = entry[:name]
 
   .image-name
