@@ -10,7 +10,9 @@ production:
 :queues:
   - default
   - cpu_intensive
+  - slow_parsers
   - [critical, 5]
 
 :limits:
   cpu_intensive: 1
+  slow_parsers: 2

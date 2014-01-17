@@ -76,7 +76,7 @@ module UserNotifications
   end
 
   # возвращает подписан ли пользователь на новость
-  def subscribed_for_event?(entry)
+  def subscribed_for_event? entry
     if entry.class == Topic && entry.broadcast
       entry.action = MessageType::SiteNews
       return true
