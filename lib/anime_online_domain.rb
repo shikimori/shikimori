@@ -1,5 +1,5 @@
 class AnimeOnlineDomain
-  HOST = '178.63.23.138'
+  HOST = 'play.shikimori.org'
   HOSTS = ['0.0.0.0', 'animeonline.dev', 'animeonline.production', HOST]
 
   def self.matches? request
