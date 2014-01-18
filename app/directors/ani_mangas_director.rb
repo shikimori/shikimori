@@ -100,6 +100,7 @@ class AniMangasDirector < BaseDirector
   def cosplay
     params[:subpage] = params[:character]
     show
+    raise NotFound, params[:character] unless entry.cosplay.gallery
     append_title! entry.cosplay.gallery.full_title(entry) unless redirected?
   end
 
