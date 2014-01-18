@@ -83,8 +83,7 @@ class Moderation::UserChangesController < ApplicationController
     if change.value == change.current_value
       unless (change.source.present? || change.item.source.present?) && change.source != change.item.source
         if params[:apply].present?
-          flash[:alert] = 'Нет никаких изменений'
-          redirect_to :back
+          redirect_to_back_or_to change.item, alert: 'Нет никаких изменений'
         else
           render json: ['Нет никаких изменений'], status: :unprocessable_entity
         end
@@ -140,7 +139,7 @@ class Moderation::UserChangesController < ApplicationController
         ) unless change.user_id == current_user.id
       end
 
-      redirect_to :back
+      redirect_to_back_or_to moderation_users_changes_url
     else
       render json: change.errors, status: :unprocessable_entity
     end
