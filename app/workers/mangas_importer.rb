@@ -4,7 +4,7 @@ class MangasImporter
                   queue: :slow_parsers,
                   retry: false
 
-  def do
+  def perform
     MangaMalParser.import
   end
 end
