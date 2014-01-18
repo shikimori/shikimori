@@ -36,9 +36,9 @@ class Recommendations::Sampler
 
   def recommend user_id, threshold
     data = rankings(user_id, threshold, true)
-        .select {|k,v| !v.nan? }
-        .sort_by {|k,v| -v }
-        .take(MaxRecommendations)
+      .select {|k,v| !v.nan? }
+      .sort_by {|k,v| -v }
+      .take(MaxRecommendations)
 
     Hash[data]
   end

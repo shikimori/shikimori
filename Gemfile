@@ -6,8 +6,10 @@ gem 'rails', '3.2.16'
 gem 'aws-s3', require: 'aws/s3'
 
 gem 'mysql2'
-gem 'memcache-client'
-#gem 'cache_digests' # раскоментить после апгрейда рельс до 3.2
+# NOTE: в конфиге мемкеша должна быть опция -I 16M
+gem 'dalli'
+# TODO: удалить после перехода на rails 4
+gem 'cache_digests'
 gem 'redis'
 
 gem 'capistrano'

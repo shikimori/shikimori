@@ -24,7 +24,8 @@ private
     "#{super}_#{@metric}_#{@threshold}"
   end
 
-  def postprocess(data)
+  # удаление из рекомендаций заблокированных пользователем аниме
+  def postprocess data
     blocked = Set.new RecommendationIgnore.blocked @klass, @user
     if data
       data.delete_if {|id,rating| blocked.include? id }

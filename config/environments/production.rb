@@ -47,7 +47,11 @@ Site::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, 'localhost', {
+    namespace: 'shikimori_production',
+    compress: true,
+    value_max_bytes: 1024 * 1024 * 16
+  }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"

@@ -11,7 +11,7 @@ Site::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Do not compress assets
   config.assets.compress = false
@@ -19,7 +19,11 @@ Site::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, 'localhost', {
+    namespace: 'shikimori_development',
+    compress: true,
+    value_max_bytes: 1024 * 1024 * 20
+  }
 
   # Don't care if the mailer can't send
   #config.action_mailer.asset_host = 'http://dev.shikimori.org'
@@ -34,17 +38,19 @@ Site::Application.configure do
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
+  #config.active_record.auto_explain_threshold_in_seconds = 0.5
   config.active_record.mass_assignment_sanitizer = :strict
 
-  if defined?(Pry)
+  if defined? Pry
     Pry.config.auto_indent = false
     Pry.config.editor = 'mvim'
   end
 
-  if defined?(Rails::Console)
+  if defined? Rails::Console
     ActiveRecord::Base.logger = Logger.new(STDOUT)
+    #ActiveRecord::Base.logger.level = 1
     ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
+    Dalli.logger = Logger.new(STDOUT)
   end
 
   if defined? SqlLogging

@@ -1,3 +1,5 @@
+# NOTE: в конфиге мемкеша должна быть опция -I 16M
+# иначе кеш оценок пользователей не влезет в мемкеш!
 class Recommendations::RatesFetcher
   Planned = UserRateStatus.get UserRateStatus::Planned
   Dropped = UserRateStatus.get UserRateStatus::Dropped
@@ -9,7 +11,7 @@ class Recommendations::RatesFetcher
   attr_writer :with_deletion
   attr_writer :user_cache_key
 
-  def initialize(klass)
+  def initialize klass
     @klass = klass
     @data = {}
     @by_user = true
@@ -17,7 +19,7 @@ class Recommendations::RatesFetcher
   end
 
   # кешируемые нормализованные оценки по всем или конкретным пользователям
-  def fetch(normalization)
+  def fetch normalization
     @data["#{cache_key}_#{normalization.class.name}"] ||= begin
       raw_data = Rails.cache.fetch cache_key, expires_in: 2.weeks do
         if @with_deletion
@@ -45,13 +47,13 @@ class Recommendations::RatesFetcher
 
 private
   # выборка всех оценок из базы
-  def fetch_rates(klass)
+  def fetch_rates klass
     data = {}
 
     query = UserRate
-        .where(target_type: klass.name)
-        .where(self.class.rate_query)
-        .joins(self.class.join_query klass)
+      .where(target_type: klass.name)
+      .where(self.class.rate_query)
+      .joins(self.class.join_query klass)
 
     query = query.where(user_id: @user_ids) if @user_ids.present?
     query = query.where(target_id: @target_ids) if @target_ids.present?
@@ -71,6 +73,6 @@ private
 
   def cache_key
     "raw_user_rates_#{@klass.name}_#{MinimumScores}_#{@by_user}_#{@with_deletion}_" +
-      "#{Digest::MD5.hexdigest(@user_ids.to_json)}_#{@user_cache_key}_#{Digest::MD5.hexdigest(@target_ids.to_json)}"
+      "#{@user_ids}_#{@user_cache_key}_#{@target_ids}"
   end
 end

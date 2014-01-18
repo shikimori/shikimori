@@ -1,5 +1,5 @@
 class CompatibilityService
-  def self.fetch(user1, user2)
+  def self.fetch user1, user2
     Rails.cache.fetch("compatibility_#{user1.cache_key}_#{user2.cache_key}_#{@metric.class}_#{@normalization.class}") do
       {
         anime: new(user1, user2, Anime).fetch,
@@ -8,7 +8,7 @@ class CompatibilityService
     end
   end
 
-  def initialize(user1, user2, klass)
+  def initialize user1, user2, klass
     @user1 = user1
     @user2 = user2
     @klass = klass
@@ -27,7 +27,7 @@ class CompatibilityService
     normalize @metric.compare(@user1.id, user_rates(@user1) || {}, @user2.id, user_rates(@user2) || {})
   end
 
-  def normalize(compatibility)
+  def normalize compatibility
     if compatibility.kind_of?(Complex)# || compatibility <= 0
       nil
     else
@@ -36,7 +36,7 @@ class CompatibilityService
     end
   end
 
-  def user_rates(user)
+  def user_rates user
     @rates_fetcher.user_cache_key = user.cache_key
     @rates_fetcher.user_ids = [user.id]
     @rates_fetcher.fetch(@normalization)[user.id] || {}
