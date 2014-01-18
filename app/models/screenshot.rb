@@ -14,15 +14,9 @@ class Screenshot < ActiveRecord::Base
   #validates_presence_of :anime # ну что за хрень с валидациями??
   validates_presence_of :url
 
-  #has_attached_file :image, styles: { original: ["1280x720>", :jpg], preview: ["170x95#", :jpg] },
-  has_attached_file :image, styles: { preview: ['170x95#', :jpg] },
-                    url: "/images/screenshot/:style/:access_token.:extension"#,
-                    #url: ':s3_alias_url',
-                    #storage: :s3,
-                    #s3_host_alias: 'screenshots.shikimori.org',
-                    #s3_headers: { 'Expires' => 1.year.from_now.httpdate },
-                    #s3_credentials: S3_CREDENTIALS_PATH,
-                    #bucket: 'screenshots.shikimori.org'
+  has_attached_file :image,
+    styles: { preview: ['170x95#', :jpg] },
+    url: "/images/screenshot/:style/:access_token.:extension"
 
   def access_token
     # для пары аниме по кривому адресу лежат

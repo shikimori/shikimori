@@ -3,12 +3,9 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'rails', '3.2.16'
 
-gem 'aws-s3', require: 'aws/s3'
-
 gem 'mysql2'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
-# TODO: удалить после перехода на rails 4
 gem 'redis'
 gem 'therubyracer'
 
@@ -40,9 +37,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
-#gem 'omniauth-google-oauth2'
-#gem 'omniauth-mailru'
-#gem 'omniauth-yandex'
 
 gem 'formtastic'
 gem 'bb-ruby'
@@ -63,7 +57,7 @@ group :assets do
   gem 'compass-rails'
 end
 
-gem 'rmagick'
+gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'truncate_html'
 gem 'squeel'
 gem 'acts-as-taggable-on'
@@ -71,6 +65,7 @@ gem 'uuid'
 gem 'meta-tags', github: 'morr/meta-tags', require: 'meta_tags'
 gem 'enumerize'
 gem 'draper'
+# TODO: удалить после перехода на rails 4
 gem 'cache_digests'
 
 gem 'unicode' # для downcase русских слов
@@ -79,7 +74,6 @@ gem 'slim-rails'
 gem 'icalendar' # для аниме календраря
 gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
-#gem 'ruby-svd', github: 'maxchisto/Ruby-SVD' # для SVD рекомендаций. ruby 1.9.3
 gem 'ruby-svd', github: 'morr/Ruby-SVD' # для SVD рекомендаций. ruby 2.0
 
 gem 'rabl' # для рендеринга json
@@ -88,8 +82,6 @@ gem 'rest-client'
 gem 'postmark-rails'
 gem 'apipie-rails'
 
-#gem 'faraday'
-#gem 'http-cookie'
 
 group :production, :development do # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
   gem 'composite_primary_keys' # для составного праймари кея у CommentView и EntryView
@@ -107,22 +99,7 @@ group :development do
 end
 
 gem 'marco-polo'
-# pry&debugger
-#gem 'byebug'
-#gem 'pry-byebug'
-#gem 'debugger-completion'
-#gem 'debugger-pry', require: 'debugger/pry'
 gem 'pry-rails'
-
-#gem 'pry-debugger'
-#gem 'pry-docmore'
-#gem 'pry-doc'
-
-##gem 'pry-plus'
-#gem 'bond'
-##gem 'pry-rescue' # ломает ctrl+c в консоли
-#gem 'pry-exception_explorer'
-#gem 'pry-stack_explorer'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -133,11 +110,6 @@ group :test, :development do
   gem 'shoulda-matchers'
   gem 'database_rewinder'
 
-  #gem 'libnotify', '0.5.7'
-  #gem 'growl', github: 'visionmedia/growl'
-  #gem 'growl_notify'
-  #gem 'rb-fsevent'#, github: 'thibaudgg/rb-fsevent'
-  #gem 'ruby_gntp'
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
