@@ -9,8 +9,10 @@ gem 'dalli'
 gem 'redis'
 gem 'therubyracer'
 
+gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'capistrano'
 gem 'rvm-capistrano'
+gem 'marco-polo'
 
 gem 'attribute-defaults'
 gem 'state_machine'
@@ -57,7 +59,6 @@ group :assets do
   gem 'compass-rails'
 end
 
-gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'truncate_html'
 gem 'squeel'
 gem 'acts-as-taggable-on'

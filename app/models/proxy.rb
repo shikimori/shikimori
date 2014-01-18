@@ -104,7 +104,7 @@ class Proxy < ActiveRecord::Base
             tmpfile = Tempfile.new 'jpg'
             File.open(tmpfile.path, 'wb') {|f| f.write content }
 
-            if ImageCheck.valid? tmpfile.path
+            unless ImageCheck.valid? tmpfile.path
               content = nil
               # тут можно бы обнулять tmpfile, но если мы 8 раз не смогли загрузить файл, то наверное его и правда нет, падать не будем
               log "bad image", options
