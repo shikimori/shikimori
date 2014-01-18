@@ -261,6 +261,7 @@ function apply_list_handlers() {
 // удаление из списка
 $('.anime-remove').live('ajax:success', function() {
   $(this).closest('tr').remove();
+  return false;
 });
 
 // обработчик для плюсика у числа эпизодов/глав
