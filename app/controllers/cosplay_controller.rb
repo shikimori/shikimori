@@ -7,10 +7,10 @@ class CosplayController < ApplicationController
 
   # модерация косплея
   def mod
-    set_meta_tags :noindex => true, :nofollow => true
+    set_meta_tags noindex: true, nofollow: true
     @page_title = ['Косплей', 'Модерация']
 
-    @moderators = User.where(id: User::CosplayModerators - [1])
+    @moderators = User.where(id: User::CosplayModerators - User::Admins)
     limit = 480
     @cosplay = CosplaySession.where(confirmed: false, deleted: false)
         .includes(:cosplayers)
@@ -69,7 +69,7 @@ class CosplayController < ApplicationController
     end
 
     #if @tags.empty?
-      #@tags = Tag.where(:name => @all_keywords_combinations).pluck(:name)
+      #@tags = Tag.where(name: @all_keywords_combinations).pluck(:name)
       #@all_keywords_combinations = @all_keywords_combinations.select {|v| !@tags.include?(v) }
       #@keywords = @keywords.select {|v| !@tags.include?(v) }
     #end
@@ -142,7 +142,7 @@ class CosplayController < ApplicationController
 
   # создание галереи
   def create
-    cosplayer = Cosplayer.find_or_create_by_name(:name => params[:cosplay_gallery][:name])
+    cosplayer = Cosplayer.find_or_create_by_name(name: params[:cosplay_gallery][:name])
     gallery = CosplaySession.create(target: params[:cosplay_gallery][:target],
                                     date: DateTime.now,
                                     source: params[:cosplay_gallery][:source],
@@ -152,7 +152,7 @@ class CosplayController < ApplicationController
     cosplayer.cosplay_galleries << gallery
     params[:cosplay_gallery][:images].each do |url|
       next if url == ''
-      image = CosplayImage.create(:url => url)
+      image = CosplayImage.create(url: url)
       gallery.images << image
 
       image_file_name = image.id.to_s + File.extname(url)
@@ -216,10 +216,10 @@ class CosplayController < ApplicationController
       gallery.tag_list = params[:tags].join(',')
     end
 
-    if gallery.save && gallery.update_attributes!(params[:cosplay_gallery])
+    if gallery.save && gallery.update_attributes!(cosplay_gallery_params)
       redirect_to edit_cosplay_cosplay_gallery_url params[:cosplay_id], gallery.to_param
     else
-      render gallery.errors, :status => :unprocessable_entity
+      render gallery.errors, status: :unprocessable_entity
     end
   end
 
@@ -230,7 +230,7 @@ class CosplayController < ApplicationController
     if gallery.update_attribute(:deleted, true)
       redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], gallery.to_param)
     else
-      render gallery.errors, :status => :unprocessable_entity
+      render gallery.errors, status: :unprocessable_entity
     end
   end
 
@@ -241,13 +241,22 @@ class CosplayController < ApplicationController
     if gallery.update_attribute(:deleted, false)
       redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], gallery.to_param)
     else
-      render gallery.errors, :status => :unprocessable_entity
+      render gallery.errors, status: :unprocessable_entity
     end
   end
 
 private
   def breadcrumbs
     crumbs = { 'Модерация косплея' => mod_cosplay_index_url }
+  end
+
+  def cosplay_gallery_params
+    params
+      .require(:cosplay_gallery)
+      .permit(:confirmed, :target, :description,
+              images_attributes: [:position, :deleted, :id],
+              deleted_images_attributes: [:deleted, :id],
+             )
   end
 
   def chronology

@@ -33,8 +33,7 @@ header.head.misc
           .entry.anime-entry
             span.item-minus
             input type="hidden" name="animes[]" value="#{v.id}"
-            span.title title="#{{v.name}}"
-            a href="#{url_for(v)}"
+            a.title title="#{{v.name}}" href="#{anime_url v}"
               == v.name
 
       .completable-title
@@ -46,21 +45,21 @@ header.head.misc
           .entry.manga-entry
             span.item-minus
             input type="hidden" name="mangas[]" value="#{v.id}"
-            span.title title="#{{v.name}}"
-            a href="#{url_for(v)}"
+            a.title title="#{{v.name}}" href="#{manga_url v}"
               == v.name
 
-      .completable-title style="display: none;"
-        span.tag.item-minus
-        span.tag.item-add
-        .subheadline Теги
-      .m40.completable-block
-        - (@tags || []).each do |v|
-          .entry.tag-entry
-            span.item-minus
-            input type="hidden" name="tags[]" value="#{v}"
-            span.title title="#{{v}}"
-              == v
+      .hidden
+        .completable-title
+          span.tag.item-minus
+          span.tag.item-add
+          .subheadline Теги
+        .m40.completable-block
+          - (@tags || []).each do |v|
+            .entry.tag-entry
+              span.item-minus
+              input type="hidden" name="tags[]" value="#{v}"
+              span.title title="#{{v}}"
+                == v
 
       .subheadline.m10 Другой косплей
       - chronology.each do |month, group|
@@ -76,7 +75,8 @@ header.head.misc
 
     .main-content
       .menu-block
-        .right.item-save сохранить
+        .options-floated
+          .item-save сохранить
         .subheadline Общая информация
 
         .right
@@ -197,5 +197,7 @@ header.head.misc
               .images-list
                 = render partial: 'images/image.html', object: ff.object, locals: {group_name: 'images', style: :original}
 
-    p.buttons.m30
-      span.save.button Сохранить
+      p.buttons
+        span.save.button Сохранить
+
+  .clearfix

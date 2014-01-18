@@ -9,12 +9,12 @@ header.head.misc
 
 .cosplay-mod.index
   .subheadline Инструкция
-  .item-content
-    .comment-block.menu-block
+  .item-content.menu-block
+    .comment-block
       .moderators
         = render partial: 'blocks/user', collection: @moderators, locals: { avatar_size: 48 }
 
-      .description.10
+      .description
         p Косплей становится видимым на сайте после того, как у галереи поставлена галочка "опубликовано" и нажата кнопка "Сохранить".
         p.m3 Перед публикацией необходимо убедиться в следующем:
         ul.m10

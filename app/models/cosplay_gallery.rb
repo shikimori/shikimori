@@ -1,36 +1,44 @@
 class CosplayGallery < ActiveRecord::Base
   include Commentable
 
-  has_many :image, :class_name => 'CosplayImage',
-                   :limit => 1,
-                   :conditions => {:deleted => false}
+  has_many :image,
+    class_name: 'CosplayImage',
+    limit: 1,
+    conditions: {deleted: false}
 
-  has_many :images, :class_name => 'CosplayImage',
-                    :conditions => {:deleted => false},
-                    :dependent => :destroy,
-                    :order => :position
+  has_many :images,
+    class_name: 'CosplayImage',
+    conditions: {deleted: false},
+    dependent: :destroy,
+    order: :position
 
-  has_many :deleted_images, :class_name => 'CosplayImage',
-                    :conditions => {:deleted => true},
-                    :order => :position
+  has_many :deleted_images,
+    class_name: 'CosplayImage',
+    conditions: {deleted: true},
+    order: :position
 
-  has_many :links, :class_name => 'CosplayGalleryLink',
-                   :dependent => :destroy
-  has_many :cosplayers, :through => :links,
-                        :source => :linked,
-                        :source_type => 'Cosplayer'
+  has_many :links,
+    class_name: 'CosplayGalleryLink',
+    dependent: :destroy
+  has_many :cosplayers,
+    through: :links,
+    source: :linked,
+    source_type: 'Cosplayer'
 
-  has_many :animes, :through => :links,
-                    :source => :linked,
-                    :source_type => 'Anime'
+  has_many :animes,
+    through: :links,
+    source: :linked,
+    source_type: 'Anime'
 
-  has_many :mangas, :through => :links,
-                    :source => :linked,
-                    :source_type => 'Manga'
+  has_many :mangas,
+    through: :links,
+    source: :linked,
+    source_type: 'Manga'
 
-  has_many :characters, :through => :links,
-                        :source => :linked,
-                        :source_type => 'Character'
+  has_many :characters,
+    through: :links,
+    source: :linked,
+    source_type: 'Character'
 
   accepts_nested_attributes_for :images, :deleted_images
 

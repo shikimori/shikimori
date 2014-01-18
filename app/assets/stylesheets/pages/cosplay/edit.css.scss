@@ -51,6 +51,7 @@
     .main-content {
       width: 726px;
       overflow: hidden;
+      position: relative;
     }
     .field-name {
       @include text-font;
@@ -60,9 +61,7 @@
     }
 
     .item-save {
-      display: block;
-      margin-right: 10px;
-      margin-top: 4px;
+      @include normal-link;
     }
     .item-add {
       display: none;
@@ -136,7 +135,7 @@
 
         .title {
           @include ellipsis;
-          width: 180px;
+          width: 170px;
           display: block;
         }
       }
