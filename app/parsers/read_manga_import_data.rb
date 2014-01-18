@@ -205,6 +205,7 @@ module ReadMangaImportData
       adultness: 4324,
       bus_gamer: 162,
       forget_me_not: 3780,
+      the_irregular_at_magic_high_school: 33699,
       dogs__hardcore_twins: -1,
       the_lord_of_the_rings_dj___touch: -1,
       naruto_doujinshi__sakura: -1,

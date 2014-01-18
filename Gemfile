@@ -9,8 +9,8 @@ gem 'mysql2'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
 # TODO: удалить после перехода на rails 4
-gem 'cache_digests'
 gem 'redis'
+gem 'therubyracer'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
@@ -63,15 +63,7 @@ group :assets do
   gem 'compass-rails'
 end
 
-gem 'therubyracer'
-
-#gem 'jammit', github: 'documentcloud/jammit'
-#gem 'compass'
-#gem 'sass'
-#gem 'barista'
-
-#gem 'cache_digests'
-
+gem 'rmagick'
 gem 'truncate_html'
 gem 'squeel'
 gem 'acts-as-taggable-on'
@@ -79,6 +71,7 @@ gem 'uuid'
 gem 'meta-tags', github: 'morr/meta-tags', require: 'meta_tags'
 gem 'enumerize'
 gem 'draper'
+gem 'cache_digests'
 
 gem 'unicode' # для downcase русских слов
 gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'

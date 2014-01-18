@@ -384,6 +384,7 @@ GEM
     request_store (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -573,6 +574,7 @@ DEPENDENCIES
   rb-inotify
   redis
   rest-client
+  rmagick
   rspec-rails
   ruby-progressbar!
   ruby-svd!
