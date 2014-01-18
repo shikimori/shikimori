@@ -4,13 +4,11 @@ class SubtitlesImporter
                   unique_args: -> (args) { args },
                   retry: 1
 
-  def perform mode
-    if mode == :ongoings
-      import_ongoings
-    elsif mode == :latest
-      import_latest
-    else
-      import_regular
+  def perform options
+    case options[:mode].to_sym
+      when :ongoings then import_ongoings
+      when :latest then import_latest
+      else import_regular
     end
   end
 
@@ -22,7 +20,6 @@ class SubtitlesImporter
 
   def import_latest
     print "getting parallel subtitles for latests...\n"
-    #animes = Anime.latest.select {|v| !v.anons? }
     animes = Anime.where(AniMangaStatus.query_for('latest')).all
     get_fansubs animes
   end
