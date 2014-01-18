@@ -8,7 +8,7 @@ class Api::V1::Profile::HistoryController < Api::V1::ApiController
 
   api :GET, "/profile/history/:id", "Selected user history"
   def show
-    fetch_history User.find_by_nickname(SearchHelper.unescape params[:id])
+    fetch_history User.find_by_nickname!(SearchHelper.unescape params[:id])
   end
 
 private
