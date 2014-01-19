@@ -62,7 +62,8 @@ describe AnimeVideoReport do
 
   describe :state_machine do
     let(:approver) { build_stubbed :user }
-    let(:anime_video) { create :anime_video, state: 'working' }
+    let(:anime_video) { create :anime_video, state: anime_video_state }
+    let(:anime_video_state) { 'working' }
     let(:report_kind) { 'broken' }
     subject(:report) { create :anime_video_report, anime_video: anime_video, kind: report_kind }
 
@@ -82,7 +83,16 @@ describe AnimeVideoReport do
 
       describe :anime_video_state do
         subject { report.anime_video.state }
-        it { should eq 'working' }
+
+        context :broken do
+          it { should eq 'working' }
+        end
+
+        context :uploaded do
+          let(:report_kind) { 'uploaded' }
+          let(:anime_video_state) { 'uploaded' }
+          it { should eq 'rejected' }
+        end
       end
     end
   end

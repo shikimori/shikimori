@@ -38,6 +38,9 @@ class AnimeVideoReport < ActiveRecord::Base
 
     before_transition pending: :rejected do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
+      if anime_video_report.kind.uploaded?
+        anime_video_report.anime_video.reject!
+      end
     end
   end
 end

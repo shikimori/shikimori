@@ -28,6 +28,12 @@
         /div = cookies[:preference_hosting]
         /div = cookies[:preference_author_id]
 
+        - if @anime.current_video.uploader
+          .uploader
+            = link_to user_url(@anime.current_video.uploader, subdomain: false) do
+              img.avatar src="#{@anime.current_video.uploader.avatar_url 16}" alt="#{@anime.current_video.uploader.nickname}" title="#{@anime.current_video.uploader.nickname}"
+            = link_to @anime.current_video.uploader.nickname, user_url(@anime.current_video.uploader, subdomain: false), class: 'nickname', title: "#{@anime.current_video.uploader.nickname}"
+
         .video-player = render partial: 'player', locals: { video: @anime.current_video }
         = render partial: 'nav_video', locals: { anime: @anime }
 

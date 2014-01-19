@@ -20,7 +20,8 @@ class AnimeOnline::AnimeVideosController < ApplicationController
         .paginate page: page, per_page: per_page
     end
 
-    @anime_list = AnimeVideoPreviewDecorator.decorate_collection Anime.where(id: @anime_ids.map(&:anime_id))
+    @anime_list = AnimeVideoPreviewDecorator
+      .decorate_collection Anime.where(id: @anime_ids.map(&:anime_id))
   end
 
   def show
@@ -49,6 +50,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     @video = AnimeVideo.new video_params
     @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
     if @video.save
+      AnimeVideoReport.create! user: current_user, anime_video: @video, kind: :uploaded
       redirect_to anime_videos_show_url @video.anime.id, @video.episode, @video.id
     else
       render :new

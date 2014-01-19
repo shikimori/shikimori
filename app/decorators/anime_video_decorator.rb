@@ -1,4 +1,3 @@
-# TODO need specs!!! / @blackchestnut /
 class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   delegate_all
 
@@ -17,7 +16,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
 
   def videos
     @videos ||= anime_videos
-      .select {|v| all? || v.working? || v.uploaded?}
+      .select {|v| all? || v.allowed?}
       .sort_by {|v| [v.episode.zero? ? 1 : 0, v.episode] }
       .group_by(&:episode)
   end
