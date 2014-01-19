@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140111193741) do
+ActiveRecord::Schema.define(:version => 20140119082142) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -62,6 +62,19 @@ ActiveRecord::Schema.define(:version => 20140111193741) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "anime_video_reports", :force => true do |t|
+    t.integer  "anime_video_id"
+    t.integer  "user_id"
+    t.integer  "approver_id"
+    t.string   "kind"
+    t.string   "state"
+    t.string   "user_agent"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "anime_video_reports", ["anime_video_id", "kind", "state"], :name => "index_anime_video_reports_on_anime_video_id_and_kind_and_state"
 
   create_table "anime_videos", :force => true do |t|
     t.integer  "anime_id"
@@ -378,22 +391,6 @@ ActiveRecord::Schema.define(:version => 20140111193741) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "queue"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "entries", :force => true do |t|
     t.string   "title"
