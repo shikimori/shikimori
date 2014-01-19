@@ -36,10 +36,18 @@ describe AnimeOnline::AnimeVideosController do
   end
 
   describe :create do
+    before { sign_in user }
+    let(:user) { create :user }
     let(:anime) { create :anime }
-    before { post :create, anime_video: { episode: 1, url: 'http://foo.ru', anime_id: anime.id, source: 'test', kind: 'fandub', author: 'test_author' } }
-    it { should respond_with_content_type :html }
-    it { response.should be_redirect }
+    let(:create_request) { post :create, anime_video: { episode: 1, url: 'http://foo.ru', anime_id: anime.id, source: 'test', kind: 'fandub', author: 'test_author' } }
+
+    context :response do
+      before { create_request }
+      it { should respond_with_content_type :html }
+      it { response.should be_redirect }
+    end
+
+    it { expect{create_request}.to change(AnimeVideoReport, :count).by 1 }
   end
 
   describe :help do

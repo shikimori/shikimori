@@ -8,3 +8,5 @@ nav.navbar.navbar-default role='navigation'
         .form-group
           input.search.form-control name='search' type='text' placeholder='Поиск' value="#{params[:search]}"
 
+      - if user_signed_in?
+        p.navbar-text.navbar-right = current_user.nickname

@@ -21,6 +21,7 @@ class AnimeVideo < ActiveRecord::Base
   state_machine :state, initial: :working do
     state :working
     state :uploaded
+    state :rejected
     state :broken
     state :wrong
     state :banned
@@ -34,6 +35,9 @@ class AnimeVideo < ActiveRecord::Base
     event :ban do
       transition working: :banned
     end
+    event :reject do
+      transition uploaded: :rejected
+    end
     event :work do
       transition [:uploaded, :broken, :wrong, :banned] => :working
     end
@@ -43,6 +47,16 @@ class AnimeVideo < ActiveRecord::Base
     parts = URI.parse(url).host.split('.')
     domain = "#{parts[-2]}.#{parts[-1]}"
     domain == 'vkontakte.ru' ? 'vk.com' : domain
+  end
+
+  def allowed?
+    working? || uploaded?
+  end
+
+  def uploader
+    if uploaded?
+      @uploader ||= AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').first.try(:user)
+    end
   end
 
 private

@@ -93,4 +93,43 @@ describe AnimeVideo do
       it { should eq 'banned' }
     end
   end
+
+  describe :allowed do
+    context :true do
+      ['working', 'uploaded'].each do |state|
+        specify { build(:anime_video, state: state).allowed?.should be_true }
+      end
+    end
+
+    context :false do
+      ['broken', 'wrong', 'banned'].each do |state|
+        specify { build(:anime_video, state: state).allowed?.should be_false }
+      end
+    end
+  end
+
+  describe :uploader do
+    let(:anime_video) { build_stubbed :anime_video, state: state }
+    let(:user) { create :user, nickname: 'foo' }
+    subject { anime_video.uploader }
+
+    context :with_uploader do
+      let(:state) { 'uploaded' }
+      let(:kind) { state }
+      let!(:anime_video_report) { create :anime_video_report, anime_video: anime_video, kind: kind, user: user }
+      it { should eq user }
+    end
+
+    context :without_uploader do
+      context :working do
+        let(:state) { 'working' }
+        it { should be_nil }
+      end
+
+      context :uploaded_without_report do
+        let(:state) { 'uploaded' }
+        it { should be_nil }
+      end
+    end
+  end
 end
