@@ -35,11 +35,11 @@
                   - if video.author
                     span.author = strip_tags video.author.name
 
-      li.complaint.pull-right
+      li.report.pull-right
         .btn-group
           button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
             span.glyphicon.glyphicon-flag
             span.caret
           ul.dropdown-menu
-            li: a href="#" data-url="#{anime_videos_complaint_url anime.id, anime.current_episode, anime.current_video.id, kind: :broken_video}" Видео не работает
-            li: a href="#" data-url="#{anime_videos_complaint_url anime.id, anime.current_episode, anime.current_video.id, kind: :wrong_video}" Видео не от этого аниме
+            li: a href="#" data-url="#{anime_videos_report_url anime.current_video.id, kind: :broken}" Видео не работает
+            li: a href="#" data-url="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" Видео не от этого аниме

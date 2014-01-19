@@ -16,7 +16,7 @@ class AnimeVideo < ActiveRecord::Base
 
   before_save :check_ban
 
-  default_scope { where state: ['working', 'uploaded'] }
+  scope :available, -> { where state: ['working', 'uploaded'] }
 
   state_machine :state, initial: :working do
     state :working

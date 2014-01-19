@@ -1,0 +1,64 @@
+@import globals
+
+.anime_video_reports
+  +text-font
+
+  li
+    margin-bottom: 2px
+    &:hover
+      background-color: #eee
+
+  span
+    margin-right: 6px
+
+    &.kind
+      display: inline-block
+      min-width: 50px
+
+      &.broken
+        color: red
+      &.wrong
+        color: orange
+      &.uploaded
+        color: blue
+
+    &.date
+      +default-date-decor
+
+    img.avatar
+      margin-left: 8px
+      margin-right: 2px
+
+    &.user
+      &:before
+        content: 'от'
+
+    &.state
+      display: inline-block
+      margin-left: 4px
+      min-width: 60px
+
+      &.accepted
+        &:before
+          content: 'Принято '
+          color: green
+
+      &.rejected
+        &:before
+          content: 'Отказано'
+          color: red
+
+    &.actions
+      float: right
+
+      a
+        margin-left: 10px
+        &:before
+          content: '['
+        &:after
+          content: ']'
+
+  .user_agent
+    color: gray
+    font-size: 9px
+    line-height: 8px
