@@ -4,7 +4,6 @@ class AnimeVideoReport < ActiveRecord::Base
   belongs_to :anime_video
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
-  #attr_accessible :kind, :state, :user_agent
 
   enumerize :kind, in: [:uploaded, :broken, :wrong], predicates: true
 
@@ -13,6 +12,7 @@ class AnimeVideoReport < ActiveRecord::Base
   validates :kind, presence: true
 
   scope :pending, -> { where state: 'pending' }
+  scope :processed, -> { where state: ['accepted', 'rejected'] }
 
   state_machine :state, initial: :pending do
     state :pending
@@ -33,7 +33,6 @@ class AnimeVideoReport < ActiveRecord::Base
 
     before_transition pending: :accepted do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
-      ap 'foo'
       anime_video_report.anime_video.update_attribute :state, anime_video_report.kind
     end
 

@@ -1,3 +1,4 @@
+# TODO remove after migrate to AnimeVideoReport. @blackchestnut
 class AnimeVideoComplaintDecorator < Draper::Decorator
   delegate_all
 

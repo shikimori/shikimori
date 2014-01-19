@@ -1,3 +1,4 @@
+# TODO remove after migrate to AnimeVideoReport. @blackchestnut
 class Complaint
   def from user
     @user = user

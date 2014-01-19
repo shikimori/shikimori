@@ -40,6 +40,24 @@ describe AnimeVideoReport do
         its(:first) { should eq pending_report }
       end
     end
+
+    describe :processed do
+      subject { AnimeVideoReport.processed }
+
+      context :empty do
+        it { should be_empty }
+      end
+
+      context :with_data do
+        let(:approver) { build_stubbed :user }
+        let!(:pending_report) { create :anime_video_report, state: 'pending' }
+        let!(:accepted_report) { create :anime_video_report, state: 'accepted' }
+        let!(:rejected_report) { create :anime_video_report, state: 'rejected' }
+
+        its(:count) { should eq 2 }
+        specify { subject.include?(pending_report).should be_false }
+      end
+    end
   end
 
   describe :state_machine do

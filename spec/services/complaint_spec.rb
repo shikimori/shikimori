@@ -1,3 +1,4 @@
+# TODO remove after migrate to AnimeVideoReport. @blackchestnut
 require 'spec_helper'
 
 describe Complaint do
