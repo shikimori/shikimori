@@ -9,8 +9,8 @@ describe AnimeVideo do
   it { should validate_presence_of :source }
   it { should validate_numericality_of :episode }
 
-  describe :default_scope do
-    subject { AnimeVideo.all }
+  describe :scopes do
+    subject { AnimeVideo.available }
     before do
       states.each do |s|
         create :anime_video, state: s

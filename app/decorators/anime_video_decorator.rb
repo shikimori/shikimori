@@ -16,9 +16,8 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def videos
-    # TODO: remove this select, because there is a default_scope @blackchestnut
     @videos ||= anime_videos
-      .select {|v| v.working? || v.uploaded?}
+      .select {|v| all? || v.working? || v.uploaded?}
       .sort_by {|v| [v.episode.zero? ? 1 : 0, v.episode] }
       .group_by(&:episode)
   end
@@ -115,6 +114,10 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
 
   def video_id
     h.params[:video_id].to_i
+  end
+
+  def all?
+    h.params[:all]
   end
 
   def last_episode

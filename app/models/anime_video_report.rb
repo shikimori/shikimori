@@ -12,7 +12,7 @@ class AnimeVideoReport < ActiveRecord::Base
   validates :kind, presence: true
 
   scope :pending, -> { where state: 'pending' }
-  scope :processed, -> { where state: ['accepted', 'rejected'] }
+  scope :processed, -> { where(state: ['accepted', 'rejected']).order('id desc') }
 
   state_machine :state, initial: :pending do
     state :pending

@@ -11,7 +11,7 @@ Site::Application.routes.draw do
         get :help, on: :member
       end
     end
-    get 'videos/:id(/:episode_id)(/:video_id)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode_id: /\d+/, video_id: /\d+/ }
+    get 'videos/:id(/:episode_id)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode_id: /\d+/, video_id: /\d+/ }
     get 'videos' => 'anime_online/anime_videos#index', as: :anime_videos
     post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
     get 'robots.txt' => 'robots#animeonline'
