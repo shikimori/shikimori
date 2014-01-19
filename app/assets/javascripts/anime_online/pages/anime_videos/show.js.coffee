@@ -14,7 +14,7 @@ jQuery ->
   $('.kinds li a', $page).on 'click', ->
     $('.video iframe', $page).attr 'src', $(@).data('url')
 
-  $('a', '.complaint li').on 'click', ->
+  $('a', '.report li').on 'click', ->
     $.ajax
       url: $(@).data('url')
       type: 'POST'
