@@ -20,6 +20,7 @@ header.head
           a href="#{anime_videos_show_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id}" target="blank" Проверить
           a href="#{accept_moderation_anime_video_report_url report.id}" Подтвердить
           a href="#{reject_moderation_anime_video_report_url report.id}" Отклонить
+        .user_agent = report.user_agent
 
   br
 

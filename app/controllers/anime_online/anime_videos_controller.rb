@@ -61,7 +61,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   def report
     user = user_signed_in? ? current_user : User.find(User::GuestID)
     anime_video = AnimeVideo.find params[:id]
-    AnimeVideoReport.create! user: user, anime_video: anime_video, kind: params[:kind]
+    AnimeVideoReport.create! user: user, anime_video: anime_video, kind: params[:kind], user_agent: request.user_agent
     render nothing: true
   end
 
