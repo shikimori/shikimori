@@ -47,11 +47,4 @@ describe Moderation::AnimeVideoReportsController do
       specify { anime_video.reload.state.should eq 'working' }
     end
   end
-
-
-  #describe :work do
-    #before { get :work, id: message.id }
-    #it { should redirect_to moderation_anime_video_reports_url }
-    #specify { Message.count.should be_zero }
-  #end
 end
