@@ -4,7 +4,7 @@ class CharactersImporter
                   queue: :slow_parsers,
                   retry: false
 
-  def do
+  def perform
     CharacterMalParser.import
   end
 end
