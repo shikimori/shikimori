@@ -111,14 +111,8 @@ describe PagesController do
 
     context 'admin' do
       before do
-        class Delayed::Job
-        end unless defined?(Delayed::Job)
-
         PagesController.any_instance.stub(:`).and_return ''
-        Delayed::Job.stub(:order)
-        Delayed::Job.stub(:count).and_return 0
         $redis.stub(:info).and_return('db0' => '=,')
-
         sign_in create :user, id: 1
         get :admin_panel
       end
