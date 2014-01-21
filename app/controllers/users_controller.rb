@@ -1,5 +1,3 @@
-require "digest"
-
 # TODO: отрефакторить толстый контроллер
 # TODO: users#show вынести в ProfilesController
 class UsersController < ApplicationController
@@ -351,7 +349,7 @@ private
 
   def user_params
     params.require(:user).permit(
-      :avatar, :nickname, :email, :name, :location, :website, :sex, :birth_on, :notifications, :about,
+      :avatar, :nickname, :email, :name, :location, :website, :sex, :birth_on, :notifications, :about
     )
   end
 end

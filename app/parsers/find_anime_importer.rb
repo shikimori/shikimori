@@ -39,6 +39,7 @@ private
       .flatten
       .select {|video| imported_videos.none? {|v| v.url == video[:url] && v.source == video[:source] } }
       .map {|video| build_video video, anime.id }
+      .compact
   end
 
   def fetch_ids ids

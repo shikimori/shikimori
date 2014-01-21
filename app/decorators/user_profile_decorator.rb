@@ -66,11 +66,6 @@ class UserProfileDecorator < UserDecorator
         .join("<span color='#555'>,</span> ")
   end
 
-  # находится ли пользователь в друзьях у текущего пользователя?
-  def favoured?
-    @favored ||= h.current_user.friends.include?(object)
-  end
-
   # заигнорен ли пользователь текущим пользователем?
   def ignored?
     @ignored ||= h.current_user.ignores.any? { |v| v.target_id == object.id }

@@ -5,6 +5,28 @@ class UserDecorator < Draper::Decorator
     User.model_name
   end
 
+  def show_profile?
+    if h.user_signed_in? && h.current_user.id == id
+      true
+    elsif preferences.profile_privacy_owner? || (!h.user_signed_in? && preferences.profile_privacy_users?)
+      false
+    elsif preferences.profile_privacy_friends? && !mutual_friended?
+      false
+    else
+      true
+    end
+  end
+
+  # находится ли пользователь в друзьях у текущего пользователя?
+  def friended?
+    @favored ||= h.current_user.friends.any? {|v| v.id == id }
+  end
+
+  # находится ли текущий пользователь в друзьях у пользователя?
+  def mutual_friended?
+    @mutual_friended ||= friended? && friends.any? {|v| v.id == h.current_user.id }
+  end
+
   def about_html
     BbCodeService.instance.format_comment about || ''
   end
@@ -21,18 +43,22 @@ class UserDecorator < Draper::Decorator
 
   def common_info
     info = []
-    info << h.h(name)
-    info << 'муж' if male?
-    info << 'жен' if female?
-    unless object.birth_on.blank?
-      info << "#{full_years} #{Russian.p full_years, 'год', 'года', 'лет'}" if full_years > 9
+
+    if show_profile?
+      info << h.h(name)
+      info << 'муж' if male?
+      info << 'жен' if female?
+      unless object.birth_on.blank?
+        info << "#{full_years} #{Russian.p full_years, 'год', 'года', 'лет'}" if full_years > 9
+      end
+      info << location
+      info << website
+
+      info.select! &:present?
+      info << 'Нет личных данных' if info.empty?
+    else
+      info << 'Личные данные скрыты'
     end
-    info << location
-    info << website
-
-    info.select! &:present?
-    info << 'Нет личных данных' if info.empty?
-
     info
   end
 

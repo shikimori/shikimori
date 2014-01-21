@@ -10,3 +10,4 @@ require Rails.root.join('lib', 'open_image')
 require 'quote_extractor'
 require 'acts_as_voteable'
 require 'progressbar'
+require 'open-uri'

@@ -4,70 +4,71 @@
   header.head.misc
     h1 class="#{@user.nickname_changes? ? 'aliases' : ''}" title="#{@user.nickname_changes? ? @user.nicknames_tooltip : ''}"
       = @user.nickname
-    .misc
-      - if @user.banned?
-        span.banned забанен
-      - else
-        = @user.last_online
-    p.notice
-      - @user.common_info.each do |entry|
-        span = entry
+      .misc
+        - if @user.banned?
+          span.banned забанен
+        - else
+          = @user.last_online
+      p.notice
+        - @user.common_info.each do |entry|
+          span = entry
 
-  .user-info
-    - @user.stats[:statuses].each do |klass,stats,graph|
-      - if stats.any? {|v| v[:size] > 0 }
-        .stat
-          - if @user.own_profile?
-            p.compatibility
-              a href="#{users_url similar: 'similar', klass: klass.downcase}"
-                span.text похожие пользователи
+  - if @user.show_profile?
+    .user-info
+      - @user.stats[:statuses].each do |klass,stats,graph|
+        - if stats.any? {|v| v[:size] > 0 }
+          .stat
+            - if @user.own_profile?
+              p.compatibility
+                a href="#{users_url similar: 'similar', klass: klass.downcase}"
+                  span.text похожие пользователи
 
-          - if @compatibility.present? && @compatibility[klass.downcase.to_sym].present?
-            p.compatibility
-              a href="#{userlist_comparer_path user_1: current_user, user_2: @user, list_type: klass.downcase}"
-                span.text class="#{@user.compatibility_class @compatibility[klass.downcase.to_sym]}"
-                  = @user.compatibility_text @compatibility[klass.downcase.to_sym]
-                - if @compatibility[klass.downcase.to_sym] > 0
-                  span.text &nbsp;
-                  span.sep.zero.inline
-                    | (
-                  span.rate
-                    = @compatibility[klass.downcase.to_sym]
-                  span.sep.zero.inline
-                    | )
-          a.klass-caption href="#{ani_manga_list_url @user, list_type: klass.downcase}"
-            = "Список #{t("Genetive.#{klass}").downcase}"
-          .stat-bar
-            span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
-              - if graph[:completed] > 0
-                span.completed-bar style="width: #{graph[:completed]*100.0/graph[:total]}%;" title="#{graph[:completed]} #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
-                  - if graph[:completed]*100.0/graph[:total] > 2.5
-                    = graph[:completed]
-              - if graph[:dropped] > 0
-                span.dropped-bar style="width: #{graph[:dropped]*100.0/graph[:total]}%;" title="#{graph[:dropped]} #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Dropped}"))}"
-                  - if graph[:dropped]*100.0/graph[:total] > 2.5
-                    = graph[:dropped]
-              = graph[:incompleted]
+            - if @compatibility.present? && @compatibility[klass.downcase.to_sym].present?
+              p.compatibility
+                a href="#{userlist_comparer_path user_1: current_user, user_2: @user, list_type: klass.downcase}"
+                  span.text class="#{@user.compatibility_class @compatibility[klass.downcase.to_sym]}"
+                    = @user.compatibility_text @compatibility[klass.downcase.to_sym]
+                  - if @compatibility[klass.downcase.to_sym] > 0
+                    span.text &nbsp;
+                    span.sep.zero.inline
+                      | (
+                    span.rate
+                      = @compatibility[klass.downcase.to_sym]
+                    span.sep.zero.inline
+                      | )
+            a.klass-caption href="#{ani_manga_list_url @user, list_type: klass.downcase}"
+              = "Список #{t("Genetive.#{klass}").downcase}"
+            .stat-bar
+              span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
+                - if graph[:completed] > 0
+                  span.completed-bar style="width: #{graph[:completed]*100.0/graph[:total]}%;" title="#{graph[:completed]} #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
+                    - if graph[:completed]*100.0/graph[:total] > 2.5
+                      = graph[:completed]
+                - if graph[:dropped] > 0
+                  span.dropped-bar style="width: #{graph[:dropped]*100.0/graph[:total]}%;" title="#{graph[:dropped]} #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Dropped}"))}"
+                    - if graph[:dropped]*100.0/graph[:total] > 2.5
+                      = graph[:dropped]
+                = graph[:incompleted]
 
-          ul.stat-names
-            - stats.select {|v| v[:size] != 0 }.each do |stat|
-              li
-                a href="#{ani_manga_filtered_list_url @user, list_type: klass.downcase, mylist: UserRateStatus::get(stat[:name].downcase), type: nil, studio: nil, publisher: nil}"
-                  = t "#{klass}RateStatus.#{stat[:name]}"
-                  | &nbsp;
-                  span.sep.zero.inline
-                    | (
-                  = stat[:size]
-                  span.sep.zero.inline
-                    | )
-                  span.sep
-                    | /
+            ul.stat-names
+              - stats.select {|v| v[:size] != 0 }.each do |stat|
+                li
+                  a href="#{ani_manga_filtered_list_url @user, list_type: klass.downcase, mylist: UserRateStatus::get(stat[:name].downcase), type: nil, studio: nil, publisher: nil}"
+                    = t "#{klass}RateStatus.#{stat[:name]}"
+                    | &nbsp;
+                    span.sep.zero.inline
+                      | (
+                    = stat[:size]
+                    span.sep.zero.inline
+                      | )
+                    span.sep
+                      | /
 
-  - if @favourites.any?
-    .menu-block.favourites-block
-      .subheadline.m10
-        a href="#{user_favourites_url @user}" title="Избранное" Избранное
-      .image-links
-        - @favourites.each do |entry|
-          a.bubbled href="#{url_for entry}" data-remote="true" data-offset-left="4" data-offset-top="20" data-offset-left-right="-14"
-            img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"
+    - if @favourites.any?
+      .menu-block.favourites-block
+        .subheadline.m10
+          a href="#{user_favourites_url @user}" title="Избранное" Избранное
+        .image-links
+          - @favourites.each do |entry|
+            a.bubbled href="#{url_for entry}" data-remote="true" data-offset-left="4" data-offset-top="20" data-offset-left-right="-14"
+              img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"

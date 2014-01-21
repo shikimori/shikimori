@@ -10,15 +10,19 @@
     .manga-filter.animanga-filter
       = render partial: 'ani_mangas_collection/menu', locals: { special: true, links: false, mylist_at_top: true, klass: Manga }
 
-  .default-sort data-value="#{user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort}"
-  section.page-content
-    .user-content-slider.view-port.vertical-slider data-width="1015"
-      .view-content style="margin-left: #{-1*1015*(@pages.index {|v| (v == params[:type] || v == "#{params[:list_type] || ""}-#{params[:type]}") || (v.class == Array && v.include?(params[:type])) } || 2) }px"
-        - @pages.each do |page|
-          .slide
-            div class="#{page.class == Array ? page.join(' ') : page}#{' no-height-resize' if page.class != Array && page == 'profile'}#{' selected' if page.class == Array ? page.include?(params[:type]) : (params[:type] == page || "#{params[:list_type] || ""}-#{params[:type]}" == page)}"
-              - if page.class == Array ? page.include?(params[:type]) : (params[:type] == page || "#{params[:list_type] || ""}-#{params[:type]}" == page)
-                = yield
-              - else
-                br
+  - if @user.show_profile? || params[:controller] == 'messages' || params[:action] == 'ban'
+    .default-sort data-value="#{user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort}"
+    section.page-content
+      .user-content-slider.view-port.vertical-slider data-width="1015"
+        .view-content style="margin-left: #{-1*1015*(@pages.index {|v| (v == params[:type] || v == "#{params[:list_type] || ""}-#{params[:type]}") || (v.class == Array && v.include?(params[:type])) } || 2) }px"
+          - @pages.each do |page|
+            .slide
+              div class="#{page.class == Array ? page.join(' ') : page}#{' no-height-resize' if page.class != Array && page == 'profile'}#{' selected' if page.class == Array ? page.include?(params[:type]) : (params[:type] == page || "#{params[:list_type] || ""}-#{params[:type]}" == page)}"
+                - if page.class == Array ? page.include?(params[:type]) : (params[:type] == page || "#{params[:list_type] || ""}-#{params[:type]}" == page)
+                  = yield
+                - else
+                  br
+  - else
+    .subheadline.m10 Профиль
+    p.privacy-hidden Скрыто настройками приватности
   .clearfix

@@ -1,6 +1,9 @@
 # настройки профиля пользователя
 class UserPreferences < ActiveRecord::Base
+  extend Enumerize
   DefaultSort = 'name'
+
+  enumerize :profile_privacy, in: [:public, :users, :friends, :owner], predicates: { prefix: true }
 
   belongs_to :user, touch: true
 

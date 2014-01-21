@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(:version => 20140119082142) do
   add_index "anime_links", ["anime_id", "service", "identifier"], :name => "index_anime_links_on_anime_id_and_service_and_identifier", :unique => true
 
   create_table "anime_video_authors", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "anime_video_authors", ["name"], :name => "index_anime_video_authors_on_name", :unique => true
 
   create_table "anime_video_reports", :force => true do |t|
     t.integer  "anime_video_id"
@@ -873,7 +875,7 @@ ActiveRecord::Schema.define(:version => 20140119082142) do
     t.integer "user_id"
     t.boolean "anime_in_profile",      :default => true
     t.boolean "manga_in_profile",      :default => true
-    t.string  "default_sort",          :default => "name", :null => false
+    t.string  "default_sort",          :default => "name",   :null => false
     t.boolean "clubs_in_profile",      :default => true
     t.boolean "comments_in_profile",   :default => true
     t.boolean "postload_in_catalog",   :default => true
@@ -881,16 +883,17 @@ ActiveRecord::Schema.define(:version => 20140119082142) do
     t.boolean "manga_first",           :default => false
     t.boolean "russian_names",         :default => false
     t.boolean "about_on_top",          :default => false
-    t.boolean "russian_genres",        :default => true,   :null => false
-    t.boolean "mylist_in_catalog",     :default => false,  :null => false
+    t.boolean "russian_genres",        :default => true,     :null => false
+    t.boolean "mylist_in_catalog",     :default => false,    :null => false
     t.boolean "statistics_in_profile", :default => true
-    t.boolean "menu_contest",          :default => true,   :null => false
+    t.boolean "menu_contest",          :default => true,     :null => false
     t.string  "page_background"
     t.boolean "page_border",           :default => false
     t.string  "body_background"
     t.boolean "show_smileys",          :default => true
     t.boolean "show_social_buttons",   :default => true
     t.boolean "show_hentai_images",    :default => false
+    t.string  "profile_privacy",       :default => "public"
   end
 
   add_index "user_preferences", ["user_id"], :name => "index_profile_settings_on_user_id"

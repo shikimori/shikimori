@@ -12,7 +12,6 @@ gem 'therubyracer'
 gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'capistrano'
 gem 'rvm-capistrano'
-gem 'marco-polo'
 
 gem 'attribute-defaults'
 gem 'state_machine'
@@ -101,6 +100,8 @@ end
 
 gem 'marco-polo'
 gem 'pry-rails'
+#gem 'pry-rescue'
+gem 'pry-stack_explorer'
 
 group :test, :development do
   gem 'rspec-rails'

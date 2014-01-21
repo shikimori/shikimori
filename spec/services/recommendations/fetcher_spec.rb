@@ -23,13 +23,9 @@ describe RecommendationsController do
       before do
         user.stub_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MinimumScores
         user.stub_chain(:history, :count).and_return Recommendations::RatesFetcher::MinimumScores
+        RecommendationsWorker.should_receive :perform_async
       end
       it { should be_nil }
-      it 'should enqueue new RecommendationsJob' do
-        expect {
-          subject
-        }.to change(Delayed::Job, :count).by 1
-      end
     end
 
     context 'recommendations have been calculated' do

@@ -20,7 +20,8 @@ private
       :statistics_in_profile, :comments_in_profile, :statistics_start_on,
       :page_background, :page_border, :body_background, :about_on_top, :about,
       :show_hentai_images, :show_social_buttons, :show_smileys, :menu_contest,
-      :russian_genres, :russian_names, :mylist_in_catalog, :postload_in_catalog
+      :russian_genres, :russian_names, :mylist_in_catalog, :postload_in_catalog,
+      :profile_privacy
     )
   end
 end

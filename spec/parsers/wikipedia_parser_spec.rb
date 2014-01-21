@@ -18,7 +18,7 @@ describe WikipediaParser do
     data = parser.fetch_pages([zero_no_tsukaima.name.gsub(/ /, '_')])
 
     data.should have(1).item
-    data[0][1].length.should > 15000
+    data[0][1].length.should > 14000
   end
 
   it 'fetches additional sources' do
@@ -28,7 +28,7 @@ describe WikipediaParser do
   it 'follows redirect while fetching page from wikipedia' do
     data = parser.fetch_pages([toradora.name])
     data.should have(1).item
-    data[0][1].length.should > 15000
+    data[0][1].length.should > 14000
   end
 
   it 'replaces name with brackets' do

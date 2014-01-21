@@ -2,6 +2,7 @@
   input type="hidden" name="page" value="#{params[:page]}"
 
   .menu-block
+    = f.input :profile_privacy, include_blank: false
     = f.input :anime_in_profile
     = f.input :manga_in_profile
     = f.input :manga_first

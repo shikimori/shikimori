@@ -1,14 +1,15 @@
 .b-user-block class="user-#{user.id}"
-  .history
-    - user.history.formatted.each do |entry|
-      .line
-        - if entry[:special?]
-          span.date = time_ago_in_words entry[:created_at], "%s назад"
-          span.event = entry[:short_name]
-        - else
-          a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-remote="true" data-offset-left="-14"
+  - if user.show_profile?
+    .history
+      - user.history.formatted.each do |entry|
+        .line
+          - if entry[:special?]
             span.date = time_ago_in_words entry[:created_at], "%s назад"
-            span.event = entry[:name]
+            span.event = entry[:short_name]
+          - else
+            a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-remote="true" data-offset-left="-14"
+              span.date = time_ago_in_words entry[:created_at], "%s назад"
+              span.event = entry[:name]
 
   .image-name
     a href="#{user_url user}" title="#{user.nickname}"
@@ -18,9 +19,4 @@
 
   .info
     p.last-online
-      - if DateTime.now - 5.minutes <= user.last_online_at
-        | сейчас на сайте
-      - else
-        | онлайн&nbsp;
-        span.date
-          == time_ago_in_words user.last_online_at, "%s</span> <span>назад"
+      = user.last_online
