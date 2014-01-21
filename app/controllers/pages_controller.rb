@@ -121,10 +121,6 @@ class PagesController < ApplicationController
       @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
     end
 
-    #@job_workers = %x{ps aux | grep delayed_jo}.split("morr").select {|v| v =~ /delayed_job/ }.size
-
-    #@jobs_queue = Delayed::Job.order(:run_at)
-
     @calendar_update = AnimeCalendar.last.try :created_at
     @calendar_unrecognized = Rails.cache.read 'calendar_unrecognized'
 

@@ -6,40 +6,11 @@ header.head
 
 .anime_video_reports
   h2.subheadline Очередь
-  ul
-    - AnimeVideoReport.pending.each do |report|
-      li
-        span ##{report.id}
-        span.kind class="#{report.kind}" = report.kind
-        span.date #{report.created_at.strftime '%d.%m.%Y'}
-        span.user
-          = link_to user_url(report.user) do
-            img.avatar src="#{report.user.avatar_url 16}" alt="#{report.user.nickname}" title="#{report.user.nickname}"
-          = link_to report.user.nickname, user_url(report.user), class: 'nickname', title: "#{report.user.nickname}"
-        span.actions
-          a href="#{anime_videos_show_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play}" target="blank" Проверить
-          a href="#{accept_moderation_anime_video_report_url report.id}" Подтвердить
-          a href="#{reject_moderation_anime_video_report_url report.id}" Отклонить
-        .user_agent = report.user_agent
+  ul.subcontent
+    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.pending, formats: :html
 
   br
 
   h2.subheadline История
-  ul
-    - AnimeVideoReport.processed.limit(100).each do |report|
-      li
-        span ##{report.id}
-        span.kind class="#{report.kind}" = report.kind
-        span.date #{report.created_at.strftime '%d.%m.%Y'}
-        span.user
-          = link_to user_url(report.user) do
-            img.avatar src="#{report.user.avatar_url 16}" alt="#{report.user.nickname}" title="#{report.user.nickname}"
-          = link_to report.user.nickname, user_url(report.user), class: 'nickname', title: "#{report.user.nickname}"
-        span.state class="#{report.state}"
-        span
-          = link_to user_url(report.approver) do
-            img.avatar src="#{report.approver.avatar_url 16}" alt="#{report.approver.nickname}" title="#{report.approver.nickname}"
-          = link_to report.approver.nickname, user_url(report.approver), class: 'nickname', title: "#{report.approver.nickname}"
-        span.actions
-          a href="#{anime_videos_show_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}" target="blank" Проверить
-          /a href="#{work_moderation_anime_video_report_url report.anime_video.id}" Работает
+  ul.subcontent
+    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.processed.limit(100), formats: :html

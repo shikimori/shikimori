@@ -82,16 +82,16 @@ describe AnimeVideoReport do
       its(:approver) { should eq approver }
 
       describe :anime_video_state do
-        subject { report.anime_video.state }
+        subject { report.anime_video }
 
         context :broken do
-          it { should eq 'working' }
+          it { should be_working }
         end
 
         context :uploaded do
           let(:report_kind) { 'uploaded' }
           let(:anime_video_state) { 'uploaded' }
-          it { should eq 'rejected' }
+          it { should be_rejected }
         end
       end
     end

@@ -105,6 +105,12 @@ ru:
         subtitles: сабы
         fandub: озвучка
 
+    anime_video_report:
+      kind:
+        uploaded: новое видео
+        broken: видео сломано
+        wrong: видео не к тому аниме
+
   date_time:
     week:
       one: неделя

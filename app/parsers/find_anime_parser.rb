@@ -68,7 +68,7 @@ class FindAnimeParser < ReadMangaParser
     end
   end
 
-  def extract_url html, source
+  def extract_url html, source=:unknown
     if html =~ %r{src="((?:https?:)?//(?:vk.com|vkontakte.ru)/video_ext[^"]+)"}
       $1.sub /&hd=\d/, '&hd=3'
     elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.ru/(?:ru/flash/)?player[^"]+)"}

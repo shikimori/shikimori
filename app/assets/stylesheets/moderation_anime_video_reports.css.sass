@@ -1,64 +1,43 @@
 @import globals
+@import mixins/log_entry
 
 .anime_video_reports
   +text-font
 
-  li
-    margin-bottom: 2px
-    &:hover
-      background-color: #eee
+  .change
+    +log_entry
 
-  span
-    margin-right: 6px
+  .kind
+    min-width: 50px
 
-    &.kind
-      display: inline-block
-      min-width: 50px
+    &.broken
+      color: red
+    &.wrong
+      color: orange
+    &.uploaded
+      color: blue
 
-      &.broken
-        color: red
-      &.wrong
-        color: orange
-      &.uploaded
-        color: blue
+  .state
+    display: inline-block
+    margin-left: 4px
 
-    &.date
-      +default-date-decor
-
-    img.avatar
-      margin-left: 8px
-      margin-right: 2px
-
-    &.user
+    &.accepted
       &:before
-        content: 'от'
+        content: 'принято'
+        color: green
 
-    &.state
-      display: inline-block
-      margin-left: 4px
-      min-width: 60px
+    &.rejected
+      &:before
+        content: 'отклонено'
+        color: red
 
-      &.accepted
-        &:before
-          content: 'Принято '
-          color: green
+  .info
+    p
+      font-size: 12px
 
-      &.rejected
-        &:before
-          content: 'Отказано'
-          color: red
+      &:last-child
+        margin-bottom: 10px
 
-    &.actions
-      float: right
-
-      a
-        margin-left: 10px
-        &:before
-          content: '['
-        &:after
-          content: ']'
-
-  .user_agent
-    color: gray
-    font-size: 9px
-    line-height: 8px
+    span
+      &:first-child
+        color: $gray-color-2

@@ -36,7 +36,7 @@ class AnimeVideo < ActiveRecord::Base
       transition working: :banned
     end
     event :reject do
-      transition uploaded: :rejected
+      transition [:uploaded, :wrong, :broken, :banned] => :rejected
     end
     event :work do
       transition [:uploaded, :broken, :wrong, :banned] => :working
