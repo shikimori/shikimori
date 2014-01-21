@@ -64,7 +64,7 @@ module Clockwork
     OldMessagesCleaner.perform_async
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
-    SubtitlesImporter.perform_async mode: latest
+    SubtitlesImporter.perform_async mode: :latest
     BadVideosCleaner.perform_async
 
     ImportListWorker.perform_async pages_limit: 100
