@@ -20,7 +20,10 @@ class AnimeHistoryService
            (user_rates.target_id.in my{entries.map(&:linked_id)})
           ) }
       .all
-     []
+
+    users += User
+      .where { id.not_in my{users.map(&:id)} }
+      .each {|v| v.association(:anime_rates).loaded! }
 
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.map do |entry|
@@ -44,7 +47,7 @@ class AnimeHistoryService
     end
 
     ActiveRecord::Base.transaction do
-      Entry.where(id: entries.map(&:id)).update_all processed: true
+      #Entry.where(id: entries.map(&:id)).update_all processed: true
       Message.import messages.flatten.compact
     end
   end
