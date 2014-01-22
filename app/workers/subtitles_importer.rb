@@ -4,8 +4,8 @@ class SubtitlesImporter
                   unique_args: -> (args) { args },
                   retry: 1
 
-  def perform options
-    case options[:mode].to_sym
+  def perform mode
+    case mode.to_sym
       when :ongoings then import_ongoings
       when :latest then import_latest
       else import_regular

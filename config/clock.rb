@@ -44,7 +44,7 @@ module Clockwork
 
   every 1.day, 'daily.log-stuff', at: '03:00' do
     ImportListWorker.perform_async source: :latest, hours_limit: 24*7
-    SubtitlesImporter.perform_async mode: :ongoings
+    SubtitlesImporter.perform_async :ongoings
   end
 
   every 1.day, 'daily.mangas', at: '04:00' do
@@ -64,7 +64,7 @@ module Clockwork
     OldMessagesCleaner.perform_async
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
-    SubtitlesImporter.perform_async mode: :latest
+    SubtitlesImporter.perform_async :latest
     BadVideosCleaner.perform_async
 
     ImportListWorker.perform_async pages_limit: 100
