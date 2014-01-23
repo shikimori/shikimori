@@ -15,8 +15,11 @@ class AnimeVideo < ActiveRecord::Base
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
   before_save :check_ban
+  before_save :check_copyright
 
-  scope :available, -> { where state: ['working', 'uploaded'] }
+  scope :allowed, -> { where state: ['working', 'uploaded'] }
+
+  CopyrightBanAnimeIDs = [10793]
 
   state_machine :state, initial: :working do
     state :working
@@ -25,6 +28,7 @@ class AnimeVideo < ActiveRecord::Base
     state :broken
     state :wrong
     state :banned
+    state :copyrighted
 
     event :broken do
       transition working: :broken
@@ -53,6 +57,10 @@ class AnimeVideo < ActiveRecord::Base
     working? || uploaded?
   end
 
+  def copyright_ban?
+    CopyrightBanAnimeIDs.include? anime_id
+  end
+
   def uploader
     if uploaded?
       @uploader ||= AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').first.try(:user)
@@ -62,5 +70,9 @@ class AnimeVideo < ActiveRecord::Base
 private
   def check_ban
     self.state = 'banned' if hosting == 'kiwi.kz'
+  end
+
+  def check_copyright
+    self.state = 'copyrighted' if copyright_ban?
   end
 end
