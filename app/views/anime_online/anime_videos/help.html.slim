@@ -1,7 +1,27 @@
 .p-anime_video-help
   h3 Как правильно получить ссылку на видео
-  h4 ВКонтакте
+  ul
+    li: a href='#vk' ВКонтакте
+    li: a href='#now' Now.ru
+
+  br
+
+  h4#vk ВКонтакте
   h5 1. Кнопка "Экспорт видеозаписи"
   = image_tag 'anime_online/pages/anime_videos/help/vk1.jpg'
   h5 2. Скопировать URL
   = image_tag 'anime_online/pages/anime_videos/help/vk2.jpg'
+  hr
+
+  h4#now Now.ru
+  h5 1. Кнопка "Экспорт видеозаписи"
+  = image_tag 'anime_online/pages/anime_videos/help/now1.jpg'
+  h5 2. Скопировать URL
+  = image_tag 'anime_online/pages/anime_videos/help/now2.jpg'
+  h5 3. Удалить лишнее
+  div от
+  code = '<iframe name="now1030517" src="http://www.now.ru/embed/frame/Guilty_Crown_276573" scrolling="no" frameborder="no" height="480" width="860"></iframe>'
+  div оставить
+  code
+    | http://www.now.ru/embed/frame/Guilty_Crown_276573
+  hr
