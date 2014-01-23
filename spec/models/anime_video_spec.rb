@@ -10,7 +10,7 @@ describe AnimeVideo do
   it { should validate_numericality_of :episode }
 
   describe :scopes do
-    subject { AnimeVideo.available }
+    subject { AnimeVideo.allowed }
     before do
       states.each do |s|
         create :anime_video, state: s
@@ -23,16 +23,17 @@ describe AnimeVideo do
     end
 
     context :bad_states do
-      let(:states) { ['broken', 'wrong', 'banned' ] }
+      let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
       it { should have(0).items }
     end
   end
 
   describe :before_save do
+    before { anime_video.save }
+
     describe :check_ban do
-      subject { anime.banned? }
-      let(:anime) { build :anime_video, url: url }
-      before { anime.save }
+      subject { anime_video.banned? }
+      let(:anime_video) { build :anime_video, url: url }
 
       context :in_ban do
         let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
@@ -41,6 +42,21 @@ describe AnimeVideo do
 
       context :no_ban do
         let(:url) { 'http://vk.com/j8n3/' }
+        it { should be_false }
+      end
+    end
+
+    describe :copyrighted do
+      let(:anime_video) { build :anime_video, anime: create(:anime, id: anime_id) }
+      subject { anime_video.copyrighted? }
+
+      context :ban do
+        let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
+        it { should be_true }
+      end
+
+      context :not_ban do
+        let(:anime_id) { 1 }
         it { should be_false }
       end
     end
@@ -105,6 +121,21 @@ describe AnimeVideo do
       ['broken', 'wrong', 'banned'].each do |state|
         specify { build(:anime_video, state: state).allowed?.should be_false }
       end
+    end
+  end
+
+  describe :copyright_ban do
+    let(:anime_video) { build :anime_video, anime_id: anime_id }
+    subject { anime_video.copyright_ban? }
+
+    context :ban do
+      let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
+      it { should be_true }
+    end
+
+    context :not_ban do
+      let(:anime_id) { 1 }
+      it { should be_false }
     end
   end
 
