@@ -43,7 +43,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
 
   def new
     anime = Anime.find params[:anime_id]
-    raise ActionController::RoutingError.new 'Not Found' if AnimeVideo::CopyrightBanAnimeIDs.include? anime.id
+    raise ActionController::RoutingError.new 'Not Found' if AnimeVideo::CopyrightBanAnimeIDs.include?(anime.id) && (!user_signed_in? || !current_user.admin?)
     @video = AnimeVideo.new anime: anime, source: 'shikimori.org', kind: :fandub
   end
 
