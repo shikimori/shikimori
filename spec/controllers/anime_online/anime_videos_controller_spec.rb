@@ -29,10 +29,17 @@ describe AnimeOnline::AnimeVideosController do
   end
 
   describe :new do
-    let(:anime) { create :anime }
-    before { get :new, anime_id: anime.id }
-    it { should respond_with_content_type :html }
-    it { response.should be_success }
+    context :can_new do
+      let(:anime) { create :anime }
+      before { get :new, anime_id: anime.id }
+      it { should respond_with_content_type :html }
+      it { response.should be_success }
+    end
+
+    context :copyright_ban do
+      let(:anime) { create :anime, id: AnimeVideo::CopyrightBanAnimeIDs.first }
+      it { expect { get :new, anime_id: anime.id }.to raise_error(ActionController::RoutingError) }
+    end
   end
 
   describe :create do
