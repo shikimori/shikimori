@@ -116,7 +116,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def all?
-    h.params[:all]
+    h.params[:all] && h.current_user.try(:video_moderator?)
   end
 
   def last_episode

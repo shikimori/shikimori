@@ -1,7 +1,7 @@
 = cache report do
   li.change
     span.id-label #
-    span: a href="#{anime_videos_show_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play}"
+    span: a href="#{anime_videos_show_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
       = report.id
     span.date #{report.created_at.strftime '%d.%m.%Y'}
     span
