@@ -33,7 +33,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
 
     raise ActionController::RoutingError.new 'Not Found' if @anime.anime_videos.blank?
 
-    unless @anime.episode_id > 1
+    unless @anime.current_episode > 1
       @reviews = Comment
         .includes(:user)
         .where(commentable_id: @anime.thread)

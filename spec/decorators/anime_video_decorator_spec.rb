@@ -15,27 +15,6 @@ describe AnimeVideoDecorator do
     end
   end
 
-  describe :current_episode do
-    let(:anime) { build :anime }
-    subject { AnimeVideoDecorator.new(anime).current_episode }
-    before { AnimeVideoDecorator.any_instance.stub(:episode_id).and_return episode }
-
-    context :episode_id_params_eq_zero do
-      let(:episode) { 0 }
-      it { should eq 0 }
-    end
-
-    context :episode_id_params_less_zero do
-      let(:episode) { -1 }
-      it { should eq 1 }
-    end
-
-    context :episode_id_params_2 do
-      let(:episode) { 2 }
-      it { should eq episode }
-    end
-  end
-
   describe :videos do
     subject { AnimeVideoDecorator.new(anime).videos }
     let(:anime) { build :anime }
@@ -106,32 +85,6 @@ describe AnimeVideoDecorator do
     end
   end
 
-  describe :current_author do
-    subject { AnimeVideoDecorator.new(anime).current_author }
-    let(:anime) { build :anime }
-    before { AnimeVideoDecorator.any_instance.stub(:current_video).and_return video }
-
-    context :current_video_nil do
-      let(:video) { nil }
-      it { should be_blank }
-    end
-
-    context :author_nil do
-      let(:video) { build :anime_video, author: nil }
-      it { should be_blank }
-    end
-
-    context :author_valid do
-      let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test') }
-      it { should eq 'test' }
-    end
-
-    context :author_very_long do
-      let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test12345678901234567890') }
-      it { should eq 'test1234567890123...' }
-    end
-  end
-
   describe :try_select_by do
     subject { AnimeVideoDecorator.new(anime).try_select_by kind.to_s, hosting, author_id }
     before { AnimeVideoDecorator.any_instance.stub(:current_videos).and_return videos }
@@ -158,6 +111,32 @@ describe AnimeVideoDecorator do
       let(:video_2) { build :anime_video, episode: 2 }
       before { anime.anime_videos << [video_1, video_2] }
       it { should eq 2 }
+    end
+  end
+
+  describe :current_author do
+    subject { AnimeVideoDecorator.new(anime).current_author }
+    let(:anime) { build :anime }
+    before { AnimeVideoDecorator.any_instance.stub(:current_video).and_return video }
+
+    context :current_video_nil do
+      let(:video) { nil }
+      it { should be_blank }
+    end
+
+    context :author_nil do
+      let(:video) { build :anime_video, author: nil }
+      it { should be_blank }
+    end
+
+    context :author_valid do
+      let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test') }
+      it { should eq 'test' }
+    end
+
+    context :author_very_long do
+      let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test12345678901234567890') }
+      it { should eq 'test1234567890123...' }
     end
   end
 end

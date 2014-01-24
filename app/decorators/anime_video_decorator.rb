@@ -11,7 +11,11 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def current_episode
-    @current_episode ||= episode_id.zero? ? 0 : [episode_id, 1].max
+    @current_episode ||= if h.params[:episode]
+      h.params[:episode].to_i
+    else
+      videos.first.try(:first).to_i
+    end
   end
 
   def videos
@@ -105,10 +109,6 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
 
   def next_url
     url videos.keys[videos.keys.index(current_episode)+1]
-  end
-
-  def episode_id
-    h.params[:episode_id] ? h.params[:episode_id].to_i : 1
   end
 
   def video_id
