@@ -2,6 +2,7 @@ class MangaProfileSerializer < MangaSerializer
   attributes :english, :japanese, :synonyms, :kind, :aired_at, :released_at
   attributes :volumes, :chapters, :score, :description, :description_html
   attributes :favoured?, :anons?, :ongoing?, :thread_id
+  attribute :read_manga_id
 
   has_many :genres
   has_many :publishers
