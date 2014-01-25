@@ -6,22 +6,38 @@ class AnimeVideosQuery
     @page = [params[:page].to_i, 1].max
   end
 
-  def fetch
-    @animes ||= AnimeVideoPreviewDecorator
-      .decorate_collection Anime.where(id: fetch_ids.map(&:anime_id))
+  def search
+    @query = AnimeVideo.select('distinct anime_id')
+    @query_entries = Anime.includes(:anime_videos)
+    unless @search.blank?
+      @query = @query
+        .joins(:anime)
+        .where('name like ? or russian like ?', "%#{@search}%", "%#{@search}%")
+    end
+    self
   end
 
   def fetch_ids
-    @anime_ids ||= if @search.blank?
-      AnimeVideo
-        .select('distinct anime_id')
-        .paginate page: @page, per_page: PER_PAGE
-    else
-      AnimeVideo
-        .select('distinct anime_id')
-        .joins(:anime)
-        .where('name like ? or russian like ?', "%#{@search}%", "%#{@search}%")
-        .paginate page: @page, per_page: PER_PAGE
-    end
+    @query
+  end
+
+  def fetch_entries
+    @query_entries.where(id: @query.map(&:anime_id))
+  end
+
+  def order
+    @query = @query.order('anime_videos.created_at desc')
+    @query_entries = @query_entries.order('anime_videos.created_at desc')
+    self
+  end
+
+  def page per_page=PER_PAGE
+    @query = @query.paginate page: @page, per_page: per_page
+    self
+  end
+
+  def all
+    @query.all
+    self
   end
 end

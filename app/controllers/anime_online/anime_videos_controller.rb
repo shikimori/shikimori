@@ -5,14 +5,15 @@ class AnimeOnline::AnimeVideosController < ApplicationController
 
   def index
     anime_query = AnimeVideosQuery.new params
-    @anime_ids = anime_query.fetch_ids
-    @anime_list = anime_query.fetch
+    @anime_ids = anime_query.search.order.page.fetch_ids
+    @anime_list = AnimeVideoDecorator.decorate_collection anime_query.search.order.page.fetch_entries
   end
 
   def show
-    redirect_to anime_videos_url search: search  unless search.blank?
+    redirect_to anime_videos_url search: params[:search] unless params[:search].blank?
 
-    @anime = AnimeVideoDecorator.new(Anime
+    @anime = AnimeVideoDecorator.new(
+      Anime
         .includes(:anime_videos, :genres)
         .find params[:id])
 
