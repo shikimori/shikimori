@@ -10,7 +10,7 @@ class CharacterDecorator < PersonDecorator
 
   def description_html
     if description.present?
-      BbCodeService.instance.format_comment(description).html_safe
+      BbCodeFormatter.instance.format_comment(description).html_safe
     else
       description_mal
     end

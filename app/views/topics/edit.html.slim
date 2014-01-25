@@ -50,7 +50,7 @@
       .m10
         .field-name Постеры
         .wall-ids
-        .drag-here-placeholder data-upload_url="#{user_images_url}"
+        .drag-here-placeholder data-upload_url="#{user_images_url linked_type: AnimeNews.name}"
           p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
           = render partial: 'blocks/upload_progress', formats: :html
           .wall-container

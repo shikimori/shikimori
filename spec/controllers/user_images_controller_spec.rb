@@ -1,11 +1,13 @@
 require 'spec_helper'
+
 describe UserImagesController do
   describe :create do
     let(:image) { Rack::Test::UploadedFile.new(Rails.root + 'spec/images/anime.jpg') }
+    before { UserImage.any_instance.stub :set_dimentions }
 
     context 'guest' do
       before { post :create }
-      it { should respond_with(302) }
+      it { should respond_with :redirect }
     end
 
     context 'user' do
@@ -16,7 +18,7 @@ describe UserImagesController do
         post :create, model: group.class.name, id: group.id, image: image
       end
 
-      it { should respond_with 200 }
+      it { should respond_with :success }
       it { should respond_with_content_type :json }
 
       it 'creates new image' do
@@ -31,4 +33,3 @@ describe UserImagesController do
     end
   end
 end
-

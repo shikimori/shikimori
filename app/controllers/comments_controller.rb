@@ -138,9 +138,9 @@ class CommentsController < ApplicationController
   # предпросмотр текста
   def preview
     if params[:target_type] && params[:target_id]
-      render text: BbCodeService.instance.format_description(params[:body], params[:target_type].constantize.find(params[:target_id]))
+      render text: BbCodeFormatter.instance.format_description(params[:body], params[:target_type].constantize.find(params[:target_id]))
     else
-      render text: BbCodeService.instance.format_comment(params[:body])
+      render text: BbCodeFormatter.instance.format_comment(params[:body])
     end
   end
 

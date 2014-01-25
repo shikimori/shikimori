@@ -8,7 +8,7 @@ xml.rss :version => "2.0" do
     @topics.each do |topic|
       xml.item do
         xml.title topic.title
-        xml.description format_rss_urls(BbCodeService.instance.format_comment topic.text)
+        xml.description format_rss_urls(BbCodeFormatter.instance.format_comment topic.text)
         xml.pubDate Time.at(topic.updated_at.to_i)
         xml.link topic_url(topic)
         xml.guid topic.guid

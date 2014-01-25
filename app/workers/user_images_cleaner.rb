@@ -4,7 +4,7 @@ class UserImagesCleaner
 
   def perform
     UserImage
-      .where(linked_id: nil)
+      .where(linked_id: nil, linked_type: AnimeNews.name)
       .where { created_at.lte(1.week.ago) }
       .destroy_all
   end

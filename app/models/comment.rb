@@ -155,8 +155,8 @@ class Comment < ActiveRecord::Base
 
   # при изменении body будем менять и html_body для всех комментов, кроме содержащих правки модератора
   def body=(text)
-    self[:body] = BbCodeService.instance.preprocess_comment(text || '')
-    self.html_body = moderated? ? nil : BbCodeService.instance.format_comment(text || '')
+    self[:body] = BbCodeFormatter.instance.preprocess_comment(text || '')
+    self.html_body = moderated? ? nil : BbCodeFormatter.instance.format_comment(text || '')
   end
 
   # Helper class method that allows you to build a comment

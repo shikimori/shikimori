@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe BbCodeService do
-  let(:processor) { BbCodeService.instance }
+describe BbCodeFormatter do
+  let(:processor) { BbCodeFormatter.instance }
 
   it :remove_wiki_codes do
     processor.remove_wiki_codes("[[test]]").should eq "test"
@@ -243,6 +243,25 @@ describe BbCodeService do
     describe '[mention]' do
       let(:text) { '[mention=1]test[/mention]' }
       it { should eq '<a href="http://shikimori.org/test">@test</a>' }
+    end
+
+    describe '[image]' do
+      let(:text) { "[image=#{user_image.id}]" }
+      let(:user_image) { create :user_image, user: build_stubbed(:user) }
+
+      context 'large image' do
+        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"/></a>" }
+      end
+
+      context 'small image' do
+        let(:user_image) { create :user_image, user: build_stubbed(:user), width: 249, height: 249 }
+        it { should eq "<img src=\"#{user_image.image.url :original, false}\"/>" }
+      end
+
+      context 'with size' do
+        let(:text) { "[image=#{user_image.id} 400x500]" }
+        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\" width=\"400\" height=\"400\"/></a>" }
+      end
     end
 
     describe '[spoiler=text]' do

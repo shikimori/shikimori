@@ -6,7 +6,6 @@ $('.image-container').live('mouseover', function() {
   $('.image-delete', this).addClass('hidden');
 });
 $('.image-delete').live('click', function() {
-  console.log('test2')
   var $container = $(this).parents('.image-container');
 
   $('img', $container).animate({opacity: 0.5}, 250);

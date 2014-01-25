@@ -83,7 +83,7 @@
                   = change.attached_video.kind
                   span.name
                     = change.attached_video.name
-                == BbCodeService.instance.format_comment change.attached_video.url
+                == BbCodeFormatter.instance.format_comment change.attached_video.url
             - else
               .comment-block
                 - if change.prior || change.pending?

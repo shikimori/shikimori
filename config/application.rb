@@ -39,7 +39,7 @@ module Site
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.middleware.use 'Redirecter' if Rails.env.production?
+    config.middleware.use 'Redirecter'
     config.middleware.insert_before 0, 'ProxyTest'
     Paperclip.logger.level = 2
 

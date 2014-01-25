@@ -75,6 +75,17 @@ module UserNotifications
         .count
   end
 
+  def notify_bounced_email
+    Message.wo_antispam do
+      Message.create!(
+        from_id: BotsService.get_poster.id,
+        to_id: id,
+        kind: MessageType::Notification,
+        body: "Наш почтовый сервис не смог доставить письмо на вашу почту #{email}.\nВы либо указали несуществующий почтовый ящик, либо когда-то пометили одно из наших писем как спам. Рекомендуем сменить e-mail в настройках профиля, иначе при утере пароля вы не сможете восстановить свой аккаунт."
+      )
+    end
+  end
+
   # возвращает подписан ли пользователь на новость
   def subscribed_for_event? entry
     if entry.class == Topic && entry.broadcast

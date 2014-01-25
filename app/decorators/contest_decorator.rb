@@ -73,7 +73,7 @@ class ContestDecorator < Draper::Decorator
 
   # описание контеста
   #def description
-    #BbCodeService.instance.format_description(object.description, object).html_safe
+    #BbCodeFormatter.instance.format_description(object.description, object).html_safe
   #end
 
   # победители контеста

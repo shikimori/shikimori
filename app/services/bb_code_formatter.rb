@@ -2,7 +2,7 @@ require 'singleton'
 
 # Обработчик текста ббкодами
 # todo: отрефакторить comments хелперы и вынести всё сюда
-class BbCodeService
+class BbCodeFormatter
   include Singleton
 
   include CommentHelper

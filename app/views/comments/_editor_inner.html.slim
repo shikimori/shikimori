@@ -78,7 +78,7 @@
 = render partial: 'blocks/upload_progress', formats: :html
 .body
   .editor
-    = text_area_tag options[:field_name] || 'comment[body]', options[:text], 'autocomplete' => :off, class: "comment_body editor-area#{options[:no_focus] ? ' no-focus' : ''}", placeholder: 'Текст комментария...', tabindex: options[:tabindex] || 0, 'data-upload_url' => remote_upload_url
+    = text_area_tag options[:field_name] || 'comment[body]', options[:text], 'autocomplete' => :off, class: "comment_body editor-area#{options[:no_focus] ? ' no-focus' : ''}", placeholder: 'Текст комментария...', tabindex: options[:tabindex] || 0, 'data-upload_url' => user_images_url(linked_type: options[:no_form] ? nil : Comment.name)
     - if options[:object]
       = hidden_field_tag 'comment[commentable_id]', options[:object].id
       = hidden_field_tag 'comment[commentable_type]', options[:object].respond_to?(:base_class) ? options[:object].base_class : options[:object].class

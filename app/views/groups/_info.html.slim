@@ -5,7 +5,7 @@
         span.grey-hint нет описания
       - else
         = cache [@group, 'body'], expires_in: 2.weeks do
-          = BbCodeService.instance.format_comment @group.description
+          = BbCodeFormatter.instance.format_comment @group.description
 
 .subheadline.m10
   span.linkeable data-href="#{members_club_url @group}" Участники

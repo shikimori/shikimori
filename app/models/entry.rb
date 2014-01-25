@@ -207,8 +207,9 @@ private
 
   # пометка картинок на принадлежность текущему топику
   def claim_images
-    UserImage.where(id: user_image_ids, linked_id: nil, linked_type: nil)
-        .update_all(linked_id: id, linked_type: self.class.name)
+    UserImage
+      .where(id: user_image_ids, linked_id: nil, linked_type: self.class.name)
+      .update_all(linked_id: id, linked_type: self.class.name)
   end
 
   # удаление более неиспользуемых картинок
@@ -222,7 +223,8 @@ private
 
   # полное удаление всех картинок
   def destroy_images
-    user_images.select {|v| v.linked_id == id && v.linked_type == self.class.name }
-        .each(&:destroy)
+    user_images
+      .select {|v| v.linked_id == id && v.linked_type == self.class.name }
+      .each(&:destroy)
   end
 end

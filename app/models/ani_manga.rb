@@ -12,7 +12,7 @@ module AniManga
   # при изменении description будем менять и description_html
   def description=(text)
     self[:description] = text
-    self.description_html = BbCodeService.instance.format_description(text, self)
+    self.description_html = BbCodeFormatter.instance.format_description(text, self)
   end
 
   def to_param

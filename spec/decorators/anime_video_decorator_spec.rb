@@ -6,12 +6,12 @@ describe AnimeVideoDecorator do
     subject { AnimeVideoDecorator.new(anime).description }
 
     context :first_episode do
-      it { should eq BbCodeService.instance.format_description('test', anime) }
+      it { should eq BbCodeFormatter.instance.format_description('test', anime) }
     end
 
     context :second_episode do
       before { AnimeVideoDecorator.any_instance.stub(:current_episode).and_return 2 }
-      it { should eq BbCodeService.instance.format_description('test', anime) }
+      it { should eq BbCodeFormatter.instance.format_description('test', anime) }
     end
   end
 

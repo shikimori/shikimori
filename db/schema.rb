@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140119082142) do
+ActiveRecord::Schema.define(:version => 20140123214429) do
 
   create_table "abuse_requests", :force => true do |t|
     t.integer  "user_id"
@@ -856,6 +856,8 @@ ActiveRecord::Schema.define(:version => 20140119082142) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "width"
+    t.integer  "height"
   end
 
   add_index "user_images", ["linked_id", "linked_type"], :name => "index_user_images_on_linked_id_and_linked_type"

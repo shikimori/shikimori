@@ -8,4 +8,4 @@
       = "#{group.members_count} #{Russian.p group.members_count, 'участник', 'участника', 'участников'}"
     p
       = cache [group, 'body', 'cut'], expires_in: 2.weeks do
-        = BbCodeService.instance.format_comment cut(group.description)
+        = BbCodeFormatter.instance.format_comment cut(group.description)

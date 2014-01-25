@@ -6,7 +6,7 @@ module CommentHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
   ComplexBbCodes = [:moderator, :smileys, :youtube, :group, :contest, :mention, :user_change, :user,
-                    :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler
+                    :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler, :user_image
                    ]
 
   @@smileys_path = '/images/smileys/'
@@ -233,12 +233,15 @@ module CommentHelper
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Group => [/(\[group(?:=(\d+))?\]([^\[]*?)\[\/group\])/, nil],
     Contest => [/(\[contest(?:=(\d+))?\]([^\[]*?)\[\/contest\])/, nil],
-    Ban => [/(\[ban(?:=(\d+))\])/, nil]
+    Ban => [/(\[ban(?:=(\d+))\])/, nil],
+    UserImage => [/(\[image(?:=(\d+))(?: (\d+)x(\d+))?\])/, nil]
   }
   @@type_matchers.each do |klass,data|
     matcher, preloader = data
 
     define_method("#{klass.name.to_underscore}_to_html") do |text|
+      text_hash = XXhash.xxh32 text, 0 if klass == UserImage
+
       while text =~ matcher
         if klass == Comment || klass == Entry
           url = if klass == Comment
@@ -294,6 +297,27 @@ module CommentHelper
             text.strip!
             break
           end
+
+        elsif klass == UserImage
+          begin
+            user_image = UserImage.find $2
+            width = $3.to_i if $3
+            height = $4.to_i if $4
+
+            if user_image.width <= 250 && user_image.height <= 250
+              text.gsub! $1, "<img src=\"#{user_image.image.url :original, false}\"/>"
+            else
+              if width
+                height = width / (1.0 * user_image.width / user_image.height) if 1.0 * width / height != 1.0 * user_image.width / user_image.height
+                sizes = " width=\"#{width.to_i}\" height=\"#{height.to_i}\""
+              end
+              text.gsub! $1, "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"#{sizes}/></a>"
+            end
+
+          rescue ActiveRecord::RecordNotFound
+            break
+          end
+
         else # [tag=id]name[/tag]
           begin
             id = $2.nil? ? $3.to_i : $2.to_i

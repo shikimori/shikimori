@@ -9,7 +9,7 @@ describe Entry do
   end
 
   context '#hooks' do
-    let(:images) { 1.upto(4).map { create :user_image, user: user } }
+    let(:images) { 1.upto(4).map { create :user_image, user: user, linked_type: 'Entry' } }
     let(:entry) { create :entry, text: 'text', user: user, value: "#{images[0].id},#{images[1].id}" }
 
     describe 'append_wall' do
@@ -21,9 +21,7 @@ describe Entry do
     describe 'destroy_images' do
       before { entry }
       it 'all images are destroyed' do
-        expect {
-          entry.destroy
-        }.to change(UserImage, :count).by -2
+        expect{entry.destroy}.to change(UserImage, :count).by -2
       end
     end
 

@@ -235,7 +235,7 @@ class MessagesController < UsersController
     if message.save
       # отправка увекдомления получателю
       if message.kind == MessageType::Private && !message.to.email.blank? && (message.to.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0)
-        Sendgrid.delay(run_at: DateTime.now + 10.minutes).private_message_email(message)
+        Sendgrid.delay_for(10.minutes).private_message_email(message)
       end
 
       render json: {
@@ -250,9 +250,10 @@ class MessagesController < UsersController
 
   # пометка сообщения как прочитанного
   def read
-    Message.where(id: (params[:ids] || '').split(',').map(&:to_i))
-           .where(to_id: current_user.id)
-           .update_all(read: params[:read])
+    Message
+      .where(id: (params[:ids] || '').split(',').map(&:to_i))
+      .where(to_id: current_user.id)
+      .update_all(read: params[:read])
 
     render json: {}
   end

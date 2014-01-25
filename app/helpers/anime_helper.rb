@@ -158,7 +158,7 @@ module AnimeHelper
       elsif !person.respond_to?(:source) || person[:description].blank?
         remove_misc_data(person.description.blank? ? person.description_mal : person.description)
       else
-        BbCodeService.instance.format_comment person.description.blank? ? person.description_mal : person.description
+        BbCodeFormatter.instance.format_comment person.description.blank? ? person.description_mal : person.description
       end
       text += truncate_html description, :length => 750, :separator => ' ', word_boundary: /\S[\.\?\!]/
     end
