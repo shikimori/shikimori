@@ -1,4 +1,4 @@
-= simple_form_for @user do |f|
+= simple_form_for @user.object do |f|
   input type="hidden" name="page" value="#{params[:page]}"
 
   .right-block
