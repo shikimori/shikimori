@@ -3,6 +3,7 @@
 .drag-placeholder {
   @include border-radius(1px);
   @include transition('opacity,border-color,color', 0.5s);
+  @include box-sizing(border-box);
   background: white;
   border: 1px dashed rgba(0, 0, 0, 0.6);
   font-family: Verdana, Arial;
