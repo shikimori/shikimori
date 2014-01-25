@@ -4,6 +4,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   after_filter :save_preferences, only: :show
 
   def index
+    raise ActionController::RoutingError.new 'Not Found' unless current_user.try(:admin?)
     anime_query = AnimeVideosQuery.new params
     @anime_ids = anime_query.search.order.page.fetch_ids
     @anime_list = AnimeVideoDecorator.decorate_collection anime_query.search.order.page.fetch_entries
