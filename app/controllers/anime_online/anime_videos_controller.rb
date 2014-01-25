@@ -4,30 +4,17 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   after_filter :save_preferences, only: :show
 
   def index
-    if Rails.env.production?
-      raise ActionController::RoutingError.new 'Not Found'
-    end
-
-    if search.blank?
-      @anime_ids = AnimeVideo
-        .select('distinct anime_id')
-        .paginate page: page, per_page: per_page
-    else
-      @anime_ids = AnimeVideo
-        .select('distinct anime_id')
-        .joins(:anime)
-        .where('name like ? or russian like ?', "%#{search}%", "%#{search}%")
-        .paginate page: page, per_page: per_page
-    end
-
-    @anime_list = AnimeVideoPreviewDecorator
-      .decorate_collection Anime.where(id: @anime_ids.map(&:anime_id))
+    raise ActionController::RoutingError.new 'Not Found' unless current_user.try(:admin?)
+    anime_query = AnimeVideosQuery.new params
+    @anime_ids = anime_query.search.order.page.fetch_ids
+    @anime_list = AnimeVideoDecorator.decorate_collection anime_query.search.order.page.fetch_entries
   end
 
   def show
-    redirect_to anime_videos_url search: search  unless search.blank?
+    redirect_to anime_videos_url search: params[:search] unless params[:search].blank?
 
-    @anime = AnimeVideoDecorator.new(Anime
+    @anime = AnimeVideoDecorator.new(
+      Anime
         .includes(:anime_videos, :genres)
         .find params[:id])
 
@@ -81,18 +68,6 @@ private
 
   def find_or_create_author name
     AnimeVideoAuthor.where(name: name).first || AnimeVideoAuthor.new(name: name)
-  end
-
-  def per_page
-    40
-  end
-
-  def page
-    [params[:page].to_i, 1].max
-  end
-
-  def search
-    params[:search]
   end
 
   def save_preferences

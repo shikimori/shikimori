@@ -23,9 +23,23 @@ describe AnimeOnline::AnimeVideosController do
   end
 
   describe :index do
-    before { get :index }
-    it { should respond_with_content_type :html }
-    it { response.should be_success }
+    context :admin do
+      before do
+        sign_in create :user, id: 1
+        get :index
+      end
+      it { should respond_with_content_type :html }
+      it { response.should be_success }
+    end
+
+    context :user do
+      before { sign_in create :user, id: 2 }
+      it { expect { get :index }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context :guest do
+      it { expect { get :index }.to raise_error(ActionController::RoutingError) }
+    end
   end
 
   describe :new do
