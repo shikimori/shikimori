@@ -15,4 +15,4 @@ module Sidekiq::Extensions::PostmarkHandler
   end
 end
 
-Sidekiq::Extensions::DelayedMailer.prepend Sidekiq::Extensions::PostmarkHandler
+Sidekiq::Extensions::DelayedMailer.send :prepend, Sidekiq::Extensions::PostmarkHandler
