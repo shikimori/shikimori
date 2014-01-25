@@ -301,18 +301,21 @@ module CommentHelper
         elsif klass == UserImage
           begin
             user_image = UserImage.find $2
-            width = $3.to_i if $3
-            height = $4.to_i if $4
+            width = $3.to_i
+            height = $4.to_i
 
             if user_image.width <= 250 && user_image.height <= 250
               text.gsub! $1, "<img src=\"#{user_image.image.url :original, false}\"/>"
             else
-              if width
+              sizes_html = if width > 0
                 ratio = 1.0 * user_image.width / user_image.height
                 width = [700, width, user_image.width].min
                 height = width / ratio if 1.0 * width / height != ratio
-                sizes_html = " class=\"check-width\" width=\"#{width.to_i}\" height=\"#{height.to_i}\""
+                " class=\"check-width\" width=\"#{width.to_i}\" height=\"#{height.to_i}\""
+              else
+                nil
               end
+
               text.gsub! $1, "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\"#{sizes_html}/></a>"
             end
 
