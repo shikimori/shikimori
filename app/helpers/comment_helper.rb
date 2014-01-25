@@ -311,12 +311,12 @@ module CommentHelper
                 ratio = 1.0 * user_image.width / user_image.height
                 width = [700, width, user_image.width].min
                 height = width / ratio if 1.0 * width / height != ratio
-                " class=\"check-width\" width=\"#{width.to_i}\" height=\"#{height.to_i}\""
+                " width=\"#{width.to_i}\" height=\"#{height.to_i}\""
               else
                 nil
               end
 
-              text.gsub! $1, "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\"#{sizes_html}/></a>"
+              text.gsub! $1, "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\" class=\"check-width\"#{sizes_html}/></a>"
             end
 
           rescue ActiveRecord::RecordNotFound
