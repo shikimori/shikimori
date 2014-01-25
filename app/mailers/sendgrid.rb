@@ -34,19 +34,8 @@ class Sendgrid < ActionMailer::Base
 
   def mail options, *args
     super
-
   rescue Postmark::InvalidMessageError => e
-    user = User.find_by_email options[:to]
-    return unless user
-
-    Message.wo_antispam do
-      Message.create!(
-        from_id: BotsService.get_poster.id,
-        to_id: user.id,
-        kind: MessageType::Notification,
-        body: "Наш почтовый сервис не смог доставить письмо на вашу почту #{user.email}.\nРекомендуем сменить e-mail в настройках профиля, иначе при утере пароля вы не сможете восстановить аккаунт."
-      )
-    end
+    User.find_by_email(options[:to]).notify_bounced_email
   end
 
 private
