@@ -22,7 +22,9 @@ class AnimeVideosQuery
   end
 
   def fetch_entries
-    @query_entries.where(id: @query.map(&:anime_id))
+    @query_entries
+      .includes(:anime_videos)
+      .where(id: @query.map(&:anime_id))
   end
 
   def order
