@@ -8,7 +8,7 @@ class UserImage < ActiveRecord::Base
   has_attached_file :image,
     styles: {
       original: ['1920x1920>', :jpg],
-      preview: ['700x320>', :jpg],
+      preview: ['700x700>', :jpg],
       thumbnail: ['150x150>', :jpg]
     },
     url: '/images/user_image/:style/:user_id/:id.:extension',

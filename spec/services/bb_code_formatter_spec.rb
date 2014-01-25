@@ -250,7 +250,7 @@ describe BbCodeFormatter do
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
 
       context 'large image' do
-        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"/></a>" }
+        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\"/></a>" }
       end
 
       context 'small image' do
@@ -260,7 +260,7 @@ describe BbCodeFormatter do
 
       context 'with size' do
         let(:text) { "[image=#{user_image.id} 400x500]" }
-        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\" width=\"400\" height=\"400\"/></a>" }
+        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :preview, false}\" class=\"check-width\" width=\"400\" height=\"400\"/></a>" }
       end
     end
 

@@ -308,10 +308,12 @@ module CommentHelper
               text.gsub! $1, "<img src=\"#{user_image.image.url :original, false}\"/>"
             else
               if width
-                height = width / (1.0 * user_image.width / user_image.height) if 1.0 * width / height != 1.0 * user_image.width / user_image.height
-                sizes = " width=\"#{width.to_i}\" height=\"#{height.to_i}\""
+                ratio = 1.0 * user_image.width / user_image.height
+                width = [700, width, user_image.width].min
+                height = width / ratio if 1.0 * width / height != ratio
+                sizes_html = " class=\"check-width\" width=\"#{width.to_i}\" height=\"#{height.to_i}\""
               end
-              text.gsub! $1, "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"#{sizes}/></a>"
+              text.gsub! $1, "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\"#{sizes_html}/></a>"
             end
 
           rescue ActiveRecord::RecordNotFound
