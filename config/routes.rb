@@ -4,7 +4,7 @@ Site::Application.routes.draw do
   constraints AnimeOnlineDomain  do
     root to: 'anime_online/anime_videos#index'
     namespace :anime_online do
-      resources :anime do
+      resources :anime, only: [:show] do
         resources :anime_videos, only: [:new, :create]
       end
       resource :anime_videos do
