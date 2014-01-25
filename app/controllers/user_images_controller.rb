@@ -17,8 +17,5 @@ class UserImagesController < ApplicationController
     else
       render json: @image.errors.messages, status: :unprocessable_entity
     end
-
-  rescue
-    render json: { error: 'Произошла ошибка при загрузке файла. Пожалуйста, повторите попытку, либо свяжитесь с администрацией сайта.' }, status: :unprocessable_entity
   end
 end
