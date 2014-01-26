@@ -9,7 +9,7 @@ class Sendgrid < ActionMailer::Base
   end
 
   def private_message_email message
-    return if message.read?
+    return if message.reload.read?
     return if generated?(message.to.email)
 
     mail(
