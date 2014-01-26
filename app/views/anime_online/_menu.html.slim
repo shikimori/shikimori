@@ -4,7 +4,7 @@ nav.navbar.navbar-default role='navigation'
       a.navbar-brand href="/" Play.Shikimori
 
     .collapse.navbar-collapse
-      form.navbar-form.navbar-left role='search'
+      = form_tag anime_videos_search_url, method: :post, class: 'navbar-form navbar-left', role: 'search' do
         .form-group
           input.search.form-control name='search' type='text' placeholder='Поиск' value="#{params[:search]}"
 

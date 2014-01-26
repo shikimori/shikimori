@@ -42,6 +42,12 @@ describe AnimeOnline::AnimeVideosController do
     end
   end
 
+  describe :search do
+    before { post :search, search: 'test' }
+    it { should respond_with_content_type :html }
+    it { response.should be_redirect }
+  end
+
   describe :new do
     context :can_new do
       let(:anime) { create :anime }
