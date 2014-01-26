@@ -1,14 +1,14 @@
 class AnimeVideosQuery
   PER_PAGE = 40
 
-  def initialize params
+  def initialize params={}
     @search = params[:search]
     @page = [params[:page].to_i, 1].max
+    @query = AnimeVideo.select('distinct anime_id')
+    @query_entries = Anime.includes(:anime_videos)
   end
 
   def search
-    @query = AnimeVideo.select('distinct anime_id')
-    @query_entries = Anime.includes(:anime_videos)
     unless @search.blank?
       @query = @query
         .joins(:anime)
