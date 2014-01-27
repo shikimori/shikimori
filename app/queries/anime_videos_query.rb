@@ -4,7 +4,9 @@ class AnimeVideosQuery
   def initialize params={}
     @search = params[:search]
     @page = [params[:page].to_i, 1].max
-    @query = AnimeVideo.select('distinct anime_id')
+    @query = AnimeVideo
+      .select('distinct anime_id')
+      .where(state: ['uploaded', 'working'])
     @query_entries = Anime.includes(:anime_videos)
   end
 
