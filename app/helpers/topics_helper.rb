@@ -4,7 +4,9 @@ module TopicsHelper
   end
 
   def topic_url(topic, format = nil)
-    if topic.kind_of?(ContestComment) || topic.news? || topic.review?
+    if topic.kind_of?(User)
+      user_url topic
+    elsif topic.kind_of?(ContestComment) || topic.news? || topic.review?
       section_topic_url section: topic.section, linked: nil, topic: topic, format: format
     else
       section_topic_url section: topic.section, linked: topic.linked, topic: topic, format: format
