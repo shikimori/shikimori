@@ -33,12 +33,18 @@ describe AnimeOnline::AnimeVideosController do
     end
 
     context :user do
-      before { sign_in create :user, id: 2 }
-      it { expect { get :index }.to raise_error(ActionController::RoutingError) }
+      before do
+        sign_in create :user, id: 2
+        get :index
+      end
+      it { should respond_with_content_type :html }
+      it { response.should be_success }
     end
 
     context :guest do
-      it { expect { get :index }.to raise_error(ActionController::RoutingError) }
+      before { get :index }
+      it { should respond_with_content_type :html }
+      it { response.should be_success }
     end
   end
 
