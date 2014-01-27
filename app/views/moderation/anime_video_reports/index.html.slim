@@ -1,5 +1,7 @@
 - content_for :head do
   = stylesheet_link_tag :moderation_anime_video_reports
+- content_for :tail do
+  = javascript_include_tag :moderation_anime_video_reports
 
 header.head
   h1 = @page_title
@@ -7,7 +9,7 @@ header.head
 .anime_video_reports
   h2.subheadline Очередь
   ul.subcontent
-    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.pending, formats: :html
+    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.pending.limit(20), formats: :html
 
   br
 

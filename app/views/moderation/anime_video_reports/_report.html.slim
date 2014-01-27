@@ -36,7 +36,7 @@
           span user_agent:
           span = report.user_agent
 
-      .video-player = render partial: 'anime_online/anime_videos/player', locals: { video: report.anime_video }
+      iframe data-url="#{report.anime_video.url}"
 
     - if report.pending?
       span.moderation
