@@ -122,4 +122,8 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   def last_episode
     @last_episode ||= videos.max().first unless videos.blank?
   end
+
+  def last_date
+    @last_date ||= anime_videos.select{|v| v.allowed?}.map(&:created_at).max || created_at
+  end
 end

@@ -139,4 +139,19 @@ describe AnimeVideoDecorator do
       it { should eq 'test1234567890123...' }
     end
   end
+
+  describe :last_date do
+    subject { AnimeVideoDecorator.new(anime).last_date }
+    let(:last_date) { DateTime.now }
+
+    context :with_video do
+      let(:anime) { build :anime, anime_videos: [build(:anime_video, created_at: last_date)] }
+      it { should eq last_date }
+    end
+
+    context :without_video do
+      let(:anime) { build :anime, created_at: last_date }
+      it { should eq last_date }
+    end
+  end
 end
