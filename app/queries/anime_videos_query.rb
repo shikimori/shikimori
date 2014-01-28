@@ -5,15 +5,14 @@ class AnimeVideosQuery
     @search = params[:search]
     @page = [params[:page].to_i, 1].max
     @query = AnimeVideo
+      .allowed
       .select('distinct anime_id')
-      .where(state: ['uploaded', 'working'])
     @query_entries = Anime.includes(:anime_videos)
   end
 
   def search
     unless @search.blank?
       @query = @query
-        .joins(:anime)
         .where('name like ? or russian like ?', "%#{@search}%", "%#{@search}%")
     end
     self

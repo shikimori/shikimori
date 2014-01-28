@@ -11,20 +11,40 @@ describe AnimeVideo do
 
   describe :scopes do
     subject { AnimeVideo.allowed }
-    before do
-      states.each do |s|
-        create :anime_video, state: s
+
+    context :filter_by_video_status do
+      before do
+        states.each do |s|
+          create :anime_video, state: s, anime: create(:anime)
+        end
+      end
+
+      context :good_states do
+        let(:states) { ['working', 'uploaded' ] }
+        it { should have(states.size).items }
+      end
+
+      context :bad_states do
+        let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
+        it { should have(0).items }
       end
     end
 
-    context :good_states do
-      let(:states) { ['working', 'uploaded' ] }
-      it { should have(states.size).items }
-    end
+    context :filter_by_anime_adult do
+      context :by_censored do
+        before { create :anime_video, anime: create(:anime, censored: true) }
+        it { should be_blank }
+      end
 
-    context :bad_states do
-      let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
-      it { should have(0).items }
+      context :by_rating do
+        before do
+          AnimeVideo::ADULT_RATINGS.each { |rating|
+            create :anime_video, anime: create(:anime, rating: rating)
+          }
+        end
+
+        it { should be_blank }
+      end
     end
   end
 
@@ -110,7 +130,7 @@ describe AnimeVideo do
     end
   end
 
-  describe :allowed do
+  describe :allowed? do
     context :true do
       ['working', 'uploaded'].each do |state|
         specify { build(:anime_video, state: state).allowed?.should be_true }
@@ -120,6 +140,39 @@ describe AnimeVideo do
     context :false do
       ['broken', 'wrong', 'banned'].each do |state|
         specify { build(:anime_video, state: state).allowed?.should be_false }
+      end
+    end
+  end
+
+  describe :adult? do
+    subject { video.adult? }
+    let(:video) { build_stubbed :anime_video, anime: anime }
+
+    context :by_rating do
+      let(:anime) { build :anime, rating: rating }
+
+      context :false do
+        let(:rating) { 'G - All Ages' }
+        it { should be_false }
+      end
+
+      context :true do
+        let(:rating) { 'R - 17+ (violence & profanity)' }
+        it { should be_true }
+      end
+    end
+
+    context :censored do
+      let(:anime) { build :anime, censored: censored }
+
+      context :false do
+        let(:censored) { false }
+        it { should be_false }
+      end
+
+      context :true do
+        let(:censored) { true }
+        it { should be_true }
       end
     end
   end
