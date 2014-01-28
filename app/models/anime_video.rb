@@ -1,3 +1,5 @@
+#TODO : проверить необходимость метода allowed?
+#TODO : нужно ли добавить в ADULT_RATINGS 'None'?
 class AnimeVideo < ActiveRecord::Base
   extend Enumerize
 
@@ -17,9 +19,15 @@ class AnimeVideo < ActiveRecord::Base
   before_save :check_ban
   before_save :check_copyright
 
-  scope :allowed, -> { where state: ['working', 'uploaded'] }
+  scope :allowed, -> {
+    joins(:anime)
+      .where('animes.rating not in (?)', ADULT_RATINGS)
+      .where('animes.censored = false')
+      .where(state: ['working', 'uploaded'])
+  }
 
   CopyrightBanAnimeIDs = [10793]
+  ADULT_RATINGS = ['R - 17+ (violence & profanity)', 'R+ - Mild Nudity', 'Rx - Hentai']
 
   state_machine :state, initial: :working do
     state :working
@@ -55,6 +63,10 @@ class AnimeVideo < ActiveRecord::Base
 
   def allowed?
     working? || uploaded?
+  end
+
+  def adult?
+    anime.censored || ADULT_RATINGS.include?(anime.rating)
   end
 
   def copyright_ban?

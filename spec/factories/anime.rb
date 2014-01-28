@@ -9,6 +9,7 @@ FactoryGirl.define do
     score 1
     mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind 'TV'
+    rating 'G - All Ages'
 
     after(:build) do |anime|
       anime.stub :create_thread
