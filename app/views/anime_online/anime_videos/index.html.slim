@@ -6,13 +6,17 @@
           a href="#{anime_videos_show_url anime.id}"
             .cover
               img width="160" height="240" src="http://shikimori.org#{anime.image.url(:preview) }" alt="#{{anime.name}}"
-              .title = anime.russian
+              .title = (anime.russian || anime.name).html_safe
 
               - if anime.last_date > DateTime.now.prev_week
                 .episode = anime.last_episode
 
             .info
-              .title = anime.name
+              - if anime.name.size > 90
+                .title title="#{anime.name.html_safe}" = truncate anime.name.html_safe, length: 90
+              - else
+                .title = anime.name.html_safe
+
               = render 'anime_online/blocks/info', anime: anime
               .date = anime.last_date.strftime '%d.%m.%Y'
 

@@ -2,7 +2,7 @@
 .p-anime_video-show
   /= render partial: 'anime_online/blocks/ad_top'
 
-  .title = @anime.name
+  .title = @anime.name.to_s.html_safe
   .row
     .col-md-3.col-sm-4
       img src="http://shikimori.org#{@anime.image}" title="#{{@anime.name}}" alt="#{{@anime.name}}"
