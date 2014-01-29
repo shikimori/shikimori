@@ -4,6 +4,7 @@
 class Anime < ActiveRecord::Base
   include AniManga
   EXCLUDED_ONGOINGS = [966, 1199, 1960, 2406, 4459, 6149, 7511, 7643, 8189, 8336, 8687, 9799, 9947, 10506, 10797, 10995, 15749, 7643, 9799, 10856, 13165, 13433, 13463, 13465, 16908, 17733, 18097, 18155, 18191, 19825, 18941, 21447, 19755, 19843, 19157, 20267, 21981, 15389, 12393, 13167, 13457, 15111, 18755, 8631, 18919, 18845, 18365, 18241, 18227, 17697, 17237, 16389, 15865, 9943, 21523, 21433, 19445, 20261]
+  ADULT_RATINGS = ['R - 17+ (violence & profanity)', 'R+ - Mild Nudity', 'Rx - Hentai']
 
   # Fields
   serialize :english
@@ -489,5 +490,9 @@ class Anime < ActiveRecord::Base
       AnimeNews.create_for_new_ongoing(self) if self.status == AniMangaStatus::Ongoing && self.changes["status"][0] != AniMangaStatus::Released
     end
     self.save if resave
+  end
+
+  def adult?
+    censored || ADULT_RATINGS.include?(rating)
   end
 end

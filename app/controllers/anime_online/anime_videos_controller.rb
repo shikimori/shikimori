@@ -1,3 +1,4 @@
+#TODO разделить аниме для play и xplay в #index, #show, #search
 class AnimeOnline::AnimeVideosController < ApplicationController
   layout 'anime_online'
 

@@ -5,9 +5,10 @@ class AnimeVideosQuery
     @search = params[:search]
     @page = [params[:page].to_i, 1].max
     @query = AnimeVideo
-      .allowed
+      .allowed_play
       .select('distinct anime_id')
-    @query_entries = Anime.includes(:anime_videos)
+    @query_entries = Anime
+      .includes(:anime_videos)
   end
 
   def search
@@ -24,7 +25,6 @@ class AnimeVideosQuery
 
   def fetch_entries
     @query_entries
-      .includes(:anime_videos)
       .where(id: @query.map(&:anime_id))
   end
 

@@ -337,4 +337,36 @@ describe Anime do
       end
     end
   end
+
+  describe :adult? do
+    subject { anime.adult? }
+
+    context :by_rating do
+      let(:anime) { build :anime, rating: rating }
+
+      context :false do
+        let(:rating) { 'G - All Ages' }
+        it { should be_false }
+      end
+
+      context :true do
+        let(:rating) { 'R - 17+ (violence & profanity)' }
+        it { should be_true }
+      end
+    end
+
+    context :censored do
+      let(:anime) { build :anime, censored: censored }
+
+      context :false do
+        let(:censored) { false }
+        it { should be_false }
+      end
+
+      context :true do
+        let(:censored) { true }
+        it { should be_true }
+      end
+    end
+  end
 end

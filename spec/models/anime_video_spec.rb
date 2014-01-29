@@ -10,40 +10,58 @@ describe AnimeVideo do
   it { should validate_numericality_of :episode }
 
   describe :scopes do
-    subject { AnimeVideo.allowed }
+    describe :worked do
+      subject { AnimeVideo.worked }
 
-    context :filter_by_video_status do
-      before do
-        states.each do |s|
-          create :anime_video, state: s, anime: create(:anime)
+      context :filter_by_video_status do
+        before do
+          states.each do |s|
+            create :anime_video, state: s, anime: create(:anime)
+          end
         end
-      end
 
-      context :good_states do
-        let(:states) { ['working', 'uploaded' ] }
-        it { should have(states.size).items }
-      end
+        context :good_states do
+          let(:states) { ['working', 'uploaded' ] }
+          it { should have(states.size).items }
+        end
 
-      context :bad_states do
-        let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
-        it { should have(0).items }
+        context :bad_states do
+          let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
+          it { should have(0).items }
+        end
       end
     end
 
-    context :filter_by_anime_adult do
-      context :by_censored do
-        before { create :anime_video, anime: create(:anime, censored: true) }
-        it { should be_blank }
-      end
+    describe :allowed_play do
+      subject { AnimeVideo.allowed_play }
 
-      context :by_rating do
-        before do
-          AnimeVideo::ADULT_RATINGS.each { |rating|
-            create :anime_video, anime: create(:anime, rating: rating)
-          }
+      context :true do
+        context :by_censored do
+          before { create :anime_video, anime: create(:anime, censored: false) }
+          it { should have(1).items }
         end
 
-        it { should be_blank }
+        context :by_reting do
+          before { create :anime_video, anime: create(:anime, rating: 'None') }
+          it { should have(1).items }
+        end
+      end
+
+      context :false do
+        context :by_censored do
+          before { create :anime_video, anime: create(:anime, censored: true) }
+          it { should be_blank }
+        end
+
+        context :by_rating do
+          before do
+            Anime::ADULT_RATINGS.each { |rating|
+              create :anime_video, anime: create(:anime, rating: rating)
+            }
+          end
+
+          it { should be_blank }
+        end
       end
     end
   end
@@ -140,39 +158,6 @@ describe AnimeVideo do
     context :false do
       ['broken', 'wrong', 'banned'].each do |state|
         specify { build(:anime_video, state: state).allowed?.should be_false }
-      end
-    end
-  end
-
-  describe :adult? do
-    subject { video.adult? }
-    let(:video) { build_stubbed :anime_video, anime: anime }
-
-    context :by_rating do
-      let(:anime) { build :anime, rating: rating }
-
-      context :false do
-        let(:rating) { 'G - All Ages' }
-        it { should be_false }
-      end
-
-      context :true do
-        let(:rating) { 'R - 17+ (violence & profanity)' }
-        it { should be_true }
-      end
-    end
-
-    context :censored do
-      let(:anime) { build :anime, censored: censored }
-
-      context :false do
-        let(:censored) { false }
-        it { should be_false }
-      end
-
-      context :true do
-        let(:censored) { true }
-        it { should be_true }
       end
     end
   end
