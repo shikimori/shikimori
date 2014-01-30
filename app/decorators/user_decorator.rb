@@ -19,7 +19,7 @@ class UserDecorator < Draper::Decorator
 
   # находится ли пользователь в друзьях у текущего пользователя?
   def friended?
-    @favored ||= h.current_user.friends.any? {|v| v.id == id }
+    @favored ||= h.current_user && h.current_user.friends.any? {|v| v.id == id }
   end
 
   # находится ли текущий пользователь в друзьях у пользователя?
