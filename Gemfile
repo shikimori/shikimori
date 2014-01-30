@@ -118,9 +118,8 @@ group :test, :development do
   gem 'rb-fchange', require: false
 
   gem 'spork'
-  gem 'guard', '1.8.2'
-  gem 'listen', '1.3.0'
-  gem 'guard-rspec', '3.0.2'
+  gem 'guard'
+  gem 'guard-rspec'
   gem 'guard-spork'
   gem 'guard-livereload'
 

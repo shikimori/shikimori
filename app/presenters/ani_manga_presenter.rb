@@ -1,0 +1,2 @@
+module AniMangaPresenter
+end

@@ -5,7 +5,6 @@ require 'rspec/autorun'
 require 'spork'
 #require 'shoulda'
 require 'paperclip/matchers'
-require 'webmock/rspec'
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
@@ -80,111 +79,11 @@ Spork.prefork do
     end
 
   end
-
-  #module Sidekiq::Worker::ClassMethods
-    #def schedule(*args)
-    #end
-  #end
-
-  #module Sidekiq::Worker::ClassMethods
-    #def perform_async(*args)
-    #end
-  #end
 end
 
 Spork.each_run do
   ActiveRecord::Migration.check_pending! if Rails.version.to_i >= 4
   FactoryGirl.reload
-  ActiveSupport::Dependencies.clear if RSpec.configuration.drb?
+  ActiveSupport::Dependencies.clear # if RSpec.configuration.drb?
   Rails.application.reload_routes!
 end
-#require 'spork'
-
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-#ENV["RAILS_ENV"] ||= 'test'
-#require File.expand_path("../../config/environment", __FILE__)
-#require 'rspec/rails'
-#require 'capybara/rspec'
-#require 'devise/test_helpers'
-#require 'shoulda'
-#require 'paperclip/matchers'
-#require 'webmock/rspec'
-
-#Spork.prefork do
-  #ENV["RAILS_ENV"] ||= 'test'
-  #require File.expand_path("../../config/environment", __FILE__)
-
-  #require 'factory_girl_rails'
-  #Spork.trap_class_method(FactoryGirl, :find_definitions)
-
-  #require 'rspec/rails'
-  ## Requires supporting ruby files with custom matchers and macros, etc,
-  ## in spec/support/ and its subdirectories.
-  #Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
-
-  #module AuthHelpers
-    #def sign_in(user)
-      #post_via_redirect new_user_session_path, 'user[nickname]' => user.nickname, 'user[password]' => FactoryGirl.attributes_for(:user)[:password]
-    #end
-  #end
-
-  #module ActionController
-    #class TestResponse
-      #def unauthorized?
-        #@status == 401
-      #end
-
-      #def unprocessible_entiy?
-        #@status == 422
-      #end
-    #end
-  #end
-
-  #VCR.configure do |c|
-    #c.cassette_library_dir = 'spec/vcr_cassettes'
-    #c.hook_into :webmock # or :fakeweb
-    #c.default_cassette_options = { record: :new_episodes, erb: true }
-    #c.allow_http_connections_when_no_cassette = true
-  #end
-
-  #RSpec.configure do |config|
-    #config.mock_with :rspec
-
-    ## Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-    ##config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-    ## If you're not using ActiveRecord, or you'd prefer not to run each of your
-    ## examples within a transaction, remove the following line or assign false
-    ## instead of true.
-    #config.use_transactional_fixtures = true
-
-    #config.render_views
-
-    #config.treat_symbols_as_metadata_keys_with_true_values = true
-
-    #config.filter_run focus: true
-    #config.run_all_when_everything_filtered = true
-
-    #config.include FactoryGirl::Syntax::Methods
-    #config.include Paperclip::Shoulda::Matchers, type: :model
-    #config.include Devise::TestHelpers, type: :controller
-    ##config.include AuthHelpers, type: :request
-    ##config.include Devise::TestHelpers, type: :view
-    ##config.include Devise::TestHelpers, type: :helper
-
-    #config.before :suite do
-      #DatabaseRewinder.clean_all
-    #end
-
-    #config.after :each do
-    #end
-  #end
-#end
-
-#Spork.each_run do
-  #FactoryGirl.reload
-  #ActiveSupport::Dependencies.clear
-  #ActiveRecord::Base.instantiate_observers
-  #Rails.application.reload_routes!
-#end
