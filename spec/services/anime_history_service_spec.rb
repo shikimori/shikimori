@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe AnimeHistoryService do
-  let!(:users) { create_list :user, 2, notifications: 2**32-1 }
+  let!(:users) { create_list :user, 2, notifications: 0xFFFFFF }
 
   def process
     AnimeHistoryService.process

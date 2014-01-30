@@ -202,13 +202,13 @@ describe BbCodeFormatter do
     describe '[vkontakte]' do
       let(:text) { "http://vk.com/video98023184_165811692" }
       before { VCR.use_cassette(:vk_video) { subject } }
-      it { should include '<div class="image-container video"' }
+      it { should include '<div class="image-container video vk"' }
     end
 
     describe '[youtube]' do
       let(:hash) { "og2a5lngYeQ" }
       let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
-      it { should include "<div class=\"image-container video\"" }
+      it { should include '<div class="image-container video youtube"' }
     end
 
     describe '[url]' do
