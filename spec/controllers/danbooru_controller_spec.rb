@@ -1,6 +1,6 @@
 require 'spec_helper'
+require 'webmock/rspec'
 
-#TODO: разобраться почему DelayedJob не работает и включить его в тесты
 describe DanbooruController do
   describe :show do
     let(:md5) { 'TTTEST' }

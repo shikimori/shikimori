@@ -1,14 +1,22 @@
 class Video < ActiveRecord::Base
+  extend Enumerize
+
   belongs_to :anime
   belongs_to :uploader, class_name: User.name
 
-  validates_presence_of :anime_id
-  validates_presence_of :uploader_id
-  validates_presence_of :url
-  validates_presence_of :kind
+  serialize :details
 
-  before_create :existence
-  before_create :youtube
+  validates :anime_id, presence: true
+  validates :uploader_id, presence: true
+  validates :url, presence: true
+  validates :kind, presence: true
+
+  validates_uniqueness_of :url, case_sensitive: true, scope: [:anime_id, :state]
+
+  before_save :check_url
+  before_save :check_youtube_existence, if: :youtube?
+  before_save :check_vk_existence, if: :vk?
+
   after_create :suggest_acception
 
   PV = 'PV'
@@ -17,16 +25,14 @@ class Video < ActiveRecord::Base
   AMW = 'AMW'
   OST = 'OST'
 
-  PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
+  YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
+  VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
   default_scope order('kind desc, name')
 
   state_machine :state, initial: :uploaded do
-    state :uploaded, :confirmed do
-      validates_uniqueness_of :url, case_sensitive: true, scope: [:anime_id, :state]
-      validate :existence
-      validate :youtube
-    end
+    state :uploaded
+    state :confirmed
     state :deleted
 
     event :confirm do
@@ -38,59 +44,100 @@ class Video < ActiveRecord::Base
   end
 
   def image_url
-    "http://img.youtube.com/vi/#{key}/mqdefault.jpg"
+    if youtube?
+      "http://img.youtube.com/vi/#{key}/mqdefault.jpg"
+    else
+      details[:image_url]
+    end
   end
 
   def direct_url
-    url.sub /watch\?v=/, 'v/'
+    if youtube?
+      url.sub /watch\?v=/, 'v/'
+    else
+      "https://vk.com/video_ext.php?oid=#{details.oid}&id=#{details.vid}&hash=#{details.hash2}&hd=1"
+    end
   end
 
   def key
-    url.match(PARAM_REGEXP) ? $1 : nil
+    url.match(YOUTUBE_PARAM_REGEXP) ? $1 : nil
   end
 
   # напреление видео на удаление
-  def suggest_deletion(user)
+  def suggest_deletion user
     return unless confirmed?
 
-    UserChange.create({
+    UserChange.create(
       action: UserChange::VideoDeletion,
       column: 'video',
       item_id: anime_id,
       model: Anime.name,
       user_id: user.id,
       value: id
-    })
+    )
   end
 
-  def url=(url)
+  def url= url
     self[:url] = url || ''
     self[:url] = self[:url].sub(/^https/, 'http').sub(/#.*/, '').sub(/^http:\/\/www\./, 'http://')
 
-    if self[:url].starts_with?('http://youtube.com/watch?') && self.url =~ PARAM_REGEXP
+    if self[:url].starts_with?('http://youtube.com/watch?') && self.url =~ YOUTUBE_PARAM_REGEXP
       self[:url] = 'http://youtube.com/watch?v=' + $1
     end
+
+    url
+  end
+
+  def youtube?
+    !!(url && url.starts_with?('http://youtube.com/watch?'))
+  end
+
+  def vk?
+    !!(url && url.starts_with?('http://vk.com/video'))
+  end
+
+  def details
+    self[:details] || fetch_vk_details
+  end
+
+  def hosting
+    vk? ? :vk : :youtube
   end
 
 private
-  def youtube
-    unless (url || '').starts_with?('http://youtube.com/watch?') && url =~ PARAM_REGEXP
-      self.errors[:url] = 'некорректен, должна быть ссылка на youtube'
-      false
-    end
+  def check_url
+    return if (youtube? && url =~ YOUTUBE_PARAM_REGEXP) || (vk? && url =~ VK_PARAM_REGEXP)
+
+    self.errors[:url] = I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')
+    false
   end
 
-  def existence
-    sleep 1 # задержка, т.к. ютуб блочит при быстрых запросах
+  def check_youtube_existence
+    sleep 1 unless Rails.env.test? # задержка, т.к. ютуб блочит при быстрых запросах
     open("http://gdata.youtube.com/feeds/api/videos/#{key}").read
+
   rescue OpenURI::HTTPError
-    self.errors[:url] = 'некорректен, нет такого видео на youtube'
+    self.errors[:url] = I18n.t('activerecord.errors.models.videos.attributes.url.youtube_not_exist')
     false
+  end
+
+  def fetch_vk_details
+    sleep 1 unless Rails.env.test?
+    self.details = VkVideoExtractor.new(url).fetch
+  end
+
+  def check_vk_existence
+    if details.nil?
+      self.errors[:url] = I18n.t('activerecord.errors.models.videos.attributes.url.vk_not_exist')
+      false
+    else
+      details
+    end
   end
 
   # направление видео на модерацию
   def suggest_acception
-    UserChange.create({
+    UserChange.create(
       action: UserChange::VideoUpload,
       column: 'video',
       item_id: anime_id,
@@ -98,6 +145,6 @@ private
       user_id: uploader_id,
       value: id,
       status: uploaded? ? UserChangeStatus::Pending : UserChangeStatus::Taken
-    })
+    )
   end
 end

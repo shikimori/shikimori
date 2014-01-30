@@ -8,9 +8,23 @@
   margin-bottom: 3px;
   img {
     &.preload {
-      /*width: 178px;*/
       height: 178px;
     }
+  }
+
+  .video-marker {
+    @include ellipsis;
+    background: white;
+    color: #123;
+    font-size: 11px!important;
+    font-weight: bold!important;
+    line-height: 18px!important;
+    margin-top: -21px;
+    max-width: 169px;
+    padding: 0 4px;
+    position: absolute;
+    text-align: center;
+    text-indent: 0!important;
   }
 
   &.video {
@@ -34,18 +48,18 @@
     }
   }
 
-  .video-marker {
-    @include ellipsis;
-    background: white;
-    color: #123;
-    font-size: 11px!important;
-    font-weight: bold!important;
-    line-height: 18px!important;
-    margin-top: -21px;
-    max-width: 169px;
-    padding: 0 4px;
-    position: absolute;
-    text-align: center;
-    text-indent: 0!important;
+  &.video.vk {
+    a {
+      height: 132px;
+      overflow: hidden;
+      display: inline-block;
+    }
+    img {
+      height: 176px;
+      margin-top: -22px;
+    }
+    .video-marker {
+      margin-top: -43px;
+    }
   }
 }

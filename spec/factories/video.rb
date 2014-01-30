@@ -5,10 +5,16 @@ FactoryGirl.define do
     anime_id 1
     url 'http://youtube.com/watch?v=VdwKZ6JDENc'
     kind Video::OP
-    after(:build) {|v| v.stub :existence }
+    after(:build) do |v|
+      v.stub :check_youtube_existence
+      v.stub :fetch_vk_details
+    end
 
-    trait :with_existence do
-      after(:build) {|v| v.unstub :existence }
+    trait :with_http_request do
+      after(:build) do |v|
+        v.unstub :check_youtube_existence
+        v.unstub :fetch_vk_details
+      end
     end
   end
 end

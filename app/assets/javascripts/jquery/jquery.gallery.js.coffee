@@ -27,6 +27,11 @@
           $('#fancybox-expand').hide()
       )
 
+  $.extend
+    vkOptions: $.extend({}, $.youtubeOptions,
+        type: 'iframe'
+      )
+
   # дефолтная галерея сайта
   $.fn.extend gallery: (options) ->
     @each ->

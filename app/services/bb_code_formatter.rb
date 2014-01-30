@@ -24,18 +24,43 @@ class BbCodeFormatter
   end
 
   # форматирование текста комментариев
-  def format_comment initial_text
-    text = remove_wiki_codes initial_text
+  def format_comment original_text
+    text = remove_wiki_codes original_text
     text = strip_malware text
     text = user_mention text
-    text = super text
+
+    text = ERB::Util.h(text)
+    text = bb_codes text
+
     text = cleanup text
 
     text.html_safe
   end
 
-  def preprocess_comment text
-    user_mention(text)
+  # обработка ббкодов текста
+  # TODO: перенести весь код ббкодов сюда или в связанные классы
+  def bb_codes original_text
+    text = original_text.gsub /\r\n|\r|\n/, '<br />'
+
+    text = BbCodes::YoutubeTag.instance.format text
+    text = BbCodes::VkTag.instance.format text
+
+    text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem
+    text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
+    text = text.gsub '<ul><br />', '<ul>'
+    text = text.gsub '</ul><br />', '</ul>'
+
+    BbCodeReplacers.each do |processor|
+      text = send processor, text
+    end
+
+    text = db_entry_mention text
+    text = anime_to_html text
+    text = manga_to_html text
+    text = character_to_html text
+    text = person_to_html text
+
+    text
   end
 
   # удаление из текста вредоносных доменов
@@ -76,13 +101,18 @@ class BbCodeFormatter
     end
   end
 
+  def preprocess_comment text
+    user_mention(text)
+  end
+
   # удаление мусора из текста
   def cleanup text
-    text.gsub(/!!!+/, '!')
-        .gsub(/\?\?\?+/, '?')
-        .gsub(/\.\.\.\.+/, '.')
-        .gsub(/\)\)\)+/, ')')
-        .gsub(/\(\(\(+/, '(')
-        .gsub(/(<img .*? class="smiley" \/>)\s*<img .*? class="smiley" \/>(?:\s*<img .*? class="smiley" \/>)+/, '\1')
+    text
+      .gsub(/!!!+/, '!')
+      .gsub(/\?\?\?+/, '?')
+      .gsub(/\.\.\.\.+/, '.')
+      .gsub(/\)\)\)+/, ')')
+      .gsub(/\(\(\(+/, '(')
+      .gsub(/(<img .*? class="smiley" \/>)\s*<img .*? class="smiley" \/>(?:\s*<img .*? class="smiley" \/>)+/, '\1')
   end
 end

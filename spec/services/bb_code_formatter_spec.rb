@@ -199,28 +199,16 @@ describe BbCodeFormatter do
       it { should eq '<div class="height-unchecked inner-block"></div><div class="wall"></div>' }
     end
 
-    describe '[youtube]' do
-      describe 'with time' do
-        let(:hash) { "og2a5lngYeQ" }
-        let(:time) { 22 }
-        let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
-        it { should include "<div class=\"image-container video\"" }
-        it { should include "a data-href=\"http://youtube.com/v/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
-      end
-
-      describe 'without time' do
-        let(:hash) { "og2a5lngYeQ" }
-        let(:text) { "[url=http://www.youtube.com/watch?feature=player_embedded&v=#{hash}]www.youtube.com[/url]" }
-        it { should include "<div class=\"image-container video\"" }
-        it { should include "a data-href=\"http://youtube.com/v/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
-      end
+    describe '[vkontakte]' do
+      let(:text) { "http://vk.com/video98023184_165811692" }
+      before { VCR.use_cassette(:vk_video) { subject } }
+      it { should include '<div class="image-container video"' }
     end
+
     describe '[youtube]' do
       let(:hash) { "og2a5lngYeQ" }
-      let(:time) { 22 }
-      let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
+      let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
       it { should include "<div class=\"image-container video\"" }
-      it { should include "a data-href=\"http://youtube.com/v/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
     end
 
     describe '[url]' do

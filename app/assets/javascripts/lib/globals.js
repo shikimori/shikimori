@@ -127,7 +127,7 @@ $(document.body).on('click', '.video', function(e) {
     return;
   }
   if (!$('a', this).data('fancybox')) {
-    $('a', this).fancybox($.youtubeOptions);
+    $('a', this).fancybox($(this).hasClass('vk') ? $.vkOptions : $.youtubeOptions);
     $('a', this).trigger('click');
   }
   if (!in_new_tab(e)) {

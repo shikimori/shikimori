@@ -5,7 +5,7 @@ module CommentHelper
   include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :youtube, :group, :contest, :mention, :user_change, :user,
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user,
                     :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler, :user_image
                    ]
 
@@ -120,7 +120,9 @@ module CommentHelper
 
   BbCodeReplacers = ComplexBbCodes.map { |v| "#{v}_to_html".to_sym }.reverse
 
+  # TODO: удалить метод
   def format_comment text, poster=nil
+    ActiveSupport::Deprecation.warn "use BbCodeFormatter.instance.format_comment instead.", caller
     safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
 
     result = remove_wiki_codes(remove_old_tags(safe_text))
@@ -172,32 +174,56 @@ module CommentHelper
   end
 
   def remove_old_tags(html)
-    html.gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
-        .gsub(/(?:<|&lt;)br ?\/?(?:>|&gt;)/, "\n")
-        .strip
-        #.gsub(/[\n\r\t ]+$/x, '')
+    html
+      .gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
+      .gsub(/(?:<|&lt;)br ?\/?(?:>|&gt;)/, "\n")
+      .strip
+      #.gsub(/[\n\r\t ]+$/x, '')
   end
 
-  def youtube_html hash, time
-    video = Video.new url: "http://youtube.com/watch?v=#{hash}"
-    @template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
-    @template.render OpenStruct.new(video: video, time: time)
-  end
+  #def youtube_html hash, time
+    #video = Video.new url: "http://youtube.com/watch?v=#{hash}"
+    #video_html video, time
+  #end
 
-  def youtube_to_html text, poster=nil
-    text = text.gsub %r{<a href="(?:https?://(?:www\.)?youtube.com/watch\?(?:feature=player_embedded&(?:amp;))?v=([^&\s"<>#]+)([^\s"<>]+)?)">[^<]+</a>(?:(?:<br ?/?>)*(?=<a href="https?:\/\/(?:www\.)?youtube.com)|)}mi do |match|
-      hash = $1
-      time = $2[/\bt\b=(\d+)/, 1] if $2
-      youtube_html hash, time
-    end
+  #def youtube_to_html text, poster=nil
+    ##text = text.gsub %r{<a href="(?:https?://(?:www\.)?youtube.com/watch\?(?:feature=player_embedded&(?:amp;))?v=([^&\s"<>#]+)([^\s"<>]+)?)">[^<]+</a>(?:(?:<br ?/?>)*(?=<a href="https?:\/\/(?:www\.)?youtube.com)|)}mi do |match|
+      ##hash = $1
+      ##time = $2[/\bt\b=(\d+)/, 1] if $2
+      ##youtube_html hash, time
+    ##end
 
-    text.gsub /([^"\]]|^)(?:https?:\/\/(?:www\.)?youtube.com\/watch\?(?:feature=player_embedded&(?:amp;)?)v=([^&\s<>#]+)([^\s<>]+)?)/mi do
-      content = $1
-      hash = $2
-      time = $3[/\bt\b=(\d+)/, 1] if $3
-      content + youtube_html(hash, time)
-    end
-  end
+    #text.gsub /([^"\]]|^)(?:https?:\/\/(?:www\.)?youtube.com\/watch\?(?:feature=player_embedded&(?:amp;)?)v=([^&\s<>#]+)([^\s<>]+)?)/mi do
+      #content = $1
+      #hash = $2
+      #time = $3[/\bt\b=(\d+)/, 1] if $3
+      #content + youtube_html(hash, time)
+    #end
+  #end
+
+  #def vk_html url
+    #video = Video.new url: url
+    #@template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+    #@template.render OpenStruct.new(video: video)
+  #end
+
+  #def vkontakte_to_html text, poster=nil
+    ##text = text.gsub %r{<a href="(?<url>#{Video::VK_PARAM_REGEXP.source})">[^<]+</a>(?:(?:<br ?/?>)*(?=<a href="#{Video::VK_PARAM_REGEXP.source})|)}mi do |match|
+      ##vk_html $~[:url]
+    ##end
+
+    #text.gsub /([^"\]]|^)(?<url>#{Video::VK_PARAM_REGEXP})/mi do
+      #vk_html $~[:url]
+    #end
+
+    ##<a href="(?:https?://(?:www\.)?youtube.com/watch\?(?:feature=player_embedded&(?:amp;))?v=([^&\s"<>#]+)([^\s"<>]+)?)">[^<]+</a>
+    #text
+  #end
+
+  #def video_html video, time
+    #@template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+    #@template.render OpenStruct.new(video: video, time: time)
+  #end
 
   def quote_to_html text, poster=nil
     return text unless text.include?("[quote") && text.include?("[/quote]")

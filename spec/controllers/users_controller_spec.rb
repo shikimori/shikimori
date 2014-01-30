@@ -23,7 +23,7 @@ describe UsersController do
   describe :update_password do
     context 'user without password' do
       before do
-        user.update_column :encrypted_password, nil
+        user.update_column :encrypted_password, ''
         controller.stub(:current_user).and_return user
         put :update_password, id: user.to_param, user: { password: '1234', password_confirmation: '1234' }
       end

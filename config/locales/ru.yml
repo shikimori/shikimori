@@ -60,6 +60,12 @@ ru:
       models:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'
+        videos:
+          attributes:
+            url:
+              incorrect: некорректен, должна быть ссылка на youtube или vkontakte
+              youtube_not_exist: некорректен, нет такого видео на youtube
+              vk_not_exist: некорректен, нет такого видео на vkontakte
 
     state_machines:
       contest:
@@ -129,8 +135,8 @@ ru:
       few: минуты
       many: минут
   messages:
-    user_banned: 'Пользователь забанен'
-    user_warned: 'Пользователь предупреждён'
+    user_banned: Пользователь забанен
+    user_warned: Пользователь предупреждён
 
   will_paginate:
     previous_label: '<'

@@ -14,7 +14,6 @@
 
         # сохранение по ctrl+enter
         $editor.keypress((e) ->
-          console.log e.keyCode if e.keyCode is 10 or e.keyCode is 13
           $root.find("form").submit() if (e.keyCode is 10 or e.keyCode is 13) and e.ctrlKey
         ).keydown (e) ->
           $root.find("form").submit() if e.keyCode is 13 and e.metaKey
