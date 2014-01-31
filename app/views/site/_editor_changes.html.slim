@@ -54,11 +54,11 @@
                     p эту правку посмотрит morr
                   - elsif user_signed_in? && current_user.user_changes_moderator?
                     - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? change.column
-                      = link_to 'принять', moderation_aplly_user_change_path(change), class: 'default-link', title: 'Применить правку'
-                    = link_to 'взять', moderation_take_user_change_path(change), class: 'default-link', title: 'Применить правку, но НЕ учтывать пользователя среди авторов'
-                    = link_to 'отказать', moderation_deny_user_change_path(change), class: 'default-link', title: 'Отменить правку и послать пользователю уведомление об этом'
+                      a href="#{moderation_aplly_user_change_path change}" title="Применить правку" принять
+                    a href="#{moderation_take_user_change_path change}" title="Применить правку, но НЕ учтывать пользователя среди авторов" взять
+                    a href="#{moderation_deny_user_change_path change}" title="Отменить правку и послать пользователю уведомление об этом" отказать
                   - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == change.user_id)
-                    = link_to 'удалить', moderation_delete_user_change_path(change), class: 'default-link', title: 'Отменить правку и не посылать пользователю уведомление об этом'
+                    a href="#{moderation_delete_user_change_path change}" title="Отменить правку и не посылать пользователю уведомление об этом" удалить
 
             - if change.screenshots?
               - if change.action == UserChange::ScreenshotsPosition

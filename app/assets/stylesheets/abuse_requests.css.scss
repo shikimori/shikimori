@@ -3,6 +3,7 @@
 */
 @import "compass/utilities/general/clearfix";
 @import "globals";
+@import "mixins/bracket_action";
 
 .abuse-requests {
   .outdated {
@@ -46,6 +47,13 @@
       display: inline-block;
       margin-left: 30px;
 
+      .moderation {
+        margin-right: 0;
+
+        span {
+          @include bracket_action;
+        }
+      }
       .bracket-actions {
         padding-left: 0;
         padding-right: 10px;

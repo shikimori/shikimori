@@ -1,0 +1,16 @@
+@import mixins/bracket_action
+
+=bracket_details
+  +bracket_action
+  color: #666
+  cursor: default
+  padding-left: 5px
+
+  &:hover
+    color: #666
+
+  &:before
+    content: '('
+
+  &:after
+    content: ')'

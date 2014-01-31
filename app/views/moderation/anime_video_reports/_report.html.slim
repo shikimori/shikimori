@@ -25,11 +25,15 @@
       span.action.half-hidden style="display: none;" развернуть
     .collapsed.spoiler подробности
     .spoiler.target.info style="display: none;"
+      - if report.pending?
+        span.moderation
+          a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
+          a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
       p
-        span video_id:
+        span ID:
         span = report.anime_video.id
       p
-        span video_url:
+        span Url:
         a href="#{report.anime_video.url}" = report.anime_video.url
       p
         span Эпизод:
@@ -43,10 +47,4 @@
           span user_agent:
           span = report.user_agent
 
-      iframe data-url="#{report.anime_video.url}"
-
-    - if report.pending?
-      span.moderation
-        a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
-        a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
-
+      iframe data-url="#{report.anime_video.url}" width="640" height="480"

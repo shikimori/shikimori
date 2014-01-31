@@ -1,4 +1,5 @@
 @import globals
+@import mixins/bracket_action
 
 =log_entry
   +text-font
@@ -59,7 +60,7 @@
     font-size: 12px
 
     a
-      margin-left: 8px
+      +bracket_action
       text-decoration: underline
 
   .screenshots-compare

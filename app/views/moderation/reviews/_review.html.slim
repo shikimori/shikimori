@@ -1,8 +1,8 @@
 .change
   - if review.pending?
     .moderation
-      span.bracket-actions: a.accept href="#{accept_moderation_review_path review}" data-method="post" принять
-      span.bracket-actions: a.reject href="#{reject_moderation_review_path review}" data-method="post" переместить в оффтопик
+      a.accept href="#{accept_moderation_review_path review}" data-method="post" принять
+      a.reject href="#{reject_moderation_review_path review}" data-method="post" переместить в оффтопик
 
   .info
     span.id-label #

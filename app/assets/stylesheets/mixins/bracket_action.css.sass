@@ -1,0 +1,19 @@
+@import globals
+
+=bracket_action
+  +link-color(#333)
+  +text-font
+  cursor: pointer
+  display: inline-block
+  font-size: 11px
+  padding-left: 10px
+
+  &:before, &:after
+    color: $gray-color-0
+    padding: 0
+
+  &:before
+    content: '['
+
+  &:after
+    content: ']'

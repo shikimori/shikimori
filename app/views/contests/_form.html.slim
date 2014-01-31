@@ -115,10 +115,10 @@
               a href="#{url_for member}" class="bubbled" data-remote="true"
                 = member.name
               - if member.respond_to? :score
-                span.bracket-details
+                span.b-bracket-details
                   = member.score
               - if contest.created? || contest.proposing?
-                span.bracket-actions
+                span.b-bracket-actions
                   span.item-delete удалить
 
       p

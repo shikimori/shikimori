@@ -38,7 +38,7 @@ $('.edit.contest .member-suggest').on 'autocomplete:success', (e, id, text, labe
       '<a href="'+url+'" ' +
         (if bubbled then 'class="bubbled" data-remote="true"' else '') +
         '>'+text+'</a>' +
-      '<span class="bracket-actions"><span class="item-delete">удалить</span></span>' +
+      '<span class="b-bracket-actions"><span class="item-delete">удалить</span></span>' +
     '</li>'
   )
   process_current_dom() if bubbled
