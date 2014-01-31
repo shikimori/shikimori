@@ -38,4 +38,4 @@ header.head
   h2.subheadline История
   .item-editor
     = render partial: 'site/editor_changes', locals: { changes: @processed, moderation: true }
-    = render partial: 'site/postloader_new', locals: { url: moderation_users_changes_url(page: @page+1) }
+    = render partial: 'site/postloader_new', locals: { url: moderation_users_changes_url(page: @page+1, format: :json) }

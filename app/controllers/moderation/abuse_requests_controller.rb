@@ -22,27 +22,23 @@ class Moderation::AbuseRequestsController < ApplicationController
       req.comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
     end
 
-    render json: {
-      content: render_to_string(partial: 'abuse_request', collection: @processed, formats: :html) + (@add_postloader ?
-        render_to_string(partial: 'site/postloader_new', locals: { url: page_abuse_requests_url(page: @page+1) }, formats: :html) :
-        '')
-    } and return if json?
+    unless json?
+      @page_title = 'Жалобы пользователей'
+      @pending = AbuseRequest
+          .pending
+          .includes(:user, :approver, comment: :commentable)
+          .order(:created_at)
+          .order(:created_at)
+          .all
+          .each do |req|
+        formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
 
-    @page_title = 'Жалобы пользователей'
-    @pending = AbuseRequest
-        .pending
-        .includes(:user, :approver, comment: :commentable)
-        .order(:created_at)
-        .order(:created_at)
-        .all
-        .each do |req|
-      formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
+        req.comment[:topic_name] = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
+        req.comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
+      end
 
-      req.comment[:topic_name] = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
-      req.comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
+      @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
     end
-
-    @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
   end
 
   def offtopic

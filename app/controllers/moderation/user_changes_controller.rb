@@ -31,35 +31,26 @@ class Moderation::UserChangesController < ApplicationController
         .order { updated_at.desc }
     end
 
-    render json: {
-      content: render_to_string({
-        partial: 'site/editor_changes',
-        layout: false,
-        locals: { changes: @processed, moderation: true },
-        formats: :html
-      }) + (@add_postloader ?
-        render_to_string(partial: 'site/postloader_new', locals: { url: moderation_users_changes_url(page: @page+1) }, formats: :html) :
-        '')
-    } and return if json?
+    unless json?
+      @page_title = 'Правки пользователей'
+      @pending = UserChange.includes(:user)
+                          .where(status: UserChangeStatus::Pending)
+                          .order(:created_at)
+                          .all
 
-    @page_title = 'Правки пользователей'
-    @pending = UserChange.includes(:user)
-                         .where(status: UserChangeStatus::Pending)
-                         .order(:created_at)
-                         .all
-
-    @changes_map = {}
-    # по конкретному элементу делаем только одно активное изменение
-    @pending.each do |change|
-      key = "#{change.model} #{change.item_id}"
-      if @changes_map[key]
-        change[:locked] = true
-      elsif change.screenshots?
-        @changes_map[key] = true
+      @changes_map = {}
+      # по конкретному элементу делаем только одно активное изменение
+      @pending.each do |change|
+        key = "#{change.model} #{change.item_id}"
+        if @changes_map[key]
+          change[:locked] = true
+        elsif change.screenshots?
+          @changes_map[key] = true
+        end
       end
-    end
 
-    @moderators = User.where(id: User::UserChangesModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
+      @moderators = User.where(id: User::UserChangesModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
+    end
   end
 
   # изменение пользователем чего-либо

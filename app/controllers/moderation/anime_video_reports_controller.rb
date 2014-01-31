@@ -4,6 +4,13 @@ class Moderation::AnimeVideoReportsController < ApplicationController
 
   def index
     @page_title = 'Модерация видео'
+    @processed = postload_paginate(params[:page], 25) do
+      AnimeVideoReport.includes(:user, anime_video: :author).processed
+    end
+
+    unless json?
+      @pending = AnimeVideoReport.includes(:user, anime_video: :author).pending.limit(20)
+    end
   end
 
   def accept

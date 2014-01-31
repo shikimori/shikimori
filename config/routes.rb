@@ -149,6 +149,8 @@ Site::Application.routes.draw do
       end
 
       resources :anime_video_reports, only: [:index] do
+        get '/page/:page', action: :index, as: :page, on: :collection
+
         member do
           get :accept
           get :reject
