@@ -9,10 +9,10 @@ header.head
 .anime_video_reports
   h2.subheadline Очередь
   ul.subcontent
-    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.pending.limit(20), formats: :html
+    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.includes(:user, anime_video: :author).pending.limit(20), formats: :html
 
   br
 
   h2.subheadline История
   ul.subcontent
-    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.processed.limit(100), formats: :html
+    = render partial: 'moderation/anime_video_reports/report', collection: AnimeVideoReport.includes(:user, anime_video: :author).processed.limit(100), formats: :html

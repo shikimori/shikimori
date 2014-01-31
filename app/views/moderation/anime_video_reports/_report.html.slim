@@ -31,6 +31,13 @@
       p
         span video_url:
         a href="#{report.anime_video.url}" = report.anime_video.url
+      p
+        span Эпизод:
+        span = report.anime_video.episode
+      - if report.anime_video.author
+        p
+          span Автор:
+          span = report.anime_video.author.name.to_s.html_safe
       - if report.user_agent.present?
         p
           span user_agent:
