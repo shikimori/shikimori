@@ -2,7 +2,7 @@ class BbCodes::VkTag
   include Singleton
 
   def format text
-    text.gsub /(?<text>[^"\]]|^)(?<url>#{Video::VK_PARAM_REGEXP})/mi do
+    text.gsub /(?<text>[^"\]=]|^)(?<url>#{Video::VK_PARAM_REGEXP})/mi do
       $~[:text] + to_html($~[:url])
     end
   end
