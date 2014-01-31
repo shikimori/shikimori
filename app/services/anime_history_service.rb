@@ -24,6 +24,7 @@ class AnimeHistoryService
     users += User
       .where { id.not_in my{users.map(&:id)} }
       .each {|v| v.association(:anime_rates).loaded! }
+      .uniq(&:id)
 
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.map do |entry|
