@@ -9,7 +9,7 @@ class UserChangesQuery
       .where(status: [UserChangeStatus::Pending, UserChangeStatus::Taken, UserChangeStatus::Accepted])
       .includes(:user)
       .includes(:approver)
-      .order('created_at desc')
+      .order(created_at: :desc)
   end
 
   def authors(with_taken = true)

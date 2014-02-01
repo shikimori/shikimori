@@ -16,16 +16,14 @@ class User < ActiveRecord::Base
   has_many :comments_all, class_name: Comment.name, dependent: :destroy
   has_many :abuse_requests, dependent: :destroy
 
-  has_many :anime_rates,
+  has_many :anime_rates, -> { where target_type: Anime.name },
     class_name: UserRate.name,
     source: :target_id,
-    conditions: {target_type: Anime.name},
     dependent: :destroy
 
-  has_many :manga_rates,
+  has_many :manga_rates, -> { where target_type: Manga.name },
     class_name: UserRate.name,
     source: :target_id,
-    conditions: {target_type: Manga.name},
     dependent: :destroy
 
   #has_many :topic_views
@@ -34,20 +32,20 @@ class User < ActiveRecord::Base
   has_many :friend_links, foreign_key: :src_id, dependent: :destroy
   has_many :friends, through: :friend_links, source: :dst, dependent: :destroy
 
-  has_many :favourites, class_name: Favourite.name, dependent: :destroy
-  has_many :favourite_seyu, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Seyu }
-  has_many :favourite_producers, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Producer }
-  has_many :favourite_mangakas, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Mangaka }
-  has_many :favourite_persons, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Person }
+  has_many :favourites, dependent: :destroy
+  has_many :favourite_seyu, -> { where kind: Favourite::Seyu }, class_name: Favourite.name, dependent: :destroy
+  has_many :favourite_producers, -> { where kind: Favourite::Producer }, class_name: Favourite.name, dependent: :destroy
+  has_many :favourite_mangakas, -> { where kind: Favourite::Mangaka }, class_name: Favourite.name, dependent: :destroy
+  has_many :favourite_persons, -> { where kind: Favourite::Person }, class_name: Favourite.name, dependent: :destroy
 
   has_many :fav_animes, through: :favourites, source: :linked, source_type: Anime.name
   has_many :fav_mangas, through: :favourites, source: :linked, source_type: Manga.name
+  has_many :fav_characters, through: :favourites, source: :linked, source_type: Character.name
   has_many :fav_persons, through: :favourite_persons, source: :linked, source_type: Person.name
   has_many :fav_people, through: :favourites, source: :linked, source_type: Person.name
   has_many :fav_seyu, through: :favourite_seyu, source: :linked, source_type: Person.name
   has_many :fav_producers, through: :favourite_producers, source: :linked, source_type: Person.name
   has_many :fav_mangakas, through: :favourite_mangakas, source: :linked, source_type: Person.name
-  has_many :fav_characters, through: :favourites, source: :linked, source_type: Character.name
 
   has_many :messages, foreign_key: :to_id, dependent: :destroy
 

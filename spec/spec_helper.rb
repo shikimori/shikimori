@@ -5,6 +5,7 @@ require 'rspec/autorun'
 require 'spork'
 #require 'shoulda'
 require 'paperclip/matchers'
+require 'sidekiq/testing'
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
@@ -53,31 +54,32 @@ Spork.prefork do
       DatabaseRewinder.clean_all
     end
 
-    VCR.configure do |c|
-      c.cassette_library_dir = 'spec/vcr_cassettes'
-      c.hook_into :webmock
-      c.allow_http_connections_when_no_cassette = true
-      c.default_cassette_options = { match_requests_on: [:method, :uri, :query, :body], record: :new_episodes }
-    end
-
     #HTTPI.log = false
 
     config.include FactoryGirl::Syntax::Methods
     config.include Devise::TestHelpers, type: :controller
     config.include Paperclip::Shoulda::Matchers, type: :model
+  end
 
-    module ActionController
-      class TestResponse
-        def unauthorized?
-          @status == 401
-        end
+  Sidekiq::Testing.fake!
 
-        def unprocessible_entiy?
-          @status == 422
-        end
+  VCR.configure do |c|
+    c.cassette_library_dir = 'spec/vcr_cassettes'
+    c.hook_into :webmock
+    c.allow_http_connections_when_no_cassette = true
+    c.default_cassette_options = { match_requests_on: [:method, :uri, :query, :body], record: :new_episodes }
+  end
+
+  module ActionController
+    class TestResponse
+      def unauthorized?
+        @status == 401
+      end
+
+      def unprocessible_entiy?
+        @status == 422
       end
     end
-
   end
 end
 

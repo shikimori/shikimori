@@ -162,7 +162,7 @@ class TorrentsParser
                  .all
     anons.delete_if { |v| v.kind == 'ONA' && v.anime_calendars.empty? }
 
-    released = Anime.where { released_at.gte(DateTime.now - 2.weeks) }
+    released = Anime.where { released_on.gte(DateTime.now - 2.weeks) }
                     .where { episodes_aired.gte 5 }
                     .all
 

@@ -2,7 +2,8 @@ require 'sidekiq/web'
 
 Site::Application.routes.draw do
   constraints AnimeOnlineDomain  do
-    root to: 'anime_online/anime_videos#index'
+    # rails_4_upgrade
+    #root to: 'anime_online/anime_videos#index'
     namespace :anime_online do
       resources :anime, only: [:show] do
         resources :anime_videos, only: [:new, :create]
@@ -87,7 +88,8 @@ Site::Application.routes.draw do
       registrations: 'users/registrations',
       passwords: 'users/passwords'
     }
-    get '/users/auth/:action/callback(.:format)', as: :user_omniauth_callback, action: /facebook|vkontakte|twitter/, controller: "users/omniauth_callbacks" # |google_apps|yandex|google_oauth2
+    # rails_4_upgrade
+    #get '/users/auth/:action/callback(.:format)', as: :user_omniauth_callback, action: /facebook|vkontakte|twitter/, controller: "users/omniauth_callbacks" # |google_apps|yandex|google_oauth2
 
     # комментарии
     resources :comments do
@@ -122,7 +124,7 @@ Site::Application.routes.draw do
       get 'changes/:id/deny' => 'user_changes#deny', as: :deny_user_change, notify: true
       get 'changes/:id/delete' => 'user_changes#deny', as: :delete_user_change, notify: false
       post 'changes/anime/:anime_id/lock' => 'user_changes#get_anime_lock', as: :anime_lock
-      delete 'changes/anime/:anime_id/lock' => 'user_changes#release_anime_lock', as: :anime_lock
+      delete 'changes/anime/:anime_id/lock' => 'user_changes#release_anime_lock'
 
       post 'changes/do' => 'user_changes#change', as: :do_user_change
       get 'changes/:id/tooltip(/:test)' => 'user_changes#tooltip', as: :user_change_tooltip
@@ -161,7 +163,7 @@ Site::Application.routes.draw do
 
     # messages
     # TODO: refactor всё в resources :messages
-    get 'messages' => redirect('messages/inbox')
+    get 'messages' => redirect('messages/inbox'), as: :root_messages
     get 'messages/:id' => 'messages#show', constraints: { id: /\d+/ }
     constraints type: /inbox|sent|notifications|news/ do
       get 'messages/:type' => 'messages#index', as: :messages
@@ -203,7 +205,7 @@ Site::Application.routes.draw do
       get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
     end
     put 'groups/:id' => 'groups#apply', as: :apply_group
-    post 'groups/:id' => 'groups#apply', as: :apply_group
+    post 'groups/:id' => 'groups#apply'
     get 'groups/:id/autocomplete/:search' => 'groups#autocomplete', as: 'autocomplete_group_members', format: :json, search: /.*/
 
     resources :user_images, only: [:create]
@@ -213,12 +215,10 @@ Site::Application.routes.draw do
       get 'original', action: :edit, on: :member, as: 'edit_original', original: true
       get 'raw', action: :raw, on: :member
     end
-    post 'remote_upload' => 'images#remote_upload'
-    #get 'remote_upload' => 'images#remote_upload'
 
     # join/leave
     post 'groups/:id/roles(/:user_id)' => 'group_roles#create', as: :group_roles
-    delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy', as: :group_roles
+    delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy'
     # invite
     post 'invites/:group_id/:nickname' => 'group_invites#create', as: :group_invites, nickname: /.*/
     put 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
@@ -309,7 +309,7 @@ Site::Application.routes.draw do
       plural = kind.to_s
 
       #match "#{plural}/season/:season" => "ani_mangas_collection#season", as: plural, klass: singular, season: /\w+_\d+/ if kind == :animes
-      match "#{plural}#{ani_manga_format}" => "ani_mangas_collection#index", as: plural, klass: singular, constraints: { page: /\d+/, studio: /[^\/]+/ }
+      get "#{plural}#{ani_manga_format}" => "ani_mangas_collection#index", as: plural, klass: singular, constraints: { page: /\d+/, studio: /[^\/]+/ }
       get "#{plural}/menu(/rating/:rating)(/nosort/:nosort)" => "ani_mangas_collection#menu", klass: singular, as: "menu_#{plural}"
 
       resources plural, defaults: { page: 'info' } do
@@ -337,12 +337,12 @@ Site::Application.routes.draw do
           get ':page' => "#{plural}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
           get 'edit/:subpage' => "#{plural}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
 
-          get 'cosplay' => redirect { |params,request| "/#{plural}/#{params[:id]}/cosplay/all" }
-          get 'cosplay/:character(/:gallery)' => "#{plural}#cosplay", page: 'cosplay', as: 'cosplay'
+          get 'cosplay' => redirect { |params,request| "/#{plural}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
+          get 'cosplay/:character(/:gallery)' => "#{plural}#cosplay", page: 'cosplay', as: :cosplay
         end
 
         # обзоры
-        resources :reviews, type: klass.name, controller: 'AniMangasController::Reviews'
+        resources :reviews, type: klass.name, controller: 'ani_mangas_controller/reviews'
       end
     end
     # удаление скриншота
@@ -552,17 +552,16 @@ Site::Application.routes.draw do
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
 
-    if Rails.env.test?
-      match 'subscriptions/:action', controller: :subscriptions
-      match 'messages', controller: :messages, as: :messages
-      match 'users(/:action(/:id(.:format)))', controller: :users
-    end
-    match 'animes(/:action(/:id(.:format)))', controller: :animes
-    match 'mangas(/:action(/:id(.:format)))', controller: :mangas
-    match 'groups(/:action(/:id(.:format)))', controller: :groups
-    match 'invites(/:action(/:id(.:format)))', controller: :group_invites
+    #if Rails.env.test?
+      #match 'subscriptions/:action', controller: :subscriptions
+      #match 'messages', controller: :messages, as: :messages
+      #match 'users(/:action(/:id(.:format)))', controller: :users
+    #end
+    #match 'animes(/:action(/:id(.:format)))', controller: :animes
+    #match 'mangas(/:action(/:id(.:format)))', controller: :mangas
+    #match 'groups(/:action(/:id(.:format)))', controller: :groups
+    #match 'invites(/:action(/:id(.:format)))', controller: :group_invites
 
-    mount_sextant if Rails.env.development?
-    match '*a', to: 'pages#page404'
+    get '*a', to: 'pages#page404'
   end
 end

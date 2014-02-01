@@ -1,8 +1,8 @@
 class UserHistory < ActiveRecord::Base
   belongs_to :user, touch: true
-  belongs_to :target, :polymorphic => true
-  belongs_to :anime, :foreign_key => :target_id
-  belongs_to :manga, :foreign_key => :target_id
+  belongs_to :target, polymorphic: true
+  belongs_to :anime, foreign_key: :target_id
+  belongs_to :manga, foreign_key: :target_id
 
   BackwardCheckInterval = 30.minutes
   DeleteBackwardCheckInterval = 60.minutes
@@ -13,7 +13,7 @@ class UserHistory < ActiveRecord::Base
     # при изменении на тоже самое значение ничего не делаем
     return if value && value == prior_value
     last_entry = UserHistory.where(user_id: user.is_a?(Fixnum) ? user : user.id)
-        .where(:target_type => item.class.name)
+        .where(target_type: item.class.name)
         .order('id desc')
         .first
 
@@ -99,13 +99,14 @@ class UserHistory < ActiveRecord::Base
         prior_value = 0 unless prior_value
         raise RuntimeError.new("Got prior_value #{prior_value.class.name}, but expected Fixnum") unless prior_value.is_a?(Fixnum)
 
-        prior_entries = UserHistory.where(:user_id => user.is_a?(Fixnum) ? user : user.id)
-            .where(:target_type => item.class.name)
-            .where(:target_id => item.id)
-            .where(:action => action)
-            .where { updated_at.gt(DateTime.now - EpisodeBackwardCheckInterval) }
-            .order(:id)
-            .all
+        prior_entries = UserHistory
+          .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+          .where(target_type: item.class.name)
+          .where(target_id: item.id)
+          .where(action: action)
+          .where { updated_at.gt(DateTime.now - EpisodeBackwardCheckInterval) }
+          .order(:id)
+          .to_a
 
         unless prior_entries.empty?
           # если предыдущее событие было с эпизодом этого же аниме,
@@ -208,7 +209,7 @@ class UserHistory < ActiveRecord::Base
         # бывает и такое. ушлые пользователи
         e_end = self.send(counter)[-2] || 0 if e_end > UserRate::MaximumNumber
 
-        e_start.upto(e_end).inject([]) {|all,v| all << v}
+        e_start.upto(e_end).inject([]) {|all,v| all << v }
       end
     end
   end

@@ -52,8 +52,8 @@ describe AnimeMalParser do
 
     data.should include(:episodes)
 
-    data.should include(:released_at)
-    data.should include(:aired_at)
+    data.should include(:released_on)
+    data.should include(:aired_on)
 
     data[:genres].should_not be_empty
     data[:studios].should_not be_empty

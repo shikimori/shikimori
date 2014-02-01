@@ -11,7 +11,6 @@ class FavouritesQuery
         .group(:user_id)
         .order('rand()')
         .limit(@limit)
-        .all
-          .sort_by {|v| v.user.nickname }
+        .sort_by {|v| v.user.nickname }
   end
 end

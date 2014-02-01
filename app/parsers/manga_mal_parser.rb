@@ -49,8 +49,8 @@ class MangaMalParser < BaseMalParser
     dates = parse_line("Published", content, false).split(' to ').map do |v|
       parse_date(v)
     end
-    entry[:released_at] = dates.size == 2 ? dates[1] : nil
-    entry[:aired_at] = dates[0]
+    entry[:released_on] = dates.size == 2 ? dates[1] : nil
+    entry[:aired_on] = dates[0]
 
     entry[:genres] = parse_line("Genres", content, true).map {|v|
                        v.match(/genre\[\]=(\d+).*>(.*)<\/a>/) ? {id: $1.to_i, name: $2} : nil

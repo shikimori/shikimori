@@ -9,17 +9,18 @@ class AnimeHistoryService
       .where { processed.eq(false) | processed.eq(nil) }
       .where { (type.in([AnimeNews.name]) & generated.eq(true)) | broadcast.eq(true) }
       .order(:created_at)
-      .all
+      .to_a
     return if entries.empty?
 
     users = User
       .includes(anime_rates: [:anime])
+      .references(:user_rates)
       .where {
         (user_rates.id == nil) |
           ((user_rates.target_type == Anime.name) &
            (user_rates.target_id.in my{entries.map(&:linked_id)})
           ) }
-      .all
+      .to_a
 
     users += User
       .where { id.not_in my{users.map(&:id)} }

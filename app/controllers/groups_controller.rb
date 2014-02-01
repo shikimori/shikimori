@@ -34,7 +34,7 @@ class GroupsController < ApplicationController
 
     @members ||= @group.member_roles
         .includes(:user)
-        .order('created_at desc')
+        .order(created_at: :desc)
         .take(9)
           .map(&:user)
 
@@ -54,7 +54,7 @@ class GroupsController < ApplicationController
         .sort_by { |v| v.name }
 
     @images ||= @group.images
-        .order('created_at desc')
+        .order(created_at: :desc)
         .take(12)
 
     @page_title ||= @group.name
@@ -92,7 +92,7 @@ class GroupsController < ApplicationController
     @group ||= Group.find(params[:id])
     @members ||= @group.member_roles
         .includes(:user)
-        .order('created_at desc')
+        .order(created_at: :desc)
           .map(&:user)
     @page_title = [@group.name, 'Участники']
     show
@@ -137,7 +137,7 @@ class GroupsController < ApplicationController
 
     @group ||= Group.find(params[:id])
     @images ||= @group.images
-        .order('created_at desc')
+        .order(created_at: :desc)
     @page_title = [@group.name, 'Картинки']
     show
   end

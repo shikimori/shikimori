@@ -11,9 +11,9 @@ class Moderation::AbuseRequestsController < ApplicationController
     @processed = postload_paginate(params[:page], 25) do
       AbuseRequest
         .where(kind: ['review', 'offtopic'])
-        .where { state.not_eq('pending') }
+        .where.not(state: 'pending')
         .includes(:user, :approver, comment: :commentable)
-        .order { updated_at.desc }
+        .order(updated_at: :desc)
 
     end.each do |req|
       formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
@@ -29,7 +29,6 @@ class Moderation::AbuseRequestsController < ApplicationController
           .includes(:user, :approver, comment: :commentable)
           .order(:created_at)
           .order(:created_at)
-          .all
           .each do |req|
         formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
 
@@ -37,7 +36,7 @@ class Moderation::AbuseRequestsController < ApplicationController
         req.comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
       end
 
-      @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
+      @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).sort_by { |v| v.nickname.downcase }
     end
   end
 

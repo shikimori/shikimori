@@ -33,7 +33,7 @@ module MalDeployer
     (entry_genres.map {|v| v[:id] } - self.genres.keys).map do |genre_id|
       entry_genres.select {|v| v[:id] == genre_id }.first
     end.each do |genre|
-      self.genres[genre[:id]] = Genre.find_or_create_by_id_and_name(genre[:id], genre[:name])
+      self.genres[genre[:id]] = Genre.find_or_create_by(id: genre[:id], name: genre[:name])
       print "added genre %s\n" % genre[:name] if Rails.env != 'test'
     end
     # и привязка всех жанров элемента к элементу
@@ -47,7 +47,7 @@ module MalDeployer
     (entry_studios.map {|v| v[:id] } - self.studios.keys).map do |studio_id|
       entry_studios.select {|v| v[:id] == studio_id }.first
     end.each do |studio|
-      self.studios[studio[:id]] = Studio.find_or_create_by_id_and_name(studio[:id], studio[:name])
+      self.studios[studio[:id]] = Studio.find_or_create_by(id: studio[:id], name: studio[:name])
       print "added studio %s\n" % studio[:name] if Rails.env != 'test'
     end
     # и привязка всех студий элемента к элементу
@@ -61,7 +61,7 @@ module MalDeployer
     (entry_publishers.map {|v| v[:id] } - self.publishers.keys).map do |publisher_id|
       entry_publishers.select {|v| v[:id] == publisher_id }.first
     end.each do |publisher|
-      self.publishers[publisher[:id]] = Publisher.find_or_create_by_id_and_name(publisher[:id], publisher[:name])
+      self.publishers[publisher[:id]] = Publisher.find_or_create_by(id: publisher[:id], name: publisher[:name])
       print "added publisher %s\n" % publisher[:name] if Rails.env != 'test'
     end
     # и привязка всех студий издателей к элементу
@@ -86,7 +86,7 @@ module MalDeployer
   # загрузка привязанных картинок
   def deploy_attached_images entry, images
     # уже загруженные картинки
-    existed_images = AttachedImage.where(owner_id: entry.id, owner_type: entry.class.name).select(:url).all.map(&:url)
+    existed_images = AttachedImage.where(owner_id: entry.id, owner_type: entry.class.name).select(:url).map(&:url)
     (images - existed_images).each do |url|
       begin
         unless Rails.env.test? || url.include?("na_series.gif") || url.include?("na.gif")

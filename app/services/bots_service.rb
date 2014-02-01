@@ -6,9 +6,9 @@ class BotsService
   end
 
   def self.get_poster
-    if Rails.env == 'test'
-      user = User.limit(1).all
-      return user.any? ? user.first : FactoryGirl.create(:user, :nickname => 'bot_poster', :email => 'bot_poster@gmail.com')
+    if Rails.env.test?
+      user = User.limit(1).first
+      return user || FactoryGirl.create(:user, nickname: 'bot_poster', email: 'bot_poster@gmail.com')
     end
 
     @@mutex.synchronize do

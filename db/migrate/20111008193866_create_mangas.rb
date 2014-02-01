@@ -21,7 +21,7 @@ class CreateMangas < ActiveRecord::Migration
       t.string :rating
 
       t.date :published_at
-      t.date :released_at
+      t.date :released_on
       t.date :imported_at
 
       t.string :mal_scores

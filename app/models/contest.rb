@@ -18,29 +18,25 @@ class Contest < ActiveRecord::Base
     class_name: ContestLink.name,
     dependent: :destroy
 
-  has_many :rounds,
+  has_many :rounds, -> { order [:number, :additional] },
     class_name: ContestRound.name,
-    order: [:number, :additional],
     dependent: :destroy
 
-  has_one :thread,
+  has_one :thread, -> { where linked_type: Contest.name },
     class_name: ContestComment.name,
     foreign_key: :linked_id,
-    conditions: { linked_type: name },
     dependent: :destroy
 
 private
-  has_many :animes,
+  has_many :animes, -> { order :name },
     through: :links,
     source: :linked,
-    source_type: Anime.name,
-    order: :name
+    source_type: Anime.name
 
-  has_many :characters,
+  has_many :characters, -> { order :name },
     through: :links,
     source: :linked,
-    source_type: Character.name,
-    order: :name
+    source_type: Character.name
 
 public
   has_many :suggestions, class_name: ContestSuggestion.name, dependent: :destroy
@@ -95,9 +91,9 @@ public
     # текущий опрос
     def current
       Contest
-          .where { state.eq('proposing') | state.eq('started') | (state.eq('finished') & finished_on.gte(DateTime.now - 1.week)) }
-          .order(:started_on)
-          .all
+        .where { state.eq('proposing') | state.eq('started') | (state.eq('finished') & finished_on.gte(DateTime.now - 1.week)) }
+        .order(:started_on)
+        .all
     end
   end
 

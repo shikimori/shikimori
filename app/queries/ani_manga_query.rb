@@ -68,9 +68,7 @@ class AniMangaQuery
 
   def complete
     search!
-    search_order(@query.limit AutocompleteLimit)
-        .all
-        .reverse
+    search_order(@query.limit AutocompleteLimit).reverse
   end
 
   # сортировка по параметрам
@@ -394,11 +392,12 @@ private
       when 'ranked'
         'if(ranked=0,999999,ranked)'
 
-      when 'released_at', 'released'
-        'if(released_at is null, aired_at, released_at) desc'
+      # TODO: удалить released_at и released после 01.05.2014
+      when 'released_on', 'released_at', 'released'
+        'if(released_on is null, aired_on, released_on) desc'
 
-      when 'aired_at'
-        'aired_at desc'
+      when 'aired_on'
+        'aired_on desc'
 
       when 'id'
         "#{klass.table_name}.id desc"

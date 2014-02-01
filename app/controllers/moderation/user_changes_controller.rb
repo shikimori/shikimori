@@ -27,8 +27,8 @@ class Moderation::UserChangesController < ApplicationController
       UserChange
         .includes(:user)
         .includes(:approver)
-        .where { status.not_in([UserChangeStatus::Pending, UserChangeStatus::Locked]) }
-        .order { updated_at.desc }
+        .where.not(status: [UserChangeStatus::Pending, UserChangeStatus::Locked])
+        .order(updated_at: :desc)
     end
 
     unless json?

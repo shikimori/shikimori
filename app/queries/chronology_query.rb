@@ -9,7 +9,7 @@ class ChronologyQuery
 
     future = DateTime.now + 10.years
     @entry.class.where(id: relations.keys)
-        .sort_by { |v| [v.aired_at || future, v.id] }
+        .sort_by { |v| [v.aired_on || future, v.id] }
         .reverse
   end
 
@@ -61,6 +61,6 @@ private
         ")
     end
 
-    query.all.group_by(&:source_id)
+    query.group_by(&:source_id)
   end
 end

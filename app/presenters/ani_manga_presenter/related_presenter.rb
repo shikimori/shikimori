@@ -43,8 +43,8 @@ private
         .all
           .select { |v| (v.anime_id && v.anime && v.anime.name) || (v.manga_id && v.manga && v.manga.name) }
           .sort_by do |v|
-            (v.anime_id ? v.anime.aired_at : nil) ||
-              (v.manga_id ? v.manga.aired_at : nil) ||
+            (v.anime_id ? v.anime.aired_on : nil) ||
+              (v.manga_id ? v.manga.aired_on : nil) ||
               Date.new(9999)
           end
   end

@@ -10,14 +10,14 @@ class Moderation::ReviewsController < ApplicationController
       Review
         .where(state: ['accepted', 'rejected'])
         .includes(:user, :approver, :target)
-        .order('created_at desc')
+        .order(created_at: :desc)
     end
 
     if user_signed_in? && current_user.moderator?
       @pending = Review
           .where(state: 'pending')
           .includes(:user, :approver, :target)
-          .order('created_at desc')
+          .order(created_at: :desc)
           .limit(15)
     end
   end

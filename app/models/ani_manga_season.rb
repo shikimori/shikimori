@@ -21,7 +21,7 @@ class AniMangaSeason
   def self.query_for(season, klass=Anime)
     case season
       when 'ancient'
-        "aired_at <= '%s 00:00:00'" % Date.new(1980)
+        "aired_on <= '%s 00:00:00'" % Date.new(1980)
 
       when /^([a-z]+)_(\d+)$/
         year = $2.to_i
@@ -33,7 +33,7 @@ class AniMangaSeason
           when 'winter'
             date_from = Date.new(year-1, 12) - 8.days
             date_to = Date.new(year, 3) - 8.days
-            additional = " and aired_at != '%d:01:01 00:00:00'" % Date.new(year, 3).year
+            additional = " and aired_on != '%d:01:01 00:00:00'" % Date.new(year, 3).year
 
           when 'fall'
             date_from = Date.new(year, 9) - 8.days
@@ -47,16 +47,16 @@ class AniMangaSeason
             date_from = Date.new(year, 3) - 8.days
             date_to = Date.new(year, 6) - 8.days
         end
-        "(aired_at >= '%s 00:00:00' and aired_at < '%s 00:00:00'%s)" % [date_from, date_to, additional]
+        "(aired_on >= '%s 00:00:00' and aired_on < '%s 00:00:00'%s)" % [date_from, date_to, additional]
 
       when /^(\d+)$/
-        "(aired_at >= '%s 00:00:00' and aired_at < '%s 00:00:00')" % [Date.new($1.to_i), Date.new($1.to_i + 1)]
+        "(aired_on >= '%s 00:00:00' and aired_on < '%s 00:00:00')" % [Date.new($1.to_i), Date.new($1.to_i + 1)]
 
       when /^(\d+)_(\d+)$/
-        "(aired_at >= '%s 00:00:00' and aired_at < '%s 00:00:00')" % [Date.new($1.to_i), Date.new($2.to_i + 1)]
+        "(aired_on >= '%s 00:00:00' and aired_on < '%s 00:00:00')" % [Date.new($1.to_i), Date.new($2.to_i + 1)]
 
       when /^(\d{3})x$/
-        "(aired_at >= '%s 00:00:00' and aired_at < '%s 00:00:00')" % [Date.new($1.to_i * 10), Date.new(($1.to_i + 1)*10)]
+        "(aired_on >= '%s 00:00:00' and aired_on < '%s 00:00:00')" % [Date.new($1.to_i * 10), Date.new(($1.to_i + 1)*10)]
 
       else
         raise BadSeasonError, "unknown season '#{season}'"

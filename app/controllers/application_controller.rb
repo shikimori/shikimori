@@ -163,7 +163,7 @@ private
 
     ds = yield
 
-    entries = ds.offset(@limit * (@page-1)).limit(@limit + 1).all
+    entries = ds.offset(@limit * (@page-1)).limit(@limit + 1).to_a
     @add_postloader = entries.size > @limit
 
     @add_postloader ? entries.take(limit) : entries

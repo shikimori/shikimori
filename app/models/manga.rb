@@ -19,73 +19,61 @@ class Manga < ActiveRecord::Base
   has_many :characters, through: :person_roles
   has_many :people, through: :person_roles
 
-  has_many :rates,
+  has_many :rates, -> { where target_type: Manga.name },
     class_name: UserRate.name,
     foreign_key: :target_id,
-    conditions: {target_type: self.name},
     dependent: :destroy
 
   has_many :related,
     dependent: :destroy,
     foreign_key: :source_id,
     class_name: RelatedManga.name
-  has_many :related_mangas,
+  has_many :related_mangas, -> { where.not manga_id: nil },
     through: :related,
-    foreign_key: :source_id,
-    conditions: 'manga_id is not null'
-  has_many :related_animes,
+    foreign_key: :source_id
+  has_many :related_animes, -> { where.not anime_id: nil },
     through: :related,
-    foreign_key: :source_id,
-    conditions: 'anime_id is not null'
+    foreign_key: :source_id
 
-  has_many :topics,
+  has_many :topics, -> { order updated_at: :desc },
     class_name: Entry.name,
-    order: ' updated_at desc',
     as: :linked,
     dependent: :destroy
 
-  has_many :news,
+  has_many :news, -> { order created_at: :desc },
     class_name: MangaNews.name,
-    as: :linked,
-    order: 'created_at desc'
+    as: :linked
 
-  has_many :similar,
+  has_many :similar, -> { order id: :desc },
     class_name: SimilarManga.name,
     foreign_key: :src_id,
-    order: 'id desc',
     dependent: :destroy
 
-  has_many :user_histories,
+  has_many :user_histories, -> { where target_type: Manga.name },
     foreign_key: :target_id,
-    conditions: { target_type: Manga.name },
     dependent: :destroy
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
 
-  has_many :cosplay_galleries,
+  has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
     through: :cosplay_gallery_links,
-    class_name: CosplaySession.name,
-    conditions: { deleted: false, confirmed: true }
+    class_name: CosplaySession.name
 
-  has_one :thread,
+  has_one :thread, -> { where linked_type: Manga.name },
     class_name: AniMangaComment.name,
     foreign_key: :linked_id,
-    conditions: {linked_type: self.name},
     dependent: :destroy
 
-  has_many :reviews,
+  has_many :reviews, -> { where target_type: Manga.name },
     foreign_key: :target_id,
-    conditions: {target_type: self.name},
     dependent: :destroy
 
-  has_many :images,
+  has_many :images, -> { where owner_type: Manga.name },
     class_name: AttachedImage.name,
     foreign_key: :owner_id,
-    conditions: {owner_type: self.name},
     dependent: :destroy
 
-  has_many :recommendation_ignores,
-    conditions: { target_type: Anime.name },
+  has_many :recommendation_ignores, -> { where target_type: Anime.name },
     foreign_key: :target_id,
     dependent: :destroy
 

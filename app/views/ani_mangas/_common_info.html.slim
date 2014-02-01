@@ -21,44 +21,44 @@
     span.value.nowrap
       = t "AniMangaStatus.#{entry.status}"
       | &nbsp;
-      - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_at || entry.aired_at)
-        - if entry.released_at && entry.aired_at && entry.released_at.year != entry.aired_at.year
+      - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_on || entry.aired_on)
+        - if entry.released_on && entry.aired_on && entry.released_on.year != entry.aired_on.year
           / вышло в 2011-2012 гг.
-          = "в #{entry.aired_at.year}-#{entry.released_at.year} гг."
-          - if entry.released_at.day != 1 && entry.released_at.month != 1 && entry.aired_at.day != 1 && entry.aired_at.month != 1
+          = "в #{entry.aired_on.year}-#{entry.released_on.year} гг."
+          - if entry.released_on.day != 1 && entry.released_on.month != 1 && entry.aired_on.day != 1 && entry.aired_on.month != 1
             - if defined?(details) && details
               |  (
-              span.notice.status-date title="С #{rus_date entry.aired_at, true} по #{rus_date entry.released_at, true}" ?
+              span.notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
               | )
         - else
           / вышло в 2011 г.
-          - if entry.released_at && entry.aired_at
-            = "в #{(entry.released_at || entry.aired_at).year} г."
+          - if entry.released_on && entry.aired_on
+            = "в #{(entry.released_on || entry.aired_on).year} г."
             / С 1 марта 2011 по 2 января 2012
             - if defined?(details) && details
               |  (
-              span.notice.status-date title="С #{rus_date entry.aired_at, true} по #{rus_date entry.released_at, true}" ?
+              span.notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
               | )
-          - elsif (entry.released_at || entry.aired_at).day != 1 || (entry.released_at || entry.aired_at).month != 1
+          - elsif (entry.released_on || entry.aired_on).day != 1 || (entry.released_on || entry.aired_on).month != 1
             / 1 марта 2011
-            = rus_date(entry.aired_at || entry.released_at, true)
+            = rus_date(entry.aired_on || entry.released_on, true)
           - else
             / в 2011 г.
-            = "в #{(entry.released_at || entry.aired_at).year} г."
+            = "в #{(entry.released_on || entry.aired_on).year} г."
       - else
-        - if entry.aired_at
-          - if entry.released_at || entry.status == AniMangaStatus::Ongoing || entry.status == AniMangaStatus::Publishing
+        - if entry.aired_on
+          - if entry.released_on || entry.status == AniMangaStatus::Ongoing || entry.status == AniMangaStatus::Publishing
             | с&nbsp;
-          - elsif entry.status == AniMangaStatus::Anons && !entry.released_at
+          - elsif entry.status == AniMangaStatus::Anons && !entry.released_on
             | на&nbsp;
           span.dark.anime-alt
-            = rus_date entry.aired_at, true
+            = rus_date entry.aired_on, true
           | &nbsp;
-        - if entry.released_at
+        - if entry.released_on
           br
           | по&nbsp;
           span.dark.anime-alt
-            = rus_date entry.released_at, true
+            = rus_date entry.released_on, true
 
 - if entry.rating.present? && entry.rating != 'None'
   p

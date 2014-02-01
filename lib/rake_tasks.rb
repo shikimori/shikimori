@@ -69,7 +69,7 @@ class TorrentsTasks
 
   def ongoing
     print "getting torrents for ongoings...\n"
-    get_torrents(Anime.ongoing.select {|v| v.aired_at && v.aired_at > DateTime.now - 6.month })
+    get_torrents(Anime.ongoing.select {|v| v.aired_on && v.aired_on > DateTime.now - 6.month })
   end
   #add_transaction_tracer :ongoing, :category => :task
 

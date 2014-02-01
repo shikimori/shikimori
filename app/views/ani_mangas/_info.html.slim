@@ -4,13 +4,13 @@ meta itemprop="headline" content="#{{@entry.name}}"
 - if @entry.russian
   meta itemprop="alternativeHeadline" content="#{{@entry.russian}}"
 
-- if @entry.kind == 'Movie' && (@entry.aired_at || @entry.released_at)
-  meta itemprop="datePublished" content="#{@entry.aired_at.to_s || @entry.released_at.to_s}"
+- if @entry.kind == 'Movie' && (@entry.aired_on || @entry.released_on)
+  meta itemprop="datePublished" content="#{@entry.aired_on.to_s || @entry.released_on.to_s}"
 - elsif @entry.anime?
-  - if @entry.aired_at
-    meta itemprop="startDate" content="#{@entry.aired_at.to_s}"
-  - if @entry.released_at
-    meta itemprop="endDate" content="#{@entry.released_at.to_s}"
+  - if @entry.aired_on
+    meta itemprop="startDate" content="#{@entry.aired_on.to_s}"
+  - if @entry.released_on
+    meta itemprop="endDate" content="#{@entry.released_on.to_s}"
 
 aside.left-column.menu-block
   .menu-block

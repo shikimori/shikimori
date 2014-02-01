@@ -8,8 +8,8 @@ describe AniMangaListImporter do
   let(:anime1) { create :anime, name: "Zombie-Loan", episodes: 22 }
   let(:anime2) { create :anime, name: "Zombie-Loan Specials" }
 
-  let (:user) { FactoryGirl.create :user }
-  let (:list) do
+  let(:user) { FactoryGirl.create :user }
+  let(:list) do
     [{
       status: UserRateStatus.get(UserRateStatus::Watching),
       score: 5,
@@ -22,7 +22,7 @@ describe AniMangaListImporter do
       episodes: 20
     }]
   end
-  let (:importer) { AniMangaListImporter::ImporterTest.new }
+  let(:importer) { AniMangaListImporter::ImporterTest.new }
 
   it 'simple import' do
     expect {
@@ -44,7 +44,7 @@ describe AniMangaListImporter do
   it 'import with replace' do
     importer.import(user, Anime, [list[0]], false)
     expect {
-      added, updated, not_imported = importer.import(user, Anime, list, true)
+      added, updated, not_imported = importer.import(user.reload, Anime, list, true)
 
       added.should have(1).item
       updated.should have(1).item
@@ -55,7 +55,7 @@ describe AniMangaListImporter do
   it 'import w/o replace' do
     importer.import(user, Anime, [list[0]], false)
     expect {
-      added, updated, not_imported = importer.import(user, Anime, list, false)
+      added, updated, not_imported = importer.import(user.reload, Anime, list, false)
 
       added.should have(1).item
       updated.should be_empty

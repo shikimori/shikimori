@@ -10,7 +10,7 @@ class Moderation::BansController < ApplicationController
     @page_title = 'Журнал модерации'
 
     @moderators = User.where(id: User::Moderators - User::Admins).all.sort_by { |v| v.nickname.downcase }
-    @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order 'created_at desc' }
+    @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
 
     if user_signed_in? && current_user.moderator?
       @declined = AbuseRequest.where(state: 'rejected', kind: ['spoiler', 'abuse']).order('id desc').limit(15)

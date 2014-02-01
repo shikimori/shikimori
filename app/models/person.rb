@@ -1,13 +1,12 @@
 class Person < ActiveRecord::Base
   has_many :person_roles, dependent: :destroy
-  has_many :animes, through: :person_roles, order: :id
-  has_many :mangas, through: :person_roles, order: :id
-  has_many :characters, through: :person_roles, order: :id
+  has_many :animes, -> { order :id }, through: :person_roles
+  has_many :mangas, -> { order :id }, through: :person_roles
+  has_many :characters, -> { order :id }, through: :person_roles
 
-  has_many :images,
+  has_many :images, -> { where owner_type: Person.name },
     class_name: AttachedImage.name,
     foreign_key: :owner_id,
-    conditions: {owner_type: Person.name},
     dependent: :destroy
 
   has_attached_file :image,

@@ -81,6 +81,8 @@ namespace :deploy do
   task :symlink_secret_token do
     run "rm #{release_path}/config/secret_token.yml &&
          ln -nfs /home/#{user}/shikimori.org/secret_token.yml #{release_path}/config/secret_token.yml"
+    run "rm #{release_path}/config/secret_key_base.yml &&
+         ln -nfs /home/#{user}/shikimori.org/secret_key_base.yml #{release_path}/config/secret_key_base.yml"
   end
 
   task :symlink_devise_secret_key do

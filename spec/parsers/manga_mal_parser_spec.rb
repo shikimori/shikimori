@@ -51,8 +51,8 @@ describe MangaMalParser do
     data[:volumes].should be(14)
     data[:chapters].should be(142)
 
-    data.should include(:released_at)
-    data.should include(:aired_at)
+    data.should include(:released_on)
+    data.should include(:aired_on)
 
     data[:genres].should_not be_empty
     data[:authors].should_not be_empty

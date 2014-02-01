@@ -35,7 +35,7 @@ module AniManga
   end
 
   def year
-    aired_at ? aired_at.year : nil
+    aired_on ? aired_on.year : nil
   end
 
   # костыль от миграеции на 1.9.3
@@ -88,10 +88,10 @@ module AniManga
   end
 
   def ongoing?(ignore_excludes=false)
-    ((aired_at != nil && aired_at < (Date.today - AniManga::OngoingToReleasedDays.days) && [AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status)) ||
-     (aired_at != nil && [AniMangaStatus::Ongoing, AniMangaStatus::Publishing].include?(status))) &&
-    !([AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status) && aired_at && aired_at.year == Date.today.year && aired_at.month == 1 && aired_at.day == 1) &&
-    !(aired_at != nil && released_at != nil && aired_at < (Date.today - AniManga::OngoingToReleasedDays.days) && released_at < (Date.today - AniManga::OngoingToReleasedDays.days)) &&
+    ((aired_on != nil && aired_on < (Date.today - AniManga::OngoingToReleasedDays.days) && [AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status)) ||
+     (aired_on != nil && [AniMangaStatus::Ongoing, AniMangaStatus::Publishing].include?(status))) &&
+    !([AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status) && aired_on && aired_on.year == Date.today.year && aired_on.month == 1 && aired_on.day == 1) &&
+    !(aired_on != nil && released_on != nil && aired_on < (Date.today - AniManga::OngoingToReleasedDays.days) && released_on < (Date.today - AniManga::OngoingToReleasedDays.days)) &&
     (!ignore_excludes || !self.class::EXCLUDED_ONGOINGS.include?(id))
   end
 

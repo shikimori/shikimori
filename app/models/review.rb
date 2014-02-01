@@ -11,10 +11,9 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  has_one :thread,
+  has_one :thread, -> { where linked_type: Review.name },
     class_name: ReviewComment.name,
     foreign_key: :linked_id,
-    conditions: { linked_type: name },
     dependent: :destroy
 
   validates_presence_of :user, :target
@@ -59,14 +58,14 @@ class Review < ActiveRecord::Base
 
   # создание ReviewComment для элемента сразу после создания
   def create_thread
-    ReviewComment.create!({
+    ReviewComment.create!(
       linked_id: self.id,
       linked_type: self.class.name,
       user: user,
       title: "Обзор #{target.class == Anime ? 'аниме' : 'манги'} #{entry.name}",
       created_at: created_at,
       updated_at: updated_at,
-    })
+    )
   end
 
   # хз что это за хрень и почему ReviewComment.first.linked.target возвращает сам обзор. я так и не понял

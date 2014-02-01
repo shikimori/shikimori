@@ -22,20 +22,22 @@ class PeopleQuery
     work_klass = producer? ? Anime : Manga
     work_key = producer? ? :anime_id : :manga_id
 
-    roles = PersonRole.where(person_id: fetched_query.map(&:id))
-        .where { person_roles.send(work_key).not_eq(0) }
-        .select([:person_id, work_key])
-        .all
+    roles = PersonRole
+      .where(person_id: fetched_query.map(&:id))
+      .where { person_roles.send(work_key).not_eq(0) }
+      .select([:person_id, work_key])
+      .to_a
 
     role_people = roles.each_with_object({}) do |role,memo|
       (memo[role[work_key]] = memo[role[work_key]] || []) << people_by_id[role.person_id]
     end
 
-    works = work_klass.where(id: role_people.keys)
-        .order('score desc')
-        .all
+    works = work_klass
+      .where(id: role_people.keys)
+      .order(score: :desc)
+      .to_a
 
-    works.sort_by {|v| v.aired_at || v.released_at || DateTime.now - 99.years }.reverse.each do |entry|
+    works.sort_by {|v| v.aired_on || v.released_on || DateTime.now - 99.years }.reverse.each do |entry|
       role_people[entry.id].each do |person|
         break if person.last_works.size >= WorksLimit
         person.last_works << entry

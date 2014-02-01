@@ -36,13 +36,13 @@ FactoryGirl.define do
 
     factory :ongoing_anime do
       status AniMangaStatus::Ongoing
-      aired_at DateTime.now - 2.weeks
+      aired_on DateTime.now - 2.weeks
       duration 0
     end
 
     factory :anons_anime do
       status AniMangaStatus::Anons
-      aired_at DateTime.now + 2.weeks
+      aired_on DateTime.now + 2.weeks
       episodes_aired 0
       after :create do |anime|
         FactoryGirl.create(:anime_calendar, anime: anime)

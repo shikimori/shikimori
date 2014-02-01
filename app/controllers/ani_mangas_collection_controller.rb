@@ -127,7 +127,8 @@ private
       when 'ranked'
         'по рейтингу'
 
-      when 'released_at'
+      # TODO: удалить released_at после 01.05.2014
+      when 'released_on', 'released_at'
         'по дате выхода'
 
       when 'id'
@@ -188,7 +189,7 @@ private
     entries = AniMangaQuery.new(klass, params).order(query)
         .includes(:genres)
         .includes(klass == Anime ? :studios : :publishers)
-        .all
+        .to_a
     apply_in_list(entries).group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
   end
 
@@ -204,7 +205,7 @@ private
       entries = ds.where(id: params[:ids_with_sort].keys)
           .where { kind.not_in(['Special', 'Music']) }
           .select("#{klass.name.tableize}.id")
-          .all
+          .to_a
       total_pages = (entries.size * 1.0 / entries_per_page).ceil
       entries = entries.sort_by {|v| -params[:ids_with_sort][v.id] }
           .drop(entries_per_page*(@current_page-1))
@@ -217,9 +218,9 @@ private
 
     # повторная сортировка полученной выборки
     if params[:ids_with_sort].present?
-      entries = entries.all.sort_by {|v| -params[:ids_with_sort][v.id] }
+      entries = entries.sort_by {|v| -params[:ids_with_sort][v.id] }
     else
-      entries = AniMangaQuery.new(klass, params).order(entries).all
+      entries = AniMangaQuery.new(klass, params).order(entries).to_a
     end
     build_pagination_links entries, total_pages
 

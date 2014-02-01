@@ -16,9 +16,9 @@ class AniMangaPresenter::FilesPresenter < BasePresenter
 
   def rutracker_search
     ([
-      (entry.aired_at && entry.russian.present? ? "#{entry.russian} #{(entry.aired_at+1.month).year}" : nil),
-      (entry.aired_at ? "#{entry.name} #{(entry.aired_at+1.month).year}" : nil),
-      (entry.aired_at && entry.torrents_name.present? ? "#{entry.torrents_name} #{(entry.aired_at+1.month).year}" : nil),
+      (entry.aired_on && entry.russian.present? ? "#{entry.russian} #{(entry.aired_on+1.month).year}" : nil),
+      (entry.aired_on ? "#{entry.name} #{(entry.aired_on+1.month).year}" : nil),
+      (entry.aired_on && entry.torrents_name.present? ? "#{entry.torrents_name} #{(entry.aired_on+1.month).year}" : nil),
       entry.russian,
       (entry.russian || '').sub(/:.*/, ''),
       (entry.russian || '').sub(/\(.*\)/, ''),
@@ -41,7 +41,7 @@ class AniMangaPresenter::FilesPresenter < BasePresenter
       torrents = (entry.torrents - torrents_480p - torrents_720p - torrents_1080p).select {|v| v.kind_of?(Hash) }.sort_by do |v|
         v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years
       end.uniq_by {|v| v[:title] }.reverse
-      if entry.status == AniMangaStatus::Released && (entry.released_at || entry.aired_at) && DateTime.now.to_i - (entry.released_at || entry.aired_at).to_time.to_i > 60*60*24*364
+      if entry.status == AniMangaStatus::Released && (entry.released_on || entry.aired_on) && DateTime.now.to_i - (entry.released_on || entry.aired_on).to_time.to_i > 60*60*24*364
         torrents_480p = []
         torrents_720p = []
         torrents_1080p = []

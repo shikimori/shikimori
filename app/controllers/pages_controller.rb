@@ -47,12 +47,12 @@ class PagesController < ApplicationController
     @topics = if params[:kind] == 'anime'
       AnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) }
           .joins('inner join animes on animes.id=linked_id and animes.censored=false')
-          .order { created_at.desc }
+          .order(created_at: :desc)
           .limit(15)
           .all
     else
       Entry.where(type: Topic.name, broadcast: true)
-          .order { created_at.desc }
+          .order(created_at: :desc)
           .limit(10)
           .all
     end

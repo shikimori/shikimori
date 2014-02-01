@@ -82,8 +82,8 @@ private
         (censored.eq(0)) &
         (status != 'Not yet aired') &
         (
-          (aired_at > '1995-01-01') |
-          ((score > 7.5) & (aired_at > '1990-01-01')) |
+          (aired_on > '1995-01-01') |
+          ((score > 7.5) & (aired_on > '1990-01-01')) |
           (score > 8.0) | ((score > 7.7) & (kind.eq('Movie')))
         )
       end.pluck(:id)

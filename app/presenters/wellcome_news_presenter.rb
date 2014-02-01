@@ -21,7 +21,7 @@ class WellcomeNewsPresenter < LazyPresenter
       AnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) & created_at.gte(LastNewsDate) } # & generated.eq(true)
         .joins('inner join animes on animes.id=linked_id and animes.censored=false')
         .includes(:user)
-        .order { created_at.desc }
+        .order(created_at: :desc)
         .limit(10)
         .all
     end
@@ -32,7 +32,7 @@ class WellcomeNewsPresenter < LazyPresenter
     @reviews ||= Review.where { created_at.gte LastReviewsDate }
         .visible
         .includes(:user, :target, thread: [:section])
-        .order('created_at desc')
+        .order(created_at: :desc)
         .limit(3)
         .all
   end
@@ -45,14 +45,14 @@ class WellcomeNewsPresenter < LazyPresenter
   # последняя активность в группах
   def groups
     @groups ||= GroupComment.includes(:linked)
-      .order { updated_at.desc }
+      .order(updated_at: :desc)
       .limit(3)
       .all
   end
 
   # ключ кеша активности групп
   def groups_key
-    @groups_key ||= GroupComment.order { updated_at.desc }.limit(1).map {|v| "#{v.id}-#{v.updated_at}" }.first
+    @groups_key ||= GroupComment.order(updated_at: :desc).limit(1).map {|v| "#{v.id}-#{v.updated_at}" }.first
   end
 
   # ключ кеша опросов

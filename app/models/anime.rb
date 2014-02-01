@@ -23,91 +23,77 @@ class Anime < ActiveRecord::Base
   has_many :characters, through: :person_roles
   has_many :people, through: :person_roles
 
-  has_many :rates,
+  has_many :rates, -> { where target_type: Anime.name },
    class_name: UserRate.name,
    foreign_key: :target_id,
-   conditions: { target_type: self.name },
    dependent: :destroy
 
-  has_many :topics,
+  has_many :topics, -> { order updated_at: :desc },
     class_name: Entry.name,
     as: :linked,
-    order: 'updated_at desc',
     dependent: :destroy
 
-  has_many :news,
+  has_many :news, -> { order created_at: :desc },
     class_name: AnimeNews.name,
-    as: :linked,
-    order: 'created_at desc'
+    as: :linked
 
-  has_many :episodes_news,
+  has_many :episodes_news, -> { where(action: AnimeHistoryAction::Episode).order(created_at: :desc) },
     class_name: AnimeNews.name,
-    as: :linked,
-    conditions: { action: AnimeHistoryAction::Episode },
-    order: 'created_at desc'
+    as: :linked
 
   has_many :related,
     dependent: :destroy,
     foreign_key: :source_id,
     class_name: RelatedAnime.name
-  has_many :related_animes,
+  has_many :related_animes, -> { where.not anime_id: nil },
     through: :related,
-    source: :anime,
-    conditions: 'anime_id is not null'
-  has_many :related_mangas,
+    source: :anime
+  has_many :related_mangas, -> { where.not manga_id: nil },
     through: :related,
-    source: :manga,
-    conditions: 'manga_id is not null'
+    source: :manga
 
-  has_many :similar,
+  has_many :similar, -> { order id: :desc },
     class_name: SimilarAnime.name,
     foreign_key: :src_id,
-    order: 'id desc',
     dependent: :destroy
   has_many :links, class_name: AnimeLink.name, dependent: :destroy
 
-  has_many :user_histories,
+  has_many :user_histories, -> { where target_type: Anime.name },
     foreign_key: :target_id,
-    conditions: { target_type: Anime.name },
     dependent: :destroy
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
-  has_many :cosplay_galleries,
+  has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
     through: :cosplay_gallery_links,
-    class_name: CosplaySession.name,
-    conditions: { deleted: false, confirmed: true }
+    class_name: CosplaySession.name
 
-  has_one :thread,
+  has_one :thread, -> { where linked_type: Anime.name },
     class_name: AniMangaComment.name,
     foreign_key: :linked_id,
-    conditions: { linked_type: self.name },
     dependent: :destroy
 
-  has_many :reviews,
+  has_many :reviews, -> { where target_type: Anime.name },
     foreign_key: :target_id,
-    conditions: { target_type: self.name },
     dependent: :destroy
 
-  has_many :images,
+  has_many :images, -> { where owner_type: Anime.name },
     class_name: AttachedImage.name,
     foreign_key: :owner_id,
-    conditions: { owner_type: self.name },
     dependent: :destroy
 
-  has_many :screenshots, order: [:position, :id], conditions: { status: nil }
+  has_many :screenshots, -> { where(status: nil).order(:position, :id) }
   has_many :all_screenshots, class_name: Screenshot.name, dependent: :destroy
 
-  has_many :videos, order: [:id], conditions: { state: 'confirmed' }
+  has_many :videos, -> { where(state: 'confirmed').order(:id) }
   has_many :all_videos, class_name: Video.name, dependent: :destroy
 
-  has_many :recommendation_ignores,
-    conditions: { target_type: Anime.name },
+  has_many :recommendation_ignores, -> { where target_type: Anime.name },
     foreign_key: :target_id,
     dependent: :destroy
 
   has_many :anime_calendars, dependent: :destroy
 
-  has_many :anime_videos, order: [:episode], dependent: :destroy
+  has_many :anime_videos, -> { order :episode }, dependent: :destroy
 
   has_attached_file :image,
     styles: {
@@ -130,13 +116,14 @@ class Anime < ActiveRecord::Base
   after_save :update_news
 
   # Scopes
-  scope :translatable, where {
-      kind.eq('TV') | (kind.eq('ONA') & score.gte(7.0)) | (kind.eq('OVA') & score.gte(7.5))
-    }.where { id.not_in Anime::EXCLUDED_ONGOINGS }
+  scope :translatable, -> {
+      where { kind.eq('TV') | (kind.eq('ONA') & score.gte(7.0)) | (kind.eq('OVA') & score.gte(7.5)) }
+        .where { id.not_in Anime::EXCLUDED_ONGOINGS }
+    }
 
   # Methods
   def latest?
-    self.ongoing? || self.anons? || (self.aired_at && self.aired_at > DateTime.now - 1.year)
+    self.ongoing? || self.anons? || (self.aired_on && self.aired_on > DateTime.now - 1.year)
   end
 
   def name
@@ -434,13 +421,13 @@ class Anime < ActiveRecord::Base
   def check_status
     # анонс, у которого дата старта больше текущей более, чем на 1 день, не делаем онгоинггом
     if self.changes["status"] && self.status == AniMangaStatus::Ongoing && self.changes["status"][0] == AniMangaStatus::Anons &&
-         self.aired_at && self.aired_at > DateTime.now + 1.day
+         self.aired_on && self.aired_on > DateTime.now + 1.day
       self.status = AniMangaStatus::Anons
     end
 
-    # онгоинг не может стать Released, пока у него released_at больше текущей даты более, чем на 1 день
+    # онгоинг не может стать Released, пока у него released_on больше текущей даты более, чем на 1 день
     if self.changes["status"] && self.status == AniMangaStatus::Released && self.changes["status"][0] == AniMangaStatus::Ongoing &&
-         self.released_at && self.released_at > DateTime.now + 1.day
+         self.released_on && self.released_on > DateTime.now + 1.day
       self.status = AniMangaStatus::Ongoing
     end
 
@@ -471,9 +458,10 @@ class Anime < ActiveRecord::Base
 
     # при сбросе числа вышедщих эпизодов удаляем новости эпизодов
     if self.changes["episodes_aired"] && self.episodes_aired == 0 && self.changes["episodes_aired"][0] != nil
-      AnimeNews.where(linked_id: id, linked_type: self.class.name)
-               .where(action: AnimeHistoryAction::Episode)
-               .destroy_all
+      AnimeNews
+        .where(linked_id: id, linked_type: self.class.name)
+        .where(action: AnimeHistoryAction::Episode)
+        .destroy_all
       no_news = true
     end
 
@@ -481,9 +469,9 @@ class Anime < ActiveRecord::Base
       if self.status == AniMangaStatus::Released &&
           self.changes["id"].nil? &&
           self.changes["status"].any? &&
-          (self.released_at || self.aired_at) &&
-          ((!self.released_at && self.aired_at > DateTime.now - 15.month) ||
-           (self.released_at && self.released_at > DateTime.now - 1.month))
+          (self.released_on || self.aired_on) &&
+          ((!self.released_on && self.aired_on > DateTime.now - 15.month) ||
+           (self.released_on && self.released_on > DateTime.now - 1.month))
         AnimeNews.create_for_new_release(self)
       end
       AnimeNews.create_for_new_anons(self) if self.status == AniMangaStatus::Anons && self.changes["status"][0] != AniMangaStatus::Ongoing

@@ -27,7 +27,7 @@ class CharactersService
 private
   # выборка персонажей
   def extract_characters(anime)
-     anime.characters.all.inject({}) do |rez,v|
+     anime.characters.inject({}) do |rez,v|
       rez[v.japanese.cleanup_japanese.gsub(' ', '')] = v if v.japanese.present?
       rez[v.name.gsub(' ', '')] = v
       rez
@@ -36,7 +36,7 @@ private
 
   # выборка людей
   def extract_people(anime)
-     anime.people.all.inject({}) do |rez,v|
+     anime.people.inject({}) do |rez,v|
       rez[v.japanese.cleanup_japanese.gsub(' ', '')] = v if v.japanese.present?
       rez[v.name.gsub(' ', '')] = v
       rez
@@ -117,7 +117,7 @@ private
           end
         end
       end
-    end.flatten.compact.uniq_by { |v| v[:name] }
+    end.flatten.compact.uniq { |v| v[:name] }
   end
 
   # замена в тексте имён

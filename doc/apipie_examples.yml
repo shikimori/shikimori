@@ -22,8 +22,8 @@
         japanese: []
         synonyms: []
         kind: TV
-        aired_at: 
-        released_at: 
+        aired_on: 
+        released_on: 
         episodes: 0
         episodes_aired: 0
         duration: 0
@@ -62,8 +62,8 @@
         japanese: []
         synonyms: []
         kind: TV
-        aired_at: 
-        released_at: 
+        aired_on: 
+        released_on: 
         episodes: 0
         episodes_aired: 0
         duration: 0
@@ -530,8 +530,8 @@
         japanese: []
         synonyms: []
         kind: Manga
-        aired_at: 
-        released_at: 
+        aired_on: 
+        released_on: 
         volumes: 0
         chapters: 0
         score: 1.0
@@ -568,8 +568,8 @@
         japanese: []
         synonyms: []
         kind: Manga
-        aired_at: 
-        released_at: 
+        aired_on: 
+        released_on: 
         volumes: 0
         chapters: 0
         score: 1.0

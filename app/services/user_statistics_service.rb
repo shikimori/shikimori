@@ -20,7 +20,6 @@ class UserStatisticsService
       .anime_rates
       .joins('join animes on animes.id = target_id')
       .select('user_rates.*, animes.rating, animes.kind, animes.duration, animes.episodes as entry_episodes, animes.episodes_aired as entry_episodes_aired')
-      .all
       .each do |v|
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
       end
@@ -38,7 +37,6 @@ class UserStatisticsService
       .manga_rates
       .joins('join mangas on mangas.id = target_id')
       .select('user_rates.*, mangas.rating, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired')
-      .all
       .each do |v|
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
         v[:duration] = Manga::Duration
