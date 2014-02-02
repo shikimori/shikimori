@@ -157,7 +157,7 @@ class Moderation::UserChangesController < ApplicationController
         success: true,
         notice: '%s забрано на перевод' % anime.name,
         html: render_to_string(partial: 'translation/lock', locals: {
-          anime: anime,
+          anime: anime.reload,
           changes: TranslationController.pending_animes,
           locks: TranslationController.locked_animes
         }, formats: :html)

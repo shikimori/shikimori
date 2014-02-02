@@ -11,10 +11,10 @@ class GroupsController < ApplicationController
       .joins(:member_roles, :thread)
       .group('groups.id')
       .having('count(group_roles.id) > 0')
-      .order { entries.updated_at.desc }
+      .order('entries.updated_at desc')
       .to_a
 
-    @page_title = "Клубы"
+    @page_title = 'Клубы'
   end
 
   # создание новой группы

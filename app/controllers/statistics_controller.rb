@@ -129,9 +129,9 @@ private
 
     start_on = DateTime.parse("#{DateTime.now.year}-01-01") - YearsAgo
     finish_on = DateTime.parse("#{DateTime.now.year}-01-01") - 1.day + 1.year
-    @animes = Anime.where { aired_on.not_eq(nil) }
-        .where { aired_on.gte(start_on) }
-        .where { aired_on.lte(finish_on) }
+    @animes = Anime.where.not(aired_on: nil)
+        .where('aired_on >= ?', start_on)
+        .where('aired_on <= ?', finish_on)
         .where(:kind => @kinds)
         .select([:id, :aired_on, :kind, :rating, :score])
         .order(:aired_on)
