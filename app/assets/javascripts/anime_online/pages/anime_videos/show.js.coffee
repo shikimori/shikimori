@@ -14,12 +14,8 @@ jQuery ->
   $('.kinds li a', $page).on 'click', ->
     $('.video iframe', $page).attr 'src', $(@).data('url')
 
-  $('a', '.report li').on 'click', ->
-    $.ajax
-      url: $(@).data('url')
-      type: 'POST'
-      success: ->
-        alert 'Ваше обращение принято. Спасибо!'
+  $('a', '.report li').on 'ajax:success', ->
+    alert 'Ваше обращение принято. Спасибо!'
 
   resize_player $page
   $(window).resize -> resize_player($page)
