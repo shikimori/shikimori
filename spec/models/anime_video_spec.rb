@@ -64,6 +64,34 @@ describe AnimeVideo do
         end
       end
     end
+
+    describe :allowed_xplay do
+      subject { AnimeVideo.allowed_xplay }
+
+      context :false do
+        context :by_censored do
+          before { create :anime_video, anime: create(:anime, censored: false) }
+          it { should be_blank }
+        end
+
+        context :by_reting do
+          before { create :anime_video, anime: create(:anime, rating: 'None') }
+          it { should be_blank }
+        end
+      end
+
+      context :true do
+        context :by_censored do
+          before { create :anime_video, anime: create(:anime, censored: true) }
+          it { should have(1).items }
+        end
+
+        context :by_rating do
+          before { create :anime_video, anime: create(:anime, rating: Anime::ADULT_RATINGS.first) }
+          it { should have(1).items }
+        end
+      end
+    end
   end
 
   describe :before_save do

@@ -25,6 +25,12 @@ class AnimeVideo < ActiveRecord::Base
         .where('animes.censored = false')
   }
 
+  scope :allowed_xplay, -> {
+    worked
+      .joins(:anime)
+        .where('animes.rating in (?) or animes.censored = true', Anime::ADULT_RATINGS)
+  }
+
   scope :worked, -> { where state: ['working', 'uploaded'] }
 
   CopyrightBanAnimeIDs = [10793]

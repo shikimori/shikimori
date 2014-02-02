@@ -350,7 +350,7 @@ describe Anime do
       end
 
       context :true do
-        let(:rating) { 'R - 17+ (violence & profanity)' }
+        let(:rating) { 'R+ - Mild Nudity' }
         it { should be_true }
       end
     end
