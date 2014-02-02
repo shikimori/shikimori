@@ -14,21 +14,16 @@ module PagesHelper
     10 => 'brown'
   }
 
-  def format_news_body(entry)
-    text = cut(entry.text)
-    text.sub!(/(\[poster\][\s\S]*?\[\/poster\])([\s\S]*)/, '\1')
-    format_comment(text, entry.user).gsub(/<a href=/, '<a rel="nofollow" href=')
-  end
-
   # форматирует число дней в читабельную дату для графика онгоингов
   def date_title_for_ongoing(days)
     date = DateTime.now + days.days
+
     if days == 0
-      Russian::strftime(date, 'Сегодня, %e %B')
+      Russian::strftime date, 'Сегодня, %e %B'
     elsif date.year == DateTime.now.year
-      Russian::strftime(date, '%A, %e %B')
+      Russian::strftime date, '%A, %e %B'
     else
-      Russian::strftime(date, '%A, %e %B %Y')
+      Russian::strftime date, '%A, %e %B %Y'
     end
   end
 

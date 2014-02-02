@@ -18,7 +18,7 @@ describe AniMangasController::ReviewsController do
 
       let(:valid_hash) do
         {
-          text: "reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext",
+          text: 1188.times.sum {|v| 's' },
           storyline: 1,
           characters: 1,
           animation: 1,
@@ -193,10 +193,10 @@ describe AniMangasController::ReviewsController do
 
           it 'bad params' do
             expect {
-              post :create, defaults.merge(review: {})
+              post :create, defaults.merge(review: { text: 'test'})
             }.to change(Review, :count).by 0
 
-            should respond_with 400
+            should respond_with 422
           end
 
           it 'success' do

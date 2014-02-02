@@ -99,7 +99,7 @@ class UsersController < ApplicationController
       @compatibility = CompatibilityService.fetch @user, current_user
     end
 
-    @favourites = (@user.fav_animes.all + @user.fav_mangas.all + @user.fav_characters.all + @user.fav_people.all)
+    @favourites = (@user.fav_animes.to_a + @user.fav_mangas.to_a + @user.fav_characters.to_a + @user.fav_people.to_a)
       .shuffle
       .uniq {|fav| [fav.id, fav.class] }
       .take(10)

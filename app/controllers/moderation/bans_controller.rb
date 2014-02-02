@@ -9,7 +9,7 @@ class Moderation::BansController < ApplicationController
   def index
     @page_title = 'Журнал модерации'
 
-    @moderators = User.where(id: User::Moderators - User::Admins).all.sort_by { |v| v.nickname.downcase }
+    @moderators = User.where(id: User::Moderators - User::Admins).sort_by { |v| v.nickname.downcase }
     @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
 
     if user_signed_in? && current_user.moderator?
@@ -19,7 +19,6 @@ class Moderation::BansController < ApplicationController
         .includes(:user, :approver, comment: :commentable)
         .order(:created_at)
         .order(:created_at)
-        .all
         .each do |req|
           formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
 

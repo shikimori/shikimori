@@ -79,11 +79,12 @@ describe AnimePlanetParser do
 
       added, updated, not_imported = 0, 0, 0
       expect {
-        added, updated, not_imported = parser.import_list(user, list, true, UserRateStatus::Dropped)
+        added, updated, not_imported = parser.import_list user, list, true, UserRateStatus::Dropped
       }.to change(UserRate, :count).by list.size - 1
 
       [added.size, updated.size, not_imported.size].should eq([3, 0, 1])
 
+      user.reload
       user.anime_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Dropped) }.should have(1).item
       user.anime_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Completed) }.should have(1).item
       user.anime_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Watching) }.should have(1).item

@@ -161,7 +161,7 @@ private
   end
 
   def all_roles
-    @all_roles ||= object.person_roles.includes(:anime).includes(:manga).all
+    @all_roles ||= object.person_roles.includes(:anime).includes(:manga).to_a
   end
 
   def roles_names

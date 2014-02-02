@@ -25,9 +25,9 @@ class TopicsController < ForumController
       when AllSection[:permalink]
         if user_signed_in?
           subscriptions = Subscription.where(user_id: current_user.id, target_type: GroupComment.name).select(:target_id).map(&:target_id)
-          Entry.where { type.not_eq(GroupComment.name) | (type.eq(GroupComment.name) & id.in(subscriptions)) }
+          Entry.where("type != ? or (type = ? and id in (?))", GroupComment.name, GroupComment.name, subscriptions)
         else
-          Entry.where { type.not_eq(GroupComment.name) }
+          Entry.where.not(type: GroupComment.name)
         end
 
       when FeedSection[:permalink]
@@ -51,7 +51,7 @@ class TopicsController < ForumController
         .limit(topics_limit + 1)
 
     #topics = topics.visible_only unless params[:linked]
-    topics = topics.all
+    topics = topics.to_a
 
     @add_postloader = topics.size > topics_limit
     @topics = topics.take(topics_limit).map do |entry|

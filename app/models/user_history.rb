@@ -50,7 +50,7 @@ class UserHistory < ActiveRecord::Base
             .where(target_id: item.id)
             .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
             .order(:id)
-            .all
+            .to_a
 
         if last_entry && last_entry.action == UserHistoryAction::Add && last_entry.target_id == item.id
           last_entry.destroy

@@ -14,57 +14,63 @@ class WellcomeGalleryPresenter < LazyPresenter
   def lazy_load
     @index = ['favourites', 'latest', 'tv',' movies', 'serials', 'ongoing']
     @data = [
-      Anime.where(id: Favourite.where(linked_type: Anime.name).group(:linked_id).order('count(*) desc').limit(50).map(&:linked_id))
-            .where(censored: false)
-            .includes(:genres)
-            .order(:ranked)
-            .all,
-      Anime.where(AniMangaStatus.query_for('latest'))
-            .where(kind: 'TV')
-            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
-            .where { id.not_in(AniMangaQuery::AnimeSerials) }
-            .where { rating.not_eq('None') }
-            .where { ranked.not_eq(0) }
-            .where(censored: false)
-            .includes(:genres)
-            .order(:ranked)
-            .limit(12)
-            .all,
-      Anime.where(kind: 'TV')
-            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
-            .where { id.not_in(AniMangaQuery::AnimeSerials) }
-            .where { rating.not_eq('None') }
-            .where { ranked.not_eq(0) }
-            .where(censored: false)
-            .includes(:genres)
-            .order(:ranked)
-            .limit(84)
-            .all,
-      Anime.where(kind: 'Movie')
-            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
-            .where { id.not_in(AniMangaQuery::AnimeSerials) }
-            .where { rating.not_eq('None') }
-            .where { ranked.not_eq(0) }
-            .where(censored: false)
-            .includes(:genres)
-            .order(:ranked)
-            .limit(84)
-            .all,
-      Anime.where(id: AniMangaQuery::AnimeSerials)
-            .where(censored: false)
-            .includes(:genres)
-            .order(:ranked)
-            .all,
-      Anime.where(AniMangaStatus.query_for('ongoing'))
-            .where(kind: 'TV')
-            .where { id.not_in(Anime::EXCLUDED_ONGOINGS) }
-            .where { id.not_in(AniMangaQuery::AnimeSerials) }
-            .where { rating.not_eq('None') }
-            .where { ranked.not_eq(0) }
-            .where(censored: false)
-            .includes(:genres)
-            .order(:ranked)
-            .all
+      Anime
+        .where(id: Favourite.where(linked_type: Anime.name).group(:linked_id).order('count(*) desc').limit(50).map(&:linked_id))
+        .where(censored: false)
+        .includes(:genres)
+        .order(:ranked)
+        .to_a,
+      Anime
+        .where(AniMangaStatus.query_for('latest'))
+        .where(kind: 'TV')
+        .where.not(id: Anime::EXCLUDED_ONGOINGS)
+        .where.not(id: AniMangaQuery::AnimeSerials)
+        .where.not(rating: 'None')
+        .where.not(ranked: 0)
+        .where(censored: false)
+        .includes(:genres)
+        .order(:ranked)
+        .limit(12)
+        .to_a,
+      Anime
+        .where(kind: 'TV')
+        .where.not(id: Anime::EXCLUDED_ONGOINGS)
+        .where.not(id: AniMangaQuery::AnimeSerials)
+        .where.not(rating: 'None')
+        .where.not(ranked: 0)
+        .where(censored: false)
+        .includes(:genres)
+        .order(:ranked)
+        .limit(84)
+        .to_a,
+      Anime
+        .where(kind: 'Movie')
+        .where.not(id: Anime::EXCLUDED_ONGOINGS)
+        .where.not(id: AniMangaQuery::AnimeSerials)
+        .where.not(rating: 'None')
+        .where.not(ranked: 0)
+        .where(censored: false)
+        .includes(:genres)
+        .order(:ranked)
+        .limit(84)
+        .to_a,
+      Anime
+        .where(id: AniMangaQuery::AnimeSerials)
+        .where(censored: false)
+        .includes(:genres)
+        .order(:ranked)
+        .to_a,
+      Anime
+        .where(AniMangaStatus.query_for('ongoing'))
+        .where(kind: 'TV')
+        .where.not(id: Anime::EXCLUDED_ONGOINGS)
+        .where.not(id: AniMangaQuery::AnimeSerials)
+        .where.not(rating: 'None')
+        .where.not(ranked: 0)
+        .where(censored: false)
+        .includes(:genres)
+        .order(:ranked)
+        .to_a
     ].map { |v| v.shuffle.take(6).sort_by { |a| a.ranked } }
   end
 end

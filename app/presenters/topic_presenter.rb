@@ -60,7 +60,7 @@ class TopicPresenter < BasePresenter
 
   # текст топика
   def body
-    format_news_body(entry).html_safe
+    BbCodeFormatter.instance.format_comment entry.body
   end
 
   # посты топика

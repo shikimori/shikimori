@@ -1,7 +1,8 @@
 require 'spec_helper'
+
 describe ImagesController do
   describe :create do
-    let(:image) { Rack::Test::UploadedFile.new(Rails.root + 'spec/images/anime.jpg') }
+    let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
 
     context 'guest' do
       before { post :create }

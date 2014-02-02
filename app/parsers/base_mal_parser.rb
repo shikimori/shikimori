@@ -89,7 +89,7 @@ class BaseMalParser < SiteParserWithCache
         # применение mal_fixes
         apply_mal_fixes(id, fetched_data)
 
-        entry = klass.find_or_create_by_id(id)
+        entry = klass.find_or_create_by(id: id)
         @import_mutex.synchronize do
           print "deploying %s %s %s\n" % [type, id, entry.name] if Rails.env != 'test'
           deploy(entry, fetched_data)

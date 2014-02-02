@@ -6,13 +6,13 @@ class Api::V1::Profile::FavouritesController < Api::V1::ApiController
   def index
     favourites = Rails.cache.fetch [current_user, :favourites] do
       {
-        animes: current_user.fav_animes.all,
-        mangas: current_user.fav_mangas.all,
-        characters: current_user.fav_characters.all,
-        people: current_user.fav_persons.all,
-        mangakas: current_user.fav_mangakas.all,
-        seyu: current_user.fav_seyu.all,
-        producers: current_user.fav_producers.all
+        animes: current_user.fav_animes.to_a,
+        mangas: current_user.fav_mangas.to_a,
+        characters: current_user.fav_characters.to_a,
+        people: current_user.fav_persons.to_a,
+        mangakas: current_user.fav_mangakas.to_a,
+        seyu: current_user.fav_seyu.to_a,
+        producers: current_user.fav_producers.to_a
       }
     end
     @resource = OpenStruct.new favourites

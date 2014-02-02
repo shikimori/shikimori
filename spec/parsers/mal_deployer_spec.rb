@@ -16,7 +16,7 @@ describe MalDeployer do
         let(:entry) { create klass.name.downcase.to_sym, id: entry_id }
         let(:data) { parser.fetch_entry(entry_id) }
 
-        it 'updates imported_at', :focus do
+        it 'updates imported_at' do
           entry.imported_at.should be(nil)
           parser.deploy(entry, data)
           entry.imported_at.should_not be(nil)

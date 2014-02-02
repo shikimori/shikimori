@@ -37,7 +37,7 @@ class CharacterDecorator < PersonDecorator
   end
 
   def seyu
-    @seyu ||= object.seyu.all
+    @seyu ||= object.seyu.to_a
   end
 
   def job_title

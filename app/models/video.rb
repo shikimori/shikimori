@@ -97,7 +97,7 @@ class Video < ActiveRecord::Base
   end
 
   def details
-    self[:details] || fetch_vk_details
+    self[:details] || fetch_vk_details if vk?
   end
 
   def hosting
@@ -121,11 +121,6 @@ private
     false
   end
 
-  def fetch_vk_details
-    sleep 1 unless Rails.env.test?
-    self.details = VkVideoExtractor.new(url).fetch
-  end
-
   def check_vk_existence
     if details.nil?
       self.errors[:url] = I18n.t('activerecord.errors.models.videos.attributes.url.vk_not_exist')
@@ -133,6 +128,11 @@ private
     else
       details
     end
+  end
+
+  def fetch_vk_details
+    sleep 1 unless Rails.env.test?
+    self.details = VkVideoExtractor.new(url).fetch
   end
 
   # направление видео на модерацию

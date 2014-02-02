@@ -2,8 +2,7 @@ require 'sidekiq/web'
 
 Site::Application.routes.draw do
   constraints AnimeOnlineDomain  do
-    # rails_4_upgrade
-    #root to: 'anime_online/anime_videos#index'
+    get '/', to: 'anime_online/anime_videos#index'
     namespace :anime_online do
       resources :anime, only: [:show] do
         resources :anime_videos, only: [:new, :create]
@@ -22,8 +21,8 @@ Site::Application.routes.draw do
   constraints ShikimoriDomain  do
     # форум
     root to: 'topics#index'
-    get '/' => 'topics#index', as: :forum
-    get '/' => 'topics#index', as: :new_session
+    get '/', to: 'topics#index', as: :forum
+    get '/', to: 'topics#index', as: :new_session
 
     # seo redirects
     get 'r' => redirect('/reviews')
@@ -88,7 +87,6 @@ Site::Application.routes.draw do
       registrations: 'users/registrations',
       passwords: 'users/passwords'
     }
-    # rails_4_upgrade
     #get '/users/auth/:action/callback(.:format)', as: :user_omniauth_callback, action: /facebook|vkontakte|twitter/, controller: "users/omniauth_callbacks" # |google_apps|yandex|google_oauth2
 
     # комментарии
@@ -224,11 +222,6 @@ Site::Application.routes.draw do
     put 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
     put 'invites/:id/reject' => 'group_invites#reject', as: :group_invites_reject
 
-    # old forum
-    get 'forums/section-:section/topic-:id(/page/:page)(/:unread)(.:format)' => 'topics_old#show'
-    get 'forums/section-:id(/page/:page)(.:format)' => 'sections#show'
-    get 'forums' => redirect('/')
-
     # statistics
     get 'anime-history' => 'statistics#index', as: :anime_history
 
@@ -245,8 +238,8 @@ Site::Application.routes.draw do
     get 'test' => 'pages#test'
     get 'raise-exception' => 'pages#raise_exception'
     get 'auth_form' => 'pages#auth_form'
-    get "site-news" => 'pages#news', kind: 'site'
-    get "anime-news" => 'pages#news', kind: 'anime'
+    get "site-news" => 'pages#news', kind: 'site', format: :rss
+    get "anime-news" => 'pages#news', kind: 'anime', format: :rss
     get "feedback" => 'pages#feedback'
     get 'disabled_registration' => 'pages#disabled_registration'
     get 'disabled_openid' => 'pages#disabled_openid'
@@ -283,9 +276,9 @@ Site::Application.routes.draw do
     constraints id: /\d[^\/]*?/ do
       get 'characters/:id' => 'characters#show', as: :character, page: 'info'
       put 'characters/:id/apply' => 'characters#apply', as: :apply_character
-      get 'characters/:id/:page' => 'characters#page', as: 'page_character', constraints: { page: /comments|images|cosplay/ }
+      get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
       get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
-      get 'characters/:id/edit/:subpage' => "characters#edit", as: 'edit_character', page: 'edit', constraints: { subpage: /description|russian/ }
+      get 'characters/:id/edit/:subpage' => "characters#edit", as: :edit_character, page: 'edit', constraints: { subpage: /description|russian/ }
     end
     get "characters/:search(/page/:page)" => 'characters#index', as: :character_search, page: /\d+/
     # tags
@@ -552,15 +545,15 @@ Site::Application.routes.draw do
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
 
-    #if Rails.env.test?
-      #match 'subscriptions/:action', controller: :subscriptions
-      #match 'messages', controller: :messages, as: :messages
-      #match 'users(/:action(/:id(.:format)))', controller: :users
-    #end
-    #match 'animes(/:action(/:id(.:format)))', controller: :animes
-    #match 'mangas(/:action(/:id(.:format)))', controller: :mangas
-    #match 'groups(/:action(/:id(.:format)))', controller: :groups
-    #match 'invites(/:action(/:id(.:format)))', controller: :group_invites
+    if Rails.env.test?
+      get 'users(/:action(/:id(.:format)))', controller: :users
+      resources :user_preferences, only: [:update]
+      get 'groups(/:action(/:id(.:format)))', controller: :groups
+      get 'characters(/:action(/:id(.:format)))', controller: :characters
+      get 'comments(/:action(/:id(.:format)))', controller: :comments
+      get 'pages(/:action(/:id(.:format)))', controller: :pages
+      get 'danbooru(/:action(/:id(.:format)))', controller: :danbooru
+    end
 
     get '*a', to: 'pages#page404'
   end
