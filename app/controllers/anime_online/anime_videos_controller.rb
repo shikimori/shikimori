@@ -5,7 +5,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   after_filter :save_preferences, only: :show
 
   def index
-    anime_query = AnimeVideosQuery.new params
+    anime_query = AnimeVideosQuery.new AnimeOnlineDomain::adult_host?(request), params
     @anime_ids = anime_query.search.order.page.fetch_ids
     @anime_list = AnimeVideoDecorator.decorate_collection anime_query.search.order.page.fetch_entries
   end
@@ -20,12 +20,20 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   end
 
   def show
-    redirect_to anime_videos_url search: params[:search] unless params[:search].blank?
+    unless params[:search].blank?
+      redirect_to anime_videos_url search: params[:search]
+      return
+    end
 
     @anime = AnimeVideoDecorator.new(
       Anime
         .includes(:anime_videos, :genres)
         .find params[:id])
+
+    unless AnimeOnlineDomain::valid_host? @anime, request
+      redirect_to anime_videos_show_url @anime.id, domain: AnimeOnlineDomain::host(@anime), subdomain: false
+      return
+    end
 
     raise ActionController::RoutingError.new 'Not Found' if @anime.anime_videos.blank?
 

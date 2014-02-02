@@ -1,11 +1,10 @@
 class AnimeVideosQuery
   PER_PAGE = 40
 
-  def initialize params={}
+  def initialize adult, params={}
     @search = params[:search]
     @page = [params[:page].to_i, 1].max
-    @query = AnimeVideo
-      .allowed_play
+    @query = (adult ? AnimeVideo.allowed_xplay : AnimeVideo.allowed_play)
       .select('distinct anime_id')
     @query_entries = Anime
       .includes(:anime_videos)

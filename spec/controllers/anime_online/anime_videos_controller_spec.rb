@@ -4,7 +4,10 @@ describe AnimeOnline::AnimeVideosController do
   describe :show do
     context :with_video do
       let(:anime) { create :anime, name: 'anime_test', anime_videos: [create(:anime_video)] }
-      before { get :show, id: anime.id }
+      before do
+        @request.host = 'play.test'
+        get :show, id: anime.id
+      end
 
       it { should respond_with_content_type :html }
       it { response.should be_success }
@@ -19,6 +22,51 @@ describe AnimeOnline::AnimeVideosController do
     context :without_video do
       let(:anime) { create :anime, name: 'anime_test' }
       it { expect { get :show, id: anime.id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    describe :verify_adult do
+      before do
+        Anime.any_instance.stub(:adult?).and_return adult
+        @request.host = domain
+        get :show, id: anime.id, domain: 'play'
+      end
+      let(:anime) { create :anime, anime_videos: [create(:anime_video)] }
+
+      context :with_redirect do
+        context :adult_video do
+          let(:adult) { true }
+          let(:domain) { 'play.shikimori.org' }
+
+          it { should respond_with_content_type :html }
+          it { should redirect_to(anime_videos_show_url anime.id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
+        end
+
+        context :adult_domain do
+          let(:adult) { false }
+          let(:domain) { 'xplay.shikimori.org' }
+
+          it { should respond_with_content_type :html }
+          it { should redirect_to(anime_videos_show_url anime.id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
+        end
+      end
+
+      context :without_redirect do
+        context :not_adult do
+          let(:adult) { false }
+          let(:domain) { 'play.shikimori.org' }
+
+          it { should respond_with_content_type :html }
+          it { response.should be_success }
+        end
+
+        context :adult do
+          let(:adult) { true }
+          let(:domain) { 'xplay.shikimori.org' }
+
+          it { should respond_with_content_type :html }
+          it { response.should be_success }
+        end
+      end
     end
   end
 
