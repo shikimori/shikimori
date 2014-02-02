@@ -49,9 +49,13 @@
 
       .moderation {
         margin-right: 0;
+        float: none;
 
         span {
           @include bracket_action;
+          &:first-child {
+            padding-left: 0;
+          }
         }
       }
       .bracket-actions {

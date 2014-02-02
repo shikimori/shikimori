@@ -18,7 +18,7 @@ reload = ($comment) ->
 
 # скрытие кнопочек действий
 hide_actions = (node) ->
-  $(node).closest('.request-control').children('.bracket-actions').hide()
+  $(node).closest('.request-control').children('.moderation').hide()
 
 # редактирвоание коммента
 $(document.body).on 'ajax:success', '.shiki-editor', (e, data) ->
