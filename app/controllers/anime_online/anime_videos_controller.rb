@@ -30,12 +30,12 @@ class AnimeOnline::AnimeVideosController < ApplicationController
         .includes(:anime_videos, :genres)
         .find params[:id])
 
+    raise ActionController::RoutingError.new 'Not Found' if @anime.anime_videos.blank?
+
     unless AnimeOnlineDomain::valid_host? @anime, request
       redirect_to anime_videos_show_url @anime.id, domain: AnimeOnlineDomain::host(@anime), subdomain: false
       return
     end
-
-    raise ActionController::RoutingError.new 'Not Found' if @anime.anime_videos.blank?
 
     unless @anime.current_episode > 1
       @reviews = Comment
