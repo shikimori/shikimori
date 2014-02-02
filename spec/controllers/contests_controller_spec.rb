@@ -116,7 +116,7 @@ describe ContestsController do
 
   describe :update do
     context 'when success' do
-      before { put :update, id: contest.id, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on').merge(description: 'zxc') }
+      before { patch :update, id: contest.id, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on').merge(description: 'zxc') }
 
       it { should respond_with 302 }
       it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
@@ -125,7 +125,7 @@ describe ContestsController do
     end
 
     context 'when validation errors' do
-      before { put 'update', id: contest.id, contest: { title: '' } }
+      before { patch 'update', id: contest.id, contest: { title: '' } }
 
       it { should respond_with :success }
       it { should respond_with_content_type :html }

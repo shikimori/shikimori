@@ -1,7 +1,6 @@
 # TODO: refactor UserNotifications module inclusion
 class User < ActiveRecord::Base
   include PermissionsPolicy
-  include OmniAuthPopulator
   include UserNotifications
   include Commentable
 
@@ -133,70 +132,6 @@ class User < ActiveRecord::Base
       if data = session[:omniauth]
         user.user_tokens.build(provider: data['provider'], uid: data['uid'])
       end
-    end
-  end
-
-  def apply_omniauth omniauth
-    self.omniauth = omniauth
-    populate_from_omni(omniauth)
-
-    user_tokens.build(provider: omniauth['provider'], uid: omniauth['uid'], omniauth: omniauth)
-
-    self.nickname = 'Новый пользователь' if self.nickname.blank?
-    self.email = "generated_#{fast_token}@shikimori.org" if self.email.blank?
-  end
-
-  def populate_from_omni omni
-    self.nickname = omni.info['nickname'] if self.nickname.blank? && omni.info['nickname'].present?
-    self.nickname = omni.info['name'] if self.nickname.blank? && omni.info['name'].present?
-    self.name = omni.info['name'] if self.name.blank? && omni.info['name'].present?
-    self.email = omni.info['email'] if self.email.blank? && omni.info['email'].present?
-    self.about = omni.info['description'] if self.about.blank?
-    self.website = omni.info['urls'].values.select(&:present?).first if self.website.blank? && omni.info['urls'].kind_of?(Hash)
-    self.location = omni.info['location'].sub(/,\s*$/, '') if self.location.blank? && omni.info['location'].present? && omni.info['location'] !~ /^[ ,]$/
-    # тут может какая-то хрень придти, не являющаяся датой
-    begin
-      self.birth_on = DateTime.parse(omni.info['birth_date']) unless self.birth_on.present? || !omni.info['birth_date'].present?
-    rescue
-    end
-  end
-
-  def populate_from_twitter omni
-  end
-
-  def populate_from_google_apps omni
-  end
-
-  def populate_from_facebook omni
-    self.location = omni.extra.raw_info['location']['name'] if self.location.blank? && omni.extra.raw_info['location'] && omni.extra.raw_info['location']['name'].present?
-
-    if self.sex.blank? && omni.extra.raw_info['gender'].present?
-      self.sex = if omni.extra.raw_info['gender'] == 'male'
-        'male'
-      elsif omni.extra.raw_info['gender'] == 'female'
-        'female'
-      end
-    end
-  end
-
-  def populate_from_yandex omni
-  end
-
-  def populate_from_vkontakte omni
-    self.avatar = open(omni.extra.raw_info['photo_big']) if !self.avatar.present? && omni.extra.raw_info['photo_big'].present? && omni.extra.raw_info['photo_big'] =~ /^https?:\/\//
-    self.avatar = open(omni.info['image']) if !self.avatar.present? && omni.info['image'].present? && omni.info['image'] =~ /^https?:\/\//
-
-    if self.sex.blank? && omni.extra.raw_info['sex'].present?
-      self.sex = if omni.extra.raw_info['sex'] == '2'
-        'male'
-      elsif omni.extra.raw_info['sex'] == '1'
-        'female'
-      end
-    end
-
-    begin
-      self.birth_on = DateTime.parse(omni.extra.raw_info['bdate']) unless self.birth_on.present? || !omni.extra.raw_info['bdate'].present?
-    rescue
     end
   end
 

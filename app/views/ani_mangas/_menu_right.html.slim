@@ -116,7 +116,7 @@ nav.menu-block
   .menu-block
     #rate-block.user-rate-block style="#{'display: none;' unless @entry.rate}"
       .subheadline Статус
-      = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-status-form') do
+      = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-status-form') do
         = hidden_field_tag 'rate[status]', @entry.rate ? @entry.rate.status : 0
         ul.block-list.rate-statuses
           - UserRateStatus.statuses.each do |status|
@@ -126,7 +126,7 @@ nav.menu-block
 
       .m10
         - if @entry.respond_to? :episodes
-          = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-episodes-form') do
+          = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-episodes-form') do
             p.m2 style="#{'display: none;' if @entry.kind == 'Movie' && (!@entry.episodes || @entry.episodes == 1)}"
               span.key Просмотрено:
               = text_field_tag 'rate[episodes]', @entry.rate ? @entry.rate.episodes : 0, id: 'rate-episodes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.episodes : 0
@@ -138,7 +138,7 @@ nav.menu-block
               span.item-add
 
         - elsif @entry.respond_to? :chapters
-          = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-chapters-form') do
+          = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-chapters-form') do
             p.m2
               span.key Прочитано:
               = text_field_tag 'rate[chapters]', @entry.rate ? @entry.rate.chapters : 0, id: 'rate-chapters', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.chapters : 0
@@ -148,13 +148,13 @@ nav.menu-block
                 = @entry.chapters
               span.item-add
 
-          = form_tag(@entry.rate_url, format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-volumes-form') do
+          = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-volumes-form') do
             = text_field_tag 'rate[volumes]', @entry.rate ? @entry.rate.volumes : 0, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.volumes : 0
 
       p.m2
         span.key Моя оценка:
       .rate-block
-        = form_tag(@entry.rate_url, {format: :json, method: :put, remote: true, 'data-type' => :json, id: 'rate-score-form'}) do
+        = form_tag(@entry.rate_url, {format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-score-form'}) do
           = hidden_field_tag 'rate[score]', 0
           div#rate-rate.scores-user
             = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }

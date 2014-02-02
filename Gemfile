@@ -53,7 +53,6 @@ gem 'exception_notification'
 gem 'awesome_print'
 gem 'ruby-progressbar', github: 'morr/ruby-progressbar'
 gem 'htmldiff', github: 'myobie/htmldiff'
-#gem 'squeel'
 
 gem 'truncate_html'
 gem 'acts-as-taggable-on'

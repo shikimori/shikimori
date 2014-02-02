@@ -87,7 +87,6 @@ Site::Application.routes.draw do
       registrations: 'users/registrations',
       passwords: 'users/passwords'
     }
-    #get '/users/auth/:action/callback(.:format)', as: :user_omniauth_callback, action: /facebook|vkontakte|twitter/, controller: "users/omniauth_callbacks" # |google_apps|yandex|google_oauth2
 
     # комментарии
     resources :comments do
@@ -202,7 +201,7 @@ Site::Application.routes.draw do
       get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
     end
-    put 'groups/:id' => 'groups#apply', as: :apply_group
+    patch 'groups/:id' => 'groups#apply', as: :apply_group
     post 'groups/:id' => 'groups#apply'
     get 'groups/:id/autocomplete/:search' => 'groups#autocomplete', as: 'autocomplete_group_members', format: :json, search: /.*/
 
@@ -219,8 +218,8 @@ Site::Application.routes.draw do
     delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy'
     # invite
     post 'invites/:group_id/:nickname' => 'group_invites#create', as: :group_invites, nickname: /.*/
-    put 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
-    put 'invites/:id/reject' => 'group_invites#reject', as: :group_invites_reject
+    patch 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
+    patch 'invites/:id/reject' => 'group_invites#reject', as: :group_invites_reject
 
     # statistics
     get 'anime-history' => 'statistics#index', as: :anime_history
@@ -275,7 +274,7 @@ Site::Application.routes.draw do
     get 'characters/:id/tooltip(/:test)' => 'characters#tooltip', as: :character_tooltip # это должно идти перед character_path
     constraints id: /\d[^\/]*?/ do
       get 'characters/:id' => 'characters#show', as: :character, page: 'info'
-      put 'characters/:id/apply' => 'characters#apply', as: :apply_character
+      patch 'characters/:id/apply' => 'characters#apply', as: :apply_character
       get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
       get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
       get 'characters/:id/edit/:subpage' => "characters#edit", as: :edit_character, page: 'edit', constraints: { subpage: /description|russian/ }
@@ -320,11 +319,11 @@ Site::Application.routes.draw do
           # тултип
           get 'tooltip(/:test)', action: :tooltip, as: :tooltip
           # редактирование
-          put 'apply'
+          patch 'apply'
 
           # работа со списком
           post 'rate' =>  'user_rates#create', type: klass.name
-          put 'rate' => 'user_rates#update', type: klass.name
+          patch 'rate' => 'user_rates#update', type: klass.name
           delete 'rate' => 'user_rates#destroy', type: klass.name
 
           get ':page' => "#{plural}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
@@ -419,7 +418,7 @@ Site::Application.routes.draw do
 
     # studios
     get "studios" => 'studios#index', as: :studios
-    put "studios/:id/apply" => 'studios#apply', as: :apply_studio
+    patch "studios/:id/apply" => 'studios#apply', as: :apply_studio
     get "studios/:id#{ani_manga_format}" => 'pages#page404', as: :studio
 
     # proxies
@@ -430,7 +429,7 @@ Site::Application.routes.draw do
     #get 'blogs' => 'entries#index', as: :blogs
     #get 'blogs(/:offset/:limit)' => 'entries#postloader', as: :blogs_postloader, constraints: { offset: /\d+/, limit: /\d+/ }
     get ':year/:month/:day/:id' => 'entries#show', as: :news, constraints: { year: /\d+/, day: /\d+/ }
-    #put 'blogs/:id' => 'entries#apply', as: :entry
+    #patch 'blogs/:id' => 'entries#apply', as: :entry
     #delete 'blogs/:id' => 'entries#destroy'
     #get 'blogs/new' => 'entries#new', as: :new_entry
     #post 'blogs/create' => 'entries#create', as: :create_news
@@ -504,9 +503,9 @@ Site::Application.routes.draw do
       get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications|misc/, type: 'settings'
       #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
       #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
-      put ':id(/:type/:page)' => 'users#update'
-      put ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
-      put ':id/password' => 'users#update_password', as: :update_user_password
+      patch ':id(/:type/:page)' => 'users#update'
+      patch ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
+      patch ':id/password' => 'users#update_password', as: :update_user_password
       get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
       post ':id/ban' => 'users#do_ban'
 
@@ -516,7 +515,7 @@ Site::Application.routes.draw do
 
       get ':id/friends' => 'users#friends', as: :user_friends, type: 'friends'
       get ':id/clubs' => 'users#clubs', as: :user_clubs, type: 'clubs'
-      put ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
+      patch ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
       get ':id/favourites' => 'users#favourites', as: :user_favourites, type: 'favourites'
 
       # user_list

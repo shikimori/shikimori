@@ -3,7 +3,7 @@ header.head.m15
   p.notice На данной странице вы сможете завершить процедуру восстановления пароля, введя ваш новый пароль в расположенные ниже поля.
 
 .m15
-  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put } do |f|
+  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :patch } do |f|
     - unless devise_error_messages!.blank?
       p.m10 style="color: red;" Введённые пароли не совпадают
     = f.hidden_field :reset_password_token

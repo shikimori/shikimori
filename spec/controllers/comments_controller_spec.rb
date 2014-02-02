@@ -31,7 +31,7 @@ describe CommentsController do
     before { sign_in user }
 
     context :success do
-      before { put :update, id: comment.id, comment: { body: 'testzxc' } }
+      before { patch :update, id: comment.id, comment: { body: 'testzxc' } }
 
       it { should respond_with :success }
       it { should respond_with_content_type :json }
