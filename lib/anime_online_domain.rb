@@ -4,7 +4,10 @@ class AnimeOnlineDomain
   HOST_PLAY = "#{DOMAIN_COMMON}.shikimori.org"
   HOST_XPLAY = "#{DOMAIN_ADULT}.shikimori.org"
   HOST = HOST_PLAY
-  HOSTS = ['0.0.0.0', '178.63.23.138', 'animeonline.dev', 'animeonline.production', 'play.shikimori.dev', HOST_PLAY, HOST_XPLAY]
+  HOSTS = [
+    '0.0.0.0', '178.63.23.138', 'animeonline.dev', 'animeonline.production',
+    'play.shikimori.dev', 'xplay.shikimori.dev', HOST_PLAY, HOST_XPLAY
+  ]
 
   def self.matches? request
     HOSTS.include? request.host
