@@ -210,7 +210,7 @@ class Comment < ActiveRecord::Base
   end
 
   # пометка комментария либо оффтопиком, либо обзором
-  def mark(kind, value)
+  def mark kind, value
     if value && kind == 'offtopic'
       ids = quoted_responses.map(&:id) + [self.id]
       Comment.where(id: ids).update_all offtopic: true
@@ -226,8 +226,9 @@ class Comment < ActiveRecord::Base
 
   # ветка с ответами на этот комментарий
   def quoted_responses
-    comments = Comment.where { id > my{id} }
-        .where(commentable_type: commentable_type, commentable_id: commentable_id)
+    comments = Comment
+      .where("id > ?", id)
+      .where(commentable_type: commentable_type, commentable_id: commentable_id)
     search_ids = Set.new [id]
 
     comments.each do |comment|

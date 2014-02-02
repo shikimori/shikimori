@@ -93,7 +93,7 @@ module MalDeployer
           io = mal_image url, false
         end
 
-        AttachedImage.create! url: url, owner: entry, image: Rails.env != 'test' ? (io && io.original_filename.blank? ? nil : io) : ''
+        AttachedImage.create! url: url, owner: entry, image: Rails.env.test? ? '' : (io && io.original_filename.blank? ? nil : io)
 
       rescue ActiveRecord::RecordInvalid => e
         raise unless e.message =~ /is not recognized by the 'identify' command/

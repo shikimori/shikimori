@@ -23,9 +23,10 @@ class WikipediaImporter
   def prepare_bundles(anime_ids, manga_ids)
     print "fetching animes and mangas...\n"
 
-    ds = Anime.includes(:related)
-              .select([:id, :name, :russian, :english, :synonyms])
-              .order { id.desc }
+    ds = Anime
+      .includes(:related)
+      .select([:id, :name, :russian, :english, :synonyms])
+      .order(id: :desc)
     ds = ds.where(id: anime_ids) if anime_ids
     animes = ds.all.inject({}) do |rez,v|
       rez[v.id] = v
@@ -34,10 +35,11 @@ class WikipediaImporter
 
     print "fetched #{animes.size} animes\n"
 
-    ds = Manga.includes(:related)
-              .select([:id, :name, :russian, :english, :synonyms])
-              .where { id.not_in [1315] }
-              .order { id.desc }
+    ds = Manga
+      .includes(:related)
+      .select([:id, :name, :russian, :english, :synonyms])
+      .where.not(id: [1315])
+      .order(id: :desc)
     ds = ds.where(id: manga_ids) if manga_ids
     mangas = ds.all.inject({}) do |rez,v|
       rez[v.id] = v
@@ -72,46 +74,47 @@ class WikipediaImporter
 
     anime_ids = bundle.select {|v| v.class == Anime }.map(&:id)
     manga_ids = bundle.select {|v| v.class == Manga }.map(&:id)
-    char_ids = PersonRole.where { (anime_id.in anime_ids) | (manga_id.in manga_ids) }
-        .where { character_id.not_eq nil }
-        .group(:id)
-        .pluck(:character_id)
-        .uniq
+    char_ids = PersonRole
+      .where("anime_id in (?) or manga_id in (?)", anime_ids, manga_ids)
+      .where.not(character_id: nil)
+      .group(:id)
+      .pluck(:character_id)
+      .uniq
     char_item_ids = UserChange
-        .where(model: 'character')
-        .where(status: [UserChangeStatus::Accepted, UserChangeStatus::Taken])
-        .where(column: 'description')
-        .select(:item_id)
-        .map(&:item_id)
-        .uniq
+      .where(model: 'character')
+      .where(status: [UserChangeStatus::Accepted, UserChangeStatus::Taken])
+      .where(column: 'description')
+      .select(:item_id)
+      .map(&:item_id)
+      .uniq
 
     db_chars = Character
-       .where(id: char_ids)
-       .where { id.not_in char_item_ids }
-       .where { id.not_in [12119,11734,20294,15470] }
-       .order(:name)
-       .all
+      .where(id: char_ids)
+      .where.not(id: char_item_ids + [12119,11734,20294,15470])
+      .order(:name)
+      .all
 
     imported = 0
 
     ambiguous_names = [db_chars, wiki_chars].map do |names|
-      names.map {|v| [ v[:japanese], v[:english] || nil ].uniq }
-           .flatten
-           .compact
-           .map {|v| v.cleanup_japanese.gsub('  ', ' ').split(/ |・|＝|,|\//) }
-           .flatten
-           .map(&:strip)
-           .inject({}) {|rez,v|
-              if rez[v] == nil
-                rez[v] = 1
-              else
-                rez[v] += 1
-              end
-              rez
-            }
-           .select {|k,v| v > 1 }
-           .map {|k,v| v > 1 ? k : nil }
-           .compact
+      names
+        .map {|v| [ v[:japanese], v[:english] || nil ].uniq }
+        .flatten
+        .compact
+        .map {|v| v.cleanup_japanese.gsub('  ', ' ').split(/ |・|＝|,|\//) }
+        .flatten
+        .map(&:strip)
+        .inject({}) {|rez,v|
+          if rez[v] == nil
+            rez[v] = 1
+          else
+            rez[v] += 1
+          end
+          rez
+        }
+        .select {|k,v| v > 1 }
+        .map {|k,v| v > 1 ? k : nil }
+        .compact
     end
 
     db_chars.each do |db_char|

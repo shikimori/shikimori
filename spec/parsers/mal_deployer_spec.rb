@@ -1,8 +1,7 @@
-
 require 'spec_helper'
 
 describe MalDeployer do
-  before { SiteParserWithCache.stub(:load_cache).and_return({:list => {}}) }
+  before { SiteParserWithCache.stub(:load_cache).and_return(list: {}) }
 
   [[AnimeMalParser, Anime], [MangaMalParser, Manga]].each do |parser_klass, klass|
     describe parser_klass do
@@ -13,11 +12,11 @@ describe MalDeployer do
           p
         }
 
-        let (:entry_id) { 1 }
-        let (:entry) { create klass.name.downcase.to_sym, :id => entry_id }
-        let (:data) { parser.fetch_entry(entry_id) }
+        let(:entry_id) { 1 }
+        let(:entry) { create klass.name.downcase.to_sym, id: entry_id }
+        let(:data) { parser.fetch_entry(entry_id) }
 
-        it 'updates imported_at' do
+        it 'updates imported_at', :focus do
           entry.imported_at.should be(nil)
           parser.deploy(entry, data)
           entry.imported_at.should_not be(nil)
@@ -29,7 +28,7 @@ describe MalDeployer do
         end
 
         it 'sets censored for hentai' do
-          data[:entry][:genres] = [{:id => Genre::HentaiID}]
+          data[:entry][:genres] = [{id: Genre::HentaiID}]
           entry.censored.should_not be(true)
           parser.deploy(entry, data)
           entry.censored.should be(true)

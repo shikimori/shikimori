@@ -8,9 +8,10 @@ class ChronologyQuery
     relations = fetch_related [@entry.id], {}
 
     future = DateTime.now + 10.years
-    @entry.class.where(id: relations.keys)
-        .sort_by { |v| [v.aired_on || future, v.id] }
-        .reverse
+    @entry.class
+      .where(id: relations.keys)
+      .sort_by { |v| [v.aired_on || future, v.id] }
+      .reverse
   end
 
 private

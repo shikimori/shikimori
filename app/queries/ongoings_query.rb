@@ -63,13 +63,11 @@ private
       .includes(:episodes_news, :anime_calendars)
       .references(:anime_calendars)
       .where(AniMangaStatus.query_for('ongoing'))
-      .where { kind.in(['TV', 'ONA']) } # 15133 - спешиал Aoi Sekai no Chuushin de
-      .where { animes.id.not_in([15547]) } # 15547 - Cross Fight B-Daman eS
-      .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
-      .where { anime_calendars.episode.eq(nil) | anime_calendars.episode.eq(animes.episodes_aired+1) }
-      .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
-      .where { -(episodes_aired.eq(0) & aired_on.not_eq(nil) & aired_on.lt(DateTime.now - 1.months)) }
-      #.where { duration.gte(10) | duration.eq(0) }
+      .where(kind: ['TV', 'ONA']) # 15133 - спешиал Aoi Sekai no Chuushin de
+      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
+      .where("anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1")
+      .where("kind != 'ONA' || anime_calendars.episode is not null")
+      .where("episodes_aired != 0 or aired_on is null or aired_on > ?", DateTime.now - 1.months)
   end
 
   # выборка анонсов
@@ -80,10 +78,10 @@ private
       .where(AniMangaStatus.query_for('planned'))
       .where(kind: ['TV', 'ONA'])
       .where(episodes_aired: 0)
-      .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
+      .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where("anime_calendars.episode=1 or (aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
               from: Date.today - 1.week, to: Date.today + 1.month, new_year: Date.today.beginning_of_year)
-      .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
+      .where("kind != 'ONA' || anime_calendars.episode is not null")
   end
 
   # выкидывание просроченных аниме

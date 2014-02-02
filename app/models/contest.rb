@@ -91,9 +91,9 @@ public
     # текущий опрос
     def current
       Contest
-        .where { state.eq('proposing') | state.eq('started') | (state.eq('finished') & finished_on.gte(DateTime.now - 1.week)) }
+        .where("state in ('proposing', 'started') or (state = 'finished' and finished_on >= ?)", DateTime.now - 1.week)
         .order(:started_on)
-        .all
+        .to_a
     end
   end
 
@@ -183,6 +183,6 @@ private
 
   # создание AniMangaComment для элемента сразу после создания
   def create_thread
-    ContestComment.create! linked: self, section_id: Section::ContestsId, user: user
+    create_thread! linked: self, section_id: Section::ContestsId, user: user
   end
 end

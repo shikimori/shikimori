@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
 
     collection += params[:source]
         .where("`#{params[:date]}` <= #{Entry.sanitize params[:entry][params[:date]]}")
-        .where { id.not_in collection.map(&:id) }
+        .where.not(id: collection.map(&:id))
         .limit(20)
         .order("#{params[:date]} desc")
         .all

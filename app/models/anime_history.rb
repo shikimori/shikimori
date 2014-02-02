@@ -7,7 +7,7 @@ class AnimeHistory < ActiveRecord::Base
 
   after_create :create_topic
 
-  def to_s(type=:short)
+  def to_s type=:short
     case self.action
       when AnimeHistoryAction::Episode
         "%d эпизод" % self.value

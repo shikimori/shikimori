@@ -10,13 +10,13 @@ class SeyuQuery < PeopleQuery
     character_roles = PersonRole
       .where(person_id: fetched_query.map(&:id))
       .where(role: Person::SeyuRoles)
-      .where { character_id.not_eq(0) }
+      .where.not(character_id: 0)
       .select([:person_id, :character_id])
       .to_a
 
     anime_roles = PersonRole
       .where(character_id: character_roles.map(&:character_id))
-      .where { anime_id.not_eq(0) }
+      .where.not(anime_id: 0)
       .select([:character_id, :anime_id])
       .to_a
 

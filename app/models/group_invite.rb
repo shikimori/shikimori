@@ -24,7 +24,7 @@ class GroupInvite < ActiveRecord::Base
     update_attribute(:message_id, message.id)
     GroupInvite
       .where(dst_id: dst_id, group_id: group_id)
-      .where { id != my{id} }
+      .where.not(id: id)
       .destroy_all
   end
 end

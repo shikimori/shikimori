@@ -38,7 +38,7 @@ class Group < ActiveRecord::Base
     as: :linked,
     dependent: :destroy
 
-  has_one :thread, -> { where linked_type: self.name },
+  has_one :thread, -> { where linked_type: Group.name },
     class_name: GroupComment.name,
     foreign_key: :linked_id,
     dependent: :destroy
@@ -57,7 +57,7 @@ class Group < ActiveRecord::Base
     path: ':rails_root/public/images/group/:style/:id.:extension',
     default_url: 'http://www.gravatar.com/avatar/group?s=73'
 
-  #validates_attachment_presence :logo
+  validates :logo, attachment_content_type: { content_type: /\Aimage/ }
 
   TranslatorsID = 2
 
@@ -107,6 +107,6 @@ private
 
   # создание AniMangaComment для элемента сразу после создания
   def create_thread
-    GroupComment.create! linked: self, section_id: Section::GroupsId, title: name
+    create_thread! linked: self, section_id: Section::GroupsId, title: name
   end
 end

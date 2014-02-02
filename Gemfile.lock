@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: git://github.com/morr/acts_as_voteable.git
-  revision: da3bc4f535b79a2bea2af0bd0859cf652984418b
+  revision: 9d2b34208f790779d898f13b5505b37f0a8e3aa8
   branch: master
   specs:
     acts_as_voteable (0.0.3)
@@ -147,7 +147,10 @@ GEM
     childprocess (0.4.0)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.2.9)
-    cocaine (0.2.1)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -317,13 +320,11 @@ GEM
       omniauth (~> 1.1.0)
       omniauth-oauth2 (~> 1.0)
     orm_adapter (0.4.0)
-    paperclip (2.4.3)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
+    paperclip (4.0.0)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
       mime-types
-    polyamorous (0.6.4)
-      activerecord (>= 3.0)
     polyglot (0.3.3)
     postmark (1.0.1)
       json
@@ -438,11 +439,7 @@ GEM
       sprockets (~> 2.8)
     sql-logging (3.0.8)
       rails (> 3.0.0)
-    squeel (1.1.1)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      polyamorous (~> 0.6.0)
-    state_machine (1.1.2)
+    state_machine (1.2.0)
     susy (1.0.8)
       compass (>= 0.12.2)
       sass (>= 3.2.0)
@@ -542,7 +539,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-twitter
   omniauth-vkontakte
-  paperclip (= 2.4.3)
+  paperclip
   postmark-rails
   pry-rails
   pry-stack_explorer
@@ -572,7 +569,6 @@ DEPENDENCIES
   slim-rails
   spork!
   sql-logging
-  squeel
   state_machine
   susy (= 1.0.8)
   therubyracer

@@ -29,11 +29,11 @@ class Entry < ActiveRecord::Base
   Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment']
 
   # видимые топики
-  scope :wo_generated, -> { where { action.not_eq(AnimeHistoryAction::Episode) | action.eq(nil) }.where { (comments_count.gt(0) & generated.eq(true)) | generated.eq(false) } }
+  scope :wo_generated, -> { where("action != ? or action is null", AnimeHistoryAction::Episode)
+    .where("(comments_count > 0 and generated = true) or generated = false ") }
   # топики без топиков о выходе эпизодов
   scope :wo_episodes, -> { where.not action: AnimeHistoryAction::Episode }
 
-  #scope :visible_only, where { (comments_count.gt(0) & type.in(Entry::SpecialTypes)) | type.in(Types - SpecialTypes) }.wo_generated # not_in не использовать!!! пойдёт не по индексу
   scope :order_default, -> { order updated_at: :desc }
 
   def to_param

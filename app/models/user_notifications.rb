@@ -47,7 +47,7 @@ module UserNotifications
     @unread_messages ||= Message.where(to_id: id)
         .where(kind: MessageType::Private)
         .where(read: false)
-        .where { from_id.not_in(ignored_ids) & to_id.not_in(ignored_ids) }
+        .where.not(from_id: ignored_ids, to_id: ignored_ids)
         .count
   end
 
@@ -57,7 +57,7 @@ module UserNotifications
     @unread_news ||= Message.where(to_id: id)
         .where(kind: [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews])
         .where(read: false)
-        .where { from_id.not_in(ignored_ids) & to_id.not_in(ignored_ids) }
+        .where.not(from_id: ignored_ids, to_id: ignored_ids)
         .count
   end
 
@@ -71,7 +71,7 @@ module UserNotifications
           MessageType::Banned, MessageType::Warned
         ])
         .where(read: false)
-        .where { from_id.not_in(ignored_ids) & to_id.not_in(ignored_ids) }
+        .where.not(from_id: ignored_ids, to_id: ignored_ids)
         .count
   end
 

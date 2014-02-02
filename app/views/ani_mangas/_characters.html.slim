@@ -1,11 +1,11 @@
 - @entry.roles.characters.select {|v| !v[:character].nil? }.map {|v| v[:role] }.uniq.sort.each do |role|
   .people-container
     .options-floated.collapse
-      span.action свернуть (#{@entry.roles.characters.select {|v| v[:role] == role }.uniq_by {|v| v[:character].name }.size})
+      span.action свернуть (#{@entry.roles.characters.select {|v| v[:role] == role }.uniq {|v| v[:character].name }.size})
     h2.subheadline.m10 = t "Role.#{role}"
     .collapsed.tiny ...
     div
-      - @entry.roles.characters.select {|v| v[:role] == role }.uniq_by {|v| v[:character].name }.each do |person|
+      - @entry.roles.characters.select {|v| v[:role] == role }.uniq {|v| v[:character].name }.each do |person|
         = render partial: 'blocks/person', locals: { person: person[:character], role: nil, link_to_character: true, no_tooltip: true, remote: character_tooltip_url(person[:character]) }, formats: :html
 
 - if @entry.roles.people.any?
@@ -15,5 +15,5 @@
   .collapsed.tiny ...
   .people-container
     - @entry.roles.people.map {|v| v.role }.uniq.sort.each do |role|
-      - @entry.roles.people.select {|v| v.role == role }.uniq_by {|v| v.person.name }.each do |person|
+      - @entry.roles.people.select {|v| v.role == role }.uniq {|v| v.person.name }.each do |person|
         = render partial: 'blocks/person', locals: { person: person.person, role: role, no_seyu: true, no_tooltip: true, remote: person_tooltip_url(person.person) }, formats: :html

@@ -47,9 +47,9 @@ class UsersController < ApplicationController
       @users = postload_paginate(params[:page], UsersPerPage) do
         if params[:search]
           search = "%#{params[:search]}%"
-          User.where { nickname.like(search) }.order(:nickname)
+          User.where("nickname like ?", search).order(:nickname)
         else
-          User.where { id.not_eq(1) }.order('if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
+          User.where.not(id: 1).order('if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
         end
       end
 
@@ -101,7 +101,7 @@ class UsersController < ApplicationController
 
     @favourites = (@user.fav_animes.all + @user.fav_mangas.all + @user.fav_characters.all + @user.fav_people.all)
       .shuffle
-      .uniq_by { |fav| [fav.id, fav.class] }
+      .uniq {|fav| [fav.id, fav.class] }
       .take(10)
       .sort_by do |fav|
         [fav.class.name == Manga.name ? Anime.name : fav.class.name, fav.name]
@@ -340,7 +340,7 @@ private
     nickname = User.param_to params[:id]
     user = User
       .where(nickname: nickname)
-      .select { |v| v.nickname == nickname }
+      .select {|v| v.nickname == nickname }
       .first
 
     raise NotFound, nickname unless user

@@ -24,7 +24,7 @@ class PeopleQuery
 
     roles = PersonRole
       .where(person_id: fetched_query.map(&:id))
-      .where { person_roles.send(work_key).not_eq(0) }
+      .where("person_roles.#{work_key} != 0")
       .select([:person_id, work_key])
       .to_a
 

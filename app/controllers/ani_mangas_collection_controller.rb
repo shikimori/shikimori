@@ -198,23 +198,27 @@ private
     entries = []
     # выборка id элементов с разбивкой по странциам
     unless params.include? :ids_with_sort
-      entries = ds.select("#{klass.name.tableize}.id")
-          .paginate(page: @current_page, per_page: entries_per_page)
+      entries = ds
+        .select("#{klass.name.tableize}.id")
+        .paginate(page: @current_page, per_page: entries_per_page)
       total_pages = entries.total_pages
     else
-      entries = ds.where(id: params[:ids_with_sort].keys)
-          .where { kind.not_in(['Special', 'Music']) }
-          .select("#{klass.name.tableize}.id")
-          .to_a
+      entries = ds
+        .where(id: params[:ids_with_sort].keys)
+        .where.not(kind: ['Special', 'Music'])
+        .select("#{klass.name.tableize}.id")
+        .to_a
       total_pages = (entries.size * 1.0 / entries_per_page).ceil
-      entries = entries.sort_by {|v| -params[:ids_with_sort][v.id] }
-          .drop(entries_per_page*(@current_page-1))
-          .take(entries_per_page)
+      entries = entries
+        .sort_by {|v| -params[:ids_with_sort][v.id] }
+        .drop(entries_per_page*(@current_page-1))
+        .take(entries_per_page)
     end
 
-    entries = klass.where(id: entries.map(&:id))
-                   .includes(:genres)
-                   .includes(klass == Anime ? :studios : :publishers)
+    entries = klass
+      .where(id: entries.map(&:id))
+      .includes(:genres)
+      .includes(klass == Anime ? :studios : :publishers)
 
     # повторная сортировка полученной выборки
     if params[:ids_with_sort].present?
@@ -232,9 +236,9 @@ private
     return entries unless user_signed_in? && current_user.preferences.mylist_in_catalog?
 
     rates = Set.new current_user.send("#{klass.name.downcase}_rates")
-        .where(target_id: entries.map(&:id))
-        .select(:target_id)
-        .map(&:target_id)
+      .where(target_id: entries.map(&:id))
+      .select(:target_id)
+      .map(&:target_id)
     entries.each { |entry| entry[:in_list] = rates.include? entry.id }
   end
 

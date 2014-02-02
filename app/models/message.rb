@@ -35,7 +35,7 @@ class Message < ActiveRecord::Base
     prior_comment = Message
       .includes(:from, :to)
       .where(from_id: from_id)
-      .order { id.desc }
+      .order(id: :desc)
       .first
 
     if prior_comment && DateTime.now.to_i - prior_comment.created_at.to_i < 15

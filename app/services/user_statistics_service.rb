@@ -28,8 +28,9 @@ class UserStatisticsService
     @anime_history = @user
       .history
       .where(target_type: Anime.name)
-      .where { action.in([UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore]) |
-              (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
+      .where("action in (?) or (action = ? and value = ?)",
+              [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore],
+              UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed))
 
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
 
@@ -45,8 +46,9 @@ class UserStatisticsService
     @manga_history = @user
       .history
       .where(target_type: Manga.name)
-      .where { action.in([UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore]) |
-              (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
+      .where("action in (?) or (action = ? and value = ?)",
+              [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore],
+              UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed))
   end
 
   # формирование статистики

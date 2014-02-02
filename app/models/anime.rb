@@ -106,7 +106,7 @@ class Anime < ActiveRecord::Base
     path: ":rails_root/public/images/anime/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
-  validates_attachment_content_type :image, content_type: [/^image\/(?:jpeg)$/, nil]
+  validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   # Hooks
   after_create :create_thread
@@ -117,8 +117,8 @@ class Anime < ActiveRecord::Base
 
   # Scopes
   scope :translatable, -> {
-      where { kind.eq('TV') | (kind.eq('ONA') & score.gte(7.0)) | (kind.eq('OVA') & score.gte(7.5)) }
-        .where { id.not_in Anime::EXCLUDED_ONGOINGS }
+      where("kind = 'TV' or (kind = 'ONA' and score >= 7.0) or (kind = 'OVA' and score >= 7.5)")
+        .where.not(id: Anime::EXCLUDED_ONGOINGS)
     }
 
   # Methods

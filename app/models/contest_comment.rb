@@ -1,6 +1,6 @@
 class ContestComment < AniMangaComment
   def text
-    "Топик [contest=#{self.linked_id}]опроса[/contest].
+    "Топик [contest=#{linked.id}]опроса[/contest].
     Статус: #{linked.decorate.status}"
   end
 

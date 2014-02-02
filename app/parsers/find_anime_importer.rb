@@ -63,7 +63,7 @@ private
     data.delete_if {|(id, anime, videos)| anime.nil? }
     data
       .group_by {|(id, anime, videos)| anime.id }
-      .select {|anime_id, entries| entries.uniq_by {|v| v.first }.size > 1 }
+      .select {|anime_id, entries| entries.uniq {|v| v.first }.size > 1 }
       .each do |anime_id, entries|
         entries.each {|v| data.delete v }
         @twice_matched << "#{anime_id} (#{entries.map {|(id, anime, videos)| id }.join ', '})"

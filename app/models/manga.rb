@@ -88,7 +88,7 @@ class Manga < ActiveRecord::Base
     path: ":rails_root/public/images/manga/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
-  validates_attachment_content_type :image, content_type: [/^image\/(?:jpeg)$/, nil]
+  validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   # Hooks
   after_create :create_thread

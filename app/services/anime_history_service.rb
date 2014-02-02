@@ -6,8 +6,8 @@ class AnimeHistoryService
   # обрабатывает всю небработанную историю, отправляет уведомления пользователям
   def self.process
     entries = Entry
-      .where { processed.eq(false) | processed.eq(nil) }
-      .where { (type.in([AnimeNews.name]) & generated.eq(true)) | broadcast.eq(true) }
+      .where("processed = false or processed is null")
+      .where("(type = ? and generated = true) or broadcast = true", AnimeNews.name)
       .order(:created_at)
       .to_a
     return if entries.empty?
@@ -15,15 +15,12 @@ class AnimeHistoryService
     users = User
       .includes(anime_rates: [:anime])
       .references(:user_rates)
-      .where {
-        (user_rates.id == nil) |
-          ((user_rates.target_type == Anime.name) &
-           (user_rates.target_id.in my{entries.map(&:linked_id)})
-          ) }
+      .where("user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))",
+              Anime.name, entries.map(&:linked_id))
       .to_a
 
     users += User
-      .where { id.not_in my{users.map(&:id)} }
+      .where.not(id: users.map(&:id))
       .each {|v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 

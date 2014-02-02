@@ -53,7 +53,7 @@ class SiteStatistics
   def translators
     User
       .joins(:user_changes)
-      .where { id.not_in([1, User::GuestID] + BotsService.posters) }
+      .where.not(id: [1, User::GuestID] + BotsService.posters)
       .where(user_changes: { status: [UserChangeStatus::Accepted, UserChangeStatus::Taken] })
       .group('users.id')
       .having("sum(if(user_changes.status='#{UserChangeStatus::Accepted}',7,1)) > 10")
@@ -91,8 +91,8 @@ private
     start_date = Date.today - interval
 
     entries_by_date = klass
-      .where { created_at > my{start_date} }
-      .where { created_at < Date.today }
+      .where("created_at > ?", start_date)
+      .where("created_at < ?", Date.today)
       .group('cast(created_at as date)')
       .order(:created_at)
       .count

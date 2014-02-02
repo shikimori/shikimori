@@ -1,15 +1,16 @@
 class CharactersQuery < PeopleQuery
-  def initialize(params)
+  def initialize params
     super params, Character
   end
 
-  def fill_works(fetched_query)
+  def fill_works fetched_query
     people_by_id = fill_by_id fetched_query
 
-    roles = PersonRole.where(character_id: fetched_query.map(&:id))
-        .where { anime_id.not_eq(0) | manga_id.not_eq(0) }
-        .select([:character_id, :anime_id, :manga_id])
-        .to_a
+    roles = PersonRole
+      .where(character_id: fetched_query.map(&:id))
+      .where("anime_id != 0 or manga_id != 0")
+      .select([:character_id, :anime_id, :manga_id])
+      .to_a
 
     anime_roles = roles.each_with_object({}) do |role, memo|
       (memo[role.anime_id] = memo[role.anime_id] || []) << people_by_id[role.character_id]
@@ -40,7 +41,7 @@ class CharactersQuery < PeopleQuery
 
 private
   # ключи, по которым будет вестись поиск
-  def search_fields(term)
+  def search_fields term
     if term.contains_cjkv?
       [:japanese]
     elsif term =~ /[А-я]/

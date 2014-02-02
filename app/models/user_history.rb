@@ -36,7 +36,7 @@ class UserHistory < ActiveRecord::Base
             .where(target_type: item.class.name)
             .where(target_id: item.id)
             .where(action: UserHistoryAction::Delete)
-            .where { updated_at.gt(DateTime.now - DeleteBackwardCheckInterval) }
+            .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
             .order(:id)
             .first
         if last_delete
@@ -48,7 +48,7 @@ class UserHistory < ActiveRecord::Base
         prior_entries = UserHistory.where(user_id: user.is_a?(Fixnum) ? user : user.id)
             .where(target_type: item.class.name)
             .where(target_id: item.id)
-            .where { updated_at.gt(DateTime.now - DeleteBackwardCheckInterval) }
+            .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
             .order(:id)
             .all
 
@@ -104,7 +104,7 @@ class UserHistory < ActiveRecord::Base
           .where(target_type: item.class.name)
           .where(target_id: item.id)
           .where(action: action)
-          .where { updated_at.gt(DateTime.now - EpisodeBackwardCheckInterval) }
+          .where("updated_at > ?", DateTime.now - EpisodeBackwardCheckInterval)
           .order(:id)
           .to_a
 
@@ -149,7 +149,7 @@ class UserHistory < ActiveRecord::Base
     end
 
     unless no_last_this_entry_search
-      entry = UserHistory.where { updated_at.gt(DateTime.now - BackwardCheckInterval) }
+      entry = UserHistory.where("updated_at > ?", DateTime.now - BackwardCheckInterval)
           .where(user_id: user.is_a?(Fixnum) ? user : user.id)
           .where(target_id: item.id)
           .where(target_type: item.class.name)

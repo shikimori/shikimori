@@ -15,7 +15,7 @@ private
   def videos
     Video
       .where(state: 'confirmed')
-      .order { id.desc }
-      .uniq_by(&:url)
+      .order(id: :desc)
+      .uniq(&:url)
   end
 end

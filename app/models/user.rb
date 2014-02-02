@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
     url: "/images/user/:style/:id.:extension",
     path: ":rails_root/public/images/user/:style/:id.:extension"
 
-  validates_attachment_content_type :avatar, content_type: [/^image\/(?:jpeg|png)$/, nil]
+  validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
   validates :nickname, presence: true, uniqueness: { case_sensitive: false }
 
   before_save :fix_nickname
@@ -345,7 +345,7 @@ class User < ActiveRecord::Base
   end
 
   def favoured? entry, kind=nil
-    @favs ||= favourites.all
+    @favs ||= favourites.to_a
     @favs.any? { |v| v.linked_id == entry.id && v.linked_type == entry.class.name && (kind.nil? || v.kind == kind) }
   end
 
@@ -365,7 +365,7 @@ class User < ActiveRecord::Base
 
   # подписка на элемент
   def subscribe entry
-    subscriptions << Subscription.create!(user_id: self.id, target_id: entry.id, target_type: entry.class.name) unless subscribed?(entry)
+    subscriptions << Subscription.create!(user_id: id, target_id: entry.id, target_type: entry.class.name) unless subscribed?(entry)
   end
 
   # отписка от элемента

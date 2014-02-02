@@ -55,7 +55,6 @@ class UserProfileDecorator < UserDecorator
   def nickname_changes
     @nickname_changes ||= object
       .nickname_changes
-      .all
       .select {|v| v.value != object.nickname }
   end
 

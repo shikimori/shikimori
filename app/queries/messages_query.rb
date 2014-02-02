@@ -8,9 +8,9 @@ class MessagesQuery
     Message
       .where(kind: kinds)
       .where(id_field => @user.id, del_field => false)
-      .where { from_id.not_in(my{ignores_ids}) & to_id.not_in(my{ignores_ids}) }
+      .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .includes(:linked, :from, :to)
-      .order('`read`, created_at desc')
+      .order(:read, created_at: :desc)
       .offset(limit * (page-1))
       .limit(limit + 1)
   end

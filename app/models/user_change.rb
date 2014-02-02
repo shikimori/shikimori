@@ -12,7 +12,7 @@ class UserChange < ActiveRecord::Base
   include ActionView::Helpers::SanitizeHelper
 
   belongs_to :user
-  belongs_to :approver, :class_name => User.name, :foreign_key => :approver_id
+  belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
   validates_numericality_of :user_id
   validates_numericality_of :item_id

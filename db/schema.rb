@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201221035) do
+ActiveRecord::Schema.define(version: 20140202114019) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140201221035) do
     t.boolean  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",       default: "Pending"
+    t.string   "state"
     t.integer  "approver_id"
   end
 
