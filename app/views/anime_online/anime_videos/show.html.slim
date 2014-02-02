@@ -18,14 +18,6 @@
               | Последний&nbsp;
               a.alert-link href="#{@anime.url @anime.last_episode}" = "эпизод #{@anime.last_episode}"
       - else
-        /div = @anime.current_episode
-        /div = @anime.current_videos.last.episode
-        /div = @anime.current_videos.map(&:episode).to_a
-        /div = @anime.videos.keys.to_a
-        /div = cookies[:preference_kind]
-        /div = cookies[:preference_hosting]
-        /div = cookies[:preference_author_id]
-
         - if @anime.current_video.uploader
           .uploader
             = link_to user_url(@anime.current_video.uploader, subdomain: false) do

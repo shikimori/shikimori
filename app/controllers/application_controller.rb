@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include SEO
 
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   layout :layout_by_xhr
   before_filter :fix_googlebot

@@ -33,10 +33,11 @@ class Moderation::UserChangesController < ApplicationController
 
     unless json?
       @page_title = 'Правки пользователей'
-      @pending = UserChange.includes(:user)
-                          .where(status: UserChangeStatus::Pending)
-                          .order(:created_at)
-                          .all
+      @pending = UserChange
+        .includes(:user)
+        .where(status: UserChangeStatus::Pending)
+        .order(:created_at)
+        .to_a
 
       @changes_map = {}
       # по конкретному элементу делаем только одно активное изменение
@@ -49,7 +50,7 @@ class Moderation::UserChangesController < ApplicationController
         end
       end
 
-      @moderators = User.where(id: User::UserChangesModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
+      @moderators = User.where(id: User::UserChangesModerators - User::Admins).sort_by { |v| v.nickname.downcase }
     end
   end
 

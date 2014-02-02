@@ -84,8 +84,8 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  ActiveRecord::Migration.check_pending! if Rails.version.to_i >= 4
+  ActiveRecord::Migration.check_pending!
   FactoryGirl.reload
-  ActiveSupport::Dependencies.clear # if RSpec.configuration.drb?
+  ActiveSupport::Dependencies.clear
   Rails.application.reload_routes!
 end
