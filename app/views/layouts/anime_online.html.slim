@@ -8,7 +8,7 @@ html
 
   body
     = render partial: 'anime_online/menu'
-    = render partial: 'anime_online/blocks/ads_top_line' if Rails.env.production?
+    = render partial: 'anime_online/blocks/ads_top_line' if request.host == AnimeOnlineDomain::HOST_PLAY
     .container
       = yield
 

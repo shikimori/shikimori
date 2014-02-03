@@ -52,4 +52,4 @@
                 p == review.html_body
 
     .col-md-2.hidden-xs.hidden-sm
-      = render partial: 'anime_online/blocks/ads_240x400' if Rails.env.production?
+      = render partial: 'anime_online/blocks/ads_240x400' if request.host == AnimeOnlineDomain::HOST_PLAY
