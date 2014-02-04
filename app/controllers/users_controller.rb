@@ -202,7 +202,7 @@ class UsersController < ApplicationController
         .groups
         .joins(:member_roles, :thread)
         .group('groups.id')
-        .order(comments: 'updated_at desc')
+        .order('entries.updated_at desc')
     show
   end
 
