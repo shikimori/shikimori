@@ -1,6 +1,6 @@
 .hover-form.auth-form
   p.agreement Находясь на сайте, вы принимаете #{link_to 'соглашение', user_agreement_url}.
-  = form_tag '', format: :json, remote: true, 'data-type' => :json, 'data-login' => new_user_session_path, 'data-register' => user_registration_path do
+  = form_tag '', format: :json, remote: true, 'data-type' => :json, 'data-login' => new_user_session_path, 'data-register' => user_registration_path, authenticity_token: true do
     p
       = label_tag :login_nickname, 'Логин / Никнейм'
       br
