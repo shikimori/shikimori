@@ -69,7 +69,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
 private
   def user
-    User.find params[:id]
+    User.find_by(id: params[:id]) || User.find_by(nickname: params[:id]) || raise(NotFound, params[:id])
   end
 
   def decorator
