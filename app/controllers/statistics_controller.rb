@@ -90,7 +90,7 @@ private
 
   # статистика по студиям
   def stats_by_studio
-    animes_10 = @tv.select { |v| v.aired_at >= DateTime.parse("#{DateTime.now.year}-01-01") - 10.years }
+    animes_10 = @tv.select { |v| v.aired_on >= DateTime.parse("#{DateTime.now.year}-01-01") - 10.years }
     #top_studios = normalize(stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios), 0.75)[:series].map { |v| v[:name] }
 
     data = stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios + ['Прочее'])
@@ -129,12 +129,12 @@ private
 
     start_on = DateTime.parse("#{DateTime.now.year}-01-01") - YearsAgo
     finish_on = DateTime.parse("#{DateTime.now.year}-01-01") - 1.day + 1.year
-    @animes = Anime.where { aired_at.not_eq(nil) }
-        .where { aired_at.gte(start_on) }
-        .where { aired_at.lte(finish_on) }
+    @animes = Anime.where.not(aired_on: nil)
+        .where('aired_on >= ?', start_on)
+        .where('aired_on <= ?', finish_on)
         .where(:kind => @kinds)
-        .select([:id, :aired_at, :kind, :rating, :score])
-        .order(:aired_at)
+        .select([:id, :aired_on, :kind, :rating, :score])
+        .order(:aired_on)
         .includes(:genres)
         .includes(:studios)
 
@@ -144,13 +144,13 @@ private
       entry[:mapped_genres] = entry.genres.map do |genre|
         {
           genre: genre.russian,
-          aired_at: entry.aired_at
+          aired_on: entry.aired_on
         }
       end
       entry[:mapped_studios] = entry.real_studios.map do |studio|
         {
           studio: Studio::Merged.include?(studio.id) ? @studios_by_id[Studio::Merged[studio.id]].filtered_name : studio.filtered_name,
-          aired_at: entry.aired_at
+          aired_on: entry.aired_on
         }
       end
     end
@@ -159,7 +159,7 @@ private
 
   # выборка статистики
   def stats_data(animes, grouping, categories)
-    years = animes.group_by { |v| Russian.strftime(v[:aired_at], '%Y') }.keys
+    years = animes.group_by { |v| Russian.strftime(v[:aired_on], '%Y') }.keys
 
     groups = categories.each_with_object({}) do |group,rez|
       rez[group] = nil
@@ -170,7 +170,7 @@ private
       next unless data.include? entry[0]
       data[entry[0]] = years.each_with_object({}) { |v,rez| rez[v] = 0 }
 
-      entry[1].group_by { |v| Russian.strftime(v[:aired_at], '%Y') }.each do |k,v|
+      entry[1].group_by { |v| Russian.strftime(v[:aired_on], '%Y') }.each do |k,v|
         data[entry[0]][k] = v.size
       end
     end.select { |k,v| v.present? }

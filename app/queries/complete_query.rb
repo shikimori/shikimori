@@ -5,9 +5,7 @@ module CompleteQuery
   def complete
     query = @klass.where(search_queries.join(' or ')).limit(AutocompleteLimit)
     query = query.where(@kind => true) if @kind.present?
-    search_order(query)
-        .all
-        .reverse
+    search_order(query).reverse
   end
 
 private

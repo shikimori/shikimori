@@ -9,9 +9,9 @@
       - person.last_works.each do |entry|
         li
           a.bubbled href="#{url_for(entry)}" data-remote="true"
-            - if entry.aired_at || entry.released_at
+            - if entry.aired_on || entry.released_on
               span.date
-                = (entry.aired_at || entry.released_at).year
+                = (entry.aired_on || entry.released_on).year
             span.event
               = localized_name entry
     .char-ani-block

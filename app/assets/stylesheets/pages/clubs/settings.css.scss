@@ -50,6 +50,9 @@
   .item-save {
     @include headline-icon-button('\e817');
   }
+  .item-offtopic {
+    display: none;
+  }
 }
 .character-suggest {
   .character.name {

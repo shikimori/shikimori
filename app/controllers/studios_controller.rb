@@ -8,7 +8,7 @@ class StudiosController < ApplicationController
     @studios = Studio.joins(:animes)
                      .where("animes.kind != 'Special'")
                      .group('studios.id')
-                     .select('studios.*, count(animes.id) as animes_count, max(animes.aired_at) as max_year, min(animes.aired_at) as min_year')
+                     .select('studios.*, count(animes.id) as animes_count, max(animes.aired_on) as max_year, min(animes.aired_on) as min_year')
                      .order('animes_count desc')
 
   end
@@ -50,7 +50,7 @@ class StudiosController < ApplicationController
                                  where(:status => UserChangeStatus::Accepted).
                                  select('distinct(user_id)').
                                  includes(:user).
-                                 order('created_at desc').
+                                 order(created_at: :desc).
                                  all
 
     paginate @animes, :action => :show,

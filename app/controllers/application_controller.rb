@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include SEO
 
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   layout :layout_by_xhr
   before_filter :fix_googlebot
@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
 
     collection += params[:source]
         .where("`#{params[:date]}` <= #{Entry.sanitize params[:entry][params[:date]]}")
-        .where { id.not_in collection.map(&:id) }
+        .where.not(id: collection.map(&:id))
         .limit(20)
         .order("#{params[:date]} desc")
         .all
@@ -163,7 +163,7 @@ private
 
     ds = yield
 
-    entries = ds.offset(@limit * (@page-1)).limit(@limit + 1).all
+    entries = ds.offset(@limit * (@page-1)).limit(@limit + 1).to_a
     @add_postloader = entries.size > @limit
 
     @add_postloader ? entries.take(limit) : entries

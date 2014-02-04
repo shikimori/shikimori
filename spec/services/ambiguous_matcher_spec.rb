@@ -21,7 +21,7 @@ describe AmbiguousMatcher do
     end
 
     describe :exact_match_by_year do
-      let(:anime_1) { build_stubbed :anime, name: ['test'], aired_at: DateTime.parse('2000-01-01') }
+      let(:anime_1) { build_stubbed :anime, name: ['test'], aired_on: DateTime.parse('2000-01-01') }
       it { should eq [anime_1] }
     end
   end

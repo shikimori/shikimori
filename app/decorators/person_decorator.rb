@@ -64,7 +64,7 @@ class PersonDecorator < Draper::Decorator
         }
       end
       entries = if h.params[:sort] == 'time'
-        entries.sort_by {|v| (v[:entry].aired_at || v[:entry].released_at || DateTime.now + 10.years).to_datetime.to_i * -1 }
+        entries.sort_by {|v| (v[:entry].aired_on || v[:entry].released_on || DateTime.now + 10.years).to_datetime.to_i * -1 }
       else
         entries.sort_by {|v| -(v[:entry].score || -999) }
       end
@@ -161,7 +161,7 @@ private
   end
 
   def all_roles
-    @all_roles ||= object.person_roles.includes(:anime).includes(:manga).all
+    @all_roles ||= object.person_roles.includes(:anime).includes(:manga).to_a
   end
 
   def roles_names

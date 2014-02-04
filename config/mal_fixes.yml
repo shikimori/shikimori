@@ -75,7 +75,7 @@
   10216:
     :name: "Yondemasu yo, Azazel-san"
   10336:
-    :aired_at: 2011-10-15
+    :aired_on: 2011-10-15
   10378:
     :name: "Shinryaku! Ika Musume 2"
     :synonyms:
@@ -85,7 +85,7 @@
     :name: "Persona 4"
     :russian: "Персона 4"
   10227:
-    :aired_at: 2012-01-08
+    :aired_on: 2012-01-08
   10620:
     :name: "Mirai Nikki"
   11111:
@@ -112,25 +112,25 @@
       - "Shin Tennis no Ouji-sama"
       - "The Prince of Tennis II"
   11757:
-    :aired_at: 2012-07-07
+    :aired_on: 2012-07-07
   11783:
     :episodes: 13
   11887:
     :episodes: 13
     :status: "Finished Airing"
-    :released_at: 2012-09-29
+    :released_on: 2012-09-29
   12531:
-    :released_at: 2012-06-30
+    :released_on: 2012-06-30
   12281:
-    :aired_at: 2012-07-09
+    :aired_on: 2012-07-09
   13115:
-    :aired_at: 2012-07-10
+    :aired_on: 2012-07-10
   14467:
-    :aired_at: 2012-10-04
+    :aired_on: 2012-10-04
   16524:
-    :aired_at: 2013-04-01
+    :aired_on: 2013-04-01
   20507:
-    :aired_at: 2014-01-05
+    :aired_on: 2014-01-05
 
 :character:
   66:
@@ -252,7 +252,7 @@
     :volumes: 2
     :chapters: 6
     :status: "Finished Airing"
-    :released_at: 2012-01-01
+    :released_on: 2012-01-01
   36213:
     :synonyms:
       - "Everyday That There is a Monster Girl"

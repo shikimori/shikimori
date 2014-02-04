@@ -1,25 +1,17 @@
 class CosplayGallery < ActiveRecord::Base
   include Commentable
 
-  has_many :image,
-    class_name: 'CosplayImage',
-    limit: 1,
-    conditions: {deleted: false}
+  has_many :image, -> { where(deleted: false).limit(1) },
+    class_name: 'CosplayImage'
 
-  has_many :images,
+  has_many :images, -> { where(deleted: false).order(:position) },
     class_name: 'CosplayImage',
-    conditions: {deleted: false},
-    dependent: :destroy,
-    order: :position
-
-  has_many :deleted_images,
-    class_name: 'CosplayImage',
-    conditions: {deleted: true},
-    order: :position
-
-  has_many :links,
-    class_name: 'CosplayGalleryLink',
     dependent: :destroy
+
+  has_many :deleted_images, -> { where(deleted: true).order(:position) },
+    class_name: 'CosplayImage'
+
+  has_many :links, class_name: 'CosplayGalleryLink', dependent: :destroy
   has_many :cosplayers,
     through: :links,
     source: :linked,

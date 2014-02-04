@@ -7,13 +7,14 @@ class GroupsController < ApplicationController
 
   # список всех групп
   def index
-    @groups = Group.joins(:member_roles, :thread)
-        .group('groups.id')
-        .having('count(group_roles.id) > 0')
-        .order { entries.updated_at.desc }
-        .all
+    @groups = Group
+      .joins(:member_roles, :thread)
+      .group('groups.id')
+      .having('count(group_roles.id) > 0')
+      .order('entries.updated_at desc')
+      .to_a
 
-    @page_title = "Клубы"
+    @page_title = 'Клубы'
   end
 
   # создание новой группы
@@ -27,34 +28,42 @@ class GroupsController < ApplicationController
     params[:type] ||= 'info'
 
     #set_meta_tags noindex: true, nofollow: true
-    @group ||= Group.includes(:animes)
-        .includes(:mangas)
-        .includes(:characters)
-        .find(params[:id])
+    @group ||= Group
+      .includes(:animes)
+      .includes(:mangas)
+      .includes(:characters)
+      .find(params[:id])
 
-    @members ||= @group.member_roles
-        .includes(:user)
-        .order('created_at desc')
-        .take(9)
-          .map(&:user)
+    @members ||= @group
+      .member_roles
+      .includes(:user)
+      .order(created_at: :desc)
+      .take(9)
+        .map(&:user)
 
-    @animes = @group.animes.all
-        .uniq(&:id).shuffle
-        .take(VisibleEntries)
-        .sort_by { |v| v.ranked }
+    @animes = @group
+      .animes
+      .uniq(&:id)
+      .shuffle
+      .take(VisibleEntries)
+      .sort_by { |v| v.ranked }
 
-    @mangas = @group.mangas.all
-        .uniq(&:id).shuffle
-        .take(VisibleEntries)
-        .sort_by { |v| v.ranked }
+    @mangas = @group
+      .mangas
+      .uniq(&:id)
+      .shuffle
+      .take(VisibleEntries)
+      .sort_by { |v| v.ranked }
 
-    @characters = @group.characters.all
-        .uniq(&:id).shuffle
-        .take(VisibleEntries)
-        .sort_by { |v| v.name }
+    @characters = @group
+      .characters
+      .uniq(&:id)
+      .shuffle
+      .take(VisibleEntries)
+      .sort_by { |v| v.name }
 
     @images ||= @group.images
-        .order('created_at desc')
+        .order(created_at: :desc)
         .take(12)
 
     @page_title ||= @group.name
@@ -90,10 +99,11 @@ class GroupsController < ApplicationController
     set_meta_tags noindex: true, nofollow: true
 
     @group ||= Group.find(params[:id])
-    @members ||= @group.member_roles
-        .includes(:user)
-        .order('created_at desc')
-          .map(&:user)
+    @members ||= @group
+      .member_roles
+      .includes(:user)
+      .order(created_at: :desc)
+      .map(&:user)
     @page_title = [@group.name, 'Участники']
     show
   end
@@ -103,7 +113,7 @@ class GroupsController < ApplicationController
     set_meta_tags noindex: true
 
     @group ||= Group.find(params[:id])
-    @entries = @group.animes.all.uniq(&:id)
+    @entries = @group.animes.uniq(&:id)
     @page_title = [@group.name, 'Аниме']
 
     show
@@ -114,7 +124,7 @@ class GroupsController < ApplicationController
     set_meta_tags noindex: true
 
     @group ||= Group.find(params[:id])
-    @entries = @group.mangas.all.uniq(&:id)
+    @entries = @group.mangas.uniq(&:id)
     @page_title = [@group.name, 'Манга']
 
     show
@@ -125,7 +135,7 @@ class GroupsController < ApplicationController
     set_meta_tags noindex: true
 
     @group ||= Group.find(params[:id])
-    @entries = @group.characters.all.uniq(&:id)
+    @entries = @group.characters.uniq(&:id)
     @page_title = [@group.name, 'Персонажи']
 
     show
@@ -137,7 +147,7 @@ class GroupsController < ApplicationController
 
     @group ||= Group.find(params[:id])
     @images ||= @group.images
-        .order('created_at desc')
+        .order(created_at: :desc)
     @page_title = [@group.name, 'Картинки']
     show
   end
@@ -250,10 +260,11 @@ class GroupsController < ApplicationController
   def autocomplete
     group = Group.find(params[:id])
 
-    items = group.members
-        .where("nickname = ? or nickname like ?", params[:search], "#{params[:search]}%")
-        .order(:nickname)
-        .all
+    items = group
+      .members
+      .where("nickname = ? or nickname like ?", params[:search], "#{params[:search]}%")
+      .order(:nickname)
+      .to_a
 
     render json: items.reverse.map { |item|
       {"data" => item.nickname,

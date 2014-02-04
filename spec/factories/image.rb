@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :image do
-    sequence(:image_file_name) { |n| "image_#{n}" }
+    image { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
   end
 end

@@ -8,7 +8,7 @@ class BaseDirector
   end
 
   # осуществляем редирект, если надо
-  def redirect!(url=nil)
+  def redirect! url=nil
     if redirect?
       @controller.redirect_to url || entry.url, :status => :moved_permanently
       @redirected = true
@@ -27,11 +27,11 @@ class BaseDirector
         processed_page = if page.kind_of? Symbol
           page.to_s
         elsif page.kind_of? Proc
-          page.bind(self).call()
+          self.instance_exec(&page)
         else
           page
         end
-        if condition.nil? || condition.bind(self).call()
+        if condition.nil? || instance_exec(&condition)
           memo << processed_page
         end
       end
@@ -39,7 +39,7 @@ class BaseDirector
   end
 
   # для корректного поведения всякого
-  def respond_to?(method, include_private = false)
+  def respond_to? method, include_private = false
     if @controller.respond_to?(method, include_private)
       true
     else
@@ -85,7 +85,7 @@ private
     @controller.instance_variable_get :@entry
   end
 
-  def method_missing(method, *args, &block)
+  def method_missing method, *args, &block
     # имя экшена в контроллер не прокидываем - иначе зациклится!!!
     if method.to_s != @controller.view_context.params[:action]
       @controller.send(method, *args, &block)
@@ -94,11 +94,11 @@ private
     end
   end
 
-  def append_crumb!(title, url)
+  def append_crumb! title, url
     @breadcrumbs[title] = url
   end
 
-  def append_title!(title)
+  def append_title! title
     page_title = @controller.instance_variable_get :@page_title
     if page_title
       if page_title.kind_of?(Array)
@@ -120,7 +120,7 @@ private
   class << self
     attr_reader :pages
 
-    def page(entry, condition=nil)
+    def page entry, condition=nil
       if entry.kind_of? Array
         entry = entry.map do |v|
           if v.kind_of? Array

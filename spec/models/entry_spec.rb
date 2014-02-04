@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe Entry do
-  context '#relations' do
+  context :relations do
     it { should belong_to :section }
     it { should belong_to :linked }
     it { should belong_to :user }
@@ -8,8 +8,9 @@ describe Entry do
     it { should have_many :messages }
   end
 
-  context '#hooks' do
-    let(:images) { 1.upto(4).map { create :user_image, user: user, linked_type: 'Entry' } }
+  context :hooks do
+    let(:user) { create :user }
+    let(:images) { create_list :user_image, 4, user: user, linked_type: 'Entry' }
     let(:entry) { create :entry, text: 'text', user: user, value: "#{images[0].id},#{images[1].id}" }
 
     describe 'append_wall' do
@@ -45,48 +46,53 @@ describe Entry do
     end
   end
 
-  let (:user) { create :user }
-  let (:user2) { create :user }
-  let (:entry) { create :entry, user: user }
+  context :instance_methods do
+    let(:user) { create :user }
+    let(:user2) { create :user }
+    let(:entry) { create :entry, user: user }
 
-  describe 'user_images' do
-    let(:images) { 1.upto(3).map { create :user_image, user: user } }
-    let(:entry) { create :entry, user: user, value: "#{images[0].id},#{images[2].id},#{images[1].id}" }
+    describe 'user_images' do
+      let(:images) { create_list :user_image, 3, user: user }
+      let(:entry) { create :entry, user: user, value: "#{images[0].id},#{images[2].id},#{images[1].id}" }
 
-    it 'returns user images stored in value in correct order' do
-      entry.user_images.should eq [images[0], images[2], images[1]]
-    end
-  end
-
-  describe 'comment is deleted' do
-    it 'updated_at is set to created_at of last comment' do
-      first = second = third = nil
-      Comment.wo_antispam do
-        first = create :comment, commentable: entry, created_at: DateTime.now - 2.days, body: 'first'
-        second = create :comment, commentable: entry, created_at: DateTime.now - 1.day, body: 'second'
-        third = create :comment, commentable: entry, created_at: DateTime.now - 30.minutes, body: 'third'
+      it 'returns user images stored in value in correct order' do
+        entry.user_images.should eq [images[0], images[2], images[1]]
       end
-      third.destroy
-      Entry.last.updated_at.to_i.should eq(second.created_at.to_i)
+    end
+
+    describe 'comment is deleted' do
+      it 'updated_at is set to created_at of last comment' do
+        first = second = third = nil
+        Comment.wo_antispam do
+          first = create :comment, commentable: entry, created_at: DateTime.now - 2.days, body: 'first'
+          second = create :comment, commentable: entry, created_at: DateTime.now - 1.day, body: 'second'
+          third = create :comment, commentable: entry, created_at: DateTime.now - 30.minutes, body: 'third'
+        end
+        third.destroy
+        Entry.last.updated_at.to_i.should eq(second.created_at.to_i)
+      end
+    end
+
+    describe 'comments selected with viewed flag' do
+      before do
+        @comment = create :comment, commentable: entry, user: user
+      end
+
+      it 'false' do
+        entry.comments.with_viewed(user2).first.viewed?.should be_false
+      end
+
+      it 'true' do
+        create :comment_view, comment: @comment, user: user2
+        entry.comments(user2).first.viewed?.should be_true
+      end
     end
   end
 
-  describe 'comments selected with viewed flag' do
-    before do
-      @comment = create :comment, commentable: entry, user: user
-    end
+  context :permissions do
+    let(:user) { create :user }
+    let(:entry) { create :entry, user: user }
 
-    it 'false' do
-      entry.comments.with_viewed(user2).first.viewed?.should be_false
-    end
-
-    it 'true' do
-      create :comment_view, comment: @comment, user: user2
-      entry.comments(user2).first.viewed?.should be_true
-    end
-  end
-
-  describe 'permissions' do
     describe 'with owner' do
       it 'can be edited' do
         entry.can_be_edited_by?(user).should be_true
@@ -105,7 +111,7 @@ describe Entry do
     end
 
     describe 'with admin' do
-      let (:admin_user) { create :user }
+      let(:admin_user) { create :user }
 
       before do
         admin_user.stub(:admin?).and_return(true)
@@ -123,7 +129,7 @@ describe Entry do
 
 
     describe 'with random user' do
-      let (:random_user) { create :user }
+      let(:random_user) { create :user }
 
       it "can't be edited" do
         entry.can_be_edited_by?(random_user).should be_false

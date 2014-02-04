@@ -13,10 +13,10 @@ GIT
 
 GIT
   remote: git://github.com/morr/acts_as_voteable.git
-  revision: 91b50702e6dbd34f904360ef1c7c1d92ad47427a
+  revision: 9d2b34208f790779d898f13b5505b37f0a8e3aa8
+  branch: master
   specs:
     acts_as_voteable (0.0.3)
-      rails (~> 3.0)
 
 GIT
   remote: git://github.com/morr/foreman.git
@@ -52,6 +52,13 @@ GIT
     htmldiff (0.0.1)
 
 GIT
+  remote: git://github.com/sporkrb/spork.git
+  revision: a94412c9493a07b7a000e35777b0f76b94de9061
+  branch: master
+  specs:
+    spork (1.0.0rc4)
+
+GIT
   remote: git://github.com/tomykaira/clockwork.git
   revision: 30a018cf7b6e81a72013dd6117b3c2c27f859a23
   specs:
@@ -75,44 +82,42 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (3.2.16)
-      actionpack (= 3.2.16)
+    actionmailer (4.0.2)
+      actionpack (= 4.0.2)
       mail (~> 2.5.4)
-    actionpack (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
-      builder (~> 3.0.0)
+    actionpack (4.0.2)
+      activesupport (= 4.0.2)
+      builder (~> 3.1.0)
       erubis (~> 2.7.0)
-      journey (~> 1.0.4)
-      rack (~> 1.4.5)
-      rack-cache (~> 1.2)
-      rack-test (~> 0.6.1)
-      sprockets (~> 2.2.1)
+      rack (~> 1.5.2)
+      rack-test (~> 0.6.2)
+    actionpack-action_caching (1.1.1)
+      actionpack (>= 4.0.0, < 5.0)
     active_model_serializers (0.8.1)
       activemodel (>= 3.0)
-    activemodel (3.2.16)
-      activesupport (= 3.2.16)
-      builder (~> 3.0.0)
-    activerecord (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
-      arel (~> 3.0.2)
-      tzinfo (~> 0.3.29)
-    activerecord-import (0.3.1)
-      activerecord (~> 3.0)
-      activerecord (~> 3.0)
-    activeresource (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
-    activesupport (3.2.16)
+    activemodel (4.0.2)
+      activesupport (= 4.0.2)
+      builder (~> 3.1.0)
+    activerecord (4.0.2)
+      activemodel (= 4.0.2)
+      activerecord-deprecated_finders (~> 1.0.2)
+      activesupport (= 4.0.2)
+      arel (~> 4.0.0)
+    activerecord-deprecated_finders (1.0.3)
+    activerecord-import (0.4.1)
+      activerecord (>= 3.0)
+    activesupport (4.0.2)
       i18n (~> 0.6, >= 0.6.4)
-      multi_json (~> 1.0)
-    acts-as-taggable-on (2.1.1)
-      rails
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
+      thread_safe (~> 0.1)
+      tzinfo (~> 0.3.37)
+    acts-as-taggable-on (3.0.1)
+      rails (>= 3, < 5)
     addressable (2.2.8)
     apipie-rails (0.0.24)
       rails (>= 3.0.10)
-    arel (3.0.3)
+    arel (4.0.1)
     atomic (1.1.14)
     attribute-defaults (0.6.0)
       activerecord (>= 3.0.0)
@@ -124,17 +129,14 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    builder (3.0.4)
-    cache_digests (0.3.1)
-      actionpack (>= 3.2)
-      thread_safe
+    builder (3.1.4)
     capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    capybara (2.1.0)
+    capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -144,24 +146,27 @@ GEM
       timers (~> 1.1.0)
     childprocess (0.4.0)
       ffi (~> 1.0, >= 1.0.11)
-    chunky_png (1.2.8)
-    cocaine (0.2.1)
+    chunky_png (1.2.9)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
-    coffee-rails (3.2.2)
+    coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
-      railties (~> 3.2.0)
+      railties (>= 4.0.0, < 5.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.2)
+    coffee-script-source (1.7.0)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
-    composite_primary_keys (5.0.12)
-      activerecord (~> 3.2.0, >= 3.2.9)
+    compass-rails (1.1.3)
+      compass (>= 0.12.2)
+    composite_primary_keys (6.0.1)
+      activerecord (>= 4.0.0)
     connection_pool (1.2.0)
     cookiejar (0.3.0)
     crack (0.4.1)
@@ -170,14 +175,14 @@ GEM
     dalli (2.7.0)
     database_rewinder (0.0.2)
     debug_inspector (0.0.2)
-    devise (3.1.1)
+    devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise-async (0.8.0)
-      devise (>= 2.2, < 3.2)
+    devise-async (0.9.0)
+      devise (~> 3.2)
     diff-lcs (1.2.5)
     draper (1.3.0)
       actionpack (>= 3.0)
@@ -210,8 +215,8 @@ GEM
     factory_girl_rails (4.1.0)
       factory_girl (~> 4.1.0)
       railties (>= 3.0.0)
-    faraday (0.8.8)
-      multipart-post (~> 1.2.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     faye (0.8.1)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
@@ -227,8 +232,6 @@ GEM
       eventmachine (>= 0.12.0)
     ffi (1.9.3)
     formatador (0.2.4)
-    formtastic (2.0.2)
-      rails (~> 3.0)
     fssm (0.2.10)
     guard (2.3.0)
       formatador (>= 0.2.4)
@@ -255,7 +258,6 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.6.9)
     icalendar (1.1.6)
-    journey (1.0.4)
     json (1.8.1)
     launchy (2.1.0)
       addressable (~> 2.2.6)
@@ -279,9 +281,11 @@ GEM
       oauth2
       yajl-ruby
     mime-types (1.25.1)
+    mini_portile (0.5.2)
+    minitest (4.7.5)
     mock_redis (0.10.0)
     multi_json (1.8.4)
-    multipart-post (1.2.0)
+    multipart-post (2.0.0)
     mysql2 (0.3.11)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
@@ -291,7 +295,8 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     newrelic_rpm (3.6.7.159)
-    nokogiri (1.5.10)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     oauth (0.4.7)
     oauth2 (0.5.2)
       faraday (~> 0.7)
@@ -314,14 +319,12 @@ GEM
       multi_json
       omniauth (~> 1.1.0)
       omniauth-oauth2 (~> 1.0)
-    orm_adapter (0.4.0)
-    paperclip (2.4.3)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
+    orm_adapter (0.5.0)
+    paperclip (4.0.0)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
       mime-types
-    polyamorous (0.5.0)
-      activerecord (~> 3.0)
     polyglot (0.3.3)
     postmark (1.0.1)
       json
@@ -329,7 +332,7 @@ GEM
     postmark-rails (0.5.1)
       actionmailer (>= 3.0.0)
       postmark (~> 1.0)
-    pry (0.9.12.4)
+    pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -342,54 +345,44 @@ GEM
       railties (>= 3.1, < 5.0)
     rabl (0.8.0)
       activesupport (>= 2.3.14)
-    rack (1.4.5)
-    rack-cache (1.2)
-      rack (>= 0.4)
+    rack (1.5.2)
     rack-protection (1.5.1)
-      rack
-    rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.16)
-      actionmailer (= 3.2.16)
-      actionpack (= 3.2.16)
-      activerecord (= 3.2.16)
-      activeresource (= 3.2.16)
-      activesupport (= 3.2.16)
-      bundler (~> 1.0)
-      railties (= 3.2.16)
-    railties (3.2.16)
-      actionpack (= 3.2.16)
-      activesupport (= 3.2.16)
-      rack-ssl (~> 1.3.2)
+    rails (4.0.2)
+      actionmailer (= 4.0.2)
+      actionpack (= 4.0.2)
+      activerecord (= 4.0.2)
+      activesupport (= 4.0.2)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.0.2)
+      sprockets-rails (~> 2.0.0)
+    railties (4.0.2)
+      actionpack (= 4.0.2)
+      activesupport (= 4.0.2)
       rake (>= 0.8.7)
-      rdoc (~> 3.4)
-      thor (>= 0.14.6, < 2.0)
+      thor (>= 0.18.1, < 2.0)
     rake (10.1.1)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
-    rdoc (3.12.2)
-      json (~> 1.4)
     redis (3.0.6)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
     ref (1.0.5)
     request_store (1.0.5)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rmagick (2.13.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     rspec-core (2.14.7)
-    rspec-expectations (2.14.4)
+    rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.4)
+    rspec-mocks (2.14.5)
     rspec-rails (2.14.1)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -401,13 +394,11 @@ GEM
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
     safe_yaml (0.9.7)
-    sass (3.2.9)
-    sass-rails (3.2.6)
-      railties (~> 3.2.0)
+    sass (3.2.14)
+    sass-rails (4.0.1)
+      railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
-      tilt (~> 1.3)
-    sextant (0.2.4)
-      rails (>= 3.2)
+      sprockets-rails (~> 2.0.0)
     shoulda (2.11.3)
     shoulda-matchers (1.0.0)
     sidekiq (2.17.2)
@@ -421,9 +412,9 @@ GEM
     sidekiq-unique-jobs (2.7.0)
       mock_redis
       sidekiq (~> 2.6)
-    simple_form (2.0.2)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
+    simple_form (3.0.1)
+      actionpack (>= 4.0.0, < 4.1)
+      activemodel (>= 4.0.0, < 4.1)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -437,23 +428,18 @@ GEM
       railties (>= 3.0, < 4.1)
       slim (~> 2.0)
     slop (3.4.7)
-    spork (0.9.2)
-    sprockets (2.2.2)
+    sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sprockets-rails (2.0.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (~> 2.8)
     sql-logging (3.0.8)
       rails (> 3.0.0)
-    squeel (1.0.16)
-      activerecord (~> 3.0)
-      activesupport (~> 3.0)
-      polyamorous (~> 0.5.0)
-    state_machine (1.1.2)
-    strong_parameters (0.2.2)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-      railties (~> 3.0)
+    state_machine (1.2.0)
     susy (1.0.8)
       compass (>= 0.12.2)
       sass (>= 3.2.0)
@@ -476,9 +462,6 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     truncate_html (0.5.5)
-    turbo-sprockets-rails3 (0.3.6)
-      railties (> 3.2.8, < 4.0.0)
-      sprockets (>= 2.0.0)
     tzinfo (0.3.38)
     uglifier (2.3.0)
       execjs (>= 0.3.0)
@@ -507,6 +490,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack-action_caching
   active_model_serializers
   activerecord-import
   acts-as-taggable-on
@@ -518,7 +502,6 @@ DEPENDENCIES
   bb-ruby
   better_errors
   binding_of_caller
-  cache_digests
   capistrano
   capybara
   chronic!
@@ -537,7 +520,6 @@ DEPENDENCIES
   faye
   faye-redis
   foreman!
-  formtastic
   guard
   guard-livereload
   guard-rspec
@@ -557,20 +539,19 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-twitter
   omniauth-vkontakte
-  paperclip (= 2.4.3)
+  paperclip
   postmark-rails
   pry-rails
   pry-stack_explorer
   quiet_assets
   quote_extractor!
   rabl
-  rails (= 3.2.16)
+  rails (= 4.0.2)
   rake
   rb-fchange
   rb-fsevent
   rb-inotify
   redis
-  rest-client
   rmagick
   rspec-rails
   ruby-progressbar!
@@ -578,7 +559,6 @@ DEPENDENCIES
   russian!
   rvm-capistrano
   sass-rails
-  sextant
   shoulda
   shoulda-matchers
   sidekiq
@@ -587,16 +567,13 @@ DEPENDENCIES
   simple_form
   sinatra (>= 1.3.0)
   slim-rails
-  spork
+  spork!
   sql-logging
-  squeel
   state_machine
-  strong_parameters
   susy (= 1.0.8)
   therubyracer
   thin
   truncate_html
-  turbo-sprockets-rails3
   uglifier
   unicode
   uuid

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '3.2.16'
+gem 'rails', '4.0.2'
 
 gem 'mysql2'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -9,21 +9,27 @@ gem 'dalli'
 gem 'redis'
 gem 'therubyracer'
 
+gem 'sass-rails'
+gem 'slim-rails'
+gem 'susy', '1.0.8'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'compass-rails'
+
 gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'capistrano'
 gem 'rvm-capistrano'
 
+gem 'actionpack-action_caching'
 gem 'attribute-defaults'
 gem 'state_machine'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'nokogiri'
-gem 'paperclip', '2.4.3'
+gem 'paperclip'
 gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
 gem 'simple_form'
-gem 'strong_parameters'
-# TODO: удалить строчку с переходом на rails 4
 gem 'active_model_serializers'
 
 gem 'devise'
@@ -39,7 +45,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 
-gem 'formtastic'
+#gem 'formtastic'
 gem 'bb-ruby'
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 gem 'newrelic_rpm'
@@ -48,29 +54,15 @@ gem 'awesome_print'
 gem 'ruby-progressbar', github: 'morr/ruby-progressbar'
 gem 'htmldiff', github: 'myobie/htmldiff'
 
-group :assets do
-  gem 'sass-rails'
-  #gem 'susy', '~> 2.0.0.alpha.2'
-  gem 'susy', '1.0.8'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'turbo-sprockets-rails3'
-  gem 'compass-rails'
-end
-
 gem 'truncate_html'
-gem 'squeel'
 gem 'acts-as-taggable-on'
 gem 'uuid'
 gem 'meta-tags', github: 'morr/meta-tags', require: 'meta_tags'
 gem 'enumerize'
 gem 'draper'
-# TODO: удалить после перехода на rails 4
-gem 'cache_digests'
 
 gem 'unicode' # для downcase русских слов
 gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'
-gem 'slim-rails'
 gem 'icalendar' # для аниме календраря
 gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
@@ -79,7 +71,6 @@ gem 'xxhash' # очень быстрый несекьюрный алгоритм
 
 gem 'rabl' # для рендеринга json
 
-gem 'rest-client'
 gem 'postmark-rails'
 gem 'apipie-rails'
 
@@ -91,7 +82,7 @@ end
 group :development do
   gem 'letter_opener'
   gem 'quiet_assets'
-  gem 'sextant'
+  #gem 'sextant'
   gem 'mactag'
   gem 'better_errors'
   #gem 'sprockets_better_errors'
@@ -117,7 +108,7 @@ group :test, :development do
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
 
-  gem 'spork'
+  gem 'spork', github: 'sporkrb/spork', branch: 'master'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spork'
@@ -130,7 +121,7 @@ group :test, :development do
   #gem 'rack-mini-profiler'
 end
 
-gem 'acts_as_voteable', github: 'morr/acts_as_voteable'
+gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
 gem 'chronic', git: 'git@github.com:mojombo/chronic.git' # хак для совместимости whenever и ruby 2.0
 gem 'whenever', require: false

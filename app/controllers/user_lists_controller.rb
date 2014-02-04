@@ -73,7 +73,7 @@ class UserListsController < UsersController
 
     history = @user
       .all_history
-      .order { updated_at.desc }
+      .order(updated_at: :desc)
       .offset(limit * (@page-1))
       .limit(limit + 1)
       .all
@@ -267,8 +267,8 @@ private
                  #{params[:list_type].tableize}.name,
                  #{params[:list_type].tableize}.russian,
                  #{params[:list_type].tableize}.status,
-                 #{params[:list_type].tableize}.aired_at,
-                 #{params[:list_type].tableize}.released_at,
+                 #{params[:list_type].tableize}.aired_on,
+                 #{params[:list_type].tableize}.released_on,
                  #{@klass == Anime ? "#{params[:list_type].tableize}.episodes_aired" : '0'} as episodes_aired,
                  #{params[:list_type].tableize}.#{@klass == Anime ? 'episodes' : 'chapters'}
                  #{@klass == Anime ? ",#{params[:list_type].tableize}.duration" : ''}")

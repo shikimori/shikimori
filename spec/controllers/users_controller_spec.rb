@@ -25,31 +25,31 @@ describe UsersController do
       before do
         user.update_column :encrypted_password, ''
         controller.stub(:current_user).and_return user
-        put :update_password, id: user.to_param, user: { password: '1234', password_confirmation: '1234' }
+        patch :update_password, id: user.to_param, user: { password: '1234', password_confirmation: '1234' }
       end
       it { should redirect_to user_settings_path(user) }
     end
 
     context 'user with password' do
       context 'with correct password' do
-        before { put :update_password, id: user.to_param, user: { current_password: '123', password: '1234', password_confirmation: '1234' } }
+        before { patch :update_password, id: user.to_param, user: { current_password: '123', password: '1234', password_confirmation: '1234' } }
         it { should redirect_to user_settings_path(user) }
       end
 
       context 'invalid password' do
-        before { put :update_password, id: user.to_param, user: { current_password: '1234', password: '1234', password_confirmation: '1234' } }
+        before { patch :update_password, id: user.to_param, user: { current_password: '1234', password: '1234', password_confirmation: '1234' } }
         it { should respond_with :success }
       end
 
       context 'no password' do
-        before { put :update_password, id: user.to_param, user: {} }
+        before { patch :update_password, id: user.to_param, user: {} }
         it { should respond_with :success }
       end
     end
 
     context 'wrong user' do
       let(:user2) { create :user }
-      before { put :update_password, id: user2.to_param, user: { current_password: '123', password: '1234', password_confirmation: '1234' } }
+      before { patch :update_password, id: user2.to_param, user: { current_password: '123', password: '1234', password_confirmation: '1234' } }
       it { should respond_with :forbidden }
     end
   end
@@ -57,12 +57,12 @@ describe UsersController do
   describe :update do
     context 'wrong user' do
       let(:user2) { create :user }
-      before { put :update, id: user2.to_param }
+      before { patch :update, id: user2.to_param }
       it { should respond_with :forbidden }
     end
 
     context 'nickname change' do
-      before { put :update, id: user.to_param, page: :account, user: { nickname: 'test2' } }
+      before { patch :update, id: user.to_param, page: :account, user: { nickname: 'test2' } }
       it { should redirect_to user_settings_url('test2', page: :account) }
     end
   end

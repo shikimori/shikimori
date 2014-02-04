@@ -11,16 +11,16 @@ class ContestSuggestion < ActiveRecord::Base
   scope :by_votes, -> { group(:item_id).select('*, count(*) as votes').order('count(*) desc') }
 
   def self.suggest contest, user, item
-    contest.suggestions.create!({
+    contest.suggestions.create!(
       user_id: user.id,
       item_id: item.id,
       item_type: item.class.name
-    })
+    )
 
     suggestions = contest
       .suggestions
       .by_user(user)
-      .all
+      .to_a
 
     # удаляем всё после первых трёх вариантов
     suggestions

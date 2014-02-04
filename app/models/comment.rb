@@ -8,11 +8,11 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
-  has_many :abuse_requests, :dependent => :destroy
+  has_many :abuse_requests, dependent: :destroy
 
-  has_many :messages, foreign_key: :linked_id,
-                      conditions: { linked_type: Comment.name },
-                      dependent: :destroy
+  has_many :messages, -> { where linked_type: Comment.name },
+    foreign_key: :linked_id,
+    dependent: :destroy
 
   # validations
   validates_presence_of :body
@@ -22,7 +22,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :commentable_type
 
   # scopes
-  scope :reviews, where(review: true)
+  scope :reviews, -> { where review: true }
 
   # callbacks
   before_validation :clean
@@ -210,7 +210,7 @@ class Comment < ActiveRecord::Base
   end
 
   # пометка комментария либо оффтопиком, либо обзором
-  def mark(kind, value)
+  def mark kind, value
     if value && kind == 'offtopic'
       ids = quoted_responses.map(&:id) + [self.id]
       Comment.where(id: ids).update_all offtopic: true
@@ -226,8 +226,9 @@ class Comment < ActiveRecord::Base
 
   # ветка с ответами на этот комментарий
   def quoted_responses
-    comments = Comment.where { id > my{id} }
-        .where(commentable_type: commentable_type, commentable_id: commentable_id)
+    comments = Comment
+      .where("id > ?", id)
+      .where(commentable_type: commentable_type, commentable_id: commentable_id)
     search_ids = Set.new [id]
 
     comments.each do |comment|

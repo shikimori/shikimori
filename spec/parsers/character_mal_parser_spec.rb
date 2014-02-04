@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe CharacterMalParser do
-  before (:each) { SiteParserWithCache.stub(:load_cache).and_return({:list => {}}) }
+  before (:each) { SiteParserWithCache.stub(:load_cache).and_return({list: {}}) }
 
   let (:parser) {
     p = CharacterMalParser.new
@@ -10,7 +10,7 @@ describe CharacterMalParser do
     p
   }
 
-  let (:character_id) { 35662 }
+  let(:character_id) { 35662 }
 
   it 'have correct type' do
     parser.instance_eval { type }.should == 'character'
@@ -23,7 +23,7 @@ describe CharacterMalParser do
     data[:description_mal].should include('[spoiler]')
 
     data[:seyu].should have(2).item
-    data[:seyu].first.should == { :role => 'Japanese', :id => 185 }
+    data[:seyu].first.should == { role: 'Japanese', id: 185 }
 
     data.should include(:img)
   end
@@ -38,9 +38,9 @@ describe CharacterMalParser do
   end
 
   describe 'import' do
-    before (:each) {
-      FactoryGirl.create :character, :id => 8177
-      FactoryGirl.create :character, :id => 26201, :imported_at => DateTime.now
+    before {
+      create :character, id: 8177
+      create :character, id: 26201, imported_at: DateTime.now
     }
 
     it 'prepare' do
@@ -48,8 +48,8 @@ describe CharacterMalParser do
     end
 
     it 'import' do
-      FactoryGirl.create :person_role, :character_id => 1
-      FactoryGirl.create :person_role, :character_id => 2
+      FactoryGirl.create :person_role, character_id: 1
+      FactoryGirl.create :person_role, character_id: 2
 
       expect {
         parser.import.should have(3).items
@@ -57,7 +57,7 @@ describe CharacterMalParser do
     end
 
     it 'import seyu' do
-      FactoryGirl.create :person_role, :character_id => 1
+      FactoryGirl.create :person_role, character_id: 1
 
       expect {
         parser.import

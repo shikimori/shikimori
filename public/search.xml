@@ -6,10 +6,10 @@
   <Url type="text/html"
     method="get"
     rel="results"
-    template="http://shikimori.org/animes/search/{searchTerms}/order-by/released_at"/>
+    template="http://shikimori.org/animes/search/{searchTerms}/order-by/released_on"/>
   <Url type="application/x-suggestions+json"
     rel="suggestions"
-    template="http://shikimori.org/animes/search/{searchTerms}/order-by/released_at.os"/>
+    template="http://shikimori.org/animes/search/{searchTerms}/order-by/released_on.os"/>
   <OutputEncoding>UTF-8</OutputEncoding>
   <InputEncoding>UTF-8</InputEncoding>
   <SyndicationRight>open</SyndicationRight>

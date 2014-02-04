@@ -1,7 +1,6 @@
 # TODO: refactor UserNotifications module inclusion
 class User < ActiveRecord::Base
   include PermissionsPolicy
-  include OmniAuthPopulator
   include UserNotifications
   include Commentable
 
@@ -16,16 +15,14 @@ class User < ActiveRecord::Base
   has_many :comments_all, class_name: Comment.name, dependent: :destroy
   has_many :abuse_requests, dependent: :destroy
 
-  has_many :anime_rates,
+  has_many :anime_rates, -> { where target_type: Anime.name },
     class_name: UserRate.name,
     source: :target_id,
-    conditions: {target_type: Anime.name},
     dependent: :destroy
 
-  has_many :manga_rates,
+  has_many :manga_rates, -> { where target_type: Manga.name },
     class_name: UserRate.name,
     source: :target_id,
-    conditions: {target_type: Manga.name},
     dependent: :destroy
 
   #has_many :topic_views
@@ -34,20 +31,20 @@ class User < ActiveRecord::Base
   has_many :friend_links, foreign_key: :src_id, dependent: :destroy
   has_many :friends, through: :friend_links, source: :dst, dependent: :destroy
 
-  has_many :favourites, class_name: Favourite.name, dependent: :destroy
-  has_many :favourite_seyu, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Seyu }
-  has_many :favourite_producers, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Producer }
-  has_many :favourite_mangakas, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Mangaka }
-  has_many :favourite_persons, class_name: Favourite.name, dependent: :destroy, conditions: { kind: Favourite::Person }
+  has_many :favourites, dependent: :destroy
+  has_many :favourite_seyu, -> { where kind: Favourite::Seyu }, class_name: Favourite.name, dependent: :destroy
+  has_many :favourite_producers, -> { where kind: Favourite::Producer }, class_name: Favourite.name, dependent: :destroy
+  has_many :favourite_mangakas, -> { where kind: Favourite::Mangaka }, class_name: Favourite.name, dependent: :destroy
+  has_many :favourite_persons, -> { where kind: Favourite::Person }, class_name: Favourite.name, dependent: :destroy
 
   has_many :fav_animes, through: :favourites, source: :linked, source_type: Anime.name
   has_many :fav_mangas, through: :favourites, source: :linked, source_type: Manga.name
+  has_many :fav_characters, through: :favourites, source: :linked, source_type: Character.name
   has_many :fav_persons, through: :favourite_persons, source: :linked, source_type: Person.name
   has_many :fav_people, through: :favourites, source: :linked, source_type: Person.name
   has_many :fav_seyu, through: :favourite_seyu, source: :linked, source_type: Person.name
   has_many :fav_producers, through: :favourite_producers, source: :linked, source_type: Person.name
   has_many :fav_mangakas, through: :favourite_mangakas, source: :linked, source_type: Person.name
-  has_many :fav_characters, through: :favourites, source: :linked, source_type: Character.name
 
   has_many :messages, foreign_key: :to_id, dependent: :destroy
 
@@ -100,7 +97,7 @@ class User < ActiveRecord::Base
     url: "/images/user/:style/:id.:extension",
     path: ":rails_root/public/images/user/:style/:id.:extension"
 
-  validates_attachment_content_type :avatar, content_type: [/^image\/(?:jpeg|png)$/, nil]
+  validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
   validates :nickname, presence: true, uniqueness: { case_sensitive: false }
 
   before_save :fix_nickname
@@ -135,70 +132,6 @@ class User < ActiveRecord::Base
       if data = session[:omniauth]
         user.user_tokens.build(provider: data['provider'], uid: data['uid'])
       end
-    end
-  end
-
-  def apply_omniauth omniauth
-    self.omniauth = omniauth
-    populate_from_omni(omniauth)
-
-    user_tokens.build(provider: omniauth['provider'], uid: omniauth['uid'], omniauth: omniauth)
-
-    self.nickname = 'Новый пользователь' if self.nickname.blank?
-    self.email = "generated_#{fast_token}@shikimori.org" if self.email.blank?
-  end
-
-  def populate_from_omni omni
-    self.nickname = omni.info['nickname'] if self.nickname.blank? && omni.info['nickname'].present?
-    self.nickname = omni.info['name'] if self.nickname.blank? && omni.info['name'].present?
-    self.name = omni.info['name'] if self.name.blank? && omni.info['name'].present?
-    self.email = omni.info['email'] if self.email.blank? && omni.info['email'].present?
-    self.about = omni.info['description'] if self.about.blank?
-    self.website = omni.info['urls'].values.select(&:present?).first if self.website.blank? && omni.info['urls'].kind_of?(Hash)
-    self.location = omni.info['location'].sub(/,\s*$/, '') if self.location.blank? && omni.info['location'].present? && omni.info['location'] !~ /^[ ,]$/
-    # тут может какая-то хрень придти, не являющаяся датой
-    begin
-      self.birth_on = DateTime.parse(omni.info['birth_date']) unless self.birth_on.present? || !omni.info['birth_date'].present?
-    rescue
-    end
-  end
-
-  def populate_from_twitter omni
-  end
-
-  def populate_from_google_apps omni
-  end
-
-  def populate_from_facebook omni
-    self.location = omni.extra.raw_info['location']['name'] if self.location.blank? && omni.extra.raw_info['location'] && omni.extra.raw_info['location']['name'].present?
-
-    if self.sex.blank? && omni.extra.raw_info['gender'].present?
-      self.sex = if omni.extra.raw_info['gender'] == 'male'
-        'male'
-      elsif omni.extra.raw_info['gender'] == 'female'
-        'female'
-      end
-    end
-  end
-
-  def populate_from_yandex omni
-  end
-
-  def populate_from_vkontakte omni
-    self.avatar = open(omni.extra.raw_info['photo_big']) if !self.avatar.present? && omni.extra.raw_info['photo_big'].present? && omni.extra.raw_info['photo_big'] =~ /^https?:\/\//
-    self.avatar = open(omni.info['image']) if !self.avatar.present? && omni.info['image'].present? && omni.info['image'] =~ /^https?:\/\//
-
-    if self.sex.blank? && omni.extra.raw_info['sex'].present?
-      self.sex = if omni.extra.raw_info['sex'] == '2'
-        'male'
-      elsif omni.extra.raw_info['sex'] == '1'
-        'female'
-      end
-    end
-
-    begin
-      self.birth_on = DateTime.parse(omni.extra.raw_info['bdate']) unless self.birth_on.present? || !omni.extra.raw_info['bdate'].present?
-    rescue
     end
   end
 
@@ -347,7 +280,7 @@ class User < ActiveRecord::Base
   end
 
   def favoured? entry, kind=nil
-    @favs ||= favourites.all
+    @favs ||= favourites.to_a
     @favs.any? { |v| v.linked_id == entry.id && v.linked_type == entry.class.name && (kind.nil? || v.kind == kind) }
   end
 
@@ -367,7 +300,7 @@ class User < ActiveRecord::Base
 
   # подписка на элемент
   def subscribe entry
-    subscriptions << Subscription.create!(user_id: self.id, target_id: entry.id, target_type: entry.class.name) unless subscribed?(entry)
+    subscriptions << Subscription.create!(user_id: id, target_id: entry.id, target_type: entry.class.name) unless subscribed?(entry)
   end
 
   # отписка от элемента

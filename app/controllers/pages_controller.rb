@@ -45,16 +45,16 @@ class PagesController < ApplicationController
   # rss с новостями
   def news
     @topics = if params[:kind] == 'anime'
-      AnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) }
+      AnimeNews.where.not(action: AnimeHistoryAction::Episode)
           .joins('inner join animes on animes.id=linked_id and animes.censored=false')
-          .order { created_at.desc }
+          .order(created_at: :desc)
           .limit(15)
-          .all
+          .to_a
     else
       Entry.where(type: Topic.name, broadcast: true)
-          .order { created_at.desc }
+          .order(created_at: :desc)
           .limit(10)
-          .all
+          .to_a
     end
 
     response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'

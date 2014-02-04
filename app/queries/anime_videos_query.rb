@@ -39,7 +39,7 @@ class AnimeVideosQuery
   end
 
   def all
-    @query.all
+    @query.to_a
     self
   end
 end

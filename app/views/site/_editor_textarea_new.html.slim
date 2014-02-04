@@ -1,8 +1,7 @@
 div.item-content-editor
   p.m2 Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
 
-  /= form_tag user_change_path do
-  = form_tag moderation_do_user_change_path, :format => :json, :remote => true, 'data-type' => :json do
+  = form_tag moderation_do_user_change_path, format: :json, remote: true, 'data-type' => :json, authenticity_token: true do
     = hidden_field_tag 'apply', '', 'autocomplete' => :off
     = hidden_field_tag 'change[model]', item.object.class.name, 'autocomplete' => :off
     = hidden_field_tag 'change[column]', field, 'autocomplete' => :off
@@ -22,4 +21,4 @@ div.item-content-editor
       | Источник (
       span.notice title="Адрес страницы, откуда взят текст" ?
       | ): 
-      = text_field_tag 'change[source]', item.source, 'autocomplete' => :off, :class => :common
+      = text_field_tag 'change[source]', item.source, 'autocomplete' => :off, class: :common

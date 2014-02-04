@@ -5,13 +5,13 @@ describe OngoingsQuery do
 
   before do
     create :anime
-    create :ongoing_anime, aired_at: DateTime.now - 1.day
+    create :ongoing_anime, aired_on: DateTime.now - 1.day
     create :ongoing_anime, duration: 20
     create :ongoing_anime, kind: 'ONA'
-    create :ongoing_anime, episodes_aired: 0, aired_at: DateTime.now - 1.day - 1.month
+    create :ongoing_anime, episodes_aired: 0, aired_on: DateTime.now - 1.day - 1.month
     create :anons_anime
     create :anons_anime
-    create :anons_anime, aired_at: DateTime.now + 1.week
+    create :anons_anime, aired_on: DateTime.now + 1.week
   end
 
   it { query.send(:fetch_ongoings).should have(2).items }

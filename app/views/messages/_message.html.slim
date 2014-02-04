@@ -13,8 +13,8 @@
           span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.from_id}" title="Принять"
           span.item-request-reject title="Отклонить"
         - else
-          span.item-request-confirm data-remote="true" data-method="put" data-type="json" action="#{group_invites_accept_url message.subject}" title="Принять"
-          span.item-request-reject data-remote="true" data-method="put" data-type="json" action="#{group_invites_reject_url message.subject}" title="Отклонить"
+          span.item-request-confirm data-remote="true" data-method="patch" data-type="json" action="#{group_invites_accept_url message.subject}" title="Принять"
+          span.item-request-reject data-remote="true" data-method="patch" data-type="json" action="#{group_invites_reject_url message.subject}" title="Отклонить"
     .delete-controls
       span.item-delete-confirm action="#{url_for message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
       span.item-delete-cancel title="Отмена"

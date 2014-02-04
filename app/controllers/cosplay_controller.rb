@@ -12,10 +12,11 @@ class CosplayController < ApplicationController
 
     @moderators = User.where(id: User::CosplayModerators - User::Admins)
     limit = 480
-    @cosplay = CosplaySession.where(confirmed: false, deleted: false)
-        .includes(:cosplayers)
-        .order('id desc')
-        .limit(limit)
+    @cosplay = CosplaySession
+      .where(confirmed: false, deleted: false)
+      .includes(:cosplayers)
+      .order(id: :desc)
+      .limit(limit)
   end
 
   # новый косплей

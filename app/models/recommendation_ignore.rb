@@ -3,7 +3,7 @@ class RecommendationIgnore < ActiveRecord::Base
   belongs_to :target, polymorphic: true
 
   # заблокировать франшизу для пользователя
-  def self.block(entry, user)
+  def self.block entry, user
     ids = ChronologyQuery.new(entry, false).fetch.map(&:id) + [entry.id]
     imported = RecommendationIgnore.where(user_id: user.id, target_id: ids, target_type: entry.class.name).pluck(:target_id)
     ids = ids - imported
@@ -20,7 +20,7 @@ class RecommendationIgnore < ActiveRecord::Base
   end
 
   # список заблокированного для пользователя
-  def self.blocked(klass, user)
+  def self.blocked klass, user
     RecommendationIgnore.where(user_id: user.id, target_type: klass.name).pluck(:target_id)
   end
 end

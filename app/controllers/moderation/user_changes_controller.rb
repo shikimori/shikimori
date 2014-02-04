@@ -27,16 +27,17 @@ class Moderation::UserChangesController < ApplicationController
       UserChange
         .includes(:user)
         .includes(:approver)
-        .where { status.not_in([UserChangeStatus::Pending, UserChangeStatus::Locked]) }
-        .order { updated_at.desc }
+        .where.not(status: [UserChangeStatus::Pending, UserChangeStatus::Locked])
+        .order(updated_at: :desc)
     end
 
     unless json?
       @page_title = 'Правки пользователей'
-      @pending = UserChange.includes(:user)
-                          .where(status: UserChangeStatus::Pending)
-                          .order(:created_at)
-                          .all
+      @pending = UserChange
+        .includes(:user)
+        .where(status: UserChangeStatus::Pending)
+        .order(:created_at)
+        .to_a
 
       @changes_map = {}
       # по конкретному элементу делаем только одно активное изменение
@@ -49,7 +50,7 @@ class Moderation::UserChangesController < ApplicationController
         end
       end
 
-      @moderators = User.where(id: User::UserChangesModerators - User::Admins).all.sort_by { |v| v.nickname.downcase }
+      @moderators = User.where(id: User::UserChangesModerators - User::Admins).sort_by { |v| v.nickname.downcase }
     end
   end
 
@@ -157,7 +158,7 @@ class Moderation::UserChangesController < ApplicationController
         success: true,
         notice: '%s забрано на перевод' % anime.name,
         html: render_to_string(partial: 'translation/lock', locals: {
-          anime: anime,
+          anime: anime.reload,
           changes: TranslationController.pending_animes,
           locks: TranslationController.locked_animes
         }, formats: :html)

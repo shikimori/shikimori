@@ -77,13 +77,13 @@ describe UserRatesController do
 
       describe :update do
         context :guest do
-          before { put :update, defaults }
+          before { patch :update, defaults }
           it { should respond_with 302 }
         end
 
         context :authenticated do
           before { sign_in user }
-          let(:make_request) { put :update, defaults.merge(rate: valid_hash) }
+          let(:make_request) { patch :update, defaults.merge(rate: valid_hash) }
 
           context :response do
             before { make_request }

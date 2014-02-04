@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 describe UserChangesQuery do
   let(:user) { create :user }
   let(:user2) { create :user }

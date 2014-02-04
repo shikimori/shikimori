@@ -10,7 +10,6 @@ class ContestSuggestionsController < ApplicationController
         .suggestions
         .where(item_type: @suggestion.item_type, item_id: @suggestion.item_id)
         .includes(:user)
-        .all
         .map(&:user)
     end
 

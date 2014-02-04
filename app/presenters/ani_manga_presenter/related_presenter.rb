@@ -15,10 +15,10 @@ class AniMangaPresenter::RelatedPresenter < BasePresenter
 
   # похожие аниме
   def similar
-    @similar ||= entry.similar
-        .includes(:dst)
-        .all
-          .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
+    @similar ||= entry
+      .similar
+      .includes(:dst)
+      .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
   end
 
   # есть ли они вообще?
@@ -38,14 +38,14 @@ class AniMangaPresenter::RelatedPresenter < BasePresenter
 
 private
   def related_entries
-    @all_realted ||= entry.related
-        .includes(:anime, :manga)
-        .all
-          .select { |v| (v.anime_id && v.anime && v.anime.name) || (v.manga_id && v.manga && v.manga.name) }
-          .sort_by do |v|
-            (v.anime_id ? v.anime.aired_at : nil) ||
-              (v.manga_id ? v.manga.aired_at : nil) ||
-              Date.new(9999)
-          end
+    @all_realted ||= entry
+      .related
+      .includes(:anime, :manga)
+      .select { |v| (v.anime_id && v.anime && v.anime.name) || (v.manga_id && v.manga && v.manga.name) }
+      .sort_by do |v|
+        (v.anime_id ? v.anime.aired_on : nil) ||
+          (v.manga_id ? v.manga.aired_on : nil) ||
+          Date.new(9999)
+      end
   end
 end

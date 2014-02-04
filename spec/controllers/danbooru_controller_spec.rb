@@ -46,12 +46,12 @@ describe DanbooruController do
     before { stub_request(:any, url).to_return body: data.to_json }
 
     it 'should raise forbidden for not allowed urls' do
-      get :yandere, url: Base64.encode64('http://lenta.ru/image.jpg')
+      get :yandere, url: Base64.encode64('http://lenta.ru/image.jpg').strip
       response.should be_forbidden
     end
 
     it 'should render json' do
-      get :yandere, url: Base64.encode64(url)
+      get :yandere, url: Base64.encode64(url).strip
       JSON.parse(response.body).should eq data
     end
   end

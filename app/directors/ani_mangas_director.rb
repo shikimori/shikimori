@@ -132,8 +132,8 @@ private
       append_crumb! 'Список манги', mangas_url
     end
 
-    if entry.aired_at && [DateTime.now.year + 1, DateTime.now.year, DateTime.now.year - 1].include?(entry.aired_at.year)
-      append_crumb! "#{entry.aired_at.year} год", send("#{entry.object.class.name.downcase.pluralize}_url", season: entry.aired_at.year)
+    if entry.aired_on && [DateTime.now.year + 1, DateTime.now.year, DateTime.now.year - 1].include?(entry.aired_on.year)
+      append_crumb! "#{entry.aired_on.year} год", send("#{entry.object.class.name.downcase.pluralize}_url", season: entry.aired_on.year)
     end
 
     if entry.genres.any?

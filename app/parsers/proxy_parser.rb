@@ -79,7 +79,7 @@ private
 
   # источники проксей
   def sources
-    @sources ||= Sources + Nokogiri::HTML(RestClient.get(Proxies24Url)).css('.post-title.entry-title a').map {|v| v.attr('href') }
+    @sources ||= Sources + Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
   end
 
   Proxies24Url = 'http://www.proxies24.org/'

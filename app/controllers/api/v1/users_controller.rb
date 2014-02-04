@@ -61,7 +61,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
     respond_with user
       .all_history
-      .order { updated_at.desc }
+      .order(updated_at: :desc)
       .offset(@limit * (@page-1))
       .limit(@limit + 1)
       .decorate

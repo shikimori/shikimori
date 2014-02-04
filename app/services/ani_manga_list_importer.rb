@@ -7,9 +7,8 @@ module AniMangaListImporter
   # :status должен быть словом, не циферкой
   def import user, klass, list_to_import, rewrite_existed
     # уже имеющееся у пользователя в списке
-    rates = user.send("#{klass.name.downcase}_rates").all.inject({}) do |data,entry|
-      data[entry.target_id] = entry
-      data
+    rates = user.send("#{klass.name.downcase}_rates").each_with_object({}) do |entry,memo|
+      memo[entry.target_id] = entry
     end
 
     # то, что будет добавлено с нуля

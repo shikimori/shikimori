@@ -175,6 +175,6 @@ class ContestMatch < ActiveRecord::Base
 
 private
   def cached_votes
-    @cached_votes ||= votes.all
+    @cached_votes ||= votes.to_a
   end
 end

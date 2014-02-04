@@ -2,8 +2,8 @@
 class NameMatcher
   attr_reader :cache
 
-  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :episodes]
-  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_at, :chapters]
+  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :episodes]
+  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :chapters]
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
 
@@ -233,14 +233,14 @@ private
 
   def main_names entry
     names = [entry.name, "#{entry.name} #{entry.kind}"]
-    aired_at = ["#{entry.name} #{entry.aired_at.year}"] if entry.aired_at
+    aired_on = ["#{entry.name} #{entry.aired_on.year}"] if entry.aired_on
 
-    names + (aired_at || [])
+    names + (aired_on || [])
   end
 
   def alt_names entry
-    synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_at ? entry.synonyms.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.synonyms
-    english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_at ? entry.english.map {|v| "#{v} #{entry.aired_at.year}" } : []) if entry.english
+    synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_on ? entry.synonyms.map {|v| "#{v} #{entry.aired_on.year}" } : []) if entry.synonyms
+    english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_on ? entry.english.map {|v| "#{v} #{entry.aired_on.year}" } : []) if entry.english
 
     (synonyms || []) + (english || [])
   end
@@ -272,8 +272,8 @@ private
     ds = ds.where id: @ids if @ids.present?
     ds = ds.includes(:links) if @services.present?
 
-    ds.select(db_fields)
-      .all
+    ds
+      .select(db_fields)
       .sort_by {|v| v.kind == 'TV' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
   end
 

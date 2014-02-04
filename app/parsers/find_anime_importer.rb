@@ -25,7 +25,7 @@ class FindAnimeImporter
 
 private
   def import_videos anime, videos, last_episodes
-    imported_videos = anime.anime_videos.all
+    imported_videos = anime.anime_videos.to_a
     last_episode = imported_videos.any? ? imported_videos.max {|v| v.episode }.episode : 0
     filtered_videos = videos.select {|episode| last_episodes ? episode[:episode] > last_episode - 3 : true }
 
@@ -63,7 +63,7 @@ private
     data.delete_if {|(id, anime, videos)| anime.nil? }
     data
       .group_by {|(id, anime, videos)| anime.id }
-      .select {|anime_id, entries| entries.uniq_by {|v| v.first }.size > 1 }
+      .select {|anime_id, entries| entries.uniq {|v| v.first }.size > 1 }
       .each do |anime_id, entries|
         entries.each {|v| data.delete v }
         @twice_matched << "#{anime_id} (#{entries.map {|(id, anime, videos)| id }.join ', '})"

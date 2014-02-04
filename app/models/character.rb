@@ -1,16 +1,15 @@
 class Character < ActiveRecord::Base
   has_many :person_roles, dependent: :destroy
-  has_many :animes, through: :person_roles, order: :id
-  has_many :mangas, through: :person_roles, order: :id
+  has_many :animes, -> { order :id }, through: :person_roles
+  has_many :mangas, -> { order :id }, through: :person_roles
   has_many :persons, through: :person_roles
 
-  has_many :japanese_roles, class_name: 'PersonRole', conditions: { role: 'Japanese' }
+  has_many :japanese_roles, -> { where role: 'Japanese' }, class_name: PersonRole.name
   has_many :seyu, through: :japanese_roles, source: :person
 
-  has_many :images,
+  has_many :images, -> { where owner_type: Character.name },
     class_name: AttachedImage.name,
     foreign_key: :owner_id,
-    conditions: {owner_type: Character.name},
     dependent: :destroy
 
   has_attached_file :image,
@@ -24,18 +23,16 @@ class Character < ActiveRecord::Base
     path: ":rails_root/public/images/character/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
-  has_one :thread,
+  has_one :thread, -> { where linked_type: Character.name },
     class_name: CharacterComment.name,
     foreign_key: :linked_id,
-    conditions: {linked_type: Character.name},
     dependent: :destroy
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
 
-  has_many :cosplay_galleries,
+  has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
     through: :cosplay_gallery_links,
-    class_name: CosplaySession.name,
-    conditions: { deleted: false, confirmed: true }
+    class_name: CosplaySession.name
 
   after_create :create_thread
   after_save :sync_thread

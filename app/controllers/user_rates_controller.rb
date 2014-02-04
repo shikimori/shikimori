@@ -29,12 +29,8 @@ class UserRatesController < ApplicationController
 
   # добавление аниме в свой список
   def create
-    @rate = UserRate.find_or_create_by_user_id_and_target_id_and_target_type(
-      user_id: current_user.id,
-      target_id: params[:id],
-      target_type: params[:type],
-      status: UserRateStatus.default
-    )
+    @rate = UserRate.find_by(user_id: current_user.id, target_id: params[:id], target_type: params[:type]) ||
+      UserRate.create(user_id: current_user.id, target_id: params[:id], target_type: params[:type], status: UserRateStatus.default)
 
     if @rate.save
       UserHistory.add current_user, @rate.target, UserHistoryAction::Add

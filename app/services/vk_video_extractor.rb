@@ -14,13 +14,13 @@ class VkVideoExtractor
   end
 
 private
-  def html
-    @html ||= open(@url).read
-  end
-
   def parsed_data
     @parsed_data ||= Rails.cache.fetch @url, expires_in: 2.weeks do
-      JSON.parse html.match(/vars = ({.*?});\\nvar/)[1].gsub(/\\/, '')
+      JSON.parse fetch_page.match(/vars = ({.*?});\\nvar/)[1].gsub(/\\/, '')
     end
+  end
+
+  def fetch_page
+    @fetched_page ||= open(@url).read
   end
 end

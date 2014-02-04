@@ -11,7 +11,7 @@ span.item-content-editor-buttons
             (defined?(item) && item && item.respond_to?(:can_be_edited_by?) && item.can_be_edited_by?(current_user)))
       span.control.item-apply Применить
 
-      /= form_tag apply_path, :method => :put do
+      /= form_tag apply_path, :method => :patch do
         /span.control.item-apply
           /- if defined?(save_to_all) && save_to_all
             /= 'Сохранить'

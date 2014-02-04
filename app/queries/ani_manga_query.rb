@@ -12,13 +12,13 @@ class AniMangaQuery
     'NC-17' => ['R - 17+ (violence & profanity)', 'R - 17+ (violence &amp; profanity)', 'Rx - Hentai'],
   }
   Durations = {
-    'S' => Entry.squeel { duration.gte(0) & duration.lte(10) },
-    'D' => Entry.squeel { duration.gt(10) & duration.lte(30) },
-    'F' => Entry.squeel { duration.gt(30) }
+    'S' => "(duration >= 0 and duration <= 10)",
+    'D' => "(duration > 10 and duration <= 30)",
+    'F' => "(duration > 30)"
   }
   DefaultOrder = 'ranked'
 
-  def initialize(klass, params, user=nil)
+  def initialize klass, params, user=nil
     @params = params
 
     @klass = klass
@@ -68,13 +68,11 @@ class AniMangaQuery
 
   def complete
     search!
-    search_order(@query.limit AutocompleteLimit)
-        .all
-        .reverse
+    search_order(@query.limit AutocompleteLimit).reverse
   end
 
   # сортировка по параметрам
-  def order(query)
+  def order query
     if @search.present? && @order.blank?
       search_order query
     else
@@ -108,29 +106,18 @@ private
 
       case type
         when 'TV-13', '!TV-13'
-          query = Entry.squeel {
-              (kind.eq('TV') & episodes.not_eq(0) & episodes.lte(16)) |
-              (kind.eq('TV') & episodes.eq(0) & episodes_aired.lte(16))
-            }
-          @query = @query.where(with_bang ? -query : query)
+          query = "(kind = 'TV' and episodes != 0 and episodes <= 16) or (kind = 'TV' and episodes = 0 and episodes_aired <= 16)"
+          @query = @query.where(with_bang ? "not(#{query})" : query)
           with_bang ? nil : 'TV'
 
         when 'TV-24', '!TV-24'
-          query = Entry.squeel {
-              (kind.eq('TV') & episodes.not_eq(0) & episodes.gte(17) & episodes.lte(28)) |
-              (kind.eq('TV') & episodes.eq(0) & episodes_aired.gte(17) & episodes_aired.lte(28))
-            }
-
-          @query = @query.where(with_bang ? -query : query)
+          query = "(kind = 'TV' and episodes != 0 and episodes >= 17 and episodes <= 28) or (kind = 'TV' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
+          @query = @query.where(with_bang ? "not(#{query})" : query)
           with_bang ? nil : 'TV'
 
         when 'TV-48', '!TV-48'
-          query = Entry.squeel {
-              (kind.eq('TV') & episodes.not_eq(0) & episodes.gte(29)) |
-              (kind.eq('TV') & episodes.eq(0) & episodes_aired.gte(29))
-            }
-
-          @query = @query.where(with_bang ? -query : query)
+          query = "(kind = 'TV' and episodes != 0 and episodes >= 29) or (kind = 'TV' and episodes = 0 and episodes_aired >= 29)"
+          @query = @query.where(with_bang ? "not(#{query})" : query)
           with_bang ? nil : 'TV'
 
         else
@@ -140,13 +127,13 @@ private
 
     types = bang_split raw_types
 
-    @query = @query.where { kind.in(types[:include]) } if types[:include].any?
-    @query = @query.where { kind.not_in(types[:exclude]) } if types[:exclude].any?
+    @query = @query.where(kind: types[:include]) if types[:include].any?
+    @query = @query.where.not(kind: types[:exclude]) if types[:exclude].any?
   end
 
   # включение цензуры
   def censored!
-    genres = bang_split(@genre.split(','), true).each { |k,v| v.flatten! } if @genre
+    genres = bang_split(@genre.split(','), true).each {|k,v| v.flatten! } if @genre
     hentai = @genre && genres[:include].include?(Genre::HentaiID)
     yaoi = @genre && genres[:include].include?(Genre::YaoiID)
 
@@ -158,7 +145,7 @@ private
   # отключение выборки по музыке
   def disable_music!
     unless @type =~ /Music/ || mylist? || userlist?
-      @query = @query.where { kind.not_eq('Music') }
+      @query = @query.where.not(kind: 'Music')
     end
   end
 
@@ -168,11 +155,11 @@ private
     [[Genre, @genre], [Studio, @studio], [Publisher, @publisher]].each do |association_klass, values|
       next if values.blank?
 
-      ids = bang_split(values.split(','), true) { |v| association_klass.related(v.to_i) }
+      ids = bang_split(values.split(','), true) {|v| association_klass.related(v.to_i) }
       joined_filter(ids, association_klass.table_name)
 
       ids[:include].each do |ids|
-        havings << "sum(case #{association_klass.table_name}.id %s else 0 end) > 0" % [ids.map { |v| "when #{v} then 1"  }.join(' ')]
+        havings << "sum(case #{association_klass.table_name}.id %s else 0 end) > 0" % [ids.map {|v| "when #{v} then 1"  }.join(' ')]
       end if ids[:include].any?
     end
     # группировка при необходимости
@@ -185,12 +172,12 @@ private
     ratings = bang_split @rating.split(',')
 
     if ratings[:include].any?
-      includes = ratings[:include].map { |rating| Ratings[rating] }.flatten
-      @query = @query.where{ rating.in(includes) }
+      includes = ratings[:include].map {|rating| Ratings[rating] }.flatten
+      @query = @query.where(rating: includes)
     end
     if ratings[:exclude].any?
-      excludes = ratings[:exclude].map { |rating| Ratings[rating] }.flatten
-      @query = @query.where { rating.not_in(excludes) }
+      excludes = ratings[:exclude].map {|rating| Ratings[rating] }.flatten
+      @query = @query.where.not(rating: excludes)
     end
   end
 
@@ -199,8 +186,8 @@ private
     return if @duration.blank?
     durations = bang_split(@duration.split(','))
 
-    @query = @query.where(durations[:include].map { |duration| Durations[duration] }.inject(&:|)) if durations[:include].any?
-    @query = @query.where(-durations[:exclude].map { |duration| Durations[duration] }.inject(&:|)) if durations[:exclude].any?
+    @query = @query.where durations[:include].map {|duration| Durations[duration] }.join(' or ') if durations[:include].any?
+    @query = @query.where "not (#{durations[:exclude].map {|duration| Durations[duration] }.join(' or ')})" if durations[:exclude].any?
   end
 
   # фильтрация по сезонам
@@ -208,10 +195,10 @@ private
     return if @season.blank?
     seasons = bang_split(@season.split(','))
 
-    query = seasons[:include].map { |v| AniMangaSeason.query_for(v, @klass) }
+    query = seasons[:include].map {|v| AniMangaSeason.query_for(v, @klass) }
     @query = @query.where(query.join(" OR ")) unless query.empty?
 
-    query = seasons[:exclude].map { |v| "NOT (#{AniMangaSeason.query_for(v, @klass)})" }
+    query = seasons[:exclude].map {|v| "NOT (#{AniMangaSeason.query_for(v, @klass)})" }
     @query = @query.where(query.join(" AND ")) unless query.empty?
   end
 
@@ -220,10 +207,10 @@ private
     return if @status.blank?
     statuss = bang_split(@status.split(','))
 
-    query = statuss[:include].map { |v| AniMangaStatus.query_for(v, @klass) }
+    query = statuss[:include].map {|v| AniMangaStatus.query_for(v, @klass) }
     @query = @query.where(query.join(" OR ")) unless query.empty?
 
-    query = statuss[:exclude].map { |v| "NOT (#{AniMangaStatus.query_for(v, @klass)})" }
+    query = statuss[:exclude].map {|v| "NOT (#{AniMangaStatus.query_for(v, @klass)})" }
     @query = @query.where(query.join(" AND ")) unless query.empty?
   end
 
@@ -240,15 +227,15 @@ private
       result
     end
 
-    @query = @query.where { id.in(animelist[:include]) } if animelist[:include].any?
-    @query = @query.where { id.not_in(animelist[:exclude]) } if animelist[:exclude].any?
+    @query = @query.where(id: animelist[:include]) if animelist[:include].any?
+    @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
   end
 
   # фильтрация по id
   def exclude_ids!
     if @exclude_ids.present?
       ids = @exclude_ids.map(&:to_i)
-      @query = @query.where { id.not_in(ids) }
+      @query = @query.where.not(id: ids)
     end
   end
 
@@ -274,7 +261,7 @@ private
 
   # варианты, которые будем перебирать при поиске
   def search_queries
-    search_fields(@search).map { |field| field_search_query field }.flatten.compact
+    search_fields(@search).map {|field| field_search_query field }.flatten.compact
   end
 
   # поля, по которым будет осузествлён поиск
@@ -394,11 +381,12 @@ private
       when 'ranked'
         'if(ranked=0,999999,ranked)'
 
-      when 'released_at', 'released'
-        'if(released_at is null, aired_at, released_at) desc'
+      # TODO: удалить released_at и released после 01.05.2014
+      when 'released_on', 'released_at', 'released'
+        'if(released_on is null, aired_on, released_on) desc'
 
-      when 'aired_at'
-        'aired_at desc'
+      when 'aired_on'
+        'aired_on desc'
 
       when 'id'
         "#{klass.table_name}.id desc"

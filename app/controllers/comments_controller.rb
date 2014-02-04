@@ -120,7 +120,6 @@ class CommentsController < ApplicationController
         .includes(:user, :commentable)
         .offset(from)
         .limit(to)
-        .all
         .reverse
 
     render partial: 'comments/comment', collection: comments, formats: :html

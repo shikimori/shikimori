@@ -43,52 +43,57 @@ class AnimeNews < AniMangaEntry
 
   # создание новости о новом эпизоде
   def self.create_for_new_episode(anime, pubDate)
-    AnimeNews.find_or_create_by_linked_id_and_linked_type_and_action_and_value({
+    AnimeNews.find_by(
+      linked_id: anime.id,
+      linked_type: anime.class.name,
+      action: AnimeHistoryAction::Episode,
+      value: anime.episodes_aired.to_s,
+    ) || AnimeNews.create(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Episode,
       value: anime.episodes_aired.to_s,
       created_at: pubDate,
       generated: true
-    })
+    )
   end
 
   # создание новости о новом анонсе
   def self.create_for_new_anons(anime)
-    AnimeNews.find_or_create_by_linked_id_and_linked_type_and_action({
+    AnimeNews.find_or_create_by(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Anons,
       generated: true
-    })
+    )
   end
 
   # создание новости о новом онгоинге
   def self.create_for_new_ongoing(anime)
-    AnimeNews.find_or_create_by_linked_id_and_linked_type_and_action({
+    AnimeNews.find_or_create_by(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Ongoing,
       generated: true
-    })
+    )
   end
 
   # создание новости о новом релизе
   def self.create_for_new_release(anime)
-    old_release = (anime.released_at && anime.released_at + 2.weeks < DateTime.now) ||
-                  (anime.released_at == nil && anime.aired_at && anime.aired_at + 2.weeks < DateTime.now)
+    old_release = (anime.released_on && anime.released_on + 2.weeks < DateTime.now) ||
+                  (anime.released_on == nil && anime.aired_on && anime.aired_on + 2.weeks < DateTime.now)
 
     last_episode_history = AnimeNews.where(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Episode).last
-    entry = AnimeNews.find_or_create_by_linked_id_and_linked_type_and_action({
+    entry = AnimeNews.find_by(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Release) || AnimeNews.create(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Release,
       generated: true,
       processed: old_release,
-      created_at: old_release ? anime.released_at : DateTime.now
-    })
+      created_at: old_release ? anime.released_on : DateTime.now
+    )
 
-    anime.released_at = entry.created_at
+    anime.released_on = entry.created_at
     entry
   end
 
@@ -99,21 +104,21 @@ class AnimeNews < AniMangaEntry
 
       when AnimeHistoryAction::Anons
         if type == :normal
-          if self.anime.aired_at
-            if self.anime.aired_at.day == 1 && self.anime.aired_at.month == 1
-              "Анонсировано на %d год" % self.anime.aired_at.year
+          if self.anime.aired_on
+            if self.anime.aired_on.day == 1 && self.anime.aired_on.month == 1
+              "Анонсировано на %d год" % self.anime.aired_on.year
             else
-              "Анонсировано на %s года" % Russian::strftime(self.anime.aired_at, "%d %B %Y").sub(/\b0(\d)\b/, '\1')
+              "Анонсировано на %s года" % Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')
             end
           else
             "Анонсировано, пока без даты"
           end
         elsif type == :full
-          if self.anime.aired_at
-            if self.anime.aired_at.day == 1 && self.anime.aired_at.month == 1
-              "Выход %s на %d год" % [["запланирован", "назначен", "объявлен", "планируется"].sample, self.anime.aired_at.year]
+          if self.anime.aired_on
+            if self.anime.aired_on.day == 1 && self.anime.aired_on.month == 1
+              "Выход %s на %d год" % [["запланирован", "назначен", "объявлен", "планируется"].sample, self.anime.aired_on.year]
             else
-              "Дата выхода %s на %s года" % [["запланирована", "назначена", "объявлена", "планируется"].sample, Russian::strftime(self.anime.aired_at, "%d %B %Y").sub(/\b0(\d)\b/, '\1')]
+              "Дата выхода %s на %s года" % [["запланирована", "назначена", "объявлена", "планируется"].sample, Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')]
             end
           else
             ["Дата выхода пока не известна", "Дата выхода пока не объявлена"].sample

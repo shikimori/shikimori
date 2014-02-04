@@ -263,7 +263,7 @@ class MessagesController < UsersController
     messages = Message
       .where(id: params[:id])
       .where('from_id = ? or to_id = ?', current_user.id, current_user.id)
-      .all
+      .to_a
     if messages.empty?
       render json: ['Сообщение не найдено'], status: :unprocessable_entity
       return
@@ -293,20 +293,7 @@ class MessagesController < UsersController
   end
 
   def bounce
-    User.where(email: params[:Email])
-        .all
-        .each do |user|
-
-      Message.wo_antispam do
-        Message.create!({
-          from_id: BotsService.get_poster.id,
-          to_id: user.id,
-          kind: MessageType::Notification,
-          body: "Наш почтовый сервис не смог доставить письмо на вашу почту #{user.email}.\nРекомендуем сменить e-mail в настройках профиля, иначе при утере пароля вы не сможете восстановить аккаунт."
-        })
-      end
-
-    end
+    User.where(email: params[:Email]).each(&:notify_bounced_email)
     head 200
   end
 

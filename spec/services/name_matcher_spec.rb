@@ -156,7 +156,7 @@ describe NameMatcher do
 
     describe 'year at end' do
       subject { matcher.matches 'The Genius Bakabon 1975' }
-      let!(:anime) { create :anime, kind: 'TV', name: 'The Genius Bakabon', aired_at: DateTime.parse('1975-01-01') }
+      let!(:anime) { create :anime, kind: 'TV', name: 'The Genius Bakabon', aired_on: DateTime.parse('1975-01-01') }
       it { should eq [anime] }
     end
 
@@ -309,9 +309,9 @@ describe NameMatcher do
   describe :matches do
     describe :common_case do
       subject { matcher.matches anime2.name, year: 2001 }
-      let!(:anime1) { create :anime, aired_at: DateTime.parse('2001-01-01'), kind: 'TV', name: 'test' }
+      let!(:anime1) { create :anime, aired_on: DateTime.parse('2001-01-01'), kind: 'TV', name: 'test' }
       let!(:anime2) { create :anime, kind: 'Movie', name: anime1.name }
-      let!(:anime3) { create :anime, aired_at: DateTime.parse('2001-01-01'), name: anime1.name }
+      let!(:anime3) { create :anime, aired_on: DateTime.parse('2001-01-01'), name: anime1.name }
 
       it { should eq [anime1, anime3] }
     end

@@ -26,7 +26,7 @@ class Svd < ActiveRecord::Base
     end
   end
 
-  def rank(rates)
+  def rank rates
     scores_vector = Array.new(entry_ids.size, 0)
 
     rates.each do |target_id, score|
@@ -53,7 +53,7 @@ private
   end
 
   # подготовка данных для SVD матрицы
-  def prepare_ids(scale)
+  def prepare_ids scale
     if scale == Full
       entry_ids = klass.where do
         (kind != 'Special')
@@ -62,14 +62,14 @@ private
       user_ids = UserRate
           .where(target_type: klass.name, target_id: entry_ids)
           .where(Recommendations::RatesFetcher.rate_query)
-          .joins(Recommendations::RatesFetcher.join_query Anime)
+          .joins(Recommendations::RatesFetcher.join_query klass)
           .pluck(:user_id)
           .uniq
 
       entry_ids = UserRate
           .where(target_type: klass.name, user_id: user_ids, target_id: entry_ids)
           .where(Recommendations::RatesFetcher.rate_query)
-          .joins(Recommendations::RatesFetcher.join_query Anime)
+          .joins(Recommendations::RatesFetcher.join_query klass)
           .pluck(:target_id)
           .uniq
 
@@ -82,8 +82,8 @@ private
         (censored.eq(0)) &
         (status != 'Not yet aired') &
         (
-          (aired_at > '1995-01-01') |
-          ((score > 7.5) & (aired_at > '1990-01-01')) |
+          (aired_on > '1995-01-01') |
+          ((score > 7.5) & (aired_on > '1990-01-01')) |
           (score > 8.0) | ((score > 7.7) & (kind.eq('Movie')))
         )
       end.pluck(:id)
@@ -91,7 +91,7 @@ private
       user_ids = UserRate
           .where(target_type: klass.name, target_id: entry_ids)
           .where(Recommendations::RatesFetcher.rate_query)
-          .joins(Recommendations::RatesFetcher.join_query(klass))
+          .joins(Recommendations::RatesFetcher.join_query klass)
           .group(:user_id)
           .having("count(*) > 100 and count(*) < 1000")
           .pluck(:user_id)
@@ -100,13 +100,13 @@ private
       entry_ids = UserRate
           .where(target_type: klass.name, user_id: user_ids, target_id: entry_ids)
           .where(Recommendations::RatesFetcher.rate_query)
-          .joins(Recommendations::RatesFetcher.join_query(klass))
+          .joins(Recommendations::RatesFetcher.join_query klass)
           .pluck(:target_id)
           .uniq
 
       entry_ids = UserRate
           .where(target_type: klass.name, user_id: user_ids, target_id: entry_ids)
-          .where(Recommendations::RatesFetcher.rate_query)
+          .where(Recommendations::RatesFetcher.rate_query(klass))
           .joins(Recommendations::RatesFetcher.join_query(klass))
           .group(:target_id)
           .having('count(*) > 4')
@@ -118,8 +118,8 @@ private
   end
 
   # оценки конкретных пользователей по конкретным аниме
-  def prepare_rates(user_ids, entry_ids)
-    fetcher = Recommendations::RatesFetcher.new(klass)
+  def prepare_rates user_ids, entry_ids
+    fetcher = Recommendations::RatesFetcher.new klass
     fetcher.by_user = false
     fetcher.with_deletion = false
     fetcher.user_ids = user_ids
@@ -129,7 +129,7 @@ private
   end
 
   # заполнение SVD матрицы
-  def prepare_matrix(rates, user_indexes, entry_indexes)
+  def prepare_matrix rates, user_indexes, entry_indexes
     data_matrix = SVDMatrix.new user_indexes.size, entry_indexes.size
     empty_row = Array.new user_indexes.size, 0
 

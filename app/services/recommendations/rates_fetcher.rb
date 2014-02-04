@@ -36,12 +36,12 @@ class Recommendations::RatesFetcher
   end
 
   class << self
-    def join_query(klass)
+    def join_query klass
       "inner join #{klass.table_name} a on a.id = #{UserRate.table_name}.target_id and a.kind != 'Special' and a.kind != 'Music'"
     end
 
     def rate_query
-      Entry.squeel { (status.not_eq(Planned)) & (score.not_eq(nil)) & (score > 0) }
+      "#{UserRate.table_name}.status != '#{Planned}' and (#{UserRate.table_name}.score is not null and #{UserRate.table_name}.score > 0)"
     end
   end
 

@@ -20,7 +20,6 @@ class UserStatisticsService
       .anime_rates
       .joins('join animes on animes.id = target_id')
       .select('user_rates.*, animes.rating, animes.kind, animes.duration, animes.episodes as entry_episodes, animes.episodes_aired as entry_episodes_aired')
-      .all
       .each do |v|
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
       end
@@ -29,8 +28,9 @@ class UserStatisticsService
     @anime_history = @user
       .history
       .where(target_type: Anime.name)
-      .where { action.in([UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore]) |
-              (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
+      .where("action in (?) or (action = ? and value = ?)",
+              [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore],
+              UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed))
 
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
 
@@ -38,7 +38,6 @@ class UserStatisticsService
       .manga_rates
       .joins('join mangas on mangas.id = target_id')
       .select('user_rates.*, mangas.rating, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired')
-      .all
       .each do |v|
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
         v[:duration] = Manga::Duration
@@ -47,8 +46,9 @@ class UserStatisticsService
     @manga_history = @user
       .history
       .where(target_type: Manga.name)
-      .where { action.in([UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore]) |
-              (action.eq(UserHistoryAction::Status) & value.eq(UserRateStatus.get(UserRateStatus::Completed))) }
+      .where("action in (?) or (action = ? and value = ?)",
+              [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore],
+              UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed))
   end
 
   # формирование статистики

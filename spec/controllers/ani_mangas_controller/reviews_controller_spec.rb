@@ -18,7 +18,7 @@ describe AniMangasController::ReviewsController do
 
       let(:valid_hash) do
         {
-          text: "reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext reviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtextreviewtext",
+          text: 1188.times.sum {|v| 's' },
           storyline: 1,
           characters: 1,
           animation: 1,
@@ -111,7 +111,7 @@ describe AniMangasController::ReviewsController do
 
       describe :update do
         it "forbidden" do
-          put :update, defaults.merge(id: review.id)
+          patch :update, defaults.merge(id: review.id)
           should respond_with 302
         end
 
@@ -121,7 +121,7 @@ describe AniMangasController::ReviewsController do
           describe 'creator' do
             it 'success' do
               expect {
-                put :update, defaults.merge(id: review.id, review: valid_hash)
+                patch :update, defaults.merge(id: review.id, review: valid_hash)
               }.to change(Review, :count).by(0)
 
               Review.find(review.id).text.should == valid_hash[:text]
@@ -134,7 +134,7 @@ describe AniMangasController::ReviewsController do
             it 'forbidden' do
               review2 = create :review, user: create(:user)
 
-              put :update, defaults.merge(id: review2.id, review: valid_hash)
+              patch :update, defaults.merge(id: review2.id, review: valid_hash)
               Review.find(review2.id).text.should == review2.text
 
               response.should be_forbidden
@@ -143,7 +143,7 @@ describe AniMangasController::ReviewsController do
 
           it 'bad params' do
             expect {
-              put :update, defaults.merge(id: review.id, review: { text: nil })
+              patch :update, defaults.merge(id: review.id, review: { text: nil })
             }.to change(Review, :count).by(0)
             response.should be_unprocessible_entiy
           end
@@ -193,10 +193,10 @@ describe AniMangasController::ReviewsController do
 
           it 'bad params' do
             expect {
-              post :create, defaults.merge(review: {})
+              post :create, defaults.merge(review: { text: 'test'})
             }.to change(Review, :count).by 0
 
-            should respond_with 400
+            should respond_with 422
           end
 
           it 'success' do

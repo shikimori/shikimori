@@ -186,7 +186,7 @@ describe TopicsController do
 
       describe 'update' do
         it 'unauthorized' do
-          put :update, id: topic.id
+          patch :update, id: topic.id
           response.should be_unauthorized
         end
 
@@ -194,7 +194,7 @@ describe TopicsController do
           sign_in user
           topic2 = create :topic, user: create(:user)
 
-          put :update, id: topic2.id, format: format, topic: { text: 'test text', title: 'test title' }
+          patch :update, id: topic2.id, format: format, topic: { text: 'test text', title: 'test title' }
           Topic.find(topic2.id).text.should eq topic2.text
 
           response.should be_forbidden
@@ -204,7 +204,7 @@ describe TopicsController do
           sign_in user
 
           expect {
-            put :update, id: topic.id, format: format, topic: { text: 'test text', title: 'test title' }
+            patch :update, id: topic.id, format: format, topic: { text: 'test text', title: 'test title' }
           }.to change(Topic, :count).by 0
           response.should be_success
 

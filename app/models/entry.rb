@@ -3,17 +3,14 @@ class Entry < ActiveRecord::Base
   include Commentable
   include Viewable
 
-  attr_protected :user_id
-
   belongs_to :section
   belongs_to :linked, polymorphic: true
   belongs_to :user
 
   validates :section, presence: true unless Rails.env.test?
 
-  has_many :messages,
+  has_many :messages, -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
     foreign_key: :linked_id,
-    conditions: proc { "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
     dependent: :destroy
 
   before_save :validates_linked
@@ -32,13 +29,12 @@ class Entry < ActiveRecord::Base
   Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment']
 
   # видимые топики
-  scope :wo_generated, where { action.not_eq(AnimeHistoryAction::Episode) | action.eq(nil) }.
-                       where { (comments_count.gt(0) & generated.eq(true)) | generated.eq(false) }
+  scope :wo_generated, -> { where("action != ? or action is null", AnimeHistoryAction::Episode)
+    .where("(comments_count > 0 and generated = true) or generated = false ") }
   # топики без топиков о выходе эпизодов
-  scope :wo_episodes, where { action.not_eq(AnimeHistoryAction::Episode) }
+  scope :wo_episodes, -> { where.not action: AnimeHistoryAction::Episode }
 
-  #scope :visible_only, where { (comments_count.gt(0) & type.in(Entry::SpecialTypes)) | type.in(Types - SpecialTypes) }.wo_generated # not_in не использовать!!! пойдёт не по индексу
-  scope :order_default, order { updated_at.desc }
+  scope :order_default, -> { order updated_at: :desc }
 
   def to_param
     "%d-%s" % [id, permalink]
@@ -172,9 +168,9 @@ class Entry < ActiveRecord::Base
   def user_images
     ids = user_image_ids
     if ids.any?
-      UserImage.where(id: ids)
-          .all
-          .sort_by {|v| ids.index v.id }
+      UserImage
+        .where(id: ids)
+        .sort_by {|v| ids.index v.id }
     else
       []
     end

@@ -22,9 +22,9 @@ private
   def group entries
     entries = entries.group_by do |anime|
       key_date = if anime.status == AniMangaStatus::Ongoing
-        anime.next_release_at || anime.episode_end_at || (anime.last_episode_date || anime.aired_at.to_datetime) + anime.average_interval
+        anime.next_release_at || anime.episode_end_at || (anime.last_episode_date || anime.aired_on.to_datetime) + anime.average_interval
       else
-        (anime.episode_end_at || anime.aired_at).to_datetime
+        (anime.episode_end_at || anime.aired_on).to_datetime
       end
 
       if key_date.to_i - DateTime.now.to_i < 0
@@ -52,7 +52,7 @@ private
           end
         end
       else
-        (v.episode_end_at || v.aired_at).to_datetime.to_i
+        (v.episode_end_at || v.aired_on).to_datetime.to_i
       end
     end
   end
@@ -61,27 +61,27 @@ private
   def fetch_ongoings
     Anime
       .includes(:episodes_news, :anime_calendars)
+      .references(:anime_calendars)
       .where(AniMangaStatus.query_for('ongoing'))
-      .where { kind.in(['TV', 'ONA']) } # 15133 - спешиал Aoi Sekai no Chuushin de
-      .where { animes.id.not_in([15547]) } # 15547 - Cross Fight B-Daman eS
-      .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
-      .where { anime_calendars.episode.eq(nil) | anime_calendars.episode.eq(animes.episodes_aired+1) }
-      .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
-      .where { -(episodes_aired.eq(0) & aired_at.not_eq(nil) & aired_at.lt(DateTime.now - 1.months)) }
-      #.where { duration.gte(10) | duration.eq(0) }
+      .where(kind: ['TV', 'ONA']) # 15133 - спешиал Aoi Sekai no Chuushin de
+      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
+      .where("anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1")
+      .where("kind != 'ONA' || anime_calendars.episode is not null")
+      .where("episodes_aired != 0 or aired_on is null or aired_on > ?", DateTime.now - 1.months)
   end
 
   # выборка анонсов
   def fetch_anonses
     Anime
       .includes(:episodes_news, :anime_calendars)
+      .references(:anime_calendars)
       .where(AniMangaStatus.query_for('planned'))
       .where(kind: ['TV', 'ONA'])
       .where(episodes_aired: 0)
-      .where { animes.id.not_in(Anime::EXCLUDED_ONGOINGS) }
-      .where("anime_calendars.episode=1 or (aired_at >= :from and aired_at <= :to and aired_at != :new_year)",
+      .where.not(id: Anime::EXCLUDED_ONGOINGS)
+      .where("anime_calendars.episode=1 or (aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
               from: Date.today - 1.week, to: Date.today + 1.month, new_year: Date.today.beginning_of_year)
-      .where { -(kind.eq('ONA') & anime_calendars.episode.eq(nil)) }
+      .where("kind != 'ONA' || anime_calendars.episode is not null")
   end
 
   # выкидывание просроченных аниме

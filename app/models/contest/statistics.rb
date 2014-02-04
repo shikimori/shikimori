@@ -65,7 +65,7 @@ class Contest::Statistics
   end
 
   def rounds
-    @rounds ||= @contest.rounds.all#.includes(matches: [:left, :right, :votes]).all
+    @rounds ||= @contest.rounds.to_a
   end
 
   def matches_with_associations round

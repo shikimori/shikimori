@@ -152,19 +152,22 @@ class TorrentsParser
 
   # выгрузка онгоингов из базы
   def self.get_ongoings
-    ongoings = Anime.ongoing.all
+    ongoings = Anime.ongoing.to_a
 
-    anons = Anime.where(AniMangaStatus.query_for('planned'))
-                 .where(kind: ['TV', 'ONA'])
-                 .where(episodes_aired: 0)
-                 .includes(:anime_calendars)
-                 .where('anime_calendars.episode = 1 and anime_calendars.start_at < now()')
-                 .all
+    anons = Anime
+      .where(AniMangaStatus.query_for('planned'))
+      .where(kind: ['TV', 'ONA'])
+      .where(episodes_aired: 0)
+      .includes(:anime_calendars)
+      .where('anime_calendars.episode = 1 and anime_calendars.start_at < now()')
+      .to_a
+
     anons.delete_if { |v| v.kind == 'ONA' && v.anime_calendars.empty? }
 
-    released = Anime.where { released_at.gte(DateTime.now - 2.weeks) }
-                    .where { episodes_aired.gte 5 }
-                    .all
+    released = Anime
+      .where("released_on >= ?", DateTime.now - 2.weeks)
+      .where("episodes_aired >= 5")
+      .to_a
 
     (ongoings + anons + released).select do |v|
       v.kind != 'Special' && !Anime::EXCLUDED_ONGOINGS.include?(v.id) && !TorrentsParser::AnimeIgnored.include?(v.id)
@@ -184,7 +187,7 @@ class TorrentsParser
         torrents_before = anime.torrents
         torrents_after = ((torrents_before.is_a?(String) ? [] : torrents_before) + new_torrents).
                            select {|v| v.kind_of?(Hash) && v[:title] }.
-                           uniq_by {|v| v[:title] }
+                           uniq {|v| v[:title] }
         if torrents_before.size != torrents_after.size
           print "%d new torrent(s) found for %s\n" % [torrents_after.size - torrents_before.size, anime.name]
           anime.torrents = torrents_after

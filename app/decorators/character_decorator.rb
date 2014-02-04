@@ -37,7 +37,7 @@ class CharacterDecorator < PersonDecorator
   end
 
   def seyu
-    @seyu ||= object.seyu.all
+    @seyu ||= object.seyu.to_a
   end
 
   def job_title
@@ -72,6 +72,6 @@ class CharacterDecorator < PersonDecorator
 
 private
   def ani_mangas kind
-    object.send(kind).all.sort_by {|v| v.aired_at || v.released_at || DateTime.new(2001) }
+    object.send(kind).sort_by {|v| v.aired_on || v.released_on || DateTime.new(2001) }
   end
 end

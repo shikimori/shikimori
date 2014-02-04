@@ -2,15 +2,15 @@ class VotesController < ApplicationController
   def create
     raise Forbidden unless user_signed_in?
 
-    @vote = Vote.find_by_user_id_and_voteable_id_and_voteable_type(current_user.id, params[:id], params[:type])
+    @vote = Vote.find_by(user_id: current_user.id, voteable_id: params[:id], voteable_type: params[:type])
     @vote.destroy if @vote
 
-    @vote = Vote.new({
+    @vote = Vote.new(
       user_id: current_user.id,
       voteable_id: params[:id],
       voteable_type: params[:type],
       voting: params[:voting] == 'yes'
-    })
+    )
     raise Forbidden if @vote.voteable.user_id == current_user.id
 
     if @vote.save

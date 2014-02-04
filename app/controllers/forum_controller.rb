@@ -34,16 +34,16 @@ class ForumController < ApplicationController
     @h1 = @linked && @linked.respond_to?(:name) ? @linked.name : @section[:title]
     @page_title = @page == 1 ? @section[:meta_title] : [@section[:meta_title], "Страница #{@page}"]
 
-    set_meta_tags({
-        keywords: @section[:meta_keywords],
-        description: @section[:meta_description]
-      }) unless json?
+    set_meta_tags(
+      keywords: @section[:meta_keywords],
+      description: @section[:meta_description]
+    ) unless json?
 
-    @json.merge!({
-        h1: @h1 || @section[:name],
-        title_notice: @section[:description],
-        title_page: @page_title
-      }) if json?
+    @json.merge!(
+      h1: @h1 || @section[:name],
+      title_notice: @section[:description],
+      title_page: @page_title
+    ) if json?
   end
 
   def show
@@ -124,7 +124,7 @@ private
 
   # разделы форума из базы
   def db_sections
-    @db_sections ||= Section.order(:position).all
+    @db_sections ||= Section.order(:position).to_a
   end
 
   # построние окружения форума

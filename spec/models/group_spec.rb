@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Group do
-  context '#relations' do
+  context :relations do
     it { should have_many :member_roles }
     it { should have_many :members }
 

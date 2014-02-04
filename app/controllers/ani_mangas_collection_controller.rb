@@ -127,7 +127,8 @@ private
       when 'ranked'
         'по рейтингу'
 
-      when 'released_at'
+      # TODO: удалить released_at после 01.05.2014
+      when 'released_on', 'released_at'
         'по дате выхода'
 
       when 'id'
@@ -188,7 +189,7 @@ private
     entries = AniMangaQuery.new(klass, params).order(query)
         .includes(:genres)
         .includes(klass == Anime ? :studios : :publishers)
-        .all
+        .to_a
     apply_in_list(entries).group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
   end
 
@@ -197,29 +198,33 @@ private
     entries = []
     # выборка id элементов с разбивкой по странциам
     unless params.include? :ids_with_sort
-      entries = ds.select("#{klass.name.tableize}.id")
-          .paginate(page: @current_page, per_page: entries_per_page)
+      entries = ds
+        .select("#{klass.name.tableize}.id")
+        .paginate(page: @current_page, per_page: entries_per_page)
       total_pages = entries.total_pages
     else
-      entries = ds.where(id: params[:ids_with_sort].keys)
-          .where { kind.not_in(['Special', 'Music']) }
-          .select("#{klass.name.tableize}.id")
-          .all
+      entries = ds
+        .where(id: params[:ids_with_sort].keys)
+        .where.not(kind: ['Special', 'Music'])
+        .select("#{klass.name.tableize}.id")
+        .to_a
       total_pages = (entries.size * 1.0 / entries_per_page).ceil
-      entries = entries.sort_by {|v| -params[:ids_with_sort][v.id] }
-          .drop(entries_per_page*(@current_page-1))
-          .take(entries_per_page)
+      entries = entries
+        .sort_by {|v| -params[:ids_with_sort][v.id] }
+        .drop(entries_per_page*(@current_page-1))
+        .take(entries_per_page)
     end
 
-    entries = klass.where(id: entries.map(&:id))
-                   .includes(:genres)
-                   .includes(klass == Anime ? :studios : :publishers)
+    entries = klass
+      .where(id: entries.map(&:id))
+      .includes(:genres)
+      .includes(klass == Anime ? :studios : :publishers)
 
     # повторная сортировка полученной выборки
     if params[:ids_with_sort].present?
-      entries = entries.all.sort_by {|v| -params[:ids_with_sort][v.id] }
+      entries = entries.sort_by {|v| -params[:ids_with_sort][v.id] }
     else
-      entries = AniMangaQuery.new(klass, params).order(entries).all
+      entries = AniMangaQuery.new(klass, params).order(entries).to_a
     end
     build_pagination_links entries, total_pages
 
@@ -231,9 +236,9 @@ private
     return entries unless user_signed_in? && current_user.preferences.mylist_in_catalog?
 
     rates = Set.new current_user.send("#{klass.name.downcase}_rates")
-        .where(target_id: entries.map(&:id))
-        .select(:target_id)
-        .map(&:target_id)
+      .where(target_id: entries.map(&:id))
+      .select(:target_id)
+      .map(&:target_id)
     entries.each { |entry| entry[:in_list] = rates.include? entry.id }
   end
 

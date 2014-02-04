@@ -3,5 +3,5 @@
     - if options[:no_form]
       = render partial: 'comments/editor_inner', locals: { options: options, current_user: options[:current_user] || current_user }, formats: :html
     - else
-      = form_tag options[:editable] || comments_path, method: options[:editable] ? :put : :post, remote: true, 'data-type' => :json do
+      = form_tag options[:editable] || comments_path, method: options[:editable] ? :patch : :post, remote: true, 'data-type' => :json do
         = render partial: 'comments/editor_inner', locals: { options: options, current_user: options[:current_user] || current_user }, formats: :html

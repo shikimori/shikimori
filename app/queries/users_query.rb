@@ -10,13 +10,12 @@ class UsersQuery
   end
 
   def bans_count
-    query = User
-      .find(@params[:user_id])
+    query = User.find(@params[:user_id])
       .bans
-      .where { created_at > (DateTime.now - Ban::ACTIVE_DURATION) }
+      .where("created_at > ?", DateTime.now - Ban::ACTIVE_DURATION)
 
     warnings = query.where(duration: 0).count
-    bans = query.where { duration > 0 }.count
+    bans = query.where("duration > 0").count
 
     (warnings > 0 ? 1 : 0) + bans
   end

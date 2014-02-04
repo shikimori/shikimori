@@ -12,29 +12,32 @@ class WellcomeNewsPresenter < LazyPresenter
   def self.cache_key
     last_news_id = (AnimeNews.last || { id: 'nil' })[:id]
 
-    "#{self.name}_#{last_news_id}"
+    "#{name}_#{last_news_id}"
   end
 
   # загрузка данных
   def lazy_load
     @news = Rails.cache.fetch(cache_key, expires_in: 3.hours) do
-      AnimeNews.where { action.not_eq(AnimeHistoryAction::Episode) & created_at.gte(LastNewsDate) } # & generated.eq(true)
+      AnimeNews
+        .where.not(action: AnimeHistoryAction::Episode)
+        .where("entries.created_at >= ?", LastNewsDate)
         .joins('inner join animes on animes.id=linked_id and animes.censored=false')
         .includes(:user)
-        .order { created_at.desc }
+        .order(created_at: :desc)
         .limit(10)
-        .all
+        .to_a
     end
   end
 
   # последние обзоры
   def reviews
-    @reviews ||= Review.where { created_at.gte LastReviewsDate }
-        .visible
-        .includes(:user, :target, thread: [:section])
-        .order('created_at desc')
-        .limit(3)
-        .all
+    @reviews ||= Review
+      .where("created_at >= ?",  LastReviewsDate)
+      .visible
+      .includes(:user, :target, thread: [:section])
+      .order(created_at: :desc)
+      .limit(3)
+      .to_a
   end
 
   # ключ кеша последних обзоров
@@ -45,14 +48,14 @@ class WellcomeNewsPresenter < LazyPresenter
   # последняя активность в группах
   def groups
     @groups ||= GroupComment.includes(:linked)
-      .order { updated_at.desc }
+      .order(updated_at: :desc)
       .limit(3)
-      .all
+      .to_a
   end
 
   # ключ кеша активности групп
   def groups_key
-    @groups_key ||= GroupComment.order { updated_at.desc }.limit(1).map {|v| "#{v.id}-#{v.updated_at}" }.first
+    @groups_key ||= GroupComment.order(updated_at: :desc).limit(1).map {|v| "#{v.id}-#{v.updated_at}" }.first
   end
 
   # ключ кеша опросов

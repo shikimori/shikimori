@@ -367,7 +367,7 @@ $('.selected .anime-status-selector').live('change', function(e) {
   var $this = $(this);
 
   $.cursorMessage();
-  $.post($this.data('action'), '_method=put&rate['+$this.data('field')+']='+$this.attr('value'))
+  $.post($this.data('action'), '_method=patch&rate['+$this.data('field')+']='+$this.attr('value'))
     .success(function() {
       $.hideCursorMessage();
       $this.hide();

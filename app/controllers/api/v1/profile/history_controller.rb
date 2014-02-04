@@ -18,7 +18,7 @@ private
 
     @resources = user
       .all_history
-      .order { updated_at.desc }
+      .order(updated_at: :desc)
       .offset(@limit * (@page-1))
       .limit(@limit + 1)
       .decorate

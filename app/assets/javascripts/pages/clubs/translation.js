@@ -7,11 +7,3 @@ $('.slide .translation_finished, .slide .translation_planned').live('ajax:succes
     itemSelector : '.goal'
   });
 });
-//$(function() {
-  //var $node = $('.slide .translation,.slide .translation');
-  //if ($node.children().length) {
-    //$node.masonry({
-      //itemSelector : '.goal'
-    //})
-  //}
-//});

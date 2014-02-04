@@ -2,9 +2,6 @@ class UserImage < ActiveRecord::Base
   belongs_to :user
   belongs_to :linked, polymorphic: true
 
-  validates_attachment_presence :image
-  validates_presence_of :user
-
   has_attached_file :image,
     styles: {
       original: ['1920x1920>', :jpg],
@@ -13,6 +10,9 @@ class UserImage < ActiveRecord::Base
     },
     url: '/images/user_image/:style/:user_id/:id.:extension',
     path: ':rails_root/public/images/user_image/:style/:user_id/:id.:extension'
+
+  validates :user, presence: true
+  validates :image, attachment_presence: true, attachment_content_type: { content_type: /\Aimage/ }
 
   before_create :set_dimentions
 

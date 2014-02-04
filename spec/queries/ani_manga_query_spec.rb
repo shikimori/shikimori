@@ -269,9 +269,9 @@ describe AniMangaQuery do
 
     describe 'season' do
       before do
-        create :anime, aired_at: Date.parse('2011-02-01')
-        create :anime, aired_at: Date.parse('2011-02-01')
-        create :anime, aired_at: Date.parse('2010-02-01')
+        create :anime, aired_on: Date.parse('2011-02-01')
+        create :anime, aired_on: Date.parse('2011-02-01')
+        create :anime, aired_on: Date.parse('2010-02-01')
       end
 
       describe 'inclusive' do
@@ -293,7 +293,7 @@ describe AniMangaQuery do
 
     describe 'status' do
       before do
-        create :anime, status: AniMangaStatus::Ongoing, aired_at: DateTime.now - 1.month
+        create :anime, status: AniMangaStatus::Ongoing, aired_on: DateTime.now - 1.month
         create :anime, status: AniMangaStatus::Anons
         create :anime, status: AniMangaStatus::Anons
         create :anime, status: AniMangaStatus::Released

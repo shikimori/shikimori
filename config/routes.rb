@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Site::Application.routes.draw do
   constraints AnimeOnlineDomain  do
-    root to: 'anime_online/anime_videos#index'
+    get '/', to: 'anime_online/anime_videos#index'
     namespace :anime_online do
       resources :anime, only: [:show] do
         resources :anime_videos, only: [:new, :create]
@@ -21,8 +21,8 @@ Site::Application.routes.draw do
   constraints ShikimoriDomain  do
     # форум
     root to: 'topics#index'
-    get '/' => 'topics#index', as: :forum
-    get '/' => 'topics#index', as: :new_session
+    get '/', to: 'topics#index', as: :forum
+    get '/', to: 'topics#index', as: :new_session
 
     # seo redirects
     get 'r' => redirect('/reviews')
@@ -87,7 +87,6 @@ Site::Application.routes.draw do
       registrations: 'users/registrations',
       passwords: 'users/passwords'
     }
-    get '/users/auth/:action/callback(.:format)', as: :user_omniauth_callback, action: /facebook|vkontakte|twitter/, controller: "users/omniauth_callbacks" # |google_apps|yandex|google_oauth2
 
     # комментарии
     resources :comments do
@@ -122,7 +121,7 @@ Site::Application.routes.draw do
       get 'changes/:id/deny' => 'user_changes#deny', as: :deny_user_change, notify: true
       get 'changes/:id/delete' => 'user_changes#deny', as: :delete_user_change, notify: false
       post 'changes/anime/:anime_id/lock' => 'user_changes#get_anime_lock', as: :anime_lock
-      delete 'changes/anime/:anime_id/lock' => 'user_changes#release_anime_lock', as: :anime_lock
+      delete 'changes/anime/:anime_id/lock' => 'user_changes#release_anime_lock'
 
       post 'changes/do' => 'user_changes#change', as: :do_user_change
       get 'changes/:id/tooltip(/:test)' => 'user_changes#tooltip', as: :user_change_tooltip
@@ -161,7 +160,7 @@ Site::Application.routes.draw do
 
     # messages
     # TODO: refactor всё в resources :messages
-    get 'messages' => redirect('messages/inbox')
+    get 'messages' => redirect('messages/inbox'), as: :root_messages
     get 'messages/:id' => 'messages#show', constraints: { id: /\d+/ }
     constraints type: /inbox|sent|notifications|news/ do
       get 'messages/:type' => 'messages#index', as: :messages
@@ -202,8 +201,8 @@ Site::Application.routes.draw do
       get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
     end
-    put 'groups/:id' => 'groups#apply', as: :apply_group
-    post 'groups/:id' => 'groups#apply', as: :apply_group
+    patch 'groups/:id' => 'groups#apply', as: :apply_group
+    post 'groups/:id' => 'groups#apply'
     get 'groups/:id/autocomplete/:search' => 'groups#autocomplete', as: 'autocomplete_group_members', format: :json, search: /.*/
 
     resources :user_images, only: [:create]
@@ -213,21 +212,14 @@ Site::Application.routes.draw do
       get 'original', action: :edit, on: :member, as: 'edit_original', original: true
       get 'raw', action: :raw, on: :member
     end
-    post 'remote_upload' => 'images#remote_upload'
-    #get 'remote_upload' => 'images#remote_upload'
 
     # join/leave
     post 'groups/:id/roles(/:user_id)' => 'group_roles#create', as: :group_roles
-    delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy', as: :group_roles
+    delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy'
     # invite
     post 'invites/:group_id/:nickname' => 'group_invites#create', as: :group_invites, nickname: /.*/
-    put 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
-    put 'invites/:id/reject' => 'group_invites#reject', as: :group_invites_reject
-
-    # old forum
-    get 'forums/section-:section/topic-:id(/page/:page)(/:unread)(.:format)' => 'topics_old#show'
-    get 'forums/section-:id(/page/:page)(.:format)' => 'sections#show'
-    get 'forums' => redirect('/')
+    patch 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
+    patch 'invites/:id/reject' => 'group_invites#reject', as: :group_invites_reject
 
     # statistics
     get 'anime-history' => 'statistics#index', as: :anime_history
@@ -245,8 +237,8 @@ Site::Application.routes.draw do
     get 'test' => 'pages#test'
     get 'raise-exception' => 'pages#raise_exception'
     get 'auth_form' => 'pages#auth_form'
-    get "site-news" => 'pages#news', kind: 'site'
-    get "anime-news" => 'pages#news', kind: 'anime'
+    get "site-news" => 'pages#news', kind: 'site', format: :rss
+    get "anime-news" => 'pages#news', kind: 'anime', format: :rss
     get "feedback" => 'pages#feedback'
     get 'disabled_registration' => 'pages#disabled_registration'
     get 'disabled_openid' => 'pages#disabled_openid'
@@ -282,10 +274,10 @@ Site::Application.routes.draw do
     get 'characters/:id/tooltip(/:test)' => 'characters#tooltip', as: :character_tooltip # это должно идти перед character_path
     constraints id: /\d[^\/]*?/ do
       get 'characters/:id' => 'characters#show', as: :character, page: 'info'
-      put 'characters/:id/apply' => 'characters#apply', as: :apply_character
-      get 'characters/:id/:page' => 'characters#page', as: 'page_character', constraints: { page: /comments|images|cosplay/ }
+      patch 'characters/:id/apply' => 'characters#apply', as: :apply_character
+      get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
       get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
-      get 'characters/:id/edit/:subpage' => "characters#edit", as: 'edit_character', page: 'edit', constraints: { subpage: /description|russian/ }
+      get 'characters/:id/edit/:subpage' => "characters#edit", as: :edit_character, page: 'edit', constraints: { subpage: /description|russian/ }
     end
     get "characters/:search(/page/:page)" => 'characters#index', as: :character_search, page: /\d+/
     # tags
@@ -309,7 +301,7 @@ Site::Application.routes.draw do
       plural = kind.to_s
 
       #match "#{plural}/season/:season" => "ani_mangas_collection#season", as: plural, klass: singular, season: /\w+_\d+/ if kind == :animes
-      match "#{plural}#{ani_manga_format}" => "ani_mangas_collection#index", as: plural, klass: singular, constraints: { page: /\d+/, studio: /[^\/]+/ }
+      get "#{plural}#{ani_manga_format}" => "ani_mangas_collection#index", as: plural, klass: singular, constraints: { page: /\d+/, studio: /[^\/]+/ }
       get "#{plural}/menu(/rating/:rating)(/nosort/:nosort)" => "ani_mangas_collection#menu", klass: singular, as: "menu_#{plural}"
 
       resources plural, defaults: { page: 'info' } do
@@ -327,22 +319,22 @@ Site::Application.routes.draw do
           # тултип
           get 'tooltip(/:test)', action: :tooltip, as: :tooltip
           # редактирование
-          put 'apply'
+          patch 'apply'
 
           # работа со списком
           post 'rate' =>  'user_rates#create', type: klass.name
-          put 'rate' => 'user_rates#update', type: klass.name
+          patch 'rate' => 'user_rates#update', type: klass.name
           delete 'rate' => 'user_rates#destroy', type: klass.name
 
           get ':page' => "#{plural}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
           get 'edit/:subpage' => "#{plural}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
 
-          get 'cosplay' => redirect { |params,request| "/#{plural}/#{params[:id]}/cosplay/all" }
-          get 'cosplay/:character(/:gallery)' => "#{plural}#cosplay", page: 'cosplay', as: 'cosplay'
+          get 'cosplay' => redirect { |params,request| "/#{plural}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
+          get 'cosplay/:character(/:gallery)' => "#{plural}#cosplay", page: 'cosplay', as: :cosplay
         end
 
         # обзоры
-        resources :reviews, type: klass.name, controller: 'AniMangasController::Reviews'
+        resources :reviews, type: klass.name, controller: 'ani_mangas_controller/reviews'
       end
     end
     # удаление скриншота
@@ -426,7 +418,7 @@ Site::Application.routes.draw do
 
     # studios
     get "studios" => 'studios#index', as: :studios
-    put "studios/:id/apply" => 'studios#apply', as: :apply_studio
+    patch "studios/:id/apply" => 'studios#apply', as: :apply_studio
     get "studios/:id#{ani_manga_format}" => 'pages#page404', as: :studio
 
     # proxies
@@ -437,7 +429,7 @@ Site::Application.routes.draw do
     #get 'blogs' => 'entries#index', as: :blogs
     #get 'blogs(/:offset/:limit)' => 'entries#postloader', as: :blogs_postloader, constraints: { offset: /\d+/, limit: /\d+/ }
     get ':year/:month/:day/:id' => 'entries#show', as: :news, constraints: { year: /\d+/, day: /\d+/ }
-    #put 'blogs/:id' => 'entries#apply', as: :entry
+    #patch 'blogs/:id' => 'entries#apply', as: :entry
     #delete 'blogs/:id' => 'entries#destroy'
     #get 'blogs/new' => 'entries#new', as: :new_entry
     #post 'blogs/create' => 'entries#create', as: :create_news
@@ -511,9 +503,9 @@ Site::Application.routes.draw do
       get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications|misc/, type: 'settings'
       #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
       #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
-      put ':id(/:type/:page)' => 'users#update'
-      put ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
-      put ':id/password' => 'users#update_password', as: :update_user_password
+      patch ':id(/:type/:page)' => 'users#update'
+      patch ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
+      patch ':id/password' => 'users#update_password', as: :update_user_password
       get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
       post ':id/ban' => 'users#do_ban'
 
@@ -523,7 +515,7 @@ Site::Application.routes.draw do
 
       get ':id/friends' => 'users#friends', as: :user_friends, type: 'friends'
       get ':id/clubs' => 'users#clubs', as: :user_clubs, type: 'clubs'
-      put ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
+      patch ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
       get ':id/favourites' => 'users#favourites', as: :user_favourites, type: 'favourites'
 
       # user_list
@@ -553,16 +545,15 @@ Site::Application.routes.draw do
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
 
     if Rails.env.test?
-      match 'subscriptions/:action', controller: :subscriptions
-      match 'messages', controller: :messages, as: :messages
-      match 'users(/:action(/:id(.:format)))', controller: :users
+      get 'users(/:action(/:id(.:format)))', controller: :users
+      resources :user_preferences, only: [:update]
+      get 'groups(/:action(/:id(.:format)))', controller: :groups
+      get 'characters(/:action(/:id(.:format)))', controller: :characters
+      get 'comments(/:action(/:id(.:format)))', controller: :comments
+      get 'pages(/:action(/:id(.:format)))', controller: :pages
+      get 'danbooru(/:action(/:id(.:format)))', controller: :danbooru
     end
-    match 'animes(/:action(/:id(.:format)))', controller: :animes
-    match 'mangas(/:action(/:id(.:format)))', controller: :mangas
-    match 'groups(/:action(/:id(.:format)))', controller: :groups
-    match 'invites(/:action(/:id(.:format)))', controller: :group_invites
 
-    mount_sextant if Rails.env.development?
-    match '*a', to: 'pages#page404'
+    get '*a', to: 'pages#page404'
   end
 end

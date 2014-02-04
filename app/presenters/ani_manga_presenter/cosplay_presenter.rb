@@ -52,10 +52,9 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
     character_ids = entry.characters.map(&:id)
     entry_id = entry.id
 
-    gallery_links = CosplayGalleryLink.where {
-        (linked_id.in(character_ids) & linked_type.eq(Character.name)) |
-        (linked_id.eq(entry_id) & linked_type.eq(Entry.name))
-      }
+    gallery_links = CosplayGalleryLink
+      .where("(linked_id in (?) and linked_type = ?) or (linked_id = ? and linked_type = ?)",
+              character_ids, Character.name, entry_id, Entry.name)
   end
 
   def links_by_character
@@ -74,9 +73,9 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
         .where(linked_type: Character.name)
         .pluck(:cosplay_gallery_id)
 
-    gallery_links = CosplayGalleryLink.where {
-      cosplay_gallery_id.not_in(link_ids) & linked_id.eq(entry.id) & linked_type.eq(Entry.name)
-    }
+    gallery_links = CosplayGalleryLink
+      .where("cosplay_gallery_id not in (?) and linked_id = ? and linked_type = ?",
+              link_ids, entry.id, Entry.name)
   end
 
   def cosplay_url entry, gallery

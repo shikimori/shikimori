@@ -128,7 +128,7 @@ TokyoToshokanParser.add_episodes(Anime.find(10578), [
 ###########################
 anime = Anime.find(9938)
 anime.update_attribute(:episodes_aired, anime.episodes_aired+1)
-AnimeNews.create_for_new_episode(anime, anime.released_at - 1.minute).update_attribute(:processed, true)
+AnimeNews.create_for_new_episode(anime, anime.released_on - 1.minute).update_attribute(:processed, true)
 #AnimeNews.create_for_new_episode(anime, DateTime.now - 2.days)
 
 
@@ -146,7 +146,7 @@ CSV.open("/tmp/animes.csv", "wb") do |csv|
   csv << [:anime_id, :anime_name, :anime_year, :anime_kind, :anime_rating, :anime_duration_in_minutes, :anime_episodes, :anime_score, :anime_status] + genres.values.map(&:name).map(&:downcase)
 
   entries.each do |entry|
-    csv << [entry.id, entry.name,  entry.aired_at ? entry.aired_at.year : '', entry.kind, entry.rating, entry.duration, entry.episodes, entry.score, entry.status] + genres.map {|k,v| entry.genres.any? {|v| v.id == k} ? 1 : 0}
+    csv << [entry.id, entry.name,  entry.aired_on ? entry.aired_on.year : '', entry.kind, entry.rating, entry.duration, entry.episodes, entry.score, entry.status] + genres.map {|k,v| entry.genres.any? {|v| v.id == k} ? 1 : 0}
   end;
 end;
 
@@ -161,7 +161,7 @@ rates = UserRate.where(user_id: user_ids, target_type: 'Anime').includes(:anime 
 File.open('/tmp/rates.csv', 'w') do |file|
   file.write "user_id;rate_score;rate_status;anime_id;anime_name;anime_year;anime_kind;anime_rating;anime_duration_in_minutes;anime_episodes;anime_score;anime_status;#{genres.map{|k,v| v.name.downcase}.join(';')}\n"
   rates.each do |rate|
-    file.write "#{rate.user_id};#{rate.score};#{UserRateStatus.get rate.status};#{rate.target_id};\"#{rate.anime.name}\";#{rate.anime.aired_at ? rate.anime.aired_at.year : ''};#{rate.anime.kind};#{rate.anime.rating};#{rate.anime.duration};#{rate.anime.episodes};#{rate.anime.score};#{rate.anime.status};#{genres.map{|k,v| rate.anime.genres.any? {|v| v.id == k} ? 1 : 0}.join(';')}\n"
+    file.write "#{rate.user_id};#{rate.score};#{UserRateStatus.get rate.status};#{rate.target_id};\"#{rate.anime.name}\";#{rate.anime.aired_on ? rate.anime.aired_on.year : ''};#{rate.anime.kind};#{rate.anime.rating};#{rate.anime.duration};#{rate.anime.episodes};#{rate.anime.score};#{rate.anime.status};#{genres.map{|k,v| rate.anime.genres.any? {|v| v.id == k} ? 1 : 0}.join(';')}\n"
   end
 end
 ###########################

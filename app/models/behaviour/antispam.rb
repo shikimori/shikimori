@@ -7,11 +7,11 @@ module Antispam
   end
 
   module ClassMethods
-    def antispam=(val)
+    def antispam= val
       @antispam = val
     end
 
-    def wo_antispam(&block)
+    def wo_antispam &block
       @antispam = false
       val = yield
       @antispam = true
@@ -34,7 +34,7 @@ module Antispam
     prior = self
       .class
       .where(user_id: user_id)
-      .order { id.desc }
+      .order(id: :desc)
       .first
 
     return unless prior

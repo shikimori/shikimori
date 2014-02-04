@@ -52,7 +52,7 @@ class SeyuDecorator < PersonDecorator
         group[:animes] = group[:animes].map {|k,v| v }.
                                         sort_by {|v| -1 * v.score }.
                                           take(animes_limit).
-                                          sort_by {|v| v.aired_at || v.released_at || DateTime.new(2001) }
+                                          sort_by {|v| v.aired_on || v.released_on || DateTime.new(2001) }
       end
       @characters = @characters.sort_by do |v|
         animes = v[:animes].select {|v| v.score < 9.9 }
@@ -62,7 +62,7 @@ class SeyuDecorator < PersonDecorator
           0
         else
           -1 * if h.params[:sort] == 'time'
-            animes.map {|v| (v.aired_at || v.released_at || DateTime.now + 10.years).to_datetime.to_i }.min
+            animes.map {|v| (v.aired_on || v.released_on || DateTime.now + 10.years).to_datetime.to_i }.min
           else
             animes.max_by(&:score).score
           end

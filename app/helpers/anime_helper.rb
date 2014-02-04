@@ -2,11 +2,11 @@ module AnimeHelper
   # время выхода следующей серии
   def time_of_next_episode(anime, main_page=false)
     episode_start = if anime.status == AniMangaStatus::Anons
-      (anime.episode_start_at || anime.aired_at).to_datetime
+      (anime.episode_start_at || anime.aired_on).to_datetime
     else
-      anime.next_release_at || anime.episode_start_at || (anime.episodes_news.any? ? anime.episodes_news.sort_by {|v| - v.created_at.to_i }.first.created_at : anime.aired_at) + anime.average_interval
+      anime.next_release_at || anime.episode_start_at || (anime.episodes_news.any? ? anime.episodes_news.sort_by {|v| - v.created_at.to_i }.first.created_at : anime.aired_on) + anime.average_interval
     end
-    episode_end = anime.next_release_at || anime.episode_end_at || (anime.episodes_news.any? ? anime.episodes_news.sort_by {|v| - v.created_at.to_i }.first.created_at : anime.aired_at) + anime.average_interval
+    episode_end = anime.next_release_at || anime.episode_end_at || (anime.episodes_news.any? ? anime.episodes_news.sort_by {|v| - v.created_at.to_i }.first.created_at : anime.aired_on) + anime.average_interval
     now = DateTime.now
 
     # идёт ли показ прямо сейчас?
