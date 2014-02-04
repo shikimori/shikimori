@@ -112,7 +112,7 @@ aside.left-column.menu-block
 
   - if user_signed_in?
     .related-entries
-      = render template: 'ani_mangas/related_all', formats: :html
+      = render 'ani_mangas/related_all', formats: :html
   - else
     .related-entries.related-entries-loader.postloaded data-href="#{@entry.related_url}"
       .ajax-loading.vk-like title="Загрузка..."
