@@ -30,16 +30,27 @@
 
   .spoiler
     +spoiler-new
-    &.collapse
-      float: none
-      display: inline
-      text-decoration: underline
-      font-size: 12px
+
+    //&.collapse
+      //display: inline
+      //text-decoration: underline
+      //font-size: 12px
+      //float: right
+
     &.collapsed
-      font-size: 12px
+      +bracket_action
+
+    &.collapse, &.collapsed
+      font-size: 11px
+      margin: 0 5px
+      float: right
+
+      span
+        +bracket_action
 
   .quoteable
     font-weight: bold
+
     span.name
       font-weight: normal
       padding-left: 5px
@@ -72,5 +83,3 @@
     img
       display: block
       margin-bottom: 10px
-
-
