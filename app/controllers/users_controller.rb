@@ -68,7 +68,7 @@ class UsersController < ApplicationController
   def show
     @messages_pages = @@messages_pages
     @ani_manga_list_pages = @@ani_manga_list_pages
-    @pages = ['statistics', 'friends', 'comments', 'reviews', 'changes', 'favourites', 'clubs', 'settings', 'list-history', @@messages_pages, 'talk', 'notifications-settings'] +
+    @pages = ['statistics', 'friends', 'comments', 'reviews', 'changes', 'favourites', 'clubs', 'settings', 'list_history', @@messages_pages, 'talk', 'notifications-settings'] +
         (user_signed_in? && current_user.moderator? ? ['ban'] : []) +
         @@ani_manga_list_pages
     @sub_layout = 'user'

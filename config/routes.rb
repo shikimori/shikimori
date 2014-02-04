@@ -526,7 +526,7 @@ Site::Application.routes.draw do
                                                                           constraints: {list_type_kind: /plan-to-watch|watching|completed|on-hold|dropped/ }
       end
       post ':id/import' => 'user_lists#list_import', as: :list_import
-      get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list-history', constraints: { page: /\d+/ }
+      get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }
 
       get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
       #get ':id/message' => 'messages#new', as: :private_message

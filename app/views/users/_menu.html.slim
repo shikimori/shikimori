@@ -55,7 +55,7 @@ aside.left-block
         li.settings.slider-control class="slider-control-settings #{:selected if params[:type] == 'settings'}#{' hidden' unless @user.own_profile?}"
           = link_to 'Настройки', user_settings_url(@user)
 
-        li.slider-control.hidden class="slider-control-list-history #{:selected if params[:type] == 'list-history'}"
+        li.slider-control.hidden class="slider-control-list_history #{:selected if params[:type] == 'list_history'}"
           = link_to '', list_history_url(@user)
 
         li.talk.slider-control.hidden class="slider-control-talk #{:selected if params[:type] == 'talk'}"
