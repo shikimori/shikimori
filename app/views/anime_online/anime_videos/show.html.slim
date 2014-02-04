@@ -51,5 +51,5 @@
                 h4.media-heading = review.user.nickname
                 p == review.html_body
 
-    .col-md-2.hidden-xs.hidden-sm
+    .col-md-2
       = render partial: 'anime_online/blocks/ads_240x400' if request.host == AnimeOnlineDomain::HOST_PLAY
