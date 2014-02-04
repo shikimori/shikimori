@@ -148,7 +148,7 @@ module AnimeHelper
     text += "<div class=\"tooltip-desc\">"
     if with_seyu && person.class == Character && !person.seyu.empty?
       text += "<div class=\"person-block item-block\">"
-      text += render :partial => 'blocks/person_content.html.erb', :locals => {:person => person.seyu.first, :role => 'Japanese', :link_to_seyu => true}
+      text += render :partial => 'blocks/person_content.html.slim', :locals => {:person => person.seyu.first, :role => 'Japanese', :link_to_seyu => true}
       text += "</div>"
     end
 
