@@ -287,7 +287,7 @@ $('.selected .ani-manga-list .hoverable input').live('blur', function() {
   $this.data('counter', this.value);
   $value.html($this.data('counter') == '0' ? '&ndash;' : $this.data('counter'));
   $.cursorMessage();
-  $.post($this.data('action'), '_method=put&rate['+$this.data('field')+']='+$this.attr('value'))
+  $.post($this.data('action'), '_method=patch&rate['+$this.data('field')+']='+$this.attr('value'))
     .success(function() {
       $.hideCursorMessage();
     })
