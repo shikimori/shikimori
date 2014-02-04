@@ -56,7 +56,7 @@ class MessagesController < UsersController
 
     @messages = Rails.cache.fetch("notifications_feed_#{@user.id}", expires_in: 60.minutes) do
       Message.where(to_id: @user.id)
-      .where { kind.not_eq(MessageType::Private) }
+      .where.not(kind: MessageType::Private)
       .order('`read`, created_at desc')
       .includes(:linked)
       .limit(25)
@@ -73,6 +73,8 @@ class MessagesController < UsersController
         title: linked ? linked.name : 'Сайт'
       }
     end
+    response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
+    render 'messages/feed', formats: :rss
   end
 
   # отписка от емайлов о сообщениях
