@@ -79,7 +79,7 @@ aside.left-column.menu-block
     = render partial: 'additional_links', locals: { entry: @entry }, formats: :html
 
 .extra
-  div
+  .video_screen_previews
     - if @director.pages.include? 'screenshots'
       .people-container.first class="v#{@entry.main_videos.size}"
         .subheadline.m10
