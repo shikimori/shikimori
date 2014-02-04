@@ -28,12 +28,9 @@ $(document.body).on 'ajax:success', '.shiki-editor', (e, data) ->
 $(document.body).on 'ajax:success', '.request-control .take, .request-control .deny', ->
   reload $comment(@)
 
-# обработка аяксовой кнопочки
-$(document.body).on 'ajax:success', '.request-control span', ->
-  hide_actions @
-
 # кнопка бана или предупреждения
 $(document.body).on 'ajax:success', '.request-control .ban, .request-control .warn', (e, html) ->
+  e.stopImmediatePropagation()
   $ban_form = $(@).closest('.abuse-request').find('.ban-form')
 
   $ban_form.html html
@@ -42,6 +39,10 @@ $(document.body).on 'ajax:success', '.request-control .ban, .request-control .wa
 
     if $(@).closest('.abuse-request').find('.spoiler-marker').length
       $ban_form.find('#ban_reason').val 'спойлеры'
+
+# обработка аяксовой кнопочки
+$(document.body).on 'ajax:success', '.request-control span', ->
+  hide_actions @
 
 # закрытие формы бана
 $(document.body).on 'click', 'form.ban .form-cancel', ->
