@@ -159,7 +159,7 @@ private
       joined_filter(ids, association_klass.table_name)
 
       ids[:include].each do |ids|
-        havings << "sum(case #{association_klass.table_name}.id %s else 0 end) > 0" % [ids.map {|v| "when #{v} then 1"  }.join(' ')]
+        havings << "sum(case #{association_klass.table_name}.id %s else 0 end) > 0" % [ids.map {|v| "when #{v} then 1" }.join(' ')]
       end if ids[:include].any?
     end
     # группировка при необходимости
@@ -265,7 +265,7 @@ private
   end
 
   # поля, по которым будет осузествлён поиск
-  def search_fields(term)
+  def search_fields term
     if term.contains_cjkv?
       [:japanese]
     else
@@ -273,7 +273,7 @@ private
     end
   end
 
-  def field_search_query(field)
+  def field_search_query field
     term = @search
     pterm = @search.gsub(' ', '% ')
     queries = []
@@ -315,7 +315,7 @@ private
   end
 
   # сортировка по параметрам запроса
-  def params_order(query)
+  def params_order query
     query.order self.class.order_sql(@order, @klass)
   end
 
@@ -325,7 +325,7 @@ private
   end
 
   # разбитие на 2 группы по наличию !, плюс возможная обработка элементов
-  def bang_split(values, force_integer=false)
+  def bang_split values, force_integer=false
     data = values.inject(:include => [], :exclude => []) do |rez,v|
       rez[v.starts_with?('!') ? :exclude : :include] << v.sub('!', '')
       rez
@@ -345,7 +345,7 @@ private
   end
 
   # применение включающего и исключающего фильтра для джойнящейся сущности
-  def joined_filter(filters, table_name)
+  def joined_filter filters, table_name
     if filters[:include].any?
       @query = @query.joins(table_name.to_sym)
           .where(table_name => { id: filters[:include].flatten })
@@ -361,7 +361,7 @@ private
   end
 
   # sql представление сортировки датасорса
-  def self.order_sql(field, klass)
+  def self.order_sql field, klass
     case field
       when 'name'
         "#{klass.table_name}.name"

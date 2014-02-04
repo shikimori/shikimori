@@ -42,8 +42,11 @@
         span.key
           == format_person_role(role)
           | :&nbsp;
-          span.anime-alt.value
-            = times
+          span.anime-alt.value.url
+            - if format_person_role(role) == I18n.t("Role.Japanese")
+              a href="#{seyu_url @entry, direct: :direct}" #{times}
+            - else
+              = times
 
 - if user_signed_in?
   .menu-block

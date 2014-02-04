@@ -13,7 +13,13 @@ class SeyuController < PeopleController
     direct
 
     unless @director.redirected?
-      redirect_to person_url(@entry) if !@entry.seyu || (@entry.seyu && (@entry.producer || @entry.mangaka))
+      if !@entry.seyu || (@entry.seyu && (@entry.producer || @entry.mangaka))
+        if params[:direct]
+          @canonical = person_url(@entry)
+        else
+          redirect_to person_url(@entry)
+        end
+      end
     end
   end
 end

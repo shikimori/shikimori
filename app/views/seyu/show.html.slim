@@ -22,7 +22,7 @@ header.head
         - if params[:sort] == 'time'
           | Дата
         - else
-          = link_to 'Дата', seyu_url(@entry, sort: 'time')
+          a href="#{seyu_url @entry, sort: 'time'}" Дата
 
     .subheadline.m10 Персонажи и аниме
     - @entry.works.each do |group|

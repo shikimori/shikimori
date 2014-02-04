@@ -42,7 +42,7 @@ class PersonDecorator < Draper::Decorator
           -1
         else
           begin
-            I18n.t('Role.%s' % lhs[0]) <=> I18n.t('Role.%s' % rhs[0])
+            I18n.t("Role.#{lhs[0]}") <=> I18n.t("Role.#{rhs[0]}")
           rescue
             0
           end
