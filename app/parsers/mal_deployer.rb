@@ -157,14 +157,10 @@ module MalDeployer
 
   # загрузка картинки с mal
   def mal_image url, is_new_image
-    if url =~ /\.jpe?g$/
-      if is_new_image
-        open URI.encode(url), 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)'
-      else
-        Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
-      end
-    else
+    if is_new_image && url !~ /\.jpe?g$/
       open_image url
+    else
+      Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
     end
 
   rescue RuntimeError => e
