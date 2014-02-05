@@ -25,17 +25,17 @@ class Proxy < ActiveRecord::Base
     end
 
     # гет запрос через прокси
-    def get(url, options={})
+    def get url, options={}
       process url, options, :get
     end
 
     # пост запрос через прокси
-    def post(url, options={})
+    def post url, options={}
       process url, options, :post
     end
 
     # выполнение запроса через прокси или из кеша
-    def process(url, options, method)
+    def process url, options, method
       if @@use_cache && File.exists?(cache_path(url, options)) && (DateTime.now - 1.month < File.ctime(cache_path(url, options)))
         log "CACHE #{url} (#{cache_path(url, options)})", options
         return File.open(cache_path(url, options), "r") { |h| h.read }
@@ -64,7 +64,7 @@ class Proxy < ActiveRecord::Base
     end
 
     # выполнение запроса
-    def do_request(url, options)
+    def do_request url, options
       preload if options[:proxy].nil? && @@proxies.nil?
       raise NoProxies.new(url) if options[:proxy].nil? && @@proxies.empty?
 
@@ -85,12 +85,11 @@ class Proxy < ActiveRecord::Base
           log "#{options[:method].to_s.upcase} #{url}#{ options[:data] ? " "+options[:data].map { |k,v| "#{k}=#{v}" }.join('&') : ''} via #{proxy.to_s}", options
 
           Timeout::timeout(options[:timeout]) do
-            uri = URI.parse(url)
             content = if options[:method] == :get
               #Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
-              get_open_uri(URI.encode(url), proxy: proxy.to_s(true)).read
+              get_open_uri(url, proxy: proxy.to_s(true)).read
             else
-              Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(uri, options[:data]).body
+              Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(URI.parse(url), options[:data]).body
             end
           end
           raise "#{proxy.to_s} banned" if content.nil?
@@ -103,6 +102,8 @@ class Proxy < ActiveRecord::Base
           if options[:validate_jpg]
             tmpfile = Tempfile.new 'jpg'
             File.open(tmpfile.path, 'wb') {|f| f.write content }
+            tmpfile.instance_variable_set :@original_filename, url.split('/').last
+            def tmpfile.original_filename; @original_filename; end
 
             unless ImageCheck.valid? tmpfile.path
               content = nil
@@ -220,13 +221,13 @@ class Proxy < ActiveRecord::Base
     end
 
     # адрес страницы в кеше
-    def cache_path(url, options)
+    def cache_path url, options
       Dir.mkdir('tmp/cache/pages') unless Rails.env.test? || File.exists?('tmp/cache/pages')
       (Rails.env == 'test' ? 'spec/pages/%s' : 'tmp/cache/pages/%s') % Digest::MD5.hexdigest(options[:data] ? "#{url}_data:#{options[:data].map { |k,v| "#{k}=#{v}" }.join('&')}" : url)
     end
 
     # логирование
-    def log(message, options)
+    def log message, options
       print "[Proxy]: #{message}\n" if options[:log] || @@show_log
     end
 
@@ -240,14 +241,16 @@ class Proxy < ActiveRecord::Base
 
     def get_open_uri url, params={}
       if url =~ /\.(jpe?g|png)$/
+        ap "open_image #{url}"
         open_image url, params.merge('User-Agent' => user_agent(url))
       else
+        ap "open #{url}"
         open url, params.merge('User-Agent' => user_agent(url))
       end
     end
   end
 
-  def to_s(with_http = false)
+  def to_s with_http = false
     with_http ? "http://#{ip}:#{port}" : "#{ip}:#{port}"
   end
 end
