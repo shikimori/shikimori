@@ -46,7 +46,7 @@ class BlobData < ActiveRecord::Base
   end
 
   def check_value_size
-    while Marshal.dump(value).size > 52000
+    while Marshal.dump(value).size > 50000
       if value.respond_to?(:keys)
         key = if value[value.keys.first].kind_of?(Hash) && value[value.keys.first][:feed]
           value.sort_by {|k,v| -v[:feed].size }.first.first # удаляем по самому крупному ключу
