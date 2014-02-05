@@ -16,13 +16,13 @@ header.head
         - if params[:sort] == nil
           | Рейтинг
         - else
-          = link_to 'Рейтинг', seyu_url(@entry)
+          = link_to 'Рейтинг', seyu_url(@entry, direct: params[:direct])
       | &nbsp;&nbsp;/&nbsp;&nbsp;
       span class="#{' selected' if params[:sort] == 'time'}"
         - if params[:sort] == 'time'
           | Дата
         - else
-          a href="#{seyu_url @entry, sort: 'time'}" Дата
+          a href="#{seyu_url @entry, sort: 'time', direct: params[:direct]}" Дата
 
     .subheadline.m10 Персонажи и аниме
     - @entry.works.each do |group|
