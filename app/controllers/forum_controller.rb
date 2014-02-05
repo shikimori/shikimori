@@ -23,10 +23,10 @@ class ForumController < ApplicationController
   helper_method :section_ids_class
   helper_method :sticked_topics
 
-  caches_action :site_block,
-                :cache_path => proc { "#{request.path}|#{params.to_json}|#{Topic.last.updated_at}|#{json?}" },
-                :unless => proc { user_signed_in? },
-                :expires_in => 2.days
+  #caches_action :site_block,
+                #:cache_path => proc { "#{request.path}|#{params.to_json}|#{Topic.last.updated_at}|#{json?}" },
+                #:unless => proc { user_signed_in? },
+                #:expires_in => 2.days
 
   def index
     @gallery = WellcomeGalleryPresenter.new if @page == 1 && @section[:permalink] == AllSection[:permalink]
