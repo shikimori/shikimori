@@ -2,14 +2,10 @@ require 'spec_helper'
 
 describe MangaMalParser do
   before { SiteParserWithCache.stub(:load_cache).and_return list: {} }
+  before { parser.stub :save_cache }
 
-  let (:parser) {
-    p = MangaMalParser.new
-    p.stub(:save_cache)
-    p
-  }
-
-  let (:manga_id) { 4 }
+  let(:parser) { MangaMalParser.new }
+  let(:manga_id) { 4 }
 
   it 'have correct type' do
     parser.instance_eval { type }.should == 'manga'
@@ -65,7 +61,7 @@ describe MangaMalParser do
     data.should include(:members)
     data.should include(:favorites)
 
-    data.should include(:img)
+    data[:img].should eq 'http://cdn.myanimelist.net/images/manga/1/4743.jpg'
   end
 
   it 'fetches manga characters' do

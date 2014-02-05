@@ -1,18 +1,14 @@
 require 'spec_helper'
 
 describe WikipediaParser do
-  before (:each) { WikipediaParser.stub(:load_cache).and_return(animes: {}, characters: {}) }
+  before { WikipediaParser.stub(:load_cache).and_return(animes: {}, characters: {}) }
+  before { parser.stub :save_cache }
 
-  let (:parser) {
-    p = WikipediaParser.new
-    p.stub(:save_cache)
-    p
-  }
-
-  let (:zero_no_tsukaima) { create :anime, name: 'Zero no Tsukaima', synonyms: ["Zero's Familiar"], english: ['The Familiar of Zero'] }
-  let (:toradora) { create :anime, name: 'Toradora!' }
-  let (:bleach) { create :anime, name: 'Bleach', russian: 'Блич' }
-  let (:is) { create :anime, name: 'IS: Infinite Stratos' }
+  let(:parser) { WikipediaParser.new }
+  let(:zero_no_tsukaima) { create :anime, name: 'Zero no Tsukaima', synonyms: ["Zero's Familiar"], english: ['The Familiar of Zero'] }
+  let(:toradora) { create :anime, name: 'Toradora!' }
+  let(:bleach) { create :anime, name: 'Bleach', russian: 'Блич' }
+  let(:is) { create :anime, name: 'IS: Infinite Stratos' }
 
   it 'fetches pages from wikipedia' do
     data = parser.fetch_pages([zero_no_tsukaima.name.gsub(/ /, '_')])

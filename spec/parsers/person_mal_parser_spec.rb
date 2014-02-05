@@ -19,7 +19,7 @@ describe PersonMalParser do
   it 'fetches person data' do
     data = parser.fetch_entry_data(person_id)
     data[:name].should == 'Tomokazu Seki'
-    data.should include(:img)
+    data[:img].should eq 'http://cdn.myanimelist.net/images/voiceactors/3/17141.jpg'
     data.should include(:given_name)
     data.should include(:family_name)
     data.should include(:japanese)

@@ -33,7 +33,9 @@ class AniMangasController < ApplicationController
   # все связанные элементы с аниме/мангой
   def related_all
     @entry = klass.find(entry_id.to_i).decorate
-    render partial: 'ani_mangas/related_all', formats: :html
+    direct
+
+    render partial: 'ani_mangas/related_all', formats: :html unless @director.redirected?
   end
 
   # все связанные элементы с аниме/мангой

@@ -15,21 +15,21 @@ class CharacterMalParser < BaseMalParser
   end
 
   # загрузка всей информации по персонажу
-  def fetch_entry(id)
-    entry = fetch_entry_data(id)
-    images = fetch_entry_pictures(id)
+  def fetch_entry id
+    entry = fetch_entry_data id
+    images = fetch_entry_pictures id
 
     {
-      :entry => entry,
-      :images => images
+      entry: entry,
+      images: images
     }
   end
 
   # загрузка информации по персонажу
-  def fetch_entry_data(id)
-    content = get(entry_url(id))
+  def fetch_entry_data id
+    content = get entry_url(id)
 
-    entry = {:seyu => []}
+    entry = {seyu: []}
 
     doc = Nokogiri::HTML(content)
 
@@ -54,10 +54,11 @@ class CharacterMalParser < BaseMalParser
     end
 
     img_doc = doc.css("td.borderClass > div > img")
-    if img_doc.size == 0
-      entry[:img] = doc.css("td.borderClass > div > a > img").first['src']
+
+    if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
+      entry[:img] = doc.css("td.borderClass > div > a > img").first.attr(:src)
     else
-      entry[:img] = img_doc.first['src']
+      entry[:img] = img_doc.first.attr(:src)
     end
 
     # сейю

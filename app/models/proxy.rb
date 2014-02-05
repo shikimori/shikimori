@@ -221,7 +221,7 @@ class Proxy < ActiveRecord::Base
 
     # адрес страницы в кеше
     def cache_path(url, options)
-      Dir.mkdir('tmp/cache/pages') unless Rails.env == 'test' || File.exists?('tmp/cache/pages')
+      Dir.mkdir('tmp/cache/pages') unless Rails.env.test? || File.exists?('tmp/cache/pages')
       (Rails.env == 'test' ? 'spec/pages/%s' : 'tmp/cache/pages/%s') % Digest::MD5.hexdigest(options[:data] ? "#{url}_data:#{options[:data].map { |k,v| "#{k}=#{v}" }.join('&')}" : url)
     end
 

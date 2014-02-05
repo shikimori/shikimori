@@ -1,6 +1,6 @@
 class AnimeMalParser < BaseMalParser
   # сохранение уже импортированных данных
-  def deploy(entry, data)
+  def deploy entry, data
     # для хентая ставим флаг censored
     entry.censored = true if data[:entry][:genres].any? {|v| v[:id] == Genre::HentaiID }
     # то, что стоит релизом, не сбрасывать назад в онгоинг при ипорте
@@ -8,12 +8,12 @@ class AnimeMalParser < BaseMalParser
                                     data[:entry][:status] == AniMangaStatus::Ongoing &&
                                     entry.episodes_aired == entry.episodes
     # студии
-    super(entry, data)
+    super
   end
 
   # загрузка информации по манге
-  def fetch_entry_data(id)
-    content = get(entry_url(id))
+  def fetch_entry_data id
+    content = get entry_url(id)
 
     entry = {}
     entry[:name] = parse_h1(content)
@@ -61,10 +61,11 @@ class AnimeMalParser < BaseMalParser
 
     doc = Nokogiri::HTML(content)
     img_doc = doc.css("td.borderClass > div > img")
-    if img_doc.size == 0
-      entry[:img] = doc.css("td.borderClass > div > a > img").first['src']
+
+    if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
+      entry[:img] = doc.css("td.borderClass > div > a > img").first.attr(:src)
     else
-      entry[:img] = img_doc.first['src']
+      entry[:img] = img_doc.first.attr(:src)
     end
 
     raise EmptyContent.new(url) if entry[:english].blank? && entry[:synonyms].blank? && entry[:status].blank? && entry[:kind].blank? && entry[:rating].blank?

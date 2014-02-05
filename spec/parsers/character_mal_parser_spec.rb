@@ -2,14 +2,10 @@
 require 'spec_helper'
 
 describe CharacterMalParser do
-  before (:each) { SiteParserWithCache.stub(:load_cache).and_return({list: {}}) }
+  before { SiteParserWithCache.stub(:load_cache).and_return({list: {}}) }
+  before { parser.stub :save_cache }
 
-  let (:parser) {
-    p = CharacterMalParser.new
-    p.stub(:save_cache)
-    p
-  }
-
+  let(:parser) { CharacterMalParser.new }
   let(:character_id) { 35662 }
 
   it 'have correct type' do
@@ -25,7 +21,7 @@ describe CharacterMalParser do
     data[:seyu].should have(2).item
     data[:seyu].first.should == { role: 'Japanese', id: 185 }
 
-    data.should include(:img)
+    data[:img].should eq 'http://cdn.myanimelist.net/images/characters/8/216587.jpg'
   end
 
   it 'fetches character images' do

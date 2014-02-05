@@ -1,13 +1,13 @@
 class PersonMalParser < CharacterMalParser
   # загрузка информации о человеке
-  def fetch_entry_data(id)
-    content = get(entry_url(id))
+  def fetch_entry_data id
+    content = get entry_url(id)
 
     entry = {}
 
     doc = Nokogiri::HTML(content)
     entry[:name] = cleanup(doc.css("h1").text.gsub("  ", " ")).gsub(/^(.*), (.*)$/, '\2 \1')
-    entry[:img] = doc.css("td.borderClass > div > img").first[:src]
+    entry[:img] = doc.css("td.borderClass > div > img").first.attr(:src)
     entry[:given_name] = parse_line("Given name", content, false)
     entry[:given_name] = nil if entry[:given_name] == ''
     entry[:family_name] = parse_line("Family name", content, false)
@@ -26,8 +26,8 @@ class PersonMalParser < CharacterMalParser
     entry
   end
 
-  private
-  def entry_url(id)
+private
+  def entry_url id
     "http://myanimelist.net/people/#{id}"
   end
 end

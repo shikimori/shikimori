@@ -1,16 +1,11 @@
-
 require 'spec_helper'
 
 describe AnimeMalParser do
   before { SiteParserWithCache.stub(:load_cache).and_return list: {} }
+  before { parser.stub :save_cache }
 
-  let (:parser) {
-    p = AnimeMalParser.new
-    p.stub(:save_cache)
-    p
-  }
-
-  let (:anime_id) { 1 }
+  let(:parser) { AnimeMalParser.new }
+  let(:anime_id) { 1 }
 
   it 'have correct type' do
     parser.instance_eval { type }.should eq 'anime'
@@ -66,7 +61,7 @@ describe AnimeMalParser do
     data.should include(:members)
     data.should include(:favorites)
 
-    data.should include(:img)
+    data[:img].should eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
   end
 
   it 'fetches anime characters' do
