@@ -158,7 +158,7 @@ module MalDeployer
   # загрузка картинки с mal
   def mal_image url, is_new_image
     if is_new_image && url !~ /\.jpe?g$/
-      open_image url
+      open_image url, 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)'
     else
       Proxy.get url, timeout: 30, validate_jpg: true, return_file: true, no_proxy: @no_proxy, log: @proxy_log
     end
@@ -170,10 +170,10 @@ module MalDeployer
 
   # загрузка картинки
   def reload_image entry, data
-    if File.exists? "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
-      io = open_image "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
+    io = if File.exists? "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
+      open_image "/var/www/#{type}_fixed/original/#{entry.id}.jpg"
     else
-      io = mal_image data[:entry][:img], !entry.image.exists?
+      mal_image data[:entry][:img], !entry.image.exists?
     end
 
     io && io.original_filename.blank? ? nil : io if data[:entry].include?(:img)
