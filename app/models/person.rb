@@ -19,6 +19,8 @@ class Person < ActiveRecord::Base
     path: ":rails_root/public/images/person/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
+  validates :image, attachment_content_type: { content_type: /\Aimage/ }
+
   SeyuRoles = %w{ English Italian Hungarian Japanese German Hebrew Brazilian French Spanish Korean }
   MangakaRoles = ['Original Creator', 'Story & Art', 'Story', 'Art']
 

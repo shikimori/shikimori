@@ -23,6 +23,8 @@ class Character < ActiveRecord::Base
     path: ":rails_root/public/images/character/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
+  validates :image, attachment_content_type: { content_type: /\Aimage/ }
+
   has_one :thread, -> { where linked_type: Character.name },
     class_name: CharacterComment.name,
     foreign_key: :linked_id,
