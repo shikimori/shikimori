@@ -1,13 +1,15 @@
 class SitemapController < ApplicationController
   def index
     if params[:format] == 'xml'
-      @animes = Anime.where { description.not_eq('') | description.not_eq(nil) }
-                     .where { source.eq('') | source.eq(nil) }
-                     .where.not(kind: 'Special')
-                     .order(updated_at: :desc)
-      @mangas = Manga.where { description.not_eq('') | description.not_eq(nil) }
-                     .where { source.eq('') | source.eq(nil) }
-                     .order(updated_at: :desc)
+      @animes = Anime
+        .where("description != '' or description is not null")
+        .where("source = '' or source is null")
+        .where.not(kind: 'Special')
+        .order(updated_at: :desc)
+      @mangas = Manga
+        .where("description != '' or description is not null")
+        .where("source = '' or source is null")
+        .order(updated_at: :desc)
     end
 
     @page_title = 'Карта сайта'
