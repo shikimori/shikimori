@@ -149,7 +149,7 @@ class AniMangaDecorator < Draper::Decorator
 
   # есть ли видео для просмотра онлайн?
   def anime_videos?
-    object.respond_to?(:anime_videos) && object.anime_videos.any?
+    object.respond_to?(:anime_videos) && object.anime_videos.worked.any?
   end
 
 private
