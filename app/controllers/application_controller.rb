@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     rescue_from ActionView::MissingTemplate, with: :runtime_error
     rescue_from AbstractController::ActionNotFound, with: :runtime_error
     rescue_from ActionView::Template::Error, with: :runtime_error
+    rescue_from ActionController::InvalidAuthenticityToken, with: :runtime_error
   else
     rescue_from StatusCodeError, with: :runtime_error
   end
