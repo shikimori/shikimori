@@ -18,7 +18,7 @@ class AniMangasController < ApplicationController
                 cache_path: proc {
                   id = params[:anime_id] || params[:manga_id] || params[:id]
                   @entry ||= klass.find(id.to_i)
-                  "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@entry.updated_at.to_i}|#{@entry.thread.updated_at.to_i}|#{json?}|v2"
+                  "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@entry.updated_at.to_i}|#{@entry.thread.updated_at.to_i}|#{json?}|v3"
                 },
                 unless: proc { user_signed_in? },
                 expires_in: 2.days
