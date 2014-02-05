@@ -241,10 +241,8 @@ class Proxy < ActiveRecord::Base
 
     def get_open_uri url, params={}
       if url =~ /\.(jpe?g|png)$/
-        ap "open_image #{url}"
         open_image url, params.merge('User-Agent' => user_agent(url))
       else
-        ap "open #{url}"
         open url, params.merge('User-Agent' => user_agent(url))
       end
     end
