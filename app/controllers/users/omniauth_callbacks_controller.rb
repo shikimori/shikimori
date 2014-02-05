@@ -21,7 +21,6 @@ private
       flash[:alert] = "Выбранный %s аккаунт уже подключён к другому пользователю сайта" % @omni.provider.titleize
     else
       OmniauthService.new(current_user, @omni).populate
-      current_user.apply_omniauth(@omni)
       current_user.save
 
       flash[:notice] = "Подключена авторизация через %s" % @omni.provider.titleize
@@ -34,7 +33,7 @@ private
 
     flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: @omni.provider.titleize
     @preexisting_token.user.remember_me = true
-    sign_in_and_redirect(:user, @preexisting_token.user)
+    sign_in_and_redirect :user, @preexisting_token.user
     true
   end
 

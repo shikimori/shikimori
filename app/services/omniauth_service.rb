@@ -14,7 +14,6 @@ class OmniauthService
 
     @user.nickname = 'Новый пользователь' if @user.nickname.blank?
     @user.email = generate_email if @user.email.blank?
-
   end
 
 private
