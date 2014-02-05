@@ -88,7 +88,7 @@ class Proxy < ActiveRecord::Base
             uri = URI.parse(url)
             content = if options[:method] == :get
               #Net::HTTP::Proxy(proxy.ip, proxy.port).get(uri) # Net::HTTP не следует редиректам, в топку его
-              open(URI.encode(url), proxy: proxy.to_s(true), 'User-Agent' => user_agent(url)).read
+              get_open_uri(URI.encode(url), proxy: proxy.to_s(true)).read
             else
               Net::HTTP::Proxy(proxy.ip, proxy.port).post_form(uri, options[:data]).body
             end
@@ -167,10 +167,10 @@ class Proxy < ActiveRecord::Base
     end
 
     # выполнение get запроса без прокси
-    def no_proxy_get(url, options)
+    def no_proxy_get url, options
       log "GET #{url}", options
 
-      resp = open URI.encode(url), 'User-Agent' => user_agent(url)
+      resp = get_open_uri URI.encode(url)
       file = if resp.meta["content-encoding"] == "gzip"
         Zlib::GzipReader.new(StringIO.new(resp.read))
       else
@@ -236,6 +236,14 @@ class Proxy < ActiveRecord::Base
 
     def on!
       @@use_proxy = true
+    end
+
+    def get_open_uri url
+      if url =~ /\.(jpe?g|png)$/
+        open_image url, 'User-Agent' => user_agent(url)
+      else
+        open url, 'User-Agent' => user_agent(url)
+      end
     end
   end
 
