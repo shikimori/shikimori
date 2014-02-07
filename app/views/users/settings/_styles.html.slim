@@ -7,12 +7,6 @@
     = f.input :mylist_in_catalog
     = f.input :postload_in_catalog
 
-  /<p>
-    /<%=label_tag :new_catalog, 'Старый вариант каталога' %>
-    /<%=check_box_tag 'new_catalog', '', cookies.include?('OldCatalog'), 'data-cookie' => 'OldCatalog' %>
-    /(<span class="notice" title="Работает через cookies браузера без привязки к аккаунту">?</span>)
-  /</p>
-
   .menu-block
     = f.input :show_hentai_images
     = f.input :show_social_buttons

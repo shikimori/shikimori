@@ -1,12 +1,14 @@
 @import globals/variables
+@import compass/css3/transition
 
 =tag
-  color: #333
-  margin: 0 4px 3px
-  float: left
+  +transition-duration(0s)
   border-bottom: 1px dashed $hover-color-0
+  color: #333
   cursor: pointer
+  display: inline-block
   line-height: 16px
+  margin: 0 4px 3px
 
   &:hover
     margin: 0 2px 4px
@@ -14,6 +16,7 @@
     color: #fff
     border: none
     background-color: $hover-color-0
+
   &:active
     background-color: $hover-color
 
