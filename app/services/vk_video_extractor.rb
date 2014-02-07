@@ -11,12 +11,14 @@ class VkVideoExtractor
       hash2: parsed_data['hash2']
     )
   rescue OpenURI::HTTPError => e
+  rescue EmptyContent => e
   end
 
 private
   def parsed_data
     @parsed_data ||= Rails.cache.fetch @url, expires_in: 2.weeks do
-      JSON.parse fetch_page.match(/vars = ({.*?});\\nvar/)[1].gsub(/\\/, '')
+      data = fetch_page.match(/vars = ({.*?});\\nvar/) || raise(EmptyContent, @url)
+      JSON.parse data[1].gsub(/\\/, '')
     end
   end
 
