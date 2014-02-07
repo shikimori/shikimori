@@ -4,8 +4,10 @@
   header {
     overflow: hidden;
 
-    h1.aliases {
-      &:after {
+    h1 {
+      margin-bottom: 0;
+
+      &.aliases:after {
         color: #333;
         content: '\e816';
         cursor: pointer;
@@ -18,7 +20,9 @@
     }
     .notice {
       font-size: 12px;
+      line-height: 17px;
       clear: left;
+      margin-top: 0;
 
       span {
 

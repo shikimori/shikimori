@@ -1,0 +1,75 @@
+@import globals
+
+body
+  background-image: inline-image("/background/square_bg.png")
+  font-family: "Helvetica Neue",Arial,Verdana,sans-serif
+  font-size: 13px
+
+  &.chrome
+    text-rendering: auto
+  &.no-smileys .smiley
+    display: none
+
+header, nav, article, section, aside
+  display: block
+a
+  +link-color($default-selected-color)
+  -moz-outline-style: none
+  outline: none
+  text-decoration: none
+p, div.body
+  line-height: 1.65
+  a
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+
+img
+  border: none
+
+strike
+  color: #555
+em
+  font-style: italic
+strong, b
+  font-weight: bold
+
+input, select, button
+  outline: none
+  border: 1px solid #999999
+  font-family: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif
+input[type=radio]
+  border: none
+
+li
+  list-style: none outside none
+
+p.flash-notice, p.flash-alert
+  display: none
+
+::selection
+  background: #FFCC89
+  color: #555
+
+.page
+  background: white
+  clear: both
+  padding: 15px 10px 0 10px
+  position: relative
+  z-index: 1
+
+  .bordered &
+    &:before, &:after
+      background: rgba(255,255,255,0.3)
+      content: ""
+      height: 100%
+      position: absolute
+      top: 0
+      width: 20px
+
+    &:before
+      left: -20px
+
+    &:after
+      display: block!important
+      right: -20px

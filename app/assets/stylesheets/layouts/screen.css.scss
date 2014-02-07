@@ -4,61 +4,7 @@
 
 $page-offset: 40px;
 
-/*************************************************/
-/* main */
-::selection {
-  background: #FFCC89;
-  color: #555;
-}
-header, nav, article, section, aside {
-  display: block;
-}
-p {
-  @include text-font;
-}
-.df {
-  @include text-font;
-}
-em {
-  font-style: italic;
-}
-a {
-  color: $default-link-color;
-  text-decoration: none;
-  -moz-outline-style: none;
-  outline: none;
-}
-.default-link {
-  @include link-color($default-selected-color);
-}
-li {
-  list-style: none outside none;
-}
-img {
-  border: none;
-}
-strong, b {
-  font-weight: bold;
-}
-input, select, button {
-  outline: none;
-  border: 1px solid #999999;
-  font-family: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif
-}
-
-input[type=radio] {
-  border: none;
-}
-p.flash-notice, p.flash-alert {
-  display: none;
-}
-fieldset {
-  margin: 0;
-  border: none;
-}
-strike {
-  color: #555;
-}
+// TODO: выпилить этот файл и всё его содержимое
 /*************************************************/
 /* common page */
 
@@ -103,12 +49,12 @@ h3 {
   }
 }
 .prgrph {
-  @include text-font;
-  margin-bottom: 5px!important;
+  /*@include text-font;*/
+  margin-bottom: 5px !important;
   /*text-indent: 5px;*/
-  a {
-    @include normal-link;
-  }
+  /*a {*/
+    /*@include normal-link;*/
+  /*}*/
 }
 .right-text {
   text-align: right;

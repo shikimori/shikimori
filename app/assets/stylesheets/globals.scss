@@ -71,7 +71,7 @@ $gray-color-2: #7b8084;
   }
 }
 @mixin icon-button($content) {
-  @include text-font;
+  /*@include text-font;*/
   @include link-color(#444);
   @include icon($content, 13px);
 
@@ -81,7 +81,7 @@ $gray-color-2: #7b8084;
 }
 @mixin headline-icon-button($content) {
   @include icon-button($content);
-  @include text-font;
+  /*@include text-font;*/
   @include link-color(#666);
   font-size: 12px;
   cursor: pointer;
@@ -95,9 +95,9 @@ $gray-color-2: #7b8084;
   font-family: "Helvetica Neue",Arial,Verdana,sans-serif;
 }
 @mixin text-font {
-  @include default-font-family;
-  font-size: 13px;
-  line-height: 21px;
+  /*@include default-font-family;*/
+  /*font-size: 13px;*/
+  /*line-height: 21px;*/
 }
 
 @mixin new-header-font {
@@ -112,14 +112,14 @@ $gray-color-2: #7b8084;
 }
 
 @mixin h1-font {
-  @include text-font;
+  /*@include text-font;*/
   color: #111;
   font-size: 18px;
   font-weight: bold;
 }
 
 @mixin default-header-font-wo-color {
-  @include text-font;
+  /*@include text-font;*/
   font-size: 15px;
   line-height: 17px;
   font-weight: bold;
@@ -129,7 +129,7 @@ $gray-color-2: #7b8084;
   color: #222;
 }
 @mixin default-subheader-font {
-  @include text-font;
+  /*@include text-font;*/
   color: #2A2A2A;
   font-size: 15px;
   line-height: 17px;
@@ -304,7 +304,7 @@ $default-image-active-background: #ADADAD;
 /* серый прямоугольный блок */
 $gray-block-background: #F9F9F9;
 @mixin gray-block {
-  @include text-font;
+  /*@include text-font;*/
   @include transition(color, 0.2s);
   @include transition(background-color, 0.2s);
   background: $gray-block-background;
@@ -356,7 +356,7 @@ $gray-block-background: #F9F9F9;
 
 /* блок об игноре */
 @mixin ignored-block {
-  @include text-font;
+  /*@include text-font;*/
   color: #555;
   font-size: 12px;
   line-height: 35px;
