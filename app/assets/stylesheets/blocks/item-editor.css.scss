@@ -79,7 +79,7 @@
     a {
       @include normal-link;
     }
-    p {
+    .key {
       float: left;
       margin-right: 5px;
       color: $gray-color;

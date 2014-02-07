@@ -1,20 +1,20 @@
 - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
   .additional-links
-    p.key У #{Unicode.downcase I18n.t("Genetive.#{entry.object.class.name}")}:
+    .key У #{Unicode.downcase I18n.t("Genetive.#{entry.object.class.name}")}:
     - if entry.reviews_count > 0
       /span.linkeable data-action="#{entry.reviews_url}"
       span.link-reviews
         = "#{entry.reviews_count} #{Russian.p entry.reviews_count, 'рецензия', 'рецензиии', 'рецензиий'}"
 
     - if entry.reviews_count > 0 && entry.comment_reviews_count > 0
-      p.sep ,
+      .sep ,
     - if entry.comment_reviews_count > 0
       /span.link data-remote="true" data-type="json" data-action="#{entry.comments_reviews_url}"
       span.link-comment-reviews
         = "#{entry.comment_reviews_count} #{Russian.p entry.comment_reviews_count, 'отзыв', 'отзыва', 'отзывов'}"
 
     - if entry.reviews_count > 0 || (entry.comments_count > 0 && entry.comment_reviews_count > 0 && entry.comments_count != entry.comment_reviews_count)
-      p.sep ,
+      .sep ,
     - if entry.comments_count > 0 && entry.comments_count != entry.comment_reviews_count
       /span.link data-remote="true" data-type="json" data-action="#{entry.comments_all_url}"
       span.link-comments

@@ -73,30 +73,6 @@
   }
 }
 
-.anime-russian .key,
-p.key,
-p .key {
-  color: $gray-color;
-}
-.anime-russian .value,
-p.value,
-p .value {
-  color: #232323;
-}
-.anime-russian {
-  @include text-font;
-  h2 {
-    border: none;
-    color: inherit;
-    display: inline;
-    font: inherit;
-    margin: inherit;
-    overflow: inherit;
-    padding: inherit;
-    white-space: inherit;
-  }
-}
-
 .dark {
   color: black;
 }
