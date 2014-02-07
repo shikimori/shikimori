@@ -1,5 +1,5 @@
 // переключение вкладок настроек
-$('.settings .options-floated a').live('click', function() {
+$('.settings .b-options-floated a').live('click', function() {
   $('.settings.slider-control a')
     .attr('href', $(this).attr('href'))
     .trigger('click');

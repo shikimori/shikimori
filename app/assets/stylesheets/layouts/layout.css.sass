@@ -13,12 +13,13 @@ body
 header, nav, article, section, aside
   display: block
 a
-  +link-color($default-selected-color)
+  +link-color($selected-color)
   -moz-outline-style: none
   outline: none
   text-decoration: none
+
 p, div.body
-  line-height: 1.65
+  line-height: $line-height
   a
     text-decoration: underline
     &:hover
@@ -34,10 +35,13 @@ em
 strong, b
   font-weight: bold
 
-input, select, button
-  outline: none
+input, select, button, textarea
   border: 1px solid #999999
   font-family: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif
+  font-size: 13px
+  outline: none
+textarea
+  line-height: $line-height
 input[type=radio]
   border: none
 

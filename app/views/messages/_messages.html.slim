@@ -1,5 +1,5 @@
 = auto_discovery_link_tag :rss, rss_notifications_url(@user.to_param, MessagesController.rss_key(@user)), title: 'RSS'
-.options-floated
+.b-options-floated
   a href="#{messages_url :inbox}" class="#{:selected if params[:type] == 'inbox'}"
     span Переписка
     - if current_user.unread_messages > 0

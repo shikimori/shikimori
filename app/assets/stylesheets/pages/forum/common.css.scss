@@ -1,6 +1,7 @@
 @import "globals/responsive";
 @import "globals";
 @import "globals/fonts";
+@import "mixins/tag";
 
 .forum-nav {
   margin-bottom: 15px;
@@ -39,7 +40,7 @@
       }
       &.selected {
         text-decoration: underline;
-        color: $default-selected-color;
+        color: $selected-color;
       }
     }
     .section-new {
@@ -170,7 +171,7 @@ $comments-margin: 58px;
           /*padding-top: 1px;*/
 
           .tag {
-            @include default-tag;
+            @include tag;
             a {
               @include transition(color, 0.2s);
               @include transition(background-color, 0.2s);

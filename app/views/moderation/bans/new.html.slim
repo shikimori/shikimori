@@ -1,15 +1,10 @@
-= form_for [:moderation, @ban], remote: true, html: { 'data-type' => :json, class: :ban } do |f|
-  = f.hidden_field :user_id
-  = f.hidden_field :comment_id
-  = f.hidden_field :abuse_request_id
+= simple_form_for [:moderation, @ban], remote: true, html: { 'data-type' => :json, class: :ban } do |f|
+  = f.input :user_id, as: :hidden
+  = f.input :comment_id, as: :hidden
+  = f.input :abuse_request_id, as: :hidden
 
-  .field-name Cрок
-  .m10
-    = f.text_field :duration, value: @ban.suggest_duration
-
-  .field-name Причина
-  .m10
-    = f.text_field :reason
+  = f.input :duration, as: :string, input_html: { value: @ban.suggest_duration }
+  = f.input :reason, as: :string
 
   = f.submit 'Забанить', class: 'button submit'
   .form-cancel Отмена

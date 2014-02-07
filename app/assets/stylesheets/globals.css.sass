@@ -1,0 +1,312 @@
+$legacy-support-for-ie: false
+$legacy-support-for-ie6: $legacy-support-for-ie
+$legacy-support-for-ie7: $legacy-support-for-ie
+$legacy-support-for-ie8: $legacy-support-for-ie
+$legacy-support-for-mozilla: $legacy-support-for-ie
+
+@import compass
+@import globals/variables
+@import globals/responsive
+
+// кнопочки иконочные
+=icon($content, $font-size: 14px)
+  cursor: pointer
+  +responsive(desktop)
+    margin-left: 15px
+
+  +responsive(tablet)
+    margin-left: 35px
+
+  +responsive(narrow-phone)
+    margin-left: 30px
+
+  &:before
+    content: $content
+    cursor: pointer
+    display: inline-block
+    font-family: 'shikimori'
+    font-size: $font-size
+    line-height: 20px
+    text-align: center
+    width: 20px
+
+=menu-icon($content)
+  +icon($content)
+  +responsive(desktop)
+    margin-left: 0
+
+  +responsive(tablet)
+    margin-left: 0
+
+  +responsive(narrow-phone)
+    margin-left: 0
+
+  &:before
+    float: left
+    margin-right: 2px
+
+=icon-button-selected-decor
+  color: $selected-color
+  &:hover
+    color: $hover-color
+  &:active
+    color: $active-color
+
+=icon-button($content)
+  /*@include text-font;
+  +link-color(#444444)
+  +icon($content, 13px)
+  &.selected
+    +icon-button-selected-decor
+
+=headline-icon-button($content)
+  +icon-button($content)
+  /*@include text-font;
+  +link-color(#666666)
+  font-size: 12px
+  cursor: pointer
+  float: right
+  font-weight: normal
+  margin: 3px 10px 0
+
+// шрифты
+=default-font-family
+  font-family: "Helvetica Neue",Arial,Verdana,sans-serif
+
+=text-font
+  /*@include default-font-family;
+  /*font-size: 13px;
+  /*line-height: 21px;
+
+=new-header-font
+  color: #111
+  font: 26px normal tahoma, verdana, arial, sans-serif
+  border-bottom: none
+
+=new-subheader-font
+  color: #222
+  font: 18px normal tahoma, verdana, arial, sans-serif
+  border-bottom: none
+
+=h1-font
+  /*@include text-font;
+  color: #111
+  font-size: 18px
+  font-weight: bold
+
+=default-header-font-wo-color
+  /*@include text-font;
+  font-size: 15px
+  line-height: 17px
+  font-weight: bold
+
+=default-header-font
+  +default-header-font-wo-color
+  color: #222
+
+=default-subheader-font
+  /*@include text-font;
+  color: #2A2A2A
+  font-size: 15px
+  line-height: 17px
+  font-weight: bold
+
+=default-text-field
+  +border-radius(4px)
+  border-color: #c3c3c3
+  font-size: 12px
+  padding: 1px 3px
+
+=default-link-hover
+  background: transparent
+  &:hover
+    +box-shadow(#eeeeee, 5px 5px, 7px)
+    background: #FAFAFA
+    color: #222222 !important
+    outline: 0 none
+
+/* стандартная подсветка выбираемых элементов
+=default-selectable-decor
+  /*background-color: #FFFFFF;
+  &:hover
+    background-color: #eaeaea
+  &:active
+    background-color: #e5e5e5 !important
+
+=inner-image-selectable-decor
+  img
+    +image-selectable-decor
+  &:hover img
+    background-color: $default-image-hover-background
+  &:active img
+    background-color: $default-image-active-background
+
+$default-image-background: #e5e5e5
+$default-image-hover-background: #c9c9c9
+$default-image-active-background: #adadad
+
+=image-selectable-decor
+  +transition(background-color, 0.2s)
+  background-color: $default-image-background
+  &:hover
+    background-color: $default-image-hover-background
+  &:active
+    background-color: $default-image-active-background
+
+/* новое отображение спойлера
+=spoiler-new
+  &.target
+    /*padding-left: 2.5px;
+    /*padding-right: 2.5px;
+    display: inline
+    &.dashed
+      border-bottom: 1px dashed #FFB3B3
+      cursor: pointer
+  &.collapsed
+    background: transparent !important
+    display: inline
+    padding: 0
+    text-decoration: underline
+    border: none
+    &:hover
+      color: $hover-color !important
+      background: transparent !important
+    &:active
+      background: transparent !important
+    +normal-link
+  &.collapse
+    font-size: 11px
+    margin-top: 4.5px
+    padding: 0 0 0 0
+    &:hover, &:active
+      background: transparent !important
+    +normal-link
+
+/* стандартное оформление дат
+=default-date-decor
+  color: $date-color
+  /*font-style: italic;
+  font-weight: normal
+  font-size: 11px
+
+/* стандартное оформление аватара
+=default-avatar-decor
+  +border-radius(3px)
+  background: #FCFCFF
+  border: 1px solid #A5CAE4
+  padding: 2px
+
+=link-color($color)
+  +transition(color, 0.2s)
+  color: $color
+  &:hover
+    color: $hover-color
+  &:active
+    color: $active-color
+
+=link_color_hover_underlined($color)
+  +link-color($color)
+
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
+/* нормальная голубая ссылка
+=normal-link
+  +transition(color, 0.2s)
+  +link-color($selected-color)
+  cursor: pointer
+  &:hover
+    text-decoration: underline
+
+/* кнопка с фоном из картинки
+=default-button
+  background-image: url(/images/buttons.png)
+  cursor: pointer
+  display: block
+  height: 21px
+  margin-left: 5px
+  width: 21px
+  /*&:hover {
+  /*@include border-radius(4px);
+  /*background-color: #f3f3f3;
+  /*}
+  /*&:active {
+  /*background-color: transparent;
+  /*}
+
+=default-link-a
+  text-shadow: none
+  color: #555555
+
+=default-link
+  +default-selectable-decor
+  +transition(background-color, 0.2s)
+  cursor: pointer
+  padding: 1px 3px
+  a
+    +default-link-a
+    cursor: inherit
+
+/* серый прямоугольный блок
+$gray-block-background: #f9f9f9
+
+=gray-block
+  /*@include text-font;
+  +transition(color, 0.2s)
+  +transition(background-color, 0.2s)
+  background: $gray-block-background
+  color: #555
+  cursor: pointer
+  line-height: $line-height
+  padding: 0 10px 5px
+
+  &:hover
+    background-color: #EEEEEE
+    color: black
+  &:active
+    background-color: #E7E7E7
+
+=plashka
+  +gray-block
+  border: 1px solid #F2F2F2
+  padding: 8px 4px
+  text-align: center
+
+  &:hover
+    border: 1px solid #E7E7E7
+  &:active
+    border: 1px solid #E0E0E0
+
+/* блок об игноре
+=ignored-block
+  /*@include text-font;
+  color: #555
+  font-size: 12px
+  line-height: 35px
+  min-height: 23px !important
+  padding-top: 0
+  text-align: center
+  a
+    +normal-link
+    padding-left: 5px
+    span
+      padding-left: 19px
+  img
+    position: absolute
+    margin-top: 9px
+
+/* цвета логотипа
+$logo-color: #333333
+$logo-hover-color: #176093
+$logo-active-color: #104265 !important
+
+$default-link-color: #666666
+
+/* вертикальный отступ для ссылок more
+$more-offset: 3px
+
+/* ширина контента сайта
+$site-body-width: 1005px
+
+/*$use-mozilla-ellipsis-binding: true;

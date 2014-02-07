@@ -1,0 +1,52 @@
+$quote_odd: #f9f9f9
+$quote_even: #f6f6f6
+
+blockquote
+  background: $quote_odd
+  border: 1px dashed #DDDDDD
+  color: #333333
+  font-style: italic
+  margin: 5px 5px 5px 5px
+  overflow: hidden
+  padding: 5px 10px
+
+  .quoteable
+    font-style: normal
+    line-height: 21px
+    margin: -4px 0 0 -3px
+    position: relative
+
+    &:before
+      color: #333
+      content: '"'
+      font-family: "shikimori"
+      font-size: 12px
+      margin-right: 5px
+      position: relative
+      top: 2px
+
+    a
+      background-color: transparent
+      padding: inherit
+      margin-left: 17px
+      &:first-child
+        margin-left: 0
+      &:hover
+        background-color: transparent
+      &:active
+        background-color: transparent !important
+
+    img
+      position: absolute
+      margin-top: 3px
+
+  blockquote
+    background: $quote_even
+    margin-left: 5px !important
+
+    blockquote
+      background: $quote_odd
+
+      blockquote
+        background: $quote_even
+

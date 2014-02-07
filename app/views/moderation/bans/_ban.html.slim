@@ -1,12 +1,21 @@
 .b-ban_log_entry
+  .moderator
+    a.nickname.short href="#{user_url ban.moderator}" title="#{ban.moderator.nickname}"
+      = ban.moderator.nickname
+
+    - if ban.abuse_request
+      a.abuser href="#{user_url ban.abuse_request.user}"
+        = ban.abuse_request.user.nickname
+
   span.id-label #
   span = ban.id
   span.date = ban.created_at.strftime('%d.%m.%Y')
 
   .user
-    = link_to user_url(ban.user) do
+    a href="#{user_url ban.user}"
       img.avatar src="#{ban.user.avatar_url 16}" alt="#{ban.user.nickname}" title="#{ban.user.nickname}"
-    = link_to ban.user.nickname, user_url(ban.user), class: 'nickname short', title: "#{ban.user.nickname}"
+    a.nickname.short href="#{user_url ban.user}" title="#{ban.user.nickname}"
+      = ban.user.nickname
 
   - if ban.warning?
     span.duration-warning предупреждение
@@ -21,12 +30,7 @@
   - elsif ban.comment_id
     span за удалённый комментарий
 
-  span.moderator
-    = ban.moderator.nickname
-    - if ban.abuse_request
-      |  (
-      = ban.abuse_request.user.nickname
-      | )
-
-  = spoiler 'причина', display: 'inline' do
-   = ban.reason
+  = spoiler 'подробности', display: 'inline' do
+    blockquote
+      .quoteable причина
+      = ban.reason

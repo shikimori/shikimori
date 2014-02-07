@@ -41,7 +41,7 @@ $('.slide .inbox').live('ajax:success', function(e, data) {
 });
 
 // переключение вкладок сообщений
-$('.inbox .options-floated a').live('click', function() {
+$('.inbox .b-options-floated a').live('click', function() {
   $('.inbox.slider-control a')
     .attr('href', $(this).attr('href'))
     .trigger('click');

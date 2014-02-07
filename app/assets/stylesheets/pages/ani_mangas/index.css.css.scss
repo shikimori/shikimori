@@ -1,5 +1,6 @@
 @import "globals";
 @import "globals/fonts";
+@import "mixins/tag";
 
 /*************************************************/
 /* page container */
@@ -189,7 +190,7 @@
           font-weight: bold;
         }
         .genre, .studio, .publisher {
-          @include default-tag;
+          @include tag;
         }
       }
       .data {

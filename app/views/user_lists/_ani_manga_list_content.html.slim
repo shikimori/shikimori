@@ -1,7 +1,7 @@
 - @list.each do |status,data|
   header class="status-#{status}"
     a name="#{UserRateStatus.get(status).downcase.gsub(' ', '-')}"
-    .options-floated.collapse id="collapse-#{UserRateStatus.get(status).downcase.gsub(' ', '-')}"
+    .b-options-floated.collapse id="collapse-#{UserRateStatus.get(status).downcase.gsub(' ', '-')}"
       span.action свернуть (#{data[:size]})
     .subheadline = t "#{params[:list_type].capitalize}RateStatus.%s" % UserRateStatus.get(status)
     .collapsed.tiny ...

@@ -121,7 +121,7 @@ aside.left-column.menu-block
     .forum-container.entry-comments
       .comments.zero-margin.zero-top-border
         - if @entry.comment_reviews? && @entry.comments_count != @entry.comment_reviews_count
-          .options-floated
+          .b-options-floated
             span.link.selected.link-comment-reviews data-disabled="true" data-remote="true" data-type="json" data-action="#{@entry.comments_reviews_url}"
               | Отзывы&nbsp;
               span.sep.zero.inline

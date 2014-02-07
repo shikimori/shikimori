@@ -16,7 +16,7 @@ javascript:
 .gallery-container.m10
   header
     - if user_signed_in? && current_user.cosplay_moderator?
-      .options-floated
+      .b-options-floated
         = link_to 'редактировать', edit_cosplay_cosplay_gallery_url(@entry.cosplay.gallery.cosplayers.first, @entry.cosplay.gallery), class: 'gallery-edit'
     h1.subheadline.m10
       = @entry.cosplay.gallery.full_title @entry

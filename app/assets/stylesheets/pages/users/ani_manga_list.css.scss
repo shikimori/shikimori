@@ -68,7 +68,7 @@
         width: 70px;
       }
       .name a {
-        @include link-color($default-selected-color);
+        @include link-color($selected-color);
         &:hover {
           text-decoration: underline;
         }

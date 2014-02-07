@@ -1,6 +1,7 @@
 @import globals
+@import mixins/dash-separated
 
-.options-floated
+.b-options-floated
   +text-font
   color: #acb1b4
   font-size: 11px
@@ -22,19 +23,9 @@
   // страница персонажа - переключение типов
   a,.link
     +link-color(#acb1b4)
+    +dash-separated
     color: inherit
     cursor: pointer
-    margin-right: 7px
-
-    &:after
-      content: '/'
-      color: $gray-color
-      padding-left: 7px
-
-    &:last-child
-      margin-right: 0
-      &:after
-        display: none
 
   // список пользователя
   .action
@@ -57,5 +48,5 @@
       &:after
         display: none
 
-.column .options-floated
+.column .b-options-floated
   right: 25px

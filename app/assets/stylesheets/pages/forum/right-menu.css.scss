@@ -14,15 +14,15 @@
     margin-top: 0;
   }
   &:hover a.url {
-    color: $default-hover-color;
+    color: $hover-color;
     &:after {
-      color: $default-hover-color;
+      color: $hover-color;
     }
   }
   &:active a.url {
-    color: $default-active-color;
+    color: $active-color;
     &:after {
-      color: $default-active-color;
+      color: $active-color;
     }
   }
 
@@ -42,15 +42,15 @@
       line-height: 24px;
     }
     &:hover {
-      color: $default-hover-color;
+      color: $hover-color;
       &:after {
-        color: $default-hover-color;
+        color: $hover-color;
       }
     }
     &:active {
-      color: $default-active-color;
+      color: $active-color;
       &:after {
-        color: $default-active-color;
+        color: $active-color;
       }
     }
 

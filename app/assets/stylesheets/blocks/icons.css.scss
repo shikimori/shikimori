@@ -209,11 +209,11 @@
     font-size: 12px!important;
   }
   &:hover {
-    color: $default-hover-color!important;
+    color: $hover-color!important;
     text-decoration: none!important;
   }
   &:active {
-    color: $default-active-color!important;
+    color: $active-color!important;
   }
   &:after {
     content: ''!important;

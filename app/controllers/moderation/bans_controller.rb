@@ -2,6 +2,7 @@ class Moderation::BansController < ApplicationController
   include MessagesHelper # для работы хелпера format_linked_name
   include TopicsHelper # для работы MesasgesHelper - topic_url там хелпер
   include ActionView::Helpers::SanitizeHelper
+  include ActionView::Helpers::TextHelper # для truncate в messages helper
 
   before_filter :authenticate_user!, except: [:index]
   layout false, only: [:new]

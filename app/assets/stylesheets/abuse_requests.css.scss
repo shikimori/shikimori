@@ -19,8 +19,13 @@
     &:first-child .comment-block {
       border-top: none;
     }
-    .ban-form form {
-      margin-top: 10px;
+    .ban-form {
+      .b-input input {
+        width: 140px;
+      }
+      form {
+        margin-top: 10px;
+      }
     }
   }
   .item-delete {

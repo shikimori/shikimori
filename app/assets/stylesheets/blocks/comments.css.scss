@@ -1,8 +1,5 @@
 @import "globals";
 
-$quote_odd: #F9F9F9;
-$quote_even: #F6F6F6;
-
 /* comments */
 h2.comments-header {
   margin-bottom: 0;
@@ -24,6 +21,7 @@ $dark-grey-color: #545454;
   min-height: 80px;
   overflow: hidden;
   padding-right: 5px;
+  padding-top: 3px;
   position: relative;
 
   .new-indicator {
@@ -91,7 +89,10 @@ $dark-grey-color: #545454;
 
   .moderation-ban {
     float: right;
-    margin: 5px 0 15px 15px;
+    margin: 20px 0 15px 15px;
+    .b-input input {
+      width: 140px;
+    }
   }
   .image-name {
     @include link-color(#111);
@@ -102,7 +103,7 @@ $dark-grey-color: #545454;
     img {
       @inlclude default-avatar-decor;
       float: left;
-      margin: 5px 10px 3px 0;
+      margin: 2px 10px 3px 0;
       width: 48px;
     }
     .name-date {
@@ -139,8 +140,7 @@ $dark-grey-color: #545454;
   }
   .body {
     @include text-font;
-    margin: 0 0 15px 0;
-    /*clear: right;*/
+    margin: 5px 0 15px 0;
 
     p {
       @include text-font;
@@ -196,67 +196,10 @@ $dark-grey-color: #545454;
       vertical-align: middle;
     }
   }
-}
-.message-block,
-.comment-block,
-.topic-block {
-  blockquote {
-    background: $quote_odd;
-    border: 1px dashed #DDDDDD;
-    color: #333333;
-    font-style: italic;
-    margin: 5px 5px 5px 5px;
-    overflow: hidden;
-    padding: 5px 10px;
-
-    .quoteable {
-      font-style: normal;
-      line-height: 21px;
-      margin: -4px 0 0 -3px;
-      position: relative;
-
-      &:before {
-        color: #333;
-        content: '"';
-        font-family: "shikimori";
-        font-size: 12px;
-        margin-right: 5px;
-        position: relative;
-        top: 2px;
-      }
-
-      a {
-        background-color: transparent;
-        padding: inherit;
-        margin-left: 17px;
-
-        &:first-child {
-          margin-left: 0;
-        }
-        &:hover {
-          background-color: transparent;
-        }
-        &:active {
-          background-color: transparent!important;
-        }
-      }
-      img {
-        position: absolute;
-        margin-top: 3px;
-      }
-    }
-    blockquote {
-      background: $quote_even;
-      margin-left: 5px!important;
-
-      blockquote {
-        background: $quote_odd;
-
-        blockquote {
-          background: $quote_even;
-        }
-      }
-    }
+  &>.buttons {
+    float: none;
+    position: absolute;
+    right: 0;
   }
 }
 .topic-block .content blockquote {
@@ -346,14 +289,14 @@ $dark-grey-color: #545454;
 .new-marker, .spoiler-marker {
   @include transition(all, 0.25s);
   @include transition(opacity, 0.75s);
-  background-color: $default-hover-color;
+  background-color: $hover-color;
   color: white;
 
   &:hover {
-    background-color: $default-light-hover-color;
+    background-color: $hover-color-0;
   }
   &:active {
-    background-color: $default-active-color;
+    background-color: $active-color;
   }
 }
 .review-marker {

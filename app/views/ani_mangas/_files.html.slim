@@ -1,5 +1,5 @@
 - @entry.files.groupped_torrents.each do |key, group|
-  .options-floated.collapse
+  .b-options-floated.collapse
     span.action свернуть (#{group.size})
   h2.subheadline.m10
     a.rss href="#{rss_anime_url @entry, type: key}" title="RSS"
@@ -25,7 +25,7 @@
           = phrase
 
   .rutracker
-    /.options-floated
+    /.b-options-floated
       span.link.selected Для поиска требуется регистрация на трекере
     .subheadline Поиск на рутрекере
     .content
@@ -37,7 +37,7 @@
 - if @entry.files.subtitles.any?
   .subtitles.clearfix
     - @entry.files.subtitles.each do |k,subs|
-      div class="options-floated collapse #{'right-zero' if subs[:link].present?}"
+      div class="b-options-floated collapse #{'right-zero' if subs[:link].present?}"
         span.action свернуть (#{subs[:feed].size})
       h2.subheadline.m10
         - if subs[:link].nil?

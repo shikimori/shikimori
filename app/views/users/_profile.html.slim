@@ -20,12 +20,12 @@
         - if stats.any? {|v| v[:size] > 0 }
           .stat
             - if @user.own_profile?
-              p.compatibility
+              .compatibility
                 a href="#{users_url similar: 'similar', klass: klass.downcase}"
                   span.text похожие пользователи
 
             - if @compatibility.present? && @compatibility[klass.downcase.to_sym].present?
-              p.compatibility
+              .compatibility
                 a href="#{userlist_comparer_path user_1: current_user, user_2: @user, list_type: klass.downcase}"
                   span.text class="#{@user.compatibility_class @compatibility[klass.downcase.to_sym]}"
                     = @user.compatibility_text @compatibility[klass.downcase.to_sym]
@@ -40,13 +40,13 @@
             a.klass-caption href="#{ani_manga_list_url @user, list_type: klass.downcase}"
               = "Список #{t("Genetive.#{klass}").downcase}"
             .stat-bar
-              span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
+              span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{t("#{klass}RateStatus.#{UserRateStatus::Completed}").downcase}"
                 - if graph[:completed] > 0
-                  span.completed-bar style="width: #{graph[:completed]*100.0/graph[:total]}%;" title="#{graph[:completed]} #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Completed}"))}"
+                  span.completed-bar style="width: #{graph[:completed]*100.0/graph[:total]}%;" title="#{graph[:completed]} #{t("#{klass}RateStatus.#{UserRateStatus::Completed}").downcase}"
                     - if graph[:completed]*100.0/graph[:total] > 2.5
                       = graph[:completed]
                 - if graph[:dropped] > 0
-                  span.dropped-bar style="width: #{graph[:dropped]*100.0/graph[:total]}%;" title="#{graph[:dropped]} #{Unicode.downcase(t("#{klass}RateStatus.#{UserRateStatus::Dropped}"))}"
+                  span.dropped-bar style="width: #{graph[:dropped]*100.0/graph[:total]}%;" title="#{graph[:dropped]} #{t("#{klass}RateStatus.#{UserRateStatus::Dropped}").downcase}"
                     - if graph[:dropped]*100.0/graph[:total] > 2.5
                       = graph[:dropped]
                 = graph[:incompleted]

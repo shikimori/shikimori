@@ -10,7 +10,6 @@
   color: #999999;
   float: right;
   font: 13px/20px "Trebuchet MS",Tahoma,Arial,Helvetica,sans-serif;
-  /*height: 16px;*/
   margin-right: 5px;
 
   span {
@@ -20,7 +19,7 @@
     a {
       color: #666666;
       &:hover {
-        color: $default-hover-color;
+        color: $hover-color;
         text-decoration: none;
       }
     }

@@ -69,15 +69,15 @@ header.head {
       line-height: 17px;
     }
     &:hover {
-      color: $default-hover-color;
+      color: $hover-color;
       &:after {
-        color: $default-hover-color;
+        color: $hover-color;
       }
     }
     &:active {
-      color: $default-active-color;
+      color: $active-color;
       &:after {
-        color: $default-active-color;
+        color: $active-color;
       }
     }
   }

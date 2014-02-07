@@ -1,5 +1,5 @@
 .ani-manga-list
-  .options-floated.mylist
+  .b-options-floated.mylist
     - @user.current_counts.each do |stat|
       span.link data-id="#{stat[:id]}" class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').map(&:to_i).include?(stat[:id])}"
         = t "#{params[:list_type].capitalize}RateStatus.#{stat[:name]}"
