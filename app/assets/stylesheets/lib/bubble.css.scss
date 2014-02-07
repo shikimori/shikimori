@@ -5,13 +5,12 @@
   background: none repeat scroll 0 0 white;
   border: 1px solid #999999;
   color: #333333;
-  font-size: 12px;
-  font: 12px/20px "Trebuchet MS",Tahoma,Arial,Helvetica,sans-serif;
+  font-size: 13px;
   height: auto !important;
   margin-top: 4px;
   min-height: 120px;
-  padding:10px;
-  position:absolute;
+  padding: 10px;
+  position: absolute;
   width: 480px;
   z-index: 2;
 
@@ -48,33 +47,41 @@
   margin-bottom: 8px;
 }
 
-.tooltip-details,
-.tooltip-details p,
-.tooltip-details .prgrph,
-.tooltip-details .spoiler {
-  font-size: 11px;
-  margin-bottom: 4px;
-  line-height: 20px!important;
-}
 .tooltip-details {
-  p.role, p.name {
-    margin-bottom: 0!important;
+  .tooltip-desc {
+    line-height: $line-height;
   }
-  .item-block {
-    height: 160px;
-  }
-  ul {
-    margin-left: 0!important;
-    li {
-      list-style-position: inside!important;
-    }
-  }
-  h3 {
-    color:#333333;
-    font-size:14px;
-    margin:4px 0 0;
+  li {
+    list-style-position: inside!important;
   }
 }
+/*.tooltip-details,*/
+/*.tooltip-details p,*/
+/*.tooltip-details .prgrph,*/
+/*.tooltip-details .spoiler {*/
+  /*font-size: 11px;*/
+  /*margin-bottom: 4px;*/
+  /*line-height: 20px!important;*/
+/*}*/
+/*.tooltip-details {*/
+  /*.role, .name {*/
+    /*margin-bottom: 0!important;*/
+  /*}*/
+  /*.item-block {*/
+    /*height: 160px;*/
+  /*}*/
+  /*ul {*/
+    /*margin-left: 0!important;*/
+    /*li {*/
+      /*list-style-position: inside!important;*/
+    /*}*/
+  /*}*/
+  /*h3 {*/
+    /*color:#333333;*/
+    /*font-size:14px;*/
+    /*margin:4px 0 0;*/
+  /*}*/
+/*}*/
 .tooltip-img {
   float: left;
   padding: 0 10px 10px 0;

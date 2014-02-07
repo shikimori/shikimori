@@ -3,11 +3,11 @@
     - next unless @entries[data[:kind]]
     .headline class="#{data[:color]}" = t("Anime.Plural.#{data[:kind]}")
     div
-      = render partial: 'ani_mangas_collection/entry_new', collection: @entries[data[:kind]], locals: { alter: true, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie') }, formats: :html
+      = render partial: 'ani_mangas_collection/entry', collection: @entries[data[:kind]], locals: { alter: true, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie') }, formats: :html
     .clearfix
 
 - else
-  = render partial: (cookies.include?('OldCatalog') ? 'ani_mangas_collection/entry' : 'ani_mangas_collection/entry_new'), collection: @entries, formats: :html
+  = render partial: 'ani_mangas_collection/entry', collection: @entries, formats: :html
   - if !user_signed_in? || current_user.preferences.postload_in_catalog
     - if @next_page.present?
       = render partial: 'site/postloader_new', locals: { url: nil, filter: nil }, formats: :html
