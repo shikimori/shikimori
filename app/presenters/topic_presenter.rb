@@ -143,7 +143,11 @@ class TopicPresenter < BasePresenter
   def tag
     return nil if linked.nil? || review? || contest?
 
-    localized_name linked
+    if linked.kind_of? Review
+      localized_name linked.target
+    else
+      localized_name linked if linked.respond_to?(:name) && linked.respond_to?(:russian)
+    end
   end
 
   # по опросу ли данный топик
