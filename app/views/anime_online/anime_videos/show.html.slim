@@ -9,6 +9,7 @@
     .col-md-7.col-sm-8
       - if @anime.description
         .description == @anime.description
+      a.source href="http://shikimori.org#{anime_path @anime}" shikimori.org
 
       - if @anime.current_videos.blank? || @anime.current_video.blank?
         .alert.alert-info
