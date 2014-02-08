@@ -74,6 +74,10 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     render nothing: true
   end
 
+  def extract_url
+    render text: AnimeVideoUrl.new(params[:url]).extract
+  end
+
 private
   def video_params
     #.merge(uploader_id: current_user.id)

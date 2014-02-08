@@ -12,6 +12,7 @@ Site::Application.routes.draw do
       end
     end
     get 'videos(/search/:search)(/page/:page)' => 'anime_online/anime_videos#index', as: :anime_videos
+    post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
     get 'videos/:id(/:episode)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode: /\d+/, video_id: /\d+/, all: 'all' }
     post 'videos/search' => 'anime_online/anime_videos#search', as: :anime_videos_search
     post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
