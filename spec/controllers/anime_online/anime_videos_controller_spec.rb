@@ -158,4 +158,10 @@ describe AnimeOnline::AnimeVideosController do
       it { expect {report_repuest}.to change(AnimeVideoReport, :count).by 0 }
     end
   end
+
+  describe :extracted_url do
+    before { post :extract_url, url: 'http://vk.com/foo' }
+    it { should respond_with_content_type :html }
+    it { response.should be_success }
+  end
 end

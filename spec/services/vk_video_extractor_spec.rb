@@ -20,5 +20,10 @@ describe VkVideoExtractor do
       let(:url) { 'http://vk.com/video98023184_165811692zzz' }
       it { should be_nil }
     end
+
+    context :private_url do
+      let(:url) { 'http://vk.com/video17174270_167070090' }
+      it { should be_nil }
+    end
   end
 end

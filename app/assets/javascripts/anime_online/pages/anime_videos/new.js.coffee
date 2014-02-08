@@ -3,12 +3,16 @@ jQuery ->
 
   $('.check', $page).on 'click', ->
     url = $('#anime_video_url').val()
-    unless /^http:\/\//.test url
-      url = 'http://' + url
-      $('#anime_video_url').val url
-
-    $('iframe', $page).removeClass('hidden').attr 'src', url
-    $('.save', $page).removeClass('hidden')
+    $('.load', $page).removeClass 'hidden'
+    $.ajax
+      url: '/videos/extract_url'
+      data:
+        url: url
+      type: 'POST'
+      success: (e) ->
+        $('iframe', $page).removeClass('hidden').attr 'src', e
+        $('.save', $page).removeClass 'hidden'
+        $('.load', $page).addClass 'hidden'
 
   if $('#anime_video_url').val() != ''
-    $('.save', $page).removeClass('hidden')
+    $('.save', $page).removeClass 'hidden'

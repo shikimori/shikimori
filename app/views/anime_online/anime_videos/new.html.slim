@@ -13,6 +13,12 @@
     .form-group
       = f.input_field :url, class: 'form-control', placeholder: 'URL на видео, например: http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
       a href='#{help_anime_online_anime_videos_url}' как правильно получить ссылку
+      .alert.alert-success
+        | Теперь видео из vk.com можно добавить несколькими способами:
+        ol
+          li: code = 'http://vk.com/video-14132580_167827617'
+          li: code = '<iframe src="http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1" width="607" height="360"...'
+          li: code = 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
     .form-group
       = f.input_field :author, class: 'form-control', placeholder: 'Автор озвучки (может быть пустым)', value: (@video.author ? @video.author.name : '')
     .form-group
@@ -28,6 +34,7 @@
     .form-group
       .alert.alert-info Перед сохранением необходимо проверить корректность введенного URL на видео, чтобы не добавлять видео, которое не работает.
       a.btn.btn-primary.check Проверить
+      p.load.hidden Подождите...
       button.btn.btn-success.hidden.save type='submit' Видео работает, добавить
     .form-group
       iframe.hidden

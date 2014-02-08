@@ -20,5 +20,10 @@ describe BbCodes::VkTag do
       let(:text) { "zzz http://vk.com/video#{oid}_#{vid}" }
       it { should include 'zzz <div class="image-container video vk"' }
     end
+
+    context 'private video' do
+      let(:text) { 'http://vk.com/video17174270_167070090' }
+      it { should eq text }
+    end
   end
 end

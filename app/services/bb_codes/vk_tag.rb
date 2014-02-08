@@ -10,7 +10,12 @@ class BbCodes::VkTag
 private
   def to_html url
     video = Video.new url: url
-    @template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
-    @template.render OpenStruct.new(video: video)
+
+    if video.details
+      @template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+      @template.render OpenStruct.new(video: video)
+    else
+      url
+    end
   end
 end
