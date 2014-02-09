@@ -1,4 +1,4 @@
-faye:  rackup faye.ru -s thin -E production
+faye: RAILS_ENV=development rackup faye.ru -s thin -E production
 clockwork: bundle exec clockwork config/clock.rb
 #sidekiq: bundle exec sidekiq -C config/sidekiq.yml
 #redis: redis-server

@@ -117,8 +117,6 @@ group :test, :development do
   gem 'webmock', '1.13'
 
   gem 'factory_girl_rails', require: false
-  #gem 'parallel_tests'
-  #gem 'rack-mini-profiler'
 end
 
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'

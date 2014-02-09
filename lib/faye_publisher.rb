@@ -53,11 +53,12 @@ module FayePublisher
 
 private
   def self.subscribed_channels(target)
-    Subscription.where(:target_id => target.id)
-                .where(:target_type => target.class.name)
-                .select(:user_id)
-                .map do |v|
-                  "/user-#{v.user_id}"
-                end
+    Subscription
+      .where(target_id: target.id)
+      .where(target_type: target.class.name)
+      .select(:user_id)
+      .map do |v|
+        "/user-#{v.user_id}"
+      end
   end
 end

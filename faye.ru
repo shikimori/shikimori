@@ -1,15 +1,5 @@
-# encoding: utf-8
-
 require 'faye'
 require 'faye/redis'
-#require 'rack/cors'
-
-#use Rack::Cors do
-  #allow do
-    #origins '*'
-    #resource '/faye', :headers => :any, :methods => [:get, :post, :options]
-  #end
-#end
 
 Faye::WebSocket.load_adapter('thin')
 
@@ -23,12 +13,12 @@ class ServerAuth
 end
 
 faye_server = Faye::RackAdapter.new({
-  :mount => '/faye-server',
-  :timeout => 25,
-  :engine  => {
-    :type  => Faye::Redis,
-    :host  => 'localhost',
-    :port  => 6379
+  mount: '/faye-server',
+  timeout: ENV['RAILS_ENV'] == 'development' ? 1 : 25,
+  engine: {
+    type: Faye::Redis,
+    host: 'localhost',
+    port: 6379
   }
 })
 
