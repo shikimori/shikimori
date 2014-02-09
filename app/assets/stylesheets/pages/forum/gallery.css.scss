@@ -8,7 +8,7 @@
   margin-bottom: 10px;
 
   .gallery-title {
-    @include default-header-font;
+    @include header-font;
     margin-left: 5px;
   }
   .nav {

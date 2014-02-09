@@ -41,7 +41,7 @@
     margin-bottom: 0;
 
     .buttons {
-      @include default-selectable-decor;
+      @include selectable-decor;
       @include default-link;
 
       line-height: 12px;

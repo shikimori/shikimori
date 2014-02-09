@@ -24,7 +24,7 @@
         width: 31.5%;
       }
       .date {
-        @include default-date-decor;
+        @include date;
         display: block;
         float: left;
         font-size: 12px;

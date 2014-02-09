@@ -58,7 +58,7 @@
 .user_translations {
   .animes {
     .date {
-      @include default-date-decor;
+      @include date;
       padding-right: 3px;
     }
     a {

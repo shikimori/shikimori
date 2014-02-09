@@ -4,7 +4,7 @@
   margin-bottom: 40px;
 
   a {
-    @include default-link-hover;
+    @include link-hover;
   }
   table {
     width: 99%;

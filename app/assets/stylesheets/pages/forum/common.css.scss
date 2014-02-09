@@ -101,7 +101,7 @@ $comments-margin: 58px;
       min-height: 60px;
 
       .title {
-        @include default-header-font-wo-color;
+        @include header-font-wo-color;
         @include ellipsis;
         margin-left: $comments-margin;
         white-space: nowrap;

@@ -11,7 +11,7 @@
     @include normal-link;
   }
   .date {
-    @include default-date-decor;
+    @include date;
     display: inline;
     padding-left: 7px;
   }

@@ -5,7 +5,7 @@
     margin-bottom: 10px;
   }
   .input {
-    @include default-text-field;
+    @include text-field;
     width: 242px;
     &.suggest {
       float: right;

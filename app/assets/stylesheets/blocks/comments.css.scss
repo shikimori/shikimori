@@ -101,7 +101,7 @@ $dark-grey-color: #545454;
       text-decoration: none;
     }
     img {
-      @inlclude default-avatar-decor;
+      @inlclude avatar;
       float: left;
       margin: 2px 10px 3px 0;
       width: 48px;

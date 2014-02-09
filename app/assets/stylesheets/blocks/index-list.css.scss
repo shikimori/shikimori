@@ -23,7 +23,7 @@
         width: 73px;
       }
       .name {
-        @include default-header-font;
+        @include header-font;
         color: inherit;
         margin-left: 10px;
         padding-top: 5px;

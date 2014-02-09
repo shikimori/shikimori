@@ -19,7 +19,7 @@ $page-offset: 40px;
 /*}*/
 /*h2,*/
 .h2 {
-  @include default-header-font;
+  @include header-font;
   border-bottom: 1px solid #DDDDDD;
   color: #333333;
   margin-bottom: 15px;
@@ -30,7 +30,7 @@ h2.no-border {
   margin-bottom: 5px;
 }
 h3 {
-  @include default-subheader-font;
+  @include subheader-font;
   color: #333333;
   white-space: nowrap;
   border-bottom: 1px solid #DDDDDD;
@@ -38,7 +38,7 @@ h3 {
 }
 
 .block-title {
-  @include default-header-font;
+  @include header-font;
   border-bottom: 1px solid #BBBBBB;
   color: #333333;
   line-height: 17px;
@@ -64,7 +64,7 @@ h3 {
   }
 }
 .subblock-title {
-  @include default-subheader-font;
+  @include subheader-font;
   border-bottom: 1px solid #DDDDDD;
   color: #333333;
   /*padding-bottom: 3px;*/
@@ -105,7 +105,7 @@ h3 {
 
 .block-list {
   li {
-    @include default-selectable-decor;
+    @include selectable-decor;
     @include ellipsis;
     background-color: transparent;
     color: #555555;
@@ -281,7 +281,7 @@ img.right {
   text-decoration: none;
 
   a {
-    @include default-link-hover;
+    @include link-hover;
 
     display: block;
     /*margin-top: 3px;*/
@@ -406,7 +406,7 @@ div.title {
     /*font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,Helvetica,sans-serif;*/
   /*}*/
   .input {
-    @include default-text-field;
+    @include text-field;
     width: 99%;
   }
   textarea {

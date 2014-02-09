@@ -86,7 +86,7 @@
         /*font-weight: bold;*/
       }
       .value a {
-        @include default-link-hover;
+        @include link-hover;
         /*color: #333333;*/
       }
     }
