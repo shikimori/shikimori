@@ -1,4 +1,4 @@
-= form_for contest, html: { class: "edit contest #{contest.strategy_type}" } do |f|
+= simple_form_for contest, html: { class: "edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
     .errors
       .subheadline.red Ошибки
@@ -8,52 +8,21 @@
 
   .subheadline Общее
   .subcontent
-    .field-name Название
-    .m10
-      = text_field :contest, :title, class: 'common'
-
-    .hidden
-      .field-name.textarea Описание
-      = render partial: 'comments/add', locals: { options: { text: (params[:contest] ? params[:contest][:description] : nil) || contest.description, field_name: 'contest[description]', no_poster: true, no_save: true, no_subscribe: true, no_form: true } }
-
-    .field-name Тип номинантов
-    .m10
-      = f.select :member_type, Contest.member_type.options, {},  disabled: contest.persisted?
-
-    .field-name Стратегия
-    .m10
-      = f.select :strategy_type, Contest.strategy_type.options, {}, disabled: contest.started? || contest.finished?
-
-    .field-name Ключ в таблице пользователя
-    .m10
-      = f.select :user_vote_key, [:can_vote_1, :can_vote_2, :can_vote_3]
-      span.action-misc Не должно быть голосований, запущенных в одно время с одинаковым ключём. Иначе галочка в меню будет неправильно работать.
+    = f.input :description, as: :hidden
+    = f.input :title
+    = f.input :member_type, as: :select, collection: Contest.member_type.options, include_blank: false, disabled: contest.persisted?
+    = f.input :strategy_type, as: :select, collection: Contest.strategy_type.options, include_blank: false, disabled: contest.started? || contest.finished?
+    = f.input :user_vote_key, as: :select, collection: [:can_vote_1, :can_vote_2, :can_vote_3], include_blank: false, hint: 'Не должно быть голосований, запущенных в одно время с одинаковым ключём. Иначе галочка в меню будет неправильно работать.'
 
   .two-columns.m30
     .column
       .subheadline Длительность
       .subcontent
-        .field-name Голосований в этапе
-        .m10
-          = text_field :contest, :matches_per_round, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
-          - if contest.swiss?
-            span.action-misc Для швейцарской системы эту цифру желательно подобрать таким образом, чтобы каждый раунд разбивался не более, чем на три равных блока. Для 72 участников это будет 12, для 60 - 10.
-
-        .field-name Вариантов номинаций от одного пользователя
-        .m10
-          = text_field :contest, :suggestions_per_user, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
-
-        .field-name Дней между этапами
-        .m10
-          = text_field :contest, :matches_interval, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
-
-        .field-name Длительность голосования
-        .m10
-          = text_field :contest, :match_duration, disabled: contest.started? || contest.finished?, type: 'number', class: 'common'
-
-        .field-name Дата старта
-        .m0
-          = date_select :contest, :started_on, disabled: contest.started? || contest.finished?, start_year: [contest.started_on.year, Date.today.year].min, end_year: [contest.started_on.year, Date.today.year + 1].max
+        = f.input :matches_per_round, disabled: contest.started? || contest.finished?, hint: (contest.swiss? ? 'Для швейцарской системы эту цифру желательно подобрать таким образом, чтобы каждый раунд разбивался не более, чем на три равных блока. Для 72 участников это будет 12, для 60 - 10.' : '')
+        = f.input :suggestions_per_user, disabled: contest.started? || contest.finished?
+        = f.input :matches_interval, disabled: contest.started? || contest.finished?
+        = f.input :match_duration, disabled: contest.started? || contest.finished?
+        = f.input :started_on, disabled: contest.started? || contest.finished?, start_year: [contest.started_on.year, Date.today.year].min, end_year: [contest.started_on.year, Date.today.year + 1].max
 
         - if contest.rounds.any?
           span.action-misc При изменении этих параметров голосования будут перетасованы.
@@ -66,7 +35,7 @@
 
         - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
           .subheadline Действия
-          .subcontent
+          .subcontent.actions
             - if contest.object.can_propose?
               a.action href="#{propose_contest_url contest}" data-method="post" Начать приём кандидатов от пользователей
 
