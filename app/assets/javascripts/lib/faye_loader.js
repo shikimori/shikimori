@@ -11,7 +11,7 @@ function FayeLoader() {
     client = new Faye.Client('http://' + location.hostname + port + '/faye-server', {
       timeout: 300,
       retry: 5,
-      transportEndpoints: {
+      endpoints: {
         websocket: 'http://' + location.hostname + ':9292/faye-server'
       }
     });
