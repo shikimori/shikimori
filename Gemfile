@@ -128,4 +128,10 @@ gem 'foreman', github: 'morr/foreman' # для управления бекгра
 
 gem 'thin'
 gem 'faye', '0.8.1'
-gem 'faye-redis'
+gem 'faye-redis', '0.1.0'
+# все эти гемы для faye 0.8.1. когда обновлю faye до современной версии, надо удалить всё, что ниже
+gem 'faye-websocket', '0.4.4'
+#gem 'em-websocket', '0.3.8'
+gem 'em-socksify', '0.2.0'
+gem 'em-http-request', '1.0.2'
+gem 'em-hiredis', '0.1.1'
