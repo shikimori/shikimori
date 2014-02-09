@@ -1,7 +1,5 @@
 class Moderation::AbuseRequestsController < ApplicationController
   include MessagesHelper # для работы хелпера format_linked_name
-  include TopicsHelper # для работы MesasgesHelper - topic_url там хелпер
-  include ActionView::Helpers::SanitizeHelper
 
   before_filter :authenticate_user!, only: [:index, :take, :deny, :offtopic, :review, :spoiler, :abuse]
 

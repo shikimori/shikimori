@@ -1,5 +1,11 @@
 # TODO: refactor to MessageDecorator, не забыть MessageSerializer.body
 module MessagesHelper # для truncate в messages helper
+  def self.included klass
+    klass.send :include, TopicsHelper # для topic_url, там хелпер
+    klass.send :include, ActionView::Helpers::TextHelper # для truncate
+    klass.send :include, ActionView::Helpers::SanitizeHelper
+  end
+
   def should_show_more? message
     [Entry.name].include?(message.linked_type) &&
       ![MessageType::QuotedByUser, MessageType::SubscriptionCommented].include?(message.kind) &&

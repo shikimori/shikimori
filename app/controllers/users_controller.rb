@@ -2,8 +2,6 @@
 # TODO: users#show вынести в ProfilesController
 class UsersController < ApplicationController
   include MessagesHelper # для работы хелпера format_linked_name
-  include TopicsHelper # для работы MesasgesHelper - topic_url там хелпер
-  include ActionView::Helpers::SanitizeHelper
 
   respond_to :json, only: :autocomplete
   respond_to :json, :html, only: :index
