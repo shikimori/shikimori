@@ -8,7 +8,7 @@
 - if linked.respond_to?(:kind)
   .menu-block
     .subheadline Инфо
-    .block-body.entry-info
+    .block-body
       = render partial: 'ani_mangas/common_info', locals: { entry: linked.object }, formats: :html
 
 - unless !linked.respond_to?(:genres) || linked.genres.empty?

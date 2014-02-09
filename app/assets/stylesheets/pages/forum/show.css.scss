@@ -14,8 +14,7 @@
       margin-top: 5px;
     }
   }
-  .entry-info {
-    margin-left: 4px;
+  .b-entry-info {
     p:last-child {
       display: none;
     }
@@ -32,12 +31,6 @@
   .block-body {
     margin-bottom: 15px;
 
-    .key {
-      color: $gray-color
-    }
-    .value {
-      color: #333;
-    }
     .studio-logo {
       max-width: 215px;
     }
