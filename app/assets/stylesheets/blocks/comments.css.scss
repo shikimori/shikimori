@@ -136,7 +136,7 @@ $dark-grey-color: #545454;
     }
   }
   .body {
-    margin: 5px 0 15px 0;
+    margin: 6px 0 15px 0;
 
     p {
       margin-bottom: 3px;
@@ -189,11 +189,11 @@ $dark-grey-color: #545454;
       vertical-align: middle;
     }
   }
-  &>.buttons {
-    float: none;
-    position: absolute;
-    right: 0;
-  }
+  /*&>.buttons {*/
+    /*float: none;*/
+    /*position: absolute;*/
+    /*right: 0;*/
+  /*}*/
 }
 .topic-block .content blockquote {
   margin-left: 0;

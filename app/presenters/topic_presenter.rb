@@ -86,9 +86,10 @@ class TopicPresenter < BasePresenter
   # текст для свёрнутых комментариев
   def show_hidden_comments_text
     num = [folded_comments, @fold_limit].min
-    "Показать #{Russian.p(num, 'предыдущий', 'предыдущие', 'предыдущие')} #{num} #{Russian.p(num, 'комментарий', 'комментария', 'комментариев')}%s" % [
-        folded_comments < @fold_limit ? '' : " (из #{folded_comments})"
+    text = "Показать #{Russian.p(num, 'предыдущий', 'предыдущие', 'предыдущие')} #{num} #{Russian.p(num, 'комментарий', 'комментария', 'комментариев')}%s" % [
+        folded_comments < @fold_limit ? '' : "<span class=\"expandable-comments-count\"> (из #{folded_comments})</span>"
       ]
+    text.html_safe
   end
 
   # есть ли свёрнутые комментарии?

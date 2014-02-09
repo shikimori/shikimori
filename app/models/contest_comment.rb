@@ -11,4 +11,8 @@ class ContestComment < AniMangaComment
   def to_s
     title
   end
+
+  def generated?
+    true
+  end
 end

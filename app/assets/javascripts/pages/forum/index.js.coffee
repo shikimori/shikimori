@@ -86,7 +86,7 @@ $(document).on 'ajax:success', '.topic-block .click-loader', (e, data) ->
         count: count
 
       $this.html "Показать #{p(_.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие')} #{_.min [limit, count]} #{p(count, 'комментарий', 'комментария', 'комментариев')}" + (
-          if count > limit then " (из #{count})" else ""
+          if count > limit then "<span class=\"expandable-comments-count\"> (из #{count})</span>" else ""
         )
     else
       $this.remove()

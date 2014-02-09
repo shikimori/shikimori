@@ -343,6 +343,13 @@ $comments-margin: 58px;
       }
     }
   }
+  @include responsive(narrow-phone) {
+    .comments {
+      .expandable-comments-count {
+        display: none;
+      }
+    }
+  }
 
   .faye-loader {
     @include plashka;

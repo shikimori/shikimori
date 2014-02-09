@@ -162,17 +162,20 @@
   }
 }
 @include responsive(narrow-phone) {
-  .comment-block .buttons {
-    float: none!important;
-    overflow: hidden;
-
-    div {
-      float: right;
+  .comment-block {
+    .moderation-controls span:first-child {
+      margin-left: 0;
     }
-  }
-  .buttons {
-    .item-review {
-      display: none;
+    .buttons {
+      float: none!important;
+      overflow: hidden;
+
+      .item-reply {
+        margin-left: 0;
+      }
+    }
+    .item-mobile.selected {
+      margin-left: 0;
     }
   }
 }
