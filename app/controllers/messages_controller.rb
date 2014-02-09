@@ -109,7 +109,7 @@ class MessagesController < UsersController
     render json: {
         content: render_to_string(partial: 'messages/message', collection: @messages, layout: false, formats: :html) +
           (add_postloader ?
-            render_to_string(partial: 'site/postloader_new', locals: { filter: 'comment', url: messages_list_url(page: @page+1, format: :json) }, formats: :html) :
+            render_to_string(partial: 'site/postloader', locals: { filter: 'comment', url: messages_list_url(page: @page+1, format: :json) }, formats: :html) :
             '')
       }
 

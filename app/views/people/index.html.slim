@@ -12,4 +12,4 @@ header.head.m15
 .index-list.people
   = render partial: 'people/person', collection: @people, formats: :html
   - if @add_postloader
-    = render partial: 'site/postloader_new', locals: { url: send(@director.entry_search_url_builder, search: params[:search], page: @page+1, format: :json) }, formats: :html
+    = render partial: 'site/postloader', locals: { url: send(@director.entry_search_url_builder, search: params[:search], page: @page+1, format: :json) }, formats: :html

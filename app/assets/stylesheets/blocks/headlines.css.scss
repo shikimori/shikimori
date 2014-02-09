@@ -36,6 +36,7 @@ header.head {
     }
     a.misc {
       @include normal-link;
+      text-decoration: underline;
     }
   }
 }
@@ -50,8 +51,7 @@ header.head {
   line-height: $line-height;
   font-weight: bold;
   margin-bottom: 5px;
-  max-height: 20px;
-  padding: 8px 10px 6px;
+  padding: 4px 10px 2px;
   text-transform: uppercase;
 
   a {

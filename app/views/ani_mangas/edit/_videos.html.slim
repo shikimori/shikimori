@@ -2,20 +2,11 @@
   = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
   .subheadline Добавление нового ролика
   .subcontent.item-content-editor.m30
-    = form_for Video.new, remote: true, 'data-type' => :json do |f|
+    = simple_form_for Video.new, remote: true, 'data-type' => :json, authenticity_token: true do |f|
       = hidden_field_tag :apply, ''
-      .field-name Ссылка
-      .m10
-        = f.text_field :url, class: 'common'
-
-      .field-name Тип
-      .m10
-        /= f.select :kind, [Video::PV, Video::OP, Video::ED, Video::AMW]
-        = f.select :kind, [Video::PV, Video::OP, Video::ED]
-
-      .field-name Название (опционально)
-      .m10
-        = f.text_field :name, class: 'common'
+      = f.input :url
+      = f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false
+      = f.input :name
 
   - if @entry.videos.any? || @entry.changes[:videos].any?
     .videos

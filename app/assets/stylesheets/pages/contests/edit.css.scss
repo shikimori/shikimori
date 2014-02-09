@@ -34,6 +34,7 @@
 
     li {
       float: left;
+      line-height: $line-height;
       width: 33.3%;
 
       a {
@@ -59,10 +60,16 @@
       display: inline-block;
     }
   }
-  .action {
-    @include text-font;
-    @include normal-link;
-    display: block;
+  .actions {
+    .action {
+      @include text-font;
+      @include normal-link;
+      line-height: $line-height;
+      display: block;
+    }
+    span {
+      line-height: $line-height;
+    }
   }
 
   .subcontent:last-child {

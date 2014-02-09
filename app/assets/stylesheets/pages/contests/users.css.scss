@@ -30,7 +30,9 @@
 
       img {
         @include image-selectable-decor;
+        height: 34px;
         padding: 1px;
+        width: 34px;
       }
     }
   }

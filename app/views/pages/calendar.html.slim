@@ -13,9 +13,12 @@
 
   - @ongoings.each do |k,group|
     article
-      .group-title class="#{color_by_num(k == -1 ? -1 : (DateTime.now + k.days).day % 11)}"
+      .b-options-floated.collapse id="#{'collapse-calendar_delayed' if k == -1}"
+        span.action свернуть
+      .headline class="#{color_by_num k == -1 ? -1 : (DateTime.now + k.days).day % 11}"
         = k == -1 ? "Уже должно было выйти" : date_title_for_ongoing(k)
-      div
+      .collapsed.tiny ...
+      .subcontent
         - group.each do |anime|
           .ongoing class="#{:' in-list' if anime[:in_list]}"
             = ani_manga_link anime do

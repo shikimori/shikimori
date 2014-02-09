@@ -41,4 +41,4 @@ header.head
             h2.subheadline История
             .abuse_requests
               = render partial: 'abuse_request', collection: @processed, formats: :html
-              = render partial: 'site/postloader_new', locals: { url: page_moderation_abuse_requests_url(page: @page+1) }, formats: :html
+              = render partial: 'site/postloader', locals: { url: page_moderation_abuse_requests_url(page: @page+1) }, formats: :html

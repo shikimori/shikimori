@@ -9,7 +9,7 @@ class DanbooruController < ApplicationController
     url = Base64.decode64(params[:url])
     md5 = self.class.filename(params[:md5])
 
-    raise Forbidden unless url =~ /https?:\/\/([^.]+.(donmai.us|imouto.org)|konachan.com|yande.re)/
+    raise Forbidden unless url =~ /https?:\/\/([^.]+.(donmai.us|imouto.org)|konachan.com|(\w+\.)?yande.re)/
 
     s3 = $redis.get(md5)
     redirect_to self.class.s3_path(md5) and return if s3

@@ -19,6 +19,7 @@ class AniMangaPresenter::RelatedPresenter < BasePresenter
       .similar
       .includes(:dst)
       .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
+      .map(&:dst)
   end
 
   # есть ли они вообще?

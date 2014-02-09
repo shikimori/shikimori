@@ -19,6 +19,7 @@
       a {
         @include normal-link;
         @include text-font;
+        line-height: $line-height;
         display: block;
         float: left;
         width: 31.5%;

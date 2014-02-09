@@ -22,7 +22,7 @@
           p Перетаскивайте сюда картинки, или тыкайте на кнопку &laquo;Загрузить&raquo; справа вверху. Как перетаскиванием, так и кнопкой "Загрузить", загружать можно до ста картинок за раз (выделяйте сразу несколько файлов);
           = render partial: 'blocks/upload_progress', formats: :html
           .screenshots
-            .images-list.uploaded-container
+            .images-list.uploaded-container.subcontent
             .clearfix
           p.thank-you Спасибо. Загруженное будет проверено модератором, после чего вам придёт уведомление.
         .clearfix
@@ -40,7 +40,7 @@
       = render partial: 'site/editor_textfield_new', locals: { item: @entry, field: 'screenshots', action: UserChange::ScreenshotsPosition }, formats: :html
 
       .screenshots
-        .images-list.screenshots-position
+        .images-list.screenshots-position.subcontent
           = render partial: 'images/image', collection: @entry.screenshots, locals: { group_name: 'screenshots', style: :original, alt: "Кадр из #{@entry.name}", with_deletion: true }, formats: :html
 
     - if @entry.changes[:screenshots].any?

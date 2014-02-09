@@ -1,13 +1,13 @@
 - if @page > 1
   = render partial: 'topics/topic', collection: @reviews, formats: :html
   - if @add_postloader
-    = render partial: 'site/postloader_new', locals: { url: user_reviews_url(page: @page+1) }, formats: :html
+    = render partial: 'site/postloader', locals: { url: user_reviews_url(page: @page+1) }, formats: :html
 - else
   .subheadline Обзоры
   - if @reviews.any?
     .forum-container
       = render partial: 'topics/topic', collection: @reviews, formats: :html
       - if @add_postloader
-        = render partial: 'site/postloader_new', locals: { url: user_reviews_url(page: @page+1) }, formats: :html
+        = render partial: 'site/postloader', locals: { url: user_reviews_url(page: @page+1) }, formats: :html
   - else
     p Ничего нет.

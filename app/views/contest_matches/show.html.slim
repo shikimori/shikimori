@@ -7,7 +7,7 @@
     - elsif @match.right && @match.left
       .match-member data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
         - if @match.contest.anime?
-          = render partial: 'ani_mangas_collection/entry_new', object: @match.left, locals: { alter: true }, formats: :html
+          = render partial: 'ani_mangas_collection/entry', object: @match.left, locals: { alter: true }, formats: :html
         - else
           = render partial: 'characters/entry', object: @match.left, formats: :html
       .vs
@@ -31,7 +31,7 @@
 
       .match-member data-variant="right" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'right'}"
         - if @match.contest.anime?
-          = render partial: 'ani_mangas_collection/entry_new', object: @match.right, locals: { alter: true }, formats: :html
+          = render partial: 'ani_mangas_collection/entry', object: @match.right, locals: { alter: true }, formats: :html
         - else
           = render partial: 'characters/entry', object: @match.right, formats: :html
 
@@ -50,7 +50,7 @@
     - else
       .match-member.voted.centered data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}" 
         - if @match.contest.anime?
-          = render partial: 'ani_mangas_collection/entry_new', object: @match.left, locals: { alter: true }, formats: :html
+          = render partial: 'ani_mangas_collection/entry', object: @match.left, locals: { alter: true }, formats: :html
         - else
           = render partial: 'characters/entry', object: @match.left, formats: :html
 

@@ -12,7 +12,7 @@
       <%=render :partial => 'comments/comment', :collection => @messages, locals: { topic: nil }, formats: :html %>
       <%#=render partial: 'messages/message', collection: @messages, formats: :html %>
       <% if @add_postloader %>
-        <%=render :partial => 'site/postloader_new', locals: { filter: 'comment', url: @postloader_url }, formats: :html %>
+        <%=render :partial => 'site/postloader', locals: { filter: 'comment', url: @postloader_url }, formats: :html %>
       <% end %>
     </div>
   </div>

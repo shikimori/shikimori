@@ -6,20 +6,20 @@
   }
   .image-container {
     margin: 0 5px 10px 5px;
-    /*margin: 0 12px 15px 5px;*/
 
-    &:nth-child(4n) {
-      margin-right: 0;
-    }
+    /*&:nth-child(4n) {*/
+      /*margin-right: 0;*/
+    /*}*/
     img {
       margin: 0;
     }
   }
-  .placeholder {
-    border: 1px dashed #BBB;
+  .image-drag-placeholder {
+    border: 1px dashed #bbb;
     height: 93px;
     width: 168px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
+    display: inline-block;
   }
   .contributors {
     float: right;

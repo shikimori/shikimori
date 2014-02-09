@@ -1,4 +1,5 @@
 @import "globals";
+@import "mixins/hover_underlined";
 
 .translation_planned {
   .examples {
@@ -22,9 +23,11 @@
       margin-bottom: 5px;
     }
     a.TV, a.Movie, a.ONA {
+      @include hover_underlined;
       @include link-color(#333);
     }
     a.OVA {
+      @include hover_underlined;
       @include link-color(#666);
     }
     .translated {

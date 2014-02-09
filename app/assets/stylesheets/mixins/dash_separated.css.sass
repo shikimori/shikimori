@@ -1,0 +1,11 @@
+=dash_separated
+  &:after
+    content: '/'
+    color: $gray-color
+    padding: 0 7px
+    display: inline-block // чтбы по hover подчёркивание не появлялось у ссылок
+
+  &:last-child
+    &:after
+      display: none
+

@@ -10,32 +10,27 @@ header.head.misc
   h1
     = @page_title
   - if @klass == Anime
-    a.misc href="#{recommendations_manga_url}" по аниме
+    a.misc href="#{recommendations_manga_url}" по манге
   - else
-    a.misc href="#{recommendations_anime_url}" по манге
+    a.misc href="#{recommendations_anime_url}" по аниме
   - if user_signed_in?
     .header-filters.clearfix.pending-loaded
-      p
+      .filter-line
         span.title Метод:
         /a class="#{:current if @metric == 'pearson'}" href="#{recommendations_url metric: 'pearson', threshold: @threshold, user: params[:user]}" пирсон
         a class="#{:current if @metric == 'pearson_z'}" href="#{recommendations_url metric: 'pearson_z', threshold: @threshold, user: params[:user]}" пирсон_z
         /a class="#{:current if @metric == 'pearson_mean'}" href="#{recommendations_url metric: 'pearson_mean', threshold: @threshold, user: params[:user]}" пирсон_mean
         /a class="#{:current if @metric == 'euclid'}" href="#{recommendations_url metric: 'euclid', threshold: @threshold, user: params[:user]}" эвклид
         - if @klass == Anime
-          span.sep.inline #{'/'}
           a class="#{:current if @metric == 'svd'}" href="#{recommendations_url metric: 'svd', threshold: @threshold, user: params[:user]}" svd
           /a class="#{:current if @metric == 'svd_full'}" href="#{recommendations_url metric: 'svd_full', threshold: @threshold, user: params[:user]}" svd_full
-      p
+      .filter-line
         span.title Фильтрация:
         a class="#{:current if @threshold == 5}" href="#{recommendations_url metric: @metric, threshold: 5, user: params[:user]}" нет
-        span.sep.inline #{'/'}
         a class="#{:current if @threshold == 15}" href="#{recommendations_url metric: @metric, threshold: 15, user: params[:user]}" слабая
-        span.sep.inline #{'/'}
         a class="#{:current if @threshold == 45}" href="#{recommendations_url metric: @metric, threshold: 45, user: params[:user]}" средняя
         - if @klass == Anime
-          span.sep.inline #{'/'}
           a class="#{:current if @threshold == 90}" href="#{recommendations_url metric: @metric, threshold: 90, user: params[:user]}" сильная
-          span.sep.inline #{'/'}
           a class="#{:current if @threshold == 200}" href="#{recommendations_url metric: @metric, threshold: 200, user: params[:user]}" полная
   .notice
     p Данный раздел предназначен для автоматического подбора рекомендаций к #{@klass == Anime ? 'просмотру' : 'чтению'} на основе вашего списка #{@klass == Anime ? 'аниме' : 'манги'}. Исходя из поставленных вами оценок, находятся другие пользователи сайта, имеющие схожие предпочтения, и на основе их списков составляется каталог того, что возможно было бы вам интересно.
@@ -70,7 +65,7 @@ header.head.misc
             - if @rankings
               = render partial: 'ani_mangas_collection/entry', collection: @entries
               - if @next_page.present?
-                = render partial: 'site/postloader_new', locals: { url: nil, filter: nil }
+                = render partial: 'site/postloader', locals: { url: nil, filter: nil }
             - else
               p.pending Подбираем для вас рекомендации. Пожалуйста, подождите, процесс может занять некоторое время.
               .ajax-loading.vk-like.left title="Загрузка..."

@@ -22,7 +22,7 @@
           - else
             == entry.format
   - if @add_postloader
-    = render partial: 'site/postloader_new', locals: { filter: 'history-entry', url: list_history_url(@user, page: @page+1, format: :json, only_path: false) }, formats: :html
+    = render partial: 'site/postloader', locals: { filter: 'history-entry', url: list_history_url(@user, page: @page+1, format: :json, only_path: false) }, formats: :html
 - else
   - if @page == 1
     .subheadline История

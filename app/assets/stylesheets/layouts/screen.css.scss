@@ -223,99 +223,13 @@ h3 {
   /*}*/
 /*}*/
 
-.details {
-  text-align: right;
-  font-family: "Lucida Grande",Verdana,Helvetica,Arial,sans-serif;
-  font-size: 12px;
-}
-.rss {
-  /*background: url(/images/rss2.png) no-repeat;*/
-  /*display: inline;*/
-  /*[>cursor: pointer;<]*/
-  /*height: 15px;*/
-  /*width: 15px;*/
-
-  /*&:hover {*/
-    /*background: url(/images/rss2-hover.png) no-repeat;*/
-  /*}*/
-  /*a {*/
-    /*&:hover {*/
-      /*text-decoration: none!important;*/
-    /*}*/
-  /*}*/
-}
+/*.details {*/
+  /*text-align: right;*/
+  /*font-family: "Lucida Grande",Verdana,Helvetica,Arial,sans-serif;*/
+  /*font-size: 12px;*/
+/*}*/
 .normal {
   font-weight: normal;
-}
-.shadowed {
-  -moz-box-shadow: 1px 2px 8px #555555;
-  -webkit-box-shadow: 1px 2px 8px #555555;
-}
-.t10 {
-  margin-top: 10px;
-}
-.f24 {
-  font-size: 24px!important;
-  line-height: 1.0em!important;
-}
-.hf24 {
-  font-size: 24px!important;
-}
-.f22 {
-  font-size: 22px!important;
-  line-height: 1.0em!important;
-}
-.hf22 {
-  font-size: 22px!important;
-}
-.f21 {
-  font-size: 20px!important;
-  line-height: 1.0em!important;
-}
-.hf21 {
-  font-size: 20px!important;
-}
-.f20 {
-  font-size: 20px!important;
-  line-height: 1.0em!important;
-}
-.hf20 {
-  font-size: 20px!important;
-}
-.f19 {
-  font-size: 20px!important;
-  line-height: 1.0em!important;
-}
-.hf19 {
-  font-size: 20px!important;
-}
-.f18 {
-  font-size: 18px!important;
-  line-height: 1.0em!important;
-}
-.hf18 {
-  font-size: 18px!important;
-}
-.f17 {
-  font-size: 17px!important;
-  line-height: 1.1em!important;
-}
-.hf17 {
-  font-size: 17px!important;
-}
-.f16 {
-  font-size: 16px!important;
-  line-height: 1.2em!important;
-}
-.hf16 {
-  font-size: 16px!important;
-}
-.f13 {
-  font-size: 13px!important;
-  line-height: 1.0em!important;
-}
-.hf13 {
-  font-size: 13px!important;
 }
 .nowrap {
   white-space: nowrap;
@@ -535,6 +449,7 @@ span.notice {
     font-size: 100%;
     font-style: inherit;
     font-weight: inherit;
+    line-height: $line-height;
     margin: 0;
     outline: 0 none;
     padding: 0;

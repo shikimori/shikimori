@@ -5,20 +5,20 @@
 
 header.head.misc
   h1 = @page_title
+
   - if params[:similar]
     - if @klass == Anime
-      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по аниме
+      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по манге
     - else
-      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по манге
+      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по аниме
   - elsif user_signed_in?
     a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
+
   - if params[:similar]
     .header-filters.clearfix
-      p
+      .filter-line
         span.title Список #{@klass == Anime ? 'просмотренного' : 'прочитанного'}:
         - UsersController::Thresholds.each do |threshold|
-          - if threshold != UsersController::Thresholds.first
-            span.sep.inline #{'/'}
           a class="#{:current if @threshold == threshold}" href="#{users_url similar: 'similar', threshold: threshold}" #{threshold}+
   p.notice
     - if params[:similar]
@@ -52,4 +52,4 @@ header.head.misc
   - else
     = render partial: 'users/user', collection: @users, formats: :html
     - if @add_postloader
-      = render partial: 'site/postloader_new', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html
+      = render partial: 'site/postloader', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html
