@@ -142,31 +142,36 @@ $default-image-active-background: #adadad
 /* новое отображение спойлера
 =spoiler-new
   &.target
-    /*padding-left: 2.5px;
-    /*padding-right: 2.5px;
     display: inline
+
     &.dashed
       border-bottom: 1px dashed #FFB3B3
       cursor: pointer
+
   &.collapsed
+    +normal-link
     background: transparent !important
+    border: none
     display: inline
     padding: 0
-    text-decoration: underline
-    border: none
-    &:hover
-      color: $hover-color !important
+    text-decoration: none
+    border-bottom: 1px dashed #FFB3B3
+
+    &:hover, &:active
       background: transparent !important
-    &:active
-      background: transparent !important
-    +normal-link
+      text-decoration: none
+
   &.collapse
+    +normal-link
     font-size: 11px
     margin-top: 4.5px
     padding: 0 0 0 0
+    text-decoration: none
+    border-bottom: 1px dashed #FFB3B3
+
     &:hover, &:active
       background: transparent !important
-    +normal-link
+      text-decoration: none
 
 /* стандартное оформление дат
 =date
