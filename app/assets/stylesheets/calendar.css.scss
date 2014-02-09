@@ -3,6 +3,7 @@
 */
 
 @import "globals";
+@import "mixins/bracket_action";
 
 .ongoings {
   header {
@@ -21,7 +22,8 @@
 
     .collapse {
       margin-right: 10px;
-      margin-top: 9px;
+      margin-top: 10px;
+      @include bracket_action;
     }
     .headline {
       margin-bottom: 10px;
