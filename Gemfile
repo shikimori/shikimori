@@ -127,5 +127,5 @@ gem 'clockwork', github: 'tomykaira/clockwork', require: false
 gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 
 gem 'thin'
-gem 'faye'
+gem 'faye', '0.8.1'
 gem 'faye-redis'

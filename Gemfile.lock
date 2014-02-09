@@ -217,14 +217,13 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
-    faye (1.0.1)
+    faye (0.8.1)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
       eventmachine (>= 0.12.0)
-      faye-websocket (>= 0.7.0)
-      multi_json (>= 1.0.0)
+      faye-websocket (>= 0.4.0)
       rack (>= 1.0.0)
-      websocket-driver (>= 0.3.0)
+      yajl-ruby (>= 1.0.0)
     faye-redis (0.2.0)
       em-hiredis (>= 0.2.0)
       eventmachine (>= 0.12.0)
@@ -520,7 +519,7 @@ DEPENDENCIES
   enumerize
   exception_notification
   factory_girl_rails
-  faye
+  faye (= 0.8.1)
   faye-redis
   foreman!
   guard
