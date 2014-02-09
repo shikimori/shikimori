@@ -338,7 +338,6 @@ h1, h2,
     float: right;
 
     span, a {
-      @include default-font-family;
       color: #666;
       cursor: pointer;
       font-size: 11px;

@@ -268,7 +268,6 @@ $dark-grey-color: #545454;
 }
 
 .new-marker, .review-marker, .offtopic-marker, .abuse-marker, .spoiler-marker {
-  @include default-font-family;
   cursor: pointer;
   display: inline;
   float: right;

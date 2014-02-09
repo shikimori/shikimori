@@ -21,7 +21,6 @@ $menu-link-color: #e1e7f2;
     .menu {
       &>.entry {
         @include transition(backround-color, 0.3s);
-        @include default-font-family;
         color: $menu-link-color;
         cursor: pointer;
         float: left;

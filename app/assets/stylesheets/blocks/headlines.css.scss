@@ -41,7 +41,6 @@ header.head {
 
 .headline {
   @include transition(color, 0.2s);
-  @include default-font-family;
   background: darken(#ebeef1, 1%);
   border-left: 5px solid darken(#dbe0e6, 1%);
   color: #123;
