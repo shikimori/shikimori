@@ -57,7 +57,8 @@ class AnimeCalendar < ActiveRecord::Base
     "sekai seifuku ~ boryaku no zvezda" => 20973,
     'saikin' => 17777,
     'seitokai yakuindomo＊' => 20847,
-    'nobunaga za furu' => 21177
+    'nobunaga za furu' => 21177,
+    'robot girls z' => 19799
   }
 
   EpisodesDiff = {
