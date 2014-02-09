@@ -1,5 +1,3 @@
-p
-  - entry.publishers.each do |publisher|
-    span.value.anime-tag
-      = link_to "#{publisher.name}\n", mangas_path(publisher: publisher), title: "#{t "Name.#{entry.class.name}"} издателя #{publisher.name}"
-.clearfix
+- entry.publishers.each do |publisher|
+  a.b-tag href="#{mangas_path publisher: publisher}" title="#{t "Name.#{entry.class.name}"} издателя #{publisher.name}"
+    = "#{publisher.name}\n"

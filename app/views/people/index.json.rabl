@@ -7,7 +7,7 @@ node :content do
     layout: false,
     formats: :html
   }) + (@add_postloader ? render_to_string({
-    partial: 'site/postloader_new',
+    partial: 'site/postloader',
     locals: {
       url: send(@director.entry_search_url_builder, search: params[:search], page: @page+1, format: :json)
     },

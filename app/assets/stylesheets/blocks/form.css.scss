@@ -5,16 +5,11 @@ form {
     /*display: none;*/
   /*}*/
   .field-name {
-    @include text-font;
     border-bottom: none;
     font-weight: normal;
     margin-bottom: 0;
   }
-  .field-value {
-    @include text-font;
-  }
   .action-misc {
-    @include text-font;
     color: $gray-color;
     display: block;
     font-size: 11px;

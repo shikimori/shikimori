@@ -1,52 +1,15 @@
-article.entry-block
-  div.text-container
-    div class="name #{name_font(localized_name entry)}"
-      = ani_manga_link(entry) do
-        = localized_name entry
-    div class="description #{'narrow' if entry.description}"
-      p
-        == ani_manga_description(entry)
-    - if entry.score > 0 && entry.score < 9.9
-      div.rate
-        - if !json?
-          span.value.linkeable data-href="#{url_for(entry)}" data-title="#{localized_name entry}"
-            = '%.2f' % entry.score
-        - else
-          a.value href="#{url_for(entry)}" title="#{localized_name entry}"
-            = '%.2f' % entry.score
-        div.notice оценка
-  div.image-container
-    - if !json?
-      span.linkeable data-href="#{url_for entry}" data-title="#{localized_name entry}"
-        img width="160" height="240" src="#{entry.image.url :preview}" title="#{localized_name entry}"
-    - else
-      a href="#{url_for(entry)}" title="#{localized_name entry}"
-        img width="160" height="240" src="#{entry.image.url :preview}" title="#{localized_name entry}"
+article.entry-block(class="entry-#{entry.id}#{' shortened' if defined?(shortened) && shortened}#{' in-list' if entry[:in_list]}" itemscope itemtype="#{{entry.itemtype}}")
+  meta itemprop="image" content="#{{attachment_url entry.image, :original, false}}"
+  meta itemprop="thumbnailUrl" content="#{{attachment_url entry.image, :x64, false}}"
 
-    - unless entry.kind.blank?
-      div.type.tag-base data-type="type" data-value="#{entry.kind.gsub(/ +/, '-')}"
-         = localized_kind entry, true
-    div.tags-right-top
-      div.release-tags
-        - if entry.year
-          div.season.year.tag.tag-base data-type="season" data-value="#{entry.year}"
-            = entry.year
-        - if entry.ongoing?(true)
-          div.season.tag.tag-base.season-ongoing онгоинг
-        - elsif entry.anons?
-          div.season.tag.tag-base.season-planned анонс
-      - if entry.respond_to? :studios
-        - entry.real_studios.each do |studio|
-          div.studio.tag.tag-base data-type="studio" data-value="#{studio.to_param}"
-            = truncate_studio studio.name
-      - if entry.respond_to? :publishers
-        - entry.real_publishers.each do |publisher|
-          div.publisher.tag.tag-base data-type="publisher" data-value="#{publisher.to_param}"
-            = truncate_publisher publisher.name
-    div.tags-left-bottom
-      - entry.main_genres.each do |genre|
-        div.genre.tag.tag-base data-type="genre" data-value="#{genre.to_param}"
-          = genre.name
-  - if defined?(info)
-    p.info
-      = info
+  - if json? || user_signed_in? || (defined?(with_link) && with_link)
+    a.uninitialized-tooltip href="#{url_for entry}"
+      = render partial: 'ani_mangas_collection/entry_inner', locals: { entry: entry, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil, with_link: defined?(with_link) && with_link ? with_link : nil }, formats: :html
+    .entry-tooltip id="entry-#{entry.id}-tooltip"
+      = render partial: 'site/tooltip', locals: { template_name: 'ani_mangas_collection/entry_tooltip', objects: { entry: entry } }, formats: :html
+
+  - else
+    .uninitialized-tooltip.linkeable data-href="#{url_for entry}" data-title="#{entry.name}"
+      = render partial: 'ani_mangas_collection/entry_inner', locals: { entry: entry, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil, with_link: defined?(with_link) && with_link ? with_link : nil }, formats: :html
+    .entry-tooltip id="entry-#{entry.id}-tooltip"
+      = render partial: 'site/tooltip', locals: { template_name: 'ani_mangas_collection/entry_tooltip', objects: { entry: entry } }, formats: :html

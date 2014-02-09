@@ -10,7 +10,6 @@ $grid-color: $gray-color-0;
 }
 .contest-grid {
   .group-title {
-    @include text-font;
     font-size: 14px;
     font-weight: bold;
     color: #333;
@@ -32,7 +31,6 @@ $grid-color: $gray-color-0;
         border-left: none;
       }
       a, p {
-        @include text-font;
         @include ellipsis;
         font-size: 11px;
         line-height: 13px;
@@ -97,7 +95,6 @@ $grid-color: $gray-color-0;
         padding: 2px;
       }
       .matches-num {
-        @include text-font;
         cursor: default;
         font-size: 11px;
         line-height: inherit;

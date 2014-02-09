@@ -2,18 +2,18 @@
 @import mixins/input
 
 .b-input
-  +text-font
   margin-bottom: 10px
 
   input
     +input
 
   input[type=checkbox]
-    width: auto !important
     margin-right: 6px
+    width: auto !important
 
   label
     display: block
+    line-height: $line-height
 
   abbr
     display: none
@@ -21,3 +21,9 @@
   .error
     display: block
     color: red
+
+  .hint
+    color: #9da2a8
+    display: block
+    font-size: 11px
+    line-height: $line-height

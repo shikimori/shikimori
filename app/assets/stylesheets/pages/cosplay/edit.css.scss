@@ -18,13 +18,13 @@
 
       a {
         @include normal-link;
-        @include text-font;
+        line-height: $line-height;
         display: block;
         float: left;
         width: 31.5%;
       }
       .date {
-        @include default-date-decor;
+        @include date;
         display: block;
         float: left;
         font-size: 12px;
@@ -54,7 +54,6 @@
       position: relative;
     }
     .field-name {
-      @include text-font;
       border-bottom: none;
       font-weight: normal;
       margin-bottom: 0;
@@ -130,7 +129,6 @@
       .entry {
         @include clearfix;
         color: #333;
-        @include text-font;
         font-size: 12px;
 
         .title {
@@ -173,7 +171,6 @@
     .links {
 
       .notice {
-        @include text-font;
         color: $gray-color;
         display: block;
         font-size: 11px;

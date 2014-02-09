@@ -36,8 +36,6 @@
       margin-top: 4px;
     }
     .link-value {
-      @include text-font;
-
       background-color: #FCFCFC;
       border-color: #DDD;
       color: #333;
@@ -88,7 +86,6 @@
       padding-right: 16px;
 
       textarea {
-        @include text-font;
         background: #FCFCFC;
         border: 1px solid #DDD;
         color: #333333;

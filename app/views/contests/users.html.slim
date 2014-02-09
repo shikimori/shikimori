@@ -15,7 +15,7 @@ header.head.misc
     .votes
       .menu-block
         .left-votes
-          .options-floated.count
+          .b-options-floated.count
             = @contest.left_voters.size
           .subheadline.m10
             = localized_name @contest.displayed_match.left
@@ -28,7 +28,7 @@ header.head.misc
             p Нет проголосовавших.
 
         .right-votes
-          .options-floated.count
+          .b-options-floated.count
             = @contest.right_voters.size
           .subheadline.m10
             = localized_name @contest.displayed_match.right
@@ -42,7 +42,7 @@ header.head.misc
 
       - if @contest.refrained_voters.any?
         .refrained-votes
-          .options-floated.count
+          .b-options-floated.count
             = @contest.refrained_voters.size
           .subheadline.m10 Воздержались
           .voters

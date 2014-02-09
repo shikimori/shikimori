@@ -8,7 +8,6 @@
 .tipsy-inner {
   @include border-radius(4px);
   @include box-shadow(rgba(80, 80, 80, 0.6), 1px, 1px, 1px);
-  @include text-font;
   /*@include text-shadow(rgba(100, 100, 100, 0.5), 1px, 1px, 1px);*/
   background-color: white;
   border: 1px solid #F5F5F5;

@@ -190,6 +190,6 @@ private
   def user_change_params
     params
       .require(:change)
-      .permit(:model, :column, :item_id, :value, :source)
+      .permit(:model, :column, :item_id, :value, :source, :action)
   end
 end

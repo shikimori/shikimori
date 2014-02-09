@@ -1,7 +1,6 @@
 @import "globals";
 
 .user16 {
-  @include text-font;
   @include link-color(#333);
   float: left;
   margin-right: 10px;
@@ -10,6 +9,6 @@
   img {
     display: block;
     float: left;
-    margin: 2px 5px 0 0;
+    margin: 0 5px 0 0;
   }
 }

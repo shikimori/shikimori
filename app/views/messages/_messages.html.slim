@@ -1,5 +1,5 @@
 = auto_discovery_link_tag :rss, rss_notifications_url(@user.to_param, MessagesController.rss_key(@user)), title: 'RSS'
-.options-floated
+.b-options-floated
   a href="#{messages_url :inbox}" class="#{:selected if params[:type] == 'inbox'}"
     span Переписка
     - if current_user.unread_messages > 0
@@ -33,4 +33,4 @@
         p.no-messages Ничего нет.
       = render partial: 'messages/message', collection: @messages, formats: :html
       - if @add_postloader
-        = render partial: 'site/postloader_new', locals: { filter: 'comment', url: @postloader_url }, formats: :html
+        = render partial: 'site/postloader', locals: { filter: 'comment', url: @postloader_url }, formats: :html

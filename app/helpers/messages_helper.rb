@@ -1,5 +1,5 @@
 # TODO: refactor to MessageDecorator, не забыть MessageSerializer.body
-module MessagesHelper
+module MessagesHelper # для truncate в messages helper
   def should_show_more? message
     [Entry.name].include?(message.linked_type) &&
       ![MessageType::QuotedByUser, MessageType::SubscriptionCommented].include?(message.kind) &&
@@ -98,7 +98,7 @@ module MessagesHelper
         target = Entry.find_by_id linked_id
         if target
           url = topic_url(target)
-          'в топике <!--%s-->' % [target.title]
+          'в топике <!--%s-->' % [truncate(target.title, length: 30, omission: '…')]
         else
           'в <em>удалённом</em> топике'
         end

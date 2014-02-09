@@ -20,7 +20,6 @@
 .menu {
   .unread-count, .contest {
     @include border-radius(1px);
-    @include text-font;
     @include transition(backround-color, 0.3s);
     background: #5a5a5a;
     color: #f9f9f9;

@@ -7,7 +7,6 @@
     cursor: pointer;
   }
   .field-name {
-    @include text-font;
     border-bottom: none;
     font-weight: normal;
     margin-bottom: 0;
@@ -36,7 +35,6 @@
   }
   .change-password {
     @include normal-link;
-    @include text-font;
     display: inline-block;
     margin-bottom: 15px;
     margin-top: 10px;
@@ -49,7 +47,7 @@
     /*margin-bottom: 15px;*/
 
     /*input {*/
-      /*[>@include default-text-field;<]*/
+      /*[>@include text-field;<]*/
       /*width: 470px;*/
     /*}*/
     /*&.checkboxes input {*/
@@ -237,7 +235,6 @@
 
     a, .link {
       @include normal-link;
-      @include text-font;
     }
     .form {
       display: none;

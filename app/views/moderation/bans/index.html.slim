@@ -47,10 +47,10 @@ header.head
 
 
             - if user_signed_in? && current_user.moderator?
-              .options-floated.r10
+              .b-options-floated
                 a href="#{moderation_abuse_requests_url}" оффтопик + отзывы
             h2.subheadline История
             .bans
               = render partial: 'ban', collection: @bans, formats: :html
               - if @add_postloader
-                = render partial: 'site/postloader_new', locals: { url: page_moderation_bans_url(page: @page+1, format: :json) }, formats: :html
+                = render partial: 'site/postloader', locals: { url: page_moderation_bans_url(page: @page+1, format: :json) }, formats: :html

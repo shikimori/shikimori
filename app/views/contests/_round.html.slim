@@ -4,7 +4,7 @@
       /.description
         /= contest.description
 
-  .options-floated
+  .b-options-floated
     - contest.nearby_rounds.each do |round|
       span.linkeable data-href="#{round_contest_url contest, round: round}" title="#{round.title}"
         = round.title
@@ -25,7 +25,7 @@
       = render 'contests/rating', contest: contest, round: contest.displayed_round
 
     .column
-      .options-floated
+      .b-options-floated
           span.selected = contest.displayed_round.title
       .subheadline В этом раунде
       .subcontent
@@ -38,7 +38,7 @@
           = render 'contests/rating', contest: contest, round: contest.prior_round
 
         .column
-          .options-floated
+          .b-options-floated
             span.linkeable data-href="#{round_contest_url contest, round: contest.prior_round}" title="#{contest.prior_round.title}"
               = contest.prior_round.title
           .subheadline В прошлом раунде

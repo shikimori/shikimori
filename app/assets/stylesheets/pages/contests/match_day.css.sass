@@ -1,7 +1,6 @@
 @import globals
 
 .contest .match-day
-  +text-font
   overflow: hidden
   margin-left: 5px
   margin-top: 10px
@@ -25,7 +24,8 @@
     margin-bottom: 0
 
   .match-link
-    +default-selectable-decor
+    +selectable-decor
+    line-height: $line-height
     cursor: pointer
     display: block
 

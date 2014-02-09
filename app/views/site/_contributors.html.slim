@@ -1,6 +1,6 @@
 - if authors.any?
   .contributors
-    p.key
+    .key
       - if entry.source.blank? && field.to_sym != :video && field.to_sym != :screenshots
         = authors.size > 1 ? 'Авторы:' : 'Автор:'
       - else

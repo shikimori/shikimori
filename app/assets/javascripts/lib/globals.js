@@ -105,7 +105,7 @@ $('a[rel=history]').live('click', function(e) {
 
 // ссылка "все"
 //$('.related-all a,.related-all span.link, .subheadline a').live('click', function() {
-$('.options-floated a, .subheadline a').live('click', function() {
+$('.b-options-floated a, .subheadline a').live('click', function() {
   var $target = $(".slider-control a[href='"+(this.href || this.getAttribute('data-href'))+"']")
                   .add(".slider-control span.link[data-href='"+(this.href || this.getAttribute('data-href'))+"']");
   if (!$target.length) {

@@ -152,7 +152,7 @@
 /*************************************************/
 /* slider */
 .main-title {
-  @include default-header-font;
+  @include header-font;
   /*font: bold 16px/90% "Century Schoolbook",Georgia,Times,serif;*/
   margin-left: 5px;
   margin-right: 5px;
@@ -310,8 +310,5 @@
     /*&:first-child {*/
       /*text-indent: 0px;*/
     /*}*/
-  /*}*/
-  /*li {*/
-    /*@include text-font;*/
   /*}*/
 /*}*/

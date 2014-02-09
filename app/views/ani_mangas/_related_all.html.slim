@@ -1,6 +1,6 @@
 - if @entry.related.any?
   .related-anime
-    .options-floated
+    .b-options-floated
       span.link.selected Напрямую
       span.link.linkeable data-href="#{@entry.page_url :chronology}" Вся хронология
     .subheadline
@@ -27,4 +27,8 @@
         = render partial: 'ani_mangas/related', object: relation.anime || relation.manga, locals: { info: t("Relation.%s" % relation.relation) }, formats: :html
 
 - if @entry.related.similar.any?
-  = render partial: 'ani_mangas/similar', locals: { similar: @entry.related.similar.take(3), tag_name: :div }, formats: :html
+  .subheadline
+    span.linkeable data-href="#{@entry.page_url :similar}"
+      = @entry.anime? ? 'Похожие аниме' : 'Похожая манга'
+  .related-anime
+    = render partial: 'ani_mangas/related', collection: @entry.related.similar.take(3), formats: :html

@@ -18,7 +18,6 @@
     clear: left;
   }
   .linked-selected, .linked-selected-right {
-    @include text-font;
     float: left;
     margin-left: 15px;
 

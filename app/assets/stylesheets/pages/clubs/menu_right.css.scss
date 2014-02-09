@@ -28,7 +28,7 @@
   .block-list {
     li {
       .send-invite {
-        @include default-text-field;
+        @include text-field;
         background: transparent;
         border: none;
         line-height: 18px;

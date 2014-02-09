@@ -1,4 +1,3 @@
-/div class="comment-block message-block appear-block type-#{message.kind } comment-#{message.id }#{' comment-new new-pending' if message.new?(params) }"
 .comment-block.message-block.appear-block class="type-#{message.kind} comment-#{message.id}#{' comment-new' if message.new?(params) }"
   - if message.new?(params)
     p.new-marker новое

@@ -17,7 +17,7 @@ $('.slide > .item-editor').live('ajax:success cache:success', function(e) {
       dragSelectorExclude: '.image-delete, .image-delete-confirm, .image-delete-cancel',
       dragEnd: function() { },
       dragBetween: false,
-      placeHolderTemplate: '<div class="image-container"><div class="placeholder"></div></div>'
+      placeHolderTemplate: '<div class="image-container"><div class="image-drag-placeholder"></div></div>'
     });
   }
   var $screenshots_uploader = $('.screenshots-uploader', this);

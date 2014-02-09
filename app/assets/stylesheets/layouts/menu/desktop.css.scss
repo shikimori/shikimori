@@ -1,6 +1,7 @@
 @import "globals/responsive";
 @import "globals";
 
+$menu-link-color: #e1e7f2;
 @include responsive(desktop) {
   .main-menu {
     height: $menu-height;
@@ -20,8 +21,7 @@
     .menu {
       &>.entry {
         @include transition(backround-color, 0.3s);
-        @include default-font-family;
-        color: #E1E7F2;
+        color: $menu-link-color;
         cursor: pointer;
         float: left;
         font-size: 12px;
@@ -37,7 +37,7 @@
           @include icon('\e839');
           padding-left: 8px;
           padding-right: 8px;
-          margin-left: 0!important;
+          margin-left: 0 !important;
 
           &:before {
             font-size: 18px;
@@ -45,20 +45,25 @@
         }
         &>a {
           color: inherit;
+
+          &:active {
+            color: inherit;
+          }
         }
         &.selected, &:hover {
-          background-color: lighten(#4A4A4A, 4%);
+          background-color: lighten(#4a4a4a, 4%);
           color: white;
           text-decoration: none;
         }
         &:active {
           background-color: #4A4A4A;
+          color: $menu-link-color !important;
         }
       }
     }
     .submenu {
       @include transition(height, 0.3s);
-      background: #3F3F3F;
+      background: #3f3f3f;
       border: 2px solid #363636;
       border-top: none;
       display: none;
@@ -97,6 +102,7 @@
         }
         &:active {
           background: #333;
+          color: $menu-link-color !important;
         }
         &:last-child {
           border-bottom: none;

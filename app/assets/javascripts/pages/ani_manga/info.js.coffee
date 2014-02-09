@@ -69,8 +69,8 @@ $(".additional-links .link-reviews").live "click", (e) ->
 
 $(".additional-links .link-comments").live "click", (e) ->
   $.scrollTo ".entry-comments"
-  $(".options-floated .link-comments").trigger "click"
+  $(".b-options-floated .link-comments").trigger "click"
 
 $(".additional-links .link-comment-reviews").live "click", (e) ->
   $.scrollTo ".entry-comments"
-  $(".options-floated .link-comment-reviews").trigger "click"
+  $(".b-options-floated .link-comment-reviews").trigger "click"

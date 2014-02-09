@@ -2,7 +2,6 @@
 
 .contests {
   .contest {
-    @include text-font;
     margin: 0;
   }
   a, span {
@@ -12,7 +11,7 @@
     @include normal-link;
   }
   .date {
-    @include default-date-decor;
+    @include date;
     display: inline;
     padding-left: 7px;
   }

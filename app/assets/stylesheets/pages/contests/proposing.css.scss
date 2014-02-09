@@ -11,7 +11,7 @@
     overflow: hidden;
   }
   .suggestion {
-    @include text-font;
+    line-height: $line-height;
 
     .show, .hide {
       cursor: pointer;

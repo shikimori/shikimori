@@ -5,12 +5,11 @@
     margin-bottom: 10px;
   }
   .errors {
-    @include text-font;
     color: red;
   }
 
   .input {
-    @include default-text-field;
+    @include text-field;
     width: 242px;
 
     &.suggest {
@@ -34,10 +33,10 @@
 
     li {
       float: left;
+      line-height: $line-height;
       width: 33.3%;
 
       a {
-        @include text-font;
         @include normal-link;
         @include ellipsis;
         float: left;
@@ -54,15 +53,19 @@
     }
   }
   .user-vote-key {
-    @include text-font;
     .field_with_errors {
       display: inline-block;
     }
   }
-  .action {
-    @include text-font;
-    @include normal-link;
-    display: block;
+  .actions {
+    .action {
+      @include normal-link;
+      line-height: $line-height;
+      display: block;
+    }
+    span {
+      line-height: $line-height;
+    }
   }
 
   .subcontent:last-child {
@@ -70,7 +73,6 @@
   }
   .grid a {
     @include normal-link;
-    @include text-font;
   }
   .suggestions {
     margin-top: 30px;

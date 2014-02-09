@@ -1,10 +1,7 @@
-p
-  - entry.genres.uniq(&:name).each do |genre|
-    span.value.anime-tag
-      - if user_signed_in?
-        a href="#{send "#{entry.class.name.downcase.pluralize}_url", genre: genre}" title="#{t "Name.#{entry.class.name}"} жанра #{localized_name genre}" itemprop="genre"
-          = "#{localized_name genre}\n"
-      - else
-        span
-          = "#{localized_name genre}\n"
-.clearfix
+- entry.genres.uniq(&:name).each do |genre|
+  - if user_signed_in?
+    a.b-tag href="#{send "#{entry.class.name.downcase.pluralize}_url", genre: genre}" title="#{t "Name.#{entry.class.name}"} жанра #{localized_name genre}" itemprop="genre"
+      = "#{localized_name genre}\n"
+  - else
+    span.b-tag
+      = "#{localized_name genre}\n"

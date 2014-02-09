@@ -1,0 +1,5 @@
+.subheadline
+  = @entry.anime? ? 'Похожие аниме' : 'Похожая манга'
+
+.related-anime
+  = render partial: 'ani_mangas/related', collection: @entry.related.similar, formats: :html

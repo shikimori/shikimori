@@ -1,8 +1,6 @@
 @import "globals";
 
 .local-menu-block {
-  /*margin-bottom: 20px;*/
-
   .entry-image {
     img {
       margin-bottom: 0;
@@ -10,10 +8,16 @@
       width: 100%;
     }
     a {
-      @include text-font;
       @include normal-link;
       display: block;
       text-align: right;
+      margin-top: 5px;
+    }
+  }
+  .entry-info {
+    margin-left: 4px;
+    p:last-child {
+      display: none;
     }
   }
 
@@ -28,10 +32,10 @@
   .block-body {
     margin-bottom: 15px;
 
-    p.key, p .key {
-      color: #555;
+    .key {
+      color: $gray-color
     }
-    p.value, p .value {
+    .value {
       color: #333;
     }
     .studio-logo {

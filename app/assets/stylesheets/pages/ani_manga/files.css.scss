@@ -3,14 +3,27 @@
 .files {
   position: relative;
 
-  .options-floated {
+  .collapsed {
+    margin-bottom: 0;
+  }
+
+  .b-options-floated {
     right: 27px;
     &.right-zero {
       right: 10px;
     }
   }
+  .search {
+    @include clearfix;
+    margin-bottom: 30px;
+
+    /*&>div {*/
+      /*margin-bottom: 30px;*/
+    /*}*/
+  }
   .subtitles {
-    margin-top: 40px;
+    @include clearfix;
+    margin-bottom: 30px;
   }
   .search {
     margin-bottom: 30px;
@@ -26,9 +39,9 @@
       width: 355px;
 
       a {
-        @include text-font;
         @include normal-link;
         display: block;
+        line-height: $line-height;
       }
       .content {
         margin-left: 5px;
@@ -44,11 +57,9 @@
     a {
       @include ellipsis;
       @include normal-link;
-      /*@include default-link-hover;*/
     }
     th {
       font-size: 13px;
-      line-height: 16px;
 
       &.num {
         text-align: left;
@@ -58,11 +69,6 @@
     td {
       &:first-child {
         padding-left: 5px;
-      }
-      &.name a {
-        /*-moz-binding: url('/bindings.xml#ellipsis');*/
-        /*display: block;*/
-        /*width: 580px;*/
       }
       &.name.other-torrents a {
         width: 490px;

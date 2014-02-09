@@ -21,7 +21,7 @@
     margin-bottom: 2px;
   }
   .input {
-    @include default-text-field;
+    @include text-field;
   }
   .block-list {
     .date {

@@ -2,7 +2,7 @@
   .comparer
     - @entries.each do |type,title,collection|
       - next if collection.empty?
-      .options-floated.collapse id="collapse-comparer-#{type}"
+      .b-options-floated.collapse id="collapse-comparer-#{type}"
         span.action свернуть <span class="sep zero">(</span>#{collection.size}<span class="sep zero inline">)</span>
       .subheadline
         = title

@@ -14,21 +14,20 @@
     margin-top: 0;
   }
   &:hover a.url {
-    color: $default-hover-color;
+    color: $hover-color;
     &:after {
-      color: $default-hover-color;
+      color: $hover-color;
     }
   }
   &:active a.url {
-    color: $default-active-color;
+    color: $active-color;
     &:after {
-      color: $default-active-color;
+      color: $active-color;
     }
   }
 
   a.url {
     @include link-color(#333);
-    @include text-font;
     display: block;
     font-size: 14px;
     font-weight: bold;
@@ -42,15 +41,15 @@
       line-height: 24px;
     }
     &:hover {
-      color: $default-hover-color;
+      color: $hover-color;
       &:after {
-        color: $default-hover-color;
+        color: $hover-color;
       }
     }
     &:active {
-      color: $default-active-color;
+      color: $active-color;
       &:after {
-        color: $default-active-color;
+        color: $active-color;
       }
     }
 
@@ -69,7 +68,6 @@
   padding-top: 45px;
 
   .show-more {
-    @include text-font;
     @include link-color(#333);
     cursor: pointer;
     margin-left: 5px;

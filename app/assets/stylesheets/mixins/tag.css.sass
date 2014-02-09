@@ -1,0 +1,22 @@
+@import globals/variables
+@import compass/css3/transition
+
+=tag
+  +transition-duration(0s)
+  border-bottom: 1px dashed $hover-color-0
+  color: #333
+  cursor: pointer
+  display: inline-block
+  line-height: 16px
+  margin: 0 4px 3px
+
+  &:hover
+    margin: 0 2px 4px
+    padding: 0 2px
+    color: #fff
+    border: none
+    background-color: $hover-color-0
+
+  &:active
+    background-color: $hover-color
+

@@ -11,7 +11,7 @@
     = f.input :comments_in_profile
     = f.input :statistics_start_on, label: 'Отображать активность с даты', start_year: @user.created_at.year, end_year: Date.today.year, default: @user.created_at
 
-  .options-floated.about-options
+  .b-options-floated.about-options
     = f.input :about_on_top
 
   .subheadline.m2 О себе

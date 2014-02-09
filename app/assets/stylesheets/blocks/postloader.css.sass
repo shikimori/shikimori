@@ -1,0 +1,20 @@
+@import globals
+@import mixins/hover_underlined
+
+.postloader
+  @include gray-block
+  display: block
+  position: relative
+  text-align: center
+
+  .next, .prev
+    position: absolute
+    +hover_underlined
+    font-size: 11px
+    line-height: 23px
+
+  .next
+    right: 10px
+
+  .prev
+    left: 10px

@@ -2,6 +2,7 @@
 
 .menu-block {
   margin-bottom: 30px;
+  line-height: $line-height;
   &.editions {
     display: none;
   }
@@ -61,7 +62,6 @@
   }
   .title {
     @include ellipsis;
-    @include text-font;
     display: block;
     font-weight: bold;
     font-size: 14px;

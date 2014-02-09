@@ -2,13 +2,13 @@
 @import mixins/bracket_action
 
 =log_entry
-  +text-font
+  line-height: $line-height
 
   span
     padding-right: 5px
 
   .date
-    +default-date-decor
+    +date
     padding-right: 8px
 
   a,.link
@@ -30,12 +30,6 @@
 
   .spoiler
     +spoiler-new
-
-    //&.collapse
-      //display: inline
-      //text-decoration: underline
-      //font-size: 12px
-      //float: right
 
     &.collapsed
       +bracket_action
@@ -63,7 +57,7 @@
     del
       color: red
     ins
-      color: $default-selected-color
+      color: $selected-color
 
   .moderation
     float: right

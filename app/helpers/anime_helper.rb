@@ -58,23 +58,6 @@ module AnimeHelper
     name.sub(/^(studio|production) /i, '').split(" ")[0]
   end
 
-  def name_font(name, offset=0)
-    if name.size >= 30
-      "f16"
-    elsif name.size >= 14
-      "f17"
-    else
-      "f18"
-    end
-    #if name.size >= 30
-      #"f%d" % [18-offset]
-    #elsif name.size >= 14
-      #"f%d" % [20-offset]
-    #else
-      #"f%d" % [24-offset]
-    #end
-  end
-
   def history_link_to(klass, id, title, type)
     link_to title, {:controller => klass.name.tableize, :action => :index, :genre => nil, :type => nil, :studio => nil, :season => nil, :order => nil, :page => nil}.merge(type => id), :rel => 'nofollow'
   end
@@ -160,7 +143,7 @@ module AnimeHelper
       else
         BbCodeFormatter.instance.format_comment person.description.blank? ? person.description_mal : person.description
       end
-      text += truncate_html description, :length => 750, :separator => ' ', word_boundary: /\S[\.\?\!]/
+      text += truncate_html description, :length => 350, :separator => ' ', word_boundary: /\S[\.\?\!]/
     end
     text += "</div>"
     #text += "<div class=\"tooltip-restrictions\">This video is available for Anime Members only.</div>"

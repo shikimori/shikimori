@@ -4,61 +4,7 @@
 
 $page-offset: 40px;
 
-/*************************************************/
-/* main */
-::selection {
-  background: #FFCC89;
-  color: #555;
-}
-header, nav, article, section, aside {
-  display: block;
-}
-p {
-  @include text-font;
-}
-.df {
-  @include text-font;
-}
-em {
-  font-style: italic;
-}
-a {
-  color: $default-link-color;
-  text-decoration: none;
-  -moz-outline-style: none;
-  outline: none;
-}
-.default-link {
-  @include link-color($default-selected-color);
-}
-li {
-  list-style: none outside none;
-}
-img {
-  border: none;
-}
-strong, b {
-  font-weight: bold;
-}
-input, select, button {
-  outline: none;
-  border: 1px solid #999999;
-  font-family: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif
-}
-
-input[type=radio] {
-  border: none;
-}
-p.flash-notice, p.flash-alert {
-  display: none;
-}
-fieldset {
-  margin: 0;
-  border: none;
-}
-strike {
-  color: #555;
-}
+// TODO: выпилить этот файл и всё его содержимое
 /*************************************************/
 /* common page */
 
@@ -73,7 +19,7 @@ strike {
 /*}*/
 /*h2,*/
 .h2 {
-  @include default-header-font;
+  @include header-font;
   border-bottom: 1px solid #DDDDDD;
   color: #333333;
   margin-bottom: 15px;
@@ -84,7 +30,7 @@ h2.no-border {
   margin-bottom: 5px;
 }
 h3 {
-  @include default-subheader-font;
+  @include subheader-font;
   color: #333333;
   white-space: nowrap;
   border-bottom: 1px solid #DDDDDD;
@@ -92,7 +38,7 @@ h3 {
 }
 
 .block-title {
-  @include default-header-font;
+  @include header-font;
   border-bottom: 1px solid #BBBBBB;
   color: #333333;
   line-height: 17px;
@@ -103,12 +49,11 @@ h3 {
   }
 }
 .prgrph {
-  @include text-font;
-  margin-bottom: 5px!important;
+  margin-bottom: 5px !important;
   /*text-indent: 5px;*/
-  a {
-    @include normal-link;
-  }
+  /*a {*/
+    /*@include normal-link;*/
+  /*}*/
 }
 .right-text {
   text-align: right;
@@ -119,7 +64,7 @@ h3 {
   }
 }
 .subblock-title {
-  @include default-subheader-font;
+  @include subheader-font;
   border-bottom: 1px solid #DDDDDD;
   color: #333333;
   /*padding-bottom: 3px;*/
@@ -160,7 +105,7 @@ h3 {
 
 .block-list {
   li {
-    @include default-selectable-decor;
+    @include selectable-decor;
     @include ellipsis;
     background-color: transparent;
     color: #555555;
@@ -224,11 +169,6 @@ h3 {
     display: inline!important;
   }
 }
-/*************************************************/
-/* anime-tag */
-.anime-tag a, .anime-tag span {
-  @include default-tag;
-}
 
 /*************************************************/
 /* head */
@@ -282,99 +222,13 @@ h3 {
   /*}*/
 /*}*/
 
-.details {
-  text-align: right;
-  font-family: "Lucida Grande",Verdana,Helvetica,Arial,sans-serif;
-  font-size: 12px;
-}
-.rss {
-  /*background: url(/images/rss2.png) no-repeat;*/
-  /*display: inline;*/
-  /*[>cursor: pointer;<]*/
-  /*height: 15px;*/
-  /*width: 15px;*/
-
-  /*&:hover {*/
-    /*background: url(/images/rss2-hover.png) no-repeat;*/
-  /*}*/
-  /*a {*/
-    /*&:hover {*/
-      /*text-decoration: none!important;*/
-    /*}*/
-  /*}*/
-}
+/*.details {*/
+  /*text-align: right;*/
+  /*font-family: "Lucida Grande",Verdana,Helvetica,Arial,sans-serif;*/
+  /*font-size: 12px;*/
+/*}*/
 .normal {
   font-weight: normal;
-}
-.shadowed {
-  -moz-box-shadow: 1px 2px 8px #555555;
-  -webkit-box-shadow: 1px 2px 8px #555555;
-}
-.t10 {
-  margin-top: 10px;
-}
-.f24 {
-  font-size: 24px!important;
-  line-height: 1.0em!important;
-}
-.hf24 {
-  font-size: 24px!important;
-}
-.f22 {
-  font-size: 22px!important;
-  line-height: 1.0em!important;
-}
-.hf22 {
-  font-size: 22px!important;
-}
-.f21 {
-  font-size: 20px!important;
-  line-height: 1.0em!important;
-}
-.hf21 {
-  font-size: 20px!important;
-}
-.f20 {
-  font-size: 20px!important;
-  line-height: 1.0em!important;
-}
-.hf20 {
-  font-size: 20px!important;
-}
-.f19 {
-  font-size: 20px!important;
-  line-height: 1.0em!important;
-}
-.hf19 {
-  font-size: 20px!important;
-}
-.f18 {
-  font-size: 18px!important;
-  line-height: 1.0em!important;
-}
-.hf18 {
-  font-size: 18px!important;
-}
-.f17 {
-  font-size: 17px!important;
-  line-height: 1.1em!important;
-}
-.hf17 {
-  font-size: 17px!important;
-}
-.f16 {
-  font-size: 16px!important;
-  line-height: 1.2em!important;
-}
-.hf16 {
-  font-size: 16px!important;
-}
-.f13 {
-  font-size: 13px!important;
-  line-height: 1.0em!important;
-}
-.hf13 {
-  font-size: 13px!important;
 }
 .nowrap {
   white-space: nowrap;
@@ -412,7 +266,6 @@ img.right {
   display: none!important;
 }
 .grey-hint {
-  @include text-font;
   color: #666;
   font-style: italic;
 }
@@ -428,7 +281,7 @@ img.right {
   text-decoration: none;
 
   a {
-    @include default-link-hover;
+    @include link-hover;
 
     display: block;
     /*margin-top: 3px;*/
@@ -485,7 +338,6 @@ h1, h2,
     float: right;
 
     span, a {
-      @include default-font-family;
       color: #666;
       cursor: pointer;
       font-size: 11px;
@@ -554,7 +406,7 @@ div.title {
     /*font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,Helvetica,sans-serif;*/
   /*}*/
   .input {
-    @include default-text-field;
+    @include text-field;
     width: 99%;
   }
   textarea {
@@ -570,7 +422,6 @@ span.notice {
 /*************************************************/
 /* table */
 .default-table {
-  @include text-font;
   border-collapse: collapse;
   margin: 0 0 20px 10px;
   width: 96%;
@@ -594,6 +445,7 @@ span.notice {
     font-size: 100%;
     font-style: inherit;
     font-weight: inherit;
+    line-height: $line-height;
     margin: 0;
     outline: 0 none;
     padding: 0;
@@ -631,7 +483,6 @@ input.common {
   @include input;
 }
 .form-cancel {
-  @include text-font;
   @include normal-link;
   display: inline-block;
   margin-left: 10px;

@@ -18,7 +18,6 @@
     padding-top: 10px;
   }
   .last-block {
-    @include text-font;
     @include clearfix;
     clear: right;
 
@@ -32,7 +31,7 @@
       padding-left: 10px;
 
       &.selected {
-        color: $default-selected-color;
+        color: $selected-color;
         text-decoration: underline;
       }
       &:last-child {
@@ -70,7 +69,6 @@
     /*margin-bottom: 5px;*/
   /*}*/
   /*.last-block {*/
-    /*@include text-font;*/
 
     /*p {*/
       /*font-size: 11px;*/
@@ -82,7 +80,7 @@
       /*padding-left: 10px;*/
 
       /*&.selected {*/
-        /*color: $default-selected-color;*/
+        /*color: $selected-color;*/
         /*text-decoration: underline;*/
       /*}*/
       /*&:last-child {*/
@@ -172,11 +170,6 @@
     }
   }
   .about {
-    ul {
-      li {
-        @include text-font;
-      }
-    }
     p {
       /*display: none;*/
       margin-bottom: 5px;

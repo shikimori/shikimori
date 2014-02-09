@@ -9,18 +9,19 @@
       clear: left
 
     .additional-links
-      p
+      .key
         float: left
         margin-left: 5px
+        color: $gray-color
 
       .sep
         float: left
         padding: 0
         margin: 0
 
+
       .link-reviews, .link-comments, .link-comment-reviews
         +normal-link
-        +text-font
         float: left
         margin-left: 5px
 
@@ -31,8 +32,9 @@
         margin: 5px 0 5px 15px
 
       .watch-online
-        +text-font
-        margin: 5px 0 5px 15px
+        font-size: 13px
+        line-height: $line-height
+        margin: 6px 0 5px 15px
         text-align: center
         width: 202px
 
@@ -54,11 +56,12 @@
       height: 12px
       line-height: 15px
       margin-top: 4px
-      padding: 0 17px 0 12px
+      padding: 0 17px 0 13px
       position: absolute
       text-align: center
       span
         margin-top: -4px
+        margin-left: -3px
         position: absolute
       img
         margin: 0 -10px 2px -2px
@@ -67,15 +70,10 @@
       margin-bottom: 20px
       margin-left: 2px
 
-    div.anime-russian, p
-      line-height: 20px
-      margin-bottom: 2px
-      padding-left: 3px
-      text-indent: -3px
-
-    .subblock-genres p
-      padding-left: 0px
-      text-indent: 0px
+      p .key
+        color: $gray-color
+      p .value
+        color: #232323
 
   .being-translated
     margin-top: 2px
@@ -108,7 +106,7 @@
             height: 128px
             margin-top: -16px
           .video-marker
-            margin-top: -38px
+            margin-top: -37px
 
     .images-list .image-container
       background: #E5E5E5

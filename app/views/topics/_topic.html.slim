@@ -36,7 +36,7 @@
             .image-name
               = link_to topic.url, rel: topic.rel, title: topic.topic_title do
                 img src="#{topic.avatar}" alt="#{topic.topic_title}"
-              p.title
+              .title
                 = link_to topic.topic_title, topic.url, rel: topic.rel, title: topic.topic_title
             .body class="#{'image-x64' if topic.extended_image?}"
               - if topic.review? && topic.linked.votes_count > 0

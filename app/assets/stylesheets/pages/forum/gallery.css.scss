@@ -8,7 +8,7 @@
   margin-bottom: 10px;
 
   .gallery-title {
-    @include default-header-font;
+    @include header-font;
     margin-left: 5px;
   }
   .nav {
@@ -17,7 +17,6 @@
     margin-right: 5px;
 
     p {
-      @include text-font;
       @include normal-link;
       border-right: 1px solid #CCC;
       color: #333;
@@ -31,7 +30,7 @@
       }
       &.selected {
         text-decoration: underline;
-        color: $default-selected-color;
+        color: $selected-color;
       }
     }
     .more {

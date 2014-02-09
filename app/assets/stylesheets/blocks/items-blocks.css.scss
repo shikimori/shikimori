@@ -3,7 +3,7 @@
 .item-block {
   float: left;
   width: 123px;
-  height: 155px;
+  height: 160px;
   overflow: hidden;
 
   .name,
@@ -14,7 +14,8 @@
   }
   .role {
     font-size: 12px;
-    line-height: 12px;
+    color: #123;
+    line-height: $line-height;
   }
   &:hover .name {
     text-decoration: underline;
@@ -67,7 +68,6 @@
     float: right;
     .role {
       color: #333;
-      margin-top: -5px;
     }
     .name {
       @include normal-link;

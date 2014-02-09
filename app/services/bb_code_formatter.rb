@@ -8,7 +8,7 @@ class BbCodeFormatter
   include CommentHelper
   include Rails.application.routes.url_helpers
 
-  default_url_options[:host] ||= Rails.env.development? ? 'dev.shikimori.org' : 'shikimori.org'
+  default_url_options[:host] ||= Rails.env.development? ? 'shikimori.dev' : 'shikimori.org'
 
   MALWARE_DOMAINS = /(https?:\/\/)?images.webpark.ru/i
 

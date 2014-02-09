@@ -50,10 +50,6 @@
       background-color: #f5f5f5;
     }
     tr {
-      /*&.selectable {*/
-        /*@include default-selectable-decor;*/
-        /*cursor: pointer;*/
-      /*}*/
       .index {
         color: $gray-color;
         padding-right: 5px;
@@ -68,7 +64,7 @@
         width: 70px;
       }
       .name a {
-        @include link-color($default-selected-color);
+        @include link-color($selected-color);
         &:hover {
           text-decoration: underline;
         }
@@ -210,7 +206,6 @@
     top: 40px;
   }
   .description {
-    @include text-font;
     padding-right: 145px;
   }
   .related-anime {
@@ -226,10 +221,13 @@
       width: 100%;
     }
   }
-  .mylist {
-    .link.selected {
-      @include link-color(#123);
-      cursor: pointer;
-    }
+  /*.mylist {*/
+    /*.link.selected {*/
+      /*@include link-color(#123);*/
+      /*cursor: pointer;*/
+    /*}*/
+  /*}*/
+  .collapsed {
+    margin-bottom: 0;
   }
 }

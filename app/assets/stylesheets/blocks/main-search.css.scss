@@ -130,7 +130,6 @@
       width: 100%;
     }
     input {
-      @include text-font;
       font-size: 14px;
       line-height: 20px;
       width: 100%;
@@ -146,7 +145,6 @@
       line-height: 20px;
 
       li {
-        @include text-font;
         display: inline-block;
         line-height: 23px;
         font-size: 13px;

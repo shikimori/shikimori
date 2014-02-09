@@ -7,7 +7,6 @@ header.head {
     @include new-header-font;
   }
   .notice, .breadcrumbs {
-    @include text-font;
     color: #333;
     line-height: 17px;
     margin: 2px 0 2px 1px;
@@ -27,7 +26,6 @@ header.head {
       margin-bottom: 2px;
     }
     .misc {
-      @include text-font;
       color: $gray-color;
       display: inline-block;
       font-size: 11px;
@@ -36,21 +34,21 @@ header.head {
     }
     a.misc {
       @include normal-link;
+      text-decoration: underline;
     }
   }
 }
 
 .headline {
   @include transition(color, 0.2s);
-  @include default-font-family;
   background: darken(#ebeef1, 1%);
   border-left: 5px solid darken(#dbe0e6, 1%);
   color: #123;
   font-size: 18px;
+  line-height: $line-height;
   font-weight: bold;
   margin-bottom: 5px;
-  max-height: 20px;
-  padding: 8px 10px 6px;
+  padding: 4px 10px 2px;
   text-transform: uppercase;
 
   a {
@@ -69,15 +67,15 @@ header.head {
       line-height: 17px;
     }
     &:hover {
-      color: $default-hover-color;
+      color: $hover-color;
       &:after {
-        color: $default-hover-color;
+        color: $hover-color;
       }
     }
     &:active {
-      color: $default-active-color;
+      color: $active-color;
       &:after {
-        color: $default-active-color;
+        color: $active-color;
       }
     }
   }
@@ -85,6 +83,7 @@ header.head {
 .subheadline {
   @extend .headline;
   font-size: 14px;
+  line-height: 14px;
   padding: 6px 10px 4px 8px;
   margin-bottom: 5px;
 }

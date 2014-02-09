@@ -1,10 +1,9 @@
 @import "globals";
 
 .comments-notifier {
-  @include text-font;
   @include transition-duration(300ms);
   @include transition-property('background-color');
-  background: $default-hover-color;
+  background: $hover-color;
   color: white;
   cursor: pointer;
   height: 25px;
@@ -17,9 +16,9 @@
   width: 25px;
 
   &:hover {
-    background-color: $default-light-hover-color;
+    background-color: $hover-color-0;
   }
   &:active {
-    background-color: $default-active-color;
+    background-color: $active-color;
   }
 }
