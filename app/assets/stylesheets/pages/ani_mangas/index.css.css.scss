@@ -77,7 +77,6 @@
     width: 170px;
 
     a {
-      @include text-font;
       @include inner-image-selectable-decor;
       @include link-color(#333);
       display: block;

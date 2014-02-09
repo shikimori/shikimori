@@ -49,7 +49,6 @@ h3 {
   }
 }
 .prgrph {
-  /*@include text-font;*/
   margin-bottom: 5px !important;
   /*text-indent: 5px;*/
   /*a {*/
@@ -267,7 +266,6 @@ img.right {
   display: none!important;
 }
 .grey-hint {
-  @include text-font;
   color: #666;
   font-style: italic;
 }
@@ -425,7 +423,6 @@ span.notice {
 /*************************************************/
 /* table */
 .default-table {
-  @include text-font;
   border-collapse: collapse;
   margin: 0 0 20px 10px;
   width: 96%;
@@ -487,7 +484,6 @@ input.common {
   @include input;
 }
 .form-cancel {
-  @include text-font;
   @include normal-link;
   display: inline-block;
   margin-left: 10px;

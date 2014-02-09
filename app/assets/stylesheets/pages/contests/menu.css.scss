@@ -17,7 +17,6 @@
     @include clearfix;
   }
   .results, .grid a,  {
-    @include text-font;
     @include normal-link;
     float: right;
   }
@@ -43,7 +42,6 @@
       /*}*/
     }
     a {
-      @include text-font;
       @include normal-link;
       @include ellipsis;
       display: block;

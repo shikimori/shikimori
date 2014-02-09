@@ -111,12 +111,10 @@ $dark-grey-color: #545454;
       display: block;
     }
     .name {
-      @include text-font;
       font-size: 14px;
       font-weight: bold;
 
       .normal {
-        @include text-font;
         color: #555;
         font-size: 13px;
       }
@@ -131,7 +129,6 @@ $dark-grey-color: #545454;
 
     .date {
       @include ellipsis;
-      @include text-font;
       color: $date-color;
       display: inline;
       font-size: 11px;
@@ -139,16 +136,13 @@ $dark-grey-color: #545454;
     }
   }
   .body {
-    @include text-font;
     margin: 5px 0 15px 0;
 
     p {
-      @include text-font;
       margin-bottom: 3px;
       text-indent: 15px;
     }
     li {
-      @include text-font;
     }
     .text-poster {
       float: left;
@@ -170,7 +164,6 @@ $dark-grey-color: #545454;
     margin: 5px 5px 5px 15px;
   }
   .moderation {
-    @include text-font;
     color: #FF0000;
     font-size: 10px;
     header, footer {

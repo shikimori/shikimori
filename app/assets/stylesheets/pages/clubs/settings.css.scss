@@ -28,7 +28,6 @@
     margin-top: 0px;
 
     li a {
-      @include text-font;
       @include normal-link;
       display: block;
     }

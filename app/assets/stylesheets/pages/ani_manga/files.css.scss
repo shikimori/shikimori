@@ -39,7 +39,6 @@
       width: 355px;
 
       a {
-        @include text-font;
         @include normal-link;
         display: block;
         line-height: $line-height;

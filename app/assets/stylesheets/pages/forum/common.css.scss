@@ -13,7 +13,6 @@
     top: 0;
 
     a {
-      @include text-font;
       @include normal-link;
       display: block;
       font-size: 11px;
@@ -27,7 +26,6 @@
     top: 48px;
 
     a {
-      @include text-font;
       @include normal-link;
       border-right: 1px solid #CCC;
       color: #333;
@@ -132,7 +130,6 @@ $comments-margin: 58px;
         }
       }
       .body {
-        @include text-font;
         margin-left: 0;
         margin-top: 4px;
 

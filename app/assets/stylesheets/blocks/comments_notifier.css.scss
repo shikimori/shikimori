@@ -1,7 +1,6 @@
 @import "globals";
 
 .comments-notifier {
-  @include text-font;
   @include transition-duration(300ms);
   @include transition-property('background-color');
   background: $hover-color;

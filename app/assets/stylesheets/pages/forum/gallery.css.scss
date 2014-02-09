@@ -17,7 +17,6 @@
     margin-right: 5px;
 
     p {
-      @include text-font;
       @include normal-link;
       border-right: 1px solid #CCC;
       color: #333;

@@ -1,7 +1,6 @@
 @import "globals";
 
 .user16 {
-  @include text-font;
   @include link-color(#333);
   float: left;
   margin-right: 10px;

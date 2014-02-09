@@ -56,7 +56,6 @@
     color: red;
   }
   .post-here {
-    @include text-font;
     color: $gray-color-2;
     position: absolute;
     right: 22px;

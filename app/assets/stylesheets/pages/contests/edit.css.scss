@@ -5,7 +5,6 @@
     margin-bottom: 10px;
   }
   .errors {
-    @include text-font;
     color: red;
   }
 
@@ -38,7 +37,6 @@
       width: 33.3%;
 
       a {
-        @include text-font;
         @include normal-link;
         @include ellipsis;
         float: left;
@@ -55,14 +53,12 @@
     }
   }
   .user-vote-key {
-    @include text-font;
     .field_with_errors {
       display: inline-block;
     }
   }
   .actions {
     .action {
-      @include text-font;
       @include normal-link;
       line-height: $line-height;
       display: block;
@@ -77,7 +73,6 @@
   }
   .grid a {
     @include normal-link;
-    @include text-font;
   }
   .suggestions {
     margin-top: 30px;

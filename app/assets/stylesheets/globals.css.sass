@@ -53,7 +53,6 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
     color: $active-color
 
 =icon-button($content)
-  /*@include text-font;
   +link-color(#444444)
   +icon($content, 13px)
   &.selected
@@ -61,7 +60,6 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
 
 =headline-icon-button($content)
   +icon-button($content)
-  /*@include text-font;
   +link-color(#666666)
   font-size: 12px
   cursor: pointer
@@ -72,11 +70,6 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
 // шрифты
 =default-font-family
   //font-family: "Helvetica Neue",Arial,Verdana,sans-serif
-
-=text-font
-  /*@include default-font-family;
-  /*font-size: 13px;
-  /*line-height: 21px;
 
 =new-header-font
   color: #111
@@ -89,13 +82,11 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
   border-bottom: none
 
 =h1-font
-  /*@include text-font;
   color: #111
   font-size: 18px
   font-weight: bold
 
 =default-header-font-wo-color
-  /*@include text-font;
   font-size: 15px
   line-height: 17px
   font-weight: bold
@@ -105,7 +96,6 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
   color: #222
 
 =default-subheader-font
-  /*@include text-font;
   color: #2A2A2A
   font-size: 15px
   line-height: 17px
@@ -252,7 +242,6 @@ $default-image-active-background: #adadad
 $gray-block-background: #f9f9f9
 
 =gray-block
-  /*@include text-font;
   +transition(color, 0.2s)
   +transition(background-color, 0.2s)
   background: $gray-block-background
@@ -280,7 +269,6 @@ $gray-block-background: #f9f9f9
 
 /* блок об игноре
 =ignored-block
-  /*@include text-font;
   color: #555
   font-size: 12px
   line-height: 35px

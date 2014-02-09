@@ -62,7 +62,6 @@
   }
   .title {
     @include ellipsis;
-    @include text-font;
     display: block;
     font-weight: bold;
     font-size: 14px;

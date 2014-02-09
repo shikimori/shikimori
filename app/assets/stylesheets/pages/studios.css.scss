@@ -43,14 +43,12 @@
     }
     .name {
       @include normal-link;
-      @include text-font;
       font-size: 14px;
       font-weight: bold;
       color: #123;
       padding: 7px 0 0 0;
     }
     .animes, .years {
-      @include text-font;
       color: darken($gray-color-0, 10%);
       font-size: 12px;
       line-height: 19px;
@@ -64,7 +62,6 @@
 .studio-block {
   margin: 0 20px 10px 20px;
   .item-content {
-    @include text-font;
     .logo {
       float: left;
       margin: 4px 10px 10px 0;

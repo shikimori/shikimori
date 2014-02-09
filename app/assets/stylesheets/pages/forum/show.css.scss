@@ -8,7 +8,6 @@
       width: 100%;
     }
     a {
-      @include text-font;
       @include normal-link;
       display: block;
       text-align: right;

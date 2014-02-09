@@ -28,7 +28,6 @@
 
   a.url {
     @include link-color(#333);
-    @include text-font;
     display: block;
     font-size: 14px;
     font-weight: bold;
@@ -69,7 +68,6 @@
   padding-top: 45px;
 
   .show-more {
-    @include text-font;
     @include link-color(#333);
     cursor: pointer;
     margin-left: 5px;

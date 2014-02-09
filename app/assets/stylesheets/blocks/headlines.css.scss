@@ -7,7 +7,6 @@ header.head {
     @include new-header-font;
   }
   .notice, .breadcrumbs {
-    @include text-font;
     color: #333;
     line-height: 17px;
     margin: 2px 0 2px 1px;
@@ -27,7 +26,6 @@ header.head {
       margin-bottom: 2px;
     }
     .misc {
-      @include text-font;
       color: $gray-color;
       display: inline-block;
       font-size: 11px;

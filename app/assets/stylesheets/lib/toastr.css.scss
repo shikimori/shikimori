@@ -42,7 +42,6 @@
   left: 12px;
 }
 #toast-container {
-  @include text-font;
   line-height: 18px;
   position: fixed;
   z-index: 999999;
