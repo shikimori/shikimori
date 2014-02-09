@@ -97,7 +97,7 @@ class UserChange < ActiveRecord::Base
     column == 'description'
   end
 
-  def deny(approver_id, is_rejected)
+  def deny approver_id, is_rejected
     self.approver_id = approver_id
 
     # для скриншотов спец логика
@@ -130,7 +130,7 @@ class UserChange < ActiveRecord::Base
   end
 
   # принятие правки
-  def apply(approver_id, taken)
+  def apply approver_id, taken
     self.approver_id = approver_id
 
     item = self.item

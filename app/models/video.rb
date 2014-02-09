@@ -13,9 +13,9 @@ class Video < ActiveRecord::Base
 
   validates_uniqueness_of :url, case_sensitive: true, scope: [:anime_id, :state]
 
-  before_save :check_url
-  before_save :check_youtube_existence, if: :youtube?
-  before_save :check_vk_existence, if: :vk?
+  before_create :check_url
+  before_create :check_youtube_existence, if: :youtube?
+  before_create :check_vk_existence, if: :vk?
 
   after_create :suggest_acception
 
@@ -31,7 +31,9 @@ class Video < ActiveRecord::Base
   default_scope -> { order 'kind desc, name' }
 
   state_machine :state, initial: :uploaded do
-    state :uploaded
+    state :uploaded do
+
+    end
     state :confirmed
     state :deleted
 

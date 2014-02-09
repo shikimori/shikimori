@@ -102,7 +102,7 @@ class Moderation::UserChangesController < ApplicationController
     raise Forbidden unless current_user.user_changes_moderator?
     change = UserChange.find(params[:id])
 
-    if change.apply(current_user.id, params[:taken])
+    if change.apply current_user.id, params[:taken]
       Message.create(
         from_id: current_user.id,
         to_id: change.user_id,
