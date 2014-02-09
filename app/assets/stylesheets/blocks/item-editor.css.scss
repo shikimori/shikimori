@@ -79,20 +79,9 @@
     a {
       @include normal-link;
     }
-    .key {
-      float: left;
-      margin-right: 5px;
-      color: $gray-color;
-
-      a {
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
   }
-  .contributors {
+  .b-contributors {
     float: left;
-    padding: 0 5px;
   }
   .source {
     float: right;

@@ -1,0 +1,28 @@
+@import globals/variables
+
+.b-contributors
+  padding: 0 5px
+  float: right
+
+  .key
+    float: left
+    margin-right: 5px
+    line-height: $line-height
+    color: $gray-color
+
+    a
+      padding-left: 0
+      padding-right: 0
+
+
+  .user16
+    line-height: $line-height
+    img
+      margin-top: 2px
+
+    &:after
+      content: ','
+
+    &:last-child
+      &:after
+        content: ''

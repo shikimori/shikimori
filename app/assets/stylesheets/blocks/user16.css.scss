@@ -1,4 +1,5 @@
 @import "globals";
+@import "mixins/hover_underlined";
 
 .user16 {
   @include link-color(#333);
@@ -10,5 +11,8 @@
     display: block;
     float: left;
     margin: 0 5px 0 0;
+  }
+  &:hover .nickname {
+    @include hover_underlined;
   }
 }
