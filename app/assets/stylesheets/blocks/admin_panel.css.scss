@@ -37,14 +37,20 @@
       @include normal-link;
       float: right;
     }
-    .busy {
-      color: green;
-    }
-    .enqueued {
-      color: blue;
-    }
-    .retries {
-      color: red;
+    .sidekiq {
+      p {
+        line-height: 2;
+      }
+
+      .busy {
+        color: green;
+      }
+      .enqueued {
+        color: blue;
+      }
+      .retries {
+        color: red;
+      }
     }
   }
 }
