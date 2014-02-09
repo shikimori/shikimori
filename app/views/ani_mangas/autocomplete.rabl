@@ -1,6 +1,6 @@
 collection @items
-attribute :id => :data
-attribute :name => :value
+attribute id: :data
+attribute name: :value
 
 node :label do |item|
   render_to_string({
