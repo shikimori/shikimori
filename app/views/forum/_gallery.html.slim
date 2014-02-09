@@ -17,7 +17,7 @@
                 - slice.each do |anime|
                   .entry
                     .title
-                      span.name class="f#{anime.name.size > 10 ? 15 : 16 }"
+                      span.name
                         a href="#{url_for anime}" title="#{{anime.name}}"
                           == anime.name
                       p
