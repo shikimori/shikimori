@@ -18,12 +18,20 @@ a
   outline: none
   text-decoration: none
 
-p, div.body
+p
   line-height: $line-height
+
   a
     text-decoration: underline
-    //&:hover
-      text-decoration: none
+
+div.body
+  line-height: $line-height
+
+  a
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline
 
 img
   border: none
