@@ -1,5 +1,6 @@
 = simple_form_for @user do |f|
   input type="hidden" name="page" value="#{params[:page]}"
+  input type="hidden" name="user[notifications][nothing]" value="0"
 
   .messages-settings
     table.default-table.m20
