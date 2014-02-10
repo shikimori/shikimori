@@ -93,6 +93,8 @@ $dark-grey-color: #545454;
   }
   .image-name {
     @include link-color(#111);
+    margin-top: 1px;
+
     a {
       color: inherit;
       text-decoration: none;
@@ -343,6 +345,9 @@ $dark-grey-color: #545454;
   background-color: #fdebf3;
   color: #f58ebb;
 
+  &:before {
+    content: 'оффтоп';
+  }
   &:hover {
     background-color: darken(#fdebf3, 3%);
   }
