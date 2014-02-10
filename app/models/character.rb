@@ -40,7 +40,7 @@ class Character < ActiveRecord::Base
   after_save :sync_thread
 
   before_save -> {
-    self.russian = CGI::escapeHTML self.russian if self.changes['russian']
+    self.russian = CGI::escapeHTML self.russian || '' if self.changes['russian']
   }
 
   # Methods
