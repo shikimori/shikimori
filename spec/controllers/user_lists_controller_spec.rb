@@ -5,8 +5,9 @@ describe UserListsController do
   let!(:anime1) { create :anime, name: 'Zombie-Loan' }
   let!(:anime2) { create :anime, name: 'Zombie-Loan Specials' }
 
-  before { sign_in user }
   before do
+    sign_in user
+
     @list = [{
         id: anime1.id,
         status: 1,
@@ -22,8 +23,14 @@ describe UserListsController do
       }]
   end
 
-  describe 'import' do
-    describe 'mal' do
+  describe :export do
+    before { get :export, id: user.to_param, list_type: 'anime' }
+    it { should respond_with :success }
+    it { should respond_with_content_type :xml }
+  end
+
+  describe :import do
+    context :mal do
       it 'works' do
         expect {
           post :list_import, id: user.to_param, klass: 'anime', rewrite: false, list_type: :mal, data: @list.to_json
@@ -42,7 +49,7 @@ describe UserListsController do
       response.should redirect_to(messages_url(type: :inbox))
     end
 
-    describe 'anime-planet' do
+    context :anime_planet do
       it 'works' do
         create :manga, name: "07 Ghost"
         create :manga, name: "20th Century Boys"
@@ -55,7 +62,7 @@ describe UserListsController do
       end
     end
 
-    describe 'xml' do
+    context :xml do
       let(:manga1) { create :manga, name: "07 Ghost" }
       let(:manga2) { create :manga, name: "20th Century Boys" }
 

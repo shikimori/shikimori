@@ -115,6 +115,7 @@ class UserListsController < UsersController
 
     response.headers['Content-Description'] = 'File Transfer';
     response.headers['Content-Disposition'] = "attachment; filename=#{@type}list.xml";
+    render template: 'user_lists/export', formats: :xml
   end
 
   # импорт списка
