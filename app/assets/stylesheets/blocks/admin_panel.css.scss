@@ -36,6 +36,8 @@
     .sidekiq-link {
       @include normal-link;
       float: right;
+      font-size: 11px;
+      margin-top: 5px;
     }
     .sidekiq {
       p {
