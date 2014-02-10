@@ -88,13 +88,13 @@ module UserNotifications
 
   # возвращает подписан ли пользователь на новость
   def subscribed_for_event? entry
-    if entry.class == Topic && entry.broadcast
+    if entry.kind_of?(Topic) && entry.broadcast
       entry.action = MessageType::SiteNews
       return true
     end
 
     if entry.linked
-      return false if self.send("#{entry.linked.class.name.downcase}_rates").select do |v|
+      return false if send("#{entry.linked.class.name.downcase}_rates").select do |v|
         v.target_id == entry.linked_id && v.status == UserRateStatus.get('Dropped')
       end.any?
     end

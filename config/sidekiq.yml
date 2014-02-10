@@ -11,8 +11,10 @@ production:
   - default
   - cpu_intensive
   - slow_parsers
+  - torrents_parsers
   - [critical, 5]
 
 :limits:
   cpu_intensive: 1
   slow_parsers: 2
+  torrents_parsers: 1
