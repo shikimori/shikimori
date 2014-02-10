@@ -1,14 +1,14 @@
 .changes
   - if authors.empty? && entry.source.blank?
     - unless entry.object.description_mal.blank? || default_source.blank?
-      .source
+      .b-contributors
         .key Источник:
         .val
           a href="#{default_source}" rel="nofollow" myanimelist.net
   - else
     = render partial: 'site/contributors', locals: { entry: entry, authors: authors, field: field }, formats: :html
     - unless entry.source.blank?
-      .source
+      .b-contributors
         .key Источник:
-        .val.source
+        .val
           == source_link entry.source

@@ -13,7 +13,7 @@
     = contest.displayed_round.title
 
   - if user_signed_in? && contest.displayed_round.started?
-    .warning.m20
+    p.warning
       span.red-warning Внимание!
       | &nbsp;Если вы не смотрели хотя бы один из вариантов, то мы рекомендуем вам воздержаться от голосования по данной паре. Это повысит объективность результатов опроса.
 
