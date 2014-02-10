@@ -74,8 +74,8 @@ comment_created = (data, $node, $comment) ->
 comment_updated = (data, $node, $comment) ->
   $comment.find('.is_updated').remove()
   $comment.append "<div class='is_updated' data-href='/comments/#{data.comment_id}'>
-    <div><span>Комментарий изменён пользователем</span><a class='actor' href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>
-    <div>Кликните для обновления</div>
+    <div><span>Комментарий изменён пользователем</span><a class='actor' href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a>.</div>
+    <div>Кликните для обновления.</div>
   </div>"
 
 # комментарий удалён

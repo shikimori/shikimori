@@ -192,20 +192,23 @@ $dark-grey-color: #545454;
     /*right: 0;*/
   /*}*/
   .is_updated {
-    background: rgba(255,255,255,0.75);
+    @include link-color($gray-color);
+    /*background: rgba(255,255,255,0.75);*/
     cursor: pointer;
-    height: 100%;
-    padding-top: 12px;
-    position: absolute;
-    top: 0;
-    width: 100%;
+    display: inline-block;
+    margin-bottom: 2px;
+    /*height: 100%;*/
+    /*padding-top: 12px;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*width: 100%;*/
 
     div {
-      color: black;
-      font-size: 12px;
+      display: inline-block;
+      font-size: 11px;
       line-height: 20px;
       padding-top: 0;
-      text-align: center;
+      /*text-align: center;*/
     }
     .actor {
       @include normal-link;
@@ -216,7 +219,7 @@ $dark-grey-color: #545454;
       }
       img {
         position: absolute;
-        margin-top: 3px;
+        margin-top: 2px;
       }
     }
   }
