@@ -1,58 +1,78 @@
 # Публикация различных уведомлений через Faye
 # FayePublisher.publish({ data: { comment_id: 2919 } }, ['/topic-77141'])
 # FayePublisher.publish({ data: { comment_id: 2919, topic_id: 77141 } }, ['/section-1'])
-module FayePublisher
+class FayePublisher
   BroadcastFeed = 'myfeed'
-  @ns = ''
 
-  # отправка уведомлений о новом комментарии
-  def self.publish_comment(comment, except_client_id = nil)
-    topic = comment.commentable
-    return unless topic.respond_to? :section_id
+  def initialize actor, except_client_id = nil
+    @namespace = ''
+    @except_client_id = except_client_id
+    @actor = actor
+  end
 
-    # уведомление в открытые топики
-    data = { data: { comment_id: comment.id } }
-    publish(data, ["/topic-#{topic.id}"], except_client_id)
+  def publish object, event, channels=[]
+    if object.kind_of? Comment
+      publish_comment object, event, channels
 
-    data[:data][:topic_id] = topic.id
-    # уведомление в открытые разделы
-    if topic.class == GroupComment
-      publish(data, ["/group-#{topic.linked_id}"], except_client_id)
+    elsif object.kind_of? Entry
+      publish_topic object, event, channels
+
     else
-      publish(data, ["/section-#{topic.section_id}"], except_client_id)
-    end
-
-    # уведомление в ленты
-    publish(data, subscribed_channels(topic), except_client_id)
-  end
-
-  # отправка уведомлений о новом топике
-  def self.publish_topic(topic, except_client_id = nil)
-    data = { data: { topic_id: topic.id } }
-
-    # уведомление в открытые разделы
-    publish(data, ["/section-#{topic.section_id}"], except_client_id)
-
-    # уведомление в ленты
-    publish(data, subscribed_channels(topic), except_client_id)
-  end
-
-  # отправка произвольных уведомлений
-  def self.publish(message, channels, except_client_id = nil)
-    return if channels.empty?
-    keys = channels.map { |c| @ns + "/channels#{c}" }
-
-    $redis.sunion(*keys).each do |client_id|
-      next if client_id == except_client_id
-      message[:channel] = channels.size == 1 ? channels.first : "/#{BroadcastFeed}"
-
-      $redis.rpush(@ns + "/clients/#{client_id}/messages", message.to_json)
-      $redis.publish(@ns + '/notifications', client_id)
+      publish_data object, event, channels
     end
   end
 
 private
-  def self.subscribed_channels(target)
+  # отправка уведомлений о новом комментарии
+  def publish_comment comment, event, channels
+    topic = comment.commentable
+    return unless topic.respond_to? :section_id
+
+    # уведомление в открытые топики
+    data = { event: event, actor: @actor.nickname, actor_avatar: @actor.decorate.avatar_url(16), comment_id: comment.id }
+    publish_data data, event, ["#{@namespace}/topic-#{topic.id}"]
+
+    data[:topic_id] = topic.id
+    # уведомление в открытые разделы
+    if topic.kind_of? GroupComment
+      publish_data data, event, ["#{@namespace}/group-#{topic.linked_id}"]
+    else
+      publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
+    end
+
+    # уведомление в ленты
+    publish_data data, event, channels + subscribed_channels(topic)
+  end
+
+  # отправка уведомлений о новом топике
+  def publish_topic topic, event, channels
+    data = { event: event, actor: @actor.nickname, actor_avatar: @actor.decorate.avatar_url(16), topic_id: topic.id }
+
+    # уведомление в открытые разделы
+    publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
+
+    # уведомление в ленты
+    publish_data data, event, channels + subscribed_channels(topic)
+  end
+
+  # отправка произвольных уведомлений
+  def publish_data data, event, channels
+    return if channels.empty?
+    keys = channels.map { |c| "#{@namespace}/channels#{c}" }
+
+    $redis.sunion(*keys).each do |client_id|
+      next if client_id == @except_client_id
+      message = {
+        channel: channels.size == 1 ? channels.first : "/#{BroadcastFeed}",
+        data: data
+      }
+
+      $redis.rpush "#{@namespace}/clients/#{client_id}/messages", message.to_json
+      $redis.publish "#{@namespace}/notifications", client_id
+    end
+  end
+
+  def subscribed_channels target
     Subscription
       .where(target_id: target.id)
       .where(target_type: target.class.name)

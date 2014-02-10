@@ -6,91 +6,36 @@ class CommentsController < ApplicationController
   before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
 
   def show
-    comment = Comment.includes(:user).find(params[:id])
-
+    @comment = Comment.find params[:id]
     respond_to do |format|
-      format.html {
-        render partial: 'comments/comment', layout: false, object: comment, formats: :html
-      }
-      format.json {
-        render json: {
-          user: comment.user.nickname,
-          body: comment.body,
-          id: comment.id,
-          offtopic: comment.offtopic?,
-          kind: 'comment'
-        }
-      }
+      format.html { render :show }
+      format.json { render :show }
     end
   end
 
   def edit
-    respond_to do |format|
-      format.html do
-        render partial: 'comments/add', layout: false, locals: {
-          options: {
-            text: @comment.body,
-            review: @comment.review?,
-            offtopic: @comment.offtopic?,
-            object: @comment.commentable,
-            editable: @comment
-          }
-        }
-      end
-    end
   end
 
   def create
-    @comment = Comment.new comment_params
-    @comment.user_id = current_user.id
-
-    if @comment.save
-      # отправка уведомлений о создании комментария
-      FayePublisher.publish_comment(@comment, params[:faye]) if Rails.env != 'test'
-
-      render json: {
-        id: @comment.id,
-        notice: 'Комментарий создан',
-        html: render_to_string(partial: 'comments/comment', layout: false, object: @comment, locals: { topic: @comment.commentable }), formats: :html
-      }
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
+    @comment = comments_service.create comment_params
+    @notice = 'Комментарий создан'
+    render json: @comment.errors, status: :unprocessable_entity unless @comment.persisted?
   end
 
   def update
-    raise Forbidden unless @comment.can_be_edited_by?(current_user)
-    params.except! :offtopic, :review
+    @notice = 'Комментарий изменен'
 
-    if @comment.update_attributes comment_params
-      render json: {
-        id: @comment.id,
-        notice: 'Комментарий изменен',
-        html: render_to_string(partial: 'comments/comment', layout: false, object: @comment, locals: { topic: @comment.commentable }), formats: :html
-      }
+    if comments_service.update @comment, comment_params.except(:offtopic, :review)
+      render :create
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    raise Forbidden unless @comment.can_be_deleted_by?(current_user)
-    @comment.destroy
+    comments_service.destroy @comment
 
-    commentable_klass = Object.const_get(@comment.commentable_type.to_sym)
-    commentable = commentable_klass.find(@comment.commentable_id)
-    result = commentable.comment_deleted(@comment) if commentable.respond_to?(:comment_deleted)
-
-    if result && result.respond_to?(:[]) && result[:url_object]
-      render json: {
-        url: url_for(result[:url_object]),
-        notice: result[:notice] ? result[:notice] : 'Комментарий удален'
-      }
-    else
-      render json: {
-        notice: 'Комментарий удален'
-      }
-    end
+    render json: { notice: 'Комментарий удален' }
   end
 
   # динамическая подгрузка комментариев при скролле
@@ -154,6 +99,10 @@ private
     Rails.logger.info params.to_yaml
 
     @comment = Comment.find(params[:id]) if params[:id]
+  end
+
+  def comments_service
+    CommentsService.new current_user, faye_token
   end
 
   def comment_params

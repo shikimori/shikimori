@@ -189,6 +189,11 @@ private
     end
   end
 
+  # faye токен текущего пользователя, переданный из заголовков
+  def faye_token
+    request.headers['X-Faye-Token'] || params[:faye]
+  end
+
   # находимся ли сейчас на домене шикимори?
   def shikimori?
     ShikimoriDomain::HOSTS.include? request.host

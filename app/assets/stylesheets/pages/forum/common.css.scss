@@ -92,9 +92,6 @@ $comments-margin: 58px;
       border-top: none;
       padding-top: 0!important;
     }
-    &.ignored-block {
-      @include ignored-block;
-    }
 
     .content {
       margin-bottom: 5px;
@@ -223,13 +220,15 @@ $comments-margin: 58px;
       border-top: none;
     }
     .comment-block {
-      border-top: 1px dashed #DDD;
       min-height: 70px;
       padding-right: 0;
 
       .buttons {
         margin-right: 0;
       }
+    }
+    .comment-block, .b-comment-info {
+      border-top: 1px dashed #DDD;
     }
     .shiki-editor {
       .body {

@@ -83,9 +83,6 @@ $dark-grey-color: #545454;
       border: 1px solid $dark-grey-color;
     }
   }
-  &.ignored-block {
-    @include ignored-block;
-  }
 
   .moderation-ban {
     float: right;
@@ -194,6 +191,35 @@ $dark-grey-color: #545454;
     /*position: absolute;*/
     /*right: 0;*/
   /*}*/
+  .is_updated {
+    background: rgba(255,255,255,0.75);
+    cursor: pointer;
+    height: 100%;
+    padding-top: 12px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    div {
+      color: black;
+      font-size: 12px;
+      line-height: 20px;
+      padding-top: 0;
+      text-align: center;
+    }
+    .actor {
+      @include normal-link;
+      padding-left: 5px;
+
+      span {
+        padding-left: 19px;
+      }
+      img {
+        position: absolute;
+        margin-top: 3px;
+      }
+    }
+  }
 }
 .topic-block .content blockquote {
   margin-left: 0;

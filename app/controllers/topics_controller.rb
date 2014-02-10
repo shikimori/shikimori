@@ -173,7 +173,7 @@ class TopicsController < ForumController
 
     if @topic.save
       # отправка уведомлений о создании комментария
-      FayePublisher.publish_topic(@topic, params[:faye]) if Rails.env != 'test'
+      FayePublisher.new(current_user, faye_token).publish @topic, :create unless Rails.env.test?
 
       render json: {
         notice: 'Топик создан',

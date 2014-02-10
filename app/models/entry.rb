@@ -109,16 +109,9 @@ class Entry < ActiveRecord::Base
 
   # колбек, срабатываемый при удалении коммента
   def comment_deleted(comment)
-    #if self.comments.count == 0 && self.class == Topic
-      #self.destroy
-      #return {notice: 'Удалено', url_object: self.section}
-    #else
-      self.class.record_timestamps = false
-      # self.comments.first - самый последний комментарий
-      self.update_attributes(updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at,
-                             comments_count: self.comments.count)
-      self.class.record_timestamps = true
-    #end
+    self.class.record_timestamps = false
+    self.update_attributes(updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at, comments_count: self.comments.count)
+    self.class.record_timestamps = true
   end
 
   def title=(value)

@@ -1,6 +1,10 @@
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");
-  xhr.setRequestHeader("X-CSRF-Token", token);
+  xhr.setRequestHeader('X-CSRF-Token', token);
+
+  if ('faye_loader' in window && faye_loader.id()) {
+    xhr.setRequestHeader('X-Faye-Token', faye_loader.id());
+  }
 });
 
 jQuery(function ($) {
@@ -49,9 +53,6 @@ jQuery(function ($) {
                     }
                     $this.data('ajax:locked', true);
                     var data = is_form ? el.serializeArray() : ($this.data('form') || []);
-                    if (is_form && 'faye_loader' in window && faye_loader.id()) {
-                      data.push({ name: 'faye', value: faye_loader.id() });
-                    }
                     $.ajax({
                         url: url,
                         data: data,

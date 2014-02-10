@@ -1,3 +1,4 @@
+# комментарии должны создаваться, обновляться и удаляться через CommentsService
 class Comment < ActiveRecord::Base
   include PermissionsPolicy
   include Moderatable
