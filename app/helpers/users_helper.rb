@@ -11,9 +11,9 @@ module UsersHelper
     else
       # аниме
       if current_user && current_user.preferences.russian_names? && entry.respond_to?(:russian) && entry.russian.present?
-        entry.russian.html_safe
+        (entry.russian || '').html_safe
       else
-        entry.name.html_safe
+        (entry.name || '').html_safe
       end
     end
   end
