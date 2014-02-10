@@ -269,6 +269,10 @@ $dark-grey-color: #545454;
   .spoiler {
     @include spoiler-new;
     display: inline;
+
+    &.collapsed, &.collapse {
+      border-bottom: 1px dashed $selected-color;
+    }
   }
 }
 /*.comments-container:first-child .comment-block:first-child {*/
