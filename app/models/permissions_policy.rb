@@ -32,7 +32,7 @@ module PermissionsPolicy
     end
 
     def can_be_deleted_by?(user)
-      super || (user && commentable_type == user.class.name && commentable_id == user.id)
+      super || (user && commentable_type == User.name && commentable_id == user.id)
     end
 
     def can_cancel_offtopic?(user)
