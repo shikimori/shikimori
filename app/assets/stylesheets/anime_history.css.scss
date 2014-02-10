@@ -2,3 +2,11 @@
 = require pages/forum/common
 = require pages/anime_history
 */
+@import "globals";
+
+.to-main-topic {
+  @include plashka;
+  margin-bottom: 7px;
+  margin-top: 7px;
+  display: block;
+}

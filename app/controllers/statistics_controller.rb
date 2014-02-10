@@ -17,7 +17,12 @@ class StatisticsController < ApplicationController
       [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
     end
 
-    @topic = TopicPresenter.new(object: Topic.find(81906), template: view_context, limit: 1000, with_user: true)
+    @topic = TopicPresenter.new(
+      object: Topic.find(81906),
+      template: view_context,
+      limit: 5,
+      with_user: true
+    )
   end
 
 private

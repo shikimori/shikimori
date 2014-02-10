@@ -72,4 +72,5 @@
   .forum-container
     .comments.zero-margin.zero-top-border
       .headline.magenta Комментарии
+      a.to-main-topic href="#{topic_url @topic.object}" Перейти к топику с основным обсуждением (#{@topic.folded_comments} #{Russian.p @topic.folded_comments, 'комментарий', 'комментария', 'комментариев'})
       = render partial: 'comments/comments.html', locals: { object: @topic.topic, comments: @topic.comments, bottom_add_block: true }
