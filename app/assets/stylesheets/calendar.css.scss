@@ -25,6 +25,9 @@
       margin-top: 10px;
       @include bracket_action;
     }
+    .collapsed {
+      margin-bottom: 30px;
+    }
     .headline {
       margin-bottom: 10px;
       font-size: 17px;
