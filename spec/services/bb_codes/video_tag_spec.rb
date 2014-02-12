@@ -56,6 +56,55 @@ describe BbCodes::VideoTag do
         it { should eq text }
       end
     end
+
+    context :open_graph do
+      before { VCR.use_cassette(:open_graph_video) { subject } }
+
+      context :coub do
+        let(:text) { 'http://coub.com/view/bqn2pda' }
+        it { should include '<div class="image-container video coub"' }
+      end
+
+      context :twitch do
+        let(:text) { 'http://www.twitch.tv/joindotared/c/3661348' }
+        it { should include '<div class="image-container video twitch"' }
+      end
+
+      context :rutube do
+        let(:text) { 'http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a' }
+        it { should include '<div class="image-container video rutube"' }
+      end
+
+      context :vimeo do
+        let(:text) { 'http://vimeo.com/85212054' }
+        it { should include '<div class="image-container video vimeo"' }
+      end
+
+      context :myvi do
+        let(:text) { 'http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2' }
+        it { should include '<div class="image-container video myvi"' }
+      end
+
+      context :sibnet do
+        let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
+        it { should include '<div class="image-container video sibnet"' }
+      end
+
+      context :yandex do
+        let(:text) { 'http://video.yandex.ru/users/allod2008/view/78' }
+        it { should include '<div class="image-container video yandex"' }
+      end
+
+      context :dailymotion do
+        let(:text) { 'http://www.dailymotion.com/video/x1bj16i_darkara-kill-la-kill-op2_shortfilms' }
+        it { should include '<div class="image-container video dailymotion"' }
+      end
+
+      context :sibnet do
+        let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
+        it { should include '<div class="image-container video sibnet"' }
+      end
+    end
   end
 
   describe :preprocess do

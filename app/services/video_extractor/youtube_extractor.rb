@@ -2,8 +2,8 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
     https?://(?:www\.)?youtube\.com/
     .*?(?:&|\?)
-    v=(?<key>[^ &#$]+)
-    [^ $#]*
+    v=(?<key>[\w_-]+)
+    [^ $#<]*
     (?:\#t=(?<time>\d+))?
   }xi
 

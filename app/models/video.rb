@@ -4,7 +4,7 @@ class Video < ActiveRecord::Base
   belongs_to :anime
   belongs_to :uploader, class_name: User.name
 
-  enumerize :hosting, in: [:youtube, :vk], predicates: true
+  enumerize :hosting, in: [:youtube, :vk, :coub, :twitch, :rutube, :vimeo, :myvi, :sibnet, :yandex, :dailymotion], predicates: true
 
   validates :anime_id, :uploader_id, :url, :kind, presence: true
   validates_uniqueness_of :url, case_sensitive: true, scope: [:anime_id, :state]

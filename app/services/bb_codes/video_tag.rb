@@ -18,7 +18,7 @@ private
     video = Video.new url: url
 
     if video.hosting.present?
-      @template ||= Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+      @template = Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
       @template.render OpenStruct.new(video: video)
     else
       url

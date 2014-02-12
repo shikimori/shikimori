@@ -29,4 +29,14 @@ class VideoExtractor::BaseExtractor
   def self.valid_url? url
     url =~ self::URL_REGEX
   end
+
+  def parsed_data
+    @parsed_data ||= Rails.cache.fetch @url, expires_in: 2.weeks do
+      parse_data fetch_page
+    end
+  end
+
+  def fetch_page
+    @fetched_page ||= open(@url).read
+  end
 end

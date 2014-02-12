@@ -24,5 +24,10 @@ describe VideoExtractor::VkExtractor do
       let(:url) { 'http://vk.com/video17174270_167070090' }
       it { should be_nil }
     end
+
+    context :video_with_authorization_url do
+      let(:url) { 'https://vk.com/video-26094363_159977945' }
+      it { should be_nil }
+    end
   end
 end

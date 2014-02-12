@@ -1,4 +1,4 @@
-.image-container.video class="#{video.vk? ? 'vk' : 'youtube'}"
+.image-container.video class="#{video.hosting}"
   - if defined?(user_signed_in?) && user_signed_in? && defined?(with_deletion)
     span.image-delete.hidden title="Удалить видео"
     span.image-delete-confirm.hidden title="Подтвердить удаление" data-remote="true" action="#{url_for video}" data-method="delete" data-type="json"
