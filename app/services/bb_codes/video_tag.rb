@@ -2,8 +2,16 @@ class BbCodes::VideoTag
   include Singleton
 
   def format text
+    times = 0
     preprocess(text).gsub /(?<text>[^"\]=]|^)(?<url>#{VideoExtractor.matcher})/mi do
-      $~[:text] + to_html($~[:url])
+      is_youtube = $~[:url].include? 'youtube.com/'
+      times += 1 unless is_youtube
+
+      if times <= 10 || is_youtube
+        $~[:text] + to_html($~[:url])
+      else
+        $~[:text] + $~[:url]
+      end
     end
   end
 
