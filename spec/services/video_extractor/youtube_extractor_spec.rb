@@ -36,7 +36,7 @@ describe VideoExtractor::YoutubeExtractor do
 
       context :params_surrounded do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc&ff=vcxvcx#t=123' }
-        its(:player_url) { should eq 'http://www.youtube.com/v/VdwKZ6JDENc?start=123' }
+        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc?start=123' }
         it { should be_present }
       end
   end

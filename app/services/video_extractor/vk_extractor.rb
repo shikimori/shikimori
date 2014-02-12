@@ -1,5 +1,7 @@
 class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
-  URL_REGEX = %r{https?://vk.com/video-?(\d+)_(\d+)}
+  URL_REGEX = %r{
+    https?://vk.com/video-?(\d+)_(\d+)
+  }xi
 
   def image_url
     parsed_data['jpg']

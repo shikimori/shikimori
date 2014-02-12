@@ -5,7 +5,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
     v=(?<key>[^ &#$]+)
     [^ $#]*
     (?:\#t=(?<time>\d+))?
-  }x
+  }xi
 
   def image_url
     "http://img.youtube.com/vi/#{matches[:key]}/mqdefault.jpg"

@@ -42,8 +42,7 @@ class BbCodeFormatter
   def bb_codes original_text
     text = original_text.gsub /\r\n|\r|\n/, '<br />'
 
-    text = BbCodes::YoutubeTag.instance.format text
-    text = BbCodes::VkTag.instance.format text
+    text = BbCodes::VideoTag.instance.format text
 
     text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem
     text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
