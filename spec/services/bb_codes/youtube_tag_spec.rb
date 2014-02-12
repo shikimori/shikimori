@@ -8,16 +8,16 @@ describe BbCodes::YoutubeTag do
   describe :format do
     subject { tag.format text }
 
-    context 'with time' do
-      let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
-      it { should include "<div class=\"image-container video youtube\"" }
-      it { should include "a data-href=\"http://youtube.com/v/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
-    end
-
     context 'without time' do
       let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
       it { should include "<div class=\"image-container video youtube\"" }
       it { should include "a data-href=\"http://youtube.com/v/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
+    end
+
+    context 'with time' do
+      let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
+      it { should include "<div class=\"image-container video youtube\"" }
+      it { should include "a data-href=\"http://youtube.com/v/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
     end
 
     context 'with text' do

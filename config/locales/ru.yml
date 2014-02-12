@@ -67,9 +67,7 @@ ru:
         videos:
           attributes:
             url:
-              incorrect: некорректен, должна быть ссылка на youtube или vkontakte
-              youtube_not_exist: некорректен, нет такого видео на youtube
-              vk_not_exist: некорректен, нет такого видео на vkontakte
+              incorrect: некорректен, должна быть работающая ссылка на youtube или vkontakte
 
     state_machines:
       contest:

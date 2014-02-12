@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140202114019) do
+ActiveRecord::Schema.define(version: 20140211213630) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(version: 20140202114019) do
   add_index "anime_links", ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true, using: :btree
 
   create_table "anime_video_authors", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", unique: true, using: :btree
 
   create_table "anime_video_reports", force: true do |t|
     t.integer  "anime_video_id"
@@ -967,10 +969,12 @@ ActiveRecord::Schema.define(version: 20140202114019) do
     t.integer  "uploader_id"
     t.integer  "anime_id"
     t.string   "kind"
-    t.string   "state",       default: "uploaded", null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.text     "details"
+    t.string   "state",                    default: "uploaded", null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "image_url",   limit: 1024
+    t.string   "player_url",  limit: 1024
+    t.string   "hosting"
   end
 
   add_index "videos", ["anime_id"], name: "index_videos_on_anime_id", using: :btree

@@ -11,6 +11,7 @@ describe Video do
     it { should validate_presence_of :uploader_id }
     it { should validate_presence_of :url }
     it { should validate_presence_of :kind }
+    #it { should validate_presence_of :hosting }
   end
 
   context :hooks do
@@ -46,21 +47,14 @@ describe Video do
   end
 
   context :validations do
-    describe :existence do
-      let(:video) { build :video, :with_http_request, url: 'http://www.youtube.com/watch?v=_TEnq7wuHTQ' }
-      before { VCR.use_cassette(:vk_video) { video.save } }
-
-      it { video.errors.messages[:url].should eq [I18n.t('activerecord.errors.models.videos.attributes.url.youtube_not_exist')] }
-      it { video.persisted?.should be false }
-    end
-
     describe :normalize do
       let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
+      subject { video }
 
       context 'valid url' do
         let(:video) { build :video, url: url }
         before { video.save }
-        it { video.persisted?.should be true }
+        it { should be_persisted }
       end
 
       context 'invalid url' do
@@ -69,38 +63,24 @@ describe Video do
 
         describe 'bad youtube url' do
           let(:url) { 'https://yyoutube.com/watch?v=VdwKZ6JDENc' }
-          it { video.persisted?.should be false }
-          it { video.errors.messages[:url].should eq [I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')] }
+          it { should_not be_persisted }
+          specify { video.errors.messages[:url].should eq [I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')] }
         end
 
         describe 'no v param' do
           let(:url) { 'https://youtube.com/watch?vv=VdwKZ6JDENc' }
-          it { video.persisted?.should be false }
+          it { should_not be_persisted }
         end
       end
     end
   end
 
-  #describe 'deletion of invalid video' do
-    #let(:video) { build :video, url: 'https://youtube.com/watch?v=VdwKZ6JDENc' }
-    #before do
-      #video.save
-      #video.update_column :url, 'https://yyoutube.com/watch?v=VdwKZ6JDENc'
-      #video.del
-    #end
-
-    #it { video.state.should eq 'deleted' }
-  #end
-
   context :youtube do
     subject(:video) { build :video, url: 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
 
-    its(:youtube?) { should be_true }
-    its(:vk?) { should be_false }
-    its(:hosting) { should eq :youtube }
+    its(:hosting) { should eq 'youtube' }
     its(:image_url) { should eq 'http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg' }
-    its(:direct_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
-    its(:key) { should eq 'VdwKZ6JDENc' }
+    its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
 
     describe 'url=' do
       let(:clean_url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
@@ -115,27 +95,12 @@ describe Video do
         end
 
         describe 'hash params' do
-          let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc#zzzz?Afdsfsds' }
-          it { should eq clean_url }
+          let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc#t=123' }
+          it { should eq clean_url + '#t=123' }
         end
 
         describe 'no www' do
           let(:url) { 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
-          it { should eq clean_url }
-        end
-
-        describe 'params after ' do
-          let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&ff=vcxvcx' }
-          it { should eq clean_url }
-        end
-
-        describe 'params before' do
-          let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc' }
-          it { should eq clean_url }
-        end
-
-        describe 'params surrounded' do
-          let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc&ff=vcxvcx' }
           it { should eq clean_url }
         end
       end
@@ -144,29 +109,13 @@ describe Video do
 
   context :vkontakte do
     subject(:video) { build :video, :with_http_request, url: 'http://vk.com/video98023184_165811692' }
-    its(:youtube?) { should be_false }
-    its(:vk?) { should be_true }
-    its(:hosting) { should eq :vk }
+    its(:hosting) { should eq 'vk' }
 
     context :saved do
       before { VCR.use_cassette(:vk_video) { video.save! } }
+
       its(:image_url) { should eq 'http://cs514511.vk.me/u98023184/video/l_81cce630.jpg' }
-      its(:direct_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&hd=1' }
-    end
-
-    describe :details do
-      let(:details) { 'some vk video details' }
-
-      context :fetched do
-        before { video.should_receive(:fetch_vk_details).and_return 'some vk video details' }
-        its(:details) { should eq 'some vk video details' }
-      end
-
-      context :not_fetched do
-        before { video[:details] = 'another vk video details' }
-        before { video.should_not_receive :fetch_vk_details }
-        its(:details) { should eq 'another vk video details' }
-      end
+      its(:player_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&hd=1' }
     end
 
     describe 'url=' do

@@ -74,7 +74,6 @@ gem 'rabl' # для рендеринга json
 gem 'postmark-rails'
 gem 'apipie-rails'
 
-
 group :production, :development do # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
   gem 'composite_primary_keys' # для составного праймари кея у CommentView и EntryView
 end

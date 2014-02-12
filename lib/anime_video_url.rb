@@ -4,14 +4,10 @@ class AnimeVideoUrl
   end
 
   def extract
-    if @url =~ /vk.com\/video-?\d+_\d+/
-      Video.new(url: @url).direct_url
-    elsif @url =~ /iframe/
-      /iframe src="(.*?)"/.match(@url)[1]
+    if @url =~ /iframe [^>]*src="(.*?)"/
+      $1
     else
-      @url
+      VideoExtractor.fetch(@url).try(:player_url) || @url
     end
-    rescue
-      @url
   end
 end
