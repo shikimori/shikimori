@@ -12,6 +12,8 @@ class Video < ActiveRecord::Base
   before_create :check_url
   after_create :suggest_acception
 
+  scope :youtube, -> { where hosting: :youtube }
+
   PV = 'PV'
   OP = 'OP'
   ED = 'ED'

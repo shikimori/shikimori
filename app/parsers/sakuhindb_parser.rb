@@ -115,7 +115,9 @@ private
   end
 
   def present_videos
-    @present_videos ||= Set.new Video.all.map(&:key)
+    @present_videos ||= Set.new Video.youtube.map do |video|
+      video.url =~ VideoExtractor::YoutubeExtractor::URL_REGEX && $~[:key]
+    end
   end
 
   def decode str, with_ignore
