@@ -17,6 +17,7 @@ class MessageSerializer < ActiveModel::Serializer
 
     if object.linked && object.linked.kind_of?(Entry)
       hash[:topic_url] = topic_url object.linked
+      hash[:thread_id] = object.linked_id
       hash[:type] = object.linked.type
 
       if object.linked.linked
@@ -31,7 +32,10 @@ class MessageSerializer < ActiveModel::Serializer
 
     else
       hash[:type] = object.linked.class.name
-      hash[:topic_url] = "#{topic_url object.linked.commentable}#comment-#{object.linked.id}" if object.linked.kind_of? Comment
+      if object.linked.kind_of? Comment
+        hash[:topic_url] = "#{topic_url object.linked.commentable}#comment-#{object.linked.id}"
+        hash[:thread_id] = object.linked.commentable_id
+      end
     end
 
     hash
