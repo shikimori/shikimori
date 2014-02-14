@@ -68,6 +68,8 @@ ru:
           attributes:
             url:
               incorrect: некорректен, должна быть работающая ссылка на youtube или vkontakte
+            hosting:
+              incorrect: видео с данного хостинга не поддерживается
 
     state_machines:
       contest:

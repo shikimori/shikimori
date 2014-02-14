@@ -1,5 +1,6 @@
 class Video < ActiveRecord::Base
   extend Enumerize
+  SAVEABLE_HOSTINGS = [:youtube, :vk, :rutube, :sibnet, :dailymotion]
 
   belongs_to :anime
   belongs_to :uploader, class_name: User.name
@@ -10,6 +11,7 @@ class Video < ActiveRecord::Base
   validates_uniqueness_of :url, case_sensitive: true, scope: [:anime_id, :state]
 
   before_create :check_url
+  before_create :check_hosting
   after_create :suggest_acception
 
   scope :youtube, -> { where hosting: :youtube }
@@ -73,6 +75,15 @@ private
       true
     else
       self.errors[:url] = I18n.t 'activerecord.errors.models.videos.attributes.url.incorrect'
+      false
+    end
+  end
+
+  def check_hosting
+    if SAVEABLE_HOSTINGS.include? hosting.to_sym
+      true
+    else
+      self.errors[:url] = I18n.t 'activerecord.errors.models.videos.attributes.hosting.incorrect'
       false
     end
   end

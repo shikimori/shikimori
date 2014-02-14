@@ -4,7 +4,7 @@
   .subcontent.item-content-editor.m30
     = simple_form_for Video.new, remote: true, 'data-type' => :json, authenticity_token: true do |f|
       = hidden_field_tag :apply, ''
-      = f.input :url, hint: 'youtube или vkontakte'
+      = f.input :url, hint: 'youtube, vkontakte, rutube, sibnet, dailymotion'
       = f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false
       = f.input :name
 
