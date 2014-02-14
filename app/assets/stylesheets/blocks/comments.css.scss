@@ -275,9 +275,9 @@ $dark-grey-color: #545454;
     &.collapsed, &.collapse {
       border-bottom: 1px dashed $selected-color;
     }
-    &.collapse {
-      margin-right: 5px;
-    }
+    /*&.collapse {*/
+      /*margin-right: 5px;*/
+    /*}*/
   }
 }
 /*.comments-container:first-child .comment-block:first-child {*/
