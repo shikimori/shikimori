@@ -1,0 +1,22 @@
+@import globals
+@import mixins/hover_underlined
+
+.b-user16
+  +normal-link
+  display: inline-block
+  line-height: $line-height
+  margin-left: 19px
+  margin-right: 5px
+  white-space: nowrap
+
+  &:hover
+    text-decoration: none !important
+
+    span
+      text-decoration: underline
+
+  img
+    position: absolute
+    margin-left: -19px
+    margin-top: 3px
+    padding-right: 2px // чтобы пробела не было и ссылка не мелькала

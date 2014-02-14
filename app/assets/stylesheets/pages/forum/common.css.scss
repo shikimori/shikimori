@@ -144,25 +144,20 @@ $comments-margin: 58px;
       .last-block {
         @include ellipsis;
         margin-top: 3px;
+        line-height: $line-height;
 
         .date {
           float: left;
           padding-left: 2px;
           padding-right: 5px;
         }
-        .user16 {
+        .b-user16 {
           float: left;
-          margin-top: -1px; // т.к. шрифт на 1 пиксель больше, чем у tags
-          padding-left: 2px;
-
-          a {
-            @include normal-link;
-          }
+          margin-top: -2px;
         }
         .tags {
           float: right;
           font-size: 11px;
-          /*padding-top: 1px;*/
 
           .tag {
             @include tag;

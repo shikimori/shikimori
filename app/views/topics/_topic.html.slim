@@ -47,11 +47,9 @@
 
             .last-block
               - if topic.preview? && (topic.news? || topic.review?)
-                .user16
-                  a href="#{user_url topic.user}" title="#{topic.user.nickname}"
-                    img src="#{topic.user.avatar_url 16}" alt="#{topic.user.nickname}"
-                  a href="#{user_url topic.user}" title="#{topic.user.nickname}"
-                    = topic.user.nickname
+                a.b-user16 href="#{user_url topic.user}" title="#{topic.user.nickname}"
+                  img src="#{topic.user.avatar_url 16}" alt="#{topic.user.nickname}"
+                  span = topic.user.nickname
               p.date
                 = topic.date
               p.tags

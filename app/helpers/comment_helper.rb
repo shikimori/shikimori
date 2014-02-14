@@ -5,9 +5,8 @@ module CommentHelper
   include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user,
-                    :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler, :user_image
-                   ]
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler, :user_image]
+  DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
   @@smileys_synonym = {
@@ -90,7 +89,7 @@ module CommentHelper
   def mention_to_html text, poster=nil
     text.gsub /\[mention=\d+\]([\s\S]*?)\[\/mention\]/ do
       nickname = $1
-      "<a href=\"#{user_url User.param_to(nickname)}\">@#{nickname}</a>"
+      "<a href=\"#{user_url User.param_to(nickname)}\" class=\"b-mention\"><s>@</s><span>#{nickname}</span></a>"
     end
   end
 
@@ -150,7 +149,7 @@ module CommentHelper
   end
 
   def db_entry_mention text
-    text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes).map {|v| "#{v}\b" }.join('|') })(.*?)\]} do |matched|
+    text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes + DbEntryBbCodes).map {|v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|
       name = $1.gsub('&#x27;', "'").gsub('&quot;', '"')
 
       splitted_name = name.split(' ')
@@ -184,10 +183,11 @@ module CommentHelper
   def quote_to_html text, poster=nil
     return text unless text.include?("[quote") && text.include?("[/quote]")
 
-    text.gsub(/\[quote\]/, '<blockquote>').
-         gsub(/\[quote=(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[user=\2]\3[/user]</div>').
-         gsub(/\[quote=([^\]]+)\]/, '<blockquote><div class="quoteable">[user]\1[/user]</div>').
-         gsub(/\[\/quote\](?:\r\n|\r|\n|<br \/>)?/, '</blockquote>')
+    text
+      .gsub(/\[quote\]/, '<blockquote>')
+      .gsub(/\[quote=(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
+      .gsub(/\[quote=([^\]]+)\]/, '<blockquote><div class="quoteable">[user]\1[/user]</div>')
+      .gsub(/\[\/quote\](?:\r\n|\r|\n|<br \/>)?/, '</blockquote>')
   end
 
   def posters_to_html text, poster=nil
@@ -209,8 +209,8 @@ module CommentHelper
     Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :character_tooltip_url],
     Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :person_tooltip_url],
     UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :moderation_user_change_tooltip_url],
-    Comment => [/(\[comment=(\d+)\]([^\[]*?)\[\/comment\])/, nil],
-    Entry => [/(\[entry=(\d+)\]([^\[]*?)\[\/entry\])/, nil],
+    Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
+    Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote>)\](?<text>[^\[]*?)\[\/entry\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Group => [/(\[group(?:=(\d+))?\]([^\[]*?)\[\/group\])/, nil],
@@ -227,18 +227,24 @@ module CommentHelper
       while text =~ matcher
         if klass == Comment || klass == Entry
           url = if klass == Comment
-            comment_url id: $2, format: :html
+            comment_url id: $~[:id], format: :html
           else
-            topic_tooltip_url id: $2, format: :html
+            topic_tooltip_url id: $~[:id], format: :html
           end
 
           begin
-            comment = klass.find($2)
+            comment = klass.find $~[:id]
             user = comment.user
 
-            text.gsub!($1, "<a href=\"#{url_for user}\" title=\"#{user.nickname}\" class=\"bubbled\" data-remote=\"true\" data-href=\"#{url}\">#{$3}</a>")
+            if $~[:quote].present?
+              text.gsub! $~[:match], "<a href=\"#{user_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-remote=\"true\" data-href=\"#{url}\">
+<img src=\"#{user.avatar_url 16}\" alt=\"#{user.nickname}\" /><span>#{user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
+            else
+              text.gsub! $~[:match], "<a href=\"#{url_for user}\" title=\"#{user.nickname}\" class=\"bubbled b-mention\" data-remote=\"true\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
+            end
+
           rescue
-            text.gsub!($1, "<span class=\"bubbled\" data-remote=\"true\" data-href=\"#{url}\">#{$3}</span>")
+            text.gsub! $~[:match], "<span class=\"bubbled\" data-remote=\"true\" data-href=\"#{url}\">#{$~[:text]}</span>"
             break
           end
 
@@ -260,8 +266,7 @@ module CommentHelper
               User.find $3
             end
 
-            text.gsub! $1, "<a href=\"#{user_url user}\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" alt=\"#{$4}\" /></a>
-<a href=\"#{url_for(user)}\" title=\"#{$4}\">#{$4}</a>" + (is_profile ? '' : " #{user.sex == 'male' ? 'написал' : 'написала'}:")
+            text.gsub! $1, "<a href=\"#{user_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" alt=\"#{$4}\" />#{$4}</a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
           rescue
             text.gsub! $1, "#{$4}#{is_profile ? '' : ' написал:'}"
             break
