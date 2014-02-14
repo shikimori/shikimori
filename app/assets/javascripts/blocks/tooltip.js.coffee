@@ -18,14 +18,14 @@ $.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
   defaultTemplate: TOOLTIP_TEMPLATE
   onBeforeShow: ->
     $trigger = @getTrigger()
-    return if $trigger.parent().hasClass('b-user16')
+    return if $trigger.hasClass('b-user16') || $trigger.parent().hasClass('b-user16')
 
     if $trigger.tagName() is 'img' or $trigger.find('img').length
       $trigger.animate opacity: 0.6, 100
 
   onBeforeHide: ->
     $trigger = @getTrigger()
-    return if $trigger.parent().hasClass('b-user16')
+    return if $trigger.hasClass('b-user16') || $trigger.parent().hasClass('b-user16')
 
     if $trigger.tagName() is 'img' or $trigger.find('img').length
       $trigger.stop()
