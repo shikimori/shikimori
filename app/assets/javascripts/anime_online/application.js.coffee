@@ -5,4 +5,4 @@
 #= require_tree .
 
 jQuery ->
-  $("[title]").tooltip delay: 300, placement: 'bottom'
+  $("[title]").tooltip delay: 300, placement: 'top'
