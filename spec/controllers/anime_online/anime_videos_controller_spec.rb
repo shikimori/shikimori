@@ -131,6 +131,23 @@ describe AnimeOnline::AnimeVideosController do
     it { expect{create_request}.to change(AnimeVideoReport, :count).by 1 }
   end
 
+  describe :destroy do
+    before { sign_in user }
+    let(:user) { create :user }
+    let(:anime_video) { create :anime_video }
+    let!(:anime_video_report) { create :anime_video_report, user: user, anime_video: anime_video }
+    let(:destroy_request) { delete :destroy, id: anime_video.id }
+
+    context :response do
+      before { destroy_request }
+      it { should respond_with_content_type :html }
+      it { response.should be_redirect }
+    end
+
+    it { expect{destroy_request}.to change(AnimeVideoReport, :count).by -1 }
+    it { expect{destroy_request}.to change(AnimeVideo, :count).by -1 }
+  end
+
   describe :help do
     before { get :help }
     it { should respond_with_content_type :html }

@@ -35,14 +35,19 @@
                   - if video.author
                     span.author = strip_tags video.author.name
 
-      li.report.pull-right
-        .btn-group
-          button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
-            span.glyphicon.glyphicon-flag
-            span.caret
-          ul.dropdown-menu
-            li: a href="#{anime_videos_report_url anime.current_video.id, kind: :broken}" data-remote="true" data-method="post" Видео не работает
-            li: a href="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" data-remote="true" data-method="post" Видео не от этого аниме
+      - if user_signed_in? && anime.current_video.uploader == current_user && anime.current_video.created_at > DateTime.now.prev_week
+        li.pull-right
+          a.btn.btn-default href="#{delete_anime_videos_url anime.current_video.id}" data-method="delete" title='Удалить видео'
+            span.glyphicon.glyphicon-trash
+      - else
+        li.report.pull-right
+          .btn-group
+            button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
+              span.glyphicon.glyphicon-flag
+              span.caret
+            ul.dropdown-menu
+              li: a href="#{anime_videos_report_url anime.current_video.id, kind: :broken}" data-remote="true" data-method="post" Видео не работает
+              li: a href="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" data-remote="true" data-method="post" Видео не от этого аниме
 
       - if user_signed_in? && !anime.current_video.copyright_ban?
         li.pull-right
