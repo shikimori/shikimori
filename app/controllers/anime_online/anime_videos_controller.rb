@@ -3,6 +3,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   layout 'anime_online'
 
   after_filter :save_preferences, only: :show
+  before_filter :check_auth, only: [:destroy]
 
   def index
     anime_query = AnimeVideosQuery.new AnimeOnlineDomain::adult_host?(request), params
@@ -56,10 +57,19 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
     if @video.save
       AnimeVideoReport.create! user: current_user, anime_video: @video, kind: :uploaded
-      redirect_to anime_videos_show_url @video.anime.id, @video.episode, @video.id
+      redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
     else
       render :new
     end
+  end
+
+  def destroy
+    video = AnimeVideo.find(params[:id])
+    report = AnimeVideoReport.where(user_id: current_user, anime_video_id: params[:id]).first
+    if report
+      video.destroy
+    end
+    redirect_to anime_videos_show_url(video.anime_id), notice: 'Видео удалено'
   end
 
   def help

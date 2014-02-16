@@ -6,6 +6,9 @@ class AnimeVideo < ActiveRecord::Base
   belongs_to :author,
     class_name: AnimeVideoAuthor.name,
     foreign_key: :anime_video_author_id
+  has_many :reports,
+    class_name: AnimeVideoReport.name,
+    dependent: :destroy
 
   enumerize :kind, in: [:raw, :subtitles, :fandub, :unknown], predicates: true
   enumerize :language, in: [:russian, :english], predicates: true
