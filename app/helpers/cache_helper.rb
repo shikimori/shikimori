@@ -1,10 +1,10 @@
 module CacheHelper
   def self.cache_settings
-    {
+    OpenStruct.new(
       cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{json?}" },
       unless: proc { user_signed_in? },
       expires_in: 2.days
-    }
+    )
   end
 
   def russian_names_key

@@ -2,12 +2,10 @@ require 'spec_helper'
 
 describe AniMangaQuery do
   describe 'complete' do
-    before do
-      create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート']
-      create :anime, name: 'testt', synonyms: ['xxxx']
-      create :anime, name: 'zula zula', russian: 'дада'
-      create :anime, name: 'test', english: ['bbbb'], japanese: ['シュタインズ ゲー']
-    end
+    let!(:anime1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }
+    let!(:anime2) { create :anime, name: 'testt', synonyms: ['xxxx'] }
+    let!(:anime3) { create :anime, name: 'zula zula', russian: 'дада' }
+    let!(:anime4) { create :anime, name: 'test', english: ['bbbb'], japanese: ['シュタインズ ゲー'] }
 
     it { AniMangaQuery.new(Anime, { search: 'test' }, nil).complete.should have(2).items }
     it { AniMangaQuery.new(Anime, { search: 'シュタインズ' }, nil).complete.should have(2).items }
@@ -15,23 +13,21 @@ describe AniMangaQuery do
     it { AniMangaQuery.new(Anime, { search: 'fofo' }, nil).complete.should have(0).items }
   end
 
-  describe 'fetch' do
-    def fetch(options={}, user=nil) AniMangaQuery.new(Anime, options, user).fetch; end
+  describe :fetch do
+    def fetch(options={}, user=nil, page=nil, limit=nil) AniMangaQuery.new(Anime, options, user).fetch(page, limit); end
 
-    context 'type' do
-      before do
-        create :anime, kind: 'TV', episodes: 13
-        create :anime, kind: 'TV', episodes: 0, episodes_aired: 13
-        create :anime, kind: 'TV', episodes: 6
-        create :anime, kind: 'TV', episodes: 13
+    context :type do
+      let!(:anime1) { create :anime, kind: 'TV', episodes: 13 }
+      let!(:anime2) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 13 }
+      let!(:anime3) { create :anime, kind: 'TV', episodes: 6 }
+      let!(:anime4) { create :anime, kind: 'TV', episodes: 13 }
 
-        create :anime, kind: 'TV', episodes: 17
-        create :anime, kind: 'TV', episodes: 0, episodes_aired: 17
-        create :anime, kind: 'TV', episodes: 26
+      let!(:anime5) { create :anime, kind: 'TV', episodes: 17 }
+      let!(:anime6) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 17 }
+      let!(:anime7) { create :anime, kind: 'TV', episodes: 26 }
 
-        create :anime, kind: 'TV', episodes: 29
-        create :anime, kind: 'TV', episodes: 0, episodes_aired: 100
-      end
+      let!(:anime8) { create :anime, kind: 'TV', episodes: 29 }
+      let!(:anime9) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 100 }
 
       context 'TV' do
         before { create :anime, kind: 'Movie' }
@@ -62,16 +58,14 @@ describe AniMangaQuery do
       end
     end
 
-    context 'censored' do
+    context :censored do
       let(:hentai) { create :genre, id: Genre::HentaiID }
       let(:yaoi) { create :genre, id: Genre::YaoiID }
       let(:porn) { create :studio }
 
-      before do
-        create :anime, censored: true, genres: [yaoi, hentai], studios: [porn]
-        create :anime, censored: true, genres: [yaoi], studios: [porn]
-        create :anime
-      end
+      let!(:anime1) { create :anime, censored: true, genres: [yaoi, hentai], studios: [porn] }
+      let!(:anime2) { create :anime, censored: true, genres: [yaoi], studios: [porn] }
+      let!(:anime3) { create :anime }
 
       describe 'no censored'do
         it { fetch.should have(1).item }
@@ -107,12 +101,10 @@ describe AniMangaQuery do
       end
     end
 
-    context 'music' do
-      before do
-        create :anime, kind: 'Music'
-        create :anime, kind: 'Music'
-        create :anime
-      end
+    context :music do
+      let!(:anime1) { create :anime, kind: 'Music' }
+      let!(:anime2) { create :anime, kind: 'Music' }
+      let!(:anime3) { create :anime }
 
       describe 'no music' do
         it { fetch.should have(1).item }
@@ -136,13 +128,11 @@ describe AniMangaQuery do
       let(:ghibli) { create :studio }
       let(:shaft) { create :studio }
 
-      before do
-        create :anime, genres: [shounen, shoujo], studios: [ghibli]
-        create :anime, genres: [shounen], studios: [ghibli]
-        create :anime, genres: [shounen], studios: [shaft, ghibli]
-        create :anime, studios: [shaft]
-        create :anime, genres: [shoujo]
-      end
+      let!(:anime1) { create :anime, genres: [shounen, shoujo], studios: [ghibli] }
+      let!(:anime2) { create :anime, genres: [shounen], studios: [ghibli] }
+      let!(:anime3) { create :anime, genres: [shounen], studios: [shaft, ghibli] }
+      let!(:anime4) { create :anime, studios: [shaft] }
+      let!(:anime5) { create :anime, genres: [shoujo] }
 
       describe 'genre' do
         describe 'inclusive' do
@@ -189,11 +179,9 @@ describe AniMangaQuery do
       describe 'publisher' do
         let(:jump) { create :publisher }
 
-        before do
-          create :manga, publishers: [jump], genres: [shounen, shoujo]
-          create :manga, publishers: [jump], genres: [shounen]
-          create :manga
-        end
+        let!(:manga1) { create :manga, publishers: [jump], genres: [shounen, shoujo] }
+        let!(:manga2) { create :manga, publishers: [jump], genres: [shounen] }
+        let!(:manga3) { create :manga }
 
         it 'inclusive' do
           AniMangaQuery.new(Manga, publisher: "#{jump.to_param}").fetch().to_a.should have(2).items
@@ -212,13 +200,11 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'rating' do
-      before do
-        create :anime, rating: AniMangaQuery::Ratings['NC-17'][0]
-        create :anime, rating: AniMangaQuery::Ratings['NC-17'][1]
-        create :anime, rating: AniMangaQuery::Ratings['G'][0]
-        create :anime, rating: AniMangaQuery::Ratings['R'][0]
-      end
+    describe :rating do
+      let!(:anime1) { create :anime, rating: AniMangaQuery::Ratings['NC-17'][0] }
+      let!(:anime2) { create :anime, rating: AniMangaQuery::Ratings['NC-17'][1] }
+      let!(:anime3) { create :anime, rating: AniMangaQuery::Ratings['G'][0] }
+      let!(:anime4) { create :anime, rating: AniMangaQuery::Ratings['R'][0] }
 
       describe 'inclusive' do
         it { fetch(rating: 'NC-17').should have(2).items }
@@ -238,15 +224,13 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'duration' do
-      before do
-        create :anime, duration: 10
-        create :anime, duration: 20
-        create :anime, duration: 20
-        create :anime, duration: 35
-        create :anime, duration: 35
-        create :anime, duration: 35
-      end
+    describe :duration do
+      let!(:anime1) { create :anime, duration: 10 }
+      let!(:anime2) { create :anime, duration: 20 }
+      let!(:anime3) { create :anime, duration: 20 }
+      let!(:anime4) { create :anime, duration: 35 }
+      let!(:anime5) { create :anime, duration: 35 }
+      let!(:anime6) { create :anime, duration: 35 }
 
       describe 'inclusive' do
         it { fetch(duration: 'S').should have(1).item }
@@ -267,12 +251,10 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'season' do
-      before do
-        create :anime, aired_on: Date.parse('2011-02-01')
-        create :anime, aired_on: Date.parse('2011-02-01')
-        create :anime, aired_on: Date.parse('2010-02-01')
-      end
+    describe :season do
+      let!(:anime1) { create :anime, aired_on: Date.parse('2011-02-01') }
+      let!(:anime2) { create :anime, aired_on: Date.parse('2011-02-01') }
+      let!(:anime3) { create :anime, aired_on: Date.parse('2010-02-01') }
 
       describe 'inclusive' do
         it { fetch(season: '2011').should have(2).items }
@@ -291,15 +273,13 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'status' do
-      before do
-        create :anime, status: AniMangaStatus::Ongoing, aired_on: DateTime.now - 1.month
-        create :anime, status: AniMangaStatus::Anons
-        create :anime, status: AniMangaStatus::Anons
-        create :anime, status: AniMangaStatus::Released
-        create :anime, status: AniMangaStatus::Released
-        create :anime, status: AniMangaStatus::Released
-      end
+    describe :status do
+      let!(:anime1) { create :anime, status: AniMangaStatus::Ongoing, aired_on: DateTime.now - 1.month }
+      let!(:anime2) { create :anime, status: AniMangaStatus::Anons }
+      let!(:anime3) { create :anime, status: AniMangaStatus::Anons }
+      let!(:anime4) { create :anime, status: AniMangaStatus::Released }
+      let!(:anime5) { create :anime, status: AniMangaStatus::Released }
+      let!(:anime6) { create :anime, status: AniMangaStatus::Released }
 
       describe 'inclusive' do
         it { fetch(status: 'ongoing').should have(1).item }
@@ -318,19 +298,18 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'mylist' do
+    describe :mylist do
       let(:user) { create :user }
       let(:anime) { create :anime }
       let(:anime2) { create :anime }
       let(:anime3) { create :anime }
 
-      before do
-        create :user_rate, user_id: user.id, target_id: anime.id, target_type: anime.class.name, status: UserRateStatus.get(UserRateStatus::Planned)
-        create :user_rate, user_id: user.id, target_id: anime2.id, target_type: Anime.name, status: UserRateStatus.get(UserRateStatus::Watching)
-        create :user_rate, user_id: user.id, target_id: anime3.id, target_type: Anime.name, status: UserRateStatus.get(UserRateStatus::Watching)
-        create :anime
-        create :anime
-      end
+      let!(:user_rate1) { create :user_rate, user_id: user.id, target_id: anime.id, target_type: anime.class.name, status: UserRateStatus.get(UserRateStatus::Planned) }
+      let!(:user_rate2) { create :user_rate, user_id: user.id, target_id: anime2.id, target_type: Anime.name, status: UserRateStatus.get(UserRateStatus::Watching) }
+      let!(:user_rate3) { create :user_rate, user_id: user.id, target_id: anime3.id, target_type: Anime.name, status: UserRateStatus.get(UserRateStatus::Watching) }
+
+      let!(:anime4) { create :anime }
+      let!(:anime5) { create :anime }
 
       describe 'inclusive' do
         it { fetch({mylist: "#{UserRateStatus.get(UserRateStatus::Planned)}"}, user).should have(1).item }
@@ -348,32 +327,26 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'exclude_ids' do
-      before do
-        create :anime, id: 1
-        create :anime, id: 2
-        create :anime
-      end
+    describe :exclude_ids do
+      let!(:anime1) { create :anime, id: 1 }
+      let!(:anime2) { create :anime, id: 2 }
+      let!(:anime3) { create :anime, id: 3 }
 
-     it { fetch(exclude_ids: ['1']).should have(2).items }
-     it { fetch(exclude_ids: [2]).should have(2).items }
-     it { fetch(exclude_ids: [1, 2]).should have(1).item }
+      it { fetch(exclude_ids: ['1']).should have(2).items }
+      it { fetch(exclude_ids: [2]).should have(2).items }
+      it { fetch(exclude_ids: [1, 2]).should have(1).item }
     end
 
-    describe 'order' do
-      let(:anime1) { create :anime, ranked: 10, name: 'AAA' }
-      let(:anime2) { create :anime, ranked: 5, name: 'BBB' }
-      before do
-        anime1
-        anime2
-      end
+    describe :order do
+      let!(:anime1) { create :anime, ranked: 10, name: 'AAA' }
+      let!(:anime2) { create :anime, ranked: 5, name: 'BBB' }
 
       it { fetch().first.id.should eq anime2.id }
       it { fetch(order: 'name').first.id.should eq anime1.id }
       it { fetch(order: 'id').first.id.should eq anime2.id }
     end
 
-    describe 'search' do
+    describe :search do
       before do
         create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'], ranked: 1
         @ranked = create :anime, name: 'testt', synonyms: ['xxxx'], ranked: 2
@@ -419,6 +392,19 @@ describe AniMangaQuery do
       end
       it 'japanese' do
         fetch(search: 'シュタインズ').should have(2).items
+      end
+    end
+
+    describe :paginated do
+      let!(:anime1) { create :anime, kind: 'TV', episodes: 13 }
+      let!(:anime2) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 13 }
+
+      it 'first page' do
+        fetch({}, nil, 1, 1).should eq [anime1, anime2]
+      end
+
+      it 'second page' do
+        fetch({}, nil, 2, 1).should eq [anime2]
       end
     end
   end

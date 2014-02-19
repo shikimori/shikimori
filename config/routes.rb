@@ -446,8 +446,8 @@ Site::Application.routes.draw do
     apipie
     namespace :api, defaults: { format: 'json' } do
       scope module: :v1 do
-        resources :animes, only: [:show]
-        resources :mangas, only: [:show]
+        resources :animes, only: [:show, :index]
+        resources :mangas, only: [:show, :index]
 
         resources :characters, only: [:show]
         resources :people, only: [:show]

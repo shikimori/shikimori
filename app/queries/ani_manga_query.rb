@@ -46,7 +46,7 @@ class AniMangaQuery
   end
 
   # выборка аниме или манги по заданным параметрам
-  def fetch
+  def fetch page = nil, limit = nil
     type!
     censored!
     disable_music!
@@ -62,6 +62,8 @@ class AniMangaQuery
 
     exclude_ids!
     search!
+
+    paginate! page, limit if page && limit
 
     order @query
   end
@@ -244,19 +246,13 @@ private
     return if @search.blank?
 
     @query = @query.where(search_queries.join(' or '))
-    #term = SearchHelper.unescape(@search).downcase
-    #pterm = term.gsub(' ', '% ')
+  end
 
-    #@query = @query.where {
-      #( name.like term.gsub(/([A-zА-я0-9])/, '\1% ').sub(/ $/, '') ) |
-      #( name.like "%#{pterm}%" ) |
-      #( name.like "%#{pterm.broken_translit}%" ) |
-      #( russian.like "%#{pterm}%" ) |
-      #( synonyms.like "%#{pterm}%" ) |
-      #( english.like "%#{pterm}%" ) |
-      #( japanese.like "%#{pterm}%" ) |
-      #( japanese.like "%#{term.to_yaml.gsub(/^--- !binary \|\n|\n\n$/, '')}%" )
-    #}
+  # пагинация
+  def paginate! page, limit
+    @query = @query
+      .offset(limit * (page-1))
+      .limit(limit + 1)
   end
 
   # варианты, которые будем перебирать при поиске
