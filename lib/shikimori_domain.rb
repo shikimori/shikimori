@@ -1,4 +1,4 @@
-class ShikimoriDomain
+module ShikimoriDomain
   HOSTS = ['dev.shikimori.org', 'shikimori.dev', 'shikimori.org']
 
   def self.matches? request

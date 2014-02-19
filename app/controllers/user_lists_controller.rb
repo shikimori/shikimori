@@ -126,7 +126,7 @@ class UserListsController < UsersController
       #flash[:notice] = "В данный момент система нагружена импортами. Пожалуйста, повторите попытку через несколько минут."
       #return
     #end
-    #Rails.cache.write('import-lock', current_user.id, :expires_in => 1.minute)
+    #Rails.cache.write('import-lock', current_user.id, expires_in: 1.minute)
 
     klass = Object.const_get(params[:klass].capitalize)
     rewrite = params[:rewrite] == true || params[:rewrite] == '1'
@@ -201,7 +201,7 @@ class UserListsController < UsersController
     message = []
 
     if added.size > 0
-      items = klass.where(:id => added).select([:id, :name])
+      items = klass.where(id: added).select([:id, :name])
       if klass == Manga
         message << "В ваш список #{Russian.p(added.size, 'импортирована', 'импортированы', 'импортированы')} #{added.size} #{Russian.p(added.size, 'манга', 'манги', 'манги')}:"
       else
@@ -212,7 +212,7 @@ class UserListsController < UsersController
     end
 
     if updated.size > 0
-      items = klass.where(:id => updated).select([:id, :name])
+      items = klass.where(id: updated).select([:id, :name])
       if klass == Manga
         message << "В вашем списке #{Russian.p(updated.size, 'обновлена', 'обновлены', 'обновлены')} #{updated.size} #{Russian.p(updated.size, 'манга', 'манги', 'манги')}:"
       else
@@ -253,11 +253,11 @@ private
   # полный список пользователя
   def extract_full_list
     params[:order] = 'russian' if user_signed_in? && current_user.preferences.russian_names? && params[:order] == 'name'
-    pars = params.clone.merge(:klass => @klass)
+    pars = params.clone.merge(klass: @klass)
     pars.delete(:order)
 
     rate_ds = @user.send("#{params[:list_type]}_rates")
-    rate_ds = rate_ds.where(:status => UserRateStatus.get(params[:list_type_kind])) if params[:list_type_kind]
+    rate_ds = rate_ds.where(status: UserRateStatus.get(params[:list_type_kind])) if params[:list_type_kind]
     rate_ids = rate_ds.select('distinct(target_id)').map(&:target_id)
 
     entries = AniMangaQuery.new(@klass, pars, @user)
@@ -345,7 +345,7 @@ private
         end
 
         list[status] ||=  { entries: [], stats: {} }
-        list[status][:entries] << entry.merge(:index => j)
+        list[status][:entries] << entry.merge(index: j)
       end
     end
     list

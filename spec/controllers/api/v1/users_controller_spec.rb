@@ -37,6 +37,24 @@ describe Api::V1::UsersController do
     it { should respond_with :success }
   end
 
+  describe :anime_rates do
+    let(:user) { create :user }
+    let(:anime) { create :anime }
+    let!(:user_rate) { create :user_rate, target: anime, user: user }
+
+    before { get :anime_rates, id: user.id, format: :json }
+    it { should respond_with :success }
+  end
+
+  describe :manga_rates do
+    let(:user) { create :user }
+    let(:manga) { create :manga }
+    let!(:user_rate) { create :user_rate, target: manga, user: user }
+
+    before { get :manga_rates, id: user.id, format: :json }
+    it { should respond_with :success }
+  end
+
   describe :clubs do
     let(:user) { create :user, groups: [create(:group)] }
 

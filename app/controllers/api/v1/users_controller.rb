@@ -9,22 +9,34 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with UserProfileDecorator.new(user), serializer: UserProfileSerializer
   end
 
-  api :GET, "/users/whoami", "Show current user brief info"
+  api :GET, "/users/whoami", "Show current user's brief info"
   def whoami
     respond_with current_user
   end
 
-  api :GET, "/users/:id/friends", "Show user friends"
+  api :GET, "/users/:id/friends", "Show user's friends"
   def friends
     respond_with user.friends
   end
 
-  api :GET, "/users/:id/clubs", "Show user clubs"
+  api :GET, "/users/:id/clubs", "Show user's clubs"
   def clubs
     respond_with user.groups
   end
 
-  api :GET, "/users/:id/favourites", "Show user favourites"
+  api :GET, "/users/:id/anime_rates", "Show user's anime list"
+  def anime_rates
+    animes = Rails.cache.fetch([current_user, :anime_rates]) { user.anime_rates.includes(:anime).to_a }
+    respond_with animes, each_serializer: AnimeRateSerializer
+  end
+
+  api :GET, "/users/:id/manga_rates", "Show user's manga list"
+  def manga_rates
+    mangas = Rails.cache.fetch([current_user, :manga_rates]) { user.manga_rates.includes(:manga).to_a }
+    respond_with mangas, each_serializer: MangaRateSerializer
+  end
+
+  api :GET, "/users/:id/favourites", "Show user's favourites"
   def favourites
     respond_with(
       animes: user.fav_animes.map {|v| FavouriteSerializer.new v },
@@ -37,7 +49,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     )
   end
 
-  api :GET, "/users/:id/messages", "Show current user messages. Authorization required."
+  api :GET, "/users/:id/messages", "Show current user's messages. Authorization required."
   def messages
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
@@ -45,7 +57,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with MessagesQuery.new(current_user, params[:type] || '').fetch @page, @limit
   end
 
-  api :GET, "/users/:id/unread_messages", "Show current user unread messages counts. Authorization required."
+  api :GET, "/users/:id/unread_messages", "Show current user's unread messages counts. Authorization required."
   def unread_messages
     respond_with ({
       messages: current_user.unread_messages,
@@ -54,7 +66,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     })
   end
 
-  api :GET, "/users/:id/history", "Show user history"
+  api :GET, "/users/:id/history", "Show user's history"
   def history
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max

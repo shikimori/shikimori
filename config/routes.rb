@@ -475,6 +475,8 @@ Site::Application.routes.draw do
             get :messages
             get :unread_messages
             get :history
+            get :anime_rates
+            get :manga_rates
           end
         end
         namespace :profile do
