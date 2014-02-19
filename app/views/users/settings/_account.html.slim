@@ -54,7 +54,7 @@
       = f.input :location
       = f.input :website
       = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
-      = f.input :birth_on, start_year: Date.today.year - 90, end_year: Date.today.year - 8
+      = f.input :birth_on, include_blank: true, start_year: Date.today.year - 90, end_year: Date.today.year - 8
 
   .buttons
     = f.submit 'Сохранить'
