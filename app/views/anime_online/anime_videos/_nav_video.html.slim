@@ -35,9 +35,9 @@
                   - if video.author
                     span.author = strip_tags video.author.name
 
-      - if user_signed_in? && anime.current_video.uploader == current_user && anime.current_video.created_at > DateTime.now.prev_week
+      - if user_signed_in? && anime.current_video.uploader == current_user && anime.current_video.created_at > 1.week.ago
         li.pull-right
-          a.btn.btn-default href="#{delete_anime_videos_url anime.current_video.id}" data-method="delete" title='Удалить видео'
+          a.btn.btn-default href="#{delete_anime_videos_url anime.current_video.id}" data-method="delete" data-confirm="Вы точно хотить удалить это видео?" title='Удалить видео'
             span.glyphicon.glyphicon-trash
       - else
         li.report.pull-right
