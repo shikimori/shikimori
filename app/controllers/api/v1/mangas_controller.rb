@@ -13,7 +13,7 @@ class Api::V1::MangasController < Api::V1::ApiController
     limit = [[params[:limit].to_i, 1].max, 100].min
     page = [params[:page].to_i, 1].max
 
-    @collection = Rails.cache.fetch Digest::MD5.hexdigest("#{request.path}|#{params.to_json}|#{current_user.try :cache_key}") do
+    @collection = Rails.cache.fetch cache_key do
       AniMangaQuery
         .new(Manga, params, current_user)
         .fetch(page, limit)
@@ -21,5 +21,10 @@ class Api::V1::MangasController < Api::V1::ApiController
     end
 
     respond_with @collection, each_serializer: MangaSerializer
+  end
+
+private
+  def cache_key
+    Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{params[:mylist].present? ? current_user.try(:cache_key) : nil}"
   end
 end

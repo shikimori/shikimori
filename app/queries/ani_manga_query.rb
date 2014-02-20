@@ -218,7 +218,7 @@ private
 
   # фильтрация по наличию в собственном списке
   def mylist!
-    return if @mylist.blank?
+    return if @mylist.blank? || @user.blank?
     statuses = bang_split(@mylist.split(','), true)
 
     animelist = @user.send("#{@klass.name.downcase}_rates")
