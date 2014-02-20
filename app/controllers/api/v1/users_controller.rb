@@ -26,14 +26,28 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   api :GET, "/users/:id/anime_rates", "Show user's anime list"
   def anime_rates
-    animes = Rails.cache.fetch([current_user, :anime_rates]) { user.anime_rates.includes(:anime).to_a }
-    respond_with animes, each_serializer: AnimeRateSerializer
+    @rates = Rails.cache.fetch [current_user, :anime_rates, params[:status]] do
+      rates = user
+        .anime_rates
+        .includes(:anime)
+
+      rates = rates.where status: params[:status] if params[:status].present?
+      rates.to_a
+    end
+    respond_with @rates, each_serializer: AnimeRateSerializer
   end
 
   api :GET, "/users/:id/manga_rates", "Show user's manga list"
   def manga_rates
-    mangas = Rails.cache.fetch([current_user, :manga_rates]) { user.manga_rates.includes(:manga).to_a }
-    respond_with mangas, each_serializer: MangaRateSerializer
+    @rates = Rails.cache.fetch [current_user, :manga_rates, params[:status]] do
+      rates = user
+        .manga_rates
+        .includes(:manga)
+
+      rates = rates.where status: params[:status] if params[:status].present?
+      rates.to_a
+    end
+    respond_with @rates, each_serializer: MangaRateSerializer
   end
 
   api :GET, "/users/:id/favourites", "Show user's favourites"

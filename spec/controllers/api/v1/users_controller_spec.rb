@@ -40,19 +40,21 @@ describe Api::V1::UsersController do
   describe :anime_rates do
     let(:user) { create :user }
     let(:anime) { create :anime }
-    let!(:user_rate) { create :user_rate, target: anime, user: user }
+    let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
+    before { get :anime_rates, id: user.id, status: 1, format: :json }
 
-    before { get :anime_rates, id: user.id, format: :json }
     it { should respond_with :success }
+    specify { assigns(:rates).should have(1).item }
   end
 
   describe :manga_rates do
     let(:user) { create :user }
     let(:manga) { create :manga }
-    let!(:user_rate) { create :user_rate, target: manga, user: user }
+    let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
+    before { get :manga_rates, id: user.id, status: 1, format: :json }
 
-    before { get :manga_rates, id: user.id, format: :json }
     it { should respond_with :success }
+    specify { assigns(:rates).should have(1).item }
   end
 
   describe :clubs do

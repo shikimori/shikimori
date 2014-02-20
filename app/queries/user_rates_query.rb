@@ -1,5 +1,5 @@
 class UserRatesQuery
-  def initialize(entry, user)
+  def initialize entry, user
     @entry = entry
     @user = user
   end
@@ -14,7 +14,7 @@ class UserRatesQuery
   end
 
   # последние изменения от всех пользователей
-  def recent_rates(limit)
+  def recent_rates limit
     UserRate
       .where(target_id: @entry.id, target_type: @entry.class.name)
       .includes(:user)
