@@ -5,63 +5,36 @@ class TopicsController < ForumController
   before_filter :check_post_permission, only: [:create, :update]
 
   caches_action :index,
-                :cache_path => proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{Comment.last.updated_at}|#{json?}" },
-                :unless => proc { user_signed_in? },
-                :expires_in => 2.days
+    cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{Comment.last.updated_at}|#{json?}" },
+    unless: proc { user_signed_in? },
+    expires_in: 2.days
 
   caches_action :show,
-                :cache_path => proc {
-                  topic = Entry.find params[:topic]
-                  Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{topic.updated_at}|#{topic.linked ? topic.linked.updated_at : ''}|#{json?}"
-                },
-                :unless => proc { user_signed_in? },
-                :expires_in => 2.days
+    cache_path: proc {
+      topic = Entry.find params[:topic]
+      Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{topic.updated_at}|#{topic.linked ? topic.linked.updated_at : ''}|#{json?}"
+    },
+    unless: proc { user_signed_in? },
+    expires_in: 2.days
 
   # главная страница сайта и форум
   def index
     @page = (params[:page] || 1).to_i
 
-    topics = case @section[:permalink]
-      when AllSection[:permalink]
-        if user_signed_in?
-          subscriptions = Subscription.where(user_id: current_user.id, target_type: GroupComment.name).select(:target_id).map(&:target_id)
-          Entry.where("type != ? or (type = ? and id in (?))", GroupComment.name, GroupComment.name, subscriptions)
-        else
-          Entry.where.not(type: GroupComment.name)
-        end
-
-      when FeedSection[:permalink]
-        Entry.where(id: Subscription.where(user_id: current_user.id, target_type: Entry::Types).select(:target_id).map(&:target_id))
-
-      when Section::News[:permalink]
-        Entry.where(type: [AnimeNews.name, MangaNews.name])
-
-      else
-        Entry.where(section_id: @section[:id])
-    end
-
-    linked_condition = @linked ? { linked_id: @linked.id, linked_type: @linked.class.name } : nil
-
-    topics = topics.send(@section[:permalink] == 'news' ? :wo_episodes : :wo_generated)
-        .where(linked_condition)
-        .with_viewed(current_user)
-        .includes(:section)
-        .order_default
-        .offset(topics_limit * (@page-1))
-        .limit(topics_limit + 1)
-
-    #topics = topics.visible_only unless params[:linked]
-    topics = topics.to_a
+    topics = TopicsQuery
+      .new(@section, current_user, @linked)
+      .fetch(@page, topics_limit)
+      .to_a
 
     @add_postloader = topics.size > topics_limit
     @topics = topics.take(topics_limit).map do |entry|
-      TopicPresenter.new({
+      TopicPresenter.new(
         limit: @page == 1 ? @@first_page_comments : @@other_page_comments,
         fold_limit: 10,
         linked: @linked,
         object: entry,
         template: view_context
-      })
+      )
     end
 
     super
@@ -217,9 +190,9 @@ class TopicsController < ForumController
 
   # html код для тултипа
   def tooltip
-    topic = Entry.find(params[:id])
+    topic = Entry.find params[:id]
 
-    preview = TopicPresenter.new(object: topic, template: view_context, limit: 0, with_user: true)
+    preview = TopicPresenter.new object: topic, template: view_context, limit: 0, with_user: true
 
     # превью топика отображается в формате комментария
     render partial: 'comments/comment', layout: false, object: topic, locals: { no_buttons: true }, formats: :html
@@ -227,9 +200,10 @@ class TopicsController < ForumController
 
   # выбранные топики
   def chosen
-    topics = Entry.with_viewed(current_user)
-                  .where(id: params[:ids].split(',').map(&:to_i))
-                  .map { |entry| TopicPresenter.new(object: entry, template: view_context, limit: @@first_page_comments) }
+    topics = Entry
+      .with_viewed(current_user)
+      .where(id: params[:ids].split(',').map(&:to_i))
+      .map {|entry| TopicPresenter.new(object: entry, template: view_context, limit: @@first_page_comments) }
 
     render partial: 'topics/topic', collection: topics, layout: false, formats: :html
   end

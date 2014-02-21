@@ -2,23 +2,6 @@ class ForumController < ApplicationController
   @@first_page_comments = 3
   @@other_page_comments = 1
 
-  AllSection = {
-    name: 'Обсуждения',
-    name_short: 'Все',
-    description: 'Все активные топики сайта.',
-    permalink: 'all',
-    meta_title: 'Энциклопедия аниме и манги',
-    meta_keywords: 'аниме, манга, список, каталог, форум, обсуждения, отзывы, персонажи, герои, косплей, сайт, анимэ, anime, manga',
-    meta_description: 'Шикимори - энциклопедия аниме и манги, площадка для дискуссий на анимешные темы.'
-  }
-  FeedSection = {
-    name_short: 'Лента',
-    name: 'Лента',
-    description: 'Топики, где я участвую в обсуждении, или за которыми я слежу.',
-    permalink: 'f',
-    meta_title: 'Моя лента'
-  }
-
   before_filter :build_background , only: [:index, :show, :new, :edit, :create, :site_block]
   helper_method :section_ids_class
   helper_method :sticked_topics
@@ -29,7 +12,7 @@ class ForumController < ApplicationController
                 #:expires_in => 2.days
 
   def index
-    @gallery = WellcomeGalleryPresenter.new if @page == 1 && @section[:permalink] == AllSection[:permalink]
+    @gallery = WellcomeGalleryPresenter.new if @page == 1 && @section.permalink == Section::All.permalink
 
     @h1 = @linked && @linked.respond_to?(:name) ? @linked.name : @section[:title]
     @page_title = @page == 1 ? @section[:meta_title] : [@section[:meta_title], "Страница #{@page}"]
@@ -115,16 +98,11 @@ class ForumController < ApplicationController
 private
   # класс с id текущих разделов
   def section_ids_class
-    case @section[:permalink]
-      when AllSection[:permalink] then db_sections.map { |v| "section-#{v[:id]}" }.join(' ') + (user_signed_in? ? ' ' + current_user.groups.map { |v| "group-#{v[:id]}" }.join(' ') : '')
-      when FeedSection[:permalink] then "user-#{current_user.id} #{FayePublisher::BroadcastFeed}"
-      else "section-#{@section[:permalink]}"
+    case @section.permalink
+      when Section::All.permalink then Section.real.map {|v| "section-#{v[:id]}" }.join(' ') + (user_signed_in? ? ' ' + current_user.groups.map { |v| "group-#{v[:id]}" }.join(' ') : '')
+      when Section::Feed.permalink then "user-#{current_user.id} #{FayePublisher::BroadcastFeed}"
+      else "section-#{@section.permalink}"
     end
-  end
-
-  # разделы форума из базы
-  def db_sections
-    @db_sections ||= Section.order(:position).to_a
   end
 
   # построние окружения форума
@@ -132,24 +110,18 @@ private
     redirect_to :root, :status => :moved_permanently and return false if params[:format] == 'user'
 
     @sub_layout = 'forum'
-    params[:section] ||= AllSection[:permalink]
+    params[:section] ||= Section::All[:permalink]
 
-    #if params[:section] == 'news'
-      @sections = (user_signed_in? ? [FeedSection, AllSection, Section::News] : [AllSection, Section::News]) + db_sections
-    #else
-      #@sections = (user_signed_in? ? [FeedSection, AllSection] : [AllSection]) + db_sections
-    #end
-    @section = @sections.select { |v| v[:permalink] == params[:section] }.first
-    # скрытие раздела персонажей, клубов и рецензий
-    @sections.select! { |v| v[:permalink] != 'c' && v[:permalink] != 'g' && v[:permalink] != 'reviews' && v[:permalink] != 'v' }
+    @sections = Section.visible
+    @section = Section.find_by_permalink params[:section]
 
     if params[:linked] || (params[:topic] && !params[:topic].kind_of?(Hash))
       @topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
 
-      @linked = if @topic && @section[:permalink] != 'v'
+      @linked = if @topic && @section.permalink != 'v'
         @topic.linked
       else
-        case @section[:permalink]
+        case @section.permalink
           when 'a' then Anime.find(params[:linked].to_i)
           when 'm' then Manga.find(params[:linked].to_i)
           when 'c' then Character.find(params[:linked].to_i)
@@ -173,8 +145,8 @@ private
       {
         action: params[:action],
         local_menu_block: @linked ? render_to_string(partial: 'topics/linked_block', object: @linked_presenter, as: :linked, formats: :html) : nil,
-        new_topic_url: new_topic_url(section: @section[:permalink], linked: @linked),
-        section: @section[:permalink],
+        new_topic_url: new_topic_url(section: @section.permalink, linked: @linked),
+        section: @section.permalink,
       } if json?
     else
       {}
@@ -206,6 +178,6 @@ private
       's' => rules,
       'v' => rules,
       'o' => rules,
-    }[@section[:permalink]] || []
+    }[@section.permalink] || []
   end
 end

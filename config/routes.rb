@@ -456,9 +456,9 @@ Site::Application.routes.draw do
         resources :genres, only: [:index]
         resources :publishers, only: [:index]
 
-        resources :comments, only: [:show, :index]
-
         resources :sections, only: [:index]
+        resources :topics, only: [:index]
+        resources :comments, only: [:show, :index]
 
         resource :authenticity_token, only: [:show]
 

@@ -7,6 +7,6 @@
         = section[:name_short] || section[:name]
 
   h1.title
-    = @h1 || @section[:name]
+    = @h1 || @section.name.sub(/^Все$/, 'Обсуждения')
   p.notice
-    = @notice || @section[:description]
+    = @notice || @section.description

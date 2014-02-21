@@ -21,13 +21,13 @@ describe TopicsController do
         describe 'feed' do
           it '404' do
             lambda {
-              get :index, section: TopicsController::FeedSection[:permalink], format: format
+              get :index, section: Section::Feed.permalink, format: format
             }.should raise_error NotFound
           end
 
           it 'success' do
             sign_in user
-            get :index, section: TopicsController::FeedSection[:permalink], format: format
+            get :index, section: Section::Feed.permalink, format: format
             response.should be_success
           end
         end
@@ -36,7 +36,7 @@ describe TopicsController do
           before { topic_anime and topic2 }
 
           it 'all' do
-            get :index, section: TopicsController::AllSection[:permalink], format: format
+            get :index, section: Section::All.permalink, format: format
 
             response.should be_success
 

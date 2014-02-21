@@ -17,7 +17,7 @@
             .buttons
               .main-controls
                 span.item-reply data-type="json" data-action="#{topic.body_url}" data-remote="true" data-disabled="#{topic.generated? ? 'true' : 'false'}" title="#{topic.generated? ? 'Написать' : 'Ответить'}"
-                span[class="item-subscribe#{' selected' if current_user.subscribed?(topic.entry)}"
+                /span[class="item-subscribe#{' selected' if current_user.subscribed?(topic.entry)}"
                      title="Подписаться на топик"
                      data-type="json"
                      data-action="#{subscribe_url(type: topic.class.name, id: topic.id)}"

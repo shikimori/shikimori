@@ -10,7 +10,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/comments", "List comments"
   def index
-    @limit = [[params[:limit].to_i, 1].max, 100].min
+    @limit = [[params[:limit].to_i, 1].max, 30].min
     @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211213630) do
+ActiveRecord::Schema.define(version: 20140221183611) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(version: 20140211213630) do
   add_index "anime_links", ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true, using: :btree
 
   create_table "anime_video_authors", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", unique: true, using: :btree
 
   create_table "anime_video_reports", force: true do |t|
     t.integer  "anime_video_id"
@@ -736,6 +738,7 @@ ActiveRecord::Schema.define(version: 20140211213630) do
     t.string   "meta_title"
     t.string   "meta_keywords"
     t.string   "meta_description"
+    t.boolean  "is_visible"
   end
 
   create_table "similar_animes", force: true do |t|

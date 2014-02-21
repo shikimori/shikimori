@@ -8,11 +8,23 @@ describe VideoExtractor::VkExtractor do
     before { VCR.use_cassette(:vk_video) { subject } }
 
     context :valid_url do
-      let(:url) { 'http://vk.com/video98023184_165811692' }
+      context :common do
+        let(:url) { 'http://vk.com/video98023184_165811692' }
 
-      its(:hosting) { should eq :vk }
-      its(:image_url) { should eq 'http://cs514511.vk.me/u98023184/video/l_81cce630.jpg' }
-      its(:player_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&hd=1' }
+        its(:hosting) { should eq :vk }
+        its(:image_url) { should eq 'http://cs514511.vk.me/u98023184/video/l_81cce630.jpg' }
+        its(:player_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&hd=1' }
+      end
+
+      context :dash do
+        let(:url) { 'http://vk.com/video-42313379_167267838' }
+        its(:hosting) { should eq :vk }
+      end
+
+      context :params, :focus do
+        let(:url) { 'http://vk.com/video-25392769_159839451?hash=494612ca36dff0d9' }
+        its(:hosting) { should eq :vk }
+      end
     end
 
     context :invalid_url do
