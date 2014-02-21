@@ -13,6 +13,7 @@ class Section < ActiveRecord::Base
     meta_title: 'Новости аниме и манги',
     meta_keywords: 'аниме, манга, новости, события',
     meta_description: 'Новости аниме и манги на шикимори.',
+    is_visible: true
   )
   All = Section.new(
     position: -2,
@@ -22,6 +23,7 @@ class Section < ActiveRecord::Base
     meta_title: 'Энциклопедия аниме и манги',
     meta_keywords: 'аниме, манга, список, каталог, форум, обсуждения, отзывы, персонажи, герои, косплей, сайт, анимэ, anime, manga',
     meta_description: 'Шикимори - энциклопедия аниме и манги, площадка для дискуссий на анимешные темы.',
+    is_visible: true
   )
   Feed = Section.new(
     position: -3,
@@ -29,6 +31,7 @@ class Section < ActiveRecord::Base
     description: 'Топики, где я участвую в обсуждении, или за которыми я слежу.',
     permalink: 'f',
     meta_title: 'Моя лента',
+    is_visible: true
   )
 
   NewsId = [2,6]
@@ -52,7 +55,7 @@ class Section < ActiveRecord::Base
   end
 
   def self.visible
-    with_aggregated
+    with_aggregated.select(&:is_visible)
   end
 
   def self.real
