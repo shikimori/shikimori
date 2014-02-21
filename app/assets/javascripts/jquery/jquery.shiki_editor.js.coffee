@@ -254,7 +254,7 @@
           sel = document.selection.createRange()
           sel.text = prefix + ((if sel.text is "" and filler then filler else sel.text)) + postfix
           @focus()
-        else if @selectionStart or @selectionStart is "0"
+        else if @selectionStart or @selectionStart is "0" or @selectionStart is 0
           startPos = @selectionStart
           endPos = @selectionEnd
           scrollTop = @scrollTop
@@ -279,8 +279,8 @@
       if not sel_done and el.createTextRange
         range = el.createTextRange()
         range.collapse true
-        range.moveEnd "character", pos
-        range.moveStart "character", pos
+        range.moveEnd 'character', pos
+        range.moveStart 'character', pos
         range.select()
 
 ) jQuery
