@@ -458,6 +458,8 @@ Site::Application.routes.draw do
 
         resources :comments, only: [:show, :index]
 
+        resources :sections, only: [:index]
+
         resource :authenticity_token, only: [:show]
 
         devise_scope :user do
@@ -558,6 +560,6 @@ Site::Application.routes.draw do
       get 'danbooru(/:action(/:id(.:format)))', controller: :danbooru
     end
 
-    get '*a', to: 'pages#page404'
+    get '*a', to: 'pages#page404' unless Rails.env.development?
   end
 end
