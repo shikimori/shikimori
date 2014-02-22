@@ -30,7 +30,6 @@ $.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
         .on 'click', =>
           @hide()
 
-      debugger
       url = ($trigger.attr('href') || $trigger.data('href') || '').replace /\/toolitp$/, ''
       @getTip().find('.link').attr href: url if url
 
