@@ -69,7 +69,7 @@ class BbCodeFormatter
 
   # замена концов строк на параграфы
   def paragraphs text
-    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<p class="prgrph">\1</p>')
+    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>')
   end
 
   # замена имён персонажей на ббкоды

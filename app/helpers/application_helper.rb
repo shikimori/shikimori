@@ -25,7 +25,10 @@ module ApplicationHelper
 
   # удаление спойлеров и дополнений в скобочках в из текста
   def remove_misc_data(text)
-    text.gsub(/\[spoiler\][\s\S]*?\[\/spoiler\]|\]\]|\[\[|\([\s\S]*?\)|\[[\s\S]*?\]/, '').gsub(/<(?!br).*?>/, '')
+    text
+      .gsub(/\[spoiler\][\s\S]*?\[\/spoiler\]|\]\]|\[\[|\([\s\S]*?\)|\[[\s\S]*?\]/, '')
+      .gsub(/<(?!br).*?>/, '')
+      .gsub(/<br *\/?>/, '')
   end
 
   def sitelink(url)
