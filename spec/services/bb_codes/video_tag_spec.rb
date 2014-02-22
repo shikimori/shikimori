@@ -28,6 +28,11 @@ describe BbCodes::VideoTag do
         it { should include "a data-href=\"http://youtube.com/v/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
       end
 
+      context 'with params' do
+        let(:text) { 'https://vk.com/video-61933528_167061553?hash=w4ertfg' }
+        it { should match /\A<.*>\Z/ }
+      end
+
       context 'bad url' do
         let(:text) { "https://www.youtube.co/watch?v=#{hash}" }
         it { should eq text }
@@ -96,8 +101,9 @@ describe BbCodes::VideoTag do
       end
 
       context :dailymotion do
-        let(:text) { 'http://www.dailymotion.com/video/x1bj16i_darkara-kill-la-kill-op2_shortfilms' }
+        let(:text) { 'http://www.dailymotion.com/video/x19jwj5_boku-wa-tomodachi-ga-sukunai-op-ed-creditless_shortfilms?search_algo=1' }
         it { should include '<div class="image-container video dailymotion"' }
+        it { should match /\A<.*>\Z/ }
       end
 
       context :sibnet do

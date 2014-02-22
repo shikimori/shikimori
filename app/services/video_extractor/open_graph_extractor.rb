@@ -1,14 +1,15 @@
 class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
+  PARAMS_REGEXP = /(?:\?[\w=+%&]+)?/
   URL_REGEX = %r{
     https?://(?:www\.)?(
-      (?<hosting>coub).com/view/[\w_-]+ |
-      (?:\w+\.)?(?<hosting>twitch).tv/[\w_-]+/[\w_-]+/[\w_-]+ |
-      (?<hosting>rutube).ru/video/[\w_-]+ |
-      (?<hosting>vimeo).com/[\w_-]+ |
-      (?:\w+\.)?(?<hosting>myvi).ru/watch/[\w_-]+ |
-      video.(?<hosting>sibnet).ru/video[\w_-]+ |
-      video.(?<hosting>yandex).ru/users/[\w_-]+/view/[\w_-]+ |
-      (?<hosting>dailymotion).com/video/[\w_-]+
+      (?<hosting>coub).com/view/[\w_-]+#{PARAMS_REGEXP.source} |
+      (?:\w+\.)?(?<hosting>twitch).tv/[\w_-]+/[\w_-]+/[\w_-]+#{PARAMS_REGEXP.source} |
+      (?<hosting>rutube).ru/video/[\w_-]+#{PARAMS_REGEXP.source} |
+      (?<hosting>vimeo).com/[\w_-]+#{PARAMS_REGEXP.source} |
+      (?:\w+\.)?(?<hosting>myvi).ru/watch/[\w_-]+#{PARAMS_REGEXP.source} |
+      video.(?<hosting>sibnet).ru/video[\w_-]+#{PARAMS_REGEXP.source} |
+      video.(?<hosting>yandex).ru/users/[\w_-]+/view/[\w_-]+#{PARAMS_REGEXP.source} |
+      (?<hosting>dailymotion).com/video/[\w_-]+#{PARAMS_REGEXP.source}
     )
   }xi
 

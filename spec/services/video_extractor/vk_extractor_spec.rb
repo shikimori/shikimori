@@ -21,8 +21,8 @@ describe VideoExtractor::VkExtractor do
         its(:hosting) { should eq :vk }
       end
 
-      context :params, :focus do
-        let(:url) { 'http://vk.com/video-25392769_159839451?hash=494612ca36dff0d9' }
+      context :params do
+        let(:url) { 'https://vk.com/video-61933528_167061553?hash=w4ertfg' }
         its(:hosting) { should eq :vk }
       end
     end
