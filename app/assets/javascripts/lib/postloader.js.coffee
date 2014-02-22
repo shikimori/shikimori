@@ -51,11 +51,7 @@ $('.postloader').live 'postloader:success', (e, $data) ->
   $present_entries = $(".#{filter}-block")
 
   exclude_selector = _.compact(_.map($present_entries, (v, k) ->
-    match = v.className.match(regex)
-    if match
-      ".#{match[0]}"
-    else
-      null
+    ".#{match[0]}" if match = v.className.match(regex)
   )).join(', ')
 
   $(@).data 'filtered-data', $data.not(exclude_selector)

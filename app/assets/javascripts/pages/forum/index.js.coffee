@@ -68,11 +68,19 @@ $(document).on 'ajax:success', '.topic-block .click-loader', (e, data) ->
   # faye-loader делает совсем другое
   return if $this.hasClass("faye-loader")
 
-  $comments = $("<div class=\"comments-placeholder\"></div>").html data
+  # у подгруженных комментариев надо сначала вырезать те, которые уже присутствуют на странице
+  $present_comments = $this.closest('.comments').find('.comment-block')
+  exclude_selector = _.compact(_.map($present_comments, (v, k) ->
+    ".#{match[0]}" if match = v.className.match /comment-\d+/
+  )).join(', ')
+
+  $comments = $("<div class=\"comments-placeholder\"></div>").append $(data).not(exclude_selector)
+
   $container = $this.parents('.comments')
-  $container.find('.comments-container')
-      .prepend($comments)
-      .show()
+  $container
+    .find('.comments-container')
+    .prepend($comments)
+    .show()
 
   $comments.animated_expand()
 
