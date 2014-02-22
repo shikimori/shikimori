@@ -2,6 +2,32 @@
 
 .tooltip {
   z-index: 1;
+
+  .close, .link {
+    @include link-color(#555);
+    cursor: pointer;
+    z-index: 2;
+    font-family: Courier;
+    font-size: 13px;
+    position: absolute;
+    right: 5px;
+    top: 4px;
+
+    &:after {
+      content: '\2715';
+    }
+  }
+  .link {
+    right: 21px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+    &:after {
+      content: '\27a1';
+      font-size: 14px;
+    }
+  }
   .favourite {
     margin-top: -4px;
     float: right;

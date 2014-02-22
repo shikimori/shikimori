@@ -2,6 +2,8 @@ div
   .tooltip-inner
     .tooltip-arrow
     .clearfix
+      .close
+      a.link
       .tooltip-details
         - if defined?(template_name)
           = render partial: template_name, locals: objects, formats: :html

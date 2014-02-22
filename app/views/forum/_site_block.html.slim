@@ -96,7 +96,7 @@
                 span.misc title="#{entry[:reversed_action]}"
                   = entry[:reversed_action]
                 span.misc.date
-                  = entry[:time]
+                  = time_ago_in_words entry[:created_at]
 
 .menu-block.seasons
   h2.subheadline.m8 Сезоны аниме

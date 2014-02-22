@@ -171,6 +171,8 @@ module AnimeHelper
     tooltip_text += "  <div class=\"tooltip-arrow\">"
     tooltip_text += "  </div>"
     tooltip_text += "  <div class=\"clearfix\">"
+    tooltip_text += "    <div class=\"close\"></div>"
+    tooltip_text += "    <a class=\"link\"></a>"
     tooltip_text += "    <div class=\"tooltip-details\">"
     tooltip_text += block_given? ? capture(&block) : text
     tooltip_text += "    </div>"
