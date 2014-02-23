@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 
 gem 'mysql2'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
