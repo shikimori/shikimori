@@ -39,6 +39,7 @@ module Site
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     ActiveRecord::Base.include_root_in_json = false
+    #config.active_record.disable_implicit_join_references = true
 
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += [ Proc.new { |path| !%w(.js .css).include?(File.extname(path)) }, /.*.(css|js)$/ ]

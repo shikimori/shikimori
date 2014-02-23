@@ -17,10 +17,8 @@ class PagesController < ApplicationController
   # график онгоингов
   def calendar
     @page_title = 'Календарь онгоингов'
-    @ongoings = Rails.cache.fetch [:calendar, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Date.today.to_s] do
-      OngoingsQuery.new.fetch
-    end
 
+    @query = OngoingsQuery.new
     @topic = TopicPresenter.new(
       object: Topic.find(94879),
       template: view_context,

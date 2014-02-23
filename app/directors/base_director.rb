@@ -40,11 +40,7 @@ class BaseDirector
 
   # для корректного поведения всякого
   def respond_to? method, include_private = false
-    if @controller.respond_to?(method, include_private)
-      true
-    else
-      super method, include_private
-    end
+    super(method, include_private) || @controller.respond_to?(method, include_private)
   end
 
   # текущая страница
