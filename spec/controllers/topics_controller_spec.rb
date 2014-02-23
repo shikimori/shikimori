@@ -14,6 +14,7 @@ describe TopicsController do
   let(:topic2) { create :topic, section_id: section2.id, user_id: user.id }
 
   before { Topic.antispam = false }
+  before { Section.instance_variable_set :@with_aggregated, nil }
 
   ['html', 'json'].each do |format|
     describe format do
