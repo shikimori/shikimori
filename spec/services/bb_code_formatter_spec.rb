@@ -13,17 +13,17 @@ describe BbCodeFormatter do
 
     describe '\n' do
       let(:text) { "123\n456\n789" }
-      it { should eq '<p class="prgrph">123</p><p class="prgrph">456</p><p class="prgrph">789</p>' }
+      it { should eq '<div class="prgrph">123</div><div class="prgrph">456</div><div class="prgrph">789</div>' }
     end
 
     describe '<br>' do
       let(:text) { "123<br>456<br />789" }
-      it { should eq '<p class="prgrph">123</p><p class="prgrph">456</p><p class="prgrph">789</p>' }
+      it { should eq '<div class="prgrph">123</div><div class="prgrph">456</div><div class="prgrph">789</div>' }
     end
 
     describe '&lt;br&gt;' do
       let(:text) { "123&lt;br&gt;456&lt;br/&gt;789" }
-      it { should eq '<p class="prgrph">123</p><p class="prgrph">456</p><p class="prgrph">789</p>' }
+      it { should eq '<div class="prgrph">123</div><div class="prgrph">456</div><div class="prgrph">789</div>' }
     end
   end
 
@@ -230,7 +230,7 @@ describe BbCodeFormatter do
 
     describe '[mention]' do
       let(:text) { '[mention=1]test[/mention]' }
-      it { should eq '<a href="http://shikimori.org/test">@test</a>' }
+      it { should eq '<a href="http://shikimori.org/test" class="b-mention"><s>@</s><span>test</span></a>' }
     end
 
     describe '[image]' do

@@ -27,7 +27,7 @@ describe TopicsController do
 
           it 'success' do
             sign_in user
-            get :index, section: Section::Feed.permalink, format: format
+            get :index, section: Section::All.permalink, format: format
             response.should be_success
           end
         end

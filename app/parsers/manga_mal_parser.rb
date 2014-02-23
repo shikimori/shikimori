@@ -40,7 +40,7 @@ class MangaMalParser < BaseMalParser
     entry[:synonyms] = parse_line("Synonyms", content, true)
 
     alt = entry[:name].permalinked.gsub(/-/, ' ').titleize
-    entry[:synonyms] << alt unless entry[:name] == alt || entry[:synonyms].include?(alt)
+    entry[:synonyms] = entry[:synonyms] + [alt] unless entry[:name] == alt || entry[:synonyms].include?(alt)
 
     entry[:kind] = parse_line("Type", content, false)
 
