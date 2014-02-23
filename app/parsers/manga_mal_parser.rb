@@ -36,8 +36,12 @@ class MangaMalParser < BaseMalParser
     parse_block(entry, :related, /<h2>Related Manga?<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
 
     entry[:english] = parse_line("English", content, true)
-    entry[:synonyms] = parse_line("Synonyms", content, true)
     entry[:japanese] = parse_line("Japanese", content, true)
+    entry[:synonyms] = parse_line("Synonyms", content, true)
+
+    alt = entry[:name].permalinked.gsub(/-/, ' ').titleize
+    entry[:synonyms] << alt unless entry[:name] == alt || entry[:synonyms].include?(alt)
+
     entry[:kind] = parse_line("Type", content, false)
 
     entry[:volumes] = parse_line("Volumes", content, false).to_i

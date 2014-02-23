@@ -16,12 +16,7 @@ module AniManga
   end
 
   def to_param
-    "%d-%s" % [id, name.gsub(/&#szlig;|ß/, 'ss')
-                       .gsub(/&#\d{4};/, '-')
-                       .gsub('Ä', 'A')
-                       .gsub(/[^A-z0-9]+/, '-')
-                       .gsub(/^-|-$/, '')
-              ]
+    "#{id}-#{name.permalinked}"
   end
 
   # аниме ли это?

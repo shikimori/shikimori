@@ -30,6 +30,9 @@ class AnimeMalParser < BaseMalParser
     entry[:synonyms] = parse_line("Synonyms", content, true)
     entry[:japanese] = parse_line("Japanese", content, true)
 
+    alt = entry[:name].permalinked.gsub(/-/, ' ').titleize
+    entry[:synonyms] << alt unless entry[:name] == alt || entry[:synonyms].include?(alt)
+
     entry[:kind] = parse_line("Type", content, false)
 
     entry[:episodes] = parse_line("Episodes", content, false).to_i

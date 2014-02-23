@@ -21,12 +21,13 @@ class String
   end
 
   def specials
-    self.downcase.
-         gsub(/\b(ova|specials|ona|prologue|epilogue|picture)\b|(?!\bova\b|\bspecials\b|\bona\b|\bprologue\b|\bepilogue\b|\bpicture\b)./, '\1 ').
-         gsub(/^ +| +$/, '').
-         gsub(/ +/, ' ').
-         split(' ').
-         uniq
+    self
+      .downcase
+      .gsub(/\b(ova|specials|ona|prologue|epilogue|picture)\b|(?!\bova\b|\bspecials\b|\bona\b|\bprologue\b|\bepilogue\b|\bpicture\b)./, '\1 ')
+      .gsub(/^ +| +$/, '')
+      .gsub(/ +/, ' ')
+      .split(' ')
+      .uniq
   end
 
   def capitalize
@@ -102,7 +103,14 @@ class String
   end
 
   def permalinked
-    Russian.translit self.downcase.gsub(/[^A-zА-я0-9]/, '-').gsub(/-+/, '-').sub(/-$|^-/, '')
+    Russian.translit self
+      .gsub(/&#szlig;|ß/, 'ss')
+      .gsub(/&#\d{4};/, '-')
+      .gsub(/[^A-zА-я0-9]/, '-')
+      .gsub(/-+/, '-')
+      .gsub('Ä', 'A')
+      .gsub(/^-|-$/, '')
+      .downcase
   end
 
   def pretext?
