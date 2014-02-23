@@ -507,7 +507,11 @@ Site::Application.routes.draw do
     post 'users/search' => 'users#search', as: :users_search
     get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
 
-    resources :profiles, constraints: { id: /[^\/]+?/ }, format: /json|rss/, only: [:show]
+    resources :profiles, constraints: { id: /[^\/]+?/ }, format: /json|rss/, only: [:show] do
+      member do
+        get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
+      end
+    end
 
     constraints id: /[^\/]+?/, format: /json|rss/ do
       get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/

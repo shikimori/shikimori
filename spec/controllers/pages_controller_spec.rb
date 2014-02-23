@@ -19,7 +19,6 @@ describe PagesController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :html }
-    it { assigns(:ongoings).should have(1).item }
 
     describe 'signed_in user' do
       before do
