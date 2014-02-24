@@ -124,7 +124,7 @@ class FindAnimeParser < ReadMangaParser
       nil
     end
 
-    url.sub %r{^//}, 'http://' if url
+    url.sub(%r{^//}, 'http://').gsub('&amp;', '&') if url
   end
 
   def parse_chapter node, total_episodes=1
