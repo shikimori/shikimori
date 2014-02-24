@@ -1,4 +1,5 @@
 SidekiqUniqueJobs::Config.unique_args_enabled = true
+SidekiqUniqueJobs::Config.default_expiration = 2.days
 
 #class Sidekiq::Extensions::DelayedMailer::ExceptionHandling
 module Sidekiq::Extensions::PostmarkHandler
