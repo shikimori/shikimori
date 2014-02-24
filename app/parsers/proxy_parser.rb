@@ -1,5 +1,6 @@
 require 'thread_pool'
 
+# http://pastebin.com/r2Xz6i0M
 class ProxyParser
   TestUrl = "http://shikimori.org#{ProxyTest::TestPage}"
   IpUrl ="http://shikimori.org#{ProxyTest::WhatIsMyIpPage}"
@@ -82,7 +83,8 @@ private
     @sources ||= Sources + Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
   end
 
-  Proxies24Url = 'http://www.proxies24.org/'
+  #Proxies24Url = 'http://www.proxies24.org/'
+  Proxies24Url = 'http://proxy-server-free.blogspot.ru/'
 
   # http://forum.antichat.ru/thread59009.html
   Sources = [
