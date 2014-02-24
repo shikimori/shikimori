@@ -2,8 +2,8 @@
 class NameMatcher
   attr_reader :cache
 
-  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :episodes]
-  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :chapters]
+  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :episodes, :rating, :censored]
+  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :chapters, :rating, :censored]
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
 

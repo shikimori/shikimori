@@ -175,6 +175,11 @@ describe FindAnimeParser do
       it { should eq 'http://myvi.ru/ru/flash/player/pre/oCJCcZPAwDviOuI-cOd-JrhfCmNXN_Z8j1E4-AfyYvpDRsgS_SwGRg2SBXhTpEZs30' }
     end
 
+    describe :myvi_3 do
+      let(:html) { '<iframe width="640" height="450" src="//myvi.tv/embed/html/oeBRkeha50wjXJIEU75wbYvUhlv4siaYE0KFla8kRgTHedQxAysFOs2B_yAWy3Tu80" frameborder="0" allowfullscreen></iframe>' }
+      it { should eq 'http://myvi.tv/embed/html/oeBRkeha50wjXJIEU75wbYvUhlv4siaYE0KFla8kRgTHedQxAysFOs2B_yAWy3Tu80' }
+    end
+
     describe :mail_ru_1 do
       let(:html) { "<iframe src=\"http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html\" width=\"730\" height=\"480\" frameborder=\"0\"></iframe>" }
       it { should eq 'http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }
@@ -207,7 +212,7 @@ describe FindAnimeParser do
 
     describe :rutube_4 do
       let(:html) { '<iframe width="730" height="480" src="//rutube.ru/video/embed/6661157" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
-      it { should eq '//rutube.ru/video/embed/6661157' }
+      it { should eq 'http://rutube.ru/video/embed/6661157' }
     end
 
     describe :sibnet do

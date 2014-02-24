@@ -2,8 +2,8 @@ class FindAnimeImporter
   SERVICE = 'findanime'
 
   def initialize
-    @parser = FindAnimeParser.new
-    @matcher = NameMatcher.new Anime, nil, [:findanime]
+    @parser = self.class.name.sub(/Importer$/, 'Parser').constantize.new
+    @matcher = NameMatcher.new Anime, nil, [service.to_sym]
 
     @authors = AnimeVideoAuthor.all.each_with_object({}) do |author,memo|
       memo[author.name.downcase] = author
@@ -12,7 +12,7 @@ class FindAnimeImporter
     @unmatched = []
     @ambiguous = []
     @twice_matched = []
-    @config = YAML::load(File.open("#{::Rails.root.to_s}/config/findanime.yml"))
+    @config = YAML::load(File.open("#{::Rails.root.to_s}/config/#{service}.yml"))
     @ignores = Set.new(@config[:ignores] + @config[:ignores_until].select {|k,v| v > DateTime.now }.keys)
   end
 
@@ -24,6 +24,10 @@ class FindAnimeImporter
   end
 
 private
+  def service
+    self.class::SERVICE
+  end
+
   def import_videos anime, videos, last_episodes
     imported_videos = anime.anime_videos.to_a
     last_episode = imported_videos.any? ? imported_videos.max {|v| v.episode }.episode : 0
@@ -68,7 +72,7 @@ private
         entries.each {|v| data.delete v }
         @twice_matched << "#{anime_id} (#{entries.map {|(id, anime, videos)| id }.join ', '})"
         AnimeLink.where(
-          service: SERVICE,
+          service: service,
           anime_id: anime_id,
           identifier: entries.map {|(id, anime, videos)| id }
         ).delete_all
@@ -91,11 +95,11 @@ private
   end
 
   def save_link findanime_id, anime_id
-    AnimeLink.create service: SERVICE, anime_id: anime_id, identifier: findanime_id
+    AnimeLink.create! service: service, anime_id: anime_id, identifier: findanime_id
   end
 
   def find_match entry
-    anime = @matcher.by_link entry[:id], SERVICE.to_sym
+    anime = @matcher.by_link entry[:id], service.to_sym
 
     unless anime
       animes = @matcher.matches entry[:names], year: entry[:year], episodes: entry[:episodes]

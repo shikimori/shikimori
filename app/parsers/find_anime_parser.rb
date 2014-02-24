@@ -10,13 +10,13 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def extract_additional entry, doc
-    video_links = doc.css('.chapters-link tr a')
+    video_links = doc.css(chapters_selector)
     videos = video_links
       .map {|v| parse_chapter v, video_links.count }
       .select {|v| v[:episode].present? }
 
-    if videos.empty? && doc.css('.chapter-link').to_html =~ /Озвучка|Сабы/
-      videos = [{episode: 1, url: "http://#{@domain}#{doc.css('h3 a').first.attr('href').sub /#.*/, ''}"}]
+    if videos.empty? && doc.css('.chapter-link').to_html =~ /озвучка|сабы/i
+      videos = [{episode: 1, url: "http://#{domain}#{doc.css('h3 a').first.attr('href').sub /#.*/, ''}"}]
     end
 
     names = doc.css('div[title="Так же известно под названием"]').text.split('/ ').map(&:strip)
@@ -29,23 +29,27 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def fetch_videos episode, url
-    Nokogiri::HTML(get(url)).css('.chapter-link').map do |node|
+    Nokogiri::HTML(get(url)).css('.chapter').map do |node|
       description = node.css('.video-info .details').text.strip
+      if description.blank?
+        description = node.css('.video-info').children.last.text.split("\n").map(&:strip).select(&:present?).last
+      end
 
       kind, author = $1, $2 if description =~ /(.*)[\s\S]*\((.*)\)/
       kind = extract_kind kind || description
       author ||= node.css('.video-info').to_html[/<span class="additional">.*?<\/span>(?:<\/span>)?([\s\S]*)<span/, 1].try :strip
 
       embed_source = node.css('.embed_source').first
+      video_url = extract_url embed_source.attr('value'), url
 
       OpenStruct.new(
         episode: episode,
         kind: kind,
-        language: extract_language(kind || description),
+        language: extract_language(kind && !kind.kind_of?(Symbol) ? kind : description),
         source: url,
-        url: extract_url(embed_source.attr('value'), url),
+        url: video_url,
         author: HTMLEntities.new.decode(author)
-      ) if embed_source && kind
+      ) if embed_source && kind && video_url
     end.compact
   end
 
@@ -54,7 +58,7 @@ class FindAnimeParser < ReadMangaParser
       when 'Озвучка', 'Озвучка+сабы', 'Многоголосый' then :fandub
       when 'Сабы', 'Английские сабы', 'Хардсаб', 'Хардсаб+сабы' then :subtitles
       when 'Оригинал' then :raw
-      when '' then :unknown
+      when '', nil, 'DVD-rip', 'TV-rip', 'Full HD' then :unknown
       else
         raise "unexpected russian kind: '#{kind}'"
     end
@@ -69,9 +73,11 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def extract_url html, source=:unknown
-    if html =~ %r{src="((?:https?:)?//(?:vk.com|vkontakte.ru)/video_ext[^"]+)"}
+    url = if html =~ %r{src="((?:https?:)?//(?:vk.com|vkontakte.ru)/video_ext[^"]+)"}
       $1.sub /&hd=\d/, '&hd=3'
     elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.ru/(?:ru/flash/)?player[^"]+)"}
+      $1
+    elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.tv/embed/html/[^"]+)"}
       $1
     elsif html =~ %r{src="((?:https?:)?//api.video.mail.ru/videos[^"]+)"}
       $1
@@ -104,6 +110,10 @@ class FindAnimeParser < ReadMangaParser
       puts 'clipiki.ru skipped' unless Rails.env.test?
       nil
 
+    elsif html =~ %r{\bi.ua/video/}
+      puts 'i.ua skipped' unless Rails.env.test?
+      nil
+
     elsif html =~ %r{(?:https?:)?//(?:vk.com|vkontakte)/video\?q}
       puts 'vk direct link skipped' unless Rails.env.test?
       nil
@@ -113,6 +123,8 @@ class FindAnimeParser < ReadMangaParser
       puts "unexpected video source: '#{source}'\n'#{html}'"
       nil
     end
+
+    url.sub %r{^//}, 'http://' if url
   end
 
   def parse_chapter node, total_episodes=1
@@ -122,7 +134,7 @@ class FindAnimeParser < ReadMangaParser
                  (node.text.match(/Фильм полностью/) ?
                    (total_episodes > 5 ? 0 : 1) :
                    nil),
-      url: "http://#{@domain}#{node.attr 'href'}?mature=1"
+      url: "http://#{domain}#{node.attr 'href'}?mature=1"
     }
   end
 
@@ -131,5 +143,9 @@ class FindAnimeParser < ReadMangaParser
   end
 
   def save_cache
+  end
+
+  def chapters_selector
+    '.chapters-link tr a'
   end
 end

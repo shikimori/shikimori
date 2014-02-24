@@ -20,6 +20,7 @@ module Clockwork
 
   every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
     FindAnimeWorker.perform_async :last_15_entries
+    HentaiAnimeWorker.perform_async :last_15_entries
   end
 
   every 1.hour, 'hourly', at: '**:45' do
@@ -58,6 +59,7 @@ module Clockwork
 
   every 1.week, 'weekly.stuff', at: 'Monday 01:45' do
     FindAnimeWorker.perform_async :first_page
+    HentaiAnimeWorker.perform_async :first_page
     PeopleImporter.perform_async
     DanbooruTagsImporter.perform_async
     OldMessagesCleaner.perform_async

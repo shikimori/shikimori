@@ -8,10 +8,8 @@ class ReadMangaParser < SiteParserWithCache
   def initialize
     super
 
-    @domain = "#{self.class.name.downcase.sub('parser', '')}.ru"
-
-    @catalog_url = "http://#{@domain}/list?type=&sortType=DATE_UPDATE&max=#{PageSize}&offset=%d"
-    @entry_url = "http://#{@domain}/%s"
+    @catalog_url = "http://#{domain}/list?type=&sortType=DATE_UPDATE&max=#{self.class::PageSize}&offset=%d"
+    @entry_url = "http://#{domain}/%s"
 
     @required_text = ["#{self.class.name.sub('Parser', '')}.ru", '</html>']
 
@@ -55,7 +53,7 @@ class ReadMangaParser < SiteParserWithCache
 
   # ссылки с конкретной страницы
   def fetch_page_links page
-    content = get(@catalog_url % [page*PageSize])
+    content = get(@catalog_url % [page * self.class::PageSize])
     doc = Nokogiri::HTML(content)
 
     doc.css('table.cTable tr a:first')[1..-2].map do |a_tag|
@@ -77,8 +75,23 @@ class ReadMangaParser < SiteParserWithCache
     entry = {id: id}
 
     doc = Nokogiri::HTML(content.gsub(/<br ?\/?>/, "\n").gsub(/<!--[\s\S]*?-->/, ''))
-    h1_tag = doc.css('h1').first()
 
+    extract_names entry, doc
+    entry[:score] = doc.css('.rate_info b').first.text.sub(',', '.').sub('/10', '').to_f
+
+    lines = extract_description_lines(doc)
+    entry[:source] = find_source(lines, url) || url
+
+    entry[:description] = build_description(lines, entry[:id])
+    return nil if moved_entry?(entry[:description])
+
+    extract_additional entry, doc
+
+    entry
+  end
+
+  def extract_names entry, doc
+    h1_tag = doc.css('h1').first()
     entry[:names] = [h1_tag.css('.name').text, h1_tag.css('.eng-name').text, h1_tag.css('.jp-name').text].compact.map(&:strip).select(&:present?)
     entry[:russian] = h1_tag.css('.name').text
 
@@ -93,18 +106,6 @@ class ReadMangaParser < SiteParserWithCache
           names
       end
     end
-
-    entry[:score] = doc.css('.rate_info b').first.text.sub(',', '.').sub('/10', '').to_f
-
-    lines = extract_description_lines(doc)
-    entry[:source] = find_source(lines, url) || url
-
-    entry[:description] = build_description(lines, entry[:id])
-    return nil if moved_entry?(entry[:description])
-
-    extract_additional entry, doc
-
-    entry
   end
 
   def extract_additional entry, doc
@@ -295,5 +296,9 @@ class ReadMangaParser < SiteParserWithCache
   # перенесена ли манга на другой сайт?
   def moved_entry? content
     content =~ /(расположена|находится|можно прочитать|Читать эту мангу) на (сайте )?Adult ?Manga/i || content =~ /МАНГА РАСПОЛОЖЕНА НА (сайте )?Adult ?Manga/i
+  end
+
+  def domain
+    "#{self.class.name.downcase.sub 'parser', ''}.ru"
   end
 end
