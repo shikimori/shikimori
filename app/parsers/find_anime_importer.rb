@@ -30,7 +30,7 @@ private
 
   def import_videos anime, videos, last_episodes
     imported_videos = anime.anime_videos.to_a
-    last_episode = imported_videos.any? ? imported_videos.max {|v| v.episode }.episode : 0
+    last_episode = imported_videos.select(&:allowed?).any? ? imported_videos.select(&:allowed?).max {|v| v.episode }.episode : 0
     filtered_videos = videos.select {|episode| last_episodes ? episode[:episode] > last_episode - 3 : true }
 
     #AnimeVideo.import fetch_videos(filtered_videos, anime, imported_videos)
