@@ -26,7 +26,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   api :GET, "/users/:id/anime_rates", "Show user's anime list"
   def anime_rates
-    @rates = Rails.cache.fetch [current_user, :anime_rates, params[:status]] do
+    @rates = Rails.cache.fetch [user, :anime_rates, params[:status]] do
       rates = user
         .anime_rates
         .includes(:anime)
@@ -39,7 +39,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   api :GET, "/users/:id/manga_rates", "Show user's manga list"
   def manga_rates
-    @rates = Rails.cache.fetch [current_user, :manga_rates, params[:status]] do
+    @rates = Rails.cache.fetch [user, :manga_rates, params[:status]] do
       rates = user
         .manga_rates
         .includes(:manga)
