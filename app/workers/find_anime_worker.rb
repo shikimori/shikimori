@@ -12,6 +12,9 @@ class FindAnimeWorker
     elsif mode == :first_page
       importer.import pages: [0], last_episodes: true
 
+    elsif mode == :two_pages
+      importer.import pages: [0, 1], last_episodes: true
+
     elsif mode == :last_3_entries
       ids = parser.fetch_page_links(0).take(3)
       importer.import ids: ids, last_episodes: true

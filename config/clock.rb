@@ -57,8 +57,12 @@ module Clockwork
     CharactersImporter.perform_async
   end
 
-  every 1.week, 'weekly.stuff', at: 'Monday 01:45' do
+  every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do
     FindAnimeWorker.perform_async :first_page
+  end
+
+  every 1.week, 'weekly.stuff', at: 'Monday 01:45' do
+    FindAnimeWorker.perform_async :two_pages
     HentaiAnimeWorker.perform_async :first_page
     PeopleImporter.perform_async
     DanbooruTagsImporter.perform_async

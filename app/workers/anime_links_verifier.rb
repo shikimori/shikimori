@@ -9,7 +9,7 @@ class AnimeLinksVerifier
 
   def bad_entries
     AnimeLink
-      .where(service: FindAnimeImporter::SERVICE.to_s)
+      .where(service: [FindAnimeImporter::SERVICE, HentaiAnimeImporter::SERVICE])
       .all
       .group_by {|v| v.anime_id }
       .select {|k,v| v.size > 1 }
