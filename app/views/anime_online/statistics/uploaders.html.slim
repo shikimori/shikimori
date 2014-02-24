@@ -3,7 +3,7 @@
   ol.uploaders
     - @users.each do |user|
       li
-        a.avatar href="#{user_url user, subdomain: false}" title="#{user.nickname}"
-          img.image src="#{user.avatar_url 75}" alt="#{user.nickname}"
-        a.name href="#{user_url user, subdomain: false}" title="#{user.nickname}"
+        a.avatar href="#{user_url(user, subdomain: false)}" title="#{user.nickname}"
+          img.image src="#{user.avatar_url 160}" alt="#{user.nickname}"
+        a.name href="#{user_url(user, subdomain: false)}" title="#{user.nickname}"
           = user.nickname
