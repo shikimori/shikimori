@@ -4,7 +4,6 @@ describe TopicsController do
   let(:section) { create :section, id: 1, permalink: 'a', name: 'Аниме' }
 
   let(:user) { create :user }
-
   let(:anime) { create :anime }
 
   let!(:topic) { create :topic, section_id: section.id, user_id: user.id }
@@ -13,8 +12,11 @@ describe TopicsController do
   let(:section2) { create :section, id: 4, permalink: 's', name: 'Сайт' }
   let(:topic2) { create :topic, section_id: section2.id, user_id: user.id }
 
-  before { Topic.antispam = false }
-  before { Section.instance_variable_set :@with_aggregated, nil }
+  before do
+    Topic.antispam = false
+    Section.instance_variable_set :@with_aggregated, nil
+    Section.instance_variable_set :@real, nil
+  end
 
   ['html', 'json'].each do |format|
     describe format do
