@@ -108,7 +108,7 @@ class UserHistory < ActiveRecord::Base
           .order(:id)
           .to_a
 
-        unless prior_entries.empty?
+        if prior_entries.any? && prior_entries.last.value.size < 250
           # если предыдущее событие было с эпизодом этого же аниме,
           # то откидываем более поздние эпизоды из списка и добавляем текущий эпизод в конец списка
           unless value == 0
@@ -123,11 +123,11 @@ class UserHistory < ActiveRecord::Base
                   last_this_entry.destroy
                   return
                 end
-                last_this_entry.send("#{counter}=", new_episdodes)
+                last_this_entry.send "#{counter}=", new_episdodes
                 last_this_entry.save
                 return
               elsif v == episode
-                last_this_entry.send("#{counter}=", new_episdodes)
+                last_this_entry.send "#{counter}=", new_episdodes
                 last_this_entry.save
                 return
               else
