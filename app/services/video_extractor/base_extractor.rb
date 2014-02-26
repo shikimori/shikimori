@@ -2,7 +2,9 @@ class VideoExtractor::BaseExtractor
   attr_reader :url
 
   def initialize url
-    @url = url
+    @url = url if URI.parse url
+  rescue
+    @url = URI.encode url
   end
 
   def fetch

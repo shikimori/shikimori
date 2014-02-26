@@ -44,7 +44,7 @@ describe VideoExtractor::OpenGraphExtractor do
 
       its(:hosting) { should eq :myvi }
       its(:image_url) { should eq 'http://images.myvi.ru/animeicon/25/e6/58917.jpg' }
-      its(:player_url) { should eq 'http://myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJA4ZzAQRPhVbofyWFP3EYqwo1' }
+      its(:player_url) { should eq 'http://myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJAyvz_PY1mzRg1SqIreeFh7U1' }
     end
 
     context :sibnet do
@@ -64,11 +64,11 @@ describe VideoExtractor::OpenGraphExtractor do
     end
 
     context :dailymotion do
-      let(:url) { 'http://www.dailymotion.com/video/x1bj16i_darkara-kill-la-kill-op2_shortfilms' }
+      let(:url) { 'http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms' }
 
       its(:hosting) { should eq :dailymotion }
-      its(:image_url) { should eq 'http://s2.dmcdn.net/DjcL7/526x297-dXT.jpg' }
-      its(:player_url) { should eq 'http://www.dailymotion.com/swf/video/x1bj16i?autoPlay=1' }
+      its(:image_url) { should eq 'http://s1.dmcdn.net/DpbbQ/526x297-l8K.jpg' }
+      its(:player_url) { should eq 'http://www.dailymotion.com/swf/video/x1cbf83?autoPlay=1' }
     end
 
     context :invalid_url do
