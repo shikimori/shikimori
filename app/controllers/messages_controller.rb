@@ -117,8 +117,8 @@ class MessagesController < UsersController
 
   # разговоро с пользователем
   def talk
-    @user = UserProfileDecorator.new User.find_by_nickname(User.param_to params[:id])
-    raise NotFound.new params[:id] unless @user
+    @user = UserProfileDecorator.new User.find_by(nickname: User.param_to(params[:id]))
+    raise NotFound.new params[:id] unless @user.object
 
     @page = (params[:page] || 1).to_i
     @page_title = UsersController.profile_title('Диалог', @user)
