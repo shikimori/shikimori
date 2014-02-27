@@ -13,7 +13,7 @@ class ProxyParser
 
   # парсинг проксей из внешних источников
   def fetch
-    parsed_proxies = sources.map { |url| parse(url) }.flatten.uniq
+    parsed_proxies = sources.map {|url| parse(url) }.flatten.uniq
     print "found %i proxies\n" % [parsed_proxies.size]
 
     proxies = (Proxy.all.map { |v| { ip: v.ip, port: v.port } } + parsed_proxies).uniq.map do |proxy_hash|
@@ -43,7 +43,9 @@ class ProxyParser
 
 private
   # парсинг проксей со страницы
-  def parse(url)
+  def parse url
+    # задержка, чтобы не нас не банили
+    sleep 1
     proxies = open(url).read.gsub(/\d+\.\d+\.\d+\.\d+:\d+/).map do |v|
       data = v.split(':')
 
@@ -80,11 +82,13 @@ private
 
   # источники проксей
   def sources
-    @sources ||= Sources + Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
+    @sources ||= Sources +
+      Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
+      #Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
   end
 
   #Proxies24Url = 'http://www.proxies24.org/'
-  Proxies24Url = 'http://proxy-server-free.blogspot.ru/'
+  #Proxies24Url = 'http://proxy-server-free.blogspot.ru/'
 
   # http://forum.antichat.ru/thread59009.html
   Sources = [
