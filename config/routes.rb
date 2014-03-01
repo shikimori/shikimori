@@ -460,7 +460,7 @@ Site::Application.routes.draw do
         resources :publishers, only: [:index]
 
         resources :sections, only: [:index]
-        resources :topics, only: [:index]
+        resources :topics, only: [:index, :show]
         resources :comments, only: [:show, :index]
 
         resource :authenticity_token, only: [:show]

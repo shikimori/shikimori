@@ -14,4 +14,11 @@ class Api::V1::TopicsController < Api::V1::ApiController
 
     respond_with @topics, each_serializer: TopicSerializer
   end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, "/topics/:id", "Show a topic"
+  def show
+    @topic = Entry.find params[:id]
+    respond_with @topic, serializer: TopicSerializer
+  end
 end

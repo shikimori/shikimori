@@ -7,5 +7,9 @@ FactoryGirl.define do
     trait :with_section do
       section
     end
+
+    factory :review_comment, class: 'ReviewComment' do
+      type 'ReviewComment'
+    end
   end
 end

@@ -37,7 +37,8 @@
       .body itemprop="reviewBody"
         - if review.overall.present?
           = render partial: 'ani_mangas/reviews/votes', locals: { review: review, with_music: review.entry.class == Anime }, formats: :html
-        == BbCodeFormatter.instance.format_description(review.text, review)
+        = cache [review, russian_names_key, 'body'], expires_in: 2.weeks
+          == BbCodeFormatter.instance.format_description(review.text, review)
 
       .last-block
         p.date
