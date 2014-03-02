@@ -120,7 +120,7 @@ describe AnimeOnline::AnimeVideosController do
     before { sign_in user }
     let(:user) { create :user }
     let(:anime) { create :anime }
-    let(:create_request) { post :create, anime_video: { episode: 1, url: 'http://foo.ru', anime_id: anime.id, source: 'test', kind: 'fandub', author: 'test_author' } }
+    let(:create_request) { post :create, anime_video: { episode: 1, url: 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7', anime_id: anime.id, source: 'test', kind: 'fandub', author: 'test_author' } }
 
     context :response do
       before { create_request }

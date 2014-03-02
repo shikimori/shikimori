@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
   end
 
   def create
+    #render json: ['Комментирование топика отключено'], status: :unprocessable_entity and return if comment_params[:commentable_id].to_i == 82468 && !current_user.admin?
     @comment = comments_service.create comment_params
     @notice = 'Комментарий создан'
     render json: @comment.errors, status: :unprocessable_entity unless @comment.persisted?

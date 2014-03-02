@@ -1,4 +1,8 @@
 class VideoExtractor::UrlExtractor
+  HTTP = %r{(?:https?:)?//(?:www\.)?}.source
+  CONTENT = /[^" ><\n]+/.source
+  PARAM = /[^" ><&\n]+/.source
+
   def initialize content
     @content = content
   end
@@ -30,50 +34,54 @@ private
   end
 
   def parsed_url
-    if html =~ %r{src="((?:https?:)?//(?:vk.com|vkontakte.ru)/video_ext[^"]+)"}
+    if html =~ %r{(#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
       $1.sub /&hd=\d/, '&hd=3'
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.ru/(?:ru/flash/)?player[^"]+)"}
+    elsif html =~ %r{(#{HTTP}myvi.ru/(?:ru/flash/)?player#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.tv/embed/html/[^"]+)"}
+    elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//api.video.mail.ru/videos[^"]+)"}
+    elsif html =~ %r{(#{HTTP}api.video.mail.ru/videos#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//img.mail.ru/r/video2/player_v2.swf\?[^"]+)"}
+    elsif html =~ %r{(#{HTTP}img.mail.ru/r/video2/player_v2.swf\?#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="movieSrc=([^"]+)"}
+    elsif html =~ %r{movieSrc=(#{CONTENT})"}
       "http://api.video.mail.ru/videos/embed/#{$1.sub /&autoplay=\d/, ''}.html"
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//rutube.ru/(?:video|embed)[^"]+)"}
+    elsif html =~ %r{(#{HTTP}rutube.ru/(?:video|embed)#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//video.rutube.ru/[^"]+)"}
+    elsif html =~ %r{(#{HTTP}video.rutube.ru/#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//video.sibnet.ru/shell[^"]+)"}
+    elsif html =~ %r{#{HTTP}rutube.ru/tracks/#{PARAM}\.html\?v=(#{PARAM})}
+      "http://video.rutube.ru/#{$1}"
+    elsif html =~ %r{(#{HTTP}video.sibnet.ru/shell#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//v.kiwi.\w+/(?:v|v2)/[^"]+)"}
+    elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(#{CONTENT}).flv}
+      "http://video.sibnet.ru/shell.swf?videoid=#{$1}"
+    elsif html =~ %r{(#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//p.kiwi.\w+/static/player2/player.swf\?config=[^"]+)"}
+    elsif html =~ %r{(#{HTTP}p.kiwi.\w+/static/player2/player.swf\?config=#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//(?:www.)?youtube.com/(?:embed|v)/[^"]+)"}
+    elsif html =~ %r{(#{HTTP}youtube.com/(?:embed|v)/#{CONTENT})}
       $1.sub /^\/\//, 'http://'
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//i.i.ua/video/evp.swf\?[^"]+)"}
+    elsif html =~ %r{(#{HTTP}i.i.ua/video/evp.swf\?#{CONTENT})}
       $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//video.yandex.ru[^"]+)"}
+    elsif html =~ %r{(#{HTTP}video.yandex.ru#{CONTENT})}
       $1
 
-    elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
-      puts 'animeonline.su skipped' unless Rails.env.test?
-      nil
+    #elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
+      #puts 'animeonline.su skipped' unless Rails.env.test?
+      #nil
 
-    elsif html =~ %r{(?:https?:)?//clipiki.ru/flash}
-      puts 'clipiki.ru skipped' unless Rails.env.test?
-      nil
+    #elsif html =~ %r{(?:https?:)?//clipiki.ru/flash}
+      #puts 'clipiki.ru skipped' unless Rails.env.test?
+      #nil
 
-    elsif html =~ %r{\bi.ua/video/}
-      puts 'i.ua skipped' unless Rails.env.test?
-      nil
+    #elsif html =~ %r{\bi.ua/video/}
+      #puts 'i.ua skipped' unless Rails.env.test?
+      #nil
 
-    elsif html =~ %r{(?:https?:)?//(?:vk.com|vkontakte)/video\?q}
-      puts 'vk direct link skipped' unless Rails.env.test?
-      nil
+    #elsif html =~ %r{(?:https?:)?//(?:vk.com|vkontakte)/video\?q}
+      #puts 'vk direct link skipped' unless Rails.env.test?
+      #nil
 
     else
       puts "can't extract video url: '#{html}'" unless Rails.env.test?

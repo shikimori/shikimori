@@ -103,9 +103,24 @@ describe VideoExtractor::UrlExtractor do
       it { should eq 'http://rutube.ru/video/embed/6661157' }
     end
 
-    describe :sibnet do
+    describe :rutube_5 do
+      let(:html) { 'http://rutube.ru/tracks/2300012.html?v=8c8bbdc632726555649d45c2c6a273c0' }
+      it { should eq 'http://video.rutube.ru/8c8bbdc632726555649d45c2c6a273c0' }
+    end
+
+    describe :sibnet_1 do
       let(:html) { "<iframe width=\"730\" height=\"480\" src=\"http://video.sibnet.ru/shell.php?videoid=1186077\" frameborder=\"0\" scrolling=\"no\" allowfullscreen></iframe>" }
       it { should eq 'http://video.sibnet.ru/shell.php?videoid=1186077' }
+    end
+
+    describe :sibnet_2 do
+      let(:html) { "http://data10.video.sibnet.ru/13/88/40/1388407.flv" }
+      it { should eq 'http://video.sibnet.ru/shell.swf?videoid=1388407' }
+    end
+
+    describe :sibnet_3 do
+      let(:html) { "http://data17.video.sibnet.ru/71/08/710879.flv?st=WASnDgyViN6hucAYde9nlw&e=1349319000&format=mp4&start=0" }
+      it { should eq 'http://video.sibnet.ru/shell.swf?videoid=710879' }
     end
 
     describe :kiwi_1 do

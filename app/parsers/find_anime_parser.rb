@@ -5,10 +5,12 @@ class FindAnimeParser < ReadMangaParser
     #@proxy_log = true
   end
 
+  # парсинг информации об аниме по идентификатору
   def fetch_entry id
     OpenStruct.new super
   end
 
+  # парсинг дополнительной информации
   def extract_additional entry, doc
     video_links = doc.css(chapters_selector)
     videos = video_links
@@ -28,6 +30,7 @@ class FindAnimeParser < ReadMangaParser
     entry[:names] = entry[:names] + names
   end
 
+  # загрузка и парсинг информации по эпизоду видео
   def fetch_videos episode, url
     Nokogiri::HTML(get(url)).css('.chapter').map do |node|
       description = node.css('.video-info .details').text.strip
@@ -40,7 +43,7 @@ class FindAnimeParser < ReadMangaParser
       author ||= node.css('.video-info').to_html[/<span class="additional">.*?<\/span>(?:<\/span>)?([\s\S]*)<span/, 1].try :strip
 
       embed_source = node.css('.embed_source').first
-      video_url = extract_url embed_source.attr('value'), url
+      video_url = VideoExtractor::UrlExtractor.new(embed_source.attr 'value').extract
 
       OpenStruct.new(
         episode: episode,
@@ -70,61 +73,6 @@ class FindAnimeParser < ReadMangaParser
     else
       :russian
     end
-  end
-
-  def extract_url html, source=:unknown
-    url = if html =~ %r{src="((?:https?:)?//(?:vk.com|vkontakte.ru)/video_ext[^"]+)"}
-      $1.sub /&hd=\d/, '&hd=3'
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.ru/(?:ru/flash/)?player[^"]+)"}
-      $1
-    elsif html =~ %r{(?:src|value)="((?:https?:)?//myvi.tv/embed/html/[^"]+)"}
-      $1
-    elsif html =~ %r{src="((?:https?:)?//api.video.mail.ru/videos[^"]+)"}
-      $1
-    elsif html =~ %r{src="((?:https?:)?//img.mail.ru/r/video2/player_v2.swf\?[^"]+)"}
-      $1
-    elsif html =~ %r{value="movieSrc=([^"]+)"}
-      "http://api.video.mail.ru/videos/embed/#{$1.sub /&autoplay=\d/, ''}.html"
-    elsif html =~ %r{src="((?:https?:)?//rutube.ru/(?:video|embed)[^"]+)"}
-      $1
-    elsif html =~ %r{src="((?:https?:)?//video.rutube.ru/[^"]+)"}
-      $1
-    elsif html =~ %r{src="((?:https?:)?//video.sibnet.ru/shell[^"]+)"}
-      $1
-    elsif html =~ %r{src="((?:https?:)?//v.kiwi.\w+/(?:v|v2)/[^"]+)"}
-      $1
-    elsif html =~ %r{value="((?:https?:)?//p.kiwi.\w+/static/player2/player.swf\?config=[^"]+)"}
-      $1
-    elsif html =~ %r{src="((?:https?:)?//(?:www.)?youtube.com/(?:embed|v)/[^"]+)"}
-      $1.sub /^\/\//, 'http://'
-    elsif html =~ %r{src="((?:https?:)?//i.i.ua/video/evp.swf\?[^"]+)"}
-      $1
-    elsif html =~ %r{src="((?:https?:)?//video.yandex.ru[^"]+)"}
-      $1
-
-    elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
-      puts 'animeonline.su skipped' unless Rails.env.test?
-      nil
-
-    elsif html =~ %r{(?:https?:)?//clipiki.ru/flash}
-      puts 'clipiki.ru skipped' unless Rails.env.test?
-      nil
-
-    elsif html =~ %r{\bi.ua/video/}
-      puts 'i.ua skipped' unless Rails.env.test?
-      nil
-
-    elsif html =~ %r{(?:https?:)?//(?:vk.com|vkontakte)/video\?q}
-      puts 'vk direct link skipped' unless Rails.env.test?
-      nil
-
-    else
-      #raise "unexpected video source: '#{source}'\n'#{html}'"
-      puts "unexpected video source: '#{source}'\n'#{html}'"
-      nil
-    end
-
-    url.sub(%r{^//}, 'http://').gsub('&amp;', '&') if url
   end
 
   def parse_chapter node, total_episodes=1

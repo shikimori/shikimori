@@ -53,7 +53,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   end
 
   def create
-    @video = AnimeVideo.new video_params.merge(url: AnimeVideoUrl.new(video_params[:url]).extract)
+    @video = AnimeVideo.new video_params.merge(url: VideoExtractor::UrlExtractor.new(video_params[:url]).extract)
     @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
     if @video.save
       AnimeVideoReport.create! user: current_user, anime_video: @video, kind: :uploaded
@@ -85,7 +85,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   end
 
   def extract_url
-    render text: AnimeVideoUrl.new(params[:url]).extract
+    render text: VideoExtractor::UrlExtractor.new(params[:url]).extract
   end
 
 private

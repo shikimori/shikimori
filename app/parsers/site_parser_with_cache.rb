@@ -61,23 +61,24 @@ class SiteParserWithCache
   end
 
   # вырезание всяких мусорных символов, чтобы легче было матчить
-  def self.fix_name(name)
+  def self.fix_name name
     name = name.force_encoding('utf-8') if name && name.encoding.name == "ASCII-8BIT"
     name ? name.downcase.gsub(/[-:,.~"]/, '').gsub(/`/, '\'').gsub(/  +|　/, ' ').strip : nil
   end
-  def fix_name(name)
+  def fix_name name
     self.class.fix_name(name)
   end
 
 private
   # загрузка страницы через прокси
-  def get(url, required_text=@required_text)
-    Proxy.get(url,
-              timeout: 30,
-              required_text: required_text,
-              ban_texts: required_text.present? ? nil : MalFetcher.ban_texts,
-              no_proxy: @no_proxy,
-              log: @proxy_log)
-
+  def get url, required_text=@required_text
+    Proxy.get(
+      url,
+      timeout: 30,
+      required_text: required_text,
+      ban_texts: required_text.present? ? nil : MalFetcher.ban_texts,
+      no_proxy: @no_proxy,
+      log: @proxy_log
+    )
   end
 end

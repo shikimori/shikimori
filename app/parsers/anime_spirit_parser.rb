@@ -44,23 +44,54 @@ class AnimeSpiritParser
   # выборка видео из nokogiri контента
   def extract_videos link, doc
     doc.css('h3,p').each_slice(3).map do |(name,trash,video)|
-      next unless name.text =~ /(?<kind>.*?) (?<episode>\d+)$/
+      text = name.text.strip
+
+      next if text =~ /^[\[( -]*спешл|pv|трейлер/i
+      unless text =~ /(?<kind>)(?<episode>\d+)$/ ||
+          text =~ /^(?<episode>\d*).*\((?<kind>.+)\)(?: ?(?:\[|-|).+(?:\[|-|))?$/ ||
+          text =~ /^(?<episode>\d*).*(?<kind>) (?:\[|-).+(?:\[|-)$/ ||
+          text =~ /^(?<episode>\d*).*(?<kind>)$/
+        raise "can't parse entry: #{text} [#{link}]"
+      end
+      meta = $~[:kind]
+      episode = ($~[:episode] || 0).to_i
+      #binding.pry if meta == 'Inspector Gadjet & Oriko'
 
       {
-        #kind: $~[:episode],
-        episode: $~[:episode].to_i,
+        author: extract_author(meta),
+        episode: episode,
+        kind: extract_kind(meta),
         source: link,
-        url: video.text
+        url: VideoExtractor::UrlExtractor.new(video.text).extract,
+        language: :russian,
       }
+    end.compact
+  end
+
+  def extract_kind meta
+    case meta
+      when /озвучка|озвучено|озвучил|рус. ?суб./i then :fandub
+      when /[сc]убтитры/i then :subtitles
+      #when 'Оригинал' then :raw
+      when /^(муви|сибнет|myvi|sibnet|cпэшл|бонус|первый том|второй том|part one.*|part two.*|)$/i then :unknown
+      when /.+/i
+        puts "can't extract kind: '#{meta}'" unless Rails.env.test?
+        nil
+
+      else
+        raise "unexpected russian kind: '#{meta}'"
     end
   end
 
-#episode: episode,
-#kind: kind,
-#language: extract_language(kind && !kind.kind_of?(Symbol) ? kind : description),
-#source: url,
-#url: video_url,
-#author: HTMLEntities.new.decode(author)
+  def extract_author meta
+    case meta
+      when /(?:озвучка|озвучено|озвучил|озвучила) (.+)/i then $1
+      when /^озвучка|озвучено|озвучил|[сc]убтитры|рус. ?суб.|$/i then nil
+      else
+        puts "can't extract author: '#{meta}'" unless Rails.env.test?
+        nil
+    end
+  end
 
 private
   # страница каталога сайта
@@ -70,11 +101,13 @@ private
 
   # загрузка страницы через прокси
   def get url, required_text=@required_text
-    Proxy.get(url,
-              timeout: 30,
-              required_text: required_text,
-              ban_texts: required_text.present? ? nil : MalFetcher.ban_texts,
-              no_proxy: @no_proxy,
-              log: @proxy_log)
+    Proxy.get(
+      url,
+      timeout: 30,
+      required_text: required_text,
+      ban_texts: required_text.present? ? nil : MalFetcher.ban_texts,
+      no_proxy: @no_proxy,
+      log: @proxy_log
+    )
   end
 end

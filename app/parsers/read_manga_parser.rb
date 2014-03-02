@@ -66,24 +66,24 @@ class ReadMangaParser < SiteParserWithCache
     ids.map { |id| fetch_entry(id) }
   end
 
-  # загрузка одного элемента
+  # парсинг информации о манге по идентификатору
   def fetch_entry id
     url = @entry_url % id
-    content = get(url)
-    return nil if moved_entry?(content)
+    content = get url
+    return nil if moved_entry? content
 
-    entry = {id: id}
+    entry = { id: id }
 
     doc = Nokogiri::HTML(content.gsub(/<br ?\/?>/, "\n").gsub(/<!--[\s\S]*?-->/, ''))
 
     extract_names entry, doc
     entry[:score] = doc.css('.rate_info b').first.text.sub(',', '.').sub('/10', '').to_f
 
-    lines = extract_description_lines(doc)
+    lines = extract_description_lines doc
     entry[:source] = find_source(lines, url) || url
 
-    entry[:description] = build_description(lines, entry[:id])
-    return nil if moved_entry?(entry[:description])
+    entry[:description] = build_description lines, entry[:id]
+    return nil if moved_entry? entry[:description]
 
     extract_additional entry, doc
 
