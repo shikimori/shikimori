@@ -3,68 +3,89 @@
 @import compass/css3/transition
 
 .p-anime_video-index
-  .previews
-    margin: 0 auto
+  position: relative
 
-    .item
-      +border-radius(3px)
-      +box-shadow(#aeaeae 0 2px 10px)
-      background-color: #fdfdfd
-      float: left
-      height: 308px
-      margin: 0 40px 30px 0
-      position: relative
-      width: 204px
+  .menu_right
+    position: absolute
+    top: 0
+    right: 0
+    width: 200px
 
-      a
-        color: #2c3e50
+    .top_uploaders
+      h3
+        font-size: 14px
+      ol
+        padding-left: 20px
+        li
+          position: relative
+          height: 110px
+          .avatar
+            position: absolute
+            top: 20px
+            left: 0
 
-      .cover
-        padding: 20px
-        position: absolute
+  .videos
+    margin-right: 200px
+    .previews
+      .item
+        +border-radius(3px)
+        +box-shadow(#aeaeae 0 2px 10px)
+        background-color: #fdfdfd
+        float: left
+        height: 308px
+        margin: 0 30px 30px 0
+        position: relative
+        width: 204px
 
-        .title
-          font-weight: bold
-          height: 20px
-          margin-top: 4px
-          overflow: hidden
-          width: 160px
+        a
+          color: #2c3e50
 
-        .episode
-          font-size: 12px
+        .cover
+          padding: 20px
+          position: absolute
 
-          &:before
-            color: #aaaaaa
-            content: 'Последний эпизод: '
+          .title
+            font-weight: bold
+            height: 20px
+            margin-top: 4px
+            overflow: hidden
+            width: 160px
 
-      .info
-        height: 300px
-        position: absolute
-        opacity: 0
+          .episode
+            font-size: 12px
 
-        .title
-          margin-bottom: 4px
-          font-weight: bold
+            &:before
+              color: #aaaaaa
+              content: 'Последний эпизод: '
 
-        .date
-          &:before
-            color: #aaaaaa
-            content: 'Обновление: '
-            font-weight: normal
-
-      &:hover
         .info
-          +border-radius(3px)
-          +transition(opacity 0.3s ease)
-          background-color: white
-          margin: 2px
-          opacity: 0.97
-          padding: 8px
+          height: 300px
+          position: absolute
+          opacity: 0
 
-          .b-info
-            font-size: 13px
+          .title
+            margin-bottom: 4px
+            font-weight: bold
 
-            .label
-              display: inline-block
-              font-size: 11px
+          .date
+            &:before
+              color: #aaaaaa
+              content: 'Обновление: '
               font-weight: normal
+
+        &:hover
+          .info
+            +border-radius(3px)
+            +transition(opacity 0.3s ease)
+            background-color: white
+            margin: 2px
+            opacity: 0.97
+            padding: 8px
+
+            .b-info
+              font-size: 13px
+
+              .label
+                display: inline-block
+                font-size: 11px
+                font-weight: normal

@@ -1,27 +1,32 @@
 .p-anime_video-index
   - if @anime_list.any?
-    .row.previews
-      - @anime_list.each do |anime|
-        .item
-          a href="#{anime_videos_show_url anime.id}"
-            .cover
-              img width="160" height="240" src="http://shikimori.org#{anime.image.url(:preview) }" alt="#{{anime.name}}"
-              .title = (anime.russian || anime.name).html_safe
+    .videos
+      .previews
+        - @anime_list.each do |anime|
+          .item
+            a href="#{anime_videos_show_url anime.id}"
+              .cover
+                img width="160" height="240" src="http://shikimori.org#{anime.image.url(:preview) }" alt="#{{anime.name}}"
+                .title = (anime.russian || anime.name).html_safe
 
-              - if anime.last_date > DateTime.now.prev_week
-                .episode = anime.last_episode
+                - if anime.last_date > DateTime.now.prev_week
+                  .episode = anime.last_episode
 
-            .info
-              - if anime.name.size > 90
-                .title title="#{anime.name.html_safe}" = truncate anime.name.html_safe, length: 90
-              - else
-                .title = anime.name.html_safe
+              .info
+                - if anime.name.size > 90
+                  .title title="#{anime.name.html_safe}" = truncate anime.name.html_safe, length: 90
+                - else
+                  .title = anime.name.html_safe
 
-              = render 'anime_online/blocks/info', anime: anime
-              .date = anime.last_date.strftime '%d.%m.%Y'
-
-    .row
-      = will_paginate @anime_ids, renderer: BootstrapPagination::Rails
+                = render 'anime_online/blocks/info', anime: anime
+                .date = anime.last_date.strftime '%d.%m.%Y'
+      .fotter
+        = will_paginate @anime_ids, renderer: BootstrapPagination::Rails
+    .menu_right
+      .ads_container
+        = render partial: 'anime_online/blocks/ads_240x400' if request.host == AnimeOnlineDomain::HOST_PLAY
+      .top_uploaders
+        = render partial: 'uploaders'
 
   - else
     .alert.alert-info.center Ничего не нашлось
