@@ -21,6 +21,7 @@ class TopicSerializer < ActiveModel::Serializer
     case object.linked_type
       when Anime.name then AnimeSerializer.new object.linked
       when Manga.name then MangaSerializer.new object.linked
+      when Character.name then CharacterSerializer.new object.linked
       when Group.name then GroupSerializer.new object.linked
       when Review.name then ReviewSerializer.new object.linked
     end
