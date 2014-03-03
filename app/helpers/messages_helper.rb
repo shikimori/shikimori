@@ -68,9 +68,15 @@ module MessagesHelper # для truncate в messages helper
 
   def format_entity_name message
     if message.linked_type == Comment.name
-      format_linked_name message.linked.commentable_id, message.linked.commentable_type, message.linked.id
+      if message.linked
+        format_linked_name message.linked.commentable_id, message.linked.commentable_type, message.linked.id
+      else
+        '<em>в удалённом комментарии</em>.'
+      end
+
     elsif message.linked_type == Ban.name
       format_linked_name message.linked.comment.commentable_id, message.linked.comment.commentable_type, message.linked.comment.id
+
     else
       format_linked_name message.linked_id, message.linked_type
     end
