@@ -207,19 +207,25 @@ class MessagesController < UsersController
       def self.current_user
         User.find(User::GuestID)
       end
-      params[:comment][:body] += "\n\ne-mail: #{params[:comment][:email]}" unless params[:comment][:email].blank?
       params[:comment][:commentable_id] = 1
     end
-    params[:comment][:body] += "\n\n#{params[:comment][:location]}" unless params[:comment][:location].blank?
-    params[:comment][:body] += "\n#{params[:comment][:user_agent]}" unless params[:comment][:user_agent].blank?
 
     raise Unauthorized unless user_signed_in?
-    Rails.logger.info params.to_yaml
+    #Rails.logger.info params.to_yaml
 
     user = User.find(params[:comment][:commentable_id])
     unless user
       render json: {'' => 'Пользователь <b>%s</b> не найден' % params[:target][:nickname]}, status: :unprocessable_entity
       return
+    end
+
+    if user.admin?
+      params[:comment][:body] = params[:comment][:body].strip
+      params[:comment][:body] += "[right][size=11][color=gray][spoiler=info]"
+      params[:comment][:body] += "e-mail: #{params[:comment][:email]}\n" unless params[:comment][:email].blank?
+      params[:comment][:body] += "[url=#{params[:comment][:location]}]#{params[:comment][:location]}[/url]\n" unless params[:comment][:location].blank?
+      params[:comment][:body] += "#{params[:comment][:user_agent] || request.env['HTTP_USER_AGENT']}\n"
+      params[:comment][:body] += '[/spoiler][/color][/size][/right]'
     end
 
     if user.ignored_users.include?(current_user)
