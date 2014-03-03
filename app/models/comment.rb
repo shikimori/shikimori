@@ -130,7 +130,7 @@ class Comment < ActiveRecord::Base
           read: false,
           linked_type: self.class.name
         ).includes(:linked)
-         .any? {|v| v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
+         .any? {|v| v.linked && v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
 
       Message.wo_antispam do
         Message.create!(
