@@ -155,7 +155,7 @@ private
   def associations!
     havings = []
     [[Genre, @genre], [Studio, @studio], [Publisher, @publisher]].each do |association_klass, values|
-      next if values.blank?
+      next if values.blank? || (@klass == Anime && association_klass == Publisher) || (@klass == Manga && association_klass == Studio)
 
       ids = bang_split(values.split(','), true) {|v| association_klass.related(v.to_i) }
       joined_filter(ids, association_klass.table_name)
