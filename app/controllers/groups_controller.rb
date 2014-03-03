@@ -7,12 +7,10 @@ class GroupsController < ApplicationController
 
   # список всех групп
   def index
-    @groups = Group
-      .joins(:member_roles, :thread)
-      .group('groups.id')
-      .having('count(group_roles.id) > 0')
-      .order('entries.updated_at desc')
-      .to_a
+    @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, 10].max, 30].min
+
+    @groups, @add_postloader = ClubsQuery.new.postload @page, @limit
 
     @page_title = 'Клубы'
   end

@@ -12,3 +12,5 @@ header.head.misc
 
 .index-list.groups
   = render partial: 'groups/group', collection: @groups, formats: :html
+  - if @add_postloader
+    = render partial: 'site/postloader', locals: { filter: 'index-item', url: page_clubs_url(page: @page+1) }, formats: :html

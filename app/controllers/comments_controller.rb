@@ -62,19 +62,22 @@ class CommentsController < ApplicationController
     from = params[:skip].to_i
     to = [params[:limit].to_i, 100].min
 
-    comments = entry.comments.with_viewed(current_user)
-        .includes(:user, :commentable)
-        .offset(from)
-        .limit(to)
-        .reverse
+    comments = entry
+      .comments
+      .with_viewed(current_user)
+      .includes(:user, :commentable)
+      .offset(from)
+      .limit(to)
+      .reverse
 
     render partial: 'comments/comment', collection: comments, formats: :html
   end
 
   # список комментариев по запросу
   def chosen
-    comments = Comment.with_viewed(current_user)
-                      .where(id: params[:ids].split(',').map(&:to_i))
+    comments = Comment
+      .with_viewed(current_user)
+      .where(id: params[:ids].split(',').map(&:to_i))
     comments.reverse! if params[:order]
 
     render partial: 'comments/comment', collection: comments, formats: :html

@@ -1,14 +1,26 @@
-
 require 'spec_helper'
 
 describe GroupsController do
-  before do
-    @user = create :user
-    sign_in @user
-  end
+  let(:user) { create :user }
+  before { sign_in user }
 
   describe 'index' do
-    pending 'need more specs'
+    let(:club_1) { create :group }
+    let(:club_2) { create :group }
+    before do
+      club_1.members << user
+      club_2.members << user
+    end
+
+    context :page_1 do
+      before { get :index, page: 1 }
+      it { should respond_with :success }
+    end
+
+    context :page_2 do
+      before { get :index, page: 2, format: :json }
+      it { should respond_with :success }
+    end
   end
 
   describe 'show' do
@@ -27,9 +39,9 @@ describe GroupsController do
       }.to change(Group, :count).by(1)
 
       group = Group.last
-      group.admins.should include(@user)
+      group.admins.should include(user)
       group.name.should == 'test'
-      group.owner_id.should be(@user.id)
+      group.owner_id.should be(user.id)
       group.join_policy.should == GroupJoinPolicy::Free
     end
   end
@@ -40,7 +52,7 @@ describe GroupsController do
     let (:group) { create :group }
 
     it 'restricts access for guests' do
-      sign_out @user
+      sign_out user
       get :settings, id: group.id
       response.should be_unauthorized
     end
