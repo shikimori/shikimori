@@ -1,3 +1,10 @@
+- unless @user.valid?
+  .errors
+    .subheadline.red.m10 Ошибки
+    .subcontent
+      == @user.errors.full_messages.join('<br>')
+    div
+
 .b-options-floated
   a class="#{:selected if params[:page] == 'account'}" href="#{user_settings_url @user}" Аккаунт
   a class="#{:selected if params[:page] == 'profile'}" href="#{user_settings_url @user, page: 'profile'}" Профиль
