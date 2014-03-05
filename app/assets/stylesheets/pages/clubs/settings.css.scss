@@ -29,6 +29,7 @@
 
     li a {
       @include normal-link;
+      line-height: $line-height;
       display: block;
     }
     .name.tags {

@@ -1,18 +1,17 @@
 .item-content
   .description.body
     .comment-block
-      - if @group.description.blank?
+      - if @group.description_html.blank?
         span.grey-hint нет описания
       - else
-        = cache [@group, 'body'], expires_in: 2.weeks do
-          = BbCodeFormatter.instance.format_comment @group.description
+        = @group.description_html
 
 .subheadline.m10
   span.linkeable data-href="#{members_club_url @group}" Участники
 .members-list
   = render partial: 'blocks/user', collection: @members, locals: { avatar_size: 48 }, formats: :html
 
-- if @images.any? && @group.display_images?
+- if @group.images.any?
   .subheadline.m10
     span.linkeable data-href="#{images_club_url @group}" Картинки
   .images-container.m20
@@ -20,8 +19,8 @@
     .images-list data-upload_url="#{create_images_url model: :group, id: @group.id}"
       = render partial: 'images/image', collection: @images, locals: { group_name: 'info', style: :main }, formats: :html
 
-- if user_signed_in? || @comments.any?
+- if @group.show_comments?
   .subheadline Лента
   .forum-container.topic-block.faye-top-add class="topic-#{@group.thread.id}"
     .comments.zero-margin.zero-top-border
-      = render partial: 'comments/comments', locals: { object: @group.thread, comments: @comments, postloader: 15 }, formats: :html
+      = render partial: 'comments/comments', locals: { object: @group.thread, comments: @group.comments, postloader: 15 }, formats: :html

@@ -4,5 +4,6 @@ FactoryGirl.define do
     join_policy GroupJoinPolicy::Free
 
     association :owner, factory: :user
+    description ''
   end
 end

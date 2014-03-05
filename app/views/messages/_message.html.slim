@@ -28,7 +28,7 @@
         img src="#{message.to.avatar_url 64}" alt="#{message.to.nickname }"
       = link_to "@#{message.to.nickname}", user_url(message.to), class: :name
     p.date
-      = time_ago_in_words(message.created_at, "%s назад")
+      = time_ago_in_words message.created_at, "%s назад"
 
   .body
     - if message.linked.class == AnimeNews && message.linked.anime.image.exists?# && !message.body.include?('anime_poster')

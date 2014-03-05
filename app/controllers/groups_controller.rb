@@ -1,9 +1,8 @@
 # TODO: отрефакторить толстый контроллер
 class GroupsController < ApplicationController
-  before_filter :check_auth, only: [:new, :settings, :apply]
+  before_action :check_auth, only: [:new, :settings, :apply]
+  before_action :fetch_group, only: [:show, :members, :animes, :mangas, :characters, :images]
   helper_method :breadcrumbs
-
-  VisibleEntries = 12
 
   # список всех групп
   def index
@@ -25,56 +24,17 @@ class GroupsController < ApplicationController
   def show
     params[:type] ||= 'info'
 
-    #set_meta_tags noindex: true, nofollow: true
-    @group ||= Group
-      .includes(:animes)
-      .includes(:mangas)
-      .includes(:characters)
-      .find(params[:id])
-
-    @members ||= @group
-      .member_roles
-      .includes(:user)
-      .order(created_at: :desc)
-      .take(9)
-        .map(&:user)
-
-    @animes = @group
-      .animes
-      .uniq(&:id)
-      .shuffle
-      .take(VisibleEntries)
-      .sort_by { |v| v.ranked }
-
-    @mangas = @group
-      .mangas
-      .uniq(&:id)
-      .shuffle
-      .take(VisibleEntries)
-      .sort_by { |v| v.ranked }
-
-    @characters = @group
-      .characters
-      .uniq(&:id)
-      .shuffle
-      .take(VisibleEntries)
-      .sort_by { |v| v.name }
-
-    @images ||= @group.images
-        .order(created_at: :desc)
-        .take(12)
+    @group ||= Group.find(params[:id]).decorate
 
     @page_title ||= @group.name
-
-    @comments = @group.thread.comments.with_viewed(current_user).limit(15)
 
     @sub_layout = 'group'
     @pages = ['info', 'members']
     @pages << 'images'# unless @images.empty?
     @pages << 'settings' if user_signed_in? && @group.can_be_edited_by?(current_user)
-    @pages << 'animes' if @animes.size == VisibleEntries
-    @pages << 'mangas' if @mangas.size == VisibleEntries
-    @pages << 'characters' if @characters.size == VisibleEntries
+    @pages << 'animes' if @group.animes.size == GroupDecorator::VisibleEntries
+    @pages << 'mangas' if @group.mangas.size == GroupDecorator::VisibleEntries
+    @pages << 'characters' if @group.characters.size == GroupDecorator::VisibleEntries
 
     if @group.belongs_to_translators?
       @pages << 'translation_planned'
@@ -96,12 +56,6 @@ class GroupsController < ApplicationController
   def members
     set_meta_tags noindex: true, nofollow: true
 
-    @group ||= Group.find(params[:id])
-    @members ||= @group
-      .member_roles
-      .includes(:user)
-      .order(created_at: :desc)
-      .map(&:user)
     @page_title = [@group.name, 'Участники']
     show
   end
@@ -110,8 +64,6 @@ class GroupsController < ApplicationController
   def animes
     set_meta_tags noindex: true
 
-    @group ||= Group.find(params[:id])
-    @entries = @group.animes.uniq(&:id)
     @page_title = [@group.name, 'Аниме']
 
     show
@@ -121,8 +73,6 @@ class GroupsController < ApplicationController
   def mangas
     set_meta_tags noindex: true
 
-    @group ||= Group.find(params[:id])
-    @entries = @group.mangas.uniq(&:id)
     @page_title = [@group.name, 'Манга']
 
     show
@@ -132,8 +82,6 @@ class GroupsController < ApplicationController
   def characters
     set_meta_tags noindex: true
 
-    @group ||= Group.find(params[:id])
-    @entries = @group.characters.uniq(&:id)
     @page_title = [@group.name, 'Персонажи']
 
     show
@@ -143,10 +91,8 @@ class GroupsController < ApplicationController
   def images
     set_meta_tags noindex: true, nofollow: true
 
-    @group ||= Group.find(params[:id])
-    @images ||= @group.images
-        .order(created_at: :desc)
     @page_title = [@group.name, 'Картинки']
+
     show
   end
 
@@ -276,5 +222,10 @@ class GroupsController < ApplicationController
     {
       'Клубы' => groups_url
     }
+  end
+
+private
+  def fetch_group
+    @group = Group.find(params[:id]).decorate
   end
 end

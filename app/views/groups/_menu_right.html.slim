@@ -2,7 +2,7 @@ aside.menu-right
   - if @group.logo.exists?
     .logo-block
       center
-        img src="#{@group.logo.url(:main)}" alt="#{@group.name}" title="#{@group.name}"
+        img src="#{@group.logo.url :main}" alt="#{@group.name}" title="#{@group.name}"
 
   nav.menu-block
     .subheadline Клуб
@@ -13,7 +13,7 @@ aside.menu-right
       li.slider-control.slider-control-members.members
         = link_to "Участники", members_club_url(@group)
 
-      - if (@images.any? && @group.display_images?) || @group.can_be_edited_by?(current_user)
+      - if @group.images.any? || @group.can_be_edited_by?(current_user)
         li.slider-control.slider-control-images.images
           = link_to "Картинки", images_club_url(@group)
 
@@ -47,16 +47,16 @@ aside.menu-right
     .subheadline Действия
     = render partial: 'groups/actions', locals: { group: @group }
 
-  - [[@animes, 'Аниме', :animes_club_url], [@mangas, 'Манга', :mangas_club_url], [@characters, 'Персонажи', :characters_club_url]].each do |collection, name, url_builder|
+  - [[@group.animes, 'Аниме', :animes_club_url], [@group.mangas, 'Манга', :mangas_club_url], [@group.characters, 'Персонажи', :characters_club_url]].each do |collection, name, url_builder|
     - if collection.any?
       .menu-block
         .subheadline
-          - if collection.size == GroupsController::VisibleEntries
-            span.linkeable data-href="#{self.send(url_builder, @group)}" = name
+          - if collection.size == GroupDecorator::VisibleEntries
+            span.linkeable data-href="#{self.send url_builder, @group}" = name
           - else
             = name
         .image-links
           - collection.each do |entry|
-            a.bubbled href="#{url_for(entry)}" data-remote="true" data-offset-left="-10" data-offset-top="20" data-place-to-left="true"
-              img src="#{entry.image.url(:x64)}" alt="#{localized_name entry}" title="#{localized_name entry}"
+            a.bubbled href="#{url_for entry}" data-remote="true" data-offset-left="-10" data-offset-top="20" data-place-to-left="true"
+              img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"
         .clearfix

@@ -15,11 +15,11 @@ class BbCodeFormatter
   # форматирование описания чего-либо
   def format_description text, entry
     if entry.class == Review || entry.class == Contest
-      paragraphs(format_comment(text))
+      paragraphs format_comment(text)
     elsif entry.respond_to? :characters
-      paragraphs(format_comment(character_names(text, entry)))
+      paragraphs format_comment(character_names(text, entry))
     else
-      format_comment(text)
+      format_comment text
     end
   end
 

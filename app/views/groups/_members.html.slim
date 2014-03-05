@@ -1,3 +1,3 @@
 .subheadline.m10 Участники
 .members-list
-  = render partial: 'blocks/user', collection: @members, locals: { avatar_size: 48 }, formats: :html
+  = render partial: 'blocks/user', collection: @group.all_members, locals: { avatar_size: 48 }, formats: :html

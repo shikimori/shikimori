@@ -195,13 +195,18 @@ Site::Application.routes.draw do
       #get 'groups' => 'groups#index'
       #get 'groups/new' => 'groups#new', as: 'new_group'
       #get 'groups/:id' => 'groups#show', as: 'group', type: 'info'
-      get 'members', on: :member, type: 'members'
-      get 'settings', on: :member, type: 'settings'
-      get 'images', on: :member, type: 'images'
+      collection do
+        get '/page/:page', action: :index, as: :page
+      end
+      member do
+        get 'members', type: 'members'
+        get 'settings', type: 'settings'
+        get 'images', type: 'images'
 
-      get 'animes', on: :member, type: 'animes'
-      get 'mangas', on: :member, type: 'mangas'
-      get 'characters', on: :member, type: 'characters'
+        get 'animes', type: 'animes'
+        get 'mangas', type: 'mangas'
+        get 'characters', type: 'characters'
+      end
 
       get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
@@ -462,6 +467,16 @@ Site::Application.routes.draw do
         resources :sections, only: [:index]
         resources :topics, only: [:index, :show]
         resources :comments, only: [:show, :index]
+
+        resources :clubs, only: [:show, :index] do
+          member do
+            get :members
+            get :animes
+            get :mangas
+            get :characters
+            get :images
+          end
+        end
 
         resource :authenticity_token, only: [:show]
 
