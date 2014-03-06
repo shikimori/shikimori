@@ -20,32 +20,27 @@ class Api::V1::ClubsController < Api::V1::ApiController
     respond_with @club, serializer: GroupProfileSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/clubs/:id/animes"
+  api :GET, "/clubs/:id/animes", "Show club's animes"
   def animes
     respond_with @club.all_animes
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/clubs/:id/mangas"
+  api :GET, "/clubs/:id/mangas", "Show club's mangas"
   def mangas
     respond_with @club.all_mangas
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/clubs/:id/characters"
+  api :GET, "/clubs/:id/characters", "Show club's characters"
   def characters
     respond_with @club.all_characters
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/clubs/:id/members"
+  api :GET, "/clubs/:id/members", "Show club's members"
   def members
     respond_with @club.all_members
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/clubs/:id/images"
+  api :GET, "/clubs/:id/images", "Show club's images"
   def images
     respond_with @club.all_images
   end
