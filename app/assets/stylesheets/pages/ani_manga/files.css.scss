@@ -4,7 +4,7 @@
   position: relative;
 
   .collapsed {
-    margin-bottom: 0;
+    margin-bottom: 30px;
   }
 
   .b-options-floated {
@@ -23,7 +23,6 @@
   }
   .subtitles {
     @include clearfix;
-    margin-bottom: 30px;
   }
   .search {
     margin-bottom: 30px;
