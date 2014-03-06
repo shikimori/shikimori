@@ -10,7 +10,7 @@ class BaseDirector
   # осуществляем редирект, если надо
   def redirect! url=nil
     if redirect?
-      @controller.redirect_to url || entry.url, :status => :moved_permanently
+      @controller.redirect_to url || redirect_url || entry.url, :status => :moved_permanently
       @redirected = true
     end
   end
@@ -18,6 +18,10 @@ class BaseDirector
   # редиректнута ли страница?
   def redirected?
     @redirected
+  end
+
+  # адрес, на который будет происходить редирект
+  def redirect_url
   end
 
   # вкладки старницы

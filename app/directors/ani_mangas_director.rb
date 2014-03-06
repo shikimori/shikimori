@@ -100,7 +100,13 @@ class AniMangasDirector < BaseDirector
   def cosplay
     params[:subpage] = params[:character]
     show
-    raise NotFound, params[:character] unless entry.cosplay.gallery
+
+    unless entry.cosplay.gallery || @redirected
+      redirect_to entry.cosplay_url :all
+      @redirected = true
+      return
+    end
+
     append_title! entry.cosplay.gallery.full_title(entry) unless redirected?
   end
 
@@ -143,6 +149,10 @@ private
 
   def redirect?
     entry.to_param != entry_id || params[:character] == '&'
+  end
+
+  def redirect_url
+    url_for params.merge('id' => entry.to_param).except('subpage')
   end
 
   def view_root
