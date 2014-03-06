@@ -13,8 +13,12 @@ module AniMangaDecorator::UrlHelpers
   end
 
   # адрес косплея персонажа
-  def cosplay_url character
-    h.send "cosplay_#{klass_lower}_url", object, character
+  def cosplay_url character, gallery = nil
+    if gallery
+      h.send "cosplay_#{klass_lower}_url", object, character, gallery
+    else
+      h.send "cosplay_#{klass_lower}_url", object, character
+    end
   end
 
   # адрес обзоров
