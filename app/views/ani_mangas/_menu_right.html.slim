@@ -29,7 +29,7 @@ nav.menu-block
     - if @entry.cosplay.characters.any?
       li.slider-control.slider-control-cosplay-all.cosplay
         span.link data-href="#{@entry.cosplay_url :all}" Косплей
-      - if @entry.cosplay.characters.size > 1
+      /- if @entry.cosplay.characters.size > 1
         - @entry.cosplay.characters.each do |character|
           li class="slider-control sub slider-control-cosplay-#{character.to_param} level-down"
             a href="#{@entry.cosplay_url character}" title="#{{character.name}}"
