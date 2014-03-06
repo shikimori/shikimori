@@ -9,7 +9,7 @@
 .subheadline.m10
   span.linkeable data-href="#{members_club_url @group}" Участники
 .members-list
-  = render partial: 'blocks/user', collection: @members, locals: { avatar_size: 48 }, formats: :html
+  = render partial: 'blocks/user', collection: @group.members, locals: { avatar_size: 48 }, formats: :html
 
 - if @group.images.any?
   .subheadline.m10
@@ -17,7 +17,7 @@
   .images-container.m20
     = render partial: 'blocks/upload_progress', formats: :html
     .images-list data-upload_url="#{create_images_url model: :group, id: @group.id}"
-      = render partial: 'images/image', collection: @images, locals: { group_name: 'info', style: :main }, formats: :html
+      = render partial: 'images/image', collection: @group.images, locals: { group_name: 'info', style: :main }, formats: :html
 
 - if @group.show_comments?
   .subheadline Лента
