@@ -12,6 +12,33 @@ describe FindAnimeImporter do
     let(:ids) { [] }
     before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier] }
 
+    describe :video do
+      context :no_videos do
+        let(:videos) { AnimeVideo.where anime_id: anime.id }
+        it { expect{subject}.to change(videos, :count).by 4 }
+      end
+
+      context :with_videos do
+        let(:videos) { AnimeVideo.where anime_id: anime.id }
+        let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9&hd=3', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
+        it { expect{subject}.to change(videos, :count).by 3 }
+
+        describe :anime_video do
+          before { import }
+          subject { anime.anime_videos.last }
+
+          it { should be_working }
+          its(:anime_id) { should eq anime.id }
+          its(:url) { should eq 'http://myvi.tv/embed/html/oj3S0O7huMlVwrwaXH74WaoyTycwCi7vbzoSfSxvWx481' }
+          its(:source) { should eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1' }
+          its(:episode) { should eq 2 }
+          its(:kind) { should eq 'subtitles' }
+          its(:language) { should eq 'russian' }
+          its(:anime_video_author_id) { should be_nil }
+        end
+      end
+    end
+
     context :pages do
       let(:pages) { [0] }
 
@@ -62,33 +89,6 @@ describe FindAnimeImporter do
         importer.should_receive(:build_video).exactly(4).times
       end
       it { should be_nil }
-    end
-
-    describe :video do
-      context :no_videos do
-        let(:videos) { AnimeVideo.where anime_id: anime.id }
-        it { expect{subject}.to change(videos, :count).by 6 }
-      end
-
-      context :with_videos do
-        let(:videos) { AnimeVideo.where anime_id: anime.id }
-        let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9&hd=3', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
-        it { expect{subject}.to change(videos, :count).by 5 }
-
-        describe :anime_video do
-          before { import }
-          subject { anime.anime_videos.last }
-
-          it { should be_working }
-          its(:anime_id) { should eq anime.id }
-          its(:url) { should eq 'http://video.rutube.ru/625ac634204b2c60adcb75a918dedb7d' }
-          its(:source) { should eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1' }
-          its(:episode) { should eq 2 }
-          its(:kind) { should eq 'unknown' }
-          its(:language) { should eq 'russian' }
-          its(:anime_video_author_id) { should be_nil }
-        end
-      end
     end
 
     describe :link do

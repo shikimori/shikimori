@@ -36,8 +36,11 @@ class AnimeSpiritParser
     {
       russian: names.first,
       name: names.second,
-      year: content =~ /Год выпуска.*?(?<year>\d+)/ && $~[:year].to_i,
-      videos: extract_videos(link, doc.css('.accordion'))
+      names: names,
+      year: extract_year(content),
+      videos: postprocess_videos(extract_videos(link, doc.css('.accordion'))),
+      categories: [],
+      episodes: extract_episodes_num(content)
     }
   end
 
@@ -55,17 +58,32 @@ class AnimeSpiritParser
       end
       meta = $~[:kind]
       episode = ($~[:episode] || 0).to_i
-      #binding.pry if meta == 'Inspector Gadjet & Oriko'
+      #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract == "http://video.sibnet.ru/shell.swf?videoid=506340"
 
       {
         author: extract_author(meta),
         episode: episode,
-        kind: extract_kind(meta),
+        kind: extract_kind(meta.present? ? meta : text),
         source: link,
         url: VideoExtractor::UrlExtractor.new(video.text).extract,
         language: :russian,
       }
-    end.compact
+    end
+  end
+
+  # итоговая обработка полученных видео
+  def postprocess_videos videos
+    procesed = videos.compact
+    procesed.each {|v| v[:episode] = 1 } if procesed.all? {|v| v[:episode].zero? }
+    procesed
+  end
+
+  def extract_year content
+    content =~ /Год выпуска.*?(?<year>\d+)/ && $~[:year].to_i
+  end
+
+  def extract_episodes_num content
+    content =~ /Серии.*?из.*?(?<episodes_num>\d+)( эп.|<br)/ && $~[:episodes_num].to_i
   end
 
   def extract_kind meta
@@ -76,7 +94,7 @@ class AnimeSpiritParser
       when /^(муви|сибнет|myvi|sibnet|cпэшл|бонус|первый том|второй том|part one.*|part two.*|)$/i then :unknown
       when /.+/i
         puts "can't extract kind: '#{meta}'" unless Rails.env.test?
-        nil
+        :unknown
 
       else
         raise "unexpected russian kind: '#{meta}'"

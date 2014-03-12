@@ -106,6 +106,7 @@ private
 
       if animes.size == 1
         anime = animes.first
+        ap entry
         save_link entry[:id], anime.id
 
       elsif animes.size > 1

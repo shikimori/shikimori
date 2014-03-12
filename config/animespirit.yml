@@ -1,0 +1,6 @@
+---
+:ignores:
+  - nothing here
+
+:ignores_until:
+  nothing_here: 2001-01-01

@@ -14,8 +14,11 @@ describe AnimeSpiritParser do
 
       its(:russian) { should eq 'Рубаки' }
       its(:name) { should eq 'Slayers' }
+      its(:names) { should eq ['Рубаки', 'Slayers'] }
       its(:year) { should eq 1995 }
       its(:videos) { should have(26).items }
+      its(:categories) { should eq [] }
+      its(:episodes) { should eq 26 }
 
       specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
 
@@ -36,6 +39,7 @@ describe AnimeSpiritParser do
       its(:name) { should eq 'Binbougami ga!' }
       its(:year) { should eq 2012 }
       its(:videos) { should have(52).items }
+      its(:episodes) { should eq 13 }
 
       specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
 
@@ -66,8 +70,38 @@ describe AnimeSpiritParser do
       its(:name) { should eq 'Angel Beats!' }
       its(:year) { should eq 2010 }
       its(:videos) { should have(130).items }
+      its(:episodes) { should eq 13 }
 
       specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
+    end
+
+    context 'only one episode' do
+      let(:link) { 'http://www.animespirit.ru/anime/141-burn-up-razgon.html' }
+
+      its(:russian) { should eq 'Разгон!' }
+      its(:name) { should eq 'Burn Up!' }
+      its(:names) { should eq ['Разгон!', 'Burn Up!'] }
+      its(:year) { should eq 1991 }
+      its(:videos) { should have(4).items }
+      its(:episodes) { should eq 1 }
+
+      specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
+
+      context :video do
+        context :first do
+          subject { OpenStruct.new entry[:videos].first }
+          its(:author) { should be nil }
+          its(:episode) { should eq 1 }
+          its(:kind) { should eq :subtitles }
+        end
+
+        context :last do
+          subject { OpenStruct.new entry[:videos].last }
+          its(:author) { should be nil }
+          its(:episode) { should eq 1 }
+          its(:kind) { should eq :fandub }
+        end
+      end
     end
   end
 end

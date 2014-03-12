@@ -24,14 +24,14 @@ class AnimeVideo < ActiveRecord::Base
   scope :allowed_play, -> {
     worked
       .joins(:anime)
-        .where('animes.rating not in (?)', Anime::ADULT_RATINGS)
-        .where('animes.censored = false')
+      .where('animes.rating not in (?)', Anime::ADULT_RATINGS)
+      .where('animes.censored = false')
   }
 
   scope :allowed_xplay, -> {
     worked
       .joins(:anime)
-        .where('animes.rating in (?) or animes.censored = true', Anime::ADULT_RATINGS)
+      .where('animes.rating in (?) or animes.censored = true', Anime::ADULT_RATINGS)
   }
 
   scope :worked, -> { where state: ['working', 'uploaded'] }
