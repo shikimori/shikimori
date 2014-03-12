@@ -126,6 +126,7 @@ class User < ActiveRecord::Base
   ContestsModerators = (Admins + [1483]).uniq # 1483 - Zula
   CosplayModerators = (Admins + [2043, 2046]).uniq # 2043 - laitqwerty, 2046 - Котейка
   VideoModerators = (Admins + []).uniq
+  TrustedVideoUploaders = (Admins + [11496, 4099, 12771, 13893]).uniq # 11496 - АлхимиК, 4099 - sttany, 12771 - spinosa, 13893 - const
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -233,6 +234,11 @@ class User < ActiveRecord::Base
   # бот ли пользователь
   def bot?
     BotsService.posters.include? self.id
+  end
+
+  # пользователь, за которым не проверяем залитое виде?
+  def trusted_video_uploaders?
+    TrustedVideoUploaders.include? self.id
   end
 
   # last online time from memcached/or from database
