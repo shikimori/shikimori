@@ -237,7 +237,7 @@ class User < ActiveRecord::Base
   end
 
   # пользователь, за которым не проверяем залитое виде?
-  def trusted_video_uploaders?
+  def trusted_video_uploader?
     TrustedVideoUploaders.include? self.id
   end
 
