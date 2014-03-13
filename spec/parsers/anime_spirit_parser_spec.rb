@@ -19,11 +19,12 @@ describe AnimeSpiritParser do
       its(:videos) { should have(26).items }
       its(:categories) { should eq [] }
       its(:episodes) { should eq 26 }
+      its(:id) { should eq link }
 
       specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
 
       context :video do
-        subject { OpenStruct.new entry[:videos].first }
+        subject { entry[:videos].first }
         its(:episode) { should eq 1 }
         its(:source) { should eq link }
         its(:url) { 'http://video.rutube.ru/cdc409fc58ac4ac357c98ae47d519208' }
@@ -45,7 +46,7 @@ describe AnimeSpiritParser do
 
       context :video do
         context :first do
-          subject { OpenStruct.new entry[:videos].first }
+          subject { entry[:videos].first }
 
           its(:episode) { should eq 1 }
           its(:source) { should eq link }
@@ -55,7 +56,7 @@ describe AnimeSpiritParser do
         end
 
         context :last do
-          subject { OpenStruct.new entry[:videos].last }
+          subject { entry[:videos].last }
           its(:author) { should be nil }
           its(:episode) { should eq 13 }
           its(:kind) { should eq :fandub }
@@ -75,6 +76,17 @@ describe AnimeSpiritParser do
       specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
     end
 
+    context :buddy_complex do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9639-druzheskij-kompleksbuddy-complex.html' }
+      its(:episodes) { should eq 12 }
+
+      describe 'author in brackets' do
+        subject { entry[:videos].select {|v| v.episode == 1 }.second }
+        its(:kind) { should eq :unknown }
+        its(:author) { should eq 'Cuba77 & Oriko' }
+      end
+    end
+
     context 'only one episode' do
       let(:link) { 'http://www.animespirit.ru/anime/141-burn-up-razgon.html' }
 
@@ -89,14 +101,14 @@ describe AnimeSpiritParser do
 
       context :video do
         context :first do
-          subject { OpenStruct.new entry[:videos].first }
+          subject { entry[:videos].first }
           its(:author) { should be nil }
           its(:episode) { should eq 1 }
           its(:kind) { should eq :subtitles }
         end
 
         context :last do
-          subject { OpenStruct.new entry[:videos].last }
+          subject { entry[:videos].last }
           its(:author) { should be nil }
           its(:episode) { should eq 1 }
           its(:kind) { should eq :fandub }

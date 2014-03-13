@@ -34,6 +34,7 @@ class AnimeSpiritParser
 
     names = block.css('h2 a').first.text.split('/').map(&:strip)
     {
+      id: link,
       russian: names.first,
       name: names.second,
       names: names,
@@ -50,24 +51,24 @@ class AnimeSpiritParser
       text = name.text.strip
 
       next if text =~ /^[\[( -]*спешл|pv|трейлер/i
-      unless text =~ /(?<kind>)(?<episode>\d+)$/ ||
-          text =~ /^(?<episode>\d*).*\((?<kind>.+)\)(?: ?(?:\[|-|).+(?:\[|-|))?$/ ||
-          text =~ /^(?<episode>\d*).*(?<kind>) (?:\[|-).+(?:\[|-)$/ ||
-          text =~ /^(?<episode>\d*).*(?<kind>)$/
+      unless text =~ /(?<meta>)(?<episode>\d+)$/ ||
+          text =~ /^(?<episode>\d*).*\((?<meta>.+)\)(?: ?(?:\[|-|).+(?:\[|-|))?$/ ||
+          text =~ /^(?<episode>\d*).*(?<meta>) (?:\[|-).+(?:\[|-)$/ ||
+          text =~ /^(?<episode>\d*).*(?<meta>)$/
         raise "can't parse entry: #{text} [#{link}]"
       end
-      meta = $~[:kind]
+      meta = $~[:meta]
       episode = ($~[:episode] || 0).to_i
-      #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract == "http://video.sibnet.ru/shell.swf?videoid=506340"
+      #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract == "http://myvi.ru/player/flash/oTeXdFuMc_QiH2OnQgziqKVw3m8VsxX-N5zbzTd50s5DufjzYAKc2iI3QDO89xNhn0"
 
-      {
-        author: extract_author(meta),
+      ParsedVideo.new(
+        author: extract_author(meta, text),
         episode: episode,
         kind: extract_kind(meta.present? ? meta : text),
         source: link,
         url: VideoExtractor::UrlExtractor.new(video.text).extract,
         language: :russian,
-      }
+      )
     end
   end
 
@@ -101,13 +102,17 @@ class AnimeSpiritParser
     end
   end
 
-  def extract_author meta
+  def extract_author meta, text
     case meta
       when /(?:озвучка|озвучено|озвучил|озвучила) (.+)/i then $1
-      when /^озвучка|озвучено|озвучил|[сc]убтитры|рус. ?суб.|$/i then nil
+      when /^(?:озвучка|озвучено|озвучил|[сc]убтитры|рус. ?суб.|)$/i then nil
       else
-        puts "can't extract author: '#{meta}'" unless Rails.env.test?
-        nil
+        if text =~ /\((?<author>.*)\)/
+          $~[:author]
+        else
+          puts "can't extract author: '#{meta}'" unless Rails.env.test?
+          nil
+        end
     end
   end
 

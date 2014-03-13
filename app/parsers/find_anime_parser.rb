@@ -45,7 +45,7 @@ class FindAnimeParser < ReadMangaParser
       embed_source = node.css('.embed_source').first
       video_url = VideoExtractor::UrlExtractor.new(embed_source.attr 'value').extract
 
-      OpenStruct.new(
+      ParsedVideo.new(
         episode: episode,
         kind: kind,
         language: extract_language(kind && !kind.kind_of?(Symbol) ? kind : description),

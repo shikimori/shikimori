@@ -6,7 +6,7 @@ describe ReadMangaParser do
 
   let(:parser) { ReadMangaParser.new }
 
-  it { parser.fetch_pages_num.should eq 71 }
+  it { parser.fetch_pages_num.should eq 72 }
   it { parser.fetch_page_links(0).should have(ReadMangaParser::PageSize).items }
   it { parser.fetch_page_links(parser.fetch_pages_num - 1).last.should eq 'wild_kiss' }
 
@@ -39,7 +39,7 @@ describe ReadMangaParser do
         russian: 'День за днем, за годом год',
         description: 'Как же весело и легко играть вместе в детстве! Совершенно не важно кто мальчик, а кто девочка. И как же всё становится непросто, когда подросший мальчик понимает, что его подружка не просто партнер по играм, а ДЕВОЧКА!',
         source: 'http://animanga.ru',
-        score: 9.33,
+        score: 9.36,
         kind: 'One Shot'
       }
     end

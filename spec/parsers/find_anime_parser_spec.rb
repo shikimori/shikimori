@@ -6,7 +6,7 @@ describe FindAnimeParser do
 
   let(:parser) { FindAnimeParser.new }
 
-  it { parser.fetch_pages_num.should eq 35 }
+  it { parser.fetch_pages_num.should eq 36 }
   it { parser.fetch_page_links(0).should have(FindAnimeParser::PageSize).items }
 
   describe :fetch_entry do
@@ -16,11 +16,11 @@ describe FindAnimeParser do
       let(:identifier) { 'attack_on_titan' }
 
       its(:id) { should eq 'attack_on_titan' }
-      its(:names) { should eq ['Вторжение гигантов', 'Attack on Titan', 'Shingeki no Kyojin', "Атака титанов", "Вторжение Титанов", "Атака Гигантов"] }
-      its(:russian) { should eq 'Вторжение гигантов' }
+      its(:names) { should eq ["Вторжение Гигантов", "Attack on Titan", "Shingeki no Kyojin", "Вторжение Титанов", "Атака Гигантов", "進撃の巨人"] }
+      its(:russian) { should eq 'Вторжение Гигантов' }
       its(:score) { should be_within(1).of 9 }
       its(:description) { should be_present }
-      its(:source) { should eq 'http://findanime.ru/attack_on_titan' }
+      its(:source) { should eq '© Hollow, http://world-art.ru' }
       its(:videos) { should have(26).items }
       its(:year) { should eq 2013 }
 
@@ -66,7 +66,7 @@ describe FindAnimeParser do
     let(:episode) { 1 }
     let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
 
-    it { should have(14).items }
+    it { should have(16).items }
 
     describe :first do
       subject { videos.first }
@@ -80,18 +80,17 @@ describe FindAnimeParser do
     end
 
     describe :last do
-      subject { videos.last }
+      subject { videos[-4] }
 
       its(:kind) { should eq :fandub }
       its(:author) { should eq 'JazzWay Anime' }
     end
 
-    describe :special do
-      subject { videos.find {|v| v.author == 'JAM & Ancord & Nika Lenina' } }
-      its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
-      its(:kind) { should eq :fandub }
-    end
-
+    #describe :special do
+      #subject { videos.find {|v| v.author == 'JAM & Ancord & Nika Lenina' } }
+      #its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
+      #its(:kind) { should eq :fandub }
+    #end
   end
 
   describe :extract_language do

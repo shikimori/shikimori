@@ -31,6 +31,7 @@ gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
 gem 'simple_form'
 gem 'active_model_serializers'
+gem 'virtus'
 
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise

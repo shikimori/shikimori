@@ -92,8 +92,13 @@ class ReadMangaParser < SiteParserWithCache
 
   def extract_names entry, doc
     h1_tag = doc.css('h1').first()
-    entry[:names] = [h1_tag.css('.name').text, h1_tag.css('.eng-name').text, h1_tag.css('.jp-name').text].compact.map(&:strip).select(&:present?)
-    entry[:russian] = h1_tag.css('.name').text
+    entry[:names] = [
+        h1_tag.css('.name').text,
+        h1_tag.css('.eng-name').text,
+        h1_tag.css('.jp-name').text
+      ]
+    entry[:names] = entry[:names].compact.map(&:strip).select(&:present?).map {|v| v.sub(/ \[ТВ.*?\]$/, '') }
+    entry[:russian] = entry[:names].first
 
     if entry[:names].first.include?(':')
       names = entry[:names].first.split(':').map(&:strip)
