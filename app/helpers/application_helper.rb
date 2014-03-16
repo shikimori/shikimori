@@ -69,4 +69,12 @@ module ApplicationHelper
   def new_session_path(resource_name)
     new_user_session_path
   end
+
+  def mobile?
+    if session[:mobile_param]
+      session[:mobile_param] == '1'
+    else
+      request.user_agent =~ /Mobile|webOS|Android/
+    end
+  end
 end

@@ -20,8 +20,9 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
 
   def videos
     @videos ||= anime_videos
-      .select {|v| all? || v.allowed?}
-      .sort_by {|v| [v.episode.zero? ? 1 : 0, v.episode] }
+      .select { |v| all? || v.allowed? }
+      .select { |v| h.mobile? ? v.mobile_compatible? : true }
+      .sort_by { |v| [v.episode.zero? ? 1 : 0, v.episode] }
       .group_by(&:episode)
   end
 
