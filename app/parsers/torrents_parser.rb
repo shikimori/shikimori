@@ -10,7 +10,7 @@ class TorrentsParser
     '[WZF]Ore_no_Imouto_ga_Konna_ni_Kawaii_Wake_ga_Nai_-_Capitulo_13-15[BDRip][X264-AAC][1280x720][Sub_Esp]'
   ]
   # аниме, для которых не будут искаться торренты
-  AnimeIgnored = [13185, 19207, 5042, 17249, 11457]
+  AnimeIgnored = [13185, 19207, 5042, 17249, 11457, 21729]
 
   AnimeWithOnlyNameMatch = [10049, 10033, 6336, 11319]
   AnimeWithExactNameMatch = [10161, 10490, 10379, 6336, 11319, 14645, 15085, 14967, 15611, 17705, 15699, 16241, 16049]
