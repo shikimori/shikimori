@@ -21,7 +21,7 @@ describe AnimeSpiritParser do
       its(:episodes) { should eq 26 }
       its(:id) { should eq link }
 
-      specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
+      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
 
       context :video do
         subject { entry[:videos].first }
@@ -42,7 +42,7 @@ describe AnimeSpiritParser do
       its(:videos) { should have(52).items }
       its(:episodes) { should eq 13 }
 
-      specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
+      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
 
       context :video do
         context :first do
@@ -57,7 +57,7 @@ describe AnimeSpiritParser do
 
         context :last do
           subject { entry[:videos].last }
-          its(:author) { should be nil }
+          its(:author) { should eq 'JAM & Kiara_Laine' }
           its(:episode) { should eq 13 }
           its(:kind) { should eq :fandub }
           its(:url) { should eq 'http://video.sibnet.ru/shell.swf?videoid=710879' }
@@ -73,7 +73,7 @@ describe AnimeSpiritParser do
       its(:videos) { should have(130).items }
       its(:episodes) { should eq 13 }
 
-      specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
+      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
     end
 
     context :buddy_complex do
@@ -97,7 +97,7 @@ describe AnimeSpiritParser do
       its(:videos) { should have(4).items }
       its(:episodes) { should eq 1 }
 
-      specify { subject[:videos].all? {|v| v[:url].present? }.should be true }
+      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
 
       context :video do
         context :first do
@@ -109,10 +109,28 @@ describe AnimeSpiritParser do
 
         context :last do
           subject { entry[:videos].last }
-          its(:author) { should be nil }
+          its(:author) { should eq 'Профессиональный (многоголосый, закадровый)' }
           its(:episode) { should eq 1 }
           its(:kind) { should eq :fandub }
         end
+      end
+    end
+
+    context 'missing video' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9715-korol-gyejner-overman-king-gainer.html' }
+      its(:videos) { should have(67).items }
+      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
+    end
+
+    context 'translator in description' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/882-gurren-lagann-tv-tengen-toppa-gurren-lagann.html' }
+      its(:videos) { should have(54).items }
+
+      context :video do
+        subject { entry[:videos].last }
+
+        its(:kind) { should eq :fandub }
+        its(:author) { should eq 'Профессиональный (полное дублирование) [Reanimedia]' }
       end
     end
   end

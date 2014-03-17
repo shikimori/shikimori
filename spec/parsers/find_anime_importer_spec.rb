@@ -37,6 +37,11 @@ describe FindAnimeImporter do
           its(:anime_video_author_id) { should be_nil }
         end
       end
+
+      context 'same anime twice' do
+        before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier, identifier] }
+        it { expect{subject}.to change(AnimeVideo, :count).by 4 }
+      end
     end
 
     context :pages do

@@ -33,8 +33,11 @@ private
     last_episode = imported_videos.select(&:allowed?).any? ? imported_videos.select(&:allowed?).max {|v| v.episode }.episode : 0
     filtered_videos = videos.select {|episode| last_episodes ? episode[:episode] > last_episode - 3 : true }
 
-    #AnimeVideo.import fetch_videos(filtered_videos, anime, imported_videos)
-    fetch_videos(filtered_videos, anime, imported_videos).each &:save!
+    fetch_videos(filtered_videos, anime, imported_videos).each do |video|
+      next if !video.valid? && video.errors.size == 1 && video.errors[:url].include?(I18n.t 'activerecord.errors.messages.taken')
+      binding.pry if !video.valid? && Rails.env.development?
+      video.save!
+    end
   end
 
   def fetch_videos videos, anime, imported_videos
@@ -94,8 +97,9 @@ private
     )
   end
 
-  def save_link findanime_id, anime_id
-    AnimeLink.create! service: service, anime_id: anime_id, identifier: findanime_id
+  def save_link identifier, anime
+    link = AnimeLink.create! service: service, anime_id: anime.id, identifier: identifier
+    @matcher.add_link anime, identifier, service.to_sym
   end
 
   def find_match entry
@@ -106,7 +110,7 @@ private
 
       if animes.size == 1
         anime = animes.first
-        save_link entry[:id], anime.id
+        save_link entry[:id], anime
 
       elsif animes.size > 1
         @ambiguous << "#{entry[:id]} (#{animes.map(&:id).join ', '})"

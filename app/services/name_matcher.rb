@@ -65,6 +65,10 @@ class NameMatcher
     @cache[service][identifier]
   end
 
+  def add_link entry, identifier, service
+    @cache[service][identifier] = entry
+  end
+
 private
   # фикс имени - вырезание из него всего, что можно
   def fix name

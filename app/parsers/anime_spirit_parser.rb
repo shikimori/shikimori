@@ -39,7 +39,7 @@ class AnimeSpiritParser
       name: names.second,
       names: names,
       year: extract_year(content),
-      videos: postprocess_videos(extract_videos(link, doc.css('.accordion'))),
+      videos: postprocess_videos(extract_videos(link, doc.css('.accordion')), extract_global_author(content)),
       categories: [],
       episodes: extract_episodes_num(content)
     }
@@ -51,6 +51,7 @@ class AnimeSpiritParser
       text = name.text.strip
 
       next if text =~ /^[\[( -]*спешл|pv|трейлер/i
+      next if text =~ /временно отсутствует/
       unless text =~ /(?<meta>)(?<episode>\d+)$/ ||
           text =~ /^(?<episode>\d*).*\((?<meta>.+)\)(?: ?(?:\[|-|).+(?:\[|-|))?$/ ||
           text =~ /^(?<episode>\d*).*(?<meta>) (?:\[|-).+(?:\[|-)$/ ||
@@ -60,6 +61,7 @@ class AnimeSpiritParser
       meta = $~[:meta]
       episode = ($~[:episode] || 0).to_i
       #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract == "http://myvi.ru/player/flash/oTeXdFuMc_QiH2OnQgziqKVw3m8VsxX-N5zbzTd50s5DufjzYAKc2iI3QDO89xNhn0"
+      #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract.blank?
 
       ParsedVideo.new(
         author: extract_author(meta, text),
@@ -73,14 +75,21 @@ class AnimeSpiritParser
   end
 
   # итоговая обработка полученных видео
-  def postprocess_videos videos
+  def postprocess_videos videos, author
     procesed = videos.compact
     procesed.each {|v| v[:episode] = 1 } if procesed.all? {|v| v[:episode].zero? }
+
+    procesed.each {|v| v[:author] = author if v[:kind] == :fandub } if author && procesed.none? {|v| v[:author] }
+
     procesed
   end
 
   def extract_year content
     content =~ /Год выпуска.*?(?<year>\d+)/ && $~[:year].to_i
+  end
+
+  def extract_global_author content
+    content =~ /Озвучено:(?<author>.+)/ && $~[:author].gsub(/<.*?>/, '').strip
   end
 
   def extract_episodes_num content
