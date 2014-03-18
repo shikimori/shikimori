@@ -17,11 +17,9 @@ describe AnimeSpiritParser do
       its(:names) { should eq ['Рубаки', 'Slayers'] }
       its(:year) { should eq 1995 }
       its(:videos) { should have(26).items }
-      its(:categories) { should eq [] }
+      its(:categories) { should eq ['TV сериалы'] }
       its(:episodes) { should eq 26 }
       its(:id) { should eq link }
-
-      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
 
       context :video do
         subject { entry[:videos].first }
@@ -41,8 +39,6 @@ describe AnimeSpiritParser do
       its(:year) { should eq 2012 }
       its(:videos) { should have(52).items }
       its(:episodes) { should eq 13 }
-
-      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
 
       context :video do
         context :first do
@@ -72,8 +68,6 @@ describe AnimeSpiritParser do
       its(:year) { should eq 2010 }
       its(:videos) { should have(130).items }
       its(:episodes) { should eq 13 }
-
-      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
     end
 
     context :buddy_complex do
@@ -97,8 +91,6 @@ describe AnimeSpiritParser do
       its(:videos) { should have(4).items }
       its(:episodes) { should eq 1 }
 
-      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
-
       context :video do
         context :first do
           subject { entry[:videos].first }
@@ -119,19 +111,47 @@ describe AnimeSpiritParser do
     context 'missing video' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9715-korol-gyejner-overman-king-gainer.html' }
       its(:videos) { should have(67).items }
-      specify { entry[:videos].all? {|v| v[:url].present? }.should be true }
     end
 
-    context 'translator in description' do
-      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/882-gurren-lagann-tv-tengen-toppa-gurren-lagann.html' }
-      its(:videos) { should have(54).items }
+    #context 'translator in description' do
+      #let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/882-gurren-lagann-tv-tengen-toppa-gurren-lagann.html' }
+      #its(:videos) { should have(54).items }
+
+      #context :video do
+        #subject { entry[:videos].last }
+
+        #its(:kind) { should eq :fandub }
+        #its(:author) { should eq 'Профессиональный (полное дублирование) [Reanimedia]' }
+      #end
+    #end
+
+    context 'author without brackets' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9459-master-kiton-tv-master-keaton.html' }
 
       context :video do
         subject { entry[:videos].last }
-
-        its(:kind) { should eq :fandub }
-        its(:author) { should eq 'Профессиональный (полное дублирование) [Reanimedia]' }
+        its(:author) { 'Molodoy & KroshkaRu' }
+        its(:kind) { should eq :unknown }
       end
+    end
+
+    context 'kind with colon' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9504-samurai-flamenco-samuraj-flamenko.html' }
+
+      context :video do
+        subject { entry[:videos].find {|v| v.author == 'Gezell Studio' } }
+        its(:kind) { should eq :fandub }
+      end
+    end
+
+    context 'dorama ignore' do
+      let(:link) { 'http://www.animespirit.ru/movies/dorama-rus/8325-velikij-uchitel-onidzuka-gto-great-teacher-onizuka.html' }
+      its(:categories) { should eq ['Дорамы'] }
+    end
+
+    context 'live action ignore' do
+      let(:link) { 'http://www.animespirit.ru/movies/laction-rus/9644-chelovek-so-zvezdy-you-who-came-from-the-stars.html' }
+      its(:categories) { should eq ['Live action'] }
     end
   end
 end

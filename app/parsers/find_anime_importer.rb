@@ -59,7 +59,7 @@ private
 
   def process_parsed entries
     data = entries.map do |entry|
-      next if @ignores.include?(entry[:id]) || entry[:videos].none? || entry[:categories].include?('AMV')
+      next if @ignores.include?(entry[:id]) || entry[:videos].none? || entry[:categories].include?('AMV') || entry[:categories].include?('Дорамы') || entry[:categories].include?('Live action')
       [entry[:id], find_match(entry), entry[:videos]]
     end
 

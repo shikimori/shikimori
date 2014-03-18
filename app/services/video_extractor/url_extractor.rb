@@ -12,6 +12,8 @@ class VideoExtractor::UrlExtractor
       parsed_url
         .sub(%r{^//}, 'http://')
         .gsub('&amp;', '&')
+        .sub(%r{[\\\]\[]+$}, '')
+        .sub(%r{\|.*}, '')
 
     else
       data = VideoExtractor.fetch url

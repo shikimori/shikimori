@@ -68,6 +68,16 @@ describe VideoExtractor::UrlExtractor do
       it { should eq 'http://myvi.tv/embed/html/oeBRkeha50wjXJIEU75wbYvUhlv4siaYE0KFla8kRgTHedQxAysFOs2B_yAWy3Tu80' }
     end
 
+    describe :myvi_4 do
+      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0\\]" frameborder="0" allowfullscreen></iframe>' }
+      it { should eq 'http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0' }
+    end
+
+    describe :myvi_5 do
+      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/oPwYcE0DkIR7BuZ4Hjy-K97LXKJIgvwcsQQV3JDcss3LCRw294HoJ4fgXpSby1Q5lS2QxY125VvU1|http://myvi.ru/player/flash/oiLWME7qo9O3ragh7JC_fq2nr-f51DLt98_60sos3gbiY1ufb4hPA30whqpGE8VVjlVMzhdCsZgM1" frameborder="0" allowfullscreen></iframe>' }
+      it { should eq 'http://myvi.ru/player/flash/oPwYcE0DkIR7BuZ4Hjy-K97LXKJIgvwcsQQV3JDcss3LCRw294HoJ4fgXpSby1Q5lS2QxY125VvU1' }
+    end
+
     describe :mail_ru_1 do
       let(:html) { "<iframe src=\"http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html\" width=\"730\" height=\"480\" frameborder=\"0\"></iframe>" }
       it { should eq 'http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }

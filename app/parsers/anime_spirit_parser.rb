@@ -33,16 +33,17 @@ class AnimeSpiritParser
     block = doc.css('.content-block')
 
     names = block.css('h2 a').first.text.split('/').map(&:strip)
-    {
+    postprocess(
       id: link,
       russian: names.first,
       name: names.second,
       names: names,
       year: extract_year(content),
-      videos: postprocess_videos(extract_videos(link, doc.css('.accordion')), extract_global_author(content)),
-      categories: [],
-      episodes: extract_episodes_num(content)
-    }
+      videos: extract_videos(link, doc.css('.accordion')),
+      categories: extract_categories(content),
+      episodes: extract_episodes_num(content),
+      author: extract_global_author(content)
+    )
   end
 
   # выборка видео из nokogiri контента
@@ -58,7 +59,7 @@ class AnimeSpiritParser
           text =~ /^(?<episode>\d*).*(?<meta>)$/
         raise "can't parse entry: #{text} [#{link}]"
       end
-      meta = $~[:meta]
+      meta = $~[:meta].strip
       episode = ($~[:episode] || 0).to_i
       #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract == "http://myvi.ru/player/flash/oTeXdFuMc_QiH2OnQgziqKVw3m8VsxX-N5zbzTd50s5DufjzYAKc2iI3QDO89xNhn0"
       #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract.blank?
@@ -75,13 +76,14 @@ class AnimeSpiritParser
   end
 
   # итоговая обработка полученных видео
-  def postprocess_videos videos, author
-    procesed = videos.compact
-    procesed.each {|v| v[:episode] = 1 } if procesed.all? {|v| v[:episode].zero? }
+  def postprocess entry
+    entry[:videos] = entry[:videos].compact.select(&:url)
+    videos = entry[:videos]
 
-    procesed.each {|v| v[:author] = author if v[:kind] == :fandub } if author && procesed.none? {|v| v[:author] }
+    videos.each {|v| v[:episode] = 1 } if videos.all? {|v| v[:episode].zero? }
+    videos.each {|v| v[:author] = entry[:author] if v[:kind] == :fandub } if entry[:author] && videos.none? {|v| v[:author] }
 
-    procesed
+    entry
   end
 
   def extract_year content
@@ -94,6 +96,17 @@ class AnimeSpiritParser
 
   def extract_episodes_num content
     content =~ /Серии.*?из.*?(?<episodes_num>\d+)( эп.|<br)/ && $~[:episodes_num].to_i
+  end
+
+  def extract_categories content
+    if content =~ /Категория:(?<category>.+)/
+      $~[:category]
+        .gsub(/<.*?>/, '')
+        .strip
+        .split(',')
+        .map {|v| v.sub(/\(.*?\)/, '').strip }
+        .uniq
+    end
   end
 
   def extract_kind meta
@@ -113,7 +126,7 @@ class AnimeSpiritParser
 
   def extract_author meta, text
     case meta
-      when /(?:озвучка|озвучено|озвучил|озвучила) (.+)/i then $1
+      when /(?:озвучка|озвучено|озвучил|озвучила):? (от )?(.+)/i then $1
       when /^(?:озвучка|озвучено|озвучил|[сc]убтитры|рус. ?суб.|)$/i then nil
       else
         if text =~ /\((?<author>.*)\)/
