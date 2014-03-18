@@ -69,7 +69,7 @@ describe VideoExtractor::UrlExtractor do
     end
 
     describe :myvi_4 do
-      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0\\]" frameborder="0" allowfullscreen></iframe>' }
+      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0\\=]" frameborder="0" allowfullscreen></iframe>' }
       it { should eq 'http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0' }
     end
 

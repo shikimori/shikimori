@@ -48,28 +48,29 @@ class AnimeSpiritParser
 
   # выборка видео из nokogiri контента
   def extract_videos link, doc
-    doc.css('h3,p').each_slice(3).map do |(name,trash,video)|
-      text = name.text.strip
+    doc.css('h3,p').each_slice(3).map do |(name_tag,trash_tag,video_tag)|
+      text = name_tag.text.strip
 
       next if text =~ /^[\[( -]*спешл|pv|трейлер/i
       next if text =~ /временно отсутствует/
       unless text =~ /(?<meta>)(?<episode>\d+)$/ ||
-          text =~ /^(?<episode>\d*).*\((?<meta>.+)\)(?: ?(?:\[|-|).+(?:\[|-|))?$/ ||
-          text =~ /^(?<episode>\d*).*(?<meta>) (?:\[|-).+(?:\[|-)$/ ||
-          text =~ /^(?<episode>\d*).*(?<meta>)$/
+          text =~ /^(?:эпизод )?(?<episode>\d*).*\((?<meta>.+)\)(?: ?(?:\[|-|).+(?:\[|-|))?$/i ||
+          text =~ /^(?:эпизод )?(?<episode>\d*).*(?<meta>) (?:\[|-).+(?:\[|-)$/i ||
+          text =~ /^(?:эпизод )?(?<episode>\d*).*(?<meta>)$/i
         raise "can't parse entry: #{text} [#{link}]"
       end
       meta = $~[:meta].strip
       episode = ($~[:episode] || 0).to_i
-      #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract == "http://myvi.ru/player/flash/oTeXdFuMc_QiH2OnQgziqKVw3m8VsxX-N5zbzTd50s5DufjzYAKc2iI3QDO89xNhn0"
-      #binding.pry if VideoExtractor::UrlExtractor.new(video.text).extract.blank?
+      kind = extract_kind meta.present? ? meta : text
+      #binding.pry if VideoExtractor::UrlExtractor.new(video_tag.text).extract == "http://myvi.ru/player/flash/oTeXdFuMc_QiH2OnQgziqKVw3m8VsxX-N5zbzTd50s5DufjzYAKc2iI3QDO89xNhn0"
+      #binding.pry if VideoExtractor::UrlExtractor.new(video_tag.text).extract.blank?
 
       ParsedVideo.new(
-        author: extract_author(meta, text),
+        author: extract_author(meta, name_tag),
         episode: episode,
-        kind: extract_kind(meta.present? ? meta : text),
+        kind: kind,
         source: link,
-        url: VideoExtractor::UrlExtractor.new(video.text).extract,
+        url: VideoExtractor::UrlExtractor.new(video_tag.text).extract,
         language: :russian,
       )
     end
@@ -111,31 +112,34 @@ class AnimeSpiritParser
 
   def extract_kind meta
     case meta
-      when /озвучка|озвучено|озвучил|рус. ?суб./i then :fandub
-      when /[сc]убтитры/i then :subtitles
-      #when 'Оригинал' then :raw
-      when /^(муви|сибнет|myvi|sibnet|cпэшл|бонус|первый том|второй том|part one.*|part two.*|)$/i then :unknown
-      when /.+/i
-        puts "can't extract kind: '#{meta}'" unless Rails.env.test?
-        :unknown
-
-      else
-        raise "unexpected russian kind: '#{meta}'"
+      when /[сc]убтитры|рус.? ?суб/i then :subtitles
+      else :fandub
+      #when /озвучка|озвучено|озвучил/i then :fandub
+      #when /^(муви|сибнет|myvi|sibnet|cпэшл|бонус|первый том|второй том|part one.*|part two.*|)$/i then :unknown
+      #else :fandub
     end
   end
 
-  def extract_author meta, text
-    case meta
-      when /(?:озвучка|озвучено|озвучил|озвучила):? (от )?(.+)/i then $1
-      when /^(?:озвучка|озвучено|озвучил|[сc]убтитры|рус. ?суб.|)$/i then nil
-      else
-        if text =~ /\((?<author>.*)\)/
-          $~[:author]
-        else
-          puts "can't extract author: '#{meta}'" unless Rails.env.test?
-          nil
-        end
+  def extract_author meta, name_tag
+    span_tag = name_tag.css('span').first
+    author = if span_tag
+      span_tag
+        .text
+    else
+      meta || ''
     end
+
+    author = author
+      .strip
+      .gsub(/^[\(\[-]|[\)\]-]$/, '')
+      .gsub(/sibnet|сибнет|myvi|муви/i, '')
+      .strip
+      .gsub(/^[\(\[-]|[\)\]-]$/, '')
+      .gsub(/(?:озвучка|озвучено|озвучил|[сc]убтит?ры|рус. ?суб.):? ?(?:от )?/i, '')
+      .gsub(/^[\(\[-]|[\)\]-]$/, '')
+      .strip
+
+    author == '' ? nil : author
   end
 
 private

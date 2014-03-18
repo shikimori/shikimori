@@ -26,7 +26,7 @@ describe AnimeSpiritParser do
         its(:episode) { should eq 1 }
         its(:source) { should eq link }
         its(:url) { 'http://video.rutube.ru/cdc409fc58ac4ac357c98ae47d519208' }
-        its(:kind) { should eq :unknown }
+        its(:kind) { should eq :fandub }
         its(:author) { should be nil }
       end
     end
@@ -76,7 +76,7 @@ describe AnimeSpiritParser do
 
       describe 'author in brackets' do
         subject { entry[:videos].select {|v| v.episode == 1 }.second }
-        its(:kind) { should eq :unknown }
+        its(:kind) { should eq :fandub }
         its(:author) { should eq 'Cuba77 & Oriko' }
       end
     end
@@ -131,7 +131,7 @@ describe AnimeSpiritParser do
       context :video do
         subject { entry[:videos].last }
         its(:author) { 'Molodoy & KroshkaRu' }
-        its(:kind) { should eq :unknown }
+        its(:kind) { should eq :fandub }
       end
     end
 
@@ -152,6 +152,26 @@ describe AnimeSpiritParser do
     context 'live action ignore' do
       let(:link) { 'http://www.animespirit.ru/movies/laction-rus/9644-chelovek-so-zvezdy-you-who-came-from-the-stars.html' }
       its(:categories) { should eq ['Live action'] }
+    end
+
+    context 'special kind names' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/ova-rus/1146-sladkie-kapelki-honey-x-honey-drops.html' }
+
+      context :video do
+        context :first do
+          subject { entry[:videos].first }
+          its(:episode) { should eq 1 }
+          its(:kind) { should eq :subtitles }
+          its(:author) { should be nil }
+        end
+
+        context :last do
+          subject { entry[:videos].last }
+          its(:episode) { should eq 2 }
+          its(:kind) { should eq :fandub }
+          its(:author) { should eq 'FaSt & Milirina' }
+        end
+      end
     end
   end
 end

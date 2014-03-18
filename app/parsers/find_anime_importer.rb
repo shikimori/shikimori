@@ -125,6 +125,7 @@ private
 
   def find_or_create_author name
     return nil if name.blank?
+    name = name.strip
 
     if @authors[name.downcase]
       @authors[name.downcase]
