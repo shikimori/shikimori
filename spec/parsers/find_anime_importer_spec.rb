@@ -176,7 +176,7 @@ describe FindAnimeImporter do
       let!(:anime) { create :anime, name: 'Steel Fenders' }
       before do
         FindAnimeParser.any_instance.stub(:fetch_pages).and_return do
-          [{ videos: [{episode: 1}], categories: ['AMV'], names: ['Steel Fenders'], id: 'test' }]
+          [{ videos: [{episode: 1}], categories: ['amv'], names: ['Steel Fenders'], id: 'test' }]
         end
         importer.should_receive(:import_videos).exactly(0).times
       end

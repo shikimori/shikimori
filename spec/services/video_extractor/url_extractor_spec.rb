@@ -69,8 +69,8 @@ describe VideoExtractor::UrlExtractor do
     end
 
     describe :myvi_4 do
-      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0\\=]" frameborder="0" allowfullscreen></iframe>' }
-      it { should eq 'http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0' }
+      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0hk]" frameborder="0" allowfullscreen></iframe>' }
+      it { should eq 'http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0hk' }
     end
 
     describe :myvi_5 do
@@ -131,6 +131,11 @@ describe VideoExtractor::UrlExtractor do
     describe :sibnet_3 do
       let(:html) { "http://data17.video.sibnet.ru/71/08/710879.flv?st=WASnDgyViN6hucAYde9nlw&e=1349319000&format=mp4&start=0" }
       it { should eq 'http://video.sibnet.ru/shell.swf?videoid=710879' }
+    end
+
+    describe :sibnet_4 do
+      let(:html) { "http://data9.video.sibnet.ru/12/24/22/1224221.mp4?st=FRf7r1A0LxkpPBmuFybKXA&e=1375711000" }
+      it { should eq 'http://video.sibnet.ru/shell.swf?videoid=1224221' }
     end
 
     describe :kiwi_1 do

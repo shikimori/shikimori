@@ -1,6 +1,45 @@
 ---
 :ignores:
-  - nothing here
+  - http://www.animespirit.ru/anime/rs/ova-rus/8578-dofus-sokrovishha-keruba-dofus-aux-tr233sors-de.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/9721-hengen-taima-yakou-karura-mau-sendai-kokeshi-onka.html
+  - http://www.animespirit.ru/anime/rs/movie-rus/9709-pod-maskoj-izvrashhenca-hentai-kamen.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/6077-chlen-shkolnogo-soveta-ova-seitokai-yakuindomo.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/9653-maken-ki-two-takeru-nyotaika-minami-no-shima-de.html
+  - http://www.animespirit.ru/anime/rs/series-rus/9342-the-legend-of-korra-2.html
+  - http://www.animespirit.ru/anime/rs/series-rus/9278-krasnyj-belyj-chyornyj-zhyoltyj-rwby.html
+  - http://www.animespirit.ru/anime/rsb/ova-russub/8504-sbornik-istorij-aoyamy-gosyo-ova-2-aoyama-gosho.html
+  - http://www.animespirit.ru/anime/rs/series-rus/8317-gromovye-koty-thundercats.html
+  - http://www.animespirit.ru/anime/rsb/series-russub/8287-pokemon-chyornoe-i-beloe-sudby-sopernikov-pokemon.html
+  - http://www.animespirit.ru/anime/rs/special-rus/8937-toriko-x-van-pis-x-drakonij-zhemchug-toriko-x-one.html
+  - http://www.animespirit.ru/anime/rs/5012-animiya-programma-o-anime.html
+  - http://www.animespirit.ru/anime/rs/movie-rus/8193-surovoe-ispytanie-lishennye-golosa-the-crucible.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/8112-nashestvie-devochki-kalmarki-ova-shinryaku-ika.html
+  - http://www.animespirit.ru/anime/rsb/movie-russub/8092-klassika-yaponskoj-animacii-japanese-anime.html
+  - http://www.animespirit.ru/anime/oth/8056-bozhestvennye-morskie-voiny-momotaro-momotaros.html
+  - http://www.animespirit.ru/anime/rs/movie-rus/9536-robotekxroniki-tenej-robotech-the-shadow.html
+  - http://www.animespirit.ru/anime/rsb/movie-russub/9491-inuyasya-film-pyatyj-inuyasha-black-tetsusaiga.html
+  - http://www.animespirit.ru/anime/rs/series-rus/4731-vampire-knight-rycar-vampir.html
+  - http://www.animespirit.ru/anime/rs/series-rus/7281-avatar-legenda-o-korre-the-last-airbender-the.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/7831-sinij-yekzorcist-ova-ao-no-exorcist-ova.html
+  - http://www.animespirit.ru/anime/rs/series-rus/7144-vakfu-tv-2-wakfu-tb-2.html
+  - http://www.animespirit.ru/anime/rs/movie-rus/7665-dazhe-dyavol-mozhet-plakat-4-cut-sceny-devil-may.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/7378-yeksyella-exaella.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/7313-mini-vakfu-mini-wakfu.html
+  - http://www.animespirit.ru/anime/rs/series-rus/6770-vakfu-wakfu-tb.html
+  - http://www.animespirit.ru/anime/rs/series-rus/93-avatar-the-last-airbender-avatar-poslednyaya.html
+  - http://www.animespirit.ru/anime/rs/series-rus/92-avatar-the-last-airbender-2-season-avatar-legenda.html
+  - http://www.animespirit.ru/anime/rs/series-rus/91-avatar-the-last-airbender-avatar-legenda-ob-aange.html
+  - http://www.animespirit.ru/anime/rs/movie-rus/7177-poslednij-edinorog-the-last-unicorn.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/5914-kak-sozdavalsya-temnyj-dvoreckij-the-making-of.html
+  - http://www.animespirit.ru/anime/rsb/movie-russub/7005-poslednyaya-fantaziya-7-yadernyj-krizis-final.html
+  - http://www.animespirit.ru/anime/rsb/movie-russub/7005-poslednyaya-fantaziya-7-yadernyj-krizis-final.html
+  - http://www.animespirit.ru/anime/rs/ova-rus/7003-toxo-kalejdoskop-fantazii-touhou-gensou-mangekyou.html
+  - http://www.animespirit.ru/anime/oth/6588-life-zhizn-ona.html
 
 :ignores_until:
-  nothing_here: 2001-01-01
+  'http://www.animespirit.ru/anime/rs/series-rus/276-xakkorni-hackroots.html': 2014-08-01
+
+:ignored_in_twice_match:
+  - http://www.animespirit.ru/anime/rs/series-rus/4320-naruto-uragannye-xroniki-naruto-shippuuden.html
+  - http://www.animespirit.ru/anime/rs/series-rus/33-naruto-uragannye-xroniki-naruto-shippuuden.html
+  - http://www.animespirit.ru/anime/rsb/series-russub/4439-naruto-tv-2-naruto-shippuuden.html

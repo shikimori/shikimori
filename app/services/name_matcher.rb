@@ -118,7 +118,7 @@ private
     #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
 
     # [ТВ-1]
-    phrases = multiply_phrases phrases, /\[?(тв|ova)\s*-?\s*\d\]?$/, ''
+    phrases = multiply_phrases phrases, /\[?(тв|ova|tb)\s*-?\s*\d\]?$/, ''
     phrases = multiply_phrases phrases, / \[?tv\]?$/, ''
     # (2000)
     phrases = multiply_phrases phrases, /[\[\(]\d{4}[\]\)]$/, ''

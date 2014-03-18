@@ -14,6 +14,7 @@ class FindAnimeImporter
     @twice_matched = []
     @config = YAML::load(File.open("#{::Rails.root.to_s}/config/#{service}.yml"))
     @ignores = Set.new(@config[:ignores] + @config[:ignores_until].select {|k,v| v > DateTime.now }.keys)
+    @ignored_in_twice_match = Set.new @config[:ignored_in_twice_match]
   end
 
   def import ids: [], pages: [], last_episodes: false
@@ -59,7 +60,7 @@ private
 
   def process_parsed entries
     data = entries.map do |entry|
-      next if @ignores.include?(entry[:id]) || entry[:videos].none? || entry[:categories].include?('AMV') || entry[:categories].include?('Дорамы') || entry[:categories].include?('Live action')
+      next if @ignores.include?(entry[:id]) || entry[:videos].none? || (['amv', 'amw', 'дорамы', 'live action', 'подкаст', 'трейлер', 'новости animespirit'] & entry[:categories]).any?
       [entry[:id], find_match(entry), entry[:videos]]
     end
 
@@ -70,7 +71,7 @@ private
     data.delete_if {|(id, anime, videos)| anime.nil? }
     data
       .group_by {|(id, anime, videos)| anime.id }
-      .select {|anime_id, entries| entries.uniq {|v| v.first }.size > 1 }
+      .select {|anime_id, entries| entries.uniq {|v| @ignored_in_twice_match.include?(v.first) ? 'ignorec match' : v.first }.size > 1 }
       .each do |anime_id, entries|
         entries.each {|v| data.delete v }
         @twice_matched << "#{anime_id} (#{entries.map {|(id, anime, videos)| id }.join ', '})"
@@ -125,7 +126,7 @@ private
 
   def find_or_create_author name
     return nil if name.blank?
-    name = name.strip
+    name = name.strip.sub('ё', 'е')
 
     if @authors[name.downcase]
       @authors[name.downcase]

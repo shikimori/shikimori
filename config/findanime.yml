@@ -135,3 +135,6 @@
 :ignores_until:
   k_2nd_season: 2014-01-01
   psycho_pass_2: 2014-01-01
+
+:ignored_in_twice_match:
+  - absolutely_nothing_here

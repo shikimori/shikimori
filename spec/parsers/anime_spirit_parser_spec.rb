@@ -17,7 +17,7 @@ describe AnimeSpiritParser do
       its(:names) { should eq ['Рубаки', 'Slayers'] }
       its(:year) { should eq 1995 }
       its(:videos) { should have(26).items }
-      its(:categories) { should eq ['TV сериалы'] }
+      its(:categories) { should eq ['tv сериалы', 'фэнтези', 'комедия', 'приключения', 'мистика'] }
       its(:episodes) { should eq 26 }
       its(:id) { should eq link }
 
@@ -146,12 +146,12 @@ describe AnimeSpiritParser do
 
     context 'dorama ignore' do
       let(:link) { 'http://www.animespirit.ru/movies/dorama-rus/8325-velikij-uchitel-onidzuka-gto-great-teacher-onizuka.html' }
-      its(:categories) { should eq ['Дорамы'] }
+      its(:categories) { should eq ['дорамы', 'комедия', 'школа'] }
     end
 
     context 'live action ignore' do
       let(:link) { 'http://www.animespirit.ru/movies/laction-rus/9644-chelovek-so-zvezdy-you-who-came-from-the-stars.html' }
-      its(:categories) { should eq ['Live action'] }
+      its(:categories) { should eq ['live action', 'фантастика', 'романтика'] }
     end
 
     context 'special kind names' do
@@ -172,6 +172,27 @@ describe AnimeSpiritParser do
           its(:author) { should eq 'FaSt & Milirina' }
         end
       end
+    end
+
+    context 'subtitles special case' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9192-klub-c179-vysshej-stupeni-zhenskoj-akademii.html' }
+
+      context :video do
+        context :first do
+          subject { entry[:videos].first }
+          its(:kind) { should eq :subtitles }
+        end
+      end
+    end
+
+    context 'full date' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9486-belyj-albom-2-white-album-2.html' }
+      its(:year) { should eq 2013 }
+    end
+
+    context 'name with /' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9161-fatekaleid-liner-prisma-illyasudba-devochka.html' }
+      its(:names) { should eq ['Судьба / Девочка волшебница Илия', 'Fate/Kaleid Liner Prisma Illya'] }
     end
   end
 end

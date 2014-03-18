@@ -37,7 +37,7 @@ private
 
   def parsed_url
     if html =~ %r{(#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
-      $1.sub /&hd=\d/, '&hd=3'
+      $1.sub(/&hd=\d/, '&hd=3')
     elsif html =~ %r{(#{HTTP}myvi.ru/(?:ru/flash/)?player#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
@@ -47,7 +47,7 @@ private
     elsif html =~ %r{(#{HTTP}img.mail.ru/r/video2/player_v2.swf\?#{CONTENT})}
       $1
     elsif html =~ %r{movieSrc=(#{CONTENT})"}
-      "http://api.video.mail.ru/videos/embed/#{$1.sub /&autoplay=\d/, ''}.html"
+      "http://api.video.mail.ru/videos/embed/#{$1.sub(/&autoplay=\d/, '')}.html"
     elsif html =~ %r{(#{HTTP}rutube.ru/(?:video|embed)#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}video.rutube.ru/#{CONTENT})}
@@ -56,14 +56,14 @@ private
       "http://video.rutube.ru/#{$1}"
     elsif html =~ %r{(#{HTTP}video.sibnet.ru/shell#{CONTENT})}
       $1
-    elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(#{CONTENT}).flv}
-      "http://video.sibnet.ru/shell.swf?videoid=#{$1}"
+    elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(#{CONTENT}).(?:mp4|flv)}
+      "http://video.sibnet.ru/shell.swf?videoid=#{$1.sub(/\.(flv|mp4)\?.*/, '')}"
     elsif html =~ %r{(#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}p.kiwi.\w+/static/player2/player.swf\?config=#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}youtube.com/(?:embed|v)/#{CONTENT})}
-      $1.sub /^\/\//, 'http://'
+      $1.sub(/^\/\//, 'http://')
     elsif html =~ %r{(#{HTTP}i.i.ua/video/evp.swf\?#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}video.yandex.ru#{CONTENT})}

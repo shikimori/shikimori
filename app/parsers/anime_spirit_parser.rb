@@ -1,4 +1,7 @@
 class AnimeSpiritParser
+  LEFT_SEPARATOR = /[\[(-]/.source
+  RIGHT_SEPARATOR = /[\])-]/.source
+
   def initialize
     @no_proxy = true
     @proxy_log = false
@@ -33,6 +36,12 @@ class AnimeSpiritParser
     block = doc.css('.content-block')
 
     names = block.css('h2 a').first.text.split('/').map(&:strip)
+    if names.size > 2 && (names.size%2).zero?
+      size = names.size
+      raw_names = block.css('h2 a').first.text.split('/')
+      names = [raw_names[0, size/2].join('/'), raw_names[size/2, size].join('/')].map(&:strip)
+    end
+
     postprocess(
       id: link,
       russian: names.first,
@@ -40,7 +49,7 @@ class AnimeSpiritParser
       names: names,
       year: extract_year(content),
       videos: extract_videos(link, doc.css('.accordion')),
-      categories: extract_categories(content),
+      categories: extract_categories(content) + extract_genres(content),
       episodes: extract_episodes_num(content),
       author: extract_global_author(content)
     )
@@ -54,15 +63,15 @@ class AnimeSpiritParser
       next if text =~ /^[\[( -]*спешл|pv|трейлер/i
       next if text =~ /временно отсутствует/
       unless text =~ /(?<meta>)(?<episode>\d+)$/ ||
-          text =~ /^(?:эпизод )?(?<episode>\d*).*\((?<meta>.+)\)(?: ?(?:\[|-|).+(?:\[|-|))?$/i ||
-          text =~ /^(?:эпизод )?(?<episode>\d*).*(?<meta>) (?:\[|-).+(?:\[|-)$/i ||
+          text =~ /^(?:эпизод )?(?<episode>\d*).*?\((?<meta>.+?)\)(?: ?#{LEFT_SEPARATOR}?.+#{RIGHT_SEPARATOR})?$/i ||
+          text =~ /^(?:эпизод )?(?<episode>\d*).*(?<meta>) #{LEFT_SEPARATOR}.+#{RIGHT_SEPARATOR}$/i ||
           text =~ /^(?:эпизод )?(?<episode>\d*).*(?<meta>)$/i
         raise "can't parse entry: #{text} [#{link}]"
       end
       meta = $~[:meta].strip
       episode = ($~[:episode] || 0).to_i
       kind = extract_kind meta.present? ? meta : text
-      #binding.pry if VideoExtractor::UrlExtractor.new(video_tag.text).extract == "http://myvi.ru/player/flash/oTeXdFuMc_QiH2OnQgziqKVw3m8VsxX-N5zbzTd50s5DufjzYAKc2iI3QDO89xNhn0"
+      #binding.pry if VideoExtractor::UrlExtractor.new(video_tag.text).extract == "http://video.sibnet.ru/shell.swf?videoid=1195426"
       #binding.pry if VideoExtractor::UrlExtractor.new(video_tag.text).extract.blank?
 
       ParsedVideo.new(
@@ -84,15 +93,26 @@ class AnimeSpiritParser
     videos.each {|v| v[:episode] = 1 } if videos.all? {|v| v[:episode].zero? }
     videos.each {|v| v[:author] = entry[:author] if v[:kind] == :fandub } if entry[:author] && videos.none? {|v| v[:author] }
 
+    binding.pry if Rails.env.development? && entry[:year] && (entry[:year] < 1900 && entry[:year] > DateTime.now.year + 5.years)
+
     entry
   end
 
   def extract_year content
-    content =~ /Год выпуска.*?(?<year>\d+)/ && $~[:year].to_i
+    if content =~ /Год выпуска.*?\d{1,2}\.\d{1,2}\.(?<year>\d+{4})/
+      $~[:year].to_i
+    elsif content =~ /Год выпуска.*?(?<year>\d+)/
+      $~[:year].to_i
+    end
   end
 
   def extract_global_author content
-    content =~ /Озвучено:(?<author>.+)/ && $~[:author].gsub(/<.*?>/, '').strip
+    if content =~ /Озвучено:(?<author>.+)/
+      $~[:author]
+        .gsub(/<.*?>/, '')
+        .strip
+        .gsub(/^\(([^\n()]+)\)$/, '\1')
+    end
   end
 
   def extract_episodes_num content
@@ -101,12 +121,17 @@ class AnimeSpiritParser
 
   def extract_categories content
     if content =~ /Категория:(?<category>.+)/
-      $~[:category]
-        .gsub(/<.*?>/, '')
-        .strip
-        .split(',')
-        .map {|v| v.sub(/\(.*?\)/, '').strip }
-        .uniq
+      $~[:category].downcase.gsub(/<.*?>/, '').strip.split(',').map {|v| v.sub(/\(.*?\)/, '').strip }.uniq
+    else
+      []
+    end
+  end
+
+  def extract_genres content
+    if content =~ /Жанр:(?<genres>.+)/
+      $~[:genres].downcase.gsub(/<.*?>/, '').strip.split(',').map(&:strip).uniq
+    else
+      []
     end
   end
 
@@ -130,13 +155,10 @@ class AnimeSpiritParser
     end
 
     author = author
+      .gsub(/#{LEFT_SEPARATOR}?(sibnet|сибнет|myvi|муви|rutube|рутуб)#{RIGHT_SEPARATOR}?/i, '')
+      .gsub(/#{LEFT_SEPARATOR}?(?:озвучка|озвучено|озвучил|[сc]убтит?ры|рус. ?суб.)#{RIGHT_SEPARATOR}?:? ?(?:от )?/i, '')
       .strip
-      .gsub(/^[\(\[-]|[\)\]-]$/, '')
-      .gsub(/sibnet|сибнет|myvi|муви/i, '')
-      .strip
-      .gsub(/^[\(\[-]|[\)\]-]$/, '')
-      .gsub(/(?:озвучка|озвучено|озвучил|[сc]убтит?ры|рус. ?суб.):? ?(?:от )?/i, '')
-      .gsub(/^[\(\[-]|[\)\]-]$/, '')
+      .gsub(/^#{LEFT_SEPARATOR}|#{RIGHT_SEPARATOR}$/, '')
       .strip
 
     author == '' ? nil : author
