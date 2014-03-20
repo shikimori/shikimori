@@ -90,8 +90,15 @@ class AnimeSpiritParser
     entry[:videos] = entry[:videos].compact.select(&:url)
     videos = entry[:videos]
 
-    videos.each {|v| v[:episode] = 1 } if videos.all? {|v| v[:episode].zero? }
-    videos.each {|v| v[:author] = entry[:author] if v[:kind] == :fandub } if entry[:author] && videos.none? {|v| v[:author] }
+    videos.each { |v| v[:episode] = 1 } if videos.all? { |v| v[:episode].zero? }
+    videos.each { |v| v[:author] = entry[:author] if v[:kind] == :fandub } if entry[:author] && videos.none? {|v| v[:author] }
+    videos.each do |v|
+      v[:author] = nil if v[:author] && (v[:author].size > 70 || v[:author] =~ /^\d+/ || v[:author] =~ /\d+-\d+/ || v[:author] =~ /^[^A-zА-я]+$/)
+    end
+
+    authors = videos.map {|v| v[:author] }.uniq.size
+    episodes = videos.map {|v| v[:episode] }.uniq.size
+    videos.each { |v| v[:author] = nil } if authors > episodes/2 && episodes >= 12
 
     binding.pry if Rails.env.development? && entry[:year] && (entry[:year] < 1900 && entry[:year] > DateTime.now.year + 5.years)
 
@@ -139,9 +146,6 @@ class AnimeSpiritParser
     case meta
       when /[сc]убтитры|рус.? ?суб/i then :subtitles
       else :fandub
-      #when /озвучка|озвучено|озвучил/i then :fandub
-      #when /^(муви|сибнет|myvi|sibnet|cпэшл|бонус|первый том|второй том|part one.*|part two.*|)$/i then :unknown
-      #else :fandub
     end
   end
 
@@ -156,7 +160,7 @@ class AnimeSpiritParser
 
     author = author
       .gsub(/#{LEFT_SEPARATOR}?(sibnet|сибнет|myvi|муви|rutube|рутуб)#{RIGHT_SEPARATOR}?/i, '')
-      .gsub(/#{LEFT_SEPARATOR}?(?:озвучка|озвучено|озвучил|[сc]убтит?ры|рус. ?суб.)#{RIGHT_SEPARATOR}?:? ?(?:от )?/i, '')
+      .gsub(/#{LEFT_SEPARATOR}?(?:озвучка|озвучивание|озвучено|озвучил|[сc]убтит?ры|рус. ?суб.)#{RIGHT_SEPARATOR}?:? ?(?:от )?/i, '')
       .strip
       .gsub(/^#{LEFT_SEPARATOR}|#{RIGHT_SEPARATOR}$/, '')
       .strip
