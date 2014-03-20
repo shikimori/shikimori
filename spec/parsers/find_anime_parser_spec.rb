@@ -52,7 +52,7 @@ describe FindAnimeParser do
 
     describe :amv do
       let(:identifier) { 'steel_fenders' }
-      its(:categories) { should eq ['AMV'] }
+      its(:categories) { should eq ['amv'] }
     end
 
     describe :episodes do

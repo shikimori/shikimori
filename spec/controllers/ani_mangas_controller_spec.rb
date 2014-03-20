@@ -83,15 +83,20 @@ require 'spec_helper'
 
     describe :cosplay do
       before do
-        create :cosplay_gallery, links: [
+        @gallery = create :cosplay_gallery, links: [
             create(:cosplay_gallery_link, linked: character),
             create(:cosplay_gallery_link, linked: create(:cosplayer))
           ]
         entry.characters << character
       end
 
-      context 'one character' do
+      context 'one character old' do
         before { get :cosplay, id: entry.to_param, page: 'cosplay', character: character.to_param }
+        it { should redirect_to cosplay_anime_url(entry, :all, @gallery.to_param) }
+      end
+
+      context 'one character new' do
+        before { get :cosplay, id: entry.to_param, page: 'cosplay', character: 'all', gallery: @gallery.to_param }
         it { should respond_with 200 }
         it { should respond_with_content_type :html }
       end
@@ -124,7 +129,7 @@ require 'spec_helper'
 
       context 'id' do
         before { get :related_all, id: entry.id }
-        it { should redirect_to entry_url }
+        it { should redirect_to send("related_all_#{type}_url", entry) }
       end
     end
 

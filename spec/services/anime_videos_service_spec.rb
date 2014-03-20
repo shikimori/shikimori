@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe AnimeVideosService do
-  let(:user) { build_stubbed :user }
-  let(:video) { build_stubbed :anime_video, state: 'uploaded' }
+  let(:user) { create :user }
+  let(:video) { create :anime_video, state: 'uploaded' }
 
   describe :upload_report do
     subject { AnimeVideosService.upload_report user, video }

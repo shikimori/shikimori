@@ -1,14 +1,15 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.4'
 
 gem 'mysql2'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
 gem 'redis'
-gem 'therubyracer'
 
+gem 'therubyracer'
+gem 'sprockets', '2.11.0'
 gem 'sass-rails'
 gem 'slim-rails'
 gem 'susy', '1.0.8'
