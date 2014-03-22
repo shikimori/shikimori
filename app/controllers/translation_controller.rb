@@ -292,7 +292,7 @@ class TranslationController < GroupsController
                      where.not(id: goals_ids).
                      order(:ranked)]
     @goals << ['Подборка 9',
-               Anime.where(id: [1576,5734,5702]).
+               Anime.where(id: [1576,5734,5702,6633]).
                      where.not(id: goals_ids).
                      where(censored: false).
                      order(:ranked)]
