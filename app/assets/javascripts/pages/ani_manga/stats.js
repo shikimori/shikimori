@@ -44,10 +44,10 @@ $('.slide > .stats').live('ajax:success cache:success', function(e) {
 
 // автодополнени на имя пользователя для рекомендации
 function user_req_complete(e, id, text, label) {
-  debugger
   if (!id || !text) {
     return;
   }
+  $('.suggest', '.slide > .stats').val(text);
   $('#comment_commentable_id', '.slide > .stats').val(id);
   $('.editor textarea', '.slide > .stats').focus();
 }
