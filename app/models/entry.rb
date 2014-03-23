@@ -11,7 +11,7 @@ class Entry < ActiveRecord::Base
 
   has_many :messages, -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
     foreign_key: :linked_id,
-    dependent: :destroy
+    dependent: :delete_all
 
   before_save :validates_linked
   before_save :append_wall
