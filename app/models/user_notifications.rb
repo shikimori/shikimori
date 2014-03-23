@@ -146,17 +146,17 @@ module UserNotifications
 
       # Release
       when AnimeHistoryAction::Release
-        result = false
-        case entry.linked.kind
+        result = case entry.linked.kind
           when 'TV'
-            result = self.notifications & RELEASE_TV_NOTIFICATIONS != 0
+            self.notifications & RELEASE_TV_NOTIFICATIONS != 0
 
           when 'Movie'
-            result = self.notifications & RELEASE_MOVIE_NOTIFICATIONS != 0
+            self.notifications & RELEASE_MOVIE_NOTIFICATIONS != 0
 
           else
-            result = self.notifications & RELEASE_OVA_NOTIFICATIONS != 0
+            self.notifications & RELEASE_OVA_NOTIFICATIONS != 0
         end
+
         return true if result
         self.anime_rates.any? do |rate|
           if rate.target_id == entry.linked_id

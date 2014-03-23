@@ -80,8 +80,8 @@ class AnimeNews < AniMangaEntry
 
   # создание новости о новом релизе
   def self.create_for_new_release(anime)
-    old_release = (anime.released_on && anime.released_on + 2.weeks < DateTime.now) ||
-                  (anime.released_on == nil && anime.aired_on && anime.aired_on + 2.weeks < DateTime.now)
+    old_release = (anime.released_on && anime.released_on + 2.weeks < DateTime.now)# ||
+                  #(anime.released_on == nil && anime.aired_on && anime.aired_on + 2.weeks < DateTime.now)
 
     last_episode_history = AnimeNews.where(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Episode).last
     entry = AnimeNews.find_by(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Release) || AnimeNews.create(

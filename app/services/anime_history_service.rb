@@ -6,8 +6,8 @@ class AnimeHistoryService
   # обрабатывает всю небработанную историю, отправляет уведомления пользователям
   def self.process
     entries = Entry
-      .where("processed = false or processed is null")
-      .where("(type = ? and generated = true) or broadcast = true", AnimeNews.name)
+      .where.not(processed: true)
+      .where('(type = ? and generated = true) or broadcast = true', AnimeNews.name)
       .order(:created_at)
       .to_a
     return if entries.empty?
@@ -15,7 +15,7 @@ class AnimeHistoryService
     users = User
       .includes(anime_rates: [:anime])
       .references(:user_rates)
-      .where("user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))",
+      .where('user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))',
               Anime.name, entries.map(&:linked_id))
       .to_a
 
@@ -23,6 +23,8 @@ class AnimeHistoryService
       .where.not(id: users.map(&:id))
       .each {|v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
+
+    #users = users.select {|v| v.id == 11 || v.id == 1 }
 
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.map do |entry|
