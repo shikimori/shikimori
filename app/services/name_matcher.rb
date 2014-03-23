@@ -207,10 +207,10 @@ private
 
     datasource.each do |entry|
       names = {
-        name: main_names(entry),
-        alt: alt_names(entry),
-        alt2: alt2_names(entry),
-        russian: russian_names(entry)
+        name: main_names(entry).compact,
+        alt: alt_names(entry).compact,
+        alt2: alt2_names(entry).compact,
+        russian: russian_names(entry).compact
       }
       names.each {|k,v| v.map!(&:downcase) }
       names[:alt3] = alt3_names(entry, names[:alt2])
