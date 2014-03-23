@@ -11,7 +11,7 @@ class ImportListWorker
     hours_limit = options[:hours_limit] || 8
     source = options[:source] || :updated
 
-    entry_ids = case source
+    entry_ids = case source.to_sym
       when :updated
         Object.const_get("#{klass.name}MalParser").new.fetch_list_pages(limit: pages_limit, url_getter: :updated_catalog_url)
 
@@ -26,6 +26,9 @@ class ImportListWorker
 
       when :latest
         Anime.latest.map(&:id)
+
+      else
+        raise "unknown source: #{source}"
     end
 
     entries = klass
