@@ -67,6 +67,7 @@ module Clockwork
     PeopleImporter.perform_async
     DanbooruTagsImporter.perform_async
     OldMessagesCleaner.perform_async
+    OldNewsCleaner.perform_async
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
     SubtitlesImporter.perform_async :latest
