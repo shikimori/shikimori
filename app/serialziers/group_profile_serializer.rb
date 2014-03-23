@@ -1,5 +1,5 @@
 class GroupProfileSerializer < GroupSerializer
-  attributes :description, :description_html, :image, :mangas, :characters, :thread_id
+  attributes :description, :description_html, :image, :mangas, :characters, :thread_id, :user_role
   has_many :members, :animes, :mangas, :characters, :images
 
   def image

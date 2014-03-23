@@ -19,8 +19,10 @@ describe Api::V1::ClubsController do
 
   describe :show do
     let(:club) { create :group }
+    let(:user) { create :user }
     before do
-      club.members << create(:user)
+      sign_in user
+      club.members << user
       club.animes << create(:anime)
       club.mangas << create(:manga)
       club.characters << create(:character)

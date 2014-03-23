@@ -23,8 +23,12 @@ class GroupDecorator < BaseDecorator
       .map(&:user)
   end
 
+  def user_role
+    member_roles.find {|v| v.user_id == h.current_user.id }.try :role if h.user_signed_in?
+  end
+
   def members
-    all_members.take(9)
+    all_members.take 9
   end
 
   def all_animes

@@ -401,7 +401,7 @@ private
 
       else
         #raise ArgumentError, "unknown order '#{field}'"
-        order_sql(AniMangaQuery::DefaultOrder, klass)
+        order_sql AniMangaQuery::DefaultOrder, klass
     end
   end
 end

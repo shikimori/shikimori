@@ -4,6 +4,7 @@ class Api::V1::StudiosController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/studios", "List studios"
   def index
-    respond_with Studio.all
+    @collection = Studio.all
+    respond_with @collection.to_a
   end
 end
