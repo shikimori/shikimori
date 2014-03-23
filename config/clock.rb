@@ -14,7 +14,9 @@ module Clockwork
     ImportListWorker.perform_async pages_limit: 3, type: Manga.name
     ImportListWorker.perform_async source: :anons, hours_limit: 12
     ImportListWorker.perform_async source: :ongoing, hours_limit: 8
+  end
 
+  every 30.minutes, 'half-hourly.import.anothher', at: ['**:00', '**:30'] do
     AnimesImporter.perform_async
   end
 

@@ -66,11 +66,7 @@ class BaseMalParser < SiteParserWithCache
   # импорт всех новых и помеченных к импорту элементов
   def import(ids=nil)
     Proxy.preload
-    ThreadPool.defaults = {:threads => 60#
-                           #:timeout => 90#,
-                           #:log => true
-                           #:debug_log => true
-                          }
+    ThreadPool.defaults = { threads: 60 }# timeout: 90, log: true debug_log: true }
     #@proxy_log = true
     @import_mutex = Mutex.new
 
@@ -118,7 +114,7 @@ class BaseMalParser < SiteParserWithCache
 
   # загрузка полного списка с MAL
   def fetch_list_pages(options = {})
-    options = { :offset => 0, :limit => 99999, :url_getter => :all_catalog_url }.merge(options)
+    options = { offset: 0, limit: 99999, url_getter: :all_catalog_url }.merge(options)
     #total_entries_found = 0
     page = options[:offset]
     all_found_entrires = []

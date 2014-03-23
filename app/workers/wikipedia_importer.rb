@@ -5,14 +5,15 @@ class WikipediaImporter
                   queue: :slow_parsers,
                   retry: false
 
-  def perform params={}
+  def perform options={}
     @translited_cache = {}
+    options = HashWithIndifferentAccess.new options
 
     Proxy.use_cache = true
     Proxy.show_log = true
 
     @parser = WikipediaParser.new
-    prepare_bundles(params[:anime_ids], params[:manga_ids])
+    prepare_bundles options[:anime_ids], options[:manga_ids]
     process_bundles
 
     Proxy.use_cache = false

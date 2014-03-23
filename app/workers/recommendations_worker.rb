@@ -19,26 +19,26 @@ private
     mean_centering = Recommendations::Normalizations::MeanCentering.new
     z_score = Recommendations::Normalizations::ZScore.new
 
-    sampler = case metric
-      when 'pearson'
+    sampler = case metric.to_sym
+      when :pearson
         Recommendations::Sampler.new klass, Recommendations::Metrics::Pearson.new, rates_fetcher, no_norm, user_list_cache_key
 
-      when 'pearson_mean'
+      when :pearson_mean
         Recommendations::Sampler.new klass, Recommendations::Metrics::Pearson.new, rates_fetcher, mean_centering, user_list_cache_key
 
-      when 'pearson_z'
+      when :pearson_z
         Recommendations::Sampler.new klass, Recommendations::Metrics::Pearson.new, rates_fetcher, z_score, user_list_cache_key
 
-      when 'euclid'
+      when :euclid
         Recommendations::Sampler.new klass, Recommendations::Metrics::Euclid.new, rates_fetcher, no_norm, user_list_cache_key
 
-      when 'svd'
+      when :svd
         Recommendations::Sampler.new klass, Recommendations::Metrics::Svd.new(Svd.partial), rates_fetcher, z_score, user_list_cache_key
 
-      #when 'svd_partial'
+      #when :svd_partial
         #Recommendations::Sampler.new klass, Recommendations::Metrics::Svd.new(Svd.partial), rates_fetcher, no_norm, user_list_cache_key
 
-      #when 'svd_full'
+      #when :svd_full
         #Recommendations::Sampler.new klass, Recommendations::Metrics::Svd.new(Svd.full), rates_fetcher, z_score, user_list_cache_key
 
       else

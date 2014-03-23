@@ -4,6 +4,8 @@ class ImportListWorker
                   unique_args: -> (args) { args }
 
   def perform options
+    options = HashWithIndifferentAccess.new options
+
     klass = (options[:type] || 'Anime').constantize
     pages_limit = options[:pages_limit] || 10
     hours_limit = options[:hours_limit] || 8

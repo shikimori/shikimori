@@ -5,6 +5,8 @@ class SakuhindbImporter
                   retry: false
 
   def perform options
+    options = HashWithIndifferentAccess.new options
+
     parser = SakuhindbParser.new
     parser.fail_on_unmatched = options[:with_fail]
     parser.fetch_and_merge
