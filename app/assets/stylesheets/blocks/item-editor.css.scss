@@ -6,6 +6,10 @@
     margin-bottom: 5px;
   }
 
+  .warning {
+    color: $red;
+    margin-bottom: 2px;
+  }
   .item-content-editor-buttons {
     .item-apply {
       @include headline-icon-button('\e821');

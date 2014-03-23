@@ -1,5 +1,5 @@
-div.item-content-editor
-  p.m2 Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
+.item-content-editor
+  p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
 
   = form_tag moderation_do_user_change_path, format: :json, remote: true, 'data-type' => :json, authenticity_token: true do
     = hidden_field_tag 'apply', '', 'autocomplete' => :off
@@ -7,8 +7,8 @@ div.item-content-editor
     = hidden_field_tag 'change[column]', field, 'autocomplete' => :off
     = hidden_field_tag 'change[item_id]', item.id, 'autocomplete' => :off
 
-    div.forum-container
-      div.comments.zero-margin.zero-top-border
+    .forum-container
+      .comments.zero-margin.zero-top-border
         = render partial: 'comments/add', locals: { options: { \
                                                       text: item.send(field) || (defined?(from) ? item.send(from) : ''), \
                                                       field_name: 'change[value]', \

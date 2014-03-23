@@ -1,6 +1,6 @@
 .item-content-editor
   - if user_signed_in? && defined?(warning) && (warning)
-    p.m5 Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
+    p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
 
   = form_tag moderation_do_user_change_path, format: :json, remote: true, 'data-type' => :json, authenticity_token: true do
     = hidden_field_tag 'apply', ''

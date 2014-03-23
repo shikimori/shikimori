@@ -1,6 +1,6 @@
 <div class="item-content-editor">
   <% if user_signed_in? && defined?(warning) && (warning) %>
-    <p class="m5">Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.</p>
+    <p class="warning">Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.</p>
   <% end %>
   <%=form_tag moderation_do_user_change_path, :format => :json, :remote => true, 'data-type' => :json do %>
     <%=hidden_field_tag 'change[model]', item.class.name, 'autocomplete' => :off %>
