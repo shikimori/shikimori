@@ -173,7 +173,7 @@ private
   # корректно определяющийся ip адрес пользователя
   def remote_addr
     ip = request.headers['HTTP_X_FORWARDED_FOR'] || request.headers['HTTP_X_REAL_IP'] || request.headers['REMOTE_ADDR']
-    ip = ip+'z' if user_signed_in? && [296, 3801].include?(current_user.id)
+    ip = ip+'z' if user_signed_in? && [296, 3801, 16029].include?(current_user.id)
     ip
   end
 
