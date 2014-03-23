@@ -1,14 +1,14 @@
 class AniMangaPresenter::RelatedPresenter < BasePresenter
   # адаптации аниме
   def adaptations
-    @adaptations ||= related_entries.select do |v|
+    @adaptations ||= all.select do |v|
       v.relation == BaseMalParser::RelatedAdaptationName
     end
   end
 
   # связанные аниме
-  def all
-    @related ||= related_entries.select do |v|
+  def related
+    @related ||= all.select do |v|
       v.relation != BaseMalParser::RelatedAdaptationName
     end
   end
@@ -24,21 +24,20 @@ class AniMangaPresenter::RelatedPresenter < BasePresenter
 
   # есть ли они вообще?
   def any?
-    all.any?
+    related.any?
   end
 
   # одно ли связанное аниме?
   def one?
-    all.size == 1
+    related.size == 1
   end
 
   # достаточно ли большое число связанных аниме?
   def many?
-    all.size > 3
+    related.size > 3
   end
 
-private
-  def related_entries
+  def all
     @all_realted ||= entry
       .related
       .includes(:anime, :manga)
