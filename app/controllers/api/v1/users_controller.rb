@@ -4,6 +4,21 @@ class Api::V1::UsersController < Api::V1::ApiController
   respond_to :json, :xml
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, "/users", "List users"
+  def index
+    @limit = [[params[:limit].to_i, 1].max, 30].min
+    @page = [params[:page].to_i, 1].max
+
+    @collection = User
+      .where.not(id: User::Admins)
+      .order('if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
+      .offset(@limit * (@page-1))
+      .limit(@limit + 1)
+
+    respond_with @collection
+  end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/users/:id", "Show an user"
   def show
     respond_with UserProfileDecorator.new(user), serializer: UserProfileSerializer

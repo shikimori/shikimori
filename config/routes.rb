@@ -496,7 +496,7 @@ Site::Application.routes.draw do
           resources :sessions, only: [:create]
         end
 
-        resources :users, only: [:show] do
+        resources :users, only: [:index, :show] do
           collection do
             get :whoami
           end

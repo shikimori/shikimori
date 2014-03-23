@@ -3,6 +3,18 @@ require 'spec_helper'
 describe Api::V1::UsersController do
   let(:user) { create :user }
 
+  describe :index do
+    let!(:user_1) { create :user }
+    let!(:user_2) { create :user }
+    let!(:user_3) { create :user }
+
+    before { get :index, page: 1, limit: 1, format: :json }
+
+    it { should respond_with :success }
+    it { should respond_with_content_type :json }
+    specify { assigns(:collection).should have(2).items }
+  end
+
   describe :show do
     before { get :show, id: user.id, format: :json }
 
