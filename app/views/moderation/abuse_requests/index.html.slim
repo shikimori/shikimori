@@ -32,7 +32,7 @@ header.head
           - if @pending.any?
             h2.subheadline Очередь
             .abuse_requests.m30
-              = render partial: 'abuse_request', collection: @pending, formats: :html
+              = render partial: 'moderation/abuse_requests/abuse_request', collection: @pending, formats: :html
 
           - if @processed.any?
             - if user_signed_in? && current_user.moderator?
@@ -40,5 +40,5 @@ header.head
                 a href="#{moderation_bans_url}" баны + предупреждения
             h2.subheadline История
             .abuse_requests
-              = render partial: 'abuse_request', collection: @processed, formats: :html
-              = render partial: 'site/postloader', locals: { url: page_moderation_abuse_requests_url(page: @page+1) }, formats: :html
+              = render partial: 'moderation/abuse_requests/abuse_request', collection: @processed, formats: :html
+              = render partial: 'site/postloader', locals: { url: page_moderation_abuse_requests_url(page: @page+1, format: :json) }, formats: :html
