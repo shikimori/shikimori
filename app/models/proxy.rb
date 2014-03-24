@@ -5,6 +5,8 @@ class Proxy < ActiveRecord::Base
 
   # список проксей
   @@proxies = nil
+  # изначальное число проксей
+  @@proxies_initial_size = 0
 
   # использовать ли кеш
   @@use_cache = Rails.env == 'test'
@@ -21,6 +23,7 @@ class Proxy < ActiveRecord::Base
       queue = Queue.new
       Proxy.all.shuffle.each { |v| queue.push v }
 
+      @@proxies_initial_size = queue.size
       @@proxies = queue
     end
 
@@ -65,7 +68,7 @@ class Proxy < ActiveRecord::Base
 
     # выполнение запроса
     def do_request url, options
-      preload if options[:proxy].nil? && @@proxies.nil?
+      preload if (options[:proxy].nil? && @@proxies.nil?) || (@@proxies && @@proxies.size < @@proxies_initial_size / 7)
       raise NoProxies.new(url) if options[:proxy].nil? && @@proxies.empty?
 
       content = nil
