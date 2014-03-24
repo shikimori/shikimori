@@ -101,7 +101,7 @@ class AniMangasDirector < BaseDirector
     params[:subpage] = params[:character]
     show
 
-    if (!entry.cosplay.gallery || params[:character] != 'all') && !@redirected
+    if !@redirected && (!entry.cosplay.gallery || params[:character] != 'all')
       redirect_to entry.cosplay_url(:all, entry.cosplay.gallery)
       @redirected = true
       return

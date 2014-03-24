@@ -24,15 +24,17 @@ class ApplicationController < ActionController::Base
   end
 
   unless Rails.env.test?
-    rescue_from Exception, with: :runtime_error
-    rescue_from SyntaxError, with: :runtime_error
-    rescue_from Mysql2::Error, with: :runtime_error
-    rescue_from NoMethodError, with: :runtime_error
+    rescue_from AbstractController::ActionNotFound, with: :runtime_error
+    rescue_from AbstractController::Error, with: :runtime_error
+    rescue_from ActionController::InvalidAuthenticityToken, with: :runtime_error
     rescue_from ActionController::RoutingError, with: :runtime_error
     rescue_from ActionView::MissingTemplate, with: :runtime_error
-    rescue_from AbstractController::ActionNotFound, with: :runtime_error
     rescue_from ActionView::Template::Error, with: :runtime_error
-    rescue_from ActionController::InvalidAuthenticityToken, with: :runtime_error
+    rescue_from Exception, with: :runtime_error
+    rescue_from Mysql2::Error, with: :runtime_error
+    rescue_from NoMethodError, with: :runtime_error
+    rescue_from StandardError, with: :runtime_error
+    rescue_from SyntaxError, with: :runtime_error
   else
     rescue_from StatusCodeError, with: :runtime_error
   end
