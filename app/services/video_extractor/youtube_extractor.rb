@@ -21,7 +21,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
 
   def exists?
     sleep 1 unless Rails.env.test? # задержка, т.к. ютуб блочит при частых запросах
-    open(@url).read.present?
+    open("http://gdata.youtube.com/feeds/api/videos/#{matches[:key]}").read.present?
 
   rescue OpenURI::HTTPError
     false
