@@ -59,8 +59,8 @@ class AnimeCalendar < ActiveRecord::Base
     'seitokai yakuindomo＊' => 20847,
     'nobunaga za furu' => 21177,
     'robot girls z' => 19799,
-    'cardfight!! vanguard: link joker hen' => 15611,
-    'yu-gi-oh! zexal ii' => 21639
+    'yu-gi-oh! zexal ii' => 21639,
+    #'cardfight!! vanguard: link joker hen' => 15611,
   }
 
   EpisodesDiff = {

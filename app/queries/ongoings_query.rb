@@ -79,13 +79,13 @@ private
       .where(kind: ['TV', 'ONA'])
       .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where("anime_calendars.episode=1 or (aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
+      .where("anime_calendars.episode=1 or (anime_calendars.episode is null and aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
               from: Date.today - 1.week, to: Date.today + 1.month, new_year: Date.today.beginning_of_year)
       .where("kind != 'ONA' || anime_calendars.episode is not null")
   end
 
   # выкидывание просроченных аниме
   def exclude_overdue entries
-    entries.select! {|v| v.next_release_at && v.next_release_at > DateTime.now - 1.week }
+    entries.select! {|v| (v.next_release_at && v.next_release_at > DateTime.now - 1.week) || v.anons? }
   end
 end

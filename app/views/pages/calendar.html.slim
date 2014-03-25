@@ -11,7 +11,7 @@
       p Данный раздел отображает аниме онгоинги текущего сезона и близлежащие анонсы.
       p Выходы серий отслеживаются автоматически по появлению эпизодов на торрент-трекерах, а время выхода эпизодов отображется либо исходя из информации с <a href="http://animecalendar.net/">animecalendar.net</a>, либо рассчитывается автоматически с учётом дат появления предыдущих эпизодов аниме.
 
-  - cache [:calendar, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Date.today.to_s] do
+  - cache [:calendar, :v2, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Date.today.to_s] do
     - @query.fetch.each do |k,group|
       article
         .b-options-floated.collapse id="#{'collapse-calendar_delayed' if k == -1}"
