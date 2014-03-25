@@ -17,7 +17,7 @@ class FindAnimeParser < ReadMangaParser
       .map {|v| parse_chapter v, video_links.count }
       .select {|v| v[:episode].present? }
 
-    if videos.empty? && doc.css('.chapter-link').to_html =~ /озвучка|сабы/i
+    if videos.empty? && doc.css('.chapter-link').to_html =~ /озвучка|сабы/i && doc.css('h3 a').any?
       videos = [{episode: 1, url: "http://#{domain}#{doc.css('h3 a').first.attr('href').sub /#.*/, ''}"}]
     end
 
