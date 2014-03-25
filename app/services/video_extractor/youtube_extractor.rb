@@ -18,4 +18,12 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
   def matches
     @matches ||= url.match URL_REGEX
   end
+
+  def exists?
+    sleep 1 unless Rails.env.test? # задержка, т.к. ютуб блочит при частых запросах
+    open(@url).read.present?
+
+  rescue OpenURI::HTTPError
+    false
+  end
 end
