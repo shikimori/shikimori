@@ -23,11 +23,13 @@ module Clockwork
   every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
     FindAnimeWorker.perform_async :last_15_entries
     HentaiAnimeWorker.perform_async :last_15_entries
+    AnimeSpiritWorker.perform_async :last_two_pages
   end
 
   every 1.hour, 'hourly', at: '**:45' do
     ProxyWorker.perform_async
     FindAnimeWorker.perform_async :last_3_entries
+    AnimeSpiritWorker.perform_async :last_3_entries
   end
 
   every 1.day, 'daily.stuff', at: '00:02' do
