@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_xhr
   before_filter :fix_googlebot
-  before_filter :update_last_online if Rails.env != 'test'
+  before_filter :update_last_online unless Rails.env.test?
   before_filter :mailer_set_url_options
   before_filter :force_vary_accept
 

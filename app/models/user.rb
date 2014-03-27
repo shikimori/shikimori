@@ -251,12 +251,10 @@ class User < ActiveRecord::Base
   # updates user's last online date
   def update_last_online
     now = DateTime.now
-    if now - User::LAST_ONLINE_CACHE_INTERVAL > self.last_online_at.to_datetime || self[:last_online_at].nil?
-      User.record_timestamps = false
-      self.update_attribute(:last_online_at, now)
-      User.record_timestamps = true
+    if self[:last_online_at].nil? || now - User::LAST_ONLINE_CACHE_INTERVAL > self[:last_online_at]
+      update_column :last_online_at, now
     else
-      Rails.cache.write(self.last_online_cache_key, now.to_s) # wtf? Rails is crushed when it loads DateTime type from memcached
+      Rails.cache.write last_online_cache_key, now.to_s # wtf? Rails is crushed when it loads DateTime type from memcached
     end
   end
 
