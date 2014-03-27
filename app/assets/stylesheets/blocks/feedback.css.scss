@@ -31,13 +31,13 @@
 }
 
 .feedback-container {
-  margin: 0 auto;
+  background: white;
+  margin: -150px auto 0;
+  padding: 8px 8px 0 10px;
   position: fixed;
-  top: 270px;
+  top: 50%;
   width: $site-body-width - 17;
   z-index: 1002;
-  padding: 8px 8px 0 10px;
-  background: white;
 
   .text {
     margin-bottom: 8px;

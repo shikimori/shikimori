@@ -1,4 +1,4 @@
-.comments-container class="#{' bottom-add' if defined?(bottom_add_block)}"
+.comments-container class="#{' bottom-add' if defined? bottom_add_block}"
   - unless defined? bottom_add_block
     = render partial: 'comments/add', locals: { options: { object: object, text: defined?(text) && text ? text : '' } }, formats: :html
 
