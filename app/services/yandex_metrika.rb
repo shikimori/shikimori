@@ -9,7 +9,7 @@ class YandexMetrika
 
     count.downto(0).map do |i|
       traffic Date.yesterday - ((i+1)*3).month, Date.yesterday - ((i)*3).month
-    end.sum
+    end.sum.uniq {|v| v['date'] }
   end
 
 private
@@ -26,7 +26,7 @@ private
       .get_counter_stat_traffic_summary(APP_COUNTER_ID, group: :day, date1: from, date2: to)['data']
       .reverse
       .map do |entry|
-        TrafficEntry.new entry['date'], entry['visitors'], entry['visits'], entry['page_views']
+        TrafficEntry.new entry['date'].sub(/(\d{4})(\d\d)(\d\d)/, '\1-\2-\3'), entry['visitors'], entry['visits'], entry['page_views']
       end
   end
 end

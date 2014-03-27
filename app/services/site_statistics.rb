@@ -67,7 +67,7 @@ class SiteStatistics
     User
       .joins(:reviews)
       .group('users.id')
-      .order("count(reviews.id) desc")
+      .order('count(reviews.id) desc')
       .limit(24)
   end
 
@@ -91,8 +91,8 @@ private
     start_date = Date.today - interval
 
     entries_by_date = klass
-      .where("created_at > ?", start_date)
-      .where("created_at < ?", Date.today)
+      .where('created_at > ?', start_date)
+      .where('created_at < ?', Date.today)
       .group('cast(created_at as date)')
       .order(:created_at)
       .count
