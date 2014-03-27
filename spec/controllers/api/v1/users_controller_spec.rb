@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe Api::V1::UsersController do
-  let(:user) { create :user }
+  let(:user) { create :user, nickname: 'Test' }
 
   describe :index do
-    let!(:user_1) { create :user }
-    let!(:user_2) { create :user }
-    let!(:user_3) { create :user }
+    let!(:user_1) { create :user, nickname: 'Test1' }
+    let!(:user_2) { create :user, nickname: 'Test2' }
+    let!(:user_3) { create :user, nickname: 'Test3' }
 
-    before { get :index, page: 1, limit: 1, format: :json }
+    before { get :index, page: 1, limit: 1, search: 'Te', format: :json }
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }

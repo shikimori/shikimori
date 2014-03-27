@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :nickname, :avatar, :image
+  attributes :id, :nickname, :avatar, :image, :last_online_at
 
   def avatar
     object.avatar_url 48
@@ -15,5 +15,9 @@ class UserSerializer < ActiveModel::Serializer
       x32: object.avatar_url(32),
       x16: object.avatar_url(16)
     }
+  end
+
+  def last_online_at
+    object[:last_online_at]
   end
 end

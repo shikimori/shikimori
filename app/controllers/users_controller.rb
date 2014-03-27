@@ -45,9 +45,13 @@ class UsersController < ApplicationController
       @users = postload_paginate(params[:page], UsersPerPage) do
         if params[:search]
           search = "%#{params[:search]}%"
-          User.where("nickname like ?", search).order(:nickname)
+          User
+            .where('nickname like ?', search)
+            .order('nickname,if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
         else
-          User.where.not(id: 1).order('if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
+          User
+            .where.not(id: 1)
+            .order('if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
         end
       end
 
