@@ -11,11 +11,12 @@
       p Данный раздел отображает аниме онгоинги текущего сезона и близлежащие анонсы.
       p Выходы серий отслеживаются автоматически по появлению эпизодов на торрент-трекерах, а время выхода эпизодов отображется либо исходя из информации с <a href="http://animecalendar.net/">animecalendar.net</a>, либо рассчитывается автоматически с учётом дат появления предыдущих эпизодов аниме.
 
-  - cache [:calendar, :v2, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Date.today.to_s] do
+  - cache [:calendar, :v3, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Date.today.to_s] do
     - @query.fetch.each do |k,group|
       article
-        .b-options-floated.collapse id="#{'collapse-calendar_delayed' if k == -1}"
-          span.action свернуть
+        - if k == -1
+          .b-options-floated.collapse id="collapse-calendar_delayed"
+            span.action свернуть
         .headline class="#{color_by_num k == -1 ? -1 : (DateTime.now + k.days).day % 11}"
           = k == -1 ? "Уже должно было выйти" : date_title_for_ongoing(k)
         .collapsed.tiny ...
