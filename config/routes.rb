@@ -460,6 +460,7 @@ Site::Application.routes.draw do
             get :roles
             get :similar
             get :related
+            get :screenshots
           end
         end
         resources :mangas, only: [:show, :index] do

@@ -56,4 +56,14 @@ describe Api::V1::AnimesController do
     it { should respond_with_content_type :json }
     specify { assigns(:collection).should have(1).item }
   end
+
+  describe :screenshots do
+    let(:anime) { create :anime }
+    let!(:screenshot) { create :screenshot, anime: anime }
+    before { get :screenshots, id: anime.id, format: :json }
+
+    it { should respond_with :success }
+    it { should respond_with_content_type :json }
+    specify { assigns(:collection).should have(1).item }
+  end
 end
