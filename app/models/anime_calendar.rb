@@ -60,7 +60,21 @@ class AnimeCalendar < ActiveRecord::Base
     'nobunaga za furu' => 21177,
     'robot girls z' => 19799,
     'yu-gi-oh! zexal ii' => 21639,
-    #'cardfight!! vanguard: link joker hen' => 15611,
+    "haikyu!!" => 20583,
+    "isshukan friends." => 21327,
+    "kanojo ga flag o oraretara" => 19685,
+    "love live! (2014)" => 19111,
+    "gochumon wa usagi desu ka?" => 21273,
+    "ping pong" => 22135,
+    "ryugajo nanana no maizokin" => 21561,
+    "maho shojo taisen" => 21421,
+    "kindaichi shonen no jikenbo r" => 22817,
+    "abarenbo rikishi!! matsutaro" => 22831,
+    "mushishi: the next chapter" => 21939,
+    "fuun ishin dai shogun" => 21821,
+    "no game" => 19815,
+    "mahoka koko no rettosei" => 20785,
+    "the world is still beautiful" => 22101,
   }
 
   EpisodesDiff = {
