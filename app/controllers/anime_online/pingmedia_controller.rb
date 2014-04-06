@@ -3,4 +3,7 @@ class AnimeOnline::PingmediaController < ApplicationController
 
   def google
   end
+
+  def google_leaderboard
+  end
 end

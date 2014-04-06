@@ -21,6 +21,7 @@ Site::Application.routes.draw do
     post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
     delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
     get 'pingmedia/google' => 'anime_online/pingmedia#google'
+    get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
     get 'robots.txt' => 'robots#animeonline'
   end
 
