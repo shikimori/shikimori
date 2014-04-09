@@ -2,7 +2,7 @@ class MangaProfileSerializer < MangaSerializer
   attributes :english, :japanese, :synonyms, :kind, :aired_on, :released_on
   attributes :volumes, :chapters, :score, :description, :description_html
   attributes :favoured?, :anons?, :ongoing?, :thread_id
-  attribute :read_manga_id
+  attributes :read_manga_id, :myanimelist_id
 
   has_many :genres
   has_many :publishers
@@ -15,5 +15,9 @@ class MangaProfileSerializer < MangaSerializer
 
   def thread_id
     object.thread.id
+  end
+
+  def myanimelist_id
+    object.id
   end
 end

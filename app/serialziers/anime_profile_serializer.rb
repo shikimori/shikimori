@@ -1,7 +1,8 @@
 class AnimeProfileSerializer < AnimeSerializer
   attributes :rating, :english, :japanese, :synonyms, :kind, :aired_on, :released_on
   attributes :episodes, :episodes_aired, :duration, :score, :description, :description_html
-  attributes :favoured?, :anons?, :ongoing?, :thread_id, :world_art_id
+  attributes :favoured?, :anons?, :ongoing?, :thread_id
+  attributes :world_art_id, :myanimelist_id
 
   has_many :genres
   has_many :studios
@@ -14,5 +15,9 @@ class AnimeProfileSerializer < AnimeSerializer
 
   def thread_id
     object.thread.id
+  end
+
+  def myanimelist_id
+    object.id
   end
 end
