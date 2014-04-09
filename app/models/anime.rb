@@ -97,7 +97,7 @@ class Anime < ActiveRecord::Base
 
   has_attached_file :image,
     styles: {
-      original: ['225x350#', :jpg],
+      original: ['225x350>', :jpg],
       preview: ['160x240>', :jpg],
       short: ['160x120#', :jpg],
       x96: ['64x96#', :jpg],

@@ -11,7 +11,7 @@ class Person < ActiveRecord::Base
 
   has_attached_file :image,
     styles: {
-      original: ['225x350#', :jpg],
+      original: ['225x350>', :jpg],
       preview: ['80x120>', :jpg],
       x64: ['43x64#', :jpg]
     },
