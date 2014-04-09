@@ -56,7 +56,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     @video = AnimeVideo.new video_params.merge(url: VideoExtractor::UrlExtractor.new(video_params[:url]).extract)
     @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
     if @video.save
-      AnimeVideosService.upload_report current_user, @video
+      AnimeOnline::AnimeVideosService.upload_report current_user, @video
       redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
     else
       render :new
