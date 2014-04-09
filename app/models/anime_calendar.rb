@@ -75,6 +75,8 @@ class AnimeCalendar < ActiveRecord::Base
     "no game" => 19815,
     "mahoka koko no rettosei" => 20785,
     "the world is still beautiful" => 22101,
+    'break blade' => 22433,
+    "mangaka-san to assistant-san to" => 21863
   }
 
   EpisodesDiff = {
