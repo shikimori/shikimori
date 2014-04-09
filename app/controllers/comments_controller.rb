@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
     @page = (@offset+@limit) / @limit
 
     @comments, @add_postloader = CommentsQuery
-      .new(params[:commentable_type], params[:commentable_id])
+      .new(params[:commentable_type], params[:commentable_id], params[:review].present?)
       .postload(@page, @limit, true)
   end
 

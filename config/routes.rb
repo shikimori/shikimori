@@ -115,7 +115,7 @@ Site::Application.routes.draw do
         get :smileys
         post :preview
         get 'fetch/:id/:topic_id/:skip/:limit' => 'comments#fetch', as: :fetch
-        get ':commentable_type/:commentable_id/:offset/:limit(/:reviews_only)', action: :postloader, as: :model
+        get ':commentable_type/:commentable_id/:offset/:limit(/:review)', action: :postloader, as: :model
       end
     end
 

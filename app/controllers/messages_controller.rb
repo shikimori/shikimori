@@ -221,7 +221,7 @@ class MessagesController < UsersController
 
     if user.admin?
       params[:comment][:body] = params[:comment][:body].strip
-      params[:comment][:body] += "[right][size=11][color=gray][spoiler=info]"
+      params[:comment][:body] += " [right][size=11][color=gray][spoiler=info]"
       params[:comment][:body] += "e-mail: #{params[:comment][:email]}\n" unless params[:comment][:email].blank?
       params[:comment][:body] += "[url=#{params[:comment][:location]}]#{params[:comment][:location]}[/url]\n" unless params[:comment][:location].blank?
       params[:comment][:body] += "#{params[:comment][:user_agent] || request.env['HTTP_USER_AGENT']}\n"
