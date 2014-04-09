@@ -9,8 +9,9 @@ html
 
   body
     = render partial: 'anime_online/menu'
-    .ads_container
-      = render partial: 'anime_online/blocks/ads_top_line' if request.host == AnimeOnlineDomain::HOST_PLAY
+    - if AnimeOnline::AdsPolicy.top_line_allowed? request.host, action_name
+      .ads_container = render partial: 'anime_online/blocks/ads_top_line'
+
     .container
       = yield
 

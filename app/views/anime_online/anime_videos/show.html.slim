@@ -49,4 +49,4 @@
                 p == review.html_body
 
     .col-md-2
-      = render partial: 'anime_online/blocks/ads_240x400' if request.host == AnimeOnlineDomain::HOST_PLAY
+      = render partial: 'anime_online/blocks/ads_240x400' if AnimeOnline::AdsPolicy.host_allowed? request.host
