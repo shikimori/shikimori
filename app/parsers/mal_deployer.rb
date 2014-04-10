@@ -191,9 +191,9 @@ module MalDeployer
     interval = if entry.respond_to?(:ongoing?) && entry.ongoing?
       2.weeks
     elsif entry.respond_to?(:latest?) && entry.latest?
-      4.months
+      3.months
     else
-      8.months
+      6.months
     end
 
     File.ctime(entry.image.path).to_datetime < DateTime.now - interval
