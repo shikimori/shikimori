@@ -45,10 +45,10 @@
           a.entry href="#{animes_url type: nil, status: 'ongoing'}" title="Аниме онгоинги" Онгоинги
           a.entry href="#{animes_url type: nil, season: '2014'}" title="Аниме 2014 года" 2014 год
           a.entry href="#{animes_url type: nil, season: '2013'}" title="Аниме 2013 года" 2013 год
+          a.entry href="#{animes_url type: nil, season: 'summer_2014'}" title="Летний сезон 2014 года" Летний сезон
           a.entry href="#{animes_url type: nil, season: 'spring_2014'}" title="Весенний сезон 2014 года" Весенний сезон
           a.entry href="#{animes_url type: nil, season: 'winter_2014'}" title="Зимний сезон 2014 года" Зимний сезон
           a.entry href="#{animes_url type: nil, season: 'fall_2013'}" title="Осенний сезон 2013 года" Осенний сезон
-          a.entry href="#{animes_url type: nil, season: 'summer_2013'}" title="Летний сезон 2013 года" Летний сезон
           a.entry href="#{studios_url}" title="Студии" Студии
       a.entry.calendar class="#{'selected' if params[:controller] == 'pages' && params[:action] == 'ongoings'}" href="#{ongoings_url}" title="Календарь"
       a.entry class="#{'selected' if params[:controller] == 'mangas' || (params[:controller] == 'ani_mangas_collection' && params[:klass] == 'manga')}" href="#{mangas_url}" title="Манга" Манга
