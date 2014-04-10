@@ -78,8 +78,7 @@ private
   def assert_unmatched data
     unmatched = data.select {|v| v[:anime_id].nil? }.map {|v| v[:anime] }.uniq
     if @fail_on_unmatched && unmatched.any?
-      ap unmatched
-      raise "found #{unmatched.size} unmatched entries"
+      raise MismatchedEntries.new unmatched, [], []
     end
   end
 
