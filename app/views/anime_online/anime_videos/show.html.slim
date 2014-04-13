@@ -11,7 +11,7 @@
         .alert.alert-success = flash[:notice]
 
       - if @anime.description
-        .description == @anime.description
+        .description == @anime.description.gsub('data-remote="true"', '')
 
       a.source href="http://shikimori.org#{anime_path @anime}" shikimori.org
 
