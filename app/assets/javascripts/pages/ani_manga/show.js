@@ -83,8 +83,7 @@ $(function() {
       $target.trigger('slider:click');
     }
   });
-  // надо вызывать, чтобы сработал хендлер, навешенный на переключение слайда
-  $('.slide > .selected').trigger('cache:success');
+  $(window).trigger('statechange');
 
   // height fix for related anime
   var names = $('.entry-block .name');
