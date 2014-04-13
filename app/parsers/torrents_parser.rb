@@ -7,7 +7,9 @@ class TorrentsParser
   # игнорируемые названия торрентов
   IgnoredTorrents = Set.new [
     'Chuunibyou demo Koi ga Shitai! Lite - 04 (640x360 x264 AAC).mp4',
-    '[WZF]Ore_no_Imouto_ga_Konna_ni_Kawaii_Wake_ga_Nai_-_Capitulo_13-15[BDRip][X264-AAC][1280x720][Sub_Esp]'
+    '[WZF]Ore_no_Imouto_ga_Konna_ni_Kawaii_Wake_ga_Nai_-_Capitulo_13-15[BDRip][X264-AAC][1280x720][Sub_Esp]',
+    'Owari Subs] Mahouka Koukou no Rettousei ~ Esplorando Mahouka 03 [Webrip][207F8116].mkv',
+    '[iPUNISHER] Mahouka Koukou No Rettousei - Yoku Wakaru Mahouka - 03 [720p][AAC].mkv'
   ]
   # аниме, для которых не будут искаться торренты
   AnimeIgnored = [13185, 19207, 5042, 17249, 11457, 21729]
