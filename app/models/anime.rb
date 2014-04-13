@@ -161,7 +161,7 @@ class Anime < ActiveRecord::Base
   # дата выхода следующего эпизода
   def next_episode_at
     @next_episode_at ||= if episodes_aired && (ongoing? || anons?)
-      calendars = anime_calendars.where(episode: [object.episodes_aired + 1, object.episodes_aired + 2]).to_a
+      calendars = anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
 
       if calendars[0].present? && calendars[0].start_at > Time.zone.now
         calendars[0].start_at
@@ -174,7 +174,7 @@ class Anime < ActiveRecord::Base
 
   # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
   def aired_on
-    object.anons? && next_episode_at ? next_episode_at : object.aired_on
+    anons? && next_episode_at ? next_episode_at : super
   end
 
   # есть ли файлы у аниме?
