@@ -17,4 +17,4 @@ table.b-table
       td = genre.russian
       td = genre.position
       td = genre.seo
-      td = genre.description
+      td = BbCodeFormatter.instance.format_comment(genre.description)
