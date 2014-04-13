@@ -113,7 +113,7 @@ group :test, :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'guard-livereload'
+  gem 'guard-livereload', '2.1.2'
 
   gem 'webmock', '1.13'
 
@@ -134,5 +134,5 @@ gem 'faye-redis', '0.1.0'
 gem 'faye-websocket', '0.4.4'
 #gem 'em-websocket', '0.3.8'
 gem 'em-socksify', '0.2.0'
-gem 'em-http-request', '1.0.2'
+gem 'em-http-request'
 gem 'em-hiredis', '0.1.1'

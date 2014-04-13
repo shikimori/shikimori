@@ -5,7 +5,7 @@ describe AnimeOnline::AnimeVideosService do
   let(:video) { create :anime_video, state: 'uploaded' }
 
   describe :upload_report do
-    subject { AnimeVideosService.upload_report user, video }
+    subject { AnimeOnline::AnimeVideosService.upload_report user, video }
 
     its(:kind) { should be_uploaded }
 

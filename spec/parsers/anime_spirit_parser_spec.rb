@@ -3,7 +3,7 @@ require 'spec_helper'
 describe AnimeSpiritParser do
   let(:parser) { AnimeSpiritParser.new }
 
-  it { parser.fetch_pages_num.should eq 389 }
+  it { parser.fetch_pages_num.should eq 398 }
   it { parser.fetch_page_links(1).should have(10).items }
   it { parser.fetch_pages(1..1).should have(10).items }
 
@@ -72,7 +72,7 @@ describe AnimeSpiritParser do
 
     context :buddy_complex do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9639-druzheskij-kompleksbuddy-complex.html' }
-      its(:episodes) { should eq 12 }
+      its(:episodes) { should eq 13 }
 
       describe 'author in brackets' do
         subject { entry[:videos].select {|v| v.episode == 1 }.second }

@@ -15,13 +15,13 @@ describe FindAnimeImporter do
     describe :video do
       context :no_videos do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
-        it { expect{subject}.to change(videos, :count).by 4 }
+        it { expect{subject}.to change(videos, :count).by 6 }
       end
 
       context :with_videos do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
         let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9&hd=3', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
-        it { expect{subject}.to change(videos, :count).by 3 }
+        it { expect{subject}.to change(videos, :count).by 5 }
 
         describe :anime_video do
           before { import }
@@ -40,7 +40,7 @@ describe FindAnimeImporter do
 
       context 'same anime twice' do
         before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier, identifier] }
-        it { expect{subject}.to change(AnimeVideo, :count).by 4 }
+        it { expect{subject}.to change(AnimeVideo, :count).by 6 }
       end
     end
 
@@ -165,7 +165,7 @@ describe FindAnimeImporter do
 
     describe :one_episode do
       let(:identifier) { 'aria_the_scarlet_ammo_ova' }
-      let!(:anime) { create :anime, name: 'Hidan no Aria OVA', id: 10604 }
+      let!(:anime) { create :anime, name: 'Hidan no Aria [OVA]', id: 10604 }
       before { importer.should_receive(:import_videos).exactly(1).times }
 
       it { should be_nil }

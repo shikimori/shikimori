@@ -4,7 +4,7 @@ class ClubsQuery
       .joins(:member_roles, :thread)
       .group('groups.id')
       .having('count(group_roles.id) > 0')
-      .order('entries.updated_at desc')
+      .order('entries.updated_at desc, id')
       .offset(limit * (page-1))
       .limit(limit + 1)
   end
