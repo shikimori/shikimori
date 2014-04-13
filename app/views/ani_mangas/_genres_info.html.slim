@@ -1,6 +1,6 @@
 - entry.genres.uniq(&:name).each do |genre|
   - if user_signed_in?
-    a.b-tag href="#{send "#{entry.class.name.downcase.pluralize}_url", genre: genre}" title="#{t "Name.#{entry.class.name}"} жанра #{localized_name genre}" itemprop="genre"
+    a.b-tag href="#{send "#{entry.object.class.name.downcase.pluralize}_url", genre: genre}" title="#{t "Name.#{entry.object.class.name}"} жанра #{localized_name genre}" itemprop="genre"
       = "#{localized_name genre}\n"
   - else
     span.b-tag

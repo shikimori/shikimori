@@ -124,7 +124,7 @@ class Anime < ActiveRecord::Base
 
   # Methods
   def latest?
-    self.ongoing? || self.anons? || (self.aired_on && self.aired_on > DateTime.now - 1.year)
+    ongoing? || anons? || (aired_on && aired_on > DateTime.now - 1.year)
   end
 
   def name
@@ -156,25 +156,6 @@ class Anime < ActiveRecord::Base
   # тип аниме на русском
   def russian_kind
     'Аниме'
-  end
-
-  # дата выхода следующего эпизода
-  def next_episode_at
-    @next_episode_at ||= if episodes_aired && (ongoing? || anons?)
-      calendars = anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
-
-      if calendars[0].present? && calendars[0].start_at > Time.zone.now
-        calendars[0].start_at
-
-      elsif calendars[1].present?
-        calendars[1].start_at
-      end
-    end
-  end
-
-  # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
-  def aired_on
-    anons? && next_episode_at ? next_episode_at : self[:aired_on]
   end
 
   # есть ли файлы у аниме?

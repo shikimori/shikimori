@@ -6,7 +6,7 @@ li
       span.name
         = topic[:name]
     - if topic[:tooltip]
-      div.history-entry-tooltip id="history-entry-#{topic[:id]}-tooltip"
+      .history-entry-tooltip id="history-entry-#{topic[:id]}-tooltip"
         = render partial: 'site/tooltip', formats: :html
 
   - else

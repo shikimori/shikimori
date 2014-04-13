@@ -26,7 +26,7 @@ module UsersHelper
   # тип с учётом настроек отображения русского языка
   def localized_kind entry, short=false
     if !current_user || (current_user && current_user.preferences.russian_genres?)
-      I18n.t "#{entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
+      I18n.t "#{entry.decorated? ? entry.object.class.name : entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
     else
       entry.kind
     end

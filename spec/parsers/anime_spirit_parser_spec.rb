@@ -3,7 +3,7 @@ require 'spec_helper'
 describe AnimeSpiritParser do
   let(:parser) { AnimeSpiritParser.new }
 
-  it { parser.fetch_pages_num.should eq 398 }
+  it { parser.fetch_pages_num.should eq 396 }
   it { parser.fetch_page_links(1).should have(10).items }
   it { parser.fetch_pages(1..1).should have(10).items }
 
