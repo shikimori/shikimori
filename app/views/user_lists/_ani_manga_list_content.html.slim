@@ -6,7 +6,7 @@
     .subheadline = t "#{params[:list_type].capitalize}RateStatus.%s" % UserRateStatus.get(status)
     .collapsed.tiny ...
 
-  table.default-table
+  table.b-table
     tr
       th.index #
       th class="name order-control#{' active' if params[:order] == 'name'}" data-order="name" Название
@@ -71,7 +71,7 @@
 - elsif @total_stats.any? && !(@list.size == 1 && @page == 1 && !@add_postloader)
   header.summary
     h2 
-  table.default-table
+  table.b-table
     tr.summary.total
       td colspan="5"
         - @total_stats.each do |stat,value|

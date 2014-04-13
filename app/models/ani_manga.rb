@@ -58,7 +58,7 @@ module AniManga
   def description
     desc = HTMLEntities.new.decode(self[:description] || self[:description_mal] || '')
     if desc.blank?
-      self.class == Anime ? "У этого аниме пока ещё нет описания." : "У этой манги пока ещё нет описания."
+      self.class == Anime ? 'У этого аниме пока ещё нет описания.' : 'У этой манги пока ещё нет описания.'
     else
       desc.html_safe
     end

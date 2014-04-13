@@ -3,7 +3,7 @@
   input type="hidden" name="user[notifications][nothing]" value="0"
 
   .messages-settings
-    table.default-table.m20
+    table.b-table.m20
       tr
         th.name Тип уведомления
         th.num TV
@@ -60,7 +60,7 @@
         td.num
           = check_box_tag 'user[notifications][my_episode_ova]', User::MY_EPISODE_OVA_NOTIFICATIONS, @user.notifications & User::MY_EPISODE_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_EPISODE_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off
 
-    .default-table.m20 style="display: none;"
+    .b-table.m20 style="display: none;"
       tr
         th.name Уведомления на e-mail
         th.num Тип
@@ -79,7 +79,7 @@
         td.num
           = radio_button_tag 'user[notifications][notifications_to_email]', User::NOTIFICATIONS_TO_EMAIL_NONE, @user.notifications & User::NOTIFICATIONS_TO_EMAIL_NONE != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NOTIFICATIONS_TO_EMAIL_NONE != 0
 
-    table.default-table.m20
+    table.b-table.m20
       tr
         th.name Письма
         th.num
@@ -91,7 +91,7 @@
         td.num
           = check_box_tag 'user[notifications][private_messages_to_email]', User::PRIVATE_MESSAGES_TO_EMAIL, @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::PRIVATE_MESSAGES_TO_EMAIL != 0, 'autocomplete' => :off
 
-    table.default-table.m20
+    table.b-table.m20
       tr
         th.name Прочее
         th.num

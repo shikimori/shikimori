@@ -4,7 +4,7 @@
     = render partial: 'ani_mangas/user_stat', collection: @friend_rates, as: :rate, formats: :html
     .clearfix
 
-  table.default-table.friend-rates
+  table.b-table.friend-rates
     - @entry.friend_rates.each do |rate|
       tr
         td.user

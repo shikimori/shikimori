@@ -1,0 +1,20 @@
+.subheadline Жанры
+
+table.b-table
+  tr
+    th Id
+    th Name
+    th Russian
+    th Position
+    th Seo
+    th width="500" Description
+
+  - @collection.each do |genre|
+    tr
+      td
+        a href="#{edit_genre_path genre}" = genre.id
+      td = genre.name
+      td = genre.russian
+      td = genre.position
+      td = genre.seo
+      td = genre.description

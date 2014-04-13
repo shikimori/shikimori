@@ -6,7 +6,7 @@
       a.rss href="#{rss_anime_url @entry, type: key}" title="RSS"
       = t "Torrents.#{key}"
     .collapsed.tiny ...
-    table.default-table
+    table.b-table
       - group.each do |entry|
         tr
           td.name
@@ -38,7 +38,7 @@
           a.rss href="#{subtitles_anime_url @entry, :group => Digest::MD5.hexdigest(subs[:title])}" title="RSS"
         = "Субтитры #{subs[:title]}"
       .collapsed.tiny ...
-      table.default-table
+      table.b-table
         - if subs[:link].present?
           tr
             th.num Тип

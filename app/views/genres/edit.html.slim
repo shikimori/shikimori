@@ -1,0 +1,17 @@
+.subheadline = @resource.name
+
+= simple_form_for @resource do |f|
+  - if @resource.errors.any?
+    .errors
+      .subheadline.red Ошибки
+      .subcontent
+        == @resource.errors.full_messages.join('<br>')
+      div
+
+  = f.input :name
+  = f.input :russian
+  = f.input :position
+  = f.input :seo
+  = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
+  = f.submit 'Сохранить'
+  = link_to 'Отмена', genres_path, style: 'margin-left: 20px;'

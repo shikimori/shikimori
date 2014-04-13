@@ -1,0 +1,38 @@
+@import globals
+
+.b-table
+  border-collapse: collapse
+  margin: 0 0 20px 10px
+  width: 96%
+
+  a
+    +normal-link
+
+  tr.border
+    border-top: 1px solid #DDDDDD
+    padding-bottom: 4px
+    padding-top: 0
+    text-align: left
+
+  tr.border th
+    padding-top: 5px
+
+  tr, td
+    border: 0 none
+    font-family: inherit
+    font-size: 100%
+    font-style: inherit
+    font-weight: inherit
+    line-height: $line-height
+    margin: 0
+    outline: 0 none
+    padding: 0
+    vertical-align: baseline
+
+  th
+    color: #333333
+    font-weight: bold
+    text-align: left
+
+  th.num, td.num
+    text-align: center

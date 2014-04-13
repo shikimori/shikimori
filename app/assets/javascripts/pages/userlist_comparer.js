@@ -29,7 +29,7 @@ $(function() {
 
 // обработчики для списка
 function apply_list_handlers() {
-  $('.default-table tr.selectable').tooltip($.extend($.extend({}, tooltip_options), {
+  $('.b-table tr.selectable').tooltip($.extend($.extend({}, tooltip_options), {
     offset: [3, -520],
     position: 'bottom right',
     opacity: 1,

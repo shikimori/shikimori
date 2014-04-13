@@ -389,6 +389,8 @@ Site::Application.routes.draw do
       end
     end
 
+    resources :genres, only: [:index, :edit, :update]
+
     # votes
     post 'votes/:type/:id/yes' => 'votes#create', voting: 'yes', as: :vote_yes
     post 'votes/:type/:id/no' => 'votes#create', voting: 'no', as: :vote_no
