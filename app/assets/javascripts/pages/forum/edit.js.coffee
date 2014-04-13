@@ -29,7 +29,7 @@ $('.ajax').live 'new:success edit:success', (e, data) ->
 
   # после загрузки страницы на отмену привязываем особый обработчик
   $('.comment-block .item-cancel').on 'click', ->
-    $.history.load $(@).attr('action').replace(/^http:\/\/.*?\//, '/')
+    History.pushState null, null, $(@).attr('action').replace(/^http:\/\/.*?\//, '/')
     false
 
 # автозаполнение привязанного аниме / манги
@@ -94,4 +94,4 @@ $('.new_topic .item-apply, .edit_topic .item-apply').live "click", (e, data) ->
 
 # топик создан/отредактирован успешно
 $('.new_topic, .edit_topic, .edit_contest_comment').live 'ajax:success', (e, data) ->
-  $.history.load data.url
+  History.pushState null, null, data.url

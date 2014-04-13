@@ -6,19 +6,13 @@ function init() {
     type = 'recommendation';
   }
   var params = new AniMangaParamsParser(base_path, function(data) {
-    $.history.load(data);
+    History.pushState(null, null, data);
   });
 
-  function load_page(url) {
-    if (url === "" && !('flag' in arguments.callee)) {
-      var path = location.pathname;
-      params.parse(path);
-      arguments.callee.flag = true;
-      return;
-    } else if (url === undefined || url === "") {
-      params.parse(location.pathname);
-      url = location.pathname;
-    } else if (url != params.last_compiled) {
+  function load_page() {
+    url = location.href;
+
+    if (url != params.last_compiled) {
       params.parse(url);
     }
 
@@ -26,7 +20,7 @@ function init() {
   }
 
   // history
-  $.history.init(load_page);
+  History.Adapter.bind(window, 'statechange', load_page);
   pending_load(load_page);
 }
 
@@ -91,6 +85,7 @@ $('.postloader').live('postloader:trigger', function() {
   var pages_limit = 26 * (EntriesPerPageDefault / EntriesPerPage);
 
   var pages = Controls.$link_current.first().html().split('-');
+
   // после pages_limit загруженных страниц удаляем часть контента сверху (слишком много контента на странице оказывается и начинает тормозить)
   if (pages.length > 1 && parseInt(pages[1]) - parseInt(pages[0]) >= pages_limit) {
     $(this).hide();
@@ -110,10 +105,6 @@ $('.postloader').live('postloader:trigger', function() {
     Controls.$link_first.removeClass('disabled')
                         .attr('href', url_wo_page + String(1))
                         .attr('action', url_wo_page + String(1));
-
-    if ($.support.html5history) {
-      history.pushState({history: true}, "", url_wo_page + String(current_page));
-    }
   }
 
   do_ajax.call($link, url, $(this));
@@ -126,6 +117,6 @@ $('.pagination .link').live('click', function() {
   if ($(window).scrollTop() > 400) {
     $.scrollTo(".common-title .h1,.title .h1");
   }
-  $.history.load(this.href.replace(/^http:\/\/.*?\//, '/'));
+  History.pushState(null, null, this.href);
   return false;
 });

@@ -24,11 +24,12 @@ window.AniMangaParamsParser = (base_url, change_callback, $root) ->
     value = remove_bang(value)
     text = value.replace(/^\d+-/, "")
     target_year = null
-    if key is "publisher" and text.match(/-/)
+    if key == "publisher" && text.match(/-/)
       text = text.replace(/-/g, " ")
-    else if key is "season" and value.match(/^\d+$/)
+    else if key == "season" && value.match(/^\d+$/)
       target_year = parseInt(value, 10)
       text = value + " год"
+
     value = value.replace(/\./g, "")
     $li = $("<li class=\"" + key + "-" + value + "\"><input type=\"checkbox\"/>" + text + "</li>")
 
@@ -192,9 +193,14 @@ window.AniMangaParamsParser = (base_url, change_callback, $root) ->
       $(".anime-params .filter", $root).hide()
       self = this
       data = $.extend(true, {}, default_data)
-      _.each url.replace(base_url, "").match(/[\w\-]+\/[^\/]+/g) or [], (match) ->
+      parts = url
+        .replace("#{location.protocol}//#{location.hostname}", '')
+        .replace(base_url, "")
+        .match(/[\w\-]+\/[^\/]+/g)
+
+      _.each parts || [], (match) ->
         key = match.split("/")[0]
-        return  if key is "page" or (key not of default_data)
+        return if key == "page" || (key not of default_data)
         values = match.split("/")[1].split(",")
         _.each values, _.bind(self.add, self, key)
 

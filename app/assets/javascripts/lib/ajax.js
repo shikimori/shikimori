@@ -2,8 +2,11 @@
 var pending_request = null;
 // подгрузка части контента аяксом
 function do_ajax(url, $postloader, break_pending) {
+  if (url.indexOf(location.protocol+"//"+location.host) == -1) {
+    url = location.protocol+"//"+location.host+url;
+  }
   return $.ajax({
-    url: location.protocol+"//"+location.host+url,
+    url: url,
     data: null,
     dataType: 'json',
     beforeSend: function (xhr) {

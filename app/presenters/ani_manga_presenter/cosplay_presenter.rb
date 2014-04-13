@@ -21,13 +21,14 @@ class AniMangaPresenter::CosplayPresenter < BasePresenter
 
   def js_data
     @template ||= Slim::Template.new Rails.root.join('app', 'views', 'images', '_image.html.slim').to_s
-    html = gallery
-      .images
-      .map {|image| @template.render OpenStruct.new(image: image, group_name: 'cosplay', style: :original) }
-      .join ''
 
     @js_data ||= galleries.each_with_object({}) do |gallery, memo|
-      url = @view_context.cosplay_url entry, gallery
+      html = gallery
+        .images
+        .map {|image| @template.render OpenStruct.new(image: image, group_name: 'cosplay', style: :original) }
+        .join ''
+      url = cosplay_url entry, gallery
+
       memo[url] = {
         title: gallery.full_title(entry),
         html: html,

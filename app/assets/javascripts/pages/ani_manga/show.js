@@ -39,7 +39,7 @@ $(function() {
     if (in_new_tab(e)) {
       return;
     }
-    $.history.load(($(this).children('a').attr('href') || $(this).children('span.link').data('href')).replace(/http:\/\/.*?\//, '/'));
+    History.pushState(null, null, ($(this).children('a').attr('href') || $(this).children('span.link').data('href')).replace(/http:\/\/.*?\//, '/'));
     return false;
   });
   var $controls = $('.slider-control', $('.animanga-right-menu'));
@@ -54,39 +54,9 @@ $(function() {
     }
   });
 
-  // history
-  $.history.init(function(url) {
-    var no_clear = false;
-    if (url === "") {
-      url = location.href.replace(/http:\/\/.*?\//, '/');
-      no_clear = true;
-    }
+  History.Adapter.bind(window, 'statechange', function() {
+    url = location.href.replace(/http:\/\/.*?\//, '/');
 
-    if ('first_run' in arguments.callee) {
-      var map_url = location.href.replace(/(http:\/\/.*?)\/.*/, '$1') + url;
-      if ('MAP' in window && map_url in MAP) {
-        // т.к. мы можем ходить по истории назад, то надо сделать активной нужную галерею
-        //$(_.select($('.ad-nav [data-remote]'), function(v, k) { return $(v).attr('data-remote') == map_url })[0])
-        $('.ad-nav').find("[data-remote='" + map_url + "']").parent().addClass('ad-active')
-                                                            .parent().siblings().find('a').removeClass('ad-active');
-
-        var $container = $('.gallery-container');
-        $container.find('*').unbind();
-        $container.find('.images-list').html(MAP[map_url].html);
-        $container.find('.gallery-title').html(MAP[map_url].title);
-        $container.find('.gallery-edit').attr('href', MAP[map_url].edit);
-        $container.find('.ad-info').html('');
-        $container.find('.ad-gallery').data('initialized', false);
-        $($container).gallery({no_hide: true});
-        return;
-      } else {
-        MAP = {};
-      }
-    } else {
-      arguments.callee.first_run = true;
-    }
-
-    //$('.slider-control a[href$='+url+']').parent().trigger('slider:click', no_clear);
     var $target;
     $('.slider-control a,.slider-control span.link').each(function(k, v) {
       if (url.indexOf((this.className.indexOf('link') == -1 ? this.href : $(this).data('href')).replace(/http:\/\/.*?(?=\/)/, '')) != -1) {
@@ -104,15 +74,17 @@ $(function() {
         .children()
         .attr('href', url)
         .data('href', url);
-      $target.trigger('slider:click', no_clear);
+      $target.trigger('slider:click');
       $target
         .children()
         .attr('href', menu_url)
         .data('href', menu_url);
     } else {
-      $target.trigger('slider:click', no_clear);
+      $target.trigger('slider:click');
     }
   });
+  // надо вызывать, чтобы сработал хендлер, навешенный на переключение слайда
+  $('.slide > .selected').trigger('cache:success');
 
   // height fix for related anime
   var names = $('.entry-block .name');

@@ -1,8 +1,7 @@
 $ ->
   # аяксовая навигация с историей
-  $.history.init (url) ->
-    return if url is ''
-
+  History.Adapter.bind window, 'statechange', ->
+    url = location.href
     # подсветка комментария при переходе по ссылке с анкором коммента
     if url.match(/^comment-\d+$/)
       $('a[name=' + url + ']').parent().yellowFade()
@@ -17,7 +16,7 @@ $ ->
 
 # клик по тегу топика загружает нужный раздел
 $('.topic-block .tag').live 'click', ->
-  $.history.load $(@).data('href').replace(/http:\/\/.*?\//, '/')  if $(@).data('href')
+  History.pushState null, null, $(@).data('href').replace(/http:\/\/.*?\//, '/') if $(@).data('href')
 
 # подсветка нужного раздела при аякс подгрузке
 $('.ajax').live 'ajax:success', (e, data) ->
@@ -32,7 +31,7 @@ $('.forum-nav .control').live 'click', (e) ->
   $this = $(@)
   $this.parent().children().removeClass 'selected'
   $this.addClass 'selected'
-  $.history.load $this.attr('href').replace(/http:\/\/.*?\//, '/')
+  History.pushState null, null, $this.attr('href').replace(/http:\/\/.*?\//, '/')
   false
 
 # добавление нового коммента
@@ -57,7 +56,7 @@ $('.topic-block .content .item-edit').live 'click', (e) ->
   if $(@).parents('.review-block').length && !$(@).parents('.reviews-index').length
     $(@).parent().click()
   else
-    $.history.load $(@).data('href').replace(/.*?\/\/.*?(?=\/)/, '')
+    History.pushState null, null, $(@).data('href').replace(/.*?\/\/.*?(?=\/)/, '')
 
 # добавление в ленту
 $('.topic-block .content .item-subscribe').live 'ajax:success', (e, data) ->

@@ -5,7 +5,7 @@ $(function() {
     if (in_new_tab(e)) {
       return;
     }
-    $.history.load($(this).children('a').attr('href').replace(/http:\/\/.*?\//, '/'));
+    History.pushState(null, null, $(this).children('a').attr('href').replace(/http:\/\/.*?\//, '/'));
     return false;
   });
   $('.group-content-slider').makeSliderable({
@@ -18,16 +18,11 @@ $(function() {
       $control.addClass('selected');
     }
   });
-  // history
-  $.history.init(function(url) {
-    if (url == "") {
-      url = location.href.replace(/http:\/\/.*?\//, '/');
-      var no_clear = true;
-    }
-    $(".slider-control a[href$='"+url+"']").parent().trigger('slider:click', no_clear);
+  History.Adapter.bind(window, 'statechange', function() {
+    $(".slider-control a[href$='"+location.href+"']").parent().trigger('slider:click');
   });
   // надо вызывать, чтобы сработал хендлер, навешенный на переключение слайда
-  //$('.slide .selected').trigger('ajax:success');
+  $('.slide > .selected').trigger('cache:success');
 
   // показ/скрытие блока с действиями
   if (!$('.actions-list').children().length) {

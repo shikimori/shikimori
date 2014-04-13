@@ -27,16 +27,8 @@ nav.menu-block
         span.link data-href="#{@entry.page_url :chronology}"
 
     - if @entry.cosplay.characters.any?
-      li.slider-control.slider-control-cosplay-all.cosplay
+      li.slider-control.slider-control-cosplay.cosplay
         span.link data-href="#{@entry.cosplay_url :all}" Косплей
-      /- if @entry.cosplay.characters.size > 1
-        - @entry.cosplay.characters.each do |character|
-          li class="slider-control sub slider-control-cosplay-#{character.to_param} level-down"
-            a href="#{@entry.cosplay_url character}" title="#{{character.name}}"
-              == character.name
-      /- if @cosplay_wo_characters
-        li.slider-control.sub.slider-control-cosplay-other
-          span.link data-href="#{self.send("cosplay_#{klass_lower}_url", @entry, character: 'other')}" Прочее
 
     li.slider-control.slider-control-reviews.reviews-index style="#{'display: none;' unless @entry.reviews?}"
       - if params[:page] == 'reviews' || !@entry.reviews?

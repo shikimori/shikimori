@@ -15,7 +15,6 @@ function init_gallery() {
     if (_.all($images.map(function(k,v) { return $(v).attr('data-loaded') == 'true'; }), function(v,k) { return v; })) {
       $gallery.data('initialized', true);
     } else {
-      //$('.ad-gallery li img', self).bind('load', _.bind(init_gallery, self));
       return;
     }
     _.defer(function() {
@@ -29,7 +28,6 @@ function init_gallery() {
       };
       if ($gallery.hasClass('gallery-selector')) {
         params.start_at_index = $gallery.find('a').index($gallery.find('.ad-active'));
-        //params.width = params.width - $('.gallery-cosplayers').width() - $('.gallery-characters').width() - 30;
         if (params.start_at_index == -1) {
           delete params.start_at_index;
         }
@@ -46,16 +44,7 @@ function init_gallery() {
               return;
             }
 
-            //// в нужном li делается подмена урла, т.к. урл для загрузки страницы будет взят оттуда, а затем после загрузки страницы урл меняется назад
-            //$('.slider-control a').each(function(k, v) {
-              //if (url.indexOf(this.href.replace(/http:\/\/.*?(?=\/)/, '')) != -1) {
-                //$target = $(this);
-              //}
-            //});
-            //var menu_url = $target.attr('href');
-            //$target.attr('href', url)
-            $.history.load(url);
-            //$target.attr('href', menu_url)
+            History.pushState(null, null, url);
           }
         };
       }
@@ -65,16 +54,41 @@ function init_gallery() {
   });
 }
 
-$('.slide > .cosplay-all').live('ajax:success cache:success', function(e) {
+$(function() {
+  History.Adapter.bind(window, 'statechange', function() {
+    var url = location.href;
+    if (!('GALLERIES' in window && url in GALLERIES)) {
+      return;
+    }
+    var $container = $('.gallery-container');
+    var gallery = GALLERIES[url];
+
+    if ($container.data('url') == url) {
+      return;
+    }
+
+    // т.к. мы можем ходить по истории назад, то надо сделать активной нужную галерею
+    $('.ad-nav')
+      .find("[data-remote='" + url + "']")
+        .parent()
+        .addClass('ad-active')
+          .parent().siblings().find('a')
+          .removeClass('ad-active');
+
+    $container.find('*').unbind();
+    $container.data('url', url);
+    $container.find('.images-list').html(gallery.html);
+    $container.find('.gallery-title').html(gallery.title);
+    $container.find('.gallery-edit').attr('href', gallery.edit);
+    $container.find('.ad-info').html('');
+    $container.find('.ad-gallery').data('initialized', false);
+    $($container).gallery({no_hide: true});
+  });
+});
+
+$('.slide > .cosplay').live('ajax:success cache:success', function(e) {
   $(this).gallery();
 
   init_gallery.call(this);
   $('.ad-gallery li img', this).bind('load', _.bind(init_gallery, this));
-}).live('ajax:clear', function(e, data) {
-  // очистка контента, чтобы в следующий раз загрузился новый
-  if ($.isReady) {
-    $(this).append('<div class="clear-marker"></div>');
-  }
-  //$(this).find('.comment_body').data('ckeditorInstance').destroy();
-  //MAP = {};
 });
