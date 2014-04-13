@@ -1,24 +1,32 @@
 require 'digest/md5'
 
 module ApplicationHelper
-  def title(page_title)
+  def title page_title
     content_for(:title, page_title)
   end
 
-  def attachment_url(file, style = :original, with_timestamp = true)
+  def attachment_url file, style = :original, with_timestamp = true
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
-  def rus_date(date, fix_1_1=false)
-    if fix_1_1 && date.day == 1 && date.month == 1
-      "#{date.year} г."
+  def rus_date date, fix_1_1=false
+    return unless date
+
+    if fix_1_1
+      if date.day == 1 && date.month == 1
+        "#{date.year} г."
+      elsif fix_1_1 && date.day == 1
+        Russian::strftime date, '%B %Y г.'
+      else
+        Russian::strftime date, '%e %b %Y г.'
+      end
     else
-      Russian::strftime(date, '%d %B %Y г.').sub(/^0/, '') if date
+      Russian::strftime date, '%e %B %Y г.'
     end
   end
 
   # форматирование html текста для вывода в шаблон
-  def format_html_text(text)
+  def format_html_text text
     text.gsub(/\[spoiler\](?:<br ?\/?>|\n)?(.*?)(?:<br ?\/?>|\n)?\[\/spoiler\](?:<br ?\/?>|\n)?/mi,
               '<div class="collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed spoiler" style="display: block;">спойлер</div><div class="target" style="display: none;">\1<span class="closing"></span></div>')
   end

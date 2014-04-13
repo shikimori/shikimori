@@ -34,6 +34,7 @@ class SitemapController < ApplicationController
     @anime_genres = [
       ['Аниме боевые искусства', animes_url(genre: '17-Martial-Arts')],
       ['Аниме драма', animes_url(genre: '8-Drama')],
+      ['Аниме гарем', animes_url(genre: '35-Harem')],
       ['Аниме комедия', animes_url(genre: '4-Comedy')],
       ['Аниме мистика', animes_url(genre: '7-Mystery')],
       ['Аниме приключения', animes_url(genre: '2-Adventure')],
@@ -47,32 +48,40 @@ class SitemapController < ApplicationController
       ['Аниме про школу', animes_url(genre: '23-School')],
       ['Аниме ужасы', animes_url(genre: '14-Horror')],
       ['Аниме фантастика', animes_url(genre: '24-Sci-Fi')],
+      ['Аниме хентай', animes_url(genre: '12-Hentai')],
       ['Аниме яой', animes_url(genre: '33-Yaoi')],
-      ['Историческое аниме', animes_url(genre: '13-Historical')],
       ['Меха аниме', animes_url(genre: '18-Mecha')],
       ['Сверхъестественное аниме', animes_url(genre: '37-Supernatural')],
-      ['Сёдзе Ай аниме', animes_url(genre: '26-Shoujo-Ai')],
-      ['Сёдзе аниме', animes_url(genre: '25-Shoujo')],
+      ['Сёдзё аниме', animes_url(genre: '25-Shoujo')],
       ['Сёнен аниме', animes_url(genre: '27-Shounen')],
-      ['Сёнен Ай аниме', animes_url(genre: '28-Shounen-Ai')],
+      ['Сёнен-Ай аниме', animes_url(genre: '28-Shounen-Ai')],
+      ['Сэйнэн аниме', animes_url(genre: '42-Seinen')],
       ['Детское аниме', animes_url(genre: '15-Kids')],
-      ['Триллер аниме', animes_url(genre: '41-Thriller')],
       ['Фэнтези аниме', animes_url(genre: '10-Fantasy')],
       ['Этти аниме', animes_url(genre: '9-Ecchi')],
       ['Юри аниме', animes_url(genre: '34-Yuri')]
     ]
     @anime_misc_genres = [
       ['Аниме безумие', animes_url(genre: '5-Dementia')],
-      ['Аниме гарем', animes_url(genre: '35-Harem')],
+     #['Аниме гендерная интрига', animes_url(genre: '44-Gender-Bender')],
       ['Аниме комедия романтика', animes_url(genre: '4-Comedy,22-Romance')],
       ['Аниме комедия школа', animes_url(genre: '4-Comedy,23-School')],
       ['Аниме повседневность', animes_url(genre: '36-Slice-of-Life')],
       ['Аниме про полицию', animes_url(genre: '39-Police')],
-      ['Аниме седзе комедия', animes_url(genre: '25-Shoujo,4-Comedy')],
-      ['Аниме седзе школа', animes_url(genre: '25-Shoujo,23-School')],
+      ['Аниме про сверхспособности', animes_url(genre: '31-Super-Power')],
+      ['Аниме сёдзё комедия', animes_url(genre: '25-Shoujo,4-Comedy')],
+      ['Аниме сёдзё школа', animes_url(genre: '25-Shoujo,23-School')],
       ['Аниме школа романтика', animes_url(genre: '23-School,22-Romance')],
-      ['Военное аниме', animes_url(genre: '38-Military')],
-      ['Психологическое аниме', animes_url(genre: '40-Psychological')]
+      ['Аниме экшен', animes_url(genre: '1-Action')],
+      ['Аниме про машины', animes_url(genre: '3-Cars')],
+      ['Аниме жанра игры', animes_url(genre: '11-Game')],
+      ['Аниме жанра музыка', animes_url(genre: '19-Music')],
+      ['Аниме с оружием', animes_url(genre: '38-Military')],
+      ['Дзёсэй аниме', animes_url(genre: '43-Josei')],
+      ['Историческое аниме', animes_url(genre: '13-Historical')],
+      ['Психологическое аниме', animes_url(genre: '40-Psychological')],
+      ['Сёдзё-Ай аниме', animes_url(genre: '26-Shoujo-Ai')],
+      ['Триллер аниме', animes_url(genre: '41-Thriller')]
     ]
     @manga_sections = [
       ['Каталог манги', mangas_url]
