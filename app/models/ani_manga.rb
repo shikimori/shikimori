@@ -215,7 +215,7 @@ module AniManga
         if genres.length == 1
           type_text = Unicode.downcase(genres.first.format_for_title(type_text, nil)) 
         else
-          type_text += ' жанров '+(genres.count == 2 ? genres.map(&:name).join(' и ') : genres.map(&:name).join(', '))
+          type_text += ' жанров '+(genres.count == 2 ? genres.map(&:russian).join(' и ') : genres.map(&:russian).join(', '))
         end
       end
 
@@ -251,10 +251,8 @@ module AniManga
           if DateTime.now.year < year
             ", запланированных к показу в #{year} году, "
           elsif DateTime.now.year == year
-#" #{year} года, #{self == Anime ? 'которые' : 'которая'} уже #{self == Anime ? 'вышли' : 'вышла'} или ещё только #{self == Anime ? 'выйдут' : 'выйдет'}, "
             " #{year} года, #{rus_var(self, type) ? 'которые' : 'которая'} уже #{rus_var(self, type) ? 'вышли' : 'вышла'} или ещё только #{rus_var(self, type) ? 'выйдут' : 'выйдет'}, "
           else
-#", #{self == Anime ? 'вышедших' : 'вышедшей'} в #{year} году, "
             ", #{rus_var(self, type) ? 'вышедших' : 'вышедшей'} в #{year} году, "
           end
 

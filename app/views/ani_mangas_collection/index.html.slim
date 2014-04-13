@@ -7,8 +7,8 @@
 header.head.ajaxable
   h1 itemprop="name"
     = @page_title
-  p.notice itemprop="description"
-    = @title_notice
+  .notice itemprop="description"
+    == @title_notice
 
 = render partial: 'ani_mangas_collection/pagination', locals: { rel_nofollow: true, with_cache: true }
 

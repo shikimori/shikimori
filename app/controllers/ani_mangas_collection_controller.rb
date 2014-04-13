@@ -116,37 +116,8 @@ private
         raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => @entry_data[kind].first.to_param))
       end
     end
-
-    @order_name = case params[:order] || AniMangaQuery::DefaultOrder
-      when 'name'
-        'в алфавитном порядке'
-
-      when 'popularity'
-        'по популярности'
-
-      when 'ranked'
-        'по рейтингу'
-
-      # TODO: удалить released_at после 01.05.2014
-      when 'released_on', 'released_at'
-        'по дате выхода'
-
-      when 'id'
-        'по дате добавления'
-    end
-    @page_title ||= klass.title_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
-    @page_title.sub! 'Лучшие аниме', 'Аниме' if user_signed_in?
-    @description = klass.description_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
-
-    order_word = if klass == Anime && @description[0].nil?
-      'отсортированный'
-    elsif klass == Anime || (params[:type] && !params[:type].include?(',') && params[:type].include?('ovel'))
-      'отсортированных'
-    else
-      'отсортированной'
-    end
-
-    @title_notice ||= "На данной странице отображен #{@description[0].nil? ? '' : 'список'} #{@description[1]}, #{order_word} #{@order_name}".sub(/,,|, ,| ,/, ',')
+    build_page_title @entry_data
+    build_page_description @entry_data
   end
 
 private
@@ -256,5 +227,48 @@ private
 
   def params_page
     [(params[:page] || 1).to_i, 1].max
+  end
+
+  def build_page_title entry_data
+    @page_title = klass.title_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
+    @page_title.sub! 'Лучшие аниме', 'Аниме' if user_signed_in?
+  end
+
+  def build_page_description entry_data
+    order_name = case params[:order] || AniMangaQuery::DefaultOrder
+      when 'name'
+        'в алфавитном порядке'
+
+      when 'popularity'
+        'по популярности'
+
+      when 'ranked'
+        'по рейтингу'
+
+      # TODO: удалить released_at после 01.05.2014
+      when 'released_on', 'released_at'
+        'по дате выхода'
+
+      when 'id'
+        'по дате добавления'
+    end
+    @description = klass.description_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
+
+    order_word = if klass == Anime && @description[0].nil?
+      'отсортированный'
+    elsif klass == Anime || (params[:type] && !params[:type].include?(',') && params[:type].include?('ovel'))
+      'отсортированных'
+    else
+      'отсортированной'
+    end
+
+    @title_notice = "На данной странице отображен #{@description[0].nil? ? '' : 'список'} #{@description[1]}, #{order_word} #{order_name}".sub(/,,|, ,| ,/, ',')
+
+    if entry_data[:genre].one? && entry_data[:genre].first.description.present? &&
+        entry_data[:studio].blank? && entry_data[:publisher].blank? &&
+        params[:season].blank? && params[:type].blank? && params[:status].blank? &&
+        params[:order].blank? && params[:rating].blank?
+      @title_notice = BbCodeFormatter.instance.format_description(entry_data[:genre].first.description, entry_data[:genre].first).gsub('div', 'p')
+    end
   end
 end
