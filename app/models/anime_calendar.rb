@@ -82,7 +82,8 @@ class AnimeCalendar < ActiveRecord::Base
   EpisodesDiff = {
     'gintama\' enchousen' => 252,
     'diabolik lovers' => 1,
-    'kuroko no basuke 2' => 25
+    'kuroko no basuke 2' => 25,
+    'fairy tail (2014)' => 175
   }
 
   # импорт аниме календаря с animecalendar.net
