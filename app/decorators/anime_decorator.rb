@@ -26,4 +26,16 @@ class AnimeDecorator < AniMangaDecorator
   def main_videos
     @main_videos ||= object.videos.limit(2)
   end
+
+  def next_episode_at
+    if object.episodes_aired && (object.ongoing? || object.anons?)
+      calendars = object.anime_calendars.where(episode: [object.episodes_aired + 1, object.episodes_aired + 2])
+      if calendars[0].present? && calendars[0].start_at > Time.zone.now
+        @next_episode_at = calendars[0].start_at
+      elsif calendars[1].present?
+        @next_episode_at = calendars[1].start_at
+      end
+    end
+  end
+
 end
