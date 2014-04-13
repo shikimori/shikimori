@@ -366,7 +366,11 @@ private
         "if(#{klass.table_name}.russian is null or #{klass.table_name}.russian='', #{klass.table_name}.name, #{klass.table_name}.russian)"
 
       when 'episodes'
-        "#{klass.table_name}.#{klass == Anime ? 'episodes' : 'chapters'} desc"
+        if klass == Anime
+          "if(#{klass.table_name}.episodes = 0, #{klass.table_name}.episodes_aired, #{klass.table_name}.episodes) desc"
+        else
+          "#{klass.table_name}.chapters desc"
+        end
 
       when 'status'
         "if(#{klass.table_name}.status='Not yet aired' or #{klass.table_name}.status='Not yet published', 'AAA', if(#{klass.table_name}.status='Publishing', 'Currently Airing', #{klass.table_name}.status))"

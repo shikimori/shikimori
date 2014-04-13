@@ -338,12 +338,17 @@ describe AniMangaQuery do
     end
 
     describe :order do
-      let!(:anime1) { create :anime, ranked: 10, name: 'AAA' }
-      let!(:anime2) { create :anime, ranked: 5, name: 'BBB' }
+      let!(:anime1) { create :anime, ranked: 10, name: 'AAA', episodes: 10 }
+      let!(:anime2) { create :anime, ranked: 5, name: 'BBB', episodes: 20 }
 
       it { fetch().first.id.should eq anime2.id }
       it { fetch(order: 'name').first.id.should eq anime1.id }
       it { fetch(order: 'id').first.id.should eq anime2.id }
+
+      describe :episodes do
+        let!(:anime3) { create :anime, ranked: 5, name: 'BBB', episodes: 0, episodes_aired: 15 }
+        it { fetch(order: 'position').map(&:id).should eq [anime2.id, anime3.id, anime1.id] }
+      end
     end
 
     describe :search do
