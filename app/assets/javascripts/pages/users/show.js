@@ -29,11 +29,10 @@ $(function() {
   History.Adapter.bind(window, 'statechange', function() {
     url = location.href.replace(/http:\/\/.*?\//, '/');
     $(".slider-control a[href$='"+url+"'],.slider-control a[href$='"+fix_russian(url)+"']")
-        .parent()
-        .trigger('slider:click');
+      .parent()
+      .trigger('slider:click');
   });
-  // надо вызывать, чтобы сработал хендлер, навешенный на переключение слайда
-  $('.slide > .selected').trigger('cache:success');
+  $(window).trigger('statechange');
 
   if ($('.messages .selected').length === 0) {
     $('.messages .collapse').trigger('click', true);

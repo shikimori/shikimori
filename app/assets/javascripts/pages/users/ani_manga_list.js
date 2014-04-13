@@ -27,7 +27,7 @@ function get_manga_params() {
   if (!$link.length) {
     return;
   }
-  arguments.callee.params = new AniMangaParamsParser($link.attr('href').replace(/^http:\/\/.*?\//, '/'), function(data) {
+  arguments.callee.params = new AniMangaParamsParser($link.attr('href').replace(/^http:\/\/.*?\//, '/'), location.href, function(data) {
     if (!data.match(/manga/)) {
       return;
     }
