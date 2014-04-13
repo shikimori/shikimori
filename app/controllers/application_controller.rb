@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? current_user.nickname : nil })
     raise e if remote_addr == '127.0.0.1'
 
-    if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, NotFound].include?(e.class)
+    if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, ActionController::UnknownFormat, NotFound].include?(e.class)
       if shikimori?
         @page_title = "Страница не найдена"
         @sub_layout = nil
