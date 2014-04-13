@@ -55,9 +55,16 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   def create
     @video = AnimeVideo.new video_params.merge(url: VideoExtractor::UrlExtractor.new(video_params[:url]).extract)
     @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
+
     if @video.save
       AnimeOnline::AnimeVideosService.upload_report current_user, @video
-      redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+      if params[:continue] == "true"
+        flash[:notice] = "Эпизод #{@video.episode} добавлен"
+        @video = AnimeVideo.new anime_id: @video.anime_id, episode: @video.episode + 1, author: @video.author, kind: @video.kind, source: 'shikimori.org'
+        render :new
+      else
+        redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+      end
     else
       render :new
     end

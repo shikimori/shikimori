@@ -1,9 +1,13 @@
 .p-anime_video-new
+  - if flash[:notice]
+    .alert.alert-success = flash[:notice]
+
   = simple_form_for @video, url: anime_online_anime_anime_videos_url do |f|
     h3 #{@video.anime.name}
     legend Новое видео
     = f.input :anime_id, as: :hidden
     = f.input :source, as: :hidden
+    input.hidden#continue name="continue" type="hidden" value=""
 
     - unless @video.errors.blank?
       .alert.alert-danger = @video.errors.full_messages.join ', '
@@ -26,9 +30,11 @@
         = f.radio_button :kind, :raw, value: :raw
         = t '.kind.raw'
     .form-group
-      .alert.alert-info Перед сохранением необходимо проверить корректность введенного URL на видео, чтобы не добавлять видео, которое не работает.
-      a.btn.btn-primary.check Проверить
+      .alert.alert-info
+        a.btn.btn-primary.check Проверить
+        | Перед сохранением необходимо проверить корректность введенного URL на видео, чтобы не добавлять видео, которое не работает.
       p.load.hidden Подождите...
-      button.btn.btn-success.hidden.save type='submit' Видео работает, добавить
+      button.btn.btn-success.hidden.save.continue type='submit' Видео работает, сохранить и добавить еще
+      button.btn.btn-success.hidden.save type='submit' Видео работает, сохранить
     .form-group
       iframe.hidden
