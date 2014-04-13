@@ -9,7 +9,7 @@
   - if add_postloader
     - collection = collection.take(postloader * (defined?(postload_page) ? postload_page : 1))
 
-  = render partial: 'comments/comment', collection: collection, locals: { topic: object }, formats: :html
+  = render partial: 'comments/comment', collection: collection, formats: :html
 
   - if add_postloader
     = render partial: 'site/postloader', locals: { filter: 'comment', url: model_comments_path(commentable_type: object.class.name.underscore, commentable_id: object.id, offset: postloader * (defined?(postload_page) ? postload_page : 1), limit: postloader, review: defined?(review) && review ? 'review' : nil) }, formats: :html

@@ -17,7 +17,7 @@
     - if user_signed_in?
       - if current_user.moderator?
         .moderation-ban
-      = render partial: 'comments/buttons', locals: { comment: comment, topic: defined?(topic) ? topic : nil }, formats: :html
+      = render partial: 'comments/buttons', locals: { comment: comment }, formats: :html
 
     .image-name
       a href="#{comment[:topic_url] || user_url(comment.user)}" title="#{comment.user.nickname}"

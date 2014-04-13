@@ -78,6 +78,9 @@ class CommentsController < ApplicationController
     comments = Comment
       .with_viewed(current_user)
       .where(id: params[:ids].split(',').map(&:to_i))
+      .includes(:user, :commentable)
+      .limit(100)
+
     comments.reverse! if params[:order]
 
     render partial: 'comments/comment', collection: comments, formats: :html

@@ -24,7 +24,7 @@
       span.item-abuse data-action="#{abuse_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это нарушение правил"
       span.item-spoiler data-action="#{spoiler_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это спойлер"
 
-    - if comment.respond_to?(:commentable) && (topic ? topic.class.name : comment.commentable_type) == AniMangaComment.name
+    - if comment.respond_to?(:commentable) && comment.commentable.class.name == AniMangaComment.name
       span.item-review class="#{:selected if comment.review?}" data-action="#{review_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это отзыв"
 
     span.item-offtopic class="#{:selected if comment.offtopic?}" data-action="#{offtopic_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это оффтопик"
