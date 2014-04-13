@@ -1,22 +1,22 @@
 class GenresController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
   def index
-    raise Forbidden unless current_user.admin?
+    noindex && nofollow
     @collection = Genre.order(:position, :name)
   end
 
   def edit
-    raise Forbidden unless current_user.admin?
+    raise Forbidden unless current_user.moderator?
     @resource = Genre.find params[:id]
   end
 
   def update
-    raise Forbidden unless current_user.admin?
+    raise Forbidden unless current_user.moderator?
     @resource = Genre.find params[:id]
 
-    if @resource.update genre_params
-      redirect_to genres_url, notice: 'Genre was successfully updated.'
+    if @resource.update genre_paramskj
+      redirect_to genres_url, notice: 'Описание жанра обновлено'
     else
       render action: 'edit'
     end
@@ -24,6 +24,10 @@ class GenresController < ApplicationController
 
 private
   def genre_params
-    params.require(:genre).permit(:name, :russian, :position, :seo, :description)
+    if current_user.admin?
+      params.require(:genre).permit(:name, :russian, :position, :seo, :description)
+    else
+      params.require(:genre).permit(:description)
+    end
   end
 end

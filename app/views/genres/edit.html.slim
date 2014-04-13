@@ -8,10 +8,11 @@
         == @resource.errors.full_messages.join('<br>')
       div
 
-  = f.input :name
-  = f.input :russian
-  = f.input :position
-  = f.input :seo
+  - if current_user.admin?
+    = f.input :name
+    = f.input :russian
+    = f.input :position
+    = f.input :seo
   = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
   = f.submit 'Сохранить'
   = link_to 'Отмена', genres_path, style: 'margin-left: 20px;'

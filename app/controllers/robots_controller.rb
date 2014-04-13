@@ -12,6 +12,7 @@ User-agent: *
 Disallow: /*?
 Disallow: /*?rel=nofollow
 Disallow: /cosplay/*
+Disallow: /genres
 Disallow: /animes/*rss
 Disallow: /animes/order-by/*
 Disallow: /mangas/*rss
