@@ -5,7 +5,7 @@ function init() {
     base_path = _(location.pathname.split('/')).first(5).join('/');
     type = 'recommendation';
   }
-  var params = new AniMangaParamsParser(base_path, function(data) {
+  var params = new AniMangaParamsParser(base_path, location.href, function(data) {
     History.pushState(null, null, data);
   });
 

@@ -1,6 +1,6 @@
 DEFAULT_LIST_SORT = "ranked"
 
-window.AniMangaParamsParser = (base_url, change_callback, $root) ->
+window.AniMangaParamsParser = (base_url, current_url, change_callback, $root) ->
   # вытаскивание из класса элемента типа и значения
   extract_li_info = ($li) ->
     matches = $li.attr("class").match(/([\w\-]+)-([\w.\-]+)/)
@@ -204,4 +204,5 @@ window.AniMangaParamsParser = (base_url, change_callback, $root) ->
         values = match.split("/")[1].split(",")
         _.each values, _.bind(self.add, self, key)
 
+  params.parse current_url
   params
