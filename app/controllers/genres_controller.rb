@@ -15,7 +15,7 @@ class GenresController < ApplicationController
     raise Forbidden unless current_user.moderator?
     @resource = Genre.find params[:id]
 
-    if @resource.update genre_paramskj
+    if @resource.update genre_params
       redirect_to genres_url, notice: 'Описание жанра обновлено'
     else
       render action: 'edit'
