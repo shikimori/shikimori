@@ -65,17 +65,15 @@ class TorrentsParser
     # для гинтамы особый фикс
     if episode_name =~ /gintama/i
       num.map {|v| v - 252 }
-    elsif episode_name =~ /\[leopard|tv-j\]/i && episode_name =~ /akb0048 next stage/i
-      num.map {|v| v - 13 }
-    elsif episode_name =~ /cardfight!! vanguard/i && episode_name =~ /link joker/i
+    elsif episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
       num.map {|v| v - 104 }
-    elsif episode_name =~ /Yu-Gi-Oh! Zexal II/i
+    elsif episode_name =~ /Yu-Gi-Oh![ _]Zexal[ _]II/i
       num.map {|v| v - 73 }
-    elsif episode_name =~ /kuroko no (basuke|basket)/i
+    elsif episode_name =~ /kuroko[ _]no[ _](basuke|basket)/i
       num.map {|v| v > 25 ? v - 25 : v }
-    elsif episode_name =~ /fairy tail/i
+    elsif episode_name =~ /fairy[ _]?tail/i
       num.map {|v| v > 175 ? v - 175 : v }
-    elsif episode_name =~ /kyousou ?giga/i
+    elsif episode_name =~ /kyousou[ _]?giga/i
       num.map {|v| v + 1 }
     else
       num
