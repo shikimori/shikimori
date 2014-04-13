@@ -62,20 +62,22 @@ class TorrentsParser
 
     # для гинтамы особый фикс
     if episode_name =~ /gintama/i
-      num.map {|v| v - 252 }.select {|v| v > 0 }
+      num.map {|v| v - 252 }
     elsif episode_name =~ /\[leopard|tv-j\]/i && episode_name =~ /akb0048 next stage/i
-      num.map {|v| v - 13 }.select {|v| v > 0 }
+      num.map {|v| v - 13 }
     elsif episode_name =~ /cardfight!! vanguard/i && episode_name =~ /link joker/i
-      num.map {|v| v - 104 }.select {|v| v > 0 }
+      num.map {|v| v - 104 }
     elsif episode_name =~ /Yu-Gi-Oh! Zexal II/i
-      num.map {|v| v - 73 }.select {|v| v > 0 }
+      num.map {|v| v - 73 }
     elsif episode_name =~ /kuroko no (basuke|basket)/i
       num.map {|v| v > 25 ? v - 25 : v }
+    elsif episode_name =~ /fairy tail/i
+      num.map {|v| v > 175 ? v - 175 : v }
     elsif episode_name =~ /kyousou ?giga/i
       num.map {|v| v + 1 }
     else
       num
-    end
+    end.select {|v| v > 0 }
   end
 
   def self.parse_episodes_num(episode_name)
