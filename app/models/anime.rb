@@ -158,6 +158,25 @@ class Anime < ActiveRecord::Base
     'Аниме'
   end
 
+  # дата выхода следующего эпизода
+  def next_episode_at
+    @next_episode_at ||= if episodes_aired && (ongoing? || anons?)
+      calendars = anime_calendars.where(episode: [object.episodes_aired + 1, object.episodes_aired + 2]).to_a
+
+      if calendars[0].present? && calendars[0].start_at > Time.zone.now
+        calendars[0].start_at
+
+      elsif calendars[1].present?
+        calendars[1].start_at
+      end
+    end
+  end
+
+  # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
+  def aired_on
+    object.anons? && next_episode_at ? next_episode_at : object.aired_on
+  end
+
   # есть ли файлы у аниме?
   def has_files?
     BlobData.where({key: "anime_%d_torrents" % id} |

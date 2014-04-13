@@ -7,11 +7,11 @@
 
   = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
 
-  - if @entry.next_episode_at
+  - if entry.next_episode_at && !entry.anons?
     p.nowrap
       span.key Следующий эпизод:&nbsp;
       span.dark.anime-alt
-        = Russian.strftime @entry.next_episode_at, '%d %b %H:%M'
+        = Russian.strftime entry.next_episode_at, '%d %b %H:%M'
 
   - if entry.respond_to?(:episodes) && entry.duration && entry.duration > 0
     p
