@@ -174,7 +174,7 @@ class Anime < ActiveRecord::Base
 
   # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
   def aired_on
-    anons? && next_episode_at ? next_episode_at : super
+    anons? && next_episode_at ? next_episode_at : self[:aired_on]
   end
 
   # есть ли файлы у аниме?
