@@ -264,7 +264,7 @@ private
 
     @title_notice = "На данной странице отображен #{@description[0].nil? ? '' : 'список'} #{@description[1]}, #{order_word} #{order_name}".sub(/,,|, ,| ,/, ',')
 
-    if entry_data[:genre].one? && entry_data[:genre].first.description.present? &&
+    if entry_data[:genre].present? && entry_data[:genre].one? && entry_data[:genre].first.description.present? &&
         entry_data[:studio].blank? && entry_data[:publisher].blank? &&
         params[:season].blank? && params[:type].blank? && params[:status].blank? &&
         params[:order].blank? && params[:rating].blank?
