@@ -32,6 +32,8 @@ $(function() {
       .parent()
       .trigger('slider:click');
   });
+  // чтобы колбеки активировались
+  $('.slide > .selected').trigger('cache:success');
   $(window).trigger('statechange');
 
   if ($('.messages .selected').length === 0) {
