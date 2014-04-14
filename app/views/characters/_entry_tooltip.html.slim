@@ -2,7 +2,4 @@ p.m5
   span.local-title itemprop="name" = entry.name
 
 p.m5 itemprop="description"
-  - if entry.description.blank?
-    == format_html_text entry.description_mal
-  - else
-    == ani_manga_description entry
+  == ani_manga_description entry

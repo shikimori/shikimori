@@ -13,7 +13,13 @@ module AniMangaHelper
   end
 
   def ani_manga_description entry, length=nil
-    text = strip_tags remove_misc_data(entry.description)
+    text = if entry.description.blank?
+      entry.description_mal
+    else
+      entry.description
+    end
+
+    text = strip_tags remove_misc_data(text)
 
     text = if length.present?
       truncate text, length: length, separator: ' '

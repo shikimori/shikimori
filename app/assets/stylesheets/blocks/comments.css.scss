@@ -275,15 +275,11 @@ $dark-grey-color: #545454;
     &.collapsed, &.collapse {
       border-bottom: 1px dashed $selected-color;
     }
-    /*&.collapse {*/
-      /*margin-right: 5px;*/
-    /*}*/
+  }
+  .spoiler + .target {
+    display: inline;
   }
 }
-/*.comments-container:first-child .comment-block:first-child {*/
-  /*border-top: none;*/
-  /*padding-top: 0;*/
-/*}*/
 
 .edit-comment-block {
   margin: 30px 0 15px 0!important;
