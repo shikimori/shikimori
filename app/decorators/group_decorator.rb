@@ -1,7 +1,7 @@
 class GroupDecorator < BaseDecorator
   VisibleEntries = 12
 
-  rails_cache :description, :all_members, :all_animes, :all_mangas, :all_characters, :all_images
+  rails_cache :description_html, :all_members, :all_animes, :all_mangas, :all_characters, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images
 
   def url
