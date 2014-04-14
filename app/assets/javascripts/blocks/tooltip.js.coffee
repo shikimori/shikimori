@@ -1,10 +1,13 @@
 $.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
+  #@getTip()
+    #.css(opacity: 0)
+    #.show()
+    #.animate(opacity: 1, top: '-=14', 500, 'easeOutCirc', done)
+    #.show()
   @getTip()
-    .css(opacity: 0)
+    .css(opacity: 1)
     .show()
-    .animate(opacity: 1, top: '-=14', 500, 'easeOutCirc', done)
-    .show()
-
+    .animate(top: '-=14', 500, 'easeOutCirc', done)
 ), (done) -> # closing animation
   @getTip().animate opacity: 0, top: '+=14', 250, 'easeInCirc', ->
     $(@).hide()
