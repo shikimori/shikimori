@@ -4,7 +4,7 @@ require 'exception_notification/sidekiq'
 ExceptionNotification.configure do |config|
   # Ignore additional exception types.
   # ActiveRecord::RecordNotFound, AbstractController::ActionNotFound and ActionController::RoutingError are already added.
-  config.ignored_exceptions += %w{NotFound Unauthorized Forbidden ActionController::InvalidAuthenticityToken}
+  config.ignored_exceptions += %w{NotFound Unauthorized Forbidden ActionController::InvalidAuthenticityToken ActionController::UnknownFormat}
   # config.ignored_exceptions += %w{ActionView::TemplateError CustomError}
 
   config.ignore_if do |exception, options|
