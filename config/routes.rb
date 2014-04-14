@@ -389,7 +389,9 @@ Site::Application.routes.draw do
       end
     end
 
-    resources :genres, only: [:index, :edit, :update]
+    resources :genres, only: [:index, :edit, :update] do
+      get :tooltip, on: :member
+    end
 
     # votes
     post 'votes/:type/:id/yes' => 'votes#create', voting: 'yes', as: :vote_yes

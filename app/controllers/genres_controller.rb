@@ -22,6 +22,11 @@ class GenresController < ApplicationController
     end
   end
 
+  def tooltip
+    noindex && nofollow
+    @resource = Genre.find params[:id]
+  end
+
 private
   def genre_params
     if current_user.admin?

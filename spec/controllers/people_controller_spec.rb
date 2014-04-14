@@ -11,8 +11,8 @@ describe PeopleController do
   end
   let(:json) { JSON.parse response.body }
 
-  describe 'index' do
-    describe 'html' do
+  describe :index do
+    describe :html do
       before { get :index, search: 'test', kind: 'mangaka', format: :html }
 
       it { should respond_with 200 }
@@ -22,7 +22,7 @@ describe PeopleController do
       it { assigns(:people).first.best_works.should have(1).item }
     end
 
-    describe 'json' do
+    describe :json do
       before { get :index, search: 'test', kind: 'mangaka', format: :json }
 
       it { should respond_with 200 }
@@ -31,7 +31,7 @@ describe PeopleController do
     end
   end
 
-  describe 'show' do
+  describe :show do
     it_should_behave_like :entry_show_wo_json do
       before { create :favourite, user: user, linked: entry, kind: Favourite::Mangaka }
     end
@@ -43,7 +43,7 @@ describe PeopleController do
     end
   end
 
-  describe 'autocomplete' do
+  describe :autocomplete do
     ['mangaka', 'seyu', 'producer'].each do |kind|
       describe kind do
         before do
@@ -66,15 +66,15 @@ describe PeopleController do
     end
   end
 
-  describe 'tooltip' do
-    context 'to_param' do
+  describe :tooltip do
+    context :to_param do
       before { get :tooltip, id: entry.to_param }
 
       it { should respond_with 200 }
       it { should respond_with_content_type :html }
     end
 
-    context 'id' do
+    context :id do
       before { get :tooltip, id: entry.id }
       it { should redirect_to person_tooltip_url(entry) }
     end

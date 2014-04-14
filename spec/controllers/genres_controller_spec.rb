@@ -19,4 +19,11 @@ describe GenresController do
     it { should redirect_to genres_url }
     it { genre.reload.description.should eq 'new description' }
   end
+
+  describe :tooltip do
+    before { get :tooltip, id: genre }
+
+    it { should respond_with 200 }
+    it { should respond_with_content_type :html }
+  end
 end
