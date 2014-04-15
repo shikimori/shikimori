@@ -9,7 +9,7 @@
       - if @entry.kind_of? UserChange
         = render partial: 'moderation/user_changes/tooltip'
       - else
-        == person_tooltip_text @entry, @entry.kind_of? Character
+        == person_tooltip_text @entry, @entry.kind_of?(Character)
 
 - else
   - if @entry.kind_of? UserChange
