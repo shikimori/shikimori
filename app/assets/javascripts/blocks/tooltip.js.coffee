@@ -32,7 +32,7 @@ $.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
         .data(binded: true)
         .on 'click', => @hide()
 
-      url = ($trigger.attr('href') || $trigger.data('href') || '').replace /\/tooltip/, ''
+      url = ($trigger.data('href') || $trigger.attr('href') || '').replace /\/tooltip/, ''
       if url
         @getTip().find('.link').attr href: url
       if url.match(/\/genres\//)
