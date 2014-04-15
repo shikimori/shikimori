@@ -1,4 +1,4 @@
-article.entry-block(class="entry-#{entry.id}#{' shortened' if defined?(shortened) && shortened}#{' in-list' if entry[:in_list]}" itemscope itemtype="#{{entry.itemtype}}")
+article.entry-block(class="entry-#{entry.id} #{:shortened if defined?(shortened) && shortened}#{' in-list' if entry[:in_list]}" itemscope itemtype="#{{entry.itemtype}}")
   meta itemprop="image" content="#{{attachment_url entry.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url entry.image, :x64, false}}"
 
