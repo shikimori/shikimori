@@ -13,7 +13,7 @@ class MessagesController < UsersController
 
   before_filter :prepare, only: [ ]
   #before_filter :authenticate_user!, exept: [:feed, :unsubscribe]
-  before_filter :authenticate_user!, only: [:index, :show, :list, :talk, :create, :destroy, :read]
+  before_filter :authenticate_user!, only: [:index, :show, :list, :talk, :destroy, :read]
 
   helper_method :message_types
   helper_method :unread_counts
