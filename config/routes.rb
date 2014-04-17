@@ -10,9 +10,6 @@ Site::Application.routes.draw do
       resource :anime_videos do
         get :help, on: :member
       end
-      resource :statistics, only: [] do
-        get :uploaders
-      end
     end
     get 'videos(/search/:search)(/page/:page)' => 'anime_online/anime_videos#index', as: :anime_videos
     post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
