@@ -22,6 +22,7 @@ function init() {
   // history
   History.Adapter.bind(window, 'statechange', load_page);
   pending_load(load_page);
+  process_current_dom();
 }
 
 function pending_load(load_page) {

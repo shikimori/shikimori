@@ -22,7 +22,7 @@ header.head.ajaxable
             /= render 'anime_online/blocks/google120x600'
         - else
           aside.menu-left
-            div.postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating], nosort: params[:nosort]}"
+            .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating], nosort: params[:nosort]}"
               .ajax-loading title="Загрузка..."
             /= render 'anime_online/blocks/google120x600'
       .right-column
