@@ -9,11 +9,7 @@ html
 
   body
     = render partial: 'anime_online/menu'
-    - if AnimeOnline::AdsPolicy.top_line_allowed? request.host, action_name
-      .ads_container = render partial: 'anime_online/blocks/ads_top_line'
-
-    .container
-      = yield
+    = yield
 
   - if Rails.env.production?
     = render partial: 'anime_online/stats/metrica_yandex'
