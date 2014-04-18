@@ -36,7 +36,8 @@
         = render partial: 'nav_video', locals: { anime: @anime }
 
       - if @reviews.blank?
-        = render partial: 'anime_online/blocks/google336x280_text'
+        - if AnimeOnline::AdsPolicy.host_allowed? request.host
+          = render partial: 'anime_online/blocks/google336x280_text'
       - else
         .reviews
           ul.nav.nav-tabs
