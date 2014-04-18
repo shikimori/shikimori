@@ -36,7 +36,7 @@ p.text itemprop="description"
 .data
   span.local-title Жанры:
   - entry.main_genres.each do |genre|
-    span.genre.tag.tag-base data-type="genre" data-value="#{genre.to_param}" itemprop="genre" class="#{:bubbled if genre.description}" data-delay="250" data-remote="true" data-href="#{tooltip_genre_url genre}"
+    span.genre.tag.tag-base data-type="genre" data-value="#{genre.to_param}" itemprop="genre" class="#{:bubbled if genre.description}" data-delay="250" data-href="#{tooltip_genre_url genre}"
       = localized_name genre
 
 - if entry.with_score?

@@ -75,11 +75,6 @@ function process_current_dom() {
   // инициализация подгружаемых тултипов
   $('.bubbled').addClass('bubbled-initialized').removeClass('bubbled').tooltip($.extend({offset: [-35, 10]}, tooltip_options));
   $('.bubbled-image').addClass('bubbled-initialized').removeClass('bubbled-image').tooltip($.extend({}, tooltip_options));
-
-  //Cufon.replace('h1,h2,.subblock-title,.friend .info .nickname,.profile ul.animelist li', {
-    //'textShadow': 'rgba(0, 0, 0, 0.1) 0 2px 4px'
-    ////'textShadow': '#FF0 2px 5px'
-      //});
 }
 
 // сворачиваение всех нужных блоков "свернуть"
