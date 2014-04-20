@@ -380,7 +380,7 @@ private
     sum = stats_by_categories.sum {|k,v| v }.to_f
 
     stats = sum > 8 ? stats_by_categories.map do |k,v|
-      [k, ((v/sum*100) * 10).to_i / 10.0]
+      [k, ((v * 1000 / sum).to_i / 10.0).to_f]
     end.compact.sort_by {|k,v| k.name } : []
 
     if stats.any?
