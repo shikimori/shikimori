@@ -43,7 +43,7 @@
             span.anons анонс
 
           .rate-notice
-            - if entry_rate[:rate_notice]
+            - if entry_rate[:rate_notice].present?
               div = entry_rate[:rate_notice]
 
           /- if @user.own_profile?
