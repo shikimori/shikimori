@@ -38,9 +38,9 @@ class UserProfileDecorator < UserDecorator
 
   def current_counts
     if h.params[:list_type] == 'anime'
-      stats[:anime_statuses].select {|v| v[:size] > 0 }
+      stats[:statuses][:anime].select {|v| v[:size] > 0 }
     else
-      stats[:manga_statuses].select {|v| v[:size] > 0 }
+      stats[:statuses][:manga].select {|v| v[:size] > 0 }
     end
   end
 
