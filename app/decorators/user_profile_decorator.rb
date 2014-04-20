@@ -31,7 +31,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def stats
-    @stats ||= Rails.cache.fetch [:user, :stats, :object] do
+    @stats ||= Rails.cache.fetch [:stats, object] do
       UserStatisticsService.new(object, h.current_user).fetch
     end
   end
