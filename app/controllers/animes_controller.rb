@@ -37,7 +37,7 @@ class AnimesController < AniMangasController
       feed.channel.description = "%s, найденные сайтом." % title
       feed.items.do_sort = true # sort items by date
 
-      data.reverse.each do |item|
+      data.select {|v| v[:title] }.reverse.each do |item|
         entry = feed.items.new_item
 
         entry.title = item[:title].html_safe
