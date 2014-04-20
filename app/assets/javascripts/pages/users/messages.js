@@ -21,7 +21,7 @@ $(function() {
   //$('.slider-control-notifications-settings').trigger('click');
 //});
 
-$('.slide .inbox').live('ajax:success', function(e, data) {
+$('.slide .inbox').live('ajax:success cache:success', function(e, data) {
   // реинициализация числа просмотренных сообщений
   //for (var type in data.counts) {
     //var $count = $('.slider-control-'+type+' .unread-count').html('('+data.counts[type]+')');

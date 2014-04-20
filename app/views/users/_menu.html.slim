@@ -16,11 +16,11 @@ aside.left-block
     - if @user.show_profile?
       .subheadline Профиль
       ul.block-list.user-menu
-        li.profile.slider-control class="slider-control-statistics #{:selected if params[:type] == 'profile'}"
+        li.profile.slider-control class="slider-control-statistics #{:selected if params[:type] == 'statistics'}"
           = link_to 'Статистика', user_url(@user)
 
         - if @user.own_profile?
-          li.inbox.slider-control class="slider-control-inbox #{:selected if ['inbox','notifications','sent'].include?(params[:type])}#{' hidden' unless @user.own_profile?}"
+          li.inbox.slider-control class="slider-control-inbox #{:selected if ['inbox','notifications','sent'].include?(params[:type])} #{:hidden unless @user.own_profile?}"
             a href="#{@user.unread_messages_url}" title="Почта"
               - if @user.unread_count > 0
                 span.unread-count = @user.unread_count
@@ -52,7 +52,7 @@ aside.left-block
         li.changes.slider-control class="slider-control-changes #{:selected if params[:type] == 'changes'}"
           = link_to 'Правки', user_changes_url(@user)
 
-        li.settings.slider-control class="slider-control-settings #{:selected if params[:type] == 'settings'}#{' hidden' unless @user.own_profile?}"
+        li.settings.slider-control class="slider-control-settings #{:selected if params[:type] == 'settings'} #{:hidden unless @user.own_profile?}"
           = link_to 'Настройки', user_settings_url(@user)
 
         li.slider-control.hidden class="slider-control-list_history #{:selected if params[:type] == 'list_history'}"
