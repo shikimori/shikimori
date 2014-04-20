@@ -42,7 +42,7 @@ module UsersHelper
   def page_border
     user = @user || current_user
 
-    if user && user.preferences.page_border
+    if user && user.persisted? && user.preferences.page_border
       :bordered
     end
   end
@@ -50,7 +50,7 @@ module UsersHelper
   def body_background
     user = @user || current_user
 
-    if user && user.preferences.body_background.present?
+    if user && user.persisted? && user.preferences.body_background.present?
       background = (@user || user).preferences.body_background
       if background =~ %r{^https?://}
         remove_suspicious_css "background: url(#{background}) fixed no-repeat;"
