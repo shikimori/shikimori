@@ -17,12 +17,13 @@
             .buttons
               .main-controls
                 span.item-reply data-type="json" data-action="#{topic.body_url}" data-remote="true" data-disabled="#{topic.generated? ? 'true' : 'false'}" title="#{topic.generated? ? 'Написать' : 'Ответить'}"
-                /span[class="item-subscribe#{' selected' if current_user.subscribed?(topic.entry)}"
-                     title="Подписаться на топик"
-                     data-type="json"
-                     data-action="#{subscribe_url(type: topic.class.name, id: topic.id)}"
-                     data-method="#{current_user.subscribed?(topic.entry) ? 'delete' : 'post'}"
-                     data-remote="true"]
+                - if topic.entry.kind_of?(GroupComment) && current_user.subscribed?(topic.entry)
+                  span[class="item-subscribe#{' selected' if current_user.subscribed?(topic.entry)}"
+                      title="Подписаться на топик"
+                      data-type="json"
+                      data-action="#{subscribe_url(type: topic.class.name, id: topic.id)}"
+                      data-method="#{current_user.subscribed?(topic.entry) ? 'delete' : 'post'}"
+                      data-remote="true"]
                 - if topic.can_be_edited_by?(current_user)
                   span.item-edit.short data-href="#{edit_topic_url topic.entry}" title="Изменить"
                 - if topic.can_be_deleted_by?(current_user)
