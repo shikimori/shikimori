@@ -9,6 +9,7 @@ class UserListsController < UsersController
   MangaType = 2
 
   alias_method :users_show, :show
+  helper_method :anime?
 
   # отображение аниме листа пользователяс с наложенными фильтрами
   def show
@@ -22,8 +23,6 @@ class UserListsController < UsersController
     @params_type = params[:type]
     @page = (params[:page] || 1).to_i
     @limit = 400
-
-    @field_name = anime? ? 'episodes' : 'chapters'
 
     @klass = params[:list_type].capitalize.constantize
 
@@ -45,7 +44,7 @@ class UserListsController < UsersController
       @total_stats.delete_if {|k,v| !(v > 0) }
     end
 
-    @page_title = UsersController.profile_title("Список #{params[:list_type] == 'anime' ? 'аниме' : 'манги'}", @user)
+    @page_title = UsersController.profile_title("Список #{anime? ? 'аниме' : 'манги'}", @user)
     params[:type] = "#{params[:list_type]}list"
 
     respond_to do |format|
@@ -273,12 +272,18 @@ private
                  #{params[:list_type].tableize}.kind,
                  #{params[:list_type].tableize}.name,
                  #{params[:list_type].tableize}.russian,
-                 #{params[:list_type].tableize}.status,
                  #{params[:list_type].tableize}.aired_on,
                  #{params[:list_type].tableize}.released_on,
-                 #{@klass == Anime ? "#{params[:list_type].tableize}.episodes_aired" : '0'} as episodes_aired,
-                 #{params[:list_type].tableize}.#{@klass == Anime ? 'episodes' : 'chapters'}
-                 #{@klass == Anime ? ",#{params[:list_type].tableize}.duration" : ''}")
+
+                 #{anime? ? "#{params[:list_type].tableize}.episodes_aired as episodes_aired," : ''}
+                 #{anime? ? "#{params[:list_type].tableize}.episodes as episodes," : ''}
+                 #{anime? ? "#{params[:list_type].tableize}.duration," : ''}
+
+                 #{anime? ? '' : "#{params[:list_type].tableize}.volumes as volumes,"}
+                 #{anime? ? '' : "#{params[:list_type].tableize}.chapters as chapters,"}
+
+                 #{params[:list_type].tableize}.status
+                ")
         .all
         .each_with_object({}) { |entry, memo| memo[entry.id] = entry }
 
@@ -299,17 +304,23 @@ private
         kind_localized: target.kind.blank? ? '' : view_context.localized_kind(target, true),
         status_localized: target.status.present? ? I18n.t("AniMangaStatusUpper.#{target.status}") : '',
         url: "/#{params[:list_type]}s/#{v.target_id}",
+
         rate_id: v.id,
         rate_url: "/#{params[:list_type]}s/#{v.target_id}/rate",
-        notice: v.notice_html,
-        episodes_value: v[@field_name],
-        episodes_aired: target.episodes_aired,
+        rate_notice: v.notice_html,
+        rate_episodes: anime? ? v.episodes : nil,
+        rate_volumes: anime? ? nil : v.volumes,
+        rate_chapters: anime? ? nil : v.chapters,
+        rate_score: v.score && v.score != 0 ? v.score : '&ndash;',
+
         ongoing?: target.ongoing?,
         anons?: target.anons?,
-        score: v.score && v.score != 0 ? v.score : '&ndash;',
-        episodes: anime? ? (target.episodes == 0 ? '?' : target.episodes) :
-                            (target.chapters == 0 ? '?' : target.chapters),
-        duration: anime? ? target.duration : Manga::Duration
+
+        episodes: anime? ? (target.episodes.zero? ? nil : target.episodes) : nil,
+        episodes_aired: anime? ? target.episodes_aired : nil,
+        chapters: anime? ? nil : (target.chapters.zero? ? nil : target.chapters),
+        volumes: anime? ? nil : (target.volumes.zero? ? nil: target.volumes),
+        duration: anime? ? target.duration : Manga::Duration,
       }
 
       result
@@ -375,8 +386,12 @@ private
       novel: data.sum {|v| v[:kind] == 'Novel' ? 1 : 0 },
       doujin: data.sum {|v| v[:kind] == 'Doujin' ? 1 : 0 }
     }
-    stats[anime? ? :episodes : :chapters] = data.sum {|v| v[:episodes_value] }
-    stats[:days] = (data.sum {|v| v[:episodes_value] * v[:duration] }.to_f / 60 / 24).round(2)
+    if anime?
+      stats[:episodes] = data.sum {|v| v[:rate_episodes] }
+    else
+      stats[:chapters] = data.sum {|v| v[:rate_chapters] }
+    end
+    stats[:days] = (data.sum {|v| (v[:rate_episodes] || v[:rate_chapters]) * v[:duration] }.to_f / 60 / 24).round(2)
 
     reduce ? stats.select { |k,v| v > 0 }.to_hash : stats
   end
@@ -385,7 +400,7 @@ private
   def user_list_cache_key
     [
       :user_list,
-      :v1,
+      :v3,
       @user,
       Digest::MD5.hexdigest(request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '')),
       user_signed_in? ? current_user.preferences.russian_names? : false

@@ -66,7 +66,11 @@ $(document.body).on 'keyup', '.ani-manga-list .filter input', (e) ->
 # обработчик для плюсика у числа эпизодов/глав
 $('.selected .ani-manga-list .hoverable .item-add').live 'click', (e) ->
   $input = $(@).prev()
-  $input.val(parseInt($input.val(), 10) + 1).trigger 'blur'
+  $input
+    .val(parseInt($input.val(), 10) + 1)
+    .triggerWithReturn('blur')
+    .success(-> $input.closest('td').trigger 'mouseover')
+
   e.stopPropagation()
   false
 
@@ -74,7 +78,7 @@ $('.selected .ani-manga-list .hoverable .item-add').live 'click', (e) ->
 $('.selected .ani-manga-list .hoverable input').live('blur', ->
   $this = $(@)
   $this.parent().parent().trigger 'mouseleave'
-  @value = 0  if @value < 0
+  @value = 0 if @value < 0
   return if (parseInt(@value, 10) or 0) is (parseInt($this.data('counter'), 10) or 0)
 
   $value = $this.parent().parent().find(".current-value")
@@ -339,7 +343,9 @@ apply_list_handlers = ->
     )
 
   # изменения оценки/числа просмотренных эпизодов
-  $('.selected .ani-manga-list .hoverable').unbind().hover(->
+  $trs = $('.selected .ani-manga-list .hoverable').unbind()
+
+  $trs.hover ->
     $current_value = $('.current-value', @)
     $new_value = $('.new-value', @)
 
@@ -369,7 +375,8 @@ apply_list_handlers = ->
     $('.new-value', @).hide()
     $('.current-value', @).show()
     $('.misc-value', @).show()
-  ).click (e) ->
+
+  $trs.on 'click', (e) ->
     # клик на плюсик обрабатываем по дефолтному
     return if e.target && e.target.className == 'item-add'
     $this = $(@)

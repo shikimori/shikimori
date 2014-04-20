@@ -11,12 +11,20 @@
       th.index #
       th class="name order-control #{:active if params[:order] == 'name'}" data-order="name" title="Упорядочить по названию" Название
       th class="num order-control #{:active if params[:order] == 'my'}" data-order="my" title="Упорядочить по оценке" Оценка
-      th class="num order-control #{:active if params[:order] == 'episodes'}" data-order="episodes" title="Упорядочить по #{params[:list_type] == 'anime' ? 'эпизодам' : 'главам'}" #{params[:list_type] == 'anime' ? 'Эпизодов' : 'Глав'}
+      - if anime?
+        th class="num order-control #{:active if params[:order] == 'episodes'}" data-order="episodes" title="Упорядочить по эпизодам" Эпизоды
+      - else
+        th class="num order-control #{:active if params[:order] == 'chapters'}" data-order="chapters" title="Упорядочить по главам" Эпизоды
+        th class="num order-control #{:active if params[:order] == 'volumes'}" data-order="volumes" title="Упорядочить по томам" Тома
+
       th class="num order-control #{:active if params[:order] == 'kind'}" data-order="kind" title="Упорядочить по типу" Тип
       - if status == UserRateStatus.get(UserRateStatus::Planned)
         th class="num order-control #{:active if params[:order] == 'status'}" data-order="status" title="Упорядочить по статусу" Статус
     tr.border
-      th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 6 : 5}"
+      - if anime?
+        th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 6 : 5}"
+      - else
+        th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 7 : 6}"
 
     - data[:entries].each do |entry_rate|
       tr.unprocessed.selectable class="#{:editable if @user.own_profile?}" data-remote="#{true if @user.own_profile?}" data-action="#{user_list_edit_path @user, entry_rate[:rate_id] if @user.own_profile?}" data-type="html" data-rate_url="#{entry_rate[:rate_url]}" data-title="#{entry_rate[:name].downcase}"
@@ -35,27 +43,53 @@
             span.anons анонс
 
           .rate-notice
-            - if entry_rate[:notice]
-              div = entry_rate[:notice]
+            - if entry_rate[:rate_notice]
+              div = entry_rate[:rate_notice]
 
           /- if @user.own_profile?
             span.anime-status data-field="status"
         td class="num #{:hoverable if @user.own_profile?}"
           span.current-value data-field='score' data-max="10" data-min="0"
-            == entry_rate[:score]
-        td class="num #{:hoverable if @user.own_profile?}"
-          span.current-value data-field='#{@field_name}' data-max='#{entry_rate[:episodes]}' data-min="0"
-            span
-              = entry_rate[:episodes_value]
-          span.misc-value
-            span.sep.inline
-              | /
-            - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0 && entry_rate[:episodes_aired] != entry_rate[@field_name]
-              = entry_rate[:episodes_aired]
-              span.episodes_total
-                = entry_rate[:episodes]
-            - else
-              = entry_rate[:episodes]
+            == entry_rate[:rate_score]
+
+        - if anime?
+          td class="num #{:hoverable if @user.own_profile?}"
+            span.current-value data-field="episodes" data-max="#{entry_rate[:episodes]}" data-min="0"
+              span
+                = entry_rate[:rate_episodes]
+            - if entry_rate[:episodes] || (entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0)
+              span.misc-value
+                span.sep.inline
+                  | /
+                - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0 && entry_rate[:episodes_aired] != entry_rate[:rate_episodes]
+                  = entry_rate[:episodes_aired]
+                  span.episodes_total
+                    = entry_rate[:episodes] || '?'
+
+                - elsif entry_rate[:episodes]
+                  = entry_rate[:episodes]
+
+        - else
+          td class="num #{:hoverable if @user.own_profile?}"
+            span.current-value data-field="chapters" data-max="#{entry_rate[:chapters]}" data-min="0"
+              span
+                = entry_rate[:rate_chapters]
+            - if entry_rate[:chapters]
+              span.misc-value
+                span.sep.inline
+                  | /
+                = entry_rate[:chapters]
+
+          td class="num #{:hoverable if @user.own_profile?}"
+            span.current-value data-field="volumes" data-max="#{entry_rate[:volumes]}" data-min="0"
+              span
+                = entry_rate[:rate_volumes]
+            - if entry_rate[:volumes]
+              span.misc-value
+                span.sep.inline
+                  | /
+                = entry_rate[:volumes]
+
         td.num
           = entry_rate[:kind_localized]
         - if status == UserRateStatus.get(UserRateStatus::Planned)

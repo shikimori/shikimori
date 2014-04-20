@@ -122,7 +122,7 @@ nav.menu-block
             p.m2 style="#{'display: none;' if @entry.kind == 'Movie' && (!@entry.episodes || @entry.episodes == 1)}"
               span.key Просмотрено:
               = text_field_tag 'rate[episodes]', @entry.rate ? @entry.rate.episodes : 0, id: 'rate-episodes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.episodes : 0
-              - if @entry.episodes > 0
+              - unless @entry.episodes.zero?
                 span.sep
                   | /
                 span.total-episodes
@@ -132,16 +132,23 @@ nav.menu-block
         - elsif @entry.respond_to? :chapters
           = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-chapters-form') do
             p.m2
-              span.key Прочитано:
+              span.key Главы:
               = text_field_tag 'rate[chapters]', @entry.rate ? @entry.rate.chapters : 0, id: 'rate-chapters', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.chapters : 0
-              - if @entry.chapters > 0
+              - unless @entry.chapters.zero?
                 span.sep
                   | /
                 = @entry.chapters
               span.item-add
 
           = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-volumes-form') do
-            = text_field_tag 'rate[volumes]', @entry.rate ? @entry.rate.volumes : 0, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.volumes : 0
+            p.m2
+              span.key Тома:
+              = text_field_tag 'rate[volumes]', @entry.rate ? @entry.rate.volumes : 0, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.volumes : 0
+              - unless @entry.volumes.zero?
+                span.sep
+                  | /
+                = @entry.volumes
+              span.item-add
 
       p.m2
         span.key Моя оценка:

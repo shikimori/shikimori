@@ -35,6 +35,7 @@ ru:
         status: Статус
         episodes: Эпизоды
         chapters: Главы
+        volumes: Тома
         notice: Комментарий
         score: Оценка
       user_preferences:
