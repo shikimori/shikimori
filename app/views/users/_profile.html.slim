@@ -16,7 +16,7 @@
 
   - if @user.show_profile?
     .user-info
-      - @user.stats[:statuses].each do |klass,stats,graph|
+      - @user.stats[:graph_statuses].each do |klass,stats,graph|
         - if stats.any? {|v| v[:size] > 0 }
           .stat
             - if @user.own_profile?

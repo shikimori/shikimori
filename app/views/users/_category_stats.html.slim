@@ -1,8 +1,6 @@
-- key = (klass.to_s+'_'+category.to_s).to_sym
-
-- if presenter.stats.include?(key) && presenter.stats[key].any?
+- if presenter.stats[category] && presenter.stats[category][klass] && presenter.stats[category][klass].any?
   .stat-categories
-    - presenter.stats[key].each do |stat|
+    - presenter.stats[category][klass].each do |stat|
       .category class="t#{stat[:scale]}"
         a href="#{ani_manga_filtered_list_path @user, list_type: klass, type: nil, category.to_s.singularize => stat[:category]}"
           - if category == :genres

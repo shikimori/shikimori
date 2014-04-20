@@ -55,11 +55,10 @@ class UserStatisticsService
   def fetch
     stats = {}
 
-    stats[:statuses] = by_statuses
-    stats[:statuses].reverse! if @user.preferences.manga_first?
+    stats[:graph_statuses] = by_statuses
+    stats[:graph_statuses].reverse! if @user.preferences.manga_first?
 
-    stats[:anime_statuses] = anime_statuses
-    stats[:manga_statuses] = manga_statuses
+    stats[:statuses] = { anime: anime_statuses, manga: manga_statuses }
 
     stats[:scores] = by_criteria :score, 1.upto(10).to_a.reverse
 
@@ -76,10 +75,12 @@ class UserStatisticsService
     stats[:has_anime?] = @anime_rates.any?
     stats[:has_manga?] = @manga_rates.any?
 
-    stats[:anime_genres] = by_categories 'genre', @genres, @anime_valuable_rates, [], 19
-    stats[:manga_genres] = by_categories 'genre', @genres, [], @manga_valuable_rates, 19
-    stats[:anime_studios] = by_categories 'studio', @studios.select {|v| v.real? }, @anime_valuable_rates, nil, 17
-    stats[:manga_publishers] = by_categories 'publisher', @publishers, nil, @manga_valuable_rates, 17
+    stats[:genres] = {
+      anime: by_categories('genre', @genres, @anime_valuable_rates, [], 19),
+      manga: by_categories('genre', @genres, [], @manga_valuable_rates, 19)
+    }
+    stats[:studios] = { anime: by_categories('studio', @studios.select {|v| v.real? }, @anime_valuable_rates, nil, 17) }
+    stats[:publishers] = { manga: by_categories('publisher', @publishers, nil, @manga_valuable_rates, 17) }
 
     #stats[:anime_types_intervals] = by_interval :kind, ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'], 80, false
     #stats[:anime_types_intervals] = by_interval :kind, ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'], 42, true
@@ -103,15 +104,16 @@ class UserStatisticsService
 private
   # статистика активности просмотра аниме / чтения манги
   def by_activity(intervals)
-    #[
-      #{type: :anime, rates: @anime_rates, histories: @anime_history},
-      #{type: :manga, rates: @manga_rates, histories: @manga_history}
-    #].each_with_object({}) do |stat, rez|
-      #rez[stat[:type]] = compute_by_activity stat[:type].to_s, stat[:rates], stat[:histories], intervals
-    #end
-    {
-      stats: compute_by_activity(@anime_rates, @manga_rates, @anime_history, @manga_history, intervals)
-    }
+    ##[
+      ##{type: :anime, rates: @anime_rates, histories: @anime_history},
+      ##{type: :manga, rates: @manga_rates, histories: @manga_history}
+    ##].each_with_object({}) do |stat, rez|
+      ##rez[stat[:type]] = compute_by_activity stat[:type].to_s, stat[:rates], stat[:histories], intervals
+    ##end
+    #{
+      #stats: compute_by_activity(@anime_rates, @manga_rates, @anime_history, @manga_history, intervals)
+    #}
+    compute_by_activity(@anime_rates, @manga_rates, @anime_history, @manga_history, intervals)
   end
 
   # вычисление статистики активности просмотра аниме / чтения манги
@@ -264,21 +266,30 @@ private
     [{klass: Anime, rates: @anime_valuable_rates}, {klass: Manga, rates: @manga_valuable_rates}].each_with_object({}) do |stat, rez|
       #next unless @settings.send("#{stat[:klass].name.downcase}?")
 
-      entry = {
-        type: stat[:klass].name.downcase.to_sym,
-        stats: variants.map do |variant|
-          value = stat[:rates].select { |v| filter.(v) }.select {|v| v[criteria] == variant }.size
-          next if value == 0
+      #entry = {
+        #type: stat[:klass].name.downcase.to_sym,
+        #stats: variants.map do |variant|
+          #value = stat[:rates].select { |v| filter.(v) }.select {|v| v[criteria] == variant }.size
+          #next if value == 0
 
-          {
-            name: i18n ? I18n.t(i18n.sub(':klass', stat[:klass].name) % variant) : variant,
-            value: value
-          }
-        end.compact
-      }
-      entry[:total] = entry[:stats].sum {|v| v[:value] }
+          #{
+            #name: i18n ? I18n.t(i18n.sub(':klass', stat[:klass].name) % variant) : variant,
+            #value: value
+          #}
+        #end.compact
+      #}
+      #entry[:total] = entry[:stats].sum {|v| v[:value] }
+      entry = variants.map do |variant|
+        value = stat[:rates].select { |v| filter.(v) }.select {|v| v[criteria] == variant }.size
+        next if value == 0
 
-      rez[entry[:type]] = entry
+        {
+          name: i18n ? I18n.t(i18n.sub(':klass', stat[:klass].name) % variant) : variant,
+          value: value
+        }
+      end.compact
+
+      rez[stat[:klass].name.downcase.to_sym] = entry
     end
   end
 
@@ -334,7 +345,6 @@ private
 
   # выборка статистики по категориям в списке пользователя
   def by_categories(category_name, categories, anime_rates, manga_rates, limit)
-
     # статистика по предпочитаемым элементам
     categories_by_id = categories.inject({}) do |data,v|
       data[v.id] = v

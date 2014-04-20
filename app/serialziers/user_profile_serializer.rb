@@ -6,11 +6,11 @@ class UserProfileSerializer < UserSerializer
   attributes :anime_statuses, :manga_statuses, :stats
 
   def anime_statuses
-    object.stats[:anime_statuses]
+    object.stats[:statuses][:anime]
   end
 
   def manga_statuses
-    object.stats[:manga_statuses]
+    object.stats[:statuses][:manga]
   end
 
   def website
@@ -18,6 +18,6 @@ class UserProfileSerializer < UserSerializer
   end
 
   def stats
-    object.stats.except(:statuses)
+    object.stats.except(:graph_statuses)
   end
 end

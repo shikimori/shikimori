@@ -35,19 +35,19 @@
   function simple_bar($chart, options) {
     $chart.addClass('bar simple '+options.type);
 
-    var stat = $chart.data('stats');
-    if (!stat || !stat.stats.length) {
+    var stats = $chart.data('stats');
+    if (!stats || !stats.length) {
       if (options.no_data) {
         options.no_data($chart);
       }
       return;
     }
 
-    var maximum = _.max(stat.stats, function(v,k) { return v.value; }).value;
+    var maximum = _.max(stats, function(v,k) { return v.value; }).value;
     var flattened = false;
 
     if ($chart.data('flattened')) {
-      var values = _.select(_.map(stat.stats, function(v,k) { return v.value; }),
+      var values = _.select(_.map(stats, function(v,k) { return v.value; }),
         function(v) { return v > 0 && v != maximum; }
       );
       var average =  _.reduce(values, function(memo, num){ return memo + num; }, 0) / values.length;
@@ -60,7 +60,7 @@
 
     // колбек перед началом создания графика
     if (options.before) {
-      options.before(stat.stats, options, $chart);
+      options.before(stats, options, $chart);
     }
 
     if (options.y_axis) {
@@ -72,7 +72,7 @@
       $chart.append(html.join(''));
     }
 
-    _.each(stat.stats, function(entry, index) {
+    _.each(stats, function(entry, index) {
       var percent = parseInt(entry.value / maximum * 100 * 100) * 0.01;
       if (flattened) {
         percent *= 0.9;
@@ -96,7 +96,7 @@
 
 
       if (options.x_axis) {
-        var x_axis = options.x_axis(entry, index, stat.stats, options);
+        var x_axis = options.x_axis(entry, index, stats, options);
       } else {
         var x_axis = entry.name;
       }
@@ -115,9 +115,9 @@
   function complex_bar($chart, options) {
     $chart.addClass('bar complex '+options.type);
 
-    var stat = $chart.data('stats');
-    var categories = stat.categories;
-    var series = stat.series;
+    var stats = $chart.data('stats');
+    var categories = stats.categories;
+    var series = stats.series;
 
     //var maximum = _.max(_.max(series, function(data) {
       //return _.max(data.data);
