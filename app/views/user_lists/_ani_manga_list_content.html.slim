@@ -19,14 +19,13 @@
       th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 6 : 5}"
 
     - data[:entries].each do |entry_rate|
-      tr.unprocessed.selectable data-action="#{entry_rate[:rate_url]}" data-title="#{entry_rate[:name].downcase}"
+      tr.unprocessed.selectable class="#{:editable if @user.own_profile?}" data-action="#{entry_rate[:rate_url]}" data-title="#{entry_rate[:name].downcase}"
         td.index
           span
             = entry_rate[:index]
           span.anime-remove title="Удалить из списка" data-remote="true" action="#{self.send("rate_#{params[:list_type]}_url", id: entry_rate[:id])}" data-method="delete" data-type="json"
-        td.name.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" data-delay="150"
-          /a.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" href="#{entry_rate[:url]}" data-delay="150"
-          a href="#{entry_rate[:url]}"
+        td.name
+          a.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" href="#{entry_rate[:url]}" data-predelay="650"
             span
               == entry_rate[:name]
             - if entry_rate[:ongoing?]
