@@ -4,10 +4,10 @@ describe ClubsQuery do
   let(:query) { ClubsQuery.new }
 
   let(:user) { create :user }
-  let!(:club_1) { create :group }
-  let!(:club_2) { create :group }
-  let!(:club_3) { create :group }
-  let!(:club_4) { create :group }
+  let!(:club_1) { create :group, id: 1 }
+  let!(:club_2) { create :group, id: 2 }
+  let!(:club_3) { create :group, id: 3 }
+  let!(:club_4) { create :group, id: 4 }
 
   before do
     club_1.members << user
