@@ -40,20 +40,37 @@ module UsersHelper
   end
 
   def page_border
-    if user_signed_in? && current_user.preferences.page_border
+    user = @user || current_user
+
+    if user && user.preferences.page_border
       :bordered
     end
   end
 
   def body_background
-    if user_signed_in? && current_user.preferences.body_background.present?
-      background = current_user.preferences.body_background
+    user = @user || current_user
+
+    if user && user.preferences.body_background.present?
+      background = (@user || user).preferences.body_background
       if background =~ %r{^https?://}
-        "background: url(#{background}) fixed no-repeat;"
+        remove_suspicious_css "background: url(#{background}) fixed no-repeat;"
       else
-        "background: #{background};"
+        remove_suspicious_css "background: #{background};"
       end
     end
+  end
+
+  def remove_suspicious_css css
+    evil = [
+      /(\bdata:\b|eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i, # suspicious javascript-type words
+      /behaviou?r|expression|moz-binding|@import|@charset|(java|vb)?script|[\<]|\\\w/i,
+      /[\<>]/, # back slash, html tags,
+      #/[\x7f-\xff]/, # high bytes -- suspect
+      /[\x00-\x08\x0B\x0C\x0E-\x1F]/, #low bytes -- suspect
+      /&\#/, # bad charset
+    ]
+    evil.each {|regex| css.gsub! regex, '' }
+    css
   end
 
   #def own_profile?
