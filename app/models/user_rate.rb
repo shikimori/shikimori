@@ -15,9 +15,13 @@ class UserRate < ActiveRecord::Base
   def update_status(value)
     prior_status = self.status
     self.status = value
-    self.episodes = self.target.episodes if self.target.respond_to?(:episodes) && self.status == UserRateStatus.get(UserRateStatus::Completed)
-    self.volumes = self.target.volumes if self.target.respond_to?(:volumes) && self.status == UserRateStatus.get(UserRateStatus::Completed)
-    self.chapters = self.target.chapters if self.target.respond_to?(:chapters) && self.status == UserRateStatus.get(UserRateStatus::Completed)
+
+    if anime?
+      self.episodes = self.target.episodes if self.status == UserRateStatus.get(UserRateStatus::Completed)
+    else
+      self.volumes = self.target.volumes if self.status == UserRateStatus.get(UserRateStatus::Completed)
+      self.chapters = self.target.chapters if self.status == UserRateStatus.get(UserRateStatus::Completed)
+    end
 
     UserHistory.add(self.user_id, self.target, UserHistoryAction::Status, self.status, prior_status) if self.save
   end
@@ -90,5 +94,9 @@ class UserRate < ActiveRecord::Base
       self.errors[:status] = 'некорректный статус'
       return false
     end
+  end
+
+  def anime?
+    target_type == 'Anime'
   end
 end

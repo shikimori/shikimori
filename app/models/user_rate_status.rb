@@ -26,6 +26,12 @@ class UserRateStatus
     @@data.select { |v| !v[:ignored] }
   end
 
+  def self.select_options list_type
+    statuses.map do |status|
+      [I18n.t("#{list_type}RateStatus.#{status[:name]}"), status[:id]]
+    end
+  end
+
   def self.default
     @@data.first[:id]
   end

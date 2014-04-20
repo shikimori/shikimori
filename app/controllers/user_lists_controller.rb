@@ -2,6 +2,7 @@ require_dependency 'genre'
 require_dependency 'studio'
 require_dependency 'publisher'
 
+# TODO: класс нуждается в рефакторинге
 class UserListsController < UsersController
   include AniMangaListImporter
   AnimeType = 1
@@ -64,6 +65,11 @@ class UserListsController < UsersController
       end
       format.html { users_show }
     end
+  end
+
+  def edit
+    raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
+    @user_rate = @user.anime_rates.find_by(id: params[:user_rate_id]) || @user.manga_rates.find(params[:user_rate_id])
   end
 
   # история изменения списка аниме/манги
@@ -293,6 +299,7 @@ private
         kind_localized: target.kind.blank? ? '' : view_context.localized_kind(target, true),
         status_localized: target.status.present? ? I18n.t("AniMangaStatusUpper.#{target.status}") : '',
         url: "/#{params[:list_type]}s/#{v.target_id}",
+        rate_id: v.id,
         rate_url: "/#{params[:list_type]}s/#{v.target_id}/rate",
         episodes_value: v[@field_name],
         episodes_aired: target.episodes_aired,
@@ -381,7 +388,7 @@ private
 
   # ключ от кеша для списка пользователя
   def user_list_cache_key
-    "#{@user.cache_key}_#{Digest::MD5.hexdigest(request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, ''))}_#{user_signed_in? ? current_user.preferences.russian_names? : false}"
+    "user_list_#{@user.cache_key}_#{Digest::MD5.hexdigest(request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, ''))}_#{user_signed_in? ? current_user.preferences.russian_names? : false}"
   end
 
   def anime?

@@ -23,7 +23,7 @@
   - else
     - if @user.own_profile?
       select.anime-status-selector
-        - UserRateStatus.statuses.each do |status|
-          option value="#{status[:id]}" = t "#{params[:list_type].capitalize}RateStatus.#{status[:name]}"
+        - UserRateStatus.select_options(params[:list_type].capitalize).each do |title, value|
+          option value="#{value}" = title
 
     = render partial: 'user_lists/ani_manga_list_content', formats: :html

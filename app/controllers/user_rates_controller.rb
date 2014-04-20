@@ -1,6 +1,6 @@
 class UserRatesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :prepare_edition
+  before_filter :fetch_rate
 
   # очистка списка и истории
   def cleanup
@@ -66,15 +66,15 @@ class UserRatesController < ApplicationController
       UserHistory.add(current_user, @rate.target, UserHistoryAction::Delete)
     end
 
-    render json: {}
+    render json: { notice: params[:type] == 'Anime' ? 'Аниме удалено из списка' : 'Манга удалена из списка' }
   end
 
   # изменение аниме в своем списке
   def update
     return render json: {} unless @rate
 
-    params[:rate].each do |k,v|
-      @rate.send "update_#{k}", v
+    user_rate_params.each do |key, value|
+      @rate.send "update_#{key}", value
     end
 
     if @rate.errors.empty?
@@ -91,7 +91,12 @@ class UserRatesController < ApplicationController
   end
 
 private
-  def prepare_edition
+  def fetch_rate
     @rate = UserRate.find_by_user_id_and_target_id_and_target_type(current_user.id, params[:id], params[:type]) if params[:id]
+  end
+
+  def user_rate_params
+    params[:user_rate] ||= params[:rate]
+    params.require(:user_rate).permit(:status, :episodes, :chapters, :volumes, :score)
   end
 end

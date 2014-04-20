@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140404102325) do
+ActiveRecord::Schema.define(version: 20140420154610) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -907,12 +907,13 @@ ActiveRecord::Schema.define(version: 20140404102325) do
     t.integer  "target_id"
     t.integer  "score"
     t.integer  "status"
-    t.integer  "episodes",    default: 0, null: false
+    t.integer  "episodes",                 default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "target_type"
-    t.integer  "volumes",     default: 0, null: false
-    t.integer  "chapters",    default: 0, null: false
+    t.integer  "volumes",                  default: 0, null: false
+    t.integer  "chapters",                 default: 0, null: false
+    t.string   "notice",      limit: 1024
   end
 
   add_index "user_rates", ["target_id", "target_type"], name: "i_target", using: :btree

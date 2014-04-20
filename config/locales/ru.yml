@@ -31,6 +31,12 @@ ru:
         password: Новый пароль
         password_confirmation: Подтверждение пароля
         current_password: Текущий пароль
+      user_rate:
+        status: Статус
+        episodes: Эпизоды
+        chapters: Главы
+        notice: Комментарий
+        score: Оценка
       user_preferences:
         anime_in_profile: Отображать аниме в профиле
         manga_in_profile: Отображать мангу в профиле

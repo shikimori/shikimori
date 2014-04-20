@@ -7,7 +7,7 @@ $ ->
   return
 
 # активация списка
-$('.animelist, .mangalist').live "ajax:success cache:success", (e, data) ->
+$('.animelist, .mangalist').live 'ajax:success cache:success', (e, data) ->
   # тормозит на анимации
   $('.slide > .selected').addClass 'no-animation'
   $('.animanga-filter').hide()
@@ -58,9 +58,10 @@ $(document.body).on 'keyup', '.ani-manga-list .filter input', (e) ->
   filter_timer = setInterval(filter, 350)
 
 # удаление из списка
-$('.anime-remove').live 'ajax:success', ->
-  $(@).closest('tr').remove()
-  false
+#$('.anime-remove').live 'ajax:success', (e) ->
+  #$(@).closest('tr').remove()
+  #e.stopPropagation()
+  #false
 
 # обработчик для плюсика у числа эпизодов/глав
 $('.selected .ani-manga-list .hoverable .item-add').live 'click', (e) ->
@@ -116,75 +117,113 @@ $('.selected .ani-manga-list .hoverable input').live('blur', ->
     e.stopPropagation()
     false
 
-
 # сортировка по клику на колонку
-$(".order-control").live "click", (e) ->
-  type = $(this).data("order")
-  $(".animanga-filter:visible .orders.anime-params li.order-by-" + type).trigger "click"
-  return
-
+$('.order-control').live 'click', (e) ->
+  type = $(@).data('order')
+  $(".animanga-filter:visible .orders.anime-params li.order-by-#{type}").trigger 'click'
 
 # скрытие слайдов с аниме
-$(".slide > div").live "ajax:clear", (e, page) ->
-  $(".animanga-filter").hide()  unless page.match(/anime|manga/)
-  return
-
+$('.slide > div').live 'ajax:clear', (e, page) ->
+  $('.animanga-filter').hide() unless page.match(/anime|manga/)
 
 # активация изменения статуса
-$(".selected .anime-status").live "click", ->
-  $this = $(this)
-  $selector = $this.parents("td").children(".anime-status-selector")
+#$(".selected .anime-status").live "click", ->
+  #$this = $(this)
+  #$selector = $this.parents("td").children(".anime-status-selector")
 
-  # если нет селектора - создаём
-  unless $selector.length
-    $selector = $this.parents(".ani-manga-list").children(".anime-status-selector").clone().data("field", $this.data("field")).data("action", $this.parents("tr").data("action"))
-    $this.parents("td").prepend $selector
-  $selector.show()
-  $this.hide()
-  $(window).one "click", (e) ->
-    return  if e.target is $selector[0]
-    $selector.hide()
-    e.stopPropagation()
-    false
+  ## если нет селектора - создаём
+  #unless $selector.length
+    #$selector = $this.parents(".ani-manga-list").children(".anime-status-selector").clone().data("field", $this.data("field")).data("action", $this.parents("tr").data("action"))
+    #$this.parents("td").prepend $selector
+  #$selector.show()
+  #$this.hide()
 
-  false
+  #$(window).one 'click', (e) ->
+    #return if e.target is $selector[0]
+    #$selector.hide()
+    #e.stopPropagation()
+    #false
 
-$(".selected .anime-status-selector").live "change", (e) ->
-  $this = $(this)
-  $.cursorMessage()
+  #false
 
-  $.post($this.data("action"), "_method=patch&rate[" + $this.data("field") + "]=" + $this.attr("value")).success(->
-    $.hideCursorMessage()
-    $this.hide()
-  ).error ->
-    $.hideCursorMessage()
-    $this.hide()
-    $.flash alert: "Произошла ошибка"
+#$(".selected .anime-status-selector").live "change", (e) ->
+  #$this = $(this)
+  #$.cursorMessage()
 
-  false
+  #$.post($this.data("action"), "_method=patch&rate[" + $this.data("field") + "]=" + $this.attr("value")).success(->
+    #$.hideCursorMessage()
+    #$this.hide()
+  #).error ->
+    #$.hideCursorMessage()
+    #$this.hide()
+    #$.flash alert: "Произошла ошибка"
 
-$(".selected .anime-status-selector").live "click", (e) ->
-  e.stopPropagation()
-  false
+  #false
+
+#$(".selected .anime-status-selector").live "click", (e) ->
+  #e.stopPropagation()
+  #false
 
 # открытие блока с редактирование записи по клику на неё
-$("tr.editable").live "click", (e) ->
+$('tr.editable').live 'ajax:success', (e, html) ->
+  $tr = $(@)
+  $tr_edit = $("<tr class='edit-form'><td colspan='#{$(@).children('td').length}'>#{html}</td></tr>").insertAfter(@)
+  $form = $tr_edit.find('form')
+  original_height = $form.height()
+
+  $form.css height: 0
+  (-> $form.css height: original_height).delay()
+
+  # отмена редактирования
+  $('.cancel', $tr_edit).on 'click', ->
+    $form.css height: 0
+    (-> $tr_edit.remove()).delay 250
+
+  # применение изменений в редактировании
+  $form.on 'ajax:success', (e, data) ->
+    $.flash notice: 'Изменения сохранены'
+    $('.cancel', $tr_edit).click()
+
+    $tr.find('.current-value[data-field=score]').html String(data.score).replace('0', '–')
+    $tr.find('.current-value[data-field=chapters]').html data.chapters
+    $tr.find('.current-value[data-field=volumes]').html data.volumes
+    $tr.find('.current-value[data-field=episodes]').html data.episodes
+
+  # удаление из списка
+  $('.remove', $form).on 'ajax:success', (e, data) ->
+    $('.cancel', $tr_edit).click()
+    (-> $tr.remove()).delay 250
+    e.stopPropagation()
+
+$('tr.editable').live 'click', (e) ->
+  if $(@).next().hasClass 'edit-form'
+    $(@).next().find('.cancel').click()
+    e.stopImmediatePropagation()
 
 # подгрузка списка аниме
-$(".selected .ani-manga-list .postloader").live "postloader:success", (e, $data) ->
-  $header = $data.filter("header:first")
+$('.selected .ani-manga-list .postloader').live 'postloader:success', (e, $data) ->
+  $header = $data.filter('header:first')
+
   # при подгрузке могут быть 2 случая:
   # 1. подгружается совершенно новый блок, и тогда $header будет пустым
   # 2. погружается дальнейший контент уже существующего блока, и тогда...
+  if $(".ani-manga-list header.#{$header.attr 'class'}").length > 0
+    # заголовок скрываем, ставим ему класс collapse-merged и collapse-ignored(чтобы раскрытие collapsed работало корректно),
+    # а так же таблице ставим класс merged и скрываем её заголовок
+    $header
+      .addClass('collapse-merged')
+      .addClass('collapse-ignored')
+      .hide()
+        .next()
+        .addClass('collapse-merged')
+          .find('tr:first,tr.border')
+          .hide()
 
-  # заголовок скрываем, ставим ему класс collapse-merged и collapse-ignored(чтобы раскрытие collapsed работало корректно),
-  # а так же таблице ставим класс merged и скрываем её заголовок
-  $header.addClass("collapse-merged").addClass("collapse-ignored").hide().next().addClass("collapse-merged").find("tr:first,tr.border").hide()  if $(".ani-manga-list header." + $header.attr("class")).length > 0
   _.delay (->
     apply_list_handlers()
     update_list_cache()
-    $input = $(".selected .ani-manga-list .filter input")
-    $input.trigger "keyup"  unless _.isEmpty($input.val())
+    $input = $('.selected .ani-manga-list .filter input')
+    $input.trigger 'keyup' unless _.isEmpty($input.val())
   ), 250
 
 # парсинг параметров из урла для анимелиста
@@ -245,7 +284,6 @@ filter = ->
     return
 
   $.force_appear()
-  return
 
 # кеширование всех строчек списка для производительности
 update_list_cache = ->
@@ -261,59 +299,73 @@ update_list_cache = ->
 
     # если текущая таблица подгружена пагинацией, тоесть она без заголовка, то...
     if $nodes.length is 1
-      klass = $table.prev().attr("class").match(/status-\d/)[0]
-      $only_show = $("." + klass + ":not(.collapse-merged)", $slide)
+      klass = $table.prev().attr('class').match(/status-\d/)[0]
+      $only_show = $(".#{klass}:not(.collapse-merged)", $slide)
       $only_show = $only_show.add($only_show.next())
     $nodes: $nodes
     $only_show: $only_show
     rows: rows
-    toggable: not $table.next(".postloader").length
+    toggable: !$table.next('.postloader').length
   )
-  return
 
 # обработчики для списка
 apply_list_handlers = ->
   # изменения статуса
-  $(".selected .ani-manga-list tr.unprocessed").hover(->
-    $selector = $(".anime-status", @parentNode)
-    return  if not $selector.length or $selector.is(":visible")
-    $(".anime-status", this).show()
-    $(".anime-remove", this).show().prev().hide()
-    return
-  , ->
-    $(".anime-status", this).hide()
-    $(".anime-remove", this).hide().prev().show()
-    return
-  ).removeClass("unprocessed").find(".tooltipped").tooltip $.extend($.extend({}, tooltip_options),
-    offset: [
-      -95
-      10
-    ]
-    position: "bottom right"
-    opacity: 1
-    onBeforeShow: null
-    onBeforeHide: null
-  )
+  #$('.selected .ani-manga-list tr.unprocessed').hover(->
+    #$selector = $('.anime-status', @parentNode)
+    #return if not $selector.length or $selector.is(':visible')
+    #$('.anime-status', @).show()
+    #$('.anime-remove', @).show().prev().hide()
+
+  #, ->
+    #$('.anime-status', @).hide()
+    #$('.anime-remove', @).hide().prev().show()
+
+  $('.selected .ani-manga-list tr.unprocessed')
+    .removeClass('unprocessed')
+    .find('.tooltipped')
+    .tooltip $.extend($.extend({}, tooltip_options),
+      offset: [
+        -95
+        10
+      ]
+      position: 'bottom right'
+      opacity: 1
+      onBeforeShow: null
+      onBeforeHide: null
+    )
 
   # изменения оценки/числа просмотренных эпизодов
-  $(".selected .ani-manga-list .hoverable").unbind().hover(->
-    $current_value = $(".current-value", this)
-    $new_value = $(".new-value", this)
+  $('.selected .ani-manga-list .hoverable').unbind().hover(->
+    $current_value = $('.current-value', @)
+    $new_value = $('.new-value', @)
 
     # если нет элемента, то создаём его
     if $new_value.length is 0
-      val = parseInt($current_value.children().html(), 10)
-      val = 0  if not val and val isnt 0
-      new_value_html = (if $current_value.data("field") isnt "score" then "<span class=\"new-value\"><input type=\"text\" class=\"input\"/><span class=\"item-add\"></span></span>" else "<span class=\"new-value\"><input type=\"text\" class=\"input\"/></span>")
-      $new_value = $(new_value_html).children("input").val(val).data("counter", val).data("max", 10).data("min", 0).data("field", $current_value.data("field")).data("action", $current_value.parents("tr").data("action")).parent().insertAfter($current_value)
+      val = parseInt $current_value.children().html(), 10
+      val = 0 if !val && val != 0
+
+      new_value_html = if $current_value.data('field') != 'score'
+        "<span class=\"new-value\"><input type=\"text\" class=\"input\"/><span class=\"item-add\"></span></span>"
+      else
+        "<span class=\"new-value\"><input type=\"text\" class=\"input\"/></span>"
+
+      $new_value = $(new_value_html)
+        .children('input')
+        .val(val)
+        .data(counter: val, max: $current_value.data('max') || 999, min: $current_value.data('min'))
+        .data(field: $current_value.data('field'), action: $current_value.closest('tr').data('rate_url'))
+          .parent()
+          .insertAfter($current_value)
+
     $new_value.show()
     $current_value.hide()
-    $(".misc-value", this).hide()
+    $('.misc-value', @).hide()
   , ->
-    return if $(".new-value input", this).is(":focus")
-    $(".new-value", this).hide()
-    $(".current-value", this).show()
-    $(".misc-value", this).show()
+    return if $('.new-value input', @).is(":focus")
+    $('.new-value', @).hide()
+    $('.current-value', @).show()
+    $('.misc-value', @).show()
   ).click (e) ->
     # клик на плюсик обрабатываем по дефолтному
     return if e.target && e.target.className == 'item-add'

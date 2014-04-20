@@ -48,6 +48,35 @@
       &.editable
         cursor: pointer
 
+      &.edit-form
+        form
+          +transition(height, 0.25s)
+          background: #e2f3e2
+          border-bottom: 1px solid #afc9af
+          border-top: 1px solid #afc9af
+          display: block
+          margin-bottom: 5px
+          overflow: hidden
+          padding: 5px 10px 10px 35px
+
+        .b-input
+          display: inline-block
+          margin-right: 30px
+
+          #user_rate_episodes
+            width: 45px
+
+          &.user_rate_notice
+            display: block
+
+        .cancel
+          +normal-link
+          display: inline-block
+          margin-left: 15px
+
+        .remove
+          float: right
+
       .index
         color: $gray-color
         padding-right: 5px
