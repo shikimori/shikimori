@@ -1,4 +1,5 @@
 @import globals
+@import mixins/placeholder
 
 .anime-filter,.manga-filter
   display: none
@@ -55,7 +56,7 @@
           border-bottom: 1px solid #afc9af
           border-top: 1px solid #afc9af
           display: block
-          margin-bottom: 5px
+          margin: 5px 0
           overflow: hidden
           padding: 5px 10px 10px 35px
 
@@ -118,6 +119,14 @@
           color: orange
           font-size: 11px
           padding-left: 6px
+
+        .rate-notice
+          color: $gray-color-3
+          font-size: 12px
+          line-height: 15px
+
+          div
+            margin-bottom: 5px
 
         .episodes_total
           color: #333
@@ -236,6 +245,9 @@
       font-size: 13px
       padding: 10px
       width: 100%
+
+      +placeholder
+        color: $gray-color-3
 
   .collapsed
     margin-bottom: 0

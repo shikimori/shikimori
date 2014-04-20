@@ -16,6 +16,16 @@ describe UserRate do
       let(:user) { create :user }
       let(:entry) { create klass.name.downcase.to_sym, factory_params }
 
+      describe "updates notice" do
+        it "correctly" do
+          expect {
+            rate = UserRate.new target: entry, user: user
+            rate.update_notice 'test'
+            rate.notice.should eq 'test'
+          }.to change(UserHistory, :count).by(0)
+        end
+      end
+
       describe "updates status" do
         it "correctly" do
           expect {
@@ -144,5 +154,24 @@ describe UserRate do
         rate.score.should eq(0)
       end
     end
+  end
+
+  describe :anime? do
+    subject { user_rate.anime? }
+
+    context :anime do
+      let(:user_rate) { build :user_rate, target_type: 'Anime' }
+      it { should be true }
+    end
+
+    context :manga do
+      let(:user_rate) { build :user_rate, target_type: 'Manga' }
+      it { should be false }
+    end
+  end
+
+  describe :notice_html do
+    subject { build :user_rate, notice: "[b]test[/b]\ntest" }
+    its(:notice_html) { should eq '<strong>test</strong><br />test' }
   end
 end

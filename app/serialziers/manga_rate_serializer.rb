@@ -1,5 +1,5 @@
 class MangaRateSerializer < ActiveModel::Serializer
-  attributes :id, :score, :status, :volumes, :chapters, :status_name, :manga
+  attributes :id, :score, :status, :volumes, :chapters, :status_name, :manga, :notice, :notice_html
 
   def status_name
     UserRateStatus.get object.status

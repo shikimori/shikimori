@@ -28,10 +28,16 @@
           a.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" href="#{entry_rate[:url]}" data-predelay="650"
             span
               == entry_rate[:name]
+
           - if entry_rate[:ongoing?]
             span.ongoing онгоинг
           - elsif entry_rate[:anons?]
             span.anons анонс
+
+          .rate-notice
+            - if entry_rate[:notice]
+              div = entry_rate[:notice]
+
           /- if @user.own_profile?
             span.anime-status data-field="status"
         td class="num #{:hoverable if @user.own_profile?}"

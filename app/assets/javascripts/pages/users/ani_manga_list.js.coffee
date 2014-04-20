@@ -188,6 +188,7 @@ $('tr.editable').live 'ajax:success', (e, html) ->
     $tr.find('.current-value[data-field=chapters]').html data.chapters
     $tr.find('.current-value[data-field=volumes]').html data.volumes
     $tr.find('.current-value[data-field=episodes]').html data.episodes
+    $tr.find('.rate-notice').html if data.notice_html then "<div>#{data.notice_html}</div>" else ''
 
   # удаление из списка
   $('.remove', $form).on 'ajax:success', (e, data) ->
@@ -261,7 +262,7 @@ filter = ->
   $slide = $('.slide > .selected')
 
   # разворачивание свёрнутых элементов
-  filter = $('.filter input', $slide).val().toLowerCase()
+  filter_value = $('.filter input', $slide).val().toLowerCase()
   $entries = $('tr.selectable', $slide)
   _(list_cache).each (block) ->
     visible = false
@@ -269,44 +270,46 @@ filter = ->
 
     while i < block.rows.length
       entry = block.rows[i]
-      if entry.title.indexOf(filter) >= 0
+      if entry.title.indexOf(filter_value) >= 0
         visible = true
-        unless entry.display is ""
-          entry.display = ""
-          entry.node.style.display = ""
-      else
-        unless entry.display is "none"
-          entry.display = "none"
-          entry.node.style.display = "none"
+
+        if entry.display != ''
+          entry.display = ''
+          entry.node.style.display = ''
+
+      else if entry.display != 'none'
+        entry.display = 'none'
+        entry.node.style.display = 'none'
       i++
+
     block.$nodes.toggle visible  if block.toggable
-    block.$only_show.show()  if block.$only_show and visible
+    block.$only_show.show() if block.$only_show and visible
     return
 
   $.force_appear()
 
 # кеширование всех строчек списка для производительности
 update_list_cache = ->
-  $slide = $(".slide > .selected")
-  list_cache = $("table", $slide).map(->
-    $table = $(this)
-    rows = $table.find("tr.selectable").map(->
-      node: this
-      title: String($(this).data("title"))
+  $slide = $('.slide > .selected')
+  list_cache = $('table', $slide).map ->
+    $table = $(@)
+    rows = $table.find('tr.selectable').map(->
+      node: @
+      title: String($(@).data('title'))
       display: @style.display
     ).toArray()
-    $nodes = $table.add($table.prev(":not(.collapse-merged)"))
+    $nodes = $table.add($table.prev(':not(.collapse-merged)'))
 
     # если текущая таблица подгружена пагинацией, тоесть она без заголовка, то...
     if $nodes.length is 1
       klass = $table.prev().attr('class').match(/status-\d/)[0]
       $only_show = $(".#{klass}:not(.collapse-merged)", $slide)
       $only_show = $only_show.add($only_show.next())
+
     $nodes: $nodes
     $only_show: $only_show
     rows: rows
     toggable: !$table.next('.postloader').length
-  )
 
 # обработчики для списка
 apply_list_handlers = ->
@@ -323,7 +326,7 @@ apply_list_handlers = ->
 
   $('.selected .ani-manga-list tr.unprocessed')
     .removeClass('unprocessed')
-    .find('.tooltipped')
+    .find('a.tooltipped')
     .tooltip $.extend($.extend({}, tooltip_options),
       offset: [
         -95

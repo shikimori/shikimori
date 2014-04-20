@@ -301,6 +301,7 @@ private
         url: "/#{params[:list_type]}s/#{v.target_id}",
         rate_id: v.id,
         rate_url: "/#{params[:list_type]}s/#{v.target_id}/rate",
+        notice: v.notice_html,
         episodes_value: v[@field_name],
         episodes_aired: target.episodes_aired,
         ongoing?: target.ongoing?,
@@ -380,15 +381,15 @@ private
     reduce ? stats.select { |k,v| v > 0 }.to_hash : stats
   end
 
-  # формирование статистики по списку
-  def prepare_list_stats(full_list, list)
-    stats = full_list.map do |k,v|
-    end
-  end
-
   # ключ от кеша для списка пользователя
   def user_list_cache_key
-    "user_list_#{@user.cache_key}_#{Digest::MD5.hexdigest(request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, ''))}_#{user_signed_in? ? current_user.preferences.russian_names? : false}"
+    [
+      :user_list,
+      :v1,
+      @user,
+      Digest::MD5.hexdigest(request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '')),
+      user_signed_in? ? current_user.preferences.russian_names? : false
+    ]
   end
 
   def anime?

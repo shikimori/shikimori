@@ -26,6 +26,10 @@ class UserRate < ActiveRecord::Base
     UserHistory.add(self.user_id, self.target, UserHistoryAction::Status, self.status, prior_status) if self.save
   end
 
+  def update_notice(value)
+    update notice: value
+  end
+
   ['episodes', 'chapters', 'volumes'].each do |counter|
     define_method("update_#{counter}") do |value|
       value = value.to_i
@@ -98,5 +102,9 @@ class UserRate < ActiveRecord::Base
 
   def anime?
     target_type == 'Anime'
+  end
+
+  def notice_html
+    notice.present? ? BbCodeFormatter.instance.format_comment(notice) : notice
   end
 end
