@@ -6,7 +6,7 @@ describe FindAnimeParser do
 
   let(:parser) { FindAnimeParser.new }
 
-  it { parser.fetch_pages_num.should eq 36 }
+  it { parser.fetch_pages_num.should eq 38 }
   it { parser.fetch_page_links(0).should have(FindAnimeParser::PageSize).items }
 
   describe :fetch_entry do
@@ -42,7 +42,7 @@ describe FindAnimeParser do
 
     describe :inline_videos do
       let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
-      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they_____ova/series0?mature=1'}] }
+      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they___ova/series0?mature=1'}] }
     end
 
     describe :episode_0_or_movie do
