@@ -115,6 +115,7 @@ group :test, :development do
   gem 'guard-spork'
   gem 'guard-livereload', '2.1.2'
 
+  gem 'timecop'
   gem 'webmock', '1.13'
 
   gem 'factory_girl_rails', require: false

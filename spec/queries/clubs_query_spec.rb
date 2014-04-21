@@ -3,6 +3,7 @@ require 'spec_helper'
 describe ClubsQuery do
   let(:query) { ClubsQuery.new }
 
+  before { Timecop.freeze }
   let(:user) { create :user }
   let!(:club_1) { create :group, id: 1 }
   let!(:club_2) { create :group, id: 2 }
