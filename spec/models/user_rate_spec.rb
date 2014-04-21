@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe UserRate do
-  it { should belong_to :target }
-  it { should belong_to :user }
-  it { should belong_to :anime }
-  it { should belong_to :manga }
+  describe :relations do
+    it { should belong_to :target }
+    it { should belong_to :user }
+    it { should belong_to :anime }
+    it { should belong_to :manga }
+  end
 
   let(:episodes) { 10 }
   let(:volumes) { 15 }

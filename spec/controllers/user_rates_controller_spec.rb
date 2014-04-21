@@ -84,12 +84,19 @@ describe UserRatesController do
 
         context :authenticated do
           before { sign_in user }
-          let(:make_request) { patch :update, defaults.merge(rate: valid_hash) }
+          let(:current_hash) { valid_hash.merge kind == :anime ? {episodes: 1} : {volumes: 2, chapters: 3} }
+          let(:make_request) { patch :update, defaults.merge(rate: current_hash) }
 
           context :response do
             before { make_request }
             it { should respond_with :success }
 
+            if kind == :anime
+              it { user_rate.reload.episodes.should eq 1 }
+            else
+              it { user_rate.reload.volumes.should eq 2 }
+              it { user_rate.reload.chapters.should eq 3 }
+            end
             it { user_rate.reload.score.should eq valid_hash[:score] }
             it { user_rate.reload.notice.should eq valid_hash[:notice] }
           end
