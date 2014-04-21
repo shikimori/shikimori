@@ -63,6 +63,10 @@ class UserPreferences < ActiveRecord::Base
     show_hentai_images
   end
 
+  def volumes_in_manga?
+    volumes_in_manga
+  end
+
   def update_sorting(order)
     update_attribute(:default_sort, order) if default_sort != order
   end

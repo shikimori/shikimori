@@ -1,3 +1,11 @@
+.m30
+  = simple_form_for @user.preferences, url: update_user_preferences_url(@user) do |f|
+    input type="hidden" name="page" value="#{params[:page]}"
+
+    .menu-block
+      = f.input :volumes_in_manga
+      = f.submit 'Сохранить'
+
 .m20
   = render partial: 'users/import', formats: :html
 

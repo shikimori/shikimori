@@ -140,15 +140,16 @@ nav.menu-block
                 = @entry.chapters
               span.item-add
 
-          = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-volumes-form') do
-            p.m2
-              span.key Тома:
-              = text_field_tag 'rate[volumes]', @entry.rate ? @entry.rate.volumes : 0, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.volumes : 0
-              - unless @entry.volumes.zero?
-                span.sep
-                  | /
-                = @entry.volumes
-              span.item-add
+          - if current_user.preferences.volumes_in_manga?
+            = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-volumes-form') do
+              p.m2
+                span.key Тома:
+                = text_field_tag 'rate[volumes]', @entry.rate ? @entry.rate.volumes : 0, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.volumes : 0
+                - unless @entry.volumes.zero?
+                  span.sep
+                    | /
+                  = @entry.volumes
+                span.item-add
 
       p.m2
         span.key Моя оценка:

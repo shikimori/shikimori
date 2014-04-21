@@ -14,8 +14,9 @@
       - if anime?
         th class="num order-control #{:active if params[:order] == 'episodes'}" data-order="episodes" title="Упорядочить по эпизодам" Эпизоды
       - else
-        th class="num order-control #{:active if params[:order] == 'chapters'}" data-order="chapters" title="Упорядочить по главам" Эпизоды
-        th class="num order-control #{:active if params[:order] == 'volumes'}" data-order="volumes" title="Упорядочить по томам" Тома
+        th class="num order-control #{:active if params[:order] == 'chapters'}" data-order="chapters" title="Упорядочить по главам" Главы
+        - if @user.preferences.volumes_in_manga?
+          th class="num order-control #{:active if params[:order] == 'volumes'}" data-order="volumes" title="Упорядочить по томам" Тома
 
       th class="num order-control #{:active if params[:order] == 'kind'}" data-order="kind" title="Упорядочить по типу" Тип
       - if status == UserRateStatus.get(UserRateStatus::Planned)
@@ -80,15 +81,16 @@
                   | /
                 = entry_rate[:chapters]
 
-          td class="num #{:hoverable if @user.own_profile?}"
-            span.current-value data-field="volumes" data-max="#{entry_rate[:volumes]}" data-min="0"
-              span
-                = entry_rate[:rate_volumes]
-            - if entry_rate[:volumes]
-              span.misc-value
-                span.sep.inline
-                  | /
-                = entry_rate[:volumes]
+          - if @user.preferences.volumes_in_manga?
+            td class="num #{:hoverable if @user.own_profile?}"
+              span.current-value data-field="volumes" data-max="#{entry_rate[:volumes]}" data-min="0"
+                span
+                  = entry_rate[:rate_volumes]
+              - if entry_rate[:volumes]
+                span.misc-value
+                  span.sep.inline
+                    | /
+                  = entry_rate[:volumes]
 
         td.num
           = entry_rate[:kind_localized]

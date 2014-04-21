@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140420154610) do
+ActiveRecord::Schema.define(version: 20140421175950) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -898,6 +898,7 @@ ActiveRecord::Schema.define(version: 20140420154610) do
     t.boolean "show_social_buttons",   default: true
     t.boolean "show_hentai_images",    default: false
     t.string  "profile_privacy",       default: "public"
+    t.boolean "volumes_in_manga",      default: false,    null: false
   end
 
   add_index "user_preferences", ["user_id"], name: "index_profile_settings_on_user_id", using: :btree
