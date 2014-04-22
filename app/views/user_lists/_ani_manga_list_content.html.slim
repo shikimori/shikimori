@@ -58,39 +58,36 @@
             span.current-value data-field="episodes" data-max="#{entry_rate[:episodes]}" data-min="0"
               span
                 = entry_rate[:rate_episodes]
-            - if entry_rate[:episodes] || (entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0)
-              span.misc-value
-                span.sep.inline
-                  | /
-                - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0 && entry_rate[:episodes_aired] != entry_rate[:rate_episodes]
-                  = entry_rate[:episodes_aired]
-                  span.episodes_total
-                    = entry_rate[:episodes] || '?'
+            span.misc-value
+              span.sep.inline
+                | /
+              - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0 && entry_rate[:episodes_aired] != entry_rate[:rate_episodes]
+                = entry_rate[:episodes_aired]
+                span.episodes_total
+                  = entry_rate[:episodes] || '?'
 
-                - elsif entry_rate[:episodes]
-                  = entry_rate[:episodes]
+              - else
+                = entry_rate[:episodes] || '?'
 
         - else
           td class="num #{:hoverable if @user.own_profile?}"
             span.current-value data-field="chapters" data-max="#{entry_rate[:chapters]}" data-min="0"
               span
                 = entry_rate[:rate_chapters]
-            - if entry_rate[:chapters]
-              span.misc-value
-                span.sep.inline
-                  | /
-                = entry_rate[:chapters]
+            span.misc-value
+              span.sep.inline
+                | /
+              = entry_rate[:chapters] || '?'
 
           - if @user.preferences.volumes_in_manga?
             td class="num #{:hoverable if @user.own_profile?}"
               span.current-value data-field="volumes" data-max="#{entry_rate[:volumes]}" data-min="0"
                 span
                   = entry_rate[:rate_volumes]
-              - if entry_rate[:volumes]
-                span.misc-value
-                  span.sep.inline
-                    | /
-                  = entry_rate[:volumes]
+              span.misc-value
+                span.sep.inline
+                  | /
+                = entry_rate[:volumes] || '?'
 
         td.num
           = entry_rate[:kind_localized]
