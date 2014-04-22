@@ -73,8 +73,11 @@ class UserRatesController < ApplicationController
   def update
     return render json: {} unless @rate
 
-    user_rate_params.each do |key, value|
-      @rate.send "update_#{key}", value
+    @rate.update_notice user_rate_params[:notice] if user_rate_params[:notice]
+    [:episodes, :volumes, :chapters, :score, :status].each do |key|
+      next unless user_rate_params[key]
+      value = user_rate_params[key].to_i
+      @rate.send "update_#{key}", value if @rate[key] != value
     end
 
     if @rate.errors.empty?

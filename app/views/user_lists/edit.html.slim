@@ -1,4 +1,4 @@
-= simple_form_for @user_rate, url: @user_rate.target.decorate.rate_url, remote: true, html: { 'data-type' => :json } do |f|
+= simple_form_for @user_rate, url: @user_rate.target.decorate.rate_url, remote: true, html: { 'data-type' => :json }, authenticity_token: true do |f|
   = f.input :score, as: :select, collection: 1..10
 
   - if f.object.anime?
