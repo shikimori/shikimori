@@ -61,7 +61,7 @@
             span.misc-value
               span.sep.inline
                 | /
-              - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0 && entry_rate[:episodes_aired] != entry_rate[:rate_episodes]
+              - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0
                 = entry_rate[:episodes_aired]
                 span.episodes_total
                   = entry_rate[:episodes] || '?'
