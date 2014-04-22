@@ -74,10 +74,12 @@ class UserRatesController < ApplicationController
     return render json: {} unless @rate
 
     @rate.update_notice user_rate_params[:notice] if user_rate_params[:notice]
+    # копируем, т.к. изменять потом надо только то, что изменилось по сравнению с первоначальным значением, соответственно сравнивать значения будем не с @rates, а со скопированным хешем
+    attributes = @rate.attributes.clone.symbolize_keys
     [:episodes, :volumes, :chapters, :score, :status].each do |key|
       next unless user_rate_params[key]
       value = user_rate_params[key].to_i
-      @rate.send "update_#{key}", value if @rate[key] != value
+      @rate.send "update_#{key}", value if attributes[key] != value
     end
 
     if @rate.errors.empty?
