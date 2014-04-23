@@ -101,8 +101,7 @@ group :test, :development do
 
   gem 'vcr'
   gem 'capybara'
-  gem 'shoulda'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'database_rewinder'
 
   gem 'rb-inotify', require: false
