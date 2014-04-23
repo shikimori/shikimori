@@ -207,7 +207,7 @@ class UserHistory < ActiveRecord::Base
         e_start = self.prior_value ? self.prior_value.to_i + 1 : self.episodes.first
         e_end = self.send(counter).last
         # бывает и такое. ушлые пользователи
-        e_end = self.send(counter)[-2] || 0 if e_end > UserRate::MaximumNumber
+        e_end = self.send(counter)[-2] || 0 if e_end > UserRate::MAXIMUM_VALUE
 
         e_start.upto(e_end).inject([]) {|all,v| all << v }
       end

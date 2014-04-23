@@ -2,7 +2,7 @@
   = f.input :score, as: :select, collection: 1..10
 
   - if f.object.anime?
-    = f.input :episodes, input_html: { min: 0, max: f.object.target.episodes.zero? ? 999 : f.object.target.episodes }
+    = f.input :episodes
   - else
     = f.input :chapters, input_html: { min: 0, max: f.object.target.chapters.zero? ? 999 : f.object.target.chapters }
     = f.input :volumes, input_html: { min: 0, max: f.object.target.volumes.zero? ? 999 : f.object.target.volumes }

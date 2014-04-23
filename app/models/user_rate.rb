@@ -2,7 +2,7 @@
 # TODO: переделать status в enumerize (https://github.com/brainspec/enumerize)
 class UserRate < ActiveRecord::Base
   # максимальное значение эпизодов/частей
-  MaximumNumber = 2000
+  MAXIMUM_VALUE = 2000
 
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
@@ -10,61 +10,44 @@ class UserRate < ActiveRecord::Base
 
   belongs_to :user, touch: true
 
+  before_save :smart_process_changes
   before_save :check_data
 
-  def update_status(value)
-    prior_status = self.status
-    self.status = value
+  #['episodes', 'chapters', 'volumes'].each do |counter|
+    #define_method("update_#{counter}") do |value|
+      #value = value.to_i
+      #prior_value = self.send(counter)
 
-    if anime?
-      self.episodes = self.target.episodes if self.status == UserRateStatus.get(UserRateStatus::Completed)
-    else
-      self.volumes = self.target.volumes if self.status == UserRateStatus.get(UserRateStatus::Completed)
-      self.chapters = self.target.chapters if self.status == UserRateStatus.get(UserRateStatus::Completed)
-    end
+      #return if value >= MAXIMUM_VALUE
 
-    UserHistory.add(self.user_id, self.target, UserHistoryAction::Status, self.status, prior_status) if self.save
-  end
+      #if value > self.target.send(counter) && self.target.send(counter) != 0
+        #self.send("#{counter}=", self.target.send(counter))
+      #elsif value < 0
+        #self.send("#{counter}=", 0)
+      #else
+        #self.send("#{counter}=", value)
+      #end
 
-  def update_notice(value)
-    update notice: value
-  end
+      #if ['chapters', 'volumes'].include?(counter)
+        #anoter_counter = counter == 'chapters' ? 'volumes' : 'chapters'
+        #self.send("#{anoter_counter}=", self.target.send(anoter_counter)) if self.send(counter) == self.target.send(counter) && value != prior_value
+        #self.send("#{anoter_counter}=", 0) if self.send(counter) == 0 && value != prior_value
+      #end
 
-  ['episodes', 'chapters', 'volumes'].each do |counter|
-    define_method("update_#{counter}") do |value|
-      value = value.to_i
-      prior_value = self.send(counter)
+      #self.status = UserRateStatus.get(UserRateStatus::Completed) if self.send(counter) == self.target.send(counter) &&
+                                                                     #UserRateStatus.get(self.status) != UserRateStatus::Completed
 
-      return if value >= MaximumNumber
+      #self.status = UserRateStatus.get(UserRateStatus::Watching) if prior_value == 0 &&
+                                                                    #self.send(counter) > 0 &&
+                                                                    #UserRateStatus.get(self.status) == UserRateStatus::Planned
 
-      if value > self.target.send(counter) && self.target.send(counter) != 0
-        self.send("#{counter}=", self.target.send(counter))
-      elsif value < 0
-        self.send("#{counter}=", 0)
-      else
-        self.send("#{counter}=", value)
-      end
+      #self.status = UserRateStatus.get(UserRateStatus::Planned) if prior_value > 0 &&
+                                                                  #self.send(counter) == 0# &&
+                                                                  ##UserRateStatus.get(self.status) == UserRateStatus::Watching
 
-      if ['chapters', 'volumes'].include?(counter)
-        anoter_counter = counter == 'chapters' ? 'volumes' : 'chapters'
-        self.send("#{anoter_counter}=", self.target.send(anoter_counter)) if self.send(counter) == self.target.send(counter) && value != prior_value
-        self.send("#{anoter_counter}=", 0) if self.send(counter) == 0 && value != prior_value
-      end
-
-      self.status = UserRateStatus.get(UserRateStatus::Completed) if self.send(counter) == self.target.send(counter) &&
-                                                                     UserRateStatus.get(self.status) != UserRateStatus::Completed
-
-      self.status = UserRateStatus.get(UserRateStatus::Watching) if prior_value == 0 &&
-                                                                    self.send(counter) > 0 &&
-                                                                    UserRateStatus.get(self.status) == UserRateStatus::Planned
-
-      self.status = UserRateStatus.get(UserRateStatus::Planned) if prior_value > 0 &&
-                                                                  self.send(counter) == 0# &&
-                                                                  #UserRateStatus.get(self.status) == UserRateStatus::Watching
-
-      UserHistory.add(self.user_id, self.target, UserHistoryAction.const_get(counter.capitalize), self.send(counter), prior_value) if self.save
-    end
-  end
+      #UserHistory.add(self.user_id, self.target, UserHistoryAction.const_get(counter.capitalize), self.send(counter), prior_value) if self.save
+    #end
+  #end
 
   def update_score(value)
     value = value.to_i
@@ -77,8 +60,61 @@ class UserRate < ActiveRecord::Base
     UserHistory.add(self.user_id, self.target, UserHistoryAction::Rate, self.score, prior_score) if self.save
   end
 
+  def smart_process_changes
+    status_updated if changes['status']
+    counter_updated 'episodes' if changes['episodes'] && anime?
+    counter_updated 'chapters' if changes['chapters'] && manga?
+    counter_updated 'volumes' if changes['volumes'] && manga?
+  end
+
+  def status_updated
+    self.episodes = target.episodes if anime? && completed?
+    self.volumes = target.volumes if manga? && completed?
+    self.chapters = target.chapters if manga? && completed?
+
+    UserHistory.add user_id, target, UserHistoryAction::Status, status, changes['status'].first
+  end
+
+  def counter_updated counter
+    self[counter] = target[counter] if self[counter] > target[counter] && !target[counter].zero?
+    self[counter] = changes[counter].first if self[counter] > MAXIMUM_VALUE
+    self[counter] = 0 if self[counter] < 0
+
+    #value = self[counter].to_i
+    #prior_value = self.send(counter)
+
+    #return if value >= MAXIMUM_VALUE
+
+    #if value > self.target.send(counter) && self.target.send(counter) != 0
+      #self.send("#{counter}=", self.target.send(counter))
+    #elsif value < 0
+      #self.send("#{counter}=", 0)
+    #else
+      #self.send("#{counter}=", value)
+    #end
+
+    #if ['chapters', 'volumes'].include?(counter)
+      #anoter_counter = counter == 'chapters' ? 'volumes' : 'chapters'
+      #self.send("#{anoter_counter}=", self.target.send(anoter_counter)) if self.send(counter) == self.target.send(counter) && value != prior_value
+      #self.send("#{anoter_counter}=", 0) if self.send(counter) == 0 && value != prior_value
+    #end
+
+    #self.status = UserRateStatus.get(UserRateStatus::Completed) if self.send(counter) == self.target.send(counter) &&
+                                                                    #UserRateStatus.get(self.status) != UserRateStatus::Completed
+
+    #self.status = UserRateStatus.get(UserRateStatus::Watching) if prior_value == 0 &&
+                                                                  #self.send(counter) > 0 &&
+                                                                  #UserRateStatus.get(self.status) == UserRateStatus::Planned
+
+    #self.status = UserRateStatus.get(UserRateStatus::Planned) if prior_value > 0 &&
+                                                                #self.send(counter) == 0# &&
+                                                                ##UserRateStatus.get(self.status) == UserRateStatus::Watching
+
+    #UserHistory.add(self.user_id, self.target, UserHistoryAction.const_get(counter.capitalize), self.send(counter), prior_value) if self.save
+  end
+
   def check_data
-    if target == nil
+    if target.nil?
       self.errors[:target] = 'не задано аниме или манга'
       return false
     end
@@ -102,6 +138,30 @@ class UserRate < ActiveRecord::Base
 
   def anime?
     target_type == 'Anime'
+  end
+
+  def manga?
+    target_type == 'Manga'
+  end
+
+  def planned?
+    status == UserRateStatus.get(UserRateStatus::Planned)
+  end
+
+  def watching?
+    status == UserRateStatus.get(UserRateStatus::Watching)
+  end
+
+  def completed?
+    status == UserRateStatus.get(UserRateStatus::Completed)
+  end
+
+  def on_hold?
+    status == UserRateStatus.get(UserRateStatus::OnHold)
+  end
+
+  def dropped?
+    status == UserRateStatus.get(UserRateStatus::Dropped)
   end
 
   def notice_html
