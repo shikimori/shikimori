@@ -35,10 +35,7 @@
         .video-player = render partial: 'player', locals: { video: @anime.current_video }
         = render partial: 'nav_video', locals: { anime: @anime }
 
-      - if @reviews.blank?
-        - if AnimeOnline::AdsPolicy.host_allowed? request.host
-          = render partial: 'anime_online/blocks/google336x280_text'
-      - else
+      - unless @reviews.blank?
         .reviews
           ul.nav.nav-tabs
             li.active
