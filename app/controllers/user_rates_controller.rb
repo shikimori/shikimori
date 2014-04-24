@@ -1,11 +1,19 @@
 class UserRatesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :fetch_rate
+  load_and_authorize_resource
+
+  def create
+    # TODO: в user_rate добавить after_create колбек с записью в историю о добавлении в список
+  end
+
+  def update
+  end
+
+  def destroy
+    # TODO: в user_rate добавить after_destroy колбек с записью в историю об удалении из списка
+  end
 
   # очистка списка и истории
   def cleanup
-    raise Forbidden unless ['anime', 'manga'].include? params[:type]
-
     current_user.object.history.where(target_type: params[:type].capitalize).delete_all
     current_user.object.history.where(action: "mal_#{params[:type]}_import").delete_all
     current_user.object.history.where(action: "ap_#{params[:type]}_import").delete_all
@@ -18,8 +26,6 @@ class UserRatesController < ApplicationController
 
   # сброс оценок в списке
   def reset
-    raise Forbidden unless ['anime', 'manga'].include? params[:type]
-
     current_user.send("#{params[:type]}_rates").update_all score: 0
     current_user.touch
 
@@ -27,82 +33,10 @@ class UserRatesController < ApplicationController
     redirect_to user_url(current_user)
   end
 
-  # добавление аниме в свой список
-  def create
-    @rate = UserRate.find_by(user_id: current_user.id, target_id: params[:id], target_type: params[:type]) ||
-      UserRate.create(user_id: current_user.id, target_id: params[:id], target_type: params[:type], status: UserRateStatus.default)
-
-    if @rate.save
-      UserHistory.add current_user, @rate.target, UserHistoryAction::Add
-
-      render json: {
-        status: @rate.status,
-        episodes: @rate.episodes,
-        volumes: @rate.volumes,
-        chapters: @rate.chapters,
-        rate_content: render_to_string({
-          partial: 'ani_mangas/rate',
-          layout: false,
-          locals: { key: 'user', value: '' }
-        }, formats: :html)
-      }
-    else
-      render json: @rate.errors, status: :unprocessable_entity
-    end
-
-  rescue ActiveRecord::RecordNotUnique
-    @tries ||= 2
-    unless (@tries -= 1).zero?
-      retry
-    else
-      raise
-    end
-  end
-
-  # удаление аниме из своего списка
-  def destroy
-    if @rate.present?
-      @rate.destroy
-      UserHistory.add(current_user, @rate.target, UserHistoryAction::Delete)
-    end
-
-    render json: { notice: params[:type] == 'Anime' ? 'Аниме удалено из списка' : 'Манга удалена из списка' }
-  end
-
-  # изменение аниме в своем списке
-  def update
-    return render json: {} unless @rate
-
-    @rate.update_notice user_rate_params[:notice] if user_rate_params[:notice]
-    # копируем, т.к. изменять потом надо только то, что изменилось по сравнению с первоначальным значением, соответственно сравнивать значения будем не с @rates, а со скопированным хешем
-    attributes = @rate.attributes.clone.symbolize_keys
-    [:episodes, :volumes, :chapters, :score, :status].each do |key|
-      next unless user_rate_params[key]
-      value = user_rate_params[key].to_i
-      @rate.send "update_#{key}", value if attributes[key] != value
-    end
-
-    if @rate.errors.empty?
-      render json: {
-        status: @rate.status,
-        episodes: @rate.episodes,
-        volumes: @rate.volumes,
-        chapters: @rate.chapters,
-        score: @rate.score,
-        notice_html: @rate.notice_html
-      }
-    else
-      render json: @rate.errors, status: :unprocessable_entity
-    end
-  end
-
 private
-  def fetch_rate
-    @rate = UserRate.find_by_user_id_and_target_id_and_target_type(current_user.id, params[:id], params[:type]) if params[:id]
-  end
-
   def user_rate_params
-    params[:user_rate] ||= params[:rate]
-    params.require(:user_rate).permit(:status, :episodes, :chapters, :volumes, :score, :notice)
+    params
+      .require(:user_rate)
+      .permit(:status, :episodes, :chapters, :volumes, :score, :notice, :rewatches)
   end
 end

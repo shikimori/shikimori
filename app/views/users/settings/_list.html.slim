@@ -18,14 +18,14 @@
     p
       span.warn Данная операция необратима!
       span Подтвердите намерение сбросить все выставленные оценки для аниме (сами аниме из списка не удалятся).
-    a href="#{list_scores_reset_url type: :anime}" data-method="delete" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
+    a href="#{reset_user_rates_url :anime}" data-method="delete" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
     span.link.cancel Отмена
 
   .form.manga
     p
       span.warn Данная операция необратима!
       span Подтвердите намерение сбросить все выставленные оценки для манги (сама манга из списка не удалится).
-    a href="#{list_scores_reset_url type: :manga}" data-method="delete" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
+    a href="#{reset_user_rates_url :manga}" data-method="delete" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
     span.link.cancel Отмена
 
 .list-cleanup
@@ -37,12 +37,12 @@
     p
       span.warn Данная операция необратима!
       span Подтвердите намерение очистить свой список аниме и удалить всю историю по аниме.
-    a href="#{list_cleanup_url type: :anime}" data-method="delete" data-confirm="Вы действительно хотите очистить свой список аниме и потерять всю историю?" Да, подтверждаю
+    a href="#{cleanup_user_rates_url :anime}" data-method="delete" data-confirm="Вы действительно хотите очистить свой список аниме и потерять всю историю?" Да, подтверждаю
     span.link.cancel Отмена
 
   .form.manga
     p
       span.warn Данная операция необратима!
       span Подтвердите намерение очистить свой список манги и удалить всю историю по манге.
-    a href="#{list_cleanup_url type: :manga}" data-method="delete" data-confirm="Вы действительно хотите очистить свой список манги и потерять всю историю?" Да, подтверждаю
+    a href="#{cleanup_user_rates_url :manga}" data-method="delete" data-confirm="Вы действительно хотите очистить свой список манги и потерять всю историю?" Да, подтверждаю
     span.link.cancel Отмена

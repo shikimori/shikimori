@@ -334,9 +334,9 @@ Site::Application.routes.draw do
           patch 'apply'
 
           # работа со списком
-          post 'rate' =>  'user_rates#create', type: klass.name
-          patch 'rate' => 'user_rates#update', type: klass.name
-          delete 'rate' => 'user_rates#destroy', type: klass.name
+          post 'rate' =>  'user_rates_old#create', type: klass.name
+          patch 'rate' => 'user_rates_old#update', type: klass.name
+          delete 'rate' => 'user_rates_old#destroy', type: klass.name
 
           get ':page' => "#{plural}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
           get 'edit/:subpage' => "#{plural}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
@@ -361,6 +361,15 @@ Site::Application.routes.draw do
 
         resource :screenshots, only: [:create]
         resource :videos, only: [:create]
+      end
+    end
+
+    resources :user_rates, only: [:create, :update, :destroy] do
+      collection do
+        scope ':type', type: /anime|manga/ do
+          delete :cleanup
+          delete :reset
+        end
       end
     end
 
@@ -581,11 +590,6 @@ Site::Application.routes.draw do
       get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
       #get ':id/message' => 'messages#new', as: :private_message
       get ':id/provider/:provider' => 'users#remove_provider', as: :user_remove_provider
-    end
-
-    constraints type: /anime|manga/ do
-      delete 'list/:type/cleanup' =>  'user_rates#cleanup', as: :list_cleanup
-      delete 'list/:type/scores/reset' =>  'user_rates#reset', as: :list_scores_reset
     end
 
     post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe
