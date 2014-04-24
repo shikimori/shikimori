@@ -93,8 +93,12 @@ end
 
 gem 'marco-polo'
 gem 'pry-rails'
-#gem 'pry-rescue'
 gem 'pry-stack_explorer'
+
+group :development, :test do
+  gem 'byebug'
+  #gem 'pry-byebug' # пока ещё не поддерживает byubug 3.0
+end
 
 group :test, :development do
   gem 'rspec-rails'
