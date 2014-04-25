@@ -31,6 +31,10 @@ class AnimeVideoReport < ActiveRecord::Base
       transition pending: :rejected
     end
 
+    event :cancel do
+      transition [:accepted, :rejected] => :pending
+    end
+
     before_transition pending: :accepted do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
       anime_video_report.anime_video.update_attribute :state, anime_video_report.kind
@@ -41,6 +45,11 @@ class AnimeVideoReport < ActiveRecord::Base
       if anime_video_report.kind.uploaded?
         anime_video_report.anime_video.reject!
       end
+    end
+
+    before_transition [:accepted, :rejected] => :pending do |anime_video_report, transition|
+      anime_video_report.approver = transition.args.first
+      anime_video_report.anime_video.update_attribute :state, 'working'
     end
   end
 end

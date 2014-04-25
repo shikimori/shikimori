@@ -158,6 +158,7 @@ Site::Application.routes.draw do
           get :accept
           get :reject
           get :work
+          get :cancel
         end
       end
     end

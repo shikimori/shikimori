@@ -95,5 +95,20 @@ describe AnimeVideoReport do
         end
       end
     end
+
+    describe :reject do
+      let(:report) { create :anime_video_report, anime_video: anime_video, kind: report_kind, approver: approver, state: 'accepted' }
+      let(:canceler) { build_stubbed :user }
+      let(:anime_video_state) { 'broken' }
+      before { report.cancel canceler }
+
+      its(:approver) { should eq canceler }
+      it { should be_pending }
+
+      describe :anime_video_state do
+        subject { report.anime_video }
+        it { should be_working }
+      end
+    end
   end
 end

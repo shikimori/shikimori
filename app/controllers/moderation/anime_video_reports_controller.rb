@@ -28,6 +28,11 @@ class Moderation::AnimeVideoReportsController < ApplicationController
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
+  def cancel
+    AnimeVideoReport.find(params[:id]).cancel! current_user
+    redirect_to_back_or_to moderation_anime_video_reports_url
+  end
+
 private
   def check_permissions
     raise Forbidden unless current_user.video_moderator?

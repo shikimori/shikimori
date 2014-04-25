@@ -29,6 +29,9 @@
         span.moderation
           a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
           a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
+      - else
+        span.moderation
+          a href="#{cancel_moderation_anime_video_report_url report.id}" отменить
       p
         span ID:
         span = report.anime_video.id

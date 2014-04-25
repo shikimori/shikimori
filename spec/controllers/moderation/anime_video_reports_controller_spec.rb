@@ -32,6 +32,25 @@ describe Moderation::AnimeVideoReportsController do
     end
   end
 
+  describe :cancel do
+    let(:anime_video) { create :anime_video, anime: create(:anime), state: kind }
+    let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video, state: 'accepted' }
+
+    before { get :cancel, id: anime_video_report.id }
+
+    context :broken do
+      let(:kind) { 'broken' }
+      it { should redirect_to moderation_anime_video_reports_url }
+      specify { anime_video.reload.should be_working }
+    end
+
+    context :wrong do
+      let(:kind) { 'wrong' }
+      it { should redirect_to moderation_anime_video_reports_url }
+      specify { anime_video.reload.should be_working }
+    end
+  end
+
   describe :reject do
     before { get :reject, id: anime_video_report.id }
 
