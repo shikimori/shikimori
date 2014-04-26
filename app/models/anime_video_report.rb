@@ -49,7 +49,8 @@ class AnimeVideoReport < ActiveRecord::Base
 
     before_transition [:accepted, :rejected] => :pending do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
-      anime_video_report.anime_video.update_attribute :state, 'working'
+      prev_state = anime_video_report.uploaded? ? 'uploaded' : 'working'
+      anime_video_report.anime_video.update_attribute :state, prev_state
     end
   end
 end
