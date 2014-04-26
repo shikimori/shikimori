@@ -23,8 +23,8 @@
           h4 Такого видео нет!
           - if @anime.last_episode
             p
-              | Последний&nbsp;
-              a.alert-link href="#{@anime.url @anime.last_episode}" = "эпизод #{@anime.last_episode}"
+              | Перейти к последнему&nbsp;
+              a.alert-link href="#{@anime.url @anime.last_episode}" = "эпизоду #{@anime.last_episode}"
       - else
         - if @anime.current_video.uploader
           .uploader
