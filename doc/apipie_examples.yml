@@ -5,10 +5,10 @@
     - path: "/api/animes"
     - versions:
       - '1'
-    - query: duration=F&genre=19&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=11&type=TV
+    - query: duration=F&genre=42&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=27&type=TV
     - request_data: 
     - response_data:
-      - id: 145
+      - id: 5662
         name: Test
         russian: 
         image:
@@ -16,7 +16,7 @@
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/145-test"
+        url: "/animes/5662-test"
         ongoing: false
         anons: false
         episodes: 0
@@ -29,10 +29,10 @@
     - path: "/api/animes"
     - versions:
       - '1'
-    - query: duration=F&genre=20&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=12&type=TV
+    - query: duration=F&genre=43&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=28&type=TV
     - request_data: 
     - response_data:
-      - id: 146
+      - id: 5663
         name: Test
         russian: 
         image:
@@ -40,7 +40,7 @@
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/146-test"
+        url: "/animes/5663-test"
         ongoing: false
         anons: false
         episodes: 0
@@ -53,10 +53,10 @@
     - path: "/api/animes"
     - versions:
       - '1'
-    - query: duration=F&genre=21&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=13&type=TV
+    - query: duration=F&genre=44&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=29&type=TV
     - request_data: 
     - response_data:
-      - id: 147
+      - id: 5664
         name: Test
         russian: 
         image:
@@ -64,7 +64,7 @@
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/147-test"
+        url: "/animes/5664-test"
         ongoing: false
         anons: false
         episodes: 0
@@ -75,7 +75,7 @@
 - animes#related:
   - !omap
     - verb: :GET
-    - path: "/api/animes/148/related"
+    - path: "/api/animes/5645/related"
     - versions:
       - '1'
     - query: ''
@@ -84,15 +84,15 @@
       - relation: Adaptation
         relation_russian: "Адаптация"
         anime:
-          id: 149
-          name: anime_18
+          id: 5646
+          name: anime_68
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/149-anime_18"
+          url: "/animes/5646-anime_68"
           ongoing: false
           anons: false
           episodes: 0
@@ -103,7 +103,7 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/150/related"
+    - path: "/api/animes/5647/related"
     - versions:
       - '1'
     - query: ''
@@ -112,15 +112,15 @@
       - relation: Adaptation
         relation_russian: "Адаптация"
         anime:
-          id: 151
-          name: anime_20
+          id: 5648
+          name: anime_70
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/151-anime_20"
+          url: "/animes/5648-anime_70"
           ongoing: false
           anons: false
           episodes: 0
@@ -131,7 +131,7 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/152/related"
+    - path: "/api/animes/5649/related"
     - versions:
       - '1'
     - query: ''
@@ -140,15 +140,15 @@
       - relation: Adaptation
         relation_russian: "Адаптация"
         anime:
-          id: 153
-          name: anime_22
+          id: 5650
+          name: anime_72
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/153-anime_22"
+          url: "/animes/5650-anime_72"
           ongoing: false
           anons: false
           episodes: 0
@@ -160,7 +160,7 @@
 - animes#roles:
   - !omap
     - verb: :GET
-    - path: "/api/animes/136/roles"
+    - path: "/api/animes/5653/roles"
     - versions:
       - '1'
     - query: ''
@@ -171,15 +171,15 @@
         roles_russian:
         - "Главные герои"
         character:
-          id: 25
-          name: character_1
-          russian: "персонаж_1"
+          id: 63
+          name: character_10
+          russian: "персонаж_10"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/characters/25-character_1"
+          url: "/characters/63-character_10"
         person: 
       - roles:
         - Director
@@ -187,19 +187,19 @@
         - "Режиссёр"
         character: 
         person:
-          id: 41
-          name: prson_5
+          id: 88
+          name: prson_12
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/person/41-prson_5"
+          url: "/person/88-prson_12"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/139/roles"
+    - path: "/api/animes/5656/roles"
     - versions:
       - '1'
     - query: ''
@@ -210,15 +210,15 @@
         roles_russian:
         - "Главные герои"
         character:
-          id: 26
-          name: character_2
-          russian: "персонаж_2"
+          id: 64
+          name: character_11
+          russian: "персонаж_11"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/characters/26-character_2"
+          url: "/characters/64-character_11"
         person: 
       - roles:
         - Director
@@ -226,19 +226,19 @@
         - "Режиссёр"
         character: 
         person:
-          id: 42
-          name: prson_6
+          id: 89
+          name: prson_13
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/person/42-prson_6"
+          url: "/person/89-prson_13"
     - code: '200'
     - show_in_doc: 0
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/142/roles"
+    - path: "/api/animes/5659/roles"
     - versions:
       - '1'
     - query: ''
@@ -249,15 +249,15 @@
         roles_russian:
         - "Главные герои"
         character:
-          id: 27
-          name: character_3
-          russian: "персонаж_3"
+          id: 65
+          name: character_12
+          russian: "персонаж_12"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/characters/27-character_3"
+          url: "/characters/65-character_12"
         person: 
       - roles:
         - Director
@@ -265,74 +265,74 @@
         - "Режиссёр"
         character: 
         person:
-          id: 43
-          name: prson_7
+          id: 90
+          name: prson_14
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/person/43-prson_7"
+          url: "/person/90-prson_14"
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - animes#screenshots:
   - !omap
     - verb: :GET
-    - path: "/api/animes/162/screenshots"
+    - path: "/api/animes/5642/screenshots"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - original: "/images/screenshot/original/8065548cd539e2bcb069bc0cf58eb04081a2669f.jpg?1397987188"
-        preview: "/images/screenshot/preview/8065548cd539e2bcb069bc0cf58eb04081a2669f.jpg?1397987188"
+      - original: "/images/screenshot/original/901d71a7843c15e6272f1eb921e09be6d0ac7f80.jpg?1398713213"
+        preview: "/images/screenshot/preview/901d71a7843c15e6272f1eb921e09be6d0ac7f80.jpg?1398713213"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/163/screenshots"
+    - path: "/api/animes/5643/screenshots"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - original: "/images/screenshot/original/681a0528c0d756606c9f41ee7e78642315c3484d.jpg?1397987188"
-        preview: "/images/screenshot/preview/681a0528c0d756606c9f41ee7e78642315c3484d.jpg?1397987188"
+      - original: "/images/screenshot/original/b40544f05a81dcc5b60235576f76387250a7403d.jpg?1398713213"
+        preview: "/images/screenshot/preview/b40544f05a81dcc5b60235576f76387250a7403d.jpg?1398713213"
     - code: '200'
     - show_in_doc: 0
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/164/screenshots"
+    - path: "/api/animes/5644/screenshots"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - original: "/images/screenshot/original/70371ac1e09b5fdb2533357af08dcb865cd0e75e.jpg?1397987188"
-        preview: "/images/screenshot/preview/70371ac1e09b5fdb2533357af08dcb865cd0e75e.jpg?1397987188"
+      - original: "/images/screenshot/original/fc0106f8e2e38ef2ea9388b160eaa865a3c8d56f.jpg?1398713213"
+        preview: "/images/screenshot/preview/fc0106f8e2e38ef2ea9388b160eaa865a3c8d56f.jpg?1398713213"
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - animes#show:
   - !omap
     - verb: :GET
-    - path: "/api/animes/154"
+    - path: "/api/animes/5651"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 154
-        name: anime_23
+        id: 5651
+        name: anime_73
         russian: 
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/154-anime_23"
+        url: "/animes/5651-anime_73"
         ongoing: false
         anons: false
         episodes: 0
@@ -349,9 +349,9 @@
         description: "У этого аниме пока ещё нет описания."
         description_html: ''
         favoured: false
-        thread_id: 89
+        thread_id: 204
         world_art_id: 0
-        myanimelist_id: 154
+        myanimelist_id: 5651
         ani_db_id: 0
         genres: []
         studios: []
@@ -361,21 +361,21 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/155"
+    - path: "/api/animes/5652"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 155
-        name: anime_24
+        id: 5652
+        name: anime_74
         russian: 
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/155-anime_24"
+        url: "/animes/5652-anime_74"
         ongoing: false
         anons: false
         episodes: 0
@@ -392,9 +392,9 @@
         description: "У этого аниме пока ещё нет описания."
         description_html: ''
         favoured: false
-        thread_id: 90
+        thread_id: 205
         world_art_id: 0
-        myanimelist_id: 155
+        myanimelist_id: 5652
         ani_db_id: 0
         genres: []
         studios: []
@@ -405,21 +405,21 @@
 - animes#similar:
   - !omap
     - verb: :GET
-    - path: "/api/animes/156/similar"
+    - path: "/api/animes/5665/similar"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 157
-        name: anime_26
+      - id: 5666
+        name: anime_85
         russian: 
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/157-anime_26"
+        url: "/animes/5666-anime_85"
         ongoing: false
         anons: false
         episodes: 0
@@ -429,21 +429,21 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/158/similar"
+    - path: "/api/animes/5667/similar"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 159
-        name: anime_28
+      - id: 5668
+        name: anime_87
         russian: 
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/159-anime_28"
+        url: "/animes/5668-anime_87"
         ongoing: false
         anons: false
         episodes: 0
@@ -453,21 +453,21 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/animes/160/similar"
+    - path: "/api/animes/5669/similar"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 161
-        name: anime_30
+      - id: 5670
+        name: anime_89
         russian: 
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/161-anime_30"
+        url: "/animes/5670-anime_89"
         ongoing: false
         anons: false
         episodes: 0
@@ -484,7 +484,7 @@
     - query: ''
     - request_data: 
     - response_data:
-        authenticity_token: 49zM4s/xdnqDwssgAq+KP4Oc32A6AZd/lmhb/GeLc7s=
+        authenticity_token: mT3Zctj91MuXpQAgT0Hk3I+tuEO93ccGXGVx1pCi5KQ=
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -496,45 +496,45 @@
     - query: ''
     - request_data: 
     - response_data:
-        authenticity_token: gIviUVTXELKdVd+oj1rd6C2I4nRg8GnczciRsaPAHrU=
+        authenticity_token: SpZkgGmKIKz09JjSuKRYHymOylt4QrguGnwQ/YHIlhc=
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - characters#show:
   - !omap
     - verb: :GET
-    - path: "/api/characters/30"
+    - path: "/api/characters/55"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 30
-        name: character_6
-        russian: "персонаж_6"
+        id: 55
+        name: character_2
+        russian: "персонаж_2"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/characters/30-character_6"
+        url: "/characters/55-character_2"
         altname: 
         japanese: 
         description: ''
         description_html: "нет описания"
         favoured: false
-        thread_id: 107
+        thread_id: 173
         seyu: []
         animes:
-        - id: 169
-          name: anime_38
+        - id: 5585
+          name: anime_7
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/169-anime_38"
+          url: "/animes/5585-anime_7"
           ongoing: false
           anons: false
           episodes: 0
@@ -545,38 +545,38 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/characters/31"
+    - path: "/api/characters/56"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 31
-        name: character_7
-        russian: "персонаж_7"
+        id: 56
+        name: character_3
+        russian: "персонаж_3"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/characters/31-character_7"
+        url: "/characters/56-character_3"
         altname: 
         japanese: 
         description: ''
         description_html: "нет описания"
         favoured: false
-        thread_id: 108
+        thread_id: 174
         seyu: []
         animes:
-        - id: 170
-          name: anime_39
+        - id: 5586
+          name: anime_8
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/170-anime_39"
+          url: "/animes/5586-anime_8"
           ongoing: false
           anons: false
           episodes: 0
@@ -588,21 +588,21 @@
 - clubs#animes:
   - !omap
     - verb: :GET
-    - path: "/api/clubs/39/animes"
+    - path: "/api/clubs/65/animes"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 168
-        name: anime_37
+      - id: 5607
+        name: anime_29
         russian: 
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/animes/168-anime_37"
+        url: "/animes/5607-anime_29"
         ongoing: false
         anons: false
         episodes: 0
@@ -613,41 +613,92 @@
 - clubs#characters:
   - !omap
     - verb: :GET
-    - path: "/api/clubs/30/characters"
+    - path: "/api/clubs/64/characters"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 28
-        name: character_4
-        russian: "персонаж_4"
+      - id: 62
+        name: character_9
+        russian: "персонаж_9"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/characters/28-character_4"
+        url: "/characters/62-character_9"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - clubs#images:
   - !omap
     - verb: :GET
-    - path: "/api/clubs/40/images"
+    - path: "/api/clubs/60/images"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 6
-        original: "/images/image/original/6.jpg?1397987190"
-        main: "/images/image/main/6.jpg?1397987190"
-        preview: "/images/image/preview/6.jpg?1397987190"
+      - id: 9
+        original: "/images/image/original/9.jpg?1398713210"
+        main: "/images/image/main/9.jpg?1398713210"
+        preview: "/images/image/preview/9.jpg?1398713210"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - clubs#index:
+  - !omap
+    - verb: :GET
+    - path: "/api/clubs"
+    - versions:
+      - '1'
+    - query: limit=1&page=1
+    - request_data: 
+    - response_data:
+      - id: 66
+        name: group_8
+        logo: http://www.gravatar.com/avatar/group?s=73
+      - id: 67
+        name: group_9
+        logo: http://www.gravatar.com/avatar/group?s=73
+    - code: '200'
+    - show_in_doc: 1
+    - recorded: true
+  - !omap
+    - verb: :GET
+    - path: "/api/clubs"
+    - versions:
+      - '1'
+    - query: limit=1&page=1
+    - request_data: 
+    - response_data:
+      - id: 68
+        name: group_10
+        logo: http://www.gravatar.com/avatar/group?s=73
+      - id: 69
+        name: group_11
+        logo: http://www.gravatar.com/avatar/group?s=73
+    - code: '200'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :GET
+    - path: "/api/clubs"
+    - versions:
+      - '1'
+    - query: limit=1&page=1
+    - request_data: 
+    - response_data:
+      - id: 70
+        name: group_12
+        logo: http://www.gravatar.com/avatar/group?s=73
+      - id: 71
+        name: group_13
+        logo: http://www.gravatar.com/avatar/group?s=73
+    - code: '200'
+    - show_in_doc: 0
+    - recorded: true
   - !omap
     - verb: :GET
     - path: "/api/profile/clubs"
@@ -655,59 +706,8 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 29
-        name: group_1
-        logo: http://www.gravatar.com/avatar/group?s=73
-    - code: '200'
-    - show_in_doc: 0
-    - recorded: true
-  - !omap
-    - verb: :GET
-    - path: "/api/clubs"
-    - versions:
-      - '1'
-    - query: limit=1&page=1
-    - request_data: 
-    - response_data:
-      - id: 31
-        name: group_3
-        logo: http://www.gravatar.com/avatar/group?s=73
-      - id: 32
-        name: group_4
-        logo: http://www.gravatar.com/avatar/group?s=73
-    - code: '200'
-    - show_in_doc: 1
-    - recorded: true
-  - !omap
-    - verb: :GET
-    - path: "/api/clubs"
-    - versions:
-      - '1'
-    - query: limit=1&page=1
-    - request_data: 
-    - response_data:
-      - id: 33
-        name: group_5
-        logo: http://www.gravatar.com/avatar/group?s=73
-      - id: 34
-        name: group_6
-        logo: http://www.gravatar.com/avatar/group?s=73
-    - code: '200'
-    - show_in_doc: 0
-    - recorded: true
-  - !omap
-    - verb: :GET
-    - path: "/api/clubs"
-    - versions:
-      - '1'
-    - query: limit=1&page=1
-    - request_data: 
-    - response_data:
-      - id: 35
-        name: group_7
-        logo: http://www.gravatar.com/avatar/group?s=73
-      - id: 36
-        name: group_8
+      - id: 72
+        name: group_14
         logo: http://www.gravatar.com/avatar/group?s=73
     - code: '200'
     - show_in_doc: 0
@@ -715,21 +715,21 @@
 - clubs#mangas:
   - !omap
     - verb: :GET
-    - path: "/api/clubs/41/mangas"
+    - path: "/api/clubs/61/mangas"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 54
-        name: manga_2
-        russian: "манга_2"
+      - id: 1079
+        name: manga_22
+        russian: "манга_25"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/54-manga_2"
+        url: "/mangas/1079-manga_22"
         ongoing: false
         anons: false
         volumes: 0
@@ -740,38 +740,38 @@
 - clubs#members:
   - !omap
     - verb: :GET
-    - path: "/api/clubs/38/members"
+    - path: "/api/clubs/62/members"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 208
-        nickname: user_32
-        avatar: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=48&d=identicon
+      - id: 8880
+        nickname: user_28
+        avatar: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - clubs#show:
   - !omap
     - verb: :GET
-    - path: "/api/clubs/37"
+    - path: "/api/clubs/63"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 37
-        name: group_9
+        id: 63
+        name: group_5
         logo: http://www.gravatar.com/avatar/group?s=73
         description: ''
         description_html: ''
@@ -781,63 +781,63 @@
           x73: http://www.gravatar.com/avatar/group?s=73
           xo64: http://www.gravatar.com/avatar/group?s=73
         mangas:
-        - id: 53
-          name: manga_1
-          russian: "манга_1"
+        - id: 1080
+          name: manga_23
+          russian: "манга_26"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/53-manga_1"
+          url: "/mangas/1080-manga_23"
           ongoing: false
           anons: false
           volumes: 0
           chapters: 0
         characters:
-        - id: 29
-          name: character_5
-          russian: "персонаж_5"
+        - id: 61
+          name: character_8
+          russian: "персонаж_8"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/characters/29-character_5"
-        thread_id: 99
+          url: "/characters/61-character_8"
+        thread_id: 187
         user_role: member
         members:
-        - id: 205
-          nickname: user_28
-          avatar: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=48&d=identicon
+        - id: 8881
+          nickname: user_29
+          avatar: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
         animes:
-        - id: 166
-          name: anime_35
+        - id: 5604
+          name: anime_26
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/166-anime_35"
+          url: "/animes/5604-anime_26"
           ongoing: false
           anons: false
           episodes: 0
           episodes_aired: 0
         images:
-        - id: 5
-          original: "/images/image/original/5.jpg?1397987189"
-          main: "/images/image/main/5.jpg?1397987189"
-          preview: "/images/image/preview/5.jpg?1397987189"
+        - id: 10
+          original: "/images/image/original/10.jpg?1398713210"
+          main: "/images/image/main/10.jpg?1398713210"
+          preview: "/images/image/preview/10.jpg?1398713210"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -847,59 +847,59 @@
     - path: "/api/comments"
     - versions:
       - '1'
-    - query: commentable_id=212&commentable_type=User&desc=1&limit=10&page=1
+    - query: commentable_id=8832&commentable_type=User&desc=1&limit=10&page=1
     - request_data: 
     - response_data:
-      - id: 14
-        user_id: 212
-        commentable_id: 212
+      - id: 31
+        user_id: 8832
+        commentable_id: 8832
         commentable_type: User
-        body: comment_body_2
-        html_body: comment_body_2
-        created_at: '2014-04-20T13:46:30.000+04:00'
-        updated_at: '2014-04-20T13:46:30.000+04:00'
+        body: comment_body_4
+        html_body: comment_body_4
+        created_at: '2014-04-28T23:26:47.000+04:00'
+        updated_at: '2014-04-28T23:26:47.000+04:00'
         offtopic: false
         review: false
         viewed: true
         can_be_edited: 
         user:
-          id: 212
-          nickname: user_37
-          avatar: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon
+          id: 8832
+          nickname: user_4
+          avatar: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
-      - id: 13
-        user_id: 212
-        commentable_id: 212
+            x160: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+      - id: 30
+        user_id: 8832
+        commentable_id: 8832
         commentable_type: User
-        body: comment_body_1
-        html_body: comment_body_1
-        created_at: '2014-04-20T13:46:30.000+04:00'
-        updated_at: '2014-04-20T13:46:30.000+04:00'
+        body: comment_body_3
+        html_body: comment_body_3
+        created_at: '2014-04-28T23:26:47.000+04:00'
+        updated_at: '2014-04-28T23:26:47.000+04:00'
         offtopic: false
         review: false
         viewed: true
         can_be_edited: 
         user:
-          id: 212
-          nickname: user_37
-          avatar: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon
+          id: 8832
+          nickname: user_4
+          avatar: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/3c7b6a3731276c5504e7b24b1accacee?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -908,132 +908,132 @@
     - path: "/api/comments"
     - versions:
       - '1'
-    - query: commentable_id=213&commentable_type=User&desc=1&limit=10&page=1
+    - query: commentable_id=8833&commentable_type=User&desc=1&limit=10&page=1
     - request_data: 
     - response_data:
-      - id: 16
-        user_id: 213
-        commentable_id: 213
+      - id: 33
+        user_id: 8833
+        commentable_id: 8833
         commentable_type: User
-        body: comment_body_4
-        html_body: comment_body_4
-        created_at: '2014-04-20T13:46:30.000+04:00'
-        updated_at: '2014-04-20T13:46:30.000+04:00'
+        body: comment_body_6
+        html_body: comment_body_6
+        created_at: '2014-04-28T23:26:47.000+04:00'
+        updated_at: '2014-04-28T23:26:47.000+04:00'
         offtopic: false
         review: false
         viewed: true
         can_be_edited: 
         user:
-          id: 213
-          nickname: user_38
-          avatar: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=48&d=identicon
+          id: 8833
+          nickname: user_5
+          avatar: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
-      - id: 15
-        user_id: 213
-        commentable_id: 213
+            x160: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+      - id: 32
+        user_id: 8833
+        commentable_id: 8833
         commentable_type: User
-        body: comment_body_3
-        html_body: comment_body_3
-        created_at: '2014-04-20T13:46:30.000+04:00'
-        updated_at: '2014-04-20T13:46:30.000+04:00'
+        body: comment_body_5
+        html_body: comment_body_5
+        created_at: '2014-04-28T23:26:47.000+04:00'
+        updated_at: '2014-04-28T23:26:47.000+04:00'
         offtopic: false
         review: false
         viewed: true
         can_be_edited: 
         user:
-          id: 213
-          nickname: user_38
-          avatar: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=48&d=identicon
+          id: 8833
+          nickname: user_5
+          avatar: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - comments#show:
   - !omap
     - verb: :GET
-    - path: "/api/comments/17"
+    - path: "/api/comments/28"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 17
-        user_id: 214
-        commentable_id: 105
+        id: 28
+        user_id: 8830
+        commentable_id: 171
         commentable_type: Entry
-        body: comment_body_5
-        html_body: comment_body_5
-        created_at: '2014-04-20T13:46:30.000+04:00'
-        updated_at: '2014-04-20T13:46:30.000+04:00'
+        body: comment_body_1
+        html_body: comment_body_1
+        created_at: '2014-04-28T23:26:47.000+04:00'
+        updated_at: '2014-04-28T23:26:47.000+04:00'
         offtopic: false
         review: false
         viewed: true
         can_be_edited: 
         user:
-          id: 214
-          nickname: user_39
-          avatar: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=48&d=identicon
+          id: 8830
+          nickname: user_2
+          avatar: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/comments/18"
+    - path: "/api/comments/29"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 18
-        user_id: 215
-        commentable_id: 106
+        id: 29
+        user_id: 8831
+        commentable_id: 172
         commentable_type: Entry
-        body: comment_body_6
-        html_body: comment_body_6
-        created_at: '2014-04-20T13:46:30.000+04:00'
-        updated_at: '2014-04-20T13:46:30.000+04:00'
+        body: comment_body_2
+        html_body: comment_body_2
+        created_at: '2014-04-28T23:26:47.000+04:00'
+        updated_at: '2014-04-28T23:26:47.000+04:00'
         offtopic: false
         review: false
         viewed: true
         can_be_edited: 
         user:
-          id: 215
-          nickname: user_40
-          avatar: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=48&d=identicon
+          id: 8831
+          nickname: user_3
+          avatar: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 0
     - recorded: true
@@ -1047,47 +1047,47 @@
     - request_data: 
     - response_data:
         animes:
-        - id: 187
-          name: anime_56
+        - id: 5579
+          name: anime_1
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/animes/187-anime_56"
+          url: "/animes/5579-anime_1"
         mangas:
-        - id: 78
-          name: manga_23
-          russian: "манга_26"
+        - id: 1055
+          name: manga_1
+          russian: "манга_1"
           image: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/78-manga_23"
+          url: "/mangas/1055-manga_1"
         characters:
-        - id: 36
-          name: character_12
-          russian: "персонаж_12"
-          image: "/assets/globals/missing_x64.jpg"
-          url: "/characters/36-character_12"
-        seyu:
         - id: 54
-          name: prson_18
+          name: character_1
+          russian: "персонаж_1"
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/characters/54-character_1"
+        seyu:
+        - id: 80
+          name: prson_4
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/person/54-prson_18"
+          url: "/person/80-prson_4"
         mangakas:
-        - id: 52
-          name: prson_16
+        - id: 78
+          name: prson_2
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/person/52-prson_16"
+          url: "/person/78-prson_2"
         producers:
-        - id: 53
-          name: prson_17
+        - id: 79
+          name: prson_3
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/person/53-prson_17"
+          url: "/person/79-prson_3"
         people:
-        - id: 51
-          name: prson_15
+        - id: 77
+          name: prson_1
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/person/51-prson_15"
+          url: "/person/77-prson_1"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -1100,9 +1100,9 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 185
-        nickname: user_13
-        avatar: http://www.gravatar.com/avatar/8a26fef87b51362e95de958ee9f9e2c4?s=48&d=identicon
+      - id: 8948
+        nickname: user_93
+        avatar: http://www.gravatar.com/avatar/d39dd9dff394b5003ecb09bd420df505?s=48&d=identicon
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -1115,8 +1115,8 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 17
-        name: genre_1
+      - id: 40
+        name: genre_4
         russian: 
     - code: '200'
     - show_in_doc: 1
@@ -1129,8 +1129,8 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 18
-        name: genre_2
+      - id: 41
+        name: genre_5
         russian: 
     - code: '200'
     - show_in_doc: 0
@@ -1144,23 +1144,23 @@
     - query: limit=10&page=1
     - request_data: 
     - response_data:
-      - id: 9
-        created_at: '2014-04-20T13:46:27.000+04:00'
-        description: "Импортировано аниме - 522 записи"
-        target: 
-      - id: 10
-        created_at: '2014-04-20T13:46:27.000+04:00'
+      - id: 5694
+        created_at: '2014-04-28T23:26:55.000+04:00'
         description: "Запланировано"
         target:
-          id: 135
-          name: anime_7
+          id: 5675
+          name: anime_94
           russian: 
           image:
             preview: "/assets/globals/missing_preview.jpg"
             short: "/assets/globals/missing_short.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: http://test.host/animes/135-anime_7
+          url: http://test.host/animes/5675-anime_94
+      - id: 5693
+        created_at: '2014-04-28T23:26:54.000+04:00'
+        description: "Импортировано аниме - 522 записи"
+        target: 
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -1170,18 +1170,18 @@
     - path: "/api/mangas"
     - versions:
       - '1'
-    - query: genre=22&limit=1&mylist=1&order=ranked&page=1&publisher=13&rating=NC-17&search=Te&season=2014&type=Manga
+    - query: genre=37&limit=1&mylist=1&order=ranked&page=1&publisher=21&rating=NC-17&search=Te&season=2014&type=Manga
     - request_data: 
     - response_data:
-      - id: 70
+      - id: 1076
         name: Test
-        russian: "манга_18"
+        russian: "манга_22"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/70-test"
+        url: "/mangas/1076-test"
         ongoing: false
         anons: false
         volumes: 0
@@ -1194,18 +1194,18 @@
     - path: "/api/mangas"
     - versions:
       - '1'
-    - query: genre=23&limit=1&mylist=1&order=ranked&page=1&publisher=14&rating=NC-17&search=Te&season=2014&type=Manga
+    - query: genre=38&limit=1&mylist=1&order=ranked&page=1&publisher=22&rating=NC-17&search=Te&season=2014&type=Manga
     - request_data: 
     - response_data:
-      - id: 71
+      - id: 1077
         name: Test
-        russian: "манга_19"
+        russian: "манга_23"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/71-test"
+        url: "/mangas/1077-test"
         ongoing: false
         anons: false
         volumes: 0
@@ -1218,18 +1218,18 @@
     - path: "/api/mangas"
     - versions:
       - '1'
-    - query: genre=24&limit=1&mylist=1&order=ranked&page=1&publisher=15&rating=NC-17&search=Te&season=2014&type=Manga
+    - query: genre=39&limit=1&mylist=1&order=ranked&page=1&publisher=23&rating=NC-17&search=Te&season=2014&type=Manga
     - request_data: 
     - response_data:
-      - id: 72
+      - id: 1078
         name: Test
-        russian: "манга_20"
+        russian: "манга_24"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/72-test"
+        url: "/mangas/1078-test"
         ongoing: false
         anons: false
         volumes: 0
@@ -1240,7 +1240,7 @@
 - mangas#related:
   - !omap
     - verb: :GET
-    - path: "/api/mangas/58/related"
+    - path: "/api/mangas/1059/related"
     - versions:
       - '1'
     - query: ''
@@ -1250,15 +1250,15 @@
         relation_russian: "Адаптация"
         anime: 
         manga:
-          id: 59
-          name: manga_7
-          russian: "манга_7"
+          id: 1060
+          name: manga_6
+          russian: "манга_6"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/59-manga_7"
+          url: "/mangas/1060-manga_6"
           ongoing: false
           anons: false
           volumes: 0
@@ -1268,7 +1268,7 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/mangas/60/related"
+    - path: "/api/mangas/1061/related"
     - versions:
       - '1'
     - query: ''
@@ -1278,15 +1278,15 @@
         relation_russian: "Адаптация"
         anime: 
         manga:
-          id: 61
-          name: manga_9
-          russian: "манга_9"
+          id: 1062
+          name: manga_8
+          russian: "манга_8"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/61-manga_9"
+          url: "/mangas/1062-manga_8"
           ongoing: false
           anons: false
           volumes: 0
@@ -1296,7 +1296,7 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/mangas/62/related"
+    - path: "/api/mangas/1063/related"
     - versions:
       - '1'
     - query: ''
@@ -1306,15 +1306,15 @@
         relation_russian: "Адаптация"
         anime: 
         manga:
-          id: 63
-          name: manga_11
-          russian: "манга_11"
+          id: 1064
+          name: manga_10
+          russian: "манга_10"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/63-manga_11"
+          url: "/mangas/1064-manga_10"
           ongoing: false
           anons: false
           volumes: 0
@@ -1325,7 +1325,7 @@
 - mangas#roles:
   - !omap
     - verb: :GET
-    - path: "/api/mangas/73/roles"
+    - path: "/api/mangas/1065/roles"
     - versions:
       - '1'
     - query: ''
@@ -1336,15 +1336,15 @@
         roles_russian:
         - "Главные герои"
         character:
-          id: 33
-          name: character_9
-          russian: "персонаж_9"
+          id: 58
+          name: character_5
+          russian: "персонаж_5"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/characters/33-character_9"
+          url: "/characters/58-character_5"
         person: 
       - roles:
         - Director
@@ -1352,19 +1352,19 @@
         - "Режиссёр"
         character: 
         person:
-          id: 48
-          name: prson_12
+          id: 85
+          name: prson_9
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/person/48-prson_12"
+          url: "/person/85-prson_9"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/mangas/74/roles"
+    - path: "/api/mangas/1066/roles"
     - versions:
       - '1'
     - query: ''
@@ -1375,15 +1375,15 @@
         roles_russian:
         - "Главные герои"
         character:
-          id: 34
-          name: character_10
-          russian: "персонаж_10"
+          id: 59
+          name: character_6
+          russian: "персонаж_6"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/characters/34-character_10"
+          url: "/characters/59-character_6"
         person: 
       - roles:
         - Director
@@ -1391,19 +1391,19 @@
         - "Режиссёр"
         character: 
         person:
-          id: 49
-          name: prson_13
+          id: 86
+          name: prson_10
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/person/49-prson_13"
+          url: "/person/86-prson_10"
     - code: '200'
     - show_in_doc: 0
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/mangas/75/roles"
+    - path: "/api/mangas/1067/roles"
     - versions:
       - '1'
     - query: ''
@@ -1414,15 +1414,15 @@
         roles_russian:
         - "Главные герои"
         character:
-          id: 35
-          name: character_11
-          russian: "персонаж_11"
+          id: 60
+          name: character_7
+          russian: "персонаж_7"
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/characters/35-character_11"
+          url: "/characters/60-character_7"
         person: 
       - roles:
         - Director
@@ -1430,34 +1430,34 @@
         - "Режиссёр"
         character: 
         person:
-          id: 50
-          name: prson_14
+          id: 87
+          name: prson_11
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/person/50-prson_14"
+          url: "/person/87-prson_11"
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - mangas#show:
   - !omap
     - verb: :GET
-    - path: "/api/mangas/76"
+    - path: "/api/mangas/1068"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 76
-        name: manga_21
-        russian: "манга_24"
+        id: 1068
+        name: manga_14
+        russian: "манга_14"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/76-manga_21"
+        url: "/mangas/1068-manga_14"
         ongoing: false
         anons: false
         volumes: 0
@@ -1472,9 +1472,9 @@
         description: "У этой манги пока ещё нет описания."
         description_html: 
         favoured: false
-        thread_id: 115
+        thread_id: 182
         read_manga_id: 
-        myanimelist_id: 76
+        myanimelist_id: 1068
         genres: []
         publishers: []
         user_rate: 
@@ -1483,21 +1483,21 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/mangas/77"
+    - path: "/api/mangas/1069"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 77
-        name: manga_22
-        russian: "манга_25"
+        id: 1069
+        name: manga_15
+        russian: "манга_15"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/77-manga_22"
+        url: "/mangas/1069-manga_15"
         ongoing: false
         anons: false
         volumes: 0
@@ -1512,9 +1512,9 @@
         description: "У этой манги пока ещё нет описания."
         description_html: 
         favoured: false
-        thread_id: 116
+        thread_id: 183
         read_manga_id: 
-        myanimelist_id: 77
+        myanimelist_id: 1069
         genres: []
         publishers: []
         user_rate: 
@@ -1524,21 +1524,21 @@
 - mangas#similar:
   - !omap
     - verb: :GET
-    - path: "/api/mangas/64/similar"
+    - path: "/api/mangas/1070/similar"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 65
-        name: manga_13
-        russian: "манга_13"
+      - id: 1071
+        name: manga_17
+        russian: "манга_17"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/65-manga_13"
+        url: "/mangas/1071-manga_17"
         ongoing: false
         anons: false
         volumes: 0
@@ -1548,21 +1548,21 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/mangas/66/similar"
+    - path: "/api/mangas/1072/similar"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 67
-        name: manga_15
-        russian: "манга_15"
+      - id: 1073
+        name: manga_19
+        russian: "манга_19"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/67-manga_15"
+        url: "/mangas/1073-manga_19"
         ongoing: false
         anons: false
         volumes: 0
@@ -1572,21 +1572,21 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/mangas/68/similar"
+    - path: "/api/mangas/1074/similar"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 69
-        name: manga_17
-        russian: "манга_17"
+      - id: 1075
+        name: manga_21
+        russian: "манга_21"
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x96: "/assets/globals/missing_x96.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/mangas/69-manga_17"
+        url: "/mangas/1075-manga_21"
         ongoing: false
         anons: false
         volumes: 0
@@ -1603,34 +1603,34 @@
     - query: limit=20&page=1&type=news
     - request_data: 
     - response_data:
-      - id: 5
+      - id: 11
         kind: anons
         read: false
         body: anime [b]anons[/b]
-        created_at: '2014-04-20T13:46:26.000+04:00'
+        created_at: '2014-04-28T23:26:47.000+04:00'
         html_body: anime <strong>anons</strong>
         from:
-          id: 180
-          nickname: user_8
-          avatar: http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=48&d=identicon
-        to:
-          id: 179
+          id: 8837
           nickname: user_7
-          avatar: http://www.gravatar.com/avatar/0432218e60faa2c378f1c81d3d638718?s=48&d=identicon
+          avatar: http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=48&d=identicon
+        to:
+          id: 8836
+          nickname: user_6
+          avatar: http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=48&d=identicon
         linked:
-          id: 84
+          id: 175
           type: AnimeNews
-          url: http://test.host/news/84-entry-title-4
+          url: http://test.host/news/175-entry-title-1
           linked:
-            id: 130
-            name: anime_2
+            id: 5587
+            name: anime_9
             russian: 
             image:
               preview: "/assets/globals/missing_preview.jpg"
               short: "/assets/globals/missing_short.jpg"
               x96: "/assets/globals/missing_x96.jpg"
               x64: "/assets/globals/missing_x64.jpg"
-            url: http://test.host/animes/130-anime_2
+            url: http://test.host/animes/5587-anime_9
             type: Anime
     - code: '200'
     - show_in_doc: 1
@@ -1653,19 +1653,19 @@
 - people#show:
   - !omap
     - verb: :GET
-    - path: "/api/people/37"
+    - path: "/api/people/91"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 37
-        name: prson_1
+        id: 91
+        name: prson_15
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/person/37-prson_1"
+        url: "/person/91-prson_15"
         job_title: "Режиссёр аниме"
         birthday: 
         website: 
@@ -1673,7 +1673,23 @@
         - - Producer
           - 1
         roles: []
-        works: []
+        works:
+        - anime:
+            id: 5671
+            name: anime_90
+            russian: 
+            image:
+              original: "/assets/globals/missing_original.jpg"
+              preview: "/assets/globals/missing_preview.jpg"
+              x96: "/assets/globals/missing_x96.jpg"
+              x64: "/assets/globals/missing_x64.jpg"
+            url: "/animes/5671-anime_90"
+            ongoing: false
+            anons: false
+            episodes: 0
+            episodes_aired: 0
+          manga: 
+          role: "Продюсер"
         person_favoured: false
         producer: true
         producer_favoured: false
@@ -1686,19 +1702,68 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/people/38"
+    - path: "/api/people/92"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 38
-        name: prson_2
+        id: 92
+        name: prson_16
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/person/38-prson_2"
+        url: "/person/92-prson_16"
+        job_title: "Режиссёр аниме"
+        birthday: 
+        website: 
+        groupped_roles:
+        - - Producer
+          - 1
+        roles: []
+        works:
+        - anime:
+            id: 5672
+            name: anime_91
+            russian: 
+            image:
+              original: "/assets/globals/missing_original.jpg"
+              preview: "/assets/globals/missing_preview.jpg"
+              x96: "/assets/globals/missing_x96.jpg"
+              x64: "/assets/globals/missing_x64.jpg"
+            url: "/animes/5672-anime_91"
+            ongoing: false
+            anons: false
+            episodes: 0
+            episodes_aired: 0
+          manga: 
+          role: "Продюсер"
+        person_favoured: false
+        producer: true
+        producer_favoured: false
+        mangaka: false
+        mangaka_favoured: false
+        seyu: false
+        seyu_favoured: false
+    - code: '200'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :GET
+    - path: "/api/people/93"
+    - versions:
+      - '1'
+    - query: ''
+    - request_data: 
+    - response_data:
+        id: 93
+        name: prson_17
+        image:
+          original: "/assets/globals/missing_original.jpg"
+          preview: "/assets/globals/missing_preview.jpg"
+          x64: "/assets/globals/missing_x64.jpg"
+        url: "/person/93-prson_17"
         job_title: "Режиссёр аниме"
         birthday: 
         website: 
@@ -1719,19 +1784,19 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/people/39"
+    - path: "/api/people/94"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 39
-        name: prson_3
+        id: 94
+        name: prson_18
         image:
           original: "/assets/globals/missing_original.jpg"
           preview: "/assets/globals/missing_preview.jpg"
           x64: "/assets/globals/missing_x64.jpg"
-        url: "/person/39-prson_3"
+        url: "/person/94-prson_18"
         job_title: "Режиссёр аниме"
         birthday: 
         website: 
@@ -1739,72 +1804,7 @@
         - - Producer
           - 1
         roles: []
-        works:
-        - anime:
-            id: 133
-            name: anime_5
-            russian: 
-            image:
-              original: "/assets/globals/missing_original.jpg"
-              preview: "/assets/globals/missing_preview.jpg"
-              x96: "/assets/globals/missing_x96.jpg"
-              x64: "/assets/globals/missing_x64.jpg"
-            url: "/animes/133-anime_5"
-            ongoing: false
-            anons: false
-            episodes: 0
-            episodes_aired: 0
-          manga: 
-          role: "Продюсер"
-        person_favoured: false
-        producer: true
-        producer_favoured: false
-        mangaka: false
-        mangaka_favoured: false
-        seyu: false
-        seyu_favoured: false
-    - code: '200'
-    - show_in_doc: 0
-    - recorded: true
-  - !omap
-    - verb: :GET
-    - path: "/api/people/40"
-    - versions:
-      - '1'
-    - query: ''
-    - request_data: 
-    - response_data:
-        id: 40
-        name: prson_4
-        image:
-          original: "/assets/globals/missing_original.jpg"
-          preview: "/assets/globals/missing_preview.jpg"
-          x64: "/assets/globals/missing_x64.jpg"
-        url: "/person/40-prson_4"
-        job_title: "Режиссёр аниме"
-        birthday: 
-        website: 
-        groupped_roles:
-        - - Producer
-          - 1
-        roles: []
-        works:
-        - anime:
-            id: 134
-            name: anime_6
-            russian: 
-            image:
-              original: "/assets/globals/missing_original.jpg"
-              preview: "/assets/globals/missing_preview.jpg"
-              x96: "/assets/globals/missing_x96.jpg"
-              x64: "/assets/globals/missing_x64.jpg"
-            url: "/animes/134-anime_6"
-            ongoing: false
-            anons: false
-            episodes: 0
-            episodes_aired: 0
-          manga: 
-          role: "Продюсер"
+        works: []
         person_favoured: false
         producer: true
         producer_favoured: false
@@ -1824,8 +1824,8 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 11
-        name: publisher_1
+      - id: 24
+        name: publisher_4
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -1837,8 +1837,8 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 12
-        name: publisher_2
+      - id: 25
+        name: publisher_5
     - code: '200'
     - show_in_doc: 0
     - recorded: true
@@ -1861,7 +1861,7 @@
         name: "Новости"
         permalink: news
         url: "/news"
-      - id: 11
+      - id: 21
         position: 0
         name: section_1
         permalink: o
@@ -1887,7 +1887,7 @@
         name: "Новости"
         permalink: news
         url: "/news"
-      - id: 11
+      - id: 21
         position: 0
         name: section_1
         permalink: o
@@ -1907,10 +1907,10 @@
           nickname: test
           password: '123456'
     - response_data:
-        id: 216
+        id: 8828
         nickname: test
-        email: email41@factory.com
-        avatar: http://www.gravatar.com/avatar/fd5bf5674d94414a2ec4919018c48940?s=32&d=identicon
+        email: email2@factory.com
+        avatar: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=32&d=identicon
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -1925,10 +1925,10 @@
           nickname: test
           password: '123456'
     - response_data:
-        id: 217
+        id: 8829
         nickname: test
-        email: email42@factory.com
-        avatar: http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=32&d=identicon
+        email: email3@factory.com
+        avatar: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=32&d=identicon
     - code: '200'
     - show_in_doc: 0
     - recorded: true
@@ -1941,9 +1941,9 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 14
-        name: studio_4
-        filtered_name: studio_4
+      - id: 25
+        name: studio_1
+        filtered_name: studio_1
         real?: false
         image: "/images/original/missing.png"
     - code: '200'
@@ -1957,9 +1957,9 @@
     - query: ''
     - request_data: 
     - response_data:
-      - id: 15
-        name: studio_5
-        filtered_name: studio_5
+      - id: 26
+        name: studio_2
+        filtered_name: studio_2
         real?: false
         image: "/images/original/missing.png"
     - code: '200'
@@ -1974,35 +1974,35 @@
     - query: section=o
     - request_data: 
     - response_data:
-      - id: 81
-        title: entry title 1
+      - id: 198
+        title: entry title 3
         body: test [spoiler=спойлер]test[/spoiler] test
         html_body: 'test <div class="spoiler collapse"><span class="action half-hidden"
           style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div
           class="spoiler target" style="display: none;">test<span class="closing"></span></div>
           test'
         viewed: true
-        created_at: '2014-04-20T13:46:26.000+04:00'
+        created_at: '2014-04-28T23:26:53.000+04:00'
         comments_count: 0
         section:
-          id: 11
+          id: 23
           position: 0
-          name: section_1
+          name: section_3
           permalink: o
           url: "/o"
         user:
-          id: 175
-          nickname: user_3
-          avatar: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon
+          id: 8932
+          nickname: user_82
+          avatar: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/7e9bf08eaa6e8a518d602b7d9155efe9?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
         type: Entry
         linked_id: 
         linked_type: 
@@ -2018,35 +2018,35 @@
     - query: section=o
     - request_data: 
     - response_data:
-      - id: 82
-        title: entry title 2
+      - id: 199
+        title: entry title 4
         body: test [spoiler=спойлер]test[/spoiler] test
         html_body: 'test <div class="spoiler collapse"><span class="action half-hidden"
           style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div
           class="spoiler target" style="display: none;">test<span class="closing"></span></div>
           test'
         viewed: true
-        created_at: '2014-04-20T13:46:26.000+04:00'
+        created_at: '2014-04-28T23:26:53.000+04:00'
         comments_count: 0
         section:
-          id: 12
+          id: 24
           position: 0
-          name: section_2
+          name: section_4
           permalink: o
           url: "/o"
         user:
-          id: 176
-          nickname: user_4
-          avatar: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
+          id: 8933
+          nickname: user_83
+          avatar: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/4c39350f6de10444334683413bdde10d?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
         type: Entry
         linked_id: 
         linked_type: 
@@ -2062,35 +2062,35 @@
     - query: section=o
     - request_data: 
     - response_data:
-      - id: 83
-        title: entry title 3
+      - id: 200
+        title: entry title 5
         body: test [spoiler=спойлер]test[/spoiler] test
         html_body: 'test <div class="spoiler collapse"><span class="action half-hidden"
           style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div
           class="spoiler target" style="display: none;">test<span class="closing"></span></div>
           test'
         viewed: true
-        created_at: '2014-04-20T13:46:26.000+04:00'
+        created_at: '2014-04-28T23:26:53.000+04:00'
         comments_count: 0
         section:
-          id: 13
+          id: 25
           position: 0
-          name: section_3
+          name: section_5
           permalink: o
           url: "/o"
         user:
-          id: 177
-          nickname: user_5
-          avatar: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
+          id: 8934
+          nickname: user_84
+          avatar: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/24428a1287bf317f2f7935c733e754e1?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/449bcae8d88676f5a0548b6e1c3f49e6?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
         type: Entry
         linked_id: 
         linked_type: 
@@ -2101,97 +2101,938 @@
 - topics#show:
   - !omap
     - verb: :GET
-    - path: "/api/topics/80"
+    - path: "/api/topics/202"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 80
-        title: topic_1
+        id: 202
+        title: topic_3
         body: test [spoiler=спойлер]test[/spoiler] test
         html_body: 'test <div class="spoiler collapse"><span class="action half-hidden"
           style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div
           class="spoiler target" style="display: none;">test<span class="closing"></span></div>
           test'
         viewed: true
-        created_at: '2014-04-20T13:46:25.000+04:00'
+        created_at: '2014-04-28T23:26:53.000+04:00'
         comments_count: 0
         section: 
         user:
-          id: 174
-          nickname: user_2
-          avatar: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon
+          id: 8936
+          nickname: user_86
+          avatar: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/a8615974794b09f48c96aaff674eef51?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
         type: ReviewComment
-        linked_id: 3
+        linked_id: 5
         linked_type: Review
         linked:
-          id: 3
+          id: 5
           target:
-            id: 129
-            name: anime_1
+            id: 5641
+            name: anime_63
             russian: 
             image:
               original: "/assets/globals/missing_original.jpg"
               preview: "/assets/globals/missing_preview.jpg"
               x96: "/assets/globals/missing_x96.jpg"
               x64: "/assets/globals/missing_x64.jpg"
-            url: "/animes/129-anime_1"
+            url: "/animes/5641-anime_63"
             ongoing: false
             anons: false
             episodes: 0
             episodes_aired: 0
           user:
-            id: 173
-            nickname: user_1
-            avatar: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=48&d=identicon
+            id: 8935
+            nickname: user_85
+            avatar: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=48&d=identicon
             image:
-              x160: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=160&d=identicon
-              x148: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=148&d=identicon
-              x80: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=80&d=identicon
-              x64: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=64&d=identicon
-              x48: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=48&d=identicon
-              x32: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=32&d=identicon
-              x16: http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=16&d=identicon
-            last_online_at: '2014-04-20T13:46:24.000+04:00'
+              x160: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=160&d=identicon
+              x148: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=148&d=identicon
+              x80: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=80&d=identicon
+              x64: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=64&d=identicon
+              x48: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=48&d=identicon
+              x32: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=32&d=identicon
+              x16: http://www.gravatar.com/avatar/ab895893dce625bf7c653f8dfd23396e?s=16&d=identicon
+            last_online_at: '2014-04-28T23:26:45.000+04:00'
           votes_count: 0
           votes_for: 0
           body: ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-          html_body: "<div class=\"prgrph\">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>"
+          html_body: <div class="prgrph">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>
           overall: 1
           storyline: 1
           music: 1
           characters: 1
           animation: 1
-          created_at: '2014-04-20T13:46:25.000+04:00'
+          created_at: '2014-04-28T23:26:53.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
-- users#anime_rates:
+- user_rates#cleanup:
   - !omap
-    - verb: :GET
-    - path: "/api/users/220/anime_rates"
+    - verb: :POST
+    - path: "/api/user_rates/anime/cleanup"
     - versions:
       - '1'
-    - query: status=1
-    - request_data: 
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_63">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 1
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/anime/cleanup"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_64">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/anime/cleanup"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_65">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/manga/cleanup"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_66">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/manga/cleanup"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_67">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/manga/cleanup"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_68">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+- user_rates#create:
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8919
+          target_id: 5628
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
     - response_data:
-      - id: 24
-        score: 
+        id: 4469
+        score: 10
         status: 1
-        episodes: 0
-        status_name: Watching
-        anime:
-          id: 171
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8919
+          nickname: user_69
+          avatar: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/5966dfb37c0307fa315309ac131c65be?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5628
+          name: anime_50
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5628-anime_50"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 1
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8920
+          target_id: 5629
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4470
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8920
+          nickname: user_70
+          avatar: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/ed1da72bb0b11462b26679adb65bdfb1?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5629
+          name: anime_51
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5629-anime_51"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8921
+          target_id: 5630
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4471
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8921
+          nickname: user_71
+          avatar: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/1cd36974d5934c26fac3e3899d9acf14?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5630
+          name: anime_52
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5630-anime_52"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8922
+          target_id: 5631
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4472
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8922
+          nickname: user_72
+          avatar: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/cd6dc0430987be29f505c8c75b844b53?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5631
+          name: anime_53
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5631-anime_53"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8923
+          target_id: 5632
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4473
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8923
+          nickname: user_73
+          avatar: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/6ab8c952fa151d9580787f0559eed61a?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5632
+          name: anime_54
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5632-anime_54"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8924
+          target_id: 5633
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4474
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8924
+          nickname: user_74
+          avatar: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/9b951ff2e54a6a08530e9e25ab835191?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5633
+          name: anime_55
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5633-anime_55"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8925
+          target_id: 5634
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4475
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8925
+          nickname: user_75
+          avatar: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/782df07b4d65da82fa88b5d1a0786ff4?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5634
+          name: anime_56
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5634-anime_56"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8926
+          target_id: 5635
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4476
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8926
+          nickname: user_76
+          avatar: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/3269dd6073499cb548eaeea5f67835b7?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5635
+          name: anime_57
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5635-anime_57"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8927
+          target_id: 5636
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4477
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8927
+          nickname: user_77
+          avatar: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/19eb78da377ca4db5d66fd42857fa5d6?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5636
+          name: anime_58
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5636-anime_58"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8928
+          target_id: 5637
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4478
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8928
+          nickname: user_78
+          avatar: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/20147e42414b12872301d61044a0633a?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5637
+          name: anime_59
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5637-anime_59"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          user_id: 8929
+          target_id: 5638
+          target_type: Anime
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4479
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8929
+          nickname: user_79
+          avatar: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/470afd0ca70da8850d92a90d8ea79380?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5638
+          name: anime_60
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5638-anime_60"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+- user_rates#destroy:
+  - !omap
+    - verb: :DELETE
+    - path: "/api/user_rates/4480"
+    - versions:
+      - '1'
+    - query: ''
+    - request_data: 
+    - response_data: 
+    - code: '204'
+    - show_in_doc: 1
+    - recorded: true
+  - !omap
+    - verb: :DELETE
+    - path: "/api/user_rates/4481"
+    - versions:
+      - '1'
+    - query: ''
+    - request_data: 
+    - response_data: 
+    - code: '204'
+    - show_in_doc: 0
+    - recorded: true
+- user_rates#reset:
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/anime/reset"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_51">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 1
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/anime/reset"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_52">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/manga/reset"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_53">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/manga/reset"
+    - versions:
+      - '1'
+    - query: 
+    - request_data: {}
+    - response_data: <html><body>You are being <a href="http://test.host/user_54">redirected</a>.</body></html>
+    - code: '302'
+    - show_in_doc: 0
+    - recorded: true
+- user_rates#update:
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/4455"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4455
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8905
+          nickname: user_55
+          avatar: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5617
+          name: anime_39
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5617-anime_39"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 1
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/4456"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4456
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8906
+          nickname: user_56
+          avatar: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5618
           name: anime_40
           russian: 
           image:
@@ -2199,29 +3040,53 @@
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/171-anime_40"
+          url: "/animes/5618-anime_40"
           ongoing: false
           anons: false
           episodes: 0
           episodes_aired: 0
-    - code: '200'
-    - show_in_doc: 1
+    - code: '201'
+    - show_in_doc: 0
     - recorded: true
   - !omap
-    - verb: :GET
-    - path: "/api/users/221/anime_rates"
+    - verb: :POST
+    - path: "/api/user_rates/4457"
     - versions:
       - '1'
-    - query: status=1
-    - request_data: 
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
     - response_data:
-      - id: 25
-        score: 
+        id: 4457
+        score: 10
         status: 1
-        episodes: 0
-        status_name: Watching
-        anime:
-          id: 172
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8907
+          nickname: user_57
+          avatar: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5619
           name: anime_41
           russian: 
           image:
@@ -2229,25 +3094,360 @@
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/172-anime_41"
+          url: "/animes/5619-anime_41"
           ongoing: false
           anons: false
           episodes: 0
           episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/4458"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4458
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8908
+          nickname: user_58
+          avatar: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5620
+          name: anime_42
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5620-anime_42"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/4459"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4459
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8909
+          nickname: user_59
+          avatar: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5621
+          name: anime_43
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5621-anime_43"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/4460"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4460
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8910
+          nickname: user_60
+          avatar: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5622
+          name: anime_44
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5622-anime_44"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/4461"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4461
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8911
+          nickname: user_61
+          avatar: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5623
+          name: anime_45
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5623-anime_45"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+  - !omap
+    - verb: :POST
+    - path: "/api/user_rates/4462"
+    - versions:
+      - '1'
+    - query: 
+    - request_data:
+        user_rate:
+          score: 10
+          status: 1
+          episodes: 2
+          volumes: 3
+          chapters: 4
+          notice: test
+          rewatches: 5
+    - response_data:
+        id: 4462
+        score: 10
+        status: 1
+        episodes: 2
+        volumes: 3
+        chapters: 4
+        notice: test
+        rewatches: 5
+        user:
+          id: 8912
+          nickname: user_62
+          avatar: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=48&d=identicon
+          image:
+            x160: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
+        target:
+          id: 5624
+          name: anime_46
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5624-anime_46"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+    - code: '201'
+    - show_in_doc: 0
+    - recorded: true
+- users#anime_rates:
+  - !omap
+    - verb: :GET
+    - path: "/api/users/8864/anime_rates"
+    - versions:
+      - '1'
+    - query: status=1
+    - request_data: 
+    - response_data:
+      - id: 4446
+        score: 
+        status: 1
+        episodes: 0
+        status_name: Watching
+        anime:
+          id: 5596
+          name: anime_18
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5596-anime_18"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+        notice: 
+        notice_html: 
+    - code: '200'
+    - show_in_doc: 1
+    - recorded: true
+  - !omap
+    - verb: :GET
+    - path: "/api/users/8865/anime_rates"
+    - versions:
+      - '1'
+    - query: status=1
+    - request_data: 
+    - response_data:
+      - id: 4447
+        score: 
+        status: 1
+        episodes: 0
+        status_name: Watching
+        anime:
+          id: 5597
+          name: anime_19
+          russian: 
+          image:
+            original: "/assets/globals/missing_original.jpg"
+            preview: "/assets/globals/missing_preview.jpg"
+            x96: "/assets/globals/missing_x96.jpg"
+            x64: "/assets/globals/missing_x64.jpg"
+          url: "/animes/5597-anime_19"
+          ongoing: false
+          anons: false
+          episodes: 0
+          episodes_aired: 0
+        notice: 
+        notice_html: 
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - users#clubs:
   - !omap
     - verb: :GET
-    - path: "/api/users/223/clubs"
+    - path: "/api/users/8841/clubs"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 42
-        name: group_14
+      - id: 59
+        name: group_1
         logo: http://www.gravatar.com/avatar/group?s=73
     - code: '200'
     - show_in_doc: 1
@@ -2255,107 +3455,107 @@
 - users#favourites:
   - !omap
     - verb: :GET
-    - path: "/api/users/245/favourites"
+    - path: "/api/users/8849/favourites"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
         animes:
-        - id: 174
-          name: anime_43
+        - id: 5589
+          name: anime_11
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/animes/174-anime_43"
+          url: "/animes/5589-anime_11"
         mangas:
-        - id: 57
-          name: manga_5
-          russian: "манга_5"
+        - id: 1056
+          name: manga_2
+          russian: "манга_2"
           image: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/57-manga_5"
+          url: "/mangas/1056-manga_2"
         characters:
-        - id: 32
-          name: character_8
-          russian: "персонаж_8"
+        - id: 57
+          name: character_4
+          russian: "персонаж_4"
           image: "/assets/globals/missing_x64.jpg"
-          url: "/characters/32-character_8"
+          url: "/characters/57-character_4"
         people:
-        - id: 44
+        - id: 81
+          name: prson_5
+          russian: 
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/person/81-prson_5"
+        mangakas:
+        - id: 82
+          name: prson_6
+          russian: 
+          image: "/assets/globals/missing_x64.jpg"
+          url: "/person/82-prson_6"
+        seyu:
+        - id: 84
           name: prson_8
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/person/44-prson_8"
-        mangakas:
-        - id: 45
-          name: prson_9
-          russian: 
-          image: "/assets/globals/missing_x64.jpg"
-          url: "/person/45-prson_9"
-        seyu:
-        - id: 47
-          name: prson_11
-          russian: 
-          image: "/assets/globals/missing_x64.jpg"
-          url: "/person/47-prson_11"
+          url: "/person/84-prson_8"
         producers:
-        - id: 46
-          name: prson_10
+        - id: 83
+          name: prson_7
           russian: 
           image: "/assets/globals/missing_x64.jpg"
-          url: "/person/46-prson_10"
+          url: "/person/83-prson_7"
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - users#friends:
   - !omap
     - verb: :GET
-    - path: "/api/users/243/friends"
+    - path: "/api/users/8868/friends"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-      - id: 242
-        nickname: user_49
-        avatar: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=48&d=identicon
+      - id: 8867
+        nickname: user_19
+        avatar: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/60a55203dee0c2f1826b306cc0528752?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - users#history:
   - !omap
     - verb: :GET
-    - path: "/api/users/248/history"
+    - path: "/api/users/8859/history"
     - versions:
       - '1'
     - query: limit=10&page=1
     - request_data: 
     - response_data:
-      - id: 11
-        created_at: '2014-04-20T13:46:32.000+04:00'
+      - id: 5628
+        created_at: '2014-04-28T23:26:48.000+04:00'
         description: "Импортировано аниме - 522 записи"
         target: 
-      - id: 12
-        created_at: '2014-04-20T13:46:32.000+04:00'
+      - id: 5629
+        created_at: '2014-04-28T23:26:48.000+04:00'
         description: "Запланировано"
         target:
-          id: 180
-          name: anime_49
+          id: 5595
+          name: anime_17
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/180-anime_49"
+          url: "/animes/5595-anime_17"
           ongoing: false
           anons: false
           episodes: 0
@@ -2372,30 +3572,30 @@
     - query: limit=1&page=1&search=Te
     - request_data: 
     - response_data:
-      - id: 228
+      - id: 8850
         nickname: Test1
-        avatar: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/fc7b0571b479b7090dfb50d5d6dfed2e?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
-      - id: 229
+          x160: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
+      - id: 8851
         nickname: Test2
-        avatar: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/05d3789d3acd0f2295ffdd50aad4a886?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/acc7373874c9599bdb3fc81dea9391fe?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -2407,30 +3607,30 @@
     - query: limit=1&page=1&search=Te
     - request_data: 
     - response_data:
-      - id: 231
+      - id: 8853
         nickname: Test1
-        avatar: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
-      - id: 232
+          x160: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
+      - id: 8854
         nickname: Test2
-        avatar: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/062bd7151a7de71ee5a2fd01153f905c?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 0
     - recorded: true
@@ -2442,50 +3642,50 @@
     - query: limit=1&page=1&search=Te
     - request_data: 
     - response_data:
-      - id: 234
+      - id: 8856
         nickname: Test1
-        avatar: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/d19d70dca884eb3ad8e60fe6a7fd43be?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
-      - id: 235
+          x160: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
+      - id: 8857
         nickname: Test2
-        avatar: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/337d5d09cd7b06738d14bd6ccc6f625f?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - users#manga_rates:
   - !omap
     - verb: :GET
-    - path: "/api/users/237/manga_rates"
+    - path: "/api/users/8860/manga_rates"
     - versions:
       - '1'
     - query: status=1
     - request_data: 
     - response_data:
-      - id: 26
+      - id: 4444
         score: 
         status: 1
         volumes: 0
         chapters: 0
         status_name: Watching
         manga:
-          id: 55
+          id: 1057
           name: manga_3
           russian: "манга_3"
           image:
@@ -2493,30 +3693,32 @@
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/55-manga_3"
+          url: "/mangas/1057-manga_3"
           ongoing: false
           anons: false
           volumes: 0
           chapters: 0
+        notice: 
+        notice_html: 
     - code: '200'
     - show_in_doc: 1
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/users/238/manga_rates"
+    - path: "/api/users/8861/manga_rates"
     - versions:
       - '1'
     - query: status=1
     - request_data: 
     - response_data:
-      - id: 27
+      - id: 4445
         score: 
         status: 1
         volumes: 0
         chapters: 0
         status_name: Watching
         manga:
-          id: 56
+          id: 1058
           name: manga_4
           russian: "манга_4"
           image:
@@ -2524,96 +3726,98 @@
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/mangas/56-manga_4"
+          url: "/mangas/1058-manga_4"
           ongoing: false
           anons: false
           volumes: 0
           chapters: 0
+        notice: 
+        notice_html: 
     - code: '200'
     - show_in_doc: 0
     - recorded: true
 - users#messages:
   - !omap
     - verb: :GET
-    - path: "/api/users/225/messages"
+    - path: "/api/users/8842/messages"
     - versions:
       - '1'
     - query: limit=20&page=1&type=news
     - request_data: 
     - response_data:
-      - id: 6
+      - id: 12
         kind: anons
         read: false
         body: anime [b]anons[/b]
         html_body: anime <strong>anons</strong>
-        created_at: '2014-04-20T13:46:31.000+04:00'
+        created_at: '2014-04-28T23:26:48.000+04:00'
         linked:
-          id: 173
-          topic_url: http://test.host/news/110-entry-title-5
-          thread_id: 110
+          id: 5588
+          topic_url: http://test.host/news/177-entry-title-2
+          thread_id: 177
           type: Anime
-          name: anime_42
+          name: anime_10
           russian: 
           image:
             original: "/assets/globals/missing_original.jpg"
             preview: "/assets/globals/missing_preview.jpg"
             x96: "/assets/globals/missing_x96.jpg"
             x64: "/assets/globals/missing_x64.jpg"
-          url: "/animes/173-anime_42"
+          url: "/animes/5588-anime_10"
           ongoing: false
           anons: false
           episodes: 0
           episodes_aired: 0
         from:
-          id: 226
-          nickname: user_45
-          avatar: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=48&d=identicon
+          id: 8843
+          nickname: user_12
+          avatar: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/c12ec501806045539c545ee71bba557b?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/7d04ef361bb787575c8fb144214d3ae3?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
         to:
-          id: 225
+          id: 8842
           nickname: Test
-          avatar: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=48&d=identicon
+          avatar: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=48&d=identicon
           image:
-            x160: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=160&d=identicon
-            x148: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=148&d=identicon
-            x80: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=80&d=identicon
-            x64: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=64&d=identicon
-            x48: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=48&d=identicon
-            x32: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=32&d=identicon
-            x16: http://www.gravatar.com/avatar/2923fbd93a33d291b56503120539f517?s=16&d=identicon
-          last_online_at: '2014-04-20T13:46:24.000+04:00'
+            x160: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=160&d=identicon
+            x148: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=148&d=identicon
+            x80: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=80&d=identicon
+            x64: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=64&d=identicon
+            x48: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=48&d=identicon
+            x32: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=32&d=identicon
+            x16: http://www.gravatar.com/avatar/7cf0a987a946c3c770c98e5db4a136eb?s=16&d=identicon
+          last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
 - users#show:
   - !omap
     - verb: :GET
-    - path: "/api/users/246"
+    - path: "/api/users/8862"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 246
+        id: 8862
         nickname: Test
-        avatar: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/649cd2306097924b6bc4c84c8817f7d8?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
         name: 
         sex: 
         full_years: 
@@ -2716,24 +3920,24 @@
     - recorded: true
   - !omap
     - verb: :GET
-    - path: "/api/users/247"
+    - path: "/api/users/8863"
     - versions:
       - '1'
     - query: ''
     - request_data: 
     - response_data:
-        id: 247
+        id: 8863
         nickname: Test
-        avatar: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/fd508258a3e1982367cb76951a4c3b0a?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
         name: 
         sex: 
         full_years: 
@@ -2837,7 +4041,7 @@
 - users#unread_messages:
   - !omap
     - verb: :GET
-    - path: "/api/users/224/unread_messages"
+    - path: "/api/users/8866/unread_messages"
     - versions:
       - '1'
     - query: ''
@@ -2858,18 +4062,18 @@
     - query: ''
     - request_data: 
     - response_data:
-        id: 239
+        id: 8845
         nickname: Test
-        avatar: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/d547556c7a5f3814126d2aab2f7ab759?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 1
     - recorded: true
@@ -2881,18 +4085,18 @@
     - query: ''
     - request_data: 
     - response_data:
-        id: 240
+        id: 8846
         nickname: Test
-        avatar: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/a48383952a0ca99539e3eb4608ccb1a4?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 0
     - recorded: true
@@ -2904,18 +4108,18 @@
     - query: ''
     - request_data: 
     - response_data:
-        id: 241
+        id: 8847
         nickname: Test
-        avatar: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=48&d=identicon
+        avatar: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=48&d=identicon
         image:
-          x160: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=160&d=identicon
-          x148: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=148&d=identicon
-          x80: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=80&d=identicon
-          x64: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=64&d=identicon
-          x48: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=48&d=identicon
-          x32: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=32&d=identicon
-          x16: http://www.gravatar.com/avatar/d17be1e7d8bed587a942a1d07adfd22d?s=16&d=identicon
-        last_online_at: '2014-04-20T13:46:24.000+04:00'
+          x160: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=160&d=identicon
+          x148: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=148&d=identicon
+          x80: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=80&d=identicon
+          x64: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=64&d=identicon
+          x48: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=48&d=identicon
+          x32: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=32&d=identicon
+          x16: http://www.gravatar.com/avatar/3df97e818c915b2c195cb04d757f43cc?s=16&d=identicon
+        last_online_at: '2014-04-28T23:26:45.000+04:00'
     - code: '200'
     - show_in_doc: 0
     - recorded: true

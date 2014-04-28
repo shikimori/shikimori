@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :user_rate do
     status UserRateStatus.get UserRateStatus::Planned
     target { FactoryGirl.create(:anime) }
-    user { FactoryGirl.create(:user) }
+    user
     episodes 0
     volumes 0
     chapters 0

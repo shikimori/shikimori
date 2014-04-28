@@ -14,6 +14,10 @@ class UserRate < ActiveRecord::Base
 
   before_save :smart_process_changes
   before_save :check_data
+  before_save :log_changed, if: -> { persisted? && changes.any? }
+  after_create :log_created
+
+  validates :target, :user, presence: true
 
   def anime?
     target_type == 'Anime'
@@ -56,8 +60,6 @@ private
     counter_changed 'episodes' if changes['episodes'] && anime?
     counter_changed 'chapters' if changes['chapters'] && manga?
     counter_changed 'volumes' if changes['volumes'] && manga?
-
-    add_history if changes.any?
   end
 
   # логика обновления полей при выставлении статусов
@@ -108,9 +110,15 @@ private
     end
   end
 
-  def add_history
+  # запись в историю о занесении в список
+  def log_created
+    UserHistory.add user, target, UserHistoryAction::Add
+  end
+
+  # запись в историю об изменении стутса
+  def log_changed
     if changes['status']
-      UserHistory.add user_id, target, UserHistoryAction::Status, status, changes['status'].first
+      UserHistory.add user, target, UserHistoryAction::Status, status, changes['status'].first
 
     elsif changes['episodes'] || changes['volumes'] || changes['chapters']
       counter = if anime?
@@ -121,32 +129,16 @@ private
         'chapters'
       end
 
-      UserHistory.add user_id, target, UserHistoryAction.const_get(counter.capitalize), self[counter], changes[counter].first
+      UserHistory.add user, target, UserHistoryAction.const_get(counter.capitalize), self[counter], changes[counter].first
     end
 
     if changes['score']
-      UserHistory.add user_id, target, UserHistoryAction::Rate, score, changes['score'].first
+      UserHistory.add user, target, UserHistoryAction::Rate, score, changes['score'].first
     end
   end
 
   # валидации
   def check_data
-    if target.nil?
-      self.errors[:target] = 'не задано аниме или манга'
-      return false
-    end
-    if target.respond_to?(:episodes) && self.target.episodes < (self.episodes || 0) && self.target.episodes != 0
-      self.errors[:episodes] = 'некорректное число эпизодов'
-      return false
-    end
-    if target.respond_to?(:volumes) && self.target.volumes < (self.volumes || 0) && self.target.volumes != 0
-      self.errors[:volumes] = 'некорректное число томов'
-      return false
-    end
-    if target.respond_to?(:chapters) && self.target.chapters < (self.chapters || 0) && self.target.chapters != 0
-      self.errors[:chapters] = 'некорректное число глав'
-      return false
-    end
     unless UserRateStatus.contains(status)
       self.errors[:status] = 'некорректный статус'
       return false

@@ -9,11 +9,11 @@ describe UserRate do
   end
 
   describe :callbacks do
-
     context :create do
       let(:user_rate) { build :user_rate, status: 0 }
       after { user_rate.save }
 
+      it { expect(user_rate).to receive :log_created }
       it { expect(user_rate).to receive :smart_process_changes }
     end
 
@@ -21,6 +21,7 @@ describe UserRate do
       let(:user_rate) { create :user_rate, status: 0 }
       after { user_rate.update status: 1 }
 
+      it { expect(user_rate).to_not receive :log_created }
       it { expect(user_rate).to receive :smart_process_changes }
     end
   end
@@ -66,10 +67,10 @@ describe UserRate do
     end
 
     describe :status_changed do
-      subject(:user_rate) { create :user_rate, status, target: target }
+      subject!(:user_rate) { create :user_rate, status, target: target }
       before do
         expect(UserHistory).to receive(:add).with(
-          user_rate.user_id,
+          user_rate.user,
           user_rate.target,
           UserHistoryAction::Status,
           UserRateStatus.get(UserRateStatus::Planned),
@@ -115,7 +116,7 @@ describe UserRate do
       let(:initial_value) { 5 }
 
       context :regular_change do
-        before { expect(UserHistory).to receive(:add).with user_rate.user_id, user_rate.target, UserHistoryAction::Rate, new_value, initial_value }
+        before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Rate, new_value, initial_value }
         before { user_rate.update score: new_value }
         let(:new_value) { 8 }
 
@@ -140,7 +141,7 @@ describe UserRate do
     end
 
     describe :counter_changed do
-      subject(:user_rate) { create :user_rate, target: target, episodes: initial_value, volumes: initial_value, chapters: initial_value }
+      subject!(:user_rate) { create :user_rate, target: target, episodes: initial_value, volumes: initial_value, chapters: initial_value }
 
       let(:initial_value) { 1 }
       let(:target_value) { 99 }
@@ -150,7 +151,7 @@ describe UserRate do
         before { user_rate.update episodes: new_value }
 
         context :regular_change do
-          before { expect(UserHistory).to receive(:add).with user_rate.user_id, user_rate.target, UserHistoryAction::Episodes, newest_value, new_value }
+          before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Episodes, newest_value, new_value }
           before { user_rate.update episodes: 7 }
 
           let(:initial_value) { 3 }
@@ -235,6 +236,12 @@ describe UserRate do
           end
         end
       end
+    end
+
+    describe :log_created do
+      subject(:user_rate) { build :user_rate, target: build_stubbed(:anime), user: build_stubbed(:user) }
+      after { user_rate.save }
+      before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Add }
     end
 
     describe :planned? do

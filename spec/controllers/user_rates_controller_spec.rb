@@ -1,88 +1,98 @@
 require 'spec_helper'
-require 'cancan/matchers'
 
 describe UserRatesController do
-  include_context :authenticated
+  [:anime, :manga].each do |kind|
+    describe kind do
+      let(:user) { create :user }
+      let(:entry) { create kind }
+      let!(:user_rate) { create :user_rate, user: user, target: entry }
 
-  describe :create do
-    pending
-  end
+      let(:defaults) {{
+        id: entry.to_param, type: entry.class.name
+      }}
 
-  describe :update do
-    pending
-  end
+      let(:valid_hash) do
+        {
+          status: UserRateStatus.get(UserRateStatus::Planned),
+          score: 9,
+          notice: 'test zxc'
+        }.merge(kind == :anime ? {episodes: 0} : {volumes: 0, chapters: 0})
+      end
 
-  describe :destroy do
-    pending
-  end
+      describe :create do
+        context :guest do
+          before { post :create, defaults }
+          it { should respond_with 302 }
+        end
 
-  describe :cleanup do
-    let!(:user_rate) { create :user_rate, user: user, target: entry }
-    let!(:user_history) { create :user_history, user: user, target: entry }
+        context :authenticated do
+          before { sign_in user }
+          let(:make_request) { post :create, defaults.merge(user_rate: valid_hash) }
 
-    context :anime do
-      let(:entry) { create :anime }
-      before { post :cleanup, type: :anime }
+          context :response do
+            before { make_request }
+            it { should respond_with :success }
+          end
 
-      it { should redirect_to user }
-      it { expect(user.anime_rates).to be_empty }
-      it { expect(user.history).to be_empty }
-    end
+          context :result do
+            let(:user_rate) {}
+            it { expect{make_request}.to change(UserRate, :count).by 1 }
+          end
+        end
+      end
 
-    context :manga do
-      let(:entry) { create :manga }
-      before { post :cleanup, type: :manga }
+      describe :update do
+        context :guest do
+          before { patch :update, defaults }
+          it { should respond_with 302 }
+        end
 
-      it { should redirect_to user }
-      it { expect(user.manga_rates).to be_empty }
-      it { expect(user.history).to be_empty }
-    end
-  end
+        context :authenticated do
+          before { sign_in user }
+          let(:current_hash) { valid_hash.merge kind == :anime ? {episodes: 1} : {volumes: 2, chapters: 3} }
+          let(:make_request) { patch :update, defaults.merge(rate: current_hash) }
 
-  describe :reset do
-    let!(:user_rate) { create :user_rate, user: user, target: entry, score: 1 }
+          context :response do
+            before { make_request }
+            it { should respond_with :success }
 
-    context :anime do
-      let(:entry) { create :anime }
-      before { post :reset, type: :anime }
+            if kind == :anime
+              it { user_rate.reload.episodes.should eq 1 }
+            else
+              it { user_rate.reload.volumes.should eq 2 }
+              it { user_rate.reload.chapters.should eq 3 }
+            end
+            it { user_rate.reload.score.should eq valid_hash[:score] }
+            it { user_rate.reload.notice.should eq valid_hash[:notice] }
+          end
 
-      it { should redirect_to user }
-      it { expect(user_rate.reload.score).to be_zero }
-    end
+          context :result do
+            it { expect{make_request}.to change(UserRate, :count).by 0 }
+          end
+        end
+      end
 
-    context :manga do
-      let(:entry) { create :manga }
-      before { post :reset, type: :manga }
+      describe :destroy do
+        context :guest do
+          before { delete :destroy, defaults }
+          it { should respond_with 302 }
+        end
 
-      it { should redirect_to user }
-      it { expect(user_rate.reload.score).to be_zero }
-    end
-  end
+        context :authenticated do
+          before { sign_in user }
+          let(:make_request) { delete :destroy, defaults }
 
-  describe :permissions do
-    subject { Ability.new user }
+          context :response do
+            before { make_request }
+            it { should respond_with :success }
+          end
 
-    context :own_data do
-      let(:user_rate) { build :user_rate, user: user }
-
-      it { should be_able_to :manage, user_rate }
-      it { should be_able_to :clenaup, user_rate }
-      it { should be_able_to :reset, user_rate }
-    end
-
-    context :foreign_data do
-      let(:user_rate) { build :user_rate, user: build_stubbed(:user) }
-
-      it { should_not be_able_to :manage, user_rate }
-    end
-
-    context :guest do
-      subject { Ability.new nil }
-      let(:user_rate) { build :user_rate, user: user }
-
-      it { should_not be_able_to :manage, user_rate }
-      it { should_not be_able_to :clenaup, user_rate }
-      it { should_not be_able_to :reset, user_rate }
+          context :result do
+            it { expect{make_request}.to change(UserRate, :count).by -1 }
+          end
+        end
+      end
     end
   end
 end
+

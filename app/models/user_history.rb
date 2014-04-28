@@ -12,10 +12,11 @@ class UserHistory < ActiveRecord::Base
   def self.add(user, item, action, value=nil, prior_value=nil)
     # при изменении на тоже самое значение ничего не делаем
     return if value && value == prior_value
-    last_entry = UserHistory.where(user_id: user.is_a?(Fixnum) ? user : user.id)
-        .where(target_type: item.class.name)
-        .order('id desc')
-        .first
+    last_entry = UserHistory
+      .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+      .where(target_type: item.class.name)
+      .order(id: :desc)
+      .first
 
     # аниме просмотрено и сразу же поставлена оценка
     if last_entry && last_entry.target_type == item.class.name && last_entry.target_id == item.id &&
