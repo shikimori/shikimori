@@ -8,8 +8,6 @@ class UserRatesController < ApplicationController
       UserRate.create(user_id: current_user.id, target_id: params[:id], target_type: params[:type], status: UserRateStatus.default)
 
     if @rate.save
-      UserHistory.add current_user, @rate.target, UserHistoryAction::Add
-
       render json: {
         status: @rate.status,
         episodes: @rate.episodes,
@@ -38,7 +36,6 @@ class UserRatesController < ApplicationController
   def destroy
     if @rate.present?
       @rate.destroy
-      UserHistory.add(current_user, @rate.target, UserHistoryAction::Delete)
     end
 
     render json: { notice: params[:type] == 'Anime' ? 'Аниме удалено из списка' : 'Манга удалена из списка' }

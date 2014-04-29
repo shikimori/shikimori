@@ -17,6 +17,8 @@ class UserRate < ActiveRecord::Base
   before_save :log_changed, if: -> { persisted? && changes.any? }
   after_create :log_created
 
+  after_destroy :log_deleted
+
   validates :target, :user, presence: true
 
   def anime?
@@ -135,6 +137,11 @@ private
     if changes['score']
       UserHistory.add user, target, UserHistoryAction::Rate, score, changes['score'].first
     end
+  end
+
+  # запись в историю об удалении из списка
+  def log_deleted
+    UserHistory.add user, target, UserHistoryAction::Delete
   end
 
   # валидации

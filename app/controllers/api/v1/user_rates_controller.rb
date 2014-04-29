@@ -42,7 +42,6 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, "/user_rates/:id", "Destroy an user rate"
   def destroy
-    # TODO: в user_rate добавить after_destroy колбек с записью в историю об удалении из списка
     @user_rate.destroy
     respond_with @user_rate, location: nil
   end
@@ -51,11 +50,13 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   api :DELETE, "/user_rates/:type/cleanup", "Delete entire user rates and history"
   error :code => 302
   def cleanup
-    current_user.object.history.where(target_type: params[:type].capitalize).delete_all
-    current_user.object.history.where(action: "mal_#{params[:type]}_import").delete_all
-    current_user.object.history.where(action: "ap_#{params[:type]}_import").delete_all
-    current_user.send("#{params[:type]}_rates").delete_all
-    current_user.touch
+    user = current_user.object
+
+    user.history.where(target_type: params[:type].capitalize).delete_all
+    user.history.where(action: "mal_#{params[:type]}_import").delete_all
+    user.history.where(action: "ap_#{params[:type]}_import").delete_all
+    user.send("#{params[:type]}_rates").delete_all
+    user.touch
 
     redirect_to user_url(current_user), notice: "Выполнена очистка вашего #{params[:type] == 'anime' ? 'аниме' : 'манги'} списка и вашей истории по #{params[:type] == 'anime' ? 'аниме' : 'манге'}"
   end

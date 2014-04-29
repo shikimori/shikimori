@@ -24,6 +24,14 @@ describe UserRate do
       it { expect(user_rate).to_not receive :log_created }
       it { expect(user_rate).to receive :smart_process_changes }
     end
+
+    context :destroy do
+      let(:user_rate) { create :user_rate, status: 0 }
+      after { user_rate.destroy }
+
+      it { expect(user_rate).to receive :log_deleted }
+      it { expect(user_rate).to_not receive :smart_process_changes }
+    end
   end
 
   describe :instance_methods do
@@ -242,6 +250,12 @@ describe UserRate do
       subject(:user_rate) { build :user_rate, target: build_stubbed(:anime), user: build_stubbed(:user) }
       after { user_rate.save }
       before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Add }
+    end
+
+    describe :log_deleted do
+      subject!(:user_rate) { create :user_rate, target: build_stubbed(:anime), user: build_stubbed(:user) }
+      after { user_rate.destroy }
+      before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Delete }
     end
 
     describe :planned? do
