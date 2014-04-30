@@ -1,7 +1,6 @@
 # TODO: если жалоб пользователей на удаление Feed не будет, то выпилить этот раздел с логикой подписок на топики совсем
 class Section < ActiveRecord::Base
-  belongs_to :forum
-  has_many :topics, :dependent => :destroy
+  has_many :topics, dependent: :destroy
 
   before_create :set_permalink
 

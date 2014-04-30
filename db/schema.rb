@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140423175427) do
+ActiveRecord::Schema.define(version: 20140430195819) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(version: 20140423175427) do
   add_index "anime_links", ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true, using: :btree
 
   create_table "anime_video_authors", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", unique: true, using: :btree
 
   create_table "anime_video_reports", force: true do |t|
     t.integer  "anime_video_id"
@@ -437,14 +439,6 @@ ActiveRecord::Schema.define(version: 20140423175427) do
   add_index "favourites", ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree
   add_index "favourites", ["linked_type", "linked_id"], name: "i_linked", using: :btree
   add_index "favourites", ["user_id"], name: "index_favourites_on_user_id", using: :btree
-
-  create_table "forums", force: true do |t|
-    t.integer  "position"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "visible",    default: true
-  end
 
   create_table "friend_links", force: true do |t|
     t.integer  "src_id"
