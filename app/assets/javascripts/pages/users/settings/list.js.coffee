@@ -1,6 +1,10 @@
 $('.slide > div.settings').on 'ajax:success cache:success', (e, data) ->
-  if !$('#import_form').length
-    return
+  return unless $('#import_form').length
+
+  # успешно очистили/сбросили список
+  $('.form a[data-remote=true]', @).on 'ajax:success', ->
+    $.flash.delay 500, info: 'Начинается перезагрузка страницы'
+    location.reload.bind(location).delay(1000)
 
   # очистка списка
   # выбор варианта

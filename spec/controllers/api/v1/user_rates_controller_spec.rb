@@ -63,7 +63,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :anime }
       before { post :cleanup, type: :anime }
 
-      it { should redirect_to user }
+      it { should respond_with :success }
       it { expect(user.anime_rates).to be_empty }
       it { expect(user.history).to be_empty }
     end
@@ -72,7 +72,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :manga }
       before { post :cleanup, type: :manga }
 
-      it { should redirect_to user }
+      it { should respond_with :success }
       it { expect(user.manga_rates).to be_empty }
       it { expect(user.history).to be_empty }
     end
@@ -85,7 +85,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :anime }
       before { post :reset, type: :anime }
 
-      it { should redirect_to user }
+      it { should respond_with :success }
       it { expect(user_rate.reload.score).to be_zero }
     end
 
@@ -93,7 +93,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :manga }
       before { post :reset, type: :manga }
 
-      it { should redirect_to user }
+      it { should respond_with :success }
       it { expect(user_rate.reload.score).to be_zero }
     end
   end

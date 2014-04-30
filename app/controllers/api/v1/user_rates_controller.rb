@@ -58,7 +58,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     user.send("#{params[:type]}_rates").delete_all
     user.touch
 
-    redirect_to user_url(current_user), notice: "Выполнена очистка вашего #{params[:type] == 'anime' ? 'аниме' : 'манги'} списка и вашей истории по #{params[:type] == 'anime' ? 'аниме' : 'манге'}"
+    render json: { notice: "Выполнена очистка вашего #{params[:type] == 'anime' ? 'аниме' : 'манги'} списка и вашей истории по #{params[:type] == 'anime' ? 'аниме' : 'манге'}" }
   end
 
   # сброс оценок в списке
@@ -68,7 +68,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     current_user.send("#{params[:type]}_rates").update_all score: 0
     current_user.touch
 
-    redirect_to user_url(current_user), notice: "Выполнен сброс оценок в вашем #{params[:type] == 'anime' ? 'аниме' : 'манги'} списке"
+    render json: { notice: "Выполнен сброс оценок в вашем #{params[:type] == 'anime' ? 'аниме' : 'манги'} списке" }
   end
 
 private

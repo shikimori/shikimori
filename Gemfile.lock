@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/morr/composite_primary_keys.git
-  revision: 86665ae2432e52bf1aa15e5abb82de0a5c99b8a6
+  revision: b975a4a2a0fcff294d7e15aea73c0428c5a7c4dd
   branch: ar_4.1.x
   specs:
     composite_primary_keys (6.0.3)
