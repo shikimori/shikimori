@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '4.0.4'
+gem 'rails'
 
 gem 'mysql2'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -9,7 +9,7 @@ gem 'dalli'
 gem 'redis'
 
 gem 'therubyracer'
-gem 'sprockets', '2.11.0'
+gem 'sprockets'
 gem 'sass-rails'
 gem 'slim-rails'
 gem 'susy', '1.0.8'
@@ -24,7 +24,7 @@ gem 'rvm-capistrano'
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
 gem 'state_machine'
-gem 'will_paginate'
+gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'will_paginate-bootstrap'
 gem 'nokogiri'
 gem 'paperclip'
@@ -37,15 +37,15 @@ gem 'virtus'
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
 
-gem 'sidekiq'
-gem 'sidekiq-unique-jobs'
-gem 'sidekiq-limit_fetch'
-gem 'sinatra', '>= 1.3.0', require: nil
-
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
+
+gem 'sidekiq'
+gem 'sidekiq-unique-jobs'
+gem 'sidekiq-limit_fetch'
+gem 'sinatra', '>= 1.3.0', require: nil
 
 #gem 'formtastic'
 gem 'bb-ruby'
@@ -78,10 +78,12 @@ gem 'postmark-rails'
 gem 'apipie-rails'
 
 group :production, :development do # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
-  gem 'composite_primary_keys' # для составного праймари кея у CommentView и EntryView
+  # TODO: вернуть оригинальный гем, когда его сделают совместимым с activerecord 4.1
+  gem 'composite_primary_keys', github: 'morr/composite_primary_keys', branch: 'ar_4.1.x' # для составного праймари кея у CommentView и EntryView
 end
 
 group :development do
+  gem 'spring'
   gem 'letter_opener'
   gem 'quiet_assets'
   #gem 'sextant'
@@ -117,7 +119,7 @@ group :test, :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'guard-livereload', '2.1.2'
+  gem 'guard-livereload'#, '2.1.2'
 
   gem 'timecop'
   gem 'webmock', '1.13'
@@ -129,7 +131,7 @@ gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
 gem 'chronic', git: 'git@github.com:mojombo/chronic.git' # хак для совместимости whenever и ruby 2.0
 gem 'whenever', require: false
-gem 'clockwork', github: 'tomykaira/clockwork', require: false
+gem 'clockwork', require: false
 gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 
 gem 'thin'

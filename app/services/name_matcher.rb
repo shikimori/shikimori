@@ -47,9 +47,9 @@ class NameMatcher
   # выборка id аниме по однозначному совпадению по простым алгоритмам поиска AniMangaQuery
   def fetch name
     ActiveSupport::Deprecation.warn "use .matches instead.", caller
-    results = AniMangaQuery.new(@klass, search: name).fetch
+    results = AniMangaQuery.new(@klass, search: name).fetch.to_a
 
-    if results.count == 1
+    if results.one?
       results.first
 
     elsif results.any?

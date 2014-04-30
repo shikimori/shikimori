@@ -12,12 +12,13 @@ describe PeopleQuery do
   end
 
   describe 'fetch' do
-    it { query.fetch.should have(2).items }
+    it { query.fetch.to_a.should have(2).items }
+
     it 'should be in correct order' do
       query.fetch.first.id.should eq person.id
     end
     it 'japanese search' do
-      PeopleQuery.new(search: 'シュタインズ', kind: 'mangaka').fetch.should have(1).item
+      PeopleQuery.new(search: 'シュタインズ', kind: 'mangaka').fetch.to_a.should have(1).item
     end
   end
 

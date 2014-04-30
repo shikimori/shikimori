@@ -84,7 +84,6 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  ActiveRecord::Migration.check_pending!
   FactoryGirl.reload
   ActiveSupport::Dependencies.clear
   Rails.application.reload_routes!

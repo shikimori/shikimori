@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe Manga do
   context :relations do
-    # по-моему какой-то баг в rails 4
-    # TODO: проверить, не заработало ли в rails 4.1
-    #it { should have_and_belong_to_many :genres }
-    #it { should have_and_belong_to_many :publishers }
+    it { should have_and_belong_to_many :genres }
+    it { should have_and_belong_to_many :publishers }
 
     it { should have_many :person_roles }
     it { should have_many :characters }

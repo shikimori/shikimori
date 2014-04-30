@@ -14,7 +14,7 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def thread_id
-    object.thread.id
+    object.thread.try :id
   end
 
   def myanimelist_id

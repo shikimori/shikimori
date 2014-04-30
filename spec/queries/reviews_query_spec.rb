@@ -16,7 +16,7 @@ describe ReviewsQuery do
 
   describe :fetch do
     describe :with_id do
-      subject { ReviewsQuery.new(entry, entry, @reviews[0].id).fetch }
+      subject { ReviewsQuery.new(entry, entry, @reviews[0].id).fetch.to_a }
 
       it { should have(1).item  }
       its(:first) { should eq @reviews[0] }

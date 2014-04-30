@@ -59,8 +59,8 @@ class Comment < ActiveRecord::Base
 
   # проверка можно ли добавлять комментарий в комментируемый объект
   def check_access
-    commentable_klass = Object.const_get(self.commentable_type.to_sym)
-    commentable = commentable_klass.find(self.commentable_id)
+    commentable_klass = Object.const_get(commentable_type.to_sym)
+    commentable = commentable_klass.find(commentable_id)
     if commentable.respond_to?(:can_be_commented_by?)
       return false unless commentable.can_be_commented_by?(self)
     end
@@ -68,7 +68,7 @@ class Comment < ActiveRecord::Base
 
   # фильтрафия цитирования более двух уровней вложенности
   def filter_quotes
-    self.body = QuoteExtractor.filter(self.body, 2)
+    self.body = QuoteExtractor.filter(body, 2)
   end
 
   # для комментируемого объекта вызов колбеков, если они определены
@@ -155,9 +155,14 @@ class Comment < ActiveRecord::Base
   end
 
   # при изменении body будем менять и html_body для всех комментов, кроме содержащих правки модератора
-  def body=(text)
-    self[:body] = BbCodeFormatter.instance.preprocess_comment(text || '')
-    self.html_body = moderated? ? nil : BbCodeFormatter.instance.format_comment(text || '')
+  def body= text
+    if text
+      self[:body] = BbCodeFormatter.instance.preprocess_comment text
+      self[:html_body] = moderated? ? nil : BbCodeFormatter.instance.format_comment(text)
+    else
+      self[:body] = nil
+      self[:html_body] = nil
+    end
   end
 
   # Helper class method that allows you to build a comment
