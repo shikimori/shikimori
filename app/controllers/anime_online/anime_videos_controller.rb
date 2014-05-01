@@ -95,6 +95,14 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     render text: VideoExtractor::UrlExtractor.new(params[:url]).extract
   end
 
+  def viewed
+    video = AnimeVideo.find params[:id]
+    anime = Anime.find params[:anime_id]
+    user_rate = anime.rates.find_by_user_id current_user.id
+    user_rate.update_column(:episodes, video.episode) if user_rate
+    redirect_to anime_videos_show_url video.anime_id, video.episode + 1
+  end
+
 private
   def video_params
     #.merge(uploader_id: current_user.id)

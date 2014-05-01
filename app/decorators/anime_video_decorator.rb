@@ -127,4 +127,8 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   def last_date
     @last_date ||= anime_videos.select{|v| v.allowed?}.map(&:created_at).max || created_at
   end
+
+  def rate
+    @rate ||= h.user_signed_in? ? object.rates.find_by_user_id(h.current_user.id) : nil
+  end
 end

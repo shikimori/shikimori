@@ -5,7 +5,9 @@ Site::Application.routes.draw do
     get '/', to: 'anime_online/anime_videos#index'
     namespace :anime_online do
       resources :anime, only: [:show] do
-        resources :anime_videos, only: [:new, :create]
+        resources :anime_videos, only: [:new, :create] do
+          get :viewed, on: :member
+        end
       end
       resource :anime_videos do
         get :help, on: :member
