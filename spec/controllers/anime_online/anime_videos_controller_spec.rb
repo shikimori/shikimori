@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe AnimeOnline::AnimeVideosController do
+  let(:user) { create :user }
+  let(:admin_user) { create :user, id: 1 }
+
   describe :show do
     context :with_video do
       let(:anime) { create :anime, name: 'anime_test', anime_videos: [create(:anime_video)] }
@@ -73,7 +76,7 @@ describe AnimeOnline::AnimeVideosController do
   describe :index do
     context :admin do
       before do
-        sign_in create :user, id: 1
+        sign_in admin_user
         get :index
       end
       it { should respond_with_content_type :html }
@@ -82,7 +85,7 @@ describe AnimeOnline::AnimeVideosController do
 
     context :user do
       before do
-        sign_in create :user, id: 2
+        sign_in user
         get :index
       end
       it { should respond_with_content_type :html }
@@ -118,7 +121,6 @@ describe AnimeOnline::AnimeVideosController do
 
   describe :create do
     before { sign_in user }
-    let(:user) { create :user }
     let(:anime) { create :anime }
     let(:create_request) { post :create, anime_video: { episode: 1, url: 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7', anime_id: anime.id, source: 'test', kind: 'fandub', author: 'test_author' } }
 
@@ -133,7 +135,6 @@ describe AnimeOnline::AnimeVideosController do
 
   describe :destroy do
     before { sign_in user }
-    let(:user) { create :user }
     let(:anime_video) { create :anime_video }
     let!(:anime_video_report) { create :anime_video_report, user: user, anime_video: anime_video }
     let(:destroy_request) { delete :destroy, id: anime_video.id }
@@ -180,5 +181,17 @@ describe AnimeOnline::AnimeVideosController do
     before { post :extract_url, url: 'http://vk.com/foo' }
     it { should respond_with_content_type :html }
     it { response.should be_success }
+  end
+
+  describe :viewed do
+    let(:anime) { create :anime }
+    let(:video) { create :anime_video }
+    before do
+      sign_in user
+      get :viewed, id: video.id, anime_id: anime.id
+    end
+
+    it { should respond_with_content_type :html }
+    it { response.should redirect_to(anime_videos_show_url video.anime_id, video.episode + 1) }
   end
 end
