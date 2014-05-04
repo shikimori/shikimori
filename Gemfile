@@ -130,7 +130,6 @@ end
 
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
-gem 'chronic', git: 'git@github.com:mojombo/chronic.git' # хак для совместимости whenever и ruby 2.0
 gem 'whenever', require: false
 gem 'clockwork', require: false
 gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
