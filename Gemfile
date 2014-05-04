@@ -77,12 +77,6 @@ gem 'rabl' # для рендеринга json
 gem 'postmark-rails'
 gem 'apipie-rails'
 
-group :production, :development do # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
-  # TODO: вернуть оригинальный гем, когда его сделают совместимым с activerecord 4.1
-  gem 'composite_primary_keys', github: 'morr/composite_primary_keys', branch: 'ar_4.1.x' # для составного праймари кея у CommentView и EntryView
-  #gem 'composite_primary_keys', path: '/Users/morr/Develop/composite_primary_keys/'
-end
-
 group :development do
   gem 'spring'
   gem 'letter_opener'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430195819) do
+ActiveRecord::Schema.define(version: 20140504121543) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -214,7 +214,7 @@ ActiveRecord::Schema.define(version: 20140430195819) do
   add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
   add_index "characters", ["russian"], name: "index_characters_on_russian", length: {"russian"=>50}, using: :btree
 
-  create_table "comment_views", id: false, force: true do |t|
+  create_table "comment_views", force: true do |t|
     t.integer "user_id"
     t.integer "comment_id"
   end
@@ -419,7 +419,7 @@ ActiveRecord::Schema.define(version: 20140430195819) do
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
   add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
 
-  create_table "entry_views", id: false, force: true do |t|
+  create_table "entry_views", force: true do |t|
     t.integer "user_id"
     t.integer "entry_id"
   end

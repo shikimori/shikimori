@@ -19,14 +19,6 @@ GIT
     acts_as_voteable (0.0.3)
 
 GIT
-  remote: git://github.com/morr/composite_primary_keys.git
-  revision: b975a4a2a0fcff294d7e15aea73c0428c5a7c4dd
-  branch: ar_4.1.x
-  specs:
-    composite_primary_keys (6.0.3)
-      activerecord (>= 4.1.0)
-
-GIT
   remote: git://github.com/morr/foreman.git
   revision: f3390d413fe3a8d6951b0684c816781c3a7aec96
   specs:
@@ -555,7 +547,6 @@ DEPENDENCIES
   clockwork
   coffee-rails
   compass-rails
-  composite_primary_keys!
   dalli
   database_rewinder
   devise
