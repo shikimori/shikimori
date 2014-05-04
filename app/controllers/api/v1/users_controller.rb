@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::V1::ApiController
   before_filter :authenticate_user!, only: [:messages, :unread_messages]
 
-  respond_to :json, :xml
+  respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/users", "List users"
@@ -58,7 +58,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       rates = rates.where status: params[:status] if params[:status].present?
       rates.to_a
     end
-    respond_with @rates, each_serializer: AnimeRateSerializer
+    respond_with @rates
   end
 
   api :GET, "/users/:id/manga_rates", "Show user's manga list"
@@ -71,7 +71,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       rates = rates.where status: params[:status] if params[:status].present?
       rates.to_a
     end
-    respond_with @rates, each_serializer: MangaRateSerializer
+    respond_with @rates
   end
 
   api :GET, "/users/:id/favourites", "Show user's favourites"

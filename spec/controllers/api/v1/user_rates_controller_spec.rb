@@ -6,7 +6,7 @@ describe Api::V1::UserRatesController do
 
   describe :create do
     let(:target) { create :anime }
-    let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, notice: 'test', rewatches: 5 }}
+    let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { post :create, user_rate: create_params, format: :json }
 
     it { should respond_with :created }
@@ -22,17 +22,17 @@ describe Api::V1::UserRatesController do
       its(:episodes) { should eq create_params[:episodes] }
       its(:volumes) { should eq create_params[:volumes] }
       its(:chapters) { should eq create_params[:chapters] }
-      its(:notice) { should eq create_params[:notice] }
+      its(:text) { should eq create_params[:text] }
       its(:rewatches) { should eq create_params[:rewatches] }
     end
   end
 
   describe :update do
     let(:user_rate) { create :user_rate, user: user }
-    let(:update_params) {{ score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, notice: 'test', rewatches: 5 }}
-    before { post :update, id: user_rate.id, user_rate: update_params, format: :json }
+    let(:update_params) {{ score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
+    before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
 
-    it { should respond_with :created }
+    it { should respond_with :success }
 
     describe :user_rate do
       subject { assigns :user_rate }
@@ -42,7 +42,7 @@ describe Api::V1::UserRatesController do
       its(:episodes) { should eq update_params[:episodes] }
       its(:volumes) { should eq update_params[:volumes] }
       its(:chapters) { should eq update_params[:chapters] }
-      its(:notice) { should eq update_params[:notice] }
+      its(:text) { should eq update_params[:text] }
       its(:rewatches) { should eq update_params[:rewatches] }
     end
   end

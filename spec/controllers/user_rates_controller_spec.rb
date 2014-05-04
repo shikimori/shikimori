@@ -15,7 +15,7 @@ describe UserRatesController do
         {
           status: UserRateStatus.get(UserRateStatus::Planned),
           score: 9,
-          notice: 'test zxc'
+          text: 'test zxc'
         }.merge(kind == :anime ? {episodes: 0} : {volumes: 0, chapters: 0})
       end
 
@@ -63,7 +63,7 @@ describe UserRatesController do
               it { user_rate.reload.chapters.should eq 3 }
             end
             it { user_rate.reload.score.should eq valid_hash[:score] }
-            it { user_rate.reload.notice.should eq valid_hash[:notice] }
+            it { user_rate.reload.text.should eq valid_hash[:text] }
           end
 
           context :result do

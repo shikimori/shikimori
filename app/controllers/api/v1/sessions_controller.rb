@@ -3,7 +3,7 @@ class Api::V1::SessionsController < Devise::SessionsController
     api_version '1'
   end
 
-  respond_to :json, :xml
+  respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, "/sessions", "Create a session"

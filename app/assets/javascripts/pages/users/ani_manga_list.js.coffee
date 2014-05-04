@@ -87,7 +87,7 @@ $('.selected .ani-manga-list .hoverable input').live('blur', ->
   $value.html (if $this.data('counter') == '0' then '&ndash;' else $this.data('counter'))
   $.cursorMessage()
 
-  $.post($this.data('action'), "_method=patch&rate[#{$this.data 'field'}]=#{$this.attr 'value'}").success( ->
+  $.post($this.data('action'), "_method=patch&user_rate[#{$this.data 'field'}]=#{$this.attr 'value'}").success( ->
     $.hideCursorMessage()
   ).error ->
     $.hideCursorMessage()
@@ -192,7 +192,7 @@ $('tr.editable').live 'ajax:success', (e, html) ->
     $tr.find('.current-value[data-field=chapters]').html data.chapters
     $tr.find('.current-value[data-field=volumes]').html data.volumes
     $tr.find('.current-value[data-field=episodes]').html data.episodes
-    $tr.find('.rate-notice').html if data.notice_html then "<div>#{data.notice_html}</div>" else ''
+    $tr.find('.rate-text').html if data.text_html then "<div>#{data.text_html}</div>" else ''
 
   # удаление из списка
   $('.remove', $form).on 'ajax:success', (e, data) ->
@@ -351,7 +351,7 @@ apply_list_handlers = ->
 
     # если нет элемента, то создаём его
     if $new_value.length is 0
-      val = parseInt $current_value.children().html(), 10
+      val = parseInt $current_value.text(), 10
       val = 0 if !val && val != 0
 
       new_value_html = if $current_value.data('field') != 'score'

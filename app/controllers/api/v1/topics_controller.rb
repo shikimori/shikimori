@@ -1,5 +1,5 @@
 class Api::V1::TopicsController < Api::V1::ApiController
-  respond_to :json, :xml
+  respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/topics", "List topics"

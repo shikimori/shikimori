@@ -1,19 +1,19 @@
 class Api::V1::UserRatesController < Api::V1::ApiController
   load_and_authorize_resource
 
-  respond_to :json, :xml
+  respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, "/user_rates", "Create an user rate"
   param :user_rate, Hash do
     param :chapters, :undef
     param :episodes, :undef
-    param :notice, :undef
     param :rewatches, :undef
     param :score, :undef
     param :status, :undef
     param :target_id, :number
     param :target_type, :undef
+    param :text, :undef
     param :user_id, :number
     param :volumes, :undef
   end
@@ -28,10 +28,10 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   param :user_rate, Hash do
     param :chapters, :undef
     param :episodes, :undef
-    param :notice, :undef
     param :rewatches, :undef
     param :score, :undef
     param :status, :undef
+    param :text, :undef
     param :volumes, :undef
   end
   def update
@@ -75,12 +75,12 @@ private
   def create_params
     params
       .require(:user_rate)
-      .permit(:target_id, :target_type, :user_id, :status, :episodes, :chapters, :volumes, :score, :notice, :rewatches)
+      .permit(:target_id, :target_type, :user_id, :status, :episodes, :chapters, :volumes, :score, :text, :rewatches)
   end
 
   def update_params
     params
       .require(:user_rate)
-      .permit(:status, :episodes, :chapters, :volumes, :score, :notice, :rewatches)
+      .permit(:status, :episodes, :chapters, :volumes, :score, :text, :rewatches)
   end
 end

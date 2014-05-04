@@ -49,8 +49,8 @@ class UserRate < ActiveRecord::Base
     status == UserRateStatus.get(UserRateStatus::Dropped)
   end
 
-  def notice_html
-    notice.present? ? BbCodeFormatter.instance.format_comment(notice) : notice
+  def text_html
+    text.present? ? BbCodeFormatter.instance.format_comment(text) : text
   end
 
 private
@@ -73,6 +73,7 @@ private
 
   # логика обновления полей при выставлении оценки
   def score_changed
+    self.score = 0 if score.nil?
     self.score = changes['score'].first if score > MAXIMUM_SCORE || score < 0
   end
 

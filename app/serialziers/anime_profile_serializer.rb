@@ -10,7 +10,7 @@ class AnimeProfileSerializer < AnimeSerializer
   has_one :user_rate
 
   def user_rate
-    AnimeRateSerializer.new object.rate
+    object.rate
   end
 
   def thread_id

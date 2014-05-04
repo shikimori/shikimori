@@ -123,26 +123,39 @@ describe UserRate do
       subject!(:user_rate) { create :user_rate, score: initial_value }
       let(:initial_value) { 5 }
 
+      context :nil_value do
+        let(:initial_value) { 0 }
+        let(:new_value) { nil }
+
+        before { expect(UserHistory).to_not receive :add }
+        before { user_rate.update score: new_value }
+
+        its(:score) { should eq initial_value }
+      end
+
       context :regular_change do
+        let(:new_value) { 8 }
+
         before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Rate, new_value, initial_value }
         before { user_rate.update score: new_value }
-        let(:new_value) { 8 }
 
         its(:score) { should eq new_value }
       end
 
       context :negative_value do
+        let(:new_value) { -1 }
+
         before { expect(UserHistory).to_not receive :add }
         before { user_rate.update score: new_value }
-        let(:new_value) { -1 }
 
         its(:score) { should eq initial_value }
       end
 
       context :big_value do
+        let(:new_value) { UserRate::MAXIMUM_SCORE + 1 }
+
         before { expect(UserHistory).to_not receive :add }
         before { user_rate.update score: new_value }
-        let(:new_value) { UserRate::MAXIMUM_SCORE + 1 }
 
         its(:score) { should eq initial_value }
       end
@@ -308,9 +321,9 @@ describe UserRate do
       its(:dropped?) { should be true }
     end
 
-    describe :notice_html do
-      subject { build :user_rate, notice: "[b]test[/b]\ntest" }
-      its(:notice_html) { should eq '<strong>test</strong><br />test' }
+    describe :text_html do
+      subject { build :user_rate, text: "[b]test[/b]\ntest" }
+      its(:text_html) { should eq '<strong>test</strong><br />test' }
     end
   end
 end

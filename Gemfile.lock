@@ -405,6 +405,8 @@ GEM
       redis (~> 3.0.4)
     ref (1.0.5)
     request_store (1.0.5)
+    responders (1.0.0)
+      railties (>= 3.2, < 5)
     rmagick (2.13.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -594,6 +596,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   redis
+  responders
   rmagick
   rspec-rails
   ruby-progressbar!

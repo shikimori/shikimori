@@ -20,11 +20,11 @@
       = render partial: 'comments/buttons', locals: { comment: comment }, formats: :html
 
     .image-name
-      a href="#{comment[:topic_url] || user_url(comment.user)}" title="#{comment.user.nickname}"
+      a href="#{comment.topic_url || user_url(comment.user)}" title="#{comment.user.nickname}"
         img src="#{comment.user.avatar_url 48}" alt="#{comment.user.nickname}"
       .name-date
-        a.name href="#{comment[:topic_url] || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
-          == comment[:topic_name] || h(comment.user.nickname)
+        a.name href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
+          == comment.topic_name || h(comment.user.nickname)
         time.date itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
           = time_ago_in_words comment.created_at, "%s назад"
 

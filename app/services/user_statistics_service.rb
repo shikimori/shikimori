@@ -37,10 +37,9 @@ class UserStatisticsService
     @manga_rates = @user
       .manga_rates
       .joins('join mangas on mangas.id = target_id')
-      .select('user_rates.*, mangas.rating, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired')
+      .select("user_rates.*, mangas.rating, #{Manga::Duration} as duration, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired")
       .each do |v|
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
-        v[:duration] = Manga::Duration
       end
     @manga_valuable_rates = @manga_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Completed) || v.status == UserRateStatus.get(UserRateStatus::Watching) }
     @manga_history = @user

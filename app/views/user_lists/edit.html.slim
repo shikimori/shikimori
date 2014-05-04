@@ -1,4 +1,4 @@
-= simple_form_for @user_rate, url: @user_rate.target.decorate.rate_url, remote: true, html: { 'data-type' => :json }, authenticity_token: true do |f|
+= simple_form_for [:api, @user_rate], remote: true, html: { 'data-type' => :json }, authenticity_token: true do |f|
   = f.input :score, as: :select, collection: 1..10
 
   - if f.object.anime?
@@ -8,7 +8,7 @@
     = f.input :volumes, input_html: { min: 0, max: f.object.target.volumes.zero? ? 999 : f.object.target.volumes }
 
   = f.input :status, collection: UserRateStatus.select_options(f.object.target_type), include_blank: false
-  = f.input :notice, as: :text
+  = f.input :text, as: :text
 
   div
     input.remove.button type="button" data-remote="true" data-action="#{send "rate_#{f.object.target_type.downcase}_url", id: f.object.id }" data-method="delete" data-type="json" value="Удалить из списка"

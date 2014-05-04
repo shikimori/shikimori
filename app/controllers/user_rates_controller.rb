@@ -54,7 +54,7 @@ class UserRatesController < ApplicationController
         volumes: @rate.volumes,
         chapters: @rate.chapters,
         score: @rate.score,
-        notice_html: @rate.notice_html
+        text_html: @rate.text_html
       }
     else
       render json: @rate.errors, status: :unprocessable_entity
@@ -68,6 +68,6 @@ private
 
   def user_rate_params
     params[:user_rate] ||= params[:rate]
-    params.require(:user_rate).permit(:status, :episodes, :chapters, :volumes, :score, :notice)
+    params.require(:user_rate).permit(:status, :episodes, :chapters, :volumes, :score, :text)
   end
 end

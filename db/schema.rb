@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504121543) do
+ActiveRecord::Schema.define(version: 20140504131801) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -906,7 +906,7 @@ ActiveRecord::Schema.define(version: 20140504121543) do
     t.string   "target_type"
     t.integer  "volumes",                  default: 0, null: false
     t.integer  "chapters",                 default: 0, null: false
-    t.string   "notice",      limit: 1024
+    t.string   "text",        limit: 1024
     t.integer  "rewatches",                default: 0, null: false
   end
 
