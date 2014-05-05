@@ -1,12 +1,12 @@
 module AniManga
   OngoingToReleasedDays = 2
 
-  def self.included(base)
-    base.extend(ClassMethods)
+  def self.included klass
+    klass.extend ClassMethods
 
-    base.before_save -> {
-      self.russian = CGI::escapeHTML self.russian if self.changes['russian']
-    }
+    klass.before_save do
+      self.russian = CGI::escapeHTML russian if changes['russian']
+    end
   end
 
   # при изменении description будем менять и description_html
@@ -66,20 +66,6 @@ module AniManga
 
   def russian
     self[:russian] ? self[:russian].gsub(/\.? *\((?:С|с)езон .*\)$|\.? *\((?:С|с)езон .*\)$|\.? *\(.* (?:С|с)езон\)$|\.? *(\[|\()(?:TV|ТВ|OVA|ONA|ОВА|Movie).*(\]|\))$|(?: - )?\(?(?:Ф|ф)ильм[^,]*?\)?$/i, '').strip : nil
-  end
-
-  # создание AniMangaComment для элемента сразу после создания
-  def create_thread
-    AniMangaComment.create! linked: self, generated: true, title: name
-  end
-
-  # при сохранении аниме обновление его CommentEntry
-  def sync_thread
-    if changes["name"]
-      thread.class.record_timestamps = false
-      thread.save
-      thread.class.record_timestamps = true
-    end
   end
 
   def ongoing?(ignore_excludes=false)

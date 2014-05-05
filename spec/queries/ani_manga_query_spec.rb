@@ -14,7 +14,9 @@ describe AniMangaQuery do
   end
 
   describe :fetch do
-    def fetch(options={}, user=nil, page=nil, limit=nil) AniMangaQuery.new(Anime, options, user).fetch(page, limit); end
+    def fetch options={}, user=nil, page=nil, limit=nil
+      AniMangaQuery.new(Anime, options, user).fetch(page, limit).to_a
+    end
 
     context :type do
       let!(:anime1) { create :anime, kind: 'TV', episodes: 13 }

@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < Api::V1::ApiController
-  respond_to :json, :xml
+  respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, "/comments/:id", "Show a comment"

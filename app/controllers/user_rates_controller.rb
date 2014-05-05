@@ -2,39 +2,12 @@ class UserRatesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :fetch_rate
 
-  # очистка списка и истории
-  def cleanup
-    raise Forbidden unless ['anime', 'manga'].include? params[:type]
-
-    current_user.object.history.where(target_type: params[:type].capitalize).delete_all
-    current_user.object.history.where(action: "mal_#{params[:type]}_import").delete_all
-    current_user.object.history.where(action: "ap_#{params[:type]}_import").delete_all
-    current_user.send("#{params[:type]}_rates").delete_all
-    current_user.touch
-
-    flash[:notice] = "Выполнена очистка вашего #{params[:type] == 'anime' ? 'аниме' : 'манги'} списка и вашей истории по #{params[:type] == 'anime' ? 'аниме' : 'манге'}"
-    redirect_to user_url(current_user)
-  end
-
-  # сброс оценок в списке
-  def reset
-    raise Forbidden unless ['anime', 'manga'].include? params[:type]
-
-    current_user.send("#{params[:type]}_rates").update_all score: 0
-    current_user.touch
-
-    flash[:notice] = "Выполнен сброс оценок в вашем #{params[:type] == 'anime' ? 'аниме' : 'манги'} списке"
-    redirect_to user_url(current_user)
-  end
-
   # добавление аниме в свой список
   def create
     @rate = UserRate.find_by(user_id: current_user.id, target_id: params[:id], target_type: params[:type]) ||
       UserRate.create(user_id: current_user.id, target_id: params[:id], target_type: params[:type], status: UserRateStatus.default)
 
     if @rate.save
-      UserHistory.add current_user, @rate.target, UserHistoryAction::Add
-
       render json: {
         status: @rate.status,
         episodes: @rate.episodes,
@@ -63,7 +36,6 @@ class UserRatesController < ApplicationController
   def destroy
     if @rate.present?
       @rate.destroy
-      UserHistory.add(current_user, @rate.target, UserHistoryAction::Delete)
     end
 
     render json: { notice: params[:type] == 'Anime' ? 'Аниме удалено из списка' : 'Манга удалена из списка' }
@@ -73,14 +45,7 @@ class UserRatesController < ApplicationController
   def update
     return render json: {} unless @rate
 
-    @rate.update_notice user_rate_params[:notice] if user_rate_params[:notice]
-    # копируем, т.к. изменять потом надо только то, что изменилось по сравнению с первоначальным значением, соответственно сравнивать значения будем не с @rates, а со скопированным хешем
-    attributes = @rate.attributes.clone.symbolize_keys
-    [:episodes, :volumes, :chapters, :score, :status].each do |key|
-      next unless user_rate_params[key]
-      value = user_rate_params[key].to_i
-      @rate.send "update_#{key}", value if attributes[key] != value
-    end
+    @rate.update user_rate_params
 
     if @rate.errors.empty?
       render json: {
@@ -89,7 +54,7 @@ class UserRatesController < ApplicationController
         volumes: @rate.volumes,
         chapters: @rate.chapters,
         score: @rate.score,
-        notice_html: @rate.notice_html
+        text_html: @rate.text_html
       }
     else
       render json: @rate.errors, status: :unprocessable_entity
@@ -103,6 +68,6 @@ private
 
   def user_rate_params
     params[:user_rate] ||= params[:rate]
-    params.require(:user_rate).permit(:status, :episodes, :chapters, :volumes, :score, :notice)
+    params.require(:user_rate).permit(:status, :episodes, :chapters, :volumes, :score, :text)
   end
 end

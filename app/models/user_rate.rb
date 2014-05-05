@@ -1,8 +1,10 @@
 # аниме и манга в списке пользователя
 # TODO: переделать status в enumerize (https://github.com/brainspec/enumerize)
+# TODO: вместо переделки на enumerize, после апгрейда на rails 4.1, подумать о переходе на activerecord enum
 class UserRate < ActiveRecord::Base
   # максимальное значение эпизодов/частей
-  MaximumNumber = 2000
+  MAXIMUM_EPISODES = 2000
+  MAXIMUM_SCORE = 10
 
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
@@ -10,101 +12,144 @@ class UserRate < ActiveRecord::Base
 
   belongs_to :user, touch: true
 
+  before_save :smart_process_changes
   before_save :check_data
+  before_save :log_changed, if: -> { persisted? && changes.any? }
+  after_create :log_created
 
-  def update_status(value)
-    prior_status = self.status
-    self.status = value
+  after_destroy :log_deleted
 
-    if anime?
-      self.episodes = self.target.episodes if self.status == UserRateStatus.get(UserRateStatus::Completed)
-    else
-      self.volumes = self.target.volumes if self.status == UserRateStatus.get(UserRateStatus::Completed)
-      self.chapters = self.target.chapters if self.status == UserRateStatus.get(UserRateStatus::Completed)
-    end
-
-    UserHistory.add(self.user_id, self.target, UserHistoryAction::Status, self.status, prior_status) if self.save
-  end
-
-  def update_notice(value)
-    update notice: value
-  end
-
-  ['episodes', 'chapters', 'volumes'].each do |counter|
-    define_method("update_#{counter}") do |value|
-      value = value.to_i
-      prior_value = self.send(counter)
-
-      return if value >= MaximumNumber
-
-      if value > self.target.send(counter) && self.target.send(counter) != 0
-        self.send("#{counter}=", self.target.send(counter))
-      elsif value < 0
-        self.send("#{counter}=", 0)
-      else
-        self.send("#{counter}=", value)
-      end
-
-      if ['chapters', 'volumes'].include?(counter)
-        anoter_counter = counter == 'chapters' ? 'volumes' : 'chapters'
-        self.send("#{anoter_counter}=", self.target.send(anoter_counter)) if self.send(counter) == self.target.send(counter) && value != prior_value
-        self.send("#{anoter_counter}=", 0) if self.send(counter) == 0 && value != prior_value
-      end
-
-      self.status = UserRateStatus.get(UserRateStatus::Completed) if self.send(counter) == self.target.send(counter) &&
-                                                                     UserRateStatus.get(self.status) != UserRateStatus::Completed
-
-      self.status = UserRateStatus.get(UserRateStatus::Watching) if prior_value == 0 &&
-                                                                    self.send(counter) > 0 &&
-                                                                    UserRateStatus.get(self.status) == UserRateStatus::Planned
-
-      self.status = UserRateStatus.get(UserRateStatus::Planned) if prior_value > 0 &&
-                                                                  self.send(counter) == 0# &&
-                                                                  #UserRateStatus.get(self.status) == UserRateStatus::Watching
-
-      UserHistory.add(self.user_id, self.target, UserHistoryAction.const_get(counter.capitalize), self.send(counter), prior_value) if self.save
-    end
-  end
-
-  def update_score(value)
-    value = value.to_i
-    value = 10 if value > 10
-    value = 0 if value < 0
-
-    prior_score = self.score
-    self.score = value
-
-    UserHistory.add(self.user_id, self.target, UserHistoryAction::Rate, self.score, prior_score) if self.save
-  end
-
-  def check_data
-    if target == nil
-      self.errors[:target] = 'не задано аниме или манга'
-      return false
-    end
-    if target.respond_to?(:episodes) && self.target.episodes < (self.episodes || 0) && self.target.episodes != 0
-      self.errors[:episodes] = 'некорректное число эпизодов'
-      return false
-    end
-    if target.respond_to?(:volumes) && self.target.volumes < (self.volumes || 0) && self.target.volumes != 0
-      self.errors[:volumes] = 'некорректное число томов'
-      return false
-    end
-    if target.respond_to?(:chapters) && self.target.chapters < (self.chapters || 0) && self.target.chapters != 0
-      self.errors[:chapters] = 'некорректное число глав'
-      return false
-    end
-    unless UserRateStatus.contains(status)
-      self.errors[:status] = 'некорректный статус'
-      return false
-    end
-  end
+  validates :target, :user, presence: true
 
   def anime?
     target_type == 'Anime'
   end
 
-  def notice_html
-    notice.present? ? BbCodeFormatter.instance.format_comment(notice) : notice
+  def manga?
+    target_type == 'Manga'
+  end
+
+  def planned?
+    status == UserRateStatus.get(UserRateStatus::Planned)
+  end
+
+  def watching?
+    status == UserRateStatus.get(UserRateStatus::Watching)
+  end
+
+  def completed?
+    status == UserRateStatus.get(UserRateStatus::Completed)
+  end
+
+  def on_hold?
+    status == UserRateStatus.get(UserRateStatus::OnHold)
+  end
+
+  def dropped?
+    status == UserRateStatus.get(UserRateStatus::Dropped)
+  end
+
+  def text_html
+    text.present? ? BbCodeFormatter.instance.format_comment(text) : text
+  end
+
+private
+  # перед сохранением модели, смотрим, что изменилось, и соответствующе меняем остальные поля, и заносим запись в историю
+  def smart_process_changes
+    status_changed if changes['status']
+    score_changed if changes['score']
+
+    counter_changed 'episodes' if changes['episodes'] && anime?
+    counter_changed 'chapters' if changes['chapters'] && manga?
+    counter_changed 'volumes' if changes['volumes'] && manga?
+  end
+
+  # логика обновления полей при выставлении статусов
+  def status_changed
+    self.episodes = target.episodes if anime? && completed?
+    self.volumes = target.volumes if manga? && completed?
+    self.chapters = target.chapters if manga? && completed?
+  end
+
+  # логика обновления полей при выставлении оценки
+  def score_changed
+    self.score = 0 if score.nil?
+    self.score = changes['score'].first if score > MAXIMUM_SCORE || score < 0
+  end
+
+  # логика обновления полей при выставлении числа эпизодов
+  def counter_changed counter
+    # указали больше эпизодов, чем есть в аниме - сбрасываем на число эпизодов в аниме
+    self[counter] = target[counter] if self[counter] > target[counter] && !target[counter].zero?
+    # указали какую-то нереальную цифру - сбрасываем на число эпизодов в аниме
+    self[counter] = changes[counter].first if self[counter] > MAXIMUM_EPISODES
+    # указали меньше нуля - сбрасываем на ноль
+    self[counter] = 0 if self[counter] < 0
+
+    # сбросили главы - сбрасываем и тома
+    self.chapters = 0 if counter == 'volumes' && self.volumes.zero?
+    # и наоборот
+    self.volumes = 0 if counter == 'chapters' && self.chapters.zero?
+
+    if changes[counter]
+      # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
+      if self[counter] > 0 && changes[counter].first.zero?
+        self.status = UserRateStatus.get UserRateStatus::Watching
+      end
+
+      # перевели с какой-то цифры в ноль - помечаем, что перенесли в запланированное
+      if self[counter].zero? && changes[counter] && changes[counter].first > 0
+        self.status = UserRateStatus.get UserRateStatus::Planned
+      end
+    end
+
+    # указали число эпизодов, равно числу эпиздов в аниме - помечаем просмотренным
+    if self[counter] == target[counter] && self[counter] > 0
+      self.status = UserRateStatus.get UserRateStatus::Completed
+
+      # для манги устанавливаем в максимум второй счётчик
+      self.chapters = target.chapters if counter == 'volumes'
+      self.volumes = target.volumes if counter == 'chapters'
+    end
+  end
+
+  # запись в историю о занесении в список
+  def log_created
+    UserHistory.add user, target, UserHistoryAction::Add
+  end
+
+  # запись в историю об изменении стутса
+  def log_changed
+    if changes['status']
+      UserHistory.add user, target, UserHistoryAction::Status, status, changes['status'].first
+
+    elsif changes['episodes'] || changes['volumes'] || changes['chapters']
+      counter = if anime?
+        'episodes'
+      elsif changes['volumes']
+        'volumes'
+      elsif changes['chapters']
+        'chapters'
+      end
+
+      UserHistory.add user, target, UserHistoryAction.const_get(counter.capitalize), self[counter], changes[counter].first
+    end
+
+    if changes['score']
+      UserHistory.add user, target, UserHistoryAction::Rate, score, changes['score'].first
+    end
+  end
+
+  # запись в историю об удалении из списка
+  def log_deleted
+    UserHistory.add user, target, UserHistoryAction::Delete
+  end
+
+  # валидации
+  def check_data
+    unless UserRateStatus.contains(status)
+      self.errors[:status] = 'некорректный статус'
+      return false
+    end
   end
 end

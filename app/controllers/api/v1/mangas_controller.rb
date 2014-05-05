@@ -1,5 +1,5 @@
 class Api::V1::MangasController < Api::V1::ApiController
-  respond_to :json, :xml
+  respond_to :json
   before_action :fetch_resource, except: [:index]
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME

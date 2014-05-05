@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140421175950) do
+ActiveRecord::Schema.define(version: 20140504131801) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(version: 20140421175950) do
   add_index "anime_links", ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true, using: :btree
 
   create_table "anime_video_authors", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", unique: true, using: :btree
 
   create_table "anime_video_reports", force: true do |t|
     t.integer  "anime_video_id"
@@ -212,7 +214,7 @@ ActiveRecord::Schema.define(version: 20140421175950) do
   add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
   add_index "characters", ["russian"], name: "index_characters_on_russian", length: {"russian"=>50}, using: :btree
 
-  create_table "comment_views", id: false, force: true do |t|
+  create_table "comment_views", force: true do |t|
     t.integer "user_id"
     t.integer "comment_id"
   end
@@ -417,7 +419,7 @@ ActiveRecord::Schema.define(version: 20140421175950) do
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
   add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
 
-  create_table "entry_views", id: false, force: true do |t|
+  create_table "entry_views", force: true do |t|
     t.integer "user_id"
     t.integer "entry_id"
   end
@@ -437,14 +439,6 @@ ActiveRecord::Schema.define(version: 20140421175950) do
   add_index "favourites", ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree
   add_index "favourites", ["linked_type", "linked_id"], name: "i_linked", using: :btree
   add_index "favourites", ["user_id"], name: "index_favourites_on_user_id", using: :btree
-
-  create_table "forums", force: true do |t|
-    t.integer  "position"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "visible",    default: true
-  end
 
   create_table "friend_links", force: true do |t|
     t.integer  "src_id"
@@ -912,7 +906,8 @@ ActiveRecord::Schema.define(version: 20140421175950) do
     t.string   "target_type"
     t.integer  "volumes",                  default: 0, null: false
     t.integer  "chapters",                 default: 0, null: false
-    t.string   "notice",      limit: 1024
+    t.string   "text",        limit: 1024
+    t.integer  "rewatches",                default: 0, null: false
   end
 
   add_index "user_rates", ["target_id", "target_type"], name: "i_target", using: :btree

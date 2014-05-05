@@ -13,7 +13,7 @@ describe AnimeOnline::AnimeVideosController do
       end
 
       it { should respond_with_content_type :html }
-      it { response.should be_success }
+      it { should respond_with :success }
 
       describe :search do
         before { get :show, id: anime.id, search: 'foo' }
@@ -24,7 +24,7 @@ describe AnimeOnline::AnimeVideosController do
 
     context :without_video do
       let(:anime) { create :anime, name: 'anime_test' }
-      it { expect { get :show, id: anime.id }.to raise_error(ActionController::RoutingError) }
+      it { expect{get :show, id: anime.id}.to raise_error(ActionController::RoutingError) }
     end
 
     describe :verify_adult do
@@ -59,7 +59,7 @@ describe AnimeOnline::AnimeVideosController do
           let(:domain) { 'play.shikimori.org' }
 
           it { should respond_with_content_type :html }
-          it { response.should be_success }
+          it { should respond_with :success }
         end
 
         context :adult do
@@ -67,7 +67,7 @@ describe AnimeOnline::AnimeVideosController do
           let(:domain) { 'xplay.shikimori.org' }
 
           it { should respond_with_content_type :html }
-          it { response.should be_success }
+          it { should respond_with :success }
         end
       end
     end
@@ -75,27 +75,23 @@ describe AnimeOnline::AnimeVideosController do
 
   describe :index do
     context :admin do
-      before do
-        sign_in admin_user
-        get :index
-      end
+      before { sign_in admin_user }
+      before { get :index }
       it { should respond_with_content_type :html }
-      it { response.should be_success }
+      it { should respond_with :success }
     end
 
     context :user do
-      before do
-        sign_in user
-        get :index
-      end
+      before { sign_in user }
+      before { get :index }
       it { should respond_with_content_type :html }
-      it { response.should be_success }
+      it { should respond_with :success }
     end
 
     context :guest do
       before { get :index }
       it { should respond_with_content_type :html }
-      it { response.should be_success }
+      it { should respond_with :success }
     end
   end
 
@@ -110,7 +106,7 @@ describe AnimeOnline::AnimeVideosController do
       let(:anime) { create :anime }
       before { get :new, anime_id: anime.id }
       it { should respond_with_content_type :html }
-      it { response.should be_success }
+      it { should respond_with :success }
     end
 
     context :copyright_ban do
@@ -127,7 +123,7 @@ describe AnimeOnline::AnimeVideosController do
     context :response do
       before { create_request }
       it { should respond_with_content_type :html }
-      it { response.should be_redirect }
+      it { should respond_with :redirect }
     end
 
     it { expect{create_request}.to change(AnimeVideoReport, :count).by 1 }
@@ -142,7 +138,7 @@ describe AnimeOnline::AnimeVideosController do
     context :response do
       before { destroy_request }
       it { should respond_with_content_type :html }
-      it { response.should be_redirect }
+      it { should respond_with :redirect }
     end
 
     it { expect{destroy_request}.to change(AnimeVideoReport, :count).by -1 }
@@ -152,7 +148,7 @@ describe AnimeOnline::AnimeVideosController do
   describe :help do
     before { get :help }
     it { should respond_with_content_type :html }
-    it { response.should be_success }
+    it { should respond_with :success }
   end
 
   describe :report do
@@ -163,8 +159,8 @@ describe AnimeOnline::AnimeVideosController do
 
     context :response do
       before { report_repuest }
-      it { should respond_with_content_type :html }
-      it { response.should be_success }
+      it { should respond_with_content_type :text }
+      it { should respond_with :success }
     end
 
     context :first_request do
@@ -177,10 +173,10 @@ describe AnimeOnline::AnimeVideosController do
     end
   end
 
-  describe :extracted_url do
+  describe :extract_url do
     before { post :extract_url, url: 'http://vk.com/foo' }
-    it { should respond_with_content_type :html }
-    it { response.should be_success }
+    it { should respond_with_content_type :text }
+    it { should respond_with :success }
   end
 
   describe :viewed do

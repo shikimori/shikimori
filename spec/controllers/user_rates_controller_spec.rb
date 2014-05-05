@@ -15,43 +15,8 @@ describe UserRatesController do
         {
           status: UserRateStatus.get(UserRateStatus::Planned),
           score: 9,
-          notice: 'test zxc'
+          text: 'test zxc'
         }.merge(kind == :anime ? {episodes: 0} : {volumes: 0, chapters: 0})
-      end
-
-      describe :cleanup do
-        let!(:user_rate) { create :user_rate, user: user, target: entry }
-        let!(:user_history) { create :user_history, user: user, target: entry }
-        context :guest do
-          before { post :cleanup, type: kind }
-          it { should respond_with 302 }
-        end
-
-        context :authenticated do
-          before { sign_in user }
-          before { post :cleanup, type: kind }
-
-          it { should redirect_to user }
-          specify { user.send("#{kind}_rates").should be_empty }
-          specify { user.history.should be_empty }
-        end
-      end
-
-      describe :reset do
-        let!(:user_rate) { create :user_rate, user: user, target: entry, score: 1 }
-
-        context :guest do
-          before { post :reset, type: kind }
-          it { should respond_with 302 }
-        end
-
-        context :authenticated do
-          before { sign_in user }
-          before { post :reset, type: kind }
-
-          it { should redirect_to user }
-          specify { user_rate.reload.score.should be_zero }
-        end
       end
 
       describe :create do
@@ -98,7 +63,7 @@ describe UserRatesController do
               it { user_rate.reload.chapters.should eq 3 }
             end
             it { user_rate.reload.score.should eq valid_hash[:score] }
-            it { user_rate.reload.notice.should eq valid_hash[:notice] }
+            it { user_rate.reload.text.should eq valid_hash[:text] }
           end
 
           context :result do
@@ -130,3 +95,4 @@ describe UserRatesController do
     end
   end
 end
+

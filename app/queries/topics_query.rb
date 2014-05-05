@@ -22,7 +22,7 @@ private
     case @section.permalink
       when Section::All.permalink
         if @user
-          query.where "type != ? or (type = ? and id in (?))", GroupComment.name, GroupComment.name, user_subscription_ids
+          query.where "type != ? or (type = ? and #{Entry.table_name}.id in (?))", GroupComment.name, GroupComment.name, user_subscription_ids
         else
           query.where.not type: GroupComment.name
         end

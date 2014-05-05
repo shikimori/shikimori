@@ -24,24 +24,11 @@ class ApplicationController < ActionController::Base
   end
 
   unless Rails.env.test?
-    rescue_from AbstractController::ActionNotFound, with: :runtime_error
-    rescue_from AbstractController::Error, with: :runtime_error
-    rescue_from ActionController::InvalidAuthenticityToken, with: :runtime_error
-    rescue_from ActionController::RoutingError, with: :runtime_error
-    rescue_from ActionView::MissingTemplate, with: :runtime_error
-    rescue_from ActionView::Template::Error, with: :runtime_error
-    rescue_from Exception, with: :runtime_error
-    rescue_from Mysql2::Error, with: :runtime_error
-    rescue_from NoMethodError, with: :runtime_error
-    rescue_from StandardError, with: :runtime_error
-    rescue_from SyntaxError, with: :runtime_error
+    rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,
+      ActionController::RoutingError, ActionView::MissingTemplate, ActionView::Template::Error, Exception, Mysql2::Error,
+      NoMethodError, StandardError, SyntaxError, CanCan::AccessDenied, with: :runtime_error
   else
     rescue_from StatusCodeError, with: :runtime_error
-  end
-
-  # для руссификации
-  I18n.exception_handler = lambda do |exception, locale, key, options|
-    raise "missing translation #{locale} #{key}"# unless Rails.env.production?
   end
 
   def runtime_error e
@@ -57,7 +44,7 @@ class ApplicationController < ActionController::Base
         render text: '404 - Страница не найдена', content_type: 'text/plain', status: 404
       end
 
-    elsif e.is_a?(Forbidden)
+    elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
       render text: e.message, status: e.status
 
     elsif e.is_a?(StatusCodeError)
@@ -71,6 +58,11 @@ class ApplicationController < ActionController::Base
         render text: '503 - Произошла ошибка', content_type: 'text/plain', status: 503
       end
     end
+  end
+
+  # для руссификации
+  I18n.exception_handler = lambda do |exception, locale, key, options|
+    raise "missing translation #{locale} #{key}"# unless Rails.env.production?
   end
 
   # трогаем lastonline у текущего пользователя

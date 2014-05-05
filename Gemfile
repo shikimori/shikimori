@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '4.0.4'
+gem 'rails'
 
 gem 'mysql2'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -9,7 +9,7 @@ gem 'dalli'
 gem 'redis'
 
 gem 'therubyracer'
-gem 'sprockets', '2.11.0'
+gem 'sprockets'
 gem 'sass-rails'
 gem 'slim-rails'
 gem 'susy', '1.0.8'
@@ -24,7 +24,7 @@ gem 'rvm-capistrano'
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
 gem 'state_machine'
-gem 'will_paginate'
+gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'will_paginate-bootstrap'
 gem 'nokogiri'
 gem 'paperclip'
@@ -37,15 +37,15 @@ gem 'virtus'
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
 
-gem 'sidekiq'
-gem 'sidekiq-unique-jobs'
-gem 'sidekiq-limit_fetch'
-gem 'sinatra', '>= 1.3.0', require: nil
-
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
+
+gem 'sidekiq'
+gem 'sidekiq-unique-jobs'
+gem 'sidekiq-limit_fetch'
+gem 'sinatra', '>= 1.3.0', require: nil
 
 #gem 'formtastic'
 gem 'bb-ruby'
@@ -62,6 +62,7 @@ gem 'uuid'
 gem 'meta-tags', github: 'morr/meta-tags', require: 'meta_tags'
 gem 'enumerize'
 gem 'draper'
+gem 'cancancan'
 
 gem 'unicode' # для downcase русских слов
 gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'
@@ -72,15 +73,13 @@ gem 'ruby-svd', github: 'morr/Ruby-SVD' # для SVD рекомендаций. r
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 
 gem 'rabl' # для рендеринга json
+gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 
 gem 'postmark-rails'
 gem 'apipie-rails'
 
-group :production, :development do # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
-  gem 'composite_primary_keys' # для составного праймари кея у CommentView и EntryView
-end
-
 group :development do
+  gem 'spring'
   gem 'letter_opener'
   gem 'quiet_assets'
   #gem 'sextant'
@@ -93,16 +92,19 @@ end
 
 gem 'marco-polo'
 gem 'pry-rails'
-#gem 'pry-rescue'
 gem 'pry-stack_explorer'
+
+group :development, :test do
+  gem 'byebug'
+  #gem 'pry-byebug' # пока ещё не поддерживает byubug 3.0
+end
 
 group :test, :development do
   gem 'rspec-rails'
 
   gem 'vcr'
   gem 'capybara'
-  gem 'shoulda'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'database_rewinder'
 
   gem 'rb-inotify', require: false
@@ -113,7 +115,7 @@ group :test, :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'guard-livereload', '2.1.2'
+  gem 'guard-livereload'#, '2.1.2'
 
   gem 'timecop'
   gem 'webmock', '1.13'
@@ -123,9 +125,8 @@ end
 
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
-gem 'chronic', git: 'git@github.com:mojombo/chronic.git' # хак для совместимости whenever и ruby 2.0
 gem 'whenever', require: false
-gem 'clockwork', github: 'tomykaira/clockwork', require: false
+gem 'clockwork', require: false
 gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 
 gem 'thin'

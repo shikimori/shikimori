@@ -162,7 +162,7 @@ jQuery(function ($) {
     /**
      *  confirmation handler
      */
-    $('a[data-confirm],input[data-confirm]').live('click', function () {
+    $('a[data-confirm]:not([data-remote]),input[data-confirm]').live('click', function () {
         var el = $(this);
         if (el.triggerAndReturn('confirm')) {
             if (!confirm(el.attr('data-confirm'))) {

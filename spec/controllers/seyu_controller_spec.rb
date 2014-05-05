@@ -4,9 +4,7 @@ describe SeyuController do
   let(:entry) { create :person, name: 'test', seyu: true }
   let(:user) { create :user }
   before do
-    1.upto(11) do
-      create :person, name: 'test2', seyu: true
-    end
+    create_list :person, 11, name: 'test2', seyu: true
     character = create :character, person_roles: [create(:person_role, role: Person::SeyuRoles.sample, person: entry)]
     create :anime, characters: [character]
     create :person

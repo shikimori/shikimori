@@ -293,11 +293,11 @@ private
         .order("user_rates.status, #{AniMangaQuery.order_sql(params[:order], @klass)}")
         .all
 
-    list = rates.inject({}) do |result, v|
+    list = rates.each_with_object({}) do |v,memo|
       target = entries[v.target_id]
 
-      result[v.status] = [] unless result.include?(v.status)
-      result[v.status] << {
+      memo[v.status] = [] unless memo.include?(v.status)
+      memo[v.status] << {
         id: target.id,
         name: view_context.localized_name(target),
         kind: target.kind,
@@ -306,8 +306,7 @@ private
         url: "/#{params[:list_type]}s/#{v.target_id}",
 
         rate_id: v.id,
-        rate_url: "/#{params[:list_type]}s/#{v.target_id}/rate",
-        rate_notice: v.notice_html,
+        rate_text: v.text_html,
         rate_episodes: anime? ? v.episodes : nil,
         rate_volumes: anime? ? nil : v.volumes,
         rate_chapters: anime? ? nil : v.chapters,
@@ -322,8 +321,6 @@ private
         volumes: anime? ? nil : (target.volumes.zero? ? nil: target.volumes),
         duration: anime? ? target.duration : Manga::Duration,
       }
-
-      result
     end
   end
 

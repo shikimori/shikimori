@@ -2,7 +2,7 @@
 # 2. вызывать render_to_string для текущего контроллера чревато изменением content-type ответа на запрос
 #    баг рельс это или фича, я не знаю. но сделал такую заглушку, чтобы корректно отрабатывал рендер
 class DummyRenderController < ActionController::Base
-  def initialize(controller)
+  def initialize controller
     @__view_context = controller.view_context
   end
 

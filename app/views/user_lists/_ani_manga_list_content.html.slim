@@ -28,7 +28,7 @@
         th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 7 : 6}"
 
     - data[:entries].each do |entry_rate|
-      tr.unprocessed.selectable class="#{:editable if @user.own_profile?}" data-remote="#{true if @user.own_profile?}" data-action="#{user_list_edit_path @user, entry_rate[:rate_id] if @user.own_profile?}" data-type="html" data-rate_url="#{entry_rate[:rate_url]}" data-title="#{entry_rate[:name].downcase}"
+      tr.unprocessed.selectable class="#{:editable if @user.own_profile?}" data-remote="#{true if @user.own_profile?}" data-action="#{user_list_edit_path @user, entry_rate[:rate_id] if @user.own_profile?}" data-type="html" data-rate_url="#{api_user_rate_path entry_rate[:rate_id]}" data-title="#{entry_rate[:name].downcase}"
         td.index
           span
             = entry_rate[:index]
@@ -43,9 +43,9 @@
           - elsif entry_rate[:anons?]
             span.anons анонс
 
-          .rate-notice
-            - if entry_rate[:rate_notice].present?
-              div = entry_rate[:rate_notice]
+          .rate-text
+            - if entry_rate[:rate_text].present?
+              div = entry_rate[:rate_text]
 
           /- if @user.own_profile?
             span.anime-status data-field="status"

@@ -43,7 +43,8 @@ class Video < ActiveRecord::Base
   end
 
   def url= url
-    self[:url] = (url || '').sub(/^https/, 'http').sub(/^http:\/\/www\./, 'http://')
+    return if url.nil?
+    self[:url] = url.sub(/^https/, 'http').sub(/^http:\/\/www\./, 'http://')
 
     data = VideoExtractor.fetch self[:url]
     if data

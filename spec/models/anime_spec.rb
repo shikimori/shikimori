@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe Anime do
   context :relations do
-    # по-моему какой-то баг в rails 4
-    # TODO: проверить, не заработало ли в rails 4.1
-    #it { should have_and_belong_to_many :genres }
-    #it { should have_and_belong_to_many :studios }
+    it { should have_and_belong_to_many :genres }
+    it { should have_and_belong_to_many :studios }
 
     it { should have_many :person_roles }
     it { should have_many :characters }
@@ -15,6 +13,7 @@ describe Anime do
     it { should have_many :topics }
     it { should have_many :news }
 
+    it { should have_many :related }
     it { should have_many :related_animes }
     it { should have_many :related_mangas }
 

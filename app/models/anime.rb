@@ -42,13 +42,13 @@ class Anime < ActiveRecord::Base
     as: :linked
 
   has_many :related,
-    dependent: :destroy,
+    class_name: RelatedAnime.name,
     foreign_key: :source_id,
-    class_name: RelatedAnime.name
-  has_many :related_animes, -> { where.not anime_id: nil },
+    dependent: :destroy
+  has_many :related_animes, -> { where.not related_animes: { anime_id: nil } },
     through: :related,
     source: :anime
-  has_many :related_mangas, -> { where.not manga_id: nil },
+  has_many :related_mangas, -> { where.not related_animes: { manga_id: nil } },
     through: :related,
     source: :manga
 
@@ -483,5 +483,19 @@ class Anime < ActiveRecord::Base
 
   def adult?
     censored || ADULT_RATINGS.include?(rating)
+  end
+
+  # создание AniMangaComment для элемента сразу после создания
+  def create_thread
+    AniMangaComment.create! linked: self, generated: true, title: name
+  end
+
+  # при сохранении аниме обновление его CommentEntry
+  def sync_thread
+    if changes["name"]
+      thread.class.record_timestamps = false
+      thread.save
+      thread.class.record_timestamps = true
+    end
   end
 end

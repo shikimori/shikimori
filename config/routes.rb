@@ -497,6 +497,15 @@ Site::Application.routes.draw do
           end
         end
 
+        resources :user_rates, only: [:create, :update, :destroy] do
+          collection do
+            scope ':type', type: /anime|manga/ do
+              delete :cleanup
+              delete :reset
+            end
+          end
+        end
+
         resource :authenticity_token, only: [:show]
 
         devise_scope :user do
@@ -528,8 +537,6 @@ Site::Application.routes.draw do
           resources :history, only: [:index, :show]
         end
       end
-
-      resources :user_rates, only: [:index]
     end
 
     if Rails.env.development?
@@ -581,11 +588,6 @@ Site::Application.routes.draw do
       get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
       #get ':id/message' => 'messages#new', as: :private_message
       get ':id/provider/:provider' => 'users#remove_provider', as: :user_remove_provider
-    end
-
-    constraints type: /anime|manga/ do
-      delete 'list/:type/cleanup' =>  'user_rates#cleanup', as: :list_cleanup
-      delete 'list/:type/scores/reset' =>  'user_rates#reset', as: :list_scores_reset
     end
 
     post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe

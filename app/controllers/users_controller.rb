@@ -163,8 +163,8 @@ class UsersController < ApplicationController
     @comments.each do |comment|
       formatted = format_linked_name(comment.commentable_id, comment.commentable_type, comment.id)
 
-      comment[:topic_name] = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
-      comment[:topic_url] = formatted.match(/href="(.*?)"/)[1]
+      comment.topic_name = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
+      comment.topic_url = formatted.match(/href="(.*?)"/)[1]
     end
 
     respond_to do |format|

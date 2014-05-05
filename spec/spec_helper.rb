@@ -3,7 +3,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'spork'
-#require 'shoulda'
+require 'shoulda/matchers'
 require 'paperclip/matchers'
 require 'sidekiq/testing'
 
@@ -84,7 +84,6 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  ActiveRecord::Migration.check_pending!
   FactoryGirl.reload
   ActiveSupport::Dependencies.clear
   Rails.application.reload_routes!

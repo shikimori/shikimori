@@ -10,13 +10,12 @@ class PeopleQuery
   end
 
   def fetch
-    people_ids = []
     query = @klass.where(search_queries.join(' or '))
     query = query.where(@kind => true) if @kind.present?
     search_order query
   end
 
-  def fill_works(fetched_query)
+  def fill_works fetched_query
     people_by_id = fill_by_id fetched_query
 
     work_klass = producer? ? Anime : Manga

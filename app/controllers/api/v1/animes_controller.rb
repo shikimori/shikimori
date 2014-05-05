@@ -1,5 +1,5 @@
 class Api::V1::AnimesController < Api::V1::ApiController
-  respond_to :json, :xml
+  respond_to :json
 
   before_action :fetch_resource, except: [:index]
 
