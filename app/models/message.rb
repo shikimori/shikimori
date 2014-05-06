@@ -1,4 +1,6 @@
 class Message < ActiveRecord::Base
+  attr_accessor :topic_name, :topic_url
+
   belongs_to :from, class_name: User.name
   belongs_to :to, class_name: User.name
   belongs_to :linked, polymorphic: true
