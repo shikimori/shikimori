@@ -5,7 +5,7 @@ class BlobData < ActiveRecord::Base
   before_save :check_value_size
 
   def self.get(key)
-    data = BlobData.find_by_key(key)
+    data = BlobData.find_by(key: key)
 
     # временный костыль после перехода на 1.9.3
     data.value.each do |v|
@@ -36,10 +36,10 @@ class BlobData < ActiveRecord::Base
     end if value.kind_of?(Array)
 
     if value == []
-      data = BlobData.find_by_key(key)
+      data = BlobData.find_by(key: key)
       data.destroy if data
     else
-      data = BlobData.find_or_create_by_key(key)
+      data = BlobData.find_or_create_by(key: key)
       data.value = value
       data.save
     end
