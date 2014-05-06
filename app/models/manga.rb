@@ -11,6 +11,8 @@ class Manga < ActiveRecord::Base
   #serialize :ani_db_scores
   #serialize :world_art_scores
 
+  attr_accessor :in_list
+
   # Relations
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :publishers

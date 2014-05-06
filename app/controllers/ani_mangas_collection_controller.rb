@@ -210,7 +210,7 @@ private
       .where(target_id: entries.map(&:id))
       .select(:target_id)
       .map(&:target_id)
-    entries.each { |entry| entry[:in_list] = rates.include? entry.id }
+    entries.each { |entry| entry.in_list = rates.include? entry.id }
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент
