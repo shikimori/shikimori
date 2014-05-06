@@ -1,4 +1,4 @@
 .forum-container
   .comments.zero-margin.zero-top-border
     .subheadline.m2 Обсуждение
-    = render partial: 'comments/comments', locals: { object: @entry.thread, comments: @entry.comments, postloader: 15 }, formats: :html
+    = render partial: 'comments/comments', locals: { object: @entry.thread, comments: @entry.comments.to_a, postloader: 15 }, formats: :html
