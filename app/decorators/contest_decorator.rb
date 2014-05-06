@@ -1,9 +1,11 @@
-class ContestDecorator < Draper::Decorator
-  delegate_all
+class ContestDecorator < BaseDecorator
+  instance_cache :displayed_round, :prior_round, :nearby_rounds, :displayed_match
+  instance_cache :left_voters, :right_voters, :uniq_voters, :refrained_voters, :suggestions
+  instance_cache :median_votes, :user_suggestions, :matches_with_associations, :displayed_comments, :rounds
 
   # текущий раунд
   def displayed_round
-    @displayed_round ||= if h.params[:round]
+    if h.params[:round]
       number = h.params[:round].to_i
       additional = !!(h.params[:round] =~ /a$/)
       object.rounds.where(number: number, additional: additional).first
@@ -14,12 +16,12 @@ class ContestDecorator < Draper::Decorator
 
   # предыдущий раунд
   def prior_round
-    @prior_round ||= displayed_round.prior_round
+    displayed_round.prior_round
   end
 
   # соседние с текущим раунды
   def nearby_rounds
-    @nearby_rounds ||= [
+    [
       prior_round,
       displayed_round.next_round
     ].compact
@@ -27,27 +29,27 @@ class ContestDecorator < Draper::Decorator
 
   # текущий матч
   def displayed_match
-    @displayed_match ||= displayed_round.matches.where(id: h.params[:match_id]).first
+    displayed_round.matches.where(id: h.params[:match_id]).first
   end
 
   # голоса за левый вариант
   def left_voters
-    @left_voters ||= displayed_match.votes.includes(:user).where(item_id: displayed_match.left_id).map(&:user)
+    displayed_match.votes.includes(:user).where(item_id: displayed_match.left_id).map(&:user)
   end
 
   # голоса за правый вариант
   def right_voters
-    @right_voters ||= displayed_match.votes.includes(:user).where(item_id: displayed_match.right_id).map(&:user)
+    displayed_match.votes.includes(:user).where(item_id: displayed_match.right_id).map(&:user)
   end
 
   # число участников в турнире
   def uniq_voters
-    @uniq_voters ||= rounds.joins(matches: :votes).select('count(distinct(user_id)) as uniq_voters').first.uniq_voters
+    rounds.joins(matches: :votes).select('count(distinct(user_id)) as uniq_voters').first.uniq_voters
   end
 
   # голоса за правый вариант
   def refrained_voters
-    @refrained_voters ||= displayed_match.votes.includes(:user).where(item_id: 0).map(&:user)
+    displayed_match.votes.includes(:user).where(item_id: 0).map(&:user)
   end
 
   # сгруппированные по дням матчи
@@ -63,7 +65,7 @@ class ContestDecorator < Draper::Decorator
 
   # раунды
   def rounds
-    @rounds ||= object.rounds.includes matches: [:left, :right]
+    object.rounds.includes matches: [:left, :right]
   end
 
   # финальное голосование контеста
@@ -98,7 +100,7 @@ class ContestDecorator < Draper::Decorator
 
   # изначально отображаемые комментарии
   def displayed_comments
-    @displayed_comments ||= object.thread.comments.with_viewed(h.current_user).limit(15)
+    object.thread.comments.with_viewed(h.current_user).limit(15).to_a
   end
 
   # текущий статус опроса
@@ -112,10 +114,10 @@ class ContestDecorator < Draper::Decorator
 
   # сгруппированные предложения для турнира от пользователей
   def suggestions
-    @suggestions ||= object.suggestions.includes(:item).by_votes.sort_by {|v| [-v.votes, v.item.name] }
+    object.suggestions.includes(:item).by_votes.sort_by {|v| [-v.votes, v.item.name] }
   end
   def median_votes
-    @median_votes ||= suggestions.size > 10 ? suggestions[suggestions.size/2].votes : 0
+    suggestions.size > 10 ? suggestions[suggestions.size/2].votes : 0
   end
   def certain_suggestions
     suggestions.select {|v| v.votes > median_votes }
@@ -126,7 +128,7 @@ class ContestDecorator < Draper::Decorator
 
   # предложения к контесту от текущего пользователя
   def user_suggestions
-    @user_suggestions ||= object.suggestions.includes(:item).by_user h.current_user
+    object.suggestions.includes(:item).by_user h.current_user
   end
 
   # новое предложение, добавляемое пользователем
@@ -177,6 +179,6 @@ class ContestDecorator < Draper::Decorator
 
 private
   def matches_with_associations
-    @matches_with_associations ||= object.rounds.includes(matches: [ :left, :right, round: :contest ]).map(&:matches).flatten
+    object.rounds.includes(matches: [ :left, :right, round: :contest ]).map(&:matches).flatten
   end
 end
