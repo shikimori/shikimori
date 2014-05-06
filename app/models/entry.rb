@@ -3,6 +3,9 @@ class Entry < ActiveRecord::Base
   include Commentable
   include Viewable
 
+  # для совместимости с comment
+  attr_accessor :topic_name, :topic_url
+
   belongs_to :section
   belongs_to :linked, polymorphic: true
   belongs_to :user
