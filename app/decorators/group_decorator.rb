@@ -93,6 +93,7 @@ class GroupDecorator < BaseDecorator
   end
 
   def show_comments?
-    h.user_signed_in? || comments.any?
+    # TODO: удалить .except(:select) в следующей строчке, когда пофиксят баг активрекорда
+    h.user_signed_in? || comments.except(:select).any?
   end
 end
