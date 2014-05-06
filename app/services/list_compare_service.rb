@@ -66,8 +66,8 @@ private
 
     rates.each_with_object({}) do |v,memo|
       memo[v.target_id] = v
-      v[:rate] = !v.score || v.score == 0 ? nil : v.score
-      v[:rate] = nil if v.status == Dropped
+      v.score = !v.score || v.score == 0 ? nil : v.score
+      v.score = nil if v.status == Dropped
     end
   end
 
@@ -95,8 +95,8 @@ private
     entry = {
       name: UsersHelper.localized_name(entries[id], @user1),
       entry: entries[id],
-      rate_1: user1_rates.include?(id) ? user1_rates[id][:rate] : nil,
-      rate_2: user2_rates.include?(id) ? user2_rates[id][:rate] : nil,
+      rate_1: user1_rates.include?(id) ? user1_rates[id].score : nil,
+      rate_2: user2_rates.include?(id) ? user2_rates[id].score : nil,
 
       #norm_rate_1_: user1_norm_rates.include?(id) ?
           #user1_norm_rates[id].round(2) :
