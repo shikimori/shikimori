@@ -94,7 +94,7 @@ $('a[rel=history]').live('click', function(e) {
   if (in_new_tab(e)) {
     return;
   }
-  $.history.load(this.href.replace(/^http:\/\/.*?\//, '/'));
+  History.pushState(null, null, this.href.replace(/^http:\/\/.*?\//, '/'));
   return false;
 });
 

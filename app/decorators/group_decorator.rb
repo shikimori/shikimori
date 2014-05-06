@@ -97,10 +97,12 @@ class GroupDecorator < BaseDecorator
     h.user_signed_in? || comments.any?
   end
 
+  # для отображения топиков клуба на форуме
   def topics
     []
   end
 
+  # для отображения топиков клуба на форуме
   def news
     []
   end
