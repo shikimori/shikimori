@@ -1,4 +1,5 @@
 class Message < ActiveRecord::Base
+  # для совместимости с comment
   attr_accessor :topic_name, :topic_url
 
   belongs_to :from, class_name: User.name
