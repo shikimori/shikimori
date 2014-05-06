@@ -5,7 +5,7 @@ class AniMangaDecorator < BaseDecorator
   TopicsPerPage = 4
   NewsPerPage = 12
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count, :comment_reviews?
+  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
   instance_cache :is_favoured, :favoured, :rate, :thread, :comments, :changes, :roles, :related, :cosplay
   instance_cache :friend_rates, :recent_rates, :chronology
 
@@ -116,7 +116,7 @@ class AniMangaDecorator < BaseDecorator
 
   # есть ли отзывы?
   def comment_reviews?
-    comment_reviews_count > 0
+    @comment_reviews ||= comment_reviews_count > 0
   end
 
   # есть ли хоть какая-то статистика тут?
