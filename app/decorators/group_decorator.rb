@@ -96,4 +96,12 @@ class GroupDecorator < BaseDecorator
   def show_comments?
     h.user_signed_in? || comments.any?
   end
+
+  def topics
+    []
+  end
+
+  def news
+    []
+  end
 end
