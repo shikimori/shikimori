@@ -56,6 +56,7 @@ gem 'awesome_print'
 gem 'ruby-progressbar', github: 'morr/ruby-progressbar'
 gem 'htmldiff', github: 'myobie/htmldiff'
 
+gem 'retryable'
 gem 'truncate_html'
 gem 'acts-as-taggable-on'
 gem 'uuid'
