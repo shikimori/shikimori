@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506192948) do
+ActiveRecord::Schema.define(version: 20140506204243) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(version: 20140506192948) do
   end
 
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
+  add_index "comments", ["created_at"], name: "index_comments_on_created_at", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contest_links", force: true do |t|
