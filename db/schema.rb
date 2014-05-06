@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506204243) do
+ActiveRecord::Schema.define(version: 20140506210341) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -137,6 +137,9 @@ ActiveRecord::Schema.define(version: 20140506204243) do
   end
 
   add_index "animes", ["kind"], name: "index_animes_on_kind", using: :btree
+  add_index "animes", ["name"], name: "index_animes_on_name", using: :btree
+  add_index "animes", ["russian"], name: "index_animes_on_russian", using: :btree
+  add_index "animes", ["score"], name: "index_animes_on_score", using: :btree
 
   create_table "animes_genres", id: false, force: true do |t|
     t.integer "anime_id"
@@ -419,6 +422,8 @@ ActiveRecord::Schema.define(version: 20140506204243) do
   add_index "entries", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
   add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
+  add_index "entries", ["updated_at"], name: "i_updated_at", using: :btree
+  add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
 
   create_table "entry_views", force: true do |t|
     t.integer "user_id"
@@ -570,6 +575,9 @@ ActiveRecord::Schema.define(version: 20140506204243) do
   end
 
   add_index "mangas", ["kind"], name: "index_mangas_on_kind", using: :btree
+  add_index "mangas", ["name"], name: "index_mangas_on_name", using: :btree
+  add_index "mangas", ["russian"], name: "index_mangas_on_russian", using: :btree
+  add_index "mangas", ["score"], name: "index_mangas_on_score", using: :btree
 
   create_table "mangas_publishers", id: false, force: true do |t|
     t.integer "manga_id"
@@ -618,6 +626,8 @@ ActiveRecord::Schema.define(version: 20140506204243) do
     t.boolean  "mangaka",            default: false
     t.boolean  "seyu",               default: false
   end
+
+  add_index "people", ["name"], name: "index_people_on_name", using: :btree
 
   create_table "person_roles", force: true do |t|
     t.string   "role"

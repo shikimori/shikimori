@@ -13,7 +13,7 @@ module MessagesHelper # для truncate в messages helper
   end
 
   def get_message_body message
-    Rails.logger.info message.to_yaml
+    #Rails.logger.info message.to_yaml
     case message.kind
       when MessageType::ProfileCommented
         "%s %s что-то в вашем %s..." % [

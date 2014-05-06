@@ -5,8 +5,7 @@
   - collection = (defined?(comments) ? \
         (defined?(bottom_add_block) ? comments.reverse : comments) : \
         (defined?(bottom_add_block) ? object.comments.reverse : object.comments))
-  /TODO: удалить .except(:select) в следующей строчке, когда пофиксят баг активрекорда
-  - add_postloader = defined?(postloader) && postloader && collection.limit(postloader+1).except(:select).size > postloader
+  - add_postloader = defined?(postloader) && postloader && collection.size >= postloader
   - if add_postloader
     - collection = collection.take(postloader * (defined?(postload_page) ? postload_page : 1))
 

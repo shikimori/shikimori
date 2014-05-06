@@ -24,9 +24,9 @@ class TopicsController < ForumController
     topics = TopicsQuery
       .new(@section, current_user, @linked)
       .fetch(@page, topics_limit)
+      .to_a
 
-    #TODO: удалить .except(:select) в следующей строчке, когда пофиксят баг активрекорда
-    @add_postloader = topics.except(:select).size > topics_limit
+    @add_postloader = topics.size >= topics_limit
     @topics = topics.take(topics_limit).map do |entry|
       TopicPresenter.new(
         limit: @page == 1 ? @@first_page_comments : @@other_page_comments,

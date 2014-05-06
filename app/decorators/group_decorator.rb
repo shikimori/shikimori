@@ -2,7 +2,7 @@ class GroupDecorator < BaseDecorator
   VisibleEntries = 12
 
   rails_cache :description_html, :all_members, :all_animes, :all_mangas, :all_characters, :all_images
-  instance_cache :description, :animes, :mangas, :characters, :images
+  instance_cache :description, :animes, :mangas, :characters, :images, :comments
 
   def url
     h.club_url object
@@ -90,10 +90,10 @@ class GroupDecorator < BaseDecorator
       .comments
       .with_viewed(h.current_user)
       .limit(15)
+      .to_a
   end
 
   def show_comments?
-    # TODO: удалить .except(:select) в следующей строчке, когда пофиксят баг активрекорда
-    h.user_signed_in? || comments.except(:select).any?
+    h.user_signed_in? || comments.any?
   end
 end

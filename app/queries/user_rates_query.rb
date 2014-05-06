@@ -20,5 +20,6 @@ class UserRatesQuery
       .includes(:user)
       .order(updated_at: :desc)
       .limit(limit)
+      .to_a
   end
 end

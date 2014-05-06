@@ -1,11 +1,13 @@
-class AniMangaDecorator < Draper::Decorator
+class AniMangaDecorator < BaseDecorator
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers
 
   TopicsPerPage = 4
   NewsPerPage = 12
 
-  delegate_all
+  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count, :comment_reviews?
+  instance_cache :is_favoured, :favoured, :rate, :thread, :comments, :changes, :roles, :related, :cosplay
+  instance_cache :friend_rates, :recent_rates, :chronology
 
   def source
     object.source
@@ -13,7 +15,7 @@ class AniMangaDecorator < Draper::Decorator
 
   # топики
   def topics
-    @topics ||= object
+    object
       .topics
       .wo_generated
       .includes(:section)
@@ -23,7 +25,7 @@ class AniMangaDecorator < Draper::Decorator
 
   # новости
   def news
-    @news ||= object
+    object
       .news
       .includes(:section)
       .limit(NewsPerPage)
@@ -32,7 +34,7 @@ class AniMangaDecorator < Draper::Decorator
 
   # обзоры
   def reviews
-    @reviews = ReviewsQuery.new(object, h.current_user, h.params[:id].to_i).fetch.map do |review|
+    ReviewsQuery.new(object, h.current_user, h.params[:id].to_i).fetch.map do |review|
       TopicPresenter.new(
         object: review.thread,
         template: h,
@@ -45,7 +47,7 @@ class AniMangaDecorator < Draper::Decorator
 
   # число обзоров
   def reviews_count
-    @reviews_count ||= object.reviews.visible.count
+    object.reviews.visible.count
   end
 
   # есть ли обзоры
@@ -55,51 +57,51 @@ class AniMangaDecorator < Draper::Decorator
 
   # добавлено ли в избранное?
   def favoured?
-    @is_favoured ||= h.user_signed_in? && h.current_user.favoured?(object)
+    h.user_signed_in? && h.current_user.favoured?(object)
   end
 
   # добавившие в избранное
   def favoured
-    @favoured ||= FavouritesQuery.new(object, 12).fetch
+    FavouritesQuery.new(object, 12).fetch
   end
 
   # добавлено ли в список текущего пользователя?
   def rate
-    @rate ||= h.user_signed_in? ? object.rates.find_by_user_id(h.current_user.id) : nil
+    h.user_signed_in? ? object.rates.find_by_user_id(h.current_user.id) : nil
   end
 
   # основной топик
   def thread
-    @thread ||= object.thread
+    object.thread
   end
 
   # комментарии топика
   def comments with_reviews=false
-    @comments ||= if with_reviews && comment_reviews?
-      thread.comments.reviews.with_viewed(h.current_user).limit(15)
+    if with_reviews && comment_reviews?
+      thread.comments.reviews.with_viewed(h.current_user)
     else
-      thread.comments.with_viewed(h.current_user).limit(15)
-    end
+      thread.comments.with_viewed(h.current_user)
+    end.limit(15).to_a
   end
 
   # презентер пользовательских изменений
   def changes
-    @changes ||= AniMangaPresenter::ChangesPresenter.new object, h
+    AniMangaPresenter::ChangesPresenter.new object, h
   end
 
   # презентер с ролями аниме
   def roles
-    @roles ||= AniMangaPresenter::RolesPresenter.new object, h
+    AniMangaPresenter::RolesPresenter.new object, h
   end
 
   # презентер связанных аниме
   def related
-    @related ||= AniMangaPresenter::RelatedPresenter.new object, h
+    AniMangaPresenter::RelatedPresenter.new object, h
   end
 
   # презентер косплея
   def cosplay
-    @cosplay ||= AniMangaPresenter::CosplayPresenter.new object, h
+    AniMangaPresenter::CosplayPresenter.new object, h
   end
 
   # число коментариев
@@ -109,12 +111,12 @@ class AniMangaDecorator < Draper::Decorator
 
   # число отзывов
   def comment_reviews_count
-    @comment_reviews_count ||= thread.comments.reviews.count
+    thread.comments.reviews.count
   end
 
   # есть ли отзывы?
   def comment_reviews?
-    @has_comment_reviews ||= comment_reviews_count > 0
+    comment_reviews_count > 0
   end
 
   # есть ли хоть какая-то статистика тут?
@@ -124,7 +126,7 @@ class AniMangaDecorator < Draper::Decorator
 
   # оценки друзей
   def friend_rates
-    @friend_rates ||= if h.user_signed_in?
+    if h.user_signed_in?
       UserRatesQuery.new(object, h.current_user).friend_rates
     else
       []
@@ -133,12 +135,12 @@ class AniMangaDecorator < Draper::Decorator
 
   # последние изменения от других пользователей
   def recent_rates limit
-    @recent_rates ||= UserRatesQuery.new(object, h.current_user).recent_rates limit
+    UserRatesQuery.new(object, h.current_user).recent_rates limit
   end
 
   # полная хронология аниме
   def chronology
-    @chronology ||= ChronologyQuery.new(object, true).fetch
+    ChronologyQuery.new(object, true).fetch
   end
 
   # показывать ли ссылки, если аниме или манга для взрослых?

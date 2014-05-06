@@ -1,9 +1,13 @@
 # TODO: refactor to decorator
 class TopicPresenter < BasePresenter
+  prepend ActiveCacher
+
   CommentsFoldLimit = 20
 
   presents :entry
   proxy :id, :created_at, :section, :user, :viewed?, :can_be_edited_by?, :can_be_deleted_by?, :generated?, :news?, :review?
+
+  instance_cache :comments, :folded_comments
 
   attr_accessor :limit, :fold_limit
 
@@ -65,7 +69,7 @@ class TopicPresenter < BasePresenter
 
   # посты топика
   def comments
-    @comments ||= entry.comments.with_viewed(current_user).limit(@limit)
+    entry.comments.with_viewed(current_user).limit(@limit).to_a
   end
 
   ## создан ли топик автоматически?
@@ -80,7 +84,7 @@ class TopicPresenter < BasePresenter
 
   # объект топика
   def folded_comments
-    @folded_comments ||= entry.comments_count - @limit
+    entry.comments_count - @limit
   end
 
   # текст для свёрнутых комментариев
