@@ -68,6 +68,7 @@ class CommentsController < ApplicationController
       .includes(:user, :commentable)
       .offset(from)
       .limit(to)
+      .to_a
       .reverse
 
     render partial: 'comments/comment', collection: comments, formats: :html
@@ -80,6 +81,7 @@ class CommentsController < ApplicationController
       .where(id: params[:ids].split(',').map(&:to_i))
       .includes(:user, :commentable)
       .limit(100)
+      .to_a
 
     comments.reverse! if params[:order]
 
