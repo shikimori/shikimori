@@ -10,7 +10,7 @@ class FavouritesQuery
       .where(linked_id: @entry.id, linked_type: @entry.class.name)
       .includes(:user)
       .group(:user_id)
-      .order('rand()')
+      .order(created_at: :desc)
       .limit(@limit)
       .sort_by {|v| v.user.nickname }
   end
