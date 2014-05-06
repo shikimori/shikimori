@@ -81,11 +81,11 @@ class UserListsController < UsersController
       .order(updated_at: :desc)
       .offset(limit * (@page-1))
       .limit(limit + 1)
-      .all
+      .to_a
 
     @add_postloader = history.size > limit
     history = history.take(limit) if history.size > limit
-    history.map! &:decorate
+    history.map!(&:decorate)
 
     @history = history.group_by do |v|
       today = DateTime.parse(Date.today.to_s)
