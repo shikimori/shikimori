@@ -163,6 +163,7 @@ class TorrentsParser
       .where(kind: ['TV', 'ONA'])
       .where(episodes_aired: 0)
       .includes(:anime_calendars)
+      .references(:anime_calendars)
       .where('anime_calendars.episode = 1 and anime_calendars.start_at < now()')
       .to_a
 
