@@ -1,6 +1,6 @@
 # TODO: refactor to decorator
 class TopicPresenter < BasePresenter
-  prepend ActiveCacher
+  prepend ActiveCacher.instance
 
   CommentsFoldLimit = 20
 

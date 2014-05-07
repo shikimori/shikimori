@@ -1,5 +1,15 @@
 module ActiveCacher
+  @cloned = false
+
+  def self.instance
+    cloned = clone
+    cloned.instance_variable_set '@cloned', true
+    cloned
+  end
+
   def self.prepended target
+    raise "do not prepend ActiveCacher, prepend ActiveCacher.instance instead" unless @cloned
+
     cacher = self
 
     target.send :define_singleton_method, :rails_cache do |*methods|
