@@ -129,6 +129,6 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   end
 
   def rate
-    @rate ||= h.user_signed_in? ? object.rates.find_by_user_id(h.current_user.id) : nil
+    @rate ||= h.user_signed_in? ? object.rates.where(user_id: h.current_user).first : nil
   end
 end
