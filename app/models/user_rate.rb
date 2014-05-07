@@ -79,12 +79,12 @@ private
 
   # логика обновления полей при выставлении числа эпизодов
   def counter_changed counter
+    # указали nil или меньше нуля - сбрасываем на ноль
+    self[counter] = 0 if self[counter].nil? || self[counter] < 0
     # указали больше эпизодов, чем есть в аниме - сбрасываем на число эпизодов в аниме
     self[counter] = target[counter] if self[counter] > target[counter] && !target[counter].zero?
     # указали какую-то нереальную цифру - сбрасываем на число эпизодов в аниме
     self[counter] = changes[counter].first if self[counter] > MAXIMUM_EPISODES
-    # указали меньше нуля - сбрасываем на ноль
-    self[counter] = 0 if self[counter] < 0
 
     # сбросили главы - сбрасываем и тома
     self.chapters = 0 if counter == 'volumes' && self.volumes.zero?

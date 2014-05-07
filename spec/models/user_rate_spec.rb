@@ -188,6 +188,11 @@ describe UserRate do
           its(:episodes) { should eq initial_value }
         end
 
+        context :nil_number do
+          let(:new_value) { nil }
+          its(:episodes) { should eq 0 }
+        end
+
         context :negative_number do
           let(:new_value) { -1 }
           its(:episodes) { should eq 0 }
