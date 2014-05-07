@@ -99,7 +99,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     video = AnimeVideo.find params[:id]
     anime = Anime.find params[:anime_id]
     user_rate = anime.rates.find_by_user_id current_user.id
-    user_rate.update_column(:episodes, video.episode) if user_rate
+    UserRate.update(user_rate.id, episodes: video.episode) if user_rate
     redirect_to anime_videos_show_url video.anime_id, video.episode + 1
   end
 

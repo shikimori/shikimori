@@ -155,21 +155,21 @@ describe AnimeOnline::AnimeVideosController do
     let!(:moderator) { create :user, id: User::Blackchestnut_ID }
     let!(:user) { create :user, id: User::GuestID }
     let!(:anime_video) { create :anime_video }
-    let(:report_repuest) { post :report, id: anime_video.id, kind: :broken }
+    let(:report_request) { post :report, id: anime_video.id, kind: :broken }
 
     context :response do
-      before { report_repuest }
+      before { report_request }
       it { should respond_with_content_type :text }
       it { should respond_with :success }
     end
 
     context :first_request do
-      it { expect {report_repuest}.to change(AnimeVideoReport, :count).by 1 }
+      it { expect {report_request}.to change(AnimeVideoReport, :count).by 1 }
     end
 
     context :not_dublicate_request do
       let!(:report) { create :anime_video_report, anime_video: anime_video, kind: :broken }
-      it { expect {report_repuest}.to change(AnimeVideoReport, :count).by 0 }
+      it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
     end
   end
 
@@ -182,12 +182,28 @@ describe AnimeOnline::AnimeVideosController do
   describe :viewed do
     let(:anime) { create :anime }
     let(:video) { create :anime_video }
-    before do
-      sign_in user
-      get :viewed, id: video.id, anime_id: anime.id
+    let(:request) { get :viewed, id: video.id, anime_id: anime.id }
+
+    context :check_response do
+      before do
+        sign_in user
+        request
+      end
+
+      it { should respond_with_content_type :html }
+      it { response.should redirect_to(anime_videos_show_url video.anime_id, video.episode + 1) }
     end
 
-    it { should respond_with_content_type :html }
-    it { response.should redirect_to(anime_videos_show_url video.anime_id, video.episode + 1) }
+    context :check_user_history do
+      before { sign_in user }
+      context :with_rate do
+        let!(:user_rate) { create :user_rate, :watching, user: user, target: anime }
+        it { expect {request}.to change(UserHistory, :count).by 1 }
+      end
+
+      context :without_rate do
+        it { expect {request}.to change(UserHistory, :count).by 0 }
+      end
+    end
   end
 end
