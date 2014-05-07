@@ -54,7 +54,7 @@
           a.btn.btn-default href="#{new_anime_online_anime_anime_video_url anime.id}" title='Загрузить новое видео'
             span.glyphicon.glyphicon-upload
 
-      - if anime.rate
+      - if anime.rate && anime.rate.episodes < anime.current_video.episode
         li.ok.pull-right
           a.btn.btn-success href="#{viewed_anime_online_anime_anime_video_url anime.id, anime.current_video.id}" title='Просмотрено, перейти к следующему эпизоду'
             span.glyphicon.glyphicon-ok
