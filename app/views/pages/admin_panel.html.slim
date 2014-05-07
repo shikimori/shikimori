@@ -7,76 +7,70 @@
         .subheadline
           .reload
           | Disk space
-        p.m10 #{@disk_space}%
+        p.m15 #{@disk_space}%
 
-        .subheadline Memmory
-        p.m10 #{@mem_space}%
+        .subheadline class="#{:red if @swap_space.to_i > 80}" Memmory
+        p.m15 #{@mem_space}%
 
-        .subheadline Swap
-        p.m10 #{@swap_space}%
+        .subheadline class="#{:red if @swap_space.to_i > 10}" Swap
+        p.m15 #{@swap_space}%
 
         .subheadline Memcached
-        p.m10 #{@memcached_space}%
+        p.m15 #{@memcached_space}%
 
-        .subheadline Redis keys
-        p.m10 #{@redis_keys}
+        .subheadline class="#{:red if @redis_keys.zero?}" Redis keys
+        p.m15 #{@redis_keys}
 
         a.sidekiq-link href="/sidekiq/" stats
         .subheadline Sidekiq jobs
-        .m10.sidekiq
-          p Processed: #{@sidkiq_stats.processed}
-          p Failed: #{@sidkiq_stats.failed}
+        .m15.sidekiq
+          p.x2 Processed: #{@sidkiq_stats.processed}
+          p.x2 Failed: #{@sidkiq_stats.failed}
 
           - @sidkiq_busy.each do |job|
-            p id="#{job['jid'].to_s}"
+            p.x2 id="#{job['jid'].to_s}"
               span.right
                 = time_ago_in_words Time.at(job['enqueued_at'])
               span.busy
                 = job['class']
 
           - @sidkiq_enqueued.each do |job|
-            p id="#{job['jid'].to_s}"
+            p.x2 id="#{job['jid'].to_s}"
               span.right
                 = time_ago_in_words Time.at(job['enqueued_at'])
               span.enqueued
                 = job['class']
 
           - @sidkiq_retries.each do |job|
-            p id="#{job['jid'].to_s}"
+            p.x2 id="#{job['jid'].to_s}"
               span.right
                 = time_ago_in_words Time.at(job['enqueued_at'])
               span.retries
                 = job['class']
 
         /.subheadline Retries
-        /.m10
+        /.m15
 
         .subheadline class="#{:red if @proxies_count < 400}" Proxies
-        p.m10 = @proxies_count
+        p.m15 = @proxies_count
 
         .subheadline class="#{:red if @last_episodes_message < 1.day.ago}" Last Episode Message
-        p.m10 = @last_episodes_message
+        p.m15 = @last_episodes_message
 
         .subheadline class="#{:red if @calendar_update < 1.day.ago}" Calendar Update
-        p.m10 = @calendar_update
+        p.m15 = @calendar_update
 
         - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
           .subheadline Calendar Unrecognized
-          .m10
+          .m15
             - @calendar_unrecognized.each do |name|
               p.m5 = name
 
-        .subheadline Animes to import
-        p.m10 = @animes_to_import
-
-        .subheadline Mangas to import
-        p.m10 = @mangas_to_import
-
-        .subheadline Characters to import
-        p.m10 = @characters_to_import
-
-        .subheadline People to import
-        p.m0 = @people_to_import
+        .subheadline Import
+        p.x2 Animes: #{@animes_to_import}
+        p.x2 Mangas: #{@mangas_to_import}
+        p.x2 Characters: #{@characters_to_import}
+        p.x2 People: #{@people_to_import}
 
     .dropshadow-top
     .dropshadow-top-right

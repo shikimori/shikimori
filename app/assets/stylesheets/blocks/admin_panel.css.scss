@@ -10,6 +10,10 @@
     p {
       font-size: 11px;
       margin: 0 5px;
+
+      &.x2 {
+        line-height: 2;
+      }
     }
     .reload {
       color: #666666;
@@ -38,10 +42,6 @@
       margin: 7px 5px 0 0;
     }
     .sidekiq {
-      p {
-        line-height: 2;
-      }
-
       .busy {
         color: green;
       }
