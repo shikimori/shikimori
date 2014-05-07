@@ -4,25 +4,25 @@
     .clearfix
       .tooltip-details
 
-        .subblock-title
+        .subheadline
           .reload
           | Disk space
         p.m10 #{@disk_space}%
 
-        .subblock-title Memmory
+        .subheadline Memmory
         p.m10 #{@mem_space}%
 
-        .subblock-title Swap
+        .subheadline Swap
         p.m10 #{@swap_space}%
 
-        .subblock-title Memcached
+        .subheadline Memcached
         p.m10 #{@memcached_space}%
 
-        .subblock-title Redis keys
+        .subheadline Redis keys
         p.m10 #{@redis_keys}
 
         a.sidekiq-link href="/sidekiq/" stats
-        .subblock-title Sidekiq jobs
+        .subheadline Sidekiq jobs
         .m10.sidekiq
           p Processed: #{@sidkiq_stats.processed}
           p Failed: #{@sidkiq_stats.failed}
@@ -48,32 +48,34 @@
               span.retries
                 = job['class']
 
-        /.subblock-title Retries
+        /.subheadline Retries
         /.m10
 
-        .subblock-title Proxies
+        .subheadline class="#{:red if @proxies_count < 400}" Proxies
         p.m10 = @proxies_count
 
-        - if @calendar_update
-          .subblock-title Calendar Update
-          p.m10 = @calendar_update.to_date
+        .subheadline class="#{:red if @last_episodes_message < 1.day.ago}" Last Episode Message
+        p.m10 = @last_episodes_message
+
+        .subheadline class="#{:red if @calendar_update < 1.day.ago}" Calendar Update
+        p.m10 = @calendar_update
 
         - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
-          .subblock-title Calendar Unrecognized
+          .subheadline Calendar Unrecognized
           .m10
             - @calendar_unrecognized.each do |name|
               p.m5 = name
 
-        .subblock-title Animes to import
+        .subheadline Animes to import
         p.m10 = @animes_to_import
 
-        .subblock-title Mangas to import
+        .subheadline Mangas to import
         p.m10 = @mangas_to_import
 
-        .subblock-title Characters to import
+        .subheadline Characters to import
         p.m10 = @characters_to_import
 
-        .subblock-title People to import
+        .subheadline People to import
         p.m0 = @people_to_import
 
     .dropshadow-top

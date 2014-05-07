@@ -120,6 +120,7 @@ class PagesController < ApplicationController
     end
 
     @calendar_update = AnimeCalendar.last.try :created_at
+    @last_episodes_message = Message.where(kind: :episode).last.created_at
     @calendar_unrecognized = Rails.cache.read 'calendar_unrecognized'
 
     @proxies_count = Proxy.count

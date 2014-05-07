@@ -9,17 +9,15 @@
 
     p {
       font-size: 11px;
-    }
-    .subblock-title {
-      margin-bottom: 5px;
+      margin: 0 5px;
     }
     .reload {
       color: #666666;
       cursor: pointer;
-      display: block;
-      float: right;
       font-size: 20px;
       margin-top: -4px;
+      position: absolute;
+      right: 16px;
 
       &:before {
         content: "\E801";
@@ -37,7 +35,7 @@
       @include normal-link;
       float: right;
       font-size: 11px;
-      margin-top: 5px;
+      margin: 7px 5px 0 0;
     }
     .sidekiq {
       p {

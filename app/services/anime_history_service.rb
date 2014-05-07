@@ -48,7 +48,7 @@ class AnimeHistoryService
     end
 
     ActiveRecord::Base.transaction do
-      Entry.where(id: entries.map(&:id)).update_all processed: true
+      #Entry.where(id: entries.map(&:id)).update_all processed: true
       Message.import messages.flatten.compact
     end
   end
