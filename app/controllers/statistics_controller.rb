@@ -69,18 +69,18 @@ private
   def stats_by_rating
     ratings = ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx']
     @rating_kinds.each_with_object({}) do |kind,rez|
-      rez[kind] = stats_data(@animes.select { |v| v.kind == kind && v[:ru_rating].present? }, :ru_rating, ratings)
+      rez[kind] = stats_data(@animes.select { |v| v.kind == kind && v.ru_rating.present? }, :ru_rating, ratings)
     end
   end
 
   # статистика по жанрам
   def stats_by_genre
     top_genres = @rating_kinds.each_with_object({}) do |kind,rez|
-      rez[kind] = normalize(stats_data(@animes.select { |v| v.kind == kind }.map { |v| v[:mapped_genres] }.flatten, :genre, @genres), 4)[:series].map { |v| v[:name] }
+      rez[kind] = normalize(stats_data(@animes.select { |v| v.kind == kind }.map(&:mapped_genres).flatten, :genre, @genres), 4)[:series].map { |v| v[:name] }
     end
 
     data = @rating_kinds.each_with_object({}) do |kind,rez|
-      rez[kind] = stats_data(@animes.select { |v| v.kind == kind }.map { |v| v[:mapped_genres] }.flatten, :genre, @genres)
+      rez[kind] = stats_data(@animes.select { |v| v.kind == kind }.map(&:mapped_genres).flatten, :genre, @genres)
     end
 
     # отключаем второстепенные жанры
@@ -98,7 +98,7 @@ private
     animes_10 = @tv.select { |v| v.aired_on >= DateTime.parse("#{DateTime.now.year}-01-01") - 10.years }
     #top_studios = normalize(stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios), 0.75)[:series].map { |v| v[:name] }
 
-    data = stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios + ['Прочее'])
+    data = stats_data(animes_10.map(&:mapped_studios).flatten, :studio, @studios + ['Прочее'])
     other = {
       name: 'Прочее',
       data: [0,0,0,0,0,0,0,0,0,0,0],
@@ -134,25 +134,31 @@ private
 
     start_on = DateTime.parse("#{DateTime.now.year}-01-01") - YearsAgo
     finish_on = DateTime.parse("#{DateTime.now.year}-01-01") - 1.day + 1.year
-    @animes = Anime.where.not(aired_on: nil)
-        .where('aired_on >= ?', start_on)
-        .where('aired_on <= ?', finish_on)
-        .where(:kind => @kinds)
-        .select([:id, :aired_on, :kind, :rating, :score])
-        .order(:aired_on)
-        .includes(:genres)
-        .includes(:studios)
+
+    @animes = Anime
+      .where.not(aired_on: nil)
+      .where('aired_on >= ?', start_on)
+      .where('aired_on <= ?', finish_on)
+      .where(kind: @kinds)
+      .select([:id, :aired_on, :kind, :rating, :score])
+      .order(:aired_on)
+      .eager_load(:genres, :studios) # не использовать includes для HABTM ассоциаций!!! оно дико тормозит на больших объёмах данных
+      .each do |anime|
+        anime.singleton_class.class_eval do
+          attr_accessor :ru_rating, :mapped_genres, :mapped_studios
+        end
+      end
 
     @animes.each do |entry|
-      entry[:ru_rating] = I18n.t "RatingShort.#{entry.rating}" if entry.rating != 'None'
+      entry.ru_rating = I18n.t "RatingShort.#{entry.rating}" if entry.rating != 'None'
 
-      entry[:mapped_genres] = entry.genres.map do |genre|
+      entry.mapped_genres = entry.genres.map do |genre|
         {
           genre: genre.russian,
           aired_on: entry.aired_on
         }
       end
-      entry[:mapped_studios] = entry.real_studios.map do |studio|
+      entry.mapped_studios = entry.real_studios.map do |studio|
         {
           studio: Studio::Merged.include?(studio.id) ? @studios_by_id[Studio::Merged[studio.id]].filtered_name : studio.filtered_name,
           aired_on: entry.aired_on
@@ -170,8 +176,7 @@ private
       rez[group] = nil
     end
 
-    data = animes.group_by {|v| v[grouping] }
-                 .each_with_object(groups) do |entry,data|
+    data = animes.group_by {|v| v.respond_to?(grouping) ? v.send(grouping) : v[grouping] }.each_with_object(groups) do |entry,data|
       next unless data.include? entry[0]
       data[entry[0]] = years.each_with_object({}) { |v,rez| rez[v] = 0 }
 
