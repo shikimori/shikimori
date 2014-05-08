@@ -103,6 +103,11 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     redirect_to anime_videos_show_url video.anime_id, video.episode + 1
   end
 
+  def rate
+    UserRate.create_or_find(current_user.id, params[:id], 'Anime').save
+    render nothing: true
+  end
+
 private
   def video_params
     #.merge(uploader_id: current_user.id)

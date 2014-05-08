@@ -21,6 +21,11 @@ class UserRate < ActiveRecord::Base
 
   validates :target, :user, presence: true
 
+  def self.create_or_find user_id, target_id, target_type
+    UserRate.where(user_id: user_id, target_id: target_id, target_type: target_type).first ||
+      UserRate.create(user_id: user_id, target_id: target_id, target_type: target_type, status: UserRateStatus.default)
+  end
+
   def anime?
     target_type == 'Anime'
   end

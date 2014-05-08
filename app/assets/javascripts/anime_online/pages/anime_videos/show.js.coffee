@@ -22,3 +22,7 @@ jQuery ->
 
   $("a.dropdown-toggle, .dropdown-menu a").on "touchstart", (e) ->
     e.stopPropagation()
+
+  $('li.rate a', $page).on 'ajax:success', ->
+    $('li.rate a', $page).addClass 'hide'
+    $('li.ok', $page).removeClass 'hide'

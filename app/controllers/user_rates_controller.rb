@@ -4,8 +4,7 @@ class UserRatesController < ApplicationController
 
   # добавление аниме в свой список
   def create
-    @rate = UserRate.find_by(user_id: current_user.id, target_id: params[:id], target_type: params[:type]) ||
-      UserRate.create(user_id: current_user.id, target_id: params[:id], target_type: params[:type], status: UserRateStatus.default)
+    @rate = UserRate.create_or_find current_user.id, params[:id], params[:type]
 
     if @rate.save
       render json: {
