@@ -4,7 +4,7 @@
   }
   var scroll_lock = false;
   var to_top_visible = false;
-  var $to_top = $('.to-top');
+  var $to_top = $('.b-to-top');
 
   var process = function() {
     scroll_lock = false;

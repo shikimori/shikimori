@@ -1,0 +1,29 @@
+@import compass/css3/box-sizing
+@import compass/css3/transition
+@import globals/variables
+@import mixins/responsive
+
+.b-comments-notifier
+  +transition(background-color 300ms)
+  +box-sizing(border-box)
+  background: $hover-color
+  color: white
+  cursor: pointer
+  height: 25px
+  line-height: 25px
+  margin: 8px
+  min-width: 25px
+  padding: 0 4px
+  position: fixed
+  right: 0
+  text-align: center
+  top: 31px
+
+  +responsive(phone)
+    display: none
+
+  &:hover
+    background-color: $hover-color-0
+
+  &:active
+    background-color: $active-color

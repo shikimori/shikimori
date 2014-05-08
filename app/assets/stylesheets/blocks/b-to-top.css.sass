@@ -1,0 +1,53 @@
+@import compass/css3/opacity
+@import compass/css3/transition
+@import mixins/responsive
+
+.b-to-top
+  cursor: pointer
+  display: none
+  height: 100%
+  left: 0
+  position: fixed
+  top: 0
+  visibility: collapse
+  width: 120px
+  z-index: 0
+
+  +responsive(desktop)
+    visibility: visible
+
+  .slide
+    +opacity(0)
+    +transition(opacity 0.3s)
+    background: #f0f0f0
+    cursor: pointer
+    height: 100%
+    left: 0
+    position: fixed
+    top: 0
+    width: 60px
+
+  &:hover
+    .slide
+      +opacity(0.6)
+
+    .arrow
+      color: black
+
+  &:active
+    .slide
+      +opacity(0.85)
+
+  .arrow
+    +transition(color 0.3s)
+    color: white
+    font-family: tahoma
+    font-size: 20px
+    font-style: normal
+    font-weight: bold
+    left: 0
+    position: fixed
+    text-align: center
+    top: 5px
+    width: 60px
+

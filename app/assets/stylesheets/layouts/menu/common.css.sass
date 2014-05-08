@@ -1,4 +1,6 @@
 @import globals
+@import mixins/responsive
+@import mixins/retina
 
 // спрайты
 @import "graphics/*.png"
@@ -15,6 +17,9 @@
   width: 60px
   z-index: 1
 
+  +responsive(tablet)
+    display: none
+
 .main-menu
   background-color: #3e3e3e
   +background-image(linear-gradient(#484848, #363636))
@@ -26,7 +31,7 @@
     position: relative
 
     .logo
-      background: inline-image("/globals/logo.png") no-repeat
+      +background-inline-retina('/globals/logo', 'png', 106px, 22px)
       float: left
       height: 22px
       margin: 4px 15px 0 10px

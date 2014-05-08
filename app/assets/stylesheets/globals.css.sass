@@ -6,11 +6,12 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
 
 @import compass
 @import globals/variables
-@import globals/responsive
+@import mixins/responsive
 
 // кнопочки иконочные
 =icon($content, $font-size: 14px)
   cursor: pointer
+
   +responsive(desktop)
     margin-left: 15px
 

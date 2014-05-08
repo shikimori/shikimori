@@ -2,7 +2,7 @@
 // назначение класса - смотреть на странице новые комментаы и отображать информацию об этом
 function CommentsNotifier() {
   // дом элемент нотификатора
-  var $notifier = $('<div class="comments-notifier" style="display: none;" alt="Число непрочитанных комментариев"></div>');
+  var $notifier = $('<div class="b-comments-notifier" style="display: none;" alt="Число непрочитанных комментариев"></div>');
   var $window = $(window);
   $(document.body).append($notifier);
   // текущее значение счётчика

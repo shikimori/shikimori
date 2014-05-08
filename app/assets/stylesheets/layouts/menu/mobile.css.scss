@@ -1,10 +1,7 @@
-@import "globals/responsive";
+@import "mixins/responsive";
 @import "globals";
 
 @include responsive(tablet) {
-  .to-top-fix {
-    display: none;
-  }
   .main-menu {
     @include clearfix;
 
