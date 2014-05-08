@@ -20,6 +20,7 @@ class UserRate < ActiveRecord::Base
   after_destroy :log_deleted
 
   validates :target, :user, presence: true
+  #validates :user_id, uniqueness: { scope: [:target_id, :target_type] }
 
   def anime?
     target_type == 'Anime'
