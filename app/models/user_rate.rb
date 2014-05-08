@@ -94,7 +94,7 @@ private
 
     if changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
-      if self[counter] > 0 && changes[counter].first.zero?
+      if self[counter] > 0 && changes[counter].first.zero? && changes['status'].nil?
         self.status = UserRateStatus.get UserRateStatus::Watching
       end
 
@@ -105,7 +105,7 @@ private
     end
 
     # указали число эпизодов, равно числу эпиздов в аниме - помечаем просмотренным
-    if self[counter] == target[counter] && self[counter] > 0
+    if self[counter] == target[counter] && self[counter] > 0 && changes['status'].nil?
       self.status = UserRateStatus.get UserRateStatus::Completed
 
       # для манги устанавливаем в максимум второй счётчик

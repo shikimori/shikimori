@@ -68,10 +68,36 @@ describe UserRate do
     end
 
     describe :smart_process_changes do
-      let(:user_rate) { build :user_rate, target: build_stubbed(:anime), status: 1 }
-      after { user_rate.save }
+      context :onhold_with_episode do
+        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 99), status: UserRateStatus.get(UserRateStatus::OnHold), episodes: 6 }
+        it { should be_on_hold }
+        its(:episodes) { should eq 6 }
+      end
 
-      it { expect(user_rate).to receive :status_changed }
+      context :dropped_with_full_episode do
+        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: UserRateStatus.get(UserRateStatus::Dropped), episodes: 3 }
+        it { should be_dropped }
+        its(:episodes) { should eq 3 }
+      end
+
+      context :dropped_with_parital_episode do
+        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: UserRateStatus.get(UserRateStatus::Dropped), episodes: 2 }
+        it { should be_dropped }
+        its(:episodes) { should eq 2 }
+      end
+
+      context :planned_with_full_episode do
+        subject { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: UserRateStatus.get(UserRateStatus::Planned), episodes: 3 }
+        it { should be_planned }
+        its(:episodes) { should eq 3 }
+      end
+
+      describe :status_change do
+        let(:user_rate) { build :user_rate, target: build_stubbed(:anime), status: 1 }
+        after { user_rate.save }
+
+        it { expect(user_rate).to receive :status_changed }
+      end
     end
 
     describe :status_changed do

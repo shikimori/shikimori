@@ -24,7 +24,6 @@ private
   # история
   def history
     @history ||= all_history
-      .order(updated_at: :desc)
       .limit(LIMIT * 4)
       .decorate
   end

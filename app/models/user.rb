@@ -148,11 +148,11 @@ class User < ActiveRecord::Base
   end
 
   def all_history
-    @all_history ||= history.includes(:anime, :manga)
+    @all_history ||= history.includes(:anime, :manga).order(updated_at: :desc, id: :desc)
   end
 
   def anime_history
-    @anime_history ||= history.where(target_type: [Anime.name, Manga.name]).includes(:anime).includes(:manga)
+    @anime_history ||= history.where(target_type: [Anime.name, Manga.name]).includes(:anime, :manga)
   end
 
   def anime_uniq_history

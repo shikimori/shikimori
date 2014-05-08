@@ -40,24 +40,20 @@ module AniMangaListImporter
 
       rate.status = UserRateStatus.get entry[:status]
       rate.score = entry[:score].to_i
-      rate.score = 10 if rate.score > 10
-      rate.score = 0 if rate.score < 0
 
-      if rate.save
+      # нельзя указать больше/меньше эпизодов,частей,томов для просмотренного, чем имеется в аниме/манге
+      Counters.each do |counter|
+        target = rate.target
+
+        if rate.completed?
+          rate[counter] = target[counter] if target.respond_to?(counter) && rate[counter] < target[counter]
+        end
+        rate[counter] = target[counter] if target.respond_to?(counter) && rate[counter] > target[counter]
+      end
+
+      if rate.changes.any? && rate.save
         updated << rate.target_id if update
         added << rate.target_id if add
-      else
-        # нельзя указать больше эпизодов,частей,томов, чем имеется в аниме/манге
-        Counters.each do |counter|
-          if rate.errors.keys.include?(counter)
-            rate[counter] = rate.send(klass.name.downcase)[counter]
-            if rate.save
-              updated << rate.target_id if update
-              added << rate.target_id if add
-              next
-            end
-          end
-        end
       end
     end
 
