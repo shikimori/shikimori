@@ -15,12 +15,13 @@ class AnimeHistoryService
     users = User
       .includes(anime_rates: [:anime])
       .references(:user_rates)
+      #.where(id: 1)
       .where('user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))',
               Anime.name, entries.map(&:linked_id))
       .to_a
 
     users += User
-      .where.not(id: users.map(&:id))
+      .where.not(id: users.map(&:id))#.where(id: 1)
       .each {|v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 
@@ -48,7 +49,7 @@ class AnimeHistoryService
     end
 
     ActiveRecord::Base.transaction do
-      #Entry.where(id: entries.map(&:id)).update_all processed: true
+      Entry.where(id: entries.map(&:id)).update_all processed: true
       Message.import messages.flatten.compact
     end
   end
