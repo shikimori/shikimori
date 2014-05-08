@@ -113,14 +113,16 @@ class PagesController < ApplicationController
       mem_total = mem[8].to_f
       mem_free = mem[17].to_f
       @mem_space = (((mem_total-mem_free) / mem_total)*100).round(2)
+      @mem_space = 99 if @mem_space.nan?
 
       swap_total = mem[19].to_f
       swap_free = mem[21].to_f
       @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
+      @swap_space = 99 if @swap_space.nan?
     end
 
     @calendar_update = AnimeCalendar.last.try :created_at
-    @last_episodes_message = Message.where(kind: :episode).last.created_at
+    @last_episodes_message = Message.where(kind: :episode).last.try :created_at
     @calendar_unrecognized = Rails.cache.read 'calendar_unrecognized'
 
     @proxies_count = Proxy.count
@@ -144,27 +146,29 @@ class PagesController < ApplicationController
 
     @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
 
-    @sidkiq_stats = Sidekiq::Stats.new
-    @sidkiq_enqueued = Sidekiq::Queue
-      .all
-      .map {|queue| page "queue:#{queue.name}", queue.name, 100 }
-      .map {|data| data.third }
-      .flatten
-      .map {|v| JSON.parse v }
-      .sort_by {|v| Time.at v['enqueued_at'] }
+    unless Rails.env.test?
+      @sidkiq_stats = Sidekiq::Stats.new
+      @sidkiq_enqueued = Sidekiq::Queue
+        .all
+        .map {|queue| page "queue:#{queue.name}", queue.name, 100 }
+        .map {|data| data.third }
+        .flatten
+        .map {|v| JSON.parse v }
+        .sort_by {|v| Time.at v['enqueued_at'] }
 
-    @sidkiq_busy = Sidekiq.redis do |conn|
-      conn.smembers('workers').map do |w|
-        msg = conn.get("worker:#{w}")
-        msg ? [w, Sidekiq.load_json(msg)] : (to_rem << w; nil)
-      end.compact.sort { |x| x[1] ? -1 : 1 }
-    end.map {|v| v.second['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
+      @sidkiq_busy = Sidekiq.redis do |conn|
+        conn.smembers('workers').map do |w|
+          msg = conn.get("worker:#{w}")
+          msg ? [w, Sidekiq.load_json(msg)] : (to_rem << w; nil)
+        end.compact.sort { |x| x[1] ? -1 : 1 }
+      end.map {|v| v.second['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
 
-    @sidkiq_retries = page('retry', 'retries', 100)[2]
-      .flatten
-      .select {|v| v.kind_of? String }
-      .map {|v| JSON.parse v }
-      .sort_by {|v| Time.at v['enqueued_at'] }
+      @sidkiq_retries = page('retry', 'retries', 100)[2]
+        .flatten
+        .select {|v| v.kind_of? String }
+        .map {|v| JSON.parse v }
+        .sort_by {|v| Time.at v['enqueued_at'] }
+    end
 
     @animes_to_import = Anime.where(imported_at: nil).count
     @mangas_to_import = Manga.where(imported_at: nil).count

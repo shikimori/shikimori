@@ -9,7 +9,7 @@
           | Disk space
         p.m15 #{@disk_space}%
 
-        .subheadline class="#{:red if @swap_space.to_i > 80}" Memmory
+        .subheadline class="#{:red if @mem_space.to_i > 80}" Memmory
         p.m15 #{@mem_space}%
 
         .subheadline class="#{:red if @swap_space.to_i > 10}" Swap
@@ -21,44 +21,44 @@
         .subheadline class="#{:red if @redis_keys.zero?}" Redis keys
         p.m15 #{@redis_keys}
 
-        a.sidekiq-link href="/sidekiq/" stats
-        .subheadline Sidekiq jobs
-        .m15.sidekiq
-          p.x2 Processed: #{@sidkiq_stats.processed}
-          p.x2 Failed: #{@sidkiq_stats.failed}
+        - if @sidkiq_stats
+          a.sidekiq-link href="/sidekiq/" stats
+          .subheadline Sidekiq jobs
+          .m15.sidekiq
+            p.x2 Processed: #{@sidkiq_stats.processed}
+            p.x2 Failed: #{@sidkiq_stats.failed}
 
-          - @sidkiq_busy.each do |job|
-            p.x2 id="#{job['jid'].to_s}"
-              span.right
-                = time_ago_in_words Time.at(job['enqueued_at'])
-              span.busy
-                = job['class']
+            - @sidkiq_busy.each do |job|
+              p.x2 id="#{job['jid'].to_s}"
+                span.right
+                  = time_ago_in_words Time.at(job['enqueued_at'])
+                span.busy
+                  = job['class']
 
-          - @sidkiq_enqueued.each do |job|
-            p.x2 id="#{job['jid'].to_s}"
-              span.right
-                = time_ago_in_words Time.at(job['enqueued_at'])
-              span.enqueued
-                = job['class']
+            - @sidkiq_enqueued.each do |job|
+              p.x2 id="#{job['jid'].to_s}"
+                span.right
+                  = time_ago_in_words Time.at(job['enqueued_at'])
+                span.enqueued
+                  = job['class']
 
-          - @sidkiq_retries.each do |job|
-            p.x2 id="#{job['jid'].to_s}"
-              span.right
-                = time_ago_in_words Time.at(job['enqueued_at'])
-              span.retries
-                = job['class']
-
-        /.subheadline Retries
-        /.m15
+            - @sidkiq_retries.each do |job|
+              p.x2 id="#{job['jid'].to_s}"
+                span.right
+                  = time_ago_in_words Time.at(job['enqueued_at'])
+                span.retries
+                  = job['class']
 
         .subheadline class="#{:red if @proxies_count < 400}" Proxies
         p.m15 = @proxies_count
 
-        .subheadline class="#{:red if @last_episodes_message < 1.day.ago}" Last Episode Message
-        p.m15 = @last_episodes_message
+        - if @last_episodes_message
+          .subheadline class="#{:red if @last_episodes_message < 1.day.ago}" Last Episode Message
+          p.m15 = @last_episodes_message
 
-        .subheadline class="#{:red if @calendar_update < 1.day.ago}" Calendar Update
-        p.m15 = @calendar_update
+        - if @calendar_update
+          .subheadline class="#{:red if @calendar_update < 1.day.ago}" Calendar Update
+          p.m15 = @calendar_update
 
         - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
           .subheadline Calendar Unrecognized
