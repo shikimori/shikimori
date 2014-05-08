@@ -72,18 +72,19 @@ p.flash-notice, p.flash-alert
   position: relative
   z-index: 1
 
-  .bordered &
-    &:before, &:after
-      background: rgba(255,255,255,0.3)
-      content: ""
-      height: 100%
-      position: absolute
-      top: 0
-      width: 20px
+  +responsive(desktop)
+    .bordered &
+      &:before, &:after
+        background: rgba(255,255,255,0.3)
+        content: ""
+        height: 100%
+        position: absolute
+        top: 0
+        width: 20px
 
-    &:before
-      left: -20px
+      &:before
+        left: -20px
 
-    &:after
-      display: block!important
-      right: -20px
+      &:after
+        display: block!important
+        right: -20px

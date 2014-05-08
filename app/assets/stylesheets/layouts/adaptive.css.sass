@@ -1,0 +1,83 @@
+@import globals
+@import susy
+
+.adaptive
+  $total-columns: 12
+  $column-width: 54px
+  $gutter-width: 30px
+  $grid-padding: 10px
+
+  // misc buttons
+  @media screen and (max-width: $tablets-break)
+    .to-top, .feedback-hover-activator, .feedback
+      display: none
+
+  .page
+    // main layout
+    +container
+
+    .menu-right
+      +span-columns(3 omega, $total-columns)
+
+    .forum-block
+      +span-columns(9 alpha, $total-columns)
+      float: none
+
+    // mobile
+    +at-breakpoint($tablets-break)
+      .forum-nav
+        .title
+          +ellipsis
+
+    +at-breakpoint(0px $total-columns $tablets-break)
+      +container($total-columns)
+      // layout
+      .menu-right
+        display: none
+
+      .forum-block
+        +span-columns($total-columns)
+
+      .forum-nav
+        margin-bottom: 0
+        .sections
+          display: none
+
+      // comments
+      .height-shortener, .last-block
+        margin-left: 42px !important
+
+      .comments
+        margin-left: 25px !important
+
+      blockquote
+        margin-left: 25px !important
+        overflow: hidden
+
+      .topic-block
+        .image-name img
+          width: 32px !important
+          margin-bottom: 4px !important
+
+        .title
+          margin-left: 0 !important
+
+    +at-breakpoint(0px 520px)
+      footer
+        display: none
+
+    +at-breakpoint(0px 510px)
+      .welcome-gallery, .welcome-gallery-loader
+        display: none
+
+    +at-breakpoint(510px 665px)
+      .gallery-body
+        width: 478px
+
+    +at-breakpoint(665px 840px)
+      .gallery-body
+        width: 640px
+
+    +at-breakpoint(840px 996px)
+      .gallery-body
+        width: 800px
