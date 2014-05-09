@@ -79,6 +79,10 @@ gem 'responders' # для json responder'а, который нужен для р
 gem 'postmark-rails'
 gem 'apipie-rails'
 
+group :production do
+  gem 'lograge'
+end
+
 group :development do
   gem 'spring'
   gem 'letter_opener'

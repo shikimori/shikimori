@@ -290,6 +290,10 @@ GEM
       celluloid-io (>= 0.15.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    lograge (0.3.0)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     lumberjack (1.0.5)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
@@ -573,6 +577,7 @@ DEPENDENCIES
   htmlentities
   icalendar
   letter_opener
+  lograge
   mactag
   marco-polo
   meta-tags!
