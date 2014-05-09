@@ -46,9 +46,9 @@ module AniMangaListImporter
         target = rate.target
 
         if rate.completed?
-          rate[counter] = target[counter] if target.respond_to?(counter) && rate[counter] < target[counter]
+          rate[counter] = target[counter] if target.respond_to?(counter) && target[counter] > 0 && rate[counter] < target[counter]
         end
-        rate[counter] = target[counter] if target.respond_to?(counter) && rate[counter] > target[counter]
+        rate[counter] = target[counter] if target.respond_to?(counter) && target[counter] > 0 && rate[counter] > target[counter]
       end
 
       if rate.changes.any? && rate.save
