@@ -9,10 +9,14 @@ Site::Application.routes.draw do
           get :viewed, on: :member
         end
       end
+
       resource :anime_videos do
         get :help, on: :member
       end
+
+      post 'anime_videos/:id/rate' => 'anime_videos#rate', as: :rate_anime
     end
+
     get 'videos(/search/:search)(/page/:page)' => 'anime_online/anime_videos#index', as: :anime_videos
     post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
     get 'videos/:id(/:episode)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode: /\d+/, video_id: /\d+/, all: 'all' }

@@ -49,12 +49,17 @@
               li: a href="#{anime_videos_report_url anime.current_video.id, kind: :broken}" data-remote="true" data-method="post" Видео не работает
               li: a href="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" data-remote="true" data-method="post" Видео не от этого аниме
 
-      - if user_signed_in? && !anime.current_video.copyright_ban?
-        li.pull-right
-          a.btn.btn-default href="#{new_anime_online_anime_anime_video_url anime.id}" title='Загрузить новое видео'
-            span.glyphicon.glyphicon-upload
+      - if user_signed_in?
+        - unless anime.current_video.copyright_ban?
+          li.pull-right
+            a.btn.btn-default href="#{new_anime_online_anime_anime_video_url anime.id}" title='Загрузить новое видео'
+              span.glyphicon.glyphicon-upload
 
-      - if anime.rate && anime.rate.episodes < anime.current_video.episode
-        li.ok.pull-right
+        - unless anime.rate
+          li.rate.pull-right
+            a.btn.btn-default href="#{anime_online_rate_anime_url anime.id}" title='Добавить в список к просмотру' data-remote="true" data-method="post"
+              span.glyphicon.glyphicon-plus
+
+        li.ok.pull-right class="#{'hide' unless anime.rate && anime.rate.episodes < anime.current_video.episode}"
           a.btn.btn-success href="#{viewed_anime_online_anime_anime_video_url anime.id, anime.current_video.id}" title='Просмотрено, перейти к следующему эпизоду'
             span.glyphicon.glyphicon-ok
