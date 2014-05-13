@@ -60,6 +60,29 @@ describe AnimeVideoReport do
     end
   end
 
+  describe :doubles do
+    let(:report) { create :anime_video_report, anime_video: anime_video }
+    let(:anime_video) { create :anime_video }
+    subject { report.doubles }
+
+    context :no_doubles do
+      it { should be_zero }
+
+      context :one_user_not_filter do
+        let(:user) { create :user }
+        let(:report) { create :anime_video_report, anime_video: anime_video, user: user }
+        before { create :anime_video_report, anime_video: anime_video, user: user }
+
+        it { should eq 1 }
+      end
+    end
+
+    context :with_double do
+      before { create :anime_video_report, anime_video: anime_video }
+      it { should eq 1 }
+    end
+  end
+
   describe :state_machine do
     let(:approver) { build_stubbed :user }
     let(:anime_video) { create :anime_video, state: anime_video_state }

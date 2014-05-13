@@ -4,7 +4,7 @@ class Moderation::AnimeVideoReportsController < ApplicationController
 
   def index
     @page_title = 'Модерация видео'
-    @processed = postload_paginate(params[:page], 25) do
+    @processed = postload_paginate(params[:page], 20) do
       AnimeVideoReport.includes(:user, anime_video: :author).processed
     end
 
