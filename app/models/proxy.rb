@@ -108,7 +108,7 @@ class Proxy < ActiveRecord::Base
             tmpfile.instance_variable_set :@original_filename, url.split('/').last
             def tmpfile.original_filename; @original_filename; end
 
-            unless ImageCheck.valid? tmpfile.path
+            unless ImageChecker.valid? tmpfile.path
               content = nil
               # тут можно бы обнулять tmpfile, но если мы 8 раз не смогли загрузить файл, то наверное его и правда нет, падать не будем
               log "bad image", options

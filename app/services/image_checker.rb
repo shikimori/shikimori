@@ -1,4 +1,4 @@
-class ImageCheck
+class ImageChecker
   def initialize path
     @path = path
   end

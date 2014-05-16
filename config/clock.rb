@@ -80,5 +80,7 @@ module Clockwork
     ImportListWorker.perform_async pages_limit: 100
     ImportListWorker.perform_async pages_limit: 100, type: Manga.name
     PeopleJobsActualzier.perform_async
+
+    ImagesVerifier.perform_async
   end
 end

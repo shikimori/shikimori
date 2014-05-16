@@ -22,7 +22,7 @@ module MalDeployer
     entry.image = reload_image entry, data if reload_image? entry, data
 
     # дата импорта и сохранение элемента, делать надо обязательно в последнюю очередь
-    entry.imported_at = DateTime.now
+    entry.imported_at = Time.zone.now
     entry.save!
   end
 
@@ -34,7 +34,7 @@ module MalDeployer
       entry_genres.select {|v| v[:id] == genre_id }.first
     end.each do |genre|
       self.genres[genre[:id]] = Genre.find_or_create_by(id: genre[:id], name: genre[:name])
-      print "added genre %s\n" % genre[:name] if Rails.env != 'test'
+      print "added genre #{genre[:name]}\n" unless Rails.env.test?
     end
     # и привязка всех жанров элемента к элементу
     entry.genres = entry_genres.map {|v| self.genres[v[:id]] }
@@ -48,7 +48,7 @@ module MalDeployer
       entry_studios.select {|v| v[:id] == studio_id }.first
     end.each do |studio|
       self.studios[studio[:id]] = Studio.find_or_create_by(id: studio[:id], name: studio[:name])
-      print "added studio %s\n" % studio[:name] if Rails.env != 'test'
+      print "added studio #{studio[:name]}\n" unless Rails.env.test?
     end
     # и привязка всех студий элемента к элементу
     entry.studios = entry_studios.map {|v| self.studios[v[:id]] }
@@ -62,7 +62,7 @@ module MalDeployer
       entry_publishers.select {|v| v[:id] == publisher_id }.first
     end.each do |publisher|
       self.publishers[publisher[:id]] = Publisher.find_or_create_by(id: publisher[:id], name: publisher[:name])
-      print "added publisher %s\n" % publisher[:name] if Rails.env != 'test'
+      print "added publisher #{publisher[:name]}\n" unless Rails.env.test?
     end
     # и привязка всех студий издателей к элементу
     entry.publishers = entry_publishers.map {|v| self.publishers[v[:id]] }
