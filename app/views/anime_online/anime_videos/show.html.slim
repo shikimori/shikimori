@@ -16,7 +16,7 @@
       - if @anime.description
         .description == @anime.description.gsub('data-remote="true"', '')
 
-      a.source href="http://shikimori.org#{anime_path @anime}" shikimori.org
+      a.source href="#{anime_url @anime, subdomain: false}" shikimori.org
 
       - if @anime.current_videos.blank? || @anime.current_video.blank?
         .alert.alert-info

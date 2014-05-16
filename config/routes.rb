@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
-  constraints AnimeOnlineDomain  do
+  constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/anime_videos#index'
     namespace :anime_online do
       resources :anime, only: [:show] do
@@ -28,7 +28,7 @@ Site::Application.routes.draw do
     get 'robots.txt' => 'robots#animeonline'
   end
 
-  constraints ShikimoriDomain  do
+  constraints ShikimoriDomain do
     # форум
     root to: 'topics#index'
     get '/', to: 'topics#index', as: :forum

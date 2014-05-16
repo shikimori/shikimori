@@ -1,8 +1,8 @@
 module AnimeOnlineDomain
   DOMAIN_COMMON = 'play'
   DOMAIN_ADULT = 'xplay'
-  HOST_PLAY = "#{DOMAIN_COMMON}.shikimori.org"
-  HOST_XPLAY = "#{DOMAIN_ADULT}.shikimori.org"
+  HOST_PLAY = "#{DOMAIN_COMMON}.shikimori.#{Rails.env.development? ? :dev : :org}"
+  HOST_XPLAY = "#{DOMAIN_ADULT}.shikimori.#{Rails.env.development? ? :dev : :org}"
   HOST = HOST_PLAY
   HOSTS = [
     '0.0.0.0', '178.63.23.138', 'animeonline.dev', 'animeonline.production',
