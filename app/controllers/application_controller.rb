@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
       end
 
     elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
-      render text: e.message, status: e.status
+      render text: e.message, status: 403
 
     elsif e.is_a?(StatusCodeError)
       render json: {}, status: e.status
