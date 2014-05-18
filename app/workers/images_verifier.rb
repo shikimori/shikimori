@@ -12,7 +12,7 @@ class ImagesVerifier
   end
 
   def check_image entry
-    return if !entry.images.exists? || ImageChecker.valid?(entry.image.path)
+    return if !entry.image.exists? || ImageChecker.valid?(entry.image.path)
 
     puts "reloading #{entry.to_param} image..."
     ImageReloader.new(entry).perform
