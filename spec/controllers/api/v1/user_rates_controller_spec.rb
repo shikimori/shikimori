@@ -18,7 +18,7 @@ describe Api::V1::UserRatesController do
       its(:target_id) { should eq create_params[:target_id] }
       its(:target_type) { should eq create_params[:target_type] }
       its(:score) { should eq create_params[:score] }
-      its(:status) { should eq create_params[:status] }
+      its([:status]) { should eq create_params[:status] }
       its(:episodes) { should eq create_params[:episodes] }
       its(:volumes) { should eq create_params[:volumes] }
       its(:chapters) { should eq create_params[:chapters] }
@@ -38,7 +38,7 @@ describe Api::V1::UserRatesController do
       subject { assigns :user_rate }
 
       its(:score) { should eq update_params[:score] }
-      its(:status) { should eq update_params[:status] }
+      its([:status]) { should eq update_params[:status] }
       its(:episodes) { should eq update_params[:episodes] }
       its(:volumes) { should eq update_params[:volumes] }
       its(:chapters) { should eq update_params[:chapters] }

@@ -6,6 +6,15 @@ class UserRate < ActiveRecord::Base
   MAXIMUM_EPISODES = 2000
   MAXIMUM_SCORE = 10
 
+  enum status: { planned: 0, watching: 1, rewatching: 5, completed: 2, on_hold: 3, dropped: 4 }
+
+  #attr_defaults status: :planned
+  #attr_defaults score: 0
+  #attr_defaults episodes: 0
+  #attr_defaults volumes: 0
+  #attr_defaults chapters: 0
+  #attr_defaults rewatches: 0
+
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
   belongs_to :manga, class_name: Manga.name, foreign_key: :target_id
@@ -13,7 +22,6 @@ class UserRate < ActiveRecord::Base
   belongs_to :user, touch: true
 
   before_save :smart_process_changes
-  before_save :check_data
   before_save :log_changed, if: -> { persisted? && changes.any? }
   after_create :log_created
 
@@ -24,7 +32,7 @@ class UserRate < ActiveRecord::Base
 
   def self.create_or_find user_id, target_id, target_type
     UserRate.where(user_id: user_id, target_id: target_id, target_type: target_type).first ||
-      UserRate.create(user_id: user_id, target_id: target_id, target_type: target_type, status: UserRateStatus.default)
+      UserRate.create(user_id: user_id, target_id: target_id, target_type: target_type, status: :planned)
   end
 
   def anime?
@@ -35,28 +43,17 @@ class UserRate < ActiveRecord::Base
     target_type == 'Manga'
   end
 
-  def planned?
-    status == UserRateStatus.get(UserRateStatus::Planned)
-  end
-
-  def watching?
-    status == UserRateStatus.get(UserRateStatus::Watching)
-  end
-
-  def completed?
-    status == UserRateStatus.get(UserRateStatus::Completed)
-  end
-
-  def on_hold?
-    status == UserRateStatus.get(UserRateStatus::OnHold)
-  end
-
-  def dropped?
-    status == UserRateStatus.get(UserRateStatus::Dropped)
-  end
-
   def text_html
     text.present? ? BbCodeFormatter.instance.format_comment(text) : text
+  end
+
+  def self.status_name status, target_type
+    status_name = status.kind_of?(Integer) ? statuses.find {|k,v| v == status }.first : status
+    I18n.t "activerecord.attributes.user_rate.statuses.#{target_type.downcase}.#{status_name}"
+  end
+
+  def status_name
+    self.class.status_name status, target_type
   end
 
 private
@@ -100,18 +97,18 @@ private
     if changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
       if self[counter] > 0 && changes[counter].first.zero? && changes['status'].nil?
-        self.status = UserRateStatus.get UserRateStatus::Watching
+        self.status = :watching
       end
 
       # перевели с какой-то цифры в ноль - помечаем, что перенесли в запланированное
       if self[counter].zero? && changes[counter] && changes[counter].first > 0
-        self.status = UserRateStatus.get UserRateStatus::Planned
+        self.status = :planned
       end
     end
 
     # указали число эпизодов, равно числу эпиздов в аниме - помечаем просмотренным
     if self[counter] == target[counter] && self[counter] > 0 && changes['status'].nil?
-      self.status = UserRateStatus.get UserRateStatus::Completed
+      self.status = :completed
 
       # для манги устанавливаем в максимум второй счётчик
       self.chapters = target.chapters if counter == 'volumes'
@@ -127,7 +124,7 @@ private
   # запись в историю об изменении стутса
   def log_changed
     if changes['status']
-      UserHistory.add user, target, UserHistoryAction::Status, status, changes['status'].first
+      UserHistory.add user, target, UserHistoryAction::Status, self[:status], UserRate.statuses[changes['status'].first]
 
     elsif changes['episodes'] || changes['volumes'] || changes['chapters']
       counter = if anime?
@@ -151,11 +148,12 @@ private
     UserHistory.add user, target, UserHistoryAction::Delete
   end
 
-  # валидации
-  def check_data
-    unless UserRateStatus.contains(status)
-      self.errors[:status] = 'некорректный статус'
-      return false
-    end
-  end
+  ## текущие статусы
+  #def statuses
+    #if completed? || rewatching?
+      #UserRate.statuses.except(:watching)
+    #else
+      #UserRate.statuses.except(:rewatching)
+    #end
+  #end
 end

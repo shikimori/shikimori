@@ -2,22 +2,23 @@ class String
   RussianRange = ("А".ord)..("я".ord)
 
   def keywords
-    self.downcase
-        .gsub(/ (?: 's | : ) ( \b | $ | [ ] ) /xi, ' ')
-        .gsub(/\.[A-zА-я0-9]+$/, '')
-        .gsub('&dagger;', '')
-        .gsub('!', 'EXCM')
-        .gsub('?', 'QUEM')
-        .gsub('QUEM', '?')
-        .gsub('EXCM', '!')
-        .gsub(/\d+x\d+|\d+/, '')
-        .gsub(/~/, ' ')
-        .gsub(/ +/, ' ')
-        .gsub(/\b(?:the|for|in|by|to|[A-zА-я0-9])\b/, '')
-        .strip
-        .split(' ')
-        .uniq
-        .select {|v| v.length > 1 }
+    self
+      .downcase
+      .gsub(/ (?: 's | : ) ( \b | $ | [ ] ) /xi, ' ')
+      .gsub(/\.[A-zА-я0-9]+$/, '')
+      .gsub('&dagger;', '')
+      .gsub('!', 'EXCM')
+      .gsub('?', 'QUEM')
+      .gsub('QUEM', '?')
+      .gsub('EXCM', '!')
+      .gsub(/\d+x\d+|\d+/, '')
+      .gsub(/~/, ' ')
+      .gsub(/ +/, ' ')
+      .gsub(/\b(?:the|for|in|by|to|[A-zА-я0-9])\b/, '')
+      .strip
+      .split(' ')
+      .uniq
+      .select {|v| v.length > 1 }
   end
 
   def specials

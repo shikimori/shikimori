@@ -24,13 +24,13 @@ class UserStatisticsService
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
       end
 
-    @anime_valuable_rates = @anime_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Completed) || v.status == UserRateStatus.get(UserRateStatus::Watching) }
+    @anime_valuable_rates = @anime_rates.select {|v| v.completed? || v.watching? || v.rewatching? }
     @anime_history = @user
       .history
       .where(target_type: Anime.name)
       .where("action in (?) or (action = ? and value = ?)",
               [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore],
-              UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed))
+              UserHistoryAction::Status, UserRate.statuses[:complete])
 
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
 
@@ -41,13 +41,13 @@ class UserStatisticsService
       .each do |v|
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
       end
-    @manga_valuable_rates = @manga_rates.select {|v| v.status == UserRateStatus.get(UserRateStatus::Completed) || v.status == UserRateStatus.get(UserRateStatus::Watching) }
+    @manga_valuable_rates = @manga_rates.select {|v| v.completed? || v.watching? || v.rewatching? }
     @manga_history = @user
       .history
       .where(target_type: Manga.name)
       .where("action in (?) or (action = ? and value = ?)",
               [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore],
-              UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed))
+              UserHistoryAction::Status, UserRate.statuses[:completed])
   end
 
   # формирование статистики
@@ -293,23 +293,25 @@ private
   end
 
   def anime_statuses
-    UserRateStatus.statuses.map do |status|
-      {
-        id: status[:id],
-        name: status[:name],
-        size: @anime_rates.select {|v| v.status == status[:id] }.size
-      }
-    end
+    statuses @anime_rates
   end
 
   def manga_statuses
-    UserRateStatus.statuses.map do |status|
+    statuses @manga_rates
+  end
+
+  def statuses rates
+    UserRate.statuses.map do |status_name, status_id|
+      next if status_name == 'rewatching'
       {
-        id: status[:id],
-        name: status[:name],
-        size: @manga_rates.select {|v| v.status == status[:id] }.size
+        id: status_id,
+        grouped_id: status_name == 'watching' ? "#{status_id},#{UserRate.statuses.find {|k,v| k == 'rewatching'}.second}" : status_id,
+        name: status_name,
+        size: status_name == 'watching' ?
+          @anime_rates.select {|v| v.watching? || v.rewatching? }.size :
+          @anime_rates.select {|v| v.status == status_name }.size
       }
-    end
+    end.compact
   end
 
   # статистика по статусам аниме и манги в списке пользователя
@@ -323,9 +325,9 @@ private
         stat,
         {
           total: stat.sum {|v| v[:size] },
-          completed: stat.select {|v| v[:name] == UserRateStatus::Completed }.sum {|v| v[:size] },
-          dropped: stat.select {|v| v[:name] == UserRateStatus::Dropped }.sum {|v| v[:size] },
-          incompleted: stat.select {|v| v[:name] != UserRateStatus::Completed && v[:name] != UserRateStatus::Dropped }.sum {|v| v[:size] }
+          completed: stat.select {|v| v[:id] == UserRate.statuses[:completed] }.sum {|v| v[:size] },
+          dropped: stat.select {|v| v[:id] == UserRate.statuses[:dropped] }.sum {|v| v[:size] },
+          incompleted: stat.select {|v| v[:id] != UserRate.statuses[:completed] && v[:id] != UserRate.statuses[:dropped] }.sum {|v| v[:size] }
         }
       ]
     end

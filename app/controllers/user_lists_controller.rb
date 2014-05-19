@@ -8,16 +8,17 @@ class UserListsController < UsersController
   AnimeType = 1
   MangaType = 2
 
+  before_action :set_params
+
   alias_method :users_show, :show
   helper_method :anime?
 
   # отображение аниме листа пользователяс с наложенными фильтрами
   def show
     unless params[:order]
-      redirect_to ani_manga_filtered_list_url(params.merge(order: user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort))
+      redirect_to ani_manga_list_url(params.merge(order: user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort))
       return
     end
-    params[:with_censored] = true
     current_user.preferences.update_sorting(params[:order]) if user_signed_in?
 
     @params_type = params[:type]
@@ -256,71 +257,7 @@ class UserListsController < UsersController
 private
   # полный список пользователя
   def extract_full_list
-    params[:order] = 'russian' if user_signed_in? && current_user.preferences.russian_names? && params[:order] == 'name'
-    pars = params.clone.merge(klass: @klass)
-    pars.delete(:order)
-
-    rate_ds = @user.send("#{params[:list_type]}_rates")
-    rate_ds = rate_ds.where(status: UserRateStatus.get(params[:list_type_kind])) if params[:list_type_kind]
-    rate_ids = rate_ds.select('distinct(target_id)').map(&:target_id)
-
-    entries = AniMangaQuery.new(@klass, pars, @user)
-        .fetch
-        .where(id: rate_ids)
-        .select("#{params[:list_type].tableize}.id,
-                 #{params[:list_type].tableize}.kind,
-                 #{params[:list_type].tableize}.name,
-                 #{params[:list_type].tableize}.russian,
-                 #{params[:list_type].tableize}.aired_on,
-                 #{params[:list_type].tableize}.released_on,
-
-                 #{anime? ? "#{params[:list_type].tableize}.episodes_aired as episodes_aired," : ''}
-                 #{anime? ? "#{params[:list_type].tableize}.episodes as episodes," : ''}
-                 #{anime? ? "#{params[:list_type].tableize}.duration," : ''}
-
-                 #{anime? ? '' : "#{params[:list_type].tableize}.volumes as volumes,"}
-                 #{anime? ? '' : "#{params[:list_type].tableize}.chapters as chapters,"}
-
-                 #{params[:list_type].tableize}.status
-                ")
-        .all
-        .each_with_object({}) { |entry, memo| memo[entry.id] = entry }
-
-    rates = @user.send("#{params[:list_type]}_rates")
-        .where(target_id: entries.keys)
-        .joins(params[:list_type].to_sym)
-        .order("user_rates.status, #{AniMangaQuery.order_sql(params[:order], @klass)}")
-        .all
-
-    list = rates.each_with_object({}) do |v,memo|
-      target = entries[v.target_id]
-
-      memo[v.status] = [] unless memo.include?(v.status)
-      memo[v.status] << {
-        id: target.id,
-        name: view_context.localized_name(target),
-        kind: target.kind,
-        kind_localized: target.kind.blank? ? '' : view_context.localized_kind(target, true),
-        status_localized: target.status.present? ? I18n.t("AniMangaStatusUpper.#{target.status}") : '',
-        url: "/#{params[:list_type]}s/#{v.target_id}",
-
-        rate_id: v.id,
-        rate_text: v.text_html,
-        rate_episodes: anime? ? v.episodes : nil,
-        rate_volumes: anime? ? nil : v.volumes,
-        rate_chapters: anime? ? nil : v.chapters,
-        rate_score: v.score && v.score != 0 ? v.score : '&ndash;',
-
-        ongoing?: target.ongoing?,
-        anons?: target.anons?,
-
-        episodes: anime? ? (target.episodes.zero? ? nil : target.episodes) : nil,
-        episodes_aired: anime? ? target.episodes_aired : nil,
-        chapters: anime? ? nil : (target.chapters.zero? ? nil : target.chapters),
-        volumes: anime? ? nil : (target.volumes.zero? ? nil: target.volumes),
-        duration: anime? ? target.duration : Manga::Duration,
-      }
-    end
+    UserListQuery.new(@klass, @user, user_signed_in? ? current_user : nil, params).fetch
   end
 
   # подготовка списка
@@ -405,5 +342,12 @@ private
 
   def anime?
     params[:list_type] == 'anime'
+  end
+
+  def set_params
+    params[:with_censored] = true
+    if @current_user && @current_user.preferences.russian_names? && params[:order] == 'name'
+      params[:order] = 'russian'
+    end
   end
 end

@@ -1,6 +1,6 @@
 .m20 class="#{klass == Anime ? 'anime' : 'manga'}-params-controls"
   - if defined?(mylist_at_top) && mylist_at_top && (user_signed_in? || special || false)
-    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass, special: special || false, links: links }, formats: :html
+    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass, special: special || false }, formats: :html
 
   .menu-block
     .subheadline Статус
@@ -181,7 +181,7 @@
             = v
 
   - if defined?(mylist) && mylist && (user_signed_in? || special)
-    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass, special: special || false, links: links }, formats: :html
+    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass, special: special || false }, formats: :html
 
   .menu-block.genres
     .subheadline Жанр

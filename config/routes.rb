@@ -580,11 +580,9 @@ Site::Application.routes.draw do
 
       # user_list
       constraints list_type: /anime|manga/ do
-        get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_filtered_list
+        get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
         get ":id/list/:user_rate_id/edit" => 'user_lists#edit', as: :user_list_edit
         get ':id/list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
-        get ':id/list/:list_type(-:list_type_kind)' => 'user_lists#show', as: :ani_manga_list,
-                                                                          constraints: {list_type_kind: /plan-to-watch|watching|completed|on-hold|dropped/ }
       end
       post ':id/import' => 'user_lists#list_import', as: :list_import
       get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }

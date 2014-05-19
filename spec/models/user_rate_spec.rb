@@ -69,25 +69,25 @@ describe UserRate do
 
     describe :smart_process_changes do
       context :onhold_with_episode do
-        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 99), status: UserRateStatus.get(UserRateStatus::OnHold), episodes: 6 }
+        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 99), status: :on_hold, episodes: 6 }
         it { should be_on_hold }
         its(:episodes) { should eq 6 }
       end
 
       context :dropped_with_full_episode do
-        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: UserRateStatus.get(UserRateStatus::Dropped), episodes: 3 }
+        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: :dropped, episodes: 3 }
         it { should be_dropped }
         its(:episodes) { should eq 3 }
       end
 
       context :dropped_with_parital_episode do
-        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: UserRateStatus.get(UserRateStatus::Dropped), episodes: 2 }
+        subject(:user_rate) { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: :dropped, episodes: 2 }
         it { should be_dropped }
         its(:episodes) { should eq 2 }
       end
 
       context :planned_with_full_episode do
-        subject { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: UserRateStatus.get(UserRateStatus::Planned), episodes: 3 }
+        subject { create :user_rate, target: build_stubbed(:anime, episodes: 3), status: :planned, episodes: 3 }
         it { should be_planned }
         its(:episodes) { should eq 3 }
       end
@@ -107,11 +107,11 @@ describe UserRate do
           user_rate.user,
           user_rate.target,
           UserHistoryAction::Status,
-          UserRateStatus.get(UserRateStatus::Planned),
-          build_stubbed(:user_rate, status).status
+          UserRate.statuses[:planned],
+          build_stubbed(:user_rate, status)[:status]
         )
 
-        user_rate.update status: UserRateStatus.get(UserRateStatus::Planned)
+        user_rate.update status: :planned
       end
 
       context :anime do
@@ -302,59 +302,14 @@ describe UserRate do
       before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Delete }
     end
 
-    describe :planned? do
-      subject(:rate) { build_stubbed :user_rate, :planned }
-
-      its(:planned?) { should be true }
-      its(:watching?) { should be false }
-      its(:completed?) { should be false }
-      its(:on_hold?) { should be false }
-      its(:dropped?) { should be false }
-    end
-
-    describe :watching? do
-      subject(:rate) { build_stubbed :user_rate, status: UserRateStatus.get(UserRateStatus::Watching) }
-
-      its(:planned?) { should be false }
-      its(:watching?) { should be true }
-      its(:completed?) { should be false }
-      its(:on_hold?) { should be false }
-      its(:dropped?) { should be false }
-    end
-
-    describe :completed? do
-      subject(:rate) { build_stubbed :user_rate, status: UserRateStatus.get(UserRateStatus::Completed) }
-
-      its(:planned?) { should be false }
-      its(:watching?) { should be false }
-      its(:completed?) { should be true }
-      its(:on_hold?) { should be false }
-      its(:dropped?) { should be false }
-    end
-
-    describe :on_hold? do
-      subject(:rate) { build_stubbed :user_rate, status: UserRateStatus.get(UserRateStatus::OnHold) }
-
-      its(:planned?) { should be false }
-      its(:watching?) { should be false }
-      its(:completed?) { should be false }
-      its(:on_hold?) { should be true }
-      its(:dropped?) { should be false }
-    end
-
-    describe :dropped? do
-      subject(:rate) { build_stubbed :user_rate, status: UserRateStatus.get(UserRateStatus::Dropped) }
-
-      its(:planned?) { should be false }
-      its(:watching?) { should be false }
-      its(:completed?) { should be false }
-      its(:on_hold?) { should be false }
-      its(:dropped?) { should be true }
-    end
-
     describe :text_html do
       subject { build :user_rate, text: "[b]test[/b]\ntest" }
       its(:text_html) { should eq '<strong>test</strong><br />test' }
+    end
+
+    describe :status_name do
+      subject { build :user_rate, target_type: 'Anime' }
+      its(:status_name) { should eq 'запланировано' }
     end
   end
 end
