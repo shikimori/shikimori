@@ -27,7 +27,7 @@
     .column
       .b-options-floated
           span.selected = contest.displayed_round.title
-      .subheadline В этом раунде
+      .subheadline.m10 В этом раунде
       .subcontent
         = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.displayed_round)
 
@@ -41,6 +41,6 @@
           .b-options-floated
             span.linkeable data-href="#{round_contest_url contest, round: contest.prior_round}" title="#{contest.prior_round.title}"
               = contest.prior_round.title
-          .subheadline В прошлом раунде
+          .subheadline.m10 В прошлом раунде
           .subcontent
             = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.prior_round)
