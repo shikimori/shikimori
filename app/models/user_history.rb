@@ -20,8 +20,8 @@ class UserHistory < ActiveRecord::Base
 
     # аниме просмотрено и сразу же поставлена оценка
     if last_entry && last_entry.target_type == item.class.name && last_entry.target_id == item.id &&
-      ((action == UserHistoryAction::Status && value == UserRateStatus.get(UserRateStatus::Completed) && last_entry.action == UserHistoryAction::Rate) ||
-        (action == UserHistoryAction::Rate && last_entry.action == UserHistoryAction::Status && last_entry.value.to_i == UserRateStatus.get(UserRateStatus::Completed)))
+      ((action == UserHistoryAction::Status && value == UserRate.statuses[:completed] && last_entry.action == UserHistoryAction::Rate) ||
+        (action == UserHistoryAction::Rate && last_entry.action == UserHistoryAction::Status && last_entry.value.to_i == UserRate.statuses[:completed]))
 
       last_entry.update_attributes(action: UserHistoryAction::CompleteWithScore,
                                    value: action == UserHistoryAction::Status ? last_entry.value : value)

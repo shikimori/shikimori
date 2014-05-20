@@ -33,7 +33,9 @@ ru:
         episodes: Эпизоды
         chapters: Главы
         volumes: Тома
-        notice: Комментарий
+        rewatches: Кол-во повторых просмотров
+        rerereads: Кол-во повторых чтений
+        text: Комментарий
         score: Оценка
 
         scores:

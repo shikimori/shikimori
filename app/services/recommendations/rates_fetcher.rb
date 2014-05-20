@@ -1,8 +1,6 @@
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 # иначе кеш оценок пользователей не влезет в мемкеш!
 class Recommendations::RatesFetcher
-  Planned = UserRateStatus.get UserRateStatus::Planned
-  Dropped = UserRateStatus.get UserRateStatus::Dropped
   MinimumScores = 20
 
   attr_writer :user_ids
@@ -41,7 +39,7 @@ class Recommendations::RatesFetcher
     end
 
     def rate_query
-      "#{UserRate.table_name}.status != '#{Planned}' and (#{UserRate.table_name}.score is not null and #{UserRate.table_name}.score > 0)"
+      "#{UserRate.table_name}.status != '#{UserRate::PLANNED}' and (#{UserRate.table_name}.score is not null and #{UserRate.table_name}.score > 0)"
     end
   end
 

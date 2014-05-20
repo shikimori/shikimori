@@ -31,16 +31,16 @@ class UserProfileDecorator < UserDecorator
   end
 
   def stats
-    @stats ||= Rails.cache.fetch [:stats, :v2, object] do
+    @stats ||= Rails.cache.fetch [:stats, :v3, object] do
       UserStatisticsService.new(object, h.current_user).fetch
     end
   end
 
-  def current_counts
+  def full_counts
     if h.params[:list_type] == 'anime'
-      stats[:statuses][:anime].select {|v| v[:size] > 0 }
+      stats[:full_statuses][:anime].select {|v| v[:size] > 0 }
     else
-      stats[:statuses][:manga].select {|v| v[:size] > 0 }
+      stats[:full_statuses][:manga].select {|v| v[:size] > 0 }
     end
   end
 

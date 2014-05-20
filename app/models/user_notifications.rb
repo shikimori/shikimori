@@ -95,7 +95,7 @@ module UserNotifications
 
     if entry.linked
       return false if send("#{entry.linked.class.name.downcase}_rates").select do |v|
-        v.target_id == entry.linked_id && v.status == UserRateStatus.get('Dropped')
+        v.target_id == entry.linked_id && v.dropped?
       end.any?
     end
 

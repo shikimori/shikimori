@@ -8,6 +8,9 @@ class UserRate < ActiveRecord::Base
 
   enum status: { planned: 0, watching: 1, rewatching: 5, completed: 2, on_hold: 3, dropped: 4 }
 
+  PLANNED = statuses.find {|name,id| name == 'planned' }.second
+  DROPPED = statuses.find {|name,id| name == 'dropped' }.second
+
   #attr_defaults status: :planned
   #attr_defaults score: 0
   #attr_defaults episodes: 0

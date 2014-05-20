@@ -37,7 +37,7 @@ class UserStatisticsService
     @manga_rates = @user
       .manga_rates
       .joins('join mangas on mangas.id = target_id')
-      .select("user_rates.*, mangas.rating, #{Manga::Duration} as duration, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired")
+      .select("user_rates.*, mangas.rating, #{Manga::DURATION} as duration, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired")
       .each do |v|
         v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
       end
@@ -58,6 +58,7 @@ class UserStatisticsService
     stats[:graph_statuses].reverse! if @user.preferences.manga_first?
 
     stats[:statuses] = { anime: anime_statuses, manga: manga_statuses }
+    stats[:full_statuses] = { anime: statuses(@anime_rates, true), manga: statuses(@manga_rates, true) }
 
     stats[:scores] = by_criteria :score, 1.upto(10).to_a.reverse
 
@@ -293,21 +294,21 @@ private
   end
 
   def anime_statuses
-    statuses @anime_rates
+    statuses @anime_rates, false
   end
 
   def manga_statuses
-    statuses @manga_rates
+    statuses @manga_rates, false
   end
 
-  def statuses rates
+  def statuses rates, is_full
     UserRate.statuses.map do |status_name, status_id|
-      next if status_name == 'rewatching'
+      next if !is_full && status_name == 'rewatching'
       {
         id: status_id,
-        grouped_id: status_name == 'watching' ? "#{status_id},#{UserRate.statuses.find {|k,v| k == 'rewatching'}.second}" : status_id,
+        grouped_id: !is_full && status_name == 'watching' ? "#{status_id},#{UserRate.statuses.find {|k,v| k == 'rewatching'}.second}" : status_id,
         name: status_name,
-        size: status_name == 'watching' ?
+        size: !is_full && status_name == 'watching' ?
           @anime_rates.select {|v| v.watching? || v.rewatching? }.size :
           @anime_rates.select {|v| v.status == status_name }.size
       }

@@ -309,7 +309,7 @@ describe UserRate do
 
     describe :status_name do
       subject { build :user_rate, target_type: 'Anime' }
-      its(:status_name) { should eq 'запланировано' }
+      its(:status_name) { should eq 'Запланировано' }
     end
   end
 end

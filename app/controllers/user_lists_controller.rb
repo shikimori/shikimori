@@ -28,7 +28,9 @@ class UserListsController < UsersController
     @klass = params[:list_type].capitalize.constantize
 
     # полный список
-    full_list = Rails.cache.fetch(user_list_cache_key) { extract_full_list }
+    full_list = Rails.cache.fetch(user_list_cache_key) do
+      UserListQuery.new(@klass, @user, params).fetch
+    end
     @list = prepare_list(full_list, @page, @limit)
     @add_postloader = @list.any? && (@list.keys.last != full_list.keys.last ||
         @list[@list.keys.last][:entries].size != full_list[full_list.keys.last].size)
@@ -255,13 +257,8 @@ class UserListsController < UsersController
   end
 
 private
-  # полный список пользователя
-  def extract_full_list
-    UserListQuery.new(@klass, @user, user_signed_in? ? current_user : nil, params).fetch
-  end
-
   # подготовка списка
-  def prepare_list(full_list, page, limit)
+  def prepare_list full_list, page, limit
     list = truncate_list(full_list, @page, @limit)
 
     list.each do |status,data|
@@ -273,7 +270,7 @@ private
   end
 
   # формирование содержимого нужной страницы из списка
-  def truncate_list(full_list, page, limit)
+  def truncate_list full_list, page, limit
     list = {}
     from = limit * (page - 1)
     to = from + limit
@@ -296,35 +293,35 @@ private
           break
         end
 
-        list[status] ||=  { entries: [], stats: {} }
-        list[status][:entries] << entry.merge(index: j)
+        list[status] ||= { entries: [], stats: {}, index: j }
+        list[status][:entries] << entry
       end
     end
     list
   end
 
   # аггрегированная статистика по данным
-  def list_stats(data, reduce=true)
+  def list_stats data, reduce=true
     stats = {
-      tv: data.sum {|v| v[:kind] == 'TV' ? 1 : 0 },
-      movie: data.sum {|v| v[:kind] == 'Movie' ? 1 : 0 },
-      ova: data.sum {|v| v[:kind] == 'OVA' || v[:kind] == 'ONA' ? 1 : 0 },
-      #ona: data.sum {|v| v[:kind] == 'ONA' ? 1 : 0 },
-      special: data.sum {|v| v[:kind] == 'Special' ? 1 : 0 },
-      music: data.sum {|v| v[:kind] == 'Music' ? 1 : 0 },
-      manga: data.sum {|v| ['Manga', 'Manhwa', 'Manhua'].include?(v[:kind]) ? 1 : 0 },
-      #manhwa: data.sum {|v| v[:kind] == 'Manhwa' ? 1 : 0 },
-      #manhua: data.sum {|v| v[:kind] == 'Manhua' ? 1 : 0 },
-      oneshot: data.sum {|v| v[:kind] == 'One Shot' ? 1 : 0 },
-      novel: data.sum {|v| v[:kind] == 'Novel' ? 1 : 0 },
-      doujin: data.sum {|v| v[:kind] == 'Doujin' ? 1 : 0 }
+      tv: data.sum {|v| v.target.kind == 'TV' ? 1 : 0 },
+      movie: data.sum {|v| v.target.kind == 'Movie' ? 1 : 0 },
+      ova: data.sum {|v| v.target.kind == 'OVA' || v.target.kind == 'ONA' ? 1 : 0 },
+      #ona: data.sum {|v| v.target.kind == 'ONA' ? 1 : 0 },
+      special: data.sum {|v| v.target.kind == 'Special' ? 1 : 0 },
+      music: data.sum {|v| v.target.kind == 'Music' ? 1 : 0 },
+      manga: data.sum {|v| ['Manga', 'Manhwa', 'Manhua'].include?(v.target.kind) ? 1 : 0 },
+      #manhwa: data.sum {|v| v.target.kind == 'Manhwa' ? 1 : 0 },
+      #manhua: data.sum {|v| v.target.kind == 'Manhua' ? 1 : 0 },
+      oneshot: data.sum {|v| v.target.kind == 'One Shot' ? 1 : 0 },
+      novel: data.sum {|v| v.target.kind == 'Novel' ? 1 : 0 },
+      doujin: data.sum {|v| v.target.kind == 'Doujin' ? 1 : 0 }
     }
     if anime?
-      stats[:episodes] = data.sum {|v| v[:rate_episodes] }
+      stats[:episodes] = data.sum(&:episodes)
     else
-      stats[:chapters] = data.sum {|v| v[:rate_chapters] }
+      stats[:chapters] = data.sum(&:chapters)
     end
-    stats[:days] = (data.sum {|v| (v[:rate_episodes] || v[:rate_chapters]) * v[:duration] }.to_f / 60 / 24).round(2)
+    stats[:days] = (data.sum {|v| (v.episodes || v.chapters) * v.target.duration }.to_f / 60 / 24).round(2)
 
     reduce ? stats.select { |k,v| v > 0 }.to_hash : stats
   end

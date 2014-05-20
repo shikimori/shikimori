@@ -60,7 +60,7 @@ describe AnimeHistoryService do
     it 'for Episode of in-list dropped anime' do
       anime = create :anime, status: AniMangaStatus::Ongoing
       process
-      create :user_rate, user: users.first, target: anime, status: UserRateStatus.get('Dropped')
+      create :user_rate, :dropped, user: users.first, target: anime
       create :anime_news, action: AnimeHistoryAction::Episode, generated: true, linked: anime
 
       expect{process}.to change(Message, :count).by 0

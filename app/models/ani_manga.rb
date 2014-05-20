@@ -98,6 +98,10 @@ module AniManga
     end
   end
 
+  def status_name
+    status.present? ? I18n.t("AniMangaStatusUpper.#{status}") : ''
+  end
+
   # тип элемента для schema.org
   def itemtype
     if kind == 'Movie'
