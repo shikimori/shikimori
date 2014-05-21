@@ -2,20 +2,20 @@ require 'spec_helper'
 
 describe UserListsController do
   let(:user) { create :user }
-  let!(:anime1) { create :anime, name: 'Zombie-Loan' }
-  let!(:anime2) { create :anime, name: 'Zombie-Loan Specials' }
+  let!(:anime_1) { create :anime, name: 'Zombie-Loan' }
+  let!(:anime_2) { create :anime, name: 'Zombie-Loan Specials' }
 
   before do
     sign_in user
 
     @list = [{
-        id: anime1.id,
+        id: anime_1.id,
         status: 1,
         score: 5.0,
         name: "Zombie-Loan Specials",
         episodes: 1
       }, {
-        id: anime2.id,
+        id: anime_2.id,
         status: 2,
         score: 5.0,
         name: "Zombie-Loan,.",
@@ -30,23 +30,28 @@ describe UserListsController do
   end
 
   describe :import do
-    context :mal do
-      it 'works' do
-        expect {
-          post :list_import, id: user.to_param, klass: 'anime', rewrite: false, list_type: :mal, data: @list.to_json
-        }.to change(UserRate, :count).by @list.size
+    let(:rewrite) { false }
 
-        response.should redirect_to(messages_url(type: :inbox))
+    context :mal, :focus do
+      let!(:user_rate) { create :user_rate, user: user, target: anime_1 }
+      before { post :list_import, id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: @list.to_json }
+
+      it { should redirect_to messages_url(type: :inbox) }
+      it { expect(user.reload.anime_rates).to have(2).items }
+
+      context :no_rewrite do
+        let(:rewrite) { false }
+
+        it { expect(assigns :added).to have(1).item }
+        it { expect(assigns :updated).to be_empty }
       end
-    end
 
-    it 'with rewrite' do
-      create :user_rate, user: user, target: anime1
-      expect {
-        post :list_import, id: user.to_param, klass: 'anime', rewrite: true, list_type: :mal, data: @list.to_json
-      }.to change(UserRate, :count).by 1
+      context :rewrite do
+        let(:rewrite) { true }
 
-      response.should redirect_to(messages_url(type: :inbox))
+        it { expect(assigns :added).to have(1).item }
+        it { expect(assigns :updated).to have(1).item }
+      end
     end
 
     context :anime_planet do

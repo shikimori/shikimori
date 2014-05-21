@@ -4,7 +4,6 @@ require_dependency 'publisher'
 
 # TODO: класс нуждается в рефакторинге
 class UserListsController < UsersController
-  include AniMangaListImporter
   AnimeType = 1
   MangaType = 2
 
@@ -144,6 +143,7 @@ class UserListsController < UsersController
       params[:list_type] = 'xml'
     end
 
+    importer = UserRatesImporter.new current_user, klass
     if params[:list_type].to_sym == :mal
       prepared_list = JSON.parse(params[:data]).map do |v|
         {
@@ -156,7 +156,7 @@ class UserListsController < UsersController
         }
       end.compact
 
-      added, updated, not_imported = import(current_user, klass, prepared_list, rewrite)
+      @added, @updated, @not_imported = importer.import(prepared_list, rewrite)
 
     elsif params[:list_type].to_sym == :anime_planet
       raise Forbidden if params[:login].empty?
@@ -164,7 +164,7 @@ class UserListsController < UsersController
       parser.get_pages_num
       list = parser.get_list
 
-      added, updated, not_imported = parser.import_list(current_user, list, rewrite, params[:wont_watch_strategy] == UserRateStatus::Dropped ? UserRateStatus::Dropped : nil)
+      @added, @updated, @not_imported = parser.import_list(current_user, list, rewrite, params[:wont_watch_strategy] == UserRateStatus::Dropped ? UserRateStatus::Dropped : nil)
 
     elsif params[:list_type].to_sym == :xml
       raw_xml = if params[:file].kind_of? ActionDispatch::Http::UploadedFile
@@ -189,49 +189,49 @@ class UserListsController < UsersController
           score: v['my_score'] || 0
         }
       end
-      added, updated, not_imported = import(current_user, klass, prepared_list, rewrite)
+      @added, @updated, @not_imported = importer.import(prepared_list, rewrite)
       params[:list_type] = 'mal'
 
     else
       raise Forbidden
     end
 
-    if added.size > 0 || updated.size > 0
+    if @added.size > 0 || @updated.size > 0
       current_user.touch
-      UserHistory.create({
-          user_id: current_user.id,
-          action: UserHistoryAction.const_get("#{params[:list_type].to_sym == :mal ? 'Mal' : 'Ap'}#{klass.name}Import"),
-          value: added.size + updated.size
-        })
+      UserHistory.create(
+        user_id: current_user.id,
+        action: UserHistoryAction.const_get("#{params[:list_type].to_sym == :mal ? 'Mal' : 'Ap'}#{klass.name}Import"),
+        value: @added.size + @updated.size
+      )
     end
 
     message = []
 
-    if added.size > 0
-      items = klass.where(id: added).select([:id, :name])
+    if @added.size > 0
+      items = klass.where(id: @added).select([:id, :name])
       if klass == Manga
-        message << "В ваш список #{Russian.p(added.size, 'импортирована', 'импортированы', 'импортированы')} #{added.size} #{Russian.p(added.size, 'манга', 'манги', 'манги')}:"
+        message << "В ваш список #{Russian.p(@added.size, 'импортирована', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'манга', 'манги', 'манги')}:"
       else
-        message << "В ваш список #{Russian.p(added.size, 'импортировано', 'импортированы', 'импортированы')} #{added.size} #{Russian.p(added.size, 'аниме', 'аниме', 'аниме')}:"
+        message << "В ваш список #{Russian.p(@added.size, 'импортировано', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'аниме', 'аниме', 'аниме')}:"
       end
       message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" data-remote=\"true\" href=\"#{url_for(v)}\">#{v.name}</a>" }
       message << ''
     end
 
-    if updated.size > 0
-      items = klass.where(id: updated).select([:id, :name])
+    if @updated.size > 0
+      items = klass.where(id: @updated).select([:id, :name])
       if klass == Manga
-        message << "В вашем списке #{Russian.p(updated.size, 'обновлена', 'обновлены', 'обновлены')} #{updated.size} #{Russian.p(updated.size, 'манга', 'манги', 'манги')}:"
+        message << "В вашем списке #{Russian.p(@updated.size, 'обновлена', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'манга', 'манги', 'манги')}:"
       else
-        message << "В вашем списке #{Russian.p(updated.size, 'обновлено', 'обновлены', 'обновлены')} #{updated.size} #{Russian.p(updated.size, 'аниме', 'аниме', 'аниме')}:"
+        message << "В вашем списке #{Russian.p(@updated.size, 'обновлено', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'аниме', 'аниме', 'аниме')}:"
       end
       message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" data-remote=\"true\" href=\"#{url_for(v)}\">#{v.name}</a>" }
       message << ''
     end
 
-    if not_imported.size > 0
-      message << "Не удалось импортировать (распознать) #{not_imported.size} #{klass == Manga ? Russian.p(not_imported.size, 'мангу', 'манги', 'манг') : 'аниме'}, пожалуйста, добавьте их в свой список самостоятельно:"
-      message = message + not_imported.sort
+    if @not_imported.size > 0
+      message << "Не удалось импортировать (распознать) #{@not_imported.size} #{klass == Manga ? Russian.p(@not_imported.size, 'мангу', 'манги', 'манг') : 'аниме'}, пожалуйста, добавьте их в свой список самостоятельно:"
+      message = message + @not_imported.sort
     end
     message << "Ничего нового не импортировано." if message.empty?
 

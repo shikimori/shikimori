@@ -1,15 +1,19 @@
-# импортер аниме и манги в профиль пользователя
-module AniMangaListImporter
+# импортер аниме и манги в список пользователя
+class UserRatesImporter
   Counters = [:episodes, :volumes, :chapters]
 
+  def initialize user, klass
+    @user = user
+    @klass = klass
+  end
+
   # импорт списка
-  # третьим параметром ожидается массив хешей с ключами :id, :score, :status, :episodes, :chapters, :volumes
-  # :status должен быть словом, не циферкой
-  def import user, klass, list_to_import, rewrite_existed
+  # третьим параметром ожидается массив хешей с ключами
+  #   :id, :score, :status, :episodes, :chapters, :volumes
+  # :status должен быть циферкой, не словом
+  def import list_to_import, rewrite_existed
     # уже имеющееся у пользователя в списке
-    rates = user.send("#{klass.name.downcase}_rates").each_with_object({}) do |entry,memo|
-      memo[entry.target_id] = entry
-    end
+    rates = user_rates.each_with_object({}) {|v,memo| memo[v.target_id] = v }
 
     # то, что будет добавлено с нуля
     added = []
@@ -25,7 +29,7 @@ module AniMangaListImporter
       rate = rates[entry[:id]]
 
       if rate.nil?
-        rate = UserRate.new user_id: user.id, target_id: entry[:id], target_type: klass.name
+        rate = UserRate.new user_id: @user.id, target_id: entry[:id], target_type: @klass.name
         add = true
       elsif rate && !rewrite_existed
         #not_imported << entry[:id]
@@ -38,7 +42,7 @@ module AniMangaListImporter
         rate[counter] = entry[counter] if entry.include? counter
       end
 
-      rate.status = UserRateStatus.get entry[:status]
+      rate.status = entry[:status].to_i
       rate.score = entry[:score].to_i
 
       # нельзя указать больше/меньше эпизодов,частей,томов для просмотренного, чем имеется в аниме/манге
@@ -58,5 +62,10 @@ module AniMangaListImporter
     end
 
     [added, updated, not_imported]
+  end
+
+private
+  def user_rates
+    @user.send "#{@klass.name.downcase}_rates"
   end
 end
