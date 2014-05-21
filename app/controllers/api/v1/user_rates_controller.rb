@@ -42,7 +42,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, "/user_rates/:id", "Destroy an user rate"
   def destroy
-    @user_rate.destroy
+    @user_rate.destroy!
     respond_with @user_rate, location: nil
   end
 
