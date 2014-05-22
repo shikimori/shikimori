@@ -11,13 +11,6 @@ class UserRate < ActiveRecord::Base
   PLANNED = statuses.find {|name,id| name == 'planned' }.second
   DROPPED = statuses.find {|name,id| name == 'dropped' }.second
 
-  #attr_defaults status: :planned
-  #attr_defaults score: 0
-  #attr_defaults episodes: 0
-  #attr_defaults volumes: 0
-  #attr_defaults chapters: 0
-  #attr_defaults rewatches: 0
-
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
   belongs_to :manga, class_name: Manga.name, foreign_key: :target_id

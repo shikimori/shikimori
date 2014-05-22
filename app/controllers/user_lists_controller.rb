@@ -127,74 +127,19 @@ class UserListsController < UsersController
   # импорт списка
   def list_import
     raise Unauthorized unless user_signed_in?
-    #if Rails.cache.read('import-lock') && Rails.env.production?
-      #redirect_to user_url(current_user)
-      #flash[:notice] = "В данный момент система нагружена импортами. Пожалуйста, повторите попытку через несколько минут."
-      #return
-    #end
-    #Rails.cache.write('import-lock', current_user.id, expires_in: 1.minute)
 
     klass = Object.const_get(params[:klass].capitalize)
     rewrite = params[:rewrite] == true || params[:rewrite] == '1'
 
     # в ситуации, когда через yql не получилось, можно попробовать вручную скачать список
-    if params[:mal_login].present?
-      params[:file] = open "http://myanimelist.net/malappinfo.php?u=#{params[:mal_login]}&status=all&type=#{params[:klass]}"
-      params[:list_type] = 'xml'
-    end
+    #if params[:mal_login].present?
+      #params[:file] = open "http://myanimelist.net/malappinfo.php?u=#{params[:mal_login]}&status=all&type=#{params[:klass]}"
+      #params[:list_type] = 'xml'
+    #end
 
+    parser = UserListParser.new klass
     importer = UserRatesImporter.new current_user, klass
-    if params[:list_type].to_sym == :mal
-      prepared_list = JSON.parse(params[:data]).map do |v|
-        {
-          id: v['id'].to_i,
-          episodes: v.include?('episodes') ? v['episodes'].to_i : 0,
-          volumes: v.include?('volumes') ? v['volumes'].to_i : 0,
-          chapters: v.include?('chapters') ? v['chapters'].to_i : 0,
-          status: v['status'],
-          score: v['score'] || 0
-        }
-      end.compact
-
-      @added, @updated, @not_imported = importer.import(prepared_list, rewrite)
-
-    elsif params[:list_type].to_sym == :anime_planet
-      raise Forbidden if params[:login].empty?
-      parser = AnimePlanetParser.new(params[:login], klass)
-      parser.get_pages_num
-      list = parser.get_list
-
-      @added, @updated, @not_imported = parser.import_list(current_user, list, rewrite, params[:wont_watch_strategy] == UserRateStatus::Dropped ? UserRateStatus::Dropped : nil)
-
-    elsif params[:list_type].to_sym == :xml
-      raw_xml = if params[:file].kind_of? ActionDispatch::Http::UploadedFile
-        if params[:file].original_filename =~ /\.gz$/
-          Zlib::GzipReader.open(params[:file].tempfile).read
-        else
-          params[:file].read
-        end
-      else
-        Rails.env.test? ? params[:file] : params[:file].read
-      end
-
-      prepared_list = Hash.from_xml(raw_xml.fix_encoding)['myanimelist'][params[:klass]]
-      prepared_list = [prepared_list] if prepared_list.kind_of?(Hash)
-      prepared_list.map! do |v|
-        {
-          id: (v['series_animedb_id'] || v['series_mangadb_id'] || v['manga_mangadb_id'] || v['anime_animedb_id']).to_i,
-          episodes: v['my_watched_episodes'] || 0,
-          volumes: v['my_read_volumes'] || 0,
-          chapters: v['my_read_chapters'] || 0,
-          status: v['my_status'] =~ /^\d+$/ ? UserRateStatus.get(v['my_status'].to_i) : v['my_status'].sub('Plan to Read', 'Plan to Watch').sub('Reading', 'Watching'),
-          score: v['my_score'] || 0
-        }
-      end
-      @added, @updated, @not_imported = importer.import(prepared_list, rewrite)
-      params[:list_type] = 'mal'
-
-    else
-      raise Forbidden
-    end
+    @added, @updated, @not_imported = importer.import(parser.parse(params), rewrite)
 
     if @added.size > 0 || @updated.size > 0
       current_user.touch
@@ -248,12 +193,10 @@ class UserListsController < UsersController
       sleep(1)
     end
 
-    current_user.touch # указываем, что пользователь обновлён
-
     redirect_to messages_url(type: :inbox)
-  rescue Exception => e
-    flash[:alert] = 'Произошла ошибка. Возможно, некорректный формат файла.'
-    redirect_to :back
+  #rescue Exception => e
+    #flash[:alert] = 
+    #redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
   end
 
 private

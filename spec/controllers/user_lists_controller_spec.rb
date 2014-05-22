@@ -5,23 +5,7 @@ describe UserListsController do
   let!(:anime_1) { create :anime, name: 'Zombie-Loan' }
   let!(:anime_2) { create :anime, name: 'Zombie-Loan Specials' }
 
-  before do
-    sign_in user
-
-    @list = [{
-        id: anime_1.id,
-        status: 1,
-        score: 5.0,
-        name: "Zombie-Loan Specials",
-        episodes: 1
-      }, {
-        id: anime_2.id,
-        status: 2,
-        score: 5.0,
-        name: "Zombie-Loan,.",
-        episodes: 1
-      }]
-  end
+  before { sign_in user }
 
   describe :export do
     before { get :export, id: user.to_param, list_type: 'anime' }
@@ -33,8 +17,13 @@ describe UserListsController do
     let(:rewrite) { false }
 
     context :mal, :focus do
+      let(:list) {[
+        { id: anime_1.id, status: 1, score: 5.0, name: "Zombie-Loan Specials", episodes: 1 },
+        { id: anime_2.id, status: 2, score: 5.0, name: "Zombie-Loan,.", episodes: 1 }
+      ]}
+
       let!(:user_rate) { create :user_rate, user: user, target: anime_1 }
-      before { post :list_import, id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: @list.to_json }
+      before { post :list_import, id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: list.to_json }
 
       it { should redirect_to messages_url(type: :inbox) }
       it { expect(user.reload.anime_rates).to have(2).items }
@@ -42,28 +31,35 @@ describe UserListsController do
       context :no_rewrite do
         let(:rewrite) { false }
 
-        it { expect(assigns :added).to have(1).item }
-        it { expect(assigns :updated).to be_empty }
+        it 'imports data' do
+          expect(assigns :added).to have(1).item
+          expect(assigns :updated).to be_empty
+        end
       end
 
       context :rewrite do
         let(:rewrite) { true }
 
-        it { expect(assigns :added).to have(1).item }
-        it { expect(assigns :updated).to have(1).item }
+        it 'imports data' do
+          expect(assigns :added).to have(1).item
+          expect(assigns :updated).to have(1).item
+        end
       end
     end
 
     context :anime_planet do
-      it 'works' do
-        create :manga, name: "07 Ghost"
-        create :manga, name: "20th Century Boys"
+      let!(:manga_1) { create :manga, name: '07 Ghost' }
+      let!(:manga_2) { create :manga, name: '20th Century Boys' }
 
-        expect {
-          post :list_import, id: user.to_param, klass: 'manga', rewrite: true, list_type: :anime_planet, login: 'morr507'
-        }.to change(UserRate, :count).by 2
+      before { post :list_import, id: user.to_param, klass: 'manga', rewrite: true, list_type: :anime_planet, login: 'morr507' }
 
-        response.should redirect_to(messages_url(type: :inbox))
+      it 'imports data' do
+        should redirect_to messages_url(type: :inbox)
+        expect(user.reload.manga_rates).to have(2).items
+
+        expect(assigns :added).to have(2).item
+        expect(assigns :updated).to have(0).items
+        expect(assigns :not_imported).to have(14).items
       end
     end
 
@@ -89,18 +85,16 @@ describe UserListsController do
     <manga_mangadb_id>#{manga2.id}</manga_mangadb_id>
     <my_watched_episodes>0</my_watched_episodes>
     <my_score></my_score>
-    <my_status>Plan to Read</my_status>
+    <my_status>Reading</my_status>
     <update_on_import>1</update_on_import>
   </manga>
 </myanimelist>"
       }
+      before { post :list_import, id: user.to_param, klass: 'manga', rewrite: true, list_type: :xml, file: xml }
 
-      it 'works' do
-        expect {
-          post :list_import, id: user.to_param, klass: 'manga', rewrite: true, list_type: :xml, file: xml
-        }.to change(UserRate, :count).by 2
-
-        response.should redirect_to(messages_url(type: :inbox))
+      it 'imports data' do
+        should redirect_to messages_url(type: :inbox)
+        expect(user.reload.manga_rates).to have(2).items
       end
     end
   end
