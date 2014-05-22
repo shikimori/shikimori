@@ -1,22 +1,23 @@
 (($) ->
   if history && history.navigationMode
-    history.navigationMode = 'compatible';
+    history.navigationMode = 'compatible'
 
   $.extend
     form_navigate: (options) ->
       $(document.body).on 'change keydown', 'textarea', ->
-        $(@).addClass 'form-navigate-check'
+        $(@).data navigate_check_required: true
 
       $(document.body).on 'submit', 'form', ->
-        $(@).find('textarea').removeClass 'form-navigate-check'
+        $(@).find('textarea').data navigate_check_required: false
 
       $(window).on 'beforeunload', ->
         changes = false
 
-        $('textarea.form-navigate-check:visible').each(->
-          $(@).removeClass 'form-navigate-check'
-          changes = true if $(@).val().length > options.size
-        )
+        $('textarea:visible').each ->
+          $node = $(@)
+          return unless $node.data('navigate_check_required')
+          $node.data navigate_check_required: false
+          changes = true if $node.val().length > options.size
 
         options.message if changes
 
