@@ -6,10 +6,7 @@ class UserRate < ActiveRecord::Base
   MAXIMUM_EPISODES = 2000
   MAXIMUM_SCORE = 10
 
-  enum status: { planned: 0, watching: 1, rewatching: 5, completed: 2, on_hold: 3, dropped: 4 }
-
-  PLANNED = statuses.find {|name,id| name == 'planned' }.second
-  DROPPED = statuses.find {|name,id| name == 'dropped' }.second
+  enum status: { planned: 0, watching: 1, completed: 2, on_hold: 3, dropped: 4, rewatching: 5 }
 
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
@@ -46,6 +43,11 @@ class UserRate < ActiveRecord::Base
   def self.status_name status, target_type
     status_name = status.kind_of?(Integer) ? statuses.find {|k,v| v == status }.first : status
     I18n.t "activerecord.attributes.user_rate.statuses.#{target_type.downcase}.#{status_name}"
+  end
+
+  def self.status_id status
+    status_string = status.to_s
+    statuses.find {|k,v| k == status_string }.second
   end
 
   def status_name

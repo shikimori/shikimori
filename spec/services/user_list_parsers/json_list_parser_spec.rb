@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe UserListParsers::MalListParser do
-  let(:parser) { UserListParsers::MalListParser.new klass }
+describe UserListParsers::JsonListParser do
+  let(:parser) { UserListParsers::JsonListParser.new klass }
   subject { parser.parse json }
 
   context :anime do

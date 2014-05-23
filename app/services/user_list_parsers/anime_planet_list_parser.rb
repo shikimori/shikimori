@@ -1,8 +1,9 @@
-# парсер JSON'а, приходящего из яваскриптовского парсера MAL'а
+# парсер аккаунта anime-planet
 class UserListParsers::AnimePlanetListParser
-  def initialize klass
+  def initialize klass, wont_watch_strategy = nil
     @klass = klass
     @matcher = NameMatcher.new @klass
+    @wont_watch_strategy = wont_watch_strategy
   end
 
   def parse login
@@ -57,7 +58,7 @@ private
   end
 
   # переведение статус из анимепланетного в локальный
-  def convert_status planet_status, wont_watch_strategy=nil
+  def convert_status planet_status
     case planet_status
       when 'Watched', 'Read'
         UserRate.statuses[:completed]
@@ -75,7 +76,7 @@ private
         UserRate.statuses[:dropped]
 
       when "Won't Watch", "Won't Read"
-        wont_watch_strategy
+        @wont_watch_strategy
 
       else
         raise ArgumentError.new(planet_status)

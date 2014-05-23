@@ -28,7 +28,10 @@ class UserRatesImporter
 
       rate = rates[entry[:id]]
 
-      if rate.nil?
+      if entry[:id].nil? || entry[:status].nil?
+        not_imported << entry[:id]
+        next
+      elsif rate.nil?
         rate = UserRate.new user_id: @user.id, target_id: entry[:id], target_type: @klass.name
         add = true
       elsif rate && !rewrite_existed

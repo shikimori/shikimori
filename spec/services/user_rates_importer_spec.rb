@@ -4,12 +4,14 @@ describe UserRatesImporter do
   let(:anime_1) { create :anime, name: "Zombie-Loan", episodes: 22 }
   let(:anime_2) { create :anime, name: "Zombie-Loan Specials" }
 
+  let(:anime_1_id) { anime_1.id }
+  let(:anime_1_status) { UserRate.statuses[:watching] }
   let(:user) { create :user }
   let(:list) do
     [{
-      status: UserRate.statuses[:watching],
+      status: anime_1_status,
       score: 5,
-      id: anime_1.id,
+      id: anime_1_id,
       episodes: 1
     }, {
       status: UserRate.statuses[:completed],
@@ -30,11 +32,39 @@ describe UserRatesImporter do
   context 'new records' do
     before { subject }
 
-    it { expect(added).to have(2).items }
-    it { expect(updated).to be_empty }
-    it { expect(not_imported).to be_empty }
+    context 'everything is matched' do
+      it 'properly imported'do
+        expect(added).to have(2).items
+        expect(updated).to be_empty
+        expect(not_imported).to be_empty
 
-    it { expect(user.reload.anime_rates).to have(2).items }
+        expect(user.reload.anime_rates).to have(2).items
+      end
+    end
+
+    context 'nil id is not matched' do
+      let(:anime_1_id) { nil }
+
+      it 'properly imported'do
+        expect(added).to have(1).item
+        expect(updated).to be_empty
+        expect(not_imported).to have(1).item
+
+        expect(user.reload.anime_rates).to have(1).item
+      end
+    end
+
+    context 'nil status is not matched' do
+      let(:anime_1_status) { nil }
+
+      it 'properly imported'do
+        expect(added).to have(1).item
+        expect(updated).to be_empty
+        expect(not_imported).to have(1).item
+
+        expect(user.reload.anime_rates).to have(1).item
+      end
+    end
   end
 
   context 'existing records' do
@@ -44,19 +74,23 @@ describe UserRatesImporter do
     describe 'replace' do
       let(:with_replace) { true }
 
-      it { expect(added).to have(1).item }
-      it { expect(updated).to have(1).item }
-      it { expect(not_imported).to be_empty }
-      it { expect(user.reload.anime_rates).to have(2).items }
+      it 'properly imported'do
+        expect(added).to have(1).item
+        expect(updated).to have(1).item
+        expect(not_imported).to be_empty
+        expect(user.reload.anime_rates).to have(2).items
+      end
     end
 
     describe 'w/o replace' do
       let(:with_replace) { false }
 
-      it { expect(added).to have(1).item }
-      it { expect(updated).to be_empty }
-      it { expect(not_imported).to be_empty }
-      it { expect(user.reload.anime_rates).to have(2).items }
+      it 'properly imported'do
+        expect(added).to have(1).item
+        expect(updated).to be_empty
+        expect(not_imported).to be_empty
+        expect(user.reload.anime_rates).to have(2).items
+      end
     end
   end
 end

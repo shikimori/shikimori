@@ -39,7 +39,7 @@ class Recommendations::RatesFetcher
     end
 
     def rate_query
-      "#{UserRate.table_name}.status != '#{UserRate::PLANNED}' and (#{UserRate.table_name}.score is not null and #{UserRate.table_name}.score > 0)"
+      "#{UserRate.table_name}.status != '#{UserRate.status_id :planned}' and (#{UserRate.table_name}.score is not null and #{UserRate.table_name}.score > 0)"
     end
   end
 

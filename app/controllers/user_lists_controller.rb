@@ -119,8 +119,8 @@ class UserListsController < UsersController
     @type = params[:list_type]
     @list = @user.send("#{@type}_rates")
 
-    response.headers['Content-Description'] = 'File Transfer';
-    response.headers['Content-Disposition'] = "attachment; filename=#{@type}list.xml";
+    #response.headers['Content-Description'] = 'File Transfer';
+    #response.headers['Content-Disposition'] = "attachment; filename=#{@type}list.xml";
     render template: 'user_lists/export', formats: :xml
   end
 

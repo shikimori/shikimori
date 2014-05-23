@@ -17,6 +17,23 @@ describe UserListParser do
   end
 
   context :xml do
+    let(:manga_1) { create :manga, name: "07 Ghost" }
+    let(:xml) {
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<myanimelist>
+  <myinfo>
+    <user_export_type>#{UserListsController::MangaType}</user_export_type>
+  </myinfo>
+  <manga>
+    <manga_mangadb_id>#{manga1.id}</manga_mangadb_id>
+    <my_read_volumes>0</my_read_volumes>
+    <my_read_chapters>0</my_read_chapters>
+    <my_score></my_score>
+    <my_status>Plan to Read</my_status>
+    <update_on_import>1</update_on_import>
+  </manga>
+</myanimelist>"
+      }
   end
 
   context :unsupported do

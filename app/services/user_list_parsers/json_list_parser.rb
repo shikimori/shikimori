@@ -1,5 +1,5 @@
-# парсер JSON'а, приходящего из яваскриптовского парсера MAL'а
-class UserListParsers::MalListParser
+# парсер JSON'а со списком пользователя, приходящего из яваскриптовского парсера MAL'а
+class UserListParsers::JsonListParser
   def initialize klass
     @klass = klass
   end
