@@ -6,7 +6,7 @@ describe ReadMangaParser do
 
   let(:parser) { ReadMangaParser.new }
 
-  it { parser.fetch_pages_num.should eq 73 }
+  it { parser.fetch_pages_num.should eq 74 }
   it { parser.fetch_page_links(0).should have(ReadMangaParser::PageSize).items }
   it { parser.fetch_page_links(parser.fetch_pages_num - 1).last.should eq 'wild_kiss' }
 
@@ -40,7 +40,8 @@ describe ReadMangaParser do
         description: 'Как же весело и легко играть вместе в детстве! Совершенно не важно кто мальчик, а кто девочка. И как же всё становится непросто, когда подросший мальчик понимает, что его подружка не просто партнер по играм, а ДЕВОЧКА!',
         source: 'http://animanga.ru',
         score: 9.36,
-        kind: 'One Shot'
+        kind: 'One Shot',
+        vol_url: '/hibiutsuroi/vol0/0?mature=1',
       }
     end
 
@@ -64,7 +65,8 @@ describe ReadMangaParser do
         description: "Савада Тсунаёши — на первый взгляд самый обыкновенный мальчик. Слегка невезуч, слегка неуклюж, слегка паникёр. Хотя, может, и не слегка. И все в его жизни скучно и безрадостно, до того волшебного момента, как пред его взором предстаёт чудо-ребёнок Реборн. Который на деле оказывается давно зарекомендовавшим себя в мафиозном мире киллером. Реборн мило радует Тсуну, что отныне тот назначается наследником крупнейшей мафиозной семьи Вонгола, и что он, Реборн, обязуется сделать из него надлежащего босса. С этого дня жизнь Савады кардинально меняется...",
         source: 'http://animanga.ru',
         score: 9.22,
-        kind: 'Manga'
+        kind: 'Manga',
+        vol_url: '/home_tutor_hitman_reborn/vol0/0?mature=1',
       }
     end
 
@@ -75,7 +77,7 @@ describe ReadMangaParser do
       entry[:names].should eq ["Trinity Blood Rage Against the Moons"]
       entry[:russian].should eq "Trinity Blood Rage Against the Moons"
       entry[:description].should eq "Красивые иллюстрации к роману, выполненные THORES Shibamoto."
-      entry[:score].should eq 9.12
+      entry[:score].should eq 9.18
       entry[:source].should eq "http://readmanga.ru/trinity_blood_rage_against_the_moons"
     end
   end
