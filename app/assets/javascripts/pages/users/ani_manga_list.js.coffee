@@ -49,7 +49,7 @@ $(document.body).on 'focus', '.ani-manga-list .filter input', ->
 filter_timer = null
 # пишут в инпуте фильтра по тайтлу
 $(document.body).on 'keyup', '.ani-manga-list .filter input', (e) ->
-  return if e.keyCode is 91 or e.keyCode is 18 or e.keyCode is 16 or e.keyCode is 17
+  return if e.keyCode == 91 || e.keyCode == 18 || e.keyCode == 16 || e.keyCode == 17
 
   if filter_timer
     clearInterval filter_timer
@@ -299,7 +299,7 @@ update_list_cache = ->
     $table = $(@)
     rows = $table.find('tr.selectable').map(->
       node: @
-      title: String($(@).data('title'))
+      title: String($(@).data('title')).toLowerCase()
       display: @style.display
     ).toArray()
     $nodes = $table.add($table.prev(':not(.collapse-merged)'))
