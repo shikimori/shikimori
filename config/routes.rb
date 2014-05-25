@@ -502,6 +502,9 @@ Site::Application.routes.draw do
         end
 
         resources :user_rates, only: [:create, :update, :destroy] do
+          member do
+            post :increment
+          end
           collection do
             scope ':type', type: /anime|manga/ do
               delete :cleanup

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506210341) do
+ActiveRecord::Schema.define(version: 20140525205807) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -909,8 +909,8 @@ ActiveRecord::Schema.define(version: 20140506210341) do
   create_table "user_rates", force: true do |t|
     t.integer  "user_id"
     t.integer  "target_id"
-    t.integer  "score"
-    t.integer  "status"
+    t.integer  "score",                    default: 0, null: false
+    t.integer  "status",                   default: 0, null: false
     t.integer  "episodes",                 default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"

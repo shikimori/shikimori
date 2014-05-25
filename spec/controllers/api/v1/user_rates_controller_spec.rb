@@ -47,6 +47,19 @@ describe Api::V1::UserRatesController do
     end
   end
 
+  describe :increment do
+    let(:user_rate) { create :user_rate, user: user, episodes: 1 }
+    before { post :increment, id: user_rate.id, format: :json }
+
+    it { should respond_with :created }
+
+    describe :user_rate do
+      subject { assigns :user_rate }
+
+      its(:episodes) { should eq user_rate.episodes + 1 }
+    end
+  end
+
   describe :destroy do
     let(:user_rate) { create :user_rate, user: user }
     before { delete :destroy, id: user_rate.id, format: :json }

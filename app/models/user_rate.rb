@@ -40,6 +40,10 @@ class UserRate < ActiveRecord::Base
     text.present? ? BbCodeFormatter.instance.format_comment(text) : text
   end
 
+  def status= new_status
+    new_status.kind_of?(String) && new_status =~ /^\d$/ ? super(new_status.to_i) : super
+  end
+
   def self.status_name status, target_type
     status_name = status.kind_of?(Integer) ? statuses.find {|k,v| v == status }.first : status
     I18n.t "activerecord.attributes.user_rate.statuses.#{target_type.downcase}.#{status_name}"

@@ -14,14 +14,6 @@ class UserRateDecorator < BaseDecorator
     end
   end
 
-  def status_line
-    "<p class='status'>#{status_name.capitalize}</p>".html_safe
-  end
-
-  def score_name
-    I18n.t("activerecord.attributes.user_rate.scores.#{score}")
-  end
-
   def score_line
     if score && score > 0
       "<p class='score'>#{score_name}<span>#{score}<span></p>".html_safe

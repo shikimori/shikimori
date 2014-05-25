@@ -46,11 +46,12 @@ $ ->
   $(".slider-control").click (e) ->
     # we should ignore middle button click
     return if in_new_tab(e)
-    History.pushState null, null, ($(@).children("a").attr("href") or $(@).children("span.link").data("href")).replace(/http:\/\/.*?\//, "/")
+    href = ($(@).children("a").attr("href") || $(@).children("span.link").data("href")).replace(/http:\/\/.*?\//, "/")
+    History.pushState null, null, href
     false
 
-  $controls = $(".slider-control", $(".animanga-right-menu"))
-  $(".entry-content-slider").makeSliderable
+  $controls = $('.slider-control', '.animanga-right-menu')
+  $('.entry-content-slider').makeSliderable
     $controls: $controls
     history: true
     remote_load: true
@@ -87,14 +88,14 @@ $ ->
   $(window).trigger "statechange"
 
   # height fix for related anime
-  names = $(".entry-block .name")
+  names = $('.entry-block .name')
   max_height = _.max(names.map(->
     $(@).height()
   ))
-  $(".entry-block .name p").each ->
+  $('.entry-block .name p').each ->
     $this = $(@)
     height = $this.height()
-    $this.css "height", height
+    $this.css height: height
     $this.addClass "f17"  if $this.parent().height() < max_height
 
   names.height max_height
@@ -129,8 +130,31 @@ $ ->
       #$(@).trigger "blur"
       #false
 
-  #$("#rate-block .item-add").bind "click", ->
-    #$(@).parent().find("input").trigger("keydown", true).trigger "blur"
+  $('.menu-rate-block .add-to-list').on 'click', ->
+    $(@).closest('form').submit()
+
+  $('.menu-rate-block .increment').on 'click', ->
+    $current_episodes = $('.menu-rate-block .current-episodes')
+    current_episodes = parseInt $current_episodes.text()
+    total_episodes = parseInt $('.menu-rate-block .total-episodes').text()
+
+    #if _.isNaN(total_episodes) || (current_episodes < total_episodes - 1 && current_episodes != 0)
+    if _.isNaN(total_episodes) || current_episodes < total_episodes - 1
+      $(@)
+        .data
+          remote: true
+          type: 'json'
+        .attr href: $(@).data('href')
+        .one 'ajax:success', (e, user_rate) ->
+          $current_episodes.text user_rate.episodes || user_rate.chapters
+        .callRemote()
+      false
+    else
+      $(@)
+        .data
+          remote: false
+          type: null
+        .attr href: "#{$(@).data('href')}?redirect_to_back=true"
 
   #$("#rate-status-form, #rate-episodes-form, #rate-volumes-form, #rate-chapters-form").bind("ajax:success", (e, data, status, xhr) ->
     #$this = $(@)
@@ -176,9 +200,9 @@ $ ->
   #$(".rate-statuses li").bind "status:select", ->
     #$(@).addClass("selected").siblings().removeClass "selected"
 
-  ## user ratings
-  #$scores_user = $(".animanga-right-menu .scores-user")
-  #$(".animanga-right-menu .scores-user").makeRateble() if $scores_user.is(":visible")
+  # user ratings
+  $scores_user = $(".animanga-right-menu .scores-user")
+  $(".animanga-right-menu .scores-user").makeRateble() if $scores_user.is(":visible")
 
 # высота правого меню
 #$('.menu-right').height($('.menu-right-inner').height());

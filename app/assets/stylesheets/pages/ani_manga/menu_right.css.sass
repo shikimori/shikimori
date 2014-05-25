@@ -61,26 +61,55 @@
     //p .key
       //color: #444
 
-.rate-block
+.menu-rate-block
+  width: auto
+
+  .add-to-list
+    +normal-link
+
   .subcontent
-    +clearfix
     margin-right: 5px
 
+  .item-edit
+    margin-top: 3px
+
+  .rate-number
+    float: right
+
+    .b-input
+      display: inline
+
+    label
+      display: none
+
+    input
+      text-align: center
+      width: 25px
+
+    .item-add
+      margin-left: 10px
+
   .status
-    float: left
+    margin-bottom: 10px
 
-  .score
-    padding-top: 10px
-    text-align: right
+  .rate-block
+    width: 210px
 
-    &.empty
-      color: $gray-color-2
+  //.status
+    //float: left
 
-    span
-      display: inline-block
-      font-family: 'Arial Black','Arial',sans-serif
-      font-size: 20px
-      padding-left: 6px
+  //.score
+    //padding-top: 10px
+    //text-align: right
+
+    //&.empty
+      //color: $gray-color-2
+
+    //span
+      //display: inline-block
+      //font-family: 'Arial Black','Arial',sans-serif
+      //font-size: 20px
+      //padding-left: 6px
 
 .menu-topics-block
   a.entry

@@ -1,6 +1,9 @@
 (function($) {
+  // TODO: с интернализацией сайта необходимо будет каким-то образом
+  // сюда прокинуть переводы из activerecord.attributes.user_rate.scores
+  // пока тексты просто пародублированы тут
   var RATINGS = [
-    { from: 1, to: 1.99, text: 'Отвратительно', value: 1 },
+    { from: 1, to: 1.99, text: 'Хуже не бывает', value: 1 },
     { from: 2, to: 2.99, text: 'Ужасно', value: 2 },
     { from: 3, to: 3.99, text: 'Очень плохо', value: 3 },
     { from: 4, to: 4.99, text: 'Плохо', value: 4 },
@@ -88,7 +91,7 @@
           o.current_score = score;
 
           if (o.$form) {
-            o.$form.children('#rate_score').attr('value', get_normal_score(score, o));
+            o.$form.find('#user_rate_score').val(get_normal_score(score, o));
             o.$form.submit();
           } else {
             o.user_score = get_normal_score(score, o);
