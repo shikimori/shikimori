@@ -13,7 +13,11 @@ class UserRateSerializer < ActiveModel::Serializer
     object.target.kind_of?(Manga) ? object.target : nil
   end
 
+  def status
+    UserRate.status_id object.status
+  end
+
   def status_name
-    UserRateStatus.get object.status
+    UserListParsers::XmlListParser.status_to_string(object.status, object.target.class, false)
   end
 end
