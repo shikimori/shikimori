@@ -13,6 +13,6 @@ describe DanbooruTag do
     DanbooruTag.import_from_danbooru(limit)
     expect {
       DanbooruTag.import_from_danbooru(limit+1)
-    }.to change(DanbooruTag, :count).by(1000)
+    }.to change(DanbooruTag, :count).by(999)
   end
 end

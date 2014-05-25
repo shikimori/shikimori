@@ -6,7 +6,7 @@ describe ReadMangaParser do
 
   let(:parser) { ReadMangaParser.new }
 
-  it { parser.fetch_pages_num.should eq 73 }
+  it { parser.fetch_pages_num.should eq 74 }
   it { parser.fetch_page_links(0).should have(ReadMangaParser::PageSize).items }
   it { parser.fetch_page_links(parser.fetch_pages_num - 1).last.should eq 'wild_kiss' }
 
@@ -75,7 +75,7 @@ describe ReadMangaParser do
       entry[:names].should eq ["Trinity Blood Rage Against the Moons"]
       entry[:russian].should eq "Trinity Blood Rage Against the Moons"
       entry[:description].should eq "Красивые иллюстрации к роману, выполненные THORES Shibamoto."
-      entry[:score].should eq 9.12
+      entry[:score].should eq 9.18
       entry[:source].should eq "http://readmanga.ru/trinity_blood_rage_against_the_moons"
     end
   end
