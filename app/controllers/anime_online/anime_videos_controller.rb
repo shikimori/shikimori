@@ -85,8 +85,11 @@ class AnimeOnline::AnimeVideosController < ApplicationController
   def report
     user = user_signed_in? ? current_user : User.find(User::GuestID)
     anime_video = AnimeVideo.find params[:id]
-    unless AnimeVideoReport.where(kind: params[:kind], anime_video_id: params[:id], user_id: user).first
-      AnimeVideoReport.create! user: user, anime_video: anime_video, kind: params[:kind], user_agent: request.user_agent
+    unless AnimeVideoReport.where(kind: params[:kind], anime_video_id: params[:id], user: user).first
+      anime_report = AnimeVideoReport.find_or_create_by user: user, anime_video: anime_video
+      anime_report.kind = params[:kind]
+      anime_report.user_agent = request.user_agent
+      anime_report.save
     end
     render nothing: true
   end

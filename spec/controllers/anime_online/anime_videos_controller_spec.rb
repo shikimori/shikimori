@@ -169,8 +169,19 @@ describe AnimeOnline::AnimeVideosController do
 
     context :dublicate_request do
       context :one_user do
-        let!(:report) { create :anime_video_report, anime_video: anime_video, kind: :broken, user: user }
-        it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
+        context :same_kind_of do
+          let!(:report) { create :anime_video_report, anime_video: anime_video, kind: :broken, user: user }
+          it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
+        end
+
+        context :other_kind do
+          let!(:report) { create :anime_video_report, anime_video: anime_video, kind: :wrong, user: user }
+          it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
+          it do
+            report_request
+            AnimeVideoReport.first.should be_broken
+          end
+        end
       end
 
       context :other_user do
