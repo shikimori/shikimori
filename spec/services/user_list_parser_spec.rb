@@ -17,6 +17,8 @@ describe UserListParser do
   end
 
   context :xml do
+    let(:params) {{ list_type: 'xml', file: xml }}
+    let(:klass) { Manga }
     let(:manga_1) { create :manga, name: "07 Ghost" }
     let(:xml) {
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -25,7 +27,7 @@ describe UserListParser do
     <user_export_type>#{UserListsController::MangaType}</user_export_type>
   </myinfo>
   <manga>
-    <manga_mangadb_id>#{manga1.id}</manga_mangadb_id>
+    <manga_mangadb_id>#{manga_1.id}</manga_mangadb_id>
     <my_read_volumes>0</my_read_volumes>
     <my_read_chapters>0</my_read_chapters>
     <my_score></my_score>
@@ -34,6 +36,7 @@ describe UserListParser do
   </manga>
 </myanimelist>"
       }
+    it { should eq [{id: manga_1.id, volumes: 0, chapters: 0, rewatches: 0, status: 0, score: 0}] }
   end
 
   context :unsupported do

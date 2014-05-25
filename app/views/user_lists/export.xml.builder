@@ -1,8 +1,24 @@
 xml.instruct!
 xml.myanimelist do
   xml.myinfo do
-    xml.user_export_type @type == 'manga' ? UserListsController::MangaType : UserListsController::AnimeType
+    xml.user_export_type @klass == Manga ? UserListsController::MangaType : UserListsController::AnimeType
   end
 
- ActiveModel::ArraySerializer.new(@list, each_serializer: UserRateExportSerializer).to_xml
+  @list.each do |entry|
+    xml.tag! @klass.name.downcase do
+      if @klass == Manga
+        xml.manga_mangadb_id entry.target_id
+        xml.my_read_volumes entry.volumes
+        xml.my_read_chapters entry.chapters
+      else
+        xml.series_animedb_id entry.target_id
+        xml.my_watched_episodes entry.episodes
+      end
+      xml.my_rewatches entry.rewatches
+      xml.my_score entry.score || 0
+      xml.my_status UserListParsers::XmlListParser.status_to_string(entry.status, @klass, true)
+      xml.shiki_status UserListParsers::XmlListParser.status_to_string(entry.status, @klass, false)
+      xml.update_on_import 1
+    end
+  end
 end

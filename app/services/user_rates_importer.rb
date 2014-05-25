@@ -58,9 +58,13 @@ class UserRatesImporter
         rate[counter] = target[counter] if target.respond_to?(counter) && target[counter] > 0 && rate[counter] > target[counter]
       end
 
-      if rate.changes.any? && rate.save
-        updated << rate.target_id if update
-        added << rate.target_id if add
+      if rate.changes.any?
+        if rate.save
+          updated << rate.target_id if update
+          added << rate.target_id if add
+        else
+          not_imported << rate.target_id
+        end
       end
     end
 

@@ -6,7 +6,7 @@ class UserRate < ActiveRecord::Base
   MAXIMUM_EPISODES = 2000
   MAXIMUM_SCORE = 10
 
-  enum status: { planned: 0, watching: 1, completed: 2, on_hold: 3, dropped: 4, rewatching: 5 }
+  enum status: { planned: 0, watching: 1, completed: 2, on_hold: 3, dropped: 4, rewatching: 9 }
 
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id

@@ -17,8 +17,8 @@ private
       id: entry['id'].to_i,
       episodes: entry['episodes'].to_i,
       rewatches: entry['rewatches'].to_i,
-      status: entry['status'],
-      score: entry['score']
+      status: (entry['status'] || 0).to_i,
+      score: (entry['score'] || 0).to_i
     }
   end
 
@@ -28,8 +28,8 @@ private
       volumes: entry['volumes'].to_i,
       chapters: entry['chapters'].to_i,
       rewatches: entry['rewatches'].to_i,
-      status: entry['status'],
-      score: entry['score']
+      status: (entry['status'] || 0).to_i,
+      score: (entry['score'] || 0).to_i
     }
   end
 end

@@ -26,13 +26,12 @@ describe UserListsController do
       let!(:user_rate) { create :user_rate, user: user, target: anime_1 }
       before { post :list_import, id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: list.to_json }
 
-      it { should redirect_to messages_url(type: :inbox) }
-      it { expect(user.reload.anime_rates).to have(2).items }
-
       context :no_rewrite do
         let(:rewrite) { false }
 
         it 'imports data' do
+          should redirect_to messages_url(type: :inbox)
+          expect(user.reload.anime_rates).to have(2).items
           expect(assigns :added).to have(1).item
           expect(assigns :updated).to be_empty
         end
@@ -42,13 +41,15 @@ describe UserListsController do
         let(:rewrite) { true }
 
         it 'imports data' do
+          should redirect_to messages_url(type: :inbox)
+          expect(user.reload.anime_rates).to have(2).items
           expect(assigns :added).to have(1).item
           expect(assigns :updated).to have(1).item
         end
       end
     end
 
-    context :anime_planet, :focus do
+    context :anime_planet do
       let!(:anime_1) { create :anime, name: 'Black Bullet' }
       let!(:anime_2) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2007-01-01') }
       let!(:anime_3) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2008-01-01') }
@@ -59,15 +60,14 @@ describe UserListsController do
         should redirect_to messages_url(type: :inbox)
         expect(user.reload.anime_rates).to have(2).items
 
-        expect(assigns :added).to have(2).item
+        expect(assigns :added).to have(2).items
         expect(assigns :updated).to have(0).items
-        expect(assigns :not_imported).to have(3).items
+        expect(assigns :not_imported).to have(4).items
       end
     end
 
     context :xml do
       let(:manga_1) { create :manga, name: "07 Ghost" }
-      let(:manga_2) { create :manga, name: "20th Century Boys" }
 
       let(:xml) {
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -84,7 +84,7 @@ describe UserListsController do
     <update_on_import>1</update_on_import>
   </manga>
   <manga>
-    <manga_mangadb_id>#{manga_2.id}</manga_mangadb_id>
+    <manga_mangadb_id>1234</manga_mangadb_id>
     <my_watched_episodes>0</my_watched_episodes>
     <my_score></my_score>
     <my_status>Reading</my_status>
@@ -96,7 +96,11 @@ describe UserListsController do
 
       it 'imports data' do
         should redirect_to messages_url(type: :inbox)
-        expect(user.reload.manga_rates).to have(2).items
+        expect(user.reload.manga_rates).to have(1).item
+
+        expect(assigns :added).to have(1).item
+        expect(assigns :updated).to have(0).items
+        expect(assigns :not_imported).to have(1).item
       end
     end
   end

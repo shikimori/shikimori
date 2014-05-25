@@ -116,11 +116,12 @@ class UserListsController < UsersController
   # экспорт аниме листа
   def export
     raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
-    @type = params[:list_type]
-    @list = @user.send("#{@type}_rates")
+    type = params[:list_type]
+    @klass = type == 'anime' ? Anime : Manga
+    @list = @user.send("#{type}_rates")
 
-    #response.headers['Content-Description'] = 'File Transfer';
-    #response.headers['Content-Disposition'] = "attachment; filename=#{@type}list.xml";
+    response.headers['Content-Description'] = 'File Transfer';
+    response.headers['Content-Disposition'] = "attachment; filename=#{type}list.xml";
     render template: 'user_lists/export', formats: :xml
   end
 
@@ -194,9 +195,8 @@ class UserListsController < UsersController
     end
 
     redirect_to messages_url(type: :inbox)
-  #rescue Exception => e
-    #flash[:alert] = 
-    #redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
+  rescue Exception => e
+    redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
   end
 
 private

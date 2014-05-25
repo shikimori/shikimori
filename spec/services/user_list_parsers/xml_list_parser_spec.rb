@@ -16,15 +16,17 @@ describe UserListParsers::XmlListParser do
   </myinfo>
   <anime>
     <anime_animedb_id>1</anime_animedb_id>
-    <my_watched_episodes>2</my_read_volumes>
-    <my_score></my_score>
-    <my_status>Plan to Read</my_status>
+    <my_watched_episodes>2</my_watched_episodes>
+    <my_rewatches>4</my_rewatches>
+    <my_score>5</my_score>
+    <my_status>Plan to Watch</my_status>
+    <shiki_status>Rewatching</shiki_status>
   </anime>
 </myanimelist>"
     }
 
 
-    it { should eq [{id: 1, status: 2, episodes: 3, rewatches: 4, score: 5.0}] }
+    it { should eq [{id: 1, status: UserRate.status_id(:rewatching), episodes: 2, rewatches: 4, score: 5.0}] }
   end
 
   context :manga do
@@ -36,17 +38,17 @@ describe UserListParsers::XmlListParser do
   <myinfo>
     <user_export_type>#{UserListsController::AnimeType}</user_export_type>
   </myinfo>
-  <anime>
-    <anime_animedb_id>1</anime_animedb_id>
+  <manga>
+    <manga_mangadb_id>1</manga_mangadb_id>
     <my_read_volumes>2</my_read_volumes>
     <my_read_chapters>3</my_read_chapters>
-    <my_score>1</my_score>
+    <my_rewatches>4</my_rewatches>
+    <my_score>5</my_score>
     <my_status>Plan to Read</my_status>
-    <update_on_import>1</update_on_import>
-  </anime>
+  </manga>
 </myanimelist>"
       }
 
-    it { should eq [{id: 1, status: 2, episodes: 3, rewatches: 4, score: 5.0}] }
+    it { should eq [{id: 1, status: UserRate.status_id(:planned), volumes: 2, chapters: 3, rewatches: 4, score: 5.0}] }
   end
 end
