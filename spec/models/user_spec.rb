@@ -52,9 +52,7 @@ describe User do
   let(:topic) { create :topic }
 
   context :hooks do
-    it 'creates preferences' do
-      user.preferences.should be_persisted
-    end
+    it { user.preferences.should be_persisted }
 
     #it 'creates registration history entry' do
       #user.history.should have(1).item
