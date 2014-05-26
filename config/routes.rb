@@ -503,6 +503,7 @@ Site::Application.routes.draw do
 
         resources :user_rates, only: [:create, :update, :destroy] do
           member do
+            get :edit, format: 'html'
             post :increment
           end
           collection do

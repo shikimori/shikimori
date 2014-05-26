@@ -96,6 +96,15 @@ private
     # и наоборот
     self.volumes = 0 if counter == 'chapters' && self.chapters.zero?
 
+    # указали число эпизодов равным числу эпиздов в аниме - помечаем просмотренным
+    if self[counter] == target[counter] && self[counter] > 0 && changes['status'].nil?
+      self.status = :completed
+
+      # для манги устанавливаем в максимум второй счётчик
+      self.chapters = target.chapters if counter == 'volumes'
+      self.volumes = target.volumes if counter == 'chapters'
+    end
+
     if changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
       if self[counter] > 0 && changes[counter].first.zero? && changes['status'].nil?
@@ -106,15 +115,6 @@ private
       if self[counter].zero? && changes[counter] && changes[counter].first > 0
         self.status = :planned
       end
-    end
-
-    # указали число эпизодов, равно числу эпиздов в аниме - помечаем просмотренным
-    if self[counter] == target[counter] && self[counter] > 0 && changes['status'].nil?
-      self.status = :completed
-
-      # для манги устанавливаем в максимум второй счётчик
-      self.chapters = target.chapters if counter == 'volumes'
-      self.volumes = target.volumes if counter == 'chapters'
     end
   end
 

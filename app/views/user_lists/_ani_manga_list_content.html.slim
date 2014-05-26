@@ -49,7 +49,7 @@
 
         td class="num #{:hoverable if @user.own_profile?}"
           span.current-value data-field='score' data-max="10" data-min="0"
-            = user_rate.score || '&ndash;'.html_safe
+            = user_rate.score.zero? ? '&ndash;'.html_safe : user_rate.score
 
         - if anime?
           td class="num #{:hoverable if @user.own_profile?}"

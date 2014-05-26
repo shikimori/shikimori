@@ -14,14 +14,6 @@ class UserRateDecorator < BaseDecorator
     end
   end
 
-  def score_line
-    if score && score > 0
-      "<p class='score'>#{score_name}<span>#{score}<span></p>".html_safe
-    else
-      "<p class='score empty'>оценки нет</p>".html_safe
-    end
-  end
-
   # user list page
   def target_name
     h.localized_name(target)

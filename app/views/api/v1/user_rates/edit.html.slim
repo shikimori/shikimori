@@ -12,6 +12,6 @@
   = f.input :text, as: :text
 
   div
-    input.remove.button type="button" data-remote="true" data-action="#{api_user_rate_url f.object}" data-method="delete" value="Удалить из списка"
     = f.submit 'Сохранить'
     .cancel Отмена
+    input.remove.button type="button" data-remote="true" data-action="#{api_user_rate_url f.object}" data-method="delete" value="Удалить из списка"

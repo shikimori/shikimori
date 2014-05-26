@@ -1,3 +1,4 @@
+# TODO: выпилить этот контроллер после 2014-07-01
 class UserRatesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :fetch_rate

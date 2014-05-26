@@ -3,6 +3,9 @@ class Api::V1::UserRatesController < Api::V1::ApiController
 
   respond_to :json
 
+  def edit
+  end
+
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, "/user_rates", "Create an user rate"
   param :user_rate, Hash do

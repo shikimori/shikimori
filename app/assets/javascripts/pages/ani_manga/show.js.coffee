@@ -89,9 +89,7 @@ $ ->
 
   # height fix for related anime
   names = $('.entry-block .name')
-  max_height = _.max(names.map(->
-    $(@).height()
-  ))
+  max_height = _.max names.map(-> $(@).height())
   $('.entry-block .name p').each ->
     $this = $(@)
     height = $this.height()
@@ -155,6 +153,10 @@ $ ->
           remote: false
           type: null
         .attr href: "#{$(@).data('href')}?redirect_to_back=true"
+
+  $('.menu-rate-block .item-edit').on 'ajax:success', (e, edit_html) ->
+    $('.menu-rate-block .rate-show').hide()
+    $('.menu-rate-block .rate-edit').html edit_html
 
   #$("#rate-status-form, #rate-episodes-form, #rate-volumes-form, #rate-chapters-form").bind("ajax:success", (e, data, status, xhr) ->
     #$this = $(@)
