@@ -1,1 +1,0 @@
-attributes :id, :name, :russian
