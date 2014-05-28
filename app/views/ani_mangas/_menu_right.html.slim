@@ -2,9 +2,9 @@
   .menu-block.menu-rate-block
     - if @entry.rate
       .buttons
-        span.item-edit data-remote="true" data-type="html" data-action="#{edit_api_user_rate_url @entry.rate}"
+        span.item-edit data-remote="true" data-type="html" data-action="#{edit_api_user_rate_url @entry.rate}?redirect_to_back=true"
     .subheadline Мой список
-    .subcontent
+    .subcontent.rate-container
       - if @entry.rate
         .rate-edit
         .rate-show
@@ -17,6 +17,15 @@
                 span.total-episodes
                   = @entry.episodes
               - if @entry.rate.episodes != @entry.episodes
+                a.item-add.increment data-href="#{increment_api_user_rate_url @entry.rate}" data-method="post"
+            - else
+              span.current-episodes = @entry.rate.chapters
+              - unless @entry.chapters.zero?
+                span.sep
+                  | /
+                span.total-episodes
+                  = @entry.chapters
+              - if @entry.rate.chapters != @entry.chapters
                 a.item-add.increment data-href="#{increment_api_user_rate_url @entry.rate}" data-method="post"
 
           .status = @entry.rate.status_name

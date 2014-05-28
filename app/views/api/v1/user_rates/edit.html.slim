@@ -1,5 +1,7 @@
-= simple_form_for [:api, @user_rate], remote: true, html: { 'data-type' => :json }, authenticity_token: true do |f|
+= simple_form_for [:api, @user_rate], remote: !params[:redirect_to_back].present?, html: { 'data-type' => :json }, authenticity_token: true do |f|
   = f.input :score, as: :select, collection: UserRateDecorator.scores_options
+  - if params[:redirect_to_back]
+    input type="hidden" name="redirect_to_back" value="true"
 
   - if f.object.anime?
     = f.input :episodes

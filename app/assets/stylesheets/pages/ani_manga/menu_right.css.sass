@@ -1,3 +1,4 @@
+@import compass/css3/transition
 @import globals
 @import globals/fonts
 
@@ -67,7 +68,9 @@
   .add-to-list
     +normal-link
 
-  .subcontent
+  .rate-container
+    +transition(height 0.3s ease)
+    overflow: hidden
     margin-right: 5px
 
   .item-edit
@@ -100,11 +103,17 @@
       width: 210px
 
   .rate-edit
+    display: none
+
     .b-input.integer input
       width: 45px
 
+    .remove
+      margin-top: 40px
+      display: block
+
     textarea
-      width: 205px
+      width: 195px
 
   //.status
     //float: left

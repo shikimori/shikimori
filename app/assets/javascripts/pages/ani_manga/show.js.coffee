@@ -15,7 +15,6 @@ build_history = ->
   # подгрузка тултипов истории
   history_load_triggered = false
 
-  #$node.hover(function() {
   $history_block.hover ->
     return  if history_load_triggered
     history_load_triggered = true
@@ -46,8 +45,8 @@ $ ->
   $(".slider-control").click (e) ->
     # we should ignore middle button click
     return if in_new_tab(e)
-    href = ($(@).children("a").attr("href") || $(@).children("span.link").data("href")).replace(/http:\/\/.*?\//, "/")
-    History.pushState null, null, href
+    href = ($(@).children("a").attr("href") || $(@).children("span.link").data("href"))
+    History.pushState null, null, href.replace(/http:\/\/.*?\//, "/")
     false
 
   $controls = $('.slider-control', '.animanga-right-menu')
@@ -98,36 +97,7 @@ $ ->
 
   names.height max_height
 
-  # rate
-  #$(".rate-statuses li").click ->
-    #$this = $(@)
-    #$("#rate_status").attr "value", $this.attr("id").match(/\d+/)[0]  if $this.attr("id").match(/rate-status/)
-    #$this.parents("form").submit()
-
-  #$("#rate-episodes,#rate-volumes,#rate-chapters").bind("change blur", (e) ->
-    #$this = $(@)
-    #return  if parseInt(@value, 10) is parseInt($this.data("counter"), 10)
-    #$this.data "counter", parseInt(@value, 10)
-    #$this.parents("form").submit()
-  #).bind("mousewheel", (e) ->
-    #return true  unless $(@).is(":focus")
-    #if e.originalEvent.wheelDelta and e.originalEvent.wheelDelta > 0
-      #@value = parseInt(@value, 10) + 1
-    #else @value = parseInt(@value, 10) - 1  if e.originalEvent.wheelDelta and parseInt(@value, 10) > 1
-    #false
-  #).bind("keydown", (e, inc) ->
-    #if e.keyCode is 38 or inc
-      #@value = parseInt(@value, 10) + 1
-    #else if e.keyCode is 40 and parseInt(@value, 10) > 1
-      #@value = parseInt(@value, 10) - 1
-    #else if e.keyCode is 27
-      #@value = $(@).data("counter")
-      #$(@).trigger "blur"
-  #).bind "keypress", (e) ->
-    #if e.keyCode is 13
-      #$(@).trigger "blur"
-      #false
-
+  # клик по добавлению в свой список
   $('.menu-rate-block .add-to-list').on 'click', ->
     $(@).closest('form').submit()
 
@@ -154,60 +124,33 @@ $ ->
           type: null
         .attr href: "#{$(@).data('href')}?redirect_to_back=true"
 
+  # клик на изменение user_rate - подгрузка и показ формы
   $('.menu-rate-block .item-edit').on 'ajax:success', (e, edit_html) ->
-    $('.menu-rate-block .rate-show').hide()
-    $('.menu-rate-block .rate-edit').html edit_html
+    $show = $('.menu-rate-block .rate-show')
+    $show
+      .data(height: $show.height())
+      .hide()
 
-  #$("#rate-status-form, #rate-episodes-form, #rate-volumes-form, #rate-chapters-form").bind("ajax:success", (e, data, status, xhr) ->
-    #$this = $(@)
-    #if $this.attr("id") is "rate-episodes-form" or $this.attr("id") is "rate-volumes-form" or $this.attr("id") is "rate-chapters-form"
-      #$("#rate-episodes").attr("value", data.episodes).data "counter", parseInt(data.episodes, 10)
-      #$("#rate-volumes").attr("value", data.volumes).data "counter", parseInt(data.volumes, 10)
-      #$("#rate-chapters").attr("value", data.chapters).data "counter", parseInt(data.chapters, 10)
-      #$("#rate-status-" + data.status).trigger "status:select"
-    #else
-      #$("#rate-status-" + data.status).trigger "status:select"
-      #$("#rate-episodes").attr("value", data.episodes).data "counter", parseInt(data.episodes, 10)
-      #$("#rate-volumes").attr("value", data.volumes).data "counter", parseInt(data.volumes, 10)
-      #$("#rate-chapters").attr("value", data.chapters).data "counter", parseInt(data.chapters, 10)
-  #).bind "ajax:failure", ->
-    #$(".add-to-list", @).removeClass "active"
+    $edit = $('.menu-rate-block .rate-edit')
+    $edit
+      .html(edit_html)
+      .data(height: $edit.height())
+      .show()
 
-  ## добавление в список
-  #$("#rate-add").bind "ajax:success", (e, data, status, xhr) ->
-    #$this = $(@)
+    $('.menu-rate-block .rate-container').css height: $show.data('height')
+    (-> $('.menu-rate-block .rate-container').css height: $edit.data('height')).delay()
 
-    ## дефолтные значения
-    #$("#rate-status-" + data.status).trigger "status:select"
-    #$("#rate-episodes").attr("value", data.episodes).data "counter", parseInt(data.episodes, 10)
-    #$("#rate-volumes").attr("value", data.volumes).data "counter", parseInt(data.volumes, 10)
-    #$("#rate-chapters").attr("value", data.chapters).data "counter", parseInt(data.chapters, 10)
-    #$("#rate-rate").html data.rate_content
-    #$(".animanga-right-menu .scores-user").data("rateable-initialized", false).makeRateble()
+  # отмена редактирования user_rate
+  $('.menu-rate-block').on 'click', '.cancel', ->
+    $show = $('.menu-rate-block .rate-show').show()
+    $edit = $('.menu-rate-block .rate-edit').hide()
 
-    ## скрыть себя, показать другую кнопку и показать блок статуса
-    #$this.parents("li").hide()
-    #$("#rate-del").parents("li").show()
-    #$("#rate-block").show().yellowFade true
-
-  ## удаление из списка
-  #$("#rate-del").bind "ajax:success", (e, data, status, xhr) ->
-    #$this = $(@)
-
-    ## скрыть себя, показать другую кнопку и скрыть блок статуса
-    #$this.parents("li").hide()
-    #$("#rate-add").parents("li").show()
-    #$("#rate-block").hide()
-
-  #$(".rate-statuses li").bind "status:select", ->
-    #$(@).addClass("selected").siblings().removeClass "selected"
+    $('.menu-rate-block .rate-container').css
+      height: $show.data('height')
 
   # user ratings
   $scores_user = $(".animanga-right-menu .scores-user")
   $(".animanga-right-menu .scores-user").makeRateble() if $scores_user.is(":visible")
-
-# высота правого меню
-#$('.menu-right').height($('.menu-right-inner').height());
 
 # клик по заголовку аниме
 $(".anime-title a").live "click", ->
