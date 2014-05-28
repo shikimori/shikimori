@@ -42,68 +42,6 @@
           = f.input :target_type, as: :hidden
           span.add-to-list Добавить в список
 
-    /.subcontent
-      /- if @entry.rate
-        = @entry.rate.status_line
-        = @entry.rate.score_line
-      /- else
-        p.add-to-list data-remote="true" action="#{@entry.rate_url}" data-method="post" data-type="json" Добавить в список
-    /#rate-block.user-rate-block style="#{'display: none;' unless @entry.rate}"
-      /.subheadline Мой список
-      /= simple_form_for [:api, @entry.rate || @entry.rates.build(user_id: current_user.id)], html: { autocomplete: 'off', class: 'subcontent' } do |f|
-        /= f.input :user_id, as: :hidden
-        /= f.input :target_id, as: :hidden
-        /= f.input :target_type, as: :hidden
-
-        /= f.input :status, collection: UserRate.statuses
-
-        //ul.block-list.rate-statuses
-          /- UserRateStatus.statuses.each do |status|
-            /li id="rate-status-#{status[:id]}" class="#{'selected' if @entry.rate && @entry.rate.status == status[:id]}"
-              /span
-                /= t "#{@entry.object.class.name}RateStatus.#{status[:name]}"
-
-        /- if @entry.respond_to? :episodes
-          /p.m2 style="#{'display: none;' if @entry.kind == 'Movie' && (!@entry.episodes || @entry.episodes == 1)}"
-            //span.key Просмотрено:
-            //= text_field_tag 'user_rate[episodes]', f.object.episodes, id: 'rate-episodes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => f.object.episodes
-            /= f.input :episodes, as: :string, label: 'Эпизодов просмотрено', input_html: { 'data-counter' => f.object.episodes }
-            //- unless @entry.episodes.zero?
-              /span.sep
-                /| /
-              /span.total-episodes
-                /= @entry.episodes
-            //span.item-add
-
-        /- elsif @entry.respond_to? :chapters
-          /p.m2
-            /span.key Главы:
-            /= text_field_tag 'user_rate[chapters]', f.object.chapters, id: 'rate-chapters', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => f.object.episodes
-            /- unless @entry.chapters.zero?
-              /span.sep
-                /| /
-              /= @entry.chapters
-            /span.item-add
-
-          /- if current_user.preferences.volumes_in_manga?
-            /p.m2
-              /span.key Тома:
-              /= text_field_tag 'user_rate[volumes]', f.object.volumes, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => f.object.volumes
-              /- unless @entry.volumes.zero?
-                /span.sep
-                  /| /
-                /= @entry.volumes
-              /span.item-add
-
-        /= f.input :score, collection: UserRate.scores
-
-        //p.m2
-          /span.key Моя оценка:
-        //.rate-block
-            /= f.input :score, as: :hidden
-            /#rate-rate.scores-user
-              /= render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }
-
 nav.menu-block
   .subheadline Разделы
   ul.block-list.sections
