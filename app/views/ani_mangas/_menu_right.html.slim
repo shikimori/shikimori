@@ -34,6 +34,9 @@
             = f.input :score, as: :hidden
             .scores-user
               = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }
+
+          p.note = @entry.rate.text
+
       - else
         = simple_form_for [:api, @entry.rates.build(user_id: current_user.id)] do |f|
           input type="hidden" name="redirect_to_back" value="true"
