@@ -41,7 +41,7 @@ describe ReadMangaParser do
         source: 'http://animanga.ru',
         score: 9.36,
         kind: 'One Shot',
-        vol_url: '/hibiutsuroi/vol0/0?mature=1',
+        read_first_url: '/hibiutsuroi/vol0/0?mature=1',
       }
     end
 
@@ -66,7 +66,7 @@ describe ReadMangaParser do
         source: 'http://animanga.ru',
         score: 9.22,
         kind: 'Manga',
-        vol_url: '/home_tutor_hitman_reborn/vol0/0?mature=1',
+        read_first_url: '/home_tutor_hitman_reborn/vol0/0?mature=1',
       }
     end
 

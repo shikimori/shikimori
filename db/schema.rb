@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506210341) do
+ActiveRecord::Schema.define(version: 20140530131206) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -58,12 +58,10 @@ ActiveRecord::Schema.define(version: 20140506210341) do
   add_index "anime_links", ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true, using: :btree
 
   create_table "anime_video_authors", force: true do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", unique: true, using: :btree
 
   create_table "anime_video_reports", force: true do |t|
     t.integer  "anime_video_id"
@@ -422,7 +420,6 @@ ActiveRecord::Schema.define(version: 20140506210341) do
   add_index "entries", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
   add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
-  add_index "entries", ["updated_at"], name: "i_updated_at", using: :btree
   add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
 
   create_table "entry_views", force: true do |t|
@@ -535,6 +532,16 @@ ActiveRecord::Schema.define(version: 20140506210341) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
+
+  create_table "manga_chapters", force: true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "manga_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "manga_chapters", ["manga_id"], name: "index_manga_chapters_on_manga_id", using: :btree
 
   create_table "mangas", force: true do |t|
     t.string   "name"
