@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530131206) do
+ActiveRecord::Schema.define(version: 20140530165128) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -542,6 +542,16 @@ ActiveRecord::Schema.define(version: 20140530131206) do
   end
 
   add_index "manga_chapters", ["manga_id"], name: "index_manga_chapters_on_manga_id", using: :btree
+
+  create_table "manga_pages", force: true do |t|
+    t.string   "url"
+    t.integer  "number"
+    t.integer  "manga_chapter_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "manga_pages", ["manga_chapter_id"], name: "index_manga_pages_on_manga_chapter_id", using: :btree
 
   create_table "mangas", force: true do |t|
     t.string   "name"
