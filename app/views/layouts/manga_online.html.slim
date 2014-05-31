@@ -1,0 +1,10 @@
+DOCTYPE html
+html
+  = render partial: 'site/head'
+  body.manga_online
+    header.header
+      = render partial: 'manga_online/main_menu'
+
+    .page
+      = yield
+

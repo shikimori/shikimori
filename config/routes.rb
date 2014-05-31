@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
+  constraints MangaOnlineDomain do
+    get '/', to: 'manga_online/mangas#index'
+  end
+
   constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/anime_videos#index'
     namespace :anime_online do

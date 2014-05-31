@@ -10,18 +10,20 @@ class MangaOnline::ReadMangaService
     source_id = @manga.read_manga_id.sub 'rm_', ''
     entry = ReadMangaParser.new.fetch_entry source_id
     chapters = MangaOnline::ReadMangaChaptersParser.new(@manga.id, entry[:read_first_url], @no_proxy).chapters
+
     print "Find #{chapters.count} chpaters ----------------------------\n\n" unless Rails.env.test?
     db_chapters = MangaOnline::ReadMangaChaptersImporter.new(chapters).save
+
     db_chapters.each do |chapter|
       print "Process chapter: #{chapter.name} ------------------------------\n\n" unless Rails.env.test?
-      #next unless chapter.page.blank?
       pages = MangaOnline::ReadMangaPagesParser.new(chapter, @no_proxy).pages
+
       print "Find #{chapters.count} pages ----------------------------------\n\n" unless Rails.env.test?
       db_pages = MangaOnline::ReadMangaPagesImporter.new(pages).save
       db_pages.each do |page|
         unless page.image_file_name
           page.load_image
-          sleep 1
+          sleep 2
         end
       end
     end
