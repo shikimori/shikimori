@@ -7,3 +7,4 @@ chapters = MangaOnline::ReadMangaChaptersParser.new(manga.id, entry[:read_first_
 db_chapters = MangaOnline::ReadMangaChaptersImporter.new(chapters).save
 
 pages = MangaOnline::ReadMangaPagesParser.new(MangaChapter.first, true).pages
+db_pages = MangaOnline::ReadMangaPagesImporter.new(pages).save

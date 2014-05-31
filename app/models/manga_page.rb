@@ -17,10 +17,12 @@ class MangaPage < ActiveRecord::Base
   def load_image
     #self.image = open_image url
     #self.save
-    image = open_image url
-    Dir.mkdir path_manga unless Dir.exists? path_manga
-    Dir.mkdir path_chapter unless Dir.exists? path_chapter
-    File.open(path, 'wb+') { |f| f.write image.read }
+    unless File.exists? path
+      image = open_image url
+      Dir.mkdir path_manga unless Dir.exists? path_manga
+      Dir.mkdir path_chapter unless Dir.exists? path_chapter
+      File.open(path, 'wb+') { |f| f.write image.read }
+    end
     self.update image_file_name: path
   end
 

@@ -32,5 +32,6 @@ describe Manga do
     it { should have_attached_file :image }
 
     it { should have_many :recommendation_ignores }
+    it { should have_many :chapters }
   end
 end
