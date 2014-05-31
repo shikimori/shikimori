@@ -1,7 +1,6 @@
 class MangaOnline::ReadMangaService
-  def initialize manga, no_proxy=false, force_update=false
+  def initialize manga, no_proxy=false
     @manga = manga
-    @force_update = force_update
     @no_proxy = no_proxy
   end
 
@@ -23,7 +22,7 @@ class MangaOnline::ReadMangaService
       db_pages.each do |page|
         unless page.image_file_name
           page.load_image
-          sleep 2
+          sleep 2 if Rails.env.development?
         end
       end
     end
