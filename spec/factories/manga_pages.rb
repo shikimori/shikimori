@@ -1,9 +1,11 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :manga_page do
-    url "MyString"
+    url 'http://test.com/page1'
     number 1
     chapter nil
+
+    after :build do |page|
+      page.chapter = build_stubbed(:manga_chapter) unless page.manga_chapter_id
+    end
   end
 end
