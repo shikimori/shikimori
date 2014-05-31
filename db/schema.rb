@@ -547,6 +547,7 @@ ActiveRecord::Schema.define(version: 20140530165128) do
     t.string   "url"
     t.integer  "number"
     t.integer  "manga_chapter_id"
+    t.string   "image_file_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
