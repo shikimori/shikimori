@@ -1,4 +1,4 @@
-class UserStatisticsService
+class UserStatistics
   attr_accessor :settings
   attr_accessor :anime_rates, :manga_rates
   attr_accessor :seasons
