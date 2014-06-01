@@ -28,10 +28,10 @@ class UserStatisticsService
     @anime_history = @user
       .history
       .where(target_type: Anime.name)
-      .where("action in (?) or (action = ? and value = ?)",
+      .where("action in (?) or (action = ? and value in (?))",
               [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore],
-              UserHistoryAction::Status, UserRate.statuses[:complete])
-
+              UserHistoryAction::Status,
+              [UserRate.statuses[:completed], UserRate.statuses[:rewatching]])
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
 
     @manga_rates = @user
@@ -45,9 +45,10 @@ class UserStatisticsService
     @manga_history = @user
       .history
       .where(target_type: Manga.name)
-      .where("action in (?) or (action = ? and value = ?)",
+      .where("action in (?) or (action = ? and value in (?))",
               [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore],
-              UserHistoryAction::Status, UserRate.statuses[:completed])
+              UserHistoryAction::Status,
+              [UserRate.statuses[:completed], UserRate.statuses[:rewatching]])
   end
 
   # формирование статистики
@@ -123,15 +124,14 @@ private
     return {} if histories.empty?
 
     # минимальная дата старта статистики
-    if @settings.statistics_start_on
-      histories.select! { |v| v.created_at >= @settings.statistics_start_on }
-    end
+    histories.select! { |v| v.created_at >= @settings.statistics_start_on } if @settings.statistics_start_on
 
-    imported = Set.new histories.select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
-        .group_by { |v| v.updated_at.strftime DateFormat }
-        .select { |k,v| v.size > 15 }
-        .values.flatten
-        .map(&:id)
+    imported = Set.new histories
+      .select {|v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
+      .group_by {|v| v.updated_at.strftime DateFormat }
+      .select {|k,v| v.size > 15 }
+      .values.flatten
+      .map(&:id)
 
     # заполняем кеш начальными данными
     cache = rates.each_with_object({}) do |v,rez|
@@ -156,7 +156,7 @@ private
 
     0.upto(intervals).map do |num|
       from = start_date + (distance*num).seconds
-      to = from + distance.seconds + 1.second
+      to = from + distance.seconds - (num == intervals ? 0 : 1.second)
 
       next if from > DateTime.now || from > end_date + 1.hour
 
@@ -164,14 +164,29 @@ private
 
       spent_time = 0
 
+      #z=history
+      #1/0 if num == 42
+      #1/0 if z.any? && z.first.id != 3585457 && z.first.id != 3585459
+
       history.each do |entry|
         cached = cache["#{entry.target_id}#{entry.target_type}"]
-        #ap entry
-        #ap cached
+
+        # запись о начале пересмотра - сбрасывем счётчик
+        if entry.action == UserHistoryAction::Status && entry.value.to_i == UserRate.status_id(:rewatching)
+          cached[:completed]
+          next
+        end
 
         entry_time = cached[:duration]/60.0 * if entry.action == UserHistoryAction::CompleteWithScore || entry.action == UserHistoryAction::Status
-          # бывает ситуация, когда точное число эпизодов не известно и completed > episodes, в таком случае берём сбсолютное значение
-          (cached[:episodes] - cached[:completed]).abs
+          completed = cached[:completed]
+
+          # запись о завершении просмотра - ставим счётчик просмотренного на общее число эпизодов
+          if entry.action == UserHistoryAction::Status && entry.value.to_i == UserRate.status_id(:completed)
+            cached[:completed] = cached[:episodes]
+          end
+
+          # бывает ситуация, когда точное число эпизодов не известно и completed > episodes, в таком случае берём абсолютное значение
+          (cached[:episodes] - completed).abs
         else
           episodes = entry.value.split(',').map(&:to_i)
           episodes.unshift(entry.prior_value.to_i+1)
@@ -213,72 +228,11 @@ private
         value: spent_time.ceil
       }
     end.compact
-
-    #{
-      #type: 'anime',
-      #stats: stats
-    #}
   end
-
-  # статистика по интервалам
-  #def by_interval(crirteria, variants, intervals, with_increment)
-    #rates = @anime_rates
-
-    #return if rates.empty?
-    #start_date = rates.map { |v| v.updated_at }.min.to_datetime
-    #end_date = rates.map { |v| v.updated_at }.max.to_datetime
-
-    #distance_in_days = (end_date - start_date).to_i
-    #interval_in_days = [distance_in_days / intervals, 1].max
-
-    #stats = {
-      #categories: [],
-      #series: variants.each_with_object({}) { |v,rez| rez[v] = { data: [], name: v } }
-    #}
-
-    #prior_data = nil
-    #0.upto(intervals).each do |num|
-      #date = start_date + (interval_in_days*num).days
-      #break if date > DateTime.now
-      ## катеогрии - даты
-      #stats[:categories] << date.strftime('%d/%m')
-
-      ## накапливаем статистику в темповую переменную
-      #tmp_data = variants.each_with_object({}) { |v,rez| rez[v] = 0 }
-      #rates.select { |v| v.updated_at <= date + 24.hours }.each do |rate|
-        #tmp_data[rate[:kind]] += 1 if tmp_data[rate[:kind]].present?
-      #end
-
-      ## и затем скидываем всё
-      #tmp_data.each do |k,v|
-        #stats[:series][k][:data] << (prior_data && with_increment ? [v - prior_data[k], 0].max : v)
-      #end
-      #prior_data = tmp_data
-    #end
-    ## т.к. в итоге должен быть словарь, а не хеш
-    #stats[:series] = stats[:series].values
-
-    #stats
-  #end
 
   # статистика по определённому критерию
   def by_criteria criteria, variants, i18n = nil, filter = -> v { true }
     [{klass: Anime, rates: @anime_valuable_rates}, {klass: Manga, rates: @manga_valuable_rates}].each_with_object({}) do |stat, rez|
-      #next unless @settings.send("#{stat[:klass].name.downcase}?")
-
-      #entry = {
-        #type: stat[:klass].name.downcase.to_sym,
-        #stats: variants.map do |variant|
-          #value = stat[:rates].select { |v| filter.(v) }.select {|v| v[criteria] == variant }.size
-          #next if value == 0
-
-          #{
-            #name: i18n ? I18n.t(i18n.sub(':klass', stat[:klass].name) % variant) : variant,
-            #value: value
-          #}
-        #end.compact
-      #}
-      #entry[:total] = entry[:stats].sum {|v| v[:value] }
       entry = variants.map do |variant|
         value = stat[:rates].select { |v| filter.(v) }.select {|v| v[criteria] == variant }.size
         next if value == 0
