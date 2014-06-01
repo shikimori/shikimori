@@ -24,7 +24,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     @user_rate.save
 
     if params[:redirect_to_back]
-      redirect_to :back
+      redirect_to :back, notice: 'Добавлено в список'
     else
       respond_with @user_rate, location: nil
     end
@@ -70,7 +70,13 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   api :DELETE, "/user_rates/:id", "Destroy an user rate"
   def destroy
     @user_rate.destroy!
-    respond_with @user_rate, location: nil
+
+    if params[:redirect_to_back]
+      redirect_to :back, notice: 'Удалено из списка'
+    else
+      respond_with @user_rate, location: nil
+    end
+
   end
 
   # очистка списка и истории

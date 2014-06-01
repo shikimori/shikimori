@@ -6,7 +6,7 @@ class UserRate < ActiveRecord::Base
   MAXIMUM_EPISODES = 2000
   MAXIMUM_SCORE = 10
 
-  enum status: { planned: 0, watching: 1, completed: 2, on_hold: 3, dropped: 4, rewatching: 9 }
+  enum status: { planned: 0, watching: 1, rewatching: 9, completed: 2, on_hold: 3, dropped: 4 }
 
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
@@ -74,6 +74,10 @@ private
     self.episodes = target.episodes if anime? && completed?
     self.volumes = target.volumes if manga? && completed?
     self.chapters = target.chapters if manga? && completed?
+
+    self.episodes = 0 if anime? && rewatching? && (!changes['episodes'] || changes['episodes'].first.nil?)
+    self.volumes = 0 if manga? && rewatching? && (!changes['volumes'] || changes['volumes'].first.nil?)
+    self.chapters = 0 if manga? && rewatching? && (!changes['chapters'] || changes['chapters'].first.nil?)
   end
 
   # логика обновления полей при выставлении оценки
@@ -98,6 +102,7 @@ private
 
     # указали число эпизодов равным числу эпиздов в аниме - помечаем просмотренным
     if self[counter] == target[counter] && self[counter] > 0 && changes['status'].nil?
+      self.rewatches += 1 if rewatching?
       self.status = :completed
 
       # для манги устанавливаем в максимум второй счётчик
@@ -107,12 +112,12 @@ private
 
     if changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
-      if self[counter] > 0 && changes[counter].first.zero? && changes['status'].nil?
+      if self[counter] > 0 && changes[counter].first.zero? && changes['status'].nil? && !rewatching?
         self.status = :watching
       end
 
       # перевели с какой-то цифры в ноль - помечаем, что перенесли в запланированное
-      if self[counter].zero? && changes[counter] && changes[counter].first > 0
+      if self[counter].zero? && changes[counter] && changes[counter].first > 0 && !rewatching?
         self.status = :planned
       end
     end
@@ -149,13 +154,4 @@ private
   def log_deleted
     UserHistory.add user, target, UserHistoryAction::Delete
   end
-
-  ## текущие статусы
-  #def statuses
-    #if completed? || rewatching?
-      #UserRate.statuses.except(:watching)
-    #else
-      #UserRate.statuses.except(:rewatching)
-    #end
-  #end
 end

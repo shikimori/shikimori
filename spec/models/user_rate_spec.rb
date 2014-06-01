@@ -100,68 +100,99 @@ describe UserRate do
     end
 
     describe :status_changed do
-      subject!(:user_rate) { create :user_rate, status, target: target }
       before do
         expect(UserHistory).to receive(:add).with(
           user_rate.user,
           user_rate.target,
           UserHistoryAction::Status,
-          UserRate.statuses[:planned],
-          build_stubbed(:user_rate, status)[:status]
+          UserRate.statuses[new_status],
+          UserRate.statuses[old_status]
         )
 
-        user_rate.update status: :planned
       end
+      subject(:user_rate) { create :user_rate, old_status, target: target }
+      let(:update_params) {{ status: new_status }}
+      before { user_rate.update update_params }
 
-      context :anime do
-        let(:target) { build_stubbed :anime, episodes: 20 }
+      describe 'to planned' do
+        let(:new_status) { :planned }
 
-        context :completed do
-          let(:status) { :completed }
-          its(:episodes) { should eq target.episodes }
+        context :anime do
+          let(:target) { build_stubbed :anime, episodes: 20 }
+
+          context :completed do
+            let(:old_status) { :completed }
+            its(:episodes) { should eq target.episodes }
+          end
+
+          context :watching do
+            let(:old_status) { :watching }
+            its(:episodes) { should eq 0 }
+          end
         end
 
-        context :watching do
-          let(:status) { :watching }
+        context :manga do
+          let(:target) { build_stubbed :manga, volumes: 20, chapters: 25 }
+
+          context :completed do
+            let(:old_status) { :completed }
+            its(:volumes) { should eq target.volumes }
+            its(:chapters) { should eq target.chapters }
+          end
+
+          context :watching do
+            let(:old_status) { :watching }
+            its(:volumes) { should eq 0 }
+            its(:chapters) { should eq 0 }
+          end
+        end
+      end
+
+      context 'to rewatching' do
+        let(:old_status) { :completed }
+        let(:new_status) { :rewatching }
+
+        context :anime do
+          let(:target) { build_stubbed :anime, episodes: 20 }
           its(:episodes) { should eq 0 }
         end
-      end
 
-      context :manga do
-        let(:target) { build_stubbed :manga, volumes: 20, chapters: 25 }
-
-        context :completed do
-          let(:status) { :completed }
-          its(:volumes) { should eq target.volumes }
-          its(:chapters) { should eq target.chapters }
-        end
-
-        context :watching do
-          let(:status) { :watching }
+        context :manga do
+          let(:target) { build_stubbed :manga, volumes: 20, chapters: 20 }
           its(:volumes) { should eq 0 }
           its(:chapters) { should eq 0 }
         end
       end
+
+      context 'to rewatching with episodes' do
+        let(:target) { build_stubbed :anime, episodes: 20 }
+        let(:old_status) { :completed }
+        let(:new_status) { :rewatching }
+        let(:new_episodes) { 10 }
+        let(:update_params) {{ status: new_status, episodes: new_episodes }}
+
+        its(:episodes) { should eq new_episodes }
+      end
     end
 
     describe :score_changed do
-      subject!(:user_rate) { create :user_rate, score: initial_value }
-      let(:initial_value) { 5 }
+      subject!(:user_rate) { create :user_rate, score: old_value }
+      let(:old_value) { 5 }
 
       context :nil_value do
-        let(:initial_value) { 0 }
+        let(:old_value) { 0 }
         let(:new_value) { nil }
 
         before { expect(UserHistory).to_not receive :add }
         before { user_rate.update score: new_value }
 
-        its(:score) { should eq initial_value }
+        its(:score) { should eq old_value }
       end
 
       context :regular_change do
         let(:new_value) { 8 }
 
-        before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Rate, new_value, initial_value }
+        before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Rate, new_value, old_value }
         before { user_rate.update score: new_value }
 
         its(:score) { should eq new_value }
@@ -173,7 +204,7 @@ describe UserRate do
         before { expect(UserHistory).to_not receive :add }
         before { user_rate.update score: new_value }
 
-        its(:score) { should eq initial_value }
+        its(:score) { should eq old_value }
       end
 
       context :big_value do
@@ -182,14 +213,15 @@ describe UserRate do
         before { expect(UserHistory).to_not receive :add }
         before { user_rate.update score: new_value }
 
-        its(:score) { should eq initial_value }
+        its(:score) { should eq old_value }
       end
     end
 
     describe :counter_changed do
-      subject!(:user_rate) { create :user_rate, target: target, episodes: initial_value, volumes: initial_value, chapters: initial_value }
+      subject!(:user_rate) { create :user_rate, target: target, episodes: old_value, volumes: old_value, chapters: old_value, status: old_status }
 
-      let(:initial_value) { 1 }
+      let(:old_value) { 1 }
+      let(:old_status) { :planned }
       let(:target_value) { 99 }
 
       context :anime do
@@ -200,7 +232,7 @@ describe UserRate do
           before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Episodes, newest_value, new_value }
           before { user_rate.update episodes: 7 }
 
-          let(:initial_value) { 3 }
+          let(:old_value) { 3 }
           let(:new_value) { 5 }
           let(:newest_value) { 7 }
 
@@ -210,7 +242,7 @@ describe UserRate do
         context :maximum_number do
           let(:target_value) { 0 }
           let(:new_value) { UserRate::MAXIMUM_EPISODES + 1 }
-          its(:episodes) { should eq initial_value }
+          its(:episodes) { should eq old_value }
         end
 
         context :nil_number do
@@ -229,22 +261,42 @@ describe UserRate do
           its(:episodes) { should eq target.episodes }
         end
 
-        context :full_watch do
+        context :started_watching do
+          let(:old_value) { 0 }
+          let(:new_value) { 5 }
+          its(:watching?) { should be true }
+        end
+
+        context :finished_watching do
           let(:new_value) { target_value }
           its(:episodes) { should eq target_value }
           its(:completed?) { should be true }
         end
 
-        context :starting_watching do
-          let(:initial_value) { 0 }
-          let(:new_value) { 5 }
-          its(:watching?) { should be true }
-        end
-
         context :stopped_watching do
-          let(:initial_value) { 1 }
+          let(:old_value) { 1 }
           let(:new_value) { 0 }
           its(:planned?) { should be true }
+        end
+
+        context :rewatching do
+          let(:old_status) { :rewatching }
+
+          context :started_watching do
+            let(:old_value) { 0 }
+            let(:new_value) { 1 }
+
+            its(:episodes) { should eq new_value }
+            its(:rewatching?) { should be true }
+          end
+
+          context :finished_watching do
+            let(:new_value) { target_value }
+
+            its(:episodes) { should eq target_value }
+            its(:rewatches) { should eq 1 }
+            its(:completed?) { should be true }
+          end
         end
       end
 

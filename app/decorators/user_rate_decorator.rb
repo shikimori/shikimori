@@ -10,7 +10,7 @@ class UserRateDecorator < BaseDecorator
 
   def self.statuses_options target_type
     UserRate.statuses.map do |status_name, status_id|
-      [UserRate.status_name(status_name, target_type), status_id]
+      [UserRate.status_name(status_name, target_type), status_name]
     end
   end
 

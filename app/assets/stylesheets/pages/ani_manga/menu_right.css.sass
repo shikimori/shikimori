@@ -96,8 +96,12 @@
       width: 45px
 
     .remove
-      margin-top: 40px
-      display: block
+      +clearfix
+      margin-bottom: 10px
+
+      a
+        +normal-link
+        float: right
 
     textarea
       width: 195px
