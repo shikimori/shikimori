@@ -22,7 +22,7 @@ class UserListParser
 private
   def extract_xml file
     if file.respond_to?(:read)
-      if original_filename.respond_to?(:original_filename) && file.original_filename =~ /\.gz$/
+      if file.respond_to?(:original_filename) && file.original_filename =~ /\.gz$/
         Zlib::GzipReader.open(file.tempfile).read
       else
         file.read

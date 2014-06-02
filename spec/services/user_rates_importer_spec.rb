@@ -12,7 +12,8 @@ describe UserRatesImporter do
       status: anime_1_status,
       score: 5,
       id: anime_1_id,
-      episodes: 1
+      episodes: 1,
+      rewatches: 1,
     }, {
       status: UserRate.statuses[:completed],
       score: 8,

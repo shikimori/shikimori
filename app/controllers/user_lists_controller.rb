@@ -118,8 +118,13 @@ class UserListsController < UsersController
   def export
     raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
     type = params[:list_type]
-    @klass = type == 'anime' ? Anime : Manga
-    @list = @user.send("#{type}_rates")
+    if type == 'anime'
+      @klass = Anime
+      @list = @user.anime_rates.includes(:anime)
+    else
+      @klass = Manga
+      @list = @user.manga_rates.includes(:manga)
+    end
 
     response.headers['Content-Description'] = 'File Transfer';
     response.headers['Content-Disposition'] = "attachment; filename=#{type}list.xml";
@@ -147,7 +152,7 @@ class UserListsController < UsersController
       current_user.touch
       UserHistory.create(
         user_id: current_user.id,
-        action: UserHistoryAction.const_get("#{params[:list_type].to_sym == :mal ? 'Mal' : 'Ap'}#{klass.name}Import"),
+        action: UserHistoryAction.const_get("#{params[:list_type].to_sym == :mal || params[:list_type].to_sym == :xml ? 'Mal' : 'Ap'}#{klass.name}Import"),
         value: @added.size + @updated.size
       )
     end

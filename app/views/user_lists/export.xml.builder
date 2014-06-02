@@ -6,13 +6,19 @@ xml.myanimelist do
 
   @list.each do |entry|
     xml.tag! @klass.name.downcase do
-      if @klass == Manga
+      xml.series_title entry.target.name
+      xml.series_type entry.target.kind
+
+      if @klass == Anime
+        xml.series_episodes entry.target.episodes
+        xml.series_animedb_id entry.target_id
+        xml.my_watched_episodes entry.episodes
+      else
+        xml.series_volumes entry.target.volumes
+        xml.series_chapters entry.target.chapters
         xml.manga_mangadb_id entry.target_id
         xml.my_read_volumes entry.volumes
         xml.my_read_chapters entry.chapters
-      else
-        xml.series_animedb_id entry.target_id
-        xml.my_watched_episodes entry.episodes
       end
       xml.my_rewatches entry.rewatches
       xml.my_score entry.score || 0
