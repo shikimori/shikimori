@@ -18,10 +18,10 @@ module ApplicationHelper
       elsif fix_1_1 && date.day == 1
         Russian::strftime date, '%B %Y г.'
       else
-        Russian::strftime date, '%e %b %Y г.'
+        Russian::strftime(date, '%e %b %Y г.').strip
       end
     else
-      Russian::strftime date, '%e %B %Y г.'
+      Russian::strftime(date, '%e %B %Y г.').strip
     end
   end
 
