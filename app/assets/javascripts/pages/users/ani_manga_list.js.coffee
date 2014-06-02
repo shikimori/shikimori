@@ -144,7 +144,7 @@ $('tr.editable').live 'ajax:success', (e, html) ->
     $.flash notice: 'Изменения сохранены'
     $('.cancel', $tr_edit).click()
 
-    $('.current-value[data-field=score]', $tr).html String(data.score || '0').replace('0', '–')
+    $('.current-value[data-field=score]', $tr).html String(data.score || '0').replace(/^0$/, '–')
     $('.current-value[data-field=chapters]', $tr).html data.chapters
     $('.current-value[data-field=volumes]', $tr).html data.volumes
     $('.current-value[data-field=episodes]', $tr).html data.episodes
