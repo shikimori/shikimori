@@ -23,23 +23,23 @@ class MangaPage < ActiveRecord::Base
       Dir.mkdir path_chapter unless Dir.exists? path_chapter
       File.open(path, 'wb+') { |f| f.write image.read }
     end
-    self.update image_file_name: path
+    self.update! image_file_name: asset_path
   end
 
   def path
-    File.join path_chapter, "#{number}.jpg"
+    File.join Rails.root, 'public', asset_path
   end
 
-  def path_chapter
-    File.join path_manga, chapter.name
+  def asset_path
+    File.join 'images/manga_online', manga_id.to_s, chapter.name, "#{number}.jpg"
   end
 
-  def path_manga
-    File.join path_base, manga_id.to_s
+  def chapter_path
+    File.join manga_path, chapter.name
   end
 
-  def path_base
-    File.join(Rails.root, 'public/images/manga_online')
+  def manga_path
+    File.join Rails.root, 'public/images/manga_online', manga_id.to_s
   end
 
   def manga_id

@@ -1,0 +1,5 @@
+h1 = @manga.name
+ol
+  - @chapters.each do |chapter|
+    li
+      a href="#{online_manga_chapter_show_url chapter}" = chapter.name

@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Site::Application.routes.draw do
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
+    get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
+    get 'chapters/:id(/:page_number)' => 'manga_online/chapters#show', as: :online_manga_chapter_show
   end
 
   constraints AnimeOnlineDomain do

@@ -1,1 +1,4 @@
-p MANGA INDEX
+ul
+  - @mangas.each do |manga|
+    li
+      a href="#{online_manga_show_url manga.id}" = manga.name

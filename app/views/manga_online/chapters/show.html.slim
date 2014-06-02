@@ -1,0 +1,11 @@
+h1 = @chapter.name
+h2 = @page.number
+div
+  - unless @page == @chapter.pages.first
+    a href="#{online_manga_chapter_show_url @chapter, @page.number - 1}" prev
+
+  - unless @page == @chapter.pages.last
+    a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}" next
+
+div
+  img src="#{asset_path @page.image_file_name}"
