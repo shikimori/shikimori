@@ -43,6 +43,13 @@
           - elsif user_rate.target.anons?
             span.anons анонс
 
+          span.rewatches
+            - if user_rate.rewatches > 0
+              - if anime?
+                = "#{user_rate.rewatches} #{Russian.p user_rate.rewatches, 'пересмотр', 'пересмотра', 'пересмотров'}"
+              - else
+                = "#{user_rate.rewatches} #{Russian.p user_rate.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}"
+
           .rate-text
             - if user_rate.text.present?
               div = user_rate.text

@@ -13,7 +13,7 @@
     = f.input :volumes, input_html: { min: 0, max: f.object.target.volumes.zero? ? 999 : f.object.target.volumes }
 
   = f.input :status, collection: UserRateDecorator.statuses_options(f.object.target_type), include_blank: false
-  = f.input :rewatches
+  = f.input :rewatches, input_html: { min: 0 }
   = f.input :text, as: :text
 
   div
