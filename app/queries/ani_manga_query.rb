@@ -392,6 +392,9 @@ private
       when 'id'
         "#{klass.table_name}.id desc"
 
+      when 'rate_id'
+        "user_rates.id"
+
       when 'my', 'rate'
         "user_rates.score desc, #{klass.table_name}.name"
 

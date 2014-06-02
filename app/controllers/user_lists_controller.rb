@@ -28,7 +28,7 @@ class UserListsController < UsersController
 
     # полный список
     full_list = Rails.cache.fetch(user_list_cache_key) do
-      UserListQuery.new(@klass, @user, params).fetch
+      UserListQuery.new(@klass, @user, params.clone.merge(with_censored: true)).fetch
     end
     @list = prepare_list(full_list, @page, @limit)
     @add_postloader = @list.any? && (@list.keys.last != full_list.keys.last ||
@@ -291,7 +291,6 @@ private
   end
 
   def set_params
-    params[:with_censored] = true
     if @current_user && @current_user.preferences.russian_names? && params[:order] == 'name'
       params[:order] = 'russian'
     end
