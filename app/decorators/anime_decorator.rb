@@ -45,4 +45,13 @@ class AnimeDecorator < AniMangaDecorator
   def aired_on
     object.anons? && next_episode_at ? next_episode_at : object.aired_on
   end
+
+  # номер следующего эпизода для просмотра
+  def next_video_episode
+    if rate && !rate.completed?
+      rate.episodes + 1
+    else
+      1
+    end
+  end
 end
