@@ -47,6 +47,7 @@ class UserRatesImporter
 
       rate.status = entry[:status].to_i
       rate.score = entry[:score].to_i
+      rate.rewatches = entry[:rewatches].to_i
 
       # нельзя указать больше/меньше эпизодов,частей,томов для просмотренного, чем имеется в аниме/манге
       Counters.each do |counter|

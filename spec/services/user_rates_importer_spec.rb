@@ -13,7 +13,9 @@ describe UserRatesImporter do
       score: 5,
       id: anime_1_id,
       episodes: 1,
-      rewatches: 1,
+      rewatches: 2,
+      volumes: 7,
+      chapters: 8
     }, {
       status: UserRate.statuses[:completed],
       score: 8,
@@ -39,7 +41,15 @@ describe UserRatesImporter do
         expect(updated).to be_empty
         expect(not_imported).to be_empty
 
-        expect(user.reload.anime_rates).to have(2).items
+        rates = user.reload.anime_rates.to_a
+        expect(rates).to have(2).items
+        expect(rates.first.target_id).to eq anime_1_id
+        expect(rates.first).to be_watching
+        expect(rates.first.rewatches).to eq 2
+        expect(rates.first.score).to eq 5
+        expect(rates.first.episodes).to eq 1
+        expect(rates.first.volumes).to eq 7
+        expect(rates.first.chapters).to eq 8
       end
     end
 
