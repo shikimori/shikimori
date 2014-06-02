@@ -145,7 +145,8 @@ nav.menu-block
       li.edit-cancel
         span Отмена
 
-    - if @entry.display_sensitive?
+  - if @entry.display_sensitive?
+    .menu-block
       .subheadline На других сайтах
       ul.block-list.sites
         li
