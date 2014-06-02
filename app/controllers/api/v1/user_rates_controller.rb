@@ -3,6 +3,8 @@ class Api::V1::UserRatesController < Api::V1::ApiController
 
   respond_to :json
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, "/user_rates/:id/edit"
   def edit
   end
 
@@ -21,26 +23,12 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     param :volumes, :undef
   end
   def create
-    @user_rate.save
+    @user_rate.save rescue Mysql2::Error
 
     if params[:redirect_to_back]
       redirect_to :back, notice: 'Добавлено в список'
     else
       respond_with @user_rate, location: nil
-    end
-  end
-
-  def increment
-    if @user_rate.anime?
-      @user_rate.update episodes: @user_rate.episodes + 1
-    else
-      @user_rate.update chapters: @user_rate.chapters + 1
-    end
-
-    if params[:redirect_to_back]
-      redirect_to :back
-    else
-      respond_with @user_rate
     end
   end
 
@@ -63,6 +51,22 @@ class Api::V1::UserRatesController < Api::V1::ApiController
       redirect_to :back
     else
       respond_with @user_rate, location: nil
+    end
+  end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :POST, "/user_rates/:id/increment"
+  def increment
+    if @user_rate.anime?
+      @user_rate.update episodes: @user_rate.episodes + 1
+    else
+      @user_rate.update chapters: @user_rate.chapters + 1
+    end
+
+    if params[:redirect_to_back]
+      redirect_to :back
+    else
+      respond_with @user_rate
     end
   end
 

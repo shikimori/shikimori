@@ -535,15 +535,6 @@ Site::Application.routes.draw do
             get :manga_rates
           end
         end
-        namespace :profile do
-          resources :friends, only: [:index]
-          resources :clubs, only: [:index]
-          resources :favourites, only: [:index]
-          resources :messages, only: [:index] do
-            get :unread, on: :collection
-          end
-          resources :history, only: [:index, :show]
-        end
       end
     end
 
