@@ -15,7 +15,8 @@ describe UserRatesImporter do
       episodes: 1,
       rewatches: 2,
       volumes: 7,
-      chapters: 8
+      chapters: 8,
+      text: 'test'
     }, {
       status: UserRate.statuses[:completed],
       score: 8,
@@ -50,6 +51,7 @@ describe UserRatesImporter do
         expect(rates.first.episodes).to eq 1
         expect(rates.first.volumes).to eq 7
         expect(rates.first.chapters).to eq 8
+        expect(rates.first.text).to eq 'test'
       end
     end
 

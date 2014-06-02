@@ -20,10 +20,12 @@ xml.myanimelist do
         xml.my_read_volumes entry.volumes
         xml.my_read_chapters entry.chapters
       end
-      xml.my_rewatches entry.rewatches
+
+      xml.my_times_watched entry.rewatches
       xml.my_score entry.score || 0
       xml.my_status UserListParsers::XmlListParser.status_to_string(entry.status, @klass, true)
       xml.shiki_status UserListParsers::XmlListParser.status_to_string(entry.status, @klass, false)
+      xml.my_comments entry.text
       xml.update_on_import 1
     end
   end

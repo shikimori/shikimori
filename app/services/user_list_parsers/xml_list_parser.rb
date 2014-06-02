@@ -19,9 +19,10 @@ private
     {
       id: (entry['series_animedb_id'] || entry['anime_animedb_id']).to_i,
       episodes: (entry['my_watched_episodes'] || 0).to_i,
-      rewatches: (entry['my_rewatches'] || 0).to_i,
-      status: extract_status(entry['shiki_status']),
-      score: (entry['my_score'] || 0).to_i
+      rewatches: (entry['my_times_watched'] || 0).to_i,
+      status: extract_status(entry['shiki_status'] || entry['my_status']),
+      score: (entry['my_score'] || 0).to_i,
+      text: entry['my_comments']
     }
   end
 
@@ -30,9 +31,10 @@ private
       id: (entry['series_mangadb_id'] || entry['manga_mangadb_id']).to_i,
       volumes: (entry['my_read_volumes'] || 0).to_i,
       chapters: (entry['my_read_chapters'] || 0).to_i,
-      rewatches: (entry['my_rewatches'] || 0).to_i,
+      rewatches: (entry['my_times_watched'] || 0).to_i,
       status: extract_status(entry['shiki_status'] || entry['my_status']),
-      score: (entry['my_score'] || 0).to_i
+      score: (entry['my_score'] || 0).to_i,
+      text: entry['my_comments']
     }
   end
 
