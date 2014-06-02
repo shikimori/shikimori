@@ -14,31 +14,6 @@ class UserListQuery
         memo[v.status.to_sym] ||= []
         memo[v.status.to_sym] << v.decorate
       end
-
-      #memo[v.status] << {
-        #id: target.id,
-        #name: view_context.localized_name(target),
-        #kind: target.kind,
-        #kind_localized: target.kind.blank? ? '' : view_context.localized_kind(target, true),
-        #status_localized: target.status.present? ? I18n.t("AniMangaStatusUpper.#{target.status}") : '',
-        #url: "/#{params[:list_type]}s/#{v.target_id}",
-
-        #rate_id: v.id,
-        #rate_text: v.text_html,
-        #rate_episodes: anime? ? v.episodes : nil,
-        #rate_volumes: anime? ? nil : v.volumes,
-        #rate_chapters: anime? ? nil : v.chapters,
-        #rate_score: v.score && v.score != 0 ? v.score : '&ndash;',
-
-        #ongoing?: target.ongoing?,
-        #anons?: target.anons?,
-
-        #episodes: anime? ? (target.episodes.zero? ? nil : target.episodes) : nil,
-        #episodes_aired: anime? ? target.episodes_aired : nil,
-        #chapters: anime? ? nil : (target.chapters.zero? ? nil : target.chapters),
-        #volumes: anime? ? nil : (target.volumes.zero? ? nil: target.volumes),
-        #duration: anime? ? target.duration : Manga::Duration,
-      #}
   end
 
 private

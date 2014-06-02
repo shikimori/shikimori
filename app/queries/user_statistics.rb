@@ -263,8 +263,8 @@ private
         grouped_id: !is_full && status_name == 'watching' ? "#{status_id},#{UserRate.statuses.find {|k,v| k == 'rewatching'}.second}" : status_id,
         name: status_name,
         size: !is_full && status_name == 'watching' ?
-          @anime_rates.select {|v| v.watching? || v.rewatching? }.size :
-          @anime_rates.select {|v| v.status == status_name }.size
+          rates.select {|v| v.watching? || v.rewatching? }.size :
+          rates.select {|v| v.status == status_name }.size
       }
     end.compact
   end
