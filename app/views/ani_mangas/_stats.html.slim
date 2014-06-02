@@ -1,8 +1,5 @@
 - if user_signed_in? && @entry.friend_rates.any?
   .subheadline Оценки друзей
-  /.index-list
-    = render partial: 'ani_mangas/user_stat', collection: @friend_rates, as: :rate, formats: :html
-    .clearfix
 
   table.b-table.friend-rates
     - @entry.friend_rates.each do |rate|
@@ -14,7 +11,7 @@
         td.num
           == rate.score && rate.score != 0 ? rate.score : '&ndash;'
         td.num.status
-          = t "#{@entry.object.class.name}RateStatus.#{UserRateStatus.get rate.status}"
+          = rate.status_name
 
 - if @entry.mal_scores && @entry.mal_scores.sum > 0
   = render partial: 'stat', locals: {name: 'MyAnimeList', key: :mal_scores }, formats: :html

@@ -2,7 +2,7 @@
   .stat-categories
     - presenter.stats[category][klass].each do |stat|
       .category class="t#{stat[:scale]}"
-        a href="#{ani_manga_filtered_list_path @user, list_type: klass, type: nil, category.to_s.singularize => stat[:category]}"
+        a href="#{ani_manga_list_path @user, list_type: klass, type: nil, category.to_s.singularize => stat[:category]}"
           - if category == :genres
             = localized_name stat[:category]
           - else

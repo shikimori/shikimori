@@ -6,7 +6,7 @@ describe FindAnimeParser do
 
   let(:parser) { FindAnimeParser.new }
 
-  it { parser.fetch_pages_num.should eq 38 }
+  it { parser.fetch_pages_num.should eq 39 }
   it { parser.fetch_page_links(0).should have(FindAnimeParser::PageSize).items }
 
   describe :fetch_entry do

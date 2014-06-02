@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user_rate do
-    status UserRateStatus.get UserRateStatus::Planned
+    status :planned
     target { FactoryGirl.create(:anime) }
     user
     episodes 0
@@ -8,19 +8,19 @@ FactoryGirl.define do
     chapters 0
 
     trait :planned do
-      status UserRateStatus.get UserRateStatus::Planned
+      status :planned
     end
     trait :watching do
-      status UserRateStatus.get UserRateStatus::Watching
+      status :watching
     end
     trait :completed do
-      status UserRateStatus.get UserRateStatus::Completed
+      status :completed
     end
     trait :on_hold do
-      status UserRateStatus.get UserRateStatus::OnHold
+      status :on_hold
     end
     trait :dropped do
-      status UserRateStatus.get UserRateStatus::Dropped
+      status :dropped
     end
   end
 end

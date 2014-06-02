@@ -15,6 +15,9 @@
 
     .show, .hide {
       cursor: pointer;
+      span {
+        padding-left: 4px;
+      }
     }
     .hide {
       display: none;

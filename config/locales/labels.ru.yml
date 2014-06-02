@@ -85,18 +85,6 @@ ru:
     Not yet aired: Анонс
     Not yet published: Анонс
     Publishing: Выходит
-  AnimeRateStatus:
-    Plan to Watch: Запланировано
-    Watching: Смотрю
-    Completed: Просмотрено
-    On-Hold: Отложено
-    Dropped: Брошено
-  MangaRateStatus:
-    Plan to Watch: Запланировано
-    Watching: Читаю
-    Completed: Прочитано
-    On-Hold: Отложено
-    Dropped: Брошено
   Rating:
     G - All Ages: "Для всех возрастов"
     PG - Children: "Рекомендуется присутствие родителей"

@@ -3,6 +3,9 @@ class Api::V1::UserRatesController < Api::V1::ApiController
 
   respond_to :json
 
+  def edit
+  end
+
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, "/user_rates", "Create an user rate"
   param :user_rate, Hash do
@@ -19,7 +22,26 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
   def create
     @user_rate.save
-    respond_with @user_rate, location: nil
+
+    if params[:redirect_to_back]
+      redirect_to :back, notice: 'Добавлено в список'
+    else
+      respond_with @user_rate, location: nil
+    end
+  end
+
+  def increment
+    if @user_rate.anime?
+      @user_rate.update episodes: @user_rate.episodes + 1
+    else
+      @user_rate.update chapters: @user_rate.chapters + 1
+    end
+
+    if params[:redirect_to_back]
+      redirect_to :back
+    else
+      respond_with @user_rate
+    end
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -36,14 +58,25 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
   def update
     @user_rate.update update_params
-    respond_with @user_rate, location: nil
+
+    if params[:redirect_to_back]
+      redirect_to :back
+    else
+      respond_with @user_rate, location: nil
+    end
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, "/user_rates/:id", "Destroy an user rate"
   def destroy
     @user_rate.destroy!
-    respond_with @user_rate, location: nil
+
+    if params[:redirect_to_back]
+      redirect_to :back, notice: 'Удалено из списка'
+    else
+      respond_with @user_rate, location: nil
+    end
+
   end
 
   # очистка списка и истории

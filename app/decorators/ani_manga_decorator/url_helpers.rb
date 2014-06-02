@@ -31,11 +31,6 @@ module AniMangaDecorator::UrlHelpers
     h.send "new_#{klass_lower}_review_url", object
   end
 
-  # адрес добавления в список
-  def rate_url
-    h.send "rate_#{klass_lower}_url", object
-  end
-
   # адрес редактирования
   def edit_url page
     h.send "edit_#{klass_lower}_url", object, subpage: page

@@ -1,9 +1,10 @@
 - @list.each do |status,data|
-  header class="status-#{status}"
-    a name="#{UserRateStatus.get(status).downcase.gsub(' ', '-')}"
-    .b-options-floated.collapse id="collapse-#{UserRateStatus.get(status).downcase.gsub(' ', '-')}"
+  header class="status-#{UserRate.statuses[status]}"
+    a name="#{UserRate.statuses[:status]}"
+    .b-options-floated.collapse id="collapse-#{UserRate.statuses[status]}"
       span.action свернуть (#{data[:size]})
-    .subheadline = t "#{params[:list_type].capitalize}RateStatus.%s" % UserRateStatus.get(status)
+    .subheadline
+      = UserRate.status_name status, @klass.name
     .collapsed.tiny ...
 
   table.b-table
@@ -19,84 +20,88 @@
           th class="num order-control #{:active if params[:order] == 'volumes'}" data-order="volumes" title="Упорядочить по томам" Тома
 
       th class="num order-control #{:active if params[:order] == 'kind'}" data-order="kind" title="Упорядочить по типу" Тип
-      - if status == UserRateStatus.get(UserRateStatus::Planned)
+      - if status == :planned
         th class="num order-control #{:active if params[:order] == 'status'}" data-order="status" title="Упорядочить по статусу" Статус
     tr.border
       - if anime?
-        th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 6 : 5}"
+        th colspan="#{status == :planned ? 6 : 5}"
       - else
-        th colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 7 : 6}"
+        th colspan="#{status == :planned ? 7 : 6}"
 
-    - data[:entries].each do |entry_rate|
-      tr.unprocessed.selectable class="#{:editable if @user.own_profile?}" data-remote="#{true if @user.own_profile?}" data-action="#{user_list_edit_path @user, entry_rate[:rate_id] if @user.own_profile?}" data-type="html" data-rate_url="#{api_user_rate_path entry_rate[:rate_id]}" data-title="#{entry_rate[:name].downcase}"
+    - data[:entries].each_with_index do |user_rate, index|
+      tr.unprocessed.selectable class="#{:editable if @user.own_profile?}" data-remote="#{true if @user.own_profile?}" data-action="#{user_list_edit_path @user, user_rate.id if @user.own_profile?}" data-type="html" data-rate_url="#{api_user_rate_path user_rate.id}" data-title="#{user_rate.target_name}"
         td.index
           span
-            = entry_rate[:index]
-          /span.anime-remove title="Удалить из списка" data-remote="true" action="#{self.send("rate_#{params[:list_type]}_url", id: entry_rate[:id])}" data-method="delete" data-type="json"
+            = data[:index] + index
         td.name
-          a.tooltipped data-href="#{entry_rate[:url]}/tooltip" data-remote="true" href="#{entry_rate[:url]}" data-predelay="650"
+          a.tooltipped data-href="#{user_rate.target_url}/tooltip" data-remote="true" href="#{user_rate.target_url}" data-predelay="650"
             span
-              == entry_rate[:name]
+              = user_rate.target_name
 
-          - if entry_rate[:ongoing?]
+          - if user_rate.target.ongoing?
             span.ongoing онгоинг
-          - elsif entry_rate[:anons?]
+          - elsif user_rate.target.anons?
             span.anons анонс
 
-          .rate-text
-            - if entry_rate[:rate_text].present?
-              div = entry_rate[:rate_text]
+          span.rewatches
+            - if user_rate.rewatches > 0
+              - if anime?
+                = "#{user_rate.rewatches} #{Russian.p user_rate.rewatches, 'пересмотр', 'пересмотра', 'пересмотров'}"
+              - else
+                = "#{user_rate.rewatches} #{Russian.p user_rate.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}"
 
-          /- if @user.own_profile?
-            span.anime-status data-field="status"
+          .rate-text
+            - if user_rate.text.present?
+              div = user_rate.text
+
         td class="num #{:hoverable if @user.own_profile?}"
           span.current-value data-field='score' data-max="10" data-min="0"
-            == entry_rate[:rate_score]
+            = user_rate.score.zero? ? '&ndash;'.html_safe : user_rate.score
 
         - if anime?
           td class="num #{:hoverable if @user.own_profile?}"
-            span.current-value data-field="episodes" data-max="#{entry_rate[:episodes]}" data-min="0"
+            span.current-value data-field="episodes" data-max="#{user_rate.target.episodes}" data-min="0"
               span
-                = entry_rate[:rate_episodes]
+                = user_rate.episodes
             span.misc-value
               span.sep.inline
                 | /
-              - if entry_rate[:ongoing?] && entry_rate[:episodes_aired] > 0
-                = entry_rate[:episodes_aired]
+              - if user_rate.target.ongoing? && user_rate.target.episodes_aired > 0
+                = user_rate.target.episodes_aired
                 span.episodes_total
-                  = entry_rate[:episodes] || '?'
+                  = user_rate.target.episodes || '?'
 
               - else
-                = entry_rate[:episodes] || '?'
+                = user_rate.target.episodes || '?'
 
         - else
           td class="num #{:hoverable if @user.own_profile?}"
-            span.current-value data-field="chapters" data-max="#{entry_rate[:chapters]}" data-min="0"
+            span.current-value data-field="chapters" data-max="#{user_rate.target.chapters}" data-min="0"
               span
-                = entry_rate[:rate_chapters]
+                = user_rate.chapters
             span.misc-value
               span.sep.inline
                 | /
-              = entry_rate[:chapters] || '?'
+              = user_rate.target.chapters || '?'
 
           - if @user.preferences.volumes_in_manga?
             td class="num #{:hoverable if @user.own_profile?}"
-              span.current-value data-field="volumes" data-max="#{entry_rate[:volumes]}" data-min="0"
+              span.current-value data-field="volumes" data-max="#{user_rate.target.volumes}" data-min="0"
                 span
-                  = entry_rate[:rate_volumes]
+                  = user_rate.volumes
               span.misc-value
                 span.sep.inline
                   | /
-                = entry_rate[:volumes] || '?'
+                = user_rate.target.volumes || '?'
 
         td.num
-          = entry_rate[:kind_localized]
-        - if status == UserRateStatus.get(UserRateStatus::Planned)
+          = user_rate.target_kind
+        - if status == :planned
           td.num
-            = entry_rate[:status_localized]
+            = user_rate.target.status_name
     - if data[:stats]
       tr.summary
-        td colspan="#{status == UserRateStatus.get(UserRateStatus::Planned) ? 6 : 5}"
+        td colspan="#{status == :planned ? 6 : 5}"
           - data[:stats].each do |stat,value|
             = t "UserList.Short.#{stat}"
             | :&nbsp;
@@ -105,7 +110,7 @@
               | /
 
 - if @add_postloader
-  = render partial: 'site/postloader', locals: { filter: 'ani_manga_entry', url: ani_manga_filtered_list_path(params.merge(page: @page+1, format: :json, type: @params_type)) }, formats: :html
+  = render partial: 'site/postloader', locals: { filter: 'ani_manga_entry', url: ani_manga_list_path(params.merge(page: @page+1, format: :json, type: @params_type)) }, formats: :html
 
 - elsif @total_stats.any? && !(@list.size == 1 && @page == 1 && !@add_postloader)
   header.summary

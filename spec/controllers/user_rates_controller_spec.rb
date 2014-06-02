@@ -13,7 +13,7 @@ describe UserRatesController do
 
       let(:valid_hash) do
         {
-          status: UserRateStatus.get(UserRateStatus::Planned),
+          status: UserRate.statuses[:planned],
           score: 9,
           text: 'test zxc'
         }.merge(kind == :anime ? {episodes: 0} : {volumes: 0, chapters: 0})

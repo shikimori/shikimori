@@ -49,19 +49,13 @@ $(document.body).on 'focus', '.ani-manga-list .filter input', ->
 filter_timer = null
 # пишут в инпуте фильтра по тайтлу
 $(document.body).on 'keyup', '.ani-manga-list .filter input', (e) ->
-  return if e.keyCode is 91 or e.keyCode is 18 or e.keyCode is 16 or e.keyCode is 17
+  return if e.keyCode == 91 || e.keyCode == 18 || e.keyCode == 16 || e.keyCode == 17
 
   if filter_timer
     clearInterval filter_timer
     filter_timer = null
 
   filter_timer = setInterval(filter, 350)
-
-# удаление из списка
-#$('.anime-remove').live 'ajax:success', (e) ->
-  #$(@).closest('tr').remove()
-  #e.stopPropagation()
-  #false
 
 # обработчик для плюсика у числа эпизодов/глав
 $('.selected .ani-manga-list .hoverable .item-add').live 'click', (e) ->
@@ -130,44 +124,6 @@ $('.order-control').live 'click', (e) ->
 $('.slide > div').live 'ajax:clear', (e, page) ->
   $('.animanga-filter').hide() unless page.match(/anime|manga/)
 
-# активация изменения статуса
-#$(".selected .anime-status").live "click", ->
-  #$this = $(this)
-  #$selector = $this.parents("td").children(".anime-status-selector")
-
-  ## если нет селектора - создаём
-  #unless $selector.length
-    #$selector = $this.parents(".ani-manga-list").children(".anime-status-selector").clone().data("field", $this.data("field")).data("action", $this.parents("tr").data("action"))
-    #$this.parents("td").prepend $selector
-  #$selector.show()
-  #$this.hide()
-
-  #$(window).one 'click', (e) ->
-    #return if e.target is $selector[0]
-    #$selector.hide()
-    #e.stopPropagation()
-    #false
-
-  #false
-
-#$(".selected .anime-status-selector").live "change", (e) ->
-  #$this = $(this)
-  #$.cursorMessage()
-
-  #$.post($this.data("action"), "_method=patch&rate[" + $this.data("field") + "]=" + $this.attr("value")).success(->
-    #$.hideCursorMessage()
-    #$this.hide()
-  #).error ->
-    #$.hideCursorMessage()
-    #$this.hide()
-    #$.flash alert: "Произошла ошибка"
-
-  #false
-
-#$(".selected .anime-status-selector").live "click", (e) ->
-  #e.stopPropagation()
-  #false
-
 # открытие блока с редактирование записи по клику на неё
 $('tr.editable').live 'ajax:success', (e, html) ->
   $tr = $(@)
@@ -188,11 +144,15 @@ $('tr.editable').live 'ajax:success', (e, html) ->
     $.flash notice: 'Изменения сохранены'
     $('.cancel', $tr_edit).click()
 
-    $tr.find('.current-value[data-field=score]').html String(data.score).replace('0', '–')
-    $tr.find('.current-value[data-field=chapters]').html data.chapters
-    $tr.find('.current-value[data-field=volumes]').html data.volumes
-    $tr.find('.current-value[data-field=episodes]').html data.episodes
-    $tr.find('.rate-text').html if data.text_html then "<div>#{data.text_html}</div>" else ''
+    $('.current-value[data-field=score]', $tr).html String(data.score || '0').replace('0', '–')
+    $('.current-value[data-field=chapters]', $tr).html data.chapters
+    $('.current-value[data-field=volumes]', $tr).html data.volumes
+    $('.current-value[data-field=episodes]', $tr).html data.episodes
+    $('.rate-text', $tr).html if data.text_html then "<div>#{data.text_html}</div>" else ''
+    if data.rewatches > 0
+      $('.rewatches', $tr).html(if data.anime then "#{data.rewatches} #{p data.rewatches, 'пересмотр', 'пересмотра', 'пересмотров'}" else "#{data.rewatches} #{p data.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}")
+    else
+      $('.rewatches', $tr).html ''
 
   # удаление из списка
   $('.remove', $form).on 'ajax:success', (e, data) ->
@@ -299,7 +259,7 @@ update_list_cache = ->
     $table = $(@)
     rows = $table.find('tr.selectable').map(->
       node: @
-      title: String($(@).data('title'))
+      title: String($(@).data('title')).toLowerCase()
       display: @style.display
     ).toArray()
     $nodes = $table.add($table.prev(':not(.collapse-merged)'))
@@ -317,17 +277,6 @@ update_list_cache = ->
 
 # обработчики для списка
 apply_list_handlers = ->
-  # изменения статуса
-  #$('.selected .ani-manga-list tr.unprocessed').hover(->
-    #$selector = $('.anime-status', @parentNode)
-    #return if not $selector.length or $selector.is(':visible')
-    #$('.anime-status', @).show()
-    #$('.anime-remove', @).show().prev().hide()
-
-  #, ->
-    #$('.anime-status', @).hide()
-    #$('.anime-remove', @).hide().prev().show()
-
   $('.selected .ani-manga-list tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')

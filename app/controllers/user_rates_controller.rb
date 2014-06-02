@@ -1,3 +1,4 @@
+# TODO: выпилить этот контроллер после 2014-07-01
 class UserRatesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :fetch_rate
@@ -67,6 +68,7 @@ private
 
   def user_rate_params
     params[:user_rate] ||= params[:rate]
+    params[:user_rate][:status] = params[:user_rate][:status].to_i if params[:user_rate][:status]
     params.require(:user_rate).permit(:status, :episodes, :chapters, :volumes, :score, :text)
   end
 end

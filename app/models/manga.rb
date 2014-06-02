@@ -2,7 +2,7 @@
 class Manga < ActiveRecord::Base
   include AniManga
   EXCLUDED_ONGOINGS = [-1]
-  Duration = 8
+  DURATION = 8
 
   serialize :english
   serialize :japanese
@@ -134,5 +134,9 @@ class Manga < ActiveRecord::Base
       thread.save
       thread.class.record_timestamps = true
     end
+  end
+
+  def duration
+    Manga::DURATION
   end
 end

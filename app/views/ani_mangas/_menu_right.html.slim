@@ -1,5 +1,52 @@
+- if user_signed_in?
+  .menu-block.menu-rate-block
+    - if @entry.rate
+      .buttons
+        span.item-edit data-remote="true" data-type="html" data-action="#{edit_api_user_rate_url @entry.rate}?redirect_to_back=true"
+    .subheadline Мой список
+    .subcontent.rate-container
+      - if @entry.rate
+        .rate-edit
+        .rate-show
+          .rate-number
+            - if @entry.respond_to? :episodes
+              span.current-episodes = @entry.rate.episodes
+              - unless @entry.episodes.zero?
+                span.sep
+                  | /
+                span.total-episodes
+                  = @entry.episodes
+              - if @entry.rate.episodes != @entry.episodes
+                a.item-add.increment data-href="#{increment_api_user_rate_url @entry.rate}" data-method="post"
+            - else
+              span.current-episodes = @entry.rate.chapters
+              - unless @entry.chapters.zero?
+                span.sep
+                  | /
+                span.total-episodes
+                  = @entry.chapters
+              - if @entry.rate.chapters != @entry.chapters
+                a.item-add.increment data-href="#{increment_api_user_rate_url @entry.rate}" data-method="post"
+
+          .status = @entry.rate.status_name
+
+          = simple_form_for [:api, @entry.rate], remote: true, html: { class: 'rate-block', 'data-type' => 'json' } do |f|
+            = f.input :score, as: :hidden
+            .scores-user
+              = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }
+
+          p.note = @entry.rate.text
+
+      - else
+        = simple_form_for [:api, @entry.rates.build(user_id: current_user.id)] do |f|
+          input type="hidden" name="redirect_to_back" value="true"
+          = f.input :user_id, as: :hidden
+          = f.input :target_id, as: :hidden
+          = f.input :target_type, as: :hidden
+          span.add-to-list Добавить в список
+
 nav.menu-block
-  .subheadline #{@entry.anime? ? 'Аниме' : 'Манга'}
+  .subheadline Разделы
   ul.block-list.sections
     li.slider-control.slider-control-info.info
       - if params[:page] == 'info'
@@ -57,9 +104,6 @@ nav.menu-block
   .menu-block.actions
     .subheadline Действия
     ul.block-list
-      li.list-add style="#{'display: none;' if @entry.rate}"
-        span#rate-add.add-to-list data-remote="true" action="#{@entry.rate_url}" data-method="post" data-type="json" Добавить в список
-
       li.comment
         span Комментировать
 
@@ -71,9 +115,6 @@ nav.menu-block
 
       li.fav-remove style="#{'display: none;' unless @entry.favoured?}"
         span.favourite-remove data-remote="true" action="#{favourites_url @entry.object.class.name, @entry}" data-method="delete" data-type="json" Удалить из избранных
-
-      li.list-remove style="#{'display: none;' unless @entry.rate}"
-        span#rate-del.remove-from-list data-remote="true" action="#{@entry.rate_url}" data-method="delete" data-type="json" Удалить из списка
 
       li.edit-entry
         span Редактировать #{@entry.anime? ? 'аниме' : 'мангу'}
@@ -103,61 +144,6 @@ nav.menu-block
 
       li.edit-cancel
         span Отмена
-
-- if user_signed_in?
-  .menu-block
-    #rate-block.user-rate-block style="#{'display: none;' unless @entry.rate}"
-      .subheadline Статус
-      = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-status-form') do
-        = hidden_field_tag 'rate[status]', @entry.rate ? @entry.rate.status : 0
-        ul.block-list.rate-statuses
-          - UserRateStatus.statuses.each do |status|
-            li id="rate-status-#{status[:id]}" class="#{'selected' if @entry.rate && @entry.rate.status == status[:id]}"
-              span
-                = t "#{@entry.object.class.name}RateStatus.#{status[:name]}"
-
-      .m10
-        - if @entry.respond_to? :episodes
-          = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-episodes-form') do
-            p.m2 style="#{'display: none;' if @entry.kind == 'Movie' && (!@entry.episodes || @entry.episodes == 1)}"
-              span.key Просмотрено:
-              = text_field_tag 'rate[episodes]', @entry.rate ? @entry.rate.episodes : 0, id: 'rate-episodes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.episodes : 0
-              - unless @entry.episodes.zero?
-                span.sep
-                  | /
-                span.total-episodes
-                  = @entry.episodes
-              span.item-add
-
-        - elsif @entry.respond_to? :chapters
-          = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-chapters-form') do
-            p.m2
-              span.key Главы:
-              = text_field_tag 'rate[chapters]', @entry.rate ? @entry.rate.chapters : 0, id: 'rate-chapters', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.chapters : 0
-              - unless @entry.chapters.zero?
-                span.sep
-                  | /
-                = @entry.chapters
-              span.item-add
-
-          - if current_user.preferences.volumes_in_manga?
-            = form_tag(@entry.rate_url, format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-volumes-form') do
-              p.m2
-                span.key Тома:
-                = text_field_tag 'rate[volumes]', @entry.rate ? @entry.rate.volumes : 0, id: 'rate-volumes', class: :common, 'autocomplete' => :off, size: 2, 'data-counter' => @entry.rate ? @entry.rate.volumes : 0
-                - unless @entry.volumes.zero?
-                  span.sep
-                    | /
-                  = @entry.volumes
-                span.item-add
-
-      p.m2
-        span.key Моя оценка:
-      .rate-block
-        = form_tag(@entry.rate_url, {format: :json, method: :patch, remote: true, 'data-type' => :json, id: 'rate-score-form'}) do
-          = hidden_field_tag 'rate[score]', 0
-          div#rate-rate.scores-user
-            = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }
 
     - if @entry.display_sensitive?
       .subheadline На других сайтах

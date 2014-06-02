@@ -20,6 +20,7 @@ class NameMatcher
   end
 
   # поиск всех подходящих id аниме по переданным наваниям
+  # возможные опции: year и episodes
   def matches names, options={}
     found = matching_groups(names, false).first || matching_groups(names, true).first
 

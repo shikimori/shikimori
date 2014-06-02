@@ -76,7 +76,7 @@ describe AniMangaQuery do
       describe 'with censored' do
         it 'mylist' do
           AniMangaQuery.any_instance.stub :mylist!
-          fetch(mylist: "#{UserRateStatus.get(UserRateStatus::Planned)}").should have(3).items
+          fetch(mylist: "#{UserRate.statuses[:planned]}").should have(3).items
         end
         it 'userlist' do
           fetch(controller: 'user_lists').should have(3).items
@@ -306,26 +306,26 @@ describe AniMangaQuery do
       let(:anime2) { create :anime }
       let(:anime3) { create :anime }
 
-      let!(:user_rate1) { create :user_rate, user_id: user.id, target_id: anime.id, target_type: anime.class.name, status: UserRateStatus.get(UserRateStatus::Planned) }
-      let!(:user_rate2) { create :user_rate, user_id: user.id, target_id: anime2.id, target_type: Anime.name, status: UserRateStatus.get(UserRateStatus::Watching) }
-      let!(:user_rate3) { create :user_rate, user_id: user.id, target_id: anime3.id, target_type: Anime.name, status: UserRateStatus.get(UserRateStatus::Watching) }
+      let!(:user_rate1) { create :user_rate, user_id: user.id, target_id: anime.id, target_type: anime.class.name, status: UserRate.statuses[:planned] }
+      let!(:user_rate2) { create :user_rate, user_id: user.id, target_id: anime2.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
+      let!(:user_rate3) { create :user_rate, user_id: user.id, target_id: anime3.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
 
       let!(:anime4) { create :anime }
       let!(:anime5) { create :anime }
 
       describe 'inclusive' do
-        it { fetch({mylist: "#{UserRateStatus.get(UserRateStatus::Planned)}"}, user).should have(1).item }
-        it { fetch({mylist: "#{UserRateStatus.get(UserRateStatus::Watching)}"}, user).should have(2).items }
-        it { fetch({mylist: "#{UserRateStatus.get(UserRateStatus::Planned)},#{UserRateStatus.get(UserRateStatus::Watching)}"}, user).should have(3).items }
+        it { fetch({mylist: "#{UserRate.statuses[:planned]}"}, user).should have(1).item }
+        it { fetch({mylist: "#{UserRate.statuses[:watching]}"}, user).should have(2).items }
+        it { fetch({mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}"}, user).should have(3).items }
       end
 
       describe 'exclusive' do
-        it { fetch({mylist: "!#{UserRateStatus.get(UserRateStatus::Planned)}"}, user).should have(4).items }
-        it { fetch({mylist: "!#{UserRateStatus.get(UserRateStatus::Planned)},!#{UserRateStatus.get(UserRateStatus::Watching)}"}, user).should have(2).items }
+        it { fetch({mylist: "!#{UserRate.statuses[:planned]}"}, user).should have(4).items }
+        it { fetch({mylist: "!#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user).should have(2).items }
       end
 
       describe 'both' do
-        it { fetch({mylist: "#{UserRateStatus.get(UserRateStatus::Planned)},!#{UserRateStatus.get(UserRateStatus::Watching)}"}, user).should have(1).item }
+        it { fetch({mylist: "#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user).should have(1).item }
       end
     end
 
