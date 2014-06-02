@@ -150,7 +150,7 @@ $('tr.editable').live 'ajax:success', (e, html) ->
     $('.current-value[data-field=episodes]', $tr).html data.episodes
     $('.rate-text', $tr).html if data.text_html then "<div>#{data.text_html}</div>" else ''
     if data.rewatches > 0
-      $('.rewatches', $tr).html(if data.anime then "#{data.rewatches} #{p data.rewatches, 'пересмотр', 'пересмотра', 'пересмотров'}" else "#{data.rewatches} #{p data.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}")
+      $('.rewatches', $tr).html(if data.anime then "#{data.rewatches} #{p data.rewatches, 'повторный просмотр', 'повторных просмотра', 'повторных просмотров'}" else "#{data.rewatches} #{p data.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}")
     else
       $('.rewatches', $tr).html ''
 

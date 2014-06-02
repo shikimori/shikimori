@@ -46,7 +46,7 @@
           span.rewatches
             - if user_rate.rewatches > 0
               - if anime?
-                = "#{user_rate.rewatches} #{Russian.p user_rate.rewatches, 'пересмотр', 'пересмотра', 'пересмотров'}"
+                = "#{user_rate.rewatches} #{Russian.p user_rate.rewatches, 'повторный просмотр', 'повторных просмотра', 'повторных просмотров'}"
               - else
                 = "#{user_rate.rewatches} #{Russian.p user_rate.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}"
 
