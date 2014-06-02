@@ -14,6 +14,14 @@ class UserRateDecorator < BaseDecorator
     end
   end
 
+  def status_name
+    if completed? && rewatches > 0
+      "#{object.status_name} (#{rewatches+1}x)"
+    else
+      object.status_name
+    end
+  end
+
   # user list page
   def target_name
     h.localized_name(target)
