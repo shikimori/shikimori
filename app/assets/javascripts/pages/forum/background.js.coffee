@@ -90,8 +90,9 @@ $ ->
     section: location.pathname.replace(/\/(\w+)(\/.*)?/, '$1').replace('/', 'all')
     no_ajax: true
   ]
-  $('.logo').parent().attr
-    rel: 'history'
+  # лого в шапке будет с rel=history
+  $('.logo').parent().attr rel: 'history'
+  # менюшки новостей и обзоров тоже
   $('.main-menu .rel').attr rel: 'history'
 
 # инициализация локального блока
@@ -106,13 +107,13 @@ $('.local-menu-block').live 'init', ->
 
     $.getJSON $(@).attr('data-remote'), (data) ->
       for id of data
-        $tooltip = $('.tooltip-details', '#history-entry-' + id + '-tooltip')
+        $tooltip = $('.tooltip-details', "#history-entry-#{id}-tooltip")
         continue  unless $tooltip.length
         unless data[id].length
-          $('#history-entry-' + id + '-tooltip').children().remove()
+          $("#history-entry-#{id}-tooltip").children().remove()
         else
           $tooltip.html _.map(data[id], (v, k) ->
-            '<a href=\'' + v.link + '\' rel=\'nofollow\'>' + v.title + '</a>'
+            "<a href='#{v.link}' rel='nofollow'>#{v.title}</a>"
           ).join('<br />')
 
   # тултипы истории

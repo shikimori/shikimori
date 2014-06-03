@@ -5,7 +5,7 @@ $(function() {
     if (in_new_tab(e)) {
       return;
     }
-    History.pushState(null, null, $(this).children('a').attr('href').replace(/http:\/\/.*?\//, '/'));
+    History.pushState({timestamp: Date.now()}, null, $(this).children('a').attr('href').replace(/http:\/\/.*?\//, '/'));
     return false;
   });
   $('.group-content-slider').makeSliderable({

@@ -5,7 +5,7 @@ $(function() {
     if (in_new_tab(e)) {
       return;
     }
-    History.pushState(null, null, ($(this).children('a').attr('href') || $(this).children('span.link').data('href')).replace(/http:\/\/.*?\//, '/'));
+    History.pushState({timestamp: Date.now()}, null, ($(this).children('a').attr('href') || $(this).children('span.link').data('href')).replace(/http:\/\/.*?\//, '/'));
     return false;
   });
   var $controls = $('.slider-control', $('.character-left-menu'));

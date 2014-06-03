@@ -6,7 +6,7 @@ function init() {
     type = 'recommendation';
   }
   var params = new AniMangaParamsParser(base_path, location.href, function(data) {
-    History.pushState(null, null, data);
+    History.pushState({timestamp: Date.now()}, null, data);
   });
 
   function load_page() {
@@ -118,6 +118,6 @@ $('.pagination .link').live('click', function() {
   if ($(window).scrollTop() > 400) {
     $.scrollTo(".common-title .h1,.title .h1");
   }
-  History.pushState(null, null, this.href);
+  History.pushState({timestamp: Date.now()}, null, this.href);
   return false;
 });

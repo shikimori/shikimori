@@ -4,12 +4,9 @@ $ ->
     url = location.href
     # подсветка комментария при переходе по ссылке с анкором коммента
     if url.match(/^comment-\d+$/)
-      $('a[name=' + url + ']').parent().yellowFade()
+      $("a[name=#{url}]").parent().yellowFade()
       return
     do_ajax.call @, url
-
-  # лого в шапке будет с rel=history
-  $('.logo a').attr rel: 'history'
 
   # отображалка новых комментариев
   window.comments_notifier = new CommentsNotifier() if IS_LOGGED_IN
