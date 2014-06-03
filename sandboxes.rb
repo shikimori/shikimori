@@ -25,6 +25,12 @@ CharsDescriptionJob.new.perform anime_ids: [5041], manga_ids: []
 ###########################
 ProxyTools.use_cache = true
 ###########################
+# переработка body для всех комментариев по какому-то признаку
+###########################
+while Comment.where("html_body like '%data-remote%'").first
+  Comment.where("html_body like '%data-remote%'").order(id: :desc).limit(1000).each {|v| puts v.id; v.update body: v.body; }
+end
+###########################
 # чистка продублировавшихся сообщений от перезапуска HistoryJob
 ###########################
 Message.where(id: Message.where(linked_id: 116580).group(:to_id).having('count(*) > 1').pluck(:id)).delete_all
