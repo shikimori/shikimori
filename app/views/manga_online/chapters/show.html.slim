@@ -1,5 +1,6 @@
-h1 = @chapter.name
-h2 = @page.number
+h1 : a href="#{online_manga_show_url @chapter.manga.id}" = @chapter.manga.name
+h2 = @chapter.name
+h3 = @page.number
 div
   - unless @page == @chapter.pages.first
     a href="#{online_manga_chapter_show_url @chapter, @page.number - 1}" prev
@@ -8,4 +9,13 @@ div
     a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}" next
 
 div
-  img src="#{asset_path @page.image_file_name}"
+  select#chapters
+    - @chapters.each do |chapter|
+      - if chapter.id == @chapter.id
+        option value="#{online_manga_chapter_show_url chapter}" selected="selected" = chapter.name
+      - else
+        option value="#{online_manga_chapter_show_url chapter}" = chapter.name
+
+div
+  a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}"
+    img src="#{asset_path @page.image_file_name}"

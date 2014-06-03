@@ -1,6 +1,10 @@
 DOCTYPE html
 html
-  = render partial: 'site/head'
+  head
+    = csrf_meta_tag
+    = stylesheet_link_tag :common
+    = javascript_include_tag 'manga_online/application'
+
   body.manga_online
     header.header
       = render partial: 'manga_online/main_menu'
