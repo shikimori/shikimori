@@ -36,7 +36,7 @@ describe UserListParser do
   </manga>
 </myanimelist>"
       }
-    it { should eq [{id: manga_1.id, volumes: 0, chapters: 0, rewatches: 0, status: 0, score: 0}] }
+    it { should eq [{id: manga_1.id, volumes: 0, chapters: 0, rewatches: 0, status: 0, score: 0, text: nil}] }
   end
 
   context :unsupported do
