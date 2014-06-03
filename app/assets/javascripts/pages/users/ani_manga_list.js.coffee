@@ -70,18 +70,24 @@ $('.slide > div').live 'ajax:clear', (e, page) ->
 
 # открытие блока с редактирование записи по клику на неё
 $('tr.editable').live 'ajax:success', (e, html) ->
+  # прочие блоки редактирования скроем
+  $another_tr_edit = $('tr.edit-form')
+
   $tr = $(@)
   $tr_edit = $("<tr class='edit-form'><td colspan='#{$(@).children('td').length}'>#{html}</td></tr>").insertAfter(@)
   $form = $tr_edit.find('form')
   original_height = $form.height()
 
-  $form.css height: 0
-  (-> $form.css height: original_height).delay()
+  if $another_tr_edit.length
+    $another_tr_edit.remove()
+  else
+    $form.css height: 0
+    (-> $form.css height: original_height).delay()
 
   # отмена редактирования
   $('.cancel', $tr_edit).on 'click', ->
     $form.css height: 0
-    (-> $tr_edit.remove()).delay 250
+    (-> $tr_edit.remove()).delay 350
 
   # применение изменений в редактировании
   $form.on 'ajax:success', (e, data) ->
