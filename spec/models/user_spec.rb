@@ -45,6 +45,7 @@ describe User do
     it { should have_many :recommendation_ignores }
 
     it { should have_many :bans }
+    it { should have_many :grop_bans }
   end
 
   let(:user) { create :user }

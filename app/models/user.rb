@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
   has_many :recommendation_ignores, dependent: :destroy
 
   has_many :bans, dependent: :destroy
+  has_many :group_bans, dependent: :destroy
 
   has_many :user_tokens do
     def facebook

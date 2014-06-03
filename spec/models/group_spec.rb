@@ -20,6 +20,7 @@ describe Group do
     it { should belong_to :owner }
 
     it { should have_many :invites }
+    it { should have_many :bans }
 
     it { should have_attached_file :logo }
   end

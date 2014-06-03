@@ -2,7 +2,7 @@ class GroupDecorator < BaseDecorator
   VisibleEntries = 12
 
   rails_cache :description_html, :all_members, :all_animes, :all_mangas, :all_characters, :all_images
-  instance_cache :description, :animes, :mangas, :characters, :images, :comments
+  instance_cache :description, :animes, :mangas, :characters, :images, :comments, :banned
 
   def url
     h.club_url object
@@ -95,6 +95,10 @@ class GroupDecorator < BaseDecorator
 
   def show_comments?
     h.user_signed_in? || comments.any?
+  end
+
+  def banned
+    bans.includes(:user).map(&:user)
   end
 
   # для отображения топиков клуба на форуме

@@ -98,7 +98,7 @@ class GroupsController < ApplicationController
 
   # настройки группы
   def settings
-    @group ||= Group.find(params[:id])
+    @group ||= Group.find(params[:id]).decorate
     raise Forbidden unless @group.can_be_edited_by?(current_user)
     @page_title = [@group.name, 'Настройки']
     show

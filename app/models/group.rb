@@ -32,6 +32,7 @@ class Group < ActiveRecord::Base
   belongs_to :owner, class_name: User.name, foreign_key: :owner_id
 
   has_many :invites, class_name: GroupInvite.name, dependent: :destroy
+  has_many :bans, dependent: :destroy, class_name: GroupBan.name
 
   has_many :topics, -> { order updated_at: :desc },
     class_name: Entry.name,
@@ -72,12 +73,12 @@ class Group < ActiveRecord::Base
   end
 
   # является ли пользователь членом группы
-  def has_member?(user)
+  def has_member? user
     member_roles.any? {|v| v.user_id == (user.respond_to?(:id) ? user.id : user) }
   end
 
   # является ли пользователь членом комманды группы
-  def has_staff?(user)
+  def has_staff? user
     member_roles.any? {|v| (v.user_id == (user.respond_to?(:id) ? user.id : user)) && v.role != GroupRole::Member }
   end
 

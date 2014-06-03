@@ -14,14 +14,14 @@ class GroupRole < ActiveRecord::Base
 
 private
   def accept_invite
-    GroupInvite.where(dst_id: self.user_id, group_id: self.group_id).each do |v|
+    GroupInvite.where(dst_id: user_id, group_id: group_id).each do |v|
       v.update_attribute(:status, GroupInviteStatus::Accepted)
       v.message.update_attribute(:read, true)
     end
   end
 
   def destroy_invite
-    GroupInvite.where(dst_id: self.user_id, group_id: self.group_id).destroy_all
+    GroupInvite.where(dst_id: user_id, group_id: group_id).destroy_all
   end
 
   def subscribe_user
