@@ -99,6 +99,7 @@ ru:
       models:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'
+          not_a_club_member: 'Вступите в клуб, чтобы оставлять комментарии'
         videos:
           attributes:
             url:

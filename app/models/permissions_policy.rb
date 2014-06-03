@@ -126,13 +126,16 @@ module PermissionsPolicy
     def can_delete_videos?(user)
       self.has_staff?(user)
     end
+  end
 
+  # права на действия с Топиком группы
+  module GroupCommentPermissions
     # может ли комментарий быть создан пользователем
     def can_be_commented_by?(comment)
-      if self.has_member?(comment.user_id)
+      if linked.has_member?(comment.user_id)
         true
       else
-        comment.errors[:forbidden] = 'Только члены группы могут оставлять здесь комментарии'
+        comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.not_a_club_member')
         false
       end
     end
