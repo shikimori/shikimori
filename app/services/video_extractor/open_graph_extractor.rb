@@ -27,6 +27,10 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
 
   def parse_data html
     doc = Nokogiri::HTML html
-    [doc.css("meta[property='og:image']").first[:content], doc.css("meta[property='og:video']").first[:content]]
+
+    og_image = doc.css("meta[property='og:image']").first
+    og_video = doc.css("meta[property='og:video']").first
+
+    [og_image[:content], og_video[:content]] if og_image && og_video
   end
 end

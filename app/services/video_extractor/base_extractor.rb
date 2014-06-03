@@ -8,7 +8,7 @@ class VideoExtractor::BaseExtractor
   end
 
   def fetch
-    VideoData.new hosting, image_url, player_url if valid_url?
+    VideoData.new hosting, image_url, player_url if valid_url? && opengraph_page?
 
   rescue OpenURI::HTTPError => e
   rescue EmptyContent => e
@@ -26,6 +26,10 @@ class VideoExtractor::BaseExtractor
 
   def valid_url?
     self.class.valid_url? url
+  end
+
+  def opengraph_page?
+    parsed_data.present?
   end
 
   def self.valid_url? url
