@@ -1,7 +1,7 @@
 <% translate_block.each_with_index do |anime,k| %>
   <p class="<%=:translated unless (anime.too_short? || anime.description == nil || anime.description == '' || anime.description == anime.description_mal) && !@changes.include?(anime.id) %>">
     <%=k+1 %>.
-    <%=link_to anime.name.html_safe, anime_url(anime), class: "bubbled #{anime.kind}", 'data-remote' => true, 'data-href' => self.respond_to?("tooltip_#{anime.class.name.downcase}_url") ? self.send("tooltip_#{anime.class.name.downcase}_url", anime) : '' %>
+    <%=link_to anime.name.html_safe, anime_url(anime), class: "bubbled #{anime.kind}", 'data-href' => self.respond_to?("tooltip_#{anime.class.name.downcase}_url") ? self.send("tooltip_#{anime.class.name.downcase}_url", anime) : '' %>
     <% if @translate_me.include?(anime.id) && !@changes.include?(anime.id) && (anime.description == nil || anime.description == '' || anime.description == anime.description_mal) %>
       <span style="font-size:9px; color: red;">нуждается в описании!</span>
     <% end %>

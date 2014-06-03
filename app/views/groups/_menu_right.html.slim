@@ -57,6 +57,6 @@ aside.menu-right
             = name
         .image-links
           - collection.each do |entry|
-            a.bubbled href="#{url_for entry}" data-remote="true" data-offset-left="-10" data-offset-top="20" data-place-to-left="true"
+            a.bubbled href="#{url_for entry}" data-offset-left="-10" data-offset-top="20" data-place-to-left="true"
               img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"
         .clearfix

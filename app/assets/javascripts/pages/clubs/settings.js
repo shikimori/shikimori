@@ -47,7 +47,7 @@ function accept_complete(e, id, text, label) {
       '<span class="item-minus"></span>' +
       '<input type="hidden" name="'+type+'[]" value="'+id+'" />' +
       '<a href="'+url+'" ' +
-        (bubbled ? 'class="bubbled" data-remote="true"' : '') +
+        (bubbled ? 'class="bubbled"' : '') +
         '>'+text+'</a>' +
     '</li>'
   );

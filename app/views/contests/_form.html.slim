@@ -81,7 +81,7 @@
           - contest.members.uniq(&:id).each do |member|
             li
               = hidden_field_tag 'members[]', member.id
-              a href="#{url_for member}" class="bubbled" data-remote="true"
+              a.bubbled href="#{url_for member}"
                 = member.name
               - if member.respond_to? :score
                 span.b-bracket-details

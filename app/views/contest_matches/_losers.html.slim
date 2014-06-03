@@ -3,5 +3,5 @@
     .subheadline Побеждены
     .entries
       - losers.each do |entry|
-        a.bubbled href="#{url_for entry}" data-remote="true" data-offset-top="20"
+        a.bubbled href="#{url_for entry}" data-offset-top="20"
           img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"

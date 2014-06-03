@@ -39,7 +39,7 @@
           a href="#{url_for @topic.linked}/edit/videos" добавить видео
       .linked-selected
         - if @topic.linked.present?
-          a.bubbled href="#{url_for @topic.linked}" data-remote="true"
+          a.bubbled href="#{url_for @topic.linked}"
             = @topic.linked.name
         /- else
           /p

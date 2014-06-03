@@ -9,13 +9,11 @@
     - if entry.reviews_count > 0 && entry.comment_reviews_count > 0
       .sep ,
     - if entry.comment_reviews_count > 0
-      /span.link data-remote="true" data-type="json" data-action="#{entry.comments_reviews_url}"
       span.link-comment-reviews
         = "#{entry.comment_reviews_count} #{Russian.p entry.comment_reviews_count, 'отзыв', 'отзыва', 'отзывов'}"
 
     - if entry.reviews_count > 0 || (entry.comments_count > 0 && entry.comment_reviews_count > 0 && entry.comments_count != entry.comment_reviews_count)
       .sep ,
     - if entry.comments_count > 0 && entry.comments_count != entry.comment_reviews_count
-      /span.link data-remote="true" data-type="json" data-action="#{entry.comments_all_url}"
       span.link-comments
         = "#{entry.comments_count} #{Russian.p entry.comments_count, 'комментарий', 'комментария', 'комментариев'}"

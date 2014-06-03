@@ -46,7 +46,7 @@
     .name {
       padding-left: 5px;
       a {
-        @include link-color(#123);
+        @include normal-link;
       }
     }
     .notice {

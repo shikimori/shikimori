@@ -8,7 +8,7 @@
               span.sep.zero ="("
               span.val = match.right_votes
               span.sep.zero =")"
-          a.bubbled href="#{url_for match.right}" data-remote="true"
+          a.bubbled href="#{url_for match.right}"
             = localized_name match.right
       - else
         p.unknown ???
@@ -21,7 +21,7 @@
               span.val = match.left_votes
               span.sep.zero =")"
 
-          a.bubbled href="#{url_for match.left}" data-remote="true"
+          a.bubbled href="#{url_for match.left}"
             = localized_name match.left
       - else
         p.unknown ???
@@ -35,7 +35,7 @@
               span.val = match.right_votes
               span.sep.zero =")"
 
-          a.bubbled href="#{url_for match.right}" data-remote="true"
+          a.bubbled href="#{url_for match.right}"
             = localized_name match.right
       - else
         p.unknown ???

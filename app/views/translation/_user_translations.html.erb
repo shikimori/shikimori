@@ -6,7 +6,7 @@
       <p>
         <%=i+1 %>.
         <span class="date"><%=change.created_at.strftime('%d.%m.%Y') %></span>
-        <%=link_to change.item.name.html_safe, url_for(change.item), class: 'bubbled', 'data-remote' => true, 'data-href' => self.respond_to?("tooltip_#{change.item.class.name.downcase}_url") ? self.send("tooltip_#{change.item.class.name.downcase}_url", change.item) : '' %>
+        <%=link_to change.item.name.html_safe, url_for(change.item), class: 'bubbled', 'data-href' => self.respond_to?("tooltip_#{change.item.class.name.downcase}_url") ? self.send("tooltip_#{change.item.class.name.downcase}_url", change.item) : '' %>
         <span style="color: <%=user_change_status_color(change.status) %>"><%=t "UserChangeStatus.#{change.status}" %></span>
       </p>
       <% if i > @changes.count - 100 %>

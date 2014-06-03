@@ -166,7 +166,7 @@ class UserListsController < UsersController
       else
         message << "В ваш список #{Russian.p(@added.size, 'импортировано', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'аниме', 'аниме', 'аниме')}:"
       end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" data-remote=\"true\" href=\"#{url_for(v)}\">#{v.name}</a>" }
+      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for(v)}\">#{v.name}</a>" }
       message << ''
     end
 
@@ -177,7 +177,7 @@ class UserListsController < UsersController
       else
         message << "В вашем списке #{Russian.p(@updated.size, 'обновлено', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'аниме', 'аниме', 'аниме')}:"
       end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" data-remote=\"true\" href=\"#{url_for(v)}\">#{v.name}</a>" }
+      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for(v)}\">#{v.name}</a>" }
       message << ''
     end
 

@@ -47,7 +47,7 @@
           li
             span.item-minus
             = hidden_field_tag 'animes[]', anime.id
-            a href="#{anime_url anime}" class="bubbled" data-remote="true"
+            a.bubbled href="#{anime_url anime}"
               = anime.name
 
   input.manga-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_mangas_url search: ''}"
@@ -60,7 +60,7 @@
           li
             span.item-minus
             = hidden_field_tag 'mangas[]', manga.id
-            a href="#{manga_url manga}" class="bubbled" data-remote="true"
+            a.bubbled href="#{manga_url manga}"
               = manga.name
 
   input.character-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_characters_url search: ''}"
@@ -73,7 +73,7 @@
           li
             span.item-minus
             = hidden_field_tag 'characters[]', character.id
-            a href="#{character_url character}" class="bubbled" data-remote="true"
+            a.bubbled href="#{character_url character}"
               = character.name
 
   - if @group && @group.admins.include?(current_user)

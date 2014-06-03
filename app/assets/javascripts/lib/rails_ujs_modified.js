@@ -30,7 +30,7 @@ jQuery(function ($) {
         /**
          * Handles execution of remote calls firing overridable events along the way
          */
-        callRemote: function () {
+        callRemote: function (originalTarget) {
             var $this = $(this);
             var should_lock = is_form = $this.is('form');
             var el      = this,
@@ -39,94 +39,91 @@ jQuery(function ($) {
                 dataType  = el.data('type')  || 'script';
 
             // иногда бывает надо отключить функционал
-            if ($this.data('disabled')) {
-              return;
+            if ($this.data('disabled') || url === undefined) {
+              return false;
             }
-
-            if (url === undefined) {
-              throw "No URL specified for remote call (action or href must be present).";
-            } else {
-                if (el.triggerAndReturn('ajax:before')) {
-                    // шлём только один запрос
-                    if (should_lock && $this.data('ajax:locked')) {
-                      return;
-                    }
-                    $this.data('ajax:locked', true);
-                    var data = is_form ? el.serializeArray() : ($this.data('form') || []);
-                    $.ajax({
-                        url: url,
-                        data: data,
-                        dataType: dataType,
-                        type: method.toUpperCase(),
-                        beforeSend: function (xhr) {
-                            $.cursorMessage();
-                            el.trigger('ajax:loading', {xhr: xhr, ajax: this});
-                            if (xhr.statusText == 'abort') {
-                              $this.data('ajax:locked', false);
-                              $.hideCursorMessage();
-                            }
-                        },
-                        success: function (data, status, xhr) {
-                            $this.data('ajax:locked', false);
-                            if (!_.isString(data) && 'notice' in data && data.notice) {
-                                $.flash({notice: data.notice});
-                            }
-                            el.trigger('ajax:success', [data, status, xhr]);
-                            $.hideCursorMessage();
-                        },
-                        complete: function (xhr) {
-                            $this.data('ajax:locked', false);
-                            el.trigger('ajax:complete', xhr);
-                        },
-                        error: function (xhr, status, error) {
-                            $this.data('ajax:locked', false);
-                            if (xhr.responseText.match(/invalid/)) {// || xhr.responseText.match(/unauthenticated/)) {
-                                $.flash({alert: 'Неверный логин или пароль'});
-                            } else if (xhr.status == 401) {
-                                $.flash({alert: 'Вы не авторизованы'});
-                                $('#sign_in').trigger('click');
-                            } else if (xhr.status == 403) {
-                                $.flash({alert: (xhr.responseText != 'Forbidden' ? xhr.responseText : 'У вас нет прав для данного действия')});
-                            } else if (xhr.status == 500) {
-                                $.flash({alert: 'Пожалуста, повторите попытку позже'});
-                            } else {
-                                try {
-                                  var errors = JSON.parse(xhr.responseText);
-                                } catch(e) {
-                                  var errors = {};
-                                }
-                                if ('errors' in errors) {
-                                  errors = errors.errors;
-                                }
-                                if (_.size(errors)) {
-                                    if (_.isArray(errors)) {
-                                      $.flash({alert: errors.join('<br />')});
-                                    } else {
-                                      var text = _.map(errors, function(v, k) {
-                                        if ((k == 'nickname' || k == 'email') && v == 'уже существует') {
-                                          v = 'уже используется другим пользователем';
-                                        }
-                                        if (k == 'base') {
-                                          return v;
-                                        } else {
-                                          return "<strong>" + (k in I18N ? I18N[k] : k) + "</strong> " + v;
-                                        }
-                                      }).join('<br />');
-
-                                      $.flash({alert: text});
-                                    }
-                                } else {
-                                    $.flash({alert: 'Пожалуста, повторите попытку позже'});
-                                }
-                            }
-                            el.trigger('ajax:failure', [xhr, status, error]);
-                            $.hideCursorMessage();
-                        }
-                    });
+            if (el.triggerAndReturn('ajax:before')) {
+                // шлём только один запрос
+                if (should_lock && $this.data('ajax:locked')) {
+                  return;
                 }
+                $this.data('ajax:locked', true);
+                var data = is_form ? el.serializeArray() : ($this.data('form') || []);
+                $.ajax({
+                    url: url,
+                    data: data,
+                    dataType: dataType,
+                    type: method.toUpperCase(),
+                    beforeSend: function (xhr) {
+                        $.cursorMessage();
+                        el.trigger('ajax:loading', {xhr: xhr, ajax: this});
+                        if (xhr.statusText == 'abort') {
+                          $this.data('ajax:locked', false);
+                          $.hideCursorMessage();
+                        }
+                    },
+                    success: function (data, status, xhr) {
+                        $this.data('ajax:locked', false);
+                        if (!_.isString(data) && 'notice' in data && data.notice) {
+                            $.flash({notice: data.notice});
+                        }
+                        el.trigger('ajax:success', [data, status, xhr]);
+                        $.hideCursorMessage();
+                    },
+                    complete: function (xhr) {
+                        $this.data('ajax:locked', false);
+                        el.trigger('ajax:complete', xhr);
+                    },
+                    error: function (xhr, status, error) {
+                        $this.data('ajax:locked', false);
+                        if (xhr.responseText.match(/invalid/)) {// || xhr.responseText.match(/unauthenticated/)) {
+                            $.flash({alert: 'Неверный логин или пароль'});
+                        } else if (xhr.status == 401) {
+                            $.flash({alert: 'Вы не авторизованы'});
+                            $('#sign_in').trigger('click');
+                        } else if (xhr.status == 403) {
+                            $.flash({alert: (xhr.responseText != 'Forbidden' ? xhr.responseText : 'У вас нет прав для данного действия')});
+                        } else if (xhr.status == 500) {
+                            $.flash({alert: 'Пожалуста, повторите попытку позже'});
+                        } else {
+                            try {
+                              var errors = JSON.parse(xhr.responseText);
+                            } catch(e) {
+                              var errors = {};
+                            }
+                            if ('errors' in errors) {
+                              errors = errors.errors;
+                            }
+                            if (_.size(errors)) {
+                                if (_.isArray(errors)) {
+                                  $.flash({alert: errors.join('<br />')});
+                                } else {
+                                  var text = _.map(errors, function(v, k) {
+                                    if ((k == 'nickname' || k == 'email') && v == 'уже существует') {
+                                      v = 'уже используется другим пользователем';
+                                    }
+                                    if (k == 'base') {
+                                      return v;
+                                    } else {
+                                      return "<strong>" + (k in I18N ? I18N[k] : k) + "</strong> " + v;
+                                    }
+                                  }).join('<br />');
 
-                el.trigger('ajax:after');
+                                  $.flash({alert: text});
+                                }
+                            } else {
+                                $.flash({alert: 'Пожалуста, повторите попытку позже'});
+                            }
+                        }
+                        el.trigger('ajax:failure', [xhr, status, error]);
+                        $.hideCursorMessage();
+                    }
+                });
+            } else {
+              return false;
             }
+
+            el.trigger('ajax:after');
         }
     });
 
@@ -184,12 +181,20 @@ jQuery(function ($) {
         if ('in_new_tab' in window && in_new_tab(e)) {
           return;
         }
+        // когда кликаем на ссылку без data-remote внутри элемента с data-remote,
+        // то аякс запрос не должен отправляться на сервер - нужно дать браузеру перейти по ссылке
+        if (e.target.tagName == 'A' && !$(e.target).data('remote')) {
+          e.stopImmediatePropagation();
+          return;
+        }
+
         var $this = $(this);
         if ($this.attr('data-confirm') && !confirm($this.attr('data-confirm'))) {
             return false;
         }
-        $this.callRemote();
-        e.preventDefault();
+        if ($this.callRemote() !== false) {
+          e.preventDefault();
+        }
     });
 
     /**

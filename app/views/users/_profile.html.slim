@@ -71,5 +71,5 @@
           a href="#{user_favourites_url @user}" title="Избранное" Избранное
         .image-links
           - @favourites.each do |entry|
-            a.bubbled href="#{url_for entry}" data-remote="true" data-offset-left="4" data-offset-top="20" data-offset-left-right="-14"
+            a.bubbled href="#{url_for entry}" data-offset-left="4" data-offset-top="20" data-offset-left-right="-14"
               img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"

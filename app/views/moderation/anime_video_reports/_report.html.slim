@@ -11,7 +11,7 @@
     span.kind class="#{report.kind}" = report.kind_text
 
     span
-      = link_to report.anime_video.anime.name, anime_videos_show_url(report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play), class: 'bubbled', 'data-href' => tooltip_anime_url(report.anime_video.anime), 'data-remote' => true
+      = link_to report.anime_video.anime.name, anime_videos_show_url(report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play), class: 'bubbled', 'data-href' => tooltip_anime_url(report.anime_video.anime)
 
     span.state class="#{report.state}"
 

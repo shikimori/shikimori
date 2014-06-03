@@ -240,7 +240,7 @@
             tip = $(conf.tip).eq(0);
 
           // remote tooltip
-          } else if (trigger.data('remote') || trigger.data('href')) {
+          } else if (trigger.data('href') || trigger.attr('href')) {
             tip = $(conf.defaultTemplate).addClass(conf.tipClass)
                                          .css('z-index', parseInt(trigger.parents('.tooltip').css('z-index')) || 1)
                                          .hide()

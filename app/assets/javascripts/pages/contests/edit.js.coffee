@@ -36,7 +36,7 @@ $('.edit.contest .member-suggest').on 'autocomplete:success', (e, id, text, labe
     '<li>' +
       '<input type="hidden" name="members[]" value="'+id+'" />' +
       '<a href="'+url+'" ' +
-        (if bubbled then 'class="bubbled" data-remote="true"' else '') +
+        (if bubbled then 'class="bubbled"' else '') +
         '>'+text+'</a>' +
       '<span class="b-bracket-actions"><span class="item-delete">удалить</span></span>' +
     '</li>'

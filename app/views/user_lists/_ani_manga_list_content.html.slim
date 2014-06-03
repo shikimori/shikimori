@@ -27,14 +27,19 @@
         th colspan="6"
 
     - data[:entries].each_with_index do |user_rate, index|
-      tr.unprocessed.selectable class="#{:editable if @user.own_profile?}" data-remote="#{true if @user.own_profile?}" data-action="#{user_list_edit_path @user, user_rate.id if @user.own_profile?}" data-type="html" data-rate_url="#{api_user_rate_path user_rate.id}" data-title="#{user_rate.target_name}"
+      tr.unprocessed.selectable[
+          class="#{:editable if @user.own_profile?}"
+          data-remote="#{true if @user.own_profile?}"
+          data-action="#{user_list_edit_path @user, user_rate.id if @user.own_profile?}"
+          data-type="html"
+          data-rate_url="#{api_user_rate_path user_rate.id}" data-title="#{user_rate.target_name}"
+        ]
         td.index
           span
             = data[:index] + index
         td.name
-          a.tooltipped data-href="#{user_rate.target_url}/tooltip" data-remote="true" href="#{user_rate.target_url}" data-predelay="650"
-            span
-              = user_rate.target_name
+          a.tooltipped href="#{user_rate.target_url}" data-predelay="650"
+            = user_rate.target_name
 
           - if user_rate.target.ongoing?
             span.ongoing онгоинг

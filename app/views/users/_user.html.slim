@@ -7,7 +7,7 @@
             span.date = time_ago_in_words entry[:created_at], "%s назад"
             span.event = entry[:short_name]
           - else
-            a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-remote="true" data-offset-left="-14"
+            a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-offset-left="-14"
               span.date = time_ago_in_words entry[:created_at], "%s назад"
               span.event = entry[:name]
 
