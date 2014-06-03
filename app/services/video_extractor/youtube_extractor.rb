@@ -19,6 +19,10 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
     @matches ||= url.match URL_REGEX
   end
 
+  def opengraph_page?
+    true
+  end
+
   def exists?
     sleep 1 unless Rails.env.test? # задержка, т.к. ютуб блочит при частых запросах
     open("http://gdata.youtube.com/feeds/api/videos/#{matches[:key]}").read.present?
