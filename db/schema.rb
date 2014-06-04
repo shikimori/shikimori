@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525205807) do
+ActiveRecord::Schema.define(version: 20140604180715) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -470,6 +470,17 @@ ActiveRecord::Schema.define(version: 20140525205807) do
 
   add_index "genres_mangas", ["manga_id"], name: "index_genres_mangas_on_manga_id", using: :btree
 
+  create_table "group_bans", force: true do |t|
+    t.integer  "group_id",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_bans", ["group_id", "user_id"], name: "index_group_bans_on_group_id_and_user_id", unique: true, using: :btree
+  add_index "group_bans", ["group_id"], name: "index_group_bans_on_group_id", using: :btree
+  add_index "group_bans", ["user_id"], name: "index_group_bans_on_user_id", using: :btree
+
   create_table "group_invites", force: true do |t|
     t.integer  "group_id"
     t.integer  "src_id"
@@ -917,7 +928,7 @@ ActiveRecord::Schema.define(version: 20140525205807) do
     t.string   "target_type"
     t.integer  "volumes",                  default: 0, null: false
     t.integer  "chapters",                 default: 0, null: false
-    t.string   "text",        limit: 1024
+    t.string   "text",        limit: 2048
     t.integer  "rewatches",                default: 0, null: false
   end
 
