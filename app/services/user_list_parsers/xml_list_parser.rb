@@ -11,7 +11,7 @@ class UserListParsers::XmlListParser
 
 private
   def extract_list xml
-    list = Hash.from_xml(xml.fix_encoding)['myanimelist'][@klass.name.downcase]
+    list = Hash.from_xml(xml.fix_encoding('utf-u', true))['myanimelist'][@klass.name.downcase]
     list.kind_of?(Hash) ? [list] : list
   end
 

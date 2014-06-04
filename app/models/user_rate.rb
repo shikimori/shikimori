@@ -112,13 +112,17 @@ private
 
     if changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
-      if self[counter] > 0 && changes[counter].first.zero? && changes['status'].nil? && !rewatching?
-        self.status = :watching
+      if self[counter] > 0 && changes[counter].first.zero?
+        if changes['status'].nil? && !rewatching?
+          self.status = :watching
+        end
       end
 
       # перевели с какой-то цифры в ноль - помечаем, что перенесли в запланированное
-      if self[counter].zero? && changes[counter] && changes[counter].first > 0 && !rewatching?
-        self.status = :planned
+      if self[counter].zero? && changes[counter] && !changes[counter].first.zero?
+        if changes['status'].nil? && !rewatching?
+          self.status = :planned
+        end
       end
     end
   end

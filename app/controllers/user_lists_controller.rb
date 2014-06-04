@@ -201,8 +201,14 @@ class UserListsController < UsersController
     end
 
     redirect_to messages_url(type: :inbox)
+
   rescue Exception => e
-    redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
+    if Rails.env.production?
+      ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? current_user.nickname : nil })
+      redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
+    else
+      raise
+    end
   end
 
 private

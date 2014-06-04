@@ -23,9 +23,9 @@ private
   def extract_xml file
     if file.respond_to?(:read)
       if file.respond_to?(:original_filename) && file.original_filename =~ /\.gz$/
-        Zlib::GzipReader.open(file.tempfile).read
+        Zlib::GzipReader.new(file.tempfile, external_encoding: 'utf-8', internal_encoding: 'utf-8').read
       else
-        file.read
+        File.open(file.path, encoding: 'utf-8').read
       end
     else
       file

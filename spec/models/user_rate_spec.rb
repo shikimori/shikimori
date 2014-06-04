@@ -108,8 +108,8 @@ describe UserRate do
           UserRate.statuses[new_status],
           UserRate.statuses[old_status]
         )
-
       end
+
       subject(:user_rate) { create :user_rate, old_status, target: target }
       let(:update_params) {{ status: new_status }}
       before { user_rate.update update_params }
@@ -172,6 +172,17 @@ describe UserRate do
         let(:update_params) {{ status: new_status, episodes: new_episodes }}
 
         its(:episodes) { should eq new_episodes }
+      end
+
+      context 'to onhold with 0 episodes from completed' do
+        let(:target) { build_stubbed :anime, episodes: 20 }
+        let(:old_status) { :completed }
+        let(:new_status) { :on_hold }
+        let(:new_episodes) { 0 }
+        let(:update_params) {{ status: new_status, episodes: new_episodes }}
+
+        it { should be_on_hold }
+        its(:episodes) { should eq 0 }
       end
     end
 

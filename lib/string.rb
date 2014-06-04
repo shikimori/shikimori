@@ -63,7 +63,7 @@ class String
   end
 
   # привод кривой строки в валидное состояние
-  def fix_encoding(encoding=nil)
+  def fix_encoding(encoding=nil, dont_unpack=false)
     result = self
     encoding ||= 'utf-8'
 
@@ -75,7 +75,7 @@ class String
       result = result.encode encoding
     end
 
-    unless result.valid_encoding?
+    unless result.valid_encoding? || dont_unpack
       result = result.unpack('C*').pack('U*')
     end
 
