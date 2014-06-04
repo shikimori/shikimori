@@ -276,7 +276,13 @@ private
     else
       stats[:chapters] = data.sum(&:chapters)
     end
-    stats[:days] = (data.sum {|v| (anime? ? v.episodes : v.chapters) * v.target.duration }.to_f / 60 / 24).round(2)
+    stats[:days] = (data.sum do |v|
+      if anime?
+        (v.episodes + v.rewatches * v.target.episodes) * v.target.duration
+      else
+        (v.chapters + v.rewatches * v.target.chapters) * v.target.duration
+      end
+    end.to_f / 60 / 24).round(2)
 
     reduce ? stats.select { |k,v| v > 0 }.to_hash : stats
   end
