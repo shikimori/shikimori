@@ -48,7 +48,7 @@ class UserRatesImporter
       rate.status = entry[:status].to_i
       rate.score = entry[:score].to_i
       rate.rewatches = entry[:rewatches].to_i
-      rate.text = entry[:text] if entry[:text]
+      rate.text = entry[:text].gsub(%r{<br ?/?>}, "\n").strip if entry[:text]
 
       # нельзя указать больше/меньше эпизодов,частей,томов для просмотренного, чем имеется в аниме/манге
       Counters.each do |counter|

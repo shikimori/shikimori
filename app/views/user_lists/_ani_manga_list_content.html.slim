@@ -55,7 +55,7 @@
 
           .rate-text
             - if user_rate.text.present?
-              div = user_rate.text
+              div = user_rate.text_html
 
         td class="num #{:hoverable if @user.own_profile?}"
           span.current-value data-field='score' data-max="10" data-min="0"
