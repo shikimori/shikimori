@@ -13,7 +13,7 @@ $ ->
 
 # клик по тегу топика загружает нужный раздел
 $('.topic-block .tag').live 'click', ->
-  History.pushState null, null, $(@).data('href').replace(/http:\/\/.*?\//, '/') if $(@).data('href')
+  History.pushState {timestamp: Date.now()}, null, $(@).data('href').replace(/http:\/\/.*?\//, '/') if $(@).data('href')
 
 # подсветка нужного раздела при аякс подгрузке
 $('.ajax').live 'ajax:success', (e, data) ->
