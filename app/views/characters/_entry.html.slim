@@ -2,7 +2,7 @@ article.entry-block(class="entry-#{entry.id}" itemscope itemtype="http://schema.
   meta itemprop="image" content="#{{attachment_url entry.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url entry.image, :x64, false}}"
 
-  a.uninitialized-tooltip href="#{character_url entry}"
+  a.uninitialized-tooltip href="#{character_url entry}" data-local-tooltip="true"
     img src="#{entry.image.url :original}" alt="#{localized_name entry}" title="#{localized_name entry}"
 
     span.title itemprop="name"
