@@ -10,9 +10,9 @@ class GroupInvitesController < ApplicationController
       render json: ['Указан несуществующий пользователь'], status: :unprocessable_entity
       return
     end
-    raise Forbidden unless @group.has_member?(current_user)
+    raise Forbidden unless @group.member?(current_user)
 
-    if @group.has_member?(current_user) && @group.has_member?(@user)
+    if @group.member?(current_user) && @group.member?(@user)
       render json: ['%s уже находится в этой группе' % @user.nickname], status: :unprocessable_entity
       return
     end

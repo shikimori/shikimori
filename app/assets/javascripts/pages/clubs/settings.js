@@ -37,6 +37,10 @@ function accept_complete(e, id, text, label) {
   } else if ($this.hasClass('kick-suggest')) {
     var type = 'kicks';
     var url = '/'+id;
+  } else if ($this.hasClass('ban-suggest')) {
+    var type = 'bans';
+    var url = '/'+text;
+    id = text;
   }
   var $container = $this.next().next().children('.container');
   if ($container.find('[value="'+id+'"]').length) {

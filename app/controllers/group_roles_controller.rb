@@ -6,7 +6,8 @@ class GroupRolesController < ApplicationController
     @group = Group.find(params[:id])
     @user = params.include?(:user_id) ? User.find(params[:user_id]) : current_user
     raise Forbidden unless @group.can_be_joined_by?(@user)
-    if @group.has_member? @user
+
+    if @group.member? @user
       render json: {}
       return
     end

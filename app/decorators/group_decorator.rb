@@ -110,4 +110,18 @@ class GroupDecorator < BaseDecorator
   def news
     []
   end
+
+  class << self
+    def join_policy_options
+      Group.join_policies.map do |policy_name, policy_id|
+        [I18n.t("activerecord.attributes.group.join_policies.#{policy_name}"), policy_name]
+      end
+    end
+
+    def comment_policy_options
+      Group.comment_policies.map do |policy_name, policy_id|
+        [I18n.t("activerecord.attributes.group.comment_policies.#{policy_name}"), policy_name]
+      end
+    end
+  end
 end

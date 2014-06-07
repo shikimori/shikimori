@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604180715) do
+ActiveRecord::Schema.define(version: 20140607193541) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -513,7 +513,7 @@ ActiveRecord::Schema.define(version: 20140604180715) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
-    t.integer  "join_policy"
+    t.integer  "join_policy",       default: 1,           null: false
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -526,6 +526,7 @@ ActiveRecord::Schema.define(version: 20140604180715) do
     t.integer  "group_roles_count", default: 0
     t.string   "permalink"
     t.boolean  "display_images",    default: true
+    t.integer  "comment_policy",    default: 1,           null: false
   end
 
   create_table "ignores", force: true do |t|

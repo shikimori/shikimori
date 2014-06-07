@@ -45,17 +45,17 @@ describe Group do
   end
 
   describe 'with Free join_policy' do
-    let(:group) { create :group, join_policy: GroupJoinPolicy::Free }
+    let(:group) { create :group, :free_join }
 
     it 'can be joined by random user' do
       group.can_be_joined_by?(user).should eq(true)
     end
 
     it 'has a member' do
-      group.has_member?(user).should eq(false)
+      group.member?(user).should eq(false)
 
       group.members << user
-      group.has_member?(user).should eq(true)
+      group.member?(user).should eq(true)
     end
 
     it 'has a staff' do
@@ -63,8 +63,8 @@ describe Group do
       user2 = create :user
       group.admins << user2
 
-      group.has_staff?(user).should eq(true)
-      group.has_staff?(user2).should eq(true)
+      group.staff?(user).should eq(true)
+      group.staff?(user2).should eq(true)
     end
 
     it 'can be moderated by moderators and admins' do
@@ -86,7 +86,7 @@ describe Group do
   end
 
   describe 'with ByOwnerInvite join_policy' do
-    let(:group) { create :group, join_policy: GroupJoinPolicy::ByOwnerInvite }
+    let(:group) { create :group, :owner_invite_join }
 
     it "can't be joined by user" do
       group.can_be_joined_by?(user).should eq(false)
@@ -143,5 +143,22 @@ describe Group do
       group.admins << user
       group.can_be_uploaded_by?(user).should be(true)
     end
+  end
+
+  describe '#ban' do
+    let(:user) { create :user }
+    let(:group) { create :group }
+    before { group.ban user }
+
+    it { expect(group.banned? user).to be true }
+  end
+
+  describe '#leave' do
+    let(:user) { create :user }
+    let(:group) { create :group }
+    let(:group_role) { create :group_role, user: user, group: group }
+    before { group.leave user }
+
+    it { expect(group.member? user).to be false }
   end
 end
