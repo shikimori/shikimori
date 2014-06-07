@@ -17,6 +17,14 @@
   }
 }
 
+.three-columns {
+  @include columns;
+
+  &>.column {
+    width: 33.33%;
+  }
+}
+
 .two-columns {
   @include columns;
 

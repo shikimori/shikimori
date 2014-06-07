@@ -32,6 +32,7 @@ class Group < ActiveRecord::Base
   belongs_to :owner, class_name: User.name, foreign_key: :owner_id
 
   has_many :invites, class_name: GroupInvite.name, dependent: :destroy
+  has_many :bans, dependent: :destroy, class_name: GroupBan.name
 
   has_many :topics, -> { order updated_at: :desc },
     class_name: Entry.name,
@@ -42,6 +43,9 @@ class Group < ActiveRecord::Base
     class_name: GroupComment.name,
     foreign_key: :linked_id,
     dependent: :destroy
+
+  enum join_policy: { free_join: 1, owner_invite_join: 100 }
+  enum comment_policy: { free_comment: 1, members_comment: 100 }
 
   before_save :update_permalink
   after_create :create_thread
@@ -72,13 +76,18 @@ class Group < ActiveRecord::Base
   end
 
   # является ли пользователь членом группы
-  def has_member?(user)
+  def member? user
     member_roles.any? {|v| v.user_id == (user.respond_to?(:id) ? user.id : user) }
   end
 
   # является ли пользователь членом комманды группы
-  def has_staff?(user)
+  def staff? user
     member_roles.any? {|v| (v.user_id == (user.respond_to?(:id) ? user.id : user)) && v.role != GroupRole::Member }
+  end
+
+  # является ли пользователь забаненным в группе
+  def banned? user
+    bans.any? {|v| v.user_id == user.id }
   end
 
   # группа ли это переводчиков
@@ -94,6 +103,14 @@ class Group < ActiveRecord::Base
   # отображать ли картинки в группе?
   def display_images?
     display_images
+  end
+
+  def ban user
+    bans.create! user: user
+  end
+
+  def leave user
+    member_roles.where(user: user).destroy_all
   end
 
 private

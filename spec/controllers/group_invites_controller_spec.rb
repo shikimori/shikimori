@@ -6,7 +6,7 @@ describe GroupInvitesController do
 
   describe Group do
     describe 'with Free join_policy' do
-      let(:group) { create :group, join_policy: GroupJoinPolicy::Free }
+      let(:group) { create :group, :free_join }
       let(:user2) { create :user }
 
       it "can create invites from members" do

@@ -93,13 +93,25 @@ ru:
         url: Ссылка
         kind: Тип
         name: Название
+      group:
+        name: Название
+        display_images: Отображать раздел картинок
+        join_policy: Возможность вступления
+        join_policies:
+          free_join: Свободное для всех желающих
+          owner_invite_join: Только по приглашению создателя
+        comment_policy: Возможность комментирования
+        comment_policies:
+          free_comment: Свободное для всех
+          members_comment: Только для участников клуба
 
     # сообщения валидаций
     errors:
       models:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'
-          not_a_club_member: 'Вступите в клуб, чтобы оставлять комментарии'
+          not_a_club_member: Вступите в клуб, чтобы оставлять комментарии
+          in_club_black_list: Вы занесены в чёрный список клуба
         videos:
           attributes:
             url:

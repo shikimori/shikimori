@@ -7,7 +7,7 @@ $('.slide .settings').live('cache:success ajax:success', function() {
   $('.anime-suggest').make_completable('Название аниме...', accept_complete);
   $('.manga-suggest').make_completable('Название манги...', accept_complete);
   $('.character-suggest').make_completable('Имя персонажа...', accept_complete);
-  $('.moderator-suggest,.admin-suggest,.kick-suggest').make_completable('Имя пользователя...', accept_complete);
+  $('.moderator-suggest,.admin-suggest,.kick-suggest,.ban-suggest').make_completable('Имя пользователя...', accept_complete);
 });
 
 function accept_complete(e, id, text, label) {
@@ -37,6 +37,10 @@ function accept_complete(e, id, text, label) {
   } else if ($this.hasClass('kick-suggest')) {
     var type = 'kicks';
     var url = '/'+id;
+  } else if ($this.hasClass('ban-suggest')) {
+    var type = 'bans';
+    var url = '/'+text;
+    id = text;
   }
   var $container = $this.next().next().children('.container');
   if ($container.find('[value="'+id+'"]').length) {
