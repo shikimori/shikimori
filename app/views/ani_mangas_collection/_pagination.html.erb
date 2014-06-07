@@ -2,22 +2,18 @@
   <ul class="links">
     <li class="first"><%=link_to "Начало",
                                  @first_page,
-                                 :class => "link link-first%s" % [@first_page.blank? ? " disabled" : ""],
-                                 :rel => defined?(rel_nofollow) && rel_nofollow ? :nofollow : '' %></li>
+                                 :class => "link link-first%s" % [@first_page.blank? ? " disabled" : ""] %></li>
     <li class="last"><%=link_to "Конец",
                                 @last_page,
-                                :class => "link link-last%s" % [@last_page.blank? ? " disabled" : ""],
-                                :rel => defined?(rel_nofollow) && rel_nofollow ? :nofollow : '' %></li>
+                                :class => "link link-last%s" % [@last_page.blank? ? " disabled" : ""] %></li>
     <li class="middle"><%#disabled%>
       <div><%=link_to "←  Назад",
                       @prev_page,
-                      :class => "link link-prev%s" % [@prev_page.blank? ? " disabled" : ""],
-                      :rel => defined?(rel_nofollow) && rel_nofollow ? :nofollow : '' %></div>
+                      :class => "link link-prev%s" % [@prev_page.blank? ? " disabled" : ""] %></div>
       <div class="no-hover"><span class="link-title">Страница</span> <span class="link-current"><%=params[:page] || 1 %></span> из <span class="link-total"><%=@total_pages || 1 %></span></div>
       <div><%=link_to "Вперед →",
                       @next_page,
-                      :class => "link link-next%s" % [@next_page.blank? ? " disabled" : ""],
-                      :rel => defined?(rel_nofollow) && rel_nofollow ? :nofollow : '' %></div>
+                      :class => "link link-next%s" % [@next_page.blank? ? " disabled" : ""] %></div>
     </li>
   </ul>
 </div>
