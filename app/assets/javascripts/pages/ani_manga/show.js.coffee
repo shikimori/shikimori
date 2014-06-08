@@ -99,7 +99,31 @@ $ ->
 
   # клик по добавлению в свой список
   $('.menu-rate-block .add-to-list').on 'click', ->
-    $(@).closest('form').submit()
+    $form = $(@).closest('form')
+
+    $form.find('.user_rate_status input').val $(@).data('status')
+    $form.submit()
+
+  # клик по раскрытию вариантов добавления в список
+  $('.menu-rate-block .expand-options').on 'click', ->
+    $(@).toggleClass 'selected'
+
+    $options = $('.menu-rate-block .expanded-options')
+
+    unless $options.data 'height'
+      $options
+        .data height: $options.height()
+        .css(height: 0)
+        .show()
+
+    (=>
+      if $(@).hasClass 'selected'
+        $options.css height: $options.data('height')
+        $('.menu-rate-block .add-to-list:not(.option)').hide()
+      else
+        $options.css height: 0
+        $('.menu-rate-block .add-to-list:not(.option)').show()
+    ).delay()
 
   # сабмит формы user_rate
   $('.menu-rate-block').on 'ajax:success', '.new_user_rate, .increment', (e, html) ->

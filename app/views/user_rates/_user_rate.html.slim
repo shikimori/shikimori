@@ -1,6 +1,9 @@
-- if user_rate.persisted?
-  .buttons
+.buttons
+  - if user_rate.persisted?
     span.item-edit data-remote="true" data-type="html" data-action="#{edit_user_rate_url user_rate}"
+  - else
+    span.expand-options
+
 .subheadline Мой список
 .subcontent.rate-container
   - if user_rate.persisted?
@@ -40,4 +43,8 @@
       = f.input :user_id, as: :hidden
       = f.input :target_id, as: :hidden
       = f.input :target_type, as: :hidden
-      span.add-to-list Добавить в список
+      = f.input :status, as: :hidden
+      span.add-to-list data-status="planned" Добавить в список
+      .expanded-options
+        - UserRateDecorator.statuses_options(user_rate.target_type).each do |title,status|
+          .add-to-list.option data-status="#{status}" = title
