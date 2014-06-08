@@ -4,14 +4,6 @@ require 'cancan/matchers'
 describe Api::V1::UserRatesController do
   include_context :authenticated
 
-  describe :edit do
-    let(:user_rate) { create :user_rate, user: user }
-    before { get :edit, id: user_rate.id }
-
-    it { should respond_with :success }
-    it { should respond_with_content_type :html }
-  end
-
   describe :create do
     let(:target) { create :anime }
     let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}

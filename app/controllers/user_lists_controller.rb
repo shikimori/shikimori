@@ -68,12 +68,6 @@ class UserListsController < UsersController
     end
   end
 
-  def edit
-    raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
-    @user_rate = @user.anime_rates.find_by(id: params[:user_rate_id]) || @user.manga_rates.find(params[:user_rate_id])
-    render 'api/v1/user_rates/edit'
-  end
-
   # история изменения списка аниме/манги
   def history
     limit = 90

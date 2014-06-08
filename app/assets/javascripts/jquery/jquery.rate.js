@@ -109,7 +109,6 @@
         o.$form.bind('ajax:before', function(e) {
           pending_requerst = true;
         }).bind('ajax:success', function(e, data, status, xhr) {
-
           o.user_score = data.score;
           set_current_score(o.user_score, o, true);
 

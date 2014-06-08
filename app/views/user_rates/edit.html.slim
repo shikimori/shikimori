@@ -1,8 +1,7 @@
-= simple_form_for [:api, @user_rate], remote: !params[:redirect_to_back].present?, html: { 'data-type' => :json }, authenticity_token: true do |f|
-  - if params[:redirect_to_back]
-    input type="hidden" name="redirect_to_back" value="true"
+= simple_form_for params[:api] ? [:api, @user_rate] : @user_rate, remote: true, html: { 'data-type' => params[:api] ? :json : :html }, authenticity_token: true do |f|
+  - unless params[:api]
     .remove
-      a href="#{api_user_rate_url f.object}?redirect_to_back=true" data-method="delete" Удалить из списка
+      a href="#{user_rate_url f.object}" data-method="delete" Удалить из списка
 
   = f.input :score, as: :select, collection: UserRateDecorator.scores_options
 
@@ -20,5 +19,5 @@
     = f.submit 'Сохранить'
     .cancel Отмена
 
-    - unless params[:redirect_to_back]
+    - if params[:api]
       input.remove.button type="button" data-remote="true" data-action="#{api_user_rate_url f.object}" data-method="delete" value="Удалить из списка"

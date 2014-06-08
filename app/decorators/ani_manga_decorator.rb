@@ -67,10 +67,9 @@ class AniMangaDecorator < BaseDecorator
 
   # добавлено ли в список текущего пользователя?
   def rate
-    object.rates.where(user_id: h.current_user.id).decorate.first if h.user_signed_in?
-    #h.user_signed_in? ?
-      #object.rates.where(user_id: h.current_user.id).first :#.decorate.first :
-      #nil
+    if h.user_signed_in?
+      rates.where(user_id: h.current_user.id).decorate.first || rates.build(user_id: h.current_user.id)
+    end
   end
 
   # основной топик

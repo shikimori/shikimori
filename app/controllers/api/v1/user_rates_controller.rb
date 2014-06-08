@@ -4,11 +4,6 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/user_rates/:id/edit"
-  def edit
-  end
-
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, "/user_rates", "Create an user rate"
   param :user_rate, Hash do
     param :chapters, :undef
@@ -24,12 +19,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
   def create
     @user_rate.save rescue Mysql2::Error
-
-    if params[:redirect_to_back]
-      redirect_to :back, notice: 'Добавлено в список'
-    else
-      respond_with @user_rate, location: nil
-    end
+    respond_with @user_rate, location: nil
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -46,16 +36,9 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
   def update
     @user_rate.update update_params
-
-    if params[:redirect_to_back]
-      redirect_to :back
-    else
-      respond_with @user_rate, location: nil
-    end
+    respond_with @user_rate, location: nil
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :POST, "/user_rates/:id/increment"
   def increment
     if @user_rate.anime?
       @user_rate.update episodes: @user_rate.episodes + 1
@@ -63,24 +46,14 @@ class Api::V1::UserRatesController < Api::V1::ApiController
       @user_rate.update chapters: @user_rate.chapters + 1
     end
 
-    if params[:redirect_to_back]
-      redirect_to :back
-    else
-      respond_with @user_rate
-    end
+    respond_with @user_rate
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, "/user_rates/:id", "Destroy an user rate"
   def destroy
     @user_rate.destroy!
-
-    if params[:redirect_to_back]
-      redirect_to :back, notice: 'Удалено из списка'
-    else
-      respond_with @user_rate, location: nil
-    end
-
+    respond_with @user_rate, location: nil
   end
 
   # очистка списка и истории

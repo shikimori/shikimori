@@ -101,31 +101,21 @@ $ ->
   $('.menu-rate-block .add-to-list').on 'click', ->
     $(@).closest('form').submit()
 
-  $('.menu-rate-block .increment').on 'click', ->
-    $current_episodes = $('.menu-rate-block .current-episodes')
-    current_episodes = parseInt $current_episodes.text()
-    total_episodes = parseInt $('.menu-rate-block .total-episodes').text()
+  # сабмит формы user_rate
+  $('.menu-rate-block').on 'ajax:success', '.new_user_rate, .increment', (e, html) ->
+    $('.menu-rate-block').html html
+    $('.menu-rate-block .scores-user').makeRateble()
 
-    #if _.isNaN(total_episodes) || (current_episodes < total_episodes - 1 && current_episodes != 0)
-    if _.isNaN(total_episodes) || current_episodes < total_episodes - 1
-      $(@)
-        .data
-          remote: true
-          type: 'json'
-        .attr href: $(@).data('href')
-        .one 'ajax:success', (e, user_rate) ->
-          $current_episodes.text user_rate.episodes || user_rate.chapters
-        .callRemote()
-      false
-    else
-      $(@)
-        .data
-          remote: false
-          type: null
-        .attr href: "#{$(@).data('href')}?redirect_to_back=true"
+  # завершение редактирования user_rate
+  $('.menu-rate-block').on 'ajax:success', '.edit_user_rate', (e, html) ->
+    $('.menu-rate-block .rate-show').replaceWith($(html).find('.rate-show'))
+    $('.menu-rate-block .rate-show').data height: $('.menu-rate-block .rate-show').height()
+    $('.menu-rate-block .scores-user').makeRateble()
+
+    $('.menu-rate-block .cancel').click()
 
   # клик на изменение user_rate - подгрузка и показ формы
-  $('.menu-rate-block .item-edit').on 'ajax:success', (e, edit_html) ->
+  $('.menu-rate-block').on 'ajax:success', '.item-edit', (e, edit_html) ->
     $show = $('.menu-rate-block .rate-show')
     $show
       .data(height: $show.height())
@@ -149,11 +139,11 @@ $ ->
       height: $show.data('height')
 
   # user ratings
-  $scores_user = $(".animanga-right-menu .scores-user")
-  $(".animanga-right-menu .scores-user").makeRateble() if $scores_user.is(":visible")
+  $scores_user = $(".menu-rate-block .scores-user")
+  $scores_user.makeRateble() if $scores_user.is(":visible")
 
 # клик по заголовку аниме
-$(".anime-title a").live "click", ->
+$('.anime-title a').live "click", ->
   $(".slider-control-info a").trigger "click"
   false
 

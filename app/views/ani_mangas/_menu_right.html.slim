@@ -1,49 +1,6 @@
 - if user_signed_in?
   .menu-block.menu-rate-block
-    - if @entry.rate
-      .buttons
-        span.item-edit data-remote="true" data-type="html" data-action="#{edit_api_user_rate_url @entry.rate}?redirect_to_back=true"
-    .subheadline Мой список
-    .subcontent.rate-container
-      - if @entry.rate
-        .rate-edit
-        .rate-show
-          .rate-number
-            - if @entry.respond_to? :episodes
-              span.current-episodes = @entry.rate.episodes
-              - unless @entry.episodes.zero?
-                span.sep
-                  | /
-                span.total-episodes
-                  = @entry.episodes
-              - if @entry.rate.episodes != @entry.episodes
-                a.item-add.increment data-href="#{increment_api_user_rate_url @entry.rate}" data-method="post"
-            - else
-              span.current-episodes = @entry.rate.chapters
-              - unless @entry.chapters.zero?
-                span.sep
-                  | /
-                span.total-episodes
-                  = @entry.chapters
-              - if @entry.rate.chapters != @entry.chapters
-                a.item-add.increment data-href="#{increment_api_user_rate_url @entry.rate}" data-method="post"
-
-          .status = @entry.rate.status_name
-
-          = simple_form_for [:api, @entry.rate], remote: true, html: { class: 'rate-block', 'data-type' => 'json' } do |f|
-            = f.input :score, as: :hidden
-            .scores-user
-              = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && @entry.rate ? @entry.rate.score : '' }
-
-          p.note = @entry.rate.text
-
-      - else
-        = simple_form_for [:api, @entry.rates.build(user_id: current_user.id)] do |f|
-          input type="hidden" name="redirect_to_back" value="true"
-          = f.input :user_id, as: :hidden
-          = f.input :target_id, as: :hidden
-          = f.input :target_type, as: :hidden
-          span.add-to-list Добавить в список
+    = render partial: 'user_rates/user_rate', locals: { user_rate: @entry.rate, entry: @entry }
 
 nav.menu-block
   .subheadline Разделы
