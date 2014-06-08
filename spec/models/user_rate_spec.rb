@@ -97,6 +97,12 @@ describe UserRate do
         after { user_rate.save }
         it { expect(user_rate).to receive :status_changed }
       end
+
+      describe :null_rewatches do
+        let(:user_rate) { build :user_rate, :watching, target: build_stubbed(:anime), rewatches: nil }
+        after { user_rate.save }
+        its(:rewatches) { should be_zero }
+      end
     end
 
     describe :status_changed do

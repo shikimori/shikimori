@@ -61,6 +61,7 @@ class UserRate < ActiveRecord::Base
 private
   # перед сохранением модели, смотрим, что изменилось, и соответствующе меняем остальные поля, и заносим запись в историю
   def smart_process_changes
+    self.rewatches ||= 0
     status_changed if changes['status']
     score_changed if changes['score']
 
