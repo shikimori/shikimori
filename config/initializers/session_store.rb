@@ -3,7 +3,7 @@
 
 Site::Application.config.session_store :cookie_store, {
   key: '_kawai_session',
-  expire_after: 60*60*24*7,
+  expire_after: 60*60*24*365,
   domain: :all
 }
 
