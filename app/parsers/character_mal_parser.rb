@@ -61,7 +61,7 @@ class CharacterMalParser < BaseMalParser
       entry[:img] = img_doc.first.attr(:src)
     end
 
-    # сейю
+    # сэйю
     staff_doc = doc.css('#content table > tr > td') if content.include?('Voice Actors')
     if staff_doc
       staff_doc.css("tr").map {|tr| tr.css('td').last }.each do |staff_doc|
@@ -83,7 +83,7 @@ class CharacterMalParser < BaseMalParser
     entry
   end
 
-  # привязка персонажа к сейю
+  # привязка персонажа к сэйю
   def deploy_seyu(entry, seyu)
     # сперва удаляем все старые записи, затем создаём новые привязки
     PersonRole.where("character_id = ? and person_id is not null", entry.id).delete_all

@@ -1,5 +1,5 @@
 class SeyuController < PeopleController
-  # поиск по сейю
+  # поиск по сэйю
   def index
     @query = SeyuQuery.new(params)
     @people = postload_paginate(params[:page], 10) { @query.fetch }
@@ -7,7 +7,7 @@ class SeyuController < PeopleController
     direct
   end
 
-  # отображение сейю
+  # отображение сэйю
   def show
     @entry = SeyuDecorator.new Person.find(params[:id].to_i)
     direct

@@ -19,7 +19,7 @@ section.editable
 
   - if @entry.seyu.present?
     .people-container
-      .subheadline.m10 Сейю
+      .subheadline.m10 Сэйю
       .person-line
         - @entry.seyu.each do |person|
           = render partial: 'blocks/person', locals: { person: person, role: nil, link_to_seyu: true }, formats: :html

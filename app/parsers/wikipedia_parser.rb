@@ -447,9 +447,9 @@ class WikipediaParser < SiteParserWithCache
     rescue
     end
 
-    # удаление Сейю из начала
+    # удаление Сэйю из начала
     text.sub!($1, '') if text =~ /^((?:(?:\*|:|\[\*\]) ?)?С[еэ]йю (?:—|:|-).*?\n)/
-    # удаление Сейю из конца
+    # удаление Сэйю из конца
     1.upto(2) do
       text.sub!($1, '') if text =~ /
         \n
