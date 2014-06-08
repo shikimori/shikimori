@@ -24,6 +24,6 @@ class UserRatesController < Api::V1::UserRatesController
 
   def destroy
     @user_rate.destroy!
-    redirect_to @user_rate.target
+    render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
   end
 end

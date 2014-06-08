@@ -1,7 +1,7 @@
 = simple_form_for params[:api] ? [:api, @user_rate] : @user_rate, remote: true, html: { 'data-type' => params[:api] ? :json : :html }, authenticity_token: true do |f|
   - unless params[:api]
     .remove
-      a href="#{user_rate_url f.object}" data-method="delete" Удалить из списка
+      a data-remote="true" data-type="html" href="#{user_rate_url f.object}" data-method="delete" Удалить из списка
 
   = f.input :score, as: :select, collection: UserRateDecorator.scores_options
 

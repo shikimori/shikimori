@@ -15,7 +15,8 @@ describe UserRatesController do
     let(:user_rate) { create :user_rate, user: user }
     before { delete :destroy, id: user_rate.id, format: :json }
 
-    it { should redirect_to user_rate.target }
+    it { should respond_with :success }
+    it { should respond_with_content_type :html }
     it { expect(assigns(:user_rate)).to be_destroyed }
   end
 
