@@ -261,7 +261,7 @@ private
     search_fields(@search).map {|field| field_search_query field }.flatten.compact
   end
 
-  # поля, по которым будет осузествлён поиск
+  # поля, по которым будет осуществлён поиск
   def search_fields term
     if term.contains_cjkv?
       [:japanese]
@@ -277,11 +277,11 @@ private
 
     if field == :japanese || field == :english || field == :synonyms
       queries << [
-        "#{table_name}.#{field} like #{Entry.sanitize "% #{term}%"}",
-        "#{table_name}.#{field} like #{Entry.sanitize "%#{term}%"}"
+        "#{table_name}.#{field} like #{Entry.sanitize "% #{term.gsub('*', '%')}%"}",
+        "#{table_name}.#{field} like #{Entry.sanitize "%#{term.gsub('*', '%')}%"}"
       ]
       if field == :japanese
-        queries << "#{table_name}.#{field} like #{Entry.sanitize "%#{term.to_yaml.gsub(/^--- !binary \|\n|\n\n$/, '')}%"}"
+        queries << "#{table_name}.#{field} like #{Entry.sanitize "%#{term.to_yaml.gsub(/^--- !binary \|\n|\n\n$/, '').gsub('*', '%')}%"}"
       end
 
     else
@@ -305,6 +305,12 @@ private
 
       unless term.eql? pterm
         queries << "#{table_name}.#{field} like #{Entry.sanitize "#{pterm}%"}"
+      end
+
+      if field == :name && term.include?('*')
+        queries << "#{table_name}.#{field} like #{Entry.sanitize term.gsub('*', '%')}"
+        queries << "#{table_name}.#{field} like #{Entry.sanitize "#{term.gsub '*', '%'}%"}"
+        queries << "#{table_name}.#{field} like #{Entry.sanitize "%#{term.gsub '*', '%'}%"}"
       end
     end
 
