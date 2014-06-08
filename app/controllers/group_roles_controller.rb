@@ -16,7 +16,7 @@ class GroupRolesController < ApplicationController
     if @group.owner_id == @user.id
       @group.admin_roles.create! user_id: @user.id, role: GroupRole::Admin
     else
-      @group.members << @user
+      @group.join @user
     end
     render json: {
       notice: 'Вы вступили в %s' % @group.name,

@@ -109,6 +109,10 @@ class Group < ActiveRecord::Base
     bans.create! user: user
   end
 
+  def join user
+    members << user
+  end
+
   def leave user
     member_roles.where(user: user).destroy_all
   end

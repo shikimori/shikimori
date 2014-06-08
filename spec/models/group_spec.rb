@@ -153,6 +153,14 @@ describe Group do
     it { expect(group.banned? user).to be true }
   end
 
+  describe '#join' do
+    let(:user) { create :user }
+    let(:group) { create :group }
+    before { group.join user }
+
+    it { expect(group.member? user).to be true }
+  end
+
   describe '#leave' do
     let(:user) { create :user }
     let(:group) { create :group }

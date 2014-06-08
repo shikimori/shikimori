@@ -15,8 +15,8 @@ class GroupRole < ActiveRecord::Base
 private
   def accept_invite
     GroupInvite.where(dst_id: user_id, group_id: group_id).each do |v|
-      v.update_attribute(:status, GroupInviteStatus::Accepted)
-      v.message.update_attribute(:read, true)
+      v.update(status: GroupInviteStatus::Accepted)
+      v.message.update(read: true)
     end
   end
 

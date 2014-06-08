@@ -112,6 +112,9 @@ ru:
           not_a_moderator: '[ban] теги трогать нельзя'
           not_a_club_member: Вступите в клуб, чтобы оставлять комментарии
           in_club_black_list: Вы занесены в чёрный список клуба
+        group_invites:
+          you_are_banned: Вы занесены в чёрный список клуба
+          user_is_banned: Пользователь занесён в чёрный список клуба
         videos:
           attributes:
             url:
