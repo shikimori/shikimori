@@ -98,8 +98,8 @@ class User < ActiveRecord::Base
     url: "/images/user/:style/:id.:extension",
     path: ":rails_root/public/images/user/:style/:id.:extension"
 
+  validates :nickname, presence: true, name: true
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
-  validates :nickname, presence: true, uniqueness: { case_sensitive: false }
 
   before_save :fix_nickname
   before_update :log_nickname_change

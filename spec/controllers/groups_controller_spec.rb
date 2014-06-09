@@ -34,7 +34,7 @@ describe GroupsController do
   describe 'create' do
     it 'creates new group' do
       expect {
-        post :apply, :id => 'new', :group => {:name => 'test'}
+        post :create, id: 'new', group: {name: 'test'}
         response.should be_redirect
       }.to change(Group, :count).by(1)
 

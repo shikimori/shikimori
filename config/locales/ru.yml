@@ -107,6 +107,8 @@ ru:
 
     # сообщения валидаций
     errors:
+      messages:
+        taken: уже используется
       models:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'

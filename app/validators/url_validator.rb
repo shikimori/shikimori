@@ -6,6 +6,7 @@ class UrlValidator < ActiveModel::EachValidator
     rescue URI::InvalidURIError
       resp = false
     end
+
     unless resp == true
       record.errors[attribute] << (options[:message] || I18n.t('activerecord.errors.messages.invalid'))
     end

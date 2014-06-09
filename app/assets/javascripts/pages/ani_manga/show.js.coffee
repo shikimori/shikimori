@@ -35,14 +35,14 @@ $ ->
   build_history()
 
   # anime history tooltips
-  $(".person-tooltip").tooltip
-    position: "top right"
+  $('.person-tooltip').tooltip
+    position: 'top right'
     offset: [-28, -22]
     relative: true
     place_to_left: true
 
   # slides
-  $(".slider-control").click (e) ->
+  $('.slider-control').click (e) ->
     # we should ignore middle button click
     return if in_new_tab(e)
     href = ($(@).children("a").attr("href") || $(@).children("span.link").data("href"))
@@ -84,7 +84,7 @@ $ ->
         .attr(href: menu_url)
         .data(href: menu_url)
 
-  $(window).trigger "statechange"
+  $(window).trigger 'statechange'
 
   # height fix for related anime
   names = $('.entry-block .name')

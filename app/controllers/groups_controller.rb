@@ -1,7 +1,7 @@
 # TODO: отрефакторить толстый контроллер
 class GroupsController < ApplicationController
-  before_action :check_auth, only: [:new, :settings, :apply]
-  before_action :fetch_group, only: [:show, :members, :animes, :mangas, :characters, :images]
+  before_action :check_auth, only: [:new, :settings, :update]
+  before_action :fetch_group, only: [:update, :show, :members, :animes, :mangas, :characters, :images]
   helper_method :breadcrumbs
 
   # список всех групп
@@ -62,37 +62,29 @@ class GroupsController < ApplicationController
 
   # аниме группы
   def animes
-    set_meta_tags noindex: true
-
+    noindex
     @page_title = [@group.name, 'Аниме']
-
     show
   end
 
   # манга группы
   def mangas
-    set_meta_tags noindex: true
-
+    noindex
     @page_title = [@group.name, 'Манга']
-
     show
   end
 
   # аниме группы
   def characters
-    set_meta_tags noindex: true
-
+    noindex
     @page_title = [@group.name, 'Персонажи']
-
     show
   end
 
   # картинки группы
   def images
-    set_meta_tags noindex: true, nofollow: true
-
+    noindex
     @page_title = [@group.name, 'Картинки']
-
     show
   end
 
@@ -104,28 +96,20 @@ class GroupsController < ApplicationController
     show
   end
 
-  def update
-    apply
-  end
-
   def create
-    params[:id] = 'new'
-    apply
+    @group = Group.new(group_params.merge(owner_id: current_user.id)).decorate
+
+    if @group.save
+      @group.admin_roles.create! user_id: current_user.id, role: GroupRole::Admin
+      redirect_to club_url @group
+    else
+      params[:type] ||= 'settings'
+      show
+    end
   end
 
   # изменение группы
-  def apply
-    if params[:id] == 'new'
-      @group = Group.create!(
-        owner_id: current_user.id,
-        join_policy: :free_join,
-        comment_policy: :free_comment
-      )
-      @group.admin_roles.create! user_id: current_user.id, role: GroupRole::Admin
-    else
-      @group = Group.find(params[:id])
-    end
-
+  def update
     raise Forbidden unless @group.can_be_edited_by?(current_user)
 
     if params[:animes]
@@ -189,12 +173,11 @@ class GroupsController < ApplicationController
       end
     end
 
-    @group.update group_params
-
-    if params[:id] == 'new'
-      redirect_to club_url @group
-    else
+    if @group.update group_params
       redirect_to_back_or_to club_url(@group), notice: 'Изменения сохранены'
+    else
+      params[:type] ||= 'settings'
+      show
     end
   end
 

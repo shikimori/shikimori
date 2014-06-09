@@ -1,10 +1,9 @@
 = simple_form_for contest, html: { class: "edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
-    .errors
-      .subheadline.red Ошибки
+    .b-errors
+      .subheadline Ошибки
       .subcontent
         == contest.errors.full_messages.join('<br>')
-      div
 
   .subheadline Общее
   .subcontent
@@ -101,7 +100,7 @@
 
   p.buttons.m30
     span.save.button
-      = contest ? 'Сохранить' : 'Создать'
+      = contest.persisted? ? 'Сохранить' : 'Создать'
   .clearfix
 
   - if contest.persisted?

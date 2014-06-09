@@ -1,5 +1,11 @@
 = simple_form_for @group, html: { multipart: true } do |f|
-  .item-save сохранить
+  - unless @group.valid?
+    .b-errors
+      .subheadline Ошибки
+      .subcontent
+        == @group.errors.full_messages.join('<br>')
+
+  .item-save = @group.persisted? ? 'Сохранить' : 'Создать'
   .subheadline Настройки
   .subcontent
     .m20
@@ -17,96 +23,96 @@
   .subcontent
     = f.input :display_images, label: 'Отображать'
 
-  .subheadline.m10 Лого
+  .subheadline.m10 Логотип
   .subcontent
-    - if @group && @group.logo.exists?
+    - if @group.logo.exists?
       img src="#{@group.logo.url(:main)}" alt="#{@group.name}" title="#{@group.name}"
     p.grey-hint загрузить #{'другую ' if @group && @group.logo.exists?}картинку: #{file_field_tag 'group[logo]'}
 
-  .two-columns
-    .column
-      input.anime-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_animes_url search: ''}"
-      .subheadline Аниме
-      .m30
-        = hidden_field_tag 'animes[]', ''
-        ul.container
-          - if @group
-            - @group.animes.uniq(&:id).each do |anime|
-              li
-                span.item-minus
-                = hidden_field_tag 'animes[]', anime.id
-                a.bubbled href="#{anime_url anime}"
-                  = anime.name
-    .column
-      input.manga-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_mangas_url search: ''}"
-      .subheadline Манга
-      .m30
-        = hidden_field_tag 'mangas[]', ''
-        ul.container
-          - if @group
-            - @group.mangas.uniq(&:id).each do |manga|
-              li
-                span.item-minus
-                = hidden_field_tag 'mangas[]', manga.id
-                a.bubbled href="#{manga_url manga}"
-                  = manga.name
+  - if @group.persisted?
+    .two-columns
+      .column
+        input.anime-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_animes_url search: ''}"
+        .subheadline Аниме
+        .m30
+          = hidden_field_tag 'animes[]', ''
+          ul.container
+            - if @group
+              - @group.animes.uniq(&:id).each do |anime|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'animes[]', anime.id
+                  a.bubbled href="#{anime_url anime}"
+                    = anime.name
+      .column
+        input.manga-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_mangas_url search: ''}"
+        .subheadline Манга
+        .m30
+          = hidden_field_tag 'mangas[]', ''
+          ul.container
+            - if @group
+              - @group.mangas.uniq(&:id).each do |manga|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'mangas[]', manga.id
+                  a.bubbled href="#{manga_url manga}"
+                    = manga.name
 
-  .two-columns
-    .column
-      input.character-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_characters_url search: ''}"
-      .subheadline Персонажи
-      .m30
-        = hidden_field_tag 'characters[]', ''
-        ul.container
-          - if @group
-            - @group.characters.uniq(&:id).each do |character|
-              li
-                span.item-minus
-                = hidden_field_tag 'characters[]', character.id
-                a.bubbled href="#{character_url character}"
-                  = character.name
+    .two-columns
+      .column
+        input.character-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_characters_url search: ''}"
+        .subheadline Персонажи
+        .m30
+          = hidden_field_tag 'characters[]', ''
+          ul.container
+            - if @group
+              - @group.characters.uniq(&:id).each do |character|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'characters[]', character.id
+                  a.bubbled href="#{character_url character}"
+                    = character.name
 
-  /- if @group && @group.admins.include?(current_user)
-    div style="display: none;"
-      .subheadline Модераторы
-      .m30
-        input.moderator-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
-        = hidden_field_tag 'moderators[]', ''
-        ul.container
-          - if @group
-            - @group.moderators.each do |user|
+    /- if @group && @group.admins.include?(current_user)
+      div style="display: none;"
+        .subheadline Модераторы
+        .m30
+          input.moderator-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
+          = hidden_field_tag 'moderators[]', ''
+          ul.container
+            - if @group
+              - @group.moderators.each do |user|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'moderators[]', user.nickname
+                  a href="#{user_url user}" = user.nickname
+
+    .two-columns
+      .column
+        input.admin-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
+        .subheadline Администраторы
+        .m30
+          = hidden_field_tag 'admins[]', ''
+          ul.container
+            - if @group
+              - @group.admins.each do |user|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'admins[]', user.nickname
+                  a href="#{user_url user}" = user.nickname
+
+      .column
+        input.ban-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
+        .subheadline Чёрный список
+        .m30
+          = hidden_field_tag 'bans[]', ''
+          ul.container
+            - @group.banned.each do |user|
               li
                 span.item-minus
-                = hidden_field_tag 'moderators[]', user.nickname
+                = hidden_field_tag 'bans[]', user.nickname
                 a href="#{user_url user}" = user.nickname
 
-  .two-columns
-    .column
-      input.admin-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
-      .subheadline Администраторы
-      .m30
-        = hidden_field_tag 'admins[]', ''
-        ul.container
-          - if @group
-            - @group.admins.each do |user|
-              li
-                span.item-minus
-                = hidden_field_tag 'admins[]', user.nickname
-                a href="#{user_url user}" = user.nickname
-
-    .column
-      input.ban-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
-      .subheadline Чёрный список
-      .m30
-        = hidden_field_tag 'bans[]', ''
-        ul.container
-          - @group.banned.each do |user|
-            li
-              span.item-minus
-              = hidden_field_tag 'bans[]', user.nickname
-              a href="#{user_url user}" = user.nickname
-
-  - if @group
     .two-columns
       .column
         input.kick-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
@@ -115,4 +121,5 @@
           = hidden_field_tag 'kicks[]', ''
           ul.container
 
-  span.save.button = @group ? 'Сохранить' : 'Создать'
+  p.buttons.m30
+    span.save.button = @group.persisted? ? 'Сохранить' : 'Создать'

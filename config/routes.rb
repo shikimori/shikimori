@@ -40,7 +40,7 @@ Site::Application.routes.draw do
       get 'r/:other' => redirect { |params,request| "/reviews/#{params[:other]}" }
     end
 
-    constraints section: /a|m|c|s|f|o|g|reviews|v|all|news/ do
+    constraints section: Section::VARIANTS do
       get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
       #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
 
@@ -217,8 +217,8 @@ Site::Application.routes.draw do
       get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
     end
-    patch 'groups/:id' => 'groups#apply', as: :apply_group
-    post 'groups/:id' => 'groups#apply'
+    patch 'groups/:id' => 'groups#update', as: :update_group
+    post 'groups/:id' => 'groups#update'
     get 'groups/:id/autocomplete/:search' => 'groups#autocomplete', as: 'autocomplete_group_members', format: :json, search: /.*/
 
     resources :user_images, only: [:create]

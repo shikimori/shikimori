@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class Validatable
+class UrlValidatable
   include ActiveModel::Validations
 
   attr_accessor :url
@@ -12,10 +12,7 @@ class Validatable
 end
 
 describe UrlValidator do
-  let(:url) { nil }
-  subject { Validatable.new url: url }
-  before { subject.valid? }
-  let(:message) { subject.errors.messages[:url].first }
+  subject { UrlValidatable.new url: '' }
 
   context :valid do
     it { should allow_value('http://test.com').for :url }
@@ -29,6 +26,11 @@ describe UrlValidator do
     it { should_not allow_value('dfsdsfsadfas').for :url }
     it { should_not allow_value('коньки-roller.рф').for :url }
 
-    specify { message.should eq I18n.t('activerecord.errors.messages.invalid') }
+
+    describe :message do
+      before { subject.valid? }
+      let(:message) { subject.errors.messages[:url].first }
+      it { expect(message).to eq I18n.t('activerecord.errors.messages.invalid') }
+    end
   end
 end

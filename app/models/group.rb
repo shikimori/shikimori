@@ -61,14 +61,10 @@ class Group < ActiveRecord::Base
     path: ':rails_root/public/images/group/:style/:id.:extension',
     default_url: 'http://www.gravatar.com/avatar/group?s=73'
 
+  validates :name, presence: true, name: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
 
   TranslatorsID = 2
-
-  # название группы
-  def name
-    self[:name] && self[:name].strip != '' ? self[:name] : 'без названия'
-  end
 
   # для урлов
   def to_param
