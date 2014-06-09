@@ -76,21 +76,21 @@ private
     self.volumes = target.volumes if manga? && completed?
     self.chapters = target.chapters if manga? && completed?
 
-    self.episodes = 0 if anime? && rewatching? && (!changes['episodes'] || changes['episodes'].first.nil?)
-    self.volumes = 0 if manga? && rewatching? && (!changes['volumes'] || changes['volumes'].first.nil?)
-    self.chapters = 0 if manga? && rewatching? && (!changes['chapters'] || changes['chapters'].first.nil?)
+    self.episodes = 0 if anime? && rewatching? && (!changes['episodes'] || changes['episodes'].first.blank?)
+    self.volumes = 0 if manga? && rewatching? && (!changes['volumes'] || changes['volumes'].first.blank?)
+    self.chapters = 0 if manga? && rewatching? && (!changes['chapters'] || changes['chapters'].first.blank?)
   end
 
   # логика обновления полей при выставлении оценки
   def score_changed
-    self.score = 0 if score.nil?
+    self.score = 0 if score.blank?
     self.score = changes['score'].first if score > MAXIMUM_SCORE || score < 0
   end
 
   # логика обновления полей при выставлении числа эпизодов
   def counter_changed counter
     # указали nil или меньше нуля - сбрасываем на ноль
-    self[counter] = 0 if self[counter].nil? || self[counter] < 0
+    self[counter] = 0 if self[counter].blank? || self[counter] < 0
     # указали больше эпизодов, чем есть в аниме - сбрасываем на число эпизодов в аниме
     self[counter] = target[counter] if self[counter] > target[counter] && !target[counter].zero?
     # указали какую-то нереальную цифру - сбрасываем на число эпизодов в аниме
