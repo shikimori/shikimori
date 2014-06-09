@@ -1,5 +1,5 @@
 = simple_form_for @group, html: { multipart: true } do |f|
-  - unless @group.valid?
+  - if @group.errors.any?
     .b-errors
       .subheadline Ошибки
       .subcontent
