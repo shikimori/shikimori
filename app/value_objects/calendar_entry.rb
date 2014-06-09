@@ -1,4 +1,4 @@
-class OngoingEntry < SimpleDelegator
+class CalendarEntry < SimpleDelegator
   attr_accessor :anime
 
   def initialize anime_with_data
@@ -18,16 +18,24 @@ class OngoingEntry < SimpleDelegator
     @last_news ||= episodes_news.sort_by {|n| n.value.to_i }.last
   end
 
-  def last_episode
-    @last_episode ||= last_news.value.to_i+1 if status == AniMangaStatus::Ongoing && last_news
+  def next_episode
+    @next_episode ||= if status == AniMangaStatus::Ongoing && last_news
+      last_news.value.to_i+1
+    else
+      1
+    end
   end
 
   def last_episode_date
     @last_episode_date ||= last_news.created_at if status == AniMangaStatus::Ongoing && last_news
   end
 
-  def next_release_at
-    episode_start_at if @anime.next_release_at.blank? && episode_start_at.present?
+  def next_episode_at
+    if @anime.next_episode_at.blank? && episode_start_at.present?
+      episode_start_at
+    else
+      @anime.aired_on.to_datetime
+    end
   end
 
   def episode_start_at

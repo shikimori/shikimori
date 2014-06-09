@@ -1,5 +1,5 @@
 require_dependency 'traffic_entry'
-require_dependency 'ongoing_entry'
+require_dependency 'calendar_entry'
 require_dependency 'site_statistics'
 
 class PagesController < ApplicationController
@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   def calendar
     @page_title = 'Календарь онгоингов'
 
-    @query = OngoingsQuery.new
+    @calendars = OngoingsQuery.new.fetch_grouped
     @topic = TopicPresenter.new(
       object: Topic.find(94879),
       template: view_context,

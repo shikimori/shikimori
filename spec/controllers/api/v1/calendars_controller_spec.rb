@@ -1,0 +1,22 @@
+require 'spec_helper'
+
+describe Api::V1::CalendarsController do
+  describe :show do
+    before do
+      create :anime
+      create :ongoing_anime, aired_on: DateTime.now - 1.day
+      create :ongoing_anime, duration: 20
+      create :ongoing_anime, kind: 'ONA'
+      create :ongoing_anime, episodes_aired: 0, aired_on: DateTime.now - 1.day - 1.month
+      create :anons_anime
+      create :anons_anime
+      create :anons_anime, aired_on: DateTime.now + 1.week
+    end
+
+    before { get :show, format: :json }
+    specify { assigns(:collection).should have(3).items }
+
+    it { should respond_with :success }
+    it { should respond_with_content_type :json }
+  end
+end

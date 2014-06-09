@@ -472,6 +472,7 @@ Site::Application.routes.draw do
             get :screenshots
           end
         end
+        resource :calendar, only: [:show]
         resources :mangas, only: [:show, :index] do
           member do
             get :roles

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607193541) do
+ActiveRecord::Schema.define(version: 20140609095035) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 20140607193541) do
     t.string   "world_art_scores"
     t.boolean  "censored",           default: false
     t.datetime "imported_at"
-    t.datetime "next_release_at"
+    t.datetime "next_episode_at"
     t.string   "tags"
     t.string   "source"
     t.text     "description_html"
@@ -422,7 +422,6 @@ ActiveRecord::Schema.define(version: 20140607193541) do
   add_index "entries", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
   add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
-  add_index "entries", ["updated_at"], name: "i_updated_at", using: :btree
   add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
 
   create_table "entry_views", force: true do |t|
