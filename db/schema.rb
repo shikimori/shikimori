@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609095035) do
+ActiveRecord::Schema.define(version: 20140610210033) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -394,6 +394,14 @@ ActiveRecord::Schema.define(version: 20140609095035) do
   create_table "dc_bot_messages", force: true do |t|
     t.text     "text"
     t.boolean  "processed",  default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "devices", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "token",      null: false
+    t.integer  "platform",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

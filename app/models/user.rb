@@ -72,6 +72,8 @@ class User < ActiveRecord::Base
   has_many :bans, dependent: :destroy
   has_many :group_bans, dependent: :destroy
 
+  has_many :devices, dependent: :destroy
+
   has_many :user_tokens do
     def facebook
       target.detect {|t| t.provider == 'facebook' }

@@ -481,6 +481,7 @@ Site::Application.routes.draw do
           end
         end
 
+        resources :devices, only: [:create, :index, :destroy]
         resources :characters, only: [:show]
         resources :people, only: [:show]
 
