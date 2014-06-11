@@ -1,6 +1,6 @@
 - if user_signed_in?
   .menu-block.menu-rate-block
-    = render partial: 'user_rates/user_rate', locals: { user_rate: @entry.rate, entry: @entry }
+    = render partial: 'user_rates/user_rate', locals: { user_rate: @entry.rate || @entry.rates.build(user_id: current_user.id), entry: @entry }
 
 nav.menu-block
   .subheadline Разделы
