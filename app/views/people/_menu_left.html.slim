@@ -66,9 +66,9 @@
 
       - if @entry.seyu? || @entry.seyu_favoured?
         li.fav-add style="#{'display: none;' if @entry.seyu_favoured?}"
-          span.favourite-add data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @entry.object.class.name, @entry.id}" data-method="post" data-type="json" В избранные сейю
+          span.favourite-add data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @entry.object.class.name, @entry.id}" data-method="post" data-type="json" В избранные сэйю
         li.fav-remove style="#{'display: none;' unless @entry.seyu_favoured?}"
-          span.favourite-remove data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @entry.object.class.name, @entry.id}" data-method="delete" data-type="json" Из избранных сейю
+          span.favourite-remove data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @entry.object.class.name, @entry.id}" data-method="delete" data-type="json" Из избранных сэйю
 
       - if !(@entry.seyu? || @entry.producer? || @entry.mangaka?) || @entry.person_favoured?
         li.fav-add style="#{'display: none;' if @entry.person_favoured?}"

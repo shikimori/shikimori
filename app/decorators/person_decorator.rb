@@ -79,7 +79,7 @@ class PersonDecorator < Draper::Decorator
     elsif mangaka?
       'Автор манги'
     elsif seyu?
-      'Сейю'
+      'Сэйю'
     elsif composer?
       'Композитор'
     elsif has_anime? && has_manga?

@@ -128,7 +128,7 @@ var searcheables = {
     regexp: /^\/characters\/(.*?)/
   },
   seyu: {
-    title: 'Поиск по сейю...',
+    title: 'Поиск по сэйю...',
     autocomplete: '/people/autocomplete/seyu/',
     phrase: '/seyu/[phrase]',
     id: '/seyu/[id]',

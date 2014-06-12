@@ -36,11 +36,11 @@ describe WikipediaParser do
       parser.cleanup_wikitext("—").should eq '-'
     end
 
-    it '* Сейю: blablabla\\n' do
-      parser.cleanup_wikitext("* Сейю: blablabla\n").should be_empty
+    it '* Сэйю: blablabla\\n' do
+      parser.cleanup_wikitext("* Сэйю: blablabla\n").should be_empty
     end
 
-    it "''' Сейю '''" do
+    it "''' Сэйю '''" do
       parser.cleanup_wikitext("\n'''[[Сэйю]]:''' {{нл|Мэгуми|Тоёгути}}.\n").should eq "\n"
       parser.cleanup_wikitext("\n* '''[[Сэйю]]:''' {{нл|Мэгуми|Тоёгути}}.\n").should eq "\n"
     end
