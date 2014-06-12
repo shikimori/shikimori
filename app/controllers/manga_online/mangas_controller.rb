@@ -7,7 +7,15 @@ class MangaOnline::MangasController < ApplicationController
   end
 
   def show
-    @manga = Manga.find params[:id]
+    @manga = @entry = Manga.find(params[:id]).decorate
     @chapters = MangaChapter.where(manga_id: params[:id]).order(:id)
+    params[:page] = "info"
+    #params[:page] = "ani_mangas/info"
+    direct
+  end
+
+private
+  def entry_id
+    params[:id]
   end
 end

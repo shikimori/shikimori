@@ -79,7 +79,7 @@ class Manga < ActiveRecord::Base
     foreign_key: :target_id,
     dependent: :destroy
 
-  has_many :chapters, class_name: MangaChapter.name, dependent: :destroy
+  has_many :manga_chapters, class_name: MangaChapter.name, dependent: :destroy
 
   has_attached_file :image,
     styles: {
