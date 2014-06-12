@@ -308,9 +308,9 @@ describe UserHistory do
       UserHistory.last.value.should eq "7"
     end
 
-    it "merges #{UserRateStatus::Completed} and #{UserHistoryAction::Rate} into #{UserHistoryAction::CompleteWithScore}" do
+    it "merges :completed and #{UserHistoryAction::Rate} into #{UserHistoryAction::CompleteWithScore}" do
       expect {
-        UserHistory.add user, anime, UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed)
+        UserHistory.add user, anime, UserHistoryAction::Status, UserRate.statuses[:completed]
         UserHistory.add user, anime, UserHistoryAction::Rate, 5
       }.to change(UserHistory, :count).by 1
 
@@ -319,17 +319,17 @@ describe UserHistory do
       last.value.should eq "5"
     end
 
-    it "merges #{UserRateStatus::Completed} and #{UserHistoryAction::Rate} into #{UserHistoryAction::CompleteWithScore} only for the same anime" do
+    it "merges :completed and #{UserHistoryAction::Rate} into #{UserHistoryAction::CompleteWithScore} only for the same anime" do
       expect {
-        UserHistory.add user, anime2, UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed)
+        UserHistory.add user, anime2, UserHistoryAction::Status, UserRate.statuses[:completed]
         UserHistory.add user, anime, UserHistoryAction::Rate, 5
       }.to change(UserHistory, :count).by 2
     end
 
-    it "merges #{UserHistoryAction::Rate} and #{UserRateStatus::Completed} into #{UserHistoryAction::CompleteWithScore}" do
+    it "merges #{UserHistoryAction::Rate} and :completed into #{UserHistoryAction::CompleteWithScore}" do
       expect {
         UserHistory.add user, anime, UserHistoryAction::Rate, 5
-        UserHistory.add user, anime, UserHistoryAction::Status, UserRateStatus.get(UserRateStatus::Completed)
+        UserHistory.add user, anime, UserHistoryAction::Status, UserRate.statuses[:completed]
       }.to change(UserHistory, :count).by 1
 
       last = UserHistory.last

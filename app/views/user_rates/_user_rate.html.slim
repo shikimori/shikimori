@@ -1,0 +1,50 @@
+.buttons
+  - if user_rate.persisted?
+    span.item-edit data-remote="true" data-type="html" data-action="#{edit_user_rate_url user_rate}"
+  - else
+    span.expand-options
+
+.subheadline Мой список
+.subcontent.rate-container
+  - if user_rate.persisted?
+    .rate-edit
+    .rate-show
+      .rate-number
+        - if entry.respond_to? :episodes
+          span.current-episodes = user_rate.episodes
+          - unless entry.episodes.zero?
+            span.sep
+              | /
+            span.total-episodes
+              = entry.episodes
+          - if user_rate.episodes != entry.episodes
+            span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
+        - else
+          span.current-episodes = user_rate.chapters
+          - unless entry.chapters.zero?
+            span.sep
+              | /
+            span.total-episodes
+              = entry.chapters
+          - if user_rate.chapters != entry.chapters
+            span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
+
+      .status = user_rate.status_name
+
+      = simple_form_for [:api, user_rate], remote: true, html: { class: 'rate-block', 'data-type' => 'json' } do |f|
+        = f.input :score, as: :hidden
+        .scores-user
+          = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && user_rate ? user_rate.score : '' }
+
+      p.note = user_rate.text_html
+
+  - else
+    = simple_form_for user_rate, remote: true, authenticity_token: true, html: { 'data-type' => :html } do |f|
+      = f.input :user_id, as: :hidden
+      = f.input :target_id, as: :hidden
+      = f.input :target_type, as: :hidden
+      = f.input :status, as: :hidden
+      span.add-to-list data-status="planned" Добавить в список
+      .expanded-options
+        - UserRateDecorator.statuses_options(user_rate.target_type).each do |title,status|
+          .add-to-list.option data-status="#{status}" = title

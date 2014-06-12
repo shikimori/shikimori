@@ -131,7 +131,7 @@ describe FindAnimeImporter do
       end
 
       describe :ambiguous do
-        let!(:anime_2) { create :anime, name: 'Триплексоголик: Весенний сон' }
+        let!(:anime_2) { create :anime, name: 'Триплексоголик OVA-1' }
         before { importer.should_receive(:import_videos).exactly(0).times }
         it { expect{subject}.to raise_error MismatchedEntries, "ambiguous: #{identifier} (#{anime_2.id}, #{anime.id})" }
       end

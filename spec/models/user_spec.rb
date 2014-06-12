@@ -45,6 +45,9 @@ describe User do
     it { should have_many :recommendation_ignores }
 
     it { should have_many :bans }
+    it { should have_many :group_bans }
+
+    it { should have_many :devices }
   end
 
   let(:user) { create :user }
@@ -52,9 +55,7 @@ describe User do
   let(:topic) { create :topic }
 
   context :hooks do
-    it 'creates preferences' do
-      user.preferences.should be_persisted
-    end
+    it { user.preferences.should be_persisted }
 
     #it 'creates registration history entry' do
       #user.history.should have(1).item

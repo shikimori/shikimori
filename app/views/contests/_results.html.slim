@@ -14,7 +14,7 @@
                       span = match.round.title true
                       span.letter = match.group
                 - if match.left_id && match.right_id
-                  a.bubbled href="#{url_for match.left_id == entry.id ? match.right : match.left}" title="#{localized_name match.left_id == entry.id ? match.right : match.left}" data-remote="true"
+                  a.bubbled href="#{url_for match.left_id == entry.id ? match.right : match.left}" title="#{localized_name match.left_id == entry.id ? match.right : match.left}"
                     = localized_name match.left_id == entry.id ? match.right : match.left
                 - else
                   p нет

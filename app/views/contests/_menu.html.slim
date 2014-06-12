@@ -29,7 +29,7 @@ aside.menu-right
         .subheadline.m10 Номинанты
         .image-links
           - contest.members.each do |entry|
-            a.bubbled href="#{url_for entry}" data-remote="true" data-offset-left="-10" data-offset-top="20" data-place-to-left="true" title="#{localized_name entry}"
+            a.bubbled href="#{url_for entry}" data-offset-left="-10" data-offset-top="20" data-place-to-left="true" title="#{localized_name entry}"
               img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"
 
     - unless contest.proposing? || contest.swiss?

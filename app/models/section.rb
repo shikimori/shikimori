@@ -4,6 +4,8 @@ class Section < ActiveRecord::Base
 
   before_create :set_permalink
 
+  VARIANTS = /a|m|c|s|f|o|g|reviews|v|all|news/
+
   News = Section.new(
     position: -1,
     name: 'Новости',

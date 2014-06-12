@@ -1,7 +1,7 @@
 # TODO: отрефакторить толстый контроллер
 class GroupsController < ApplicationController
-  before_action :check_auth, only: [:new, :settings, :apply]
-  before_action :fetch_group, only: [:show, :members, :animes, :mangas, :characters, :images]
+  before_action :check_auth, only: [:new, :settings, :update]
+  before_action :fetch_group, only: [:update, :show, :members, :animes, :mangas, :characters, :images]
   helper_method :breadcrumbs
 
   # список всех групп
@@ -62,68 +62,54 @@ class GroupsController < ApplicationController
 
   # аниме группы
   def animes
-    set_meta_tags noindex: true
-
+    noindex
     @page_title = [@group.name, 'Аниме']
-
     show
   end
 
   # манга группы
   def mangas
-    set_meta_tags noindex: true
-
+    noindex
     @page_title = [@group.name, 'Манга']
-
     show
   end
 
   # аниме группы
   def characters
-    set_meta_tags noindex: true
-
+    noindex
     @page_title = [@group.name, 'Персонажи']
-
     show
   end
 
   # картинки группы
   def images
-    set_meta_tags noindex: true, nofollow: true
-
+    noindex
     @page_title = [@group.name, 'Картинки']
-
     show
   end
 
   # настройки группы
   def settings
-    @group ||= Group.find(params[:id])
+    @group ||= Group.find(params[:id]).decorate
     raise Forbidden unless @group.can_be_edited_by?(current_user)
     @page_title = [@group.name, 'Настройки']
     show
   end
 
-  def update
-    apply
-  end
-
   def create
-    params[:id] = 'new'
-    apply
+    @group = Group.new(group_params.merge(owner_id: current_user.id)).decorate
+
+    if @group.save
+      @group.admin_roles.create! user_id: current_user.id, role: GroupRole::Admin
+      redirect_to club_url @group
+    else
+      params[:type] ||= 'settings'
+      show
+    end
   end
 
   # изменение группы
-  def apply
-    if params[:id] == 'new'
-      @group = Group.create!({
-        owner_id: current_user.id,
-        join_policy: GroupJoinPolicy::Free
-      })
-      @group.admin_roles.create! user_id: current_user.id, role: GroupRole::Admin
-    else
-      @group = Group.find(params[:id])
-    end
+  def update
     raise Forbidden unless @group.can_be_edited_by?(current_user)
 
     if params[:animes]
@@ -150,53 +136,48 @@ class GroupsController < ApplicationController
     if @group.admins.include?(current_user)
       if params[:moderators]
         # сбрасываем всем права модератора
-        @group.moderator_roles.each do |v|
-          v.update_attribute(:role, GroupRole::Member)
-        end
+        @group.moderator_roles.update_all role: GroupRole::Member
         # а затем ставим тем, кто переданы запросом
-        params[:moderators].select {|v| v != '' }.each do |v|
+        params[:moderators].select(&:present?).each do |v|
           user = User.find_by_nickname(v)
           GroupRole.find_by_user_id_and_group_id(user.id, @group.id)
-              .update_attribute(:role, GroupRole::Moderator)
+              .update(role: GroupRole::Moderator)
         end
       end
 
       if params[:admins]
         # сбрасываем всем права админа
-        @group.admin_roles.each do |v|
-          v.update_attribute(:role, GroupRole::Member)
-        end
+        @group.admin_roles.update_all role: GroupRole::Member
         # а затем ставим тем, кто переданы запросом
-        params[:admins].select {|v| v != '' }.each do |v|
+        params[:admins].select(&:present?).each do |v|
           user = User.find_by_nickname(v)
           GroupRole.find_by_user_id_and_group_id(user.id, @group.id)
-              .update_attribute(:role, GroupRole::Admin)
+              .update(role: GroupRole::Admin)
+        end
+      end
+
+      if params[:bans]
+        # удаляем все баны
+        @group.bans.delete_all
+        # и вешаем их заново
+        params[:bans].select(&:present?).each do |nickname|
+          @group.ban User.find_by(nickname: nickname)
         end
       end
 
       if params[:kicks]
         # а затем ставим тем, кто переданы запросом
-        params[:kicks].select {|v| v != '' }.each do |v|
-          user = User.find_by_nickname(v)
-          GroupRole.find_by_user_id_and_group_id(user.id, @group.id).destroy
+        params[:kicks].select(&:present?).each do |v|
+          @group.leave User.find_by(nickname: v)
         end
       end
     end
 
-    params[:group].each do |k,v|
-      if k == 'logo'
-        @group.logo = v
-      else
-        @group[k] = v
-      end
-    end
-    @group.display_images = params[:group].include? :display_images
-    @group.save!
-
-    if params[:id] == 'new'
-      redirect_to url_for(@group)
+    if @group.update group_params
+      redirect_to_back_or_to club_url(@group), notice: 'Изменения сохранены'
     else
-      redirect_to_back_or_to url_for(@group), notice: 'Изменения сохранены'
+      params[:type] ||= 'settings'
+      show
     end
   end
 
@@ -225,6 +206,10 @@ class GroupsController < ApplicationController
   end
 
 private
+  def group_params
+    params.require(:group).permit(:name, :description, :join_policy, :comment_policy, :display_images, :logo)
+  end
+
   def fetch_group
     @group = Group.find(params[:id]).decorate
   end

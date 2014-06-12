@@ -20,8 +20,8 @@ class UserHistory < ActiveRecord::Base
 
     # аниме просмотрено и сразу же поставлена оценка
     if last_entry && last_entry.target_type == item.class.name && last_entry.target_id == item.id &&
-      ((action == UserHistoryAction::Status && value == UserRateStatus.get(UserRateStatus::Completed) && last_entry.action == UserHistoryAction::Rate) ||
-        (action == UserHistoryAction::Rate && last_entry.action == UserHistoryAction::Status && last_entry.value.to_i == UserRateStatus.get(UserRateStatus::Completed)))
+      ((action == UserHistoryAction::Status && value == UserRate.statuses[:completed] && last_entry.action == UserHistoryAction::Rate) ||
+        (action == UserHistoryAction::Rate && last_entry.action == UserHistoryAction::Status && last_entry.value.to_i == UserRate.statuses[:completed]))
 
       last_entry.update_attributes(action: UserHistoryAction::CompleteWithScore,
                                    value: action == UserHistoryAction::Status ? last_entry.value : value)
@@ -33,25 +33,27 @@ class UserHistory < ActiveRecord::Base
       when UserHistoryAction::Status
 
       when UserHistoryAction::Add
-        last_delete = UserHistory.where(user_id: user.is_a?(Fixnum) ? user : user.id)
-            .where(target_type: item.class.name)
-            .where(target_id: item.id)
-            .where(action: UserHistoryAction::Delete)
-            .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
-            .order(:id)
-            .first
+        last_delete = UserHistory
+          .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+          .where(target_type: item.class.name)
+          .where(target_id: item.id)
+          .where(action: UserHistoryAction::Delete)
+          .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
+          .order(:id)
+          .first
         if last_delete
           last_delete.destroy
           return
         end
 
       when UserHistoryAction::Delete
-        prior_entries = UserHistory.where(user_id: user.is_a?(Fixnum) ? user : user.id)
-            .where(target_type: item.class.name)
-            .where(target_id: item.id)
-            .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
-            .order(:id)
-            .to_a
+        prior_entries = UserHistory
+          .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+          .where(target_type: item.class.name)
+          .where(target_id: item.id)
+          .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
+          .order(:id)
+          .to_a
 
         if last_entry && last_entry.action == UserHistoryAction::Add && last_entry.target_id == item.id
           last_entry.destroy

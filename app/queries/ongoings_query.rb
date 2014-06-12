@@ -1,12 +1,18 @@
 class OngoingsQuery
   # список онгоингов, сгруппированный по времени выхода
-  def fetch
-    entries = (fetch_ongoings + fetch_anonses).map {|anime| OngoingEntry.new anime }
+  def fetch_grouped
+    group fetch
+  end
 
-    sort entries
-    exclude_overdue entries
-    #fill_in_list entries, current_user if current_user.present?
-    group entries
+  # список онгоингов
+  def fetch
+    Rails.cache.fetch [:calendar, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Time.zone.today.to_s] do
+      entries = (fetch_ongoings + fetch_anonses).map {|anime| CalendarEntry.new anime }
+
+      sort entries
+      exclude_overdue entries
+      #fill_in_list entries, current_user if current_user.present?
+    end
   end
 
 private
@@ -22,16 +28,16 @@ private
   def group entries
     entries = entries.group_by do |anime|
       key_date = if anime.status == AniMangaStatus::Ongoing
-        anime.next_release_at || anime.episode_end_at || (anime.last_episode_date || anime.aired_on.to_datetime) + anime.average_interval
+        anime.next_episode_at || anime.episode_end_at || (anime.last_episode_date || anime.aired_on.to_datetime) + anime.average_interval
       else
         (anime.episode_end_at || anime.aired_on).to_datetime
       end
 
-      if key_date.to_i - DateTime.now.to_i < 0
+      if key_date.to_i - Time.zone.now.to_i < 0
         -1
       else
         (
-          (key_date.to_i - DateTime.now.to_i + 60*60*DateTime.now.hour + 60*DateTime.now.min) * 1.0 / 60 / 60 / 24
+          (key_date.to_i - Time.zone.now.to_i + 60*60*Time.zone.now.hour + 60*Time.zone.now.min) * 1.0 / 60 / 60 / 24
         ).to_i
       end
     end
@@ -41,12 +47,12 @@ private
   # сортировка выборки
   def sort entries
     entries.sort_by do |v|
-      if v.status == AniMangaStatus::Ongoing && (v.episode_end_at || v.next_release_at || v.episodes_news.any?)
+      if v.status == AniMangaStatus::Ongoing && (v.episode_end_at || v.next_episode_at || v.episodes_news.any?)
         if v.episode_end_at
           v.episode_end_at.to_i
         else
-          if v.next_release_at
-            v.next_release_at.to_i
+          if v.next_episode_at
+            v.next_episode_at.to_i
           else
             v.episodes_news.first.created_at.to_i + v.average_interval
           end
@@ -67,7 +73,7 @@ private
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
       .where("anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1")
       .where("kind != 'ONA' || anime_calendars.episode is not null")
-      .where("episodes_aired != 0 or aired_on is null or aired_on > ?", DateTime.now - 1.months)
+      .where("episodes_aired != 0 or aired_on is null or aired_on > ?", Time.zone.now - 1.months)
   end
 
   # выборка анонсов
@@ -80,12 +86,12 @@ private
       .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where("anime_calendars.episode=1 or (anime_calendars.episode is null and aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
-              from: Date.today - 1.week, to: Date.today + 1.month, new_year: Date.today.beginning_of_year)
+              from: Time.zone.today - 1.week, to: Time.zone.today + 1.month, new_year: Time.zone.today.beginning_of_year)
       .where("kind != 'ONA' || anime_calendars.episode is not null")
   end
 
   # выкидывание просроченных аниме
   def exclude_overdue entries
-    entries.select! {|v| (v.next_release_at && v.next_release_at > DateTime.now - 1.week) || v.anons? }
+    entries.select! {|v| (v.next_episode_at && v.next_episode_at > Time.zone.now - 1.week) || v.anons? }
   end
 end

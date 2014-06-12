@@ -18,7 +18,7 @@
       = review.target_type
     span.id
       - if review.target
-        = link_to review.target.name, url_for(review.target), class: 'bubbled', 'data-href' => url_for(review.target)+'/tooltip', 'data-remote' => true
+        a.bubbled href="#{url_for review.target}" = review.target.name
       - else
         = t "Deleted.#{review.model}"
     span.status style="color: #{user_change_status_color review.state}"

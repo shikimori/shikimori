@@ -1,8 +1,8 @@
 .ani-manga-list
   .b-options-floated.mylist
-    - @user.current_counts.each do |stat|
+    - @user.full_counts.each do |stat|
       span.link.always-active data-id="#{stat[:id]}" class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').map(&:to_i).include?(stat[:id])}"
-        = t "#{params[:list_type].capitalize}RateStatus.#{stat[:name]}"
+        = UserRate.status_name stat[:name], @klass.name
         | &nbsp;
         span
           span.sep.zero.inline = "("
@@ -15,15 +15,12 @@
   .filter
     input placeholder="Фильтр по названию"
 
-  - if params[:action] == 'ani_manga_list'
-    .subheadline = t "#{params[:list_type].capitalize}RateStatus.%s" % UserRateStatus.get(UserRateStatus.get(params[:type]))
-
   - if !@list || @list.empty?
     p Ничего нет
   - else
     - if @user.own_profile?
       select.anime-status-selector
-        - UserRateStatus.select_options(params[:list_type].capitalize).each do |title, value|
-          option value="#{value}" = title
+        - UserRate.statuses.each do |status_name, status_id|
+          option value="#{status_id}" = UserRate.status_name status_name, @klass.name
 
     = render partial: 'user_lists/ani_manga_list_content', formats: :html

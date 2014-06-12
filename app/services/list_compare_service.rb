@@ -1,7 +1,4 @@
 class ListCompareService
-  Dropped = UserRateStatus.get UserRateStatus::Dropped
-  Planned = UserRateStatus.get UserRateStatus::Planned
-
   def self.fetch(user1, user2, params)
     new(user1, user2, params).fetch
   end
@@ -67,7 +64,7 @@ private
     rates.each_with_object({}) do |v,memo|
       memo[v.target_id] = v
       v.score = !v.score || v.score == 0 ? nil : v.score
-      v.score = nil if v.status == Dropped
+      v.score = nil if v.dropped?
     end
   end
 
@@ -120,18 +117,18 @@ private
       nil
     end
 
-    entry[:rate_1_title] = if entry[:rate_1] && user1_rates[id].status == Dropped
+    entry[:rate_1_title] = if entry[:rate_1] && user1_rates[id].dropped?
       '<span class="notice">брошено</span>'
-    elsif !entry[:rate_1] && user1_rates.include?(id) && user1_rates[id].status == Planned
+    elsif !entry[:rate_1] && user1_rates.include?(id) && user1_rates[id].planned?
       '<span class="notice">в планах</span>'
     else
       #"#{entry[:rate_1] || '&ndash;'}&nbsp;&nbsp;|&nbsp;&nbsp;#{entry[:norm_rate_1] if entry[:norm_rate_1]}"
       entry[:rate_1] || '&ndash;'
     end
 
-    entry[:rate_2_title] = if entry[:rate_2] && user2_rates[id].status == Dropped
+    entry[:rate_2_title] = if entry[:rate_2] && user2_rates[id].dropped?
       '<span class="notice">брошено</span>'
-    elsif !entry[:rate_2] && user2_rates.include?(id) && user2_rates[id].status == Planned
+    elsif !entry[:rate_2] && user2_rates.include?(id) && user2_rates[id].planned?
       '<span class="notice">в планах</span>'
     else
       #"#{entry[:rate_2] || '&ndash;'}&nbsp;&nbsp;|&nbsp;&nbsp;#{entry[:norm_rate_2] if entry[:norm_rate_2]}"

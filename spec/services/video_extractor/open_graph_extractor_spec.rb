@@ -53,6 +53,11 @@ describe VideoExtractor::OpenGraphExtractor do
       its(:hosting) { should eq :sibnet }
       its(:image_url) { should eq 'http://video.sibnet.ru/upload/cover/video_1234982_0.jpg' }
       its(:player_url) { should eq 'http://video.sibnet.ru/shell.swf?videoid=1234982' }
+
+      context :broken_video do
+        let(:url) { 'http://video.sibnet.ru/video996603-Kyou_no_Asuka_Show_1_5_serii__rus__sub_' }
+        it { should be_nil }
+      end
     end
 
     context :yandex do

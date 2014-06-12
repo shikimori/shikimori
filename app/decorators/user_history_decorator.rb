@@ -24,7 +24,7 @@ class UserHistoryDecorator < Draper::Decorator
         'Удалено из списка'
 
       when UserHistoryAction::Status
-        I18n.t "#{target.class.name}RateStatus.#{UserRateStatus.get value.to_i}"
+        UserRate.status_name value.to_i, target.class.name
 
       when UserHistoryAction::Episodes, UserHistoryAction::Volumes, UserHistoryAction::Chapters
         counter = case action
@@ -70,7 +70,7 @@ class UserHistoryDecorator < Draper::Decorator
         end
 
       when UserHistoryAction::CompleteWithScore
-        "#{I18n.t "#{target.class.name}RateStatus.#{UserRateStatus::Completed}"} и оценено на <b>#{value}</b>"
+        "#{UserRate.status_name :completed, target.class.name} и оценено на <b>#{value}</b>"
 
       else
         target.name

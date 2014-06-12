@@ -17,5 +17,6 @@ describe OngoingsQuery do
   it { query.send(:fetch_ongoings).should have(2).items }
   it { query.send(:fetch_anonses).should have(3).items }
 
-  it { query.fetch.should have(1).item }
+  it { query.fetch.should have(3).items }
+  it { query.fetch_grouped.should have(1).item }
 end

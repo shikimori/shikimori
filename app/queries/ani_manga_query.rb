@@ -221,13 +221,14 @@ private
     return if @mylist.blank? || @user.blank?
     statuses = bang_split(@mylist.split(','), true)
 
-    animelist = @user.send("#{@klass.name.downcase}_rates")
-          .includes(@klass.name.downcase.to_sym)
-          .inject(:include => [], :exclude => []) do |result, v|
-      result[:include] << v.target_id if statuses[:include].include?(v.status)
-      result[:exclude] << v.target_id if statuses[:exclude].include?(v.status)
-      result
-    end
+    animelist = @user
+      .send("#{@klass.name.downcase}_rates")
+      .includes(@klass.name.downcase.to_sym)
+      .inject(:include => [], :exclude => []) do |result, v|
+        result[:include] << v.target_id if statuses[:include].include?(v[:status])
+        result[:exclude] << v.target_id if statuses[:exclude].include?(v[:status])
+        result
+      end
 
     @query = @query.where(id: animelist[:include]) if animelist[:include].any?
     @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
@@ -390,6 +391,9 @@ private
 
       when 'id'
         "#{klass.table_name}.id desc"
+
+      when 'rate_id'
+        "user_rates.id"
 
       when 'my', 'rate'
         "user_rates.score desc, #{klass.table_name}.name"

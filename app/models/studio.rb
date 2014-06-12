@@ -9,6 +9,8 @@ class Studio < ActiveRecord::Base
     141 => 18
   }
 
+  validates :image, attachment_content_type: { content_type: /\Aimage/ }
+
   # Relations
   has_and_belongs_to_many :animes
   has_attached_file :image,

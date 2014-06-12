@@ -34,7 +34,7 @@ describe GroupsController do
   describe 'create' do
     it 'creates new group' do
       expect {
-        post :apply, :id => 'new', :group => {:name => 'test'}
+        post :create, id: 'new', group: {name: 'test'}
         response.should be_redirect
       }.to change(Group, :count).by(1)
 
@@ -42,7 +42,7 @@ describe GroupsController do
       group.admins.should include(user)
       group.name.should == 'test'
       group.owner_id.should be(user.id)
-      group.join_policy.should == GroupJoinPolicy::Free
+      group.should be_free_join
     end
   end
 

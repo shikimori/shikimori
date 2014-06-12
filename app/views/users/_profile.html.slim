@@ -40,13 +40,13 @@
             a.klass-caption href="#{ani_manga_list_url @user, list_type: klass.downcase}"
               = "Список #{t("Genetive.#{klass}").downcase}"
             .stat-bar
-              span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{t("#{klass}RateStatus.#{UserRateStatus::Completed}").downcase}"
+              span class="total-bar #{klass.downcase}" style="width: #{100.0*[graph[:scale], graph[:completed] > 80 ? 0.90 : 0.60, @compatibility.present? && @compatibility[klass.downcase.to_sym].present? ? 1 : 0, @user.own_profile? ? 1 : 0].max}%" title="#{graph[:incompleted]} не #{UserRate.status_name(:completed, klass).downcase}"
                 - if graph[:completed] > 0
-                  span.completed-bar style="width: #{graph[:completed]*100.0/graph[:total]}%;" title="#{graph[:completed]} #{t("#{klass}RateStatus.#{UserRateStatus::Completed}").downcase}"
+                  span.completed-bar style="width: #{graph[:completed]*100.0/graph[:total]}%;" title="#{graph[:completed]} #{UserRate.status_name(:completed, klass).downcase}"
                     - if graph[:completed]*100.0/graph[:total] > 2.5
                       = graph[:completed]
                 - if graph[:dropped] > 0
-                  span.dropped-bar style="width: #{graph[:dropped]*100.0/graph[:total]}%;" title="#{graph[:dropped]} #{t("#{klass}RateStatus.#{UserRateStatus::Dropped}").downcase}"
+                  span.dropped-bar style="width: #{graph[:dropped]*100.0/graph[:total]}%;" title="#{graph[:dropped]} #{UserRate.status_name(:dropped, klass).downcase}"
                     - if graph[:dropped]*100.0/graph[:total] > 2.5
                       = graph[:dropped]
                 = graph[:incompleted]
@@ -54,8 +54,8 @@
             ul.stat-names
               - stats.select {|v| v[:size] != 0 }.each do |stat|
                 li
-                  a href="#{ani_manga_filtered_list_url @user, list_type: klass.downcase, mylist: UserRateStatus::get(stat[:name].downcase), type: nil, studio: nil, publisher: nil}"
-                    = t "#{klass}RateStatus.#{stat[:name]}"
+                  a href="#{ani_manga_list_url @user, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
+                    = UserRate.status_name(stat[:name], klass).capitalize
                     | &nbsp;
                     span.sep.zero.inline
                       | (
@@ -71,5 +71,5 @@
           a href="#{user_favourites_url @user}" title="Избранное" Избранное
         .image-links
           - @favourites.each do |entry|
-            a.bubbled href="#{url_for entry}" data-remote="true" data-offset-left="4" data-offset-top="20" data-offset-left-right="-14"
+            a.bubbled href="#{url_for entry}" data-offset-left="4" data-offset-top="20" data-offset-left-right="-14"
               img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"

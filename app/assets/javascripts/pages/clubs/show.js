@@ -5,7 +5,7 @@ $(function() {
     if (in_new_tab(e)) {
       return;
     }
-    History.pushState(null, null, $(this).children('a').attr('href').replace(/http:\/\/.*?\//, '/'));
+    History.pushState({timestamp: Date.now()}, null, $(this).children('a').attr('href').replace(/http:\/\/.*?\//, '/'));
     return false;
   });
   $('.group-content-slider').makeSliderable({
@@ -22,7 +22,7 @@ $(function() {
     $(".slider-control a[href$='"+location.href+"']").parent().trigger('slider:click');
   });
   // надо вызывать, чтобы сработал хендлер, навешенный на переключение слайда
-  $('.slide > .selected').trigger('cache:success');
+  $(window).trigger("statechange");
 
   // показ/скрытие блока с действиями
   if (!$('.actions-list').children().length) {
@@ -34,9 +34,6 @@ $(function() {
   if (IS_LOGGED_IN) {
     window.comments_notifier = new CommentsNotifier();
   }
-
-  // надо вызывать, чтобы сработал хендлер, навешенный на переключение слайда
-  $('.slide .selected').trigger('cache:success');
 
   $('.upload-image-container').tipsy({gravity: 's'});
 });

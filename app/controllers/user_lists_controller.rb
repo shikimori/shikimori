@@ -4,9 +4,10 @@ require_dependency 'publisher'
 
 # TODO: класс нуждается в рефакторинге
 class UserListsController < UsersController
-  include AniMangaListImporter
   AnimeType = 1
   MangaType = 2
+
+  before_action :set_params
 
   alias_method :users_show, :show
   helper_method :anime?
@@ -14,10 +15,9 @@ class UserListsController < UsersController
   # отображение аниме листа пользователяс с наложенными фильтрами
   def show
     unless params[:order]
-      redirect_to ani_manga_filtered_list_url(params.merge(order: user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort))
+      redirect_to ani_manga_list_url(params.merge(order: user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort))
       return
     end
-    params[:with_censored] = true
     current_user.preferences.update_sorting(params[:order]) if user_signed_in?
 
     @params_type = params[:type]
@@ -27,7 +27,9 @@ class UserListsController < UsersController
     @klass = params[:list_type].capitalize.constantize
 
     # полный список
-    full_list = Rails.cache.fetch(user_list_cache_key) { extract_full_list }
+    full_list = Rails.cache.fetch(user_list_cache_key) do
+      UserListQuery.new(@klass, @user, params.clone.merge(with_censored: true)).fetch
+    end
     @list = prepare_list(full_list, @page, @limit)
     @add_postloader = @list.any? && (@list.keys.last != full_list.keys.last ||
         @list[@list.keys.last][:entries].size != full_list[full_list.keys.last].size)
@@ -64,11 +66,6 @@ class UserListsController < UsersController
       end
       format.html { users_show }
     end
-  end
-
-  def edit
-    raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
-    @user_rate = @user.anime_rates.find_by(id: params[:user_rate_id]) || @user.manga_rates.find(params[:user_rate_id])
   end
 
   # история изменения списка аниме/манги
@@ -114,121 +111,73 @@ class UserListsController < UsersController
   # экспорт аниме листа
   def export
     raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)
-    @type = params[:list_type]
-    @list = @user.send("#{@type}_rates")
+    type = params[:list_type]
+    if type == 'anime'
+      @klass = Anime
+      @list = @user.anime_rates.includes(:anime)
+    else
+      @klass = Manga
+      @list = @user.manga_rates.includes(:manga)
+    end
 
     response.headers['Content-Description'] = 'File Transfer';
-    response.headers['Content-Disposition'] = "attachment; filename=#{@type}list.xml";
+    response.headers['Content-Disposition'] = "attachment; filename=#{type}list.xml";
     render template: 'user_lists/export', formats: :xml
   end
 
   # импорт списка
   def list_import
     raise Unauthorized unless user_signed_in?
-    #if Rails.cache.read('import-lock') && Rails.env.production?
-      #redirect_to user_url(current_user)
-      #flash[:notice] = "В данный момент система нагружена импортами. Пожалуйста, повторите попытку через несколько минут."
-      #return
-    #end
-    #Rails.cache.write('import-lock', current_user.id, expires_in: 1.minute)
 
     klass = Object.const_get(params[:klass].capitalize)
     rewrite = params[:rewrite] == true || params[:rewrite] == '1'
 
     # в ситуации, когда через yql не получилось, можно попробовать вручную скачать список
-    if params[:mal_login].present?
-      params[:file] = open "http://myanimelist.net/malappinfo.php?u=#{params[:mal_login]}&status=all&type=#{params[:klass]}"
-      params[:list_type] = 'xml'
-    end
+    #if params[:mal_login].present?
+      #params[:file] = open "http://myanimelist.net/malappinfo.php?u=#{params[:mal_login]}&status=all&type=#{params[:klass]}"
+      #params[:list_type] = 'xml'
+    #end
 
-    if params[:list_type].to_sym == :mal
-      prepared_list = JSON.parse(params[:data]).map do |v|
-        {
-          id: v['id'].to_i,
-          episodes: v.include?('episodes') ? v['episodes'].to_i : 0,
-          volumes: v.include?('volumes') ? v['volumes'].to_i : 0,
-          chapters: v.include?('chapters') ? v['chapters'].to_i : 0,
-          status: v['status'],
-          score: v['score'] || 0
-        }
-      end.compact
+    parser = UserListParser.new klass
+    importer = UserRatesImporter.new current_user, klass
+    @added, @updated, @not_imported = importer.import(parser.parse(params), rewrite)
 
-      added, updated, not_imported = import(current_user, klass, prepared_list, rewrite)
-
-    elsif params[:list_type].to_sym == :anime_planet
-      raise Forbidden if params[:login].empty?
-      parser = AnimePlanetParser.new(params[:login], klass)
-      parser.get_pages_num
-      list = parser.get_list
-
-      added, updated, not_imported = parser.import_list(current_user, list, rewrite, params[:wont_watch_strategy] == UserRateStatus::Dropped ? UserRateStatus::Dropped : nil)
-
-    elsif params[:list_type].to_sym == :xml
-      raw_xml = if params[:file].kind_of? ActionDispatch::Http::UploadedFile
-        if params[:file].original_filename =~ /\.gz$/
-          Zlib::GzipReader.open(params[:file].tempfile).read
-        else
-          params[:file].read
-        end
-      else
-        Rails.env.test? ? params[:file] : params[:file].read
-      end
-
-      prepared_list = Hash.from_xml(raw_xml.fix_encoding)['myanimelist'][params[:klass]]
-      prepared_list = [prepared_list] if prepared_list.kind_of?(Hash)
-      prepared_list.map! do |v|
-        {
-          id: (v['series_animedb_id'] || v['series_mangadb_id'] || v['manga_mangadb_id'] || v['anime_animedb_id']).to_i,
-          episodes: v['my_watched_episodes'] || 0,
-          volumes: v['my_read_volumes'] || 0,
-          chapters: v['my_read_chapters'] || 0,
-          status: v['my_status'] =~ /^\d+$/ ? UserRateStatus.get(v['my_status'].to_i) : v['my_status'].sub('Plan to Read', 'Plan to Watch').sub('Reading', 'Watching'),
-          score: v['my_score'] || 0
-        }
-      end
-      added, updated, not_imported = import(current_user, klass, prepared_list, rewrite)
-      params[:list_type] = 'mal'
-
-    else
-      raise Forbidden
-    end
-
-    if added.size > 0 || updated.size > 0
+    if @added.size > 0 || @updated.size > 0
       current_user.touch
-      UserHistory.create({
-          user_id: current_user.id,
-          action: UserHistoryAction.const_get("#{params[:list_type].to_sym == :mal ? 'Mal' : 'Ap'}#{klass.name}Import"),
-          value: added.size + updated.size
-        })
+      UserHistory.create(
+        user_id: current_user.id,
+        action: UserHistoryAction.const_get("#{params[:list_type].to_sym == :mal || params[:list_type].to_sym == :xml ? 'Mal' : 'Ap'}#{klass.name}Import"),
+        value: @added.size + @updated.size
+      )
     end
 
     message = []
 
-    if added.size > 0
-      items = klass.where(id: added).select([:id, :name])
+    if @added.size > 0
+      items = klass.where(id: @added).select([:id, :name])
       if klass == Manga
-        message << "В ваш список #{Russian.p(added.size, 'импортирована', 'импортированы', 'импортированы')} #{added.size} #{Russian.p(added.size, 'манга', 'манги', 'манги')}:"
+        message << "В ваш список #{Russian.p(@added.size, 'импортирована', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'манга', 'манги', 'манги')}:"
       else
-        message << "В ваш список #{Russian.p(added.size, 'импортировано', 'импортированы', 'импортированы')} #{added.size} #{Russian.p(added.size, 'аниме', 'аниме', 'аниме')}:"
+        message << "В ваш список #{Russian.p(@added.size, 'импортировано', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'аниме', 'аниме', 'аниме')}:"
       end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" data-remote=\"true\" href=\"#{url_for(v)}\">#{v.name}</a>" }
+      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for(v)}\">#{v.name}</a>" }
       message << ''
     end
 
-    if updated.size > 0
-      items = klass.where(id: updated).select([:id, :name])
+    if @updated.size > 0
+      items = klass.where(id: @updated).select([:id, :name])
       if klass == Manga
-        message << "В вашем списке #{Russian.p(updated.size, 'обновлена', 'обновлены', 'обновлены')} #{updated.size} #{Russian.p(updated.size, 'манга', 'манги', 'манги')}:"
+        message << "В вашем списке #{Russian.p(@updated.size, 'обновлена', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'манга', 'манги', 'манги')}:"
       else
-        message << "В вашем списке #{Russian.p(updated.size, 'обновлено', 'обновлены', 'обновлены')} #{updated.size} #{Russian.p(updated.size, 'аниме', 'аниме', 'аниме')}:"
+        message << "В вашем списке #{Russian.p(@updated.size, 'обновлено', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'аниме', 'аниме', 'аниме')}:"
       end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" data-remote=\"true\" href=\"#{url_for(v)}\">#{v.name}</a>" }
+      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for(v)}\">#{v.name}</a>" }
       message << ''
     end
 
-    if not_imported.size > 0
-      message << "Не удалось импортировать (распознать) #{not_imported.size} #{klass == Manga ? Russian.p(not_imported.size, 'мангу', 'манги', 'манг') : 'аниме'}, пожалуйста, добавьте их в свой список самостоятельно:"
-      message = message + not_imported.sort
+    if @not_imported.size > 0
+      message << "Не удалось импортировать (распознать) #{@not_imported.size} #{klass == Manga ? Russian.p(@not_imported.size, 'мангу', 'манги', 'манг') : 'аниме'}, пожалуйста, добавьте их в свой список самостоятельно:"
+      message = message + @not_imported.sort
     end
     message << "Ничего нового не импортировано." if message.empty?
 
@@ -245,86 +194,20 @@ class UserListsController < UsersController
       sleep(1)
     end
 
-    current_user.touch # указываем, что пользователь обновлён
-
     redirect_to messages_url(type: :inbox)
+
   rescue Exception => e
-    flash[:alert] = 'Произошла ошибка. Возможно, некорректный формат файла.'
-    redirect_to :back
-  end
-
-private
-  # полный список пользователя
-  def extract_full_list
-    params[:order] = 'russian' if user_signed_in? && current_user.preferences.russian_names? && params[:order] == 'name'
-    pars = params.clone.merge(klass: @klass)
-    pars.delete(:order)
-
-    rate_ds = @user.send("#{params[:list_type]}_rates")
-    rate_ds = rate_ds.where(status: UserRateStatus.get(params[:list_type_kind])) if params[:list_type_kind]
-    rate_ids = rate_ds.select('distinct(target_id)').map(&:target_id)
-
-    entries = AniMangaQuery.new(@klass, pars, @user)
-        .fetch
-        .where(id: rate_ids)
-        .select("#{params[:list_type].tableize}.id,
-                 #{params[:list_type].tableize}.kind,
-                 #{params[:list_type].tableize}.name,
-                 #{params[:list_type].tableize}.russian,
-                 #{params[:list_type].tableize}.aired_on,
-                 #{params[:list_type].tableize}.released_on,
-
-                 #{anime? ? "#{params[:list_type].tableize}.episodes_aired as episodes_aired," : ''}
-                 #{anime? ? "#{params[:list_type].tableize}.episodes as episodes," : ''}
-                 #{anime? ? "#{params[:list_type].tableize}.duration," : ''}
-
-                 #{anime? ? '' : "#{params[:list_type].tableize}.volumes as volumes,"}
-                 #{anime? ? '' : "#{params[:list_type].tableize}.chapters as chapters,"}
-
-                 #{params[:list_type].tableize}.status
-                ")
-        .all
-        .each_with_object({}) { |entry, memo| memo[entry.id] = entry }
-
-    rates = @user.send("#{params[:list_type]}_rates")
-        .where(target_id: entries.keys)
-        .joins(params[:list_type].to_sym)
-        .order("user_rates.status, #{AniMangaQuery.order_sql(params[:order], @klass)}")
-        .all
-
-    list = rates.each_with_object({}) do |v,memo|
-      target = entries[v.target_id]
-
-      memo[v.status] = [] unless memo.include?(v.status)
-      memo[v.status] << {
-        id: target.id,
-        name: view_context.localized_name(target),
-        kind: target.kind,
-        kind_localized: target.kind.blank? ? '' : view_context.localized_kind(target, true),
-        status_localized: target.status.present? ? I18n.t("AniMangaStatusUpper.#{target.status}") : '',
-        url: "/#{params[:list_type]}s/#{v.target_id}",
-
-        rate_id: v.id,
-        rate_text: v.text_html,
-        rate_episodes: anime? ? v.episodes : nil,
-        rate_volumes: anime? ? nil : v.volumes,
-        rate_chapters: anime? ? nil : v.chapters,
-        rate_score: v.score && v.score != 0 ? v.score : '&ndash;',
-
-        ongoing?: target.ongoing?,
-        anons?: target.anons?,
-
-        episodes: anime? ? (target.episodes.zero? ? nil : target.episodes) : nil,
-        episodes_aired: anime? ? target.episodes_aired : nil,
-        chapters: anime? ? nil : (target.chapters.zero? ? nil : target.chapters),
-        volumes: anime? ? nil : (target.volumes.zero? ? nil: target.volumes),
-        duration: anime? ? target.duration : Manga::Duration,
-      }
+    if Rails.env.production?
+      ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? current_user.nickname : nil })
+      redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
+    else
+      raise
     end
   end
 
+private
   # подготовка списка
-  def prepare_list(full_list, page, limit)
+  def prepare_list full_list, page, limit
     list = truncate_list(full_list, @page, @limit)
 
     list.each do |status,data|
@@ -336,7 +219,7 @@ private
   end
 
   # формирование содержимого нужной страницы из списка
-  def truncate_list(full_list, page, limit)
+  def truncate_list full_list, page, limit
     list = {}
     from = limit * (page - 1)
     to = from + limit
@@ -359,35 +242,41 @@ private
           break
         end
 
-        list[status] ||=  { entries: [], stats: {} }
-        list[status][:entries] << entry.merge(index: j)
+        list[status] ||= { entries: [], stats: {}, index: j }
+        list[status][:entries] << entry
       end
     end
     list
   end
 
   # аггрегированная статистика по данным
-  def list_stats(data, reduce=true)
+  def list_stats data, reduce=true
     stats = {
-      tv: data.sum {|v| v[:kind] == 'TV' ? 1 : 0 },
-      movie: data.sum {|v| v[:kind] == 'Movie' ? 1 : 0 },
-      ova: data.sum {|v| v[:kind] == 'OVA' || v[:kind] == 'ONA' ? 1 : 0 },
-      #ona: data.sum {|v| v[:kind] == 'ONA' ? 1 : 0 },
-      special: data.sum {|v| v[:kind] == 'Special' ? 1 : 0 },
-      music: data.sum {|v| v[:kind] == 'Music' ? 1 : 0 },
-      manga: data.sum {|v| ['Manga', 'Manhwa', 'Manhua'].include?(v[:kind]) ? 1 : 0 },
-      #manhwa: data.sum {|v| v[:kind] == 'Manhwa' ? 1 : 0 },
-      #manhua: data.sum {|v| v[:kind] == 'Manhua' ? 1 : 0 },
-      oneshot: data.sum {|v| v[:kind] == 'One Shot' ? 1 : 0 },
-      novel: data.sum {|v| v[:kind] == 'Novel' ? 1 : 0 },
-      doujin: data.sum {|v| v[:kind] == 'Doujin' ? 1 : 0 }
+      tv: data.sum {|v| v.target.kind == 'TV' ? 1 : 0 },
+      movie: data.sum {|v| v.target.kind == 'Movie' ? 1 : 0 },
+      ova: data.sum {|v| v.target.kind == 'OVA' || v.target.kind == 'ONA' ? 1 : 0 },
+      #ona: data.sum {|v| v.target.kind == 'ONA' ? 1 : 0 },
+      special: data.sum {|v| v.target.kind == 'Special' ? 1 : 0 },
+      music: data.sum {|v| v.target.kind == 'Music' ? 1 : 0 },
+      manga: data.sum {|v| ['Manga', 'Manhwa', 'Manhua'].include?(v.target.kind) ? 1 : 0 },
+      #manhwa: data.sum {|v| v.target.kind == 'Manhwa' ? 1 : 0 },
+      #manhua: data.sum {|v| v.target.kind == 'Manhua' ? 1 : 0 },
+      oneshot: data.sum {|v| v.target.kind == 'One Shot' ? 1 : 0 },
+      novel: data.sum {|v| v.target.kind == 'Novel' ? 1 : 0 },
+      doujin: data.sum {|v| v.target.kind == 'Doujin' ? 1 : 0 }
     }
     if anime?
-      stats[:episodes] = data.sum {|v| v[:rate_episodes] }
+      stats[:episodes] = data.sum(&:episodes)
     else
-      stats[:chapters] = data.sum {|v| v[:rate_chapters] }
+      stats[:chapters] = data.sum(&:chapters)
     end
-    stats[:days] = (data.sum {|v| (v[:rate_episodes] || v[:rate_chapters]) * v[:duration] }.to_f / 60 / 24).round(2)
+    stats[:days] = (data.sum do |v|
+      if anime?
+        (v.episodes + v.rewatches * v.target.episodes) * v.target.duration
+      else
+        (v.chapters + v.rewatches * v.target.chapters) * v.target.duration
+      end
+    end.to_f / 60 / 24).round(2)
 
     reduce ? stats.select { |k,v| v > 0 }.to_hash : stats
   end
@@ -405,5 +294,11 @@ private
 
   def anime?
     params[:list_type] == 'anime'
+  end
+
+  def set_params
+    if @current_user && @current_user.preferences.russian_names? && params[:order] == 'name'
+      params[:order] = 'russian'
+    end
   end
 end

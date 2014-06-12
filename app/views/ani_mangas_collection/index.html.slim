@@ -10,7 +10,7 @@ header.head.ajaxable
   .notice itemprop="description"
     == @title_notice
 
-= render partial: 'ani_mangas_collection/pagination', locals: { rel_nofollow: true, with_cache: true }
+= render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
 
 .animes class="#{cookies.include?('OldCatalog') ? 'old' : 'new'}" data-entries-per-page="#{entries_per_page}"
   .left-column-wrap
@@ -18,13 +18,13 @@ header.head.ajaxable
       .left-column
         - if user_signed_in?
           aside.menu-left.loaded
-            = render partial:  'ani_mangas_collection/menu', locals: { special: false, links: false, mylist: !params[:nosort], options_filters: true, klass: klass, social: true, nosort: params[:nosort] }
-            = render 'anime_online/blocks/google120x600'
+            = render partial:  'ani_mangas_collection/menu', locals: { special: false, mylist: !params[:nosort], options_filters: true, klass: klass, social: true, nosort: params[:nosort] }
+            /= render 'anime_online/blocks/google120x600'
         - else
           aside.menu-left
             .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating], nosort: params[:nosort]}"
               .ajax-loading title="Загрузка..."
-            = render 'anime_online/blocks/google120x600'
+            /= render 'anime_online/blocks/google120x600'
       .right-column
         section.ajax#ajax
           - if @entries.any?
@@ -34,4 +34,4 @@ header.head.ajaxable
       .clearfix-full
 
 .bottom-pages.clearfix
-  = render partial: 'ani_mangas_collection/pagination', locals: { rel_nofollow: true, with_cache: true }
+  = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }

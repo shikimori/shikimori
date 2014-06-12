@@ -58,22 +58,23 @@
           display: block
           margin: 5px 0
           overflow: hidden
-          padding: 5px 10px 10px 35px
+          padding: 5px 25px 10px 35px
 
         .b-input
           display: inline-block
           margin-right: 30px
 
-          #user_rate_episodes, #user_rate_volumes, #user_rate_chapters
+          &.integer input
             width: 45px
 
           &.user_rate_text
             display: block
 
-        .cancel
-          +normal-link
-          display: inline-block
-          margin-left: 15px
+          &.text
+            margin-right: 0
+
+            textarea
+              width: 100%
 
         .remove
           float: right
@@ -110,15 +111,18 @@
           display: none
           margin-left: 0px !important
 
-        .ongoing
-          color: green
+        .ongoing, .anons, .rewatches
           font-size: 11px
           padding-left: 6px
 
+        .ongoing
+          color: green
+
         .anons
           color: orange
-          font-size: 11px
-          padding-left: 6px
+
+        .rewatches
+          color: $blue
 
         .rate-text
           color: $gray-color-3

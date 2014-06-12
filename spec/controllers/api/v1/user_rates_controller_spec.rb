@@ -18,7 +18,7 @@ describe Api::V1::UserRatesController do
       its(:target_id) { should eq create_params[:target_id] }
       its(:target_type) { should eq create_params[:target_type] }
       its(:score) { should eq create_params[:score] }
-      its(:status) { should eq create_params[:status] }
+      its([:status]) { should eq create_params[:status] }
       its(:episodes) { should eq create_params[:episodes] }
       its(:volumes) { should eq create_params[:volumes] }
       its(:chapters) { should eq create_params[:chapters] }
@@ -38,12 +38,25 @@ describe Api::V1::UserRatesController do
       subject { assigns :user_rate }
 
       its(:score) { should eq update_params[:score] }
-      its(:status) { should eq update_params[:status] }
+      its([:status]) { should eq update_params[:status] }
       its(:episodes) { should eq update_params[:episodes] }
       its(:volumes) { should eq update_params[:volumes] }
       its(:chapters) { should eq update_params[:chapters] }
       its(:text) { should eq update_params[:text] }
       its(:rewatches) { should eq update_params[:rewatches] }
+    end
+  end
+
+  describe :increment do
+    let(:user_rate) { create :user_rate, user: user, episodes: 1 }
+    before { post :increment, id: user_rate.id, format: :json }
+
+    it { should respond_with :created }
+
+    describe :user_rate do
+      subject { assigns :user_rate }
+
+      its(:episodes) { should eq user_rate.episodes + 1 }
     end
   end
 

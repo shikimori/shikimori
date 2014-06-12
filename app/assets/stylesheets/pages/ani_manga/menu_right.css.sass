@@ -1,0 +1,146 @@
+@import compass/css3/transition
+@import globals
+@import globals/fonts
+
+.animanga-right-menu
+  float: right
+  width: 245px
+  margin: 0
+
+  .menu-right-inner
+    border-left: none
+    position: relative
+    z-index: 999
+
+  .right
+    margin: 0px
+
+  .block-title
+    margin-bottom: 2px
+
+  .input
+    +text-field
+
+  .block-list
+    .date
+      float: right
+      font-size: 10px
+
+  .block-list li, .block-list-alt li
+    width: auto
+
+    &.sub
+      margin-left: 30px
+
+  .site-icon
+    float: left
+    margin-right: 5px
+    margin-top: 1px
+    height: 16px
+
+  .addthis_toolbox
+    margin-top: -5px
+    width: 220px
+
+.menu-rate-block
+  width: auto
+
+  .add-to-list
+    +normal-link
+
+  .expand-options
+    +icon-button('\006d')
+    margin-top: 3px
+    float: right
+
+  .expanded-options
+    +transition(height 0.3s ease)
+    display: none
+
+  .rate-container
+    +transition(height 0.3s ease)
+    overflow: hidden
+    margin-right: 5px
+
+  .item-edit
+    margin-top: 3px
+    color: $gray-color-0
+
+  .rate-show
+    margin-bottom: 5px
+
+    .rate-number
+      float: right
+
+      .b-input
+        display: inline
+
+      label
+        display: none
+
+      input
+        text-align: center
+        width: 25px
+
+      .item-add
+        margin-left: 10px
+
+    .status
+      margin-bottom: 10px
+
+    .note
+      color: $gray-color-0
+      margin-top: 5px
+
+    .rate-block
+      width: 210px
+
+      .scores-label-description
+        margin-right: 5px
+
+  .rate-edit
+    display: none
+
+    .b-input.integer input
+      width: 45px
+
+    .remove
+      +clearfix
+      margin-bottom: 10px
+
+      a
+        +normal-link
+        float: right
+
+    textarea
+      width: 195px
+
+.menu-topics-block
+  a.entry
+    display: block
+
+  .history-avatar
+    float: right
+    margin-left: 5px
+    margin-top: 1px
+
+  .name
+    +ellipsis
+    display: block
+
+  .date
+    color: #777
+    float: right
+    font-size: 10px
+
+  .history li
+    cursor: default
+
+  .history-entry-tooltip
+    display: none
+
+    a
+      +normal-link
+
+    .tooltip-details
+      +ellipsis

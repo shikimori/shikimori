@@ -1,10 +1,12 @@
 list_cache = []
+filter_timer = null
 $ ->
   DEFAULT_LIST_SORT = $('.default-sort').data('value')
   $('.anime-filter .genres .collapse,.manga-filter .genres .collapse').trigger 'click', true
   get_anime_params()
   get_manga_params()
   return
+
 
 # активация списка
 $('.animelist, .mangalist').live 'ajax:success cache:success', (e, data) ->
@@ -27,172 +29,80 @@ $('.animelist, .mangalist').live 'ajax:success cache:success', (e, data) ->
   apply_list_handlers()
   update_list_cache()
 
-# при выборе сортировке будем ставить её в дефолтные
-$('.anime-params-controls .orders li, .manga-params-controls .orders li').live 'click', ->
-  DEFAULT_LIST_SORT = $(this).attr('class').match(/order-by-([\w-]+)/)[1] if IS_LOGGED_IN
+  # клики на фильтры по списку в начале страницы
+  $(document.body).on 'click', '.ani-manga-list .link', ->
+    $(@).toggleClass 'selected'
+    id = $(@).data 'id'
+    $(".animanga-filter:visible .mylist li.mylist-#{id}").trigger 'click'
 
-# клики на фильтры по списку в начале страницы
-$(document.body).on 'click', '.ani-manga-list .link', ->
-  $(@).toggleClass 'selected'
-  id = $(@).data 'id'
-  $(".animanga-filter:visible .mylist li.mylist-#{id}").trigger 'click'
+  # фокус по инпуту фильтра по тайтлу
+  $('.filter input', @).on 'focus', ->
+    update_list_cache() unless list_cache.length
 
-# фокус по инпуту фильтра по тайтлу
-$(document.body).on 'focus', '.ani-manga-list .filter input', ->
-  update_list_cache() unless list_cache.length
+  # разворачивание свёрнутых блоков при фокусе на инпут
+  $('.filter input', @).on 'focus', ->
+    $('.collapsed', $(@).closest('.slide')).each ->
+      $(@).trigger 'click' if @style.display == 'block'
 
-# разворачивание свёрнутых блоков при фокусе на инпут
-$(document.body).on 'focus', '.ani-manga-list .filter input', ->
-  $('.collapsed', $(@).closest('.slide')).each ->
-    $(@).trigger 'click' if @style.display == 'block'
+  # пишут в инпуте фильтра по тайтлу
+  $('.filter input', @).on 'keyup', (e) ->
+    return if e.keyCode == 91 || e.keyCode == 18 || e.keyCode == 16 || e.keyCode == 17
 
-filter_timer = null
-# пишут в инпуте фильтра по тайтлу
-$(document.body).on 'keyup', '.ani-manga-list .filter input', (e) ->
-  return if e.keyCode is 91 or e.keyCode is 18 or e.keyCode is 16 or e.keyCode is 17
+    if filter_timer
+      clearInterval filter_timer
+      filter_timer = null
 
-  if filter_timer
-    clearInterval filter_timer
-    filter_timer = null
+    filter_timer = setInterval(filter, 350)
 
-  filter_timer = setInterval(filter, 350)
-
-# удаление из списка
-#$('.anime-remove').live 'ajax:success', (e) ->
-  #$(@).closest('tr').remove()
-  #e.stopPropagation()
-  #false
-
-# обработчик для плюсика у числа эпизодов/глав
-$('.selected .ani-manga-list .hoverable .item-add').live 'click', (e) ->
-  $input = $(@).prev()
-  $input
-    .val(parseInt($input.val(), 10) + 1)
-    .triggerWithReturn('blur')
-    .success(-> $input.closest('td').trigger 'mouseover')
-
-  e.stopPropagation()
-  false
-
-# обработчики для инпутов листа
-$('.selected .ani-manga-list .hoverable input').live('blur', ->
-  $this = $(@)
-  $this.parent().parent().trigger 'mouseleave'
-  @value = 0 if @value < 0
-  return if (parseInt(@value, 10) or 0) is (parseInt($this.data('counter'), 10) or 0)
-
-  $value = $this.parent().parent().find(".current-value")
-  prior_value = $value.html()
-  $this.data 'counter', @value
-  $value.html (if $this.data('counter') == '0' then '&ndash;' else $this.data('counter'))
-  $.cursorMessage()
-
-  $.post($this.data('action'), "_method=patch&user_rate[#{$this.data 'field'}]=#{$this.attr 'value'}").success( ->
-    $.hideCursorMessage()
-  ).error ->
-    $.hideCursorMessage()
-    $value.html prior_value
-    $.flash alert: 'Произошла ошибка'
-
-).live('mousewheel', (e) ->
-  return true unless $(@).is(':focus')
-
-  if e.originalEvent.wheelDelta && e.originalEvent.wheelDelta > 0
-    @value = Math.min (parseInt(@value, 10) + 1 or 0), parseInt($(@).data('max'), 10)
-
-  else if e.originalEvent.wheelDelta
-    @value = Math.max (parseInt(@value, 10) - 1 or 0), parseInt($(@).data('min'), 10)
-
-  false
-).live('keydown', (e) ->
-  if e.keyCode is 38
-    @value = Math.min (parseInt(@value, 10) + 1 or 0), parseInt($(@).data('max'), 10)
-
-  else if e.keyCode is 40
-    @value = Math.max (parseInt(@value, 10) - 1 or 0), parseInt($(@).data('min'), 10)
-
-  else if e.keyCode is 27
-    @value = $(@).data('counter')
-    $(@).trigger 'blur'
-
-).live 'keypress', (e) ->
-  if e.keyCode is 13
-    $(@).trigger 'blur'
-    e.stopPropagation()
-    false
 
 # сортировка по клику на колонку
 $('.order-control').live 'click', (e) ->
   type = $(@).data('order')
   $(".animanga-filter:visible .orders.anime-params li.order-by-#{type}").trigger 'click'
 
+# при выборе сортировке будем ставить её в дефолтные
+$('.anime-params-controls .orders li, .manga-params-controls .orders li').live 'click', ->
+  DEFAULT_LIST_SORT = $(this).attr('class').match(/order-by-([\w-]+)/)[1] if IS_LOGGED_IN
+
 # скрытие слайдов с аниме
 $('.slide > div').live 'ajax:clear', (e, page) ->
   $('.animanga-filter').hide() unless page.match(/anime|manga/)
 
-# активация изменения статуса
-#$(".selected .anime-status").live "click", ->
-  #$this = $(this)
-  #$selector = $this.parents("td").children(".anime-status-selector")
-
-  ## если нет селектора - создаём
-  #unless $selector.length
-    #$selector = $this.parents(".ani-manga-list").children(".anime-status-selector").clone().data("field", $this.data("field")).data("action", $this.parents("tr").data("action"))
-    #$this.parents("td").prepend $selector
-  #$selector.show()
-  #$this.hide()
-
-  #$(window).one 'click', (e) ->
-    #return if e.target is $selector[0]
-    #$selector.hide()
-    #e.stopPropagation()
-    #false
-
-  #false
-
-#$(".selected .anime-status-selector").live "change", (e) ->
-  #$this = $(this)
-  #$.cursorMessage()
-
-  #$.post($this.data("action"), "_method=patch&rate[" + $this.data("field") + "]=" + $this.attr("value")).success(->
-    #$.hideCursorMessage()
-    #$this.hide()
-  #).error ->
-    #$.hideCursorMessage()
-    #$this.hide()
-    #$.flash alert: "Произошла ошибка"
-
-  #false
-
-#$(".selected .anime-status-selector").live "click", (e) ->
-  #e.stopPropagation()
-  #false
-
 # открытие блока с редактирование записи по клику на неё
 $('tr.editable').live 'ajax:success', (e, html) ->
+  # прочие блоки редактирования скроем
+  $another_tr_edit = $('tr.edit-form')
+
   $tr = $(@)
   $tr_edit = $("<tr class='edit-form'><td colspan='#{$(@).children('td').length}'>#{html}</td></tr>").insertAfter(@)
   $form = $tr_edit.find('form')
   original_height = $form.height()
 
-  $form.css height: 0
-  (-> $form.css height: original_height).delay()
+  if $another_tr_edit.length
+    $another_tr_edit.remove()
+  else
+    $form.css height: 0
+    (-> $form.css height: original_height).delay()
 
   # отмена редактирования
   $('.cancel', $tr_edit).on 'click', ->
     $form.css height: 0
-    (-> $tr_edit.remove()).delay 250
+    (-> $tr_edit.remove()).delay 350
 
   # применение изменений в редактировании
   $form.on 'ajax:success', (e, data) ->
     $.flash notice: 'Изменения сохранены'
     $('.cancel', $tr_edit).click()
 
-    $tr.find('.current-value[data-field=score]').html String(data.score).replace('0', '–')
-    $tr.find('.current-value[data-field=chapters]').html data.chapters
-    $tr.find('.current-value[data-field=volumes]').html data.volumes
-    $tr.find('.current-value[data-field=episodes]').html data.episodes
-    $tr.find('.rate-text').html if data.text_html then "<div>#{data.text_html}</div>" else ''
+    $('.current-value[data-field=score]', $tr).html String(data.score || '0').replace(/^0$/, '–')
+    $('.current-value[data-field=chapters]', $tr).html data.chapters
+    $('.current-value[data-field=volumes]', $tr).html data.volumes
+    $('.current-value[data-field=episodes]', $tr).html data.episodes
+    $('.rate-text', $tr).html if data.text_html then "<div>#{data.text_html}</div>" else ''
+    if data.rewatches > 0
+      $('.rewatches', $tr).html(if data.anime then "#{data.rewatches} #{p data.rewatches, 'повторный просмотр', 'повторных просмотра', 'повторных просмотров'}" else "#{data.rewatches} #{p data.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}")
+    else
+      $('.rewatches', $tr).html ''
 
   # удаление из списка
   $('.remove', $form).on 'ajax:success', (e, data) ->
@@ -299,7 +209,7 @@ update_list_cache = ->
     $table = $(@)
     rows = $table.find('tr.selectable').map(->
       node: @
-      title: String($(@).data('title'))
+      title: String($(@).data('title')).toLowerCase()
       display: @style.display
     ).toArray()
     $nodes = $table.add($table.prev(':not(.collapse-merged)'))
@@ -317,17 +227,6 @@ update_list_cache = ->
 
 # обработчики для списка
 apply_list_handlers = ->
-  # изменения статуса
-  #$('.selected .ani-manga-list tr.unprocessed').hover(->
-    #$selector = $('.anime-status', @parentNode)
-    #return if not $selector.length or $selector.is(':visible')
-    #$('.anime-status', @).show()
-    #$('.anime-remove', @).show().prev().hide()
-
-  #, ->
-    #$('.anime-status', @).hide()
-    #$('.anime-remove', @).hide().prev().show()
-
   $('.selected .ani-manga-list tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')
@@ -343,44 +242,111 @@ apply_list_handlers = ->
     )
 
   # изменения оценки/числа просмотренных эпизодов
-  $trs = $('.selected .ani-manga-list .hoverable').unbind()
+  $trs = $('.selected .ani-manga-list .hoverable').off()
 
-  $trs.hover ->
-    $current_value = $('.current-value', @)
-    $new_value = $('.new-value', @)
+  $trs.off()
+    .hover ->
+        $current_value = $('.current-value', @)
+        $new_value = $('.new-value', @)
 
-    # если нет элемента, то создаём его
-    if $new_value.length is 0
-      val = parseInt $current_value.text(), 10
-      val = 0 if !val && val != 0
+        # если нет элемента, то создаём его
+        if $new_value.length is 0
+          val = parseInt $current_value.text(), 10
+          val = 0 if !val && val != 0
 
-      new_value_html = if $current_value.data('field') != 'score'
-        "<span class=\"new-value\"><input type=\"text\" class=\"input\"/><span class=\"item-add\"></span></span>"
-      else
-        "<span class=\"new-value\"><input type=\"text\" class=\"input\"/></span>"
+          new_value_html = if $current_value.data('field') != 'score'
+            "<span class=\"new-value\"><input type=\"text\" class=\"input\"/><span class=\"item-add\"></span></span>"
+          else
+            "<span class=\"new-value\"><input type=\"text\" class=\"input\"/></span>"
 
-      $new_value = $(new_value_html)
-        .children('input')
-        .val(val)
-        .data(counter: val, max: $current_value.data('max') || 999, min: $current_value.data('min'))
-        .data(field: $current_value.data('field'), action: $current_value.closest('tr').data('rate_url'))
-          .parent()
-          .insertAfter($current_value)
+          $new_value = $(new_value_html)
+            .children('input')
+            .val(val)
+            .data(counter: val, max: $current_value.data('max') || 999, min: $current_value.data('min'))
+            .data(field: $current_value.data('field'), action: $current_value.closest('tr').data('rate_url'))
+              .parent()
+              .insertAfter($current_value)
 
-    $new_value.show()
-    $current_value.hide()
-    $('.misc-value', @).hide()
-  , ->
-    return if $('.new-value input', @).is(":focus")
-    $('.new-value', @).hide()
-    $('.current-value', @).show()
-    $('.misc-value', @).show()
+          apply_new_value_handlers $new_value
 
-  $trs.on 'click', (e) ->
-    # клик на плюсик обрабатываем по дефолтному
-    return if e.target && e.target.className == 'item-add'
-    $this = $(@)
-    $this.trigger 'mouseenter'
-    $('input', $this).trigger('focus').select()
+        $new_value.show()
+        $current_value.hide()
+        $('.misc-value', @).hide()
+
+
+      , ->
+        return if $('.new-value input', @).is(":focus")
+        $('.new-value', @).hide()
+        $('.current-value', @).show()
+        $('.misc-value', @).show()
+
+    .on 'click', (e) ->
+      # клик на плюсик обрабатываем по дефолтному
+      return if e.target && e.target.className == 'item-add'
+      $this = $(@)
+      $this.trigger 'mouseenter'
+      $('input', $this).trigger('focus').select()
+      e.stopPropagation()
+      false
+
+
+apply_new_value_handlers = ($new_value) ->
+  # обработчики для инпутов листа
+  $('input', $new_value).off()
+    .on 'blur', ->
+      $this = $(@)
+      $this.parent().parent().trigger 'mouseleave'
+      @value = 0 if @value < 0
+      return if (parseInt(@value, 10) or 0) is (parseInt($this.data('counter'), 10) or 0)
+
+      $value = $this.parent().parent().find('.current-value')
+      prior_value = $value.html()
+      $this.data 'counter', @value
+      $value.html (if $this.data('counter') == '0' then '&ndash;' else $this.data('counter'))
+      $.cursorMessage()
+
+      $.post($this.data('action'), "_method=patch&user_rate[#{$this.data 'field'}]=#{$this.attr 'value'}").success( ->
+        $.hideCursorMessage()
+      ).error ->
+        $.hideCursorMessage()
+        $value.html prior_value
+        $.flash alert: 'Произошла ошибка'
+
+    .on 'mousewheel', (e) ->
+      return true unless $(@).is(':focus')
+
+      if e.originalEvent.wheelDelta && e.originalEvent.wheelDelta > 0
+        @value = Math.min (parseInt(@value, 10) + 1 or 0), parseInt($(@).data('max'), 10)
+
+      else if e.originalEvent.wheelDelta
+        @value = Math.max (parseInt(@value, 10) - 1 or 0), parseInt($(@).data('min'), 10)
+
+      false
+
+    .on 'keydown', (e) ->
+      if e.keyCode is 38
+        @value = Math.min (parseInt(@value, 10) + 1 or 0), parseInt($(@).data('max'), 10)
+
+      else if e.keyCode is 40
+        @value = Math.max (parseInt(@value, 10) - 1 or 0), parseInt($(@).data('min'), 10)
+
+      else if e.keyCode is 27
+        @value = $(@).data('counter')
+        $(@).trigger 'blur'
+
+    .on 'keypress', (e) ->
+      if e.keyCode is 13
+        $(@).trigger 'blur'
+        e.stopPropagation()
+        false
+
+  # обработчик для плюсика у числа эпизодов/глав
+  $('.item-add', $new_value).on 'click', (e) ->
+    $input = $(@).prev()
+    $input
+      .val(parseInt($input.val(), 10) + 1)
+      .triggerWithReturn('blur')
+      .success(-> $input.closest('td').trigger 'mouseover')
+
     e.stopPropagation()
     false

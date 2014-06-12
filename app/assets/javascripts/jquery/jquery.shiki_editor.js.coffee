@@ -6,11 +6,14 @@
         return if $root.data("initialized")
         $root.data "initialized", true
         $editor = $root.find(".editor-area")
-        $editor.elastic()
 
         # при вызове фокуса на shiki-editor передача сообщения в редактор
         $root.focus ->
           $editor.trigger "focus"
+
+        # по первому фокусу на редактор включаем elastic
+        $editor.one 'focus', ->
+          $editor.elastic()
 
         # сохранение по ctrl+enter
         $editor.keypress((e) ->

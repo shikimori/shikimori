@@ -4,6 +4,9 @@
   h2 {
     margin-bottom: 10px;
   }
+  .errors {
+    color: red;
+  }
   .input {
     @include text-field;
     width: 242px;

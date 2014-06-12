@@ -10,9 +10,14 @@ class GroupInvitesController < ApplicationController
       render json: ['Указан несуществующий пользователь'], status: :unprocessable_entity
       return
     end
-    raise Forbidden unless @group.has_member?(current_user)
+    raise Forbidden unless @group.member?(current_user)
 
-    if @group.has_member?(current_user) && @group.has_member?(@user)
+    if @group.banned?(@user)
+      render json: [I18n.t('activerecord.errors.models.group_invites.user_is_banned')], status: :unprocessable_entity
+      return
+    end
+
+    if @group.member?(current_user) && @group.member?(@user)
       render json: ['%s уже находится в этой группе' % @user.nickname], status: :unprocessable_entity
       return
     end
@@ -25,13 +30,18 @@ class GroupInvitesController < ApplicationController
     })
     render json: { notice: 'Отправлено приглашение для %s' % @user.nickname }
   rescue ActiveRecord::RecordNotUnique
-    render json: ['У %s уже есть приглашение в эту группу' % params[:nickname]], status: :unprocessable_entity
+    render json: ['У %s уже есть приглашение в этот клуб' % params[:nickname]], status: :unprocessable_entity
   end
 
   # принятие приглашения пользователя в группу
   def accept
     if check_credentials
-      @invite.group.members << current_user
+      if @invite.group.banned?(current_user)
+        render json: [I18n.t('activerecord.errors.models.group_invites.you_are_banned')], status: :unprocessable_entity
+        return
+      end
+
+      @invite.group.join current_user
       render json: {
         notice: 'Вы вступили в %s' % @invite.group.name
       }

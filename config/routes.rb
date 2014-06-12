@@ -46,7 +46,7 @@ Site::Application.routes.draw do
       get 'r/:other' => redirect { |params,request| "/reviews/#{params[:other]}" }
     end
 
-    constraints section: /a|m|c|s|f|o|g|reviews|v|all|news/ do
+    constraints section: Section::VARIANTS do
       get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
       #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
 
@@ -223,8 +223,8 @@ Site::Application.routes.draw do
       get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
     end
-    patch 'groups/:id' => 'groups#apply', as: :apply_group
-    post 'groups/:id' => 'groups#apply'
+    patch 'groups/:id' => 'groups#update', as: :update_group
+    post 'groups/:id' => 'groups#update'
     get 'groups/:id/autocomplete/:search' => 'groups#autocomplete', as: 'autocomplete_group_members', format: :json, search: /.*/
 
     resources :user_images, only: [:create]
@@ -343,11 +343,6 @@ Site::Application.routes.draw do
           # редактирование
           patch 'apply'
 
-          # работа со списком
-          post 'rate' =>  'user_rates#create', type: klass.name
-          patch 'rate' => 'user_rates#update', type: klass.name
-          delete 'rate' => 'user_rates#destroy', type: klass.name
-
           get ':page' => "#{plural}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
           get 'edit/:subpage' => "#{plural}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
 
@@ -359,6 +354,11 @@ Site::Application.routes.draw do
         resources :reviews, type: klass.name, controller: 'ani_mangas_controller/reviews'
       end
     end
+
+    resources :user_rates, only: [:create, :edit, :update, :destroy] do
+      post :increment, on: :member
+    end
+
     # удаление скриншота
     delete 'screenshot/:id' => 'screenshots#destroy', as: 'screenshot'
     delete 'video/:id' => 'videos#destroy', as: 'video'
@@ -478,6 +478,7 @@ Site::Application.routes.draw do
             get :screenshots
           end
         end
+        resource :calendar, only: [:show]
         resources :mangas, only: [:show, :index] do
           member do
             get :roles
@@ -486,6 +487,7 @@ Site::Application.routes.draw do
           end
         end
 
+        resources :devices, only: [:create, :index, :destroy]
         resources :characters, only: [:show]
         resources :people, only: [:show]
 
@@ -508,6 +510,8 @@ Site::Application.routes.draw do
         end
 
         resources :user_rates, only: [:create, :update, :destroy] do
+          post :increment, on: :member
+
           collection do
             scope ':type', type: /anime|manga/ do
               delete :cleanup
@@ -536,15 +540,6 @@ Site::Application.routes.draw do
             get :anime_rates
             get :manga_rates
           end
-        end
-        namespace :profile do
-          resources :friends, only: [:index]
-          resources :clubs, only: [:index]
-          resources :favourites, only: [:index]
-          resources :messages, only: [:index] do
-            get :unread, on: :collection
-          end
-          resources :history, only: [:index, :show]
         end
       end
     end
@@ -586,11 +581,8 @@ Site::Application.routes.draw do
 
       # user_list
       constraints list_type: /anime|manga/ do
-        get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_filtered_list
-        get ":id/list/:user_rate_id/edit" => 'user_lists#edit', as: :user_list_edit
+        get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
         get ':id/list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
-        get ':id/list/:list_type(-:list_type_kind)' => 'user_lists#show', as: :ani_manga_list,
-                                                                          constraints: {list_type_kind: /plan-to-watch|watching|completed|on-hold|dropped/ }
       end
       post ':id/import' => 'user_lists#list_import', as: :list_import
       get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }

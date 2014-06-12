@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530165128) do
+ActiveRecord::Schema.define(version: 20140610210033) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 20140530165128) do
     t.string   "world_art_scores"
     t.boolean  "censored",           default: false
     t.datetime "imported_at"
-    t.datetime "next_release_at"
+    t.datetime "next_episode_at"
     t.string   "tags"
     t.string   "source"
     t.text     "description_html"
@@ -396,6 +396,14 @@ ActiveRecord::Schema.define(version: 20140530165128) do
     t.datetime "updated_at"
   end
 
+  create_table "devices", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "token",      null: false
+    t.integer  "platform",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "entries", force: true do |t|
     t.string   "title"
     t.string   "permalink"
@@ -467,6 +475,17 @@ ActiveRecord::Schema.define(version: 20140530165128) do
 
   add_index "genres_mangas", ["manga_id"], name: "index_genres_mangas_on_manga_id", using: :btree
 
+  create_table "group_bans", force: true do |t|
+    t.integer  "group_id",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_bans", ["group_id", "user_id"], name: "index_group_bans_on_group_id_and_user_id", unique: true, using: :btree
+  add_index "group_bans", ["group_id"], name: "index_group_bans_on_group_id", using: :btree
+  add_index "group_bans", ["user_id"], name: "index_group_bans_on_user_id", using: :btree
+
   create_table "group_invites", force: true do |t|
     t.integer  "group_id"
     t.integer  "src_id"
@@ -499,7 +518,7 @@ ActiveRecord::Schema.define(version: 20140530165128) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
-    t.integer  "join_policy"
+    t.integer  "join_policy",       default: 1,           null: false
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -512,6 +531,7 @@ ActiveRecord::Schema.define(version: 20140530165128) do
     t.integer  "group_roles_count", default: 0
     t.string   "permalink"
     t.boolean  "display_images",    default: true
+    t.integer  "comment_policy",    default: 1,           null: false
   end
 
   create_table "ignores", force: true do |t|
@@ -929,15 +949,15 @@ ActiveRecord::Schema.define(version: 20140530165128) do
   create_table "user_rates", force: true do |t|
     t.integer  "user_id"
     t.integer  "target_id"
-    t.integer  "score"
-    t.integer  "status"
+    t.integer  "score",                    default: 0, null: false
+    t.integer  "status",                   default: 0, null: false
     t.integer  "episodes",                 default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "target_type"
     t.integer  "volumes",                  default: 0, null: false
     t.integer  "chapters",                 default: 0, null: false
-    t.string   "text",        limit: 1024
+    t.string   "text",        limit: 2048
     t.integer  "rewatches",                default: 0, null: false
   end
 

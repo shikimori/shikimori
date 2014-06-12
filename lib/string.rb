@@ -2,22 +2,23 @@ class String
   RussianRange = ("А".ord)..("я".ord)
 
   def keywords
-    self.downcase
-        .gsub(/ (?: 's | : ) ( \b | $ | [ ] ) /xi, ' ')
-        .gsub(/\.[A-zА-я0-9]+$/, '')
-        .gsub('&dagger;', '')
-        .gsub('!', 'EXCM')
-        .gsub('?', 'QUEM')
-        .gsub('QUEM', '?')
-        .gsub('EXCM', '!')
-        .gsub(/\d+x\d+|\d+/, '')
-        .gsub(/~/, ' ')
-        .gsub(/ +/, ' ')
-        .gsub(/\b(?:the|for|in|by|to|[A-zА-я0-9])\b/, '')
-        .strip
-        .split(' ')
-        .uniq
-        .select {|v| v.length > 1 }
+    self
+      .downcase
+      .gsub(/ (?: 's | : ) ( \b | $ | [ ] ) /xi, ' ')
+      .gsub(/\.[A-zА-я0-9]+$/, '')
+      .gsub('&dagger;', '')
+      .gsub('!', 'EXCM')
+      .gsub('?', 'QUEM')
+      .gsub('QUEM', '?')
+      .gsub('EXCM', '!')
+      .gsub(/\d+x\d+|\d+/, '')
+      .gsub(/~/, ' ')
+      .gsub(/ +/, ' ')
+      .gsub(/\b(?:the|for|in|by|to|[A-zА-я0-9])\b/, '')
+      .strip
+      .split(' ')
+      .uniq
+      .select {|v| v.length > 1 }
   end
 
   def specials
@@ -62,7 +63,7 @@ class String
   end
 
   # привод кривой строки в валидное состояние
-  def fix_encoding(encoding=nil)
+  def fix_encoding(encoding=nil, dont_unpack=false)
     result = self
     encoding ||= 'utf-8'
 
@@ -74,7 +75,7 @@ class String
       result = result.encode encoding
     end
 
-    unless result.valid_encoding?
+    unless result.valid_encoding? || dont_unpack
       result = result.unpack('C*').pack('U*')
     end
 

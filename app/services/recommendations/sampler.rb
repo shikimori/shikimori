@@ -1,7 +1,4 @@
 class Recommendations::Sampler
-  Planned = UserRateStatus.get UserRateStatus::Planned
-  Dropped = UserRateStatus.get UserRateStatus::Dropped
-
   # сколько максимум делать рекомендаций
   MaxRecommendations = 500
   # сколько минимум должно быть голосов, чтобы можно было попытаться выдать рекомендации

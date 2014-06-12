@@ -3,7 +3,7 @@ require 'spec_helper'
 describe AnimeSpiritParser do
   let(:parser) { AnimeSpiritParser.new }
 
-  it { parser.fetch_pages_num.should eq 396 }
+  it { parser.fetch_pages_num.should eq 397 }
   it { parser.fetch_page_links(1).should have(10).items }
   it { parser.fetch_pages(1..1).should have(10).items }
 
@@ -110,7 +110,7 @@ describe AnimeSpiritParser do
 
     context 'missing video' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9715-korol-gyejner-overman-king-gainer.html' }
-      its(:videos) { should have(67).items }
+      its(:videos) { should have(104).items }
     end
 
     #context 'translator in description' do

@@ -18,7 +18,7 @@
               = change.column
             span.id
               - if change.item
-                = link_to change.item.name, url_for(change.item), class: 'bubbled', 'data-href' => url_for(change.item)+'/tooltip', 'data-remote' => true
+                a.bubbled href="#{url_for change.item}" = change.item.name
               - else
                 = t "Deleted.#{change.model}"
           - if change.screenshots?

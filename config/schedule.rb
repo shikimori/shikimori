@@ -24,7 +24,7 @@ set :job_template, "/usr/bin/zsh -i -c ':job'"
 
 # здесь только редкие/долгие таски, которые нельзя на clockwork положить
 
-every 1.day, at: '3:00 am' do
+every 1.day, at: '4:30 am' do
   command "backup perform --trigger shikimori"
 end
 

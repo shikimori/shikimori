@@ -15,7 +15,7 @@
           span.date
             = entry.time_ago interval
           - if entry.target
-            a.bubbled href="#{url_for entry.target}" data-remote="true"
+            a.bubbled href="#{url_for entry.target}"
               == localized_name entry.target
             | &nbsp;
             == Unicode.downcase entry.format

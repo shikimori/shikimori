@@ -41,7 +41,7 @@ class RecommendationsController < AniMangasCollectionController
         params[:ids_with_sort] = @rankings
 
         params[:exclude_ids] = user.send("#{klass.name.downcase}_rates").includes(klass.name.downcase.to_sym).inject([]) do |result, v|
-          result << v.target_id if v.status != UserRateStatus.get(UserRateStatus::Planned)
+          result << v.target_id unless v.planned?
           result
         end
       end

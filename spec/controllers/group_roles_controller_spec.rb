@@ -8,7 +8,7 @@ describe GroupRolesController do
 
   describe Group do
     describe 'with Free join_policy' do
-      let (:group) { create :group, join_policy: GroupJoinPolicy::Free }
+      let (:group) { create :group, :free_join }
 
       it 'joins group successfully' do
         expect {
@@ -56,7 +56,7 @@ describe GroupRolesController do
   end
 
   describe User do
-    let (:group) { create :group, join_policy: GroupJoinPolicy::Free, owner: @user }
+    let (:group) { create :group, owner: @user }
     it 'becames admin when joins its own group' do
       expect {
         post :create, id: group.id

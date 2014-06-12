@@ -237,14 +237,14 @@ module CommentHelper
             user = comment.user
 
             if $~[:quote].present?
-              text.gsub! $~[:match], "<a href=\"#{user_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-remote=\"true\" data-href=\"#{url}\">
+              text.gsub! $~[:match], "<a href=\"#{user_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
 <img src=\"#{user.avatar_url 16}\" alt=\"#{user.nickname}\" /><span>#{user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
             else
-              text.gsub! $~[:match], "<a href=\"#{url_for user}\" title=\"#{user.nickname}\" class=\"bubbled b-mention\" data-remote=\"true\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
+              text.gsub! $~[:match], "<a href=\"#{url_for user}\" title=\"#{user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
             end
 
           rescue
-            text.gsub! $~[:match], "<span class=\"bubbled\" data-remote=\"true\" data-href=\"#{url}\">#{$~[:text]}</span>"
+            text.gsub! $~[:match], "<span class=\"bubbled\" data-href=\"#{url}\">#{$~[:text]}</span>"
             break
           end
 
@@ -315,7 +315,7 @@ module CommentHelper
             id = $2.nil? ? $3.to_i : $2.to_i
             entry = klass.find(id)
             title = $2.nil? ? entry.name : $3
-            preload = preloader ? " class=\"bubbled\" data-remote=\"true\" data-href=\"#{send preloader, entry}\"" : nil
+            preload = preloader ? " class=\"bubbled\" data-href=\"#{send preloader, entry}\"" : nil
             url = if entry.kind_of? UserChange
               moderation_user_change_url entry
             else

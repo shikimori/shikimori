@@ -137,7 +137,7 @@ module MessagesHelper # для truncate в messages helper
         linked_type
     end
 
-    comment_bubble = "class=\"bubbled\" data-remote=\"true\" data-href=\"#{comment_url(id: comment_id)}\"" if comment_id
+    comment_bubble = "class=\"bubbled\" data-href=\"#{comment_url(id: comment_id)}\"" if comment_id
     content.sub('<!--',  "<a href=\"#{url}#{"#comment-#{comment_id}" if comment_id}\"#{comment_bubble || ''}>").sub('-->',  '</a>')
   end
 end

@@ -18,7 +18,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     param :volumes, :undef
   end
   def create
-    @user_rate.save
+    @user_rate.save rescue Mysql2::Error
     respond_with @user_rate, location: nil
   end
 
@@ -37,6 +37,18 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   def update
     @user_rate.update update_params
     respond_with @user_rate, location: nil
+  end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :POST, "/user_rates/:id/increment"
+  def increment
+    if @user_rate.anime?
+      @user_rate.update episodes: @user_rate.episodes + 1
+    else
+      @user_rate.update chapters: @user_rate.chapters + 1
+    end
+
+    respond_with @user_rate
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME

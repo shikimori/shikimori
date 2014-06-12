@@ -139,7 +139,7 @@ class Moderation::UserChangesController < ApplicationController
 
   # забрать аниме на перевод
   def get_anime_lock
-    unless Group.find(Group::TranslatorsID).has_member?(current_user)
+    unless Group.find(Group::TranslatorsID).member?(current_user)
       render json: ['Только участники группы переводов могут забирать аниме на перевод'], status: :unprocessable_entity
       return
     end

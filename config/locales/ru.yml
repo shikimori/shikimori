@@ -1,6 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 ru:
   activerecord:
     # названия полей моделей
@@ -36,8 +33,38 @@ ru:
         episodes: Эпизоды
         chapters: Главы
         volumes: Тома
-        notice: Комментарий
+        rewatches: Кол-во повторных просмотров
+        rerereads: Кол-во повторных чтений
+        text: Комментарий
         score: Оценка
+
+        scores:
+          '1': Хуже не бывает
+          '2': Ужасно
+          '3': Очень плохо
+          '4': Плохо
+          '5': Более-менее
+          '6': Нормально
+          '7': Хорошо
+          '8': Отлично
+          '9': Великолепно
+          '10': Эпик вин!
+        statuses:
+          anime:
+            planned: Запланировано
+            watching: Смотрю
+            rewatching: Пересматриваю
+            completed: Просмотрено
+            on_hold: Отложено
+            dropped: Брошено
+          manga:
+            planned: Запланировано
+            watching: Читаю
+            rewatching: Перечитываю
+            completed: Прочитано
+            on_hold: Отложено
+            dropped: Брошено
+
       user_preferences:
         anime_in_profile: Отображать аниме в профиле
         manga_in_profile: Отображать мангу в профиле
@@ -66,12 +93,30 @@ ru:
         url: Ссылка
         kind: Тип
         name: Название
+      group:
+        name: Название
+        display_images: Отображать раздел картинок
+        join_policy: Возможность вступления
+        join_policies:
+          free_join: Свободное для всех желающих
+          owner_invite_join: Только по приглашению создателя
+        comment_policy: Возможность комментирования
+        comment_policies:
+          free_comment: Свободное для всех
+          members_comment: Только для участников клуба
 
     # сообщения валидаций
     errors:
+      messages:
+        taken: уже используется
       models:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'
+          not_a_club_member: Вступите в клуб, чтобы оставлять комментарии
+          in_club_black_list: Вы занесены в чёрный список клуба
+        group_invites:
+          you_are_banned: Вы занесены в чёрный список клуба
+          user_is_banned: Пользователь занесён в чёрный список клуба
         videos:
           attributes:
             url:

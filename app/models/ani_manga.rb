@@ -98,6 +98,10 @@ module AniManga
     end
   end
 
+  def status_name
+    status.present? ? I18n.t("AniMangaStatusUpper.#{status}") : ''
+  end
+
   # тип элемента для schema.org
   def itemtype
     if kind == 'Movie'
@@ -199,7 +203,7 @@ module AniManga
       end
       if genres
         if genres.length == 1
-          type_text = Unicode.downcase(genres.first.format_for_title(type_text, nil)) 
+          type_text = Unicode.downcase(genres.first.format_for_title(type_text, nil))
         else
           type_text += ' жанров '+(genres.count == 2 ? genres.map(&:russian).join(' и ') : genres.map(&:russian).join(', '))
         end

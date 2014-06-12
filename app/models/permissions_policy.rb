@@ -86,20 +86,20 @@ module PermissionsPolicy
   module GroupPermissions
     # может ли пользователь редактировать группу?
     def can_be_edited_by?(user)
-      user && (user.admin? || member_roles.any? {|v| v.user_id == user.id && [GroupRole::Admin, GroupRole::Moderator].include?(v.role) })
+      user && (user.admin? || staff?(user))
     end
 
     # может ли пользователь вступить группу?
     def can_be_joined_by?(user)
-      user && (self.join_policy == GroupJoinPolicy::Free || user.id == self.owner_id)
+      user && (user.id == owner_id || (free_join? && !banned?(user)))
     end
 
     # может ли пользователь загружать картинку
     def can_be_uploaded_by?(user)
-      if self.upload_policy == GroupUploadPolicy::ByMembers
-        self.has_member?(user)
+      if upload_policy == GroupUploadPolicy::ByMembers
+        member?(user)
       elsif self.upload_policy == GroupUploadPolicy::ByStaff
-        self.has_staff?(user)
+        staff?(user)
       else
         false
       end
@@ -107,33 +107,45 @@ module PermissionsPolicy
 
     # может ли пользователь посылать приглашения в эту группу?
     def can_send_invites?(user)
-      case self.join_policy
-        when GroupJoinPolicy::Free
-          self.members.include?(user)
-
-        when GroupJoinPolicy::ByOwnerInvite
-          self.members.include?(user) && self.owner_id == user.id
-
-        else
-          false
+      if free_join?
+        members.include?(user)
+      elsif owner_invite_join?
+        members.include?(user) && owner_id == user.id
+      else
+        false
       end
     end
 
     def can_delete_images?(user)
-      self.has_staff?(user)
+      staff?(user)
     end
 
     def can_delete_videos?(user)
-      self.has_staff?(user)
+      staff?(user)
     end
+  end
 
+  # права на действия с Топиком группы
+  module GroupCommentPermissions
     # может ли комментарий быть создан пользователем
     def can_be_commented_by?(comment)
-      if self.has_member?(comment.user_id)
-        true
+      if linked.free_comment?
+        if linked.banned?(comment.user)
+          comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.in_club_black_list')
+          false
+        else
+          true
+        end
+
+      elsif linked.members_comment?
+        if linked.member?(comment.user_id)
+          true
+        else
+          comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.not_a_club_member')
+          false
+        end
       else
-        comment.errors[:forbidden] = 'Только члены группы могут оставлять здесь комментарии'
-        false
+        raise ArgumentError, linked.comment_policy
       end
     end
   end

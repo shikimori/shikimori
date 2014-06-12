@@ -44,7 +44,7 @@ function init_gallery() {
               return;
             }
 
-            History.pushState(null, null, url);
+            History.pushState({timestamp: Date.now()}, null, url);
           }
         };
       }

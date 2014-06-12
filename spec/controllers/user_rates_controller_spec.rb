@@ -1,98 +1,58 @@
 require 'spec_helper'
 
 describe UserRatesController do
-  [:anime, :manga].each do |kind|
-    describe kind do
-      let(:user) { create :user }
-      let(:entry) { create kind }
-      let!(:user_rate) { create :user_rate, user: user, target: entry }
+  include_context :authenticated
 
-      let(:defaults) {{
-        id: entry.to_param, type: entry.class.name
-      }}
+  describe :edit do
+    let(:user_rate) { create :user_rate, user: user }
+    before { get :edit, id: user_rate.id }
 
-      let(:valid_hash) do
-        {
-          status: UserRateStatus.get(UserRateStatus::Planned),
-          score: 9,
-          text: 'test zxc'
-        }.merge(kind == :anime ? {episodes: 0} : {volumes: 0, chapters: 0})
-      end
+    it { should respond_with :success }
+    it { should respond_with_content_type :html }
+  end
 
-      describe :create do
-        context :guest do
-          before { post :create, defaults }
-          it { should respond_with 302 }
-        end
+  describe :destroy do
+    let(:user_rate) { create :user_rate, user: user }
+    before { delete :destroy, id: user_rate.id, format: :json }
 
-        context :authenticated do
-          before { sign_in user }
-          let(:make_request) { post :create, defaults.merge(user_rate: valid_hash) }
+    it { should respond_with :success }
+    it { should respond_with_content_type :html }
+    it { expect(assigns(:user_rate)).to be_destroyed }
+  end
 
-          context :response do
-            before { make_request }
-            it { should respond_with :success }
-          end
+  describe :create do
+    let(:target) { create :anime }
+    let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
+    before { post :create, user_rate: create_params, format: :json }
 
-          context :result do
-            let(:user_rate) {}
-            it { expect{make_request}.to change(UserRate, :count).by 1 }
-          end
-        end
-      end
+    it { should respond_with :success }
 
-      describe :update do
-        context :guest do
-          before { patch :update, defaults }
-          it { should respond_with 302 }
-        end
+    describe :user_rate do
+      subject { assigns :user_rate }
 
-        context :authenticated do
-          before { sign_in user }
-          let(:current_hash) { valid_hash.merge kind == :anime ? {episodes: 1} : {volumes: 2, chapters: 3} }
-          let(:make_request) { patch :update, defaults.merge(rate: current_hash) }
+      its(:user_id) { should eq create_params[:user_id] }
+      its(:target_id) { should eq create_params[:target_id] }
+      its(:target_type) { should eq create_params[:target_type] }
+      its(:score) { should eq create_params[:score] }
+      its([:status]) { should eq create_params[:status] }
+      its(:episodes) { should eq create_params[:episodes] }
+      its(:volumes) { should eq create_params[:volumes] }
+      its(:chapters) { should eq create_params[:chapters] }
+      its(:text) { should eq create_params[:text] }
+      its(:rewatches) { should eq create_params[:rewatches] }
+    end
+  end
 
-          context :response do
-            before { make_request }
-            it { should respond_with :success }
+  describe :increment do
+    let(:user_rate) { create :user_rate, user: user, episodes: 1 }
+    before { post :increment, id: user_rate.id, format: :json }
 
-            if kind == :anime
-              it { user_rate.reload.episodes.should eq 1 }
-            else
-              it { user_rate.reload.volumes.should eq 2 }
-              it { user_rate.reload.chapters.should eq 3 }
-            end
-            it { user_rate.reload.score.should eq valid_hash[:score] }
-            it { user_rate.reload.text.should eq valid_hash[:text] }
-          end
+    it { should respond_with :success }
 
-          context :result do
-            it { expect{make_request}.to change(UserRate, :count).by 0 }
-          end
-        end
-      end
+    describe :user_rate do
+      subject { assigns :user_rate }
 
-      describe :destroy do
-        context :guest do
-          before { delete :destroy, defaults }
-          it { should respond_with 302 }
-        end
-
-        context :authenticated do
-          before { sign_in user }
-          let(:make_request) { delete :destroy, defaults }
-
-          context :response do
-            before { make_request }
-            it { should respond_with :success }
-          end
-
-          context :result do
-            it { expect{make_request}.to change(UserRate, :count).by -1 }
-          end
-        end
-      end
+      its(:episodes) { should eq user_rate.episodes + 1 }
     end
   end
 end
-
