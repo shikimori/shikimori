@@ -23,7 +23,7 @@ aside.menu-right.animanga-right-menu
     - @director.pages.each_with_index do |page, index|
       .slide
         - if @director.page_index == index
-          section class="#{page_class page} selected"
+          section.selected class="#{page_class page}"
             = render @director.partial
         - else
           div class="#{page_class page}"

@@ -1,5 +1,8 @@
 var root = '.slide > .reviews-edit';
+var loaded = false;
+
 $(root).live('ajax:success cache:success', function(e) {
+  loaded = true;
   var $root = $(this);
   // голосовалки
   $('.rate-block', $root).makeRateble({
@@ -18,7 +21,7 @@ $(root).live('ajax:success cache:success', function(e) {
   }
 }).live('ajax:clear', function(e, data) {
   // очистка контента, чтобы в следующий раз загрузился новый
-  if ($.isReady) {
+  if ($.isReady && loaded) {
     $(this).append('<div class="clear-marker"></div>');
   }
 });
