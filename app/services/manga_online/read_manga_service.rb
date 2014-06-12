@@ -10,7 +10,7 @@ class MangaOnline::ReadMangaService
     entry = ReadMangaParser.new.fetch_entry source_id
     chapters = MangaOnline::ReadMangaChaptersParser.new(@manga.id, entry[:read_first_url], @no_proxy).chapters
 
-    print "Find #{chapters.count} chpaters ----------------------------\n\n" unless Rails.env.test?
+    print "Find #{chapters.count} chapters ----------------------------\n\n" unless Rails.env.test?
     db_chapters = MangaOnline::ReadMangaChaptersImporter.new(chapters).save
 
     db_chapters.each do |chapter|

@@ -3,7 +3,7 @@ class MangaOnline::MangasController < ApplicationController
 
   def index
     manga_ids = MangaChapter.select(:manga_id).distinct.map(&:manga_id)
-    @mangas = Manga.where(id: manga_ids)
+    @mangas = Manga.where id: manga_ids
   end
 
   def show

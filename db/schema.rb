@@ -548,6 +548,8 @@ ActiveRecord::Schema.define(version: 20140530165128) do
     t.integer  "number"
     t.integer  "manga_chapter_id"
     t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
