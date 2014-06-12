@@ -1,21 +1,25 @@
-h1 : a href="#{online_manga_show_url @chapter.manga.id}" = @chapter.manga.name
-h2 = @chapter.name
-h3 = @page.number
-div
-  - unless @page == @chapter.pages.first
-    a href="#{online_manga_chapter_show_url @chapter, @page.number - 1}" prev
+header.head
+  meta itemprop="name" content="#{{@manga.name}}"
+    h1 title="#{h1_text @manga}"
+      = h1_text @manga, true
 
-  - unless @page == @chapter.pages.last
-    a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}" next
+    select#chapters
+      - @chapters.each do |chapter|
+        - if chapter.id == @chapter.id
+          option value="#{online_manga_chapter_show_url chapter}" selected="selected" = chapter.name
+        - else
+          option value="#{online_manga_chapter_show_url chapter}" = chapter.name
 
-div
-  select#chapters
-    - @chapters.each do |chapter|
-      - if chapter.id == @chapter.id
-        option value="#{online_manga_chapter_show_url chapter}" selected="selected" = chapter.name
-      - else
-        option value="#{online_manga_chapter_show_url chapter}" = chapter.name
+  = render partial: 'site/breadcrumbs', object: {'Список манги' => '/', "#{@manga.name}" => "#{online_manga_show_url @chapter.manga.id}"}, formats: :html
 
-div
+
+
+= render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+
+.image
   a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}"
-    img src="#{asset_path @page.image}" style='width:100%'
+    img src="#{asset_path @page.image}"
+
+br
+= render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+br
