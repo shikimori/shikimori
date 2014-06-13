@@ -12,6 +12,11 @@ class Api::V1::DevicesController < Api::V1::ApiController
     respond_with @devices
   end
 
+  def test
+    gcm = GCM.new('AIzaSyARnXEDlhfDsaCz5ezzspqfE0LBlMVpMjY')
+    respond_with gcm.send_notification([@device.token], data: JSON.parse(params[:data]))
+  end
+
   api :POST, "/devices", "Create a device"
   param :device, Hash do
     param :platform, ['ios', 'android'], required: true
