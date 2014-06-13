@@ -78,6 +78,7 @@ gem 'responders' # для json responder'а, который нужен для р
 
 gem 'postmark-rails'
 gem 'apipie-rails'
+gem 'gcm'
 
 group :production do
   gem 'lograge'
