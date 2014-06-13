@@ -16,7 +16,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
   param :device, Hash do
     param :platform, ['ios', 'android'], required: true
     param :token, String, desc: 'ID of mobile device', required: true
-    param :user_id, Integer, required: true
+    param :user_id, :undef, required: true
   end
   def create
     @device.save
