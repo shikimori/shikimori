@@ -1,5 +1,13 @@
-class CreateMangaPages < ActiveRecord::Migration
+class CreateMangaChaptersAndPages < ActiveRecord::Migration
   def change
+    create_table :manga_chapters do |t|
+      t.string :name
+      t.string :url
+      t.references :manga, index: true
+
+      t.timestamps
+    end
+
     create_table :manga_pages do |t|
       t.string :url
       t.integer :number
@@ -10,5 +18,6 @@ class CreateMangaPages < ActiveRecord::Migration
 
       t.timestamps
     end
+
   end
 end
