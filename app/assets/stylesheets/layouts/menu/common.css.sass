@@ -24,12 +24,12 @@
   .main-menu
     .inner
       .logo-prefix
-        display: inline
-        &:before
-          content: 'Manga'
-          color: red
-          font-size: 20px
-          line-height: 34px
+        +background-inline-retina('/globals/manga_online_logo', 'png', 16px, 30px)
+        position: absolute
+        width: 16px
+        height: 30px
+        margin-left: -14px
+        margin-top: 1px
       .logo
         display: inline
         margin-left: 10px
