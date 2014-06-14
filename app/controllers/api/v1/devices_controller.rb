@@ -13,7 +13,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
   end
 
   def test
-    gcm = GCM.new('AIzaSyARnXEDlhfDsaCz5ezzspqfE0LBlMVpMjY')
+    gcm = GCM.new('AIzaSyCjiYMBbrr45DapKvUTjJzEEiAK74XK0Wc')
     respond_with gcm.send_notification([@device.token], data: JSON.parse(params[:data]))
   end
 
