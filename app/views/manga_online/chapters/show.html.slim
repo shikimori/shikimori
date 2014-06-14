@@ -1,0 +1,25 @@
+header.head
+  meta itemprop="name" content="#{{@manga.name}}"
+    h1 title="#{h1_text @manga}"
+      = h1_text @manga, true
+
+    select#chapters
+      - @chapters.each do |chapter|
+        - if chapter.id == @chapter.id
+          option value="#{online_manga_chapter_show_url chapter}" selected="selected" = chapter.name
+        - else
+          option value="#{online_manga_chapter_show_url chapter}" = chapter.name
+
+  = render partial: 'site/breadcrumbs', object: {'Список манги' => '/', "#{@manga.name}" => "#{online_manga_show_url @chapter.manga.id}"}, formats: :html
+
+
+
+= render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+
+.image
+  a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}"
+    img src="#{asset_path @page.image}"
+
+br
+= render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+br

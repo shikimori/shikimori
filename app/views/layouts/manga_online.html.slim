@@ -1,0 +1,18 @@
+DOCTYPE html
+html
+  head
+    = csrf_meta_tag
+    = stylesheet_link_tag :common
+    = stylesheet_link_tag :ani_manga
+    = stylesheet_link_tag :ani_mangas
+    = stylesheet_link_tag 'manga_online/application', media: 'all'
+
+    = javascript_include_tag 'manga_online/application'
+
+  body.manga_online.static
+    header.header
+      = render partial: 'manga_online/main_menu'
+
+    .page
+      = yield
+

@@ -81,6 +81,7 @@ class ReadMangaParser < SiteParserWithCache
 
     lines = extract_description_lines doc
     entry[:source] = find_source(lines, url) || url
+    entry[:read_first_url] = extract_read_first_url doc
 
     entry[:description] = build_description lines, entry[:id]
     return nil if moved_entry? entry[:description]
@@ -111,6 +112,10 @@ class ReadMangaParser < SiteParserWithCache
           names
       end
     end
+  end
+
+  def extract_read_first_url doc
+    "#{doc.css('.read-first').css('a').first.attr('href')}?mature=1"
   end
 
   def extract_additional entry, doc

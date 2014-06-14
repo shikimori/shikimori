@@ -1,0 +1,6 @@
+.animes
+  = render partial: 'ani_mangas_collection/entry', collection: @mangas, formats: :html
+
+.bottom-pages.clearfix
+  = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+br

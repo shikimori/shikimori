@@ -75,6 +75,7 @@ gem 'xxhash' # очень быстрый несекьюрный алгоритм
 
 gem 'rabl' # для рендеринга json
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
+gem 'zaru'
 
 gem 'postmark-rails'
 gem 'apipie-rails'

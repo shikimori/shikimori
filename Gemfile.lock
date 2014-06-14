@@ -536,6 +536,7 @@ GEM
       nokogiri (~> 1.3)
     xxhash (0.2.0)
     yajl-ruby (1.2.0)
+    zaru (0.1.0)
 
 PLATFORMS
   ruby
@@ -645,3 +646,4 @@ DEPENDENCIES
   will_paginate!
   will_paginate-bootstrap
   xxhash
+  zaru
