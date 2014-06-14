@@ -487,7 +487,9 @@ Site::Application.routes.draw do
           end
         end
 
-        resources :devices, only: [:create, :index, :destroy]
+        resources :devices, only: [:create, :index, :destroy] do
+          get :test, on: :member
+        end
         resources :characters, only: [:show]
         resources :people, only: [:show]
 

@@ -1,6 +1,6 @@
 class SeyuDirector < PeopleDirector
   def index
-    append_title! "Поиск сейю"
+    append_title! "Поиск сэйю"
     append_title! SearchHelper.unescape(params[:search])
   end
 

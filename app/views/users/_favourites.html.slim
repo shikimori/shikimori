@@ -18,7 +18,7 @@
 
 - unless @user.fav_seyu.empty?
   .persons-container
-    .subheadline.m10 Сейю
+    .subheadline.m10 Сэйю
     div
       = render partial: 'blocks/person', collection: @user.fav_seyu, locals: { role: nil, link_to_seyu: true, no_tooltip: true, remote: :person_tooltip_url }, formats: :html
 

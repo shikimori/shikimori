@@ -400,6 +400,12 @@ describe AniMangaQuery do
       it 'japanese' do
         fetch(search: 'シュタインズ').should have(2).items
       end
+      it 'star mark english' do
+        fetch(search: 'z*la').should have(1).item
+      end
+      it 'star mark japanese' do
+        fetch(search: 'シュ*ンズ*ート').should have(1).item
+      end
     end
 
     describe :paginated do

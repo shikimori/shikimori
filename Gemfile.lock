@@ -251,6 +251,9 @@ GEM
     ffi (1.9.3)
     formatador (0.2.4)
     fssm (0.2.10)
+    gcm (0.0.7)
+      httparty
+      json
     guard (2.6.0)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -274,6 +277,9 @@ GEM
     hiredis (0.4.5)
     htmlentities (4.3.1)
     http_parser.rb (0.6.0)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     icalendar (1.1.6)
     ice_nine (0.11.0)
@@ -570,6 +576,7 @@ DEPENDENCIES
   faye-redis (= 0.1.0)
   faye-websocket (= 0.4.4)
   foreman!
+  gcm
   guard
   guard-livereload
   guard-rspec

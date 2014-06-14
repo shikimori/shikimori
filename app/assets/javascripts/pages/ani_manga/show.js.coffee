@@ -65,24 +65,19 @@ $ ->
     $(".slider-control a,.slider-control span.link").each (k, v) ->
       href = if @className.indexOf("link") is -1 then @href else $(@).data("href")
       if url.indexOf(href.replace(/http:\/\/.*?(?=\/)/, "")) != -1
-        $target = $(@).parent() 
+        $target = $(@).parent()
 
-    # отдельное правило для редактирования описаний
-    $target = $(".slider-control-reviews-edit")  if url.match(/\/reviews\/\d+\/edit/)
-    menu_url = ($target.children("a").attr("href") or $target.children("span.link").data("href")).replace(/http:\/\/.*?(?=\/)/, "")
+    # отдельное правило для редактирования рецензий
+    $target = $('.slider-control-reviews-edit') if url.match(/\/reviews\/\d+\/edit/)
+
+    menu_url = ($target.children('a').attr('href') || $target.children('span.link').data('href')).replace(/http:\/\/.*?(?=\/)/, "")
     if menu_url != url
-      $target.trigger "slider:click"
-    else
       # в нужном li делается подмена урла, т.к. урл для загрузки страницы будет взят оттуда, а затем после загрузки страницы урл меняется назад
-      $target
-        .children()
-        .attr(href: url)
-        .data(href: url)
+      $target.children().attr(href: url).data(href: url)
       $target.trigger 'slider:click'
-      $target
-        .children()
-        .attr(href: menu_url)
-        .data(href: menu_url)
+      $target.children().attr(href: menu_url).data(href: menu_url)
+    else
+      $target.trigger 'slider:click'
 
   $(window).trigger 'statechange'
 

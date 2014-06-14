@@ -1,6 +1,8 @@
 class FindAnimeImporter
   SERVICE = 'findanime'
 
+  attr_reader :ignored_in_twice_match
+
   def initialize
     @parser = self.class.name.sub(/Importer$/, 'Parser').constantize.new
     @matcher = NameMatcher.new Anime, nil, [service.to_sym]

@@ -79,6 +79,7 @@ gem 'zaru'
 
 gem 'postmark-rails'
 gem 'apipie-rails'
+gem 'gcm'
 
 group :production do
   gem 'lograge'
