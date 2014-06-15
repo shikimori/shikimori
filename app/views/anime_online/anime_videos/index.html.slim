@@ -23,7 +23,7 @@
     .row
       = will_paginate @anime_ids, renderer: BootstrapPagination::Rails
     .menu_right
-      - if AnimeOnline::AdsPolicy.host_allowed? request.host
+      - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
         .ads_container = render partial: 'anime_online/blocks/ads_240x400'
       .top_uploaders
         = render partial: 'uploaders'

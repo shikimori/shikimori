@@ -1,5 +1,5 @@
 / TODO: player и nav_video сделать блоками и перенести стили в соответствующие папки. @blackchestnut
-- if AnimeOnline::AdsPolicy.host_allowed? request.host
+- if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
   .ads_container = render partial: 'anime_online/blocks/ads_top_line'
 
 .p-anime_video-show.container
@@ -37,4 +37,4 @@
 
       = render partial: 'reviews'
     .col-md-2
-      = render partial: 'anime_online/blocks/ads_240x400' if AnimeOnline::AdsPolicy.host_allowed? request.host
+      = render partial: 'anime_online/blocks/ads_240x400' if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
