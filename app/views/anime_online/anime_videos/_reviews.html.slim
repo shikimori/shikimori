@@ -1,4 +1,6 @@
-- unless @reviews.blank?
+- if @reviews.blank?
+  .reviews_blank
+- else
   .reviews
     ul.nav.nav-tabs
       li.active
