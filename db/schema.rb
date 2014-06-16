@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614165846) do
+ActiveRecord::Schema.define(version: 20140616175207) do
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -404,6 +404,7 @@ ActiveRecord::Schema.define(version: 20140614165846) do
     t.integer  "platform",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "entries", force: true do |t|
