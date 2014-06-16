@@ -230,6 +230,9 @@ private
         result
       end
 
+    animelist[:include] << 0 if statuses[:include].any? && animelist[:include].none?
+    animelist[:exclude] << 0 if statuses[:exclude].any? && animelist[:exclude].none?
+
     @query = @query.where(id: animelist[:include]) if animelist[:include].any?
     @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
   end
