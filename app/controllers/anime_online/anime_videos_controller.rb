@@ -2,8 +2,8 @@
 class AnimeOnline::AnimeVideosController < ApplicationController
   layout 'anime_online'
 
+  before_filter :authenticate_user!, only: [:destroy, :rate, :viewed]
   after_filter :save_preferences, only: :show
-  before_filter :check_auth, only: [:destroy]
 
   def index
     anime_query = AnimeVideosQuery.new AnimeOnlineDomain::adult_host?(request), params
@@ -103,6 +103,7 @@ class AnimeOnline::AnimeVideosController < ApplicationController
     anime = Anime.find params[:anime_id]
     user_rate = anime.rates.find_by_user_id current_user.id
     UserRate.update(user_rate.id, episodes: video.episode) if user_rate
+
     redirect_to anime_videos_show_url video.anime_id, video.episode + 1
   end
 

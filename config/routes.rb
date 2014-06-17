@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
+  get 'users/sign_in' => redirect {|params,request| request.referer || '/' }
+
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
     get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
@@ -95,8 +97,6 @@ Site::Application.routes.draw do
     # игнор лист
     post ':id/ignore' => 'ignores#create', as: :ignore_add
     delete ':id/ignore' => 'ignores#destroy', as: :ignore_remove
-
-    get 'users/sign_in' => redirect('/')
 
     devise_for :users, controllers: {
       omniauth_callbacks: 'users/omniauth_callbacks',
