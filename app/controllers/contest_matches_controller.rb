@@ -12,9 +12,12 @@ class ContestMatchesController < ApplicationController
 
   def vote
     @match = ContestMatch.find(params[:id]).decorate
-    if @match.can_vote?
-      @match.vote_for params[:variant], current_user, remote_addr
-      @match.update_user current_user, remote_addr
+
+    retryable tries: 2, on: Mysql2::Error, sleep: 1 do
+      if @match.can_vote?
+        @match.vote_for params[:variant], current_user, remote_addr
+        @match.update_user current_user, remote_addr
+      end
     end
 
     render json: {
