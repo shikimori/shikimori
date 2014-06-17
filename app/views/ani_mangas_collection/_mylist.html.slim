@@ -1,9 +1,6 @@
 .menu-block.anime-params-block.mylist-block
-  - if special
-    .subheadline Список
-  - else
-    span.filter.block-filter.item-add
-    .subheadline Мой список
+  span.filter.block-filter.item-add
+  .subheadline Список
   ul.block-list.mylist.anime-params
     - UserRate.statuses.each do |name,id|
       li class="mylist-#{id}"

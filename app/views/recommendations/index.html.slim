@@ -59,7 +59,7 @@ header.head.misc
       .right-column-wrap
         .left-column
           aside.menu-left.loaded
-            = render partial:  'ani_mangas_collection/menu', locals: { special: false, links: false, mylist: !params[:nosort], options_filters: true, klass: klass, social: true, nosort: params[:nosort] }
+            = render partial:  'ani_mangas_collection/menu', locals: { klass: klass, in_recommendations: true }
         .right-column
           section.ajax#ajax
             - if @rankings

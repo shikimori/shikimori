@@ -123,7 +123,7 @@ private
 private
   # постраничное разбитие коллекции
   def build_pagination_links(entries, total_pages)
-    options = params.except :format, :exclude_ids, :ids_with_sort, :nosort, :template
+    options = params.except :format, :exclude_ids, :ids_with_sort, :template
 
     if total_pages
       @total_pages = total_pages == 0 ? 1 : total_pages

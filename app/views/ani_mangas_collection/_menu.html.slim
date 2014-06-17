@@ -1,6 +1,6 @@
 .m20 class="#{klass == Anime ? 'anime' : 'manga'}-params-controls"
-  - if defined?(mylist_at_top) && mylist_at_top && (user_signed_in? || special || false)
-    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass, special: special || false }, formats: :html
+  - if defined?(in_user_profile)
+    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass }, formats: :html
 
   .menu-block
     .subheadline Статус
@@ -55,13 +55,12 @@
           - else
             | ONA
 
-        - unless defined?(nosort) && nosort
-          li.type-Special
-            input type="checkbox" autocomplete="off"
-            - if !current_user || (current_user && current_user.preferences.russian_genres?)
-              = t('Anime.Special')
-            - else
-              | Special
+        li.type-Special
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Anime.Special')
+          - else
+            | Special
 
         li.type-Music
           input type="checkbox" autocomplete="off"
@@ -113,17 +112,43 @@
           - else
             | Doujin
 
-  - unless defined?(nosort) && nosort
-    - if defined?(social) && social
-      - if !user_signed_in? || current_user.preferences.show_social_buttons?
-        .addthis_toolbox.addthis_default_style
-          a.addthis_button_vk
-          a.addthis_button_facebook
-          a.addthis_button_twitter
-          a.addthis_button_google_plusone_share
-          a.addthis_button_mymailru
-          a.addthis_button_odnoklassniki_ru
-          a.addthis_button_compact
+  - if defined?(social) && (!user_signed_in? || current_user.preferences.show_social_buttons?)
+    .addthis_toolbox.addthis_default_style
+      a.addthis_button_vk
+      a.addthis_button_facebook
+      a.addthis_button_twitter
+      a.addthis_button_google_plusone_share
+      a.addthis_button_mymailru
+      a.addthis_button_odnoklassniki_ru
+      a.addthis_button_compact
+
+  - unless defined?(in_recommendations)
+    .menu-block
+      .subheadline Сортировка
+      ul.block-list.orders.anime-params.subcontent
+        li.order-by-ranked По рейтингу
+        li.order-by-kind.hidden По типу
+        li.order-by-popularity По популярности
+        li.order-by-name По алфавиту
+        li.order-by-aired_on По дате выхода
+
+        / используется в профиле пользователя
+        - if defined?(in_user_profile)
+          li.order-by-my style="display: none" По оценке
+          li.order-by-rate_id По дате добавления
+          li.order-by-episodes style="display: none" По числу #{klass == Anime ? 'эпизодов' : 'глав'}
+          li.order-by-status style="display: none" По статусу
+        - else
+          li.order-by-id По дате добавления
+
+        / используется в userlist comparer
+        - if defined?(custom_sorts) && !custom_sorts.empty?
+          - custom_sorts.each do |name, title|
+            li class="order-by-#{name}"
+              = title
+
+  - if user_signed_in? && !defined?(in_user_profile) && !defined?(in_lists_comparsion)
+    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass }, formats: :html
 
   .menu-block.hidden
     .subheadline Студия
@@ -141,33 +166,6 @@
           input type="checkbox" autocomplete="off"
           = v[1]
 
-  - unless defined?(nosort) && nosort
-    .menu-block
-      /*.subheadline*/
-        = klass == Anime ? 'Аниме' : 'Манга'
-      .subheadline Сортировка
-      ul.block-list.orders.anime-params.subcontent
-        li.order-by-ranked По рейтингу
-        li.order-by-kind.hidden По типу
-        li.order-by-popularity По популярности
-        li.order-by-name По алфавиту
-        li.order-by-aired_on По дате выхода
-
-        / используется в профиле пользователя
-        - if special
-          li.order-by-my style="display: none" По оценке
-          li.order-by-rate_id По дате добавления
-          li.order-by-episodes style="display: none" По числу #{klass == Anime ? 'эпизодов' : 'глав'}
-          li.order-by-status style="display: none" По статусу
-        - else
-          li.order-by-id По дате добавления
-
-        / используется в userlist comparer
-        - if defined?(custom_sorts) && custom_sorts && !custom_sorts.empty?
-          - custom_sorts.each do |name, title|
-            li class="order-by-#{name}"
-              = title
-
   - if klass == Anime
     .menu-block.durations
       .subheadline Эпизод
@@ -184,9 +182,6 @@
           li class="rating-#{v}"
             input type="checkbox" autocomplete="off"
             = v
-
-  - if defined?(mylist) && mylist && (user_signed_in? || special)
-    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass, special: special || false }, formats: :html
 
   .menu-block.genres
     .subheadline Жанр

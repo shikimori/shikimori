@@ -13,7 +13,7 @@ header.head
   p.notice <span style="color: red">Важно!</span> Оценки сравниваются не по прямому совпадению цифр, а с учётом усреднённых оценкок, которые ставит каждый пользователь. Поэтому в некоторых случаях оценки 6 и 8 могут отображаться как сильно совпадающие, а оценки 8 и 8 как сильно различающиеся.
 
 .menu-left
-  = render partial: 'ani_mangas_collection/menu', locals: { special: false, links: false, mylist: false, options_filters: true, custom_sorts: [[:user_1, "По оценке #{@user_1.nickname}"], [:user_2, "По оценке #{@user_2.nickname}"]], klass: @klass }
+  = render partial: 'ani_mangas_collection/menu', locals: { in_lists_comparsion: true, custom_sorts: [[:user_1, "По оценке #{@user_1.nickname}"], [:user_2, "По оценке #{@user_2.nickname}"]], klass: @klass }
 .ajax
   = render partial: 'userlist_comparer/table'
 .clearfix

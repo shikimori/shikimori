@@ -19,7 +19,6 @@ class RecommendationsController < AniMangasCollectionController
     cookies[CookieName] = @klass.name.downcase if @klass.name.downcase != cookies[CookieName]
 
     # параметры для аниме контроллера
-    params[:nosort] = 'yes'
     params[:template] = 'index'
 
     # можно смотреть чужие рекоменадции
