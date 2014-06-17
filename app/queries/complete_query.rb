@@ -29,14 +29,17 @@ private
 
     fields.map do |column_name|
       [
-        "#{column_name} = #{Entry.sanitize @search}",
-        "#{column_name} = #{Entry.sanitize @search.gsub('_', ' ').strip}",
-        "#{column_name} like #{Entry.sanitize "#{@search}%"}",
-        "#{column_name} like #{Entry.sanitize "% #{@search}%"}",
-        "#{column_name} like #{Entry.sanitize "%#{@search}%"}",
-        (@search.include?(' ') ? "#{column_name} like #{Entry.sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
-        (@search.include?(' ') ? "#{column_name} like #{Entry.sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
+        "#{column_name} = #{sanitize @search}",
+        "#{column_name} = #{sanitize @search.gsub('_', ' ').strip}",
+        "#{column_name} like #{sanitize "#{@search}%"}",
+        "#{column_name} like #{sanitize "% #{@search}%"}",
+        "#{column_name} like #{sanitize "%#{@search}%"}",
+        (@search.include?(' ') ? "#{column_name} like #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
       ]
     end.flatten.uniq.compact
+  end
+
+  def sanitize query
+    ActiveRecord::Base.sanitize query.sub(/\\+$/, '')
   end
 end
