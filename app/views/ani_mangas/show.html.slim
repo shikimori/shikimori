@@ -12,7 +12,7 @@ header.head
     h2.h1-like title="#{h1_text @entry}"
       = h1_text @entry, true
 
-  = render partial: 'site/breadcrumbs', object: @director.breadcrumbs, formats: :html
+  = render partial: 'blocks/breadcrumbs', object: @director.breadcrumbs, formats: :html
 
 aside.menu-right.animanga-right-menu
   .menu-right-inner

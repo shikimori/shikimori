@@ -1,5 +1,5 @@
 - if user_signed_in? && current_user.ignores?(comment.user)
-  = render partial: 'site/ignored', object: comment, formats: :html
+  = render partial: 'blocks/ignored', object: comment, formats: :html
 - else
 
   .comment-block.appear-block class="comment-#{comment.id}#{' comment-new' unless comment.viewed?}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"

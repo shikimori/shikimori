@@ -1,8 +1,5 @@
-.breadcrumbs
+.b-breadcrumbs
   - breadcrumbs.each do |name, url|
     span[itemscope itemtype="http://data-vocabulary.org/Breadcrumb"]
       a href="#{url}" title="#{name}" itemprop="url"
         span itemprop="title" #{name}
-
-    - if name != breadcrumbs.keys.last
-      span.sep = '/'

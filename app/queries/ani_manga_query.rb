@@ -62,6 +62,7 @@ class AniMangaQuery
 
     exclude_ids!
     search!
+    video!
 
     paginate! page, limit if page && limit
 
@@ -250,6 +251,13 @@ private
     return if @search.blank?
 
     @query = @query.where(search_queries.join(' or '))
+  end
+
+  # фильтрация по наличию видео
+  def video!
+    return if @params[:with_video].blank?
+
+    @query = @query.where("animes.id in (select distinct(anime_id) from anime_videos)")
   end
 
   # пагинация

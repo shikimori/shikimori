@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Site::Application.routes.draw do
   get 'users/sign_in' => redirect {|params,request| request.referer || '/' }
+  ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
 
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
@@ -11,6 +12,8 @@ Site::Application.routes.draw do
 
   constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/anime_videos#index'
+    get "animes#{ani_manga_format}" => "ani_mangas_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
+
     namespace :anime_online do
       resources :anime, only: [:show] do
         resources :anime_videos, only: [:new, :create] do
@@ -316,17 +319,11 @@ Site::Application.routes.draw do
     end
 
     # аниме и манга
-    ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
-    [:animes, :mangas].each do |kind|
-      singular = kind.to_s.singularize
-      klass = singular.camelize.constantize
-      plural = kind.to_s
+    ['animes', 'mangas'].each do |kind|
+      get "#{kind}#{ani_manga_format}" => "ani_mangas_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
+      get "#{kind}/menu(/rating/:rating)" => "ani_mangas_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
 
-      #match "#{plural}/season/:season" => "ani_mangas_collection#season", as: plural, klass: singular, season: /\w+_\d+/ if kind == :animes
-      get "#{plural}#{ani_manga_format}" => "ani_mangas_collection#index", as: plural, klass: singular, constraints: { page: /\d+/, studio: /[^\/]+/ }
-      get "#{plural}/menu(/rating/:rating)(/nosort/:nosort)" => "ani_mangas_collection#menu", klass: singular, as: "menu_#{plural}"
-
-      resources plural, defaults: { page: 'info' } do
+      resources kind, defaults: { page: 'info' }, only: [:show] do
         collection do
           get 'autocomplete/:search', action: :autocomplete, as: :autocomplete, format: :json, search: /.*/
         end
@@ -343,15 +340,15 @@ Site::Application.routes.draw do
           # редактирование
           patch 'apply'
 
-          get ':page' => "#{plural}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
-          get 'edit/:subpage' => "#{plural}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
+          get ':page' => "#{kind}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
+          get 'edit/:subpage' => "#{kind}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
 
-          get 'cosplay' => redirect { |params,request| "/#{plural}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
-          get 'cosplay/:character(/:gallery)' => "#{plural}#cosplay", page: 'cosplay', as: :cosplay
+          get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
+          get 'cosplay/:character(/:gallery)' => "#{kind}#cosplay", page: 'cosplay', as: :cosplay
         end
 
         # обзоры
-        resources :reviews, type: klass.name, controller: 'ani_mangas_controller/reviews'
+        resources :reviews, type: kind.singularize.capitalize, controller: 'ani_mangas_controller/reviews'
       end
     end
 
@@ -444,8 +441,6 @@ Site::Application.routes.draw do
 
     # studios
     get "studios" => 'studios#index', as: :studios
-    patch "studios/:id/apply" => 'studios#apply', as: :apply_studio
-    get "studios/:id#{ani_manga_format}" => 'pages#page404', as: :studio
 
     # proxies
     get 'proxies' => 'proxies#index'

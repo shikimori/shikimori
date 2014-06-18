@@ -6,17 +6,12 @@ header.head {
   h1, h2 {
     @include new-header-font;
   }
-  .notice, .breadcrumbs {
-    color: #333;
+  .notice {
     line-height: 17px;
+    color: #333;
     margin: 2px 0 2px 1px;
     clear: left;
-    /*white-space: nowrap;*/
   }
-  .breadcrumbs a {
-    @include normal-link;
-  }
-
   a.link {
     @include normal-link;
   }

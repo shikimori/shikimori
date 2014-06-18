@@ -6,7 +6,7 @@
         .val
           a href="#{default_source}" rel="nofollow" myanimelist.net
   - else
-    = render partial: 'site/contributors', locals: { entry: entry, authors: authors, field: field }, formats: :html
+    = render partial: 'blocks/contributors', locals: { entry: entry, authors: authors, field: field }, formats: :html
     - unless entry.source.blank?
       .b-contributors
         .key Источник:

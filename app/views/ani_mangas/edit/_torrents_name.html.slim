@@ -1,8 +1,8 @@
 .item-editor-container data-kind="#{@entry.object.class.name.downcase}"
-  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
+  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
   .subheadline Изменение названия на торрентах
   .subcontent.m0
     p Если название не задано, то используется автоматическое распознавание имён торрентов, почти всегда работающее корректно. Если же задано, то сайт будет находить торренты с именем, полностью совпадающим с заданным тут.
-  = render partial: 'site/editor_textfield_new', locals: { item: @entry, field: :torrents_name }, formats: :html
+  = render partial: 'blocks/editor/textfield', locals: { item: @entry, field: :torrents_name }, formats: :html
   .no-change-details
-    = render partial: 'site/editor_changes', locals: { changes: @entry.changes[:torrents_name], moderation: true }, formats: :html
+    = render partial: 'blocks/editor/changes', locals: { changes: @entry.changes[:torrents_name], moderation: true }, formats: :html

@@ -1,5 +1,5 @@
 .item-editor-container.videos data-kind="#{@entry.object.class.name.downcase}"
-  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
+  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
   .subheadline Добавление нового ролика
   .subcontent.item-content-editor.m30
     = simple_form_for Video.new, remote: true, 'data-type' => :json, authenticity_token: true do |f|
@@ -16,4 +16,4 @@
           = render partial: 'videos/video', collection: @entry.videos, locals: { entry: @entry, expanded: true, with_deletion: true }, formats: :html
 
   .no-change-details
-    = render partial: 'site/editor_changes', locals: { changes: @entry.changes[:video], moderation: true }, formats: :html
+    = render partial: 'blocks/editor/changes', locals: { changes: @entry.changes[:video], moderation: true }, formats: :html

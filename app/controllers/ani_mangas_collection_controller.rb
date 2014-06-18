@@ -39,11 +39,11 @@ class AniMangasCollectionController < AniMangasController
       format.html { render params[:template] || 'ani_mangas_collection/index' }
       format.json do
         render json: {
-          content: render_to_string({
+          content: render_to_string(
             partial: 'ani_mangas_collection/entries',
             layout: false,
             formats: :html
-          }),
+          ),
           current_page: @current_page,
           total_pages: @total_pages,
           first_page: @first_page,
@@ -59,7 +59,7 @@ class AniMangasCollectionController < AniMangasController
         render json: [
           params[:search],
           @entries.map(&:name),
-          @entries.map {|v| anime_path(v, only_path: false) }
+          @entries.map {|v| url_for v }
         ]
       end
     end
@@ -120,7 +120,6 @@ private
     build_page_description @entry_data
   end
 
-private
   # постраничное разбитие коллекции
   def build_pagination_links(entries, total_pages)
     options = params.except :format, :exclude_ids, :ids_with_sort, :template

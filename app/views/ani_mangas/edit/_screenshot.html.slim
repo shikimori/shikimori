@@ -30,14 +30,14 @@
 - if @entry.screenshots.any? || @entry.changes[:screenshots].any?
   .screenshots-editor.item-editor-container data-kind="#{@entry.object.class.name.downcase}"
     - if @entry.screenshots.any?
-      = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
+      = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
       .subheadline.m10 Изменение кадров аниме
 
       .screenshots-title.subcontent.m5
         p По наведению на кадр появится крестик - нажав на него, можно удалить картинку.
         p Порядок кадров меняется перетаскиванием картинки и нажатием на кнопку сохранить, расположенную выше.
 
-      = render partial: 'site/editor_textfield_new', locals: { item: @entry, field: 'screenshots', action: UserChange::ScreenshotsPosition }, formats: :html
+      = render partial: 'blocks/editor/textfield', locals: { item: @entry, field: 'screenshots', action: UserChange::ScreenshotsPosition }, formats: :html
 
       .screenshots
         .images-list.screenshots-position.subcontent
@@ -45,4 +45,4 @@
 
     - if @entry.changes[:screenshots].any?
       .no-change-details
-        = render partial: 'site/editor_changes', locals: { changes: @entry.changes[:screenshots], moderation: true }, formats: :html
+        = render partial: 'blocks/editor/changes', locals: { changes: @entry.changes[:screenshots], moderation: true }, formats: :html

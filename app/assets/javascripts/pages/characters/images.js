@@ -7,7 +7,7 @@ $('.slide > .images').live('ajax:success cache:success', function(e) {
 
   $('.original-gallery-container', this).gallery();
 
-  var loader = window.loader = new GalleryManager($('.danbooru .images-list'), $('.danbooru .postloader'), 144);
+  var loader = window.loader = new GalleryManager($('.danbooru .images-list'), $('.danbooru .b-postloader'), 144);
   var suggest = new ImageBoardTagsSuggest(loader);
 
   $.force_appear();

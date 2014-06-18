@@ -65,7 +65,7 @@ header.head.misc
             - if @rankings
               = render partial: 'ani_mangas_collection/entry', collection: @entries
               - if @next_page.present?
-                = render partial: 'site/postloader', locals: { url: nil, filter: nil }
+                = render partial: 'blocks/postloader', locals: { url: nil, filter: nil }
             - else
               p.pending Подбираем для вас рекомендации. Пожалуйста, подождите, процесс может занять некоторое время.
               .ajax-loading.vk-like.left title="Загрузка..."

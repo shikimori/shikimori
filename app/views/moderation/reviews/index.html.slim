@@ -32,4 +32,4 @@ header.head
         .changes
           = render partial: 'moderation/reviews/review', collection: @processed
           - if @add_postloader
-            = render partial: 'site/postloader', locals: { url: page_moderation_reviews_url(page: @page+1, format: :json) }, formats: :html
+            = render partial: 'blocks/postloader', locals: { url: page_moderation_reviews_url(page: @page+1, format: :json) }, formats: :html

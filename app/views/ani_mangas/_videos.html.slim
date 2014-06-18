@@ -3,4 +3,4 @@
   .videos-list.expanded
     = render partial: 'videos/video', collection: @entry.videos, locals: { entry: @entry, expanded: true }, formats: :html
 
-  = render partial: 'site/contributors', locals: { entry: @entry, authors: @entry.changes.authors(:video), field: 'video' }, formats: :html
+  = render partial: 'blocks/contributors', locals: { entry: @entry, authors: @entry.changes.authors(:video), field: 'video' }, formats: :html

@@ -12,7 +12,7 @@
   = render partial: 'comments/comment', collection: collection, formats: :html
 
   - if add_postloader
-    = render partial: 'site/postloader', locals: { filter: 'comment', url: model_comments_path(commentable_type: object.class.name.underscore, commentable_id: object.id, offset: postloader * (defined?(postload_page) ? postload_page : 1), limit: postloader, review: defined?(review) && review ? 'review' : nil) }, formats: :html
+    = render partial: 'blocks/postloader', locals: { filter: 'comment', url: model_comments_path(commentable_type: object.class.name.underscore, commentable_id: object.id, offset: postloader * (defined?(postload_page) ? postload_page : 1), limit: postloader, review: defined?(review) && review ? 'review' : nil) }, formats: :html
 
   - if defined?(bottom_add_block) && bottom_add_block
     = render partial: 'comments/add', locals: { options: { object: object, text: defined?(text) && text ? text : '' } }, formats: :html

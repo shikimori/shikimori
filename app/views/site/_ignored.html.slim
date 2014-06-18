@@ -1,5 +1,0 @@
-.b-comment-info class="#{ignored.class == Comment ? 'comment' : 'topic'}-block #{ignored.class == Comment ? 'comment' : 'topic'}-#{ignored.id}"
-  span #{ignored.class == Comment ? 'комментарий' : 'топик'} от игнорируемого пользователя
-  a href="#{user_url ignored.user}"
-    img src="#{ignored.user.avatar_url 16}" alt="#{ignored.user.nickname}" title="#{ignored.user.nickname}"
-    span = ignored.user.nickname

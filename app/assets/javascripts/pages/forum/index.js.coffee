@@ -18,7 +18,7 @@ $(".ajax").live "height:check index:success", ->
     $this.removeClass "height-unchecked"
 
 # при загрузке новой страницы инициация проверки высоты топиков
-$(".postloader").live "postloader:success", ->
+$(".b-postloader").live "postloader:success", ->
   _.delay ->
     $(".ajax").trigger "height:check"
 

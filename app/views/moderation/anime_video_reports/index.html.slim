@@ -16,4 +16,4 @@ header.head
   h2.subheadline История
   ul.subcontent
     = render partial: 'moderation/anime_video_reports/report', collection: @processed, formats: :html
-    = render partial: 'site/postloader', locals: { url: page_moderation_anime_video_reports_url(page: @page+1, format: :json) }, formats: :html
+    = render partial: 'blocks/postloader', locals: { url: page_moderation_anime_video_reports_url(page: @page+1, format: :json) }, formats: :html

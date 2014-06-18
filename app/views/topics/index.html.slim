@@ -17,8 +17,8 @@
   .section-block class="#{section_ids_class}"
     = render partial: 'topics/topic', collection: @topics, formats: :html
     - if @add_postloader
-      = render partial: 'site/postloader', locals: { filter: 'topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil }, formats: :html
+      = render partial: 'blocks/postloader', locals: { filter: 'topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil }, formats: :html
 - else
   = render partial: 'topics/topic', collection: @topics, formats: :html
   - if @add_postloader
-    = render partial: 'site/postloader', locals: { filter: 'topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil }, formats: :html
+    = render partial: 'blocks/postloader', locals: { filter: 'topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil }, formats: :html

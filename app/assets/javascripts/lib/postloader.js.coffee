@@ -1,6 +1,6 @@
 # динамическая подгрузка контента по мере прокрутки страницы
-$(".postloader").appear()
-$(".postloader").live 'click appear', ->
+$(".b-postloader").appear()
+$(".b-postloader").live 'click appear', ->
   $postloader = $(@)
   return if $postloader.data('locked')
   #new_postloader = $postloader.hasClass('new')
@@ -45,7 +45,7 @@ $(".postloader").live 'click appear', ->
       $('.ajax').trigger 'postloader:success'
 
 # удаляем уже имеющиеся подгруженные элементы
-$('.postloader').live 'postloader:success', (e, $data) ->
+$('.b-postloader').live 'postloader:success', (e, $data) ->
   filter = $(@).data('filter') || 'comment'
   regex = new RegExp("#{filter}-\\d+")
   $present_entries = $(".#{filter}-block")

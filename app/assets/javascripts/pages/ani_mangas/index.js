@@ -78,7 +78,7 @@ $(function() {
 $('.postloaded').live('ajax:success', init);
 
 // загрузка следующей страницы при прокрутке вниз
-$('.postloader').live('postloader:trigger', function() {
+$('.b-postloader').live('postloader:trigger', function() {
   var $link = Controls.$link_next.first();
   var url = $link.attr('href').replace(/http:\/\/.*?(?=\/)/, '');
 

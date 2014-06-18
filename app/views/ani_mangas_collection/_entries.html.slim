@@ -10,4 +10,4 @@
   = render partial: 'ani_mangas_collection/entry', collection: @entries, formats: :html
   - if !user_signed_in? || current_user.preferences.postload_in_catalog
     - if @next_page.present?
-      = render partial: 'site/postloader', locals: { url: nil, filter: nil }, formats: :html
+      = render partial: 'blocks/postloader', locals: { url: nil, filter: nil }, formats: :html

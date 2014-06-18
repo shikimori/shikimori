@@ -39,9 +39,9 @@ function CommentsNotifier() {
   });
   // при прочтении комментов, декрементим счётчик
   $window.on('appear', function(e, $appeared, by_click) {
-    //var $nodes = ($appeared || $(this)).not('.postloader').not(function() { return $(this).data('disabled') });
+    //var $nodes = ($appeared || $(this)).not('.b-postloader').not(function() { return $(this).data('disabled') });
     var $nodes = $(e.target)
-        .not('.postloader')
+        .not('.b-postloader')
         .not(function() { return $(this).data('disabled') });
 
     set_count(current_count - $nodes.length);

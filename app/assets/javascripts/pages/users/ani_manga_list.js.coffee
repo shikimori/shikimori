@@ -116,7 +116,7 @@ $('tr.editable').live 'click', (e) ->
     e.stopImmediatePropagation()
 
 # подгрузка списка аниме
-$('.selected .ani-manga-list .postloader').live 'postloader:success', (e, $data) ->
+$('.selected .ani-manga-list .b-postloader').live 'postloader:success', (e, $data) ->
   $header = $data.filter('header:first')
 
   # при подгрузке могут быть 2 случая:
@@ -223,7 +223,7 @@ update_list_cache = ->
     $nodes: $nodes
     $only_show: $only_show
     rows: rows
-    toggable: !$table.next('.postloader').length
+    toggable: !$table.next('.b-postloader').length
 
 # обработчики для списка
 apply_list_handlers = ->

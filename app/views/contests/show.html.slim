@@ -8,7 +8,7 @@ header.head.misc
     = @page_title.last
   - if @contest.can_be_edited_by? current_user
     = link_to 'изменить', edit_contest_url(@contest), title: 'Изменить голосование', class: 'misc'
-  = render partial: 'site/breadcrumbs', object: breadcrumbs
+  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
 
 img#social_image src="/images/static/contest.jpg" alt="Аниме турнир" title="Аниме турнир"
 

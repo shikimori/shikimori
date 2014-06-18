@@ -1,6 +1,6 @@
 .item-editor-container data-kind="#{@entry.object.class.name.downcase}"
-  = render partial: 'site/editor_buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
+  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
   .subheadline Изменение имени на русском
-  = render partial: 'site/editor_textfield_new', locals: { item: @entry, field: :russian }, formats: :html
+  = render partial: 'blocks/editor/textfield', locals: { item: @entry, field: :russian }, formats: :html
   .no-change-details
-    = render partial: 'site/editor_changes', locals: { changes: @entry.changes[:russian], moderation: true }, formats: :html
+    = render partial: 'blocks/editor/changes', locals: { changes: @entry.changes[:russian], moderation: true }, formats: :html

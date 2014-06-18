@@ -13,7 +13,7 @@ $('.slide > .images').live('ajax:success cache:success', function(e) {
   //});
 
   $(this).gallery();
-  var loader = window.loader = new GalleryManager($('.danbooru .images-list'), $('.danbooru .postloader'), 143);
+  var loader = window.loader = new GalleryManager($('.danbooru .images-list'), $('.danbooru .b-postloader'), 143);
   var suggest = new ImageBoardTagsSuggest(loader);
 
   $.force_appear();

@@ -1,0 +1,19 @@
+@import globals
+
+.b-breadcrumbs
+  line-height: 17px
+  color: #333
+  margin: 2px 0 2px 1px
+  clear: left
+
+  a
+    +normal-link
+
+  &>span
+    &:after
+      content: '/'
+      color: $gray-color-0
+      padding: 0 5px
+
+    &:last-child:after
+      display: none

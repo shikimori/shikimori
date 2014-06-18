@@ -1,5 +1,5 @@
 - if user_signed_in? && current_user.ignores?(topic.user)
-  = render partial: 'site/ignored', object: topic, formats: :html
+  = render partial: 'blocks/ignored', object: topic, formats: :html
 - elsif topic.review? && !topic.preview?
   = render partial: 'ani_mangas/reviews/review', object: topic.linked, locals: { topic: topic }, formats: :html
 - else

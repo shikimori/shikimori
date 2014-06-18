@@ -5,8 +5,7 @@ module AnimeOnlineDomain
   HOST_XPLAY = "#{DOMAIN_ADULT}.shikimori.#{Rails.env.development? ? :dev : :org}"
   HOST = HOST_PLAY
   HOSTS = [
-    '0.0.0.0', '178.63.23.138', 'animeonline.dev', 'animeonline.production',
-    'play.shikimori.dev', 'xplay.shikimori.dev', HOST_PLAY, HOST_XPLAY
+   HOST_PLAY, HOST_XPLAY
   ]
 
   def self.matches? request

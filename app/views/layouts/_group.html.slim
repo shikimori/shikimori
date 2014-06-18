@@ -2,10 +2,10 @@
   header.head
     h1 title="#{@group.name}"
       = @group.name
-    = render partial: 'site/breadcrumbs', object: breadcrumbs, formats: :html
+    = render partial: 'blocks/breadcrumbs', object: breadcrumbs, formats: :html
 
   aside.menu-right
-    = render :partial => 'groups/menu_right'
+    = render partial: 'groups/menu_right'
 
   section.page-content
     .group-content-slider.view-port.vertical-slider

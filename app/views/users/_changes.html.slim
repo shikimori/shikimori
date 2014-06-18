@@ -2,8 +2,8 @@
   .subheadline Правки
 .item-editor
   - if @changes.any?
-    = render partial: 'site/editor_changes', locals: { changes: @changes, moderation: false }, formats: :html
+    = render partial: 'blocks/editor/changes', locals: { changes: @changes, moderation: false }, formats: :html
     - if @add_postloader
-      = render partial: 'site/postloader', locals: { url: user_changes_url(page: @page+1) }, formats: :html
+      = render partial: 'blocks/postloader', locals: { url: user_changes_url(page: @page+1) }, formats: :html
   - else
     p Ничего нет.
