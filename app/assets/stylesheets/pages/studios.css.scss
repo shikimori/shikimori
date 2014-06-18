@@ -1,28 +1,5 @@
 @import "globals";
 
-.common-title {
-  margin-bottom: 5px;
-
-  .buttons {
-    float: right;
-    margin-top: 2px;
-    width: 280px;
-
-    span {
-      color: #444444;
-      cursor: pointer;
-      /*font-family: StyloBold;*/
-      /*font-size: 14px;*/
-
-      &:hover {
-        color: #000000;
-      }
-      &:active {
-        @include text-shadow(#CCCCCC, 1px, 1px, 0px);
-      }
-    }
-  }
-}
 .studios {
   .studio {
     border-bottom: 1px dashed #DDD;
@@ -45,12 +22,13 @@
       @include normal-link;
       font-size: 14px;
       font-weight: bold;
+      line-height: $line-height;
       color: #123;
       padding: 7px 0 0 0;
     }
     .animes, .years {
       color: darken($gray-color-0, 10%);
-      font-size: 12px;
+      font-size: 11px;
       line-height: 19px;
 
       .num {
@@ -59,43 +37,3 @@
     }
   }
 }
-.studio-block {
-  margin: 0 20px 10px 20px;
-  .item-content {
-    .logo {
-      float: left;
-      margin: 4px 10px 10px 0;
-    }
-    .changes {
-      float: right;
-      margin-bottom: 5px;
-      p.key {
-        margin-right: 2px!important;
-        color: #555555;
-      }
-      p.value {
-        color: #232323;
-      }
-    }
-  }
-  .description {
-    .site {
-      margin-top: 5px;
-      .key {
-        /*color: #555555;*/
-        /*font-weight: bold;*/
-      }
-      .value a {
-        @include link-hover;
-        /*color: #333333;*/
-      }
-    }
-  }
-  .item-content-editor {
-    clear: both;
-  }
-}
-.pagination {
-  clear: both;
-}
-
