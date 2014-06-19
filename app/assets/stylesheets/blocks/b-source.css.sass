@@ -1,0 +1,28 @@
+@import globals
+@import globals/variables
+@import mixins/comma_separated
+
+.b-source
+  .contributors, .mal, .source
+    padding: 0 5px
+    float: right
+    clear: both
+
+    div
+      display: inline-block
+
+    .key
+      margin-right: 5px
+      line-height: $line-height
+      color: $gray-color
+
+      a
+        padding-left: 0
+        padding-right: 0
+
+    .val
+      a
+        +normal-link
+
+    .b-user16
+      +comma_separated

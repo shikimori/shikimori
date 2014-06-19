@@ -1,6 +1,6 @@
 module SiteHelper
   # ссылка на источник
-  def source_link(source)
+  def source_link source
     if source =~ /(.*?)(https?:\/\/.*)/
       prefix = ($1 || '').strip
       url = $2

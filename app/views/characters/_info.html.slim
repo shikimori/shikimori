@@ -15,7 +15,8 @@ section.editable
           = @entry.description_mal
       .russian itemprop="description"
         = @entry.description_html
-    = render partial: 'site/source', locals: { entry: @entry, authors: @entry.changes.authors(:description), field: 'description', default_source: "http://myanimelist.net/character/#{@entry.id}" }, formats: :html
+
+    = render partial: 'blocks/source', locals: { entry: @entry, authors: @entry.changes.authors(:description), field: 'description', default_source: "http://myanimelist.net/character/#{@entry.id}" }, formats: :html
 
   - if @entry.seyu.present?
     .people-container

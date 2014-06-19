@@ -48,33 +48,6 @@ class TranslationController < GroupsController
                      where(censored: false).
                      order(:ranked).
                      limit(15)]
-    @goals << ['Сериалы',
-               Anime.where(id: AniMangaQuery::AnimeSerials).
-                     where.not(id: Anime::EXCLUDED_ONGOINGS).
-                     where.not(id: goals_ids).
-                     where.not(id: @translate_ignore).
-                     where(censored: false).
-                     order(:ranked)]
-    @goals << ['Сиквелы',
-               Anime.where(id: [477,861,793,16,71,73,3667,5355,6213,4654,1519,889,2159,5342]).
-                     where.not(id: Anime::EXCLUDED_ONGOINGS).
-                     where.not(id: goals_ids).
-                     where.not(id: @translate_ignore).
-                     where(censored: false).
-                     order(:ranked)]
-    @goals << ['Фильмы этого года',
-               Anime.where(AniMangaSeason.query_for(DateTime.now.year.to_s)).
-                     where.not(id: Anime::EXCLUDED_ONGOINGS).
-                     where.not(id: goals_ids).
-                     where('score >= 7.5 or status = ?', AniMangaStatus::Anons).
-                     #where('duration is null or duration = 0 or duration > 20').
-                     where.not(id: @translate_ignore).
-                     where(kind: 'Movie').
-                     where(censored: false).
-                     order(:ranked).
-                     #order(:score.desc).
-                     limit(45)]
-
     @goals << ['Осень 2014',
                Anime.where(AniMangaSeason.query_for('fall_2014')).
                      where.not(id: goals_ids).
@@ -115,6 +88,33 @@ class TranslationController < GroupsController
                      where(censored: false).
                      order(:ranked).
                      limit(30)]
+    @goals << ['Фильмы этого года',
+               Anime.where(AniMangaSeason.query_for(DateTime.now.year.to_s)).
+                     where.not(id: Anime::EXCLUDED_ONGOINGS).
+                     where.not(id: goals_ids).
+                     where('score >= 7.5 or status = ?', AniMangaStatus::Anons).
+                     #where('duration is null or duration = 0 or duration > 20').
+                     where.not(id: @translate_ignore).
+                     where(kind: 'Movie').
+                     where(censored: false).
+                     order(:ranked).
+                     #order(:score.desc).
+                     limit(45)]
+    @goals << ['Сериалы',
+               Anime.where(id: AniMangaQuery::AnimeSerials).
+                     where.not(id: Anime::EXCLUDED_ONGOINGS).
+                     where.not(id: goals_ids).
+                     where.not(id: @translate_ignore).
+                     where(censored: false).
+                     order(:ranked)]
+    @goals << ['Сиквелы',
+               Anime.where(id: [477,861,793,16,71,73,3667,5355,6213,4654,1519,889,2159,5342]).
+                     where.not(id: Anime::EXCLUDED_ONGOINGS).
+                     where.not(id: goals_ids).
+                     where.not(id: @translate_ignore).
+                     where(censored: false).
+                     order(:ranked)]
+
     @goals << ['Осень 2013',
                Anime.where(AniMangaSeason.query_for('fall_2013')).
                      where.not(id: goals_ids).
@@ -312,7 +312,7 @@ class TranslationController < GroupsController
                      where.not(id: goals_ids).
                      order(:ranked)]
     @goals << ['Подборка 9',
-               Anime.where(id: [1576,5734,5702,6633,1520]).
+               Anime.where(id: [1576,5734,5702,6633,1520,690]).
                      where.not(id: goals_ids).
                      where(censored: false).
                      order(:ranked)]

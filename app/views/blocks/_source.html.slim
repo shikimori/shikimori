@@ -1,0 +1,26 @@
+.b-source
+  - if defined?(default_source) && authors.empty? && entry.source.blank?
+    - unless entry.object.description_mal.blank? || default_source.blank?
+      .mal
+        .key Источник:
+        .val
+          a href="#{default_source}" rel="nofollow" myanimelist.net
+  - else
+    - if authors.any?
+      .contributors
+        .key
+          - if entry.source.blank? && field.to_sym != :video && field.to_sym != :screenshots
+            = authors.size > 1 ? 'Авторы:' : 'Автор:'
+          - else
+            = authors.size > 1 ? 'Добавили:' : "Добавил#{authors.last.female? ? 'а' : ''}:"
+        - authors.reverse.each do |author|
+          .b-user16
+            a href="#{user_url author}"
+              img src="#{author.avatar_url 16}" alt="#{author.nickname}"
+              span = author.nickname
+
+    - unless entry.source.blank?
+      .source
+        .key Источник:
+        .val
+          == source_link entry.source

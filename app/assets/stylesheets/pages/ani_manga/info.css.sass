@@ -1,26 +1,20 @@
 @import globals
+@import mixins/comma_separated
 
 .info
   .item-content
     +clearfix
 
-    .changes + .additional-links
-      margin-top: -10px
-      clear: left
-
     .additional-links
+      max-width: 230px
+
       .key
         float: left
         margin-left: 5px
         color: $gray-color
 
-      .sep
-        float: left
-        padding: 0
-        margin: 0
-
-
       .link-reviews, .link-comments, .link-comment-reviews
+        +comma_separated
         +normal-link
         float: left
         margin-left: 5px
@@ -34,7 +28,7 @@
       .watch-online
         font-size: 13px
         line-height: $line-height
-        margin: 6px 0 5px 15px
+        margin: 6px 0 10px 15px
         text-align: center
         width: 202px
 

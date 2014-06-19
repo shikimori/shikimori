@@ -73,24 +73,6 @@
     }
   }
 }
-.item-content {
-  .changes {
-    clear: both;
-    float: none;
-    height: 35px;
-
-    a {
-      @include normal-link;
-    }
-  }
-  .b-contributors {
-    float: left;
-  }
-  .source {
-    float: right;
-    padding: 0 5px 0 0;
-  }
-}
 .screenshots-editor {
   .item-content-editor {
     display: none;

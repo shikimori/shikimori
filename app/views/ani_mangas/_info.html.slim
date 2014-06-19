@@ -75,7 +75,7 @@ aside.left-column.menu-block
         .russian itemprop="description"
           == @entry.description_html
 
-    = render partial: 'site/source', locals: { entry: @entry, authors: @entry.changes.authors(:description, false), field: 'description', default_source: @entry.mal_url }, formats: :html
+    = render partial: 'blocks/source', locals: { entry: @entry, authors: @entry.changes.authors(:description, false), field: 'description', default_source: @entry.mal_url }, formats: :html
     = render partial: 'additional_links', locals: { entry: @entry }, formats: :html
 
 .extra

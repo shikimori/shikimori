@@ -2,4 +2,4 @@
 .images-list
   = render partial: 'images/image', collection: @entry.screenshots, locals: { group_name: 'screenshots', style: :original, alt: "Кадр из #{@entry.name}"}, formats: 'html'
 
-= render partial: 'blocks/contributors', locals: { entry: @entry, authors: @entry.changes.authors(:screenshots), field: 'screenshots' }, formats: :html
+= render partial: 'blocks/source', locals: { entry: @entry, authors: @entry.changes.authors(:screenshots), field: 'screenshots' }, formats: :html
