@@ -325,7 +325,7 @@ Site::Application.routes.draw do
       get "#{kind}#{ani_manga_format}" => "ani_mangas_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
       get "#{kind}/menu(/rating/:rating)" => "ani_mangas_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
 
-      resources kind, defaults: { page: 'info' }, only: [:show] do
+      resources kind, defaults: { page: 'info' }, only: [:show, :edit] do
         collection do
           get 'autocomplete/:search', action: :autocomplete, as: :autocomplete, format: :json, search: /.*/
         end
