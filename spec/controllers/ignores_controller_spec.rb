@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe IgnoresController do
-  let (:user) { FactoryGirl.create :user }
-  let (:user2) { FactoryGirl.create :user }
+  let(:user) { create :user }
+  let(:user2) { create :user }
 
-  let (:create_request) { post :create, id: user2.id }
-  let (:destroy_request) { delete :destroy, id: user2.id }
+  let(:create_request) { post :create, id: user2.id }
+  let(:destroy_request) { delete :destroy, id: user2.id }
 
   describe 'create' do
-    it 'authorized' do
+    it 'unauthorized' do
       create_request
-      response.should be_unauthorized
+      response.should be_redirect
     end
 
     describe 'success' do
@@ -43,7 +43,7 @@ describe IgnoresController do
   describe "destroy" do
     it 'unauthorized' do
       destroy_request
-      response.should be_unauthorized
+      response.should be_redirect
     end
 
     describe 'success' do

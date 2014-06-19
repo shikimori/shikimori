@@ -27,10 +27,6 @@ class UserDecorator < Draper::Decorator
     @mutual_friended ||= friended? && friends.any? {|v| v.id == h.current_user.id }
   end
 
-  def about_html
-    BbCodeFormatter.instance.format_comment about || ''
-  end
-
   def last_online
     if object.admin?
       'всегда на сайте'
@@ -38,39 +34,6 @@ class UserDecorator < Draper::Decorator
       'сейчас на сайте'
     else
       "онлайн #{h.time_ago_in_words last_online_at, nil, true} назад"
-    end
-  end
-
-  def common_info
-    info = []
-
-    if show_profile?
-      info << h.h(name)
-      info << 'муж' if male?
-      info << 'жен' if female?
-      unless object.birth_on.blank?
-        info << "#{full_years} #{Russian.p full_years, 'год', 'года', 'лет'}" if full_years > 9
-      end
-      info << location
-      info << website
-
-      info.select! &:present?
-      info << 'Нет личных данных' if info.empty?
-    else
-      info << 'Личные данные скрыты'
-    end
-    info
-  end
-
-  def history
-    @history ||= UserProfileHistoryDecorator.new object
-  end
-
-  def clubs
-    @clubs ||= if preferences.clubs_in_profile?
-      object.groups.order(:name).limit 4
-    else
-      []
     end
   end
 

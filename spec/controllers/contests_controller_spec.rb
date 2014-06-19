@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe ContestsController do
   let(:user) { create :user, id: 1 }
@@ -6,13 +7,13 @@ describe ContestsController do
 
   let(:contest) { create :contest }
 
-  describe :index do
+  describe '#index' do
     before { get :index }
     it { should respond_with :success }
     it { should respond_with_content_type :html }
   end
 
-  describe :grid do
+  describe '#grid' do
     context :created do
       let(:contest) { create :contest }
       before { get :grid, id: contest.to_param }
@@ -39,7 +40,7 @@ describe ContestsController do
     end
   end
 
-  describe :show do
+  describe '#show' do
     let(:contest) { create :contest_with_5_members }
     before { contest.start! if contest.can_start? }
 
@@ -78,7 +79,7 @@ describe ContestsController do
     end
   end
 
-  describe :users do
+  describe '#users' do
     let(:contest) { create :contest_with_5_members }
     before { contest.start }
 
@@ -100,14 +101,14 @@ describe ContestsController do
     end
   end
 
-  describe :new do
+  describe '#new' do
     before { get :new }
 
     it { should respond_with :success }
     it { should respond_with_content_type :html }
   end
 
-  describe :edit do
+  describe '#edit' do
     before { get :edit, id: contest.id }
 
     it { should respond_with :success }
@@ -133,7 +134,7 @@ describe ContestsController do
     end
   end
 
-  describe :create do
+  describe '#create' do
     context 'when success' do
       before { post :create, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on') }
 
@@ -151,7 +152,7 @@ describe ContestsController do
     end
   end
 
-  describe :start do
+  describe '#start' do
     let(:contest) { create :contest_with_5_members }
     before { post :start, id: contest.id }
 
@@ -160,7 +161,7 @@ describe ContestsController do
     it { assigns(:contest).started?.should be_true }
   end
 
-  describe :propose do
+  describe '#propose' do
     let(:contest) { create :contest }
     before { post :propose, id: contest.id }
 
@@ -169,7 +170,7 @@ describe ContestsController do
     it { assigns(:contest).proposing?.should be_true }
   end
 
-  describe :stop_propose do
+  describe '#stop_propose' do
     let(:contest) { create :contest, state: :proposing }
     before { post :stop_propose, id: contest.id }
 
@@ -178,7 +179,7 @@ describe ContestsController do
     it { assigns(:contest).created?.should be_true }
   end
 
-  #describe :finish do
+  #describe '#finish' do
     #let(:contest) { create :contest_with_5_members }
     #before do
       #contest.start
@@ -190,12 +191,31 @@ describe ContestsController do
     #it { assigns(:contest).state.should eq 'finished' }
   #end
 
-  describe :build do
+  describe '#build' do
     let(:contest) { create :contest_with_5_members }
     before { post :build, id: contest.id }
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
     it { assigns(:contest).rounds.should have(6).items }
+  end
+
+  describe :permissions do
+    context :contests_moderator do
+      subject { Ability.new build_stubbed(:user, :contests_moderator) }
+      it { should be_able_to :manage, contest }
+    end
+
+    context :guest do
+      subject { Ability.new nil }
+      it { should be_able_to :read, contest }
+      it { should_not be_able_to :manage, contest }
+    end
+
+    context :user do
+      subject { Ability.new build_stubbed(:user) }
+      it { should be_able_to :read, contest }
+      it { should_not be_able_to :manage, contest }
+    end
   end
 end

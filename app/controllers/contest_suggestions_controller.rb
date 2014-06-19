@@ -1,4 +1,4 @@
-class ContestSuggestionsController < ApplicationController
+class ContestSuggestionsController < ShikimoriController
   before_filter :authenticate_user!
   before_filter :fetch_contest
 

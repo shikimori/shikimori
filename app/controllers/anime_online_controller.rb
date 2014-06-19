@@ -1,0 +1,2 @@
+class AnimeOnlineController < ShikimoriController
+end

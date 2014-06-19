@@ -1,4 +1,4 @@
-class VideosController < ApplicationController
+class VideosController < ShikimoriController
   before_filter :authenticate_user!
 
   def create

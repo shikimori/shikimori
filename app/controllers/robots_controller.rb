@@ -1,5 +1,12 @@
-class RobotsController < ApplicationController
-  def animeonline
+class RobotsController < ShikimoriController
+  def anime_online
+    render content_type: 'text/plain', text: <<-EOS
+User-agent: *
+Disallow: /
+EOS
+  end
+
+  def manga_online
     render content_type: 'text/plain', text: <<-EOS
 User-agent: *
 Disallow: /

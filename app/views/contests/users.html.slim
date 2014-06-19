@@ -6,7 +6,7 @@
 header.head.misc
   h1
     = @page_title.last
-  = render partial: 'site/breadcrumbs', object: breadcrumbs
+  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
 
 = render partial: 'contests/menu', locals: { contest: @contest }
 

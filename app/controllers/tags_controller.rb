@@ -1,4 +1,4 @@
-class TagsController < ApplicationController
+class TagsController < ShikimoriController
   #autocomplete :tag, :name, :full => true, :order => 'name'
 
   ## получение элементов для автодополнения

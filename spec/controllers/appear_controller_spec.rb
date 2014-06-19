@@ -15,7 +15,7 @@ describe AppearController do
         post :read, ids: "comment-#{comment.id}"
       }.to change(CommentView, :count).by 0
 
-      response.should be_unauthorized
+      response.should be_redirect
     end
 
     describe 'user signed in' do

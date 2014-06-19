@@ -2,7 +2,7 @@ require_dependency 'traffic_entry'
 require_dependency 'calendar_entry'
 require_dependency 'site_statistics'
 
-class PagesController < ApplicationController
+class PagesController < ShikimoriController
   include CommentHelper
   include Sidekiq::Paginator
 

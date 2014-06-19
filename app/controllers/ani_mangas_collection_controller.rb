@@ -1,7 +1,5 @@
 # TODO: отрефакторить толстый контроллер
 class AniMangasCollectionController < AniMangasController
-  layout false, only: [:menu]
-
   helper_method :klass, :entries_per_page
   caches_action :index, :menu, CacheHelper.cache_settings
 

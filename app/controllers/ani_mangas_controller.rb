@@ -1,4 +1,4 @@
-class AniMangasController < ApplicationController
+class AniMangasController < ShikimoriController
   include ActionView::Helpers::TextHelper
   include EntriesHelper
   include ActionView::Helpers::DateHelper

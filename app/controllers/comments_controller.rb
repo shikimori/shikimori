@@ -1,7 +1,7 @@
-class CommentsController < ApplicationController
+class CommentsController < ShikimoriController
   include CommentHelper
 
-  before_filter :check_auth, only: [:edit, :create, :update, :destroy]
+  before_filter :authenticate_user!, only: [:edit, :create, :update, :destroy]
   before_filter :check_post_permission, only: [:create, :update, :destroy]
   before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
 
@@ -101,9 +101,7 @@ class CommentsController < ApplicationController
 
 private
   def prepare_edition
-    raise Unauthorized unless user_signed_in?
     Rails.logger.info params.to_yaml
-
     @comment = Comment.find(params[:id]) if params[:id]
   end
 

@@ -6,5 +6,13 @@ FactoryGirl.define do
     last_online_at DateTime.now
 
     notifications User::DEFAULT_NOTIFICATIONS
+
+    trait :admin do
+      id User::Admins.first
+    end
+
+    trait :contests_moderator do
+      id User::ContestsModerators.first
+    end
   end
 end

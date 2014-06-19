@@ -1,4 +1,4 @@
-class TorrentsController < ApplicationController
+class TorrentsController < ShikimoriController
   def create
     @klass = Anime
     anime = Anime.find(params[:id].to_i)

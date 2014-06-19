@@ -72,9 +72,9 @@ Spork.prefork do
 
   module ActionController
     class TestResponse
-      def unauthorized?
-        @status == 401
-      end
+      #def unauthorized?
+        #@status == 401
+      #end
 
       def unprocessible_entiy?
         @status == 422

@@ -1,7 +1,7 @@
 class TopicsController < ForumController
   include TopicsHelper
 
-  before_filter :check_auth, only: [:new, :edit, :create, :update]
+  before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
   before_filter :check_post_permission, only: [:create, :update]
 
   caches_action :index,

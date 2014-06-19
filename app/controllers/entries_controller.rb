@@ -1,4 +1,4 @@
-class EntriesController < ApplicationController
+class EntriesController < ShikimoriController
   include TopicsHelper
 
   # список топиков

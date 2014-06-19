@@ -111,7 +111,7 @@ describe TopicsController do
       describe 'new' do
         it 'unauthorized' do
           get :new, section: section.to_param, format: format
-          response.should be_unauthorized
+          response.should_not be_success
         end
 
         it 'success' do
@@ -124,7 +124,7 @@ describe TopicsController do
       describe 'edit' do
         it 'unauthorized' do
           get :edit, id: topic.id, format: format
-          response.should be_unauthorized
+          response.should_not be_success
         end
 
         it 'success' do
@@ -137,7 +137,7 @@ describe TopicsController do
       describe 'create' do
         it 'unauthorized' do
           post :create, section: section.to_param
-          response.should be_unauthorized
+          response.should be_redirect
         end
 
         describe 'sign_in' do
@@ -190,7 +190,7 @@ describe TopicsController do
       describe 'update' do
         it 'unauthorized' do
           patch :update, id: topic.id
-          response.should be_unauthorized
+          response.should be_redirect
         end
 
         it 'random user' do

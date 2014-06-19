@@ -1,5 +1,6 @@
-class ContestsController < ApplicationController
-  before_filter :check_auth, only: [:new, :edit, :create, :update, :destroy]
+class ContestsController < ShikimoriController
+  load_and_authorize_resource
+
   before_filter :prepare
   helper_method :breadcrumbs
 
@@ -15,8 +16,7 @@ class ContestsController < ApplicationController
     keywords 'аниме опросы турниры голосования'
     description 'Аниме опросы и турниры сайта'
 
-    contests = Contest.order('id desc')
-    @contests_groups = contests
+    @contests_groups = @contests
       .includes(rounds: :matches)
       .sort_by {|v| [['started', 'proposing', 'created', 'finished'].index(v.state), -(v.finished_on || Date.today).to_time.to_i] }
       .group_by(&:state)
@@ -69,7 +69,6 @@ class ContestsController < ApplicationController
     @contest.match_duration ||= 2
     @contest.matches_interval ||= 1
     @contest.suggestions_per_user ||= 5
-
   end
 
   def create
@@ -128,13 +127,13 @@ class ContestsController < ApplicationController
   # создание голосований
   def build
     @contest.prepare if @contest.created? || @contest.proposing?
-    redirect_to edit_contest_url(@contest)
+    redirect_to edit_contest_url @contest
   end
 
 private
   def prepare
-    @page_title = ["Опросы"]
-    @contest = Contest.find(params[:id]).decorate if params[:id]
+    @page_title = ['Опросы']
+    @contest = @contest.decorate if @contest
   end
 
   # хлебные крошки
@@ -149,11 +148,6 @@ private
       crumbs[@contest.displayed_round.title] = round_contest_url @contest, round: @contest.displayed_round
     end
     crumbs
-  end
-
-  def check_auth
-    authenticate_user!
-    raise Forbidden unless current_user.contests_moderator?
   end
 
   def contest_params

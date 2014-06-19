@@ -111,6 +111,7 @@ require 'spec_helper'
     describe :edit do
       it_should_behave_like :entry_edit, :russian
       it_should_behave_like :entry_edit, :description
+
       if type != :manga
         it_should_behave_like :entry_edit, :torrents_name
         it_should_behave_like :entry_edit, :screenshot

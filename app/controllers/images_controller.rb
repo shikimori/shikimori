@@ -1,4 +1,4 @@
-class ImagesController < ApplicationController
+class ImagesController < ShikimoriController
   before_filter :authenticate_user!
 
   # редактирование картинки

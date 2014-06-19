@@ -1,4 +1,4 @@
-class GenresController < ApplicationController
+class GenresController < ShikimoriController
   before_action :authenticate_user!, except: [:index, :tooltip]
 
   def index

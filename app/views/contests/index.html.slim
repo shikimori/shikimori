@@ -17,10 +17,11 @@ header.head.misc
       - group.each_with_index do |contest, index|
         .contest
           | #{index + 1}.
-          - if !contest.created? || (user_signed_in? && current_user.contests_moderator?)
+          - if !contest.created? || can?(:edit, contest)
             - if !contest.created? && !contest.proposing?
               .date #{contest.started_on.strftime '%d.%m.%Y'} - #{contest.rounds.last.matches.last.finished_on.strftime '%d.%m.%Y'}
             a href="#{contest_url contest}"
               = contest.title
           - else
-            = contest.title
+            span
+              = contest.title

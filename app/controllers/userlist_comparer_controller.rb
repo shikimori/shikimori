@@ -2,7 +2,7 @@ require_dependency 'genre'
 require_dependency 'studio'
 require_dependency 'publisher'
 
-class UserlistComparerController < ApplicationController
+class UserlistComparerController < ShikimoriController
   before_filter :noindex
   before_filter :nofollow
 

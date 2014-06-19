@@ -1,4 +1,4 @@
-class ProxiesController < ApplicationController
+class ProxiesController < ShikimoriController
   def index
     @cache = Proxy.all
 

@@ -1,4 +1,4 @@
-class Api::V1::ApiController < ApplicationController
+class Api::V1::ApiController < ShikimoriController
   responders :json # для рендеринга контента на patch и put запросы
 
   resource_description do

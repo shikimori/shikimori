@@ -1,5 +1,5 @@
-class FriendsController < ApplicationController
-  before_filter :check_auth
+class FriendsController < ShikimoriController
+  before_filter :authenticate_user!
 
   def create
     @user = User.find(params[:id])

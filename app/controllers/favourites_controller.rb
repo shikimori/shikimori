@@ -1,4 +1,4 @@
-class FavouritesController < ApplicationController
+class FavouritesController < ShikimoriController
   before_filter :authenticate_user!
 
   # добаавление в избранные

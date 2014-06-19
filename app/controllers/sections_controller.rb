@@ -1,4 +1,4 @@
-class SectionsController < ApplicationController
+class SectionsController < ShikimoriController
   # Отображение раздела
   def show
     params[:section] ||= params[:id].to_i

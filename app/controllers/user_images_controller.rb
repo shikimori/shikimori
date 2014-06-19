@@ -1,4 +1,4 @@
-class UserImagesController < ApplicationController
+class UserImagesController < ShikimoriController
   before_filter :authenticate_user!
 
   def create

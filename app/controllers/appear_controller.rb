@@ -1,5 +1,5 @@
 class AppearController < ApplicationController
-  before_filter :check_auth
+  before_filter :authenticate_user!
 
   # пометка элементов прочитанными
   def read
@@ -41,7 +41,7 @@ class AppearController < ApplicationController
     end
 
     render json: {}
-  rescue ActiveRecord::RecordNotUnique => e
+  rescue ActiveRecord::RecordNotUnique
     render json: {}
   end
 end

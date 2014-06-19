@@ -1,5 +1,5 @@
-class ScreenshotsController < ApplicationController
-  before_filter :check_auth
+class ScreenshotsController < ShikimoriController
+  before_filter :authenticate_user!
 
   def create
     @entry = Anime.find params[:id]

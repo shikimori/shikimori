@@ -10,7 +10,7 @@ describe FriendsController do
   describe 'create' do
     it 'authorized' do
       create_request
-      response.should be_unauthorized
+      response.should be_redirect
     end
 
     describe 'success' do
@@ -58,7 +58,7 @@ describe FriendsController do
   describe "destroy" do
     it 'unauthorized' do
       destroy_request
-      response.should be_unauthorized
+      response.should be_redirect
     end
 
     describe 'success' do

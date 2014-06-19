@@ -1,6 +1,6 @@
 # TODO: отрефакторить толстый контроллер
-class GroupsController < ApplicationController
-  before_action :check_auth, only: [:new, :settings, :update]
+class GroupsController < ShikimoriController
+  before_action :authenticate_user!, only: [:new, :settings, :update]
   before_action :fetch_group, only: [:update, :show, :members, :animes, :mangas, :characters, :images]
   helper_method :breadcrumbs
 

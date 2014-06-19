@@ -54,7 +54,7 @@ describe GroupsController do
     it 'restricts access for guests' do
       sign_out user
       get :settings, id: group.id
-      response.should be_unauthorized
+      response.should be_redirect
     end
 
     it 'restricts access for users w/o permission to edit' do

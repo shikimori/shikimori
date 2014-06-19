@@ -1,9 +1,9 @@
-class PeopleController < ApplicationController
+class PeopleController < ShikimoriController
   layout false, only: [:tooltip, :autocomplete]
 
-  respond_to :html, :only => [:show, :tooltip]
-  respond_to :html, :json, :only => :index
-  respond_to :json, :only => :autocomplete
+  respond_to :html, only: [:show, :tooltip]
+  respond_to :html, :json, only: :index
+  respond_to :json, only: :autocomplete
 
   caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 

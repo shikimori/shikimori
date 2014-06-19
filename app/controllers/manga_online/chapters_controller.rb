@@ -1,4 +1,4 @@
-class MangaOnline::ChaptersController < ApplicationController
+class MangaOnline::ChaptersController < MangaOnlineController
   layout 'manga_online'
 
   def show

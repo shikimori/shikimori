@@ -1,4 +1,4 @@
-class JobsController < ApplicationController
+class JobsController < ShikimoriController
   def restart
     raise Forbidden unless user_signed_in? && current_user.admin?
     job = Delayed::Job.find(params[:id].to_i)

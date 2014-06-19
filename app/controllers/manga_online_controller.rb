@@ -1,0 +1,2 @@
+class MangaOnlineController < ShikimoriController
+end

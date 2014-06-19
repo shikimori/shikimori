@@ -1,4 +1,4 @@
-class AdminLogInController < ApplicationController
+class AdminLogInController < ShikimoriController
   # выход под любым пользователем для администратора
   def log_in
     if (Rails.env.development? && remote_addr == '127.0.0.1') || current_user.admin?

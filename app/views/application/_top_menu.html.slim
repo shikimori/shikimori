@@ -14,9 +14,7 @@
 
     .menu.menu-userbox
       .entry.userbox data-source="#{userbox_url}"
-        /! noindex
         = render partial: 'application/userbox'
-        /! /noindex
 
     .menu.menu-search
       .entry.main-search
@@ -25,11 +23,19 @@
           .suggest-placeholder
         ul.popup
           - if user_signed_in? && current_user.preferences.manga_first?
-            li.type data-type="mangas" Манга
-            li.type data-type="animes" Аниме
+            - unless anime_online?
+              li.type data-type="mangas" Манга
+
+            - unless manga_online?
+              li.type data-type="animes" Аниме
+
           - else
-            li.type data-type="animes" Аниме
-            li.type data-type="mangas" Манга
+            - unless manga_online?
+              li.type data-type="animes" Аниме
+
+            - unless anime_online?
+              li.type data-type="mangas" Манга
+
           li.type data-type="characters" Персонажи
           li.type data-type="seyu" Сэйю
           li.type data-type="producer" Режиссёры

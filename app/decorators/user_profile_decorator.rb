@@ -22,6 +22,10 @@ class UserProfileDecorator < UserDecorator
     h.link_to url_wo_http, "http://#{url_wo_http}", class: 'website'
   end
 
+  def about_html
+    BbCodeFormatter.instance.format_comment about || ''
+  end
+
   def own_profile?
     h.user_signed_in? && h.current_user.id == object.id
   end
@@ -107,5 +111,37 @@ class UserProfileDecorator < UserDecorator
       'full'
     end
   end
-end
 
+  def common_info
+    info = []
+
+    if show_profile?
+      info << h.h(name)
+      info << 'муж' if male?
+      info << 'жен' if female?
+      unless object.birth_on.blank?
+        info << "#{full_years} #{Russian.p full_years, 'год', 'года', 'лет'}" if full_years > 9
+      end
+      info << location
+      info << website
+
+      info.select! &:present?
+      info << 'Нет личных данных' if info.empty?
+    else
+      info << 'Личные данные скрыты'
+    end
+    info
+  end
+
+  def history
+    @history ||= UserProfileHistoryDecorator.new object
+  end
+
+  def clubs
+    @clubs ||= if preferences.clubs_in_profile?
+      object.groups.order(:name).limit 4
+    else
+      []
+    end
+  end
+end

@@ -7,7 +7,7 @@
 header.head.misc
   h1
     = @page_title
-  = render partial: 'site/breadcrumbs', object: breadcrumbs
+  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
 
 = form_for @gallery, url: cosplay_index_url do |f|
   .cosplay-mod.edit.new
@@ -16,7 +16,7 @@ header.head.misc
 
       .field-name Косплеер
       .m10
-        = text_field_tag 'cosplay_gallery[name]', '', :class => 'common', :size => 45
+        = text_field_tag 'cosplay_gallery[name]', '', class: 'common', size: 45
 
       .field-name Что косплеится (текстом имя персонажа, совпадающее с именем персонажа на сайте)
       .m10

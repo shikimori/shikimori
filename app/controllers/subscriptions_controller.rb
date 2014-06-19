@@ -1,25 +1,17 @@
-class SubscriptionsController < ApplicationController
+class SubscriptionsController < ShikimoriController
+  before_filter :authenticate_user!
+
   def create
-    raise Unauthorized unless user_signed_in?
+    target = params[:type].constantize.find params[:id]
+    current_user.subscribe target
 
-    target = Object.const_get(params[:type]).find(params[:id])
-    current_user.subscribe(target)
-
-    render json: {
-      notice: 'Вы подписались на этот топик',
-      method: 'delete'
-    }
+    render json: { notice: 'Вы подписались на этот топик', method: 'delete' }
   end
 
   def destroy
-    raise Unauthorized unless user_signed_in?
+    target = params[:type].constantize.find params[:id]
+    current_user.unsubscribe target
 
-    target = Object.const_get(params[:type]).find(params[:id])
-    current_user.unsubscribe(target)
-
-    render json: {
-      notice: 'Вы отписались от этого топика',
-      method: 'post'
-    }
+    render json: { notice: 'Вы отписались от этого топика', method: 'post' }
   end
 end

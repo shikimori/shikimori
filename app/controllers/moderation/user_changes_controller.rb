@@ -1,4 +1,4 @@
-class Moderation::UserChangesController < ApplicationController
+class Moderation::UserChangesController < ShikimoriController
   include ActionView::Helpers::SanitizeHelper
   before_filter :authenticate_user!, only: [:index, :apply, :deny, :get_anime_lock, :release_anime_lock]
 

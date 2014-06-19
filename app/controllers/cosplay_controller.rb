@@ -1,4 +1,4 @@
-class CosplayController < ApplicationController
+class CosplayController < ShikimoriController
   include ActionView::Helpers::TextHelper
   include CosplayHelper
 

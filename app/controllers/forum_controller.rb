@@ -1,8 +1,8 @@
-class ForumController < ApplicationController
+class ForumController < ShikimoriController
   @@first_page_comments = 3
   @@other_page_comments = 1
 
-  before_filter :build_background , only: [:index, :show, :new, :edit, :create, :site_block]
+  before_filter :build_background, only: [:index, :show, :new, :edit, :create, :site_block]
   helper_method :section_ids_class
   helper_method :sticked_topics
 
@@ -137,7 +137,7 @@ private
       end
     end
 
-    raise NotFound.new("неизвестный раздел: #{params[:section]}") unless @section
+    raise NotFound, "неизвестный раздел: #{params[:section]}" unless @section
 
     @news = WellcomeNewsPresenter.new if user_signed_in?
 

@@ -1,4 +1,4 @@
-class AnimeOnline::PingmediaController < ApplicationController
+class AnimeOnline::PingmediaController < AnimeOnlineController
   layout false
 
   def google

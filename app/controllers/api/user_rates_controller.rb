@@ -1,4 +1,4 @@
-class Api::UserRatesController < ApplicationController
+class Api::UserRatesController < ShikimoriController
   respond_to :json
   caches_action :index,
                 :expires_in => 1.month,

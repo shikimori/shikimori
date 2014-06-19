@@ -1,4 +1,4 @@
-class SitemapController < ApplicationController
+class SitemapController < ShikimoriController
   def index
     if params[:format] == 'xml'
       @animes = Anime

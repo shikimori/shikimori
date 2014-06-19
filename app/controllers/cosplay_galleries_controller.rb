@@ -1,5 +1,5 @@
 # TODO: вынести всё в cosplay_controller(когда решу отобразить косплей на сайте) и выпилить этот контроллер
-class CosplayGalleriesController < ApplicationController
+class CosplayGalleriesController < ShikimoriController
   # все косплееры
   def index
     set_meta_tags noindex: true, nofollow: true

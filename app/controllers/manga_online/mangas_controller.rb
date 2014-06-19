@@ -1,4 +1,4 @@
-class MangaOnline::MangasController < ApplicationController
+class MangaOnline::MangasController < MangaOnlineController
   layout 'manga_online'
 
   def index

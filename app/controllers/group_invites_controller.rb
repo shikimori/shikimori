@@ -1,5 +1,5 @@
 # TODO: отрефакторить толстый контроллер
-class GroupInvitesController < ApplicationController
+class GroupInvitesController < ShikimoriController
   before_filter :authenticate_user!
 
   # создание приглашение на вступление в группу для пользователя

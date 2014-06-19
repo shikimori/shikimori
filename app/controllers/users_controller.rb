@@ -1,6 +1,6 @@
 # TODO: отрефакторить толстый контроллер
 # TODO: users#show вынести в ProfilesController
-class UsersController < ApplicationController
+class UsersController < ShikimoriController
   include MessagesHelper # для работы хелпера format_linked_name
 
   respond_to :json, only: :autocomplete

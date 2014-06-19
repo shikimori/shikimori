@@ -1,4 +1,4 @@
-class RecommendationIgnoresController < ApplicationController
+class RecommendationIgnoresController < ShikimoriController
   before_filter :authenticate_user!
 
   def create

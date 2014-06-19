@@ -1,4 +1,4 @@
-class ContestMatchesController < ApplicationController
+class ContestMatchesController < ShikimoriController
   before_filter :authenticate_user!, only: [:vote]
   layout nil
 

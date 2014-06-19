@@ -1,4 +1,4 @@
-class StudiosController < ApplicationController
+class StudiosController < ShikimoriController
   # список студий
   def index
     @page_title = 'Аниме студии'

@@ -1,4 +1,4 @@
-class GroupRolesController < ApplicationController
+class GroupRolesController < ShikimoriController
   before_filter :authenticate_user!
 
   # вступление в клуб

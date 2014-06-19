@@ -1,4 +1,4 @@
-class StatisticsController < ApplicationController
+class StatisticsController < ShikimoriController
   respond_to :html
   YearsAgo = 26.years
 

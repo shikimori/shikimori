@@ -5,6 +5,6 @@ class SiteController < ApplicationController
   end
 
   def userbox
-    render :partial => 'site/userbox'
+    render partial: 'blocks/userbox'
   end
 end

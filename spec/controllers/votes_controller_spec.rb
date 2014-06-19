@@ -8,7 +8,7 @@ describe VotesController do
   describe "create" do
     it "forbidden" do
       post :create, defaults
-      response.should be_forbidden
+      response.should be_redirect
     end
 
     describe 'sign_in user' do

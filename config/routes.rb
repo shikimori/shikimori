@@ -8,6 +8,8 @@ Site::Application.routes.draw do
     get '/', to: 'manga_online/mangas#index'
     get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
     get 'chapters/:id(/:page)' => 'manga_online/chapters#show', as: :online_manga_chapter_show
+
+    get 'robots.txt' => 'robots#manga_online'
   end
 
   constraints AnimeOnlineDomain do
@@ -36,7 +38,7 @@ Site::Application.routes.draw do
     delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
     get 'pingmedia/google' => 'anime_online/pingmedia#google'
     get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
-    get 'robots.txt' => 'robots#animeonline'
+    get 'robots.txt' => 'robots#anime_online'
   end
 
   constraints ShikimoriDomain do
@@ -306,7 +308,7 @@ Site::Application.routes.draw do
     end
     get "characters/:search(/page/:page)" => 'characters#index', as: :character_search, page: /\d+/
     # tags
-    get 'tags/autocomplete/:search' => 'tags#autocomplete', as: :autocomplete_tags, format: :json
+    #get 'tags/autocomplete/:search' => 'tags#autocomplete', as: :autocomplete_tags, format: :json
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/ do

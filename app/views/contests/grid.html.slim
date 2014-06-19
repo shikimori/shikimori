@@ -12,7 +12,7 @@ html
     header.head.misc
       h1
         = @page_title.last
-      = render partial: 'site/breadcrumbs', object: breadcrumbs
+      = render partial: 'blocks/breadcrumbs', object: breadcrumbs
 
     - cache ['grid', @contest, russian_names_key] do
       .contest-grid class="#{@contest.strategy_type}"
