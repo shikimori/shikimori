@@ -10,7 +10,7 @@ module CompleteQuery
 
 private
   # выборка с учётом порядка search_queries
-  def search_order(query)
+  def search_order query
     matched = search_queries.each_with_index.inject("<--!-->") do |memo, pair|
       condition = pair[0]
       index = pair[1]
@@ -35,6 +35,7 @@ private
         "#{column_name} like #{sanitize "% #{@search}%"}",
         "#{column_name} like #{sanitize "%#{@search}%"}",
         (@search.include?(' ') ? "#{column_name} like #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
+        (@search.include?(' ') ? "#{column_name} like #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
       ]
     end.flatten.uniq.compact
   end
