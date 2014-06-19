@@ -1,4 +1,5 @@
-= simple_form_for @user.object do |f|
+/ важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
+= simple_form_for @user, url: user_url(User.find(@user.id)) do |f|
   input type="hidden" name="page" value="#{params[:page]}"
 
   .right-block
@@ -41,7 +42,7 @@
 
   .left-block
     .menu-block
-      = f.input :nickname
+      = f.input :nickname, label: 'Логин (никнейм)'
       = f.input :email
 
       a.change-password href="#{user_settings_url @user, page: 'password'}"
