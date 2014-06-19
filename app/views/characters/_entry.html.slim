@@ -14,4 +14,4 @@ article.entry-block(class="entry-#{entry.id}" itemscope itemtype="http://schema.
       a.title href="#{character_url entry}" title="#{localized_name entry}" itemprop="url"
         = localized_name entry
   .entry-tooltip id="entry-#{entry.id}-tooltip"
-    = render partial: 'site/tooltip', locals: { template_name: 'characters/entry_tooltip', objects: { entry: entry } }, formats: :html
+    = render partial: 'blocks/tooltip', locals: { template_name: 'characters/entry_tooltip', objects: { entry: entry } }, formats: :html

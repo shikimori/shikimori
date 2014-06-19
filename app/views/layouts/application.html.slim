@@ -1,6 +1,6 @@
 DOCTYPE html
 html
-  = render partial: 'site/head'
+  = render partial: 'application/head'
   body class="#{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{controller_name == 'topics' ? 'adaptive' : 'static'}" style="#{body_background}"
     - if defined?(notice) && notice
       p.flash-notice
@@ -9,7 +9,7 @@ html
       p.flash-alert
         == alert
     header.header
-      = render partial: 'site/main_menu'
+      = render partial: 'application/shiki/top_menu'
 
     .page style="#{page_background}"
       - if Rails.env.development?
@@ -29,12 +29,12 @@ html
 
       - if @itemtype.present?
         section[itemscope itemtype="#{{@itemtype}}"]
-          = render partial: 'site/page_container'
+          = render partial: 'application/page_container'
       - else
         section
-          = render partial: 'site/page_container'
+          = render partial: 'application/page_container'
       footer
-        = render partial: 'site/footer'
+        = render partial: 'application/footer'
 
     #shade
     .b-to-top

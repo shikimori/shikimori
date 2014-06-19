@@ -1,0 +1,108 @@
+@import mixins/responsive
+@import globals
+
+$menu-link-color: #e1e7f2
+
++responsive(desktop)
+  .l-top_menu
+    height: $menu-height
+
+    .menu-items
+      +clearfix
+      margin-left: 125px
+      white-space: nowrap
+
+    .menu-search, .menu-userbox
+      float: right
+      margin-top: 0
+
+    .menu-mobile
+      display: none
+
+    .menu
+      & > .entry
+        +transition(backround-color, 0.3s)
+        color: $menu-link-color
+        cursor: pointer
+        float: left
+        font-size: 12px
+        height: 20px
+        line-height: 20px
+        padding: 6px 10px 4px
+
+        &.num
+          display: inline-block
+          float: none
+
+        &.calendar
+          +icon("\e839")
+          padding-left: 8px
+          padding-right: 8px
+          margin-left: 0 !important
+
+          &:before
+            font-size: 18px
+
+        & > a
+          color: inherit
+
+          &:active
+            color: #f9f9f9 !important
+
+        &.selected, &:hover
+          background-color: lighten(#4a4a4a, 4%)
+          color: white
+          text-decoration: none
+
+        &:active
+          background-color: #4A4A4A
+          color: $menu-link-color !important
+
+    .submenu
+      +transition(height, 0.3s)
+      background: #3f3f3f
+      border: 2px solid #363636
+      border-top: none
+      display: none
+      margin-left: -10px
+      margin-top: 5px
+      overflow: hidden
+      position: absolute
+      z-index: 1000
+
+      &.right
+        right: -1px
+        margin-top: 0
+
+      & > .entry
+        +transition(backround-color, 0.3s)
+        +transition(color, 0.3s)
+        background: #3f3f3f
+        border-bottom: 1px solid #aaa
+        color: #f9f9f9
+        cursor: pointer
+        display: block
+        font-family: Tahoma
+        font-size: 11px
+        height: 21px
+        line-height: 22px
+        padding: 0 8px 0 8px
+
+        &:hover
+          background: #555
+          color: white
+
+        &.active
+          background: #282828
+          cursor: inherit
+
+        &:active
+          background: #333
+          color: $menu-link-color !important
+
+        &:last-child
+          border-bottom: none
+
+    .moderation
+      display: block
+

@@ -20,21 +20,7 @@
   +responsive(tablet)
     display: none
 
-.manga_online
-  .main-menu
-    .inner
-      .logo-prefix
-        +background-inline-retina('/globals/manga_online_logo', 'png', 16px, 30px)
-        position: absolute
-        width: 16px
-        height: 30px
-        margin-left: -14px
-        margin-top: 1px
-      .logo
-        display: inline
-        margin-left: 10px
-
-.main-menu
+.l-top_menu
   background-color: #3e3e3e
   +background-image(linear-gradient(#484848, #363636))
   border-bottom: 1px solid #444
@@ -72,3 +58,16 @@
         a
           +normal-link
           text-decoration: underline
+
+  .manga_online &
+    .inner
+      .logo-prefix
+        +background-inline-retina('/globals/manga_online_logo', 'png', 16px, 30px)
+        position: absolute
+        width: 16px
+        height: 30px
+        margin-left: -14px
+        margin-top: 1px
+      .logo
+        display: inline
+        margin-left: 10px

@@ -1,13 +1,13 @@
 li
   - if defined?(with_tooltip) && with_tooltip && topic[:tooltip]
-    span class="entry#{' person-tooltip' if topic[:tooltip]}" title="#{topic[:title]}" data-do-not-use-title="true" data-offset-left-right="42" data-place-to-left="true"
+    span.entry class="#{' person-tooltip' if topic[:tooltip]}" title="#{topic[:title]}" data-do-not-use-title="true" data-offset-left-right="42" data-place-to-left="true"
       span.date
         = topic[:date]
       span.name
         = topic[:name]
     - if topic[:tooltip]
       .history-entry-tooltip id="history-entry-#{topic[:id]}-tooltip"
-        = render partial: 'site/tooltip', formats: :html
+        = render partial: 'blocks/tooltip', formats: :html
 
   - else
     a.entry href="#{topic[:url]}" title="#{topic[:title]}" itemprop="discussionUrl"

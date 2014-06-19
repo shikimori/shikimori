@@ -1,4 +1,4 @@
-.main-menu
+.l-top_menu
   .to-top-fix
   .inner
     - if request.path == '/' && !user_signed_in?
@@ -15,7 +15,7 @@
     .menu.menu-userbox
       .entry.userbox data-source="#{userbox_url}"
         /! noindex
-        = render partial: 'site/userbox'
+        = render partial: 'application/userbox'
         /! /noindex
 
     .menu.menu-search
