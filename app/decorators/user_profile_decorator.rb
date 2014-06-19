@@ -48,10 +48,6 @@ class UserProfileDecorator < UserDecorator
     end
   end
 
-  def formatted_history
-    history.formatted.take clubs.any? ? 3 : 4
-  end
-
   def nickname_changes?
     nickname_changes.any?
   end
@@ -125,7 +121,7 @@ class UserProfileDecorator < UserDecorator
       info << location
       info << website
 
-      info.select! &:present?
+      info.select!(&:present?)
       info << 'Нет личных данных' if info.empty?
     else
       info << 'Личные данные скрыты'
@@ -133,8 +129,8 @@ class UserProfileDecorator < UserDecorator
     info
   end
 
-  def history
-    @history ||= UserProfileHistoryDecorator.new object
+  def formatted_history
+    history.formatted.take clubs.any? ? 3 : 4
   end
 
   def clubs

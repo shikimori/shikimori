@@ -5,6 +5,14 @@ class UserDecorator < Draper::Decorator
     User.model_name
   end
 
+  def show_contest_link?
+    (can_vote_1? || can_vote_2? || can_vote_3?) && preferences.menu_contest?
+  end
+
+  def unvoted_contests
+    [can_vote_1?, can_vote_2?, can_vote_3?].count {|v| v }
+  end
+
   def show_profile?
     if h.user_signed_in? && h.current_user.id == id
       true
@@ -17,14 +25,16 @@ class UserDecorator < Draper::Decorator
     end
   end
 
-  # находится ли пользователь в друзьях у текущего пользователя?
   def friended?
     @favored ||= h.current_user && h.current_user.friends.any? {|v| v.id == id }
   end
 
-  # находится ли текущий пользователь в друзьях у пользователя?
   def mutual_friended?
     @mutual_friended ||= friended? && friends.any? {|v| v.id == h.current_user.id }
+  end
+
+  def history
+    @history ||= UserProfileHistoryDecorator.new object
   end
 
   def last_online

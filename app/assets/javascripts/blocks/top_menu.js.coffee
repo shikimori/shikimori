@@ -1,6 +1,6 @@
 # desktop menu
 $ ->
-  $triggers = $('.main-menu .submenu').parent()
+  $triggers = $('.l-top_menu .submenu').parent()
   $triggers.each ->
     $trigger = $(@)
     $menu = $trigger.children('.submenu').show()
@@ -24,12 +24,12 @@ $ ->
 
 # mobile menu
 $('.mobile-menu-toggler').click ->
-  $('.main-menu .menu-items').toggleClass('active')
+  $('.l-top_menu .menu-items').toggleClass('active')
       .siblings()
       .removeClass 'active'
 
 $('.mobile-search-toggler').click ->
-  $('.main-menu .menu-search').toggleClass('active')
+  $('.l-top_menu .menu-search').toggleClass('active')
       .siblings()
       .removeClass 'active'
 

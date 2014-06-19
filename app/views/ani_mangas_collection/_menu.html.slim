@@ -5,10 +5,10 @@
   .menu-block
     .subheadline Статус
     ul.block-list.statuses.anime-params
-      - AniMangaStatus.all.each do |v|
-        li class="status-#{v[0]}"
+      - AniMangaStatus.all.each do |(status,title)|
+        li class="status-#{status}"
           input type="checkbox" autocomplete="off"
-          = v[1]
+          = title
 
   .menu-block
     .subheadline Тип
@@ -161,10 +161,10 @@
   .menu-block
     .subheadline Сезон
     ul.block-list.seasons.anime-params
-      - AniMangaSeason.all.each do |v|
-        li class="season-#{v[0]}"
+      - AniMangaSeason.catalog_seasons.each do |(season,title)|
+        li class="season-#{season}"
           input type="checkbox" autocomplete="off"
-          = v[1]
+          = title
 
   - if klass == Anime
     .menu-block.durations

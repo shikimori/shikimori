@@ -93,7 +93,7 @@ $ ->
   # лого в шапке будет с rel=history
   $('.logo').parent().attr rel: 'history'
   # менюшки новостей и обзоров тоже
-  $('.main-menu .rel').attr rel: 'history'
+  $('.l-top_menu .rel').attr rel: 'history'
 
 # инициализация локального блока
 $('.local-menu-block').live 'init', ->

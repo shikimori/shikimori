@@ -44,48 +44,8 @@
           li.type data-type="users" Пользователи
 
     .menu.menu-items
-      .entry class="#{'selected' if params[:controller] == 'animes' || (params[:controller] == 'ani_mangas_collection' && params[:klass] == 'anime')}"
-        a href="#{animes_url}" title="Аниме" Аниме
-        .submenu-toggler
-        .submenu
-          a.entry href="#{animes_url type: nil, status: 'ongoing'}" title="Аниме онгоинги" Онгоинги
-          a.entry href="#{animes_url type: nil, season: '2014'}" title="Аниме 2014 года" 2014 год
-          a.entry href="#{animes_url type: nil, season: '2013'}" title="Аниме 2013 года" 2013 год
-          a.entry href="#{animes_url type: nil, season: 'summer_2014'}" title="Летний сезон 2014 года" Летний сезон
-          a.entry href="#{animes_url type: nil, season: 'spring_2014'}" title="Весенний сезон 2014 года" Весенний сезон
-          a.entry href="#{animes_url type: nil, season: 'winter_2014'}" title="Зимний сезон 2014 года" Зимний сезон
-          a.entry href="#{animes_url type: nil, season: 'fall_2013'}" title="Осенний сезон 2013 года" Осенний сезон
-          a.entry href="#{studios_url}" title="Студии" Студии
-      a.entry.calendar class="#{'selected' if params[:controller] == 'pages' && params[:action] == 'ongoings'}" href="#{ongoings_url}" title="Календарь"
-      a.entry class="#{'selected' if params[:controller] == 'mangas' || (params[:controller] == 'ani_mangas_collection' && params[:klass] == 'manga')}" href="#{mangas_url}" title="Манга" Манга
-      a.entry.rel href="#{section_url :news}" title="Новости" Новости
-      a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры
-      .entry
-        - if user_signed_in? && (current_user.can_vote_1? || current_user.can_vote_2? || current_user.can_vote_3?) && current_user.preferences.menu_contest?
-          a.contest href="#{current_contests_url}" title="Активный опрос" data-count="#{[current_user.can_vote_1?, current_user.can_vote_2?, current_user.can_vote_3?].count {|v| v }}"
-        a href="#{contests_url}" title="Опросы" Опросы
-      a.entry class="#{'selected' if params[:controller] == 'recommendations'}" href="#{recommendations_url(:klass => manga_recommendations? ? 'manga' : 'anime')}" title="Рекомендации" Рекомендации
-      .entry class="#{'selected' if params[:controller] == 'users' || params[:controller] == 'groups'}"
-        span Сообщество
-        .submenu-toggler
-        .submenu
-          a.entry class="#{'active' if params[:controller] == 'users'}" href="#{users_url}" title="Пользователи" Пользователи
-          a.entry class="#{'active' if params[:controller] == 'groups'}" href="#{clubs_url}" title="Клубы" Клубы
-
-      .entry class="#{'selected' if params[:controller] == 'pages' && params[:action] == 'about'}"
-        span Инфо
-        .submenu-toggler
-        .submenu
-          a.entry class="#{'active' if params[:controller] == 'statistics' && params[:action] == 'index'}" href="#{anime_history_url}" title="Индустрия аниме" Индустрия аниме
-          a.entry class="#{'active' if params[:controller] == 'pages' && params[:action] == 'about'}" href="#{about_url}" title="О сайте" О сайте
-          - if user_signed_in?
-            a.entry href='/s/79042-Pravila-sayta' title='Правила сайта' Правила сайта
-            a.entry href='/s/85018-FAQ-Chasto-zadavaemye-voprosy' title='Часто задаваемые вопросы' FAQ
-            a.entry href='#{moderation_bans_url}' title='Журнал модерации' Журнал модерации
-          - if user_signed_in?
-              a.entry class="#{'active' if params[:controller] == 'translation'}" href="/clubs/2/translation/planned" title="Переводы" Переводы
-          - if user_signed_in? && current_user.cosplay_moderator?
-              a.entry class="#{'active' if params[:controller] == 'cosplay'}" href="#{mod_cosplay_index_url}" title="Косплей" Косплей
+      - if shikimori?
+        = render partial: 'application/shikimori/top_menu'
 
     .moderation style="#{page_background}"
       - if user_signed_in?

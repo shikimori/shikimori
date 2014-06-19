@@ -13,7 +13,7 @@ class UserStatistics
     @current_user = current_user
     @settings = user.preferences
 
-    @seasons = AniMangaSeason.all
+    @seasons = AniMangaSeason.catalog_seasons
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
 
     @anime_rates = @user
