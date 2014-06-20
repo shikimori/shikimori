@@ -7,7 +7,6 @@ class AniMangasController < ShikimoriController
 
   AutocompleteLimit = 14
 
-  layout false, only: [:tooltip, :related_all]
   respond_to :html, only: [:show, :tooltip, :related_all]
   respond_to :json, only: :autocomplete
   respond_to :html, :json, only: :page
@@ -18,7 +17,7 @@ class AniMangasController < ShikimoriController
                 cache_path: proc {
                   id = params[:anime_id] || params[:manga_id] || params[:id]
                   @entry ||= klass.find(id.to_i)
-                  "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@entry.updated_at.to_i}|#{@entry.thread.updated_at.to_i}|#{json?}|v3"
+                  "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@entry.updated_at.to_i}|#{@entry.thread.updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
                 },
                 unless: proc { user_signed_in? },
                 expires_in: 2.days

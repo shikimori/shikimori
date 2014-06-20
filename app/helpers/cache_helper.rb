@@ -1,7 +1,7 @@
 module CacheHelper
   def self.cache_settings
     {
-      cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{json?}" },
+      cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{json?}|#{request.xhr?}" },
       unless: proc { user_signed_in? },
       expires_in: 2.days
     }
