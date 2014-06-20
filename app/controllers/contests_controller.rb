@@ -1,5 +1,5 @@
 class ContestsController < ShikimoriController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:current]
 
   before_filter :prepare
   helper_method :breadcrumbs
