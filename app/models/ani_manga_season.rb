@@ -173,7 +173,7 @@ class AniMangaSeason
     end
 
     def date_to_season date
-      "#{month_to_string date.month}_#{date.year}"
+      "#{month_to_string date.month}_#{date.month == 12 ? date.year + 1 : date.year}"
     end
 
     def month_to_string month

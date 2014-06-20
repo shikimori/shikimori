@@ -2,14 +2,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   layout :set_layout
-  before_filter :fix_googlebot
-  before_filter :touch_last_online unless Rails.env.test?
-  before_filter :mailer_set_url_options
-  before_filter :force_vary_accept
+  before_action :fix_googlebot
+  before_action :touch_last_online unless Rails.env.test?
+  before_action :mailer_set_url_options
+  before_action :force_vary_accept
 
   helper_method :resource_class
   helper_method :remote_addr
   helper_method :json?
+  helper_method :domain_folder
   helper_method :shikimori?
   helper_method :anime_online?
   helper_method :manga_online?
@@ -47,6 +48,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # каталог текущего домена
+  def domain_folder
+    if shikimori?
+      'shikimori'
+    elsif anime_online?
+      'anime_online'
+    elsif manga_online?
+      'manga_online'
+    else
+      raise ArgumentError, 'unknown domain'
+    end
+  end
   # находимся ли сейчас на домене шикимори?
   def shikimori?
     ShikimoriDomain::HOSTS.include? request.host

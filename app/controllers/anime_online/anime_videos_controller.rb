@@ -1,6 +1,6 @@
 #TODO разделить аниме для play и xplay в #index, #show, #search
 class AnimeOnline::AnimeVideosController < AnimeOnlineController
-  layout 'anime_online'
+  #layout 'anime_online'
 
   before_filter :authenticate_user!, only: [:destroy, :rate, :viewed]
   after_filter :save_preferences, only: :show

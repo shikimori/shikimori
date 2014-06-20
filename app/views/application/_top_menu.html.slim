@@ -44,12 +44,7 @@
           li.type data-type="users" Пользователи
 
     .menu.menu-items
-      - if shikimori?
-        = render partial: 'application/shikimori/top_menu'
-      - elsif anime_online?
-        = render partial: 'application/anime_online/top_menu'
-      - else
-        = render partial: 'application/manga_online/top_menu'
+      = render partial: "application/top_menu/#{domain_folder}"
 
     .moderation style="#{page_background}"
       - if user_signed_in?
