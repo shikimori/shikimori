@@ -1,6 +1,4 @@
 class MangaOnline::MangasController < MangaOnlineController
-  layout 'manga_online'
-
   def index
     manga_ids = MangaChapter.select(:manga_id).distinct.map(&:manga_id)
     @mangas = Manga.where id: manga_ids

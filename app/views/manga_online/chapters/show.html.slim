@@ -1,3 +1,9 @@
+- content_for :head do
+  = stylesheet_link_tag :ani_mangas
+  = stylesheet_link_tag 'manga_online/chapters/show'
+- content_for :tail do
+  = javascript_include_tag 'manga_online/chapters/show'
+
 header.head
   meta itemprop="name" content="#{{@manga.name}}"
     h1 title="#{h1_text @manga}"
@@ -13,13 +19,11 @@ header.head
   = render partial: 'blocks/breadcrumbs', object: {'Список манги' => '/', "#{@manga.name}" => "#{online_manga_show_url @chapter.manga.id}"}, formats: :html
 
 
-
 = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
 
 .image
   a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}"
-    img src="#{asset_path @page.image}"
+    img src="#{@page.image.url}"
 
 br
 = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
-br

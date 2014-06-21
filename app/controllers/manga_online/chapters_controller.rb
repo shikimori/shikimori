@@ -1,6 +1,4 @@
 class MangaOnline::ChaptersController < MangaOnlineController
-  layout 'manga_online'
-
   def show
     @chapter = MangaChapter.includes(:pages).find params[:id]
     @manga = @chapter.manga

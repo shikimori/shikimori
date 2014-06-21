@@ -1,3 +1,6 @@
+- content_for :head do
+  = stylesheet_link_tag :ani_manga
+
 header.head
   meta itemprop="name" content="#{{@manga.name}}"
     h1 title="#{h1_text @manga}"
