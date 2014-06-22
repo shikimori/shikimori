@@ -120,9 +120,9 @@ class AniMangaSeason
       ].map do |season|
         [season, catalog_to_s(season)]
       end + [
-        ["#{month.year - 2}_#{month.year-3}", "#{month.year - 2}-#{month.year-3}"],
-        ["#{month.year - 4}_#{month.year-8}", "#{month.year - 4}-#{month.year-8}"],
-        ["#{month.year - 9}_2000", "#{month.year - 9}-2000"],
+        ["#{month.year-3}_#{month.year - 2}", "#{month.year-3}-#{month.year - 2}"],
+        ["#{month.year-8}_#{month.year - 4}", "#{month.year-8}-#{month.year - 4}"],
+        ["2000_#{month.year - 9}", "2000-#{month.year - 9}"],
         ['199x', '90е годы'],
         ['198x', '80е годы'],
         ['ancient', 'более старые']
