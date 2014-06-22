@@ -189,6 +189,23 @@ describe AnimeOnline::AnimeVideosController do
         it { expect {report_request}.to change(AnimeVideoReport, :count).by 1 }
       end
     end
+
+    context :auto_accepted do
+      before do
+        sign_in user
+        report_request
+      end
+
+      context :simple_user do
+        let(:user) { create :user, id: 777 }
+        specify { AnimeVideoReport.first.should be_pending }
+      end
+
+      context :simple_user do
+        let(:user) { create :user, id: 1 }
+        specify { AnimeVideoReport.first.should be_accepted }
+      end
+    end
   end
 
   describe :extract_url do

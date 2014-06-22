@@ -90,6 +90,7 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
       anime_report.kind = params[:kind]
       anime_report.user_agent = request.user_agent
       anime_report.save
+      anime_report.accept!(user) if user.admin?
     end
     render nothing: true
   end
