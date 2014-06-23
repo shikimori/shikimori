@@ -424,8 +424,7 @@ describe AniMangaQuery do
     end
 
     describe :with_video do
-      let!(:anime_1) { create :anime, kind: 'TV' }
-      let!(:anime_video_1) { create :anime_video, anime: anime_1 }
+      let!(:anime_1) { create :anime, :with_viedo, kind: 'TV' }
       let!(:anime_2) { create :anime, kind: 'TV' }
       let!(:anime_3) { create :anime, kind: 'TV' }
 

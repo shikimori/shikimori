@@ -13,7 +13,8 @@ Site::Application.routes.draw do
   end
 
   constraints AnimeOnlineDomain do
-    get '/', to: 'anime_online/anime_videos#index'
+    get '/', to: 'anime_online/dashboard#show'
+    #get '/', to: 'anime_online/anime_videos#index'
     get "animes#{ani_manga_format}" => "ani_mangas_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
     namespace :anime_online do
@@ -38,6 +39,7 @@ Site::Application.routes.draw do
     delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
     get 'pingmedia/google' => 'anime_online/pingmedia#google'
     get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
+
     get 'robots.txt' => 'robots#anime_online'
   end
 

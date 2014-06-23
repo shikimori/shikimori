@@ -21,27 +21,22 @@
         .input
           input value="#{SearchHelper.unescape params[:search]}"
           .suggest-placeholder
-        ul.popup
-          - if user_signed_in? && current_user.preferences.manga_first?
-            - unless anime_online?
+        - if shikimori?
+          ul.popup
+            - if user_signed_in? && current_user.preferences.manga_first?
               li.type data-type="mangas" Манга
-
-            - unless manga_online?
               li.type data-type="animes" Аниме
 
-          - else
-            - unless manga_online?
+            - else
               li.type data-type="animes" Аниме
-
-            - unless anime_online?
               li.type data-type="mangas" Манга
 
-          li.type data-type="characters" Персонажи
-          li.type data-type="seyu" Сэйю
-          li.type data-type="producer" Режиссёры
-          li.type data-type="mangaka" Мангаки
-          li.type data-type="people" Люди
-          li.type data-type="users" Пользователи
+            li.type data-type="characters" Персонажи
+            li.type data-type="seyu" Сэйю
+            li.type data-type="producer" Режиссёры
+            li.type data-type="mangaka" Мангаки
+            li.type data-type="people" Люди
+            li.type data-type="users" Пользователи
 
     .menu.menu-items
       = render partial: "application/top_menu/#{domain_folder}"

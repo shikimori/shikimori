@@ -20,8 +20,7 @@
 
                 = render 'anime_online/blocks/info', anime: anime
                 .date = anime.last_date.strftime '%d.%m.%Y'
-    .row
-      = will_paginate @anime_ids, renderer: BootstrapPagination::Rails
+
     .menu_right
       - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
         .ads_container = render partial: 'anime_online/blocks/ads_240x400'

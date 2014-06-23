@@ -1,0 +1,21 @@
+img src="#{anime.image.url(defined?(shortened) && shortened ? :short : :preview)}" alt="#{localized_name anime}" title="#{localized_name anime}"
+
+- if cover_by == :link
+  span.title itemprop="name"
+    = localized_name anime
+
+- else
+  a.title href="#{send "#{anime.class.name.downcase}_url", anime}" title="#{localized_name anime}" itemprop="url"
+    = localized_name anime
+
+- if alter && anime.aired_on
+  .misc.alter
+    span
+      == anime.real_studios.map(&:name).join(',</span><span>')
+
+- else
+  .misc
+    span.year
+      = anime.year
+    - if anime.kind.present?
+      = localized_kind anime, true

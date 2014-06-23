@@ -1,24 +1,25 @@
-$(document).on 'mouseover', '.entry-block', ->
+$(document).on 'mouseover', '.b-catalog-entry', ->
   $node = $(@)
   return if $node.hasClass 'entry-ignored'
 
   if $node.data 'ignore_augmented'
     $node.data('ignore_button').show()
   else
-    $button = $('<span class="image-delete mark-ignored" title="Больше не рекомендовать эту франшизу"></span>').appendTo($node.children('a'))
+    $button = $('<span class="image-delete mark-ignored" title="Больше не рекомендовать эту франшизу"></span>')
+      .appendTo($node.children('a'))
     $node.data
       ignore_augmented: true
       ignore_button: $button
 
-$(document).on 'mouseout', '.entry-block', ->
+$(document).on 'mouseout', '.b-catalog-entry', ->
   $button = $(@).data('ignore_button')
   $button.hide() if $button
 
 $(document).on 'click', '.entry-ignored', (e) ->
   false unless in_new_tab(e)
 
-$(document).on 'click', '.entry-block .mark-ignored', ->
-  $node = $(@).closest '.entry-block'
+$(document).on 'click', '.b-catalog-entry .mark-ignored', ->
+  $node = $(@).closest '.b-catalog-entry'
   $link = $node.find('a')
 
   if $link.attr('href').match /(anime|manga)s\/(\d+)/

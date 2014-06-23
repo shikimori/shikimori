@@ -12,7 +12,7 @@ header.head.ajaxable
 
 = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
 
-.animes class="#{cookies.include?('OldCatalog') ? 'old' : 'new'}" data-entries-per-page="#{entries_per_page}"
+.animes data-entries-per-page="#{entries_per_page}"
   .left-column-wrap
     .right-column-wrap
       .left-column

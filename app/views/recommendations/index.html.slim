@@ -63,7 +63,7 @@ header.head.misc
         .right-column
           section.ajax#ajax
             - if @rankings
-              = render partial: 'ani_mangas_collection/entry', collection: @entries
+              = render partial: 'animes/anime', collection: @entries, locals: { cover_by: :link, content_by: :tooltip }
               - if @next_page.present?
                 = render partial: 'blocks/postloader', locals: { url: nil, filter: nil }
             - else

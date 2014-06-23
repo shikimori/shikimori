@@ -5,7 +5,7 @@
   = javascript_include_tag :ani_mangas
 
 .animes
-  = render partial: 'ani_mangas_collection/entry', collection: @mangas, formats: :html
+  = render partial: 'animes/anime', collection: @mangas, formats: :html
 
 .bottom-pages.clearfix
   = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }

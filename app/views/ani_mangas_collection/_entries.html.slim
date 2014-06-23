@@ -1,13 +1,18 @@
+/ специальная вёрстка отображения отдельного сезона: каталог разбит на куски по kind, каждый кусок отображается с заголовков
 - if @render_by_kind
   - kinds_with_colors.each do |data|
     - next unless @entries[data[:kind]]
-    .headline class="#{data[:color]}" = t("Anime.Plural.#{data[:kind]}")
+
+    .headline class="#{data[:color]}"
+      = t "Anime.Plural.#{data[:kind]}"
+
     div
-      = render partial: 'ani_mangas_collection/entry', collection: @entries[data[:kind]], locals: { alter: true, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie') }, formats: :html
+      = render partial: 'animes/anime', collection: @entries[data[:kind]], locals: { cover_by: :link, content_by: :tooltip, alter: true, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie') }, formats: :html
     .clearfix
 
 - else
-  = render partial: 'ani_mangas_collection/entry', collection: @entries, formats: :html
+  = render partial: 'animes/anime', collection: @entries, locals: { cover_by: (json? || user_signed_in?) ? :link : :linkeable, content_by: :tooltip }, formats: :html
+
   - if !user_signed_in? || current_user.preferences.postload_in_catalog
     - if @next_page.present?
       = render partial: 'blocks/postloader', locals: { url: nil, filter: nil }, formats: :html

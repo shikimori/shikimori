@@ -17,12 +17,12 @@ $ ->
   $.hideCursorMessage()
 
   # показ тултипов результатов
-  $('.results .entry-block > .uninitialized-tooltip')
+  $('.results .b-catalog-entry > .uninitialized-tooltip')
       .tooltip(ANIME_TOOLTIP_OPTIONS)
       .removeClass('uninitialized-tooltip')
-  $('.entry-block > a').each ->
+  $('.b-catalog-entry > a').each ->
     $(@).data('no-align', true).tooltip().onBeforeShow().show()
-  $('.entry-block > a').off 'mouseenter mouseleave'
+  $('.b-catalog-entry > a').off 'mouseenter mouseleave'
 
 # голосование загружено
 $(document.body).on 'ajax:success', '.match-container', (e) ->

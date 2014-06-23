@@ -48,18 +48,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # каталог текущего домена
-  def domain_folder
-    if shikimori?
-      'shikimori'
-    elsif anime_online?
-      'anime_online'
-    elsif manga_online?
-      'manga_online'
-    else
-      raise ArgumentError, 'unknown domain'
-    end
-  end
   # находимся ли сейчас на домене шикимори?
   def shikimori?
     ShikimoriDomain::HOSTS.include? request.host
@@ -77,6 +65,19 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @decorated_current_user ||= super.try :decorate
+  end
+
+  # каталог текущего домена
+  def domain_folder
+    if shikimori?
+      'shikimori'
+    elsif anime_online?
+      'anime_online'
+    elsif manga_online?
+      'manga_online'
+    else
+      raise ArgumentError, 'unknown domain'
+    end
   end
 
 private
