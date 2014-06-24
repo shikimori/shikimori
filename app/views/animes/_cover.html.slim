@@ -10,14 +10,18 @@ span.image-decor
   a.title href="#{send "#{anime.class.name.downcase}_url", anime}" title="#{localized_name anime}" itemprop="url"
     = localized_name anime
 
-- if alter && anime.aired_on
-  .misc.alter
-    span
-      == anime.real_studios.map(&:name).join(',</span><span>')
+- if cover_notice == :studio
+  - if anime.real_studios.any?
+    .misc.studio
+      span
+        = anime.real_studios.first.name
 
-- else
+- elsif cover_notice == :year_kind
   .misc
     span.year
       = anime.year
+
     - if anime.kind.present?
       = localized_kind anime, true
+- else
+  - 1/0
