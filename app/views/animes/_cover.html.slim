@@ -10,18 +10,27 @@ span.image-decor
   a.title href="#{send "#{anime.class.name.downcase}_url", anime}" title="#{localized_name anime}" itemprop="url"
     = localized_name anime
 
-- if cover_notice == :studio
-  - if anime.real_studios.any?
-    .misc.studio
-      span
-        = anime.real_studios.first.name
+.misc
+  - if cover_notice == :studio
+    - if anime.real_studios.any?
+      span.studio = anime.real_studios.first.name
 
-- elsif cover_notice == :year_kind
-  .misc
-    span.year
-      = anime.year
+  - elsif cover_notice == :year_kind
+    span.right = anime.year
 
     - if anime.kind.present?
-      = localized_kind anime, true
-- else
-  - 1/0
+      span = localized_kind anime, true
+
+  - elsif cover_notice == :next_episode
+    - if time_of_next_episode(anime) != '00:00'
+      span.right = time_of_next_episode anime
+
+    - if (anime.next_episode || 1) == 1
+      span.anons анонс
+    - elsif anime.next_episode == anime.episodes
+      span.release релиз
+    - else
+      span #{anime.next_episode || 1} эпизод
+
+  - else
+    - raise ArgumentError, cover_notice

@@ -20,23 +20,7 @@
         = k == -1 ? "Уже должно было выйти" : date_title_for_ongoing(k)
       .collapsed.tiny ...
       .subcontent
-        = render partial: 'animes/anime', collection: group, locals: { cover_by: :link, content_by: :tooltip }, formats: :html
-        /- group.each do |anime|
-          .ongoing class="#{:in_list if anime.in_list}"
-            = ani_manga_link anime do
-              img src="#{anime.image.url :preview}" alt="#{localized_name anime}" title="#{localized_name anime}"
-              span.title
-                = localized_name anime
-              - if time_of_next_episode(anime) != '00:00'
-                span.misc.time = time_of_next_episode anime
-              span.misc
-                - if (anime.next_episode || 1) == 1
-                  span.anons анонс
-                - elsif anime.next_episode == anime.episodes
-                  span.release релиз
-                - else
-                  = anime.next_episode || 1
-                  |  эпизод
+        = render partial: 'animes/anime', collection: group, locals: { cover_by: :link, cover_notice: :next_episode, content_by: :tooltip }, formats: :html
       .clearfix
 
   .forum-container

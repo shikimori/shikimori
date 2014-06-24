@@ -5,12 +5,16 @@ article.b-catalog-entry(class="entry-#{anime.id} #{:tooltipped if content_by == 
   - if cover_by == :link
     a.cover class="#{'uninitialized-tooltip' if content_by == :tooltip}" href="#{url_for anime}" data-local-tooltip="true"
       = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_by: cover_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil }, formats: :html
-  - else
+  - elsif cover_by == :linkeable
     .cover.linkeable class="#{'uninitialized-tooltip' if content_by == :tooltip}" data-local-tooltip="true" data-href="#{url_for anime}" data-title="#{anime.name}"
       = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_by: cover_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil }, formats: :html
+  - else
+    - raise ArgumentError, cover_by
 
   .content
     - if content_by == :tooltip
       = render partial: 'blocks/tooltip', locals: { template_name: 'animes/content', objects: { anime: anime } }, formats: :html
-    - else
+    - elsif content_by == :block
       = render partial: 'animes/content', object: anime, as: :anime, formats: :html
+    - else
+      - raise ArgumentError, content_by

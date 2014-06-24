@@ -13,5 +13,6 @@ article.b-catalog-entry(class="entry-#{character.id} #{:tooltipped if content_by
   .content
     - if content_by == :tooltip
       = render partial: 'blocks/tooltip', locals: { template_name: 'characters/content', objects: { character: character } }, formats: :html
-    - else
+    - elsif content_by == :block
       = render partial: 'characters/content', object: character, as: :character, formats: :html
+    - else raise ArgumentError, content_by
