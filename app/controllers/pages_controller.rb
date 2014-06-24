@@ -14,10 +14,10 @@ class PagesController < ShikimoriController
   end
 
   # график онгоингов
-  def calendar
+  def ongoings
     @page_title = 'Календарь онгоингов'
 
-    @calendars = OngoingsQuery.new.fetch_grouped
+    @ongoings = OngoingsQuery.new.fetch_grouped
     @topic = TopicPresenter.new(
       object: Topic.find(94879),
       template: view_context,

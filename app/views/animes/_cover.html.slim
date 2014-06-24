@@ -1,4 +1,6 @@
-img src="#{anime.image.url(defined?(shortened) && shortened ? :short : :preview)}" alt="#{localized_name anime}" title="#{localized_name anime}"
+span.image-decor
+  span.image-cutter
+    img src="#{anime.image.url(defined?(shortened) && shortened ? :short : :preview)}" alt="#{localized_name anime}" title="#{localized_name anime}"
 
 - if cover_by == :link
   span.title itemprop="name"

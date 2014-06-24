@@ -259,7 +259,7 @@ Site::Application.routes.draw do
     get 'user_agreement' => 'pages#user_agreement'
     get 'user_agent' => 'pages#user_agent'
     get 'redisign' => 'pages#redisign'
-    get 'ongoings' => 'pages#calendar'
+    get 'ongoings' => 'pages#ongoings'
     get 'about' => 'pages#about'
     get 'page404' => 'pages#page404'
     get 'page503' => 'pages#page503'

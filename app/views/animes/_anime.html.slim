@@ -1,16 +1,16 @@
-article.b-catalog-entry(class="entry-#{anime.id} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}" itemscope itemtype="#{{anime.itemtype}}")
+article.b-catalog-entry(class="entry-#{anime.id} #{:tooltipped if content_by == :tooltip} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}" itemscope itemtype="#{{anime.itemtype}}")
   meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url anime.image, :x64, false}}"
 
   - if cover_by == :link
-    a.cover.uninitialized-tooltip href="#{url_for anime}" data-local-tooltip="true"
-      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_by: cover_by, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil, with_link: defined?(with_link) && with_link ? with_link : nil }, formats: :html
+    a.cover class="#{'uninitialized-tooltip' if content_by == :tooltip}" href="#{url_for anime}" data-local-tooltip="true"
+      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_by: cover_by, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil }, formats: :html
   - else
-    .cover.uninitialized-tooltip.linkeable data-local-tooltip="true" data-href="#{url_for anime}" data-title="#{anime.name}"
-      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_by: cover_by, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil, with_link: defined?(with_link) && with_link ? with_link : nil }, formats: :html
+    .cover.linkeable class="#{'uninitialized-tooltip' if content_by == :tooltip}" data-local-tooltip="true" data-href="#{url_for anime}" data-title="#{anime.name}"
+      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_by: cover_by, shortened: defined?(shortened) ? shortened : nil, alter: defined?(alter) && alter ? alter : nil }, formats: :html
 
-  .content id="entry-#{anime.id}-tooltip"
+  .content
     - if content_by == :tooltip
       = render partial: 'blocks/tooltip', locals: { template_name: 'animes/content', objects: { anime: anime } }, formats: :html
     - else
-      = render partial: 'animes/content', object: anime, as: :anime
+      = render partial: 'animes/content', object: anime, as: :anime, formats: :html

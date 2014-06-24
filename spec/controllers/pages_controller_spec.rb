@@ -9,12 +9,12 @@ describe PagesController do
     it { should respond_with_content_type :html }
   end
 
-  describe 'calendar' do
+  describe 'ongoings' do
     before do
       create :ongoing_anime
       create :anons_anime
       create :topic, :with_section, id: 94879
-      get :calendar
+      get :ongoings
     end
 
     it { should respond_with :success }
@@ -23,7 +23,7 @@ describe PagesController do
     describe 'signed_in user' do
       before do
         sign_in user
-        get :calendar
+        get :ongoings
       end
 
       it { should respond_with :success }

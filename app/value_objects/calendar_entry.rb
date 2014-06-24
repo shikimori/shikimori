@@ -7,10 +7,10 @@ class CalendarEntry < SimpleDelegator
   end
 
   def average_interval
-    @average_interval ||= if @anime.episodes_aired.zero?
+    @average_interval ||= if anime.episodes_aired.zero?
       0
     else
-      @anime.episodes_news.size < 2 ? 7.days : episode_average_interval
+      anime.episodes_news.size < 2 ? 7.days : episode_average_interval
     end
   end
 
@@ -31,10 +31,10 @@ class CalendarEntry < SimpleDelegator
   end
 
   def next_episode_at
-    if @anime.next_episode_at.blank? && episode_start_at.present?
+    if anime.next_episode_at.blank? && episode_start_at.present?
       episode_start_at
     else
-      @anime.aired_on.to_datetime
+      anime.aired_on.to_datetime
     end
   end
 
@@ -44,6 +44,14 @@ class CalendarEntry < SimpleDelegator
 
   def episode_end_at
     @episode_end_at ||= episode_start_at + ((duration.zero? ? 26 : duration) + 5).minutes if anime_calendars.any?
+  end
+
+  # для совместимости с декорированными объектами
+  def decorated?
+    true
+  end
+  def object
+    anime
   end
 
 private

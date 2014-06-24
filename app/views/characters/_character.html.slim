@@ -1,12 +1,17 @@
-article.b-catalog-entry(class="entry-#{character.id}" itemscope itemtype="http://schema.org/Person")
+article.b-catalog-entry(class="entry-#{character.id} #{:tooltipped if content_by == :tooltip}" itemscope itemtype="http://schema.org/Person")
   meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url character.image, :x64, false}}"
 
-  a.cover.uninitialized-tooltip href="#{character_url character}" data-local-tooltip="true"
-    img src="#{character.image.url :original}" alt="#{localized_name character}" title="#{localized_name character}"
+  a.cover class="#{'uninitialized-tooltip' if content_by == :tooltip}" href="#{character_url character}" data-local-tooltip="true"
+    span.image-decor
+      span.image-cutter
+        img src="#{character.image.url :original}" alt="#{localized_name character}" title="#{localized_name character}"
 
     span.title itemprop="name"
       = localized_name character
 
-  .content id="entry-#{character.id}-tooltip"
-    = render partial: 'blocks/tooltip', locals: { template_name: 'characters/tooltip', objects: { character: character } }, formats: :html
+  .content
+    - if content_by == :tooltip
+      = render partial: 'blocks/tooltip', locals: { template_name: 'characters/content', objects: { character: character } }, formats: :html
+    - else
+      = render partial: 'characters/content', object: character, as: :character, formats: :html
