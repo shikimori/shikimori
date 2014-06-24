@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   helper_method :remote_addr
   helper_method :json?
   helper_method :domain_folder
+  helper_method :adaptivity_class
   helper_method :shikimori?
   helper_method :anime_online?
   helper_method :manga_online?
@@ -77,6 +78,14 @@ class ApplicationController < ActionController::Base
       'manga_online'
     else
       raise ArgumentError, 'unknown domain'
+    end
+  end
+
+  def adaptivity_class
+    if controller_name == 'topics'# || (controller_name == 'pages' && params[:action] == 'ongoings')
+      :adaptive
+    else
+      :static
     end
   end
 

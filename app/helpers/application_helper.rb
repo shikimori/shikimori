@@ -2,7 +2,7 @@ require 'digest/md5'
 
 module ApplicationHelper
   def title page_title
-    content_for(:title, page_title)
+    content_for :title, page_title
   end
 
   def attachment_url file, style = :original, with_timestamp = true
@@ -32,27 +32,27 @@ module ApplicationHelper
   end
 
   # удаление спойлеров и дополнений в скобочках в из текста
-  def remove_misc_data(text)
+  def remove_misc_data text
     text
       .gsub(/\[spoiler\][\s\S]*?\[\/spoiler\]|\]\]|\[\[|\([\s\S]*?\)|\[[\s\S]*?\]/, '')
       .gsub(/<(?!br).*?>/, '')
       .gsub(/<br *\/?>/, '')
   end
 
-  def sitelink(url)
+  def sitelink url
     Rails.logger.warn 'sitelink call is deprecated'
     link_to url.gsub(/^http:\/\/|www\.|\/$/, ''), url, :rel => :nofollow
   end
 
-  def connected_providers_for(user)
+  def connected_providers_for user
     user.user_tokens.collect{|v| v.provider.to_sym }
   end
 
-  def unconnected_providers_for(user)
+  def unconnected_providers_for user
     User.omniauth_providers.select {|v| v != :google_apps && v != :yandex } - user.user_tokens.collect {|v| v.provider.to_sym }
   end
 
-  def format_rss_urls(text)
+  def format_rss_urls text
     text.gsub('href="/', 'href="http://shikimori.org/').gsub('src="/', 'src="http://shikimori.org/')
   end
 
@@ -61,7 +61,7 @@ module ApplicationHelper
     cookies[RecommendationsController::CookieName] == Manga.name.downcase
   end
 
-  def time_ago_in_words(date, format_string=nil, original=false)
+  def time_ago_in_words date, format_string=nil, original=false
     if original || date + 1.day > DateTime.now
       format_string ? format_string % super(date) : super(date)
     else
@@ -70,11 +70,11 @@ module ApplicationHelper
   end
 
   # костыли для совместимости старого Devise с Rails 3.2
-  def password_path(resource_name)
+  def password_path resource_name
     user_password_path
   end
 
-  def new_session_path(resource_name)
+  def new_session_path resource_name
     new_user_session_path
   end
 
