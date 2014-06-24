@@ -1,7 +1,7 @@
 @TOOLTIP_TEMPLATE = '<div><div class="tooltip-inner"><div class="tooltip-arrow"></div><div class="clearfix"><div class="close"></div><a class="link"></a><div class="tooltip-details"><div class="ajax-loading" title="Загрузка..." /></div></div><div class="dropshadow-top"></div><div class="dropshadow-top-right"></div><div class="dropshadow-right"></div><div class="dropshadow-bottom-right"></div><div class="dropshadow-bottom"></div><div class="dropshadow-bottom-left"></div><div class="dropshadow-left"></div><div class="dropshadow-top-left"></div></div></div>'
 @ANIME_TOOLTIP_OPTIONS =
   position: 'top right'
-  offset: [-4, 28, -10]
+  offset: [-4, 0, -10]
   relative: true
   predelay: 300
   delay: 50
