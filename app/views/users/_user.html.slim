@@ -1,5 +1,5 @@
 .b-user-block class="user-#{user.id}"
-  - if user.show_profile?
+  - if !defined?(without_history) && user.show_profile?
     .history
       - user.history.formatted.each do |entry|
         .line

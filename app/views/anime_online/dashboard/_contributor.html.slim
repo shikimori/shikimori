@@ -1,0 +1,8 @@
+.contributor
+  a href="#{user_url user}" title="#{user.nickname}"
+    .image-name
+      img src="#{user.avatar.url :x48}" alt="#{user.nickname}" title="#{user.nickname}"
+      span.title
+        = user.nickname
+    .misc.date
+      = user.last_online

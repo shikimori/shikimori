@@ -1,0 +1,44 @@
+@import mixins/menu-blocks
+@import mixins/comma_separated
+
+.p-dashboard
+  .page
+    padding-top: 20px
+
+
+  .l-content
+    .b-catalog-entry
+      border-top: 1px dashed #dddddd
+      padding-top: 10px
+
+      &:first-child
+        border-top: none
+        padding-top: 0
+
+  .l-menu
+    .ongoing
+      +menu-block-with-image
+
+      .key
+        color: $gray-color
+        padding-right: 5px
+
+      .genre
+        +comma_separated
+        padding-right: 5px
+
+    .contributor
+      +menu-block-with-image
+
+      img
+        height: 48px
+
+    .show-more
+      +link-color(#333333)
+      cursor: pointer
+      margin-left: 5px
+      margin-top: 2px
+      font-size: 11px
+
+    .more
+      display: none

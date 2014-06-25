@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe OngoingsQuery do
-  let(:query) { OngoingsQuery.new }
+describe CalendarsQuery do
+  let(:query) { CalendarsQuery.new }
 
   before do
     create :anime

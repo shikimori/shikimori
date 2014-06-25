@@ -1,33 +1,27 @@
-.animes.new
-  - @animes.each do |anime|
-    = render partial: 'animes/anime', object: anime, locals: { alter: true, with_link: true }, formats: :html
+.l-menu
+  - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
+    .ads_container
+      = render partial: 'anime_online/blocks/ads_240x400'
 
-    /.row.videos
-      /.previews
-        /- @anime_list.each do |anime|
-          /.item
-            /a href="#{anime_videos_show_url anime.id}"
-              /.cover
-                /img width="160" height="240" src="http://shikimori.org#{anime.image.url(:preview) }" alt="#{{anime.name}}"
-                /.title = (anime.russian || anime.name).html_safe
+  .menu-block
+    .midheadline.green.m15 Онгоинги сезона
+    .ongoings
+      = render partial: 'anime_online/dashboard/ongoing', collection: @ongoings[0..5], as: :anime
+      p.show-more + показать ещё
+      .more
+        = render partial: 'anime_online/dashboard/ongoing', collection: @ongoings[6..-1], as: :anime
 
-                /- if anime.last_date > DateTime.now.prev_week
-                  /.episode = anime.last_episode
+  .menu-block
+    .midheadline.magenta.m15 Топ участников
+    .contributors
+      = render partial: 'anime_online/dashboard/contributor', collection: @contributors[0..5], as: :user
+      p.show-more + показать ещё
+      .more
+        = render partial: 'anime_online/dashboard/contributor', collection: @contributors[6..-1], as: :user
 
-              /.info
-                /- if anime.name.size > 90
-                  /.title title="#{anime.name.html_safe}" = truncate anime.name.html_safe, length: 90
-                /- else
-                  /.title = anime.name.html_safe
-
-                /= render 'anime_online/blocks/info', anime: anime
-                /.date = anime.last_date.strftime '%d.%m.%Y'
-
-    /.menu_right
-      /- if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
-        /.ads_container = render partial: 'anime_online/blocks/ads_240x400'
-      /.top_uploaders
-        /= render partial: 'uploaders'
-
-  /- else
-    /.alert.alert-info.center Ничего не нашлось
+.l-content
+  .midheadline.blue.m12 Новые серии
+  .animes
+    - @recent_videos.each do |anime|
+      = render partial: 'animes/anime', object: anime, locals: { cover_by: :link, cover_notice: :studio, content_by: :block }, formats: :html
+  .clearfix

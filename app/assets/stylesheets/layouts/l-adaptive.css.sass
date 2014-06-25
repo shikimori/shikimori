@@ -1,7 +1,7 @@
 @import globals
 @import susy
 
-.adaptive
+.l-adaptive
   $total-columns: 12
   $column-width: 54px
   $gutter-width: 30px
@@ -11,10 +11,10 @@
     // main layout
     +container
 
-    .menu-right
+    .l-menu
       +span-columns(3 omega, $total-columns)
 
-    .forum-block
+    .l-content
       +span-columns(9 alpha, $total-columns)
       float: none
 
@@ -27,10 +27,10 @@
     +at-breakpoint(0px $total-columns $tablets-break)
       +container($total-columns)
       // layout
-      .menu-right
+      .l-menu
         display: none
 
-      .forum-block
+      .l-content
         +span-columns($total-columns)
 
       .forum-nav

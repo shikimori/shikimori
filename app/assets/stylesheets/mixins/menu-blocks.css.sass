@@ -1,0 +1,115 @@
+@import globals
+
+// второстепенный текст в меню
+=menu-block-misc-text
+  +ellipsis
+  +clearfix
+  color: $gray-color-2 !important
+  display: block
+  font-size: 11px
+  line-height: 19px
+
+  &.date
+    color: $date-color !important
+
+// дефолтный блок меню с картинкой и текстом
+=menu-block-with-image
+  +clearfix
+  border-top: 1px dashed #DDD
+  padding-top: 7px
+  margin-bottom: 4px
+
+  &:first-child
+    border-top: none
+    margin-top: -5px
+    padding-top: 0
+  a
+    +link-color(#444444)
+
+  img
+    float: left
+    margin: 2px 10px 5px 2px
+    height: 52px
+
+  .anons
+    color: #307A3D
+
+  .release
+    color: #ca4929
+
+  .anons, .release, .ongoing
+    display: inline
+    padding-left: 5px
+    padding-right: 1px
+
+  .anons:first-child, .release:first-child, .ongoing:first-child
+    padding-left: 0
+
+  .title
+    +ellipsis
+    color: #123
+    display: block
+    font-weight: bold
+    font-size: 14px
+
+  .misc
+    +menu-block-misc-text
+
+// блок в меню с текстом и ссылкой
+=menu-block-with-text-link
+  +clearfix
+  padding: 1px 3px 0 5px
+  border-top: 1px dashed #DDD
+  padding-top: 5px
+  margin-top: 2px
+
+  &:first-child
+    border-top: none
+    padding-top: 0
+    margin-top: 0
+
+  &:hover a.url
+    color: $hover-color
+
+    &:after
+      color: $hover-color
+
+  &:active a.url
+    color: $active-color
+
+    &:after
+      color: $active-color
+
+  a.url
+    +link-color(#123)
+    display: block
+    font-size: 14px
+    font-weight: bold
+
+    &:after
+      color: $gray-color
+      content: "\e81c"
+      cursor: pointer
+      float: right
+      font-family: "shikimori"
+      line-height: 24px
+
+    &:hover
+      color: $hover-color
+
+      &:after
+        color: $hover-color
+
+    &:active
+      color: $active-color
+
+      &:after
+        color: $active-color
+
+  p
+    font-size: 11px
+    margin-top: -2px
+    color: $gray-color
+
+  .misc
+    +menu-block-misc-text

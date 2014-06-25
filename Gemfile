@@ -8,14 +8,18 @@ gem 'pg'
 gem 'dalli'
 gem 'redis'
 
-gem 'therubyracer'
 gem 'libv8', '3.16.14.7' # нужно после перехода на yosemite
+#gem 'sprockets-rails'
+#gem "sprockets", "~> 2.11.0"
+#gem "compass", "~> 1.0.0.alpha.19"
 
-gem 'sprockets'
-gem 'sass-rails'
 gem 'slim-rails'
-gem 'susy', '1.0.8'
+gem 'sass-rails'
+#gem 'sass', '3.3.8'
 gem 'coffee-rails'
+gem 'compass-rails' # TODO: после 01-08-2014 ждать релиза compass 1.0 (https://github.com/Compass/compass/releases)
+gem 'susy'#, '2.1.2' # TODO: после 01-08-2014 попробовать обновить susy до второй версии
+
 gem 'uglifier'
 gem 'compass-rails'
 gem 'non-stupid-digest-assets'

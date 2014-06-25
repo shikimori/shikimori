@@ -1,4 +1,4 @@
-class OngoingsQuery
+class CalendarsQuery
   # список онгоингов, сгруппированный по времени выхода
   def fetch_grouped
     group fetch

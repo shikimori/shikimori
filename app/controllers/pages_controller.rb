@@ -17,7 +17,7 @@ class PagesController < ShikimoriController
   def ongoings
     @page_title = 'Календарь онгоингов'
 
-    @ongoings = OngoingsQuery.new.fetch_grouped
+    @ongoings = CalendarsQuery.new.fetch_grouped
     @topic = TopicPresenter.new(
       object: Topic.find(94879),
       template: view_context,

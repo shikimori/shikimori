@@ -6,22 +6,21 @@
       .welcome-gallery-loader data-remote="#{welcome_gallery_url}"
         .ajax-loading title="Загрузка..."
 
-  aside.menu-right.ajax-opacity
-    .menu-blocks
-      .local-menu-block
-        - if @linked
-          - content_for :local_menu_block do
-            = render partial: 'topics/linked_block', object: @linked_presenter, as: :linked, formats: :html
-        = yield :local_menu_block
+  aside.l-menu.ajax-opacity
+    .local-menu-block
+      - if @linked
+        - content_for :local_menu_block do
+          = render partial: 'topics/linked_block', object: @linked_presenter, as: :linked, formats: :html
+      = yield :local_menu_block
 
-      .site-menu-block data-remote="#{forum_site_block_url section: params[:section]}"
-        - if user_signed_in?
-          = render partial: 'forum/site_block', locals: { presenter: @news }, formats: :html
-        - else
-          .ajax-loading.top title="Загрузка..."
-        = yield :site_menu_block
+    .site-menu-block data-remote="#{forum_site_block_url section: params[:section]}"
+      - if user_signed_in?
+        = render partial: 'forum/site_block', locals: { presenter: @news }, formats: :html
+      - else
+        .ajax-loading.top title="Загрузка..."
+      = yield :site_menu_block
 
-  .forum-block
+  .l-content
     = render partial: 'forum/navigation', formats: :html
 
     section.forum-container.ajax data-ignore-comment-added="true" data-action="#{params[:action]}"

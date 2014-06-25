@@ -6,6 +6,6 @@ class AnimeVideoReportsQuery
       .group(:user_id)
       .order('videos desc')
       .limit(20)
-      .collect(&:user)
+      .map(&:user)
   end
 end

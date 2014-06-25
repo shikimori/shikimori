@@ -1,4 +1,4 @@
-GIT
+t rjGIT
   remote: git://github.com/flori/amatch.git
   revision: 81db493aa8fa007b6d384e75960212ea1637412e
   specs:
@@ -510,14 +510,11 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
-    susy (1.0.8)
+    susy (1.0.9)
       compass (>= 0.12.2)
       sass (>= 3.2.0)
     systemu (2.6.4)
     temple (0.6.7)
-    therubyracer (0.12.1)
-      libv8 (~> 3.16.14.0)
-      ref
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -657,10 +654,8 @@ DEPENDENCIES
   slim-rails
   spork!
   spring
-  sprockets
   state_machine
-  susy (= 1.0.8)
-  therubyracer
+  susy
   thin
   timecop
   truncate_html

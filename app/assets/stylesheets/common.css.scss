@@ -5,9 +5,11 @@
 = require ./layouts/layout
 = require ./layouts/footer
 = require ./layouts/screen
-= require ./layouts/adaptive
-= require ./layouts/static
+= require ./layouts/l-adaptive
+= require ./layouts/l-static
 = require_directory ./layouts/top_menu
 = require_tree ./blocks
 = require_tree ./lib
+
+= require pages/p-topics
 */

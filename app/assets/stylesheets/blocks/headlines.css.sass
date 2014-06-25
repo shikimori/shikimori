@@ -1,0 +1,98 @@
+@import globals
+
+header.head
+  margin-bottom: 15px
+
+  h1, h2
+    +new-header-font
+
+  .notice
+    line-height: 17px
+    color: #333
+    margin: 2px 0 2px 1px
+    clear: left
+
+  a.link
+    +normal-link
+
+  &.misc
+    h1, h2
+      float: left
+      margin-bottom: 2px
+
+    .misc
+      color: $gray-color
+      display: inline-block
+      font-size: 11px
+      line-height: 12px
+      padding: 17px 0 0 10px
+
+    a.misc
+      +normal-link
+      text-decoration: underline
+
+.headline
+  +transition(color, 0.2s)
+  background: darken(#ebeef1, 1%)
+  border-left: 5px solid darken(#dbe0e6, 1%)
+  color: #123
+  font-size: 18px
+  line-height: $line-height
+  font-weight: bold
+  margin-bottom: 5px
+  padding: 4px 10px 2px
+  text-transform: uppercase
+
+  a
+    +transition(color, 0.2s)
+    color: #123
+    display: block
+    text-decoration: none
+
+    &:after
+      +transition(color, 0.2s)
+      color: $gray-color
+      content: "\e81c"
+      display: block
+      float: right
+      font-family: "shikimori"
+      line-height: 17px
+
+    &:hover
+      color: $hover-color
+
+      &:after
+        color: $hover-color
+
+    &:active
+      color: $active-color
+
+      &:after
+        color: $active-color
+
+.midheadline
+  @extend .headline
+  font-size: 16px
+  padding-top: 3px
+  padding-bottom: 2px
+
+.subheadline
+  @extend .headline
+  font-size: 14px
+  line-height: 14px
+  padding: 6px 10px 4px 8px
+  margin-bottom: 5px
+
+// инпунт с правого края заголовка
+.subheadline-input
+  float: right
+  font-size: 12px
+  height: 16px
+  line-height: 17px
+  margin-right: 2px !important
+  margin-top: 2px !important
+  width: 155px !important
+
+.subcontent
+  padding-left: 5px
+  margin-bottom: 30px

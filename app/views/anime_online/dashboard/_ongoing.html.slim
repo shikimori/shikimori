@@ -1,0 +1,13 @@
+.ongoing
+  a href="#{anime_url anime}" title="#{{localized_name anime}}"
+    .image-name
+      img src="#{anime.image.url :x64}" alt="#{{localized_name anime}}" title="#{{localized_name anime}}"
+      span.title
+        == localized_name anime
+    .misc
+      = render partial: 'ani_mangas/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }
+    .misc
+      span.key Жанры:
+      - anime.main_genres.each do |genre|
+        span.genre
+          = localized_name genre

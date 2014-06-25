@@ -1,7 +1,7 @@
 DOCTYPE html
 html
   = render partial: 'application/head'
-  body class="#{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{adaptivity_class}" style="#{body_background}"
+  body class="p-#{controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{adaptivity_class}" style="#{body_background}"
     - if defined?(notice) && notice
       p.flash-notice
         == notice

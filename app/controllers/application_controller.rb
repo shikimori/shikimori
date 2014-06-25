@@ -82,10 +82,10 @@ class ApplicationController < ActionController::Base
   end
 
   def adaptivity_class
-    if controller_name == 'topics'# || (controller_name == 'pages' && params[:action] == 'ongoings')
-      :adaptive
+    if controller_name == 'topics' || anime_online? || manga_online? # || (controller_name == 'pages' && params[:action] == 'ongoings')
+      'l-adaptive'
     else
-      :static
+      'l-static'
     end
   end
 
