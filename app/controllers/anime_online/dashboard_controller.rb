@@ -12,9 +12,12 @@ class AnimeOnline::DashboardController < AnimeOnlineController
       .includes(:genres)
       .ongoing
       .where(kind: 'TV', censored: false)
+      .where.not(rating: 'G - All Ages')
       .order(score: :desc)
-      .limit(12)
+      .limit(15)
 
-    @contributors = AnimeVideoReportsQuery.top_uploaders.map(&:decorate).take(12)
+    @contributors = AnimeVideoReportsQuery.top_uploaders.map(&:decorate).take(15)
+    @seasons = AniMangaSeason.menu_seasons
+    @seasons.delete_at(2)
   end
 end

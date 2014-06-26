@@ -23,13 +23,23 @@
     border-top: none
     margin-top: -5px
     padding-top: 0
-  a
-    +link-color(#444444)
+
+  &:hover .title
+    text-decoration: underline
+
+  //a
+    +normal-link
 
   img
     float: left
     margin: 2px 10px 5px 2px
     height: 52px
+
+  .title
+    +ellipsis
+    display: block
+    font-weight: bold
+    font-size: 14px
 
   .anons
     color: #307A3D
@@ -45,13 +55,6 @@
   .anons:first-child, .release:first-child, .ongoing:first-child
     padding-left: 0
 
-  .title
-    +ellipsis
-    color: #123
-    display: block
-    font-weight: bold
-    font-size: 14px
-
   .misc
     +menu-block-misc-text
 
@@ -62,26 +65,29 @@
   border-top: 1px dashed #DDD
   padding-top: 5px
   margin-top: 2px
+  display: block
 
   &:first-child
     border-top: none
     padding-top: 0
     margin-top: 0
 
-  &:hover a.url
+  &:hover .title
     color: $hover-color
+    text-decoration: underline
 
     &:after
       color: $hover-color
 
-  &:active a.url
+  &:active .title
     color: $active-color
 
     &:after
       color: $active-color
 
-  a.url
-    +link-color(#123)
+  .title
+    +ellipsis
+    //+normal-link
     display: block
     font-size: 14px
     font-weight: bold
@@ -106,10 +112,19 @@
       &:after
         color: $active-color
 
-  p
+  .notice
+    +ellipsis
+    color: $gray-color
+    display: block
     font-size: 11px
     margin-top: -2px
-    color: $gray-color
 
   .misc
     +menu-block-misc-text
+
+=menu-block-show-more
+  +link-color(#333333)
+  cursor: pointer
+  margin-left: 5px
+  margin-top: 2px
+  font-size: 11px
