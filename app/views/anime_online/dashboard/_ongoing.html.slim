@@ -7,7 +7,7 @@
     .misc
       = render partial: 'ani_mangas/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }
     .misc
-      span.key Жанры:
+      span.key Жанры:&nbsp;
       - anime.main_genres.each do |genre|
         span.genre
           = localized_name genre

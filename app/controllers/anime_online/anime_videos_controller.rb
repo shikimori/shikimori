@@ -5,21 +5,6 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
   before_filter :authenticate_user!, only: [:destroy, :rate, :viewed]
   after_filter :save_preferences, only: :show
 
-  def index
-    anime_query = AnimeVideosQuery.new AnimeOnlineDomain::adult_host?(request), params
-    @anime_ids = anime_query.search.order.page.fetch_ids
-    @anime_list = AnimeVideoDecorator.decorate_collection anime_query.search.order.page.fetch_entries
-  end
-
-  def search
-    search = params[:search].to_s.strip
-    if search.blank?
-      redirect_to root_url
-    else
-      redirect_to anime_videos_url search: params[:search], page: 1
-    end
-  end
-
   def show
     unless params[:search].blank?
       redirect_to anime_videos_url search: params[:search]

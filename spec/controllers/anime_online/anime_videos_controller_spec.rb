@@ -73,34 +73,6 @@ describe AnimeOnline::AnimeVideosController do
     end
   end
 
-  describe :index do
-    context :admin do
-      before { sign_in admin_user }
-      before { get :index }
-      it { should respond_with_content_type :html }
-      it { should respond_with :success }
-    end
-
-    context :user do
-      before { sign_in user }
-      before { get :index }
-      it { should respond_with_content_type :html }
-      it { should respond_with :success }
-    end
-
-    context :guest do
-      before { get :index }
-      it { should respond_with_content_type :html }
-      it { should respond_with :success }
-    end
-  end
-
-  describe :search do
-    before { post :search, search: 'test' }
-    it { should respond_with_content_type :html }
-    it { response.should be_redirect }
-  end
-
   describe :new do
     context :can_new do
       let(:anime) { create :anime }

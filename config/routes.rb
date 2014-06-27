@@ -31,10 +31,8 @@ Site::Application.routes.draw do
       post 'anime_videos/:id/rate' => 'anime_videos#rate', as: :rate_anime
     end
 
-    get 'videos(/search/:search)(/page/:page)' => 'anime_online/anime_videos#index', as: :anime_videos
     post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
     get 'videos/:id(/:episode)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode: /\d+/, video_id: /\d+/, all: 'all' }
-    post 'videos/search' => 'anime_online/anime_videos#search', as: :anime_videos_search
     post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
     delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
     get 'pingmedia/google' => 'anime_online/pingmedia#google'

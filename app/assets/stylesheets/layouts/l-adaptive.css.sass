@@ -2,10 +2,31 @@
 @import susy
 
 .l-adaptive
+  //$total-columns: 4
+  //$column-width: 240px
+  //$gutter-width: 0px
+  //$grid-padding: 10px
+
+  //.page
+    //// main layout
+    //+container
+
+    //.l-menu
+      //+span-columns(1 omega, $total-columns)
+
+    //.l-content
+      //+span-columns(3 alpha, $total-columns)
+      //float: none
+
   $total-columns: 12
   $column-width: 54px
   $gutter-width: 30px
   $grid-padding: 10px
+
+  .susy-grid-background
+    +susy-grid-background
+    +container
+    height: 150px
 
   .page
     // main layout
@@ -17,6 +38,7 @@
     .l-content
       +span-columns(9 alpha, $total-columns)
       float: none
+
 
     // mobile
     +at-breakpoint($tablets-break)
@@ -61,18 +83,22 @@
       footer
         display: none
 
-    +at-breakpoint(0px 510px)
+    +at-breakpoint(0px 996px)
       .welcome-gallery, .welcome-gallery-loader
         display: none
 
-    +at-breakpoint(510px 665px)
-      .gallery-body
-        width: 478px
+    //+at-breakpoint(0px 510px)
+      //.welcome-gallery, .welcome-gallery-loader
+        //display: none
 
-    +at-breakpoint(665px 840px)
-      .gallery-body
-        width: 640px
+    //+at-breakpoint(510px 665px)
+      //.gallery-body
+        //width: 478px
 
-    +at-breakpoint(840px 996px)
-      .gallery-body
-        width: 800px
+    //+at-breakpoint(665px 840px)
+      //.gallery-body
+        //width: 640px
+
+    //+at-breakpoint(840px 996px)
+      //.gallery-body
+        //width: 800px

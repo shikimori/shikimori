@@ -23,18 +23,11 @@ class AnimeVideo < ActiveRecord::Base
   before_save :check_copyright
   after_create :notify
 
-  scope :allowed_play, -> {
-    worked
-      .joins(:anime)
-      .where('animes.rating not in (?)', Anime::ADULT_RATINGS)
-      .where('animes.censored = false')
-  }
+  PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false"
+  XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true"
 
-  scope :allowed_xplay, -> {
-    worked
-      .joins(:anime)
-      .where('animes.rating in (?) or animes.censored = true', Anime::ADULT_RATINGS)
-  }
+  scope :allowed_play, -> { worked.joins(:anime).where(PLAY_CONDITION) }
+  scope :allowed_xplay, -> { worked.joins(:anime).where(XPLAY_CONDITION) }
 
   scope :worked, -> { where state: ['working', 'uploaded'] }
 
