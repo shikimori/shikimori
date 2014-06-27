@@ -7,22 +7,22 @@ module Viewable
 
     # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
     if Rails.env.test?
-      has_many :views, :class_name => view_klass.name
+      has_many :views, class_name: view_klass.name
     else
-      has_many :views, :class_name => view_klass.name, :dependent => :delete_all
+      has_many :views, class_name: view_klass.name, dependent: :delete_all
     end
 
     # для автора сразу же создаётся view
     after_create lambda {
-      view_klass.create! :user_id => self.user_id, klass_name.downcase => self
+      view_klass.create! user_id: self.user_id, klass_name.downcase => self
     }
 
     scope :with_viewed, lambda { |user|
       if user
-        joins("left join `#{view_klass.table_name}` jv on jv.#{name.downcase}_id=`#{table_name}`.id and jv.user_id='#{user.id}'")
-          .select("`#{table_name}`.*, !isnull(jv.#{name.downcase}_id) as viewed")
+        joins("left join #{view_klass.table_name} jv on jv.#{name.downcase}_id=#{table_name}.id and jv.user_id='#{user.id}'")
+          .select("#{table_name}.*, coalesce(jv.#{name.downcase}_id, 0) as viewed")
       else
-        select("`#{table_name}`.*")
+        select("#{table_name}.*")
       end
     }
   end

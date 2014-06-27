@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616175207) do
+ActiveRecord::Schema.define(version: 20140627220424) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "abuse_requests", force: true do |t|
     t.integer  "user_id"
@@ -175,9 +178,9 @@ ActiveRecord::Schema.define(version: 20140616175207) do
     t.integer  "abuse_request_id"
     t.integer  "moderator_id"
     t.integer  "duration"
-    t.text     "reason",           limit: 16777215
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.text     "reason"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "bans", ["abuse_request_id"], name: "index_bans_on_abuse_request_id", using: :btree
@@ -215,7 +218,6 @@ ActiveRecord::Schema.define(version: 20140616175207) do
 
   add_index "characters", ["japanese"], name: "index_characters_on_japanese", using: :btree
   add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
-  add_index "characters", ["russian"], name: "index_characters_on_russian", length: {"russian"=>50}, using: :btree
 
   create_table "comment_views", force: true do |t|
     t.integer "user_id"
@@ -226,13 +228,12 @@ ActiveRecord::Schema.define(version: 20140616175207) do
   add_index "comment_views", ["user_id", "comment_id"], name: "index_comment_views_on_user_id_and_comment_id", unique: true, using: :btree
 
   create_table "comments", force: true do |t|
-    t.integer  "commentable_id",              default: 0
-    t.string   "commentable_type", limit: 15, default: ""
+    t.integer  "commentable_id"
+    t.string   "commentable_type", limit: 15
     t.text     "body"
-    t.integer  "user_id",                     default: 0,     null: false
+    t.integer  "user_id",                                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "html",                        default: false
     t.text     "html_body"
     t.boolean  "review",                      default: false
     t.boolean  "offtopic",                    default: false
@@ -420,7 +421,7 @@ ActiveRecord::Schema.define(version: 20140616175207) do
     t.integer  "linked_id"
     t.string   "linked_type"
     t.boolean  "processed",      default: false
-    t.string   "action",         default: "",    null: false
+    t.string   "action"
     t.string   "value"
     t.integer  "comments_count", default: 0
     t.boolean  "broadcast",      default: false
@@ -447,7 +448,7 @@ ActiveRecord::Schema.define(version: 20140616175207) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "kind",        default: "", null: false
+    t.string   "kind",        null: false
   end
 
   add_index "favourites", ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree
@@ -811,7 +812,7 @@ ActiveRecord::Schema.define(version: 20140616175207) do
     t.string   "short_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "japanese",           default: "", null: false
+    t.string   "japanese"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -835,13 +836,13 @@ ActiveRecord::Schema.define(version: 20140616175207) do
   add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "svds", force: true do |t|
-    t.binary   "entry_ids",  limit: 16777215
-    t.binary   "lsa",        limit: 16777215
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "scale",                       default: "full"
+    t.binary   "entry_ids"
+    t.binary   "lsa"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "scale",      default: "full"
     t.string   "kind"
-    t.binary   "user_ids",   limit: 16777215
+    t.binary   "user_ids"
   end
 
   create_table "taggings", force: true do |t|
@@ -966,7 +967,6 @@ ActiveRecord::Schema.define(version: 20140616175207) do
 
   add_index "user_rates", ["target_id", "target_type"], name: "i_target", using: :btree
   add_index "user_rates", ["user_id", "target_id", "target_type"], name: "index_user_rates_on_user_id_and_target_id_and_target_type", unique: true, using: :btree
-  add_index "user_rates", ["user_id", "target_type"], name: "i_user_target", using: :btree
 
   create_table "user_tokens", force: true do |t|
     t.integer  "user_id"
@@ -980,8 +980,8 @@ ActiveRecord::Schema.define(version: 20140616175207) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                              default: "",      null: false
-    t.string   "encrypted_password",     limit: 128, default: "",      null: false
+    t.string   "email"
+    t.string   "encrypted_password",     limit: 128
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                      default: 0

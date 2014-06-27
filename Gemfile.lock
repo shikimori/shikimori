@@ -319,7 +319,6 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.15)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -364,6 +363,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    pg (0.17.1)
     polyglot (0.3.5)
     postmark (1.2.0)
       json
@@ -590,7 +590,6 @@ DEPENDENCIES
   marco-polo
   meta-tags!
   metrika
-  mysql2
   newrelic_rpm
   nokogiri
   omniauth
@@ -598,6 +597,7 @@ DEPENDENCIES
   omniauth-twitter
   omniauth-vkontakte
   paperclip
+  pg
   postmark-rails
   pry-rails
   pry-stack_explorer

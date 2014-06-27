@@ -18,11 +18,8 @@ class Comment < ActiveRecord::Base
     dependent: :destroy
 
   # validations
-  validates_presence_of :body
+  validates :body, :user, :commentable, presence: true
   validates_length_of :body, minimum: 2, maximum: 10000
-  validates_presence_of :user_id
-  validates_presence_of :commentable_id
-  validates_presence_of :commentable_type
 
   # scopes
   scope :reviews, -> { where review: true }

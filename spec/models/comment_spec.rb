@@ -11,9 +11,8 @@ describe Comment do
 
   context :validations do
     it { should validate_presence_of :body }
-    it { should validate_presence_of :user_id }
-    it { should validate_presence_of :commentable_id }
-    it { should validate_presence_of :commentable_type }
+    it { should validate_presence_of :user }
+    it { should validate_presence_of :commentable }
   end
 
   let(:user) { build_stubbed :user }

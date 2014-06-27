@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'rails'
 
-gem 'mysql2'
+gem 'pg'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
 gem 'redis'
