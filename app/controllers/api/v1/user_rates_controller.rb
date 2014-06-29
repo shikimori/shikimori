@@ -18,7 +18,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     param :volumes, :undef
   end
   def create
-    @user_rate.save rescue Mysql2::Error
+    @user_rate.save rescue PG::Error
     respond_with @user_rate, location: nil
   end
 

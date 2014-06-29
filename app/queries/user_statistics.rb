@@ -31,7 +31,7 @@ class UserStatistics
       .where("action in (?) or (action = ? and value in (?))",
               [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore],
               UserHistoryAction::Status,
-              [UserRate.statuses[:completed], UserRate.statuses[:rewatching]])
+              [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
 
     @manga_rates = @user
@@ -48,7 +48,7 @@ class UserStatistics
       .where("action in (?) or (action = ? and value in (?))",
               [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore],
               UserHistoryAction::Status,
-              [UserRate.statuses[:completed], UserRate.statuses[:rewatching]])
+              [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
   end
 
   # формирование статистики

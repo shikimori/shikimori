@@ -3,16 +3,13 @@ require 'spec_helper'
 describe Contest do
   context :relations do
     it { should belong_to :user }
-
     it { should have_many :links }
     it { should have_many :rounds }
-
     it { should have_many :suggestions }
-
     it { should have_one :thread }
   end
 
-  describe :validations do
+  context :validations do
     it { should validate_presence_of :title }
     it { should validate_presence_of :user }
     it { should validate_presence_of :strategy_type }
@@ -21,7 +18,7 @@ describe Contest do
     it { should validate_presence_of :user_vote_key }
   end
 
-  describe :state_machine do
+  context :state_machine do
     let(:contest) { create :contest_with_5_members }
 
     it 'full cycle' do

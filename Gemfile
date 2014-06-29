@@ -112,7 +112,7 @@ group :test, :development do
   gem 'vcr'
   gem 'capybara'
   gem 'shoulda-matchers', require: false
-  gem 'database_rewinder'
+  gem 'database_cleaner'
 
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false

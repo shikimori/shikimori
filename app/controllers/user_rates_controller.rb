@@ -1,6 +1,6 @@
 class UserRatesController < Api::V1::UserRatesController
   def create
-    @user_rate.save rescue Mysql2::Error
+    @user_rate.save rescue PG::Error
     render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
   end
 

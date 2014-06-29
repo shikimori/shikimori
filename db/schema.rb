@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627220424) do
+ActiveRecord::Schema.define(version: 20140629212852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -448,7 +448,7 @@ ActiveRecord::Schema.define(version: 20140627220424) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "kind",        null: false
+    t.string   "kind"
   end
 
   add_index "favourites", ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree
@@ -1009,6 +1009,7 @@ ActiveRecord::Schema.define(version: 20140627220424) do
     t.boolean  "can_vote_2",                         default: false,   null: false
     t.boolean  "can_vote_3",                         default: false,   null: false
     t.datetime "reset_password_sent_at"
+    t.string   "remember_token"
   end
 
   add_index "users", ["nickname"], name: "index_users_on_nickname", unique: true, using: :btree

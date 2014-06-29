@@ -51,7 +51,9 @@ Spork.prefork do
     config.order = 'random'
 
     config.before :suite do
-      DatabaseRewinder.clean_all
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with :truncation
+      #DatabaseRewinder.clean_all
     end
 
     #HTTPI.log = false
@@ -68,6 +70,7 @@ Spork.prefork do
     c.hook_into :webmock
     c.allow_http_connections_when_no_cassette = true
     c.default_cassette_options = { match_requests_on: [:method, :uri, :query, :body], record: :new_episodes }
+    c.configure_rspec_metadata!
   end
 
   module ActionController

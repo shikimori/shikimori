@@ -6,12 +6,16 @@ class FavouritesQuery
 
   # получение списка людей, добавивших сущность в избранное
   def fetch
+    User
+      .where(id: user_ids)
+      .order(:nickname)
+  end
+
+  def user_ids
     Favourite
       .where(linked_id: @entry.id, linked_type: @entry.class.name)
-      .includes(:user)
       .group(:user_id)
-      .order(created_at: :desc)
       .limit(@limit)
-      .sort_by {|v| v.user.nickname }
+      .pluck(:user_id)
   end
 end

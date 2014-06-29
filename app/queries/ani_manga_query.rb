@@ -381,27 +381,31 @@ private
         "#{klass.table_name}.name"
 
       when 'russian'
-        "if(#{klass.table_name}.russian is null or #{klass.table_name}.russian='', #{klass.table_name}.name, #{klass.table_name}.russian)"
+        "(case when #{klass.table_name}.russian is null or #{klass.table_name}.russian=''
+            then #{klass.table_name}.name else #{klass.table_name}.russian end)"
 
       when 'episodes'
         if klass == Anime
-          "if(#{klass.table_name}.episodes = 0, #{klass.table_name}.episodes_aired, #{klass.table_name}.episodes) desc"
+          "(case when #{klass.table_name}.episodes = 0
+            then  #{klass.table_name}.episodes_aired else #{klass.table_name}.episodes end) desc"
         else
           "#{klass.table_name}.chapters desc"
         end
 
       when 'status'
-        "if(#{klass.table_name}.status='Not yet aired' or #{klass.table_name}.status='Not yet published', 'AAA', if(#{klass.table_name}.status='Publishing', 'Currently Airing', #{klass.table_name}.status))"
+        "(case when #{klass.table_name}.status='Not yet aired' or #{klass.table_name}.status='Not yet published'
+          then 'AAA' else (case when #{klass.table_name}.status='Publishing'
+            then 'Currently Airing' else #{klass.table_name}.status end) end)"
 
       when 'popularity'
-        'if(popularity=0,999999,popularity)'
+        '(case when popularity=0 then 999999 else popularity end)'
 
       when 'ranked'
-        'if(ranked=0,999999,ranked)'
+        '(case when ranked=0 then 999999 else ranked end)'
 
       # TODO: удалить released_at и released после 01.05.2014
       when 'released_on', 'released_at', 'released'
-        'if(released_on is null, aired_on, released_on) desc'
+        '(case when released_on is null then aired_on else released_on) desc'
 
       when 'aired_on'
         'aired_on desc'

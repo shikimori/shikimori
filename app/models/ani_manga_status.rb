@@ -23,24 +23,24 @@ class AniMangaStatus
 
     case status
       when 'ongoing'
-        "((aired_on is not null and aired_on < '%s 00:00:00' and status in ('%s', '%s')) " % [Date.today-AniManga::OngoingToReleasedDays.days, AniMangaStatus::Anons, AniMangaStatus::Upcoming] +
-        " or (aired_on is not null and status in ('%s','%s'))) " % [AniMangaStatus::Ongoing, AniMangaStatus::Publishing] +
-        "and not (aired_on is not null and released_on is not null and aired_on < date_add(now(), interval -#{AniManga::OngoingToReleasedDays} day) && released_on < date_add(now(), interval -7 day))" +
-        "and not (status in ('%s', '%s') and aired_on = '%s-01-01 00:00:00') " % [AniMangaStatus::Anons, AniMangaStatus::Upcoming, Date.today.year] +
-        "and #{klass.name.tableize}.id not in (%s)" % klass::EXCLUDED_ONGOINGS.join(',')
+        "((aired_on is not null and aired_on < '#{AniManga::OngoingToReleasedDays.days.ago.to_date}' and status in ('#{AniMangaStatus::Anons}', '#{AniMangaStatus::Upcoming}')) " +
+        " or (aired_on is not null and status in ('#{AniMangaStatus::Ongoing}', '#{AniMangaStatus::Publishing}'))) " +
+        "and not (aired_on is not null and released_on is not null and aired_on < '#{AniManga::OngoingToReleasedDays.days.ago.to_date}' and released_on < '#{7.days.ago.to_date}')" +
+        "and not (status in ('#{AniMangaStatus::Anons}', '#{AniMangaStatus::Upcoming}') and aired_on = '#{Date.today.year}-01-01') " +
+        "and #{klass.name.tableize}.id not in (#{klass::EXCLUDED_ONGOINGS.join ','})"
 
       when 'latest'
-        "status = '%s' and (released_on > '%s 00:00:00' or (aired_on > '%s 00:00:00' and released_on is null)) " % [released_status, Date.today - 3.month, Date.today - 3.month] +
-        "and #{klass.name.tableize}.id not in (%s)" % (klass::EXCLUDED_ONGOINGS).join(',')
+        "status = '#{released_status}' and (released_on > '#{3.month_ago.to_date}' or (aired_on > '#{3.month_ago.to_date}' and released_on is null)) " +
+        "and #{klass.name.tableize}.id not in (#{klass::EXCLUDED_ONGOINGS.join ','})"
 
       when 'planned'
-        "status in ('%s', '%s') and not (%s)" % [AniMangaStatus::Anons, AniMangaStatus::Upcoming, self.query_for('ongoing', klass)]
+        "status in ('#{AniMangaStatus::Anons}', '#{AniMangaStatus::Upcoming}') and not (#{query_for 'ongoing', klass})"
 
       when 'released'
         "status = '#{released_status}'"
 
       when 'favourite'
-        "id in (%s)"% Favourite.where(:linked_type => Anime.name).group(:linked_id).map(&:linked_id).join(',')
+        "id in (%s)"% Favourite.where(linked_type: Anime.name).group(:linked_id).map(&:linked_id).join(',')
 
       else
         raise BadStatusError, "unknown status '#{status}'"

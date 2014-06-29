@@ -15,7 +15,7 @@ private
       condition = pair[0]
       index = pair[1]
 
-      memo.sub '<--!-->', "if(#{condition}, #{index}, <--!-->)"
+      memo.sub '<--!-->', "(case when #{condition} then #{index} else <--!--> end)"
     end.sub('<--!-->', '999')
 
     query.select("#{@klass.table_name}.*, #{matched} as matched")
