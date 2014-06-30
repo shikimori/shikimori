@@ -20,7 +20,7 @@ module Viewable
     scope :with_viewed, lambda { |user|
       if user
         joins("left join #{view_klass.table_name} jv on jv.#{name.downcase}_id=#{table_name}.id and jv.user_id='#{user.id}'")
-          .select("#{table_name}.*, coalesce(jv.#{name.downcase}_id, 0) as viewed")
+          .select("#{table_name}.*, coalesce(jv.#{name.downcase}_id, 0) > 0 as viewed")
       else
         select("#{table_name}.*")
       end
@@ -28,6 +28,6 @@ module Viewable
   end
 
   def viewed?
-    self[:viewed].nil? || (created_at + 1.month < Date.today) ? true : self[:viewed].to_i == 1
+    self[:viewed].nil? || (created_at + 1.month < Time.zone.today) ? true : self[:viewed]
   end
 end
