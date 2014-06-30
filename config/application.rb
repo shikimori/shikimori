@@ -44,9 +44,9 @@ module Site
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += [ Proc.new { |path| !%w(.js .css).include?(File.extname(path)) }, /.*.(css|js)$/ ]
 
-    config.action_mailer.default_url_options = { host: 'www.shikimori.org' }
+    config.action_mailer.default_url_options = { host: 'shikimori.org' }
     config.action_mailer.delivery_method = :postmark
-    config.action_mailer.postmark_settings = { api_key: open("#{ENV['HOME']}/shikimori.org/postmark.key").read.strip }
+    config.action_mailer.postmark_settings = { api_key: Rails.application.secrets.postmark[:api_key] }
 
     config.action_mailer.smtp_settings = {
       address: "smtp.gmail.com",

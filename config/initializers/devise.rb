@@ -1,9 +1,8 @@
-OAUTH_CREDENTIALS_PATH = "#{ENV['HOME']}/shikimori.org/oauth.yml"
-OAUTH_CREDENTIALS = YAML.load_file(OAUTH_CREDENTIALS_PATH)[Rails.env]
-
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
+  config.secret_key = Rails.application.secrets.devise[:secret_key]
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = "mail@shikimori.org"
@@ -117,7 +116,7 @@ Devise.setup do |config|
   # config.encryptor = :sha512
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = YAML.load_file(Rails.root.join('config', 'pepper.yml'))[Rails.env]
+  config.pepper = Rails.application.secrets.devise[:secret_key]
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
@@ -153,30 +152,19 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :get.
   # config.sign_out_via = :get
 
-  config.secret_key = YAML.load_file(Rails.root.join('config', 'devise_secret_key.yml'))[Rails.env]
-
   config.omniauth :vkontakte,
-                  OAUTH_CREDENTIALS[:vkontakte][:app_id],
-                  OAUTH_CREDENTIALS[:vkontakte][:app_secret],
-                  scope: OAUTH_CREDENTIALS[:vkontakte][:app_permissions],
-                  client_options: { ssl: { ca_path: "/etc/ssl/certs" } }
+                  Rails.application.secrets.oauth[:vkontakte][:app_id],
+                  Rails.application.secrets.oauth[:vkontakte][:app_secret],
+                  scope: Rails.application.secrets.oauth[:vkontakte][:app_permissions]
+                  #client_options: { ssl: { ca_path: '/etc/ssl/certs' } }
 
   config.omniauth :facebook,
-                  OAUTH_CREDENTIALS[:facebook][:app_id],
-                  OAUTH_CREDENTIALS[:facebook][:app_secret],
-                  scope: OAUTH_CREDENTIALS[:facebook][:app_permissions],
-                  client_options: { ssl: { ca_path: "/etc/ssl/certs" } }
+                  Rails.application.secrets.oauth[:facebook][:app_id],
+                  Rails.application.secrets.oauth[:facebook][:app_secret],
+                  scope: Rails.application.secrets.oauth[:facebook][:app_permissions]
+                  #client_options: { ssl: { ca_path: '/etc/ssl/certs' } }
 
   config.omniauth :twitter,
-                  OAUTH_CREDENTIALS[:twitter][:consumer_key],
-                  OAUTH_CREDENTIALS[:twitter][:secret_key]
-
-  #config.omniauth :mailru, OAUTH_CREDENTIALS[:mailru][:app_id], OAUTH_CREDENTIALS[:mailru][:app_secret]
-  #config.omniauth :yandex, OAUTH_CREDENTIALS[:yandex][:app_id], OAUTH_CREDENTIALS[:yandex][:app_secret]
-
-  #config.omniauth :google_oauth2,
-                  #OAUTH_CREDENTIALS[:google][:app_id],
-                  #OAUTH_CREDENTIALS[:google][:app_secret],
-                  #scope: OAUTH_CREDENTIALS[:google][:app_permissions],
-                  #client_options: { ssl: { ca_path: "/etc/ssl/certs" } }
+                  Rails.application.secrets.oauth[:twitter][:consumer_key],
+                  Rails.application.secrets.oauth[:twitter][:secret_key]
 end
