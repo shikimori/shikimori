@@ -52,8 +52,8 @@ module Site
       address: "smtp.gmail.com",
       port: 587,
       domain: 'shikimori.org',
-      user_name: 'mail@shikimori.org',
-      password: open("#{ENV['HOME']}/shikimori.org/mail@shikimori.org").read.strip,
+      user_name: Rails.application.secrets.smtp[:login],
+      password: Rails.application.secrets.smtp[:password],
       authentication: 'plain',
       enable_starttls_auto: true
     }
