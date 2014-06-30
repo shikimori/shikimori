@@ -7,8 +7,8 @@ class ContestSuggestion < ActiveRecord::Base
   validates :user, presence: true
   validates :item, presence: true
 
-  scope :by_user, -> (user) { where user_id: user.id }
-  scope :by_votes, -> { group(:item_id).select('*, count(*) as votes').order('count(*) desc') }
+  scope :by_user, -> (user) { where(user_id: user.id).order(:id) }
+  scope :by_votes, -> { select('item_id, item_type, count(*) as votes').group(:item_id, :item_type).order('count(*) desc') }
 
   def self.suggest contest, user, item
     contest.suggestions.create!(

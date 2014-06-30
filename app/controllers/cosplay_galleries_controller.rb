@@ -24,7 +24,7 @@ class CosplayGalleriesController < ShikimoriController
                                      group by c.id
                                      having
                                          count(cg.id) >= 6").
-                       each {|v| cosplayer_ids << v[0] }
+                       each {|v| cosplayer_ids << v['id'] }
 
     @cosplayers = Cosplayer.where(id: cosplayer_ids.shuffle.take(6))#.
                             #includes(cosplay_galleries: :images)#.

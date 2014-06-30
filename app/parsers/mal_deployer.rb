@@ -79,7 +79,7 @@ module MalDeployer
       "(#{entry.id}, #{rec["#{type}_id".to_sym]}, '#{time}', '#{time}')"
     end
     ActiveRecord::Base.connection.
-      execute("insert into #{klass.table_name} (`src_id`, `dst_id`, `created_at`, `updated_at`)
+      execute("insert into #{klass.table_name} (src_id, dst_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
   end
 
@@ -123,7 +123,7 @@ module MalDeployer
     end.flatten
 
     ActiveRecord::Base.connection.
-      execute("insert into #{klass.table_name} (`source_id`, `anime_id`, `manga_id`, `relation`, `created_at`, `updated_at`)
+      execute("insert into #{klass.table_name} (source_id, anime_id, manga_id, relation, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
   end
 
@@ -137,7 +137,7 @@ module MalDeployer
     end
 
     ActiveRecord::Base.connection.
-      execute("insert into person_roles (`role`, `#{type}_id`, `character_id`, `created_at`, `updated_at`)
+      execute("insert into person_roles (role, #{type}_id, character_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
   end
 
@@ -151,7 +151,7 @@ module MalDeployer
     end
 
     ActiveRecord::Base.connection.
-      execute("insert into person_roles (`role`, `#{type}_id`, `person_id`, `created_at`, `updated_at`)
+      execute("insert into person_roles (role, #{type}_id, person_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
   end
 

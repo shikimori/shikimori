@@ -29,12 +29,12 @@ describe FindAnimeImporter do
 
           it { should be_working }
           its(:anime_id) { should eq anime.id }
-          its(:url) { should eq 'http://myvi.tv/embed/html/oj3S0O7huMlVwrwaXH74WaoyTycwCi7vbzoSfSxvWx481' }
+          its(:url) { should eq 'http://vk.com/video_ext.php?oid=-39848150&id=164101520&hash=fbcfedb24fac74ac&hd=2' }
           its(:source) { should eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1' }
           its(:episode) { should eq 2 }
-          its(:kind) { should eq 'subtitles' }
+          its(:kind) { should eq 'fandub' }
           its(:language) { should eq 'russian' }
-          its(:anime_video_author_id) { should be_nil }
+          its(:anime_video_author_id) { should be_present }
         end
       end
 

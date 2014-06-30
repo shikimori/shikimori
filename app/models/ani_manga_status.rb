@@ -30,7 +30,7 @@ class AniMangaStatus
         "and #{klass.name.tableize}.id not in (#{klass::EXCLUDED_ONGOINGS.join ','})"
 
       when 'latest'
-        "status = '#{released_status}' and (released_on > '#{3.month_ago.to_date}' or (aired_on > '#{3.month_ago.to_date}' and released_on is null)) " +
+        "status = '#{released_status}' and (released_on > '#{3.month.ago.to_date}' or (aired_on > '#{3.month.ago.to_date}' and released_on is null)) " +
         "and #{klass.name.tableize}.id not in (#{klass::EXCLUDED_ONGOINGS.join ','})"
 
       when 'planned'

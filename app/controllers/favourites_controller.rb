@@ -56,9 +56,10 @@ class FavouritesController < ShikimoriController
         linked_type: params[:linked_type],
         linked_id: params[:linked_id],
         user_id: current_user.id,
-        kind: params[:kind] || ''
+        kind: params[:kind]
       }).first
     @fav.destroy
+
     notice_text = case params[:linked_type]
       when Character.name
         'Персонаж удален из избранных'

@@ -1,21 +1,27 @@
 class FavouritesQuery
-  def initialize entry, limit
-    @entry = entry
-    @limit = limit
+  def top_favourite_ids klass, limit
+    Favourite
+      .where(linked_type: klass.name)
+      .group(:linked_id)
+      .order('count(*) desc')
+      .select(:linked_id)
+      .limit(limit)
+      .pluck(:linked_id)
   end
 
   # получение списка людей, добавивших сущность в избранное
-  def fetch
+  def favoured_by entry, limit
     User
-      .where(id: user_ids)
+      .where(id: user_ids(entry, limit))
       .order(:nickname)
   end
 
-  def user_ids
+private
+  def user_ids entry, limit
     Favourite
-      .where(linked_id: @entry.id, linked_type: @entry.class.name)
+      .where(linked_id: entry.id, linked_type: entry.class.name)
       .group(:user_id)
-      .limit(@limit)
+      .limit(limit)
       .pluck(:user_id)
   end
 end

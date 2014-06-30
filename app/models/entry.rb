@@ -73,30 +73,6 @@ class Entry < ActiveRecord::Base
     SpecialTypes.include? self.class.name
   end
 
-  # пометить комментарий топика как прочтенный, если есть уведомления о непрочтённых сообщениях, помечаем их тоже
-  #def mark_as_viewed(user_id, comment)
-    #entry_view = EntryView.find_or_create_by_user_id_and_entry_id(user_id: user_id,
-                                                                  #entry_id: self.id,
-                                                                  #comment_id: 0)
-    #if (entry_view.comment_id || 0) < (comment ? comment.id : 0)
-      #ActiveRecord::Base.connection.
-        #execute("
-                 #update `messages`
-                   #set `read`=1
-                   #where
-                     #`dst_id` = #{user_id}
-                     #and `dst_type`='#{User.name}'
-                     #and `read`=0
-                     #and `kind` in ('#{MessageType::SubscriptionCommented}', '#{MessageType::QuotedByUser}')
-                     #and `linked_id`=#{self.id}
-                     #and `linked_type`='#{self.class.name}'
-                #")
-
-      #entry_view.comment_id = comment ? comment.id : 0
-      #entry_view.save
-    #end
-  #end
-
   # прочтен ли топик?
   def viewed?
     generated? ? true : super

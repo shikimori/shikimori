@@ -11,7 +11,7 @@ class ContestMatch < ActiveRecord::Base
   scope :with_user_vote, lambda { |user, ip|
     if user
       joins("left join #{ContestUserVote.table_name} cuv on cuv.contest_match_id=#{table_name}.id and (cuv.id is null or cuv.user_id=#{sanitize user.id} or cuv.ip=#{sanitize ip})")
-        .group("#{table_name}.id")
+        .group("#{table_name}.id, cuv.item_id")
         .select("#{table_name}.*, cuv.item_id as voted_id")
     else
       select("#{table_name}.*, null as voted_id")
@@ -22,9 +22,9 @@ class ContestMatch < ActiveRecord::Base
     joins("left join #{ContestUserVote.table_name} cuv on cuv.contest_match_id=#{table_name}.id")
       .group("#{table_name}.id")
       .select("#{table_name}.*,
-               sum(if(cuv.item_id=0, 1, 0)) as refrained_votes,
-               sum(if(cuv.item_id=left_id, 1, 0)) as left_votes,
-               sum(if(cuv.item_id=right_id, 1, 0)) as right_votes")
+               sum(case when cuv.item_id=0 then 1 else 0 end) as refrained_votes,
+               sum(case when cuv.item_id=left_id then 1 else 0 end) as left_votes,
+               sum(case when cuv.item_id=right_id then 1 else 0 end) as right_votes")
   }
 
   state_machine :state, initial: :created do

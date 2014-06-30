@@ -6,7 +6,7 @@ class PagesController < ShikimoriController
   include CommentHelper
   include Sidekiq::Paginator
 
-  layout false, only: [:auth_form, :feedback, :admin_panel]
+  layout false, only: [:auth_form, :feedback]
   respond_to :html, except: [:news]
   respond_to :ress, only: [:news]
 
@@ -43,16 +43,18 @@ class PagesController < ShikimoriController
   # rss с новостями
   def news
     @topics = if params[:kind] == 'anime'
-      AnimeNews.where.not(action: AnimeHistoryAction::Episode)
-          .joins('inner join animes on animes.id=linked_id and animes.censored=false')
-          .order(created_at: :desc)
-          .limit(15)
-          .to_a
+      AnimeNews
+        .where.not(action: AnimeHistoryAction::Episode)
+        .joins('inner join animes on animes.id=linked_id and animes.censored=false')
+        .order(created_at: :desc)
+        .limit(15)
+        .to_a
     else
-      Entry.where(type: Topic.name, broadcast: true)
-          .order(created_at: :desc)
-          .limit(10)
-          .to_a
+      Entry
+        .where(type: Topic.name, broadcast: true)
+        .order(created_at: :desc)
+        .limit(10)
+        .to_a
     end
 
     response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'

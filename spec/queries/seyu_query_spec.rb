@@ -8,7 +8,7 @@ describe SeyuQuery do
     person
     character = create :character, person_roles: [create(:person_role, role: Person::SeyuRoles.sample, person: person)]
     create :anime, characters: [character]
-    create :person, japanese: ['シュタインズ'], seyu: true
+    create :person, japanese: 'シュタインズ', seyu: true
     create :person, name: 'qwert'
   end
 

@@ -317,11 +317,12 @@ private
 
       rates += if ids.any?
         query = "select #{category_name}_id from #{[category_name.tableize, type.pluralize].sort.join('_')} where #{type}_id in (#{ids.join(',')})"
-        ActiveRecord::Base.connection
-                          .execute(query)
-                          .to_enum
-                          .map { |v| categories_by_id.include?(v[0].to_i) ? categories_by_id[v[0].to_i] : nil }
-                          .select { |v| v && v != 'School' && v != 'Action' }
+        ActiveRecord::Base
+          .connection
+          .execute(query)
+          .to_enum
+          .map { |v| categories_by_id.include?(v["#{category_name}_id"].to_i) ? categories_by_id[v["#{category_name}_id"].to_i] : nil }
+          .select { |v| v && v != 'School' && v != 'Action' }
       else
           []
       end

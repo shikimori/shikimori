@@ -104,7 +104,7 @@ class BaseMalParser < SiteParserWithCache
     imported = {}
     ActiveRecord::Base.connection.
         execute("select id,imported_at from #{type.tableize}"). # #{' where id not in (8757, 8758, 8759, 8760, 17653)' if type.tableize == 'animes'}
-          each {|v| imported[v[0].to_i] = v[1].nil? ? nil : v[1].to_datetime }
+          each {|v| imported[v['id'].to_i] = v['imported_at'].nil? ? nil : v['imported_at'].to_datetime }
 
     new_ids = list.keys - imported.keys
     outdated_ids = imported.select {|k,v| v.nil? }.map {|k,v| k }

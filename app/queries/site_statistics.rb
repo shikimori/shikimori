@@ -56,8 +56,8 @@ class SiteStatistics
       .where.not(id: [1, User::GuestID] + BotsService.posters)
       .where(user_changes: { status: [UserChangeStatus::Accepted, UserChangeStatus::Taken] })
       .group('users.id')
-      .having("sum(if(user_changes.status='#{UserChangeStatus::Accepted}',7,1)) > 10")
-      .order("sum(if(user_changes.status='#{UserChangeStatus::Accepted}',7,1)) desc")
+      .having("sum(case when user_changes.status='#{UserChangeStatus::Accepted}' then 7 else 1 end) > 10")
+      .order("sum(case when user_changes.status='#{UserChangeStatus::Accepted}' then 7 else 1 end) desc")
       .limit(96)
       #.select("users.*, sum(if(user_changes.status='#{UserChangeStatus::Accepted}',7,1)) as points")
       #.each {|v| v.nickname = v.points.to_i.to_s }
@@ -93,7 +93,7 @@ private
     entries_by_date = klass
       .where('created_at > ?', start_date)
       .where('created_at < ?', Date.today)
-      .group('cast(created_at as date)')
+      .group('cast(created_at as date), created_at')
       .order(:created_at)
       .count
       .each_with_object({}) {|(k,v),memo| memo[k.to_s] = v }

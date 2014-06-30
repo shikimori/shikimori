@@ -21,6 +21,9 @@ class RecommendationIgnore < ActiveRecord::Base
 
   # список заблокированного для пользователя
   def self.blocked klass, user
-    RecommendationIgnore.where(user_id: user.id, target_type: klass.name).pluck(:target_id)
+    RecommendationIgnore
+      .where(user_id: user.id, target_type: klass.name)
+      .order(:id)
+      .pluck(:target_id)
   end
 end

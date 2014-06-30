@@ -23,6 +23,7 @@ gem 'rvm-capistrano'
 
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
+#gem 'attr_extras'
 gem 'state_machine'
 gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'will_paginate-bootstrap'

@@ -18,7 +18,7 @@ class Contest < ActiveRecord::Base
     class_name: ContestLink.name,
     dependent: :destroy
 
-  has_many :rounds, -> { order [:number, :additional] },
+  has_many :rounds, -> { order [:number, :additional, :id] },
     class_name: ContestRound.name,
     dependent: :destroy
 
@@ -123,6 +123,7 @@ public
         .where(state: 'finished')
         .where(winner_id: entry.id)
         .includes(:left, :right)
+        .order(:id)
         .map { |vote|
           if vote.winner_id == vote.left_id
             vote.right

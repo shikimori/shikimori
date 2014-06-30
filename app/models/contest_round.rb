@@ -9,7 +9,7 @@ class ContestRound < ActiveRecord::Base
   F = 'F'
 
   belongs_to :contest, touch: true
-  has_many :matches,
+  has_many :matches, -> { order :id },
     class_name: ContestMatch.name,
     foreign_key: :round_id,
     dependent: :destroy
