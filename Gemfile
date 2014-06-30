@@ -18,8 +18,7 @@ gem 'uglifier'
 gem 'compass-rails'
 
 gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
-gem 'capistrano'
-gem 'rvm-capistrano'
+gem 'unicorn'
 
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
@@ -94,7 +93,13 @@ group :development do
   gem 'better_errors'
   #gem 'sprockets_better_errors'
   gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
-  gem 'sql-logging'
+  #gem 'sql-logging'
+
+  gem 'capistrano'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-file-permissions', require: false, github: 'morr/file-permissions'
+  gem 'rvm1-capistrano3', require: false
 end
 
 gem 'marco-polo'
