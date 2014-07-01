@@ -76,7 +76,18 @@ class AnimeCalendar < ActiveRecord::Base
     "mahoka koko no rettosei" => 20785,
     "the world is still beautiful" => 22101,
     'break blade' => 22433,
-    "mangaka-san to assistant-san to" => 21863
+    "mangaka-san to assistant-san to" => 21863,
+    'gekkan shojo nozaki-kun' => 23289,
+    'kido senshi gundam-san' => 24835,
+    'la bonne vie' => 23121,
+    'space dandy season 2' => 23327,
+    'survival game club!' => 20709,
+    'ai mai mi ~moso catastrophie~' => 23551,
+    'futsu no joshikosei ga locodol yattemitaz' => 22189,
+    'bishojo senshi sailor moon crystal' => 14751,
+    'shonen hollywood - holly stage for 49' => 23151,
+    'magimoji rurumo' => 23945,
+    'rokujyoma no shinryakusha!?' => 22865
   }
 
   EpisodesDiff = {
