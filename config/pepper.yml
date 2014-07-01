@@ -1,8 +1,0 @@
-development: &defaults
-  65728e3urbfjndv876yuwehbkjnrf8v176txyvgjhbkwejrf8d976ctvh1b2ed3cy89a7syuidgasd897guiwqhe8d9asyfh9dsyft67dsyugfuhds8f0ysdf89y98hv
-
-test: *defaults
-
-staging: *defaults
-
-production: *defaults
