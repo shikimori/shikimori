@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   layout :set_layout
+
+  before_action :read_only_request_check
+
   before_filter :fix_googlebot
   before_filter :touch_last_online unless Rails.env.test?
   before_filter :mailer_set_url_options
@@ -66,6 +69,9 @@ class ApplicationController < ActionController::Base
     @decorated_current_user ||= super.try :decorate
   end
 
+  def changing_hosting
+  end
+
 private
   def set_layout
     if request.xhr?
@@ -115,5 +121,14 @@ private
   # faye токен текущего пользователя, переданный из заголовков
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
+  end
+
+  def read_only_request_check
+    return if request.get? || Rails.env.test?
+    if json?
+      render json: { error: '<br/>В связи с переездом на новый сервер сайт сейчас находится в режиме только на чтение.<br/>Приносим извинения за доставленные неудобства.<br/>Спасибо за понимание.' }, status: :unprocessable_entity
+    else
+      redirect_to changing_hosting_url
+    end
   end
 end

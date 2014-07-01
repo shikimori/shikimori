@@ -42,6 +42,9 @@ Site::Application.routes.draw do
   end
 
   constraints ShikimoriDomain do
+    # changing web hosting
+    get 'changing_hosting', to: 'application#changing_hosting', as: :changing_hosting
+
     # форум
     root to: 'topics#index'
     get '/', to: 'topics#index', as: :forum
