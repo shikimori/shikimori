@@ -93,6 +93,29 @@ namespace :deploy do
   end
 end
 
+namespace :unicorn do
+  desc "Stop unicorn"
+  task :stop do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} stop"
+    end
+  end
+
+  desc "Start unicorn"
+  task :start do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} start"
+    end
+  end
+
+  desc "Restart unicorn"
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} upgrade"
+    end
+  end
+end
+
 namespace :sidekiq do
   desc "Quiet sidekiq (stop accepting new work)"
   task :quiet do
@@ -123,28 +146,29 @@ namespace :sidekiq do
   end
 end
 
-namespace :unicorn do
-  desc "Stop unicorn"
+namespace :clockwork do
+  desc "Stop clockwork"
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} stop"
+      execute "sudo /etc/init.d/#{fetch :application}_clockwork_#{fetch :stage} stop"
     end
   end
 
-  desc "Start unicorn"
+  desc "Start clockwork"
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} start"
+      execute "sudo /etc/init.d/#{fetch :application}_clockwork_#{fetch :stage} start"
     end
   end
 
-  desc "Restart unicorn"
+  desc "Restart clockwork"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} upgrade"
+      execute "sudo /etc/init.d/#{fetch :application}_clockwork_#{fetch :stage} restart"
     end
   end
 end
+
 
 #before 'deploy:restart', 'deploy:set_permissions:chmod'
 #before 'deploy:restart', 'deploy:set_permissions:chown'
@@ -155,6 +179,11 @@ after 'deploy:starting', 'sidekiq:quiet'
 after 'deploy:updated', 'sidekiq:stop'
 after 'deploy:reverted', 'sidekiq:stop'
 after 'deploy:published', 'sidekiq:start'
+
+after 'deploy:updated', 'clockwork:stop'
+after 'deploy:reverted', 'clockwork:stop'
+after 'deploy:published', 'clockwork:start'
+
 
 after 'deploy:published', 'unicorn:restart'
 #after 'deploy:published', 'whenever:schedule'
