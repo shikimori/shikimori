@@ -5,5 +5,12 @@
 #= require ../lib/rails_ujs_modified
 #= require_tree .
 
+window.I18N = {}
+
 jQuery ->
   $("[title]").tooltip delay: 300, placement: 'top'
+
+  $('body').ajaxError(
+    (e, x, settings, exception) ->
+      alert $.parseJSON(x.responseText)['error'].replace(/<.*?>/g, ' ')
+  )
