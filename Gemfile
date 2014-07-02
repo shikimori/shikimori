@@ -139,7 +139,7 @@ end
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
 gem 'whenever', require: false
-gem 'clockwork', require: false
+gem 'clockwork', require: false, github: 'zph/clockwork', branch: 'master' # TODO: заменить на оригинальный гем, когда пулреквест будет принят https://github.com/tomykaira/clockwork/pull/102
 
 gem 'thin'
 gem 'faye', '0.8.1'
