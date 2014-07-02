@@ -98,20 +98,20 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  gem 'capistrano-file-permissions', require: false, github: 'morr/file-permissions'
+  #gem 'capistrano-file-permissions', require: false, github: 'morr/file-permissions'
   gem 'rvm1-capistrano3', require: false
+
+  gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 end
 
 gem 'marco-polo'
 gem 'pry-rails'
 gem 'pry-stack_explorer'
 
-group :development, :test do
+group :test, :development do
   gem 'byebug'
   #gem 'pry-byebug' # пока ещё не поддерживает byubug 3.0
-end
-
-group :test, :development do
+  #
   gem 'rspec-rails'
 
   gem 'vcr'
@@ -139,7 +139,6 @@ gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
 gem 'whenever', require: false
 gem 'clockwork', require: false
-gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 
 gem 'thin'
 gem 'faye', '0.8.1'

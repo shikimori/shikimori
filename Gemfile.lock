@@ -19,13 +19,6 @@ GIT
     acts_as_voteable (0.0.3)
 
 GIT
-  remote: git://github.com/morr/file-permissions.git
-  revision: 910681afb2cb39b8505e0981288b30470e33c57d
-  specs:
-    capistrano-file-permissions (0.0.1)
-      capistrano (>= 3.0.0)
-
-GIT
   remote: git://github.com/morr/foreman.git
   revision: f3390d413fe3a8d6951b0684c816781c3a7aec96
   specs:
@@ -574,7 +567,6 @@ DEPENDENCIES
   cancancan
   capistrano
   capistrano-bundler
-  capistrano-file-permissions!
   capistrano-rails
   capybara
   clockwork
