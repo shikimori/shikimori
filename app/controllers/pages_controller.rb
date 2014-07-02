@@ -6,7 +6,6 @@ class PagesController < ShikimoriController
   include CommentHelper
   include Sidekiq::Paginator
 
-  layout false, only: [:auth_form, :feedback]
   respond_to :html, except: [:news]
   respond_to :ress, only: [:news]
 
