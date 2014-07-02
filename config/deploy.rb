@@ -93,35 +93,35 @@ namespace :deploy do
   end
 end
 
-#namespace :sidekiq do
-  #desc "Quiet sidekiq (stop accepting new work)"
-  #task :quiet do
-    #on roles(:app), in: :sequence, wait: 5 do
-      #execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} quiet"
-    #end
-  #end
+namespace :sidekiq do
+  desc "Quiet sidekiq (stop accepting new work)"
+  task :quiet do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} quiet"
+    end
+  end
 
-  #desc "Stop sidekiq"
-  #task :stop do
-    #on roles(:app), in: :sequence, wait: 5 do
-      #execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} stop"
-    #end
-  #end
+  desc "Stop sidekiq"
+  task :stop do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} stop"
+    end
+  end
 
-  #desc "Start sidekiq"
-  #task :start do
-    #on roles(:app), in: :sequence, wait: 5 do
-      #execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} start"
-    #end
-  #end
+  desc "Start sidekiq"
+  task :start do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} start"
+    end
+  end
 
-  #desc "Restart sidekiq"
-  #task :restart do
-    #on roles(:app), in: :sequence, wait: 5 do
-      #execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} restart"
-    #end
-  #end
-#end
+  desc "Restart sidekiq"
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} restart"
+    end
+  end
+end
 
 namespace :unicorn do
   desc "Stop unicorn"
@@ -151,10 +151,10 @@ end
 #before 'deploy:restart', 'deploy:set_permissions:chgrp'
 after 'deploy:finishing', 'deploy:cleanup'
 
-#after 'deploy:starting', 'sidekiq:quiet'
-#after 'deploy:updated', 'sidekiq:stop'
-#after 'deploy:reverted', 'sidekiq:stop'
-#after 'deploy:published', 'sidekiq:start'
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:updated', 'sidekiq:stop'
+after 'deploy:reverted', 'sidekiq:stop'
+after 'deploy:published', 'sidekiq:start'
 
 after 'deploy:published', 'unicorn:restart'
 #after 'deploy:published', 'whenever:schedule'

@@ -5,14 +5,14 @@ staging:
   :concurrency: 5
 
 production:
-  :concurrency: 8
+  :concurrency: 12
 
 :queues:
   - default
   - cpu_intensive
   - slow_parsers
   - torrents_parsers
-  - [critical, 5]
+  - [critical, 6]
 
 :limits:
   cpu_intensive: 1
