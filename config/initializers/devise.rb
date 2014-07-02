@@ -116,7 +116,7 @@ Devise.setup do |config|
   # config.encryptor = :sha512
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = Rails.application.secrets.devise[:secret_key]
+  config.pepper = Rails.application.secrets.devise[:pepper]
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
