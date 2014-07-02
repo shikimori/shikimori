@@ -7,7 +7,7 @@ describe PeopleQuery do
     create :person, name: 'testZzz', mangaka: true
     person
     create :manga, people: [person]
-    create :person, japanese: ['シュタインズ'], mangaka: true
+    create :person, japanese: 'シュタインズ', mangaka: true
     create :person, name: 'qwert'
   end
 

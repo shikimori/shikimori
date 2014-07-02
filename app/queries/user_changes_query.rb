@@ -6,7 +6,7 @@ class UserChangesQuery
 
   def fetch
     UserChange
-      .where(item_id: @entry.id, model: @entry.class.name.downcase, column: @field)
+      .where(item_id: @entry.id, model: @entry.class.name, column: @field)
       .where(status: [UserChangeStatus::Pending, UserChangeStatus::Taken, UserChangeStatus::Accepted])
       .includes(:user)
       .includes(:approver)

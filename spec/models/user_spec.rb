@@ -62,100 +62,36 @@ describe User do
       #user.history.first.action.should eq UserHistoryAction::Registration
     #end
 
-    it 'fixes nickname' do
-      create(:user, nickname: '#[test]%&?+').nickname.should eq 'test'
+    describe :fix_nickname do
+      let(:user) { create :user, nickname: '#[test]%&?+' }
+      it { expect(user.nickname).to eq 'test' }
     end
 
-    describe 'nickname change' do
-      before { @old_nickname = user.nickname }
-
-      context 'less than one day after registration' do
-        before do
-          user.stub_chain(:comments, :count).and_return 11
-          user.created_at = 23.hours.ago
-          user.update_attributes! nickname: 'zxc'
-        end
-
-        it { user.nickname_changes.should have(0).items }
-      end
-
-      context 'one or more days after registration' do
-        before do
-          user.created_at = 1.day.ago
-          user.stub_chain(:comments, :count).and_return 11
-        end
-
-        describe 'too few comments' do
-          before do
-            user.stub_chain(:comments, :count).and_return 9
-            user.update_attributes! nickname: 'zxc'
-          end
-
-          it { user.nickname_changes.should have(0).items }
-        end
-
-        describe 'nickname_change creation' do
-          before { user.update_attributes! nickname: 'zxc' }
-
-          it { user.nickname_changes.should have(1).item }
-          it { user.nickname_changes.first.value.should eq @old_nickname }
-
-          it 'logs only uniq changes' do
-            user.update_attributes! nickname: @old_nickname
-            user.update_attributes! nickname: 'zxc'
-
-            user.nickname_changes.should have(2).items
-          end
-
-          context 'default nickname' do
-            let (:user) { create :user, nickname: 'Новый пользователь2', created_at: 1.year.ago }
-            before { user.update_attributes! nickname: 'zxc' }
-
-            it { user.nickname_changes.should have(0).items }
-          end
-        end
-
-        describe 'friends notification' do
-          let (:user3) { create :user }
-          let (:user4) { create :user }
-
-          before do
-            user2.friends << user
-            user3.friends << user
-            user4.update_attribute :notifications, User::DEFAULT_NOTIFICATIONS - User::NICKNAME_CHANGE_NOTIFICATIONS
-            user4.friends << user
-          end
-
-          it 'creates messages for each friend' do
-            expect {
-              user.update_attributes! nickname: 'zxc'
-            }.to change(Message, :count).by 2
-          end
-
-          it 'creates correct messages' do
-            user.update_attributes! nickname: 'zxc'
-            message = Message.last
-
-            message.kind.should eq MessageType::NicknameChanged
-            message.to_id.should eq user3.id
-            message.body.should include @old_nickname
-            message.body.should include user.nickname
-          end
-        end
-      end
+    describe :log_nickname_change do
+      let(:user) { create :user }
+      after { user.update nickname: 'test' }
+      it { expect(UserNicknameChange).to receive(:create).with(user: user, value: user.nickname) }
     end
   end
 
   context :instance_methods do
     describe :can_post do
-      it true do
-        user.can_post?.should be_true
+      before { user.read_only_at = read_only_at }
+      subject { user.can_post? }
+
+      context :no_ban do
+        let(:read_only_at) { nil }
+        it { should be_true }
       end
 
-      it false do
-        user.read_only_at = DateTime.now + 1.day
+      context :expired_ban do
+        let(:read_only_at) { Time.zone.now - 1.second }
+        it { should be_true }
+      end
 
-        user.can_post?.should be_false
+      context :valid_ban do
+        let(:read_only_at) { Time.zone.now + 1.seconds }
+        it { should be_false }
       end
     end
 

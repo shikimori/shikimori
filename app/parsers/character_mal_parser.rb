@@ -10,7 +10,7 @@ class CharacterMalParser < BaseMalParser
                     where
                       pr.#{type}_id is not null
                       and c.id is null").
-          each {|v| ids << v[0].to_i }
+          each {|v| ids << v['character_id'].to_i }
     ids
   end
 
@@ -94,7 +94,7 @@ class CharacterMalParser < BaseMalParser
     end
 
     ActiveRecord::Base.connection.
-      execute("insert into person_roles (`role`, `character_id`, `person_id`, `created_at`, `updated_at`)
+      execute("insert into person_roles (role, character_id, person_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
   end
 end

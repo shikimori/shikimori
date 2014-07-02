@@ -29,8 +29,8 @@ describe TopicsQuery do
 
   describe :pagination do
     let(:section) { create :section }
-    let!(:thread_1) { create :entry, section: section }
-    let!(:thread_2) { create :entry, section: section }
+    let!(:thread_1) { create :entry, section: section, updated_at: 1.day.ago }
+    let!(:thread_2) { create :entry, section: section, updated_at: 2.days.ago }
 
     context :first_page do
       let(:page) { 1 }
@@ -43,7 +43,7 @@ describe TopicsQuery do
     end
 
     context :limit do
-      let!(:thread_3) { create :entry, section: section }
+      let!(:thread_3) { create :entry, section: section, updated_at: 3.days.ago }
       let(:page) { 2 }
       it { should eq [thread_2, thread_3] }
     end

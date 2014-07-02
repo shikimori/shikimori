@@ -2,11 +2,11 @@
   .menu-block
     .subheadline.m10 В избранном
     .favoured
-      - favoured.each_slice(6) do |favs|
-        - favs.each do |fav|
+      - favoured.each_slice(6) do |users|
+        - users.each do |user|
           - if user_signed_in?
-            a href="#{user_url fav.user}" title="#{fav.user.nickname}"
-              img src="#{fav.user.avatar_url 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
+            a href="#{user_url user}" title="#{user.nickname}"
+              img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
           - else
-            img src="#{fav.user.avatar_url 32}" alt="#{fav.user.nickname}" title="#{fav.user.nickname}"
+            img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
         br

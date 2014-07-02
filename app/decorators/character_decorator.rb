@@ -29,7 +29,7 @@ class CharacterDecorator < PersonDecorator
   end
 
   def favoured
-    @favoured ||= FavouritesQuery.new(object, 12).fetch
+    @favoured ||= FavouritesQuery.new.favoured_by object, 12
   end
 
   def favoured?

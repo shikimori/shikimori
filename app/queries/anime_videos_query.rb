@@ -5,7 +5,7 @@ class AnimeVideosQuery
     @search = params[:search]
     @page = [params[:page].to_i, 1].max
     @query = (adult ? AnimeVideo.allowed_xplay : AnimeVideo.allowed_play)
-      .select('distinct anime_id')
+      .select('distinct anime_id, anime_videos.created_at')
     @query_entries = Anime
       .includes(:anime_videos)
   end

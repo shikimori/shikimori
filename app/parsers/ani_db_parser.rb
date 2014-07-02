@@ -196,7 +196,8 @@ class AniDbParser < SiteParserWithCache
   # слияние данных аниме из кеша с данными в базе
   def merge_animes_with_database
     print "preparing animes for merge...\n"
-    ActiveRecord::Base.connection.execute("update animes set ani_db_id=0, ani_db_scores=null")
+    Anime.update_all ani_db_id: 0, ani_db_scores: nil
+
     animes = Anime.where(:kind.not_in => ['Music', 'Special']).
                   #where(:id => [10187]).
                   #select('id, name, synonyms, english, japanese, status, episodes_aired, episodes').all

@@ -62,7 +62,7 @@ class AniMangaDecorator < BaseDecorator
 
   # добавившие в избранное
   def favoured
-    FavouritesQuery.new(object, 12).fetch
+    FavouritesQuery.new.favoured_by object, 12
   end
 
   # добавлено ли в список текущего пользователя?

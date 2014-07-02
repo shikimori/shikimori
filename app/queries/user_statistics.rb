@@ -31,7 +31,7 @@ class UserStatistics
       .where("action in (?) or (action = ? and value in (?))",
               [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore],
               UserHistoryAction::Status,
-              [UserRate.statuses[:completed], UserRate.statuses[:rewatching]])
+              [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
 
     @manga_rates = @user
@@ -48,7 +48,7 @@ class UserStatistics
       .where("action in (?) or (action = ? and value in (?))",
               [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore],
               UserHistoryAction::Status,
-              [UserRate.statuses[:completed], UserRate.statuses[:rewatching]])
+              [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
   end
 
   # формирование статистики
@@ -317,11 +317,12 @@ private
 
       rates += if ids.any?
         query = "select #{category_name}_id from #{[category_name.tableize, type.pluralize].sort.join('_')} where #{type}_id in (#{ids.join(',')})"
-        ActiveRecord::Base.connection
-                          .execute(query)
-                          .to_enum
-                          .map { |v| categories_by_id.include?(v[0].to_i) ? categories_by_id[v[0].to_i] : nil }
-                          .select { |v| v && v != 'School' && v != 'Action' }
+        ActiveRecord::Base
+          .connection
+          .execute(query)
+          .to_enum
+          .map { |v| categories_by_id.include?(v["#{category_name}_id"].to_i) ? categories_by_id[v["#{category_name}_id"].to_i] : nil }
+          .select { |v| v && v != 'School' && v != 'Action' }
       else
           []
       end

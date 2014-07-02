@@ -34,18 +34,14 @@ describe CharacterMalParser do
   end
 
   describe 'import' do
-    before {
-      create :character, id: 8177
-      create :character, id: 26201, imported_at: DateTime.now
-    }
+    let!(:character_1) { create :character, id: 8177 }
+    let!(:character_2) { create :character, id: 26201, imported_at: Time.zone.now }
 
-    it 'prepare' do
-      parser.prepare.should have(1).item
-    end
+    it { expect(parser.prepare).to have(1).item }
 
     it 'import' do
-      FactoryGirl.create :person_role, character_id: 1
-      FactoryGirl.create :person_role, character_id: 2
+      create :person_role, character_id: 1
+      create :person_role, character_id: 2
 
       expect {
         parser.import.should have(3).items
@@ -53,7 +49,7 @@ describe CharacterMalParser do
     end
 
     it 'import seyu' do
-      FactoryGirl.create :person_role, character_id: 1
+      create :person_role, character_id: 1
 
       expect {
         parser.import

@@ -10,15 +10,15 @@ describe UserChangesQuery do
   let(:entry2) { create :character }
 
   before do
-    create :user_change, model: 'character', column: 'description', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Accepted
-    create :user_change, model: 'character', column: 'description', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Accepted
-    create :user_change, model: 'character', column: 'description', item_id: entry.id, user_id: user2.id, status: UserChangeStatus::Taken
-    create :user_change, model: 'anime', column: 'description', item_id: entry.id, user_id: user3.id, status: UserChangeStatus::Accepted
-    create :user_change, model: 'character', column: 'name', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Accepted
-    create :user_change, model: 'character', column: 'description', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Pending
-    @lock = create :user_change, model: 'character', column: 'description', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Locked
-    1.upto(2) { create :user_change, model: 'character', column: 'video', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Taken }
-    create :user_change, model: 'character', column: 'screenshots', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Taken
+    create :user_change, model: 'Character', column: 'description', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Accepted
+    create :user_change, model: 'Character', column: 'description', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Accepted
+    create :user_change, model: 'Character', column: 'description', item_id: entry.id, user_id: user2.id, status: UserChangeStatus::Taken
+    create :user_change, model: 'Anime', column: 'description', item_id: entry.id, user_id: user3.id, status: UserChangeStatus::Accepted
+    create :user_change, model: 'Character', column: 'name', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Accepted
+    create :user_change, model: 'Character', column: 'description', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Pending
+    @lock = create :user_change, model: 'Character', column: 'description', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Locked
+    1.upto(2) { create :user_change, model: 'Character', column: 'video', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Taken }
+    create :user_change, model: 'Character', column: 'screenshots', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Taken
   end
 
   describe 'fetch' do

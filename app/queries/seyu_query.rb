@@ -1,14 +1,14 @@
 class SeyuQuery < PeopleQuery
-  def initialize(params)
+  def initialize params
     super params
     @kind = :seyu
   end
 
-  def fill_works(fetched_query)
+  def fill_works fetched_query
     people_by_id = fill_by_id fetched_query
 
     character_roles = PersonRole
-      .where(person_id: fetched_query.map(&:id))
+      .where(person_id: people_by_id.keys)
       .where(role: Person::SeyuRoles)
       .where.not(character_id: 0)
       .select([:person_id, :character_id])
@@ -23,9 +23,9 @@ class SeyuQuery < PeopleQuery
     anime_characters = anime_roles.each_with_object({}) do |role,memo|
       (memo[role.anime_id] = memo[role.anime_id] || []) << role.character_id
     end
-    character_animes = anime_roles.each_with_object({}) do |role,memo|
-      (memo[role.character_id] = memo[role.character_id] || []) << role.anime_id
-    end
+    #character_animes = anime_roles.each_with_object({}) do |role,memo|
+      #(memo[role.character_id] = memo[role.character_id] || []) << role.anime_id
+    #end
 
     person_characters = character_roles.each_with_object({}) do |role,memo|
       (memo[role.person_id] = memo[role.person_id] || []) << role.character_id
@@ -34,11 +34,11 @@ class SeyuQuery < PeopleQuery
       (memo[role.character_id] = memo[role.character_id] || []) << role.person_id
     end
 
-    person_animes = fetched_query.each_with_object({}) do |person,memo|
-      memo[person.id] = OrderedSet.new
+    person_animes = people_by_id.each_with_object({}) do |(person_id,person),memo|
+      memo[person_id] = OrderedSet.new
     end
-    person_characters = fetched_query.each_with_object({}) do |person,memo|
-      memo[person.id] = OrderedSet.new
+    person_characters = people_by_id.each_with_object({}) do |(person_id,person),memo|
+      memo[person_id] = OrderedSet.new
     end
 
     animes = Anime

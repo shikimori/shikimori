@@ -91,7 +91,7 @@ class Contest::DoubleEliminationStrategy
     end
 
     entrires.each_slice(2).each_with_index do |(left,right), pair_index|
-      matches.create({
+      matches.create(
         left_type: @contest.member_klass.name,
         left_id: left && left != ContestMatch::Undefined ? left.id : nil,
         right_type: right ? @contest.member_klass.name : nil,
@@ -99,7 +99,7 @@ class Contest::DoubleEliminationStrategy
         group: options[:group],
         started_on: date,
         finished_on: date + [0, @contest.match_duration - 1].max.days
-      })
+      )
 
       index += 1
       pred_last = (entrires.size/2.0).ceil - 2

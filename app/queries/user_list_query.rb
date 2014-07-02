@@ -10,7 +10,7 @@ class UserListQuery
     target_ids = AniMangaQuery.new(@klass, @params, @user).fetch.except(:order).pluck(:id)
     # закоменчено, пока не починят merge в activerecord в хз каком релизе рельс https://github.com/rails/rails/issues/12953
     user_rates#.merge(AniMangaQuery.new(@klass, @params, @user).fetch.except(:order))
-      .where("`#{@klass.table_name}`.`id` in (?)", target_ids)
+      .where("#{@klass.table_name}.id in (?)", target_ids)
       .order("user_rates.status, #{AniMangaQuery.order_sql order, @klass}")
       .each_with_object({}) do |v,memo|
         memo[v.status.to_sym] ||= []

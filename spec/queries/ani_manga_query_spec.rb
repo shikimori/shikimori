@@ -276,18 +276,19 @@ describe AniMangaQuery do
     end
 
     describe :status do
-      let!(:anime_1) { create :anime, status: AniMangaStatus::Ongoing, aired_on: DateTime.now - 1.month }
+      let!(:anime_1) { create :anime, status: AniMangaStatus::Ongoing, aired_on: Time.zone.now - 1.month }
       let!(:anime_2) { create :anime, status: AniMangaStatus::Anons }
       let!(:anime_3) { create :anime, status: AniMangaStatus::Anons }
       let!(:anime_4) { create :anime, status: AniMangaStatus::Released }
       let!(:anime_5) { create :anime, status: AniMangaStatus::Released }
-      let!(:anime_6) { create :anime, status: AniMangaStatus::Released }
+      let!(:anime_6) { create :anime, status: AniMangaStatus::Released, aired_on: 6.months.ago, released_on: 2.months.ago }
 
       describe 'inclusive' do
         it { fetch(status: 'ongoing').should have(1).item }
         it { fetch(status: 'planned').should have(2).items }
         it { fetch(status: 'released').should have(3).items }
         it { fetch(status: 'ongoing,planned').should have(3).items }
+        it { fetch(status: 'latest').should have(1).item }
       end
 
       describe 'exclusive' do

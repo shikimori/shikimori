@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'rails'
 
-gem 'mysql2'
+gem 'pg'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
 gem 'redis'
@@ -22,6 +22,7 @@ gem 'unicorn'
 
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
+#gem 'attr_extras'
 gem 'state_machine'
 gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'will_paginate-bootstrap'
@@ -117,7 +118,7 @@ group :test, :development do
   gem 'vcr'
   gem 'capybara'
   gem 'shoulda-matchers', require: false
-  gem 'database_rewinder'
+  gem 'database_cleaner'
 
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
