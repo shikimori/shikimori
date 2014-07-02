@@ -69,9 +69,6 @@ class ApplicationController < ActionController::Base
     @decorated_current_user ||= super.try :decorate
   end
 
-  def changing_hosting
-  end
-
 private
   def set_layout
     if request.xhr?
@@ -125,10 +122,11 @@ private
 
   def read_only_request_check
     return if request.get? || Rails.env.test?
-    if json?
-      render json: { error: '<br/>В связи с переездом на новый сервер сайт сейчас находится в режиме только на чтение.<br/>Приносим извинения за доставленные неудобства.<br/>Спасибо за понимание.' }, status: :unprocessable_entity
+    if request.xhr?
+      render json: { error: '<br/>Сайт переезжает на новый более мощный сервер. В течение всего времени переезда сайт будет доступен только для чтения, можно будет ходить по сайту, но нельзя будет ничего изменить: нельзя будет создавать комментарии, отмечать аниме просмотренными, изменять собственный профиль и т.д.<br/>Приносим извинения за доставленные неудобства.<br/>Спасибо за понимание.' }, status: :unprocessable_entity
+      #render json: { error: '<br/>В связи с переездом на более мощный сервер сайт сейчас находится в режиме только на чтение.<br/>Приносим извинения за доставленные неудобства.<br/>Спасибо за понимание.' }, status: :unprocessable_entity
     else
-      redirect_to changing_hosting_url
+      render 'changing_hosting'
     end
   end
 end
