@@ -10,15 +10,15 @@ class Api::V1::UsersController < Api::V1::ApiController
     @page = [params[:page].to_i, 1].max
 
     @collection = User
-      .order('if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
+      .order('(case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
       .offset(@limit * (@page-1))
       .limit(@limit + 1)
 
     @collection = if params[:search]
       search = "%#{params[:search]}%"
       @collection
-        .where('nickname like ?', search).order(:nickname)
-        .order('nickname,if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
+        .where('nickname ilike ?', search).order(:nickname)
+        .order('nickname, (case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
         .except(:order)
     else
       @collection.where.not(id: User::Admins)

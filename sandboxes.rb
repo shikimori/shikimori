@@ -27,8 +27,8 @@ ProxyTools.use_cache = true
 ###########################
 # переработка body для всех комментариев по какому-то признаку
 ###########################
-while Comment.where("html_body like '%data-remote%'").first
-  Comment.where("html_body like '%data-remote%'").order(id: :desc).limit(1000).each {|v| puts v.id; v.update body: v.body; }
+while Comment.where("html_body ilike '%data-remote%'").first
+  Comment.where("html_body ilike '%data-remote%'").order(id: :desc).limit(1000).each {|v| puts v.id; v.update body: v.body; }
 end
 ###########################
 # чистка продублировавшихся сообщений от перезапуска HistoryJob

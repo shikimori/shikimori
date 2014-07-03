@@ -6,5 +6,5 @@ class PersonRole < ActiveRecord::Base
 
   scope :main, -> { where "role = 'Main' and character_id != 0" }
   scope :people, -> { where("person_id != 0 and people.name != ''").includes(:person) }
-  scope :directors, -> { people.where "role like '%Director%' or role like '%Original Creator%' or role like '%Story & Art%' or role like '%Story%' or role like '%Art%'" }
+  scope :directors, -> { people.where "role ilike '%Director%' or role ilike '%Original Creator%' or role ilike '%Story & Art%' or role ilike '%Story%' or role ilike '%Art%'" }
 end

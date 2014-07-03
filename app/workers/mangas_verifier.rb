@@ -15,20 +15,20 @@ class MangasVerifier
 
   def bad_descriptions
     @bad_descriptions ||= Manga.where("
-        description like '%adultmanga%' or
-        description like '%doramatv%' or
-        description like '%readmanga%' or
-        description like '%findanime%' or
-        description like '%ru' or
-        description like '%com' or
-        description like '%org' or
-        description like '%info' or
-        description like '%http://%' or
-        description like '%www.%' or
-        description like '%ucoz%' or
-        description like '%Удалено по просьбе%' or
-        description like '%Редактировать описание' or
-        description like '%Описание представлено'
+        description ilike '%adultmanga%' or
+        description ilike '%doramatv%' or
+        description ilike '%readmanga%' or
+        description ilike '%findanime%' or
+        description ilike '%ru' or
+        description ilike '%com' or
+        description ilike '%org' or
+        description ilike '%info' or
+        description ilike '%http://%' or
+        description ilike '%www.%' or
+        description ilike '%ucoz%' or
+        description ilike '%Удалено по просьбе%' or
+        description ilike '%Редактировать описание' or
+        description ilike '%Описание представлено'
       ")
       .where.not(id: [2423])
       .pluck(:id)

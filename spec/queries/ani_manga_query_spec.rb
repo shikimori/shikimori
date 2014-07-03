@@ -5,7 +5,7 @@ describe AniMangaQuery do
     let!(:anime_1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }
     let!(:anime_2) { create :anime, name: 'testt', synonyms: ['xxxx'] }
     let!(:anime_3) { create :anime, name: 'zula zula', russian: 'дада' }
-    let!(:anime_4) { create :anime, name: 'test', english: ['bbbb'], japanese: ['シュタインズ ゲー'] }
+    let!(:anime_4) { create :anime, name: 'Test', english: ['bbbb'], japanese: ['シュタインズ ゲー'] }
 
     it { AniMangaQuery.new(Anime, { search: 'test' }, nil).complete.should have(2).items }
     it { AniMangaQuery.new(Anime, { search: 'シュタインズ' }, nil).complete.should have(2).items }

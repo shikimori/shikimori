@@ -15,14 +15,14 @@ class PeopleJobsActualzier
   def producer_ids
     PersonRole
       .where("
-        role like 'Chief Producer' or
-        role like 'Chief Producer,%' or
-        role like '%, Chief Producer' or
-        role like '%, Chief Producer,%' or
-        role like 'Director' or
-        role like 'Director,%' or
-        role like '%, Director' or
-        role like '%, Director,%'
+        role ilike 'Chief Producer' or
+        role ilike 'Chief Producer,%' or
+        role ilike '%, Chief Producer' or
+        role ilike '%, Chief Producer,%' or
+        role ilike 'Director' or
+        role ilike 'Director,%' or
+        role ilike '%, Director' or
+        role ilike '%, Director,%'
       ")
       .pluck(:person_id)
       .uniq

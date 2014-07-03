@@ -187,7 +187,7 @@ class GroupsController < ShikimoriController
 
     items = group
       .members
-      .where("nickname = ? or nickname like ?", params[:search], "#{params[:search]}%")
+      .where("nickname = ? or nickname ilike ?", params[:search], "#{params[:search]}%")
       .order(:nickname)
       .to_a
 

@@ -13,7 +13,7 @@ class AnimeVideosQuery
   def search
     unless @search.blank?
       @query = @query
-        .where('name like ? or russian like ?', "%#{@search}%", "%#{@search}%")
+        .where('name ilike ? or russian ilike ?', "%#{@search}%", "%#{@search}%")
     end
     self
   end

@@ -46,12 +46,12 @@ class UsersController < ShikimoriController
         if params[:search]
           search = "%#{params[:search]}%"
           User
-            .where('nickname like ?', search)
-            .order('nickname,if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
+            .where('nickname ilike ?', search)
+            .order('nickname, (case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
         else
           User
             .where.not(id: 1)
-            .order('if(last_online_at>current_sign_in_at,last_online_at,current_sign_in_at) desc')
+            .order('(case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
         end
       end
 

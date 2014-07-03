@@ -31,11 +31,11 @@ private
       [
         "#{column_name} = #{sanitize @search}",
         "#{column_name} = #{sanitize @search.gsub('_', ' ').strip}",
-        "#{column_name} like #{sanitize "#{@search}%"}",
-        "#{column_name} like #{sanitize "% #{@search}%"}",
-        "#{column_name} like #{sanitize "%#{@search}%"}",
-        (@search.include?(' ') ? "#{column_name} like #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
-        (@search.include?(' ') ? "#{column_name} like #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
+        "#{column_name} ilike #{sanitize "#{@search}%"}",
+        "#{column_name} ilike #{sanitize "% #{@search}%"}",
+        "#{column_name} ilike #{sanitize "%#{@search}%"}",
+        (@search.include?(' ') ? "#{column_name} ilike #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
+        (@search.include?(' ') ? "#{column_name} ilike #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
       ]
     end.flatten.uniq.compact
   end

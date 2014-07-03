@@ -364,17 +364,17 @@ class TranslationController < GroupsController
                      where(censored: false).
                      order(:ranked)]
     @goals << ['Kara no Kyoukai',
-               Anime.where("name like '%Kara no K%'").
+               Anime.where("name ilike '%Kara no K%'").
                      where(censored: false).
                      order(:name)]
     @goals << ['Ghost in the Shell',
-               Anime.where("name like '%Ghost in the S%'").
+               Anime.where("name ilike '%Ghost in the S%'").
                      where.not(id: @translate_ignore).
                      where('id < 10000').
                      where(censored: false).
                      order(:name)]
     @goals << ['Break Blade',
-               Anime.where("name like '%Break Bla%'").
+               Anime.where("name ilike '%Break Bla%'").
                      where.not(id: @translate_ignore).
                      where(censored: false).
                      order(:name)]

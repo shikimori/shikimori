@@ -1,5 +1,5 @@
 module SearchHelper
-  def self.unescape(string)
+  def self.unescape string
     (string || '').fix_encoding
         .gsub(/\+/, ' ')
         .strip

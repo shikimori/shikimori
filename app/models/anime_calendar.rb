@@ -131,10 +131,10 @@ class AnimeCalendar < ActiveRecord::Base
     replaced = "replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(%s, '♪', ''), '☆', ''), 'The ', ''), 'the ', ''), '''', ''), '?', ''), '!', ''), ':', ''), '-', ''), ' ', ''), '.', ''), ',', '')"
     query = "#{replaced % 'name'} in ('#{fixed_calendar_names.join("','")}')"
     fixed_calendar_names.each do |v|
-      query += " or #{replaced % 'name'} like '%#{v}%'"
-      query += " or #{replaced % 'english'} like '%#{v}%'"
-      query += " or #{replaced % 'synonyms'} like '%#{v}%'"
-      query += " or #{replaced % 'japanese'} like '%#{v}%'"
+      query += " or #{replaced % 'name'} ilike '%#{v}%'"
+      query += " or #{replaced % 'english'} ilike '%#{v}%'"
+      query += " or #{replaced % 'synonyms'} ilike '%#{v}%'"
+      query += " or #{replaced % 'japanese'} ilike '%#{v}%'"
     end
 
     query += " or id in (#{calendar.map {|v| v[:anime_id] }.compact.join(',')})"
