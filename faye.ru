@@ -1,3 +1,6 @@
+# запуск faye из консоли
+# RAILS_ENV=development rackup faye.ru -s thin -E production
+
 require 'faye'
 require 'faye/redis'
 require 'psych'
