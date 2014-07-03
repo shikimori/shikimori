@@ -251,7 +251,7 @@ class User < ActiveRecord::Base
   def last_online_at
     cached = Rails.cache.read(self.last_online_cache_key)
     cached = DateTime.parse(cached) if cached
-    [cached, self[:last_online_at], self.current_sign_in_at, 5.minutes.ago].compact.max
+    [cached, self[:last_online_at], current_sign_in_at, created_at].compact.max
   end
 
   # updates user's last online date
