@@ -41,7 +41,7 @@ class TranslationController < GroupsController
     @goals << ['Онгоинги',
                Anime.translatable.
                      where(status: AniMangaStatus::Ongoing).
-                     where('score != 0 && ranked != 0').
+                     where('score != 0 and ranked != 0').
                      where.not(id: goals_ids).
                      where.not(id: [10908,11385]).
                      where.not(id: @translate_ignore).
@@ -302,7 +302,7 @@ class TranslationController < GroupsController
                      #order(:score.desc).
                      limit(45)]
     @goals << ['В избранном у пользователей',
-               Anime.where(id: Favourite.where(linked_type: Anime.name).group(:linked_id).order('count(*) desc').limit(300).map(&:linked_id)).
+               Anime.where(id: FavouritesQuery.new.top_favourite_ids(Anime, 300)).
                      where.not(id: goals_ids).
                      where.not(kind: ['Special', 'Music']).
                      where(censored: false).
