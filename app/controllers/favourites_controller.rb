@@ -8,7 +8,7 @@ class FavouritesController < ShikimoriController
     if Favourite.where({
           linked_type: params[:linked_type],
           user_id: current_user.id,
-          kind: params[:kind] || ''
+          kind: params[:kind]
         }).count >= entries_limit
       type_name = case params[:linked_type]
         when Character.name then 'персонажей'
@@ -25,7 +25,7 @@ class FavouritesController < ShikimoriController
         linked_type: params[:linked_type],
         linked_id: params[:linked_id],
         user_id: current_user.id,
-        kind: params[:kind] || ''
+        kind: params[:kind]
       })
       @fav.save!
 
@@ -56,7 +56,7 @@ class FavouritesController < ShikimoriController
         linked_type: params[:linked_type],
         linked_id: params[:linked_id],
         user_id: current_user.id,
-        kind: params[:kind] || ''
+        kind: params[:kind]
       }).first
     @fav.destroy
 
