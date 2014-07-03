@@ -141,12 +141,6 @@ gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 gem 'whenever', require: false
 gem 'clockwork', require: false, github: 'zph/clockwork', branch: 'master' # TODO: заменить на оригинальный гем, когда пулреквест будет принят https://github.com/tomykaira/clockwork/pull/102
 
+gem 'faye'
+gem 'faye-redis'
 gem 'thin'
-gem 'faye', '0.8.1'
-gem 'faye-redis', '0.1.0'
-# все эти гемы для faye 0.8.1. когда обновлю faye до современной версии, надо удалить всё, что ниже
-gem 'faye-websocket', '0.4.4'
-#gem 'em-websocket', '0.3.8'
-gem 'em-socksify', '0.2.0'
-gem 'em-http-request'
-gem 'em-hiredis', '0.1.1'
