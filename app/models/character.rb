@@ -21,7 +21,7 @@ class Character < ActiveRecord::Base
     },
     url: "/images/character/:style/:id.:extension",
     path: ":rails_root/public/images/character/:style/:id.:extension",
-    default_url: '/images/missing_:style.jpg'
+    default_url: '/assets/globals/missing_:style.jpg'
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
