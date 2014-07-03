@@ -18,7 +18,7 @@ class ProxyTest
       [200,
         {'Content-Type' => 'text/plain'},
         [
-          env['REMOTE_ADDR']
+          env['HTTP_X_FORWARDED_FOR'] || env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']
         ]
       ]
     else
