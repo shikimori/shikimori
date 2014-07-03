@@ -67,5 +67,14 @@ module Site
       g.view_specs false
       g.test_framework :rspec
     end
+
+    console do
+      Object.send :include, ConsoleHelpers
+
+      Pry.config.print = -> (output, value) {
+        value = value.kind_of?(ActiveRecord::Relation) ? value.to_a : value
+        Pry::Helpers::BaseHelpers.stagger_output("=> #{value.ai}", output)
+      }
+    end
   end
 end
