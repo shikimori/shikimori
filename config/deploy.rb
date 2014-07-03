@@ -167,16 +167,16 @@ namespace :whenever do
   end
 end
 
-#after 'deploy:starting', 'sidekiq:quiet'
-#after 'deploy:updated', 'sidekiq:stop'
-#after 'deploy:reverted', 'sidekiq:stop'
-#after 'deploy:published', 'sidekiq:start'
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:updated', 'sidekiq:stop'
+after 'deploy:reverted', 'sidekiq:stop'
+after 'deploy:published', 'sidekiq:start'
 
-#after 'deploy:updated', 'clockwork:stop'
-#after 'deploy:reverted', 'clockwork:stop'
-#after 'deploy:published', 'clockwork:start'
+after 'deploy:updated', 'clockwork:stop'
+after 'deploy:reverted', 'clockwork:stop'
+after 'deploy:published', 'clockwork:start'
 
 after 'deploy:published', 'unicorn:restart'
-#after 'deploy:published', 'whenever:schedule'
+after 'deploy:published', 'whenever:schedule'
 
 after 'deploy:finishing', 'deploy:cleanup'
