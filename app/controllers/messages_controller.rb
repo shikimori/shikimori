@@ -135,42 +135,43 @@ class MessagesController < UsersController
       message.update_attribute :read, true
     end
 
-    ids = { comments: [], messages: [] }
-    ActiveRecord::Base.connection.
-      execute("select id,type
-                 from (
-                     select id,created_at,'comments' as type
-                       from comments
-                       where ((
-                             commentable_id=#{@user.id}
-                             and user_id=#{current_user.id}
-                           ) or (
-                             commentable_id=#{current_user.id}
-                             and user_id=#{@user.id}
-                           )
-                         )
-                         and commentable_type='#{User.name}'
-                     union
-                     select id,created_at,'messages' as type
-                       from messages
-                       where
-                         kind='#{MessageType::Private}'
-                         and ((
-                             from_id=#{@user.id}
-                             and to_id=#{current_user.id}
-                           ) or (
-                             to_id=#{@user.id}
-                             and from_id=#{current_user.id}
-                           )
-                         )
-                   ) as t
-                 order by
-                   created_at desc
-                 limit
-                   #{@@limit * (@page-1)}, #{@@limit + 1}
-              ").each {|v| ids[v['type'].to_sym] << v['id'].to_i }
+    #ids = { comments: [], messages: [] }
+    #ActiveRecord::Base.connection.
+      #execute("
+#select
+  #id,type
+#from (
+  #select
+    #id,created_at,'comments' as type
+  #from comments
+  #where
+    #((commentable_id=#{@user.id} and user_id=#{current_user.id}) or (commentable_id=#{current_user.id} and user_id=#{@user.id}))
+    #and commentable_type='#{User.name}'
 
-    @messages = (Message.where(id: ids[:messages]) + Comment.where(id: ids[:comments])).sort_by(&:created_at).reverse
+  #union all
+
+  #select
+    #id,created_at,'messages' as type
+  #from messages
+  #where
+    #kind='#{MessageType::Private}' and ((from_id=#{@user.id} and to_id=#{current_user.id}) or (to_id=#{@user.id} and from_id=#{current_user.id}))
+
+#) as t
+#order by
+  #created_at desc
+#limit
+  ##{@@limit * (@page-1)}, #{@@limit + 1}
+              #").each {|v| ids[v['type'].to_sym] << v['id'].to_i }
+
+    #@messages = (Message.where(id: ids[:messages]) + Comment.where(id: ids[:comments])).sort_by(&:created_at).reverse
+    @messages = Message
+      .where(kind: MessageType::Private)
+      .where("(from_id=#{@user.id} and to_id=#{current_user.id}) or (to_id=#{@user.id} and from_id=#{current_user.id})")
+      .order(created_at: :desc)
+      .offset(@@limit * (@page-1))
+      .limit(@@limit + 1)
+      .to_a
+
     @add_postloader = @messages.size > @@limit
     @messages = @messages.take(@@limit)
 
