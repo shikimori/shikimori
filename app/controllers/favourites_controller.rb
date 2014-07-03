@@ -56,7 +56,7 @@ class FavouritesController < ShikimoriController
         linked_type: params[:linked_type],
         linked_id: params[:linked_id],
         user_id: current_user.id,
-        kind: params[:kind]
+        kind: params[:kind] || ''
       }).first
     @fav.destroy
 
