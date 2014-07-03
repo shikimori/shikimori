@@ -36,8 +36,8 @@ describe MessagesQuery do
     end
 
     describe :notifications do
-      let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2 }
-      let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2 }
+      let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 2.hours.ago }
+      let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 3.hours.ago }
       let(:type) { :notifications }
 
       it { should have(2).item }

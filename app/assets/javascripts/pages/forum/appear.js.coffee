@@ -12,7 +12,7 @@ $('.comment-new .appear-marker').live 'appear', (e, $appeared, by_click) ->
   ids = _.map($nodes, (v) ->
     v.className.match(/appear-((\w+-)?\d+)/)[1]
   )
-  $.post $(@).data('href'), "ids=#{ids.join(",")}"
+  $.post $(@).data('href'), "ids=#{ids.join ","}"
 
   _.delay ->
     $markers.css opacity: 0

@@ -4,9 +4,9 @@
 class FayePublisher
   BroadcastFeed = 'myfeed'
 
-  def initialize actor, except_client_id = nil
+  def initialize actor, publisher_faye_id = nil
     @namespace = ''
-    @except_client_id = except_client_id
+    @publisher_faye_id = publisher_faye_id
     @actor = actor
   end
 
@@ -58,17 +58,11 @@ private
   # отправка произвольных уведомлений
   def publish_data data, event, channels
     return if channels.empty?
-    keys = channels.map { |c| "#{@namespace}/channels#{c}" }
+    run_event_machine
+    channels = ["/#{BroadcastFeed}"] if channels.empty?
 
-    $redis.sunion(*keys).each do |client_id|
-      next if client_id == @except_client_id
-      message = {
-        channel: channels.size == 1 ? channels.first : "/#{BroadcastFeed}",
-        data: data
-      }
-
-      $redis.rpush "#{@namespace}/clients/#{client_id}/messages", message.to_json
-      $redis.publish "#{@namespace}/notifications", client_id
+    channels.each do |channel|
+      faye_client.publish channel, data.merge(token: config[:server_token], publisher_faye_id: @publisher_faye_id)
     end
   end
 
@@ -80,5 +74,19 @@ private
       .map do |v|
         "/user-#{v.user_id}"
       end
+  end
+
+private
+  def faye_client
+    @faye_client ||= Faye::Client.new "http://localhost:9292#{config[:endpoint]}"
+  end
+
+  def config
+    @config ||= YAML.load_file Rails.root.join 'config/faye.yml'
+  end
+
+  def run_event_machine
+    Thread.new { EM.run } unless EM.reactor_running?
+    Thread.pass until EM.reactor_running?
   end
 end

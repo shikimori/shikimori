@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'rails'
 
-gem 'mysql2'
+gem 'pg'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
 gem 'redis'
@@ -18,11 +18,11 @@ gem 'uglifier'
 gem 'compass-rails'
 
 gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
-gem 'capistrano'
-gem 'rvm-capistrano'
+gem 'unicorn'
 
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
+#gem 'attr_extras'
 gem 'state_machine'
 gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'will_paginate-bootstrap'
@@ -94,25 +94,31 @@ group :development do
   gem 'better_errors'
   #gem 'sprockets_better_errors'
   gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
-  gem 'sql-logging'
+  #gem 'sql-logging'
+
+  gem 'capistrano'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  #gem 'capistrano-file-permissions', require: false, github: 'morr/file-permissions'
+  gem 'rvm1-capistrano3', require: false
+
+  gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 end
 
 gem 'marco-polo'
 gem 'pry-rails'
 gem 'pry-stack_explorer'
 
-group :development, :test do
+group :test, :development do
   gem 'byebug'
   #gem 'pry-byebug' # пока ещё не поддерживает byubug 3.0
-end
-
-group :test, :development do
+  #
   gem 'rspec-rails'
 
   gem 'vcr'
   gem 'capybara'
   gem 'shoulda-matchers', require: false
-  gem 'database_rewinder'
+  gem 'database_cleaner'
 
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
@@ -133,15 +139,8 @@ end
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
 gem 'whenever', require: false
-gem 'clockwork', require: false
-gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
+gem 'clockwork', require: false, github: 'zph/clockwork', branch: 'master' # TODO: заменить на оригинальный гем, когда пулреквест будет принят https://github.com/tomykaira/clockwork/pull/102
 
+gem 'faye'
+gem 'faye-redis'
 gem 'thin'
-gem 'faye', '0.8.1'
-gem 'faye-redis', '0.1.0'
-# все эти гемы для faye 0.8.1. когда обновлю faye до современной версии, надо удалить всё, что ниже
-gem 'faye-websocket', '0.4.4'
-#gem 'em-websocket', '0.3.8'
-gem 'em-socksify', '0.2.0'
-gem 'em-http-request'
-gem 'em-hiredis', '0.1.1'

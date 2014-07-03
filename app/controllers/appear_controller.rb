@@ -3,10 +3,9 @@ class AppearController < ApplicationController
 
   # пометка элементов прочитанными
   def read
-    type_ids = (params[:ids] || '').split(',').inject({}) do |rez,v|
+    type_ids = (params[:ids] || '').split(',').each_with_object({}) do |v,memo|
       data = v.split('-')
-      (rez[data[0]] ||= []) << data[1].to_i
-      rez
+      (memo[data[0]] ||= []) << data[1].to_i
     end
 
     type_ids.each do |type,ids|

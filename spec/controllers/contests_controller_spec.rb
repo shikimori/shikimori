@@ -5,7 +5,7 @@ describe ContestsController do
   let(:user) { create :user, id: 1 }
   before { sign_in user }
 
-  let(:contest) { create :contest }
+  let(:contest) { create :contest, user: user }
 
   describe '#index' do
     before { get :index }
@@ -15,7 +15,7 @@ describe ContestsController do
 
   describe '#grid' do
     context :created do
-      let(:contest) { create :contest }
+      let(:contest) { create :contest, user: user }
       before { get :grid, id: contest.to_param }
 
       it { should respond_with :redirect }
@@ -23,7 +23,7 @@ describe ContestsController do
     end
 
     context :proposing do
-      let(:contest) { create :contest, state: 'proposing' }
+      let(:contest) { create :contest, user: user, state: 'proposing' }
       before { get :grid, id: contest.to_param }
 
       it { should respond_with :redirect }
@@ -31,7 +31,7 @@ describe ContestsController do
     end
 
     context :started do
-      let(:contest) { create :contest_with_5_members }
+      let(:contest) { create :contest_with_5_members, user: user }
       before { contest.start! }
       before { get :grid, id: contest.to_param }
 
@@ -41,7 +41,7 @@ describe ContestsController do
   end
 
   describe '#show' do
-    let(:contest) { create :contest_with_5_members }
+    let(:contest) { create :contest_with_5_members, user: user }
     before { contest.start! if contest.can_start? }
 
     context 'w/o round' do
@@ -71,7 +71,7 @@ describe ContestsController do
     end
 
     context :proposing do
-      let(:contest) { create :contest, state: 'proposing' }
+      let(:contest) { create :contest, state: 'proposing', user: user }
       before { get :show, id: contest.to_param }
 
       it { should respond_with :success }
@@ -80,7 +80,7 @@ describe ContestsController do
   end
 
   describe '#users' do
-    let(:contest) { create :contest_with_5_members }
+    let(:contest) { create :contest_with_5_members, user: user }
     before { contest.start }
 
     describe 'not finished' do
@@ -153,7 +153,7 @@ describe ContestsController do
   end
 
   describe '#start' do
-    let(:contest) { create :contest_with_5_members }
+    let(:contest) { create :contest_with_5_members, user: user }
     before { post :start, id: contest.id }
 
     it { should respond_with 302 }
@@ -162,7 +162,7 @@ describe ContestsController do
   end
 
   describe '#propose' do
-    let(:contest) { create :contest }
+    let(:contest) { create :contest, user: user }
     before { post :propose, id: contest.id }
 
     it { should respond_with 302 }
@@ -171,7 +171,7 @@ describe ContestsController do
   end
 
   describe '#stop_propose' do
-    let(:contest) { create :contest, state: :proposing }
+    let(:contest) { create :contest, state: :proposing, user: user }
     before { post :stop_propose, id: contest.id }
 
     it { should respond_with 302 }
@@ -180,7 +180,7 @@ describe ContestsController do
   end
 
   #describe '#finish' do
-    #let(:contest) { create :contest_with_5_members }
+    #let(:contest) { create :contest_with_5_members, user: user }
     #before do
       #contest.start
       #get 'finish', id: contest.id
@@ -192,7 +192,7 @@ describe ContestsController do
   #end
 
   describe '#build' do
-    let(:contest) { create :contest_with_5_members }
+    let(:contest) { create :contest_with_5_members, user: user }
     before { post :build, id: contest.id }
 
     it { should respond_with 302 }

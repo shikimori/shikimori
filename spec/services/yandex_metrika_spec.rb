@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe YandexMetrika, vcr: { use_cassette: 'yandex_metric' } do
+describe YandexMetrika, vcr: { cassette_name: 'yandex_metric' } do
   let(:service) { YandexMetrika.new }
 
   describe :traffic_for_months do

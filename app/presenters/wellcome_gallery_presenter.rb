@@ -15,7 +15,7 @@ class WellcomeGalleryPresenter < LazyPresenter
     @index = ['favourites', 'latest', 'tv',' movies', 'serials', 'ongoing']
     @data = [
       Anime
-        .where(id: Favourite.where(linked_type: Anime.name).group(:linked_id).order('count(*) desc').limit(50).map(&:linked_id))
+        .where(id: FavouritesQuery.new.top_favourite_ids(Anime, 50))
         .where(censored: false)
         .includes(:genres)
         .order(:ranked)

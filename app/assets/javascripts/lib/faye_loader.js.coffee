@@ -11,10 +11,10 @@
     client = new Faye.Client("http://#{location.hostname}#{port}/faye-server",
       timeout: 300
       retry: 5
-      transportEndpoints:
+      endpoints:
         websocket: "http://#{location.hostname}:9292/faye-server"
     )
-    client.disable 'eventsource'
+    #client.disable 'eventsource'
     _log 'faye connected'
 
   # отписка ото всех не актуальных каналов
@@ -38,10 +38,14 @@
   subscribe = (channels) ->
     keys = _.without(_.keys(channels), _.keys(subscriptions))
     _.each keys, (channel) ->
-      subscription = client.subscribe(channel, (data) ->
+
+      subscription = client.subscribe channel, (data) ->
+        # это колбек, в котором мы получили уведомление от faye
         _log ['faye:received', data]
+        # сообщения от самого себя не принимаем
+        return if data.publisher_faye_id == client._clientId
         subscriptions[channel].node.trigger 'faye:success', data
-      )
+
       subscriptions[channel] =
         node: channels[channel]
         channel: subscription
@@ -70,6 +74,7 @@
 
   # привязка подписки/отписки каналов к событиям внешнего мира
   $('.ajax').live 'ajax:success postloader:success', apply
+
   apply: apply
   client: ->
     client

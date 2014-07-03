@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :fix_nickname
-  before_update :log_nickname_change
+  before_update :log_nickname_change, if: -> { changes['nickname'] }
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry unless Rails.env.test?
@@ -373,23 +373,7 @@ private
 
   # запоминаем предыдущие никнеймы пользователя
   def log_nickname_change
-    if changes.include?('nickname') && (created_at + 1.day) < DateTime.now && changes['nickname'][0] !~ /^Новый пользователь\d+/ && comments.count > 10
-      nickname_changes.create! value: changes['nickname'][0]
-
-      Message.wo_antispam do
-        FriendLink.where(dst_id: id).includes(:src).each do |link|
-          Message.create!(
-            from_id: BotsService.get_poster.id,
-            to_id: link.src.id,
-            kind: MessageType::NicknameChanged,
-            body: female? ?
-              "Ваша подруга [profile=#{id}]#{changes['nickname'][0]}[/profile] изменила никнейм на [profile=#{id}]#{changes['nickname'][1]}[/profile]." :
-              "Ваш друг [profile=#{id}]#{changes['nickname'][0]}[/profile] изменил никнейм на [profile=#{id}]#{changes['nickname'][1]}[/profile]."
-          ) if link.src.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS != 0
-        end
-      end
-    end
-  rescue ActiveRecord::RecordNotUnique
+    UserNicknameChange.create user: self, value: changes['nickname'][0]
   end
 
   # зачистка никнейма от запрещённых символов
@@ -416,7 +400,7 @@ private
   end
 
   def twitter_client
-    client = TwitterOAuth::Client.new(
+    TwitterOAuth::Client.new(
       consumer_key: ::TWITTER_CONSUMER_KEY,
       consumer_secret: ::TWITTER_SECRET_KEY,
       token: user_tokens.twitter.token,
@@ -426,11 +410,10 @@ private
 
   def truncated_message_with_url message="", url="", length=140
     if message.size + url.size > 140
-      share = message[0..(136-url.size)] + "..." + url
+      message[0..(136-url.size)] + "..." + url
     else
-      share = message + " " + url
+      message + " " + url
     end
-    share
   end
 
   def cached_ignores
@@ -438,7 +421,8 @@ private
   end
 
   def self.find_by_nickname nickname
-    self.where(nickname: nickname).select {|v| v.nickname == nickname }.first
+    where(nickname: nickname)
+      .find {|v| v.nickname == nickname }
   end
 
   def check_ban

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ContestMatch do
-  context '#relations' do
+  context :relations do
     it { should belong_to :round }
     it { should belong_to :left }
     it { should belong_to :right }
@@ -10,7 +10,7 @@ describe ContestMatch do
 
   let(:user) { create :user }
 
-  describe 'states' do
+  describe :states do
     let(:match) { create :contest_match, started_on: Date.yesterday, finished_on: Date.yesterday }
 
     it 'full cycle' do

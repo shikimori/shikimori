@@ -168,7 +168,7 @@ class MessagesController < UsersController
                    created_at desc
                  limit
                    #{@@limit * (@page-1)}, #{@@limit + 1}
-              ").each {|v| ids[v[1].to_sym] << v[0].to_i }
+              ").each {|v| ids[v['type'].to_sym] << v['id'].to_i }
 
     @messages = (Message.where(id: ids[:messages]) + Comment.where(id: ids[:comments])).sort_by(&:created_at).reverse
     @add_postloader = @messages.size > @@limit

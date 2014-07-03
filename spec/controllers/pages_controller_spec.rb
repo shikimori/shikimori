@@ -47,8 +47,8 @@ describe PagesController do
 
     context 'anime' do
       before do
-        create :anime_news, generated: false, section: section, linked: create(:anime)
-        create :anime_news, generated: false, section: section, linked: create(:anime)
+        create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons
+        create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons
         get :news, kind: 'anime', format: 'rss'
       end
 

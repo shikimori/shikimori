@@ -28,7 +28,7 @@ describe ContestSuggestion do
     end
 
     describe :by_votes do
-      it { ContestSuggestion.by_votes.should eq [suggestion1, suggestion3] }
+      it { ContestSuggestion.by_votes.map(&:item).should eq [item, item2] }
       it { ContestSuggestion.by_votes.first.votes.should eq 2 }
     end
   end

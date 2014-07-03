@@ -44,7 +44,14 @@ class ContestDecorator < BaseDecorator
 
   # число участников в турнире
   def uniq_voters
-    object.rounds.joins(matches: :votes).select('count(distinct(user_id)) as uniq_voters').first.uniq_voters
+    object
+      .rounds
+      .joins(matches: :votes)
+      .select('count(distinct(user_id)) as uniq_voters')
+      .except(:order)
+        .to_a
+        .first
+        .uniq_voters
   end
 
   # голоса за правый вариант
