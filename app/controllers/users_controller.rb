@@ -200,10 +200,10 @@ class UsersController < ShikimoriController
   def clubs
     @page_title = UsersController.profile_title('Клубы', @user)
     @clubs = @user
-        .groups
-        .joins(:member_roles, :thread)
-        .group('groups.id')
-        .order('entries.updated_at desc')
+      .groups
+      .joins(:member_roles, :thread)
+      .group('groups.id, entries.updated_at')
+      .order('entries.updated_at desc')
     show
   end
 
