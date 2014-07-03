@@ -1,4 +1,5 @@
 NonStupidDigestAssets.whitelist = [
   %r{background/.*},
-  %r{globals/.*}
+  %r{globals/.*},
+  %r{blocks/.*}
 ]
