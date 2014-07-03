@@ -16,6 +16,7 @@ gem 'susy', '1.0.8'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'compass-rails'
+gem 'non-stupid-digest-assets'
 
 gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'
