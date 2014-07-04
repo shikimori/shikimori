@@ -111,25 +111,24 @@ class GroupsController < ShikimoriController
   # изменение группы
   def update
     raise Forbidden unless @group.can_be_edited_by?(current_user)
-
     if params[:animes]
       @group.animes = []
       params[:animes].map(&:to_i).select {|v| v != 0 }.each do |v|
-        @group.animes << Anime.find(v)
+        @group.links.create linked: Anime.find(v)
       end
     end
 
     if params[:mangas]
       @group.mangas = []
       params[:mangas].map(&:to_i).select {|v| v != 0 }.each do |v|
-        @group.mangas << Manga.find(v)
+        @group.links.create linked: Manga.find(v)
       end
     end
 
     if params[:characters]
       @group.characters = []
       params[:characters].map(&:to_i).select {|v| v != 0 }.each do |v|
-        @group.characters << Character.find(v)
+        @group.links.create linked: Character.find(v)
       end
     end
 
