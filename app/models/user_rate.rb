@@ -1,6 +1,4 @@
 # аниме и манга в списке пользователя
-# TODO: переделать status в enumerize (https://github.com/brainspec/enumerize)
-# TODO: вместо переделки на enumerize, после апгрейда на rails 4.1, подумать о переходе на activerecord enum
 class UserRate < ActiveRecord::Base
   # максимальное значение эпизодов/частей
   MAXIMUM_EPISODES = 2000
@@ -72,9 +70,9 @@ private
 
   # логика обновления полей при выставлении статусов
   def status_changed
-    self.episodes = target.episodes if anime? && completed?
-    self.volumes = target.volumes if manga? && completed?
-    self.chapters = target.chapters if manga? && completed?
+    self.episodes = target.episodes if anime? && completed? && !target.episodes.zero?
+    self.volumes = target.volumes if manga? && completed? && !target.volumes.zero?
+    self.chapters = target.chapters if manga? && completed? && !target.chapters.zero?
 
     self.episodes = 0 if anime? && rewatching? && (!changes['episodes'] || changes['episodes'].first.blank?)
     self.volumes = 0 if manga? && rewatching? && (!changes['volumes'] || changes['volumes'].first.blank?)

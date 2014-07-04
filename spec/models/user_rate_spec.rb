@@ -190,6 +190,19 @@ describe UserRate do
         it { should be_on_hold }
         its(:episodes) { should eq 0 }
       end
+
+      context 'to completed for ongoing w/o episodes' do
+        subject(:user_rate) { create :user_rate, old_status, episodes: old_episodes, target: target }
+        let(:target) { build_stubbed :anime, episodes: 0, status: AniMangaStatus::Ongoing }
+
+        let(:old_episodes) { 3 }
+        let(:old_status) { :watching }
+        let(:new_status) { :completed }
+        let(:update_params) {{ status: new_status }}
+
+        it { should be_completed }
+        its(:episodes) { should eq old_episodes }
+      end
     end
 
     describe :score_changed do
