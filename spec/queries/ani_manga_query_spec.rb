@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 describe AniMangaQuery do
-  describe '#complete' do
+  describe '#complete', :focus do
     let!(:anime_1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }
     let!(:anime_2) { create :anime, name: 'testt', synonyms: ['xxxx'] }
-    let!(:anime_3) { create :anime, name: 'zula zula', russian: 'дада' }
+    let!(:anime_3) { create :anime, name: 'zula zula', russian: 'дада То' }
     let!(:anime_4) { create :anime, name: 'Test', english: ['bbbb'], japanese: ['シュタインズ ゲー'] }
 
     it { AniMangaQuery.new(Anime, { search: 'test' }, nil).complete.should have(2).items }
     it { AniMangaQuery.new(Anime, { search: 'シュタインズ' }, nil).complete.should have(2).items }
     it { AniMangaQuery.new(Anime, { search: 'z z' }, nil).complete.should have(1).item }
     it { AniMangaQuery.new(Anime, { search: 'fofo' }, nil).complete.should have(0).items }
+    it { AniMangaQuery.new(Anime, { search: 'То' }, nil).complete.should have(1).items }
   end
 
   describe '#fetch' do

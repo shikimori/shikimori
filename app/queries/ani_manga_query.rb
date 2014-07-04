@@ -302,8 +302,8 @@ private
         "#{table_name}.#{field} ilike #{Entry.sanitize term.gsub(/([A-zА-я0-9])/, '\1% ').sub(/ $/, '')}"
       ]
 
-      if field == :english || field == :synonyms || field == :name
-        queries << "#{table_name}.#{field} ilike #{Entry.sanitize term.broken_translit}"
+      if field == :english || field == :synonyms || field == :name || field == :russian
+        queries << "#{table_name}.#{field} ilike #{Entry.sanitize term.broken_translit}" if field != :russian
         queries << "#{table_name}.#{field} ilike #{Entry.sanitize "% #{term}%"}"
         queries << "#{table_name}.#{field} ilike #{Entry.sanitize "% _#{term}%"}"
         queries << "#{table_name}.#{field} ilike #{Entry.sanitize "% #{term}%"}"
