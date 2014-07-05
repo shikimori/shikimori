@@ -43,7 +43,7 @@ class TorrentsController < ShikimoriController
       flash[:notice] = added == 1 ? "Новый торрент успешно добавлен" : "Новые торренты успешно добавлены"
       redirect_to page_anime_url(anime, page: :files)
     else
-      redirect_to :back, alert: params[:torrent]['url'] ? 'Не найдено ни одного нового торрента' : 'Не удалось добавить новый торрент, проверьте корректность Title'
+      redirect_to :back, alert: params[:torrent]['url'] ? 'Не найдено ни одного нового эпизода' : 'Не удалось добавить новый торрент, проверьте корректность Title'
     end
   ensure
     TorrentsParser.with_proxy = @original_with_proxy

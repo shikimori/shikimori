@@ -40,11 +40,15 @@ class BbCodeFormatter
   # обработка ббкодов текста
   # TODO: перенести весь код ббкодов сюда или в связанные классы
   def bb_codes original_text
+    text_hash = XXhash.xxh32 original_text, 0
+
     text = original_text.gsub /\r\n|\r|\n/, '<br />'
 
     text = BbCodes::VideoTag.instance.format text
+    text = BbCodes::ImageTag.instance.format text, text_hash
+    text = BbCodes::ImgTag.instance.format text, text_hash
 
-    text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem
+    text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img
     text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
     text = text.gsub '<ul><br />', '<ul>'
     text = text.gsub '</ul><br />', '</ul>'

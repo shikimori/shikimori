@@ -236,20 +236,13 @@ describe BbCodeFormatter do
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
+      it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"/></a>" }
+    end
 
-      context 'large image' do
-        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"/></a>" }
-      end
-
-      context 'small image' do
-        let(:user_image) { create :user_image, user: build_stubbed(:user), width: 249, height: 249 }
-        it { should eq "<img src=\"#{user_image.image.url :original, false}\"/>" }
-      end
-
-      context 'with size' do
-        let(:text) { "[image=#{user_image.id} 400x500]" }
-        it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :preview, false}\" class=\"check-width\" width=\"400\" height=\"400\"/></a>" }
-      end
+    describe '[img]' do
+      let(:url) { 'http://site.com/image.jpg' }
+      let(:text) { "[img]#{url}[/img]" }
+      it { should eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{url}\" class=\"check-width\"/></a>" }
     end
 
     describe '[spoiler=text]' do

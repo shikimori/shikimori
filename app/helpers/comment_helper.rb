@@ -5,7 +5,7 @@ module CommentHelper
   include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler, :user_image]
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler]
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -126,7 +126,7 @@ module CommentHelper
 
     result = remove_wiki_codes(remove_old_tags(safe_text))
       .gsub(/\r\n|\r|\n/, '<br />')
-      .bbcode_to_html(@@custom_tags, false, :disable, :quote, :link, :image, :listitem)
+      .bbcode_to_html(@@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img)
       .gsub(%r{<a href="(?!http|/)}, '<a href="http://')
       .gsub('<ul><br />', '<ul>')
       .gsub('</ul><br />', '</ul>')
@@ -196,7 +196,7 @@ module CommentHelper
     text.gsub(/\[(anime|manga)_poster=(\d+)\]/) do
       entry = ($1 == 'anime' ? Anime : Manga).find_by_id($2)
       if entry
-        "<a href=\"#{url_for(entry)}\" title=\"#{entry.name}\"><img class=\"poster-image\" src=\"#{entry.image.url(:preview)}\" title=\"#{entry.name}\" alt=\"#{entry.name}\"/></a>"
+        "<a href=\"#{url_for entry}\" title=\"#{entry.name}\"><img class=\"poster-image\" src=\"#{entry.image.url :preview}\" title=\"#{entry.name}\" alt=\"#{entry.name}\"/></a>"
       else
         ''
       end
@@ -215,15 +215,12 @@ module CommentHelper
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Group => [/(\[group(?:=(\d+))?\]([^\[]*?)\[\/group\])/, nil],
     Contest => [/(\[contest(?:=(\d+))?\]([^\[]*?)\[\/contest\])/, nil],
-    Ban => [/(\[ban(?:=(\d+))\])/, nil],
-    UserImage => [/(\[image(?:=(\d+))(?: (\d+)x(\d+))?\])/, nil]
+    Ban => [/(\[ban(?:=(\d+))\])/, nil]
   }
   @@type_matchers.each do |klass,data|
     matcher, preloader = data
 
     define_method("#{klass.name.to_underscore}_to_html") do |text|
-      text_hash = XXhash.xxh32 text, 0 if klass == UserImage
-
       while text =~ matcher
         if klass == Comment || klass == Entry
           url = if klass == Comment
@@ -285,31 +282,6 @@ module CommentHelper
             break
           end
 
-        elsif klass == UserImage
-          begin
-            user_image = UserImage.find $2
-            width = $3.to_i
-            height = $4.to_i
-
-            if user_image.width <= 250 && user_image.height <= 250
-              text.gsub! $1, "<img src=\"#{user_image.image.url :original, false}\"/>"
-            else
-              sizes_html = if width > 0
-                ratio = 1.0 * user_image.width / user_image.height
-                width = [700, width, user_image.width].min
-                height = width / ratio if 1.0 * width / height != ratio
-                " width=\"#{width.to_i}\" height=\"#{height.to_i}\""
-              else
-                nil
-              end
-
-              text.gsub! $1, "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\" class=\"check-width\"#{sizes_html}/></a>"
-            end
-
-          rescue ActiveRecord::RecordNotFound
-            break
-          end
-
         else # [tag=id]name[/tag]
           begin
             id = $2.nil? ? $3.to_i : $2.to_i
@@ -347,7 +319,6 @@ module CommentHelper
   end
 
 private
-  @@imageformats = 'png|bmp|jpg|gif|jpeg'
   @@custom_tags = {
     'List Item (alternative)' => [
       / \[\* (:[^\[]+)? \] (
@@ -367,25 +338,6 @@ private
       '[cut]',
       :cut
     ],
-    'image with class' => [
-      /\[img class=([\w-]+)\](.*?)\[\/img\]/mi,
-      '<img class="\1" src="\2" />',
-      'Image tag with class',
-      '[img class=test]link_to_image[/img]',
-      :image_with_class
-    ],
-    'Image (Alternative)' => [
-      /\[img=([^\[\]].*?)\.(#{@@imageformats})\]/im,
-      '<img src="\1.\2" alt="" class="check-width" />',
-      'Display an image (alternative format)', 
-      '[img=http://myimage.com/logo.gif]',
-      :img],
-    'Image' => [
-      /\[img(:.+)?\]([^\[\]].*?)\.(#{@@imageformats})\[\/img\1?\]/im,
-      '<img src="\2.\3" alt="" class="check-width" />',
-      'Display an image',
-      'Check out this crazy cat: [img]http://catsweekly.com/crazycat.jpg[/img]',
-      :img],
     'poster' => [
       /\[poster\](.*?)\[\/poster\]/mi,
       '<div class="text-poster">\1</div>',

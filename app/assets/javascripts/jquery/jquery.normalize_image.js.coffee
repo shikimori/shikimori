@@ -1,14 +1,15 @@
 # почему-то без задержки не работает
 check_image = ($image, options) ->
   $container = $image.parent()
-  $container = $container.parent() while $container.hasClass 'spoiler'
+  $container = $container.parent() while $container.hasClass('spoiler') || $container.css('display') == 'inline'
 
   image_width = $image.width()
   container_width = $container.innerWidth()
 
   if image_width && container_width && image_width > container_width
-    $image.wrap "<a href='#{$image.attr("src")}'></a>"
     $image.css width: $container.innerWidth() - 7
+
+    $image.wrap "<a href='#{$image.attr 'src'}'></a>" unless $image.parent().tagName() == 'a'
     $image.parent().fancybox options.fancybox
 
   else
