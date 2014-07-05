@@ -29,7 +29,7 @@ class UserRatesImporter
       rate = rates[entry[:id]]
 
       if entry[:id].nil? || entry[:status].nil?
-        not_imported << entry[:id]
+        not_imported << (entry[:name] || entry[:id])
         next
       elsif rate.nil?
         rate = UserRate.new user_id: @user.id, target_id: entry[:id], target_type: @klass.name
@@ -65,7 +65,7 @@ class UserRatesImporter
           updated << rate.target_id if update
           added << rate.target_id if add
         else
-          not_imported << rate.target_id
+          not_imported << (rate.target ? rate.target.name : rate.target_id)
         end
       end
     end

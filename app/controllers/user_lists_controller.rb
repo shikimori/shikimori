@@ -160,7 +160,7 @@ class UserListsController < UsersController
       else
         message << "В ваш список #{Russian.p(@added.size, 'импортировано', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'аниме', 'аниме', 'аниме')}:"
       end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for(v)}\">#{v.name}</a>" }
+      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
       message << ''
     end
 
@@ -171,12 +171,12 @@ class UserListsController < UsersController
       else
         message << "В вашем списке #{Russian.p(@updated.size, 'обновлено', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'аниме', 'аниме', 'аниме')}:"
       end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for(v)}\">#{v.name}</a>" }
+      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
       message << ''
     end
 
     if @not_imported.size > 0
-      message << "Не удалось импортировать (распознать) #{@not_imported.size} #{klass == Manga ? Russian.p(@not_imported.size, 'мангу', 'манги', 'манг') : 'аниме'}, пожалуйста, добавьте их в свой список самостоятельно:"
+      message << "Не удалось импортировать (распознать) #{@not_imported.size} #{klass == Manga ? Russian.p(@not_imported.size, 'мангу', 'манги', 'манги') : 'аниме'}, пожалуйста, добавьте их в свой список самостоятельно:"
       message = message + @not_imported.sort
     end
     message << "Ничего нового не импортировано." if message.empty?

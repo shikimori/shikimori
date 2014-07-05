@@ -1,4 +1,6 @@
 # парсер аккаунта anime-planet
+# klass: Anime или Manga
+# wont_watch_strategy - nil или UserRate.statuses[:dropped]
 class UserListParsers::AnimePlanetListParser
   def initialize klass, wont_watch_strategy = nil
     @klass = klass
@@ -22,7 +24,7 @@ private
 
   # получение id для найденного элемента
   def find_match entry
-    matches = @matcher.matches entry[:name], year: entry[:year]
+    matches = @matcher.matches entry[:name], year: entry[:year], episodes: entry[:episodes]
     matches.first.id if matches.one? && entry[:status]
   end
 
@@ -85,7 +87,8 @@ private
 
   # загрузка страницы через прокси
   def get url
-    content = Proxy.get url, timeout: 30, required_text: 'Anime-Planet</title>'
+    #content = Proxy.get url, timeout: 30, required_text: 'Anime-Planet</title>'
+    content = open(url).read
     raise EmptyContent, url unless content
     raise InvalidId, url if content.include?("You searched for")
     content

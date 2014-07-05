@@ -19,7 +19,7 @@ class UserRate < ActiveRecord::Base
   after_destroy :log_deleted
 
   validates :target, :user, presence: true
-  #validates :user_id, uniqueness: { scope: [:target_id, :target_type] }
+  validates :user_id, uniqueness: { scope: [:target_id, :target_type] }
 
   def self.create_or_find user_id, target_id, target_type
     UserRate.where(user_id: user_id, target_id: target_id, target_type: target_type).first ||
