@@ -4,5 +4,5 @@
       = field_label
       | :&nbsp;
     span.value
-      = entry[counter_aired] > 0 && entry[counter_aired] != entry[counter] && entry.status == AniMangaStatus::Ongoing ? "#{entry[counter_aired]} / "  : ''
+      = entry[counter_aired] != entry[counter] && entry.status == AniMangaStatus::Ongoing ? "#{entry[counter_aired]} / "  : ''
       = entry[counter] == 0 ? '?' : entry[counter]

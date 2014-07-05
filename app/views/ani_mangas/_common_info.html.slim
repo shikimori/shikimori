@@ -9,7 +9,7 @@
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
     p.nowrap
-      span.key Следующий эпизод:&nbsp;
+      span.key #{entry.episodes_aired > 0 ? 'Следующий' : 'Первый'} эпизод:&nbsp;
       span.dark.anime-alt
         = Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
 
