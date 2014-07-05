@@ -12,7 +12,7 @@ class Ability
   end
 
   def guest_ability
-    can [:read], Contest
+    can [:read, :grid, :users], Contest
   end
 
   def user_ability
