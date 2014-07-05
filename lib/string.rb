@@ -5,8 +5,7 @@ class String
     self
       .downcase
       .gsub(/ (?: 's | : ) ( \b | $ | [ ] ) /xi, ' ')
-      .gsub(/\.[A-zА-я0-9]+$/, '')
-      .gsub('&dagger;', '')
+      .gsub('&dagger;', '') #.gsub(/\.[A-zА-я0-9]+$/, '') # не знаю, для чего эта строка #.gsub(/^(\w+)\.(\w+)$/, '\1 \2')
       .gsub('!', 'EXCM')
       .gsub('?', 'QUEM')
       .gsub('QUEM', '?')

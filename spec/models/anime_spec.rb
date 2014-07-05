@@ -314,6 +314,10 @@ describe Anime do
       positive_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikki (TV)', kind: 'TV')
     end
 
+    it 'matches name with dot' do
+      positive_match('[Leopard-Raws] Aldnoah.Zero - 01 RAW (MX 1280x720 x264 AAC).mp4', name: 'Aldnoah.Zero', kind: 'TV')
+    end
+
     it 'works for torrents_name' do
       positive_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikk', torrents_name: 'Mirai Nikki', kind: 'TV')
     end

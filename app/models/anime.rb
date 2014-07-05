@@ -328,7 +328,7 @@ class Anime < ActiveRecord::Base
       [name, name.gsub('-', ' ')].map {|v| [v.gsub('2', 'II'), v.gsub('II', '2')] }.flatten
     end
 
-    ['☆', '/', '†', '♪'].each do |symbol|
+    ['☆', '/', '†', '♪', '.'].each do |symbol|
       if name.include? symbol
         names << name.gsub(symbol, '')
         names << name.gsub(symbol, ' ')
@@ -354,6 +354,7 @@ class Anime < ActiveRecord::Base
       title_keywords = title.keywords
       query_specials = query.specials
       overlaps = query_keywords & title_keywords
+
       matched =
         if options[:only_name]
           overlaps.size == query_keywords.size
