@@ -33,7 +33,11 @@ end
 #end
 
 every 32.days, at: '4:13 am' do
-  runner "WikipediaImporter.perform_async "
+  runner "WikipediaImporter.perform_async"
+end
+
+every 33.days, at: '4:13 am' do
+  runner "SvdWorker.perform_async"
 end
 
 every 2.months, at: '0:09 am' do # макс цифра минус 1
