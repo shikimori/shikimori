@@ -405,7 +405,7 @@ private
 
       # TODO: удалить released_at и released после 01.05.2014
       when 'released_on', 'released_at', 'released'
-        '(case when released_on is null then aired_on else released_on) desc'
+        '(case when released_on is null then aired_on else released_on end) desc'
 
       when 'aired_on'
         'aired_on desc'
