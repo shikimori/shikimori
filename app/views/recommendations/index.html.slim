@@ -26,12 +26,12 @@ header.head.misc
           /a class="#{:current if @metric == 'svd_full'}" href="#{recommendations_url metric: 'svd_full', threshold: @threshold, user: params[:user]}" svd_full
       .filter-line
         span.title Фильтрация:
-        a class="#{:current if @threshold == 5}" href="#{recommendations_url metric: @metric, threshold: 5, user: params[:user]}" нет
-        a class="#{:current if @threshold == 15}" href="#{recommendations_url metric: @metric, threshold: 15, user: params[:user]}" слабая
-        a class="#{:current if @threshold == 45}" href="#{recommendations_url metric: @metric, threshold: 45, user: params[:user]}" средняя
+        a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][0]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][0], user: params[:user]}" нет
+        a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][1]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][1], user: params[:user]}" слабая
+        a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][2]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][2], user: params[:user]}" средняя
+        a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][3]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][3], user: params[:user]}" сильная
         - if @klass == Anime
-          a class="#{:current if @threshold == 90}" href="#{recommendations_url metric: @metric, threshold: 90, user: params[:user]}" сильная
-          a class="#{:current if @threshold == 200}" href="#{recommendations_url metric: @metric, threshold: 200, user: params[:user]}" полная
+          a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][4]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][4], user: params[:user]}" полная
   .notice
     p Данный раздел предназначен для автоматического подбора рекомендаций к #{@klass == Anime ? 'просмотру' : 'чтению'} на основе вашего списка #{@klass == Anime ? 'аниме' : 'манги'}. Исходя из поставленных вами оценок, находятся другие пользователи сайта, имеющие схожие предпочтения, и на основе их списков составляется каталог того, что возможно было бы вам интересно.
 

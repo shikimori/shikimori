@@ -3,6 +3,10 @@ class RecommendationsController < AniMangasCollectionController
   before_filter :authenticate_user!, if: -> { json? }
 
   CookieName = 'rec_type'
+  THRESHOLDS = {
+    Anime => [150, 350, 500, 700, 1000],
+    Manga => [15, 45, 100, 150]
+  }
 
   def index
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
@@ -10,8 +14,8 @@ class RecommendationsController < AniMangasCollectionController
     @metric = params[:metric]
 
     redirect_to(params.merge metric: 'pearson_z') and return if @metric.blank?
-    unless [5, 15, 45, 90, 200].include?(@threshold)
-      redirect_to(params.merge threshold: @klass == Anime ? 45 : 15)
+    unless THRESHOLDS[@klass].include? @threshold
+      redirect_to params.merge(threshold: THRESHOLDS[@klass][-1])
       return
     end
 
