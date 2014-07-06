@@ -54,14 +54,17 @@ class MessagesController < UsersController
     raise NotFound.new('user not found') if @user.nil?
     raise NotFound.new('wrong rss key') if rss_key(@user) != params[:key]
 
-    @messages = Rails.cache.fetch("notifications_feed_#{@user.id}", expires_in: 60.minutes) do
-      Message.where(to_id: @user.id)
-      .where.not(kind: MessageType::Private)
-      .order('`read`, created_at desc')
-      .includes(:linked)
-      .limit(25)
-      .all
-    end.map do |message|
+    raw_messages = Rails.cache.fetch "notifications_feed_#{@user.id}", expires_in: 60.minutes do
+      Message
+        .where(to_id: @user.id)
+        .where.not(kind: MessageType::Private)
+        .order('read, created_at desc')
+        .includes(:linked)
+        .limit(25)
+        .to_a
+    end
+
+    @messages = raw_messages.map do |message|
       linked = message.linked && message.linked.respond_to?(:linked) && message.linked.linked ? message.linked.linked : nil
       {
         entry: message,
