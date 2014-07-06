@@ -18,6 +18,7 @@ gem 'uglifier'
 gem 'compass-rails'
 gem 'non-stupid-digest-assets'
 
+gem 'certified', github: 'bitzesty/certified', branch: 'master'
 gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'
 

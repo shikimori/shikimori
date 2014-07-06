@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/bitzesty/certified.git
+  revision: ab3a331c7e2486f567b37263d2012ad31eaa595b
+  branch: master
+  specs:
+    certified (0.1.2)
+
+GIT
   remote: git://github.com/flori/amatch.git
   revision: 81db493aa8fa007b6d384e75960212ea1637412e
   specs:
@@ -580,6 +587,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rails
   capybara
+  certified!
   clockwork!
   coffee-rails
   compass-rails
