@@ -30,7 +30,6 @@ function pending_load(load_page) {
   if ($pending.length) {
     AjaxCacher.clear(location.href);
     _.delay(function() {
-      console.log('load_page', location.href + '?t=' + Date.now());
       load_page(location.href).success(function() {
         pending_load(load_page);
       });
