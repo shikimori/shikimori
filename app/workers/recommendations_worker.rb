@@ -33,13 +33,13 @@ private
         Recommendations::Sampler.new klass, Recommendations::Metrics::Euclid.new, rates_fetcher, no_norm, user_list_cache_key
 
       when :svd
-        Recommendations::Sampler.new klass, Recommendations::Metrics::Svd.new(Svd.partial), rates_fetcher, z_score, user_list_cache_key
+        Recommendations::Sampler.new klass, Recommendations::Metrics::SvdMetric.new(Svd.partial), rates_fetcher, z_score, user_list_cache_key
 
       #when :svd_partial
-        #Recommendations::Sampler.new klass, Recommendations::Metrics::Svd.new(Svd.partial), rates_fetcher, no_norm, user_list_cache_key
+        #Recommendations::Sampler.new klass, Recommendations::Metrics::SvdMetric.new(Svd.partial), rates_fetcher, no_norm, user_list_cache_key
 
       #when :svd_full
-        #Recommendations::Sampler.new klass, Recommendations::Metrics::Svd.new(Svd.full), rates_fetcher, z_score, user_list_cache_key
+        #Recommendations::Sampler.new klass, Recommendations::Metrics::SvdMetric.new(Svd.full), rates_fetcher, z_score, user_list_cache_key
 
       else
         raise ArgumentError, "unknown metric: #{metric}"

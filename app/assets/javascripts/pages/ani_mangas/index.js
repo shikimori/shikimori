@@ -30,10 +30,11 @@ function pending_load(load_page) {
   if ($pending.length) {
     AjaxCacher.clear(location.pathname);
     _.delay(function() {
-      load_page("#{location.pathname}?t=#{Date.now()}").success(function() {
+      console.log('load_page', location.pathname + '?t=' + Date.now());
+      load_page(location.pathname + '?t=' + Date.now()).success(function() {
         pending_load(load_page);
       });
-    }, 5000);
+    }, 1000);
   } else {
     $('.pending-loaded').show()
   }

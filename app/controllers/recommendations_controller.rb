@@ -89,8 +89,8 @@ class RecommendationsController < AniMangasCollectionController
     pearson_mean = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, mean_centering, ''
     pearson_z = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, z_score, ''
 
-    svd_full = Recommendations::Sampler.new Anime, Recommendations::Metrics::Svd.new(Svd.full), rates_fetcher, z_score, ''
-    svd_partial = Recommendations::Sampler.new Anime, Recommendations::Metrics::Svd.new(Svd.partial), rates_fetcher, z_score, ''
+    svd_full = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.full), rates_fetcher, z_score, ''
+    svd_partial = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.partial), rates_fetcher, z_score, ''
 
     @metrics = {
       #'Average Score' => all_user_ids.each_with_object({}) do |user_id,memo|

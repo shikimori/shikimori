@@ -1,4 +1,4 @@
-class Recommendations::Metrics::Svd < Recommendations::Metrics::MetricBase
+class Recommendations::Metrics::SvdMetric < Recommendations::Metrics::MetricBase
   def initialize(svd)
     @svd = svd
   end
