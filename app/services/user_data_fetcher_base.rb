@@ -8,7 +8,7 @@ class UserDataFetcherBase
     return [] unless should_fetch?
     return postprocess(load_data) if load_data
 
-    if Rails.env.development?# && false
+    if Rails.env.development? && false
       postprocess(job.new.perform *job_args)
     else
       job.perform_async *job_args
