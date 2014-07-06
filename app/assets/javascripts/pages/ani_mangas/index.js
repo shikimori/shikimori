@@ -28,13 +28,13 @@ function init() {
 function pending_load(load_page) {
   var $pending = $('p.pending');
   if ($pending.length) {
-    AjaxCacher.clear(location.pathname);
+    AjaxCacher.clear(location.href);
     _.delay(function() {
-      console.log('load_page', location.pathname + '?t=' + Date.now());
-      load_page(location.pathname + '?t=' + Date.now()).success(function() {
+      console.log('load_page', location.href + '?t=' + Date.now());
+      load_page(location.href).success(function() {
         pending_load(load_page);
       });
-    }, 1000);
+    }, 5000);
   } else {
     $('.pending-loaded').show()
   }
