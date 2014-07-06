@@ -14,6 +14,8 @@ class AnimeVideoReport < ActiveRecord::Base
   scope :pending, -> { where state: 'pending' }
   scope :processed, -> { where(state: ['accepted', 'rejected']).order(updated_at: :desc) }
 
+  after_create :auto_check
+
   def doubles
      AnimeVideoReport
       .where(anime_video_id: anime_video_id)
@@ -58,5 +60,10 @@ class AnimeVideoReport < ActiveRecord::Base
       prev_state = anime_video_report.uploaded? ? 'uploaded' : 'working'
       anime_video_report.anime_video.update_attribute :state, prev_state
     end
+  end
+
+private
+  def auto_check
+    AnimeVideoReportWorker.delay_for(10.seconds).perform_async id
   end
 end
