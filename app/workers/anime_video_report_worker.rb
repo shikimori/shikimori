@@ -6,12 +6,11 @@ class AnimeVideoReportWorker < SiteParserWithCache
     report = AnimeVideoReport.find id
     return unless report.pending? && report.broken?
 
-    user = User.find User::GuestID
     if is_broken(report.anime_video)
-      report.accept! user
+      report.accept! BotsService.get_poster
 
     elsif report.user_id == User::GuestID && report.doubles.zero?
-      report.reject! user
+      report.reject! BotsService.get_poster
     end
 
     report
