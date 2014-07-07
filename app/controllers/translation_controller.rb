@@ -428,14 +428,14 @@ class TranslationController < GroupsController
   def self.locked_animes
     UserChange
       .where(status: UserChangeStatus::Locked)
-      .where(model: 'anime')
+      .where(model: Anime.name)
       .each_with_object({}) {|v,memo| memo[v.item_id] = v }
   end
 
   # хеш со ждущими модерации аниме
   def self.pending_animes
     UserChange.where(status: UserChangeStatus::Pending)
-              .where(model: 'anime')
+              .where(model: Anime.name)
               .includes(:user)
               .all
                 .each_with_object({}) {|v,memo| memo[v.item_id] = v }
@@ -444,7 +444,7 @@ class TranslationController < GroupsController
   # хеш с принятыми аниме
   def self.accepted_animes
     UserChange.where(status: UserChangeStatus::Accepted)
-              .where(model: 'anime')
+              .where(model: Anime.name)
               .includes(:user)
               .all
                 .each_with_object({}) {|v,memo| memo[v.item_id] = v }
