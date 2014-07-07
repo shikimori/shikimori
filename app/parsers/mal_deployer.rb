@@ -188,7 +188,15 @@ module MalDeployer
     return false if Rails.env.test? || data[:entry][:img].include?("na_series.gif") || data[:entry][:img].include?("na.gif")
     return true unless entry.image.exists?
 
-    interval = if (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.ongoing.any?)
+
+    # TODO: выипилить вторую ветку else и заинлайнить is_two_weeks
+    is_two_weeks = if Time.zone.now > Time.zone.parse('2014-07-09')
+      (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.ongoing.any?)
+    else
+      (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.any? {|v| v.ongoing? || v.released_at > 5.months.ago })
+    end
+
+    interval = if is_two_weeks
       2.weeks
     elsif entry.respond_to?(:latest?) && entry.latest?
       3.months
