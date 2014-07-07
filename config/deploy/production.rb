@@ -1,7 +1,7 @@
 set :stage, :production
 set :deploy_to, "/home/apps/#{fetch :application}/#{fetch :stage}"
 
-set :site_domain, 'new.shikimori.org'
+set :site_domain, 'shikimori.org'
 
 # Simple Role Syntax
 # ==================
