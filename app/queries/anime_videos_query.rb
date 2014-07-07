@@ -7,8 +7,7 @@ class AnimeVideosQuery
 
   def fetch
     Anime
-      .includes(:anime_videos)
-      .references(:anime_videos)
+      .joins(:anime_videos)
       .where(@is_adult ? AnimeVideo::XPLAY_CONDITION : AnimeVideo::PLAY_CONDITION)
       .order('max(anime_videos.created_at) desc')
       .group('animes.id')

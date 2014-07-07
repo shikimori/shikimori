@@ -36,7 +36,7 @@ FactoryGirl.define do
     end
 
     trait :with_video do
-      after :build do |anime|
+      after :create do |anime|
         FactoryGirl.create :anime_video, anime: anime
       end
     end
