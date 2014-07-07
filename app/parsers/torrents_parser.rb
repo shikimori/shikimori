@@ -180,7 +180,7 @@ class TorrentsParser
   end
 
   # добавление эпизода к аниме
-  def self.add_episodes(anime, feed)
+  def self.add_episodes anime, feed
     new_episodes = anime.check_aired_episodes(feed)
     unless new_episodes.empty?
       print "%d new episodes(s) found for %s\n" % [new_episodes.size, anime.name]

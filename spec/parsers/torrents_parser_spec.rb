@@ -83,12 +83,12 @@ describe TorrentsParser do
     it { should eq [1] }
   end
 
-  describe 'episoe num after "ch-"' do
+  describe 'episode num after "ch-"' do
     let(:name) { '[kingtqi-Raws] Saikyou Ginga Ultimate Zero - Battle Spirits CH-04 (ABC 1280x720 x264 AAC).mp4' }
     it { should eq [4] }
   end
 
-  describe 'episoe num with zero' do
+  describe 'episode num with zero' do
     let(:name) { '[SubDESU] Shijou Saikyou no Deshi Kenichi OVA - 05v0 (640x360 x264 AAC) [8D5C93AE].mp4' }
     it { should eq [5] }
   end

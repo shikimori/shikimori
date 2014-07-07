@@ -397,18 +397,22 @@ class Anime < ActiveRecord::Base
 
   # Subtitles
   def subtitles
-    subtitles = BlobData.get("anime_%d_subtitles" % id) || {}
+    BlobData.get("anime_%d_subtitles" % id) || {}
   end
 
   # добавление новых эпизодов из rss фида
-  def check_aired_episodes(feed)
+  def check_aired_episodes feed
     episode_min = self.changes["episodes_aired"] || self.episodes_aired || 0
     episode_max = self.episodes_aired || 0
     @episodes_found = [] unless @episodes_found
 
     new_episodes = []
     feed.reverse.each do |v|
-      TorrentsParser.extract_episodes_num(v[:title]).each do |episode|
+      episodes = TorrentsParser.extract_episodes_num(v[:title])
+      # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
+      next if ongoing? && (episodes.max - episodes_aired) > 1
+
+      episodes.each do |episode|
         next if (self.episodes > 0 && episode > self.episodes) || episode_min >= episode || @episodes_found.include?(episode)
         episode_max = episode if episode_max < episode
         self.episodes_aired = episode
