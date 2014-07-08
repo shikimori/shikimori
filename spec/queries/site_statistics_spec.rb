@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe SiteStatistics do
-  subject { SiteStatistics.new }
+  subject(:query) { SiteStatistics.new }
 
   describe :cached_stats do
-
     describe :traffic do
       let(:traffic) { 'traff' }
       before { YandexMetrika.any_instance.stub(:traffic_for_months).with(SiteStatistics::METRIKA_MONTHS).and_return traffic }
@@ -21,10 +20,11 @@ describe SiteStatistics do
     end
 
     describe :users do
-      let!(:users) { create_list :user, 2 }
+      let!(:users) { create_list :user, 2, created_at: Time.zone.yesterday + 8.hours }
 
-      its(:users) { should have_at_least(180).items }
       its(:users_count) { should eq users.last.id }
+      its(:users) { should have_at_least(180).items }
+      it { expect(query.users.last).to eq(date: Time.zone.yesterday.to_s, count: 2) }
     end
   end
 end

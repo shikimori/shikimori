@@ -88,19 +88,19 @@ class SiteStatistics
 
 private
   def by_class klass, interval
-    start_date = Date.today - interval
+    start_date = Time.zone.today - interval
 
     entries_by_date = klass
       .where('created_at > ?', start_date)
-      .where('created_at < ?', Date.today)
-      .group('cast(created_at as date), created_at')
-      .order(:created_at)
-      .count
-      .each_with_object({}) {|(k,v),memo| memo[k.to_s] = v }
+      .where('created_at < ?', Time.zone.today)
+      .group('cast(created_at as date)')
+      .order('cast(created_at as date)')
+      .select('cast(created_at as date) as date, count(*) as count')
+      .each_with_object({}) {|v,memo| memo[v.date.to_s] = v.count }
 
     date = start_date
     statistics = {}
-    while date < Date.today
+    while date < Time.zone.today
       statistics[date.to_s] = entries_by_date[date.to_s] || 0
       date += 1.day
     end
