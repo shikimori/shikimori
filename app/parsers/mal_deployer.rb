@@ -196,6 +196,6 @@ module MalDeployer
       6.months
     end
 
-    File.ctime(entry.image.path).to_datetime < DateTime.now - interval
+    File.mtime(entry.image.path).to_datetime < DateTime.now - interval
   end
 end
