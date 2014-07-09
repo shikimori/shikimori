@@ -192,7 +192,7 @@ module MalDeployer
     is_two_weeks = if Time.zone.now > Time.zone.parse('2014-07-11')
       (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.ongoing.any?)
     else
-      (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.any? {|v| v.ongoing? || v.released_on > 5.months.ago })
+      (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.any? {|v| v.ongoing? || (v.released_on && v.released_on > 5.months.ago) })
     end
 
     interval = if is_two_weeks
