@@ -9,7 +9,10 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
     end
 
     unless json?
-      @pending = AnimeVideoReport.includes(:user, anime_video: :author).pending.limit(20)
+      @pending = AnimeVideoReport
+        .includes(:user, anime_video: :author)
+        .pending
+        .limit(20)
     end
   end
 

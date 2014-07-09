@@ -36,7 +36,8 @@ class Moderation::UserChangesController < ShikimoriController
       @pending = UserChange
         .includes(:user)
         .where(status: UserChangeStatus::Pending)
-        .order(:created_at)
+        .order("(case when \"column\"='tags' then 0 when \"column\"='screenshots' then 1 when \"column\"='video' then 2 else 3 end), created_at")
+        .limit(40)
         .to_a
 
       @changes_map = {}
