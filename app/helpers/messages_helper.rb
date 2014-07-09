@@ -59,6 +59,9 @@ module MessagesHelper # для truncate в messages helper
           "#{msg}. Причина: \"#{message.linked.reason}\""
         end
 
+      when MessageType::Private
+        BbCodeFormatter.instance.format_comment(message.body)
+
       else
         format_comment(cut(
           message.body || message.linked.text
