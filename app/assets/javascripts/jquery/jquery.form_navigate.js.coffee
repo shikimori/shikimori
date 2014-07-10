@@ -4,7 +4,7 @@
 
   $.extend
     form_navigate: (options) ->
-      $(document.body).on 'change keydown', 'textarea', ->
+      $(document.body).on 'change keypress', 'textarea', ->
         $(@).data navigate_check_required: true
 
       $(document.body).on 'submit', 'form', ->
