@@ -18,7 +18,7 @@ aside.menu-right.animanga-right-menu
   .menu-right-inner
     = render partial: 'ani_mangas/menu_right', formats: :html
 
-.entry-content-slider.view-port.vertical-slider class=" #{@entry.class.name.downcase}-content-slider" data-width="770"
+.entry-content-slider.view-port.vertical-slider class="#{@entry.class.name.downcase}-content-slider" data-width="770"
   .view-content style="margin-left: #{-1*770*@director.page_index}px"
     - @director.pages.each_with_index do |page, index|
       .slide

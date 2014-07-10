@@ -1,64 +1,37 @@
 @import globals
-@import susy
+@import mixins/responsive
 
 .l-adaptive
-  //$total-columns: 4
-  //$column-width: 240px
-  //$gutter-width: 0px
-  //$grid-padding: 10px
-
-  //.page
-    //// main layout
-    //+container
-
-    //.l-menu
-      //+span-columns(1 omega, $total-columns)
-
-    //.l-content
-      //+span-columns(3 alpha, $total-columns)
-      //float: none
-
-  $total-columns: 12
-  $column-width: 54px
-  $gutter-width: 30px
-  $grid-padding: 10px
-
-  .susy-grid-background
-    +susy-grid-background
-    +container
-    height: 150px
-
   .page
-    // main layout
-    +container
+    margin: 0 auto
+    max-width: $site-body-width
 
     .l-menu
-      +span-columns(3 omega, $total-columns)
+      float: right
+      margin-left: 3%
+      width: 24%
+
+      +ipad
+        display: none
 
     .l-content
-      +span-columns(9 alpha, $total-columns)
-      float: none
+      float: left
+      width: 73%
 
+      +ipad
+        width: 100%
 
-    // mobile
-    +at-breakpoint($tablets-break)
+    footer
+      clear: both
+
+    +ipad
+      .l-content
+        .sections
+          display: none
+
       .forum-nav
         .title
           +ellipsis
-
-    +at-breakpoint(0px $total-columns $tablets-break)
-      +container($total-columns)
-      // layout
-      .l-menu
-        display: none
-
-      .l-content
-        +span-columns($total-columns)
-
-      .forum-nav
-        margin-bottom: 0
-        .sections
-          display: none
 
       // comments
       .height-shortener, .last-block
@@ -79,26 +52,26 @@
         .title
           margin-left: 0 !important
 
-    +at-breakpoint(0px 520px)
-      footer
-        display: none
-
-    +at-breakpoint(0px 996px)
+      //+responsive($ipad)
       .welcome-gallery, .welcome-gallery-loader
         display: none
 
-    //+at-breakpoint(0px 510px)
+    //+susy-breakpoint(0px 520px)
+      //footer
+        //display: none
+
+    //+susy-breakpoint(0px 510px)
       //.welcome-gallery, .welcome-gallery-loader
         //display: none
 
-    //+at-breakpoint(510px 665px)
+    //+susy-breakpoint(510px 665px)
       //.gallery-body
         //width: 478px
 
-    //+at-breakpoint(665px 840px)
+    //+susy-breakpoint(665px 840px)
       //.gallery-body
         //width: 640px
 
-    //+at-breakpoint(840px 996px)
+    //+susy-breakpoint(840px 996px)
       //.gallery-body
         //width: 800px

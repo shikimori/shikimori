@@ -16,13 +16,9 @@ gem 'libv8', '3.16.14.7' # нужно после перехода на yosemite
 gem 'slim-rails'
 gem 'coffee-rails'
 
-#gem 'sass', '3.3.8'
-#gem 'compass', '1.0.0.alpha.20' # TODO: после 01-08-2014 ждать релиза compass 1.0 (https://github.com/Compass/compass/releases)
-#gem 'compass-rails' # TODO: после 01-08-2014 ждать релиза compass 1.0 (https://github.com/Compass/compass/releases)
-#gem 'susy', '2.1.2' # TODO: после 01-08-2014 попробовать обновить susy до второй версии
 gem 'sass-rails'
 gem 'compass-rails'
-gem 'susy'
+#gem 'susy'
 
 gem 'uglifier'
 gem 'non-stupid-digest-assets'

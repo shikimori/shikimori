@@ -1,0 +1,52 @@
+
+////@import compass/utilities/general/clearfix
+////@import compass/css3/box-sizing
+//@import susy
+
+//.two-columns
+  //$total-columns: 12
+  //$column-width: 54px
+  //$gutter-width: 30px
+  //$grid-padding: 10px
+
+  ////+susy-grid-background
+  //+container
+
+  //.column
+    //+span-columns(6 alpha, $total-columns)
+
+
+////=columns($numbers)
+  ////+clearfix
+  /////*margin: 0 -15px;
+  ////& > .column
+    ////+box-sizing(border-box)
+    ////float: left
+    /////*padding: 0 15px;
+    ////position: relative
+    ////&:first-child:last-child
+      ////width: 100%
+      ////margin-right: 0
+
+////.three-columns
+  ////+columns(3)
+
+////.two-columns
+  ////+columns
+  ////& > .column
+    ////width: 50%
+
+////.one-third-columns
+  ////+columns
+  ////& > .column
+    ////width: 66.6%
+    ////&:first-child
+      ////width: 33.3%
+
+////.two-third-columns
+  ////+columns
+  ////& > .column
+    ////width: 33.3%
+    ////&:first-child
+      ////width: 66.6%
+

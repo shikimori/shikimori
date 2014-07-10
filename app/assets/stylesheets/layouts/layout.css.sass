@@ -1,4 +1,8 @@
 @import globals
+@import compass/css3/box-sizing
+
+*
+  +box-sizing(border-box)
 
 body
   background-image: inline-image("/background/square_bg.png")
@@ -10,8 +14,6 @@ body
   &.no-smileys .smiley
     display: none
 
-header, nav, article, section, aside
-  display: block
 a
   +link-color($selected-color)
   -moz-outline-style: none

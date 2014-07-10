@@ -32,7 +32,7 @@
   - if @group.persisted?
     .two-columns
       .column
-        input.anime-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_animes_url search: ''}"
+        input.anime-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_animes_url search: ''}"
         .subheadline Аниме
         .m30
           = hidden_field_tag 'animes[]', ''
@@ -45,7 +45,7 @@
                   a.bubbled href="#{anime_url anime}"
                     = anime.name
       .column
-        input.manga-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_mangas_url search: ''}"
+        input.manga-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_mangas_url search: ''}"
         .subheadline Манга
         .m30
           = hidden_field_tag 'mangas[]', ''
@@ -60,7 +60,7 @@
 
     .two-columns
       .column
-        input.character-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_characters_url search: ''}"
+        input.character-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_characters_url search: ''}"
         .subheadline Персонажи
         .m30
           = hidden_field_tag 'characters[]', ''
@@ -77,7 +77,7 @@
       div style="display: none;"
         .subheadline Модераторы
         .m30
-          input.moderator-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
+          input.moderator-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
           = hidden_field_tag 'moderators[]', ''
           ul.container
             - if @group
@@ -89,7 +89,7 @@
 
     .two-columns
       .column
-        input.admin-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
+        input.admin-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
         .subheadline Администраторы
         .m30
           = hidden_field_tag 'admins[]', ''
@@ -102,7 +102,7 @@
                   a href="#{user_url user}" = user.nickname
 
       .column
-        input.ban-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
+        input.ban-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
         .subheadline Чёрный список
         .m30
           = hidden_field_tag 'bans[]', ''
@@ -115,7 +115,7 @@
 
     .two-columns
       .column
-        input.kick-suggest.suggest.subheadline-input.common type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
+        input.kick-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_group_members_url search: ''}"
         .subheadline Удаление пользователей
         .m30
           = hidden_field_tag 'kicks[]', ''

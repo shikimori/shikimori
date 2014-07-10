@@ -1,6 +1,14 @@
 require 'digest/md5'
 
 module ApplicationHelper
+  def itemprop
+    if @itemtype
+      { itemscope: '', itemtype: @itemtype.html_safe }
+    else
+      {}
+    end
+  end
+
   def title page_title
     content_for :title, page_title
   end

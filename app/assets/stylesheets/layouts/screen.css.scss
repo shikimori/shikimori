@@ -335,25 +335,6 @@ img.right {
   }
 }
 
-h1, h2,
-.common-title {
-  .buttons {
-    margin-top: 2px;
-    float: right;
-
-    span, a {
-      color: #666;
-      cursor: pointer;
-      font-size: 11px;
-    }
-  }
-}
-h1, h2 {
-  .buttons {
-    margin-top: 0;
-  }
-}
-
 .strong {
   font-weight: bold;
   color: #333333;

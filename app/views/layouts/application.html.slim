@@ -11,8 +11,7 @@ html
     header.header
       = render partial: 'application/top_menu'
 
-    /.susy-grid-background
-    .page style="#{page_background}"
+    section.page *itemprop style="#{page_background}"
       - if Rails.env.development?
         javascript:
           window.DEVELOP = true;
@@ -27,13 +26,11 @@ html
             $('.admin_panel').load('/apanel');
           });
         .admin_panel
-
-      - if @itemtype.present?
-        section[itemscope itemtype="#{{@itemtype}}"]
-          = render partial: 'application/page_container'
+      - if defined?(@sub_layout) && @sub_layout
+        = render partial: "layouts/#{@sub_layout}"
       - else
-        section
-          = render partial: 'application/page_container'
+        = yield
+
       footer
         = render partial: 'application/footer'
 

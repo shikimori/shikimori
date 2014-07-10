@@ -20,15 +20,6 @@
 }
 /*************************************************/
 /* tooltip+title */
-.common-title {
-  .anime-title {
-    @include ellipsis;
-    cursor: default;
-    a {
-      color: inherit;
-    }
-  }
-}
 .favourite {
   @include default-button;
   float: right;

@@ -11,6 +11,10 @@
     margin-bottom: 2px;
   }
   .item-content-editor-buttons {
+    position: absolute;
+    right: 0;
+    line-height: 24px;
+
     .item-apply {
       @include headline-icon-button('\e821');
       margin-left: 5px!important;

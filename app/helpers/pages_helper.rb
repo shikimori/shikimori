@@ -15,7 +15,7 @@ module PagesHelper
   }
 
   # форматирует число дней в читабельную дату для графика онгоингов
-  def date_title_for_ongoing(days)
+  def date_title_for_ongoing days
     date = DateTime.now + days.days
 
     if days == 0
@@ -27,11 +27,11 @@ module PagesHelper
     end
   end
 
-  def color_by_num(num)
+  def color_by_num num
     @@colors[num]
   end
 
-  def page_class(page)
+  def page_class page
     if page.kind_of? Array
       page[0].sub(/^edit$/, 'edit item-editor') + ' ' + page[1].map { |v| "#{page[0]}-#{v}" }.join(' ')
     else

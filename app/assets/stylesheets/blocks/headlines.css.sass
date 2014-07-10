@@ -1,3 +1,4 @@
+@import mixins/input
 @import globals
 
 header.head
@@ -86,12 +87,14 @@ header.head
 
 // инпунт с правого края заголовка
 .subheadline-input
-  float: right
+  +input
   font-size: 12px
   height: 16px
   line-height: 17px
   margin-right: 2px !important
   margin-top: 2px !important
+  position: absolute
+  right: 0
   width: 155px !important
 
 .subcontent

@@ -51,8 +51,8 @@
     margin: -15px 0 21px 9px;
   }
   .filter {
-    float: right;
-    margin-left: 0;
+    position: absolute;
+    right: 0;
   }
   .menu-block > .filter {
     margin-top: 2px;

@@ -52,6 +52,8 @@
   }
   .item-save {
     @include headline-icon-button('\e817');
+    position: absolute;
+    right: 0;
   }
   .item-offtopic {
     display: none;

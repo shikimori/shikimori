@@ -116,7 +116,7 @@ $('.pagination .link').live('click', function() {
     return false;
   }
   if ($(window).scrollTop() > 400) {
-    $.scrollTo(".common-title .h1,.title .h1");
+    $.scrollTo('.head');
   }
   History.pushState({timestamp: Date.now()}, null, this.href);
   return false;

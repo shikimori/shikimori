@@ -33,7 +33,7 @@ $(function() {
     faye_loader.apply();
   }
 
-  $.form_navigate({size: 250, message: "Вы написали и не сохранили какой-то большой комментарий! Уверены, что хотите покинуть страницу?"});
+  $.form_navigate({size: 250, message: "Вы написали и не сохранили какой-то комментарий! Уверены, что хотите покинуть страницу?"});
 });
 $('.ajax,.slide>div').live('ajax:success', function() {
   process_current_dom();
