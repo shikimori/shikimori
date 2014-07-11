@@ -22,7 +22,8 @@
 
   .one-third-columns
     - if contest.displayed_round.finished?
-      = render 'contests/rating', contest: contest, round: contest.displayed_round
+      .column
+        = render 'contests/rating', contest: contest, round: contest.displayed_round
 
     .column
       .b-options-floated
