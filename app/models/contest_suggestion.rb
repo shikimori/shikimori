@@ -8,7 +8,7 @@ class ContestSuggestion < ActiveRecord::Base
   validates :item, presence: true
 
   scope :by_user, -> (user) { where(user_id: user.id).order(:id) }
-  scope :by_votes, -> { select('item_id, item_type, count(*) as votes').group(:item_id, :item_type).order('count(*) desc') }
+  scope :by_votes, -> { select('max(id) as id, item_id, item_type, count(*) as votes').group(:item_id, :item_type).order('count(*) desc') }
 
   def self.suggest contest, user, item
     contest.suggestions.create!(

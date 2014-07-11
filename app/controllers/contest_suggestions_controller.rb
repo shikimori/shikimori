@@ -35,6 +35,6 @@ class ContestSuggestionsController < ShikimoriController
 
 private
   def fetch_contest
-    @contest = Contest.where(state: 'proposing').where(id: params[:contest_id]).first!
+    @contest = Contest.where(id: params[:contest_id]).first!
   end
 end
