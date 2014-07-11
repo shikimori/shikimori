@@ -1,4 +1,5 @@
 /*@import "compass/reset";*/
+@import "compass/css3/box-sizing";
 
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 
@@ -19,6 +20,7 @@ html {
  */
 
 * {
+  @include box-sizing(border-box);
   margin: 0;
   padding: 0;
   border: none;

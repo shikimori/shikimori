@@ -1,52 +1,50 @@
+@import compass/utilities/general/clearfix
+@import compass/css3/box-sizing
+@import mixins/responsive
 
-////@import compass/utilities/general/clearfix
-////@import compass/css3/box-sizing
-//@import susy
+=columns($columns)
+  +clearfix
 
-//.two-columns
-  //$total-columns: 12
-  //$column-width: 54px
-  //$gutter-width: 30px
-  //$grid-padding: 10px
+  $gutter: 4%
+  @if $columns == 1
+    $gutter: 0%
 
-  ////+susy-grid-background
-  //+container
+  & > .column
+    +box-sizing(border-box)
+    float: left
+    margin-right: $gutter
+    position: relative
+    width: 100% / $columns - $gutter
 
-  //.column
-    //+span-columns(6 alpha, $total-columns)
+    &:first-child:last-child
+      width: 100% - $gutter
 
+    &:last-child
+      margin-right: 0
 
-////=columns($numbers)
-  ////+clearfix
-  /////*margin: 0 -15px;
-  ////& > .column
-    ////+box-sizing(border-box)
-    ////float: left
-    /////*padding: 0 15px;
-    ////position: relative
-    ////&:first-child:last-child
-      ////width: 100%
-      ////margin-right: 0
+.three-columns
+  +columns(3)
 
-////.three-columns
-  ////+columns(3)
+.two-columns
+  +columns(2)
 
-////.two-columns
-  ////+columns
-  ////& > .column
-    ////width: 50%
+  +ipad
+    +columns(1)
 
-////.one-third-columns
-  ////+columns
-  ////& > .column
-    ////width: 66.6%
-    ////&:first-child
-      ////width: 33.3%
+.one-third-columns
+  +columns(2)
 
-////.two-third-columns
-  ////+columns
-  ////& > .column
-    ////width: 33.3%
-    ////&:first-child
-      ////width: 66.6%
+  & > .column
+    width: 66.6%
 
+    &:first-child
+      width: 33.3% - 4%
+
+.two-third-columns
+  +columns(2)
+
+  & > .column
+    width: 33.3%
+
+    &:first-child
+      width: 66.6% - 4%

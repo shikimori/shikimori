@@ -17,7 +17,7 @@
               | /
             span.total-episodes
               = entry.episodes
-          - if user_rate.episodes != entry.episodes
+          - if user_rate.episodes != entry.episodes || user_rate.episodes.zero?
             span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
         - else
           span.current-episodes = user_rate.chapters
@@ -26,7 +26,7 @@
               | /
             span.total-episodes
               = entry.chapters
-          - if user_rate.chapters != entry.chapters
+          - if user_rate.chapters != entry.chapters || user_rate.chapters.zero?
             span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
 
       .status = user_rate.status_name

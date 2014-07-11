@@ -88,7 +88,7 @@ $ ->
     $this = $(@)
     height = $this.height()
     $this.css height: height
-    $this.addClass "f17"  if $this.parent().height() < max_height
+    $this.addClass 'f17'  if $this.parent().height() < max_height
 
   names.height max_height
 
