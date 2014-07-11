@@ -30,7 +30,6 @@ class SiteParserWithCache
       File.open(cache_path, "rb") {|f| cache = YAML.load(f.read) } if File.exists?(cache_path)
     rescue Exception => e
       print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
-      exit
     ensure
       cache = {} unless cache
     end
