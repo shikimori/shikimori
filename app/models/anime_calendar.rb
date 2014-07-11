@@ -87,7 +87,8 @@ class AnimeCalendar < ActiveRecord::Base
     'bishojo senshi sailor moon crystal' => 14751,
     'shonen hollywood - holly stage for 49' => 23151,
     'magimoji rurumo' => 23945,
-    'rokujyoma no shinryakusha!?' => 22865
+    'rokujyoma no shinryakusha!?' => 22865,
+    'zankyo no terror' => 23283
   }
 
   EpisodesDiff = {
