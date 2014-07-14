@@ -12,6 +12,7 @@ class AniMangasDirector < BaseDirector
   page :videos, -> { entry.anime? && entry.videos.any? }
   page :images, -> { entry.tags.present? || entry.images.any? }
   page :files, -> { entry.anime? && !entry.anons? && entry.display_sensitive? }
+  page :online_video, -> { entry.anime? }
 
   page [:reviews, [:index]]
   page [:reviews, [:edit]]

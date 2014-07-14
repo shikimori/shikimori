@@ -17,8 +17,8 @@ Site::Application.routes.draw do
     #get '/', to: 'anime_online/anime_videos#index'
     get "animes#{ani_manga_format}" => "ani_mangas_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
-    resources :animes, only: [:show] do
-
+    scope page: 'online_video' do
+      resources :animes, only: [:show]
     end
 
     namespace :anime_online do
