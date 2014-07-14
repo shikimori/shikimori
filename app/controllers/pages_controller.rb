@@ -160,9 +160,9 @@ class PagesController < ShikimoriController
       @sidkiq_busy = Sidekiq.redis do |conn|
         conn.smembers('workers').map do |w|
           msg = conn.get("worker:#{w}")
-          msg ? [w, Sidekiq.load_json(msg)] : []
+          msg ? [w, Sidekiq.load_json(msg)] : [[], nil]
         end.compact.sort { |x| x[1] ? -1 : 1 }
-      end.map {|v| v.second['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
+      end.select{|k,v| v.present?}.map {|v| v.second['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
 
       @sidkiq_retries = page('retry', 'retries', 100)[2]
         .flatten
