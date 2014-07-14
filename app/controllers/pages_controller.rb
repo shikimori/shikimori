@@ -160,7 +160,7 @@ class PagesController < ShikimoriController
       @sidkiq_busy = Sidekiq.redis do |conn|
         conn.smembers('workers').map do |w|
           msg = conn.get("worker:#{w}")
-          msg ? [w, Sidekiq.load_json(msg)] : (to_rem << w; nil)
+          msg ? [w, Sidekiq.load_json(msg)] : []
         end.compact.sort { |x| x[1] ? -1 : 1 }
       end.map {|v| v.second['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
 
