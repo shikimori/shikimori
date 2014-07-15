@@ -2,7 +2,7 @@
 'use strict';
 
 var Faye = {
-  VERSION:          '1.0.1',
+  VERSION:          '1.0.3',
 
   BAYEUX_VERSION:   '1.0',
   ID_LENGTH:        160,
