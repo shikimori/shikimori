@@ -48,4 +48,7 @@ faye_server = Faye::RackAdapter.new(
 faye_server.add_extension ServerAuth.new
 faye_server.add_extension FayeLogger.new
 
+EM.epoll
+EM.set_descriptor_table_size 100000
+
 run faye_server
