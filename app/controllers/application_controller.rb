@@ -81,14 +81,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def adaptivity_class
-    if controller_name == 'topics' || anime_online? || manga_online? # || (controller_name == 'pages' && params[:action] == 'ongoings')
-      'l-adaptive'
-    else
-      'l-static'
-    end
-  end
-
 private
   def set_layout
     if request.xhr?

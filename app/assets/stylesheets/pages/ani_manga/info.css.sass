@@ -1,41 +1,38 @@
 @import globals
 @import mixins/comma_separated
 
-.info
-  .item-content
-    +clearfix
+.p-animes .info, .p-mangas .info
+  .additional-links
+    max-width: 230px
 
-    .additional-links
-      max-width: 230px
+    .key
+      float: left
+      margin-left: 5px
+      color: $gray-color
 
-      .key
-        float: left
-        margin-left: 5px
-        color: $gray-color
+    .link-reviews, .link-comments, .link-comment-reviews
+      +comma_separated
+      +normal-link
+      float: left
+      margin-left: 5px
 
-      .link-reviews, .link-comments, .link-comment-reviews
-        +comma_separated
+  .content-right
+    float: right
+
+    .anime-image
+      margin: 5px 0 5px 15px
+
+    .watch-online
+      font-size: 13px
+      line-height: $line-height
+      margin: 6px 0 10px 15px
+      text-align: center
+      min-width: 202px
+
+      span, a
         +normal-link
-        float: left
-        margin-left: 5px
-
-    .content-right
-      float: right
-
-      .anime-image
-        margin: 5px 0 5px 15px
-
-      .watch-online
-        font-size: 13px
-        line-height: $line-height
-        margin: 6px 0 10px 15px
-        text-align: center
-        width: 202px
-
-        span, a
-          +normal-link
-          &:after
-            line-height: 20px
+        &:after
+          line-height: 20px
 
   .right-column
     margin-left: $menu-width + 30px
@@ -160,5 +157,5 @@
       &.v1.first
         width: 540px
 
-.studio-logo
-  max-width: 195px
+  .studio-logo
+    max-width: 195px

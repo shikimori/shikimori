@@ -14,18 +14,10 @@ header.head
 
   = render partial: 'blocks/breadcrumbs', object: @director.breadcrumbs, formats: :html
 
-aside.menu-right.animanga-right-menu
-  .menu-right-inner
-    = render partial: 'ani_mangas/menu_right', formats: :html
+aside.l-menu
+  = render partial: 'ani_mangas/menu_right', formats: :html
 
-.entry-content-slider.view-port.vertical-slider class="#{@entry.class.name.downcase}-content-slider" data-width="770"
-  .view-content style="margin-left: #{-1*770*@director.page_index}px"
-    - @director.pages.each_with_index do |page, index|
-      .slide
-        - if @director.page_index == index
-          section.selected class="#{page_class page}"
-            = render @director.partial
-        - else
-          div class="#{page_class page}"
-            br
+.l-content
+  = render @director.partial
+
 .clearfix

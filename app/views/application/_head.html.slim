@@ -25,7 +25,7 @@ head
   = display_meta_tags site: 'Шикимори', separator: '/', reverse: true
   = csrf_meta_tag
 
-  = stylesheet_link_tag :common, media: 'all'
+  = stylesheet_link_tag :core, media: 'all'
   - if anime_online?
     = stylesheet_link_tag 'anime_online/application', media: 'all'
   - elsif manga_online?

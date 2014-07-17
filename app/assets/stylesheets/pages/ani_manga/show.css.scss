@@ -1,24 +1,6 @@
 @import "globals";
 
 /*************************************************/
-/* main styles */
-.entry-content-slider {
-  position: relative;
-  width: $slide-width;
-  /*min-height: 845px;*/
-  /*margin-left: -5px;*/
-  /*padding-left: 5px;*/
-
-  .slide {
-    float: left;
-    margin-left: 0px;
-    margin-right: 30px;
-    overflow: hidden;
-    position: relative;
-    width: $slide-width;
-  }
-}
-/*************************************************/
 /* tooltip+title */
 .favourite {
   @include default-button;

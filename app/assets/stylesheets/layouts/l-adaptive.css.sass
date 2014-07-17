@@ -1,7 +1,7 @@
 @import globals
 @import mixins/responsive
 
-.l-adaptive
+body
   .page
     margin: 0 auto
     max-width: $site-body-width
@@ -53,26 +53,5 @@
         .title
           margin-left: 0 !important
 
-      //+responsive($ipad)
       .welcome-gallery, .welcome-gallery-loader
         display: none
-
-    //+susy-breakpoint(0px 520px)
-      //footer
-        //display: none
-
-    //+susy-breakpoint(0px 510px)
-      //.welcome-gallery, .welcome-gallery-loader
-        //display: none
-
-    //+susy-breakpoint(510px 665px)
-      //.gallery-body
-        //width: 478px
-
-    //+susy-breakpoint(665px 840px)
-      //.gallery-body
-        //width: 640px
-
-    //+susy-breakpoint(840px 996px)
-      //.gallery-body
-        //width: 800px

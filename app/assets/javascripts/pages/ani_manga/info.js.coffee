@@ -1,4 +1,4 @@
-$(".slide > .info").live "ajax:success cache:success", (e) ->
+$(".info").live "ajax:success cache:success", (e) ->
   return  if "mutex" of arguments.callee
   arguments.callee.mutex = true
   $this = $(this)
