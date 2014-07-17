@@ -87,9 +87,9 @@ private
 
   def run_event_machine
     Thread.new do
-      EM.run
       EM.epoll
       EM.set_descriptor_table_size 100000
+      EM.run
     end unless EM.reactor_running?
     Thread.pass until EM.reactor_running?
   end
