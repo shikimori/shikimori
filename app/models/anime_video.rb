@@ -70,6 +70,14 @@ class AnimeVideo < ActiveRecord::Base
     domain == 'vkontakte.ru' ? 'vk.com' : domain
   end
 
+  def vk?
+    hosting == 'vk.com'
+  end
+
+  def player_url
+    "#{url}#{url.include?('?') ? '&' : '?' }quality=480"
+  end
+
   def allowed?
     working? || uploaded?
   end
@@ -79,7 +87,7 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def mobile_compatible?
-    hosting == 'vk.com'
+    vk?
   end
 
   def uploader

@@ -34,7 +34,7 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
   def dropdown_videos
     return [] if current_videos.blank?
     current_videos.sort_by do |v|
-      [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.hosting == 'vk.com' ? '' : v.hosting, v.author ? v.author.name : '']
+      [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.vk? ? '' : v.hosting, v.author ? v.author.name : '']
     end
   end
 

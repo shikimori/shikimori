@@ -152,6 +152,38 @@ describe AnimeVideo do
     end
   end
 
+  describe '#vk?' do
+    subject { video.vk? }
+    let(:video) { build :anime_video, url: url }
+
+    context :true do
+      let(:url) { 'http://www.vk.com?id=1' }
+      it { should be_true }
+    end
+
+    context :false do
+      let(:url) { 'http://www.foo.bar.com/video?id=1' }
+      it { should be_false }
+    end
+  end
+
+  describe '#player_url' do
+    subject { video.player_url }
+    let(:video) { build :anime_video, url: url }
+
+    context :vk do
+      context :with_? do
+        let(:url) { 'http://www.vk.com?id=1' }
+        it { should eq "#{url}&quality=480" }
+      end
+
+      context :without_? do
+        let(:url) { 'http://www.vk.com' }
+        it { should eq "#{url}?quality=480" }
+      end
+    end
+  end
+
   describe :state_machine do
     subject { video.state }
     let(:video) { create :anime_video }
