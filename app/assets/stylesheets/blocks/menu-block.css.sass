@@ -1,14 +1,13 @@
-@import globals
+@import mixins/block
 
-.menu-block
-  margin-bottom: 30px
-  line-height: $line-height
-
-  &.editions
-    display: none
+.menu-block, .block
+  +block
 
   &:last-child
     margin-bottom: 0
 
   .subcontent:last-child
     margin-bottom: 0
+
+  &.editions
+    display: none

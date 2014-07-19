@@ -1,0 +1,22 @@
+@import compass/css3/box-sizing
+@import mixins/responsive
+@import mixins/block
+
+=column($columns, $total_columns)
+  $gutter: 4%
+  @if $total_columns == 1
+    $gutter: 0%
+
+  +box-sizing(border-box)
+  +block
+  float: left
+  margin-right: $gutter
+  position: relative
+  width: 100% / $total_columns * $columns - $gutter
+
+  &:first-child:last-child
+    width: 100% - $gutter
+
+  &:last-child
+    margin-right: 0
+    width: 100% / $total_columns * $columns

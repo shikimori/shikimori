@@ -3,15 +3,6 @@ $(".info").live "ajax:success cache:success", (e) ->
   arguments.callee.mutex = true
   $this = $(this)
 
-  # редактор описания
-  kind = (if $(".entry-content-slider").attr("class").indexOf("manga") is -1 then "anime" else "manga")
-  $editor = $(".right-column", $this)
-  $editor.on "editor:show", ->
-    $(".left-column-wrap", $this).addClass "disabled"
-
-  $editor.on "editor:hide", ->
-    $(".left-column-wrap", $this).removeClass "disabled"
-
   $(".rating.notice").tipsy gravity: "s"
   $(".status-date.notice").tipsy gravity: "s"
   $(".extra .images-list a", $this).fancybox $.galleryOptions
