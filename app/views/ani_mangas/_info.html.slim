@@ -14,15 +14,20 @@
       meta itemprop="endDate" content="#{@entry.released_on.to_s}"
 
   .cc
-    .c1-3.anime-image
-      img src="#{attachment_url @entry.image}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
-      - if @entry.anime? && !@entry.anons?
-        - if @entry.anime_videos?
-          .watch-online.subheadline.blue
-            span.linkeable data-href="#{anime_videos_show_url @entry.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
-        - elsif user_signed_in?
-          .watch-online.subheadline.blue
-            a href="#{new_anime_online_anime_anime_video_url @entry.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
+    .c1-3
+      .anime-image
+        img src="#{attachment_url @entry.image}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
+        - if @entry.anime? && !@entry.anons?
+          - if @entry.anime_videos?
+            .watch-online.subheadline.blue
+              span.linkeable data-href="#{anime_videos_show_url @entry.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
+          - elsif user_signed_in?
+            .watch-online.subheadline.blue
+              a href="#{new_anime_online_anime_anime_video_url @entry.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
+
+      - if user_signed_in?
+        .anime-rate
+          = render partial: 'user_rates/user_rate', locals: { user_rate: @entry.rate || @entry.rates.build(user_id: current_user.id), entry: @entry }
 
     .c2-3
       .cc
@@ -32,6 +37,15 @@
             = render partial: 'ani_mangas/common_info', locals: { entry: @entry, details: true }, formats: :html
 
         .c1-2
+          - if @entry.with_score? && !@entry.anons?
+            .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+              .subheadline.m5 Рейтинг
+              .scores.rate-block
+                meta itemprop="bestRating" content="10"
+                meta itemprop="ratingValue" content="#{@entry.score}"
+                meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/37).to_i}"
+                = render partial: 'ani_mangas/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
+
           - if @entry.genres.any?
             .block
               .subheadline
@@ -73,17 +87,6 @@
 
           = render partial: 'blocks/source', locals: { entry: @entry, authors: @entry.changes.authors(:description, false), field: 'description', default_source: @entry.mal_url }, formats: :html
           = render partial: 'additional_links', locals: { entry: @entry }, formats: :html
-
-
-
-    /.block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
-      /- if @entry.with_score? && !@entry.anons?
-        /.subheadline.m5 Рейтинг
-        /.scores.rate-block
-          /meta itemprop="bestRating" content="10"
-          /meta itemprop="ratingValue" content="#{@entry.score}"
-          /meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/37).to_i}"
-          /= render partial: 'ani_mangas/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
 
   /.extra
     /.video_screen_previews

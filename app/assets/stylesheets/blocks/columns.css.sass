@@ -13,6 +13,11 @@
   .c2-3
     +column(2, 3)
 
+  // вложенные колонки в другую колонку. тут делаем увеличенный в 1.5 раза gutter
+  .cc
+    .c1-2
+      +column_with_gutter(1, 2, 6%)
+
 =column-container($columns)
   +clearfix
 

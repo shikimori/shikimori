@@ -6,7 +6,7 @@
         - users.each do |user|
           - if user_signed_in?
             a href="#{user_url user}" title="#{user.nickname}"
-              img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
+              img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
           - else
-            img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
+            img src="#{user.avatar_url 32}"  srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
         br

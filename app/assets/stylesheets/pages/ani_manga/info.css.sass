@@ -8,6 +8,7 @@
   +clearfix
 
   .anime-image
+    +block
     img
       margin-bottom: 5px
       max-width: 100%
@@ -157,3 +158,80 @@
 
   .studio-logo
     max-width: 195px
+
+  .anime-rate
+    +block
+    width: auto
+
+    .add-to-list
+      +normal-link
+
+    .buttons
+      position: absolute
+      right: 0
+
+    .expand-options
+      +icon-button('\006d')
+      margin-top: 3px
+
+    .expanded-options
+      +transition(height 0.3s ease)
+      display: none
+
+    .rate-container
+      +transition(height 0.3s ease)
+      margin-right: 5px
+      overflow: hidden
+
+    .item-edit
+      margin-top: 3px
+      color: $gray-color-0
+
+    .rate-show
+      margin-bottom: 5px
+
+      .rate-number
+        float: right
+
+        .b-input
+          display: inline
+
+        label
+          display: none
+
+        input
+          text-align: center
+          width: 25px
+
+        .item-add
+          margin-left: 10px
+
+      .status
+        margin-bottom: 10px
+
+      .note
+        color: $gray-color-0
+        margin-top: 5px
+
+      .rate-block
+        width: 195px
+
+        .scores-label-description
+          margin-right: 5px
+
+    .rate-edit
+      display: none
+
+      .b-input.integer input
+        width: 45px
+
+      .remove
+        +clearfix
+        margin-bottom: 10px
+
+        a
+          +normal-link
+          float: right
+
+      textarea
+        width: 195px

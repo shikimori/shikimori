@@ -3,7 +3,9 @@
 @import mixins/block
 
 =column($columns, $total_columns)
-  $gutter: 4%
+  +column_with_gutter($columns, $total_columns, 4%)
+
+=column_with_gutter($columns, $total_columns, $gutter)
   @if $total_columns == 1
     $gutter: 0%
 

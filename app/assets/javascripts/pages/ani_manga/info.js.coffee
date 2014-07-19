@@ -1,4 +1,5 @@
-$(".info").live "ajax:success cache:success", (e) ->
+#$(".info").live "ajax:success cache:success", (e) ->
+$ ->
   return  if "mutex" of arguments.callee
   arguments.callee.mutex = true
   $this = $(this)
@@ -11,7 +12,6 @@ $(".info").live "ajax:success cache:success", (e) ->
 
   # rating
   $(".scores", $this).makeRateble round_values: false
-
 
 # похожие аниме, подгружаемые для гостей аяксом
 $(".related-entries-loader").live "ajax:success", ->

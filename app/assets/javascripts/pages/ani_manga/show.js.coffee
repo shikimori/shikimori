@@ -92,7 +92,7 @@ $ ->
 
   names.height max_height
 
-  $('.menu-rate-block')
+  $('.anime-rate')
     # клик по добавлению в свой список
     .on 'click', '.add-to-list', ->
       $form = $(@).closest('form')
@@ -104,7 +104,7 @@ $ ->
     .on 'click', '.expand-options', ->
       $(@).toggleClass 'selected'
 
-      $options = $('.menu-rate-block .expanded-options')
+      $options = $('.anime-rate .expanded-options')
 
       unless $options.data 'height'
         $options
@@ -115,51 +115,51 @@ $ ->
       (=>
         if $(@).hasClass 'selected'
           $options.css height: $options.data('height')
-          $('.menu-rate-block .add-to-list:not(.option)').hide()
+          $('.anime-rate .add-to-list:not(.option)').hide()
         else
           $options.css height: 0
-          $('.menu-rate-block .add-to-list:not(.option)').show()
+          $('.anime-rate .add-to-list:not(.option)').show()
       ).delay()
 
     # отмена редактирования user_rate
     .on 'click', '.cancel', ->
-      $show = $('.menu-rate-block .rate-show').show()
-      $edit = $('.menu-rate-block .rate-edit').hide()
+      $show = $('.anime-rate .rate-show').show()
+      $edit = $('.anime-rate .rate-edit').hide()
 
-      $('.menu-rate-block .rate-container').css
+      $('.anime-rate .rate-container').css
         height: $show.data('height')
 
     # сабмит формы user_rate
     .on 'ajax:success', '.new_user_rate, .increment, .remove', (e, html) ->
-      $('.menu-rate-block').html html
-      $('.menu-rate-block .scores-user').makeRateble()
+      $('.anime-rate').html html
+      $('.anime-rate .scores-user').makeRateble()
 
     # завершение редактирования user_rate
     .on 'ajax:success', '.edit_user_rate', (e, html) ->
-      $('.menu-rate-block .rate-show').replaceWith($(html).find('.rate-show'))
-      $('.menu-rate-block .rate-show').data height: $('.menu-rate-block .rate-show').height()
-      $('.menu-rate-block .scores-user').makeRateble()
+      $('.anime-rate .rate-show').replaceWith($(html).find('.rate-show'))
+      $('.anime-rate .rate-show').data height: $('.anime-rate .rate-show').height()
+      $('.anime-rate .scores-user').makeRateble()
 
-      $('.menu-rate-block .cancel').click()
+      $('.anime-rate .cancel').click()
 
     # клик на изменение user_rate - подгрузка и показ формы
     .on 'ajax:success', '.item-edit', (e, edit_html) ->
-      $show = $('.menu-rate-block .rate-show')
+      $show = $('.anime-rate .rate-show')
       $show
         .data(height: $show.height())
         .hide()
 
-      $edit = $('.menu-rate-block .rate-edit')
+      $edit = $('.anime-rate .rate-edit')
       $edit
         .html(edit_html)
         .data(height: $edit.height())
         .show()
 
-      $('.menu-rate-block .rate-container').css height: $show.data('height')
-      (-> $('.menu-rate-block .rate-container').css height: $edit.data('height')).delay()
+      $('.anime-rate .rate-container').css height: $show.data('height')
+      (-> $('.anime-rate .rate-container').css height: $edit.data('height')).delay()
 
   # user ratings
-  $scores_user = $(".menu-rate-block .scores-user")
+  $scores_user = $(".anime-rate .scores-user")
   $scores_user.makeRateble() if $scores_user.is(":visible")
 
 # клик по заголовку аниме
