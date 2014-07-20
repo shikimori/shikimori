@@ -45,6 +45,18 @@
   .c-screenshot
     +column(4)
 
+    +iphone-portrait
+      +column(2)
+      display: none
+      &:nth-child(1), &:nth-child(2)
+        display: block
+
+    +iphone-landscape
+      +column(3)
+      display: none
+      &:nth-child(1), &:nth-child(2), &:nth-child(3)
+        display: block
+
     img
       width: 100%
 
