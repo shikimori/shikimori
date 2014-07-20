@@ -4,6 +4,10 @@
   @media only screen and (max-width: $iphone_max)
     @content
 
+=iphone-portrait
+  @media only screen and (max-width: $iphone_max) and (orientation: portrait)
+    @content
+
 =iphone-landscape
   @media only screen and (max-width: $iphone_max) and (orientation: landscape)
     @content

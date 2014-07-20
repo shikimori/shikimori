@@ -1,5 +1,6 @@
 @import globals
 @import mixins/responsive
+@import mixins/column
 
 body
   .page
@@ -7,19 +8,18 @@ body
     max-width: $site-body-width
 
     .l-menu
+      +column(1, 2)
+      margin-right: 0
       float: right
-      margin-left: 3%
-      max-width: 240px
-      position: relative
       width: 24%
 
       +ipad
         display: none
 
     .l-content
-      float: left
-      position: relative
+      +column(1, 2)
       width: 73%
+      margin-right: 3%
 
       +ipad
         width: 100%

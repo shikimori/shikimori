@@ -2,11 +2,15 @@
 @import mixins/responsive
 @import mixins/block
 
-=column($columns, $total_columns)
-  +column_with_gutter($columns, $total_columns, 4%)
+//=last-column($columns, $total_columns)
+  //+column($columns, $total_columns, 4%)
 
-=column_with_gutter($columns, $total_columns, $gutter)
-  @if $total_columns == 1
+  //margin-right: 0
+  //width: 100% / $total_columns * $columns
+
+=column($columns, $gutter: 4%)
+  //@if $total_columns == 1
+  @if $columns == 1
     $gutter: 0%
 
   +box-sizing(border-box)
@@ -14,14 +18,21 @@
   float: left
   margin-right: $gutter
   position: relative
-  width: 100% / $total_columns * $columns - $gutter
+  //width: 100% / $total_columns * $columns - $gutter * ($total_columns - 1) / $total_columns
+  width: 100% / $columns - $gutter * ($columns - 1) / $columns
 
-  &:first-child:last-child
+  //&:first-child:last-child
     width: 100% - $gutter
+
+  &:nth-child(#{$columns})
+    margin-right: 0
 
   &:last-child
     margin-right: 0
-    width: 100% / $total_columns * $columns
+    //width: 100% / $total_columns * $columns
+
+    &.block
+      margin-bottom: 0
 
   &>.block:last-child, &>.subcontent:last-child
     margin-bottom: 0

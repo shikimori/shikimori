@@ -9,36 +9,50 @@
 
   // columns media
   .c-image
-    +column(1, 3)
+    +column(2)
+    width: 30.5%
 
-    +iphone
-      +column(1, 1)
+    +iphone-portrait
+      +column(1)
 
     +iphone-landscape
-      +column(1, 2)
+      +column(2)
 
   .c-about
-    +column(2, 3)
+    +column(2)
+    width: 65.5%
+    z-index: 1 // без этого нижний блок с description перекрывает текущий
 
-    +iphone
-      +column(1, 1)
+    +iphone-portrait
+      +column(1)
 
     +iphone-landscape
-      +column(1, 2)
+      +column(2)
 
     .c-info, .c-rating
-      +column(1, 2)
+      +column(2, 6%)
 
       +iphone
-        +column(1, 1)
+        +column(1)
 
-    .c-description
-      +iphone-landscape
-        clear: both
+  .c-description
+    margin-left: 33.3%
+
+    +iphone
+      clear: both
+      margin-left: 0
+
+  .c-screenshot
+    +column(4)
+
+    img
+      width: 100%
 
   .anime-image
     margin-bottom: 5px
-    max-width: 100%
+
+    img
+      max-width: 100%
 
     .watch-online
       +ellipsis
@@ -94,167 +108,164 @@
     clear: left
     margin-bottom: 30px
 
-  .extra
-    clear: both
+  .video_screen_previews
+    +clearfix
 
-    .video_screen_previews
-      +clearfix
+  .images-list, .videos-list
+    height: 111px
 
-    .images-list, .videos-list
-      height: 111px
+    .image-container
+      margin-right: 12px
+      padding: 3px 3px 0
+      img, a
+        height: 95px
+      &:last-child
+        margin-right: 0
+      &.vk
+        img
+          height: 128px
+          margin-top: -16px
+        .video-marker
+          margin-top: -37px
 
-      .image-container
-        margin-right: 12px
-        padding: 3px 3px 0
-        img, a
-          height: 95px
-        &:last-child
-          margin-right: 0
-        &.vk
-          img
-            height: 128px
-            margin-top: -16px
-          .video-marker
-            margin-top: -37px
+  .images-list .image-container
+    background: #E5E5E5
 
-    .images-list .image-container
-      background: #E5E5E5
-
-    .videos-list .video
-      position: relative
-      width: auto
-
-    .people-container
-      clear: none
-      //&.p0, &.c0
-        //width: 100%
-      //&.t2, &.t3, &.t4, &.t5, &.t6
-        //margin-bottom: 0
-
-        //&.first
-          //float: left
-          //margin-right: 30px
-
-        //.item-block
-          //height: 175px
-
-        //.person-block-wide
-          //width: 123px
-          //.image
-            //max-height: 102px
-
-      //&.second.s1, &.first.v1, &.first.v2
-        //.image-container
-          //background: transparent
-
-      //// блоки с персонажами
-      //&.first
-        //clear: both
-        //&.c1.p1, &.c1.p2, &.c2.p1, &.c2.p2, &.t4.c2
-          //width: 369px
-        //&.c2.p3
-          //width: 340px
-        //&.t5.c4
-          //width: 495px
-      //&.t6.c2, &.t6.c3, &.t6.c4, &.t6.c5
-        //.item-block
-          //width: 118px !important
-
-      //// блоки с видео
-      //&.s0
-        //float: right
-      //&.first.v1, &.s1.v1, &.s0.v1
-        //width: 170px
-        //.image-container
-          //padding: 0 2px 0 0
-      //&.first.v2, &.s1.v2, &.s0.v2
-        //width: 355px
-        //.image-container
-          //padding: 0 1px 0 0
-          //&.vk
-            //padding: 0
-      //&.v1, &.v2
-        //&.first
-          //float: left
-          //margin-right: 30px
-      //&.v1.first
-        //width: 540px
-
-  .studio-logo
-    max-width: 195px
-
-  .anime-rate
+  .videos-list .video
+    position: relative
     width: auto
 
-    .add-to-list
-      +normal-link
+  .people-container
+    clear: none
+    //&.p0, &.c0
+      //width: 100%
+    //&.t2, &.t3, &.t4, &.t5, &.t6
+      //margin-bottom: 0
 
-    .buttons
-      position: absolute
-      right: 0
+      //&.first
+        //float: left
+        //margin-right: 30px
 
-    .expand-options
-      +icon-button('\006d')
-      margin-top: 3px
+      //.item-block
+        //height: 175px
 
-    .expanded-options
-      +transition(height 0.3s ease)
-      display: none
+      //.person-block-wide
+        //width: 123px
+        //.image
+          //max-height: 102px
 
-    .rate-container
-      +transition(height 0.3s ease)
-      margin-right: 5px
-      overflow: hidden
+    //&.second.s1, &.first.v1, &.first.v2
+      //.image-container
+        //background: transparent
 
-    .item-edit
-      margin-top: 3px
+    //// блоки с персонажами
+    //&.first
+      //clear: both
+      //&.c1.p1, &.c1.p2, &.c2.p1, &.c2.p2, &.t4.c2
+        //width: 369px
+      //&.c2.p3
+        //width: 340px
+      //&.t5.c4
+        //width: 495px
+    //&.t6.c2, &.t6.c3, &.t6.c4, &.t6.c5
+      //.item-block
+        //width: 118px !important
+
+    //// блоки с видео
+    //&.s0
+      //float: right
+    //&.first.v1, &.s1.v1, &.s0.v1
+      //width: 170px
+      //.image-container
+        //padding: 0 2px 0 0
+    //&.first.v2, &.s1.v2, &.s0.v2
+      //width: 355px
+      //.image-container
+        //padding: 0 1px 0 0
+        //&.vk
+          //padding: 0
+    //&.v1, &.v2
+      //&.first
+        //float: left
+        //margin-right: 30px
+    //&.v1.first
+      //width: 540px
+
+.studio-logo
+  max-width: 195px
+
+.anime-rate
+  width: auto
+
+  .add-to-list
+    +normal-link
+
+  .buttons
+    position: absolute
+    right: 0
+
+  .expand-options
+    +icon-button('\006d')
+    margin-top: 3px
+
+  .expanded-options
+    +transition(height 0.3s ease)
+    display: none
+
+  .rate-container
+    +transition(height 0.3s ease)
+    margin-right: 5px
+    overflow: hidden
+
+  .item-edit
+    margin-top: 3px
+    color: $gray-color-0
+
+  .rate-show
+    margin-bottom: 5px
+
+    .rate-number
+      float: right
+
+      .b-input
+        display: inline
+
+      label
+        display: none
+
+      input
+        text-align: center
+        width: 25px
+
+      .item-add
+        margin-left: 10px
+
+    .status
+      margin-bottom: 10px
+
+    .note
       color: $gray-color-0
+      margin-top: 5px
 
-    .rate-show
-      margin-bottom: 5px
+    .rate-block
+      width: 195px
 
-      .rate-number
+      .scores-label-description
+        margin-right: 5px
+
+  .rate-edit
+    display: none
+
+    .b-input.integer input
+      width: 45px
+
+    .remove
+      +clearfix
+      margin-bottom: 10px
+
+      a
+        +normal-link
         float: right
 
-        .b-input
-          display: inline
-
-        label
-          display: none
-
-        input
-          text-align: center
-          width: 25px
-
-        .item-add
-          margin-left: 10px
-
-      .status
-        margin-bottom: 10px
-
-      .note
-        color: $gray-color-0
-        margin-top: 5px
-
-      .rate-block
-        width: 195px
-
-        .scores-label-description
-          margin-right: 5px
-
-    .rate-edit
-      display: none
-
-      .b-input.integer input
-        width: 45px
-
-      .remove
-        +clearfix
-        margin-bottom: 10px
-
-        a
-          +normal-link
-          float: right
-
-      textarea
-        width: 195px
+    textarea
+      width: 195px

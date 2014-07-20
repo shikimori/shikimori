@@ -6,9 +6,9 @@ $ ->
 
   $(".rating.notice").tipsy gravity: "s"
   $(".status-date.notice").tipsy gravity: "s"
-  $(".extra .images-list a", $this).fancybox $.galleryOptions
-  $(".extra .videos-list.youtube a", $this).fancybox $.youtubeOptions
-  $(".extra .videos-list.vk a", $this).fancybox $.vkOptions
+  $(".images-list a", $this).fancybox $.galleryOptions
+  $(".videos-list.youtube a", $this).fancybox $.youtubeOptions
+  $(".videos-list.vk a", $this).fancybox $.vkOptions
 
   # rating
   $(".scores", $this).makeRateble round_values: false
