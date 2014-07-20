@@ -1,16 +1,19 @@
 @import globals/variables
 
-=phone
-  @media only screen and (max-width: $phone)
+=iphone
+  @media only screen and (max-width: $iphone_max)
     @content
 
-=iphone
-  @media only screen and (max-width: $iphone)
+=iphone-landscape
+  @media only screen and (max-width: $iphone_max) and (orientation: landscape)
     @content
 
 =ipad
-  /*@media only screen and (min-width: 768px) and (max-width: 980px) { @content; }
-  @media only screen and (max-width: $ipad)
+  @media only screen and (max-width: $ipad_max)
+    @content
+
+=ipad-landscape
+  @media only screen and (max-width: $ipad_max) and (orientation: landscape)
     @content
 
 =desktop
@@ -20,6 +23,8 @@
 =widescreen
   @media only screen and (min-width: $widescreen)
     @content
+
+
 
 =responsive($media)
   @if $media == narrow-phone

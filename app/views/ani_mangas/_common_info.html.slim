@@ -8,7 +8,7 @@
   = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
-    p.nowrap
+    p
       span.key #{entry.episodes_aired > 0 ? 'Следующий' : 'Первый'} эпизод:&nbsp;
       span.dark.anime-alt
         = Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
@@ -23,9 +23,9 @@
   = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
 
   - unless entry.status.blank?
-    p.nowrap
+    p
       span.key Статус:&nbsp;
-      span.value.nowrap
+      span.value
         = t "AniMangaStatus.#{entry.status}"
         | &nbsp;
         - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_on || entry.aired_on)

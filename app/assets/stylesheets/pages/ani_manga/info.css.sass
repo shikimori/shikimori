@@ -7,18 +7,46 @@
 .p-animes .info, .p-mangas .info
   +clearfix
 
+  // columns media
+  .c-image
+    +column(1, 3)
+
+    +iphone
+      +column(1, 1)
+
+    +iphone-landscape
+      +column(1, 2)
+
+  .c-about
+    +column(2, 3)
+
+    +iphone
+      +column(1, 1)
+
+    +iphone-landscape
+      +column(1, 2)
+
+    .c-info, .c-rating
+      +column(1, 2)
+
+      +iphone
+        +column(1, 1)
+
+    .c-description
+      +iphone-landscape
+        clear: both
+
   .anime-image
-    +block
-    img
-      margin-bottom: 5px
-      max-width: 100%
+    margin-bottom: 5px
+    max-width: 100%
 
     .watch-online
+      +ellipsis
       font-size: 13px
       line-height: $line-height
       margin: 6px 0 10px 0
       text-align: center
-      min-width: 202px
+      //min-width: 202px
 
     span, a
       +normal-link
@@ -41,20 +69,6 @@
       img
         margin: 0 -10px 2px -2px
 
-    .subblock-content
-      margin-bottom: 20px
-      margin-left: 2px
-
-  .being-translated
-    margin-top: 2px
-
-  .related-entries-loader
-    +plashka
-
-  .related-entries
-    clear: left
-    margin-bottom: 30px
-
   .additional-links
     +clearfix
     max-width: 230px
@@ -69,6 +83,16 @@
       +normal-link
       float: left
       margin-left: 5px
+
+  .being-translated
+    margin-top: 2px
+
+  .related-entries-loader
+    +plashka
+
+  .related-entries
+    clear: left
+    margin-bottom: 30px
 
   .extra
     clear: both
@@ -102,65 +126,64 @@
 
     .people-container
       clear: none
-      &.p0, &.c0
-        width: 100%
-      &.t2, &.t3, &.t4, &.t5, &.t6
-        margin-bottom: 0
+      //&.p0, &.c0
+        //width: 100%
+      //&.t2, &.t3, &.t4, &.t5, &.t6
+        //margin-bottom: 0
 
-        &.first
-          float: left
-          margin-right: 30px
+        //&.first
+          //float: left
+          //margin-right: 30px
 
-        .item-block
-          height: 175px
+        //.item-block
+          //height: 175px
 
-        .person-block-wide
-          width: 123px
-          .image
-            max-height: 102px
+        //.person-block-wide
+          //width: 123px
+          //.image
+            //max-height: 102px
 
-      &.second.s1, &.first.v1, &.first.v2
-        .image-container
-          background: transparent
+      //&.second.s1, &.first.v1, &.first.v2
+        //.image-container
+          //background: transparent
 
-      // блоки с персонажами
-      &.first
-        clear: both
-        &.c1.p1, &.c1.p2, &.c2.p1, &.c2.p2, &.t4.c2
-          width: 369px
-        &.c2.p3
-          width: 340px
-        &.t5.c4
-          width: 495px
-      &.t6.c2, &.t6.c3, &.t6.c4, &.t6.c5
-        .item-block
-          width: 118px !important
+      //// блоки с персонажами
+      //&.first
+        //clear: both
+        //&.c1.p1, &.c1.p2, &.c2.p1, &.c2.p2, &.t4.c2
+          //width: 369px
+        //&.c2.p3
+          //width: 340px
+        //&.t5.c4
+          //width: 495px
+      //&.t6.c2, &.t6.c3, &.t6.c4, &.t6.c5
+        //.item-block
+          //width: 118px !important
 
-      // блоки с видео
-      &.s0
-        float: right
-      &.first.v1, &.s1.v1, &.s0.v1
-        width: 170px
-        .image-container
-          padding: 0 2px 0 0
-      &.first.v2, &.s1.v2, &.s0.v2
-        width: 355px
-        .image-container
-          padding: 0 1px 0 0
-          &.vk
-            padding: 0
-      &.v1, &.v2
-        &.first
-          float: left
-          margin-right: 30px
-      &.v1.first
-        width: 540px
+      //// блоки с видео
+      //&.s0
+        //float: right
+      //&.first.v1, &.s1.v1, &.s0.v1
+        //width: 170px
+        //.image-container
+          //padding: 0 2px 0 0
+      //&.first.v2, &.s1.v2, &.s0.v2
+        //width: 355px
+        //.image-container
+          //padding: 0 1px 0 0
+          //&.vk
+            //padding: 0
+      //&.v1, &.v2
+        //&.first
+          //float: left
+          //margin-right: 30px
+      //&.v1.first
+        //width: 540px
 
   .studio-logo
     max-width: 195px
 
   .anime-rate
-    +block
     width: auto
 
     .add-to-list

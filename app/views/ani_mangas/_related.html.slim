@@ -1,6 +1,6 @@
 article.related-block.m5 class="#{related.kind if related.respond_to? :kind}"
   a.image-container href="#{url_for related}" title="#{localized_name related}"
-    img width="64" height="96" src="#{related.image.url :x96}" alt="#{localized_name related}" title="#{localized_name related}"
+    img width="64" src="#{related.image.url :x96}" srcset="#{related.image.url :preview} 2x" alt="#{localized_name related}" title="#{localized_name related}"
   .name
     - if defined?(info) && info.present?
       p.relation = info
