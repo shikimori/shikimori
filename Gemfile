@@ -18,6 +18,7 @@ gem 'coffee-rails'
 
 gem 'sass-rails'
 gem 'compass-rails'
+gem 'turbolinks'
 #gem 'susy'
 
 gem 'uglifier'

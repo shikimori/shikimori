@@ -527,6 +527,8 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     truncate_html (0.9.2)
+    turbolinks (2.2.2)
+      coffee-rails
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
     uglifier (2.5.0)
@@ -655,6 +657,7 @@ DEPENDENCIES
   thin
   timecop
   truncate_html
+  turbolinks
   uglifier
   unicode
   unicorn
