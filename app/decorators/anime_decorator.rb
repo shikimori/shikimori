@@ -22,11 +22,6 @@ class AnimeDecorator < AniMangaDecorator
     @files ||= AniMangaPresenter::FilesPresenter.new object, h
   end
 
-  # ролики, отображаемые на инфо странице аниме
-  def main_videos
-    @main_videos ||= object.videos.limit(2)
-  end
-
   # дата выхода следующего эпизода
   def next_episode_at
     @next_episode_at ||= if object.episodes_aired && (object.ongoing? || object.anons?)

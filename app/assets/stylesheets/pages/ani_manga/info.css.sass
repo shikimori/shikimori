@@ -42,42 +42,37 @@
       clear: both
       margin-left: 0
 
-  .c-screenshot
-    +column(4)
+  +gte_ipad
+    .two-videos
+      .c-screenshots, .c-videos
+        +column(2)
+
+      .c-screenshot, .c-video
+        +column(3)
+        &.entry-4, &.entry-5
+          display: none
+
+  .c-screenshot, .c-video
+    +column(5)
+
+    img
+      max-width: 100%
 
     +iphone-portrait
       +column(2)
-      display: none
-      &:nth-child(1), &:nth-child(2)
-        display: block
+      &.entry-3, &.entry-4, &.entry-5
+        display: none
 
     +iphone-landscape
       +column(3)
-      display: none
-      &:nth-child(1), &:nth-child(2), &:nth-child(3)
-        display: block
-
-    img
-      width: 100%
+      &.entry-4, &.entry-5
+        display: none
 
   .anime-image
     margin-bottom: 5px
 
     img
       max-width: 100%
-
-    .watch-online
-      +ellipsis
-      font-size: 13px
-      line-height: $line-height
-      margin: 6px 0 10px 0
-      text-align: center
-      //min-width: 202px
-
-    span, a
-      +normal-link
-      &:after
-        line-height: 20px
 
   .anime-info
     .other-names.click-loader
@@ -94,6 +89,21 @@
         position: absolute
       img
         margin: 0 -10px 2px -2px
+
+  .watch-online
+    +ellipsis
+    text-align: center
+
+    +gte_ipad
+      font-size: 13px
+      line-height: $line-height
+      margin: 6px 0 10px 0
+
+    span, a
+      +normal-link
+      +gte_ipad
+        &:before
+          line-height: 20px
 
   .additional-links
     +clearfix

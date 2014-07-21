@@ -20,6 +20,10 @@
   @media only screen and (max-width: $ipad_max) and (orientation: landscape)
     @content
 
+=gte_ipad
+  @media only screen and (min-width: $ipad)
+    @content
+
 =desktop
   @media only screen and (min-width: $ipad+1)
     @content

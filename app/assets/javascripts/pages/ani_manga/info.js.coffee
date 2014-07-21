@@ -4,26 +4,24 @@ $ ->
   arguments.callee.mutex = true
   $this = $(this)
 
-  $(".rating.notice").tipsy gravity: "s"
-  $(".status-date.notice").tipsy gravity: "s"
-  $(".images-list a", $this).fancybox $.galleryOptions
-  $(".videos-list.youtube a", $this).fancybox $.youtubeOptions
-  $(".videos-list.vk a", $this).fancybox $.vkOptions
+  $('.rating.notice').tipsy gravity: 's'
+  $('.status-date.notice').tipsy gravity: 's'
+  $('.screenshot', $this).fancybox $.galleryOptions
+  $('.videos-list.youtube a', $this).fancybox $.youtubeOptions
+  $('.videos-list.vk a', $this).fancybox $.vkOptions
 
   # rating
-  $(".scores", $this).makeRateble round_values: false
+  $('.scores', $this).makeRateble round_values: false
 
 # похожие аниме, подгружаемые для гостей аяксом
-$(".related-entries-loader").live "ajax:success", ->
+$('.related-entries-loader').live "ajax:success", ->
   $this = $(this)
   $this.removeClass "related-entries-loader"
   process_current_dom $this
 
-
 # клик по загрузке других названий
 $(".other-names.click-loader").live "ajax:success", (e, data) ->
   $(this).parents("p").replaceWith data
-
 
 # клик по смотреть онлайн
 $(".watch-online a").live 'click', ->
@@ -32,7 +30,6 @@ $(".watch-online a").live 'click', ->
   watch_episode = if !episode || episode == total_episodes then 1 else episode + 1
 
   $(@).attr href: $(@).attr('href').replace(/\d+$/, watch_episode)
-
 
 # раскрытие свёрнутого блока связанного
 $(".related-shower").live "click", ->

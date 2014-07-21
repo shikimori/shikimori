@@ -9,7 +9,6 @@
   //width: 100% / $total_columns * $columns
 
 =column($columns, $gutter: 4%)
-  //@if $total_columns == 1
   @if $columns == 1
     $gutter: 0%
 
@@ -18,18 +17,13 @@
   float: left
   margin-right: $gutter
   position: relative
-  //width: 100% / $total_columns * $columns - $gutter * ($total_columns - 1) / $total_columns
   width: 100% / $columns - $gutter * ($columns - 1) / $columns
-
-  //&:first-child:last-child
-    width: 100% - $gutter
 
   &:nth-child(#{$columns})
     margin-right: 0
 
   &:last-child
     margin-right: 0
-    //width: 100% / $total_columns * $columns
 
     &.block
       margin-bottom: 0
