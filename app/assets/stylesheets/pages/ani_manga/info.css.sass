@@ -9,7 +9,7 @@
 
   // columns media
   .c-image
-    +column(2)
+    +bcolumn(2)
     width: 30.5%
 
     +iphone-portrait
@@ -30,7 +30,7 @@
       +column(2)
 
     .c-info, .c-rating
-      +column(2, 6%)
+      +column(2, 0.5, 6%)
 
       +iphone
         +column(1)
@@ -41,6 +41,26 @@
     +iphone
       clear: both
       margin-left: 0
+
+  .one-video
+    +gte_ipad
+      .c-screenshots
+        +column(2, 0.75)
+
+      .c-videos
+        +column(2, 0.25)
+
+      .c-screenshot
+        +column(3)
+
+        &.entry-4, &.entry-5
+          display: none
+
+      .c-video
+        +column(1)
+
+        &.entry-2, &.entry-3, &.entry-4, &.entry-5
+          display: none
 
   .two-videos
     +gte_ipad
@@ -64,7 +84,7 @@
       max-width: 100%
 
     +gte_ipad
-      +column(5, 1.5%)
+      +column(5, 1/5, 1.5%)
 
     +iphone-portrait
       +column(2)
@@ -75,6 +95,42 @@
       +column(3)
       &.entry-4, &.entry-5
         display: none
+
+  .four-characters
+    +gte_ipad
+      .c-characters, .c-people
+        +column(2)
+
+      .c-character, .c-person
+        +column(4)
+
+  .five-characters
+    +gte_ipad
+      .c-characters
+        +column(2, 5/8)
+
+      .c-people
+        +column(2, 3/8)
+
+      .c-character
+        +column(5)
+
+      .c-person
+        +column(3)
+
+  .six-characters
+    +gte_ipad
+      .c-characters
+        +column(2, 6/8)
+
+      .c-people
+        +column(2, 2/8)
+
+      .c-character
+        +column(6)
+
+      .c-person
+        +column(2)
 
   .c-character, .c-person
     +gte_ipad
@@ -231,81 +287,82 @@
     //&.v1.first
       //width: 540px
 
-.studio-logo
-  max-width: 195px
+  .studio-logo
+    max-width: 195px
 
-.anime-rate
-  width: auto
+  .anime-rate
+    width: auto
+    margin-bottom: $block-offset
 
-  .add-to-list
-    +normal-link
+    .add-to-list
+      +normal-link
 
-  .buttons
-    position: absolute
-    right: 0
+    .buttons
+      position: absolute
+      right: 0
 
-  .expand-options
-    +icon-button('\006d')
-    margin-top: 3px
+    .expand-options
+      +icon-button('\006d')
+      margin-top: 3px
 
-  .expanded-options
-    +transition(height 0.3s ease)
-    display: none
+    .expanded-options
+      +transition(height 0.3s ease)
+      display: none
 
-  .rate-container
-    +transition(height 0.3s ease)
-    margin-right: 5px
-    overflow: hidden
+    .rate-container
+      +transition(height 0.3s ease)
+      margin-right: 5px
+      overflow: hidden
 
-  .item-edit
-    margin-top: 3px
-    color: $gray-color-0
-
-  .rate-show
-    margin-bottom: 5px
-
-    .rate-number
-      float: right
-
-      .b-input
-        display: inline
-
-      label
-        display: none
-
-      input
-        text-align: center
-        width: 25px
-
-      .item-add
-        margin-left: 10px
-
-    .status
-      margin-bottom: 10px
-
-    .note
+    .item-edit
+      margin-top: 3px
       color: $gray-color-0
-      margin-top: 5px
 
-    .rate-block
-      width: 195px
+    .rate-show
+      margin-bottom: 5px
 
-      .scores-label-description
-        margin-right: 5px
-
-  .rate-edit
-    display: none
-
-    .b-input.integer input
-      width: 45px
-
-    .remove
-      +clearfix
-      margin-bottom: 10px
-
-      a
-        +normal-link
+      .rate-number
         float: right
 
-    textarea
-      width: 195px
+        .b-input
+          display: inline
+
+        label
+          display: none
+
+        input
+          text-align: center
+          width: 25px
+
+        .item-add
+          margin-left: 10px
+
+      .status
+        margin-bottom: 10px
+
+      .note
+        color: $gray-color-0
+        margin-top: 5px
+
+      .rate-block
+        width: 195px
+
+        .scores-label-description
+          margin-right: 5px
+
+    .rate-edit
+      display: none
+
+      .b-input.integer input
+        width: 45px
+
+      .remove
+        +clearfix
+        margin-bottom: 10px
+
+        a
+          +normal-link
+          float: right
+
+      textarea
+        width: 195px

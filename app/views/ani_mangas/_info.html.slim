@@ -31,14 +31,14 @@
             .subcontent
               = render partial: 'ani_mangas/common_info', locals: { entry: @entry, details: true }, formats: :html
 
-          - if @entry.anime? && !@entry.anons?
-            .block
-              - if @entry.anime_videos?
-                .watch-online.subheadline.blue
-                  span.linkeable data-href="#{anime_videos_show_url @entry.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
-              - elsif user_signed_in?
-                .watch-online.subheadline.blue
-                  a href="#{new_anime_online_anime_anime_video_url @entry.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
+            - if @entry.anime? && !@entry.anons?
+              .block
+                - if @entry.anime_videos?
+                  .watch-online.subheadline.blue
+                    span.linkeable data-href="#{anime_videos_show_url @entry.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
+                - elsif user_signed_in?
+                  .watch-online.subheadline.blue
+                    a href="#{new_anime_online_anime_anime_video_url @entry.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
 
         .c-rating.block
           - if @entry.with_score? && !@entry.anons?
@@ -93,8 +93,7 @@
         = render partial: 'additional_links', locals: { entry: @entry }, formats: :html
 
   - if @director.pages.include?('screenshots') || @director.pages.include?('videos')
-    /.cc.m0 class="#{@entry.videos(5).one? ? 'one-video' : 'two-videos' if @entry.videos(5).any? && @entry.screenshots(5).any?}"
-    .cc.m0 class="#{'one-video'}"
+    .cc.m0 class="#{@entry.videos(5).one? ? 'one-video' : 'two-videos' if @entry.videos(5).any? && @entry.screenshots(5).any?}"
       .c-screenshots
         - if @director.pages.include? 'screenshots'
           .subheadline.m10
@@ -119,7 +118,7 @@
                     = video.kind
 
   - if @entry.roles.main_characters.any? || @entry.roles.directors.any?
-    .cc
+    .cc.m0 class="#{@entry.roles.grouping_class}"
       - if @entry.roles.main_characters.any?
         .c-characters
           .subheadline.m10
@@ -160,21 +159,8 @@
                 a.name itemprop="url" href="#{person_url role.person}" title="#{{role.person.name}}"
                   == role.person.name
 
-  /.people-container class="c#{@entry.roles.main_characters.size} p#{@entry.roles.directors.size} t#{@entry.roles.main_characters.size + @entry.roles.directors.size} first"
-    .subheadline.m10
-      span.linkeable data-href="#{@entry.page_url :characters}" Главные герои
-    div
-      - @entry.roles.main_characters.each do |person|
-        = render partial: 'blocks/person', locals: { person: person.character, role: nil, link_to_character: true, no_tooltip: true, remote: character_tooltip_url(person.character) }, formats: :html
-
-  /- if @entry.roles.directors.any?
-    .people-container class="c#{@entry.roles.main_characters.size} p#{@entry.roles.directors.size} t#{@entry.roles.main_characters.size + @entry.roles.directors.size}"
-      .subheadline.m10
-        span.linkeable data-href="#{@entry.page_url :characters}" Создатели
-      div
-        - @entry.roles.directors.each do |person|
-          = render partial: 'blocks/person', locals: { person: person.person, role: person.role, no_seyu: true, no_tooltip: true, remote: person_tooltip_url(person.person) }, formats: :html
-
+  .related-entries
+    = render 'ani_mangas/related_all', formats: :html
 
 
   /.video_screen_previews

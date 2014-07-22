@@ -2,7 +2,7 @@
 @import mixins/responsive
 @import mixins/block
 
-=column($columns, $gutter: 4%)
+=column($columns, $column_size: 1/$columns, $gutter: 4%)
   @if $columns == 1
     $gutter: 0%
 
@@ -10,7 +10,12 @@
   float: left
   margin-right: $gutter
   position: relative
-  width: 100% / $columns - $gutter * ($columns - 1) / $columns
+  width: 100% * $column_size - $gutter * ($columns - 1) / $columns
+
+  //&:before
+    //width: 100px
+    //height: 100px
+    //content: "#{(1/$columns)*($column_size)}"
 
   &:nth-child(#{$columns}n)
     margin-right: 0
@@ -25,6 +30,6 @@
     margin-bottom: 0
 
 // колонка, состоящая из блока+колонки
-=bcolumn($columns, $gutter: 4%)
+=bcolumn($columns, $column_size: 1/$columns, $gutter: 4%)
   +block
-  +column($columns, $gutter)
+  +column($columns, $column_size, $gutter)

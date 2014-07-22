@@ -54,4 +54,14 @@ class AniMangaPresenter::RolesPresenter < BasePresenter
       .order("people.name")
       .select { |v| !v.person.nil? }
   end
+
+  def grouping_class
+    if main_characters.size <= 4 && directors.size <= 4
+      'four-characters'
+    elsif main_characters.size <= 5 && directors.size <= 3
+      'five-characters'
+    elsif main_characters.size <= 6 && directors.size <= 2
+      'six-characters'
+    end
+  end
 end
