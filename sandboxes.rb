@@ -12,6 +12,12 @@ Contest.last.current_round.matches.each {|match| (rand*200).to_i.times { match.v
 Contest.last.process!
 
 ###########################
+# сконвертить по быстрому первые пять скриноштов аниме
+###########################
+Anime.where(id: Screenshot.pluck(:anime_id).uniq).each {|a| a.screenshots.take(4).each {|v| v.image.reprocess! }; }
+# сконвертить все скриншоты
+Anime.where(id: Screenshot.pluck(:anime_id).uniq).each {|a| a.screenshots.each {|v| v.image.reprocess! }; }
+###########################
 # дубликаты пользователей
 ###########################
 User.joins('inner join users as u on u.nickname=users.nickname and u.id != users.id and users.id+1 = u.id').group('users.id').select('users.id as uid, u.id as uuid').order(:last_online_at.desc).map {|v| v.uid }

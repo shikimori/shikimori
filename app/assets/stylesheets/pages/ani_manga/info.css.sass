@@ -42,21 +42,29 @@
       clear: both
       margin-left: 0
 
-  +gte_ipad
-    .two-videos
+  .two-videos
+    +gte_ipad
       .c-screenshots, .c-videos
         +column(2)
 
+    +widescreen
+      .c-screenshot, .c-video
+        +column(2)
+        &.entry-3, &.entry-4, &.entry-5
+          display: none
+
+    +ipad
       .c-screenshot, .c-video
         +column(3)
         &.entry-4, &.entry-5
           display: none
 
   .c-screenshot, .c-video
-    +column(5)
-
     img
       max-width: 100%
+
+    +gte_ipad
+      +column(5, 1.5%)
 
     +iphone-portrait
       +column(2)
@@ -67,6 +75,16 @@
       +column(3)
       &.entry-4, &.entry-5
         display: none
+
+  .c-character, .c-person
+    +gte_ipad
+      +bcolumn(7)
+
+    +iphone-portrait
+      +bcolumn(3)
+
+    +iphone-landscape
+      +bcolumn(5)
 
   .anime-image
     margin-bottom: 5px

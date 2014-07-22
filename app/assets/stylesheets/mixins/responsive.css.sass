@@ -12,8 +12,12 @@
   @media only screen and (max-width: $iphone_max) and (orientation: landscape)
     @content
 
-=ipad
+=lte_ipad
   @media only screen and (max-width: $ipad_max)
+    @content
+
+=ipad
+  @media only screen and (min-width: $ipad) and (max-width: $ipad_max)
     @content
 
 =ipad-landscape

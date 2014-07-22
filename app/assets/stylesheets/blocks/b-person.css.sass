@@ -1,0 +1,33 @@
+@import globals
+@import mixins/hover_underlined
+@import compass/typography/text/ellipsis
+
+.b-person
+  //float: left
+  //width: 123px
+  //height: 160px
+  //overflow: hidden
+
+  //a, div
+    width: 10%
+
+  img
+    max-width: 100%
+
+  .name, .role
+    //+ellipsis
+    padding: 0px
+    text-align: center
+    display: block
+
+  .role
+    font-size: 12px
+    color: #123
+    line-height: $line-height
+
+  &:hover .name
+    text-decoration: underline
+
+  .name
+    +normal-link
+    +hover_underlined
