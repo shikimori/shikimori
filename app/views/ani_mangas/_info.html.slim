@@ -162,6 +162,27 @@
   .related-entries
     = render 'ani_mangas/related_all', formats: :html
 
+  - if user_signed_in? || @entry.comments_count > 0
+    .forum-container.entry-comments
+      .comments.zero-margin.zero-top-border
+        - if @entry.comment_reviews? && @entry.comments_count != @entry.comment_reviews_count
+          .b-options-floated
+            span.link.selected.link-comment-reviews data-disabled="true" data-remote="true" data-type="json" data-action="#{@entry.comments_reviews_url}"
+              | Отзывы&nbsp;
+              span.sep.zero.inline
+                | (
+              = @entry.comment_reviews_count
+              span.sep.zero.inline
+                | )
+            span.link.link-comments data-remote="true" data-type="json" data-action="#{@entry.comments_all_url}"
+              | Все комментарии&nbsp;
+              span.sep.zero.inline
+                | (
+              = @entry.comments_count
+              span.sep.zero.inline
+                | )
+        .subheadline.m3 Обсуждение
+        = render partial: 'comments/comments', locals: { object: @entry.thread, comments: @entry.comments(true), postloader: 15, review: @entry.comment_reviews? }, formats: :html
 
   /.video_screen_previews
     /- if @director.pages.include? 'screenshots'

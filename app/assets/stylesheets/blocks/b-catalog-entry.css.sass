@@ -1,24 +1,66 @@
 @import globals
 @import mixins/tag
+@import mixins/column
 
 .b-catalog-entry
-  float: left
-  height: 275px
-  margin: 0 31px 25px 0
-  //width: 489px
+  &.column-2
+    +gte_ipad
+      +bcolumn(2, 1/2, 8%)
+    +iphone
+      +bcolumn(1)
+
+  &.column-4
+    +gte_ipad
+      +bcolumn(4)
+    +iphone-landscape
+      +bcolumn(3)
+    +iphone-portrait
+      +bcolumn(2)
+
+  &.column-5
+    +gte_ipad
+      +bcolumn(5)
+    +iphone-landscape
+      +bcolumn(3)
+    +iphone-portrait
+      +bcolumn(2)
+
+  &.column-8
+    +gte_ipad
+      +bcolumn(8)
+    +iphone-landscape
+      +bcolumn(5)
+    +iphone-portrait
+      +bcolumn(3)
+
+  &.cc
+    .cover
+      +column(2, 0.4)
+    .content
+      +column(2, 0.6)
+
+    &.column-2
+      +iphone-landscape
+        .cover
+          +column(2, 0.35)
+        .content
+          +column(2, 0.65)
 
   .cover
     +link-color(#333333)
-    float: left
+    //float: left
     font-size: 12px
-    width: 170px
+    //width: 170px
+    display: block
 
     .image-decor
       +image-selectable-decor
       border: 1px solid darken($default-image-background, 6%)
       display: block
+      line-height: 0px
       margin-bottom: 5px
-      padding: 4px
+      padding: 2.5%
+      max-width: 167px
 
       &:hover
         border: 1px solid darken($default-image-hover-background, 6%)
@@ -28,13 +70,16 @@
 
       .image-cutter
         display: block
-        overflow: hidden
+        line-height: 0
         max-height: 230px
-        width: 160px
+        overflow: hidden
+        //width: 160px
 
-        img
-          width: 160px
-          display: block
+      img
+        width: 100%
+        //max-width: 100%
+        //width: 160px
+        //display: block
 
     .title
       +ellipsis
@@ -57,9 +102,9 @@
         padding-right: 0
 
   .content
-    float: left
-    margin-left: 30px
-    width: 289px
+    //float: left
+    //margin-left: 30px
+    //width: 289px
 
     .data, p
       font-size: 12px
@@ -67,7 +112,7 @@
 
       &.name
         line-height: 20px
-        margin-top: 5px
+        //margin-top: 5px
         margin-bottom: 5px
         font-weight: bold
 
@@ -97,10 +142,10 @@
         margin: 5px
 
   &.tooltipped
-    margin-left: 0
-    width: 170px
+    //margin-left: 0
+    //width: 170px
 
-    .cover
+    //.cover
       float: none
       display: block
 
@@ -109,14 +154,14 @@
       display: none
       cursor: default
 
-    .tooltip-inner
+    //.tooltip-inner
       min-height: 20px
       padding-top: 5px
       padding-bottom: 0
       width: 270px
 
-  &:nth-child(4n)
-    margin-right: 0px !important
+  //&:nth-child(4n)
+    //margin-right: 0px !important
 
   &.in_list
     img
@@ -131,14 +176,14 @@
         background-color: darken(#c2dff2, 9%)
         border: 1px solid darken(darken(#c2dff2, 6%), 9%)
 
-  &.shortened
+  //&.shortened
     height: 165px
     margin-bottom: 20px
     margin-right: 31px
 
-    img
+    //img
       padding: 4px
       height: 120px
 
-    &:nth-child(2n)
+    //&:nth-child(2n)
       margin-right: 32px

@@ -1,5 +1,6 @@
 @import globals
 @import mixins/dash_separated
+@import mixins/responsive
 
 .b-options-floated
   color: #acb1b4
@@ -8,6 +9,9 @@
   margin-top: 6px
   position: absolute
   right: 10px
+
+  +iphone
+    margin-top: 10px
 
   &.r10
     margin-right: 10px

@@ -91,6 +91,10 @@ class PagesController < ShikimoriController
     @traffic = Rails.cache.fetch("traffic_#{Date.today}") { YandexMetrika.new.traffic_for_months 18 }
   end
 
+  # тестовая страница №2
+  def test2
+  end
+
   # страница для теста эксепшенов
   def raise_exception
     raise 'test'

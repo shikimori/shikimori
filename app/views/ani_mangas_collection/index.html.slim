@@ -28,7 +28,8 @@ header.head.ajaxable
       .right-column
         section.ajax#ajax
           - if @entries.any?
-            = render partial: 'ani_mangas_collection/entries'
+            .cc
+              = render partial: 'ani_mangas_collection/entries'
           - else
             p Ничего не найдено.
       .clearfix-full

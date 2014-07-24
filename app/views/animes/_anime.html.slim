@@ -1,4 +1,7 @@
-article.b-catalog-entry(class="entry-#{anime.id} #{:tooltipped if content_by == :tooltip} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}" itemscope itemtype="#{{anime.itemtype}}")
+article.b-catalog-entry[
+    class="column-#{columns} entry-#{anime.id} #{:tooltipped if content_by == :tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
+    itemscope itemtype="#{{anime.itemtype}}"
+  ]
   meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url anime.image, :x64, false}}"
 
