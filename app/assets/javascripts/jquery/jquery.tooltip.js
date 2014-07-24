@@ -141,17 +141,22 @@
       $tip.removeClass('tooltip-left');
     }
 
+    var $arrow = $tip.find('.tooltip-arrow');
+    // запоминаем изначальную высоту стрелки
+    if (!$arrow.data('top')) {
+      $arrow.data('top', parseInt($arrow.css('top')));
+    }
+    $arrow.css('top', $arrow.data('top'));
+
     // вписывание тултипа в экран по вертикали
     var offscreen_bottom_offset = (abs_top + tip_height) - $(window).scrollTop() - $(window).height();
     if (!$trigger.data('no-align')) {
       if (offscreen_bottom_offset > 0 && !conf.no_y_adjustment) {
         top -= offscreen_bottom_offset + 10;
       }
-      if (offscreen_bottom_offset > 200) {
-        $tip.addClass('tooltip-bottom');
-      }
-      if (offscreen_bottom_offset <= 200 && offscreen_bottom_offset > 90) {
-        $tip.addClass('tooltip-center');
+
+      if (offscreen_bottom_offset > 0) {
+        $arrow.css('top', [$arrow.data('top') + offscreen_bottom_offset, tip_height - $arrow.data('top')].min());
       }
       var offscreen_top_offset = abs_top - $(window).scrollTop();
       if (offscreen_top_offset < 0) {
