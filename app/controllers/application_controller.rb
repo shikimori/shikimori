@@ -70,14 +70,12 @@ class ApplicationController < ActionController::Base
 
   # каталог текущего домена
   def domain_folder
-    if shikimori?
-      'shikimori'
-    elsif anime_online?
+    if anime_online?
       'anime_online'
     elsif manga_online?
       'manga_online'
     else
-      raise ArgumentError, 'unknown domain'
+      'shikimori'
     end
   end
 

@@ -267,7 +267,6 @@ Site::Application.routes.draw do
     get 'page503' => 'pages#page503'
     get 'apanel' => 'pages#admin_panel'
     get 'test' => 'pages#test'
-    get 'test2' => 'pages#test2'
     get 'raise-exception' => 'pages#raise_exception'
     get 'auth_form' => 'pages#auth_form'
     get "site-news" => 'pages#news', kind: 'site', format: :rss

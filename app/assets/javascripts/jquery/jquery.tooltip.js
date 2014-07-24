@@ -77,7 +77,6 @@
 
   /* calculate tip position relative to the trigger */
   function getPosition($trigger, $tip, conf, no_show_or_hide) {
-    //debugger
     // get origin top/left position
     var top = conf.relative ? $trigger.position().top : $trigger.offset().top,
        left = conf.relative ? $trigger.position().left : $trigger.offset().left,
@@ -123,9 +122,12 @@
     // вписывание тултипа в экран по горизонтали
     var offscreen_right_offset = (abs_left + tip_width) - $(window).width();
     if (!$trigger.data('no-align') && (offscreen_right_offset > 0 || conf.place_to_left || $trigger.data('place-to-left'))) {
-      new_left = left - (tip_width + $trigger.outerWidth() + $tip.find('.tooltip-arrow').outerWidth()) + ($trigger.data('offset-left') || 0)*2 + ($trigger.data('offset-left-right') || 0);
+      var tip_full_offset = (tip_width + $trigger.outerWidth() + $tip.find('.tooltip-arrow').outerWidth()) + ($trigger.data('offset-left') || 0)*2 + ($trigger.data('offset-left-right') || 0);
+      var new_left = left - tip_full_offset;
 
-      if (new_left > 0 || conf.place_to_left || $trigger.data('place-to-left')) {
+      var left_border = conf.relative ? $trigger.offset().left - $trigger.position().left : 0;
+
+      if (new_left > -left_border || conf.place_to_left || $trigger.data('place-to-left')) {
         left = new_left + (conf.offset[2] || 0);
         $tip.addClass('tooltip-left');
       } else if (-new_left < offscreen_right_offset) {
