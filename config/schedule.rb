@@ -19,7 +19,7 @@
 # end
 
 set :environment, :production
-set :output, '/var/www/site/current/log/whenever.log'
+set :output, '/home/apps/shikimori/production/shared/log/whenever.log'
 set :job_template, "/usr/bin/zsh -i -c \"source /home/devops/.rvm/scripts/rvm && :job\""
 
 
