@@ -10,7 +10,7 @@ span.image-decor
     = localized_name anime
 
 - else
-  a.title href="#{send "#{anime.class.name.downcase}_url", anime}" title="#{localized_name anime}" itemprop="url"
+  a.title href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
     = localized_name anime
 
 .misc
@@ -35,5 +35,9 @@ span.image-decor
     - else
       span #{anime.next_episode || 1} эпизод
 
+  - elsif cover_notice == :relation
+    span.relation = t "Relation.#{anime.relation}"
+
+  - elsif cover_notice == :none
   - else
     - raise ArgumentError, cover_notice

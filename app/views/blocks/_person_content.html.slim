@@ -4,7 +4,7 @@
       == role != '' ? format_person_role(role) : '&nbsp;'
   center
     meta itemprop="image" content="#{{attachment_url person.image, :preview, false}}"
-    img.image.bubbled-image src="#{person.image.url :preview}" srcset="#{person.image.url} 2x" alt="#{{localized_name person}}" title="#{{localized_name person}}" data-href="#{url_for person}/tooltip" data-offset-left="-5"
+    img.image.bubbled src="#{person.image.url :preview}" srcset="#{person.image.url} 2x" alt="#{{localized_name person}}" title="#{{localized_name person}}" data-href="#{url_for person}/tooltip" data-offset-left="-5"
 
 - if person.class == Person && (defined?(link_to_seyu) && link_to_seyu)
   a itemprop="url" href="#{seyu_path person}"

@@ -5,12 +5,13 @@
 @import compass/utilities/general/clearfix
 
 .p-animes .info, .p-mangas .info
-  +clearfix
+  //+clearfix
 
   // columns media
   .c-image
-    +bcolumn(2)
-    width: 30.5%
+    +gte_ipad
+      +bcolumn(2)
+      width: 30.5%
 
     +iphone-portrait
       +column(1)
@@ -19,9 +20,10 @@
       +column(2)
 
   .c-about
-    +column(2)
-    width: 65.5%
-    z-index: 1 // без этого нижний блок с description перекрывает текущий
+    +gte_ipad
+      +column(2)
+      width: 65.5%
+      z-index: 1 // без этого нижний блок с description перекрывает текущий
 
     +iphone-portrait
       +column(1)
@@ -135,12 +137,29 @@
   .c-character, .c-person
     +gte_ipad
       +bcolumn(7)
-
     +iphone-portrait
       +bcolumn(3)
+    +iphone-landscape
+      +bcolumn(5)
+
+  .b-catalog-entry
+    +gte_ipad
+      +bcolumn(7)
+    +iphone-portrait
+      +bcolumn(3)
+      &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
+        display: none
 
     +iphone-landscape
       +bcolumn(5)
+      &:nth-child(6), &:nth-child(7)
+        display: none
+
+  .comments .b-options-floated
+    +iphone-portrait
+      margin-bottom: 10px
+      position: initial
+      text-align: right
 
   .anime-image
     margin-bottom: 5px
@@ -197,12 +216,18 @@
   .being-translated
     margin-top: 2px
 
-  .related-entries-loader
+  .related-shower
     +plashka
-
-  .related-entries
+    border: 1px solid #F2F2F2
     clear: left
-    margin-bottom: 30px
+    margin: -5px 0 $block-offset 0
+
+  .related-hidden
+    display: none
+
+  .b-catalog-entry
+    .image-decor
+      padding: 0
 
   .video_screen_previews
     +clearfix

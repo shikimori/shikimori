@@ -1,21 +1,19 @@
 class AniMangaPresenter::RelatedPresenter < BasePresenter
-  # адаптации аниме
-  def adaptations
-    @adaptations ||= all.select do |v|
-      v.relation == BaseMalParser::RelatedAdaptationName
-    end
-  end
+  prepend ActiveCacher.instance
+  VISIBLE_RELATED = 7
+
+  instance_cache :related, :similar, :all
 
   # связанные аниме
   def related
-    @related ||= all.select do |v|
-      v.relation != BaseMalParser::RelatedAdaptationName
-    end
+    all
+      .map {|v| RelatedEntry.new v.anime || v.manga, v.relation }
+      #.sort_by {|v| v.relation == BaseMalParser::RelatedAdaptationName ? 0 : 1 }
   end
 
   # похожие аниме
   def similar
-    @similar ||= entry
+    entry
       .similar
       .includes(:dst)
       .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
@@ -34,11 +32,11 @@ class AniMangaPresenter::RelatedPresenter < BasePresenter
 
   # достаточно ли большое число связанных аниме?
   def many?
-    related.size > 3
+    related.size > VISIBLE_RELATED
   end
 
   def all
-    @all_realted ||= entry
+    entry
       .related
       .includes(:anime, :manga)
       .select { |v| (v.anime_id && v.anime && v.anime.name) || (v.manga_id && v.manga && v.manga.name) }

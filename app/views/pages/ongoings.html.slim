@@ -20,7 +20,7 @@
         = k == -1 ? "Уже должно было выйти" : date_title_for_ongoing(k)
       .collapsed.tiny ...
       .subcontent
-        = render partial: 'animes/anime', collection: group, locals: { cover_by: :link, cover_notice: :next_episode, content_by: :tooltip }, formats: :html
+        = render partial: 'animes/anime', collection: group, locals: { cover_notice: :next_episode, content_by: :tooltip }, formats: :html
       .clearfix
 
   .forum-container

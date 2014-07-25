@@ -1,27 +1,27 @@
 @import globals/variables
 
 =iphone
-  @media only screen and (max-width: $iphone_max)
+  @media screen and (max-width: $iphone_max)
     @content
 
 =iphone-portrait
-  @media only screen and (max-width: $iphone_max) and (orientation: portrait)
+  @media screen and (max-width: $iphone) and (orientation: portrait)
     @content
 
 =iphone-landscape
-  @media only screen and (max-width: $iphone_max) and (orientation: landscape)
+  @media screen and (min-width: $iphone+1) and (max-width: $iphone_max), screen and (max-width: $iphone_max) and (orientation: landscape)
     @content
 
 =lte_ipad
-  @media only screen and (max-width: $ipad_max)
+  @media screen and (max-width: $ipad_max)
     @content
 
 =ipad
-  @media only screen and (min-width: $ipad) and (max-width: $ipad_max)
+  @media screen and (min-width: $ipad) and (max-width: $ipad_max)
     @content
 
 =ipad-landscape
-  @media only screen and (max-width: $ipad_max) and (orientation: landscape)
+  @media screen and (max-width: $ipad_max) and (orientation: landscape)
     @content
 
 =gte_ipad
@@ -37,7 +37,7 @@
     @content
 
 
-
+// TODO: выпилить миксин
 =responsive($media)
   @if $media == narrow-phone
     @media only screen and (max-width: $phone)

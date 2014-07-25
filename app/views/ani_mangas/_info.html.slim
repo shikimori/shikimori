@@ -125,7 +125,7 @@
             span.linkeable data-href="#{@entry.page_url :characters}" Главные герои
           .cc.m0
             - @entry.roles.main_characters.each do |role|
-              .c-character.bubbled-image.b-person[
+              .c-character.bubbled.b-person[
                   itemscope itemtype="http://schema.org/Person" itemprop="actors"
                   data-offset-left="-5" data-href="#{character_tooltip_url role.character}"
                 ]
@@ -153,14 +153,33 @@
                 meta itemprop="name" content="#{{role.person.name}}"
                 .linkeable data-href="#{person_url role.person}" data-title="#{{role.person.name}}"
                   center
-                    img.bubbled-image src="#{role.person.image.url :preview}" srcset="#{role.person.image.url} 2x" alt="#{{role.person.name}}" title="#{{role.person.name}}" data-href="#{person_tooltip_url role.person}" data-offset-left="-5"
-                  span.role itemprop="jobTitle"
-                    == role.role != '' ? format_person_role(role.role) : '&nbsp;'
+                    img.bubbled src="#{role.person.image.url :preview}" srcset="#{role.person.image.url} 2x" alt="#{{role.person.name}}" title="#{{role.person.name}}" data-href="#{person_tooltip_url role.person}" data-offset-left="-5"
                 a.name itemprop="url" href="#{person_url role.person}" title="#{{role.person.name}}"
                   == role.person.name
+                span.role itemprop="jobTitle"
+                  == role.role != '' ? format_person_role(role.role) : '&nbsp;'
 
-  .related-entries
-    = render 'ani_mangas/related_all', formats: :html
+  - if @entry.related.any?
+    .related
+      .b-options-floated
+        span.link.selected Напрямую
+        span.link.linkeable data-href="#{@entry.page_url :chronology}" Вся хронология
+      .subheadline.m10 Связанное
+      .cc.m0
+        - if @entry.related.many?
+          = render partial: 'animes/anime', collection: @entry.related.related[0..AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED-1], locals: { columns: AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED, cover_notice: :relation, content_by: :tooltip }, formats: :html
+          .related-shower style="display: block;" Показать остальное
+          .related-hidden
+            = render partial: 'animes/anime', collection: @entry.related.related[AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED..-1], locals: { columns: AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED, cover_notice: :relation, content_by: :tooltip }, formats: :html
+        - else
+          = render partial: 'animes/anime', collection: @entry.related.related, locals: { columns: AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED, cover_notice: :relation, content_by: :tooltip }, formats: :html
+
+  - if @entry.related.similar.any?
+    .similar
+      .subheadline.m10
+        span.linkeable data-href="#{@entry.page_url :similar}" Похожее
+      .catalog
+        = render partial: 'animes/anime', collection: @entry.related.similar.take(AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED), locals: { columns: 1, cover_notice: :none, content_by: :tooltip }, formats: :html
 
   - if user_signed_in? || @entry.comments_count > 0
     .forum-container.entry-comments

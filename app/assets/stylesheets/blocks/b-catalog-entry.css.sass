@@ -3,36 +3,6 @@
 @import mixins/column
 
 .b-catalog-entry
-  &.column-2
-    +gte_ipad
-      +bcolumn(2, 1/2, 8%)
-    +iphone
-      +bcolumn(1)
-
-  &.column-4
-    +gte_ipad
-      +bcolumn(4)
-    +iphone-landscape
-      +bcolumn(3)
-    +iphone-portrait
-      +bcolumn(2)
-
-  &.column-5
-    +gte_ipad
-      +bcolumn(5)
-    +iphone-landscape
-      +bcolumn(3)
-    +iphone-portrait
-      +bcolumn(2)
-
-  &.column-8
-    +gte_ipad
-      +bcolumn(8)
-    +iphone-landscape
-      +bcolumn(5)
-    +iphone-portrait
-      +bcolumn(3)
-
   &.cc
     .cover
       +column(2, 0.4)
@@ -73,19 +43,19 @@
         line-height: 0
         max-height: 230px
         overflow: hidden
-        //width: 160px
 
       img
         width: 100%
-        //max-width: 100%
-        //width: 160px
-        //display: block
 
     .title
       +ellipsis
+      +normal-link
       display: block
       font-weight: bold
-      line-height: 13px
+      line-height: $line-height
+
+    &:hover .title
+      text-decoration: underline
 
     .misc
       color: #555
@@ -94,8 +64,16 @@
 
       span
         +ellipsis
+        color: #123
         display: block
         padding-right: 5px
+
+        &.relation
+          line-height: 1.4
+          margin-top: 2px
+          padding-right: 0
+          text-align: center
+          white-space: initial
 
       .right
         float: right
@@ -105,6 +83,12 @@
     //float: left
     //margin-left: 30px
     //width: 289px
+
+    .tooltip-details
+      padding-top: 5px
+
+    a.name
+      +normal-link
 
     .data, p
       font-size: 12px

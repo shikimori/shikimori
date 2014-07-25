@@ -103,7 +103,10 @@ class Anime < ActiveRecord::Base
       preview: ['160x240>', :jpg],
       short: ['160x120#', :jpg],
       x96: ['64x96#', :jpg],
-      x64: ['43x64#', :jpg]
+      x64: ['43x64#', :jpg],
+
+      x96: ['96x150>', :jpg],
+      x48: ['48x75>', :jpg]
     },
     url: "/images/anime/:style/:id.:extension",
     path: ":rails_root/public/images/anime/:style/:id.:extension",

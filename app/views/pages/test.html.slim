@@ -9,148 +9,144 @@ header.head
   h1 Тестовая страница
   p.description Здесь просто тест всякого разного
 
-/.subheadline.m10 content_by block
-/.subcontent.cc.m0
-  /= render partial: 'animes/anime', collection: Anime.where(id: [457, 1]), locals: { cover_by: :link, cover_notice: :studio, content_by: :block, columns: 2 }
+.subheadline.m10 content_by block
+.subcontent.cc.m0.animes-2
+  = render partial: 'animes/anime', collection: Anime.where(id: [457, 1]), locals: { cover_notice: :studio, content_by: :block }
 
 .subheadline.m10 tooltipped c8
-.subcontent.cc.m0
-  = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]), locals: { cover_by: :link, cover_notice: :studio, content_by: :tooltip, columns: 8 }
-
-/.subheadline.m10 tooltipped c4
-/.subcontent.cc.m0
-  /= render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939]), locals: { cover_by: :link, cover_notice: :studio, content_by: :tooltip, columns: 4 }
+.subcontent.cc.m0.animes-8
+  = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]), locals: { cover_notice: :studio, content_by: :tooltip }
 
 .subheadline.m10 tooltipped c5
-.subcontent.cc.m0
-  = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]), locals: { cover_by: :link, cover_notice: :studio, content_by: :tooltip, columns: 5 }
+.subcontent.cc.m0.animes-5
+  = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]), locals: { cover_notice: :studio, content_by: :tooltip }
 
-/.subheadline.m10 tooltipped shortened
-/.subcontent.cc.m0
-  /= render partial: 'animes/anime', collection: Anime.where(id: [245, 11741, 4282, 10408, 16894]), locals: { cover_by: :link, cover_notice: :studio, content_by: :tooltip, shortened: true, columns: 5 }
+.subheadline.m10 tooltipped shortened
+.subcontent.cc.m0.animes-5
+  = render partial: 'animes/anime', collection: Anime.where(id: [245, 11741, 4282, 10408, 16894]), locals: { cover_notice: :studio, content_by: :tooltip, shortened: true }
 
-/.subheadline @font-face: shikimori
-/.subcontent.fonts-test
-  /- 70.times do |i|
-    /div class="icon-#{i}"
+.subheadline @font-face: shikimori
+.subcontent.fonts-test
+  - 70.times do |i|
+    div class="icon-#{i}"
 
-/.subheadline График
-/.subcontent.traffic-test data-stats="#{@traffic.to_json}"
+.subheadline График
+.subcontent.traffic-test data-stats="#{@traffic.to_json}"
 
-//*.half-chart*/
-  //*.b-options-floated*/
-    //*span Всего:&nbsp;&nbsp;*/
-    //*a.selected*/
-      //*| #{@users_count}&nbsp;&nbsp;*/
-  //*.subheadline users*/
-  //*.subcontent.users-test data-stats="#{@users.to_json}"*/
+/*.half-chart*/
+  /*.b-options-floated*/
+    /*span Всего:&nbsp;&nbsp;*/
+    /*a.selected*/
+      /*| #{@users_count}&nbsp;&nbsp;*/
+  /*.subheadline users*/
+  /*.subcontent.users-test data-stats="#{@users.to_json}"*/
 
-//*.half-chart*/
-  //*.b-options-floated*/
-    //*span Всего:&nbsp;&nbsp;*/
-    //*a.selected*/
-      //*| #{@comments_count}&nbsp;&nbsp;*/
-  //*.subheadline comments*/
-  //*.subcontent.comments-test data-stats="#{@comments.to_json}"*/
+/*.half-chart*/
+  /*.b-options-floated*/
+    /*span Всего:&nbsp;&nbsp;*/
+    /*a.selected*/
+      /*| #{@comments_count}&nbsp;&nbsp;*/
+  /*.subheadline comments*/
+  /*.subcontent.comments-test data-stats="#{@comments.to_json}"*/
 
-/.images-test
-  /.subheadline Растягивающаяся галерея
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/8bxMha3liII.jpg"
-      /a href="#"
-        /img src="/images/static/embed/nrAv4Wyt6iM.jpg"
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      /a href="#"
-        /img src="/images/static/embed/wjOz1uP-OLs.jpg"
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      /a href="#"
-        /img src="/images/static/embed/73367604.png"
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/dnVCwMIwukY.jpg"
-      /a href="#"
-        /img src="/images/static/embed/LkKWpGsK6IQ.jpg"
-      /a href="#"
-        /img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      /a href="#"
-        /img src="/images/static/embed/wIXrZfprFFU.jpg"
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/ODAcucvZDY8.jpg"
+.images-test
+  .subheadline Растягивающаяся галерея
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/8bxMha3liII.jpg"
+      a href="#"
+        img src="/images/static/embed/nrAv4Wyt6iM.jpg"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/_bhm0PWtYi4.jpg"
+      a href="#"
+        img src="/images/static/embed/wjOz1uP-OLs.jpg"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/_bhm0PWtYi4.jpg"
+      a href="#"
+        img src="/images/static/embed/73367604.png"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/dnVCwMIwukY.jpg"
+      a href="#"
+        img src="/images/static/embed/LkKWpGsK6IQ.jpg"
+      a href="#"
+        img src="/images/static/embed/_bhm0PWtYi4.jpg"
+      a href="#"
+        img src="/images/static/embed/wIXrZfprFFU.jpg"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/ODAcucvZDY8.jpg"
 
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/1q3c_6mjJ24.jpg"
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/KVR8N3M4Dps.jpg"
-      /a href="#"
-        /img src="/images/static/embed/48y6FjfFRqk.jpg"
-      /a href="#"
-        /img src="/images/static/embed/4NJfrrCTa7o.jpg"
-      /a href="#"
-        /img src="/images/static/embed/Z27atr-WSCA.jpg"
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/F3G8LVGAbXw.jpg"
-      /a href="#"
-        /img src="/images/static/embed/ZHBE0Kavy-o.jpg"
-      /a href="#"
-        /img src="/images/static/embed/ukGtG8wbBJc.jpg"
-      /a href="#"
-        /img src="/images/static/embed/hFT-H0phBKs.jpg"
-      /a href="#"
-        /img src="/images/static/embed/QGin9ZjfGWg.jpg"
-      /a href="#"
-        /img src="/images/static/embed/gPVKwBuneIo.jpg"
-      /a href="#"
-        /img src="/images/static/embed/sC6BfT6LVj8.jpg"
-  /.main
-    /.wall
-      /a href="#"
-        /img src="/images/static/embed/8bxMha3liII.jpg"
-      /a href="#"
-        /img src="/images/static/embed/nrAv4Wyt6iM.jpg"
-      /a href="#"
-        /img src="/images/static/embed/LfJyA2VOKWA.jpg"
-      /a href="#"
-        /img src="/images/static/embed/r6EV2fGZxDM.jpg"
-      /a href="#"
-        /img src="/images/static/embed/HCaAsHPCWkg.jpg"
-      /a href="#"
-        /img src="/images/static/embed/Qj7Fitg7QBE.jpg"
-      /a href="#"
-        /img src="/images/static/embed/UMgzOEhIOS0.jpg"
-      /a href="#"
-        /img src="/images/static/embed/7H8OKNKMO88.jpg"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/1q3c_6mjJ24.jpg"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/KVR8N3M4Dps.jpg"
+      a href="#"
+        img src="/images/static/embed/48y6FjfFRqk.jpg"
+      a href="#"
+        img src="/images/static/embed/4NJfrrCTa7o.jpg"
+      a href="#"
+        img src="/images/static/embed/Z27atr-WSCA.jpg"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/F3G8LVGAbXw.jpg"
+      a href="#"
+        img src="/images/static/embed/ZHBE0Kavy-o.jpg"
+      a href="#"
+        img src="/images/static/embed/ukGtG8wbBJc.jpg"
+      a href="#"
+        img src="/images/static/embed/hFT-H0phBKs.jpg"
+      a href="#"
+        img src="/images/static/embed/QGin9ZjfGWg.jpg"
+      a href="#"
+        img src="/images/static/embed/gPVKwBuneIo.jpg"
+      a href="#"
+        img src="/images/static/embed/sC6BfT6LVj8.jpg"
+  .main
+    .wall
+      a href="#"
+        img src="/images/static/embed/8bxMha3liII.jpg"
+      a href="#"
+        img src="/images/static/embed/nrAv4Wyt6iM.jpg"
+      a href="#"
+        img src="/images/static/embed/LfJyA2VOKWA.jpg"
+      a href="#"
+        img src="/images/static/embed/r6EV2fGZxDM.jpg"
+      a href="#"
+        img src="/images/static/embed/HCaAsHPCWkg.jpg"
+      a href="#"
+        img src="/images/static/embed/Qj7Fitg7QBE.jpg"
+      a href="#"
+        img src="/images/static/embed/UMgzOEhIOS0.jpg"
+      a href="#"
+        img src="/images/static/embed/7H8OKNKMO88.jpg"
 
-/.m20
-  /.headline Большой заголовок
-  /.subheadline.m20 Малый заголовок
+.m20
+  .headline Большой заголовок
+  .subheadline.m20 Малый заголовок
 
-/.subheadline Цвета заголовков
-/.subheadline.gray .gray
-/.subheadline.blue .blue
-/.subheadline.powderblue .powderblue
-/.subheadline.skyblue .skyblue
-/.subheadline.purple .purple
-/.subheadline.green .green
-/.subheadline.yellow .yellow
-/.subheadline.orange .orange
-/.subheadline.red .red
-/.subheadline.pink .pink
-/.subheadline.magenta .magenta
-/.subheadline.brown .brown
+.subheadline Цвета заголовков
+.subheadline.gray .gray
+.subheadline.blue .blue
+.subheadline.powderblue .powderblue
+.subheadline.skyblue .skyblue
+.subheadline.purple .purple
+.subheadline.green .green
+.subheadline.yellow .yellow
+.subheadline.orange .orange
+.subheadline.red .red
+.subheadline.pink .pink
+.subheadline.magenta .magenta
+.subheadline.brown .brown

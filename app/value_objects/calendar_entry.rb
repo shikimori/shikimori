@@ -1,5 +1,5 @@
 class CalendarEntry < SimpleDelegator
-  attr_accessor :anime
+  attr_reader :anime
 
   def initialize anime_with_data
     super

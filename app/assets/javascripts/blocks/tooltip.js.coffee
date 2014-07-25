@@ -3,8 +3,8 @@
   position: 'top right'
   offset: [-4, 25, -10]
   relative: true
-  predelay: 300
-  delay: 50
+  predelay: 350
+  delay: 150
 
 $.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
   #@getTip()
@@ -29,10 +29,6 @@ $.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
   defaultTemplate: TOOLTIP_TEMPLATE
   onBeforeShow: ->
     $trigger = @getTrigger()
-
-    unless $trigger.hasClass('b-user16') || $trigger.parent().hasClass('b-user16')
-      if $trigger.tagName() is 'img' or $trigger.find('img').length
-        $trigger.animate opacity: 0.6, 100
 
     $close = @getTip().find('.close')
     unless $close.data('binded')

@@ -56,7 +56,7 @@ function process_current_dom() {
   // то, что должно превратиться в ссылки
   $('.linkeable').wrap(function() {
     var $this = $(this);
-    $this.removeClass('linkeable');
+    $this.removeClass('linkeable').addClass('linkeable-processed');
     return '<a href="' + $this.data('href') + '" title="' + ($this.data('title') || $this.html()) + '" />';
   });
 
@@ -72,9 +72,16 @@ function process_current_dom() {
     $this.attr('data-href', null);
   });
 
+
   // инициализация подгружаемых тултипов
-  $('.bubbled').addClass('bubbled-initialized').removeClass('bubbled').tooltip($.extend({offset: [-35, 10]}, tooltip_options));
-  $('.bubbled-image').addClass('bubbled-initialized').removeClass('bubbled-image').tooltip($.extend({}, tooltip_options));
+  $('.anime-tooltip')
+    .tooltip(ANIME_TOOLTIP_OPTIONS)
+    .removeClass('anime-tooltip');
+
+  $('.bubbled')
+    .addClass('bubbled-initialized')
+    .removeClass('bubbled')
+    .tooltip($.extend({offset: [-35, 10]}, tooltip_options));
 }
 
 // сворачиваение всех нужных блоков "свернуть"

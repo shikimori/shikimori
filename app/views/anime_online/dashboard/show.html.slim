@@ -30,5 +30,5 @@
   .midheadline.blue.m12 Новые серии
   .animes
     - @recent_videos.each do |anime|
-      = render partial: 'animes/anime', object: anime, locals: { cover_by: :link, cover_notice: :studio, content_by: :block }, formats: :html
+      = render partial: 'animes/anime', object: anime, locals: { cover_notice: :studio, content_by: :block }, formats: :html
   .clearfix

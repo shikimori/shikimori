@@ -41,7 +41,7 @@ function pending_load(load_page) {
 
 // активация тултипов для элементов
 function pagination_success() {
-  $('.uninitialized-tooltip', Controls.$ajax).tooltip(ANIME_TOOLTIP_OPTIONS).removeClass('uninitialized-tooltip');
+  process_current_dom()
 
   Controls.$pagination.toggle(Controls.$link_next.attr('href') != Controls.$link_prev.attr('href'));
 

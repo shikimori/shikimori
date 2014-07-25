@@ -38,12 +38,12 @@
       = @entry.anime? ? (@entry.related.one? ? "Связанное аниме" : 'Связанные аниме') : 'Связанная манга'
     div
       - if @entry.related.many?
-        - @entry.related.related.take(2).each do |relation|
+        - @entry.related.related.take(AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED).each do |relation|
           = render partial: 'ani_mangas/related', object: relation.anime || relation.manga, locals: { info: t("Relation.%s" % relation.relation) }, formats: :html
         .related-shower style="display: block;" Показать остальное
         div style="display: none;"
           div
-          - @entry.related.related[2..-1].each do |relation|
+          - @entry.related.related[AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED..-1].each do |relation|
             = render partial: 'ani_mangas/related', object: relation.anime || relation.manga, locals: { info: t("Relation.%s" % relation.relation) }, formats: :html
       - else
         - @entry.related.related.each do |relation|

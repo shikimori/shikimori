@@ -121,29 +121,31 @@
     .editor-image, .editor-underline, .editor-strike {
       display: none;
     }
-    @include responsive(phone) {
-      .group.first {
-        display: none;
-      }
-      .editor-quote, .editor-file {
-        display: none;
-      }
-      .group {
-        margin-left: 0!important;
-      }
-    }
-    @include responsive(narrow-phone) {
-      .group.second {
+    @include iphone {
+      .group.second, .editor-file, .editor-quote {
         display: none;
       }
       .group {
         float: none!important;
       }
-      .editor-smiley {
-        margin-left: 0!important;
-      }
       .editor-controls {
         float: none;
+      }
+      .group.third {
+        margin-left: 0!important;
+      }
+    }
+    @include iphone-landscape {
+      .group.second {
+        display: inline-block;
+      }
+    }
+    @include iphone-portrait {
+      .group.first {
+        display: none;
+      }
+      .editor-smiley {
+        margin-left: 0!important;
       }
     }
   }

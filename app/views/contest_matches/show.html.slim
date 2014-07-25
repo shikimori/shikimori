@@ -7,7 +7,7 @@
     - elsif @match.right && @match.left
       .match-member data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
         - if @match.contest.anime?
-          = render partial: 'animes/anime', object: @match.left, locals: { cover_by: :link, cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
+          = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
         - else
           = render partial: 'characters/character', object: @match.left, locals: { content_by: :tooltip }, formats: :html
       .vs
@@ -31,7 +31,7 @@
 
       .match-member data-variant="right" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'right'}"
         - if @match.contest.anime?
-          = render partial: 'animes/anime', object: @match.right, locals: { cover_by: :link, cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
+          = render partial: 'animes/anime', object: @match.right, locals: { cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
         - else
           = render partial: 'characters/character', object: @match.right, locals: { content_by: :tooltip }, formats: :html
 
@@ -50,9 +50,9 @@
     - else
       .match-member.voted.centered data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}" 
         - if @match.contest.anime?
-          = render partial: 'animes/anime', object: @match.left, locals: { cover_by: :link, cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
+          = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
         - else
-          = render partial: 'characters/character', object: @match.left, locals: { cover_by: :link, content_by: :tooltip }, formats: :html
+          = render partial: 'characters/character', object: @match.left, locals: { content_by: :tooltip }, formats: :html
 
       - if @match.contest.defeated_by(@match.left, @match.round).any?
         .match-losers

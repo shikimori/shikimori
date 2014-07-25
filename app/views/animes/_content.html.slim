@@ -1,5 +1,10 @@
 .data.name itemprop="name"
-  = anime.name
+  - if !defined?(cover_by) || cover_by != :link
+    a.data.name href="#{url_for anime}" title="#{localized_name anime}" itemprop="name"
+      = localized_name anime
+  - else
+    .linkeable data-href="#{url_for anime}" data-title="#{localized_name anime}"
+      = localized_name anime
 
 p.text itemprop="description"
   == ani_manga_description anime

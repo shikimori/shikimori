@@ -3,31 +3,30 @@
 @import compass/typography/text/ellipsis
 
 .b-person
-  //float: left
-  //width: 123px
-  //height: 160px
-  //overflow: hidden
-
-  //a, div
-    width: 10%
-
   img
     max-width: 100%
+    margin-bottom: 5px
 
   .name, .role
-    //+ellipsis
     padding: 0px
     text-align: center
     display: block
 
   .role
-    font-size: 12px
+    font-size: 11px
     color: #123
-    line-height: $line-height
-
-  &:hover .name
-    text-decoration: underline
+    line-height: 1.4
+    margin-top: 2px
 
   .name
     +normal-link
     +hover_underlined
+    font-size: 12px
+    font-weight: bold
+    line-height: $line-height
+
+  .linkeable, .linkeable-processed
+    line-height: 0
+
+  &:hover .name
+    text-decoration: underline

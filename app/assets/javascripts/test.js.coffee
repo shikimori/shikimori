@@ -1,5 +1,4 @@
 $ =>
-  $('.uninitialized-tooltip').tooltip(ANIME_TOOLTIP_OPTIONS).removeClass('uninitialized-tooltip')
   $('.images-test .wall').shikiWall()
 
   if $('.traffic-test').length
