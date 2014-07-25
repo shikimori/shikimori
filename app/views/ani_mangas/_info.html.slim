@@ -20,7 +20,7 @@
           center: img src="#{attachment_url @entry.image}" title="#{{@entry.name}}" alt="#{{@entry.name}}"
 
       - if user_signed_in?
-        .block.anime-rate
+        .anime-rate
           = render partial: 'user_rates/user_rate', locals: { user_rate: @entry.rate || @entry.rates.build(user_id: current_user.id), entry: @entry }
 
     .c-about

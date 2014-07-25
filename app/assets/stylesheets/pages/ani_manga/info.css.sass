@@ -37,8 +37,13 @@
       +iphone
         +column(1)
 
+    &:after
+      display: block
+      clear: left
+
   .c-description
     margin-left: 33.3%
+    padding-top: 1px // из-за странной баги в фаерфоксе
 
     +iphone
       clear: both
