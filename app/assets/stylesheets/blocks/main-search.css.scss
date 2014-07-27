@@ -25,7 +25,7 @@
       color: #f9f9f9;
       background-color: transparent;
       cursor: pointer;
-      height: 21px;
+      height: 19px;
 
       &:hover {
         background-color: #555;
@@ -52,20 +52,20 @@
       background: transparent!important;
     }
     .input {
-      height: 16px;
+      height: 19px;
       margin: 0;
       overflow: hidden;
-      padding: 3px 5px 0;
+      padding: 3px 5px;
       width: 175px;
 
       input {
         font-family: Tahoma;
         font-size: 11px;
         line-height: 12px;
-        width: 175px;
+        width: 167px;
 
         &.ac_loading {
-          width: 159px;
+          width: 167px;
           padding-right: 19px;
         }
       }

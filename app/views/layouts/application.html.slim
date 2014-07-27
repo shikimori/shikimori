@@ -8,10 +8,10 @@ html
     - if defined?(alert) && alert
       p.flash-alert
         == alert
-    header.header
+    header.l-top_menu
       = render partial: 'application/top_menu'
 
-    section.page *itemprop style="#{page_background}"
+    section.l-page *itemprop style="#{page_background}"
       - if Rails.env.development?
         javascript:
           window.DEVELOP = true;
@@ -31,7 +31,7 @@ html
       - else
         = yield
 
-      footer
+      footer.l-footer
         = render partial: 'application/footer'
 
     #shade

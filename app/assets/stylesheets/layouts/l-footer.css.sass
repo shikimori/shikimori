@@ -1,6 +1,7 @@
 @import mixins/responsive
 
-footer
+.l-footer
+  clear: both
   padding-top: 15px
 
   .sitemap
@@ -20,7 +21,7 @@ footer
     vertical-align: middle
     padding: 3px 1px 3px 0
 
-  +desktop
+  +gt_ipad
     .bordered &
       &:after, &:before
         background: rgba(255,255,255,0.3)
@@ -35,3 +36,4 @@ footer
       &:after
         right: -20px
         width: 40px
+

@@ -7,8 +7,11 @@
 
 +all-graphics-sprites
 
+.to-top-fix, .l-top_menu
+  +background-inline-retina('/layouts/l-top_menu/noise', 'png', auto, auto, repeat)
+
 .to-top-fix
-  +background-image(linear-gradient(#484848, #363636))
+  //+background-image(linear-gradient(#484848, #363636))
   border-bottom: 1px solid #444
   height: $menu-height
   left: 0
@@ -21,8 +24,8 @@
     display: none
 
 .l-top_menu
-  background-color: #3e3e3e
-  +background-image(linear-gradient(#484848, #363636))
+  //background-color: #3e3e3e
+  //+background-image(linear-gradient(#484848, #363636))
   border-bottom: 1px solid #444
 
   .inner

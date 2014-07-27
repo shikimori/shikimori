@@ -1,0 +1,13 @@
+@import mixins/responsive
+@import mixins/column
+
+.l-menu
+  +column(2, 25/100, 3%)
+  float: right
+
+  +lte_ipad
+    display: none
+
+.l-menu-toggler
+  +gt_ipad
+    display: none

@@ -12,16 +12,20 @@
   @media screen and (min-width: $iphone+1) and (max-width: $iphone_max), screen and (max-width: $iphone_max) and (orientation: landscape)
     @content
 
-=lte_ipad
-  @media screen and (max-width: $ipad_max)
-    @content
-
 =ipad
   @media screen and (min-width: $ipad) and (max-width: $ipad_max)
     @content
 
 =ipad-landscape
   @media screen and (max-width: $ipad_max) and (orientation: landscape)
+    @content
+
+=lte_ipad
+  @media screen and (max-width: $ipad_max)
+    @content
+
+=gt_ipad
+  @media only screen and (min-width: $ipad_max+1)
     @content
 
 =gte_ipad

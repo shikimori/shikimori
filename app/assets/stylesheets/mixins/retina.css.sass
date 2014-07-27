@@ -1,6 +1,6 @@
-=background-inline-retina($path, $ext, $w: auto, $h: auto)
-  background: inline-image($path + "." + $ext) no-repeat
+=background-inline-retina($path, $ext, $w: auto, $h: auto, $repeat: no-repeat)
+  background: inline-image($path + "." + $ext) $repeat
 
   @media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3 / 2), all and (min--moz-device-pixel-ratio: 1.5), all and (min-device-pixel-ratio: 1.5)
-    background: inline-image($path + "@2x" + "." + $ext) no-repeat
+    background: inline-image($path + "@2x" + "." + $ext) $repeat
     background-size: $w $h
