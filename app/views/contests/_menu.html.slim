@@ -37,7 +37,7 @@ aside.menu-right
         .subheadline.m5 Турнирная сетка
         a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
 
-    - if !user_signed_in? || current_user.preferences.show_social_buttons?
+    - if show_social?
       .menu-right
         .subheadline.m15 Рассказать друзьям
         .menu-block.addthis_toolbox.addthis_default_style.addthis_32x32_style

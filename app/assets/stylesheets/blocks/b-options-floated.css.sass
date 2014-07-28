@@ -55,5 +55,11 @@
       &:after
         display: none
 
-.column .b-options-floated
-  right: 25px
+  &.mobile-support
+    +iphone-portrait
+      margin-bottom: 10px
+      position: initial
+      text-align: right
+
+  //.column &
+    right: 25px

@@ -112,7 +112,7 @@
           - else
             | Doujin
 
-  - if defined?(social) && (!user_signed_in? || current_user.preferences.show_social_buttons?)
+  - if defined?(social) && show_social?
     .addthis_toolbox.addthis_default_style
       a.addthis_button_vk
       a.addthis_button_facebook

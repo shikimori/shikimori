@@ -58,7 +58,7 @@
     p Аниме последнего десятилетия в разрезе по студиям:
     /= spoiler('большой график со всеми более-менее крупными студиями двухтысячных годов') do
     #by_studio style="width: 975px; height: 800px; margin: 0 auto"
-    - if !user_signed_in? || current_user.preferences.show_social_buttons?
+    - if show_social?
       div.social.addthis_toolbox.addthis_default_style.addthis_32x32_style
         a.addthis_button_vk
         a.addthis_button_facebook

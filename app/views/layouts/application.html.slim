@@ -26,6 +26,7 @@ html
             $('.admin_panel').load('/apanel');
           });
         .admin_panel
+
       - if defined?(@sub_layout) && @sub_layout
         = render partial: "layouts/#{@sub_layout}"
       - else

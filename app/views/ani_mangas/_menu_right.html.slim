@@ -154,7 +154,7 @@
     ul.block-list
       = render partial: 'ani_mangas/menu_topic', collection: @entry.news, as: :topic, locals: { with_tooltip: true }
 
-- if !user_signed_in? || current_user.preferences.show_social_buttons?
+- if show_social?
   .menu-block
     .subheadline.m10 Поделиться
     .addthis_toolbox.addthis_default_style.addthis_32x32_style

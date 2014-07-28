@@ -25,6 +25,10 @@
     right: 2px;
     top: 48px;
 
+    @include lte_ipad {
+      display: none;
+    }
+
     a {
       @include normal-link;
       border-right: 1px solid #CCC;
@@ -55,6 +59,10 @@
 
   .title {
     @include new-header-font;
+    @include lte_ipad {
+      @include ellipsis;
+    }
+
   }
   .notice {
     color: #333;
@@ -91,6 +99,18 @@ $comments-margin: 58px;
     &:first-child {
       border-top: none;
       padding-top: 0!important;
+    }
+
+    @include lte_ipad {
+      .topic-block {
+        .image-name img {
+          width: 32px !important;
+          margin-bottom: 4px !important;
+        }
+        .title {
+          margin-left: 0 !important;
+        }
+      }
     }
 
     .content {
@@ -208,6 +228,10 @@ $comments-margin: 58px;
     clear: left;
     margin-left: $comments-margin;
 
+    @include lte_ipad {
+      margin-left: 25px !important;
+    }
+
     .comments-placeholder {
       overflow: hidden;
     }
@@ -270,7 +294,6 @@ $comments-margin: 58px;
     }
     .height-shortener {
       @include plashka;
-
       background-color: #F9F9F9;
       line-height: 10px;
       padding: 0;
@@ -294,6 +317,12 @@ $comments-margin: 58px;
       }
       .last-block {
         margin-left: $comments-margin;
+      }
+    }
+
+    @include lte_ipad {
+      .height-shortener, .last-block {
+        margin-left: 42px !important;
       }
     }
   }

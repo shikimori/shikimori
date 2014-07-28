@@ -1,13 +1,83 @@
-@import mixins/responsive
+@import compass/css3/transition
 @import mixins/column
+@import mixins/responsive
+@import mixins/retina
 
 .l-menu
-  +column(2, 25/100, 3%)
-  float: right
+  +gte_ipad
+    +column(2, 25/100, 3%)
+
+  +iphone-landscape
+    +column(2, 35/100, 3%)
+
+  +iphone-portrait
+    +column(2, 51/100, 3%)
+
+.l-content
+  +transition(margin 0.6s ease)
+
+  +gte_ipad
+    +column(2, 75/100, 3%)
+
+  +iphone-landscape
+    +column(2, 64/100, 3%)
+
+  +iphone-portrait
+    +column(2, 46.5/100, 3%)
+
+.l-top_menu, .l-footer, .l-menu, .l-page > .head
+  +ipad
+    margin-right: 3%
+
+  +iphone-landscape
+    margin-right: 5%
+
+  +iphone-portrait
+    margin-right: 7%
+
+.l-page
+  &.menu-expanded .l-content
+    margin-left: -26.5%
+
+  &.menu-expanded .menu-slide-inner
+    width: 131%
 
   +lte_ipad
-    display: none
+    .menu-slide-outer
+      width: 100%
+      overflow: hidden
 
-.l-menu-toggler
-  +gt_ipad
-    display: none
+  .menu-slide-inner
+    +transition(width 0.6s ease)
+
+    +iphone-landscape
+      width: 152.5%
+
+    +iphone-portrait
+      width: 207%
+
+    +ipad
+      width: 132%
+
+.l-page
+  .menu-toggler
+    +background-inline-retina('/layouts/l-menu/noise', 'png', auto, auto, repeat)
+    cursor: pointer
+    height: 100%
+    position: fixed
+    right: 0
+    top: 0
+    width: 31px
+    z-index: 2
+
+    +ipad
+      width: 3%
+
+    +iphone-landscape
+      width: 5%
+
+    +iphone-portrait
+      width: 7%
+
+    +gt_ipad
+      display: none

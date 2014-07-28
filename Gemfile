@@ -40,6 +40,7 @@ gem 'simple_form'
 gem 'active_model_serializers'
 gem 'virtus'
 
+gem 'mobylette'
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
 

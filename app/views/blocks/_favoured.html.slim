@@ -1,12 +1,13 @@
 - if favoured.any?
-  .menu-block
+  .b-favoured
     .subheadline.m10 В избранном
-    .favoured
-      - favoured.each_slice(6) do |users|
+    .cc
+      /- favoured.each_slice(6) do |users|
         - users.each do |user|
+      - favoured.each_with_index do |user, index|
+        .fav-user class="item-#{index}"
           - if user_signed_in?
             a href="#{user_url user}" title="#{user.nickname}"
               img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
           - else
             img src="#{user.avatar_url 32}"  srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
-        br

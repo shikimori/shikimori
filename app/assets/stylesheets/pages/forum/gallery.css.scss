@@ -1,4 +1,11 @@
 @import "globals";
+@import "mixins/responsive";
+
+@include lte_ipad {
+  .welcome-gallery, .welcome-gallery-loader {
+    display: none;
+  }
+}
 
 .welcome-gallery-loader .ajax-loading {
   width: 100%;

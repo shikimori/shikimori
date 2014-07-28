@@ -1,0 +1,19 @@
+@import mixins/responsive
+@import mixins/block
+@import mixins/column
+
+.b-favoured
+  +block
+
+  .fav-user
+    +gte_ipad
+      +column(6)
+
+    +iphone
+      +column(5)
+
+      &.item-10, &.item-11
+        display: none
+
+    img
+      max-width: 100%
