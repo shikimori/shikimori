@@ -44,6 +44,7 @@ $ ->
   $sticked_topics = $('.forum-nav .sticked-topics')
   $local_block = $('.local-menu-block')
   $site_block = $('.site-menu-block')
+
   $ajax.on 'ajax:success', (e, data) ->
     unless data.section
       $new_topic_button.hide()
@@ -60,10 +61,10 @@ $ ->
     else
       $local_block.hide()
       $site_block.show()
-      if is_mobile()
-        $site_block.parents('.menu-right').remove()
-      else
-        $site_block.load $site_block.data('remote') if $site_block.children('.ajax-loading').length
+      #if is_mobile()
+        #$site_block.parents('.menu-right').remove()
+      #else
+      $site_block.load $site_block.data('remote') if $site_block.children('.ajax-loading').length
 
     # скрытие кнопки создания нового топика
     if data.section is 'all' or data.section is 'f' or data.section is 'g' or data.section is 'r'
