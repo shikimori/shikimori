@@ -72,10 +72,10 @@
               - if user_rate.target.ongoing? && user_rate.target.episodes_aired > 0
                 = user_rate.target.episodes_aired
                 span.episodes_total
-                  = user_rate.target.episodes || '?'
+                  = user_rate.target.episodes.zero? ? '?' : user_rate.target.episodes
 
               - else
-                = user_rate.target.episodes || '?'
+                = user_rate.target.episodes.zero? ? '?' : user_rate.target.episodes
 
         - else
           td.num class="#{:hoverable if @user.own_profile?}"
@@ -85,7 +85,7 @@
             span.misc-value
               span.sep.inline
                 | /
-              = user_rate.target.chapters || '?'
+              = user_rate.target.chapters.zero? ? '?' : user_rate.target.chapters
 
           - if @user.preferences.volumes_in_manga?
             td.num class="#{:hoverable if @user.own_profile?}"
@@ -95,7 +95,7 @@
               span.misc-value
                 span.sep.inline
                   | /
-                = user_rate.target.volumes || '?'
+                = user_rate.target.volumes.zero? ? '?' : user_rate.target.volumes
 
         td.num
           = user_rate.target_kind
