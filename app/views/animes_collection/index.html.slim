@@ -10,15 +10,32 @@ header.head.ajaxable
   .notice itemprop="description"
     == @title_notice
 
-= render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+= render partial: 'animes_collection/pagination', locals: { with_cache: true }
 
-.animes data-entries-per-page="#{entries_per_page}"
+
+.menu-toggler
+  .toggler
+
+.menu-slide-outer
+  .menu-slide-inner
+    .l-content
+      section.ajax.cc
+        = render partial: 'animes_collection/entries'
+
+    .l-menu
+      - if user_signed_in?
+          = render partial:  'animes_collection/menu', locals: { social: true, klass: klass }
+      - else
+          .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
+            .ajax-loading title="Загрузка..."
+
+/.animes data-entries-per-page="#{entries_per_page}"
   .left-column-wrap
     .right-column-wrap
       .left-column
         - if user_signed_in?
           aside.menu-left.loaded
-            = render partial:  'ani_mangas_collection/menu', locals: { social: true, klass: klass }
+            = render partial:  'animes_collection/menu', locals: { social: true, klass: klass }
             /= render 'anime_online/blocks/google120x600'
         - else
           aside.menu-left
@@ -29,10 +46,10 @@ header.head.ajaxable
         section.ajax#ajax
           - if @entries.any?
             .cc
-              = render partial: 'ani_mangas_collection/entries'
+              = render partial: 'animes_collection/entries'
           - else
             p Ничего не найдено.
       .clearfix-full
 
 .bottom-pages.clearfix
-  = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+  = render partial: 'animes_collection/pagination', locals: { with_cache: true }

@@ -52,14 +52,14 @@ header.head.misc
               p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
 - else
   div
-    = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+    = render partial: 'animes_collection/pagination', locals: { with_cache: true }
 
   .animes data-entries-per-page="#{entries_per_page}"
     .left-column-wrap
       .right-column-wrap
         .left-column
           aside.menu-left.loaded
-            = render partial:  'ani_mangas_collection/menu', locals: { klass: klass, in_recommendations: true }
+            = render partial:  'animes_collection/menu', locals: { klass: klass, in_recommendations: true }
         .right-column
           section.ajax#ajax
             - if @rankings
@@ -72,4 +72,4 @@ header.head.misc
         .clearfix-full
 
   .bottom-pages.clearfix
-    = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+    = render partial: 'animes_collection/pagination', locals: { with_cache: true }

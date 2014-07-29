@@ -1,5 +1,5 @@
 # TODO: отрефакторить толстый контроллер
-class RecommendationsController < AniMangasCollectionController
+class RecommendationsController < AnimesCollectionController
   before_filter :authenticate_user!, if: -> { json? }
 
   CookieName = 'rec_type'

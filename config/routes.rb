@@ -15,7 +15,7 @@ Site::Application.routes.draw do
   constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/dashboard#show'
     #get '/', to: 'anime_online/anime_videos#index'
-    get "animes#{ani_manga_format}" => "ani_mangas_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
+    get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
     scope page: 'online_video' do
       resources :animes, only: [:show]
@@ -327,8 +327,8 @@ Site::Application.routes.draw do
 
     # аниме и манга
     ['animes', 'mangas'].each do |kind|
-      get "#{kind}#{ani_manga_format}" => "ani_mangas_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
-      get "#{kind}/menu(/rating/:rating)" => "ani_mangas_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
+      get "#{kind}#{ani_manga_format}" => "animes_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
+      get "#{kind}/menu(/rating/:rating)" => "animes_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
 
       resources kind, defaults: { page: 'info' }, only: [:show, :edit] do
         collection do

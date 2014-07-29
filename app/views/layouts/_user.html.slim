@@ -5,10 +5,10 @@
 
   .profile
     .anime-filter.animanga-filter
-      = render partial: 'ani_mangas_collection/menu', locals: { in_user_profile: true, klass: Anime }
+      = render partial: 'animes_collection/menu', locals: { in_user_profile: true, klass: Anime }
 
     .manga-filter.animanga-filter
-      = render partial: 'ani_mangas_collection/menu', locals: { in_user_profile: true, klass: Manga }
+      = render partial: 'animes_collection/menu', locals: { in_user_profile: true, klass: Manga }
 
   - if @user.show_profile? || params[:controller] == 'messages' || params[:action] == 'ban'
     .default-sort data-value="#{user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort}"

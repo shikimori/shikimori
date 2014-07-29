@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AniMangasCollectionController do
+describe AnimesCollectionController do
   ['anime', 'manga'].each do |type|
     before do
       create type.to_sym

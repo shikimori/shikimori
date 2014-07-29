@@ -1,6 +1,6 @@
 .m20 class="#{klass == Anime ? 'anime' : 'manga'}-params-controls"
   - if defined?(in_user_profile)
-    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass }, formats: :html
+    = render partial: 'animes_collection/mylist', locals: { klass: klass }, formats: :html
 
   .menu-block
     .subheadline Статус
@@ -148,7 +148,7 @@
               = title
 
   - if user_signed_in? && !defined?(in_user_profile) && !defined?(in_lists_comparsion)
-    = render partial: 'ani_mangas_collection/mylist', locals: { klass: klass }, formats: :html
+    = render partial: 'animes_collection/mylist', locals: { klass: klass }, formats: :html
 
   .menu-block.hidden
     .subheadline Студия

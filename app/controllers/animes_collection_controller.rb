@@ -1,5 +1,5 @@
 # TODO: отрефакторить толстый контроллер
-class AniMangasCollectionController < AniMangasController
+class AnimesCollectionController < AniMangasController
   helper_method :klass, :entries_per_page
   caches_action :index, :menu, CacheHelper.cache_settings
 
@@ -34,11 +34,11 @@ class AniMangasCollectionController < AniMangasController
     keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
 
     respond_to do |format|
-      format.html { render params[:template] || 'ani_mangas_collection/index' }
+      format.html { render params[:template] || 'animes_collection/index' }
       format.json do
         render json: {
           content: render_to_string(
-            partial: 'ani_mangas_collection/entries',
+            partial: 'animes_collection/entries',
             layout: false,
             formats: :html
           ),

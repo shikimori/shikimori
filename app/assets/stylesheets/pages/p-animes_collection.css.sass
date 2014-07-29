@@ -1,0 +1,16 @@
+@import mixins/responsive
+@import mixins/column
+
+.p-animes_collection, .p-mangas_collection
+  .b-catalog-entry
+    +gte_ipad
+      +bcolumn(4)
+
+    +iphone-landscape
+      +bcolumn(3)
+
+    +iphone-portrait
+      +bcolumn(2)
+
+  .b-postloader
+    clear: left
