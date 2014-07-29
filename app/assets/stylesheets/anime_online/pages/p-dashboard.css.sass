@@ -1,3 +1,4 @@
+@import mixins/column
 @import mixins/menu-blocks
 @import mixins/comma_separated
 
@@ -5,13 +6,25 @@
   .page
     padding-top: 20px
 
-
   .l-content
     .b-catalog-entry
       border-top: 1px dashed #dddddd
       padding-top: 10px
 
-      &:first-child
+      .rating
+        display: none
+
+      +iphone
+        +column(1)
+
+      +gte_ipad
+        +column(2, 1/2, 6%)
+
+        &:nth-child(2)
+          border-top: none
+          padding-top: 0
+
+      &:first-child, &:nth-child(2)
         border-top: none
         padding-top: 0
 

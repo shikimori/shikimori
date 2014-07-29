@@ -14,7 +14,7 @@
     +column(2, 51/100, 3%)
 
 .l-content
-  +transition(margin 0.6s ease)
+  +transition(margin 0.5s ease)
 
   +gte_ipad
     +column(2, 75/100, 3%)
@@ -25,7 +25,17 @@
   +iphone-portrait
     +column(2, 46.5/100, 3%)
 
-.l-top_menu, .l-footer, .l-menu, .l-page > .head
+.l-top_menu
+  +ipad
+    padding-right: 3%
+
+  +iphone-landscape
+    padding-right: 5%
+
+  +iphone-portrait
+    padding-right: 7%
+
+.l-footer, .l-menu, .l-page > .head
   +ipad
     margin-right: 3%
 
@@ -36,19 +46,20 @@
     margin-right: 7%
 
 .l-page
-  &.menu-expanded .l-content
-    margin-left: -26.5%
-
-  &.menu-expanded .menu-slide-inner
-    width: 131%
-
   +lte_ipad
+    &.menu-expanded .l-content
+      margin-left: -26.5%
+
+    &.menu-expanded .menu-slide-inner
+      width: 131%
+
     .menu-slide-outer
       width: 100%
       overflow: hidden
 
   .menu-slide-inner
-    +transition(width 0.6s ease)
+    +iphone
+      +transition(width 0.5s ease)
 
     +iphone-landscape
       width: 152.5%
@@ -61,23 +72,60 @@
 
 .l-page
   .menu-toggler
-    +background-inline-retina('/layouts/l-menu/noise', 'png', auto, auto, repeat)
+    +background-inline-retina('/layouts/l-top_menu/noise', 'png', auto, auto, repeat)
+    //+background-inline-retina('/layouts/l-menu/noise', 'png', auto, auto, repeat)
     cursor: pointer
     height: 100%
-    position: fixed
+    position: absolute
+    -webkit-overflow-scrolling: touch
     right: 0
     top: 0
     width: 31px
+    height: 100%
     z-index: 2
 
     +ipad
       width: 3%
-
     +iphone-landscape
       width: 5%
-
     +iphone-portrait
       width: 7%
 
     +gt_ipad
       display: none
+
+    .toggler
+      right: 0
+      top: 47%
+      position: fixed
+      text-align: center
+
+      +ipad
+        width: 3%
+      +iphone-landscape
+        width: 5%
+      +iphone-portrait
+        width: 7%
+
+      &:after
+        +transition(color 0.5s ease)
+        font-family: shikimori
+        content: '\e83e'
+        color: #777
+
+        +ipad
+          font-size: 32px
+        +iphone-landscape
+          font-size: 30px
+        +iphone-portrait
+          font-size: 28px
+
+    &:hover .toggler:after
+      color: #bbb
+
+    &:active .toggler:after
+      color: #999
+
+  &.menu-expanded
+    .menu-toggler .toggler:after
+      content: '\e83f'
