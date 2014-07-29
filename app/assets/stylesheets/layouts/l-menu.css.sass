@@ -5,27 +5,27 @@
 
 .l-menu
   +gte_ipad
-    +column(2, 25/100, 3%)
+    +column(2, 23/100, 3%)
 
   +iphone-landscape
-    +column(2, 35/100, 3%)
+    +column(2, 32/100, 3%)
 
   +iphone-portrait
-    +column(2, 51/100, 3%)
+    +column(2, 41.5/100, 3%)
 
 .l-content
   +transition(margin 0.5s ease)
 
   +gte_ipad
-    +column(2, 75/100, 3%)
+    +column(2, 77/100, 3%)
 
   +iphone-landscape
-    +column(2, 64/100, 3%)
+    +column(2, 67/100, 3%)
 
   +iphone-portrait
-    +column(2, 46.5/100, 3%)
+    +column(2, 58.5/100, 3%)
 
-.l-top_menu
+.l-top_menu, .menu-slide-outer
   +ipad
     padding-right: 3%
 
@@ -46,26 +46,28 @@
     margin-right: 7%
 
 .l-page
+  &.menu-expanded .l-content
+    +ipad
+      margin-left: -24.5%
+    +iphone-landscape
+      margin-left: -33.5%
+    +iphone-portrait
+      margin-left: -45%
+
   +lte_ipad
-    &.menu-expanded .l-content
-      margin-left: -26.5%
-
-    &.menu-expanded .menu-slide-inner
-      width: 131%
-
     .menu-slide-outer
       width: 100%
       overflow: hidden
 
   .menu-slide-inner
-    //+iphone
+    +iphone
       +transition(width 0.5s ease)
 
     +iphone-landscape
       width: 152.5%
 
     +iphone-portrait
-      width: 207%
+      width: 175%
 
     +ipad
       width: 132%
