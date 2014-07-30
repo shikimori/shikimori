@@ -14,7 +14,7 @@
     +column(2, 41.5/100, 3%)
 
 .l-content
-  +transition(margin 0.5s ease)
+  //+transition(margin 0.5s ease)
 
   +gte_ipad
     +column(2, 77/100, 3%)
@@ -26,6 +26,11 @@
     +column(2, 58.5/100, 3%)
 
 .l-top_menu, .menu-slide-outer
+  &:after
+    clear: both
+    display: block
+    content: ' '
+
   +ipad
     padding-right: 3%
 
@@ -60,7 +65,7 @@
       overflow: hidden
 
   .menu-slide-inner
-    +iphone
+    //+iphone
       +transition(width 0.5s ease)
 
     +iphone-landscape

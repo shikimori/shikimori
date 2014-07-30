@@ -112,8 +112,7 @@
             - @entry.videos(5).each_with_index do |video,index|
               .c-video.m0 class="#{video.hosting} entry-#{index+1}"
                 a.b-video href="#{video.url}" data-href="#{video.player_url}"
-                  /img src="#{video.image_url}" data-id="#{video.id}"
-                  img src="/images/screenshot/preview/4155d74a1ca97a49617bf56c4dd842ecac49338e.jpg" data-id="#{video.id}"
+                  img src="#{video.image_url}" data-id="#{video.id}"
                   p.marker
                     = video.kind
 

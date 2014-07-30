@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   helper_method :shikimori?
   helper_method :anime_online?
   helper_method :manga_online?
+  helper_method :turbolinks_request?
 
   unless Rails.env.test?
     rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,
@@ -66,6 +67,11 @@ class ApplicationController < ActionController::Base
   # находимся ли сейчас на домене манги?
   def manga_online?
     MangaOnlineDomain::HOSTS.include? request.host
+  end
+
+  # запрос ли это через турболинки
+  def turbolinks_request?
+    request.headers['X-XHR-Referer'].present?
   end
 
   def current_user

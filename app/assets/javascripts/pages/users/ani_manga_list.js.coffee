@@ -147,7 +147,7 @@ get_anime_params = ->
   $link = $('.slider-control-animelist a')
   return unless $link.length
 
-  arguments.callee.params = new AniMangaParamsParser($link.attr("href").replace(/^http:\/\/.*?\//, "/"), location.href, (data) ->
+  arguments.callee.params = new AnimesParamsParser($link.attr("href").replace(/^http:\/\/.*?\//, "/"), location.href, (data) ->
     return unless data.match(/anime/)
     $('.slide > .animelist').append "<div class=\"clear-marker\"></div>"
     $('.slider-control-animelist a').attr(href: data).trigger 'click'
@@ -161,7 +161,7 @@ get_manga_params = ->
   $link = $(".slider-control-mangalist a")
   return unless $link.length
 
-  arguments.callee.params = new AniMangaParamsParser($link.attr("href").replace(/^http:\/\/.*?\//, "/"), location.href, (data) ->
+  arguments.callee.params = new AnimesParamsParser($link.attr("href").replace(/^http:\/\/.*?\//, "/"), location.href, (data) ->
     return unless data.match(/manga/)
     $('.slide > .mangalist').append "<div class=\"clear-marker\"></div>"
     $('.slider-control-mangalist a').attr(href: data).trigger 'click'

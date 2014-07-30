@@ -20,29 +20,31 @@ $(".b-postloader").live 'click appear', ->
       #$loader = $("<div class=\"ajax-loading vk-like\" title=\"Загрузка...\" />").insertAfter($postloader)
 
   url = $postloader.data('remote')
-  if !url
-    $postloader.trigger 'postloader:trigger'
+  # TODO: выпилить три строки ниже
+  throw 'no url provided' if !url
+  #if !url
+    #$postloader.trigger 'postloader:trigger'
 
-  else
-    $postloader.data "locked", true
-    $.getJSON url, (data) ->
-      $data = $(data.content)
+  $postloader.data locked: true
 
-      # передаём в колбек данные, а затем трём элемент
-      $postloader.trigger 'postloader:success', [$data]
+  $.getJSON url, (data) ->
+    $data = $(data.content)
 
-      # после колбеказабираем данные из filtered-data
-      $data = $postloader.data('filtered-data')
-      #if new_postloader
-      $postloader.replaceWith $data
+    # передаём в колбек данные, а затем трём элемент
+    $postloader.trigger 'postloader:success', [$data, data]
 
-      #else
-        #$postloader.remove()
-        #$loader.replaceWith $data
+    # после колбеказабираем данные из filtered-data
+    $data = $postloader.data('filtered-data')
+    #if new_postloader
+    $postloader.replaceWith $data
 
-      process_current_dom()
-      $postloader.data locked: false
-      $('.ajax').trigger 'postloader:success'
+    #else
+      #$postloader.remove()
+      #$loader.replaceWith $data
+
+    process_current_dom()
+    $postloader.data locked: false
+    #$('.ajax').trigger 'postloader:success'
 
 # удаляем уже имеющиеся подгруженные элементы
 $('.b-postloader').live 'postloader:success', (e, $data) ->

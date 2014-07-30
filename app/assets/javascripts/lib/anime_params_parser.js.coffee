@@ -1,6 +1,6 @@
 DEFAULT_LIST_SORT = "ranked"
 
-window.AniMangaParamsParser = (base_url, current_url, change_callback, $root) ->
+@AnimesParamsParser = (base_url, current_url, change_callback, $root) ->
   # вытаскивание из класса элемента типа и значения
   extract_li_info = ($li) ->
     matches = $li.attr("class").match(/([\w\-]+)-([\w.\-]+)/)
@@ -67,13 +67,14 @@ window.AniMangaParamsParser = (base_url, current_url, change_callback, $root) ->
   data = $.extend(true, {}, default_data)
 
   # клики по меню
-  $(".anime-params li", $root).live "click", (e) ->
+  $('.anime-params li', $root).on 'click', (e) ->
     # игнор средней кнопки мыши
-    return  if in_new_tab(e)
-    $this = $(this)
-    already_selected = $this.hasClass("selected")
-    li_info = extract_li_info($this)
-    return true  unless li_info
+    return if in_new_tab(e)
+    already_selected = $(@).hasClass('selected')
+
+    li_info = extract_li_info $(@)
+    return true unless li_info
+
     unless already_selected
       if "type" of e.target and e.target.type is "checkbox"
         params.add li_info.type, li_info.value
@@ -83,15 +84,14 @@ window.AniMangaParamsParser = (base_url, current_url, change_callback, $root) ->
       params.remove li_info.type, li_info.value
 
     change_callback params.compile()
-    false  unless "type" of e.target and e.target.type is "checkbox"
+    false unless "type" of e.target and e.target.type is "checkbox"
 
   # клики по фильтру группы - плюсику или минусику
-  $(".anime-params-block .block-filter", $root).live "click", (e) ->
-    $this = $(this)
-    to_exclude = $this.hasClass("item-add")
-    $this.removeClass((if to_exclude then "item-add" else "item-minus")).addClass (if not to_exclude then "item-add" else "item-minus")
-    $this.closest(".anime-params-block").find("li").map(->
-      extract_li_info $(this)
+  $('.anime-params-block .block-filter', $root).on "click", (e) ->
+    to_exclude = $(@).hasClass('item-add')
+    $(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
+    $(@).closest('.anime-params-block').find("li").map(->
+      extract_li_info $(@)
     ).each (index, li_info) ->
       data[li_info.type][index] = (if to_exclude then "!" + li_info.value else li_info.value)
 
@@ -99,23 +99,22 @@ window.AniMangaParamsParser = (base_url, current_url, change_callback, $root) ->
     params.parse params.compile()
 
   # клики по фильтру элемента - плюсику или минусику
-  $(".anime-params li .filter", $root).live "click", (e) ->
-    $this = $(this)
-    to_exclude = $this.hasClass("item-add")
-    $this.removeClass((if to_exclude then "item-add" else "item-minus")).addClass (if not to_exclude then "item-add" else "item-minus")
-    li_info = extract_li_info($this.parent())
+  $('.anime-params li .filter', $root).on "click", (e) ->
+    to_exclude = $(@).hasClass("item-add")
+    $(@).removeClass((if to_exclude then "item-add" else "item-minus")).addClass (if not to_exclude then "item-add" else "item-minus")
+    li_info = extract_li_info($(@).parent())
     value_key = _.indexOf(data[li_info.type], (if to_exclude then li_info.value else "!" + li_info.value))
     data[li_info.type][value_key] = (if to_exclude then "!" + li_info.value else li_info.value)
     change_callback params.compile()
     false
 
   # клики по тегам на странице
-  $(".type.tag-base,.studio.tag-base,.publisher.tag-base,.genre.tag-base,.season.tag-base").live "click", (e) ->
-    type = $(@).data("type")
-    value = String($(@).data("value"))
+  $('ajax').on 'click', '.type.tag-base,.studio.tag-base,.publisher.tag-base,.genre.tag-base,.season.tag-base', (e) ->
+    type = $(@).data('type')
+    value = String($(@).data('value'))
     $node = $("li.#{type}-#{value}")
     $node = add_option(type, value)  unless $node.length
-    $node.trigger "click"
+    $node.trigger 'click'
     false
 
   params =
@@ -189,20 +188,21 @@ window.AniMangaParamsParser = (base_url, current_url, change_callback, $root) ->
     # парсинг строки урла и выбор
     parse: (url) ->
       $(".anime-params .selected", $root).toggleClass "selected"
-      $(".anime-params input[type=checkbox]:checked", $root).attr "checked", false
+      $(".anime-params input[type=checkbox]:checked", $root).attr checked: false
       $(".anime-params .filter", $root).hide()
-      self = this
+
       data = $.extend(true, {}, default_data)
       parts = url
         .replace("#{location.protocol}//#{location.hostname}", '')
+        .replace(":#{location.port}", '')
         .replace(base_url, "")
         .match(/[\w\-]+\/[^\/]+/g)
 
-      _.each parts || [], (match) ->
+      _.each parts || [], (match) =>
         key = match.split("/")[0]
         return if key == "page" || (key not of default_data)
         values = match.split("/")[1].split(",")
-        _.each values, _.bind(self.add, self, key)
+        _.each values, _.bind(@add, @, key)
 
   params.parse current_url
   params

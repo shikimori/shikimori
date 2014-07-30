@@ -25,19 +25,20 @@ head
   = display_meta_tags site: 'Шикимори', separator: '/', reverse: true
   = csrf_meta_tag
 
-  = stylesheet_link_tag :core, media: 'all'
+  = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
   - if anime_online?
-    = stylesheet_link_tag 'anime_online/application', media: 'all'
+    = stylesheet_link_tag 'anime_online/application', media: 'all', data: { 'turbolinks-track' => ''}
   - elsif manga_online?
-    = stylesheet_link_tag 'manga_online/application', media: 'all'
+    = stylesheet_link_tag 'manga_online/application', media: 'all', data: { 'turbolinks-track' => ''}
 
   = yield :head
 
-  = javascript_include_tag :core
+  = javascript_include_tag :core, data: { 'turbolinks-track' => ''}
+  = javascript_include_tag :application, data: { 'turbolinks-track' => ''}
   - if anime_online?
-    = javascript_include_tag 'anime_online/application'
+    = javascript_include_tag 'anime_online/application', data: { 'turbolinks-track' => ''}
   - elsif manga_online?
-    = javascript_include_tag 'manga_online/application'
+    = javascript_include_tag 'manga_online/application', data: { 'turbolinks-track' => ''}
 
   javascript:
     window.IS_LOGGED_IN = #{user_signed_in? ? 'true' : 'false'};

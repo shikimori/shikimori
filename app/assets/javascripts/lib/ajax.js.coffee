@@ -1,8 +1,8 @@
-# ajax
+# TODO: выпилить это, т.к. везде должны использоваться либо turbolinks, либо postloader
 pending_request = null
 
 # подгрузка части контента аяксом
-do_ajax = (url, $postloader, break_pending) ->
+@do_ajax = (url, $postloader, break_pending) ->
   url = location.protocol + "//" + location.host + url  if url.indexOf(location.protocol + "//" + location.host) is -1
   $.ajax
     url: url
@@ -10,13 +10,13 @@ do_ajax = (url, $postloader, break_pending) ->
     dataType: "json"
     beforeSend: (xhr) ->
       if pending_request and break_pending
-        if "abort" of pending_request
+        if 'abort' of pending_request
           pending_request.abort()
         else
           pending_request.aborted = true
         pending_request = null
 
-      if $(this).hasClass("disabled") or pending_request
+      if $(@).hasClass('disabled') || pending_request
         xhr.abort()
         return
 
@@ -78,12 +78,14 @@ do_ajax = (url, $postloader, break_pending) ->
       history.back()
 
 process_ajax = (data, url, $postloader) ->
-  (if $postloader then process_ajax_postload(data, url, $postloader) else process_ajax_response(data, url))
+  if $postloader
+    process_ajax_postload data, url, $postloader
+  else
+    process_ajax_response data, url
 
 # обработка контента, полученного при прокрутке вниз
 process_ajax_postload = (data, url, $postloader) ->
   $postloader.replaceWith data.content
-  paginate data, true
 
 # обработка контента, полученного при подгрузке произвольной страницы
 process_ajax_response = (data, url) ->
@@ -102,46 +104,8 @@ process_ajax_response = (data, url) ->
         "_trackPageview"
         url.replace(/\.json$/, "")
       ]
-    yaCounter7915231.hit url.replace(/\.json$/, "")  if "yaCounter7915231" of window
-  paginate data
+    yaCounter7915231.hit url.replace(/\.json$/, "") if "yaCounter7915231" of window
+
   $content.add(".ajax-opacity").stop(true, false).css "opacity", 1
   $.hideCursorMessage()
   $(".ajax").trigger("ajax:success", data).unbind "ajax:failure"
-
-# pagination
-paginate = (data, postlaoded) ->
-  return unless "Controls" of window
-  if postlaoded
-    $current = Controls.$link_current
-    $current.html $current.html().replace(/-\d+|$/, "-" + data.current_page)
-    Controls.$link_title.html "Страницы"
-  else
-    Controls.$link_title.html "Страница"
-    Controls.$link_current.html data.current_page
-    Controls.$link_total.html data.total_pages
-    Controls.$link_first.attr("href", data.first_page or "").attr "action", data.first_page
-    if data.first_page
-      Controls.$link_first.removeClass "disabled"
-    else
-      Controls.$link_first.addClass "disabled"
-    Controls.$link_prev.attr("href", data.prev_page or "").attr "action", data.prev_page
-
-    if data.prev_page
-      Controls.$link_prev.removeClass "disabled"
-    else
-      Controls.$link_prev.addClass "disabled"
-
-    Controls.$link_last.attr("href", data.last_page or "").attr "action", data.last_page
-    if data.last_page
-      Controls.$link_last.removeClass "disabled"
-    else
-      Controls.$link_last.addClass "disabled"
-
-  Controls.$link_next.attr("href", data.next_page or "").attr "action", data.next_page
-
-  if data.next_page
-    Controls.$link_next.removeClass "disabled"
-  else
-    Controls.$link_next.addClass "disabled"
-
-  Controls.$ajax.trigger "pagination:success"

@@ -1,9 +1,3 @@
-- content_for :head do
-  = stylesheet_link_tag :ani_mangas
-
-- content_for :tail do
-  = javascript_include_tag :ani_mangas
-
 header.head.ajaxable
   h1 itemprop="name"
     = @page_title
@@ -12,44 +6,23 @@ header.head.ajaxable
 
 = render partial: 'animes_collection/pagination', locals: { with_cache: true }
 
-
 .menu-toggler
   .toggler
 
 .menu-slide-outer
   .menu-slide-inner
     .l-content
-      section.ajax.cc
-        = render partial: 'animes_collection/entries'
+      section.ajax.cc data-entries-per-page="#{entries_per_page}"
+        - if @entries.any?
+          = render partial: 'animes_collection/entries'
+        - else
+          p Ничего не найдено.
 
     .l-menu
-      - if user_signed_in?
+      - if user_signed_in? || turbolinks_request?
           = render partial:  'animes_collection/menu', locals: { social: true, klass: klass }
       - else
           .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
             .ajax-loading title="Загрузка..."
 
-/.animes data-entries-per-page="#{entries_per_page}"
-  .left-column-wrap
-    .right-column-wrap
-      .left-column
-        - if user_signed_in?
-          aside.menu-left.loaded
-            = render partial:  'animes_collection/menu', locals: { social: true, klass: klass }
-            /= render 'anime_online/blocks/google120x600'
-        - else
-          aside.menu-left
-            .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
-              .ajax-loading title="Загрузка..."
-            /= render 'anime_online/blocks/google120x600'
-      .right-column
-        section.ajax#ajax
-          - if @entries.any?
-            .cc
-              = render partial: 'animes_collection/entries'
-          - else
-            p Ничего не найдено.
-      .clearfix-full
-
-.bottom-pages.clearfix
-  = render partial: 'animes_collection/pagination', locals: { with_cache: true }
+= render partial: 'animes_collection/pagination', locals: { with_cache: true }

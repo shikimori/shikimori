@@ -27,8 +27,8 @@ class AnimesCollectionController < AniMangasController
       noindex and nofollow
     end
 
-    @description = [] if params_page > 1 && !json?
-    @title_notice = "" if params_page > 1 && !json?
+    @description = [] if params_page > 1 && !turbolinks_request?
+    @title_notice = "" if params_page > 1 && !turbolinks_request?
 
     description @description.join(' ')
     keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])

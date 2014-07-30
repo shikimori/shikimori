@@ -18,7 +18,7 @@ gem 'coffee-rails'
 
 gem 'sass-rails'
 gem 'compass-rails'
-gem 'turbolinks'
+gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
 #gem 'susy'
 
 gem 'uglifier'

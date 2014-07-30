@@ -1,3 +1,8 @@
+@import "compass/css3/transition";
+
+.ajax {
+  @include transition(opacity 0.6s ease);
+}
 .ajax-loading {
   background: transparent inline-image('/globals/ajax.gif') no-repeat;
   background-position: center;
