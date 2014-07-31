@@ -1,4 +1,6 @@
 $(document).on 'page:load', ->
+  return unless document.body.id == 'recommendations_index'
+
   $('body').on 'mouseover', '.b-catalog-entry', ->
     $node = $(@)
     return if $node.hasClass 'entry-ignored'

@@ -2,6 +2,8 @@
 @import mixins/tag
 @import mixins/column
 
+$max-width: 167px
+
 .b-catalog-entry
   max-width: 490px
 
@@ -20,9 +22,7 @@
 
   .cover
     +link-color(#333333)
-    //float: left
     font-size: 12px
-    //width: 170px
     display: block
 
     .image-decor
@@ -32,7 +32,7 @@
       line-height: 0px
       margin-bottom: 5px
       padding: 2.5%
-      max-width: 167px
+      max-width: $max-width
 
       &:hover
         border: 1px solid darken($default-image-hover-background, 6%)
@@ -55,6 +55,7 @@
       display: block
       font-weight: bold
       line-height: $line-height
+      max-width: $max-width
 
     &:hover .title
       text-decoration: underline
@@ -63,6 +64,7 @@
       color: #555
       font-size: 11px
       line-height: 17px
+      max-width: $max-width
 
       span
         +ellipsis
@@ -82,10 +84,6 @@
         padding-right: 0
 
   .content
-    //float: left
-    //margin-left: 30px
-    //width: 289px
-
     .tooltip-details
       padding-top: 5px
 
@@ -98,7 +96,6 @@
 
       &.name
         line-height: 20px
-        //margin-top: 5px
         margin-bottom: 5px
         font-weight: bold
 
@@ -128,13 +125,6 @@
         margin: 5px
 
   &.tooltipped
-    //margin-left: 0
-    //width: 170px
-
-    //.cover
-      float: none
-      display: block
-
     .content
       display: none
       cursor: default
@@ -150,6 +140,7 @@
       background-color: #c2dff2
       border: 1px solid darken(#c2dff2, 6%)
       padding: 4px
+
     a, img
       &:hover img
         background-color: darken(#c2dff2, 6%)
@@ -157,15 +148,3 @@
       &:active img
         background-color: darken(#c2dff2, 9%)
         border: 1px solid darken(darken(#c2dff2, 6%), 9%)
-
-  //&.shortened
-    height: 165px
-    margin-bottom: 20px
-    margin-right: 31px
-
-    //img
-      padding: 4px
-      height: 120px
-
-    //&:nth-child(2n)
-      margin-right: 32px

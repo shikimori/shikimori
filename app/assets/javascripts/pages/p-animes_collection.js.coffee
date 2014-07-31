@@ -1,4 +1,4 @@
-# require social/addthis_widget
+#= require social/addthis_widget
 
 current_page = ->
   document.body.id == 'animes_collection_index' || document.body.id == 'recommendations_index'
