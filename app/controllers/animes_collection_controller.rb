@@ -221,7 +221,7 @@ private
   end
 
   def build_page_title entry_data
-    @page_title = klass.title_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
+    @page_title ||= klass.title_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
     @page_title.sub! 'Лучшие аниме', 'Аниме' if user_signed_in?
   end
 

@@ -6,35 +6,6 @@ if (location.hash == '#_=_') {
 $('button').live('click', function(e) {
   return false;
 });
-$(function() {
-  $('.notifications.unread_count').tipsy({
-    live: true,
-    opacity: 1
-  });
-
-  // отображение flash сообщений от рельс
-  $('p.flash-notice').each(function(k, v) {
-    if (v.innerHTML.length) {
-      $.flash({notice: v.innerHTML});
-    }
-  });
-  $('p.flash-alert').each(function(k, v) {
-    if (v.innerHTML.length) {
-      $.flash({alert: v.innerHTML});
-    }
-  });
-  // сворачиваение всех нужных блоков "свернуть"
-  collapse_collapses($(document));
-
-  process_current_dom();
-
-  if (IS_LOGGED_IN) {
-    window.faye_loader = new FayeLoader();
-    faye_loader.apply();
-  }
-
-  $.form_navigate({size: 250, message: "Вы написали и не сохранили какой-то комментарий! Уверены, что хотите покинуть страницу?"});
-});
 $('.ajax,.slide>div').live('ajax:success', function() {
   process_current_dom();
 });

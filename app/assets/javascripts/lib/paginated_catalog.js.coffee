@@ -52,6 +52,8 @@ class @PaginatedCatalog
     if @is_pages_limit()
       @$ajax.find('.b-postloader').remove()
 
+    process_current_dom()
+
   # наступил ли лимит прокрутки страниц?
   is_pages_limit: ->
     pages = @$link_current.first().html().split("-")

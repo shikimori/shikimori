@@ -32,7 +32,7 @@ class RecommendationsController < AnimesCollectionController
       User.find_by_nickname(SearchHelper.unescape(params[:user])) || User.find_by_id(params[:user])
     end
 
-    @page_title = 'Рекомендации'
+    @page_title = "Рекомендации #{@klass == Anime ? 'аниме' : 'манги'}"
     @title_notice = "На данной странице отображен список #{@klass == Anime ? 'аниме' : 'манги'}, автоматически #{@klass == Anime ? 'подобранных' : 'подобранной'} сайтом, исходя из оценок похожих на вас людей"
 
     @rankings = Recommendations::Fetcher.new(user, @klass, @metric, @threshold).fetch

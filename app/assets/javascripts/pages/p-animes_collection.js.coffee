@@ -39,4 +39,4 @@ init_catalog = ->
 
   # на странице рекомендаций может быть отложенная загрузка страницы
   if $('p.pending').exists()
-    Turbolinks.visit.delay(1000, location.href, true)
+    Turbolinks.visit.delay(5000, location.href, true)

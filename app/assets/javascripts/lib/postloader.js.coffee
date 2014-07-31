@@ -57,3 +57,5 @@ $('.b-postloader').live 'postloader:success', (e, $data) ->
   )).join(', ')
 
   $(@).data 'filtered-data', $data.not(exclude_selector)
+
+  process_current_dom()
