@@ -68,15 +68,16 @@ DEFAULT_LIST_SORT = "ranked"
 
   # клики по меню
   $('.anime-params li', $root).on 'click', (e) ->
-    # игнор средней кнопки мыши
-    return if in_new_tab(e)
+    return if in_new_tab(e) # игнор средней кнопки мыши
+    #return if $(e.target).hasClass('filter') # игнор при клике на филььр
+
     already_selected = $(@).hasClass('selected')
 
     li_info = extract_li_info $(@)
     return true unless li_info
 
     unless already_selected
-      if "type" of e.target and e.target.type is "checkbox"
+      if 'type' of e.target && e.target.type == 'checkbox'
         params.add li_info.type, li_info.value
       else
         params.set li_info.type, li_info.value
@@ -84,32 +85,32 @@ DEFAULT_LIST_SORT = "ranked"
       params.remove li_info.type, li_info.value
 
     change_callback params.compile()
-    false unless "type" of e.target and e.target.type is "checkbox"
+    false unless 'type' of e.target && e.target.type == 'checkbox'
 
   # клики по фильтру группы - плюсику или минусику
-  $('.anime-params-block .block-filter', $root).on "click", (e) ->
+  $('.anime-params-block .block-filter', $root).on 'click', (e) ->
     to_exclude = $(@).hasClass('item-add')
     $(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
-    $(@).closest('.anime-params-block').find("li").map(->
+    $(@).closest('.anime-params-block').find('li').map(->
       extract_li_info $(@)
     ).each (index, li_info) ->
-      data[li_info.type][index] = (if to_exclude then "!" + li_info.value else li_info.value)
+      data[li_info.type][index] = (if to_exclude then '!' + li_info.value else li_info.value)
 
     change_callback params.compile()
     params.parse params.compile()
 
   # клики по фильтру элемента - плюсику или минусику
-  $('.anime-params li .filter', $root).on "click", (e) ->
-    to_exclude = $(@).hasClass("item-add")
-    $(@).removeClass((if to_exclude then "item-add" else "item-minus")).addClass (if not to_exclude then "item-add" else "item-minus")
+  $('.anime-params li', $root).on 'click', '.filter', (e) ->
+    to_exclude = $(@).hasClass('item-add')
+    $(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
     li_info = extract_li_info($(@).parent())
     value_key = _.indexOf(data[li_info.type], (if to_exclude then li_info.value else "!" + li_info.value))
-    data[li_info.type][value_key] = (if to_exclude then "!" + li_info.value else li_info.value)
+    data[li_info.type][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
     change_callback params.compile()
     false
 
   # клики по тегам на странице
-  $('ajax').on 'click', '.type.tag-base,.studio.tag-base,.publisher.tag-base,.genre.tag-base,.season.tag-base', (e) ->
+  $('.ajax').on 'click', '.type.tag-base,.studio.tag-base,.publisher.tag-base,.genre.tag-base,.season.tag-base', (e) ->
     type = $(@).data('type')
     value = String($(@).data('value'))
     $node = $("li.#{type}-#{value}")
@@ -135,19 +136,19 @@ DEFAULT_LIST_SORT = "ranked"
         @set key, value
       else
         data[key].push value
-      $li = $("li." + key + "-" + remove_bang(value), $root)
+      $li = $("li.#{key}-#{remove_bang value}", $root)
 
       # если такого элемента нет, то создаем его
       $li = add_option(key, value)  unless $li.length
 
       # если элемент есть, но скрыт, то показываем его
-      $li.css "display", "block"  if $li.css("display") is "none"
-      $li.addClass "selected"
+      $li.css display: 'block' if $li.css('display') == 'none'
+      $li.addClass 'selected'
 
       # если элемент с чекбоксом, то ставим галочку на чекбокс
-      $input = $li.children("input")
+      $input = $li.children('input')
       if $input.length
-        $input.attr "checked", true
+        $input.attr checked: true
 
         # добавляем или показываем плюсик
         $filter = $li.children(".filter")
@@ -160,26 +161,26 @@ DEFAULT_LIST_SORT = "ranked"
     remove: (key, value) ->
       # т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       value = remove_bang(value)
-      data[key] = _.without(_.without(data[key], value), "!" + value)
-      $li = $("." + key + "-" + value, $root)
-      $li.removeClass "selected"
+      data[key] = _.without(_.without(data[key], value), "!#{value}")
+      $li = $(".#{key}-#{value}", $root)
+      $li.removeClass 'selected'
 
       # снятие галочки с чекбокса
-      $li.children("input").attr "checked", false
+      $li.children('input').attr checked: false
 
       # скрытие плюсика/минусика
-      $li.children(".filter").hide()
+      $li.children('.filter').hide()
 
     # формирование строки урла по выбранным элементам
     compile: ->
       @last_compiled = base_url + _.map(data, (values, key) -> #.replace('/order-by/ranked', '');
         if _.isArray(values)
           if values.length
-            "/" + key + "/" + values.join(",")
+            "/#{key}/#{values.join ','}"
           else
             null
         else
-          "/" + key + "/" + values
+          "/#{key}/#{values}"
       ).join("")
       @last_compiled
 

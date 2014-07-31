@@ -3,8 +3,9 @@
 @import mixins/responsive
 @import mixins/column
 @import mixins/input
+@import mixins/block
 
-.p-animes_collection, .p-mangas_collection
+.p-animes_collection, .p-mangas_collection, .p-recommendations
   .b-catalog-entry
     +gte_ipad
       +bcolumn(4)
@@ -21,68 +22,52 @@
   .l-menu
     .filter
       position: absolute
-      right: 0
+      right: 2px
 
     .menu-block > .filter
       margin-top: 2px
-      margin-right: 3px
 
   .pagination
-    border-bottom: 1px solid #D5D6D7
-    border-top: 1px solid #D5D6D7
-    height: 32px
-    margin: -5px 10px 15px 0px
-    color: #555555
+    clear: both
+    color: #333
+    font-size: 11px
+    font-weight: bold
+    line-height: 20px
+    margin-bottom: 15px
+    margin-top: -5px
+
+    +iphone
+      font-weight: normal
 
     &:last-child
-      margin-top: 20px
+      margin-top: 15px
       margin-bottom: 0
-
-    .links
-      margin: 7px 10px 5px 10px
-      line-height: 17px
 
     .no-hover
       cursor: pointer
+      display: inline-block
+      margin: 0 10px
 
-    li
-      font-size: 11px
-      font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,Helvetica,sans-serif
+      input
+        +input
+        padding: 0
+        margin: 0
+        text-align: center
+        width: 40px
 
-      &.first
-        float: left
+      span
+        padding: 0 3px
 
-      &.last
-        float: right
-
-      &.middle
-        margin-left: auto
-        margin-right: auto
-        width: 310px
-
-        input
-          +input
-          padding: 0
-          margin: 0
-          text-align: center
-          width: 40px
-
-        .link-current
-          border-bottom: 1px solid #333
-    a
-      color: inherit
-      cursor: inherit
-
-    .middle div
-      margin: 0 5px
-      display: inline
+      .link-current
+        border-bottom: 1px solid #333
 
     .link
-      +default-link
+      +normal-link
+      display: inline-block
 
-    .disabled
-      color: #CCCCCC
+      &.disabled
+        color: #999
 
-      &:hover
-        background-color: white
-        cursor: default
+        &:hover
+          cursor: default
+          text-decoration: none

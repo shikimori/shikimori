@@ -5,10 +5,11 @@ class @PaginatedCatalog
     @$link_current = @$pagination.find('.link-current')
     @$link_next = @$pagination.find('.link-next')
     @$link_prev = @$pagination.find('.link-prev')
-    @$link_first = @$pagination.find('.link-first')
-    @$link_last = @$pagination.find('.link-last')
     @$link_total = @$pagination.find('.link-total')
     @$link_title = @$pagination.find('.link-title')
+
+    if @$link_next.hasClass('disabled') && @$link_prev.hasClass('disabled')
+      @$pagination.hide()
 
     entries_per_page = @$ajax.data('entries-per-page')
     entries_per_page_default = 12.0
@@ -25,25 +26,16 @@ class @PaginatedCatalog
     return if in_new_tab(e)
     $link = $(e.target)
 
-    unless $link.hasClass('disabled')
+    if $link.hasClass 'disabled'
+      false
+    else
       $.scrollTo '.head' if $(window).scrollTop() > 400
-      @$ajax.css opacity: 0.3
-      Turbolinks.visit $link.attr('href'), true
-    false
 
   # загружена следующая страница при скролле
   page_loaded: (e, $content, data) =>
     @$link_current.html @$link_current.html().replace(/-\d+|$/, "-" + data.current_page)
     @$link_title.html "Страницы"
     @$link_total.html data.total_pages
-
-    @$link_first.attr
-      href: data.first_page || ""
-      action: data.first_page
-
-    @$link_last.attr
-      href: data.last_page || ""
-      action: data.last_page
 
     @$link_prev.attr
       href: data.prev_page || ""
@@ -53,8 +45,6 @@ class @PaginatedCatalog
       href: data.next_page || ""
       action: data.next_page
 
-    @$link_first.toggleClass 'disabled', !data.first_page
-    @$link_last.toggleClass 'disabled', !data.last_page
     @$link_prev.toggleClass 'disabled', !data.prev_page
     @$link_next.toggleClass 'disabled', !data.next_page
 
@@ -81,27 +71,12 @@ class @PaginatedCatalog
       .focus()
       .on 'blur', => @apply_page false
       .on 'keydown', (e) =>
-        if e.keyCode == 38
-          e.target.value = parseInt(e.target.value) + 1
-
-        else if e.keyCode == 40 && parseInt(e.target.value) > 1
-          e.target.value = parseInt(e.target.value) - 1
-
-        else if e.keyCode == 27
+        if e.keyCode == 27
           @apply_page true
 
       .on 'keypress', (e) =>
         if e.keyCode == 13
           @apply_page false
-
-      .on 'mousewheel', (e) =>
-        if e.originalEvent.wheelDelta && e.originalEvent.wheelDelta > 0 && parseInt(e.target.value) < @page_change.max_value
-          e.target.value = parseInt(e.target.value) + 1
-
-        else if e.originalEvent.wheelDelta && parseInt(e.target.value) > 1
-          e.target.value = parseInt(e.target.value) - 1
-
-        false
 
   # применения выбора страницы
   apply_page: (rollback) ->

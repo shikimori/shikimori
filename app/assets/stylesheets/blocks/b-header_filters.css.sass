@@ -2,17 +2,19 @@
 @import mixins/dash_separated
 @import mixins/hover_underlined
 
-.header-filters
+.b-header_filters
   float: right
   margin-left: 20px
+  max-width: 50%
+  clear: both
 
   .filter-line
     line-height: 17px
     font-size: 12px
 
     a
+      +normal-link
       +dash_separated
-      text-decoration: underline
 
       &.current
         color: #123

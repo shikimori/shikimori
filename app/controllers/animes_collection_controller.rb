@@ -44,8 +44,6 @@ class AnimesCollectionController < AniMangasController
           ),
           current_page: @current_page,
           total_pages: @total_pages,
-          first_page: @first_page,
-          last_page: @last_page,
           next_page: @next_page,
           prev_page: @prev_page,
           title_page: @page_title,
@@ -128,18 +126,14 @@ private
       @total_pages = entries.total_pages == 0 ? 1 : entries.total_pages
     end
     if @current_page == 1
-      @first_page = ''
       @prev_page = ''
     else
-      @first_page = url_for(options.merge(page: nil))
       @prev_page = url_for(options.merge(page: @current_page == 2 ? nil : (@current_page-1)))
     end
 
     if @current_page == @total_pages
-      @last_page = ''
       @next_page = ''
     else
-      @last_page = url_for(options.merge(page: @total_pages))
       @next_page = @current_page < @total_pages ? url_for(options.merge(page: @current_page+1)) : ''
     end
   end

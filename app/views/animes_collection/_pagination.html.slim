@@ -1,0 +1,8 @@
+.pagination
+  a.link.link-prev class="#{:disabled if @prev_page.blank?}" href="#{@prev_page}" ←  Назад
+  .no-hover
+    span.link-title Страница
+    span.link-current = params[:page] || 1
+    span из
+    span.link-total = @total_pages || 1
+  a.link.link-next class="#{:disabled if @next_page.blank?}" href="#{@next_page}" Вперед →

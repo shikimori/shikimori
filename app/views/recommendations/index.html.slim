@@ -1,20 +1,14 @@
-- content_for :head do
-  = stylesheet_link_tag :ani_mangas
-  = stylesheet_link_tag :recommendations
-
-- content_for :tail do
-  = javascript_include_tag :ani_mangas
-  = javascript_include_tag :recommendations
-
 header.head.misc
   h1
     = @page_title
+
   - if @klass == Anime
     a.misc href="#{recommendations_manga_url}" по манге
   - else
     a.misc href="#{recommendations_anime_url}" по аниме
+
   - if user_signed_in?
-    .header-filters.clearfix.pending-loaded
+    .b-header_filters style="#{'display: none;' if @entries.nil?}"
       .filter-line
         span.title Метод:
         /a class="#{:current if @metric == 'pearson'}" href="#{recommendations_url metric: 'pearson', threshold: @threshold, user: params[:user]}" пирсон
@@ -35,6 +29,7 @@ header.head.misc
   .notice
     p Данный раздел предназначен для автоматического подбора рекомендаций к #{@klass == Anime ? 'просмотру' : 'чтению'} на основе вашего списка #{@klass == Anime ? 'аниме' : 'манги'}. Исходя из поставленных вами оценок, находятся другие пользователи сайта, имеющие схожие предпочтения, и на основе их списков составляется каталог того, что возможно было бы вам интересно.
 
+
 - if @rankings && @rankings.empty?
   div
     .comment-block
@@ -51,25 +46,102 @@ header.head.misc
             - else
               p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
 - else
-  div
-    = render partial: 'animes_collection/pagination', locals: { with_cache: true }
 
-  .animes data-entries-per-page="#{entries_per_page}"
-    .left-column-wrap
-      .right-column-wrap
-        .left-column
-          aside.menu-left.loaded
-            = render partial:  'animes_collection/menu', locals: { klass: klass, in_recommendations: true }
-        .right-column
-          section.ajax#ajax
-            - if @rankings
-              = render partial: 'animes/anime', collection: @entries, locals: { cover_notice: :year_kind, content_by: :tooltip }
-              - if @next_page.present?
-                = render partial: 'blocks/postloader', locals: { url: nil, filter: nil }
-            - else
-              p.pending Подбираем для вас рекомендации. Пожалуйста, подождите, процесс может занять некоторое время.
-              .ajax-loading.vk-like.left title="Загрузка..."
-        .clearfix-full
+  = render partial: 'animes_collection/pagination'
 
-  .bottom-pages.clearfix
-    = render partial: 'animes_collection/pagination', locals: { with_cache: true }
+  .menu-toggler
+    .toggler
+
+  .menu-slide-outer
+    .menu-slide-inner
+      .l-content
+        section.ajax.cc data-entries-per-page="#{entries_per_page}"
+          - if @entries.any?
+            = render partial: 'animes_collection/entries'
+          - else
+            p Ничего не найдено.
+
+      .l-menu
+        - if user_signed_in? || turbolinks_request?
+            = render partial:  'animes_collection/menu', locals: { social: true, klass: klass }
+        - else
+            .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
+              .ajax-loading title="Загрузка..."
+
+  = render partial: 'animes_collection/pagination'
+
+  /- content_for :head do
+    /= stylesheet_link_tag :ani_mangas
+    /= stylesheet_link_tag :recommendations
+
+  /- content_for :tail do
+    /= javascript_include_tag :ani_mangas
+    /= javascript_include_tag :recommendations
+
+  /header.head.misc
+    /h1
+      /= @page_title
+    /- if @klass == Anime
+      /a.misc href="#{recommendations_manga_url}" по манге
+    /- else
+      /a.misc href="#{recommendations_anime_url}" по аниме
+    /- if user_signed_in?
+      /.header-filters.clearfix.pending-loaded
+        /.filter-line
+          /span.title Метод:
+          //a class="#{:current if @metric == 'pearson'}" href="#{recommendations_url metric: 'pearson', threshold: @threshold, user: params[:user]}" пирсон
+          /a class="#{:current if @metric == 'pearson_z'}" href="#{recommendations_url metric: 'pearson_z', threshold: @threshold, user: params[:user]}" пирсон_z
+          //a class="#{:current if @metric == 'pearson_mean'}" href="#{recommendations_url metric: 'pearson_mean', threshold: @threshold, user: params[:user]}" пирсон_mean
+          //a class="#{:current if @metric == 'euclid'}" href="#{recommendations_url metric: 'euclid', threshold: @threshold, user: params[:user]}" эвклид
+          /- if @klass == Anime
+            /a class="#{:current if @metric == 'svd'}" href="#{recommendations_url metric: 'svd', threshold: @threshold, user: params[:user]}" svd
+            //a class="#{:current if @metric == 'svd_full'}" href="#{recommendations_url metric: 'svd_full', threshold: @threshold, user: params[:user]}" svd_full
+        /.filter-line
+          /span.title Фильтрация:
+          /a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][0]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][0], user: params[:user]}" нет
+          /a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][1]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][1], user: params[:user]}" слабая
+          /a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][2]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][2], user: params[:user]}" средняя
+          /a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][3]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][3], user: params[:user]}" сильная
+          /- if @klass == Anime
+            /a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][4]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][4], user: params[:user]}" полная
+    /.notice
+      /p Данный раздел предназначен для автоматического подбора рекомендаций к #{@klass == Anime ? 'просмотру' : 'чтению'} на основе вашего списка #{@klass == Anime ? 'аниме' : 'манги'}. Исходя из поставленных вами оценок, находятся другие пользователи сайта, имеющие схожие предпочтения, и на основе их списков составляется каталог того, что возможно было бы вам интересно.
+
+  /- if @rankings && @rankings.empty?
+    /div
+      /.comment-block
+        /.description
+          /p.m3
+            /span.fail Невозможно подобрать рекоменадции.
+            /span &nbsp;Для отображения списка рекомендаций необходимо выполнение двух условий:
+          /ul.m10
+            /li
+              /p регистрация на сайте;
+            /li
+              /- if @klass == Anime
+                /p наличие в вашем списке аниме 20-30 просмотренных и оценённых тайтлов;
+              /- else
+                /p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
+  /- else
+    /div
+      /= render partial: 'animes_collection/pagination', locals: { with_cache: true }
+
+    /.animes data-entries-per-page="#{entries_per_page}"
+      /.left-column-wrap
+        /.right-column-wrap
+          /.left-column
+            /aside.menu-left.loaded
+              /= render partial:  'animes_collection/menu', locals: { klass: klass, in_recommendations: true }
+          /.right-column
+            /section.ajax#ajax
+              /- if @rankings
+                /= render partial: 'animes/anime', collection: @entries, locals: { cover_notice: :year_kind, content_by: :tooltip }
+                /- if @next_page.present?
+                  /= render partial: 'blocks/postloader', locals: { url: nil, filter: nil }
+              /- else
+                /p.pending Подбираем для вас рекомендации. Пожалуйста, подождите, процесс может занять некоторое время.
+                /.ajax-loading.vk-like.left title="Загрузка..."
+          /.clearfix-full
+
+    /.bottom-pages.clearfix
+      /= render partial: 'animes_collection/pagination', locals: { with_cache: true }

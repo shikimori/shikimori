@@ -15,7 +15,7 @@ header.head.misc
     a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
 
   - if params[:similar]
-    .header-filters.clearfix
+    .b-header_filters
       .filter-line
         span.title Список #{@klass == Anime ? 'просмотренного' : 'прочитанного'}:
         - UsersController::Thresholds.each do |threshold|

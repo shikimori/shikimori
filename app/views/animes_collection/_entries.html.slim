@@ -3,7 +3,7 @@
   - kinds_with_colors.each do |data|
     - next unless @entries[data[:kind]]
 
-    .headline class="#{data[:color]}"
+    .headline.m10 class="#{data[:color]}"
       = t "Anime.Plural.#{data[:kind]}"
 
     div

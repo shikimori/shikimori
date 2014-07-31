@@ -4,7 +4,7 @@ header.head.ajaxable
   .notice itemprop="description"
     == @title_notice
 
-= render partial: 'animes_collection/pagination', locals: { with_cache: true }
+= render partial: 'animes_collection/pagination'
 
 .menu-toggler
   .toggler
@@ -25,4 +25,4 @@ header.head.ajaxable
           .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
             .ajax-loading title="Загрузка..."
 
-= render partial: 'animes_collection/pagination', locals: { with_cache: true }
+= render partial: 'animes_collection/pagination'
