@@ -6,6 +6,7 @@ current_page = ->
 $(document).on 'page:restore', ->
   return unless current_page()
 
+  # восстановление плюсика у фильтра в актуальное состояние
   $block_filer = $('.block-filter.item-add')
   $block_list = $block_filer.siblings('.block-list')
   if $block_list.find('.filter').length == $block_list.find('.item-minus').length
@@ -36,7 +37,3 @@ init_catalog = ->
     Turbolinks.visit url, true
     if $('.l-page.menu-expanded').exists()
       $(document).one 'page:change', -> $('.l-page').addClass('menu-expanded')
-
-  # на странице рекомендаций может быть отложенная загрузка страницы
-  if $('p.pending').exists()
-    Turbolinks.visit.delay(5000, location.href, true)

@@ -1,18 +1,19 @@
-- content_for :head do
+/- content_for :head do
   = stylesheet_link_tag :users
-- content_for :tail do
+/- content_for :tail do
   = javascript_include_tag :similar_users
 
 header.head.misc
-  h1 = @page_title
+  h1 style="#{'white-space: nowrap;' if !params[:similar] && user_signed_in?}"
+    = @page_title
 
-  - if params[:similar]
-    - if @klass == Anime
-      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по манге
-    - else
-      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по аниме
-  - elsif user_signed_in?
-    a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
+    - if params[:similar]
+      - if @klass == Anime
+        a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по манге
+      - else
+        a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по аниме
+    - elsif user_signed_in?
+      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
 
   - if params[:similar]
     .b-header_filters
@@ -28,7 +29,7 @@ header.head.misc
     - else
       | В данном разделе представлены все пользователи сайта, отсортированные по дате последнего захода на сайт
 
-.index-list
+.ajax
   - if params[:similar] && @similar_ids.nil?
     p.pending Ищем похожих на вас пользователей. Пожалуйста, подождите, процесс может занять некоторое время.
     .ajax-loading.vk-like.left title="Загрузка..."
@@ -51,5 +52,6 @@ header.head.misc
                 p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
   - else
     = render partial: 'users/user', collection: @users, formats: :html
+
     - if @add_postloader
       = render partial: 'blocks/postloader', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html
