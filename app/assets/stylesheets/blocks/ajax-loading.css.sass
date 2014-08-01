@@ -17,6 +17,9 @@
     //background: transparent inline-image("/globals/ajax-loading.gif") no-repeat
     +background-inline-retina('/globals/ajax-loading', 'gif', 32px, 8px)
     background-position: center
+    @media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3 / 2), all and (min--moz-device-pixel-ratio: 1.5), all and (min-device-pixel-ratio: 1.5)
+      background-position: center
+
     min-height: 21px
 
     &.left
