@@ -1,11 +1,6 @@
 #= require social/addthis_widget
 
-current_page = ->
-  document.body.id == 'animes_collection_index' || document.body.id == 'recommendations_index'
-
-$(document).on 'page:restore', ->
-  return unless current_page()
-
+@on 'page:restore', 'animes_collection_index', 'recommendations_index', ->
   # восстановление плюсика у фильтра в актуальное состояние
   $block_filer = $('.block-filter.item-add')
   $block_list = $block_filer.siblings('.block-list')
@@ -14,9 +9,7 @@ $(document).on 'page:restore', ->
       .removeClass('item-add')
       .addClass('item-minus')
 
-$(document).on 'page:load', ->
-  return unless current_page()
-
+@on 'page:load', 'animes_collection_index', 'recommendations_index', ->
   if $('.l-menu .ajax-loading').exists()
     $('.l-menu').one 'ajax:success', init_catalog
   else
