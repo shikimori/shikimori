@@ -35,6 +35,42 @@ class AnimesDirector < BaseDirector
     redirect!
   end
 
+  def characters
+    noindex && nofollow
+  end
+
+  def similar
+    noindex && nofollow
+  end
+
+  def chronology
+    noindex && nofollow
+  end
+
+  def screenshots
+    noindex && nofollow
+  end
+
+  def videos
+    noindex && nofollow
+  end
+
+  def images
+    noindex && nofollow
+  end
+
+  def files
+    noindex && nofollow
+  end
+
+  def stats
+    noindex && nofollow
+  end
+
+  def recent
+    noindex && nofollow
+  end
+
   def edit
     noindex && nofollow
     case params[:subpage].to_sym

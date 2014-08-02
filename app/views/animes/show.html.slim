@@ -115,7 +115,7 @@ header.head
             .c-screenshots
               - if @director.pages.include? 'screenshots'
                 .subheadline.m10
-                  span.linkeable data-href="#{@entry.page_url :screenshots}" Кадры
+                  span.linkeable data-href="#{@entry.characters_url}" Кадры
                 .cc
                   - @entry.screenshots(5).each_with_index do |image,index|
                     .c-screenshot.m0 class="entry-#{index+1}"
@@ -125,7 +125,7 @@ header.head
             .c-videos
               - if @director.pages.include? 'videos'
                 .subheadline.m10
-                  span.linkeable data-href="#{@entry.page_url :videos}" Видео
+                  span.linkeable data-href="#{@entry.videos_url}" Видео
                 .cc
                   - @entry.videos(5).each_with_index do |video,index|
                     .c-video.m0 class="#{video.hosting} entry-#{index+1}"
@@ -139,7 +139,7 @@ header.head
             - if @entry.roles.main_characters.any?
               .c-characters
                 .subheadline.m10
-                  span.linkeable data-href="#{@entry.page_url :characters}" Главные герои
+                  span.linkeable data-href="#{@entry.characters_url}" Главные герои
                 .cc.m0
                   - @entry.roles.main_characters.each do |role|
                     .c-character.bubbled.b-person[
@@ -158,7 +158,7 @@ header.head
             - if @entry.roles.directors.any?
               .c-people
                 .subheadline.m10
-                  span.linkeable data-href="#{@entry.page_url :characters}" Создатели
+                  span.linkeable data-href="#{@entry.characters_url}" Создатели
                 .cc.m0
                   - @entry.roles.directors.each do |role|
                     .c-person.b-person[
@@ -180,7 +180,7 @@ header.head
           .related
             .b-options-floated.mobile-support
               span.link.selected Напрямую
-              span.link.linkeable data-href="#{@entry.page_url :chronology}" Вся хронология
+              span.link.linkeable data-href="#{@entry.chronology_url}" Вся хронология
             .subheadline.m10 Связанное
             .cc.m0
               - if @entry.related.many?
@@ -194,7 +194,7 @@ header.head
         - if @entry.related.similar.any?
           .similar
             .subheadline.m10
-              span.linkeable data-href="#{@entry.page_url :similar}" Похожее
+              span.linkeable data-href="#{@entry.similar_url}" Похожее
             .cc
               = render partial: 'animes/anime', collection: @entry.related.similar.take(AniMangaPresenter::RelatedPresenter::VISIBLE_RELATED), locals: { columns: 1, cover_notice: :none, content_by: :tooltip }, formats: :html
 

@@ -8,8 +8,40 @@ module AniMangaDecorator::UrlHelpers
     end
   end
 
-  def page_url page
-    h.send "page_#{klass_lower}_url", object, page: page
+  def stats_url
+    h.send "stats_#{klass_lower}_url", object
+  end
+
+  def characters_url
+    h.send "characters_#{klass_lower}_url", object
+  end
+
+  def recent_url
+    h.send "recent_#{klass_lower}_url", object
+  end
+
+  def similar_url
+    h.send "similar_#{klass_lower}_url", object
+  end
+
+  def screenshots_url
+    h.send "screenshots_#{klass_lower}_url", object
+  end
+
+  def videos_url
+    h.send "videos_#{klass_lower}_url", object
+  end
+
+  def images_url
+    h.send "images_#{klass_lower}_url", object
+  end
+
+  def chronology_url
+    h.send "chronology_#{klass_lower}_url", object
+  end
+
+  def files_url
+    h.send "files_#{klass_lower}_url", object
   end
 
   # адрес косплея персонажа

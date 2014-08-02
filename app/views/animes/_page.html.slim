@@ -1,0 +1,19 @@
+.menu-toggler
+  .toggler
+
+header.head
+  meta itemprop="name" content="#{{@entry.name}}"
+  h1 title="#{h1_text @entry}"
+    = h1_text @entry, true
+
+  = render partial: 'blocks/breadcrumbs', object: @director.breadcrumbs, formats: :html
+
+.menu-slide-outer
+  .menu-slide-inner
+    .l-content
+      = yield
+
+    aside.l-menu
+      = render partial: 'animes/menu_right', formats: :html
+
+.clearfix

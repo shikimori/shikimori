@@ -11,7 +11,8 @@ class AnimesController < ShikimoriController
   respond_to :json, only: :autocomplete
   respond_to :html, :json, only: :page
 
-  before_filter :authenticate_user!, only: [:edit]
+  before_action :authenticate_user!, only: [:edit]
+  before_action :fetch_anime
 
   caches_action :page, :characters, :show, :related_all, :cosplay, :tooltip,
     cache_path: proc {
@@ -24,8 +25,43 @@ class AnimesController < ShikimoriController
 
   # отображение аниме или манги
   def show
-    @entry = klass.find(entry_id.to_i).decorate
     @itemtype = @entry.itemtype
+    direct
+  end
+
+  def characters
+    direct
+  end
+
+  def similar
+    direct
+  end
+
+  def chronology
+    direct
+  end
+
+  def screenshots
+    direct
+  end
+
+  def videos
+    direct
+  end
+
+  def images
+    direct
+  end
+
+  def files
+    direct
+  end
+
+  def stats
+    direct
+  end
+
+  def recent
     direct
   end
 
@@ -41,12 +77,6 @@ class AnimesController < ShikimoriController
   def other_names
     @entry ||= klass.find(params[:id].to_i)
     render partial: 'animes/other_names', formats: :html
-  end
-
-  # подстраница аниме или манги
-  def page
-    show
-    render :show unless @director.redirected?
   end
 
   # редактирование аниме
@@ -132,6 +162,10 @@ private
   # класс текущего элемента
   def klass
     @klass ||= Object.const_get(self.class.name.underscore.split('_')[0].singularize.camelize)
+  end
+
+  def fetch_anime
+    @entry = klass.find(entry_id.to_i).decorate if entry_id
   end
 
   def entry_id

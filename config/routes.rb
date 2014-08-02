@@ -336,6 +336,16 @@ Site::Application.routes.draw do
         end
 
         member do
+          get :characters
+          get :similar
+          get :chronology
+          get :screenshots
+          get :videos
+          get :images
+          get :files
+          get :stats
+          get :recent
+
           # связанные
           get 'related/all', action: :related_all
           # другие названия
@@ -347,7 +357,6 @@ Site::Application.routes.draw do
           # редактирование
           patch 'apply'
 
-          get ':page' => "#{kind}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
           get 'edit/:subpage' => "#{kind}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
 
           get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
