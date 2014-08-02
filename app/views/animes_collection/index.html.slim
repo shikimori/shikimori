@@ -25,4 +25,5 @@ header.head.ajaxable
           .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
             .ajax-loading title="Загрузка..."
 
-= render partial: 'animes_collection/pagination'
+/- if user_signed_in? && !current_user.preferences.postload_in_catalog
+  = render partial: 'animes_collection/pagination'

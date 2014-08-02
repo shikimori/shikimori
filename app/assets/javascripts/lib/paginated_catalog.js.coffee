@@ -13,7 +13,7 @@ class @PaginatedCatalog
 
     entries_per_page = @$ajax.data('entries-per-page')
     entries_per_page_default = 12.0
-    @pages_limit = 26 * (entries_per_page_default / entries_per_page)
+    @pages_limit = 18 * (entries_per_page_default / entries_per_page)
 
     @page_change = {}
 
@@ -48,9 +48,9 @@ class @PaginatedCatalog
     @$link_prev.toggleClass 'disabled', !data.prev_page
     @$link_next.toggleClass 'disabled', !data.next_page
 
-    # после pages_limit убираем postloader (слишком много контента на странице оказывается и начинает тормозить)
+    # после pages_limit отключаем postloader (слишком много контента на странице оказывается и начинает тормозить)
     if @is_pages_limit()
-      @$ajax.find('.b-postloader').remove()
+      $content.find('.b-postloader').data locked: true
 
     process_current_dom()
 
@@ -93,11 +93,7 @@ class @PaginatedCatalog
         .filter(':not(.disabled)')
         .first()
 
-      $link
-        .attr
-          href: $link.attr('href').replace(/\/\d+$/, "/#{value}")
-        .trigger('click')
-
+      Turbolinks.visit $link.attr('href').replace(/\/\d+$/, "/#{value}")
       @page_change.$input.parent().html value
 
     @page_change.$input = null

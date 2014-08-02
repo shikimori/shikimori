@@ -70,4 +70,9 @@ class UserPreferences < ActiveRecord::Base
   def update_sorting(order)
     update_attribute(:default_sort, order) if default_sort != order
   end
+
+  # TODO: выпилить это поле из базы и из кода
+  def postload_in_catalog?
+    postload_in_catalog
+  end
 end
