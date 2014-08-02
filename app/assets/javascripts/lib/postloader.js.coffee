@@ -1,6 +1,8 @@
+$ ->
+  $('.b-postloader').appear()
+
 # динамическая подгрузка контента по мере прокрутки страницы
-$(".b-postloader").appear()
-$(".b-postloader").live 'click appear', ->
+$(document).on 'click appear', '.b-postloader', ->
   $postloader = $(@)
   return if $postloader.data('locked')
 
@@ -12,7 +14,7 @@ $(".b-postloader").live 'click appear', ->
   $.getJSON url, (data) ->
     $data = $('<div>').append data.content
 
-    # передаём в колбек данные, а затем трём элемент
+    filter_present_entries $postloader, $data, $(@).data('filter')
     $postloader.trigger 'postloader:success', [$data, data]
     $postloader.replaceWith $data.children()
 
@@ -20,8 +22,7 @@ $(".b-postloader").live 'click appear', ->
     $postloader.data locked: false
 
 # удаляем уже имеющиеся подгруженные элементы
-$('.b-postloader').live 'postloader:success', (e, $data) ->
-  filter = $(@).data('filter') || 'comment'
+filter_present_entries = ($postloader, $new_entries, filter) ->
   regex = new RegExp("#{filter}-\\d+")
   $present_entries = $(".#{filter}-block")
 
@@ -29,4 +30,4 @@ $('.b-postloader').live 'postloader:success', (e, $data) ->
     ".#{match[0]}" if match = v.className.match(regex)
   )).join(', ')
 
-  $data.children().filter(exclude_selector).remove()
+  $new_entries.children().filter(exclude_selector).remove()

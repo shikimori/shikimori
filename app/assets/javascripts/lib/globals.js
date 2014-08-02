@@ -10,51 +10,6 @@ $('.ajax,.slide>div').live('ajax:success', function() {
   process_current_dom();
 });
 
-// обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
-function process_current_dom() {
-  // нормализуем ширину всех огромных картинок
-  $('img.check-width').normalizeImage({
-    'class': 'check-width',
-    'fancybox': $.galleryOptions
-  });
-
-  // стена картинок
-  $('.wall').shikiWall();
-
-  // редакторы
-  $('.shiki-editor').shikiEditor();
-
-  // то, что должно превратиться в ссылки
-  $('.linkeable').wrap(function() {
-    var $this = $(this);
-    $this.removeClass('linkeable').addClass('linkeable-processed');
-    return '<a href="' + $this.data('href') + '" title="' + ($this.data('title') || $this.html()) + '" />';
-  });
-
-  // блоки, загружаемые аяксом
-  $('.postloaded[data-href]').each(function() {
-    var $this = $(this);
-    if (!$this.is(':visible')) {
-      return;
-    }
-    $this.load($this.data('href'), function() {
-      $this.trigger('ajax:success');
-    });
-    $this.attr('data-href', null);
-  });
-
-
-  // инициализация подгружаемых тултипов
-  $('.anime-tooltip')
-    .tooltip(ANIME_TOOLTIP_OPTIONS)
-    .removeClass('anime-tooltip');
-
-  $('.bubbled')
-    .addClass('bubbled-initialized')
-    .removeClass('bubbled')
-    .tooltip($.extend({offset: [-35, 10]}, tooltip_options));
-}
-
 // сворачиваение всех нужных блоков "свернуть"
 function collapse_collapses($root) {
   _.each(($.cookie("collapses") || "").replace(/;$/, '').split(';'), function(v, k) {

@@ -34,3 +34,40 @@ $(document).on 'page:fetch', ->
 
 $(document).on 'page:restore', ->
   $('.ajax').css opacity: 1
+
+# обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
+@process_current_dom = ->
+  # нормализуем ширину всех огромных картинок
+  $('img.check-width').normalizeImage
+    class: "check-width"
+    fancybox: $.galleryOptions
+
+  # стена картинок
+  $('.wall').shikiWall()
+
+  # редакторы
+  $('.shiki-editor').shikiEditor()
+
+  # то, что должно превратиться в ссылки
+  $('.linkeable').wrap ->
+    $this = $(@)
+    $this.removeClass('linkeable').addClass 'linkeable-processed'
+    "<a href='#{$this.data 'href'}' title='#{$this.data("title") || $this.html()}' />"
+
+  # блоки, загружаемые аяксом
+  $('.postloaded[data-href]').each ->
+    $this = $(@)
+    return unless $this.is(':visible')
+    $this.load $this.data('href'), ->
+      $this.trigger 'ajax:success'
+
+    $this.attr 'data-href', null
+
+  # инициализация подгружаемых тултипов
+  $('.anime-tooltip').tooltip(ANIME_TOOLTIP_OPTIONS).removeClass 'anime-tooltip'
+  $('.bubbled').addClass('bubbled-initialized').removeClass('bubbled').tooltip $.extend(
+    offset: [
+      -35
+      10
+    ]
+  , tooltip_options)
