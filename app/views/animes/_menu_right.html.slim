@@ -3,55 +3,55 @@
   ul.block-list.sections
     li.slider-control.slider-control-info.info
       - if params[:page] == 'info'
-        span.link data-href="#{@entry.url}" Главное
+        span.linkeable data-href="#{@entry.url}" Главное
       - else
         a href="#{@entry.url}" title="Общая информация по #{{@entry.name}}" Главное
 
     - if @director.pages.include? 'stats'
       li.slider-control.slider-control-stats.stats
-        span.link data-href="#{@entry.page_url :stats}" Статистика
+        span.linkeable data-href="#{@entry.page_url :stats}" Статистика
       li.slider-control.slider-control-recent.hidden
-        span.link data-href="#{@entry.page_url :recent}"
+        span.linkeable data-href="#{@entry.page_url :recent}"
 
     - if @director.pages.include? 'characters'
       li.slider-control.slider-control-characters.characters
-        span.link data-href="#{@entry.page_url :characters}" Персонажи
+        span.linkeable data-href="#{@entry.page_url :characters}" Персонажи
 
     - if @director.pages.include? 'similar'
       li.slider-control.slider-control-similar.similar
-        span.link data-href="#{@entry.page_url :similar}"
+        span.linkeable data-href="#{@entry.page_url :similar}"
           = @entry.anime? ? 'Похожие аниме' : 'Похожая манга'
 
     - if @director.pages.include? 'chronology'
       li.hidden.slider-control.slider-control-chronology.chronology
-        span.link data-href="#{@entry.page_url :chronology}"
+        span.linkeable data-href="#{@entry.page_url :chronology}"
 
     - if @entry.cosplay.characters.any?
       li.slider-control.slider-control-cosplay.cosplay
-        span.link data-href="#{@entry.cosplay_url :all}" Косплей
+        span.linkeable data-href="#{@entry.cosplay_url :all}" Косплей
 
     li.slider-control.slider-control-reviews.reviews-index style="#{'display: none;' unless @entry.reviews?}"
       - if params[:page] == 'reviews' || !@entry.reviews?
-        span.link data-href="#{@entry.reviews_url}" Обзоры
+        span.linkeable data-href="#{@entry.reviews_url}" Обзоры
       - else
         a href="#{@entry.reviews_url}" title="Обзоры #{{@entry.name}}" Обзоры
 
     - if @director.pages.include? 'screenshots'
       li.slider-control.slider-control-screenshots.screenshots
-        span.link data-href="#{@entry.page_url :screenshots}" Кадры
+        span.linkeable data-href="#{@entry.page_url :screenshots}" Кадры
 
     - if @director.pages.include? 'videos'
       li.slider-control.slider-control-videos.videos
-        span.link data-href="#{@entry.page_url :videos}" Видео
+        span.linkeable data-href="#{@entry.page_url :videos}" Видео
 
     - if @director.pages.include? 'images'
       li.slider-control.slider-control-images.images
-        span.link data-href="#{@entry.page_url :images}"
+        span.linkeable data-href="#{@entry.page_url :images}"
           = @entry.tags.blank? ? 'Галерея': 'Картинки с имиджборд'
 
     - if @director.pages.include? 'files'
       li.slider-control.slider-control-files.files
-        span.link data-href="#{@entry.page_url :files}" Файлы
+        span.linkeable data-href="#{@entry.page_url :files}" Файлы
 
 - if user_signed_in?
   .menu-block.actions
@@ -61,7 +61,7 @@
         span Комментировать
 
       li.slider-control.slider-control-reviews-edit.reviews-edit
-        span.link data-href="#{@entry.new_review_url}" Написать обзор
+        a href="#{@entry.new_review_url}" Написать обзор
 
       li.fav-add style="#{'display: none;' if @entry.favoured?}"
         span.favourite-add data-remote="true" action="#{favourites_url @entry.object.class.name, @entry}" data-method="post" data-type="json" Добавить в избранное
@@ -76,24 +76,24 @@
     .subheadline Редактирование
     ul.block-list
       li.edit-description.slider-control.slider-control-edit-description
-        span.link data-href="#{@entry.edit_url :description}" Описание
+        span.linkeable data-href="#{@entry.edit_url :description}" Описание
 
       li.edit-russian.slider-control.slider-control-edit-russian
-        span.link data-href="#{@entry.edit_url :russian}" Русское название
+        span.linkeable data-href="#{@entry.edit_url :russian}" Русское название
 
       - if @entry.anime?
         li.edit-screenshots.slider-control.slider-control-edit-screenshot
-          span.link data-href="#{@entry.edit_url :screenshot}" Кадры
+          span.linkeable data-href="#{@entry.edit_url :screenshot}" Кадры
 
         li.edit-videos.slider-control.slider-control-edit-videos
-          span.link data-href="#{@entry.edit_url :videos}" Видео
+          span.linkeable data-href="#{@entry.edit_url :videos}" Видео
 
         - if user_signed_in? && current_user.admin?
           li.edit-torrents_name.slider-control.slider-control-edit-torrents_name
-            span.link data-href="#{@entry.edit_url :torrents_name}" Название на торрентах
+            span.linkeable data-href="#{@entry.edit_url :torrents_name}" Название на торрентах
 
       /li.edit-links.slider-control.slider-control-edit-links
-        span.link data-href="#{@entry.edit_url :links}" Ссылки
+        span.linkeable data-href="#{@entry.edit_url :links}" Ссылки
 
       li.edit-cancel
         span Отмена

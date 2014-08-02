@@ -5,7 +5,7 @@
 #= require pages/forum/faye
 #= require pages/forum/rate
 #= require pages/forum/index
-#= require pages/ani_manga/raphael/raphael
-#= require pages/ani_manga/raphael/popup
-#= require pages/ani_manga/raphael/anime_chart
+#= require pages/animes/raphael/raphael
+#= require pages/animes/raphael/popup
+#= require pages/animes/raphael/anime_chart
 #= require_tree ./social

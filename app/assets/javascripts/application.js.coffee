@@ -1,6 +1,7 @@
+#= require pages/p-users-index
+#= require pages/p-animes
 #= require pages/p-animes_collection-index
 #= require pages/p-recommendations-index
-#= require pages/p-users-index
 
 $ ->
   $(document).trigger 'page:load'
