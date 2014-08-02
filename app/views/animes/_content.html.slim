@@ -24,13 +24,13 @@ p.text itemprop="description"
         = publisher.name
 
 - if anime.respond_to?(:episodes) && (anime.episodes > 0 || anime.episodes_aired > 0)
-  = render partial: 'ani_mangas/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
+  = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
 
 - if anime.respond_to?(:volumes) && anime.volumes > 0
-  = render partial: 'ani_mangas/aired_chapters', locals: { entry: anime, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
+  = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
 
 - if anime.respond_to?(:chapters) && anime.chapters > 0
-  = render partial: 'ani_mangas/aired_chapters', locals: { entry: anime, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
+  = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
 
 .data
   span.local-title Жанры:

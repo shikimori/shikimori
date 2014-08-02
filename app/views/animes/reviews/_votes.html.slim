@@ -2,21 +2,21 @@ div.votes
   div.vote-block
     p.vote-title Сюжет
     div.rate-block.scores-user
-      = render partial: 'ani_mangas/rate', locals: { key: 'storyline', value: review.storyline, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
+      = render partial: 'animes/rate', locals: { key: 'storyline', value: review.storyline, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
     - if defined?(edit) && edit
       = hidden_field_tag 'review[storyline]', review.storyline
 
   div.vote-block
     p.vote-title Персонажи
     div.rate-block.scores-user
-      = render partial: 'ani_mangas/rate', locals: { key: 'characters', value: review.characters, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
+      = render partial: 'animes/rate', locals: { key: 'characters', value: review.characters, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
     - if defined?(edit) && edit
       = hidden_field_tag 'review[characters]', review.characters
 
   div.vote-block
     p.vote-title Рисовка
     div.rate-block.scores-user
-      = render partial: 'ani_mangas/rate', locals: { key: 'animation', value: review.animation, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
+      = render partial: 'animes/rate', locals: { key: 'animation', value: review.animation, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
     - if defined?(edit) && edit
       = hidden_field_tag 'review[animation]', review.animation
 
@@ -24,13 +24,13 @@ div.votes
     div.vote-block
       p.vote-title Звуковой ряд
       div.rate-block.scores-user
-        = render partial: 'ani_mangas/rate', locals: { key: 'music', value: review.music, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
+        = render partial: 'animes/rate', locals: { key: 'music', value: review.music, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
       - if defined?(edit) && edit
         = hidden_field_tag 'review[music]', review.music
 
   div.vote-block
     p.vote-title Итоговая оценка
     div.rate-block.scores-user
-      = render partial: 'ani_mangas/rate', locals: { key: 'overall', value: review.overall, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
+      = render partial: 'animes/rate', locals: { key: 'overall', value: review.overall, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
     - if defined?(edit) && edit
       = hidden_field_tag 'review[overall]', review.overall

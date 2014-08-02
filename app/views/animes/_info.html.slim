@@ -29,7 +29,7 @@
           .anime-info.block
             .subheadline Информация
             .subcontent
-              = render partial: 'ani_mangas/common_info', locals: { entry: @entry, details: true }, formats: :html
+              = render partial: 'animes/common_info', locals: { entry: @entry, details: true }, formats: :html
 
             - if @entry.anime? && !@entry.anons?
               .block
@@ -48,14 +48,14 @@
                 meta itemprop="bestRating" content="10"
                 meta itemprop="ratingValue" content="#{@entry.score}"
                 meta itemprop="ratingCount" content="#{(@entry.mal_scores.sum/37).to_i}"
-                = render partial: 'ani_mangas/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
+                = render partial: 'animes/rate', locals: { key: 'site', value: @entry.score, outer_class: 'rated' }, formats: :html
 
           - if @entry.genres.any?
             .block
               .subheadline
                 = @entry.genres.size > 1 ? 'Жанры' : 'Жанр'
               .subcontent
-                = render partial: 'ani_mangas/genres_info', locals: { entry: @entry }, formats: :html
+                = render partial: 'animes/genres_info', locals: { entry: @entry }, formats: :html
 
           - if @entry.respond_to?(:studios) && @entry.studios.any?
             .block

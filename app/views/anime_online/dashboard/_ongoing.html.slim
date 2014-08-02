@@ -5,7 +5,7 @@
       span.title
         == localized_name anime
     .misc
-      = render partial: 'ani_mangas/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }
+      = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }
     .misc
       span.key Жанры:&nbsp;
       - anime.main_genres.each do |genre|

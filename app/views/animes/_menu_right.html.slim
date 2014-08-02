@@ -146,13 +146,13 @@
     .subheadline
       a.link href="#{subsection_url @entry.thread}" Форум
     ul.block-list
-      = render partial: 'ani_mangas/menu_topic', collection: @entry.topics, as: :topic
+      = render partial: 'animes/menu_topic', collection: @entry.topics, as: :topic
 
 - if @entry.news.any?
   .menu-block.menu-topics-block.history.m30 data-remote="#{episode_torrents_anime_url @entry}"
     .subheadline Новости
     ul.block-list
-      = render partial: 'ani_mangas/menu_topic', collection: @entry.news, as: :topic, locals: { with_tooltip: true }
+      = render partial: 'animes/menu_topic', collection: @entry.news, as: :topic, locals: { with_tooltip: true }
 
 - if show_social?
   .menu-block

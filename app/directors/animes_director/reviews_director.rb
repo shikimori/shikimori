@@ -1,4 +1,4 @@
-class AniMangasDirector::ReviewsDirector < AniMangasDirector
+class AniMangasDirector::ReviewsDirector < AnimesDirector
   alias_method :base_show, :show
 
   def initialize(*args)

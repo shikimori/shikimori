@@ -1,4 +1,4 @@
-class AniMangasController::ReviewsController < AniMangasController
+class AnimesController::ReviewsController < AnimesController
   alias_method :base_show, :show
   before_filter :authenticate_user!, :only => [:new, :edit, :update, :create, :destroy]
   before_filter :base_show

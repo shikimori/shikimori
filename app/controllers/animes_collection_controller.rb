@@ -1,5 +1,5 @@
 # TODO: отрефакторить толстый контроллер
-class AnimesCollectionController < AniMangasController
+class AnimesCollectionController < ShikimoriController
   helper_method :klass, :entries_per_page
   caches_action :index, :menu, CacheHelper.cache_settings
 

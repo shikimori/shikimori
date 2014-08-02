@@ -1,4 +1,4 @@
-class AniMangasDirector < BaseDirector
+class AnimesDirector < BaseDirector
   include UsersHelper
 
   page :info
@@ -157,6 +157,6 @@ private
   end
 
   def view_root
-    'ani_mangas'
+    'animes'
   end
 end

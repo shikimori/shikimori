@@ -4,7 +4,7 @@ attribute name: :value
 
 node :label do |item|
   render_to_string({
-      partial: 'ani_mangas/suggest',
+      partial: 'animes/suggest',
       formats: :html,
       layout: false,
       locals: {

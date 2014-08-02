@@ -1,7 +1,7 @@
 - if user_signed_in? && current_user.ignores?(topic.user)
   = render partial: 'blocks/ignored', object: topic, formats: :html
 - elsif topic.review? && !topic.preview?
-  = render partial: 'ani_mangas/reviews/review', object: topic.linked, locals: { topic: topic }, formats: :html
+  = render partial: 'animes/reviews/review', object: topic.linked, locals: { topic: topic }, formats: :html
 - else
   article.topic-block class="topic-#{topic.id} #{' preview' if topic.preview?}#{' height-unchecked' if topic.should_shorten?}" data-id="#{topic.id}"
     a name="topic-#{topic.id}"

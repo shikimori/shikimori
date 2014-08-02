@@ -63,15 +63,15 @@ class CharacterDecorator < PersonDecorator
   end
 
   def animes
-    @animes ||= ani_mangas :animes
+    @animes ||= animes :animes
   end
 
   def mangas
-    @mangas ||= ani_mangas :mangas
+    @mangas ||= animes :mangas
   end
 
 private
-  def ani_mangas kind
+  def animes kind
     object.send(kind).sort_by {|v| v.aired_on || v.released_on || DateTime.new(2001) }
   end
 end

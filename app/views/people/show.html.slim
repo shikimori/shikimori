@@ -28,6 +28,6 @@ header.head
       = @entry.occupation
     .ajax
       - @entry.works.each do |work|
-        = render partial: 'ani_mangas/related', object: work[:entry], locals: { info: format_person_role(work[:role], full: true), clearfix: false }, formats: :html
+        = render partial: 'animes/related', object: work[:entry], locals: { info: format_person_role(work[:role], full: true), clearfix: false }, formats: :html
 
   .clearfix-full

@@ -16,14 +16,14 @@ aside.left-column.menu-block
   .menu-block
     .subheadline Информация
     .subblock-content
-      = render partial: 'ani_mangas/common_info', locals: { entry: @entry, details: true }, formats: :html
+      = render partial: 'animes/common_info', locals: { entry: @entry, details: true }, formats: :html
 
   - if @entry.genres.any?
     .menu-block
       .subheadline
         = @entry.genres.size > 1 ? 'Жанры' : 'Жанр'
       .subblock-genres.subblock-content
-        = render partial: 'ani_mangas/genres_info', locals: { entry: @entry }, formats: :html
+        = render partial: 'animes/genres_info', locals: { entry: @entry }, formats: :html
 
 .right-column.menu-block
   .subheadline.m5 Описание

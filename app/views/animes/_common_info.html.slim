@@ -5,7 +5,7 @@
       span.value
         = localized_kind entry
 
-  = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
+  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
     p
@@ -19,8 +19,8 @@
       span.value itemprop="#{entry.kind == 'Movie' ? 'duration' : ''}"
         = humanize_minutes entry.duration
 
-  = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
-  = render partial: 'ani_mangas/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
+  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
+  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
 
   - unless entry.status.blank?
     p
