@@ -16,6 +16,10 @@ class CharacterDecorator < PersonDecorator
     end
   end
 
+  def description_html_truncated
+    h.truncate_html(description_html, length: 300, separator: ' ', word_boundary: /\S[\.\?\!]/).html_safe
+  end
+
   def description_mal
     if object.description_mal.present?
       h.format_html_text(object.description_mal).html_safe
@@ -63,15 +67,15 @@ class CharacterDecorator < PersonDecorator
   end
 
   def animes
-    @animes ||= animes :animes
+    @animes ||= ani_mangas :animes
   end
 
   def mangas
-    @mangas ||= animes :mangas
+    @mangas ||= ani_mangas :mangas
   end
 
 private
-  def animes kind
+  def ani_mangas kind
     object.send(kind).sort_by {|v| v.aired_on || v.released_on || DateTime.new(2001) }
   end
 end

@@ -12,6 +12,7 @@ module AniMangaHelper
       ]).html_safe
   end
 
+  # TODO: выпилить
   def ani_manga_description entry, length=nil
     text = if entry.description.blank?
       entry.description_mal

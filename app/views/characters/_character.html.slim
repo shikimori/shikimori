@@ -1,8 +1,11 @@
-article.b-catalog-entry(class="entry-#{character.id} #{:tooltipped if content_by == :tooltip}" itemscope itemtype="http://schema.org/Person")
+article.b-catalog-entry.c-character[
+    class="entry-#{character.id} #{:tooltipped if content_by == :tooltip}"
+    itemscope itemtype="http://schema.org/Person"
+  ]
   meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url character.image, :x64, false}}"
 
-  a.cover class="#{'uninitialized-tooltip' if content_by == :tooltip}" href="#{character_url character}" data-local-tooltip="true"
+  a.cover class="#{'anime-tooltip' if content_by == :tooltip}" href="#{character_url character}" data-local-tooltip="true"
     span.image-decor
       span.image-cutter
         img src="#{character.image.url :original}" alt="#{localized_name character}" title="#{localized_name character}"
@@ -15,4 +18,5 @@ article.b-catalog-entry(class="entry-#{character.id} #{:tooltipped if content_by
       = render partial: 'blocks/tooltip', locals: { template_name: 'characters/content', objects: { character: character } }, formats: :html
     - elsif content_by == :block
       = render partial: 'characters/content', object: character, as: :character, formats: :html
-    - else raise ArgumentError, content_by
+    - else
+      - raise ArgumentError, content_by

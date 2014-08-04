@@ -1,7 +1,7 @@
 - cover_by = (json? || user_signed_in?) ? :link : :linkeable
 
 article.b-catalog-entry[
-    class="entry-#{anime.id} #{:tooltipped if content_by == :tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
+    class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} #{:tooltipped if content_by == :tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
     itemscope itemtype="#{{anime.itemtype}}"
   ]
   meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"

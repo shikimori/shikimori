@@ -30,6 +30,8 @@ class AnimesController < ShikimoriController
   end
 
   def characters
+    @character_roles = @entry.roles.characters.select {|v| !v[:character].nil? }.map {|v| v[:role] }.uniq.sort
+    @person_roles = @entry.roles.people
     direct
   end
 

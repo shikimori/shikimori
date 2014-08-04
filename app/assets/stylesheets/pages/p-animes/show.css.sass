@@ -4,7 +4,7 @@
 @import mixins/column
 @import compass/utilities/general/clearfix
 
-.p-animes .info, .p-mangas .info
+.p-animes-show, .p-mangas-show
   //+clearfix
 
   // columns media
@@ -147,18 +147,19 @@
     +iphone-landscape
       +bcolumn(5)
 
-  .b-catalog-entry
-    +gte_ipad
-      +bcolumn(7)
-    +iphone-portrait
-      +bcolumn(3)
-      &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
-        display: none
+  .related, .similar
+    .c-anime, .c-manga
+      +gte_ipad
+        +bcolumn(7)
+      +iphone-portrait
+        +bcolumn(3)
+        &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
+          display: none
 
-    +iphone-landscape
-      +bcolumn(5)
-      &:nth-child(6), &:nth-child(7)
-        display: none
+      +iphone-landscape
+        +bcolumn(5)
+        &:nth-child(6), &:nth-child(7)
+          display: none
 
   .anime-image
     margin-bottom: 5px
@@ -227,6 +228,9 @@
   .b-catalog-entry
     .image-decor
       padding: 0
+
+    .title
+      text-align: center
 
   .video_screen_previews
     +clearfix

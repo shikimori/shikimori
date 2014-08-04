@@ -7,11 +7,11 @@
       = t "Anime.Plural.#{data[:kind]}"
 
     div
-      = render partial: 'animes/anime', collection: @entries[data[:kind]], locals: { columns: 4, cover_notice: :studio, content_by: :tooltip, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie') }, formats: :html
+      = render partial: 'animes/anime', collection: @entries[data[:kind]], locals: { cover_notice: :studio, content_by: :tooltip, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie') }, formats: :html
     .clearfix
 
 - else
-  = render partial: 'animes/anime', collection: @entries, locals: { columns: 4, cover_notice: :year_kind, content_by: :tooltip }, formats: :html
+  = render partial: 'animes/anime', collection: @entries, locals: { cover_notice: :year_kind, content_by: :tooltip }, formats: :html
 
   /- if !user_signed_in? || current_user.preferences.postload_in_catalog
   - if @next_page.present?

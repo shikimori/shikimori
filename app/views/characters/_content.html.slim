@@ -1,5 +1,10 @@
-p.m5
-  span.local-title itemprop="name" = character.name
+.data.name
+  - if !defined?(cover_by) || cover_by != :link
+    a.data.name href="#{character_url character}" title="#{localized_name character}" itemprop="name"
+      = localized_name character
+  - else
+    .linkeable data-href="#{character_url character}" data-title="#{localized_name character}"
+      = localized_name character
 
 p.m5 itemprop="description"
-  == ani_manga_description character
+  = character.decorate.description_html_truncated
