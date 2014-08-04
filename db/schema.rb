@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140629212852) do
+ActiveRecord::Schema.define(version: 20140804092344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -301,7 +301,6 @@ ActiveRecord::Schema.define(version: 20140629212852) do
     t.string  "ip",               null: false
   end
 
-  add_index "contest_user_votes", ["contest_match_id", "ip"], name: "index_contest_user_votes_on_contest_vote_id_and_ip", unique: true, using: :btree
   add_index "contest_user_votes", ["contest_match_id", "item_id"], name: "index_contest_user_votes_on_contest_vote_id_and_item_id", using: :btree
   add_index "contest_user_votes", ["contest_match_id", "user_id"], name: "index_contest_user_votes_on_contest_vote_id_and_user_id", unique: true, using: :btree
   add_index "contest_user_votes", ["contest_match_id"], name: "index_contest_user_votes_on_contest_vote_id", using: :btree
@@ -391,13 +390,6 @@ ActiveRecord::Schema.define(version: 20140629212852) do
   end
 
   add_index "danbooru_tags", ["name", "kind"], name: "index_danbooru_tags_on_name_and_kind", using: :btree
-
-  create_table "dc_bot_messages", force: true do |t|
-    t.text     "text"
-    t.boolean  "processed",  default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "devices", force: true do |t|
     t.integer  "user_id",    null: false

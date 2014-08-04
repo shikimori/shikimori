@@ -39,6 +39,7 @@
               a.action href="#{propose_contest_url contest}" data-method="post" Начать приём кандидатов от пользователей
 
             - if contest.can_stop_propose?
+              a.action href="#{cleanup_suggestions_contest_url contest}" data-method="post" Очистить голоса пользователей от накруток
               a.action href="#{stop_propose_contest_url contest}" data-method="post" Остановить приём кандидатов от пользователей
 
             - if contest.can_start?

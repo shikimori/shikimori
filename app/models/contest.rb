@@ -53,6 +53,16 @@ public
         update_attribute :updated_at, DateTime.now
       end
     end
+
+    state :proposing do
+      # очистка голосов от накруток
+      def cleanup_suggestions!
+        suggestions
+          .joins(:user)
+          .merge(User.suspicious)
+          .destroy_all
+      end
+    end
     state :started
     state :finished
 

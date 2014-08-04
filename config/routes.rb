@@ -384,6 +384,7 @@ Site::Application.routes.draw do
         post :build
         post :propose
         post :stop_propose
+        post :cleanup_suggestions
 
         get :grid
         get 'rounds/:round', action: 'show', as: 'round'

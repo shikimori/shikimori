@@ -113,6 +113,12 @@ class User < ActiveRecord::Base
   # personal message from me
   after_create :send_welcome_message unless Rails.env.test?
 
+  scope :suspicious, -> {
+    where('sign_in_count < 7')
+      .where('users.id not in (select distinct(user_id) from comments)')
+      .where('users.id not in (select distinct(user_id) from user_rates)')
+  }
+
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
 
   GuestID = 5
