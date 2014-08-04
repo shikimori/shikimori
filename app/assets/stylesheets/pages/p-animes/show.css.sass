@@ -1,12 +1,10 @@
+@import compass/utilities/general/clearfix
 @import globals
-@import mixins/comma_separated
 @import mixins/block
 @import mixins/column
-@import compass/utilities/general/clearfix
+@import mixins/comma_separated
 
 .p-animes-show, .p-mangas-show
-  //+clearfix
-
   // columns media
   .c-image
     +gte_ipad
@@ -139,14 +137,6 @@
       .c-person
         +column(2)
 
-  .c-character, .c-person
-    +gte_ipad
-      +bcolumn(7)
-    +iphone-portrait
-      +bcolumn(3)
-    +iphone-landscape
-      +bcolumn(5)
-
   .related, .similar
     .c-anime, .c-manga
       +gte_ipad
@@ -224,13 +214,6 @@
 
   .related-hidden
     display: none
-
-  .b-catalog-entry
-    .image-decor
-      padding: 0
-
-    .title
-      text-align: center
 
   .video_screen_previews
     +clearfix

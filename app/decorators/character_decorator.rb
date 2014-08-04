@@ -17,7 +17,7 @@ class CharacterDecorator < PersonDecorator
   end
 
   def description_html_truncated
-    h.truncate_html(description_html, length: 300, separator: ' ', word_boundary: /\S[\.\?\!]/).html_safe
+    h.truncate_html(description_html, length: 300, separator: ' ', word_boundary: /\S[\.\?\!<>]/).html_safe
   end
 
   def description_mal

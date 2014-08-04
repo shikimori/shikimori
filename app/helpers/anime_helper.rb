@@ -143,7 +143,7 @@ module AnimeHelper
       else
         BbCodeFormatter.instance.format_comment person.description.blank? ? person.description_mal : person.description
       end
-      text += truncate_html description, :length => 350, :separator => ' ', word_boundary: /\S[\.\?\!]/
+      text += truncate_html description, :length => 350, :separator => ' ', word_boundary: /\S[\.\?\!<>]/
     end
     text += "</div>"
     #text += "<div class=\"tooltip-restrictions\">This video is available for Anime Members only.</div>"

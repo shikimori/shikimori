@@ -1,1 +1,18 @@
 //= require_directory ./p-animes
+@import mixins/column
+
+.p-animes, .p-mangas
+  .b-catalog-entry
+    .image-decor
+      padding: 0
+
+    .title
+      text-align: center
+
+  .c-character, .c-person
+    +gte_ipad
+      +bcolumn(7)
+    +iphone-portrait
+      +bcolumn(3)
+    +iphone-landscape
+      +bcolumn(5)

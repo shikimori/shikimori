@@ -134,15 +134,14 @@ header.head
                         p.marker
                           = video.kind
 
-        - if @entry.roles.main_characters.any? || @entry.roles.directors.any?
+        - if @entry.roles.main_characters.any? || @entry.roles.main_people.any?
           .cc.m0 class="#{@entry.roles.grouping_class}"
             - if @entry.roles.main_characters.any?
               .c-characters
                 .subheadline.m10
                   span.linkeable data-href="#{@entry.characters_url}" Главные герои
                 .cc.m0
-                  - @entry.roles.main_characters.each do |role|
-                    = render partial: 'characters/character', object: role.character, locals: { content_by: :tooltip }, formats: :html
+                  = render partial: 'characters/character', collection: @entry.roles.main_characters, locals: { content_by: :tooltip }, formats: :html
                     /.c-character.bubbled.b-person[
                         itemscope itemtype="http://schema.org/Person" itemprop="actors"
                         data-offset-left="-5" data-href="#{character_tooltip_url role.character}"
@@ -155,12 +154,12 @@ header.head
                       a.name itemprop="url" href="#{character_url role.character}" title="#{localized_name role.character}"
                         = localized_name role.character
 
-            - if @entry.roles.directors.any?
+            - if @entry.roles.main_people.any?
               .c-people
                 .subheadline.m10
                   span.linkeable data-href="#{@entry.characters_url}" Создатели
                 .cc.m0
-                  - @entry.roles.directors.each do |role|
+                  - @entry.roles.main_people.each do |role|
                     .c-person.b-person[
                         itemscope
                         itemtype="http://schema.org/Person" itemprop="#{role.role.include?('Director') ? 'director' : (role.role.include?('Producer') ? 'producer' : 'none')}"

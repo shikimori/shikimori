@@ -1,2 +1,13 @@
 = render layout: 'animes/page' do |f|
-  | characters
+  .block.m0
+    h2.subheadline.m10 = t 'Role.Main'
+    .cc
+      = render partial: 'characters/character', collection: @entry.roles.main_characters, locals: { content_by: :tooltip }, formats: :html
+
+  .block.m0
+    .b-options-floated.collapse
+      span.action свернуть (#{@entry.roles.supporting_characters.size})
+    h2.subheadline.m10 = t 'Role.Main'
+    .collapsed.tiny ...
+    .cc
+      = render partial: 'characters/character', collection: @entry.roles.supporting_characters, locals: { content_by: :tooltip }, formats: :html

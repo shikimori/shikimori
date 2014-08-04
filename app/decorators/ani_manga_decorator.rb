@@ -91,7 +91,7 @@ class AniMangaDecorator < BaseDecorator
 
   # презентер с ролями аниме
   def roles
-    AniMangaPresenter::RolesPresenter.new object, h
+    RolesDecorator.new object
   end
 
   # презентер связанных аниме
