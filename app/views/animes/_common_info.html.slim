@@ -83,3 +83,29 @@
       span.value
         span.other-names.click-loader data-href="#{send "other_names_#{entry.object.class.name.downcase}_url", entry}"
           span ...
+
+  - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
+    .additional-links
+      .key У #{I18n.t("Genetive.#{entry.object.class.name}").downcase}:
+      - if entry.reviews_count > 0
+        span.link
+          = "#{entry.reviews_count} #{Russian.p entry.reviews_count, 'рецензия', 'рецензиии', 'рецензиий'}"
+
+      - if entry.comment_reviews_count > 0
+        span.link
+          = "#{entry.comment_reviews_count} #{Russian.p entry.comment_reviews_count, 'отзыв', 'отзыва', 'отзывов'}"
+
+      - if entry.comments_count > 0 && entry.comments_count != entry.comment_reviews_count
+        span.link
+          = "#{entry.comments_count} #{Russian.p entry.comments_count, 'комментарий', 'комментария', 'комментариев'}"
+
+    .additional-links
+      - if entry.cosplay.galleries.any?
+        span.link Косплей
+        /= "#{entry.cosplay.galleries.size} #{Russian.p entry.cosplay.galleries.size, 'галерея косплея', 'галереи косплея', 'галерей косплея'}"
+
+      - if entry.cosplay.galleries.any?
+        span.link Арт с имиджборд
+
+      - if entry.cosplay.galleries.any?
+        span.link Файлы

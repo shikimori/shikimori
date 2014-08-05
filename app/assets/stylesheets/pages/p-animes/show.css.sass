@@ -3,6 +3,7 @@
 @import mixins/block
 @import mixins/column
 @import mixins/comma_separated
+@import mixins/clear_left
 
 .p-animes-show, .p-mangas-show
   // columns media
@@ -40,7 +41,7 @@
       clear: left
 
   .c-description
-    margin-left: 33.3%
+    margin-left: 34.6%
     padding-top: 1px // из-за странной баги в фаерфоксе
 
     +iphone
@@ -189,19 +190,21 @@
           line-height: 20px
 
   .additional-links
-    +clearfix
-    max-width: 230px
+    +clear_left
+    margin-top: 10px
 
     .key
       float: left
-      margin-left: 5px
       color: $gray-color
 
-    .link-reviews, .link-comments, .link-comment-reviews
+    .link
       +comma_separated
       +normal-link
       float: left
       margin-left: 5px
+
+      &:first-child
+        margin-left: 0
 
   .being-translated
     margin-top: 2px
@@ -307,6 +310,9 @@
 
     .add-to-list
       +normal-link
+
+      +lte_ipad
+        line-height: 2
 
     .buttons
       position: absolute

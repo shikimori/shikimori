@@ -24,6 +24,7 @@ $(document).on 'page:load', ->
 
   # сворачиваение всех нужных блоков "свернуть"
   collapse_collapses $(document)
+  console.log 'process_current_dom'
   process_current_dom()
 
   if IS_LOGGED_IN && !window.faye_loader
@@ -31,10 +32,11 @@ $(document).on 'page:load', ->
     faye_loader.apply()
 
 $(document).on 'page:fetch', ->
-  $('.ajax').css opacity: 0.3
+  $ajax = $('.ajax')
+  (if $ajax.length then $ajax else $('.l-content')).css opacity: 0.3
 
 $(document).on 'page:restore', ->
-  $('.ajax').css opacity: 1
+  $('.ajax, .l-content').css opacity: 1
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 @process_current_dom = ->

@@ -25,7 +25,7 @@ class ShikimoriController < ApplicationController
 
   # создание директора
   def direct object=nil
-    klass = "#{self.class.name.sub(/Controller$/, '').sub(/Controller::/, 'Director::')}Director".constantize
+    klass = "#{self.class.name.sub(/Controller$/, '').sub(/Controller::/, 'Director::').sub(/^Mangas$/, 'Animes')}Director".constantize
     director = klass.new(self)
     director.send params[:action]
     director

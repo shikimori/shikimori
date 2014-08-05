@@ -3,6 +3,7 @@
 $(document).on 'page:change', ->
   return if document.body.className.indexOf('p-animes') == -1
 
+  console.log 'process_menu'
   # подсветка нужного пункта в меню
   $(".slider-control a[href='#{location.href}']")
     .closest('.slider-control')

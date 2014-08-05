@@ -101,7 +101,7 @@ class AniMangaDecorator < BaseDecorator
 
   # презентер косплея
   def cosplay
-    AniMangaPresenter::CosplayPresenter.new object, h
+    CosplayDecorator.new object
   end
 
   # число коментариев

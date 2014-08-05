@@ -6,6 +6,11 @@ header.head
   h1 title="#{h1_text @entry}"
     = h1_text @entry, true
 
+  /- if params[:page] != 'cosplay'
+  /- else
+    h2.h1-like title="#{h1_text @entry}"
+      = h1_text @entry, true
+
   = render partial: 'blocks/breadcrumbs', object: @director.breadcrumbs, formats: :html
 
 .menu-slide-outer
@@ -15,5 +20,3 @@ header.head
 
     aside.l-menu
       = render partial: 'animes/menu_right', formats: :html
-
-.clearfix

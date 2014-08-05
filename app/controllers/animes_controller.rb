@@ -115,19 +115,19 @@ class AnimesController < ShikimoriController
     case params[:type]
       when 'torrents'
         data = anime.torrents
-        title = 'Торренты %s' % anime.name
+        title = "Торренты #{anime.name}"
 
       when 'torrents_480p'
         data = anime.torrents_480p
-        title = 'Серии 480p %s' % anime.name
+        title = "Серии 480p #{anime.name}"
 
       when 'torrents_720p'
         data = anime.torrents_720p
-        title = 'Серии 720p %s' % anime.name
+        title = "Серии 720p #{anime.name}"
 
       when 'torrents_1080p'
         data = anime.torrents_1080p
-        title = 'Серии 1080p %s' % anime.name
+        title = "Серии 1080p #{anime.name}"
 
       when 'subtitles'
         if anime.subtitles.include? params[:group]
@@ -135,7 +135,7 @@ class AnimesController < ShikimoriController
         else
           data = []
         end
-        title = 'Субтитры %s' % anime.name
+        title = "Субтитры #{anime.name}"
     end
 
     feed = RSS::Maker.make("2.0") do |feed|
