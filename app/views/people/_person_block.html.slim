@@ -1,0 +1,22 @@
+.people.index-item
+  .image-name
+    = link_to self.send(@director.entry_url_builder, person) do
+      img.image src="#{person.image.url(:preview)}" alt="#{localized_name person}" title="#{localized_name person}"
+    = link_to localized_name(person), self.send(@director.entry_url_builder, person), :class => :name
+
+  .info
+    ul.block-list.updates
+      - person.last_works.each do |entry|
+        li
+          a.bubbled href="#{url_for entry}"
+            - if entry.aired_on || entry.released_on
+              span.date
+                = (entry.aired_on || entry.released_on).year
+            span.event
+              = localized_name entry
+    .char-ani-block
+      - if person.best_works.any? && person.best_works.first.class == Character
+        - person.best_works.each do |character|
+          = render partial: 'blocks/person', locals: { person: character, role: nil, link_to_character: true, no_seyu: true, no_tooltip: true, remote: :character_tooltip_url }, formats: :html
+      - else
+        = render partial: 'blocks/ani_manga', collection: person.best_works, formats: :html

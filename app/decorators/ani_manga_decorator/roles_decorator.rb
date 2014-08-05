@@ -6,16 +6,24 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
     object.person_roles.any?
   end
 
-  # авторы аниме
+  # главные участники проекта
   def main_people
     object
-      .person_roles
-      .directors
+      .person_roles.directors
       .references(:people)
       .where.not(people: { name: nil })
       .select { |v| !(v.role.split(',') & ['Director', 'Original Creator', 'Story & Art', 'Story', 'Art']).empty? }
       .uniq { |v| v.person.name }
-      .sort_by(&:role)
+      .map {|v| RoleEntry.new v.person, v.role }
+      .sort_by(&:formatted_role)
+  end
+
+  # все участники проекта
+  def people
+    object
+      .person_roles.people
+      .map {|v| RoleEntry.new v.person, v.role }
+      .sort_by(&:formatted_role)
   end
 
   # главные персонажи аниме
@@ -38,10 +46,6 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
     end
   end
 
-  def person_roles
-    object.roles.people
-  end
-
 private
   def characters role
     object
@@ -52,29 +56,5 @@ private
         .map(&:character)
         .uniq
         .sort_by(&:name)
-  end
-  #def characters
-    #main_ids = object.person_roles.main.pluck(:character_id)
-
-    #object
-        #.characters
-        #.includes(:seyu)
-        #.select {|v| v.name.present? }
-        #.sort_by(&:name)
-        #.map do |v|
-      #{
-        #role: main_ids.include?(v.id) ? 'Main' : 'Supporting',
-        #character: v,
-        #character_id: v.id
-      #}
-    #end
-  #end
-
-  def people
-    object
-      .person_roles
-      .people
-      .order("people.name")
-      .select { |v| !v.person.nil? }
   end
 end

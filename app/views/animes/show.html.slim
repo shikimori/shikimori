@@ -159,21 +159,7 @@ header.head
                 .subheadline.m10
                   span.linkeable data-href="#{@entry.characters_url}" Создатели
                 .cc.m0
-                  - @entry.roles.main_people.each do |role|
-                    .c-person.b-person[
-                        itemscope
-                        itemtype="http://schema.org/Person" itemprop="#{role.role.include?('Director') ? 'director' : (role.role.include?('Producer') ? 'producer' : 'none')}"
-                        data-offset-left="-5" data-href="#{person_tooltip_url role.person}"
-                      ]
-                      meta itemprop="image" content="#{{attachment_url role.person.image, :preview, false}}"
-                      meta itemprop="name" content="#{{role.person.name}}"
-                      .linkeable data-href="#{person_url role.person}" data-title="#{{role.person.name}}"
-                        center
-                          img.bubbled src="#{role.person.image.url :preview}" srcset="#{role.person.image.url} 2x" alt="#{{role.person.name}}" title="#{{role.person.name}}" data-href="#{person_tooltip_url role.person}" data-offset-left="-5"
-                      a.name itemprop="url" href="#{person_url role.person}" title="#{{role.person.name}}"
-                        == role.person.name
-                      span.role itemprop="jobTitle"
-                        == role.role != '' ? format_person_role(role.role) : '&nbsp;'
+                  = render partial: 'people/person', collection: @entry.roles.main_people, formats: :html
 
         - if @entry.related.any?
           .related

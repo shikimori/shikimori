@@ -13,7 +13,7 @@ span.image-decor
   a.title href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
     = localized_name anime
 
-.misc
+span.misc
   - if cover_notice == :studio
     - if anime.real_studios.any?
       span.studio = anime.real_studios.first.name

@@ -2,7 +2,7 @@ object nil
 
 node :content do
   render_to_string({
-    partial: 'people/person',
+    partial: 'people/person_block',
     collection: @people,
     layout: false,
     formats: :html

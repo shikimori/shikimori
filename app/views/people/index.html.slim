@@ -10,6 +10,6 @@ header.head.m15
   p Ничего не найдено.
 
 .index-list.people
-  = render partial: 'people/person', collection: @people, formats: :html
+  = render partial: 'people/person_block', collection: @people, formats: :html
   - if @add_postloader
     = render partial: 'blocks/postloader', locals: { url: send(@director.entry_search_url_builder, search: params[:search], page: @page+1, format: :json) }, formats: :html
