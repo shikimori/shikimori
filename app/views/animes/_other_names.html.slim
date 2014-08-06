@@ -1,15 +1,15 @@
-- unless !@entry.japanese || @entry.japanese.empty?
+- unless !@resource.japanese || @resource.japanese.empty?
   p
     span.key По-японски:&nbsp;
     span.anime-alt itemprop="alternativeHeadline"
-      == @entry.japanese.join(', ')
-- unless !@entry.english || @entry.english.empty?
+      == @resource.japanese.join(', ')
+- unless !@resource.english || @resource.english.empty?
   p
     span.key По-английски:&nbsp;
     span.anime-alt itemprop="alternativeHeadline"
-      == @entry.english.join(', ')
-- unless !@entry.synonyms || @entry.synonyms.empty?
+      == @resource.english.join(', ')
+- unless !@resource.synonyms || @resource.synonyms.empty?
   p
     span.key Прочие:&nbsp;
     span.anime-alt itemprop="alternativeHeadline"
-      == @entry.synonyms.join(', ')
+      == @resource.synonyms.join(', ')

@@ -71,7 +71,7 @@ class AniMangaQuery
 
   def complete
     search!
-    search_order(@query.limit AutocompleteLimit).reverse
+    search_order(@query.limit AUTOCOMPLETE_LIMIT).reverse
   end
 
   # сортировка по параметрам

@@ -1,81 +1,59 @@
 class AnimesController < ShikimoriController
-  include ActionView::Helpers::TextHelper
-  include EntriesHelper
-  include ActionView::Helpers::DateHelper
-  include ApplicationHelper
-  include AniMangaHelper
-
-  AutocompleteLimit = 14
-
   respond_to :html, only: [:show, :tooltip, :related_all]
   respond_to :json, only: :autocomplete
   respond_to :html, :json, only: :page
 
   before_action :authenticate_user!, only: [:edit]
-  before_action :fetch_anime
+  before_action :fetch_resource
+  before_action :breadcrumbs, if: -> { @resource }
+  before_action :check_redirect, if: -> { @resource }
 
   caches_action :page, :characters, :show, :related_all, :cosplay, :tooltip,
     cache_path: proc {
       id = params[:anime_id] || params[:manga_id] || params[:id]
-      @entry ||= klass.find(id.to_i)
-      "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@entry.updated_at.to_i}|#{@entry.thread.updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
+      @resource ||= klass.find(id.to_i)
+      "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@resource.updated_at.to_i}|#{@resource.thread.updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
     },
     unless: proc { user_signed_in? },
     expires_in: 2.days
 
   # отображение аниме или манги
   def show
-    @itemtype = @entry.itemtype
-    direct
+    @itemtype = @resource.itemtype
   end
 
   def characters
-    direct
-  end
-
-  def similar
-    direct
-  end
-
-  def chronology
-    direct
-  end
-
-  def screenshots
-    direct
-  end
-
-  def videos
-    direct
-  end
-
-  def images
-    direct
   end
 
   def files
-    direct
   end
 
-  def stats
-    direct
+  def similar
+  end
+
+  def chronology
+  end
+
+  def screenshots
+  end
+
+  def videos
+  end
+
+  def images
   end
 
   def recent
-    direct
   end
+
 
   # все связанные элементы с аниме/мангой
   def related_all
-    @entry = klass.find(entry_id.to_i).decorate
-    direct
-
     render partial: 'animes/related_all', formats: :html unless @director.redirected?
   end
 
   # все связанные элементы с аниме/мангой
   def other_names
-    @entry ||= klass.find(params[:id].to_i)
     render partial: 'animes/other_names', formats: :html
   end
 
@@ -93,13 +71,13 @@ class AnimesController < ShikimoriController
 
   # торренты к эпизодам аниме
   def episode_torrents
-    @entry = klass.find(params[:id].to_i).decorate
-    render json: @entry.files.episodes_data
+    @resource = klass.find(params[:id].to_i).decorate
+    render json: @resource.files.episodes_data
   end
 
   # тултип
   def tooltip
-    @entry = klass.find params[:id].to_i
+    @resource = klass.find params[:id].to_i
     direct
   end
 
@@ -164,15 +142,31 @@ private
     @klass ||= Object.const_get(self.class.name.underscore.split('_')[0].singularize.camelize)
   end
 
-  def fetch_anime
-    @entry = klass.find(entry_id.to_i).decorate if entry_id
+  def fetch_resource
+    @resource = klass.find(resource_id.to_i).decorate if resource_id
   end
 
-  def entry_id
-    params[:anime_id] || params[:manga_id] || params[:id]
+  # хлебные крошки
+  def breadcrumbs
+    if @resource.anime?
+      breadcrumb 'Список аниме', animes_url
+      breadcrumb 'Сериалы', animes_url(type: @resource.kind) if @resource.kind == 'TV'
+      breadcrumb 'Полнометражные', animes_url(type: @resource.kind) if @resource.kind == 'Movie'
+    else
+      breadcrumb 'Список манги', mangas_url
+    end
+
+    if @resource.aired_on && [Time.zone.now.year + 1, Time.zone.now.year, Time.zone.now.year - 1].include?(@resource.aired_on.year)
+      breadcrumb "#{@resource.aired_on.year} год", send("#{@resource.object.class.name.downcase.pluralize}_url", season: @resource.aired_on.year)
+    end
+
+    if @resource.genres.any?
+      breadcrumb UsersHelper.localized_name(@resource.main_genre, current_user), send("#{@resource.object.class.name.downcase.pluralize}_url", genre: @resource.main_genre.to_param)
+    end
   end
+
   ## часть заголовка с названием текущего элемента
   #def entry_title
-    #"#{@entry.russian_kind} #{HTMLEntities.new.decode(@entry.name)}"
+    #"#{@resource.russian_kind} #{HTMLEntities.new.decode(@resource.name)}"
   #end
 end

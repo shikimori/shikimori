@@ -1,8 +1,8 @@
-.item-editor-container data-kind="#{@entry.object.class.name.downcase}"
-  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase, with_source: true }, formats: :html
+.item-editor-container data-kind="#{@resource.object.class.name.downcase}"
+  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@resource.object.class.name.downcase}_url", @resource), item_name: @resource.object.class.name.downcase, with_source: true }, formats: :html
   .subheadline Изменение описания
-  - if @entry.changes.locked?
-    p.alert Описание #{@entry.anime? ? 'этого аниме' : 'этой манги'} в данный момент готовится пользователем <a href="#{user_url @entry.changes.lock.user}">#{@entry.changes.lock.user.nickname}</a>. Ваша правка может не быть принята!
-  = render partial: 'blocks/editor/textarea', locals: { item: @entry, field: :description }, formats: :html
+  - if @resource.changes.locked?
+    p.alert Описание #{@resource.anime? ? 'этого аниме' : 'этой манги'} в данный момент готовится пользователем <a href="#{user_url @resource.changes.lock.user}">#{@resource.changes.lock.user.nickname}</a>. Ваша правка может не быть принята!
+  = render partial: 'blocks/editor/textarea', locals: { item: @resource, field: :description }, formats: :html
   .no-change-details
-    = render partial: 'blocks/editor/changes', locals: { changes: @entry.changes[:description], moderation: true }, formats: :html
+    = render partial: 'blocks/editor/changes', locals: { changes: @resource.changes[:description], moderation: true }, formats: :html

@@ -81,7 +81,7 @@
     p
       span.key Альтернативные названия:&nbsp;
       span.value
-        span.other-names.click-loader data-href="#{send "other_names_#{entry.object.class.name.downcase}_url", entry}"
+        span.other-names.click-loader data-href="#{entry.other_names_url}"
           span ...
 
   - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
@@ -99,13 +99,14 @@
         span.link
           = "#{entry.comments_count} #{Russian.p entry.comments_count, 'комментарий', 'комментария', 'комментариев'}"
 
+  - if entry.files? || entry.cosplay.galleries.any? || entry.tags.present?
     .additional-links
       - if entry.cosplay.galleries.any?
         span.link Косплей
         /= "#{entry.cosplay.galleries.size} #{Russian.p entry.cosplay.galleries.size, 'галерея косплея', 'галереи косплея', 'галерей косплея'}"
 
-      - if entry.cosplay.galleries.any?
+      - if entry.tags.present?
         span.link Арт с имиджборд
 
-      - if entry.cosplay.galleries.any?
-        span.link Файлы
+      - if entry.files?
+        span.link.linkeable data-href="#{entry.files_url}" Файлы

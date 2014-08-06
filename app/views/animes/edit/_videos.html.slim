@@ -1,5 +1,5 @@
-.item-editor-container.videos data-kind="#{@entry.object.class.name.downcase}"
-  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@entry.object.class.name.downcase}_url", @entry), item_name: @entry.object.class.name.downcase }, formats: :html
+.item-editor-container.videos data-kind="#{@resource.object.class.name.downcase}"
+  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@resource.object.class.name.downcase}_url", @resource), item_name: @resource.object.class.name.downcase }, formats: :html
   .subheadline Добавление нового ролика
   .subcontent.item-content-editor.m30
     = simple_form_for Video.new, remote: true, 'data-type' => :json, authenticity_token: true do |f|
@@ -8,12 +8,12 @@
       = f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false
       = f.input :name
 
-  - if @entry.videos.any? || @entry.changes[:videos].any?
+  - if @resource.videos.any? || @resource.changes[:videos].any?
     .videos
       .subheadline Изменение видео роликов
       .subcontent
         .videos-list.expanded
-          = render partial: 'videos/video', collection: @entry.videos, locals: { entry: @entry, expanded: true, with_deletion: true }, formats: :html
+          = render partial: 'videos/video', collection: @resource.videos, locals: { entry: @resource, expanded: true, with_deletion: true }, formats: :html
 
   .no-change-details
-    = render partial: 'blocks/editor/changes', locals: { changes: @entry.changes[:video], moderation: true }, formats: :html
+    = render partial: 'blocks/editor/changes', locals: { changes: @resource.changes[:video], moderation: true }, formats: :html

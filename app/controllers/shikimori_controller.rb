@@ -1,4 +1,21 @@
 class ShikimoriController < ApplicationController
+  def check_redirect
+    if resource_id != @resource.to_param
+      redirect_to url_for(params.merge('id' => @resource.to_param))
+      false
+    end
+  end
+
+  def resource_id
+    @resource_id ||= params["#{self.class.name.underscore.sub(/_controller$/, '')}_id"] || params[:id]
+  end
+
+  # заполнение хлебных крошек
+  def breadcrumb title, url
+    @breadcrumbs ||= {}
+    @breadcrumbs[title] = url
+  end
+
   def noindex
     set_meta_tags noindex: true
   end

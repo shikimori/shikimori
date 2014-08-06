@@ -143,6 +143,11 @@ class AniMangaDecorator < BaseDecorator
     ChronologyQuery.new(object, true).fetch
   end
 
+  # показывать ли блок файлов
+  def files?
+    h.user_signed_in? && anime? && !anons? && display_sensitive?
+  end
+
   # показывать ли ссылки, если аниме или манга для взрослых?
   def display_sensitive?
     !object.censored? ||

@@ -1,6 +1,6 @@
 class DanbooruTagsQuery
   include CompleteQuery
-  AutocompleteLimit = 30
+  AUTOCOMPLETE_LIMIT = 30
 
   def initialize params
     @search = SearchHelper.unescape params[:search]

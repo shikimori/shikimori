@@ -1,6 +1,6 @@
 class UsersQuery
   include CompleteQuery
-  AutocompleteLimit = 10
+  AUTOCOMPLETE_LIMIT = 10
 
   def initialize params
     @params = params

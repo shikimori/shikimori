@@ -78,6 +78,10 @@ module AniMangaDecorator::UrlHelpers
     "http://myanimelist.net/#{klass_lower}/#{object.id}"
   end
 
+  def other_names_url
+    h.send "other_names_#{klass_lower}_url", object
+  end
+
   # урл страницы с отзывами
   def comments_reviews_url
     h.model_comments_path commentable_type: thread.class.name.underscore, commentable_id: thread.id, offset: 0, limit: 15, review: 'review'
