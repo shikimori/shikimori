@@ -1,5 +1,4 @@
 = render layout: 'animes/page' do |f|
-  .similar
-    .subheadline = @resource.anime? ? 'Похожие аниме' : 'Похожая манга'
-    .cc
-    = render partial: 'animes/anime', collection: @resource.related.simiar, locals: { cover_notice: :relation, content_by: :tooltip }, formats: :html
+  .subheadline.m10 = @resource.anime? ? 'Похожие аниме' : 'Похожая манга'
+  .cc-3_of_4
+    = render partial: 'animes/anime', collection: @resource.related.similar, locals: { cover_notice: :year_kind, content_by: :tooltip }, formats: :html

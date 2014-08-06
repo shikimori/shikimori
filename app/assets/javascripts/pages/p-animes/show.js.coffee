@@ -1,4 +1,4 @@
-@on 'page:load', 'animes_show', ->
+@on 'page:load', 'animes_show', 'mangas_show', ->
   $('.rating.notice').tipsy gravity: 's'
   $('.status-date.notice').tipsy gravity: 's'
   $('.screenshot').fancybox $.galleryOptions

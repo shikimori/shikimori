@@ -2,13 +2,6 @@
 @import mixins/column
 
 .p-animes, .p-mangas
-  .b-catalog-entry
-    .image-decor
-      padding: 0
-
-    .title
-      text-align: center
-
   .c-character, .c-person
     +gte_ipad
       +bcolumn(7)
@@ -16,3 +9,20 @@
       +bcolumn(3)
     +iphone-landscape
       +bcolumn(5)
+
+  .c-screenshot, .c-video
+    img
+      max-width: 100%
+
+    +gte_ipad
+      +column(5, 1/5, 1.5%)
+
+    +iphone-portrait
+      +column(2)
+      &.entry-3, &.entry-4, &.entry-5
+        display: none
+
+    +iphone-landscape
+      +column(3)
+      &.entry-4, &.entry-5
+        display: none

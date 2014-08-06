@@ -1,0 +1,6 @@
+= render layout: 'animes/page' do |f|
+  .subheadline.m10 Кадры
+  .cc
+    = render @resource.screenshots
+
+= render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:screenshots), field: 'screenshots' }

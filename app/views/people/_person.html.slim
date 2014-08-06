@@ -1,5 +1,5 @@
-article.b-catalog-entry.c-person[
-    class="entry-#{person.id}"
+article.c-column.b-catalog-entry.c-person[
+    class="entry-#{person.id} #{:minified if defined? cover_minified}"
     itemscope itemtype="http://schema.org/Person"
     itemprop="#{person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')}"
   ]

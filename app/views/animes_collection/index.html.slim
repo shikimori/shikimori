@@ -11,14 +11,13 @@ header.head.ajaxable
 
 .menu-slide-outer
   .menu-slide-inner
-    .l-content
-      section.ajax.cc data-entries-per-page="#{entries_per_page}"
-        - if @entries.any?
-          = render partial: 'animes_collection/entries'
-        - else
-          p Ничего не найдено.
+    section.l-content.cc-3_of_4 data-entries-per-page="#{entries_per_page}"
+      - if @entries.any?
+        = render partial: 'animes_collection/entries'
+      - else
+        p Ничего не найдено.
 
-    .l-menu
+    aside.l-menu
       - if user_signed_in? || turbolinks_request?
           = render partial:  'animes_collection/menu', locals: { social: true, klass: klass }
       - else

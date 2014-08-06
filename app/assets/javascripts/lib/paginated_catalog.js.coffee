@@ -1,6 +1,6 @@
 class @PaginatedCatalog
   constructor: ->
-    @$ajax = $('.ajax')
+    @$ajax = $('.l-content')
     @$pagination = $('.pagination')
     @$link_current = @$pagination.find('.link-current')
     @$link_next = @$pagination.find('.link-next')

@@ -83,7 +83,7 @@ class Anime < ActiveRecord::Base
     foreign_key: :owner_id,
     dependent: :destroy
 
-  has_many :screenshots, -> { where(status: nil).order(:position, :id) }
+  has_many :screenshots, -> { where(status: nil).order(:position, :id) }, inverse_of: :anime
   has_many :all_screenshots, class_name: Screenshot.name, dependent: :destroy
 
   has_many :videos, -> { where(state: 'confirmed').order(:id) }

@@ -85,23 +85,6 @@
         &.entry-4, &.entry-5
           display: none
 
-  .c-screenshot, .c-video
-    img
-      max-width: 100%
-
-    +gte_ipad
-      +column(5, 1/5, 1.5%)
-
-    +iphone-portrait
-      +column(2)
-      &.entry-3, &.entry-4, &.entry-5
-        display: none
-
-    +iphone-landscape
-      +column(3)
-      &.entry-4, &.entry-5
-        display: none
-
   .four-characters
     +gte_ipad
       .c-characters, .c-people
@@ -138,19 +121,18 @@
       .c-person
         +column(2)
 
-  .related, .similar
-    .c-anime, .c-manga
-      +gte_ipad
-        +bcolumn(7)
-      +iphone-portrait
-        +bcolumn(3)
-        &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
-          display: none
+  .c-anime, .c-manga
+    +gte_ipad
+      +bcolumn(7)
+    +iphone-portrait
+      +bcolumn(3)
+      &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
+        display: none
 
-      +iphone-landscape
-        +bcolumn(5)
-        &:nth-child(6), &:nth-child(7)
-          display: none
+    +iphone-landscape
+      +bcolumn(5)
+      &:nth-child(6), &:nth-child(7)
+        display: none
 
   .anime-image
     margin-bottom: 5px

@@ -4,6 +4,7 @@ class AniMangaDecorator < BaseDecorator
 
   TopicsPerPage = 4
   NewsPerPage = 12
+  VISIBLE_RELATED = 7
 
   instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
   instance_cache :is_favoured, :favoured, :rate, :thread, :comments, :changes, :roles, :related, :cosplay
@@ -89,17 +90,17 @@ class AniMangaDecorator < BaseDecorator
     AniMangaPresenter::ChangesPresenter.new object, h
   end
 
-  # презентер с ролями аниме
+  # объект с ролями аниме
   def roles
     RolesDecorator.new object
   end
 
   # презентер связанных аниме
   def related
-    AniMangaPresenter::RelatedPresenter.new object, h
+    RelatedDecorator.new object
   end
 
-  # презентер косплея
+  # объект с косплеем
   def cosplay
     CosplayDecorator.new object
   end

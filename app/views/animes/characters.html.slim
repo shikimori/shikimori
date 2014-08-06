@@ -3,7 +3,7 @@
     .block.m0
       h2.subheadline.m10 = t 'Role.Main'
       .cc.m0
-        = render partial: 'characters/character', collection: @resource.roles.main_characters, locals: { content_by: :tooltip }, formats: :html
+        = render partial: 'characters/character', collection: @resource.roles.main_characters, locals: { cover_minified: true, content_by: :tooltip }, formats: :html
 
   - if @resource.roles.supporting_characters.any?
     .block.m0
@@ -12,7 +12,7 @@
       h2.subheadline.m10 = t 'Role.Main'
       .collapsed.tiny ...
       .cc.m0
-        = render partial: 'characters/character', collection: @resource.roles.supporting_characters, locals: { content_by: :tooltip }, formats: :html
+        = render partial: 'characters/character', collection: @resource.roles.supporting_characters, locals: { cover_minified: true, content_by: :tooltip }, formats: :html
 
   - if @resource.roles.people.any?
     .block.m0
@@ -21,4 +21,4 @@
       h2.subheadline.m10 Создатели #{@resource.anime? ? 'аниме' : 'манги'}
       .collapsed.tiny ...
       .cc.m0
-        = render partial: 'people/person', collection: @resource.roles.people, formats: :html
+        = render partial: 'people/person', collection: @resource.roles.people, locals: { cover_minified: true }, formats: :html

@@ -1,5 +1,5 @@
-article.b-catalog-entry.c-character[
-    class="entry-#{character.id} #{:tooltipped if content_by == :tooltip}"
+article.c-column.b-catalog-entry.c-character[
+    class="entry-#{character.id} #{:minified if defined? cover_minified} #{:tooltipped if content_by == :tooltip}"
     itemscope itemtype="http://schema.org/Person"
   ]
   meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"

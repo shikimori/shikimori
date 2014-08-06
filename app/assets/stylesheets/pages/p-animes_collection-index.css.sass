@@ -6,16 +6,6 @@
 @import mixins/block
 
 .p-animes_collection-index, .p-mangas_collection-index, .p-recommendations-index
-  .b-catalog-entry
-    +gte_ipad
-      +bcolumn(4)
-
-    +iphone-landscape
-      +bcolumn(3)
-
-    +iphone-portrait
-      +bcolumn(2)
-
   .b-postloader
     clear: left
 
@@ -54,10 +44,11 @@
 
       input
         +input
-        padding: 0
+        font-weight: normal
         margin: 0
+        padding: 0
         text-align: center
-        width: 40px
+        width: 44px
 
       span
         padding: 0 3px

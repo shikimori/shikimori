@@ -1,45 +1,27 @@
 @import compass/utilities/general/clearfix
 @import mixins/column
 @import mixins/block
+@import mixins/clear_left
 
 .cc
   +block
+  +clear_left
 
-  &:after
-    clear: left
-    display: block
-    content: ' '
+.cc-3_of_4
+  +clear_left
+
+  .c-column
+    +gte_ipad
+      +bcolumn(4)
+
+    +iphone-landscape
+      +bcolumn(3)
+
+    +iphone-portrait
+      +bcolumn(2)
 
 =column-container($columns)
   +clearfix
 
   .column
     +column(1, $columns)
-
-// TODO: выпилить всё, что ниже
-.three-columns
-  +column-container(3)
-
-.two-columns
-  +column-container(2)
-
-  +ipad
-    +column-container(1)
-
-.one-third-columns
-  +column-container(2)
-
-  & > .column
-    width: 66.6%
-
-    &:first-child
-      width: 33.3% - 4%
-
-.two-third-columns
-  +column-container(2)
-
-  & > .column
-    width: 33.3%
-
-    &:first-child
-      width: 66.6% - 4%

@@ -24,7 +24,6 @@ $(document).on 'page:load', ->
 
   # сворачиваение всех нужных блоков "свернуть"
   collapse_collapses $(document)
-  console.log 'process_current_dom'
   process_current_dom()
 
   if IS_LOGGED_IN && !window.faye_loader

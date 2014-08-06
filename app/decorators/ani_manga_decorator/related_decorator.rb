@@ -1,7 +1,4 @@
-class AniMangaPresenter::RelatedPresenter < BasePresenter
-  prepend ActiveCacher.instance
-  VISIBLE_RELATED = 7
-
+class AniMangaDecorator::RelatedDecorator < BaseDecorator
   instance_cache :related, :similar, :all
 
   # связанные аниме
@@ -13,7 +10,7 @@ class AniMangaPresenter::RelatedPresenter < BasePresenter
 
   # похожие аниме
   def similar
-    entry
+    object
       .similar
       .includes(:dst)
       .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
@@ -32,11 +29,11 @@ class AniMangaPresenter::RelatedPresenter < BasePresenter
 
   # достаточно ли большое число связанных аниме?
   def many?
-    related.size > VISIBLE_RELATED
+    related.size > AnimeDecorator::VISIBLE_RELATED
   end
 
   def all
-    entry
+    object
       .related
       .includes(:anime, :manga)
       .select { |v| (v.anime_id && v.anime && v.anime.name) || (v.manga_id && v.manga && v.manga.name) }

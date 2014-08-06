@@ -23,18 +23,22 @@ class AnimesController < ShikimoriController
   end
 
   def characters
+    noindex
   end
 
   def files
+    raise ActionController::RoutingError unless user_signed_in?
   end
 
   def similar
-  end
-
-  def chronology
+    noindex
   end
 
   def screenshots
+    noindex
+  end
+
+  def chronology
   end
 
   def videos
