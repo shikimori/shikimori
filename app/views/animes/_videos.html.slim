@@ -1,6 +1,0 @@
-.subheadline.m10 Видео
-.subcontent
-  .videos-list.expanded
-    = render partial: 'videos/video', collection: @resource.videos, locals: { entry: @resource, expanded: true }, formats: :html
-
-  = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:video), field: 'video' }, formats: :html

@@ -38,10 +38,11 @@ class AnimesController < ShikimoriController
     noindex
   end
 
-  def chronology
+  def videos
+    noindex
   end
 
-  def videos
+  def chronology
   end
 
   def images

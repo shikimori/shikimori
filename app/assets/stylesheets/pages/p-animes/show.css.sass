@@ -85,6 +85,17 @@
         &.entry-4, &.entry-5
           display: none
 
+  .c-screenshot, .c-video
+    margin-bottom: 0
+
+    +iphone-portrait
+      &.entry-3, &.entry-4, &.entry-5
+        display: none
+
+    +iphone-landscape
+      &.entry-4, &.entry-5
+        display: none
+
   .four-characters
     +gte_ipad
       .c-characters, .c-people

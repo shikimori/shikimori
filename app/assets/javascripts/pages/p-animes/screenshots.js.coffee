@@ -1,2 +1,2 @@
 @on 'page:load', 'animes_screenshots', ->
-  $('.screenshot').fancybox $.galleryOptions
+  $('.b-screenshot').fancybox $.galleryOptions

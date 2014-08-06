@@ -1,19 +1,4 @@
-.image-container.video class="#{video.hosting}"
-  - if defined?(user_signed_in?) && user_signed_in? && defined?(with_deletion)
-    span.image-delete.hidden title="Удалить видео"
-    span.image-delete-confirm.hidden title="Подтвердить удаление" data-remote="true" action="#{url_for video}" data-method="delete" data-type="json"
-    span.image-delete-cancel.hidden title="Отменить удаление"
-
-  - if defined?(expanded)
-    p
-      = video.kind
-      span = video.name
-
-  a href="#{video.url}" data-href="#{video.player_url}"
-    img src="#{video.image_url}" data-id="#{video.id}"
-    - if defined?(expanded) || defined?(marker) # marker изпользуется в youtube_to_html
-      p.video-marker
-        = video.hosting
-    - else
-      p.video-marker
-        = video.kind || video.hosting
+a.c-video.b-video class="#{video.hosting} entry-#{video_counter+1}" href="#{video.url}" data-href="#{video.player_url}"
+  img src="#{video.image_url}" data-id="#{video.id}"
+  p.marker
+    = video.kind

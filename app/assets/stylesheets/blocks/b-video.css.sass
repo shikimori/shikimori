@@ -1,7 +1,13 @@
 @import compass/typography/text/ellipsis
 
 .b-video
+  line-height: 0
+  margin-bottom: 10px
+  overflow: hidden
   position: relative
+
+  img
+    max-width: 100%
 
   .marker
     @include ellipsis

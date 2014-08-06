@@ -1,0 +1,6 @@
+= render layout: 'animes/page' do |f|
+  .subheadline.m10 Видео
+  .cc.m10
+    = render @resource.videos
+
+  = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:video), field: 'video' }, formats: :html
