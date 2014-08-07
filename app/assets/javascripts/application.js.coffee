@@ -4,16 +4,15 @@
 #= require pages/p-recommendations-index
 
 $ ->
-  $(document).trigger 'page:load'
+  $(document).trigger 'page:load', true
 
   $.form_navigate
     size: 250
     message: "Вы написали и не сохранили какой-то комментарий! Уверены, что хотите покинуть страницу?"
 
-$(document).on 'page:load', ->
-  #$('.notifications.unread_count').tipsy
-    #live: true
-    #opacity: 1
+$(document).on 'page:load', (e, is_dom_content_loaded) ->
+  unless is_dom_content_loaded
+    turbolinks_compatibility()
 
   # отображение flash сообщений от рельс
   $('p.flash-notice').each (k, v) ->
@@ -35,13 +34,19 @@ $(document).on 'page:fetch', ->
   (if $ajax.length then $ajax else $('.l-content')).css opacity: 0.3
 
 $(document).on 'page:restore', ->
+  turbolinks_compatibility()
   $('.ajax, .l-content').css opacity: 1
+
+turbolinks_compatibility = ->
+  # для совместимости fancybox с турболинками
+  $('#fancybox-wrap').remove()
+  $.fancybox.init()
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 @process_current_dom = ->
   # нормализуем ширину всех огромных картинок
   $('img.check-width').normalizeImage
-    class: "check-width"
+    class: 'check-width'
     fancybox: $.galleryOptions
 
   # стена картинок
