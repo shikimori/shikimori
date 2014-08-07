@@ -99,8 +99,6 @@ class AnimesDirector < BaseDirector
 
     noindex
     case params[:page].to_sym
-      when :similar
-        append_title! entry.anime? ? 'Похожие аниме' : 'Похожая манга'
 
       when :recent
         append_title! 'Последняя активность'
@@ -111,23 +109,9 @@ class AnimesDirector < BaseDirector
       when :stats
         append_title! 'Последняя активность'
 
-      when :screenshots
-        append_title! 'Кадры'
-
-      when :videos
-        append_title! 'Видео'
-
-      when :files
-        append_title! 'Файлы'
-
-      when :characters
-        append_title! 'Персонажи и создатели'
-
       when :images
         append_title! 'Галерея'
 
-      when :chronology
-        append_title! 'Хронология'
 
       else
         raise ArgumentError.new "page: #{params[:page]}"

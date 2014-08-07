@@ -1,5 +1,0 @@
-.subheadline.m10 Кадры
-.images-list
-  = render partial: 'images/image', collection: @resource.screenshots, locals: { group_name: 'screenshots', style: :original, alt: "Кадр из #{@resource.name}"}, formats: 'html'
-
-= render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:screenshots), field: 'screenshots' }, formats: :html

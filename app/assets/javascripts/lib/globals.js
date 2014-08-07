@@ -47,22 +47,6 @@ $('.b-options-floated a, .subheadline a').live('click', function() {
   return false;
 });
 
-// fancybox видео блок
-// TODO: засунуть инициализацию в process_current_dom
-$(document.body).on('click', '.video', function(e) {
-  // если это спан, то мы жмём на кнопочки
-  if ($(e.target).tagName() == 'span') {
-    return;
-  }
-  if (!$('a', this).data('fancybox')) {
-    $('a', this).fancybox($(this).hasClass('vk') ? $.vkOptions : $.youtubeOptions);
-    $('a', this).trigger('click');
-  }
-  if (!in_new_tab(e)) {
-    return false;
-  }
-});
-
 // открыта ли ссылка в новом табе?
 function in_new_tab(e) {
   return (e.button == 1) || (e.button == 0 && (e.ctrlKey || e.metaKey));

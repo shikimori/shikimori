@@ -2,8 +2,6 @@
   $('.rating.notice').tipsy gravity: 's'
   $('.status-date.notice').tipsy gravity: 's'
   $('.b-screenshot').fancybox $.galleryOptions
-  $('.b-video.youtube a').fancybox $.youtubeOptions
-  $('.b-video.vk a').fancybox $.vkOptions
 
   # rating
   $('.scores').makeRateble round_values: false

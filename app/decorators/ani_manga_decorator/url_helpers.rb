@@ -70,7 +70,7 @@ module AniMangaDecorator::UrlHelpers
 
   # адрес связанных аниме
   def related_url
-    h.send "related_all_#{klass_lower}_url"
+    h.send "related_#{klass_lower}_url"
   end
 
   # адрес на mal'е

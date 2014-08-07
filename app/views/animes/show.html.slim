@@ -29,7 +29,7 @@
           .anime-info.block
             .subheadline Информация
             .block
-              = render partial: 'animes/info', locals: { entry: @resource, details: true }, formats: :html
+              = render partial: 'animes/info', locals: { entry: @resource, details: true }
 
             - if @resource.anime? && !@resource.anons?
               .block
@@ -48,28 +48,28 @@
                 meta itemprop="bestRating" content="10"
                 meta itemprop="ratingValue" content="#{@resource.score}"
                 meta itemprop="ratingCount" content="#{(@resource.mal_scores.sum/37).to_i}"
-                = render partial: 'animes/rate', locals: { key: 'site', value: @resource.score, outer_class: 'rated' }, formats: :html
+                = render partial: 'animes/rate', locals: { key: 'site', value: @resource.score, outer_class: 'rated' }
 
           - if @resource.genres.any?
             .block
               .subheadline
                 = @resource.genres.size > 1 ? 'Жанры' : 'Жанр'
               .block
-                = render partial: 'animes/genres_info', locals: { entry: @resource }, formats: :html
+                = render partial: 'animes/genres_info', locals: { entry: @resource }
 
           - if @resource.respond_to?(:studios) && @resource.studios.any?
             .block
               .subheadline.m10
                 = @resource.real_studios.size > 1 ? 'Студии' : 'Студия'
               .block.m0
-                = render partial: 'animes/studios_info', locals: { entry: @resource }, formats: :html
+                = render partial: 'animes/studios_info', locals: { entry: @resource }
 
           - if @resource.respond_to?(:publishers) && @resource.publishers.any?
             .block
               .subheadline
                 = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
               .block.m0
-                = render partial: 'mangas/publishers_info', locals: { entry: @resource }, formats: :html
+                = render partial: 'mangas/publishers_info', locals: { entry: @resource }
 
     .c-description
       .subheadline.m5 Описание
@@ -89,8 +89,8 @@
             .russian itemprop="description"
               == @resource.description_html
 
-        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }, formats: :html
-        /= render partial: 'additional_links', locals: { entry: @resource }, formats: :html
+        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
+        /= render partial: 'additional_links', locals: { entry: @resource }
 
   - if @resource.screenshots(5).any? || @resource.videos(5).any?
     .cc.m0 class="#{@resource.videos(5).one? ? 'one-video' : 'two-videos' if @resource.videos(5).any? && @resource.screenshots(5).any?}"
@@ -115,34 +115,31 @@
           .subheadline.m10
             span.linkeable data-href="#{@resource.characters_url}" Главные герои
           .cc.m0
-            = render partial: 'characters/character', collection: @resource.roles.main_characters, locals: { cover_minified: true, content_by: :tooltip }, formats: :html
+            = render partial: 'characters/character', collection: @resource.roles.main_characters, locals: { cover_minified: true, content_by: :tooltip }
 
       - if @resource.roles.main_people.any?
         .c-people
           .subheadline.m10
             span.linkeable data-href="#{@resource.characters_url}" Создатели
           .cc.m0
-            = render partial: 'people/person', collection: @resource.roles.main_people, locals: { cover_minified: true }, formats: :html
+            = render partial: 'people/person', collection: @resource.roles.main_people, locals: { cover_minified: true }
 
-  - if @resource.related.any?
+  - if @resource.related.related.any?
     .b-options-floated.mobile-support
       span.link.selected Напрямую
       span.link.linkeable data-href="#{@resource.chronology_url}" Вся хронология
     .subheadline.m10 Связанное
-    .cc.m0
-      - if @resource.related.many?
-        = render partial: 'animes/anime', collection: @resource.related.related[0..AnimeDecorator::VISIBLE_RELATED-1], locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
-        .related-shower style="display: block;" Показать остальное
-        .related-hidden
-          = render partial: 'animes/anime', collection: @resource.related.related[AnimeDecorator::VISIBLE_RELATED..-1], locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
-      - else
-        = render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
+    - if user_signed_in?
+      = render 'animes/related'
+    - else
+      .related-loader.postloaded data-href="#{@resource.related_url}"
+        .ajax-loading.vk-like title="Загрузка..."
 
   - if @resource.related.similar.any?
     .subheadline.m10
       span.linkeable data-href="#{@resource.similar_url}" Похожее
     .cc
-      = render partial: 'animes/anime', collection: @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }, formats: :html
+      = render partial: 'animes/anime', collection: @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
 
   - if user_signed_in? || @resource.comments_count > 0
     .forum-container.entry-comments
@@ -164,4 +161,4 @@
               span.sep.zero.inline
                 | )
         .subheadline.m3 Обсуждение
-        = render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }, formats: :html
+        = render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }

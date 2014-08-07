@@ -16,6 +16,11 @@ class ShikimoriController < ApplicationController
     @breadcrumbs[title] = url
   end
 
+  def page_title title
+    @page_title ||= []
+    @page_title.push title
+  end
+
   def noindex
     set_meta_tags noindex: true
   end

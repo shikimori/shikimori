@@ -1,14 +1,15 @@
 class AnimesController < ShikimoriController
-  respond_to :html, only: [:show, :tooltip, :related_all]
+  respond_to :html, only: [:show, :tooltip]
   respond_to :json, only: :autocomplete
   respond_to :html, :json, only: :page
 
   before_action :authenticate_user!, only: [:edit]
   before_action :fetch_resource
-  before_action :breadcrumbs, if: -> { @resource }
+  before_action :set_breadcrumbs, if: -> { @resource }
+  before_action :set_title, if: -> { @resource }
   before_action :check_redirect, if: -> { @resource }
 
-  caches_action :page, :characters, :show, :related_all, :cosplay, :tooltip,
+  caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
     cache_path: proc {
       id = params[:anime_id] || params[:manga_id] || params[:id]
       @resource ||= klass.find(id.to_i)
@@ -24,42 +25,48 @@ class AnimesController < ShikimoriController
 
   def characters
     noindex
+    page_title 'Персонажи и создатели'
   end
 
   def files
     raise ActionController::RoutingError unless user_signed_in?
+    page_title 'Файлы'
   end
 
   def similar
     noindex
+    page_title(@resource.anime? ? 'Похожие аниме' : 'Похожая манга')
   end
 
   def screenshots
     noindex
+    page_title 'Кадры'
   end
 
   def videos
     noindex
+    page_title 'Видео'
   end
 
   def chronology
+    noindex
+    page_title 'Хронология'
   end
 
-  def images
+  def art
+    noindex
+    page_title 'Арт с имиджборд'
   end
 
   def recent
   end
 
-
-  # все связанные элементы с аниме/мангой
-  def related_all
-    render partial: 'animes/related_all', formats: :html unless @director.redirected?
+  def related
+    render partial: 'related'
   end
 
-  # все связанные элементы с аниме/мангой
   def other_names
-    render partial: 'animes/other_names', formats: :html
+    render partial: 'other_names'
   end
 
   # редактирование аниме
@@ -151,8 +158,7 @@ private
     @resource = klass.find(resource_id.to_i).decorate if resource_id
   end
 
-  # хлебные крошки
-  def breadcrumbs
+  def set_breadcrumbs
     if @resource.anime?
       breadcrumb 'Список аниме', animes_url
       breadcrumb 'Сериалы', animes_url(type: @resource.kind) if @resource.kind == 'TV'
@@ -170,8 +176,7 @@ private
     end
   end
 
-  ## часть заголовка с названием текущего элемента
-  #def entry_title
-    #"#{@resource.russian_kind} #{HTMLEntities.new.decode(@resource.name)}"
-  #end
+  def set_title
+    page_title "#{@resource.russian_kind} #{HTMLEntities.new.decode @resource.name}"
+  end
 end

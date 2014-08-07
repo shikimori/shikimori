@@ -337,19 +337,18 @@ Site::Application.routes.draw do
 
         member do
           get :characters
+          get :files
           get :similar
-          get :chronology
           get :screenshots
           get :videos
-          get :images
-          get :files
+          get :chronology
+          get :art
+          get :other_names # другие названия
+          get :related
+
           get :stats
           get :recent
 
-          # связанные
-          get 'related/all', action: :related_all
-          # другие названия
-          get 'names/other', action: :other_names, as: :other_names
           # инфо по торрентам эпизодов
           get 'episode_torrents'
           # тултип

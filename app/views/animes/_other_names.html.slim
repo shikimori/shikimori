@@ -1,14 +1,16 @@
-- unless !@resource.japanese || @resource.japanese.empty?
+- if @resource.japanese.present?
   p
     span.key По-японски:&nbsp;
     span.anime-alt itemprop="alternativeHeadline"
       == @resource.japanese.join(', ')
-- unless !@resource.english || @resource.english.empty?
+
+- if @resource.english.present?
   p
     span.key По-английски:&nbsp;
     span.anime-alt itemprop="alternativeHeadline"
       == @resource.english.join(', ')
-- unless !@resource.synonyms || @resource.synonyms.empty?
+
+- if @resource.synonyms.present?
   p
     span.key Прочие:&nbsp;
     span.anime-alt itemprop="alternativeHeadline"

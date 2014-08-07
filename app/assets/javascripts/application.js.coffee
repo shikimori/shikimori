@@ -37,13 +37,24 @@ $(document).on 'page:restore', ->
   turbolinks_compatibility()
   $('.ajax, .l-content').css opacity: 1
 
+# для совместимости с турболинками
 turbolinks_compatibility = ->
-  # для совместимости fancybox с турболинками
   $('#fancybox-wrap').remove()
   $.fancybox.init()
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 @process_current_dom = ->
+  #$('.b-video.youtube a').fancybox $.youtubeOptions
+  #$('.b-video.vk a').fancybox $.vkOptions
+
+  #$(document.body).on "click", ".video", (e) ->
+    ## если это спан, то мы жмём на кнопочки
+    #return  if $(e.target).tagName() is "span"
+    #unless $("a", this).data("fancybox")
+      #$("a", this).fancybox (if $(this).hasClass("vk") then $.vkOptions else $.youtubeOptions)
+      #$("a", this).trigger "click"
+    #false  unless in_new_tab(e)
+
   # нормализуем ширину всех огромных картинок
   $('img.check-width').normalizeImage
     class: 'check-width'

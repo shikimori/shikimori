@@ -1,5 +1,5 @@
 = render layout: 'animes/page' do |f|
-  .subheadline.m10 Кадры
+  .subheadline.m10 = @page_title.last
   .cc.m10
     = render @resource.screenshots
 

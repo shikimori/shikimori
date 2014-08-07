@@ -1,2 +1,6 @@
-a.c-screenshot.b-screenshot class="entry-#{screenshot_counter+1}" href="#{screenshot.image.url :original}" title="Кадр #{screenshot_counter+1} из #{localized_kind screenshot.anime}" rel="screenshot"
+a.c-screenshot.b-screenshot[
+    class="entry-#{screenshot_counter+1}"
+    href="#{screenshot.image.url :original}"
+    title="Кадр #{screenshot_counter+1} из #{localized_kind screenshot.anime}" rel="screenshot"
+  ]
   img src="#{screenshot.image.url :x166}" srcset="#{screenshot.image.url :x332}" title="Кадр #{screenshot_counter+1} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1} из #{localized_kind screenshot.anime}" data-id="#{screenshot.id}"
