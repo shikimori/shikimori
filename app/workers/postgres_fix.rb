@@ -3,7 +3,7 @@ class PostgresFix
   include Sidekiq::Worker
 
   def perform
-    do_hard_cleanup if need_clenup?
+    do_hard_cleanup if need_cleanup?
   end
 
 private
