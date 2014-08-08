@@ -16,9 +16,14 @@ class ShikimoriController < ApplicationController
     @breadcrumbs[title] = url
   end
 
-  def page_title title
-    @page_title ||= []
-    @page_title.push title
+  def page_title title, replace=false
+    if replace
+      @page_title = []
+    else
+      @page_title ||= []
+    end
+
+    @page_title.push HTMLEntities.new.decode(title)
   end
 
   def noindex

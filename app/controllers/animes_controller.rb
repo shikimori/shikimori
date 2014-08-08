@@ -21,11 +21,17 @@ class AnimesController < ShikimoriController
   # отображение аниме или манги
   def show
     @itemtype = @resource.itemtype
+    page_title "#{@resource.russian_kind} #@resource.name", true
   end
 
   def characters
     noindex
-    page_title 'Персонажи и создатели'
+    page_title "Персонажи #{@resource.anime? ? 'аниме' : 'манги'}"
+  end
+
+  def staff
+    noindex
+    page_title "Создатели #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def files
@@ -50,7 +56,7 @@ class AnimesController < ShikimoriController
 
   def chronology
     noindex
-    page_title 'Хронология'
+    page_title(@resource.anime? ? 'Хронология аниме' : 'Хронология манги')
   end
 
   def art
@@ -62,7 +68,9 @@ class AnimesController < ShikimoriController
   end
 
   def related
-    render partial: 'related'
+    noindex
+    page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
+    render partial: 'animes/related' if request.xhr?
   end
 
   def other_names
@@ -177,6 +185,6 @@ private
   end
 
   def set_title
-    page_title "#{@resource.russian_kind} #{HTMLEntities.new.decode @resource.name}"
+    page_title @resource.name
   end
 end

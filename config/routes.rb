@@ -337,6 +337,7 @@ Site::Application.routes.draw do
 
         member do
           get :characters
+          get :staff
           get :files
           get :similar
           get :screenshots

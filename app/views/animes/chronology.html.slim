@@ -1,4 +1,7 @@
 = render layout: 'animes/page' do |f|
+  .b-options-floated.mobile-support
+    a href="#{@resource.related_url}" Напрямую
+    span.link.selected Вся хронология
   .subheadline.m10 = @page_title.last
   .cc-5
     = render partial: 'animes/anime', collection: @resource.chronology, locals: { cover_notice: :year_kind, content_by: :tooltip }, formats: :html

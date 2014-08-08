@@ -120,7 +120,7 @@
       - if @resource.roles.main_people.any?
         .c-people
           .subheadline.m10
-            span.linkeable data-href="#{@resource.characters_url}" Создатели
+            span.linkeable data-href="#{@resource.staff_url}" Создатели
           .cc.m0
             = render partial: 'people/person', collection: @resource.roles.main_people, locals: { cover_minified: true }
 

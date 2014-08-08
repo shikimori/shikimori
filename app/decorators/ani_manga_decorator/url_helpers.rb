@@ -16,6 +16,10 @@ module AniMangaDecorator::UrlHelpers
     h.send "characters_#{klass_lower}_url", object
   end
 
+  def staff_url
+    h.send "staff_#{klass_lower}_url", object
+  end
+
   def recent_url
     h.send "recent_#{klass_lower}_url", object
   end
