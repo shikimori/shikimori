@@ -44,17 +44,6 @@ turbolinks_compatibility = ->
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 @process_current_dom = ->
-  #$('.b-video.youtube a').fancybox $.youtubeOptions
-  #$('.b-video.vk a').fancybox $.vkOptions
-
-  #$(document.body).on "click", ".video", (e) ->
-    ## если это спан, то мы жмём на кнопочки
-    #return  if $(e.target).tagName() is "span"
-    #unless $("a", this).data("fancybox")
-      #$("a", this).fancybox (if $(this).hasClass("vk") then $.vkOptions else $.youtubeOptions)
-      #$("a", this).trigger "click"
-    #false  unless in_new_tab(e)
-
   # нормализуем ширину всех огромных картинок
   $('img.check-width').normalizeImage
     class: 'check-width'
@@ -89,3 +78,14 @@ turbolinks_compatibility = ->
       10
     ]
   , tooltip_options)
+
+  $('.b-video.unprocessed')
+    .removeClass('unprocessed')
+    .on 'click', (e) ->
+      # если это спан, то мы жмём на кнопочки
+      return if in_new_tab(e) || $(e.target).tagName() is 'span'
+      unless $(@).data('fancybox')
+        $(@)
+          .fancybox(if $(@).hasClass('vk') then $.vkOptions else $.youtubeOptions)
+          .trigger('click')
+        false
