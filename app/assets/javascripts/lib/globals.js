@@ -3,24 +3,9 @@ if (location.hash == '#_=_') {
   location.hash = '';
 }
 // global button reset
-$('button').live('click', function(e) {
-  return false;
-});
-$('.ajax,.slide>div').live('ajax:success', function() {
-  process_current_dom();
-});
-
-// сворачиваение всех нужных блоков "свернуть"
-function collapse_collapses($root) {
-  _.each(($.cookie("collapses") || "").replace(/;$/, '').split(';'), function(v, k) {
-    $('#collapse-'+v, $root).trigger('click', true);
-  });
-}
-
-// сворачиваение всех нужных блоков "свернуть"
-$('.ajax,.slide > .selected').live('ajax:success', function() {
-  collapse_collapses($(this));
-});
+//$('button').live('click', function(e) {
+  //return false;
+//});
 
 // click on history link
 $('a[rel=history]').live('click', function(e) {

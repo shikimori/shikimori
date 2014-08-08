@@ -19,7 +19,7 @@
     $(@).attr href: $(@).attr('href').replace(/\d+$/, watch_episode)
 
   # раскрытие свёрнутого блока связанного
-  $('.related-shower').on 'click', ->
+  $('.l-content').on 'click', '.related-shower', ->
     $(@).next().children().unwrap()
     $(@).siblings().show()
     $(@).remove()
