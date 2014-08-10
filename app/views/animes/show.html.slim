@@ -44,11 +44,11 @@
           - if @resource.with_score? && !@resource.anons?
             .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
               .subheadline.m5 Рейтинг
-              .scores.rate-block
+              .scores
                 meta itemprop="bestRating" content="10"
                 meta itemprop="ratingValue" content="#{@resource.score}"
                 meta itemprop="ratingCount" content="#{(@resource.mal_scores.sum/37).to_i}"
-                = render partial: 'animes/rate', locals: { key: 'site', value: @resource.score, outer_class: 'rated' }
+                = render partial: 'blocks/rate', locals: { score: @resource.score }
 
           - if @resource.genres.any?
             .block

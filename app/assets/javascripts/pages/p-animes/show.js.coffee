@@ -3,9 +3,6 @@
   $('.status-date.notice').tipsy gravity: 's'
   $('.b-screenshot').fancybox $.galleryOptions
 
-  # rating
-  $('.scores').makeRateble round_values: false
-
   # клик по загрузке других названий
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->
     $(@).parents('p').replaceWith data
@@ -49,8 +46,8 @@
       $container.append data.content
 
   # user ratings
-  $scores_user = $('.anime-rate .scores-user')
-  $scores_user.makeRateble() if $scores_user.is(':visible')
+  $scores_user = $('.anime-rate .b-rate')
+  $scores_user.rateable() if $scores_user.is(':visible')
 
   $('.anime-rate')
     # клик по добавлению в свой список
@@ -98,7 +95,7 @@
     .on 'ajax:success', '.edit_user_rate', (e, html) ->
       $('.anime-rate .rate-show').replaceWith($(html).find('.rate-show'))
       $('.anime-rate .rate-show').data height: $('.anime-rate .rate-show').height()
-      $('.anime-rate .scores-user').makeRateble()
+      $('.anime-rate .scores-user').rateable()
 
       $('.anime-rate .cancel').click()
 

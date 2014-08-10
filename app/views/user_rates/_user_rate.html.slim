@@ -5,7 +5,7 @@
     span.expand-options
 
 .subheadline Мой список
-.subcontent.rate-container
+.rate-container
   - if user_rate.persisted?
     .rate-edit
     .rate-show
@@ -31,10 +31,9 @@
 
       .status = user_rate.status_name
 
-      = simple_form_for [:api, user_rate], remote: true, html: { class: 'rate-block', 'data-type' => 'json' } do |f|
+      = simple_form_for [:api, user_rate], remote: true, html: { 'data-type' => 'json' } do |f|
         = f.input :score, as: :hidden
-        .scores-user
-          = render partial: 'animes/rate', locals: { key: 'user', value: user_signed_in? && user_rate ? user_rate.score : '' }
+        = render partial: 'blocks/rate', locals: { score: user_rate ? user_rate.score : '', f: f }
 
       p.note = user_rate.text_html
 

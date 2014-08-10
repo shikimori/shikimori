@@ -1,0 +1,10 @@
+.b-rate[
+    class="#{:rateable if defined? f}"
+    data-notices="#{I18n.t("activerecord.attributes.user_rate.scores").to_json if defined? f}"
+  ]
+  .stars-container
+    .stars.score class="score-#{score.round}"
+    .stars.hover
+    .stars.background
+  .text-score = score
+  .score-notice = t "activerecord.attributes.user_rate.scores.#{score.round}"

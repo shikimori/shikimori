@@ -13,6 +13,18 @@
       "src": "fontelico"
     },
     {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star",
+      "code": 59456,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8f8278fbe5a2a0ea836be3c408b005d2",
+      "css": "star-half",
+      "code": 59457,
+      "src": "fontawesome"
+    },
+    {
       "uid": "872d9516df93eb6b776cc4d94bd97dac",
       "css": "video",
       "code": 59436,

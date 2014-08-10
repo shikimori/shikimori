@@ -1,15 +1,17 @@
 = render layout: 'animes/page' do |f|
   - if @resource.roles.main_characters.any?
     .block.m0
+      /.b-options-floated.collapse
+        span.action свернуть (#{@resource.roles.main_characters.size})
       h2.subheadline.m10 = t 'Role.Main'
       .cc.m0
         = render partial: 'characters/character', collection: @resource.roles.main_characters, locals: { cover_minified: true, content_by: :tooltip }, formats: :html
 
   - if @resource.roles.supporting_characters.any?
     .block.m0
-      .b-options-floated.collapse
+      /.b-options-floated.collapse
         span.action свернуть (#{@resource.roles.supporting_characters.size})
-      h2.subheadline.m10 = t 'Role.Main'
+      h2.subheadline.m10 = t 'Role.Supporting'
       .collapsed.tiny ...
       .cc.m0
         = render partial: 'characters/character', collection: @resource.roles.supporting_characters, locals: { cover_minified: true, content_by: :tooltip }, formats: :html

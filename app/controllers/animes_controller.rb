@@ -21,7 +21,7 @@ class AnimesController < ShikimoriController
   # отображение аниме или манги
   def show
     @itemtype = @resource.itemtype
-    page_title "#{@resource.russian_kind} #@resource.name", true
+    page_title "#{@resource.russian_kind} #{@resource.name}", true
   end
 
   def characters
