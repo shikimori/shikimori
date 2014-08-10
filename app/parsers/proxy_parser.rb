@@ -82,8 +82,8 @@ private
 
   # источники проксей
   def sources
-    @sources ||= Sources +
-      Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
+    @sources ||= Sources# +
+      #Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
       #Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
   end
 
@@ -92,7 +92,10 @@ private
 
   # http://forum.antichat.ru/thread59009.html
   Sources = [
-    'http://www.freeproxy.ch/proxy.txt',
+    'http://alexa.lr2b.com/proxylist.txt',
+    'http://www.cybersyndrome.net/pla.html',
+
+    #'http://www.freeproxy.ch/proxy.txt',
     #'http://elite-proxies.blogspot.com/',
     #'http://eliteanonymous.blogspot.ru/',
     #'http://goodhack.ru/index.php?/topic/1504-fresh-proxy-by-anonymouse/',
