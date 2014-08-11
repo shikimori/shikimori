@@ -26,3 +26,6 @@ jQuery ->
   $('li.rate a', $page).on 'ajax:success', ->
     $('li.rate a', $page).addClass 'hide'
     $('li.ok', $page).removeClass 'hide'
+
+  $('button.upload', $page).on 'click', ->
+    window.location = $(@).data('href')

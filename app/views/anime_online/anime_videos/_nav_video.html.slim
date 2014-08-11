@@ -52,7 +52,7 @@
       - if user_signed_in?
         - unless anime.current_video.copyright_ban?
           li.pull-right
-            a.btn.btn-default href="#{new_anime_online_anime_anime_video_url anime.id}" title='Загрузить новое видео'
+            button.upload.btn.btn-default data-href="#{new_anime_online_anime_anime_video_url anime.id}" type='button' title='Загрузить новое видео'
               span.glyphicon.glyphicon-upload
 
         - unless anime.rate
