@@ -9,14 +9,15 @@ class AnimesController < ShikimoriController
   before_action :set_title, if: -> { @resource }
   before_action :check_redirect, if: -> { @resource }
 
-  caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
-    cache_path: proc {
-      id = params[:anime_id] || params[:manga_id] || params[:id]
-      @resource ||= klass.find(id.to_i)
-      "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@resource.updated_at.to_i}|#{@resource.thread.updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
-    },
-    unless: proc { user_signed_in? },
-    expires_in: 2.days
+  # временно отключаю, всё равно пока не тормозит
+  #caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
+    #cache_path: proc {
+      #id = params[:anime_id] || params[:manga_id] || params[:id]
+      #@resource ||= klass.find(id.to_i)
+      #"#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@resource.updated_at.to_i}|#{@resource.thread.updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
+    #},
+    #unless: proc { user_signed_in? },
+    #expires_in: 2.days
 
   # отображение аниме или манги
   def show

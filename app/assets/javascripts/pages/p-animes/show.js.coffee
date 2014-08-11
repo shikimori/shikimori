@@ -89,13 +89,13 @@
     # сабмит формы user_rate
     .on 'ajax:success', '.new_user_rate, .increment, .remove', (e, html) ->
       $('.anime-rate').html html
-      $('.anime-rate .scores-user').makeRateble()
+      $('.anime-rate .b-rate').makeRateble()
 
     # завершение редактирования user_rate
     .on 'ajax:success', '.edit_user_rate', (e, html) ->
       $('.anime-rate .rate-show').replaceWith($(html).find('.rate-show'))
       $('.anime-rate .rate-show').data height: $('.anime-rate .rate-show').height()
-      $('.anime-rate .scores-user').rateable()
+      $('.anime-rate .b-rate').rateable()
 
       $('.anime-rate .cancel').click()
 
@@ -114,4 +114,3 @@
 
       $('.anime-rate .rate-container').css height: $show.data('height')
       (-> $('.anime-rate .rate-container').css height: $edit.data('height')).delay()
-

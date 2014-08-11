@@ -8,11 +8,12 @@
       $text_score = $('.text-score', @)
       $score_notice = $('.score-notice', @)
 
-      notices = $(@).data 'notices'
+      notices = $(@).data('notices')
+      input_selector = $(@).data('input_selector')
+      with_input = !!input_selector
+      with_form = !!$(@).data('with_form')
 
       initial_score = parseInt($text_score.text()) || 0
-      initial_hover_class = $hover.attr 'class'
-      initial_text_class = $text_score.attr 'class'
       new_score = null
 
       $stars.on 'mousemove', (e) ->
@@ -24,10 +25,10 @@
           0
 
         $score_notice.html(notices[new_score])
-        $hover.attr(class: "#{initial_hover_class} score-#{new_score}")
+        $hover.attr(class: "#{without_score $hover} score-#{new_score}")
         $text_score
           .html(new_score)
-          .attr(class: "#{initial_text_class} score-#{new_score}")
+          .attr(class: "#{without_score $text_score} score-#{new_score}")
 
       $stars.on 'mouseover', (e) ->
         $score.addClass 'hovered'
@@ -35,9 +36,20 @@
       $stars.on 'mouseout', (e) ->
         $score.removeClass 'hovered'
         $score_notice.html(notices[initial_score])
-        $hover.attr(class: initial_hover_class)
+        $hover.attr(class: without_score $hover)
         $text_score
+          .attr(class: "#{without_score $text_score} score-#{initial_score}")
           .html(initial_score)
-          .attr(class: initial_text_class)
+
+      $stars.on 'click', (e) ->
+        if with_input
+          initial_score = new_score
+
+          $(@).closest('form').find(input_selector).val(new_score)
+          $(@).closest('form').submit() if with_form
+          $stars.trigger('mouseout')
+
+  without_score = ($node) ->
+    $node.attr('class').replace(/\s?score-\d+/, '')
 
 ) jQuery

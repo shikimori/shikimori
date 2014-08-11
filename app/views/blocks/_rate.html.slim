@@ -1,10 +1,14 @@
 .b-rate[
-    class="#{:rateable if defined? f}"
-    data-notices="#{I18n.t("activerecord.attributes.user_rate.scores").to_json if defined? f}"
+    class="#{:rateable if defined? input_selector}"
+    data-notices="#{I18n.t("activerecord.attributes.user_rate.scores").to_json if defined? rateable}"
+    data-input_selector="#{input_selector if defined? input_selector}"
+    data-with_form="#{with_form if defined? with_form}"
   ]
   .stars-container
     .stars.score class="score-#{score.round}"
     .stars.hover
     .stars.background
-  .text-score = score
-  .score-notice = t "activerecord.attributes.user_rate.scores.#{score.round}"
+  .text-score class="score-#{score.round}"
+    = score
+  .score-notice
+    = t "activerecord.attributes.user_rate.scores.#{score.round}"
