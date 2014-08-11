@@ -1,0 +1,11 @@
+/- content_for :head do
+  - if params[:action] == 'show'
+    link rel="canonical" href="#{{@resource.reviews_url}}"
+
+= render layout: 'animes/page' do |f|
+  .subheadline Обзоры
+  - if @resource.reviews.any?
+    .forum-container
+      = render partial: 'topics/topic', collection: @resource.reviews, formats: :html
+  - else
+    p Тут пока ничего нет.

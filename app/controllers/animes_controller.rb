@@ -183,6 +183,12 @@ private
     if @resource.genres.any?
       breadcrumb UsersHelper.localized_name(@resource.main_genre, current_user), send("#{@resource.object.class.name.downcase.pluralize}_url", genre: @resource.main_genre.to_param)
     end
+
+    # все страницы, кроме animes#show
+    if @resource && (params[:action] != 'show' || params[:controller] == 'reviews')
+      #breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
+      breadcrumb "Страница #{@klass == Anime ? 'аниме' : 'манги'}", @resource.url
+    end
   end
 
   def set_title

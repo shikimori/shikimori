@@ -1,4 +1,5 @@
 @import mixins/input
+@import mixins/hover_underlined
 @import globals
 
 header.head
@@ -7,6 +8,22 @@ header.head
   h1, h2
     +new-header-font
 
+  .h1-like
+    +new-header-font
+
+    a.back
+      +link-color($selected-color)
+      display: inline-block
+      font-size: 24px
+      padding-right: 14px
+
+      &:before
+        padding-right: 5px
+        content: '←'
+
+      &:hover span
+        text-decoration: underline
+
   .notice
     line-height: 17px
     color: #333
@@ -14,7 +31,6 @@ header.head
     clear: left
 
   a.link
-    +normal-link
 
   &.misc
     h1, h2

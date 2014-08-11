@@ -364,7 +364,7 @@ Site::Application.routes.draw do
         end
 
         # обзоры
-        resources :reviews, type: kind.singularize.capitalize, controller: 'animes_controller/reviews'
+        resources :reviews, type: kind.singularize.capitalize
       end
     end
 

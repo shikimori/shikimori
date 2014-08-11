@@ -1,8 +1,4 @@
 module AniMangaHelper
-  def h1_text entry, with_sep=false
-    "#{entry.name}#{entry.russian.blank? ? '' : (with_sep ? ' <span class="sep inline">/</span> ' : ' / ') + entry.russian}".html_safe
-  end
-
   def ani_manga_link entry, &block
     ('<a href="%s" title="%s"%s>%s</a>' % [
         url_for(entry),

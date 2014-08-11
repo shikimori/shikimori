@@ -2,63 +2,64 @@
 @import globals
 @import globals/fonts
 
-.p-animes .l-menu, .p-mangas .l-menu
-  .right
-    margin: 0px
+.p-animes, .p-mangas, .p-reviews
+  .l-menu
+    .right
+      margin: 0px
 
-  .block-title
-    margin-bottom: 2px
+    .block-title
+      margin-bottom: 2px
 
-  .input
-    +text-field
+    .input
+      +text-field
 
-  .block-list
-    .date
-      float: right
-      font-size: 10px
+    .block-list
+      .date
+        float: right
+        font-size: 10px
 
-  .block-list li, .block-list-alt li
-    width: auto
+    .block-list li, .block-list-alt li
+      width: auto
 
-    &.sub
-      margin-left: 30px
+      &.sub
+        margin-left: 30px
 
-  .site-icon
-    float: left
-    margin-right: 5px
-    margin-top: 1px
-    height: 16px
-
-  .addthis_toolbox
-    margin-top: -5px
-    width: 220px
-
-  .menu-topics-block
-    a.entry
-      display: block
-
-    .history-avatar
-      float: right
-      margin-left: 5px
+    .site-icon
+      float: left
+      margin-right: 5px
       margin-top: 1px
+      height: 16px
 
-    .name
-      +ellipsis
-      display: block
+    .addthis_toolbox
+      margin-top: -5px
+      width: 220px
 
-    .date
-      color: #777
-      float: right
-      font-size: 10px
+    .menu-topics-block
+      a.entry
+        display: block
 
-    .history li
-      cursor: default
+      .history-avatar
+        float: right
+        margin-left: 5px
+        margin-top: 1px
 
-    .history-entry-tooltip
-      display: none
-
-      a
-        +normal-link
-
-      .tooltip-details
+      .name
         +ellipsis
+        display: block
+
+      .date
+        color: #777
+        float: right
+        font-size: 10px
+
+      .history li
+        cursor: default
+
+      .history-entry-tooltip
+        display: none
+
+        a
+          +normal-link
+
+        .tooltip-details
+          +ellipsis

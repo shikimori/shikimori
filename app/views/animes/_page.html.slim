@@ -3,8 +3,13 @@
 
 header.head
   meta itemprop="name" content="#{{@resource.name}}"
-  h1 title="#{h1_text @resource}"
-    = h1_text @resource, true
+  - if @itemtype
+    h1 title="#{@resource.headline.gsub /<.*?>/, ''}"
+      = @resource.headline
+  - else
+    .h1-like
+      a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}": span назад
+      = @resource.headline
 
   /- if params[:page] != 'cosplay'
   /- else
