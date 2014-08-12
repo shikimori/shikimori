@@ -1,4 +1,7 @@
+@import compass/css3/transition
+@import compass/css3/border-radius
 @import globals
+@import mixins/links
 @import mixins/placeholder
 
 .anime-filter,.manga-filter
@@ -20,7 +23,7 @@
 
   .order-control
     cursor: pointer
-    +link-color(#333333)
+    +link_color(#333333)
     &.active
       text-decoration: underline
     &:hover
@@ -93,7 +96,7 @@
         width: 70px
 
       .name a
-        +link-color($selected-color)
+        +link_color
 
         &:hover
           text-decoration: underline
@@ -147,7 +150,7 @@
 
         .anime-status
           +menu-icon("\e814")
-          +link-color(#112233)
+          +link_color(#112233)
           display: none
           float: right
 

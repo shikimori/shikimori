@@ -1,0 +1,124 @@
+@import compass/css3/transition
+@import compass/utilities/text/ellipsis
+@import mixins/responsive
+@import mixins/tag
+@import mixins/plashka
+@import mixins/links
+
+$comments-margin: 58px
+
+.b-topic
+  border-bottom: none
+  border-top: 1px solid #DDD
+  margin: 0
+  padding: 5px 0 0 0
+
+  &:first-child
+    border-top: none
+    padding-top: 0 !important
+
+  &>header
+    +link
+
+    a
+      +ellipsis
+      font-size: 15px
+      font-weight: bold
+
+    img
+      float: left
+      margin-right: 10px
+      margin-top: 3px
+      width: 48px
+
+  //+lte_ipad
+    //.topic-block
+      //header img
+        //width: 32px !important
+        //margin-bottom: 4px !important
+
+      //.title
+        //margin-left: 0 !important
+
+  //.content
+    //margin-bottom: 5px
+    //min-height: 60px
+
+    ////.title
+      //margin-left: $comments-margin
+      //white-space: nowrap
+
+    //.date
+      //color: $date-color
+      //display: inline
+      //font-size: 11px
+      //font-style: normal
+      //padding-left: 10px
+
+
+    //.body
+      //margin-left: 0
+      //margin-top: 4px
+
+      //a
+        //+link
+
+      //&.image-x64
+        //min-height: 36px
+
+    //.last-block
+      //+ellipsis
+      //margin-top: 3px
+      //line-height: $line-height
+
+      //.date
+        //float: left
+        //padding-left: 2px
+        //padding-right: 5px
+
+      //.b-user16
+        //float: left
+        //margin-top: -2px
+
+      //.tags
+        //float: right
+        //font-size: 11px
+
+        //.tag
+          //+tag
+
+          //a
+            //+transition('color,background-color', 0.2s)
+            //color: inherit
+            //text-decoration: inherit
+
+            //&:hover
+              //color: inherit
+              //text-decoration: inherit
+
+            //&:active
+              //color: inherit !important
+              //text-decoration: inherit
+
+    //.buttons
+      //float: right
+
+  //.comments-shower, .comments-hider
+    //+plashka
+    //border: 1px solid #F2F2F2
+    //clear: left
+    //margin: 0 0 5px 0
+
+  //.comments-shower + .comments-container .comment-block:first-child
+    //border-top: none
+
+  //.comments-hider
+    //display: none
+
+  //.shiki-wall
+    //margin-top: 15px
+    //margin-bottom: 10px
+
+  //&:first-child
+    //padding-top: 5px
+

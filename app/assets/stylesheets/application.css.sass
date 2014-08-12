@@ -16,6 +16,7 @@
 
 @import globals
 @import mixins/responsive
+@import mixins/links
 
 body
   background-image: inline-image("/background/square_bg.png")
@@ -32,7 +33,7 @@ body
     display: none
 
 a
-  +link-color($selected-color)
+  +link_color
   -moz-outline-style: none
   outline: none
   text-decoration: none

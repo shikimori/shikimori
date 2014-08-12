@@ -2,7 +2,7 @@
 = require pages/forum/common
 */
 
-@import "globals";
+@import "mixins/plashka";
 
 .about {
   .comment-block.menu-block, .members-block .members-block {

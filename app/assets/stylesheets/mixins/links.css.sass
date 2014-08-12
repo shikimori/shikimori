@@ -1,0 +1,35 @@
+@import compass/css3/transition
+@import globals/variables
+
+/* цвет, становящийся ссылковым по наведению
+=link_color($color: $selected-color)
+  +transition(color, 0.2s)
+  color: $color
+
+  &:hover
+    color: $hover-color
+
+  &:active
+    color: $active-color
+
+/* голубая ссылка без подчёркивания
+=link
+  +link-color($selected-color$selected-color)
+  cursor: pointer
+
+  &:hover
+    text-decoration: underline
+
+
+/* голубая ссылка без подчёркивания
+=link
+  +link-color($selected-color$selected-color)
+
+  cursor: pointer
+  &:hover
+    text-decoration: underline
+
+/* голубая ссылка с подчёркиванием
+=link_underlined
+  +link
+  text-decoration: underline

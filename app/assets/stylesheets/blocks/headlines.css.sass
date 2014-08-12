@@ -1,6 +1,7 @@
+@import globals
 @import mixins/input
 @import mixins/hover_underlined
-@import globals
+@import mixins/links
 
 header.head
   margin-bottom: 15px
@@ -12,7 +13,7 @@ header.head
     +new-header-font
 
     a.back
-      +link-color($selected-color)
+      +link_color
       display: inline-block
       font-size: 24px
       padding-right: 14px

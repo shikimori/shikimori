@@ -1,0 +1,17 @@
+@import globals/variables
+@import compass/css3/transition
+
+=gray-block
+  +transition('color,background-color', 0.2s)
+  background: #f9f9f9
+  color: #555
+  cursor: pointer
+  line-height: $line-height
+  padding: 5px 10px
+
+  &:hover
+    background-color: #EEEEEE
+    color: black
+
+  &:active
+    background-color: #E7E7E7

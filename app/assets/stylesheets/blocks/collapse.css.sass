@@ -1,6 +1,7 @@
-@import globals
+@import globals/variables
+@import mixins/plashka
 
 .collapsed
-  @include plashka
+  +plashka
   display: none
   margin-bottom: $block-offset

@@ -5,7 +5,7 @@
 = render layout: 'animes/page' do |f|
   .subheadline Обзоры
   - if @resource.reviews.any?
-    .forum-container
+    .b-topics
       = render partial: 'topics/topic', collection: @resource.reviews, formats: :html
   - else
     p Тут пока ничего нет.

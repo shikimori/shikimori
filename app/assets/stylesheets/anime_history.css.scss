@@ -2,7 +2,7 @@
 = require pages/forum/common
 = require pages/anime_history
 */
-@import "globals";
+@import "mixins/plashka";
 
 .to-main-topic {
   @include plashka;
