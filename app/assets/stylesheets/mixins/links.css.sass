@@ -2,28 +2,19 @@
 @import globals/variables
 
 /* цвет, становящийся ссылковым по наведению
-=link_color($color: $selected-color)
+=link_color($color: $link)
   +transition(color, 0.2s)
   color: $color
 
   &:hover
-    color: $hover-color
+    color: $link_hover
 
   &:active
-    color: $active-color
+    color: $link_active
 
 /* голубая ссылка без подчёркивания
 =link
-  +link-color($selected-color$selected-color)
-  cursor: pointer
-
-  &:hover
-    text-decoration: underline
-
-
-/* голубая ссылка без подчёркивания
-=link
-  +link-color($selected-color$selected-color)
+  +link_color
 
   cursor: pointer
   &:hover

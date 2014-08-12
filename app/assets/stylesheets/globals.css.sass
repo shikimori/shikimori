@@ -47,11 +47,11 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
     margin-right: 2px
 
 =icon-button-selected-decor
-  color: $selected-color
+  color: $link
   &:hover
-    color: $hover-color
+    color: $link_hover
   &:active
-    color: $active-color
+    color: $link_active
 
 =icon-button($content)
   +link-color(#444444)
@@ -154,7 +154,7 @@ $default-image-active-background: #adadad
     +normal-link
     background: transparent !important
     border: none
-    //border-bottom: 1px dashed $selected-color
+    //border-bottom: 1px dashed $link
     //cursor: default
     display: inline
     padding: 0
@@ -170,7 +170,7 @@ $default-image-active-background: #adadad
     margin-top: 4.5px
     padding: 0 0 0 0
     text-decoration: none
-    //border-bottom: 1px dashed $selected-color
+    //border-bottom: 1px dashed $link
 
     &:hover, &:active
       background: transparent !important
@@ -194,9 +194,9 @@ $default-image-active-background: #adadad
   +transition(color, 0.2s)
   color: $color
   &:hover
-    color: $hover-color
+    color: $link_hover
   &:active
-    color: $active-color
+    color: $link_active
 
 =link_color_hover_underlined($color)
   +link-color($color)
@@ -208,7 +208,7 @@ $default-image-active-background: #adadad
 /* нормальная голубая ссылка
 =normal-link
   +transition(color, 0.2s)
-  +link-color($selected-color)
+  +link-color($link)
   cursor: pointer
   &:hover
     text-decoration: underline

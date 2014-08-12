@@ -32,33 +32,33 @@ article.b-topic.b-review.topic-block class="topic-#{topic.id}" itemprop="review"
 
   header
     span.linkeable data-href="#{user_url review.user}"
-      img src="#{review.user.avatar_url 64}" alt="#{review.user.nickname}" title="#{review.user.nickname}"
+      img src="#{review.user.avatar_url 48}" srcset="#{review.user.avatar_url 80} 2x" alt="#{review.user.nickname}" title="#{review.user.nickname}"
     a.name href="#{user_url review.user}" title="#{review.user.nickname}" itemprop="creator"
       = review.user.nickname
   - if review.votes_count > 0
     p.votes-count
       = review.votes_text
 
-  .body itemprop="reviewBody"
-    - if review.overall.present?
-      = render partial: 'reviews/votes', locals: { review: review, with_music: review.entry.class == Anime }, formats: :html
-    = cache [review, russian_names_key, 'body'], expires_in: 2.weeks
-      == BbCodeFormatter.instance.format_description(review.text, review)
+  /.body itemprop="reviewBody"
+    /- if review.overall.present?
+      /= render partial: 'reviews/votes', locals: { review: review, with_music: review.entry.class == Anime }, formats: :html
+    /= cache [review, russian_names_key, 'body'], expires_in: 2.weeks
+      /== BbCodeFormatter.instance.format_description(review.text, review)
 
-  .last-block
-    p.date
-      - if review.source.present?
-        a href="#{review.source}" title="#{review.source.gsub(/^http:\/\/|www\.|\/.*$/, '')}"
-          = review.source.gsub(/^http:\/\/|www\.|\/.*$/, '')
-        | &nbsp;&nbsp;&nbsp;&nbsp;
-      = Russian::strftime(review.created_at, "%e %B %Y")
-    - if user_signed_in? && review.user_id != current_user.id
-      p
-        span Этот обзор полезен?
-        span class="vote#{' selected' if review.voted_yes?(current_user)}" data-remote="true" action="#{vote_yes_url id: review.id, type: review.class.name}" data-type="json" data-method="post" Да
-        span class="vote#{' selected' if review.voted_no?(current_user)}" data-remote="true" action="#{vote_no_url id: review.id, type: review.class.name}" data-type="json" data-method="post" Нет
+  /.last-block
+    /p.date
+      /- if review.source.present?
+        /a href="#{review.source}" title="#{review.source.gsub(/^http:\/\/|www\.|\/.*$/, '')}"
+          /= review.source.gsub(/^http:\/\/|www\.|\/.*$/, '')
+        /| &nbsp;&nbsp;&nbsp;&nbsp;
+      /= Russian::strftime(review.created_at, "%e %B %Y")
+    /- if user_signed_in? && review.user_id != current_user.id
+      /p
+        /span Этот обзор полезен?
+        /span class="vote#{' selected' if review.voted_yes?(current_user)}" data-remote="true" action="#{vote_yes_url id: review.id, type: review.class.name}" data-type="json" data-method="post" Да
+        /span class="vote#{' selected' if review.voted_no?(current_user)}" data-remote="true" action="#{vote_no_url id: review.id, type: review.class.name}" data-type="json" data-method="post" Нет
 
-  - unless topic.viewed?
-    .appear-marker class="appear-entry-#{review.id}" data-href="#{appear_path}"
+  /- unless topic.viewed?
+    /.appear-marker class="appear-entry-#{review.id}" data-href="#{appear_path}"
 
-= render partial: 'topics/comments', locals: { topic: topic }, formats: :html
+/= render partial: 'topics/comments', locals: { topic: topic }, formats: :html

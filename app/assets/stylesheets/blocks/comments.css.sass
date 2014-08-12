@@ -243,7 +243,7 @@ $dark-grey-color: #545454
     display: inline
 
     &.collapsed, &.collapse
-      border-bottom: 1px dashed $selected-color
+      border-bottom: 1px dashed $link
 
   .spoiler + .target
     display: inline
@@ -278,14 +278,14 @@ $dark-grey-color: #545454
 .new-marker, .spoiler-marker
   +transition(all, 0.25s)
   +transition(opacity, 0.75s)
-  background-color: $hover-color
+  background-color: $link_hover
   color: white
 
   &:hover
-    background-color: $hover-color-0
+    background-color: $link_hover_light
 
   &:active
-    background-color: $active-color
+    background-color: $link_active
 
 .review-marker
   +transition(all, 0.25s)
