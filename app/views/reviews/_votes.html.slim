@@ -1,36 +1,25 @@
-div.votes
-  div.vote-block
-    p.vote-title Сюжет
-    div.rate-block.scores-user
-      = render partial: 'animes/rate', locals: { key: 'storyline', value: review.storyline, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
-    - if defined?(edit) && edit
-      = hidden_field_tag 'review[storyline]', review.storyline
+.votes
+  p.title Сюжет
+  = render partial: 'blocks/rate', locals: { score: review.storyline, input_selector: ('#review_storyline' if defined?(edit) && edit) }
+  - if defined?(edit) && edit
+    = hidden_field_tag 'review[storyline]', review.storyline
 
-  div.vote-block
-    p.vote-title Персонажи
-    div.rate-block.scores-user
-      = render partial: 'animes/rate', locals: { key: 'characters', value: review.characters, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
-    - if defined?(edit) && edit
-      = hidden_field_tag 'review[characters]', review.characters
+  p.title Персонажи
+  = render partial: 'blocks/rate', locals: { score: review.characters, input_selector: ('#review_characters' if defined?(edit) && edit) }
+  - if defined?(edit) && edit
+    = hidden_field_tag 'review[characters]', review.characters
 
-  div.vote-block
-    p.vote-title Рисовка
-    div.rate-block.scores-user
-      = render partial: 'animes/rate', locals: { key: 'animation', value: review.animation, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
-    - if defined?(edit) && edit
-      = hidden_field_tag 'review[animation]', review.animation
+  p.title Рисовка
+  = render partial: 'blocks/rate', locals: { score: review.animation, input_selector: ('#review_animation' if defined?(edit) && edit) }
+  - if defined?(edit) && edit
+    = hidden_field_tag 'review[animation]', review.animation
 
-  - if with_music
-    div.vote-block
-      p.vote-title Звуковой ряд
-      div.rate-block.scores-user
-        = render partial: 'animes/rate', locals: { key: 'music', value: review.music, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
-      - if defined?(edit) && edit
-        = hidden_field_tag 'review[music]', review.music
+  p.title Звуковой ряд
+  = render partial: 'blocks/rate', locals: { score: review.music, input_selector: ('#review_music' if defined?(edit) && edit) }
+  - if defined?(edit) && edit
+    = hidden_field_tag 'review[music]', review.music
 
-  div.vote-block
-    p.vote-title Итоговая оценка
-    div.rate-block.scores-user
-      = render partial: 'animes/rate', locals: { key: 'overall', value: review.overall, outer_class: defined?(edit) && edit ? '' : 'rated' }, formats: :html
-    - if defined?(edit) && edit
-      = hidden_field_tag 'review[overall]', review.overall
+  p.title Итоговая оценка
+  = render partial: 'blocks/rate', locals: { score: review.overall, input_selector: ('#review_overall' if defined?(edit) && edit) }
+  - if defined?(edit) && edit
+    = hidden_field_tag 'review[overall]', review.overall

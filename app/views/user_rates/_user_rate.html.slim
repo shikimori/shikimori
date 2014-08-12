@@ -33,7 +33,7 @@
 
       = simple_form_for user_rate, remote: true, authenticity_token: true, html: { 'data-type' => :html } do |f|
         = f.input :score, as: :hidden
-        = render partial: 'blocks/rate', locals: { score: user_rate ? user_rate.score : '', with_form: true, input_selector: '#user_rate_score' }
+        = render partial: 'blocks/rate', locals: { score: user_rate ? user_rate.score : '', with_submit: true, input_selector: '#user_rate_score' }
 
       p.note = user_rate.text_html
 

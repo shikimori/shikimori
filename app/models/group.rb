@@ -54,6 +54,7 @@ class Group < ActiveRecord::Base
   has_attached_file :logo,
     styles: {
       main: '215x215>',
+      x96: '96x96#',
       x73: '73x73#',
       x48: '48x48#'
     },

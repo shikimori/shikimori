@@ -89,7 +89,7 @@
     # сабмит формы user_rate
     .on 'ajax:success', '.new_user_rate, .increment, .remove', (e, html) ->
       $('.anime-rate').html html
-      $('.anime-rate .b-rate').makeRateble()
+      $('.anime-rate .b-rate').rateable()
 
     # завершение редактирования user_rate
     .on 'ajax:success', '.edit_user_rate', (e, html) ->

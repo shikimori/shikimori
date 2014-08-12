@@ -1,8 +1,8 @@
 .b-rate[
-    class="#{:rateable if defined? input_selector}"
-    data-notices="#{I18n.t("activerecord.attributes.user_rate.scores").to_json if defined? rateable}"
-    data-input_selector="#{input_selector if defined? input_selector}"
-    data-with_form="#{with_form if defined? with_form}"
+    class="#{:rateable if defined?(input_selector) && input_selector.present?}"
+    data-notices="#{I18n.t("activerecord.attributes.user_rate.scores").to_json if defined?(input_selector) && input_selector.present?}"
+    data-input_selector="#{input_selector if defined?(input_selector) && input_selector.present?}"
+    data-with_submit="#{with_submit if defined?(with_submit) && with_submit.present?}"
   ]
   .stars-container
     .stars.score class="score-#{score.round}"

@@ -17,8 +17,15 @@ $comments-margin: 58px
     border-top: none
     padding-top: 0 !important
 
+  &>.buttons
+    display: none
+
+  +gt_ipad
+    &:hover > .buttons
+      display: block
+
   &>header
-    +link
+    +link_color
 
     a
       +ellipsis

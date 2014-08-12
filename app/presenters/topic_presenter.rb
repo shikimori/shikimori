@@ -64,7 +64,9 @@ class TopicPresenter < BasePresenter
 
   # текст топика
   def body
-    BbCodeFormatter.instance.format_comment entry.body
+    Rails.cache.fetch [entry, russian_names_key, 'body'], expires_in: 2.weeks do
+      BbCodeFormatter.instance.format_comment entry.body
+    end
   end
 
   # посты топика
@@ -112,9 +114,9 @@ class TopicPresenter < BasePresenter
   end
 
   # большая ли у топика аватарка?
-  def extended_image?
-    (entry.special? && entry.linked.respond_to?(:image)) || review?
-  end
+  #def extended_image?
+    #(entry.special? && entry.linked.respond_to?(:image)) || review?
+  #end
 
   # картинка топика(аватарка автора)
   def avatar
@@ -128,6 +130,19 @@ class TopicPresenter < BasePresenter
       entry.user.avatar_url(48)
     end
   end
+
+  def avatar2x
+    if entry.special? && entry.linked.respond_to?(:image) && !(entry.news? && !entry.generated? && !preview?)
+      topic.linked.image.url(:x96)
+    elsif entry.special? && entry.linked.respond_to?(:logo)
+      topic.linked.logo.url(:x96)
+    elsif review?
+      topic.linked.entry.image.url(:x96)
+    else
+      entry.user.avatar_url(80)
+    end
+  end
+
 
   # превью ли это топика?
   def preview?

@@ -10,7 +10,7 @@ article.b-topic.b-review.topic-block class="topic-#{topic.id}" itemprop="review"
     - unless topic.viewed?
       p.new-marker новое
 
-    .buttons
+    aside.buttons
       .main-controls
         span.item-reply title="Комментировать"
         span[
@@ -35,15 +35,17 @@ article.b-topic.b-review.topic-block class="topic-#{topic.id}" itemprop="review"
       img src="#{review.user.avatar_url 48}" srcset="#{review.user.avatar_url 80} 2x" alt="#{review.user.nickname}" title="#{review.user.nickname}"
     a.name href="#{user_url review.user}" title="#{review.user.nickname}" itemprop="creator"
       = review.user.nickname
+
   - if review.votes_count > 0
     p.votes-count
       = review.votes_text
 
-  /.body itemprop="reviewBody"
-    /- if review.overall.present?
-      /= render partial: 'reviews/votes', locals: { review: review, with_music: review.entry.class == Anime }, formats: :html
-    /= cache [review, russian_names_key, 'body'], expires_in: 2.weeks
-      /== BbCodeFormatter.instance.format_description(review.text, review)
+  .body itemprop="reviewBody"
+    - if review.overall.present?
+      = render partial: 'reviews/votes', locals: { review: review, with_music: review.entry.class == Anime }
+
+    = cache [review, russian_names_key, 'body'], expires_in: 2.weeks
+      == BbCodeFormatter.instance.format_description review.text, review
 
   /.last-block
     /p.date
