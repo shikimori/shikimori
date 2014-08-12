@@ -346,6 +346,7 @@ Site::Application.routes.draw do
           get :art
           get :other_names # другие названия
           get :related
+          get :resources
 
           get :stats
           get :recent

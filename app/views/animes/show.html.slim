@@ -92,54 +92,11 @@
         = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
         /= render partial: 'additional_links', locals: { entry: @resource }
 
-  - if @resource.screenshots(5).any? || @resource.videos(5).any?
-    .cc.m0 class="#{@resource.videos(5).one? ? 'one-video' : 'two-videos' if @resource.videos(5).any? && @resource.screenshots(5).any?}"
-      .c-screenshots
-        - if @resource.screenshots(5).any?
-          .subheadline.m10
-            span.linkeable data-href="#{@resource.screenshots_url}" Кадры
-          .cc
-            = render @resource.screenshots(5)
-
-      .c-videos
-        - if @resource.videos(5).any?
-          .subheadline.m10
-            span.linkeable data-href="#{@resource.videos_url}" Видео
-          .cc
-            = render @resource.videos(5)
-
-  - if @resource.roles.main_characters.any? || @resource.roles.main_people.any?
-    .cc.m0 class="#{@resource.roles.grouping_class}"
-      - if @resource.roles.main_characters.any?
-        .c-characters
-          .subheadline.m10
-            span.linkeable data-href="#{@resource.characters_url}" Главные герои
-          .cc.m0
-            = render partial: 'characters/character', collection: @resource.roles.main_characters, locals: { cover_minified: true, content_by: :tooltip }
-
-      - if @resource.roles.main_people.any?
-        .c-people
-          .subheadline.m10
-            span.linkeable data-href="#{@resource.staff_url}" Создатели
-          .cc.m0
-            = render partial: 'people/person', collection: @resource.roles.main_people, locals: { cover_minified: true }
-
-  - if @resource.related.related.any?
-    .b-options-floated.mobile-support
-      span.link.selected Напрямую
-      span.link.linkeable data-href="#{@resource.chronology_url}" Вся хронология
-    .subheadline.m10 Связанное
-    - if user_signed_in?
-      = render 'animes/related'
-    - else
-      .related-loader.postloaded data-href="#{@resource.related_url}"
-        .ajax-loading.vk-like title="Загрузка..."
-
-  - if @resource.related.similar.any?
-    .subheadline.m10
-      span.linkeable data-href="#{@resource.similar_url}" Похожее
-    .cc
-      = render partial: 'animes/anime', collection: @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+  - if user_signed_in?
+    = render partial: 'resources'
+  - else
+    .resources-loader.postloaded data-href="#{@resource.resources_url}"
+      .ajax-loading.vk-like title="Загрузка..."
 
   - if user_signed_in? || @resource.comments_count > 0
     .forum-container.entry-comments

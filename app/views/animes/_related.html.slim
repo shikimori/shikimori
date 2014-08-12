@@ -1,8 +1,0 @@
-.cc.m0
-  - if @resource.related.many?
-    = render partial: 'animes/anime', collection: @resource.related.related[0..AnimeDecorator::VISIBLE_RELATED-1], locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
-    .related-shower style="display: block;" Показать остальное
-    .related-hidden
-      = render partial: 'animes/anime', collection: @resource.related.related[AnimeDecorator::VISIBLE_RELATED..-1], locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
-  - else
-    = render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html

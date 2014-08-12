@@ -8,6 +8,7 @@ class Ability
     if @user
       user_ability
       contests_moderator_ability if @user.contests_moderator?
+      admin_ability if @user.admin?
     end
   end
 
@@ -25,5 +26,9 @@ class Ability
   def contests_moderator_ability
     can :manage, Contest
     cannot :destroy, Contest
+  end
+
+  def admin_ability
+    can :manager, :all
   end
 end

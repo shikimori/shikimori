@@ -1,0 +1,51 @@
+- if @resource.screenshots(5).any? || @resource.videos(5).any?
+  .cc.m0 class="#{@resource.videos(5).one? ? 'one-video' : 'two-videos' if @resource.videos(5).any? && @resource.screenshots(5).any?}"
+    .c-screenshots
+      - if @resource.screenshots(5).any?
+        .subheadline.m10
+          span.linkeable data-href="#{@resource.screenshots_url}" Кадры
+        .cc
+          = render @resource.screenshots(5)
+
+    .c-videos
+      - if @resource.videos(5).any?
+        .subheadline.m10
+          span.linkeable data-href="#{@resource.videos_url}" Видео
+        .cc
+          = render @resource.videos(5)
+
+- if @resource.roles.main_characters.any? || @resource.roles.main_people.any?
+  .cc.m0 class="#{@resource.roles.grouping_class}"
+    - if @resource.roles.main_characters.any?
+      .c-characters
+        .subheadline.m10
+          span.linkeable data-href="#{@resource.characters_url}" Главные герои
+        .cc.m0
+          = render partial: 'characters/character', collection: @resource.roles.main_characters, locals: { cover_minified: true, content_by: :tooltip }
+
+    - if @resource.roles.main_people.any?
+      .c-people
+        .subheadline.m10
+          span.linkeable data-href="#{@resource.staff_url}" Создатели
+        .cc.m0
+          = render partial: 'people/person', collection: @resource.roles.main_people, locals: { cover_minified: true }
+
+- if @resource.related.related.any?
+  .b-options-floated.mobile-support
+    span.link.selected Напрямую
+    span.link.linkeable data-href="#{@resource.chronology_url}" Вся хронология
+  .subheadline.m10 Связанное
+  .cc.m0
+    - if @resource.related.many?
+      = render partial: 'animes/anime', collection: @resource.related.related[0..AnimeDecorator::VISIBLE_RELATED-1], locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
+      .related-shower style="display: block;" Показать остальное
+      .related-hidden
+        = render partial: 'animes/anime', collection: @resource.related.related[AnimeDecorator::VISIBLE_RELATED..-1], locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
+    - else
+      = render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
+
+- if @resource.related.similar.any?
+  .subheadline.m10
+    span.linkeable data-href="#{@resource.similar_url}" Похожее
+  .cc
+    = render partial: 'animes/anime', collection: @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }

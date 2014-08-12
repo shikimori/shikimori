@@ -66,12 +66,16 @@ class AnimesController < ShikimoriController
   end
 
   def recent
+    1/0
   end
 
   def related
     noindex
     page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
-    render partial: 'animes/related' if request.xhr?
+  end
+
+  def resources
+    render partial: 'resources'
   end
 
   def other_names
@@ -186,8 +190,7 @@ private
 
     # все страницы, кроме animes#show
     if @resource && (params[:action] != 'show' || params[:controller] == 'reviews')
-      #breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
-      breadcrumb "Страница #{@klass == Anime ? 'аниме' : 'манги'}", @resource.url
+      breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
     end
   end
 
