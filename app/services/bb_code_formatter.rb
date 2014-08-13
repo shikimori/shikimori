@@ -25,7 +25,8 @@ class BbCodeFormatter
 
   # форматирование текста комментариев
   def format_comment original_text
-    text = remove_wiki_codes original_text || ''
+    text = (original_text || '').strip
+    text = remove_wiki_codes text
     text = strip_malware text
     text = user_mention text
 
@@ -73,7 +74,7 @@ class BbCodeFormatter
 
   # замена концов строк на параграфы
   def paragraphs text
-    text.strip.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>')
+    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>')
   end
 
   # замена имён персонажей на ббкоды
