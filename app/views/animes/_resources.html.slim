@@ -47,5 +47,5 @@
 - if @resource.related.similar.any?
   .subheadline.m10
     span.linkeable data-href="#{@resource.similar_url}" Похожее
-  .cc
+  .cc.m0
     = render partial: 'animes/anime', collection: @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }

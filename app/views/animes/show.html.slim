@@ -13,7 +13,7 @@
     - if @resource.released_on
       meta itemprop="endDate" content="#{@resource.released_on.to_s}"
 
-  .cc
+  .cc.m0
     .c-image
       .block
         .anime-image
@@ -26,21 +26,20 @@
     .c-about
       .cc
         .c-info
-          .anime-info.block
-            .subheadline Информация
+          .subheadline Информация
+          .block
+            = render partial: 'animes/info', locals: { entry: @resource, details: true }
+
+          - if @resource.anime? && !@resource.anons?
             .block
-              = render partial: 'animes/info', locals: { entry: @resource, details: true }
+              - if @resource.anime_videos?
+                .watch-online.subheadline.blue
+                  span.linkeable data-href="#{anime_videos_show_url @resource.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
+              - elsif user_signed_in?
+                .watch-online.subheadline.blue
+                  a href="#{new_anime_online_anime_anime_video_url @resource.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
 
-            - if @resource.anime? && !@resource.anons?
-              .block
-                - if @resource.anime_videos?
-                  .watch-online.subheadline.blue
-                    span.linkeable data-href="#{anime_videos_show_url @resource.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
-                - elsif user_signed_in?
-                  .watch-online.subheadline.blue
-                    a href="#{new_anime_online_anime_anime_video_url @resource.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
-
-        .c-rating.block
+        .c-rating
           - if @resource.with_score? && !@resource.anons?
             .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
               .subheadline.m5 Рейтинг
@@ -61,19 +60,19 @@
             .block
               .subheadline.m10
                 = @resource.real_studios.size > 1 ? 'Студии' : 'Студия'
-              .block.m0
+              .block
                 = render partial: 'animes/studios_info', locals: { entry: @resource }
 
           - if @resource.respond_to?(:publishers) && @resource.publishers.any?
             .block
               .subheadline
                 = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
-              .block.m0
+              .block
                 = render partial: 'mangas/publishers_info', locals: { entry: @resource }
 
     .c-description
       .subheadline.m5 Описание
-      .block.m0
+      .block
         meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
         meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
 
@@ -99,6 +98,7 @@
       .ajax-loading.vk-like title="Загрузка..."
 
   - if user_signed_in? || @resource.comments_count > 0
+    .b-comments
     .forum-container.entry-comments
       .comments.zero-margin.zero-top-border
         - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count

@@ -11,7 +11,7 @@
   // columns media
   .c-image
     +gte_ipad
-      +bcolumn(2)
+      +column_b(2)
       width: 30.5%
 
     +iphone-portrait
@@ -33,7 +33,7 @@
       +column(2)
 
     .c-info, .c-rating
-      +column(2, 0.5, 6%)
+      +column_bm(2, 0.5, 6%)
 
       +iphone
         +column(1)
@@ -43,6 +43,7 @@
       clear: left
 
   .c-description
+    +block_m
     margin-left: 34.6%
     padding-top: 1px // из-за странной баги в фаерфоксе
 
@@ -53,10 +54,10 @@
   .one-video
     +gte_ipad
       .c-screenshots
-        +column(2, 0.75)
+        +column_bm(2, 0.75)
 
       .c-videos
-        +column(2, 0.25)
+        +column_bm(2, 0.25)
 
       .c-screenshot
         +column(3)
@@ -73,11 +74,12 @@
   .two-videos
     +gte_ipad
       .c-screenshots, .c-videos
-        +column(2)
+        +column_bm(2)
 
     +widescreen
       .c-screenshot, .c-video
         +column(2)
+
         &.entry-3, &.entry-4, &.entry-5
           display: none
 
@@ -86,6 +88,10 @@
         +column(3)
         &.entry-4, &.entry-5
           display: none
+
+    +iphone
+      .c-screenshots, .c-videos
+        +block_m
 
   .c-screenshot, .c-video
     margin-bottom: 0
@@ -136,14 +142,14 @@
 
   .c-anime, .c-manga
     +gte_ipad
-      +bcolumn(7)
+      +column_b(7)
     +iphone-portrait
-      +bcolumn(3)
+      +column_b(3)
       &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
         display: none
 
     +iphone-landscape
-      +bcolumn(5)
+      +column_b(5)
       &:nth-child(6), &:nth-child(7)
         display: none
 
@@ -153,21 +159,21 @@
     img
       max-width: 100%
 
-  .anime-info
-    .other-names.click-loader
-      +plashka
-      height: 15px
-      line-height: 15px
-      margin-top: 5px
-      padding: 0 17px 0 13px
+  .other-names.click-loader
+    +plashka
+    height: 15px
+    line-height: 15px
+    margin-top: 5px
+    padding: 0 17px 0 13px
+    position: absolute
+    text-align: center
+
+    span
+      margin-top: -4px
+      margin-left: -3px
       position: absolute
-      text-align: center
-      span
-        margin-top: -4px
-        margin-left: -3px
-        position: absolute
-      img
-        margin: 0 -10px 2px -2px
+    img
+      margin: 0 -10px 2px -2px
 
   .watch-online
     +ellipsis
@@ -212,7 +218,7 @@
     +plashka
     border: 1px solid #F2F2F2
     clear: left
-    margin: -5px 0 $block-offset 0
+    margin: -5px 0 $block_offset 0
 
   .related-hidden
     display: none
@@ -308,8 +314,8 @@
     color: $gray-color-0
 
   .anime-rate
+    +block
     width: auto
-    margin-bottom: $block-offset
 
     .add-to-list
       +normal-link

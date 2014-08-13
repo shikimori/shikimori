@@ -33,6 +33,11 @@
     margin-bottom: 0
 
 // колонка, состоящая из блока+колонки
-=bcolumn($columns, $column_size: 1/$columns, $gutter: 4%)
+=column_b($columns, $column_size: 1/$columns, $gutter: 4%)
   +block
+  +column($columns, $column_size, $gutter)
+
+// колонка, состоящая из блока с обязательным отступом+колонки
+=column_bm($columns, $column_size: 1/$columns, $gutter: 4%)
+  +block_m
   +column($columns, $column_size, $gutter)

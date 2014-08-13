@@ -1,6 +1,15 @@
 @import globals/variables
 
 =block
-  margin-bottom: $block-offset
+  margin-bottom: $block_offset
   line-height: $line_height
   position: relative
+
+  &:last-child
+    margin-bottom: 0
+
+=block_m
+  +block
+
+  &:last-child
+    margin-bottom: $block_offset
