@@ -1,13 +1,14 @@
-@import globals
+@import globals/variables
+@import mixins/links
 
 .b-breadcrumbs
-  line-height: 17px
+  line-height: $line_height
   color: #333
   margin: 2px 0 2px 1px
   clear: left
 
   a
-    +normal-link
+    +link
 
   &>span
     &:after
