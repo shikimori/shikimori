@@ -16,13 +16,24 @@ header.head
       +link_color
       display: inline-block
       font-size: 24px
-      padding-right: 14px
+      position: relative
+      width: 40px
 
       &:before
-        padding-right: 5px
+        color: #123
         content: '←'
+        left: 5px
+        position: absolute
+        top: -32px
 
-      &:hover span
+      &:after
+        content: 'назад'
+        font-size: 9px
+        left: 5px
+        position: absolute
+        top: -9px
+
+      &:hover:after
         text-decoration: underline
 
   .notice

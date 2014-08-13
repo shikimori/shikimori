@@ -8,7 +8,7 @@ header.head
       = @resource.headline
   - else
     .h1-like
-      a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}": span назад
+      a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
       = @resource.headline
 
   /- if params[:page] != 'cosplay'
