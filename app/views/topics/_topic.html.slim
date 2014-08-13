@@ -36,7 +36,7 @@
       header
         span.linkeable data-href="#{topic.url}"
           img src="#{topic.avatar}" srcset="#{topic.avatar2x}" alt="#{topic.topic_title}"
-        a href="topic.url" title="#{topic.topic_title}" = topic.topic_title
+        a href="#{topic.url}" title="#{topic.topic_title}" = topic.topic_title
 
       - if topic.review? && topic.linked.votes_count > 0
         p.votes-count = topic.linked.votes_text
@@ -45,29 +45,28 @@
       .body
         = topic.body
 
-      /.last-block
+      footer
         /- if topic.preview? && (topic.news? || topic.review?)
-          /a.b-user16 href="#{user_url topic.user}" title="#{topic.user.nickname}"
-            /img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
-            /span = topic.user.nickname
-        /p.date
-          /= topic.date
-        /p.tags
-          /- if user_signed_in?
-            /- if topic.tag.present? && !topic.news? && !topic.review?
-              /span.tag
-                /a title="#{topic.tag}" href="#{subsection_url topic}" rel="history" = topic.tag
-            /span.tag
-              /a title="#{topic.section.name}" href="#{section_url topic.section}" rel="history" = topic.section.name
-          /- else
-            /- if topic.tag.present? && !topic.news? && !topic.review?
-              /span.tag title="#{topic.tag}" data-href="#{subsection_url topic}" = topic.tag
+          a.b-user16 href="#{user_url topic.user}" title="#{topic.user.nickname}"
+            img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
+            span = topic.user.nickname
 
-            /span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
+        p.date
+          = topic.date
 
-        //.clear-left
+        p.tags
+          - if user_signed_in?
+            - if topic.tag.present? && !topic.news? && !topic.review?
+              span.tag
+                a title="#{topic.tag}" href="#{subsection_url topic}" rel="history" = topic.tag
+            span.tag
+              a title="#{topic.section.name}" href="#{section_url topic.section}" rel="history" = topic.section.name
+          - else
+            - if topic.tag.present? && !topic.news? && !topic.review?
+              span.tag title="#{topic.tag}" data-href="#{subsection_url topic}" = topic.tag
+            span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
 
-      /- unless topic.viewed?
-        //.appear-marker class="appear-entry-#{topic.id}" data-href="#{appear_path}"
+      - unless topic.viewed?
+        .appear-marker class="appear-entry-#{topic.id}" data-href="#{appear_path}"
 
     /= render partial: 'topics/comments', locals: { topic: topic }, formats: :html

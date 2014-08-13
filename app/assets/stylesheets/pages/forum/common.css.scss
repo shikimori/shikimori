@@ -165,7 +165,7 @@ $comments-margin: 58px;
       .last-block {
         @include ellipsis;
         margin-top: 3px;
-        line-height: $line-height;
+        line-height: $line_height;
 
         .date {
           float: left;

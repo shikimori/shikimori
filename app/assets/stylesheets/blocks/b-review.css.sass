@@ -1,15 +1,21 @@
 @import globals/variables
 @import mixins/clear_right
 @import mixins/responsive
+@import mixins/links
 
 .b-review
   .votes-count
     color: $gray-color-2
     font-size: 11px
+    line-height: 1.4
     text-decoration: none
 
   .body
     +clear_right
+
+    .b-user16
+      margin-left: 20px
+      margin-right: 0
 
     .votes
       float: right
@@ -34,3 +40,12 @@
 
         &:last-child
           margin-bottom: 20px
+
+  footer
+    .vote
+      +link
+      display: inline-block
+      margin-left: 7px
+
+      &.selected
+        font-weight: bold

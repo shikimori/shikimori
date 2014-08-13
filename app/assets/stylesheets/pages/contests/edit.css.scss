@@ -33,7 +33,7 @@
 
     li {
       float: left;
-      line-height: $line-height;
+      line-height: $line_height;
       width: 33.3%;
 
       a {
@@ -60,11 +60,11 @@
   .actions {
     .action {
       @include normal-link;
-      line-height: $line-height;
+      line-height: $line_height;
       display: block;
     }
     span {
-      line-height: $line-height;
+      line-height: $line_height;
     }
   }
 
