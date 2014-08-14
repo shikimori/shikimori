@@ -16,6 +16,14 @@
     &:hover > .buttons
       display: block
 
+  +iphone_portrait
+    aside.markers
+      float: right
+
+      &>div
+        float: none
+        height: 25px
+
   &>header
     +link_color
     margin-bottom: 3px
@@ -46,10 +54,10 @@
         font-size: 11px
         padding-left: 10px
 
-        //+responsive(tablet)
-          //display: block
-          //padding-left: 0
-          //line-height: $line_height
+        +lte_ipad
+          display: block
+          padding-left: 0
+          line-height: $line_height
 
 
 //h2.comments-header
