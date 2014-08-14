@@ -129,7 +129,7 @@ $comments-margin: 58px;
         }
       }
       .date {
-        color: $date-color;
+        color: $date;
         display: inline;
         font-size: 11px;
         font-style: normal;
@@ -355,7 +355,7 @@ $comments-margin: 58px;
         .buttons {
           display: block;
         }
-        .review-marker, .offtopic-marker, .new-marker {
+        .b-review_marker, .b-offtopic_marker, .b-new_marker {
           display: none!important;
         }
       }

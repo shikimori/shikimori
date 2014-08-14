@@ -49,7 +49,7 @@ $(document.body).on 'ajax:success', '.request-control .ban, .request-control .wa
   if $(@).hasClass 'warn'
     $ban_form.find('#ban_duration').val '0m'
 
-    if $(@).closest('.abuse-request').find('.spoiler-marker').length
+    if $(@).closest('.abuse-request').find('.b-spoiler_marker').length
       $ban_form.find('#ban_reason').val 'спойлеры'
 
 # обработка аяксовой кнопочки

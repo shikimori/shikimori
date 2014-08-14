@@ -1,14 +1,13 @@
 /.review-block.topic-block class="review-#{review.id}#{' comment-new' unless review.viewed?}" itemprop="review" itemscope="itemscope" itemtype="http://schema.org/Review"
 / TODO: оставить один comment-new вместо двух
 article.b-topic.b-review.topic-block class="topic-#{topic.id}" itemprop="review" itemscope="itemscope" itemtype="http://schema.org/Review"
-  .appear-block class="#{' comment-new' unless topic.viewed?}"
-  /.content
+  /.appear-block class="#{' comment-new' unless topic.viewed?}"
   - if user_signed_in?
     span.item-mobile title="Действия"
 
   - if user_signed_in?
     - unless topic.viewed?
-      p.new-marker новое
+      p.b-new_marker новое
 
     aside.buttons
       .main-controls

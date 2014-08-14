@@ -14,6 +14,14 @@
 
   span {
     display: inline-block;
+    line-height: 15px !important;
+
+    &:before {
+      line-height: 15px !important;
+    }
+  }
+  &>div {
+    line-height: 15px !important;
   }
   .main-controls {
     a {

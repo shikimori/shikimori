@@ -6,12 +6,12 @@
   article.b-topic.topic-block class="topic-#{topic.id} #{:preview if topic.preview?}#{' height-unchecked' if topic.should_shorten?} #{'b-review' if topic.review?}" data-id="#{topic.id}"
     a name="topic-#{topic.id}"
     - if topic.show_body?
-      .appear-block class="#{'comment-new' unless topic.viewed?}"
+      /.appear-block class="#{'comment-new' unless topic.viewed?}"
       - if user_signed_in?
         span.item-mobile title="Действия"
       - if user_signed_in?
         - unless topic.viewed?
-          p.new-marker новое
+          p.b-new_marker новое
 
         aside.buttons
           .main-controls
@@ -35,7 +35,7 @@
       /= cache [topic.entry, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
       header
         span.linkeable data-href="#{topic.url}"
-          img src="#{topic.avatar}" srcset="#{topic.avatar2x}" alt="#{topic.topic_title}"
+          img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.topic_title}"
         a href="#{topic.url}" title="#{topic.topic_title}" = topic.topic_title
 
       - if topic.review? && topic.linked.votes_count > 0

@@ -72,7 +72,7 @@ $('.comment-block .item-quote').live 'click', ->
     user: $comment.find('.name-date a').html()
     user_id: $comment.find('.name-date a').data('user_id')
     body: $(@).data('quote')
-    offtopic: $comment.find('.offtopic-marker').css('display') isnt 'none'
+    offtopic: $comment.find('.b-offtopic_marker').css('display') isnt 'none'
 
 # ответ на обзор
 $('.review-block .content .item-reply').live 'click', (e) ->
@@ -144,7 +144,7 @@ $('.moderation-controls .item-moderation-cancel').live 'click', ->
   $('.moderation-controls', $block(@)).hide()
 
 # пометка комментария обзором/оффтопиком
-$('.item-review, .item-offtopic, .offtopic-marker, .review-marker, .item-spoiler, .item-abuse').live 'ajax:success', (e, data, satus, xhr) ->
+$('.item-review, .item-offtopic, .b-offtopic_marker, .b-review_marker, .item-spoiler, .item-abuse').live 'ajax:success', (e, data, satus, xhr) ->
   if 'affected_ids' of data and data.affected_ids.length
     _.each data.affected_ids, (id) ->
       $comment = $(".comment-#{id}")

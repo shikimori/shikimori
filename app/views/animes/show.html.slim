@@ -13,109 +13,107 @@
     - if @resource.released_on
       meta itemprop="endDate" content="#{@resource.released_on.to_s}"
 
-  .cc.m0
-    .c-image
-      .block
-        .anime-image
-          center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+  /.cc.m0
+    /.c-image
+      /.block
+        /.anime-image
+          /center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-      - if user_signed_in?
-        .anime-rate
-          = render partial: 'user_rates/user_rate', locals: { user_rate: @resource.rate || @resource.rates.build(user_id: current_user.id), entry: @resource }
+      /- if user_signed_in?
+        /.anime-rate
+          /= render partial: 'user_rates/user_rate', locals: { user_rate: @resource.rate || @resource.rates.build(user_id: current_user.id), entry: @resource }
 
-    .c-about
-      .cc
-        .c-info
-          .subheadline Информация
-          .block
-            = render partial: 'animes/info', locals: { entry: @resource, details: true }
+    /.c-about
+      /.cc
+        /.c-info
+          /.subheadline Информация
+          /.block
+            /= render partial: 'animes/info', locals: { entry: @resource, details: true }
 
-          - if @resource.anime? && !@resource.anons?
-            .block
-              - if @resource.anime_videos?
-                .watch-online.subheadline.blue
-                  span.linkeable data-href="#{anime_videos_show_url @resource.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
-              - elsif user_signed_in?
-                .watch-online.subheadline.blue
-                  a href="#{new_anime_online_anime_anime_video_url @resource.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
+          /- if @resource.anime? && !@resource.anons?
+            /.block
+              /- if @resource.anime_videos?
+                /.watch-online.subheadline.blue
+                  /span.linkeable data-href="#{anime_videos_show_url @resource.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
+              /- elsif user_signed_in?
+                /.watch-online.subheadline.blue
+                  /a href="#{new_anime_online_anime_anime_video_url @resource.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
 
-        .c-rating
-          - if @resource.with_score? && !@resource.anons?
-            .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
-              .subheadline.m5 Рейтинг
-              .scores
-                meta itemprop="bestRating" content="10"
-                meta itemprop="ratingValue" content="#{@resource.score}"
-                meta itemprop="ratingCount" content="#{(@resource.mal_scores.sum/37).to_i}"
-                = render partial: 'blocks/rate', locals: { score: @resource.score }
+        /.c-rating
+          /- if @resource.with_score? && !@resource.anons?
+            /.block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+              /.subheadline.m5 Рейтинг
+              /.scores
+                /meta itemprop="bestRating" content="10"
+                /meta itemprop="ratingValue" content="#{@resource.score}"
+                /meta itemprop="ratingCount" content="#{(@resource.mal_scores.sum/37).to_i}"
+                /= render partial: 'blocks/rate', locals: { score: @resource.score }
 
-          - if @resource.genres.any?
-            .block
-              .subheadline
-                = @resource.genres.size > 1 ? 'Жанры' : 'Жанр'
-              .block
-                = render partial: 'animes/genres_info', locals: { entry: @resource }
+          /- if @resource.genres.any?
+            /.block
+              /.subheadline
+                /= @resource.genres.size > 1 ? 'Жанры' : 'Жанр'
+              /.block
+                /= render partial: 'animes/genres_info', locals: { entry: @resource }
 
-          - if @resource.respond_to?(:studios) && @resource.studios.any?
-            .block
-              .subheadline.m10
-                = @resource.real_studios.size > 1 ? 'Студии' : 'Студия'
-              .block
-                = render partial: 'animes/studios_info', locals: { entry: @resource }
+          /- if @resource.respond_to?(:studios) && @resource.studios.any?
+            /.block
+              /.subheadline.m10
+                /= @resource.real_studios.size > 1 ? 'Студии' : 'Студия'
+              /.block
+                /= render partial: 'animes/studios_info', locals: { entry: @resource }
 
-          - if @resource.respond_to?(:publishers) && @resource.publishers.any?
-            .block
-              .subheadline
-                = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
-              .block
-                = render partial: 'mangas/publishers_info', locals: { entry: @resource }
+          /- if @resource.respond_to?(:publishers) && @resource.publishers.any?
+            /.block
+              /.subheadline
+                /= @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
+              /.block
+                /= render partial: 'mangas/publishers_info', locals: { entry: @resource }
 
-    .c-description
-      .subheadline.m5 Описание
-      .block
-        meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
-        meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
+    /.c-description
+      /.subheadline.m5 Описание
+      /.block
+        /meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
+        /meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
 
-        .m20
-          - if @resource.description_html.blank?
-            == format_html_text @resource.description_mal
-          - else
-            - if user_signed_in? && !@resource.description_mal.blank?
-              .lang-trigger
-                | [<span>eng</span>]
-              .english
-                == format_html_text @resource.description_mal
-            .russian itemprop="description"
-              == @resource.description_html
+        /.m20
+          /- if @resource.description_html.blank?
+            /== format_html_text @resource.description_mal
+          /- else
+            /- if user_signed_in? && !@resource.description_mal.blank?
+              /.lang-trigger
+                /| [<span>eng</span>]
+              /.english
+                /== format_html_text @resource.description_mal
+            /.russian itemprop="description"
+              /== @resource.description_html
 
-        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
-        /= render partial: 'additional_links', locals: { entry: @resource }
+        /= render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
+        //= render partial: 'additional_links', locals: { entry: @resource }
 
-  - if user_signed_in?
-    = render partial: 'resources'
-  - else
-    .resources-loader.postloaded data-href="#{@resource.resources_url}"
-      .ajax-loading.vk-like title="Загрузка..."
+  /- if user_signed_in?
+    /= render partial: 'resources'
+  /- else
+    /.resources-loader.postloaded data-href="#{@resource.resources_url}"
+      /.ajax-loading.vk-like title="Загрузка..."
 
   - if user_signed_in? || @resource.comments_count > 0
     .b-comments
-    .forum-container.entry-comments
-      .comments.zero-margin.zero-top-border
-        - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
-          .b-options-floated.mobile-support
-            span.link.selected.link-comment-reviews data-disabled="true" data-remote="true" data-type="json" data-action="#{@resource.comments_reviews_url}"
-              | Отзывы&nbsp;
-              span.sep.zero.inline
-                | (
-              = @resource.comment_reviews_count
-              span.sep.zero.inline
-                | )
-            span.link.link-comments data-remote="true" data-type="json" data-action="#{@resource.comments_all_url}"
-              | Все комментарии&nbsp;
-              span.sep.zero.inline
-                | (
-              = @resource.comments_count
-              span.sep.zero.inline
-                | )
-        .subheadline.m3 Обсуждение
-        = render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }
+      - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
+        .b-options-floated.mobile-support
+          span.link.selected.link-comment-reviews data-disabled="true" data-remote="true" data-type="json" data-action="#{@resource.comments_reviews_url}"
+            | Отзывы&nbsp;
+            span.sep.zero.inline
+              | (
+            = @resource.comment_reviews_count
+            span.sep.zero.inline
+              | )
+          span.link.link-comments data-remote="true" data-type="json" data-action="#{@resource.comments_all_url}"
+            | Все комментарии&nbsp;
+            span.sep.zero.inline
+              | (
+            = @resource.comments_count
+            span.sep.zero.inline
+              | )
+      .subheadline.m3 Обсуждение
+      = render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }

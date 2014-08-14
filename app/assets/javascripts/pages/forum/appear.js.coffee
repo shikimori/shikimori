@@ -8,7 +8,7 @@ $('.comment-new .appear-marker').live 'appear', (e, $appeared, by_click) ->
   $nodes = ($appeared || $(@)).not -> $(@).data 'disabled'
 
   $appear_blocks = $nodes.parents('.appear-block').removeClass('comment-new')
-  $markers = $appear_blocks.find('.new-marker')
+  $markers = $appear_blocks.find('.b-new_marker')
   ids = _.map($nodes, (v) ->
     v.className.match(/appear-((\w+-)?\d+)/)[1]
   )
@@ -24,6 +24,6 @@ $('.comment-new .appear-marker').live 'appear', (e, $appeared, by_click) ->
 
 
 # по клику на 'новое' пометка прочитанным
-$('.appear-block .new-marker').live 'click', ->
+$('.appear-block .b-new_marker').live 'click', ->
   $marker = $(@).parents('.appear-block').find('.appear-marker')
   $marker.trigger 'appear', [$marker, true]

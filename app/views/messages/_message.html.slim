@@ -1,6 +1,6 @@
 .comment-block.message-block.appear-block class="type-#{message.kind} comment-#{message.id}#{' comment-new' if message.new?(params) }"
   - if message.new?(params)
-    p.new-marker новое
+    p.b-new_marker новое
   .buttons
     .main-controls
       - unless ['sent','notifications'].include?(params[:type]) || message.from.bot?
