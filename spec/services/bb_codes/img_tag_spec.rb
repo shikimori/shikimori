@@ -1,26 +1,5 @@
 require 'spec_helper'
 
-#'image with class' => [
-  #/\[img class=([\w-]+)\](.*?)\[\/img\]/mi,
-  #'<img class="\1" src="\2" />',
-  #'Image tag with class',
-  #'[img class=test]link_to_image[/img]',
-  #:image_with_class
-#],
-#'Image (Alternative)' => [
-  #/\[img=([^\[\]].*?)\.(#{@@imageformats})\]/im,
-  #'<img src="\1.\2" alt="" class="check-width" />',
-  #'Display an image (alternative format)', 
-  #'[img=http://myimage.com/logo.gif]',
-  #:img],
-#'Image' => [
-  #/\[img(:.+)?\]([^\[\]].*?)\.(#{@@imageformats})\[\/img\1?\]/im,
-  #'<img src="\2.\3" alt="" class="check-width" />',
-  #'Display an image',
-  #'Check out this crazy cat: [img]http://catsweekly.com/crazycat.jpg[/img]',
-  #:img],
-
-
 describe BbCodes::ImgTag do
   let(:tag) { BbCodes::ImgTag.instance }
   let(:text_hash) { 'hash' }
@@ -63,6 +42,12 @@ describe BbCodes::ImgTag do
     context :with_class do
       let(:text) { "[img class=zxc]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\"><img src=\"#{url}\" class=\"check-width zxc\"/></a>" }
+    end
+
+    context :inside_url do
+      let(:link) { '/test' }
+      let(:text) { "[url=#{link}][img]#{url}[/img][/url]" }
+      it { should eq "[url=#{link}]<img src=\"#{url}\" class=\"check-width\"/>[/url]" }
     end
   end
 end
