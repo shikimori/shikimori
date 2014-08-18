@@ -18,7 +18,7 @@ Site::Application.routes.draw do
 
     namespace :anime_online do
       resources :anime, only: [:show] do
-        resources :anime_videos, only: [:new, :create] do
+        resources :anime_videos, only: [:new, :create, :edit, :update] do
           get :viewed, on: :member
         end
       end

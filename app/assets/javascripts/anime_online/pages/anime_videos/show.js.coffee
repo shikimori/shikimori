@@ -27,5 +27,5 @@ jQuery ->
     $('li.rate a', $page).addClass 'hide'
     $('li.ok', $page).removeClass 'hide'
 
-  $('button.upload', $page).on 'click', ->
+  $('button[data-href]', $page).on 'click', ->
     window.location = $(@).data('href')
