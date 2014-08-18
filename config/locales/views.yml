@@ -2,15 +2,14 @@ ru:
   anime_online:
     anime_videos:
       nav_video:
-        kind:
+        kind: &kinds
           raw: оригинал
           subtitles: сабы
           fandub: озвучка
           unknown: озвучка
       new:
         kind:
-          raw: оригинал
-          subtitles: сабы
-          fandub: озвучка
-          unknown: озвучка
-          unknown: озвучка
+          <<: *kinds
+      edit:
+        kind:
+          <<: *kinds

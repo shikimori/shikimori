@@ -2,10 +2,10 @@
   ul.nav.nav-pills
     li
       .btn-group.episodes
-        a.btn.btn-default class="#{:disabled if anime.current_first?}" href="#{ anime.prev_url }" title="Предыдущий эпизод" &nbsp;<&nbsp;
+        a.btn.btn-default.btn-sm class="#{:disabled if anime.current_first?}" href="#{ anime.prev_url }" title="Предыдущий эпизод" &nbsp;<&nbsp;
 
         .btn-group
-          button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
+          button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button"
             = anime.current_episode_title
             span.caret
           ul.dropdown-menu
@@ -16,12 +16,12 @@
                   span.kinds = "#{anime.dropdown_kinds videos}"
                   span.hostings = "/ #{anime.hostings videos}"
 
-        a.btn.btn-default class="#{:disabled if anime.current_last?}" href="#{ anime.next_url }" title="Следующий эпизод" &nbsp;>&nbsp;
+        a.btn.btn-default.btn-sm class="#{:disabled if anime.current_last?}" href="#{ anime.next_url }" title="Следующий эпизод" &nbsp;>&nbsp;
 
     - unless anime.current_videos.blank?
       li
         .btn-group.video
-          button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
+          button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button"
             span.kind = t ".kind.#{anime.current_video.kind}"
             span.hosting = anime.current_video.hosting
             span.author = anime.current_author
@@ -37,12 +37,12 @@
 
       - if user_signed_in? && anime.current_video.uploader == current_user && anime.current_video.created_at > 1.week.ago
         li.pull-right
-          a.btn.btn-default href="#{delete_anime_videos_url anime.current_video.id}" data-method="delete" data-confirm="Вы точно хотить удалить это видео?" title='Удалить видео'
+          a.btn.btn-default.btn-sm href="#{delete_anime_videos_url anime.current_video.id}" data-method="delete" data-confirm="Вы точно хотить удалить это видео?" title='Удалить видео'
             span.glyphicon.glyphicon-trash
       - else
         li.report.pull-right
           .btn-group
-            button.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
+            button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
               span.glyphicon.glyphicon-flag
               span.caret
             ul.dropdown-menu
@@ -50,16 +50,20 @@
               li: a href="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" data-remote="true" data-method="post" Видео не от этого аниме
 
       - if user_signed_in?
+        li.pull-right
+          button.btn.btn-default.btn-sm data-href="#{edit_anime_online_anime_anime_video_url anime.id, anime.current_video.id}" type='button' title='Редактировать видео'
+            span.glyphicon.glyphicon-pencil
+
         - unless anime.current_video.copyright_ban?
           li.pull-right
-            button.upload.btn.btn-default data-href="#{new_anime_online_anime_anime_video_url anime.id}" type='button' title='Загрузить новое видео'
+            button.btn.btn-default.btn-sm data-href="#{new_anime_online_anime_anime_video_url anime.id}" type='button' title='Загрузить новое видео'
               span.glyphicon.glyphicon-upload
 
         - unless anime.rate
           li.rate.pull-right
-            a.btn.btn-default href="#{anime_online_rate_anime_url anime.id}" title='Добавить в список к просмотру' data-remote="true" data-method="post"
+            a.btn.btn-default.btn-sm href="#{anime_online_rate_anime_url anime.id}" title='Добавить в список к просмотру' data-remote="true" data-method="post"
               span.glyphicon.glyphicon-plus
 
         li.ok.pull-right class="#{'hide' unless anime.rate && anime.rate.episodes < anime.current_video.episode}"
-          a.btn.btn-success href="#{viewed_anime_online_anime_anime_video_url anime.id, anime.current_video.id}" title='Просмотрено, перейти к следующему эпизоду'
+          a.btn.btn-success.btn-sm href="#{viewed_anime_online_anime_anime_video_url anime.id, anime.current_video.id}" title='Просмотрено, перейти к следующему эпизоду'
             span.glyphicon.glyphicon-ok
