@@ -1,5 +1,5 @@
 - if user_signed_in? && current_user.ignores?(comment.user)
-  = render partial: 'blocks/ignored', object: comment, formats: :html
+  = render partial: 'blocks/ignored', object: comment
 - else
   /.b-comment.comment-block.appear-block class="comment-#{comment.id}#{' comment-new' unless comment.viewed?}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
   .b-comment.comment-block class="comment-#{comment.id}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
@@ -28,7 +28,7 @@
     - if user_signed_in?
       - if current_user.moderator?
         .moderation-ban
-      = render partial: 'comments/buttons', locals: { comment: comment }, formats: :html
+      = render partial: 'comments/buttons', locals: { comment: comment }
 
     header
       span.linkeable data-href="#{comment.topic_url || user_url(comment.user)}"

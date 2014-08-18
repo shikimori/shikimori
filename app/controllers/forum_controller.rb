@@ -2,7 +2,7 @@ class ForumController < ShikimoriController
   @@first_page_comments = 3
   @@other_page_comments = 1
 
-  before_filter :build_background, only: [:index, :show, :new, :edit, :create, :site_block]
+  before_action :build_background, only: [:index, :show, :new, :edit, :create, :site_block]
   helper_method :section_ids_class
   helper_method :sticked_topics
 
@@ -31,7 +31,7 @@ class ForumController < ShikimoriController
 
   def show
     #@h1 = @topic.linked && @topic.class != AnimeNews ? @topic.linked.name : @topic.title
-    @h1 = @topic.title
+    @h1 = @topic.object.title
     @page_title = @topic.linked && @topic.linked.respond_to?(:name) ?
       [@section[:meta_title], @topic.linked.name, @topic.to_s] :
       [@section[:meta_title], @h1]
@@ -106,6 +106,7 @@ private
   end
 
   # построние окружения форума
+  # TODO: отрефакторить
   def build_background
     redirect_to :root, :status => :moved_permanently and return false if params[:format] == 'user'
 
@@ -116,7 +117,7 @@ private
     @section = Section.find_by_permalink params[:section]
 
     if params[:linked] || (params[:topic] && !params[:topic].kind_of?(Hash))
-      @topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
+      #@topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
 
       @linked = if @topic && @section.permalink != 'v'
         @topic.linked

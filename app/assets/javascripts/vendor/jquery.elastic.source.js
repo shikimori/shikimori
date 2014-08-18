@@ -12,6 +12,8 @@
 *
 *
 * мои добавки: на 137 строке добавил 'focus' событие
+* мои добавки: на 154 строке заменил $textarea.height(...) на $textarea.css({height: ...})
+* мои добавки: закоментил 152-161 строки
 *
 *
 */
@@ -147,15 +149,15 @@
 				$textarea.bind('update', update);
 				
 				// Compact textarea on blur
-				$textarea.bind('blur',function(){
-					if($twin.height() < maxheight){
-						if($twin.height() > minheight) {
-							$textarea.height($twin.height());
-						} else {
-							$textarea.height(minheight);
-						}
-					}
-				});
+				//$textarea.bind('blur',function(){
+					//if($twin.height() < maxheight){
+						//if($twin.height() > minheight) {
+							//$textarea.css({height: $twin.height()});
+						//} else {
+							//$textarea.css({height: minheight});
+						//}
+					//}
+				//});
 				
 				// And this line is to catch the browser paste event
 				$textarea.bind('input paste',function(e){ setTimeout( update, 250); });				

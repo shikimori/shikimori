@@ -1,8 +1,10 @@
 class TopicsController < ForumController
   include TopicsHelper
 
-  before_filter :authenticate_user!, only: [:new, :edit, :create, :update]
-  before_filter :check_post_permission, only: [:create, :update]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update]
+  before_action :check_post_permission, only: [:create, :update]
+
+  before_action :fetch_topic, if: -> { params[:topic] }
 
   caches_action :index,
     cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{Comment.last.updated_at}|#{json?}" },
@@ -55,12 +57,10 @@ class TopicsController < ForumController
 
   # страница топика форума
   def show
-    @topic ||= Entry.with_viewed(current_user).find(params[:topic])
-
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex if Entry::SpecialTypes.include?(@topic.class.name) && @topic.comments_count == 0
 
-    @presenter = TopicPresenter.new(object: @topic, template: view_context, linked: @linked, limit: 20, with_user: true)
+    #@presenter = TopicPresenter.new(object: @topic, template: view_context, linked: @linked, limit: 20, with_user: true)
     if ((@topic.news? || @topic.review?) && params[:linked].present?) || (
         !@topic.news? && !@topic.review? && (
           @topic.to_param != params[:topic] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && @topic.class != ContestComment)
@@ -71,15 +71,15 @@ class TopicsController < ForumController
 
     super
 
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: @json.merge({
-          content: render_to_string(partial: 'topics/topic', locals: { topic: @presenter }, layout: false, formats: :html),
-        })
-      }
-      format.rss
-    end
+    #respond_to do |format|
+      #format.html
+      #format.json {
+        #render json: @json.merge({
+          #content: render_to_string(partial: 'topics/topic', object: @topic , layout: false, formats: :html),
+        #})
+      #}
+      #format.rss
+    #end
   end
 
   # создание нового топика
@@ -191,7 +191,6 @@ class TopicsController < ForumController
   # html код для тултипа
   def tooltip
     topic = Entry.find params[:id]
-
     preview = TopicPresenter.new object: topic, template: view_context, limit: 0, with_user: true
 
     # превью топика отображается в формате комментария
@@ -211,5 +210,13 @@ class TopicsController < ForumController
 private
   def topic_params
     params.require(:topic).permit(:text, :title, :section_id)
+  end
+
+  def fetch_topic
+    @topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:topic])
+    #@topic = Entry
+      #.with_viewed(current_user)
+      #.find(params[:topic])
+      #.decorate
   end
 end

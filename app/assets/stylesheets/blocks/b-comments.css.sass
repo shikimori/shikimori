@@ -1,0 +1,16 @@
+@import mixins/plashka
+@import mixins/block
+
+.b-comments
+  +block
+
+  .comments-shower, .comments-hider
+    +plashka
+    border: 1px solid #F2F2F2
+    clear: left
+    margin: 5px 0 5px 0
+
+  .comments-hider
+    display: none
+
+  .comments-shower + .b-comment

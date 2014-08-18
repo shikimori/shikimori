@@ -5,7 +5,7 @@ module CommentHelper
   include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler]
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -93,9 +93,9 @@ module CommentHelper
     end
   end
 
-  def wall_container_to_html text, poster=nil
-    text.sub /(^[\s\S]*)(<div class="wall")/ , '<div class="height-unchecked inner-block">\1</div>\2'
-  end
+  #def wall_container_to_html text, poster=nil
+    #text.sub /(^[\s\S]*)(<div class="wall")/ , '<div class="height-unchecked inner-block">\1</div>\2'
+  #end
 
   def spoiler_to_html text, nesting = 0
     return text if nesting > 2
@@ -407,7 +407,8 @@ private
       :link2],
     'wall' => [
       /(?:<br \/>|\n)*\[wall\](.*?)\[\/wall\]/mi,
-      '<div class="wall">\1</div>',
+      #'<div class="wall">\1</div>',
+      '<div class="height-unchecked inner-block wall">\1</div>',
       'wall with images',
       "[wall]images here[/wall]",
       :wall]

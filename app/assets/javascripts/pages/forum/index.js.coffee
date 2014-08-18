@@ -1,21 +1,21 @@
 # инициализация раздела
-$(".ajax").live "index:success", ->
-  _log "index:success"
+$('.ajax').live 'index:success', ->
+  _log 'index:success'
 
 # сокращение высоты топиков
-$(".ajax").live "height:check index:success", ->
+$('.ajax').live 'height:check index:success', ->
   # сокращение высоты топиков
-  $(".height-unchecked", @).each ->
+  $('.height-unchecked', @).each ->
     $this = $(@)
     $content = if $this.hasClass('inner-block')
       $this
     else
-      $this.find(".content .body")
+      $this.find('>.body')
 
     if $content.height() > 140
-      $content.addClass "shortened"
-      $("<div class=\"height-shortener\" title=\"Развернуть\"><div>...</div></div>").insertAfter $content
-    $this.removeClass "height-unchecked"
+      $content.addClass 'shortened'
+      $('<div class=\"height-shortener\" title=\"Развернуть\"><div>...</div></div>').insertAfter $content
+    $this.removeClass 'height-unchecked'
 
 # при загрузке новой страницы инициация проверки высоты топиков
 $(".b-postloader").live "postloader:success", ->

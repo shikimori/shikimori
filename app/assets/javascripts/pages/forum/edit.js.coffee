@@ -11,7 +11,7 @@ $('.ajax').live 'new:success edit:success', (e, data) ->
 
   $upload = $(@).find('.drag-here-placeholder')
   $wall = $upload.find('.wall-container')
-      .shikiWall()
+      .shiki_wall()
 
   $upload.find('.wall a')
       .fancybox $.galleryOptions
@@ -22,9 +22,9 @@ $('.ajax').live 'new:success edit:success', (e, data) ->
     .on 'upload:success', (e, data) ->
       $("<a href='#{data.url}' rel='new-wall' data-user_image_id='#{data.id}' class='image-container'>" + "<span class='image-delete hidden' title='Удалить картинку'></span>" + "<span class='image-delete-confirm hidden' title='Подтвердить удаление'></span>" + "<span class='image-delete-cancel hidden' title='Отменить удаление'></span>" + "<img src='#{data.preview}' />" + "</a>")
           .appendTo $wall
-      $wall.shikiWall()
+      $wall.shiki_wall()
       _.delay ->
-          $wall.shikiWall()
+          $wall.shiki_wall()
         , 100
 
   # после загрузки страницы на отмену привязываем особый обработчик
@@ -63,7 +63,7 @@ $(document).on "click", ".shiki-wall .image-delete-confirm", (e) ->
     width: ''
     height: ''
 
-  $wall.shikiWall()
+  $wall.shiki_wall()
   false
 
 # переключение типа новости - аниме/манга

@@ -29,12 +29,8 @@ $header_image_margin: 58px
       display: block
 
   &>header
-    +link_color
-
-    &:hover a
-      text-decoration: underline
     a
-      color: inherit
+      +link
       font-size: 15px
       font-weight: bold
       line-height: 1
@@ -46,8 +42,7 @@ $header_image_margin: 58px
       width: 48px
 
   .body
-    margin-top: 4px
-
+    //margin-top: 4px
 
   //&.preview footer
     margin-left: $header_image_margin
@@ -91,6 +86,10 @@ $header_image_margin: 58px
           &:active
             color: inherit !important
             text-decoration: inherit
+
+  form
+    .preview
+      margin-left: 20px
 
   //+lte_ipad
     //.topic-block

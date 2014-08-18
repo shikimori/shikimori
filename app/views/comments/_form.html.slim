@@ -1,0 +1,4 @@
+= simple_form_for comment, remote: true, 'data-type' => :json, authenticity_token: true do |f|
+  = render partial: 'comments/shiki_editor',
+    locals: { comment: comment, f: f }
+    /locals: { comment: comment, f: f, options: options }

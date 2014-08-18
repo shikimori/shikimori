@@ -14,12 +14,16 @@ class CommentsController < ShikimoriController
   end
 
   def edit
+    @comment = Comment.find params[:id]
   end
 
   def create
     #render json: ['Комментирование топика отключено'], status: :unprocessable_entity and return if comment_params[:commentable_id].to_i == 82468 && !current_user.admin?
     @comment = comments_service.create comment_params
-    render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий создан' unless @comment.persisted?
+
+    unless @comment.persisted?
+      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий создан'
+    end
   end
 
   def update

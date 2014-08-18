@@ -1,3 +1,4 @@
+// TODO: выпилить, либо отрефакторить
 (function($){
   $.fn.extend({
     defaultText: function(text) {

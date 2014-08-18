@@ -1,0 +1,3 @@
+/- unless defined?(bottom_form)
+  = render partial: 'comments/add', locals: { options: { object: object, text: defined?(text) && text ? text : '' } }, formats: :html
+= render partial: 'comments/comment', collection: comments, formats: :html

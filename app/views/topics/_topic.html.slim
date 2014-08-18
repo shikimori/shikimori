@@ -1,9 +1,12 @@
 - if user_signed_in? && current_user.ignores?(topic.user)
-  = render partial: 'blocks/ignored', object: topic, formats: :html
+  = render partial: 'blocks/ignored', object: topic
 - elsif topic.review? && !topic.preview?
-  = render partial: 'reviews/review', object: topic.linked, locals: { topic: topic }, formats: :html
+  = render partial: 'reviews/review', object: topic.linked, locals: { topic: topic }
 - else
-  article.b-topic.topic-block class="topic-#{topic.id} #{:preview if topic.preview?}#{' height-unchecked' if topic.should_shorten?} #{'b-review' if topic.review?}" data-id="#{topic.id}"
+  article.b-topic.topic-block[
+      class="topic-#{topic.id} #{:preview if topic.preview?}#{' height-unchecked' if topic.should_shorten?} #{'b-review' if topic.review?}"
+      data-id="#{topic.id}"
+    ]
     a name="topic-#{topic.id}"
     - if topic.show_body?
       /.appear-block class="#{'comment-new' unless topic.viewed?}"
@@ -15,28 +18,36 @@
 
         aside.buttons
           .main-controls
-            span.item-reply data-type="json" data-action="#{topic.body_url}" data-remote="true" data-disabled="#{topic.generated? ? 'true' : 'false'}" title="#{topic.generated? ? 'Написать' : 'Ответить'}"
-            - if topic.entry.kind_of?(GroupComment) && current_user.subscribed?(topic.entry)
-              span[class="item-subscribe#{' selected' if current_user.subscribed?(topic.entry)}"
+            span.item-reply[
+                data-type="json"
+                data-action="#{topic.body_url}"
+                data-remote="true"
+                data-disabled="#{topic.generated? ? 'true' : 'false'}"
+                title="#{topic.generated? ? 'Написать' : 'Ответить'}"
+              ]
+            - if topic.object.kind_of?(GroupComment) && current_user.subscribed?(topic.object)
+              span[
+                  class="item-subscribe #{:selected if current_user.subscribed? topic.object}"
                   title="Подписаться на топик"
                   data-type="json"
-                  data-action="#{subscribe_url(type: topic.class.name, id: topic.id)}"
-                  data-method="#{current_user.subscribed?(topic.entry) ? 'delete' : 'post'}"
-                  data-remote="true"]
-            - if topic.can_be_edited_by?(current_user)
-              span.item-edit.short data-href="#{edit_topic_url topic.entry}" title="Изменить"
-            - if topic.can_be_deleted_by?(current_user)
+                  data-action="#{subscribe_url type: topic.class.name, id: topic.id}"
+                  data-method="#{current_user.subscribed?(topic.object) ? 'delete' : 'post'}"
+                  data-remote="true"
+                ]
+            - if topic.can_be_edited_by? current_user
+              span.item-edit.short data-href="#{edit_topic_url topic.object}" title="Изменить"
+            - if topic.can_be_deleted_by? current_user
               span.item-delete.short title="Удалить"
-          - if topic.can_be_deleted_by?(current_user)
+          - if topic.can_be_deleted_by? current_user
             .delete-controls
-              span.item-delete-confirm action="#{topic_path topic.entry}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+              span.item-delete-confirm action="#{topic_path topic.object}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
               span.item-delete-cancel title="Отмена"
 
-      /= cache [topic.entry, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
+      /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
       header
         span.linkeable data-href="#{topic.url}"
-          img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.topic_title}"
-        a href="#{topic.url}" title="#{topic.topic_title}" = topic.topic_title
+          img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.title}"
+        a href="#{topic.url}" title="#{topic.title}" = topic.title
 
       - if topic.review? && topic.linked.votes_count > 0
         p.votes-count = topic.linked.votes_text
@@ -69,4 +80,4 @@
       - unless topic.viewed?
         .appear-marker class="appear-entry-#{topic.id}" data-href="#{appear_path}"
 
-    /= render partial: 'topics/comments', locals: { topic: topic }, formats: :html
+    = render partial: 'topics/comments', locals: { topic: topic }

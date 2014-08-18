@@ -48,10 +48,10 @@ turbolinks_compatibility = ->
     fancybox: $.galleryOptions
 
   # стена картинок
-  $('.wall', root).shikiWall()
+  $('.wall', root).shiki_wall()
 
   # редакторы
-  $('.shiki-editor', root).shikiEditor()
+  $('.b-shiki_editor.unprocessed', root).shiki_editor()
 
   # то, что должно превратиться в ссылки
   $('.linkeable', root).wrap ->
@@ -70,7 +70,9 @@ turbolinks_compatibility = ->
     $this.attr 'data-href', null
 
   # инициализация подгружаемых тултипов
-  $('.anime-tooltip', root).tooltip(ANIME_TOOLTIP_OPTIONS).removeClass 'anime-tooltip'
+  $('.anime-tooltip', root)
+    .tooltip(ANIME_TOOLTIP_OPTIONS)
+    .removeClass('anime-tooltip')
   $('.bubbled', root)
     .addClass('bubbled-processed')
     .removeClass('bubbled')
@@ -85,7 +87,7 @@ turbolinks_compatibility = ->
     .removeClass('unprocessed')
     .on 'click', (e) ->
       # если это спан, то мы жмём на кнопочки
-      return if in_new_tab(e) || $(e.target).tagName() is 'span'
+      return if in_new_tab(e) || $(e.target).tagName() == 'span'
       unless $(@).data('fancybox')
         $(@)
           .fancybox(if $(@).hasClass('vk') then $.vkOptions else $.youtubeOptions)

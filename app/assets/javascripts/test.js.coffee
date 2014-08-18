@@ -1,5 +1,5 @@
 $ =>
-  $('.images-test .wall').shikiWall()
+  $('.images-test .wall').shiki_wall()
 
   if $('.traffic-test').length
     @traffic = $('.traffic-test').data 'stats'
