@@ -19,7 +19,7 @@ header.head.misc
     .b-header_filters
       .filter-line
         span.title Список #{@klass == Anime ? 'просмотренного' : 'прочитанного'}:
-        - UsersController::Thresholds.each do |threshold|
+        - UsersController::THRESHOLDS.each do |threshold|
           a class="#{:current if @threshold == threshold}" href="#{users_url similar: 'similar', threshold: threshold}" #{threshold}+
   p.notice
     - if params[:similar]

@@ -12,8 +12,8 @@ class UsersController < ShikimoriController
   @@messages_pages = ['inbox', 'news', 'notifications', 'sent']
   @@ani_manga_list_pages = ['animelist', 'mangalist']
 
-  UsersPerPage = 15
-  Thresholds = [25, 50, 100, 175, 350]
+  USERS_PER_PAGE = 15
+  THRESHOLDS = [25, 50, 100, 175, 350]
 
   # список всех пользователей
   def index
@@ -22,8 +22,8 @@ class UsersController < ShikimoriController
       @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
       @page = (params[:page] || 1).to_i
 
-      unless Thresholds.include?(@threshold)
-        redirect_to(params.merge threshold: Thresholds[2])
+      unless THRESHOLDS.include?(@threshold)
+        redirect_to(params.merge threshold: THRESHOLDS[2])
         return
       end
 
@@ -32,17 +32,17 @@ class UsersController < ShikimoriController
 
       if @similar_ids
         ids = @similar_ids
-          .drop(UsersPerPage * (@page - 1))
-          .take(UsersPerPage)
+          .drop(USERS_PER_PAGE * (@page - 1))
+          .take(USERS_PER_PAGE)
 
         @users = User.where(id: ids).sort_by {|v| ids.index v.id }
       end
 
-      @add_postloader = @similar_ids && @similar_ids.any? && @page * UsersPerPage < SimilarUsersService::ResultsLimit
+      @add_postloader = @similar_ids && @similar_ids.any? && @page * USERS_PER_PAGE < SimilarUsersService::ResultsLimit
 
     else
       @page_title = 'Пользователи'
-      @users = postload_paginate(params[:page], UsersPerPage) do
+      @users = postload_paginate(params[:page], USERS_PER_PAGE) do
         if params[:search]
           search = "%#{params[:search]}%"
           User
