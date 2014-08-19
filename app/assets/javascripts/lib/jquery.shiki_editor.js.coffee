@@ -10,18 +10,15 @@
 
 # TODO: в кнструктор перенесён весь старый код. надо отрефакторить.
 # подумать над view бекбона # (если на ShikiComment будет переведён на бекбон)
-class @ShikiEditor
-  constructor: ($root) ->
-    @$root = $root
-    @$root.removeClass('unprocessed')
-
+class @ShikiEditor extends ShikiView
+  initialize: ($root) ->
     $editor = @$root.find('.editor-area')
     @$form = @$root.find('form')
 
-
+    # очистка редактора
+    @on 'cleanup', @cleanup
     # при вызове фокуса на shiki-editor передача сообщения в редактор
-    @$root.on 'focus', ->
-      $editor.trigger('focus')
+    @on 'focus', -> $editor.trigger('focus')
 
     # по первому фокусу на редактор включаем elastic
     $editor.one 'focus', ->
@@ -39,24 +36,25 @@ class @ShikiEditor
         $('.editor-controls span.selected', $root).trigger('click')
 
     # бб коды
-    $('.editor-bold', @$root).on 'click', ->
+    @$('.editor-bold').on 'click', ->
       $editor.insertAtCaret '[b]', '[/b]'
 
-    $('.editor-italic', @$root).on 'click', ->
+    @$('.editor-italic').on 'click', ->
       $editor.insertAtCaret '[i]', '[/i]'
 
-    $('.editor-underline', @$root).on 'click', ->
+    @$('.editor-underline').on 'click', ->
       $editor.insertAtCaret '[u]', '[/u]'
 
-    $('.editor-strike', @$root).on 'click', ->
+    @$('.editor-strike').on 'click', ->
       $editor.insertAtCaret '[s]', '[/s]'
 
-    $('.editor-spoiler', @$root).on 'click', ->
+    @$('.editor-spoiler').on 'click', ->
       $editor.insertAtCaret '[spoiler=спойлер]', '[/spoiler]'
 
     # смайлики и ссылка
-    _.each ['smiley', 'link', 'image', 'quote', 'upload'], (key) ->
-      $block = $(".#{key}s", $root)
+    _.each ['smiley', 'link', 'image', 'quote', 'upload'], (key) =>
+      $block = @$(".#{key}s")
+
       block_height = $block.css('height')
       if key is "smiley"
         block_height = 0
@@ -64,7 +62,7 @@ class @ShikiEditor
         $block.css height: '0px'
         $block.show()
 
-      $(".editor-#{key}", $root).on 'click', ->
+      @$(".editor-#{key}").on 'click', ->
         $.scrollTo $root if not $editor.is(':appeared') and not $root.find(".buttons").is(":appeared")
         $this = $(@)
         if $this.hasClass('selected')
@@ -103,13 +101,17 @@ class @ShikiEditor
             $block.data href: null
 
     # открытие блока ссылки
-    $('.links', $root).on 'click:open', ->
-      $('.links input[type=text]', $root).val('')
-      $('#link_type_url', $root).attr(checked: true).trigger "change"
+    @$('.links').on 'click:open', =>
+      @$('.links input[type=text]').val('')
+      @$('#link_type_url')
+        .attr(checked: true)
+        .trigger('change')
 
     # автокомплит для поля ввода ссылки
-    $(".links input[type=text]", $root).make_completable null, (e, id, text) ->
-      text = $(".links input.link-value", $root).val() if $(".links input[type=radio][value=url]", $root).prop("checked")
+    @$(".links input[type=text]").make_completable null, (e, id, text) =>
+      if @$(".links input[type=radio][value=url]").prop("checked")
+        text = @$(".links input.link-value").val()
+
       if text
         if id
           param =
@@ -117,10 +119,10 @@ class @ShikiEditor
             text: text
         else
           param = text
-        $(".links input[type=radio]:checked", $root).trigger "tag:build", param
+        @$(".links input[type=radio]:checked").trigger("tag:build", param)
 
     # изменение типа ссылки
-    $(".links input[type=radio]", $root).on 'change', ->
+    @$(".links input[type=radio]").on 'change', ->
       $this = $(@)
       $input = $('.links input[type=text]', $root)
       $input.attr placeholder: $this.data('placeholder') # меняем плейсхолдер
@@ -135,61 +137,52 @@ class @ShikiEditor
       $input.trigger('flushCache').focus()
 
     # общий обработчик для всех радио кнопок, закрывающий блок со ссылками
-    $('.links input[type=radio]', $root).on 'tag:build', (e, id, text) ->
-      $('.editor-link', $root).trigger('click')
+    @$('.links input[type=radio]').on 'tag:build', (e, id, text) ->
+      @$('.editor-link').trigger('click')
 
     # открытие блока картинки
-    $('.images', $root).on 'click:open', ->
+    @$('.images').on 'click:open', =>
       # чистим текущий введённый текст
-      $('.images input[type=text]', $root).val('').focus()
+      @$('.images input[type=text]').val('').focus()
 
     # сабмит картинки в текстовом поле
-    $(".images input[type=text]", $root).on 'keypress', (e) ->
+    @$(".images input[type=text]").on 'keypress', (e) =>
       if e.keyCode is 13
         $editor.insertAtCaret '', "[img]#{@value}[/img]"
-        $(".editor-image", $root).trigger('click')
+        @$(".editor-image").trigger('click')
         false
 
     # открытие блока цитаты
-    $(".quotes", $root).on "click:open", ->
+    @$(".quotes").on "click:open", =>
       # чистим текущий введённый текст
-      $(".quotes input[type=text]", $root).val('').focus()
+      @$(".quotes input[type=text]").val('').focus()
 
     # сабмит цитаты в текстовом поле
-    $(".quotes input[type=text]", $root).on 'keypress', (e) ->
+    @$(".quotes input[type=text]").on 'keypress', (e) =>
       if e.keyCode is 13
         $editor.insertAtCaret "[quote" + ((if not @value or @value.isBlank() then "" else "=" + @value)) + "]", "[/quote]"
-        $(".editor-quote", $root).trigger 'click'
+        @$(".editor-quote").trigger 'click'
         false
 
     # автокомплит для поля ввода цитаты
-    $(".quotes input[type=text]", $root).make_completable null, (e, id, text) ->
+    @$(".quotes input[type=text]").make_completable null, (e, id, text) =>
       $editor.insertAtCaret "[quote" + ((if not text or text.isBlank() then "" else "=" + text)) + "]", "[/quote]"
-      $(".editor-quote", $root).trigger 'click'
+      @$(".editor-quote").trigger 'click'
 
     # построение бб тега для url
-    $('.links #link_type_url', $root).on 'tag:build', (e, value) ->
+    @$('.links #link_type_url').on 'tag:build', (e, value) ->
       $editor.insertAtCaret "[url=#{value}]", "[/url]", value.replace(/^http:\/\/|\/.*/g, "")
 
     # построение бб тега для аниме,манги,персонажа и человека
-    $('.links #link_type_anime,.links #link_type_manga,.links #link_type_character,.links #link_type_person', $root).on 'tag:build', (e, data) ->
+    @$('.links #link_type_anime,.links #link_type_manga,.links #link_type_character,.links #link_type_person').on 'tag:build', (e, data) ->
       type = @getAttribute('id').replace('link_type_', '')
       $editor.insertAtCaret "[#{type}=#{data.id}]", "[/#{type}]", data.text
 
-    # сохранение комента
-    #$root.on 'click', '.item-controls .item-save', ->
-      #$root.find('form').submit()
-
-    # сохранение при предпросмотре
-    #$root.on 'click', '.preview-controls .item-save', ->
-      #$('.preview-controls .item-unpreview', $root).trigger 'click'
-      #$('.item-controls .item-save', $root).trigger 'click'
-
     # назад к редактированию при предпросмотре
-    $('footer .unpreview', @$root).on 'click', @hide_preview
+    @$('footer .unpreview').on 'click', @hide_preview
 
     # предпросмотр
-    $('footer .preview', @$root).on 'click', =>
+    @$('footer .preview').on 'click', =>
       $.cursorMessage()
 
       # подстановка данных о текущем элементе, если они есть
@@ -219,20 +212,22 @@ class @ShikiEditor
           $.hideCursorMessage()
 
     # отзыв и оффтопик
-    $('.item-offtopic, .item-review', $root).click (e, data) ->
-      $this = $(@)
-      kind = (if $(@).hasClass('item-offtopic') then 'offtopic' else 'review')
+    @$('.item-offtopic, .item-review').click (e, data) ->
+      kind = if $(@).hasClass('item-offtopic') then 'offtopic' else 'review'
       $(@).toggleClass('selected')
-      $root.find("#comment_#{kind}").val (if $(@).hasClass('selected') then '1' else '0')
+      new_value = if $(@).hasClass('selected') then '1' else '0'
+      $root.find("#comment_#{kind}").val(new_value)
 
     # редактирование
     # сохранение при редактировании коммента
-    $('.item-apply', $root).on 'click', (e, data) ->
-      $root.find('form').submit()
+    @$('.item-apply').on 'click', (e, data) ->
+      @$form.submit()
 
     # фокус на редакторе
-    $editor.focus().setCursorPosition $editor.val().length if $editor.val().length > 0
-    $('.editor-file', $root).hide() if $.browser.opera and parseInt($.browser.version) < 12
+    if $editor.val().length > 0
+      $editor.focus().setCursorPosition $editor.val().length
+    if $.browser.opera && parseInt($.browser.version) < 12
+      @$('.editor-file').hide()
 
     # ajax загрузка файлов
     file_text_placeholder = '[файл #@]'
@@ -267,6 +262,7 @@ class @ShikiEditor
     $('.body .preview', @$root)
       .html(preview_html)
       .process()
+      .shiki_editor()
 
   hide_preview: =>
     @$root.removeClass('previewed')
@@ -277,8 +273,20 @@ class @ShikiEditor
     $comment.append(@$root)
 
     # отмена редактирования
-    $('.cancel', @$root).on 'click', =>
+    @$('.cancel').on 'click', =>
       @$root.remove()
-      $comment
-        .append($initial_content)
+      $comment.append($initial_content)
+
+    # изменения редактирования были успешно сохранены
+    @on 'ajax:success', (e, response) ->
+      $new_comment = $(response.html)
+      $comment.replaceWith($new_comment)
+
+      $new_comment
+        .process()
+        .shiki_comment()
         .yellowFade()
+
+  # очистка редактора
+  cleanup: ->
+    console.log 'cleanup'

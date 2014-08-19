@@ -97,11 +97,13 @@ class TopicDecorator < BaseDecorator
 
   # посты топика
   def comments
-    object
+    comments = object
       .comments
       .with_viewed(h.current_user)
       .limit(comments_limit)
       .to_a
+
+    preview? ? comments : comments.reverse
   end
 
   # тег топика

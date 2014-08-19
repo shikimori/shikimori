@@ -9,4 +9,14 @@
 
       else
         toastr.success options.notice
+
+    alert: (text) ->
+      toastr.error text if text
+
+    info: (text) ->
+      toastr.info text if text
+
+    notice: (text) ->
+      toastr.success text if text
+
 ) jQuery

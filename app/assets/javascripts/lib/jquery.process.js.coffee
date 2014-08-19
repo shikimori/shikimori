@@ -1,5 +1,6 @@
 (($) ->
   $.fn.extend
     process: ->
-      process_current_dom @
+      @each ->
+        process_current_dom @
 ) jQuery

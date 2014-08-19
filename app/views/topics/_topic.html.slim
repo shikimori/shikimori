@@ -3,9 +3,9 @@
 - elsif topic.review? && !topic.preview?
   = render partial: 'reviews/review', object: topic.linked, locals: { topic: topic }
 - else
-  article.b-topic.topic-block[
-      class="topic-#{topic.id} #{:preview if topic.preview?}#{' height-unchecked' if topic.should_shorten?} #{'b-review' if topic.review?}"
-      data-id="#{topic.id}"
+  article.b-topic.unprocessed[
+      class="#{:preview if topic.preview?}#{' height-unchecked' if topic.should_shorten?} #{'b-review' if topic.review?}"
+      id="#{topic.id}"
     ]
     a name="topic-#{topic.id}"
     - if topic.show_body?

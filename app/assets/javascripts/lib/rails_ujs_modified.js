@@ -177,7 +177,7 @@ jQuery(function ($) {
         e.preventDefault();
     });
 
-    $('a[data-remote],input[data-remote],span[data-remote],li[data-remote],button[data-remote],tr[data-remote]').live('click', function (e) {
+    $('a[data-remote],input[data-remote],span[data-remote],div[data-remote],li[data-remote],button[data-remote],tr[data-remote]').live('click', function (e) {
         if ('in_new_tab' in window && in_new_tab(e)) {
           return;
         }

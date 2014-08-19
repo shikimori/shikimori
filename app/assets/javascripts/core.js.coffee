@@ -1,6 +1,7 @@
 #= require_tree ./core
 
 #= require_tree ./vendor
+#= require ./lib/shiki_view
 #= require_tree ./lib
 #= require_tree ./blocks
 

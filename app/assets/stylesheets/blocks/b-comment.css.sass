@@ -55,6 +55,14 @@
           padding-left: 0
           line-height: $line_height
 
+  &.deleted
+    +transition(all, 0.2s)
+    height: 0
+    margin: 0
+    min-height: 0
+    overflow: hidden
+    padding: 0
+
 //h2.comments-header
   //margin-bottom: 0
 

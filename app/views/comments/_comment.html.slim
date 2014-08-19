@@ -1,8 +1,11 @@
 - if user_signed_in? && current_user.ignores?(comment.user)
   = render partial: 'blocks/ignored', object: comment
 - else
-  /.b-comment.comment-block.appear-block class="comment-#{comment.id}#{' comment-new' unless comment.viewed?}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
-  .b-comment.comment-block.unprocessed class="comment-#{comment.id}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
+  .b-comment.unprocessed[
+      id="#{comment.id}"
+      itemprop="comment" itemscope="itemscope"
+      itemtype="http://schema.org/UserComments"
+    ]
     a name="comment-#{comment.id}"
 
     - if comment.persisted?
@@ -10,7 +13,7 @@
         span.item-mobile title="Действия"
 
       aside.markers
-        - if comment.review?
+        - if comment.respond_to?(:review?)
           .b-review_marker[
               class="#{:active if user_signed_in?}"
               style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва"

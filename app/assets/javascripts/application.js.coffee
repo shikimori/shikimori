@@ -49,12 +49,9 @@ turbolinks_compatibility = ->
 
   # стена картинок
   $('.wall', root).shiki_wall()
-
-  # редакторы
   $('.b-shiki_editor.unprocessed', root).shiki_editor()
-
-  # комментарии
   $('.b-comment.unprocessed', root).shiki_comment()
+  $('.b-topic.unprocessed', root).shiki_topic()
 
   # то, что должно превратиться в ссылки
   $('.linkeable', root).wrap ->
