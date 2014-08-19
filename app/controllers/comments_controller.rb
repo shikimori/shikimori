@@ -91,11 +91,13 @@ class CommentsController < ShikimoriController
 
   # предпросмотр текста
   def preview
-    if params[:target_type] && params[:target_id]
-      render text: BbCodeFormatter.instance.format_description(params[:body], params[:target_type].constantize.find(params[:target_id]))
-    else
-      render text: BbCodeFormatter.instance.format_comment(params[:body])
-    end
+    #if params[:target_type] && params[:target_id]
+      #render text: BbCodeFormatter.instance.format_description(params[:body], params[:target_type].constantize.find(params[:target_id]))
+    #else
+      #render text: BbCodeFormatter.instance.format_comment(params[:body])
+    #end
+    @comment = Comment.new comment_params
+    render partial: 'comments/comment', object: @comment
   end
 
   # смайлики для комментария
@@ -116,6 +118,6 @@ private
   def comment_params
     params
       .require(:comment)
-      .permit(:body, :review, :offtopic, :commentable_id, :commentable_type)
+      .permit(:body, :review, :offtopic, :commentable_id, :commentable_type, :user_id)
   end
 end

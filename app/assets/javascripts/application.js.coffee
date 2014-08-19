@@ -53,6 +53,9 @@ turbolinks_compatibility = ->
   # редакторы
   $('.b-shiki_editor.unprocessed', root).shiki_editor()
 
+  # комментарии
+  $('.b-comment.unprocessed', root).shiki_comment()
+
   # то, что должно превратиться в ссылки
   $('.linkeable', root).wrap ->
     $this = $(@)

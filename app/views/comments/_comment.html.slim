@@ -2,33 +2,34 @@
   = render partial: 'blocks/ignored', object: comment
 - else
   /.b-comment.comment-block.appear-block class="comment-#{comment.id}#{' comment-new' unless comment.viewed?}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
-  .b-comment.comment-block class="comment-#{comment.id}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
+  .b-comment.comment-block.unprocessed class="comment-#{comment.id}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
     a name="comment-#{comment.id}"
 
-    - if user_signed_in?
-      span.item-mobile title="Действия"
+    - if comment.persisted?
+      - if user_signed_in?
+        span.item-mobile title="Действия"
 
-    aside.markers
-      - if comment.review?
-        .b-review_marker[
+      aside.markers
+        - if comment.review?
+          .b-review_marker[
+              class="#{:active if user_signed_in?}"
+              style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва"
+              data-action="#{review_comment_abuse_requests_url comment}"
+              data-method="post" data-type="json" data-remote="true"
+            ]
+        .b-offtopic_marker[
             class="#{:active if user_signed_in?}"
-            style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва"
-            data-action="#{review_comment_abuse_requests_url comment}"
+            style="#{'display: none;' unless comment.offtopic?}" title="Снять метку оффтопика"
+            data-action="#{offtopic_comment_abuse_requests_url comment}"
             data-method="post" data-type="json" data-remote="true"
           ]
-      .b-offtopic_marker[
-          class="#{:active if user_signed_in?}"
-          style="#{'display: none;' unless comment.offtopic?}" title="Снять метку оффтопика"
-          data-action="#{offtopic_comment_abuse_requests_url comment}"
-          data-method="post" data-type="json" data-remote="true"
-        ]
-      - unless comment.viewed?
-        .b-new_marker.active
+        - unless comment.viewed?
+          .b-new_marker.active
 
-    - if user_signed_in?
-      - if current_user.moderator?
-        .moderation-ban
-      = render partial: 'comments/buttons', locals: { comment: comment }
+      - if user_signed_in?
+        - if current_user.moderator?
+          .moderation-ban
+        = render partial: 'comments/buttons', locals: { comment: comment }
 
     header
       span.linkeable data-href="#{comment.topic_url || user_url(comment.user)}"
@@ -36,8 +37,9 @@
       .name-date
         a href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
           == comment.topic_name || h(comment.user.nickname)
-        time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
-          = time_ago_in_words comment.created_at, "%s назад"
+        - if comment.persisted?
+          time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
+            = time_ago_in_words comment.created_at, "%s назад"
 
     .body itemprop="commentText"
       - if comment.kind_of? Comment

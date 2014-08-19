@@ -2,7 +2,7 @@
   $.fn.extend
     setCursorPosition: (pos) ->
       el = $(@).get(0)
-      return  unless el
+      return unless el
       sel_done = false
       try
         if el.setSelectionRange
@@ -15,4 +15,3 @@
         range.moveStart 'character', pos
         range.select()
 ) jQuery
-

@@ -71,6 +71,7 @@
 
   .body
     .preview
+      display: none
       margin-bottom: 10px
 
     .editor
@@ -90,18 +91,8 @@
         resize: none
         width: 100%
 
-  .preview-controls
-    float: right
-    display: none
-
-  .item-controls
-    float: right
-
   .ajax-loading
     height: 100%
-
-  &.preview .buttons
-    float: right
 
   .buttons
     float: none
@@ -160,3 +151,37 @@
 
     .editor-upload
       display: none
+
+  footer
+    .preview
+      margin-left: 20px
+
+    .unpreview, .cancel
+      +normal-link
+      font-size: 13px
+      margin-left: 20px
+
+    .unpreview
+      display: none
+
+  &.previewed
+    .editor-controls
+      display: none
+
+    .body
+      .editor
+        display: none
+
+      .preview
+        display: block
+
+        .b-comment
+          border-top: none
+          padding-top: 0
+
+    footer
+      .unpreview
+        display: inline
+
+      .cancel, .button.preview
+        display: none

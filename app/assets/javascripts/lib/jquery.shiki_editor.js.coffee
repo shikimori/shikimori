@@ -8,12 +8,16 @@
         new ShikiEditor($root)
 ) jQuery
 
-# TODO: в кнструктор перенесён весь старый код. надо отрефакторить
+# TODO: в кнструктор перенесён весь старый код. надо отрефакторить.
+# подумать над view бекбона # (если на ShikiComment будет переведён на бекбон)
 class @ShikiEditor
   constructor: ($root) ->
     @$root = $root
     @$root.removeClass('unprocessed')
+
     $editor = @$root.find('.editor-area')
+    @$form = @$root.find('form')
+
 
     # при вызове фокуса на shiki-editor передача сообщения в редактор
     @$root.on 'focus', ->
@@ -182,38 +186,34 @@ class @ShikiEditor
       #$('.item-controls .item-save', $root).trigger 'click'
 
     # назад к редактированию при предпросмотре
-    $root.on 'click', '.preview-controls .item-unpreview', ->
-      $root.removeClass 'preview'
-      $('.editor-controls', $root).show()
-      $('.item-controls', $root).show()
-      $('.preview-controls', $root).hide()
-      $('.editor', $root).show()
-      $('.body .preview', $root).hide()
+    $('footer .unpreview', @$root).on 'click', @hide_preview
 
     # предпросмотр
-    $(".preview", $root).on 'click', ->
+    $('footer .preview', @$root).on 'click', =>
       $.cursorMessage()
 
       # подстановка данных о текущем элементе, если они есть
-      $form = $(@).closest('form')
-      if $form.length
-        item_id = $form.find('#change_item_id').val()
-        model = $form.find('#change_model').val()
-        item_data = "&target_type=#{model}&target_id=#{item_id if item_id && model}"
+      #$form = $root.find('form')
+      #item_data = if $form.length
+        ##item_id = $form.find('#change_item_id').val()
+        ##model = $form.find('#change_model').val()
+
+        ##item_id = $form.find('#comment_commentable_type').val()
+        ##model = $form.find('#comment_commentable_id').val()
+        ##"&target_type=#{model}&target_id=#{item_id if item_id && model}"
+        #''
+
+      #else
+        #''
 
       $.ajax
         type: 'POST'
-        url: '/comments/preview'
-        data: 'body=' + encodeURIComponent($editor.val()) + (item_data || "")
-        success: (text) ->
+        url: $('footer .preview', @$root).data('preview_url')
+        data:
+          comment: @$form.serializeHash().comment
+        success: (html) =>
           $.hideCursorMessage()
-          $root.addClass('preview')
-          $('.editor-controls', $root).hide()
-          $('.item-controls', $root).hide()
-          $('.preview-controls', $root).show()
-          $('.editor', $root).hide()
-          $('.body .preview', $root).html(text).show()
-          process_current_dom()
+          @show_preview html
 
         error: ->
           $.hideCursorMessage()
@@ -261,6 +261,15 @@ class @ShikiEditor
       file_text = file_text_placeholder.replace('@', file_num)
       $editor.val $editor.val().replace(file_text, '') unless $editor.val().indexOf(file_text) is -1
       $editor.focus()
+
+  show_preview: (preview_html) ->
+    @$root.addClass('previewed')
+    $('.body .preview', @$root)
+      .html(preview_html)
+      .process()
+
+  hide_preview: =>
+    @$root.removeClass('previewed')
 
   # переход в режим редактирования комментария
   edit_comment: ($comment) ->
