@@ -277,15 +277,9 @@ class @ShikiEditor extends ShikiView
       @$root.remove()
       $comment.append($initial_content)
 
-    # изменения редактирования были успешно сохранены
+    # замена комментария после успешного сохранения
     @on 'ajax:success', (e, response) ->
-      $new_comment = $(response.html)
-      $comment.replaceWith($new_comment)
-
-      $new_comment
-        .process()
-        .shiki_comment()
-        .yellowFade()
+      $comment.trigger 'comment:replace', response.html
 
   # очистка редактора
   cleanup: ->

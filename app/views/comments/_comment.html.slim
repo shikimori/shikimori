@@ -5,6 +5,8 @@
       id="#{comment.id}"
       itemprop="comment" itemscope="itemscope"
       itemtype="http://schema.org/UserComments"
+      data-user_id="#{comment.user.id}"
+      data-user_nickname="#{comment.user.nickname}"
     ]
     a name="comment-#{comment.id}"
 
@@ -31,26 +33,32 @@
 
       - if user_signed_in?
         - if current_user.moderator?
-          .moderation-ban
+          aside.moderation-ban
         = render partial: 'comments/buttons', locals: { comment: comment }
 
     header
       span.linkeable data-href="#{comment.topic_url || user_url(comment.user)}"
         img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
       .name-date
-        a href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
+        a href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator"
           == comment.topic_name || h(comment.user.nickname)
         - if comment.persisted?
           time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
             = time_ago_in_words comment.created_at, "%s назад"
 
     .body itemprop="commentText"
-      - if comment.kind_of? Comment
+      - if comment.persisted?
+        - cache [comment, :body] do
+          = comment.html_body
+      - else
+        = comment.html_body
+      /- if comment.kind_of? Comment
         == comment.html_body
-      - elsif comment.respond_to?(:kind) && comment.kind == MessageType::Private
+      /- elsif comment.respond_to?(:kind) && comment.kind == MessageType::Private
         - cache [comment, :body] do
           = BbCodeFormatter.instance.format_comment comment.body
-      - else
+      /- else
         == format_comment comment.body, comment.user
+
     - unless comment.viewed?
       .appear-marker class="appear-comment-#{comment.id}" data-href="#{appear_url}"
