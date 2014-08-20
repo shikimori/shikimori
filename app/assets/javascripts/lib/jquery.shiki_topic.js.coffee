@@ -11,7 +11,8 @@
 class @ShikiTopic extends ShikiView
   initialize: ($root) ->
     @$editor = @$('.b-shiki_editor')
-    @$editor_textarea = @$editor.find('textarea')
+    @editor = new ShikiEditor(@$editor)
+    #@$editor_textarea = @$editor.find('textarea')
 
     @$editor
       .on 'ajax:before', (e) ->
@@ -34,7 +35,7 @@ class @ShikiTopic extends ShikiView
           .shiki_comment()
           .yellowFade()
 
-        @$editor.trigger 'editor:cleanup'
+        @editor.cleanup()
 
     # пометка комментариев обзорами/оффтопиками
     @on 'comment:marker', (e, data) =>
@@ -45,12 +46,8 @@ class @ShikiTopic extends ShikiView
         #$comment.find(".message-#{data.kind}").toggle(!data.value)
 
     # ответ на комментарий
-    @on 'comment:reply', (e, quote) =>
-      @$editor_textarea
-        .val("#{@$editor_textarea.val()}\n#{quote}".replace(/^\n+/, ''))
-        .focus()
-        .setCursorPosition(@$editor_textarea.val().length)
-
+    @on 'comment:reply', (e, text, is_offtopic) =>
+      @editor.reply_comment text, is_offtopic
 
       ## редактор может быть скрыт, надо показать
       #$('.b-shiki_editor', $container).show()

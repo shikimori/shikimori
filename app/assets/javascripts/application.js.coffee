@@ -49,7 +49,7 @@ turbolinks_compatibility = ->
 
   # стена картинок
   $('.wall', root).shiki_wall()
-  $('.b-shiki_editor.unprocessed', root).shiki_editor()
+  #$('.b-shiki_editor.unprocessed', root).shiki_editor()
   $('.b-comment.unprocessed', root).shiki_comment()
   $('.b-topic.unprocessed', root).shiki_topic()
 

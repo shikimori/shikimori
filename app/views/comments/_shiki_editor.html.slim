@@ -1,4 +1,10 @@
-.buttons
+- if defined?(f) && (comment.new_record? || current_user.moderator?)
+  aside.markers
+    - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
+      .b-review_marker.active class="#{:off unless comment.review?}"
+    .b-offtopic_marker.active class="#{:off unless comment.offtopic?}"
+
+aside.buttons
   /.preview-controls
     /- unless options[:no_save]
       - if options[:editable]

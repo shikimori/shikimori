@@ -38,14 +38,13 @@ class @ShikiComment extends ShikiView
       ids = [@$root.prop('id'), @$root.data('user_id'), @$root.data('user_nickname')]
       selected_text = @$root.data('selected_text')
       quote = "[quote=#{ids.join ';'}]#{selected_text}[/quote]\n"
-      @$root.trigger 'comment:reply', quote
+
+      @$root.trigger 'comment:reply', [quote, @_is_offtopic()]
 
     # ответ на комментарий
     @$('.item-reply').on 'ajax:success', (e, response) =>
-      #ids = [response.comment_id, response.user_id, response.user].compact()
-      #quote = "[quote=#{ids.join ';'}]#{response.body}[/quote]"
       reply = "[#{response.kind}=#{response.id}]#{response.user}[/#{response.kind}], "
-      @$root.trigger 'comment:reply', reply
+      @$root.trigger 'comment:reply', [reply, @_is_offtopic()]
 
     # edit message
     @$('.main-controls .item-edit').on 'ajax:success', (e, html, status, xhr) =>
@@ -70,11 +69,11 @@ class @ShikiComment extends ShikiView
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
     @$('.item-quote,.item-reply,.item-edit,.item-review,.item-offtopic').on 'click', =>
-      @close_aside()
+      @_close_aside()
 
     # пометка комментария обзором/оффтопиком
     @$('.item-review,.item-offtopic,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
-      if 'affected_ids' of data && data.affected_ids
+      if 'affected_ids' of data && data.affected_ids.length
         @$root.trigger 'comment:marker', [data]
         $.notice marker_message(data)
       else
@@ -100,7 +99,7 @@ class @ShikiComment extends ShikiView
     # кнопка бана или предупреждения
     @$('.item-ban').on 'ajax:success', (e, html) =>
       @$('.moderation-ban').html(html).show()
-      @close_aside()
+      @_close_aside()
 
     # закрытие формы бана
     @$('.moderation-ban').on 'click', '.form-cancel', =>
@@ -120,8 +119,12 @@ class @ShikiComment extends ShikiView
         .yellowFade()
 
   # закрытие кнопок в мобильной версии
-  close_aside: ->
+  _close_aside: ->
     @$('.item-mobile').click() if @$('.item-mobile').is('.selected')
+
+  # оффтопиковый ли данный комментарий
+  _is_offtopic: ->
+    @$('.b-offtopic_marker').css('display') != 'none'
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->

@@ -15,7 +15,7 @@
         span.item-mobile title="Действия"
 
       aside.markers
-        - if comment.respond_to?(:review?)
+        - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
           .b-review_marker[
               class="#{:active if user_signed_in?}"
               style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва"

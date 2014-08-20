@@ -12,11 +12,10 @@
 # подумать над view бекбона # (если на ShikiComment будет переведён на бекбон)
 class @ShikiEditor extends ShikiView
   initialize: ($root) ->
-    $editor = @$root.find('.editor-area')
-    @$form = @$root.find('form')
+    $editor = @$('.editor-area')
+    @$form = @$('form')
+    @$textarea = @$('textarea')
 
-    # очистка редактора
-    @on 'cleanup', @cleanup
     # при вызове фокуса на shiki-editor передача сообщения в редактор
     @on 'focus', -> $editor.trigger('focus')
 
@@ -31,7 +30,7 @@ class @ShikiEditor extends ShikiView
       $root.find('form').submit() if e.keyCode is 13 and e.metaKey
 
     # при клике на неselected кнопку, закрываем все остальные selected кнопки
-    $('.editor-controls span', @$root).on 'click', ->
+    @$('.editor-controls span').on 'click', ->
       unless $(@).hasClass('selected')
         $('.editor-controls span.selected', $root).trigger('click')
 
@@ -137,7 +136,7 @@ class @ShikiEditor extends ShikiView
       $input.trigger('flushCache').focus()
 
     # общий обработчик для всех радио кнопок, закрывающий блок со ссылками
-    @$('.links input[type=radio]').on 'tag:build', (e, id, text) ->
+    @$('.links input[type=radio]').on 'tag:build', (e, id, text) =>
       @$('.editor-link').trigger('click')
 
     # открытие блока картинки
@@ -161,13 +160,13 @@ class @ShikiEditor extends ShikiView
     @$(".quotes input[type=text]").on 'keypress', (e) =>
       if e.keyCode is 13
         $editor.insertAtCaret "[quote" + ((if not @value or @value.isBlank() then "" else "=" + @value)) + "]", "[/quote]"
-        @$(".editor-quote").trigger 'click'
+        @$(".editor-quote").trigger('click')
         false
 
     # автокомплит для поля ввода цитаты
     @$(".quotes input[type=text]").make_completable null, (e, id, text) =>
       $editor.insertAtCaret "[quote" + ((if not text or text.isBlank() then "" else "=" + text)) + "]", "[/quote]"
-      @$(".editor-quote").trigger 'click'
+      @$(".editor-quote").trigger('click')
 
     # построение бб тега для url
     @$('.links #link_type_url').on 'tag:build', (e, value) ->
@@ -178,8 +177,16 @@ class @ShikiEditor extends ShikiView
       type = @getAttribute('id').replace('link_type_', '')
       $editor.insertAtCaret "[#{type}=#{data.id}]", "[/#{type}]", data.text
 
+    # нажатие на метку оффтопика
+    @$('.b-offtopic_marker').on 'click', =>
+      @_mark_offtopic @$('.b-offtopic_marker').hasClass('off')
+
+    # нажатие на метку отзыва
+    @$('.b-review_marker').on 'click', =>
+      @_mark_review @$('.b-review_marker').hasClass('off')
+
     # назад к редактированию при предпросмотре
-    @$('footer .unpreview').on 'click', @hide_preview
+    @$('footer .unpreview').on 'click', @_hide_preview
 
     # предпросмотр
     @$('footer .preview').on 'click', =>
@@ -206,7 +213,7 @@ class @ShikiEditor extends ShikiView
           comment: @$form.serializeHash().comment
         success: (html) =>
           $.hideCursorMessage()
-          @show_preview html
+          @_show_preview html
 
         error: ->
           $.hideCursorMessage()
@@ -220,7 +227,7 @@ class @ShikiEditor extends ShikiView
 
     # редактирование
     # сохранение при редактировании коммента
-    @$('.item-apply').on 'click', (e, data) ->
+    @$('.item-apply').on 'click', (e, data) =>
       @$form.submit()
 
     # фокус на редакторе
@@ -257,15 +264,38 @@ class @ShikiEditor extends ShikiView
       $editor.val $editor.val().replace(file_text, '') unless $editor.val().indexOf(file_text) is -1
       $editor.focus()
 
-  show_preview: (preview_html) ->
+  _show_preview: (preview_html) ->
     @$root.addClass('previewed')
     $('.body .preview', @$root)
       .html(preview_html)
       .process()
       .shiki_editor()
 
-  hide_preview: =>
+  _hide_preview: =>
     @$root.removeClass('previewed')
+
+  _mark_offtopic: (is_offtopic) ->
+    @$('#comment_offtopic').val is_offtopic
+    @$('.b-offtopic_marker').toggleClass 'off', !is_offtopic
+
+  _mark_review: (is_review) ->
+    @$('#comment_review').val is_review
+    @$('.b-review_marker').toggleClass 'off', !is_review
+
+  # очистка редактора
+  cleanup: ->
+    @_mark_offtopic false
+    @_mark_review false
+    @$textarea.val ''
+
+  # ответ на комментарий
+  reply_comment: (text, is_offtopic) ->
+    @_mark_offtopic true if is_offtopic
+
+    @$textarea
+      .val("#{@$textarea.val()}\n#{text}".replace(/^\n+/, ''))
+      .focus()
+      .setCursorPosition(@$textarea.val().length)
 
   # переход в режим редактирования комментария
   edit_comment: ($comment) ->
@@ -280,7 +310,3 @@ class @ShikiEditor extends ShikiView
     # замена комментария после успешного сохранения
     @on 'ajax:success', (e, response) ->
       $comment.trigger 'comment:replace', response.html
-
-  # очистка редактора
-  cleanup: ->
-    console.log 'cleanup'
