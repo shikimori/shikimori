@@ -1,7 +1,7 @@
 class AdminLogInController < ShikimoriController
   # выход под любым пользователем для администратора
   def log_in
-    if (Rails.env.development? && remote_addr == '127.0.0.1') || current_user.admin?
+    if (Rails.env.development? && remote_addr == '127.0.0.1') || (user_signed_in? && current_user.admin?)
       @user = if params[:nickname] =~ /\A\d+\Z/
         User.find params[:nickname].to_i
       else

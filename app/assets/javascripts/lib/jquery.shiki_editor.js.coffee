@@ -275,11 +275,11 @@ class @ShikiEditor extends ShikiView
     @$root.removeClass('previewed')
 
   _mark_offtopic: (is_offtopic) ->
-    @$('#comment_offtopic').val is_offtopic
+    @$('#comment_offtopic').val if is_offtopic then 't' else 'f'
     @$('.b-offtopic_marker').toggleClass 'off', !is_offtopic
 
   _mark_review: (is_review) ->
-    @$('#comment_review').val is_review
+    @$('#comment_review').val if is_review then 't' else 'f'
     @$('.b-review_marker').toggleClass 'off', !is_review
 
   # очистка редактора

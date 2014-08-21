@@ -1,5 +1,7 @@
 @import "globals";
 @import "mixins/hover_underlined";
+@import "mixins/icons";
+
 
 .translation_planned {
   .examples {
@@ -46,7 +48,7 @@
     }
   }
   .translate-lock {
-    @include icon-button('\e838');
+    @include icon_button('\e838');
     cursor: pointer;
     margin-left: 0!important;
 

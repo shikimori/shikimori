@@ -1,3 +1,4 @@
+// TODO: удалить из этого файла вообще всё. и сам файл тоже удалить
 $legacy-support-for-ie: false
 $legacy-support-for-ie6: $legacy-support-for-ie
 $legacy-support-for-ie7: $legacy-support-for-ie
@@ -7,66 +8,6 @@ $legacy-support-for-mozilla: $legacy-support-for-ie
 @import compass
 @import globals/variables
 @import mixins/responsive
-
-// кнопочки иконочные
-=icon($content, $font-size: 14px)
-  cursor: pointer
-
-  +responsive(desktop)
-    margin-left: 15px
-
-  +responsive(tablet)
-    margin-left: 35px
-
-  +responsive(narrow-phone)
-    margin-left: 30px
-
-  &:before
-    content: $content
-    cursor: pointer
-    display: inline-block
-    font-family: 'shikimori'
-    font-size: $font-size
-    line-height: 20px
-    text-align: center
-    width: 20px
-
-=menu-icon($content)
-  +icon($content)
-  +responsive(desktop)
-    margin-left: 0
-
-  +responsive(tablet)
-    margin-left: 0
-
-  +responsive(narrow-phone)
-    margin-left: 0
-
-  &:before
-    float: left
-    margin-right: 2px
-
-=icon-button-selected-decor
-  color: $link
-  &:hover
-    color: $link_hover
-  &:active
-    color: $link_active
-
-=icon-button($content)
-  +link-color(#444444)
-  +icon($content, 13px)
-  &.selected
-    +icon-button-selected-decor
-
-=headline-icon-button($content)
-  +icon-button($content)
-  +link-color(#666666)
-  font-size: 12px
-  cursor: pointer
-  //float: right
-  font-weight: normal
-  margin: 3px 10px 0
 
 =new-header-font
   color: #111

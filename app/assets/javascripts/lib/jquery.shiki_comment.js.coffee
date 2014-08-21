@@ -56,6 +56,10 @@ class @ShikiComment extends ShikiView
       @$('.main-controls').hide()
       @$('.delete-controls').show()
 
+    # cancel control in mobile expanded aside
+    @$('.main-controls .item-cancel').on 'click', =>
+      @_close_aside()
+
     # confirm deletion
     @$('.delete-controls .item-delete-confirm').on 'ajax:loading', (e, data, status, xhr) =>
       $.hideCursorMessage()
@@ -64,15 +68,16 @@ class @ShikiComment extends ShikiView
 
     # cancel deletion
     @$('.delete-controls .item-delete-cancel').on 'click', =>
-      @$('.main-controls').show()
-      @$('.delete-controls').hide()
+      #@$('.main-controls').show()
+      #@$('.delete-controls').hide()
+      @_close_aside()
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
     @$('.item-quote,.item-reply,.item-edit,.item-review,.item-offtopic').on 'click', =>
       @_close_aside()
 
     # пометка комментария обзором/оффтопиком
-    @$('.item-review,.item-offtopic,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
+    @$('.item-review,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
       if 'affected_ids' of data && data.affected_ids.length
         @$root.trigger 'comment:marker', [data]
         $.notice marker_message(data)
@@ -93,8 +98,9 @@ class @ShikiComment extends ShikiView
 
     # cancel moderation
     @$('.moderation-controls .item-moderation-cancel').on 'click', =>
-      @$('.main-controls').show()
-      @$('.moderation-controls').hide()
+      #@$('.main-controls').show()
+      #@$('.moderation-controls').hide()
+      @_close_aside()
 
     # кнопка бана или предупреждения
     @$('.item-ban').on 'ajax:success', (e, html) =>
@@ -121,6 +127,10 @@ class @ShikiComment extends ShikiView
   # закрытие кнопок в мобильной версии
   _close_aside: ->
     @$('.item-mobile').click() if @$('.item-mobile').is('.selected')
+
+    @$('.main-controls').show()
+    @$('.delete-controls').hide()
+    @$('.moderation-controls').hide()
 
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->

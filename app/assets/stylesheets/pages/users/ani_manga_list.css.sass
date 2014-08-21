@@ -3,6 +3,7 @@
 @import globals
 @import mixins/links
 @import mixins/placeholder
+@import mixins/icons
 
 .anime-filter,.manga-filter
   display: none
@@ -110,7 +111,7 @@
           line-height: 22px
 
         .anime-remove
-          +icon-button("\e813")
+          +icon_button("\e813")
           display: none
           margin-left: 0px !important
 
@@ -149,7 +150,7 @@
             color: $gray-color-0
 
         .anime-status
-          +menu-icon("\e814")
+          +menu_icon("\e814")
           +link_color(#112233)
           display: none
           float: right

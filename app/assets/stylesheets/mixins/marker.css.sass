@@ -1,4 +1,5 @@
 @import compass/css3/box-sizing
+@import compass/css3/transition
 @import globals/variables
 
 =marker($content, $width, $color, $hover_color, $active_color)
@@ -45,15 +46,3 @@
     &:active:before
       background-color: $active_color
       border-color: darken($active_color, 1.5%)
-
-
-    //&:before
-      background-color: transparent
-      color: $color
-
-    //&:hover:before
-      color: white
-
-    //&:active:before
-      color: $active_color
-      background-color: transparent

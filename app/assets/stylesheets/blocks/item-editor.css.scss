@@ -1,5 +1,6 @@
 @import "globals";
 @import "mixins/log_entry";
+@import "mixins/icons";
 
 .item-editor {
   h2 {
@@ -16,15 +17,15 @@
     line-height: 25px;
 
     .item-apply {
-      @include headline-icon-button('\e821');
+      @include headline_icon_button('\e821');
       margin-left: 5px!important;
     }
     .item-save {
-      @include headline-icon-button('\e817');
+      @include headline_icon_button('\e817');
       margin-left: 5px!important;
     }
     .item-cancel {
-      @include headline-icon-button('\e813');
+      @include headline_icon_button('\e813');
       margin-left: 5px!important;
     }
   }
@@ -92,7 +93,7 @@
     min-height: 50px!important;
   }
   .item-upload {
-    @include headline-icon-button('\e80c');
+    @include headline_icon_button('\e80c');
     span {
       width: 90px;
     }

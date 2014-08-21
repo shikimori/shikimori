@@ -1,6 +1,7 @@
 @import compass/css3/border-radius
 @import compass/css3/opacity
 @import globals
+@import mixins/icons
 @import mixins/responsive
 
 .b-shiki_editor
@@ -98,66 +99,38 @@
     margin-top: -2px
     float: right
 
+    +iphone
+      line-height: 20px
+      .b-review_marker, .b-offtopic_marker
+        &:before
+          line-height: 20px
+
   aside.buttons
-    float: none
+    float: none !important
     margin: 2px 0
 
-    .group
-      display: inline-block
-      margin-left: 30px
+    .editor-strike, .editor-file
+      +gt_ipad
+        margin-left: 30px
 
-      &:first-child
+    +iphone
+      span
+        display: none
+
+      .editor-link, .editor-spoiler, .editor-smiley
+        display: inline-block
+
+    +iphone_portrait
+      .editor-link
         margin-left: 0
 
-    span:first-child
-      margin-left: 0
-
-    .editor-bold
-      +icon-button("\e802")
-    .editor-italic
-      +icon-button("\e804")
-    .editor-underline
-      +icon-button("\e807")
-    .editor-strike
-      +icon-button("\e805")
-    .editor-link
-      +icon-button("\e808")
-    .editor-image
-      +icon-button("\e809")
-    .editor-quote
-      +icon-button("\e80B")
-    .editor-spoiler
-      +icon-button("\e81b")
-    .editor-smiley
-      +icon-button("\e800")
-    .editor-file
-      +icon-button("\e80c")
-      position: relative
-
-      span
-        height: 20px
-        margin: 0 0 0 -20px !important
-        overflow: hidden
-        padding: 0
-        position: absolute
-        width: 20px
-
-      input
-        +opacity(0)
-        cursor: pointer
-        height: 20px
-        padding: 0
-        position: absolute
-        right: 0
-        top: 0
-        width: 20px
-        z-index: 1
-
-    .editor-upload
-      display: none
+    +iphone-landscape
+      .editor-bold, .editor-italic
+        display: inline-block
 
   footer
     margin-top: 10px
+    white-space: nowrap
 
     .preview
       margin-left: 20px

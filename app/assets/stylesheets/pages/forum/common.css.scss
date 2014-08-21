@@ -3,6 +3,8 @@
 @import "globals/fonts";
 @import "mixins/tag";
 @import "mixins/plashka";
+@import "mixins/icons";
+
 
 .forum-nav {
   margin-bottom: 15px;
@@ -47,7 +49,7 @@
       }
     }
     .section-new {
-      @include icon-button('\e83d');
+      @include icon_button('\e83d');
       border-right: none;
       padding: 0;
 

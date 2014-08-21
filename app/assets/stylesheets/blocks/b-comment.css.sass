@@ -1,16 +1,26 @@
+@import compass/css3/transition
 @import compass/typography/text/ellipsis
 @import globals
 @import mixins/responsive
 @import mixins/links
+@import mixins/icons
+
+$comment_border: 1px dashed #ddd
+$aside_width: 260px
 
 .b-comment
-  border-top: 1px dashed #ddd
+  +transition(margin-left, 0.25s)
+  border-top: $comment_border
   margin-bottom: 15px
   min-height: 70px
   padding-top: 5px
+  width: 100%
 
   &>aside.buttons
     display: none
+
+    .item-cancel
+      display: none
 
   +gt_ipad
     &:hover > aside.buttons
@@ -73,10 +83,58 @@
           line-height: $line_height
 
   &.aside-expanded
+    min-height: 175px
+    margin-left: -$aside_width
+    position: relative
+
+    .item-mobile
+      display: none
+      //position: absolute
+      //top: -10px
+      //padding: 20px
+      //right: -$aside_width - 20px
+      //z-index: 1
+
     aside.buttons
+      border-top: $comment_border
       display: block
-    .review-marker, .offtopic-marker, .new-marker
-      display: none!important
+      top: 0
+      padding-top: 5px
+      position: absolute
+      right: -$aside_width
+      width: $aside_width - $block_offset
+
+      .main-controls
+        .item-reply
+          +icon_expandable('Ответить')
+        .item-edit
+          +icon_expandable('Редактировать')
+        .item-delete
+          +icon_expandable('Удалить')
+        .item-moderation
+          +icon_expandable('Пожаловаться')
+        .item-cancel
+          +icon_expandable('Отмена')
+
+      .delete-controls
+        .item-delete-confirm
+          +icon_expandable('Удалить')
+        .item-delete-cancel
+          +icon_expandable('Отмена')
+
+      .moderation-controls
+        .item-ban
+          +icon_expandable('Забанить')
+        .item-abuse
+          +icon_expandable('Пожаловаться')
+        .item-spoiler
+          +icon_expandable('Это спойлер')
+        .item-review
+          +icon_expandable('Это (не) отзыв')
+        .item-offtopic
+          +icon_expandable('Это (не) оффтопик')
+        .item-moderation-cancel
+          +icon_expandable('Отмена')
 
   &.deleted
     +transition(all, 0.4s)

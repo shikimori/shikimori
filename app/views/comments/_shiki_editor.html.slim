@@ -1,4 +1,4 @@
-- if defined?(f) && (comment.new_record? || current_user.moderator?)
+- if defined?(f) && comment.new_record?
   aside.markers
     - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
       .b-review_marker.active class="#{:off unless comment.review?}"
@@ -32,24 +32,21 @@ aside.buttons
     /span.item-preview title="Предпросмотр"
 
   .editor-controls
-    .group.first
-      span.editor-bold title="Жирный"
-      span.editor-italic title="Курсив"
-      span.editor-underline title="Подчёркнутый"
-      span.editor-strike title="Зачёркнутый"
+    span.editor-bold title="Жирный"
+    span.editor-italic title="Курсив"
+    span.editor-underline title="Подчёркнутый"
+    span.editor-strike title="Зачёркнутый"
 
-    .group.second
-      span.editor-link title="Ссылка"
-      span.editor-image title="Адрес изображения"
-      span.editor-quote title="Цитата"
-      span.editor-spoiler title="Спойлер"
+    span.editor-link title="Ссылка"
+    span.editor-image title="Адрес изображения"
+    span.editor-quote title="Цитата"
+    span.editor-spoiler title="Спойлер"
 
-    .group.third
-      span.editor-file title="Загрузить изображение"
-        span
-          input type="file"
-      span.editor-upload
-      span.editor-smiley title="Смайлик"
+    span.editor-file title="Загрузить изображение"
+      span
+        input type="file"
+    span.editor-upload
+    span.editor-smiley title="Смайлик"
 .smileys.hidden-block data-href="#{smileys_comments_url}"
   .ajax-loading title="Загрузка..."
 .links.hidden-block

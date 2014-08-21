@@ -1,4 +1,5 @@
 @import "globals";
+@import "mixins/icons";
 
 .settings {
   h2 {
@@ -51,7 +52,7 @@
     float: right;
   }
   .item-save {
-    @include headline-icon-button('\e817');
+    @include headline_icon_button('\e817');
     position: absolute;
     right: 0;
   }
