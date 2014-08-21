@@ -1,15 +1,16 @@
 @import compass/css3/transition
 @import compass/typography/text/ellipsis
 @import globals
-@import mixins/responsive
-@import mixins/links
+@import mixins/clear_right
 @import mixins/icons
+@import mixins/links
+@import mixins/responsive
 
 $comment_border: 1px dashed #ddd
-$aside_width: 260px
+$aside_width: 270px
 
 .b-comment
-  +transition(margin-left, 0.25s)
+  +transition(margin-left 0.25s ease)
   border-top: $comment_border
   margin-bottom: 15px
   min-height: 70px
@@ -83,7 +84,8 @@ $aside_width: 260px
           line-height: $line_height
 
   &.aside-expanded
-    min-height: 175px
+    +clear_right
+    //min-height: 175px
     margin-left: -$aside_width
     position: relative
 
@@ -98,10 +100,12 @@ $aside_width: 260px
     aside.buttons
       border-top: $comment_border
       display: block
-      top: 0
+      margin-right: -$aside_width
+      margin-top: -6px
+      //top: 0
       padding-top: 5px
-      position: absolute
-      right: -$aside_width
+      //position: absolute
+      //right: -$aside_width
       width: $aside_width - $block_offset
 
       .main-controls
@@ -126,7 +130,7 @@ $aside_width: 260px
         .item-ban
           +icon_expandable('Забанить')
         .item-abuse
-          +icon_expandable('Пожаловаться')
+          +icon_expandable('Нарушение правил')
         .item-spoiler
           +icon_expandable('Это спойлер')
         .item-review
