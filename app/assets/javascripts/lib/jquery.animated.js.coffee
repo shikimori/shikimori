@@ -1,11 +1,4 @@
 (($) ->
-  finish_collapse = ($node) ->
-    $node.css(height: '').removeClass('animated-height').removeClass('animated-overflow').hide()
-
-  finish_expand = ($node) ->
-    $node.css(height: '').removeClass('animated-height').removeClass('animated-overflow')
-
-
   $.fn.extend
     # анимированное раскрытие элемента
     animated_expand: (start_heigth = 0) ->
@@ -13,7 +6,7 @@
         $node = $(@)
         finish_collapse $node
 
-        height = $node.show().css(height: '').height()
+        height = $node.show().css(height: '').outerHeight()
         $node.addClass('animated-overflow')
             .css(height: "#{start_heigth}px")
 
@@ -25,7 +18,7 @@
         _.delay ->
             if $node.data('animated_direction') == 'expand'
               finish_expand $node
-          , 1000
+          , 500
 
     # анимированное скрытие элемента
     animated_collapse: () ->
@@ -33,17 +26,31 @@
         $node = $(@)
         finish_expand $node
 
-        height = $node.height()
-        $node.css(height: "#{height}px")
-             .addClass('animated-overflow')
+        height = $node.outerHeight()
+        $node
+          .css(height: "#{height}px")
+          .addClass('animated-overflow')
 
         _.delay ->
-          $node.addClass('animated-height')
-               .css(height: 0)
-               .data(animated_direction: 'collapse')
+          $node
+            .addClass('animated-height')
+            .css(height: 0)
+            .data(animated_direction: 'collapse')
 
         _.delay ->
             if $node.data('animated_direction') == 'collapse'
               finish_collapse $node
-          , 1000
+          , 500
+
+  finish_collapse = ($node) ->
+    $node
+      .css(height: '')
+      .removeClass('animated-height')
+      .removeClass('animated-overflow').hide()
+
+  finish_expand = ($node) ->
+    $node
+      .css(height: '')
+      .removeClass('animated-height')
+      .removeClass('animated-overflow')
 ) jQuery

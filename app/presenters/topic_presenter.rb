@@ -9,8 +9,8 @@ class TopicPresenter < BasePresenter
 
   attr_accessor :limit, :fold_limit
 
-  def initialize(options)
-    super(options[:object], options[:template])
+  def initialize options
+    super options[:object], options[:template]
 
     @limit = options[:limit]
     @fold_limit = options[:fold_limit] || CommentsFoldLimit

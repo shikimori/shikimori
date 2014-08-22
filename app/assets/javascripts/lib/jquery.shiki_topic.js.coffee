@@ -49,23 +49,47 @@ class @ShikiTopic extends ShikiView
     @on 'comment:reply', (e, text, is_offtopic) =>
       @editor.reply_comment text, is_offtopic
 
-      ## редактор может быть скрыт, надо показать
-      #$('.b-shiki_editor', $container).show()
-      #$editor = $('.b-shiki_editor textarea', $container).last()
+    # подготовка к подгрузке новых комментов
+    @$('.comments-shower').on 'ajax:before', (e, html) ->
+      $(@).data href: $(@).data('href-template').replace('SKIP', $(@).data('skip'))
 
-      ## для Message - полное цитирование, а для Comment вставка только имени комментируемого со ссылкой на коммент
-      #if data.id
-        #$editor.val $editor.attr('value') + "[#{data.kind}=#{data.id}]#{data.user}[/#{data.kind}], "
-      ## data может не быть, например, когда отвечаем на обзор - там ничего не цитируем
-      #else if data.body
-        #$editor.val "#{$editor.val()}[quote=#{_.compact([data.comment_id, data.user_id, data.user]).join(';')}]#{data.body}[/quote]\n"
+    # подгрузка новых комментов
+    @$('.comments-shower').on 'ajax:success', (e, html) =>
+      $comments_shower = $(e.target)
 
-      #if data.offtopic
-        #$editor
-          #.parents('.b-comment')
-          #.find('.item-offtopic:not(.selected)')
-          #.trigger 'click'
+      $new_comments = $("<div></div>").html html
+      @_filter_present_entries($new_comments)
 
-      #$editor.trigger 'update'
-      #$editor.focus()
-      #$editor.setCursorPosition $editor.attr('value').length
+      $new_comments
+        .insertAfter($comments_shower)
+        .animated_expand()
+
+      if $comments_shower.data 'infinite'
+        limit = $comments_shower.data('limit')
+        count = $comments_shower.data('count') - limit
+
+        if count > 0
+          $comments_shower.data
+            skip: $comments_shower.data('skip') + limit
+            count: count
+
+          $comments_shower.html "Показать #{p(_.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие')} #{_.min [limit, count]} #{p(count, 'комментарий', 'комментария', 'комментариев')}" + (
+              if count > limit then "<span class=\"expandable-comments-count\"> (из #{count})</span>" else ""
+            )
+        else
+          $comments_shower.remove()
+      else
+        $comments_shower.html($comments_shower.data 'html').removeClass('click-loader').hide()
+        @$('.comments-hider').show()
+
+
+  # удаляем уже имеющиеся подгруженные элементы
+  _filter_present_entries: ($comments) ->
+    filter = 'b-comment'
+    present_ids = $(".#{filter}").toArray().map (v) -> v.id
+
+    exclude_selector = present_ids.map (id) ->
+        ".#{filter}##{id}"
+      .join(',')
+
+    $comments.children().filter(exclude_selector).remove()

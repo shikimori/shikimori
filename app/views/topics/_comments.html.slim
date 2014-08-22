@@ -7,6 +7,8 @@
         data-skip="#{topic.comments_limit}" data-limit="#{TopicDecorator::FOLD_LIMIT}" data-count="#{topic.folded_comments}"
       ]
       = topic.show_hidden_comments_text
+    /.comments-shower.click-loader data-href="#{topic.comments_url}"
+      = topic.show_hidden_comments_text
 
   = render partial: 'comments/comment', collection: topic.comments, formats: :html
 

@@ -7,9 +7,10 @@
 @import mixins/responsive
 
 $comment_border: 1px dashed #ddd
-$aside_width: 270px
+$aside_width: 310px
 
 .b-comment
+  +clear_right
   +transition(margin-left 0.25s ease)
   border-top: $comment_border
   margin-bottom: 15px
@@ -33,6 +34,8 @@ $aside_width: 270px
 
     +gte_ipad
       float: right
+      margin-top: 0
+      margin-top: 0
 
       .b-input input
         width: 140px
@@ -84,28 +87,18 @@ $aside_width: 270px
           line-height: $line_height
 
   &.aside-expanded
-    +clear_right
-    //min-height: 175px
     margin-left: -$aside_width
     position: relative
 
     .item-mobile
       display: none
-      //position: absolute
-      //top: -10px
-      //padding: 20px
-      //right: -$aside_width - 20px
-      //z-index: 1
 
     aside.buttons
       border-top: $comment_border
       display: block
       margin-right: -$aside_width
       margin-top: -6px
-      //top: 0
       padding-top: 5px
-      //position: absolute
-      //right: -$aside_width
       width: $aside_width - $block_offset
 
       .main-controls
@@ -116,7 +109,7 @@ $aside_width: 270px
         .item-delete
           +icon_expandable('Удалить')
         .item-moderation
-          +icon_expandable('Пожаловаться')
+          +icon_expandable('На модерацию')
         .item-cancel
           +icon_expandable('Отмена')
 

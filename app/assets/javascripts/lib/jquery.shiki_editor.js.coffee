@@ -295,6 +295,7 @@ class @ShikiEditor extends ShikiView
     @$textarea
       .val("#{@$textarea.val()}\n#{text}".replace(/^\n+/, ''))
       .focus()
+      .trigger('update') # для elastic плагина
       .setCursorPosition(@$textarea.val().length)
 
   # переход в режим редактирования комментария
