@@ -21,13 +21,18 @@
       margin-bottom: 3px
 
   .links, .images, .quotes, .email, .upload
-    height: 23px
+    height: 25px
+    line-height: 25px
+    padding-left: 4px
 
     +responsive(phone)
       height: 43px
 
     +responsive(narrow-phone)
       height: 64px
+
+    p
+      line-height: inherit
 
     span
       padding-left: 5px
@@ -107,7 +112,7 @@
 
   aside.buttons
     float: none !important
-    margin: 2px 0
+    margin: 2px 0 7px
 
     .editor-strike, .editor-file
       +gt_ipad
@@ -135,10 +140,13 @@
     .preview
       margin-left: 20px
 
-    .unpreview, .cancel
+    .unpreview, .cancel, .hide
       +normal-link
       font-size: 13px
       margin-left: 20px
+
+    .hide
+      display: none
 
     .unpreview
       display: none

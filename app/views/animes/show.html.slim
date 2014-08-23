@@ -89,7 +89,6 @@
               == @resource.description_html
 
         = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
-        /= render partial: 'additional_links', locals: { entry: @resource }
 
   - if user_signed_in?
     = render partial: 'resources'
@@ -116,4 +115,6 @@
             span.sep.zero.inline
               | )
       .subheadline.m3 Обсуждение
-      = render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }
+      .b-topic.unprocessed
+        = render partial: 'topics/comments', locals: { topic: @resource.thread }
+      /= render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }

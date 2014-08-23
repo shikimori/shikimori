@@ -67,4 +67,4 @@ article.b-topic.unprocessed.b-review[
   - unless topic.viewed?
     .appear-marker class="appear-entry-#{review.id}" data-href="#{appear_path}"
 
-/= render partial: 'topics/comments', locals: { topic: topic }, formats: :html
+    = render partial: 'topics/comments', locals: { topic: topic }

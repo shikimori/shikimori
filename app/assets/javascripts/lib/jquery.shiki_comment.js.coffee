@@ -63,8 +63,9 @@ class @ShikiComment extends ShikiView
     # confirm deletion
     @$('.delete-controls .item-delete-confirm').on 'ajax:loading', (e, data, status, xhr) =>
       $.hideCursorMessage()
-      @$root.addClass('deleted')
-      @$root.remove.bind(@$root).delay(400)
+      @$root
+        .animated_collapse()
+        .remove.bind(@$root).delay(500)
 
     # cancel deletion
     @$('.delete-controls .item-delete-cancel').on 'click', =>

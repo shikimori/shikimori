@@ -92,7 +92,7 @@ class TopicDecorator < BaseDecorator
 
   # число отображаемых напрямую комментариев
   def comments_limit
-    preview? ? (params[:page] && params[:page] > 1 ? 1 : 3) : FOLD_LIMIT
+    preview? ? (h.params[:page] && h.params[:page] > 1 ? 1 : 3) : FOLD_LIMIT
   end
 
   # посты топика

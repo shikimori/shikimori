@@ -10,8 +10,10 @@
 
 class @ShikiTopic extends ShikiView
   initialize: ($root) ->
+    @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
     @editor = new ShikiEditor(@$editor)
+    @is_preview = @$root.hasClass('preview')
     #@$editor_textarea = @$editor.find('textarea')
 
     @$editor
@@ -36,6 +38,7 @@ class @ShikiTopic extends ShikiView
           .yellowFade()
 
         @editor.cleanup()
+        @_hide_editor()
 
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
@@ -45,7 +48,7 @@ class @ShikiTopic extends ShikiView
       $comments = $filtered_appeared.closest('.b-comment')
       $markers = $comments.find('.b-new_marker')
 
-      ids = $comments.map(-> @id).toArray()
+      ids = $comments.map(-> "comment-#{@id}").toArray()
       $.ajax
         url: $appeared.data('url')
         type: 'POST'
@@ -68,7 +71,11 @@ class @ShikiTopic extends ShikiView
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
+      @_show_editor()
       @editor.reply_comment text, is_offtopic
+
+    # клик скрытию редактора
+    @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
 
     # подготовка к подгрузке новых комментов
     @$('.comments-shower').on 'ajax:before', (e, html) ->
@@ -114,3 +121,13 @@ class @ShikiTopic extends ShikiView
       .join(',')
 
     $comments.children().filter(exclude_selector).remove()
+
+  # отображение редактора, если это превью топика
+  _show_editor: =>
+    if @is_preview && !@$editor_container.is(':visible')
+      @$editor_container.animated_expand()
+
+  # скрытие редактора, если это превью топика
+  _hide_editor: =>
+    if @is_preview
+      @$editor_container.animated_collapse()

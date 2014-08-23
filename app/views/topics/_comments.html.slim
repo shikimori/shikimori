@@ -13,5 +13,6 @@
   = render partial: 'comments/comment', collection: topic.comments, formats: :html
 
 - if user_signed_in?
-  .subheadline.m10 Комментарий
-  = render partial: 'comments/form', locals: { comment: topic.new_comment }
+  .editor-container
+    .subheadline.m10 Комментарий
+    = render partial: 'comments/form', locals: { comment: topic.new_comment }

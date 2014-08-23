@@ -18,6 +18,9 @@ $aside_width: 310px
   padding-top: 5px
   width: 100%
 
+  &:last-child
+    margin-bottom: 0
+
   &>aside.buttons
     display: none
 
@@ -133,12 +136,11 @@ $aside_width: 310px
         .item-moderation-cancel
           +icon_expandable('Отмена')
 
-  &.deleted
-    +transition(all, 0.4s)
-    height: 0
-    margin: 0
+  // удаляемый комментарий
+  &.animated-height
+    +transition(all, 0.5s)
     min-height: 0
-    overflow: hidden
+    margin: 0
     padding: 0
 
 //h2.comments-header

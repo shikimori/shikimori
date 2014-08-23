@@ -21,6 +21,22 @@ $header_image_margin: 58px
   &:last-child
     margin-bottom: 0
 
+  &.preview
+    margin-bottom: $block_offset * 1.5
+    //&>.b-comments, &>.editor
+      //+gt_ipad
+        //margin-left: $header_image_margin
+      //+ipad
+        //margin-left: $header_image_margin / 2
+      //+iphone
+        //margin-left: $header_image_margin / 3
+
+    &>.editor-container
+      display: none
+
+      .hide
+        display: inline-block
+
   &>.buttons
     display: none
 
@@ -37,15 +53,11 @@ $header_image_margin: 58px
 
     img
       float: left
-      margin-right: 10px
-      margin-top: 3px
+      margin: 3px 10px 7px 0
       width: 48px
 
-  .body
+  //.body
     //margin-top: 4px
-
-  //&.preview footer
-    margin-left: $header_image_margin
 
   &>footer
     +ellipsis

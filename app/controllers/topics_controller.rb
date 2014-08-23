@@ -29,14 +29,8 @@ class TopicsController < ForumController
       .to_a
 
     @add_postloader = topics.size >= topics_limit
-    @topics = topics.take(topics_limit).map do |entry|
-      TopicPresenter.new(
-        limit: @page == 1 ? @@first_page_comments : @@other_page_comments,
-        fold_limit: 10,
-        linked: @linked,
-        object: entry,
-        template: view_context
-      )
+    @topics = topics.take(topics_limit).map do |topic|
+      TopicDecorator.new topic
     end
 
     super

@@ -1,6 +1,5 @@
 - unless json?
   - content_for :head do
-    = stylesheet_link_tag :forum
     - if @add_postloader
       link rel="next" href="#{{section_url page: @page+1, section: @section[:permalink], linked: params[:linked]}}"
     - if @page != 1

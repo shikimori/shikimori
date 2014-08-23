@@ -77,17 +77,17 @@ class AniMangaDecorator < BaseDecorator
 
   # основной топик
   def thread
-    object.thread
+    TopicDecorator.new object.thread
   end
 
   # комментарии топика
-  def comments with_reviews=false
-    if with_reviews && comment_reviews?
-      thread.comments.reviews.with_viewed(h.current_user)
-    else
-      thread.comments.with_viewed(h.current_user)
-    end.limit(15).to_a
-  end
+  #def comments with_reviews=false
+    #if with_reviews && comment_reviews?
+      #thread.comments.reviews.with_viewed(h.current_user)
+    #else
+      #thread.comments.with_viewed(h.current_user)
+    #end.limit(15).to_a
+  #end
 
   # презентер пользовательских изменений
   def changes
@@ -116,7 +116,7 @@ class AniMangaDecorator < BaseDecorator
 
   # число отзывов
   def comment_reviews_count
-    thread.comments.reviews.count
+    object.thread.comments.reviews.count
   end
 
   # есть ли отзывы?
