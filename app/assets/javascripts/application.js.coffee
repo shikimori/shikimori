@@ -22,6 +22,7 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
     $.flash alert: v.innerHTML if v.innerHTML.length
 
   process_current_dom()
+  $('.b-comment .appear-marker').appear()
 
   if IS_LOGGED_IN && !window.faye_loader
     window.faye_loader = new FayeLoader()

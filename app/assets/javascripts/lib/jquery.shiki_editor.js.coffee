@@ -21,7 +21,7 @@ class @ShikiEditor extends ShikiView
 
     # по первому фокусу на редактор включаем elastic
     $editor.one 'focus', ->
-      $editor.elastic()
+      $editor.elastic.bind($editor).delay()
 
     # сохранение по ctrl+enter
     $editor.on 'keypress', (e) ->
@@ -286,7 +286,9 @@ class @ShikiEditor extends ShikiView
   cleanup: ->
     @_mark_offtopic false
     @_mark_review false
-    @$textarea.val ''
+    @$textarea
+      .val('')
+      .trigger('update')
 
   # ответ на комментарий
   reply_comment: (text, is_offtopic) ->

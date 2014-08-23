@@ -115,6 +115,7 @@ class @ShikiComment extends ShikiView
     @$('.moderation-ban').on 'ajax:success', 'form', (e, response) =>
       @$root.trigger 'comment:replace', response.html
 
+    # замена комментария новым контентом
     @on 'comment:replace', (e, html) =>
       $replaced_comment = $(html)
       @$root.replaceWith($replaced_comment)
@@ -123,6 +124,10 @@ class @ShikiComment extends ShikiView
         .process()
         .shiki_comment()
         .yellowFade()
+
+    # по клику на 'новое' пометка прочитанным
+    @$('.b-new_marker').on 'click', =>
+      @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
 
   # закрытие кнопок в мобильной версии
   _close_aside: ->

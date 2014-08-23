@@ -15,7 +15,7 @@ $(document).on 'click appear', '.b-postloader', ->
   $.getJSON url, (data) ->
     $data = $('<div>').append data.content
 
-    filter_present_entries $postloader, $data, filter
+    filter_present_entries $data, filter
     $postloader.trigger 'postloader:success', [$data, data]
     $postloader.replaceWith $data.children()
 
@@ -23,7 +23,7 @@ $(document).on 'click appear', '.b-postloader', ->
     $postloader.data locked: false
 
 # удаляем уже имеющиеся подгруженные элементы
-filter_present_entries = ($postloader, $new_entries, filter) ->
+filter_present_entries = ($new_entries, filter) ->
   present_ids = $(".#{filter}").toArray().map (v) -> v.id
 
   exclude_selector = present_ids.map (id) ->

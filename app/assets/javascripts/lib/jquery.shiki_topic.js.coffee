@@ -37,6 +37,27 @@ class @ShikiTopic extends ShikiView
 
         @editor.cleanup()
 
+    # прочтение комментриев
+    @on 'appear', (e, $appeared, by_click) =>
+      return unless IS_LOGGED_IN
+      $filtered_appeared = ($appeared || $(@)).not -> $(@).data 'disabled'
+
+      $comments = $filtered_appeared.closest('.b-comment')
+      $markers = $comments.find('.b-new_marker')
+
+      ids = $comments.map(-> @id).toArray()
+      $.ajax
+        url: $appeared.data('url')
+        type: 'POST'
+        data:
+          ids: ids.join ","
+
+      $appeared.remove()
+
+      interval = if by_click then 1 else 1500
+      $markers.css.bind($markers).delay(interval, opacity: 0)
+      $markers.hide.bind($markers).delay(interval + 500)
+
     # пометка комментариев обзорами/оффтопиками
     @on 'comment:marker', (e, data) =>
       data.affected_ids.each (id) =>
@@ -63,6 +84,7 @@ class @ShikiTopic extends ShikiView
       $new_comments
         .insertAfter($comments_shower)
         .animated_expand()
+        .process()
 
       if $comments_shower.data 'infinite'
         limit = $comments_shower.data('limit')
@@ -81,7 +103,6 @@ class @ShikiTopic extends ShikiView
       else
         $comments_shower.html($comments_shower.data 'html').removeClass('click-loader').hide()
         @$('.comments-hider').show()
-
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
