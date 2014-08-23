@@ -9,12 +9,18 @@
 ) jQuery
 
 class @ShikiTopic extends ShikiView
+  MAX_PREVIEW_HEIGHT: 140
+
   initialize: ($root) ->
+    @$body = @$('>.body')
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
     @editor = new ShikiEditor(@$editor)
     @is_preview = @$root.hasClass('preview')
-    #@$editor_textarea = @$editor.find('textarea')
+
+    if @is_preview
+      @$body.imagesLoaded @_check_height
+      @_check_height()
 
     @$editor
       .on 'ajax:before', (e) ->
@@ -123,7 +129,7 @@ class @ShikiTopic extends ShikiView
     $comments.children().filter(exclude_selector).remove()
 
   # отображение редактора, если это превью топика
-  _show_editor: =>
+  _show_editor: ->
     if @is_preview && !@$editor_container.is(':visible')
       @$editor_container.animated_expand()
 
@@ -131,3 +137,16 @@ class @ShikiTopic extends ShikiView
   _hide_editor: =>
     if @is_preview
       @$editor_container.animated_collapse()
+
+  # проверка высоты топика. урезание, если топик слишком высокий
+  _check_height: =>
+    if @$body.height() > @MAX_PREVIEW_HEIGHT && !@$body.hasClass('shortened')
+      @$body.addClass('shortened')
+      $('<div class=\"height-shortener\" title=\"Развернуть\"></div>')
+        .insertAfter(@$body)
+        .on 'click', (e) =>
+          @$body
+            .removeClass('shortened')
+            .animated_expand(@MAX_PREVIEW_HEIGHT)
+
+          $(e.target).remove()
