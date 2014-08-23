@@ -89,6 +89,19 @@ $aside_width: 310px
           padding-left: 0
           line-height: $line_height
 
+  &>.body
+    &.shortened
+      height: 95px
+      overflow: hidden
+
+  // удаляемый комментарий
+  &.animated-height
+    +transition(all, 0.5s)
+    min-height: 0
+    margin: 0
+    padding: 0
+
+  // раскрытое меню в мобильной версии
   &.aside-expanded
     margin-left: -$aside_width
     position: relative
@@ -135,13 +148,6 @@ $aside_width: 310px
           +icon_expandable('Это (не) оффтопик')
         .item-moderation-cancel
           +icon_expandable('Отмена')
-
-  // удаляемый комментарий
-  &.animated-height
-    +transition(all, 0.5s)
-    min-height: 0
-    margin: 0
-    padding: 0
 
 //h2.comments-header
   //margin-bottom: 0

@@ -1,0 +1,43 @@
+@import mixins/plashka
+@import mixins/links
+//@import mixins/responsive
+
+.b-height_shortener
+  +link_color
+  cursor: pointer
+  border-top: 1px dashed $link
+  font-size: 11px
+  margin-left: 58px
+  margin-top: 10px
+
+  &:before
+    content: 'развернуть'
+    display: inline-block
+    margin-right: 5px
+
+  &:hover:before
+    text-decoration: underline
+
+  &:after
+    content: '↑'
+    display: inline-block
+
+  //+plashka
+  //margin-left: 58px
+  //margin-top: 7px
+  //padding: 0 !important
+  //position: relative
+
+  //+gte_ipad
+    //line-height: 10px
+    //height: 10px
+
+  //+iphone
+    //line-height: 15px
+    //height: 15px
+
+  //&:after
+    //content: '\E847'
+    //font-family: shikimori
+    //font-size: 13px
+

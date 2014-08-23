@@ -14,7 +14,7 @@ $('.ajax').live 'height:check index:success', ->
 
     if $content.height() > 140
       $content.addClass 'shortened'
-      $('<div class=\"height-shortener\" title=\"Развернуть\"><div>...</div></div>').insertAfter $content
+      $('<div class=\"b-height_shortener\" title=\"Развернуть\"><div>...</div></div>').insertAfter $content
     $this.removeClass 'height-unchecked'
 
 # при загрузке новой страницы инициация проверки высоты топиков
@@ -23,7 +23,7 @@ $(".b-postloader").live "postloader:success", ->
     $(".ajax").trigger "height:check"
 
 # раскрытие содержимого топика по клику на сокращалку
-$(".height-shortener").live "click", ->
+$(".b-height_shortener").live "click", ->
   $this = $(@)
   height = $this.prev().outerHeight() + $this.outerHeight()
 

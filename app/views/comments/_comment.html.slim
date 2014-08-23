@@ -46,7 +46,7 @@
           time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
             = time_ago_in_words comment.created_at, "%s назад"
 
-    .body itemprop="commentText"
+    .body itemprop="commentText" class="#{:long_text if comment.body.size > 500}"
       - if comment.persisted?
         - cache [comment, :body] do
           = comment.html_body

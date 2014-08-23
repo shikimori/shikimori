@@ -12,9 +12,16 @@
 # надо отрефакторить. подумать над view бекбона.
 # сделал бы сразу, но не уверен, что не будет тормозить
 class @ShikiComment extends ShikiView
+  MAX_PREVIEW_HEIGHT: 120
+
   initialize: ($root) ->
+    @$body = @$('.body')
+
+    if @$body.hasClass('long_text')
+      @_check_height()
+
     # выделение текста в комментарии
-    @$('.body').on 'mouseup', =>
+    @$body.on 'mouseup', =>
       text = $.getSelectionText()
       return unless text
 
@@ -41,8 +48,7 @@ class @ShikiComment extends ShikiView
 
       @$root.trigger 'comment:reply', [quote, @_is_offtopic()]
 
-    # ответ на комментарий
-    @$('.item-reply').on 'ajax:success', (e, response) =>
+    # ответ на комментарий @$('.item-reply').on 'ajax:success', (e, response) =>
       reply = "[#{response.kind}=#{response.id}]#{response.user}[/#{response.kind}], "
       @$root.trigger 'comment:reply', [reply, @_is_offtopic()]
 
@@ -141,6 +147,21 @@ class @ShikiComment extends ShikiView
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
+
+  # проверка высоты комментария. урезание, если текст слишком длинный
+  _check_height: =>
+    if @$body.height() > @MAX_PREVIEW_HEIGHT * 1.4
+      @$body.addClass('shortened')
+      $('<div class=\"b-height_shortener\" title=\"Развернуть\"></div>')
+        .insertAfter(@$body)
+        .on 'click', (e) =>
+          height = @$body.height()
+          @$body
+            .removeClass('shortened')
+            .animated_expand(height)
+
+          $(e.target).remove()
+
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->

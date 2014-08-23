@@ -140,13 +140,14 @@ class @ShikiTopic extends ShikiView
 
   # проверка высоты топика. урезание, если топик слишком высокий
   _check_height: =>
-    if @$body.height() > @MAX_PREVIEW_HEIGHT && !@$body.hasClass('shortened')
+    if @$body.height() > @MAX_PREVIEW_HEIGHT * 1.4 && !@$body.hasClass('shortened')
       @$body.addClass('shortened')
-      $('<div class=\"height-shortener\" title=\"Развернуть\"></div>')
+      $('<div class=\"b-height_shortener\" title=\"Развернуть\"></div>')
         .insertAfter(@$body)
         .on 'click', (e) =>
+          height = @$body.height()
           @$body
             .removeClass('shortened')
-            .animated_expand(@MAX_PREVIEW_HEIGHT)
+            .animated_expand(height)
 
           $(e.target).remove()
