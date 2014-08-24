@@ -2,7 +2,7 @@
   .toggler
 
 .menu-slide-outer
-  - if defined?(@gallery)
+  /- if defined?(@gallery)
     - if user_signed_in?
       = render partial: 'forum/gallery', formats: :html
     - else

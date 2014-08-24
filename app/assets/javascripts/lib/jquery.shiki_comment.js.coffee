@@ -16,8 +16,9 @@ class @ShikiComment extends ShikiView
 
   initialize: ($root) ->
     @$body = @$('.body')
+    @$inner = @$('.inner')
 
-    if @$body.hasClass('long_text')
+    if @$inner.hasClass('check_height')
       @_check_height()
 
     # выделение текста в комментарии
@@ -48,7 +49,8 @@ class @ShikiComment extends ShikiView
 
       @$root.trigger 'comment:reply', [quote, @_is_offtopic()]
 
-    # ответ на комментарий @$('.item-reply').on 'ajax:success', (e, response) =>
+    # ответ на комментарий
+    @$('.item-reply').on 'ajax:success', (e, response) =>
       reply = "[#{response.kind}=#{response.id}]#{response.user}[/#{response.kind}], "
       @$root.trigger 'comment:reply', [reply, @_is_offtopic()]
 
@@ -148,20 +150,19 @@ class @ShikiComment extends ShikiView
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
 
-  # проверка высоты комментария. урезание, если текст слишком длинный
+  # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
   _check_height: =>
-    if @$body.height() > @MAX_PREVIEW_HEIGHT * 1.4
-      @$body.addClass('shortened')
-      $('<div class=\"b-height_shortener\" title=\"Развернуть\"></div>')
-        .insertAfter(@$body)
+    if @$inner.height() > @MAX_PREVIEW_HEIGHT * 1.65
+      @$inner.addClass('shortened')
+      $('<div class="b-height_shortener"><div class="shade"></div><div class="text">развернуть</div></div>')
+        .insertAfter(@$inner)
         .on 'click', (e) =>
-          height = @$body.height()
-          @$body
+          height = @$inner.height()
+          @$inner
             .removeClass('shortened')
             .animated_expand(height)
 
-          $(e.target).remove()
-
+          $(e.currentTarget).remove()
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->

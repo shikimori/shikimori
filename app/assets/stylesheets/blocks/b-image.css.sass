@@ -1,7 +1,7 @@
 @import mixins/media_marker
 @import globals/variables
 
-.b-video
+.b-image
   line-height: 0
   margin-bottom: 10px
   overflow: hidden
@@ -11,8 +11,16 @@
     max-width: 100%
 
   &.fixed
+    margin-bottom: 0
+
     img
       width: $media_width
 
   .marker
     +media_marker
+
+  .normalized_width
+    max-width: $media_width !important
+
+  .normalized_height
+    max-height: $media_width !important

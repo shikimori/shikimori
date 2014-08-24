@@ -10,55 +10,57 @@
     ]
     a name="comment-#{comment.id}"
 
-    - if comment.persisted?
-      - if user_signed_in?
-        span.item-mobile title="Действия"
+    / класс нужен из-за проверки высоты
+    .inner class="#{:check_height if comment.body.size > 500 || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5}"
+      - if comment.persisted?
+        - if user_signed_in?
+          span.item-mobile title="Действия"
 
-      aside.markers
-        - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
-          .b-review_marker[
+        aside.markers
+          - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
+            .b-review_marker[
+                class="#{:active if user_signed_in?}"
+                style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва"
+                data-action="#{review_comment_abuse_requests_url comment}"
+                data-method="post" data-type="json" data-remote="true"
+              ]
+          .b-offtopic_marker[
               class="#{:active if user_signed_in?}"
-              style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва"
-              data-action="#{review_comment_abuse_requests_url comment}"
+              style="#{'display: none;' unless comment.offtopic?}" title="Снять метку оффтопика"
+              data-action="#{offtopic_comment_abuse_requests_url comment}"
               data-method="post" data-type="json" data-remote="true"
             ]
-        .b-offtopic_marker[
-            class="#{:active if user_signed_in?}"
-            style="#{'display: none;' unless comment.offtopic?}" title="Снять метку оффтопика"
-            data-action="#{offtopic_comment_abuse_requests_url comment}"
-            data-method="post" data-type="json" data-remote="true"
-          ]
-        - unless comment.viewed?
-          .b-new_marker.active
+          - unless comment.viewed?
+            .b-new_marker.active
 
-      - if user_signed_in?
-        - if current_user.moderator?
-          aside.moderation-ban
-        = render partial: 'comments/buttons', locals: { comment: comment }
+        - if user_signed_in?
+          - if current_user.moderator?
+            aside.moderation-ban
+          = render partial: 'comments/buttons', locals: { comment: comment }
 
-    header
-      span.linkeable data-href="#{comment.topic_url || user_url(comment.user)}"
-        img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
-      .name-date
-        a href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator"
-          == comment.topic_name || h(comment.user.nickname)
+      header
+        span.linkeable data-href="#{comment.topic_url || user_url(comment.user)}"
+          img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
+        .name-date
+          a href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator"
+            == comment.topic_name || h(comment.user.nickname)
+          - if comment.persisted?
+            time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
+              = time_ago_in_words comment.created_at, "%s назад"
+
+      .body itemprop="commentText"
         - if comment.persisted?
-          time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
-            = time_ago_in_words comment.created_at, "%s назад"
-
-    .body itemprop="commentText" class="#{:long_text if comment.body.size > 500}"
-      - if comment.persisted?
-        - cache [comment, :body] do
+          - cache [comment, :body] do
+            = comment.html_body
+        - else
           = comment.html_body
-      - else
-        = comment.html_body
-      /- if comment.kind_of? Comment
-        == comment.html_body
-      /- elsif comment.respond_to?(:kind) && comment.kind == MessageType::Private
-        - cache [comment, :body] do
-          = BbCodeFormatter.instance.format_comment comment.body
-      /- else
-        == format_comment comment.body, comment.user
+        /- if comment.kind_of? Comment
+          == comment.html_body
+        /- elsif comment.respond_to?(:kind) && comment.kind == MessageType::Private
+          - cache [comment, :body] do
+            = BbCodeFormatter.instance.format_comment comment.body
+        /- else
+          == format_comment comment.body, comment.user
 
-    - unless comment.viewed?
-      .appear-marker class="appear-comment-#{comment.id}" data-url="#{appear_url}"
+      - unless comment.viewed?
+        .appear-marker class="appear-comment-#{comment.id}" data-url="#{appear_url}"

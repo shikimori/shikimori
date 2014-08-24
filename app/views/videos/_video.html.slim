@@ -1,4 +1,11 @@
-a.c-video.b-video.unprocessed class="#{video.hosting} entry-#{video_counter+1}" href="#{video.url}" data-href="#{video.player_url}"
+a.c-video.b-video.unprocessed[
+    class="#{video.hosting} #{"entry-#{video_counter+1}" if defined? video_counter} #{:fixed unless defined? video_counter}"
+    href="#{video.url}"
+    data-href="#{video.player_url}"
+  ]
   img src="#{video.image_url}" data-id="#{video.id}"
-  p.marker
-    = video.kind
+  span.marker
+    - if defined? video_counter
+      = video.kind
+    - else
+      = video.hosting

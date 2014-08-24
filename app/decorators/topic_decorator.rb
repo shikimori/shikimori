@@ -33,11 +33,11 @@ class TopicDecorator < BaseDecorator
   # картинка топика(аватарка автора)
   def avatar
     if object.special? && object.linked.respond_to?(:image) && !(object.news? && !object.generated? && !preview?)
-      topic.linked.image.url(:x96)
+      object.linked.image.url(:x96)
     elsif object.special? && object.linked.respond_to?(:logo)
-      topic.linked.logo.url(:x48)
+      object.linked.logo.url(:x48)
     elsif review?
-      topic.linked.object.image.url(:x96)
+      object.linked.object.image.url(:x96)
     else
       object.user.avatar_url(48)
     end
@@ -45,11 +45,11 @@ class TopicDecorator < BaseDecorator
 
   def avatar2x
     if object.special? && object.linked.respond_to?(:image) && !(object.news? && !object.generated? && !preview?)
-      topic.linked.image.url(:x96)
+      object.linked.image.url(:x96)
     elsif object.special? && object.linked.respond_to?(:logo)
-      topic.linked.logo.url(:x96)
+      object.linked.logo.url(:x96)
     elsif review?
-      topic.linked.object.image.url(:x96)
+      object.linked.object.image.url(:x96)
     else
       object.user.avatar_url(80)
     end

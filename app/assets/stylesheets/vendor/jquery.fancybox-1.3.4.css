@@ -57,6 +57,7 @@
 
 #fancybox-wrap {
 	position: absolute;
+	box-sizing: initial;
 	top: 0;
 	left: 0;
 	padding: 20px;
@@ -73,6 +74,7 @@
 }
 
 #fancybox-content {
+	box-sizing: initial;
 	width: 0;
 	height: 0;
 	padding: 0;

@@ -21,17 +21,17 @@ $aside_width: 310px
   &:last-child
     margin-bottom: 0
 
-  &>aside.buttons
+  aside.buttons
     display: none
 
     .item-cancel
       display: none
 
   +gt_ipad
-    &:hover > aside.buttons
+    &:hover aside.buttons
       display: block
 
-  &>aside.moderation-ban
+  aside.moderation-ban
     margin: 20px 0 15px 15px
     display: none
 
@@ -58,13 +58,12 @@ $aside_width: 310px
         float: none
         height: 25px
 
-  &>header
+  header
     margin-bottom: 3px
 
     img
       float: left
-      margin-right: 10px
-      margin-top: 3px
+      margin: 3px 10px 7px 0
       width: 48px
 
     .name-date
@@ -89,7 +88,7 @@ $aside_width: 310px
           padding-left: 0
           line-height: $line_height
 
-  &>.body
+  .inner
     &.shortened
       height: 95px
       overflow: hidden

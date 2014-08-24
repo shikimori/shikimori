@@ -1,32 +1,27 @@
-# почему-то без задержки не работает
-check_image = ($image, options) ->
-  $container = $image.parent()
-  $container = $container.parent() while $container.hasClass('spoiler') || $container.css('display') == 'inline'
-
-  image_width = $image.width()
-  container_width = $container.innerWidth()
-
-  if image_width && container_width && image_width > container_width
-    $image.css width: $container.innerWidth() - 7
-
-    $image.wrap "<a href='#{$image.attr 'src'}'></a>" unless $image.parent().tagName() == 'a'
-    $image.parent().fancybox options.fancybox
-
-  else
-    if $image.parent().tagName() == 'a' && $image.parent().attr('href').match(/\.(png|jpg|jpeg|bmp|gif)$/i)
-      $image.parent().fancybox options.fancybox
-
-  $image.removeClass options['class']
-
 (($) ->
-  $.fn.extend normalizeImage: (options) ->
-    @each ->
-      $this = $(@)
-      if $this.width() > 0
-        check_image $this, options
+  # почему-то без задержки не работает
+  check_image = ($image, options) ->
+    $link = $image.parent()
 
-      else
-        $this.load ->
-          _.delay ->
-            check_image $this, options
+    image_width = $image[0].naturalWidth || $image.width()
+    image_height = $image[0].naturalHeight || $image.height()
+
+    $image.addClass if image_width > image_height then 'normalized_width' else 'normalized_height' if image_width > 300
+
+    if $link.tagName() == 'a' && $link.attr('href').match(/\.(png|jpg|jpeg|bmp|gif)$/i)
+      $link.fancybox(options.fancybox)
+
+    if options.remove_for_link
+      $link.removeClass options.class
+    else
+      $image.removeClass options.class
+
+    if options.append_marker && !$link.children('.marker').exists()
+      $link.append "<span class='marker'>#{image_width}x#{image_height}</span>"
+
+  $.fn.extend normalize_image: (options) ->
+    @each ->
+      $image = $(@)
+      $image.imagesLoaded ->
+        check_image.delay 0, $image, options
 ) jQuery

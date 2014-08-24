@@ -45,7 +45,9 @@ private
         nil
       end
 
-      "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\"><img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\" class=\"check-width#{" #{klass}" if klass}\"#{sizes_html}/></a>"
+      "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">
+<img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\" class=\"#{klass if klass}\"#{sizes_html}/>
+<span class=\"marker\">#{user_image.width}x#{user_image.height}</span></a>"
     end
   end
 end

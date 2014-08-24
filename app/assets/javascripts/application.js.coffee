@@ -5,10 +5,17 @@
 
 $ ->
   $(document).trigger 'page:load', true
+  if IS_LOGGED_IN && !window.faye_loader
+    window.faye_loader = new FayeLoader()
+    faye_loader.apply()
+  $('.b-comment .appear-marker').appear()
 
   $.form_navigate
     size: 250
     message: "Вы написали и не сохранили какой-то комментарий! Уверены, что хотите покинуть страницу?"
+
+$(document).on 'page:restore', (e, is_dom_content_loaded) ->
+  process_current_dom()
 
 $(document).on 'page:load', (e, is_dom_content_loaded) ->
   unless is_dom_content_loaded
@@ -22,11 +29,6 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
     $.flash alert: v.innerHTML if v.innerHTML.length
 
   process_current_dom()
-  $('.b-comment .appear-marker').appear()
-
-  if IS_LOGGED_IN && !window.faye_loader
-    window.faye_loader = new FayeLoader()
-    faye_loader.apply()
 
 $(document).on 'page:fetch', ->
   $ajax = $('.ajax')
@@ -44,7 +46,7 @@ turbolinks_compatibility = ->
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 @process_current_dom = (root = document.body) ->
   # нормализуем ширину всех огромных картинок
-  $('img.check-width', root).normalizeImage
+  $('img.check-width', root).normalize_image
     class: 'check-width'
     fancybox: $.galleryOptions
 
@@ -94,6 +96,12 @@ turbolinks_compatibility = ->
           .fancybox(if $(@).hasClass('vk') then $.vkOptions else $.youtubeOptions)
           .trigger('click')
         false
+
+  $('.b-image.unprocessed img', root)
+    .normalize_image
+      class: 'unprocessed'
+      append_marker: true
+      fancybox: $.galleryOptions
 
   # сворачиваение всех нужных блоков "свернуть"
   _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->

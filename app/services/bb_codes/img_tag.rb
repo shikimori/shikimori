@@ -38,9 +38,11 @@ private
     sizes_html += " width=\"#{width}\"" if width > 0
     sizes_html += " height=\"#{height.to_i}\"" if height > 0
 
-    "<a href=\"#{url}\" rel=\"#{text_hash}\"><img src=\"#{url}\" class=\"check-width#{" #{klass}" if klass}\"#{sizes_html}/></a>"
+    "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">
+<img src=\"#{url}\" #{"class=\"#{klass}\"" if klass}#{sizes_html}/></a>"
   end
 
+  # TODO: а не выпилить ли этот случай? тогда check-width вообще удалить можно будет вместе с js обработчиком
   def html_for_linked_image url, url_start, url_end
     "#{url_start}<img src=\"#{url}\" class=\"check-width\"/>#{url_end}"
   end

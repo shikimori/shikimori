@@ -6,7 +6,7 @@ class UserImage < ActiveRecord::Base
     styles: {
       original: ['1920x1920>', :jpg],
       preview: ['700x700>', :jpg],
-      thumbnail: ['150x150>', :jpg]
+      thumbnail: ['235x235>', :jpg]
     },
     url: '/images/user_image/:style/:user_id/:id.:extension',
     path: ':rails_root/public/images/user_image/:style/:user_id/:id.:extension'
