@@ -11,7 +11,7 @@
     a name="comment-#{comment.id}"
 
     / класс нужен из-за проверки высоты
-    .inner class="#{:check_height if comment.body.size > 500 || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5}"
+    .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
       - if comment.persisted?
         - if user_signed_in?
           span.item-mobile title="Действия"

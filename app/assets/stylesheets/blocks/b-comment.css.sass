@@ -21,16 +21,6 @@ $aside_width: 310px
   &:last-child
     margin-bottom: 0
 
-  aside.buttons
-    display: none
-
-    .item-cancel
-      display: none
-
-  +gt_ipad
-    &:hover aside.buttons
-      display: block
-
   aside.moderation-ban
     margin: 20px 0 15px 15px
     display: none
@@ -92,6 +82,17 @@ $aside_width: 310px
     &.shortened
       height: 95px
       overflow: hidden
+
+    &>aside.buttons
+      display: none
+
+      .item-cancel
+        display: none
+
+    &:hover
+      +gt_ipad
+        &>aside.buttons
+          display: block
 
   // удаляемый комментарий
   &.animated-height
