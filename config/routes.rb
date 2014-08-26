@@ -133,8 +133,8 @@ Site::Application.routes.draw do
       collection do
         get :smileys
         post :preview
-        get 'fetch/:id/:topic_id/:skip/:limit' => 'comments#fetch', as: :fetch
-        get ':commentable_type/:commentable_id/:offset/:limit(/:review)', action: :postloader, as: :model
+        get 'fetch/:id/:topic_id(/:review)/:skip/:limit' => 'comments#fetch', as: :fetch
+        get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
       end
     end
 
@@ -380,8 +380,8 @@ Site::Application.routes.draw do
     resources :animes do
       member do
         post 'torrent' => 'torrents#create'
-        get ':type.rss' => 'animes#rss', as: 'rss', constraints: { type: /torrents|torrents_480p|torrents_720p|torrents_1080p/ }
-        get 'subtitles/:group.rss' => 'animes#rss', as: 'subtitles', type: 'subtitles'
+        #get ':type.rss' => 'animes#rss', as: 'rss', constraints: { type: /torrents|torrents_480p|torrents_720p|torrents_1080p/ }
+        #get 'subtitles/:group.rss' => 'animes#rss', as: 'subtitles', type: 'subtitles'
 
         resource :screenshots, only: [:create]
         resource :videos, only: [:create]

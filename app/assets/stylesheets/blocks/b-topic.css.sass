@@ -6,8 +6,6 @@
 @import mixins/links
 @import mixins/block
 
-$header_image_margin: 58px
-
 .b-topic
   +block
   border-bottom: none
@@ -24,13 +22,9 @@ $header_image_margin: 58px
 
   &.preview
     margin-bottom: $block_offset * 1.5
-    //&>.b-comments, &>.editor
-      //+gt_ipad
-        //margin-left: $header_image_margin
-      //+ipad
-        //margin-left: $header_image_margin / 2
-      //+iphone
-        //margin-left: $header_image_margin / 3
+
+    &:last-child
+      margin-bottom: 0
 
     &>.editor-container
       display: none
@@ -69,11 +63,6 @@ $header_image_margin: 58px
     line-height: $line_height
     margin-top: 3px
 
-    //.date
-      float: left
-      padding-left: 2px
-      padding-right: 5px
-
     .b-user16
       display: inline-block
       padding-right: 10px
@@ -101,54 +90,3 @@ $header_image_margin: 58px
           &:active
             color: inherit !important
             text-decoration: inherit
-
-  //+lte_ipad
-    //.topic-block
-      //header img
-        //width: 32px !important
-        //margin-bottom: 4px !important
-
-      //.title
-        //margin-left: 0 !important
-
-  //.content
-    //margin-bottom: 5px
-    //min-height: 60px
-
-    ////.title
-      //margin-left: $header_image_margin
-      //white-space: nowrap
-
-
-    //.body
-      //margin-left: 0
-      //margin-top: 4px
-
-      //a
-        //+link
-
-      //&.image-x64
-        //min-height: 36px
-
-    //.buttons
-      //float: right
-
-  //.comments-shower, .comments-hider
-    //+plashka
-    //border: 1px solid #F2F2F2
-    //clear: left
-    //margin: 0 0 5px 0
-
-  //.comments-shower + .comments-container .comment-block:first-child
-    //border-top: none
-
-  //.comments-hider
-    //display: none
-
-  //.shiki-wall
-    //margin-top: 15px
-    //margin-bottom: 10px
-
-  //&:first-child
-    //padding-top: 5px
-

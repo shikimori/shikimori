@@ -1,5 +1,4 @@
 class TopicDecorator < BaseDecorator
-  FOLD_LIMIT = 20
   instance_cache :comments
 
   # имя топика
@@ -62,7 +61,7 @@ class TopicDecorator < BaseDecorator
 
   # превью ли это топика?
   def preview?
-    h.params[:action] != 'show'
+    h.params[:action] != 'show' || h.params[:controller] != 'topics'
   end
 
   # надо ли свёртывать длинный контент топика?
@@ -92,19 +91,30 @@ class TopicDecorator < BaseDecorator
 
   # число отображаемых напрямую комментариев
   def comments_limit
-    preview? ? (h.params[:page] && h.params[:page] > 1 ? 1 : 3) : FOLD_LIMIT
+    if preview?
+      h.params[:page] && h.params[:page] > 1 ? 1 : 3
+    else
+      fold_limit
+    end
+  end
+
+  # число подгружаемых комментариев из click-loader блока
+  def fold_limit
+    if preview?
+      10
+    else
+      20
+    end
   end
 
   # посты топика
   def comments
-    object
+    comments = object
       .comments
       .with_viewed(h.current_user)
       .limit(comments_limit)
-      .to_a
-      .reverse
 
-    #preview? ? comments : comments.reverse
+    (reviews_only? ? comments.reviews : comments).to_a.reverse
   end
 
   # тег топика
@@ -130,19 +140,40 @@ class TopicDecorator < BaseDecorator
 
   # адрес прочих комментариев топика
   def comments_url
-    h.fetch_comments_url id: comments.first.id, topic_id: object.id, skip: 'SKIP', limit: FOLD_LIMIT
+    h.fetch_comments_url(
+      id: comments.first.id,
+      topic_id: object.id,
+      skip: 'SKIP',
+      limit: fold_limit,
+      review: reviews_only? ? 'review' : nil
+    )
   end
 
   # текст для свёрнутых комментариев
   def show_hidden_comments_text
-    num = [folded_comments, FOLD_LIMIT].min
-    text = "Показать #{Russian.p num, 'предыдущий', 'предыдущие', 'предыдущие'} #{num} #{Russian.p num, 'комментарий', 'комментария', 'комментариев'}%s" % [
-        folded_comments < FOLD_LIMIT ? '' : "<span class=\"expandable-comments-count\"> (из #{folded_comments})</span>"
+    num = [folded_comments, fold_limit].min
+    prior_text = Russian.p num, 'предыдущий', 'предыдущие', 'предыдущие'
+    comment_text = if reviews_only?
+      Russian.p num, 'отзыв', 'отзыва', 'отзывов'
+    else
+      Russian.p num, 'комментарий', 'комментария', 'комментариев'
+    end
+    text = "Показать #{prior_text} #{num} #{comment_text}%s" % [
+        folded_comments < fold_limit ? '' : "<span class=\"expandable-comments-count\"> (из #{folded_comments})</span>"
       ]
     text.html_safe
   end
 
   def new_comment
-    Comment.new user: h.current_user, commentable: object
+    Comment.new user: h.current_user, commentable: object, review: reviews_only?
+  end
+
+  # переключение на отображение отзывов
+  def reviews_only!
+    @force_reviews = true
+  end
+
+  def reviews_only?
+    !!@force_reviews
   end
 end

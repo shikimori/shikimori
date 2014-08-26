@@ -91,7 +91,7 @@ class @ShikiTopic extends ShikiView
     @$('.comments-shower').on 'ajax:success', (e, html) =>
       $comments_shower = $(e.target)
 
-      $new_comments = $("<div></div>").html html
+      $new_comments = $("<div class='comments-loaded'></div>").html html
       @_filter_present_entries($new_comments)
 
       $new_comments
@@ -114,8 +114,23 @@ class @ShikiTopic extends ShikiView
         else
           $comments_shower.remove()
       else
-        $comments_shower.html($comments_shower.data 'html').removeClass('click-loader').hide()
+        $comments_shower
+          .html($comments_shower.data 'html')
+          .removeClass('click-loader')
+          .hide()
         @$('.comments-hider').show()
+
+    # отображение комментариев
+    @$('.comments-shower').on 'click', (e) =>
+      @$('.comments-shower').hide()
+      @$('.comments-loaded').animated_expand()
+      @$('.comments-hider').show()
+
+    # скрытие комментариев
+    @$('.comments-hider').on 'click', (e) =>
+      @$('.comments-hider').hide()
+      @$('.comments-loaded').animated_collapse()
+      @$('.comments-shower').show()
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->

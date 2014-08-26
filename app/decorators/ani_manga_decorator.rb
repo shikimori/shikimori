@@ -77,7 +77,9 @@ class AniMangaDecorator < BaseDecorator
 
   # основной топик
   def thread
-    TopicDecorator.new object.thread
+    thread = TopicDecorator.new object.thread
+    thread.reviews_only! if comment_reviews?
+    thread
   end
 
   # комментарии топика

@@ -63,12 +63,16 @@ class CommentsController < ShikimoriController
     from = params[:skip].to_i
     to = [params[:limit].to_i, 100].min
 
-    comments = entry
+    query = entry
       .comments
       .with_viewed(current_user)
       .includes(:user, :commentable)
       .offset(from)
       .limit(to)
+
+    query.where! review: true if params[:review]
+
+    comments = query
       .to_a
       .reverse
 
