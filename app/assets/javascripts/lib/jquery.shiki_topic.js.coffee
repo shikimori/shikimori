@@ -85,46 +85,52 @@ class @ShikiTopic extends ShikiView
 
     # подготовка к подгрузке новых комментов
     @$('.comments-shower').on 'ajax:before', (e, html) ->
-      $(@).data href: $(@).data('href-template').replace('SKIP', $(@).data('skip'))
+      new_url = $(@).data('href-template').replace('SKIP', $(@).data('skip'))
+      $(@)
+        .data
+          href: new_url
+          #html: $(@).html()
+        #.html("<div class=\"ajax-loading vk-like\" title=\"Загрузка...\" />")
 
     # подгрузка новых комментов
     @$('.comments-shower').on 'ajax:success', (e, html) =>
-      $comments_shower = $(e.target)
+      $shower = $(e.target)
 
       $new_comments = $("<div class='comments-loaded'></div>").html html
       @_filter_present_entries($new_comments)
 
       $new_comments
-        .insertAfter($comments_shower)
+        .insertAfter($shower)
         .animated_expand()
         .process()
 
-      if $comments_shower.data 'infinite'
-        limit = $comments_shower.data('limit')
-        count = $comments_shower.data('count') - limit
+      if $shower.data 'infinite'
+        limit = $shower.data('limit')
+        count = $shower.data('count') - limit
 
         if count > 0
-          $comments_shower.data
-            skip: $comments_shower.data('skip') + limit
+          $shower.data
+            skip: $shower.data('skip') + limit
             count: count
 
-          $comments_shower.html "Показать #{p(_.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие')} #{_.min [limit, count]} #{p(count, 'комментарий', 'комментария', 'комментариев')}" + (
+          $shower.html "Показать #{p(_.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие')} #{_.min [limit, count]} #{p(count, 'комментарий', 'комментария', 'комментариев')}" + (
               if count > limit then "<span class=\"expandable-comments-count\"> (из #{count})</span>" else ""
             )
         else
-          $comments_shower.remove()
+          $shower.remove()
       else
-        $comments_shower
-          .html($comments_shower.data 'html')
+        $shower
+          .html($shower.data 'html') # изначально data 'html' устанавливает обработчик click-loader
           .removeClass('click-loader')
           .hide()
         @$('.comments-hider').show()
 
     # отображение комментариев
     @$('.comments-shower').on 'click', (e) =>
-      @$('.comments-shower').hide()
-      @$('.comments-loaded').animated_expand()
-      @$('.comments-hider').show()
+      unless @$('.comments-shower').is('.click-loader')
+        @$('.comments-shower').hide()
+        @$('.comments-loaded').animated_expand()
+        @$('.comments-hider').show()
 
     # скрытие комментариев
     @$('.comments-hider').on 'click', (e) =>

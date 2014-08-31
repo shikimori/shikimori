@@ -92,11 +92,11 @@
           = "#{entry.reviews_count} #{Russian.p entry.reviews_count, 'рецензия', 'рецензиии', 'рецензиий'}"
 
       - if entry.comment_reviews_count > 0
-        span.link
+        span.linkeable data-href="#{entry.comments_reviews_url}"
           = "#{entry.comment_reviews_count} #{Russian.p entry.comment_reviews_count, 'отзыв', 'отзыва', 'отзывов'}"
 
       - if entry.comments_count > 0 && entry.comments_count != entry.comment_reviews_count
-        span.link
+        span.linkeable data-href="#{entry.comments_all_url}"
           = "#{entry.comments_count} #{Russian.p entry.comments_count, 'комментарий', 'комментария', 'комментариев'}"
 
   - if entry.files? || entry.cosplay.galleries.any? || entry.tags.present?

@@ -8,7 +8,7 @@ $(document).on 'click', '.click-loader', ->
 
   $this
     .data(html: $this.html())
-    .html '<div class="ajax-loading vk-like" title="Загрузка..." />'
+    .html('<div class="ajax-loading vk-like" title="Загрузка..." />')
 
   $.get($this.data 'href').success (data, status, xhr) ->
     $this.data locked: false

@@ -93,12 +93,11 @@ module AniMangaDecorator::UrlHelpers
 
   # урл страницы с отзывами
   def comments_reviews_url
-    h.model_comments_path commentable_type: thread.class.name.underscore, commentable_id: thread.id, offset: 0, limit: 15, review: 'review'
+    h.send "reviews_#{klass_lower}_url", object
   end
 
   # урл страницы со всеми комментариями
   def comments_all_url
-    h.model_comments_path commentable_type: thread.class.name.underscore, commentable_id: thread.id, offset: 0, limit: 15
+    h.send "comments_#{klass_lower}_url", object
   end
 end
-

@@ -99,22 +99,16 @@
   - if user_signed_in? || @resource.comments_count > 0
     - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
       .b-options-floated.mobile-support
-        span.link.selected.link-comment-reviews data-disabled="true" data-remote="true" data-type="json" data-action="#{@resource.comments_reviews_url}"
-          | Отзывы&nbsp;
-          span.sep.zero.inline
-            | (
-          = @resource.comment_reviews_count
-          span.sep.zero.inline
-            | )
-        span.link.link-comments data-remote="true" data-type="json" data-action="#{@resource.comments_all_url}"
+        span.linkeable data-href="#{@resource.comments_reviews_url}"
+          | Все отзывы&nbsp;
+          span.brackets = @resource.comment_reviews_count
+
+        span.linkeable data-href="#{@resource.comments_all_url}"
           | Все комментарии&nbsp;
-          span.sep.zero.inline
-            | (
-          = @resource.comments_count
-          span.sep.zero.inline
-            | )
-    .subheadline.m3 Обсуждение
-    .comments
+          span.brackets = @resource.comments_count
+
+    .subheadline.m3 Отзывы
+    div
       .b-topic.unprocessed
-        = render partial: 'topics/comments', locals: { topic: @resource.thread }
+        = render partial: 'topics/comments', locals: { topic: @resource.reviews_thread }
       /= render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }

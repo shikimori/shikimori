@@ -1,4 +1,5 @@
 @import globals
+@import mixins/brackets_surrounded
 @import mixins/dash_separated
 @import mixins/responsive
 
@@ -29,6 +30,9 @@
     +dash_separated
     color: inherit
     cursor: pointer
+
+    span.brackets
+      +brackets_surrounded
 
   a.rss
     margin-left: 10px

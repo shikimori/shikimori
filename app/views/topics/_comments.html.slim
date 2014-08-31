@@ -4,7 +4,8 @@
     .comments-hider Скрыть #{topic.reviews_only? ? 'отзывы' : 'комментарии'}
     .comments-shower.click-loader[
         data-href-template="#{topic.comments_url}" data-infinite="#{!topic.preview?}"
-        data-skip="#{topic.comments_limit}" data-limit="#{topic.fold_limit}" data-count="#{topic.folded_comments}"
+        data-skip="#{topic.comments_limit}" data-limit="#{topic.fold_limit}"
+        data-count="#{topic.folded_comments}"
       ]
       = topic.show_hidden_comments_text
     /.comments-shower.click-loader data-href="#{topic.comments_url}"

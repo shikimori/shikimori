@@ -7,7 +7,7 @@ class AniMangaDecorator < BaseDecorator
   VISIBLE_RELATED = 7
 
   instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
-  instance_cache :is_favoured, :favoured, :rate, :thread, :comments, :changes, :roles, :related, :cosplay
+  instance_cache :is_favoured, :favoured, :rate, :reviews_thread, :comments, :changes, :roles, :related, :cosplay
   instance_cache :friend_rates, :recent_rates, :chronology
 
   def headline
@@ -76,9 +76,10 @@ class AniMangaDecorator < BaseDecorator
   end
 
   # основной топик
-  def thread
+  def reviews_thread
     thread = TopicDecorator.new object.thread
     thread.reviews_only! if comment_reviews?
+    thread.preview_mode!
     thread
   end
 

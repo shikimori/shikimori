@@ -74,6 +74,23 @@ class AnimesController < ShikimoriController
     page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
   end
 
+  def comments
+    noindex
+    page_title "Обсуждение #{@resource.anime? ? 'аниме' : 'манги'}"
+
+    @thread = TopicDecorator.new @resource.thread
+    @thread.topic_mode!
+  end
+
+  def reviews
+    noindex
+    page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
+
+    @thread = TopicDecorator.new @resource.thread
+    @thread.reviews_only!
+    @thread.topic_mode!
+  end
+
   def resources
     render partial: 'resources'
   end
@@ -84,18 +101,21 @@ class AnimesController < ShikimoriController
 
   # редактирование аниме
   def edit
+    1/0
     show
     render :show unless @director.redirected?
   end
 
   # подстраница косплея
   def cosplay
+    1/0
     show
     render :show unless @director.redirected?
   end
 
   # торренты к эпизодам аниме
   def episode_torrents
+    1/0
     @resource = klass.find(params[:id].to_i).decorate
     render json: @resource.files.episodes_data
   end

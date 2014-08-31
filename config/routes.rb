@@ -344,9 +344,15 @@ Site::Application.routes.draw do
           get :videos
           get :chronology
           get :art
-          get :other_names # другие названия
           get :related
-          get :resources
+
+          get :comments
+          scope 'comments' do
+            get :reviews
+          end
+
+          get :other_names # другие названия
+          get :resources # подгружаемый центральный блок с персонажами, скриншотами, видео
 
           get :stats
           get :recent

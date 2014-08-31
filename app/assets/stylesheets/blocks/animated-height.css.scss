@@ -2,7 +2,7 @@
 
 .animated-height {
   /*@include transition(height 0.5s ease);*/
-  @include transition(height 0.5s ease !important);
+  @include transition(height 0.5s ease-in-out !important);
 }
 .animated-overflow {
   overflow: hidden;

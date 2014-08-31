@@ -59,11 +59,6 @@ class TopicDecorator < BaseDecorator
     Russian::strftime(created_at, "%e %B %Y").strip
   end
 
-  # превью ли это топика?
-  def preview?
-    h.params[:action] != 'show' || h.params[:controller] != 'topics'
-  end
-
   # надо ли свёртывать длинный контент топика?
   def should_shorten?
     !news? || (news? && generated?) || (news? && object.body !~ /\[wall\]/)
@@ -86,7 +81,11 @@ class TopicDecorator < BaseDecorator
 
   # число свёрнутых комментариев
   def folded_comments
-    object.comments_count - comments_limit
+    if reviews_only?
+      object.comments.reviews.size - comments_limit
+    else
+      object.comments_count - comments_limit
+    end
   end
 
   # число отображаемых напрямую комментариев
@@ -172,8 +171,18 @@ class TopicDecorator < BaseDecorator
   def reviews_only!
     @force_reviews = true
   end
-
   def reviews_only?
     !!@force_reviews
+  end
+
+  # переключение на отображение в режиме превью
+  def preview_mode!
+    @preview_mode = true
+  end
+  def topic_mode!
+    @preview_mode = false
+  end
+  def preview?
+    @preview_mode.nil? ? h.params[:action] != 'show' : @preview_mode
   end
 end

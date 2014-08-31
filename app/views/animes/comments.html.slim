@@ -1,0 +1,14 @@
+= render layout: 'animes/page' do |f|
+  .b-options-floated.mobile-support
+    a href="#{@resource.comments_reviews_url}"
+      | Все отзывы&nbsp;
+      span.brackets = @resource.comment_reviews_count
+
+    span.link.selected
+      | Все комментарии&nbsp;
+      span.brackets = @resource.comments_count
+
+  .subheadline.m10 = @page_title.last
+  div
+    .b-topic.unprocessed
+      = render partial: 'topics/comments', locals: { topic: @thread }
