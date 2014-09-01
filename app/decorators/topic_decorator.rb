@@ -36,7 +36,7 @@ class TopicDecorator < BaseDecorator
     elsif object.special? && object.linked.respond_to?(:logo)
       object.linked.logo.url(:x48)
     elsif review?
-      object.linked.object.image.url(:x96)
+      object.linked.target.image.url(:x96)
     else
       object.user.avatar_url(48)
     end
@@ -48,7 +48,7 @@ class TopicDecorator < BaseDecorator
     elsif object.special? && object.linked.respond_to?(:logo)
       object.linked.logo.url(:x96)
     elsif review?
-      object.linked.object.image.url(:x96)
+      object.linked.target.image.url(:x96)
     else
       object.user.avatar_url(80)
     end

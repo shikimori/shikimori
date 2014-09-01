@@ -7,6 +7,7 @@ class ReviewsController < AnimesController
 
   # обзоры аниме или манги
   def index
+    page_title 'Рецензии'
   end
 
   #def new

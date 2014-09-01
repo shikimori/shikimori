@@ -16,7 +16,7 @@ class Review < ActiveRecord::Base
     foreign_key: :linked_id,
     dependent: :destroy
 
-  validates_presence_of :user, :target
+  validates :user, :target, presence: true
   validates :text, length: { minimum: 1000, too_short: "слишком короткий (минимум 1000 знаков)" }
   validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"
   validates_inclusion_of :animation, in: 1..10, message: "не имеет оценки"

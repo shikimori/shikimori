@@ -39,15 +39,13 @@ class AniMangaDecorator < BaseDecorator
 
   # обзоры
   def reviews
-    ReviewsQuery.new(object, h.current_user, h.params[:id].to_i).fetch.map do |review|
-      TopicPresenter.new(
-        object: review.thread,
-        template: h,
-        linked: review,
-        limit: 2,
-        with_user: true
-      )
-    end
+    ReviewsQuery
+      .new(object, h.current_user, h.params[:id].to_i)
+      .fetch.map do |review|
+        topic = TopicDecorator.new review.thread
+        topic.topic_mode!
+        topic
+      end
   end
 
   # число обзоров

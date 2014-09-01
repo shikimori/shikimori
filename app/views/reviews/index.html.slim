@@ -3,7 +3,7 @@
     link rel="canonical" href="#{{@resource.reviews_url}}"
 
 = render layout: 'animes/page' do |f|
-  .subheadline Обзоры
+  .subheadline = @page_title.last
   - if @resource.reviews.any?
     .b-topics
       = render partial: 'topics/topic', collection: @resource.reviews, formats: :html

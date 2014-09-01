@@ -26,54 +26,55 @@
     &:last-child
       margin-bottom: 0
 
-    &>.editor-container
+    //&>.editor-container
       display: none
 
-      .hide
+      //.hide
         display: inline-block
 
-  &>.buttons
-    display: none
+  .inner
+    &>.buttons
+      display: none
 
-  +gt_ipad
-    &:hover > .buttons
-      display: block
+    +gt_ipad
+      &:hover > .buttons
+        display: block
 
-  &>header
-    a
-      +link
-      font-size: 15px
-      font-weight: bold
-      line-height: 1
+    &>header
+      a
+        +link
+        font-size: 15px
+        font-weight: bold
+        line-height: 1
 
-    img
-      float: left
-      margin: 3px 10px 7px 0
-      width: 48px
+      img
+        float: left
+        margin: 3px 10px 7px 0
+        width: 48px
 
-  &>.body
-    &.shortened
-      height: 165px
-      overflow: hidden
+    &>.body
+      &.shortened
+        height: 165px
+        overflow: hidden
 
-  &>footer
-    +ellipsis
-    color: #555
-    font-size: 11px
-    line-height: $line_height
-    margin-top: 3px
+    &>footer
+      +ellipsis
+      color: #555
+      font-size: 11px
+      line-height: $line_height
+      margin-top: 3px
 
-    .b-user16
-      display: inline-block
-      padding-right: 10px
+      .b-user16
+        display: inline-block
+        padding-right: 10px
 
-    .date
-      color: $date
-      float: right
-      margin-left: 10px
+      .date
+        color: $date
+        float: right
+        margin-left: 10px
 
-    .tags
-      float: right
+      .tags
+        float: right
 
       .tag
         +tag
