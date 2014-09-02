@@ -12,14 +12,14 @@
   font: 13px/20px "Trebuchet MS",Tahoma,Arial,Helvetica,sans-serif
   margin-right: 5px
 
-  span
+  span, a
     display: inline-block
 
     &:first-child
       margin-left: 0
 
   +gt_ipad
-    span
+    span, a
       line-height: 15px !important
 
       &:before
@@ -29,7 +29,7 @@
       line-height: 15px !important
 
   +lte-ipad
-    span
+    span, a
       line-height: 25px !important
 
       &:before
@@ -48,12 +48,12 @@
         color: $link_hover
         text-decoration: none
 
-    span:last-child
+    span:last-child, span:last-child
       margin-right: 0
 
   .edit-controls, .delete-controls, .moderation-controls
     display: none
-    span:last-child
+    span:last-child, a:last-child
       margin-right: 0
 
   .item-save
@@ -117,7 +117,7 @@
     +icon_button("\e80c")
     position: relative
 
-    span
+    span, a
       height: 20px
       margin: 0 0 0 -20px !important
       overflow: hidden

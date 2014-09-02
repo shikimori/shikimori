@@ -52,9 +52,9 @@
             - if user_signed_in?
               - if topic.tag.present? && !topic.news? && !topic.review?
                 span.tag
-                  a title="#{topic.tag}" href="#{subsection_url topic}" rel="history" = topic.tag
+                  a title="#{topic.tag}" href="#{subsection_url topic}" = topic.tag
               span.tag
-                a title="#{topic.section.name}" href="#{section_url topic.section}" rel="history" = topic.section.name
+                a title="#{topic.section.name}" href="#{section_url topic.section}" = topic.section.name
             - else
               - if topic.tag.present? && !topic.news? && !topic.review?
                 span.tag title="#{topic.tag}" data-href="#{subsection_url topic}" = topic.tag

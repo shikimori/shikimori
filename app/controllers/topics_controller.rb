@@ -37,16 +37,6 @@ class TopicsController < ForumController
 
     # редирект на топик, если топик в подфоруме единственный
     redirect_to topic_url(@topics.first.entry, params[:format]) and return if @linked && @topics.size == 1
-
-    #respond_to do |format|
-      #format.html
-      #format.json {
-        #render json: @json.merge({
-          #content: render_to_string('topics/index', layout: false, formats: :html),
-        #})
-      #}
-      #format.rss
-    #end
   end
 
   # страница топика форума
@@ -64,16 +54,6 @@ class TopicsController < ForumController
     end
 
     super
-
-    #respond_to do |format|
-      #format.html
-      #format.json {
-        #render json: @json.merge({
-          #content: render_to_string(partial: 'topics/topic', object: @topic , layout: false, formats: :html),
-        #})
-      #}
-      #format.rss
-    #end
   end
 
   # создание нового топика

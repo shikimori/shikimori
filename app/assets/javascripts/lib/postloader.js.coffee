@@ -13,7 +13,7 @@ $(document).on 'click appear', '.b-postloader', ->
   $postloader.data locked: true
 
   $.getJSON url, (data) ->
-    $data = $('<div>').append data.content
+    $data = $('<div>').append(data.content + (data.postloader || ''))
 
     filter_present_entries $data, filter if filter
     $postloader.trigger 'postloader:success', [$data, data]

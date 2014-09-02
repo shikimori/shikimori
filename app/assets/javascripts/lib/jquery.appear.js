@@ -36,8 +36,8 @@
       if ($prior_appear) {
         var $disappeared = $prior_appear.not($appeared);
         $disappeared
-            .data('_appear_triggered', false)
-            .trigger('disappear', [$disappeared]);
+          .data('_appear_triggered', false)
+          .trigger('disappear', [$disappeared]);
       }
       $prior_appear = $appeared;
     }

@@ -37,8 +37,7 @@ header.head
         /p.notice
           /= @notice || @section.description
 
-      section.forum-container.ajax data-ignore-comment-added="true" data-action="#{params[:action]}"
-        = yield
+      = yield
 
     aside.l-menu.ajax-opacity
       .local-menu-block

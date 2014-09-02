@@ -33,33 +33,6 @@ class AnimesCollectionController < ShikimoriController
     description @description.join(' ')
     keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
 
-    respond_to do |format|
-      format.html { render params[:template] || 'animes_collection/index' }
-      format.json do
-        render json: {
-          content: render_to_string(
-            partial: 'animes_collection/entries',
-            layout: false,
-            formats: :html
-          ),
-          current_page: @current_page,
-          total_pages: @total_pages,
-          next_page: @next_page,
-          prev_page: @prev_page,
-          title_page: @page_title,
-          title_notice: @title_notice
-        }
-      end
-      # open search
-      format.os do
-        render json: [
-          params[:search],
-          @entries.map(&:name),
-          @entries.map {|v| url_for v }
-        ]
-      end
-    end
-
   rescue BadStatusError
     redirect_to params.merge(status: nil), status: :moved_permanently
 

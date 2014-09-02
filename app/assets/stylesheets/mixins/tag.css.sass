@@ -1,10 +1,10 @@
-@import globals/variables
 @import compass/css3/transition
+@import globals/variables
 
 =tag
-  +transition-duration(0s)
+  +transition(none)
   border-bottom: 1px dashed $link_hover_light
-  color: #333
+  color: #123
   cursor: pointer
   display: inline-block
   line-height: 16px
@@ -20,3 +20,5 @@
   &:active
     background-color: $link_hover
 
+  a
+    +transition(none)
