@@ -1,1 +1,2 @@
-= render partial: 'topics/topic', object: @topic
+= render layout: 'topics/page' do |f|
+  = render partial: 'topics/topic', object: @topic

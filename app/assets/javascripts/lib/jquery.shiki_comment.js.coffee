@@ -14,7 +14,6 @@
 class @ShikiComment extends ShikiView
   initialize: ($root) ->
     @$body = @$('.body')
-    @$inner = @$('.inner')
 
     if @$inner.hasClass('check_height')
       @_check_height()

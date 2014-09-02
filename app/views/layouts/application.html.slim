@@ -28,10 +28,7 @@ html
           });
         .admin_panel
 
-      - if defined?(@sub_layout) && @sub_layout
-        = render partial: "layouts/#{@sub_layout}"
-      - else
-        = yield
+      = yield
 
       footer.l-footer
         = render partial: 'application/footer'

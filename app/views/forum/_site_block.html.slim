@@ -1,7 +1,18 @@
+.menu-block.forum
+  .subheadline.m5 Форум
+  div
+    - @sections.each do |section|
+      a.section href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
+        span.title = section[:name_short] || section[:name]
+        span.notice = section[:description]
+
+      /a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
+        /= section[:name_short] || section[:name]
+
 - if presenter.news.any?
   .menu-block.news
     h2.subheadline.m13
-      a href="#{section_url :news}" alt="К новостям" title="К новостям" rel="history" Новости
+      a href="#{section_url :news}" alt="К новостям" title="К новостям" Новости
     ul
       = render partial: 'forum/news_block', collection: presenter.news, as: :entry, formats: :html
 
@@ -26,11 +37,11 @@
   - if presenter.reviews.any?
     .menu-block.reviews
       h2.subheadline.m13
-        a href="#{section_url :reviews}" title="К рецензиям" rel="history" Новые рецензии
+        a href="#{section_url :reviews}" title="К рецензиям" Новые рецензии
       ul
         - presenter.reviews.each do |entry|
           li.entry
-            a href="#{section_topic_url section: entry.thread.section, topic: entry.thread}" title="#{entry.thread.title}" rel="history"
+            a href="#{section_topic_url section: entry.thread.section, topic: entry.thread}" title="#{entry.thread.title}"
               .image-name
                 img src="#{entry.target.image.url :x64}" alt="#{{entry.target.name}}" title="#{{entry.target.name}}"
                 span.title
@@ -63,7 +74,7 @@
     h2.subheadline.m8 Прикреплённое
     div
       - sticked_topics.take(3).each do |topic|
-        a.season href="#{topic[:url]}" rel="history"
+        a.season href="#{topic[:url]}"
           span.title = topic[:title]
           span.notice = topic[:description]
     - if sticked_topics.size > 3
@@ -71,7 +82,7 @@
       .more
         span
         - sticked_topics.slice(3, 99).each do |topic|
-          a.season href="#{topic[:url]}" rel="history"
+          a.season href="#{topic[:url]}"
             span.title = topic[:title]
             span.notice = topic[:description]
 

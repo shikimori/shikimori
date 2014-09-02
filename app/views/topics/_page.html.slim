@@ -1,0 +1,57 @@
+.menu-toggler
+  .toggler
+
+header.head
+  h1
+    = @h1 || @section.name
+  .notice
+    = @notice || @section.description
+
+  /- if params[:page] != 'cosplay'
+  /- else
+    h2.h1-like title="#{h1_text @resource}"
+      = h1_text @resource, true
+
+  /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs, formats: :html
+
+.menu-slide-outer
+  /- if defined?(@gallery)
+    - if user_signed_in?
+      = render partial: 'forum/gallery', formats: :html
+    - else
+      .welcome-gallery-loader data-remote="#{welcome_gallery_url}"
+        .ajax-loading title="Загрузка..."
+
+  .menu-slide-inner
+    .l-content
+      /.forum-nav
+        /nav.sections
+          /- if user_signed_in?
+            /a data-section="new" class="control section-new section-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url section: @section[:permalink], linked: @linked}"
+          /- @sections.each do |section|
+            /a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
+              /= section[:name_short] || section[:name]
+
+        /h1.title
+          /= @h1 || @section.name.sub(/^Все$/, 'Обсуждения')
+        /p.notice
+          /= @notice || @section.description
+
+      section.forum-container.ajax data-ignore-comment-added="true" data-action="#{params[:action]}"
+        = yield
+
+    aside.l-menu.ajax-opacity
+      .local-menu-block
+        - if @linked
+          - content_for :local_menu_block do
+            = render partial: 'topics/linked_block', object: @linked_presenter, as: :linked, formats: :html
+        = yield :local_menu_block
+
+      .site-menu-block data-remote="#{forum_site_block_url section: params[:section]}"
+        - if user_signed_in?
+          = render partial: 'forum/site_block', locals: { presenter: @news }, formats: :html
+        - else
+          .ajax-loading.top title="Загрузка..."
+        = yield :site_menu_block
+
+.clearfix

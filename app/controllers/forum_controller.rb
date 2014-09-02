@@ -110,7 +110,6 @@ private
   def build_background
     redirect_to :root, :status => :moved_permanently and return false if params[:format] == 'user'
 
-    @sub_layout = 'forum'
     params[:section] ||= Section::All[:permalink]
 
     @sections = Section.visible
@@ -152,11 +151,6 @@ private
     else
       {}
     end
-  end
-
-  # количество отображаемых топиков
-  def topics_limit
-    params[:format] == 'rss' ? 30 : 8
   end
 
   # прикреплённые топики на форуме

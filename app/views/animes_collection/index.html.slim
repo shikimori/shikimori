@@ -1,7 +1,9 @@
 header.head.ajaxable
-  h1 itemprop="name"
+  /h1 itemprop="name"
+  h1
     = @page_title
-  .notice itemprop="description"
+  /.notice itemprop="description"
+  .notice
     == @title_notice
 
 = render partial: 'animes_collection/pagination'

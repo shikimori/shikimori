@@ -38,15 +38,15 @@ class TopicsController < ForumController
     # редирект на топик, если топик в подфоруме единственный
     redirect_to topic_url(@topics.first.entry, params[:format]) and return if @linked && @topics.size == 1
 
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: @json.merge({
-          content: render_to_string('topics/index', layout: false, formats: :html),
-        })
-      }
-      format.rss
-    end
+    #respond_to do |format|
+      #format.html
+      #format.json {
+        #render json: @json.merge({
+          #content: render_to_string('topics/index', layout: false, formats: :html),
+        #})
+      #}
+      #format.rss
+    #end
   end
 
   # страница топика форума
@@ -212,5 +212,10 @@ private
       #.with_viewed(current_user)
       #.find(params[:topic])
       #.decorate
+  end
+
+  # количество отображаемых топиков
+  def topics_limit
+    params[:format] == 'rss' ? 30 : 8
   end
 end

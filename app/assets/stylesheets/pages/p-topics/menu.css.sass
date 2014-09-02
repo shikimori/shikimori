@@ -2,7 +2,7 @@
 @import mixins/menu-blocks
 
 .p-topics .l-menu
-  padding-top: 45px
+  //padding-top: 45px
 
   .show-more
     +menu-block-show-more
@@ -21,9 +21,9 @@
     width: 35px
     height: 35px
 
-  .seasons
-    .season
-      +menu-block-with-text-link
+  .seasons .season,
+  .forum .section
+    +menu-block-with-text-link
 
   .contests
     +clearfix
