@@ -15,7 +15,7 @@ class @ShikiTopic extends ShikiView
     @$body = @$('>.body')
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
-    @editor = new ShikiEditor(@$editor)
+    @editor = new ShikiEditor(@$editor) if @$editor.length # редактора не будет у неавторизованных пользователей
     @is_preview = @$root.hasClass('preview')
 
     if @is_preview

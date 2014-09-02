@@ -50,17 +50,16 @@ turbolinks_compatibility = ->
     class: 'check-width'
     fancybox: $.galleryOptions
 
+  # то, что должно превратиться в ссылки
+  $('.linkeable', root)
+    .change_tag('a')
+    .removeClass('linkeable')
+
   # стена картинок
   $('.wall', root).shiki_wall()
   #$('.b-shiki_editor.unprocessed', root).shiki_editor()
   $('.b-comment.unprocessed', root).shiki_comment()
   $('.b-topic.unprocessed', root).shiki_topic()
-
-  # то, что должно превратиться в ссылки
-  $('.linkeable', root).wrap ->
-    $this = $(@)
-    $this.removeClass('linkeable').addClass 'linkeable-processed'
-    "<a href='#{$this.data 'href'}' title='#{$this.data("title") || $this.html()}' />"
 
   # блоки, загружаемые аяксом
   $('.postloaded[data-href]', root).each ->
