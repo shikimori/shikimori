@@ -8,6 +8,13 @@ class ReviewsController < AnimesController
   # обзоры аниме или манги
   def index
     page_title 'Рецензии'
+    @reviews = ReviewsQuery
+      .new(@resource.object, current_user, params[:id].to_i)
+      .fetch.map do |review|
+        topic = TopicDecorator.new review.thread
+        #topic.topic_mode!
+        topic
+      end
   end
 
   #def new

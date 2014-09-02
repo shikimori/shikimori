@@ -9,10 +9,8 @@
 ) jQuery
 
 class @ShikiTopic extends ShikiView
-  MAX_PREVIEW_HEIGHT: 140
-
   initialize: ($root) ->
-    @$body = @$('>.body')
+    @$body = @$('.body', @$inner)
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
     @editor = new ShikiEditor(@$editor) if @$editor.length # редактора не будет у неавторизованных пользователей
@@ -21,6 +19,15 @@ class @ShikiTopic extends ShikiView
     if @is_preview
       @$body.imagesLoaded @_check_height
       @_check_height()
+
+    # ответ на топик
+    @$('.item-reply', @$inner).on 'click', =>
+      reply = if @$root.data 'generated'
+        ""
+      else
+        "[entry=#{@$root.attr('id')}]#{@$root.data 'user_nickname'}[/entry], "
+
+      @$root.trigger 'comment:reply', [reply]
 
     @$editor
       .on 'ajax:before', (e) ->
@@ -152,23 +159,9 @@ class @ShikiTopic extends ShikiView
   # отображение редактора, если это превью топика
   _show_editor: ->
     if @is_preview && !@$editor_container.is(':visible')
-      @$editor_container.animated_expand()
+      @$editor_container.show()#animated_expand()
 
   # скрытие редактора, если это превью топика
   _hide_editor: =>
     if @is_preview
-      @$editor_container.animated_collapse()
-
-  # проверка высоты топика. урезание, если топик слишком высокий (точно такой же код в shiki_comment)
-  _check_height: =>
-    if @$body.height() > @MAX_PREVIEW_HEIGHT * 1.4 && !@$body.hasClass('shortened')
-      @$body.addClass('shortened')
-      $('<div class="b-height_shortener"><div class="shade"></div><div class="text">развернуть</div></div>')
-        .insertAfter(@$body)
-        .on 'click', (e) =>
-          height = @$body.height()
-          @$body
-            .removeClass('shortened')
-            .animated_expand(height)
-
-          $(e.currentTarget).remove()
+      @$editor_container.hide()#animated_collapse()

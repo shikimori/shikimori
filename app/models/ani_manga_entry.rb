@@ -6,8 +6,8 @@ class AniMangaEntry < Entry
 
   before_save :sync
 
-  validates :title, :presence => true, :unless => :generated?
-  validates :text, :presence => true, :unless => :generated?
+  validates :title, presence: true, unless: :generated?
+  validates :text, presence: true, unless: :generated?
 
   # связанное с новостью аниме
   def anime

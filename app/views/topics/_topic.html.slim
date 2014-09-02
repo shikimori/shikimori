@@ -1,11 +1,13 @@
 - if user_signed_in? && current_user.ignores?(topic.user)
   = render partial: 'blocks/ignored', object: topic
-- elsif topic.review? && !topic.preview?
-  = render partial: 'reviews/review', object: topic.linked, locals: { topic: topic }
+/- elsif topic.review?# && !topic.preview?
+  = render partial: 'topics/review', locals: { topic: topic }
 - else
   article.b-topic.unprocessed[
-      class="#{:preview if topic.preview?} #{'b-review' if topic.review?}"
       id="#{topic.id}"
+      class="#{:preview if topic.preview?} #{'b-review' if topic.review?}"
+      data-user_nickname="#{topic.user.nickname}"
+      data-generated="#{topic.generated?}"
     ]
     a name="topic-#{topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
@@ -13,58 +15,38 @@
       - if topic.show_body?
         - if user_signed_in?
           span.item-mobile title="Действия"
-        - if user_signed_in?
+
+        aside.markers
           - unless topic.viewed?
             p.b-new_marker новое
 
-          aside.buttons
-            .main-controls
-              span.item-reply[
-                  data-type="json"
-                  data-action="#{topic.body_url}"
-                  data-remote="true"
-                  data-disabled="#{topic.generated? ? 'true' : 'false'}"
-                  title="#{topic.generated? ? 'Написать' : 'Ответить'}"
-                ]
-              - if topic.object.kind_of?(GroupComment) && current_user.subscribed?(topic.object)
-                span[
-                    class="item-subscribe #{:selected if current_user.subscribed? topic.object}"
-                    title="Подписаться на топик"
-                    data-type="json"
-                    data-action="#{subscribe_url type: topic.class.name, id: topic.id}"
-                    data-method="#{current_user.subscribed?(topic.object) ? 'delete' : 'post'}"
-                    data-remote="true"
-                  ]
-              - if topic.can_be_edited_by? current_user
-                a.item-edit.short href="#{edit_topic_url topic.object}" title="Изменить"
-              - if topic.can_be_deleted_by? current_user
-                span.item-delete.short title="Удалить"
-            - if topic.can_be_deleted_by? current_user
-              .delete-controls
-                span.item-delete-confirm action="#{topic_path topic.object}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
-                span.item-delete-cancel title="Отмена"
+        - if user_signed_in?
+          = render partial: 'topics/buttons', locals: { topic: topic }
 
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
           span.linkeable data-href="#{topic.url}"
             img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.title}"
-          a href="#{topic.url}" title="#{topic.title}" = topic.title
+          .name-date
+            a href="#{topic.url}" title="#{topic.title}" = topic.title
+            - unless topic.generated?
+              time itemprop="commentTime" datetime="#{topic.created_at.iso8601}"
+                = topic.date
 
         - if topic.review? && topic.linked.votes_count > 0
           p.votes-count = topic.linked.votes_text
 
-        /.body class="#{'image-x64' if topic.extended_image?}"
         .body
+          - if topic.review? && topic.linked.overall.present?
+            = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
           = topic.body
 
         footer
-          /- if topic.preview? && (topic.news? || topic.review?)
-            a.b-user16 href="#{user_url topic.user}" title="#{topic.user.nickname}"
-              img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
-              span = topic.user.nickname
-
-          p.date
-            = topic.date
+          - if topic.review? && user_signed_in? && topic.linked.user_id != current_user.id
+            p
+              span Этот обзор полезен?
+              span.vote class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
+              span.vote class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
 
           p.tags
             - if user_signed_in?

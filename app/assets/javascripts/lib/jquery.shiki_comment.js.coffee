@@ -12,8 +12,6 @@
 # надо отрефакторить. подумать над view бекбона.
 # сделал бы сразу, но не уверен, что не будет тормозить
 class @ShikiComment extends ShikiView
-  MAX_PREVIEW_HEIGHT: 120
-
   initialize: ($root) ->
     @$body = @$('.body')
     @$inner = @$('.inner')
@@ -50,6 +48,8 @@ class @ShikiComment extends ShikiView
       @$root.trigger 'comment:reply', [quote, @_is_offtopic()]
 
     # ответ на комментарий
+    @$('.item-reply').on 'click', (e) ->
+      false
     @$('.item-reply').on 'ajax:success', (e, response) =>
       reply = "[#{response.kind}=#{response.id}]#{response.user}[/#{response.kind}], "
       @$root.trigger 'comment:reply', [reply, @_is_offtopic()]
@@ -59,27 +59,10 @@ class @ShikiComment extends ShikiView
       $editor = $(html)
       new ShikiEditor($editor).edit_comment(@$root)
 
-    # deletion
-    @$('.main-controls .item-delete').on 'click', =>
+    # moderation
+    @$('.main-controls .item-moderation').on 'click', =>
       @$('.main-controls').hide()
-      @$('.delete-controls').show()
-
-    # cancel control in mobile expanded aside
-    @$('.main-controls .item-cancel').on 'click', =>
-      @_close_aside()
-
-    # confirm deletion
-    @$('.delete-controls .item-delete-confirm').on 'ajax:loading', (e, data, status, xhr) =>
-      $.hideCursorMessage()
-      @$root
-        .animated_collapse()
-        .remove.bind(@$root).delay(500)
-
-    # cancel deletion
-    @$('.delete-controls .item-delete-cancel').on 'click', =>
-      #@$('.main-controls').show()
-      #@$('.delete-controls').hide()
-      @_close_aside()
+      @$('.moderation-controls').show()
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
     @$('.item-quote,.item-reply,.item-edit,.item-review,.item-offtopic').on 'click', =>
@@ -94,16 +77,6 @@ class @ShikiComment extends ShikiView
         $.notice 'Ваш запрос будет рассмотрен. Домо.'
 
       @$('.item-moderation-cancel').trigger('click')
-
-    # переключение на мобильую версию кнопок кнопок
-    @$('.item-mobile').on 'click', =>
-      @$root.toggleClass('aside-expanded')
-      @$('.item-mobile').toggleClass('selected')
-
-    # moderation
-    @$('.main-controls .item-moderation').on 'click', =>
-      @$('.main-controls').hide()
-      @$('.moderation-controls').show()
 
     # cancel moderation
     @$('.moderation-controls .item-moderation-cancel').on 'click', =>
@@ -138,31 +111,9 @@ class @ShikiComment extends ShikiView
     @$('.b-new_marker').on 'click', =>
       @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
 
-  # закрытие кнопок в мобильной версии
-  _close_aside: ->
-    @$('.item-mobile').click() if @$('.item-mobile').is('.selected')
-
-    @$('.main-controls').show()
-    @$('.delete-controls').hide()
-    @$('.moderation-controls').hide()
-
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
-
-  # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
-  _check_height: =>
-    if @$inner.height() > @MAX_PREVIEW_HEIGHT * 1.65
-      @$inner.addClass('shortened')
-      $('<div class="b-height_shortener"><div class="shade"></div><div class="text">развернуть</div></div>')
-        .insertAfter(@$inner)
-        .on 'click', (e) =>
-          height = @$inner.height()
-          @$inner
-            .removeClass('shortened')
-            .animated_expand(height)
-
-          $(e.currentTarget).remove()
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->

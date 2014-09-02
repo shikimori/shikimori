@@ -4,8 +4,8 @@
 
 = render layout: 'animes/page' do |f|
   .subheadline = @page_title.last
-  - if @resource.reviews.any?
+  - if @reviews.any?
     .b-topics
-      = render partial: 'topics/topic', collection: @resource.reviews, formats: :html
+      = render partial: 'topics/topic', collection: @reviews, formats: :html
   - else
     p Тут пока ничего нет.

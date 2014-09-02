@@ -1,0 +1,116 @@
+@import compass/css3/transition
+@import mixins/clear_right
+@import mixins/icons
+@import mixins/responsive
+@import mixins/links
+
+$aside_width: 310px
+
+=forum_entry
+  +clear_right
+  min-height: 70px
+  overflow: hidden // без height-shortener не работает вообще
+  padding-top: 5px
+
+  &>.inner
+    +clearfix
+    +transition(margin-left 0.25s ease)
+    width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
+
+    aside.markers
+      +iphone_portrait
+        float: right
+
+        &>div
+          float: none
+          height: 25px
+
+    aside.buttons
+      display: none
+
+      .item-cancel
+        display: none
+
+    &:hover
+      +gt_ipad
+        aside.buttons
+          display: block
+
+    header
+      margin-bottom: 3px
+
+      img
+        float: left
+        margin: 3px 10px 7px 0
+        width: 48px
+
+      .name-date
+        +ellipsis
+        display: block
+
+        a
+          +link
+          font-size: 14px
+          font-weight: bold
+          line-height: 1
+
+        time
+          +ellipsis
+          color: $date
+          display: inline
+          font-size: 11px
+          padding-left: 10px
+
+          +lte_ipad
+            display: block
+            padding-left: 0
+            line-height: $line_height
+
+  // раскрытое меню в мобильной версии
+  &.aside-expanded
+    &>.item-mobile
+      display: none
+
+    &>.inner
+      margin-left: -$aside_width
+      overflow: initial
+      position: relative
+
+      aside.buttons
+        display: block
+        margin-right: -$aside_width - $block_offset * 2
+        margin-top: -6px
+        padding-top: 5px
+        width: $aside_width - $block_offset
+
+        .main-controls
+          .item-reply
+            +icon_expandable('Ответить')
+          .item-edit
+            +icon_expandable('Редактировать')
+          .item-delete
+            +icon_expandable('Удалить')
+          .item-moderation
+            +icon_expandable('На модерацию')
+          .item-cancel
+            +icon_expandable('Отмена')
+
+        .delete-controls
+          .item-delete-confirm
+            +icon_expandable('Удалить')
+          .item-delete-cancel
+            +icon_expandable('Отмена')
+
+        .moderation-controls
+          .item-ban
+            +icon_expandable('Забанить')
+          .item-abuse
+            +icon_expandable('Нарушение правил')
+          .item-spoiler
+            +icon_expandable('Это спойлер')
+          .item-review
+            +icon_expandable('Это (не) отзыв')
+          .item-offtopic
+            +icon_expandable('Это (не) оффтопик')
+          .item-moderation-cancel
+            +icon_expandable('Отмена')

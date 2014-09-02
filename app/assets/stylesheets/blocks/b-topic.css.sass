@@ -1,24 +1,21 @@
 @import compass/css3/transition
-@import compass/utilities/text/ellipsis
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import mixins/block
+@import mixins/forum_entry
+@import mixins/plashka
 @import mixins/responsive
 @import mixins/tag
-@import mixins/plashka
-@import mixins/links
-@import mixins/block
 
 .b-topic
   +block
+  +forum_entry
   border-bottom: none
-  border-top: 1px solid #DDD
-  overflow: hidden
-  padding-top: 5px
+  border-top: 1px solid #4c86c8//#ddd
 
   &:first-child
     border-top: none
     padding-top: 0 !important
-
-  &:last-child
-    margin-bottom: 0
 
   &.preview
     margin-bottom: $block_offset * 1.5
@@ -26,36 +23,24 @@
     &:last-child
       margin-bottom: 0
 
-    //&>.editor-container
+    // блок шики-эдитора
+    &>.editor-container
       display: none
 
-      //.hide
+      .hide
         display: inline-block
 
-  .inner
-    &>.buttons
-      display: none
+  &>.editor-container
+    margin-top: $block_offset
 
-    +gt_ipad
-      &:hover > .buttons
-        display: block
+  &>.inner
+    &.shortened
+      height: 165px
+      overflow: hidden
 
-    &>header
-      a
-        +link
+    header
+      .name-date a
         font-size: 15px
-        font-weight: bold
-        line-height: 1
-
-      img
-        float: left
-        margin: 3px 10px 7px 0
-        width: 48px
-
-    &>.body
-      &.shortened
-        height: 165px
-        overflow: hidden
 
     &>footer
       +ellipsis
@@ -91,3 +76,6 @@
           &:active
             color: inherit !important
             text-decoration: inherit
+
+  &>.b-comments
+    margin-top: $block_offset * 0.5

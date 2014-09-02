@@ -5,15 +5,18 @@
       @each ->
         $node = $(@)
         finish_collapse $node
+        $node.show().css(height: '')
 
-        height = $node.show().css(height: '').outerHeight()
-        $node.addClass('animated-overflow')
-            .css(height: "#{start_heigth}px")
+        height = $node.outerHeight()
+        $node
+          .addClass('animated-overflow')
+          .css(height: "#{start_heigth}px")
 
         _.delay ->
-          $node.addClass('animated-height')
-               .css(height: height)
-               .data(animated_direction: 'expand')
+          $node
+            .addClass('animated-height')
+            .css(height: height)
+            .data(animated_direction: 'expand')
 
         _.delay ->
             if $node.data('animated_direction') == 'expand'

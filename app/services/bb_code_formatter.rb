@@ -20,7 +20,7 @@ class BbCodeFormatter
       paragraphs format_comment(character_names(text, entry))
     else
       format_comment text
-    end
+    end.html_safe
   end
 
   # форматирование текста комментариев

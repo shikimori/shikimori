@@ -1,22 +1,16 @@
 @import compass/css3/transition
 @import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
 @import globals
-@import mixins/clear_right
-@import mixins/icons
-@import mixins/links
+@import mixins/forum_entry
 @import mixins/responsive
 
 $comment_border: 1px dashed #ddd
-$aside_width: 310px
 
 .b-comment
-  +clear_right
-  +transition(margin-left 0.25s ease)
+  +forum_entry
   border-top: $comment_border
   margin-bottom: 15px
-  min-height: 70px
-  padding-top: 5px
-  width: 100%
 
   &:last-child
     margin-bottom: 0
@@ -40,61 +34,15 @@ $aside_width: 310px
       .b-input input
         width: 100%
 
-  +iphone_portrait
-    aside.markers
-      float: right
-
-      &>div
-        float: none
-        height: 25px
-
-  header
-    margin-bottom: 3px
-
-    img
-      float: left
-      margin: 3px 10px 7px 0
-      width: 48px
-
-    .name-date
-      +ellipsis
-      display: block
-
-      a
-        +link
-        font-size: 14px
-        font-weight: bold
-        line-height: 1
-
-      time
-        +ellipsis
-        color: $date
-        display: inline
-        font-size: 11px
-        padding-left: 10px
-
-        +lte_ipad
-          display: block
-          padding-left: 0
-          line-height: $line_height
-
   .inner
-    +clearfix
-
     &.shortened
       height: 95px
       overflow: hidden
 
-    &>aside.buttons
-      display: none
-
-      .item-cancel
-        display: none
-
-    &:hover
-      +gt_ipad
-        &>aside.buttons
-          display: block
+  // раскрытое меню в мобильной версии
+  &.aside-expanded
+    aside.buttons
+      border-top: $comment_border
 
   // удаляемый комментарий
   &.animated-height
@@ -102,54 +50,6 @@ $aside_width: 310px
     min-height: 0
     margin: 0
     padding: 0
-
-  // раскрытое меню в мобильной версии
-  &.aside-expanded
-    margin-left: -$aside_width
-    position: relative
-
-    .item-mobile
-      display: none
-
-    aside.buttons
-      border-top: $comment_border
-      display: block
-      margin-right: -$aside_width
-      margin-top: -6px
-      padding-top: 5px
-      width: $aside_width - $block_offset
-
-      .main-controls
-        .item-reply
-          +icon_expandable('Ответить')
-        .item-edit
-          +icon_expandable('Редактировать')
-        .item-delete
-          +icon_expandable('Удалить')
-        .item-moderation
-          +icon_expandable('На модерацию')
-        .item-cancel
-          +icon_expandable('Отмена')
-
-      .delete-controls
-        .item-delete-confirm
-          +icon_expandable('Удалить')
-        .item-delete-cancel
-          +icon_expandable('Отмена')
-
-      .moderation-controls
-        .item-ban
-          +icon_expandable('Забанить')
-        .item-abuse
-          +icon_expandable('Нарушение правил')
-        .item-spoiler
-          +icon_expandable('Это спойлер')
-        .item-review
-          +icon_expandable('Это (не) отзыв')
-        .item-offtopic
-          +icon_expandable('Это (не) оффтопик')
-        .item-moderation-cancel
-          +icon_expandable('Отмена')
 
 //h2.comments-header
   //margin-bottom: 0

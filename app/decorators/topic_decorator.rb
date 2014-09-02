@@ -25,7 +25,11 @@ class TopicDecorator < BaseDecorator
   # текст топика
   def body
     Rails.cache.fetch [object, h.russian_names_key, 'body'], expires_in: 2.weeks do
-      BbCodeFormatter.instance.format_comment object.body
+      if review?
+        BbCodeFormatter.instance.format_description linked.text, linked
+      else
+        BbCodeFormatter.instance.format_comment object.body
+      end
     end
   end
 
@@ -91,7 +95,7 @@ class TopicDecorator < BaseDecorator
   # число отображаемых напрямую комментариев
   def comments_limit
     if preview?
-      h.params[:page] && h.params[:page] > 1 ? 1 : 3
+      h.params[:page] && h.params[:page].to_i > 1 ? 1 : 3
     else
       fold_limit
     end

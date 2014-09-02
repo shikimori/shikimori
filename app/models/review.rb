@@ -78,12 +78,12 @@ class Review < ActiveRecord::Base
   end
 
   def votes_text
-    if votes_for == votes_count
-      "#{votes_count} #{Russian.p(votes_count, 'пользователь', 'пользователя', 'пользователей')} #{votes_for > 1 ? 'посчитали' : 'посчитал'} этот обзор полезным"
-    else
-      #"#{votes_for} из #{votes_count} #{Russian.p(votes_count, 'пользователя', 'пользователей', 'пользователей')} #{Russian.p(votes_for == 0 ? 8 : votes_for, 'посчитал', 'посчитали', 'посчитало')} этот обзор полезным"
-      "#{votes_for} из #{votes_count} #{Russian.p(votes_count, 'пользователя', 'пользователей', 'пользователей')} #{votes_for > 1 ? 'посчитали' : 'посчитал'} этот обзор полезным"
-    end
+    #if votes_for == votes_count
+      #"#{votes_count} #{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'} #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'} этот обзор полезным"
+    #else
+      #"#{votes_for} из #{votes_count} #{Russian.p votes_count, 'пользователя', 'пользователей', 'пользователей'} #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'} этот обзор полезным"
+    #end
+    "#{votes_for} #{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'} #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'} этот обзор полезным"
   end
 
   def to_offtopic!

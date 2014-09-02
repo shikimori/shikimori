@@ -37,17 +37,6 @@ class AniMangaDecorator < BaseDecorator
       .map { |topic| format_menu_topic topic, :created_at }
   end
 
-  # обзоры
-  def reviews
-    ReviewsQuery
-      .new(object, h.current_user, h.params[:id].to_i)
-      .fetch.map do |review|
-        topic = TopicDecorator.new review.thread
-        topic.topic_mode!
-        topic
-      end
-  end
-
   # число обзоров
   def reviews_count
     object.reviews.visible.count

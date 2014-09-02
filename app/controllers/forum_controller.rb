@@ -116,27 +116,27 @@ private
     @sections = Section.visible
     @section = Section.find_by_permalink params[:section]
 
-    if params[:linked] || (params[:topic] && !params[:topic].kind_of?(Hash))
-      #@topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
+    #if params[:linked] || (params[:topic] && !params[:topic].kind_of?(Hash))
+      ##@topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
 
-      @linked = if @topic && @section.permalink != 'v'
-        @topic.linked
-      else
-        case @section.permalink
-          when 'a' then Anime.find(params[:linked].to_i)
-          when 'm' then Manga.find(params[:linked].to_i)
-          when 'c' then Character.find(params[:linked].to_i)
-          when 'g' then Group.find(params[:linked].to_i)
-          when 'reviews' then Review.find(params[:linked].to_i)
-          else nil
-        end
-      end
-      @linked_presenter = if @linked.class == Review
-        @linked.entry.decorate
-      elsif @linked
-        @linked.decorate
-      end
-    end
+      #@linked = if @topic && @section.permalink != 'v'
+        #@topic.linked
+      #else
+        #case @section.permalink
+          #when 'a' then Anime.find(params[:linked].to_i)
+          #when 'm' then Manga.find(params[:linked].to_i)
+          #when 'c' then Character.find(params[:linked].to_i)
+          #when 'g' then Group.find(params[:linked].to_i)
+          #when 'reviews' then Review.find(params[:linked].to_i)
+          #else nil
+        #end
+      #end
+      #@linked_presenter = if @linked.class == Review
+        #@linked.entry.decorate
+      #elsif @linked
+        #@linked.decorate
+      #end
+    #end
 
     raise NotFound, "неизвестный раздел: #{params[:section]}" unless @section
 

@@ -1,0 +1,25 @@
+aside.buttons
+  .main-controls
+    span.item-reply title="#{topic.generated? ? 'Написать' : 'Ответить'}"
+
+    - if topic.object.kind_of?(GroupComment) && current_user.subscribed?(topic.object)
+      span[
+          class="item-subscribe #{:selected if current_user.subscribed? topic.object}"
+          title="Подписаться на топик"
+          data-type="json"
+          data-action="#{subscribe_url type: topic.class.name, id: topic.id}"
+          data-method="#{current_user.subscribed?(topic.object) ? 'delete' : 'post'}"
+          data-remote="true"
+        ]
+
+    - if topic.can_be_edited_by? current_user
+      a.item-edit.short href="#{edit_topic_url topic.object}" title="Изменить"
+
+    - if topic.can_be_deleted_by? current_user
+      span.item-delete.short title="Удалить"
+    span.item-cancel title="Отмена"
+
+  - if topic.can_be_deleted_by? current_user
+    .delete-controls
+      span.item-delete-confirm action="#{topic_path topic.object}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+      span.item-delete-cancel title="Отмена"
