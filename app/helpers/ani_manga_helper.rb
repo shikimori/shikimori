@@ -1,4 +1,6 @@
+# TODO: выпилить
 module AniMangaHelper
+  # TODO: выпилить
   def ani_manga_link entry, &block
     ('<a href="%s" title="%s"%s>%s</a>' % [
         url_for(entry),

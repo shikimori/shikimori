@@ -26,12 +26,12 @@ class AnimesController < ShikimoriController
   end
 
   def characters
-    noindex
+    raise NotFound if @resource.roles.characters.none?
     page_title "Персонажи #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def staff
-    noindex
+    raise NotFound if @resource.roles.people.none?
     page_title "Создатели #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
@@ -122,8 +122,7 @@ class AnimesController < ShikimoriController
 
   # тултип
   def tooltip
-    @resource = klass.find params[:id].to_i
-    direct
+    @entry = klass.find params[:id].to_i
   end
 
   # автодополнение

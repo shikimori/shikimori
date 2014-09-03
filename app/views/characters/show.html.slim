@@ -1,30 +1,61 @@
-- content_for :head do
-  = stylesheet_link_tag :people
-- content_for :tail do
-  = javascript_include_tag :characters
+= render layout: 'characters/page' do |f|
+  .cc.m0
+    .c-image
+      center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-header.head
-  h1 title="#{h1_text @entry}" itemprop="name"
-    = h1_text @entry, true
-  p.notice
-    = @entry.job_title
+    .c-about
+      .cc
+        - if @resource.with_credentials?
+          .c-info
+            .subheadline Имена
+            .b-entry-info
+              - if @resource.russian.present?
+                p
+                  span.key
+                    | По-русски:&nbsp;
+                  span.anime-alt.value
+                  == @resource.russian
 
-.info
-  aside.character-left-menu.left-column
-    = render 'menu_left'
+              - if @resource.japanese.present?
+                p
+                  span.key
+                    | По-японски:&nbsp;
+                  span.anime-alt.value
+                  == @resource.japanese
 
-  section.right-column
-    .entry-content-slider.view-port.vertical-slider class="#{@entry.class.name.downcase}-content-slider" data-width="770"
-      .view-content style="margin-left: #{-1*770*@director.page_index}px"
-        - @director.pages.each_with_index do |page, index|
-          .slide
-            - if @director.page_index == index
-              section class="#{page_class page} selected"
-                = render @director.partial
-            - else
-              div class="#{page_class page}"
-                - if params[:page] == 'info' && page == 'comments'
-                  = render @director.partial.sub(params[:page], page)
-                - else
-                  br
-.clearfix
+              - if @resource.altname.present?
+                p
+                  span.key
+                    | Прочие:&nbsp;
+                  span.anime-alt.value
+                  == @resource.altname
+
+        - if @resource.seyu.present?
+          .c-seyu
+            .subheadline.m10
+              - if @resource.seyu.size > 3
+                .linkeable href="#{seyu_character_url @resource}" Сэйю <span>#{@resource.seyu.size}</span>
+              - else
+                | Сэйю
+            .cc.m0
+              = render partial: 'people/person', collection: @resource.seyu.take(3), locals: { cover_minified: true }
+
+    .c-description
+      .subheadline.m5 Описание
+      .block
+        meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
+        meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
+
+        /.m20
+          - if @resource.description_html.blank?
+            == format_html_text @resource.description_mal
+          - else
+            - if @resource.show_mal_description?
+              .lang-trigger
+                | [<span>eng</span>]
+              .english
+                = format_html_text @resource.description_mal
+            .russian itemprop="description"
+              = @resource.description_html
+
+        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }

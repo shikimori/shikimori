@@ -1,9 +1,5 @@
 = render layout: 'animes/page' do |f|
-  - if @resource.roles.people.any?
-    .block.m0
-      /.b-options-floated.collapse
-        span.action свернуть (#{@resource.roles.people.size})
-      h2.subheadline.m10 = @page_title.last
-      .collapsed.tiny ...
-      .cc.m0
-        = render partial: 'people/person', collection: @resource.roles.people, locals: { cover_minified: true }, formats: :html
+  .block.m0
+    h2.subheadline.m10 = @page_title.last
+    .cc.m0
+      = render partial: 'people/person', collection: @resource.roles.people, locals: { cover_minified: true }

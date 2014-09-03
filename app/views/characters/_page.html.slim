@@ -11,12 +11,10 @@ header.head
       a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
       = @resource.headline
 
-  /- if params[:page] != 'cosplay'
-  /- else
-    h2.h1-like title="#{h1_text @resource}"
-      = h1_text @resource, true
+  p.notice
+    = @resource.job_title
 
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .menu-slide-outer
   .menu-slide-inner
@@ -24,4 +22,4 @@ header.head
       = yield
 
     aside.l-menu
-      = render partial: 'animes/menu'
+      = render partial: 'characters/menu'

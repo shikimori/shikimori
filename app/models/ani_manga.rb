@@ -9,12 +9,6 @@ module AniManga
     end
   end
 
-  # при изменении description будем менять и description_html
-  def description=(text)
-    self[:description] = text
-    self.description_html = BbCodeFormatter.instance.format_description(text, self)
-  end
-
   def to_param
     "#{id}-#{name.permalinked}"
   end
@@ -100,17 +94,6 @@ module AniManga
 
   def status_name
     status.present? ? I18n.t("AniMangaStatusUpper.#{status}") : ''
-  end
-
-  # тип элемента для schema.org
-  def itemtype
-    if kind == 'Movie'
-      'http://schema.org/Movie'
-    elsif kind == 'TV'
-      'http://schema.org/TVSeries'
-    else
-      'http://schema.org/CreativeWork'
-    end
   end
 
   # есть ли оценка?

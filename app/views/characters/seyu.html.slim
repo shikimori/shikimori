@@ -1,0 +1,5 @@
+= render layout: 'characters/page' do |f|
+  .block.m0
+    h2.subheadline.m10 Сейю
+    .cc.m0
+      = render partial: 'people/person', collection: @resource.seyu, locals: { cover_minified: true }

@@ -1,4 +1,6 @@
 class CharacterDecorator < PersonDecorator
+  include AniMangaDecorator::HeadlineHelpers
+
   def url
     h.character_url object
   end
@@ -10,7 +12,9 @@ class CharacterDecorator < PersonDecorator
 
   def description_html
     if description.present?
-      BbCodeFormatter.instance.format_comment(description).html_safe
+      Rails.cache.fetch [object, :description] do
+        BbCodeFormatter.instance.format_description description, object
+      end
     else
       description_mal
     end
@@ -72,6 +76,16 @@ class CharacterDecorator < PersonDecorator
 
   def mangas
     @mangas ||= ani_mangas :mangas
+  end
+
+  # тип элемента для schema.org
+  def itemtype
+    'http://schema.org/Person'
+  end
+
+  # адрес на mal'е
+  def mal_url
+    "http://myanimelist.net/character/#{id}"
   end
 
 private

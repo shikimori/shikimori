@@ -304,8 +304,15 @@ Site::Application.routes.draw do
     # characters
     get 'characters/autocomplete/:search' => 'characters#autocomplete', as: :autocomplete_characters, format: :json, search: /.*/
     get 'characters/:id/tooltip(/:test)' => 'characters#tooltip', as: :character_tooltip # это должно идти перед character_path
+
+    resources :characters, only: [:show] do
+      member do
+        get :seyu
+      end
+    end
+
     constraints id: /\d[^\/]*?/ do
-      get 'characters/:id' => 'characters#show', as: :character, page: 'info'
+      #get 'characters/:id' => 'characters#show', as: :character, page: 'info'
       patch 'characters/:id/apply' => 'characters#apply', as: :apply_character
       get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
       get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'

@@ -84,7 +84,7 @@
               img.site-icon src="/images/favicons/shikimori.ico" title="Shikimori"
               | Shikimori
 
-= render partial: 'blocks/favoured', object: @resource.favoured, formats: :html
+= render partial: 'blocks/favoured', object: @resource.favoured
 
 - if @resource.topics.any?
   .menu-block.menu-topics-block

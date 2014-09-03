@@ -1,0 +1,31 @@
+- if user_signed_in?
+  .menu-block.actions
+    div
+      .subheadline Действия
+      ul.block-list
+
+        li.comment
+          span Комментировать
+
+        li.fav-add style="#{'display: none;' if @resource.favoured?}"
+          span.favourite-add data-remote="true" action="#{favourites_path @resource.object.class.name, @resource.id}" data-method="post" data-type="json" Добавить в избранное
+
+        li.fav-remove style="#{'display: none;' unless @resource.favoured?}"
+          span.favourite-remove data-remote="true" action="#{favourites_path @resource.object.class.name, @resource.id}" data-method="delete" data-type="json" Удалить из избранных
+
+        li.edit-entry
+          span Редактировать персонажа
+
+  .menu-block.editions
+    .subheadline Редактирование
+    ul.block-list
+      li.edit-description.slider-control.slider-control-edit-description
+        span.link data-href="#{edit_character_url @resource, subpage: 'description'}" Описание
+
+      li.edit-russian.slider-control.slider-control-edit-russian
+        span.link data-href="#{edit_character_url @resource, subpage: 'russian'}" Русское имя
+
+      li.edit-cancel
+        span Отмена
+
+= render partial: 'blocks/favoured', object: @resource.favoured

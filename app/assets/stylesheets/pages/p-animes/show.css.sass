@@ -2,11 +2,12 @@
 @import compass/utilities/general/clearfix
 @import globals
 @import mixins/block
+@import mixins/clear_left
 @import mixins/column
 @import mixins/comma_separated
-@import mixins/clear_left
-@import mixins/plashka
 @import mixins/icons
+@import mixins/plashka
+@import mixins/responsive
 
 .p-animes-show, .p-mangas-show
   // columns media
@@ -20,6 +21,9 @@
 
     +iphone-landscape
       +column(2)
+
+    img
+      max-width: 100%
 
   .c-about
     +gte_ipad
@@ -154,12 +158,6 @@
       &:nth-child(6), &:nth-child(7)
         display: none
 
-  .anime-image
-    margin-bottom: 5px
-
-    img
-      max-width: 100%
-
   .other-names.click-loader
     +plashka
     height: 15px
@@ -223,89 +221,6 @@
 
   .related-hidden
     display: none
-
-  .video_screen_previews
-    +clearfix
-
-  .images-list, .videos-list
-    height: 111px
-
-    .image-container
-      margin-right: 12px
-      padding: 3px 3px 0
-      img, a
-        height: 95px
-      &:last-child
-        margin-right: 0
-      &.vk
-        img
-          height: 128px
-          margin-top: -16px
-        .video-marker
-          margin-top: -37px
-
-  .images-list .image-container
-    background: #E5E5E5
-
-  .videos-list .video
-    position: relative
-    width: auto
-
-  .people-container
-    clear: none
-    //&.p0, &.c0
-      //width: 100%
-    //&.t2, &.t3, &.t4, &.t5, &.t6
-      //margin-bottom: 0
-
-      //&.first
-        //float: left
-        //margin-right: 30px
-
-      //.item-block
-        //height: 175px
-
-      //.person-block-wide
-        //width: 123px
-        //.image
-          //max-height: 102px
-
-    //&.second.s1, &.first.v1, &.first.v2
-      //.image-container
-        //background: transparent
-
-    //// блоки с персонажами
-    //&.first
-      //clear: both
-      //&.c1.p1, &.c1.p2, &.c2.p1, &.c2.p2, &.t4.c2
-        //width: 369px
-      //&.c2.p3
-        //width: 340px
-      //&.t5.c4
-        //width: 495px
-    //&.t6.c2, &.t6.c3, &.t6.c4, &.t6.c5
-      //.item-block
-        //width: 118px !important
-
-    //// блоки с видео
-    //&.s0
-      //float: right
-    //&.first.v1, &.s1.v1, &.s0.v1
-      //width: 170px
-      //.image-container
-        //padding: 0 2px 0 0
-    //&.first.v2, &.s1.v2, &.s0.v2
-      //width: 355px
-      //.image-container
-        //padding: 0 1px 0 0
-        //&.vk
-          //padding: 0
-    //&.v1, &.v2
-      //&.first
-        //float: left
-        //margin-right: 30px
-    //&.v1.first
-      //width: 540px
 
   .studio-logo
     max-width: 195px

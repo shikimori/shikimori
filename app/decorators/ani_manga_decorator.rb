@@ -1,6 +1,7 @@
 class AniMangaDecorator < BaseDecorator
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers
+  include AniMangaDecorator::HeadlineHelpers
 
   TopicsPerPage = 4
   NewsPerPage = 12
@@ -10,8 +11,10 @@ class AniMangaDecorator < BaseDecorator
   instance_cache :is_favoured, :favoured, :rate, :reviews_thread, :comments, :changes, :roles, :related, :cosplay
   instance_cache :friend_rates, :recent_rates, :chronology
 
-  def headline
-    headline_array.join(' <span class="sep inline">/</span> ').html_safe
+  def description_html
+    Rails.cache.fetch [object, :description] do
+      BbCodeFormatter.instance.format_description description, object
+    end
   end
 
   def source
@@ -154,6 +157,17 @@ class AniMangaDecorator < BaseDecorator
     object.respond_to?(:anime_videos) && object.anime_videos.worked.any?
   end
 
+  # тип элемента для schema.org
+  def itemtype
+    if kind == 'Movie'
+      'http://schema.org/Movie'
+    elsif kind == 'TV'
+      'http://schema.org/TVSeries'
+    else
+      'http://schema.org/CreativeWork'
+    end
+  end
+
 private
   def format_menu_topic topic, order
     {
@@ -169,13 +183,5 @@ private
   # имя класса текущего элемента в нижнем регистре
   def klass_lower
     object.class.name.downcase
-  end
-
-  def headline_array
-    if !h.user_signed_in? || (h.user_signed_in? && !h.current_user.preferences.russian_names?)
-      [name, russian].compact
-    else
-      [russian, name].compact
-    end
   end
 end

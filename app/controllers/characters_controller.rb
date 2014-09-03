@@ -2,16 +2,17 @@ class CharactersController < PeopleController
   layout false, only: [:tooltip]
   before_filter :authenticate_user!, only: [:edit]
 
-  caches_action :index,
-                CacheHelper.cache_settings
+  before_action :fetch_resource
+  before_action :check_redirect, if: -> { @resource }
 
-  caches_action :page, :show, :tooltip,
-                cache_path: proc {
-                  entry = Character.find(params[:id].to_i)
-                  "#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.thread.updated_at.to_i}|#{json?}"
-                },
-                unless: proc { user_signed_in? },
-                expires_in: 2.days
+  #caches_action :index, CacheHelper.cache_settings
+  #caches_action :page, :show, :tooltip,
+    #cache_path: proc {
+      #entry = Character.find(params[:id].to_i)
+      #"#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.thread.updated_at.to_i}|#{json?}"
+    #},
+    #unless: proc { user_signed_in? },
+    #expires_in: 2.days
 
 
   # список персонажей
@@ -24,20 +25,23 @@ class CharactersController < PeopleController
 
   # отображение персонажа
   def show
-    @entry = CharacterDecorator.find params[:id].to_i
-    direct
+    @itemtype = @resource.itemtype
+  end
+
+  # все сэйю персонажа
+  def seyu
+    raise NotFound if @resource.seyu.none?
   end
 
   # подстраница персонажа
-  def page
-    show
-    render :show unless @director.redirected?
-  end
+  #def page
+    #show
+    #render :show unless @director.redirected?
+  #end
 
   # тултип
   def tooltip
     @entry = Character.find params[:id].to_i
-    direct
   end
 
   # редактирование персонажа
@@ -54,5 +58,9 @@ class CharactersController < PeopleController
 private
   def klass
     Character
+  end
+
+  def fetch_resource
+    @resource = klass.find(resource_id.to_i).decorate if resource_id
   end
 end
