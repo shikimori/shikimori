@@ -48,11 +48,7 @@
               = time_ago_in_words comment.created_at, "%s назад"
 
       .body itemprop="commentText"
-        - if comment.persisted?
-          - cache [comment, :body] do
-            = comment.html_body
-        - else
-          = comment.html_body
+        = comment.html_body
         /- if comment.kind_of? Comment
           == comment.html_body
         /- elsif comment.respond_to?(:kind) && comment.kind == MessageType::Private

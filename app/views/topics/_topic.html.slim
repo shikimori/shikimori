@@ -39,7 +39,7 @@
         .body
           - if topic.review? && topic.linked.overall.present?
             = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
-          = topic.body
+          = topic.html_body
 
         footer
           - if topic.review? && user_signed_in? && topic.linked.user_id != current_user.id

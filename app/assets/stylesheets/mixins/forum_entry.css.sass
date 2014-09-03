@@ -8,7 +8,6 @@ $aside_width: 310px
 
 =forum_entry
   +clear_right
-  min-height: 70px
   overflow: hidden // без height-shortener не работает вообще
   padding-top: 5px
 
@@ -16,6 +15,7 @@ $aside_width: 310px
     +clearfix
     +transition(margin-left 0.25s ease)
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
+    min-height: 80px
 
     aside.markers
       +iphone_portrait

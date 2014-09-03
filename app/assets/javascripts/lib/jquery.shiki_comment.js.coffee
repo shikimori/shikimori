@@ -47,8 +47,6 @@ class @ShikiComment extends ShikiView
       @$root.trigger 'comment:reply', [quote, @_is_offtopic()]
 
     # ответ на комментарий
-    @$('.item-reply').on 'click', (e) ->
-      false
     @$('.item-reply').on 'ajax:success', (e, response) =>
       reply = "[#{response.kind}=#{response.id}]#{response.user}[/#{response.kind}], "
       @$root.trigger 'comment:reply', [reply, @_is_offtopic()]

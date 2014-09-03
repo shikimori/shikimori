@@ -73,7 +73,7 @@ class CommentsController < ShikimoriController
     query.where! review: true if params[:review]
 
     comments = query
-      .to_a
+      .decorate
       .reverse
 
     render partial: 'comments/comment', collection: comments, formats: :html
@@ -86,7 +86,7 @@ class CommentsController < ShikimoriController
       .where(id: params[:ids].split(',').map(&:to_i))
       .includes(:user, :commentable)
       .limit(100)
-      .to_a
+      .decorate
 
     comments.reverse! if params[:order]
 
@@ -100,7 +100,7 @@ class CommentsController < ShikimoriController
     #else
       #render text: BbCodeFormatter.instance.format_comment(params[:body])
     #end
-    @comment = Comment.new comment_params
+    @comment = Comment.new(comment_params).decorate
     render partial: 'comments/comment', object: @comment
   end
 
@@ -112,7 +112,7 @@ class CommentsController < ShikimoriController
 private
   def prepare_edition
     Rails.logger.info params.to_yaml
-    @comment = Comment.find(params[:id]) if params[:id]
+    @comment = Comment.find(params[:id]).decorate if params[:id]
   end
 
   def comments_service

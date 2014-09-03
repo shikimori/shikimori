@@ -21,7 +21,7 @@ class @ShikiTopic extends ShikiView
       @_check_height()
 
     # ответ на топик
-    @$('.item-reply', @$inner).on 'click', =>
+    $('.item-reply', @$inner).on 'click', =>
       reply = if @$root.data 'generated'
         ""
       else

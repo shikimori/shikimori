@@ -23,7 +23,7 @@ class TopicDecorator < BaseDecorator
   end
 
   # текст топика
-  def body
+  def html_body
     Rails.cache.fetch [object, h.russian_names_key, 'body'], expires_in: 2.weeks do
       if review?
         BbCodeFormatter.instance.format_description linked.text, linked
@@ -117,7 +117,10 @@ class TopicDecorator < BaseDecorator
       .with_viewed(h.current_user)
       .limit(comments_limit)
 
-    (reviews_only? ? comments.reviews : comments).to_a.reverse
+    (reviews_only? ? comments.reviews : comments)
+      .decorate
+      .to_a
+      .reverse
   end
 
   # тег топика

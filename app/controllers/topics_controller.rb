@@ -164,11 +164,10 @@ class TopicsController < ForumController
 
   # html код для тултипа
   def tooltip
-    topic = Entry.find params[:id]
-    preview = TopicPresenter.new object: topic, template: view_context, limit: 0, with_user: true
+    topic = TopicDecorator.new Entry.find(params[:id])
 
     # превью топика отображается в формате комментария
-    render partial: 'comments/comment', layout: false, object: topic, locals: { no_buttons: true }, formats: :html
+    render partial: 'comments/comment', layout: false, object: topic, formats: :html
   end
 
   # выбранные топики

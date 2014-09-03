@@ -1,0 +1,57 @@
+@import compass/css3/border-radius
+@import compass/typography/text/ellipsis
+@import mixins/links
+
+.tooltip
+  z-index: 1
+
+  .close//, .link
+    +border-radius(15px)
+    +link_color(#555555)
+    background: #fff
+    cursor: pointer
+    font-family: Courier
+    font-size: 13px
+    position: absolute
+    right: 5px
+    text-align: center
+    top: 4px
+    width: 15px
+    z-index: 2
+
+    &:after
+      content: '\2715'
+
+  //.link
+    //right: 21px
+
+    //&:hover
+      //text-decoration: underline
+
+    //&:after
+      //content: '\27a1'
+      //font-size: 14px
+
+  .favourite
+    margin-top: -4px
+    float: right
+
+  .block-title
+    .title
+      +ellipsis
+      line-height: 17px
+
+    .japanese
+      float: right
+      margin-top: -3px
+      margin-left: 5px
+
+  .ajax-loading
+    height: 140px
+
+  .b-comment
+    border-top: none
+    padding-top: 0
+
+    .buttons
+      display: none !important
