@@ -22,6 +22,16 @@ describe AnimeVideoReportWorker do
         let(:url) { 'https://vk.com/video_ext.php?oid=166407861&id=163627355&hash=0295006c945f8e89&hd=3' }
         it { should be_accepted }
       end
+
+      context :broken_not_public do
+        let(:url) { 'http://vk.com/video_ext.php?oid=-39085485&id=166452213&hash=273a3a8952a6a832&hd=2' }
+        it { should be_accepted }
+      end
+
+      context :broken_hide do
+        let(:url) { 'http://vk.com/video_ext.php?oid=-24168188&id=160084503&hash=158435bbc70b2697&hd=3' }
+        it { should be_accepted }
+      end
     end
 
     context :cant_check do
