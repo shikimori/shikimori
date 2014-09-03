@@ -3,7 +3,6 @@ require 'spec_helper'
 describe AnimeVideoReportWorker do
   before { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
   before { SiteParserWithCache.stub :save_cache }
-  before { create :user, id: User::GuestID }
   let(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
   let(:anime_video) { create :anime_video, url: url }
 
@@ -34,8 +33,21 @@ describe AnimeVideoReportWorker do
       end
     end
 
+    context :sibnet do
+      context :work do
+        let(:url) { 'http://video.sibnet.ru/shell.swf?videoid=1437504' }
+        it { should be_pending }
+      end
+
+      context :broken_error_processing_video do
+        let(:url) { 'http://video.sibnet.ru/shell.php?videoid=1047105' }
+        it { should be_accepted }
+      end
+    end
+
     context :cant_check do
       before { AnimeVideoReportWorker.any_instance.stub(:is_broken).and_return false }
+      before { create(:user, id: User::GuestID) unless User.find_by(id: User::GuestID) }
       let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
 
       context :not_guest do
