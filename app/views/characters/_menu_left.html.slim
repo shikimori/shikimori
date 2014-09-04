@@ -1,0 +1,23 @@
+.menu-block
+  .subheadline О персонаже
+  ul.block-list.sections.m20
+    li.slider-control.slider-control-info.info
+      - if params[:page] == 'info'
+        span.linkeable data-href="#{character_path(@resource)}" Главное
+      - else
+        = link_to 'Главное', character_path(@resource), title: "Общая информация о #{@resource.name.html_safe}"
+
+    - if @director.pages.include? 'comments'
+      li.comments.slider-control.slider-control-comments
+        span.linkeable data-href="#{page_character_url @resource, page: 'comments'}"
+          /span.num.right = @resource.comments ? @resource.comments.posts : 0
+          | Обсуждение
+
+    - if @director.pages.include? 'cosplay'
+      li.cosplay.slider-control.slider-control-cosplay
+        span.linkeable data-href="#{page_character_url @resource, page: 'cosplay'}" Косплей
+
+    - if @director.pages.include? 'images'
+      li.images.slider-control.slider-control-images
+        span.linkeable data-href="#{page_character_url @resource, page: 'images'}"
+          = @resource.tags.blank? ? 'Галерея': 'Картинки с имиджборд'

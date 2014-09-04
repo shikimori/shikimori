@@ -46,6 +46,14 @@ class CharactersController < PeopleController
     raise NotFound if @resource.mangas.none?
   end
 
+  def comments
+    noindex
+    page_title "Обсуждение персонажа"
+
+    @thread = TopicDecorator.new @resource.thread
+    @thread.topic_mode!
+  end
+
   # подстраница персонажа
   #def page
     #show
@@ -58,10 +66,10 @@ class CharactersController < PeopleController
   end
 
   # редактирование персонажа
-  def edit
-    show
-    render :show unless @director.redirected?
-  end
+  #def edit
+    #show
+    #render :show unless @director.redirected?
+  #end
 
   # автодополнение
   def autocomplete

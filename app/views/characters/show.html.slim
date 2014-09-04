@@ -69,3 +69,11 @@
       .linkeable data-href="#{mangas_character_url @resource}" Мангаграфия
     .cc.m0
       = render partial: 'animes/anime', collection: @resource.mangas(7), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+
+  - if user_signed_in? || @resource.thread.comments_count > 0
+    .subheadline.m3
+      .linkeable data-href="#{comments_character_url @resource}" Обсуждение
+    div
+      .b-topic.unprocessed
+        = render partial: 'topics/comments', locals: { topic: @resource.thread }
+

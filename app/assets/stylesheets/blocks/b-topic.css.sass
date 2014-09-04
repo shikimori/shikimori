@@ -37,6 +37,8 @@
     margin-top: $block_offset
 
   &>.inner
+    min-height: 80px
+
     &.shortened
       height: 165px
       overflow: hidden
@@ -82,3 +84,10 @@
 
   &>.b-comments
     margin-top: 5px
+
+    // комментарии на странице комментариев к аниме/манге/персонажу (тут между заголовком и началом комментариев ничего нет)
+    &:first-child
+      //margin-top: 0
+
+      .comments-shower, .comments-hider
+        margin-top: 0

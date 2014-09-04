@@ -84,16 +84,6 @@
               = @resource.description_mal
           .russian itemprop="description"
             = @resource.description_html
-          /- if @resource.description_html.blank?
-            /== format_html_text @resource.description_mal
-          /- else
-            /- if user_signed_in? && !@resource.description_mal.blank?
-              /.lang-trigger
-                /| [<span>eng</span>]
-              /.english
-                /== format_html_text @resource.description_mal
-            /.russian itemprop="description"
-              /== @resource.description_html
 
         = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
 
@@ -118,4 +108,3 @@
     div
       .b-topic.unprocessed
         = render partial: 'topics/comments', locals: { topic: @resource.reviews_thread }
-      /= render partial: 'comments/comments', locals: { object: @resource.thread, comments: @resource.comments(true), postloader: 15, review: @resource.comment_reviews? }

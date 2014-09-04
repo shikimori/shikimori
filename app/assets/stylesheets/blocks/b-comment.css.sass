@@ -12,6 +12,9 @@ $comment_border: 1px dashed #ddd
   border-top: $comment_border
   margin-bottom: 15px
 
+  &:first-child
+    border-top: none
+
   &:last-child
     margin-bottom: 0
 
@@ -35,6 +38,8 @@ $comment_border: 1px dashed #ddd
         width: 100%
 
   .inner
+    min-height: 58px
+
     &.shortened
       height: 95px
       overflow: hidden

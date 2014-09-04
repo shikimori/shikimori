@@ -7,7 +7,7 @@
     a href="#{@resource.comments_all_url}"
       | Все комментарии&nbsp;
       span.brackets = @resource.comments_count
-  .subheadline.m10 = @page_title.last
+  .subheadline.m3 = @page_title.last
   div
     .b-topic.unprocessed
       = render partial: 'topics/comments', locals: { topic: @thread }

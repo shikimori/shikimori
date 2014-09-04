@@ -52,6 +52,13 @@ class CharacterDecorator < PersonDecorator
     'http://schema.org/Person'
   end
 
+  # основной топик
+  def thread
+    thread = TopicDecorator.new object.thread
+    thread.preview_mode!
+    thread
+  end
+
 private
   def decorated_entries query
     query

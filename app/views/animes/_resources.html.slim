@@ -1,5 +1,5 @@
 - if @resource.screenshots(5).any? || @resource.videos(5).any?
-  .cc.m0 class="#{@resource.videos(5).one? ? 'one-video' : 'two-videos' if @resource.videos(5).any? && @resource.screenshots(5).any?}"
+  .cc.m0 class="#{@resource.videos(5).any? && @resource.screenshots(5).any? ? (@resource.videos(5).one? ? 'one-video' : 'two-videos') : 'no-video'}"
     .c-screenshots
       - if @resource.screenshots(5).any?
         .subheadline.m10

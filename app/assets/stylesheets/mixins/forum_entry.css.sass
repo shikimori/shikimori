@@ -11,11 +11,13 @@ $aside_width: 310px
   overflow: hidden // без height-shortener не работает вообще
   padding-top: 5px
 
+  &:first-child
+    padding-top: 0
+
   &>.inner
     +clearfix
     +transition(margin-left 0.25s ease)
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
-    min-height: 80px
 
     aside.markers
       +iphone_portrait
@@ -41,7 +43,7 @@ $aside_width: 310px
 
       img
         float: left
-        margin: 3px 10px 7px 0
+        margin: 1px 10px 7px 0
         width: 48px
 
       .name-date
