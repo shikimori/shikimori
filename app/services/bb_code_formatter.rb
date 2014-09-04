@@ -21,7 +21,7 @@ class BbCodeFormatter
     else
       #format_comment text
       paragraphs format_comment(text)
-    end.html_safe
+    end
   end
 
   # форматирование текста комментариев
@@ -75,7 +75,7 @@ class BbCodeFormatter
 
   # замена концов строк на параграфы
   def paragraphs text
-    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>')
+    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>').html_safe
   end
 
   # замена имён персонажей на ббкоды

@@ -33,9 +33,10 @@
         - if @resource.seyu.present?
           .c-seyu
             .subheadline.m10
-              - if @resource.seyu.size > 3
-                .linkeable href="#{seyu_character_url @resource}" Сэйю <span>#{@resource.seyu.size}</span>
-              - else
+              .linkeable href="#{seyu_character_url @resource}" Сэйю
+              /- if @resource.seyu.size > 3
+                | Сэйю <span>#{@resource.seyu.size}</span>
+              /- else
                 | Сэйю
             .cc.m0
               = render partial: 'people/person', collection: @resource.seyu.take(3), locals: { cover_minified: true }
@@ -57,3 +58,14 @@
 
         = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
 
+  - if @resource.animes(7).any?
+    .subheadline.m10
+      .linkeable data-href="#{animes_character_url @resource}" Анимеграфия
+    .cc.m0
+      = render partial: 'animes/anime', collection: @resource.animes(7), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+
+  - if @resource.mangas(7).any?
+    .subheadline.m10
+      .linkeable data-href="#{mangas_character_url @resource}" Мангаграфия
+    .cc.m0
+      = render partial: 'animes/anime', collection: @resource.mangas(7), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }

@@ -308,6 +308,9 @@ Site::Application.routes.draw do
     resources :characters, only: [:show] do
       member do
         get :seyu
+        get :animes
+        get :mangas
+        get :comments
       end
     end
 

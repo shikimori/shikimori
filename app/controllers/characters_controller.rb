@@ -30,7 +30,20 @@ class CharactersController < PeopleController
 
   # все сэйю персонажа
   def seyu
+    page_title 'Сэйю'
     raise NotFound if @resource.seyu.none?
+  end
+
+  # все аниме персонажа
+  def animes
+    page_title 'Анимеграфия'
+    raise NotFound if @resource.animes.none?
+  end
+
+  # вся манга персонажа
+  def mangas
+    page_title 'Мангаграфия'
+    raise NotFound if @resource.mangas.none?
   end
 
   # подстраница персонажа

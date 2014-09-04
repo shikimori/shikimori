@@ -26,12 +26,13 @@ class DbEntryDecorator < BaseDecorator
 
   def description_mal
     if object.description_mal.present?
-      BbCodeFormatter.instance
+      text = BbCodeFormatter.instance
         .spoiler_to_html(object.description_mal)
         .gsub(/^\(?Source:.*/, '')
         .gsub(/\n/, "<br />")
         .strip
-        .html_safe
+
+      BbCodeFormatter.instance.paragraphs text
     else
       'нет описания'
     end

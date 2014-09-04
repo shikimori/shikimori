@@ -1,18 +1,20 @@
 class CharacterDecorator < PersonDecorator
+  instance_cache :favoured, :favoured?, :seyu, :changes, :all_animes, :all_mangas, :limited_animes, :limited_mangas
+
   def url
     h.character_url object
   end
 
   def favoured
-    @favoured ||= FavouritesQuery.new.favoured_by object, 12
+    FavouritesQuery.new.favoured_by object, 12
   end
 
   def favoured?
-    @is_favoured ||= h.user_signed_in? && h.current_user.favoured?(object)
+    h.user_signed_in? && h.current_user.favoured?(object)
   end
 
   def seyu
-    @seyu ||= object.seyu.to_a
+    object.seyu.to_a
   end
 
   def job_title
@@ -34,15 +36,15 @@ class CharacterDecorator < PersonDecorator
 
   # презентер пользовательских изменений
   def changes
-    @changes ||= AniMangaDecorator::ChangesDecorator.new object
+    AniMangaDecorator::ChangesDecorator.new object
   end
 
-  def animes
-    @animes ||= ani_mangas :animes
+  def animes limit = nil
+    decorated_entries object.animes.limit(limit)
   end
 
-  def mangas
-    @mangas ||= ani_mangas :mangas
+  def mangas limit = nil
+    decorated_entries object.mangas.limit(limit)
   end
 
   # тип элемента для schema.org
@@ -51,7 +53,9 @@ class CharacterDecorator < PersonDecorator
   end
 
 private
-  def ani_mangas kind
-    object.send(kind).sort_by {|v| v.aired_on || v.released_on || DateTime.new(2001) }
+  def decorated_entries query
+    query
+      .decorate
+      .sort_by {|v| v.aired_on || v.released_on || DateTime.new(2001) }
   end
 end
