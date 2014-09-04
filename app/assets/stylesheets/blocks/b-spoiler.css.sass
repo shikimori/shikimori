@@ -1,0 +1,42 @@
+@import globals/variables
+@import mixins/links
+
+$border_color: #ffb3b3
+.b-spoiler
+  display: inline
+
+  label
+    +link_color
+    cursor: pointer
+    border-bottom: 1px dashed $link
+
+  .content
+    cursor: pointer
+    display: none
+
+    .inner
+      border-bottom: 1px dashed $border_color
+      display: inline
+
+    .before, .after
+      color: $link
+      color: darken($border_color, 10%)
+      cursor: pointer
+      display: inline
+      font-size: 10px
+      letter-spacing: 0.8px
+
+      &:before
+        display: inline
+
+    .before
+      padding-right: 4px
+
+      &:before
+        content: '[spoiler]'
+
+    .after
+      padding-left: 4px
+
+      &:before
+        content: '[/spoiler]'

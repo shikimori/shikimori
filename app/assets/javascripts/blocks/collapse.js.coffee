@@ -1,30 +1,32 @@
-# сворачивание/разворачивание спойлеров по клику
-$(document).on "click", ".collapse", (e, custom) ->
+# TODO: выпилить отсюда все упомянания о спойлерах
+# сворачивание/разворачивание collapse блоков по клику
+$(document).on 'click', '.collapse', (e, custom) ->
   $this = $(this)
-  is_hide = $this.children(".action").html().match(/свернуть/)
-  in_comment = $this.parents(".topic-block,.comment-block,.description").length > 0
+  is_hide = $this.children('.action').html().match(/свернуть/)
+  #in_comment = $this.parents('.topic-block,.comment-block,.description').length > 0
 
   # блок-заглушка, в которую сворачивается контент
   $placeholder = $this.next()
-  $placeholder = $placeholder.next() unless $placeholder.hasClass("collapsed")
+  $placeholder = $placeholder.next() unless $placeholder.hasClass('collapsed')
 
   # еонтент, убираемый под спойлер
   $hideable = $placeholder.next()
 
   # если в $hideable ничего, значит надо идти на уровень выше и брать next оттуда
-  $hideable = $this.parent().next() if $hideable.length is 0
+  $hideable = $this.parent().next() unless $hideable.exists()
 
   # если внутри спойлера картинки, то отображение дефолтное
-  in_comment = false if $hideable.find("img").not(".smiley").length
+  in_comment = $hideable.find('img').not('.smiley').exists()
 
   # если спойлер внутри комментария, то у него особое отображение
-  $hideable.addClass("dashed").attr "title", "свернуть спойлер"  if in_comment
+  if in_comment
+    $hideable.addClass('dashed').attr title: 'свернуть спойлер'
 
   # скрываем не только следующий элемент, но и все последующие с классом collapse-merged
-  $hideable = $hideable.add($hideable.last().next())  while $hideable.last().next().hasClass("collapse-merged")
+  $hideable = $hideable.add($hideable.last().next())  while $hideable.last().next().hasClass('collapse-merged')
 
   # при этом игнорируем то, что имеет класс collapse-ignored
-  $hideable = $hideable.filter(":not(.collapse-ignored)")  if $hideable.length > 1
+  $hideable = $hideable.filter(':not(.collapse-ignored)')  if $hideable.length > 1
   if is_hide
     $placeholder.show()
     $hideable.hide()
@@ -42,9 +44,9 @@ $(document).on "click", ".collapse", (e, custom) ->
       #$hideable.data('href', null);
 
   # корректный текст для кнопки действия
-  $this.children(".action").html ->
+  $this.children('.action').html ->
     $this = $(this)
-    if $this.hasClass("half-hidden")
+    if $this.hasClass('half-hidden')
       if is_hide
         $this.hide()
       else
@@ -52,7 +54,10 @@ $(document).on "click", ".collapse", (e, custom) ->
     if in_comment
       ""
     else
-      (if is_hide then $this.html().replace("свернуть", "развернуть") else $this.html().replace("развернуть", "свернуть"))
+      if is_hide
+        $this.html().replace('свернуть', 'развернуть')
+      else
+        $this.html().replace('развернуть', 'свернуть')
 
   unless custom
     id = $this.attr("id")
@@ -72,16 +77,17 @@ $(document).on "click", ".collapse", (e, custom) ->
   $placeholder.next().trigger "show"
 
   # всем картинкам внутри спойлера надо заново проверить высоту
-  $hideable.find("img").addClass "check-width"
+  $hideable.find('img').addClass 'check-width'
   process_current_dom()
 
 # клик на "свернуть"
-$(document).on "click", ".collapsed", ->
+$(document).on 'click', '.collapsed', ->
   $trigger = $(@).prev()
-  $trigger = $trigger.prev() unless $trigger.hasClass("collapse")
-  $trigger.trigger "click"
+  $trigger = $trigger.prev() unless $trigger.hasClass('collapse')
+  $trigger.trigger('click')
 
 # клик на содержимое спойлера
-$(document).on "click", ".spoiler.target", ->
-  return unless $(@).hasClass("dashed")
+$(document).on 'click', '.spoiler.target', ->
+  return unless $(@).hasClass('dashed')
   $(@).hide().prev().show().prev().show()
+

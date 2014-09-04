@@ -19,7 +19,8 @@ class BbCodeFormatter
     elsif entry.respond_to? :characters
       paragraphs format_comment(character_names(text, entry))
     else
-      format_comment text
+      #format_comment text
+      paragraphs format_comment(text)
     end.html_safe
   end
 

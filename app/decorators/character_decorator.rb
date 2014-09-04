@@ -1,39 +1,6 @@
 class CharacterDecorator < PersonDecorator
-  include AniMangaDecorator::HeadlineHelpers
-
   def url
     h.character_url object
-  end
-
-  # хак, т.к. source переопределяется в декораторе
-  def source
-    object.source
-  end
-
-  def description_html
-    if description.present?
-      Rails.cache.fetch [object, :description] do
-        BbCodeFormatter.instance.format_description description, object
-      end
-    else
-      description_mal
-    end
-  end
-
-  def description_html_truncated
-    h.truncate_html(description_html, length: 300, separator: ' ', word_boundary: /\S[\.\?\!<>]/).html_safe
-  end
-
-  def description_mal
-    if object.description_mal.present?
-      h.format_html_text(object.description_mal).html_safe
-    else
-      'нет описания'
-    end
-  end
-
-  def show_mal_description?
-    h.user_signed_in? && object.description_mal.present? && description.present?
   end
 
   def favoured
@@ -67,7 +34,7 @@ class CharacterDecorator < PersonDecorator
 
   # презентер пользовательских изменений
   def changes
-    @changes ||= AniMangaPresenter::ChangesPresenter.new object, h
+    @changes ||= AniMangaDecorator::ChangesDecorator.new object
   end
 
   def animes
@@ -81,11 +48,6 @@ class CharacterDecorator < PersonDecorator
   # тип элемента для schema.org
   def itemtype
     'http://schema.org/Person'
-  end
-
-  # адрес на mal'е
-  def mal_url
-    "http://myanimelist.net/character/#{id}"
   end
 
 private

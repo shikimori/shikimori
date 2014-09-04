@@ -46,16 +46,14 @@
         meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
         meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
 
-        /.m20
-          - if @resource.description_html.blank?
-            == format_html_text @resource.description_mal
-          - else
-            - if @resource.show_mal_description?
-              .lang-trigger
-                | [<span>eng</span>]
-              .english
-                = format_html_text @resource.description_mal
-            .russian itemprop="description"
-              = @resource.description_html
+        .m20
+          - if @resource.show_mal_description?
+            .lang-trigger
+              | [<span>eng</span>]
+            .english
+              = @resource.description_mal
+          .russian itemprop="description"
+            = @resource.description_html
 
         = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
+

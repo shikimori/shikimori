@@ -82,11 +82,6 @@ module AniMangaDecorator::UrlHelpers
     h.send "resources_#{klass_lower}_url"
   end
 
-  # адрес на mal'е
-  def mal_url
-    "http://myanimelist.net/#{klass_lower}/#{object.id}"
-  end
-
   def other_names_url
     h.send "other_names_#{klass_lower}_url", object
   end

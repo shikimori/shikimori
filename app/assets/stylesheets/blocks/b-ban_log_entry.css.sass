@@ -1,6 +1,7 @@
 @import globals
-@import mixins/log_entry
 @import mixins/bracket_details
+@import mixins/links
+@import mixins/log_entry
 
 .b-ban_log_entry
   +log_entry
@@ -34,7 +35,7 @@
 
   .abuser
     +bracket_details
-    +normal-link
+    +link
     &:hover
       text-decoration: underline !important
     //+link_color_hover_underlined(#123)

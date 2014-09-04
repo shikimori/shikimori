@@ -7,7 +7,7 @@
       = localized_name anime
 
 p.text itemprop="description"
-  == ani_manga_description anime
+  = anime.decorate.description_html_truncated
 
 - if anime.respond_to?(:studios) && anime.real_studios.any?
   .data

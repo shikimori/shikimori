@@ -4,7 +4,7 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
   # связанные аниме
   def related
     all
-      .map {|v| RelatedEntry.new v.anime || v.manga, v.relation }
+      .map {|v| RelatedEntry.new (v.anime || v.manga).decorate, v.relation }
       #.sort_by {|v| v.relation == BaseMalParser::RelatedAdaptationName ? 0 : 1 }
   end
 
@@ -14,7 +14,7 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
       .similar
       .includes(:dst)
       .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
-      .map(&:dst)
+      .map {|v| v.dst.decorate }
   end
 
   # есть ли они вообще?

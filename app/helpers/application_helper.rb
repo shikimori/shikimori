@@ -38,7 +38,9 @@ module ApplicationHelper
   end
 
   # форматирование html текста для вывода в шаблон
+  # TODO: выпилить
   def format_html_text text
+    raise 'deprecated. use decorator instead'
     text
       .gsub(/\[spoiler\](?:<br ?\/?>|\n)?(.*?)(?:<br ?\/?>|\n)?\[\/spoiler\](?:<br ?\/?>|\n)?/mi,
             '<div class="collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div class="target spoiler" style="display: none;">\1<span class="closing"></span></div>')

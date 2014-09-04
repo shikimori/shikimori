@@ -1,5 +1,7 @@
 @import globals
 @import mixins/bracket_action
+@import mixins/links
+@import mixins/spoiler
 
 =log_entry
   line-height: $line_height
@@ -12,7 +14,7 @@
     padding-right: 8px
 
   a,.link
-    +normal-link
+    +link
 
   .id-label
     padding-right: 1px
@@ -29,7 +31,7 @@
     padding-left: 21px
 
   .spoiler
-    +spoiler-new
+    +spoiler
 
     &.collapsed
       +bracket_action

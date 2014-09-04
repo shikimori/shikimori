@@ -1,7 +1,6 @@
-class AniMangaDecorator < BaseDecorator
+class AniMangaDecorator < DbEntryDecorator
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers
-  include AniMangaDecorator::HeadlineHelpers
 
   TopicsPerPage = 4
   NewsPerPage = 12
@@ -10,16 +9,6 @@ class AniMangaDecorator < BaseDecorator
   instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
   instance_cache :is_favoured, :favoured, :rate, :reviews_thread, :comments, :changes, :roles, :related, :cosplay
   instance_cache :friend_rates, :recent_rates, :chronology
-
-  def description_html
-    Rails.cache.fetch [object, :description] do
-      BbCodeFormatter.instance.format_description description, object
-    end
-  end
-
-  def source
-    object.source
-  end
 
   # топики
   def topics
@@ -73,18 +62,9 @@ class AniMangaDecorator < BaseDecorator
     thread
   end
 
-  # комментарии топика
-  #def comments with_reviews=false
-    #if with_reviews && comment_reviews?
-      #thread.comments.reviews.with_viewed(h.current_user)
-    #else
-      #thread.comments.with_viewed(h.current_user)
-    #end.limit(15).to_a
-  #end
-
   # презентер пользовательских изменений
   def changes
-    AniMangaPresenter::ChangesPresenter.new object, h
+    AniMangaDecorator::ChangesDecorator.new object
   end
 
   # объект с ролями аниме
@@ -178,10 +158,5 @@ private
       tooltip: topic.action == AnimeHistoryAction::Episode,
       url: h.topic_url(topic)
     }
-  end
-
-  # имя класса текущего элемента в нижнем регистре
-  def klass_lower
-    object.class.name.downcase
   end
 end

@@ -9,21 +9,25 @@ header.head
   h1 Тестовая страница
   p.description Здесь просто тест всякого разного
 
+.subheadline.m10 spoiler
+.subcontent
+  == BbCodeFormatter.instance.spoiler_to_html "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
+
 .subheadline.m10 content_by block
 .subcontent.cc.m0.animes-2
-  = render partial: 'animes/anime', collection: Anime.where(id: [457, 1]), locals: { cover_notice: :studio, content_by: :block }
+  = render partial: 'animes/anime', collection: Anime.where(id: [457, 1]).decorate, locals: { cover_notice: :studio, content_by: :block }
 
 .subheadline.m10 tooltipped c8
 .subcontent.cc.m0.animes-8
-  = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]), locals: { cover_notice: :studio, content_by: :tooltip }
+  = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
 
 .subheadline.m10 tooltipped c5
 .subcontent.cc.m0.animes-5
-  = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]), locals: { cover_notice: :studio, content_by: :tooltip }
+  = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
 
 .subheadline.m10 tooltipped shortened
 .subcontent.cc.m0.animes-5
-  = render partial: 'animes/anime', collection: Anime.where(id: [245, 11741, 4282, 10408, 16894]), locals: { cover_notice: :studio, content_by: :tooltip, shortened: true }
+  = render partial: 'animes/anime', collection: Anime.where(id: [245, 11741, 4282, 10408, 16894]).decorate, locals: { cover_notice: :studio, content_by: :tooltip, shortened: true }
 
 .subheadline @font-face: shikimori
 .subcontent.fonts-test

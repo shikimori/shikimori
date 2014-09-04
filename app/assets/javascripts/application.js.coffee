@@ -71,7 +71,7 @@ turbolinks_compatibility = ->
 
     $this.attr 'data-href', null
 
-  # инициализация подгружаемых тултипов
+  # подгружаемые тултипы
   $('.anime-tooltip', root)
     .tooltip(ANIME_TOOLTIP_OPTIONS)
     .removeClass('anime-tooltip')
@@ -84,6 +84,10 @@ turbolinks_compatibility = ->
         10
       ]
     , tooltip_options)
+
+  $('.b-spoiler.unprocessed', root)
+    .removeClass('unprocessed')
+    .spoiler()
 
   $('.b-video.unprocessed', root)
     .removeClass('unprocessed')

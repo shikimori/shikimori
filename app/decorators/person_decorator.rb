@@ -1,4 +1,4 @@
-class PersonDecorator < Draper::Decorator
+class PersonDecorator < DbEntryDecorator
   delegate_all
   decorates_finders
 
