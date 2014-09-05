@@ -1,6 +1,6 @@
 .b-source
   - if defined?(default_source) && authors.empty? && entry.source.blank?
-    - unless entry.object.description_mal.blank? || default_source.blank?
+    - unless entry.object.description_mal.blank? || default_source.blank? || entry.object.description.present?
       .mal
         .key Источник:
         .val

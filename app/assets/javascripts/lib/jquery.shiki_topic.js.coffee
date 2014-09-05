@@ -120,8 +120,8 @@ class @ShikiTopic extends ShikiView
             skip: $shower.data('skip') + limit
             count: count
 
-          $shower.html "Показать #{p(_.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие')} #{_.min [limit, count]} #{p(count, 'комментарий', 'комментария', 'комментариев')}" + (
-              if count > limit then "<span class=\"expandable-comments-count\"> (из #{count})</span>" else ""
+          $shower.html "Показать #{p _.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие'} #{_.min [limit, count]}&nbsp;#{p count, 'комментарий', 'комментария', 'комментариев'}" + (
+              if count > limit then "<span class=\"expandable-comments-count\">&nbsp;(из #{count})</span>" else ""
             )
         else
           $shower.remove()

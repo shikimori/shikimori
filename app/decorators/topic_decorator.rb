@@ -158,14 +158,14 @@ class TopicDecorator < BaseDecorator
   # текст для свёрнутых комментариев
   def show_hidden_comments_text
     num = [folded_comments, fold_limit].min
-    prior_text = Russian.p num, 'предыдущий', 'предыдущие', 'предыдущие'
-    comment_text = if reviews_only?
+    prior_word = Russian.p num, 'предыдущий', 'предыдущие', 'предыдущие'
+    comment_word = if reviews_only?
       Russian.p num, 'отзыв', 'отзыва', 'отзывов'
     else
       Russian.p num, 'комментарий', 'комментария', 'комментариев'
     end
-    text = "Показать #{prior_text} #{num} #{comment_text}%s" % [
-        folded_comments < fold_limit ? '' : "<span class=\"expandable-comments-count\"> (из #{folded_comments})</span>"
+    text = "Показать #{prior_word} #{num}&nbsp;#{comment_word}%s" % [
+        folded_comments < fold_limit ? '' : "<span class=\"expandable-comments-count\">&nbsp;(из #{folded_comments})</span>"
       ]
     text.html_safe
   end
