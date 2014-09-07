@@ -2,7 +2,7 @@ class PersonDecorator < DbEntryDecorator
   delegate_all
   decorates_finders
 
-  def with_credentials?
+  def credentials?
     japanese.present? || object.name.present?
   end
 
@@ -145,6 +145,11 @@ class PersonDecorator < DbEntryDecorator
 
   def person_favoured?
     @person_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
+  end
+
+  # тип элемента для schema.org
+  def itemtype
+    'http://schema.org/Person'
   end
 
 private

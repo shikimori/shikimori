@@ -1,33 +1,49 @@
-- content_for :head do
-  = stylesheet_link_tag :people
+= render layout: 'seyu/page' do |f|
+  .cc-db_entry
+    .c-image
+      center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-header.head
-  h1 title="#{@page_title.last}" itemprop="name"
-    = @page_title.last
-  p.notice Сэйю
+    .c-about
+      .cc
+        - if @resource.credentials?
+          .c-info-left
+            .subheadline Информация
+            .b-entry-info
+              = info_line 'По-английски', @resource.name
+              = info_line 'По-японски', @resource.japanese
+              = info_line 'Дата рождения', rus_date(@resource.birthday, true) if @resource.birthday
+              = info_line 'Сайт' do
+                - if @resource.website_host.present?
+                  a href="#{@resource.website}" rel="nofollow"
+                    = @resource.website_host
 
-.info
-  aside.left-column
-    = render 'menu_left'
+/header.head
+  /h1 title="#{@page_title.last}" itemprop="name"
+    /= @page_title.last
+  /p.notice Сэйю
 
-  section.right-column
-    .b-options-floated
-      span class="#{' selected' if params[:sort] == nil}"
-        - if params[:sort] == nil
-          | Рейтинг
-        - else
-          = link_to 'Рейтинг', seyu_url(@entry, direct: params[:direct])
-      | &nbsp;&nbsp;/&nbsp;&nbsp;
-      span class="#{' selected' if params[:sort] == 'time'}"
-        - if params[:sort] == 'time'
-          | Дата
-        - else
-          a href="#{seyu_url @entry, sort: 'time', direct: params[:direct]}" Дата
+/.info
+  /aside.left-column
+    /= render 'menu_left'
 
-    .subheadline.m10 Персонажи и аниме
-    - @entry.works.each do |group|
-      .char-ani-block
-        - group[:characters].each do |character|
-          = render partial: 'blocks/person', locals: { person: character, role: nil, link_to_character: true, no_seyu: true, no_tooltip: true, remote: :character_tooltip_url }, formats: :html
-        = render partial: 'blocks/ani_manga', collection: group[:animes], formats: :html
-  .clearfix-full
+  /section.right-column
+    /.b-options-floated
+      /span class="#{' selected' if params[:sort] == nil}"
+        /- if params[:sort] == nil
+          /| Рейтинг
+        /- else
+          /= link_to 'Рейтинг', seyu_url(@resource, direct: params[:direct])
+      /| &nbsp;&nbsp;/&nbsp;&nbsp;
+      /span class="#{' selected' if params[:sort] == 'time'}"
+        /- if params[:sort] == 'time'
+          /| Дата
+        /- else
+          /a href="#{seyu_url @resource, sort: 'time', direct: params[:direct]}" Дата
+
+    /.subheadline.m10 Персонажи и аниме
+    /- @resource.works.each do |group|
+      /.char-ani-block
+        /- group[:characters].each do |character|
+          /= render partial: 'blocks/person', locals: { person: character, role: nil, link_to_character: true, no_seyu: true, no_tooltip: true, remote: :character_tooltip_url }, formats: :html
+        /= render partial: 'blocks/ani_manga', collection: group[:animes], formats: :html
+  /.clearfix-full

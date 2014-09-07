@@ -1,3 +1,4 @@
+# TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
   layout false, only: [:tooltip]
   before_filter :authenticate_user!, only: [:edit]
@@ -17,10 +18,12 @@ class CharactersController < PeopleController
 
   # список персонажей
   def index
+    append_title! 'Поиск персонажа'
+    append_title! SearchHelper.unescape(params[:search])
+
     @query = CharactersQuery.new params
     @people = postload_paginate(params[:page], 10) { @query.fetch }
     @query.fill_works @people
-    direct
   end
 
   # отображение персонажа
@@ -47,7 +50,6 @@ class CharactersController < PeopleController
   end
 
   def comments
-    noindex
     page_title "Обсуждение персонажа"
 
     @thread = TopicDecorator.new @resource.thread
@@ -67,8 +69,16 @@ class CharactersController < PeopleController
 
   # редактирование персонажа
   #def edit
-    #show
-    #render :show unless @director.redirected?
+    #case params[:subpage].to_sym
+      #when :russian
+        #append_title! 'Изменение русского имени'
+
+      #when :description
+        #append_title! 'Изменение описания'
+
+      #else
+        #raise ArgumentError.new "page: #{params[:page]}"
+    #end
   #end
 
   # автодополнение

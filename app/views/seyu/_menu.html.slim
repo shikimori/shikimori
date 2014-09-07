@@ -1,0 +1,19 @@
+- if user_signed_in?
+  .menu-block.actions
+    div
+      .subheadline Действия
+      ul.block-list
+
+        li.comment
+          span Комментировать
+
+        li.fav-add style="#{'display: none;' if @resource.seyu_favoured?}"
+          span.favourite-add data-remote="true" action="#{favourites_seyu_path @resource.object.class.name, @resource.id}" data-method="post" data-type="json" Добавить в избранное
+
+        li.fav-remove style="#{'display: none;' unless @resource.seyu_favoured?}"
+          span.favourite-remove data-remote="true" action="#{favourites_seyu_path @resource.object.class.name, @resource.id}" data-method="delete" data-type="json" Удалить из избранных
+
+        /li.edit-entry
+          span Редактировать персонажа
+
+= render partial: 'blocks/favoured', object: @resource.favoured

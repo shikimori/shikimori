@@ -1,1 +1,24 @@
-//= require_directory ./p-characters
+@import mixins/brackets_surrounded
+@import mixins/column
+@import mixins/responsive
+
+.p-characters-show
+  .c-info-right
+    .subheadline span
+      +brackets_surrounded
+      font-weight: normal
+
+    .c-person
+      +column(3)
+
+  .c-anime, .c-manga
+    +gte_ipad
+      +column_b(7)
+    +iphone-portrait
+      +column_b(3)
+      &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
+        display: none
+    +iphone-landscape
+      +column_b(5)
+      &:nth-child(6), &:nth-child(7)
+        display: none

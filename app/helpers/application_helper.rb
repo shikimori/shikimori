@@ -9,6 +9,10 @@ module ApplicationHelper
     end
   end
 
+  def block &block
+    capture(&block)
+  end
+
   def show_social?
     !is_mobile_request? && (!user_signed_in? || current_user.preferences.show_social_buttons?)
   end
@@ -34,6 +38,16 @@ module ApplicationHelper
       end
     else
       Russian::strftime(date, '%e %B %Y г.').strip
+    end
+  end
+
+  def info_line title, value=nil, &block
+    value = capture(&block) if value.nil? && block_given?
+    if value.present?
+      "<p>
+        <span class='key'>#{title}:</span>
+        <span class='value'>#{value}</span>
+      </p>".html_safe
     end
   end
 

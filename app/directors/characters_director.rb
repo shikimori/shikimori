@@ -1,69 +1,59 @@
-class CharactersDirector < BaseDirector
-  page :info
-  page :comments, -> { user_signed_in? || entry.thread.comments.any? }
-  page :cosplay, -> { entry.cosplay_galleries.any? }
-  page :images, -> { !entry.tags.blank? || entry.images.count > 0 }
-  page [:edit, [:description]], -> { user_signed_in? }
-  page [:edit, [:russian]], -> { user_signed_in? }
+#class CharactersDirector < BaseDirector
+  #page :info
+  #page :comments, -> { user_signed_in? || entry.thread.comments.any? }
+  #page :cosplay, -> { entry.cosplay_galleries.any? }
+  #page :images, -> { !entry.tags.blank? || entry.images.count > 0 }
+  #page [:edit, [:description]], -> { user_signed_in? }
+  #page [:edit, [:russian]], -> { user_signed_in? }
 
-  def index
-    append_title! 'Поиск персонажа'
-    append_title! SearchHelper.unescape(params[:search])
-  end
+  #def index
+    #append_title! 'Поиск персонажа'
+    #append_title! SearchHelper.unescape(params[:search])
+  #end
 
-  def show
-    noindex if params[:page] != 'info' || entry.description.blank?
-    append_title! [entry.russian, entry.name]
+  #def show
+    #noindex if params[:page] != 'info' || entry.description.blank?
+    #append_title! [entry.russian, entry.name]
 
-    redirect!
-  end
+    #redirect!
+  #end
 
-  def edit
-    noindex && nofollow
-    case params[:subpage].to_sym
-      when :russian
-        append_title! 'Изменение русского имени'
+  #def edit
+    #noindex && nofollow
+  #end
 
-      when :description
-        append_title! 'Изменение описания'
+  #def page
+    #show
 
-      else
-        raise ArgumentError.new "page: #{params[:page]}"
-    end
-  end
+    #noindex && nofollow
+    #case params[:page].to_sym
+      #when :images
+        #append_title! 'Галерея'
 
-  def page
-    show
+      #when :cosplay
+        #append_title! 'Косплей'
+        #raise NotFound if entry.cosplay_galleries.empty?
 
-    noindex && nofollow
-    case params[:page].to_sym
-      when :images
-        append_title! 'Галерея'
+      #when :comments
+        #append_title! 'Обсуждение'
+    #end
+  #end
 
-      when :cosplay
-        append_title! 'Косплей'
-        raise NotFound if entry.cosplay_galleries.empty?
+  #def tooltip
+    #noindex && nofollow
+    #redirect! character_tooltip_url(entry)
+  #end
 
-      when :comments
-        append_title! 'Обсуждение'
-    end
-  end
+  #def entry_url_builder
+    #:character_url
+  #end
 
-  def tooltip
-    noindex && nofollow
-    redirect! character_tooltip_url(entry)
-  end
+  #def entry_search_url_builder
+    #:character_search_path
+  #end
 
-  def entry_url_builder
-    :character_url
-  end
-
-  def entry_search_url_builder
-    :character_search_path
-  end
-
-private
-  def redirect?
-    entry.to_param != params[:id]
-  end
-end
+#private
+  #def redirect?
+    #entry.to_param != params[:id]
+  #end
+#end

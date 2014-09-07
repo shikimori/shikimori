@@ -1,88 +1,73 @@
 .b-entry-info
-  - if entry.kind != ''
-    p
-      span.key Тип:&nbsp;
-      span.value
-        = localized_kind entry
-
+  = info_line 'Тип', localized_kind(entry) if entry.kind.present?
   = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
-    p
-      span.key #{entry.episodes_aired > 0 ? 'Следующий' : 'Первый'} эпизод:&nbsp;
-      span.dark.anime-alt
-        = Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
+    = info_line "#{entry.episodes_aired > 0 ? 'Следующий' : 'Первый'} эпизод", Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
 
   - if entry.respond_to?(:episodes) && entry.duration && entry.duration > 0
-    p
-      span.key Длительность эпизода:&nbsp;
-      span.value itemprop="#{entry.kind == 'Movie' ? 'duration' : ''}"
+    = info_line 'Длительность эпизода' do
+      span itemprop="#{entry.kind == 'Movie' ? 'duration' : ''}"
         = humanize_minutes entry.duration
 
   = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
   = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
 
   - unless entry.status.blank?
-    p
-      span.key Статус:&nbsp;
-      span.value
-        = t "AniMangaStatus.#{entry.status}"
-        | &nbsp;
-        - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_on || entry.aired_on)
-          - if entry.released_on && entry.aired_on && entry.released_on.year != entry.aired_on.year
-            / вышло в 2011-2012 гг.
-            = "в #{entry.aired_on.year}-#{entry.released_on.year} гг."
-            - if entry.released_on.day != 1 && entry.released_on.month != 1 && entry.aired_on.day != 1 && entry.aired_on.month != 1
-              - if defined?(details) && details
-                |  (
-                span.notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
-                | )
-          - else
-            / вышло в 2011 г.
-            - if entry.released_on && entry.aired_on
-              = "в #{(entry.released_on || entry.aired_on).year} г."
-              / С 1 марта 2011 по 2 января 2012
-              - if defined?(details) && details
-                |  (
-                span.notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
-                | )
-            - elsif (entry.released_on || entry.aired_on).day != 1 || (entry.released_on || entry.aired_on).month != 1
-              / 1 марта 2011
-              = rus_date(entry.aired_on || entry.released_on, true)
-            - else
-              / в 2011 г.
-              = "в #{(entry.released_on || entry.aired_on).year} г."
+    = info_line 'Статус' do
+      = t "AniMangaStatus.#{entry.status}"
+      | &nbsp;
+      - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_on || entry.aired_on)
+        - if entry.released_on && entry.aired_on && entry.released_on.year != entry.aired_on.year
+          / вышло в 2011-2012 гг.
+          = "в #{entry.aired_on.year}-#{entry.released_on.year} гг."
+          - if entry.released_on.day != 1 && entry.released_on.month != 1 && entry.aired_on.day != 1 && entry.aired_on.month != 1
+            - if defined?(details) && details
+              |  (
+              span.notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
+              | )
         - else
-          - if entry.aired_on
-            - if entry.released_on || entry.status == AniMangaStatus::Ongoing || entry.status == AniMangaStatus::Publishing
-              | с&nbsp;
-            - elsif entry.status == AniMangaStatus::Anons && !entry.released_on
-              | на&nbsp;
-            span.dark.anime-alt
-              = rus_date entry.aired_on, true
-            | &nbsp;
-          - if entry.released_on
-            br
-            | по&nbsp;
-            span.dark.anime-alt
-              = rus_date entry.released_on, true
+          / вышло в 2011 г.
+          - if entry.released_on && entry.aired_on
+            = "в #{(entry.released_on || entry.aired_on).year} г."
+            / С 1 марта 2011 по 2 января 2012
+            - if defined?(details) && details
+              |  (
+              span.notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
+              | )
+          - elsif (entry.released_on || entry.aired_on).day != 1 || (entry.released_on || entry.aired_on).month != 1
+            / 1 марта 2011
+            = rus_date(entry.aired_on || entry.released_on, true)
+          - else
+            / в 2011 г.
+            = "в #{(entry.released_on || entry.aired_on).year} г."
+      - else
+        - if entry.aired_on
+          - if entry.released_on || entry.status == AniMangaStatus::Ongoing || entry.status == AniMangaStatus::Publishing
+            | с&nbsp;
+          - elsif entry.status == AniMangaStatus::Anons && !entry.released_on
+            | на&nbsp;
+          span.dark.anime-alt
+            = rus_date entry.aired_on, true
+          | &nbsp;
+        - if entry.released_on
+          br
+          | по&nbsp;
+          span.dark.anime-alt
+            = rus_date entry.released_on, true
 
   - if entry.rating.present? && entry.rating != 'None'
-    p
-      span.key Рейтинг:&nbsp;
-      span.value
-        = t "RatingShort.#{entry.rating}"
-        - if defined?(details) && details
-          |  (
-          span.notice.rating title="#{t "Rating.#{entry.rating}"}" ?
-          | )
+    = info_line 'Рейтинг' do
+      = t "RatingShort.#{entry.rating}"
+      - if defined?(details) && details
+        |  (
+        span.notice.rating title="#{t "Rating.#{entry.rating}"}" ?
+        | )
 
   - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)
-    p
-      span.key Альтернативные названия:&nbsp;
-      span.value
-        span.other-names.click-loader data-href="#{entry.other_names_url}"
-          span ...
+    = info_line 'Альтернативные названия' do
+      span.other-names.click-loader data-href="#{entry.other_names_url}"
+        span ...
 
   - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
     .additional-links

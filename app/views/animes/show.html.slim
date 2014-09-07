@@ -13,7 +13,7 @@
     - if @resource.released_on
       meta itemprop="endDate" content="#{@resource.released_on.to_s}"
 
-  .cc.m0
+  .cc-db_entry
     .c-image
       .block
         .anime-image
@@ -25,7 +25,7 @@
 
     .c-about
       .cc
-        .c-info
+        .c-info-left
           .subheadline Информация
           .block
             = render partial: 'animes/info', locals: { entry: @resource, details: true }
@@ -39,7 +39,7 @@
                 .watch-online.subheadline.blue
                   a href="#{new_anime_online_anime_anime_video_url @resource.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
 
-        .c-rating
+        .c-info-right
           - if @resource.with_score? && !@resource.anons?
             .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
               .subheadline.m5 Рейтинг
@@ -104,7 +104,8 @@
           | Все комментарии&nbsp;
           span.brackets = @resource.comments_count
 
-    .subheadline.m3 Отзывы
+    - if @resource.comments_count > 0
+      .subheadline.m3 Отзывы
     div
       .b-topic.unprocessed
         = render partial: 'topics/comments', locals: { topic: @resource.reviews_thread }

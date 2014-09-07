@@ -20,7 +20,7 @@ class AnimesCollectionController < ShikimoriController
       fetch_wo_pagination query
     else
       fetch_with_pagination query
-    end
+    end.map(&:decorate)
     one_found_redirect_check
 
     if params[:rel] || request.url.include?('order') || @description.blank? || params.any? {|k,v| k != 'genre' && v.include?(',') } || @entries.empty?

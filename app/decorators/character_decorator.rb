@@ -47,11 +47,6 @@ class CharacterDecorator < PersonDecorator
     decorated_entries object.mangas.limit(limit)
   end
 
-  # тип элемента для schema.org
-  def itemtype
-    'http://schema.org/Person'
-  end
-
   # основной топик
   def thread
     thread = TopicDecorator.new object.thread

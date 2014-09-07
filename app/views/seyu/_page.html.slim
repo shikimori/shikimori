@@ -1,0 +1,25 @@
+.menu-toggler
+  .toggler
+
+header.head
+  meta itemprop="name" content="#{{@resource.name}}"
+  - if @itemtype
+    h1
+      = @resource.headline
+  - else
+    h2
+      a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+      = @resource.headline
+
+  p.notice
+    = @resource.job_title
+
+  /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+.menu-slide-outer
+  .menu-slide-inner
+    .l-content
+      = yield
+
+    aside.l-menu
+      = render partial: 'seyu/menu'

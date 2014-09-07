@@ -1,7 +1,9 @@
 @import compass/utilities/general/clearfix
-@import mixins/column
 @import mixins/block
+@import mixins/brackets_surrounded
 @import mixins/clear_left
+@import mixins/column
+@import mixins/responsive
 
 .cc
   +block
@@ -33,8 +35,53 @@
     +iphone-portrait
       +column_b(2)
 
-=column-container($columns)
-  +clearfix
+.cc-db_entry
+  +block
+  +clear_left
+  margin-bottom: 0
 
-  .column
-    +column(1, $columns)
+  .c-image
+    +gte_ipad
+      +column_b(2)
+      width: 30.5%
+
+    +iphone-portrait
+      +column_b(1)
+
+    +iphone-landscape
+      +column_b(2)
+
+    img
+      max-width: 100%
+
+  .c-about
+    +gte_ipad
+      +column(2)
+      width: 65.5%
+      z-index: 1 // без этого нижний блок с description перекрывает текущий
+
+    +iphone-portrait
+      +column(1)
+
+    +iphone-landscape
+      +column(2)
+
+    .c-info-left, .c-info-right
+      +column_bm(2, 0.5, 6%)
+
+      +iphone
+        +column(1)
+
+    &:after
+      display: block
+      clear: left
+
+  .c-description
+    +block_m
+    margin-left: 34.6%
+    padding-top: 1px // из-за странной баги в фаерфоксе
+
+    +iphone
+      clear: both
+      margin-left: 0
+
