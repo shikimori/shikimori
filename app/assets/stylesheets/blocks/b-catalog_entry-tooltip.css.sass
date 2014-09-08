@@ -2,6 +2,7 @@
 @import mixins/clear_left
 @import mixins/links
 @import mixins/tag
+@import mixins/comma_separated
 
 .b-catalog_entry-tooltip
   +clear_left
@@ -20,26 +21,30 @@
 
     a.name
       +link
+      font-weight: bold
+      line-height: 20px
+      margin-bottom: 5px
 
-    .data, p
+    .text
+      font-size: 12px
+      line-height: 20px
+      margin-bottom: 5px
+
+    .line
       font-size: 12px
       line-height: 23px
 
-      &.name
-        line-height: 20px
-        margin-bottom: 5px
-        font-weight: bold
-
-      &.text
-        line-height: 20px
-        margin-bottom: 5px
-
-      .local-title, .key
+      .key
         color: #444
         font-weight: bold
+        display: inline
 
-      .genre, .studio, .publisher
+      .value
+        display: inline
+
+      .tag
         +tag
+        //+comma_separated
 
     .rating
       bottom: -10px

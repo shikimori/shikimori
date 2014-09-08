@@ -29,7 +29,7 @@ module UsersHelper
       I18n.t "#{entry.decorated? ? entry.object.class.name : entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
     else
       entry.kind
-    end.downcase
+    end
   end
 
   def page_background

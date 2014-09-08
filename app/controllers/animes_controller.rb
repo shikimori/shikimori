@@ -96,7 +96,7 @@ class AnimesController < ShikimoriController
   end
 
   def other_names
-    render partial: 'other_names'
+    noindex
   end
 
   # редактирование аниме
@@ -122,7 +122,6 @@ class AnimesController < ShikimoriController
 
   # тултип
   def tooltip
-    @resource = klass.find params[:id].to_i
   end
 
   # автодополнение

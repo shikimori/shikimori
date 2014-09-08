@@ -109,15 +109,6 @@ DEFAULT_LIST_SORT = "ranked"
     change_callback params.compile()
     false
 
-  # клики по тегам на странице
-  $('.ajax').on 'click', '.type.tag-base,.studio.tag-base,.publisher.tag-base,.genre.tag-base,.season.tag-base', (e) ->
-    type = $(@).data('type')
-    value = String($(@).data('value'))
-    $node = $("li.#{type}-#{value}")
-    $node = add_option(type, value)  unless $node.length
-    $node.trigger 'click'
-    false
-
   params =
     data: ->
       data

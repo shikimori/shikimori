@@ -3,29 +3,39 @@
     img.image src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}"
 
   .inner class="#{:offset if defined?(with_image) && with_image}"
-    .data.name itemprop="name"
+    .line itemprop="name"
       - if !defined?(cover_by) || cover_by != :link
-        a.data.name href="#{url_for anime}" title="#{localized_name anime}" itemprop="name"
+        a.data.name href="#{anime.url}" title="#{localized_name anime}" itemprop="name"
           = localized_name anime
       - else
-        .linkeable data-href="#{url_for anime}" data-title="#{localized_name anime}"
+        .linkeable data-href="#{anime.ur}" data-title="#{localized_name anime}"
           = localized_name anime
 
-    p.text itemprop="description"
+    .text itemprop="description"
       = anime.decorate.description_html_truncated
 
+    - if anime.kind.present?
+      = info_line "Тип" do
+        - if anime.kind.present?
+          .tag.linkeable data-href="#{anime.catalog_url type: anime.kind}"
+            = localized_kind anime, true
+        - if anime.year.present?
+          .tag.linkeable data-href="#{anime.catalog_url season: anime.year}"
+            = "#{anime.year} год"
+        - if anime.rating.present? && anime.rating != 'None'
+          .tag.linkeable data-href="#{anime.catalog_url rating: t("RatingShort.#{anime.rating}")}"
+            = t "RatingShort.#{anime.rating}"
+
     - if anime.respond_to?(:studios) && anime.real_studios.any?
-      .data
-        span.local-title Студи#{anime.real_studios.size > 1 ? 'и' : 'я'}:
+      = info_line "Студи#{anime.real_studios.size > 1 ? 'и' : 'я'}" do
         - anime.real_studios.each do |studio|
-          span.studio.tag.tag-base data-type="studio" data-value="#{studio.to_param}"
+          .tag.linkeable data-href="#{anime.catalog_url studio: studio.to_param}"
             = studio.name
 
     - if anime.respond_to?(:publishers) && anime.real_publishers.any?
-      .data
-        span.local-title Издател#{anime.real_publishers.size > 1 ? 'и' : 'ь'}:
+      = info_line "Издател#{anime.real_publishers.size > 1 ? 'и' : 'ь'}" do
         - anime.real_publishers.each do |publisher|
-          span.publisher.tag.tag-base data-type="publisher" data-value="#{publisher.to_param}"
+          .tag.linkeable data-href="#{anime.catalog_url studio: studio.to_param}"
             = publisher.name
 
     - if anime.respond_to?(:episodes) && (anime.episodes > 0 || anime.episodes_aired > 0)
@@ -37,17 +47,10 @@
     - if anime.respond_to?(:chapters) && anime.chapters > 0
       = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
 
-    .data
-      span.local-title Жанры:
+    = info_line 'Жанры' do
       - anime.main_genres.each do |genre|
-        span.genre.tag.tag-base data-type="genre" data-value="#{genre.to_param}" itemprop="genre" class="#{:bubbled if genre.description}" data-predelay="250" data-href="#{tooltip_genre_url genre}"
-          = localized_name genre
-
-    - if anime.rating.present? && anime.rating != 'None'
-      .data
-        span.key Возрастной рейтинг:&nbsp;
-        span
-          = t "RatingShort.#{anime.rating}"
+        .tag temprop="genre" class="#{:bubbled if genre.description}" data-predelay="250" data-href="#{tooltip_genre_url genre}"
+          .linkeable data-href="#{anime.catalog_url genre: genre.to_param}" = localized_name genre
 
     - if anime.with_score?
       .rating[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]

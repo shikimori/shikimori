@@ -48,6 +48,10 @@ module AniMangaDecorator::UrlHelpers
     h.send "files_#{klass_lower}_url", object
   end
 
+  def catalog_url *args
+    h.send "#{klass_lower}s_url", *args
+  end
+
   # адрес косплея персонажа
   def cosplay_url character, gallery = nil
     if gallery

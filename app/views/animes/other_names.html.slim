@@ -1,0 +1,11 @@
+= info_line 'По-японски' do
+  - if @resource.japanese.present?
+    span itemprop="alternativeHeadline" == @resource.japanese.join(', ')
+
+= info_line 'По-английски' do
+  - if @resource.english.present?
+    span itemprop="alternativeHeadline" == @resource.english.join(', ')
+
+= info_line 'Прочие названия' do
+  - if @resource.synonyms.present?
+    span itemprop="alternativeHeadline" == @resource.synonyms.join(', ')

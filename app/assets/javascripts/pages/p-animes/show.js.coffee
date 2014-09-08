@@ -5,7 +5,7 @@
 
   # клик по загрузке других названий
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->
-    $(@).parents('p').replaceWith data
+    $(@).closest('.line').replaceWith data
 
   # клик по смотреть онлайн
   $('.watch-online a').on 'click', ->

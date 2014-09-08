@@ -1,4 +1,6 @@
 class SeyuDecorator < PersonDecorator
+  WORK_GROUP_SIZE = 5
+
   def website_host
     begin
       URI.parse(object.website).host
@@ -47,10 +49,9 @@ class SeyuDecorator < PersonDecorator
     # для каждой группы оставляем только 6 в сумме аниме+персонажей
     @characters.each do |group|
       group[:characters] = group[:characters].take(5) if group[:characters].size > 5
-      animes_limit = 6 - group[:characters].size
+      animes_limit = WORK_GROUP_SIZE - group[:characters].size
       group[:animes] = group[:animes]
-        .map {|k,v| v }
-        .sort_by {|v| -1 * v.score }
+        .map {|k,v| v } #.sort_by {|v| -1 * v.score }
         .take(animes_limit)
         .sort_by {|v| v.aired_on || v.released_on || DateTime.new(2001) }
     end

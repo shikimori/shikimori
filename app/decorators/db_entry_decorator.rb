@@ -41,7 +41,7 @@ class DbEntryDecorator < BaseDecorator
   def description_html_truncated
     h.truncate_html(
       description_html,
-      length: 175, separator: ' ', word_boundary: /\S[\.\?\!<>]/
+      length: 150, separator: ' ', word_boundary: /\S[\.\?\!<>]/
     ).html_safe
   end
 

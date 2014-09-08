@@ -178,7 +178,7 @@
     .menu-block.ratings
       .subheadline Рейтинг
       ul.block-list.ratings.anime-params
-        - AniMangaQuery::Ratings.keys.each do |v|
+        - AniMangaQuery::Ratings.keys.reverse.each do |v|
           li class="rating-#{v}"
             input type="checkbox" autocomplete="off"
             = v

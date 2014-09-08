@@ -1,6 +1,6 @@
 .b-entry-info
-  = info_line 'Тип', localized_kind(entry) if entry.kind.present?
-  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
+  = info_line 'Тип', localized_kind(entry, true) if entry.kind.present?
+  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
     = info_line "#{entry.episodes_aired > 0 ? 'Следующий' : 'Первый'} эпизод", Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
@@ -10,8 +10,8 @@
       span itemprop="#{entry.kind == 'Movie' ? 'duration' : ''}"
         = humanize_minutes entry.duration
 
-  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
-  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
+  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }
+  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }
 
   - unless entry.status.blank?
     = info_line 'Статус' do
@@ -67,7 +67,7 @@
   - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)
     = info_line 'Альтернативные названия' do
       span.other-names.click-loader data-href="#{entry.other_names_url}"
-        span ...
+        span ···
 
   - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
     .additional-links
