@@ -1,6 +1,9 @@
 class PersonDecorator < DbEntryDecorator
-  delegate_all
   decorates_finders
+
+  instance_cache :website, :groupped_roles, :roles_names, :all_roles, :favoured, :works
+  instance_cache :producer?, :mangaka?, :seuy?, :composer?
+  instance_cache :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
 
   def credentials?
     japanese.present? || object.name.present?
@@ -11,7 +14,7 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def website
-    @website ||= if object.website.present?
+    if object.website.present?
       'http://%s' % object.website.sub(/^(http:\/\/)?/, '')
     else
       nil
@@ -19,44 +22,29 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def groupped_roles
-    @groupped_roles ||= begin
-      person_roles = object.person_roles
-        .group(:role)
-        .select('role, count(*) as times')
+    person_roles = object.person_roles
+      .group(:role)
+      .select('role, count(*) as times')
 
-      roles = {}
-      person_roles.each do |person_role|
-        person_role.role.split(',').each do |v|
-          v = process_role v
-          if roles.keys.include?(v)
-            roles[v] += person_role.times.to_i
-          else
-            roles[v] = person_role.times.to_i
-          end
-        end
-      end
-      roles = roles.sort do |lhs,rhs|
-        if lhs[1] < rhs[1]
-          1
-        elsif lhs[1] > rhs[1]
-          -1
+    person_roles.each_with_object({}) do |person_role, memo|
+      person_role.role.split(',').each do |v|
+        role = I18n.t("Role.#{v.strip.split(/, */).first}")
+
+        if memo.keys.include?(role)
+          memo[role] += person_role.times.to_i
         else
-          begin
-            I18n.t("Role.#{lhs[0]}") <=> I18n.t("Role.#{rhs[0]}")
-          rescue
-            0
-          end
+          memo[role] = person_role.times.to_i
         end
       end
-    end
+    end.sort_by(&:first)
   end
 
   def favoured
-    @favoured ||= FavouritesQuery.new.favoured_by object, 12
+    FavouritesQuery.new.favoured_by object, 12
   end
 
   def works
-    @works ||= begin
+    begin
       entries = all_roles.select {|v| v.anime || v.manga }.map do |v|
         {
           role: v.role,
@@ -102,14 +90,14 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def seyu?
-    @is_seyu ||= (roles_names & [
+    (roles_names & [
       'Japanese',
       'English'
     ]).any?
   end
 
   def composer?
-    @is_composer ||= (roles_names & [
+    (roles_names & [
       'Music'
     ]).any?
   end
@@ -119,7 +107,7 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def producer?
-    @is_producer ||= (roles_names & [
+    (roles_names & [
       'Chief Producer',
       'Producer',
       'Director',
@@ -128,11 +116,11 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def producer_favoured?
-    @producer_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Producer)
+    h.user_signed_in? && h.current_user.favoured?(object, Favourite::Producer)
   end
 
   def mangaka?
-    @is_mangaka ||= (roles_names & [
+    (roles_names & [
       'Original Creator',
       'Story & Art',
       'Story'
@@ -140,11 +128,11 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def mangaka_favoured?
-    @mangaka_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Mangaka)
+    h.user_signed_in? && h.current_user.favoured?(object, Favourite::Mangaka)
   end
 
   def person_favoured?
-    @person_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
+    h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
   end
 
   # тип элемента для schema.org
@@ -153,10 +141,6 @@ class PersonDecorator < DbEntryDecorator
   end
 
 private
-  def process_role(role)
-    role.strip
-  end
-
   def has_anime?
     all_roles.any? {|v| !v.anime_id.nil? }
   end
@@ -166,10 +150,10 @@ private
   end
 
   def all_roles
-    @all_roles ||= object.person_roles.includes(:anime).includes(:manga).to_a
+    object.person_roles.includes(:anime).includes(:manga).to_a
   end
 
   def roles_names
-    @roles_names ||= groupped_roles.map {|k,v| k }
+    groupped_roles.map {|k,v| k }
   end
 end

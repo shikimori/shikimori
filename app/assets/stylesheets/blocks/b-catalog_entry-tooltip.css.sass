@@ -1,0 +1,57 @@
+@import globals/variables
+@import mixins/clear_left
+@import mixins/links
+@import mixins/tag
+
+.b-catalog_entry-tooltip
+  +clear_left
+  line-height: $line_height
+  position: relative
+
+  .image
+    width: 160px
+    float: left
+
+  .inner
+    padding-bottom: 30px // нужно т.к. .rating с абсолютным позиционированием. чтобы контекнт на рейтинг не налез
+
+    &.offset
+      margin-left: 180px
+
+    a.name
+      +link
+
+    .data, p
+      font-size: 12px
+      line-height: 23px
+
+      &.name
+        line-height: 20px
+        margin-bottom: 5px
+        font-weight: bold
+
+      &.text
+        line-height: 20px
+        margin-bottom: 5px
+
+      .local-title, .key
+        color: #444
+        font-weight: bold
+
+      .genre, .studio, .publisher
+        +tag
+
+    .rating
+      bottom: -10px
+      color: #444
+      font-family: Tahoma
+      font-size: 23px
+      line-height: 18px
+      position: absolute
+      right: 0
+
+      .text
+        color: #555
+        float: left
+        font-size: 11px
+        margin: 5px

@@ -1,0 +1,17 @@
+@import mixins/brackets_surrounded
+@import mixins/column
+@import mixins/responsive
+
+.p-seyu-show
+  .c-ani_characters
+    .c-anime, .c-character
+      +column(7)
+      //+gte_ipad
+        +column(7)
+      //+iphone-portrait
+        +column(3)
+      //+iphone-landscape
+        +column(5)
+
+    .c-anime
+      float: right

@@ -122,7 +122,7 @@ class AnimesController < ShikimoriController
 
   # тултип
   def tooltip
-    @entry = klass.find params[:id].to_i
+    @resource = klass.find params[:id].to_i
   end
 
   # автодополнение

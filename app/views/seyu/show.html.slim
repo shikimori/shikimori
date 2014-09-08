@@ -17,6 +17,23 @@
                   a href="#{@resource.website}" rel="nofollow"
                     = @resource.website_host
 
+        .c-info-right
+          .subheadline Роли в проектах
+          .b-entry-info
+            - @resource.groupped_roles.each do |role,times|
+              = info_line role, times
+
+  .subheadline.m10 Персонажи и аниме
+  - @resource.works.each do |group|
+    .cc.c-ani_characters
+      = render partial: 'characters/character', collection: group[:characters], locals: { cover_minified: true, content_by: :tooltip }
+      = render partial: 'animes/anime', collection: group[:animes], locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+      /- group[:characters].each do |character|
+        /= render partial: 'blocks/person', locals: { person: character, role: nil, link_to_character: true, no_seyu: true, no_tooltip: true, remote: :character_tooltip_url }, formats: :html
+      /= render partial: 'blocks/ani_manga', collection: group[:animes], formats: :html
+
+
+
 /header.head
   /h1 title="#{@page_title.last}" itemprop="name"
     /= @page_title.last

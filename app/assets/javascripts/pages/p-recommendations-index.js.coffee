@@ -3,7 +3,7 @@
   if $('p.pending').exists()
     Turbolinks.visit.delay 5000, location.href, true
 
-  $('body').on 'mouseover', '.b-catalog-entry', ->
+  $('body').on 'mouseover', '.b-catalog_entry', ->
     $node = $(@)
     return if $node.hasClass 'entry-ignored'
 
@@ -15,15 +15,15 @@
         ignore_augmented: true
         ignore_button: $button
 
-  $('body').on 'mouseout', '.b-catalog-entry', ->
+  $('body').on 'mouseout', '.b-catalog_entry', ->
     $button = $(@).data('ignore_button')
     $button.hide() if $button
 
   $('body').on 'click', '.entry-ignored', (e) ->
     false unless in_new_tab(e)
 
-  $('body').on 'click', '.b-catalog-entry .mark-ignored', ->
-    $node = $(@).closest '.b-catalog-entry'
+  $('body').on 'click', '.b-catalog_entry .mark-ignored', ->
+    $node = $(@).closest '.b-catalog_entry'
     $link = $node.find('a')
 
     if $link.attr('href').match /(anime|manga)s\/(\d+)/

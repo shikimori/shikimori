@@ -1,7 +1,7 @@
 .linkeable data-href="#{person.class == Person && (defined?(link_to_seyu) && link_to_seyu) ? seyu_path(person, :only_path => false) : (person.class == Character && defined?(link_to_anime) && link_to_anime ? url_for(person.animes.first) : url_for(person))}" data-title="#{{localized_name person}}"
   - if role
     p.role itemprop="jobTitle"
-      == role != '' ? format_person_role(role) : '&nbsp;'
+      == role != '' ? I18n.t("Role.#{role.strip.split(/, */).first}") : '&nbsp;'
   center
     meta itemprop="image" content="#{{attachment_url person.image, :preview, false}}"
     img.image.bubbled src="#{person.image.url :preview}" srcset="#{person.image.url} 2x" alt="#{{localized_name person}}" title="#{{localized_name person}}" data-href="#{url_for person}/tooltip" data-offset-left="-5"

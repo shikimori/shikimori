@@ -303,7 +303,6 @@ Site::Application.routes.draw do
 
     # characters
     get 'characters/autocomplete/:search' => 'characters#autocomplete', as: :autocomplete_characters, format: :json, search: /.*/
-    get 'characters/:id/tooltip(/:test)' => 'characters#tooltip', as: :character_tooltip # это должно идти перед character_path
 
     resources :characters, only: [:show] do
       member do
@@ -311,6 +310,7 @@ Site::Application.routes.draw do
         get :animes
         get :mangas
         get :comments
+        get :tooltip
       end
     end
 
@@ -370,7 +370,7 @@ Site::Application.routes.draw do
           # инфо по торрентам эпизодов
           get 'episode_torrents'
           # тултип
-          get 'tooltip(/:test)', action: :tooltip, as: :tooltip
+          get :tooltip
           # редактирование
           patch 'apply'
 
@@ -465,8 +465,11 @@ Site::Application.routes.draw do
     get 'people/autocomplete(/:kind)/:search' => 'people#autocomplete', as: :autocomplete_people, format: :json
     get 'person/:id/tooltip(/:test)' => 'people#tooltip', as: :person_tooltip # это должно идти перед person_path
     get "person/:id/(/:sort)" => 'people#show', as: :person, constraints: { id: /\d[^\/]*/, sort: /time/ }
-    get "seyu/:id/(/:sort)(/:direct)" => 'seyu#show', as: :seyu, constraints: { id: /\d[^\/]*/, sort: /time/, direct: /direct/ }
-    get "seyu/:search(/page/:page)" => 'seyu#index', as: :seyu_search, kind: 'seyu', constraints: { page: /\d+/ }
+
+    resources :seyu, only: [:show] do
+      #get "seyu/:id/(/:sort)(/:direct)" => 'seyu#show', as: :seyu, constraints: { id: /\d[^\/]*/, sort: /time/, direct: /direct/ }
+      #get "seyu/:search(/page/:page)" => 'seyu#index', as: :seyu_search, kind: 'seyu', constraints: { page: /\d+/ }
+    end
     get "producer/:search(/page/:page)" => 'people#index', as: :producer_search, kind: 'producer', constraints: { page: /\d+/ }
     get "mangaka/:search(/page/:page)" => 'people#index', as: :mangaka_search, kind: 'mangaka', constraints: { page: /\d+/ }
     get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }

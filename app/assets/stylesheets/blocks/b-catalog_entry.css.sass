@@ -1,10 +1,11 @@
+@import compass/typography/text/ellipsis
 @import globals
-@import mixins/tag
 @import mixins/column
+@import mixins/links
 
 $max-width: 167px
 
-.b-catalog-entry
+.b-catalog_entry
   max-width: 490px
 
   &.cc
@@ -21,7 +22,7 @@ $max-width: 167px
           +column(2, 0.65)
 
   .cover
-    +link-color(#333333)
+    +link_color(#333333)
     font-size: 12px
     display: block
 
@@ -51,7 +52,7 @@ $max-width: 167px
 
     .title
       +ellipsis
-      +normal-link
+      +link
       display: block
       font-weight: bold
       line-height: $line_height
@@ -90,43 +91,6 @@ $max-width: 167px
     .tooltip-details
       padding: 5px 0
       min-height: 100px
-
-    a.name
-      +normal-link
-
-    .data, p
-      font-size: 12px
-      line-height: 23px
-
-      &.name
-        line-height: 20px
-        margin-bottom: 5px
-        font-weight: bold
-
-      &.text
-        line-height: 20px
-        margin-bottom: 5px
-
-      .local-title, .key
-        color: #444
-        font-weight: bold
-
-      .genre, .studio, .publisher
-        +tag
-
-    .rating
-      color: #444
-      float: right
-      font-family: Tahoma
-      font-size: 23px
-      line-height: 18px
-      margin: 1px 0
-
-      .text
-        color: #555
-        float: left
-        font-size: 11px
-        margin: 5px
 
   &.minified
     .image-decor
