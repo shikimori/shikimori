@@ -1,4 +1,4 @@
-class AniMangaComment < AniMangaEntry
+class AniMangaComment < DbEntryThread
   include ActionView::Helpers::UrlHelper
 
   def sync

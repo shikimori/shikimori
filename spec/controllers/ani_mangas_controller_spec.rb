@@ -10,7 +10,7 @@ require 'spec_helper'
     let(:person) { create :person }
 
     before do
-      create(:section, id: AniMangaEntry::SectionIDs[type.to_s.capitalize], name: 'a') if Section.find_by_name('a').nil?
+      create(:section, id: DbEntryThread::SectionIDs[type.to_s.capitalize], name: 'a') if Section.find_by_name('a').nil?
     end
     let(:json) { JSON.parse response.body }
     let(:entry_url) { entry.class == Anime ? anime_url(entry) : manga_url(entry) }

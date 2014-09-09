@@ -33,24 +33,25 @@ class CharactersController < PeopleController
 
   # все сэйю персонажа
   def seyu
-    page_title 'Сэйю'
     raise NotFound if @resource.seyu.none?
+    page_title 'Сэйю'
   end
 
   # все аниме персонажа
   def animes
-    page_title 'Анимеграфия'
     raise NotFound if @resource.animes.none?
+    page_title 'Анимеграфия'
   end
 
   # вся манга персонажа
   def mangas
-    page_title 'Мангаграфия'
     raise NotFound if @resource.mangas.none?
+    page_title 'Мангаграфия'
   end
 
   def comments
-    page_title "Обсуждение персонажа"
+    raise NotFound if @resource.thread.comments_count.zero?
+    page_title 'Обсуждение персонажа'
 
     @thread = TopicDecorator.new @resource.thread
     @thread.topic_mode!

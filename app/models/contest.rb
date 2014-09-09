@@ -80,7 +80,7 @@ public
     end
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      contest.send :create_thread unless contest.thread
+      contest.send :generate_thread unless contest.thread
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Date.today if contest.started_on < Date.today
@@ -193,7 +193,7 @@ private
   end
 
   # создание AniMangaComment для элемента сразу после создания
-  def create_thread
+  def generate_thread
     create_thread! linked: self, section_id: Section::ContestsId, user: user
   end
 end

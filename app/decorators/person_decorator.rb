@@ -1,9 +1,11 @@
 class PersonDecorator < DbEntryDecorator
   decorates_finders
 
-  instance_cache :website, :groupped_roles, :roles_names, :all_roles, :favoured, :works
+  instance_cache :website, :all_roles, :groupped_roles, :roles_names, :favoured
   instance_cache :producer?, :mangaka?, :seuy?, :composer?
   instance_cache :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
+
+  rails_cache :works
 
   def credentials?
     japanese.present? || object.name.present?
@@ -21,21 +23,18 @@ class PersonDecorator < DbEntryDecorator
     end
   end
 
+  def flatten_roles
+    object.person_roles
+      .pluck(:role)
+      .map {|v| v.split(/, */) }
+      .flatten
+  end
+
   def groupped_roles
-    person_roles = object.person_roles
-      .group(:role)
-      .select('role, count(*) as times')
-
-    person_roles.each_with_object({}) do |person_role, memo|
-      person_role.role.split(',').each do |v|
-        role = I18n.t("Role.#{v.strip.split(/, */).first}")
-
-        if memo.keys.include?(role)
-          memo[role] += person_role.times.to_i
-        else
-          memo[role] = person_role.times.to_i
-        end
-      end
+    flatten_roles.each_with_object({}) do |role, memo|
+      role_name = I18n.t("Role.#{role}")
+      memo[role_name] ||= 0
+      memo[role_name] += 1
     end.sort_by(&:first)
   end
 
@@ -90,41 +89,29 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def seyu?
-    (roles_names & [
-      'Japanese',
-      'English'
-    ]).any?
+    flatten_roles.include?('Japanese') || flatten_roles.include?('English')
   end
 
   def composer?
-    (roles_names & [
-      'Music'
-    ]).any?
+    roles_names.include?('Music')
+  end
+
+  def producer?
+    flatten_roles.include?('Chief Producer') || flatten_roles.include?('Producer') ||
+      flatten_roles.include?('Director') || flatten_roles.include?('Episode Director')
+  end
+
+  def mangaka?
+    flatten_roles.include?('Original Creator') ||
+      flatten_roles.include?('Story & Art') || flatten_roles.include?('Story')
   end
 
   def seyu_favoured?
     h.user_signed_in? && h.current_user.favoured?(object, Favourite::Seyu)
   end
 
-  def producer?
-    (roles_names & [
-      'Chief Producer',
-      'Producer',
-      'Director',
-      'Episode Director'
-    ]).any?
-  end
-
   def producer_favoured?
     h.user_signed_in? && h.current_user.favoured?(object, Favourite::Producer)
-  end
-
-  def mangaka?
-    (roles_names & [
-      'Original Creator',
-      'Story & Art',
-      'Story'
-    ]).any?
   end
 
   def mangaka_favoured?
@@ -138,6 +125,13 @@ class PersonDecorator < DbEntryDecorator
   # тип элемента для schema.org
   def itemtype
     'http://schema.org/Person'
+  end
+
+  # основной топик
+  def thread
+    thread = TopicDecorator.new object.thread
+    thread.preview_mode!
+    thread
   end
 
 private

@@ -1,5 +1,5 @@
-class AniMangaEntry < Entry
-  SectionIDs = {'Anime' => 1, 'Manga' => 6, 'Character' => 7, 'Group' => 10, 'Review' => 12}
+class DbEntryThread < Entry
+  SectionIDs = {'Anime' => 1, 'Manga' => 6, 'Character' => 7, 'Person' => 14, 'Group' => 10, 'Review' => 12}
 
   attr_defaults section_id: -> { SectionIDs[linked_type] }
   attr_defaults user_id: -> { BotsService.get_poster.id }

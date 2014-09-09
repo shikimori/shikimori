@@ -467,6 +467,8 @@ Site::Application.routes.draw do
     get "person/:id/(/:sort)" => 'people#show', as: :person, constraints: { id: /\d[^\/]*/, sort: /time/ }
 
     resources :seyu, only: [:show] do
+      get :roles, on: :member
+      get :comments, on: :member
       #get "seyu/:id/(/:sort)(/:direct)" => 'seyu#show', as: :seyu, constraints: { id: /\d[^\/]*/, sort: /time/, direct: /direct/ }
       #get "seyu/:search(/page/:page)" => 'seyu#index', as: :seyu_search, kind: 'seyu', constraints: { page: /\d+/ }
     end

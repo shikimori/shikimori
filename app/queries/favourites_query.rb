@@ -1,12 +1,15 @@
 class FavouritesQuery
   def top_favourite_ids klass, limit
+    top_favourite(klass, limit).pluck(:linked_id)
+  end
+
+  def top_favourite klass, limit
     Favourite
       .where(linked_type: klass.name)
       .group(:linked_id)
       .order('count(*) desc')
       .select(:linked_id)
       .limit(limit)
-      .pluck(:linked_id)
   end
 
   # получение списка людей, добавивших сущность в избранное

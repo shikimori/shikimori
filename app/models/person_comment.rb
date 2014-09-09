@@ -1,6 +1,6 @@
-class PersonComment < CharacterComment
+class PersonComment < AniMangaComment
   # текст топика
   def text
-    "Обсуждение [#{self.linked_type.downcase}=#{self.linked_id}]человека[/#{self.linked_type.downcase}]."
+    "Обсуждение [person=#{self.linked_id}]человека[/person]."
   end
 end

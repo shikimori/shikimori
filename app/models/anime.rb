@@ -1,7 +1,7 @@
 # TODO: переделать kind в enumerize (https://github.com/brainspec/enumerize)
 # TODO: extract torrents to value object
 # TODO: выпилить matches_for и заменить на использование NameMatcher
-class Anime < ActiveRecord::Base
+class Anime < DbEntry
   include AniManga
   EXCLUDED_ONGOINGS = [966,1199,1960,2406,4459,6149,7511,7643,8189,8336,8631,8687,9943,9947,10506,10797,10995,12393,13165,13433,13457,13463,15111,15749,16908,18227,18845,18941,19157,19445,19825,20261,21447,21523,24403,24969,24417,24835,25503,27687,26453,26163,27519]
   ADULT_RATINGS = ['R+ - Mild Nudity', 'Rx - Hentai']
@@ -69,18 +69,8 @@ class Anime < ActiveRecord::Base
     through: :cosplay_gallery_links,
     class_name: CosplaySession.name
 
-  has_one :thread, -> { where linked_type: Anime.name },
-    class_name: AniMangaComment.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
-
   has_many :reviews, -> { where target_type: Anime.name },
     foreign_key: :target_id,
-    dependent: :destroy
-
-  has_many :images, -> { where owner_type: Anime.name },
-    class_name: AttachedImage.name,
-    foreign_key: :owner_id,
     dependent: :destroy
 
   has_many :screenshots, -> { where(status: nil).order(:position, :id) }, inverse_of: :anime
@@ -113,10 +103,6 @@ class Anime < ActiveRecord::Base
     default_url: '/assets/globals/missing_:style.jpg'
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
-
-  # Hooks
-  after_create :create_thread
-  after_save :sync_thread
 
   before_save :check_status
   after_save :update_news
@@ -493,19 +479,5 @@ class Anime < ActiveRecord::Base
 
   def adult?
     censored || ADULT_RATINGS.include?(rating)
-  end
-
-  # создание AniMangaComment для элемента сразу после создания
-  def create_thread
-    AniMangaComment.create! linked: self, generated: true, title: name
-  end
-
-  # при сохранении аниме обновление его CommentEntry
-  def sync_thread
-    if changes["name"]
-      thread.class.record_timestamps = false
-      thread.save
-      thread.class.record_timestamps = true
-    end
   end
 end

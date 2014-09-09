@@ -3,24 +3,6 @@ module AniManga
 
   def self.included klass
     klass.extend ClassMethods
-
-    klass.before_save do
-      self.russian = CGI::escapeHTML russian if changes['russian']
-    end
-  end
-
-  def to_param
-    "#{id}-#{name.permalinked}"
-  end
-
-  # аниме ли это?
-  def anime?
-    self.class == Anime
-  end
-
-  # манга ли это?
-  def manga?
-    self.class == Manga
   end
 
   def year
@@ -49,14 +31,14 @@ module AniManga
     name.gsub(/:.*|'$/, '')
   end
 
-  def description
-    desc = HTMLEntities.new.decode(self[:description] || self[:description_mal] || '')
-    if desc.blank?
-      self.class == Anime ? 'У этого аниме пока ещё нет описания.' : 'У этой манги пока ещё нет описания.'
-    else
-      desc.html_safe
-    end
-  end
+  #def description
+    #desc = HTMLEntities.new.decode(self[:description] || self[:description_mal] || '')
+    #if desc.blank?
+      #self.class == Anime ? 'У этого аниме пока ещё нет описания.' : 'У этой манги пока ещё нет описания.'
+    #else
+      #desc.html_safe
+    #end
+  #end
 
   def russian
     self[:russian] ? self[:russian].gsub(/\.? *\((?:С|с)езон .*\)$|\.? *\((?:С|с)езон .*\)$|\.? *\(.* (?:С|с)езон\)$|\.? *(\[|\()(?:TV|ТВ|OVA|ONA|ОВА|Movie).*(\]|\))$|(?: - )?\(?(?:Ф|ф)ильм[^,]*?\)?$/i, '').strip : nil

@@ -24,7 +24,7 @@ class Review < ActiveRecord::Base
   validates_inclusion_of :music, in: 1..10, message: "не имеет оценки", if: -> { self.target_type != Manga.name  }
   validates_inclusion_of :overall, in: 1..10, message: "не задана"
 
-  after_create :create_thread
+  after_create :generate_thread
 
   scope :pending, -> { where state: 'pending' }
   scope :visible, -> { where state: ['pending', 'accepted'] }
@@ -57,7 +57,7 @@ class Review < ActiveRecord::Base
   end
 
   # создание ReviewComment для элемента сразу после создания
-  def create_thread
+  def generate_thread
     ReviewComment.create!(
       linked_id: self.id,
       linked_type: self.class.name,

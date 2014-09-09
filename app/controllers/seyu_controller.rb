@@ -4,7 +4,7 @@ class SeyuController < PeopleController
 
   # поиск по сэйю
   def index
-    append_title! "Поиск сэйю"
+    append_title! 'Поиск сэйю'
     append_title! SearchHelper.unescape(params[:search])
 
     @query = SeyuQuery.new(params)
@@ -17,9 +17,21 @@ class SeyuController < PeopleController
     @itemtype = @resource.itemtype
   end
 
+  def roles
+    page_title "Роли в аниме"
+  end
+
+  def comments
+    raise NotFound if @resource.thread.comments_count.zero?
+    page_title 'Обсуждение'
+
+    @thread = TopicDecorator.new @resource.thread
+    @thread.topic_mode!
+  end
+
 private
   def fetch_resource
-    @resource = SeyuDecorator.new Person.find(params[:id].to_i)
+    @resource = SeyuDecorator.new Person.find(params[:id])
   end
 
   def role_redirect

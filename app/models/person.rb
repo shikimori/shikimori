@@ -1,13 +1,8 @@
-class Person < ActiveRecord::Base
+class Person < DbEntry
   has_many :person_roles, dependent: :destroy
   has_many :animes, -> { order :id }, through: :person_roles
   has_many :mangas, -> { order :id }, through: :person_roles
   has_many :characters, -> { order :id }, through: :person_roles
-
-  has_many :images, -> { where owner_type: Person.name },
-    class_name: AttachedImage.name,
-    foreign_key: :owner_id,
-    dependent: :destroy
 
   has_attached_file :image,
     styles: {
@@ -25,9 +20,9 @@ class Person < ActiveRecord::Base
   MangakaRoles = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
   # является ли человек режиссёром
-  def producer?(role)
-    role.include?('Director')
-  end
+  #def producer? role
+    #role.include?('Director')
+  #end
 
   def to_param
     "%d-%s" % [id, name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, '')]

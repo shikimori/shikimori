@@ -3,7 +3,7 @@ require 'spec_helper'
 describe AniMangasController::ReviewsController do
   [:anime, :manga].each do |kind|
     describe kind do
-      before { create :section, id: AniMangaEntry::SectionIDs[kind.to_s.capitalize], permalink: 'a', name: 'Аниме' }
+      before { create :section, id: DbEntryThread::SectionIDs[kind.to_s.capitalize], permalink: 'a', name: 'Аниме' }
 
       let(:user) { create :user }
       let(:entry) { create kind }

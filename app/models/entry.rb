@@ -156,7 +156,7 @@ class Entry < ActiveRecord::Base
 private
   # проверка, что linked при его наличии нужного типа
   def validates_linked
-    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Group|Review|Contest)$/
+    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Group|Review|Contest)$/
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end

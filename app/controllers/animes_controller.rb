@@ -75,6 +75,7 @@ class AnimesController < ShikimoriController
   end
 
   def comments
+    raise NotFound if @resource.thread.comments_count.zero?
     noindex
     page_title "Обсуждение #{@resource.anime? ? 'аниме' : 'манги'}"
 

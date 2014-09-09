@@ -48,7 +48,7 @@ class Group < ActiveRecord::Base
   enum comment_policy: { free_comment: 1, members_comment: 100 }
 
   before_save :update_permalink
-  after_create :create_thread
+  after_create :generate_thread
   after_save :sync_thread
 
   has_attached_file :logo,
@@ -124,7 +124,7 @@ private
   end
 
   # создание AniMangaComment для элемента сразу после создания
-  def create_thread
+  def generate_thread
     create_thread! linked: self, section_id: Section::GroupsId, title: name
   end
 end
