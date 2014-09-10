@@ -1,3 +1,4 @@
+# TODO: добавить метод для премодерации. @blackchestnut
 class ActiveRecord::Base
   module ClassMethod
     def diff(*attrs)
@@ -42,7 +43,7 @@ class ActiveRecord::Base
   end
 
   def versions
-    Version.where(item_id: self.id, item_type: self.class.name).order('id desc')
+    Version.where(item_id: self.id, item_type: self.class.name).order(:id)
   end
 
 private

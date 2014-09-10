@@ -295,6 +295,6 @@ describe AnimeVideo do
     subject { video.reload.versions }
     it { should_not be_blank }
     it { should have(2).items }
-    specify { subject.first.item_diff.should eq last_diff_hash.to_s }
+    specify { subject.last.item_diff.should eq last_diff_hash.to_s }
   end
 end
