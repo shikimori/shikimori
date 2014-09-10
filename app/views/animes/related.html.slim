@@ -4,4 +4,4 @@
     a href="#{@resource.chronology_url}" Вся хронология
   .subheadline.m10 = @page_title.last
   .cc-5
-    = render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_minified: true, cover_notice: :relation, content_by: :tooltip }, formats: :html
+    = render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_notice: :relation }

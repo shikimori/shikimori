@@ -43,8 +43,13 @@ $aside_width: 310px
 
       img
         float: left
-        margin: 1px 10px 7px 0
-        width: 48px
+        +gte_ipad
+          margin: 1px 10px 7px 0
+          width: 48px
+
+        +iphone
+          margin: 1px 7px 4px 0
+          width: 32px
 
       .name-date
         +ellipsis

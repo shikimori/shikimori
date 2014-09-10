@@ -12,10 +12,10 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
       .person_roles.directors
       .references(:people)
       .where.not(people: { name: nil })
-      .select { |v| !(v.role.split(',') & ['Director', 'Original Creator', 'Story & Art', 'Story', 'Art']).empty? }
-      .uniq { |v| v.person.name }
-      .map {|v| RoleEntry.new v.person, v.role }
-      .sort_by(&:formatted_role)
+        .select { |v| !(v.role.split(',') & ['Director', 'Original Creator', 'Story & Art', 'Story', 'Art']).empty? }
+        .uniq { |v| v.person.name }
+        .map {|v| RoleEntry.new v.person, v.role }
+        .sort_by(&:formatted_role)
   end
 
   # все участники проекта

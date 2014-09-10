@@ -23,7 +23,7 @@ class Entry < ActiveRecord::Base
   after_save :claim_images
 
   # классы, которые не отображаются на общем форуме, пока у них нет комментарив
-  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'GroupComment']
+  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'GroupComment']
 
   # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
   SpecialInnerTypes = ['AnimeNews', 'MangaNews']

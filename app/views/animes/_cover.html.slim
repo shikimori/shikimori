@@ -6,11 +6,11 @@ span.image-decor
       img src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}" title="#{localized_name anime}"
 
 - if cover_by == :link
-  span.title itemprop="name"
+  span.title class="#{:left_aligned if cover_notice != :none}" itemprop="name"
     = localized_name anime
 
 - else
-  a.title href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
+  a.title class="#{:left_aligned if cover_notice != :none}" href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
     = localized_name anime
 
 span.misc

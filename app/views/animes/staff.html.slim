@@ -2,4 +2,4 @@
   .block.m0
     h2.subheadline.m10 = @page_title.last
     .cc.m0
-      = render partial: 'people/person', collection: @resource.roles.people, locals: { cover_minified: true }
+      = render @resource.roles.people

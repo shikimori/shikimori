@@ -6,7 +6,7 @@ header.head.ajaxable
   .notice
     == @title_notice
 
-= render partial: 'animes_collection/pagination'
+= render partial: 'pagination'
 
 .menu-toggler
   .toggler
@@ -15,13 +15,13 @@ header.head.ajaxable
   .menu-slide-inner
     section.l-content.cc-4 data-entries-per-page="#{entries_per_page}"
       - if @entries.any?
-        = render partial: 'animes_collection/entries'
+        = render partial: 'entries'
       - else
         p Ничего не найдено.
 
     aside.l-menu
       - if user_signed_in? || turbolinks_request?
-          = render partial:  'animes_collection/menu', locals: { social: true, klass: klass }
+          = render partial: 'menu', locals: { social: true, klass: klass }
       - else
           .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
             .ajax-loading title="Загрузка..."

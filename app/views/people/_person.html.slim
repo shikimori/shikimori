@@ -1,10 +1,10 @@
 article.c-column.b-catalog_entry.c-person[
-    class="entry-#{person.id} #{:minified if defined? cover_minified}"
+    class="entry-#{person.id} minified"
     itemscope itemtype="http://schema.org/Person"
     itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
   ]
   meta itemprop="image" content="#{{attachment_url person.image, :original, false}}"
-  meta itemprop="thumbnailUrl" content="#{{attachment_url person.image, :x64, false}}"
+  meta itemprop="thumbnailUrl" content="#{{attachment_url person.image, :x48, false}}"
 
   a.cover href="#{person_url person}"
     span.image-decor

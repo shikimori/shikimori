@@ -27,7 +27,7 @@
       .subheadline.m10
         .linkeable data-href="#{roles_seyu_url @resource}" Лучшие роли
       .c-characters
-        = render partial: 'characters/character', collection: @resource.best_roles, locals: { cover_minified: true, content_by: :tooltip }
+        = render @resource.best_roles
 
   - if user_signed_in? || @resource.thread.comments_count > 0
     - if @resource.thread.comments_count > 0

@@ -22,7 +22,7 @@
               /- else
                 | Сэйю
             .cc.m0
-              = render partial: 'people/person', collection: @resource.seyu.take(3), locals: { cover_minified: true }
+              = render @resource.seyu.take(3)
 
     .c-description
       .subheadline.m5 Описание
@@ -45,13 +45,13 @@
     .subheadline.m10
       .linkeable data-href="#{animes_character_url @resource}" Анимеграфия
     .cc.m0
-      = render partial: 'animes/anime', collection: @resource.animes(7), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+      = render @resource.animes(7)
 
   - if @resource.mangas(7).any?
     .subheadline.m10
       .linkeable data-href="#{mangas_character_url @resource}" Мангаграфия
     .cc.m0
-      = render partial: 'animes/anime', collection: @resource.mangas(7), locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+      = render @resource.mangas(7)
 
   - if user_signed_in? || @resource.thread.comments_count > 0
     - if @resource.thread.comments_count > 0

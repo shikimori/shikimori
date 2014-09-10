@@ -1,5 +1,6 @@
 class AnimeDecorator < AniMangaDecorator
   instance_cache :files, :next_episode_at
+
   # скриншоты
   def screenshots limit=nil
     (@screenshots ||= {})[limit] ||= if object.respond_to? :screenshots

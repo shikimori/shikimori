@@ -8,7 +8,9 @@ class Person < DbEntry
     styles: {
       original: ['225x350>', :jpg],
       preview: ['80x120>', :jpg],
-      x64: ['43x64#', :jpg]
+      #x64: ['43x64#', :jpg]
+      x96: ['96x150>', :jpg],
+      x48: ['48x75>', :jpg]
     },
     url: "/images/person/:style/:id.:extension",
     path: ":rails_root/public/images/person/:style/:id.:extension",

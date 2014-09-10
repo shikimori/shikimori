@@ -1,0 +1,4 @@
+- content_by ||= :tooltip
+- cover_notice ||= :none
+
+= render partial: 'animes/anime', object: manga, locals: { content_by: content_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil }

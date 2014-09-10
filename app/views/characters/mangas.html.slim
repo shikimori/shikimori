@@ -2,4 +2,4 @@
   .block.m0
     h2.subheadline.m10 = @page_title.first
     .cc-5
-      = render partial: 'animes/anime', collection: @resource.mangas, locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+      = render @resource.mangas

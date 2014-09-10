@@ -26,6 +26,11 @@
     &>.b-comments
       margin-left: 24px
 
+      // в превью топика первый комментарий отобразим с дефолтным отступом и бордером
+      .b-comment:first-child
+        padding-top: 5px
+        border-top-width: 1px
+
     // блок шики-эдитора
     &>.editor-container
       display: none

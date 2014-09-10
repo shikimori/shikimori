@@ -1,6 +1,6 @@
 .c-work
   .c-characters class="s-#{work[:characters].size}"
-    = render partial: 'characters/character', collection: work[:characters], locals: { cover_minified: true, content_by: :tooltip }
+    = render work[:characters]
 
   .c-animes class="s-#{work[:animes].size} c-#{work[:characters].size}"
-    = render partial: 'animes/anime', collection: work[:animes], locals: { cover_minified: true, cover_notice: :none, content_by: :tooltip }
+    = render work[:animes]

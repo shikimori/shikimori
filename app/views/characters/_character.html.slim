@@ -1,11 +1,16 @@
+- content_by ||= :tooltip
+
 article.c-column.b-catalog_entry.c-character[
-    class="entry-#{character.id} #{:minified if defined? cover_minified} #{:tooltipped if content_by == :tooltip}"
+    class="entry-#{character.id} #{:minified if content_by == :tooltip} #{:cc if content_by == :block}"
     itemscope itemtype="http://schema.org/Person"
   ]
   meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"
-  meta itemprop="thumbnailUrl" content="#{{attachment_url character.image, :x64, false}}"
+  meta itemprop="thumbnailUrl" content="#{{attachment_url character.image, :x48, false}}"
 
-  a.cover class="#{'anime-tooltip' if content_by == :tooltip}" href="#{character_url character}" data-local-tooltip="true"
+  a.cover[
+      class="#{'anime-tooltip' if content_by == :tooltip}"
+      href="#{character_url character}"
+    ]
     span.image-decor
       span.image-cutter
         img src="#{character.image.url :original}" alt="#{localized_name character}" title="#{localized_name character}"
@@ -13,10 +18,11 @@ article.c-column.b-catalog_entry.c-character[
     span.title itemprop="name"
       = localized_name character
 
-  .content
-    - if content_by == :tooltip
-      = render partial: 'blocks/tooltip', locals: { template_name: 'characters/content', objects: { character: character } }, formats: :html
-    - elsif content_by == :block
-      = render partial: 'characters/content', object: character, as: :character, formats: :html
-    - else
-      - raise ArgumentError, content_by
+  - unless content_by == :tooltip
+    .content
+      /- if content_by == :tooltip
+        = render partial: 'blocks/tooltip', locals: { template_name: 'characters/content', objects: { character: character } }
+      - if content_by == :block
+        = render partial: 'characters/content', object: character, as: :character
+      - else
+        - raise ArgumentError, content_by

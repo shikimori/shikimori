@@ -26,7 +26,7 @@ class AnimesController < ShikimoriController
   end
 
   def characters
-    raise NotFound if @resource.roles.characters.none?
+    raise NotFound if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
     page_title "Персонажи #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
