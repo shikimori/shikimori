@@ -78,8 +78,7 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
     @video = AnimeVideo.find params[:id]
     author = find_or_create_author params[:anime_video][:author].to_s.strip
     if video_params[:episode] != @video.episode || video_params[:kind] != @video.kind || author.id != @video.author_id
-      if @video.update_attributes video_params.merge(anime_video_author_id: author.id)
-        AnimeOnline::AnimeVideosService.upload_report current_user, @video
+      if @video.moderated_update video_params.merge(anime_video_author_id: author.id), current_user
         redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео изменено'
       else
         render :edit
@@ -139,7 +138,7 @@ private
   end
 
   def find_or_create_author name
-    AnimeVideoAuthor.where(name: name).first || AnimeVideoAuthor.new(name: name)
+    AnimeVideoAuthor.where(name: name).first || AnimeVideoAuthor.create(name: name)
   end
 
   def save_preferences
