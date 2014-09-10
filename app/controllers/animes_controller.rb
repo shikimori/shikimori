@@ -4,7 +4,7 @@ class AnimesController < ShikimoriController
   respond_to :html, :json, only: :page
 
   before_action :authenticate_user!, only: [:edit]
-  before_action :fetch_resource
+  before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :set_title, if: -> { @resource }
   before_action :check_redirect, if: -> { @resource }
@@ -187,7 +187,7 @@ private
   end
 
   def fetch_resource
-    @resource = klass.find(resource_id.to_i).decorate if resource_id
+    @resource = klass.find(resource_id.to_i).decorate
   end
 
   def set_breadcrumbs

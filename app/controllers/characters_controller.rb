@@ -1,9 +1,8 @@
 # TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
-  layout false, only: [:tooltip]
-  before_filter :authenticate_user!, only: [:edit]
+  #layout false, only: [:tooltip]
+  #before_action :authenticate_user!, only: [:edit]
 
-  before_action :fetch_resource
   before_action :check_redirect, if: -> { @resource }
 
   #caches_action :index, CacheHelper.cache_settings
@@ -88,11 +87,7 @@ class CharactersController < PeopleController
   end
 
 private
-  def klass
-    Character
-  end
-
   def fetch_resource
-    @resource = klass.find(resource_id.to_i).decorate if resource_id
+    @resource = Character.find(resource_id).decorate
   end
 end

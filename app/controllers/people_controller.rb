@@ -1,11 +1,14 @@
 class PeopleController < ShikimoriController
-  layout false, only: [:tooltip, :autocomplete]
+  #layout false, only: [:tooltip, :autocomplete]
 
   respond_to :html, only: [:show, :tooltip]
   respond_to :html, :json, only: :index
   respond_to :json, only: :autocomplete
 
-  caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
+  before_action :fetch_resource, if: :resource_id
+  before_action :set_title, if: -> { @resource }
+
+  #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   # отображение списка людей
   def index
@@ -34,5 +37,14 @@ class PeopleController < ShikimoriController
   # автодополнение
   def autocomplete
     @items = PeopleQuery.new(params).complete
+  end
+
+private
+  def set_title
+    page_title @resource.name
+  end
+
+  def fetch_resource
+    @resource = Person.find(resource_id).decorate
   end
 end

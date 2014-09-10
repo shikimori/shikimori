@@ -1,5 +1,4 @@
 class SeyuController < PeopleController
-  before_action :fetch_resource
   before_action :role_redirect
 
   # поиск по сэйю
@@ -31,7 +30,7 @@ class SeyuController < PeopleController
 
 private
   def fetch_resource
-    @resource = SeyuDecorator.new Person.find(params[:id])
+    @resource = SeyuDecorator.new Person.find(resource_id)
   end
 
   def role_redirect
