@@ -8,9 +8,10 @@ describe Version do
   end
 
   describe :state_machine do
-    let(:video) { create :anime_video, episode: 2 }
+    let(:anime) { create :anime }
+    let(:video) { create :anime_video, anime: anime, episode: 2 }
     let(:diff_hash) { {episode: [1,2]} }
-    let(:version) { create :version_anime_video, item_diff: diff_hash.to_s, state: state }
+    let(:version) { create :version_anime_video, item_id: video.id, item_diff: diff_hash.to_s, state: state }
     subject { version }
 
     describe '#accept' do

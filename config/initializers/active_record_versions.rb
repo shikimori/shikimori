@@ -41,6 +41,10 @@ class ActiveRecord::Base
     end
   end
 
+  def versions
+    Version.where(item_id: self.id, item_type: self.class.name).order('id desc')
+  end
+
 private
   def diff_each(enum)
     enum.inject({}) do |diff_hash, attr_name|

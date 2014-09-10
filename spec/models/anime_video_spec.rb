@@ -281,4 +281,20 @@ describe AnimeVideo do
       its(:user_id) { should eq current_user.id }
     end
   end
+
+  describe '#versions' do
+    let(:video) { create :anime_video, episode: 1 }
+    let(:update_params_1) { {episode: 2} }
+    let(:update_params_2) { {episode: 3} }
+    let(:last_diff_hash) { {episode: [2,3]} }
+    before do
+      video.moderated_update update_params_1
+      video.moderated_update update_params_2
+    end
+
+    subject { video.reload.versions }
+    it { should_not be_blank }
+    it { should have(2).items }
+    specify { subject.first.item_diff.should eq last_diff_hash.to_s }
+  end
 end
