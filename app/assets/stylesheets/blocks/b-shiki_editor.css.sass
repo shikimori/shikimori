@@ -5,6 +5,8 @@
 @import mixins/responsive
 
 .b-shiki_editor
+  +transition(opacity 0.5s ease)
+
   .hidden-block
     display: none
     overflow: hidden
@@ -172,3 +174,6 @@
 
       .cancel, .button.preview
         display: none
+
+  &.ajax_request
+    +opacity(0.4)

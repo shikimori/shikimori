@@ -28,6 +28,13 @@ class @ShikiEditor extends ShikiView
     .on 'keydown', (e) =>
       @$form.submit() if e.keyCode is 13 and e.metaKey
 
+    # перед самбитом формы засветление редактора
+    @$form.on 'ajax:before', =>
+      @$root.addClass 'ajax_request'
+    # восстановление засветлённости после сабмита
+    @$form.on 'ajax:complete', =>
+      @$root.removeClass 'ajax_request'
+
     # при клике на неselected кнопку, закрываем все остальные selected кнопки
     @$('.editor-controls span').on 'click', (e) =>
       unless $(e.target).hasClass('selected')
