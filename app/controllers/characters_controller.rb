@@ -3,7 +3,7 @@ class CharactersController < PeopleController
   #layout false, only: [:tooltip]
   #before_action :authenticate_user!, only: [:edit]
 
-  before_action :check_redirect, if: -> { @resource }
+  before_action :resource_redirect, if: -> { @resource }
 
   #caches_action :index, CacheHelper.cache_settings
   #caches_action :page, :show, :tooltip,

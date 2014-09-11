@@ -3,13 +3,6 @@ class SeyuDecorator < PersonDecorator
 
   rails_cache :works
 
-  def website_host
-    begin
-      URI.parse(website).host
-    rescue
-    end
-  end
-
   def url
     h.seyu_url object
   end
@@ -22,7 +15,7 @@ class SeyuDecorator < PersonDecorator
       .pluck(:linked_id)
 
     drop = 0
-    while character_ids.size < 6 && works.size >= 6
+    while character_ids.size < 6 && works.size > drop
       character_id = works.drop(drop).first[:characters].first.id
       character_ids.push character_id unless character_ids.include? character_id
       drop += 1
@@ -84,17 +77,13 @@ class SeyuDecorator < PersonDecorator
       if animes.empty?
         0
       else
-        -1 * if h.params[:sort] == 'time'
-          animes.map {|a| (a[:aired_on] || a.released_on || Time.zone.now + 10.years).to_datetime.to_i }.min
-        else
-          animes.max_by(&:score).score
-        end
+        -1 * animes.max_by(&:score).score
+        #-1 * if h.params[:sort] == 'time'
+          #animes.map {|a| (a[:aired_on] || a.released_on || Time.zone.now + 10.years).to_datetime.to_i }.min
+        #else
+          #animes.max_by(&:score).score
+        #end
       end
     end
-  end
-
-private
-  def proceess_role(role)
-    role.strip.sub Regexp.new(Person::SeyuRoles.join('|')), 'Japanese'
   end
 end

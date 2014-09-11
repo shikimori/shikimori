@@ -15,9 +15,16 @@ class PersonDecorator < DbEntryDecorator
     h.person_url object
   end
 
+  def website_host
+    begin
+      URI.parse(website).host
+    rescue
+    end
+  end
+
   def website
     if object.website.present?
-      'http://%s' % object.website.sub(/^(http:\/\/)?/, '')
+      'http://%s' % object.website.sub(/^(https?:\/\/)?/, '')
     else
       nil
     end
@@ -35,7 +42,7 @@ class PersonDecorator < DbEntryDecorator
       role_name = I18n.t("Role.#{role}")
       memo[role_name] ||= 0
       memo[role_name] += 1
-    end.sort_by(&:first)
+    end.sort_by {|v| [-v.second, v.first] }
   end
 
   def favoured
@@ -43,19 +50,48 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def works
-    begin
-      entries = all_roles.select {|v| v.anime || v.manga }.map do |v|
-        {
-          role: v.role,
-          entry: v.anime || v.manga
-        }
-      end
-      entries = if h.params[:sort] == 'time'
-        entries.sort_by {|v| (v[:entry].aired_on || v[:entry].released_on || DateTime.now + 10.years).to_datetime.to_i * -1 }
-      else
-        entries.sort_by {|v| -(v[:entry].score || -999) }
-      end
+    all_roles
+      .select {|v| v.anime || v.manga }
+      .map {|v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
+      .sort_by {|v| -(v.score || -999) }
+    #entries = all_roles.select {|v| v.anime || v.manga }.map do |v|
+      #{
+        #role: v.role,
+        #entry: v.anime || v.manga
+      #}
+    #end
+
+    #if h.params[:sort] == 'time'
+      #entries.sort_by {|v| (v[:entry].aired_on || v[:entry].released_on || DateTime.now + 10.years).to_datetime.to_i * -1 }
+    #else
+      #entries.sort_by {|v| -(v[:entry].score || -999) }
+    #end
+  end
+
+  def best_works
+    anime_ids = animes.pluck(:id)
+    manga_ids = mangas.pluck(:id)
+
+    sorted_works = FavouritesQuery.new
+      .top_favourite([Anime.name, Manga.name], 6)
+      .where("(linked_type=? and linked_id in (?)) or (linked_type=? and linked_id in (?))",
+        Anime.name, anime_ids, Manga.name, manga_ids)
+      .map {|v| [v.linked_id, v.linked_type] }
+
+    drop_index = 0
+    while sorted_works.size < 6 && works.size > drop_index
+      work = works.drop(drop_index).first
+      mapped_work = [work.id, work.object.class.name]
+      sorted_works.push mapped_work unless sorted_works.include?(mapped_work)
+      drop_index += 1
     end
+
+    selected_anime_ids = sorted_works.select {|v| v[1] == Anime.name }.map(&:first)
+    selected_manga_ids = sorted_works.select {|v| v[1] == Manga.name }.map(&:first)
+    (
+      works.select {|v| v.anime? && selected_anime_ids.include?(v.id) } +
+        works.select {|v| v.manga? && selected_manga_ids.include?(v.id) }
+    ).sort_by {|v| sorted_works.index [v.id, v.object.class.name] }
   end
 
   def job_title

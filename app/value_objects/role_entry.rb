@@ -1,8 +1,8 @@
 class RoleEntry < SimpleDelegator
   attr_reader :role
 
-  def initialize person, role
-    super person
+  def initialize entry, role
+    super entry
     @role = role
   end
 

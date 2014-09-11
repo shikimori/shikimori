@@ -1,5 +1,5 @@
 class ShikimoriController < ApplicationController
-  def check_redirect
+  def resource_redirect
     if resource_id != @resource.to_param
       redirect_to url_for(params.merge('id' => @resource.to_param))
       false

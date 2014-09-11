@@ -7,7 +7,7 @@ class AnimesController < ShikimoriController
   before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :set_title, if: -> { @resource }
-  before_action :check_redirect, if: -> { @resource }
+  before_action :resource_redirect, if: -> { @resource }
 
   # временно отключаю, всё равно пока не тормозит
   #caches_action :page, :characters, :show, :related, :cosplay, :tooltip,

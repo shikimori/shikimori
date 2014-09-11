@@ -62,7 +62,7 @@ class String
   end
 
   # привод кривой строки в валидное состояние
-  def fix_encoding(encoding=nil, dont_unpack=false)
+  def fix_encoding encoding=nil, dont_unpack=false
     result = self
     encoding ||= 'utf-8'
 

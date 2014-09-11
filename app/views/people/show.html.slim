@@ -1,33 +1,65 @@
-- content_for :head do
-  = stylesheet_link_tag :people
+= render layout: 'people/page' do |f|
+  .cc-db_entry
+    .c-image
+      center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-header.head
-  h1 title="#{@page_title.last}" itemprop="name"
-    = @page_title.last
-  p.notice
-    = @entry.job_title
+    .c-about
+      .cc
+        - if @resource.credentials?
+          .c-info-left
+            .subheadline Информация
+            .b-entry-info
+              - if @resource.credentials?
+                = info_line 'По-английски', @resource.name
+                = info_line 'По-японски', @resource.japanese
+                = info_line 'Дата рождения', rus_date(@resource.birthday, true) if @resource.birthday
+                = info_line 'Сайт' do
+                  - if @resource.website_host.present?
+                    a href="#{@resource.website}" rel="nofollow"
+                      = @resource.website_host
 
-.info
-  aside.left-column
-    = render 'menu_left'
+        .c-info-right
+          .subheadline Роли в #{@resource.occupation.downcase.sub 'манга', 'манге'}
+          .b-entry-info
+            - @resource.groupped_roles.each do |role,times|
+              = info_line role, times
 
-  section.right-column
-    .b-options-floated
-      span class="#{' selected' if params[:sort] == nil}"
-        - if params[:sort] == nil
-          | Рейтинг
-        - else
-          = link_to 'Рейтинг', person_url(@entry)
-      | &nbsp;&nbsp;/&nbsp;&nbsp;
-      span class="#{' selected' if params[:sort] == 'time'}"
-        - if params[:sort] == 'time'
-          | Дата
-        - else
-          = link_to 'Дата', person_url(@entry, sort: 'time')
-    .subheadline.m10
-      = @entry.occupation
-    .ajax
-      - @entry.works.each do |work|
-        = render partial: 'animes/related', object: work[:entry], locals: { info: format_person_role(work[:role], full: true), clearfix: false }, formats: :html
+    .c-description.m0
+      .subheadline.m10
+        .linkeable data-href="#{works_person_url @resource}" Лучшие работы
+      .c-works
+        = render @resource.best_works
 
-  .clearfix-full
+/- content_for :head do
+  /= stylesheet_link_tag :people
+
+/header.head
+  /h1 title="#{@page_title.last}" itemprop="name"
+    /= @page_title.last
+  /p.notice
+    /= @entry.job_title
+
+/.info
+  /aside.left-column
+    /= render 'menu_left'
+
+  /section.right-column
+    /.b-options-floated
+      /span class="#{' selected' if params[:sort] == nil}"
+        /- if params[:sort] == nil
+          /| Рейтинг
+        /- else
+          /= link_to 'Рейтинг', person_url(@entry)
+      /| &nbsp;&nbsp;/&nbsp;&nbsp;
+      /span class="#{' selected' if params[:sort] == 'time'}"
+        /- if params[:sort] == 'time'
+          /| Дата
+        /- else
+          /= link_to 'Дата', person_url(@entry, sort: 'time')
+    /.subheadline.m10
+      /= @entry.occupation
+    /.ajax
+      /- @entry.works.each do |work|
+        /= render partial: 'animes/related', object: work[:entry], locals: { info: format_person_role(work[:role], full: true), clearfix: false }, formats: :html
+
+  /.clearfix-full

@@ -6,26 +6,24 @@ class PeopleController < ShikimoriController
   respond_to :json, only: :autocomplete
 
   before_action :fetch_resource, if: :resource_id
+  before_action :resource_redirect, if: -> { @resource }
   before_action :set_title, if: -> { @resource }
 
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   # отображение списка людей
   def index
+    append_title! 'Поиск людей'
+    append_title! SearchHelper.unescape(params[:search])
+
     @query = PeopleQuery.new params
     @people = postload_paginate(params[:page], 10) { @query.fetch }
     @query.fill_works @people
-    direct
   end
 
   # отображение человка
   def show
-    @entry = PersonDecorator.find params[:id].to_i
-    direct
-
-    unless @director.redirected?
-      redirect_to seyu_url(@entry) if @entry.seyu && !@entry.producer && !@entry.mangaka
-    end
+    @itemtype = @resource.itemtype
   end
 
   # тултип

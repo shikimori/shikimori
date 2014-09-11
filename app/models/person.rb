@@ -26,10 +26,6 @@ class Person < DbEntry
     #role.include?('Director')
   #end
 
-  def to_param
-    "%d-%s" % [id, name.gsub(/[^\w]+/, '-').gsub(/^-|-$/, '')]
-  end
-
   def russian
     nil
   end

@@ -55,6 +55,7 @@ Site::Application.routes.draw do
     get 'r' => redirect('/reviews')
     constraints other: /.*/  do
       get 'r/:other' => redirect { |params,request| "/reviews/#{params[:other]}" }
+      get 'person/:other' => redirect { |params,request| "/people/#{params[:other]}" }
     end
 
     #constraints section: Section::VARIANTS do
@@ -463,8 +464,16 @@ Site::Application.routes.draw do
     # people
     #post "person/:id/apply" => 'people#apply', as: :apply_person
     get 'people/autocomplete(/:kind)/:search' => 'people#autocomplete', as: :autocomplete_people, format: :json
-    get 'person/:id/tooltip(/:test)' => 'people#tooltip', as: :person_tooltip # это должно идти перед person_path
-    get "person/:id/(/:sort)" => 'people#show', as: :person, constraints: { id: /\d[^\/]*/, sort: /time/ }
+    #get 'person/:id/tooltip(/:test)' => 'people#tooltip', as: :person_tooltip # это должно идти перед person_path
+    #get "person/:id/(/:sort)" => 'people#show', as: :person, constraints: { id: /\d[^\/]*/, sort: /time/ }
+
+    resources :people, only: [:show] do
+      member do
+        get :works
+        get :comments
+        get :tooltip
+      end
+    end
 
     resources :seyu, only: [:show] do
       get :roles, on: :member
