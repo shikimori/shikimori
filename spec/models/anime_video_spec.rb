@@ -152,6 +152,66 @@ describe AnimeVideo do
     end
   end
 
+  describe '#vk?' do
+    subject { video.vk? }
+    let(:video) { build :anime_video, url: url }
+
+    context :true do
+      let(:url) { 'http://www.vk.com?id=1' }
+      it { should be_true }
+    end
+
+    context :false do
+      let(:url) { 'http://www.foo.bar.com/video?id=1' }
+      it { should be_false }
+    end
+  end
+
+  describe '#player_url' do
+    subject { video.player_url }
+    let(:video) { create :anime_video, url: url }
+
+    context :vk do
+      context :with_rejected_broken_report do
+        let!(:rejected_report) { create :anime_video_report, kind: 'broken', state: 'rejected', anime_video: video }
+
+        context :with_? do
+          let(:url) { 'http://www.vk.com?id=1' }
+          it { should eq "#{url}&quality=480" }
+        end
+
+        context :without_? do
+          let(:url) { 'http://www.vk.com' }
+          it { should eq "#{url}?quality=480" }
+        end
+      end
+
+      context :with_rejected_wrong_report do
+        let!(:rejected_report) { create :anime_video_report, kind: 'wrong', state: 'rejected', anime_video: video }
+        let(:url) { 'http://www.vk.com?id=1' }
+
+        it { should eq url }
+      end
+
+      context :without_reports do
+        let(:url) { 'http://www.vk.com?id=1' }
+        it { should eq url }
+      end
+    end
+
+    context :sibnet do
+      let(:url) { "http://video.sibnet.ru/shell.swf?videoid=621188" }
+      context :with_rejected_broken_report do
+        let!(:rejected_report) { create :anime_video_report, kind: 'broken', state: 'rejected', anime_video: video }
+        it { should eq url }
+      end
+
+      context :without_reports do
+        it { should eq url }
+      end
+    end
+  end
+
   describe :state_machine do
     subject { video.state }
     let(:video) { create :anime_video }

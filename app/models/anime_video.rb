@@ -1,4 +1,5 @@
 #TODO : проверить необходимость метода allowed?
+#TODO : вынести методы относящиеся ко вью в декоратор.
 class AnimeVideo < ActiveRecord::Base
   extend Enumerize
 
@@ -70,6 +71,18 @@ class AnimeVideo < ActiveRecord::Base
     domain == 'vkontakte.ru' ? 'vk.com' : domain
   end
 
+  def vk?
+    hosting == 'vk.com'
+  end
+
+  def player_url
+    if vk? && reports.any? {|r| r.broken? }
+      "#{url}#{url.include?('?') ? '&' : '?' }quality=480"
+    else
+      url
+    end
+  end
+
   def allowed?
     working? || uploaded?
   end
@@ -79,7 +92,7 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def mobile_compatible?
-    hosting == 'vk.com'
+    vk?
   end
 
   def uploader
