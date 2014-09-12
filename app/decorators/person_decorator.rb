@@ -54,18 +54,6 @@ class PersonDecorator < DbEntryDecorator
       .select {|v| v.anime || v.manga }
       .map {|v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
       .sort_by {|v| -(v.score || -999) }
-    #entries = all_roles.select {|v| v.anime || v.manga }.map do |v|
-      #{
-        #role: v.role,
-        #entry: v.anime || v.manga
-      #}
-    #end
-
-    #if h.params[:sort] == 'time'
-      #entries.sort_by {|v| (v[:entry].aired_on || v[:entry].released_on || DateTime.now + 10.years).to_datetime.to_i * -1 }
-    #else
-      #entries.sort_by {|v| -(v[:entry].score || -999) }
-    #end
   end
 
   def best_works

@@ -213,7 +213,7 @@ module CommentHelper
     Anime => [/(\[anime(?:=(\d+))?\]([^\[]*?)\[\/anime\])/, :tooltip_anime_url],
     Manga => [/(\[manga(?:=(\d+))?\]([^\[]*?)\[\/manga\])/, :tooltip_manga_url],
     Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :tooltip_character_url],
-    Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :person_tooltip_url],
+    Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :tooltip_person_url],
     UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :moderation_user_change_tooltip_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
     Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote>)\](?<text>[^\[]*?)\[\/entry\])/, nil],

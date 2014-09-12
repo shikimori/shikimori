@@ -26,10 +26,21 @@ class PeopleController < ShikimoriController
     @itemtype = @resource.itemtype
   end
 
+  def works
+    page_title "Участие в проектах"
+  end
+
+  def comments
+    raise NotFound if @resource.thread.comments_count.zero?
+    page_title 'Обсуждение'
+
+    @thread = TopicDecorator.new @resource.thread
+    @thread.topic_mode!
+  end
+
   # тултип
   def tooltip
-    @entry = Person.find params[:id].to_i
-    direct
+    #@entry = Person.find params[:id].to_i
   end
 
   # автодополнение

@@ -1,12 +1,15 @@
 #= require_directory ./p-animes
 
-$(document).on 'page:change', ->
-  return if document.body.className.indexOf('p-animes') == -1
-
-  # подсветка нужного пункта в меню
-  $(".slider-control a[href='#{location.href}']")
-    .closest('.slider-control')
-    .addClass('selected')
+@on 'page:load', '.animes', ->
+  # нажатие кнопки Комментировать в меню
+  $('.l-menu .comment').on 'click', ->
+    $editor = $('.b-topic .editor-container .b-shiki_editor')
+    if $editor.exists()
+      $editor.focus()
+    else
+      $(document).one 'page:change', ->
+        (-> $('.b-topic .editor-container .b-shiki_editor').focus()).delay()
+      Turbolinks.visit $('.head .back').attr('href')
 
   # генерация истории аниме/манги
   $history_block = $(".menu-right .history")
@@ -25,7 +28,7 @@ $(document).on 'page:change', ->
   history_load_triggered = false
 
   $history_block.hover ->
-    return  if history_load_triggered
+    return if history_load_triggered
     history_load_triggered = true
     $.getJSON $(@).attr("data-remote"), (data) ->
       for id of data

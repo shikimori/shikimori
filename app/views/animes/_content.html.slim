@@ -35,7 +35,7 @@
     - if anime.respond_to?(:publishers) && anime.real_publishers.any?
       = info_line "Издател#{anime.real_publishers.size > 1 ? 'и' : 'ь'}" do
         - anime.real_publishers.each do |publisher|
-          .tag.linkeable data-href="#{anime.catalog_url studio: studio.to_param}"
+          .tag.linkeable data-href="#{anime.catalog_url publisher: publisher.to_param}"
             = publisher.name
 
     - if anime.respond_to?(:episodes) && (anime.episodes > 0 || anime.episodes_aired > 0)

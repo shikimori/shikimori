@@ -38,6 +38,11 @@ span.misc
   - elsif cover_notice == :relation
     span.relation = t "Relation.#{anime.relation}"
 
+  - elsif cover_notice == :role
+    span.misc.centered
+      span.role
+        = anime.formatted_role
+
   - elsif cover_notice == :none
   - else
     - raise ArgumentError, cover_notice

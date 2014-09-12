@@ -1,0 +1,4 @@
+= render layout: 'people/page' do |f|
+  .subheadline.m10 = @page_title.last
+  .cc-5
+    = render @resource.works, cover_notice: :role

@@ -14,11 +14,11 @@ class SeyuDecorator < PersonDecorator
       .where(linked_id: all_character_ids)
       .pluck(:linked_id)
 
-    drop = 0
-    while character_ids.size < 6 && works.size > drop
-      character_id = works.drop(drop).first[:characters].first.id
+    drop_index = 0
+    while character_ids.size < 6 && works.size > drop_index
+      character_id = works.drop(drop_index).first[:characters].first.id
       character_ids.push character_id unless character_ids.include? character_id
-      drop += 1
+      drop_index += 1
     end
 
     Character
@@ -72,17 +72,11 @@ class SeyuDecorator < PersonDecorator
 
     @characters = @characters.sort_by do |v|
       animes = v[:animes].select {|a| a.score < 9.9 }
-      #animes.empty? ? 0 : -1 * animes.max_by(&:score).score
 
       if animes.empty?
         0
       else
         -1 * animes.max_by(&:score).score
-        #-1 * if h.params[:sort] == 'time'
-          #animes.map {|a| (a[:aired_on] || a.released_on || Time.zone.now + 10.years).to_datetime.to_i }.min
-        #else
-          #animes.max_by(&:score).score
-        #end
       end
     end
   end
