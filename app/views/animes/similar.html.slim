@@ -1,4 +1,4 @@
 = render layout: 'animes/page' do |f|
   .subheadline.m10 = @page_title.last
   .cc-5
-    = render collection: @resource.related.similar, cover_notice: :year_kind, content_by: :tooltip
+    = render @resource.related.similar, cover_notice: :year_kind, content_by: :tooltip
