@@ -1,4 +1,5 @@
 #TODO : проверить необходимость метода allowed?
+#TODO : вынести методы относящиеся ко вью в декоратор.
 class AnimeVideo < ActiveRecord::Base
   extend Enumerize
 
