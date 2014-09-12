@@ -1,6 +1,4 @@
 class PersonProfileSerializer < PersonSerializer
-  include PeopleHelper
-
   attributes :job_title, :birthday, :website, :groupped_roles
   attribute :roles
   attribute :works
@@ -18,7 +16,7 @@ class PersonProfileSerializer < PersonSerializer
       {
         anime: work[:entry].kind_of?(Anime) ? AnimeSerializer.new(work[:entry]) : nil,
         manga: work[:entry].kind_of?(Manga) ? MangaSerializer.new(work[:entry]) : nil,
-        role: format_person_role(work[:role], full: true)
+        role: work.formatted_role
       }
     end
   end
