@@ -113,6 +113,12 @@ class User < ActiveRecord::Base
   # personal message from me
   after_create :send_welcome_message unless Rails.env.test?
 
+  scope :suspicious, -> {
+    where('sign_in_count < 7')
+      .where('users.id not in (select distinct(user_id) from comments)')
+      .where('users.id not in (select distinct(user_id) from user_rates)')
+  }
+
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
 
   GuestID = 5
@@ -120,7 +126,7 @@ class User < ActiveRecord::Base
 
   # access rights
   Admins = [1, Blackchestnut_ID]
-  Moderators = (Admins + [921, 11, 188, 2033]).uniq # 2 - Adelor, 2033 - zmej1987
+  Moderators = (Admins + [921, 11, 188]).uniq # 2 - Adelor, 2033 - zmej1987
   ReviewsModerators = (Admins + []).uniq # + Moderators
   UserChangesModerators = (Admins + [11, 921, 188, 94, 942, 392]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 942 - Иштаран, 392 - Tehanu
   AbuseRequestsModerators = (Admins + Moderators + [11, 188, 950]).uniq # Daiver
@@ -131,8 +137,9 @@ class User < ActiveRecord::Base
   VideoModerators = (Admins + []).uniq
   # 11496 - АлхимиК, 4099 - sttany, 12771 - spinosa, 13893 - const, 11883 - Tenno Haruka, 5064 - Heretic, 5779 - Lumennes,
   # 14633 - Dracule404, 5255 - GArtem, 7028 - Drako Black, 15905 - Youkai_Ririko, 3954 - Xellos("ゼロス"),
-  # 16750 - hichigo shirosaki, 16774 - torch8870, 10026 - Johnny_W, 20455 - Doflein, 10026 - Black_Heart, 12023 - Wooterland
-  TrustedVideoUploaders = (Admins + [11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905, 3954, 16750, 16774, 10026, 20455, 10026, 12023]).uniq
+  # 16750 - hichigo shirosaki, 16774 - torch8870, 10026 - Johnny_W, 20455 - Doflein, 10026 - Black_Heart, 12023 - Wooterland,
+  # 8237 - AmahiRazu, 17423 - Ryhiy, 11834 - .ptax.log, 21347 - アナスタシア
+  TrustedVideoUploaders = (Admins + [11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905, 3954, 16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347]).uniq
 
   def self.new_with_session(params, session)
     super.tap do |user|

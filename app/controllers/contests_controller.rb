@@ -118,6 +118,12 @@ class ContestsController < ShikimoriController
     redirect_to edit_contest_url @contest
   end
 
+  # очистка вариантов от накруток
+  def cleanup_suggestions
+    @contest.cleanup_suggestions!
+    redirect_to edit_contest_url @contest
+  end
+
   # остановка контеста
   #def finish
     #@contest.finish!

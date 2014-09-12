@@ -282,4 +282,51 @@ describe AnimeVideo do
       end
     end
   end
+
+  describe '#moderated_update' do
+    let(:video) { create :anime_video, episode: 1 }
+    let(:params) { {episode: 2} }
+
+    context :without_current_user do
+      let(:moderated_update) { video.moderated_update params }
+      specify { moderated_update.should eq true }
+      specify { moderated_update; video.reload.episode.should eq 2 }
+
+      context :check_versions do
+        before { moderated_update }
+        subject { Version.last }
+        let(:diff_hash) { {episode: [1,2]} }
+
+        it { should_not be_nil }
+        its(:item_id) { should eq video.id }
+        its(:item_diff) { should eq diff_hash.to_s }
+        its(:item_type) { should eq video.class.name }
+      end
+    end
+
+    context :with_current_user do
+      let(:current_user) { create :user }
+      let(:moderated_update) { video.moderated_update params, current_user }
+      before { moderated_update }
+      subject { Version.last }
+
+      its(:user_id) { should eq current_user.id }
+    end
+  end
+
+  describe '#versions' do
+    let(:video) { create :anime_video, episode: 1 }
+    let(:update_params_1) { {episode: 2} }
+    let(:update_params_2) { {episode: 3} }
+    let(:last_diff_hash) { {episode: [2,3]} }
+    before do
+      video.moderated_update update_params_1
+      video.moderated_update update_params_2
+    end
+
+    subject { video.reload.versions }
+    it { should_not be_blank }
+    it { should have(2).items }
+    specify { subject.last.item_diff.should eq last_diff_hash.to_s }
+  end
 end

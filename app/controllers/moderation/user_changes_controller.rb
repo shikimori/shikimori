@@ -45,7 +45,7 @@ class Moderation::UserChangesController < ShikimoriController
       @pending.each do |change|
         key = "#{change.model} #{change.item_id}"
         if @changes_map[key]
-          change[:locked] = true
+          def change.locked; true; end
         elsif change.screenshots?
           @changes_map[key] = true
         end

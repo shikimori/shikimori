@@ -19,7 +19,11 @@ FactoryGirl.define do
       member_type :character
     end
 
-    after(:build) do |contest|
+    trait :proposing do
+      state 'proposing'
+    end
+
+    after :build do |contest|
       contest.stub :create_thread
       contest.stub :update_permalink
       contest.stub :sync_thread

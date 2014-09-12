@@ -18,9 +18,10 @@ class TorrentsParser
   AnimeWithExactNameMatch = [10161, 10490, 10379, 6336, 11319, 14645, 15085, 14967, 15611, 17705, 15699, 16241, 16049]
   AnimeWithAllSubGroups = [9539, 12979, 13163, 6702, 15417]
 
+  END_OF_NAME = /[\w\)!~?\.+-]/
   EPISODE_FOR_HISTORY_REGEXES = [
     /
-      [\w!~?\.\)] # завершающий кусочек названия
+      #{END_OF_NAME} # завершающий кусочек названия
       (?: _- )?
       _
       \#?
@@ -51,11 +52,11 @@ class TorrentsParser
   ]
   EPISODES_FOR_HISTORY_REGEXES = [
     /Vol\.(\d+)-(\d+)_(?:\[|\()(?:BD|DVD)/i,
-    /[\w\)!~-]_(\d+)-(\d+)(?:_RAW|_END)?_?(?:\(|\[)(?:\d{3}|[A-Z])/i,
-    /[\w\)!~-]_(\d+)-(\d+)_\[(?:DVD|BD|ENG|JP|JAP)/i
+    /#{END_OF_NAME}_(\d+)-(\d+)(?:_RAW|_END)?_?(?:\(|\[)(?:\d{3}|[A-Z])/i,
+    /#{END_OF_NAME}_(\d+)-(\d+)_\[(?:DVD|BD|ENG|JP|JAP)/i
   ]
   EPISODES_WITH_COMMA_FOR_HISTORY_REGEXES = [
-    /[\w\)!~-]_(\d+)-(\d+),_?(\d+)_raw_720/i
+    /#{END_OF_NAME}_(\d+)-(\d+),_?(\d+)_raw_720/i
   ]
 
   def self.extract_episodes_num(episode_name)

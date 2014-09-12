@@ -83,6 +83,11 @@ describe TorrentsParser do
     it { should eq [1] }
   end
 
+  describe 'name with plus' do
+    let(:name) { '[Ohys-Raws] Sin Strange+ - 02 (AT-X 1280x720 x264 AAC).mp4' }
+    it { should eq [2] }
+  end
+
   describe 'episode num after "ch-"' do
     let(:name) { '[kingtqi-Raws] Saikyou Ginga Ultimate Zero - Battle Spirits CH-04 (ABC 1280x720 x264 AAC).mp4' }
     it { should eq [4] }

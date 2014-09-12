@@ -121,8 +121,8 @@ describe ContestsController do
 
       it { should respond_with 302 }
       it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-      it { assigns(:contest).description.should eq 'zxc' }
-      it { assigns(:contest).errors.should be_empty }
+      it { expect(assigns(:contest).description).to eq 'zxc' }
+      it { expect(assigns(:contest).errors).to be_empty }
     end
 
     context 'when validation errors' do
@@ -130,7 +130,7 @@ describe ContestsController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :html }
-      it { assigns(:contest).errors.should_not be_empty }
+      it { expect(assigns(:contest).errors).to_not be_empty }
     end
   end
 
@@ -140,7 +140,7 @@ describe ContestsController do
 
       it { should respond_with :redirect }
       it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-      it { assigns(:contest).should be_persisted }
+      it { expect(assigns :contest).to be_persisted }
     end
 
     context 'when validation errors' do
@@ -148,7 +148,7 @@ describe ContestsController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :html }
-      it { assigns(:contest).new_record?.should be_true }
+      it { expect(assigns(:contest).new_record?).to be true }
     end
   end
 
@@ -158,7 +158,7 @@ describe ContestsController do
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { assigns(:contest).started?.should be_true }
+    it { expect(assigns(:contest).started?).to be true }
   end
 
   describe '#propose' do
@@ -167,7 +167,18 @@ describe ContestsController do
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { assigns(:contest).proposing?.should be_true }
+    it { expect(assigns(:contest).proposing?).to be true }
+  end
+
+  describe '#cleanup_suggestions' do
+    let(:contest) { create :contest, :proposing, user: user }
+    let!(:contest_suggestion_1) { create :contest_suggestion, contest: contest, user: user }
+    let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, id: 2, sign_in_count: 999) }
+    before { post :cleanup_suggestions, id: contest.id }
+
+    #it { should respond_with 302 }
+    #it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
+    it { expect(assigns(:contest).suggestions).to have(1).item }
   end
 
   describe '#stop_propose' do
@@ -176,7 +187,7 @@ describe ContestsController do
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { assigns(:contest).created?.should be_true }
+    it { expect(assigns(:contest).created?).to be true }
   end
 
   #describe '#finish' do
@@ -188,7 +199,7 @@ describe ContestsController do
 
     #it { should respond_with 302 }
     #it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    #it { assigns(:contest).state.should eq 'finished' }
+    #it { expect(assigns(:contest).state).to eq 'finished' }
   #end
 
   describe '#build' do
@@ -197,7 +208,7 @@ describe ContestsController do
 
     it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { assigns(:contest).rounds.should have(6).items }
+    it { expect(assigns(:contest).rounds).to have(6).items }
   end
 
   describe :permissions do

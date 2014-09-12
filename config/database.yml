@@ -3,8 +3,8 @@
 development: &defaults
   adapter: postgresql
   encoding: utf8
-  database: shikimori_development
-  username: shikimori_development
+  database: shikimori_production
+  username: shikimori_production
   password: bimpQscuJvkkL4Y
   host: localhost
   pool: 100
@@ -18,30 +18,3 @@ test:
   database: shikimori_test
   username: shikimori_test
   password: bimpQscuJvkkL4Y
-
-#development:
-  #adapter: mysql2
-  #encoding: utf8
-  #database: shikimori
-  #username: root
-  #password:
-  #socket: /tmp/mysql.sock
-  #pool: 1000
-
-#test:
-  #adapter: mysql2
-  #encoding: utf8
-  #database: shikimori_test<%= ENV['TEST_ENV_NUMBER'] %>
-  #username: root
-  #password:
-  #socket: /tmp/mysql.sock
-  #pool: 200
-
-#production:
-  #adapter: mysql2
-  #encoding: utf8
-  #database: shikimori
-  #username: root
-  #password:
-  #socket: /tmp/mysql.sock
-  #pool: 1000

@@ -22,7 +22,7 @@ class UserDataFetcherBase
 
 private
   def list_cache_key
-    "userlist_#{@klass}_#{@user.id}_#{latest_import[:id]}_#{(histories/10).to_i}"
+    "userlist_#{@klass}_#{@user.id}_#{latest_import[:id]}_#{(histories/10).to_i}_#{rates >= Recommendations::RatesFetcher::MinimumScores}"
   end
 
   def cache_key

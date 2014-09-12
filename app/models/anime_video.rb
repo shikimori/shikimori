@@ -92,7 +92,7 @@ class AnimeVideo < ActiveRecord::Base
 
   def uploader
     if uploaded?
-      @uploader ||= AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').first.try(:user)
+      @uploader ||= AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').last.try(:user)
     end
   end
 

@@ -18,7 +18,7 @@ Site::Application.routes.draw do
 
     namespace :anime_online do
       resources :anime, only: [:show] do
-        resources :anime_videos, only: [:new, :create] do
+        resources :anime_videos, only: [:new, :create, :edit, :update] do
           get :viewed, on: :member
         end
       end
@@ -384,6 +384,7 @@ Site::Application.routes.draw do
         post :build
         post :propose
         post :stop_propose
+        post :cleanup_suggestions
 
         get :grid
         get 'rounds/:round', action: 'show', as: 'round'

@@ -141,6 +141,15 @@ describe Contest do
       end
     end
 
+    describe :cleanup_suggestions do
+      let(:contest) { create :contest, :proposing }
+      let!(:contest_suggestion_1) { create :contest_suggestion, contest: contest, user: contest.user }
+      let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, sign_in_count: 999) }
+
+      before { contest.cleanup_suggestions! }
+      it { expect(contest.suggestions).to eq [contest_suggestion_2] }
+    end
+
     describe :process! do
       let(:contest) { create :contest_with_5_members }
       let(:round) { contest.current_round }
