@@ -75,7 +75,11 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def player_url
-    "#{url}#{url.include?('?') ? '&' : '?' }quality=480"
+    if vk? && reports.any? {|r| r.broken? }
+      "#{url}#{url.include?('?') ? '&' : '?' }quality=480"
+    else
+      url
+    end
   end
 
   def allowed?
