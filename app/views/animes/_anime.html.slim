@@ -2,8 +2,9 @@
 - content_by ||= :tooltip
 - cover_notice ||= :none
 
+    /class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} #{:minified if content_by == :tooltip} #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
 article.c-column.b-catalog_entry[
-    class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} #{:minified if content_by == :tooltip} #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
+    class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
     itemscope itemtype="#{{anime.itemtype}}"
   ]
   meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"

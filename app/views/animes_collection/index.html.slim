@@ -13,7 +13,7 @@ header.head.ajaxable
 
 .menu-slide-outer
   .menu-slide-inner
-    section.l-content.cc-4 data-entries-per-page="#{entries_per_page}"
+    section.l-content
       - if @entries.any?
         = render partial: 'entries'
       - else

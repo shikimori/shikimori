@@ -11,9 +11,7 @@ class @PaginatedCatalog
     if @$link_next.hasClass('disabled') && @$link_prev.hasClass('disabled')
       @$pagination.hide()
 
-    entries_per_page = @$ajax.data('entries-per-page')
-    entries_per_page_default = 12.0
-    @pages_limit = 18 * (entries_per_page_default / entries_per_page)
+    @pages_limit = 15
 
     @page_change = {}
 
@@ -56,8 +54,7 @@ class @PaginatedCatalog
 
   # наступил ли лимит прокрутки страниц?
   is_pages_limit: ->
-    pages = @$link_current.first().html().split("-")
-    pages.length > 1 && parseInt(pages[1]) - parseInt(pages[0]) >= @pages_limit
+    @$ajax.children().length >= @pages_limit
 
   # клик по блоку выбора страницы
   page_select: (e) =>

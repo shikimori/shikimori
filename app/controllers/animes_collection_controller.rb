@@ -186,11 +186,6 @@ private
     end
   end
 
-  # число аниме/манги на странице
-  def entries_per_page
-    user_signed_in? ? 24 : 12
-  end
-
   def params_page
     [(params[:page] || 1).to_i, 1].max
   end
@@ -236,5 +231,10 @@ private
         #params[:order].blank? && params[:rating].blank?
       #@title_notice = BbCodeFormatter.instance.format_description(entry_data[:genre].first.description, entry_data[:genre].first).gsub('div', 'p')
     #end
+  end
+
+  # число аниме/манги на странице
+  def entries_per_page
+    user_signed_in? ? 24 : 12
   end
 end

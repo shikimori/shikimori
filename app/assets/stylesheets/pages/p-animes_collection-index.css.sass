@@ -1,13 +1,17 @@
-@import globals
 @import compass/utilities/general/clearfix
 @import mixins/responsive
 @import mixins/column
 @import mixins/input
 @import mixins/block
+@import mixins/links
 
 .p-animes_collection-index, .p-mangas_collection-index, .p-recommendations-index
   .b-postloader
     clear: left
+    margin-bottom: 0
+
+  .b-catalog_entry
+    margin-bottom: $block_offset !important
 
   .l-menu
     .filter
@@ -57,7 +61,7 @@
         border-bottom: 1px solid #333
 
     .link
-      +normal-link
+      +link
       display: inline-block
 
       &.disabled

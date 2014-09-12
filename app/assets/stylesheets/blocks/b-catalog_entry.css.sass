@@ -3,7 +3,8 @@
 @import mixins/column
 @import mixins/links
 
-$max-width: 167px
+$max_minified_width: 162px
+$max_width: 167px
 
 .b-catalog_entry
   max-width: 490px
@@ -33,7 +34,7 @@ $max-width: 167px
       line-height: 0px
       margin-bottom: 5px
       padding: 2.5%
-      max-width: $max-width
+      max-width: $max_width
 
       &:hover
         border: 1px solid darken($default-image-hover-background, 6%)
@@ -45,6 +46,7 @@ $max-width: 167px
         display: block
         line-height: 0
         max-height: 239px
+        max-width: $max_minified_width - 2px
         overflow: hidden
 
       img
@@ -56,7 +58,7 @@ $max-width: 167px
       display: block
       font-weight: bold
       line-height: $line_height
-      max-width: $max-width
+      max-width: $max_width
 
     &:hover .title
       text-decoration: underline
@@ -65,7 +67,7 @@ $max-width: 167px
       color: #555
       font-size: 11px
       line-height: 17px
-      max-width: $max-width
+      max-width: $max_width
 
       &.centered
         text-align: center
@@ -98,12 +100,18 @@ $max-width: 167px
   &.minified
     .image-decor
       padding: 0
+      max-width: $max_minified_width
 
     .title
       text-align: center
+      max-width: $max_minified_width
 
       &.left_aligned
         text-align: left
+
+    .misc
+      max-width: $max_minified_width
+
 
   &.tooltipped
     .content

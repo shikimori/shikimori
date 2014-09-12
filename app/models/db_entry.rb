@@ -41,7 +41,7 @@ private
 
   # при сохранении аниме обновление его топика
   def sync_thread
-    if self.changes["name"]
+    if self.changes['name']
       thread.class.record_timestamps = false
       thread.sync
       thread.save
@@ -56,6 +56,8 @@ private
   def self.thread_klass
     if self == Anime || self == Manga
       AniMangaComment
+    #elsif self == Seyu
+      #PersonComment
     else
       "#{self.name}Comment".constantize
     end
