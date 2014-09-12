@@ -1,7 +1,7 @@
 class AnimesController < ShikimoriController
-  respond_to :html, only: [:show, :tooltip]
-  respond_to :json, only: :autocomplete
-  respond_to :html, :json, only: :page
+  #respond_to :html, only: [:show, :tooltip]
+  #respond_to :json, only: :autocomplete
+  #respond_to :html, :json, only: :page
 
   before_action :authenticate_user!, only: [:edit]
   before_action :fetch_resource, if: :resource_id
@@ -127,7 +127,7 @@ class AnimesController < ShikimoriController
 
   # автодополнение
   def autocomplete
-    @items = AniMangaQuery.new(klass, params, current_user).complete
+    @collection = AniMangaQuery.new(klass, params, current_user).complete
   end
 
   # rss лента новых серий и сабов аниме

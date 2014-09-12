@@ -6,6 +6,9 @@
   .l-top_menu
     +clearfix
 
+    .mobile-menu-toggler.active
+      background: #545454
+
     .menu-mobile, .menu-userbox
       float: right
       margin: 0
@@ -24,12 +27,12 @@
         color: #f9f9f9
         float: right
         cursor: pointer
-        height: $menu-height - 1px
+        height: $menu_height - 1px
         margin-left: 15px !important
 
         &:before
           font-size: 22px
-          line-height: $menu-height
+          line-height: $menu_height
           width: 30px
 
     .menu-userbox
@@ -40,21 +43,25 @@
 
     .menu-items, .menu-search
       display: none
-      padding-top: $menu-height + 2px
+      padding-top: $menu_height + 2px
 
       &.active
         display: block
 
     .menu-items
+      .entry a
+        display: block
+
       .submenu-toggler
         +icon("m")
         cursor: pointer
-        float: right
-        margin-right: 10px
+        position: absolute
+        right: 10px
 
         &:before
           content: '+'
           width: 30px
+          line-height: 34px
 
         &.active:before
           content: '-'
@@ -70,7 +77,7 @@
       // important из-за назначения стилей десктопного меню скриптами
       display: none !important
       height: auto !important
-      padding-left: 5px
+      padding-left: 25px
 
       &.active
         display: block !important
@@ -79,7 +86,7 @@
       border-top: 1px solid white
       color: white
       display: block
-      line-height: $menu-height
+      line-height: $menu_height
       padding-left: 10px
 
       a

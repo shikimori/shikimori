@@ -83,7 +83,7 @@ class CharactersController < PeopleController
 
   # автодополнение
   def autocomplete
-    @items = CharactersQuery.new(params).complete
+    @collection = CharactersQuery.new(params).complete
   end
 
 private

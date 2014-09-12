@@ -1,5 +1,5 @@
 class SeyuController < PeopleController
-  before_action :role_redirect
+  before_action :role_redirect, if: :resource_id
 
   # поиск по сэйю
   def index

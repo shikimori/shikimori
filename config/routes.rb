@@ -302,9 +302,6 @@ Site::Application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
-    # characters
-    get 'characters/autocomplete/:search' => 'characters#autocomplete', as: :autocomplete_characters, format: :json, search: /.*/
-
     resources :characters, only: [:show] do
       member do
         get :seyu
@@ -313,6 +310,7 @@ Site::Application.routes.draw do
         get :comments
         get :tooltip
       end
+      get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
     end
 
     constraints id: /\d[^\/]*?/ do
@@ -342,10 +340,6 @@ Site::Application.routes.draw do
       get "#{kind}/menu(/rating/:rating)" => "animes_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
 
       resources kind, only: [:show, :edit] do
-        collection do
-          get 'autocomplete/:search', action: :autocomplete, as: :autocomplete, format: :json, search: /.*/
-        end
-
         member do
           get :characters
           get :staff
@@ -380,6 +374,7 @@ Site::Application.routes.draw do
           get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
           get 'cosplay/:character(/:gallery)' => "#{kind}#cosplay", page: 'cosplay', as: :cosplay
         end
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
 
         # обзоры
         resources :reviews, type: kind.singularize.capitalize
@@ -461,25 +456,21 @@ Site::Application.routes.draw do
                                                                                                   format: /json/
                                                                                                 }
 
-    # people
-    #post "person/:id/apply" => 'people#apply', as: :apply_person
-    get 'people/autocomplete(/:kind)/:search' => 'people#autocomplete', as: :autocomplete_people, format: :json
-    #get 'person/:id/tooltip(/:test)' => 'people#tooltip', as: :person_tooltip # это должно идти перед person_path
-    #get "person/:id/(/:sort)" => 'people#show', as: :person, constraints: { id: /\d[^\/]*/, sort: /time/ }
-
     resources :people, only: [:show] do
       member do
         get :works
         get :comments
         get :tooltip
       end
+      get 'autocomplete(/:kind)/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
     end
 
     resources :seyu, only: [:show] do
-      get :roles, on: :member
-      get :comments, on: :member
-      #get "seyu/:id/(/:sort)(/:direct)" => 'seyu#show', as: :seyu, constraints: { id: /\d[^\/]*/, sort: /time/, direct: /direct/ }
-      #get "seyu/:search(/page/:page)" => 'seyu#index', as: :seyu_search, kind: 'seyu', constraints: { page: /\d+/ }
+      member do
+        get :roles
+        get :comments
+      end
+      get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
     end
     get "producer/:search(/page/:page)" => 'people#index', as: :producer_search, kind: 'producer', constraints: { page: /\d+/ }
     get "mangaka/:search(/page/:page)" => 'people#index', as: :mangaka_search, kind: 'mangaka', constraints: { page: /\d+/ }
@@ -488,10 +479,12 @@ Site::Application.routes.draw do
     #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 
     # studios
-    get "studios" => 'studios#index', as: :studios
+    resources :studios, only: [:index]
+    #get "studios" => 'studios#index', as: :studios
 
     # proxies
-    get 'proxies' => 'proxies#index'
+    resources :proxies, only: [:index]
+    #get 'proxies' => 'proxies#index'
 
     # news
     get 'entries/:id' => 'entries#show', as: :entry_body, constraints: { format: /json/ }

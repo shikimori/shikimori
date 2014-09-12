@@ -1,5 +1,5 @@
-# desktop menu
-$ ->
+$(document).on 'page:load', ->
+  # desktop menu
   $triggers = $('.l-top_menu .submenu').parent()
   $triggers.each ->
     $trigger = $(@)
@@ -22,20 +22,21 @@ $ ->
 
     , $menu.data('duration') || 150
 
-# mobile menu
-$('.mobile-menu-toggler').click ->
-  $('.l-top_menu .menu-items').toggleClass('active')
-      .siblings()
-      .removeClass 'active'
+  # mobile menu
+  $('.mobile-menu-toggler').click ->
+    $(@).toggleClass('active')
+    $('.l-top_menu .menu-items').toggleClass('active')
+        .siblings()
+        .removeClass 'active'
 
-$('.mobile-search-toggler').click ->
-  $('.l-top_menu .menu-search').toggleClass('active')
-      .siblings()
-      .removeClass 'active'
+  $('.mobile-search-toggler').click ->
+    $('.l-top_menu .menu-search').toggleClass('active')
+        .siblings()
+        .removeClass 'active'
 
-#$('.mobile-sign-in-toggler').click ->
-  #$('.usernav').trigger 'click'
+  #$('.mobile-sign-in-toggler').click ->
+    #$('.usernav').trigger 'click'
 
-$('.submenu-toggler').click ->
-  $(@).toggleClass 'active'
-  $(@).next().toggleClass 'active'
+  $('.submenu-toggler').click ->
+    $(@).toggleClass 'active'
+    $(@).siblings('.submenu').toggleClass 'active'

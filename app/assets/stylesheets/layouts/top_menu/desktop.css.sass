@@ -1,12 +1,14 @@
-@import globals
+@import compass/utilities/general/clearfix
+@import compass/css3/transition
+@import globals/variables
 @import mixins/icons
 @import mixins/responsive
 
-$menu-link-color: #e1e7f2
+$menu_link_color: #e1e7f2
 
 +desktop
   .l-top_menu
-    height: $menu-height
+    height: $menu_height
 
     .menu-items
       +clearfix
@@ -22,13 +24,13 @@ $menu-link-color: #e1e7f2
 
     .menu
       & > .entry
-        +transition(backround-color, 0.3s)
-        color: $menu-link-color
+        +transition(backround-color 0.3s ease)
+        color: $menu_link_color
         cursor: pointer
         float: left
         font-size: 12px
-        line-height: 20px
-        padding: 6px 10px 4px
+        line-height: 21px
+        padding: 7px 10px 4px
 
         &.num
           display: inline-block
@@ -56,10 +58,10 @@ $menu-link-color: #e1e7f2
 
         &:active
           background-color: #4A4A4A
-          color: $menu-link-color !important
+          color: $menu_link_color !important
 
     .submenu
-      +transition(height, 0.3s)
+      +transition(height 0.3s ease)
       background: #3f3f3f
       border: 2px solid #363636
       border-top: none
@@ -72,11 +74,10 @@ $menu-link-color: #e1e7f2
 
       &.right
         right: -1px
-        margin-top: 0
+        margin-top: -1px
 
       & > .entry
-        +transition(backround-color, 0.3s)
-        +transition(color, 0.3s)
+        +transition('backround-color,color' 0.3s ease)
         background: #3f3f3f
         border-bottom: 1px solid #aaa
         color: #f9f9f9
@@ -98,7 +99,7 @@ $menu-link-color: #e1e7f2
 
         &:active
           background: #333
-          color: $menu-link-color !important
+          color: $menu_link_color !important
 
         &:last-child
           border-bottom: none

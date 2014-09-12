@@ -4,8 +4,8 @@
 
 .main-search {
   .input {
-    background-color: #FCFCFC;
-    border-color: #DDD;
+    background-color: #fcfcfc;
+    border-color: #ddd;
     color: #333;
     cursor: pointer;
 
@@ -25,7 +25,7 @@
       color: #f9f9f9;
       background-color: transparent;
       cursor: pointer;
-      height: 19px;
+      height: 22px;
 
       &:hover {
         background-color: #555;
@@ -52,16 +52,16 @@
       background: transparent!important;
     }
     .input {
-      height: 19px;
+      height: 20px;
       margin: 0;
       overflow: hidden;
-      padding: 3px 5px;
+      padding: 4px 5px;
       width: 175px;
 
       input {
         font-family: Tahoma;
         font-size: 11px;
-        line-height: 12px;
+        line-height: 13px;
         width: 167px;
 
         &.ac_loading {
@@ -72,7 +72,7 @@
     }
     &.hovered .popup {
       height: 175px;
-      margin-top: 5px;
+      margin-top: 6px;
     }
     ul.popup {
       @include transition(height, 0.3s);

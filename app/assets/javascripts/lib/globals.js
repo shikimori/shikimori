@@ -8,29 +8,29 @@ if (location.hash == '#_=_') {
 //});
 
 // click on history link
-$('a[rel=history]').live('click', function(e) {
-  if (in_new_tab(e)) {
-    return;
-  }
-  History.pushState({timestamp: Date.now()}, null, this.href.replace(/^http:\/\/.*?\//, '/'));
-  return false;
-});
+//$('a[rel=history]').live('click', function(e) {
+  //if (in_new_tab(e)) {
+    //return;
+  //}
+  //History.pushState({timestamp: Date.now()}, null, this.href.replace(/^http:\/\/.*?\//, '/'));
+  //return false;
+//});
 
 // ссылка "все"
 //$('.related-all a,.related-all span.link, .subheadline a').live('click', function() {
-$('.b-options-floated a, .subheadline a').live('click', function() {
-  var $target = $(".slider-control a[href='"+(this.href || this.getAttribute('data-href'))+"']")
-                  .add(".slider-control span.link[data-href='"+(this.href || this.getAttribute('data-href'))+"']");
-  if (!$target.length) {
-    return;
-  }
+//$('.b-options-floated a, .subheadline a').live('click', function() {
+  //var $target = $(".slider-control a[href='"+(this.href || this.getAttribute('data-href'))+"']")
+                  //.add(".slider-control span.link[data-href='"+(this.href || this.getAttribute('data-href'))+"']");
+  //if (!$target.length) {
+    //return;
+  //}
 
-  if ($(window).scrollTop() > 200) {
-    $.scrollTo('h1');
-  }
-  $target.trigger('click');
-  return false;
-});
+  //if ($(window).scrollTop() > 200) {
+    //$.scrollTo('h1');
+  //}
+  //$target.trigger('click');
+  //return false;
+//});
 
 // открыта ли ссылка в новом табе?
 function in_new_tab(e) {

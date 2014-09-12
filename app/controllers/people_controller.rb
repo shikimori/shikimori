@@ -45,7 +45,7 @@ class PeopleController < ShikimoriController
 
   # автодополнение
   def autocomplete
-    @items = PeopleQuery.new(params).complete
+    @collection = PeopleQuery.new(params).complete
   end
 
 private

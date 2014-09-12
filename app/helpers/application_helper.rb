@@ -15,6 +15,7 @@ module ApplicationHelper
 
   def show_social?
     !is_mobile_request? && (!user_signed_in? || current_user.preferences.show_social_buttons?)
+    false
   end
 
   def title page_title

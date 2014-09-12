@@ -20,7 +20,7 @@ class AnimesCollectionController < ShikimoriController
       fetch_wo_pagination query
     else
       fetch_with_pagination query
-    end.map(&:decorate)
+    end
     one_found_redirect_check
 
     if params[:rel] || request.url.include?('order') || @description.blank? || params.any? {|k,v| k != 'genre' && v.include?(',') } || @entries.empty?
@@ -122,10 +122,12 @@ private
   # выборка из датасорса без пагинации
   def fetch_wo_pagination(query)
     entries = AniMangaQuery.new(klass, params).order(query)
-        .preload(:genres) # важно! не includes
-        .preload(klass == Anime ? :studios : :publishers) # важно! не includes
-        .to_a
-    apply_in_list(entries).group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
+      .preload(:genres) # важно! не includes
+      .preload(klass == Anime ? :studios : :publishers) # важно! не includes
+      .decorate
+      .to_a
+    apply_in_list(entries)
+      .group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
   end
 
   # выборка из датасорса с пагинацией
@@ -163,7 +165,7 @@ private
     end
     build_pagination_links entries, total_pages
 
-    apply_in_list(entries)
+    apply_in_list(entries).map(&:decorate)
   end
 
   # присоединение параметра в списке ли пользователя элемент?
