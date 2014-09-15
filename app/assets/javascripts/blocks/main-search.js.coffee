@@ -97,41 +97,41 @@ searcheables =
   characters:
     title: "Поиск по персонажам..."
     autocomplete: "/characters/autocomplete/"
-    phrase: "/characters/[phrase]"
+    phrase: "/characters/search/[phrase]"
     id: "/characters/[id]"
     regexp: /^\/characters\/(.*?)/
 
   seyu:
     title: "Поиск по сэйю..."
     autocomplete: "/people/autocomplete/seyu/"
-    phrase: "/seyu/[phrase]"
+    phrase: "/seyu/search/[phrase]"
     id: "/seyu/[id]"
     regexp: /^\/seyu\/(.*?)/
 
   producer:
     title: "Поиск по режиссёрам..."
     autocomplete: "/people/autocomplete/producer/"
-    phrase: "/producer/[phrase]"
+    phrase: "/producer/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/producer\/(.*?)/
 
   mangaka:
     title: "Поиск по мангакам..."
     autocomplete: "/people/autocomplete/mangaka/"
-    phrase: "/mangaka/[phrase]"
+    phrase: "/mangaka/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/mangaka\/(.*?)/
 
   people:
     title: "Поиск по всем людям..."
     autocomplete: "/people/autocomplete/"
-    phrase: "/people/[phrase]"
+    phrase: "/people/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/people\/(.*?)/
 
   users:
     title: "Поиск по пользователям..."
     autocomplete: "/users/autocomplete/"
-    phrase: "/users/[phrase]"
+    phrase: "/users/search/[phrase]"
     id: "/[id]"
     regexp: /^\/users\/(.*?)/

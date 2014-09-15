@@ -302,25 +302,6 @@ Site::Application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
-    resources :characters, only: [:show] do
-      member do
-        get :seyu
-        get :animes
-        get :mangas
-        get :comments
-        get :tooltip
-      end
-      get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
-    end
-
-    constraints id: /\d[^\/]*?/ do
-      #get 'characters/:id' => 'characters#show', as: :character, page: 'info'
-      patch 'characters/:id/apply' => 'characters#apply', as: :apply_character
-      get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
-      get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
-      get 'characters/:id/edit/:subpage' => "characters#edit", as: :edit_character, page: 'edit', constraints: { subpage: /description|russian/ }
-    end
-    get "characters/:search(/page/:page)" => 'characters#index', as: :character_search, page: /\d+/
     # tags
     #get 'tags/autocomplete/:search' => 'tags#autocomplete', as: :autocomplete_tags, format: :json
 
@@ -400,6 +381,57 @@ Site::Application.routes.draw do
       end
     end
 
+    resources :characters, only: [:show] do
+      member do
+        get :seyu
+        get :animes
+        get :mangas
+        get :comments
+        get :tooltip
+      end
+      collection do
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'search/:search(/page/:page)' => :idnex, as: :search, constraints: { page: /\d+/ }
+      end
+    end
+
+    constraints id: /\d[^\/]*?/ do
+      #get 'characters/:id' => 'characters#show', as: :character, page: 'info'
+      patch 'characters/:id/apply' => 'characters#apply', as: :apply_character
+      get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
+      get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
+      get 'characters/:id/edit/:subpage' => "characters#edit", as: :edit_character, page: 'edit', constraints: { subpage: /description|russian/ }
+    end
+
+    resources :people, only: [:show] do
+      member do
+        get :works
+        get :comments
+        get :tooltip
+      end
+      collection do
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
+      end
+    end
+    get "producers/:search(/page/:page)" => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
+    get "mangakas/:search(/page/:page)" => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
+
+    resources :seyu, only: [:show] do
+      member do
+        get :roles
+        get :comments
+      end
+      collection do
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
+      end
+    end
+    #get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
+    #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
+    #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
+
+
     # голосования
     resources :contests do
       collection do
@@ -455,28 +487,6 @@ Site::Application.routes.draw do
                                                                                                   user_2: /[^\/]+?/,
                                                                                                   format: /json/
                                                                                                 }
-
-    resources :people, only: [:show] do
-      member do
-        get :works
-        get :comments
-        get :tooltip
-      end
-      get 'autocomplete(/:kind)/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
-    end
-
-    resources :seyu, only: [:show] do
-      member do
-        get :roles
-        get :comments
-      end
-      get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
-    end
-    get "producer/:search(/page/:page)" => 'people#index', as: :producer_search, kind: 'producer', constraints: { page: /\d+/ }
-    get "mangaka/:search(/page/:page)" => 'people#index', as: :mangaka_search, kind: 'mangaka', constraints: { page: /\d+/ }
-    get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
-    #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
-    #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 
     # studios
     resources :studios, only: [:index]

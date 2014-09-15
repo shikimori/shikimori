@@ -1,23 +1,13 @@
 class SeyuController < PeopleController
   before_action :role_redirect, if: :resource_id
 
-  # поиск по сэйю
-  def index
-    append_title! 'Поиск сэйю'
-    append_title! SearchHelper.unescape(params[:search])
-
-    @query = SeyuQuery.new(params)
-    @people = postload_paginate(params[:page], 10) { @query.fetch }
-    @query.fill_works @people
-  end
-
   # отображение сэйю
   def show
     @itemtype = @resource.itemtype
   end
 
   def roles
-    page_title "Роли в аниме"
+    page_title 'Роли в аниме'
   end
 
   def comments
@@ -41,5 +31,13 @@ private
         redirect_to person_url(@resource)
       end
     end
+  end
+
+  def search_title
+    'Поиск сэйю'
+  end
+
+  def search_url *args
+    search_seyu_url(*args)
   end
 end

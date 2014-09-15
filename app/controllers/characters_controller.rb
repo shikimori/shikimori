@@ -90,4 +90,12 @@ private
   def fetch_resource
     @resource = Character.find(resource_id).decorate
   end
+
+  def search_title
+    'Поиск персонажей'
+  end
+
+  def search_url *args
+    search_characters_url(*args)
+  end
 end

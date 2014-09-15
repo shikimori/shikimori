@@ -9,16 +9,16 @@ class PeopleController < ShikimoriController
   before_action :resource_redirect, if: -> { @resource }
   before_action :set_title, if: -> { @resource }
 
+  helper_method :search_url
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   # отображение списка людей
   def index
-    append_title! 'Поиск людей'
-    append_title! SearchHelper.unescape(params[:search])
+    page_title search_title
+    page_title SearchHelper.unescape(params[:search])
 
-    @query = PeopleQuery.new params
-    @people = postload_paginate(params[:page], 10) { @query.fetch }
-    @query.fill_works @people
+    query = PeopleQuery.new params
+    @people = postload_paginate(params[:page], 30) { query.fetch }
   end
 
   # отображение человка
@@ -55,5 +55,25 @@ private
 
   def fetch_resource
     @resource = Person.find(resource_id).decorate
+  end
+
+  def search_title
+    if params[:kind] == 'producer'
+      'Поиск режиссёров'
+    elsif params[:kind] == 'mangaka'
+      'Поиск мангак'
+    else
+      'Поиск людей'
+    end
+  end
+
+  def search_url *args
+    if params[:kind] == 'producer'
+      search_producers_url(*args)
+    elsif params[:kind] == 'mangaka'
+      search_mangakas_url(*args)
+    else
+      search_people_url(*args)
+    end
   end
 end
