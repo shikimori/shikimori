@@ -1,6 +1,7 @@
 header.head
   h1
-    = @page_title.first
+    = @page_title.last
+
   p.notice На данной странице отображён результат поиска по запросу "#{@page_title.last}"
 
 - if @people.empty?
@@ -10,7 +11,3 @@ header.head
   = render @people
   - if @add_postloader
     = render 'blocks/postloader', url: search_url(search: params[:search], page: @page+1)
-/.index-list.people
-  = render partial: 'people/person_block', collection: @people, formats: :html
-  - if @add_postloader
-    = render partial: 'blocks/postloader', locals: { url: send(@director.entry_search_url_builder, search: params[:search], page: @page+1, format: :json) }, formats: :html

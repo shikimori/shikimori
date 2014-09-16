@@ -1,7 +1,7 @@
 class SeyuDecorator < PersonDecorator
   WORK_GROUP_SIZE = 5
 
-  rails_cache :works
+  instance_cache :works, :best_roles
 
   def url
     h.seyu_url object

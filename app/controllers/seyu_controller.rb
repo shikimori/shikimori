@@ -25,11 +25,11 @@ private
 
   def role_redirect
     if !@resource.seyu || (@resource.seyu && (@resource.producer || @resource.mangaka))
-      if params[:direct]
-        @canonical = person_url(@resource)
-      else
+      #if params[:direct]
+        #@canonical = person_url(@resource)
+      #else
         redirect_to person_url(@resource)
-      end
+      #end
     end
   end
 
@@ -38,6 +38,6 @@ private
   end
 
   def search_url *args
-    search_seyu_url(*args)
+    search_seyu_index_url(*args)
   end
 end

@@ -6,7 +6,8 @@ $(document).on 'page:load', ->
 
   # из урла достаём текущий тип поиска
   type = location.pathname.replace(/^\//, "").replace(/\/.*/, "")
-  type = _.first(_.keys(searcheables))  unless searcheables[type]
+  type = type.replace /s$/, '' unless searcheables[type]
+  type = _.first(_.keys(searcheables)) unless searcheables[type]
 
   # из урла достаём текущее значение поиска
   #var value = decodeURIComponent(location.pathname.replace(searcheables[type].regexp, '$1'));
@@ -15,7 +16,7 @@ $(document).on 'page:load', ->
   #}
 
   # во всплывающей выборке типов устанавливаем текущий тип
-  $(".type[data-type=#{ type}]", $popup).addClass "active"
+  $(".type[data-type=#{type}], .type[data-type=#{type}]", $popup).addClass 'active'
 
   # автокомплит
   $search
@@ -80,21 +81,21 @@ $(document).on 'page:load', ->
 
 # конфигурация автодополнений
 searcheables =
-  animes:
+  anime:
     title: "Поиск по аниме..."
     autocomplete: "/animes/autocomplete/"
     phrase: "/animes/search/[phrase]"
     id: "/animes/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
-  mangas:
+  manga:
     title: "Поиск по манге..."
     autocomplete: "/mangas/autocomplete/"
     phrase: "/mangas/search/[phrase]"
     id: "/mangas/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
-  characters:
+  character:
     title: "Поиск по персонажам..."
     autocomplete: "/characters/autocomplete/"
     phrase: "/characters/search/[phrase]"
@@ -111,14 +112,14 @@ searcheables =
   producer:
     title: "Поиск по режиссёрам..."
     autocomplete: "/people/autocomplete/producer/"
-    phrase: "/producer/search/[phrase]"
+    phrase: "/producers/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/producer\/(.*?)/
 
   mangaka:
     title: "Поиск по мангакам..."
     autocomplete: "/people/autocomplete/mangaka/"
-    phrase: "/mangaka/search/[phrase]"
+    phrase: "/mangakas/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/mangaka\/(.*?)/
 
@@ -129,7 +130,7 @@ searcheables =
     id: "/person/[id]"
     regexp: /^\/people\/(.*?)/
 
-  users:
+  user:
     title: "Поиск по пользователям..."
     autocomplete: "/users/autocomplete/"
     phrase: "/users/search/[phrase]"

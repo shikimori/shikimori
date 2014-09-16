@@ -1,6 +1,4 @@
 class PeopleController < ShikimoriController
-  #layout false, only: [:tooltip, :autocomplete]
-
   respond_to :html, only: [:show, :tooltip]
   respond_to :html, :json, only: :index
   respond_to :json, only: :autocomplete
@@ -8,6 +6,7 @@ class PeopleController < ShikimoriController
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: -> { @resource }
   before_action :set_title, if: -> { @resource }
+  before_action :role_redirect, if: :resource_id
 
   helper_method :search_url
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
@@ -17,8 +16,7 @@ class PeopleController < ShikimoriController
     page_title search_title
     page_title SearchHelper.unescape(params[:search])
 
-    query = PeopleQuery.new params
-    @people = postload_paginate(params[:page], 30) { query.fetch }
+    @people = postload_paginate(params[:page], 48) { search_query.fetch }
   end
 
   # отображение человка
@@ -27,7 +25,7 @@ class PeopleController < ShikimoriController
   end
 
   def works
-    page_title "Участие в проектах"
+    page_title 'Участие в проектах'
   end
 
   def comments
@@ -74,6 +72,16 @@ private
       search_mangakas_url(*args)
     else
       search_people_url(*args)
+    end
+  end
+
+  def search_query
+    PeopleQuery.new params
+  end
+
+  def role_redirect
+    if @resource.seyu
+      redirect_to seyu_url(@resource)
     end
   end
 end

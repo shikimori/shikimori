@@ -391,7 +391,7 @@ Site::Application.routes.draw do
       end
       collection do
         get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
-        get 'search/:search(/page/:page)' => :idnex, as: :search, constraints: { page: /\d+/ }
+        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
       end
     end
 
@@ -410,12 +410,12 @@ Site::Application.routes.draw do
         get :tooltip
       end
       collection do
-        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'autocomplete(/:kind)/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
         get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
       end
     end
-    get "producers/:search(/page/:page)" => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
-    get "mangakas/:search(/page/:page)" => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
+    get "producers/search/:search(/page/:page)" => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
+    get "mangakas/search/:search(/page/:page)" => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
 
     resources :seyu, only: [:show] do
       member do

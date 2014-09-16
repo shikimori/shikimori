@@ -1,11 +1,8 @@
 class PersonDecorator < DbEntryDecorator
   decorates_finders
 
-  instance_cache :website, :all_roles, :groupped_roles, :roles_names, :favoured
-  instance_cache :producer?, :mangaka?, :seuy?, :composer?
-  instance_cache :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
-
-  rails_cache :works
+  instance_cache :website, :all_roles, :groupped_roles, :roles_names, :favoured, :works, :best_works
+  instance_cache :producer?, :mangaka?, :seuy?, :composer?, :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
 
   def credentials?
     japanese.present? || object.name.present?
@@ -109,6 +106,8 @@ class PersonDecorator < DbEntryDecorator
       'Аниме'
     elsif has_manga?
       'Манга'
+    else
+      'Проекты'
     end
   end
 

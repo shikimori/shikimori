@@ -1,9 +1,8 @@
 # TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
-  #layout false, only: [:tooltip]
   #before_action :authenticate_user!, only: [:edit]
 
-  before_action :resource_redirect, if: -> { @resource }
+  skip_before_action :role_redirect
 
   #caches_action :index, CacheHelper.cache_settings
   #caches_action :page, :show, :tooltip,
@@ -13,17 +12,6 @@ class CharactersController < PeopleController
     #},
     #unless: proc { user_signed_in? },
     #expires_in: 2.days
-
-
-  # список персонажей
-  def index
-    append_title! 'Поиск персонажа'
-    append_title! SearchHelper.unescape(params[:search])
-
-    @query = CharactersQuery.new params
-    @people = postload_paginate(params[:page], 10) { @query.fetch }
-    @query.fill_works @people
-  end
 
   # отображение персонажа
   def show
@@ -97,5 +85,9 @@ private
 
   def search_url *args
     search_characters_url(*args)
+  end
+
+  def search_query
+    CharactersQuery.new params
   end
 end
