@@ -90,7 +90,7 @@ describe AnimeVideoReport do
     let(:report_kind) { 'broken' }
     subject(:report) { create :anime_video_report, anime_video: anime_video, kind: report_kind }
 
-    describe :accept do
+    describe '#accept' do
       before { report.accept approver }
       its(:approver) { should eq approver }
 
@@ -100,7 +100,7 @@ describe AnimeVideoReport do
       end
     end
 
-    describe :reject do
+    describe '#reject' do
       before { report.reject approver }
       its(:approver) { should eq approver }
 
@@ -119,7 +119,7 @@ describe AnimeVideoReport do
       end
     end
 
-    describe :reject do
+    describe '#cancel' do
       let(:report) { create :anime_video_report, anime_video: anime_video, kind: report_kind, approver: approver, state: 'accepted' }
       let(:canceler) { build_stubbed :user }
       let(:anime_video_state) { 'broken' }
@@ -131,6 +131,93 @@ describe AnimeVideoReport do
       describe :anime_video_state do
         subject { report.anime_video }
         it { should be_working }
+      end
+    end
+
+
+    describe 'repeat event for doubles' do
+      let(:report_user_1) { create :user }
+      let(:report_user_2) { create :user }
+      let(:report_user_3) { create :user }
+      let!(:report_1) { create :anime_video_report, anime_video: anime_video, kind: report_kind, user: report_user_1 }
+      let!(:report_2) { create :anime_video_report, anime_video: anime_video, kind: report_kind, user: report_user_2 }
+      let!(:report_3) { create :anime_video_report, anime_video: anime_video, kind: report_kind, user: report_user_3 }
+      let!(:report_other_kind) { create :anime_video_report, anime_video: anime_video, kind: report_kind_other, user: report_user_2 }
+
+      context :from_working_to_other do
+        let(:anime_video_state) { 'working' }
+
+        context :broken_report do
+          let(:report_kind) { 'broken' }
+          let(:report_kind_other) { 'wrong' }
+
+          describe '#accept' do
+            before { report_1.accept approver }
+
+            specify { report_2.reload.should be_accepted }
+            specify { report_2.reload.approver_id.should eq approver.id }
+            specify { report_3.reload.should be_accepted }
+            specify { report_3.reload.approver_id.should eq approver.id }
+            specify { report_other_kind.reload.should be_pending }
+            specify { report_other_kind.reload.approver_id.should be_nil }
+          end
+
+          describe '#reject' do
+            before { report_1.reject approver }
+
+            specify { report_2.reload.should be_rejected }
+            specify { report_2.reload.approver_id.should eq approver.id }
+            specify { report_3.reload.should be_rejected }
+            specify { report_3.reload.approver_id.should eq approver.id }
+            specify { report_other_kind.reload.should be_pending }
+            specify { report_other_kind.reload.approver_id.should be_nil }
+          end
+        end
+
+        context :wrong_report do
+          let(:report_kind) { 'wrong' }
+          let(:report_kind_other) { 'broken' }
+
+          describe '#accept' do
+            before { report_1.accept approver }
+
+            specify { report_2.reload.should be_accepted }
+            specify { report_2.reload.approver_id.should eq approver.id }
+            specify { report_3.reload.should be_accepted }
+            specify { report_3.reload.approver_id.should eq approver.id }
+            specify { report_other_kind.reload.should be_pending }
+            specify { report_other_kind.reload.approver_id.should be_nil }
+          end
+
+          describe '#reject' do
+            before { report_1.reject approver }
+
+            specify { report_2.reload.should be_rejected }
+            specify { report_2.reload.approver_id.should eq approver.id }
+            specify { report_3.reload.should be_rejected }
+            specify { report_3.reload.approver_id.should eq approver.id }
+            specify { report_other_kind.reload.should be_pending }
+            specify { report_other_kind.reload.approver_id.should be_nil }
+          end
+        end
+      end
+
+      context :from_other_to_working do
+        context :broken_report do
+          let(:report_kind) { 'broken' }
+          let(:report_kind_other) { 'wrong' }
+          before do
+            report_1.accept approver
+            report_1.cancel approver
+          end
+
+          specify { report_2.reload.should be_pending }
+          specify { report_2.reload.approver_id.should eq approver.id }
+          specify { report_3.reload.should be_pending }
+          specify { report_3.reload.approver_id.should eq approver.id }
+          specify { report_other_kind.reload.should be_pending }
+          specify { report_other_kind.reload.approver_id.should be_nil }
+        end
       end
     end
   end
