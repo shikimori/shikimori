@@ -50,10 +50,9 @@
               li: a href="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" data-remote="true" data-method="post" Видео не от этого аниме
 
       - if user_signed_in?
-        - if current_user.trusted_video_uploader?
-          li.pull-right
-            button.btn.btn-default.btn-sm data-href="#{edit_anime_online_anime_anime_video_url anime.id, anime.current_video.id}" type='button' title='Редактировать видео'
-              span.glyphicon.glyphicon-pencil
+        li.pull-right
+          button.btn.btn-default.btn-sm data-href="#{edit_anime_online_anime_anime_video_url anime.id, anime.current_video.id}" type='button' title='Редактировать видео'
+            span.glyphicon.glyphicon-pencil
 
         - unless anime.current_video.copyright_ban?
           li.pull-right
