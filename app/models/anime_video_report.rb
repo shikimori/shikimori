@@ -46,6 +46,10 @@ class AnimeVideoReport < ActiveRecord::Base
     before_transition pending: :accepted do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
       anime_video_report.anime_video.update_attribute :state, anime_video_report.kind
+      anime_video_report.find_doubles.update_all(
+        approver_id: transition.args.first.id,
+        state: :accepted
+      )
     end
 
     before_transition pending: :rejected do |anime_video_report, transition|
@@ -53,13 +57,29 @@ class AnimeVideoReport < ActiveRecord::Base
       if anime_video_report.kind.uploaded?
         anime_video_report.anime_video.reject!
       end
+      anime_video_report.find_doubles.update_all(
+        approver_id: transition.args.first.id,
+        state: :rejected
+      )
     end
 
     before_transition [:accepted, :rejected] => :pending do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
       prev_state = anime_video_report.uploaded? ? 'uploaded' : 'working'
       anime_video_report.anime_video.update_attribute :state, prev_state
+      anime_video_report.find_doubles(transition.from).update_all(
+        approver_id: transition.args.first.id,
+        state: transition.to
+      )
     end
+  end
+
+  def find_doubles state='pending'
+    AnimeVideoReport.where(
+      kind: kind,
+      state: state,
+      anime_video_id: anime_video_id
+    )
   end
 
 private
