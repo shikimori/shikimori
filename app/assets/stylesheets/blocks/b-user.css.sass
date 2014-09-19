@@ -1,6 +1,8 @@
 @import globals
 @import mixins/responsive
 @import mixins/column
+@import mixins/date
+@import mixins/links
 
 .b-user
   border-bottom: 1px dashed #ddd
@@ -23,7 +25,7 @@
       margin-top: 1px
 
     .image-name
-      +normal-link
+      +link
       display: inline
 
       .image
@@ -75,4 +77,4 @@
         display: block
 
         .event
-          +normal-link
+          +link

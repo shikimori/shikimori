@@ -9,7 +9,7 @@
         = f.hidden_field :item_id
         - if contest.can_propose?
           input.item-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.suggestion_url}"
-        .subheadline.m10
+        .subheadline
           - if contest.can_propose?
             | Ваши номинанты (ещё #{contest.proposals_left})
           - else

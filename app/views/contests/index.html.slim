@@ -1,8 +1,3 @@
-- content_for :head do
-  = stylesheet_link_tag :contests
-- content_for :tail do
-  = javascript_include_tag :contests
-
 header.head.misc
   h1
     = @page_title.last
@@ -12,8 +7,8 @@ header.head.misc
 
 .contests
   - @contests_groups.each do |state, group|
-    .menu-block
-      .subheadline #{t("activerecord.state_machines.contest.states.#{state}").capitalize}
+    .block
+      .subheadline  = t("activerecord.state_machines.contest.states.#{state}").capitalize
       - group.each_with_index do |contest, index|
         .contest
           | #{index + 1}.

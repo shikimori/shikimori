@@ -1,24 +1,16 @@
 .b-options-floated.count
   = contest.certain_suggestions.size
-.subheadline.m10
+.subheadline
   = contest.uncertain_suggestions.any? ? 'Вероятные номинанты' : 'Номинанты'
-.subcontent.proposing
+.proposing
   - if contest.certain_suggestions.any?
-    .first
-      = render partial: 'contests/suggestion', collection: contest.certain_suggestions.each_slice(2).map(&:first), locals: { contest: contest }
-    - if contest.certain_suggestions.size > 1
-      .second
-        = render partial: 'contests/suggestion', collection: contest.certain_suggestions.each_slice(2).map(&:last), locals: { contest: contest }
+    = render partial: 'suggestion', collection: contest.certain_suggestions, locals: { contest: contest }
   - else
     p нет вариантов
 
 - if contest.uncertain_suggestions.any?
   .b-options-floated.count
     = contest.uncertain_suggestions.size
-  .subheadline.m10 Номинанты под вопросом
-  .subcontent.proposing
-    .first
-      = render partial: 'contests/suggestion', collection: contest.uncertain_suggestions.each_slice(2).map(&:first), locals: { contest: contest }
-    - if contest.uncertain_suggestions.size > 1
-      .second
-        = render partial: 'contests/suggestion', collection: contest.uncertain_suggestions.each_slice(2).map(&:last), locals: { contest: contest }
+  .subheadline Номинанты под вопросом
+  .proposing
+    = render partial: 'suggestion', collection: contest.uncertain_suggestions, locals: { contest: contest }

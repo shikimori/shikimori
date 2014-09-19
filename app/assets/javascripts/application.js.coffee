@@ -2,10 +2,11 @@
 #= require pages/p-animes
 #= require pages/p-animes_collection-index
 #= require pages/p-recommendations-index
-#
+
 #= require pages/p-seyu
 #= require pages/p-people
 #= require pages/p-characters
+#= require pages/p-contests
 
 $ ->
   $(document).trigger 'page:load', true

@@ -1,8 +1,12 @@
-@import globals
+@import globals/variables
 @import mixins/input
 
 .b-input
-  margin-bottom: 10px
+  +gte_ipad
+    margin-bottom: 10px
+
+  +iphone
+    margin-bottom: 15px
 
   &:last-child
     margin-bottom: 0

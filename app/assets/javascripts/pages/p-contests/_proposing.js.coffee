@@ -1,19 +1,21 @@
-$voters = (node) ->
-  $(node)
-    .parents('.suggestion')
-    .find('.voters-container')
+@on 'page:load', 'contests_show', ->
+  return unless $('.proposing').exists()
 
-$hide = (node) ->
-  $(node)
-    .parents('.suggestion')
-    .find('.hide')
+  $voters = (node) ->
+    $(node)
+      .parents('.suggestion')
+      .find('.voters-container')
 
-$show = (node) ->
-  $(node)
-    .parents('.suggestion')
-    .find('.show')
+  $hide = (node) ->
+    $(node)
+      .parents('.suggestion')
+      .find('.hide')
 
-$ ->
+  $show = (node) ->
+    $(node)
+      .parents('.suggestion')
+      .find('.show')
+
   suggest_placeholder = if $('.proposing .item-suggest').data('member_type') == 'anime'
     'Название аниме...'
   else

@@ -1,0 +1,18 @@
+@import globals/variables
+@import mixins/block
+@import mixins/links
+
+.p-contests-edit
+  .members_container
+    line-height: $line_height
+
+    a
+      +link
+
+  .contest_actions
+    +block_m
+
+    a
+      +link
+      display: block
+      line-height: $line_height

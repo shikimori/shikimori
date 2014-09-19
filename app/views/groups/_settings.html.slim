@@ -13,7 +13,7 @@
 
     .field-name.textarea Описание
     .m0
-      = render partial: 'comments/add', locals: { options: { text: @group ? @group.description : '', field_name: 'group[description]', no_save: true, no_subscribe: true, no_form: true, no_focus: true } }, formats: :html
+      /= render partial: 'comments/add', locals: { options: { text: @group ? @group.description : '', field_name: 'group[description]', no_save: true, no_subscribe: true, no_form: true, no_focus: true } }, formats: :html
 
     = f.input :join_policy, collection: GroupDecorator.join_policy_options, include_blank: false
     = f.input :comment_policy, collection: GroupDecorator.comment_policy_options, include_blank: false
@@ -122,4 +122,4 @@
           ul.container
 
   p.buttons.m30
-    span.save.button = @group.persisted? ? 'Сохранить' : 'Создать'
+    = f.submit @group.persisted? ? 'Сохранить' : 'Создать'

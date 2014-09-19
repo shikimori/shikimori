@@ -11,8 +11,8 @@
     ]
     a name="topic-#{topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
-    .inner
-      - if topic.show_body?
+    - if topic.show_body?
+      .inner
         - if user_signed_in?
           span.item-mobile title="Действия"
 

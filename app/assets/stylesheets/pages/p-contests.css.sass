@@ -1,0 +1,42 @@
+//= require_directory ./p-contests
+@import compass/typography/text/ellipsis
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/links
+@import mixins/responsive
+
+.p-contests
+  .proposing
+    +block_m
+    +clear_left
+
+  .suggestion
+    +gte_ipad
+      +column(2)
+
+    +iphone
+      +column(1)
+
+    line-height: $line_height
+
+    .show, .hide
+      cursor: pointer
+
+      span
+        padding-left: 4px
+
+    .hide
+      display: none
+
+    & > a
+      +link
+      +ellipsis
+      float: left
+      max-width: 265px
+
+    .voters img
+      padding-right: 5px
+
+    .voters-container
+      display: none

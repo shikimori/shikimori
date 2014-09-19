@@ -16,6 +16,7 @@
 //= require pages/p-people
 //= require pages/p-animes_collection-index
 //= require pages/p-recommendations-index
+//= require pages/p-contests
 
 @import globals
 @import mixins/responsive
@@ -69,10 +70,21 @@ strong, b
 input, select, button, textarea
   border: 1px solid #999999
   font-family: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif
-  font-size: 13px
   outline: none
+
+  +gte_ipad
+    font-size: 13px
+
+  +iphone
+    font-size: 15px
+
 select
-  font-size: 11px
+  +gte_ipad
+    font-size: 11px
+
+  +iphone
+    font-size: 13px
+
 textarea
   line-height: $line_height
 input[type=radio]

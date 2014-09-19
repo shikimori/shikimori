@@ -23,4 +23,4 @@
   .subheadline Лента
   .forum-container.topic-block.faye-top-add class="topic-#{@group.thread.id}"
     .comments.zero-margin.zero-top-border
-      = render partial: 'comments/comments', locals: { object: @group.thread, comments: @group.comments, postloader: 15 }, formats: :html
+      /= render partial: 'comments/comments', locals: { object: @group.thread, comments: @group.comments, postloader: 15 }, formats: :html

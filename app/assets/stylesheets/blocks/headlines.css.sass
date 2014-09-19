@@ -125,14 +125,26 @@ header.head
 // инпунт с правого края заголовка
 .subheadline-input
   +input
-  font-size: 12px
-  height: 20px
-  line-height: 17px
   margin-right: 2px !important
   margin-top: 2px !important
   position: absolute
   right: 0
-  width: 155px !important
+  width: 248px !important
+
+  +gte_ipad
+    font-size: 12px
+    line-height: 16px !important
+
+  +iphone
+    font-size: 13px
+    line-height: 21px !important
+    padding-bottom: 2px !important
+    padding-top: 2px !important
+
+  +iphone-portrait
+    margin-bottom: 10px !important
+    position: initial
+    width: 100% !important
 
 .subcontent
   padding-left: 5px

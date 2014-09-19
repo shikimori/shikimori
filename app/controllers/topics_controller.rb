@@ -47,7 +47,7 @@ class TopicsController < ForumController
     #@presenter = TopicPresenter.new(object: @topic, template: view_context, linked: @linked, limit: 20, with_user: true)
     if ((@topic.news? || @topic.review?) && params[:linked].present?) || (
         !@topic.news? && !@topic.review? && (
-          @topic.to_param != params[:topic] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && @topic.class != ContestComment)
+          @topic.to_param != params[:topic] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && !@topic.kind_of?(ContestComment))
         )
       )
       redirect_to topic_url(@topic), status: :moved_permanently and return
