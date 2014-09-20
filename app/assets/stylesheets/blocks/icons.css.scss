@@ -1,7 +1,7 @@
 @import "globals";
 @import "globals/fonts";
 @import "mixins/icons";
-@import "mixins/links";
+@import "mixins/link";
 
 .item-minus {
   @include icon_button('-');

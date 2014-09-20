@@ -1,12 +1,15 @@
 @import globals
+@import mixins/link
+@import mixins/column
+@import mixins/responsive
 
-.contest .match-day
+.p-contests .match-day
   overflow: hidden
   margin-left: 5px
-  margin-top: 10px
+  margin-bottom: $block_offset / 2
 
-  &:first-child
-    margin-top: 0
+  &:last-child
+    margin-bottom: 0
 
   & > .date
     margin-bottom: 2px
@@ -33,22 +36,28 @@
       background: #e5e5e5
 
     a
-      +normal-link
+      +link
       max-width: 100%
       line-height: 14px
 
-    &.voted-none > .column a, &.voted-left > .column:last-child a, &.voted-right > .column:first-child a
-      +link-color(#112233)
+    &.voted-none > .c-column a,
+    &.voted-left > .c-column:last-child a,
+    &.voted-right > .c-column:first-child a
+      +link_color(#112233)
 
-    .column
+    .c-column
       +ellipsis
       padding: 0 10px
+      margin-bottom: 0
+
+      +iphone
+        +column(2)
 
       &:first-child
         padding-left: 32px
 
       &.loser a, &.created a
-        +link-color(#112233)
+        +link_color(#112233)
 
     .voted, .winner, .loser, .created, .started, .finished
       &:before
@@ -116,6 +125,6 @@
     padding-right: 6px
     color: $gray-color-2
 
-.contest.swiss
-  .match-day .match-link .column
-    padding-left: 15px
+  .swiss
+    .match-day .match-link .c-column
+      padding-left: 15px

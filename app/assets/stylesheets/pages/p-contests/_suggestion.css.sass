@@ -1,9 +1,8 @@
-//= require_directory ./p-contests
 @import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
-@import mixins/links
+@import mixins/link
 @import mixins/responsive
 
 .p-contests
@@ -12,6 +11,7 @@
     +clear_left
 
   .suggestion
+    +ellipsis
     +gte_ipad
       +column(3)
 
@@ -36,7 +36,7 @@
       +link
       +ellipsis
       float: left
-      max-width: 265px
+      max-width: 50%
 
     .voters img
       padding-right: 5px

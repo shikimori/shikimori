@@ -1,10 +1,14 @@
 @import compass/utilities/general/clearfix
-@import mixins/links
+@import mixins/block
+@import mixins/clear_right
+@import mixins/link
 
 .b-form
   position: relative
 
   .actions
+    +block
+    +clear_right
     +clearfix
 
   .cancel

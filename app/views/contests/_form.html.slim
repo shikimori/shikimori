@@ -107,6 +107,7 @@
   - if contest.persisted?
     - if contest.rounds.any?
       - contest.rounds.each do |round|
-        .subheadline
-          = round.title
-        = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(round)
+        .block
+          .subheadline
+            = round.title
+          = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(round)

@@ -1,8 +1,8 @@
-@import globals/variables
+@import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
-@import mixins/links
+@import mixins/link
 @import mixins/responsive
 
 .p-contests-edit
@@ -12,6 +12,7 @@
     +clear_left
 
     .member
+      +ellipsis
       +gte_ipad
         +column(3)
 
@@ -23,6 +24,9 @@
 
       a
         +link
+        +ellipsis
+        float: left
+        max-width: 50%
 
   .contest_actions
     +block_m

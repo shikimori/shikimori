@@ -23,7 +23,7 @@
   .one-third-columns
     - if contest.displayed_round.finished?
       .column
-        = render 'contests/rating', contest: contest, round: contest.displayed_round
+        = render 'rating', contest: contest, round: contest.displayed_round
 
     .column
       .b-options-floated
@@ -36,7 +36,7 @@
     - cache ['prior_round', contest, contest.displayed_round, contest.prior_round, russian_names_key] do
       .one-third-columns
         .column
-          = render 'contests/rating', contest: contest, round: contest.prior_round
+          = render 'rating', contest: contest, round: contest.prior_round
 
         .column
           .b-options-floated
