@@ -1,0 +1,23 @@
+.menu-toggler
+  .toggler
+
+header.head.misc
+  - if params[:action] == 'show'
+    h1 = @page_title.last
+  - else
+    h2
+      a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
+      = @page_title.last
+
+  - if @contest.can_be_edited_by? current_user
+    a.misc href="#{edit_contest_url @contest}" title="Изменить опрос" изменить
+
+  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+
+.menu-slide-outer
+  .menu-slide-inner
+    .l-content class="#{@contest.strategy_type}"
+      = yield
+
+    aside.l-menu
+      = render 'menu', contest: @contest

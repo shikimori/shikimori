@@ -1,5 +1,5 @@
-= render layout: 'people/page' do |f|
+= render layout: 'page' do
   .subheadline.m3 = @page_title.last
   div
     .b-topic.unprocessed
-      = render partial: 'topics/comments', locals: { topic: @thread }
+      = render partial: 'topics/comments', locals: { topic: @resource.main_thread }

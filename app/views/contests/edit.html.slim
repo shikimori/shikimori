@@ -1,6 +1,7 @@
 header.head
   h2
-    a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
+    - unless @contest.created?
+      a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
     = @page_title.last
 
   = render partial: 'blocks/breadcrumbs', object: breadcrumbs

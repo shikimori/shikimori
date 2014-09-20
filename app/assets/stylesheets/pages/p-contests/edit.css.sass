@@ -1,13 +1,28 @@
 @import globals/variables
 @import mixins/block
+@import mixins/clear_left
+@import mixins/column
 @import mixins/links
+@import mixins/responsive
 
 .p-contests-edit
-  .members_container
+  .members
+    margin-bottom: 5px
     line-height: $line_height
+    +clear_left
 
-    a
-      +link
+    .member
+      +gte_ipad
+        +column(3)
+
+      +iphone_landscape
+        +column(2)
+
+      +iphone_portrait
+        +column(1)
+
+      a
+        +link
 
   .contest_actions
     +block_m

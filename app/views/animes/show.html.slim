@@ -1,4 +1,4 @@
-= render layout: 'animes/page' do |f|
+= render layout: 'page' do
   meta itemprop="url" content="#{{@resource.url}}"
   meta itemprop="headline" content="#{{@resource.name}}"
 
@@ -108,4 +108,4 @@
       .subheadline.m3 Отзывы
     div
       .b-topic.unprocessed
-        = render partial: 'topics/comments', locals: { topic: @resource.reviews_thread }
+        = render partial: 'topics/comments', locals: { topic: @resource.preview_reviews_thread }

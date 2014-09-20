@@ -444,6 +444,8 @@ Site::Application.routes.draw do
         post :stop_propose
         post :cleanup_suggestions
 
+        get :comments
+
         get :grid
         get 'rounds/:round', action: 'show', as: 'round'
         get 'rounds/:round/match/:match_id', action: 'show', as: 'round_match'

@@ -1,4 +1,4 @@
-= render layout: 'animes/page' do |f|
+= render layout: 'page' do
   .b-options-floated.mobile-support
     span.link.selected
       | Все отзывы&nbsp;
@@ -10,4 +10,4 @@
   .subheadline.m3 = @page_title.last
   div
     .b-topic.unprocessed
-      = render partial: 'topics/comments', locals: { topic: @thread }
+      = render partial: 'topics/comments', locals: { topic: @resource.main_reviews_thread }

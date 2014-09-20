@@ -150,13 +150,6 @@ class PersonDecorator < DbEntryDecorator
     'http://schema.org/Person'
   end
 
-  # основной топик
-  def thread
-    thread = TopicDecorator.new object.thread
-    thread.preview_mode!
-    thread
-  end
-
 private
   def has_anime?
     all_roles.any? {|v| !v.anime_id.nil? }

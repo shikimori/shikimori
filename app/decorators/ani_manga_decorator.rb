@@ -6,9 +6,10 @@ class AniMangaDecorator < DbEntryDecorator
   NewsPerPage = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
-  instance_cache :is_favoured, :favoured, :rate, :reviews_thread, :changes, :roles, :related, :cosplay
-  instance_cache :friend_rates, :recent_rates, :chronology
+  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count,
+    :is_favoured, :favoured, :rate, :changes, :roles, :related, :cosplay,
+    :friend_rates, :recent_rates, :chronology,
+    :preview_reviews_thread, :main_reviews_thread
 
   # топики
   def topics
@@ -55,10 +56,18 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   # основной топик
-  def reviews_thread
+  def preview_reviews_thread
     thread = TopicDecorator.new object.thread
     thread.reviews_only! if comment_reviews?
     thread.preview_mode!
+    thread
+  end
+
+  # полный топик отзывов
+  def main_reviews_thread
+    thread = TopicDecorator.new object.thread
+    thread.reviews_only!
+    thread.topic_mode!
     thread
   end
 

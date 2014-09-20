@@ -29,11 +29,8 @@ class PeopleController < ShikimoriController
   end
 
   def comments
-    raise NotFound if @resource.thread.comments_count.zero?
+    raise NotFound if @resource.main_thread.comments_count.zero?
     page_title 'Обсуждение'
-
-    @thread = TopicDecorator.new @resource.thread
-    @thread.topic_mode!
   end
 
   # тултип

@@ -10,14 +10,6 @@ class SeyuController < PeopleController
     page_title 'Роли в аниме'
   end
 
-  def comments
-    raise NotFound if @resource.thread.comments_count.zero?
-    page_title 'Обсуждение'
-
-    @thread = TopicDecorator.new @resource.thread
-    @thread.topic_mode!
-  end
-
 private
   def fetch_resource
     @resource = SeyuDecorator.new Person.find(resource_id)

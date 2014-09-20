@@ -6,7 +6,7 @@ $(document).on 'page:load', ->
 
   # из урла достаём текущий тип поиска
   type = location.pathname.replace(/^\//, "").replace(/\/.*/, "")
-  type = type.replace /s$/, '' unless searcheables[type]
+  #type = type.replace /s$/, '' unless searcheables[type]
   type = _.first(_.keys(searcheables)) unless searcheables[type]
 
   # из урла достаём текущее значение поиска
@@ -43,9 +43,9 @@ $(document).on 'page:load', ->
       $(".ac_results:visible").addClass "menu-suggest"
 
   # переключение типа поиска
-  $(".main-search .type").on "click", ->
+  $(".main-search .type").on 'click', ->
     $this = $(this)
-    return  if $this.hasClass("active")
+    return if $this.hasClass("active")
     $this.addClass("active").siblings().removeClass "active"
     type = $this.data("type")
     $search.data("type", type).attr("placeholder", searcheables[type].title).data("autocomplete", searcheables[type].autocomplete).trigger("flushCache").focus()
@@ -81,21 +81,21 @@ $(document).on 'page:load', ->
 
 # конфигурация автодополнений
 searcheables =
-  anime:
+  animes:
     title: "Поиск по аниме..."
     autocomplete: "/animes/autocomplete/"
     phrase: "/animes/search/[phrase]"
     id: "/animes/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
-  manga:
+  mangas:
     title: "Поиск по манге..."
     autocomplete: "/mangas/autocomplete/"
     phrase: "/mangas/search/[phrase]"
     id: "/mangas/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
-  character:
+  characters:
     title: "Поиск по персонажам..."
     autocomplete: "/characters/autocomplete/"
     phrase: "/characters/search/[phrase]"
@@ -109,14 +109,14 @@ searcheables =
     id: "/seyu/[id]"
     regexp: /^\/seyu\/(.*?)/
 
-  producer:
+  producers:
     title: "Поиск по режиссёрам..."
     autocomplete: "/people/autocomplete/producer/"
     phrase: "/producers/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/producer\/(.*?)/
 
-  mangaka:
+  mangakas:
     title: "Поиск по мангакам..."
     autocomplete: "/people/autocomplete/mangaka/"
     phrase: "/mangakas/search/[phrase]"
@@ -130,7 +130,7 @@ searcheables =
     id: "/person/[id]"
     regexp: /^\/people\/(.*?)/
 
-  user:
+  users:
     title: "Поиск по пользователям..."
     autocomplete: "/users/autocomplete/"
     phrase: "/users/search/[phrase]"

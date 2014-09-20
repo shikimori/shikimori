@@ -45,6 +45,12 @@ class ContestsController < ShikimoriController
     raise NotFound, "not finished round #{@contest.displayed_round.id}" unless @contest.displayed_match.finished? || (user_signed_in? && current_user.admin?)
   end
 
+  # комментарии опроса
+  def comments
+    raise NotFound if @contest.main_thread.comments_count.zero?
+    page_title 'Обсуждение опроса'
+  end
+
   # турнирная сетка
   def grid
     redirect_to contests_url and return if @contest.created?
@@ -58,7 +64,7 @@ class ContestsController < ShikimoriController
   end
 
   def edit
-    @page_title << 'Изменение опроса'
+    @page_title << 'Редактирование опроса'
   end
 
   def new

@@ -13,9 +13,12 @@
 
   .suggestion
     +gte_ipad
+      +column(3)
+
+    +iphone_landscape
       +column(2)
 
-    +iphone
+    +iphone_portrait
       +column(1)
 
     line-height: $line_height
@@ -29,7 +32,7 @@
     .hide
       display: none
 
-    & > a
+    &>a
       +link
       +ellipsis
       float: left

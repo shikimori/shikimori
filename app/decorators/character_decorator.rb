@@ -21,14 +21,6 @@ class CharacterDecorator < PersonDecorator
     "Персонаж #{[animes.any? ? 'аниме' : nil, mangas.any? ? 'манги' : nil].compact.join(' и ')}"
   end
 
-  def thread
-    @thread ||= object.thread
-  end
-
-  def comments
-    @comments ||= object.thread.comments.with_viewed(h.current_user).limit(15)
-  end
-
   # презентер косплея
   def cosplay
     @cosplay ||= AniMangaPresenter::CosplayPresenter.new object, h

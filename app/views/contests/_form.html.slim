@@ -78,9 +78,9 @@
       .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
       .block
         = hidden_field_tag "members[]", ''
-        ul.members_container.m5
+        .members
           - contest.members.uniq(&:id).each do |member|
-            li
+            .member
               = hidden_field_tag 'members[]', member.id
               a.bubbled href="#{url_for member}"
                 = member.name

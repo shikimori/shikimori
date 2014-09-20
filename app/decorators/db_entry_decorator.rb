@@ -1,5 +1,5 @@
 class DbEntryDecorator < BaseDecorator
-  instance_cache :description_mal, :description_html
+  instance_cache :description_mal, :description_html, :main_thread, :preview_thread
 
   def headline
     headline_array.join(' <span class="sep inline">/</span> ').html_safe
@@ -48,6 +48,20 @@ class DbEntryDecorator < BaseDecorator
   # адрес на mal'е
   def mal_url
     "http://myanimelist.net/#{klass_lower}/#{object.id}"
+  end
+
+  # полный топик
+  def main_thread
+    thread = TopicDecorator.new object.thread
+    thread.topic_mode!
+    thread
+  end
+
+  # превью топика
+  def preview_thread
+    thread = TopicDecorator.new object.thread
+    thread.preview_mode!
+    thread
   end
 
 private

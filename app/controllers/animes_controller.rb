@@ -75,21 +75,15 @@ class AnimesController < ShikimoriController
   end
 
   def comments
-    raise NotFound if @resource.thread.comments_count.zero?
+    raise NotFound if @resource.comments_count.zero?
     noindex
     page_title "Обсуждение #{@resource.anime? ? 'аниме' : 'манги'}"
-
-    @thread = TopicDecorator.new @resource.thread
-    @thread.topic_mode!
   end
 
   def reviews
+    raise NotFound if @resource.comment_reviews_count.zero?
     noindex
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
-
-    @thread = TopicDecorator.new @resource.thread
-    @thread.reviews_only!
-    @thread.topic_mode!
   end
 
   def resources

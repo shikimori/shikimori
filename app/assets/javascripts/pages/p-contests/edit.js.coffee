@@ -25,11 +25,11 @@
       url = "/#{$(@).data('member_type')}s/"+id
       bubbled = true
 
-    $container = $(@).next().next().children('.members_container')
+    $container = $(@).next().next().children('.members')
     return if $container.find('[value="'+id+'"]').length
 
     $container.append(
-      '<li>' +
+      '<div class="member">' +
         '<input type="hidden" name="members[]" value="'+id+'" />' +
         '<a href="'+url+'" ' +
           (if bubbled then 'class="bubbled"' else '') +

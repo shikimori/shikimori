@@ -18,7 +18,6 @@ header.head
 
   = render partial: 'blocks/breadcrumbs', object: {'Список манги' => '/', "#{@manga.name}" => "#{online_manga_show_url @chapter.manga.id}"}, formats: :html
 
-
 = render partial: 'animes_collection/pagination', locals: { with_cache: true }
 
 .image

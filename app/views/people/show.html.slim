@@ -1,4 +1,4 @@
-= render layout: 'people/page' do |f|
+= render layout: 'page' do
   .cc-db_entry
     .c-image
       center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
@@ -30,10 +30,10 @@
       .c-works
         = render @resource.best_works, cover_notice: :role
 
-  - if user_signed_in? || @resource.thread.comments_count > 0
-    - if @resource.thread.comments_count > 0
+  - if user_signed_in? || @resource.preview_thread.comments_count > 0
+    - if @resource.preview_thread.comments_count > 0
       .subheadline.m3
         .linkeable data-href="#{comments_person_url @resource}" Обсуждение
     div
       .b-topic.unprocessed
-        = render partial: 'topics/comments', locals: { topic: @resource.thread }
+        = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }
