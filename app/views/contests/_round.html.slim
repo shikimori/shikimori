@@ -28,8 +28,8 @@
     .column
       .b-options-floated
           span.selected = contest.displayed_round.title
-      .subheadline.m10 В этом раунде
-      .subcontent
+      .subheadline В этом раунде
+      .block
         = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.displayed_round)
 
   - if contest.displayed_round.number > 1 && contest.prior_round.finished?
@@ -42,6 +42,6 @@
           .b-options-floated
             span.linkeable data-href="#{round_contest_url contest, round: contest.prior_round}" title="#{contest.prior_round.title}"
               = contest.prior_round.title
-          .subheadline.m10 В прошлом раунде
-          .subcontent
+          .subheadline В прошлом раунде
+          .block
             = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.prior_round)

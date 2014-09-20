@@ -8,8 +8,7 @@ span.image-decor
 - if cover_by == :link
   span.title class="#{:left_aligned if cover_notice != :none}" itemprop="name"
     = localized_name anime
-
-- else
+- elsif cover_by == :linkeable
   a.title class="#{:left_aligned if cover_notice != :none}" href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
     = localized_name anime
 

@@ -87,7 +87,7 @@ class ContestDecorator < DbEntryDecorator
 
   # победители контеста
   def results round=nil
-    object.results(round).take winners_count
+    object.results(round).take(winners_count).map(&:decorate)
   end
 
   # число победителей

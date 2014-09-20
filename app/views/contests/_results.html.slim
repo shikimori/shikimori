@@ -18,7 +18,7 @@
               - else
                 p нет
       - if contest.anime?
-        = render partial: 'animes/anime', object: entry, locals: { cover_notice: :studio, content_by: :block }, formats: :html
+        = render partial: 'animes/anime', object: entry, locals: { cover_notice: :studio, content_by: :block }
       - else
-        = render partial: 'characters/character', object: entry, locals: { content_by: :block }, formats: :html
+        = render partial: 'characters/character', object: entry, locals: { content_by: :block }
       .clearfix

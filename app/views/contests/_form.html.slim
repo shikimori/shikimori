@@ -27,7 +27,7 @@
       - if contest.rounds.any?
         span.action-misc При изменении этих параметров голосования будут перетасованы.
 
-    .column
+    .c-column
       - if contest.persisted?
         .subheadline Статус
         .block
@@ -68,7 +68,7 @@
 
       - if contest.rounds.any?
         .subheadline Турнирная сетка
-        .block.grid
+        .block_m.grid
           a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
 
   - if contest.persisted?

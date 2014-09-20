@@ -1,49 +1,40 @@
-aside.menu-right
-  .menu-block.status
-    .subheadline.m5 Статус турнира
-    .subcontent
-      p = contest.status
-      - if contest.finished? && !contest.showing_results?
-        a.results href="#{contest_url contest}" title="Результаты опроса" К результатам →
-      /*.menu-block*/
-        .subheadline.m5 Опрос завершён
+.block
+  .subheadline.m5 Статус турнира
+  p = contest.status
+  - if contest.finished? && !contest.showing_results?
+    a.results href="#{contest_url contest}" title="Результаты опроса" К результатам →
 
-    .menu-block.grid
-      .subheadline.m5 Система турнира
-      .subcontent
-        p
-          = contest.strategy_type.text
+.block
+  .subheadline.m5 Система турнира
+  p = contest.strategy_type.text
 
-  - cache ['uniq-voters', contest] do
-    - if contest.uniq_voters > 0
-      .menu-block.grid
-        .subheadline.m5 Участники
-        .subcontent
-          p #{contest.uniq_voters} #{Russian.p contest.uniq_voters, 'пользователь', 'пользователя', 'пользователей'} сайта
+- cache ['uniq-voters', contest] do
+  - if contest.uniq_voters > 0
+    .block
+      .subheadline.m5 Участники
+      p #{contest.uniq_voters} #{Russian.p contest.uniq_voters, 'пользователь', 'пользователя', 'пользователей'} сайта
 
-  - cache ['nominants', contest, russian_names_key, social_key] do
-    - unless contest.proposing?
-      .menu-block
-        .b-options-floated.r10.count
-          = contest.members.size
-        .subheadline.m10 Номинанты
-        .image-links
-          - contest.members.each do |entry|
-            a.bubbled href="#{url_for entry}" data-offset-left="-10" data-offset-top="20" data-place-to-left="true" title="#{localized_name entry}"
-              img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"
+- cache ['nominants', contest, russian_names_key, social_key] do
+  - unless contest.proposing?
+    .block
+      .b-options-floated.count
+        = contest.members.size
+      .subheadline.m10 Номинанты
+      .cc-4a
+        = render contest.members, cover_by: :image_link
 
-    - unless contest.proposing? || contest.swiss?
-      .menu-block.grid
-        .subheadline.m5 Турнирная сетка
-        a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
+  - unless contest.proposing? || contest.swiss?
+    .block.grid
+      .subheadline.m5 Турнирная сетка
+      a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
 
-    - if show_social?
-      .menu-right
-        .subheadline.m15 Рассказать друзьям
-        .menu-block.addthis_toolbox.addthis_default_style.addthis_32x32_style
-          a.addthis_button_vk
-          a.addthis_button_facebook
-          a.addthis_button_twitter
-          a.addthis_button_google_plusone_share
-          a.addthis_button_odnoklassniki_ru
-          a.addthis_button_compact
+  - if show_social?
+    .menu-right
+      .subheadline.m15 Рассказать друзьям
+      .block.addthis_toolbox.addthis_default_style.addthis_32x32_style
+        a.addthis_button_vk
+        a.addthis_button_facebook
+        a.addthis_button_twitter
+        a.addthis_button_google_plusone_share
+        a.addthis_button_odnoklassniki_ru
+        a.addthis_button_compact
