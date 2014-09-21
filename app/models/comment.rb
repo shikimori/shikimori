@@ -157,11 +157,16 @@ class Comment < ActiveRecord::Base
   def body= text
     if text
       self[:body] = BbCodeFormatter.instance.preprocess_comment text
-      self[:html_body] = moderated? ? nil : BbCodeFormatter.instance.format_comment(text)
+      #self[:html_body] = moderated? ? nil : BbCodeFormatter.instance.format_comment(text)
     else
       self[:body] = nil
-      self[:html_body] = nil
+      #self[:html_body] = nil
     end
+  end
+
+  def html_body
+    formatter = BbCodeFormatter.instance
+    formatter.format_comment(formatter.preprocess_comment(body))
   end
 
   # Helper class method that allows you to build a comment
