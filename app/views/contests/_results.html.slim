@@ -3,7 +3,7 @@
     - contest.results.each_with_index do |entry, index|
       .subheadline.m10 #{index+1} место
       .rounds
-        p Соперники:
+        .label Соперники:
         .match-day
           - contest.matches_with(entry).each do |match|
             .match

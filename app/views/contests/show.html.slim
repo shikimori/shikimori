@@ -1,7 +1,7 @@
 = render layout: 'page' do
   img#social_image src="/images/static/contest.jpg" alt="Аниме турнир" title="Аниме турнир"
 
-  .block
+  div
     - if @contest.showing_results?
       = render 'results', contest: @contest
     - elsif @contest.proposing?

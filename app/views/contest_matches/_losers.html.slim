@@ -1,7 +1,5 @@
 - if losers.any?
-  div class="#{position}-part"
+  .losers
     .subheadline Побеждены
-    .entries
-      - losers.each do |entry|
-        a.bubbled href="#{url_for entry}" data-offset-top="20"
-          img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"
+    .cc-4a
+      = render losers, cover_by: :image_link

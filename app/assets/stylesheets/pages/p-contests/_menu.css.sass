@@ -1,13 +1,17 @@
-@import compass/typography/text/ellipsis
-@import compass/utilities/general/clearfix
-@import globals/variables
+//@import compass/typography/text/ellipsis
+//@import compass/utilities/general/clearfix
+//@import globals/variables
 @import mixins/link
+@import mixins/clear_right
 
 .p-contests .l-menu
+  .block
+    +clear_right
+
   .b-catalog_entry
     margin-bottom: 5px !important
 
-    .image-cutter
+    //.image-cutter
       max-height: 65px
 
   //float: right

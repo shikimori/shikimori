@@ -11,7 +11,7 @@
 
 .cc-2
   +clear_left
-  .c-column
+  &>.c-column
     +gte_ipad
       +column_b(2)
     +iphone
@@ -19,12 +19,33 @@
 
 .cc-2a
   +clear_left
-  .c-column
+  &>.c-column
     +column_b(2)
+
+.cc-2_3
+  +clear_left
+
+  &>.c-column
+    +gte_ipad
+      &:first-child
+        +column_b(2, 1/3)
+      &:last-child
+        +column_bm(2, 2/3)
+    +iphone_landscape
+      &:first-child
+        +column_b(2, 1/3)
+      &:last-child
+        +column_bm(2, 2/3)
+
+    +iphone_portrait
+      +column_bm(1)
+
+    &:first-child:last-child
+      +column_bm(1)
 
 .cc-4
   +clear_left
-  .c-column
+  &>.c-column
     +gte_ipad
       +column_b(4)
     +iphone-landscape
@@ -34,12 +55,12 @@
 
 .cc-4a
   +clear_left
-  .c-column
+  &>.c-column
     +column_b(4)
 
 .cc-5
   +clear_left
-  .c-column
+  &>.c-column
     +gte_ipad
       +column_b(5)
     +iphone-landscape
@@ -49,7 +70,7 @@
 
 .cc-6
   +clear_left
-  .c-column
+  &>.c-column
     +gte_ipad
       +column_b(6)
     +iphone-landscape
@@ -59,7 +80,7 @@
 
 .cc-8
   +clear_left
-  .c-column
+  &>.c-column
     +gte_ipad
       +column_b(8)
     +iphone-landscape
@@ -72,7 +93,7 @@
   +clear_left
   margin-bottom: 0
 
-  .c-image
+  &>.c-image
     +gte_ipad
       +column_b(2)
       width: 30.5%
@@ -86,7 +107,7 @@
     img
       max-width: 100%
 
-  .c-about
+  &>.c-about
     +gte_ipad
       +column(2)
       width: 65.5%
@@ -108,7 +129,7 @@
       display: block
       clear: left
 
-  .c-description
+  &>.c-description
     +block_m
     margin-left: 34.6%
     padding-top: 1px // из-за странной баги в фаерфоксе
@@ -116,4 +137,3 @@
     +iphone
       clear: both
       margin-left: 0
-

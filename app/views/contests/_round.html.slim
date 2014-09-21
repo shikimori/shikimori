@@ -20,12 +20,12 @@
   .match-container data-id="#{params[:match_id]}"
     .ajax-loading title="Загрузка..."
 
-  .one-third-columns
+  .cc-2_3
     - if contest.displayed_round.finished?
-      .column
+      .c-column
         = render 'rating', contest: contest, round: contest.displayed_round
 
-    .column
+    .c-column
       .b-options-floated
           span.selected = contest.displayed_round.title
       .subheadline В этом раунде
@@ -34,11 +34,11 @@
 
   - if contest.displayed_round.number > 1 && contest.prior_round.finished?
     - cache ['prior_round', contest, contest.displayed_round, contest.prior_round, russian_names_key] do
-      .one-third-columns
-        .column
+      .cc-2_3
+        .c-column
           = render 'rating', contest: contest, round: contest.prior_round
 
-        .column
+        .c-column
           .b-options-floated
             span.linkeable data-href="#{round_contest_url contest, round: contest.prior_round}" title="#{contest.prior_round.title}"
               = contest.prior_round.title

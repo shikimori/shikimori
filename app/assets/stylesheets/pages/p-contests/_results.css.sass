@@ -1,22 +1,17 @@
-@import globals
+@import compass/typography/text/ellipsis
+@import globals/variables
+@import mixins/link
 
-.contest.swiss .results
-  .group
-    width: 8px !important
-    margin-left: 2px !important
-
-    .letter
-      display: none
-
-.contest .results
+.p-contests .results
   .rounds
     float: right
     width: 220px
 
-    & > p
+    .label
+      color: #444
       font-size: 12px
       font-weight: bold
-      color: #444
+      margin-bottom: 3px
 
     .match-day
       margin-top: 0
@@ -28,7 +23,7 @@
         position: initial
 
     a
-      +normal-link
+      +link
 
     .match-link
       display: inline
@@ -49,4 +44,13 @@
           padding-left: 5px
 
   .b-catalog_entry
-    margin-bottom: 40px
+    .rating
+      display: none
+
+.p-contests .swiss .results
+  .group
+    width: 8px !important
+    margin-left: 2px !important
+
+    .letter
+      display: none
