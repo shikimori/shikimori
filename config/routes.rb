@@ -463,7 +463,8 @@ Site::Application.routes.draw do
     get 'robots.txt' => 'robots#shikimori'
 
     authenticate :user, lambda { |u| u.admin? } do
-      mount Sidekiq::Web => '/sidekiq'
+      mount Sidekiq::Web, at: 'sidekiq'
+      mount PgHero::Engine, at: 'pghero'
     end
 
     apipie

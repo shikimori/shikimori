@@ -43,6 +43,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 
+gem 'pghero'
 gem 'sidekiq'
 gem 'sidekiq-unique-jobs'
 gem 'sidekiq-limit_fetch'

@@ -375,6 +375,8 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.17.1)
+    pghero (0.1.5)
+      activerecord
     polyglot (0.3.5)
     postmark (1.2.0)
       json
@@ -617,6 +619,7 @@ DEPENDENCIES
   omniauth-vkontakte
   paperclip
   pg
+  pghero
   postmark-rails
   pry-rails
   pry-stack_explorer
