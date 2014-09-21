@@ -54,7 +54,7 @@ Site::Application.routes.draw do
     end
 
     #constraints section: Section::VARIANTS do
-    constraints section: /a|m|c|s|f|o|g|reviews|v|all|news/ do
+    constraints section: /a|m|c|p|s|f|o|g|reviews|v|all|news/ do
       get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
       #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
 
