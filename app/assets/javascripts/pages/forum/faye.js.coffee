@@ -29,7 +29,7 @@ $(document).on 'faye:success', '.section-block', (e, data) ->
     return
 
   $placeholder = add_faye_placeholder($this.find('.topic-block').first(), topic_id)
-  return false  unless $placeholder
+  return false unless $placeholder
   $placeholder.data href: "/topics/chosen/#{$placeholder.data("ids").join ","}"
   num = $placeholder.data("ids").length
   $placeholder.html p(num, "Добавлен или обновлён ", "Добавлены или обновлены ", "Добавлено или обновлено ") + num + p(num, " топик", " топика", " топиков")
@@ -69,6 +69,8 @@ comment_created = (data, $node, $comment) ->
 
   # уведомление о добавленном элементе через faye
   $(document.body).trigger "faye:added"
+  if $placeholder.is(':appeared')
+    $placeholder.click()
 
 # комментарий обновлён
 comment_updated = (data, $node, $comment) ->
