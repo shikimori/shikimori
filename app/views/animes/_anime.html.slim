@@ -2,7 +2,6 @@
 - content_by ||= :tooltip
 - cover_notice ||= :none
 
-    /class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} #{:minified if content_by == :tooltip} #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
 article.c-column.b-catalog_entry[
     class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
     itemscope itemtype="#{{anime.itemtype if anime.respond_to? :itemtype}}"
@@ -35,7 +34,7 @@ article.c-column.b-catalog_entry[
   - else
     - raise ArgumentError, cover_by
 
-  - unless content_by == :tooltip
+  - unless content_by == :tooltip || content_by == :none
     .content
       - if content_by == :inline_tooltip
         = render partial: 'blocks/tooltip', locals: { template_name: 'animes/content', objects: { anime: anime } }

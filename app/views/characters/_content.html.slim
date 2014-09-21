@@ -1,10 +1,13 @@
-.data.name
-  - if !defined?(cover_by) || cover_by != :link
-    a.data.name href="#{character_url character}" title="#{localized_name character}" itemprop="name"
-      = localized_name character
-  - else
-    .linkeable data-href="#{character_url character}" data-title="#{localized_name character}"
-      = localized_name character
+.b-catalog_entry-tooltip
+  .inner class="#{:offset if defined?(with_image) && with_image}"
+    .line itemprop="name"
+      .data.name
+        - if !defined?(cover_by) || cover_by != :link
+          a.data.name href="#{character_url character}" title="#{localized_name character}" itemprop="name"
+            = localized_name character
+        - else
+          .linkeable.name data-href="#{character_url character}" data-title="#{localized_name character}"
+            = localized_name character
 
-p.m5 itemprop="description"
-  = character.decorate.description_html_truncated
+    .text itemprop="description"
+      = character.decorate.description_html_truncated

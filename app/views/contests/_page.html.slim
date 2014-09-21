@@ -2,12 +2,10 @@
   .toggler
 
 header.head.misc
-  - if params[:action] == 'show'
-    h1 = @page_title.last
-  - else
-    h2
+  h1
+    - unless params[:action] == 'show'
       a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
-      = @page_title.last
+    = @page_title.last
 
   - if @contest.can_be_edited_by? current_user
     a.misc href="#{edit_contest_url @contest}" title="Изменить опрос" изменить

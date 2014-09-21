@@ -11,9 +11,9 @@
         .match-members
           .match-member data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
             - if @match.contest.anime?
-              = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
+              = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :none }
             - else
-              = render partial: 'characters/character', object: @match.left, locals: { content_by: :tooltip }, formats: :html
+              = render partial: 'characters/character', object: @match.left, locals: { content_by: :none }
           .vs
             div vs
             - if @match.started?
@@ -35,9 +35,9 @@
 
           .match-member data-variant="right" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'right'}"
             - if @match.contest.anime?
-              = render partial: 'animes/anime', object: @match.right, locals: { cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
+              = render partial: 'animes/anime', object: @match.right, locals: { cover_notice: :studio, content_by: :none }
             - else
-              = render partial: 'characters/character', object: @match.right, locals: { content_by: :tooltip }, formats: :html
+              = render partial: 'characters/character', object: @match.right, locals: { content_by: :none }
 
         - if @match.round.number > 1 && (@match.contest.defeated_by(@match.left, @match.round) + @match.contest.defeated_by(@match.right, @match.round)).any?
           .match-losers.cc
@@ -55,9 +55,9 @@
         .match-members
           .match-member.voted.centered data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}" 
             - if @match.contest.anime?
-              = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :tooltip, alter: true }, formats: :html
+              = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :none }
             - else
-              = render partial: 'characters/character', object: @match.left, locals: { content_by: :tooltip }, formats: :html
+              = render partial: 'characters/character', object: @match.left, locals: { content_by: :none }
 
         - if @match.contest.defeated_by(@match.left, @match.round).any?
           .match-losers

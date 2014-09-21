@@ -55,11 +55,11 @@ jQuery(function ($) {
                     dataType: dataType,
                     type: method.toUpperCase(),
                     beforeSend: function (xhr) {
-                        $.cursorMessage();
+                        //$.cursorMessage();
                         el.trigger('ajax:loading', {xhr: xhr, ajax: this});
                         if (xhr.statusText == 'abort') {
                           $this.data('ajax:locked', false);
-                          $.hideCursorMessage();
+                          //$.hideCursorMessage();
                         }
                     },
                     success: function (data, status, xhr) {
@@ -68,7 +68,7 @@ jQuery(function ($) {
                             $.flash({notice: data.notice});
                         }
                         el.trigger('ajax:success', [data, status, xhr]);
-                        $.hideCursorMessage();
+                        //$.hideCursorMessage();
                     },
                     complete: function (xhr) {
                         $this.data('ajax:locked', false);
@@ -116,7 +116,7 @@ jQuery(function ($) {
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);
-                        $.hideCursorMessage();
+                        //$.hideCursorMessage();
                     }
                 });
             } else {

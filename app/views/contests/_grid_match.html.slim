@@ -43,7 +43,7 @@
       p нет участника
     p.date
       a href="#{round_match_contest_path contest.to_param, round.number, match.id}"
-        = Russian::strftime match.started_on, '%e %b'
+        = Russian::strftime(match.started_on, '%e %b').strip
         - if match.started_on.strftime('%d.%m') != match.finished_on.strftime('%d.%m')
           | &nbsp;&ndash;&nbsp;
-          = Russian::strftime match.finished_on, '%e %b'
+          = Russian::strftime(match.finished_on, '%e %b').strip

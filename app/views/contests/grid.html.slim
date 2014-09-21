@@ -1,16 +1,11 @@
 DOCTYPE html
 html
   head
-    = stylesheet_link_tag :common
-    = stylesheet_link_tag :contests
-    = javascript_include_tag :core
-    = javascript_include_tag :common
-    = javascript_include_tag :contests
-    javascript:
-      IS_LOGGED_IN = false;
-  body.no-layout style="background: white;"
+    = render partial: 'application/head'
+  body class="p-#{controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?}" id="#{controller_name}_#{action_name}"
     header.head.misc
       h1
+        a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
         = @page_title.last
       = render partial: 'blocks/breadcrumbs', object: breadcrumbs
 
@@ -27,10 +22,10 @@ html
                 - else
                   p.unknown ???
                 p.date
-                  = Russian::strftime @contest.final_match.started_on, '%e %b'
+                  = Russian::strftime(@contest.final_match.started_on, '%e %b').strip
                   - if @contest.final_match.started_on.strftime('%d.%m') != @contest.final_match.finished_on.strftime('%d.%m')
                     | &nbsp;&ndash;&nbsp;
-                    = Russian::strftime @contest.final_match.finished_on, '%e %b'
+                    = Russian::strftime(@contest.final_match.finished_on, '%e %b').strip
           .left-border
 
         .winners

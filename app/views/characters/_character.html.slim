@@ -1,7 +1,8 @@
+- cover_by ||= :link
 - content_by ||= :tooltip
 
 article.c-column.b-catalog_entry.c-character[
-    class="entry-#{character.id} #{:minified if content_by == :tooltip} #{:cc if content_by == :block}"
+    class="entry-#{character.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block}"
     itemscope itemtype="http://schema.org/Person"
   ]
   meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"
@@ -15,10 +16,11 @@ article.c-column.b-catalog_entry.c-character[
       span.image-cutter
         img src="#{character.image.url :original}" alt="#{localized_name character}" title="#{localized_name character}"
 
-    span.title itemprop="name"
-      = localized_name character
+    - if cover_by == :link
+      span.title itemprop="name"
+        = localized_name character
 
-  - unless content_by == :tooltip
+  - unless content_by == :tooltip || content_by == :none
     .content
       /- if content_by == :tooltip
         = render partial: 'blocks/tooltip', locals: { template_name: 'characters/content', objects: { character: character } }

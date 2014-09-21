@@ -12,7 +12,7 @@
         .c-column class="#{match.status match.left_id}"
           - if match.left
             - if match.finished?
-              span.matches-num #{match.left_percent}%
+              span.matches-num = "#{match.left_percent}% "
             a.bubbled href="#{url_for match.left}" data-perdelay="150"
               = localized_name match.left
           - else
@@ -22,7 +22,7 @@
           .c-column class="#{match.status match.right_id}"
             - if match.right
               - if match.finished?
-                span.matches-num #{match.right_percent}%
+                span.matches-num = "#{match.right_percent}% "
               a.bubbled href="#{url_for match.right}" data-predelay="150"
                 = localized_name match.right
             - else
