@@ -69,7 +69,7 @@ comment_created = (data, $node, $comment) ->
 
   # уведомление о добавленном элементе через faye
   $(document.body).trigger "faye:added"
-  if $placeholder.is(':appeared') && !$('textarea:focus').exists()
+  if $placeholder.is(':appeared') && !$('textarea:focus').length
     $placeholder.click()
 
 # комментарий обновлён
