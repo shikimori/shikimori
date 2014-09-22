@@ -144,7 +144,7 @@ class PagesController < ShikimoriController
       end
     end
     stat = statistics.join.split("\r\n").select {|v| v =~ /STAT (?:bytes|limit_maxbytes) / }.map {|v| v.match(/\d+/)[0].to_f }
-    @memcached_space = ((1 - (stat[0]-stat[1]) / stat[0])*100).round(2)
+    @memcached_space = ((stat[0]/stat[1]) * 100).round(2) # ((1 - (stat[0]-stat[1]) / stat[0])*100).round(2)
 
     @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
 
