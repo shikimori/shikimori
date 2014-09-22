@@ -71,6 +71,12 @@ namespace :test do
     end
   end
 
+  task :whoami do
+    on roles(:app), in: :sequence, wait: 5 do
+      shell_exec "whoami"
+    end
+  end
+
   task :git do
     on roles(:app), in: :sequence, wait: 5 do
       execute "git ls-remote git@github.com:morr/#{fetch :repo_name}.git"
