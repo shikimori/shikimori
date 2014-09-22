@@ -90,7 +90,7 @@ gem 'postmark-rails'
 gem 'apipie-rails'
 gem 'gcm'
 
-group :production do
+group :beta, :production do
   gem 'lograge'
 end
 
