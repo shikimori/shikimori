@@ -32,7 +32,7 @@
       $('.refrain', e.target).trigger 'ajax:success'
 
     # включение/отключение предложения воздержаться
-    if $('.contest-match', e.target).data('state') == 'started'
+    if $('.contest-match').data('state') == 'started'
       $('.item-content .warning').show()
     else
       $('.item-content .warning').hide()
@@ -98,8 +98,9 @@
     if $vote.length
       if data.ajax
         # и грузим следующее голосование
-        _.delay ->
+        (->
           $vote.first().trigger 'click'
+        ).delay 500
       else
         # показываем ссылку "перейти дальше"
         $('.next', $root).show()
