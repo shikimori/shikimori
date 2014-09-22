@@ -1,7 +1,5 @@
 #= require highcharts.v3.0.5.min
 #= require lib/highcharts
-#= require pages/forum/appear
-#= require pages/forum/faye
 
 chart_options = (options) ->
   $.extend true,

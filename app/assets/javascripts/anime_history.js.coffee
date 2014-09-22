@@ -1,7 +1,5 @@
 #= require highcharts.v3.0.5.min
 #= require lib/highcharts
-#= require pages/forum/appear
-#= require pages/forum/faye
 #= require_tree ./social
 
 $ ->
