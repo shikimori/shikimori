@@ -174,11 +174,13 @@ after 'deploy:updated', 'sidekiq:stop'
 after 'deploy:reverted', 'sidekiq:stop'
 after 'deploy:published', 'sidekiq:start'
 
-after 'deploy:updated', 'clockwork:stop'
-after 'deploy:reverted', 'clockwork:stop'
-after 'deploy:published', 'clockwork:start'
+if fetch(:stage) == :production
+  after 'deploy:updated', 'clockwork:stop'
+  after 'deploy:reverted', 'clockwork:stop'
+  after 'deploy:published', 'clockwork:start'
+
+  after 'deploy:published', 'whenever:schedule'
+end
 
 after 'deploy:published', 'unicorn:restart'
-after 'deploy:published', 'whenever:schedule'
-
 after 'deploy:finishing', 'deploy:cleanup'
