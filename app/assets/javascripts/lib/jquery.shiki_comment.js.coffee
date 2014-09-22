@@ -106,6 +106,7 @@ class @ShikiComment extends ShikiView
 
     # по клику на 'новое' пометка прочитанным
     @$('.b-new_marker').on 'click', =>
+      # эвент appear обрабатывается в shiki-topic
       @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
 
   # оффтопиковый ли данный комментарий

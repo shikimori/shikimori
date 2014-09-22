@@ -71,6 +71,7 @@ class @ShikiTopic extends ShikiView
       $appeared.remove()
 
       interval = if by_click then 1 else 1500
+      $markers.removeClass 'active'
       $markers.css.bind($markers).delay(interval, opacity: 0)
       $markers.hide.bind($markers).delay(interval + 500)
 

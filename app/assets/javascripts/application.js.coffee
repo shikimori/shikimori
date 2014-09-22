@@ -8,12 +8,14 @@
 #= require pages/p-characters
 #= require pages/p-contests
 
-$ ->
+$ =>
   $(document).trigger 'page:load', true
   if IS_LOGGED_IN && !window.faye_loader
-    window.faye_loader = new FayeLoader()
-    faye_loader.apply()
-  $('.b-comment .appear-marker').appear()
+    @faye_loader = new FayeLoader()
+    @faye_loader.apply()
+    @comments_notifier = new CommentsNotifier()
+
+  $('.appear-marker').appear()
 
   $.form_navigate
     size: 250
