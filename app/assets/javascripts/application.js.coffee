@@ -106,11 +106,13 @@ turbolinks_compatibility = ->
           .trigger('click')
         false
 
-  $('.b-image.unprocessed img', root)
-    .normalize_image
-      class: 'unprocessed'
-      append_marker: true
-      fancybox: $.galleryOptions
+  $('.b-image.unprocessed', root)
+    .removeClass('unprocessed')
+      .children('img')
+      .normalize_image
+        class: 'unprocessed'
+        append_marker: true
+        fancybox: $.galleryOptions
 
   # сворачиваение всех нужных блоков "свернуть"
   _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
