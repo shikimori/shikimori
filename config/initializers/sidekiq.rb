@@ -17,3 +17,7 @@ module Sidekiq::Extensions::PostmarkHandler
 end
 
 Sidekiq::Extensions::DelayedMailer.send :prepend, Sidekiq::Extensions::PostmarkHandler
+
+Sidekiq.configure_server do |config|
+  config.redis = { namespace: "shiki_#{Rails.env}" }
+end
