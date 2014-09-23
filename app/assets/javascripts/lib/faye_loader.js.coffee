@@ -49,13 +49,8 @@ class @FayeLoader
         # это колбек, в котором мы получили уведомление от faye
         _log ['faye:received', data]
         # сообщения от самого себя не принимаем
-        return if data.publisher_faye_id == client._clientId
-
-        # TODO: выпилить это. временный костыль на время beta с изменённым протоколом faye
-        if data.event != 'deleted' && data.event != 'updated' && data.event != 'created'
-          data.event = data.event.replace(/.*:/, '')
-
-        subscriptions[channel].node.trigger 'faye:success', data
+        return if data.publisher_faye_id == @id()
+        @subscriptions[channel].node.trigger "faye:#{data.event}", data
 
       @subscriptions[channel] =
         node: channels[channel]

@@ -109,9 +109,27 @@ class @ShikiComment extends ShikiView
       # эвент appear обрабатывается в shiki-topic
       @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
 
+    # realtime уведомление об изменении комментария
+    @on 'comment:updated', (e, data) =>
+      @$('.was_updated').remove()
+      $notice = $("<div class='was_updated'>
+        <div><span>Комментарий изменён пользователем</span><a class='actor' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
+        <div>Кликните для обновления.</div>
+      </div>")
+      $notice
+        .appendTo(@$inner)
+        .on 'click', (e) =>
+          @_reload() unless $(e.target).closest('.actor').exists()
+
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
+
+  # перезагрузка комментария
+  _reload: =>
+    @$root.addClass 'ajax:request'
+    $.get "/comments/#{@$root.attr 'id'}", (response) =>
+      @trigger 'comment:replace', response
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->

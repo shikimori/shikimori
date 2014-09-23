@@ -44,6 +44,30 @@ $comment_border: 1px dashed #ddd
       height: 95px
       overflow: hidden
 
+    .was_updated
+      +link_color($gray-color)
+      clear: both
+      cursor: pointer
+      margin-bottom: 2px
+
+      div
+        display: inline-block
+        font-size: 11px
+        line-height: 20px
+        padding-top: 0
+
+      .actor
+        +link
+        padding-left: 5px
+
+        span
+          padding-left: 19px
+
+        img
+          position: absolute
+          margin-top: 2px
+
+
   // раскрытое меню в мобильной версии
   &.aside-expanded
     aside.buttons
@@ -51,10 +75,13 @@ $comment_border: 1px dashed #ddd
 
   // удаляемый комментарий
   &.animated-height
-    +transition(all, 0.5s)
+    +transition(all 0.5s ease)
     min-height: 0
     margin: 0
     padding: 0
+
+  &.ajax_request
+    +opacity(0.4)
 
 //h2.comments-header
   //margin-bottom: 0

@@ -9,6 +9,9 @@ class @ShikiView
   on: ->
     @$root.on.apply(@$root, arguments)
 
+  trigger: ->
+    @$root.trigger.apply(@$root, arguments)
+
   $: (selector) ->
     $(selector, @$root)
 

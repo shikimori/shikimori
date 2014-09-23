@@ -45,8 +45,8 @@ $(document).on 'faye:success', '.topic-block', (e, data) ->
     when 'created'
       comment_created data, $(@), $comment
 
-    when 'updated'
-      comment_updated data, $(@), $comment
+    #when 'updated'
+      #comment_updated data, $(@), $comment
 
     when 'deleted'
       comment_deleted data, $(@), $comment
@@ -72,22 +72,22 @@ comment_created = (data, $node, $comment) ->
   if $placeholder.is(':appeared') && !$('textarea:focus').length
     $placeholder.click()
 
-# комментарий обновлён
-comment_updated = (data, $node, $comment) ->
-  $comment.find('.is_updated').remove()
-  $comment.append "<div class='is_updated' data-href='/comments/#{data.comment_id}'>
-    <div><span>Комментарий изменён пользователем</span><a class='actor' href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a>.</div>
-    <div>Кликните для обновления.</div>
-  </div>"
+## комментарий обновлён
+#comment_updated = (data, $node, $comment) ->
+  #$comment.find('.is_updated').remove()
+  #$comment.append "<div class='is_updated' data-href='/comments/#{data.comment_id}'>
+    #<div><span>Комментарий изменён пользователем</span><a class='actor' href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a>.</div>
+    #<div>Кликните для обновления.</div>
+  #</div>"
 
 # комментарий удалён
 comment_deleted = (data, $node, $comment) ->
   $comment.replaceWith "<div class='b-comment-info'><span>Комментарий удалён пользователем</span><a href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
 
-# перезагрузка обновлённого комментария по клику на него
-$(document).on 'click', '.topic-block .is_updated', ->
-  $.get $(@).data('href'), (response) =>
-    $(@).closest('.comment-block').replaceWith response
+## перезагрузка обновлённого комментария по клику на него
+#$(document).on 'click', '.topic-block .is_updated', ->
+  #$.get $(@).data('href'), (response) =>
+    #$(@).closest('.comment-block').replaceWith response
 
 # подгрузка новых топиков по клику на лоадер пользователем
 $(document).on 'ajax:success', '.b-topics .faye-loader', (e, data) ->

@@ -146,6 +146,10 @@ class @ShikiTopic extends ShikiView
       @$('.comments-loaded').animated_collapse()
       @$('.comments-shower').show()
 
+    # realtime обновления
+    @on 'faye:comment:updated', (e, data) =>
+      @$(".b-comment##{data.comment_id}").trigger 'comment:updated', data
+
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
     filter = 'b-comment'

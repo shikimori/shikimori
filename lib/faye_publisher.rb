@@ -29,7 +29,13 @@ private
     return unless topic.respond_to? :section_id
 
     # уведомление в открытые топики
-    data = { event: event, actor: @actor.nickname, actor_avatar: @actor.decorate.avatar_url(16), comment_id: comment.id }
+    data = {
+      event: "comment:#{event}",
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32),
+      comment_id: comment.id
+    }
     publish_data data, event, ["#{@namespace}/topic-#{topic.id}"]
 
     data[:topic_id] = topic.id
@@ -46,7 +52,13 @@ private
 
   # отправка уведомлений о новом топике
   def publish_topic topic, event, channels
-    data = { event: event, actor: @actor.nickname, actor_avatar: @actor.decorate.avatar_url(16), topic_id: topic.id }
+    data = {
+      event: "topic:#{event}",
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32),
+      topic_id: topic.id
+    }
 
     # уведомление в открытые разделы
     publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
