@@ -50,6 +50,13 @@ class @FayeLoader
         _log ['faye:received', data]
         # сообщения от самого себя не принимаем
         return if data.publisher_faye_id == @id()
+
+        # TODO: выпилить весь IF после публикация на мастер. этот код для совместимости старого формата уведомлений faye
+        if data.event == 'deleted' || data.event == 'updated' || data.event == 'created'
+          data.actor_avatar_2x = data.actor_avatar
+          type = if data.comment_id then 'comment' else 'topic'
+          data.event = "#{type}:#{data.event}"
+
         @subscriptions[channel].node.trigger "faye:#{data.event}", data
 
       @subscriptions[channel] =
