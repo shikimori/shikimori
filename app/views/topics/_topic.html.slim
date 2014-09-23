@@ -8,6 +8,7 @@
       class="#{:preview if topic.preview?} #{'b-review' if topic.review?}"
       data-user_nickname="#{topic.user.nickname}"
       data-generated="#{topic.generated?}"
+      data-faye='#{topic.faye_channel}'
     ]
     a name="topic-#{topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover

@@ -12,7 +12,6 @@ $ =>
   $(document).trigger 'page:load', true
   if IS_LOGGED_IN && !window.faye_loader
     @faye_loader = new FayeLoader()
-    @faye_loader.apply()
     @comments_notifier = new CommentsNotifier()
 
   $('.appear-marker').appear()

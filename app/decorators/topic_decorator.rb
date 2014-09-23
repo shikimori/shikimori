@@ -192,4 +192,9 @@ class TopicDecorator < BaseDecorator
   def preview?
     @preview_mode.nil? ? h.params[:action] != 'show' : @preview_mode
   end
+
+  # канал faye для топика
+  def faye_channel
+    ["topic-#{id}"].to_json
+  end
 end

@@ -3,7 +3,6 @@ class ForumController < ShikimoriController
   @@other_page_comments = 1
 
   before_action :build_background, only: [:index, :show, :new, :edit, :create, :site_block]
-  helper_method :section_ids_class
   helper_method :sticked_topics
 
   #caches_action :site_block,
@@ -82,29 +81,20 @@ class ForumController < ShikimoriController
     @page_title = [@section[:meta_title], @h1]
     @notice = "в разделе #{@section[:name]}."
 
-    @json.merge!({
+    @json.merge!(
         h1: @h1,
         title_notice: @notice,
         title_page: @page_title
-      }) if json?
+      ) if json?
   end
 
   # блок с контентом правого меню сайта
-  def site_block(to_render=true)
+  def site_block to_render=true
     @news = WellcomeNewsPresenter.new
     render partial: 'forum/site_block', layout: false, locals: { presenter: @news, user_presenter: @user_presenter }, formats: :html if to_render
   end
 
 private
-  # класс с id текущих разделов
-  def section_ids_class
-    case @section.permalink
-      when Section::All.permalink then Section.real.map {|v| "section-#{v[:id]}" }.join(' ') + (user_signed_in? ? ' ' + current_user.groups.map { |v| "group-#{v[:id]}" }.join(' ') : '')
-      when Section::Feed.permalink then "user-#{current_user.id} #{FayePublisher::BroadcastFeed}"
-      else "section-#{@section.permalink}"
-    end
-  end
-
   # построние окружения форума
   # TODO: отрефакторить
   def build_background
@@ -114,6 +104,18 @@ private
 
     @sections = Section.visible
     @section = Section.find_by_permalink params[:section]
+
+    @faye_subscriptions = case @section.permalink
+      when Section::All.permalink
+        Section.real.map {|v| "section-#{v[:id]}" } +
+          (user_signed_in? ? current_user.groups.map { |v| "group-#{v[:id]}" } : [])
+
+      when Section::Feed.permalink
+        ["user-#{current_user.id}", FayePublisher::BroadcastFeed]
+
+      else
+        ["section-#{@section.permalink}"]
+    end.to_json if user_signed_in?
 
     #if params[:linked] || (params[:topic] && !params[:topic].kind_of?(Hash))
       ##@topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]

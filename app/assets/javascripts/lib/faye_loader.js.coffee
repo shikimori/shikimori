@@ -59,26 +59,27 @@
 
   # подписка/отписка на актуальные каналы Faye исходя из контента страницы
   apply = (e, data) ->
-    $targets = $('.section-block')
-    $targets = $('.topic-block')  unless $targets.length
-    connect() if not client and $targets.length
+    $targets = $('.b-topics')
+    $targets = $('.b-topic') unless $targets.length
+    connect() if !client && $targets.length
 
     # список актуальных каналов из текущего dom дерева
     channels = {}
-    _.each $targets, (node, k) ->
-      found_channels = _.select(node.className.split(' '), (v) ->
-        v.match FAYE_NODE_REGEXP
-      )
-      _.each found_channels, (v) ->
-        channel = "/" + v.match(FAYE_NODE_REGEXP)[0]
-        channels[channel] = $(node)
+    $targets.each (index, node) ->
+      found_channels = $(node).data('faye') || []
+      console.warn 'no faye channels found for', node unless found_channels.length
+
+      found_channels.each (channel) ->
+        channels["/#{channel}"] = $(node)
 
     unsubscribe channels
     update channels
     subscribe channels
 
   # привязка подписки/отписки каналов к событиям внешнего мира
-  $('.ajax').live 'ajax:success postloader:success', apply
+  $(document).on 'page:load page:restore ajax:success postloader:success', apply
+
+  apply()
 
   apply: apply
   client: ->

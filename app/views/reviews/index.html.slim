@@ -5,7 +5,8 @@
 = render layout: 'animes/page' do |f|
   .subheadline = @page_title.last
   - if @reviews.any?
-    .b-topics
+    /.b-topics закоменчено, т.к. b-topics требует faye
+    div
       = render partial: 'topics/topic', collection: @reviews, formats: :html
   - else
     p Тут пока ничего нет.

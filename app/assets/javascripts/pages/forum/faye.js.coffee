@@ -1,7 +1,7 @@
 # добавление блока faye перед $insert_point
 add_faye_placeholder = ($insert_point, id, insert_after) ->
   # точки вставки может не быть - означает, что элемемент принадлежит игнорируемому пользователю
-  return null  unless $insert_point.length
+  return null unless $insert_point.length
   if insert_after
     $placeholder = $insert_point.next()
   else
@@ -16,7 +16,7 @@ add_faye_placeholder = ($insert_point, id, insert_after) ->
   $placeholder
 
 # подгрузка нового топика из Faye
-$(document).on 'faye:success', '.section-block', (e, data) ->
+$(document).on 'faye:success', '.b-topics', (e, data) ->
   $this = $(@)
   topic_id = data.topic_id
   $topic = $this.find ".topic-#{topic_id}"
@@ -90,12 +90,12 @@ $(document).on 'click', '.topic-block .is_updated', ->
     $(@).closest('.comment-block').replaceWith response
 
 # подгрузка новых топиков по клику на лоадер пользователем
-$(document).on 'ajax:success', '.section-block .faye-loader', (e, data) ->
+$(document).on 'ajax:success', '.b-topics .faye-loader', (e, data) ->
   $(@).replaceWith data
   process_current_dom()
 
 # подгрузка новых комментариев по клику на лоадер пользователем
-$(document).on 'ajax:success', '.topic-block .faye-loader', (e, data) ->
+$(document).on 'ajax:success', '.b-topic .faye-loader', (e, data) ->
   $(@).replaceWith data
   process_current_dom()
 
