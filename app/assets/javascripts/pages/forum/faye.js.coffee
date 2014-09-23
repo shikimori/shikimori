@@ -48,8 +48,8 @@ $(document).on 'faye:success', '.topic-block', (e, data) ->
     #when 'updated'
       #comment_updated data, $(@), $comment
 
-    when 'deleted'
-      comment_deleted data, $(@), $comment
+    #when 'deleted'
+      #comment_deleted data, $(@), $comment
   false # чтобы обработчик раздела, лежащий выше, не сработал
 
 # комментарий создан
@@ -81,8 +81,8 @@ comment_created = (data, $node, $comment) ->
   #</div>"
 
 # комментарий удалён
-comment_deleted = (data, $node, $comment) ->
-  $comment.replaceWith "<div class='b-comment-info'><span>Комментарий удалён пользователем</span><a href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
+#comment_deleted = (data, $node, $comment) ->
+  #$comment.replaceWith "<div class='b-comment-info'><span>Комментарий удалён пользователем</span><a href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
 
 ## перезагрузка обновлённого комментария по клику на него
 #$(document).on 'click', '.topic-block .is_updated', ->

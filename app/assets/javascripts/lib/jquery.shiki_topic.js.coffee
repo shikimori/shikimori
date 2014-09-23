@@ -147,8 +147,9 @@ class @ShikiTopic extends ShikiView
       @$('.comments-shower').show()
 
     # realtime обновления
-    @on 'faye:comment:updated', (e, data) =>
-      @$(".b-comment##{data.comment_id}").trigger 'comment:updated', data
+    @on 'faye:comment:updated faye:comment:deleted', (e, data) =>
+      if e.target == @$root[0]
+        @$(".b-comment##{data.comment_id}").trigger e.type, data
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->

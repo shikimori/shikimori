@@ -92,17 +92,11 @@ class @ShikiComment extends ShikiView
 
     # сабмит формы бана
     @$('.moderation-ban').on 'ajax:success', 'form', (e, response) =>
-      @$root.trigger 'comment:replace', response.html
+      @_replace response.html
 
     # замена комментария новым контентом
     @on 'comment:replace', (e, html) =>
-      $replaced_comment = $(html)
-      @$root.replaceWith($replaced_comment)
-
-      $replaced_comment
-        .process()
-        .shiki_comment()
-        .yellowFade()
+      @_replace html
 
     # по клику на 'новое' пометка прочитанным
     @$('.b-new_marker').on 'click', =>
@@ -110,7 +104,7 @@ class @ShikiComment extends ShikiView
       @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
 
     # realtime уведомление об изменении комментария
-    @on 'comment:updated', (e, data) =>
+    @on 'faye:comment:updated', (e, data) =>
       @$('.was_updated').remove()
       $notice = $("<div class='was_updated'>
         <div><span>Комментарий изменён пользователем</span><a class='actor' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
@@ -121,6 +115,10 @@ class @ShikiComment extends ShikiView
         .on 'click', (e) =>
           @_reload() unless $(e.target).closest('.actor').exists()
 
+    # realtime уведомление об удалении комментария
+    @on 'faye:comment:deleted', (e, data) =>
+      @_replace "<div class='b-comment-info b-comment'><span>Комментарий удалён пользователем</span><a href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
+
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
@@ -129,7 +127,17 @@ class @ShikiComment extends ShikiView
   _reload: =>
     @$root.addClass 'ajax:request'
     $.get "/comments/#{@$root.attr 'id'}", (response) =>
-      @trigger 'comment:replace', response
+      @_replace response
+
+  # замена комментария другим контентом
+  _replace: (html) ->
+      $replaced_comment = $(html)
+      @$root.replaceWith($replaced_comment)
+
+      $replaced_comment
+        .process()
+        .shiki_comment()
+        .yellowFade()
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->
