@@ -17,6 +17,8 @@ $text_margin: 0px
     .text
       +opacity(1)
       //text-decoration: underline
+      &:after
+        content: '↓'
 
   .text
     +link_color
@@ -31,6 +33,6 @@ $text_margin: 0px
     text-align: center
 
     &:after
-      content: '↓'
+      content: '↑'
       display: inline-block
       margin-left: 5px
