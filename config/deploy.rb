@@ -64,6 +64,14 @@ namespace :deploy do
   end
 end
 
+namespace :cache do
+  task :clear do
+    on roles(:app), in: :sequence, wait: 5 do
+      bundle_exec "rake tmp:cache:clear"
+    end
+  end
+end
+
 namespace :test do
   task :ruby do
     on roles(:app), in: :sequence, wait: 5 do
