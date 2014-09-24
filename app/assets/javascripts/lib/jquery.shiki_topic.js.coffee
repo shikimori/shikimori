@@ -47,7 +47,6 @@ class @ShikiTopic extends ShikiView
 
         $new_comment
           .process()
-          .shiki_comment()
           .yellowFade()
 
         @editor.cleanup()
@@ -149,18 +148,20 @@ class @ShikiTopic extends ShikiView
     # realtime обновления
     # изменение / удаление комментария
     @on 'faye:comment:updated faye:comment:deleted', (e, data) =>
+      e.stopImmediatePropagation()
       if e.target == @$root[0]
         @$(".b-comment##{data.comment_id}").trigger e.type, data
 
     # добавление комментария
     @on 'faye:comment:created', (e, data) =>
+      e.stopImmediatePropagation()
       return if @$(".b-comment##{data.comment_id}").exists()
       $placeholder = @_faye_placeholder(data.comment_id)
 
       # уведомление о добавленном элементе через faye
       $(document.body).trigger "faye:added"
-      #if $placeholder.is(':appeared') && !$('textarea:focus').html()
-        #$placeholder.click()
+      if $placeholder.is(':appeared') && !$('textarea:focus').html()
+        $placeholder.click()
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->

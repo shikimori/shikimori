@@ -74,8 +74,9 @@ $with = (selector, $root) ->
   # стена картинок
   $with('.wall', $root).shiki_wall()
   #$('.b-shiki_editor.unprocessed', $root).shiki_editor()
-  $with('.b-comment.unprocessed', $root).shiki_comment()
+  $with('.b-forum.unprocessed', $root).shiki_forum()
   $with('.b-topic.unprocessed', $root).shiki_topic()
+  $with('.b-comment.unprocessed', $root).shiki_comment()
 
   # блоки, загружаемые аяксом
   $with('.postloaded[data-href]', $root).each ->

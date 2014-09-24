@@ -16,7 +16,7 @@ add_faye_placeholder = ($insert_point, id, insert_after) ->
   $placeholder
 
 # подгрузка нового топика из Faye
-$(document).on 'faye:success', '.b-topics', (e, data) ->
+$(document).on 'faye:success', '.b-forum', (e, data) ->
   $this = $(@)
   topic_id = data.topic_id
   $topic = $this.find ".topic-#{topic_id}"
@@ -90,7 +90,7 @@ comment_created = (data, $node, $comment) ->
     #$(@).closest('.comment-block').replaceWith response
 
 # подгрузка новых топиков по клику на лоадер пользователем
-$(document).on 'ajax:success', '.b-topics .faye-loader', (e, data) ->
+$(document).on 'ajax:success', '.b-forum .faye-loader', (e, data) ->
   $(@).replaceWith data
   process_current_dom()
 

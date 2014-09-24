@@ -19,6 +19,7 @@ class @ShikiView
   _initialize: ($root) ->
     @$root = $root
     @$root.removeClass('unprocessed')
+    @$root.data object: @
     @$inner = @$('>.inner')
     return unless @$inner.exists()
 
