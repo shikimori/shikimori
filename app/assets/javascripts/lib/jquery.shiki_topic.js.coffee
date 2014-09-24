@@ -147,9 +147,20 @@ class @ShikiTopic extends ShikiView
       @$('.comments-shower').show()
 
     # realtime обновления
+    # изменение / удаление комментария
     @on 'faye:comment:updated faye:comment:deleted', (e, data) =>
       if e.target == @$root[0]
         @$(".b-comment##{data.comment_id}").trigger e.type, data
+
+    # добавление комментария
+    @on 'faye:comment:created', (e, data) =>
+      return if @$(".b-comment##{data.comment_id}").exists()
+      $placeholder = @_faye_placeholder(data.comment_id)
+
+      # уведомление о добавленном элементе через faye
+      $(document.body).trigger "faye:added"
+      #if $placeholder.is(':appeared') && !$('textarea:focus').html()
+        #$placeholder.click()
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
@@ -171,3 +182,27 @@ class @ShikiTopic extends ShikiView
   _hide_editor: =>
     if @is_preview
       @$editor_container.hide()#animated_collapse()
+
+  # получение плейсхолдера для подгрузки новых комментариев
+  _faye_placeholder: (comment_id) ->
+    $placeholder = @$('.b-comments .faye-loader')
+
+    unless $placeholder.exists()
+      $placeholder = $('<div class="click-loader faye-loader"></div>')
+        .appendTo(@$('.b-comments'))
+        .data(ids: [])
+        .on 'ajax:success', (e, html) ->
+          $html = $(html)
+          $placeholder.replaceWith $html
+          $html.process()
+
+    if $placeholder.data('ids').indexOf(comment_id) == -1
+      $placeholder.data
+        ids: $placeholder.data('ids').include(comment_id)
+      $placeholder.data
+        href: "/comments/chosen/#{$placeholder.data("ids").join ","}"
+
+      num = $placeholder.data('ids').length
+      $placeholder.html p(num, 'Добавлен ', 'Добавлены ', 'Добавлено ') + num + p(num, ' новый комментарий', ' новых комментария', ' новых комментариев')
+
+    $placeholder

@@ -34,11 +34,11 @@ private
       actor: @actor.nickname,
       actor_avatar: @actor.decorate.avatar_url(16),
       actor_avatar_2x: @actor.decorate.avatar_url(32),
+      topic_id: topic.id,
       comment_id: comment.id
     }
     publish_data data, event, ["#{@namespace}/topic-#{topic.id}"]
 
-    data[:topic_id] = topic.id
     # уведомление в открытые разделы
     if topic.kind_of? GroupComment
       publish_data data, event, ["#{@namespace}/group-#{topic.linked_id}"]

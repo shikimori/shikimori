@@ -49,26 +49,36 @@ turbolinks_compatibility = ->
   $('#fancybox-wrap').remove()
   $.fancybox.init()
 
+
+# поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
+$with = (selector, $root) ->
+  if $root.is(selector)
+    $root.find(selector).add($root)
+  else
+    $root.find(selector)
+
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 @process_current_dom = (root = document.body) ->
+  $root = $(root)
+
   # нормализуем ширину всех огромных картинок
-  $('img.check-width', root).normalize_image
+  $with('img.check-width', $root).normalize_image
     class: 'check-width'
     fancybox: $.galleryOptions
 
   # то, что должно превратиться в ссылки
-  $('.linkeable', root)
+  $with('.linkeable', $root)
     .change_tag('a')
     .removeClass('linkeable')
 
   # стена картинок
-  $('.wall', root).shiki_wall()
-  #$('.b-shiki_editor.unprocessed', root).shiki_editor()
-  $('.b-comment.unprocessed', root).shiki_comment()
-  $('.b-topic.unprocessed', root).shiki_topic()
+  $with('.wall', $root).shiki_wall()
+  #$('.b-shiki_editor.unprocessed', $root).shiki_editor()
+  $with('.b-comment.unprocessed', $root).shiki_comment()
+  $with('.b-topic.unprocessed', $root).shiki_topic()
 
   # блоки, загружаемые аяксом
-  $('.postloaded[data-href]', root).each ->
+  $with('.postloaded[data-href]', $root).each ->
     $this = $(@)
     return unless $this.is(':visible')
     $this.load $this.data('href'), ->
@@ -78,10 +88,10 @@ turbolinks_compatibility = ->
     $this.attr 'data-href', null
 
   # подгружаемые тултипы
-  $('.anime-tooltip', root)
+  $with('.anime-tooltip', $root)
     .tooltip(ANIME_TOOLTIP_OPTIONS)
     .removeClass('anime-tooltip')
-  $('.bubbled', root)
+  $with('.bubbled', $root)
     .addClass('bubbled-processed')
     .removeClass('bubbled')
     .tooltip $.extend(
@@ -91,11 +101,11 @@ turbolinks_compatibility = ->
       ]
     , tooltip_options)
 
-  $('.b-spoiler.unprocessed', root)
+  $with('.b-spoiler.unprocessed', $root)
     .removeClass('unprocessed')
     .spoiler()
 
-  $('.b-video.unprocessed', root)
+  $with('.b-video.unprocessed', $root)
     .removeClass('unprocessed')
     .on 'click', (e) ->
       # если это спан, то мы жмём на кнопочки
@@ -106,7 +116,7 @@ turbolinks_compatibility = ->
           .trigger('click')
         false
 
-  $('.b-image.unprocessed', root)
+  $with('.b-image.unprocessed', $root)
     .removeClass('unprocessed')
       .children('img')
       .normalize_image
@@ -116,4 +126,4 @@ turbolinks_compatibility = ->
 
   # сворачиваение всех нужных блоков "свернуть"
   _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
-    $("#collapse-#{v}", root).trigger 'click', true
+    $with("#collapse-#{v}", $root).trigger 'click', true
