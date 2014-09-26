@@ -21,14 +21,6 @@ class Person < ActiveRecord::Base
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
-  has_one :thread, -> { where linked_type: Character.name },
-    class_name: CharacterComment.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
-
-  after_create :create_thread
-  after_save :sync_thread
-
   SeyuRoles = %w{ English Italian Hungarian Japanese German Hebrew Brazilian French Spanish Korean }
   MangakaRoles = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
@@ -47,13 +39,5 @@ class Person < ActiveRecord::Base
 
   def source
     nil
-  end
-
-  # при сохранении аниме обновление его CommentEntry
-  def sync_thread
-    if self.changes["name"]
-      thread.sync
-      thread.save
-    end
   end
 end
