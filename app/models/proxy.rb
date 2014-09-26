@@ -164,7 +164,7 @@ class Proxy < ActiveRecord::Base
 
     def user_agent url
       if url =~ /myanimelist.net/
-        'Mozilla/4.0 (compatible; ICS)'
+        'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
       else
         'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:18.0) Gecko/20100101 Firefox/18.0'
       end
