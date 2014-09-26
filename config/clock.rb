@@ -9,14 +9,14 @@ module Clockwork
   end
 
   every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
-    #ImportListWorker.perform_async pages_limit: 3
-    #ImportListWorker.perform_async pages_limit: 3, type: Manga.name
-    #ImportListWorker.perform_async source: :anons, hours_limit: 12
-    #ImportListWorker.perform_async source: :ongoing, hours_limit: 8
+    ImportListWorker.perform_async pages_limit: 3
+    ImportListWorker.perform_async pages_limit: 3, type: Manga.name
+    ImportListWorker.perform_async source: :anons, hours_limit: 12
+    ImportListWorker.perform_async source: :ongoing, hours_limit: 8
   end
 
   every 30.minutes, 'half-hourly.import.anothher', at: ['**:00', '**:30'] do
-    #AnimesImporter.perform_async
+    AnimesImporter.perform_async
     PostgresFix.perform_async
   end
 
@@ -27,7 +27,7 @@ module Clockwork
   end
 
   every 1.hour, 'hourly', at: '**:45' do
-    ProxyWorker.perform_async
+    #ProxyWorker.perform_async
     FindAnimeWorker.perform_async :last_3_entries
     AnimeSpiritWorker.perform_async :last_3_entries
   end
@@ -52,13 +52,13 @@ module Clockwork
   end
 
   every 1.day, 'daily.mangas', at: '04:00' do
-    #MangasImporter.perform_async
+    MangasImporter.perform_async
     ReadMangaWorker.perform_async
     AdultMangaWorker.perform_async
   end
 
   every 1.day, 'daily.characters', at: '03:00' do
-    #CharactersImporter.perform_async
+    CharactersImporter.perform_async
   end
 
   every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do
@@ -68,7 +68,7 @@ module Clockwork
   every 1.week, 'weekly.stuff', at: 'Monday 01:45' do
     FindAnimeWorker.perform_async :two_pages
     HentaiAnimeWorker.perform_async :first_page
-    #PeopleImporter.perform_async
+    PeopleImporter.perform_async
     DanbooruTagsImporter.perform_async
     OldMessagesCleaner.perform_async
     OldNewsCleaner.perform_async
