@@ -20,14 +20,13 @@ class @ShikiForum extends ShikiView
         # уведомление о добавленном элементе через faye
         $(document.body).trigger "faye:added"
 
-    #@on 'faye:topic:created faye:topic:updated faye:topic:deleted', (e, data) =>
-
+    # TODO: надо бы потом на эти эвенты тоже обработчики сделать faye:topic:updated faye:topic:deleted
     @on 'faye:topic:created', (e, data) =>
       $placeholder = @_faye_placeholder(data.topic_id)
       # уведомление о добавленном элементе через faye
       $(document.body).trigger "faye:added"
 
-  # получение плейсхолдера для подгрузки новых комментариев
+  # получение плейсхолдера для подгрузки новых топиков
   _faye_placeholder: (comment_id) ->
     $placeholder = @$('>.faye-loader')
 
