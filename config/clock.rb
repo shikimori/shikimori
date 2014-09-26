@@ -6,6 +6,7 @@ module Clockwork
     HistoryWorker.perform_async
     ToshokanTorrentsImporter.perform_async
     NyaaTorrentsImporter.perform_async
+    ProxyWorker.perform_async(true)
   end
 
   every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
@@ -27,7 +28,7 @@ module Clockwork
   end
 
   every 1.hour, 'hourly', at: '**:45' do
-    #ProxyWorker.perform_async
+    ProxyWorker.perform_async(false)
     FindAnimeWorker.perform_async :last_3_entries
     AnimeSpiritWorker.perform_async :last_3_entries
   end
