@@ -175,7 +175,8 @@ class TopicsController < ForumController
     topics = Entry
       .with_viewed(current_user)
       .where(id: params[:ids].split(',').map(&:to_i))
-      .map {|entry| TopicPresenter.new(object: entry, template: view_context, limit: @@first_page_comments) }
+      .map {|v| TopicDecorator.new v }
+      .each {|v| v.preview_mode! }
 
     render partial: 'topics/topic', collection: topics, layout: false, formats: :html
   end

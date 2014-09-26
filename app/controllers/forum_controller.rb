@@ -110,8 +110,8 @@ private
         Section.real.map {|v| "section-#{v[:id]}" } +
           (user_signed_in? ? current_user.groups.map { |v| "group-#{v[:id]}" } : [])
 
-      when Section::Feed.permalink
-        ["user-#{current_user.id}", FayePublisher::BroadcastFeed]
+      #when Section::Feed.permalink
+        #["user-#{current_user.id}", FayePublisher::BroadcastFeed]
 
       else
         ["section-#{@section.permalink}"]
