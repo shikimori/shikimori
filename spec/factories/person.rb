@@ -7,13 +7,14 @@ FactoryGirl.define do
         ]
     end
 
-    after(:build) do |anime|
-      anime.stub :generate_thread
-      anime.stub :sync_thread
+    after :build do |person|
+      person.stub :generate_thread
+      person.stub :sync_thread
     end
+
     trait :with_thread do
-      after(:build) do |anime|
-        anime.unstub :generate_thread
+      after :build do |person|
+        person.unstub :generate_thread
       end
     end
   end

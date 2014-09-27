@@ -11,7 +11,6 @@ class PeopleController < ShikimoriController
   helper_method :search_url
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
-  # отображение списка людей
   def index
     page_title search_title
     page_title SearchHelper.unescape(params[:search])
@@ -19,7 +18,6 @@ class PeopleController < ShikimoriController
     @people = postload_paginate(params[:page], 48) { search_query.fetch }
   end
 
-  # отображение человка
   def show
     @itemtype = @resource.itemtype
   end
@@ -29,16 +27,13 @@ class PeopleController < ShikimoriController
   end
 
   def comments
-    raise NotFound if @resource.main_thread.comments_count.zero?
+    redirect_to @resource.url if @resource.main_thread.comments_count.zero?
     page_title 'Обсуждение'
   end
 
-  # тултип
   def tooltip
-    #@entry = Person.find params[:id].to_i
   end
 
-  # автодополнение
   def autocomplete
     @collection = PeopleQuery.new(params).complete
   end

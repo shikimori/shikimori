@@ -145,6 +145,10 @@ class PersonDecorator < DbEntryDecorator
     h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
   end
 
+  def url
+    h.person_url object
+  end
+
   # тип элемента для schema.org
   def itemtype
     'http://schema.org/Person'

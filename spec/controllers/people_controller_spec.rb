@@ -1,82 +1,61 @@
 require 'spec_helper'
+
 describe PeopleController do
-  let(:entry) { create :person, name: 'test', mangaka: true }
-  let(:user) { create :user }
-  before do
-    1.upto(11) do
-      create :person, name: 'test2', mangaka: true
-    end
-    create :manga, person_roles: [create(:person_role, person: entry, role: 'Director')]
-    create :person
-  end
+  let!(:person) { create :person, name: 'test', mangaka: true }
   let(:json) { JSON.parse response.body }
 
   describe :index do
-    describe :html do
-      before { get :index, search: 'test', kind: 'mangaka', format: :html }
+    let!(:person_2) { create :person, mangaka: false }
+    before { get :index, search: 'test', kind: 'mangaka' }
 
-      it { should respond_with 200 }
-      it { should respond_with_content_type :html }
-
-      it { assigns(:people).should have(10).items }
-      it { assigns(:people).first.best_works.should have(1).item }
-    end
-
-    describe :json do
-      before { get :index, search: 'test', kind: 'mangaka', format: :json }
-
-      it { should respond_with 200 }
-      it { should respond_with_content_type :json }
-      it { json.should have_key 'content' }
-    end
+    it { should respond_with :success }
+    it { expect(assigns :people).to eq [person] }
   end
 
   describe :show do
-    it_should_behave_like :entry_show_wo_json do
-      before { create :favourite, user: user, linked: entry, kind: Favourite::Mangaka }
+    let!(:person) { create :person, :with_thread, name: 'test', mangaka: true }
+    before { get :show, id: person.to_param }
+    it { should respond_with :success }
+  end
+
+  describe :works do
+    let!(:manga) { create :manga, person_roles: [create(:person_role, person: person, role: 'Director')] }
+    before { get :works, id: person.to_param }
+    it { should respond_with :success }
+  end
+
+  describe :comments do
+    let!(:person) { create :person, :with_thread, name: 'test', mangaka: true }
+
+    context :no_comments do
+      before { get :comments, id: person.to_param }
+      it { should redirect_to person_url(person) }
     end
 
-    context 'sort: time' do
-      before { get :show, id: entry.to_param, sort: 'time' }
-
-      it { should respond_with 200 }
+    context :with_comments do
+      let!(:comment) { create :comment, commentable: person.thread }
+      before { person.thread.update comments_count: 1 }
+      before { get :comments, id: person.to_param }
+      it { should respond_with :success }
     end
+  end
+
+  describe :tooltip do
+    before { get :tooltip, id: person.to_param }
+    it { should respond_with :success }
   end
 
   describe :autocomplete do
     ['mangaka', 'seyu', 'producer'].each do |kind|
       describe kind do
-        before do
-          create :person, kind => true, name: 'Fffff'
-          create :person, kind => true, name: 'zzz Ffff'
-          create :person, name: 'Ffff'
-          get :autocomplete, search: 'Fff', kind: kind, format: 'json'
-        end
+        let!(:person_1) { create :person, kind => true, name: 'Fffff' }
+        let!(:person_2) { create :person, kind => true, name: 'zzz Ffff' }
+        let!(:person_3) { create :person, name: 'Ffff' }
+        before { get :autocomplete, search: 'Fff', kind: kind }
 
-        it { should respond_with 200 }
+        it { should respond_with :success }
         it { should respond_with_content_type :json }
-
-        describe 'json' do
-          it { json.should have(2).items }
-          it { json.first.should have_key 'data' }
-          it { json.first.should have_key 'value' }
-          it { json.first.should have_key 'label' }
-        end
       end
-    end
-  end
-
-  describe :tooltip do
-    context :to_param do
-      before { get :tooltip, id: entry.to_param }
-
-      it { should respond_with 200 }
-      it { should respond_with_content_type :html }
-    end
-
-    context :id do
-      before { get :tooltip, id: entry.id }
-      it { should redirect_to person_tooltip_url(entry) }
     end
   end
 end

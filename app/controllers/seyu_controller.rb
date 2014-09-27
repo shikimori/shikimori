@@ -1,7 +1,6 @@
 class SeyuController < PeopleController
   before_action :role_redirect, if: :resource_id
 
-  # отображение сэйю
   def show
     @itemtype = @resource.itemtype
   end

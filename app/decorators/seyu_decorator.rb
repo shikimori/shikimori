@@ -80,4 +80,8 @@ class SeyuDecorator < PersonDecorator
       end
     end
   end
+
+  def url
+    h.seyu_url object
+  end
 end
