@@ -1,0 +1,7 @@
+language: ruby
+install: bundle install
+script: bundle exec rake
+before_script:
+- bundle exec rake db:create db:test:clone RAILS_ENV=test
+rvm:
+- 2.1.2
