@@ -296,8 +296,9 @@ module CommentHelper
             preload = preloader ? " class=\"bubbled\" data-href=\"#{send preloader, entry}\"" : nil
             url = if entry.kind_of? UserChange
               moderation_user_change_url entry
+            elsif entry.kind_of? Group
             else
-              url_for entry
+              club_url entry
             end
             text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.name}\"#{preload}>#{title}</a>"
           rescue ActiveRecord::RecordNotFound
