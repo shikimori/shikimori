@@ -4,8 +4,7 @@ class PeopleController < ShikimoriController
   respond_to :json, only: :autocomplete
 
   before_action :fetch_resource, if: :resource_id
-  before_action :resource_redirect, if: -> { @resource }
-  before_action :set_title, if: -> { @resource }
+  before_action :resource_redirect, if: :resource_id
   before_action :role_redirect, if: :resource_id
 
   helper_method :search_url
@@ -15,6 +14,7 @@ class PeopleController < ShikimoriController
     page_title search_title
     page_title SearchHelper.unescape(params[:search])
 
+    search_query.fetch.to_sql
     @collection = postload_paginate(params[:page], 48) { search_query.fetch }
   end
 
@@ -39,13 +39,6 @@ class PeopleController < ShikimoriController
   end
 
 private
-  def set_title
-    page_title @resource.name
-  end
-
-  def fetch_resource
-    @resource = Person.find(resource_id).decorate
-  end
 
   def search_title
     if params[:kind] == 'producer'

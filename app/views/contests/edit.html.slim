@@ -1,9 +1,9 @@
 header.head
   h2
-    - unless @contest.created?
-      a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
+    - unless @resource.created?
+      a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
     = @page_title.last
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-= render 'form', contest: @contest
+= render 'form', contest: @resource

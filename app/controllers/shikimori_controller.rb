@@ -1,6 +1,21 @@
 class ShikimoriController < ApplicationController
+  def self.page_title value
+    before_action { page_title value }
+  end
+
+  def fetch_resource
+    @resource ||= resource_klass.find(resource_id)
+    @resource = @resource.decorate
+
+    if @resource.respond_to? :name
+      page_title @resource.name
+    elsif @resource.respond_to? :title
+      page_title @resource.title
+    end
+  end
+
   def resource_redirect
-    if resource_id != @resource.to_param
+    if resource_id != @resource.to_param && request.method == 'GET' && params[:action] != 'new'
       redirect_to url_for(params.merge('id' => @resource.to_param))
       false
     end
@@ -8,6 +23,10 @@ class ShikimoriController < ApplicationController
 
   def resource_id
     @resource_id ||= params["#{self.class.name.underscore.sub(/_controller$/, '')}_id"] || params[:id]
+  end
+
+  def resource_klass
+    self.class.name.sub(/Controller$/ ,'').singularize.constantize
   end
 
   # заполнение хлебных крошек

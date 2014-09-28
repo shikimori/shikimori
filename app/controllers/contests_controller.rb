@@ -1,8 +1,9 @@
 class ContestsController < ShikimoriController
   load_and_authorize_resource except: [:current]
-
+  before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs
-  before_action :prepare
+  before_action :resource_redirect, if: -> { @resource }
+  page_title 'Опросы'
 
   def current
     if user_signed_in?
@@ -16,7 +17,7 @@ class ContestsController < ShikimoriController
     keywords 'аниме опросы турниры голосования'
     description 'Аниме опросы и турниры сайта'
 
-    @contests_groups = @contests
+    @collection_groups = @collection
       .includes(rounds: :matches)
       .sort_by {|v| [['started', 'proposing', 'created', 'finished'].index(v.state), -(v.finished_on || Date.today).to_time.to_i] }
       .group_by(&:state)
@@ -24,83 +25,80 @@ class ContestsController < ShikimoriController
 
   def show
     noindex if params[:round] || params[:vote]
-    redirect_to edit_contest_url(@contest) and return if @contest.created?
-    redirect_to contest_url(@contest), status: :moved_permanently and return if @contest.to_param != params[:id]
+    redirect_to edit_contest_url(@resource) and return if @resource.created?
 
-    keywords 'аниме опрос турнир голосование ' + @contest.title
-    description 'Примите участие в аниме-турнире на нашем сайте и внесите свой вклад в голосование, мы хотим определить ' + Unicode::downcase(@contest.title) + '.'
+    keywords 'аниме опрос турнир голосование ' + @resource.title
+    description 'Примите участие в аниме-турнире на нашем сайте и внесите свой вклад в голосование, мы хотим определить ' + Unicode::downcase(@resource.title) + '.'
 
-    @page_title << @contest.title
-    @page_title << @contest.displayed_round.title if params[:round]
+    page_title @resource.displayed_round.title if params[:round]
   end
 
   # проголосовавшие в раунде
   def users
     noindex
 
-    @page_title << @contest.title
-    @page_title << @contest.displayed_round.title
-    @page_title << 'Голоса'
+    page_title @resource.displayed_round.title
+    page_title 'Голоса'
 
-    raise NotFound, "not finished round #{@contest.displayed_round.id}" unless @contest.displayed_match.finished? || (user_signed_in? && current_user.admin?)
+    raise NotFound, "not finished round #{@resource.displayed_round.id}" unless @resource.displayed_match.finished? || (user_signed_in? && current_user.admin?)
   end
 
   # комментарии опроса
   def comments
-    raise NotFound if @contest.main_thread.comments_count.zero?
+    raise NotFound if @resource.main_thread.comments_count.zero?
     page_title 'Обсуждение опроса'
   end
 
   # турнирная сетка
   def grid
-    redirect_to contests_url and return if @contest.created?
-    redirect_to contest_url(@contest) and return if @contest.proposing?
+    redirect_to contests_url and return if @resource.created?
+    redirect_to contest_url(@resource) and return if @resource.proposing?
     noindex
 
-    @page_title << @contest.title
-    @page_title << 'Турнирная сетка'
+    page_title @resource.title
+    page_title 'Турнирная сетка'
 
     render 'grid', layout: false
   end
 
   def edit
-    @page_title << 'Редактирование опроса'
+    page_title 'Редактирование опроса'
   end
 
   def new
-    @page_title << 'Новый опрос'
-    @contest ||= Contest.new.decorate
-    @contest.started_on ||= Date.today + 1.day
-    @contest.matches_per_round ||= 6
-    @contest.match_duration ||= 2
-    @contest.matches_interval ||= 1
-    @contest.suggestions_per_user ||= 5
+    page_title 'Новый опрос'
+
+    @resource ||= Contest.new.decorate
+    @resource.started_on ||= Date.today + 1.day
+    @resource.matches_per_round ||= 6
+    @resource.match_duration ||= 2
+    @resource.matches_interval ||= 1
+    @resource.suggestions_per_user ||= 5
   end
 
   def create
-    @contest = Contest.new(contest_params).decorate
-    @contest.user_id = current_user.id
+    @resource.user_id = current_user.id
 
-    if @contest.save
-      redirect_to edit_contest_url(@contest)
+    if @resource.save
+      redirect_to edit_contest_url(@resource)
     else
       new and render :new
     end
   end
 
   def update
-    if (@contest.created? || @contest.proposing?) && params[:members]
-      @contest.links = []
+    if (@resource.created? || @resource.proposing?) && params[:members]
+      @resource.links = []
       params[:members].map(&:to_i).select {|v| v != 0 }.each do |v|
-        @contest.members << @contest.member_klass.find(v)
+        @resource.members << @resource.member_klass.find(v)
       end
     end
 
-    if @contest.update_attributes contest_params
+    if @resource.update contest_params
       # сброс сгенерённых
-      @contest.prepare if @contest.can_start? && @contest.rounds.any?
+      @resource.prepare if @resource.can_start? && @resource.rounds.any?
 
-      redirect_to edit_contest_url @contest
+      redirect_to edit_contest_url @resource
     else
       edit and render :edit
     end
@@ -108,56 +106,51 @@ class ContestsController < ShikimoriController
 
   # запуск контеста
   def start
-    @contest.start!
-    redirect_to edit_contest_url @contest
+    @resource.start!
+    redirect_to edit_contest_url @resource
   end
 
   # запуск приёма варинатов
   def propose
-    @contest.propose!
-    redirect_to edit_contest_url @contest
+    @resource.propose!
+    redirect_to edit_contest_url @resource
   end
 
   # остановка приёма варинатов
   def stop_propose
-    @contest.stop_propose!
-    redirect_to edit_contest_url @contest
+    @resource.stop_propose!
+    redirect_to edit_contest_url @resource
   end
 
   # очистка вариантов от накруток
   def cleanup_suggestions
-    @contest.cleanup_suggestions!
-    redirect_to edit_contest_url @contest
+    @resource.cleanup_suggestions!
+    redirect_to edit_contest_url @resource
   end
 
   # остановка контеста
   #def finish
-    #@contest.finish!
-    #redirect_to edit_contest_url(@contest)
+    #@resource.finish!
+    #redirect_to edit_contest_url(@resource)
   #end
 
   # создание голосований
   def build
-    @contest.prepare if @contest.created? || @contest.proposing?
-    redirect_to edit_contest_url @contest
+    @resource.prepare if @resource.created? || @resource.proposing?
+    redirect_to edit_contest_url @resource
   end
 
 private
-  def prepare
-    @page_title = ['Опросы']
-    @contest = @contest.decorate if @contest
-  end
-
   # хлебные крошки
   def set_breadcrumbs
     breadcrumb 'Опросы', contests_url
-    breadcrumb @contest.title, contest_url(@contest) if params[:action] == 'edit' && !@contest.created?
-    breadcrumb @contest.title, contest_url(@contest) if params[:action] == 'grid' && !@contest.created?
-    breadcrumb @contest.title, contest_url(@contest) if params[:round].present?
+    breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'edit' && !@resource.created?
+    breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'grid' && !@resource.created?
+    breadcrumb @resource.title, contest_url(@resource) if params[:round].present?
 
     if params[:action] == 'users'
-      breadcrumb @contest.title, contest_url(@contest)
-      breadcrumb @contest.displayed_round.title, round_contest_url(@contest, round: @contest.displayed_round)
+      breadcrumb @resource.title, contest_url(@resource)
+      breadcrumb @resource.displayed_round.title, round_contest_url(@resource, round: @resource.displayed_round)
     end
   end
 

@@ -5,32 +5,32 @@ html
   body class="p-#{controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?}" id="#{controller_name}_#{action_name}"
     header.head.misc
       h1
-        a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
+        a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
         = @page_title.last
-      = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+      = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-    - cache ['grid', @contest, russian_names_key] do
-      .contest-grid class="#{@contest.strategy_type}"
+    - cache ['grid', @resource, russian_names_key] do
+      .contest-grid class="#{@resource.strategy_type}"
         .final
           .round
             .match
               .entry.grid
-                - if @contest.rounds.last.finished?
+                - if @resource.rounds.last.finished?
                   p.finalist
-                    a href="#{url_for @contest.final_match.winner}"
-                      = localized_name @contest.final_match.winner
+                    a href="#{url_for @resource.final_match.winner}"
+                      = localized_name @resource.final_match.winner
                 - else
                   p.unknown ???
                 p.date
-                  = Russian::strftime(@contest.final_match.started_on, '%e %b').strip
-                  - if @contest.final_match.started_on.strftime('%d.%m') != @contest.final_match.finished_on.strftime('%d.%m')
+                  = Russian::strftime(@resource.final_match.started_on, '%e %b').strip
+                  - if @resource.final_match.started_on.strftime('%d.%m') != @resource.final_match.finished_on.strftime('%d.%m')
                     | &nbsp;&ndash;&nbsp;
-                    = Russian::strftime(@contest.final_match.finished_on, '%e %b').strip
+                    = Russian::strftime(@resource.final_match.finished_on, '%e %b').strip
           .left-border
 
         .winners
           .group-title Победители (W)
-          - @contest.rounds.each do |round|
+          - @resource.rounds.each do |round|
             - next if round.additional?
             .round class="round-#{round.number} round-#{round.additional ? 'a' : 'n'}"
               .title
@@ -38,17 +38,17 @@ html
               .matches
                 - round.matches.each do |match|
                   - next if match.group == ContestRound::L
-                  = render partial: 'contests/grid_match', locals: { contest: @contest, round: round, match: match, losers_finalist: false }
+                  = render partial: 'contests/grid_match', locals: { contest: @resource, round: round, match: match, losers_finalist: false }
 
-        - if @contest.strategy.with_additional_rounds?
+        - if @resource.strategy.with_additional_rounds?
           .clearfix.m30
           .losers
             .group-title Проигравшие (L)
-            - @contest.rounds.each do |round|
+            - @resource.rounds.each do |round|
               .round class="round-#{round.number} round-#{round.additional ? 'a' : 'n'}"
                 .title
                   | &nbsp;
                 .matches
                   - round.matches.each do |match|
-                    - next unless match.group == ContestRound::L || @contest.rounds.last == round
-                    = render partial: 'contests/grid_match', locals: { contest: @contest, round: round, match: match, losers_finalist: @contest.rounds.last == round }
+                    - next unless match.group == ContestRound::L || @resource.rounds.last == round
+                    = render partial: 'contests/grid_match', locals: { contest: @resource, round: round, match: match, losers_finalist: @resource.rounds.last == round }

@@ -1,6 +1,4 @@
 class SeyuController < PeopleController
-  before_action :role_redirect, if: :resource_id
-
   def show
     @itemtype = @resource.itemtype
   end
@@ -19,8 +17,9 @@ private
       #if params[:direct]
         #@canonical = person_url(@resource)
       #else
-        redirect_to person_url(@resource)
+        #redirect_to person_url(@resource)
       #end
+      redirect_to person_url(@resource)
     end
   end
 

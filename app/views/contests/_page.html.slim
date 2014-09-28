@@ -4,18 +4,18 @@
 header.head.misc
   h1
     - unless params[:action] == 'show'
-      a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
+      a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
     = @page_title.last
 
-  - if can? :edit, @contest
-    a.misc href="#{edit_contest_url @contest}" title="Изменить опрос" изменить
+  - if can? :edit, @resource
+    a.misc href="#{edit_contest_url @resource}" title="Изменить опрос" изменить
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .menu-slide-outer
   .menu-slide-inner
-    .l-content class="#{@contest.strategy_type}"
+    .l-content class="#{@resource.strategy_type}"
       = yield
 
     aside.l-menu
-      = render 'menu', contest: @contest
+      = render 'menu', contest: @resource

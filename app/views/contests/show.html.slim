@@ -2,17 +2,17 @@
   img#social_image src="/images/static/contest.jpg" alt="Аниме турнир" title="Аниме турнир"
 
   div
-    - if @contest.showing_results?
-      = render 'results', contest: @contest
-    - elsif @contest.proposing?
-      = render 'proposing', contest: @contest
+    - if @resource.showing_results?
+      = render 'results', contest: @resource
+    - elsif @resource.proposing?
+      = render 'proposing', contest: @resource
     - else
-      = render 'round', contest: @contest
+      = render 'round', contest: @resource
 
-  - if user_signed_in? || @contest.thread.comments_count > 0
-    - if @contest.thread.comments_count > 0
+  - if user_signed_in? || @resource.thread.comments_count > 0
+    - if @resource.thread.comments_count > 0
       .subheadline.m3
-        .linkeable data-href="#{comments_contest_url @contest}" Обсуждение
+        .linkeable data-href="#{comments_contest_url @resource}" Обсуждение
     div
       .b-topic.unprocessed
-        = render partial: 'topics/comments', locals: { topic: @contest.preview_thread }
+        = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

@@ -8,7 +8,7 @@ describe SeyuController do
     before { get :index, search: 'test', kind: 'seyu' }
 
     it { should respond_with :success }
-    it { expect(assigns :people).to eq [seyu] }
+    it { expect(assigns :collection).to eq [seyu] }
   end
 
   describe :show do

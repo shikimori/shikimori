@@ -71,7 +71,7 @@ gem 'uuid'
 gem 'meta-tags', github: 'morr/meta-tags', require: 'meta_tags'
 gem 'enumerize'
 gem 'draper'
-gem 'cancancan'
+gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 
 gem 'unicode' # для downcase русских слов
 gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'

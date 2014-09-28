@@ -36,7 +36,7 @@ class DbEntry < ActiveRecord::Base
 private
   # создание топика для элемента сразу после создания элемента
   def generate_thread
-    create_thread!(linked: self, generated: true, title: name)
+    create_thread! linked: self, generated: true, title: name
   end
 
   # при сохранении аниме обновление его топика

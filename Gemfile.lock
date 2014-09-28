@@ -26,6 +26,13 @@ GIT
     acts_as_voteable (0.0.3)
 
 GIT
+  remote: git://github.com/morr/cancancan.git
+  revision: 867464abb82b1ec61031bef531c961fc97e0ed54
+  branch: master
+  specs:
+    cancancan (1.9.2)
+
+GIT
   remote: git://github.com/morr/foreman.git
   revision: f3390d413fe3a8d6951b0684c816781c3a7aec96
   specs:
@@ -158,7 +165,6 @@ GEM
     byebug (3.1.2)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
-    cancancan (1.7.1)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
@@ -590,7 +596,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
-  cancancan
+  cancancan!
   capistrano
   capistrano-bundler
   capistrano-rails

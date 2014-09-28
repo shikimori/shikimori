@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe PeopleController do
   let!(:person) { create :person }
-  let(:json) { JSON.parse response.body }
 
   describe :index do
     let!(:person_2) { create :person, name: 'test', mangaka: true }
@@ -13,7 +12,7 @@ describe PeopleController do
   end
 
   describe :show do
-    let!(:person) { create :person, :with_thread, name: 'test', mangaka: true }
+    let!(:person) { create :person, :with_thread, mangaka: true }
     before { get :show, id: person.to_param }
     it { should respond_with :success }
   end
@@ -25,11 +24,11 @@ describe PeopleController do
   end
 
   describe :comments do
-    let!(:person) { create :person, :with_thread, name: 'test', mangaka: true }
+    let!(:person) { create :person, :with_thread }
 
-    context :no_comments do
+    context :without_comments do
       before { get :comments, id: person.to_param }
-      it { should redirect_to person_url(person) }
+      it { should redirect_to person }
     end
 
     context :with_comments do
