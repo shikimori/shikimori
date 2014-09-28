@@ -12,7 +12,7 @@ FactoryGirl.define do
       v.class.skip_callback(:create, :after, :episode_notification)
     end
 
-    factory :anime_video_with_notification do
+    trait :with_notification do
       after(:create) { |video| video.send(:episode_notification) }
     end
   end
