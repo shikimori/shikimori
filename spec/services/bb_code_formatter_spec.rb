@@ -196,19 +196,19 @@ describe BbCodeFormatter do
 
     describe '[wall]' do
       let(:text) { '[wall][/wall]' }
-      it { should eq '<div class="height-unchecked inner-block"></div><div class="wall"></div>' }
+      it { should eq '<div class="height-unchecked inner-block wall"></div>' }
     end
 
     describe '[vkontakte]' do
       let(:text) { "http://vk.com/video98023184_165811692" }
       before { VCR.use_cassette(:vk_video) { subject } }
-      it { should include '<div class="image-container video vk"' }
+      it { should include '<a class="c-video b-video unprocessed vk' }
     end
 
     describe '[youtube]' do
       let(:hash) { "og2a5lngYeQ" }
       let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
-      it { should include '<div class="image-container video youtube"' }
+      it { should include '<a class="c-video b-video unprocessed youtube' }
     end
 
     describe '[url]' do
@@ -236,13 +236,18 @@ describe BbCodeFormatter do
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
-      it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"/></a>" }
+      it { should eq "<a href=\"#{user_image.image.url :original, false}\" \
+rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
+<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\"/>\
+<span class=\"marker\">1000x1000</span>\
+</a>" }
     end
 
     describe '[img]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[img]#{url}[/img]" }
-      it { should eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{url}\" class=\"check-width\"/></a>" }
+      it { should eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
+<img src=\"#{url}\" /></a>" }
     end
 
     describe '[spoiler=text]' do

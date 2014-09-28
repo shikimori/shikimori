@@ -38,7 +38,7 @@ private
     sizes_html += " width=\"#{width}\"" if width > 0
     sizes_html += " height=\"#{height.to_i}\"" if height > 0
 
-    "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">
+    "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{url}\" #{"class=\"#{klass}\"" if klass}#{sizes_html}/></a>"
   end
 

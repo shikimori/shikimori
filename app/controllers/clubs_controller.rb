@@ -6,7 +6,7 @@ class ClubsController < ShikimoriController
 
   def index
     @page = [params[:page].to_i, 1].max
-    @limit = [[params[:limit].to_i, 24].max, 48].min
+    @limit = [[params[:limit].to_i, 48].max, 96].min
     @collection, @add_postloader = ClubsQuery.new.postload @page, @limit
   end
 
