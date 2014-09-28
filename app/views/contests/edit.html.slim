@@ -4,6 +4,6 @@ header.head
       a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
     = @page_title.last
 
-  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 = render 'form', contest: @contest

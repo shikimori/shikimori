@@ -7,7 +7,7 @@ describe ContestRound do
   end
 
   describe :state_machine do
-    let(:contest) { create :contest_with_5_members, state: 'started' }
+    let(:contest) { create :contest, :with_5_members, state: 'started' }
     let(:round) { create :contest_round, contest: contest }
 
     it 'full cycle' do

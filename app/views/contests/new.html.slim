@@ -1,6 +1,6 @@
 header.head
   h1
     = @page_title.last
-  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 = render 'form', contest: @contest

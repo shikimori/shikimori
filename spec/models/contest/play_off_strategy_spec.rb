@@ -41,7 +41,7 @@ describe Contest::PlayOffStrategy do
   end
 
   describe :advance_members do
-    let(:contest) { create :contest_with_5_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
     let(:w1) { contest.rounds[0].matches[0].left }
     let(:w2) { contest.rounds[0].matches[1].left }
     let(:w3) { contest.rounds[0].matches[2].left }
@@ -97,7 +97,7 @@ describe Contest::PlayOffStrategy do
   end
 
   describe :results do
-    let(:contest) { create :contest_with_8_members, :anime, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_8_members, :anime, strategy_type: strategy_type }
     let(:results) { contest.results }
     let(:scores) { contest.strategy.statistics.scores }
     let(:statistics) { contest.strategy.statistics }

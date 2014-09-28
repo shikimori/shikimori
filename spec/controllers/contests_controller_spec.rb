@@ -10,7 +10,6 @@ describe ContestsController do
   describe '#index' do
     before { get :index }
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe '#grid' do
@@ -18,46 +17,45 @@ describe ContestsController do
       let(:contest) { create :contest, user: user }
       before { get :grid, id: contest.to_param }
 
-      it { should respond_with :redirect }
       it { should redirect_to contests_url }
     end
 
     context :proposing do
-      let(:contest) { create :contest, user: user, state: 'proposing' }
+      let(:contest) { create :contest, :proposing, user: user }
       before { get :grid, id: contest.to_param }
 
-      it { should respond_with :redirect }
       it { should redirect_to contest_url(contest) }
     end
 
     context :started do
-      let(:contest) { create :contest_with_5_members, user: user }
+      let(:contest) { create :contest, :with_5_members, user: user }
       before { contest.start! }
       before { get :grid, id: contest.to_param }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :html }
     end
   end
 
   describe '#show' do
-    let(:contest) { create :contest_with_5_members, user: user }
-    before { contest.start! if contest.can_start? }
+    let(:contest) { create :contest, :with_5_members, :with_thread, user: user }
 
-    context 'w/o round' do
-      before { get :show, id: contest.to_param }
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
-    end
+    context :started do
+      before { contest.start! }
 
-    context 'with round' do
-      before { get :show, id: contest.to_param, round: 1 }
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
+      context 'w/o round' do
+        before { get :show, id: contest.to_param }
+        it { should respond_with :success }
+      end
+
+      context 'with round' do
+        before { get :show, id: contest.to_param, round: 1 }
+        it { should respond_with :success }
+      end
     end
 
     context :finished do
       before do
+        contest.start!
         contest.rounds.each do |round|
           contest.current_round.matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday }
           contest.process!
@@ -67,20 +65,18 @@ describe ContestsController do
         get :show, id: contest.to_param
       end
       it { should respond_with :success }
-      it { should respond_with_content_type :html }
     end
 
     context :proposing do
-      let(:contest) { create :contest, state: 'proposing', user: user }
+      let(:contest) { create :contest, :with_generated_thread, :proposing, user: user }
       before { get :show, id: contest.to_param }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :html }
     end
   end
 
   describe '#users' do
-    let(:contest) { create :contest_with_5_members, user: user }
+    let(:contest) { create :contest, :with_5_members, user: user }
     before { contest.start }
 
     describe 'not finished' do
@@ -97,22 +93,17 @@ describe ContestsController do
         get :users, id: contest.id, round: 1, match_id: contest.rounds.first.matches.first.id
       end
       it { should respond_with :success }
-      it { should respond_with_content_type :html }
     end
   end
 
   describe '#new' do
     before { get :new }
-
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe '#edit' do
     before { get :edit, id: contest.id }
-
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe :update do
@@ -129,7 +120,6 @@ describe ContestsController do
       before { patch 'update', id: contest.id, contest: { title: '' } }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :html }
       it { expect(assigns(:contest).errors).to_not be_empty }
     end
   end
@@ -147,16 +137,14 @@ describe ContestsController do
       before { post :create, contest: { id: 1 } }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :html }
       it { expect(assigns(:contest).new_record?).to be true }
     end
   end
 
   describe '#start' do
-    let(:contest) { create :contest_with_5_members, user: user }
+    let(:contest) { create :contest, :with_5_members, user: user }
     before { post :start, id: contest.id }
 
-    it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
     it { expect(assigns(:contest).started?).to be true }
   end
@@ -165,7 +153,6 @@ describe ContestsController do
     let(:contest) { create :contest, user: user }
     before { post :propose, id: contest.id }
 
-    it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
     it { expect(assigns(:contest).proposing?).to be true }
   end
@@ -185,13 +172,12 @@ describe ContestsController do
     let(:contest) { create :contest, state: :proposing, user: user }
     before { post :stop_propose, id: contest.id }
 
-    it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
     it { expect(assigns(:contest).created?).to be true }
   end
 
   #describe '#finish' do
-    #let(:contest) { create :contest_with_5_members, user: user }
+    #let(:contest) { create :contest, :with_5_members, user: user }
     #before do
       #contest.start
       #get 'finish', id: contest.id
@@ -203,10 +189,9 @@ describe ContestsController do
   #end
 
   describe '#build' do
-    let(:contest) { create :contest_with_5_members, user: user }
+    let(:contest) { create :contest,:with_5_members, user: user }
     before { post :build, id: contest.id }
 
-    it { should respond_with 302 }
     it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
     it { expect(assigns(:contest).rounds).to have(6).items }
   end

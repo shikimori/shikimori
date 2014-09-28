@@ -1,7 +1,7 @@
 header.head.misc
   h1
     = @page_title.last
-  - if user_signed_in? && current_user.contests_moderator?
+  - if can? :create, @contest
     = link_to 'создать', new_contest_url, title: 'Создать новый опрос', class: 'misc'
   p.notice.clearfix Список всех опросов сайта
 

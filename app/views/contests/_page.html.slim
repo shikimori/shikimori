@@ -7,10 +7,10 @@ header.head.misc
       a.back href="#{contest_url @contest}" title="Назад на страницу опроса"
     = @page_title.last
 
-  - if @contest.can_be_edited_by? current_user
+  - if can? :edit, @contest
     a.misc href="#{edit_contest_url @contest}" title="Изменить опрос" изменить
 
-  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .menu-slide-outer
   .menu-slide-inner

@@ -47,7 +47,7 @@ describe Contest::SwissStrategy do
   end
 
   describe :fill_round_with_matches do
-    let(:contest) { create :contest_with_5_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
     before { contest.start! }
 
     it 'creates correct rounds' do
@@ -59,7 +59,7 @@ describe Contest::SwissStrategy do
   end
 
   describe :dates do
-    let(:contest) { create :contest_with_6_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
     before { contest.prepare }
 
     it 'sets correct dates for matches' do
@@ -70,7 +70,7 @@ describe Contest::SwissStrategy do
   end
 
   context :contest_with_6_members do
-    let(:contest) { create :contest_with_6_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
     before do
       contest.start!
       contest.rounds.map(&:matches).flatten.each do |v|

@@ -30,13 +30,21 @@ FactoryGirl.define do
     end
 
     trait :with_thread do
-      after(:build) do |contest|
+      after :build do |contest|
         contest.unstub :generate_thread
       end
     end
 
+    trait :with_generated_thread do
+      with_thread
+
+      after :build do |contest|
+        contest.send :generate_thread
+      end
+    end
+
     [3,5,6,8,19].each do |members|
-      factory "contest_with_#{members}_members" do
+      trait "with_#{members}_members".to_sym do
         after(:create) do |contest|
           members.times { contest.members << FactoryGirl.create(contest.member_type) }
         end

@@ -1,8 +1,8 @@
 class ContestsController < ShikimoriController
   load_and_authorize_resource except: [:current]
 
-  before_filter :prepare
-  helper_method :breadcrumbs
+  before_action :set_breadcrumbs
+  before_action :prepare
 
   def current
     if user_signed_in?
@@ -149,17 +149,16 @@ private
   end
 
   # хлебные крошки
-  def breadcrumbs
-    crumbs = { 'Опросы' => contests_url }
-    crumbs[@contest.title] = contest_url @contest if params[:action] == 'edit' && !@contest.created?
-    crumbs[@contest.title] = contest_url @contest if params[:action] == 'grid' && !@contest.created?
-    crumbs[@contest.title] = contest_url @contest if params[:round].present?
+  def set_breadcrumbs
+    breadcrumb 'Опросы', contests_url
+    breadcrumb @contest.title, contest_url(@contest) if params[:action] == 'edit' && !@contest.created?
+    breadcrumb @contest.title, contest_url(@contest) if params[:action] == 'grid' && !@contest.created?
+    breadcrumb @contest.title, contest_url(@contest) if params[:round].present?
 
     if params[:action] == 'users'
-      crumbs[@contest.title] = contest_url @contest
-      crumbs[@contest.displayed_round.title] = round_contest_url @contest, round: @contest.displayed_round
+      breadcrumb @contest.title, contest_url(@contest)
+      breadcrumb @contest.displayed_round.title, round_contest_url(@contest, round: @contest.displayed_round)
     end
-    crumbs
   end
 
   def contest_params

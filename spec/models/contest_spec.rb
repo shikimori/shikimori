@@ -19,7 +19,7 @@ describe Contest do
   end
 
   context :state_machine do
-    let(:contest) { create :contest_with_5_members }
+    let(:contest) { create :contest, :with_5_members }
 
     it 'full cycle' do
       contest.created?.should be_true
@@ -79,7 +79,7 @@ describe Contest do
     end
 
     context 'after propose' do
-      let(:contest) { create :contest_with_5_members, :with_thread }
+      let(:contest) { create :contest, :with_5_members, :with_thread }
 
       it 'creates thread' do
         contest.propose!
@@ -93,7 +93,7 @@ describe Contest do
         contest.rounds.first.started?.should be_true
       end
 
-      let(:contest) { create :contest_with_5_members, :with_thread }
+      let(:contest) { create :contest, :with_5_members, :with_thread }
       it 'creates thread' do
         contest.start!
         contest.reload.thread.present?.should be_true
@@ -123,7 +123,7 @@ describe Contest do
 
   describe :instance_methods do
     describe :prepare do
-      let(:contest) { create :contest_with_5_members }
+      let(:contest) { create :contest, :with_5_members }
 
       it 'deletes existing rounds' do
         round = create :contest_round, contest_id: contest.id
@@ -151,7 +151,7 @@ describe Contest do
     end
 
     describe :process! do
-      let(:contest) { create :contest_with_5_members }
+      let(:contest) { create :contest, :with_5_members }
       let(:round) { contest.current_round }
       before { contest.start! }
 
@@ -194,7 +194,7 @@ describe Contest do
     end
 
     describe :current_round do
-      let(:contest) { create :contest_with_5_members }
+      let(:contest) { create :contest, :with_5_members }
       before { contest.prepare }
 
       it 'first round' do

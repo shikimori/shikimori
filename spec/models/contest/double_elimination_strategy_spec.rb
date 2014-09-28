@@ -56,7 +56,7 @@ describe Contest::DoubleEliminationStrategy do
   end
 
   describe :advance_members do
-    let(:contest) { create :contest_with_5_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
     let(:w1) { contest.rounds[0].matches[0].left }
     let(:w2) { contest.rounds[0].matches[1].left }
     let(:w3) { contest.rounds[0].matches[2].left }
@@ -238,7 +238,7 @@ describe Contest::DoubleEliminationStrategy do
   end
 
   describe :results do
-    let(:contest) { create :contest_with_8_members, :character }
+    let(:contest) { create :contest, :with_8_members, :character }
     let(:scores) { contest.strategy.statistics.scores }
     let(:average_votes) { contest.strategy.statistics.average_votes }
     before do
@@ -324,7 +324,7 @@ describe Contest::DoubleEliminationStrategy do
 
   describe :fill_round_with_matches do
     context '19 members' do
-      let(:contest) { create :contest_with_19_members, matches_per_round: 3 }
+      let(:contest) { create :contest, :with_19_members, matches_per_round: 3 }
       before { strategy.create_rounds }
 
       it 'should not left last vote for next day' do
@@ -334,7 +334,7 @@ describe Contest::DoubleEliminationStrategy do
     end
 
     context '5 members' do
-      let(:contest) { create :contest_with_5_members }
+      let(:contest) { create :contest, :with_5_members }
       before { strategy.create_rounds }
 
       context 'I' do
