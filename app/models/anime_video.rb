@@ -21,6 +21,7 @@ class AnimeVideo < ActiveRecord::Base
 
   before_save :check_ban
   before_save :check_copyright
+  after_create :episode_notification
 
   scope :allowed_play, -> {
     worked
@@ -108,5 +109,11 @@ private
 
   def check_copyright
     self.state = 'copyrighted' if copyright_ban?
+  end
+
+  def episode_notification
+    if AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
+      AniMangaNotification.video_episode self
+    end
   end
 end

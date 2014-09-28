@@ -128,6 +128,35 @@ describe AnimeVideo do
     end
   end
 
+  describe :after_save do
+    let(:anime) { build_stubbed :anime }
+    let(:url_1) { 'http://foo/1' }
+    let(:url_2) { 'http://foo/2' }
+
+    context :new_video do
+      let!(:anime_video) { create :anime_video_with_notification, anime: anime }
+      it { expect(AniMangaNotification.all).to have(1).items }
+    end
+
+    context :new_episode do
+      let!(:anime_video_1) { create :anime_video_with_notification, anime: anime, episode: 1, url: url_1 }
+      let!(:anime_video_2) { create :anime_video_with_notification, anime: anime, episode: 2, url: url_2 }
+      it { expect(AniMangaNotification.all).to have(2).items }
+    end
+
+    context :not_new_episode_but_other_kind do
+      let!(:anime_video_1) { create :anime_video_with_notification, anime: anime, kind: :raw, url: url_1 }
+      let!(:anime_video_2) { create :anime_video_with_notification, anime: anime, kind: :subtitles, url: url_2 }
+      it { expect(AniMangaNotification.all).to have(2).items }
+    end
+
+    context :not_new_episode do
+      let!(:anime_video_1) { create :anime_video_with_notification, anime: anime, url: url_1 }
+      let!(:anime_video_2) { create :anime_video_with_notification, anime: anime, url: url_2 }
+      it { expect(AniMangaNotification.all).to have(1).items }
+    end
+  end
+
   describe :hosting do
     subject { build(:anime_video, url: url).hosting }
 
