@@ -1,0 +1,10 @@
+header.head.misc
+  h1 = @page_title.last
+  - if user_signed_in?
+    a.misc href="#{new_club_url}" title="Создать новый клуб" создать
+  p.notice.clearfix Список всех клубов сайта в порядке активности участников
+
+.cc
+  = render partial: 'club', collection: @collection
+  - if @add_postloader
+    = render 'blocks/postloader', url: page_clubs_url(page: @page+1)

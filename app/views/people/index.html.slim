@@ -4,10 +4,10 @@ header.head
 
   p.notice На данной странице отображён результат поиска по запросу "#{@page_title.last}"
 
-- if @people.empty?
+- if @collection.empty?
   p Ничего не найдено.
 
 .cc-8
-  = render @people
+  = render @collection
   - if @add_postloader
     = render 'blocks/postloader', url: search_url(search: params[:search], page: @page+1)

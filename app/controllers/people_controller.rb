@@ -15,7 +15,7 @@ class PeopleController < ShikimoriController
     page_title search_title
     page_title SearchHelper.unescape(params[:search])
 
-    @people = postload_paginate(params[:page], 48) { search_query.fetch }
+    @collection = postload_paginate(params[:page], 48) { search_query.fetch }
   end
 
   def show

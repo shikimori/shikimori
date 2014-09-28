@@ -1,0 +1,29 @@
+@import compass/utilities/general/clearfix
+@import compass/typography/text/ellipsis
+@import mixins/block
+@import mixins/link
+
+.b-club
+  +block
+  +clearfix
+  margin-bottom: 15px
+
+  .logo
+    float: left
+    width: 48px
+    margin-right: 10px
+
+  .name, .info
+    +ellipsis
+    display: block
+    font-size: 13px
+    line-height: 1
+
+  .name
+    +link
+    font-weight: bold
+
+  .info
+    color: $date
+    display: inline
+    font-size: 11px

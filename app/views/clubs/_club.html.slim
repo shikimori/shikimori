@@ -1,0 +1,7 @@
+.b-club
+  a href="#{club_url club}" title="#{club.name}"
+    img.logo src="#{club.logo.url :x48}" srcset="#{club.logo.url :x96} 2x" alt="#{club.name}" title="#{club.name}"
+  a.name href="#{club_url club}" title="#{club.name}"
+    = club.name
+  .info
+    = "#{club.members_count} #{Russian.p club.members_count, 'участник', 'участника', 'участников'}"

@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe PeopleController do
-  let!(:person) { create :person, name: 'test', mangaka: true }
+  let!(:person) { create :person }
   let(:json) { JSON.parse response.body }
 
   describe :index do
-    let!(:person_2) { create :person, mangaka: false }
+    let!(:person_2) { create :person, name: 'test', mangaka: true }
     before { get :index, search: 'test', kind: 'mangaka' }
 
     it { should respond_with :success }
-    it { expect(assigns :people).to eq [person] }
+    it { expect(assigns :collection).to eq [person_2] }
   end
 
   describe :show do

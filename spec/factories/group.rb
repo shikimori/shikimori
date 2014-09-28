@@ -13,5 +13,16 @@ FactoryGirl.define do
     trait :owner_invite_join do
       join_policy :owner_invite_join
     end
+
+    after :build do |person|
+      person.stub :generate_thread
+      person.stub :sync_thread
+    end
+
+    trait :with_thread do
+      after :build do |person|
+        person.unstub :generate_thread
+      end
+    end
   end
 end

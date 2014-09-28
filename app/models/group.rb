@@ -60,7 +60,7 @@ class Group < ActiveRecord::Base
     },
     url: '/images/group/:style/:id.:extension',
     path: ':rails_root/public/images/group/:style/:id.:extension',
-    default_url: 'http://www.gravatar.com/avatar/group?s=73'
+    default_url: '/images/static/missing_logo_x215.png'
 
   validates :name, presence: true, name: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
@@ -69,7 +69,7 @@ class Group < ActiveRecord::Base
 
   # для урлов
   def to_param
-    "#{self.id}-#{self.permalink}"
+    "#{id}-#{permalink}"
   end
 
   # является ли пользователь членом группы
@@ -126,5 +126,9 @@ private
   # создание AniMangaComment для элемента сразу после создания
   def generate_thread
     create_thread! linked: self, section_id: Section::GroupsId, title: name
+  end
+
+  def default_image_url
+    "https://github.com/identicons/#{name}.png"
   end
 end

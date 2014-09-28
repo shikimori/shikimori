@@ -218,9 +218,9 @@ Site::Application.routes.draw do
       #get 'groups' => 'groups#index'
       #get 'groups/new' => 'groups#new', as: 'new_group'
       #get 'groups/:id' => 'groups#show', as: 'group', type: 'info'
-      #collection do
-        #get '/page/:page', action: :index, as: :page
-      #end
+      collection do
+        get '/page/:page', action: :index, as: :page
+      end
       #member do
         #get 'members', type: 'members'
         #get 'settings', type: 'settings'
