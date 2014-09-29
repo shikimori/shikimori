@@ -1,7 +1,8 @@
+@import compass/css3/transition
 @import compass/css3/border-radius
 @import compass/css3/opacity
-@import globals
 @import mixins/icons
+@import mixins/link
 @import mixins/responsive
 
 .b-shiki_editor
@@ -143,9 +144,16 @@
       margin-left: 20px
 
     .unpreview, .cancel, .hide
-      +normal-link
+      +link
       font-size: 13px
       margin-left: 20px
+
+    .help
+      +link_js
+      float: right
+      margin-top: 6px
+      font-size: 11px
+      line-height: 1.2
 
     .hide
       display: none
