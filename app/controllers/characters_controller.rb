@@ -3,6 +3,8 @@ class CharactersController < PeopleController
   #before_action :authenticate_user!, only: [:edit]
   skip_before_action :role_redirect
 
+  page_title 'Персонажи'
+
   #caches_action :index, CacheHelper.cache_settings
   #caches_action :page, :show, :tooltip,
     #cache_path: proc {
@@ -61,10 +63,6 @@ class CharactersController < PeopleController
   end
 
 private
-  def fetch_resource
-    @resource = Character.find(resource_id).decorate
-  end
-
   def search_title
     'Поиск персонажей'
   end

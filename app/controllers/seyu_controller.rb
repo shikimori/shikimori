@@ -1,4 +1,6 @@
 class SeyuController < PeopleController
+  page_title 'Сейю'
+
   def show
     @itemtype = @resource.itemtype
   end
@@ -9,7 +11,8 @@ class SeyuController < PeopleController
 
 private
   def fetch_resource
-    @resource = SeyuDecorator.new Person.find(resource_id)
+    super
+    @resource = SeyuDecorator.new @resource
   end
 
   def role_redirect
@@ -29,5 +32,9 @@ private
 
   def search_url *args
     search_seyu_index_url(*args)
+  end
+
+  def resource_klass
+    Person
   end
 end

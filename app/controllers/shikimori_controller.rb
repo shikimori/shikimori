@@ -1,6 +1,18 @@
 class ShikimoriController < ApplicationController
   def self.page_title value
-    before_action { page_title value }
+    before_action do
+      if @page_title.present?
+        @page_title.unshift value
+      else
+        page_title value
+      end
+    end
+  end
+
+  def self.breadcrumb value, url_builder
+    before_action do
+      breadcrumb value, send(url_builder)
+    end
   end
 
   def fetch_resource

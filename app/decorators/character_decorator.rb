@@ -39,13 +39,6 @@ class CharacterDecorator < PersonDecorator
     decorated_entries object.mangas.limit(limit)
   end
 
-  # основной топик
-  def thread
-    thread = TopicDecorator.new object.thread
-    thread.preview_mode!
-    thread
-  end
-
 private
   def decorated_entries query
     query

@@ -20,7 +20,7 @@ class BbCodeFormatter
 
   # форматирование описания чего-либо
   def format_description text, entry
-    if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre)
+    if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre) || entry.kind_of?(Group)
       paragraphs format_comment(text)
     elsif entry.respond_to? :characters
       paragraphs format_comment(character_names(text, entry))

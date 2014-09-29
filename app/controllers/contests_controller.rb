@@ -1,8 +1,11 @@
 class ContestsController < ShikimoriController
   load_and_authorize_resource except: [:current]
+
   before_action :fetch_resource, if: :resource_id
-  before_action :set_breadcrumbs
   before_action :resource_redirect, if: -> { @resource }
+
+  before_action :set_breadcrumbs
+
   page_title 'Опросы'
 
   def current
