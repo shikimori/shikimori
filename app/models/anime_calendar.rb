@@ -138,7 +138,7 @@ class AnimeCalendar < ActiveRecord::Base
       query += " or #{replaced % 'japanese'} ilike '%#{v}%'"
     end
 
-    query += " or id in (#{calendar.map {|v| v[:anime_id] }.compact.join(',')})"
+    query += " or id in (#{(calendar.map {|v| v[:anime_id] }.compact + [0]).join(',')})"
 
     #animes = Anime.where(:id => 10464).where(query).inject({}) do |data,anime|
     animes = (Anime.latest + Anime.ongoing.where(query).to_a + Anime.anons.where(query).to_a)
