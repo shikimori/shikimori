@@ -1,13 +1,12 @@
+# TODO: переименовать в Club
 class Group < ActiveRecord::Base
-  include PermissionsPolicy
-
   has_many :member_roles, class_name: GroupRole.name, dependent: :destroy
   has_many :members, through: :member_roles, source: :user
 
-  has_many :moderator_roles, -> { where role: GroupRole::Moderator }, class_name: GroupRole.name
-  has_many :moderators, through: :moderator_roles, source: :user
+  #has_many :moderator_roles, -> { where role: GroupRole::Moderator }, class_name: GroupRole.name
+  #has_many :moderators, through: :moderator_roles, source: :user
 
-  has_many :admin_roles, -> { where role: GroupRole::Admin }, class_name: GroupRole.name
+  has_many :admin_roles, -> { where role: :admin }, class_name: GroupRole.name
   has_many :admins, through: :admin_roles, source: :user
 
   has_many :links, class_name: GroupLink.name, dependent: :destroy
@@ -44,7 +43,7 @@ class Group < ActiveRecord::Base
     foreign_key: :linked_id,
     dependent: :destroy
 
-  enum join_policy: { free_join: 1, owner_invite_join: 100 }
+  enum join_policy: { free_join: 1, admin_invite_join: 50, owner_invite_join: 100 }
   enum comment_policy: { free_comment: 1, members_comment: 100 }
 
   before_save :update_permalink
@@ -72,17 +71,20 @@ class Group < ActiveRecord::Base
     "#{id}-#{permalink}"
   end
 
-  # является ли пользователь членом группы
-  def member? user
-    member_roles.any? {|v| v.user_id == (user.respond_to?(:id) ? user.id : user) }
+  def has_member? user
+    has_owner?(user) || member_roles.any?
   end
 
-  # является ли пользователь членом комманды группы
-  def staff? user
-    member_roles.any? {|v| (v.user_id == (user.respond_to?(:id) ? user.id : user)) && v.role != GroupRole::Member }
+  def has_admin? user
+    member_roles.any? do |v|
+      (v.user_id == user.id) && v.role.admin?
+    end
   end
 
-  # является ли пользователь забаненным в группе
+  def has_owner? user
+    owner_id == user.id
+  end
+
   def banned? user
     bans.any? {|v| v.user_id == user.id }
   end
@@ -107,7 +109,11 @@ class Group < ActiveRecord::Base
   end
 
   def join user
-    members << user
+    if has_owner?(user)
+      admins << user
+    else
+      members << user
+    end
   end
 
   def leave user
@@ -115,6 +121,7 @@ class Group < ActiveRecord::Base
   end
 
 private
+  # TODO: удалить поле permalink
   def update_permalink
     self.permalink = self.name.permalinked if self.changes.include? :name
   end

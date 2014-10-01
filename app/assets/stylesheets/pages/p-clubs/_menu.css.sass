@@ -1,0 +1,48 @@
+@import compass/css3/opacity
+@import mixins/block
+@import mixins/column
+
+.p-clubs .l-menu
+  .members
+    .b-user
+      margin-bottom: 6px
+
+      +gte_ipad
+        +column(6)
+
+      +iphone_landscape
+        +column(6)
+
+      +iphone_portrait
+        +column(5)
+
+        &.item-10, &.item-11
+          display: none
+
+      img
+        max-width: 100%
+
+  .b-catalog_entry
+    margin-bottom: 5px !important
+
+  .actions
+    a
+      color: inherit
+      display: block
+
+    .send-invite
+      background: transparent
+      border: none
+      line-height: 18px
+      margin: -1px 0 0 1px
+      outline: none
+      padding: 2px 0 1px
+      width: 180px
+
+    .upload-image-container
+      overflow: hidden
+      input
+        +opacity(0)
+        height: 21px
+        margin-top: -22px
+        width: 100%

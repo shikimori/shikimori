@@ -1,0 +1,19 @@
+ul.block-list.actions-list
+  - if can? :upload, club
+    li.upload-image-container.upload title="Картинки так же загружаются перетаскиванием файлов на блок картинок"
+      = form_tag new_images_url(model: :group, id: club.id), method: :post, multipart: true do
+        span Загрузить картинку
+        input type="file" name="image[image]" id="image_image"
+
+  - if can? :invite, club
+    li.send-invite-container.invite
+      span Пригласить в клуб
+      input.send-invite.hidden type="text" action="#{group_invites_path club, nickname: '$nickname'}" data-method="post" data-type="json"
+
+  - if can? :join, club
+    li.join-group.join
+      a href="#{club_group_roles_path club}" data-method="post" Вступить в клуб
+
+  - if can? :leave, club
+    li.leave-group.leave
+      a href="#{club_group_roles_path club}" data-method="delete" data-confirm="Вы действительно хотите покинуть #{club.name}?" Покинуть клуб

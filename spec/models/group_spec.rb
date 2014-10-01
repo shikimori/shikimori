@@ -1,12 +1,13 @@
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe Group do
   context :relations do
     it { should have_many :member_roles }
     it { should have_many :members }
 
-    it { should have_many :moderator_roles }
-    it { should have_many :moderators }
+    #it { should have_many :moderator_roles }
+    #it { should have_many :moderators }
 
     it { should have_many :admin_roles }
     it { should have_many :admins }
@@ -25,148 +26,123 @@ describe Group do
     it { should have_attached_file :logo }
   end
 
-  let(:user) { create :user }
-
-  describe Image do
-    it "can't be deleted by random user" do
-      group = create :group
-      image = create :image, owner: group, uploader: user
-
-      group.can_delete_images?(user).should eq(false)
-    end
-
-    it 'can be deleted by staff' do
-      group = create :group
-      group.moderators << user
-      image = create :image, owner: group, uploader: user
-
-      group.can_delete_images?(user).should eq(true)
-    end
-  end
-
-  describe 'with Free join_policy' do
-    let(:group) { create :group, :free_join }
-
-    it 'can be joined by random user' do
-      group.can_be_joined_by?(user).should eq(true)
-    end
-
-    it 'has a member' do
-      group.member?(user).should eq(false)
-
-      group.members << user
-      group.member?(user).should eq(true)
-    end
-
-    it 'has a staff' do
-      group.moderators << user
-      user2 = create :user
-      group.admins << user2
-
-      group.staff?(user).should eq(true)
-      group.staff?(user2).should eq(true)
-    end
-
-    it 'can be moderated by moderators and admins' do
-      moderator = create :user
-      group.moderators << moderator
-
-      admin = create :user
-      group.admins << admin
-
-      group.can_be_edited_by?(user).should eq(false)
-      group.can_be_edited_by?(moderator).should eq(true)
-      group.can_be_edited_by?(admin).should eq(true)
-    end
-
-    it 'random member can send invites' do
-      group.members << user
-      group.can_send_invites?(user).should eq(true)
-    end
-  end
-
-  describe 'with ByOwnerInvite join_policy' do
-    let(:group) { create :group, :owner_invite_join }
-
-    it "can't be joined by user" do
-      group.can_be_joined_by?(user).should eq(false)
-    end
-
-    it "can be joined by owner" do
-      group.owner = user
-      group.can_be_joined_by?(user).should eq(true)
-    end
-
-    it "random member can't send invites" do
-      group.members << user
-      group.can_send_invites?(user).should eq(false)
-    end
-
-    it 'owner member can send invites' do
-      group.owner_id = user.id
-      group.members << user
-      group.can_send_invites?(user).should eq(true)
-    end
-  end
-
-  describe 'with ByMembers upload_policy' do
-    let(:group) { create :group, upload_policy: GroupUploadPolicy::ByMembers }
-
-    it "can't be uploaded by random users" do
-      group.can_be_uploaded_by?(user).should be(false)
-    end
-
-    it "can be uploaded by member" do
-      group.members << user
-      group.can_be_uploaded_by?(user).should be(true)
-    end
-
-    it "can be uploaded by admin" do
-      group.admins << user
-      group.can_be_uploaded_by?(user).should be(true)
-    end
-  end
-
-  describe 'with ByStaff upload_policy' do
-    let(:group) { create :group, upload_policy: GroupUploadPolicy::ByStaff }
-
-    it "can't be uploaded by random users" do
-      group.can_be_uploaded_by?(user).should be(false)
-    end
-
-    it "can't be uploaded by member" do
-      group.members << user
-      group.can_be_uploaded_by?(user).should be(false)
-    end
-
-    it "can be uploaded by admin" do
-      group.admins << user
-      group.can_be_uploaded_by?(user).should be(true)
-    end
-  end
-
-  describe '#ban' do
+  describe :instance_methods do
     let(:user) { create :user }
-    let(:group) { create :group }
-    before { group.ban user }
 
-    it { expect(group.banned? user).to be true }
+    describe '#ban' do
+      let(:user) { create :user }
+      let(:group) { create :group }
+      before { group.ban user }
+
+      it { expect(group.banned? user).to be true }
+    end
+
+    describe '#join' do
+      let(:user) { create :user }
+      let(:group) { create :group }
+      before { group.join user }
+
+      context :common_user do
+        it { expect(group.has_member? user).to be true }
+      end
+
+      context :club_owner do
+        let(:group) { create :group, owner: user }
+        it { expect(group.has_admin? user).to be true }
+      end
+    end
+
+    describe '#leave' do
+      let(:user) { create :user }
+      let(:group) { create :group }
+      let(:group_role) { create :group_role, user: user, group: group }
+      before { group.leave user }
+
+      it { expect(group.has_member? user).to be false }
+    end
+
+    describe '#has_member?' do
+      let(:group) { build_stubbed :group }
+      let(:user) { build_stubbed :user }
+      subject { group.has_member? user }
+
+      context :is_owner do
+        let(:group) { build_stubbed :group, owner: user }
+        it { should be true }
+      end
+
+      context :is_admin do
+        let(:group) { build_stubbed :group, member_roles: [build_stubbed(:group_role, :member, user: user)] }
+        it { should be true }
+      end
+
+      context :not_a_member do
+        it { should be false }
+      end
+    end
+
+    describe '#has_admin?' do
+      let(:group) { build_stubbed :group }
+      let(:user) { build_stubbed :user }
+      subject { group.has_admin? user }
+
+      context :is_owner do
+        let(:group) { build_stubbed :group, owner: user }
+        it { should be false }
+      end
+
+      context :is_admin do
+        let(:group) { build_stubbed :group, member_roles: [build_stubbed(:group_role, :admin, user: user)] }
+        it { should be true }
+      end
+
+      context :not_a_member do
+        it { should be false }
+      end
+    end
+
+    describe '#has_owner?' do
+      let(:group) { build_stubbed :group }
+      let(:user) { build_stubbed :user }
+      subject { group.has_owner? user }
+
+      context :is_owner do
+        let(:group) { build_stubbed :group, owner: user }
+        it { should be true }
+      end
+
+      context :not_an_owner do
+        it { should be false }
+      end
+    end
   end
 
-  describe '#join' do
-    let(:user) { create :user }
-    let(:group) { create :group }
-    before { group.join user }
+  describe :permissions do
+    let(:club) { build_stubbed :group }
+    let(:user) { build_stubbed :user }
+    subject { Ability.new user }
 
-    it { expect(group.member? user).to be true }
-  end
+    context :club_owner do
+      let(:club) { build_stubbed :group, owner: user }
+      it { should be_able_to :manage, club }
+    end
 
-  describe '#leave' do
-    let(:user) { create :user }
-    let(:group) { create :group }
-    let(:group_role) { create :group_role, user: user, group: group }
-    before { group.leave user }
+    context :club_administrator do
+      let(:user) { create :user }
+      let(:club) { create :group, :with_thread }
+      let!(:group_role) { create :group_role, :admin, group: club, user: user }
+      it { should be_able_to :manage, club }
+    end
 
-    it { expect(group.member? user).to be false }
+    context :guest do
+      let(:user) { nil }
+      it { should be_able_to :read_group, club }
+      it { should_not be_able_to :manage, club }
+    end
+
+    context :user do
+      it { should be_able_to :read_group, club }
+      it { should_not be_able_to :manage, club }
+    end
   end
 end

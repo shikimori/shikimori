@@ -11,7 +11,11 @@ class ShikimoriController < ApplicationController
 
   def self.breadcrumb value, url_builder
     before_action do
-      breadcrumb value, send(url_builder)
+      if @breadcrumbs.present?
+        @breadcrumbs = Hash[@breadcrumbs.to_a.unshift([value, send(url_builder)])]
+      else
+        breadcrumb value, send(url_builder)
+      end
     end
   end
 

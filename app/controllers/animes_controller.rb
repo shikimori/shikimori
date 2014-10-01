@@ -6,7 +6,6 @@ class AnimesController < ShikimoriController
   before_action :authenticate_user!, only: [:edit]
   before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
-  before_action :set_title, if: -> { @resource }
   before_action :resource_redirect, if: -> { @resource }
 
   # временно отключаю, всё равно пока не тормозит
@@ -111,7 +110,7 @@ class AnimesController < ShikimoriController
   # торренты к эпизодам аниме
   def episode_torrents
     1/0
-    @resource = klass.find(params[:id].to_i).decorate
+    #@resource = klass.find(params[:id].to_i).decorate
     render json: @resource.files.episodes_data
   end
 
@@ -121,7 +120,7 @@ class AnimesController < ShikimoriController
 
   # автодополнение
   def autocomplete
-    @collection = AniMangaQuery.new(klass, params, current_user).complete
+    @collection = AniMangaQuery.new(resource_klass, params, current_user).complete
   end
 
   # rss лента новых серий и сабов аниме
@@ -176,13 +175,13 @@ class AnimesController < ShikimoriController
 
 private
   # класс текущего элемента
-  def klass
-    @klass ||= Object.const_get(self.class.name.underscore.split('_')[0].singularize.camelize)
-  end
+  #def klass
+    #@klass ||= Object.const_get(self.class.name.underscore.split('_')[0].singularize.camelize)
+  #end
 
-  def fetch_resource
-    @resource = klass.find(resource_id.to_i).decorate
-  end
+  #def fetch_resource
+    #@resource = klass.find(resource_id.to_i).decorate
+  #end
 
   def set_breadcrumbs
     if @resource.anime?
@@ -205,9 +204,5 @@ private
     if @resource && (params[:action] != 'show' || params[:controller] == 'reviews')
       breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
     end
-  end
-
-  def set_title
-    page_title @resource.name
   end
 end

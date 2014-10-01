@@ -107,7 +107,7 @@ class String
       .gsub(/&#szlig;|ß/, 'ss')
       .gsub(/&#\d{4};/, '-')
       .gsub(/[^A-zА-я0-9]/, '-')
-      .gsub(/-+/, '-')
+      .gsub(/\]|\[|-+/, '-')
       .gsub('Ä', 'A')
       .gsub(/^-|-$/, '')
       .downcase

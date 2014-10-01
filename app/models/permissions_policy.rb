@@ -40,13 +40,6 @@ module PermissionsPolicy
     end
   end
 
-  # права на изменение контестов
-  module ContestPermissions
-    def can_be_edited_by?(user)
-      user && user.contests_moderator?
-    end
-  end
-
   # права на действия с топиками
   module EntryPermissions
     include Defaults
@@ -83,49 +76,6 @@ module PermissionsPolicy
         comment.errors[:forbidden] = User::CommentForbiddenMessage
         false
       end
-    end
-  end
-
-  # права на действия с Группами
-  module GroupPermissions
-    # может ли пользователь редактировать группу?
-    def can_be_edited_by?(user)
-      user && (user.admin? || staff?(user))
-    end
-
-    # может ли пользователь вступить группу?
-    def can_be_joined_by?(user)
-      user && (user.id == owner_id || (free_join? && !banned?(user)))
-    end
-
-    # может ли пользователь загружать картинку
-    def can_be_uploaded_by?(user)
-      if upload_policy == GroupUploadPolicy::ByMembers
-        member?(user)
-      elsif self.upload_policy == GroupUploadPolicy::ByStaff
-        staff?(user)
-      else
-        false
-      end
-    end
-
-    # может ли пользователь посылать приглашения в эту группу?
-    def can_send_invites?(user)
-      if free_join?
-        members.include?(user)
-      elsif owner_invite_join?
-        members.include?(user) && owner_id == user.id
-      else
-        false
-      end
-    end
-
-    def can_delete_images?(user)
-      staff?(user)
-    end
-
-    def can_delete_videos?(user)
-      staff?(user)
     end
   end
 

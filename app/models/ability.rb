@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize user
+    define_abilities
+
     @user = user
     guest_ability
 
@@ -12,13 +14,46 @@ class Ability
     end
   end
 
+  def define_abilities
+    alias_action :current, :read, :users, :comments, :grid, to: :read_contest
+    alias_action :read, :comments, :animes, :mangas, :members, :images, to: :read_group
+  end
+
   def guest_ability
-    can [:read, :grid, :users], Contest
+    can :read_contest, Contest
+    can :read_group, Group
   end
 
   def user_ability
     can :manage, UserRate, user_id: @user.id
     can [:cleanup, :reset], UserRate
+
+    can :join, Group do |group|
+      !group.has_member?(@user) && (
+        can?(:manage, group) || (!group.banned?(@user) && group.free_join?)
+      )
+    end
+    can :invite, Group do |group|
+      group.has_member?(@user) && (
+        group.free_join? ||
+        (group.admin_invite_join? && (group.has_admin?(@user) || group.has_owner?(@user))) ||
+        (group.owner_invite_join? && group.has_owner?(@user))
+      )
+    end
+    can :leave, Group do |group|
+      group.has_member? @user
+    end
+    can :manage, Group do |group|
+      group.has_owner?(@user) || group.has_admin?(@user)
+    end
+
+    can :create, GroupRole do |group_role|
+      group_role.user_id == @user.id && can?(:join, group_role.group)
+    end
+    can :destroy, GroupRole do |group_role|
+      group_role.user_id == @user.id
+    end
+
 
     can :manage, Device, user_id: @user.id
   end
@@ -29,6 +64,7 @@ class Ability
   end
 
   def admin_ability
-    can :manager, :all
+    can :manage, :all
   end
+
 end

@@ -3,9 +3,9 @@
 
 header.head.misc
   h1
-    - unless params[:action] == 'show'
+    - if params[:action] != 'show' || params[:round] || params[:vote]
       a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
-    = @page_title.last
+    = @resource.name
 
   - if can? :edit, @resource
     a.misc href="#{edit_contest_url @resource}" title="Изменить опрос" изменить

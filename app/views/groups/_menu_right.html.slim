@@ -1,58 +1,58 @@
 aside.menu-right
-  - if @group.logo.exists?
+  - if @resource.logo.exists?
     .logo-block
       center
-        img src="#{@group.logo.url :main}" alt="#{@group.name}" title="#{@group.name}"
+        img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
 
   nav.menu-block
     .subheadline Клуб
     ul.block-list.sections
       li.slider-control.slider-control-info.info
-        = link_to 'Главное', club_url(@group)
+        = link_to 'Главное', club_url(@resource)
 
       li.slider-control.slider-control-members.members
-        = link_to "Участники", members_club_url(@group)
+        = link_to "Участники", members_club_url(@resource)
 
-      - if @group.images.any? || @group.can_be_edited_by?(current_user)
+      - if @resource.images.any? || @resource.can_be_edited_by?(current_user)
         li.slider-control.slider-control-images.images
-          = link_to "Картинки", images_club_url(@group)
+          = link_to "Картинки", images_club_url(@resource)
 
       - if @pages.include? 'settings'
         li.slider-control.slider-control-settings.settings
-          = link_to 'Настройки', settings_club_url(@group)
+          = link_to 'Настройки', settings_club_url(@resource)
 
       - if @pages.include? 'animes'
         li.slider-control.slider-control-animes.hidden
-          = link_to 'Аниме', animes_club_url(@group)
+          = link_to 'Аниме', animes_club_url(@resource)
 
       - if @pages.include? 'mangas'
         li.slider-control.slider-control-mangas.hidden
-          = link_to 'Манга', mangas_club_url(@group)
+          = link_to 'Манга', mangas_club_url(@resource)
 
       - if @pages.include? 'characters'
         li.slider-control.slider-control-characters.hidden
-          = link_to 'Персонажи', characters_club_url(@group)
+          = link_to 'Персонажи', characters_club_url(@resource)
 
-  - if @group.belongs_to_translators?
+  - if @resource.belongs_to_translators?
     .menu-block
       .subheadline Переводы
       ul.block-list.translations
         li.slider-control.slider-control-translation_planned.translation_planned
-          = link_to 'Планы', translation_planned_club_url(@group)
+          = link_to 'Планы', translation_planned_club_url(@resource)
 
         li.slider-control.slider-control-translation_finished.translation_finished
-          = link_to 'Завершено', translation_finished_club_url(@group)
+          = link_to 'Завершено', translation_finished_club_url(@resource)
 
   .menu-block.actions
     .subheadline Действия
-    = render partial: 'groups/actions', locals: { group: @group }
+    = render partial: 'groups/actions', locals: { group: @resource }
 
-  - [[@group.animes, 'Аниме', :animes_club_url], [@group.mangas, 'Манга', :mangas_club_url], [@group.characters, 'Персонажи', :characters_club_url]].each do |collection, name, url_builder|
+  - [[@resource.animes, 'Аниме', :animes_club_url], [@resource.mangas, 'Манга', :mangas_club_url], [@resource.characters, 'Персонажи', :characters_club_url]].each do |collection, name, url_builder|
     - if collection.any?
       .menu-block
         .subheadline
           - if collection.size == GroupDecorator::VisibleEntries
-            span.linkeable data-href="#{self.send url_builder, @group}" = name
+            span.linkeable data-href="#{self.send url_builder, @resource}" = name
           - else
             = name
         .image-links

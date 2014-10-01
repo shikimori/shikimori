@@ -1,0 +1,125 @@
+= simple_form_for @resource, as: :club, url: (@resource.persisted? ? club_url(@resource) : clubs_url), html: { multipart: true } do |f|
+  - if @resource.errors.any?
+    .b-errors
+      .subheadline Ошибки
+      .subcontent
+        == @resource.errors.full_messages.join('<br>')
+
+  /.item-save = @resource.persisted? ? 'Сохранить' : 'Создать'
+  .subheadline Настройки
+  .subcontent
+    .m20
+      = f.input :name
+
+    .field-name.textarea Описание
+    .m0
+      /= render partial: 'comments/add', locals: { options: { text: @resource ? @resource.description : '', field_name: 'group[description]', no_save: true, no_subscribe: true, no_form: true, no_focus: true } }, formats: :html
+
+    = f.input :join_policy, collection: GroupDecorator.join_policy_options, include_blank: false
+    = f.input :comment_policy, collection: GroupDecorator.comment_policy_options, include_blank: false
+
+  .subheadline
+    span.linkeable data-href="#{images_club_url @resource}" Картинки
+  .subcontent
+    = f.input :display_images, label: 'Отображать'
+
+  .subheadline.m10 Логотип
+  .subcontent
+    - if @resource.logo.exists?
+      img src="#{@resource.logo.url(:main)}" alt="#{@resource.name}" title="#{@resource.name}"
+    p.grey-hint загрузить #{'другую ' if @resource && @resource.logo.exists?}картинку: #{file_field_tag 'group[logo]'}
+
+  - if @resource.persisted?
+    .two-columns
+      .column
+        input.anime-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_animes_url search: ''}"
+        .subheadline Аниме
+        .m30
+          = hidden_field_tag 'animes[]', ''
+          ul.container
+            - if @resource
+              - @resource.animes.uniq(&:id).each do |anime|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'animes[]', anime.id
+                  a.bubbled href="#{anime_url anime}"
+                    = anime.name
+      .column
+        input.manga-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_mangas_url search: ''}"
+        .subheadline Манга
+        .m30
+          = hidden_field_tag 'mangas[]', ''
+          ul.container
+            - if @resource
+              - @resource.mangas.uniq(&:id).each do |manga|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'mangas[]', manga.id
+                  a.bubbled href="#{manga_url manga}"
+                    = manga.name
+
+    .two-columns
+      .column
+        input.character-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_characters_url search: ''}"
+        .subheadline Персонажи
+        .m30
+          = hidden_field_tag 'characters[]', ''
+          ul.container
+            - if @resource
+              - @resource.characters.uniq(&:id).each do |character|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'characters[]', character.id
+                  a.bubbled href="#{character_url character}"
+                    = character.name
+
+    /- if @resource && @resource.admins.include?(current_user)
+      div style="display: none;"
+        .subheadline Модераторы
+        .m30
+          input.moderator-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_members_clubs_url search: ''}"
+          = hidden_field_tag 'moderators[]', ''
+          ul.container
+            - if @resource
+              - @resource.moderators.each do |user|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'moderators[]', user.nickname
+                  a href="#{user_url user}" = user.nickname
+
+    .two-columns
+      .column
+        input.admin-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_members_clubs_url search: ''}"
+        .subheadline Администраторы
+        .m30
+          = hidden_field_tag 'admins[]', ''
+          ul.container
+            - if @resource
+              - @resource.admins.each do |user|
+                li
+                  span.item-minus
+                  = hidden_field_tag 'admins[]', user.nickname
+                  a href="#{user_url user}" = user.nickname
+
+      .column
+        input.ban-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
+        .subheadline Чёрный список
+        .m30
+          = hidden_field_tag 'bans[]', ''
+          ul.container
+            - @resource.banned.each do |user|
+              li
+                span.item-minus
+                = hidden_field_tag 'bans[]', user.nickname
+                a href="#{user_url user}" = user.nickname
+
+    .two-columns
+      .column
+        input.kick-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_members_clubs_url search: ''}"
+        .subheadline Удаление пользователей
+        .m30
+          = hidden_field_tag 'kicks[]', ''
+          ul.container
+
+  p.buttons.m30
+    = f.submit @resource.persisted? ? 'Сохранить' : 'Создать'

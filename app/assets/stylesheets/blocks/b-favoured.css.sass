@@ -1,15 +1,20 @@
-@import mixins/responsive
 @import mixins/block
 @import mixins/column
+@import mixins/responsive
 
 .b-favoured
   +block
 
-  .fav-user
+  .b-user
+    margin-bottom: 6px
+
     +gte_ipad
       +column(6)
 
-    +iphone
+    +iphone_landscape
+      +column(6)
+
+    +iphone_portrait
       +column(5)
 
       &.item-10, &.item-11

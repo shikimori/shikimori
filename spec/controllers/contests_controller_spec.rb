@@ -191,6 +191,8 @@ describe ContestsController do
   end
 
   describe :permissions do
+    let(:contest) { build_stubbed :contest }
+
     context :contests_moderator do
       subject { Ability.new build_stubbed(:user, :contests_moderator) }
       it { should be_able_to :manage, contest }
@@ -198,13 +200,13 @@ describe ContestsController do
 
     context :guest do
       subject { Ability.new nil }
-      it { should be_able_to :read, contest }
+      it { should be_able_to :read_contest, contest }
       it { should_not be_able_to :manage, contest }
     end
 
     context :user do
       subject { Ability.new build_stubbed(:user) }
-      it { should be_able_to :read, contest }
+      it { should be_able_to :read_contest, contest }
       it { should_not be_able_to :manage, contest }
     end
   end

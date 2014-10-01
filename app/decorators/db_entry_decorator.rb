@@ -11,7 +11,7 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def show_mal_description?
-    h.user_signed_in? && object.description_mal.present? && description.present?
+    h.user_signed_in? && object.respond_to?(:description_mal) && object.description_mal.present? && description.present?
   end
 
   def description_html
@@ -25,7 +25,7 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_mal
-    if object.description_mal.present?
+    if object.respond_to?(:description_mal) && object.description_mal.present?
       text = BbCodeFormatter.instance
         .spoiler_to_html(object.description_mal)
         .gsub(/^\(?Source:.*/, '')

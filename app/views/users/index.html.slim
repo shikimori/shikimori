@@ -51,7 +51,7 @@ header.head.misc
               - else
                 p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
   - else
-    = render partial: 'users/user', collection: @users, formats: :html
+    = render @users, content_by: :detailed
 
     - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html
+      = render partial: 'blocks/postloader', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }

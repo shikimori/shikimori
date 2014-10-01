@@ -1,25 +1,20 @@
 = render layout: 'page' do
-  - cache [@resource, :users, @resource.displayed_match.id, @resource.displayed_match.updated_at, russian_names_key], expires_in: @resource.displayed_match.finished? ? nil : 1.hour do
+  /- cache [@resource, :users, :v2, @resource.displayed_match.id, @resource.displayed_match.updated_at, russian_names_key], expires_in: @resource.displayed_match.finished? ? nil : 1.hour do
+  div
     .block
       .b-options-floated.count = @resource.left_voters.size
-      .subheadline.m10
-        = localized_name @resource.displayed_match.left
+      .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.left}
       - if @resource.left_voters.any?
-        - @resource.left_voters.each do |user|
-          a.voter href="#{user_url user}" title="#{user.nickname}"
-            img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
+        = render @resource.left_voters, avatar_size: 32
       - else
         p Нет проголосовавших.
 
     .block
       .b-options-floated.count
         = @resource.right_voters.size
-      .subheadline.m10
-        = localized_name @resource.displayed_match.right
+      .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.right}
       - if @resource.right_voters.any?
-        - @resource.right_voters.each do |user|
-          a.voter href="#{user_url user}" title="#{user.nickname}"
-            img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
+        = render @resource.right_voters, avatar_size: 32
       - else
         p Нет проголосовавших.
 
@@ -27,7 +22,5 @@
       .block
         .b-options-floated.count
           = @resource.refrained_voters.size
-        .subheadline.m10 Воздержались
-        - @resource.refrained_voters.each do |user|
-          a.voter href="#{user_url user}" title="#{user.nickname}"
-            img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
+        .subheadline.m10 Воздержавшиеся
+        = render @resource.refrained_voters, avatar_size: 32

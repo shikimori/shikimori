@@ -1,7 +1,4 @@
 class Contest < ActiveRecord::Base
-  extend Enumerize
-  include PermissionsPolicy
-
   MINIMUM_MEMBERS = 5
   MAXIMUM_MEMBERS = 196
 

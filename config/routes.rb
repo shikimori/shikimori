@@ -215,11 +215,21 @@ Site::Application.routes.draw do
     #post 'groups' => 'groups#create'
 
     resources :clubs do
+      member do
+        get :comments
+        get :members
+        get :animes
+        get :mangas
+        get :characters
+        get :images
+      end
+
       #get 'groups' => 'groups#index'
       #get 'groups/new' => 'groups#new', as: 'new_group'
       #get 'groups/:id' => 'groups#show', as: 'group', type: 'info'
       collection do
         get '/page/:page', action: :index, as: :page
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete_members, format: :json, search: /.*/
       end
       #member do
         #get 'members', type: 'members'
@@ -233,6 +243,7 @@ Site::Application.routes.draw do
 
       #get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       #get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
+      resources :group_roles, only: [:create, :destroy]
     end
     #patch 'groups/:id' => 'groups#update', as: :update_group
     #post 'groups/:id' => 'groups#update'
@@ -247,8 +258,8 @@ Site::Application.routes.draw do
     end
 
     # join/leave
-    post 'groups/:id/roles(/:user_id)' => 'group_roles#create', as: :group_roles
-    delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy'
+    #post 'groups/:id/roles(/:user_id)' => 'group_roles#create', as: :group_roles
+    #delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy'
     # invite
     post 'invites/:group_id/:nickname' => 'group_invites#create', as: :group_invites, nickname: /.*/
     patch 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept

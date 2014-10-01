@@ -1,7 +1,7 @@
-class GroupDecorator < BaseDecorator
+class GroupDecorator < DbEntryDecorator
   VisibleEntries = 12
 
-  rails_cache :description_html, :all_members, :all_animes, :all_mangas, :all_characters, :all_images
+  rails_cache :all_members, :all_animes, :all_mangas, :all_characters, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images, :comments, :banned
 
   def url
@@ -10,10 +10,6 @@ class GroupDecorator < BaseDecorator
 
   def image
     object.logo
-  end
-
-  def description_html
-    BbCodeFormatter.instance.format_comment object.description
   end
 
   def all_members
@@ -28,7 +24,7 @@ class GroupDecorator < BaseDecorator
   end
 
   def members
-    all_members.take 9
+    all_members.take 12
   end
 
   def all_animes
@@ -82,15 +78,6 @@ class GroupDecorator < BaseDecorator
 
   def images
     all_images.take(12)
-  end
-
-  def comments
-    object
-      .thread
-      .comments
-      .with_viewed(h.current_user)
-      .limit(15)
-      .to_a
   end
 
   def show_comments?
