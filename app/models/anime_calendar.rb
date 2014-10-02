@@ -88,7 +88,20 @@ class AnimeCalendar < ActiveRecord::Base
     'shonen hollywood - holly stage for 49' => 23151,
     'magimoji rurumo' => 23945,
     'rokujyoma no shinryakusha!?' => 22865,
-    'zankyo no terror' => 23283
+    'zankyo no terror' => 23283,
+    'ino-battle wa nichijo-kei no naka de' => 25159,
+    'kaito joker' => 24909,
+    'narihero www' => 27519,
+    'orenchi no furo jijo' => 24211,
+    'hi scoool! seha girl' => 23787,
+    'kiseiju: sei no kakuritsu' => 22535,
+    'danna ga nani o itteiru ka wakaranai ken' => 26349,
+    'nanatsu no taiza' => 23755,
+    'okami shojo to kuro oji' => 23673,
+    'cross ange: tenshi to ryu no rondo' => 25731,
+    'fate/stay night: unlimited blade works' => 22297,
+    'log horizon 2' => 23321,
+    'madan no o to vanadis' => 24455
   }
 
   EpisodesDiff = {
