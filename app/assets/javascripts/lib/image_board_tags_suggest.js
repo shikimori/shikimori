@@ -1,5 +1,5 @@
 function ImageBoardTagsSuggest(loader) {
-  $('.danbooru-suggest .tag-suggest').make_completable('Пожалуйста, укажите тег...', function(e, id, text, label) {
+  $('.danbooru-suggest .tag-suggest').completable('Пожалуйста, укажите тег...', function(e, id, text, label) {
     var $this = $(this);
     if (!id || !text) {
       return;

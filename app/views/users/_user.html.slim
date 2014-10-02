@@ -24,11 +24,11 @@
                 span.event = entry[:name]
 
   - elsif content_by == :avatar
-    a href="#{user_url user}" title="#{user.nickname}"
+    a.avatar href="#{user_url user}" title="#{user.nickname}"
       img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
 
   - elsif content_by == :named_avatar
-    a href="#{user_url user}" title="#{user.nickname}"
+    a.avatar href="#{user_url user}" title="#{user.nickname}"
       img src="#{user.avatar_url 80}" srcset="#{user.avatar_url 160} 2x" alt="#{user.nickname}" title="#{user.nickname}"
     a.name href="#{user_url user}" title="#{user.nickname}"
       = user.nickname

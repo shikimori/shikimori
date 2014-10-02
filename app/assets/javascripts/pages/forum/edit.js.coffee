@@ -2,7 +2,7 @@ $('.ajax').live 'new:success edit:success', (e, data) ->
   _log 'edit/new:success'
 
   $((if e.type is 'new:success' then '#topic_data_title' else '#topic_data_text')).focus()
-  $('.linked-suggest').make_completable 'Название аниме или манги...', linked_complete
+  $('.linked-suggest').completable 'Название аниме или манги...', linked_complete
 
   $topic_type = $('[name="topic[type]"]:checked')
   unless $topic_type.length

@@ -38,11 +38,13 @@ describe ClubsController do
     it { should respond_with :success }
   end
 
-  #describe :edit do
-    #before { sign_in user }
-    #before { get :edit, id: club.to_param }
-    #it { should respond_with :success }
-  #end
+  describe :create do
+    pending
+  end
+
+  describe :update do
+    pending
+  end
 
   describe :members do
     let(:club) { create :group }

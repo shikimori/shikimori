@@ -209,11 +209,6 @@ Site::Application.routes.draw do
     get 'animes/translate' => redirect('/translation')
     get 'translation' => redirect('/clubs/2/translation/planned')
 
-    # groups
-    #get 'groups' => redirect('/clubs')
-    #get 'groups/:id' => redirect('/clubs/%{id}'), as: :group
-    #post 'groups' => 'groups#create'
-
     resources :clubs do
       member do
         get :comments
@@ -224,30 +219,16 @@ Site::Application.routes.draw do
         get :images
       end
 
-      #get 'groups' => 'groups#index'
-      #get 'groups/new' => 'groups#new', as: 'new_group'
-      #get 'groups/:id' => 'groups#show', as: 'group', type: 'info'
       collection do
         get '/page/:page', action: :index, as: :page
         get 'autocomplete/:search' => :autocomplete, as: :autocomplete_members, format: :json, search: /.*/
       end
-      #member do
-        #get 'members', type: 'members'
-        #get 'settings', type: 'settings'
-        #get 'images', type: 'images'
-
-        #get 'animes', type: 'animes'
-        #get 'mangas', type: 'mangas'
-        #get 'characters', type: 'characters'
-      #end
 
       #get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       #get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
       resources :group_roles, only: [:create, :destroy]
+      resources :group_invites, only: [:create, :accept, :reject]
     end
-    #patch 'groups/:id' => 'groups#update', as: :update_group
-    #post 'groups/:id' => 'groups#update'
-    #get 'groups/:id/autocomplete/:search' => 'groups#autocomplete', as: 'autocomplete_group_members', format: :json, search: /.*/
 
     resources :user_images, only: [:create]
     resources :images do
@@ -256,14 +237,6 @@ Site::Application.routes.draw do
       get 'original', action: :edit, on: :member, as: 'edit_original', original: true
       get 'raw', action: :raw, on: :member
     end
-
-    # join/leave
-    #post 'groups/:id/roles(/:user_id)' => 'group_roles#create', as: :group_roles
-    #delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy'
-    # invite
-    post 'invites/:group_id/:nickname' => 'group_invites#create', as: :group_invites, nickname: /.*/
-    patch 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
-    patch 'invites/:id/reject' => 'group_invites#reject', as: :group_invites_reject
 
     # statistics
     get 'anime-history' => 'statistics#index', as: :anime_history

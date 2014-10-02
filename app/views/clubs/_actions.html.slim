@@ -1,19 +1,26 @@
 ul.block-list.actions-list
   - if can? :upload, club
-    li.upload-image-container.upload title="Картинки так же загружаются перетаскиванием файлов на блок картинок"
+    li.upload title="Картинки так же загружаются перетаскиванием файлов на блок картинок"
       = form_tag new_images_url(model: :group, id: club.id), method: :post, multipart: true do
         span Загрузить картинку
         input type="file" name="image[image]" id="image_image"
 
   - if can? :invite, club
-    li.send-invite-container.invite
-      span Пригласить в клуб
-      input.send-invite.hidden type="text" action="#{group_invites_path club, nickname: '$nickname'}" data-method="post" data-type="json"
+    li.invite
+      span.show Пригласить в клуб
 
-  - if can? :join, club
+    / TODO: после переименования group в club, заменить код на: simple_form_for [club, club.new_invite] do |f|
+    = simple_form_for club.new_invite, url: club_group_invites_path(club), remote: true do |f|
+      = f.input :group_id, as: :hidden
+      = f.input :src_id, as: :hidden
+      = f.input :dst_id, as: :hidden
+      .b-input
+        input.suggest type="text" data-member_type="user" data-autocomplete="#{autocomplete_users_url search: ''}"
+
+  - if can?(:join, club) && !club.has_member?(current_user)
     li.join-group.join
-      a href="#{club_group_roles_path club}" data-method="post" Вступить в клуб
+      a href="#{club_group_roles_path club, 'group_role[user_id]' => current_user.id, 'group_role[group_id]' => club.id}" data-method="post" Вступить в клуб
 
-  - if can? :leave, club
+  - if can?(:leave, club) && club.has_member?(current_user)
     li.leave-group.leave
-      a href="#{club_group_roles_path club}" data-method="delete" data-confirm="Вы действительно хотите покинуть #{club.name}?" Покинуть клуб
+      a href="#{club_group_role_path club, club.member_role(current_user)}" data-method="delete" Уйти из клуба

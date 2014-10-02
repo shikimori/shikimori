@@ -1,6 +1,6 @@
 (function($){
   $.fn.extend({
-    make_completable: function(default_text, success_callback, $anchor) {
+    completable: function(default_text, success_callback, $anchor) {
       return this.each(function() {
         var $element = $(this);
         if (default_text) {

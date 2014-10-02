@@ -17,7 +17,7 @@ $('.item-add').live('click', function(e, no_focus) {
   var $input = $this.parent()
       .next()
       .append(content)
-        .find('input').make_completable(is_anime ? 'Введите название аниме...' : (is_manga ? 'Введите название манги...' : (is_tag ? 'Введите название тега...' : 'Введите имя персонажа...')), function(e, id, text, label) {
+        .find('input').completable(is_anime ? 'Введите название аниме...' : (is_manga ? 'Введите название манги...' : (is_tag ? 'Введите название тега...' : 'Введите имя персонажа...')), function(e, id, text, label) {
     if (!id || !text) {
       return;
     }

@@ -20,7 +20,7 @@ $('.slide > .stats').live('ajax:success cache:success', function(e) {
 
   var $this = this;
 
-  $('.suggest', $this).make_completable('Имя пользователя...', user_req_complete);
+  $('.suggest', $this).completable('Имя пользователя...', user_req_complete);
   // сброс id пользователя, чтобы по дефолту был не выбран пользователь для рекомендаций
   $('#comment_commentable_id', $this).val(0);
   // отключаем добавление коментов при сабмите формы

@@ -4,7 +4,7 @@
   else
     'Имя персонажа...'
 
-  $('.edit.contest .member-suggest').make_completable suggest_placeholder
+  $('.edit.contest .member-suggest').completable suggest_placeholder
   $('.edit .proposing .hidden').removeClass 'hidden'
 
   # удаление элемента из опроса

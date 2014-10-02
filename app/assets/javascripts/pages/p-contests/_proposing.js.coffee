@@ -21,7 +21,7 @@
   else
     'Имя персонажа...'
 
-  $('.proposing .item-suggest').make_completable suggest_placeholder
+  $('.proposing .item-suggest').completable suggest_placeholder
   $('.proposing .item-suggest').on 'autocomplete:success', (e, id, text, label) ->
     $(@).val text
     $(@).parents('form').find('#contest_suggestion_item_id').val id

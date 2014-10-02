@@ -24,7 +24,7 @@ $(document).on 'page:load', ->
       type: type
       autocomplete: searcheables[type].autocomplete
     .attr(placeholder: searcheables[type].title)
-    .make_completable null, (e, id, text) ->
+    .completable null, (e, id, text) ->
       @value = text if text
       return if @value is "" and not id
       type = $search.data("type")

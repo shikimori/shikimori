@@ -88,15 +88,19 @@ class GroupDecorator < DbEntryDecorator
     bans.includes(:user).map(&:user)
   end
 
-  # для отображения топиков клуба на форуме
-  def topics
-    []
+  def new_invite
+    invites.new(src: h.current_user)
   end
 
-  # для отображения топиков клуба на форуме
-  def news
-    []
-  end
+  ## для отображения топиков клуба на форуме
+  #def topics
+    #[]
+  #end
+
+  ## для отображения топиков клуба на форуме
+  #def news
+    #[]
+  #end
 
   class << self
     def join_policy_options

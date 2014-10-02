@@ -7,6 +7,7 @@
 #= require pages/p-people
 #= require pages/p-characters
 #= require pages/p-contests
+#= require pages/p-clubs
 
 $ =>
   $(document).trigger 'page:load', true

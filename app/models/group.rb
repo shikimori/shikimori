@@ -72,13 +72,15 @@ class Group < ActiveRecord::Base
   end
 
   def has_member? user
-    has_owner?(user) || member_roles.any?
+    member_role(user).present?
   end
 
   def has_admin? user
-    member_roles.any? do |v|
-      (v.user_id == user.id) && v.role.admin?
-    end
+    member_role(user).present? && member_role(user).role.admin?
+  end
+
+  def member_role user
+    member_roles.find {|v| v.user_id == user.id }
   end
 
   def has_owner? user
@@ -91,7 +93,7 @@ class Group < ActiveRecord::Base
 
   # группа ли это переводчиков
   def belongs_to_translators?
-    self.id == TranslatorsID
+    id == TranslatorsID
   end
 
   # число участников группы

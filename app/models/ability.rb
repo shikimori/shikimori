@@ -54,6 +54,8 @@ class Ability
       group_role.user_id == @user.id
     end
 
+    can [:accept, :reject], GroupInvite, dst_id: @user.id
+
 
     can :manage, Device, user_id: @user.id
   end

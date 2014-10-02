@@ -44,6 +44,7 @@ describe Group do
 
       context :common_user do
         it { expect(group.has_member? user).to be true }
+        it { expect(group.has_admin? user).to be false }
       end
 
       context :club_owner do
@@ -61,14 +62,23 @@ describe Group do
       it { expect(group.has_member? user).to be false }
     end
 
+    describe '#member_role' do
+      let(:user) { build_stubbed :user }
+      let(:group) { build_stubbed :group, member_roles: [group_role] }
+      let(:group_role) { build_stubbed :group_role, user: user }
+      subject { group.member_role user }
+
+      it { should eq group_role }
+    end
+
     describe '#has_member?' do
       let(:group) { build_stubbed :group }
       let(:user) { build_stubbed :user }
       subject { group.has_member? user }
 
-      context :is_owner do
+      context :just_owner do
         let(:group) { build_stubbed :group, owner: user }
-        it { should be true }
+        it { should be false }
       end
 
       context :is_admin do
@@ -86,7 +96,7 @@ describe Group do
       let(:user) { build_stubbed :user }
       subject { group.has_admin? user }
 
-      context :is_owner do
+      context :just_owner do
         let(:group) { build_stubbed :group, owner: user }
         it { should be false }
       end

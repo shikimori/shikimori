@@ -78,7 +78,7 @@ class @ShikiEditor extends ShikiView
         .trigger('change')
 
     # автокомплит для поля ввода ссылки
-    @$(".links input[type=text]").make_completable null, (e, id, text) =>
+    @$(".links input[type=text]").completable null, (e, id, text) =>
       if @$(".links input[type=radio][value=url]").prop("checked")
         text = @$(".links input.link-value").val()
 
@@ -135,7 +135,7 @@ class @ShikiEditor extends ShikiView
         false
 
     # автокомплит для поля ввода цитаты
-    @$(".quotes input[type=text]").make_completable null, (e, id, text) =>
+    @$(".quotes input[type=text]").completable null, (e, id, text) =>
       @$textarea.insertAtCaret "[quote" + ((if not text or text.isBlank() then "" else "=" + text)) + "]", "[/quote]"
       @$(".editor-quote").trigger('click')
 

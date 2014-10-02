@@ -11,14 +11,22 @@
     line-height: 0
 
     img
+      line-height: 0
       max-width: 100%
 
   &.named_avatar
-    a
+    .avatar
       display: block
+      line-height: 0
+      margin-bottom: 5px
+
+    &:hover .name
+      text-decoration: underline
 
     .name
       +ellipsis
+      +link
+      display: block
       line-height: $line_height
       text-align: center
 

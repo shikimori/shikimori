@@ -28,7 +28,7 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
   //});
 
   // игнорируемые пользователи
-  $('.ignore-suggest').make_completable('Имя пользователя...');
+  $('.ignore-suggest').completable('Имя пользователя...');
   $('.ignore-suggest').on('autocomplete:success', function(e, id, text, label) {
     if (!id) {
       return;
