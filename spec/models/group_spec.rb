@@ -43,13 +43,13 @@ describe Group do
       before { group.join user }
 
       context :common_user do
-        it { expect(group.has_member? user).to be true }
-        it { expect(group.has_admin? user).to be false }
+        it { expect(group.joined? user).to be true }
+        it { expect(group.admin? user).to be false }
       end
 
       context :club_owner do
         let(:group) { create :group, owner: user }
-        it { expect(group.has_admin? user).to be true }
+        it { expect(group.admin? user).to be true }
       end
     end
 
@@ -59,7 +59,7 @@ describe Group do
       let(:group_role) { create :group_role, user: user, group: group }
       before { group.leave user }
 
-      it { expect(group.has_member? user).to be false }
+      it { expect(group.joined? user).to be false }
     end
 
     describe '#member_role' do
@@ -71,10 +71,10 @@ describe Group do
       it { should eq group_role }
     end
 
-    describe '#has_member?' do
+    describe '#joined?' do
       let(:group) { build_stubbed :group }
       let(:user) { build_stubbed :user }
-      subject { group.has_member? user }
+      subject { group.joined? user }
 
       context :just_owner do
         let(:group) { build_stubbed :group, owner: user }
@@ -91,10 +91,10 @@ describe Group do
       end
     end
 
-    describe '#has_admin?' do
+    describe '#admin?' do
       let(:group) { build_stubbed :group }
       let(:user) { build_stubbed :user }
-      subject { group.has_admin? user }
+      subject { group.admin? user }
 
       context :just_owner do
         let(:group) { build_stubbed :group, owner: user }
@@ -111,10 +111,10 @@ describe Group do
       end
     end
 
-    describe '#has_owner?' do
+    describe '#owner?' do
       let(:group) { build_stubbed :group }
       let(:user) { build_stubbed :user }
-      subject { group.has_owner? user }
+      subject { group.owner? user }
 
       context :is_owner do
         let(:group) { build_stubbed :group, owner: user }
@@ -122,6 +122,21 @@ describe Group do
       end
 
       context :not_an_owner do
+        it { should be false }
+      end
+    end
+
+    describe '#invited?' do
+      let(:group) { build_stubbed :group }
+      let(:user) { build_stubbed :user }
+      subject { group.invited? user }
+
+      context :invited do
+        let(:group) { build_stubbed :group, invites: [build_stubbed(:group_invite, dst: user)] }
+        it { should be true }
+      end
+
+      context :not_invited do
         it { should be false }
       end
     end

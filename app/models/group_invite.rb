@@ -7,10 +7,19 @@ class GroupInvite < ActiveRecord::Base
   belongs_to :message, dependent: :destroy
 
   validates :group, :src, :dst, presence: true
-  validate :dst_cannot_be_banned
+  validate :cannot_be_banned, :cannot_be_invited, :cannot_be_joined, if: :dst
 
   after_create :create_message
   after_create :cleanup_invites
+
+  def accept!
+    update status: GroupInviteStatus::Accepted
+    group.join dst
+  end
+
+  def reject!
+    update status: GroupInviteStatus::Rejected
+  end
 
 private
   def create_message
@@ -32,9 +41,15 @@ private
       .destroy_all
   end
 
-  def dst_cannot_be_banned
-    if group.banned? dst
-      errors.add :base, :user_is_banned
-    end
+  def cannot_be_banned
+    errors.add :base, :banned if group.banned? dst
+  end
+
+  def cannot_be_invited
+    errors.add :base, :invited if group.invited? dst
+  end
+
+  def cannot_be_joined
+    errors.add :base, :joined if group.joined? dst
   end
 end

@@ -17,10 +17,10 @@ ul.block-list.actions-list
       .b-input
         input.suggest type="text" data-member_type="user" data-autocomplete="#{autocomplete_users_url search: ''}"
 
-  - if can?(:join, club) && !club.has_member?(current_user)
+  - if can?(:join, club) && !club.joined?(current_user)
     li.join-group.join
       a href="#{club_group_roles_path club, 'group_role[user_id]' => current_user.id, 'group_role[group_id]' => club.id}" data-method="post" Вступить в клуб
 
-  - if can?(:leave, club) && club.has_member?(current_user)
+  - if can?(:leave, club) && club.joined?(current_user)
     li.leave-group.leave
       a href="#{club_group_role_path club, club.member_role(current_user)}" data-method="delete" Уйти из клуба

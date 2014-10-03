@@ -88,7 +88,7 @@ class String
   # японский ли текст?
   def contains_cjkv?
     each_char do |ch|
-      return true if CJKV_RANGES.any? {|range| range.member? ch.unpack('H*').first.hex }
+      return true if CJKV_RANGES.any? {|range| range.joined? ch.unpack('H*').first.hex }
     end
     false
   end
@@ -97,7 +97,7 @@ class String
   def contains_russian?
     matched = 0
     each_char do |char|
-      matched += 1 if RussianRange.member?(char.ord) || char == ' '
+      matched += 1 if RussianRange.joined?(char.ord) || char == ' '
     end
     matched >= size / 2
   end

@@ -227,7 +227,12 @@ Site::Application.routes.draw do
       #get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       #get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
       resources :group_roles, only: [:create, :destroy]
-      resources :group_invites, only: [:create, :accept, :reject]
+      resources :group_invites, only: [:create] do
+        member do
+          post :accept
+          post :reject
+        end
+      end
     end
 
     resources :user_images, only: [:create]

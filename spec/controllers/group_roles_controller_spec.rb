@@ -8,7 +8,7 @@ describe GroupRolesController do
     before { post :create, club_id: club.id, group_role: { group_id: club.id, user_id: user.id } }
 
     it { should redirect_to club_url(club) }
-    it { expect(club.has_member? user).to be true }
+    it { expect(club.joined? user).to be true }
   end
 
   describe '#destroy' do
@@ -16,6 +16,6 @@ describe GroupRolesController do
     before { post :destroy, club_id: club.id, id: group_role.id }
 
     it { should redirect_to club_url(club) }
-    it { expect(club.has_member? user).to be false }
+    it { expect(club.joined? user).to be false }
   end
 end

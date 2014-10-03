@@ -18,10 +18,22 @@ describe GroupInvite do
     let(:user) { create :user }
     let(:group_invite) { build :group_invite, src: user, dst: user, group: group }
 
-    context :banned, :focus do
+    describe :cannot_be_banned do
       let!(:ban) { create :group_ban, group: group, user: user }
       before { group_invite.save }
-      it { ap group_invite.errors.messages }
+      it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.banned')] }
+    end
+
+    describe :cannot_be_invited do
+      let!(:invite) { create :group_invite, src: user, dst: user, group_id: group.id }
+      before { group_invite.save }
+      it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.invited')] }
+    end
+
+    describe :cannot_be_joined do
+      let!(:join) { create :group_role, user: user, group: group }
+      before { group_invite.save }
+      it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.joined')] }
     end
   end
 
@@ -63,19 +75,52 @@ describe GroupInvite do
     end
   end
 
+  context :instance_methods do
+    describe '#accept!' do
+      subject(:invite) { create :group_invite, :pending }
+      before { invite.accept! }
+
+      its(:status) { should eq GroupInviteStatus::Accepted }
+      it { expect(invite.group.joined? invite.dst).to be true }
+    end
+
+    describe '#reject!' do
+      subject(:invite) { create :group_invite, :pending }
+      before { invite.reject! }
+
+      its(:status) { should eq GroupInviteStatus::Rejected }
+      it { expect(invite.group.joined? invite.dst).to be false }
+    end
+  end
+
   describe :permissions do
     let(:user) { build_stubbed :user }
     subject { Ability.new user }
 
     context :existing_invite do
-      describe :own_invite do
-        let(:group_invite) { build_stubbed :group_invite, dst: user }
+      context :own_invite do
+        let(:group_invite) { build_stubbed :group_invite, dst: user, status: status }
 
-        it { should be_able_to :accept, group_invite }
-        it { should be_able_to :reject, group_invite }
+        context :pending_invite do
+          let(:status) { GroupInviteStatus::Pending }
+          it { should be_able_to :accept, group_invite }
+          it { should be_able_to :reject, group_invite }
+        end
+
+        context :accepted_invite do
+          let(:status) { GroupInviteStatus::Accepted }
+          it { should_not be_able_to :accept, group_invite }
+          it { should_not be_able_to :reject, group_invite }
+        end
+
+        context :rejected_invite do
+          let(:status) { GroupInviteStatus::Rejected }
+          it { should_not be_able_to :accept, group_invite }
+          it { should_not be_able_to :reject, group_invite }
+        end
       end
 
-      describe :foreign_invite do
+      context :foreign_invite do
         let(:group_invite) { build_stubbed :group_invite }
 
         it { should_not be_able_to :accept, group_invite }
@@ -87,12 +132,12 @@ describe GroupInvite do
       context :club_member do
         let(:group) { build_stubbed :group, member_roles: [create(:group_role, user: user)] }
 
-        describe :from_self do
+        context :from_self do
           let(:group_invite) { build_stubbed :group_invite, src: user, group: group }
           it { should be_able_to :create, group_invite }
         end
 
-        describe :from_another_user do
+        context :from_another_user do
           let(:group_invite) { build_stubbed :group_invite }
           it { should_not be_able_to :create, group_invite, group: group }
         end

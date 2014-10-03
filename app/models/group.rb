@@ -71,24 +71,28 @@ class Group < ActiveRecord::Base
     "#{id}-#{permalink}"
   end
 
-  def has_member? user
+  def joined? user
     member_role(user).present?
   end
 
-  def has_admin? user
+  def admin? user
     member_role(user).present? && member_role(user).role.admin?
   end
 
-  def member_role user
-    member_roles.find {|v| v.user_id == user.id }
-  end
-
-  def has_owner? user
+  def owner? user
     owner_id == user.id
   end
 
   def banned? user
     bans.any? {|v| v.user_id == user.id }
+  end
+
+  def invited? user
+    invites.any? {|v| v.dst_id == user.id }
+  end
+
+  def member_role user
+    member_roles.find {|v| v.user_id == user.id }
   end
 
   # группа ли это переводчиков
@@ -111,7 +115,7 @@ class Group < ActiveRecord::Base
   end
 
   def join user
-    if has_owner?(user)
+    if owner?(user)
       admins << user
     else
       members << user

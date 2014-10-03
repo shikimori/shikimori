@@ -105,6 +105,11 @@ describe GroupRole do
           it { should be_able_to :create, group_role }
         end
 
+        context :banned_user do
+          let(:club) { build_stubbed :group, join_policy: join_policy, bans: [build_stubbed(:group_ban, user: user)] }
+          it { should_not be_able_to :create, group_role }
+        end
+
         context :guest do
           let(:user) { nil }
           it { should_not be_able_to :create, group_role }

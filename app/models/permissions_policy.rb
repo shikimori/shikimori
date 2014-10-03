@@ -92,7 +92,7 @@ module PermissionsPolicy
         end
 
       elsif linked.members_comment?
-        if linked.member?(comment.user_id)
+        if linked.joined?(comment.user_id)
           true
         else
           comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.not_a_club_member')

@@ -29,22 +29,22 @@ class Ability
     can [:cleanup, :reset], UserRate
 
     can :join, Group do |group|
-      !group.has_member?(@user) && (
+      !group.joined?(@user) && (
         can?(:manage, group) || (!group.banned?(@user) && group.free_join?)
       )
     end
     can :invite, Group do |group|
-      group.has_member?(@user) && (
+      group.joined?(@user) && (
         group.free_join? ||
-        (group.admin_invite_join? && (group.has_admin?(@user) || group.has_owner?(@user))) ||
-        (group.owner_invite_join? && group.has_owner?(@user))
+        (group.admin_invite_join? && (group.admin?(@user) || group.owner?(@user))) ||
+        (group.owner_invite_join? && group.owner?(@user))
       )
     end
     can :leave, Group do |group|
-      group.has_member? @user
+      group.joined? @user
     end
     can :update, Group do |group|
-      group.has_owner?(@user) || group.has_admin?(@user)
+      group.owner?(@user) || group.admin?(@user)
     end
 
     can :create, GroupRole do |group_role|
@@ -54,9 +54,9 @@ class Ability
       group_role.user_id == @user.id
     end
 
-    can [:accept, :reject], GroupInvite, dst_id: @user.id
+    can [:accept, :reject], GroupInvite, dst_id: @user.id, status: GroupInviteStatus::Pending
     can :create, GroupInvite do |group_invite|
-      group_invite.src_id == @user.id && group_invite.group.has_member?(@user)
+      group_invite.src_id == @user.id && group_invite.group.joined?(@user)
     end
     #can :create, GroupInvite do |group_invite|
       #can? :invite, group_invite.group
