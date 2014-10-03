@@ -3,9 +3,7 @@
     center
       img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
 
-  .block.actions
-    .subheadline Действия
-    = render 'actions', club: @resource
+  = render 'actions', club: @resource
 
 - [[@resource.animes, 'Аниме', :animes_club_url], [@resource.mangas, 'Манга', :mangas_club_url], [@resource.characters, 'Персонажи', :characters_club_url]].each do |collection, name, url_builder|
   - if collection.any?

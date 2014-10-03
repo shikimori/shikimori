@@ -47,8 +47,15 @@
         margin-top: -22px
         width: 100%
 
-    .new_group_invite
-      display: none
+  &>.actions
+    +block
 
-      .suggest
+  &>.invite
+    +block
+    display: none
+
+    .b-input
+      input
         width: 100%
+      label
+        display: none
