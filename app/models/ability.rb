@@ -43,7 +43,7 @@ class Ability
     can :leave, Group do |group|
       group.has_member? @user
     end
-    can :manage, Group do |group|
+    can :update, Group do |group|
       group.has_owner?(@user) || group.has_admin?(@user)
     end
 
@@ -55,7 +55,12 @@ class Ability
     end
 
     can [:accept, :reject], GroupInvite, dst_id: @user.id
-
+    can :create, GroupInvite do |group_invite|
+      group_invite.src_id == @user.id && group_invite.group.has_member?(@user)
+    end
+    #can :create, GroupInvite do |group_invite|
+      #can? :invite, group_invite.group
+    #end
 
     can :manage, Device, user_id: @user.id
   end

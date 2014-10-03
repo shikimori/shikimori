@@ -128,31 +128,101 @@ describe Group do
   end
 
   describe :permissions do
-    let(:club) { build_stubbed :group }
+    let(:club) { build_stubbed :group, join_policy: join_policy }
     let(:user) { build_stubbed :user }
+    let(:join_policy) { :free_join }
     subject { Ability.new user }
 
     context :club_owner do
-      let(:club) { build_stubbed :group, owner: user }
-      it { should be_able_to :manage, club }
+      let(:group_role) { build_stubbed :group_role, :admin, user: user }
+      let(:club) { build_stubbed :group, owner: user, join_policy: join_policy, member_roles: [group_role] }
+      it { should be_able_to :read_group, club }
+      it { should be_able_to :update, club }
+
+      context :free_join do
+        let(:join_policy) { :free_join }
+        it { should be_able_to :invite, club }
+      end
+
+      context :admin_invite_join do
+        let(:join_policy) { :admin_invite_join }
+        it { should be_able_to :invite, club }
+      end
+
+      context :owner_invite_join do
+        let(:join_policy) { :owner_invite_join }
+        it { should be_able_to :invite, club }
+      end
     end
 
     context :club_administrator do
-      let(:user) { create :user }
-      let(:club) { create :group, :with_thread }
-      let!(:group_role) { create :group_role, :admin, group: club, user: user }
-      it { should be_able_to :manage, club }
+      let(:group_role) { build_stubbed :group_role, :admin, user: user }
+      let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy }
+
+      it { should be_able_to :read_group, club }
+      it { should be_able_to :update, club }
+
+      context :free_join do
+        let(:join_policy) { :free_join }
+        it { should be_able_to :invite, club }
+      end
+
+      context :admin_invite_join do
+        let(:join_policy) { :admin_invite_join }
+        it { should be_able_to :invite, club }
+      end
+
+      context :owner_invite_join do
+        let(:join_policy) { :owner_invite_join }
+        it { should_not be_able_to :invite, club }
+      end
+    end
+
+    context :club_member do
+      let(:group_role) { build_stubbed :group_role, user: user }
+      let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy }
+      it { should be_able_to :leave, club }
+
+      context :free_join do
+        let(:join_policy) { :free_join }
+        it { should be_able_to :invite, club }
+      end
+
+      context :admin_invite_join do
+        let(:join_policy) { :admin_invite_join }
+        it { should_not be_able_to :invite, club }
+      end
+
+      context :owner_invite_join do
+        let(:join_policy) { :owner_invite_join }
+        it { should_not be_able_to :invite, club }
+      end
     end
 
     context :guest do
       let(:user) { nil }
       it { should be_able_to :read_group, club }
-      it { should_not be_able_to :manage, club }
+      it { should_not be_able_to :update, club }
     end
 
     context :user do
       it { should be_able_to :read_group, club }
-      it { should_not be_able_to :manage, club }
+      it { should_not be_able_to :update, club }
+
+      context :free_join do
+        let(:join_policy) { :free_join }
+        it { should be_able_to :join, club }
+      end
+
+      context :admin_invite_join do
+        let(:join_policy) { :admin_invite_join }
+        it { should_not be_able_to :join, club }
+      end
+
+      context :owner_invite_join do
+        let(:join_policy) { :owner_invite_join }
+        it { should_not be_able_to :join, club }
+      end
     end
   end
 end

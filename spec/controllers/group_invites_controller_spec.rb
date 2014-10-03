@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe GroupInvitesController do
+  let(:club) { create :group }
+  include_context :authenticated
+
+  describe '#create' do
+    before { post :create, club_id: club.id, group_invite: { group_id: club.id, src_id: club.owner_id, dst_id: user.id } }
+    it { should respond_with :success }
+  end
+
+  describe '#accept' do
+  end
+
+  describe '#reject' do
+  end
   #let(:user) { create :user }
   #before { sign_in user }
 

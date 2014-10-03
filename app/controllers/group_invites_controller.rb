@@ -2,8 +2,7 @@ class GroupInvitesController < ShikimoriController
   load_and_authorize_resource
   #before_filter :authenticate_user!
 
-  ## создание приглашение на вступление в группу для пользователя
-  #def create
+  def create
     #@group = Group.find(params[:group_id])
     #@user = User.find_by_nickname(params[:nickname])
     #unless @user
@@ -31,10 +30,15 @@ class GroupInvitesController < ShikimoriController
     #render json: { notice: 'Отправлено приглашение для %s' % @user.nickname }
   #rescue ActiveRecord::RecordNotUnique
     #render json: ['У %s уже есть приглашение в этот клуб' % params[:nickname]], status: :unprocessable_entity
-  #end
+    if @resource.save
+      render json: { notice: "Отправлено приглашение для #{@resource.dst.nickname}" }
+    else
+      render json: @resource.errors.full_messages, status: :unprocessable_entity
+    end
+  end
 
-  ## принятие приглашения пользователя в группу
-  #def accept
+  # принятие приглашения на вступление в группу
+  def accept
     #if check_credentials
       #if @invite.group.banned?(current_user)
         #render json: [I18n.t('activerecord.errors.models.group_invites.you_are_banned')], status: :unprocessable_entity
@@ -48,21 +52,25 @@ class GroupInvitesController < ShikimoriController
     #else
       #render json: {}
     #end
-  #end
+  end
 
-  ## отказ приглашения пользователя в группу
-  #def reject
+  # отказ от приглашения на вступление в группу
+  def reject
     #if check_credentials
       #@invite.update_attribute :status, GroupInviteStatus::Rejected
     #end
     #render json: {}
-  #end
+  end
 
-#private
+private
   #def check_credentials
     #@invite = GroupInvite.find(params[:id])
     #raise Forbidden, 'Приглашение другому пользователю' unless @invite.dst_id == current_user.id
 
     #@invite.status == GroupInviteStatus::Pending
   #end
+
+  def group_invite_params
+    params.require(:group_invite).permit([:group_id, :src_id, :dst_id])
+  end
 end

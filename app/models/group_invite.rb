@@ -7,25 +7,34 @@ class GroupInvite < ActiveRecord::Base
   belongs_to :message, dependent: :destroy
 
   validates :group, :src, :dst, presence: true
+  validate :dst_cannot_be_banned
 
   after_create :create_message
+  after_create :cleanup_invites
 
 private
-  # при создании инвайта автоматически создаётся связанное с ним сообщение
   def create_message
     message = Message.create!(
       kind: MessageType::GroupRequest,
       from: src,
       to: dst,
       subject: id,
-      body: "Приглашение на вступление в группу [group]#{group_id}[/group]."
+      body: "Приглашение на вступление в клуб [group]#{group_id}[/group]."
     )
 
-    update(message: message)
+    update message: message
+  end
 
+  def cleanup_invites
     GroupInvite
       .where(dst_id: dst_id, group_id: group_id)
       .where.not(id: id)
       .destroy_all
+  end
+
+  def dst_cannot_be_banned
+    if group.banned? dst
+      errors.add :base, :user_is_banned
+    end
   end
 end

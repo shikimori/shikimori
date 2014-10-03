@@ -15,8 +15,6 @@ class GroupRolesController < ShikimoriController
 
 private
   def group_role_params
-    params
-      .require(:group_role)
-      .permit([:group_id, :user_id])
+    params.require(:group_role).permit([:group_id, :user_id])
   end
 end

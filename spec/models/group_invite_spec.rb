@@ -13,6 +13,16 @@ describe GroupInvite do
     it { should validate_presence_of :src }
     it { should validate_presence_of :dst }
     it { should validate_presence_of :group }
+
+    let(:group) { create :group, owner: user }
+    let(:user) { create :user }
+    let(:group_invite) { build :group_invite, src: user, dst: user, group: group }
+
+    context :banned, :focus do
+      let!(:ban) { create :group_ban, group: group, user: user }
+      before { group_invite.save }
+      it { ap group_invite.errors.messages }
+    end
   end
 
   context :hooks do
@@ -36,9 +46,6 @@ describe GroupInvite do
     end
 
     it 'destroys its message' do
-      group = create :group
-      src = create :user
-      dst = create :user
       invite = nil
       expect {
         expect {
@@ -60,92 +67,41 @@ describe GroupInvite do
     let(:user) { build_stubbed :user }
     subject { Ability.new user }
 
-    describe :own_invite do
-      let(:group_invite) { build_stubbed :group_invite, dst: user }
+    context :existing_invite do
+      describe :own_invite do
+        let(:group_invite) { build_stubbed :group_invite, dst: user }
 
-      it { should be_able_to :accept, group_invite }
-      it { should be_able_to :reject, group_invite }
+        it { should be_able_to :accept, group_invite }
+        it { should be_able_to :reject, group_invite }
+      end
+
+      describe :foreign_invite do
+        let(:group_invite) { build_stubbed :group_invite }
+
+        it { should_not be_able_to :accept, group_invite }
+        it { should_not be_able_to :reject, group_invite }
+      end
     end
 
-    describe :foreign_invite do
-      let(:group_invite) { build_stubbed :group_invite }
+    context :new_invite do
+      context :club_member do
+        let(:group) { build_stubbed :group, member_roles: [create(:group_role, user: user)] }
 
-      it { should_not be_able_to :accept, group_invite }
-      it { should_not be_able_to :reject, group_invite }
+        describe :from_self do
+          let(:group_invite) { build_stubbed :group_invite, src: user, group: group }
+          it { should be_able_to :create, group_invite }
+        end
+
+        describe :from_another_user do
+          let(:group_invite) { build_stubbed :group_invite }
+          it { should_not be_able_to :create, group_invite, group: group }
+        end
+      end
+
+      context :not_a_member do
+        let(:group_invite) { build_stubbed :group_invite, src: user }
+        it { should_not be_able_to :create, group_invite }
+      end
     end
-
-    #let(:club) { build_stubbed :group, join_policy: join_policy }
-    #let(:user) { build_stubbed :user }
-
-    #describe :join do
-      #let(:group_role) { build :group_role, user: user, group: club }
-
-      #context :owner_invite_join do
-        #let(:join_policy) { :owner_invite_join }
-
-        #context :club_owner do
-          #let(:club) { build_stubbed :group, owner: user }
-          #it { should be_able_to :create, group_role }
-        #end
-
-        #context :common_user do
-          #it { should_not be_able_to :create, group_role }
-        #end
-      #end
-
-      #context :admin_invite_join do
-        #let(:join_policy) { :admin_invite_join }
-
-        #context :club_owner do
-          #let(:club) { build_stubbed :group, owner: user }
-          #it { should be_able_to :create, group_role }
-        #end
-
-        #context :common_user do
-          #it { should_not be_able_to :create, group_role }
-        #end
-      #end
-
-      #context :free_join_policy do
-        #let(:join_policy) { :free_join }
-
-        #context :common_user do
-          #it { should be_able_to :create, group_role }
-        #end
-
-        #context :guest do
-          #let(:user) { nil }
-          #it { should_not be_able_to :create, group_role }
-        #end
-      #end
-    #end
-
-    #describe :leave do
-      #let(:join_policy) { :free_join }
-
-      #context :club_member do
-        #let(:group_role) { build_stubbed :group_role, user: user, group: club }
-        #it { should be_able_to :destroy, group_role }
-      #end
-
-      #context :not_member do
-        #let(:group_role) { build_stubbed :group_role, group: club }
-
-        #context :guest do
-          #let(:user) { nil }
-          #it { should_not be_able_to :destroy, group_role }
-        #end
-
-        #context :common_user do
-          #let(:user) { nil }
-          #it { should_not be_able_to :destroy, group_role }
-        #end
-
-        #context :club_owner do
-          #let(:club) { build_stubbed :group, owner: user }
-          #it { should_not be_able_to :destroy, group_role }
-        #end
-      #end
-    #end
   end
 end
