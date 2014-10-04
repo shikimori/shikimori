@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910110417) do
+ActiveRecord::Schema.define(version: 20141004161759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -433,6 +433,18 @@ ActiveRecord::Schema.define(version: 20140910110417) do
 
   add_index "entry_views", ["entry_id"], name: "index_entry_views_on_entry_id", using: :btree
   add_index "entry_views", ["user_id", "entry_id"], name: "index_entry_views_on_user_id_and_entry_id", unique: true, using: :btree
+
+  create_table "episode_notifications", force: true do |t|
+    t.integer  "anime_id"
+    t.integer  "episode"
+    t.boolean  "is_raw"
+    t.boolean  "is_subtitles"
+    t.boolean  "is_fundub"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "episode_notifications", ["anime_id"], name: "index_episode_notifications_on_anime_id", using: :btree
 
   create_table "favourites", force: true do |t|
     t.integer  "linked_id"

@@ -9,6 +9,11 @@ FactoryGirl.define do
 
     after :build do |v|
       v.anime = FactoryGirl.build_stubbed(:anime) unless v.anime_id
+      v.class.skip_callback(:create, :after, :notify)
+    end
+
+    trait :with_notification do
+      after(:create) { |video| video.send(:notify) }
     end
   end
 end
