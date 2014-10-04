@@ -128,6 +128,50 @@ describe AnimeVideo do
     end
   end
 
+  describe :after_save do
+    let(:anime) { build_stubbed :anime }
+    let(:url_1) { 'http://foo/1' }
+    let(:url_2) { 'http://foo/2' }
+
+    context :new_video do
+      subject { EpisodeNotification.first }
+      let!(:anime_video) { create :anime_video, :with_notification, anime: anime, kind: :raw }
+
+      its(:is_raw) { should eq true }
+      its(:is_subtitles) { should be_nil }
+      its(:is_fundub) { should be_nil }
+      it { expect(EpisodeNotification.all).to have(1).items }
+    end
+
+    context :new_episode do
+      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, episode: 1, url: url_1 }
+      let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, episode: 2, url: url_2 }
+      it { expect(EpisodeNotification.all).to have(2).items }
+    end
+
+    context :not_new_episode_but_other_kind do
+      subject { EpisodeNotification.first }
+      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, kind: :raw, url: url_1 }
+      let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, kind: :subtitles, url: url_2 }
+
+      its(:is_raw) { should eq true }
+      its(:is_subtitles) { should eq true }
+      its(:is_fundub) { should be_nil }
+      it { expect(EpisodeNotification.all).to have(1).items }
+    end
+
+    context :not_new_episode do
+      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1 }
+      let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, url: url_2 }
+      it { expect(EpisodeNotification.all).to have(1).items }
+    end
+
+    context 'not need notification if video kind is unknown' do
+      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
+      it { expect(EpisodeNotification.all).to have(0).items }
+    end
+  end
+
   describe :hosting do
     subject { build(:anime_video, url: url).hosting }
 
