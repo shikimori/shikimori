@@ -35,7 +35,7 @@ describe AnimeVideoReportWorker do
 
     context :sibnet do
       context :work do
-        let(:url) { 'http://video.sibnet.ru/shell.swf?videoid=1437504' }
+        let(:url) { 'http://video.sibnet.ru/shell.swf?videoid=582452' }
         it { should be_pending }
       end
 
