@@ -8,8 +8,7 @@ class AnimeVideoReportWorker < SiteParserWithCache
 
     if is_broken(report.anime_video)
       report.accept! BotsService.get_poster
-
-    elsif report.user_id == User::GuestID && report.doubles.zero?
+    elsif report.user_id == User::GuestID && (report.doubles.zero? || report.doubles(:rejected) > 0)
       report.reject! BotsService.get_poster
     end
 

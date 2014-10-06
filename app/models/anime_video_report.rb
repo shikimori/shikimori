@@ -16,10 +16,12 @@ class AnimeVideoReport < ActiveRecord::Base
 
   after_create :auto_check
 
-  def doubles
-     AnimeVideoReport
+  def doubles state=nil
+    reports = AnimeVideoReport
       .where(anime_video_id: anime_video_id)
-      .count - 1
+      .where('id != ?', id)
+    reports = reports.where(state: state) if state
+    reports.count
   end
 
   state_machine :state, initial: :pending do

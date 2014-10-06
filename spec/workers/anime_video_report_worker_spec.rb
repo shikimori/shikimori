@@ -9,7 +9,7 @@ describe AnimeVideoReportWorker do
   subject { AnimeVideoReportWorker.new.perform report.id }
 
   describe :perform do
-    let(:user) { create :user }
+    let(:user) { create :user, id: 9999 }
 
     context :vk do
       context :working do
@@ -35,7 +35,7 @@ describe AnimeVideoReportWorker do
 
     context :sibnet do
       context :work do
-        let(:url) { 'http://video.sibnet.ru/shell.swf?videoid=582452' }
+        let(:url) { 'http://video.sibnet.ru/shell.swf?videoid=1437504' }
         it { should be_pending }
       end
 
@@ -51,7 +51,7 @@ describe AnimeVideoReportWorker do
       let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
 
       context :not_guest do
-        let(:user) { create :user }
+        let(:user) { create :user, id: 9999 }
         it { should be_pending }
       end
 
@@ -63,9 +63,19 @@ describe AnimeVideoReportWorker do
         end
 
         context :with_doubles do
-          let(:other_user) { create :user }
-          let!(:other_report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: other_user }
-          it { should be_pending }
+          let!(:before_report) { create :anime_video_report, kind: 'broken', state: before_state, anime_video: anime_video, user: before_user }
+          let(:before_user) { create :user, id: 9999 }
+          let!(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
+
+          context 'Video has report with pending state.' do
+            let(:before_state) { 'pending' }
+            it { should be_pending }
+          end
+
+          context 'Video has report with rejected state - we can rejecte report from Guest.' do
+            let(:before_state) { 'rejected' }
+            it { should be_rejected }
+          end
         end
       end
     end

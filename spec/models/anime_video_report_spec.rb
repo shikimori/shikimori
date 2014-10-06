@@ -61,7 +61,8 @@ describe AnimeVideoReport do
   end
 
   describe :doubles do
-    let(:report) { create :anime_video_report, anime_video: anime_video }
+    let!(:report) { create :anime_video_report, anime_video: anime_video, state: state_1 }
+    let(:state_1) { 'rejected' }
     let(:anime_video) { create :anime_video }
     subject { report.doubles }
 
@@ -70,16 +71,33 @@ describe AnimeVideoReport do
 
       context :one_user_not_filter do
         let(:user) { create :user }
-        let(:report) { create :anime_video_report, anime_video: anime_video, user: user }
-        before { create :anime_video_report, anime_video: anime_video, user: user }
+        let(:report) { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
+        before { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
 
         it { should eq 1 }
       end
     end
 
     context :with_double do
-      before { create :anime_video_report, anime_video: anime_video }
-      it { should eq 1 }
+      before { create :anime_video_report, anime_video: anime_video, state: state_1 }
+
+      context :without_state do
+        it { should eq 1 }
+      end
+
+      context :with_state do
+        subject { report.doubles state_2 }
+
+        context :other_state do
+          let(:state_2) { 'accepted' }
+          it { should eq 0 }
+        end
+
+        context :eq_state do
+          let(:state_2) { state_1 }
+          it { should eq 1 }
+        end
+      end
     end
   end
 
