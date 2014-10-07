@@ -63,6 +63,26 @@ class ClubsController < ShikimoriController
     page_title 'Персонажи клуба'
   end
 
+  def images
+    page_title 'Картинки клуба'
+  end
+
+  def upload
+    image = Image.create!(
+      owner: @resource,
+      uploader: current_user,
+      image: params[:image]
+    )
+
+    if request.xhr?
+      render json: {
+        html: render_to_string(partial: 'images/image', object: image, locals: { rel: 'club' }, formats: :html)
+      }
+    else
+      redirect_to club_url(@resource), notice: 'Изображение загружено'
+    end
+  end
+
 private
   def resource_klass
     Group

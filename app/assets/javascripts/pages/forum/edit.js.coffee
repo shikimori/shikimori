@@ -17,7 +17,7 @@ $('.ajax').live 'new:success edit:success', (e, data) ->
       .fancybox $.galleryOptions
 
   $upload.shikiFile
-      progress: $upload.find('.upload-progress')
+      progress: $upload.find('.b-upload_progress')
       input: $upload.find('input[type=file]')
     .on 'upload:success', (e, data) ->
       $("<a href='#{data.url}' rel='new-wall' data-user_image_id='#{data.id}' class='image-container'>" + "<span class='image-delete hidden' title='Удалить картинку'></span>" + "<span class='image-delete-confirm hidden' title='Подтвердить удаление'></span>" + "<span class='image-delete-cancel hidden' title='Отменить удаление'></span>" + "<img src='#{data.preview}' />" + "</a>")

@@ -32,24 +32,43 @@
         type: 'iframe'
       )
 
+  resize_binded = false
+
   # дефолтная галерея сайта
-  $.fn.extend gallery: (options) ->
+  $.fn.extend gallery: (options={}) ->
     @each ->
-      $list = $('.images-list', @)
-      $('a', $list).fancybox $.galleryOptions
-      $images_to_load = $('.image-container.preload', $list)
-      $images_to_load.hide() if options && !options.no_hide
+      $container = $('.container', @)
+      $images = $('.b-image', $container)
 
-      $($list).imagesLoaded ->
-        _.delay ->
-          if $list.hasClass('masonry')
-            $list.masonry 'reload'
-          else
-            param = $.merge options || {},
-              itemSelector: '.image-container'
-              isAnimated: not Modernizr.csstransitions
-            $list.masonry param
+      $container.imagesLoaded ->
+        $images.fancybox($.galleryOptions)
 
-          options['onMason']() if options && 'onMason' of options
-          $images_to_load.show().removeClass 'preload'
+        $container.addClass('packery')
+        $container.packery
+          columnWidth: '.b-image'
+          containerStyle: null
+          gutter: 0
+          isAnimated: false
+          isResizeBound: false
+          itemSelector: '.b-image'
+          transitionDuration: '0.25s'
+
+      if options.shiki_upload
+        $container
+          .shikiFile
+            progress: $container.prev()
+
+          .on 'upload:success', (e, response) ->
+            $image = $(response.html).fancybox($.galleryOptions)
+            $container.prepend($image)
+            $container.packery.bind($container, 'prepended', $image).delay 50
+
+      unless resize_binded
+        resize_binded = true
+        $(window).resize_delayed ->
+          $galleries = $('.packery')
+          $galleries.packery()
+          $galleries.packery.bind($galleries).delay(1250)
+        , 500
+
 ) jQuery

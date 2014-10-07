@@ -228,7 +228,7 @@ class @ShikiEditor extends ShikiView
     # ajax загрузка файлов
     file_text_placeholder = '[файл #@]'
     @$textarea.shikiFile
-      progress: $root.find('.upload-progress')
+      progress: $root.find('.b-upload_progress')
       input: $('.editor-file input', $root)
       maxfiles: 6
 

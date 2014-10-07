@@ -84,11 +84,11 @@
             cls = if global_lock then 'disallowed' else 'allowed'
 
             $placeholder = $("<div class='drag-placeholder #{cls}' style='width:#{width}px!important;height:#{height}px;line-height:#{Math.max(height, 75)}px;'>#{text}</div>")
-                .css(opacity: 0)
-                .on('drop', (e) -> $node.trigger e)
-                .on('dragenter', -> $(@).addClass 'hovered')
-                .on('dragleave', -> $(@).removeClass 'hovered')
-                .insertBefore $node
+              .css(opacity: 0)
+              .on('drop', (e) -> $node.trigger e)
+              .on('dragenter', -> $(@).addClass 'hovered')
+              .on('dragleave', -> $(@).removeClass 'hovered')
+              .insertBefore($node)
 
             _.delay ->
               $placeholder.css opacity: 0.75

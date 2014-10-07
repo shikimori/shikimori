@@ -33,32 +33,6 @@ class ImagesController < ShikimoriController
     render json: { error: 'Произошла ошибка при загрузке файла. Пожалуйста, повторите попытку, либо свяжитесь с администрацией сайта.' }, status: :unprocessable_entity
   end
 
-  # старое создание картинки
-  def new
-    params[:image][:uploader_id] = current_user.id
-    owner = params[:image][:owner] = Object.const_get(params[:model].capitalize).find(params[:id])
-
-    if owner.respond_to?(:can_be_uploaded_by?)
-      raise Forbidden unless owner.can_be_uploaded_by?(current_user)
-    end
-
-    @image = Image.new
-    @image.owner = owner
-    @image.uploader = current_user
-    @image.image = params[:image][:image]
-    @image.save!
-
-    redirect_to url_for(owner)
-  end
-
-  # изменение картинки
-  def update
-    @image = Image.find(params[:id])
-    raise Forbidden unless @image.uploader_id == current_user.id
-    @image.update_attributes(params[:image])
-    redirect_to edit_image_url(@image)
-  end
-
   # содержимое картинки
   def raw
     @image = Image.find(params[:id])

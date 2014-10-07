@@ -66,7 +66,7 @@ function init_uploader($root) {
   var $uploads = $root.find('.uploads');
 
   $root.find('.upload-area').shikiFile({
-    progress: $root.find('.upload-progress'),
+    progress: $root.find('.b-upload_progress'),
     input: $root.find('.item-upload input'),
     maxfiles: 250
   })

@@ -217,6 +217,7 @@ Site::Application.routes.draw do
         get :mangas
         get :characters
         get :images
+        post :upload
       end
 
       collection do

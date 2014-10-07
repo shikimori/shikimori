@@ -46,9 +46,30 @@ describe ClubsController do
     pending
   end
 
+  describe :upload do
+    include_context :authenticated
+    let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
+    let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
+    before { post :upload, id: club.to_param, image: image }
+
+    it { should redirect_to club_url(club) }
+    it { expect(club.images).to have(1).item }
+
+    context :image do
+      subject { club.images.first }
+      its(:uploader) { should eq user }
+    end
+  end
+
   describe :members do
     let(:club) { create :group }
     before { get :members, id: club.to_param }
+    it { should respond_with :success }
+  end
+
+  describe :images do
+    let(:club) { create :group }
+    before { get :images, id: club.to_param }
     it { should respond_with :success }
   end
 

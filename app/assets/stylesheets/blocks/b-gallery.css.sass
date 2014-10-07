@@ -1,0 +1,18 @@
+@import mixins/responsive
+
+.b-gallery
+  .container
+    position: relative
+
+  .b-image, .grid_sizer
+    margin-bottom: 0
+    padding: 2.5px
+
+    +gte_ipad
+      max-width: 25%
+
+    +iphone_landscape
+      max-width: 33.33%
+
+    +iphone_portrait
+      max-width: 50%

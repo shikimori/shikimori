@@ -1,4 +1,6 @@
-.image-container.preload
+a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="#{rel if defined? rel}"
+  img src="#{image.image.url :preview}"
+/.image-container.preload
   - if defined?(user_signed_in?) && user_signed_in?
     - if (image.respond_to?(:can_be_deleted_by?) && image.can_be_deleted_by?(current_user)) || defined?(with_deletion)
       span.image-delete.hidden title="Удалить картинку"

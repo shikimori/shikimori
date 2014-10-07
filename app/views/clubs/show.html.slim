@@ -2,6 +2,15 @@
   .block
     = @resource.description_html
 
+  - if @resource.images(12).any?
+    .block
+      .subheadline.m5
+        span.linkeable data-href="#{images_club_url @resource}" Картинки
+      .b-gallery data-upload="#{can? :upload, @resource}"
+        = render 'blocks/upload_progress'
+        .container data-upload_url="#{upload_club_url @resource}"
+          = render @resource.images(12), rel: 'club'
+
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
     - if @resource.preview_thread.comments_count > 0
       .subheadline.m3

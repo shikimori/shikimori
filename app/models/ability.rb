@@ -16,12 +16,12 @@ class Ability
 
   def define_abilities
     alias_action :current, :read, :users, :comments, :grid, to: :read_contest
-    alias_action :read, :comments, :animes, :mangas, :members, :images, to: :read_group
+    alias_action :read, :comments, :animes, :mangas, :members, :images, to: :read_club
   end
 
   def guest_ability
     can :read_contest, Contest
-    can :read_group, Group
+    can :read_club, Group
   end
 
   def user_ability
@@ -45,6 +45,17 @@ class Ability
     end
     can :update, Group do |group|
       group.owner?(@user) || group.admin?(@user)
+    end
+    can :upload, Group do |group|
+      if group.upload_policy == GroupUploadPolicy::ByStaff
+        group.owner?(@user) || group.admin?(@user)
+
+      elsif group.upload_policy == GroupUploadPolicy::ByMembers
+        group.joined? @user
+
+      else
+        raise ArgumentError, group.upload_policy
+      end
     end
 
     can :create, GroupRole do |group_role|

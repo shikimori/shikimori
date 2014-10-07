@@ -141,7 +141,7 @@ private
 
     raise NotFound, "неизвестный раздел: #{params[:section]}" unless @section
 
-    @news = WellcomeNewsPresenter.new if user_signed_in?
+    @news = WellcomeNewsPresenter.new# if user_signed_in?
 
     @json = if json?
       {

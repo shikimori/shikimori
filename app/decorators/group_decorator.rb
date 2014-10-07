@@ -69,15 +69,8 @@ class GroupDecorator < DbEntryDecorator
       .sort_by(&:name)
   end
 
-  def all_images
-    return [] unless display_images?
-    object
-      .images
-      .order(created_at: :desc)
-  end
-
-  def images
-    all_images.take(12)
+  def images limit = 999
+    all_images.take limit
   end
 
   def show_comments?
@@ -114,5 +107,13 @@ class GroupDecorator < DbEntryDecorator
         [I18n.t("activerecord.attributes.group.comment_policies.#{policy_name}"), policy_name]
       end
     end
+  end
+
+private
+  def all_images
+    return [] unless display_images?
+    object
+      .images
+      .order(created_at: :desc)
   end
 end

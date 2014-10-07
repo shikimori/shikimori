@@ -2,10 +2,10 @@
   .subheadline Действия
   ul.block-list
     - if can? :upload, club
-      li.upload title="Картинки так же загружаются перетаскиванием файлов на блок картинок"
-        = form_tag new_images_url(model: :group, id: club.id), method: :post, multipart: true do
-          span Загрузить картинку
-          input type="file" name="image[image]" id="image_image"
+      li.upload title="Так же картинки загружать можно перетаскивая файлы на страницу клуба"
+        = form_tag upload_club_url(club), method: :post, multipart: true do
+          span Загрузить изображение
+          input type="file" name="image"
 
     - if can? :invite, club
       li.invite Пригласить в клуб

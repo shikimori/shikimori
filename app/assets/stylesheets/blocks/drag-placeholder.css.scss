@@ -5,7 +5,7 @@
   @include transition('opacity,border-color,color', 0.5s);
   @include box-sizing(border-box);
   background: white;
-  border: 1px dashed rgba(0, 0, 0, 0.6);
+  border: 3px dashed rgba(0, 0, 0, 0.6);
   font-family: Verdana, Arial;
   font-size: 25px;
   position: absolute;
@@ -40,7 +40,7 @@
     display: none;
     margin-top: -10px;
   }
-  .upload-progress.active {
+  .b-upload_progress.active {
     margin-bottom: 3px;
   }
 }

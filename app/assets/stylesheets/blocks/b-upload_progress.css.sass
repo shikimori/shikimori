@@ -1,0 +1,22 @@
+@import compass/css3/transition
+@import compass/typography/text/ellipsis
+
+.b-upload_progress
+  height: 0
+  overflow: hidden
+
+  .bar
+    +ellipsis
+    +transition(all 0.25s ease)
+    background-color: #2586D0
+    color: white
+    display: block
+    font-size: 11px
+    height: 12px
+    line-height: 12px
+    text-align: center
+    width: 0
+
+  &.active
+    height: 12px
+    margin-bottom: 5px
