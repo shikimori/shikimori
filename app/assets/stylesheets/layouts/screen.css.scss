@@ -141,6 +141,9 @@ h3 {
       float: left;
       display: block;
     }
+    a, span {
+      @include ellipsis;
+    }
   }
   a {
     color: #555555;
