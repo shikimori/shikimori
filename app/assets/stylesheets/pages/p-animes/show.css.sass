@@ -1,6 +1,6 @@
 @import compass/css3/transition
+@import compass/typography/text/ellipsis
 @import compass/utilities/general/clearfix
-@import globals
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
@@ -147,7 +147,7 @@
       margin: 6px 0 10px 0
 
     span, a
-      +normal-link
+      +link
       +gte_ipad
         &:before
           line-height: 20px
@@ -162,7 +162,7 @@
 
     &>.link, &>a
       +comma_separated
-      +normal-link
+      +link
       float: left
       margin-left: 5px
 
@@ -197,7 +197,7 @@
       color: $gray-color-0
 
     .add-to-list
-      +normal-link
+      +link
 
       +lte_ipad
         line-height: 2
@@ -255,7 +255,7 @@
         margin-bottom: 10px
 
         a
-          +normal-link
+          +link
           float: right
 
       textarea
