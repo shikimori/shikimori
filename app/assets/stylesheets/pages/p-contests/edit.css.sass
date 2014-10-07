@@ -6,12 +6,11 @@
 @import mixins/responsive
 
 .p-contests-edit
-  .members
+  .variants
     margin-bottom: 5px
-    line-height: $line_height
     +clear_left
 
-    .member
+    .variant
       +ellipsis
       +gte_ipad
         +column(3)
@@ -21,12 +20,6 @@
 
       +iphone_portrait
         +column(1)
-
-      a
-        +link
-        +ellipsis
-        float: left
-        max-width: 50%
 
   .contest_actions
     +block_m

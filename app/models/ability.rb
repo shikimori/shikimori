@@ -32,6 +32,9 @@ class Ability
       image.uploader_id == @user.id || can?(:edit, image.owner)
     end
 
+    can [:create, :update ], Group do |group|
+      group.owner?(@user) || group.admin?(@user)
+    end
     can :join, Group do |group|
       !group.joined?(@user) && (
         can?(:manage, group) || (!group.banned?(@user) && group.free_join?)
@@ -46,9 +49,6 @@ class Ability
     end
     can :leave, Group do |group|
       group.joined? @user
-    end
-    can :update, Group do |group|
-      group.owner?(@user) || group.admin?(@user)
     end
     can :upload, Group do |group|
       if group.upload_policy == GroupUploadPolicy::ByStaff

@@ -17,7 +17,6 @@
     $('.member-suggest').trigger 'autocomplete:success', [$(@).data('id'), $(@).data('text')]
     $('.member-suggest').trigger 'blur'
 
-
   $('form .member-suggest').on 'autocomplete:success', (e, id, text, label) ->
     return if !id || !text
 
@@ -25,11 +24,11 @@
       url = "/#{$(@).data('member_type')}s/"+id
       bubbled = true
 
-    $container = $(@).next().next().children('.members')
+    $container = $(@).next().next().children('.variants')
     return if $container.find('[value="'+id+'"]').length
 
     $container.append(
-      '<div class="member">' +
+      '<div class="variant">' +
         '<input type="hidden" name="members[]" value="'+id+'" />' +
         '<a href="'+url+'" ' +
           (if bubbled then 'class="bubbled"' else '') +

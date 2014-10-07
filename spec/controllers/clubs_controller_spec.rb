@@ -38,8 +38,20 @@ describe ClubsController do
     it { should respond_with :success }
   end
 
-  describe :create do
-    pending
+  describe :create, :focus do
+    include_context :authenticated
+
+    context 'when success' do
+      before { post :create, club: { name: 'test', owner_id: user.id } }
+      it { should redirect_to edit_club_url(resource) }
+    end
+
+    context 'when validation errors' do
+      before { post :create, club: { owner_id: user.id } }
+
+      it { should respond_with :success }
+      it { expect(resource.new_record?).to be true }
+    end
   end
 
   describe :update do

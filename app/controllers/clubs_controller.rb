@@ -1,5 +1,5 @@
 class ClubsController < ShikimoriController
-  load_and_authorize_resource :group, only: [:new, :edit, :create, :update]
+  load_and_authorize_resource :club, class: Group
 
   #before_action :authenticate_user!, only: [:new, :create, :update]
 
@@ -21,12 +21,13 @@ class ClubsController < ShikimoriController
 
   def new
     page_title 'Новый клуб'
-    @resource ||= Group.new.decorate
+    #@resource ||= Group.new.decorate
+    @resource.owner = current_user
   end
 
   def create
     if @resource.save
-      redirect_to edit_club_url(@resource)
+      redirect_to edit_club_url(@resource), notice: 'Клуб создан'
     else
       new and render :new
     end
@@ -37,6 +38,17 @@ class ClubsController < ShikimoriController
   end
 
   def update
+    @resource.animes = []
+    @resource.mangas = []
+    @resource.characters = []
+    @resource.admins = []
+    @resource.bans = []
+
+    if @resource.update update_params
+      redirect_to edit_club_url(@resource), notice: 'Изменения сохранены'
+    else
+      edit and render :edit
+    end
   end
 
   def members
@@ -90,5 +102,17 @@ private
 
   def set_breadcrumbs
     breadcrumb @resource.name, club_url(@resource) if params[:action] != 'show'
+  end
+
+  def update_params
+    create_params.except(:owner_id)
+  end
+
+  def create_params
+    params
+      .require(:club)
+      .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,
+        :comment_policy, :logo,
+        anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], ban_ids: [])
   end
 end

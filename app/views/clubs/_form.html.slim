@@ -5,6 +5,8 @@
       .subcontent
         == @resource.errors.full_messages.join('<br>')
 
+  = f.input :owner_id, as: :hidden
+
   /.item-save = @resource.persisted? ? 'Сохранить' : 'Создать'
   .subheadline Настройки
   .subcontent
@@ -26,8 +28,8 @@
   .subheadline.m10 Логотип
   .subcontent
     - if @resource.logo.exists?
-      img src="#{@resource.logo.url(:main)}" alt="#{@resource.name}" title="#{@resource.name}"
-    p.grey-hint загрузить #{'другую ' if @resource && @resource.logo.exists?}картинку: #{file_field_tag 'group[logo]'}
+      img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
+    = f.input :logo, label: false
 
   - if @resource.persisted?
     .two-columns
@@ -35,82 +37,70 @@
         input.anime-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_animes_url search: ''}"
         .subheadline Аниме
         .m30
-          = hidden_field_tag 'animes[]', ''
-          ul.container
-            - if @resource
-              - @resource.animes.uniq(&:id).each do |anime|
-                li
-                  span.item-minus
-                  = hidden_field_tag 'animes[]', anime.id
-                  a.bubbled href="#{anime_url anime}"
-                    = anime.name
+          .variants
+            - @resource.animes.uniq(&:id).each do |anime|
+              .variant
+                = check_box_tag 'club[anime_ids][]', anime.id, checked: true
+                a.bubbled href="#{anime_url anime}"
+                  = anime.name
       .column
         input.manga-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_mangas_url search: ''}"
         .subheadline Манга
         .m30
-          = hidden_field_tag 'mangas[]', ''
-          ul.container
-            - if @resource
-              - @resource.mangas.uniq(&:id).each do |manga|
-                li
-                  span.item-minus
-                  = hidden_field_tag 'mangas[]', manga.id
-                  a.bubbled href="#{manga_url manga}"
-                    = manga.name
+          .variants
+            - @resource.mangas.uniq(&:id).each do |manga|
+              .variant
+                span.item-minus
+                = check_box_tag 'club[manga_ids][]', manga.id, checked: true
+                a.bubbled href="#{manga_url manga}"
+                  = manga.name
 
     .two-columns
       .column
         input.character-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_characters_url search: ''}"
         .subheadline Персонажи
         .m30
-          = hidden_field_tag 'characters[]', ''
-          ul.container
-            - if @resource
-              - @resource.characters.uniq(&:id).each do |character|
-                li
-                  span.item-minus
-                  = hidden_field_tag 'characters[]', character.id
-                  a.bubbled href="#{character_url character}"
-                    = character.name
+          .variants
+            - @resource.characters.uniq(&:id).each do |character|
+              .variant
+                span.item-minus
+                = check_box_tag 'club[character_ids][]', character.id, checked: true
+                a.bubbled href="#{character_url character}"
+                  = character.name
 
     /- if @resource && @resource.admins.include?(current_user)
       div style="display: none;"
         .subheadline Модераторы
         .m30
           input.moderator-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_members_clubs_url search: ''}"
-          = hidden_field_tag 'moderators[]', ''
-          ul.container
-            - if @resource
-              - @resource.moderators.each do |user|
-                li
-                  span.item-minus
-                  = hidden_field_tag 'moderators[]', user.nickname
-                  a href="#{user_url user}" = user.nickname
+          .variants
+            - @resource.moderators.each do |user|
+              .variant
+                span.item-minus
+                = check_box_tag 'club[moderator_ids][]', moderator.id, checked: true
+                a href="#{user_url user}" = user.nickname
 
     .two-columns
       .column
         input.admin-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_members_clubs_url search: ''}"
         .subheadline Администраторы
         .m30
-          = hidden_field_tag 'admins[]', ''
-          ul.container
-            - if @resource
-              - @resource.admins.each do |user|
-                li
-                  span.item-minus
-                  = hidden_field_tag 'admins[]', user.nickname
-                  a href="#{user_url user}" = user.nickname
+          .variants
+            - @resource.admins.each do |user|
+              .variant
+                span.item-minus
+                = check_box_tag 'club[admin_ids][]', user.id, checked: true
+                a href="#{user_url user}" = user.nickname
 
       .column
         input.ban-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
         .subheadline Чёрный список
         .m30
-          = hidden_field_tag 'bans[]', ''
-          ul.container
+          .variants
             - @resource.banned.each do |user|
-              li
+              .variant
                 span.item-minus
-                = hidden_field_tag 'bans[]', user.nickname
+                = check_box_tag 'club[ban_ids][]', user.id, checked: true
                 a href="#{user_url user}" = user.nickname
 
     .two-columns
@@ -118,8 +108,8 @@
         input.kick-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_members_clubs_url search: ''}"
         .subheadline Удаление пользователей
         .m30
-          = hidden_field_tag 'kicks[]', ''
-          ul.container
+          = hidden_field_tag 'club[kick_ids][]', ''
+          .variants
 
   p.buttons.m30
     = f.submit @resource.persisted? ? 'Сохранить' : 'Создать'
