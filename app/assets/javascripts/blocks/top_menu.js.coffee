@@ -37,6 +37,9 @@ $(document).on 'page:load', ->
   #$('.mobile-sign-in-toggler').click ->
     #$('.usernav').trigger 'click'
 
-  $('.submenu-toggler').click ->
+  $('.submenu-activator').on 'click', ->
+    $(@).prev().click()
+
+  $('.submenu-toggler').on 'click', ->
     $(@).toggleClass 'active'
     $(@).siblings('.submenu').toggleClass 'active'
