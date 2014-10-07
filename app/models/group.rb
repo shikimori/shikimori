@@ -27,7 +27,7 @@ class Group < ActiveRecord::Base
     source: :linked,
     source_type: Character.name
 
-  has_many :images, as: :owner, dependent: :destroy
+  has_many :images, as: :owner, dependent: :destroy, inverse_of: :owner
 
   belongs_to :owner, class_name: User.name, foreign_key: :owner_id
 

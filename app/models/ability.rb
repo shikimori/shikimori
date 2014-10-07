@@ -28,6 +28,10 @@ class Ability
     can :manage, UserRate, user_id: @user.id
     can [:cleanup, :reset], UserRate
 
+    can :destroy, Image do |image|
+      image.uploader_id == @user.id || can?(:edit, image.owner)
+    end
+
     can :join, Group do |group|
       !group.joined?(@user) && (
         can?(:manage, group) || (!group.banned?(@user) && group.free_join?)

@@ -1,37 +1,38 @@
-
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe Image do
-  context '#relations' do
+  context :relations do
     it { should belong_to :uploader }
     it { should belong_to :owner }
   end
 
-  context '#validations' do
+  context :validations do
     it { should have_attached_file :image }
     it { should validate_attachment_presence :image }
     it { should validate_presence_of :uploader }
     it { should validate_presence_of :owner }
   end
 
-  describe 'deletion' do
-    let(:user) { create :user }
-    let(:uploader) { create :user }
-    let(:owner) { create :group, :owner => user }
-    let(:image) { create :image, :uploader => uploader, :owner => owner }
+  describe :permissions do
+    let(:user) { build_stubbed :user }
+    let(:join_policy) { :free_join }
+    subject { Ability.new user }
 
-    it 'can be deleted by uploader' do
-      image.can_be_deleted_by?(uploader).should be true
+    context :uploader do
+      let(:image) { build_stubbed :image, uploader: user }
+      it { should be_able_to :destroy, image }
     end
 
-    it 'can be deleted by random user' do
-      image.can_be_deleted_by?(create :user).should be false
+    context :owner_editor do
+      let(:club) { build_stubbed :group, owner: user }
+      let(:image) { build_stubbed :image, owner: club }
+      it { should be_able_to :destroy, image }
     end
 
-    it 'can be deleted by owner permission' do
-      user = create :user
-      owner.admins << user
-      image.can_be_deleted_by?(user).should be true
+    context :random_user do
+      let(:image) { build_stubbed :image }
+      it { should_not be_able_to :destroy, image }
     end
   end
 end

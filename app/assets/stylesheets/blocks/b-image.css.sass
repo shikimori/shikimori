@@ -1,5 +1,8 @@
-@import mixins/media_marker
+@import compass/css3/opacity
+@import compass/css3/transition
 @import globals/variables
+@import mixins/icons
+@import mixins/media_marker
 
 .b-image
   line-height: 0
@@ -8,6 +11,7 @@
   position: relative
 
   img
+    +transition(opacity 0.25s ease)
     max-width: 100%
 
   &.fixed
@@ -28,3 +32,53 @@
 
   .normalized_height
     max-height: $media_width !important
+
+  .controls
+    display: none
+    position: absolute
+    right: 0px
+    top: 0px
+    z-index: 1
+
+    .delete, .confirm, .cancel
+      +transition(background 0.25s ease)
+      background: $link_hover
+      color: white
+      cursor: pointer
+      display: inline-block
+      padding: 0
+      margin: 0 !important
+      z-index: 999
+
+      &:hover
+        background-color: $link_hover_light
+
+      &:active
+        background-color: $link_active
+
+    .delete
+      +icon('\e813', 12px)
+
+    .confirm
+      +icon('\e817', 12px)
+      display: none
+
+    .cancel
+      +icon('\e813', 12px)
+      display: none
+
+  &:hover .controls
+    display: block
+
+  &.deletable
+    img
+      +opacity(0.3)
+
+    .controls
+      display: block
+
+      .delete
+        display: none
+
+      .confirm, .cancel
+        display: inline-block

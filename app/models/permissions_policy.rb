@@ -1,4 +1,5 @@
 # права на действия с различными сущностями
+# TODO: постепенно заменить всё на cancancan
 module PermissionsPolicy
   def self.included(base)
     base.send :include, PermissionsPolicy.const_get(base.name+'Permissions')
@@ -101,12 +102,6 @@ module PermissionsPolicy
       else
         raise ArgumentError, linked.comment_policy
       end
-    end
-  end
-
-  module ImagePermissions
-    def can_be_deleted_by?(user)
-      user.id == self.uploader_id || (self.owner.respond_to?(:can_delete_images?) && self.owner.can_delete_images?(user))
     end
   end
 

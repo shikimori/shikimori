@@ -38,10 +38,9 @@
   $.fn.extend gallery: (options={}) ->
     @each ->
       $container = $('.container', @)
-      $images = $('.b-image', $container)
+      $images = $('.b-image', $container).shiki_image()
 
       $container.imagesLoaded ->
-        $images.fancybox($.galleryOptions)
 
         $container.addClass('packery')
         $container.packery
@@ -59,9 +58,10 @@
             progress: $container.prev()
 
           .on 'upload:success', (e, response) ->
-            $image = $(response.html).fancybox($.galleryOptions)
+            $image = $(response.html)
             $container.prepend($image)
             $container.packery.bind($container, 'prepended', $image).delay 50
+            $image.shiki_image()
 
       unless resize_binded
         resize_binded = true

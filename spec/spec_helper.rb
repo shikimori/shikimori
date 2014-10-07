@@ -61,6 +61,7 @@ Spork.prefork do
     config.include FactoryGirl::Syntax::Methods
     config.include Devise::TestHelpers, type: :controller
     config.include JsonResponse, type: :controller
+    config.include ControllerResource, type: :controller
     config.include Paperclip::Shoulda::Matchers, type: :model
   end
 

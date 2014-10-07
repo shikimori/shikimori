@@ -1,10 +1,7 @@
 a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="#{rel if defined? rel}"
+  - if can? :delete, image
+    .controls
+      .delete title="Удалить картинку"
+      .confirm title="Подтвердить удаление" data-remote="true" action="#{url_for image}" data-method="delete" data-type="json"
+      .cancel title="Отменить удаление"
   img src="#{image.image.url :preview}"
-/.image-container.preload
-  - if defined?(user_signed_in?) && user_signed_in?
-    - if (image.respond_to?(:can_be_deleted_by?) && image.can_be_deleted_by?(current_user)) || defined?(with_deletion)
-      span.image-delete.hidden title="Удалить картинку"
-      span.image-delete-confirm.hidden title="Подтвердить удаление" data-remote="true" action="#{url_for image}" data-method="delete" data-type="json"
-      span.image-delete-cancel.hidden title="Отменить удаление"
-  a href="#{image.image.url style, false}" title="#{defined?(alt) ? alt : nil}" rel="#{defined?(group_name) ? group_name : ''}"
-    img src="#{image.image.url :preview, false}" title="#{defined?(alt) ? alt : nil}" alt="#{defined?(alt) ? alt : nil}" data-id="#{image.id}"
