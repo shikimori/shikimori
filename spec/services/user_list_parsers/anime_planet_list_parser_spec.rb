@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserListParsers::AnimePlanetListParser do
+describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_planet' } do
   let(:parser) { UserListParsers::AnimePlanetListParser.new klass, wont_watch_strategy }
   let(:login) { 'shikitest' }
   let(:wont_watch_strategy) { nil }

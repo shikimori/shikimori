@@ -33,7 +33,7 @@ private
     content = get("http://www.anime-planet.com/users/#{login}/#{@klass.name.downcase}/all?page=#{page}")
     doc = Nokogiri::HTML(content)
 
-    doc.css('.entryTable tr:has(td)').map do |tr|
+    doc.css('.pure-table tbody tr').map do |tr|
       {
         name: tr.css('.tableTitle').first.text.gsub(/^(.*), The$/, 'The \1'),
         status: convert_status(tr.css('.tableStatus').first.text.strip),
@@ -53,10 +53,11 @@ private
     content = get("http://www.anime-planet.com/users/#{login}/#{@klass.name.downcase}/all?page=1")
     doc = Nokogiri::HTML(content)
 
-    @pages = doc
+    doc
       .css('.pagination li')
       .map {|link| link.text.to_i }
-      .max
+      .select {|v| !v.zero? }
+      .max || 1
   end
 
   # переведение статус из анимепланетного в локальный
