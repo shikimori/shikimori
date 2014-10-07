@@ -60,12 +60,14 @@ module MessagesHelper # для truncate в messages helper
         end
 
       when MessageType::Private
-        BbCodeFormatter.instance.format_comment(message.body)
+        if message.from.bot?
+          format_comment cut(message.body || message.linked.text), message.from
+        else
+          BbCodeFormatter.instance.format_comment(message.body)
+        end
 
       else
-        format_comment(cut(
-          message.body || message.linked.text
-        ), message.from)
+        format_comment cut(message.body || message.linked.text), message.from
     end
   end
 
