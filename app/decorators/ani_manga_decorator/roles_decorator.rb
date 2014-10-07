@@ -37,12 +37,14 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
   end
 
   def grouping_class
-    if main_characters.size <= 4 && main_people.size <= 4
-      'four-characters'
-    elsif main_characters.size <= 5 && main_people.size <= 3
-      'five-characters'
-    elsif main_characters.size <= 6 && main_people.size <= 2
-      'six-characters'
+    if main_people.size > 0
+      if main_characters.size <= 4 && main_people.size <= 4
+        'four-characters'
+      elsif main_characters.size <= 5 && main_people.size <= 3
+        'five-characters'
+      elsif main_characters.size <= 6 && main_people.size <= 2
+        'six-characters'
+      end
     end
   end
 
