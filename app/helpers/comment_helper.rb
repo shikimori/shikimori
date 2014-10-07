@@ -297,8 +297,9 @@ module CommentHelper
             url = if entry.kind_of? UserChange
               moderation_user_change_url entry
             elsif entry.kind_of? Group
-            else
               club_url entry
+            else
+              url_for entry
             end
             text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.name}\"#{preload}>#{title}</a>"
           rescue ActiveRecord::RecordNotFound
