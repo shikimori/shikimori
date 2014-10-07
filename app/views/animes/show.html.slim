@@ -107,5 +107,5 @@
     - if @resource.comments_count > 0
       .subheadline.m3 Отзывы
     div
-      .b-topic.unprocessed data-faye="#{@resource.main_thread.faye_channel}"
+      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
         = render partial: 'topics/comments', locals: { topic: @resource.preview_reviews_thread }
