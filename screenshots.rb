@@ -37,7 +37,7 @@ SCREEN_EVERY = {
   false => 29
 }
 START_FROM = {
-  true => 17,
+  true => 7,
   false => 240
 }
 

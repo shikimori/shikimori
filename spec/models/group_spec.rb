@@ -22,8 +22,15 @@ describe Group do
 
     it { should have_many :invites }
     it { should have_many :bans }
+    it { should have_many :banned_users }
 
     it { should have_attached_file :logo }
+  end
+
+  describe :callbacks do
+    let(:club) { build :group, :with_owner_join }
+    before { club.save }
+    it { expect(club.joined? club.owner).to be true }
   end
 
   describe :instance_methods do
@@ -238,6 +245,7 @@ describe Group do
     context :guest do
       let(:user) { nil }
       it { should be_able_to :read_club, club }
+      it { should_not be_able_to :new, club }
       it { should_not be_able_to :update, club }
       it { should_not be_able_to :invite, club }
       it { should_not be_able_to :upload, club }
@@ -245,6 +253,7 @@ describe Group do
 
     context :user do
       it { should be_able_to :read_club, club }
+      it { should be_able_to :new, club }
       it { should_not be_able_to :update, club }
       it { should_not be_able_to :invite, club }
       it { should_not be_able_to :upload, club }

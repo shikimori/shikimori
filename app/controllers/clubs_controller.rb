@@ -21,11 +21,14 @@ class ClubsController < ShikimoriController
 
   def new
     page_title 'Новый клуб'
-    #@resource ||= Group.new.decorate
+
+    @resource = @resource.decorate
     @resource.owner = current_user
   end
 
   def create
+    @resource = @resource.decorate
+
     if @resource.save
       redirect_to edit_club_url(@resource), notice: 'Клуб создан'
     else
@@ -34,17 +37,22 @@ class ClubsController < ShikimoriController
   end
 
   def edit
-    page_title 'Редактирование клуба'
+    page_title 'Изменение клуба'
   end
 
   def update
-    @resource.animes = []
-    @resource.mangas = []
-    @resource.characters = []
-    @resource.admins = []
-    @resource.bans = []
+    (params[:kick_ids] || []).each do |user_id|
+      @resource.leave User.find(user_id)
+    end
 
     if @resource.update update_params
+      @resource.animes = []
+      @resource.mangas = []
+      @resource.characters = []
+      @resource.admins = []
+      @resource.banned_users = []
+      @resource.update update_params
+
       redirect_to edit_club_url(@resource), notice: 'Изменения сохранены'
     else
       edit and render :edit
@@ -113,6 +121,6 @@ private
       .require(:club)
       .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,
         :comment_policy, :logo,
-        anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], ban_ids: [])
+        anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], banned_user_ids: [])
   end
 end

@@ -39,6 +39,7 @@ gem 'metrika'
 gem 'simple_form'
 gem 'active_model_serializers'
 gem 'virtus'
+gem 'attr_extras'
 
 gem 'mobylette'
 gem 'devise'

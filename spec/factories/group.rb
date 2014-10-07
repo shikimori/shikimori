@@ -35,11 +35,18 @@ FactoryGirl.define do
     after :build do |group|
       group.stub :generate_thread
       group.stub :sync_thread
+      group.stub :join_owner
     end
 
     trait :with_thread do
       after :build do |group|
         group.unstub :generate_thread
+      end
+    end
+
+    trait :with_owner_join do
+      after :build do |group|
+        group.unstub :join_owner
       end
     end
   end

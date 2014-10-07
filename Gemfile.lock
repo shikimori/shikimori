@@ -147,6 +147,7 @@ GEM
       json
       rails (>= 3.0.10)
     arel (5.0.1.20140414130214)
+    attr_extras (3.1.0)
     attribute-defaults (0.6.0)
       activerecord (>= 3.0.0)
     awesome_print (1.2.0)
@@ -590,6 +591,7 @@ DEPENDENCIES
   acts_as_voteable!
   amatch!
   apipie-rails
+  attr_extras
   attribute-defaults
   awesome_print
   bb-ruby

@@ -16,7 +16,7 @@ class Ability
 
   def define_abilities
     alias_action :current, :read, :users, :comments, :grid, to: :read_contest
-    alias_action :read, :comments, :animes, :mangas, :members, :images, to: :read_club
+    alias_action :read, :comments, :animes, :mangas, :characters, :members, :images, to: :read_club
   end
 
   def guest_ability
@@ -32,7 +32,8 @@ class Ability
       image.uploader_id == @user.id || can?(:edit, image.owner)
     end
 
-    can [:create, :update ], Group do |group|
+    can [:new], Group
+    can [:create, :update], Group do |group|
       group.owner?(@user) || group.admin?(@user)
     end
     can :join, Group do |group|

@@ -33,6 +33,7 @@ class Group < ActiveRecord::Base
 
   has_many :invites, class_name: GroupInvite.name, dependent: :destroy
   has_many :bans, dependent: :destroy, class_name: GroupBan.name
+  has_many :banned_users, through: :bans, source: :user
 
   has_many :topics, -> { order updated_at: :desc },
     class_name: Entry.name,
@@ -49,6 +50,7 @@ class Group < ActiveRecord::Base
 
   before_save :update_permalink
   after_create :generate_thread
+  after_create :join_owner
   after_save :sync_thread
 
   has_attached_file :logo,
@@ -116,7 +118,7 @@ class Group < ActiveRecord::Base
   end
 
   def join user
-    if owner?(user)
+    if owner? user
       admins << user
     else
       members << user
@@ -124,6 +126,7 @@ class Group < ActiveRecord::Base
   end
 
   def leave user
+    1/0
     member_roles.where(user: user).destroy_all
   end
 
@@ -140,6 +143,10 @@ private
   # создание AniMangaComment для элемента сразу после создания
   def generate_thread
     create_thread! linked: self, section_id: Section::GroupsId, title: name
+  end
+
+  def join_owner
+    join owner
   end
 
   def default_image_url

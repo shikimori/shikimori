@@ -73,11 +73,11 @@
 
   - if contest.persisted?
     - if contest.created? || contest.proposing?
-      input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
-
-      .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
       .block
-        = hidden_field_tag "members[]", ''
+        input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
+        .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
+
+        = hidden_field_tag 'members[]', ''
         .variants
           - contest.members.uniq(&:id).each do |member|
             .variant

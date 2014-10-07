@@ -3,7 +3,6 @@
 class UsersController < ShikimoriController
   include MessagesHelper # для работы хелпера format_linked_name
 
-  respond_to :json, only: :autocomplete
   respond_to :json, :html, only: :index
 
   before_filter :authenticate_user!, only: [:settings, :update, :remove_provider, :ban, :do_ban]
@@ -326,7 +325,7 @@ class UsersController < ShikimoriController
 
   # автодополнение
   def autocomplete
-    @items = UsersQuery.new(params).complete
+    @collection = UsersQuery.new(params).complete
   end
 
 private

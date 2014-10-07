@@ -17,27 +17,20 @@
     $('.member-suggest').trigger 'autocomplete:success', [$(@).data('id'), $(@).data('text')]
     $('.member-suggest').trigger 'blur'
 
-  $('form .member-suggest').on 'autocomplete:success', (e, id, text, label) ->
-    return if !id || !text
+  $('form .member-suggest').on 'autocomplete:success', (e, entry) ->
+    $variants = $(@).parent().find('.variants')
+    return if $variants.find("[value=\"#{entry.id}\"]").exists()
 
-    if $(@).hasClass('member-suggest')
-      url = "/#{$(@).data('member_type')}s/"+id
-      bubbled = true
-
-    $container = $(@).next().next().children('.variants')
-    return if $container.find('[value="'+id+'"]').length
-
-    $container.append(
+    $entry = $(
       '<div class="variant">' +
-        '<input type="hidden" name="members[]" value="'+id+'" />' +
-        '<a href="'+url+'" ' +
-          (if bubbled then 'class="bubbled"' else '') +
-          '>'+text+'</a>' +
+        '<input type="hidden" name="members[]" value="'+entry.id+'" />' +
+        '<a href="'+entry.url+'" class="bubbled">'+entry.name+'</a>' +
         '<span class="b-bracket-actions"><span class="item-delete">удалить</span></span>' +
-      '</li>'
-    )
-    process_current_dom() if bubbled
-    $(@).attr value: ''
+      '</div>')
+      .appendTo($variants)
+      .process()
+
+    @value = ''
     update_members_count()
 
   # пересчёт числа аниме

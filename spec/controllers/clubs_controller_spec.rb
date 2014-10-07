@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ClubsController do
   let(:club) { create :group }
 
-  describe :index do
+  describe '#index' do
     let(:club) { create :group, :with_thread }
     let(:user) { create :user }
     let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
@@ -20,25 +20,27 @@ describe ClubsController do
     end
   end
 
-  describe :show do
+  describe '#show' do
     let(:club) { create :group, :with_thread }
     before { get :show, id: club.to_param }
     it { should respond_with :success }
   end
 
-  describe :new do
+  describe '#new' do
     include_context :authenticated
     before { get :new }
     it { should respond_with :success }
   end
 
-  describe :edit do
+  describe '#edit' do
     include_context :authenticated
-    before { get :new }
+    let(:club) { create :group, owner: user }
+    before { get :edit, id: club.to_param }
+
     it { should respond_with :success }
   end
 
-  describe :create, :focus do
+  describe '#create' do
     include_context :authenticated
 
     context 'when success' do
@@ -54,11 +56,28 @@ describe ClubsController do
     end
   end
 
-  describe :update do
-    pending
+  describe '#update' do
+    include_context :authenticated
+    let(:club) { create :group, :with_thread, owner: user }
+
+    context 'when success' do
+      before { patch :update, id: club.id, club: { name: 'newnewtest' } }
+
+      it { should redirect_to edit_club_url(assigns :resource) }
+      it { expect(resource.name).to eq 'newnewtest' }
+      it { expect(resource.errors).to be_empty }
+    end
+
+    context 'when validation errors' do
+      before { patch 'update', id: club.id, club: { name: '' } }
+
+      it { should respond_with :success }
+      it { expect(resource.errors).to_not be_empty }
+    end
   end
 
-  describe :upload do
+
+  describe '#upload' do
     include_context :authenticated
     let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
@@ -73,19 +92,19 @@ describe ClubsController do
     end
   end
 
-  describe :members do
+  describe '#members' do
     let(:club) { create :group }
     before { get :members, id: club.to_param }
     it { should respond_with :success }
   end
 
-  describe :images do
+  describe '#images' do
     let(:club) { create :group }
     before { get :images, id: club.to_param }
     it { should respond_with :success }
   end
 
-  describe :comments do
+  describe '#comments' do
     let!(:club) { create :group, :with_thread }
 
     context :without_comments do
@@ -101,7 +120,7 @@ describe ClubsController do
     end
   end
 
-  describe :animes do
+  describe '#animes' do
     context :without_animes do
       before { get :animes, id: club.to_param }
       it { should redirect_to club_url(club) }
@@ -114,7 +133,7 @@ describe ClubsController do
     end
   end
 
-  describe :mangas do
+  describe '#mangas' do
     context :without_mangas do
       before { get :mangas, id: club.to_param }
       it { should redirect_to club_url(club) }
@@ -127,7 +146,7 @@ describe ClubsController do
     end
   end
 
-  describe :characters do
+  describe '#characters' do
     context :without_characters do
       before { get :characters, id: club.to_param }
       it { should redirect_to club_url(club) }

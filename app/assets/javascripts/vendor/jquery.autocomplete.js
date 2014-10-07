@@ -237,7 +237,7 @@ $.Autocompleter = function(input, options) {
 
     $input.val(v);
     hideResultsNow();
-    $input.trigger("result", [selected.data, selected.value, selected.label]);
+    $input.trigger("result", [selected]);
     return true;
   }
 

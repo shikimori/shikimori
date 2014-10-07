@@ -66,7 +66,7 @@ class ContestsController < ShikimoriController
   end
 
   def edit
-    page_title 'Редактирование опроса'
+    page_title 'Изменение опроса'
   end
 
   def new

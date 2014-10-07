@@ -77,10 +77,6 @@ class GroupDecorator < DbEntryDecorator
     h.user_signed_in? || comments.any?
   end
 
-  def banned
-    bans.includes(:user).map(&:user)
-  end
-
   def new_invite
     invites.new(src: h.current_user)
   end

@@ -25,24 +25,15 @@ describe GroupRole do
   end
 
   context :invites do
-    let(:group) { create :group }
+    let(:group) { create :group, owner: user2 }
     let(:user) { create :user }
     let(:user2) { create :user }
 
-    it 'accepts pending invite after own create' do
-      invite = create :group_invite, src_id: user2.id, dst_id: user.id, group_id: group.id
-      invite.status.should == GroupInviteStatus::Pending
-      create :group_role, group_id: group.id, user_id: user.id
-      GroupInvite.last.status.should eq GroupInviteStatus::Accepted
-    end
+    let!(:invite) { create :group_invite, src: user2, dst: user, group: group }
+    let!(:group_role) { create :group_role, group_id: group.id, user_id: user.id }
 
-    it 'destroys invite after own create' do
-      invite = create :group_invite, src_id: user2.id, dst_id: user.id, group_id: group.id
-      group_role = create :group_role, group_id: group.id, user_id: user.id
-      expect {
-        group_role.destroy
-      }.to change(GroupInvite, :count).by -1
-    end
+    it { expect(invite.reload.status).to eq GroupInviteStatus::Accepted }
+    it { expect{group_role.destroy}.to change(GroupInvite, :count).by -1 }
   end
 
   #it 'subscribes user to group thread' do

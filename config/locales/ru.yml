@@ -117,7 +117,7 @@ ru:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'
           not_a_club_member: Вступите в клуб, чтобы оставлять комментарии
-          in_club_black_list: Вы занесены в чёрный список клуба
+          in_club_black_list: Вас внесли в чёрный список клуба. Комментирование невозможно
         group_invite:
           attributes:
             base:

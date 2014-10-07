@@ -222,12 +222,13 @@ Site::Application.routes.draw do
 
       collection do
         get '/page/:page', action: :index, as: :page
-        get 'autocomplete/:search' => :autocomplete, as: :autocomplete_members, format: :json, search: /.*/
       end
 
       #get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
       #get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
-      resources :group_roles, only: [:create, :destroy]
+      resources :group_roles, only: [:create, :destroy] do
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+      end
       resources :group_invites, only: [:create] do
         member do
           post :accept
