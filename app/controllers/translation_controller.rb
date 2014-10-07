@@ -48,6 +48,16 @@ class TranslationController < GroupsController
                      where(censored: false).
                      order(:ranked).
                      limit(15)]
+    @goals << ['Зима 2015',
+               Anime.where(AniMangaSeason.query_for('winter_2015')).
+                     where.not(id: goals_ids).
+                     where('score > 0 or ranked > 0').
+                     #where('duration is null or duration = 0 or duration > 20').
+                     where.not(id: @translate_ignore).
+                     translatable.
+                     where(censored: false).
+                     order(:ranked)
+                     ]
     @goals << ['Осень 2014',
                Anime.where(AniMangaSeason.query_for('fall_2014')).
                      where.not(id: goals_ids).
