@@ -139,7 +139,7 @@ describe AnimeVideo do
 
       its(:is_raw) { should eq true }
       its(:is_subtitles) { should be_nil }
-      its(:is_fundub) { should be_nil }
+      its(:is_fandub) { should be_nil }
       it { expect(EpisodeNotification.all).to have(1).items }
     end
 
@@ -156,7 +156,7 @@ describe AnimeVideo do
 
       its(:is_raw) { should eq true }
       its(:is_subtitles) { should eq true }
-      its(:is_fundub) { should be_nil }
+      its(:is_fandub) { should be_nil }
       it { expect(EpisodeNotification.all).to have(1).items }
     end
 

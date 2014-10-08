@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004161759) do
+ActiveRecord::Schema.define(version: 20141008184231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -439,7 +439,7 @@ ActiveRecord::Schema.define(version: 20141004161759) do
     t.integer  "episode"
     t.boolean  "is_raw"
     t.boolean  "is_subtitles"
-    t.boolean  "is_fundub"
+    t.boolean  "is_fandub"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -782,7 +782,6 @@ ActiveRecord::Schema.define(version: 20141004161759) do
     t.string   "name"
     t.string   "description"
     t.string   "permalink"
-    t.integer  "forum_id"
     t.integer  "topics_count",     default: 0
     t.integer  "posts_count",      default: 0
     t.datetime "created_at"
