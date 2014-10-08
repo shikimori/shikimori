@@ -9,7 +9,7 @@ shared_path = "#{app_root}/shared"
 
 # Set unicorn options
 worker_processes 13
-timeout 30 # 180
+timeout 90 # 180
 listen "#{shared_path}/tmp/sockets/unicorn.socket", backlog: 64
 #listen "127.0.0.1:9000"
 
