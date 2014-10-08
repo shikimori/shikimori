@@ -44,7 +44,7 @@
 
         $container.addClass('packery')
         $container.packery
-          columnWidth: '.b-image'
+          columnWidth: '.grid_sizer'
           containerStyle: null
           gutter: 0
           isAnimated: false
