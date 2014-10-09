@@ -17,7 +17,7 @@ article.c-column.b-catalog_entry.c-character[
         img src="#{character.image.url :original}" alt="#{localized_name character}" title="#{localized_name character}"
 
     - if cover_by == :link
-      span.title itemprop="name"
+      span.title.two_lined itemprop="name"
         = localized_name character
 
   - unless content_by == :tooltip || content_by == :none

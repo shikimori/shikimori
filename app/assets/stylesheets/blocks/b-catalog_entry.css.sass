@@ -2,6 +2,7 @@
 @import globals
 @import mixins/column
 @import mixins/link
+@import mixins/two_line_ellipsis
 
 $max_minified_width: 162px
 $max_width: 167px
@@ -59,6 +60,9 @@ $max_width: 167px
       font-weight: bold
       line-height: $line_height
       max-width: $max_width
+
+      &.two_lined
+        +two_line_ellipsis
 
     &:hover .title
       text-decoration: underline
