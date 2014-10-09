@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Group do
-  context :relations do
+  describe :relations do
     it { should have_many :member_roles }
     it { should have_many :members }
 
@@ -208,8 +208,9 @@ describe Group do
 
     context :club_member do
       let(:group_role) { build_stubbed :group_role, user: user }
-      let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy, upload_policy: upload_policy }
+      let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy, upload_policy: upload_policy, display_images: display_images }
       let(:upload_policy) { GroupUploadPolicy::ByMembers }
+      let(:display_images) { true }
       it { should be_able_to :leave, club }
 
       describe :upload do
@@ -220,7 +221,15 @@ describe Group do
 
         context :by_members do
           let(:upload_policy) { GroupUploadPolicy::ByMembers }
-          it { should be_able_to :upload, club }
+
+          context 'display_images' do
+            it { should be_able_to :upload, club }
+          end
+
+          context 'do not display_images' do
+          let(:display_images) { false }
+            it { should_not be_able_to :upload, club }
+          end
         end
       end
 

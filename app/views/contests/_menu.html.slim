@@ -1,3 +1,11 @@
+- if user_signed_in?
+  .block.actions.r-iphone
+    .subheadline Действия
+    ul.block-list
+      - if can?(:edit, contest) && contest.persisted?
+        li.edit-entry
+          a href="#{edit_club_url contest}" Изменить опрос
+
 .block
   .subheadline.m5 Статус турнира
   p = contest.status

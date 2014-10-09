@@ -2,36 +2,35 @@
   - if @resource.errors.any?
     .b-errors
       .subheadline Ошибки
-      .subcontent
-        == @resource.errors.full_messages.join('<br>')
+      == @resource.errors.full_messages.join('<br>')
 
   = f.input :owner_id, as: :hidden
 
   /.item-save = @resource.persisted? ? 'Сохранить' : 'Создать'
-  .subheadline Настройки
-  .subcontent
+  .block
+    .subheadline Настройки
     = f.input :name
-
-    /.field-name.textarea Описание
-    /.m0
-      /= render partial: 'comments/add', locals: { options: { text: @resource ? @resource.description : '', field_name: 'group[description]', no_save: true, no_subscribe: true, no_form: true, no_focus: true } }, formats: :html
 
     = f.input :join_policy, collection: GroupDecorator.join_policy_options, include_blank: false
     = f.input :comment_policy, collection: GroupDecorator.comment_policy_options, include_blank: false
+    = f.input :display_images
 
-  .subheadline
-    span.linkeable data-href="#{images_club_url @resource}" Картинки
-  .subcontent
-    = f.input :display_images, label: 'Отображать'
+  /.block
+    /.subheadline: a href="#{images_club_url @resource}" Картинки
 
-  .subheadline.m10 Логотип
-  .subcontent
+  .block
+    .subheadline Описание
+    .b-shiki_editor.unprocessed
+      = render 'comments/shiki_editor', text: @resource.description, field_name: 'club[description]'
+
+  .block
+    .subheadline.m10 Логотип
     - if @resource.logo.exists?
       img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
     = f.input :logo, label: false
 
   - if @resource.persisted?
-    .cc-2a
+    .block.cc-2a
       .c-column
         input.anime-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Название аниме" data-variant_name="club[anime_ids][]" data-autocomplete="#{autocomplete_animes_url search: ''}"
         .subheadline Аниме

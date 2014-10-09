@@ -126,7 +126,6 @@ class Group < ActiveRecord::Base
   end
 
   def leave user
-    1/0
     member_roles.where(user: user).destroy_all
   end
 

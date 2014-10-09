@@ -178,11 +178,12 @@ class @ShikiEditor extends ShikiView
 
     # предпросмотр
     @$('footer .preview').on 'click', =>
-      $.cursorMessage()
-
       # подстановка данных о текущем элементе, если они есть
       #$form = $root.find('form')
-      #item_data = if $form.length
+      item_data = if @$form.exists()
+        @$form.serializeHash().comment
+      else
+        body: @$textarea.val()
         ##item_id = $form.find('#change_item_id').val()
         ##model = $form.find('#change_model').val()
 
@@ -198,13 +199,11 @@ class @ShikiEditor extends ShikiView
         type: 'POST'
         url: $('footer .preview', @$root).data('preview_url')
         data:
-          comment: @$form.serializeHash().comment
+          comment: item_data
         success: (html) =>
-          $.hideCursorMessage()
           @_show_preview html
 
         error: ->
-          $.hideCursorMessage()
 
     # отзыв и оффтопик
     #@$('.item-offtopic, .item-review').click (e, data) =>

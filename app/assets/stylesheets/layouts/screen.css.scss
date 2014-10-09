@@ -144,9 +144,10 @@ h3 {
     a, span {
       @include ellipsis;
     }
-  }
-  a {
-    color: #555555;
+    a {
+      color: #555555;
+      display: block;
+    }
   }
 }
 .block-list-alt {

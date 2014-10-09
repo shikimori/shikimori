@@ -1,16 +1,16 @@
 - content_for :head do
-  = stylesheet_link_tag :forum
   = stylesheet_link_tag :test
 
 - content_for :tail do
+  = javascript_include_tag 'highcharts.v3.0.5.min'
   = javascript_include_tag :test
 
 header.head
   h1 Тестовая страница
   p.description Здесь просто тест всякого разного
 
-.subheadline.m10 spoiler
-.subcontent
+.block
+  .subheadline.m10 spoiler
   == BbCodeFormatter.instance.spoiler_to_html "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
 
 .subheadline.m10 content_by block
@@ -26,16 +26,18 @@ header.head
   = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
 
 .subheadline.m10 tooltipped shortened
-.subcontent.cc.m0.animes-5
+.cc.m0.animes-5
   = render partial: 'animes/anime', collection: Anime.where(id: [245, 11741, 4282, 10408, 16894]).decorate, locals: { cover_notice: :studio, content_by: :tooltip, shortened: true }
 
-.subheadline @font-face: shikimori
-.subcontent.fonts-test
-  - 70.times do |i|
-    div class="icon-#{i}"
+.block
+  .subheadline @font-face: shikimori
+  .fonts-test
+    - 70.times do |i|
+      div class="icon-#{i}"
 
-.subheadline График
-.subcontent.traffic-test data-stats="#{@traffic.to_json}"
+.block
+  .subheadline График
+  .traffic-test data-stats="#{@traffic.to_json}"
 
 /*.half-chart*/
   /*.b-options-floated*/

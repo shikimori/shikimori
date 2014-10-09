@@ -1,7 +1,11 @@
 - if user_signed_in?
-  .actions
+  .block.actions
     .subheadline Действия
     ul.block-list
+      - if can?(:edit, club) && club.persisted?
+        li.r-iphone.edit-entry
+          a href="#{edit_club_url club}" Изменить клуб
+
       - if can? :upload, club
         li.upload title="Так же картинки загружать можно перетаскивая файлы на страницу клуба"
           = form_tag upload_club_url(club), method: :post, multipart: true do
@@ -19,7 +23,7 @@
         li.leave-group.leave
           a href="#{club_group_role_path club, club.member_role(current_user)}" data-method="delete" Уйти из клуба
 
-  .invite
+  .block.invite
     .subheadline Приглашение
     / TODO: после переименования group в club, заменить код на: simple_form_for [club, club.new_invite] do |f|
     = simple_form_for club.new_invite, url: club_group_invites_path(club), remote: true, authenticity_token: true, html: { 'data-type' => :json } do |f|

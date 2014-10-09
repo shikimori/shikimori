@@ -81,7 +81,8 @@
     @include menu_icon('\e819');
   }
   .edit-entry {
-    @include menu_icon('\e822');
+    @include menu_icon('\e822'); // TODO: удалить из шрифта
+    @include menu_icon('\e814');
   }
   /* группы */
   .upload {

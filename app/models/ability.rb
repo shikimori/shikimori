@@ -56,7 +56,7 @@ class Ability
         group.owner?(@user) || group.admin?(@user)
 
       elsif group.upload_policy == GroupUploadPolicy::ByMembers
-        group.joined? @user
+        group.joined?(@user) && group.display_images
 
       else
         raise ArgumentError, group.upload_policy

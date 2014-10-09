@@ -1,12 +1,12 @@
-- if user_signed_in? && current_user.ignores?(comment.user)
+- if user_signed_in? && comment.persisted? && current_user.ignores?(comment.user)
   = render partial: 'blocks/ignored', object: comment
 - else
   .b-comment.unprocessed[
       id="#{comment.id}"
       itemprop="comment" itemscope="itemscope"
       itemtype="http://schema.org/UserComments"
-      data-user_id="#{comment.user.id}"
-      data-user_nickname="#{comment.user.nickname}"
+      data-user_id="#{comment.user.try :id}"
+      data-user_nickname="#{comment.user.try :nickname}"
     ]
     a name="comment-#{comment.id}"
     / класс нужен из-за проверки высоты
@@ -37,15 +37,17 @@
             aside.moderation-ban
           = render partial: 'comments/buttons', locals: { comment: comment }
 
-      header
-        span.linkeable data-href="#{comment.topic_url || user_url(comment.user)}"
-          img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
-        .name-date
-          a href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator"
-            == comment.topic_name || h(comment.user.nickname)
-          - if comment.persisted?
-            time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
-              = time_ago_in_words comment.created_at, "%s назад"
+      / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
+      - if comment.user
+        header
+          span.linkeable data-href="#{comment.topic_url || user_url(comment.user)}"
+            img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
+          .name-date
+            a href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator"
+              == comment.topic_name || h(comment.user.nickname)
+            - if comment.persisted?
+              time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
+                = time_ago_in_words comment.created_at, "%s назад"
 
       .body itemprop="commentText"
         = comment.html_body

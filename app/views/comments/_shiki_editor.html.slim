@@ -103,20 +103,24 @@ aside.buttons
       /= hidden_field_tag 'comment[offtopic]', options[:offtopic] ? '1' : '0'
       /= hidden_field_tag 'comment[review]', options[:review] ? '1' : '0'
     - else
-      = text_area_tag options[:field_name], options[:text], class: "comment_body editor-area", placeholder: 'Текст комментария...', tabindex: options[:tabindex] || 0, 'data-upload_url' => user_images_url(linked_type: nil)
+      = text_area_tag field_name, text, class: "comment_body editor-area", placeholder: 'Текст комментария...', tabindex: 0, 'data-upload_url' => user_images_url(linked_type: nil)
   .preview
 
 footer
   .help помощь по бб-кодам
 
-  - if comment.persisted?
-    = f.submit 'Сохранить'
-    .button.preview data-preview_url="#{preview_comments_url}" Предпросмотр
-    .unpreview Вернуться к редактированию
-    .cancel Отмена
+  - if defined?(f)
+    - if comment.persisted?
+      = f.submit 'Сохранить'
+      .button.preview data-preview_url="#{preview_comments_url}" Предпросмотр
+      .unpreview.link Вернуться к редактированию
+      .cancel Отмена
 
+    - else
+      = f.submit 'Написать'
+      .unpreview.link Вернуться к редактированию
+      .button.preview data-preview_url="#{preview_comments_url}" Предпросмотр
+      .hide Скрыть
   - else
-    = f.submit 'Написать'
-    .unpreview Вернуться к редактированию
     .button.preview data-preview_url="#{preview_comments_url}" Предпросмотр
-    .hide Скрыть
+    .button.unpreview Вернуться к редактированию

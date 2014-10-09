@@ -1,7 +1,7 @@
 .menu-toggler
   .toggler
 
-header.head.misc
+header.head
   h1
     - if params[:action] != 'show' && @resource && @resource.persisted?
       a.back href="#{club_url @resource}" title="Назад на страницу клуба"
@@ -11,7 +11,7 @@ header.head.misc
       | Новый клуб
 
   - if can?(:edit, @resource) && @resource.persisted?
-    a.misc href="#{edit_club_url @resource}" title="Изменить клуб" изменить
+    a.edit href="#{edit_club_url @resource}" title="Изменить клуб" изменить
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

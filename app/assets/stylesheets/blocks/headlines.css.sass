@@ -8,6 +8,7 @@ header.head
 
   h1, h2
     +new-header-font
+    display: inline-block
 
     a.back
       +link_color
@@ -33,30 +34,26 @@ header.head
       &:hover:after
         border-bottom: 1px solid $link_hover
 
+  .misc, a.edit
+    color: $gray-color
+    display: inline-block
+    font-family: $font-family
+    font-size: 11px
+    line-height: 12px
+    padding: 17px 0 0 10px
+
+  a.misc, a.edit
+    +link
+
+  +iphone
+    a.edit
+      display: none
+
   .notice
     line-height: 17px
     color: #333
     margin: 2px 0 2px 1px
     clear: left
-
-  a.link
-
-  &.misc
-    h1, h2
-      float: left
-      margin-bottom: 2px
-
-    .misc
-      color: $gray-color
-      font-family: $font-family
-      display: inline-block
-      font-size: 11px
-      line-height: 12px
-      padding: 17px 0 0 10px
-
-    a.misc
-      +normal-link
-      //text-decoration: underline
 
 .headline
   +transition(color, 0.2s)
@@ -149,7 +146,6 @@ header.head
       position: initial
       width: 100% !important
 
-
-.subcontent
+//.subcontent
   padding-left: 5px
   margin-bottom: 30px

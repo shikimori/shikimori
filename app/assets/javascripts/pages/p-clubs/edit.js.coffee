@@ -1,5 +1,6 @@
 @on 'page:load', 'clubs_edit', ->
   suggests_selector = '.anime-suggest,.manga-suggest,.character-suggest,.moderator-suggest,.admin-suggest,.kick-suggest,.ban-suggest'
+  $('.b-shiki_editor').shiki_editor()
 
   $(suggests_selector)
     .completable()

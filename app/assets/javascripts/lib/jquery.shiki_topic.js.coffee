@@ -34,7 +34,6 @@ class @ShikiTopic extends ShikiView
         $comment_body = $(@).find('textarea')
         if $comment_body.val().replace(/\n| |\r|\t/g, '') == ''
           $.alert 'Текст комментария не может быть пустым'
-          $.hideCursorMessage()
           false
 
       .on 'ajax:success', (e, response) =>
