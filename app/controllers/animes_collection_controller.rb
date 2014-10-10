@@ -71,18 +71,21 @@ private
     end
     [:genre, :studio, :publisher].each do |kind|
       if params[kind]
-        param_data = params[kind].split(',').map { |v| v.sub(/^!/, '').to_i }
-        @entry_data[kind] = all_data[kind].select { |v| param_data.include?(v.id) }
+        all_param_ids = params[kind].split(',').map { |v| v.sub(/^!/, '').to_i }
+        included_param_ids = params[kind].split(',').map(&:to_i).select {|v| v > 0 }
+
+        all_entry_data = all_data[kind].select { |v| all_param_ids.include?(v.id) }
+        @entry_data[kind] = all_data[kind].select { |v| included_param_ids.include?(v.id) }
 
         filter_klass = kind.to_s.capitalize.constantize
-        param_data.each do |id|
+        all_param_ids.each do |id|
           if filter_klass::Merged.include? id
             raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)))
           end
         end
 
-        next unless param_data.size == 1 && params[kind].sub(/^!/, '') != @entry_data[kind].first.to_param
-        raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => @entry_data[kind].first.to_param))
+        next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_entry_data[kind].first.to_param
+        raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => all_entry_data[kind].first.to_param))
       end
     end
     build_page_title @entry_data
