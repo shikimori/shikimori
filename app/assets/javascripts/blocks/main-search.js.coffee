@@ -6,8 +6,7 @@ $(document).on 'page:load', ->
 
   # из урла достаём текущий тип поиска
   type = location.pathname.replace(/^\//, "").replace(/\/.*/, "")
-  #type = type.replace /s$/, '' unless searcheables[type]
-  type = _.first(_.keys(searcheables)) unless searcheables[type]
+  type = $('.main-search .type').first().data('type') unless searcheables[type]
 
   # из урла достаём текущее значение поиска
   #var value = decodeURIComponent(location.pathname.replace(searcheables[type].regexp, '$1'));
