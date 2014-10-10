@@ -26,6 +26,9 @@ $(root).live('ajax:success cache:success', function(e) {
   }
 });
 
+if (!('I18N' in window)) {
+  window.I18N = {};
+}
 I18N.text = "Текст обзора";
 I18N.storyline = "Сюжет";
 I18N.animation = "Рисовка";
