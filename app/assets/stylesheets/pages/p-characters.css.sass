@@ -18,12 +18,17 @@
 
   .c-anime, .c-manga
     +gte_ipad
-      +column_b(7)
+      +column_bm(7)
     +iphone-portrait
-      +column_b(3)
+      +column_bm(3)
       &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
         display: none
     +iphone-landscape
-      +column_b(5)
+      +column_bm(5)
       &:nth-child(6), &:nth-child(7)
         display: none
+
+  .text
+    &.shortened
+      height: 142px
+      overflow: hidden

@@ -1,23 +1,12 @@
-#@TOOLTIP_TEMPLATE = '<div><div class="tooltip-inner"><div class="tooltip-arrow"></div><div class="clearfix"><div class="close"></div><a class="link"></a><div class="tooltip-details"><div class="ajax-loading" title="Загрузка..." /></div></div><div class="dropshadow-top"></div><div class="dropshadow-top-right"></div><div class="dropshadow-right"></div><div class="dropshadow-bottom-right"></div><div class="dropshadow-bottom"></div><div class="dropshadow-bottom-left"></div><div class="dropshadow-left"></div><div class="dropshadow-top-left"></div></div></div>'
 @TOOLTIP_TEMPLATE = '<div><div class="tooltip-inner"><div class="tooltip-arrow"></div><div class="clearfix"><div class="close"></div><div class="tooltip-details"><div class="ajax-loading" title="Загрузка..." /></div></div><div class="dropshadow-top"></div><div class="dropshadow-top-right"></div><div class="dropshadow-right"></div><div class="dropshadow-bottom-right"></div><div class="dropshadow-bottom"></div><div class="dropshadow-bottom-left"></div><div class="dropshadow-left"></div><div class="dropshadow-top-left"></div></div></div>'
-@ANIME_TOOLTIP_OPTIONS =
-  defaultTemplate: TOOLTIP_TEMPLATE
-  delay: 150
-  offset: [-4, 10, -10]
-  position: 'top right'
-  predelay: 350
 
-$.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
-  #@getTip()
-    #.css(opacity: 0)
-    #.show()
-    #.animate(opacity: 1, top: '-=14', 500, 'easeOutCirc', done)
-    #.show()
+$.tools.tooltip.addEffect 'opacity', (done) ->
   @getTip()
     .css(opacity: 1)
     .show()
     .animate(top: '-=14', 500, 'easeOutCirc', done)
-), (done) -> # closing animation
+
+, (done) ->
   @getTip().animate opacity: 0, top: '+=14', 250, 'easeInCirc', ->
     $(@).hide()
     done.call()
@@ -50,3 +39,8 @@ $.tools.tooltip.addEffect 'opacity', ((done) -> # opening animation
       if $trigger.tagName() is 'img' or $trigger.find('img').length
         $trigger.stop()
         $trigger.animate opacity: 1, 100
+
+@ANIME_TOOLTIP_OPTIONS = $.extend {}, @tooltip_options,
+  offset: [-4, 10, -10]
+  position: 'top right'
+  predelay: 350

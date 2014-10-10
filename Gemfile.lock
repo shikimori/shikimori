@@ -61,10 +61,10 @@ GIT
 
 GIT
   remote: git://github.com/morr/turbolinks.git
-  revision: 08732b89e4582f96d77b58919c7d65215ef3f01b
+  revision: 412b5092517b41d534c8c2cd268d6118c1afb835
   branch: master
   specs:
-    turbolinks (2.2.2)
+    turbolinks (2.4.0)
       coffee-rails
 
 GIT
@@ -204,7 +204,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.7.1)
+    coffee-script-source (1.8.0)
     colorize (0.7.3)
     columnize (0.8.9)
     compass (0.12.6)
@@ -354,7 +354,7 @@ GEM
       yajl-ruby
     mime-types (1.25.1)
     mini_portile (0.5.3)
-    minitest (5.4.0)
+    minitest (5.4.2)
     mock_redis (0.13.2)
     mobylette (3.5)
       actionpack (>= 3.0)

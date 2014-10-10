@@ -14,18 +14,15 @@ $text_margin: 0px
     width: 100%
 
   &:hover
-    .text
+    .expand
       +opacity(1)
-      //text-decoration: underline
       &:after
         content: '↓'
 
-  .text
+  .expand
     +link_color
     +opacity(0.4)
     +transition(none)
-    //border-top: 1px dashed $link
-    //border-top: 1px dashed rgba(23, 96, 147, 0.4)
     cursor: pointer
     font-size: 11px
     line-height: 1

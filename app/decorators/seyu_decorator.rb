@@ -62,7 +62,7 @@ class SeyuDecorator < PersonDecorator
 
     # для каждой группы оставляем только 6 в сумме аниме+персонажей
     @characters.each do |group|
-      group[:characters] = group[:characters].take(5) if group[:characters].size > 5
+      group[:characters] = group[:characters].take(3) if group[:characters].size > 3
       animes_limit = WORK_GROUP_SIZE - group[:characters].size
       group[:animes] = group[:animes]
         .map {|k,v| v } #.sort_by {|v| -1 * v.score }

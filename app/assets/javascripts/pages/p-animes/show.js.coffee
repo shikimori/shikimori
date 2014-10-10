@@ -3,6 +3,9 @@
   $('.status-date.notice').tipsy gravity: 's'
   $('.b-screenshot').fancybox $.galleryOptions
 
+  # сокращение высоты описания
+  $('.text').check_height(200)
+
   # клик по загрузке других названий
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->
     $(@).closest('.line').replaceWith data

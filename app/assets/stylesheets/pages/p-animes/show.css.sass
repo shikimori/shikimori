@@ -122,6 +122,11 @@
       &:nth-child(6), &:nth-child(7)
         display: none
 
+  .text
+    &.shortened
+      height: 142px
+      overflow: hidden
+
   .other-names.click-loader
     +plashka
     height: 15px
@@ -134,12 +139,6 @@
 
     .vk-like
       min-height: 14px
-    //span
-      //margin-top: -4px
-      //margin-left: -3px
-      //position: absolute
-    //img
-      //margin: 0 -10px 2px -2px
 
   .watch-online
     +ellipsis
@@ -173,21 +172,9 @@
       &:first-child
         margin-left: 0
 
-  .being-translated
-    margin-top: 2px
-
   .resources-loader.postloaded
     +plashka
     +block
-
-  .related-shower
-    +plashka
-    border: 1px solid #F2F2F2
-    clear: left
-    margin: -5px 0 $block_offset 0
-
-  .related-hidden
-    display: none
 
   .studio-logo
     max-width: 195px

@@ -1,4 +1,7 @@
 @on 'page:load', '.characters', ->
+  # сокращение высоты описания
+  $('.text').check_height(200)
+
   # нажатие кнопки Комментировать в меню
   $('.l-menu .comment').on 'click', ->
     $editor = $('.b-topic .editor-container .b-shiki_editor')
