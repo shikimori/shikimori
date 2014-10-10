@@ -400,7 +400,7 @@ private
       "Maybe try looking on [url]http://google.com[/url]",
       :link2],
     'Link (Automatic)' => [
-      /(\s|^|>)((https?:\/\/(?:www\.)?)([^\s<]+))/mi,
+      /(\s|^|>)((https?:\/\/(?:www\.)?)([^\s<\[\]]+))/mi,
       '\1<a href="\2">\4</a>',
       'Hyperlink (automatic)',
       'Maybe try looking on http://www.google.com',
