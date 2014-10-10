@@ -84,8 +84,10 @@ $with = (selector, $root) ->
     $this = $(@)
     return unless $this.is(':visible')
     $this.load $this.data('href'), ->
-      $this.removeClass('postloaded')
-      process_current_dom $this
+      $this
+        .removeClass('postloaded')
+        .process()
+        .trigger('postloaded:success')
 
     $this.attr 'data-href', null
 

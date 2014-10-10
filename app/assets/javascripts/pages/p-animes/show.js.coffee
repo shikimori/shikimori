@@ -1,7 +1,11 @@
 @on 'page:load', 'animes_show', 'mangas_show', ->
   $('.rating.notice').tipsy gravity: 's'
   $('.status-date.notice').tipsy gravity: 's'
-  $('.b-screenshot').fancybox $.galleryOptions
+  $('.c-screenshot').fancybox $.galleryOptions
+
+  # автоподгрузка блока с расширенной инфой об аниме для гостей
+  $('.l-content').on 'postloaded:success', '.resources-loader', ->
+    $('.c-screenshot').fancybox $.galleryOptions
 
   # сокращение высоты описания
   $('.text').check_height(200)
