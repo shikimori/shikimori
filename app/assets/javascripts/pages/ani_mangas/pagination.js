@@ -19,7 +19,7 @@ function page_change(rollback) {
   var value = $input.attr('value');
   if (rollback != true && value == parseInt(value) && value != arguments.callee.prior_value && parseInt(value) <= arguments.callee.total_value) {
     var $link = $('.link-next:not(.disabled),.link-prev:not(.disabled)');
-    $link.attr('href', $link.attr('href').replace(/\/\d+/, '/'+value));
+    $link.attr('href', $link.attr('href').replace(/\/\d+$/, '/'+value));
     $link.first().trigger('click');
     $input.parent().html($input.attr('value'));
   } else {
