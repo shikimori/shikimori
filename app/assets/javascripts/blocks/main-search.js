@@ -7,7 +7,7 @@ $(function() {
   // из урла достаём текущий тип поиска
   var type = location.pathname.replace(/^\//, '').replace(/\/.*/, '');
   if (!searcheables[type]) {
-    type = _.first(_.keys(searcheables));
+    type = $('.main-search .type').first().data('type')
   }
 
   // из урла достаём текущее значение поиска
