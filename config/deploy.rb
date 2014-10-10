@@ -27,6 +27,8 @@ set :linked_dirs, %w{
   tmp/sockets
   tmp/sessions
 
+  public/assets
+
   public/images/anime
   public/images/anime_fixed
   public/images/attached_image
