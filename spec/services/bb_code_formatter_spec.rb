@@ -269,5 +269,27 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       let(:text) { 'http://images.webpark.ru' }
       it { should eq 'malware.domain' }
     end
+
+    describe '[quote]' do
+      context 'simple' do
+        let(:text) { '[quote]test[/quote]zz' }
+        it { should eq '<blockquote>test</blockquote>zz' }
+      end
+
+      context 'simple with \\n' do
+        let(:text) { '[quote]test[/quote]\nzz' }
+        it { should eq '<blockquote>test</blockquote>\nzz' }
+      end
+
+      context 'link inside with space' do
+        let(:text) { '[quote] http://test.ru/ [/quote]\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a> </blockquote>\ntest' }
+      end
+
+      context 'link inside w/o space' do
+        let(:text) { '[quote] http://test.ru/[/quote]\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a></blockquote>\ntest' }
+      end
+    end
   end
 end
