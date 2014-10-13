@@ -1,4 +1,4 @@
-#= require social/addthis_widget
+# require social/addthis_widget
 
 @on 'page:restore', 'animes_collection_index', 'recommendations_index', ->
   # восстановление плюсика у фильтра в актуальное состояние

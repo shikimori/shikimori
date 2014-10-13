@@ -6,7 +6,8 @@ class Studio < ActiveRecord::Base
     425 => 48,
     436 => 48,
     805 => 48,
-    141 => 18
+    141 => 18,
+    94 => 73
   }
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }

@@ -84,8 +84,8 @@ private
           end
         end
 
-        next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_entry_data[kind].first.to_param
-        raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => all_entry_data[kind].first.to_param))
+        next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_entry_data.first.to_param
+        raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => all_entry_data.first.to_param))
       end
     end
     build_page_title @entry_data

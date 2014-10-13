@@ -6,7 +6,7 @@
         $content = $label.next()
 
         $label.on 'click', (e) ->
-          return if e.target != $label[0]
+          return if e.target != $label[0] && !$(@).closest($label).exists()
           $label.hide()
           $content.css(display: 'inline')
 

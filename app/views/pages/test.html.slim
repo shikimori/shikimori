@@ -11,7 +11,8 @@ header.head
 
 .block
   .subheadline.m10 spoiler
-  == BbCodeFormatter.instance.spoiler_to_html "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
+  div == BbCodeFormatter.instance.format_comment "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
+  div == BbCodeFormatter.instance.format_comment "[spoiler=[b]Темы прошлых опросов[/b]]содержимое[/spoiler]"
 
 .subheadline.m10 content_by block
 .subcontent.cc.m0.animes-2

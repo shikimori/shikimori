@@ -1,6 +1,7 @@
-@import compass/css3/transition
 @import compass/css3/border-radius
 @import compass/css3/opacity
+@import compass/css3/transition
+@import compass/utilities/general/clearfix
 @import mixins/icons
 @import mixins/link
 @import mixins/responsive
@@ -138,16 +139,17 @@
 
   footer
     margin-top: 10px
-    white-space: nowrap
 
     input[type=submit], .unpreview, .preview
       margin-right: 20px
+      +iphone_portrait
+        margin-bottom: 10px
 
     .unpreview.link, .cancel, .hide
       +link
       font-size: 13px
 
-    .help
+    .about-bb_codes
       +link_js
       float: right
       margin-top: 6px

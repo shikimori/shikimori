@@ -172,9 +172,19 @@
       &:first-child
         margin-left: 0
 
+  // блок загрузки ресурсов аниме
   .resources-loader.postloaded
     +plashka
     +block
+
+  // блок "показать остальное"
+  .related-shower
+    +plashka
+    border: 1px solid #F2F2F2
+    clear: left
+    margin: -5px 0 $block_offset 0
+  .related-hidden
+    display: none
 
   .studio-logo
     max-width: 195px
