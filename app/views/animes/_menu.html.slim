@@ -1,6 +1,7 @@
 - unless @itemtype
   .block.logo
-    center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+    center: a href="#{@resource.url}" title="#{{@resource.name}}"
+      img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
 - if user_signed_in?
   .menu-block.actions
