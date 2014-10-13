@@ -1,3 +1,7 @@
+- unless @itemtype
+  .block.logo
+    center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+
 - if user_signed_in?
   .menu-block.actions
     .subheadline Дополнительно

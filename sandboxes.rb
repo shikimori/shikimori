@@ -234,3 +234,12 @@ Message.wo_antispam do
     #Sendgrid.delay.private_message_email(message)
   end
 end
+
+###########################
+# очистка базы от людей/персонажей, оставшихся без аниме и манги
+###########################
+print '['; Person.includes(:person_roles).all.sort_by(&:id).each {|v| print "#{v.id}," if v.person_roles.none? }; puts ']';
+People.where(id: ...).each(&:destroy)
+
+print '['; Character.includes(:person_roles).all.sort_by(&:id).each {|v| print "#{v.id}," if v.person_roles.none? }; puts ']';
+Character.where(id: ...).each(&:destroy)
