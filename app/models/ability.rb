@@ -15,13 +15,15 @@ class Ability
   end
 
   def define_abilities
-    alias_action :current, :read, :users, :comments, :grid, to: :read_contest
-    alias_action :read, :comments, :animes, :mangas, :characters, :members, :images, to: :read_club
+    alias_action :read, to: :see_profile
+    alias_action :current, :read, :users, :comments, :grid, to: :see_contest
+    alias_action :read, :comments, :animes, :mangas, :characters, :members, :images, to: :see_club
   end
 
   def guest_ability
-    can :read_contest, Contest
-    can :read_club, Group
+    can :see_profile, User
+    can :see_contest, Contest
+    can :see_club, Group
   end
 
   def user_ability

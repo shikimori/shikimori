@@ -1,4 +1,8 @@
-ignore([%r{^bin/*}, %r{^db/*}, %r{^log/*}, %r{^public/*}, %r{^tmp/*}])
+ignore [%r{^bin/*}, %r{^db/*}, %r{^log/*}, %r{^public/*}, %r{^tmp/*}]
+
+guard :bundler do
+  watch('Gemfile')
+end
 
 guard :rspec, cmd: 'rspec --color --format nested --drb', all_after_pass: false, all_on_start: false, failed_mode: :focus do
   watch(%r{^spec/.+_spec\.rb$})
@@ -41,9 +45,9 @@ guard :spork, wait: 60, cucumber_env: { 'RAILS_ENV' => 'test' }, rspec_env: { 'R
   watch(%r{features/support/}) { :cucumber }
 end
 
-guard :livereload do
-  watch(%r{app/views/.+\.(erb|haml|slim)$})
-  watch(%r{app/helpers/.+\.rb})
-  watch(%r{app/assets/.+\.(css|js|coffee|scss|sass|html)})
-  watch(%r{config/locales/.+\.yml})
-end
+#guard :livereload do
+  #watch(%r{app/views/.+\.(erb|haml|slim)$})
+  #watch(%r{app/helpers/.+\.rb})
+  #watch(%r{app/assets/.+\.(css|js|coffee|scss|sass|html)})
+  #watch(%r{config/locales/.+\.yml})
+#end

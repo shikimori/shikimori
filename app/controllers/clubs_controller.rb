@@ -1,8 +1,6 @@
 class ClubsController < ShikimoriController
   load_and_authorize_resource :club, class: Group
 
-  #before_action :authenticate_user!, only: [:new, :create, :update]
-
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
   before_action :set_breadcrumbs, if: :resource_id

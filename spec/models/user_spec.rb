@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe User do
   context :relations do
@@ -221,6 +222,21 @@ describe User do
         let(:read_only_at) { DateTime.now - 1.second }
         it { should be_false }
       end
+    end
+  end
+
+  describe :permissions do
+    let(:profile) { build_stubbed :user }
+    let(:user) { build_stubbed :user }
+    subject { Ability.new user }
+
+    context :guest do
+      let(:user) { nil }
+      it { should be_able_to :see_profile, profile }
+    end
+
+    context :user do
+      it { should be_able_to :see_profile, profile }
     end
   end
 end

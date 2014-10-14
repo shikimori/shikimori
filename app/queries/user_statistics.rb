@@ -55,7 +55,7 @@ class UserStatistics
   def fetch
     stats = {}
 
-    stats[:graph_statuses] = by_statuses
+    stats[:graph_statuses] = by_statuses.select {|(klass,stats,graph)| stats.any? {|v| v[:size] > 0 } }
     stats[:graph_statuses].reverse! if @user.preferences.manga_first?
 
     stats[:statuses] = { anime: anime_statuses, manga: manga_statuses }
@@ -275,14 +275,25 @@ private
       @settings.anime_in_profile? ? [Anime.name, anime_statuses] : nil,
       @settings.manga_in_profile? ? [Manga.name, manga_statuses] : nil
     ].compact.map do |klass,stat|
+
+      total = stat.sum {|v| v[:size] }
+      completed = stat.select {|v| v[:id] == UserRate.statuses[:completed] }.sum {|v| v[:size] }
+      dropped = stat.select {|v| v[:id] == UserRate.statuses[:dropped] }.sum {|v| v[:size] }
+      incompleted = stat.select {|v| v[:id] != UserRate.statuses[:completed] && v[:id] != UserRate.statuses[:dropped] }.sum {|v| v[:size] }
+
       [
         klass,
         stat,
         {
-          total: stat.sum {|v| v[:size] },
-          completed: stat.select {|v| v[:id] == UserRate.statuses[:completed] }.sum {|v| v[:size] },
-          dropped: stat.select {|v| v[:id] == UserRate.statuses[:dropped] }.sum {|v| v[:size] },
-          incompleted: stat.select {|v| v[:id] != UserRate.statuses[:completed] && v[:id] != UserRate.statuses[:dropped] }.sum {|v| v[:size] }
+          total: total,
+
+          completed: completed,
+          dropped: dropped,
+          incompleted: incompleted,
+
+          completed_percent: completed * 100.0 / total,
+          dropped_percent: dropped * 100.0 / total,
+          incompleted_percent: incompleted * 100.0 / total,
         }
       ]
     end

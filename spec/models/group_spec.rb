@@ -158,7 +158,7 @@ describe Group do
     context :club_owner do
       let(:group_role) { build_stubbed :group_role, :admin, user: user }
       let(:club) { build_stubbed :group, owner: user, join_policy: join_policy, member_roles: [group_role] }
-      it { should be_able_to :read_club, club }
+      it { should be_able_to :see_club, club }
       it { should be_able_to :update, club }
       it { should be_able_to :upload, club }
 
@@ -184,7 +184,7 @@ describe Group do
       let(:group_role) { build_stubbed :group_role, :admin, user: user }
       let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy }
 
-      it { should be_able_to :read_club, club }
+      it { should be_able_to :see_club, club }
       it { should be_able_to :update, club }
       it { should be_able_to :upload, club }
 
@@ -253,7 +253,7 @@ describe Group do
 
     context :guest do
       let(:user) { nil }
-      it { should be_able_to :read_club, club }
+      it { should be_able_to :see_club, club }
       it { should_not be_able_to :new, club }
       it { should_not be_able_to :update, club }
       it { should_not be_able_to :invite, club }
@@ -261,7 +261,7 @@ describe Group do
     end
 
     context :user do
-      it { should be_able_to :read_club, club }
+      it { should be_able_to :see_club, club }
       it { should be_able_to :new, club }
       it { should_not be_able_to :update, club }
       it { should_not be_able_to :invite, club }

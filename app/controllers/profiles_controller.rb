@@ -1,13 +1,15 @@
-# TODO: вынести сюда весь код из users#show
 class ProfilesController < UsersController
+  before_action :load_user
+  authorize_resource :user, class: User
+
   def show
-    params[:controller] = 'users'
-    params[:type] ||= 'statistics'
-    super
   end
 
   def settings
-    params[:type] = 'settings'
-    super
+  end
+
+private
+  def load_user
+    @resource = UserProfileDecorator.new User.find_by(nickname: params[:profile_id] || params[:id])
   end
 end

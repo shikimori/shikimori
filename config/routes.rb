@@ -595,14 +595,14 @@ Site::Application.routes.draw do
     post 'users/search' => 'users#search', as: :users_search
     get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
 
-    resources :profiles, constraints: { id: /[^\/]+?/ }, format: /json|rss/, only: [:show] do
+    resources :profiles, path: '/', constraints: { id: /[^\/]+?/ }, only: [:show] do # , format: /json|rss/
       member do
         get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
       end
     end
 
     constraints id: /[^\/]+?/, format: /json|rss/ do
-      get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/
+      #get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/
       get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications|misc/, type: 'settings'
       #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
       #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'

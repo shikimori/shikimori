@@ -21,5 +21,15 @@ FactoryGirl.define do
       manga
       role 'Main'
     end
+
+    trait :staff_role do
+      person
+      role 'Main'
+    end
+
+    trait :character_role do
+      character
+      role 'Main'
+    end
   end
 end

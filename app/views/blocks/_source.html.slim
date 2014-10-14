@@ -15,7 +15,7 @@
             = authors.size > 1 ? 'Добавили:' : "Добавил#{authors.last.female? ? 'а' : ''}:"
         - authors.reverse.each do |author|
           .b-user16
-            a href="#{user_url author}"
+            a href="#{profile_url author}"
               img src="#{author.avatar_url 16}" srcset="#{author.avatar_url 32} 2x" alt="#{author.nickname}"
               span = author.nickname
 

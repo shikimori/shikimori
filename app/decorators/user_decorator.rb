@@ -5,6 +5,10 @@ class UserDecorator < Draper::Decorator
     User.model_name
   end
 
+  def url
+    h.profile_url self
+  end
+
   def show_contest_link?
     (can_vote_1? || can_vote_2? || can_vote_3?) && preferences.menu_contest?
   end

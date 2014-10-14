@@ -24,21 +24,20 @@ FactoryGirl.define do
         anime.unstub :update_news
       end
     end
+    trait :with_character do
+      after(:build) {|v| FactoryGirl.create :person_role, :character_role, anime: v }
+    end
+    trait :with_staff do
+      after(:build) {|v| FactoryGirl.create :person_role, :staff_role, anime: v }
+    end
     trait :with_thread do
-      after :build do |anime|
-        anime.unstub :generate_thread
-      end
+      after(:build) {|v| v.unstub :generate_thread }
     end
     trait :with_news do
-      after :build do |anime|
-        anime.unstub :update_news
-      end
+      after(:build) {|v| v.unstub :update_news }
     end
-
     trait :with_video do
-      after :create do |anime|
-        FactoryGirl.create :anime_video, anime: anime
-      end
+      after(:create) {|v| FactoryGirl.create :anime_video, anime: v }
     end
 
     factory :ongoing_anime do

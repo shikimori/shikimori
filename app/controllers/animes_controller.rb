@@ -25,21 +25,22 @@ class AnimesController < ShikimoriController
   end
 
   def characters
-    raise NotFound if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
+    redirect_to @resource.url if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
     page_title "Персонажи #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def staff
-    raise NotFound if @resource.roles.people.none?
+    redirect_to @resource.url if @resource.roles.people.none?
     page_title "Создатели #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def files
-    raise ActionController::RoutingError unless user_signed_in?
+    redirect_to @resource.url unless user_signed_in?
     page_title 'Файлы'
   end
 
   def similar
+    redirect_to @resource.url if @resource.related.similar.none?
     noindex
     page_title(@resource.anime? ? 'Похожие аниме' : 'Похожая манга')
   end
@@ -74,13 +75,13 @@ class AnimesController < ShikimoriController
   end
 
   def comments
-    raise NotFound if @resource.comments_count.zero?
+    redirect_to @resource.url if @resource.comments_count.zero?
     noindex
     page_title "Обсуждение #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def reviews
-    raise NotFound if @resource.comment_reviews_count.zero?
+    redirect_to @resource.url if @resource.comment_reviews_count.zero?
     noindex
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
   end

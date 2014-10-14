@@ -122,7 +122,6 @@ gem 'pry-stack_explorer'
 group :test, :development do
   gem 'byebug'
   #gem 'pry-byebug' # пока ещё не поддерживает byubug 3.0
-  #
   gem 'rspec-rails'
 
   gem 'vcr'
@@ -138,10 +137,11 @@ group :test, :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'guard-livereload'#, '2.1.2'
+  gem 'guard-bundler'
+  #gem 'guard-livereload'#, '2.1.2'
 
   gem 'timecop'
-  gem 'webmock', '1.13'
+  gem 'webmock'
 
   gem 'factory_girl_rails', require: false
 end
