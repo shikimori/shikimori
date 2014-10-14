@@ -128,10 +128,10 @@ class User < ActiveRecord::Base
   Admins = [1, Blackchestnut_ID]
   Moderators = (Admins + [921, 11, 188]).uniq # 2 - Adelor, 2033 - zmej1987
   ReviewsModerators = (Admins + []).uniq # + Moderators
-  UserChangesModerators = (Admins + [11, 921, 188, 94, 942, 392]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 942 - Иштаран, 392 - Tehanu
+  UserChangesModerators = (Admins + [11, 921, 188, 94, 942, 392, 16148]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 942 - Иштаран, 392 - Tehanu, 16148 - Alex Minson
   AbuseRequestsModerators = (Admins + Moderators + [11, 188, 950]).uniq # Daiver
   NewsMakers = (Admins + []).uniq
-  Translators = (Admins + [11, 28, 19, 31, 41, 188, 942]).uniq
+  Translators = (Admins + UserChangesModerators + [28, 19, 31, 41, 942]).uniq
   ContestsModerators = (Admins + [1483]).uniq # 1483 - Zula
   CosplayModerators = (Admins + [2043, 2046]).uniq # 2043 - laitqwerty, 2046 - Котейка
   VideoModerators = (Admins + []).uniq
