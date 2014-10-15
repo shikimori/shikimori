@@ -68,12 +68,12 @@ class UserStatsDecorator
       I18n.time_part(spent_time.years.to_i, :year) + months
 
     elsif spent_time.months >= 1
-      weeks = spent_time.weeks_part > 0 ? " и #{I18n.time_part(spent_time.weeks_part.to_i, :week)}" : ''
+      weeks = spent_time.weeks_part > 0 ?
+        " и #{I18n.time_part(spent_time.weeks_part.to_i, :week)}".sub('1 неделя', '1 неделю') : ''
       I18n.time_part(spent_time.months.to_i, :month) + weeks
 
     elsif spent_time.weeks >= 1
-      days = spent_time.days_part > 0 ?
-        " и #{I18n.time_part(spent_time.days_part.to_i, :day)}".sub('1 неделя', '1 неделю') : ''
+      days = spent_time.days_part > 0 ? " и #{I18n.time_part(spent_time.days_part.to_i, :day)}" : ''
       I18n.time_part(spent_time.weeks.to_i, :week) + days
 
     elsif spent_time.days >= 1
