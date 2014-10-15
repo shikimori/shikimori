@@ -34,12 +34,18 @@
         .c-column.block
           .subheadline.m10 Друзья
           .cc-friends
-            = render @resource.friends.take(12), content_by: :avatar
+            - if @resource.clubs.none?
+              .not-a-member Нет друзей
+            - else
+              = render @resource.friends.take(12), content_by: :avatar
 
         .c-column.block
           .subheadline.m10 Клубы
           .cc-clubs
-            = render partial: 'clubs/club', collection: @resource.clubs.take(4), locals: { content_by: :avatar }
+            - if @resource.clubs.none?
+              .not-a-member Не состоит ни в одном из клубов
+            - else
+              = render partial: 'clubs/club', collection: @resource.clubs.take(4), locals: { content_by: :avatar }
 
       .block
         .subheadline.m10 Избранное

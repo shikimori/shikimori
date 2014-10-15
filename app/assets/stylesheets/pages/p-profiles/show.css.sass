@@ -1,7 +1,16 @@
-@import mixins/column
 @import mixins/clear_left
+@import mixins/column
+@import mixins/link
 
 .p-profiles-show
+  .not-a-member
+    color: $gray-color
+    font-size: 12px
+    margin-left: 5px
+
+    a
+      +link
+
   .lifetime
     .title
       line-height: $line_height
