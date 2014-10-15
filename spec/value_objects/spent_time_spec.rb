@@ -11,20 +11,22 @@ describe SpentTime do
     let(:weeks) { 3 }
     let(:days) { 4 }
     let(:hours) { 11 }
+    let(:minutes) { 22 }
 
-    let(:interval) { years*365 + months_6*180 + months_3*90 + months*30 + weeks*7 + days + hours / 24.0 }
+    let(:interval) { years*365 + months_6*180 + months_3*90 + months*30 + weeks*7 + days + hours/24.0 + minutes/24.0/60 }
 
     its(:years) { should eq interval / 365 }
     its(:years_part) { should eq years }
 
     its(:months_6) { should eq interval / 180 }
-    its(:months_6_part) { should eq months_6 }
+    #its(:months_6_part) { should eq months_6 }
 
     its(:months_3) { should eq interval / 90 }
-    its(:months_3_part) { should eq months_3 }
+    #its(:months_3_part) { should eq months_3 }
 
     its(:months) { should eq interval / 30 }
-    its(:months_part) { should eq months }
+    #its(:months_part) { should eq months }
+    its(:months_part) { should eq months + months_3 * 3 + months_6 * 6}
 
     its(:weeks) { should eq interval / 7 }
     its(:weeks_part) { should eq weeks }
@@ -36,5 +38,6 @@ describe SpentTime do
     its(:hours_part) { should eq hours }
 
     its(:minutes) { should eq interval * 24.0 * 60.0 }
+    its(:minutes_part) { should eq minutes }
   end
 end

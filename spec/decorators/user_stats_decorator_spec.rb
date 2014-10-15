@@ -117,8 +117,8 @@ describe UserStatsDecorator do
     end
 
     context '2.51 days' do
-      let(:interval) { 2.51 }
-      it { should eq '2.5 дня' }
+      let(:interval) { 2.5 }
+      it { should eq '2 дня 12 часов' }
     end
 
     context '3 weeks' do
@@ -128,12 +128,12 @@ describe UserStatsDecorator do
 
     context '5.678 months' do
       let(:interval) { 5.678 * 30 }
-      it { should eq '5.7 месяцев' }
+      it { should eq '5 месяцев 2 недели' }
     end
 
     context '1.25 years' do
       let(:interval) { 365 * 1.25 }
-      it { should eq '1.3 год' }
+      it { should eq '1 год 3 месяца' }
     end
   end
 end

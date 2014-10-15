@@ -64,22 +64,27 @@ class UserStatsDecorator
       '0 часов'
 
     elsif spent_time.years >= 1
-      "%g #{Russian.p spent_time.years.round(1).to_i, 'год', 'года', 'лет'}" % spent_time.years.round(1)
+      months = spent_time.months_part > 0 ? " #{I18n.time_part(spent_time.months_part.to_i, :month)}" : ''
+      I18n.time_part(spent_time.years.to_i, :year) + months
 
     elsif spent_time.months >= 1
-      "%g #{Russian.p spent_time.months.round(1).to_i, 'месяц', 'месяца', 'месяцев'}" % spent_time.months.round(1)
+      weeks = spent_time.weeks_part > 0 ? " #{I18n.time_part(spent_time.weeks_part.to_i, :week)}" : ''
+      I18n.time_part(spent_time.months.to_i, :month) + weeks
 
     elsif spent_time.weeks >= 1
-      "%g #{Russian.p spent_time.weeks.round(1).to_i, 'неделя', 'недели', 'недель'}" % spent_time.weeks.round(1)
+      days = spent_time.days_part > 0 ? " #{I18n.time_part(spent_time.days_part.to_i, :day)}" : ''
+      I18n.time_part(spent_time.weeks.to_i, :week) + days
 
     elsif spent_time.days >= 1
-      "%g #{Russian.p spent_time.days.round(1).to_i, 'день', 'дня', 'дней'}" % spent_time.days.round(1)
+      hours = spent_time.hours_part > 0 ? " #{I18n.time_part(spent_time.hours_part.to_i, :hour)}" : ''
+      I18n.time_part(spent_time.days.to_i, :day) + hours
 
     elsif spent_time.hours >= 1
-      "%g #{Russian.p spent_time.hours.round(1).to_i, 'час', 'часа', 'часов'}" % spent_time.hours.round(1)
+      minutes = spent_time.minutes_part > 0 ? " #{I18n.time_part(spent_time.minutes_part.to_i, :minute)}" : ''
+      I18n.time_part(spent_time.hours.to_i, :hour) + minutes
 
     elsif spent_time.minutes >= 1
-      "%g #{Russian.p spent_time.minutes.round(1).to_i, 'минута', 'минуты', 'минут'}" % spent_time.minutes.round(1)
+      I18n.time_part(spent_time.minutes.to_i, :minute)
     end
   end
 
