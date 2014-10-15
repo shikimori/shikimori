@@ -64,23 +64,23 @@ class UserStatsDecorator
       '0 часов'
 
     elsif spent_time.years >= 1
-      months = spent_time.months_part > 0 ? " #{I18n.time_part(spent_time.months_part.to_i, :month)}" : ''
+      months = spent_time.months_part > 0 ? " и #{I18n.time_part(spent_time.months_part.to_i, :month)}" : ''
       I18n.time_part(spent_time.years.to_i, :year) + months
 
     elsif spent_time.months >= 1
-      weeks = spent_time.weeks_part > 0 ? " #{I18n.time_part(spent_time.weeks_part.to_i, :week)}" : ''
+      weeks = spent_time.weeks_part > 0 ? " и #{I18n.time_part(spent_time.weeks_part.to_i, :week)}" : ''
       I18n.time_part(spent_time.months.to_i, :month) + weeks
 
     elsif spent_time.weeks >= 1
-      days = spent_time.days_part > 0 ? " #{I18n.time_part(spent_time.days_part.to_i, :day)}" : ''
+      days = spent_time.days_part > 0 ? " и #{I18n.time_part(spent_time.days_part.to_i, :day)}" : ''
       I18n.time_part(spent_time.weeks.to_i, :week) + days
 
     elsif spent_time.days >= 1
-      hours = spent_time.hours_part > 0 ? " #{I18n.time_part(spent_time.hours_part.to_i, :hour)}" : ''
+      hours = spent_time.hours_part > 0 ? " и #{I18n.time_part(spent_time.hours_part.to_i, :hour)}" : ''
       I18n.time_part(spent_time.days.to_i, :day) + hours
 
     elsif spent_time.hours >= 1
-      minutes = spent_time.minutes_part > 0 ? " #{I18n.time_part(spent_time.minutes_part.to_i, :minute)}" : ''
+      minutes = spent_time.minutes_part > 0 ? " и #{I18n.time_part(spent_time.minutes_part.to_i, :minute)}" : ''
       I18n.time_part(spent_time.hours.to_i, :hour) + minutes
 
     elsif spent_time.minutes >= 1
