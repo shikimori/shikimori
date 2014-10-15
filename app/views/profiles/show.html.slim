@@ -34,7 +34,7 @@
         .c-column.block
           .subheadline.m10 Друзья
           .cc-friends
-            - if @resource.clubs.none?
+            - if @resource.friends.none?
               .not-a-member Нет друзей
             - else
               = render @resource.friends.take(12), content_by: :avatar
