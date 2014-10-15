@@ -20,11 +20,11 @@
           /.third style="width: 58%"
           .third style="width: #{100 - @resource.stats.spent_time_percent}%"
         .times
-          .time неделя
-          .time месяц
-          .time 3 месяца
-          .time 6 месяцев
-          .time год
+          .time class="#{:checked if @resource.stats.spent_time.weeks >= 1}" неделя
+          .time class="#{:checked if @resource.stats.spent_time.months >= 1}" месяц
+          .time class="#{:checked if @resource.stats.spent_time.months_3 >= 1}" 3 месяца
+          .time class="#{:checked if @resource.stats.spent_time.months_6 >= 1}" 6 месяцев
+          .time class="#{:checked if @resource.stats.spent_time.years >= 1}" год
           /.time
             /- if @resource.stats.spent_time.hours_part > 1
               /| #{@resource.stats.spent_time.hours_part} #{Russian.p @resource.stats.spent_time.hours_part, 'час', 'часа', 'часов'}
