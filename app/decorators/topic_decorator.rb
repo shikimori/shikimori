@@ -136,7 +136,7 @@ class TopicDecorator < BaseDecorator
 
   # адрес заголовка топика
   def url
-    preview? ? h.topic_url(object) : h.user_url(user)
+    preview? ? h.topic_url(object) : h.profile_url(user)
   end
 
   # адрес текста топика

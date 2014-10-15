@@ -10,4 +10,4 @@ nav.navbar.navbar-default role='navigation'
 
       ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
-          li: a href="#{user_url(current_user, subdomain: false)}" = current_user.nickname
+          li: a href="#{profile_url(current_user, subdomain: false)}" = current_user.nickname

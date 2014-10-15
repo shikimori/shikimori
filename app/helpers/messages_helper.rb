@@ -17,21 +17,21 @@ module MessagesHelper # для truncate в messages helper
     case message.kind
       when MessageType::ProfileCommented
         "%s %s что-то в вашем %s..." % [
-            "<a href='#{user_url message.from}'>#{message.from.nickname}</a>",
+            "<a href='#{profile_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'написала' : 'написал',
-            "<a href='#{user_url(message.to)}' rel='slider'>профиле</a>"
+            "<a href='#{profile_url(message.to)}' rel='slider'>профиле</a>"
           ]
 
       when MessageType::FriendRequest
         "%s %s вас в список друзей. Занести %s в список ваших друзей?" % [
-            "<a href='#{user_url message.from}'>#{message.from.nickname}</a>",
+            "<a href='#{profile_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'добавила' : 'добавил',
             message.from.sex == 'female' ? 'её' : 'его'
           ]
 
       when MessageType::QuotedByUser
         "%s %s что-то вам %s" % [
-            "<a href='#{user_url message.from}'>#{message.from.nickname}</a>",
+            "<a href='#{profile_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'написала' : 'написал',
             format_entity_name(message)
           ]
@@ -123,7 +123,7 @@ module MessagesHelper # для truncate в messages helper
       when User.name
         target = User.find_by_id linked_id
         if target
-          url = user_url(target)
+          url = profile_url(target)
           'в профиле пользователя <!--%s-->.' % [target.nickname]
         else
           'в профиле <em>удалённого</em> пользователя'

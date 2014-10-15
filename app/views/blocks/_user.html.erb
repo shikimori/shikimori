@@ -1,5 +1,5 @@
 <div class="item-block user-block user-<%=user.id %>-block">
-  <%=link_to user_url(user) do %>
+  <%=link_to profile_url(user) do %>
     <center>
       <img src="<%=user.avatar_url(defined?(avatar_size) ? avatar_size : 80) %>" alt="<%=user.nickname %>" title="<%=user.nickname %>" />
     </center>

@@ -1,8 +1,8 @@
 .index-item
   .image-name
-    = link_to user_url(rate.user) do
+    = link_to profile_url(rate.user) do
       img.image src="#{rate.user.avatar_url 32}" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
-    = link_to user_url(rate.user), title: rate.user.nickname, class: :name do
+    = link_to profile_url(rate.user), title: rate.user.nickname, class: :name do
       = rate.user.nickname
 
   .info

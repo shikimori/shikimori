@@ -85,7 +85,7 @@
                 li
                   span.item-minus
                   = hidden_field_tag 'moderators[]', user.nickname
-                  a href="#{user_url user}" = user.nickname
+                  a href="#{profile_url user}" = user.nickname
 
     .two-columns
       .column
@@ -99,7 +99,7 @@
                 li
                   span.item-minus
                   = hidden_field_tag 'admins[]', user.nickname
-                  a href="#{user_url user}" = user.nickname
+                  a href="#{profile_url user}" = user.nickname
 
       .column
         input.ban-suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
@@ -111,7 +111,7 @@
               li
                 span.item-minus
                 = hidden_field_tag 'bans[]', user.nickname
-                a href="#{user_url user}" = user.nickname
+                a href="#{profile_url user}" = user.nickname
 
     .two-columns
       .column

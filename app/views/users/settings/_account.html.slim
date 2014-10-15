@@ -1,5 +1,5 @@
 / важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
-= simple_form_for @user, url: user_url(User.find(@user.id)) do |f|
+= simple_form_for @user, url: profile_url(User.find(@user.id)) do |f|
   input type="hidden" name="page" value="#{params[:page]}"
 
   .right-block
@@ -38,7 +38,7 @@
           li
             span.item-minus
             = hidden_field_tag 'user[ignores][]', user.nickname
-            a href="#{user_url user}" = user.nickname
+            a href="#{profile_url user}" = user.nickname
 
   .left-block
     .menu-block

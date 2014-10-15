@@ -1,11 +1,11 @@
 - if @history.any?
   - if @page == 1
-    = auto_discovery_link_tag :rss, user_url(@user, format: :rss), title: "История пользователя #{@user.nickname}"
+    = auto_discovery_link_tag :rss, profile_url(@user, format: :rss), title: "История пользователя #{@user.nickname}"
 
   - @history.each do |interval,history|
     .subheadline
       - if @page == 1 && interval == @history.keys.first
-        a.rss href="#{user_url @user, format: :rss}" title="RSS"
+        a.rss href="#{profile_url @user, format: :rss}" title="RSS"
       = interval
 
     .history-interval

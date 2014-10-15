@@ -28,11 +28,11 @@
       .b-options-floated
         - if @user.stats[:has_anime?] && @user.stats[:has_manga?]
           - if @user.preferences.manga_first?
-            a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{user_url @user, :manga}" Манга
-            a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{user_url @user, :anime}" Аниме
+            a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @user, :manga}" Манга
+            a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @user, :anime}" Аниме
           - else
-            a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{user_url @user, :anime}" Аниме
-            a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{user_url @user, :manga}" Манга
+            a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @user, :anime}" Аниме
+            a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @user, :manga}" Манга
       .subheadline Оценки
       #scores data-stats="#{@user.stats[:scores][@kind].to_json}" data-bar="horizontal"
 

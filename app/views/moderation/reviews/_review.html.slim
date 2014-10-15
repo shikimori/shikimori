@@ -11,9 +11,9 @@
     span.date
       = review.created_at.strftime '%d.%m.%Y'
     span
-      = link_to user_url(review.user) do
+      = link_to profile_url(review.user) do
         img.avatar src="#{review.user.avatar_url 16}" alt="#{review.user.nickname}" title="#{review.user.nickname}"
-      = link_to review.user.nickname, user_url(review.user), class: 'nickname', title: "#{review.user.nickname}"
+      = link_to review.user.nickname, profile_url(review.user), class: 'nickname', title: "#{review.user.nickname}"
     span.column
       = review.target_type
     span.id

@@ -89,7 +89,7 @@ module CommentHelper
   def mention_to_html text, poster=nil
     text.gsub /\[mention=\d+\]([\s\S]*?)\[\/mention\]/ do
       nickname = $1
-      "<a href=\"#{user_url User.param_to(nickname)}\" class=\"b-mention\"><s>@</s><span>#{nickname}</span></a>"
+      "<a href=\"#{profile_url User.param_to(nickname)}\" class=\"b-mention\"><s>@</s><span>#{nickname}</span></a>"
     end
   end
 
@@ -240,7 +240,7 @@ module CommentHelper
             user = comment.user
 
             if $~[:quote].present?
-              text.gsub! $~[:match], "<a href=\"#{user_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
 <img src=\"#{user.avatar_url 16}\" alt=\"#{user.nickname}\" /><span>#{user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
             else
               text.gsub! $~[:match], "<a href=\"#{url_for user}\" title=\"#{user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
@@ -269,7 +269,7 @@ module CommentHelper
               User.find $3
             end
 
-            text.gsub! $1, "<a href=\"#{user_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" alt=\"#{$4}\" />#{$4}</a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
+            text.gsub! $1, "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" alt=\"#{$4}\" />#{$4}</a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
           rescue
             text.gsub! $1, "#{$4}#{is_profile ? '' : ' написал:'}"
             break
@@ -279,8 +279,8 @@ module CommentHelper
           begin
             ban = Ban.find $2
 
-            moderator_html = "<a href=\"#{user_url ban.moderator}\" title=\"#{ban.moderator.nickname}\"><img src=\"#{ban.moderator.avatar_url 16}\" alt=\"#{ban.moderator.nickname}\" /></a>
-<a href=\"#{user_url ban.moderator}\" title=\"#{ban.moderator.nickname}\">#{ban.moderator.nickname}</a>"
+            moderator_html = "<a href=\"#{profile_url ban.moderator}\" title=\"#{ban.moderator.nickname}\"><img src=\"#{ban.moderator.avatar_url 16}\" alt=\"#{ban.moderator.nickname}\" /></a>
+<a href=\"#{profile_url ban.moderator}\" title=\"#{ban.moderator.nickname}\">#{ban.moderator.nickname}</a>"
             text.gsub! $1, "<div class=\"ban-message\">#{moderator_html}: <span class=\"details\">#{ban.message}</span></div>"
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, ''

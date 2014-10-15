@@ -5,9 +5,9 @@
       = report.id
     span.date #{report.created_at.strftime '%d.%m.%Y'}
     span
-      = link_to user_url(report.user) do
+      = link_to profile_url(report.user) do
         img.avatar src="#{report.user.avatar_url 16}" alt="#{report.user.nickname}" title="#{report.user.nickname}"
-      = link_to report.user.nickname, user_url(report.user), class: 'nickname', title: "#{report.user.nickname}"
+      = link_to report.user.nickname, profile_url(report.user), class: 'nickname', title: "#{report.user.nickname}"
     span.kind class="#{report.kind}" = report.kind_text
 
     span
@@ -17,9 +17,9 @@
 
     - if report.approver
       span
-        = link_to user_url(report.approver) do
+        = link_to profile_url(report.approver) do
           img.avatar src="#{report.approver.avatar_url 16}" alt="#{report.approver.nickname}" title="#{report.approver.nickname}"
-        = link_to report.approver.nickname, user_url(report.approver), class: 'nickname', title: "#{report.approver.nickname}"
+        = link_to report.approver.nickname, profile_url(report.approver), class: 'nickname', title: "#{report.approver.nickname}"
 
     .spoiler.collapse
       span.action.half-hidden style="display: none;" развернуть

@@ -69,7 +69,7 @@
             - @resource.moderators.each do |user|
               .variant
                 = check_box_tag 'club[moderator_ids][]', moderator.id, checked: true
-                a href="#{user_url user}" = user.nickname
+                a href="#{profile_url user}" = user.nickname
 
     .cc-2a
       .c-column
@@ -79,7 +79,7 @@
           - @resource.admins.each do |user|
             .variant
               = check_box_tag 'club[admin_ids][]', user.id, checked: true
-              a href="#{user_url user}" = user.nickname
+              a href="#{profile_url user}" = user.nickname
 
       .c-column
         input.ban-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Имя пользователя" data-variant_name="club[banned_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
@@ -88,7 +88,7 @@
           - @resource.banned_users.each do |user|
             .variant
               = check_box_tag 'club[banned_user_ids][]', user.id, checked: true
-              a href="#{user_url user}" = user.nickname
+              a href="#{profile_url user}" = user.nickname
 
     .block
       input.kick-suggest.subheadline-input type="text" placeholder="Имя пользователя" data-variant_name="kick_ids[]" data-autocomplete="#{autocomplete_club_group_roles_url @resource, search: ''}"

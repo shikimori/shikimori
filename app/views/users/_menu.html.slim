@@ -17,7 +17,7 @@ aside.left-block
       .subheadline Профиль
       ul.block-list.user-menu
         li.profile.slider-control class="slider-control-statistics #{:selected if params[:type] == 'statistics'}"
-          = link_to 'Статистика', user_url(@user)
+          = link_to 'Статистика', profile_url(@user)
 
         - if @user.own_profile?
           li.inbox.slider-control class="slider-control-inbox #{:selected if ['inbox','notifications','sent'].include?(params[:type])} #{:hidden unless @user.own_profile?}"
