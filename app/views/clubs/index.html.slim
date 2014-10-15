@@ -5,6 +5,6 @@ header.head.misc
   p.notice.clearfix Список всех клубов сайта в порядке активности участников
 
 .cc
-  = render partial: 'club', collection: @collection
+  = render partial: 'club', collection: @collection, locals: { content_by: :detailed }
   - if @add_postloader
     = render 'blocks/postloader', url: page_clubs_url(page: @page+1)

@@ -1,5 +1,6 @@
-class UserDecorator < Draper::Decorator
+class UserDecorator < BaseDecorator
   delegate_all
+  instance_cache :friended?, :mutual_friended?, :history
 
   def self.model_name
     User.model_name
@@ -30,15 +31,15 @@ class UserDecorator < Draper::Decorator
   end
 
   def friended?
-    @favored ||= h.current_user && h.current_user.friends.any? {|v| v.id == id }
+    h.current_user && h.current_user.friends.any? {|v| v.id == id }
   end
 
   def mutual_friended?
-    @mutual_friended ||= friended? && friends.any? {|v| v.id == h.current_user.id }
+    friended? && friends.any? {|v| v.id == h.current_user.id }
   end
 
   def history
-    @history ||= UserProfileHistoryDecorator.new object
+    UserProfileHistoryDecorator.new object
   end
 
   def last_online

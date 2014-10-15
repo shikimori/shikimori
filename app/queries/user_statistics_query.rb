@@ -1,16 +1,13 @@
-class UserStatistics
-  attr_accessor :settings
-  attr_accessor :anime_rates, :manga_rates
-  attr_accessor :seasons
-  attr_accessor :genres
-  attr_accessor :studios, :publishers
+class UserStatisticsQuery
+  attr_reader :anime_rates, :anime_valuable_rates
+  attr_reader :manga_rates, :manga_valuable_rates
+  attr_reader :genres, :studios, :publishers
 
   # стандартный формат дат для сравнения
   DateFormat = "%Y-%m-%d"
 
-  def initialize user, current_user
+  def initialize user
     @user = user
-    @current_user = current_user
     @settings = user.preferences
 
     @seasons = AniMangaSeason.catalog_seasons
@@ -51,58 +48,6 @@ class UserStatistics
               [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
   end
 
-  # формирование статистики
-  def fetch
-    stats = {}
-
-    stats[:graph_statuses] = by_statuses.select {|(klass,stats,graph)| stats.any? {|v| v[:size] > 0 } }
-    stats[:graph_statuses].reverse! if @user.preferences.manga_first?
-
-    stats[:statuses] = { anime: anime_statuses, manga: manga_statuses }
-    stats[:full_statuses] = { anime: statuses(@anime_rates, true), manga: statuses(@manga_rates, true) }
-
-    stats[:scores] = by_criteria :score, 1.upto(10).to_a.reverse
-
-    i18n = if !@current_user || (@current_user && @current_user.preferences.russian_genres?)
-      ':klass.Short.%s'
-    else
-      nil
-    end
-
-    stats[:types] = by_criteria :kind, ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'] + ["Manga", "One Shot", "Manhwa", "Manhua", "Novel", "Doujin"], i18n
-
-    stats[:ratings] = by_criteria :rating, ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx'].reverse#, -> v { v[:rating] != 'None' }
-
-    stats[:has_anime?] = @anime_rates.any?
-    stats[:has_manga?] = @manga_rates.any?
-
-    stats[:genres] = {
-      anime: by_categories('genre', @genres, @anime_valuable_rates, [], 19),
-      manga: by_categories('genre', @genres, [], @manga_valuable_rates, 19)
-    }
-    stats[:studios] = { anime: by_categories('studio', @studios.select {|v| v.real? }, @anime_valuable_rates, nil, 17) }
-    stats[:publishers] = { manga: by_categories('publisher', @publishers, nil, @manga_valuable_rates, 17) }
-
-    #stats[:anime_types_intervals] = by_interval :kind, ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'], 80, false
-    #stats[:anime_types_intervals] = by_interval :kind, ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'], 42, true
-    stats[:activity] = by_activity 42 #41
-
-    #if @settings.manga_genres?
-      #stats[:manga_genre] = by_categories('genre', @genres, [], @manga_rates, 20)
-    #end
-
-    #if @settings.manga_publishers?
-      #stats[:manga_publisher] = by_categories('publisher', @publishers, nil, @manga_rates, 12)
-    #end
-
-    #if @settings.genres_graph?
-      #stats[:genre] = by_categories('genre', @genres, @anime_rates, @manga_rates, 8)
-    #end
-
-    stats
-  end
-
-private
   # статистика активности просмотра аниме / чтения манги
   def by_activity(intervals)
     ##[
@@ -274,8 +219,9 @@ private
     data = [
       @settings.anime_in_profile? ? [Anime.name, anime_statuses] : nil,
       @settings.manga_in_profile? ? [Manga.name, manga_statuses] : nil
-    ].compact.map do |klass,stat|
+    ].compact
 
+    data = data.map do |klass,stat|
       total = stat.sum {|v| v[:size] }
       completed = stat.select {|v| v[:id] == UserRate.statuses[:completed] }.sum {|v| v[:size] }
       dropped = stat.select {|v| v[:id] == UserRate.statuses[:dropped] }.sum {|v| v[:size] }
@@ -296,6 +242,10 @@ private
           incompleted_percent: incompleted * 100.0 / total,
         }
       ]
+    end
+
+    data = data.select do |klass,stat,graph|
+      stat.any? {|v| v[:size] > 0 }
     end
 
     data.each do |klass,stat,graph|

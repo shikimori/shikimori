@@ -1,23 +1,35 @@
 @import compass/typography/text/ellipsis
 @import compass/utilities/general/clearfix
 @import mixins/block
+@import mixins/clear_left
+@import mixins/column
 @import mixins/dash_separated
 @import mixins/hover_underlined
 @import mixins/link
 
 .p-profiles .c-head
-  +block
+  +clear_left
   +clearfix
 
-  .brief
-    +block
+  .c-brief
+    margin-bottom: 0
 
     .avatar
       float: left
-      margin: 0 $block_offset $block_offset 0
+
+      +gte_ipad
+        margin: 10px $block_offset $block_offset 0
+
+      +iphone
+        margin: 10px $block_offset/2 $block_offset/2 0
+
+      img
+        +iphone
+          width: 80px
 
     header
       overflow: hidden
+      margin-bottom: 10px
 
       h1
         margin-bottom: 0
@@ -50,19 +62,80 @@
       .banned
         color: red
 
-  .lifetime
-    margin-top: 15px
-    clear: both
+  .c-lists-info
+    overflow: hidden
 
-    .first, .second, .third
-      +ellipsis
+    +iphone
+      clear: both
 
-      span
+    .summary
+      font-size: 12px
+      line-height: 17px
+      margin-bottom: 20px
+
+      p
+        font-size: inherit
+        line-height: inherit
+
+      .last-online
+        font-size: 11px
+        color: #888
+
+    // синяя и фиолетовая полоски о размерах списка аниме и манги
+    .b-stat_bar
+      +clearfix
+
+      +gte_ipad
+        margin-bottom: $block_offset / 2
+
+      +iphone
+        margin-bottom: $block_offset
+
+      .compatibility
+        a
+          +link
+          float: right
+          font-size: 11px
+          margin-top: 2px
+
+        .text
+          &.zero
+            +link_color($gray-color)
+          &.weak
+            +link_color(#6ea36e)
+          &.moderate
+            +link_color(#40a540)
+          &.high
+            +link_color(#18ca18)
+          &.full
+            +link_color(#0092ff)
+
+        .rate
+          font-weight: bold
+
+      .stat_names
+        font-size: 11px
+        line-height: 1.5
+        margin-left: 2px
+
+        .stat_name
+          +dash_separated
+          display: inline-block
+
+          a
+            +link(#123)
+
+    //clear: both
+
+    //.bar
+      .first, .second, .third
         +ellipsis
-        padding: 0 5px
+        span
+          +ellipsis
+          padding: 0 5px
+      .third
+        text-align: right
 
-    .third
-      text-align: right
 
   //.mylist-block
     //.item-add
@@ -120,66 +193,3 @@
 
   //.favourites-block
     //height: 100px
-
-  .lists-info
-    clear: left
-    overflow: hidden
-    // чтобы clear: left у дочерних элементов не захватывал слишком много - а надо дял фаерфокса
-
-    .summary
-      font-size: 12px
-      line-height: 17px
-      margin-bottom: 20px
-
-      p
-        font-size: inherit
-        line-height: inherit
-
-      .last-online
-        font-size: 11px
-        color: #888
-
-    .b-stat_bar
-      clear: left
-
-      .compatibility
-        +clearfix
-
-        a
-          +hover_underlined
-          font-size: 11px
-          float: right
-
-        .text
-          &.zero
-            +link_color($gray-color)
-          &.weak
-            +link_color(#6ea36e)
-          &.moderate
-            +link_color(#40a540)
-          &.high
-            +link_color(#18ca18)
-          &.full
-            +link_color(#0092ff)
-        .rate
-          font-weight: bold
-
-      .stat-names
-        font-size: 11px
-        line-height: 12px
-        margin: 2px 0 0 2px
-
-        li
-          +dash_separated
-          float: left
-
-          a
-            +link_color(#112233)
-
-            cursor: pointer
-
-            &:hover
-              text-decoration: underline
-
-    //.favourites-block
-      //clear: left

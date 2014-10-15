@@ -1,2 +1,69 @@
 = render layout: 'page' do
-  .subheadline headline
+  .cc-2
+    .c-column
+      .lifetime.b-stat_bar
+        .title
+          - if @resource.stats.spent_time.days > 0
+            | #{@resource.stats.spent_time_in_words} проведено за #{@resource.preferences.manga_first? ? 'мангой' : 'аниме'}
+          - else
+            | нет просмотров аниме
+        .bar
+          .cuts
+            .cut.week
+            .cut.month
+            .cut.month_3
+            .cut.month_6
+            .cut.year
+
+          .first style="width: #{@resource.stats.spent_time_percent}%" title="Просмотрено и прочитано"
+          /.second style="width: 12%" title="Запланировано"
+          /.third style="width: 58%"
+          .third style="width: #{100 - @resource.stats.spent_time_percent}%"
+        .times
+          .time неделя
+          .time месяц
+          .time 3 месяца
+          .time 6 месяцев
+          .time год
+          /.time
+            /- if @resource.stats.spent_time.hours_part > 1
+              /| #{@resource.stats.spent_time.hours_part} #{Russian.p @resource.stats.spent_time.hours_part, 'час', 'часа', 'часов'}
+            /- else
+              /| 1 день
+          /.time
+            /- if @resource.stats.spent_time.days_part > 1
+              /| #{@resource.stats.spent_time.days_part} #{Russian.p @resource.stats.spent_time.days_part, 'день', 'дня', 'дней'}
+            /- else
+              /| 1 день
+          /.time
+            /- if @resource.stats.spent_time.weeks_part > 1
+              /| #{@resource.stats.spent_time.weeks_part} #{Russian.p @resource.stats.spent_time.weeks_part, 'неделя', 'недели', 'недель'}
+            /- else
+              /| 1 неделя
+          /.time
+            /- if @resource.stats.spent_time.months_part > 1
+              /| #{@resource.stats.spent_time.months_part} #{Russian.p @resource.stats.spent_time.months_part, 'месяц', 'месяца', 'месяцев'}
+            /- else
+              /| 1 месяц
+
+          /.time 1 год
+
+      .m30
+      .subheadline.m30.magenta страница в разработке
+
+    .c-column
+      .cc-2a.m0
+        .c-column.block
+          .subheadline.m10 Друзья
+          .cc-friends
+            = render @resource.friends.take(12), content_by: :avatar
+
+        .c-column.block
+          .subheadline.m10 Клубы
+          .cc-clubs
+            = render partial: 'clubs/club', collection: @resource.clubs.take(4), locals: { content_by: :avatar }
+
+      .block
+        .subheadline.m10 Избранное
+        .cc-favourites
+          = render @resource.favourites, cover_by: :image_link

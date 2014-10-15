@@ -10,6 +10,7 @@ class ProfilesController < UsersController
 
 private
   def load_user
-    @resource = UserProfileDecorator.new User.find_by(nickname: params[:profile_id] || params[:id])
+    user = User.find_by nickname: User.param_to(params[:profile_id] || params[:id])
+    @resource = UserProfileDecorator.new user
   end
 end

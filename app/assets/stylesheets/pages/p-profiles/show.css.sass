@@ -1,0 +1,81 @@
+@import mixins/column
+@import mixins/clear_left
+
+.p-profiles-show
+  .lifetime
+    .title
+      line-height: $line_height
+
+    .times
+      .time
+        color: #456
+        display: inline-block
+        font-size: 11px
+        text-align: center
+        width: 20%
+
+    .bar
+      height: 5px
+      line-height: 5px
+
+    .cuts
+      position: relative
+      .cut
+        background: white
+        height: 5px
+        position: absolute
+        width: 1px
+
+        &.week
+          left: 10%
+        &.month
+          left: 30%
+        &.month_3
+          left: 50%
+        &.month_6
+          left: 70%
+        &.year
+          left: 90%
+
+  .cc-friends
+    +clear_left
+
+    .b-user
+      margin-bottom: 6px
+
+      +gte_ipad
+        +column(6, 1/6, 3%)
+
+      +iphone_landscape
+        +column(6, 1/6, 3%)
+
+      +iphone_portrait
+        +column(5, 1/5, 3%)
+
+        &.item-10, &.item-11
+          display: none
+
+  .cc-clubs
+    +clear_left
+
+    .b-club
+      +column(4)
+
+  .cc-favourites
+    +clear_left
+
+    .c-column
+      +gte_ipad
+        +column(8, 1/8, 2%)
+
+      +iphone_landscape
+        +column(8, 1/8, 2%)
+
+      +iphone_portrait
+        +column(6, 1/6, 2%)
+
+        &.item-6, &.item-7
+          display: none
+
+      .title
+        display: none

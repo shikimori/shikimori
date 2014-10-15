@@ -1,5 +1,5 @@
 article.c-column.b-catalog_entry.c-person[
-    class="entry-#{person.id} minified"
+    class="entry-#{person.id} minified item-#{person_counter if defined? person_counter}"
     itemscope itemtype="http://schema.org/Person"
     itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
   ]

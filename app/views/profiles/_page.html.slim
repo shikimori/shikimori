@@ -1,81 +1,25 @@
 .c-head
-  .brief
+  .c-brief
     .avatar
-      img src="#{@user.avatar_url 148}" alt="#{@user.nickname}" title="#{@user.nickname}"
-      /img src="#{@user.avatar_url 80}" srcset="#{@user.avatar_url 160} 2x" alt="#{@user.nickname}" title="#{@user.nickname}"
+      img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+      /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
 
     header.head.misc
-      h1 class="#{@user.nickname_changes? ? 'aliases' : ''}" title="#{@user.nickname_changes? ? @user.nicknames_tooltip : ''}"
+      h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
         span.nickname
-          = @user.nickname
+          = @resource.nickname
       .misc
-        - if @user.banned?
+        - if @resource.banned?
           span.banned забанен
         - else
-          = @user.last_online
+          = @resource.last_online
       p.notice
-        - @user.common_info.each do |entry|
+        - @resource.common_info.each do |entry|
           span = entry
 
-  .lifetime.b-stat_bar
-    .title Прожито в аниме и манге
-    .bar
-      .first style="width: 30%": span просмотрено и прочитано
-      .second style="width: 12%": span запланировано
-      .third style="width: 58%": span твоя цель?
-
-  - if @user.show_profile?
-    .cc-2.lists-info
-      - @user.stats[:graph_statuses].each do |klass,stats,graph|
-        .c-column
-          .subheadline.m10
-            a href="#{ani_manga_list_url @user, list_type: klass.downcase}"
-              = "Список #{t("Genetive.#{klass}").downcase}"
-
-          .b-stat_bar class="#{klass.downcase}"
-            /- if @user.own_profile?
-              .compatibility
-                a href="#{users_url similar: 'similar', klass: klass.downcase}" похожие пользователи
-
-            /- if @compatibility.present? && @compatibility[klass.downcase.to_sym].present?
-              .compatibility
-                a href="#{userlist_comparer_path user_1: current_user, user_2: @user, list_type: klass.downcase}"
-                  span.text class="#{@user.compatibility_class @compatibility[klass.downcase.to_sym]}"
-                    = @user.compatibility_text @compatibility[klass.downcase.to_sym]
-                  - if @compatibility[klass.downcase.to_sym] > 0
-                    span.text &nbsp;
-                    span.sep.zero.inline
-                      | (
-                    span.rate
-                      = @compatibility[klass.downcase.to_sym]
-                    span.sep.zero.inline
-                      | )
-            .bar
-              - if graph[:completed_percent] > 1
-                .first style="width: #{graph[:completed_percent]}%;" title="#{graph[:completed]} #{UserRate.status_name(:completed, klass).downcase}"
-                  = graph[:completed] if graph[:completed_percent] > 2.5
-
-              - if graph[:incompleted_percent] > 1
-                .second style="width: #{graph[:incompleted_percent]}%" title="#{graph[:incompleted]} не #{UserRate.status_name(:completed, klass).downcase}"
-                  = graph[:incompleted] if graph[:incompleted_percent] > 2.5
-
-              - if graph[:dropped_percent] > 1
-                .third style="width: #{graph[:dropped_percent]}%;" title="#{graph[:dropped]} #{UserRate.status_name(:dropped, klass).downcase}"
-                  = graph[:dropped] if graph[:dropped_percent] > 2.5
-
-            ul.stat-names
-              - stats.select {|v| v[:size] != 0 }.each do |stat|
-                li
-                  a href="#{ani_manga_list_url @user, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
-                    = UserRate.status_name(stat[:name], klass).capitalize
-                    | &nbsp;
-                    span.sep.zero.inline
-                      | (
-                    = stat[:size]
-                    span.sep.zero.inline
-                      | )
-                    span.sep
-                      | /
+  .c-lists-info
+    - @resource.stats.graph_statuses.each do |klass,stats,graph|
+      = render 'stats_bar', klass: klass, stats: stats, graph: graph
 
 = yield
 

@@ -3,6 +3,8 @@ require_dependency 'studio'
 require_dependency 'publisher'
 
 class UserProfileDecorator < UserDecorator
+  instance_cache :all_compatibility, :friends, :ignored?, :stats, :nickname_changes, :clubs, :favourites
+
   def about_above?
     !about.blank? && !about.strip.blank? && preferences.about_on_top?
   end
@@ -35,9 +37,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def stats
-    @stats ||= Rails.cache.fetch [:stats, :v4, object] do
-      UserStatistics.new(object, h.current_user).fetch
-    end
+    UserStatsDecorator.new object, h.current_user
   end
 
   def full_counts
@@ -53,7 +53,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def nickname_changes
-    @nickname_changes ||= object
+    object
       .nickname_changes
       .select {|v| v.value != object.nickname }
   end
@@ -67,45 +67,15 @@ class UserProfileDecorator < UserDecorator
 
   # заигнорен ли пользователь текущим пользователем?
   def ignored?
-    @ignored ||= h.current_user.ignores.any? { |v| v.target_id == object.id }
+    h.current_user.ignores.any? { |v| v.target_id == object.id }
   end
 
   def friends
-    @friends ||= object
+    object
       .friends
       .decorate
       .sort_by {|v| v.last_online_at } # сортировка должна быть тут, а не в базе, т.к. метод last_online_at переопределён в классе
       .reverse
-  end
-
-  # текст о совместимости
-  def compatibility_text number
-    if number < 5
-      'нет совместимости'
-    elsif number < 25
-      'слабая совместимость'
-    elsif number < 40
-      'средняя совместимость'
-    elsif number < 60
-      'высокая совместимость'
-    else
-      'полная совместимость'
-    end
-  end
-
-  # класс для контейнера текста совместимости
-  def compatibility_class number
-    if number < 5
-      'zero'
-    elsif number < 25
-      'weak'
-    elsif number < 40
-      'moderate'
-    elsif number < 60
-      'high'
-    else
-      'full'
-    end
   end
 
   def common_info
@@ -134,10 +104,66 @@ class UserProfileDecorator < UserDecorator
   end
 
   def clubs
-    @clubs ||= if preferences.clubs_in_profile?
-      object.groups.order(:name).limit 4
+    if preferences.clubs_in_profile?
+      object.groups
+        .sort_by {|v| rand }
+        .take(4)
+        .sort_by(&:name)
     else
       []
     end
+  end
+
+  def compatibility klass
+    all_compatibility[klass.downcase.to_sym] if all_compatibility
+  end
+
+  # текст о совместимости
+  def compatibility_text klass
+    number = compatibility(klass)
+
+    if number < 5
+      'нет совместимости'
+    elsif number < 25
+      'слабая совместимость'
+    elsif number < 40
+      'средняя совместимость'
+    elsif number < 60
+      'высокая совместимость'
+    else
+      'полная совместимость'
+    end
+  end
+
+  # класс для контейнера текста совместимости
+  def compatibility_class klass
+    number = compatibility(klass)
+
+    if number < 5
+      'zero'
+    elsif number < 25
+      'weak'
+    elsif number < 40
+      'moderate'
+    elsif number < 60
+      'high'
+    else
+      'full'
+    end
+  end
+
+  # добавленное пользователем в избранное
+  def favourites
+    (fav_animes + fav_mangas + fav_characters + fav_people)
+      .shuffle# .uniq {|fav| [fav.id, fav.class] }
+      .take(8)
+      .sort_by do |fav|
+        [fav.class.name == Manga.name ? Anime.name : fav.class.name, fav.name]
+      end
+  end
+
+private
+  def all_compatibility
+    CompatibilityService.fetch self, h.current_user if h.user_signed_in?
   end
 end

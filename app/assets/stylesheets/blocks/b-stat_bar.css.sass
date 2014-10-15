@@ -3,10 +3,9 @@
 @import mixins/hover_underlined
 @import mixins/link
 
-$bar_height: 15px
+$bar_height: 13px
 
 .b-stat_bar
-  +block
   line-height: 16px
   min-height: 50px
 
@@ -15,6 +14,9 @@ $bar_height: 15px
     display: inline-block
     font-weight: bold
     line-height: 18px
+
+  a.title
+    +link
 
   &.lifetime .bar
     .first
@@ -53,20 +55,3 @@ $bar_height: 15px
 
     .third
       background: #aaa
-
-  .stat-names
-    font-size: 11px
-    line-height: 12px
-    margin: 2px 0 0 2px
-
-    li
-      +dash_separated
-      float: left
-
-      a
-        +link_color(#112233)
-
-        cursor: pointer
-
-        &:hover
-          text-decoration: underline

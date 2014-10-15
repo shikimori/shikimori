@@ -3,7 +3,7 @@
 - cover_notice ||= :none
 
 article.c-column.b-catalog_entry[
-    class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list}"
+    class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
     itemscope itemtype="#{{anime.itemtype if anime.respond_to? :itemtype}}"
   ]
   meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"
