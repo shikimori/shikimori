@@ -13,11 +13,7 @@ class UserStatsDecorator
   end
 
   def graph_statuses
-    if @user.preferences.manga_first?
-      @stats.by_statuses.reverse
-    else
-      @stats.by_statuses
-    end
+    @stats.by_statuses
   end
 
   #def graph_time

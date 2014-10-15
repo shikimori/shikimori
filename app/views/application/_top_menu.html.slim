@@ -22,14 +22,8 @@
         .suggest-placeholder
       - if shikimori?
         ul.popup
-          - if user_signed_in? && current_user.preferences.manga_first?
-            li.type data-type="mangas" Манга
-            li.type data-type="animes" Аниме
-
-          - else
-            li.type data-type="animes" Аниме
-            li.type data-type="mangas" Манга
-
+          li.type data-type="animes" Аниме
+          li.type data-type="mangas" Манга
           li.type data-type="characters" Персонажи
           li.type data-type="seyu" Сэйю
           li.type data-type="producers" Режиссёры

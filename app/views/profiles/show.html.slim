@@ -4,9 +4,9 @@
       .lifetime.b-stat_bar
         .title
           - if @resource.stats.spent_time.days > 0
-            | #{@resource.stats.spent_time_in_words} проведено за #{@resource.preferences.manga_first? ? 'мангой' : 'аниме'}
+            | #{@resource.stats.spent_time_in_words} проведено за аниме
           - else
-            | нет просмотров аниме
+            | Нет просмотров аниме
         .bar
           .cuts
             .cut.week

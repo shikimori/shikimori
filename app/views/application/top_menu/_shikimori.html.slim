@@ -1,14 +1,15 @@
-- if user_signed_in? && current_user.preferences.manga_first?
-  = render 'application/shikimori/manga_menu_item'
-- else
-  = render 'application/shikimori/anime_menu_item'
+.entry class="#{:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime')}"
+  a href="#{animes_url}" title="Аниме" Аниме
+  .submenu-toggler
+  .submenu
+    a.entry href="#{animes_url type: nil, status: 'ongoing'}" title="Аниме онгоинги" Онгоинги
+    - AniMangaSeason.menu_seasons.each do |season, short_title, full_title|
+      a.entry href="#{animes_url type: nil, season: season}" title="#{full_title}" = short_title
+    a.entry href="#{studios_url}" title="Студии" Студии
 
 a.entry.calendar class="#{:selected if params[:controller] == 'pages' && params[:action] == 'ongoings'}" href="#{ongoings_url}" title="Календарь"
 
-- if user_signed_in? && current_user.preferences.manga_first?
-  = render 'application/shikimori/anime_menu_item'
-- else
-  = render 'application/shikimori/manga_menu_item'
+a.entry class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}" href="#{mangas_url}" title="Манга" Манга
 
 a.entry.rel href="#{section_url :news}" title="Новости" Новости
 a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры

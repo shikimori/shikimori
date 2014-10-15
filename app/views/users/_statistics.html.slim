@@ -26,29 +26,25 @@
   .mini-charts
     .scores
       .b-options-floated
-        - if @user.stats[:has_anime?] && @user.stats[:has_manga?]
-          - if @user.preferences.manga_first?
-            a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @user, :manga}" Манга
-            a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @user, :anime}" Аниме
-          - else
-            a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @user, :anime}" Аниме
-            a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @user, :manga}" Манга
+        - if @user.stats.anime? && @user.stats.manga?
+          a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @user, :anime}" Аниме
+          a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @user, :manga}" Манга
       .subheadline Оценки
-      #scores data-stats="#{@user.stats[:scores][@kind].to_json}" data-bar="horizontal"
+      #scores data-stats="#{@user.stats.scores[@kind].to_json}" data-bar="horizontal"
 
     .types
       .subheadline Типы
-      #types data-stats="#{@user.stats[:types][@kind].to_json}" data-bar="horizontal"
+      #types data-stats="#{@user.stats.types[@kind].to_json}" data-bar="horizontal"
 
     - if @kind != :manga
       .ratings
         .subheadline Рейтинги
-        #ratings data-stats="#{@user.stats[:ratings][@kind].to_json}" data-bar="horizontal"
+        #ratings data-stats="#{@user.stats.ratings[@kind].to_json}" data-bar="horizontal"
 
   .activity
     .subheadline Активность
-    - if @user.stats[:activity].any?
-      #activity_inc data-stats="#{@user.stats[:activity].to_json}" data-bar="vertical" data-flattened="true"
+    - if @user.stats.activity.any?
+      #activity_inc data-stats="#{@user.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
     - else
       p.stat-sorry Недостаточно данных для формирования статистики
 

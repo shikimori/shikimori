@@ -131,7 +131,7 @@ class UsersController < ShikimoriController
       .all_history
       .limit(30)
       .decorate if params[:format] == 'rss'
-    @kind = (params[:kind] || (@user.preferences.manga_first? ? :manga : :anime)).to_sym
+    @kind = (params[:kind] || :anime).to_sym
 
     show
   end

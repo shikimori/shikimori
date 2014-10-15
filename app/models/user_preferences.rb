@@ -23,10 +23,6 @@ class UserPreferences < ActiveRecord::Base
     comments_in_profile
   end
 
-  def manga_first?
-    manga_first
-  end
-
   def russian_names?
     russian_names
   end
