@@ -4,7 +4,7 @@
       .lifetime.b-stat_bar
         .title
           - if @resource.stats.spent_time.days > 0
-            | #{@resource.stats.spent_time_in_words} #{@current_user.male? ? 'провёл' : 'провела'} за аниме
+            | #{@resource.stats.spent_time_in_words} #{@resource.male? ? 'провёл' : 'провела'} за аниме
           - else
             | Нет просмотров аниме
         .bar
