@@ -8,6 +8,7 @@
 #= require pages/p-characters
 #= require pages/p-contests
 #= require pages/p-clubs
+#= require_directory ./pages/p-profiles
 
 $ =>
   $(document).trigger 'page:load', true

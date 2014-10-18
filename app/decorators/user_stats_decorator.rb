@@ -90,6 +90,10 @@ class UserStatsDecorator
     end
   end
 
+  def activity
+    @stats.by_activity 26
+  end
+
   #def statuses
     #{ anime: @stats.anime_statuses, manga: @stats.manga_statuses }
   #end
@@ -137,9 +141,5 @@ class UserStatsDecorator
 
   #def publishers
     #{ manga: by_categories('publisher', @stats.publishers, nil, @stats.manga_valuable_rates, 17) }
-  #end
-
-  #def activity
-    #by_activity 42 #41
   #end
 end

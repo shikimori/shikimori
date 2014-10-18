@@ -1,27 +1,37 @@
-.c-head
-  .c-brief
-    .avatar
-      img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
-      /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+.menu-toggler
+  .toggler
 
-    header.head.misc
-      h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
-        span.nickname
-          = @resource.nickname
-      .misc
-        - if @resource.banned?
-          span.banned забанен
-        - else
-          = @resource.last_online
-      p.notice
-        - @resource.common_info.each do |entry|
-          span = entry
+.menu-slide-outer
+  .menu-slide-inner
+    .l-content.profile-head
+      .c-brief
+        .avatar
+          img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+          /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
 
-  .c-lists-info
-    - @resource.stats.graph_statuses.each do |klass,stats,graph|
-      = render 'stats_bar', klass: klass, stats: stats, graph: graph
+        header.head.misc
+          h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
+            span.nickname
+              = @resource.nickname
+          .misc
+            - if @resource.banned?
+              span.banned забанен
+            - else
+              = @resource.last_online
+          p.notice
+            - @resource.common_info.each do |entry|
+              span = entry
 
-= yield
+      .c-lists-info
+        - @resource.stats.graph_statuses.each do |klass,stats,graph|
+          = render 'stats_bar', klass: klass, stats: stats, graph: graph
+
+    aside.l-menu
+      .subheadline menu
+
+
+.profile-content
+  = yield
 
 /.menu-toggler
   /.toggler

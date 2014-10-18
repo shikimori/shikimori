@@ -4,9 +4,11 @@
       .lifetime.b-stat_bar
         .title
           - if @resource.stats.spent_time.days > 0
-            | #{@resource.stats.spent_time_in_words} #{@resource.male? ? 'провёл' : 'провела'} за аниме
+            .label #{@resource.male? ? 'Провёл' : 'Провела'} за аниме
+            .value #{@resource.stats.spent_time_in_words}
           - else
             | Нет просмотров аниме
+
         .bar
           .cuts
             .cut.week
@@ -26,8 +28,12 @@
           .time class="#{:checked if @resource.stats.spent_time.months_6 >= 1}" 6 месяцев
           .time class="#{:checked if @resource.stats.spent_time.years >= 1}" год
 
-      .m30
-      .subheadline.m30.magenta страница в разработке
+      .activity
+        .title Активность на сайте
+        - if @resource.stats.activity.any?
+          .graph data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
+        - else
+          p.stat-sorry Недостаточно данных для формирования статистики
 
     .c-column
       .cc-2a.m0
@@ -51,3 +57,8 @@
         .subheadline.m10 Избранное
         .cc-favourites
           = render @resource.favourites, cover_by: :image_link
+
+  - if @user.about_html.present?
+    .block
+      .subheadline.m10 Обо мне
+      = @user.about_html

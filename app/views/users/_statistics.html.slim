@@ -42,7 +42,7 @@
         #ratings data-stats="#{@user.stats.ratings[@kind].to_json}" data-bar="horizontal"
 
   .activity
-    .subheadline Активность
+    .subheadline.m10 Активность
     - if @user.stats.activity.any?
       #activity_inc data-stats="#{@user.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
     - else

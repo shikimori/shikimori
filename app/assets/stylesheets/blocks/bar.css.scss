@@ -1,5 +1,6 @@
 @import "globals";
 .bar.horizontal {
+  box-sizing: initial;
   width: 215px;
 
   .line {
@@ -41,16 +42,20 @@
 
 .bar.vertical {
   border-bottom: 1px solid #999;
+  box-sizing: initial;
   /*overflow: hidden;*/
   padding-left: 2px;
   padding-right: 2px;
   position: relative;
 
   .line {
-    float: left;
+    display: inline-block;
     height: inherit;
-    margin-right: 1px;
-    width: 16px;
+    /*margin-right: 1px;*/
+    /*width: 16px;*/
+    width: 3.7037037037037%; // 1 / 27
+    overflow: hidden;
+    border-right: 1px solid #fff;
 
     .x_label {
       bottom: -20px;
@@ -61,7 +66,7 @@
     }
     .bar-container {
       height: inherit;
-      width: inherit;
+      width: 30px;
       display: table-cell;
       vertical-align: bottom;
 
@@ -72,7 +77,7 @@
           display: block;
         }
         &.min {
-          min-height: 1px;
+          min-height: 2px;
         }
       }
       .value {

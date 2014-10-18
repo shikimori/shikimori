@@ -25,7 +25,9 @@ class UserProfileDecorator < UserDecorator
   end
 
   def about_html
-    BbCodeFormatter.instance.format_comment about || ''
+    Rails.cache.fetch [object, :about] do
+      BbCodeFormatter.instance.format_comment about || ''
+    end
   end
 
   def own_profile?
