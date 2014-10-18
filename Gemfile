@@ -9,6 +9,8 @@ gem 'dalli'
 gem 'redis'
 
 gem 'therubyracer'
+gem 'libv8', '3.16.14.7' # нужно после перехода на yosemite
+
 gem 'sprockets'
 gem 'sass-rails'
 gem 'slim-rails'
@@ -18,7 +20,7 @@ gem 'uglifier'
 gem 'compass-rails'
 gem 'non-stupid-digest-assets'
 
-gem 'rmagick', require: 'RMagick' # dependence: sudo apt-get install libmagickwand-dev
+gem 'rmagick', require: 'RMagick', github: 'gemhome/rmagick', branch: 'master' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'
 
 gem 'actionpack-action_caching'
