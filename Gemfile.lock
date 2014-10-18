@@ -1,4 +1,4 @@
-t rjGIT
+GIT
   remote: git://github.com/flori/amatch.git
   revision: 81db493aa8fa007b6d384e75960212ea1637412e
   specs:
