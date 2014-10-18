@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe AnimeVideoDecorator do
+  let(:decorator) { AnimeVideoDecorator.new anime }
   describe :description do
     let(:anime) { build :anime, description: 'test' }
-    subject { AnimeVideoDecorator.new(anime).description }
+    subject { decorator.description }
 
     context :first_episode do
       it { should eq BbCodeFormatter.instance.format_description('test', anime) }
@@ -15,8 +16,23 @@ describe AnimeVideoDecorator do
     end
   end
 
+  describe '#watch_increment_delay' do
+    let(:anime) { build :anime, duration: duration }
+    subject { decorator.watch_increment_delay }
+
+    context :with_duration do
+      let(:duration) { 2 }
+      it { should eq anime.duration * 60000 / 3 }
+    end
+
+    context :without_duration do
+      let(:duration) { 0 }
+      it { should be_nil }
+    end
+  end
+
   describe :videos do
-    subject { AnimeVideoDecorator.new(anime).videos }
+    subject { decorator.videos }
     let(:anime) { build :anime }
     let(:episode) { 1 }
 

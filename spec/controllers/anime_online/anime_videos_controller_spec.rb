@@ -241,4 +241,22 @@ describe AnimeOnline::AnimeVideosController do
       end
     end
   end
+
+  describe '#watch_view_increment' do
+    subject { video.reload.watch_view_count }
+    let(:anime) { create :anime }
+    let(:video) { create :anime_video, watch_view_count: view_count, anime: anime }
+    let(:request) { get :watch_view_increment, id: video.id, anime_id: anime.id }
+    before { request }
+
+    context :first_time do
+      let(:view_count) { nil }
+      it { should eq 1 }
+    end
+
+    context :not_first_time do
+      let(:view_count) { 103 }
+      it { should eq view_count + 1 }
+    end
+  end
 end

@@ -1,3 +1,6 @@
+get_page =->
+  $('.p-anime_video-show')
+
 resize_player = ($page) ->
   $frame = $('iframe', $page)
   $frame.height($frame.width() * 9 / 16) if $frame
@@ -8,8 +11,12 @@ resize_player = ($page) ->
     $object.width(width).height(width * 9 / 16)
     $('embed', $object).width(width).height(width * 9 / 16)
 
+watch_view_count_increment = ->
+  $.ajax
+    url: get_page().data('watch-url')
+
 jQuery ->
-  $page = $('.p-anime_video-show')
+  $page = get_page()
 
   $('.kinds li a', $page).on 'click', ->
     $('.video iframe', $page).attr 'src', $(@).data('url')
@@ -29,3 +36,5 @@ jQuery ->
 
   $('button[data-href]', $page).on 'click', ->
     window.location = $(@).data('href')
+
+  (-> watch_view_count_increment()).delay($page.data('watch-delay')) if $page.data('watch-delay')

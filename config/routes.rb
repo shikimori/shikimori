@@ -27,6 +27,10 @@ Site::Application.routes.draw do
         get :help, on: :member
       end
 
+      resources :anime_videos do
+        get :watch_view_increment, on: :member
+      end
+
       post 'anime_videos/:id/rate' => 'anime_videos#rate', as: :rate_anime
     end
 
