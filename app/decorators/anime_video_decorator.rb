@@ -10,6 +10,10 @@ class AnimeVideoDecorator < AnimeVideoPreviewDecorator
     end
   end
 
+  def watch_increment_delay
+    duration * 60000 / 3 if duration > 0
+  end
+
   def current_episode
     @current_episode ||= if h.params[:episode]
       h.params[:episode].to_i
