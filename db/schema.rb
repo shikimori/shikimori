@@ -783,7 +783,6 @@ ActiveRecord::Schema.define(version: 20141015183314) do
     t.string   "name"
     t.string   "description"
     t.string   "permalink"
-    t.integer  "forum_id"
     t.integer  "topics_count",     default: 0
     t.integer  "posts_count",      default: 0
     t.datetime "created_at"
