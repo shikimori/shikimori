@@ -8,7 +8,10 @@ class Video < ActiveRecord::Base
   enumerize :hosting, in: [:youtube, :vk, :coub, :twitch, :rutube, :vimeo, :myvi, :sibnet, :yandex, :dailymotion], predicates: true
 
   validates :anime_id, :uploader_id, :url, :kind, presence: true
-  validates_uniqueness_of :url, case_sensitive: true, scope: [:anime_id, :state]
+  validates_uniqueness_of :url,
+    case_sensitive: true,
+    scope: [:anime_id, :state],
+    conditions: -> { where.not state: :deleted }
 
   before_create :check_url
   before_create :check_hosting
