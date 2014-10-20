@@ -1,0 +1,13 @@
+@import mixins/column
+@import mixins/responsive
+
+.p-profiles-clubs
+  .b-club
+    +gte_ipad
+      +column(3)
+
+    +iphone_landscape
+      +column(2)
+
+    +iphone_portrait
+      +column(1)

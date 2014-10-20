@@ -597,6 +597,12 @@ Site::Application.routes.draw do
 
     resources :profiles, path: '/', constraints: { id: /[^\/]+?/ }, only: [:show] do # , format: /json|rss/
       member do
+        get :friends
+        get :favourites
+        get :clubs
+        get :stats
+        get 'history(/:page)' => :history, as: :history
+
         get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
       end
     end

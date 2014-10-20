@@ -1,0 +1,42 @@
+= render layout: 'page' do
+  - if @user.fav_animes.any?
+    .block.m0
+      .subheadline.m10 Аниме
+      .cc
+        = render @user.fav_animes
+
+  - if @user.fav_mangas.any?
+    .block.m0
+      .subheadline.m10 Манга
+      .cc
+        = render @user.fav_mangas
+
+  - if @user.fav_characters.any?
+    .block.m0
+      .subheadline.m10 Герои
+      .cc
+        = render @user.fav_characters
+
+  - if @user.fav_seyu.any?
+    .block.m0
+      .subheadline.m10 Сэйю
+      .cc
+        = render @user.fav_seyu
+
+  - if @user.fav_producers.any?
+    .block.m0
+      .subheadline.m10 Режиссёры
+      .cc
+        = render @user.fav_producers
+
+  - if @user.fav_mangakas.any?
+    .block.m0
+      .subheadline.m10 Мангаки
+      .cc
+        = render @user.fav_mangakas
+
+  - if @user.fav_persons.any?
+    .block.m0
+      .subheadline.m10 Прочие люди
+      .cc
+        = render @user.fav_persons

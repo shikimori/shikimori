@@ -1,0 +1,13 @@
+@import mixins/column
+@import mixins/responsive
+
+.p-profiles-friends
+  .b-user
+    +gte_ipad
+      +column_b(10, 1/10, 2%)
+
+    +iphone-landscape
+      +column_b(7)
+
+    +iphone-portrait
+      +column_b(4)

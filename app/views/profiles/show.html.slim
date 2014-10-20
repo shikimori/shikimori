@@ -38,7 +38,7 @@
     .c-column
       .cc-2a.m0
         .c-column.block
-          .subheadline.m10 Друзья
+          .subheadline.m10: a href="#{friends_profile_url @resource}" Друзья
           .cc-friends
             - if @resource.friends.none?
               .not-a-member Нет друзей
@@ -46,7 +46,7 @@
               = render @resource.friends.take(12), content_by: :avatar
 
         .c-column.block
-          .subheadline.m10 Клубы
+          .subheadline.m10: a href="#{clubs_profile_url @resource}" Клубы
           .cc-clubs
             - if @resource.clubs.none?
               .not-a-member Не состоит ни в одном из клубов
@@ -54,7 +54,7 @@
               = render partial: 'clubs/club', collection: @resource.clubs.take(4), locals: { content_by: :avatar }
 
       .block
-        .subheadline.m10 Избранное
+        .subheadline.m10: a href="#{favourites_profile_url @resource}" Избранное
         .cc-favourites
           = render @resource.favourites, cover_by: :image_link
 
