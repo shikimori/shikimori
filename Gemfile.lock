@@ -53,6 +53,18 @@ GIT
     ruby-progressbar (0.0.9)
 
 GIT
+  remote: git://github.com/mperham/sidekiq.git
+  revision: 9db4f007ecce39b3d3a5033b35eaf18c8e6333aa
+  branch: master
+  specs:
+    sidekiq (3.2.6)
+      celluloid (= 0.15.2)
+      connection_pool (>= 2.0.0)
+      json
+      redis (>= 3.0.6)
+      redis-namespace (>= 1.3.1)
+
+GIT
   remote: git://github.com/myobie/htmldiff.git
   revision: c3b9112b34e9c37e805068ae3a6a42388666e67e
   specs:
@@ -167,8 +179,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    celluloid (0.16.0)
-      timers (~> 4.0.0)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
     celluloid-io (0.15.0)
       celluloid (>= 0.15.0)
       nio4r (>= 0.5.0)
@@ -295,7 +307,6 @@ GEM
     hashie (2.1.1)
     hike (1.2.3)
     hiredis (0.5.2)
-    hitimes (1.2.2)
     htmlentities (4.3.1)
     http_parser.rb (0.6.0)
     httparty (0.13.1)
@@ -468,12 +479,6 @@ GEM
       sprockets-rails (~> 2.0)
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
-    sidekiq (3.2.4)
-      celluloid (>= 0.15.2)
-      connection_pool (>= 2.0.0)
-      json
-      redis (>= 3.0.6)
-      redis-namespace (>= 1.3.1)
     sidekiq-limit_fetch (2.2.6)
       sidekiq (>= 2.6.5, < 4.0)
     sidekiq-unique-jobs (3.0.2)
@@ -526,8 +531,7 @@ GEM
     thread_safe (0.3.4)
     tilt (1.4.1)
     timecop (0.7.1)
-    timers (4.0.1)
-      hitimes
+    timers (1.1.0)
     tins (0.13.2)
     treetop (1.4.15)
       polyglot
@@ -651,7 +655,7 @@ DEPENDENCIES
   rvm1-capistrano3
   sass-rails
   shoulda-matchers
-  sidekiq
+  sidekiq!
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   simple_form
