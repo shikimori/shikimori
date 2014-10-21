@@ -5,6 +5,23 @@
   /.menu-slide-inner
     /.l-content.profile-head
 .profile-head
+  - if @resource.history.any?
+    .c-history
+      .subheadline.m13
+        a href="#{history_profile_url @resource}" История
+      ul.block-list-alt
+        - @resource.formatted_history.each do |entry|
+          li.entry
+            a href="#{entry[:url]}" title="#{entry[:name]}"
+              .image-name
+                img src="#{entry[:image]}" alt="#{entry[:name]}" title="#{entry[:name]}"
+                span.title
+                  == entry[:name]
+              span.misc title="#{entry[:reversed_action]}"
+                = entry[:reversed_action]
+              span.misc.date
+                = time_ago_in_words entry[:created_at], "%s назад"
+
   .c-brief
     .avatar
       img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"

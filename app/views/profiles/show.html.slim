@@ -1,11 +1,11 @@
 = render layout: 'page' do
-  .cc-2
+  .cc-2.block
     .c-column
       .lifetime.b-stat_bar
         .title
           - if @resource.stats.spent_time.days > 0
-            .label #{@resource.male? ? 'Провёл' : 'Провела'} за аниме
             .value #{@resource.stats.spent_time_in_words}
+            .label #{@resource.male? ? 'Провёл' : 'Провела'} за аниме
           - else
             | Нет просмотров аниме
 
@@ -33,30 +33,45 @@
         - if @resource.stats.activity.any?
           .graph data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
         - else
-          p.stat-sorry Недостаточно данных для формирования статистики
+          .list-is-empty Нет статистики
 
     .c-column
       .cc-2a.m0
         .c-column.block
-          .subheadline.m10: a href="#{friends_profile_url @resource}" Друзья
-          .cc-friends
-            - if @resource.friends.none?
-              .not-a-member Нет друзей
+          .subheadline.m10
+            - if @resource.friends.any? && @resource.friends.size > 12
+              a href="#{friends_profile_url @resource}" Друзья
             - else
+              | Друзья
+          .cc-friends
+            - if @resource.friends.any?
               = render @resource.friends.take(12), content_by: :avatar
+            - else
+              .list-is-empty Нет друзей
 
         .c-column.block
-          .subheadline.m10: a href="#{clubs_profile_url @resource}" Клубы
-          .cc-clubs
-            - if @resource.clubs.none?
-              .not-a-member Не состоит ни в одном из клубов
+          .subheadline.m10
+            - if @resource.clubs.any? && @resource.clubs.size > 4
+              a href="#{clubs_profile_url @resource}" Клубы
             - else
+              | Клубы
+          .cc-clubs
+            - if @resource.clubs.any?
               = render partial: 'clubs/club', collection: @resource.clubs.take(4), locals: { content_by: :avatar }
+            - else
+              .list-is-empty Не состоит ни в одном из клубов
 
       .block
-        .subheadline.m10: a href="#{favourites_profile_url @resource}" Избранное
+        .subheadline.m10
+          - if @resource.favourites.any?
+            a href="#{favourites_profile_url @resource}" Избранное
+          - else
+            | Избранное
         .cc-favourites
-          = render @resource.favourites, cover_by: :image_link
+          - if @resource.favourites.any?
+            = render @resource.favourites, cover_by: :image_link
+          - else
+            .list-is-empty Список изранного пуст
 
   - if @user.about_html.present?
     .block

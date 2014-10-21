@@ -102,7 +102,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def formatted_history
-    history.formatted.take clubs.any? ? 3 : 4
+    history.formatted.take 2
   end
 
   def clubs

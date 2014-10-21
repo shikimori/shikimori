@@ -1,0 +1,16 @@
+- collection.each do |interval,history|
+  .title = t "date_time.intervals.#{interval}"
+
+  .history-interval
+    - history.each do |entry|
+      - next if entry.target_type && entry.target.nil?
+      p
+        span.date
+          = entry.time_ago interval
+        - if entry.target
+          a.bubbled href="#{url_for entry.target}"
+            == localized_name entry.target
+          | &nbsp;
+          == entry.format.downcase
+        - else
+          == entry.format

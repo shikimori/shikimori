@@ -6,10 +6,24 @@
 @import mixins/dash_separated
 @import mixins/hover_underlined
 @import mixins/link
+@import mixins/menu-blocks
+
 
 .p-profiles .profile-head
   +clear_left
   +clearfix
+
+  .c-history
+    float: right
+    margin-bottom: $block_offset
+    margin-left: $block_offset
+    width: 212px
+
+    .entry
+      +menu-block-with-image
+
+    +iphone
+      display: none
 
   .c-brief
     margin-bottom: 0
