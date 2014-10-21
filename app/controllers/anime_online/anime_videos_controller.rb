@@ -114,6 +114,12 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
     render nothing: true
   end
 
+  def watch_view_increment
+    video = AnimeVideo.find params[:id]
+    video.update watch_view_count: video.watch_view_count.to_i + 1
+    render nothing: true
+  end
+
 private
   def video_params
     params

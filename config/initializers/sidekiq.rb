@@ -1,6 +1,11 @@
 SidekiqUniqueJobs::Config.unique_args_enabled = true
 SidekiqUniqueJobs::Config.default_expiration = 2.days
 
+Sidekiq.configure_server do |config|
+  Rails.logger = Sidekiq::Logging.logger
+  config.poll_interval = 5
+end
+
 #class Sidekiq::Extensions::DelayedMailer::ExceptionHandling
 module Sidekiq::Extensions::PostmarkHandler
   def perform yml

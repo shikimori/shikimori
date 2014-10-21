@@ -2,7 +2,7 @@
 - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
   .ads_container = render partial: 'anime_online/blocks/ads_top_line'
 
-.p-anime_video-show.container
+.p-anime_video-show.container data-watch-delay="#{@anime.watch_increment_delay}" data-watch-url="#{watch_view_increment_anime_online_anime_video_url @anime.current_video}"
   .title = @anime.name.to_s.html_safe
   .row
     .col-md-3.col-sm-4
@@ -16,7 +16,7 @@
       - if @anime.description
         .description == @anime.description.gsub('data-remote="true"', '')
 
-      a.source href="#{anime_url @anime, subdomain: false}" shikimori.org
+      .source : a href="#{anime_url @anime, subdomain: false}" shikimori.org
 
       - if @anime.current_videos.blank? || @anime.current_video.blank?
         .alert.alert-info
@@ -26,13 +26,20 @@
               | Перейти к последнему&nbsp;
               a.alert-link href="#{@anime.url @anime.last_episode}" = "эпизоду #{@anime.last_episode}"
       - else
-        - if @anime.current_video.uploader
-          .uploader
-            = link_to profile_url(@anime.current_video.uploader, subdomain: false) do
-              img.avatar src="#{@anime.current_video.uploader.avatar_url 16}" alt="#{@anime.current_video.uploader.nickname}" title="#{@anime.current_video.uploader.nickname}"
-            = link_to @anime.current_video.uploader.nickname, profile_url(@anime.current_video.uploader, subdomain: false), class: 'nickname', title: "#{@anime.current_video.uploader.nickname}"
+        - if @anime.current_video.uploader || @anime.current_video.watch_view_count
+          .top_player
+            .uploader
+              - if @anime.current_video.uploader
+                | Видео добавлено:
+                = link_to user_url(@anime.current_video.uploader, subdomain: false) do
+                  img.avatar src="#{@anime.current_video.uploader.avatar_url 16}" alt="#{@anime.current_video.uploader.nickname}" title="#{@anime.current_video.uploader.nickname}"
+                = link_to @anime.current_video.uploader.nickname, user_url(@anime.current_video.uploader, subdomain: false), class: 'nickname', title: "#{@anime.current_video.uploader.nickname}"
+            .watch_view_count
+              - if @anime.current_video.watch_view_count.to_i > 0
+                = "#{@anime.current_video.watch_view_count} #{Russian.p @anime.current_video.watch_view_count, 'просмотр', 'просмотра', 'просмотров'}"
 
-        .video-player = render partial: 'player', locals: { video: @anime.current_video }
+        .video-player
+          = render partial: 'player', locals: { video: @anime.current_video }
         = render partial: 'nav_video', locals: { anime: @anime }
 
       = render partial: 'reviews'
