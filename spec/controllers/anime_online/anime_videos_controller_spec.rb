@@ -5,26 +5,34 @@ describe AnimeOnline::AnimeVideosController do
   let(:admin_user) { create :user, id: 1 }
 
   describe :show do
-    context :with_video do
-      let(:anime) { create :anime, name: 'anime_test', anime_videos: [create(:anime_video)] }
-      before do
-        @request.host = 'play.test'
-        get :show, id: anime.id
-      end
+    context :video_content do
+      before { AnimeOnlineDomain.stub(:valid_host?).and_return(true) }
+      before { request }
+      let(:anime) { create :anime, name: 'anime_test', anime_videos: [video_1] }
+      let(:video_1) { create(:anime_video) }
 
-      it { should respond_with_content_type :html }
-      it { should respond_with :success }
-
-      describe :search do
-        before { get :show, id: anime.id, search: 'foo' }
+      context :with_video do
+        let(:request) { get :show, id: anime.id }
         it { should respond_with_content_type :html }
-        it { should redirect_to(anime_videos_url search: 'foo') }
-      end
-    end
+        it { should respond_with :success }
 
-    context :without_video do
-      let(:anime) { create :anime, name: 'anime_test' }
-      it { expect{get :show, id: anime.id}.to raise_error(ActionController::RoutingError) }
+        describe :search do
+          let(:request) { get :show, id: anime.id, search: 'foo' }
+          it { should respond_with_content_type :html }
+          it { should redirect_to(anime_videos_url search: 'foo') }
+        end
+
+        context :without_current_video do
+          let(:request) { get :show, id: anime.id, episode: video_1.episode, video_id: video_1.id + 1 }
+          it { should respond_with_content_type :html }
+          it { should respond_with :success }
+        end
+      end
+
+      context :without_any_video do
+        let(:anime) { create :anime, name: 'anime_test' }
+        it { expect{get :show, id: anime.id}.to raise_error(ActionController::RoutingError) }
+      end
     end
 
     describe :verify_adult do
