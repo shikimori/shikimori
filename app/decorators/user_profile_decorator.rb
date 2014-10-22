@@ -106,14 +106,9 @@ class UserProfileDecorator < UserDecorator
   end
 
   def clubs
-    if preferences.clubs_in_profile?
-      object.groups
-        .sort_by {|v| rand }
-        .take(4)
-        .sort_by(&:name)
-    else
-      []
-    end
+    object.groups
+      .sort_by {|v| rand }
+      .sort_by(&:name)
   end
 
   def compatibility klass

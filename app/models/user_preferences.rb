@@ -15,10 +15,6 @@ class UserPreferences < ActiveRecord::Base
     manga_in_profile
   end
 
-  def clubs_in_profile?
-    clubs_in_profile
-  end
-
   def comments_in_profile?
     comments_in_profile
   end
