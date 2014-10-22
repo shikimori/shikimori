@@ -105,10 +105,15 @@ class UserProfileDecorator < UserDecorator
     history.formatted.take 2
   end
 
-  def clubs
-    object.groups
-      .sort_by {|v| rand }
+  def random_clubs
+    clubs
+      .sort_by { rand }
+      .take(4)
       .sort_by(&:name)
+  end
+
+  def clubs
+    object.groups.sort_by(&:name)
   end
 
   def compatibility klass
