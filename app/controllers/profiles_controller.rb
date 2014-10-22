@@ -1,9 +1,10 @@
 class ProfilesController < UsersController
-  before_action :load_user
+  HISTORIES_PER_PAGE = 90
+
+  before_action :fetch_resource
+  before_action :set_breadcrumbs, if: -> { params[:action] != 'show' }
   authorize_resource :user, class: User
   page_title 'Профиль'
-
-  HISTORIES_PER_PAGE = 90
 
   def show
   end
@@ -42,10 +43,15 @@ class ProfilesController < UsersController
   end
 
 private
-  def load_user
+  def fetch_resource
     user = User.find_by nickname: User.param_to(params[:profile_id] || params[:id])
     @resource = UserProfileDecorator.new user
 
     page_title @resource.nickname
+  end
+
+  def set_breadcrumbs
+    breadcrumb 'Пользователи', users_url
+    breadcrumb @resource.nickname, @resource.url
   end
 end

@@ -6,26 +6,30 @@
 .p-profiles-history
   .title
     font-weight: bold
-    margin-bottom: 5px
+    margin-bottom: 7px
 
     &:first-letter
       text-transform: uppercase
 
   .history-interval
     +clearfix
-    a
-      +link_color
-      +hover_underlined
-
     margin-bottom: 25px
 
     &:last-child
       margin-bottom: 0
 
-    .date
-      +date
-      font-size: 12px
-      float: right
+    p
+      line-height: 1.4
+      margin-bottom: 5px
+
+      a
+        +link_color
+        +hover_underlined
+
+      .date
+        +date
+        font-size: 12px
+        float: right
 
   .b-postloader
     margin-top: -20px
