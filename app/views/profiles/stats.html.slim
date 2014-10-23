@@ -1,3 +1,48 @@
 = render layout: 'page' do
-  .block.m0
-    h2.subheadline.m10 = @page_title.last
+  /h2.subheadline.m10 = @page_title.last
+
+  .cc-3_4
+    .c-column
+      /- if @kind == :anime
+      .cc-2
+        .c-column.genres
+          .subheadline.m10 Жанры
+          = render 'category_stats', resource: @resource, klass: Anime.name.downcase.to_sym, category: :genres, caption: 'Жанры'
+
+        .c-column.studios
+          .subheadline.m10 Студии
+          = render 'category_stats', resource: @resource, klass: Anime.name.downcase.to_sym, category: :studios, caption: 'Студии'
+        /- else
+          /.genres
+            /.subheadline.m10 Жанры
+            /= render 'category_stats', resource: @resource, klass: Manga.name.downcase.to_sym, category: :genres, caption: 'Жанры'
+
+          /.studios
+            /.subheadline.m10 Издатели
+            /= render 'category_stats', resource: @resource, klass: Manga.name.downcase.to_sym, category: :publishers, caption: 'Студии'
+
+    .c-column
+      /.mini-charts
+        /.scores
+          /.b-options-floated
+            /- if @resource.stats.anime? && @resource.stats.manga?
+              /a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @resource, :anime}" Аниме
+              /a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @resource, :manga}" Манга
+          /.subheadline Оценки
+          /#scores data-stats="#{@resource.stats.scores[@kind].to_json}" data-bar="horizontal"
+
+        /.types
+          /.subheadline Типы
+          /#types data-stats="#{@resource.stats.types[@kind].to_json}" data-bar="horizontal"
+
+        /- if @kind != :manga
+          /.ratings
+            /.subheadline Рейтинги
+            /#ratings data-stats="#{@resource.stats.ratings[@kind].to_json}" data-bar="horizontal"
+
+  /.activity
+    /.subheadline.m10 Активность
+    /- if @resource.stats.activity.any?
+      /#activity_inc data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
+    /- else
+      /p.stat-sorry Недостаточно данных для формирования статистики

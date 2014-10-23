@@ -1,42 +1,42 @@
 = render layout: 'page' do
-  - if @user.fav_animes.any?
+  - if @resource.fav_animes.any?
     .block.m0
       .subheadline.m10 Аниме
       .cc
-        = render @user.fav_animes
+        = render @resource.fav_animes
 
-  - if @user.fav_mangas.any?
+  - if @resource.fav_mangas.any?
     .block.m0
       .subheadline.m10 Манга
       .cc
-        = render @user.fav_mangas
+        = render @resource.fav_mangas
 
-  - if @user.fav_characters.any?
+  - if @resource.fav_characters.any?
     .block.m0
       .subheadline.m10 Герои
       .cc
-        = render @user.fav_characters
+        = render @resource.fav_characters
 
-  - if @user.fav_seyu.any?
+  - if @resource.fav_seyu.any?
     .block.m0
       .subheadline.m10 Сэйю
       .cc
-        = render @user.fav_seyu
+        = render @resource.fav_seyu
 
-  - if @user.fav_producers.any?
+  - if @resource.fav_producers.any?
     .block.m0
       .subheadline.m10 Режиссёры
       .cc
-        = render @user.fav_producers
+        = render @resource.fav_producers
 
-  - if @user.fav_mangakas.any?
+  - if @resource.fav_mangakas.any?
     .block.m0
       .subheadline.m10 Мангаки
       .cc
-        = render @user.fav_mangakas
+        = render @resource.fav_mangakas
 
-  - if @user.fav_persons.any?
+  - if @resource.fav_persons.any?
     .block.m0
       .subheadline.m10 Прочие люди
       .cc
-        = render @user.fav_persons
+        = render @resource.fav_persons

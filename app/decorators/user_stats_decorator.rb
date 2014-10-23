@@ -128,18 +128,18 @@ class UserStatsDecorator
     #@stats.manga_rates.any?
   #end
 
-  #def genres
-    #{
-      #anime: @stats.by_categories('genre', @stats.genres, @stats.anime_valuable_rates, [], 19),
-      #manga: @stats.by_categories('genre', @stats.genres, [], @stats.manga_valuable_rates, 19)
-    #}
-  #end
+  def genres
+    {
+      anime: @stats.by_categories('genre', @stats.genres, @stats.anime_valuable_rates, [], 19),
+      manga: @stats.by_categories('genre', @stats.genres, [], @stats.manga_valuable_rates, 19)
+    }
+  end
 
-  #def studios
-    #{ anime: by_categories('studio', @stats.studios.select {|v| v.real? }, @stats.anime_valuable_rates, nil, 17) }
-  #end
+  def studios
+    { anime: @stats.by_categories('studio', @stats.studios.select {|v| v.real? }, @stats.anime_valuable_rates, nil, 17) }
+  end
 
-  #def publishers
-    #{ manga: by_categories('publisher', @stats.publishers, nil, @stats.manga_valuable_rates, 17) }
-  #end
+  def publishers
+    { manga: @stats.by_categories('publisher', @stats.publishers, nil, @stats.manga_valuable_rates, 17) }
+  end
 end

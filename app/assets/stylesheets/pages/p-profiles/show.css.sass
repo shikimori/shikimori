@@ -1,17 +1,8 @@
 @import compass/typography/text/ellipsis
 @import mixins/clear_left
 @import mixins/column
-@import mixins/link
 
 .p-profiles-show
-  .list-is-empty
-    color: $gray-color
-    font-size: 12px
-    margin-left: 5px
-
-    a
-      +link
-
   .lifetime
     +block
 
@@ -68,6 +59,7 @@
 
   .cc-friends
     +clear_left
+    margin-bottom: $block_offset
 
     .b-user
       margin-bottom: 6px
@@ -133,4 +125,3 @@
 
     .graph
       height: 140px
-      //margin-left: 3px

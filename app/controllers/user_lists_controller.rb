@@ -68,46 +68,6 @@ class UserListsController < UsersController
     end
   end
 
-  # история изменения списка аниме/манги
-  def history
-    limit = 90
-    @page = (params[:page] || 1).to_i
-
-    history = @user
-      .all_history
-      .offset(limit * (@page-1))
-      .limit(limit + 1)
-      .to_a
-
-    @add_postloader = history.size > limit
-    history = history.take(limit) if history.size > limit
-    history.map!(&:decorate)
-
-    @history = history.group_by do |v|
-      today = DateTime.parse(Date.today.to_s)
-      updated_at = v.updated_at.to_datetime
-      if today < updated_at then 'Сегодня'
-      elsif today - 1.day < updated_at then 'Вчера'
-      elsif today - 1.week < updated_at then 'В течение недели'
-      elsif today - 2.weeks < updated_at then 'Две недели назад'
-      elsif today - 3.weeks < updated_at then 'Три недели назад'
-      elsif today - 4.weeks < updated_at then 'Четыре недели назад'
-      elsif today - 2.months < updated_at then 'Месяц назад'
-      elsif today - 3.months < updated_at then 'Два месяца назад'
-      elsif today - 4.months < updated_at then 'Три месяца назад'
-      elsif today - 5.months < updated_at then 'Четыре месяца назад'
-      elsif today - 6.months < updated_at then 'Пять месяцев назад'
-      elsif today - 9.months < updated_at then 'Более полугода назад'
-      elsif today - 1.year < updated_at then 'Почти год назад'
-      elsif today - 2.year < updated_at then 'Более года назад'
-      else 'Совсем давно'
-      end
-    end
-
-    @page_title = UsersController.profile_title('История', @user)
-    users_show
-  end
-
   # экспорт аниме листа
   def export
     raise Forbidden unless user_signed_in? && @user.can_be_edited_by?(current_user)

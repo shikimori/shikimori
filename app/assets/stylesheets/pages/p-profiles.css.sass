@@ -1,3 +1,11 @@
 //= require_directory ./p-profiles
+@import mixins/link
 
 .p-profiles
+  .no_stats
+    color: $gray-color
+    font-size: 12px
+    margin-left: 5px
+
+    a
+      +link

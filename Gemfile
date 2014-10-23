@@ -8,11 +8,6 @@ gem 'pg'
 gem 'dalli'
 gem 'redis'
 
-gem 'libv8', '3.16.14.7' # нужно после перехода на yosemite
-#gem 'sprockets-rails'
-#gem "sprockets", "~> 2.11.0"
-#gem "compass", "~> 1.0.0.alpha.19"
-
 gem 'slim-rails'
 gem 'coffee-rails'
 

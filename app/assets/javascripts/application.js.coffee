@@ -12,6 +12,8 @@
 
 $ =>
   $(document).trigger 'page:load', true
+  Turbolinks.enableProgressBar()
+
   if IS_LOGGED_IN && !window.faye_loader
     @faye_loader = new FayeLoader()
     @comments_notifier = new CommentsNotifier()
@@ -39,18 +41,16 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
   process_current_dom()
 
 $(document).on 'page:fetch', ->
-  $ajax = $('.ajax')
-  (if $ajax.length then $ajax else $('.l-content')).css opacity: 0.3
+  #$('.l-page').css opacity: 0.3
 
 $(document).on 'page:restore', ->
   turbolinks_compatibility()
-  $('.ajax, .l-content').css opacity: 1
+  #$('.l-page').css opacity: 1
 
 # для совместимости с турболинками
 turbolinks_compatibility = ->
   $('#fancybox-wrap').remove()
   $.fancybox.init()
-
 
 # поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
 $with = (selector, $root) ->

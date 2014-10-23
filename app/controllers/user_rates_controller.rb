@@ -1,4 +1,10 @@
-class UserRatesController < Api::V1::UserRatesController
+class UserRatesController < ProfilesController
+  load_and_authorize_resource except: [:index]
+  skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index]
+
+  def index
+  end
+
   def create
     @user_rate.save rescue PG::Error
     render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
@@ -25,5 +31,14 @@ class UserRatesController < Api::V1::UserRatesController
   def destroy
     @user_rate.destroy!
     render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+  end
+
+private
+  def create_params
+    params.require(:user_rate).permit(*Api::V1::UserRatesController::CREATE_PARAMS)
+  end
+
+  def update_params
+    params.require(:user_rate).permit(*Api::V1::UserRatesController::UPDATE_PARAMS)
   end
 end

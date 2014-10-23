@@ -33,11 +33,11 @@
         - if @resource.stats.activity.any?
           .graph data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
         - else
-          .list-is-empty Нет статистики
+          .no_stats Нет статистики
 
     .c-column
-      .cc-2a.m0
-        .c-column.block
+      .cc-2a
+        .c-column.m0
           .subheadline.m10
             - if @resource.friends.any? && @resource.friends.size > 12
               a href="#{friends_profile_url @resource}" Друзья
@@ -47,9 +47,9 @@
             - if @resource.friends.any?
               = render @resource.friends.take(12), content_by: :avatar
             - else
-              .list-is-empty Нет друзей
+              .no_stats Нет друзей
 
-        .c-column.block
+        .c-column.m0
           .subheadline.m10
             - if @resource.clubs.any? && @resource.clubs.size > 4
               a href="#{clubs_profile_url @resource}" Клубы
@@ -59,7 +59,7 @@
             - if @resource.clubs.any?
               = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
             - else
-              .list-is-empty Не состоит ни в одном из клубов
+              .no_stats Не состоит ни в одном из клубов
 
       .block
         .subheadline.m10
@@ -71,9 +71,9 @@
           - if @resource.favourites.any?
             = render @resource.favourites, cover_by: :image_link
           - else
-            .list-is-empty Список изранного пуст
+            .no_stats Список изранного пуст
 
-  - if @user.about_html.present?
+  - if @resource.about_html.present?
     .block
       .subheadline.m10 Обо мне
-      = @user.about_html
+      = @resource.about_html

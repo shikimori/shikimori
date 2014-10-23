@@ -604,10 +604,19 @@ Site::Application.routes.draw do
         get :friends
         get :favourites
         get :clubs
-        get :stats
+        #get :stats
         get 'history(/:page)' => :history, as: :history
 
-        get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
+        #get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
+
+        #constraints list_type: /anime|manga/ do
+          #get "list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
+          #get 'list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
+        #end
+      end
+
+      resources :user_rates, only: [], path: '/list' do
+        get ":list_type#{ani_manga_format}" => :index, as: '', list_type: /anime|manga/, on: :collection
       end
     end
 

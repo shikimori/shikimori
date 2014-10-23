@@ -47,7 +47,7 @@ describe ProfilesController do
     end
   end
 
-  describe '#history', :focus do
+  describe '#history' do
     context 'without history' do
       before { get :history, id: user.to_param }
       it { should redirect_to profile_url(user) }
@@ -60,8 +60,8 @@ describe ProfilesController do
     end
   end
 
-  describe '#stats' do
-    before { get :stats, id: user.to_param }
-    it { should respond_with :success }
-  end
+  #describe '#stats' do
+    #before { get :stats, id: user.to_param }
+    #it { should respond_with :success }
+  #end
 end

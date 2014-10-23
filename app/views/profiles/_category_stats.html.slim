@@ -1,0 +1,11 @@
+- if resource.stats.send(category) && resource.stats.send(category)[klass] && resource.stats.send(category)[klass].any?
+  .stat-categories
+    - resource.stats.send(category)[klass].each do |stat|
+      .category class="t#{stat[:scale]}"
+        a href="#{ani_manga_list_path resource, list_type: klass, type: nil, category.to_s.singularize => stat[:category]}"
+          - if category == :genres
+            = localized_name stat[:category]
+          - else
+            = stat[:category].name
+- else
+  .no_stats Недостаточно данных для формирования статистики

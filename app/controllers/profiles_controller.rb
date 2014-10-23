@@ -1,9 +1,9 @@
-class ProfilesController < UsersController
+class ProfilesController < ShikimoriController
   HISTORIES_PER_PAGE = 90
 
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' }
-  authorize_resource :user, class: User
+  #authorize_resource :user, class: User
   page_title 'Профиль'
 
   def show
@@ -34,9 +34,9 @@ class ProfilesController < UsersController
     page_title 'История'
   end
 
-  def stats
-    page_title 'Статистика'
-  end
+  #def stats
+    #page_title 'Статистика'
+  #end
 
   def settings
     raise NotImplemented

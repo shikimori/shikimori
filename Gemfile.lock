@@ -61,7 +61,7 @@ GIT
 
 GIT
   remote: git://github.com/morr/turbolinks.git
-  revision: 412b5092517b41d534c8c2cd268d6118c1afb835
+  revision: 09221d2c93f77d62f69fd2c4ea2ad5dbf4bc333a
   branch: master
   specs:
     turbolinks (2.4.0)
@@ -210,7 +210,7 @@ GEM
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    coffee-rails (4.0.1)
+    coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
     coffee-script (2.3.0)
@@ -270,7 +270,7 @@ GEM
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    execjs (2.2.1)
+    execjs (2.2.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
@@ -337,7 +337,6 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.2.0)
       launchy (~> 2.2)
-    libv8 (3.16.14.7)
     listen (2.7.3)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
@@ -621,7 +620,6 @@ DEPENDENCIES
   icalendar
   jbuilder
   letter_opener
-  libv8 (= 3.16.14.7)
   lograge
   mactag
   marco-polo

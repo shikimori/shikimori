@@ -3,12 +3,17 @@ require 'spec_helper'
 describe UserRatesController do
   include_context :authenticated
 
+  describe :index do
+    let!(:user_rate) { create :user_rate, user: user }
+    before { get :index, profile_id: user.to_param, list_type: 'anime' }
+    it { should respond_with :success }
+  end
+
   describe :edit do
     let(:user_rate) { create :user_rate, user: user }
     before { get :edit, id: user_rate.id }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe :destroy do
@@ -16,7 +21,6 @@ describe UserRatesController do
     before { delete :destroy, id: user_rate.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
     it { expect(assigns(:user_rate)).to be_destroyed }
   end
 
