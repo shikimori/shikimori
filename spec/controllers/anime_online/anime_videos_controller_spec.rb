@@ -178,8 +178,17 @@ describe AnimeOnline::AnimeVideosController do
     context :dublicate_request do
       context :one_user do
         context :same_kind_of do
-          let!(:report) { create :anime_video_report, anime_video: anime_video, kind: :broken, user: user }
-          it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
+          let!(:report) { create :anime_video_report, anime_video: anime_video, kind: :broken, user: user, state: state }
+
+          context 'states are equals' do
+            let(:state) { 'pending' }
+            it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
+          end
+
+          context 'states are not equals' do
+            let(:state) { 'rejected' }
+            it { expect {report_request}.to change(AnimeVideoReport, :count).by 1 }
+          end
         end
 
         context :other_kind do
