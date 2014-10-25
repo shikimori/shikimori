@@ -191,7 +191,7 @@ describe AnimeOnline::AnimeVideosController do
           end
         end
 
-        context :other_kind do
+        context 'change report kind if user create new report immediately' do
           let!(:report) { create :anime_video_report, anime_video: anime_video, kind: :wrong, user: user }
           it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
           it do
