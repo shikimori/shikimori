@@ -336,6 +336,10 @@ class User < ActiveRecord::Base
     cached_ignores.any? { |v| v.target_id == user.id }
   end
 
+  def friended? user
+    friend_links.any? {|v| v.dst_id == user.id }
+  end
+
   # ключ для кеша по дате изменения пользователя
   def cache_key
     "#{self.id}_#{self.updated_at.to_i}"
@@ -344,10 +348,10 @@ class User < ActiveRecord::Base
   # повесить пользователю такой же бан, что и другим с тем же ip
   def prolongate_ban
     read_only_at = User
-        .where(current_sign_in_ip: current_sign_in_ip)
-        .select {|v| v.read_only_at.present? && v.read_only_at > DateTime.now }
-        .map {|v| v.read_only_at }
-        .max
+      .where(current_sign_in_ip: current_sign_in_ip)
+      .select {|v| v.read_only_at.present? && v.read_only_at > DateTime.now }
+      .map {|v| v.read_only_at }
+      .max
 
     update_column :read_only_at, read_only_at
   end
@@ -436,3 +440,14 @@ private
     ProlongateBan.delay_for(10.seconds).perform_async id
   end
 end
+
+    #if h.user_signed_in? && h.current_user.id == id
+      #true
+    #elsif preferences.profile_privacy_owner? || (!h.user_signed_in? && preferences.profile_privacy_users?)
+      #false
+    #elsif preferences.profile_privacy_friends? && !mutual_friended?
+      #false
+    #else
+      #true
+    #end
+

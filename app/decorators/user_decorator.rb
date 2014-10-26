@@ -1,6 +1,6 @@
 class UserDecorator < BaseDecorator
   delegate_all
-  instance_cache :friended?, :mutual_friended?, :history
+  instance_cache :is_friended?, :mutual_friended?, :history
 
   def self.model_name
     User.model_name
@@ -18,24 +18,13 @@ class UserDecorator < BaseDecorator
     [can_vote_1?, can_vote_2?, can_vote_3?].count {|v| v }
   end
 
-  def show_profile?
-    if h.user_signed_in? && h.current_user.id == id
-      true
-    elsif preferences.profile_privacy_owner? || (!h.user_signed_in? && preferences.profile_privacy_users?)
-      false
-    elsif preferences.profile_privacy_friends? && !mutual_friended?
-      false
-    else
-      true
-    end
-  end
-
-  def friended?
-    h.current_user && h.current_user.friends.any? {|v| v.id == id }
+  # добавлен ли пользователь в друзья ткущему пользователю
+  def is_friended?
+    h.current_user && h.current_user.friend_links.any? {|v| v.dst_id == id }
   end
 
   def mutual_friended?
-    friended? && friends.any? {|v| v.id == h.current_user.id }
+    is_friended? && friended?(h.current_user)
   end
 
   def history

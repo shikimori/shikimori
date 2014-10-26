@@ -1,11 +1,11 @@
 = render layout: 'page' do
   /- if @page == 1
-    = auto_discovery_link_tag :rss, profile_url(@user, format: :rss), title: "История пользователя #{@user.nickname}"
+    = auto_discovery_link_tag :rss, profile_url(@resource, format: :rss), title: "История пользователя #{@resource.nickname}"
 
-  h2.subheadline.m10 История
+  h2.subheadline.m10 = @page_title.last
   /- if @page == 1 && interval == @collection.keys.first
-    a.rss href="#{profile_url @user, format: :rss}" title="RSS"
+    a.rss href="#{profile_url @resource, format: :rss}" title="RSS"
   = render 'history', collection: @collection
 
   - if @add_postloader
-    = render partial: 'blocks/postloader', locals: { url: history_profile_url(@user, page: @page+1) }, formats: :html
+    = render 'blocks/postloader', url: history_profile_url(@resource, page: @page+1)

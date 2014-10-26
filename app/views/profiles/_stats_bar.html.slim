@@ -16,8 +16,11 @@
           span.sep.zero.inline
             | )
 
-  a.title href="#{ani_manga_list_url @resource, list_type: klass.downcase}"
-    = "Список #{t("Genetive.#{klass}").downcase}"
+  - if can? :see_list, @resource.object
+    a.title href="#{ani_manga_list_url @resource, list_type: klass.downcase}"
+      = "Список #{t("Genetive.#{klass}").downcase}"
+  - else
+    .title Список #{t("Genetive.#{klass}").downcase}
 
   .bar
     - if graph[:completed_percent] > 1
@@ -35,11 +38,13 @@
   .stat_names
     - stats.select {|v| v[:size] != 0 }.each do |stat|
       .stat_name
-        a href="#{ani_manga_list_url @resource, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
+        - if can? :see_list, @resource.object
+          a href="#{ani_manga_list_url @resource, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
+            = UserRate.status_name(stat[:name], klass).capitalize
+            | &nbsp;
+            span.size = stat[:size]
+        - else
           = UserRate.status_name(stat[:name], klass).capitalize
           | &nbsp;
-          span.sep.zero.inline
-            | (
-          = stat[:size]
-          span.sep.zero.inline
-            | )
+          span.size = stat[:size]
+

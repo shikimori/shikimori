@@ -1,0 +1,72 @@
+@import mixins/placeholder
+@import mixins/brackets_surrounded
+
+.p-user_rates-index
+  .filter
+    margin-bottom: $block-offset/2
+
+    input
+      border: none
+      font-size: 13px
+      padding: 10px
+      width: 100%
+
+      +placeholder
+        color: $gray-color-2
+
+  .b-options-floated
+    span
+      +brackets_surrounded
+
+  //.order-control
+    //cursor: pointer
+    //+link_color(#333333)
+    //&.active
+      //text-decoration: underline
+    //&:hover
+      //text-decoration: underline
+
+  //.anime-status-selector
+    //display: none
+    //float: right
+
+  //.filter + header, .anime-status-selector + header
+    //margin-top: 5px
+
+  .b-postloader, .postloader-progress
+    margin-top: 10px !important
+
+  //.episodes
+    //color: #555555
+    //font-family: 'Arial Black','Arial',sans-serif
+    //font-size: 15px
+    //position: absolute
+    //right: 55px
+    //text-align: center
+    //top: 46px
+    //width: 90px
+
+  //.related-block:first-child .episodes
+    //top: 41px
+
+  //.score
+    //color: #555555
+    //font-family: 'Arial Black','Arial',sans-serif
+    //font-size: 22px
+    //position: absolute
+    //right: 5px
+    //text-align: center
+    //top: 45px
+    //width: 30px
+
+  //.related-block:first-child .score
+    //top: 40px
+
+  //.description
+    //padding-right: 145px
+
+  //.related-anime
+    //position: relative
+
+  //.collapsed
+    //margin-bottom: 0

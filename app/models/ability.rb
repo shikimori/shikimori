@@ -15,13 +15,15 @@ class Ability
   end
 
   def define_abilities
-    alias_action :read, to: :see_profile
+    #alias_action :read, to: :see_profile
     alias_action :current, :read, :users, :comments, :grid, to: :see_contest
     alias_action :read, :comments, :animes, :mangas, :characters, :members, :images, to: :see_club
   end
 
   def guest_ability
-    can :see_profile, User
+    can :see_list, User do |user|
+      user.preferences.profile_privacy_public?
+    end
     can :see_contest, Contest
     can :see_club, Group
   end
@@ -32,6 +34,16 @@ class Ability
 
     can :destroy, Image do |image|
       image.uploader_id == @user.id || can?(:edit, image.owner)
+    end
+
+    can :see_list, User do |user|
+      if user == @user || user.preferences.profile_privacy_public? || user.preferences.profile_privacy_users?
+        true
+      elsif user.preferences.profile_privacy_friends? && user.friended?(@user)
+        true
+      else
+        false
+      end
     end
 
     can [:new], Group

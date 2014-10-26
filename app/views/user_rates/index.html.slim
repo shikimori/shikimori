@@ -1,2 +1,21 @@
 = render layout: 'page' do
-  div test
+  .b-options-floated
+    - @resource.list.counts.each do |stat|
+      span.linkeable.always-active data-id="#{stat[:id]}" class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').map(&:to_i).include?(stat[:id])}"
+        = UserRate.status_name stat[:name], @resource.list.klass.name
+        | &nbsp;
+        span = stat[:size]
+
+  h2.subheadline = @page_title.last
+
+  .filter
+    input placeholder="Поиск по названию..."
+
+  - if @resource.list.any?
+    = render 'user_rates'
+
+    - if @resource.list.add_postloader?
+      = render 'blocks/postloader', url: profile_user_rates_url(params.dup.merge(page: @page+1))
+
+  - else
+    p Ничего нет

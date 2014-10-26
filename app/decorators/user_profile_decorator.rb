@@ -42,13 +42,17 @@ class UserProfileDecorator < UserDecorator
     UserStatsDecorator.new object, h.current_user
   end
 
-  def full_counts
-    if h.params[:list_type] == 'anime'
-      stats[:full_statuses][:anime].select {|v| v[:size] > 0 }
-    else
-      stats[:full_statuses][:manga].select {|v| v[:size] > 0 }
-    end
+  def list
+    UserListDecorator.new self
   end
+
+  #def full_counts
+    #if h.params[:list_type] == 'anime'
+      #stats[:full_statuses][:anime].select {|v| v[:size] > 0 }
+    #else
+      #stats[:full_statuses][:manga].select {|v| v[:size] > 0 }
+    #end
+  #end
 
   def nickname_changes?
     nickname_changes.any?
@@ -83,7 +87,7 @@ class UserProfileDecorator < UserDecorator
   def common_info
     info = []
 
-    if show_profile?
+    if h.can? :see_list, self
       info << h.h(name)
       info << 'муж' if male?
       info << 'жен' if female?

@@ -98,12 +98,13 @@ class UserStatsDecorator
     #{ anime: @stats.anime_statuses, manga: @stats.manga_statuses }
   #end
 
-  #def full_statuses
-    #{
-      #anime: @stats.statuses(@stats.anime_rates, true),
-      #manga: @stats.statuses(@stats.manga_rates, true)
-    #}
-  #end
+  def list_counts type
+    if type == :anime
+      @stats.statuses @stats.anime_rates, true
+    else
+      @stats.statuses @stats.manga_rates, true
+    end
+  end
 
   #def scores
     #@stats.by_criteria :score, 1.upto(10).to_a.reverse

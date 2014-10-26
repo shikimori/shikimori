@@ -1,8 +1,13 @@
 class UserRatesController < ProfilesController
   load_and_authorize_resource except: [:index]
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index]
+  before_action :authorize_list_see, only: [:index]
 
   def index
+    @page = (params[:page] || 1).to_i
+    @limit = UserListDecorator::ENTRIES_PER_PAGE
+
+    page_title "Список #{t("Genetive.#{params[:list_type].capitalize}").downcase}"
   end
 
   def create
@@ -40,5 +45,9 @@ private
 
   def update_params
     params.require(:user_rate).permit(*Api::V1::UserRatesController::UPDATE_PARAMS)
+  end
+
+  def authorize_list_see
+     authorize! :list_stats, @resource
   end
 end

@@ -10,9 +10,11 @@ describe UserListQuery do
   let!(:user_rate_3) { create :user_rate, user: user, anime: create(:anime), status: 2 }
   let!(:user_rate_4) { create :user_rate, user: user, anime: create(:anime), status: 3 }
 
-  subject { query.fetch }
+  describe '#fetch' do
+    subject { query.fetch }
 
-  it { should have(2).items }
-  its(:first) { should eq [:watching, [user_rate_2, user_rate_1]] }
-  its([:completed]) { should eq [user_rate_3] }
+    it { should have(2).items }
+    its(:first) { should eq [:watching, [user_rate_2, user_rate_1]] }
+    its([:completed]) { should eq [user_rate_3] }
+  end
 end
