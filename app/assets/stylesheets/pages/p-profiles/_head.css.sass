@@ -110,9 +110,6 @@
       .compatibility
         a
           +link
-          float: right
-          font-size: 11px
-          margin-top: 2px
 
         .text
           &.zero
@@ -126,8 +123,28 @@
           &.full
             +link_color(#0092ff)
 
+        span.link-replacement
+          .text
+            &.zero
+              color: $gray-color
+            &.weak
+              color: #6ea36e
+            &.moderate
+              color: #40a540
+            &.high
+              color: #18ca18
+            &.full
+              color: #0092ff
+
+        a, span.link-replacement
+          float: right
+          font-size: 11px
+          margin-top: 2px
+
+
         .rate
           font-weight: bold
+          +brackets_surrounded
 
       .stat_names
         font-size: 11px

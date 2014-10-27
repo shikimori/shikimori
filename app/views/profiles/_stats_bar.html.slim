@@ -4,17 +4,12 @@
       a href="#{users_url similar: 'similar', klass: klass.downcase}" похожие пользователи
   - elsif @resource.compatibility(klass)
     .compatibility
-      a href="#{userlist_comparer_path user_1: current_user, user_2: @resource, list_type: klass.downcase}"
-        span.text class="#{@resource.compatibility_class(klass)}"
-          = @resource.compatibility_text(klass)
-        - if @resource.compatibility(klass) > 0
-          span.text &nbsp;
-          span.sep.zero.inline
-            | (
-          span.rate
-            = @resource.compatibility(klass)
-          span.sep.zero.inline
-            | )
+      - if can? :see_list, @resource
+        a href="#{userlist_comparer_path user_1: current_user, user_2: @resource, list_type: klass.downcase}"
+          = render 'profiles/stats_bar_compatibility', klass: klass
+      - else
+        span.link-replacement
+          = render 'profiles/stats_bar_compatibility', klass: klass
 
   - if can? :see_list, @resource
     a.title href="#{ani_manga_list_url @resource, list_type: klass.downcase}"
