@@ -3,7 +3,6 @@ class AppearController < ApplicationController
 
   # пометка элементов прочитанными
   def read
-    render json: {} and return
     type_ids = (params[:ids] || '').split(',').each_with_object({}) do |v,memo|
       data = v.split('-')
       (memo[data[0]] ||= []) << data[1].to_i
