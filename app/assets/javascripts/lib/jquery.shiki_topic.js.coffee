@@ -53,7 +53,6 @@ class @ShikiTopic extends ShikiView
 
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
-      return
       return unless IS_LOGGED_IN
       $filtered_appeared = ($appeared || $(@)).not -> $(@).data 'disabled'
 
