@@ -121,11 +121,6 @@ h3 {
     overflow: hidden;
     padding: 1px 3px 0 3px;
 
-    @include iphone {
-      line-height: 30px;
-      font-size: 16px;
-    }
-
     &:hover {
       color: black;
     }
@@ -137,9 +132,8 @@ h3 {
       margin-left: 15px;
     }
     input {
-      margin: 2px 5px 0pt 2px;
-      float: left;
-      display: block;
+      margin-right: 5px;
+      display: inline-block;
     }
     a, span {
       @include ellipsis;
@@ -147,6 +141,15 @@ h3 {
     a {
       color: #555555;
       display: block;
+    }
+
+    @include iphone {
+      line-height: 30px;
+      font-size: 16px;
+
+      input {
+        margin-right: 10px;
+      }
     }
   }
 }

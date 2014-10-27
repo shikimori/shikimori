@@ -1,14 +1,13 @@
 @import compass/css3/border-radius
 @import compass/css3/transition
 @import compass/typography/text/ellipsis
-//@import mixins/block
 @import mixins/dash_separated
 @import mixins/icons
 @import mixins/link
+@import mixins/responsive
 
 .b-user_rates
   margin-bottom: $block_offset / 2
-  //+block
 
   header
     margin-top: 30px
@@ -20,11 +19,9 @@
         margin: 0 5px 3px
         border-bottom: 1px solid #eeeeee !important
 
-  table
-    margin-left: 5px
-    margin-right: 0px
-    margin-bottom: 0
-    width: 98.5%
+  .b-table
+    width: 100%
+    margin: 0
 
     .selectable:hover
       background-color: #f5f5f5
@@ -75,6 +72,9 @@
       .num
         text-align: center
         width: 70px
+
+        +iphone-portrait
+          display: none
 
       .name a
         +link_color
@@ -171,4 +171,3 @@
     .total td
       padding-top: 0px
       text-align: center
-

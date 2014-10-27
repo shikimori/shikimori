@@ -29,7 +29,7 @@ class @PaginatedCatalog
     else
       $.scrollTo '.head' if $(window).scrollTop() > 400
 
-  # загружена следующая страница при скролле
+  # загружена следующая страница при скролле вниз
   page_loaded: (e, $content, data) =>
     @$link_current.html @$link_current.html().replace(/-\d+|$/, "-" + data.current_page)
     @$link_title.html "Страницы"

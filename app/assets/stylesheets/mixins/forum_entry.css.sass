@@ -6,7 +6,7 @@
 @import mixins/responsive
 @import mixins/link
 
-$aside_width: 310px
+$aside_width: 280px
 
 =forum_entry
   +clear_right
@@ -22,12 +22,32 @@ $aside_width: 310px
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
 
     aside.markers
-      +iphone_portrait
-        float: right
+      +iphone
+        position: absolute
+        right: 45px
 
-        &>div
-          float: none
-          height: 25px
+      +iphone_portrait
+        div
+          position: absolute
+          right: 0
+
+      //+iphone
+        //position: relative
+
+        //div
+          //position: absolute
+          //right: 65px
+
+      //+iphone-landscape
+        //div + div
+          //right: 165px
+
+      //+iphone_portrait
+        //float: right
+
+        //&>div
+          //float: none
+          //height: 25px
 
     aside.buttons
       display: none
@@ -91,7 +111,7 @@ $aside_width: 310px
         margin-right: -$aside_width - $block_offset * 3
         margin-top: -6px
         padding-top: 5px
-        width: $aside_width - $block_offset
+        width: $aside_width
 
         .main-controls
           .item-reply

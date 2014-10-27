@@ -1,5 +1,6 @@
 @import mixins/placeholder
 @import mixins/brackets_surrounded
+@import mixins/responsive
 
 .p-user_rates-index
   .filter
@@ -15,6 +16,10 @@
         color: $gray-color-2
 
   .b-options-floated
+    +iphone
+      //line-height: $line_height
+      display: none
+
     span
       +brackets_surrounded
 

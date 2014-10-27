@@ -14,8 +14,7 @@
     +column(2, 41.5/100, 3%)
 
 .l-content
-  +transition(margin 0.25s ease, opacity 0.6s ease) // возможно надо отключить, чтобы не тормозило
-  //+transition(opacity 0.5s ease) // анимация при переходе по страницам
+  +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
 
   +gte_ipad
     +column(2, 77/100, 3%)
@@ -32,15 +31,15 @@
     display: block
     content: ' '
 
-.menu-slide-outer//.l-top_menu
-  +ipad
-    padding-right: 3%
+//.menu-slide-outer//.l-top_menu
+  //+ipad
+    //padding-right: 3%
 
-  +iphone-landscape
-    padding-right: 5%
+  //+iphone-landscape
+    //padding-right: 5%
 
-  +iphone-portrait
-    padding-right: 7%
+  //+iphone-portrait
+    //padding-right: 8%
 
 .l-footer, .l-menu, .l-page > .head, .l-page > .pagination
   +ipad
@@ -50,7 +49,7 @@
     margin-right: 5%
 
   +iphone-portrait
-    margin-right: 7%
+    margin-right: 8%
 
 .l-page
   &.menu-expanded .l-content
@@ -80,17 +79,17 @@
       width: 132%
 
 .l-page
+  $toggler_height: 60px
   .menu-toggler
     +background-inline-retina('/layouts/l-top_menu/noise', 'png', auto, auto, repeat)
-    //+background-inline-retina('/layouts/l-menu/noise', 'png', auto, auto, repeat)
     cursor: pointer
-    height: 100%
+    //height: 100%
+    height: $toggler_height
     position: absolute
     -webkit-overflow-scrolling: touch
     right: 0
     top: 0
     width: 31px
-    height: 100%
     z-index: 2
 
     +ipad
@@ -98,23 +97,25 @@
     +iphone-landscape
       width: 5%
     +iphone-portrait
-      width: 7%
+      width: 8%
 
     +gt_ipad
       display: none
 
     .toggler
-      right: 0
-      top: 47%
-      position: fixed
+      //right: 0
+      //top: 47%
+      //position: absolute
       text-align: center
+      margin-top: ($toggler_height - 34px)/2
 
-      +ipad
-        width: 3%
-      +iphone-landscape
-        width: 5%
-      +iphone-portrait
-        width: 7%
+
+      //+ipad
+        //width: 3%
+      //+iphone-landscape
+        //width: 5%
+      //+iphone-portrait
+        //width: 8%
 
       &:after
         +transition(color 0.5s ease)
