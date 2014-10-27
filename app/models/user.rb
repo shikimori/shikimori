@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry unless Rails.env.test?
-  after_create :create_preferences!
+  after_create :create_preferences!, unless: :preferences
   after_create :check_ban
   # personal message from me
   after_create :send_welcome_message unless Rails.env.test?

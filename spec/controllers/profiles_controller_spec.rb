@@ -55,8 +55,18 @@ describe ProfilesController do
 
     context 'with history' do
       let!(:history) { create :user_history, user: user, target: create(:anime) }
-      before { get :history, id: user.to_param }
-      it { should respond_with :success }
+      let(:make_request) { get :history, id: user.to_param }
+
+      context 'has access to list' do
+        before { make_request }
+        it { should respond_with :success }
+      end
+
+      context 'has no access to list' do
+        let(:user) { create :user, preferences: create(:user_preferences, profile_privacy: :owner) }
+        before { sign_out user }
+        it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      end
     end
   end
 

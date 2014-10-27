@@ -16,7 +16,7 @@
           span.sep.zero.inline
             | )
 
-  - if can? :see_list, @resource.object
+  - if can? :see_list, @resource
     a.title href="#{ani_manga_list_url @resource, list_type: klass.downcase}"
       = "Список #{t("Genetive.#{klass}").downcase}"
   - else
@@ -38,7 +38,7 @@
   .stat_names
     - stats.select {|v| v[:size] != 0 }.each do |stat|
       .stat_name
-        - if can? :see_list, @resource.object
+        - if can? :see_list, @resource
           a href="#{ani_manga_list_url @resource, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
             = UserRate.status_name(stat[:name], klass).capitalize
             | &nbsp;

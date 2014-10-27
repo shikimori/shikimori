@@ -26,6 +26,7 @@ class ProfilesController < ShikimoriController
 
   def history
     redirect_to @resource.url unless @resource.history.any?
+    authorize! :see_list, @resource
 
     @page = (params[:page] || 1).to_i
     @collection, @add_postloader =

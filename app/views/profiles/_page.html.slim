@@ -9,7 +9,11 @@
     - if @resource.history.any?
       .c-history
         .subheadline.m13
-          a href="#{history_profile_url @resource}" История
+          - if can? :see_list, @resource
+            a href="#{history_profile_url @resource}" История
+          - else
+            | История
+
         ul.block-list-alt
           - @resource.formatted_history.each do |entry|
             li.entry

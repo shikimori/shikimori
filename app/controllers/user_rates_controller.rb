@@ -48,6 +48,6 @@ private
   end
 
   def authorize_list_see
-     authorize! :list_stats, @resource
+    authorize! :see_list, @resource
   end
 end

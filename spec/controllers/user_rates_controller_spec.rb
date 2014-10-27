@@ -3,20 +3,30 @@ require 'spec_helper'
 describe UserRatesController do
   include_context :authenticated
 
-  describe :index do
+  describe '#index' do
     let!(:user_rate) { create :user_rate, user: user }
-    before { get :index, profile_id: user.to_param, list_type: 'anime' }
-    it { should respond_with :success }
+    let(:make_request) { get :index, profile_id: user.to_param, list_type: 'anime' }
+
+    context 'has access to list' do
+      before { make_request }
+      it { should respond_with :success }
+    end
+
+    context 'has no access to list' do
+      let(:user) { create :user, preferences: create(:user_preferences, profile_privacy: :owner) }
+      before { sign_out user }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
   end
 
-  describe :edit do
+  describe '#edit' do
     let(:user_rate) { create :user_rate, user: user }
     before { get :edit, id: user_rate.id }
 
     it { should respond_with :success }
   end
 
-  describe :destroy do
+  describe '#destroy' do
     let(:user_rate) { create :user_rate, user: user }
     before { delete :destroy, id: user_rate.id, format: :json }
 
@@ -24,14 +34,14 @@ describe UserRatesController do
     it { expect(assigns(:user_rate)).to be_destroyed }
   end
 
-  describe :create do
+  describe '#create' do
     let(:target) { create :anime }
     let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { post :create, user_rate: create_params, format: :json }
 
     it { should respond_with :success }
 
-    describe :user_rate do
+    describe 'user_rate' do
       subject { assigns :user_rate }
 
       its(:user_id) { should eq create_params[:user_id] }
@@ -47,15 +57,14 @@ describe UserRatesController do
     end
   end
 
-  describe :increment do
+  describe '#increment' do
     let(:user_rate) { create :user_rate, user: user, episodes: 1 }
     before { post :increment, id: user_rate.id, format: :json }
 
     it { should respond_with :success }
 
-    describe :user_rate do
+    describe 'user_rate' do
       subject { assigns :user_rate }
-
       its(:episodes) { should eq user_rate.episodes + 1 }
     end
   end
