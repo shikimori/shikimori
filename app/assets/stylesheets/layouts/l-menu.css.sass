@@ -31,25 +31,8 @@
     display: block
     content: ' '
 
-//.menu-slide-outer//.l-top_menu
-  //+ipad
-    //padding-right: 3%
-
-  //+iphone-landscape
-    //padding-right: 5%
-
-  //+iphone-portrait
-    //padding-right: 8%
-
 .l-footer, .l-menu, .l-page > .head, .l-page > .pagination
-  +ipad
-    margin-right: 3%
-
-  +iphone-landscape
-    margin-right: 5%
-
-  +iphone-portrait
-    margin-right: 8%
+  margin-right: 15px
 
 .l-page
   &.menu-expanded .l-content
@@ -81,60 +64,45 @@
 .l-page
   $toggler_height: 60px
   .menu-toggler
-    +background-inline-retina('/layouts/l-top_menu/noise', 'png', auto, auto, repeat)
     cursor: pointer
-    //height: 100%
     height: $toggler_height
     position: absolute
     -webkit-overflow-scrolling: touch
     right: 0
-    top: 0
-    width: 31px
+    top: 10px
+    width: auto
     z-index: 2
 
-    +ipad
-      width: 3%
-    +iphone-landscape
-      width: 5%
-    +iphone-portrait
-      width: 8%
+    +lte_ipad
+      width: 26px
 
     +gt_ipad
       display: none
 
     .toggler
-      //right: 0
-      //top: 47%
-      //position: absolute
       text-align: center
-      margin-top: ($toggler_height - 34px)/2
+      overflow: hidden
 
-
-      //+ipad
-        //width: 3%
-      //+iphone-landscape
-        //width: 5%
-      //+iphone-portrait
-        //width: 8%
+      &:before
+        -moz-transform: rotate(270deg)
+        -ms-transform: rotate(270deg)
+        -o-transform: rotate(270deg)
+        -webkit-transform: rotate(270deg)
+        transform: rotate(270deg)
+        content: 'меню'
+        display: block
+        filter: none // for text-rotate in IE 9
+        font-family: Arial
+        letter-spacing: 0.7px
+        margin-bottom: 10px
+        margin-top: 20px
 
       &:after
         +transition(color 0.5s ease)
-        font-family: shikimori
+        color: #123
         content: '\e83e'
-        color: #777
-
-        +ipad
-          font-size: 32px
-        +iphone-landscape
-          font-size: 30px
-        +iphone-portrait
-          font-size: 28px
-
-    &:hover .toggler:after
-      color: #bbb
-
-    &:active .toggler:after
-      color: #999
+        font-family: shikimori
+        font-size: 18px
 
   &.menu-expanded
     .menu-toggler .toggler:after
