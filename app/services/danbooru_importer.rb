@@ -1,30 +1,44 @@
+# починка sequences
+# ActiveRecord::Base.connection.execute("SELECT setval('danbooru_tags_id_seq', (SELECT MAX(id) FROM danbooru_tags))").first
 class DanbooruImporter
-  def import pages
-    1.upto(pages) {|page| import_page page, 1000 }
+  def do_import
+    import_page :danbooru, 1, 1000
+    import_page :danbooru, 2, 1000
+
+    import_page :konachan, nil, nil
   end
 
 private
-  def import_page page, limit
-    content = get_page page, limit
+  def import_page imageboard, page, limit
+    content = get_page imageboard, page, limit
     found_tags = JSON.parse(content)
 
-    existing_tags = Set.new DanbooruTag.pluck :id
-    new_tags = found_tags.select {|v| !existing_tags.include?(v['id']) }
+    existing_tags = Set.new DanbooruTag.pluck(:name)
+    new_tags = found_tags.select {|v| !existing_tags.include?(v['name']) }
 
     new_tags.each_slice(5000) do |tags|
-      batch = []
-      tags.each do |tag|
-        batch << DanbooruTag.new(name: tag['name'], kind: tag['type'], ambiguous: tag['ambiguous']) do |v|
-          v.id = tag['id']
-        end
+      batch = tags.map do |tag|
+        DanbooruTag.new(name: tag['name'], kind: tag['type'], ambiguous: tag['ambiguous'])
       end
       DanbooruTag.import batch
-      puts "imported batch of #{batch.size} tags" unless Rails.env == 'test'
+      puts "imported batch of #{batch.size} tags on page #{page}" unless Rails.env == 'test'
     end
   end
 
-  def get_page page, limit
-    url = "http://danbooru.donmai.us/tag/index.json?&limit=#{limit}&order=created_at&page=#{page}"
-    Proxy.get url, timeout: 30, required_text: '"type"', no_proxy: true
+  def get_page imageboard, page, limit
+    url = case imageboard
+      when :konachan then "https://konachan.com/tag/index.json?order=created_at&limit=0"
+      when :danbooru then "http://danbooru.donmai.us/tag/index.json?&limit=#{limit}&order=created_at&page=#{page}"
+      else raise ArgumentError, "imageboard: #{imageboard}"
+    end
+
+    #Proxy.get url, timeout: 90, required_text: '"type"', no_proxy: true
+    #open(url, read_timeout: 90).read
+
+    Faraday.get(url) do |req|
+      req.options[:timeout] = 150
+      req.options[:open_timeout] = 150
+      req.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36'
+    end.body
   end
 end

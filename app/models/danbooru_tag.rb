@@ -3,7 +3,7 @@ class DanbooruTag < ActiveRecord::Base
   Character = 4
 
   # поиск среди списка names какого-либо имени, входящего в набор тегов tags
-  def self.match(names, tags, no_correct)
+  def self.match names, tags, no_correct
     names.compact.each do |name|
       tag = name.gsub(/'/, '').gsub(/ /, '_').downcase
       while !tags.include?(tag)

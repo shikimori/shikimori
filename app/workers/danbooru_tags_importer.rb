@@ -4,7 +4,7 @@ class DanbooruTagsImporter
   sidekiq_options unique: true
 
   def perform
-    DanbooruImporter.new.import(10)
+    DanbooruImporter.new.do_import
 
     tags = Set.new(DanbooruTag.where(kind: DanbooruTag::Copyright).pluck :name)
     [Anime, Manga].each do |klass|
@@ -38,4 +38,3 @@ class DanbooruTagsImporter
       end
   end
 end
-
