@@ -11,17 +11,16 @@
       p.last-online
         = user.last_online
 
-    - if user.show_profile?
-      .history
-        - user.history.formatted.each do |entry|
-          .line
-            - if entry[:special?]
+    .history
+      - user.history.formatted.each do |entry|
+        .line
+          - if entry[:special?]
+            span.date = time_ago_in_words entry[:created_at], "%s назад"
+            span.event = entry[:short_name]
+          - else
+            a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-offset-left="-14"
               span.date = time_ago_in_words entry[:created_at], "%s назад"
-              span.event = entry[:short_name]
-            - else
-              a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-offset-left="-14"
-                span.date = time_ago_in_words entry[:created_at], "%s назад"
-                span.event = entry[:name]
+              span.event = entry[:name]
 
   - elsif content_by == :avatar
     a.avatar href="#{profile_url user}" title="#{user.nickname}"
