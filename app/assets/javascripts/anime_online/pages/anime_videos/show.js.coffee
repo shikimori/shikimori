@@ -26,7 +26,7 @@ jQuery ->
 
   $('a', '.report li').on 'ajax:success', -> report_success_message()
   $('a.wrong', '.report li').on 'click', ->
-    message = prompt('Ваш комментарий поможет нам исправить ошибку правильно. Если знаете, укажите ссылку на правильное аниме.')
+    message = prompt('Дополнительный комментарий для модератора.')
     return if message == null
     $.ajax
       url: $(@).data('url')
