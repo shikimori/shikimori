@@ -4,32 +4,40 @@
 @import mixins/link
 
 .p-profiles-history
-  .title
-    font-weight: bold
-    margin-bottom: 7px
+  .history-page
+    &:first-child
+      .history-title
+        display: block !important
 
-    &:first-letter
-      text-transform: uppercase
+    .history-title
+      font-weight: bold
+      margin-bottom: 7px
 
-  .history-interval
-    +clearfix
-    margin-bottom: 25px
+      &:first-child
+        display: none
 
-    &:last-child
-      margin-bottom: 0
+      &:first-letter
+        text-transform: uppercase
 
-    p
-      line-height: 1.4
-      margin-bottom: 5px
+    .history-interval
+      +clearfix
+      margin-bottom: 25px
 
-      a
-        +link_color
-        +hover_underlined
+      &:last-child
+        margin-bottom: 0
 
-      .date
-        +date
-        font-size: 12px
-        float: right
+      p
+        line-height: 1.4
+        margin-bottom: 5px
 
-  .b-postloader
-    margin-top: -20px
+        a
+          +link_color
+          +hover_underlined
+
+        .date
+          +date
+          font-size: 12px
+          float: right
+
+    .b-postloader
+      margin-top: -20px

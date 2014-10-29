@@ -5,7 +5,8 @@
   h2.subheadline.m10 = @page_title.last
   /- if @page == 1 && interval == @collection.keys.first
     a.rss href="#{profile_url @resource, format: :rss}" title="RSS"
-  = render 'history', collection: @collection
+  .block
+    = render 'history', collection: @collection
 
   - if @add_postloader
     = render 'blocks/postloader', url: history_profile_url(@resource, page: @page+1)
