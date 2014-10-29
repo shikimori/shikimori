@@ -23,7 +23,13 @@ filter_timer = null
       clearInterval filter_timer
       filter_timer = null
 
-    filter_timer = setInterval(filter, 350)
+    filter_timer = setInterval filter, 350
+
+  base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')
+  new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
+    Turbolinks.visit url, true
+    if $('.l-page.menu-expanded').exists()
+      $(document).one 'page:change', -> $('.l-page').addClass('menu-expanded')
 
 # фильтрация списка пользователя
 filter = ->

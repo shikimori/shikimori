@@ -27,4 +27,4 @@
           p Ничего нет
 
       aside.l-menu
-        .subheadline menu
+        = render partial: 'animes_collection/menu', locals: { social: true, klass: @resource.list.klass }

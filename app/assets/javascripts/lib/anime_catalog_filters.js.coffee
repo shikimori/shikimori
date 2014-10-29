@@ -1,6 +1,6 @@
 DEFAULT_LIST_SORT = "ranked"
 
-@AnimesParamsParser = (base_url, current_url, change_callback, $root) ->
+@AnimeCatalogFilters = (base_path, current_url, change_callback, $root) ->
   # вытаскивание из класса элемента типа и значения
   extract_li_info = ($li) ->
     matches = $li.attr("class").match(/([\w\-]+)-([\w.\-]+)/)
@@ -164,7 +164,7 @@ DEFAULT_LIST_SORT = "ranked"
 
     # формирование строки урла по выбранным элементам
     compile: ->
-      @last_compiled = base_url + _.map(data, (values, key) -> #.replace('/order-by/ranked', '');
+      @last_compiled = base_path + _.map(data, (values, key) -> #.replace('/order-by/ranked', '');
         if _.isArray(values)
           if values.length
             "/#{key}/#{values.join ','}"
@@ -187,7 +187,7 @@ DEFAULT_LIST_SORT = "ranked"
       parts = url
         .replace("#{location.protocol}//#{location.hostname}", '')
         .replace(":#{location.port}", '')
-        .replace(base_url, "")
+        .replace(base_path, "")
         .match(/[\w\-]+\/[^\/]+/g)
 
       _.each parts || [], (match) =>

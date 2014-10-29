@@ -20,13 +20,13 @@
 
 init_catalog = ->
   type = if $('.anime-params-controls').exists() then 'anime' else 'manga'
-  base_path = "/#{type}s"
+  base_catalog_path = "/#{type}s"
 
   if location.pathname.match(/recommendations/)
-    base_path = _(location.pathname.split("/")).first(5).join("/")
+    base_catalog_path = _(location.pathname.split("/")).first(5).join("/")
     type = "recommendation"
 
-  params = new AnimesParamsParser base_path, location.href, (url) ->
+  new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true
     if $('.l-page.menu-expanded').exists()
       $(document).one 'page:change', -> $('.l-page').addClass('menu-expanded')

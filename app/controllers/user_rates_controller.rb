@@ -6,6 +6,7 @@ class UserRatesController < ProfilesController
   def index
     @page = (params[:page] || 1).to_i
     @limit = UserListDecorator::ENTRIES_PER_PAGE
+    @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
 
     page_title "Список #{t("Genetive.#{params[:list_type].capitalize}").downcase}"
   end

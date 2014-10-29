@@ -23,7 +23,7 @@ $ ->
   else
     "manga"
 
-  params = new AnimesParamsParser location.pathname.replace(/(\/vs\/[^\/]*)\/.*/, "$1"), location.href, (data) ->
+  params = new AnimeCatalogFilters location.pathname.replace(/(\/vs\/[^\/]*)\/.*/, "$1"), location.href, (data) ->
     History.pushState null, null, data
 
   History.Adapter.bind window, 'statechange', load_page
