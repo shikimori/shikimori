@@ -148,9 +148,9 @@ apply_list_handlers = ($root) ->
 
   # изменения оценки/числа просмотренных эпизодов
   $trs = $('.b-user_rates .hoverable').off()
-
   $trs.off()
     .hover ->
+        return if is_mobile()
         $current_value = $('.current-value', @)
         $new_value = $('.new-value', @)
 
@@ -179,12 +179,14 @@ apply_list_handlers = ($root) ->
         $('.misc-value', @).hide()
 
       , ->
+        return if is_mobile()
         return if $('.new-value input', @).is(":focus")
         $('.new-value', @).hide()
         $('.current-value', @).show()
         $('.misc-value', @).show()
 
     .on 'click', (e) ->
+      return if is_mobile()
       # клик на плюсик обрабатываем по дефолтному
       return if e.target && e.target.className == 'item-add'
       $this = $(@)

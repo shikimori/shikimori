@@ -36,14 +36,6 @@ if (location.hash == '#_=_') {
 function in_new_tab(e) {
   return (e.button == 1) || (e.button == 0 && (e.ctrlKey || e.metaKey));
 }
-// на мобильной ли мы версии (телефон)
-function is_mobile() {
-  return screen.width <= 480;
-}
-// на мобильной ли мы версии (планшет или ниже)
-function is_tablet() {
-  return screen.width <= 768;
-}
 // спецэкранирование некоторых символов поиска
 function search_escape(phrase) {
   return (phrase || '').replace(/\+/g, '(l)')

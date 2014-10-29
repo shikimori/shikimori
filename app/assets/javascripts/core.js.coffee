@@ -12,10 +12,20 @@ bindings = {
   'page:restore': []
 }
 
+@mobile_detect = new MobileDetect(window.navigator.userAgent)
+
 @on = (event, conditions..., callback) ->
   bindings[event].push
     conditions: conditions
     callback: callback
+
+# на мобильной ли мы версии (телефон)
+@is_mobile = ->
+  !!@mobile_detect.mobile() || screen.width <= 480
+
+# на мобильной ли мы версии (планшет или ниже)
+@is_tablet = ->
+  !!@mobile_detect.tablet() || screen.width <= 768
 
 $(document).on 'page:load page:restore', (e) ->
   for group in bindings[e.type]

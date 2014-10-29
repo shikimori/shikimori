@@ -39,6 +39,7 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
   $('p.flash-alert').each (k, v) ->
     $.flash alert: v.innerHTML if v.innerHTML.length
 
+  #$(document.body).addClass 'l-mobile' if is_mobile()
   process_current_dom()
 
 $(document).on 'page:fetch', ->

@@ -238,7 +238,7 @@
     $.extend(self, {
       show: function(e) {
         // для устройств с тачскрином и узких экранов тултипы отключаем
-        if (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0) || screen.width <= 640) {
+        if (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0) || is_mobile()) {
           return;
         }
         // tip not initialized yet
