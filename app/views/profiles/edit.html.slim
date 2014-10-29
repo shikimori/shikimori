@@ -1,0 +1,10 @@
+= render layout: 'page' do
+  .b-options-floated
+    a class="#{:selected if @page == 'account'}" href="#{edit_profile_url @resource, page: 'account'}" Аккаунт
+    a class="#{:selected if @page == 'profile'}" href="#{edit_profile_url @resource, page: 'profile'}" Профиль
+    a class="#{:selected if @page == 'styles'}" href="#{edit_profile_url @resource, page: 'styles'}" Внешний вид сайта
+    a class="#{:selected if @page == 'list'}" href="#{edit_profile_url @resource, page: 'list'}" Список аниме и манги
+    a class="#{:selected if @page == 'notifications'}" href="#{edit_profile_url @resource, page: 'notifications'}" Уведомления
+    a class="#{:selected if @page == 'misc'}" href="#{edit_profile_url @resource, page: 'misc'}" Прочее
+  h2.subheadline.m10 = @page_title.last
+  = render "profiles/edit/#{@page}"

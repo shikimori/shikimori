@@ -74,4 +74,22 @@ describe ProfilesController do
     #before { get :stats, id: user.to_param }
     #it { should respond_with :success }
   #end
+
+  describe '#edit' do
+    let(:make_request) { get :edit, id: user.to_param, page: 'account' }
+
+    context 'valid access' do
+      before { sign_in user }
+      before { make_request }
+      it { should respond_with :success }
+    end
+
+    context 'invalid access' do
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
+
+  describe '#update' do
+
+  end
 end

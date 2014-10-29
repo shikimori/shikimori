@@ -45,6 +45,9 @@ class Ability
         false
       end
     end
+    can [:edit, :update], User do |user|
+      user == @user || @user.admin?
+    end
 
     can [:new], Group
     can [:create, :update], Group do |group|

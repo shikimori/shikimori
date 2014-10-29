@@ -1,5 +1,4 @@
 = render layout: 'page' do
-  .block.m0
-    h2.subheadline.m10 = @page_title.last
-    .cc
-      = render @resource.friends, content_by: :named_avatar
+  h2.subheadline.m10 = @page_title.last
+  .cc
+    = render @resource.friends, content_by: :named_avatar

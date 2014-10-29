@@ -39,8 +39,14 @@ class ProfilesController < ShikimoriController
     #page_title 'Статистика'
   #end
 
-  def settings
-    raise NotImplemented
+  def edit
+    page_title 'Настройки'
+    authorize! :edit, @resource
+    @page ||= params[:page] || 'account'
+  end
+
+  def update
+    authorize! :update, @resource
   end
 
 private

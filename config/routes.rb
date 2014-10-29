@@ -613,6 +613,7 @@ Site::Application.routes.draw do
           #get "list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
           #get 'list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
         #end
+        get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
       end
 
       resources :user_rates, only: [], path: '/list' do

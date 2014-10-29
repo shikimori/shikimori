@@ -1,5 +1,5 @@
 .m30
-  = simple_form_for @user.preferences, url: update_user_preferences_url(@user) do |f|
+  = simple_form_for @resource.preferences, url: update_user_preferences_url(@resource) do |f|
     input type="hidden" name="page" value="#{params[:page]}"
 
     .menu-block

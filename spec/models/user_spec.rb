@@ -338,5 +338,31 @@ describe User do
         end
       end
     end
+
+    describe 'edit & update' do
+      let(:profile) { build_stubbed :user }
+
+      context 'own profile' do
+        let(:user) { profile }
+        it { should be_able_to :edit, profile }
+        it { should be_able_to :update, profile }
+      end
+
+      context 'admin' do
+        let(:user) { build_stubbed :user, id: User::Admins.first }
+        it { should be_able_to :edit, profile }
+        it { should be_able_to :update, profile }
+      end
+
+      context 'user' do
+        it { should_not be_able_to :edit, profile }
+        it { should_not be_able_to :update, profile }
+      end
+
+      context 'guest' do
+        it { should_not be_able_to :edit, profile }
+        it { should_not be_able_to :update, profile }
+      end
+    end
   end
 end
