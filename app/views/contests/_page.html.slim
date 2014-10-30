@@ -6,8 +6,7 @@ header.head.misc
     - if params[:action] != 'show' || params[:round] || params[:vote]
       a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
     = @resource.name
-
-  - if can? :edit, @resource
+  - if can?(:edit, @resource) && @resource.persisted?
     a.edit href="#{edit_contest_url @resource}" title="Изменить опрос" изменить
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs

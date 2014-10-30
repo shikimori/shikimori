@@ -13,5 +13,5 @@
     a class="#{:selected if @page == 'misc'}" href="#{edit_profile_url @resource, page: 'misc'}" Прочее
   h2.subheadline.m10 = @page_title.last
 
-  .block class="#{@page}"
+  .block.edit-page class="#{@page}"
     = render "profiles/edit/#{@page}"

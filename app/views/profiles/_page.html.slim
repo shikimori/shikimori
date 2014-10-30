@@ -110,8 +110,9 @@
     h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
       - if params[:action] != 'show'
         a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
-      span.nickname
-        = @resource.nickname
+      = @resource.nickname
+    - if can?(:edit, @resource) && @resource.persisted?
+      a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
 
     = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

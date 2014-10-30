@@ -9,7 +9,6 @@ header.head
       = @resource.name
     - else
       | Новый клуб
-
   - if can?(:edit, @resource) && @resource.persisted?
     a.edit href="#{edit_club_url @resource}" title="Изменить клуб" изменить
 
