@@ -17,16 +17,16 @@
   $page_background = $('#user_preferences_page_background')
   $page = $('.l-page')
   $('.range-slider')
-    .data(value: $page_background.val() || 0)
     .noUiSlider
-      range: [0, 12]
-      start: parseFloat($('.range-slider').data('value'))
-      handles: 1
-      slide: ->
-        #value = $(@).val()
-        $page_background.val(@value)
-        ceiled_value = 255 - Math.ceil(@value)
-        $page.css('background-color', "rgb(#{ceiled_value},#{ceiled_value},#{ceiled_value})")
+      range:
+        min: 0
+        max: 12
+      start: parseFloat($page_background.val()) || 0
+    .on 'slide', ->
+      value = $(@).val()
+      $page_background.val(value)
+      ceiled_value = 255 - Math.ceil(value)
+      $page.css('background-color', "rgb(#{ceiled_value},#{ceiled_value},#{ceiled_value})")
 
   $body = $('body')
   $body_background = $('#user_preferences_body_background')
