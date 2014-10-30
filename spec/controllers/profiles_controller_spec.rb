@@ -132,13 +132,14 @@ describe ProfilesController do
 
       context 'when success' do
         before { make_request }
-        let(:update_params) {{ nickname: 'morr' }}
+        let(:user_2) { create :user }
+        let(:update_params) {{ nickname: 'morr', ignored_user_ids: [user_2.id] }}
 
         it { should redirect_to edit_profile_url(resource, page: 'account') }
         it { expect(resource.nickname).to eq 'morr' }
+        it { expect(resource.ignores?(user_2)).to be true }
         it { expect(resource.errors).to be_empty }
       end
-      pending 'ignored_users'
 
       context 'when validation errors' do
         let!(:user_2) { create :user }

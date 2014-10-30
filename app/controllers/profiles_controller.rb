@@ -48,6 +48,8 @@ class ProfilesController < ShikimoriController
   def update
     authorize! :update, @resource
 
+    params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
+
     if @resource.update update_params
       if params[:page] == 'account'
         @resource.ignored_users = []
@@ -75,7 +77,9 @@ private
 
   def update_params
     params.require(:user).permit(
-      :avatar, :nickname, :email, :name, :location, :website, :sex, :birth_on, :notifications, :about
+      :avatar, :nickname, :email, :name, :location, :website,
+      :sex, :birth_on, :notifications, :about,
+      ignored_user_ids: []
     )
   end
 end
