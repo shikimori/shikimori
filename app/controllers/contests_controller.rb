@@ -104,6 +104,7 @@ class ContestsController < ShikimoriController
 
       redirect_to edit_contest_url(@resource), notice: 'Изменения сохранены'
     else
+      flash[:alert] = 'Изменения не сохранены!'
       edit and render :edit
     end
   end

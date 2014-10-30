@@ -53,6 +53,7 @@ class ClubsController < ShikimoriController
 
       redirect_to edit_club_url(@resource), notice: 'Изменения сохранены'
     else
+      flash[:alert] = 'Изменения не сохранены!'
       edit and render :edit
     end
   end

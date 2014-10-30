@@ -1,13 +1,17 @@
 class UserPreferencesController < ProfilesController
   def update
-    if @user.preferences.update user_preferences_params
-      @user.update user_params if params[:user].present?
-      redirect_to user_settings_path(@user, params[:page]), notice: 'Изменения сохранены'
+    authorize! :edit, @resource
+
+    if @resource.preferences.update user_preferences_params
+      if params[:user].present?
+        super
+      else
+        redirect_to edit_profile_path(@resource, params[:page]), notice: 'Изменения сохранены'
+      end
 
     else
       flash[:alert] = 'Изменения не сохранены!'
-      params[:type] = 'settings'
-      show
+      edit and render :edit
     end
   end
 

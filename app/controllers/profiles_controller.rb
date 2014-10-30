@@ -50,14 +50,27 @@ class ProfilesController < ShikimoriController
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
 
-    if @resource.update update_params
+    update_successfull = if params[:user][:password].present?
+      if @resource.encrypted_password.present?
+        @resource.update_with_password password_params
+      else
+        @resource.update password: params[:user][:password]
+      end
+    else
+      @resource.update update_params
+    end
+
+    if update_successfull
+      sign_in @resource, bypass: true if params[:user][:password].present?
+
       if params[:page] == 'account'
         @resource.ignored_users = []
-        @resource.update update_params
+        @resource.update associations_params
       end
 
       redirect_to edit_profile_url(@resource, page: params[:page]), notice: 'Изменения сохранены'
     else
+      flash[:alert] = 'Изменения не сохранены!'
       edit and render :edit
     end
   end
@@ -81,5 +94,13 @@ private
       :sex, :birth_on, :notifications, :about,
       ignored_user_ids: []
     )
+  end
+
+  def associations_params
+    params.require(:user).permit ignored_user_ids: []
+  end
+
+  def password_params
+    params.required(:user).permit(:password, :current_password)
   end
 end

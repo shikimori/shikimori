@@ -99,11 +99,6 @@ $('.slide > div.settings').live('ajax:success cache:success', function(e, data) 
   //});
 //});
 
-// отмена игнора
-$('.ignores .item-minus').live('click', function() {
-  $(this).parent().remove();
-});
-
 //// переключение шрифта
 //$('#stylo_bold,#new_catalog,#hentai_images').live('click', function() {
   //var $this = $(this);

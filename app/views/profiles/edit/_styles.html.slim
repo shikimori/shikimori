@@ -1,14 +1,14 @@
 = simple_form_for @resource.preferences, url: update_user_preferences_url(@resource) do |f|
   input type="hidden" name="page" value="#{params[:page]}"
 
-  .menu-block
+  .block
     = f.input :russian_genres
     = f.input :russian_names
     = f.input :mylist_in_catalog
     / TODO: выпилить это поле из базы и из кода
     /= f.input :postload_in_catalog
 
-  .menu-block
+  .block
     = f.input :show_hentai_images
     = f.input :show_social_buttons
     = f.input :show_smileys

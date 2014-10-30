@@ -1,25 +1,31 @@
 require 'spec_helper'
 
 describe UserPreferencesController do
-  let(:user) { create :user, password: '123' }
-  before { sign_in user }
+  let(:user) { create :user, :preferences }
 
   describe '#update' do
-    context 'wrong user' do
-      let(:user2) { create :user }
-      before { patch :update, id: user2.to_param }
-      it { should respond_with :forbidden }
+    let(:make_request) { patch :update, id: user.to_param, page: 'profile', user: user_params, user_preferences: preferences_params }
+    let(:user_params) { nil }
+    let(:preferences_params) {{ body_background: 'test2' }}
+
+    context 'when invalid access' do
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
 
-    context 'preference change' do
-      before { patch :update, id: user.to_param, page: :profile, user_preferences: { body_background: 'test2' } }
-      specify { assigns(:user).preferences.body_background.should eq 'test2' }
-      it { should redirect_to user_settings_url(user, page: :profile) }
-    end
+    context 'when valid access' do
+      before { sign_in user }
+      before { make_request }
 
-    context 'about change' do
-      before { patch :update, id: user.to_param, page: :profile, user_preferences: { body_background: 'test2' }, user: { about: 'zxc' } }
-      specify { assigns(:user).about.should eq 'zxc' }
+      context 'preference change' do
+        it { expect(resource.preferences.body_background).to eq preferences_params[:body_background] }
+        it { should redirect_to edit_profile_url(user, page: :profile) }
+      end
+
+      context 'user changes' do
+        let(:user_params) {{ about: 'zxc' }}
+        it { expect(resource.about).to eq user_params[:about] }
+        it { should redirect_to edit_profile_url(user, page: :profile) }
+      end
     end
   end
 end

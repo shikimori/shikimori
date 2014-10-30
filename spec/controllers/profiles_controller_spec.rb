@@ -132,13 +132,40 @@ describe ProfilesController do
 
       context 'when success' do
         before { make_request }
-        let(:user_2) { create :user }
-        let(:update_params) {{ nickname: 'morr', ignored_user_ids: [user_2.id] }}
 
-        it { should redirect_to edit_profile_url(resource, page: 'account') }
-        it { expect(resource.nickname).to eq 'morr' }
-        it { expect(resource.ignores?(user_2)).to be true }
-        it { expect(resource.errors).to be_empty }
+        context 'common change' do
+          let(:update_params) {{ nickname: 'morr' }}
+
+          it { should redirect_to edit_profile_url(resource, page: 'account') }
+          it { expect(resource.nickname).to eq 'morr' }
+          it { expect(resource.errors).to be_empty }
+        end
+
+        context 'association change' do
+          let(:user_2) { create :user }
+          let(:update_params) {{ ignored_user_ids: [user_2.id] }}
+
+          it { expect(resource.ignores?(user_2)).to be true }
+          it { expect(resource.errors).to be_empty }
+        end
+
+        context 'password change' do
+          context 'when current password is set' do
+            let(:user) { create :user, password: '1234' }
+            let(:update_params) {{ current_password: '1234', password: 'yhn' }}
+
+            it { expect(resource.valid_password?('yhn')).to be true }
+            it { expect(resource.errors).to be_empty }
+          end
+
+          context 'when current password is not set' do
+            let(:user) { create :user, :without_password }
+            let(:update_params) {{ password: 'yhn' }}
+
+            it { expect(resource.valid_password?('yhn')).to be true }
+            it { expect(resource.errors).to be_empty }
+          end
+        end
       end
 
       context 'when validation errors' do
