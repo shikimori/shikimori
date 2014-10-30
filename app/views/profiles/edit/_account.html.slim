@@ -1,11 +1,26 @@
 / важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
-= simple_form_for @resource, url: profile_url(User.find(@resource.id)) do |f|
+= simple_form_for @resource.object, url: profile_url(User.find(@resource.id)) do |f|
   input type="hidden" name="page" value="#{params[:page]}"
 
-  .right-block
-    .menu-block
-      = f.input :avatar, label: 'Аватар (160x160)'
-      .value.avatar-edit
+  .cc-2.block
+    .c-column
+      .block
+        = f.input :nickname, label: 'Логин (никнейм)'
+        = f.input :email
+
+        .change-password
+          a href="#{edit_profile_url @resource, page: 'password'}"
+            = @resource.encrypted_password.blank? ? 'Задать пароль' : 'Изменить пароль'
+
+        = f.input :name
+        = f.input :location
+        = f.input :website
+        = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
+        = f.input :birth_on, include_blank: true, start_year: Date.today.year - 90, end_year: Date.today.year - 8
+
+    .c-column
+      .block.avatar-edit
+        = f.input :avatar, label: 'Аватар (160x160)'
         - if @resource.avatar.exists?
           img src="#{@resource.avatar_url}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
           p.avatar-delete
@@ -13,49 +28,29 @@
             span удалить
             | ]
 
-    - unless connected_providers_for(@resource).empty?
-      .menu-block
-        .subheadline.m10 Подключенная авторизация
-        .value.oauth.remove
-          - connected_providers_for(@resource).each do |provider|
-            = link_to user_remove_provider_path(@resource, provider) do
-              = image_tag "/images/omniauth/#{provider}.png", alt: "Отключить авторизацию через #{provider.to_s.titleize}", title: "Отключить авторизацию через #{provider.to_s.titleize}"
+      - unless connected_providers_for(@resource).empty?
+        .block
+          .subheadline Подключенная авторизация
+          .value.oauth.remove
+            - connected_providers_for(@resource).each do |provider|
+              = link_to user_remove_provider_path(@resource, provider) do
+                = image_tag "/images/omniauth/#{provider}.png", alt: "Отключить авторизацию через #{provider.to_s.titleize}", title: "Отключить авторизацию через #{provider.to_s.titleize}"
 
-    - unless unconnected_providers_for(@resource).empty?
-      .menu-block
-        .subheadline.m10 Не подключенные сервисы
-        .value.oauth.add
-          - unconnected_providers_for(@resource).each do |provider|
-            = link_to "/users/auth/#{provider}" do
-              = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
+      - unless unconnected_providers_for(@resource).empty?
+        .block
+          .subheadline Не подключенные сервисы
+          .value.oauth.add
+            - unconnected_providers_for(@resource).each do |provider|
+              = link_to "/users/auth/#{provider}" do
+                = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
 
-    input.ignore-suggest.common.suggest.subheadline-input type="text" data-autocomplete="#{autocomplete_users_url search: ''}"
-    .subheadline Игнорируемые пользователи
-    .value
-      = hidden_field_tag 'user[ignores][]', ''
-      ul.container.block-list.ignores
+      input.ignore-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Имя пользователя" data-autocomplete="#{autocomplete_users_url search: ''}"
+      .subheadline Игнорируемые пользователи
+      .variants
         - @resource.ignored_users.each do |user|
-          li
-            span.item-minus
-            = hidden_field_tag 'user[ignores][]', user.nickname
+          .variant
+            = check_box_tag 'user[ignores][]', user.id, checked: true
             a href="#{profile_url user}" = user.nickname
-
-  .left-block
-    .menu-block
-      = f.input :nickname, label: 'Логин (никнейм)'
-      = f.input :email
-
-      a.change-password href="#{user_settings_url @resource, page: 'password'}"
-        - if @resource.encrypted_password.blank?
-          | Задать пароль
-        - else
-          | Изменить пароль
-
-      = f.input :name
-      = f.input :location
-      = f.input :website
-      = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
-      = f.input :birth_on, include_blank: true, start_year: Date.today.year - 90, end_year: Date.today.year - 8
 
   .buttons
     = f.submit 'Сохранить'

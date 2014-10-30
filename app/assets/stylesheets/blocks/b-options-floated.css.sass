@@ -1,6 +1,6 @@
-@import globals
 @import mixins/brackets_surrounded
 @import mixins/dash_separated
+@import mixins/link
 @import mixins/responsive
 
 .b-options-floated
@@ -26,7 +26,7 @@
 
   // страница персонажа - переключение типов
   a,.link
-    +link-color(#acb1b4)
+    +link_color(#acb1b4)
     +dash_separated
     color: inherit
     cursor: pointer
@@ -39,7 +39,7 @@
 
   // список пользователя
   .action
-    +link-color(#123)
+    +link_color(#123)
     +transition(color, 0.2s)
     cursor: pointer
 
@@ -51,7 +51,7 @@
       cursor: default
 
     &.always-active
-      +link-color(#123)
+      +link_color(#123)
       cursor: pointer
 
   // страница персонажа - кнопки действия
@@ -67,3 +67,19 @@
       margin-bottom: 10px
       position: initial
       text-align: right
+
+      a
+        +link_color
+        &.selected
+          color: #123
+
+    &.mobile-landscape
+      +iphone-landscape
+        margin-bottom: 10px
+        position: initial
+        text-align: right
+
+        a
+          +link_color
+          &.selected
+            color: #123

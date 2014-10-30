@@ -63,7 +63,7 @@ describe ClubsController do
     context 'when success' do
       before { patch :update, id: club.id, club: { name: 'newnewtest' } }
 
-      it { should redirect_to edit_club_url(assigns :resource) }
+      it { should redirect_to edit_club_url(resource) }
       it { expect(resource.name).to eq 'newnewtest' }
       it { expect(resource.errors).to be_empty }
     end

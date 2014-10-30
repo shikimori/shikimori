@@ -17,17 +17,17 @@ ru:
         reason: Причина
         duration: Срок
       user:
-        birth_on: Дата рождения
-        sex: Пол
-        nickname: Логин
-        email: E-mail
-        name: Реальное имя
-        location: Откуда
-        website: Сайт
         avatar: Аватар
+        birth_on: Дата рождения
+        current_password: Текущий пароль
+        email: E-mail
+        location: Откуда
+        name: Реальное имя
+        nickname: Логин
         password: Новый пароль
         password_confirmation: Подтверждение пароля
-        current_password: Текущий пароль
+        sex: Пол
+        website: Сайт
       user_rate:
         status: Статус
         episodes: Эпизоды

@@ -1,0 +1,33 @@
+@import compass/utilities/general/clearfix
+@import mixins/link
+@import mixins/responsive
+
+.p-profiles-edit
+  .account
+    .change-password
+      margin-top: 20px
+      margin-bottom: 15px
+
+      a
+        +link
+
+    .avatar-edit
+      +clearfix
+      img
+        margin-top: 5px
+        margin-right: 10px
+        margin-bottom: 10px
+        float: left
+
+    .avatar-delete
+      cursor: pointer
+
+      span
+        color: #555
+
+    .oauth img
+      margin-right: 5px
+
+    .ignore-suggest
+      +gt_ipad
+        width: 200px !important

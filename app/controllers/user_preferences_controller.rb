@@ -1,7 +1,5 @@
-class UserPreferencesController < UsersController
+class UserPreferencesController < ProfilesController
   def update
-    raise Forbidden unless @user.can_be_edited_by? current_user
-
     if @user.preferences.update user_preferences_params
       @user.update user_params if params[:user].present?
       redirect_to user_settings_path(@user, params[:page]), notice: 'Изменения сохранены'

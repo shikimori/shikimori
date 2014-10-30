@@ -104,17 +104,6 @@ $('.ignores .item-minus').live('click', function() {
   $(this).parent().remove();
 });
 
-// удаление аватара
-$('.avatar-delete span').live('click', function() {
-  $(this)
-    .closest('form')
-    .find('.b-input.file #user_avatar')
-    .replaceWith('<p class="avatar-delete">[<span>сохраните настройки профиля</span>]</p><input type="hidden" name="user[avatar]" value="blank" />');
-  $(this)
-    .closest('.avatar-edit')
-    .remove();
-});
-
 //// переключение шрифта
 //$('#stylo_bold,#new_catalog,#hentai_images').live('click', function() {
   //var $this = $(this);

@@ -40,13 +40,24 @@ class ProfilesController < ShikimoriController
   #end
 
   def edit
-    page_title 'Настройки'
     authorize! :edit, @resource
-    @page ||= params[:page] || 'account'
+    page_title 'Настройки'
+    @page = params[:page] || 'account'
   end
 
   def update
     authorize! :update, @resource
+
+    if @resource.update update_params
+      if params[:page] == 'account'
+        @resource.ignored_users = []
+        @resource.update update_params
+      end
+
+      redirect_to edit_profile_url(@resource, page: params[:page]), notice: 'Изменения сохранены'
+    else
+      edit and render :edit
+    end
   end
 
 private
@@ -60,5 +71,11 @@ private
   def set_breadcrumbs
     breadcrumb 'Пользователи', users_url
     breadcrumb @resource.nickname, @resource.url
+  end
+
+  def update_params
+    params.require(:user).permit(
+      :avatar, :nickname, :email, :name, :location, :website, :sex, :birth_on, :notifications, :about
+    )
   end
 end

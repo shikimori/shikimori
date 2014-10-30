@@ -599,7 +599,7 @@ Site::Application.routes.draw do
     post 'users/search' => 'users#search', as: :users_search
     get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
 
-    resources :profiles, path: '/', constraints: { id: /[^\/]+?/ }, only: [:show] do # , format: /json|rss/
+    resources :profiles, path: '/', constraints: { id: /[^\/]+?/ }, only: [:show, :update] do # , format: /json|rss/
       member do
         get :friends
         get :favourites

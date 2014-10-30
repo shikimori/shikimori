@@ -4,7 +4,7 @@ describe UserPreferencesController do
   let(:user) { create :user, password: '123' }
   before { sign_in user }
 
-  describe :update do
+  describe '#update' do
     context 'wrong user' do
       let(:user2) { create :user }
       before { patch :update, id: user2.to_param }

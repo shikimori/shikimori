@@ -76,20 +76,83 @@ describe ProfilesController do
   #end
 
   describe '#edit' do
-    let(:make_request) { get :edit, id: user.to_param, page: 'account' }
+    let(:make_request) { get :edit, id: user.to_param, page: page }
 
-    context 'valid access' do
+    context 'when valid access' do
       before { sign_in user }
       before { make_request }
-      it { should respond_with :success }
+
+      describe 'account' do
+        let(:page) { 'account' }
+        it { should respond_with :success }
+      end
+
+      #describe 'profile' do
+        #let(:page) { 'profile' }
+        #it { should respond_with :success }
+      #end
+
+      #describe 'password' do
+        #let(:page) { 'password' }
+        #it { should respond_with :success }
+      #end
+
+      #describe 'styles' do
+        #let(:page) { 'styles' }
+        #it { should respond_with :success }
+      #end
+
+      #describe 'list' do
+        #let(:page) { 'list' }
+        #it { should respond_with :success }
+      #end
+
+      #describe 'notifications' do
+        #let(:page) { 'notifications' }
+        #it { should respond_with :success }
+      #end
+
+      #describe 'misc' do
+        #let(:page) { 'misc' }
+        #it { should respond_with :success }
+      #end
     end
 
-    context 'invalid access' do
+    context 'when invalid access' do
+      let(:page) { 'account' }
       it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
   end
 
   describe '#update' do
+    let(:make_request) { patch :update, id: user.to_param, page: 'account', user: update_params }
 
+    context 'when valid access' do
+      before { sign_in user }
+
+      context 'when success' do
+        before { make_request }
+        let(:update_params) {{ nickname: 'morr' }}
+
+        it { should redirect_to edit_profile_url(resource, page: 'account') }
+        it { expect(resource.nickname).to eq 'morr' }
+        it { expect(resource.errors).to be_empty }
+      end
+      pending 'ignored_users'
+
+      context 'when validation errors' do
+        let!(:user_2) { create :user }
+        let(:update_params) {{ nickname: user_2.nickname }}
+        before { make_request }
+
+        it { should respond_with :success }
+        it { expect(resource.errors).to_not be_empty }
+      end
+    end
+
+    context 'when invalid access' do
+      let(:update_params) {{ nickname: '123' }}
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
   end
 end
