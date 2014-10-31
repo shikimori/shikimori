@@ -605,7 +605,6 @@ Site::Application.routes.draw do
         get :favourites
         get :clubs
         #get :stats
-        get 'history(/:page)' => :history, as: :history
 
         #get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
 
@@ -614,6 +613,13 @@ Site::Application.routes.draw do
           #get 'list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
         #end
         get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
+      end
+
+      resources :user_history, only: [], path: '/history' do
+        collection do
+          get '(/:page)' => :index, as: :index
+          delete '/reset/:type' => :reset, as: :reset, type: /anime|manga/
+        end
       end
 
       resources :user_rates, only: [], path: '/list' do
@@ -660,15 +666,15 @@ Site::Application.routes.draw do
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
 
-    if Rails.env.test?
-      get 'users(/:action(/:id(.:format)))', controller: :users
-      resources :user_preferences, only: [:update]
-      get 'groups(/:action(/:id(.:format)))', controller: :groups
-      get 'characters(/:action(/:id(.:format)))', controller: :characters
-      get 'comments(/:action(/:id(.:format)))', controller: :comments
-      get 'pages(/:action(/:id(.:format)))', controller: :pages
-      get 'danbooru(/:action(/:id(.:format)))', controller: :danbooru
-    end
+    #if Rails.env.test?
+      #get 'users(/:action(/:id(.:format)))', controller: :users
+      #resources :user_preferences, only: [:update]
+      #get 'groups(/:action(/:id(.:format)))', controller: :groups
+      #get 'characters(/:action(/:id(.:format)))', controller: :characters
+      #get 'comments(/:action(/:id(.:format)))', controller: :comments
+      #get 'pages(/:action(/:id(.:format)))', controller: :pages
+      #get 'danbooru(/:action(/:id(.:format)))', controller: :danbooru
+    #end
 
     get '*a', to: 'pages#page404' unless Rails.env.development?
   end

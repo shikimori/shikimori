@@ -42,3 +42,31 @@
 
     $('#user_preferences_page_border').on 'change', ->
       $('body').toggleClass 'bordered', $(@).prop('checked')
+
+
+  if $('.edit-page.misc, .edit-page.list').exists()
+    # восстановление залокированных рекомендаций
+    # выбор варианта
+    $('.profile-action .controls .link').on 'click', ->
+      type = $(@).data 'type'
+      $(@).closest('.controls')
+        .hide()
+
+      $(@).closest('.profile-action')
+        .find(".form.#{type}")
+        .show()
+
+    # отмена
+    $('.profile-action .cancel').on 'click', ->
+      $(@).closest('.profile-action')
+        .find('.controls')
+        .show()
+      $(@).closest('.profile-action')
+        .find('.form')
+        .hide()
+
+    # успешное завершение
+    $('.profile-action a').on 'ajax:success', ->
+      $(@).closest('.profile-action')
+        .find('.cancel')
+        .click()

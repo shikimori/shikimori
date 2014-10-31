@@ -1,4 +1,4 @@
-= render layout: 'page' do
+= render layout: 'profiles/page' do
   /- if @page == 1
     = auto_discovery_link_tag :rss, profile_url(@resource, format: :rss), title: "История пользователя #{@resource.nickname}"
 
@@ -9,4 +9,4 @@
     = render 'history', collection: @collection
 
   - if @add_postloader
-    = render 'blocks/postloader', url: history_profile_url(@resource, page: @page+1)
+    = render 'blocks/postloader', url: index_profile_user_history_index_url(@resource, page: @page+1)

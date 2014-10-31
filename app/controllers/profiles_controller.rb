@@ -1,6 +1,4 @@
 class ProfilesController < ShikimoriController
-  HISTORIES_PER_PAGE = 90
-
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' }
   #authorize_resource :user, class: User
@@ -24,17 +22,6 @@ class ProfilesController < ShikimoriController
     page_title 'Избранное'
   end
 
-  def history
-    redirect_to @resource.url unless @resource.history.any?
-    authorize! :see_list, @resource
-
-    @page = (params[:page] || 1).to_i
-    @collection, @add_postloader =
-      UserHistoryQuery.new(@resource).postload(@page, HISTORIES_PER_PAGE)
-
-    page_title 'История'
-  end
-
   #def stats
     #page_title 'Статистика'
   #end
@@ -49,6 +36,7 @@ class ProfilesController < ShikimoriController
     authorize! :update, @resource
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
+    params[:user][:notifications] = params[:user][:notifications].sum {|k,v| v.to_i } + MessagesController::DISABLED_CHECKED_NOTIFICATIONS if params[:user][:notifications].present?
 
     update_successfull = if params[:user][:password].present?
       if @resource.encrypted_password.present?

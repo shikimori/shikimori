@@ -1,6 +1,7 @@
-@import compass/utilities/general/clearfix
 @import compass/css3/border-radius
 @import compass/css3/box-shadow
+@import compass/utilities/general/clearfix
+@import mixins/block
 @import mixins/link
 @import mixins/responsive
 
@@ -136,3 +137,28 @@
         background: image-url('/assets/background/geometry2.png') repeat
       .bg34
         background: image-url('/assets/background/skulls.png') repeat
+
+  .notifications
+    .b-table
+      margin: 0 0 $block_offset 0
+      width: 100%
+
+      .num
+        width: 50px
+
+  .misc, .list
+    .profile-action
+      +block
+
+      a, .link
+        +link
+
+      .form
+        display: none
+
+      .cancel
+        padding-left: 15px
+
+      .warn
+        color: red
+        padding-right: 5px
