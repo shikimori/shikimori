@@ -625,8 +625,8 @@ Site::Application.routes.draw do
       resources :user_rates, only: [], path: '/list' do
         collection do
           get ":list_type#{ani_manga_format}" => :index, as: '', list_type: /anime|manga/
-          get :import
           get ':list_type/export' => :export, as: :export
+          post :import
         end
       end
 
@@ -660,7 +660,7 @@ Site::Application.routes.draw do
         #get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
         #get ':id/list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
       #end
-      post ':id/import' => 'user_lists#list_import', as: :list_import
+      #post ':id/import' => 'user_lists#list_import', as: :list_import
       #get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }
 
       get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
