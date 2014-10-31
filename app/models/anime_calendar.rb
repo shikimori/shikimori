@@ -101,7 +101,8 @@ class AnimeCalendar < ActiveRecord::Base
     'cross ange: tenshi to ryu no rondo' => 25731,
     'fate/stay night: unlimited blade works' => 22297,
     'log horizon 2' => 23321,
-    'madan no o to vanadis' => 24455
+    'madan no o to vanadis' => 24455,
+    "yama no susume second season" => 21435
   }
 
   EpisodesDiff = {
