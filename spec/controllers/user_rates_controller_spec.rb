@@ -68,4 +68,21 @@ describe UserRatesController do
       its(:episodes) { should eq user_rate.episodes + 1 }
     end
   end
+
+  describe '#export' do
+    let(:make_request) { get :export, profile_id: user.to_param, list_type: 'anime', format: 'xml' }
+    let!(:user_rate) { create :user_rate, user: user, target: create(:anime) }
+
+    context 'has access to list' do
+      before { make_request }
+      it { should respond_with :success }
+      it { should respond_with_content_type :xml }
+    end
+
+    context 'has no access to list' do
+      let(:user) { create :user, preferences: create(:user_preferences, profile_privacy: :owner) }
+      before { sign_out user }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
 end

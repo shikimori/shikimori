@@ -623,18 +623,26 @@ Site::Application.routes.draw do
       end
 
       resources :user_rates, only: [], path: '/list' do
-        get ":list_type#{ani_manga_format}" => :index, as: '', list_type: /anime|manga/, on: :collection
+        collection do
+          get ":list_type#{ani_manga_format}" => :index, as: '', list_type: /anime|manga/
+          get :import
+          get ':list_type/export' => :export, as: :export
+        end
+      end
+
+      resources :user_preferences, only: [] do
+        patch :update, on: :collection
       end
     end
 
     constraints id: /[^\/]+?/, format: /json|rss/ do
       #get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/
-      get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications|misc/, type: 'settings'
+      #get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications|misc/, type: 'settings'
       #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
       #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
-      patch ':id(/:type/:page)' => 'users#update'
-      patch ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
-      patch ':id/password' => 'users#update_password', as: :update_user_password
+      #patch ':id(/:type/:page)' => 'users#update'
+      #patch ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
+      #patch ':id/password' => 'users#update_password', as: :update_user_password
       get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
       post ':id/ban' => 'users#do_ban'
 
@@ -648,12 +656,12 @@ Site::Application.routes.draw do
       get ':id/favourites' => 'users#favourites', as: :user_favourites, type: 'favourites'
 
       # user_list
-      constraints list_type: /anime|manga/ do
-        get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
-        get ':id/list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
-      end
+      #constraints list_type: /anime|manga/ do
+        #get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
+        #get ':id/list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
+      #end
       post ':id/import' => 'user_lists#list_import', as: :list_import
-      get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }
+      #get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }
 
       get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
       #get ':id/message' => 'messages#new', as: :private_message

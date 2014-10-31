@@ -156,9 +156,21 @@
       .form
         display: none
 
-      .cancel
-        padding-left: 15px
+      .control
+        padding-right: $block_offset
 
       .warn
         color: red
         padding-right: 5px
+
+
+  .list
+    #import_form
+      .link
+        +link
+
+      &>div
+        display: none
+
+      #import-export
+        display: block

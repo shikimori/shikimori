@@ -7,8 +7,8 @@
     - unless current_user.unread_count > 0
       span.graphics-arrow-down
   .submenu.right
-    a.entry href="#{ani_manga_list_url current_user, list_type: 'anime'}" Аниме
-    a.entry href="#{ani_manga_list_url current_user, list_type: 'manga'}" Манга
+    a.entry href="#{profile_user_rates_url current_user, list_type: 'anime'}" Аниме
+    a.entry href="#{profile_user_rates_url current_user, list_type: 'manga'}" Манга
     a.entry href="#{current_user.unread_messages_url}"
       span Почта
       - if current_user.unread_count > 0
@@ -23,7 +23,7 @@
         span.sep.zero.inline
           | ]
 
-    a.entry href="#{user_settings_url current_user}" Настройки
+    a.entry href="#{edit_profile_url current_user}" Настройки
     a.entry href="#{destroy_user_session_url}" Выход
 
 - else

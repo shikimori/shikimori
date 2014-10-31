@@ -1,12 +1,12 @@
 .block
-  = simple_form_for @resource.preferences, url: update_user_preferences_url(@resource) do |f|
+  = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
     input type="hidden" name="page" value="#{params[:page]}"
 
     = f.input :volumes_in_manga
     = f.submit 'Сохранить'
 
-/.m20
-  = render partial: 'users/import', formats: :html
+.profile-action
+  = render 'profiles/edit/import'
 
 .profile-action
   .mischeadline Оценки в моём списке
@@ -18,14 +18,14 @@
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение сбросить все выставленные оценки для аниме (сами аниме из списка не удалятся).
-    a href="#{reset_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
+    a.control href="#{reset_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
     span.link.cancel Отмена
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение сбросить все выставленные оценки для манги (сама манга из списка не удалится).
-    a href="#{reset_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
+    a.control href="#{reset_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
     span.link.cancel Отмена
 
 .profile-action
@@ -38,14 +38,14 @@
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение удалить всю историю изменений своего списка аниме.
-    a href="#{reset_profile_user_history_index_url @resource, :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
+    a.control href="#{reset_profile_user_history_index_url @resource, :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
     span.link.cancel Отмена
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение удалить всю историю изменений своего списка манги.
-    a href="#{reset_profile_user_history_index_url @resource, :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
+    a.control href="#{reset_profile_user_history_index_url @resource, :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
     span.link.cancel Отмена
 
 .profile-action
@@ -58,12 +58,12 @@
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение очистить свой список аниме и удалить всю историю по аниме.
-    a href="#{cleanup_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список аниме и потерять всю историю?" Да, подтверждаю
+    a.control href="#{cleanup_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список аниме и потерять всю историю?" Да, подтверждаю
     span.link.cancel Отмена
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение очистить свой список манги и удалить всю историю по манге.
-    a href="#{cleanup_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список манги и потерять всю историю?" Да, подтверждаю
+    a.control href="#{cleanup_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список манги и потерять всю историю?" Да, подтверждаю
     span.link.cancel Отмена

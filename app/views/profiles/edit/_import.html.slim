@@ -1,6 +1,7 @@
+.mischeadline Импорт / экспорт списка
 #import_form
   #import-export
-    p.form-buttons
+    p
       p#to_import.control data-next-step="import_phase_1"
         span.link Импортировать список
       p#to_export.control data-next-step="export_phase"
@@ -8,17 +9,17 @@
 
   #export_phase
     p Что будем экспортировать?
-    p.form-buttons
-      span#anime.control data-target="#{ani_manga_export_path list_type: :anime, id: current_user}"
+    p
+      span#anime.control data-target="#{export_profile_user_rates_url @resource, :anime}"
         span.link Аниме
-      span#manga.control data-target="#{ani_manga_export_path list_type: :manga, id: current_user}"
+      span#manga.control data-target="#{export_profile_user_rates_url @resource, :manga}"
         span.link Мангу
       span.cancel
         span.link Отмена
 
   #import_phase_1
     p Откуда будем импортировать?
-    p.form-buttons
+    p
       /span#myanimelist.control data-final-step="import_mal" title="myanimelist.net"
         span.link MyAnimeList
       span#xml.control data-final-step="import_xml"
@@ -32,7 +33,7 @@
 
   #import_phase_2
     p Что будем импортировать?
-    p.form-buttons
+    p
       span#anime.control data-klass="anime" data-anime-planet-status="Watch"
         span.link Аниме
       span#manga.control data-klass="manga" data-anime-planet-status="Read"
@@ -42,7 +43,7 @@
 
   #import_phase_3
     p Будем ли заменять уже добавленное на shikimori.org?
-    p.form-buttons
+    p
       span#partial_import.control data-rewrite="0"
         span.link Нет, импорт только нового
       span#full_import.control data-rewrite="1"
@@ -56,7 +57,7 @@
         | Логин на&nbsp;
         span#import_service_name
         br
-      = text_field_tag 'import[login]', current_user.nickname, class: :common
+      = text_field_tag 'import[login]', @resource.nickname, class: :common
     p.form-buttons
       span#to_final_step.control.submit
         span.link Импортировать
@@ -66,7 +67,7 @@
         span.link Отмена
 
   #import_xml
-    = form_tag list_import_url(@user), multipart: true do
+    = form_tag import_profile_user_rates_url(@resource.object), multipart: true do
       = hidden_field_tag :rewrite
       = hidden_field_tag :klass
       = hidden_field_tag :list_type, :xml
@@ -83,9 +84,9 @@
           span.link Отмена
 
   #import_mal
-    = form_tag list_import_url(@user) do
+    = form_tag import_profile_user_rates_url(@resource.object) do
       p
-        | Найдено 
+        | Найдено&nbsp;
         span#import_found
         |  записей.
       = hidden_field_tag :rewrite
@@ -100,7 +101,7 @@
           span.link Отмена
 
   #import_anime_planet
-    = form_tag list_import_url(@user) do
+    = form_tag import_profile_user_rates_url(@resource.object) do
       = hidden_field_tag :login
       = hidden_field_tag :rewrite
       = hidden_field_tag :wont_watch_strategy
