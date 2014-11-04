@@ -11,8 +11,9 @@ class TokyoToshokanParser < TorrentsParser
 
     feed = []
 
-    trs = doc.css('.listing tr') # при одном потомке у первого элемента - это строка о кеше
-    (trs[0] && trs[0].children().size == 1 ? trs[1..-1] : trs).each_slice(2) do |first,second|
+    trs = doc.css('.listing tr').select {|v| v.attr('class').present? } # при одном потомке у первого элемента - это строка о кеше
+    trs.each_slice(2) do |first,second|
+      next unless first.children[1]
       link = first.children[1].css('a')[1]
       feed << {
         title: link.text,
