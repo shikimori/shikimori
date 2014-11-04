@@ -14,13 +14,15 @@
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->
     $(@).closest('.line').replaceWith data
 
-  # клик по смотреть онлайн
-  $('.watch-online a').on 'click', ->
-    episode = parseInt($('.menu-rate-block .current-episodes').html())
-    total_episodes = parseInt($('.menu-rate-block .total-episodes').html()) || 9999
-    watch_episode = if !episode || episode == total_episodes then 1 else episode + 1
+  (->
+    # клик по смотреть онлайн
+    $('.watch-online a').on 'click', ->
+      episode = parseInt($('.anime-rate .current-episodes').html())
+      total_episodes = parseInt($('.anime-rate .total-episodes').html()) || 9999
+      watch_episode = if !episode || episode == total_episodes then 1 else episode + 1
 
-    $(@).attr href: $(@).attr('href').replace(/\d+$/, watch_episode)
+      $(@).attr href: $(@).attr('href').replace(/\d+$/, watch_episode)
+  ).delay()
 
   # раскрытие свёрнутого блока связанного
   $('.l-content').on 'click', '.related-shower', ->
