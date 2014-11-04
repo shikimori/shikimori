@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
     url: "/images/user/:style/:id.:extension",
     path: ":rails_root/public/images/user/:style/:id.:extension"
 
-  validates :nickname, presence: true, name: true
+  validates :nickname, presence: true, name: true, length: { maximum: 20 }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :fix_nickname
