@@ -52,6 +52,10 @@
         p
           span user_agent:
           span = report.user_agent
+      - if report.message.present?
+        p
+          span Комментарий:
+          span = report.message
       p
         span Doubles:
         span = report.doubles

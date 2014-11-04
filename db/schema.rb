@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015183314) do
+ActiveRecord::Schema.define(version: 20141024040218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,8 +75,9 @@ ActiveRecord::Schema.define(version: 20141015183314) do
     t.string   "kind"
     t.string   "state"
     t.string   "user_agent"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "message",        limit: 1000
   end
 
   add_index "anime_video_reports", ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state", using: :btree
@@ -783,6 +784,7 @@ ActiveRecord::Schema.define(version: 20141015183314) do
     t.string   "name"
     t.string   "description"
     t.string   "permalink"
+    t.integer  "forum_id"
     t.integer  "topics_count",     default: 0
     t.integer  "posts_count",      default: 0
     t.datetime "created_at"

@@ -47,7 +47,7 @@
               span.caret
             ul.dropdown-menu
               li: a href="#{anime_videos_report_url anime.current_video.id, kind: :broken}" data-remote="true" data-method="post" Видео не работает
-              li: a href="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" data-remote="true" data-method="post" Видео не от этого аниме
+              li: a.wrong href="#" data-url="#{anime_videos_report_url anime.current_video.id, kind: :wrong}" Видео не от этого аниме
 
       - if user_signed_in?
         li.pull-right
