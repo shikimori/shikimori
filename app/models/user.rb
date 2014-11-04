@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   include UserNotifications
   include Commentable
 
+  MAX_NICKNAME_LENGTH = 20
+  LAST_ONLINE_CACHE_INTERVAL = 5.minutes
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :async
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
@@ -97,7 +100,8 @@ class User < ActiveRecord::Base
     url: "/images/user/:style/:id.:extension",
     path: ":rails_root/public/images/user/:style/:id.:extension"
 
-  validates :nickname, presence: true, name: true, length: { maximum: 20 }
+  validates :nickname, presence: true, name: true, length: { maximum: MAX_NICKNAME_LENGTH }
+  validates :email, presence: true, if: :persisted?
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :fix_nickname
@@ -116,7 +120,7 @@ class User < ActiveRecord::Base
       .where('users.id not in (select distinct(user_id) from user_rates)')
   }
 
-  LAST_ONLINE_CACHE_INTERVAL = 5.minutes
+  CensoredAvatarIds = Set.new [4357]
 
   GuestID = 5
   Blackchestnut_ID = 1077
@@ -137,8 +141,6 @@ class User < ActiveRecord::Base
   # 16750 - hichigo shirosaki, 16774 - torch8870, 10026 - Johnny_W, 20455 - Doflein, 10026 - Black_Heart, 12023 - Wooterland,
   # 8237 - AmahiRazu, 17423 - Ryhiy, 11834 - .ptax.log, 21347 - アナスタシア, 4792 - artemeliy, 19638 - milaha007, 10342 - gazig, 7028 - Hentai master
   TrustedVideoUploaders = (Admins + [11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905, 3954, 16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 7028]).uniq
-
-  CensoredIds = Set.new [4357]
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -365,7 +367,7 @@ class User < ActiveRecord::Base
 
   def avatar_url size
     if avatar.exists?
-      if CensoredIds.include?(id)
+      if CensoredAvatarIds.include?(id)
         "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
       else
         avatar.url "x#{size}".to_sym

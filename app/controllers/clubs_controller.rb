@@ -30,7 +30,8 @@ class ClubsController < ShikimoriController
     if @resource.save
       redirect_to edit_club_url(@resource), notice: 'Клуб создан'
     else
-      new and render :new
+      new
+      render :new
     end
   end
 
@@ -54,7 +55,8 @@ class ClubsController < ShikimoriController
       redirect_to edit_club_url(@resource), notice: 'Изменения сохранены'
     else
       flash[:alert] = 'Изменения не сохранены!'
-      edit and render :edit
+      edit
+      render :edit
     end
   end
 

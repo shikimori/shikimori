@@ -53,7 +53,7 @@ class UserDecorator < BaseDecorator
 
   def avatar_url size
     if avatar.exists?
-      if User::CensoredIds.include?(id) && (!h.user_signed_in? || (h.user_signed_in? && !User::CensoredIds.include?(h.current_user.id)))
+      if User::CensoredAvatarIds.include?(id) && (!h.user_signed_in? || (h.user_signed_in? && !User::CensoredAvatarIds.include?(h.current_user.id)))
         "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
       else
         avatar.url "x#{size}".to_sym

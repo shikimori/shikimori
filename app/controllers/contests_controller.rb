@@ -86,7 +86,8 @@ class ContestsController < ShikimoriController
     if @resource.save
       redirect_to edit_contest_url(@resource), notice: 'Опрос создан'
     else
-      new and render :new
+      new
+      render :new
     end
   end
 
@@ -105,7 +106,8 @@ class ContestsController < ShikimoriController
       redirect_to edit_contest_url(@resource), notice: 'Изменения сохранены'
     else
       flash[:alert] = 'Изменения не сохранены!'
-      edit and render :edit
+      edit
+      render :edit
     end
   end
 

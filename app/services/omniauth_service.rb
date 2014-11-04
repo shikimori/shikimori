@@ -10,6 +10,7 @@ class OmniauthService
       fill_vkontakte_fields if vkontakte?
     end
     fill_common_fields
+    @user.nickname = @user.nickname[0..User::MAX_NICKNAME_LENGTH-1] if @user.nickname.length >= User::MAX_NICKNAME_LENGTH
     build_token
 
     @user.nickname = 'Новый пользователь' if @user.nickname.blank?

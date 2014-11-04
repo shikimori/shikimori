@@ -30,6 +30,7 @@ class ProfilesController < ShikimoriController
     authorize! :edit, @resource
     page_title 'Настройки'
     @page = params[:page] || 'account'
+    @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
   end
 
   def update
@@ -59,7 +60,8 @@ class ProfilesController < ShikimoriController
       redirect_to edit_profile_url(@resource, page: params[:page]), notice: 'Изменения сохранены'
     else
       flash[:alert] = 'Изменения не сохранены!'
-      edit and render :edit
+      edit
+      render :edit
     end
   end
 

@@ -53,7 +53,7 @@ private
     end
 
     user.save
-    unless user.errors.empty?
+    if user.errors.any?
       nickname = user.nickname
       email = user.email
       (2..100).each do |i|
