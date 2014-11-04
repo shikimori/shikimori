@@ -233,7 +233,7 @@ class MessagesController < UsersController
     end
 
     if user.ignored_users.include?(current_user)
-      render json: {'' => User::CommentForbiddenMessage }, status: :unprocessable_entity
+      render json: {'' => I18n.t('activerecord.errors.models.messages.ignored') }, status: :unprocessable_entity
       return
     end
 

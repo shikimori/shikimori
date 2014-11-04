@@ -74,7 +74,7 @@ module PermissionsPolicy
       unless self.ignores.any? {|v| v.target_id == comment.user_id }
         true
       else
-        comment.errors[:forbidden] = User::CommentForbiddenMessage
+        comment.errors[:forbidden] = I18n.t('activerecord.errors.models.messages.ignored')
         false
       end
     end

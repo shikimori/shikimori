@@ -116,6 +116,9 @@ ru:
           not_a_moderator: '[ban] теги трогать нельзя'
           not_a_club_member: Вступите в клуб, чтобы оставлять комментарии
           in_club_black_list: Вас внесли в чёрный список клуба. Комментирование невозможно
+        messages:
+          ignored: Вы не можете писать этому пользователю
+
         group_invite:
           attributes:
             base:
@@ -217,10 +220,6 @@ ru:
       year: почти год назад
       two_years: более года назад
       many_years: совсем давно
-
-  messages:
-    user_banned: Пользователь забанен
-    user_warned: Пользователь предупреждён
 
   will_paginate:
     previous_label: '<'
