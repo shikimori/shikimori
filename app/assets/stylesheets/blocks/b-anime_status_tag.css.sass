@@ -1,0 +1,16 @@
+@import globals/variables
+
+.b-anime_status_tag
+  color: #FFF
+  padding: 0 5px
+  line-height: 16px
+  display: inline-block
+
+  &.finished_airing, &.release
+    background: $released_tag
+
+  &.not_yet_aired, &.anons
+    background: $anons_tag
+
+  &.currently_airing
+    background: $ongoing_tag

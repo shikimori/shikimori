@@ -15,7 +15,8 @@
 
   - unless entry.status.blank?
     = info_line 'Статус' do
-      = t "AniMangaStatus.#{entry.status}"
+      span.b-anime_status_tag class="#{entry.status.downcase.gsub ' ', '_'}"
+        = t "AniMangaStatus.#{entry.status}"
       | &nbsp;
       - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_on || entry.aired_on)
         - if entry.released_on && entry.aired_on && entry.released_on.year != entry.aired_on.year
