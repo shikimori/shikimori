@@ -1,6 +1,9 @@
 get_page =->
   $('.p-anime_video-show')
 
+report_success_message =->
+  alert 'Ваше обращение принято. Спасибо!'
+
 resize_player = ($page) ->
   $frame = $('iframe', $page)
   $frame.height($frame.width() * 9 / 16) if $frame
@@ -21,8 +24,16 @@ jQuery ->
   $('.kinds li a', $page).on 'click', ->
     $('.video iframe', $page).attr 'src', $(@).data('url')
 
-  $('a', '.report li').on 'ajax:success', ->
-    alert 'Ваше обращение принято. Спасибо!'
+  $('a', '.report li').on 'ajax:success', -> report_success_message()
+  $('a.wrong', '.report li').on 'click', ->
+    message = prompt('Дополнительный комментарий для модератора.')
+    return if message == null
+    $.ajax
+      url: $(@).data('url')
+      type: 'POST'
+      data:
+        message: message
+      success: report_success_message()
 
   resize_player $page
   $(window).resize -> resize_player($page)

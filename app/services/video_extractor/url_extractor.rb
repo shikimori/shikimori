@@ -48,7 +48,7 @@ private
       $1
     elsif html =~ %r{movieSrc=(#{CONTENT})"}
       "http://api.video.mail.ru/videos/embed/#{$1.sub(/&autoplay=\d/, '')}.html"
-    elsif html =~ %r{(#{HTTP}rutube.ru/(?:video|embed)#{CONTENT})}
+    elsif html =~ %r{(#{HTTP}rutube.ru/(?:video/embed|embed)#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}video.rutube.ru/#{CONTENT})}
       $1
@@ -68,6 +68,8 @@ private
       $1
     elsif html =~ %r{(#{HTTP}video.yandex.ru#{CONTENT})}
       $1
+    elsif html =~ VideoExtractor::RutubeExtractor::SRC_REGEX
+      "http://rutube.ru/play/embed/#{$1}"
 
     #elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
       #puts 'animeonline.su skipped' unless Rails.env.test?
