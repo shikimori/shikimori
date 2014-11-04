@@ -53,11 +53,11 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
   end
 
   def create
-    @video = AnimeVideo.new video_params.merge(url: VideoExtractor::UrlExtractor.new(video_params[:url]).extract)
-    @video.author = find_or_create_author params[:anime_video][:author].to_s.strip
+    @video = AnimeVideo.new(video_params.merge(url: VideoExtractor::UrlExtractor.new(video_params[:url]).extract))
+    @video.author = find_or_create_author(params[:anime_video][:author])
 
     if @video.save
-      AnimeOnline::AnimeVideosService.upload_report current_user, @video
+      AnimeOnline::AnimeVideosService.upload_report(current_user, @video)
       if params[:continue] == "true"
         flash[:notice] = "Эпизод #{@video.episode} добавлен"
         @video = AnimeVideo.new anime_id: @video.anime_id, episode: @video.episode + 1, author: @video.author, kind: @video.kind, source: 'shikimori.org'
@@ -75,8 +75,8 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
   end
 
   def update
-    @video = AnimeVideo.find params[:id]
-    author = find_or_create_author params[:anime_video][:author].to_s.strip
+    @video = AnimeVideo.find(params[:id])
+    author = find_or_create_author(params[:anime_video][:author])
     if video_params[:episode] != @video.episode || video_params[:kind] != @video.kind || author.id != @video.author_id
       if @video.moderated_update video_params.merge(anime_video_author_id: author.id), current_user
         redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео изменено'
@@ -145,6 +145,7 @@ private
   end
 
   def find_or_create_author name
+    name = name.to_s.strip
     AnimeVideoAuthor.where(name: name).first || AnimeVideoAuthor.create(name: name)
   end
 

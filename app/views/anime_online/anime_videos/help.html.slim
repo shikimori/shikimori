@@ -2,6 +2,7 @@
   h3 Как правильно получить ссылку на видео
   ul
     li: a href='#vk' ВКонтакте
+    li: a href='#rutube' Rutube.ru
     li: a href='#now' Now.ru
     li: a href='#kiwi' Kiwi.kz
 
@@ -18,6 +19,23 @@
       li: code = '<iframe src="http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1" width="607" height="360"...'
       li: code = 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
   = image_tag 'anime_online/pages/anime_videos/help/vk2.jpg'
+  hr
+
+  h4#rutube Rutube.ru
+  h5 1. Кнопка "Код вставки"
+  = image_tag 'anime_online/pages/anime_videos/help/rutube1.png'
+  h5 2. Скопировать код
+  = image_tag 'anime_online/pages/anime_videos/help/rutube2.png'
+  p
+    .alert.alert-success
+      | Видео из rutube.ru можно добавить несколькими способами:
+      ol
+        li
+          span Через код для вставки (рекомендуемый) 
+          code = '<iframe width="720" height="405" src="//rutube.ru/play/embed/7300160" frameborder="0" ...></iframe>'
+        li
+          span По прямой ссылке 
+          code = 'http://rutube.ru/video/5939d6aea686bc83a86c86d24f40435e'
   hr
 
   h4#now Now.ru

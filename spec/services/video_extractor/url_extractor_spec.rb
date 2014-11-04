@@ -118,6 +118,11 @@ describe VideoExtractor::UrlExtractor do
       it { should eq 'http://video.rutube.ru/8c8bbdc632726555649d45c2c6a273c0' }
     end
 
+    describe :rutube_6 do
+      let(:html) { '<iframe width="720" height="405" src="//rutube.ru/play/embed/7300160?wmode=opaque&amp;autoStart=true" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="video_frame"></iframe>' }
+      it { should eq 'http://rutube.ru/play/embed/7300160' }
+    end
+
     describe :sibnet_1 do
       let(:html) { "<iframe width=\"730\" height=\"480\" src=\"http://video.sibnet.ru/shell.php?videoid=1186077\" frameborder=\"0\" scrolling=\"no\" allowfullscreen></iframe>" }
       it { should eq 'http://video.sibnet.ru/shell.php?videoid=1186077' }
