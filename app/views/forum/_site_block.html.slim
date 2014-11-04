@@ -43,7 +43,7 @@
           li.entry
             a href="#{section_topic_url section: entry.thread.section, topic: entry.thread}" title="#{entry.thread.title}"
               .image-name
-                img src="#{entry.target.image.url :x64}" alt="#{{entry.target.name}}" title="#{{entry.target.name}}"
+                img src="#{entry.target.image.url :x48}" srcset="#{entry.target.image.url :x96} 2x" alt="#{{entry.target.name}}" title="#{{entry.target.name}}"
                 span.title
                   == entry.target.name
               span.misc
@@ -96,7 +96,7 @@
             li.entry
               a href="#{entry[:url]}" title="#{entry[:name]}"
                 .image-name
-                  img src="#{entry[:image]}" alt="#{entry[:name]}" title="#{entry[:name]}"
+                  img src="#{entry[:image]}" srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}" alt="#{entry[:name]}" title="#{entry[:name]}"
                   span.title
                     == entry[:name]
                 span.misc title="#{entry[:reversed_action]}"

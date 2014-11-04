@@ -19,7 +19,7 @@
             li.entry
               a href="#{entry[:url]}" title="#{entry[:name]}"
                 .image-name
-                  img src="#{entry[:image]}" alt="#{entry[:name]}" title="#{entry[:name]}"
+                  img src="#{entry[:image]}" srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}" alt="#{entry[:name]}" title="#{entry[:name]}"
                   span.title
                     == entry[:name]
                 span.misc title="#{entry[:reversed_action]}"

@@ -71,7 +71,8 @@ private
       nil
     else
       {
-        image: entry.target.image.url(:x64),
+        image: entry.target.image.url(:x48),
+        image_2x: entry.target.image.url(:x96),
         name: UsersHelper.localized_name(entry.target, h.current_user),
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
