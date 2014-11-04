@@ -10,9 +10,7 @@ class Character < DbEntry
   has_attached_file :image,
     styles: {
       original: ['225x350>', :jpg],
-      preview: ['80x120>', :jpg],
-      #x96: ['64x96#', :jpg],
-      #x64: ['43x64#', :jpg]
+      preview: ['160x240>', :jpg],
       x96: ['96x150>', :jpg],
       x48: ['48x75>', :jpg]
     },

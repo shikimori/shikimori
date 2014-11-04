@@ -14,7 +14,7 @@ article.c-column.b-catalog_entry.c-character[
     ]
     span.image-decor
       span.image-cutter
-        img src="#{character.image.url :original}" alt="#{localized_name character}" title="#{localized_name character}"
+        img src="#{character.image.url :preview}" srcset="#{character.image.url :original} 2x" alt="#{localized_name character}" title="#{localized_name character}"
 
     - if cover_by == :link
       span.title.two_lined itemprop="name"
