@@ -15,9 +15,11 @@
           = render @resource.images(12), rel: 'club'
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
-    - if @resource.preview_thread.comments_count > 0
-      .subheadline.m3
+    .subheadline.m3
+      - if @resource.preview_thread.comments_count > 0
         .linkeable data-href="#{comments_club_url @resource}" Обсуждение
+      - else
+        | Обсуждение
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
         = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

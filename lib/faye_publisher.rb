@@ -26,7 +26,6 @@ private
   # отправка уведомлений о новом комментарии
   def publish_comment comment, event, channels
     topic = comment.commentable
-    return unless topic.respond_to? :section_id
 
     # уведомление в открытые топики
     data = {
@@ -37,12 +36,13 @@ private
       topic_id: topic.id,
       comment_id: comment.id
     }
-    publish_data data, event, ["#{@namespace}/topic-#{topic.id}"]
+    topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
+    publish_data data, event, ["#{@namespace}/#{topic_type}-#{topic.id}"]
 
     # уведомление в открытые разделы
     if topic.kind_of? GroupComment
       publish_data data, event, ["#{@namespace}/group-#{topic.linked_id}"]
-    else
+    elsif topic.respond_to? :section_id
       publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
     end
 

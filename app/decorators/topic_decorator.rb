@@ -7,14 +7,6 @@ class TopicDecorator < BaseDecorator
       user.nickname
     elsif contest?
       object.title
-    #elsif @linked # для топиков при указанном linked будет короткое название
-      #if @linked.respond_to? :name
-        #"#{object.to_s} #{@linked.name}"
-      #else
-        #object.to_s
-      #end
-    ##elsif object.respond_to?(:linked) && object.linked # надо подумать, стоит ли топики переименовывать
-      ##UserPresenter.localized_name object.linked, current_user
     elsif object.respond_to? :title
       object.title
     else
@@ -147,7 +139,8 @@ class TopicDecorator < BaseDecorator
   # адрес прочих комментариев топика
   def comments_url
     h.fetch_comments_url(
-      id: comments.first.id,
+      comment_id: comments.first.id,
+      topic_type: topic_type,
       topic_id: object.id,
       skip: 'SKIP',
       limit: fold_limit,
@@ -196,5 +189,11 @@ class TopicDecorator < BaseDecorator
   # канал faye для топика
   def faye_channel
     ["topic-#{id}"].to_json
+  end
+
+private
+  # для адреса подгрузки комментариев
+  def topic_type
+    Entry.name
   end
 end

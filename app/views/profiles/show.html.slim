@@ -77,3 +77,10 @@
     .block
       .subheadline.m10 Обо мне
       = @resource.about_html
+
+  - if @resource.show_comments?
+    .block
+      .subheadline.m3 Лента
+      div
+        .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+          = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

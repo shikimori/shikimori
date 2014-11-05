@@ -121,9 +121,14 @@ Site::Application.routes.draw do
 
     # комментарии
     resources :comments do
-      post :raw
-      resources :bans, only: [:new], controller: 'moderation/bans'
+      collection do
+        get :smileys
+        post :preview
+        get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
+        get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
+      end
 
+      resources :bans, only: [:new], controller: 'moderation/bans'
       resources :abuse_requests, controller: 'moderation/abuse_requests', only: [] do
         resources :bans, only: [:new], controller: 'moderation/bans'
 
@@ -133,13 +138,6 @@ Site::Application.routes.draw do
           post :offtopic
           post :review
         end
-      end
-
-      collection do
-        get :smileys
-        post :preview
-        get 'fetch/:id/:topic_id(/:review)/:skip/:limit' => 'comments#fetch', as: :fetch
-        get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
       end
     end
 
@@ -605,13 +603,8 @@ Site::Application.routes.draw do
         get :favourites
         get :clubs
         #get :stats
+        #get :comments
 
-        #get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
-
-        #constraints list_type: /anime|manga/ do
-          #get "list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
-          #get 'list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
-        #end
         get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
       end
 
@@ -646,14 +639,14 @@ Site::Application.routes.draw do
       get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
       post ':id/ban' => 'users#do_ban'
 
-      get ':id/comments(/page/:page)' => 'users#comments', as: :user_comments, type: 'comments'
-      get ':id/reviews(/page/:page)' => 'users#reviews', as: :user_reviews, type: 'reviews'
-      get ':id/changes(/page/:page)' => 'users#changes', as: :user_changes, type: 'changes'
+      #get ':id/comments(/page/:page)' => 'users#comments', as: :user_comments, type: 'comments'
+      #get ':id/reviews(/page/:page)' => 'users#reviews', as: :user_reviews, type: 'reviews'
+      #get ':id/changes(/page/:page)' => 'users#changes', as: :user_changes, type: 'changes'
 
-      get ':id/friends' => 'users#friends', as: :user_friends, type: 'friends'
-      get ':id/clubs' => 'users#clubs', as: :user_clubs, type: 'clubs'
-      patch ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
-      get ':id/favourites' => 'users#favourites', as: :user_favourites, type: 'favourites'
+      #get ':id/friends' => 'users#friends', as: :user_friends, type: 'friends'
+      #get ':id/clubs' => 'users#clubs', as: :user_clubs, type: 'clubs'
+      #patch ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
+      #get ':id/favourites' => 'users#favourites', as: :user_favourites, type: 'favourites'
 
       # user_list
       #constraints list_type: /anime|manga/ do
@@ -673,16 +666,6 @@ Site::Application.routes.draw do
 
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
-
-    #if Rails.env.test?
-      #get 'users(/:action(/:id(.:format)))', controller: :users
-      #resources :user_preferences, only: [:update]
-      #get 'groups(/:action(/:id(.:format)))', controller: :groups
-      #get 'characters(/:action(/:id(.:format)))', controller: :characters
-      #get 'comments(/:action(/:id(.:format)))', controller: :comments
-      #get 'pages(/:action(/:id(.:format)))', controller: :pages
-      #get 'danbooru(/:action(/:id(.:format)))', controller: :danbooru
-    #end
 
     get '*a', to: 'pages#page404' unless Rails.env.development?
   end

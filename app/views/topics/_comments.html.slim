@@ -8,7 +8,10 @@
       ]
       = topic.show_hidden_comments_text
 
-  = render partial: 'comments/comment', collection: topic.comments, formats: :html
+  - if topic.comments.any?
+    = render partial: 'comments/comment', collection: topic.comments, formats: :html
+  - else
+    p.no_comments Нет комментариев
 
 - if user_signed_in?
   .editor-container

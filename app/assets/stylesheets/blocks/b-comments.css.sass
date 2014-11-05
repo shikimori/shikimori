@@ -1,5 +1,6 @@
-@import mixins/plashka
 @import mixins/block
+@import mixins/link
+@import mixins/plashka
 
 .b-comments
   +block
@@ -27,3 +28,11 @@
   .faye-loader
     +plashka
     clear: left
+
+  .no_comments
+    color: $gray-color
+    font-size: 12px
+    margin-left: 5px
+
+    a
+      +link

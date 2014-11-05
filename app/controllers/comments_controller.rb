@@ -53,8 +53,8 @@ class CommentsController < ShikimoriController
 
   # все комментарии сущности до определённого коммента
   def fetch
-    comment = Comment.find(params[:id])
-    entry = Entry.find(params[:topic_id])
+    comment = Comment.find(params[:comment_id])
+    entry = params[:topic_type].constantize.find(params[:topic_id])
 
     raise Forbidden unless comment.commentable_id == entry.id && (
                              comment.commentable_type == entry.class.name || (

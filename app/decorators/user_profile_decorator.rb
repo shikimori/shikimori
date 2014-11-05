@@ -168,6 +168,20 @@ class UserProfileDecorator < UserDecorator
       end
   end
 
+  # полный топик
+  def main_thread
+    thread = TopicProxyDecorator.new object
+    thread.topic_mode!
+    thread
+  end
+
+  # превью топика
+  def preview_thread
+    thread = TopicProxyDecorator.new object
+    thread.preview_mode!
+    thread
+  end
+
 private
   def all_compatibility
     CompatibilityService.fetch self, h.current_user if h.user_signed_in?
