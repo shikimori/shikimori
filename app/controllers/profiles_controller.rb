@@ -22,6 +22,15 @@ class ProfilesController < ShikimoriController
     page_title 'Избранное'
   end
 
+  def comments
+    @comments = postload_paginate(params[:page], 20) do
+      Comment.where(user: @resource).order(id: :desc)
+    end
+
+    redirect_to @resource.url if @comments.none?
+    page_title 'Комментарии'
+  end
+
   #def stats
     #page_title 'Статистика'
   #end

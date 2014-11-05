@@ -47,6 +47,19 @@ describe ProfilesController do
     end
   end
 
+  describe '#comments' do
+    context 'without comments' do
+      before { get :comments, id: user.to_param }
+      it { should redirect_to profile_url(user) }
+    end
+
+    context 'with comments' do
+      let!(:comment_role) { create :comment, user: user }
+      before { get :comments, id: user.to_param }
+      it { should respond_with :success }
+    end
+  end
+
   #describe '#stats' do
     #before { get :stats, id: user.to_param }
     #it { should respond_with :success }

@@ -1,0 +1,6 @@
+= render layout: 'page' do
+  h2.subheadline.m10 = @page_title.last
+  .b-comments
+    = render @comments
+    - if @add_postloader
+      = render partial: 'blocks/postloader', locals: { filter: 'b-comment', url: comments_profile_url(page: @page+1, search: params[:search]) }
