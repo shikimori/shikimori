@@ -20,7 +20,7 @@ class TopicProxyDecorator < TopicDecorator
   end
 
   def comments_limit
-    7
+    preview? ? 7 : fold_limit
   end
 
 private
