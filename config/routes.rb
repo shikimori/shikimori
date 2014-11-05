@@ -603,7 +603,7 @@ Site::Application.routes.draw do
         get :favourites
         get :clubs
         #get :stats
-        #get :comments
+        get :comments
 
         get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
       end

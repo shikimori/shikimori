@@ -9,8 +9,8 @@ class CommentsQuery
   end
 
   def postload page, limit, descending
-    comments = fetch(page, limit, descending).to_a
-    [comments.take(limit).decorate, comments.size == limit+1]
+    comments = fetch(page, limit, descending).decorate.to_a
+    [comments.take(limit), comments.size == limit+1]
   end
 
   def fetch page, limit, descending

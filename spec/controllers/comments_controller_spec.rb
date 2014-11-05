@@ -69,27 +69,27 @@ describe CommentsController do
     let(:user) { build_stubbed :user }
 
     it 'works' do
-      get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: topic.id, skip: 1
+      get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: topic.id, skip: 1, limit: 10
       response.should be_success
     end
 
     it 'not_found for wrong comment' do
       lambda {
-        get :fetch, comment_id: comment.id+1, topic_type: Entry.name, topic_id: topic.id, skip: 1
+        get :fetch, comment_id: comment.id+1, topic_type: Entry.name, topic_id: topic.id, skip: 1, limit: 10
       }.should raise_error ActiveRecord::RecordNotFound
     end
 
     it 'not_found for wrong topic' do
       lambda {
-        get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: topic.id+1, skip: 1
+        get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: topic.id+1, skip: 1, limit: 10
       }.should raise_error ActiveRecord::RecordNotFound
     end
 
     it 'forbidden for mismatched comment and topic' do
-      get :fetch, comment_id: create(:comment).id, topic_type: Entry.name, topic_id: topic.id, skip: 1
+      get :fetch, comment_id: create(:comment).id, topic_type: Entry.name, topic_id: topic.id, skip: 1, limit: 10
       response.should be_forbidden
 
-      get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: create(:entry).id, skip: 1
+      get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: create(:entry).id, skip: 1, limit: 10
       response.should be_forbidden
     end
   end
