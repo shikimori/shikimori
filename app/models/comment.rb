@@ -5,8 +5,6 @@ class Comment < ActiveRecord::Base
   include Antispam
   include Viewable
 
-  attr_accessor :topic_name, :topic_url
-
   # assiciations
   belongs_to :user
   belongs_to :commentable, polymorphic: true

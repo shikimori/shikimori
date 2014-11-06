@@ -1,6 +1,11 @@
 = render layout: 'page' do
+  = form_tag '', method: :get, class: 'comments-search' do
+    input.subheadline-input.search value="#{SearchHelper.unescape params[:search]}" type="text" placeholder="Поиск по комментариям..." data-search_url="#{comments_profile_url @resource}"
   h2.subheadline.m10 = @page_title.last
   .b-comments
-    = render @comments
-    - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { filter: 'b-comment', url: comments_profile_url(page: @page+1, search: params[:search]) }
+    - if @comments.any?
+      = render @comments
+      - if @add_postloader
+        = render partial: 'blocks/postloader', locals: { filter: 'b-comment', url: comments_profile_url(page: @page+1, search: params[:search]) }
+    - else
+      p.b-nothing_here Нет комментариев

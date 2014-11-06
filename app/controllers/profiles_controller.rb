@@ -23,11 +23,16 @@ class ProfilesController < ShikimoriController
   end
 
   def comments
-    @comments = postload_paginate(params[:page], 20) do
-      Comment.where(user: @resource).order(id: :desc)
+    comments = postload_paginate(params[:page], 20) do
+      Comment
+        .where(user: @resource)
+        .where(params[:search].present? ?
+          "body ilike #{ActiveRecord::Base.sanitize "%#{SearchHelper.unescape params[:search]}%"}" :
+          nil)
+        .order(id: :desc)
     end
+    @comments = comments.map {|v| SolitaryCommentDecorator.new v }
 
-    redirect_to @resource.url if @comments.none?
     page_title 'Комментарии'
   end
 

@@ -5,7 +5,6 @@
     = f.input :profile_privacy, include_blank: false
     = f.input :anime_in_profile
     = f.input :manga_in_profile
-    = f.input :statistics_in_profile
     = f.input :comments_in_profile
     = f.input :statistics_start_on, label: 'Отображать график активности начиная с даты', start_year: @resource.created_at.year, end_year: Date.today.year, default: @resource.created_at
 

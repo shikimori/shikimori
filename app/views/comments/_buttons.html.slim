@@ -2,7 +2,7 @@ aside.buttons
   .main-controls
     /- if comment.respond_to?(:commentable) || comment.respond_to?(:dst)
     span.item-quote title="Цитировать"
-    span.item-reply data-action="#{url_for comment}" data-type="json" data-remote="true" title="Ответить"
+    span.item-reply data-action="#{comment_url comment}" data-type="json" data-remote="true" title="Ответить"
 
     - if comment.can_be_edited_by? current_user
       span.item-edit data-action="#{edit_comment_path comment}" data-type="html" data-remote="true" title="Изменить"
@@ -15,7 +15,7 @@ aside.buttons
 
   - if comment.can_be_deleted_by?(current_user) && comment.respond_to?(:commentable)
     .delete-controls
-      span.item-delete-confirm action="#{url_for comment}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+      span.item-delete-confirm action="#{comment_url comment}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
       span.item-delete-cancel title="Отмена"
 
   .moderation-controls

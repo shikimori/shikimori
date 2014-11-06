@@ -90,16 +90,6 @@ module MessagesHelper # для truncate в messages helper
   def format_linked_name linked_id, linked_type, comment_id=nil
     url = ''
     content = case linked_type
-      when AniMangaComment.name
-        target = AniMangaComment.find(linked_id)
-        url = self.send("page_#{target.linked_type.downcase}_url", target.linked, page: :comments)
-        'в обсуждении %s <!--%s-->.' % [target.linked_type == Anime.name ? 'аниме' : 'манги', target.linked.name]
-
-      when CharacterComment.name
-        target = CharacterComment.find(linked_id)
-        url = self.send("page_#{target.linked_type.downcase}_url", target.linked, page: :comments)
-        'в обсуждении персонажа <!--%s-->.' % [target.linked.name]
-
       when CosplaySession.name
         target = CosplaySession.includes(:animes).find(linked_id)
         if target.animes.empty?
@@ -111,7 +101,7 @@ module MessagesHelper # для truncate в messages helper
           'в комментариях к косплею <!--%s-->.' % [target.target]
         end
 
-      when AnimeNews.name, Topic.name, Entry.name
+      when Entry.name
         target = Entry.find_by_id linked_id
         if target
           url = topic_url(target)
@@ -127,15 +117,6 @@ module MessagesHelper # для truncate в messages helper
           'в профиле пользователя <!--%s-->.' % [target.nickname]
         else
           'в профиле <em>удалённого</em> пользователя'
-        end
-
-      when Group.name
-        target = Group.find_by_id linked_id
-        if target
-          url = club_url(target)
-          'в группе <!--%s-->' % [target.name]
-        else
-          'в <em>удалённой</em> группе'
         end
 
       else

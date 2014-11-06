@@ -31,10 +31,6 @@ class UserPreferences < ActiveRecord::Base
     about_on_top
   end
 
-  def statistics_in_profile?
-    statistics_in_profile
-  end
-
   def mylist_in_catalog?
     mylist_in_catalog
   end

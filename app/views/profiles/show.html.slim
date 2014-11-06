@@ -33,7 +33,7 @@
         - if @resource.stats.activity.any?
           .graph data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
         - else
-          .no_stats Нет статистики
+          .b-nothing_here Нет статистики
 
     .c-column
       .cc-2a
@@ -47,7 +47,7 @@
             - if @resource.friends.any?
               = render @resource.friends.take(12), content_by: :avatar
             - else
-              .no_stats Нет друзей
+              .b-nothing_here Нет друзей
 
         .c-column.m0
           .subheadline.m10
@@ -59,7 +59,7 @@
             - if @resource.clubs.any?
               = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
             - else
-              .no_stats Не состоит ни в одном из клубов
+              .b-nothing_here Не состоит ни в одном из клубов
 
       .block
         .subheadline.m10
@@ -71,7 +71,7 @@
           - if @resource.favourites.any?
             = render @resource.favourites, cover_by: :image_link
           - else
-            .no_stats Список изранного пуст
+            .b-nothing_here Список изранного пуст
 
   - if @resource.about_html.present?
     .block

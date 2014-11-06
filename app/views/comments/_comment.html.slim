@@ -40,11 +40,15 @@
       / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
       - if comment.user
         header
-          span.linkeable data-href="#{comment.topic_url || profile_url(comment.user)}"
+          span.linkeable data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user)}"
             img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
           .name-date
-            a href="#{comment.topic_url || profile_url(comment.user)}" itemprop="creator"
-              == comment.topic_name || h(comment.user.nickname)
+            a href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user)}" itemprop="creator"
+              - if comment.respond_to?(:topic_url)
+                = comment.topic_name
+              - else
+                = comment.user.nickname
+
             - if comment.persisted?
               time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
                 = time_ago_in_words comment.created_at, "%s назад"
