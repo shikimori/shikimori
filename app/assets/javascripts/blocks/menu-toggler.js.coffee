@@ -10,6 +10,8 @@ $(document).on 'page:load', ->
       #$.scrollTo $('.l-menu')
 
   $.detectSwipe.threshold = 60
+  $.detectSwipe.preventDefault = false
+
   $page = $('.l-page')
     .on 'swipeleft', ->
       $page.addClass 'menu-expanded'
