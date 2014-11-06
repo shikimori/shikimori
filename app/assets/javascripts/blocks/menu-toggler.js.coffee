@@ -9,8 +9,9 @@ $(document).on 'page:load', ->
     #if $('.l-page').hasClass('menu-expanded') && !$('.l-menu').is(':appeared')
       #$.scrollTo $('.l-menu')
 
-  $('.l-page').hammer()
+  $.detectSwipe.threshold = 60
+  $page = $('.l-page')
     .on 'swipeleft', ->
-      $('.l-page').addClass 'menu-expanded'
+      $page.addClass 'menu-expanded'
     .on 'swiperight', ->
-      $('.l-page').removeClass 'menu-expanded'
+      $page.removeClass 'menu-expanded'
