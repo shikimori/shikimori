@@ -11,6 +11,6 @@ $(document).on 'page:load', ->
 
   $('.l-page').hammer()
     .on 'swipeleft', ->
-      $page.addClass 'menu-expanded'
+      $('.l-page').addClass 'menu-expanded'
     .on 'swiperight', ->
-      $page.addClass 'menu-expanded'
+      $('.l-page').removeClass 'menu-expanded'
