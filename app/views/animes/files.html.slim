@@ -30,7 +30,7 @@
   - if @resource.files.subtitles.any?
     .subtitles
       - @resource.files.subtitles.each do |k,subs|
-        .b-options-floated.collapse class="#{'right-zero' if subs[:link].present?}"
+        .b-options-floated.collapse
           span.action свернуть (#{subs[:feed].size})
           /- if subs[:link].nil?
             a.rss href="#{subtitles_anime_url @resource, :group => Digest::MD5.hexdigest(subs[:title])}" title="RSS"

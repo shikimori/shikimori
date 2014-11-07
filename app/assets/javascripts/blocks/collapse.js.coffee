@@ -1,9 +1,6 @@
-# TODO: выпилить отсюда все упомянания о спойлерах
-# сворачивание/разворачивание collapse блоков по клику
 $(document).on 'click', '.collapse', (e, custom) ->
-  $this = $(this)
+  $this = $(@)
   is_hide = $this.children('.action').html().match(/свернуть/)
-  #in_comment = $this.parents('.topic-block,.comment-block,.description').length > 0
 
   # блок-заглушка, в которую сворачивается контент
   $placeholder = $this.next()
@@ -15,13 +12,6 @@ $(document).on 'click', '.collapse', (e, custom) ->
   # если в $hideable ничего, значит надо идти на уровень выше и брать next оттуда
   $hideable = $this.parent().next() unless $hideable.exists()
 
-  # если внутри спойлера картинки, то отображение дефолтное
-  in_comment = $hideable.find('img').not('.smiley').exists()
-
-  # если спойлер внутри комментария, то у него особое отображение
-  if in_comment
-    $hideable.addClass('dashed').attr title: 'свернуть спойлер'
-
   # скрываем не только следующий элемент, но и все последующие с классом collapse-merged
   $hideable = $hideable.add($hideable.last().next())  while $hideable.last().next().hasClass('collapse-merged')
 
@@ -31,17 +21,8 @@ $(document).on 'click', '.collapse', (e, custom) ->
     $placeholder.show()
     $hideable.hide()
   else
-    # при показе спойлера можем просто показать его содержимое, открыв элемент
-    #if !$hideable.data('href')
     $hideable.show()
     $placeholder.hide()
-    #else
-      # а можем подгрузить контент с сервера
-      #$placeholder.html('<img src="/images/loading.gif" alt="загрузка..." title="загрузка..." />');
-      #$hideable.load($hideable.data('href'), function() {
-        #$placeholder.hide();
-      #});
-      #$hideable.data('href', null);
 
   # корректный текст для кнопки действия
   $this.children('.action').html ->
@@ -51,25 +32,23 @@ $(document).on 'click', '.collapse', (e, custom) ->
         $this.hide()
       else
         $this.show()
-    if in_comment
-      ""
+
+    if is_hide
+      $this.html().replace('свернуть', 'развернуть')
     else
-      if is_hide
-        $this.html().replace('свернуть', 'развернуть')
-      else
-        $this.html().replace('развернуть', 'свернуть')
+      $this.html().replace('развернуть', 'свернуть')
 
   unless custom
-    id = $this.attr("id")
-    if id and id isnt "" and id.indexOf("-") isnt -1
-      name = id.split("-").slice(1).join("-") + ";"
-      collapses = $.cookie("collapses") or ""
-      if is_hide and collapses.indexOf(name) is -1
+    id = $this.parent().attr('id')
+    if id && id != '' && id.indexOf('-') != -1
+      name = id.split('-').slice(1).join("-") + ";"
+      collapses = $.cookie('collapses') || ''
+      if is_hide && collapses.indexOf(name) == -1
         $.cookie "collapses", collapses + name,
           expires: 730
           path: "/"
 
-      else if not is_hide and collapses.indexOf(name) isnt -1
+      else if !is_hide && collapses.indexOf(name) != -1
         $.cookie "collapses", collapses.replace(name, ""),
           expires: 730
           path: "/"
@@ -77,8 +56,7 @@ $(document).on 'click', '.collapse', (e, custom) ->
   $placeholder.next().trigger "show"
 
   # всем картинкам внутри спойлера надо заново проверить высоту
-  $hideable.find('img').addClass 'check-width'
-  process_current_dom()
+  #$hideable.find('img').addClass 'check-width'
 
 # клик на "свернуть"
 $(document).on 'click', '.collapsed', ->

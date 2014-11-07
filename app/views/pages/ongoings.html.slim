@@ -1,31 +1,30 @@
-- content_for :head do
-  = stylesheet_link_tag :ongoings
-- content_for :tail do
-  = javascript_include_tag :ongoings
+header.head.m15
+  h1
+    = @page_title
+  .notice
+    p Данный раздел отображает аниме онгоинги текущего сезона и близлежащие анонсы.
+    p Выходы серий отслеживаются автоматически по появлению эпизодов на торрент-трекерах, а время выхода эпизодов отображется либо исходя из информации с <a href="http://animecalendar.net/">animecalendar.net</a>, либо рассчитывается автоматически с учётом дат появления предыдущих эпизодов аниме.
 
-.ongoings.item-content.ajax
-  header.head.m15
-    h1
-      = @page_title
-    .notice
-      p Данный раздел отображает аниме онгоинги текущего сезона и близлежащие анонсы.
-      p Выходы серий отслеживаются автоматически по появлению эпизодов на торрент-трекерах, а время выхода эпизодов отображется либо исходя из информации с <a href="http://animecalendar.net/">animecalendar.net</a>, либо рассчитывается автоматически с учётом дат появления предыдущих эпизодов аниме.
+- @ongoings.each do |index,group|
+  .block.m0
+    - if index == -1
+      .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"
+        span.action свернуть
+    .headline.m10 class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
+      = index == -1 ? "Уже должно было выйти" : date_title_for_ongoing(index)
+    .collapsed.tiny ...
+    .cc-5.column_bm
+      = render partial: 'animes/anime', collection: group, locals: { cover_notice: :next_episode, content_by: :tooltip }
+    /.clearfix
 
-  - @ongoings.each do |k,group|
-    article
-      - if k == -1
-        .b-options-floated.collapse id="collapse-calendar_delayed"
-          span.action свернуть
-      .headline class="#{color_by_num k == -1 ? -1 : (DateTime.now + k.days).day % 11}"
-        = k == -1 ? "Уже должно было выйти" : date_title_for_ongoing(k)
-      .collapsed.tiny ...
-      .subcontent
-        = render partial: 'animes/anime', collection: group.map(&:decorate), locals: { cover_notice: :next_episode, content_by: :tooltip }, formats: :html
-      .clearfix
+/.forum-container
+  /.comments.zero-margin.zero-top-border
+    /.headline Комментарии
+    /a.to-main-topic href="#{topic_url @topic.object}" Перейти к топику с основным обсуждением (#{@topic.folded_comments} #{Russian.p @topic.folded_comments, 'комментарий', 'комментария', 'комментариев'})
 
-  .forum-container
-    .comments.zero-margin.zero-top-border
-      .headline Комментарии
-      a.to-main-topic href="#{topic_url @topic.object}" Перейти к топику с основным обсуждением (#{@topic.folded_comments} #{Russian.p @topic.folded_comments, 'комментарий', 'комментария', 'комментариев'})
+    /= render partial: 'comments/comments', locals: { object: @topic.topic, comments: @topic.comments, bottom_add_block: true }
 
-      = render partial: 'comments/comments', locals: { object: @topic.topic, comments: @topic.comments, bottom_add_block: true }
+.subheadline.m3 Обсуждение
+div
+  .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
+    = render 'topics/comments', topic: @topic

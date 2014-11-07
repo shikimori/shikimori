@@ -1,12 +1,20 @@
-.abuse-request
+.b-abuse_request
   = render 'comments/comment.html', comment: abuse_request.comment, topic: abuse_request.comment.commentable, formats: :html
 
-  .request-control.change
-    p
-      = link_to profile_url(abuse_request.user) do
-        img.avatar src="#{abuse_request.user.avatar_url 16}" alt="#{abuse_request.user.nickname}" title="#{abuse_request.user.nickname}"
-      = link_to abuse_request.user.nickname, profile_url(abuse_request.user), class: 'nickname', title: "#{abuse_request.user.nickname}"
-      span #{abuse_request.value ? (abuse_request.user.female? ? ' отметила' : ' отметил') : (abuse_request.user.female? ? ' сняла' : ' снял')} <span class="#{abuse_request.kind}-marker">#{abuse_request.kind_text unless abuse_request.offtopic?}</span>
+  .b-request_resolution
+    .info
+      .b-user16
+        a href="#{profile_url abuse_request.user}"
+          img.avatar src="#{abuse_request.user.avatar_url 16}" srcset="#{abuse_request.user.avatar_url 32} 2x" alt="#{abuse_request.user.nickname}" title="#{abuse_request.user.nickname}"
+          span = abuse_request.user.nickname
+
+      span
+        = abuse_request.value ? (abuse_request.user.female? ? 'отметила' : 'отметил') : (abuse_request.user.female? ? 'сняла' : 'снял')
+      .marker class="b-#{abuse_request.kind}_marker"
+        /- unless abuse_request.offtopic?
+          span class="b-#{abuse_request.kind}_marker"
+            /= abuse_request.kind_text
+
     - if abuse_request.pending?
       .moderation
         - if abuse_request.punishable?
@@ -21,9 +29,9 @@
           span.take data-action="#{take_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" принять
           span.deny data-action="#{deny_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
     - else
-      p.state
+      p
         - if abuse_request.accepted?
-          span.result style="color: green;" принято
+          span.resolution style="color: green;" принято
         - else
-          span.result style="color: red;"  отклонено
+          span.resolution style="color: red;"  отклонено
         span #{abuse_request.approver.nickname}

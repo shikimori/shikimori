@@ -18,12 +18,8 @@ class PagesController < ShikimoriController
     @page_title = 'Календарь онгоингов'
 
     @ongoings = CalendarsQuery.new.fetch_grouped
-    @topic = TopicPresenter.new(
-      object: Topic.find(94879),
-      template: view_context,
-      limit: 5,
-      with_user: true
-    )
+    @topic = TopicDecorator.new Entry.find(94879)
+    @topic.preview_mode!
   end
 
   # о сайте

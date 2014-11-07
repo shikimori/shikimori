@@ -1,0 +1,20 @@
+@import mixins/block
+@import mixins/pretty_list
+
+.b-brief
+  +block
+
+  .moderators
+    float: right
+    margin-top: 10px
+
+    .b-user
+      margin-left: 10px
+      width: 50px
+
+      .avatar
+        margin-bottom: 2px
+
+  ul
+    +pretty_list
+    margin-bottom: 30px
