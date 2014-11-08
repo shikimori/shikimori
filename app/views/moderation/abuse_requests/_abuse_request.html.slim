@@ -4,7 +4,7 @@
   .b-request_resolution
     .info
       .b-user16
-        a href="#{profile_url abuse_request.user}"
+        a href="#{profile_url abuse_request.user}" title="#{abuse_request.user.nickname}"
           img.avatar src="#{abuse_request.user.avatar_url 16}" srcset="#{abuse_request.user.avatar_url 32} 2x" alt="#{abuse_request.user.nickname}" title="#{abuse_request.user.nickname}"
           span = abuse_request.user.nickname
 
@@ -18,16 +18,18 @@
     - if abuse_request.pending?
       .moderation
         - if abuse_request.punishable?
-          span.ignore.button data-action="#{deny_moderation_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет&nbsp;нарушения
-          span.warn.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
-          - unless abuse_request.spoiler?
-            span.ban.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
-          - if abuse_request.comment.created_at < DateTime.now - 1.week
-            p.outdated комментарий создан давно
+          .moderation-buttons
+            span.ignore.button data-action="#{deny_moderation_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет&nbsp;нарушения
+            span.warn.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
+            - unless abuse_request.spoiler?
+              span.ban.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
+            - if abuse_request.comment.created_at < DateTime.now - 1.week
+              p.outdated комментарий создан давно
           .ban-form
         - else
-          span.take.button data-action="#{take_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" принять
-          span.deny.button data-action="#{deny_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
+          .moderation-buttons
+            span.take.button data-action="#{take_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" принять
+            span.deny.button data-action="#{deny_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
     - else
       .resolution
         - if abuse_request.accepted?

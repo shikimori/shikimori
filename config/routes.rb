@@ -121,13 +121,6 @@ Site::Application.routes.draw do
 
     # комментарии
     resources :comments do
-      collection do
-        get :smileys
-        post :preview
-        get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
-        get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
-      end
-
       resources :bans, only: [:new], controller: 'moderation/bans'
       resources :abuse_requests, controller: 'moderation/abuse_requests', only: [] do
         resources :bans, only: [:new], controller: 'moderation/bans'
@@ -138,6 +131,13 @@ Site::Application.routes.draw do
           post :offtopic
           post :review
         end
+      end
+
+      collection do
+        get :smileys
+        post :preview
+        get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
+        get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
       end
     end
 
