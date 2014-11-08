@@ -14,12 +14,6 @@ class Moderation::BansController < ShikimoriController
         .where(state: 'pending')
         .includes(:user, :approver, comment: :commentable)
         .order(:created_at)
-        #.each do |req|
-          #formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
-
-          #req.comment.topic_name = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
-          #req.comment.topic_url = formatted.match(/href="(.*?)"/)[1]
-        #end
     end
   end
 

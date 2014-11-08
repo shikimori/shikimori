@@ -1,4 +1,4 @@
-#= require pages/p-bans-index
+#= require pages/p-moderation
 #= require pages/p-users-index
 #= require pages/p-animes
 #= require pages/p-animes_collection-index

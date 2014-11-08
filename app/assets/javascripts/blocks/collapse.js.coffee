@@ -27,6 +27,7 @@ $(document).on 'click', '.collapse', (e, custom) ->
   # корректный текст для кнопки действия
   $this.children('.action').html ->
     $this = $(this)
+
     if $this.hasClass('half-hidden')
       if is_hide
         $this.hide()

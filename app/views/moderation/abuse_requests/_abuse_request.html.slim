@@ -18,20 +18,20 @@
     - if abuse_request.pending?
       .moderation
         - if abuse_request.punishable?
-          span.ignore data-action="#{deny_moderation_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет нарушения
-          span.warn data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
+          span.ignore.button data-action="#{deny_moderation_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет&nbsp;нарушения
+          span.warn.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
           - unless abuse_request.spoiler?
-            span.ban data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
+            span.ban.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
           - if abuse_request.comment.created_at < DateTime.now - 1.week
             p.outdated комментарий создан давно
           .ban-form
         - else
-          span.take data-action="#{take_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" принять
-          span.deny data-action="#{deny_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
+          span.take.button data-action="#{take_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" принять
+          span.deny.button data-action="#{deny_moderation_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
     - else
-      p
+      .resolution
         - if abuse_request.accepted?
-          span.resolution style="color: green;" принято
+          span style="color: green;" принято
         - else
-          span.resolution style="color: red;"  отклонено
+          span style="color: red;"  отклонено
         span #{abuse_request.approver.nickname}

@@ -27,30 +27,6 @@ header.head
     li: p Регистрирующихся через прокси в обход бана баньте сразу без разговора и надолго, все комментарии новозарегенных акков стирайте.
     li: p За старые комментарии банить не стоит; старые комментарии отображаются со сноской <span class="outdated">комментарий создан давно</span>.
 
-/.item-editor.m20
-  /.forum-container.changes
-    /.comments.zero-margin.zero-top-border
-      /.comments-container
-        /- if @pending && @pending.any?
-          /h2.subheadline Очередь
-          /.abuse_requests.m30
-            /= render partial: 'moderation/abuse_requests/abuse_request', collection: @pending, formats: :html
-
-        /- if @declined && @declined.any?
-          /h2.subheadline Отклонено
-          /.abuse_requests.bans-declined
-            /= spoiler '...' do
-              /= render partial: 'moderation/abuse_requests/abuse_request', collection: @declined, formats: :html
-
-        /- if user_signed_in? && current_user.moderator?
-          /.b-options-floated
-            /a href="#{moderation_abuse_requests_url}" оффтопик + отзывы
-        /h2.subheadline История
-        /.bans
-          /= render partial: 'ban', collection: @bans, formats: :html
-          /- if @add_postloader
-            /= render partial: 'blocks/postloader', locals: { url: page_moderation_bans_url(page: @page+1, format: :json) }, formats: :html
-
 - if @pending && @pending.any?
   .subheadline Очередь
   .block
