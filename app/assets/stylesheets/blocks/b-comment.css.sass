@@ -40,10 +40,6 @@ $comment_border: 1px dashed #ddd
   .inner
     min-height: 58px
 
-    //&.shortened
-      height: 95px
-      overflow: hidden
-
     .was_updated
       +link_color($gray-color)
       clear: both
@@ -66,6 +62,13 @@ $comment_border: 1px dashed #ddd
         img
           position: absolute
           margin-top: 2px
+
+    .body
+      .ban
+        .b-user16
+          margin-right: 0
+        .resolution
+          color: red
 
   // раскрытое меню в мобильной версии
   &.aside-expanded
@@ -246,10 +249,6 @@ $comment_border: 1px dashed #ddd
 
   //&:first-child
     //border-top: none
-
-  //.ban-message
-    //.details
-      //color: red
 
     //img
       //vertical-align: middle
