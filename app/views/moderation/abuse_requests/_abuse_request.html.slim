@@ -19,7 +19,7 @@
       .moderation
         - if abuse_request.punishable?
           .moderation-buttons
-            span.ignore.button data-action="#{deny_moderation_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет&nbsp;нарушения
+            span.deny.button data-action="#{deny_moderation_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет&nbsp;нарушения
             span.warn.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
             - unless abuse_request.spoiler?
               span.ban.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить

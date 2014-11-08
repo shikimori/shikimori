@@ -1,16 +1,15 @@
 $(document).on 'click', '.collapse', (e, custom) ->
-  $this = $(@)
-  is_hide = $this.children('.action').html().match(/свернуть/)
+  is_hide = $(@).children('.action').html().match(/свернуть/)
 
   # блок-заглушка, в которую сворачивается контент
-  $placeholder = $this.next()
+  $placeholder = $(@).next()
   $placeholder = $placeholder.next() unless $placeholder.hasClass('collapsed')
 
-  # еонтент, убираемый под спойлер
+  # контент, убираемый под спойлер
   $hideable = $placeholder.next()
 
   # если в $hideable ничего, значит надо идти на уровень выше и брать next оттуда
-  $hideable = $this.parent().next() unless $hideable.exists()
+  $hideable = $(@).parent().next() unless $hideable.exists()
 
   # скрываем не только следующий элемент, но и все последующие с классом collapse-merged
   $hideable = $hideable.add($hideable.last().next())  while $hideable.last().next().hasClass('collapse-merged')
@@ -25,22 +24,22 @@ $(document).on 'click', '.collapse', (e, custom) ->
     $placeholder.hide()
 
   # корректный текст для кнопки действия
-  $this.children('.action').html ->
-    $this = $(this)
+  $(@).children('.action').html ->
+    $action = $(@)
 
-    if $this.hasClass('half-hidden')
+    if $action.hasClass('half-hidden')
       if is_hide
-        $this.hide()
+        $action.hide()
       else
-        $this.show()
+        $action.show()
 
     if is_hide
-      $this.html().replace('свернуть', 'развернуть')
+      $action.html().replace('свернуть', 'развернуть')
     else
-      $this.html().replace('развернуть', 'свернуть')
+      $action.html().replace('развернуть', 'свернуть')
 
   unless custom
-    id = $this.parent().attr('id')
+    id = $(@).attr('id')
     if id && id != '' && id.indexOf('-') != -1
       name = id.split('-').slice(1).join("-") + ";"
       collapses = $.cookie('collapses') || ''

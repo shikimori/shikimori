@@ -23,15 +23,8 @@ $moderation = (node) ->
   #$(document.body).on 'ajax:success', '.request-control .take, .request-control .deny', ->
     #reload $comment(@)
 
-  ## сабмит формы бана пользователю
-  #$(document.body).on 'ajax:success', 'form.ban', (e, data) ->
-    #e.stopImmediatePropagation()
-    #$(".comment-#{data.comment_id}").html data.comment_html
-    #hide_actions @
-
   # кнопка бана или предупреждения
   $('.moderation .ban, .moderation .warn').on 'ajax:success', (e, html) ->
-    e.stopImmediatePropagation()
     $moderation(@).find('.moderation-buttons').hide()
 
     $form = $(@).closest('.b-abuse_request').find('.ban-form')
@@ -47,3 +40,8 @@ $moderation = (node) ->
       $moderation(@).find('.moderation-buttons').show()
       $(@).closest('.ban-form').empty()
 
+    # сабмит формы бана пользователю
+    $form.on 'ajax:success', (e) ->
+      $comment(@).data('object')._reload()
+      $(@).closest('.ban-form').empty()
+      $moderation(@).find('.moderation-buttons').hide()

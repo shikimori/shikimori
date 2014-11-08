@@ -3,6 +3,7 @@
 @import compass/utilities/general/clearfix
 @import globals
 @import mixins/forum_entry
+@import mixins/pretty_list
 @import mixins/responsive
 
 $comment_border: 1px dashed #ddd
@@ -64,6 +65,9 @@ $comment_border: 1px dashed #ddd
           margin-top: 2px
 
     .body
+      ul
+        +pretty_list
+
       .ban
         .b-user16
           margin-right: 0
