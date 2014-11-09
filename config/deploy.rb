@@ -37,6 +37,7 @@ set :linked_dirs, %w{
   public/images/group
   public/images/image
   public/images/manga
+  public/images/manga_online
   public/images/person
   public/images/screenshot
   public/images/studio
