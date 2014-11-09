@@ -11,10 +11,9 @@ gem 'redis'
 gem 'slim-rails'
 gem 'coffee-rails'
 
-gem 'sass-rails'
+gem 'sass-rails', '5.0.0.beta1'
 gem 'compass-rails'
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
-#gem 'susy'
 
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
