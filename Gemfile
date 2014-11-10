@@ -35,7 +35,6 @@ gem 'active_model_serializers'
 gem 'virtus'
 gem 'attr_extras'
 
-gem 'mobylette'
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
 
