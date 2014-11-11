@@ -18,7 +18,7 @@ module Clockwork
 
   every 30.minutes, 'half-hourly.import.anothher', at: ['**:00', '**:30'] do
     AnimesImporter.perform_async
-    PostgresFix.perform_async
+    #PostgresFix.perform_async
   end
 
   every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
