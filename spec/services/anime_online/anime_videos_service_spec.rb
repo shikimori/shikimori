@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeOnline::AnimeVideosService do
   let(:user) { create :user }
   let(:video) { create :anime_video, state: 'uploaded' }

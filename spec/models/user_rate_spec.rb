@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserRate do
   describe 'relations' do
     it { should belong_to :target }

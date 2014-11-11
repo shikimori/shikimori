@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimesCollectionController do
   ['anime', 'manga'].each do |type|
     before do

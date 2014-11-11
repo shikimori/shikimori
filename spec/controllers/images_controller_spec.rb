@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ImagesController do
   include_context :authenticated
   let(:club) { create :group, owner: user }

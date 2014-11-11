@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::UsersController do
   let(:user) { create :user, nickname: 'Test' }
 

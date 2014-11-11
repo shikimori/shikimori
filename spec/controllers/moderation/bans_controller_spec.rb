@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Moderation::BansController do
   before { sign_in user }
 

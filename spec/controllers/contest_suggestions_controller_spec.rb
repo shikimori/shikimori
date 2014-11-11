@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ContestSuggestionsController do
   let(:user) { create :user }
   before { sign_in user }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VideoExtractor::BaseExtractor do
   let(:service) { VideoExtractor::BaseExtractor.new 'test' }
 

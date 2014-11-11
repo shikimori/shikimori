@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CharactersController do
   let!(:character) { create :character }
 

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeOnline::AnimeVideosController do
   let(:user) { create :user }
   let(:admin_user) { create :user, id: 1 }

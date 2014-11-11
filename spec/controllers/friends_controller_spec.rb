@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe FriendsController do
   let (:user) { FactoryGirl.create :user }
   let (:user2) { FactoryGirl.create :user }

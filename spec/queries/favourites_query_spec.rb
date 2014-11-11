@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe FavouritesQuery do
   let(:person) { create :person, name: 'test', mangaka: true }
 

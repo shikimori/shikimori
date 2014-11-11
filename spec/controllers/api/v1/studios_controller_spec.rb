@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::StudiosController do
   describe :show do
     let!(:studio) { create :studio }

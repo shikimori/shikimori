@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe GroupRolesQuery do
   describe :complete do
     let(:club) { create :group, owner: user_2 }

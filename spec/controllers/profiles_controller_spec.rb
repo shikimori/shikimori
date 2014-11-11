@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ProfilesController do
   let!(:user) { create :user }
 

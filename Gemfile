@@ -114,29 +114,36 @@ gem 'pry-stack_explorer'
 
 group :test, :development do
   gem 'byebug'
-  #gem 'pry-byebug' # пока ещё не поддерживает byubug 3.0
-  gem 'rspec-rails'
-
-  gem 'vcr'
-  gem 'capybara'
-  gem 'shoulda-matchers', require: false
-  gem 'database_cleaner'
+  gem 'pry-byebug'
 
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
 
-  gem 'spork', github: 'sporkrb/spork', branch: 'master'
+  gem 'listen', github: 'morr/listen'
+  gem 'rspec'
+  gem 'rspec-core'
+  gem 'rspec-expectations'
+  gem 'rspec-mocks'
+  gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-its'
+
+  gem 'spring-commands-rspec'
+
   gem 'guard'
   gem 'guard-rspec'
-  gem 'guard-spork'
   gem 'guard-bundler'
-  #gem 'guard-livereload'#, '2.1.2'
+end
 
-  gem 'timecop'
-  gem 'webmock'
-
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
   gem 'factory_girl_rails', require: false
+  gem 'shoulda-matchers', require: false
+  gem 'timecop'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'

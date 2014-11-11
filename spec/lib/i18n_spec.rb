@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe I18n do
   describe '::time_part' do
     describe 'second' do

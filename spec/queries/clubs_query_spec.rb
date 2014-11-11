@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ClubsQuery do
   let(:query) { ClubsQuery.new }
 

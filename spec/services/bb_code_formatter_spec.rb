@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe BbCodeFormatter do
   let(:processor) { BbCodeFormatter.instance }
 

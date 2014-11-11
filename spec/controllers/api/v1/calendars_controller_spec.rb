@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::CalendarsController do
   describe :show do
     before do

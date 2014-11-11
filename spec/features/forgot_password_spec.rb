@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 feature 'forgot_password' do#, troublesome: true do
   pending "надо написать"
   feature 'first step' do

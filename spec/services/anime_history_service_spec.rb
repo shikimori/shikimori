@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeHistoryService do
   let!(:users) { create_list :user, 2, notifications: 0xFFFFFF }
 

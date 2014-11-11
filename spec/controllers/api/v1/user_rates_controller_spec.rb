@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'cancan/matchers'
 
 describe Api::V1::UserRatesController do

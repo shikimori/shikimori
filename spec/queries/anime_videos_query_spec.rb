@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeVideosQuery do
   let!(:anime_1) { create :anime, name: 'anime_1_test' }
   let!(:anime_2) { create :anime, name: 'anime_2_test' }

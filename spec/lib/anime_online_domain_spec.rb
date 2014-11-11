@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeOnlineDomain do
   describe :host do
     let(:anime) { build :anime }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe TorrentsParser do
   subject { TorrentsParser.extract_episodes_num name }
 

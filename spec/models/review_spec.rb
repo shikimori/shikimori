@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Review do
   context :relations do
     it { should belong_to :target }

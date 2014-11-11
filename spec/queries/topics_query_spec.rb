@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe TopicsQuery do
   let(:query) { TopicsQuery.new section, user, linked }
   let(:linked) { nil }

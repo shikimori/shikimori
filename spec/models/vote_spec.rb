@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Vote do
   context :relations do
     it { should belong_to :user }

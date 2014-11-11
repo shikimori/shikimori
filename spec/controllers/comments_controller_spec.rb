@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CommentsController do
   let(:user) { create :user }
   let(:topic) { create :entry, user: user }

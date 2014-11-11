@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserListQuery do
   let(:query) { UserListQuery.new Anime, user, params }
   let(:user) { create :user }

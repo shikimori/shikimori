@@ -1,6 +1,4 @@
 
-require 'spec_helper'
-
 describe PersonMalParser do
   before (:each) { SiteParserWithCache.stub(:load_cache).and_return(list: {}) }
 

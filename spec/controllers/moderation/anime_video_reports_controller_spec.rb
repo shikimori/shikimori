@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Moderation::AnimeVideoReportsController do
   before { sign_in moderator }
 

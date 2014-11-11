@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RecommendationsController do
   ['anime', 'manga'].each do |type|
     describe :index do

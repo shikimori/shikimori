@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MangaOnline::ReadMangaPagesParser do
   before { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
   before { SiteParserWithCache.stub :save_cache }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ChronologyQuery do
   let(:anime1) { create :anime, kind: 'Special' }
   let(:anime2) { create :anime }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe FindAnimeImporter do
   let(:importer) { FindAnimeImporter.new }
 

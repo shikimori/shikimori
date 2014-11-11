@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CalendarsQuery do
   let(:query) { CalendarsQuery.new }
 

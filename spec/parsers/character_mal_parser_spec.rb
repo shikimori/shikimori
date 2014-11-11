@@ -1,6 +1,4 @@
 
-require 'spec_helper'
-
 describe CharacterMalParser do
   before { SiteParserWithCache.stub(:load_cache).and_return({list: {}}) }
   before { parser.stub :save_cache }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserListParser do
   let(:parser) { UserListParser.new klass }
   let(:klass) { Anime }

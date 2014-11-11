@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UsersQuery do
   describe :complete do
     before do

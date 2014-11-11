@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SiteParserWithCache do
   before (:each) { SiteParserWithCache.stub(:cache_name).and_return('test') }
 

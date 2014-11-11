@@ -1,6 +1,4 @@
 
-require 'spec_helper'
-
 describe MangasHelper do
 
   it "truncate_publisher" do

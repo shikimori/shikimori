@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VotesController do
   let (:user) { FactoryGirl.create :user }
   let (:entry) { FactoryGirl.create :review }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Contest::PlayOffStrategy do
   let(:strategy_type) { :play_off }
   let(:strategy) { contest.strategy }

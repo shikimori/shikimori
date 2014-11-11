@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserHistory do
   describe User do
     it { should belong_to :user }

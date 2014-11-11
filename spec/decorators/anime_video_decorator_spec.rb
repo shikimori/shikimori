@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeVideoDecorator do
   let(:decorator) { AnimeVideoDecorator.new anime }
   describe :description do

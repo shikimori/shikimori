@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Contest::Statistics do
   let(:contest) { build_stubbed :contest }
   let(:statistics) { contest.strategy.statistics }

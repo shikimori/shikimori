@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe PagesController do
   let(:user) { create :user }
 

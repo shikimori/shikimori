@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeOnline::PingmediaController do
   describe :google do
     before { get :google }

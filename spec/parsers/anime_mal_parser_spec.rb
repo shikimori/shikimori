@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeMalParser do
   before { SiteParserWithCache.stub(:load_cache).and_return list: {} }
   before { parser.stub :save_cache }

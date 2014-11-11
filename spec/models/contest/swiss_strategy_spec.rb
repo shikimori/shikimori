@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Contest::SwissStrategy do
   let(:strategy_type) { :swiss }
   let(:strategy) { contest.strategy }

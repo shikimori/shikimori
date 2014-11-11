@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ContestSuggestion do
   context :relations do
     it { should belong_to :user }

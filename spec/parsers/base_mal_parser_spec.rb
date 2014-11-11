@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe BaseMalParser do
   before { SiteParserWithCache.stub(:load_cache).and_return list: {} }
 

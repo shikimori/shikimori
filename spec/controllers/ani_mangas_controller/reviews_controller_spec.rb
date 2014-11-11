@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AniMangasController::ReviewsController do
   [:anime, :manga].each do |kind|
     describe kind do

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeOnline::DashboardController do
   let!(:anime) { create :anime, :with_video }
 

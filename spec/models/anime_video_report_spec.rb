@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeVideoReport do
   describe :relations do
     it { should belong_to :anime_video }

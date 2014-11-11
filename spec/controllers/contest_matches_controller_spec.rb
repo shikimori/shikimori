@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ContestMatchesController do
   let(:match) { create :contest_match, state: 'started' }
 

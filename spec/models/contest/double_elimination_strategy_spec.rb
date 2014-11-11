@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Contest::DoubleEliminationStrategy do
   let(:strategy_type) { :double_elimination }
   let(:strategy) { contest.strategy }

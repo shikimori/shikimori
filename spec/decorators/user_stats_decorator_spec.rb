@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserStatsDecorator do
   let(:user) { create :user }
   let(:anime) { create :anime, episodes: 24, duration: 60 }

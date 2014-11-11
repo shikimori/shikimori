@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 class NoAntispam < ActiveRecord::Base; include Antispam; end
 NoAntispam.antispam = false
 class WithAntispam < ActiveRecord::Base; include Antispam; end

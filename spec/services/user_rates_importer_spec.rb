@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserRatesImporter do
   let(:anime_1) { create :anime, name: "Zombie-Loan", episodes: 22 }
   let(:anime_2) { create :anime, name: "Zombie-Loan Specials" }

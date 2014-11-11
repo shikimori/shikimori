@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CommentsService do
   let(:service) { CommentsService.new user, faye }
 

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe DanbooruImporter do
   let(:limit) { 2 }
   let(:importer) { DanbooruImporter.new }

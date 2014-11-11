@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::CharactersController do
   describe :show do
     let(:character) { create :character }

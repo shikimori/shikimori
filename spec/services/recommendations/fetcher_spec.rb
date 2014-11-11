@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RecommendationsController do
   let(:user) { create :user }
   let(:metric) { :pearson }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserImagesController do
   describe :create do
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe BbCodes::VideoTag do
   let(:tag) { BbCodes::VideoTag.instance }
 

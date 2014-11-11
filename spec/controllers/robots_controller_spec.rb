@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RobotsController do
   describe :anime_online do
     before { get :anime_online }

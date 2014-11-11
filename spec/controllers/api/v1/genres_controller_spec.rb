@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::GenresController do
   describe :show do
     let!(:genre) { create :genre }

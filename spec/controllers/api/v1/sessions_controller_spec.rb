@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::SessionsController do
   describe :create do
     let!(:user) { create :user, nickname: 'test', password: '123456' }

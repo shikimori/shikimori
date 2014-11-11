@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe GenresController do
   let!(:genre) { create :genre }
   before { sign_in create(:user, id: 1) }

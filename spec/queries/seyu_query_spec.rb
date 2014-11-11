@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SeyuQuery do
   let(:person) { create :person, name: 'test', seyu: true }
   let(:query) { SeyuQuery.new(search: 'test') }

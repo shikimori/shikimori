@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe BbCodes::ImageTag do
   let(:tag) { BbCodes::ImageTag.instance }
   let(:text_hash) { 'hash' }

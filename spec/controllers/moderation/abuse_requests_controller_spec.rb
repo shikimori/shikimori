@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Moderation::AbuseRequestsController do
   before { sign_in create(:user, id: 1) }
 

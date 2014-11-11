@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AbuseRequestsService do
   let(:service) { AbuseRequestsService.new comment, user }
   let(:user) { create :user, id: 99 }

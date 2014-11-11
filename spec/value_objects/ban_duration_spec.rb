@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe BanDuration do
   describe :to_s do
     subject { BanDuration.new(duration).to_s }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AmbiguousMatcher do
   subject { matcher.resolve }
 

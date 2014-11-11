@@ -1,4 +1,3 @@
-require 'spec_helper'
 describe Entry do
   context :relations do
     it { should belong_to :section }

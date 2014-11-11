@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserPreferencesController do
   let(:user) { create :user, :preferences }
 

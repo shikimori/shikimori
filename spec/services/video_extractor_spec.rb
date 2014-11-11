@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VideoExtractor do
   subject(:fetch) { VideoExtractor.fetch url }
 

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MangaPage do
   it { should belong_to :chapter }
 

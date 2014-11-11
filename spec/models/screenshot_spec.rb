@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Screenshot do
   context '#relations' do
     it { should belong_to :anime }

@@ -1,10 +1,12 @@
-ignore [%r{^bin/*}, %r{^db/*}, %r{^log/*}, %r{^public/*}, %r{^tmp/*}]
+ignore %r{
+  bin | db | public
+}x
 
 guard :bundler do
   watch('Gemfile')
 end
 
-guard :rspec, cmd: 'rspec --color --format nested --drb', all_after_pass: false, all_on_start: false, failed_mode: :focus do
+guard :rspec, cmd: 'bundle exec spring rspec --color --format documentation', all_after_pass: false, all_on_start: false, failed_mode: :focus do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^spec/factories/(.+)\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
@@ -31,23 +33,3 @@ guard :rspec, cmd: 'rspec --color --format nested --drb', all_after_pass: false,
   # Capybara request specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml|slim|rabl)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
 end
-
-guard :spork, wait: 60, cucumber_env: { 'RAILS_ENV' => 'test' }, rspec_env: { 'RAILS_ENV' => 'test' } do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
-  watch(%r{^config/initializers/.+\.rb$})
-  watch('Guardfile')
-  watch('Gemfile')
-  watch('Gemfile.lock')
-  watch('spec/spec_helper.rb')# { :rspec }
-  watch('test/test_helper.rb') { :test_unit }
-  watch(%r{features/support/}) { :cucumber }
-end
-
-#guard :livereload do
-  #watch(%r{app/views/.+\.(erb|haml|slim)$})
-  #watch(%r{app/helpers/.+\.rb})
-  #watch(%r{app/assets/.+\.(css|js|coffee|scss|sass|html)})
-  #watch(%r{config/locales/.+\.yml})
-#end

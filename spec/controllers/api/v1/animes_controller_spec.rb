@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::AnimesController do
   describe :index do
     let(:user) { create :user }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SiteStatistics do
   subject(:query) { SiteStatistics.new }
 

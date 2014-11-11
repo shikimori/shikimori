@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VideoExtractor::OpenGraphExtractor do
   let(:service) { VideoExtractor::OpenGraphExtractor.new url }
 

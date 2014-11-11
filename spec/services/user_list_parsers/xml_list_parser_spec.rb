@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserListParsers::XmlListParser do
   let(:parser) { UserListParsers::XmlListParser.new klass }
   let(:login) { 'shikitest' }

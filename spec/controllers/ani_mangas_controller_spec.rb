@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimesController do
   let(:anime) { create :anime }
 

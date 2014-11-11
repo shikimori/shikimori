@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ContestMatch do
   context :relations do
     it { should belong_to :round }

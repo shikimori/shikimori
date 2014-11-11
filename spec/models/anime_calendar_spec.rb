@@ -1,6 +1,4 @@
 
-require 'spec_helper'
-
 describe AnimeCalendar do
   it { should belong_to :anime }
   it { should validate_presence_of :anime }

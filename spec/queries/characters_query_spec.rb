@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CharactersQuery do
   let(:character) { create :character, name: 'test' }
   let(:query) { CharactersQuery.new(search: 'test') }

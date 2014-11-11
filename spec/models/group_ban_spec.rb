@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe GroupBan do
   context :relations do
     it { should belong_to :group }

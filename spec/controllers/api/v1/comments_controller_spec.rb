@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::CommentsController do
   describe :show do
     let(:comment) { create :comment }

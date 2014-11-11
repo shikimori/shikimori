@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe PeopleQuery do
   let(:person) { create :person, name: 'test', mangaka: true }
   let(:query) { PeopleQuery.new(search: 'test', kind: 'mangaka') }

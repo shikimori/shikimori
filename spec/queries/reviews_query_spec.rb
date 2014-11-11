@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ReviewsQuery do
   let(:user) { build_stubbed :user }
   let(:entry) { create :anime }

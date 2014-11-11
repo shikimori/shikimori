@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MangaOnline::ReadMangaPagesImporter do
   let(:importer) { MangaOnline::ReadMangaPagesImporter.new pages }
 

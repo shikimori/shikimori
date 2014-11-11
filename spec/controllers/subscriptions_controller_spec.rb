@@ -1,6 +1,4 @@
 
-require 'spec_helper'
-
 describe SubscriptionsController do
   before (:each) do
     @user = FactoryGirl.create :user

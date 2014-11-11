@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserHistoryQuery do
   let(:user) { create :user }
   let(:query) { UserHistoryQuery.new user }

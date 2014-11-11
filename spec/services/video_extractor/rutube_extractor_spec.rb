@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VideoExtractor::RutubeExtractor do
   let(:service) { VideoExtractor::RutubeExtractor.new(url) }
 

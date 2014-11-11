@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AniMangaQuery do
   describe '#complete', :focus do
     let!(:anime_1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }

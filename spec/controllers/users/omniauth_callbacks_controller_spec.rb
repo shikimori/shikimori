@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'deep_struct'
 
 describe Users::OmniauthCallbacksController do

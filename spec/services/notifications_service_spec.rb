@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe NotificationsService do
   let(:service) { NotificationsService.instance }
   let(:user) { create :user }

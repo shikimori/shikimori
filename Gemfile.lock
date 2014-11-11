@@ -40,6 +40,15 @@ GIT
       thor (>= 0.13.6)
 
 GIT
+  remote: git://github.com/morr/listen.git
+  revision: 7d9441b09a49fa6c8c2e9c6473b2251964e25bac
+  specs:
+    listen (2.7.11)
+      celluloid (>= 0.15.2)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+
+GIT
   remote: git://github.com/morr/meta-tags.git
   revision: 9765a08595bae34947e90ff25a5f6be4cb441243
   specs:
@@ -159,13 +168,6 @@ GIT
       thor (>= 0.18.1, < 2.0)
 
 GIT
-  remote: git://github.com/sporkrb/spork.git
-  revision: a94412c9493a07b7a000e35777b0f76b94de9061
-  branch: master
-  specs:
-    spork (1.0.0rc4)
-
-GIT
   remote: git://github.com/yaroslav/russian.git
   revision: 6da1fe45cbff7c812faaa1bebf25b47b1f14377a
   specs:
@@ -229,7 +231,7 @@ GEM
     capistrano-rails (1.1.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capybara (2.2.1)
+    capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -237,11 +239,6 @@ GEM
       xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
-    celluloid-io (0.15.0)
-      celluloid (>= 0.15.0)
-      nio4r (>= 0.5.0)
-    childprocess (0.5.3)
-      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     chunky_png (1.3.3)
     climate_control (0.0.3)
@@ -342,14 +339,14 @@ GEM
     faye-websocket (0.7.4)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.3.1)
-    ffi (1.9.3)
-    formatador (0.2.4)
+    ffi (1.9.6)
+    formatador (0.2.5)
     gcm (0.0.7)
       httparty
       json
     globalid (0.3.0)
       activesupport (>= 4.1.0)
-    guard (2.6.0)
+    guard (2.8.2)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
@@ -358,13 +355,9 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
-    guard-rspec (4.2.8)
+    guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
-    guard-spork (1.5.1)
-      childprocess (>= 0.2.3)
-      guard (>= 1.1)
-      spork (>= 0.8.4)
     hashie (3.3.1)
     hike (1.2.3)
     hiredis (0.5.2)
@@ -386,22 +379,17 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.2.0)
       launchy (~> 2.2)
-    listen (2.7.3)
-      celluloid (>= 0.15.2)
-      celluloid-io (>= 0.15.0)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
     lograge (0.3.0)
       actionpack (>= 3)
       activesupport (>= 3)
       railties (>= 3)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
-    lumberjack (1.0.5)
+    lumberjack (1.0.9)
     mactag (0.7.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    marco-polo (1.2.0)
+    marco-polo (1.2.1)
     method_source (0.8.2)
     metrika (0.2.3)
       oauth2
@@ -418,7 +406,6 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     newrelic_rpm (3.8.0.218)
-    nio4r (1.0.0)
     nokogiri (1.6.4.1)
       mini_portile (~> 0.6.0)
     non-stupid-digest-assets (1.0.4)
@@ -468,6 +455,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (2.0.0)
+      byebug (~> 3.4)
+      pry (~> 0.10)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     pry-stack_explorer (0.4.9.1)
@@ -504,33 +494,42 @@ GEM
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
     retryable (1.3.5)
-    rspec (2.14.1)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
-    rspec-core (2.14.8)
-    rspec-expectations (2.14.5)
-      diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.6)
-    rspec-rails (2.14.2)
+    rspec (3.1.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+    rspec-collection_matchers (1.1.2)
+      rspec-expectations (>= 2.99.0.beta1)
+    rspec-core (3.1.7)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.1.0)
+    rspec-its (1.1.0)
+      rspec-core (>= 3.0.0)
+      rspec-expectations (>= 3.0.0)
+    rspec-mocks (3.1.3)
+      rspec-support (~> 3.1.0)
+    rspec-rails (3.1.0)
       actionpack (>= 3.0)
-      activemodel (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.2)
     rvm1-capistrano3 (1.2.4)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
-    safe_yaml (1.0.3)
+    safe_yaml (1.0.4)
     sass (3.4.7)
     sass-rails (5.0.0.beta1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2)
       sprockets (~> 2.12)
       sprockets-rails (>= 2.0, < 4.0)
-    shoulda-matchers (2.6.1)
+    shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
     sidekiq-limit_fetch (2.2.6)
       sidekiq (>= 2.6.5, < 4.0)
@@ -550,6 +549,8 @@ GEM
       slim (~> 2.0)
     slop (3.6.0)
     spring (1.1.3)
+    spring-commands-rspec (1.0.2)
+      spring (>= 0.9.1)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -586,7 +587,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    vcr (2.9.0)
+    vcr (2.9.3)
     virtus (1.0.2)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -594,8 +595,8 @@ GEM
       equalizer (~> 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
-    webmock (1.13.0)
-      addressable (>= 2.2.7)
+    webmock (1.20.4)
+      addressable (>= 2.3.6)
       crack (>= 0.3.2)
     websocket-driver (0.3.4)
     whenever (0.9.4)
@@ -647,12 +648,12 @@ DEPENDENCIES
   guard
   guard-bundler
   guard-rspec
-  guard-spork
   htmldiff!
   htmlentities
   icalendar
   jbuilder
   letter_opener
+  listen!
   lograge
   mactag
   marco-polo
@@ -670,6 +671,7 @@ DEPENDENCIES
   pg
   pghero
   postmark-rails
+  pry-byebug
   pry-rails
   pry-stack_explorer
   quiet_assets
@@ -684,6 +686,12 @@ DEPENDENCIES
   responders
   retryable
   rmagick!
+  rspec
+  rspec-collection_matchers
+  rspec-core
+  rspec-expectations
+  rspec-its
+  rspec-mocks
   rspec-rails
   ruby-progressbar!
   ruby-svd!
@@ -697,8 +705,8 @@ DEPENDENCIES
   simple_form!
   sinatra (>= 1.3.0)
   slim-rails
-  spork!
   spring
+  spring-commands-rspec
   state_machine
   thin
   timecop

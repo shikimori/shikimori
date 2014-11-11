@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CosplayQuery do
   let(:characters) { [create(:character), create(:character), create(:character)] }
   let(:anime) { create :anime, characters: characters }

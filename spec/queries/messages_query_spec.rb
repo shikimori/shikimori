@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MessagesQuery do
   before { Message.antispam = false }
   subject { query.fetch 1, 1 }

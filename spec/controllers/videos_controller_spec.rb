@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VideosController do
   before do
     Video.any_instance.stub :existence

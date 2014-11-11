@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserRatesQuery do
   let(:user) { create :user }
   let(:user2) { create :user }

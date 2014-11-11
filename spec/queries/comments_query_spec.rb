@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CommentsQuery do
   let(:query) { CommentsQuery.new User.name, user.id, review }
   let(:user) { build_stubbed :user }

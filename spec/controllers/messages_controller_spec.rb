@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MessagesController do
   let!(:user) { create :user, email: email }
 

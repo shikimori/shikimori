@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SpentTime do
   subject(:time) { SpentTime.new interval }
 

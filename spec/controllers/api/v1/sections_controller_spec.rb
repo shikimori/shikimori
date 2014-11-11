@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::SectionsController do
   describe :index do
     let!(:section) { create :section }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe NameMatcher do
   let(:matcher) { NameMatcher.new Anime }
 

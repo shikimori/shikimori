@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe TopicsController do
   let(:section) { create :section, id: 1, permalink: 'a', name: 'Аниме' }
 

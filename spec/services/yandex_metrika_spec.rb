@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe YandexMetrika, vcr: { cassette_name: 'yandex_metric' } do
   let(:service) { YandexMetrika.new }
 

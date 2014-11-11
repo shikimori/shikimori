@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AdminLogInController do
   before :each do
     @request.env["devise.mapping"] = Devise.mappings[:user]

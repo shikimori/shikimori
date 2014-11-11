@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeSpiritParser do
   let(:parser) { AnimeSpiritParser.new }
 

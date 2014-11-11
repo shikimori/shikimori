@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserHistoryController do
   let!(:user) { create :user }
 

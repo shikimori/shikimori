@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AppearController do
   let!(:topic) { create :entry }
   let(:user2) { create :user }

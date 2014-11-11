@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe OldMessagesCleaner do
   let(:worker) { OldMessagesCleaner.new }
   let(:message_1) { create :message, kind: MessageType::Episode, created_at: 3.month.ago - 1.day, from: build_stubbed(:user), to: build_stubbed(:user) }

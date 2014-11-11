@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserListParsers::JsonListParser do
   let(:parser) { UserListParsers::JsonListParser.new klass }
   subject { parser.parse json }

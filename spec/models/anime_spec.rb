@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Anime do
   context :relations do
     it { should have_and_belong_to_many :genres }

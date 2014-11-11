@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CharactersService do
   let (:processor) { CharactersService.instance }
 

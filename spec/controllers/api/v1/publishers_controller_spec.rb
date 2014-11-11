@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Api::V1::PublishersController do
   describe :show do
     let!(:publisher) { create :publisher }

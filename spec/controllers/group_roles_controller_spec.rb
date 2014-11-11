@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe GroupRolesController do
   let(:club) { create :group }
   include_context :authenticated

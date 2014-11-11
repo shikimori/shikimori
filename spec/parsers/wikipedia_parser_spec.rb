@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe WikipediaParser do
   before { WikipediaParser.stub(:load_cache).and_return(animes: {}, characters: {}) }
   before { parser.stub :save_cache }

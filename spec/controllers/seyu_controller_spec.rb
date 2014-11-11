@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SeyuController do
   let!(:seyu) { create :person, name: 'test', seyu: true }
 

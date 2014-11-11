@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe HentaiAnimeImporter do
   let(:importer) { HentaiAnimeImporter.new }
 

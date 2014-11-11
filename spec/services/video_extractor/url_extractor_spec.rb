@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VideoExtractor::UrlExtractor do
   describe :extract do
     subject(:extract) { VideoExtractor::UrlExtractor.new(html).extract }

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AnimeOnline::AdsPolicy do
   let(:policy) { AnimeOnline::AdsPolicy }
 

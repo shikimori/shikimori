@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 class NameValidatable < Group
   include ActiveModel::Validations
   validates :name, name: true
