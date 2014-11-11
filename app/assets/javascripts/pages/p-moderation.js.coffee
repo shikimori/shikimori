@@ -5,7 +5,7 @@ $comment = (node) ->
 $moderation = (node) ->
   $(node).closest('.b-abuse_request').find('.b-request_resolution .moderation')
 
-@on 'page:load', 'bans_index', ->
+@on 'page:load', 'bans_index', 'abuse_requests_index', ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
 

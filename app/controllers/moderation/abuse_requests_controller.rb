@@ -12,27 +12,15 @@ class Moderation::AbuseRequestsController < ShikimoriController
         .where.not(state: 'pending')
         .includes(:user, :approver, comment: :commentable)
         .order(updated_at: :desc)
-
-    end.each do |req|
-      formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
-
-      req.comment.topic_name = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
-      req.comment.topic_url = formatted.match(/href="(.*?)"/)[1]
     end
 
     unless json?
       @page_title = 'Жалобы пользователей'
       @pending = AbuseRequest
-          .pending
-          .includes(:user, :approver, comment: :commentable)
-          .order(:created_at)
-          .order(:created_at)
-          .each do |req|
-        formatted = format_linked_name(req.comment.commentable_id, req.comment.commentable_type, req.comment.id)
-
-        req.comment.topic_name = '<span class="normal">'+formatted.match(/^(.*?)</)[1] + "</span> " + sanitize(formatted.match(/>(.*?)</)[1])
-        req.comment.topic_url = formatted.match(/href="(.*?)"/)[1]
-      end
+        .pending
+        .includes(:user, :approver, comment: :commentable)
+        .order(:created_at)
+        .order(:created_at)
 
       @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).sort_by { |v| v.nickname.downcase }
     end

@@ -1,11 +1,3 @@
-/- content_for :head do
-  = stylesheet_link_tag :abuse_requests
-  = stylesheet_link_tag :bans
-  = stylesheet_link_tag :user_changes
-
-/- content_for :tail do
-  = javascript_include_tag :abuse_requests
-
 header.head
   h1
     = @page_title
@@ -43,6 +35,7 @@ header.head
     .b-options-floated
       a href="#{moderation_abuse_requests_url}" оффтопик + отзывы
     .subheadline История
-    = render partial: 'ban', collection: @bans
-    - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { url: page_moderation_bans_url(page: @page+1) }
+    .block
+      = render partial: 'ban', collection: @bans
+      - if @add_postloader
+        = render partial: 'blocks/postloader', locals: { url: page_moderation_bans_url(page: @page+1) }
