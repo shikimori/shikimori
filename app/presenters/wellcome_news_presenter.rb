@@ -21,7 +21,7 @@ class WellcomeNewsPresenter < LazyPresenter
       AnimeNews
         .wo_episodes
         .where("entries.created_at >= ?", LastNewsDate)
-        .joins('inner join animes on animes.id=linked_id and animes.censored=false')
+        .joins('left join animes on animes.id=linked_id and (animes.id is null or animes.censored=false)')
         .includes(:user)
         .order(created_at: :desc)
         .limit(10)
