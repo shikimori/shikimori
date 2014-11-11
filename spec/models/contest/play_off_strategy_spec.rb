@@ -30,7 +30,7 @@ describe Contest::PlayOffStrategy do
       strategy.create_rounds
 
       contest.rounds[0].number.should eq 1
-      contest.rounds.any? {|v| v.additional }.should be_false
+      contest.rounds.any? {|v| v.additional }.should be_falsy
 
       contest.rounds[1].number.should eq 2
       contest.rounds[2].number.should eq 3
@@ -86,12 +86,12 @@ describe Contest::PlayOffStrategy do
 
   describe :with_additional_rounds? do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:with_additional_rounds?) { should be_false }
+    its(:with_additional_rounds?) { should be_falsy }
   end
 
   describe :dynamic_rounds? do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:dynamic_rounds?) { should be_false }
+    its(:dynamic_rounds?) { should be_falsy }
   end
 
   describe :results do

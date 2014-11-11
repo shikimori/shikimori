@@ -20,7 +20,7 @@ describe DanbooruController do
     it 'should download new image to tmp file' do
       get :show, url: Base64.encode64(url), md5: md5
 
-      File.exists?(tmp_path).should be_true
+      File.exists?(tmp_path).should be_truthy
       open(tmp_path).read.should == url
     end
 

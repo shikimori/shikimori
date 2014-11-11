@@ -9,27 +9,27 @@ describe ContestRound do
     let(:round) { create :contest_round, contest: contest }
 
     it 'full cycle' do
-      round.created?.should be_true
+      round.created?.should be_truthy
 
       contest.strategy.fill_round_with_matches round
       round.start!
-      round.started?.should be_true
+      round.started?.should be_truthy
 
       round.matches.each {|v| v.state = 'finished' }
       round.finish!
-      round.finished?.should be_true
+      round.finished?.should be_truthy
     end
 
     describe :can_start? do
       subject { round.can_start? }
 
       context 'no matches' do
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context 'has matches' do
         before { round.matches.stub(:any?).and_return true }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
 
@@ -40,17 +40,17 @@ describe ContestRound do
         before { contest.strategy.fill_round_with_matches round }
         before { round.start! }
 
-        it { should be_false }
+        it { should be_falsy }
 
         context 'finished matches' do
           context 'all finished' do
             before { round.matches.each {|v| v.state = 'finished' } }
-            it { should be_true }
+            it { should be_truthy }
           end
 
           context 'all can_finish' do
             before { round.matches.each {|v| v.stub(:can_finish?).and_return true } }
-            it { should be_true }
+            it { should be_truthy }
           end
         end
       end
@@ -62,7 +62,7 @@ describe ContestRound do
       it 'starts today matches' do
         round.start!
         round.matches.each do |vote|
-          vote.started?.should be_true
+          vote.started?.should be_truthy
         end
       end
 
@@ -71,7 +71,7 @@ describe ContestRound do
         round.start!
 
         round.matches.each do |vote|
-          vote.started?.should be_false
+          vote.started?.should be_falsy
         end
       end
     end
@@ -85,7 +85,7 @@ describe ContestRound do
 
       describe 'finishes unfinished matches' do
         before { round.finish! }
-        it { round.matches.each {|v| v.finished?.should be_true } }
+        it { round.matches.each {|v| v.finished?.should be_truthy } }
       end
     end
 
@@ -108,7 +108,7 @@ describe ContestRound do
 
       it 'finishes contest' do
         round.finish!
-        round.contest.finished?.should be_true
+        round.contest.finished?.should be_truthy
       end
     end
   end
@@ -137,17 +137,17 @@ describe ContestRound do
 
     describe :first? do
       it 'should be valid' do
-        round1.first?.should be_true
-        round2.first?.should be_false
-        round3.first?.should be_false
+        round1.first?.should be_truthy
+        round2.first?.should be_falsy
+        round3.first?.should be_falsy
       end
     end
 
     describe :last? do
       it 'should be valid' do
-        round1.last?.should be_false
-        round2.last?.should be_false
-        round3.last?.should be_true
+        round1.last?.should be_falsy
+        round2.last?.should be_falsy
+        round3.last?.should be_truthy
       end
     end
   end

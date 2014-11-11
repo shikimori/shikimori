@@ -40,7 +40,7 @@ describe GroupRole do
       #group.members << user
     #}.to change(Subscription, :count).by 1
 
-    #user.subscribed?(group.thread).should be_true
+    #user.subscribed?(group.thread).should be_truthy
   #end
 
   #it 'unsubscribes user from group thread' do
@@ -51,7 +51,7 @@ describe GroupRole do
     #}.to change(Subscription, :count).by -1
 
     #user.reload
-    #user.subscribed?(group.thread).should be_false
+    #user.subscribed?(group.thread).should be_falsy
   #end
 
   describe :permissions do

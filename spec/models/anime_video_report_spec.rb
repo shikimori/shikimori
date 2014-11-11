@@ -53,7 +53,7 @@ describe AnimeVideoReport do
         let!(:rejected_report) { create :anime_video_report, state: 'rejected' }
 
         its(:count) { should eq 2 }
-        specify { subject.include?(pending_report).should be_false }
+        specify { subject.include?(pending_report).should be_falsy }
       end
     end
   end

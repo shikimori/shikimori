@@ -23,7 +23,7 @@ describe VotesController do
           post :create, defaults.merge(voting: 'no')
         }.to change(Vote, :count).by(1)
 
-        user.votes.first.voting.should be_false
+        user.votes.first.voting.should be_falsy
 
         response.should be_success
       end

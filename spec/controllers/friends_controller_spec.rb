@@ -18,7 +18,7 @@ describe FriendsController do
         create_request
         response.should be_success
 
-        User.find(user.id).friends.include?(user2).should be_true
+        User.find(user.id).friends.include?(user2).should be_truthy
       end
 
       describe FriendLink do
@@ -66,7 +66,7 @@ describe FriendsController do
         destroy_request
         response.should be_success
 
-        User.find(user.id).friends.include?(user2).should be_false
+        User.find(user.id).friends.include?(user2).should be_falsy
       end
 
       it FriendLink do

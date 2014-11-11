@@ -8,7 +8,7 @@ describe Topic do
 
   it 'creation subscribes author to self' do
     expect { topic }.to change(Subscription, :count).by 1
-    user.subscribed?(topic).should be_true
+    user.subscribed?(topic).should be_truthy
   end
 
   describe 'permissions' do
@@ -16,11 +16,11 @@ describe Topic do
 
     describe "with owner" do
       it "can be edited" do
-        topic.can_be_edited_by?(user).should be_true
+        topic.can_be_edited_by?(user).should be_truthy
       end
 
       it "can be deleted" do
-        topic.can_be_deleted_by?(user).should be_true
+        topic.can_be_deleted_by?(user).should be_truthy
       end
     end
 
@@ -33,11 +33,11 @@ describe Topic do
       end
 
       it "can be edited" do
-        topic.can_be_edited_by?(admin_user).should be_true
+        topic.can_be_edited_by?(admin_user).should be_truthy
       end
 
       it "can be deleted" do
-        topic.can_be_deleted_by?(admin_user).should be_true
+        topic.can_be_deleted_by?(admin_user).should be_truthy
       end
     end
   end

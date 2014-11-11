@@ -12,22 +12,22 @@ describe AnimeOnline::AdsPolicy do
 
       context :guest do
         let(:user) { guest_user }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context :trust do
         let(:user) { trust_user }
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context :simple do
         let(:user) { simple_user }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context :nil do
         let(:user) { nil }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
 
@@ -36,17 +36,17 @@ describe AnimeOnline::AdsPolicy do
 
       context :guest do
         let(:user) { guest_user }
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context :trust do
         let(:user) { trust_user }
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context :simple do
         let(:user) { simple_user }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
   end

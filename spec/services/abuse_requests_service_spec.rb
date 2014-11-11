@@ -13,7 +13,7 @@ describe AbuseRequestsService do
     describe :offtopic? do
       before { act }
       subject { comment.offtopic? }
-      it { should be_true }
+      it { should be_truthy }
     end
 
     describe :cancel do
@@ -47,7 +47,7 @@ describe AbuseRequestsService do
     describe :review? do
       before { act }
       subject { comment.review? }
-      it { should be_true }
+      it { should be_truthy }
     end
 
     describe :cancel do
@@ -69,7 +69,7 @@ describe AbuseRequestsService do
         before { act }
         subject { user.abuse_requests.last }
         its(:kind) { should eq method.to_s }
-        its(:value) { should be_true }
+        its(:value) { should be_truthy }
         its(:comment_id) { should eq comment.id }
       end
 

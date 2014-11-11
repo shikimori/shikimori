@@ -62,12 +62,12 @@ describe Ban do
 
       describe true do
         let(:duration) { 0 }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       describe false do
         let(:duration) { 1 }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 

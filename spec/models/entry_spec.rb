@@ -78,12 +78,12 @@ describe Entry do
       end
 
       it 'false' do
-        entry.comments.with_viewed(user2).first.viewed?.should be_false
+        entry.comments.with_viewed(user2).first.viewed?.should be_falsy
       end
 
       it 'true' do
         create :comment_view, comment: @comment, user: user2
-        entry.comments(user2).first.viewed?.should be_true
+        entry.comments(user2).first.viewed?.should be_truthy
       end
     end
   end
@@ -94,17 +94,17 @@ describe Entry do
 
     describe 'with owner' do
       it 'can be edited' do
-        entry.can_be_edited_by?(user).should be_true
+        entry.can_be_edited_by?(user).should be_truthy
       end
 
       describe 'can be deleted' do
         context 'old' do
           before { entry.update_column :created_at, 1.month.ago }
-          it { entry.can_be_deleted_by?(user).should be_false }
+          it { entry.can_be_deleted_by?(user).should be_falsy }
         end
 
         context 'new' do
-          it { entry.can_be_deleted_by?(user).should be_true }
+          it { entry.can_be_deleted_by?(user).should be_truthy }
         end
       end
     end
@@ -118,11 +118,11 @@ describe Entry do
       end
 
       it 'can be edited' do
-        entry.can_be_edited_by?(admin_user).should be_true
+        entry.can_be_edited_by?(admin_user).should be_truthy
       end
 
       it 'can be deleted' do
-        entry.can_be_deleted_by?(admin_user).should be_true
+        entry.can_be_deleted_by?(admin_user).should be_truthy
       end
     end
 
@@ -131,11 +131,11 @@ describe Entry do
       let(:random_user) { create :user }
 
       it "can't be edited" do
-        entry.can_be_edited_by?(random_user).should be_false
+        entry.can_be_edited_by?(random_user).should be_falsy
       end
 
       it "can't be deleted" do
-        entry.can_be_deleted_by?(random_user).should be_false
+        entry.can_be_deleted_by?(random_user).should be_falsy
       end
     end
   end

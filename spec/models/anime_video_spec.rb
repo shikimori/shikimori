@@ -101,12 +101,12 @@ describe AnimeVideo do
 
       context :in_ban do
         let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context :no_ban do
         let(:url) { 'http://vk.com/j8n3/' }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 
@@ -116,12 +116,12 @@ describe AnimeVideo do
 
       context :ban do
         let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context :not_ban do
         let(:anime_id) { 1 }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
   end
@@ -200,12 +200,12 @@ describe AnimeVideo do
 
     context :true do
       let(:url) { 'http://www.vk.com?id=1' }
-      it { should be_true }
+      it { should be_truthy }
     end
 
     context :false do
       let(:url) { 'http://www.foo.bar.com/video?id=1' }
-      it { should be_false }
+      it { should be_falsy }
     end
   end
 
@@ -281,13 +281,13 @@ describe AnimeVideo do
   describe :allowed? do
     context :true do
       ['working', 'uploaded'].each do |state|
-        specify { build(:anime_video, state: state).allowed?.should be_true }
+        specify { build(:anime_video, state: state).allowed?.should be_truthy }
       end
     end
 
     context :false do
       ['broken', 'wrong', 'banned'].each do |state|
-        specify { build(:anime_video, state: state).allowed?.should be_false }
+        specify { build(:anime_video, state: state).allowed?.should be_falsy }
       end
     end
   end
@@ -298,12 +298,12 @@ describe AnimeVideo do
 
     context :ban do
       let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-      it { should be_true }
+      it { should be_truthy }
     end
 
     context :not_ban do
       let(:anime_id) { 1 }
-      it { should be_false }
+      it { should be_falsy }
     end
   end
 
@@ -314,17 +314,17 @@ describe AnimeVideo do
     context :true do
       context :vk_com do
         let(:url) { 'http://vk.com?video=1' }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context :vkontakte_com do
         let(:url) { 'http://vkontakte.ru?video=1' }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
     context :false do
       let(:url) { 'http://rutube.ru?video=1' }
-      it { should be_false }
+      it { should be_falsy }
     end
   end
 

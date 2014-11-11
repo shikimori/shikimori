@@ -50,7 +50,7 @@ describe AbuseRequest do
 
       context :comment do
         subject { abuse_request.comment }
-        its(:offtopic) { should be_true }
+        its(:offtopic) { should be_truthy }
       end
     end
 
@@ -60,7 +60,7 @@ describe AbuseRequest do
 
       context :comment do
         subject { abuse_request.comment }
-        its(:offtopic) { should be_false }
+        its(:offtopic) { should be_falsy }
       end
     end
   end
@@ -73,24 +73,24 @@ describe AbuseRequest do
       describe true do
         context :abuse do
           let(:kind) { 'abuse' }
-          it { should be_true }
+          it { should be_truthy }
         end
 
         context :spoiler do
           let(:kind) { 'spoiler' }
-          it { should be_true }
+          it { should be_truthy }
         end
       end
 
       describe false do
         context :offtopic do
           let(:kind) { 'offtopic' }
-          it { should be_false }
+          it { should be_falsy }
         end
 
         context :review do
           let(:kind) { 'review' }
-          it { should be_false }
+          it { should be_falsy }
         end
       end
     end
@@ -103,12 +103,12 @@ describe AbuseRequest do
 
       describe :true do
         before { AbuseRequest.stub_chain(:pending, :count).and_return 1 }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       describe :false do
         before { AbuseRequest.stub_chain(:pending, :count).and_return 0 }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 
@@ -118,12 +118,12 @@ describe AbuseRequest do
 
       describe :true do
         before { AbuseRequest.stub_chain(:abuses, :count).and_return 1 }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       describe :false do
         before { AbuseRequest.stub_chain(:abuses, :count).and_return 0 }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
   end

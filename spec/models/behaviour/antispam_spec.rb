@@ -4,8 +4,8 @@ class WithAntispam < ActiveRecord::Base; include Antispam; end
 
 describe Antispam do
   it 'antispam?' do
-    WithAntispam.with_antispam?.should be_true
-    NoAntispam.with_antispam?.should be_false
+    WithAntispam.with_antispam?.should be_truthy
+    NoAntispam.with_antispam?.should be_falsy
   end
 
   describe Comment do

@@ -81,33 +81,33 @@ describe User do
 
       context 'no ban' do
         let(:read_only_at) { nil }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context 'expired ban' do
         let(:read_only_at) { Time.zone.now - 1.second }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context 'valid ban' do
         let(:read_only_at) { Time.zone.now + 1.seconds }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 
     it '#subscribed?' do
       create :subscription, user: user, target_id: topic.id, target_type: topic.class.name
-      user.subscribed?(topic).should be_true
+      user.subscribed?(topic).should be_truthy
     end
 
     describe '#ignores?' do
       it do
         user.ignored_users << user2
-        user.ignores?(user2).should be_true
+        user.ignores?(user2).should be_truthy
       end
 
       it do
-        user.ignores?(user2).should be_false
+        user.ignores?(user2).should be_falsy
       end
     end
 
@@ -119,7 +119,7 @@ describe User do
           user.subscribe(topic)
         }.to change(Subscription, :count).by 1
 
-        user.subscribed?(topic).should be_true
+        user.subscribed?(topic).should be_truthy
       end
 
       it 'only_once' do
@@ -138,7 +138,7 @@ describe User do
         user.unsubscribe(topic)
       }.to change(Subscription, :count).by -1
 
-      User.find(user.id).subscribed?(topic).should be_false
+      User.find(user.id).subscribed?(topic).should be_falsy
     end
 
     context 'when profile is commented' do
@@ -209,16 +209,16 @@ describe User do
       let(:read_only_at) { nil }
       subject { create(:user, read_only_at: read_only_at).banned? }
 
-      it { should be_false }
+      it { should be_falsy }
 
       describe 'true' do
         let(:read_only_at) { DateTime.now + 1.hour }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       describe 'false' do
         let(:read_only_at) { DateTime.now - 1.second }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 

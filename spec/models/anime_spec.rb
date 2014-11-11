@@ -259,11 +259,11 @@ describe Anime do
 
   describe 'matches_for' do
     def positive_match(string, options)
-      build(:anime, options).matches_for(string).should be_true
+      build(:anime, options).matches_for(string).should be_truthy
     end
 
     def negative_match(string, options)
-      build(:anime, options).matches_for(string).should be_false
+      build(:anime, options).matches_for(string).should be_falsy
     end
 
     it 'works' do
@@ -349,12 +349,12 @@ describe Anime do
 
       context :false do
         let(:rating) { 'G - All Ages' }
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context :true do
         let(:rating) { 'R+ - Mild Nudity' }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
 
@@ -363,12 +363,12 @@ describe Anime do
 
       context :false do
         let(:censored) { false }
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context :true do
         let(:censored) { true }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
   end

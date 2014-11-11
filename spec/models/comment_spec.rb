@@ -84,7 +84,7 @@ describe Comment do
     let(:user) { create :user }
     let(:topic) { create :entry, user: user }
     subject!(:comment) { create :comment, :with_subscribe, user: user, commentable: topic }
-    it { user.subscribed?(comment.commentable).should be_true }
+    it { user.subscribed?(comment.commentable).should be_truthy }
   end
 
   it 'should set html_body' do
@@ -107,7 +107,7 @@ describe Comment do
 
       # должно создаться уведомление о новом комменте
       message = Message.last
-      message.read.should be_false
+      message.read.should be_falsy
       message.from_id.should eq user2.id
       message.to_id.should eq user.id
       message.kind.should eq MessageType::QuotedByUser
@@ -124,7 +124,7 @@ describe Comment do
 
       # должно создаться уведомление о новом комменте
       message = Message.last
-      message.read.should be_false
+      message.read.should be_falsy
       message.from_id.should eq user2.id
       message.to_id.should eq user.id
       message.kind.should eq MessageType::QuotedByUser
@@ -222,7 +222,7 @@ describe Comment do
   describe :forbid_ban_change do
     subject! { build :comment, body: "[ban=1]" }
     before { subject.valid? }
-    its(:valid?) { should be_false }
+    its(:valid?) { should be_falsy }
 
     it { subject.errors.messages[:base].first.should eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
   end

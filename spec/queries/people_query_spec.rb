@@ -29,8 +29,8 @@ describe PeopleQuery do
   end
 
   describe 'is_producer' do
-    it { PeopleQuery.new(search: 'test', kind: 'producer').producer?.should be_true }
-    it { PeopleQuery.new(search: 'test', kind: 'mangaka').producer?.should be_false }
+    it { PeopleQuery.new(search: 'test', kind: 'producer').producer?.should be_truthy }
+    it { PeopleQuery.new(search: 'test', kind: 'mangaka').producer?.should be_falsy }
   end
 
   describe 'complete' do

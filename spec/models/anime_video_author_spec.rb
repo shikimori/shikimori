@@ -10,6 +10,6 @@ describe AnimeVideoAuthor do
     let(:name) { 'test_name' }
     before { create :anime_video_author, name: name }
 
-    its(:valid?) { should be_false }
+    its(:valid?) { should be_falsy }
   end
 end

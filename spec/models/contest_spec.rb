@@ -20,7 +20,7 @@ describe Contest do
     let(:contest) { create :contest, :with_5_members }
 
     it 'full cycle' do
-      contest.created?.should be_true
+      contest.created?.should be_truthy
       contest.propose!
       contest.start!
       contest.finish!
@@ -28,24 +28,24 @@ describe Contest do
 
     describe :can_propose? do
       subject { contest.can_propose? }
-      it { should be_true }
+      it { should be_truthy }
     end
 
     describe :can_start? do
       subject { contest.can_start? }
       context 'normal count' do
         before { contest.links.stub(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context 'Contest::MINIMUM_MEMBERS' do
         before { contest.links.stub(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context 'Contest::MAXIMUM_MEMBERS' do
         before { contest.links.stub(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 
@@ -81,20 +81,20 @@ describe Contest do
 
       it 'creates thread' do
         contest.propose!
-        contest.reload.thread.present?.should be_true
+        contest.reload.thread.present?.should be_truthy
       end
     end
 
     context 'after started' do
       it 'starts first round' do
         contest.start!
-        contest.rounds.first.started?.should be_true
+        contest.rounds.first.started?.should be_truthy
       end
 
       let(:contest) { create :contest, :with_5_members, :with_thread }
       it 'creates thread' do
         contest.start!
-        contest.reload.thread.present?.should be_true
+        contest.reload.thread.present?.should be_truthy
       end
     end
 
@@ -156,19 +156,19 @@ describe Contest do
       it 'starts matches' do
         round.matches.last.state = 'created'
         contest.process!
-        round.matches.last.started?.should be_true
+        round.matches.last.started?.should be_truthy
       end
 
       it 'finishes matches' do
         round.matches.last.finished_on = Date.yesterday
         contest.process!
-        round.matches.last.finished?.should be_true
+        round.matches.last.finished?.should be_truthy
       end
 
       it 'finishes round' do
         round.matches.each {|v| v.finished_on = Date.yesterday }
         contest.process!
-        round.finished?.should be_true
+        round.finished?.should be_truthy
       end
 
       context 'something was changed' do

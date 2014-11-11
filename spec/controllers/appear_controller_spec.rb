@@ -64,7 +64,7 @@ describe AppearController do
 
         # должно создаться уведомление о новом комменте
         message = Message.last
-        message.read.should be_false
+        message.read.should be_falsy
         message.from_id.should eq user3.id
         message.to_id.should eq user.id
         message.kind.should eq MessageType::QuotedByUser
@@ -73,7 +73,7 @@ describe AppearController do
 
         # то самое уведомление должно стать прочитанным
         message = Message.find(message.id)
-        message.read.should be_true
+        message.read.should be_truthy
       end
     end
   end

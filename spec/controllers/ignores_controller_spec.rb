@@ -18,7 +18,7 @@ describe IgnoresController do
         create_request
         response.should be_success
 
-        User.find(user.id).ignores?(user2).should be_true
+        User.find(user.id).ignores?(user2).should be_truthy
       end
 
       describe Ignore do
@@ -51,7 +51,7 @@ describe IgnoresController do
         destroy_request
         response.should be_success
 
-        User.find(user.id).ignores?(user2).should be_false
+        User.find(user.id).ignores?(user2).should be_falsy
       end
 
       it Ignore do

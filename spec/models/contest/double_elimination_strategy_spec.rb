@@ -31,25 +31,25 @@ describe Contest::DoubleEliminationStrategy do
       strategy.create_rounds
 
       contest.rounds[0].number.should eq 1
-      contest.rounds[0].additional.should be_false
+      contest.rounds[0].additional.should be_falsy
 
       contest.rounds[1].number.should eq 2
-      contest.rounds[1].additional.should be_false
+      contest.rounds[1].additional.should be_falsy
       contest.rounds[2].number.should eq 2
-      contest.rounds[2].additional.should be_true
+      contest.rounds[2].additional.should be_truthy
 
       contest.rounds[3].number.should eq 3
-      contest.rounds[3].additional.should be_false
+      contest.rounds[3].additional.should be_falsy
       contest.rounds[4].number.should eq 3
-      contest.rounds[4].additional.should be_true
+      contest.rounds[4].additional.should be_truthy
 
       contest.rounds[5].number.should eq 4
-      contest.rounds[5].additional.should be_false
+      contest.rounds[5].additional.should be_falsy
       contest.rounds[6].number.should eq 4
-      contest.rounds[6].additional.should be_true
+      contest.rounds[6].additional.should be_truthy
 
       contest.rounds[7].number.should eq 5
-      contest.rounds[7].additional.should be_false
+      contest.rounds[7].additional.should be_falsy
     end
   end
 
@@ -211,7 +211,7 @@ describe Contest::DoubleEliminationStrategy do
         before { strategy.create_matches round, animes, shuffle: false }
 
         it 'create_matchess matches with ordered animes' do
-          ordered?.should be_true
+          ordered?.should be_truthy
         end
       end
 
@@ -219,7 +219,7 @@ describe Contest::DoubleEliminationStrategy do
         before { strategy.create_matches round, animes, shuffle: true }
 
         it 'create_matchess matches with shuffled animes' do
-          ordered?.should be_false
+          ordered?.should be_falsy
         end
       end
     end
@@ -227,12 +227,12 @@ describe Contest::DoubleEliminationStrategy do
 
   describe :with_additional_rounds? do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:with_additional_rounds?) { should be_true }
+    its(:with_additional_rounds?) { should be_truthy }
   end
 
   describe :dynamic_rounds? do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:dynamic_rounds?) { should be_false }
+    its(:dynamic_rounds?) { should be_falsy }
   end
 
   describe :results do

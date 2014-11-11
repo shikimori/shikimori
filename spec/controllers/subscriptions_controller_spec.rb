@@ -11,7 +11,7 @@ describe SubscriptionsController do
       post 'create', :id => @topic.id, :type => @topic.class.name
       response.should be_success
 
-      User.find(@user.id).subscribed?(@topic).should be_true
+      User.find(@user.id).subscribed?(@topic).should be_truthy
     end
   end
 
@@ -22,7 +22,7 @@ describe SubscriptionsController do
       delete 'destroy', :id => @topic.id, :type => @topic.class.name
       response.should be_success
 
-      User.find(@user.id).subscribed?(@topic).should be_false
+      User.find(@user.id).subscribed?(@topic).should be_falsy
     end
   end
 end
