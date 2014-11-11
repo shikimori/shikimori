@@ -1,24 +1,23 @@
 describe Moderation::AbuseRequestsController, :type => :controller do
-  before { sign_in create(:user, id: 1) }
+  let(:user) { create :user, :admin }
+  before { sign_in user }
 
-  describe :index do
+  describe '#index' do
     before { get :index }
-
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   [:review, :offtopic, :abuse, :spoiler].each do |method|
-    describe method do
-      let(:comment) { create :comment }
+    describe method.to_s do
+      let(:comment) { create :comment, user: user }
 
-      context :response do
+      describe 'response' do
         before { post method, comment_id: comment.id }
         it { should respond_with :success }
-        it { should respond_with_content_type :json }
+        it { expect(response.content_type).to eq 'application/json' }
       end
 
-      context :result do
+      describe 'result' do
         after { post method, comment_id: comment.id }
         it { expect_any_instance_of(AbuseRequestsService).to receive method }
       end

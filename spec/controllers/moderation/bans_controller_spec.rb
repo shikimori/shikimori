@@ -29,7 +29,7 @@ describe Moderation::BansController, :type => :controller do
       before { post :create, ban: { reason: 'test', duration: '1h', comment_id: comment.id, abuse_request_id: abuse_request.id } }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
     end
   end
 end
