@@ -19,7 +19,7 @@ class WellcomeNewsPresenter < LazyPresenter
   def lazy_load
     @news = Rails.cache.fetch(cache_key, expires_in: 3.hours) do
       AnimeNews
-        .where.not(action: AnimeHistoryAction::Episode)
+        .wo_episodes
         .where("entries.created_at >= ?", LastNewsDate)
         .joins('inner join animes on animes.id=linked_id and animes.censored=false')
         .includes(:user)
