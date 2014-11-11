@@ -1,9 +1,9 @@
 describe AnimeSpiritParser do
   let(:parser) { AnimeSpiritParser.new }
 
-  it { parser.fetch_pages_num.should eq 401 }
-  it { parser.fetch_page_links(1).should have(10).items }
-  it { parser.fetch_pages(1..1).should have(10).items }
+  it { expect(parser.fetch_pages_num).to eq 401 }
+  it { expect(parser.fetch_page_links(1).size).to eq(10) }
+  it { expect(parser.fetch_pages(1..1).size).to eq(10) }
 
   describe :fetch_entry do
     subject(:entry) { OpenStruct.new parser.fetch_entry link }
@@ -14,7 +14,10 @@ describe AnimeSpiritParser do
       its(:name) { should eq 'Slayers' }
       its(:names) { should eq ['Рубаки', 'Slayers'] }
       its(:year) { should eq 1995 }
-      its(:videos) { should have(26).items }
+
+      its(:videos) 'has 26 items' do
+        expect(subject.size).to eq(26)
+      end
       its(:categories) { should eq ['tv сериалы', 'фэнтези', 'комедия', 'приключения', 'мистика'] }
       its(:episodes) { should eq 26 }
       its(:id) { should eq link }
@@ -35,7 +38,10 @@ describe AnimeSpiritParser do
       its(:russian) { should eq 'Нищебог же!' }
       its(:name) { should eq 'Binbougami ga!' }
       its(:year) { should eq 2012 }
-      its(:videos) { should have(52).items }
+
+      its(:videos) 'has 52 items' do
+        expect(subject.size).to eq(52)
+      end
       its(:episodes) { should eq 13 }
 
       context :video do
@@ -64,7 +70,10 @@ describe AnimeSpiritParser do
       its(:russian) { should eq 'Ангельские Ритмы!' }
       its(:name) { should eq 'Angel Beats!' }
       its(:year) { should eq 2010 }
-      its(:videos) { should have(130).items }
+
+      its(:videos) 'has 130 items' do
+        expect(subject.size).to eq(130)
+      end
       its(:episodes) { should eq 13 }
     end
 
@@ -86,7 +95,10 @@ describe AnimeSpiritParser do
       its(:name) { should eq 'Burn Up!' }
       its(:names) { should eq ['Разгон!', 'Burn Up!'] }
       its(:year) { should eq 1991 }
-      its(:videos) { should have(4).items }
+
+      its(:videos) 'has 4 items' do
+        expect(subject.size).to eq(4)
+      end
       its(:episodes) { should eq 1 }
 
       context :video do
@@ -108,7 +120,10 @@ describe AnimeSpiritParser do
 
     context 'missing video' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9715-korol-gyejner-overman-king-gainer.html' }
-      its(:videos) { should have(104).items }
+
+      its(:videos) 'has 104 items' do
+        expect(subject.size).to eq(104)
+      end
     end
 
     #context 'translator in description' do

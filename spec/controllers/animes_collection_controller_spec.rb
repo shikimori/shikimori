@@ -1,4 +1,4 @@
-describe AnimesCollectionController do
+describe AnimesCollectionController, :type => :controller do
   ['anime', 'manga'].each do |type|
     before do
       create type.to_sym

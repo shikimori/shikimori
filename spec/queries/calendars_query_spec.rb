@@ -12,9 +12,9 @@ describe CalendarsQuery do
     create :anons_anime, aired_on: Time.zone.now + 1.week
   end
 
-  it { query.send(:fetch_ongoings).should have(2).items }
-  it { query.send(:fetch_anonses).should have(3).items }
+  it { expect(query.send(:fetch_ongoings).size).to eq(2) }
+  it { expect(query.send(:fetch_anonses).size).to eq(3) }
 
-  it { query.fetch.should have(4).items }
-  it { query.fetch_grouped.should have(2).item }
+  it { expect(query.fetch.size).to eq(4) }
+  it { expect(query.fetch_grouped.size).to eq(2) }
 end

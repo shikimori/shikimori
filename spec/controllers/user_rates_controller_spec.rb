@@ -1,4 +1,4 @@
-describe UserRatesController do
+describe UserRatesController, :type => :controller do
   include_context :authenticated
 
   describe '#index' do
@@ -109,8 +109,8 @@ describe UserRatesController do
 
         it 'imports data' do
           should redirect_to messages_url(type: :inbox)
-          expect(user.reload.anime_rates).to have(2).items
-          expect(assigns :added).to have(1).item
+          expect(user.reload.anime_rates.size).to eq(2)
+          expect(assigns(:added).size).to eq(1)
           expect(assigns :updated).to be_empty
         end
       end
@@ -120,9 +120,9 @@ describe UserRatesController do
 
         it 'imports data' do
           should redirect_to messages_url(type: :inbox)
-          expect(user.reload.anime_rates).to have(2).items
-          expect(assigns :added).to have(1).item
-          expect(assigns :updated).to have(1).item
+          expect(user.reload.anime_rates.size).to eq(2)
+          expect(assigns(:added).size).to eq(1)
+          expect(assigns(:updated).size).to eq(1)
         end
       end
     end
@@ -136,11 +136,11 @@ describe UserRatesController do
 
       it 'imports data' do
         should redirect_to messages_url(type: :inbox)
-        expect(user.reload.anime_rates).to have(2).items
+        expect(user.reload.anime_rates.size).to eq(2)
 
-        expect(assigns :added).to have(2).items
-        expect(assigns :updated).to have(0).items
-        expect(assigns :not_imported).to have(4).items
+        expect(assigns(:added).size).to eq(2)
+        expect(assigns(:updated).size).to eq(0)
+        expect(assigns(:not_imported).size).to eq(4)
       end
     end
 
@@ -174,11 +174,11 @@ describe UserRatesController do
 
       it 'imports data' do
         should redirect_to messages_url(type: :inbox)
-        expect(user.reload.manga_rates).to have(1).item
+        expect(user.reload.manga_rates.size).to eq(1)
 
-        expect(assigns :added).to have(1).item
-        expect(assigns :updated).to have(0).items
-        expect(assigns :not_imported).to have(1).item
+        expect(assigns(:added).size).to eq(1)
+        expect(assigns(:updated).size).to eq(0)
+        expect(assigns(:not_imported).size).to eq(1)
       end
     end
   end

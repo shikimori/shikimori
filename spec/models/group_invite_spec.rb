@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe GroupInvite do
+describe GroupInvite, :type => :model do
   context :relations do
     it { should belong_to :group }
     it { should belong_to :src }

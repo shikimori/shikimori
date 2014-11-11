@@ -5,12 +5,12 @@ describe NameMatcher do
     describe 'single match' do
       let!(:anime) { create :anime, kind: 'TV', name: 'My anime', synonyms: ['My little anime', 'My : little anime', 'My Little Anime', 'MyAnim'] }
 
-      it { matcher.matches(anime.name).should eq [anime] }
-      it { matcher.matches("#{anime.synonyms.last}!").should eq [anime] }
-      it { matcher.matches("#{anime.name} TV").should eq [anime] }
-      it { matcher.matches(anime.synonyms.first).should eq [anime] }
-      it { matcher.matches("#{anime.synonyms.first} TV").should eq [anime] }
-      it { matcher.matches("#{anime.synonyms.first}, with comma").should eq [anime] }
+      it { expect(matcher.matches(anime.name)).to eq [anime] }
+      it { expect(matcher.matches("#{anime.synonyms.last}!")).to eq [anime] }
+      it { expect(matcher.matches("#{anime.name} TV")).to eq [anime] }
+      it { expect(matcher.matches(anime.synonyms.first)).to eq [anime] }
+      it { expect(matcher.matches("#{anime.synonyms.first} TV")).to eq [anime] }
+      it { expect(matcher.matches("#{anime.synonyms.first}, with comma")).to eq [anime] }
     end
 
     describe '"&" with "and"' do
@@ -45,7 +45,7 @@ describe NameMatcher do
 
     describe '"Season 3" with "S3"' do
       let!(:anime) { create :anime, kind: 'TV', name: 'Anime S3' }
-      it { matcher.match("Anime Season 3").should eq anime }
+      it { expect(matcher.match("Anime Season 3")).to eq anime }
     end
 
     describe 'Madoka' do

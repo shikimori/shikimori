@@ -1,4 +1,4 @@
-describe FriendsController do
+describe FriendsController, :type => :controller do
   let (:user) { FactoryGirl.create :user }
   let (:user2) { FactoryGirl.create :user }
 
@@ -8,7 +8,7 @@ describe FriendsController do
   describe 'create' do
     it 'authorized' do
       create_request
-      response.should be_redirect
+      expect(response).to be_redirect
     end
 
     describe 'success' do
@@ -16,9 +16,9 @@ describe FriendsController do
 
       it 'success' do
         create_request
-        response.should be_success
+        expect(response).to be_success
 
-        User.find(user.id).friends.include?(user2).should be_truthy
+        expect(User.find(user.id).friends.include?(user2)).to be_truthy
       end
 
       describe FriendLink do
@@ -56,7 +56,7 @@ describe FriendsController do
   describe "destroy" do
     it 'unauthorized' do
       destroy_request
-      response.should be_redirect
+      expect(response).to be_redirect
     end
 
     describe 'success' do
@@ -64,9 +64,9 @@ describe FriendsController do
 
       it 'success' do
         destroy_request
-        response.should be_success
+        expect(response).to be_success
 
-        User.find(user.id).friends.include?(user2).should be_falsy
+        expect(User.find(user.id).friends.include?(user2)).to be_falsy
       end
 
       it FriendLink do

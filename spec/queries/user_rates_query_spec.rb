@@ -15,11 +15,11 @@ describe UserRatesQuery do
   let(:query) { UserRatesQuery.new(entry, user) }
 
   describe 'friend_rates' do
-    it { query.friend_rates.should have(2).items  }
+    it { expect(query.friend_rates.size).to eq(2)  }
   end
 
   describe 'recent_rates' do
-    it { query.recent_rates(100).should have(3).items  }
-    it { query.recent_rates(1).should have(1).item  }
+    it { expect(query.recent_rates(100).size).to eq(3)  }
+    it { expect(query.recent_rates(1).size).to eq(1)  }
   end
 end

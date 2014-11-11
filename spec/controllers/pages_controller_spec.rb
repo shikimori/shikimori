@@ -1,4 +1,4 @@
-describe PagesController do
+describe PagesController, :type => :controller do
   let(:user) { create :user }
 
   describe 'auth_form' do
@@ -40,7 +40,7 @@ describe PagesController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :rss }
-      it { assigns(:topics).should have(2).items }
+      it { expect(assigns(:topics).size).to eq(2) }
     end
 
     context 'anime' do
@@ -52,7 +52,7 @@ describe PagesController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :rss }
-      it { assigns(:topics).should have(2).items }
+      it { expect(assigns(:topics).size).to eq(2) }
     end
   end
 
@@ -108,8 +108,8 @@ describe PagesController do
 
     context 'admin' do
       before do
-        PagesController.any_instance.stub(:`).and_return ''
-        $redis.stub(:info).and_return('db0' => '=,')
+        allow_any_instance_of(PagesController).to receive(:`).and_return ''
+        allow($redis).to receive(:info).and_return('db0' => '=,')
         sign_in create :user, id: 1
         get :admin_panel
       end

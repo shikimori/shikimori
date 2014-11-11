@@ -1,4 +1,4 @@
-describe TopicsController do
+describe TopicsController, :type => :controller do
   let(:section) { create :section, id: 1, permalink: 'a', name: 'Аниме' }
 
   let(:user) { create :user }
@@ -21,15 +21,15 @@ describe TopicsController do
       describe 'index' do
         describe 'feed' do
           it '404' do
-            lambda {
+            expect {
               get :index, section: Section::Feed.permalink, format: format
-            }.should raise_error NotFound
+            }.to raise_error NotFound
           end
 
           it 'success' do
             sign_in user
             get :index, section: Section::All.permalink, format: format
-            response.should be_success
+            expect(response).to be_success
           end
         end
 
@@ -39,22 +39,22 @@ describe TopicsController do
           it 'all' do
             get :index, section: Section::All.permalink, format: format
 
-            response.should be_success
+            expect(response).to be_success
 
-            response.body.should include(topic.text)
-            response.body.should include(topic_anime.text)
-            response.body.should include(topic2.text)
+            expect(response.body).to include(topic.text)
+            expect(response.body).to include(topic_anime.text)
+            expect(response.body).to include(topic2.text)
           end
 
           it 'section' do
             get :index, section: section.to_param, format: format
 
-            response.should be_success
+            expect(response).to be_success
 
-            response.body.should include(topic.text)
-            response.body.should include(topic_anime.text)
+            expect(response.body).to include(topic.text)
+            expect(response.body).to include(topic_anime.text)
 
-            response.body.should_not include(topic2.text)
+            expect(response.body).not_to include(topic2.text)
           end
 
           describe 'subsection' do
@@ -62,7 +62,7 @@ describe TopicsController do
               section.topics.first.destroy
               get :index, section: section.to_param, linked: anime.to_param, format: format
 
-              response.should be_redirect
+              expect(response).to be_redirect
             end
 
             it 'success' do
@@ -70,11 +70,11 @@ describe TopicsController do
 
               get :index, section: section.to_param, linked: anime.to_param, format: format
 
-              response.should be_success
-              response.body.should include(topic_anime.text)
+              expect(response).to be_success
+              expect(response.body).to include(topic_anime.text)
 
-              response.body.should_not include(topic.text)
-              response.body.should_not include(topic2.text)
+              expect(response.body).not_to include(topic.text)
+              expect(response.body).not_to include(topic2.text)
             end
           end
         end
@@ -84,8 +84,8 @@ describe TopicsController do
         it 'success' do
           get :show, section: section.to_param, topic: topic.to_param, format: format
 
-          response.should be_success
-          response.body.should include(topic.text)
+          expect(response).to be_success
+          expect(response.body).to include(topic.text)
         end
 
         describe 'linked' do
@@ -94,14 +94,14 @@ describe TopicsController do
           it 'success' do
             get :show, section: section.to_param, topic: topic_anime.to_param, linked: anime.to_param, format: format
 
-            response.should be_success
-            response.body.should include(topic_anime.text)
+            expect(response).to be_success
+            expect(response.body).to include(topic_anime.text)
           end
 
           it 'redirect' do
             get :show, section: section.to_param, topic: topic_anime.to_param, format: format
 
-            response.should be_redirect
+            expect(response).to be_redirect
           end
         end
       end
@@ -109,33 +109,33 @@ describe TopicsController do
       describe 'new' do
         it 'unauthorized' do
           get :new, section: section.to_param, format: format
-          response.should_not be_success
+          expect(response).not_to be_success
         end
 
         it 'success' do
           sign_in user
           get :new, section: section.to_param, format: format
-          response.should be_success
+          expect(response).to be_success
         end
       end
 
       describe 'edit' do
         it 'unauthorized' do
           get :edit, id: topic.id, format: format
-          response.should_not be_success
+          expect(response).not_to be_success
         end
 
         it 'success' do
           sign_in user
           get :edit, id: topic.id, format: format
-          response.should be_success
+          expect(response).to be_success
         end
       end
 
       describe 'create' do
         it 'unauthorized' do
           post :create, section: section.to_param
-          response.should be_redirect
+          expect(response).to be_redirect
         end
 
         describe 'sign_in' do
@@ -146,7 +146,7 @@ describe TopicsController do
               post :create, format: format, topic: { id: 1 }
             }.to change(Topic, :count).by 0
 
-            response.should be_unprocessible_entiy
+            expect(response).to be_unprocessible_entiy
           end
 
           it 'success' do
@@ -157,13 +157,13 @@ describe TopicsController do
                 title: 'test title'
               }
             }.to change(Topic, :count).by 1
-            response.should be_success
+            expect(response).to be_success
 
             topic = Topic.last
-            topic.text.should eq 'test text'
-            topic.title.should eq 'test title'
-            topic.user_id.should eq(user.id)
-            topic.section_id.should eq(section.id)
+            expect(topic.text).to eq 'test text'
+            expect(topic.title).to eq 'test title'
+            expect(topic.user_id).to eq(user.id)
+            expect(topic.section_id).to eq(section.id)
           end
 
           it 'linked' do
@@ -176,11 +176,11 @@ describe TopicsController do
                 title: 'test title'
               }
             }.to change(Topic, :count).by 1
-            response.should be_success
+            expect(response).to be_success
 
             topic = Topic.last
-            topic.linked_id.should eq anime.id
-            topic.linked_type.should eq anime.class.name
+            expect(topic.linked_id).to eq anime.id
+            expect(topic.linked_type).to eq anime.class.name
           end
         end
       end
@@ -188,7 +188,7 @@ describe TopicsController do
       describe 'update' do
         it 'unauthorized' do
           patch :update, id: topic.id
-          response.should be_redirect
+          expect(response).to be_redirect
         end
 
         it 'random user' do
@@ -196,9 +196,9 @@ describe TopicsController do
           topic2 = create :topic, user: create(:user)
 
           patch :update, id: topic2.id, format: format, topic: { text: 'test text', title: 'test title' }
-          Topic.find(topic2.id).text.should eq topic2.text
+          expect(Topic.find(topic2.id).text).to eq topic2.text
 
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
 
         it 'success' do
@@ -207,11 +207,11 @@ describe TopicsController do
           expect {
             patch :update, id: topic.id, format: format, topic: { text: 'test text', title: 'test title' }
           }.to change(Topic, :count).by 0
-          response.should be_success
+          expect(response).to be_success
 
           topic = Topic.last
-          topic.text.should eq 'test text'
-          topic.title.should eq 'test title'
+          expect(topic.text).to eq 'test text'
+          expect(topic.title).to eq 'test title'
         end
       end
     end

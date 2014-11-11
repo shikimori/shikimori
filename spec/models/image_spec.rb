@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe Image do
+describe Image, :type => :model do
   context :relations do
     it { should belong_to :uploader }
     it { should belong_to :owner }

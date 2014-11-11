@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe Group do
+describe Group, :type => :model do
   describe 'relations' do
     it { should have_many :member_roles }
     it { should have_many :members }

@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe GroupRole do
+describe GroupRole, :type => :model do
   context :relations do
     it { should belong_to :user }
     it { should belong_to(:group).touch(true) }
@@ -15,10 +15,10 @@ describe GroupRole do
     let(:user) { create :user }
     it 'uniq index on user_id+group_id should work' do
       expect {
-        lambda {
+        expect {
           group.members << user
           group.members << user
-        }.should raise_error(ActiveRecord::RecordNotUnique)
+        }.to raise_error(ActiveRecord::RecordNotUnique)
       }.to change(GroupRole, :count).by 1
     end
   end

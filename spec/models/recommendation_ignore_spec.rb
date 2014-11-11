@@ -1,4 +1,4 @@
-describe RecommendationIgnore do
+describe RecommendationIgnore, :type => :model do
   context :relations do
     it { should belong_to :user }
     it { should belong_to :target }

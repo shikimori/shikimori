@@ -1,4 +1,4 @@
-describe Screenshot do
+describe Screenshot, :type => :model do
   context '#relations' do
     it { should belong_to :anime }
     it { should have_attached_file :image }

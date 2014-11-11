@@ -1,9 +1,9 @@
 
-describe SitemapController do
+describe SitemapController, :type => :controller do
   it 'works' do
     FactoryGirl.create :anime, :description => 'test'
 
     get :index
-    response.should be_success
+    expect(response).to be_success
   end
 end

@@ -17,8 +17,8 @@ describe CommentsService do
     subject { service.create params }
 
     context :success do
-      before { FayePublisher.should_receive(:new).with(user, faye).and_return publisher }
-      before { FayePublisher.any_instance.should_receive(:publish).with an_instance_of(Comment), :created }
+      before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+      before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(Comment), :created }
       let(:body) { 'test' }
 
       it { should be_kind_of Comment }
@@ -26,7 +26,7 @@ describe CommentsService do
     end
 
     context :failure do
-      before { FayePublisher.any_instance.should_not_receive :publish }
+      before { expect_any_instance_of(FayePublisher).not_to receive :publish }
       let(:body) { nil }
 
       it { should be_kind_of Comment }
@@ -46,15 +46,15 @@ describe CommentsService do
     end
 
     context :success do
-      before { FayePublisher.should_receive(:new).with(user, faye).and_return publisher }
-      before { FayePublisher.any_instance.should_receive(:publish).with an_instance_of(Comment), :updated }
+      before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+      before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(Comment), :updated }
       let(:body) { 'test' }
 
       it { should be true }
     end
 
     context :failure do
-      before { FayePublisher.any_instance.should_not_receive :publish }
+      before { expect_any_instance_of(FayePublisher).not_to receive :publish }
       let(:body) { nil }
 
       it { should be false }
@@ -71,8 +71,8 @@ describe CommentsService do
     end
 
     context :success do
-      before { FayePublisher.should_receive(:new).with(user, faye).and_return publisher }
-      before { FayePublisher.any_instance.should_receive(:publish).with an_instance_of(Comment), :deleted }
+      before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+      before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(Comment), :deleted }
 
       it { should_not be_persisted }
     end

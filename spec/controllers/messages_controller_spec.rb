@@ -1,4 +1,4 @@
-describe MessagesController do
+describe MessagesController, :type => :controller do
   let!(:user) { create :user, email: email }
 
   describe :bounce do
@@ -6,6 +6,6 @@ describe MessagesController do
     before { post :bounce, Email: email }
 
     it { should respond_with 200 }
-    it { user.messages.should have(1).item }
+    it { expect(user.messages.size).to eq(1) }
   end
 end

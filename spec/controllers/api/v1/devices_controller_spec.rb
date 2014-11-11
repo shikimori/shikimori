@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe Api::V1::DevicesController do
+describe Api::V1::DevicesController, :type => :controller do
   before { sign_in user }
   let(:user) { create :user }
 
@@ -9,7 +9,7 @@ describe Api::V1::DevicesController do
     let!(:device_2) { create :device }
     before { get :index, format: :json }
 
-    it { expect(assigns :devices).to have(1).item }
+    it { expect(assigns(:devices).size).to eq(1) }
     it { should respond_with :success }
     it { should respond_with_content_type :json }
   end

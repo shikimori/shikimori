@@ -1,4 +1,4 @@
-describe AnimeLink do
+describe AnimeLink, :type => :model do
   context :relations do
     it { should belong_to :anime }
   end

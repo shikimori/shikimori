@@ -1,6 +1,6 @@
-describe VideosController do
+describe VideosController, :type => :controller do
   before do
-    Video.any_instance.stub :existence
+    allow_any_instance_of(Video).to receive :existence
     sign_in user
   end
 
@@ -45,11 +45,11 @@ describe VideosController do
 
     describe :assigns do
       before { post :create, id: anime_id, video: { url: url, kind: kind, name: name } }
-      it { assigns(:video).url.should eq url }
-      it { assigns(:video).name.should eq name }
-      it { assigns(:video).kind.should eq kind }
-      it { assigns(:video).anime_id.should eq anime_id }
-      it { assigns(:video).uploader_id.should eq user.id }
+      it { expect(assigns(:video).url).to eq url }
+      it { expect(assigns(:video).name).to eq name }
+      it { expect(assigns(:video).kind).to eq kind }
+      it { expect(assigns(:video).anime_id).to eq anime_id }
+      it { expect(assigns(:video).uploader_id).to eq user.id }
     end
   end
 

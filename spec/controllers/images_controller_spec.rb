@@ -1,4 +1,4 @@
-describe ImagesController do
+describe ImagesController, :type => :controller do
   include_context :authenticated
   let(:club) { create :group, owner: user }
 

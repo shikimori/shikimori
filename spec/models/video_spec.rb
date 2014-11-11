@@ -1,4 +1,4 @@
-describe Video do
+describe Video, :type => :model do
   context :relations do
     it { should belong_to :anime }
     it { should belong_to :uploader }
@@ -62,7 +62,7 @@ describe Video do
         describe 'bad youtube url' do
           let(:url) { 'https://yyoutube.com/watch?v=VdwKZ6JDENc' }
           it { should_not be_persisted }
-          specify { video.errors.messages[:url].should eq [I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')] }
+          specify { expect(video.errors.messages[:url]).to eq [I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')] }
         end
 
         describe 'no v param' do

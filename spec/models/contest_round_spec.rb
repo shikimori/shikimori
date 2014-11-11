@@ -1,4 +1,4 @@
-describe ContestRound do
+describe ContestRound, :type => :model do
   context :relations do
     it { should belong_to :contest }
     it { should have_many :matches }
@@ -9,15 +9,15 @@ describe ContestRound do
     let(:round) { create :contest_round, contest: contest }
 
     it 'full cycle' do
-      round.created?.should be_truthy
+      expect(round.created?).to be_truthy
 
       contest.strategy.fill_round_with_matches round
       round.start!
-      round.started?.should be_truthy
+      expect(round.started?).to be_truthy
 
       round.matches.each {|v| v.state = 'finished' }
       round.finish!
-      round.finished?.should be_truthy
+      expect(round.finished?).to be_truthy
     end
 
     describe :can_start? do
@@ -28,7 +28,7 @@ describe ContestRound do
       end
 
       context 'has matches' do
-        before { round.matches.stub(:any?).and_return true }
+        before { allow(round.matches).to receive(:any?).and_return true }
         it { should be_truthy }
       end
     end
@@ -49,7 +49,7 @@ describe ContestRound do
           end
 
           context 'all can_finish' do
-            before { round.matches.each {|v| v.stub(:can_finish?).and_return true } }
+            before { round.matches.each {|v| allow(v).to receive(:can_finish?).and_return true } }
             it { should be_truthy }
           end
         end
@@ -62,7 +62,7 @@ describe ContestRound do
       it 'starts today matches' do
         round.start!
         round.matches.each do |vote|
-          vote.started?.should be_truthy
+          expect(vote.started?).to be_truthy
         end
       end
 
@@ -71,7 +71,7 @@ describe ContestRound do
         round.start!
 
         round.matches.each do |vote|
-          vote.started?.should be_falsy
+          expect(vote.started?).to be_falsy
         end
       end
     end
@@ -85,7 +85,7 @@ describe ContestRound do
 
       describe 'finishes unfinished matches' do
         before { round.finish! }
-        it { round.matches.each {|v| v.finished?.should be_truthy } }
+        it { round.matches.each {|v| expect(v.finished?).to be_truthy } }
       end
     end
 
@@ -98,17 +98,17 @@ describe ContestRound do
       let(:next_round) { create :contest_round }
 
       it 'starts&fills next round' do
-        round.stub(:next_round).and_return next_round
+        allow(round).to receive(:next_round).and_return next_round
 
-        next_round.should_receive :start!
-        round.strategy.should_receive(:advance_members).with next_round, round
+        expect(next_round).to receive :start!
+        expect(round.strategy).to receive(:advance_members).with next_round, round
 
         round.finish!
       end
 
       it 'finishes contest' do
         round.finish!
-        round.contest.finished?.should be_truthy
+        expect(round.contest.finished?).to be_truthy
       end
     end
   end
@@ -121,33 +121,33 @@ describe ContestRound do
 
     describe :next_round do
       it 'should be valid' do
-        round1.next_round.should eq round2
-        round2.next_round.should eq round3
-        round3.next_round.should be_nil
+        expect(round1.next_round).to eq round2
+        expect(round2.next_round).to eq round3
+        expect(round3.next_round).to be_nil
       end
     end
 
     describe :prior_round do
       it 'should be valid' do
-        round1.prior_round.should be_nil
-        round2.prior_round.should eq round1
-        round3.prior_round.should eq round2
+        expect(round1.prior_round).to be_nil
+        expect(round2.prior_round).to eq round1
+        expect(round3.prior_round).to eq round2
       end
     end
 
     describe :first? do
       it 'should be valid' do
-        round1.first?.should be_truthy
-        round2.first?.should be_falsy
-        round3.first?.should be_falsy
+        expect(round1.first?).to be_truthy
+        expect(round2.first?).to be_falsy
+        expect(round3.first?).to be_falsy
       end
     end
 
     describe :last? do
       it 'should be valid' do
-        round1.last?.should be_falsy
-        round2.last?.should be_falsy
-        round3.last?.should be_truthy
+        expect(round1.last?).to be_falsy
+        expect(round2.last?).to be_falsy
+        expect(round3.last?).to be_truthy
       end
     end
   end

@@ -1,4 +1,4 @@
-describe ContestSuggestion do
+describe ContestSuggestion, :type => :model do
   context :relations do
     it { should belong_to :user }
     it { should belong_to :contest }
@@ -22,12 +22,12 @@ describe ContestSuggestion do
     let!(:suggestion3) { create :contest_suggestion, contest: contest, user: user, item: item2 }
 
     describe :by_user do
-      it { ContestSuggestion.by_user(user).should eq [suggestion2, suggestion3] }
+      it { expect(ContestSuggestion.by_user(user)).to eq [suggestion2, suggestion3] }
     end
 
     describe :by_votes do
-      it { ContestSuggestion.by_votes.map(&:item).should eq [item, item2] }
-      it { ContestSuggestion.by_votes.first.votes.should eq 2 }
+      it { expect(ContestSuggestion.by_votes.map(&:item)).to eq [item, item2] }
+      it { expect(ContestSuggestion.by_votes.first.votes).to eq 2 }
     end
   end
 

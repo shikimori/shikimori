@@ -1,4 +1,4 @@
-describe Api::V1::CalendarsController do
+describe Api::V1::CalendarsController, :type => :controller do
   describe :show do
     before do
       create :anime
@@ -12,7 +12,7 @@ describe Api::V1::CalendarsController do
     end
 
     before { get :show, format: :json }
-    specify { assigns(:collection).should have(4).items }
+    specify { expect(assigns(:collection).size).to eq(4) }
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }

@@ -1,4 +1,4 @@
-describe ContestSuggestionsController do
+describe ContestSuggestionsController, :type => :controller do
   let(:user) { create :user }
   before { sign_in user }
   let(:contest) { create :contest, state: 'proposing' }
@@ -18,7 +18,7 @@ describe ContestSuggestionsController do
 
       describe :entry do
         after { act }
-        it { ContestSuggestion.should_receive(:suggest).with contest, user, anime }
+        it { expect(ContestSuggestion).to receive(:suggest).with contest, user, anime }
       end
     end
 

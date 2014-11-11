@@ -1,10 +1,10 @@
-describe AnimeOnline::AnimeVideosController do
+describe AnimeOnline::AnimeVideosController, :type => :controller do
   let(:user) { create :user }
   let(:admin_user) { create :user, id: 1 }
 
   describe :show do
     context :video_content do
-      before { AnimeOnlineDomain.stub(:valid_host?).and_return(true) }
+      before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
       before { request }
       let(:anime) { create :anime, name: 'anime_test', anime_videos: [video_1] }
       let(:video_1) { create(:anime_video) }
@@ -35,7 +35,7 @@ describe AnimeOnline::AnimeVideosController do
 
     describe :verify_adult do
       before do
-        Anime.any_instance.stub(:adult?).and_return adult
+        allow_any_instance_of(Anime).to receive(:adult?).and_return adult
         @request.host = domain
         get :show, id: anime.id, domain: 'play'
       end
@@ -166,7 +166,7 @@ describe AnimeOnline::AnimeVideosController do
           it { expect {report_request}.to change(AnimeVideoReport, :count).by 0 }
           it do
             report_request
-            AnimeVideoReport.first.should be_broken
+            expect(AnimeVideoReport.first).to be_broken
           end
         end
       end
@@ -185,12 +185,12 @@ describe AnimeOnline::AnimeVideosController do
 
       context :simple_user do
         let(:user) { create :user, id: 777 }
-        specify { AnimeVideoReport.first.should be_pending }
+        specify { expect(AnimeVideoReport.first).to be_pending }
       end
 
       context :simple_user do
         let(:user) { create :user, id: 1 }
-        specify { AnimeVideoReport.first.should be_accepted }
+        specify { expect(AnimeVideoReport.first).to be_accepted }
       end
     end
   end
@@ -213,7 +213,7 @@ describe AnimeOnline::AnimeVideosController do
       end
 
       it { should respond_with_content_type :html }
-      it { response.should redirect_to(anime_videos_show_url video.anime_id, video.episode + 1) }
+      it { expect(response).to redirect_to(anime_videos_show_url video.anime_id, video.episode + 1) }
     end
 
     context :check_user_history do

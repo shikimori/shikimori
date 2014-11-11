@@ -1,4 +1,4 @@
-describe UserNicknameChange do
+describe UserNicknameChange, :type => :model do
   context :relations do
     it { should belong_to :user }
   end
@@ -15,7 +15,7 @@ describe UserNicknameChange do
     let(:comments_count) { UserNicknameChange::MINIMUM_COMMENTS_COUNT + 1 }
     let(:nickname) { 'test' }
 
-    before { user.stub_chain(:comments, :count).and_return comments_count }
+    before { allow(user).to receive_message_chain(:comments, :count).and_return comments_count }
 
     describe :sohuld_log? do
       context 'less than UserNicknameChange::MINIMUM_LIFE_INTERVAL after registration' do

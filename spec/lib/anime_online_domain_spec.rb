@@ -1,7 +1,7 @@
 describe AnimeOnlineDomain do
   describe :host do
     let(:anime) { build :anime }
-    before { Anime.any_instance.stub(:adult?).and_return adult }
+    before { allow_any_instance_of(Anime).to receive(:adult?).and_return adult }
     subject { AnimeOnlineDomain::host anime }
 
     context :play do

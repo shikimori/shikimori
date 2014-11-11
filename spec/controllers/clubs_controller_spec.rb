@@ -1,4 +1,4 @@
-describe ClubsController do
+describe ClubsController, :type => :controller do
   let(:club) { create :group }
 
   describe '#index' do
@@ -82,7 +82,7 @@ describe ClubsController do
     before { post :upload, id: club.to_param, image: image }
 
     it { should redirect_to club_url(club) }
-    it { expect(club.images).to have(1).item }
+    it { expect(club.images.size).to eq(1) }
 
     context :image do
       subject { club.images.first }

@@ -1,4 +1,4 @@
-describe Ban do
+describe Ban, :type => :model do
   context :relations do
     it { should belong_to :user }
     it { should belong_to :moderator }
@@ -27,31 +27,31 @@ describe Ban do
     describe :set_user do
       let(:ban) { build :ban, params }
       after { ban.valid? }
-      it { ban.should_receive :set_user }
+      it { expect(ban).to receive :set_user }
     end
 
     describe :ban_user do
       let(:ban) { build :ban, params }
       after { ban.save }
-      it { ban.should_receive :ban_user }
+      it { expect(ban).to receive :ban_user }
     end
 
     describe :mention_in_comment do
       let(:ban) { build :ban, params }
       after { ban.save }
-      it { ban.should_receive :mention_in_comment }
+      it { expect(ban).to receive :mention_in_comment }
     end
 
     describe :notify_user do
       let(:ban) { build :ban, params }
       after { ban.save }
-      it { ban.should_receive :notify_user }
+      it { expect(ban).to receive :notify_user }
     end
 
     describe :accept_abuse_request do
       let(:ban) { build :ban, params }
       after { ban.save }
-      it { ban.should_receive :accept_abuse_request }
+      it { expect(ban).to receive :accept_abuse_request }
     end
   end
 
@@ -90,7 +90,7 @@ describe Ban do
       subject { user.read_only_at.to_i }
       let!(:now) { DateTime.now }
       let!(:ban) { create :ban, params.merge(created_at: now) }
-      before { DateTime.stub(:now).and_return now }
+      before { allow(DateTime).to receive(:now).and_return now }
 
       context :user_witout_prior_ban do
         it { should be_within(1).of (now + ban.duration.minutes).to_i }
@@ -128,7 +128,7 @@ describe Ban do
     describe :suggest_duration do
       subject { ban.suggest_duration }
       let(:ban) { build_stubbed :ban, params }
-      before { UsersQuery.any_instance.stub(:bans_count).and_return bans_count }
+      before { allow_any_instance_of(UsersQuery).to receive(:bans_count).and_return bans_count }
 
       context '0 bans' do
         let(:bans_count) { 0 }

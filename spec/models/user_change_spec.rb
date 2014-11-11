@@ -1,4 +1,4 @@
-describe UserChange do
+describe UserChange, :type => :model do
   context '#relations' do
     it { should belong_to :user }
     it { should belong_to :approver }

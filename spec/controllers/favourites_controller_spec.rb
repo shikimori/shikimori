@@ -1,4 +1,4 @@
-describe FavouritesController do
+describe FavouritesController, :type => :controller do
   let(:user) { create :user }
   before { sign_in user }
 
@@ -12,14 +12,14 @@ describe FavouritesController do
           expect {
             post :create, linked_type: entry.class.name, linked_id: entry.id
           }.to change(Favourite, :count).by(1)
-          user.send(method_name).should include(entry)
+          expect(user.send(method_name)).to include(entry)
         end
 
         it 'supports kind parameter' do
           expect {
             post :create, linked_type: entry.class.name, linked_id: entry.id, kind: Favourite::Producer
           }.to change(Favourite, :count).by(1)
-          user.fav_producers.should include(entry)
+          expect(user.fav_producers).to include(entry)
         end if klass == Person
       end
 
@@ -30,7 +30,7 @@ describe FavouritesController do
           expect {
             delete :destroy, linked_type: entry.class.name, linked_id: entry.id
           }.to change(Favourite, :count).by -1
-          user.reload.send(method_name).should_not include(entry)
+          expect(user.reload.send(method_name)).not_to include(entry)
         end
       end
     end

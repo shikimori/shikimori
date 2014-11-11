@@ -10,12 +10,12 @@ describe CharactersQuery do
   end
 
   describe :fetch do
-    it { query.fetch.to_a.should have(2).items }
+    it { expect(query.fetch.to_a.size).to eq(2) }
     it 'should be in correct order' do
-      query.fetch.first.id.should eq character.id
+      expect(query.fetch.first.id).to eq character.id
     end
     it 'japanese search' do
-      CharactersQuery.new(search: 'シュタ インズ').fetch.to_a.should have(1).item
+      expect(CharactersQuery.new(search: 'シュタ インズ').fetch.to_a.size).to eq(1)
     end
   end
 
@@ -23,18 +23,18 @@ describe CharactersQuery do
     before { 1.upto(6) { create :anime, characters: [character] } }
     let(:fetched_query) { query.fill_works query.fetch }
 
-    it { fetched_query.first.best_works.should have(CharactersQuery::WorksLimit).items }
-    it { fetched_query.first.last_works.should have(CharactersQuery::WorksLimit).items }
+    it { expect(fetched_query.first.best_works.size).to eq(CharactersQuery::WorksLimit) }
+    it { expect(fetched_query.first.last_works.size).to eq(CharactersQuery::WorksLimit) }
   end
 
   describe :complete do
-    it { CharactersQuery.new(search: 'test').complete.should have(2).items }
-    it { CharactersQuery.new(search: 'シュタ インズ').complete.should have(1).item }
-    it { CharactersQuery.new(search: 'インズ シュタ').complete.should have(1).item }
+    it { expect(CharactersQuery.new(search: 'test').complete.size).to eq(2) }
+    it { expect(CharactersQuery.new(search: 'シュタ インズ').complete.size).to eq(1) }
+    it { expect(CharactersQuery.new(search: 'インズ シュタ').complete.size).to eq(1) }
 
-    it { CharactersQuery.new(search: 'シュタ イン').complete.should have(1).item }
-    it { CharactersQuery.new(search: 'インズ シュ').complete.should have(1).item }
+    it { expect(CharactersQuery.new(search: 'シュタ イン').complete.size).to eq(1) }
+    it { expect(CharactersQuery.new(search: 'インズ シュ').complete.size).to eq(1) }
 
-    it { CharactersQuery.new(search: 'яяяя').complete.should have(1).item }
+    it { expect(CharactersQuery.new(search: 'яяяя').complete.size).to eq(1) }
   end
 end

@@ -1,11 +1,11 @@
 describe FindAnimeParser do
-  before { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
-  before { SiteParserWithCache.stub :save_cache }
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return entries: {} }
+  before { allow(SiteParserWithCache).to receive :save_cache }
 
   let(:parser) { FindAnimeParser.new }
 
-  it { parser.fetch_pages_num.should eq 39 }
-  it { parser.fetch_page_links(0).should have(FindAnimeParser::PageSize).items }
+  it { expect(parser.fetch_pages_num).to eq 39 }
+  it { expect(parser.fetch_page_links(0).size).to eq(FindAnimeParser::PageSize) }
 
   describe :fetch_entry do
     subject(:entry) { parser.fetch_entry identifier }
@@ -19,7 +19,10 @@ describe FindAnimeParser do
       its(:score) { should be_within(1).of 9 }
       its(:description) { should be_present }
       its(:source) { should eq '© Hollow, http://world-art.ru' }
-      its(:videos) { should have(26).items }
+
+      its(:videos) 'has 26 items' do
+        expect(subject.size).to eq(26)
+      end
       its(:year) { should eq 2013 }
 
       describe :last_episode do
@@ -64,7 +67,9 @@ describe FindAnimeParser do
     let(:episode) { 1 }
     let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
 
-    it { should have(16).items }
+    it 'has 16 items' do
+      expect(subject.size).to eq(16)
+    end
 
     describe :first do
       subject { videos.first }
@@ -150,7 +155,7 @@ describe FindAnimeParser do
   end
 
   describe :fetch_pages do
-    before { parser.stub(:fetch_entry).and_return id: true }
+    before { allow(parser).to receive(:fetch_entry).and_return id: true }
     let(:pages) { 3 }
 
     it 'fetches pages' do
@@ -159,7 +164,7 @@ describe FindAnimeParser do
         items = parser.fetch_pages(0..(pages-1))
       }.to change(parser.cache[:entries], :count).by(items)
 
-      items.should have_at_least(ReadMangaParser::PageSize * pages - 1).items
+      expect(items.size).to be >= ReadMangaParser::PageSize * pages - 1
     end
   end
 end

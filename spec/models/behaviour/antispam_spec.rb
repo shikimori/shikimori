@@ -2,10 +2,10 @@ class NoAntispam < ActiveRecord::Base; include Antispam; end
 NoAntispam.antispam = false
 class WithAntispam < ActiveRecord::Base; include Antispam; end
 
-describe Antispam do
+describe Antispam, :type => :model do
   it 'antispam?' do
-    WithAntispam.with_antispam?.should be_truthy
-    NoAntispam.with_antispam?.should be_falsy
+    expect(WithAntispam.with_antispam?).to be_truthy
+    expect(NoAntispam.with_antispam?).to be_falsy
   end
 
   describe Comment do
@@ -16,9 +16,9 @@ describe Antispam do
       create :comment, :with_antispam, user: user, commentable: topic
 
       expect {
-        lambda {
+        expect {
           create :comment, :with_antispam, user: user, commentable: topic
-        }.should raise_error ActiveRecord::RecordNotSaved
+        }.to raise_error ActiveRecord::RecordNotSaved
       }.to_not change Comment, :count
     end
 

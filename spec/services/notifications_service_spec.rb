@@ -14,7 +14,7 @@ describe NotificationsService do
   end
 
   context :allowed_notifications do
-    before { BotsService.stub(:get_poster).and_return bot }
+    before { allow(BotsService).to receive(:get_poster).and_return bot }
     let(:notifiactions) { User::DEFAULT_NOTIFICATIONS  }
     let(:bot) { create :user }
 

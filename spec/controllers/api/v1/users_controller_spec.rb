@@ -1,4 +1,4 @@
-describe Api::V1::UsersController do
+describe Api::V1::UsersController, :type => :controller do
   let(:user) { create :user, nickname: 'Test' }
 
   describe :index do
@@ -10,7 +10,7 @@ describe Api::V1::UsersController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }
-    specify { assigns(:collection).should have(2).items }
+    specify { expect(assigns(:collection).size).to eq(2) }
   end
 
   describe :show do
@@ -36,7 +36,7 @@ describe Api::V1::UsersController do
 
     describe :guest do
       before { get :whoami, format: :json }
-      specify { response.body.should eq 'null' }
+      specify { expect(response.body).to eq 'null' }
     end unless ENV['APIPIE_RECORD']
   end
 
@@ -54,7 +54,7 @@ describe Api::V1::UsersController do
     before { get :anime_rates, id: user.id, status: 1, format: :json }
 
     it { should respond_with :success }
-    specify { assigns(:rates).should have(1).item }
+    specify { expect(assigns(:rates).size).to eq(1) }
   end
 
   describe :manga_rates do
@@ -64,7 +64,7 @@ describe Api::V1::UsersController do
     before { get :manga_rates, id: user.id, status: 1, format: :json }
 
     it { should respond_with :success }
-    specify { assigns(:rates).should have(1).item }
+    specify { expect(assigns(:rates).size).to eq(1) }
   end
 
   describe :clubs do

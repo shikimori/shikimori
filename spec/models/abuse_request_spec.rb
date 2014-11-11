@@ -1,4 +1,4 @@
-describe AbuseRequest do
+describe AbuseRequest, :type => :model do
   context :relations do
     it { should belong_to :comment }
     it { should belong_to :user }
@@ -29,14 +29,14 @@ describe AbuseRequest do
       let!(:abuse) { create :abuse_request, kind: :abuse, comment: comment }
       let!(:accepted) { create :accepted_abuse_request, kind: :offtopic, approver: user }
 
-      it { AbuseRequest.pending.should eq [offtop] }
+      it { expect(AbuseRequest.pending).to eq [offtop] }
     end
 
     describe :abuses do
       let!(:offtop) { create :abuse_request, kind: :offtopic, comment: comment }
       let!(:abuse) { create :abuse_request, kind: :abuse, comment: comment }
 
-      it { AbuseRequest.abuses.should eq [abuse] }
+      it { expect(AbuseRequest.abuses).to eq [abuse] }
     end
   end
 
@@ -102,12 +102,12 @@ describe AbuseRequest do
       subject { AbuseRequest.has_changes? }
 
       describe :true do
-        before { AbuseRequest.stub_chain(:pending, :count).and_return 1 }
+        before { allow(AbuseRequest).to receive_message_chain(:pending, :count).and_return 1 }
         it { should be_truthy }
       end
 
       describe :false do
-        before { AbuseRequest.stub_chain(:pending, :count).and_return 0 }
+        before { allow(AbuseRequest).to receive_message_chain(:pending, :count).and_return 0 }
         it { should be_falsy }
       end
     end
@@ -117,12 +117,12 @@ describe AbuseRequest do
       subject { AbuseRequest.has_abuses? }
 
       describe :true do
-        before { AbuseRequest.stub_chain(:abuses, :count).and_return 1 }
+        before { allow(AbuseRequest).to receive_message_chain(:abuses, :count).and_return 1 }
         it { should be_truthy }
       end
 
       describe :false do
-        before { AbuseRequest.stub_chain(:abuses, :count).and_return 0 }
+        before { allow(AbuseRequest).to receive_message_chain(:abuses, :count).and_return 0 }
         it { should be_falsy }
       end
     end

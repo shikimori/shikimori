@@ -1,4 +1,4 @@
-describe UsersController do
+describe UsersController, :type => :controller do
   let(:user) { create :user, password: '123' }
   before { sign_in user }
 
@@ -22,7 +22,7 @@ describe UsersController do
     context 'user without password' do
       before do
         user.update_column :encrypted_password, ''
-        controller.stub(:current_user).and_return user
+        allow(controller).to receive(:current_user).and_return user
         patch :update_password, id: user.to_param, user: { password: '1234', password_confirmation: '1234' }
       end
       it { should redirect_to user_settings_path(user) }

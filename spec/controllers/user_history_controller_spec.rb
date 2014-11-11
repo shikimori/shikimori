@@ -1,4 +1,4 @@
-describe UserHistoryController do
+describe UserHistoryController, :type => :controller do
   let!(:user) { create :user }
 
   describe '#index' do

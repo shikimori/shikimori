@@ -1,6 +1,6 @@
 describe MangaOnline::ReadMangaChaptersParser do
-  before { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
-  before { SiteParserWithCache.stub :save_cache }
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return entries: {} }
+  before { allow(SiteParserWithCache).to receive :save_cache }
 
   let(:manga) { create :manga, name: 'Berserk', read_manga_id: 'rm_berserk' }
   let(:chapters_path) { '/berserk/vol2/5?mature=1' }

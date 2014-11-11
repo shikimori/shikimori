@@ -1,4 +1,4 @@
-describe Comment do
+describe Comment, :type => :model do
   context :relations do
     it { should belong_to :user }
     it { should belong_to :commentable }
@@ -22,61 +22,61 @@ describe Comment do
     describe :check_access do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :clean }
+      it { expect(comment).to receive :clean }
     end
 
     describe :forbid_ban_change do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :forbid_ban_change }
+      it { expect(comment).to receive :forbid_ban_change }
     end
 
     describe :check_access do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :check_access }
+      it { expect(comment).to receive :check_access }
     end
 
     describe :filter_quotes do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :filter_quotes }
+      it { expect(comment).to receive :filter_quotes }
     end
 
     describe :increment_comments do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :increment_comments }
+      it { expect(comment).to receive :increment_comments }
     end
 
     describe :creation_callbacks do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :creation_callbacks }
+      it { expect(comment).to receive :creation_callbacks }
     end
 
     describe :subscribe do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :subscribe }
+      it { expect(comment).to receive :subscribe }
     end
 
     describe :notify_quotes do
       let(:comment) { build :comment }
       after { comment.save }
-      it { comment.should_receive :notify_quotes }
+      it { expect(comment).to receive :notify_quotes }
     end
 
     describe :decrement_comments do
       let(:comment) { create :comment }
       after { comment.destroy }
-      it { comment.should_receive :decrement_comments }
+      it { expect(comment).to receive :decrement_comments }
     end
 
     describe :destruction_callbacks do
       let(:comment) { create :comment }
       after { comment.destroy }
-      it { comment.should_receive :destruction_callbacks }
+      it { expect(comment).to receive :destruction_callbacks }
     end
   end
 
@@ -84,13 +84,13 @@ describe Comment do
     let(:user) { create :user }
     let(:topic) { create :entry, user: user }
     subject!(:comment) { create :comment, :with_subscribe, user: user, commentable: topic }
-    it { user.subscribed?(comment.commentable).should be_truthy }
+    it { expect(user.subscribed?(comment.commentable)).to be_truthy }
   end
 
   it 'should set html_body' do
     comment = create :comment
     comment.body = '[b]bold[/b]'
-    comment.html_body.should eq '<strong>bold</strong>'
+    expect(comment.html_body).to eq '<strong>bold</strong>'
   end
 
   describe 'notification when quoted' do
@@ -107,12 +107,12 @@ describe Comment do
 
       # должно создаться уведомление о новом комменте
       message = Message.last
-      message.read.should be_falsy
-      message.from_id.should eq user2.id
-      message.to_id.should eq user.id
-      message.kind.should eq MessageType::QuotedByUser
-      message.linked_type.should eq Comment.name
-      message.linked_id.should eq comment2.id
+      expect(message.read).to be_falsy
+      expect(message.from_id).to eq user2.id
+      expect(message.to_id).to eq user.id
+      expect(message.kind).to eq MessageType::QuotedByUser
+      expect(message.linked_type).to eq Comment.name
+      expect(message.linked_id).to eq comment2.id
     end
 
     it 'entry' do
@@ -124,12 +124,12 @@ describe Comment do
 
       # должно создаться уведомление о новом комменте
       message = Message.last
-      message.read.should be_falsy
-      message.from_id.should eq user2.id
-      message.to_id.should eq user.id
-      message.kind.should eq MessageType::QuotedByUser
-      message.linked_type.should eq Comment.name
-      message.linked_id.should eq comment2.id
+      expect(message.read).to be_falsy
+      expect(message.from_id).to eq user2.id
+      expect(message.to_id).to eq user.id
+      expect(message.kind).to eq MessageType::QuotedByUser
+      expect(message.linked_type).to eq Comment.name
+      expect(message.linked_id).to eq comment2.id
     end
 
     it 'quote old' do
@@ -224,6 +224,6 @@ describe Comment do
     before { subject.valid? }
     its(:valid?) { should be_falsy }
 
-    it { subject.errors.messages[:base].first.should eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
+    it { expect(subject.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
   end
 end

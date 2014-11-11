@@ -1,12 +1,12 @@
 
-describe AnimeCalendar do
+describe AnimeCalendar, :type => :model do
   it { should belong_to :anime }
   it { should validate_presence_of :anime }
   it { should validate_presence_of :episode }
   it { should validate_presence_of :start_at }
 
   it 'loads calendar' do
-    AnimeCalendar.load_calendar.first.events.should_not be_empty
+    expect(AnimeCalendar.load_calendar.first.events).not_to be_empty
   end
 
   it 'imports calendar' do

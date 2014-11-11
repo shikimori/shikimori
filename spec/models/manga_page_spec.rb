@@ -1,4 +1,4 @@
-describe MangaPage do
+describe MangaPage, :type => :model do
   it { should belong_to :chapter }
 
   it { should validate_presence_of :url }

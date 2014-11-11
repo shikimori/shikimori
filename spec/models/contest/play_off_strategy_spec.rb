@@ -1,4 +1,4 @@
-describe Contest::PlayOffStrategy do
+describe Contest::PlayOffStrategy, :type => :model do
   let(:strategy_type) { :play_off }
   let(:strategy) { contest.strategy }
 
@@ -7,8 +7,8 @@ describe Contest::PlayOffStrategy do
 
     [[128,7], [64,6], [32,5], [16,4]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
-        contest.members.stub(:count).and_return members
-        contest.total_rounds.should eq rounds
+        allow(contest.members).to receive(:count).and_return members
+        expect(contest.total_rounds).to eq rounds
       end
     end
   end
@@ -18,23 +18,23 @@ describe Contest::PlayOffStrategy do
 
     [[128,7], [64,6], [32,5], [16,4], [8,3]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
-        contest.members.stub(:count).and_return members
-        strategy.stub :fill_round_with_matches
+        allow(contest.members).to receive(:count).and_return members
+        allow(strategy).to receive :fill_round_with_matches
         expect { strategy.create_rounds }.to change(ContestRound, :count).by rounds
       end
     end
 
     it 'sets correct number&additional' do
-      contest.members.stub(:count).and_return 16
-      strategy.stub :fill_round_with_matches
+      allow(contest.members).to receive(:count).and_return 16
+      allow(strategy).to receive :fill_round_with_matches
       strategy.create_rounds
 
-      contest.rounds[0].number.should eq 1
-      contest.rounds.any? {|v| v.additional }.should be_falsy
+      expect(contest.rounds[0].number).to eq 1
+      expect(contest.rounds.any? {|v| v.additional }).to be_falsy
 
-      contest.rounds[1].number.should eq 2
-      contest.rounds[2].number.should eq 3
-      contest.rounds[3].number.should eq 4
+      expect(contest.rounds[1].number).to eq 2
+      expect(contest.rounds[2].number).to eq 3
+      expect(contest.rounds[3].number).to eq 4
     end
   end
 
@@ -56,13 +56,13 @@ describe Contest::PlayOffStrategy do
       end
 
       it 'winners&losers' do
-        contest.current_round.matches[0].left.should eq w1
-        contest.current_round.matches[0].right.should eq w2
+        expect(contest.current_round.matches[0].left).to eq w1
+        expect(contest.current_round.matches[0].right).to eq w2
 
-        contest.current_round.matches[1].left.should eq w3
-        contest.current_round.matches[1].right.should be_nil
+        expect(contest.current_round.matches[1].left).to eq w3
+        expect(contest.current_round.matches[1].right).to be_nil
 
-        contest.current_round.matches[2].should be_nil
+        expect(contest.current_round.matches[2]).to be_nil
       end
     end
 
@@ -76,10 +76,10 @@ describe Contest::PlayOffStrategy do
       end
 
       it 'winners&losers' do
-        contest.current_round.matches[0].left.should eq w1
-        contest.current_round.matches[0].right.should eq w3
+        expect(contest.current_round.matches[0].left).to eq w1
+        expect(contest.current_round.matches[0].right).to eq w3
 
-        contest.current_round.matches[1].should be_nil
+        expect(contest.current_round.matches[1]).to be_nil
       end
     end
   end
@@ -126,21 +126,21 @@ describe Contest::PlayOffStrategy do
 
     it 'has expected results' do
       # count
-      results.should have(contest.members.size).items
+      expect(results.size).to eq(contest.members.size)
 
       # final
-      results[0].id.should eq contest.rounds[2].matches.first.winner.id
-      results[1].id.should eq contest.rounds[2].matches.first.loser.id
+      expect(results[0].id).to eq contest.rounds[2].matches.first.winner.id
+      expect(results[1].id).to eq contest.rounds[2].matches.first.loser.id
 
       # semifinal
-      results[2].id.should eq contest.rounds[1].matches.first.loser.id
-      results[3].id.should eq contest.rounds[1].matches.last.loser.id
+      expect(results[2].id).to eq contest.rounds[1].matches.first.loser.id
+      expect(results[3].id).to eq contest.rounds[1].matches.last.loser.id
 
       # other
-      results[4].id.should eq contest.rounds[0].matches[3].loser.id
-      results[5].id.should eq contest.rounds[0].matches[1].loser.id
-      results[6].id.should eq contest.rounds[0].matches[2].loser.id
-      results[7].id.should eq contest.rounds[0].matches[0].loser.id
+      expect(results[4].id).to eq contest.rounds[0].matches[3].loser.id
+      expect(results[5].id).to eq contest.rounds[0].matches[1].loser.id
+      expect(results[6].id).to eq contest.rounds[0].matches[2].loser.id
+      expect(results[7].id).to eq contest.rounds[0].matches[0].loser.id
     end
   end
 end

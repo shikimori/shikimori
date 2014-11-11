@@ -19,9 +19,9 @@ describe RecommendationsController do
 
     context 'recommendations not calculated yet' do
       before do
-        user.stub_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MinimumScores
-        user.stub_chain(:history, :count).and_return Recommendations::RatesFetcher::MinimumScores
-        RecommendationsWorker.should_receive :perform_async
+        allow(user).to receive_message_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MinimumScores
+        allow(user).to receive_message_chain(:history, :count).and_return Recommendations::RatesFetcher::MinimumScores
+        expect(RecommendationsWorker).to receive :perform_async
       end
       it { should be_nil }
     end
@@ -29,9 +29,9 @@ describe RecommendationsController do
     context 'recommendations have been calculated' do
       let(:rankings) { {1=>2, 3=>4} }
       before do
-        user.stub_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MinimumScores
-        user.stub_chain(:history, :count).and_return Recommendations::RatesFetcher::MinimumScores
-        Rails.cache.stub(:read).and_return rankings
+        allow(user).to receive_message_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MinimumScores
+        allow(user).to receive_message_chain(:history, :count).and_return Recommendations::RatesFetcher::MinimumScores
+        allow(Rails.cache).to receive(:read).and_return rankings
       end
 
       it { should eql rankings }

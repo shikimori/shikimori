@@ -9,8 +9,8 @@ describe FavouritesQuery do
   let(:query) { FavouritesQuery.new }
 
   describe :favoured_by do
-    it { expect(query.favoured_by person, 2).to have(2).items }
-    it { expect(query.favoured_by person, 99).to have(3).items }
+    it { expect(query.favoured_by(person, 2).size).to eq(2) }
+    it { expect(query.favoured_by(person, 99).size).to eq(3) }
   end
 
   describe :top_entries do

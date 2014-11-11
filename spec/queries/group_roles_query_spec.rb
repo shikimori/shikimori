@@ -12,7 +12,7 @@ describe GroupRolesQuery do
 
     let(:query) { GroupRolesQuery.new(club) }
 
-    it { query.complete('mo').should eq [user_1, user_2] }
-    it { query.complete('morrr').should eq [user_2] }
+    it { expect(query.complete('mo')).to eq [user_1, user_2] }
+    it { expect(query.complete('morrr')).to eq [user_2] }
   end
 end

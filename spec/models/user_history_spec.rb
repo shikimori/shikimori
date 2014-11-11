@@ -1,4 +1,4 @@
-describe UserHistory do
+describe UserHistory, :type => :model do
   describe User do
     it { should belong_to :user }
     it { should belong_to :target }
@@ -16,7 +16,7 @@ describe UserHistory do
       expect {
         UserHistory.add user, anime, UserHistoryAction::Add
       }.to change(UserHistory, :count).by 1
-      UserHistory.last.action.should eq UserHistoryAction::Add
+      expect(UserHistory.last.action).to eq UserHistoryAction::Add
     end
 
     describe "added anime and" do
@@ -57,7 +57,7 @@ describe UserHistory do
           UserHistory.add user, anime2, UserHistoryAction::Add
           UserHistory.add user, anime, UserHistoryAction::Delete
         }.to change(UserHistory, :count).by 2
-        UserHistory.last.action.should eq UserHistoryAction::Delete
+        expect(UserHistory.last.action).to eq UserHistoryAction::Delete
       end
 
       it "did some actions with it and with other animes and then deleted first added anime in UserHistory::DeleteBackwardCheckInterval" do
@@ -103,16 +103,16 @@ describe UserHistory do
       expect {
         UserHistory.add user, anime, UserHistoryAction::Rate, 5
       }.to change(UserHistory, :count).by 1
-      UserHistory.last.action.should eq UserHistoryAction::Rate
-      UserHistory.last.value.should eq "5"
+      expect(UserHistory.last.action).to eq UserHistoryAction::Rate
+      expect(UserHistory.last.value).to eq "5"
     end
 
     it "rate with score greater then 10 should be treated like 10" do
       expect {
         UserHistory.add user, anime, UserHistoryAction::Rate, 100000000000000
       }.to change(UserHistory, :count).by 1
-      UserHistory.last.action.should eq UserHistoryAction::Rate
-      UserHistory.last.value.should eq "10"
+      expect(UserHistory.last.action).to eq UserHistoryAction::Rate
+      expect(UserHistory.last.value).to eq "10"
     end
 
     it "rate with score less then 0 should be treated like 0" do
@@ -159,22 +159,22 @@ describe UserHistory do
         expect {
           UserHistory.add user, anime, UserHistoryAction::Rate, 5, prior_rate
         }.to change(UserHistory, :count).by 0
-        UserHistory.last.action.should eq UserHistoryAction::Rate
-        UserHistory.last.value.should eq "5"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Rate
+        expect(UserHistory.last.value).to eq "5"
       end
 
       it "rated it again with another value" do
         expect {
           UserHistory.add user, anime, UserHistoryAction::Rate, 6, prior_rate
         }.to change(UserHistory, :count).by 0
-        UserHistory.last.action.should eq UserHistoryAction::Rate
-        UserHistory.last.value.should eq "6"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Rate
+        expect(UserHistory.last.value).to eq "6"
       end
 
       it "rated it with two values" do
         UserHistory.add user, anime, UserHistoryAction::Rate, 6, prior_rate
         UserHistory.add user, anime, UserHistoryAction::Rate, 7, 6
-        UserHistory.last.prior_value.should eq "0"
+        expect(UserHistory.last.prior_value).to eq "0"
       end
     end
 
@@ -182,9 +182,9 @@ describe UserHistory do
       expect {
         UserHistory.add user, anime, UserHistoryAction::Episodes, 1
       }.to change(UserHistory, :count).by 1
-      UserHistory.last.action.should eq UserHistoryAction::Episodes
-      UserHistory.last.value.should eq "1"
-      UserHistory.last.prior_value.should eq "0"
+      expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+      expect(UserHistory.last.value).to eq "1"
+      expect(UserHistory.last.prior_value).to eq "0"
     end
 
     describe "watched episode and" do
@@ -211,8 +211,8 @@ describe UserHistory do
           UserHistory.add user, anime, UserHistoryAction::Episodes, 2, prior_episode
         }.to change(UserHistory, :count).by 0
 
-        UserHistory.last.action.should eq UserHistoryAction::Episodes
-        UserHistory.last.value.should eq "1,2"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+        expect(UserHistory.last.value).to eq "1,2"
       end
 
       it "watched more next episodes" do
@@ -222,8 +222,8 @@ describe UserHistory do
           UserHistory.add user, anime, UserHistoryAction::Episodes, 89, 88
         }.to change(UserHistory, :count).by 1
 
-        UserHistory.last.action.should eq UserHistoryAction::Episodes
-        UserHistory.last.value.should eq '89'
+        expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+        expect(UserHistory.last.value).to eq '89'
       end
 
       it "watched episode from another anime" do
@@ -244,8 +244,8 @@ describe UserHistory do
           UserHistory.add user, anime, UserHistoryAction::Episodes, 2, prior_episode
           UserHistory.add user, anime, UserHistoryAction::Episodes, prior_episode, 2
         }.to change(UserHistory, :count).by 0
-        UserHistory.last.action.should eq UserHistoryAction::Episodes
-        UserHistory.last.value.should eq "1"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+        expect(UserHistory.last.value).to eq "1"
       end
 
       it "watched next 2 episodes and watched one episode back" do
@@ -253,8 +253,8 @@ describe UserHistory do
           UserHistory.add user, anime, UserHistoryAction::Episodes, 3, prior_episode
           UserHistory.add user, anime, UserHistoryAction::Episodes, 2, 3
         }.to change(UserHistory, :count).by 0
-        UserHistory.last.action.should eq UserHistoryAction::Episodes
-        UserHistory.last.value.should eq "1,2"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+        expect(UserHistory.last.value).to eq "1,2"
       end
 
       it "after UserHistory::EpisodeBackwardCheckInterval watched 0 episode" do
@@ -262,8 +262,8 @@ describe UserHistory do
         expect {
           UserHistory.add user, anime, UserHistoryAction::Episodes, 0, prior_episode
         }.to change(UserHistory, :count).by 1
-        UserHistory.last.action.should eq UserHistoryAction::Episodes
-        UserHistory.last.value.should eq "0"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+        expect(UserHistory.last.value).to eq "0"
       end
 
       it "after UserHistory::EpisodeBackwardCheckInterval watched 2 episode" do
@@ -271,8 +271,8 @@ describe UserHistory do
         expect {
           UserHistory.add(user, anime, UserHistoryAction::Episodes, 2, prior_episode)
         }.to change(UserHistory, :count).by(1)
-        UserHistory.last.action.should eq(UserHistoryAction::Episodes)
-        UserHistory.last.value.should eq("2")
+        expect(UserHistory.last.action).to eq(UserHistoryAction::Episodes)
+        expect(UserHistory.last.value).to eq("2")
       end
 
       it "after UserHistory::EpisodeBackwardCheckInterval watched 2 episode and watched 0 episode" do
@@ -281,8 +281,8 @@ describe UserHistory do
           UserHistory.add user, anime, UserHistoryAction::Episodes, 2, prior_episode
           UserHistory.add user, anime, UserHistoryAction::Episodes, 0, 2
         }.to change(UserHistory, :count).by 1
-        UserHistory.last.action.should eq UserHistoryAction::Episodes
-        UserHistory.last.value.should eq "0"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+        expect(UserHistory.last.value).to eq "0"
       end
 
       it "after UserHistory::EpisodeBackwaldCheckInterval watched 0 episode and then watched 3 episode" do
@@ -291,8 +291,8 @@ describe UserHistory do
           UserHistory.add user, anime, UserHistoryAction::Episodes, 0, prior_episode
           UserHistory.add user, anime, UserHistoryAction::Episodes, 3, 0
         }.to change(UserHistory, :count).by 1
-        UserHistory.last.action.should eq UserHistoryAction::Episodes
-        UserHistory.last.value.should eq "0,3"
+        expect(UserHistory.last.action).to eq UserHistoryAction::Episodes
+        expect(UserHistory.last.value).to eq "0,3"
       end
     end
 
@@ -303,7 +303,7 @@ describe UserHistory do
         UserHistory.add user, anime, UserHistoryAction::Episodes, 6, 7
         UserHistory.add user, anime, UserHistoryAction::Episodes, 7, 6
       }.to change(UserHistory, :count).by 1
-      UserHistory.last.value.should eq "7"
+      expect(UserHistory.last.value).to eq "7"
     end
 
     it "merges :completed and #{UserHistoryAction::Rate} into #{UserHistoryAction::CompleteWithScore}" do
@@ -313,8 +313,8 @@ describe UserHistory do
       }.to change(UserHistory, :count).by 1
 
       last = UserHistory.last
-      last.action.should eq UserHistoryAction::CompleteWithScore
-      last.value.should eq "5"
+      expect(last.action).to eq UserHistoryAction::CompleteWithScore
+      expect(last.value).to eq "5"
     end
 
     it "merges :completed and #{UserHistoryAction::Rate} into #{UserHistoryAction::CompleteWithScore} only for the same anime" do
@@ -331,8 +331,8 @@ describe UserHistory do
       }.to change(UserHistory, :count).by 1
 
       last = UserHistory.last
-      last.action.should eq UserHistoryAction::CompleteWithScore
-      last.value.should eq "5"
+      expect(last.action).to eq UserHistoryAction::CompleteWithScore
+      expect(last.value).to eq "5"
     end
   end
 end

@@ -8,7 +8,7 @@ describe AnimeSpiritImporter do
     let(:last_episodes) { false }
     let(:pages) { [0] }
     let(:ids) { [] }
-    before { AnimeSpiritParser.any_instance.stub(:fetch_page_links).and_return [link] }
+    before { allow_any_instance_of(AnimeSpiritParser).to receive(:fetch_page_links).and_return [link] }
 
     describe :video do
       let(:videos) { AnimeVideo.where anime_id: anime.id }

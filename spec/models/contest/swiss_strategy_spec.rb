@@ -1,4 +1,4 @@
-describe Contest::SwissStrategy do
+describe Contest::SwissStrategy, :type => :model do
   let(:strategy_type) { :swiss }
   let(:strategy) { contest.strategy }
 
@@ -7,9 +7,9 @@ describe Contest::SwissStrategy do
 
     [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
-        contest.members.stub(:count).and_return members
-        strategy.stub :fill_round_with_matches
-        contest.total_rounds.should eq rounds
+        allow(contest.members).to receive(:count).and_return members
+        allow(strategy).to receive :fill_round_with_matches
+        expect(contest.total_rounds).to eq rounds
       end
     end
   end
@@ -19,23 +19,23 @@ describe Contest::SwissStrategy do
 
     [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
-        contest.members.stub(:count).and_return members
-        strategy.stub :fill_round_with_matches
+        allow(contest.members).to receive(:count).and_return members
+        allow(strategy).to receive :fill_round_with_matches
         expect { strategy.create_rounds }.to change(ContestRound, :count).by rounds
       end
     end
 
     it 'sets correct number&additional' do
-      contest.members.stub(:count).and_return 16
-      strategy.stub :fill_round_with_matches
+      allow(contest.members).to receive(:count).and_return 16
+      allow(strategy).to receive :fill_round_with_matches
       strategy.create_rounds
 
-      contest.rounds[0].number.should eq 1
-      contest.rounds.any? {|v| v.additional }.should be_falsy
+      expect(contest.rounds[0].number).to eq 1
+      expect(contest.rounds.any? {|v| v.additional }).to be_falsy
 
-      contest.rounds[1].number.should eq 2
-      contest.rounds[2].number.should eq 3
-      contest.rounds[3].number.should eq 4
+      expect(contest.rounds[1].number).to eq 2
+      expect(contest.rounds[2].number).to eq 3
+      expect(contest.rounds[3].number).to eq 4
     end
   end
 
@@ -49,10 +49,10 @@ describe Contest::SwissStrategy do
     before { contest.start! }
 
     it 'creates correct rounds' do
-      contest.rounds.each {|v| v.matches.should have(3).items }
-      contest.rounds.first.matches.each {|v| v.left_id.should be_present }
-      contest.rounds.second.matches.each {|v| v.left_id.should be_nil }
-      contest.rounds.last.matches.each {|v| v.left_id.should be_nil }
+      contest.rounds.each {|v| expect(v.matches.size).to eq(3) }
+      contest.rounds.first.matches.each {|v| expect(v.left_id).to be_present }
+      contest.rounds.second.matches.each {|v| expect(v.left_id).to be_nil }
+      contest.rounds.last.matches.each {|v| expect(v.left_id).to be_nil }
     end
   end
 
@@ -61,9 +61,9 @@ describe Contest::SwissStrategy do
     before { contest.prepare }
 
     it 'sets correct dates for matches' do
-      contest.rounds[0].matches[0].started_on.should eq contest.started_on
-      contest.rounds[1].matches[0].started_on.should eq contest.rounds[0].matches[0].finished_on + contest.matches_interval.days
-      contest.rounds[2].matches[0].started_on.should eq contest.rounds[1].matches[0].finished_on + contest.matches_interval.days
+      expect(contest.rounds[0].matches[0].started_on).to eq contest.started_on
+      expect(contest.rounds[1].matches[0].started_on).to eq contest.rounds[0].matches[0].finished_on + contest.matches_interval.days
+      expect(contest.rounds[2].matches[0].started_on).to eq contest.rounds[1].matches[0].finished_on + contest.matches_interval.days
     end
   end
 
@@ -98,15 +98,15 @@ describe Contest::SwissStrategy do
         before { contest.reload }
 
         it 'sets members for next round' do
-          contest.rounds[1].matches[0].left_type.should eq contest.member_klass.name
-          contest.rounds[1].matches[0].right_type.should eq contest.member_klass.name
+          expect(contest.rounds[1].matches[0].left_type).to eq contest.member_klass.name
+          expect(contest.rounds[1].matches[0].right_type).to eq contest.member_klass.name
 
-          contest.rounds[1].matches[0].left_id.should eq w1.id
-          contest.rounds[1].matches[0].right_id.should eq w2.id
-          contest.rounds[1].matches[1].left_id.should eq w3.id
-          contest.rounds[1].matches[1].right_id.should eq l1.id
-          contest.rounds[1].matches[2].left_id.should eq l2.id
-          contest.rounds[1].matches[2].right_id.should eq l3.id
+          expect(contest.rounds[1].matches[0].left_id).to eq w1.id
+          expect(contest.rounds[1].matches[0].right_id).to eq w2.id
+          expect(contest.rounds[1].matches[1].left_id).to eq w3.id
+          expect(contest.rounds[1].matches[1].right_id).to eq l1.id
+          expect(contest.rounds[1].matches[2].left_id).to eq l2.id
+          expect(contest.rounds[1].matches[2].right_id).to eq l3.id
         end
       end
 
@@ -114,12 +114,12 @@ describe Contest::SwissStrategy do
         before { contest.reload.current_round.finish! }
 
         it 'should pick up members which were not opponents in previous matches' do
-          contest.rounds[2].matches[0].left_id.should eq w1.id
-          contest.rounds[2].matches[0].right_id.should eq w3.id
-          contest.rounds[2].matches[1].left_id.should eq w2.id
-          contest.rounds[2].matches[1].right_id.should eq l1.id
-          contest.rounds[2].matches[2].left_id.should eq l2.id
-          contest.rounds[2].matches[2].right_id.should eq l3.id
+          expect(contest.rounds[2].matches[0].left_id).to eq w1.id
+          expect(contest.rounds[2].matches[0].right_id).to eq w3.id
+          expect(contest.rounds[2].matches[1].left_id).to eq w2.id
+          expect(contest.rounds[2].matches[1].right_id).to eq l1.id
+          expect(contest.rounds[2].matches[2].left_id).to eq l2.id
+          expect(contest.rounds[2].matches[2].right_id).to eq l3.id
         end
       end
     end

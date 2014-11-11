@@ -1,9 +1,9 @@
-describe CommentsController do
+describe CommentsController, :type => :controller do
   let(:user) { create :user }
   let(:topic) { create :entry, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
   let(:comment2) { create :comment, commentable: topic, user: user }
-  before { FayePublisher.stub(:new).and_return double(FayePublisher, publish: true) }
+  before { allow(FayePublisher).to receive(:new).and_return double(FayePublisher, publish: true) }
 
   describe '#show' do
     [:html, :json].each do |format|
@@ -24,7 +24,7 @@ describe CommentsController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :json }
-      specify { assigns(:comment).should be_persisted }
+      specify { expect(assigns(:comment)).to be_persisted }
     end
 
     context 'failure' do
@@ -51,7 +51,7 @@ describe CommentsController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :json }
-      specify { assigns(:comment).body.should eq 'testzxc' }
+      specify { expect(assigns(:comment).body).to eq 'testzxc' }
     end
   end
 
@@ -68,27 +68,27 @@ describe CommentsController do
 
     it 'works' do
       get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: topic.id, skip: 1, limit: 10
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'not_found for wrong comment' do
-      lambda {
+      expect {
         get :fetch, comment_id: comment.id+1, topic_type: Entry.name, topic_id: topic.id, skip: 1, limit: 10
-      }.should raise_error ActiveRecord::RecordNotFound
+      }.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'not_found for wrong topic' do
-      lambda {
+      expect {
         get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: topic.id+1, skip: 1, limit: 10
-      }.should raise_error ActiveRecord::RecordNotFound
+      }.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'forbidden for mismatched comment and topic' do
       get :fetch, comment_id: create(:comment).id, topic_type: Entry.name, topic_id: topic.id, skip: 1, limit: 10
-      response.should be_forbidden
+      expect(response).to be_forbidden
 
       get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: create(:entry).id, skip: 1, limit: 10
-      response.should be_forbidden
+      expect(response).to be_forbidden
     end
   end
 

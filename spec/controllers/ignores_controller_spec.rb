@@ -1,4 +1,4 @@
-describe IgnoresController do
+describe IgnoresController, :type => :controller do
   let(:user) { create :user }
   let(:user2) { create :user }
 
@@ -8,7 +8,7 @@ describe IgnoresController do
   describe 'create' do
     it 'unauthorized' do
       create_request
-      response.should be_redirect
+      expect(response).to be_redirect
     end
 
     describe 'success' do
@@ -16,9 +16,9 @@ describe IgnoresController do
 
       it 'success' do
         create_request
-        response.should be_success
+        expect(response).to be_success
 
-        User.find(user.id).ignores?(user2).should be_truthy
+        expect(User.find(user.id).ignores?(user2)).to be_truthy
       end
 
       describe Ignore do
@@ -41,7 +41,7 @@ describe IgnoresController do
   describe "destroy" do
     it 'unauthorized' do
       destroy_request
-      response.should be_redirect
+      expect(response).to be_redirect
     end
 
     describe 'success' do
@@ -49,9 +49,9 @@ describe IgnoresController do
 
       it 'success' do
         destroy_request
-        response.should be_success
+        expect(response).to be_success
 
-        User.find(user.id).ignores?(user2).should be_falsy
+        expect(User.find(user.id).ignores?(user2)).to be_falsy
       end
 
       it Ignore do

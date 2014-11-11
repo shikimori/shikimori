@@ -1,4 +1,4 @@
-describe UserImagesController do
+describe UserImagesController, :type => :controller do
   describe :create do
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
 
@@ -24,9 +24,9 @@ describe UserImagesController do
         }.to change(UserImage, :count).by 1
       end
 
-      it { JSON.parse(response.body).should have_key 'id' }
-      it { JSON.parse(response.body).should have_key 'preview' }
-      it { JSON.parse(response.body).should have_key 'url' }
+      it { expect(JSON.parse(response.body)).to have_key 'id' }
+      it { expect(JSON.parse(response.body)).to have_key 'preview' }
+      it { expect(JSON.parse(response.body)).to have_key 'url' }
     end
   end
 end

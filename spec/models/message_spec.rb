@@ -1,4 +1,4 @@
-describe Message do
+describe Message, :type => :model do
   it { should belong_to :from }
   it { should belong_to :to }
   it { should belong_to :linked }
@@ -10,7 +10,7 @@ describe Message do
 
   it 'should filter nested quotes in body' do
     message = create :message, body: '[quote][quote=test][quote][/quote][/quote][/quote]', from: user, to: user
-    message.body.should == '[quote][quote=test][/quote][/quote]'
+    expect(message.body).to eq('[quote][quote=test][/quote][/quote]')
   end
 
   describe 'antispam' do
@@ -18,9 +18,9 @@ describe Message do
       create :message, to: user, from: user
 
       expect {
-        lambda {
+        expect {
           create :message, to: user, from: user
-        }.should raise_error ActiveRecord::RecordNotSaved
+        }.to raise_error ActiveRecord::RecordNotSaved
       }.to_not change Message, :count
     end
 
@@ -66,11 +66,11 @@ describe Message do
       }.to change(Message, :count).by 1
 
       created_message = Message.last
-      created_message.from_id.should eq user.id
-      created_message.to_id.should eq user2.id
-      created_message.kind.should eq MessageType::QuotedByUser
-      created_message.linked_id.should eq new_comment.id
-      created_message.linked_type.should eq new_comment.class.name
+      expect(created_message.from_id).to eq user.id
+      expect(created_message.to_id).to eq user2.id
+      expect(created_message.kind).to eq MessageType::QuotedByUser
+      expect(created_message.linked_id).to eq new_comment.id
+      expect(created_message.linked_type).to eq new_comment.class.name
     end
 
     it 'should not be on quote if notification is already exists' do
@@ -127,11 +127,11 @@ describe Message do
         }.to change(Message, :count).by 1
 
         created_message = Message.last
-        created_message.from_id.should eq user.id
-        created_message.to_id.should eq user2.id
-        created_message.kind.should eq MessageType::QuotedByUser
-        created_message.linked_id.should eq new_comment.id
-        created_message.linked_type.should eq new_comment.class.name
+        expect(created_message.from_id).to eq user.id
+        expect(created_message.to_id).to eq user2.id
+        expect(created_message.kind).to eq MessageType::QuotedByUser
+        expect(created_message.linked_id).to eq new_comment.id
+        expect(created_message.linked_type).to eq new_comment.class.name
       end
     end
   end

@@ -20,16 +20,16 @@ describe UserChangesQuery do
   end
 
   describe :fetch do
-    it { expect(UserChangesQuery.new(entry, 'description').fetch).to have(4).items }
-    it { expect(UserChangesQuery.new(entry, :name).fetch).to have(1).items }
-    it { expect(UserChangesQuery.new(entry, :video).fetch).to have(2).items }
-    it { expect(UserChangesQuery.new(entry, :screenshots).fetch).to have(1).items }
+    it { expect(UserChangesQuery.new(entry, 'description').fetch.size).to eq(4) }
+    it { expect(UserChangesQuery.new(entry, :name).fetch.size).to eq(1) }
+    it { expect(UserChangesQuery.new(entry, :video).fetch.size).to eq(2) }
+    it { expect(UserChangesQuery.new(entry, :screenshots).fetch.size).to eq(1) }
   end
 
   describe :authors do
-    it { expect(UserChangesQuery.new(entry, 'description').authors).to have(2).items }
-    it { expect(UserChangesQuery.new(entry, 'description').authors(false)).to have(1).item }
-    it { expect(UserChangesQuery.new(entry, :name).authors).to have(1).items }
+    it { expect(UserChangesQuery.new(entry, 'description').authors.size).to eq(2) }
+    it { expect(UserChangesQuery.new(entry, 'description').authors(false).size).to eq(1) }
+    it { expect(UserChangesQuery.new(entry, :name).authors.size).to eq(1) }
 
     context :video do
       let(:anime) { build_stubbed :anime }

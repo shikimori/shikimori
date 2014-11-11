@@ -1,4 +1,4 @@
-describe RobotsController do
+describe RobotsController, :type => :controller do
   describe :anime_online do
     before { get :anime_online }
     it { should respond_with :success }

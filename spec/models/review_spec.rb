@@ -1,4 +1,4 @@
-describe Review do
+describe Review, :type => :model do
   context :relations do
     it { should belong_to :target }
     it { should belong_to :user }
@@ -67,7 +67,7 @@ describe Review do
 
     describe :to_offtopic! do
       before { review.reject! user }
-      it { review.thread.section_id.should eq Section::OfftopicId }
+      it { expect(review.thread.section_id).to eq Section::OfftopicId }
     end
   end
 end

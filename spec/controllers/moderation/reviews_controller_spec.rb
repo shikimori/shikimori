@@ -1,4 +1,4 @@
-describe Moderation::ReviewsController do
+describe Moderation::ReviewsController, :type => :controller do
   let(:user) { create :user, id: 1 }
   before { sign_in user }
 
@@ -13,7 +13,7 @@ describe Moderation::ReviewsController do
     let(:review) { create :review, user: user }
     before { post :accept, id: review.id }
 
-    specify { assigns(:review).accepted?.should be_truthy }
+    specify { expect(assigns(:review).accepted?).to be_truthy }
     it { should redirect_to moderation_reviews_url }
   end
 
@@ -21,7 +21,7 @@ describe Moderation::ReviewsController do
     let(:review) { create :review, user: user }
     before { post :reject, id: review.id }
 
-    specify { assigns(:review).rejected?.should be_truthy }
+    specify { expect(assigns(:review).rejected?).to be_truthy }
     it { should redirect_to moderation_reviews_url }
   end
 end

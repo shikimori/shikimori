@@ -1,4 +1,4 @@
-describe AniMangasController::ReviewsController do
+describe AniMangasController::ReviewsController, :type => :controller do
   [:anime, :manga].each do |kind|
     describe kind do
       before { create :section, id: DbEntryThread::SectionIDs[kind.to_s.capitalize], permalink: 'a', name: 'Аниме' }
@@ -32,7 +32,7 @@ describe AniMangasController::ReviewsController do
           it "html" do
             get :show, defaults.merge(id: review.id)
             should respond_with 200
-            response.body.should include(review.text)
+            expect(response.body).to include(review.text)
           end
 
           it "json" do
@@ -49,18 +49,18 @@ describe AniMangasController::ReviewsController do
           it "html" do
             get :index, defaults
             should respond_with 200
-            response.body.should include(review.text)
+            expect(response.body).to include(review.text)
           end
 
           it "json" do
             get :index, defaults.merge(format: 'json')
-            response.should be_success
+            expect(response).to be_success
           end
 
           it 'with id' do
             get :index, defaults.merge(id: review.id)
             should respond_with 200
-            response.body.should include(review.text)
+            expect(response.body).to include(review.text)
           end
         end
       end
@@ -122,7 +122,7 @@ describe AniMangasController::ReviewsController do
                 patch :update, defaults.merge(id: review.id, review: valid_hash)
               }.to change(Review, :count).by(0)
 
-              Review.find(review.id).text.should == valid_hash[:text]
+              expect(Review.find(review.id).text).to eq(valid_hash[:text])
 
               should respond_with 200
             end
@@ -133,9 +133,9 @@ describe AniMangasController::ReviewsController do
               review2 = create :review, user: create(:user)
 
               patch :update, defaults.merge(id: review2.id, review: valid_hash)
-              Review.find(review2.id).text.should == review2.text
+              expect(Review.find(review2.id).text).to eq(review2.text)
 
-              response.should be_forbidden
+              expect(response).to be_forbidden
             end
           end
 
@@ -143,7 +143,7 @@ describe AniMangasController::ReviewsController do
             expect {
               patch :update, defaults.merge(id: review.id, review: { text: nil })
             }.to change(Review, :count).by(0)
-            response.should be_unprocessible_entiy
+            expect(response).to be_unprocessible_entiy
           end
         end
       end
@@ -174,7 +174,7 @@ describe AniMangasController::ReviewsController do
                 delete :destroy, defaults.merge(id: review2.id)
               }.to change(Review, :count).by(0)
 
-              response.should be_forbidden
+              expect(response).to be_forbidden
             end
           end
         end

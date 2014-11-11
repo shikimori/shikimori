@@ -1,4 +1,4 @@
-describe UserImage do
+describe UserImage, :type => :model do
   context :relations do
     it { should belong_to :user }
     it { should belong_to :linked }

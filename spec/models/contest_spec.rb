@@ -1,4 +1,4 @@
-describe Contest do
+describe Contest, :type => :model do
   context :relations do
     it { should belong_to :user }
     it { should have_many :links }
@@ -20,7 +20,7 @@ describe Contest do
     let(:contest) { create :contest, :with_5_members }
 
     it 'full cycle' do
-      contest.created?.should be_truthy
+      expect(contest.created?).to be_truthy
       contest.propose!
       contest.start!
       contest.finish!
@@ -34,17 +34,17 @@ describe Contest do
     describe :can_start? do
       subject { contest.can_start? }
       context 'normal count' do
-        before { contest.links.stub(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
+        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
         it { should be_truthy }
       end
 
       context 'Contest::MINIMUM_MEMBERS' do
-        before { contest.links.stub(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
+        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
         it { should be_falsy }
       end
 
       context 'Contest::MAXIMUM_MEMBERS' do
-        before { contest.links.stub(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
+        before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
         it { should be_falsy }
       end
     end
@@ -52,12 +52,12 @@ describe Contest do
     context 'before started' do
       it 'builds rounds' do
         contest.start!
-        contest.rounds.should_not be_empty
+        expect(contest.rounds).not_to be_empty
       end
 
       it 'fills first contest matches' do
         contest.start!
-        contest.rounds.first.matches.should_not be_empty
+        expect(contest.rounds.first.matches).not_to be_empty
       end
 
       context 'when started_on expired' do
@@ -65,12 +65,12 @@ describe Contest do
 
         it 'updates started_on' do
           contest.start!
-          contest.started_on.should eq Date.today
+          expect(contest.started_on).to eq Date.today
         end
 
         it 'rebuilds matches' do
           contest.prepare
-          contest.should_receive :prepare
+          expect(contest).to receive :prepare
           contest.start!
         end
       end
@@ -81,20 +81,20 @@ describe Contest do
 
       it 'creates thread' do
         contest.propose!
-        contest.reload.thread.present?.should be_truthy
+        expect(contest.reload.thread.present?).to be_truthy
       end
     end
 
     context 'after started' do
       it 'starts first round' do
         contest.start!
-        contest.rounds.first.started?.should be_truthy
+        expect(contest.rounds.first.started?).to be_truthy
       end
 
       let(:contest) { create :contest, :with_5_members, :with_thread }
       it 'creates thread' do
         contest.start!
-        contest.reload.thread.present?.should be_truthy
+        expect(contest.reload.thread.present?).to be_truthy
       end
     end
 
@@ -107,13 +107,13 @@ describe Contest do
 
             contest.update_attribute :user_vote_key, user_vote_key
             contest.start!
-            contest.stub(:can_finish?).and_return true
+            allow(contest).to receive(:can_finish?).and_return true
             contest.finish!
             contest.reload
           end
 
-          it { User.all.none? {|v| v.can_vote?(contest) }.should be true }
-          it { contest.finished_on.should eq Date.today }
+          it { expect(User.all.none? {|v| v.can_vote?(contest) }).to be true }
+          it { expect(contest.finished_on).to eq Date.today }
         end
       end
     end
@@ -134,7 +134,7 @@ describe Contest do
       end
 
       it 'create_rounds' do
-        contest.strategy.should_receive :create_rounds
+        expect(contest.strategy).to receive :create_rounds
         contest.prepare
       end
     end
@@ -156,19 +156,19 @@ describe Contest do
       it 'starts matches' do
         round.matches.last.state = 'created'
         contest.process!
-        round.matches.last.started?.should be_truthy
+        expect(round.matches.last.started?).to be_truthy
       end
 
       it 'finishes matches' do
         round.matches.last.finished_on = Date.yesterday
         contest.process!
-        round.matches.last.finished?.should be_truthy
+        expect(round.matches.last.finished?).to be_truthy
       end
 
       it 'finishes round' do
         round.matches.each {|v| v.finished_on = Date.yesterday }
         contest.process!
-        round.finished?.should be_truthy
+        expect(round.finished?).to be_truthy
       end
 
       context 'something was changed' do
@@ -178,7 +178,7 @@ describe Contest do
           contest.process!
         end
 
-        it { contest.updated_at.should_not eq @updated_at }
+        it { expect(contest.updated_at).not_to eq @updated_at }
       end
 
       context 'nothing was changed' do
@@ -187,7 +187,7 @@ describe Contest do
           contest.process!
         end
 
-        it { contest.updated_at.should eq @updated_at }
+        it { expect(contest.updated_at).to eq @updated_at }
       end
     end
 
@@ -196,22 +196,22 @@ describe Contest do
       before { contest.prepare }
 
       it 'first round' do
-        contest.current_round.should eq contest.rounds.first
+        expect(contest.current_round).to eq contest.rounds.first
       end
 
       it 'started round' do
-        contest.rounds[1].stub(:started?).and_return true
-        contest.current_round.should eq contest.rounds.second
+        allow(contest.rounds[1]).to receive(:started?).and_return true
+        expect(contest.current_round).to eq contest.rounds.second
       end
 
       it 'first created' do
-        contest.rounds[0].stub(:finished?).and_return true
-        contest.current_round.should eq contest.rounds.second
+        allow(contest.rounds[0]).to receive(:finished?).and_return true
+        expect(contest.current_round).to eq contest.rounds.second
       end
 
       it 'last round' do
         contest.state = 'finished'
-        contest.current_round.should eq contest.rounds.last
+        expect(contest.current_round).to eq contest.rounds.last
       end
     end
 
@@ -230,8 +230,8 @@ describe Contest do
       end
 
       it 'returns defeated entries' do
-        contest.defeated_by(members[0], round1).map(&:id).should eq [members[2].id, members[4].id]
-        contest.defeated_by(members[0], round2).map(&:id).should eq [members[2].id, members[4].id, members[3].id]
+        expect(contest.defeated_by(members[0], round1).map(&:id)).to eq [members[2].id, members[4].id]
+        expect(contest.defeated_by(members[0], round2).map(&:id)).to eq [members[2].id, members[4].id, members[3].id]
       end
     end
 

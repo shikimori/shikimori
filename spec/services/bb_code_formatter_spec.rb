@@ -2,8 +2,8 @@ describe BbCodeFormatter do
   let(:processor) { BbCodeFormatter.instance }
 
   it :remove_wiki_codes do
-    processor.remove_wiki_codes("[[test]]").should eq "test"
-    processor.remove_wiki_codes("[[test|123]]").should eq "123"
+    expect(processor.remove_wiki_codes("[[test]]")).to eq "test"
+    expect(processor.remove_wiki_codes("[[test|123]]")).to eq "123"
   end
 
   describe :paragraphs do

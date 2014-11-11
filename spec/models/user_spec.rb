@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe User do
+describe User, :type => :model do
   describe 'relations' do
     it { should have_one :preferences }
 
@@ -55,7 +55,7 @@ describe User do
   let(:topic) { create :topic }
 
   describe 'hooks' do
-    it { user.preferences.should be_persisted }
+    it { expect(user.preferences).to be_persisted }
 
     #it 'creates registration history entry' do
       #user.history.should have(1).item
@@ -97,17 +97,17 @@ describe User do
 
     it '#subscribed?' do
       create :subscription, user: user, target_id: topic.id, target_type: topic.class.name
-      user.subscribed?(topic).should be_truthy
+      expect(user.subscribed?(topic)).to be_truthy
     end
 
     describe '#ignores?' do
       it do
         user.ignored_users << user2
-        user.ignores?(user2).should be_truthy
+        expect(user.ignores?(user2)).to be_truthy
       end
 
       it do
-        user.ignores?(user2).should be_falsy
+        expect(user.ignores?(user2)).to be_falsy
       end
     end
 
@@ -119,7 +119,7 @@ describe User do
           user.subscribe(topic)
         }.to change(Subscription, :count).by 1
 
-        user.subscribed?(topic).should be_truthy
+        expect(user.subscribed?(topic)).to be_truthy
       end
 
       it 'only_once' do
@@ -138,7 +138,7 @@ describe User do
         user.unsubscribe(topic)
       }.to change(Subscription, :count).by -1
 
-      User.find(user.id).subscribed?(topic).should be_falsy
+      expect(User.find(user.id).subscribed?(topic)).to be_falsy
     end
 
     context 'when profile is commented' do
@@ -149,9 +149,9 @@ describe User do
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
         }.to change(Message, :count).by 1
         message = Message.last
-        message.kind.should == MessageType::ProfileCommented
-        message.from_id.should eq user1.id
-        message.to_id.should eq user2.id
+        expect(message.kind).to eq(MessageType::ProfileCommented)
+        expect(message.from_id).to eq user1.id
+        expect(message.to_id).to eq user2.id
       end
 
       it "two times, then only one MessageType::ProfileCommented notification is created" do
@@ -163,9 +163,9 @@ describe User do
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
         }.to change(Message, :count).by 1
         message = Message.last
-        message.kind.should == MessageType::ProfileCommented
-        message.from_id.should eq user1.id
-        message.to_id.should eq user2.id
+        expect(message.kind).to eq(MessageType::ProfileCommented)
+        expect(message.from_id).to eq user1.id
+        expect(message.to_id).to eq user2.id
       end
 
       it "by its owner, then no MessageType::ProfileCommented notification is created" do
@@ -185,9 +185,9 @@ describe User do
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
         }.to change(Message, :count).by 2
         message = Message.last
-        message.kind.should eq MessageType::ProfileCommented
-        message.from_id.should eq user3.id
-        message.to_id.should eq user2.id
+        expect(message.kind).to eq MessageType::ProfileCommented
+        expect(message.from_id).to eq user3.id
+        expect(message.to_id).to eq user2.id
       end
     end
 
@@ -202,7 +202,7 @@ describe User do
       user2.current_sign_in_ip = ip
       user2.prolongate_ban
 
-      user2.read_only_at.to_i.should eq read_only_at.to_i
+      expect(user2.read_only_at.to_i).to eq read_only_at.to_i
     end
 
     describe '#banned?' do

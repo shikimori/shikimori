@@ -1,4 +1,4 @@
-describe Moderation::AbuseRequestsController do
+describe Moderation::AbuseRequestsController, :type => :controller do
   before { sign_in create(:user, id: 1) }
 
   describe :index do
@@ -20,7 +20,7 @@ describe Moderation::AbuseRequestsController do
 
       context :result do
         after { post method, comment_id: comment.id }
-        it { AbuseRequestsService.any_instance.should_receive method }
+        it { expect_any_instance_of(AbuseRequestsService).to receive method }
       end
     end
   end

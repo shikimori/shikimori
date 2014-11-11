@@ -9,7 +9,7 @@ describe AnimeVideoDecorator do
     end
 
     context :second_episode do
-      before { AnimeVideoDecorator.any_instance.stub(:current_episode).and_return 2 }
+      before { allow_any_instance_of(AnimeVideoDecorator).to receive(:current_episode).and_return 2 }
       it { should eq BbCodeFormatter.instance.format_description('test', anime) }
     end
   end
@@ -101,7 +101,7 @@ describe AnimeVideoDecorator do
 
   describe :try_select_by do
     subject { AnimeVideoDecorator.new(anime).try_select_by kind.to_s, hosting, author_id }
-    before { AnimeVideoDecorator.any_instance.stub(:current_videos).and_return videos }
+    before { allow_any_instance_of(AnimeVideoDecorator).to receive(:current_videos).and_return videos }
     let(:anime) { build :anime }
 
     context :author_nil do
@@ -131,7 +131,7 @@ describe AnimeVideoDecorator do
   describe :current_author do
     subject { AnimeVideoDecorator.new(anime).current_author }
     let(:anime) { build :anime }
-    before { AnimeVideoDecorator.any_instance.stub(:current_video).and_return video }
+    before { allow_any_instance_of(AnimeVideoDecorator).to receive(:current_video).and_return video }
 
     context :current_video_nil do
       let(:video) { nil }

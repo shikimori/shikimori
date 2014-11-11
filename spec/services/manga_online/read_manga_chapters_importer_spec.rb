@@ -16,8 +16,8 @@ describe MangaOnline::ReadMangaChaptersImporter do
       let(:chapters) { [chapter1, chapter2] }
       before { create :manga_chapter, manga: manga, url: 'http://1.ru' }
 
-      specify { subject.first.url.should eq chapter1.url }
-      specify { subject.second.url.should eq chapter2.url }
+      specify { expect(subject.first.url).to eq chapter1.url }
+      specify { expect(subject.second.url).to eq chapter2.url }
       it { expect { subject }.to change(MangaChapter, :count).by 1 }
     end
   end

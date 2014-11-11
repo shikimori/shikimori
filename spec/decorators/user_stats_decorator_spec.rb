@@ -31,7 +31,7 @@ describe UserStatsDecorator do
   end
 
   describe '#spent_percent' do
-    before { stats.stub(:spent_time).and_return SpentTime.new(interval) }
+    before { allow(stats).to receive(:spent_time).and_return SpentTime.new(interval) }
     subject { stats.spent_time_percent }
 
     context 'none' do
@@ -96,7 +96,7 @@ describe UserStatsDecorator do
   end
 
   describe '#spent_time_in_words' do
-    before { stats.stub(:spent_time).and_return SpentTime.new(interval) }
+    before { allow(stats).to receive(:spent_time).and_return SpentTime.new(interval) }
     subject { stats.spent_time_in_words }
 
     context 'none' do

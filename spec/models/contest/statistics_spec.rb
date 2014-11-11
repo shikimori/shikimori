@@ -1,4 +1,4 @@
-describe Contest::Statistics do
+describe Contest::Statistics, :type => :model do
   let(:contest) { build_stubbed :contest }
   let(:statistics) { contest.strategy.statistics }
 
@@ -18,21 +18,21 @@ describe Contest::Statistics do
   let(:anime3) { build_stubbed :anime }
   let(:anime4) { build_stubbed :anime }
 
-  before { statistics.stub(:rounds).and_return [round1, round2, round3] }
+  before { allow(statistics).to receive(:rounds).and_return [round1, round2, round3] }
   before do
     statistics.rounds.each do |round|
-      round.matches.stub_chain(:with_votes, :includes).and_return round.matches
+      allow(round.matches).to receive_message_chain(:with_votes, :includes).and_return round.matches
 
       round.matches.each do |match|
-        match.stub(:left_votes).and_return 0
-        match.stub(:right_votes).and_return 0
+        allow(match).to receive(:left_votes).and_return 0
+        allow(match).to receive(:right_votes).and_return 0
       end
     end
 
-    match1.stub(:left_votes).and_return 2
-    match1.stub(:right_votes).and_return 1
-    match3.stub(:left_votes).and_return 1
-    match5.stub(:left_votes).and_return 1
+    allow(match1).to receive(:left_votes).and_return 2
+    allow(match1).to receive(:right_votes).and_return 1
+    allow(match3).to receive(:left_votes).and_return 1
+    allow(match5).to receive(:left_votes).and_return 1
   end
 
   describe :committed_matches do

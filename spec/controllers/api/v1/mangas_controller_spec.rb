@@ -1,4 +1,4 @@
-describe Api::V1::MangasController do
+describe Api::V1::MangasController, :type => :controller do
   describe :index do
     let(:user) { create :user }
     let(:genre) { create :genre }
@@ -11,7 +11,7 @@ describe Api::V1::MangasController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }
-    specify { assigns(:collection).should have(1).item }
+    specify { expect(assigns(:collection).size).to eq(1) }
   end
 
   describe :show do
@@ -29,7 +29,7 @@ describe Api::V1::MangasController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }
-    specify { assigns(:collection).should have(1).item }
+    specify { expect(assigns(:collection).size).to eq(1) }
   end
 
   describe :roles do
@@ -42,7 +42,7 @@ describe Api::V1::MangasController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }
-    specify { assigns(:collection).should have(2).items }
+    specify { expect(assigns(:collection).size).to eq(2) }
   end
 
   describe :related do
@@ -52,6 +52,6 @@ describe Api::V1::MangasController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }
-    specify { assigns(:collection).should have(1).item }
+    specify { expect(assigns(:collection).size).to eq(1) }
   end
 end

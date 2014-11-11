@@ -1,4 +1,4 @@
-describe Api::V1::AuthenticityTokensController do
+describe Api::V1::AuthenticityTokensController, :type => :controller do
   describe :show do
     before { get :show }
 

@@ -1,6 +1,6 @@
 require 'deep_struct'
 
-describe Users::OmniauthCallbacksController do
+describe Users::OmniauthCallbacksController, :type => :controller do
   [:facebook, :twitter, :vkontakte].each do |provider|
     context provider do
       let(:uid) { 'test' }

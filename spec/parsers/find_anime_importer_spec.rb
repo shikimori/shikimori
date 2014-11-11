@@ -8,7 +8,7 @@ describe FindAnimeImporter do
     let(:last_episodes) { false }
     let(:pages) { [0] }
     let(:ids) { [] }
-    before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier] }
+    before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier] }
 
     describe :video do
       context :no_videos do
@@ -37,7 +37,7 @@ describe FindAnimeImporter do
       end
 
       context 'same anime twice' do
-        before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier, identifier] }
+        before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier, identifier] }
         it { expect{subject}.to change(AnimeVideo, :count).by 6 }
       end
     end
@@ -53,12 +53,12 @@ describe FindAnimeImporter do
           let(:last_episodes) { false }
           before do
             episode = 0
-            FindAnimeParser.any_instance.stub(:fetch_videos).and_return do
+            allow_any_instance_of(FindAnimeParser).to receive(:fetch_videos) do
               episode += 1
               { episode: episode }
             end
-            AnimeVideo.stub :import
-            importer.should_receive(:build_video).exactly(13).times
+            allow(AnimeVideo).to receive :import
+            expect(importer).to receive(:build_video).exactly(13).times
           end
 
           it { should be_nil }
@@ -69,12 +69,12 @@ describe FindAnimeImporter do
           let!(:anime_video) { create :anime_video, episode: 10, anime: anime }
           before do
             episode = 0
-            FindAnimeParser.any_instance.stub(:fetch_videos).and_return do
+            allow_any_instance_of(FindAnimeParser).to receive(:fetch_videos) do
               episode += 1
               { episode: episode }
             end
-            AnimeVideo.stub :import
-            importer.should_receive(:build_video).exactly(6).times
+            allow(AnimeVideo).to receive :import
+            expect(importer).to receive(:build_video).exactly(6).times
           end
 
           it { should be_nil }
@@ -88,8 +88,8 @@ describe FindAnimeImporter do
       let(:ids) { ['good_morning_call', 'dakara_boku_wa__h_ga_dekinai_ova'] }
       let(:pages) { [] }
       before do
-        AnimeVideo.stub :import
-        importer.should_receive(:build_video).exactly(4).times
+        allow(AnimeVideo).to receive :import
+        expect(importer).to receive(:build_video).exactly(4).times
       end
       it { should be_nil }
     end
@@ -124,21 +124,21 @@ describe FindAnimeImporter do
     describe :mismatched_entries do
       describe :unmatched do
         let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
-        before { importer.should_receive(:import_videos).exactly(0).times }
+        before { expect(importer).to receive(:import_videos).exactly(0).times }
         it { expect{subject}.to raise_error MismatchedEntries, "unmatched: #{identifier}" }
       end
 
       describe :ambiguous do
         let!(:anime_2) { create :anime, name: 'Триплексоголик OVA-1' }
-        before { importer.should_receive(:import_videos).exactly(0).times }
+        before { expect(importer).to receive(:import_videos).exactly(0).times }
         it { expect{subject}.to raise_error MismatchedEntries, "ambiguous: #{identifier} (#{anime_2.id}, #{anime.id})" }
       end
 
       describe :twice_matched do
         let(:identifier2) { 'kuroko_no_basket_2' }
         let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki', russian: 'Kuroko no Basket 2' }
-        before { FindAnimeParser.any_instance.stub(:fetch_page_links).and_return [identifier, identifier2] }
-        before { importer.should_receive(:import_videos).exactly(0).times }
+        before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier, identifier2] }
+        before { expect(importer).to receive(:import_videos).exactly(0).times }
 
         it { expect{subject}.to raise_error MismatchedEntries, "twice matched: #{anime.id} (#{identifier}, #{identifier2})" }
 
@@ -156,7 +156,7 @@ describe FindAnimeImporter do
     describe :ignores do
       let(:identifier) { 'the_last_airbender__the_legend_of_korra_first_book_air' }
       let!(:anime) { create :anime, name: 'The Last Airbender: The Legend of Korra.First book:Air' }
-      before { importer.should_receive(:import_videos).exactly(0).times }
+      before { expect(importer).to receive(:import_videos).exactly(0).times }
 
       it { should be_nil }
     end
@@ -164,7 +164,7 @@ describe FindAnimeImporter do
     describe :one_episode do
       let(:identifier) { 'aria_the_scarlet_ammo_ova' }
       let!(:anime) { create :anime, name: 'Hidan no Aria [OVA]', id: 10604 }
-      before { importer.should_receive(:import_videos).exactly(1).times }
+      before { expect(importer).to receive(:import_videos).exactly(1).times }
 
       it { should be_nil }
     end
@@ -173,10 +173,10 @@ describe FindAnimeImporter do
       let(:identifier) { 'steel_fenders' }
       let!(:anime) { create :anime, name: 'Steel Fenders' }
       before do
-        FindAnimeParser.any_instance.stub(:fetch_pages).and_return do
+        allow_any_instance_of(FindAnimeParser).to receive(:fetch_pages) do
           [{ videos: [{episode: 1}], categories: ['amv'], names: ['Steel Fenders'], id: 'test' }]
         end
-        importer.should_receive(:import_videos).exactly(0).times
+        expect(importer).to receive(:import_videos).exactly(0).times
       end
 
       it { should be_nil }

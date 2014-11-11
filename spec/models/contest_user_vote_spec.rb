@@ -1,4 +1,4 @@
-describe ContestUserVote do
+describe ContestUserVote, :type => :model do
   context :relations do
     it { should belong_to :match }
     it { should belong_to :user }

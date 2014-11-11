@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe ContestsController do
+describe ContestsController, :type => :controller do
   let(:user) { create :user, id: 1 }
   before { sign_in user }
 
@@ -159,7 +159,7 @@ describe ContestsController do
     before { post :cleanup_suggestions, id: contest.to_param }
 
     #it { should redirect_to edit_contest_url(id: resource.to_param) }
-    it { expect(resource.suggestions).to have(1).item }
+    it { expect(resource.suggestions.size).to eq(1) }
   end
 
   describe '#stop_propose' do
@@ -186,7 +186,7 @@ describe ContestsController do
     before { post :build, id: contest.to_param }
 
     it { should redirect_to edit_contest_url(id: resource.to_param) }
-    it { expect(resource.rounds).to have(6).items }
+    it { expect(resource.rounds.size).to eq(6) }
   end
 
   describe :permissions do

@@ -12,7 +12,7 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
 
     context 'without wont watch' do
       it 'properly parsed' do
-        expect(parsed).to have(6).items
+        expect(parsed.size).to eq(6)
 
         expect(parsed[0]).to eq(name: "Attack on Titan", status: UserRate.status_id(:completed), score: 4.0, year: 2013, episodes: 25, id: nil)
         expect(parsed[1]).to eq(name: "Black Bullet", id: anime_1.id, status: UserRate.status_id(:dropped), score: 4.0, episodes: 5, year: 2014)
@@ -26,7 +26,7 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
     context 'with wont watch' do
       let(:wont_watch_strategy) { UserRate.status_id :dropped }
       it 'properly parsed' do
-        expect(parsed).to have(6).items
+        expect(parsed.size).to eq(6)
 
         expect(parsed[0]).to eq(name: "Attack on Titan", status: UserRate.status_id(:completed), score: 4.0, year: 2013, episodes: 25, id: nil)
         expect(parsed[1]).to eq(name: "Black Bullet", id: anime_1.id, status: UserRate.status_id(:dropped), score: 4.0, episodes: 5, year: 2014)
@@ -43,7 +43,7 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
     let!(:manga) { create :manga, name: 'Maid Sama!' }
 
     it 'properly parsed' do
-      expect(parsed).to have(1).item
+      expect(parsed.size).to eq(1)
       expect(parsed[0]).to eq(name: "Maid Sama!", status: 2, score: 6.0, year: 2005, volumes: 18, chapters: 0, id: manga.id)
     end
   end

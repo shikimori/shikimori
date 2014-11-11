@@ -1,4 +1,4 @@
-describe Api::V1::TopicsController do
+describe Api::V1::TopicsController, :type => :controller do
   describe :index do
     let(:section) { create :section }
     let!(:topic) { create :entry, section: section, text: 'test [spoiler=спойлер]test[/spoiler] test' }
@@ -7,7 +7,7 @@ describe Api::V1::TopicsController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }
-    specify { assigns(:topics).should have(1).item }
+    specify { expect(assigns(:topics).size).to eq(1) }
   end
 
   describe :show do

@@ -1,4 +1,4 @@
-describe Api::V1::ClubsController do
+describe Api::V1::ClubsController, :type => :controller do
   describe :index do
     let(:user) { create :user }
     let(:club_1) { create :group }
@@ -12,7 +12,7 @@ describe Api::V1::ClubsController do
 
     it { should respond_with :success }
     it { should respond_with_content_type :json }
-    specify { assigns(:collection).should have(2).items }
+    specify { expect(assigns(:collection).size).to eq(2) }
   end
 
   describe :show do

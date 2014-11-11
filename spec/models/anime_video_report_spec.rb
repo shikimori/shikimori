@@ -1,4 +1,4 @@
-describe AnimeVideoReport do
+describe AnimeVideoReport, :type => :model do
   describe :relations do
     it { should belong_to :anime_video }
     it { should belong_to :user }
@@ -53,7 +53,7 @@ describe AnimeVideoReport do
         let!(:rejected_report) { create :anime_video_report, state: 'rejected' }
 
         its(:count) { should eq 2 }
-        specify { subject.include?(pending_report).should be_falsy }
+        specify { expect(subject.include?(pending_report)).to be_falsy }
       end
     end
   end
@@ -170,23 +170,23 @@ describe AnimeVideoReport do
           describe '#accept' do
             before { report_1.accept approver }
 
-            specify { report_2.reload.should be_accepted }
-            specify { report_2.reload.approver_id.should eq approver.id }
-            specify { report_3.reload.should be_accepted }
-            specify { report_3.reload.approver_id.should eq approver.id }
-            specify { report_other_kind.reload.should be_pending }
-            specify { report_other_kind.reload.approver_id.should be_nil }
+            specify { expect(report_2.reload).to be_accepted }
+            specify { expect(report_2.reload.approver_id).to eq approver.id }
+            specify { expect(report_3.reload).to be_accepted }
+            specify { expect(report_3.reload.approver_id).to eq approver.id }
+            specify { expect(report_other_kind.reload).to be_pending }
+            specify { expect(report_other_kind.reload.approver_id).to be_nil }
           end
 
           describe '#reject' do
             before { report_1.reject approver }
 
-            specify { report_2.reload.should be_rejected }
-            specify { report_2.reload.approver_id.should eq approver.id }
-            specify { report_3.reload.should be_rejected }
-            specify { report_3.reload.approver_id.should eq approver.id }
-            specify { report_other_kind.reload.should be_pending }
-            specify { report_other_kind.reload.approver_id.should be_nil }
+            specify { expect(report_2.reload).to be_rejected }
+            specify { expect(report_2.reload.approver_id).to eq approver.id }
+            specify { expect(report_3.reload).to be_rejected }
+            specify { expect(report_3.reload.approver_id).to eq approver.id }
+            specify { expect(report_other_kind.reload).to be_pending }
+            specify { expect(report_other_kind.reload.approver_id).to be_nil }
           end
         end
 
@@ -197,23 +197,23 @@ describe AnimeVideoReport do
           describe '#accept' do
             before { report_1.accept approver }
 
-            specify { report_2.reload.should be_accepted }
-            specify { report_2.reload.approver_id.should eq approver.id }
-            specify { report_3.reload.should be_accepted }
-            specify { report_3.reload.approver_id.should eq approver.id }
-            specify { report_other_kind.reload.should be_pending }
-            specify { report_other_kind.reload.approver_id.should be_nil }
+            specify { expect(report_2.reload).to be_accepted }
+            specify { expect(report_2.reload.approver_id).to eq approver.id }
+            specify { expect(report_3.reload).to be_accepted }
+            specify { expect(report_3.reload.approver_id).to eq approver.id }
+            specify { expect(report_other_kind.reload).to be_pending }
+            specify { expect(report_other_kind.reload.approver_id).to be_nil }
           end
 
           describe '#reject' do
             before { report_1.reject approver }
 
-            specify { report_2.reload.should be_rejected }
-            specify { report_2.reload.approver_id.should eq approver.id }
-            specify { report_3.reload.should be_rejected }
-            specify { report_3.reload.approver_id.should eq approver.id }
-            specify { report_other_kind.reload.should be_pending }
-            specify { report_other_kind.reload.approver_id.should be_nil }
+            specify { expect(report_2.reload).to be_rejected }
+            specify { expect(report_2.reload.approver_id).to eq approver.id }
+            specify { expect(report_3.reload).to be_rejected }
+            specify { expect(report_3.reload.approver_id).to eq approver.id }
+            specify { expect(report_other_kind.reload).to be_pending }
+            specify { expect(report_other_kind.reload.approver_id).to be_nil }
           end
         end
       end
@@ -227,12 +227,12 @@ describe AnimeVideoReport do
             report_1.cancel approver
           end
 
-          specify { report_2.reload.should be_pending }
-          specify { report_2.reload.approver_id.should eq approver.id }
-          specify { report_3.reload.should be_pending }
-          specify { report_3.reload.approver_id.should eq approver.id }
-          specify { report_other_kind.reload.should be_pending }
-          specify { report_other_kind.reload.approver_id.should be_nil }
+          specify { expect(report_2.reload).to be_pending }
+          specify { expect(report_2.reload.approver_id).to eq approver.id }
+          specify { expect(report_3.reload).to be_pending }
+          specify { expect(report_3.reload.approver_id).to eq approver.id }
+          specify { expect(report_other_kind.reload).to be_pending }
+          specify { expect(report_other_kind.reload.approver_id).to be_nil }
         end
       end
     end

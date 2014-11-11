@@ -1,4 +1,4 @@
-describe GroupBan do
+describe GroupBan, :type => :model do
   context :relations do
     it { should belong_to :group }
     it { should belong_to :user }

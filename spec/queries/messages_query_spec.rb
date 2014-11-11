@@ -15,7 +15,9 @@ describe MessagesQuery do
       let!(:private_2) { create :message, kind: MessageType::Private, to: user, from: user_2, dst_del: true }
       let(:type) { :inbox }
 
-      it { should have(1).item }
+      it 'has 1 item' do
+        expect(subject.size).to eq(1)
+      end
       its(:first) { should eq private }
     end
 
@@ -23,13 +25,17 @@ describe MessagesQuery do
       let!(:sent_2) { create :message, kind: MessageType::Private, to: user_2, from: user, src_del: true }
       let(:type) { :sent }
 
-      it { should have(1).item }
+      it 'has 1 item' do
+        expect(subject.size).to eq(1)
+      end
       its(:first) { should eq sent }
     end
 
     describe :news do
       let(:type) { :news }
-      it { should have(1).item }
+      it 'has 1 item' do
+        expect(subject.size).to eq(1)
+      end
       its(:first) { should eq news }
     end
 
@@ -38,7 +44,9 @@ describe MessagesQuery do
       let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 3.hours.ago }
       let(:type) { :notifications }
 
-      it { should have(2).item }
+      it 'has 2 item' do
+        expect(subject.size).to eq(2)
+      end
       its(:first) { should eq notification_2 }
     end
   end

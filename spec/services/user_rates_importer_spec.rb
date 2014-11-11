@@ -36,12 +36,12 @@ describe UserRatesImporter do
 
     context 'everything is matched' do
       it 'properly imported'do
-        expect(added).to have(2).items
+        expect(added.size).to eq(2)
         expect(updated).to be_empty
         expect(not_imported).to be_empty
 
         rates = user.reload.anime_rates.to_a
-        expect(rates).to have(2).items
+        expect(rates.size).to eq(2)
         expect(rates.first.target_id).to eq anime_1_id
         expect(rates.first).to be_watching
         expect(rates.first.rewatches).to eq 2
@@ -57,11 +57,11 @@ describe UserRatesImporter do
       let(:anime_1_id) { nil }
 
       it 'properly imported'do
-        expect(added).to have(1).item
+        expect(added.size).to eq(1)
         expect(updated).to be_empty
-        expect(not_imported).to have(1).item
+        expect(not_imported.size).to eq(1)
 
-        expect(user.reload.anime_rates).to have(1).item
+        expect(user.reload.anime_rates.size).to eq(1)
       end
     end
 
@@ -69,11 +69,11 @@ describe UserRatesImporter do
       let(:anime_1_status) { nil }
 
       it 'properly imported'do
-        expect(added).to have(1).item
+        expect(added.size).to eq(1)
         expect(updated).to be_empty
-        expect(not_imported).to have(1).item
+        expect(not_imported.size).to eq(1)
 
-        expect(user.reload.anime_rates).to have(1).item
+        expect(user.reload.anime_rates.size).to eq(1)
       end
     end
   end
@@ -86,10 +86,10 @@ describe UserRatesImporter do
       let(:with_replace) { true }
 
       it 'properly imported'do
-        expect(added).to have(1).item
-        expect(updated).to have(1).item
+        expect(added.size).to eq(1)
+        expect(updated.size).to eq(1)
         expect(not_imported).to be_empty
-        expect(user.reload.anime_rates).to have(2).items
+        expect(user.reload.anime_rates.size).to eq(2)
       end
     end
 
@@ -97,10 +97,10 @@ describe UserRatesImporter do
       let(:with_replace) { false }
 
       it 'properly imported'do
-        expect(added).to have(1).item
+        expect(added.size).to eq(1)
         expect(updated).to be_empty
         expect(not_imported).to be_empty
-        expect(user.reload.anime_rates).to have(2).items
+        expect(user.reload.anime_rates.size).to eq(2)
       end
     end
   end

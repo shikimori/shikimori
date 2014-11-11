@@ -1,4 +1,4 @@
-describe GenresController do
+describe GenresController, :type => :controller do
   let!(:genre) { create :genre }
   before { sign_in create(:user, id: 1) }
 
@@ -15,7 +15,7 @@ describe GenresController do
   describe :update do
     before { patch :update, id: genre.id, genre: { description: 'new description' } }
     it { should redirect_to genres_url }
-    it { genre.reload.description.should eq 'new description' }
+    it { expect(genre.reload.description).to eq 'new description' }
   end
 
   describe :tooltip do

@@ -8,9 +8,9 @@ describe UsersQuery do
     end
     subject { -> (phrase) { UsersQuery.new(search: phrase).complete } }
 
-    it { subject.call('test').should have(2).items }
-    it { subject.call('z').should have(1).item }
-    it { subject.call('fofo').should have(0).items }
+    it { expect(subject.call('test').size).to eq(2) }
+    it { expect(subject.call('z').size).to eq(1) }
+    it { expect(subject.call('fofo').size).to eq(0) }
   end
 
   describe :bans_count do

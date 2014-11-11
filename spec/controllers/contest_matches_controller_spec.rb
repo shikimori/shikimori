@@ -1,4 +1,4 @@
-describe ContestMatchesController do
+describe ContestMatchesController, :type => :controller do
   let(:match) { create :contest_match, state: 'started' }
 
   describe :show do
@@ -15,7 +15,7 @@ describe ContestMatchesController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :json }
-      it { assigns(:match).votes.should have(1).item }
+      it { expect(assigns(:match).votes.size).to eq(1) }
     end
 
     context 'has user_id vote' do
@@ -27,9 +27,9 @@ describe ContestMatchesController do
 
       it { should respond_with :success }
       it { should respond_with_content_type :json }
-      it { assigns(:match).votes.should have(1).item }
-      it { json['variant'].should eq 'right' }
-      it { json['vote_id'].should eq match.id }
+      it { expect(assigns(:match).votes.size).to eq(1) }
+      it { expect(json['variant']).to eq 'right' }
+      it { expect(json['vote_id']).to eq match.id }
     end
 
     context 'has ip vote' do
@@ -40,7 +40,7 @@ describe ContestMatchesController do
 
       it { should respond_with 422 }
       it { should respond_with_content_type :json }
-      it { assigns(:match).votes.should have(1).item }
+      it { expect(assigns(:match).votes.size).to eq(1) }
     end
   end
 end

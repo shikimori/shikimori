@@ -1,5 +1,5 @@
 describe SiteParserWithCache do
-  before (:each) { SiteParserWithCache.stub(:cache_name).and_return('test') }
+  before (:each) { allow(SiteParserWithCache).to receive(:cache_name).and_return('test') }
 
   let (:parser) {
     SiteParserWithCache.new
@@ -9,6 +9,6 @@ describe SiteParserWithCache do
     parser.cache = {:zxc => true, 'тест' => 'даyes'}
     parser.save_cache
 
-    SiteParserWithCache.new.cache.should == {:zxc => true, 'тест' => 'даyes'}
+    expect(SiteParserWithCache.new.cache).to eq({:zxc => true, 'тест' => 'даyes'})
   end
 end
