@@ -32,10 +32,9 @@ class Entry < ActiveRecord::Base
   Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment']
 
   # видимые топики
-  scope :wo_generated, -> { where("action != ? or action is null", AnimeHistoryAction::Episode)
-    .where("(comments_count > 0 and generated = true) or generated = false ") }
+  scope :wo_generated, -> { wo_episodes.where("(comments_count > 0 and generated = true) or generated = false ") }
   # топики без топиков о выходе эпизодов
-  scope :wo_episodes, -> { where.not action: AnimeHistoryAction::Episode }
+  scope :wo_episodes, -> { where 'action is null or action != ?', AnimeHistoryAction::Episode }
 
   scope :order_default, -> { order updated_at: :desc }
 
