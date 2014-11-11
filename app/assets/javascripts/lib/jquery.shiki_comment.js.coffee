@@ -68,8 +68,9 @@ class @ShikiComment extends ShikiView
     # пометка комментария обзором/оффтопиком
     @$('.item-review,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
       if 'affected_ids' of data && data.affected_ids.length
-        @$root.trigger 'comment:marker', [data]
-        $.notice marker_message(data)
+        data.affected_ids.each (id) ->
+          $(".b-comment##{id}").data('object').mark(data.kind, data.value)
+          $.notice marker_message(data)
       else
         $.notice 'Ваш запрос будет рассмотрен. Домо.'
 
@@ -119,6 +120,11 @@ class @ShikiComment extends ShikiView
     @on 'faye:comment:deleted', (e, data) =>
       @_replace "<div class='b-comment-info b-comment'><span>Комментарий удалён пользователем</span><a href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
 
+  # пометка комментария маркером (оффтопик/отзыв)
+  mark: (kind, value) ->
+    @$(".item-#{kind}").toggleClass('selected', value)
+    @$(".b-#{kind}_marker").toggle(value)
+
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
@@ -131,13 +137,13 @@ class @ShikiComment extends ShikiView
 
   # замена комментария другим контентом
   _replace: (html) ->
-      $replaced_comment = $(html)
-      @$root.replaceWith($replaced_comment)
+    $replaced_comment = $(html)
+    @$root.replaceWith($replaced_comment)
 
-      $replaced_comment
-        .process()
-        .shiki_comment()
-        .yellowFade()
+    $replaced_comment
+      .process()
+      .shiki_comment()
+      .yellowFade()
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->
