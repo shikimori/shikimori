@@ -143,7 +143,6 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'timecop'
   gem 'vcr'
-  gem 'webmock'
 end
 
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
