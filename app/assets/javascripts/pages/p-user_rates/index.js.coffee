@@ -25,6 +25,10 @@ filter_timer = null
 
     filter_timer = setInterval filter, 350
 
+  # клик разделам списка в b-options-floated блоке
+  $('.b-options-floated.mylist .link').on 'click', ->
+    $(".anime-params.mylist .mylist-#{$(@).data 'id'}").click()
+
   base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')
   new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true

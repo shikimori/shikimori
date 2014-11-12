@@ -5,9 +5,9 @@
   .menu-slide-outer
     .menu-slide-inner
       .l-content
-        .b-options-floated
+        .b-options-floated.mylist
           - @resource.list.counts.each do |stat|
-            span.linkeable.always-active data-id="#{stat[:id]}" class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').map(&:to_i).include?(stat[:id])}"
+            .link.always-active data-id="#{stat[:id]}" class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').map(&:to_i).include?(stat[:id])}"
               = UserRate.status_name stat[:name], @resource.list.klass.name
               | &nbsp;
               span = stat[:size]
