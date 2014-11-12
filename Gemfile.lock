@@ -112,7 +112,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 6625000b73f520abf6e0afbd5a6dde8d6b06b7cc
+  revision: 6ff78469cd70ce821dd1455f3607780863f5a9d7
   branch: master
   specs:
     actionmailer (4.2.0.beta4)
@@ -396,7 +396,7 @@ GEM
       yajl-ruby
     mime-types (2.4.3)
     mini_portile (0.6.1)
-    minitest (5.4.2)
+    minitest (5.4.3)
     mobylette (3.5)
       actionpack (>= 3.0)
     multi_json (1.10.1)
