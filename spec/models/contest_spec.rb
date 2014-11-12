@@ -1,5 +1,7 @@
+require 'cancan/matchers'
+
 describe Contest, :type => :model do
-  context :relations do
+  describe 'relations' do
     it { should belong_to :user }
     it { should have_many :links }
     it { should have_many :rounds }
@@ -7,7 +9,7 @@ describe Contest, :type => :model do
     it { should have_one :thread }
   end
 
-  context :validations do
+  describe 'validations' do
     it { should validate_presence_of :title }
     it { should validate_presence_of :user }
     it { should validate_presence_of :strategy_type }
@@ -16,7 +18,7 @@ describe Contest, :type => :model do
     it { should validate_presence_of :user_vote_key }
   end
 
-  context :state_machine do
+  describe 'state_machine' do
     let(:contest) { create :contest, :with_5_members }
 
     it 'full cycle' do
@@ -119,8 +121,8 @@ describe Contest, :type => :model do
     end
   end
 
-  describe :instance_methods do
-    describe :prepare do
+  describe 'instance methods' do
+    describe '#prepare' do
       let(:contest) { create :contest, :with_5_members }
 
       it 'deletes existing rounds' do
@@ -139,7 +141,7 @@ describe Contest, :type => :model do
       end
     end
 
-    describe :cleanup_suggestions do
+    describe '#cleanup_suggestions' do
       let(:contest) { create :contest, :proposing }
       let!(:contest_suggestion_1) { create :contest_suggestion, contest: contest, user: contest.user }
       let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, sign_in_count: 999) }
@@ -148,7 +150,7 @@ describe Contest, :type => :model do
       it { expect(contest.suggestions).to eq [contest_suggestion_2] }
     end
 
-    describe :process! do
+    describe '#process!' do
       let(:contest) { create :contest, :with_5_members }
       let(:round) { contest.current_round }
       before { contest.start! }
@@ -191,7 +193,7 @@ describe Contest, :type => :model do
       end
     end
 
-    describe :current_round do
+    describe '#current_round' do
       let(:contest) { create :contest, :with_5_members }
       before { contest.prepare }
 
@@ -215,7 +217,7 @@ describe Contest, :type => :model do
       end
     end
 
-    describe :defeated_by do
+    describe '#defeated_by' do
       let(:contest) { create :contest }
       let(:round1) { create :contest_round, contest_id: contest.id }
       let(:round2) { create :contest_round, contest_id: contest.id }
@@ -235,7 +237,7 @@ describe Contest, :type => :model do
       end
     end
 
-    describe :user_vote_key do
+    describe '#user_vote_key' do
       subject { contest.user_vote_key }
       let(:contest) { create :contest, user_vote_key: vote_key }
 
@@ -261,7 +263,7 @@ describe Contest, :type => :model do
       end
     end
 
-    describe :strategy do
+    describe '#strategy' do
       subject { create :contest, strategy_type: strategy_type }
 
       context :double_elimination do
@@ -275,7 +277,7 @@ describe Contest, :type => :model do
       end
     end
 
-    describe :member_klass do
+    describe '#member_klass' do
       let(:contest) { create :contest, member_type: member_type }
       subject { contest.member_klass }
 
@@ -291,8 +293,8 @@ describe Contest, :type => :model do
     end
   end
 
-  context :class_methods do
-    describe :current do
+  context '#class_methods' do
+    describe 'current' do
       subject { Contest.current.map(&:id) }
 
       context 'nothing' do
@@ -324,6 +326,27 @@ describe Contest, :type => :model do
           it { should eq [contest.id] }
         end
       end
+    end
+  end
+
+  describe 'permissions' do
+    let(:contest) { build_stubbed :contest }
+
+    context 'contests_moderator' do
+      subject { Ability.new build_stubbed(:user, :contests_moderator) }
+      it { should be_able_to :manage, contest }
+    end
+
+    context 'guest' do
+      subject { Ability.new nil }
+      it { should be_able_to :see_contest, contest }
+      it { should_not be_able_to :manage, contest }
+    end
+
+    context 'user' do
+      subject { Ability.new build_stubbed(:user) }
+      it { should be_able_to :see_contest, contest }
+      it { should_not be_able_to :manage, contest }
     end
   end
 end

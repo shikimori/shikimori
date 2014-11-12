@@ -39,17 +39,17 @@ class ContestsController < ShikimoriController
 
   # проголосовавшие в раунде
   def users
+    redirect_to contest_url(@resource) unless @resource.displayed_match.finished? || (user_signed_in? && current_user.admin?)
     noindex
 
     page_title @resource.displayed_round.title
     page_title 'Голоса'
 
-    raise NotFound, "not finished round #{@resource.displayed_round.id}" unless @resource.displayed_match.finished? || (user_signed_in? && current_user.admin?)
   end
 
   # комментарии опроса
   def comments
-    raise NotFound if @resource.main_thread.comments_count.zero?
+    redirect_to contest_url(@resource) if @resource.main_thread.comments_count.zero?
     page_title 'Обсуждение опроса'
   end
 

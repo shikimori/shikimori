@@ -13,6 +13,10 @@ FactoryGirl.define do
       end
     end
 
+    trait :user do
+      id 23456789
+    end
+
     trait :admin do
       id User::Admins.first
     end

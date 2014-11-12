@@ -1,8 +1,10 @@
 # автодополнение
 $(document).on 'page:load', ->
-  $main_search = $(".main-search")
-  $search = $(".main-search input")
-  $popup = $(".main-search .popup")
+  $main_search = $('.main-search')
+  $search = $('.main-search input')
+  $popup = $('.main-search .popup')
+
+  return unless $('.main-search').exists()
 
   # из урла достаём текущий тип поиска
   type = location.pathname.replace(/^\//, "").replace(/\/.*/, "")

@@ -5,7 +5,7 @@
       .b-options-floated.count = @resource.left_voters.size
       .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.left}
       - if @resource.left_voters.any?
-        = render @resource.left_voters, avatar_size: 32
+        = render @resource.left_voters, content_by: :avatar
       - else
         p Нет проголосовавших.
 
@@ -14,7 +14,7 @@
         = @resource.right_voters.size
       .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.right}
       - if @resource.right_voters.any?
-        = render @resource.right_voters, avatar_size: 32
+        = render @resource.right_voters, content_by: :avatar
       - else
         p Нет проголосовавших.
 
@@ -23,4 +23,4 @@
         .b-options-floated.count
           = @resource.refrained_voters.size
         .subheadline.m10 Воздержавшиеся
-        = render @resource.refrained_voters, avatar_size: 32
+        = render @resource.refrained_voters, content_by: :avatar

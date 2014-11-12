@@ -1,7 +1,5 @@
-require 'cancan/matchers'
-
 describe ContestsController, :type => :controller do
-  let(:user) { create :user, id: 1 }
+  let(:user) { create :user, :admin }
   before { sign_in user }
 
   let(:contest) { create :contest, user: user }
@@ -12,21 +10,21 @@ describe ContestsController, :type => :controller do
   end
 
   describe '#grid' do
-    context :created do
+    context 'created' do
       let(:contest) { create :contest, user: user }
       before { get :grid, id: contest.to_param }
 
       it { should redirect_to contests_url }
     end
 
-    context :proposing do
+    context 'proposing' do
       let(:contest) { create :contest, :proposing, user: user }
       before { get :grid, id: contest.to_param }
 
       it { should redirect_to contest_url(contest) }
     end
 
-    context :started do
+    context 'started' do
       let(:contest) { create :contest, :with_5_members, user: user }
       before { contest.start! }
       before { get :grid, id: contest.to_param }
@@ -36,9 +34,10 @@ describe ContestsController, :type => :controller do
   end
 
   describe '#show' do
+    let(:user) { create :user, :user }
     let(:contest) { create :contest, :with_5_members, :with_thread, user: user }
 
-    context :started do
+    context 'started' do
       before { contest.start! }
 
       context 'w/o round' do
@@ -52,7 +51,7 @@ describe ContestsController, :type => :controller do
       end
     end
 
-    context :finished do
+    context 'finished' do
       before do
         contest.start!
         contest.rounds.each do |round|
@@ -66,7 +65,7 @@ describe ContestsController, :type => :controller do
       it { should respond_with :success }
     end
 
-    context :proposing do
+    context 'proposing' do
       let(:contest) { create :contest, :with_generated_thread, :proposing, user: user }
       before { get :show, id: contest.to_param }
 
@@ -75,22 +74,24 @@ describe ContestsController, :type => :controller do
   end
 
   describe '#users' do
+    let(:user) { create :user, :user }
     let(:contest) { create :contest, :with_5_members, user: user }
+    let(:make_request) { get :users, id: contest.to_param, round: 1, match_id: contest.rounds.first.matches.first.id }
     before { contest.start }
 
     context 'not finished' do
-      it 'it raises not found error' do
-        expect { get 'users', id: contest.to_param, round: 1, match_id: contest.rounds.first.matches.first.id }
-      end
+      before { make_request }
+      it { should redirect_to contest_url(contest) }
     end
 
-    context :finished do
+    context 'finished' do
+      let!(:contest_user_vote) { create :contest_user_vote, match: contest.current_round.matches.first, user: user, item_id: contest.current_round.matches.first.left_id, ip: '1.1.1.1' }
       before do
         contest.current_round.matches.update_all started_on: Date.yesterday, finished_on: Date.yesterday
         contest.current_round.reload
         contest.current_round.finish!
-        get :users, id: contest.to_param, round: 1, match_id: contest.rounds.first.matches.first.id
       end
+      before { make_request }
       it { should respond_with :success }
     end
   end
@@ -105,7 +106,7 @@ describe ContestsController, :type => :controller do
     it { should respond_with :success }
   end
 
-  describe :update do
+  describe '#update' do
     context 'when success' do
       before { patch :update, id: contest.id, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on').merge(description: 'zxc') }
 
@@ -187,26 +188,5 @@ describe ContestsController, :type => :controller do
 
     it { should redirect_to edit_contest_url(id: resource.to_param) }
     it { expect(resource.rounds.size).to eq(6) }
-  end
-
-  describe :permissions do
-    let(:contest) { build_stubbed :contest }
-
-    context :contests_moderator do
-      subject { Ability.new build_stubbed(:user, :contests_moderator) }
-      it { should be_able_to :manage, contest }
-    end
-
-    context :guest do
-      subject { Ability.new nil }
-      it { should be_able_to :see_contest, contest }
-      it { should_not be_able_to :manage, contest }
-    end
-
-    context :user do
-      subject { Ability.new build_stubbed(:user) }
-      it { should be_able_to :see_contest, contest }
-      it { should_not be_able_to :manage, contest }
-    end
   end
 end
