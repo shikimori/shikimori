@@ -63,10 +63,10 @@ class AniMangasCollectionController < AniMangasController
     end
 
   rescue BadStatusError
-    redirect_to params.merge(status: nil), status: :moved_permanently
+    redirect_to send("#{klass.table_name}_url", params.merge(status: nil)), status: :moved_permanently
 
   rescue BadSeasonError
-    redirect_to params.merge(season: nil), status: :moved_permanently
+    redirect_to send("#{klass.table_name}_url", params.merge(season: nil)), status: :moved_permanently
 
   rescue ForceRedirect => e
     redirect_to e.url, status: :moved_permanently

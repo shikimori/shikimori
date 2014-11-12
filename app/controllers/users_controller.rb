@@ -23,7 +23,7 @@ class UsersController < ShikimoriController
       @page = (params[:page] || 1).to_i
 
       unless Thresholds.include?(@threshold)
-        redirect_to(params.merge threshold: Thresholds[2])
+        redirect_to users_path(params.merge threshold: Thresholds[2])
         return
       end
 
