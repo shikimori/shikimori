@@ -272,9 +272,11 @@ Site::Application.routes.draw do
 
     # картинки с danbooru
     get 'd/autocomplete/:search' => 'danbooru#autocomplete', as: :autocomplete_danbooru_tags, format: :json
-    constraints url: /.*/ do
-      get "d/:md5/:url" => 'danbooru#show'
-      get "y/:url" => 'danbooru#yandere'
+    resources :danbooru, only: [] do
+      constraints url: /.*/ do
+        get 'yandere/:url' => :yandere, on: :collection
+        get 'url/:md5/:url' => :show, on: :collection
+      end
     end
 
     # cosplay

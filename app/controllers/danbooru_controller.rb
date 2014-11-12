@@ -9,10 +9,10 @@ class DanbooruController < ShikimoriController
 
   # если картинка уже есть, то редиректим на s3, иначе загружаем и отдаём картинку. а загрузку шедалим через delayed_jobs
   def show
-    url = Base64.decode64(params[:url])
+    url = Base64.decode64(URI.decode params[:url])
     md5 = self.class.filename(params[:md5])
 
-    raise Forbidden unless url =~ /https?:\/\/([^.]+.(donmai.us|imouto.org)|konachan.com|(\w+\.)?yande.re)/
+    raise Forbidden, url unless url =~ /https?:\/\/([^.]+.(donmai.us|imouto.org)|konachan.com|(\w+\.)?yande.re)/
 
     s3 = $redis.get(md5)
     redirect_to self.class.s3_path(md5) and return if s3
@@ -45,9 +45,9 @@ class DanbooruController < ShikimoriController
   end
 
   def yandere
-    url = Base64.decode64(params[:url])
+    url = Base64.decode64(URI.decode params[:url])
 
-    raise Forbidden unless url =~ /https?:\/\/yande.re/
+    raise Forbidden, url unless url =~ /https?:\/\/yande.re/
     json = Rails.cache.fetch "yandere_#{url}", expires_in: 2.weeks do
       open(url, UserAgentWithSSL).read
     end

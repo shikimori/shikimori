@@ -50,7 +50,7 @@ describe DanbooruController, :type => :controller do
     end
 
     it 'should render json' do
-      get :yandere, url: Base64.encode64(url).strip
+      get :yandere, url: URI.encode(Base64.encode64(url).strip)
       expect(JSON.parse(response.body)).to eq data
     end
   end
