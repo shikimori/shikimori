@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   I18n.exception_handler = -> (exception, locale, key, options) {
-    raise I18n::MissingTranslationData, "#{locale} #{key}"
+    raise ArgumentError, "#{locale} #{key}"
   }
 
   def runtime_error e
