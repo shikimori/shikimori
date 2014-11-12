@@ -14,12 +14,11 @@ class Moderation::AbuseRequestsController < ShikimoriController
         .order(updated_at: :desc)
     end
 
-    unless json?
+    unless request.xhr?
       @page_title = 'Жалобы пользователей'
       @pending = AbuseRequest
         .pending
         .includes(:user, :approver, comment: :commentable)
-        .order(:created_at)
         .order(:created_at)
 
       @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).sort_by { |v| v.nickname.downcase }

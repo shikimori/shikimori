@@ -1,5 +1,5 @@
 .b-abuse_request
-  = render 'comments/comment.html', comment: abuse_request.comment, topic: abuse_request.comment.commentable, formats: :html
+  = render 'comments/comment.html', comment: SolitaryCommentDecorator.new(abuse_request.comment)
 
   .b-request_resolution
     .info

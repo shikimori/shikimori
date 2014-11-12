@@ -1,6 +1,7 @@
 class Moderation::UserChangesController < ShikimoriController
   include ActionView::Helpers::SanitizeHelper
   before_filter :authenticate_user!, only: [:index, :apply, :deny, :get_anime_lock, :release_anime_lock]
+  PENDING_PER_PAGE = 40
 
   # отображение одной правки
   def show
@@ -31,13 +32,13 @@ class Moderation::UserChangesController < ShikimoriController
         .order(updated_at: :desc)
     end
 
-    unless json?
+    unless request.xhr?
       @page_title = 'Правки пользователей'
       @pending = UserChange
         .includes(:user)
         .where(status: UserChangeStatus::Pending)
         .order("(case when \"column\"='tags' then 0 when \"column\"='screenshots' then 1 when \"column\"='video' then 2 else 3 end), created_at")
-        .limit(40)
+        .limit(PENDING_PER_PAGE)
         .to_a
 
       @changes_map = {}

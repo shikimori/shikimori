@@ -74,14 +74,6 @@ class @ShikiTopic extends ShikiView
       $markers.css.bind($markers).delay(interval, opacity: 0)
       $markers.hide.bind($markers).delay(interval + 500)
 
-    ## пометка комментариев обзорами/оффтопиками
-    #@on 'comment:marker', (e, data) =>
-      #data.affected_ids.each (id) =>
-        #$comment = @$(".b-comment##{id}")
-        #$comment.find(".item-#{data.kind}").toggleClass('selected', data.value)
-        #$comment.find(".b-#{data.kind}_marker").toggle(data.value)
-        ##$comment.find(".message-#{data.kind}").toggle(!data.value)
-
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
       @_show_editor()

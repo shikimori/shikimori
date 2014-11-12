@@ -1,6 +1,7 @@
 class Moderation::ReviewsController < ShikimoriController
   before_filter :authenticate_user!
   before_filter :check_permissions
+  PENDING_PER_PAGE = 15
 
   def index
     @page_title = 'Модерация рецензий'
@@ -18,7 +19,7 @@ class Moderation::ReviewsController < ShikimoriController
         .where(state: 'pending')
         .includes(:user, :approver, :target)
         .order(created_at: :desc)
-        .limit(15)
+        .limit(PENDING_PER_PAGE)
     end
   end
 
