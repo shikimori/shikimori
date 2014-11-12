@@ -150,8 +150,8 @@
       builder += boundary;
       builder += crlf;
       builder += 'Content-Disposition: form-data; name="' + (paramname||"") + '"';
-      builder += '; filename="' + filename + '"';
-      //builder += '; filename="' + encodeURIComponent(filename) + '"';
+      //builder += '; filename="' + filename + '"';
+      builder += '; filename="' + encodeURIComponent(filename) + '"';
       builder += crlf;
 
       builder += 'Content-Type: ' + mime;
