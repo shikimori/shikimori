@@ -1,15 +1,15 @@
 describe MangaOnline::ReadMangaPagesImporter do
   let(:importer) { MangaOnline::ReadMangaPagesImporter.new pages }
 
-  describe :save do
+  describe 'save' do
     subject { importer.save }
 
-    context :blank do
+    context 'blank' do
       let(:pages) { nil }
       it { should be_blank }
     end
 
-    context :pages do
+    context 'pages' do
       let(:chapter) { create :manga_chapter }
       let(:page1) { build :manga_page, chapter: chapter, url: 'http://1.ru', number: 1 }
       let(:page2) { build :manga_page, chapter: chapter, url: 'http://2.ru', number: 2 }

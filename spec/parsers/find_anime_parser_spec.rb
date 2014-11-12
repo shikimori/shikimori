@@ -7,10 +7,10 @@ describe FindAnimeParser do
   it { expect(parser.fetch_pages_num).to eq 39 }
   it { expect(parser.fetch_page_links(0).size).to eq(FindAnimeParser::PageSize) }
 
-  describe :fetch_entry do
+  describe 'fetch_entry' do
     subject(:entry) { parser.fetch_entry identifier }
 
-    describe :common_entry do
+    describe 'common_entry' do
       let(:identifier) { 'attack_on_titan' }
 
       its(:id) { should eq 'attack_on_titan' }
@@ -25,44 +25,44 @@ describe FindAnimeParser do
       end
       its(:year) { should eq 2013 }
 
-      describe :last_episode do
+      describe 'last_episode' do
         subject { entry.videos.first }
         it { should eq episode: 26, url: 'http://findanime.ru/attack_on_titan/series26?mature=1' }
       end
 
-      describe :first_episode do
+      describe 'first_episode' do
         subject { entry.videos.last }
         it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
       end
     end
 
-    describe :additioanl_names do
+    describe 'additioanl_names' do
       let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
       its(:names) { should eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
     end
 
-    describe :inline_videos do
+    describe 'inline_videos' do
       let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
       its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they___ova/series0?mature=1'}] }
     end
 
-    describe :episode_0_or_movie do
+    describe 'episode_0_or_movie' do
       let(:identifier) { 'seikai_no_dansho___tanjyou_ova' }
       its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/seikai_no_dansho___tanjyou_ova/series0?mature=1'}] }
     end
 
-    describe :amv do
+    describe 'amv' do
       let(:identifier) { 'steel_fenders' }
       its(:categories) { should eq ['amv'] }
     end
 
-    describe :episodes do
+    describe 'episodes' do
       let(:identifier) { 'full_moon_wo_sagashite' }
       its(:episodes) { should eq 52 }
     end
   end
 
-  describe :fetch_videos do
+  describe 'fetch_videos' do
     subject(:videos) { parser.fetch_videos episode, url }
     let(:episode) { 1 }
     let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
@@ -71,7 +71,7 @@ describe FindAnimeParser do
       expect(subject.size).to eq(16)
     end
 
-    describe :first do
+    describe 'first' do
       subject { videos.first }
 
       its(:episode) { should eq episode }
@@ -82,7 +82,7 @@ describe FindAnimeParser do
       its(:author) { should eq '' }
     end
 
-    describe :last do
+    describe 'last' do
       subject { videos[-4] }
 
       its(:kind) { should eq :fandub }
@@ -96,7 +96,7 @@ describe FindAnimeParser do
     #end
   end
 
-  describe :extract_language do
+  describe 'extract_language' do
     subject { parser.extract_language text }
 
     describe :английские_сабы do
@@ -104,13 +104,13 @@ describe FindAnimeParser do
       it { should eq :english }
     end
 
-    describe :other do
+    describe 'other' do
       let(:text) { 'other' }
       it { should eq :russian }
     end
   end
 
-  describe :extract_kind do
+  describe 'extract_kind' do
     subject { parser.extract_kind text }
 
     describe :озвучка do
@@ -148,13 +148,13 @@ describe FindAnimeParser do
       it { should eq :raw }
     end
 
-    describe :mismatch do
+    describe 'mismatch' do
       let(:text) { 'mismatch' }
       specify { expect{subject}.to raise_error }
     end
   end
 
-  describe :fetch_pages do
+  describe 'fetch_pages' do
     before { allow(parser).to receive(:fetch_entry).and_return id: true }
     let(:pages) { 3 }
 

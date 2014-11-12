@@ -2,7 +2,7 @@ describe Contest::PlayOffStrategy, :type => :model do
   let(:strategy_type) { :play_off }
   let(:strategy) { contest.strategy }
 
-  describe :total_rounds do
+  describe 'total_rounds' do
     let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
 
     [[128,7], [64,6], [32,5], [16,4]].each do |members, rounds|
@@ -13,7 +13,7 @@ describe Contest::PlayOffStrategy, :type => :model do
     end
   end
 
-  describe :create_rounds do
+  describe 'create_rounds' do
     let(:contest) { create :contest, strategy_type: strategy_type }
 
     [[128,7], [64,6], [32,5], [16,4], [8,3]].each do |members, rounds|
@@ -38,7 +38,7 @@ describe Contest::PlayOffStrategy, :type => :model do
     end
   end
 
-  describe :advance_members do
+  describe 'advance_members' do
     let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
     let(:w1) { contest.rounds[0].matches[0].left }
     let(:w2) { contest.rounds[0].matches[1].left }
@@ -84,17 +84,17 @@ describe Contest::PlayOffStrategy, :type => :model do
     end
   end
 
-  describe :with_additional_rounds? do
+  describe 'with_additional_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
     its(:with_additional_rounds?) { should be_falsy }
   end
 
-  describe :dynamic_rounds? do
+  describe 'dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
     its(:dynamic_rounds?) { should be_falsy }
   end
 
-  describe :results do
+  describe 'results' do
     let(:contest) { create :contest, :with_8_members, :anime, strategy_type: strategy_type }
     let(:results) { contest.results }
     let(:scores) { contest.strategy.statistics.scores }

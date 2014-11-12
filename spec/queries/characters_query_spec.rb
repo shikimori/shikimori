@@ -9,7 +9,7 @@ describe CharactersQuery do
     create :character, name: 'qwert', russian: 'яяяя'
   end
 
-  describe :fetch do
+  describe 'fetch' do
     it { expect(query.fetch.to_a.size).to eq(2) }
     it 'should be in correct order' do
       expect(query.fetch.first.id).to eq character.id
@@ -19,7 +19,7 @@ describe CharactersQuery do
     end
   end
 
-  describe :fill_works do
+  describe 'fill_works' do
     before { 1.upto(6) { create :anime, characters: [character] } }
     let(:fetched_query) { query.fill_works query.fetch }
 
@@ -27,7 +27,7 @@ describe CharactersQuery do
     it { expect(fetched_query.first.last_works.size).to eq(CharactersQuery::WorksLimit) }
   end
 
-  describe :complete do
+  describe 'complete' do
     it { expect(CharactersQuery.new(search: 'test').complete.size).to eq(2) }
     it { expect(CharactersQuery.new(search: 'シュタ インズ').complete.size).to eq(1) }
     it { expect(CharactersQuery.new(search: 'インズ シュタ').complete.size).to eq(1) }

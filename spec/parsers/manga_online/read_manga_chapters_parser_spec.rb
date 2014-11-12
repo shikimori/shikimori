@@ -6,7 +6,7 @@ describe MangaOnline::ReadMangaChaptersParser do
   let(:chapters_path) { '/berserk/vol2/5?mature=1' }
   let(:parser) { MangaOnline::ReadMangaChaptersParser.new manga.id, chapters_path }
 
-  describe :chapters do
+  describe 'chapters' do
     subject { parser.chapters }
     its(:size) { should eq 21 }
   end

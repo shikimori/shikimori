@@ -1,12 +1,12 @@
 require 'cancan/matchers'
 
 describe GroupRole, :type => :model do
-  context :relations do
+  context 'relations' do
     it { should belong_to :user }
     it { should belong_to(:group).touch(true) }
   end
 
-  context :validations do
+  context 'validations' do
     it { should validate_presence_of :user }
     it { should validate_presence_of :group }
     it { should validate_presence_of :role }
@@ -23,7 +23,7 @@ describe GroupRole, :type => :model do
     end
   end
 
-  context :invites do
+  context 'invites' do
     let(:group) { create :group, owner: user2 }
     let(:user) { create :user }
     let(:user2) { create :user }
@@ -54,81 +54,81 @@ describe GroupRole, :type => :model do
     #user.subscribed?(group.thread).should be_falsy
   #end
 
-  describe :permissions do
+  describe 'permissions' do
     let(:club) { build_stubbed :group, join_policy: join_policy }
     let(:user) { build_stubbed :user }
     subject { Ability.new user }
 
-    describe :join do
+    describe 'join' do
       let(:group_role) { build :group_role, user: user, group: club }
 
-      context :owner_invite_join do
+      context 'owner_invite_join' do
         let(:join_policy) { :owner_invite_join }
 
-        context :club_owner do
+        context 'club_owner' do
           let(:club) { build_stubbed :group, owner: user }
           it { should be_able_to :create, group_role }
         end
 
-        context :common_user do
+        context 'common_user' do
           it { should_not be_able_to :create, group_role }
         end
       end
 
-      context :admin_invite_join do
+      context 'admin_invite_join' do
         let(:join_policy) { :admin_invite_join }
 
-        context :club_owner do
+        context 'club_owner' do
           let(:club) { build_stubbed :group, owner: user }
           it { should be_able_to :create, group_role }
         end
 
-        context :common_user do
+        context 'common_user' do
           it { should_not be_able_to :create, group_role }
         end
       end
 
-      context :free_join_policy do
+      context 'free_join_policy' do
         let(:join_policy) { :free_join }
 
-        context :common_user do
+        context 'common_user' do
           it { should be_able_to :create, group_role }
         end
 
-        context :banned_user do
+        context 'banned_user' do
           let(:club) { build_stubbed :group, join_policy: join_policy, bans: [build_stubbed(:group_ban, user: user)] }
           it { should_not be_able_to :create, group_role }
         end
 
-        context :guest do
+        context 'guest' do
           let(:user) { nil }
           it { should_not be_able_to :create, group_role }
         end
       end
     end
 
-    describe :leave do
+    describe 'leave' do
       let(:join_policy) { :free_join }
 
-      context :club_member do
+      context 'club_member' do
         let(:group_role) { build_stubbed :group_role, user: user, group: club }
         it { should be_able_to :destroy, group_role }
       end
 
-      context :not_member do
+      context 'not_member' do
         let(:group_role) { build_stubbed :group_role, group: club }
 
-        context :guest do
+        context 'guest' do
           let(:user) { nil }
           it { should_not be_able_to :destroy, group_role }
         end
 
-        context :common_user do
+        context 'common_user' do
           let(:user) { nil }
           it { should_not be_able_to :destroy, group_role }
         end
 
-        context :club_owner do
+        context 'club_owner' do
           let(:club) { build_stubbed :group, owner: user }
           it { should_not be_able_to :destroy, group_role }
         end

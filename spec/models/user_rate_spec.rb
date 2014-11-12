@@ -261,7 +261,7 @@ describe UserRate, :type => :model do
         let(:target) { build_stubbed :anime, episodes: target_value }
         before { user_rate.update episodes: new_value }
 
-        context :regular_change do
+        context 'regular_change' do
           before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Episodes, newest_value, new_value }
           before { user_rate.update episodes: 7 }
 

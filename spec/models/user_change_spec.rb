@@ -11,7 +11,7 @@ describe UserChange, :type => :model do
   end
 
   context '#hooks' do
-    describe :release_lock do
+    describe 'release_lock' do
       let(:anime) { create :anime }
       let(:anime2) { create :anime }
 

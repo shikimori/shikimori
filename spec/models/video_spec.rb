@@ -1,10 +1,10 @@
 describe Video, :type => :model do
-  context :relations do
+  context 'relations' do
     it { should belong_to :anime }
     it { should belong_to :uploader }
   end
 
-  context :validations do
+  context 'validations' do
     it { should validate_presence_of :anime_id }
     it { should validate_presence_of :uploader_id }
     it { should validate_presence_of :url }
@@ -12,8 +12,8 @@ describe Video, :type => :model do
     #it { should validate_presence_of :hosting }
   end
 
-  context :hooks do
-    describe :suggest_acception do
+  context 'hooks' do
+    describe 'suggest_acception' do
       it :uploaded do
         expect {
           create :video
@@ -27,7 +27,7 @@ describe Video, :type => :model do
       end
     end
 
-    describe :suggest_deletion do
+    describe 'suggest_deletion' do
       it :confirmed do
         video = create :video, state: 'confirmed'
         expect {
@@ -44,8 +44,8 @@ describe Video, :type => :model do
     end
   end
 
-  context :validations do
-    describe :normalize do
+  context 'validations' do
+    describe 'normalize' do
       let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
       subject { video }
 
@@ -73,7 +73,7 @@ describe Video, :type => :model do
     end
   end
 
-  context :youtube do
+  context 'youtube' do
     subject(:video) { build :video, url: 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
 
     its(:hosting) { should eq 'youtube' }
@@ -105,11 +105,11 @@ describe Video, :type => :model do
     end
   end
 
-  context :vkontakte do
+  context 'vkontakte' do
     subject(:video) { build :video, :with_http_request, url: 'http://vk.com/video98023184_165811692' }
     its(:hosting) { should eq 'vk' }
 
-    context :saved do
+    context 'saved' do
       before { VCR.use_cassette(:vk_video) { video.save! } }
 
       its(:image_url) { should eq 'http://cs514511.vk.me/u98023184/video/l_81cce630.jpg' }

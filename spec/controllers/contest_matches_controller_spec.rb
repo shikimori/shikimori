@@ -1,12 +1,12 @@
 describe ContestMatchesController, :type => :controller do
   let(:match) { create :contest_match, state: 'started' }
 
-  describe :show do
+  describe 'show' do
     before { get :show, contest_id: match.round.contest_id, id: match.id }
     it { should respond_with :success }
   end
 
-  describe :vote do
+  describe 'vote' do
     let(:user) { create :user }
     before { sign_in user }
 

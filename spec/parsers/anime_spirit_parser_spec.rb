@@ -5,9 +5,9 @@ describe AnimeSpiritParser do
   it { expect(parser.fetch_page_links(1).size).to eq(10) }
   it { expect(parser.fetch_pages(1..1).size).to eq(10) }
 
-  describe :fetch_entry do
+  describe 'fetch_entry' do
     subject(:entry) { OpenStruct.new parser.fetch_entry link }
-    context :slayers do
+    context 'slayers' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/109-slayers-rubaki.html' }
 
       its(:russian) { should eq 'Рубаки' }
@@ -22,7 +22,7 @@ describe AnimeSpiritParser do
       its(:episodes) { should eq 26 }
       its(:id) { should eq link }
 
-      context :video do
+      context 'video' do
         subject { entry[:videos].first }
         its(:episode) { should eq 1 }
         its(:source) { should eq link }
@@ -32,7 +32,7 @@ describe AnimeSpiritParser do
       end
     end
 
-    context :binbougami do
+    context 'binbougami' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/7837-nishhebog-zhe-binbougami-ga.html' }
 
       its(:russian) { should eq 'Нищебог же!' }
@@ -44,8 +44,8 @@ describe AnimeSpiritParser do
       end
       its(:episodes) { should eq 13 }
 
-      context :video do
-        context :first do
+      context 'video' do
+        context 'first' do
           subject { entry[:videos].first }
 
           its(:episode) { should eq 1 }
@@ -55,7 +55,7 @@ describe AnimeSpiritParser do
           its(:author) { should be nil }
         end
 
-        context :last do
+        context 'last' do
           subject { entry[:videos].last }
           its(:author) { should eq 'JAM & Kiara_Laine' }
           its(:episode) { should eq 13 }
@@ -65,7 +65,7 @@ describe AnimeSpiritParser do
       end
     end
 
-    context :angel_beats do
+    context 'angel_beats' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/2406-angel-beats-mgnoveniya-angelov.html' }
       its(:russian) { should eq 'Ангельские Ритмы!' }
       its(:name) { should eq 'Angel Beats!' }
@@ -77,7 +77,7 @@ describe AnimeSpiritParser do
       its(:episodes) { should eq 13 }
     end
 
-    context :buddy_complex do
+    context 'buddy_complex' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9639-druzheskij-kompleksbuddy-complex.html' }
       its(:episodes) { should eq 13 }
 
@@ -101,15 +101,15 @@ describe AnimeSpiritParser do
       end
       its(:episodes) { should eq 1 }
 
-      context :video do
-        context :first do
+      context 'video' do
+        context 'first' do
           subject { entry[:videos].first }
           its(:author) { should be nil }
           its(:episode) { should eq 1 }
           its(:kind) { should eq :subtitles }
         end
 
-        context :last do
+        context 'last' do
           subject { entry[:videos].last }
           its(:author) { should eq 'Профессиональный (многоголосый, закадровый)' }
           its(:episode) { should eq 1 }
@@ -141,7 +141,7 @@ describe AnimeSpiritParser do
     context 'author without brackets' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9459-master-kiton-tv-master-keaton.html' }
 
-      context :video do
+      context 'video' do
         subject { entry[:videos].last }
         its(:author) { 'Molodoy & KroshkaRu' }
         its(:kind) { should eq :fandub }
@@ -151,7 +151,7 @@ describe AnimeSpiritParser do
     context 'kind with colon' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9504-samurai-flamenco-samuraj-flamenko.html' }
 
-      context :video do
+      context 'video' do
         subject { entry[:videos].find {|v| v.author == 'Gezell Studio' } }
         its(:kind) { should eq :fandub }
       end
@@ -170,15 +170,15 @@ describe AnimeSpiritParser do
     context 'special kind names' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/ova-rus/1146-sladkie-kapelki-honey-x-honey-drops.html' }
 
-      context :video do
-        context :first do
+      context 'video' do
+        context 'first' do
           subject { entry[:videos].first }
           its(:episode) { should eq 1 }
           its(:kind) { should eq :subtitles }
           its(:author) { should be nil }
         end
 
-        context :last do
+        context 'last' do
           subject { entry[:videos].last }
           its(:episode) { should eq 2 }
           its(:kind) { should eq :fandub }
@@ -190,8 +190,8 @@ describe AnimeSpiritParser do
     context 'subtitles special case' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/9192-klub-c179-vysshej-stupeni-zhenskoj-akademii.html' }
 
-      context :video do
-        context :first do
+      context 'video' do
+        context 'first' do
           subject { entry[:videos].first }
           its(:kind) { should eq :subtitles }
         end

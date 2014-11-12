@@ -6,7 +6,7 @@ describe CommentsService do
   let(:topic) { create :entry, user: user }
   let!(:publisher) { FayePublisher.new user, faye }
 
-  describe :create do
+  describe 'create' do
     let(:params) {{
       commentable_id: topic.id,
       commentable_type: topic.class.name,
@@ -16,7 +16,7 @@ describe CommentsService do
     }}
     subject { service.create params }
 
-    context :success do
+    context 'success' do
       before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
       before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(Comment), :created }
       let(:body) { 'test' }
@@ -25,7 +25,7 @@ describe CommentsService do
       it { should be_persisted }
     end
 
-    context :failure do
+    context 'failure' do
       before { expect_any_instance_of(FayePublisher).not_to receive :publish }
       let(:body) { nil }
 
@@ -34,18 +34,18 @@ describe CommentsService do
     end
   end
 
-  describe :update do
+  describe 'update' do
     let(:params) {{ body: body }}
     let(:comment) { create :comment, user: user }
     subject { service.update comment, params }
 
-    context :forbidden do
+    context 'forbidden' do
       let(:service) { CommentsService.new create(:user), faye }
       let(:body) { 'test' }
       it { expect{subject}.to raise_error Forbidden }
     end
 
-    context :success do
+    context 'success' do
       before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
       before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(Comment), :updated }
       let(:body) { 'test' }
@@ -53,7 +53,7 @@ describe CommentsService do
       it { should be true }
     end
 
-    context :failure do
+    context 'failure' do
       before { expect_any_instance_of(FayePublisher).not_to receive :publish }
       let(:body) { nil }
 
@@ -61,16 +61,16 @@ describe CommentsService do
     end
   end
 
-  describe :destroy do
+  describe 'destroy' do
     let(:comment) { create :comment, user: user }
     subject { service.destroy comment }
 
-    context :forbidden do
+    context 'forbidden' do
       let(:service) { CommentsService.new create(:user), faye }
       it { expect{subject}.to raise_error Forbidden }
     end
 
-    context :success do
+    context 'success' do
       before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
       before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(Comment), :deleted }
 

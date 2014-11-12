@@ -1,5 +1,5 @@
 describe Api::V1::PublishersController, :type => :controller do
-  describe :show do
+  describe 'show' do
     let!(:publisher) { create :publisher }
     before { get :index, format: :json }
 

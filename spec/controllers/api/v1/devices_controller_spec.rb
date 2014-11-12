@@ -31,20 +31,20 @@ describe Api::V1::DevicesController, :type => :controller do
     it { should respond_with_content_type :json }
   end
 
-  describe :permissions do
+  describe 'permissions' do
     subject { Ability.new user }
 
-    context :own_device do
+    context 'own_device' do
       let(:device) { build :device, user: user }
       it { should be_able_to :manage, device }
     end
 
-    context :foreign_device do
+    context 'foreign_device' do
       let(:device) { build :device }
       it { should_not be_able_to :manage, device }
     end
 
-    context :guest do
+    context 'guest' do
       subject { Ability.new nil }
       let(:device) { build :device, user: user }
       it { should_not be_able_to :manage, device }

@@ -2,7 +2,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
   let(:strategy_type) { :double_elimination }
   let(:strategy) { contest.strategy }
 
-  describe :total_rounds do
+  describe 'total_rounds' do
     let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
 
     [[128,14], [65,14], [64,12], [50,12], [33,12], [32,10], [16,8], [9,8], [8,6], [7,6]].each do |members, rounds|
@@ -13,7 +13,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
     end
   end
 
-  describe :create_rounds do
+  describe 'create_rounds' do
     let(:contest) { create :contest, strategy_type: strategy_type }
 
     [[128,14], [64,12], [32,10], [16,8], [8,6]].each do |members, rounds|
@@ -53,7 +53,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
     end
   end
 
-  describe :advance_members do
+  describe 'advance_members' do
     let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
     let(:w1) { contest.rounds[0].matches[0].left }
     let(:w2) { contest.rounds[0].matches[1].left }
@@ -150,7 +150,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
     end
   end
 
-  describe :create_matches do
+  describe 'create_matches' do
     let(:strategy) { round.contest.strategy }
     let(:round) { create :contest_round, contest: create(:contest, matches_per_round: 4, match_duration: 4) }
     let(:animes) { 1.upto(11).map { create :anime } }
@@ -204,7 +204,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
       end
     end
 
-    describe :shuffle do
+    describe 'shuffle' do
       let(:ordered?) { round.matches[0].left_id == animes[0].id && round.matches[0].right_id == animes[1].id && round.matches[1].left_id == animes[2].id && round.matches[1].right_id == animes[3].id }
 
       context 'false' do
@@ -225,17 +225,17 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
     end
   end
 
-  describe :with_additional_rounds? do
+  describe 'with_additional_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
     its(:with_additional_rounds?) { should be_truthy }
   end
 
-  describe :dynamic_rounds? do
+  describe 'dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
     its(:dynamic_rounds?) { should be_falsy }
   end
 
-  describe :results do
+  describe 'results' do
     let(:contest) { create :contest, :with_8_members, :character }
     let(:scores) { contest.strategy.statistics.scores }
     let(:average_votes) { contest.strategy.statistics.average_votes }
@@ -257,7 +257,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
       scores[contest.rounds[1].matches[3].loser.id] = 0
     end
 
-    context :final do
+    context 'final' do
       let(:results) { contest.results }
       it 'has expected results' do
         # count
@@ -280,7 +280,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
       end
     end
 
-    context :intermediate_main_round do
+    context 'intermediate_main_round' do
       let(:results) { contest.results round }
       let(:round) { contest.rounds[3] }
 
@@ -302,7 +302,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
       end
     end
 
-    context :intermediate_additional_round do
+    context 'intermediate_additional_round' do
       let(:results) { contest.results round }
       let(:round) { contest.rounds[4] }
 
@@ -320,7 +320,7 @@ describe Contest::DoubleEliminationStrategy, :type => :model do
     end
   end
 
-  describe :fill_round_with_matches do
+  describe 'fill_round_with_matches' do
     context '19 members' do
       let(:contest) { create :contest, :with_19_members, matches_per_round: 3 }
       before { strategy.create_rounds }

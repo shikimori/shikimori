@@ -1,7 +1,7 @@
 describe HentaiAnimeImporter do
   let(:importer) { HentaiAnimeImporter.new }
 
-  describe :import do
+  describe 'import' do
     subject(:import) { importer.import pages: pages, ids: ids, last_episodes: last_episodes }
     let!(:anime) { create :anime, name: 'Sextra Credit', censored: true }
     let(:identifier) { 'sextra_credit' }

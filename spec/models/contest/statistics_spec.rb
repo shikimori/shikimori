@@ -35,71 +35,71 @@ describe Contest::Statistics, :type => :model do
     allow(match5).to receive(:left_votes).and_return 1
   end
 
-  describe :committed_matches do
-    context :without_round do
+  describe 'committed_matches' do
+    context 'without_round' do
       subject { statistics.committed_matches }
       it { should eq [match1, match2, match3, match4, match5] }
     end
 
-    context :with_round do
+    context 'with_round' do
       subject { statistics.committed_matches round2 }
       it { should eq [match1, match2, match3, match4] }
     end
   end
 
-  describe :prior_rounds do
+  describe 'prior_rounds' do
     subject { statistics.prior_rounds round2 }
     it { should eq [round1, round2] }
   end
 
-  describe :members do
+  describe 'members' do
     subject { statistics.members }
     it { should eq(anime1.id => anime1, anime2.id => anime2, anime3.id => anime3, anime4.id => anime4) }
   end
 
-  describe :scores do
-    context :without_round do
+  describe 'scores' do
+    context 'without_round' do
       subject { statistics.scores }
       it { should eq(anime1.id => 3, anime2.id => 1, anime3.id => 1, anime4.id => 0) }
     end
 
-    context :with_round do
+    context 'with_round' do
       subject { statistics.scores round2 }
       it { should eq(anime1.id => 2, anime2.id => 1, anime3.id => 1, anime4.id => 0) }
     end
   end
 
-  describe :users_votes do
-    context :without_round do
+  describe 'users_votes' do
+    context 'without_round' do
       subject { statistics.users_votes }
       it { should eq(anime1.id => 4, anime2.id => 1, anime3.id => 0, anime4.id => 0) }
     end
 
-    context :with_round do
+    context 'with_round' do
       subject { statistics.users_votes round2 }
       it { should eq(anime1.id => 3, anime2.id => 1, anime3.id => 0, anime4.id => 0) }
     end
   end
 
-  describe :average_votes do
-    context :without_round do
+  describe 'average_votes' do
+    context 'without_round' do
       subject { statistics.average_votes }
       it { should eq(anime1.id => 1.33, anime2.id => 0.33, anime3.id => 0, anime4.id => 0) }
     end
 
-    context :with_round do
+    context 'with_round' do
       subject { statistics.average_votes round2 }
       it { should eq(anime1.id => 1.5, anime2.id => 0.5, anime3.id => 0, anime4.id => 0) }
     end
   end
 
-  describe :member_matches do
-    context :without_round do
+  describe 'member_matches' do
+    context 'without_round' do
       subject { statistics.member_matches anime1.id }
       it { should eq [match1, match3, match5] }
     end
 
-    context :with_round do
+    context 'with_round' do
       subject { statistics.member_matches anime1.id, round2 }
       it { should eq [match1, match3] }
     end

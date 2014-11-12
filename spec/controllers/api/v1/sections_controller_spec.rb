@@ -1,5 +1,5 @@
 describe Api::V1::SectionsController, :type => :controller do
-  describe :index do
+  describe 'index' do
     let!(:section) { create :section }
 
     before { get :index, format: :json }

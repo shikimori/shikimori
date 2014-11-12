@@ -1,5 +1,5 @@
 describe Comment, :type => :model do
-  context :relations do
+  context 'relations' do
     it { should belong_to :user }
     it { should belong_to :commentable }
     it { should have_many :messages }
@@ -7,7 +7,7 @@ describe Comment, :type => :model do
     it { should have_many :abuse_requests }
   end
 
-  context :validations do
+  context 'validations' do
     it { should validate_presence_of :body }
     it { should validate_presence_of :user }
     it { should validate_presence_of :commentable }
@@ -18,69 +18,69 @@ describe Comment, :type => :model do
   let(:topic) { build_stubbed :entry, user: user }
   let(:comment) { create :comment, user: user, commentable: topic }
 
-  context :hooks do
-    describe :check_access do
+  context 'hooks' do
+    describe 'check_access' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :clean }
     end
 
-    describe :forbid_ban_change do
+    describe 'forbid_ban_change' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :forbid_ban_change }
     end
 
-    describe :check_access do
+    describe 'check_access' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :check_access }
     end
 
-    describe :filter_quotes do
+    describe 'filter_quotes' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :filter_quotes }
     end
 
-    describe :increment_comments do
+    describe 'increment_comments' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :increment_comments }
     end
 
-    describe :creation_callbacks do
+    describe 'creation_callbacks' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :creation_callbacks }
     end
 
-    describe :subscribe do
+    describe 'subscribe' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :subscribe }
     end
 
-    describe :notify_quotes do
+    describe 'notify_quotes' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :notify_quotes }
     end
 
-    describe :decrement_comments do
+    describe 'decrement_comments' do
       let(:comment) { create :comment }
       after { comment.destroy }
       it { expect(comment).to receive :decrement_comments }
     end
 
-    describe :destruction_callbacks do
+    describe 'destruction_callbacks' do
       let(:comment) { create :comment }
       after { comment.destroy }
       it { expect(comment).to receive :destruction_callbacks }
     end
   end
 
-  describe :subscribe do
+  describe 'subscribe' do
     let(:user) { create :user }
     let(:topic) { create :entry, user: user }
     subject!(:comment) { create :comment, :with_subscribe, user: user, commentable: topic }
@@ -172,7 +172,7 @@ describe Comment, :type => :model do
     end
   end
 
-  describe :notify_quotes do
+  describe 'notify_quotes' do
     let(:user) { create :user }
     let(:user2) { create :user }
     let(:topic) { create :topic, user: user }
@@ -219,7 +219,7 @@ describe Comment, :type => :model do
     end
   end
 
-  describe :forbid_ban_change do
+  describe 'forbid_ban_change' do
     subject! { build :comment, body: "[ban=1]" }
     before { subject.valid? }
     its(:valid?) { should be_falsy }

@@ -2,7 +2,7 @@ describe Contest::SwissStrategy, :type => :model do
   let(:strategy_type) { :swiss }
   let(:strategy) { contest.strategy }
 
-  describe :total_rounds do
+  describe 'total_rounds' do
     let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
 
     [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
@@ -14,7 +14,7 @@ describe Contest::SwissStrategy, :type => :model do
     end
   end
 
-  describe :create_rounds do
+  describe 'create_rounds' do
     let(:contest) { create :contest, strategy_type: strategy_type }
 
     [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
@@ -39,12 +39,12 @@ describe Contest::SwissStrategy, :type => :model do
     end
   end
 
-  describe :dynamic_rounds? do
+  describe 'dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
     its(:dynamic_rounds?) { should be_truthy }
   end
 
-  describe :fill_round_with_matches do
+  describe 'fill_round_with_matches' do
     let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
     before { contest.start! }
 
@@ -56,7 +56,7 @@ describe Contest::SwissStrategy, :type => :model do
     end
   end
 
-  describe :dates do
+  describe 'dates' do
     let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
     before { contest.prepare }
 
@@ -67,7 +67,7 @@ describe Contest::SwissStrategy, :type => :model do
     end
   end
 
-  context :contest_with_6_members do
+  context 'contest_with_6_members' do
     let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
     before do
       contest.start!
@@ -83,17 +83,17 @@ describe Contest::SwissStrategy, :type => :model do
     let(:l2) { strategy.statistics.members.values.at 3 }
     let(:l3) { strategy.statistics.members.values.at 5 }
 
-    describe :sorted_scores do
+    describe 'sorted_scores' do
       subject { strategy.statistics.sorted_scores }
       it { should eq(w1.id => 1, w2.id => 1, w3.id => 1, l1.id => 0, l2.id => 0, l3.id => 0) }
     end
 
-    describe :opponents_of do
+    describe 'opponents_of' do
       subject { strategy.statistics.opponents_of l2.id }
       it { should eq [w2.id] }
     end
 
-    describe :advance_members do
+    describe 'advance_members' do
       describe 'I -> II' do
         before { contest.reload }
 
@@ -124,7 +124,7 @@ describe Contest::SwissStrategy, :type => :model do
       end
     end
 
-    describe :results do
+    describe 'results' do
       subject { strategy.results }
       before do
         contest.reload.current_round.finish!

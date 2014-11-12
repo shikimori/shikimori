@@ -1,5 +1,5 @@
 describe GroupRolesQuery do
-  describe :complete do
+  describe 'complete' do
     let(:club) { create :group, owner: user_2 }
     let!(:group_role_1) { create :group_role, group: club, user: user_1 }
     let!(:group_role_2) { create :group_role, group: club, user: user_2 }

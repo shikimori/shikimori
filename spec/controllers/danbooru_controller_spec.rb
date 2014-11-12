@@ -1,7 +1,7 @@
 require 'webmock/rspec'
 
 describe DanbooruController, :type => :controller do
-  describe :show do
+  describe '#show' do
     let(:md5) { 'TTTEST' }
     let(:url) { "http://hijiribe.donmai.us/data/#{md5}.jpg" }
     let(:tmp_path) { Rails.root.join('public', 'images', DanbooruController::TmpImagesDir, "#{md5}.jpg") }
@@ -39,7 +39,7 @@ describe DanbooruController, :type => :controller do
     end
   end
 
-  describe :yandere do
+  describe '#yandere' do
     let(:url) { 'https://yande.re/post/index.json?page=1&limit=100&tags=kaichou_wa_maid-sama!' }
     let(:data) { { 'url' => url, 'test' => 'test' } }
     before { stub_request(:any, url).to_return body: data.to_json }

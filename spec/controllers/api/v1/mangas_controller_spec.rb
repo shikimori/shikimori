@@ -1,5 +1,5 @@
 describe Api::V1::MangasController, :type => :controller do
-  describe :index do
+  describe 'index' do
     let(:user) { create :user }
     let(:genre) { create :genre }
     let(:publisher) { create :publisher }
@@ -14,7 +14,7 @@ describe Api::V1::MangasController, :type => :controller do
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
-  describe :show do
+  describe 'show' do
     let(:manga) { create :manga, :with_thread }
     before { get :show, id: manga.id, format: :json }
 
@@ -22,7 +22,7 @@ describe Api::V1::MangasController, :type => :controller do
     it { should respond_with_content_type :json }
   end
 
-  describe :similar do
+  describe 'similar' do
     let(:manga) { create :manga }
     let!(:similar) { create :similar_manga, src: manga }
     before { get :similar, id: manga.id, format: :json }
@@ -32,7 +32,7 @@ describe Api::V1::MangasController, :type => :controller do
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
-  describe :roles do
+  describe 'roles' do
     let(:manga) { create :manga }
     let(:character) { create :character }
     let(:person) { create :person }
@@ -45,7 +45,7 @@ describe Api::V1::MangasController, :type => :controller do
     specify { expect(assigns(:collection).size).to eq(2) }
   end
 
-  describe :related do
+  describe 'related' do
     let(:manga) { create :manga }
     let!(:similar) { create :related_manga, source: manga, manga: create(:manga), relation: 'Adaptation' }
     before { get :related, id: manga.id, format: :json }

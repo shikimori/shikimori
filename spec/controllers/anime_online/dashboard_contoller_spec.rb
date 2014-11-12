@@ -1,7 +1,7 @@
 describe AnimeOnline::DashboardController, :type => :controller do
   let!(:anime) { create :anime, :with_video }
 
-  describe :show do
+  describe 'show' do
     before { get :show }
     it { should respond_with :success }
   end

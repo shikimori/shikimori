@@ -2,7 +2,7 @@ describe ImagesController, :type => :controller do
   include_context :authenticated
   let(:club) { create :group, owner: user }
 
-  describe :create do
+  describe 'create' do
     pending
     #let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
     #before { post :create, model: club.class.name, id: club.id, image: image }
@@ -17,7 +17,7 @@ describe ImagesController, :type => :controller do
     #end
   end
 
-  describe :destroy do
+  describe 'destroy' do
     let(:image) { create :image, uploader: user, owner: club }
     before { delete :destroy, id: image.id }
 

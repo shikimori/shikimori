@@ -1,5 +1,5 @@
 describe UserImagesController, :type => :controller do
-  describe :create do
+  describe 'create' do
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
 
     context 'guest' do

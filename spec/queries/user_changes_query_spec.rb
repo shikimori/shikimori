@@ -19,19 +19,19 @@ describe UserChangesQuery do
     create :user_change, model: 'Character', column: 'screenshots', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Taken
   end
 
-  describe :fetch do
+  describe 'fetch' do
     it { expect(UserChangesQuery.new(entry, 'description').fetch.size).to eq(4) }
     it { expect(UserChangesQuery.new(entry, :name).fetch.size).to eq(1) }
     it { expect(UserChangesQuery.new(entry, :video).fetch.size).to eq(2) }
     it { expect(UserChangesQuery.new(entry, :screenshots).fetch.size).to eq(1) }
   end
 
-  describe :authors do
+  describe 'authors' do
     it { expect(UserChangesQuery.new(entry, 'description').authors.size).to eq(2) }
     it { expect(UserChangesQuery.new(entry, 'description').authors(false).size).to eq(1) }
     it { expect(UserChangesQuery.new(entry, :name).authors.size).to eq(1) }
 
-    context :video do
+    context 'video' do
       let(:anime) { build_stubbed :anime }
       let!(:video_1) { create :video, :confirmed, anime: anime, uploader: user4 }
       let!(:video_2) { create :video, :deleted, anime: anime, uploader: user4 }
@@ -42,7 +42,7 @@ describe UserChangesQuery do
     end
   end
 
-  describe :lock do
+  describe 'lock' do
     it { expect(UserChangesQuery.new(entry, 'description').lock).to eql @lock }
     it { expect(UserChangesQuery.new(entry2, 'description').lock).to be_nil }
   end

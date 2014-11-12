@@ -1,10 +1,10 @@
 describe ContestRound, :type => :model do
-  context :relations do
+  context 'relations' do
     it { should belong_to :contest }
     it { should have_many :matches }
   end
 
-  describe :state_machine do
+  describe 'state_machine' do
     let(:contest) { create :contest, :with_5_members, state: 'started' }
     let(:round) { create :contest_round, contest: contest }
 
@@ -20,7 +20,7 @@ describe ContestRound, :type => :model do
       expect(round.finished?).to be_truthy
     end
 
-    describe :can_start? do
+    describe 'can_start?' do
       subject { round.can_start? }
 
       context 'no matches' do
@@ -33,7 +33,7 @@ describe ContestRound, :type => :model do
       end
     end
 
-    describe :can_finish? do
+    describe 'can_finish?' do
       subject { round.can_finish? }
 
       context 'not finished matches' do
@@ -113,13 +113,13 @@ describe ContestRound, :type => :model do
     end
   end
 
-  context :navigation do
+  context 'navigation' do
     let!(:contest) { create :contest }
     let!(:round1) { create :contest_round, contest: contest }
     let!(:round2) { create :contest_round, contest: contest }
     let!(:round3) { create :contest_round, contest: contest }
 
-    describe :next_round do
+    describe 'next_round' do
       it 'should be valid' do
         expect(round1.next_round).to eq round2
         expect(round2.next_round).to eq round3
@@ -127,7 +127,7 @@ describe ContestRound, :type => :model do
       end
     end
 
-    describe :prior_round do
+    describe 'prior_round' do
       it 'should be valid' do
         expect(round1.prior_round).to be_nil
         expect(round2.prior_round).to eq round1
@@ -135,7 +135,7 @@ describe ContestRound, :type => :model do
       end
     end
 
-    describe :first? do
+    describe 'first?' do
       it 'should be valid' do
         expect(round1.first?).to be_truthy
         expect(round2.first?).to be_falsy
@@ -143,7 +143,7 @@ describe ContestRound, :type => :model do
       end
     end
 
-    describe :last? do
+    describe 'last?' do
       it 'should be valid' do
         expect(round1.last?).to be_falsy
         expect(round2.last?).to be_falsy
@@ -152,7 +152,7 @@ describe ContestRound, :type => :model do
     end
   end
 
-  describe :strategy do
+  describe 'strategy' do
     subject(:contest_round) { build_stubbed :contest_round }
     its(:strategy) { should eq contest_round.contest.strategy }
   end

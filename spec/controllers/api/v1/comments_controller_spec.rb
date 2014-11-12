@@ -1,5 +1,5 @@
 describe Api::V1::CommentsController, :type => :controller do
-  describe :show do
+  describe 'show' do
     let(:comment) { create :comment }
     before { get :show, id: comment.id, format: :json }
 
@@ -7,7 +7,7 @@ describe Api::V1::CommentsController, :type => :controller do
     it { should respond_with_content_type :json }
   end
 
-  describe :index do
+  describe 'index' do
     let(:user) { create :user }
     let!(:comment_1) { create :comment, user: user, commentable: user }
     let!(:comment_2) { create :comment, user: user, commentable: user }

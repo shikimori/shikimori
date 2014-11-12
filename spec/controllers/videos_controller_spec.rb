@@ -13,7 +13,7 @@ describe VideosController, :type => :controller do
 
   let(:json) { JSON.parse response.body }
 
-  describe :create do
+  describe 'create' do
     describe 'response' do
       before { post :create, id: anime_id, video: { url: url, kind: kind, name: name } }
 
@@ -43,7 +43,7 @@ describe VideosController, :type => :controller do
       }.to change(Video, :count).by 1
     end
 
-    describe :assigns do
+    describe 'assigns' do
       before { post :create, id: anime_id, video: { url: url, kind: kind, name: name } }
       it { expect(assigns(:video).url).to eq url }
       it { expect(assigns(:video).name).to eq name }
@@ -53,7 +53,7 @@ describe VideosController, :type => :controller do
     end
   end
 
-  describe :destroy do
+  describe 'destroy' do
     let(:video) { create :video, state: 'confirmed' }
     before { post :destroy, id: video.id }
 

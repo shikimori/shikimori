@@ -17,7 +17,7 @@ describe AniMangaQuery do
       AniMangaQuery.new(Anime, options, user).fetch(page, limit).to_a
     end
 
-    context :type do
+    context 'type' do
       let!(:anime_1) { create :anime, kind: 'TV', episodes: 13 }
       let!(:anime_2) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 13 }
       let!(:anime_3) { create :anime, kind: 'TV', episodes: 6 }
@@ -59,7 +59,7 @@ describe AniMangaQuery do
       end
     end
 
-    context :censored do
+    context 'censored' do
       let(:hentai) { create :genre, id: Genre::HentaiID }
       let(:yaoi) { create :genre, id: Genre::YaoiID }
       let(:porn) { create :studio }
@@ -102,7 +102,7 @@ describe AniMangaQuery do
       end
     end
 
-    context :music do
+    context 'music' do
       let!(:anime_1) { create :anime, kind: 'Music' }
       let!(:anime_2) { create :anime, kind: 'Music' }
       let!(:anime_3) { create :anime }
@@ -201,7 +201,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :rating do
+    describe 'rating' do
       let!(:anime_1) { create :anime, rating: AniMangaQuery::Ratings['NC-17'][0] }
       let!(:anime_2) { create :anime, rating: AniMangaQuery::Ratings['NC-17'][1] }
       let!(:anime_3) { create :anime, rating: AniMangaQuery::Ratings['G'][0] }
@@ -225,7 +225,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :duration do
+    describe 'duration' do
       let!(:anime_1) { create :anime, duration: 10 }
       let!(:anime_2) { create :anime, duration: 20 }
       let!(:anime_3) { create :anime, duration: 20 }
@@ -252,7 +252,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :season do
+    describe 'season' do
       let!(:anime_1) { create :anime, aired_on: Date.parse('2011-02-01') }
       let!(:anime_2) { create :anime, aired_on: Date.parse('2011-02-01') }
       let!(:anime_3) { create :anime, aired_on: Date.parse('2010-02-01') }
@@ -274,7 +274,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :status do
+    describe 'status' do
       let!(:anime_1) { create :anime, status: AniMangaStatus::Ongoing, aired_on: Time.zone.now - 1.month }
       let!(:anime_2) { create :anime, status: AniMangaStatus::Anons }
       let!(:anime_3) { create :anime, status: AniMangaStatus::Anons }
@@ -300,7 +300,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :mylist do
+    describe 'mylist' do
       let(:user) { create :user }
       let(:anime_1) { create :anime }
       let(:anime_2) { create :anime }
@@ -329,7 +329,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :exclude_ids do
+    describe 'exclude_ids' do
       let!(:anime_1) { create :anime, id: 1 }
       let!(:anime_2) { create :anime, id: 2 }
       let!(:anime_3) { create :anime, id: 3 }
@@ -339,7 +339,7 @@ describe AniMangaQuery do
       it { expect(fetch(exclude_ids: [1, 2]).size).to eq(1) }
     end
 
-    describe :order do
+    describe 'order' do
       let!(:anime_1) { create :anime, ranked: 10, name: 'AAA', episodes: 10 }
       let!(:anime_2) { create :anime, ranked: 5, name: 'BBB', episodes: 20 }
 
@@ -347,13 +347,13 @@ describe AniMangaQuery do
       it { expect(fetch(order: 'name').first.id).to eq anime_1.id }
       it { expect(fetch(order: 'id').first.id).to eq anime_2.id }
 
-      describe :episodes do
+      describe 'episodes' do
         let!(:anime_3) { create :anime, ranked: 5, name: 'BBB', episodes: 0, episodes_aired: 15 }
         it { expect(fetch(order: 'position').map(&:id)).to eq [anime_2.id, anime_3.id, anime_1.id] }
       end
     end
 
-    describe :search do
+    describe 'search' do
       before do
         create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'], ranked: 1
         @ranked = create :anime, name: 'testt', synonyms: ['xxxx'], ranked: 2
@@ -408,7 +408,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :paginated do
+    describe 'paginated' do
       let!(:anime_1) { create :anime, kind: 'TV', episodes: 13 }
       let!(:anime_2) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 13 }
 
@@ -421,7 +421,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe :with_video do
+    describe 'with_video' do
       let!(:anime_1) { create :anime, :with_viedo, kind: 'TV' }
       let!(:anime_2) { create :anime, kind: 'TV' }
       let!(:anime_3) { create :anime, kind: 'TV' }

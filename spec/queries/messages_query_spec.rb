@@ -10,8 +10,8 @@ describe MessagesQuery do
   let!(:news) { create :message, kind: MessageType::Anons, to: user, from: user_2 }
   let!(:notification) { create :message, kind: MessageType::FriendRequest, to: user, from: user_2, read: true }
 
-  describe :fetch do
-    describe :inbox do
+  describe 'fetch' do
+    describe 'inbox' do
       let!(:private_2) { create :message, kind: MessageType::Private, to: user, from: user_2, dst_del: true }
       let(:type) { :inbox }
 
@@ -21,7 +21,7 @@ describe MessagesQuery do
       its(:first) { should eq private }
     end
 
-    describe :sent do
+    describe 'sent' do
       let!(:sent_2) { create :message, kind: MessageType::Private, to: user_2, from: user, src_del: true }
       let(:type) { :sent }
 
@@ -31,7 +31,7 @@ describe MessagesQuery do
       its(:first) { should eq sent }
     end
 
-    describe :news do
+    describe 'news' do
       let(:type) { :news }
       it 'has 1 item' do
         expect(subject.size).to eq(1)
@@ -39,7 +39,7 @@ describe MessagesQuery do
       its(:first) { should eq news }
     end
 
-    describe :notifications do
+    describe 'notifications' do
       let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 2.hours.ago }
       let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 3.hours.ago }
       let(:type) { :notifications }

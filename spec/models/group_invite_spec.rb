@@ -1,14 +1,14 @@
 require 'cancan/matchers'
 
 describe GroupInvite, :type => :model do
-  context :relations do
+  context 'relations' do
     it { should belong_to :group }
     it { should belong_to :src }
     it { should belong_to :dst }
     it { should belong_to(:message).dependent(:destroy) }
   end
 
-  context :validations do
+  context 'validations' do
     it { should validate_presence_of :src }
     it { should validate_presence_of :dst }
     it { should validate_presence_of :group }
@@ -17,26 +17,26 @@ describe GroupInvite, :type => :model do
     let(:user) { create :user }
     let(:group_invite) { build :group_invite, src: user, dst: user, group: group }
 
-    describe :cannot_be_banned do
+    describe 'cannot_be_banned' do
       let!(:ban) { create :group_ban, group: group, user: user }
       before { group_invite.save }
       it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.banned')] }
     end
 
-    describe :cannot_be_invited do
+    describe 'cannot_be_invited' do
       let!(:invite) { create :group_invite, src: user, dst: user, group_id: group.id }
       before { group_invite.save }
       it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.invited')] }
     end
 
-    describe :cannot_be_joined do
+    describe 'cannot_be_joined' do
       let!(:join) { create :group_role, user: user, group: group }
       before { group_invite.save }
       it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.joined')] }
     end
   end
 
-  context :hooks do
+  context 'hooks' do
     let(:group) { create :group }
     let(:src) { create :user }
     let(:dst) { create :user }
@@ -74,7 +74,7 @@ describe GroupInvite, :type => :model do
     end
   end
 
-  context :instance_methods do
+  context 'instance_methods' do
     describe '#accept!' do
       subject(:invite) { create :group_invite, :pending }
       before { invite.accept! }
@@ -92,34 +92,34 @@ describe GroupInvite, :type => :model do
     end
   end
 
-  describe :permissions do
+  describe 'permissions' do
     let(:user) { build_stubbed :user }
     subject { Ability.new user }
 
-    context :existing_invite do
-      context :own_invite do
+    context 'existing_invite' do
+      context 'own_invite' do
         let(:group_invite) { build_stubbed :group_invite, dst: user, status: status }
 
-        context :pending_invite do
+        context 'pending_invite' do
           let(:status) { GroupInviteStatus::Pending }
           it { should be_able_to :accept, group_invite }
           it { should be_able_to :reject, group_invite }
         end
 
-        context :accepted_invite do
+        context 'accepted_invite' do
           let(:status) { GroupInviteStatus::Accepted }
           it { should_not be_able_to :accept, group_invite }
           it { should_not be_able_to :reject, group_invite }
         end
 
-        context :rejected_invite do
+        context 'rejected_invite' do
           let(:status) { GroupInviteStatus::Rejected }
           it { should_not be_able_to :accept, group_invite }
           it { should_not be_able_to :reject, group_invite }
         end
       end
 
-      context :foreign_invite do
+      context 'foreign_invite' do
         let(:group_invite) { build_stubbed :group_invite }
 
         it { should_not be_able_to :accept, group_invite }
@@ -127,22 +127,22 @@ describe GroupInvite, :type => :model do
       end
     end
 
-    context :new_invite do
-      context :club_member do
+    context 'new_invite' do
+      context 'club_member' do
         let(:group) { build_stubbed :group, member_roles: [create(:group_role, user: user)] }
 
-        context :from_self do
+        context 'from_self' do
           let(:group_invite) { build_stubbed :group_invite, src: user, group: group }
           it { should be_able_to :create, group_invite }
         end
 
-        context :from_another_user do
+        context 'from_another_user' do
           let(:group_invite) { build_stubbed :group_invite }
           it { should_not be_able_to :create, group_invite, group: group }
         end
       end
 
-      context :not_a_member do
+      context 'not_a_member' do
         let(:group_invite) { build_stubbed :group_invite, src: user }
         it { should_not be_able_to :create, group_invite }
       end

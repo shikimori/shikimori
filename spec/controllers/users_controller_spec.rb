@@ -2,8 +2,8 @@ describe UsersController, :type => :controller do
   let(:user) { create :user, password: '123' }
   before { sign_in user }
 
-  describe :settings do
-    describe :json do
+  describe 'settings' do
+    describe 'json' do
       before { get :show, id: user.to_param, type: 'settings', page: 'account', format: :json }
       it { should respond_with_content_type :json }
       it { should respond_with :success }
@@ -18,7 +18,7 @@ describe UsersController, :type => :controller do
     end
   end
 
-  describe :update_password do
+  describe 'update_password' do
     context 'user without password' do
       before do
         user.update_column :encrypted_password, ''
@@ -52,7 +52,7 @@ describe UsersController, :type => :controller do
     end
   end
 
-  describe :update do
+  describe 'update' do
     context 'wrong user' do
       let(:user2) { create :user }
       before { patch :update, id: user2.to_param }

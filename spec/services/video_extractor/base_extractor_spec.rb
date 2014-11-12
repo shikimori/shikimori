@@ -1,7 +1,7 @@
 describe VideoExtractor::BaseExtractor do
   let(:service) { VideoExtractor::BaseExtractor.new 'test' }
 
-  describe :hosting do
+  describe 'hosting' do
     subject { service.hosting }
     it { should eq :base }
   end

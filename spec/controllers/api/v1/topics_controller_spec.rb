@@ -1,5 +1,5 @@
 describe Api::V1::TopicsController, :type => :controller do
-  describe :index do
+  describe 'index' do
     let(:section) { create :section }
     let!(:topic) { create :entry, section: section, text: 'test [spoiler=спойлер]test[/spoiler] test' }
 
@@ -10,7 +10,7 @@ describe Api::V1::TopicsController, :type => :controller do
     specify { expect(assigns(:topics).size).to eq(1) }
   end
 
-  describe :show do
+  describe 'show' do
     let(:review) { create :review }
     let(:topic) { create :review_comment, linked: review, text: 'test [spoiler=спойлер]test[/spoiler] test' }
 

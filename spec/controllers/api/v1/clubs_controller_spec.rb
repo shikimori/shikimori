@@ -1,5 +1,5 @@
 describe Api::V1::ClubsController, :type => :controller do
-  describe :index do
+  describe 'index' do
     let(:user) { create :user }
     let(:club_1) { create :group }
     let(:club_2) { create :group }
@@ -15,7 +15,7 @@ describe Api::V1::ClubsController, :type => :controller do
     specify { expect(assigns(:collection).size).to eq(2) }
   end
 
-  describe :show do
+  describe 'show' do
     let(:club) { create :group }
     let(:user) { create :user }
     before do
@@ -31,7 +31,7 @@ describe Api::V1::ClubsController, :type => :controller do
     it { should respond_with :success }
   end
 
-  describe :animes do
+  describe 'animes' do
     let(:club) { create :group }
     before { club.animes << create(:anime) }
     before { get :animes, id: club.id, format: :json }
@@ -39,7 +39,7 @@ describe Api::V1::ClubsController, :type => :controller do
     it { should respond_with :success }
   end
 
-  describe :mangas do
+  describe 'mangas' do
     let(:club) { create :group }
     before { club.mangas << create(:manga) }
     before { get :mangas, id: club.id, format: :json }
@@ -47,7 +47,7 @@ describe Api::V1::ClubsController, :type => :controller do
     it { should respond_with :success }
   end
 
-  describe :characters do
+  describe 'characters' do
     let(:club) { create :group }
     before { club.characters << create(:character) }
     before { get :characters, id: club.id, format: :json }
@@ -55,7 +55,7 @@ describe Api::V1::ClubsController, :type => :controller do
     it { should respond_with :success }
   end
 
-  describe :members do
+  describe 'members' do
     let(:club) { create :group }
     before { club.members << create(:user) }
     before { get :members, id: club.id, format: :json }
@@ -63,7 +63,7 @@ describe Api::V1::ClubsController, :type => :controller do
     it { should respond_with :success }
   end
 
-  describe :images do
+  describe 'images' do
     let(:club) { create :group }
     before { club.images << create(:image, uploader: build_stubbed(:user), owner: club) }
     before { get :images, id: club.id, format: :json }

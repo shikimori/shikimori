@@ -12,8 +12,8 @@ describe ReviewsQuery do
     end
   end
 
-  describe :fetch do
-    describe :with_id do
+  describe 'fetch' do
+    describe 'with_id' do
       subject { ReviewsQuery.new(entry, entry, @reviews[0].id).fetch.to_a }
 
       it 'has 1 item' do
@@ -22,7 +22,7 @@ describe ReviewsQuery do
       its(:first) { should eq @reviews[0] }
     end
 
-    describe :without_id do
+    describe 'without_id' do
       subject { ReviewsQuery.new(entry, entry).fetch }
 
       it 'has 3 items' do

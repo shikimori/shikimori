@@ -1,5 +1,5 @@
 describe Api::V1::CalendarsController, :type => :controller do
-  describe :show do
+  describe 'show' do
     before do
       create :anime
       create :ongoing_anime, aired_on: Time.zone.now - 1.day

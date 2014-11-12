@@ -1,5 +1,5 @@
 describe Anime, :type => :model do
-  context :relations do
+  context 'relations' do
     it { should have_and_belong_to_many :genres }
     it { should have_and_belong_to_many :studios }
 
@@ -43,7 +43,7 @@ describe Anime, :type => :model do
     it { should have_many :anime_videos }
   end
 
-  context :hooks do
+  context 'hooks' do
     it { expect{create :anime, :with_thread}.to change(AniMangaComment, :count).by 1 }
   end
 
@@ -341,32 +341,32 @@ describe Anime, :type => :model do
     end
   end
 
-  describe :adult? do
+  describe 'adult?' do
     subject { anime.adult? }
 
-    context :by_rating do
+    context 'by_rating' do
       let(:anime) { build :anime, rating: rating }
 
-      context :false do
+      context 'false' do
         let(:rating) { 'G - All Ages' }
         it { should be_falsy }
       end
 
-      context :true do
+      context 'true' do
         let(:rating) { 'R+ - Mild Nudity' }
         it { should be_truthy }
       end
     end
 
-    context :censored do
+    context 'censored' do
       let(:anime) { build :anime, censored: censored }
 
-      context :false do
+      context 'false' do
         let(:censored) { false }
         it { should be_falsy }
       end
 
-      context :true do
+      context 'true' do
         let(:censored) { true }
         it { should be_truthy }
       end

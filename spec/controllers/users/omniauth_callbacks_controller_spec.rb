@@ -22,7 +22,7 @@ describe Users::OmniauthCallbacksController, :type => :controller do
         )
       end
 
-      context :no_token do
+      context 'no_token' do
         subject { get provider }
 
         it { expect{subject}.to change(User, :count).by 1 }
@@ -30,7 +30,7 @@ describe Users::OmniauthCallbacksController, :type => :controller do
         it { should redirect_to :root }
       end
 
-      context :with_token do
+      context 'with_token' do
         let(:user) { create :user }
         before { create :user }
         before { create :user_token, user: user, uid: uid, provider: provider }

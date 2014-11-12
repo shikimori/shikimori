@@ -5,7 +5,7 @@ describe VideoExtractor::RutubeExtractor do
     let(:video_data) { service.fetch }
     before { VCR.use_cassette(:rutube_video) { video_data } }
 
-    context :valid do
+    context 'valid' do
       let(:url) { 'http://rutube.ru/video/5939d6aea686bc83a86c86d24f40435e/' }
       it { expect(video_data.hosting).to eq :rutube }
       it { expect(video_data.image_url).to be_nil }

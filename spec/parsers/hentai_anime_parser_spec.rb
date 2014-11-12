@@ -6,7 +6,7 @@ describe HentaiAnimeParser do
   it { expect(parser.fetch_pages_num).to eq 7 }
   it { expect(parser.fetch_page_links(0).size).to eq(HentaiAnimeParser::PageSize) }
 
-  describe :fetch_entry do
+  describe 'fetch_entry' do
     subject(:entry) { parser.fetch_entry identifier }
 
     let(:identifier) { 'heisa_byouin' }
@@ -21,18 +21,18 @@ describe HentaiAnimeParser do
     end
     its(:year) { should eq 2003 }
 
-    describe :last_episode do
+    describe 'last_episode' do
       subject { entry.videos.first }
       it { should eq episode: 2, url: 'http://hentai-anime.ru/heisa_byouin/series2?mature=1' }
     end
 
-    describe :first_episode do
+    describe 'first_episode' do
       subject { entry.videos.last }
       it { should eq episode: 1, url: 'http://hentai-anime.ru/heisa_byouin/series1?mature=1' }
     end
   end
 
-  describe :fetch_videos do
+  describe 'fetch_videos' do
     subject(:videos) { parser.fetch_videos episode, url }
     let(:episode) { 1 }
     let(:url) { 'http://hentai-anime.ru/sextra_credit/series1' }
@@ -41,7 +41,7 @@ describe HentaiAnimeParser do
       expect(subject.size).to eq(2)
     end
 
-    describe :first do
+    describe 'first' do
       subject { videos.first }
 
       its(:episode) { should eq episode }
@@ -52,7 +52,7 @@ describe HentaiAnimeParser do
       its(:author) { should eq '' }
     end
 
-    describe :last do
+    describe 'last' do
       subject { videos.last }
 
       its(:episode) { should eq episode }

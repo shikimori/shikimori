@@ -25,7 +25,7 @@ describe AniMangasController::ReviewsController, :type => :controller do
         }
       end
 
-      describe :show do
+      describe 'show' do
         describe "success" do
           before { review }
 
@@ -42,7 +42,7 @@ describe AniMangasController::ReviewsController, :type => :controller do
         end
       end
 
-      describe :index do
+      describe 'index' do
         describe "success" do
           before { review }
 
@@ -65,7 +65,7 @@ describe AniMangasController::ReviewsController, :type => :controller do
         end
       end
 
-      describe :new do
+      describe 'new' do
         it "not authorized" do
           get :new, defaults
           should respond_with 302
@@ -86,7 +86,7 @@ describe AniMangasController::ReviewsController, :type => :controller do
         end
       end
 
-      describe :edit do
+      describe 'edit' do
         it "not authorized" do
           get :edit, defaults.merge(id: review.id)
           should respond_with 302
@@ -107,7 +107,7 @@ describe AniMangasController::ReviewsController, :type => :controller do
         end
       end
 
-      describe :update do
+      describe 'update' do
         it "forbidden" do
           patch :update, defaults.merge(id: review.id)
           should respond_with 302
@@ -148,7 +148,7 @@ describe AniMangasController::ReviewsController, :type => :controller do
         end
       end
 
-      describe :destroy do
+      describe 'destroy' do
         it "not authorized" do
           delete :destroy, defaults.merge(id: review.id)
           should respond_with 302
@@ -180,7 +180,7 @@ describe AniMangasController::ReviewsController, :type => :controller do
         end
       end
 
-      describe :create do
+      describe 'create' do
         it "not authorized" do
           post :create, defaults
           should respond_with 302

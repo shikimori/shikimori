@@ -6,61 +6,61 @@ describe AnimeVideoReportWorker do
 
   subject { AnimeVideoReportWorker.new.perform report.id }
 
-  describe :perform do
+  describe 'perform' do
     let(:user) { create :user, id: 9999 }
 
-    context :vk do
-      context :working do
+    context 'vk' do
+      context 'working' do
         let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
         it { should be_pending }
       end
 
-      context :broken do
+      context 'broken' do
         let(:url) { 'https://vk.com/video_ext.php?oid=166407861&id=163627355&hash=0295006c945f8e89&hd=3' }
         it { should be_accepted }
       end
 
-      context :broken_not_public do
+      context 'broken_not_public' do
         let(:url) { 'http://vk.com/video_ext.php?oid=-39085485&id=166452213&hash=273a3a8952a6a832&hd=2' }
         it { should be_accepted }
       end
 
-      context :broken_hide do
+      context 'broken_hide' do
         let(:url) { 'http://vk.com/video_ext.php?oid=-24168188&id=160084503&hash=158435bbc70b2697&hd=3' }
         it { should be_accepted }
       end
     end
 
-    context :sibnet do
-      context :work do
+    context 'sibnet' do
+      context 'work' do
         let(:url) { 'http://video.sibnet.ru/shell.swf?videoid=1437504' }
         it { should be_pending }
       end
 
-      context :broken_error_processing_video do
+      context 'broken_error_processing_video' do
         let(:url) { 'http://video.sibnet.ru/shell.php?videoid=1047105' }
         it { should be_accepted }
       end
     end
 
-    context :cant_check do
+    context 'cant_check' do
       before { allow_any_instance_of(AnimeVideoReportWorker).to receive(:is_broken).and_return false }
       before { create(:user, id: User::GuestID) unless User.find_by(id: User::GuestID) }
       let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
 
-      context :not_guest do
+      context 'not_guest' do
         let(:user) { create :user, id: 9999 }
         it { should be_pending }
       end
 
-      context :guest do
+      context 'guest' do
         let(:user) { User.find User::GuestID }
 
-        context :no_doubles do
+        context 'no_doubles' do
           it { should be_rejected }
         end
 
-        context :with_doubles do
+        context 'with_doubles' do
           let!(:before_report) { create :anime_video_report, kind: 'broken', state: before_state, anime_video: anime_video, user: before_user }
           let(:before_user) { create :user, id: 9999 }
           let!(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }

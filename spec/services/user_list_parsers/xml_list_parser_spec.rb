@@ -4,7 +4,7 @@ describe UserListParsers::XmlListParser do
   let(:wont_watch_strategy) { nil }
   subject(:parsed) { parser.parse xml }
 
-  context :anime do
+  context 'anime' do
     let(:klass) { Anime }
     let(:xml) {
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -28,7 +28,7 @@ describe UserListParsers::XmlListParser do
     it { should eq [{id: 1, status: UserRate.status_id(:rewatching), episodes: 2, rewatches: 4, score: 5.0, text: 'test test'}] }
   end
 
-  context :manga do
+  context 'manga' do
     let(:klass) { Manga }
 
     let(:xml) {

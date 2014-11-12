@@ -1,9 +1,9 @@
 describe UserNicknameChange, :type => :model do
-  context :relations do
+  context 'relations' do
     it { should belong_to :user }
   end
 
-  context :validations do
+  context 'validations' do
     it { should validate_presence_of :user }
     it { should validate_presence_of :value }
     #it { should validate_uniqueness_of(:user_id).scoped_to(:value) }
@@ -17,7 +17,7 @@ describe UserNicknameChange, :type => :model do
 
     before { allow(user).to receive_message_chain(:comments, :count).and_return comments_count }
 
-    describe :sohuld_log? do
+    describe 'sohuld_log?' do
       context 'less than UserNicknameChange::MINIMUM_LIFE_INTERVAL after registration' do
         let(:created_at) { Time.zone.now - UserNicknameChange::MINIMUM_LIFE_INTERVAL + 1.hour }
         it { expect{user.update nickname: 'test'}.to_not change(UserNicknameChange, :count) }
@@ -43,7 +43,7 @@ describe UserNicknameChange, :type => :model do
       end
     end
 
-    describe :notify_friends do
+    describe 'notify_friends' do
       let!(:user_2) { create :user }
       let!(:friend_link_2) { create :friend_link, dst: user, src: user_2 }
 

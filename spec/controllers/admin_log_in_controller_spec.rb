@@ -1,14 +1,12 @@
 describe AdminLogInController, :type => :controller do
-  before :each do
+  before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
-  let (:user) { FactoryGirl.create :user, nickname: 'zxcxcbvvc' }
+  let (:user) { create :user, nickname: 'zxcxcbvvc' }
 
   describe 'GET restore' do
-    before :each do
-      sign_in FactoryGirl.create(:user)
-    end
+    before { sign_in create(:user) }
 
     context 'no saved admin in session' do
       it 'not found' do
@@ -18,9 +16,7 @@ describe AdminLogInController, :type => :controller do
     end
 
     context 'saved admin in session' do
-      before :each do
-        session[AdminLogInController.admin_id_to_restore_key] = user.id
-      end
+      before { session[AdminLogInController.admin_id_to_restore_key] = user.id }
 
       it 'deletes admin id from session' do
         get :restore
@@ -41,8 +37,8 @@ describe AdminLogInController, :type => :controller do
 
   describe 'GET log_in' do
     context 'admin' do
-      before :each do
-        @admin = FactoryGirl.create :user, id: 1
+      before do
+        @admin = create :user, id: 1
         sign_in @admin
       end
 
@@ -67,9 +63,8 @@ describe AdminLogInController, :type => :controller do
       end
     end
 
-    context :user do
-      before :each do
-        sign_in FactoryGirl.create(:user)
+    context 'user' do
+      before { sign_in create(:user) }
       end
 
       it 'not found' do

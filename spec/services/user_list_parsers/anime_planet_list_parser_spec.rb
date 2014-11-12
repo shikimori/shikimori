@@ -4,7 +4,7 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
   let(:wont_watch_strategy) { nil }
   subject(:parsed) { parser.parse login }
 
-  context :anime do
+  context 'anime' do
     let(:klass) { Anime }
     let!(:anime_1) { create :anime, name: 'Black Bullet' }
     let!(:anime_2) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2007-01-01') }
@@ -38,7 +38,7 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
     end
   end
 
-  context :manga do
+  context 'manga' do
     let(:klass) { Manga }
     let!(:manga) { create :manga, name: 'Maid Sama!' }
 

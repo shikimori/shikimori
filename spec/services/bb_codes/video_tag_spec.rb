@@ -1,10 +1,10 @@
 describe BbCodes::VideoTag do
   let(:tag) { BbCodes::VideoTag.instance }
 
-  describe :format do
+  describe 'format' do
     subject { tag.format text }
 
-    context :youtube do
+    context 'youtube' do
       let(:hash) { 'og2a5lngYeQ' }
       let(:time) { 22 }
 
@@ -35,7 +35,7 @@ describe BbCodes::VideoTag do
       end
     end
 
-    context :vk do
+    context 'vk' do
       let(:oid) { '98023184' }
       let(:vid) { '165811692' }
       let(:hash2) { '6d9a4c5f93270892' }
@@ -58,58 +58,58 @@ describe BbCodes::VideoTag do
       end
     end
 
-    context :open_graph do
+    context 'open_graph' do
       before { VCR.use_cassette(:open_graph_video) { subject } }
 
-      context :coub do
+      context 'coub' do
         let(:text) { 'http://coub.com/view/bqn2pda' }
         it { should include "<a class=\"c-video b-video unprocessed coub" }
       end
 
-      context :twitch do
+      context 'twitch' do
         let(:text) { 'http://www.twitch.tv/joindotared/c/3661348' }
         it { should include "<a class=\"c-video b-video unprocessed twitch" }
       end
 
-      context :rutube do
+      context 'rutube' do
         let(:text) { 'http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a' }
         it { should include "<a class=\"c-video b-video unprocessed rutube" }
       end
 
-      context :vimeo do
+      context 'vimeo' do
         let(:text) { 'http://vimeo.com/85212054' }
         it { should include "<a class=\"c-video b-video unprocessed vimeo" }
       end
 
-      context :myvi do
+      context 'myvi' do
         let(:text) { 'http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2' }
         it { should include "<a class=\"c-video b-video unprocessed myvi" }
       end
 
-      context :sibnet do
+      context 'sibnet' do
         let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
         it { should include "<a class=\"c-video b-video unprocessed sibnet" }
       end
 
-      context :yandex do
+      context 'yandex' do
         let(:text) { 'http://video.yandex.ru/users/allod2008/view/78' }
         it { should include "<a class=\"c-video b-video unprocessed yandex" }
       end
 
-      context :dailymotion do
+      context 'dailymotion' do
         let(:text) { 'http://www.dailymotion.com/video/x19jwj5_boku-wa-tomodachi-ga-sukunai-op-ed-creditless_shortfilms?search_algo=1' }
         it { should include "<a class=\"c-video b-video unprocessed dailymotion" }
         it { should match /\A<.*>\Z/ }
       end
 
-      context :sibnet do
+      context 'sibnet' do
         let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
         it { should include "<a class=\"c-video b-video unprocessed sibnet" }
       end
     end
   end
 
-  describe :preprocess do
+  describe 'preprocess' do
     subject { tag.preprocess text }
     let(:url) { "https://www.youtube.com/watch?v=GFhdjskj#t=123" }
     let(:text) { "[url=#{url}]test[/url][url=#{url}]test[/url]" }

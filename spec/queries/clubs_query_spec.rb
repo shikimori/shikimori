@@ -14,31 +14,31 @@ describe ClubsQuery do
     club_4.members << user
   end
 
-  describe :fetch do
+  describe 'fetch' do
     subject { query.fetch page, limit }
     let(:limit) { 2 }
 
-    context :first_page do
+    context 'first_page' do
       let(:page) { 1 }
       it { should eq [club_1, club_3, club_4] }
     end
 
-    context :second_page do
+    context 'second_page' do
       let(:page) { 2 }
       it { should eq [club_4] }
     end
   end
 
-  describe :postload do
+  describe 'postload' do
     subject { query.postload page, limit }
     let(:limit) { 2 }
 
-    context :first_page do
+    context 'first_page' do
       let(:page) { 1 }
       it { should eq [[club_1, club_3], true] }
     end
 
-    context :second_page do
+    context 'second_page' do
       let(:page) { 2 }
       it { should eq [[club_4], false] }
     end

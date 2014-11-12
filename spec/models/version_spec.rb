@@ -1,11 +1,11 @@
 describe Version, :type => :model do
-  describe :validations do
+  describe 'validations' do
     it { should validate_presence_of :item_type }
     it { should validate_presence_of :item_id }
     it { should validate_presence_of :item_diff }
   end
 
-  describe :state_machine do
+  describe 'state_machine' do
     let(:anime) { create :anime }
     let(:video) { create :anime_video, anime: anime, episode: 2 }
     let(:diff_hash) { {episode: [1,2]} }

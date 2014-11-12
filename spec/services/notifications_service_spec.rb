@@ -7,13 +7,13 @@ describe NotificationsService do
 
   subject(:notify) { service.nickname_change user, friend, old_nickname, new_nickname }
 
-  context :disabled_notifications do
+  context 'disabled_notifications' do
     let(:notifiactions) { User::DEFAULT_NOTIFICATIONS - User::NICKNAME_CHANGE_NOTIFICATIONS }
     it { should be nil }
     it { expect{subject}.to_not change(Message, :count) }
   end
 
-  context :allowed_notifications do
+  context 'allowed_notifications' do
     before { allow(BotsService).to receive(:get_poster).and_return bot }
     let(:notifiactions) { User::DEFAULT_NOTIFICATIONS  }
     let(:bot) { create :user }

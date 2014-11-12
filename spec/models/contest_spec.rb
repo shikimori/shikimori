@@ -28,12 +28,12 @@ describe Contest, :type => :model do
       contest.finish!
     end
 
-    describe :can_propose? do
+    describe 'can_propose?' do
       subject { contest.can_propose? }
       it { should be_truthy }
     end
 
-    describe :can_start? do
+    describe 'can_start?' do
       subject { contest.can_start? }
       context 'normal count' do
         before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
@@ -266,12 +266,12 @@ describe Contest, :type => :model do
     describe '#strategy' do
       subject { create :contest, strategy_type: strategy_type }
 
-      context :double_elimination do
+      context 'double_elimination' do
         let(:strategy_type) { :double_elimination }
         its(:strategy) { should be_kind_of Contest::DoubleEliminationStrategy }
       end
 
-      context :play_off do
+      context 'play_off' do
         let(:strategy_type) { :play_off }
         its(:strategy) { should be_kind_of Contest::PlayOffStrategy }
       end

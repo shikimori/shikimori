@@ -6,13 +6,13 @@ describe ClubsController, :type => :controller do
     let(:user) { create :user }
     let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
 
-    describe :no_pagination do
+    describe 'no_pagination' do
       before { get :index }
       it { should respond_with :success }
       it { expect(assigns :collection).to eq [club] }
     end
 
-    describe :pagination do
+    describe 'pagination' do
       before { get :index, page: 1 }
       it { should respond_with :success }
     end
@@ -84,7 +84,7 @@ describe ClubsController, :type => :controller do
     it { should redirect_to club_url(club) }
     it { expect(club.images.size).to eq(1) }
 
-    context :image do
+    context 'image' do
       subject { club.images.first }
       its(:uploader) { should eq user }
     end
@@ -105,12 +105,12 @@ describe ClubsController, :type => :controller do
   describe '#comments' do
     let!(:club) { create :group, :with_thread }
 
-    context :without_comments do
+    context 'without_comments' do
       before { get :comments, id: club.to_param }
       it { should redirect_to club_url(club) }
     end
 
-    context :with_comments do
+    context 'with_comments' do
       let!(:comment) { create :comment, commentable: club.thread }
       before { club.thread.update comments_count: 1 }
       before { get :comments, id: club.to_param }
@@ -119,12 +119,12 @@ describe ClubsController, :type => :controller do
   end
 
   describe '#animes' do
-    context :without_animes do
+    context 'without_animes' do
       before { get :animes, id: club.to_param }
       it { should redirect_to club_url(club) }
     end
 
-    context :with_animes do
+    context 'with_animes' do
       let(:club) { create :group, :with_thread, :linked_anime }
       before { get :animes, id: club.to_param }
       it { should respond_with :success }
@@ -132,12 +132,12 @@ describe ClubsController, :type => :controller do
   end
 
   describe '#mangas' do
-    context :without_mangas do
+    context 'without_mangas' do
       before { get :mangas, id: club.to_param }
       it { should redirect_to club_url(club) }
     end
 
-    context :with_mangas do
+    context 'with_mangas' do
       let(:club) { create :group, :with_thread, :linked_manga }
       before { get :mangas, id: club.to_param }
       it { should respond_with :success }
@@ -145,12 +145,12 @@ describe ClubsController, :type => :controller do
   end
 
   describe '#characters' do
-    context :without_characters do
+    context 'without_characters' do
       before { get :characters, id: club.to_param }
       it { should redirect_to club_url(club) }
     end
 
-    context :with_characters do
+    context 'with_characters' do
       let(:club) { create :group, :with_thread, :linked_character }
       before { get :characters, id: club.to_param }
       it { should respond_with :success }

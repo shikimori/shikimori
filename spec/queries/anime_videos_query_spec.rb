@@ -8,7 +8,7 @@ describe AnimeVideosQuery do
 
   subject { AnimeVideosQuery.new(is_adult).fetch }
 
-  context :adult do
+  context 'adult' do
     let(:is_adult) { true }
 
     its(:to_a) 'has 1 item' do
@@ -16,7 +16,7 @@ describe AnimeVideosQuery do
     end
   end
 
-  context :not_adult do
+  context 'not_adult' do
     let(:is_adult) { false }
 
     its(:to_a) 'has 2 items' do

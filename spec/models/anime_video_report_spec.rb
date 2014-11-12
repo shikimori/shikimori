@@ -1,35 +1,35 @@
 describe AnimeVideoReport, :type => :model do
-  describe :relations do
+  describe 'relations' do
     it { should belong_to :anime_video }
     it { should belong_to :user }
     it { should belong_to :approver }
   end
 
-  describe :validations do
+  describe 'validations' do
     it { should validate_presence_of :user }
     it { should validate_presence_of :anime_video }
     it { should validate_presence_of :kind }
 
-    describe :accepted do
+    describe 'accepted' do
       subject { build :anime_video_report, state: 'accepted' }
       it { should validate_presence_of :approver }
     end
 
-    describe :rejected do
+    describe 'rejected' do
       subject { build :anime_video_report, state: 'rejected' }
       it { should validate_presence_of :approver }
     end
   end
 
-  describe :scopes do
-    describe :pending do
+  describe 'scopes' do
+    describe 'pending' do
       subject { AnimeVideoReport.pending }
 
-      context :empty do
+      context 'empty' do
         it { should be_empty }
       end
 
-      context :with_data do
+      context 'with_data' do
         let(:approver) { build_stubbed :user }
         let!(:pending_report) { create :anime_video_report, state: 'pending' }
         before { create :anime_video_report, state: 'accepted', approver: approver }
@@ -39,14 +39,14 @@ describe AnimeVideoReport, :type => :model do
       end
     end
 
-    describe :processed do
+    describe 'processed' do
       subject { AnimeVideoReport.processed }
 
-      context :empty do
+      context 'empty' do
         it { should be_empty }
       end
 
-      context :with_data do
+      context 'with_data' do
         let(:approver) { build_stubbed :user }
         let!(:pending_report) { create :anime_video_report, state: 'pending' }
         let!(:accepted_report) { create :anime_video_report, state: 'accepted' }
@@ -58,16 +58,16 @@ describe AnimeVideoReport, :type => :model do
     end
   end
 
-  describe :doubles do
+  describe 'doubles' do
     let!(:report) { create :anime_video_report, anime_video: anime_video, state: state_1 }
     let(:state_1) { 'rejected' }
     let(:anime_video) { create :anime_video }
     subject { report.doubles }
 
-    context :no_doubles do
+    context 'no_doubles' do
       it { should be_zero }
 
-      context :one_user_not_filter do
+      context 'one_user_not_filter' do
         let(:user) { create :user }
         let(:report) { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
         before { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
@@ -76,22 +76,22 @@ describe AnimeVideoReport, :type => :model do
       end
     end
 
-    context :with_double do
+    context 'with_double' do
       before { create :anime_video_report, anime_video: anime_video, state: state_1 }
 
-      context :without_state do
+      context 'without_state' do
         it { should eq 1 }
       end
 
-      context :with_state do
+      context 'with_state' do
         subject { report.doubles state_2 }
 
-        context :other_state do
+        context 'other_state' do
           let(:state_2) { 'accepted' }
           it { should eq 0 }
         end
 
-        context :eq_state do
+        context 'eq_state' do
           let(:state_2) { state_1 }
           it { should eq 1 }
         end
@@ -99,7 +99,7 @@ describe AnimeVideoReport, :type => :model do
     end
   end
 
-  describe :state_machine do
+  describe 'state_machine' do
     let(:approver) { build_stubbed :user }
     let(:anime_video) { create :anime_video, state: anime_video_state }
     let(:anime_video_state) { 'working' }
@@ -110,7 +110,7 @@ describe AnimeVideoReport, :type => :model do
       before { report.accept approver }
       its(:approver) { should eq approver }
 
-      describe :anime_video_state do
+      describe 'anime_video_state' do
         subject { report.anime_video.state }
         it { should eq report_kind }
       end
@@ -120,14 +120,14 @@ describe AnimeVideoReport, :type => :model do
       before { report.reject approver }
       its(:approver) { should eq approver }
 
-      describe :anime_video_state do
+      describe 'anime_video_state' do
         subject { report.anime_video }
 
-        context :broken do
+        context 'broken' do
           it { should be_working }
         end
 
-        context :uploaded do
+        context 'uploaded' do
           let(:report_kind) { 'uploaded' }
           let(:anime_video_state) { 'uploaded' }
           it { should be_rejected }
@@ -144,7 +144,7 @@ describe AnimeVideoReport, :type => :model do
       its(:approver) { should eq canceler }
       it { should be_pending }
 
-      describe :anime_video_state do
+      describe 'anime_video_state' do
         subject { report.anime_video }
         it { should be_working }
       end
@@ -160,10 +160,10 @@ describe AnimeVideoReport, :type => :model do
       let!(:report_3) { create :anime_video_report, anime_video: anime_video, kind: report_kind, user: report_user_3 }
       let!(:report_other_kind) { create :anime_video_report, anime_video: anime_video, kind: report_kind_other, user: report_user_2 }
 
-      context :from_working_to_other do
+      context 'from_working_to_other' do
         let(:anime_video_state) { 'working' }
 
-        context :broken_report do
+        context 'broken_report' do
           let(:report_kind) { 'broken' }
           let(:report_kind_other) { 'wrong' }
 
@@ -190,7 +190,7 @@ describe AnimeVideoReport, :type => :model do
           end
         end
 
-        context :wrong_report do
+        context 'wrong_report' do
           let(:report_kind) { 'wrong' }
           let(:report_kind_other) { 'broken' }
 
@@ -218,8 +218,8 @@ describe AnimeVideoReport, :type => :model do
         end
       end
 
-      context :from_other_to_working do
-        context :broken_report do
+      context 'from_other_to_working' do
+        context 'broken_report' do
           let(:report_kind) { 'broken' }
           let(:report_kind_other) { 'wrong' }
           before do
