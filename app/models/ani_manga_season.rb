@@ -28,6 +28,9 @@ class AniMangaSeason
             when 'spring'
               date_from = Date.new(year, 3) - 8.days
               date_to = Date.new(year, 6) - 8.days
+
+            else
+              raise BadSeasonError, "unknown season '#{season}'"
           end
           "(aired_on >= '#{date_from}' and aired_on < '#{date_to}'#{additional})"
 
