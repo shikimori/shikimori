@@ -112,7 +112,7 @@
                 | /
 
   - if @add_postloader
-    = render partial: 'blocks/postloader', locals: { filter: 'ani_manga_entry', url: ani_manga_list_path(params.merge(page: @page+1, format: :json, type: @params_type)) }, formats: :html
+    = render partial: 'blocks/postloader', locals: { filter: 'ani_manga_entry', url: ani_manga_list_path(url_params(page: @page+1, format: :json, type: @params_type)) }, formats: :html
 
   /- elsif @total_stats.any? && !(@list.size == 1 && @page == 1 && !@add_postloader)
     /header.summary

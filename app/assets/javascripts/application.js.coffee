@@ -77,7 +77,7 @@ $with = (selector, $root) ->
     .removeClass('linkeable')
 
   # стена картинок
-  $with('.wall', $root).shiki_wall()
+  $with('.shiki-wall.unprocessed', $root).shiki_wall()
   #$('.b-shiki_editor.unprocessed', $root).shiki_editor()
   $with('.b-forum.unprocessed', $root).shiki_forum()
   $with('.b-topic.unprocessed', $root).shiki_topic()

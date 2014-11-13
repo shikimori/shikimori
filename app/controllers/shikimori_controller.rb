@@ -32,7 +32,7 @@ class ShikimoriController < ApplicationController
 
   def resource_redirect
     if resource_id != @resource.to_param && request.method == 'GET' && params[:action] != 'new'
-      redirect_to url_for(params.merge('id' => @resource.to_param))
+      redirect_to url_for(url_params(id: @resource.to_param))
       false
     end
   end

@@ -173,7 +173,7 @@ private
   end
 
   def redirect_url
-    url_for params.merge('id' => entry.to_param).except('subpage')
+    url_for url_params(id: entry.to_param).except(:subpage)
   end
 
   def view_root

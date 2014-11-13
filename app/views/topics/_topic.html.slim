@@ -43,6 +43,11 @@
           = topic.html_body
 
         footer
+          - if topic.show_author_in_footer?
+            a.b-user16 href="#{profile_url topic.user}" title="#{topic.user.nickname}"
+              img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
+              span = topic.user.nickname
+
           - if topic.review? && user_signed_in? && topic.linked.user_id != current_user.id
             p
               span Этот обзор полезен?

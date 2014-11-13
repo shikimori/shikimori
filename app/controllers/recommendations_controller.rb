@@ -13,9 +13,9 @@ class RecommendationsController < AnimesCollectionController
     @threshold = params[:threshold].to_i
     @metric = params[:metric]
 
-    redirect_to recommendations_url(params.merge metric: 'pearson_z') and return if @metric.blank?
+    redirect_to recommendations_url(url_params(metric: 'pearson_z')) and return if @metric.blank?
     unless THRESHOLDS[@klass].include? @threshold
-      redirect_to recommendations_url(params.merge threshold: THRESHOLDS[@klass][-1])
+      redirect_to recommendations_url(url_params(threshold: THRESHOLDS[@klass][-1]))
       return
     end
 

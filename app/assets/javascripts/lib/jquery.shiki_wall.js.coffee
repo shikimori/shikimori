@@ -2,9 +2,11 @@
   $.fn.extend
     shiki_wall: (opts) ->
       @each ->
-        $wall = $(@)
-        $wall.imagesLoaded ->
-          new ShikiWall($wall).mason()
+        $root = $(@)
+        return unless $root.hasClass('unprocessed')
+
+        $root.removeClass('unprocessed').imagesLoaded ->
+          new ShikiWall($root).mason()
 )(jQuery)
 
 wall_id = 0

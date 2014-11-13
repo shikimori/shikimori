@@ -6,7 +6,7 @@ describe BbCodeFormatter do
     expect(processor.remove_wiki_codes("[[test|123]]")).to eq "123"
   end
 
-  describe 'paragraphs' do
+  describe '#paragraphs' do
     subject { processor.paragraphs text }
 
     describe '\n' do
@@ -25,7 +25,7 @@ describe BbCodeFormatter do
     end
   end
 
-  describe 'user_mention' do
+  describe '#user_mention' do
     let!(:user) { create :user, nickname: 'test' }
     subject { processor.user_mention text }
 
@@ -49,7 +49,7 @@ describe BbCodeFormatter do
     end
   end
 
-  describe 'db_entry_mention' do
+  describe '#db_entry_mention' do
     subject { processor.db_entry_mention text }
 
     describe 'english' do
@@ -116,7 +116,7 @@ describe BbCodeFormatter do
     end
   end
 
-  describe 'remove_old_tags' do
+  describe '#remove_old_tags' do
     subject { processor.remove_old_tags text }
 
     describe '<p>' do
@@ -145,7 +145,7 @@ describe BbCodeFormatter do
     end
   end
 
-  describe 'format_comment' do
+  describe '#format_comment' do
     subject { processor.format_comment text }
 
     describe 'cleanup' do
@@ -194,7 +194,7 @@ describe BbCodeFormatter do
 
     describe '[wall]' do
       let(:text) { '[wall][/wall]' }
-      it { should eq '<div class="height-unchecked inner-block wall"></div>' }
+      it { should eq '<div class="wall"></div>' }
     end
 
     describe '[vkontakte]' do

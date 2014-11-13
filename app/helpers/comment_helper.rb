@@ -416,7 +416,7 @@ private
     'wall' => [
       /(?:<br \/>|\n)*\[wall\](.*?)\[\/wall\]/mi,
       #'<div class="wall">\1</div>',
-      '<div class="height-unchecked inner-block wall">\1</div>',
+      '<div class="wall">\1</div>',
       'wall with images',
       "[wall]images here[/wall]",
       :wall]

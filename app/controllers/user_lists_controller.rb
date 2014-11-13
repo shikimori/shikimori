@@ -15,7 +15,7 @@ class UserListsController < UsersController
   # отображение аниме листа пользователяс с наложенными фильтрами
   def show
     unless params[:order]
-      redirect_to ani_manga_list_url(params.merge(order: user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort))
+      redirect_to ani_manga_list_url(url_params(order: user_signed_in? ? current_user.preferences.default_sort : UserPreferences::DefaultSort))
       return
     end
     current_user.preferences.update_sorting(params[:order]) if user_signed_in?

@@ -65,6 +65,11 @@ class TopicDecorator < BaseDecorator
     preview? || !generated? || contest? || review?
   end
 
+  # показывать ли автора в footer блоке
+  def show_author_in_footer?
+    preview? && (news? || review?) && avatar != user.avatar_url(80)
+  end
+
   # по опросу ли данный топик
   def contest?
     object.class == ContestComment
