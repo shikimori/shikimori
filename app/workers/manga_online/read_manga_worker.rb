@@ -12,10 +12,10 @@ class MangaOnline::ReadMangaWorker
 
 private
   def mangas_for_import
-    #NOTE: пока нет признака успешного завершения парсинга:
+    #NOTE: Лимит оставил, чтобы проверить сначала все ли правильно загрузилось на продакшене.
     Manga
-      .where('read_manga_id like ?', 'rm_%')
-      .limit(1)
-      .select { |manga| manga.manga_chapters.blank? }
+      .where('read_manga_id is not null')
+      .where(parsed_at: nil)
+      .limit(10)
   end
 end

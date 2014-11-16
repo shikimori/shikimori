@@ -34,4 +34,22 @@ describe Manga do
     it { should have_many :recommendation_ignores }
     it { should have_many :manga_chapters }
   end
+
+  describe :scopes do
+    before do
+      [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|
+        create :manga, read_manga_id: read_manga_id
+      end
+    end
+
+    describe '#read_manga' do
+      it { expect(Manga.read_manga).to have(1).item }
+      it { expect(Manga.read_manga.first.read_manga_id).to eq 'rm_katana' }
+    end
+
+    describe '#read_manga_adult' do
+      it { expect(Manga.read_manga_adult).to have(1).item }
+      it { expect(Manga.read_manga_adult.first.read_manga_id).to eq 'am_love_knot' }
+    end
+  end
 end
