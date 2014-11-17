@@ -1,5 +1,6 @@
 @import compass/css3/border-radius
 @import mixins/responsive
+@import mixins/placeholder
 
 =input
   +border-radius(0)
@@ -8,11 +9,21 @@
   background-color: #fcfcfc
   border-color: #ddd
   color: #333
+  line-height: 14px
   margin: 0
   padding: 1px 0 1px 5px
 
-  +gte_ipad
+  +placeholder
     line-height: 14px
+    color: #999
+    padding-top: 1px
+
+    +iphone
+      padding-top: 0
+      line-height: 23px
+
+  +gte_ipad
+    //line-height: 14px
     width: 375px
 
   +iphone

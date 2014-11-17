@@ -4,6 +4,7 @@
 @import compass/utilities/general/clearfix
 @import mixins/icons
 @import mixins/link
+@import mixins/placeholder
 @import mixins/responsive
 
 .b-shiki_editor
@@ -100,6 +101,9 @@
         position: relative
         resize: none
         width: 100%
+
+        +placeholder
+          line-height: $line_height
 
   .ajax-loading
     height: 100%
