@@ -1,2 +1,2 @@
-#= require pages/cosplay/show
-#= require pages/cosplay/edit
+# require pages/cosplay/show
+# require pages/cosplay/edit

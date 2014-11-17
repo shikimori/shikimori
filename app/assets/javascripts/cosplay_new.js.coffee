@@ -1,1 +1,1 @@
-#= require pages/cosplay/new
+# require pages/cosplay/new
