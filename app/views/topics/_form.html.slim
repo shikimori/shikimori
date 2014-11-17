@@ -1,4 +1,7 @@
-= simple_form_for topic do |f|
+- topic_type = @resource.type
+= simple_form_for topic.becomes(Topic) do |f|
+  - topic.type = topic_type
+
   - if topic.errors.any?
     .b-errors
       .subheadline Ошибки

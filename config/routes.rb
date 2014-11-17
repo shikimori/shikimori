@@ -70,9 +70,9 @@ Site::Application.routes.draw do
       get ':section/block' => 'forum#site_block', as: :forum_site_block
 
       get ':section(/s-:linked)(/p-:page)' => 'topics#index', as: :section
-      [:section_topic, :section_blog_post, :section_contest_comment].each do |name|
-        get ':section(/s-:linked)/:id' => 'topics#show', as: name
-      end
+      #[:section_topic, :section_blog_post, :section_contest_comment].each do |name|
+        #get ':section(/s-:linked)/:id' => 'topics#show', as: name
+      #end
     end
     resources :topics, only: [:create, :update, :destroy, :edit]
 
