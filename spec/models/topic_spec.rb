@@ -15,13 +15,12 @@ describe Topic do
     end
   end
 
-  describe 'permissions', :focus do
+  describe 'permissions' do
     let(:topic) { build_stubbed :topic }
     subject { Ability.new user }
 
     context 'guest' do
       let(:user) { nil }
-      it { should be_able_to :read, topic }
       it { should_not be_able_to :new, topic }
       it { should_not be_able_to :create, topic }
       it { should_not be_able_to :update, topic }
@@ -31,7 +30,6 @@ describe Topic do
     context 'user' do
       let(:user) { build_stubbed :user, :user }
 
-      it { should be_able_to :read, topic }
       it { should_not be_able_to :new, topic }
       it { should_not be_able_to :create, topic }
       it { should_not be_able_to :update, topic }
@@ -41,7 +39,6 @@ describe Topic do
         let(:topic) { build_stubbed :topic, user: user, created_at: created_at }
         let(:created_at) { Time.zone.now }
 
-        it { should be_able_to :read, topic }
         it { should be_able_to :new, topic }
         it { should be_able_to :create, topic }
         it { should be_able_to :update, topic }
