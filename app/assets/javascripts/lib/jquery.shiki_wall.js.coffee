@@ -12,17 +12,14 @@
 wall_id = 0
 
 class @ShikiCluster
-  @Vertical = 'vertical'
-  @Horizontal = 'horizontal'
+  @VERTICAL = 'vertical'
+  @HORIZONTAL = 'horizontal'
 
 class @ShikiWall
   constructor: ($node) ->
     @id = (wall_id+=1)
 
-    @$wall = $node
-      .css(width: '', height: '')
-      .removeClass('wall')
-      .addClass('shiki-wall')
+    @$wall = $node.css(width: '', height: '')
 
     @max_height = parseInt @$wall.css('max-height')
     @max_width = parseInt @$wall.css('width')
@@ -30,7 +27,7 @@ class @ShikiWall
     images = @$wall.children('a').attr(rel: "wall-#{@id}").css(width: '', height: '')
     @images = _(images).map (v) -> new ShikiImage $(v)
 
-    @direction = ShikiCluster.Horizontal
+    @direction = ShikiCluster.HORIZONTAL
     @margin = 4
 
   each: (func) -> _(@images).each func
@@ -68,7 +65,7 @@ class @ShikiWall
       #image.position left, 0
 
     #else if delta_x && delta_y
-      #if @direction == ShikiCluster.Horizontal
+      #if @direction == ShikiCluster.HORIZONTAL
         #image.position left, 0
       #else
         #image.position 0, top
@@ -76,7 +73,7 @@ class @ShikiWall
     #else
       #image.position left, top
 
-    if @direction == ShikiCluster.Horizontal
+    if @direction == ShikiCluster.HORIZONTAL
       image.position left, 0
     else
       image.position 0, top
@@ -88,7 +85,7 @@ class @ShikiWall
     images = @positioned()
     return if images.length == 1
 
-    if @direction == ShikiCluster.Horizontal
+    if @direction == ShikiCluster.HORIZONTAL
       heights = _(images).map (v) -> v.height
       min = _(heights).min()
       if min != _(heights).max()
@@ -105,7 +102,7 @@ class @ShikiWall
   _scale: (image, delta_x, delta_y) ->
     images = @positioned()
 
-    if @direction == ShikiCluster.Horizontal
+    if @direction == ShikiCluster.HORIZONTAL
       current_width = _(images).reduce (memo, v) =>
           memo + v.width + @margin
         , 0.0
@@ -147,9 +144,11 @@ class ShikiImage
       width: @width
       height: @height
 
-    @$container.css
-      top: @top
-      left: @left
+    @$container
+      .css
+        top: @top
+        left: @left
+      .shiki_image()
 
   normalize: (width, height) ->
     if @width > width

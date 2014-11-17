@@ -110,6 +110,7 @@ ru:
         body: Текст
         type: Тип
         linked: Связанное
+        posters: Постеры
 
     # сообщения валидаций
     errors:

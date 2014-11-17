@@ -194,7 +194,7 @@ describe BbCodeFormatter do
 
     describe '[wall]' do
       let(:text) { '[wall][/wall]' }
-      it { should eq '<div class="wall"></div>' }
+      it { should eq '<div class="b-shiki_wall unprocessed"></div>' }
     end
 
     describe '[vkontakte]' do

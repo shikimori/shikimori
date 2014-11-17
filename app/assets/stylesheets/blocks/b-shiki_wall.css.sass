@@ -1,0 +1,19 @@
+@import compass/utilities/general/clearfix
+
+.b-shiki_wall
+  +clearfix
+  max-height: 320px
+  position: relative
+
+  &.unprocessed
+    max-height: 160px
+
+    .unprocessed img
+      max-height: 160px
+
+  a
+    overflow: hidden
+    position: absolute
+
+  img
+    display: inline-block

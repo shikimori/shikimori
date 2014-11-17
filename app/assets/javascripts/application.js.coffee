@@ -28,7 +28,7 @@ $ =>
     message: "Вы написали и не сохранили какой-то комментарий! Уверены, что хотите покинуть страницу?"
 
 $(document).on 'page:restore', (e, is_dom_content_loaded) ->
-  process_current_dom()
+  $(document.body).process()
 
 $(document).on 'page:load', (e, is_dom_content_loaded) ->
   unless is_dom_content_loaded
@@ -42,7 +42,7 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
     $.flash alert: v.innerHTML if v.innerHTML.length
 
   #$(document.body).addClass 'l-mobile' if is_mobile()
-  process_current_dom()
+  $(document.body).process()
 
 $(document).on 'page:fetch', ->
   #$('.l-page').css opacity: 0.3
@@ -78,7 +78,7 @@ $with = (selector, $root) ->
     .removeClass('linkeable')
 
   # стена картинок
-  $with('.shiki-wall.unprocessed', $root).shiki_wall()
+  $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
   #$('.b-shiki_editor.unprocessed', $root).shiki_editor()
   $with('.b-forum.unprocessed', $root).shiki_forum()
   $with('.b-topic.unprocessed', $root).shiki_topic()

@@ -83,7 +83,7 @@ aside.buttons
       | Цитирование пользователя:
     = text_field_tag 'image_value', '', class: 'link-value ac_input', placeholder: 'Введите имя пользователя...', 'data-autocomplete' => autocomplete_users_url(search: '')
 
-= render partial: 'blocks/upload_progress', formats: :html
+= render 'blocks/upload_progress'
 
 .body
   .editor
