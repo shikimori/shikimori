@@ -20,8 +20,9 @@ class WellcomeNewsPresenter < LazyPresenter
     @news = Rails.cache.fetch(cache_key, expires_in: 3.hours) do
       AnimeNews
         .wo_episodes
+        .joins('left join animes on animes.id=linked_id')
         .where("entries.created_at >= ?", LastNewsDate)
-        .joins('left join animes on animes.id=linked_id and (animes.id is null or animes.censored=false)')
+        .where("animes.id is null or animes.censored=false")
         .includes(:user)
         .order(created_at: :desc)
         .limit(10)
