@@ -1,7 +1,6 @@
 class PersonProfileSerializer < PersonSerializer
   attributes :job_title, :birthday, :website, :groupped_roles
-  attribute :roles
-  attribute :works
+  attributes :roles, :works
   attributes :person_favoured?
   attributes :producer?, :producer_favoured?
   attributes :mangaka?, :mangaka_favoured?
