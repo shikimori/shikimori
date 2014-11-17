@@ -73,6 +73,7 @@ Site::Application.routes.draw do
       #[:section_topic, :section_blog_post, :section_contest_comment].each do |name|
         #get ':section(/s-:linked)/:id' => 'topics#show', as: name
       #end
+      get ':section(/s-:linked)/:id' => 'topics#show', as: :section_topic
     end
     resources :topics, only: [:create, :update, :destroy, :edit]
 
