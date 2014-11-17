@@ -70,7 +70,6 @@ class AnimeCalendar < ActiveRecord::Base
     "maho shojo taisen" => 21421,
     "kindaichi shonen no jikenbo r" => 22817,
     "abarenbo rikishi!! matsutaro" => 22831,
-    "mushishi: the next chapter" => 21939,
     "fuun ishin dai shogun" => 21821,
     "no game" => 19815,
     "mahoka koko no rettosei" => 20785,
@@ -102,14 +101,17 @@ class AnimeCalendar < ActiveRecord::Base
     'fate/stay night: unlimited blade works' => 22297,
     'log horizon 2' => 23321,
     'madan no o to vanadis' => 24455,
-    "yama no susume second season" => 21435
+    'yama no susume second season' => 21435,
+    'mushishi: the next chapter' => 24701,
   }
 
   EpisodesDiff = {
     'gintama\' enchousen' => 252,
     'diabolik lovers' => 1,
     'kuroko no basuke 2' => 25,
-    'fairy tail (2014)' => 175
+    'kuroko no basuke 2' => 25,
+    'fairy tail (2014)' => 175,
+    'FIXES MATCHED mushishi: the next chapter' => 12
   }
 
   # импорт аниме календаря с animecalendar.net
@@ -133,7 +135,7 @@ class AnimeCalendar < ActiveRecord::Base
       {
         start_at: v.dtstart - 4.hours,
         episode: v.uid.split('_').last.to_i,
-        anime_name: name,
+        anime_name: id ? "FIXES MATCHED #{name}" : name,
         anime_id: id
       }
     end
