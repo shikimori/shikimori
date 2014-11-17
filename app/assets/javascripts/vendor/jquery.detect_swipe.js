@@ -4,6 +4,7 @@
  * http://github.com/marcandre/detect_swipe
  * Based on touchwipe by Andreas Waltl, netCU Internetagentur (http://www.netcu.de)
  */
+// добавлены 36-38 строки
 (function($) {
 
   $.detectSwipe = {
@@ -31,6 +32,10 @@
       var dx = startX - x;
       var dy = startY - y;
       var dir;
+
+      if(Math.abs(dx) >= $.detectSwipe.threshold/2 && Math.abs(dy) >= $.detectSwipe.threshold/2) {
+        return;
+      }
       if(Math.abs(dx) >= $.detectSwipe.threshold) {
         dir = dx > 0 ? 'left' : 'right'
       }
