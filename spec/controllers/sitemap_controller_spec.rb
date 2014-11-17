@@ -1,5 +1,5 @@
 
-describe SitemapController, :type => :controller do
+describe SitemapController do
   it 'works' do
     FactoryGirl.create :anime, :description => 'test'
 

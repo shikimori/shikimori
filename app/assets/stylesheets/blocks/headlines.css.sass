@@ -146,12 +146,16 @@ header.head
     position: initial
     width: 100% !important
 
-  &.downgrade_lanscape
+  &.downgrade_landscape
     +iphone-landscape
       margin-bottom: 10px !important
       position: initial
       width: 100% !important
 
-//.subcontent
-  padding-left: 5px
-  margin-bottom: 30px
+.subheadline-buttons
+  position: absolute
+  right: 5px
+  margin-top: 2px
+
+  +lte_ipad
+    margin-top: 1px

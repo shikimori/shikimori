@@ -1,4 +1,4 @@
-describe Api::V1::CommentsController, :type => :controller do
+describe Api::V1::CommentsController do
   describe 'show' do
     let(:comment) { create :comment }
     before { get :show, id: comment.id, format: :json }

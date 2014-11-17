@@ -1,4 +1,4 @@
-describe RecommendationIgnoresController, :type => :controller do
+describe RecommendationIgnoresController do
   let(:user) { create :user }
   before { sign_in user }
 

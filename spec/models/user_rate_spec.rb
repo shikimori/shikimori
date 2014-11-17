@@ -1,4 +1,4 @@
-describe UserRate, :type => :model do
+describe UserRate do
   describe 'relations' do
     it { should belong_to :target }
     it { should belong_to :user }

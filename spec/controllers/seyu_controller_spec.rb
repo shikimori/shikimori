@@ -1,4 +1,4 @@
-describe SeyuController, :type => :controller do
+describe SeyuController do
   let!(:seyu) { create :person, name: 'test', seyu: true }
 
   describe 'index' do

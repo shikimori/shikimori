@@ -1,4 +1,4 @@
-describe Version, :type => :model do
+describe Version do
   describe 'validations' do
     it { should validate_presence_of :item_type }
     it { should validate_presence_of :item_id }

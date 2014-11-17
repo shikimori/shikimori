@@ -1,4 +1,4 @@
-describe Moderation::AbuseRequestsController, :type => :controller do
+describe Moderation::AbuseRequestsController do
   let(:user) { create :user, :admin }
   before { sign_in user }
 

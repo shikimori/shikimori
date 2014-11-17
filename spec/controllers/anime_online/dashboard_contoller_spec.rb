@@ -1,4 +1,4 @@
-describe AnimeOnline::DashboardController, :type => :controller do
+describe AnimeOnline::DashboardController do
   let!(:anime) { create :anime, :with_video }
 
   describe 'show' do

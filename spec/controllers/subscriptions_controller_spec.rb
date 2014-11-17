@@ -1,5 +1,5 @@
 
-describe SubscriptionsController, :type => :controller do
+describe SubscriptionsController do
   before (:each) do
     @user = FactoryGirl.create :user
     @topic = FactoryGirl.create :topic

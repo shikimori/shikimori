@@ -1,5 +1,5 @@
-describe Comment, :type => :model do
-  context 'relations' do
+describe Comment do
+  describe 'relations' do
     it { should belong_to :user }
     it { should belong_to :commentable }
     it { should have_many :messages }
@@ -7,7 +7,7 @@ describe Comment, :type => :model do
     it { should have_many :abuse_requests }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :body }
     it { should validate_presence_of :user }
     it { should validate_presence_of :commentable }

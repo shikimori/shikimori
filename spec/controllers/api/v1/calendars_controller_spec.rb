@@ -1,4 +1,4 @@
-describe Api::V1::CalendarsController, :type => :controller do
+describe Api::V1::CalendarsController do
   describe 'show' do
     before do
       create :anime

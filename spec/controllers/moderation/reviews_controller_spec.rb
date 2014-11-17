@@ -1,4 +1,4 @@
-describe Moderation::ReviewsController, :type => :controller do
+describe Moderation::ReviewsController do
   let(:user) { create :user, id: 1 }
   before { sign_in user }
 

@@ -1,5 +1,5 @@
-describe Entry, :type => :model do
-  context 'relations' do
+describe Entry do
+  describe 'relations' do
     it { should belong_to :section }
     it { should belong_to :linked }
     it { should belong_to :user }
@@ -45,7 +45,7 @@ describe Entry, :type => :model do
     end
   end
 
-  context 'instance_methods' do
+  describe 'instance methods' do
     let(:user) { create :user }
     let(:user2) { create :user }
     let(:entry) { create :entry, user: user }

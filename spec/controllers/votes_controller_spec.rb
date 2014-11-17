@@ -1,4 +1,4 @@
-describe VotesController, :type => :controller do
+describe VotesController do
   let (:user) { FactoryGirl.create :user }
   let (:entry) { FactoryGirl.create :review }
   let (:defaults) { { id: entry.to_param, type: entry.class.name, voting: 'yes' } }

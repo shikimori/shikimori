@@ -2,7 +2,7 @@ class NoAntispam < ActiveRecord::Base; include Antispam; end
 NoAntispam.antispam = false
 class WithAntispam < ActiveRecord::Base; include Antispam; end
 
-describe Antispam, :type => :model do
+describe Antispam do
   it 'antispam?' do
     expect(WithAntispam.with_antispam?).to be_truthy
     expect(NoAntispam.with_antispam?).to be_falsy

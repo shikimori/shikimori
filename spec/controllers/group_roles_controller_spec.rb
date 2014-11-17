@@ -1,4 +1,4 @@
-describe GroupRolesController, :type => :controller do
+describe GroupRolesController do
   let(:club) { create :group }
   include_context :authenticated
 

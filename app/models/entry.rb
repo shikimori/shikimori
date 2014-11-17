@@ -1,5 +1,4 @@
 class Entry < ActiveRecord::Base
-  include PermissionsPolicy
   include Commentable
   include Viewable
 

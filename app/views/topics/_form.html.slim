@@ -1,0 +1,100 @@
+= simple_form_for topic do |f|
+  - if topic.errors.any?
+    .b-errors
+      .subheadline Ошибки
+      .block
+        == topic.errors.full_messages.join('<br>')
+
+  = f.input :user_id, as: :hidden
+  = f.input :section_id, as: :hidden
+  = f.input :linked_id, as: :hidden
+  = f.input :linked_type, as: :hidden
+
+  .m20
+    = f.input :title
+    = f.input :type, collection: [Topic.name.to_sym, AnimeNews.name.to_sym, MangaNews.name.to_sym], include_blank: false
+
+  .b-shiki_editor.unprocessed.block
+    = render 'comments/shiki_editor', text: topic.body || '', field_name: 'topic[text]'
+
+  - if ['news', 'a', 'm'].include?(topic.section.permalink)
+    .topic_linked
+      .b-input.string.optional
+        label.string.optional.control-label for="topic_linked"
+          = t 'activerecord.attributes.topic.linked'
+          .cleanup очистить
+        input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url search: ''}"
+
+      .topic-video
+        - if topic.linked.present?
+          a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
+      .topic-link
+        - if topic.linked.present?
+          a.bubbled href="#{url_for topic.linked}" title="#{topic.linked.name}"
+            = topic.linked.name
+
+        /- else
+          /p
+            /= topic.linked_type
+      /.action-misc Выберите с помощью автодополнения существующее аниме(мангу), либо, если на сайте нужное аниме(манга) ещё не добавлено, то просто напишите в поле полное название, не используя автодополнение.
+
+  = f.submit
+
+/- @type = topic.type
+/= form_for topic.becomes(Topic), remote: true, html: { 'data-type' => :json } do |f|
+  /- topic.type = @type
+
+  /= f.hidden_field :section_id
+  /= f.hidden_field :linked_id
+  /= f.hidden_field :linked_type
+  /.m10
+    /p Название
+    /= f.text_field :title, class: 'common', placeholder: 'Название топика...', tabindex: 1
+  /.forum-container
+    /.comments.zero-margin.zero-top-border
+      /.comments-container
+        /= render partial: 'comments/add', locals: { options: { no_subscribe: true, text: topic.original_text, no_form: true, editable: topic, field_name: 'topic[text]', tabindex: 2 } }, formats: :html
+
+  /- if @section[:permalink] == 'news' || topic.news?
+    /.m10
+      /.field-name Тип новости
+      /.field-value
+        /= f.radio_button :type, AnimeNews.name
+        /| &nbsp;
+        /= f.label :type_animenews, 'Об аниме'
+      /.field-value
+        /= f.radio_button :type, MangaNews.name
+        /| &nbsp;
+        /= f.label :type_manganews, 'О манге'
+
+    /.m10
+      /p.linked-label
+      /input.linked-suggest.suggest.common type="text" data-autocomplete="#{autocomplete_animes_url search: ''}"
+      /.linked-selected-right
+        /- if topic.linked.present?
+          /a href="#{url_for topic.linked}/edit/videos" добавить видео
+      /.linked-selected
+        /- if topic.linked.present?
+          /a.bubbled href="#{url_for topic.linked}"
+            /= topic.linked.name
+        //- else
+          //p
+            //= topic.linked_type
+      /.action-misc Выберите с помощью автодополнения существующее аниме(мангу), либо, если на сайте нужное аниме(манга) ещё не добавлено, то просто напишите в поле полное название, не используя автодополнение.
+
+    /- unless topic.generated?
+      /.m10
+        /.field-name Постеры
+        /.wall-ids
+        /.drag-here-placeholder data-upload_url="#{user_images_url linked_type: AnimeNews.name}"
+          /p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
+          /= render partial: 'blocks/upload_progress', formats: :html
+          /.wall-container
+            /- topic.user_images.each do |user_image|
+              /a.image-container href="#{user_image.image.url :original, false}" rel="new-wall" data-user_image_id="#{user_image.id}"
+                /span.image-delete.hidden title="Удалить картинку"
+                /span.image-delete-confirm.hidden title="Подтвердить удаление"
+                /span.image-delete-cancel.hidden title="Отменить удаление"
+                /img src="#{user_image.image.url :preview, false}"
+          /input type="file" multiple="multiple"
+

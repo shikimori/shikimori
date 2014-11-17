@@ -1,4 +1,4 @@
-describe ContestMatchesController, :type => :controller do
+describe ContestMatchesController do
   let(:match) { create :contest_match, state: 'started' }
 
   describe 'show' do

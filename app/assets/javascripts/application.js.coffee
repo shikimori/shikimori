@@ -11,6 +11,7 @@
 #= require pages/p-clubs
 #= require_directory ./pages/p-profiles
 #= require_directory ./pages/p-user_rates
+#= require_directory ./pages/p-topics
 
 $ =>
   $(document).trigger 'page:load', true

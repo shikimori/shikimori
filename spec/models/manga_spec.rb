@@ -1,5 +1,5 @@
-describe Manga, :type => :model do
-  context 'relations' do
+describe Manga do
+  describe 'relations' do
     it { should have_and_belong_to_many :genres }
     it { should have_and_belong_to_many :publishers }
 

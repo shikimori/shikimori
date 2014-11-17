@@ -1,10 +1,10 @@
-describe GroupBan, :type => :model do
-  context 'relations' do
+describe GroupBan do
+  describe 'relations' do
     it { should belong_to :group }
     it { should belong_to :user }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :group }
     it { should validate_presence_of :user }
   end

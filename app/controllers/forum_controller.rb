@@ -2,7 +2,7 @@ class ForumController < ShikimoriController
   @@first_page_comments = 3
   @@other_page_comments = 1
 
-  before_action :build_background, only: [:index, :show, :new, :edit, :create, :site_block]
+  before_action :build_background, only: [:index, :show, :new, :edit, :create, :site_block, :create, :update]
   helper_method :sticked_topics
 
   #caches_action :site_block,
@@ -117,27 +117,27 @@ private
         ["section-#{@section.permalink}"]
     end.to_json if user_signed_in?
 
-    #if params[:linked] || (params[:topic] && !params[:topic].kind_of?(Hash))
+    if params[:linked]# || (params[:topic] && !params[:topic].kind_of?(Hash))
       ##@topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
 
       #@linked = if @topic && @section.permalink != 'v'
         #@topic.linked
       #else
-        #case @section.permalink
-          #when 'a' then Anime.find(params[:linked].to_i)
-          #when 'm' then Manga.find(params[:linked].to_i)
-          #when 'c' then Character.find(params[:linked].to_i)
-          #when 'g' then Group.find(params[:linked].to_i)
-          #when 'reviews' then Review.find(params[:linked].to_i)
-          #else nil
-        #end
+      @linked = case @section.permalink
+        when 'a' then Anime.find(params[:linked].to_i)
+        when 'm' then Manga.find(params[:linked].to_i)
+        when 'c' then Character.find(params[:linked].to_i)
+        when 'g' then Group.find(params[:linked].to_i)
+        when 'reviews' then Review.find(params[:linked].to_i)
+        else nil
+      end
       #end
       #@linked_presenter = if @linked.class == Review
         #@linked.entry.decorate
       #elsif @linked
         #@linked.decorate
       #end
-    #end
+    end
 
     raise NotFound, "неизвестный раздел: #{params[:section]}" unless @section
 

@@ -1,5 +1,5 @@
-describe Anime, :type => :model do
-  context 'relations' do
+describe Anime do
+  describe 'relations' do
     it { should have_and_belong_to_many :genres }
     it { should have_and_belong_to_many :studios }
 

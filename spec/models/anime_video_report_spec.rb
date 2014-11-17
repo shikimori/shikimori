@@ -1,4 +1,4 @@
-describe AnimeVideoReport, :type => :model do
+describe AnimeVideoReport do
   describe 'relations' do
     it { should belong_to :anime_video }
     it { should belong_to :user }

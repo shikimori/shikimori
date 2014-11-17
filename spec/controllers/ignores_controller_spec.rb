@@ -1,4 +1,4 @@
-describe IgnoresController, :type => :controller do
+describe IgnoresController do
   let(:user) { create :user }
   let(:user2) { create :user }
 

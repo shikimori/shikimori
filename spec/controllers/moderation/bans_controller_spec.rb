@@ -1,4 +1,4 @@
-describe Moderation::BansController, :type => :controller do
+describe Moderation::BansController do
   before { sign_in user }
 
   let(:user) { create :user, id: 1 }

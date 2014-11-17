@@ -1,4 +1,4 @@
-describe UserHistory, :type => :model do
+describe UserHistory do
   describe User do
     it { should belong_to :user }
     it { should belong_to :target }

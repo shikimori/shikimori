@@ -1,4 +1,4 @@
-describe AnimeOnline::PingmediaController, :type => :controller do
+describe AnimeOnline::PingmediaController do
   describe 'google' do
     before { get :google }
     it { should respond_with_content_type :html }

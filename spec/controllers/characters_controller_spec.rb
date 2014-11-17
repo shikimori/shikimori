@@ -1,4 +1,4 @@
-describe CharactersController, :type => :controller do
+describe CharactersController do
   let!(:character) { create :character }
 
   describe 'index' do

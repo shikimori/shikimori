@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe Contest, :type => :model do
+describe Contest do
   describe 'relations' do
     it { should belong_to :user }
     it { should have_many :links }
@@ -18,7 +18,7 @@ describe Contest, :type => :model do
     it { should validate_presence_of :user_vote_key }
   end
 
-  describe 'state_machine' do
+  describe 'state machine' do
     let(:contest) { create :contest, :with_5_members }
 
     it 'full cycle' do

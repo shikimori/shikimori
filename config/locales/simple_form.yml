@@ -1,0 +1,18 @@
+ru:
+  helpers:
+    submit:
+      topic:
+        create: Создать топик
+        update: Изменить топик
+
+  simple_form:
+    placeholders:
+      topic:
+        title: Название топика
+
+    options:
+      topic:
+        type:
+          Topic: Топик
+          AnimeNews: Новость об аниме
+          MangaNews: Новость о манге

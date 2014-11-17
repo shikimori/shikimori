@@ -1,4 +1,4 @@
-describe FriendsController, :type => :controller do
+describe FriendsController do
   let (:user) { FactoryGirl.create :user }
   let (:user2) { FactoryGirl.create :user }
 

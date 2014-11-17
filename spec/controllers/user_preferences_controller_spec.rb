@@ -1,4 +1,4 @@
-describe UserPreferencesController, :type => :controller do
+describe UserPreferencesController do
   let(:user) { create :user, :preferences }
 
   describe '#update' do

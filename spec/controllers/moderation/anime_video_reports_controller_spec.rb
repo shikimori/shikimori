@@ -1,4 +1,4 @@
-describe Moderation::AnimeVideoReportsController, :type => :controller do
+describe Moderation::AnimeVideoReportsController do
   before { sign_in moderator }
 
   let(:user) { create :user }

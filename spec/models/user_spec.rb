@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe User, :type => :model do
+describe User do
   describe 'relations' do
     it { should have_one :preferences }
 

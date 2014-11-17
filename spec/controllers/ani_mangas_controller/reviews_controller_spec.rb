@@ -1,4 +1,4 @@
-describe AniMangasController::ReviewsController, :type => :controller do
+describe AniMangasController::ReviewsController do
   [:anime, :manga].each do |kind|
     describe kind do
       before { create :section, id: DbEntryThread::SectionIDs[kind.to_s.capitalize], permalink: 'a', name: 'Аниме' }

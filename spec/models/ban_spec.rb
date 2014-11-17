@@ -1,12 +1,12 @@
-describe Ban, :type => :model do
-  context 'relations' do
+describe Ban do
+  describe 'relations' do
     it { should belong_to :user }
     it { should belong_to :moderator }
     it { should belong_to :comment }
     it { should belong_to :abuse_request }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :user }
     it { should validate_presence_of :moderator }
     it { should validate_presence_of :duration }
@@ -55,7 +55,7 @@ describe Ban, :type => :model do
     end
   end
 
-  context 'instance_methods' do
+  describe 'instance methods' do
     describe 'warning?' do
       subject { ban.warning? }
       let(:ban) { create :ban, :no_callbacks, params }

@@ -1,4 +1,4 @@
-describe ProfilesController, :type => :controller do
+describe ProfilesController do
   let!(:user) { create :user }
 
   describe '#show' do

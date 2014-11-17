@@ -1,4 +1,4 @@
 
-describe AttachedImage, :type => :model do
+describe AttachedImage do
   it { should belong_to :owner }
 end

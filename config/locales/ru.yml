@@ -105,6 +105,11 @@ ru:
           members_comment: Только для участников клуба
       group_invite:
         dst: Пользователь
+      topic:
+        title: Название
+        body: Текст
+        type: Тип
+        linked: Связанное
 
     # сообщения валидаций
     errors:

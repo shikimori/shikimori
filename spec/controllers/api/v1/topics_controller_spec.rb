@@ -1,4 +1,4 @@
-describe Api::V1::TopicsController, :type => :controller do
+describe Api::V1::TopicsController do
   describe 'index' do
     let(:section) { create :section }
     let!(:topic) { create :entry, section: section, text: 'test [spoiler=спойлер]test[/spoiler] test' }

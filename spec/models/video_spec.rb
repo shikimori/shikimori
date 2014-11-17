@@ -1,10 +1,10 @@
-describe Video, :type => :model do
-  context 'relations' do
+describe Video do
+  describe 'relations' do
     it { should belong_to :anime }
     it { should belong_to :uploader }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :anime_id }
     it { should validate_presence_of :uploader_id }
     it { should validate_presence_of :url }
@@ -44,7 +44,7 @@ describe Video, :type => :model do
     end
   end
 
-  context 'validations' do
+  describe 'validations' do
     describe 'normalize' do
       let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
       subject { video }

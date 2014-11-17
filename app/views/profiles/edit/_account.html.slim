@@ -45,7 +45,7 @@
               = link_to "/users/auth/#{provider}" do
                 = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
 
-      input.ignore-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Имя пользователя" data-variant_name="user[ignored_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
+      input.ignore-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="user[ignored_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
       .subheadline Игнорируемые пользователи
       .variants
         - @resource.ignored_users.each do |user|

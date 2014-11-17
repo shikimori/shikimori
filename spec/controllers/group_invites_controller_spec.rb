@@ -1,4 +1,4 @@
-describe GroupInvitesController, :type => :controller do
+describe GroupInvitesController do
   let(:club) { create :group }
   include_context :authenticated
 

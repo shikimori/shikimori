@@ -1,4 +1,4 @@
-describe ClubsController, :type => :controller do
+describe ClubsController do
   let(:club) { create :group }
 
   describe '#index' do

@@ -1,4 +1,4 @@
-describe AnimeVideoAuthor, :type => :model do
+describe AnimeVideoAuthor do
   it { should have_many :anime_videos }
 
   it { should validate_presence_of :name }

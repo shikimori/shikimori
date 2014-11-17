@@ -1,4 +1,4 @@
-describe Api::V1::CharactersController, :type => :controller do
+describe Api::V1::CharactersController do
   describe 'show' do
     let(:character) { create :character }
     before { get :show, id: character.id, format: :json }

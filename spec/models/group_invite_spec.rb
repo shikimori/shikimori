@@ -1,14 +1,14 @@
 require 'cancan/matchers'
 
-describe GroupInvite, :type => :model do
-  context 'relations' do
+describe GroupInvite do
+  describe 'relations' do
     it { should belong_to :group }
     it { should belong_to :src }
     it { should belong_to :dst }
     it { should belong_to(:message).dependent(:destroy) }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :src }
     it { should validate_presence_of :dst }
     it { should validate_presence_of :group }
@@ -74,7 +74,7 @@ describe GroupInvite, :type => :model do
     end
   end
 
-  context 'instance_methods' do
+  describe 'instance methods' do
     describe '#accept!' do
       subject(:invite) { create :group_invite, :pending }
       before { invite.accept! }

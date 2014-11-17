@@ -1,6 +1,6 @@
 require 'webmock/rspec'
 
-describe DanbooruController, :type => :controller do
+describe DanbooruController do
   describe '#show' do
     let(:md5) { 'TTTEST' }
     let(:url) { "http://hijiribe.donmai.us/data/#{md5}.jpg" }

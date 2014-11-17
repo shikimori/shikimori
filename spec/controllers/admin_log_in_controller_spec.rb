@@ -1,4 +1,4 @@
-describe AdminLogInController, :type => :controller do
+describe AdminLogInController do
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end

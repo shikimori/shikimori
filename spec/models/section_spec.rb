@@ -1,3 +1,3 @@
-describe Section, :type => :model do
+describe Section do
   it { should have_many :topics }
 end

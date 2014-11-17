@@ -1,6 +1,6 @@
 
-describe Person, :type => :model do
-  context '#relations' do
+describe Person do
+  describe 'relations' do
     it { should have_many :person_roles }
     it { should have_many :animes }
     it { should have_many :mangas }

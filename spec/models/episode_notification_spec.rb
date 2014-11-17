@@ -1,3 +1,3 @@
-describe EpisodeNotification, :type => :model do
+describe EpisodeNotification do
   it { should belong_to :anime }
 end

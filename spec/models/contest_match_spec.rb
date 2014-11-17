@@ -1,5 +1,5 @@
-describe ContestMatch, :type => :model do
-  context 'relations' do
+describe ContestMatch do
+  describe 'relations' do
     it { should belong_to :round }
     it { should belong_to :left }
     it { should belong_to :right }

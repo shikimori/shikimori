@@ -1,4 +1,4 @@
-describe Api::V1::AnimesController, :type => :controller do
+describe Api::V1::AnimesController do
   describe 'index' do
     let(:user) { create :user }
     let(:genre) { create :genre }

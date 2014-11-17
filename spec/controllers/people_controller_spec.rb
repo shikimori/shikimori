@@ -1,4 +1,4 @@
-describe PeopleController, :type => :controller do
+describe PeopleController do
   let!(:person) { create :person }
 
   describe 'index' do

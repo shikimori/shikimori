@@ -1,4 +1,4 @@
-describe MangaChapter, :type => :model do
+describe MangaChapter do
   it { should belong_to :manga }
   it { should have_many :pages }
 

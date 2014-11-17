@@ -1,5 +1,5 @@
-describe ContestRound, :type => :model do
-  context 'relations' do
+describe ContestRound do
+  describe 'relations' do
     it { should belong_to :contest }
     it { should have_many :matches }
   end

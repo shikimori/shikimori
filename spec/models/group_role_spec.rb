@@ -1,12 +1,12 @@
 require 'cancan/matchers'
 
-describe GroupRole, :type => :model do
-  context 'relations' do
+describe GroupRole do
+  describe 'relations' do
     it { should belong_to :user }
     it { should belong_to(:group).touch(true) }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :user }
     it { should validate_presence_of :group }
     it { should validate_presence_of :role }

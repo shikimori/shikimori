@@ -1,4 +1,4 @@
-describe Contest::PlayOffStrategy, :type => :model do
+describe Contest::PlayOffStrategy do
   let(:strategy_type) { :play_off }
   let(:strategy) { contest.strategy }
 

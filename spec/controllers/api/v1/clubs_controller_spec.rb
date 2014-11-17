@@ -1,4 +1,4 @@
-describe Api::V1::ClubsController, :type => :controller do
+describe Api::V1::ClubsController do
   describe 'index' do
     let(:user) { create :user }
     let(:club_1) { create :group }

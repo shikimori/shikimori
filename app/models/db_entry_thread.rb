@@ -1,4 +1,4 @@
-class DbEntryThread < Entry
+class DbEntryThread < Topic
   SectionIDs = {'Anime' => 1, 'Manga' => 6, 'Character' => 7, 'Person' => 14, 'Group' => 10, 'Review' => 12}
 
   attr_defaults section_id: -> { SectionIDs[linked_type] }

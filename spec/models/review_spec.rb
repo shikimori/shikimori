@@ -1,12 +1,12 @@
-describe Review, :type => :model do
-  context 'relations' do
+describe Review do
+  describe 'relations' do
     it { should belong_to :target }
     it { should belong_to :user }
     it { should belong_to :approver }
     it { should have_one :thread }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :user }
     it { should validate_presence_of :target }
 
@@ -61,7 +61,7 @@ describe Review, :type => :model do
     end
   end
 
-  context 'instance_methods' do
+  describe 'instance methods' do
     let(:user) { build_stubbed :user }
     let(:review) { create :review, user: user }
 

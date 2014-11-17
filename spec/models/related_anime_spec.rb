@@ -1,4 +1,4 @@
-describe RelatedAnime, :type => :model do
+describe RelatedAnime do
   it { should belong_to :source }
   it { should belong_to :anime }
   it { should belong_to :manga }

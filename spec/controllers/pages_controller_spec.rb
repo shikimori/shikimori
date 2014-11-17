@@ -1,4 +1,4 @@
-describe PagesController, :type => :controller do
+describe PagesController do
   let(:user) { create :user }
 
   describe 'auth_form' do

@@ -199,3 +199,7 @@ class @ShikiTopic extends ShikiView
       $placeholder.html p(num, 'Добавлен ', 'Добавлены ', 'Добавлено ') + num + p(num, ' новый комментарий', ' новых комментария', ' новых комментариев')
 
     $placeholder
+
+  # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
+  _check_height: =>
+    @$body.check_height(@MAX_PREVIEW_HEIGHT)

@@ -1,4 +1,4 @@
-describe MessagesController, :type => :controller do
+describe MessagesController do
   let!(:user) { create :user, email: email }
 
   describe 'bounce' do

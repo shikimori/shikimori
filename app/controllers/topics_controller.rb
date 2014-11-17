@@ -1,10 +1,10 @@
+# TODO: выпилить ForumController
 class TopicsController < ForumController
   include TopicsHelper
 
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update]
-  before_action :check_post_permission, only: [:create, :update]
-
-  before_action :fetch_topic, if: -> { params[:topic] }
+  load_and_authorize_resource class: Topic, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_post_permission, only: [:create, :update, :destroy]
+  before_action :build_forum
 
   caches_action :index,
     cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{Comment.last.updated_at}|#{json?}" },
@@ -29,28 +29,26 @@ class TopicsController < ForumController
       .to_a
 
     @add_postloader = topics.size >= topics_limit
-    @topics = topics.take(topics_limit).map do |topic|
-      TopicDecorator.new topic
-    end
+    @topics = topics.take(topics_limit).map {|v| TopicDecorator.new v }
 
     super
 
     # редирект на топик, если топик в подфоруме единственный
-    redirect_to topic_url(@topics.first.entry, params[:format]) and return if @linked && @topics.size == 1
+    redirect_to topic_url(@topics.first, params[:format]) and return if @linked && @topics.size == 1
   end
 
   # страница топика форума
   def show
+    @topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex if Entry::SpecialTypes.include?(@topic.class.name) && @topic.comments_count == 0
 
-    #@presenter = TopicPresenter.new(object: @topic, template: view_context, linked: @linked, limit: 20, with_user: true)
     if ((@topic.news? || @topic.review?) && params[:linked].present?) || (
         !@topic.news? && !@topic.review? && (
-          @topic.to_param != params[:topic] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && !@topic.kind_of?(ContestComment))
+          @topic.to_param != params[:id] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && !@topic.kind_of?(ContestComment))
         )
       )
-      redirect_to topic_url(@topic), status: :moved_permanently and return
+      return redirect_to topic_url(@topic), status: :moved_permanently
     end
 
     super
@@ -58,107 +56,62 @@ class TopicsController < ForumController
 
   # создание нового топика
   def new
-    @topic ||= Topic.new(params[:topic])
-
-    if @section[:id] == 'news'
-      @topic.type = AnimeNews.name
-    end
-
-    @topic.section_id ||= @section.id if @section.respond_to? :id
-    super
-    @topic.linked ||= @linked
-
     noindex
+    super
+  end
 
-    respond_to do |format|
-      format.html do
-        render 'topics/edit'
-      end
-      format.json do
-        render json: @json.merge({
-          content: render_to_string('topics/edit', layout: false, formats: :html)
-        })
-      end
+  # создание топика
+  def create
+    #linked = if params[:topic]['linked_id'].present? && params[:topic]['linked_type'].present?
+      #params[:topic]['linked_type'].constantize.find(params[:topic]['linked_id'])
+    #end
+
+    #klass = if params[:topic]['type'].present?
+      #"#{params[:topic]['type'].sub('News', '')}News".constantize
+    #else
+      #Topic
+    #end
+
+    #@topic = klass.new topic_params.merge(user: current_user, linked: linked)
+    @resource.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
+    if @resource.save
+      # отправка уведомлений о создании топика
+      FayePublisher.new(current_user, faye_token).publish @resource, :create unless Rails.env.test?
+      redirect_to topic_url(@resource), notice: 'Топик создан'
+    else
+      new
+      render :edit
     end
   end
 
   # редактирование топика
   def edit
-    @topic = Entry.find(params[:id])
-    @section = @topic.section
-
+    @section = @resource.section
     super
-
-    noindex
-
-    respond_to do |format|
-      format.html do
-        render 'topics/edit'
-      end
-      format.json do
-        render json: @json.merge({
-          content: render_to_string('topics/edit', layout: false, formats: :html)
-        })
-      end
-    end
-  end
-
-  # создание топика
-  def create
-    linked = if params[:topic]['linked_id'].present? && params[:topic]['linked_type'].present?
-      params[:topic]['linked_type'].constantize.find(params[:topic]['linked_id'])
-    end
-
-    klass = if params[:topic]['type'].present?
-      "#{params[:topic]['type'].sub('News', '')}News".constantize
-    else
-      Topic
-    end
-
-    @topic = klass.new topic_params.merge(user: current_user, linked: linked)
-    @topic.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
-
-    if @topic.save
-      # отправка уведомлений о создании комментария
-      FayePublisher.new(current_user, faye_token).publish @topic, :create unless Rails.env.test?
-
-      render json: {
-        notice: 'Топик создан',
-        url: section_topic_path(section: @topic.section, linked: @topic.linked, topic: @topic.to_param) # path, не url!
-      }
-    else
-      render json: @topic.errors, status: :unprocessable_entity
-    end
   end
 
   # редактирование топика
   def update
-    @topic = Entry.find(params[:id])
-    raise Forbidden unless @topic.can_be_edited_by?(current_user)
+    @resource.class.record_timestamps = false
+    @resource.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
+    #@topic.linked = if params[:topic]['linked_id'].present? && params[:topic]['linked_type'].present?
+      #params[:topic]['linked_type'].constantize.find(params[:topic]['linked_id'])
+    #end
 
-    @topic.class.record_timestamps = false
-    @topic.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
-    @topic.linked = if params[:topic]['linked_id'].present? && params[:topic]['linked_type'].present?
-      params[:topic]['linked_type'].constantize.find(params[:topic]['linked_id'])
-    end
-
-    if @topic.update_attributes params.require(:topic).permit(:text, :title)
-      render json: {
-        notice: 'Топик изменён',
-        url: section_topic_path(section: @topic.section.to_param, linked: @linked, topic: @topic.to_param) # path, не url!
-      }
+    if @resource.update topic_params
+      # отправка уведомлений о создании топика
+      FayePublisher.new(current_user, faye_token).publish @resource, :update unless Rails.env.test?
+      redirect_to topic_url(@resource), notice: 'Топик изменён'
     else
-      render json: @topic.errors, status: :unprocessable_entity
+      edit
+      render :edit
     end
     @topic.class.record_timestamps = true
   end
 
   # удаление топика
   def destroy
-    @topic = Entry.find(params[:id])
-    raise Forbidden unless @topic.can_be_deleted_by?(current_user)
-    @topic.destroy
-
+    @resource.destroy
     render json: { notice: 'Топик удален' }
   end
 
@@ -183,19 +136,21 @@ class TopicsController < ForumController
 
 private
   def topic_params
-    params.require(:topic).permit(:text, :title, :section_id)
-  end
+    allowed_params = if params[:action] == 'update' && !can?(:manage, Topic)
+       [:text, :title, :linked_id, :linked_type]
+    else
+       [:user_id, :section_id, :text, :title, :type, :linked_id, :linked_type]
+    end
 
-  def fetch_topic
-    @topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:topic])
-    #@topic = Entry
-      #.with_viewed(current_user)
-      #.find(params[:topic])
-      #.decorate
+    params.require(:topic).permit(*allowed_params)
   end
 
   # количество отображаемых топиков
   def topics_limit
     params[:format] == 'rss' ? 30 : 8
+  end
+
+  def build_forum
+    @forum_view = ForumView.new
   end
 end

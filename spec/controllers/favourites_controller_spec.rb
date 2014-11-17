@@ -1,4 +1,4 @@
-describe FavouritesController, :type => :controller do
+describe FavouritesController do
   let(:user) { create :user }
   before { sign_in user }
 

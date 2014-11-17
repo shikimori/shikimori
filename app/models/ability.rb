@@ -9,6 +9,7 @@ class Ability
 
     if @user
       user_ability
+      moderator_ability if @user.moderator?
       contests_moderator_ability if @user.contests_moderator?
       admin_ability if @user.admin?
     end
@@ -96,6 +97,20 @@ class Ability
     #end
 
     can :manage, Device, user_id: @user.id
+
+    can [:new, :create], [Topic, AnimeNews, MangaNews] do |topic|
+      topic.user_id == @user.id
+    end
+    can [:update], [Topic, AnimeNews, MangaNews] do |topic|
+      topic.user_id == @user.id && topic.created_at + 3.months > Time.zone.now
+    end
+    can [:destroy], [Topic, AnimeNews, MangaNews] do |topic|
+      topic.user_id == @user.id && topic.created_at + 4.hours > Time.zone.now
+    end
+  end
+
+  def moderator_ability
+    can :manage, [Topic, AnimeNews, MangaNews]
   end
 
   def contests_moderator_ability
@@ -106,5 +121,4 @@ class Ability
   def admin_ability
     can :manage, :all
   end
-
 end

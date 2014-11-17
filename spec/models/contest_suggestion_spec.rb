@@ -1,11 +1,11 @@
-describe ContestSuggestion, :type => :model do
-  context 'relations' do
+describe ContestSuggestion do
+  describe 'relations' do
     it { should belong_to :user }
     it { should belong_to :contest }
     it { should belong_to :item }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :contest }
     it { should validate_presence_of :user }
     it { should validate_presence_of :item }

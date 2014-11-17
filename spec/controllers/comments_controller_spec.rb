@@ -1,4 +1,4 @@
-describe CommentsController, :type => :controller do
+describe CommentsController do
   let(:user) { create :user }
   let(:topic) { create :entry, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }

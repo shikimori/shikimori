@@ -1,4 +1,4 @@
-describe VideosController, :type => :controller do
+describe VideosController do
   before do
     allow_any_instance_of(Video).to receive :existence
     sign_in user

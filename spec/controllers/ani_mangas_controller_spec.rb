@@ -1,4 +1,4 @@
-describe AnimesController, :type => :controller do
+describe AnimesController do
   let(:anime) { create :anime }
 
   describe '#show' do

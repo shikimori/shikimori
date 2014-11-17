@@ -1,4 +1,4 @@
-describe Contest::Statistics, :type => :model do
+describe Contest::Statistics do
   let(:contest) { build_stubbed :contest }
   let(:statistics) { contest.strategy.statistics }
 

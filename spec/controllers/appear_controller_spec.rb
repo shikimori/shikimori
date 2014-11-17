@@ -1,4 +1,4 @@
-describe AppearController, :type => :controller do
+describe AppearController do
   let!(:topic) { create :entry }
   let(:user2) { create :user }
   let(:user3) { create :user }

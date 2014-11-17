@@ -18,11 +18,15 @@ FactoryGirl.define do
     end
 
     trait :admin do
-      id User::Admins.first
+      id User::Admins.last
+    end
+
+    trait :moderator do
+      id User::Moderators.last
     end
 
     trait :contests_moderator do
-      id User::ContestsModerators.first
+      id User::ContestsModerators.last
     end
 
     trait :without_password do

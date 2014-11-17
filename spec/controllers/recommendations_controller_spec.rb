@@ -1,4 +1,4 @@
-describe RecommendationsController, :type => :controller do
+describe RecommendationsController do
   ['anime', 'manga'].each do |type|
     describe 'index' do
       context 'with_params' do

@@ -32,7 +32,7 @@
   - if @resource.persisted?
     .block.cc-2a
       .c-column
-        input.anime-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Название аниме" data-variant_name="club[anime_ids][]" data-autocomplete="#{autocomplete_animes_url search: ''}"
+        input.anime-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="club[anime_ids][]" data-autocomplete="#{autocomplete_animes_url search: ''}"
         .subheadline Аниме
         .variants
           - @resource.animes.uniq(&:id).each do |anime|
@@ -41,7 +41,7 @@
               a.bubbled href="#{anime_url anime}"
                 = anime.name
       .c-column
-        input.manga-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Название манги" data-variant_name="club[manga_ids][]" data-autocomplete="#{autocomplete_mangas_url search: ''}"
+        input.manga-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название манги" data-variant_name="club[manga_ids][]" data-autocomplete="#{autocomplete_mangas_url search: ''}"
         .subheadline Манга
         .variants
           - @resource.mangas.uniq(&:id).each do |manga|
@@ -73,7 +73,7 @@
 
     .cc-2a
       .c-column
-        input.admin-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Имя пользователя" data-variant_name="club[admin_ids][]" data-autocomplete="#{autocomplete_club_group_roles_url @resource, search: ''}"
+        input.admin-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="club[admin_ids][]" data-autocomplete="#{autocomplete_club_group_roles_url @resource, search: ''}"
         .subheadline Админы
         .variants
           - @resource.admins.each do |user|
@@ -82,7 +82,7 @@
               a href="#{profile_url user}" = user.nickname
 
       .c-column
-        input.ban-suggest.subheadline-input.downgrade_lanscape type="text" placeholder="Имя пользователя" data-variant_name="club[banned_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
+        input.ban-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="club[banned_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
         .subheadline Баны
         .variants
           - @resource.banned_users.each do |user|

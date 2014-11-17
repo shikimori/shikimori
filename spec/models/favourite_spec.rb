@@ -1,5 +1,5 @@
 
-describe Favourite, :type => :model do
+describe Favourite do
   it { should belong_to :linked }
   it { should belong_to :user }
 end

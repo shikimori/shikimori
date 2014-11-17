@@ -1,3 +1,4 @@
+@import globals/variables
 @import mixins/link
 @import mixins/responsive
 
@@ -57,7 +58,7 @@
   +link_color(#444444)
 
   &.selected
-    +link_color
+    +link_color($link)
 
 =headline_icon_button($content)
   +icon_button($content)

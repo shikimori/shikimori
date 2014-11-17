@@ -1,4 +1,4 @@
-describe ContestsController, :type => :controller do
+describe ContestsController do
   let(:user) { create :user, :admin }
   before { sign_in user }
 

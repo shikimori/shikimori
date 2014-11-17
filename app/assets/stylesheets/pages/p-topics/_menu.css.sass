@@ -1,4 +1,5 @@
 @import blocks/menu-block
+@import mixins/icons
 @import mixins/menu-blocks
 
 .p-topics .l-menu
@@ -24,6 +25,9 @@
   .seasons .season,
   .forum .section
     +menu-block-with-text-link
+
+  .forum .new-topic
+    +icon_button("\e83d")
 
   .contests
     +clearfix

@@ -1,4 +1,4 @@
-describe Device, :type => :model do
+describe Device do
   describe 'relations' do
     it { should belong_to :user }
   end

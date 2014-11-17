@@ -1,5 +1,5 @@
 
-describe Character, :type => :model do
+describe Character do
   it { should have_many :person_roles }
   it { should have_many :animes }
   it { should have_many :mangas }

@@ -1,12 +1,12 @@
 require 'cancan/matchers'
 
-describe Image, :type => :model do
-  context 'relations' do
+describe Image do
+  describe 'relations' do
     it { should belong_to :uploader }
     it { should belong_to :owner }
   end
 
-  context 'validations' do
+  describe 'validations' do
     it { should have_attached_file :image }
     it { should validate_attachment_presence :image }
     it { should validate_presence_of :uploader }

@@ -4,8 +4,7 @@ class Topic < Entry
 
   belongs_to :anime_history
 
-  validates_presence_of :title
-  validates_presence_of :text
+  validates :title, :text, presence: true
 
   after_create :subscribe
   before_destroy :clear_anime_history
@@ -18,7 +17,7 @@ class Topic < Entry
     text
   end
 
-  def self.custom_create(topic_params, comment_params, user_id)
+  def self.custom_create topic_params, comment_params, user_id
     topic = Topic.new(topic_params)
     topic.permalink = topic.title.permalinked
     topic.user_id = user_id

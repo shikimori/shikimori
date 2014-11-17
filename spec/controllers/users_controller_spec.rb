@@ -1,4 +1,4 @@
-describe UsersController, :type => :controller do
+describe UsersController do
   let(:user) { create :user, password: '123' }
   before { sign_in user }
 

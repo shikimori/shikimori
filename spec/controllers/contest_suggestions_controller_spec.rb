@@ -1,4 +1,4 @@
-describe ContestSuggestionsController, :type => :controller do
+describe ContestSuggestionsController do
   let(:user) { create :user }
   before { sign_in user }
   let(:contest) { create :contest, state: 'proposing' }

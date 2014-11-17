@@ -1,4 +1,4 @@
-describe UserRatesController, :type => :controller do
+describe UserRatesController do
   include_context :authenticated
 
   describe '#index' do
