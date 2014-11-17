@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/gemhome/rmagick.git
-  revision: 2d9037433386629b8412343162db87916e479613
+  revision: db4e87a3c888c36118bc3ce58e466bcda134460f
   branch: master
   specs:
     rmagick (2.13.3)
@@ -78,7 +78,7 @@ GIT
 
 GIT
   remote: git://github.com/mperham/sidekiq.git
-  revision: 64bee3bb83e03abd081bd8d38e88324b721a56f5
+  revision: 279beef14cf01d261f3c740de1badb21ec33668e
   branch: master
   specs:
     sidekiq (3.2.6)
@@ -112,7 +112,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 6ff78469cd70ce821dd1455f3607780863f5a9d7
+  revision: 409e7e4fc5332bf6199ac927d816c51f1d6a3307
   branch: master
   specs:
     actionmailer (4.2.0.beta4)
@@ -188,9 +188,9 @@ GEM
   specs:
     actionpack-action_caching (1.1.1)
       actionpack (>= 4.0.0, < 5.0)
-    active_model_serializers (0.8.1)
-      activemodel (>= 3.0)
-    activerecord-import (0.5.0)
+    active_model_serializers (0.9.0)
+      activemodel (>= 3.2)
+    activerecord-import (0.6.0)
       activerecord (>= 3.0)
     acts-as-taggable-on (3.1.1)
       actionpack (>= 3, < 5)
@@ -276,7 +276,7 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     daemons (1.1.9)
-    dalli (2.7.0)
+    dalli (2.7.2)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -361,21 +361,21 @@ GEM
     hashie (3.3.1)
     hike (1.2.3)
     hiredis (0.5.2)
-    htmlentities (4.3.1)
+    htmlentities (4.3.2)
     http_parser.rb (0.6.0)
-    httparty (0.13.1)
+    httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0.beta1)
     icalendar (1.1.6)
     ice_nine (0.11.0)
-    jbuilder (2.2.4)
+    jbuilder (2.2.5)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     json (1.8.1)
     jwt (1.0.0)
     kgio (2.9.2)
-    launchy (2.4.2)
+    launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.2.0)
       launchy (~> 2.2)
@@ -405,7 +405,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    newrelic_rpm (3.8.0.218)
+    newrelic_rpm (3.9.7.266)
     nokogiri (1.6.4.1)
       mini_portile (~> 0.6.0)
     non-stupid-digest-assets (1.0.4)
@@ -443,14 +443,14 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.17.1)
-    pghero (0.1.6)
+    pghero (0.1.7)
       activerecord
-    postmark (1.2.0)
+    postmark (1.3.1)
       json
       rake
-    postmark-rails (0.7.0)
+    postmark-rails (0.8.0)
       actionmailer (>= 3.0.0)
-      postmark (~> 1.2.0)
+      postmark (~> 1.3.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -463,9 +463,9 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    quiet_assets (1.0.2)
+    quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
-    rabl (0.9.3)
+    rabl (0.11.4)
       activesupport (>= 2.3.14)
     rack (1.6.0.beta)
     rack-protection (1.5.3)
@@ -493,7 +493,7 @@ GEM
     request_store (1.1.0)
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
-    retryable (1.3.5)
+    retryable (1.3.6)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -519,11 +519,11 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    rvm1-capistrano3 (1.2.4)
+    rvm1-capistrano3 (1.3.2.2)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
     safe_yaml (1.0.4)
-    sass (3.4.7)
+    sass (3.4.8)
     sass-rails (5.0.0.beta1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2)
@@ -566,17 +566,17 @@ GEM
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
     temple (0.6.10)
-    thin (1.6.2)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.0.0)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
     timecop (0.7.1)
     timers (1.1.0)
     tins (0.13.2)
-    truncate_html (0.9.2)
+    truncate_html (0.9.3)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
@@ -588,11 +588,11 @@ GEM
       rack
       raindrops (~> 0.7)
     vcr (2.9.3)
-    virtus (1.0.2)
+    virtus (1.0.3)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
-      descendants_tracker (~> 0.0.3)
-      equalizer (~> 0.0.9)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
     webmock (1.20.4)
