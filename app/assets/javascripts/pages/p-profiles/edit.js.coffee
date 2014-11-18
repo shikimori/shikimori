@@ -1,11 +1,11 @@
 @on 'page:load', 'profiles_edit', ->
   # account page
   if $('.edit-page.account').exists()
-    $('.avatar-delete span').on 'click', ->
+    $('.avatar-delete').on 'click', ->
       $(@)
         .closest('form')
         .find('.b-input.file #user_avatar')
-        .replaceWith("<p class=\"avatar-delete\">[<span>сохраните настройки профиля</span>]</p><input type=\"hidden\" name=\"user[avatar]\" value=\"blank\" />")
+        .replaceWith("<p class=\"b-nothing_here\">сохраните настройки профиля</p><input type=\"hidden\" name=\"user[avatar]\" value=\"blank\" />")
 
       $(@).closest('.avatar-edit').remove()
 

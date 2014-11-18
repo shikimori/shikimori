@@ -258,7 +258,7 @@ apply_new_value_handlers = ($new_value) ->
     $input = $(@).prev()
     $input
       .val(parseInt($input.val(), 10) + 1)
-      .triggerWithReturn('blur')
+      .trigger_with_return('blur')
       .success(-> $input.closest('td').trigger 'mouseover')
 
     e.stopPropagation()

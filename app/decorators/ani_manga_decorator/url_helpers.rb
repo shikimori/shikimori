@@ -72,8 +72,8 @@ module AniMangaDecorator::UrlHelpers
   end
 
   # адрес редактирования
-  def edit_url page
-    h.send "edit_#{klass_lower}_url", object, subpage: page
+  def edit_url page=nil
+    h.send "edit_#{klass_lower}_url", object, page: page
   end
 
   # адрес связанных аниме

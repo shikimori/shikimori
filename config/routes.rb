@@ -241,12 +241,7 @@ Site::Application.routes.draw do
     end
 
     resources :user_images, only: [:create]
-    resources :images do
-      post ':model/:id/new', action: :new, on: :collection, as: :new
-      post ':model/:id', action: :create, on: :collection, as: :create
-      get 'original', action: :edit, on: :member, as: 'edit_original', original: true
-      get 'raw', action: :raw, on: :member
-    end
+    resources :images, only: [:destroy]
 
     # statistics
     get 'anime-history' => 'statistics#index', as: :anime_history
@@ -316,7 +311,7 @@ Site::Application.routes.draw do
       get "#{kind}#{ani_manga_format}" => "animes_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
       get "#{kind}/menu(/rating/:rating)" => "animes_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
 
-      resources kind, only: [:show, :edit] do
+      resources kind, only: [:show] do
         member do
           get :characters
           get :staff
@@ -346,7 +341,7 @@ Site::Application.routes.draw do
           # редактирование
           patch 'apply'
 
-          get 'edit/:subpage' => "#{kind}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
+          get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|screenshots|videos|torrents_name/
 
           get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
           get 'cosplay/:character(/:gallery)' => "#{kind}#cosplay", page: 'cosplay', as: :cosplay

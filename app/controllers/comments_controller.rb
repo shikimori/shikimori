@@ -95,13 +95,15 @@ class CommentsController < ShikimoriController
 
   # предпросмотр текста
   def preview
-    #if params[:target_type] && params[:target_id]
-      #render text: BbCodeFormatter.instance.format_description(params[:body], params[:target_type].constantize.find(params[:target_id]))
-    #else
-      #render text: BbCodeFormatter.instance.format_comment(params[:body])
-    #end
     @comment = Comment.new(comment_params).decorate
-    render partial: 'comments/comment', object: @comment
+
+    # это может быть предпросмотр не просто текста, а описания к аниме или манге
+    if params[:comment][:target_type] && params[:comment][:target_id]
+      @comment = DescriptionComment.new(@comment,
+        params[:comment][:target_type], params[:comment][:target_id])
+    end
+
+    render @comment
   end
 
   # смайлики для комментария

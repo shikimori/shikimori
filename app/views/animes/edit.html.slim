@@ -1,0 +1,18 @@
+= render layout: 'page' do
+  .b-options-floated.mobile-support.mobile-landscape
+    a class="#{:selected if @page == 'description'}" href="#{@resource.edit_url :description}" Описание
+    a class="#{:selected if @page == 'russian'}" href="#{@resource.edit_url :russian}" Русское название
+    - if @resource.anime?
+      a class="#{:selected if @page == 'styles'}" href="#{@resource.edit_url :screenshots}" Кадры
+      a class="#{:selected if @page == 'list'}" href="#{@resource.edit_url :video}" Видео
+      - if current_user.admin?
+        a class="#{:selected if @page == 'list'}" href="#{@resource.edit_url :torrents_name}" Название на торрентах
+  h2.subheadline.m10 = @page_title.last
+
+  .block.edit-page class="#{@page}"
+    = render "animes/edit/#{@page}", resource: @resource
+
+  - if @resource.changes[@page.to_sym].any?
+    .subheadline История правок
+    .block
+      = render @resource.changes[@page.to_sym]

@@ -26,7 +26,7 @@ header.head
 - if @pending.any?
   .subheadline Очередь
   .block
-    = render partial: 'moderation/user_changes/user_change', collection: @pending, locals: { moderation: true }
+    = render @pending
     - if @pending.size == Moderation::UserChangesController::PENDING_PER_PAGE
       .m5
       .b-nothing_here Это ещё не всё. Прочие правки будут доступны после принятия отображённых выше.
@@ -34,5 +34,5 @@ header.head
 
 .subheadline История правок
 .block
-  = render partial: 'moderation/user_changes/user_change', collection: @processed, locals: { moderation: true }
+  = render @processed
   = render partial: 'blocks/postloader', locals: { url: moderation_users_changes_url(page: @page+1) }

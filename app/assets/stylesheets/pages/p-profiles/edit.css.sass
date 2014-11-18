@@ -2,6 +2,7 @@
 @import compass/css3/box-shadow
 @import compass/utilities/general/clearfix
 @import mixins/block
+@import mixins/bracket_action
 @import mixins/link
 @import mixins/responsive
 
@@ -23,10 +24,7 @@
         float: left
 
     .avatar-delete
-      cursor: pointer
-
-      span
-        color: #555
+      +bracket_action
 
     .oauth img
       margin-right: 5px

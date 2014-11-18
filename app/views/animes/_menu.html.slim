@@ -20,33 +20,7 @@
         span.favourite-remove data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" Удалить из избранных
 
       li.edit-entry
-        span Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}
-
-  .menu-block.editions
-    .subheadline Редактирование
-    ul.block-list
-      li.edit-description.slider-control.slider-control-edit-description
-        span.linkeable data-href="#{@resource.edit_url :description}" Описание
-
-      li.edit-russian.slider-control.slider-control-edit-russian
-        span.linkeable data-href="#{@resource.edit_url :russian}" Русское название
-
-      - if @resource.anime?
-        li.edit-screenshots.slider-control.slider-control-edit-screenshot
-          span.linkeable data-href="#{@resource.edit_url :screenshot}" Кадры
-
-        li.edit-videos.slider-control.slider-control-edit-videos
-          span.linkeable data-href="#{@resource.edit_url :videos}" Видео
-
-        - if user_signed_in? && current_user.admin?
-          li.edit-torrents_name.slider-control.slider-control-edit-torrents_name
-            span.linkeable data-href="#{@resource.edit_url :torrents_name}" Название на торрентах
-
-      /li.edit-links.slider-control.slider-control-edit-links
-        span.linkeable data-href="#{@resource.edit_url :links}" Ссылки
-
-      li.edit-cancel
-        span Отмена
+        a href="#{@resource.edit_url}" Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}
 
   - if @resource.display_sensitive?
     .menu-block

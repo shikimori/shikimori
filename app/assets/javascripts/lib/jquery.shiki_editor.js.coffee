@@ -179,21 +179,12 @@ class @ShikiEditor extends ShikiView
     # предпросмотр
     @$('footer .preview').on 'click', =>
       # подстановка данных о текущем элементе, если они есть
-      #$form = $root.find('form')
       item_data = if @$form.exists()
         @$form.serializeHash().comment
       else
-        body: @$textarea.val()
-        ##item_id = $form.find('#change_item_id').val()
-        ##model = $form.find('#change_model').val()
-
-        ##item_id = $form.find('#comment_commentable_type').val()
-        ##model = $form.find('#comment_commentable_id').val()
-        ##"&target_type=#{model}&target_id=#{item_id if item_id && model}"
-        #''
-
-      #else
-        #''
+        @$root.trigger_with_return('preview:params') || {
+          body: @$textarea.val()
+        }
 
       $.ajax
         type: 'POST'

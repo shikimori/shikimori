@@ -1,3 +1,4 @@
+- moderation = true#user_signed_in? && current_user.
 = cache user_change.cache_key(defined?(moderation), current_user) do
   .b-log_entry
     span.id-label #

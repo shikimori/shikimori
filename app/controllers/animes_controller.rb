@@ -65,9 +65,9 @@ class AnimesController < ShikimoriController
     page_title 'Арт с имиджборд'
   end
 
-  def recent
-    1/0
-  end
+  #def recent
+    #1/0
+  #end
 
   def related
     noindex
@@ -96,24 +96,24 @@ class AnimesController < ShikimoriController
 
   # редактирование аниме
   def edit
-    1/0
-    show
-    render :show unless @director.redirected?
+    noindex
+    @page = params[:page] || 'description'
+    page_title 'Редактирование'
   end
 
-  # подстраница косплея
-  def cosplay
-    1/0
-    show
-    render :show unless @director.redirected?
-  end
+  ## подстраница косплея
+  #def cosplay
+    #1/0
+    #show
+    #render :show unless @director.redirected?
+  #end
 
-  # торренты к эпизодам аниме
-  def episode_torrents
-    1/0
-    #@resource = klass.find(params[:id].to_i).decorate
-    render json: @resource.files.episodes_data
-  end
+  ## торренты к эпизодам аниме
+  #def episode_torrents
+    #1/0
+    ##@resource = klass.find(params[:id].to_i).decorate
+    #render json: @resource.files.episodes_data
+  #end
 
   # тултип
   def tooltip

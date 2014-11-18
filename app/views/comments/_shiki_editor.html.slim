@@ -98,10 +98,6 @@ aside.buttons
           placeholder: 'Текст комментария...',
           'data-upload_url' => user_images_url(linked_type: Comment.name) }
           /tabindex: options[:tabindex] || 0,
-      /= hidden_field_tag 'comment[commentable_id]', options[:object].id
-      /= hidden_field_tag 'comment[commentable_type]', options[:object].respond_to?(:base_class) ? options[:object].base_class : options[:object].class
-      /= hidden_field_tag 'comment[offtopic]', options[:offtopic] ? '1' : '0'
-      /= hidden_field_tag 'comment[review]', options[:review] ? '1' : '0'
     - else
       = text_area_tag field_name, text, class: "comment_body editor-area", placeholder: 'Текст', tabindex: 0, 'data-upload_url' => user_images_url(linked_type: nil)
   .preview
