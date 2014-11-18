@@ -98,6 +98,12 @@ class AnimesController < ShikimoriController
   def edit
     noindex
     @page = params[:page] || 'description'
+    @user_change = UserChange.new(
+      model: @resource.object.class.name,
+      item_id: @resource.id,
+      column: @page
+    )
+
     page_title 'Редактирование'
   end
 

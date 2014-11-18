@@ -143,19 +143,32 @@ Site::Application.routes.draw do
     end
 
     namespace :moderation do
+      resources :user_changes, only: [:show, :index, :create, :destroy] do
+        collection do
+          get '(/:page)' => :index, as: :index
+        end
+
+        member do
+          post :take
+          post :apply
+          post :deny
+          get :tooltip
+        end
+      end
+
       # TODO: refactor to resource
-      get 'changes(/page/:page)' => 'user_changes#index', as: :users_changes
+      #get 'changes(/page/:page)' => 'user_changes#index', as: :users_changes
 
-      get 'changes/:id/take' => 'user_changes#apply', as: :take_user_change, notify: true, taken: true
-      get 'changes/:id/apply' => 'user_changes#apply', as: :aplly_user_change, notify: true
-      get 'changes/:id/deny' => 'user_changes#deny', as: :deny_user_change, notify: true
-      get 'changes/:id/delete' => 'user_changes#deny', as: :delete_user_change, notify: false
-      post 'changes/anime/:anime_id/lock' => 'user_changes#get_anime_lock', as: :anime_lock
-      delete 'changes/anime/:anime_id/lock' => 'user_changes#release_anime_lock'
+      #get 'changes/:id/take' => 'user_changes#apply', as: :take_user_change, notify: true, taken: true
+      #get 'changes/:id/apply' => 'user_changes#apply', as: :aplly_user_change, notify: true
+      #get 'changes/:id/deny' => 'user_changes#deny', as: :deny_user_change, notify: true
+      #get 'changes/:id/delete' => 'user_changes#deny', as: :delete_user_change, notify: false
+      #post 'changes/anime/:anime_id/lock' => 'user_changes#get_anime_lock', as: :anime_lock
+      #delete 'changes/anime/:anime_id/lock' => 'user_changes#release_anime_lock'
 
-      post 'changes/do' => 'user_changes#change', as: :do_user_change
-      get 'changes/:id/tooltip(/:test)' => 'user_changes#tooltip', as: :user_change_tooltip
-      get 'changes/:id' => 'user_changes#show', as: :user_change
+      #post 'changes/do' => 'user_changes#change', as: :do_user_change
+      #get 'changes/:id/tooltip(/:test)' => 'user_changes#tooltip', as: :user_change_tooltip
+      #get 'changes/:id' => 'user_changes#show', as: :user_change
 
       resources :bans, only: [:create, :index] do
         get '/page/:page', action: :index, as: :page, on: :collection

@@ -1,19 +1,20 @@
-= form_tag moderation_do_user_change_path, class: 'b-form' do
-  = hidden_field_tag 'apply', '', 'autocomplete' => :off
-  = hidden_field_tag 'change[model]', resource.class.name, 'autocomplete' => :off
-  = hidden_field_tag 'change[column]', :description, 'autocomplete' => :off
-  = hidden_field_tag 'change[item_id]', resource.id, 'autocomplete' => :off
+= simple_form_for [:moderation, @user_change] do |f|
+  = hidden_field_tag 'apply', ''
+  = f.input :model, as: :hidden
+  = f.input :column, as: :hidden
+  = f.input :item_id, as: :hidden
 
   .b-shiki_editor.unprocessed.block
     = render 'comments/shiki_editor', text: resource.description, field_name: 'change[value]'
 
-  .source.block
+  = f.input :source
+  /.source.block
     .b-input.string.optional
       label.string.optional.control-label for="change_source" Источник (адрес страницы, откуда взят текст)
       = text_field_tag 'change[source]', resource.source, 'autocomplete' => :off
 
-  input.submit type="submit" value="Сохранить"
+  = f.submit 'Сохранить'
   - if current_user.user_changes_moderator?
-    input.submit.apply type="submit" value="Применить"
+    = f.submit 'Применить', class: 'apply'
   - if defined? cancel_url
     a.cancel href="#{cancel_url}" Отмена

@@ -58,31 +58,10 @@ class Moderation::UserChangesController < ShikimoriController
 
   # изменение пользователем чего-либо
   def change
-    user = current_user
-    unless user_signed_in?
-      # теги можно и гостям задавать
-      if params[:change]['column'] == 'tags'
-        user = User.find(User::GuestID)
-      else
-        raise Unauthorized
-      end
-    end
-    #raise Forbidden unless UserChange.where(model: params[:change]['model'],
-                                            #item_id: params[:change]['item_id'],
-                                            #:user_id.not_eq => user.id,
-                                            #status: UserChangeStatus::Locked).count == 0
-    change = UserChange.new user_change_params
-    change.user_id = user.id
+    @resource = UserChange.new user_change_params.merge(user_id: current_user.try(:id) || User::GuestID)
 
-    if change.value == change.current_value
-      unless (change.source.present? || change.item.source.present?) && change.source != change.item.source
-        if params[:apply].present?
-          redirect_to_back_or_to change.item, alert: 'Нет никаких изменений'
-        else
-          render json: ['Нет никаких изменений'], status: :unprocessable_entity
-        end
-        return
-      end
+    if @resource.value == @resource.current_value && @resource.source == @resource.item.source
+      return redirect_to_back_or_to @resource.item, alert: 'Нет изменений'
     end
 
     if change.save
@@ -90,12 +69,11 @@ class Moderation::UserChangesController < ShikimoriController
       if params[:apply].present?
         params[:id] = change.id
         params[:taken] = true
-        return apply
+      else
+        redirect_to_back_or_to @resource.item, notice: 'Правка сохранена и будет в ближайшее время рассмотрена модератором. Домо'
       end
-
-      render json: {}
     else
-      render json: change.errors, status: :unprocessable_entity
+      render text: 'Произошла ошибка при создании правки. Пожалуйста, напишите об этом администратору.', status: :unprocessable_entity
     end
   end
 
@@ -112,7 +90,7 @@ class Moderation::UserChangesController < ShikimoriController
         body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] принята."
       ) unless change.user_id == current_user.id
 
-      redirect_to_back_or_to moderation_users_changes_url, notice: 'Правка успешно применена'
+      redirect_to_back_or_to moderation_user_changes_url, notice: 'Правка успешно применена'
     else
       render text: "Произошла ошибка при принятии правки. Номер правки ##{change.id}. Пожалуйста, напишите об этом администратору.", status: :unprocessable_entity
     end
@@ -133,7 +111,7 @@ class Moderation::UserChangesController < ShikimoriController
         ) unless change.user_id == current_user.id
       end
 
-      redirect_to_back_or_to moderation_users_changes_url
+      redirect_to_back_or_to moderation_user_changes_url
     else
       render json: change.errors, status: :unprocessable_entity
     end
