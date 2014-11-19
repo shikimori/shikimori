@@ -1,6 +1,6 @@
 describe GroupInvitesController do
   let(:club) { create :group }
-  include_context :authenticated
+  include_context :authenticated, :user
 
   describe '#create' do
     before { post :create, club_id: club.id, group_invite: { group_id: club.id, src_id: club.owner_id, dst_id: user.nickname } }

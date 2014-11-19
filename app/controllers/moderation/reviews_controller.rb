@@ -1,3 +1,4 @@
+# TODO: переделать авторизацию на cancancan
 class Moderation::ReviewsController < ShikimoriController
   before_filter :authenticate_user!
   before_filter :check_permissions

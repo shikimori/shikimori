@@ -7,11 +7,8 @@
   .b-shiki_editor.unprocessed.block
     = render 'comments/shiki_editor', text: resource.description, field_name: 'change[value]'
 
-  = f.input :source
-  /.source.block
-    .b-input.string.optional
-      label.string.optional.control-label for="change_source" Источник (адрес страницы, откуда взят текст)
-      = text_field_tag 'change[source]', resource.source, 'autocomplete' => :off
+  .block
+    = f.input :source, label: 'Источник (адрес страницы, откуда взят текст)'
 
   = f.submit 'Сохранить'
   - if current_user.user_changes_moderator?

@@ -1,6 +1,6 @@
 describe GroupRolesController do
   let(:club) { create :group }
-  include_context :authenticated
+  include_context :authenticated, :user
 
   describe '#create' do
     before { post :create, club_id: club.id, group_role: { group_id: club.id, user_id: user.id } }

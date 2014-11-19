@@ -1,3 +1,4 @@
+# TODO: переделать авторизацию на cancancan
 class Moderation::BansController < ShikimoriController
   before_filter :authenticate_user!, except: [:index]
   layout false, only: [:new]
@@ -18,6 +19,7 @@ class Moderation::BansController < ShikimoriController
   end
 
   def new
+    noindex
     @comment = Comment.find params[:comment_id]
     @abuse_request = AbuseRequest.find params[:abuse_request_id] if params[:abuse_request_id]
     @ban = Ban.new comment_id: @comment.id, user_id: @comment.user_id, abuse_request_id: params[:abuse_request_id]

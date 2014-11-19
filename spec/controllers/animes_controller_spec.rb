@@ -29,7 +29,7 @@ describe AnimesController do
 
   describe '#files' do
     context 'authenticated' do
-      include_context :authenticated
+      include_context :authenticated, :user
       before { get :files, id: anime.to_param }
       it { should respond_with :success }
     end

@@ -97,7 +97,7 @@ class UserChange < ActiveRecord::Base
     column == 'description'
   end
 
-  def deny approver_id, is_rejected
+  def deny approver_id, is_deleted
     self.approver_id = approver_id
 
     # для скриншотов спец логика
@@ -124,7 +124,7 @@ class UserChange < ActiveRecord::Base
       item = klass.find(self.item_id)
       self.prior = item[self.column]
     end
-    self.status = is_rejected ? UserChangeStatus::Rejected : UserChangeStatus::Deleted
+    self.status = is_deleted ? UserChangeStatus::Deleted : UserChangeStatus::Rejected
 
     self.save
   end

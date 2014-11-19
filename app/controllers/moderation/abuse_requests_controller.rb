@@ -1,3 +1,4 @@
+# TODO: переделать авторизацию на cancancan
 class Moderation::AbuseRequestsController < ShikimoriController
   include MessagesHelper # для работы хелпера format_linked_name
 

@@ -1,7 +1,7 @@
 require 'cancan/matchers'
 
 describe Api::V1::UserRatesController do
-  include_context :authenticated
+  include_context :authenticated, :user
 
   describe 'create' do
     let(:target) { create :anime }

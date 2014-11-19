@@ -1,5 +1,5 @@
 describe ImagesController do
-  include_context :authenticated
+  include_context :authenticated, :user
   let(:club) { create :group, owner: user }
 
   describe 'create' do

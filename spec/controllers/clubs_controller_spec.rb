@@ -25,13 +25,13 @@ describe ClubsController do
   end
 
   describe '#new' do
-    include_context :authenticated
+    include_context :authenticated, :user
     before { get :new }
     it { should respond_with :success }
   end
 
   describe '#edit' do
-    include_context :authenticated
+    include_context :authenticated, :user
     let(:club) { create :group, owner: user }
     before { get :edit, id: club.to_param }
 
@@ -39,7 +39,7 @@ describe ClubsController do
   end
 
   describe '#create' do
-    include_context :authenticated
+    include_context :authenticated, :user
 
     context 'when success' do
       before { post :create, club: { name: 'test', owner_id: user.id } }
@@ -55,7 +55,7 @@ describe ClubsController do
   end
 
   describe '#update' do
-    include_context :authenticated
+    include_context :authenticated, :user
     let(:club) { create :group, :with_thread, owner: user }
 
     context 'when success' do
@@ -76,7 +76,7 @@ describe ClubsController do
 
 
   describe '#upload' do
-    include_context :authenticated
+    include_context :authenticated, :user
     let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
     before { post :upload, id: club.to_param, image: image }
