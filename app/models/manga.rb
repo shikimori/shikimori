@@ -86,6 +86,9 @@ class Manga < DbEntry
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
+  scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
+  scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
+
   def name
     self[:name] ? self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip.html_safe : nil
   end

@@ -22,9 +22,9 @@ class MangaOnline::ReadMangaService
       db_pages.each do |page|
         unless page.image_file_name
           page.load_image
-          sleep 2 if Rails.env.development?
         end
       end
     end
+    @manga.update(parsed_at: Time.current)
   end
 end
