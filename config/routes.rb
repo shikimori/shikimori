@@ -151,9 +151,7 @@ Site::Application.routes.draw do
         member do
           get :tooltip
           post :take
-          post :apply
           post :deny
-          post :delete
         end
       end
 

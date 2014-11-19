@@ -1,7 +1,8 @@
-en:
+ru:
   simple_form:
-    "yes": 'Yes'
-    "no": 'No'
+    yes: Да
+    no: Нет
+
     required:
       text: 'Обязательное поле'
       mark: '*'
@@ -23,4 +24,23 @@ en:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
+
+
+    placeholders:
+      topic:
+        title: Название топика
+
+    options:
+      topic:
+        type:
+          Topic: Топик
+          AnimeNews: Новость об аниме
+          MangaNews: Новость о манге
+
+
+  helpers:
+    submit:
+      topic:
+        create: Сохранить
+        update: Сохранить
 

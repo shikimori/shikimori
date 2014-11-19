@@ -1,5 +1,4 @@
-- moderation = true#user_signed_in? && current_user.
-= cache user_change.cache_key(defined?(moderation), current_user) do
+= cache [user_change, current_user && current_user.user_changes_moderator?, current_user && current_user.admin?] do
   .b-log_entry
     span.id-label #
     span = user_change.id
@@ -11,14 +10,13 @@
         img src="#{user_change.user.avatar_url 16}" srcset="#{user_change.user.avatar_url 32} 2x" alt="#{user_change.user.nickname}" title="#{user_change.user.nickname}"
         span = user_change.user.nickname
 
-    - if defined?(moderation)
-      span.column
-        = user_change.column
-      span.id
-        - if user_change.item
-          a.bubbled href="#{url_for user_change.item}" = user_change.item.name
-        - else
-          = t "Deleted.#{user_change.model}"
+    span.column
+      = user_change.column
+    span.id
+      - if user_change.item
+        a.bubbled href="#{url_for user_change.item}" = user_change.item.name
+      - else
+        = t "Deleted.#{user_change.model}"
     - if user_change.screenshots?
       - if user_change.action == UserChange::ScreenshotsPosition
         span Порядок кадров
@@ -43,20 +41,19 @@
     .collapsed.spoiler изменения
 
     .spoiler.target style="display: none;"
-      - if defined?(moderation)
-        .moderation
-          - if user_change[:locked]
-            p сначала предыдущие правки
-          - elsif user_change.pending?
-            - if user_change.column == 'torrents_name' && user_signed_in? && !current_user.admin?
-              p эту правку посмотрит morr
-            - elsif user_signed_in? && current_user.user_changes_moderator?
-              - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? user_change.column
-                a href="#{apply_moderation_user_change_url user_change}" data-method="post" title="Применить правку" принять
-              a href="#{take_moderation_user_change_url user_change}" data-method="post" title="Применить правку, но НЕ учтывать пользователя среди авторов" взять
-              a href="#{deny_moderation_user_change_url user_change}" data-method="post" title="Отменить правку и послать пользователю уведомление об этом" отказать
-            - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == user_change.user_id)
-              a href="#{moderation_user_change_url user_change}" data-method="delete" title="Отменить правку и не посылать пользователю уведомление об этом" удалить
+      .moderation
+        - if user_change[:locked]
+          p сначала предыдущие правки
+        - elsif user_change.pending?
+          - if user_change.column == 'torrents_name' && user_signed_in? && !current_user.admin?
+            p эту правку посмотрит morr
+          - elsif user_signed_in? && current_user.user_changes_moderator?
+            - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? user_change.column
+              a href="#{take_moderation_user_change_url user_change, is_applied: true}" data-method="post" title="Применить правку" принять
+            a href="#{take_moderation_user_change_url user_change}" data-method="post" title="Применить правку, но НЕ учтывать пользователя среди авторов" взять
+            a href="#{deny_moderation_user_change_url user_change}" data-method="post" title="Отменить правку и послать пользователю уведомление об этом" отказать
+          - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == user_change.user_id)
+            a href="#{deny_moderation_user_change_url user_change, is_deleted: true}" data-method="post" title="Отменить правку и не посылать пользователю уведомление об этом" удалить
 
       - if user_change.screenshots?
         - if user_change.action == UserChange::ScreenshotsPosition

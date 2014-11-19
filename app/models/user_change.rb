@@ -20,8 +20,6 @@ class UserChange < ActiveRecord::Base
   #validates_presence_of :column
   #validates_presence_of :value
 
-  before_create :release_lock
-
   class << self
     # число не принятых изменений
     def pending_count
@@ -252,19 +250,6 @@ class UserChange < ActiveRecord::Base
       end
     else
       column
-    end
-  end
-
-  # ключ для кеша
-  def cache_key(moderation, current_user)
-    "change-#{id}-#{moderation}-#{self[:locked]}-#{updated_at}_#{current_user && current_user.user_changes_moderator?}_#{current_user && current_user.admin?}"
-  end
-
-private
-  # снятие лока после принятия правки
-  def release_lock
-    if description?
-      UserChange.where(model: model, item_id: item_id, status: UserChangeStatus::Locked).destroy_all
     end
   end
 end

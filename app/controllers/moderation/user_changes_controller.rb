@@ -1,7 +1,7 @@
 # TODO: переделать авторизацию на cancancan
 class Moderation::UserChangesController < ShikimoriController
   include ActionView::Helpers::SanitizeHelper
-  before_filter :authenticate_user!, only: [:index, :apply, :deny, :delete]
+  before_filter :authenticate_user!, only: [:index, :take, :deny]
   PENDING_PER_PAGE = 40
 
   page_title 'Правки пользователей'
@@ -62,25 +62,18 @@ class Moderation::UserChangesController < ShikimoriController
     end
 
     if @resource.save
-      # сразу же применение изменений при apply
-      if params[:apply].present?
-        params[:id] = @resource.id
-        params[:is_taken] = true
-        apply
-      else
-        redirect_to_back_or_to @resource.item, notice: 'Правка сохранена и будет в ближайшее время рассмотрена модератором. Домо'
-      end
+      redirect_to_back_or_to @resource.item, notice: 'Правка сохранена и будет в ближайшее время рассмотрена модератором. Домо'
     else
       render text: 'Произошла ошибка при создании правки. Пожалуйста, напишите об этом администратору.', status: :unprocessable_entity
     end
   end
 
   # применение предложенного пользователем изменения
-  def apply
+  def take
     raise Forbidden unless current_user.user_changes_moderator?
     @resource = UserChange.find(params[:id])
 
-    if @resource.apply current_user.id, params[:is_taken]
+    if @resource.apply current_user.id, !params[:is_applied]
       Message.create(
         from_id: current_user.id,
         to_id: @resource.user_id,
@@ -113,12 +106,6 @@ class Moderation::UserChangesController < ShikimoriController
     else
       render text: "Произошла ошибка при отказе правки. Номер правки ##{@resource.id}. Пожалуйста, напишите об этом администратору.", status: :unprocessable_entity
     end
-  end
-
-  # удаление предложенной пользователем правки
-  def delete
-    params[:is_deleted] = true
-    deny
   end
 
 private

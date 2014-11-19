@@ -101,7 +101,8 @@ class AnimesController < ShikimoriController
     @user_change = UserChange.new(
       model: @resource.object.class.name,
       item_id: @resource.id,
-      column: @page
+      column: @page,
+      source: @resource.source
     )
 
     page_title 'Редактирование'
