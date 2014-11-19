@@ -98,13 +98,13 @@ class TorrentsParser
   end
 
   # выгрузка торрентов онгоигов
-  def self.grab_ongoings(test=false, anime_id=nil)
-    parse_feed(get_rss, anime_id)
+  def self.grab_ongoings test=false, anime_id=nil
+    parse_feed get_rss, anime_id
   end
 
   # выгрузка торрентов c конкретной страницы
-  def self.grab_page(url, anime_id=nil)
-    parse_feed(get_page(url), anime_id)
+  def self.grab_page url, anime_id=nil
+    parse_feed get_page(url), anime_id
   end
 
   # выгрузка rss ленты с тошокана
@@ -127,7 +127,7 @@ class TorrentsParser
   end
 
   # парсинг фида тошока
-  def self.parse_feed(feed, anime_id)
+  def self.parse_feed feed, anime_id
     print "fetched %d torrens\n" % feed.size
     return 0 if feed.empty?
 
@@ -183,6 +183,7 @@ class TorrentsParser
   # добавление эпизода к аниме
   def self.add_episodes anime, feed
     new_episodes = anime.check_aired_episodes(feed)
+
     unless new_episodes.empty?
       print "%d new episodes(s) found for %s\n" % [new_episodes.size, anime.name]
       anime.torrents = (anime.torrents + new_episodes).uniq {|v| v[:title] }
@@ -208,7 +209,13 @@ class TorrentsParser
   end
 
 private
-  def self.get(url, ban_texts=nil)
-    Proxy.get(url, timeout: 30, ban_texts: ban_texts || MalFetcher.ban_texts, log: PROXY_LOG, no_proxy: !(@@with_proxy.nil? ? USE_PROXY : @@with_proxy))
+  def self.get url, ban_texts=nil
+    Proxy.get(
+      url,
+      timeout: 30,
+      ban_texts: ban_texts || MalFetcher.ban_texts,
+      log: PROXY_LOG,
+      no_proxy: !(@@with_proxy.nil? ? USE_PROXY : @@with_proxy)
+    )
   end
 end

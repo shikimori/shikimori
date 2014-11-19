@@ -5,7 +5,7 @@ class TokyoToshokanParser < TorrentsParser
   end
 
   # выгрузка страницы с тошокана
-  def self.get_page(url)
+  def self.get_page url
     content = get(url).gsub('<span class="s"> </span>', '')
     doc = Nokogiri::HTML(content)
 
@@ -27,7 +27,7 @@ class TokyoToshokanParser < TorrentsParser
   end
 
 private
-  def get(url)
-    super(url, required_text=['<title>Tokyo Toshokan', '</html>'])
+  def get url
+    super url, required_text=['<title>Tokyo Toshokan', '</html>']
   end
 end
