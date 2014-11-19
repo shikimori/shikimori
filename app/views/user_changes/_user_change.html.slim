@@ -51,7 +51,7 @@
             - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? user_change.column
               a href="#{take_moderation_user_change_url user_change, is_applied: true}" data-method="post" title="Применить правку" принять
             a href="#{take_moderation_user_change_url user_change}" data-method="post" title="Применить правку, но НЕ учтывать пользователя среди авторов" взять
-            a href="#{deny_moderation_user_change_url user_change}" data-method="post" title="Отменить правку и послать пользователю уведомление об этом" отказать
+            a href="#{deny_moderation_user_change_url user_change}" data-method="post" title="Отменить правку и послать пользователю уведомление об этом" отклонить
           - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == user_change.user_id)
             a href="#{deny_moderation_user_change_url user_change, is_deleted: true}" data-method="post" title="Отменить правку и не посылать пользователю уведомление об этом" удалить
 

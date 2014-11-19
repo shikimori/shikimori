@@ -19,18 +19,6 @@
           span.favourite-remove data-remote="true" action="#{favourites_path @resource.object.class.name, @resource.id}" data-method="delete" data-type="json" Удалить из избранных
 
         li.edit-entry
-          span Редактировать персонажа
-
-  .menu-block.editions
-    .subheadline Редактирование
-    ul.block-list
-      li.edit-description.slider-control.slider-control-edit-description
-        span.link data-href="#{edit_character_url @resource, subpage: 'description'}" Описание
-
-      li.edit-russian.slider-control.slider-control-edit-russian
-        span.link data-href="#{edit_character_url @resource, subpage: 'russian'}" Русское имя
-
-      li.edit-cancel
-        span Отмена
+          a href="#{edit_character_url @resource}" Редактировать персонажа
 
 = render partial: 'blocks/favoured', object: @resource.favoured

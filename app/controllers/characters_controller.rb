@@ -1,6 +1,6 @@
 # TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
-  #before_action :authenticate_user!, only: [:edit]
+  before_action :authenticate_user!, only: [:edit]
   skip_before_action :role_redirect
 
   page_title 'Персонажи'
@@ -44,19 +44,19 @@ class CharactersController < PeopleController
   def tooltip
   end
 
-  # редактирование персонажа
-  #def edit
-    #case params[:subpage].to_sym
-      #when :russian
-        #append_title! 'Изменение русского имени'
+  def edit
+    noindex
+    page_title 'Редактирование'
+    @page = params[:page] || 'description'
 
-      #when :description
-        #append_title! 'Изменение описания'
-
-      #else
-        #raise ArgumentError.new "page: #{params[:page]}"
-    #end
-  #end
+    @user_change = UserChange.new(
+      model: @resource.object.class.name,
+      item_id: @resource.id,
+      column: @page,
+      source: @resource.source,
+      value: @resource[@page]
+    )
+  end
 
   def autocomplete
     @collection = CharactersQuery.new(params).complete

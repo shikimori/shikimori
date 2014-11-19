@@ -1,7 +1,7 @@
 describe SeyuController do
   let!(:seyu) { create :person, name: 'test', seyu: true }
 
-  describe 'index' do
+  describe '#index' do
     let!(:person_2) { create :person, seyu: false }
     before { get :index, search: 'test', kind: 'seyu' }
 
@@ -9,7 +9,7 @@ describe SeyuController do
     it { expect(assigns :collection).to eq [seyu] }
   end
 
-  describe 'show' do
+  describe '#show' do
     before { get :show, id: seyu.to_param }
 
     context 'seyu' do
@@ -23,15 +23,16 @@ describe SeyuController do
     end
   end
 
-  describe 'roles' do
+  describe '#roles' do
     before { get :roles, id: seyu.to_param }
     it { should respond_with :success }
   end
 
-  describe 'comments' do
+  describe '#comments' do
     let!(:seyu) { create :person, :with_thread, seyu: true }
     let!(:comment) { create :comment, commentable: seyu.thread }
     before { get :roles, id: seyu.to_param }
+
     it { should respond_with :success }
   end
 end

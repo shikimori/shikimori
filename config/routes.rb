@@ -377,6 +377,7 @@ Site::Application.routes.draw do
         get :mangas
         get :comments
         get :tooltip
+        get 'edit(/:page)' => :edit, as: :edit, page: /description|russian/
       end
       collection do
         get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
@@ -385,11 +386,7 @@ Site::Application.routes.draw do
     end
 
     constraints id: /\d[^\/]*?/ do
-      #get 'characters/:id' => 'characters#show', as: :character, page: 'info'
-      patch 'characters/:id/apply' => 'characters#apply', as: :apply_character
-      get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
       get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
-      get 'characters/:id/edit/:subpage' => "characters#edit", as: :edit_character, page: 'edit', constraints: { subpage: /description|russian/ }
     end
 
     resources :people, only: [:show] do

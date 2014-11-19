@@ -97,15 +97,16 @@ class AnimesController < ShikimoriController
   # редактирование аниме
   def edit
     noindex
+    page_title 'Редактирование'
     @page = params[:page] || 'description'
+
     @user_change = UserChange.new(
       model: @resource.object.class.name,
       item_id: @resource.id,
       column: @page,
-      source: @resource.source
+      source: @resource.source,
+      value: @resource[@page]
     )
-
-    page_title 'Редактирование'
   end
 
   ## подстраница косплея
