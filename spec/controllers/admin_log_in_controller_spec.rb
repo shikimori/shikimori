@@ -40,11 +40,11 @@ describe AdminLogInController do
       end
     end
 
-    context 'user', :focus do
+    context 'user' do
       before { sign_in user }
       before { get :log_in, nickname: user.nickname }
 
-      #it { should respond_with :not_found }
+      it { should respond_with :not_found }
       it { expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil }
     end
   end
