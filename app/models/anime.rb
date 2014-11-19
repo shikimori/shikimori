@@ -396,7 +396,7 @@ class Anime < DbEntry
     feed.reverse.each do |v|
       episodes = TorrentsParser.extract_episodes_num(v[:title])
       # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
-      next if episodes.none? || (ongoing? && (episodes.max - episodes_aired) > 1)
+      next if episodes.none? || (ongoing? && (episodes.max - episodes_aired) > 1 && !(episodes.max == 2 && episodes_aired == 0))
 
       episodes.each do |episode|
         next if (self.episodes > 0 && episode > self.episodes) || episode_min >= episode || @episodes_found.include?(episode)
