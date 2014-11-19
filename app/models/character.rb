@@ -11,8 +11,8 @@ class Character < DbEntry
     styles: {
       original: ['225x350>', :jpg],
       preview: ['160x240>', :jpg],
-      x96: ['96x150>', :jpg],
-      x48: ['48x75>', :jpg]
+      x96: ['96x150#', :jpg],
+      x48: ['48x75#', :jpg]
     },
     url: "/images/character/:style/:id.:extension",
     path: ":rails_root/public/images/character/:style/:id.:extension",
