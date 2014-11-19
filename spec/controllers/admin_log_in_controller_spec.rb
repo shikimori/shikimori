@@ -1,81 +1,51 @@
 describe AdminLogInController do
-  before do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
-  end
+  before { Rails.env.stub(:production?).and_return true }
+  before { @request.env["devise.mapping"] = Devise.mappings[:user] }
+  let(:admin) { create :user, :admin }
+  let(:user) { create :user, :user }
 
-  let (:user) { create :user, nickname: 'zxcxcbvvc' }
-
-  describe 'GET restore' do
-    before { sign_in create(:user) }
+  describe '#restore' do
+    before { sign_in user }
 
     context 'no saved admin in session' do
-      it 'not found' do
-        get :restore
-        expect(response).to be_not_found
-      end
+      before { get :restore }
+      it { should respond_with :not_found }
     end
 
     context 'saved admin in session' do
-      before { session[AdminLogInController.admin_id_to_restore_key] = user.id }
+      before { session[AdminLogInController.admin_id_to_restore_key] = admin.id }
+      before { get :restore }
 
-      it 'deletes admin id from session' do
-        get :restore
-        expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil
-      end
-
-      it 'restores user' do
-        get :restore
-        expect(assigns(:user).id).to eq user.id
-      end
-
-      it 'redirects to root' do
-        get :restore
-        expect(response).to redirect_to(root_url)
-      end
+      it { expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil }
+      it { expect(assigns(:user).id).to eq admin.id }
+      it { should redirect_to root_url }
     end
   end
 
-  describe 'GET log_in' do
+  describe '#log_in' do
     context 'admin' do
-      before do
-        @admin = create :user, id: 1
-        sign_in @admin
+      before { sign_in admin }
+      before { get :log_in, nickname: nickname }
+      let(:nickname) { user.nickname }
+
+      context 'known user' do
+        it { expect(assigns(:user).id).to eq user.id }
+        it { expect(session[AdminLogInController.admin_id_to_restore_key]).to eq admin.id }
+        it { should redirect_to root_url }
       end
 
-      it 'changes current_user' do
-        get :log_in, nickname: user.nickname
-        expect(assigns(:user).id).to eq user.id
-      end
-
-      it 'saves admin id in session' do
-        get :log_in, nickname: user.nickname
-        expect(session[AdminLogInController.admin_id_to_restore_key]).to eq @admin.id
-      end
-
-      it 'redirects to root' do
-        get :log_in, nickname: user.nickname
-        expect(response).to redirect_to(root_url)
-      end
-
-      it 'shows 503 for unknown user' do
-        get :log_in, nickname: 'zzzzzzzzzzzzzzzzz'
-        expect(response).to be_unprocessible_entiy
+      context 'unknown user' do
+        let(:nickname) { 'zzzzzzzz' }
+        it { should respond_with 422 }
       end
     end
 
-    context 'user' do
-      before { sign_in create(:user) }
-      end
+    context 'user', :focus do
+      before { sign_in user }
+      before { get :log_in, nickname: user.nickname }
 
-      it 'not found' do
-        get :log_in, nickname: user.nickname
-        expect(response).to be_not_found
-      end
-
-      it 'session is not set' do
-        get :log_in, nickname: user.nickname
-        expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil
-      end
+      #it { should respond_with :not_found }
+      it { expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil }
     end
   end
 end
