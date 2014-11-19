@@ -1,6 +1,10 @@
-.item-editor-container data-kind="#{@resource.object.class.name.downcase}"
-  = render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@resource.object.class.name.downcase}_url", @resource), item_name: @resource.object.class.name.downcase }, formats: :html
-  .subheadline Изменение имени на русском
-  = render partial: 'blocks/editor/textfield', locals: { item: @resource, field: :russian }, formats: :html
-  .no-change-details
-    = render partial: 'blocks/editor/changes', locals: { changes: @resource.changes[:russian], moderation: true }, formats: :html
+= simple_form_for [:moderation, user_change] do |f|
+  = f.input :model, as: :hidden
+  = f.input :column, as: :hidden
+  = f.input :item_id, as: :hidden
+
+  .block
+    = f.input :value, as: :string, label: 'Русское название'
+
+  = f.submit 'Сохранить'
+  a.cancel href="#{resource.url}" Отмена

@@ -41,47 +41,84 @@ describe AnimesController do
   end
 
   describe '#similar' do
-
+    pending
   end
 
   describe '#screenshots' do
-
+    pending
   end
 
   describe '#videos' do
-
+    pending
   end
 
   describe '#chronology' do
-
+    pending
   end
 
   describe '#art' do
-    #pending
+    pending
   end
 
   describe '#related' do
-
+    pending
   end
 
   describe '#comments' do
-
+    pending
   end
 
   describe '#reviews' do
-
+    pending
   end
 
   describe '#resources' do
-
+    pending
   end
 
   describe '#other_names' do
-
+    pending
   end
 
-  describe '#edit' do
-    #pending
+  describe '#edit',:focus do
+    context 'guest' do
+      let(:page) { nil }
+      before { get :edit, id: anime.to_param }
+      it { should redirect_to users_sign_in_url }
+    end
+
+    context 'authenticated' do
+      include_context :authenticated, :user
+      before { get :edit, id: anime.to_param, page: page }
+
+      describe 'description' do
+        let(:page) { nil }
+        it { should respond_with :success }
+      end
+
+      describe 'russian' do
+        let(:page) { 'russian' }
+        it { should respond_with :success }
+      end
+
+      describe 'videoo' do
+        let(:page) { 'videos' }
+        #it { should respond_with :success }
+        pending
+      end
+
+      describe 'screenshots' do
+        let(:page) { 'screenshots' }
+        #it { should respond_with :success }
+        pending
+      end
+
+      describe 'torrents_name' do
+        let(:page) { 'torrents_name' }
+        pending
+        #it { should respond_with :success }
+      end
+    end
   end
 end
 #[:anime, :manga].each do |type|

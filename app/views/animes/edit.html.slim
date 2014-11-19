@@ -1,6 +1,6 @@
 = render layout: 'page' do
   .b-options-floated.mobile-support.mobile-landscape
-    a class="#{:selected if @page == 'description'}" href="#{@resource.edit_url :description}" Описание
+    a class="#{:selected if @page == 'description'}" href="#{@resource.edit_url}" Описание
     a class="#{:selected if @page == 'russian'}" href="#{@resource.edit_url :russian}" Русское название
     - if @resource.anime?
       a class="#{:selected if @page == 'styles'}" href="#{@resource.edit_url :screenshots}" Кадры
@@ -10,7 +10,7 @@
   h2.subheadline.m10 = @page_title.last
 
   .block.edit-page class="#{@page}"
-    = render "animes/edit/#{@page}", resource: @resource
+    = render "animes/edit/#{@page}", resource: @resource, user_change: @user_change
 
   - if @resource.changes[@page.to_sym].any?
     .subheadline История правок

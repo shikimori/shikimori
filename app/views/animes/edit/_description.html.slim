@@ -1,13 +1,15 @@
-.block
-  p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
+p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://shikimori.org/groups/2">правилами</a>.
 
-  = render 'user_changes/edit_description', resource: resource.object, cancel_url: resource.url
+= simple_form_for [:moderation, user_change] do |f|
+  = f.input :model, as: :hidden
+  = f.input :column, as: :hidden
+  = f.input :item_id, as: :hidden
 
-/.resource-editor-container data-kind="#{resource.object.class.name.downcase}"
-  /= render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{resource.object.class.name.downcase}_url", resource), resource_name: resource.object.class.name.downcase, with_source: true }, formats: :html
-  /.subheadline Изменение описания
-  /- if resource.changes.locked?
-    p.alert Описание #{resource.anime? ? 'этого аниме' : 'этой манги'} в данный момент готовится пользователем <a href="#{profile_url resource.changes.lock.user}">#{resource.changes.lock.user.nickname}</a>. Ваша правка может не быть принята!
-  /= render partial: 'blocks/editor/textarea', locals: { resource: resource, field: :description }, formats: :html
-  /.no-change-details
-    = render partial: 'blocks/editor/changes', locals: { changes: resource.changes[:description], moderation: true }, formats: :html
+  .block
+    .b-shiki_editor.unprocessed.block
+      = render 'comments/shiki_editor', text: resource.description, field_name: 'user_change[value]'
+
+    = f.input :source, label: 'Источник (адрес страницы, откуда взят текст)'
+
+  = f.submit 'Сохранить'
+  a.cancel href="#{resource.url}" Отмена
