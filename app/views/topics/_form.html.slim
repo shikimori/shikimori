@@ -62,4 +62,5 @@
         input type="file" multiple="multiple"
 
   = f.submit
-  a.cancel href="#{topic_url topic}" Отмена
+  - if topic.persisted?
+    a.cancel href="#{topic_url topic}" Отмена
