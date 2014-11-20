@@ -1,7 +1,11 @@
 //= require_directory ./p-animes
 @import mixins/column
+@import mixins/icons
 
 .p-animes, .p-mangas
+  .item-edit
+    +icon_button('\e814')
+
   .c-character, .c-person
     +gte_ipad
       +column_bm(7)

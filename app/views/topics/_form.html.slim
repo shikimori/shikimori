@@ -19,7 +19,7 @@
     /= f.input :type, collection: [Topic.name.to_sym, AnimeNews.name.to_sym, MangaNews.name.to_sym], include_blank: false
 
   .b-shiki_editor.unprocessed.block
-    = render 'comments/shiki_editor', text: (topic.body || '').sub(/\[wall\][\s\S]*/, ''), field_name: 'topic[text]'
+    = render 'comments/shiki_editor', text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip, field_name: 'topic[text]'
 
   - if ['news', 'a', 'm'].include?(topic.section.permalink)
     .topic_linked

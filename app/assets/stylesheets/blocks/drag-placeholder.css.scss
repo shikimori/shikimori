@@ -44,4 +44,8 @@
   .b-upload_progress.active {
     margin-bottom: 3px;
   }
+  input[type=file] {
+    border: none;
+    margin: 10px 0 5px;
+  }
 }

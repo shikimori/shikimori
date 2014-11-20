@@ -3,10 +3,10 @@
     a class="#{:selected if @page == 'description'}" href="#{@resource.edit_url}" Описание
     a class="#{:selected if @page == 'russian'}" href="#{@resource.edit_url :russian}" Русское название
     - if @resource.anime?
-      a class="#{:selected if @page == 'styles'}" href="#{@resource.edit_url :screenshots}" Кадры
-      a class="#{:selected if @page == 'list'}" href="#{@resource.edit_url :video}" Видео
+      a class="#{:selected if @page == 'screenshots'}" href="#{@resource.edit_url :screenshots}" Кадры
+      a class="#{:selected if @page == 'videos'}" href="#{@resource.edit_url :videos}" Видео
       - if current_user.admin?
-        a class="#{:selected if @page == 'list'}" href="#{@resource.edit_url :torrents_name}" Название на торрентах
+        a class="#{:selected if @page == 'torrents_name'}" href="#{@resource.edit_url :torrents_name}" Название на торрентах
   h2.subheadline.m10 = @page_title.last
 
   .block.edit-page class="#{@page}"

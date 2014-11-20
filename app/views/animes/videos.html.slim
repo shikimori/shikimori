@@ -1,4 +1,6 @@
 = render layout: 'page' do
+  .subheadline-buttons
+    a.item-edit href="#{@resource.edit_url :videos}"
   .subheadline.m10 Видео
   .cc.m10
     = render @resource.videos

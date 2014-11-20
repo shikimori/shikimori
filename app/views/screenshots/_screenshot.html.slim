@@ -3,4 +3,14 @@ a.c-screenshot.b-image[
     href="#{screenshot.image.url :original}"
     title="Кадр #{screenshot_counter+1} из #{localized_kind screenshot.anime}" rel="screenshot"
   ]
+  - if defined? edition
+    .mobile-edit
+    .controls
+      .delete title="Удалить кадр"
+      .confirm title="Подтвердить удаление"
+      .cancel title="Отменить удаление"
+      .restore title="Восстановить удалённое"
+    .move-controls
+      .move-left title="Переместить влево"
+      .move-right title="Переместить вправо"
   img src="#{screenshot.image.url :x166}" srcset="#{screenshot.image.url :x332}" title="Кадр #{screenshot_counter+1} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1} из #{localized_kind screenshot.anime}" data-id="#{screenshot.id}"
