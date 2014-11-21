@@ -278,6 +278,7 @@ class UsersController < ShikimoriController
   # обновление данных профиля пользователя
   def update
     raise Forbidden unless @user.can_be_edited_by? current_user
+    return render(text: "Вы забанены до #{current_user.read_only_at.strftime '%H:%M %d.%m.%Y'}") unless current_user.can_post?
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
     params[:user].delete(:nickname) if params[:user][:nickname].blank?
