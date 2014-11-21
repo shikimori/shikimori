@@ -27,7 +27,7 @@
   background-color: #F9F9F9;
   border: 1px dashed #CCC;
   min-height: 75px;
-  padding: 0 5px;
+  padding: 0 10px;
 
   p {
     color: #555;
@@ -37,15 +37,15 @@
     margin-bottom: 11px;
   }
   .thank-you {
-    clear: both;
+    color: #008000;
     display: none;
-    margin-top: -10px;
+    margin-bottom: 5px;
   }
   .b-upload_progress.active {
     margin-bottom: 3px;
   }
   input[type=file] {
     border: none;
-    margin: 10px 0 5px;
+    margin: 10px 0 5px -5px;
   }
 }

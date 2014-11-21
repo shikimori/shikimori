@@ -77,14 +77,14 @@
     .confirm, .cancel, .move-left, .move-right
       display: none
 
-    .restore
+    //.restore
       display: inline-block
 
   &:first-child .move-left,
   &:last-child .move-right
     display: none !important
 
-  .delete, .confirm, .cancel, .restore, .move-left, .move-right, .mobile-edit
+  .delete, .confirm, .cancel, .move-left, .move-right, .mobile-edit//, .restore
     +transition(background 0.25s ease)
     background: $link_hover
     color: white
@@ -111,7 +111,7 @@
     +icon('\e813', 12px)
     display: none
 
-  .restore
+  //.restore
     +icon("\e801", 12px)
     display: none
 

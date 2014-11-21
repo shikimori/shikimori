@@ -54,6 +54,7 @@
             a href="#{deny_moderation_user_change_url user_change}" data-method="post" title="Отменить правку и послать пользователю уведомление об этом" отклонить
           - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == user_change.user_id)
             a href="#{deny_moderation_user_change_url user_change, is_deleted: true}" data-method="post" title="Отменить правку и не посылать пользователю уведомление об этом" удалить
+      .clearfix
 
       - if user_change.screenshots?
         - if user_change.action == UserChange::ScreenshotsPosition
@@ -68,10 +69,9 @@
               - (user_change.pending? ? user_change.current_screenshots : user_change.positioned_screenshots(user_change.prior)).each do |image|
                 img src="#{image.image.url :preview, false}"
         - else
-          .screenshots
-            .images-list
-              = render partial: 'images/image', collection: user_change.attached_screenshots, locals: { group_name: "attached_screenshots_#{user_change.id}", style: :original }, formats: :html
-          .clearfix
+          .cc.m0
+            = render user_change.attached_screenshots
+
       - elsif user_change.video?
         blockquote
           .quoteable

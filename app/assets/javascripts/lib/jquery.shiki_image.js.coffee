@@ -33,16 +33,21 @@
           false
 
         # восстановление удалённого
-        $('.restore', $root).on 'click', ->
-          $root.removeClass('deleted')
-          $root.removeClass('mobile-editing')
-          false
+        #$('.restore', $root).on 'click', ->
+          #$root.removeClass('deleted')
+          #$root.removeClass('mobile-editing')
+          #false
 
         # результат удаления при удалении через аякс-запрос
         $('.confirm', $root).on 'ajax:success', ->
+          $root
+            .removeClass('deletable')
+            .addClass('deleted')
+
           $packery = $root.closest('.packery')
-          $packery.packery('remove', $root)
-          $packery.packery.bind($packery).delay(250)
+          if $packery.exists()
+            $packery.packery('remove', $root)
+            $packery.packery.bind($packery).delay(250)
 
         # перемещение влево
         $('.move-left', $root).on 'click', ->

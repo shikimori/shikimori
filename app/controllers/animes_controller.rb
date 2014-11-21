@@ -105,7 +105,8 @@ class AnimesController < ShikimoriController
       item_id: @resource.id,
       column: @page,
       source: @resource.source,
-      value: @resource[@page]
+      value: @resource[@page],
+      action: params[:page] == 'screenshots' ? UserChange::ScreenshotsPosition : nil
     )
   end
 

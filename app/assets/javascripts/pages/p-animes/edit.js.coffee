@@ -9,3 +9,23 @@
 
   if $('.edit-page.screenshots').exists()
     $('.c-screenshot').shiki_image()
+
+    $screenshots_positioner = $('.screenshots-positioner')
+    $('form', $screenshots_positioner).on 'submit', ->
+      $images = $('.c-screenshot:not(.deleted) img', $screenshots_positioner)
+      ids = $images.map -> $(@).data('id')
+      $screenshots_positioner.find('#user_change_value').val $.makeArray(ids).join(',')
+
+    $screenshots_uploader = $('.screenshots-uploader')
+    $screenshots_uploader.shikiFile
+        progress: $screenshots_uploader.find(".b-upload_progress")
+        input: $screenshots_uploader.find("input[type=file]")
+        maxfiles: 250
+
+      .on 'upload:after', ->
+        $screenshots_uploader.find('.thank-you').show()
+
+      .on 'upload:success', (e, response) ->
+        $(response.html)
+          .appendTo($('.cc', $screenshots_uploader))
+          .shiki_image()

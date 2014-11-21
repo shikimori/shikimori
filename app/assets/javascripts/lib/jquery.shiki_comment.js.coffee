@@ -72,7 +72,7 @@ class @ShikiComment extends ShikiView
           $(".b-comment##{id}").data('object').mark(data.kind, data.value)
           $.notice marker_message(data)
       else
-        $.notice 'Ваш запрос будет рассмотрен. Домо.'
+        $.notice 'Ваш запрос будет рассмотрен. Домо аригато.'
 
       @$('.item-moderation-cancel').trigger('click')
 

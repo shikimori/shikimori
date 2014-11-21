@@ -45,6 +45,7 @@
     .on 'upload:success', (e, data) ->
       $image = $("<a href='#{data.url}' rel='new-wall' class='b-image' data-user_image_id='#{data.id}'>
 <img src='#{data.preview}' class=''>
+<div class='mobile-edit'></div>
 <div class='controls'>
   <div class='delete' title='Удалить картинку'></div>
   <div class='confirm' title='Подтвердить удаление'></div>

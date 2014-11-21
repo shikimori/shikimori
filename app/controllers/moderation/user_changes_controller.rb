@@ -62,7 +62,7 @@ class Moderation::UserChangesController < ShikimoriController
     end
 
     if @resource.save
-      redirect_to_back_or_to @resource.item, notice: 'Правка сохранена и будет в ближайшее время рассмотрена модератором. Домо'
+      redirect_to_back_or_to @resource.item, notice: 'Правка сохранена и будет в ближайшее время рассмотрена модератором. Домо аригато.'
     else
       render text: 'Произошла ошибка при создании правки. Пожалуйста, напишите об этом администратору.', status: :unprocessable_entity
     end
