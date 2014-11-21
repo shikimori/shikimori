@@ -21,11 +21,19 @@ describe NameValidator do
     context :group do
       let!(:group) { create :group, name: 'test' }
       it { should_not allow_value('test').for :name }
+      it { should_not allow_value('Test').for :name }
+      it { should_not allow_value('Tést').for :name }
+      it { should_not allow_value('Tеst').for :name }
+      it { should_not allow_value('Теst').for :name }
     end
 
     context :user do
       let!(:group) { create :user, nickname: 'test' }
       it { should_not allow_value('test').for :name }
+      it { should_not allow_value('Test').for :name }
+      it { should_not allow_value('Tést').for :name }
+      it { should_not allow_value('Tеst').for :name }
+      it { should_not allow_value('Теst').for :name }
     end
 
     context :routing do
