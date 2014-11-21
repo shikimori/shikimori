@@ -29,10 +29,10 @@
     $posters = $('.wall-ids', $form).empty()
 
     # постеры к новости
-    $('.drag-here-placeholder a', $form).map(->
-      $(@).data 'user_image_id'
-    ).each (index, id) ->
-      $posters.append "<input type=\"hidden\" name=\"wall[]\" value=\"#{id}\"/>"
+    $('.drag-here-placeholder a', $form)
+      .map -> $(@).attr('id')
+      .each (index, id) ->
+        $posters.append "<input type=\"hidden\" name=\"wall[]\" value=\"#{id}\"/>"
 
   # загрузка постера
   $upload = $('.topic_posters .drag-here-placeholder', $form)
@@ -43,22 +43,25 @@
       progress: $upload.find('.b-upload_progress')
       input: $upload.find('input[type=file]')
     .on 'upload:success', (e, data) ->
-      $image = $("<a href='#{data.url}' rel='new-wall' class='b-image' data-user_image_id='#{data.id}'>
+      $image = $("<a href='#{data.url}' rel='new-wall' class='b-image' id='#{data.id}'>\
 <img src='#{data.preview}' class=''>
-<div class='mobile-edit'></div>
-<div class='controls'>
-  <div class='delete' title='Удалить картинку'></div>
-  <div class='confirm' title='Подтвердить удаление'></div>
-  <div class='cancel' title='Отменить удаление'></div>
-</div>
-</a>").appendTo($wall)
+<div class='mobile-edit'></div><div class='controls'>
+<div class='delete' title='Удалить картинку'></div>\
+<div class='confirm' title='Подтвердить удаление'></div>\
+<div class='cancel' title='Отменить удаление'></div></div></a>").appendTo($wall)
 
       $('.confirm', $image).on 'click', ->
-        $image.remove()
-        reset_wall $wall
-        false
+        remove_image $image, $wall
 
       reset_wall $wall
+
+  $('.b-image .confirm', $upload).on 'click', ->
+    remove_image $(@).closest('.b-image').remove(), $wall
+
+remove_image = ($image, $wall) ->
+  $image.remove()
+  reset_wall $wall
+  false
 
 reset_wall = ($wall) ->
   $wall.find('img').css(width: '', height: '')

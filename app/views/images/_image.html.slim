@@ -1,8 +1,11 @@
 a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="#{rel if defined? rel}"
-  - if can? :delete, image
+  - if defined?(topic_poster_edit) || can?(:delete, image)
     .mobile-edit
     .controls
       .delete title="Удалить картинку"
-      .confirm title="Подтвердить удаление" data-remote="true" action="#{url_for image}" data-method="delete" data-type="json"
+      - if defined? topic_poster_edit
+        .confirm title="Подтвердить удаление"
+      - else
+        .confirm title="Подтвердить удаление" data-remote="true" action="#{url_for image}" data-method="delete" data-type="json"
       .cancel title="Отменить удаление"
   img src="#{image.image.url :preview}"

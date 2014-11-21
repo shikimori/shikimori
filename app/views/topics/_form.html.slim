@@ -53,12 +53,7 @@
         p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
         = render 'blocks/upload_progress'
         .b-shiki_wall.unprocessed
-          - topic.user_images.each do |user_image|
-            a.image-container href="#{user_image.image.url :original, false}" rel="new-wall" data-user_image_id="#{user_image.id}"
-              span.image-delete.hidden title="Удалить картинку"
-              span.image-delete-confirm.hidden title="Подтвердить удаление"
-              span.image-delete-cancel.hidden title="Отменить удаление"
-              img src="#{user_image.image.url :preview, false}"
+          = render partial: 'images/image', collection: topic.user_images, locals: { topic_poster_edit: true }
         input type="file" multiple="multiple"
 
   = f.submit
