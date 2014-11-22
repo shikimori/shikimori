@@ -8,7 +8,7 @@ header.head
   .moderators
     = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
   ul
-    li: p: a href="#{section_topic_url section: :s, topic: 79042}" Правила сайта
+    li: p: a href="#{section_topic_url id: 79042, section: :s}" Правила сайта
     li: p Не обсуждайте с пользователями модерацию и факт того, что вы сами модератор.
     li: p Не обсуждайте кого, на сколько, за что и почему забанили, почему этого пользователя забанили, а этого пользователя - нет.
     li: p Будьте вежливы, не оскорбляйте и не унижайте пользователей сайта.
