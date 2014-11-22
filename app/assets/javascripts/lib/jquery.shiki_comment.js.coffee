@@ -108,7 +108,7 @@ class @ShikiComment extends ShikiView
     @on 'faye:comment:updated', (e, data) =>
       @$('.was_updated').remove()
       $notice = $("<div class='was_updated'>
-        <div><span>Комментарий изменён пользователем</span><a class='actor' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
+        <div><span>Комментарий изменён пользователем</span><a class='actor b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
         <div>Кликните для обновления.</div>
       </div>")
       $notice
@@ -118,7 +118,7 @@ class @ShikiComment extends ShikiView
 
     # realtime уведомление об удалении комментария
     @on 'faye:comment:deleted', (e, data) =>
-      @_replace "<div class='b-comment-info b-comment'><span>Комментарий удалён пользователем</span><a href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
+      @_replace "<div class='b-comment-info b-comment'><span>Комментарий удалён пользователем</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
 
   # пометка комментария маркером (оффтопик/отзыв)
   mark: (kind, value) ->
