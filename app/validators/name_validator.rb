@@ -3,7 +3,7 @@ class NameValidator < ActiveModel::EachValidator
     return unless value.kind_of? String
 
     is_taken = value =~ /\A(?:#{Section::VARIANTS}|animes|mangas|all|contests)\Z/ ||
-      group_presence(record, value) || user_presence(record, value)
+      presence(record, value, Group, :name) || presence(record, value, User, :nickname)
 
     if is_taken
       record.errors[attribute] << (options[:message] || I18n.t('activerecord.errors.messages.taken'))
@@ -11,19 +11,17 @@ class NameValidator < ActiveModel::EachValidator
   end
 
 private
-  def group_presence record, value
-    if record.kind_of? Group
-      Group.where.not(id: record.id).where(name: value).any?
+  def presence record, value, klass, field
+    query = if record.kind_of? klass
+      klass.where.not(id: record.id)
     else
-      Group.where(name: value).any?
+      klass
     end
+
+    query.where("#{postgres_word_normalizer field} = #{postgres_word_normalizer '?'}", value).any?
   end
 
-  def user_presence record, value
-    if record.kind_of? User
-      User.where.not(id: record.id).where(nickname: value).any?
-    else
-      User.where(nickname: value).any?
-    end
+  def postgres_word_normalizer text
+    "translate(lower(unaccent(#{text})), 'абвгдеёзийклмнопрстуфхць', 'abvgdeezijklmnoprstufхc`')"
   end
 end
