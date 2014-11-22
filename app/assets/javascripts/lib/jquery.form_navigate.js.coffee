@@ -10,7 +10,7 @@
       $(document.body).on 'submit', 'form', ->
         $(@).find('textarea').data navigate_check_required: false
 
-      $(window).on 'beforeunload', ->
+      $(window).on 'beforeunload page:before-change', (e) ->
         changes = false
 
         $('textarea:visible').each ->
@@ -19,6 +19,10 @@
           $node.data navigate_check_required: false
           changes = true if $node.val().length > options.size
 
-        options.message if changes
+        if changes
+          if e.type == 'page:before-change'
+            confirm options.message
+          else
+            options.message
 
 ) jQuery
