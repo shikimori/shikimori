@@ -339,7 +339,7 @@ Site::Application.routes.draw do
           # редактирование
           patch 'apply'
 
-          get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|screenshots|videos|torrents_name/
+          get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|screenshots|video|torrents_name/
 
           get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
           get 'cosplay/:character(/:gallery)' => "#{kind}#cosplay", page: 'cosplay', as: :cosplay

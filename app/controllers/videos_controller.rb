@@ -9,18 +9,9 @@ class VideosController < ShikimoriController
     @video.state = 'confirmed' if params[:apply].present? && current_user.user_changes_moderator?
 
     if @video.save
-      if @video.confirmed?
-        redirect_to :back
-      else
-        render json: {}
-      end
+      render json: { notice: 'Видео сохранено и будет в ближайшее время рассмотрено модератором. Домо аригато.' }
     else
-      if @video.confirmed?
-        flash[:alert] = @video.errors.full_messages.join ', '
-        redirect_to :back
-      else
-        render json: @video.errors, status: :unprocessable_entity
-      end
+      render json: @video.errors, status: :unprocessable_entity
     end
   end
 

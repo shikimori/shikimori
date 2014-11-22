@@ -3,6 +3,13 @@ a.c-video.b-video.unprocessed[
     href="#{video.url}"
     data-href="#{video.player_url}"
   ]
+  - if defined? edition
+    .mobile-edit
+    .controls
+      .delete title="Удалить видео"
+      .confirm title="Подтвердить удаление" data-remote="true" data-action="#{video_url video}" data-method="delete" data-type="json"
+      .cancel title="Отменить удаление"
+
   img src="#{video.image_url}" data-id="#{video.id}"
   span.marker
     - if defined? video_counter
