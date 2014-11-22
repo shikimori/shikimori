@@ -52,6 +52,11 @@ class @ShikiTopic extends ShikiView
         @editor.cleanup()
         @_hide_editor()
 
+    # голосование за/против рецензии
+    @$('.vote').on 'ajax:before', ->
+      $(@).addClass('selected')
+      $(@).siblings('.vote').removeClass('selected')
+
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
       return unless IS_LOGGED_IN
