@@ -85,14 +85,6 @@ class ShikimoriController < ApplicationController
     end
   end
 
-  # создание директора
-  def direct object=nil
-    klass = "#{self.class.name.sub(/Controller$/, '').sub(/Controller::/, 'Director::').sub(/^Mangas$/, 'Animes')}Director".constantize
-    director = klass.new(self)
-    director.send params[:action]
-    director
-  end
-
   # TODO: выпилить
   # пагинация датасорса
   # задаёт переменные класса @page, @limit, @add_postloader
@@ -106,20 +98,6 @@ class ShikimoriController < ApplicationController
     @add_postloader = entries.size > @limit
 
     @add_postloader ? entries.take(limit) : entries
-  end
-
-  # TODO: выпилить
-  # создание презентера
-  def present object, klass=nil
-    klass ||= case object.class.name
-      when Anime.name, Manga.name
-        AniMangaPresenter
-
-      else
-        "#{object.class.model_name}Presenter".constantize
-    end
-
-    klass.new object, view_context
   end
 
   # TODO: выпилить
