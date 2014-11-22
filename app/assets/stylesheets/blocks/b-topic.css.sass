@@ -38,6 +38,10 @@
       .hide
         display: inline-block
 
+    &>.inner
+      &>.body, &>footer
+        margin-left: 58px
+
   &>.editor-container
     margin-top: $block_offset
 
@@ -48,7 +52,7 @@
       height: 165px
       overflow: hidden
 
-    header
+    &>header
       .name-date a
         font-size: 15px
 
@@ -66,6 +70,9 @@
         display: inline-block
         font-size: 13px
         padding-right: 10px
+
+      .b-shiki_wall
+        margin-bottom: 3px
 
       .date
         color: $date

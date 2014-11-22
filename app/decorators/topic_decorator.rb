@@ -67,7 +67,7 @@ class TopicDecorator < BaseDecorator
 
   # показывать ли автора в footer блоке
   def show_author_in_footer?
-    preview? && (news? || review?) && avatar != user.avatar_url(80)
+    preview? && (news? || review?) && avatar != user.avatar_url(48)
   end
 
   # по опросу ли данный топик
