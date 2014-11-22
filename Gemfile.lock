@@ -70,10 +70,10 @@ GIT
 
 GIT
   remote: git://github.com/morr/turbolinks.git
-  revision: 09221d2c93f77d62f69fd2c4ea2ad5dbf4bc333a
+  revision: 2b5065ca7e1c17301c87e9531490ac7a8f68aec2
   branch: master
   specs:
-    turbolinks (2.4.0)
+    turbolinks (2.5.2)
       coffee-rails
 
 GIT
