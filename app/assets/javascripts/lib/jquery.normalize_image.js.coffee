@@ -13,7 +13,7 @@
     if $link.tagName() == 'a' && $link.attr('href').match(/\.(png|jpg|jpeg|bmp|gif)$/i)
       $link.fancybox(options.fancybox)
 
-    if options.append_marker && !$link.children('.marker').exists()
+    if options.append_marker && !$link.children('.marker').exists() && (image_width > 300 && image_height > 300)
       $link.append "<span class='marker'>#{image_width}x#{image_height}</span>"
 
   $.fn.extend normalize_image: (options) ->
