@@ -25,23 +25,23 @@ $(document).on 'page:load', ->
       type: type
       autocomplete: searcheables[type].autocomplete
     .attr(placeholder: searcheables[type].title)
-    .completable null, (e, id, text) ->
-      @value = text if text
-      return if @value is "" and not id
-      type = $search.data("type")
-      if id
-        if type is "users"
-          document.location.href = "/" + search_escape(text)
-        else
-          document.location.href = searcheables[type].id.replace("[id]", id)
-      else
-        document.location.href = searcheables[type].phrase.replace("[phrase]", search_escape($search.val()))
-    , $(".main-search .suggest-placeholder")
+    .completable($('.main-search .suggest-placeholder'))
 
-  $search.on "parse", ->
-    $popup.addClass "disabled"
+    .on 'autocomplete:success', (e, entry) ->
+      type = $search.data('type')
+      if type == 'users'
+        document.location.href = "/#{search_escape entry.text}"
+      else
+        document.location.href = searcheables[type].id.replace('[id]', entry.id)
+
+    .on 'autocomplete:text', (e, text) ->
+      type = $search.data('type')
+      document.location.href = searcheables[type].phrase.replace('[phrase]', search_escape(text))
+
+  $search.on 'parse', ->
+    $popup.addClass 'disabled'
     _.delay ->
-      $(".ac_results:visible").addClass "menu-suggest"
+      $('.ac_results:visible').addClass 'menu-suggest'
 
   # переключение типа поиска
   $(".main-search .type").on 'click', ->
@@ -55,28 +55,28 @@ $(document).on 'page:load', ->
     $popup.addClass "disabled"
 
   # включение и отключение выбора типов
-  $popup.on "hover", ->
+  $popup.on 'hover', ->
     $search.focus()
 
-  $search.on "keypress", ->
+  $search.on 'keypress', ->
     $popup.addClass "disabled"
 
-  $search.on "click", ->
-    if $(".ac_results:visible").length
-      $popup.addClass "disabled"
+  $search.on 'click', ->
+    if $('.ac_results:visible').length
+      $popup.addClass 'disabled'
     else
-      $popup.toggleClass "disabled"
+      $popup.toggleClass 'disabled'
 
-  $search.on "hover", ->
-    $popup.addClass "disabled" if $(".ac_results:visible").length
+  $search.on 'hover', ->
+    $popup.addClass 'disabled' if $('.ac_results:visible').length
 
-  $main_search.on "click", (e) ->
-    $search.trigger("click").trigger "focus" if $(e.target).hasClass("main-search")
+  $main_search.on 'click', (e) ->
+    $search.trigger('click').trigger('focus') if $(e.target).hasClass('main-search')
 
   $main_search.hover_delayed ->
-    $main_search.addClass "hovered"
+    $main_search.addClass 'hovered'
   , ->
-    $main_search.removeClass "hovered"
+    $main_search.removeClass 'hovered'
   , 250
 
 

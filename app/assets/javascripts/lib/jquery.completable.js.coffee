@@ -1,10 +1,8 @@
 (($) ->
   $.fn.extend
-    completable: (default_text, success_callback, $anchor) ->
+    completable: ($anchor) ->
       @each ->
         $element = $(@)
-        if default_text
-          $element.defaultText default_text
 
         $element
           .on 'result', (e, entry) ->
@@ -12,6 +10,8 @@
               entry.id = entry.data
               entry.name = entry.value
               $element.trigger 'autocomplete:success', [entry]
+            else
+              $element.trigger 'autocomplete:text', [@value]
 
           .autocomplete 'data-autocomplete',
             #autoFill: true,
