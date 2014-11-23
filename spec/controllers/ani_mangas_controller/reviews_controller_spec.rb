@@ -1,6 +1,6 @@
-describe AniMangasController::ReviewsController do
+describe ReviewsController do
   [:anime, :manga].each do |kind|
-    describe kind do
+    describe kind.to_s do
       before { create :section, id: DbEntryThread::SectionIDs[kind.to_s.capitalize], permalink: 'a', name: 'Аниме' }
 
       let(:user) { create :user }
@@ -25,34 +25,34 @@ describe AniMangasController::ReviewsController do
         }
       end
 
-      describe 'show' do
-        describe "success" do
+      describe '#show' do
+        describe 'success' do
           before { review }
 
-          it "html" do
+          it 'html' do
             get :show, defaults.merge(id: review.id)
             should respond_with 200
             expect(response.body).to include(review.text)
           end
 
-          it "json" do
+          it 'json' do
             get :show, defaults.merge(id: review.id, format: 'json')
             should respond_with 200
           end
         end
       end
 
-      describe 'index' do
-        describe "success" do
+      describe '#index' do
+        describe 'success' do
           before { review }
 
-          it "html" do
+          it 'html' do
             get :index, defaults
             should respond_with 200
             expect(response.body).to include(review.text)
           end
 
-          it "json" do
+          it 'json' do
             get :index, defaults.merge(format: 'json')
             expect(response).to be_success
           end
@@ -65,16 +65,16 @@ describe AniMangasController::ReviewsController do
         end
       end
 
-      describe 'new' do
-        it "not authorized" do
+      describe '#new' do
+        it 'not authorized' do
           get :new, defaults
           should respond_with 302
         end
 
-        describe "success" do
+        describe 'success' do
           before { sign_in user }
 
-          it "html" do
+          it 'html' do
             get :new, defaults
             should respond_with 200
           end
@@ -86,21 +86,21 @@ describe AniMangasController::ReviewsController do
         end
       end
 
-      describe 'edit' do
-        it "not authorized" do
+      describe '#edit' do
+        it 'not authorized' do
           get :edit, defaults.merge(id: review.id)
           should respond_with 302
         end
 
-        describe "success" do
+        describe 'success' do
           before { sign_in user }
 
-          it "html" do
+          it 'html' do
             get :edit, defaults.merge(id: review.id)
             should respond_with 200
           end
 
-          it "json" do
+          it 'json' do
             get :edit, defaults.merge(id: review.id, format: 'json')
             should respond_with 200
           end
@@ -108,7 +108,7 @@ describe AniMangasController::ReviewsController do
       end
 
       describe 'update' do
-        it "forbidden" do
+        it 'forbidden' do
           patch :update, defaults.merge(id: review.id)
           should respond_with 302
         end
@@ -149,7 +149,7 @@ describe AniMangasController::ReviewsController do
       end
 
       describe 'destroy' do
-        it "not authorized" do
+        it 'not authorized' do
           delete :destroy, defaults.merge(id: review.id)
           should respond_with 302
         end
@@ -181,7 +181,7 @@ describe AniMangasController::ReviewsController do
       end
 
       describe 'create' do
-        it "not authorized" do
+        it 'not authorized' do
           post :create, defaults
           should respond_with 302
         end

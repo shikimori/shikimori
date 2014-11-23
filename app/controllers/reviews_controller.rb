@@ -1,5 +1,6 @@
 class ReviewsController < AnimesController
-  before_filter :authenticate_user!, only: [:new, :edit, :update, :create, :destroy]
+  load_and_authorize_resource
+  page_title 'Рецензии'
 
   # один обзор
   #def show
@@ -7,7 +8,6 @@ class ReviewsController < AnimesController
 
   # обзоры аниме или манги
   def index
-    page_title 'Рецензии'
     @reviews = ReviewsQuery
       .new(@resource.object, current_user, params[:id].to_i)
       .fetch.map do |review|
@@ -17,9 +17,9 @@ class ReviewsController < AnimesController
       end
   end
 
-  #def new
-    #@review = Review.new params[:review]
-  #end
+  def new
+    page_title 'Новая реценция'
+  end
 
   #def edit
     #@review = Review.find params[:id]
@@ -58,20 +58,20 @@ class ReviewsController < AnimesController
   #end
 
 private
-  # url текущего обзора
-  def review_url
-    self.send("#{klass.name.downcase}_review_url", @entry, @review)
-  end
-
-  # тип класса лежит в параметрах
-  def klass
-    @klass ||= params[:type].constantize
-  end
-
   def review_params
     params
       .require(:review)
       .permit(:text, :storyline, :characters, :animation, :music, :overall)
+  end
+
+  # url текущего обзора
+  #def review_url
+    #self.send("#{resource_klass.name.downcase}_review_url", @entry, @review)
+  #end
+
+  # тип класса лежит в параметрах
+  def resource_klass
+    @resource_klass ||= params[:type].constantize
   end
 
   def resource_id

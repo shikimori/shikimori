@@ -29,6 +29,10 @@ FactoryGirl.define do
       id User::ContestsModerators.last
     end
 
+    trait :reviews_moderator do
+      id User::ReviewsModerators.last
+    end
+
     trait :user_changes_moderator do
       id User::UserChangesModerators.last
     end

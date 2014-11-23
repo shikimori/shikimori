@@ -26,7 +26,7 @@ describe ClubsController do
 
   describe '#new' do
     include_context :authenticated, :user
-    before { get :new }
+    before { get :new, club: { owner_id: user.id } }
     it { should respond_with :success }
   end
 

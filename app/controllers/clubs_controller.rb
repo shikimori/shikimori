@@ -19,9 +19,7 @@ class ClubsController < ShikimoriController
 
   def new
     page_title 'Новый клуб'
-
     @resource = @resource.decorate
-    @resource.owner = current_user
   end
 
   def create
@@ -114,10 +112,10 @@ private
   end
 
   def update_params
-    create_params.except(:owner_id)
+    resource_params.except(:owner_id)
   end
 
-  def create_params
+  def resource_params
     params
       .require(:club)
       .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,

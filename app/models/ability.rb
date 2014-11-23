@@ -11,6 +11,7 @@ class Ability
       user_ability
       moderator_ability if @user.moderator?
       contests_moderator_ability if @user.contests_moderator?
+      reviews_moderator_ability if @user.reviews_moderator?
       admin_ability if @user.admin?
     end
   end
@@ -27,6 +28,7 @@ class Ability
     end
     can :see_contest, Contest
     can :see_club, Group
+    can :read, Review
   end
 
   def user_ability
@@ -50,8 +52,7 @@ class Ability
       user == @user || @user.admin?
     end
 
-    can [:new], Group
-    can [:create, :update], Group do |group|
+    can [:new, :create, :update], Group do |group|
       group.owner?(@user) || group.admin?(@user)
     end
     can :join, Group do |group|
@@ -96,6 +97,10 @@ class Ability
       #can? :invite, group_invite.group
     #end
 
+    can :manage, Review do |review|
+      review.user_id == @user.id
+    end
+
     can :manage, Device, user_id: @user.id
 
     can [:new, :create], [Topic, AnimeNews, MangaNews] do |topic|
@@ -116,6 +121,10 @@ class Ability
   def contests_moderator_ability
     can :manage, Contest
     cannot :destroy, Contest
+  end
+
+  def reviews_moderator_ability
+    can :manage, Review
   end
 
   def admin_ability

@@ -1,8 +1,4 @@
 class AnimesController < ShikimoriController
-  #respond_to :html, only: [:show, :tooltip]
-  #respond_to :json, only: :autocomplete
-  #respond_to :html, :json, only: :page
-
   before_action :authenticate_user!, only: [:edit]
   before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
