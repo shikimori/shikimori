@@ -27,6 +27,9 @@ $ =>
     size: 250
     message: "Вы написали и не сохранили какой-то комментарий! Уверены, что хотите покинуть страницу?"
 
+  if match = location.hash.match(/^#(comment-\d+)$/)
+    $("a[name=#{match[1]}]").closest('.b-comment').yellowFade()
+
 $(document).on 'page:restore', (e, is_dom_content_loaded) ->
   $(document.body).process()
 
