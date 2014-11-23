@@ -1,8 +1,8 @@
-- if user_signed_in?
+- if user_signed_in? && club.persisted?
   .block.actions
     .subheadline Действия
     ul.block-list
-      - if can?(:edit, club) && club.persisted?
+      - if can? :edit, club
         li.r-iphone.edit-entry
           a href="#{edit_club_url club}" Изменить клуб
 
