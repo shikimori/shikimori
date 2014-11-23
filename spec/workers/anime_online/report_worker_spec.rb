@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe AnimeVideoReportWorker do
+describe AnimeOnline::ReportWorker do
   before { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
   before { SiteParserWithCache.stub :save_cache }
   let(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
   let(:anime_video) { create :anime_video, url: url }
 
-  subject { AnimeVideoReportWorker.new.perform report.id }
+  subject { AnimeOnline::ReportWorker.new.perform report.id }
 
   describe :perform do
     let(:user) { create :user, id: 9999 }
@@ -46,7 +46,7 @@ describe AnimeVideoReportWorker do
     end
 
     context :cant_check do
-      before { AnimeVideoReportWorker.any_instance.stub(:is_broken).and_return false }
+      before { AnimeOnline::ReportWorker.any_instance.stub(:is_broken).and_return false }
       before { create(:user, id: User::GuestID) unless User.find_by(id: User::GuestID) }
       let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
 
