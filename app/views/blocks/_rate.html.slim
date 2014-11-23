@@ -1,6 +1,6 @@
 .b-rate[
     class="#{:rateable if defined?(input_selector) && input_selector.present?}"
-    data-notices="#{I18n.t("activerecord.attributes.user_rate.scores").to_json if defined?(input_selector) && input_selector.present?}"
+    data-notices="#{t("activerecord.attributes.user_rate.scores").to_json if defined?(input_selector) && input_selector.present?}"
     data-input_selector="#{input_selector if defined?(input_selector) && input_selector.present?}"
     data-with_submit="#{with_submit if defined?(with_submit) && with_submit.present?}"
   ]
@@ -11,4 +11,7 @@
   .text-score class="score-#{score.round}"
     = score
   .score-notice
-    = t "activerecord.attributes.user_rate.scores.#{score.round}"
+    - if score > 0
+      = t "activerecord.attributes.user_rate.scores.#{score.round}"
+    - else
+      | &nbsp;

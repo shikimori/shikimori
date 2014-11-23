@@ -37,10 +37,14 @@ ru:
           AnimeNews: Новость об аниме
           MangaNews: Новость о манге
 
-
   helpers:
     submit:
-      topic:
+      user: &user_buttons
         create: Сохранить
         update: Сохранить
-
+      user_preferences:
+        <<: *user_buttons
+      topic:
+        <<: *user_buttons
+      review:
+        <<: *user_buttons

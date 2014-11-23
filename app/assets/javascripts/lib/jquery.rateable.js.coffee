@@ -24,7 +24,7 @@
         else
           0
 
-        $score_notice.html(notices[new_score])
+        $score_notice.html(notices[new_score] || '&nbsp;')
         $hover.attr(class: "#{without_score $hover} score-#{new_score}")
         $text_score
           .html(new_score)
@@ -35,7 +35,7 @@
 
       $stars.on 'mouseout', (e) ->
         $score.removeClass 'hovered'
-        $score_notice.html(notices[initial_score])
+        $score_notice.html(notices[initial_score] || '&nbsp;')
         $hover.attr(class: without_score $hover)
         $score.attr(class: "#{without_score $score} score-#{initial_score}")
         $text_score

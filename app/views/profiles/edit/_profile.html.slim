@@ -17,4 +17,5 @@
       = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
 
   .buttons
-    = f.submit 'Сохранить'
+    a.cancel href="#{profile_url @resource}" Отмена
+    = f.submit

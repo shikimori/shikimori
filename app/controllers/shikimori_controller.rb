@@ -22,6 +22,7 @@ class ShikimoriController < ApplicationController
   def fetch_resource
     @resource ||= resource_klass.find(resource_id)
     @resource = @resource.decorate
+    instance_variable_set "@#{resource_klass.name.downcase}", @resource
 
     if @resource.respond_to? :name
       page_title @resource.name

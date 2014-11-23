@@ -18,7 +18,9 @@ class ReviewsController < AnimesController
   end
 
   def new
-    page_title 'Новая реценция'
+    page_title 'Новый обзор'
+    @review = @resource
+    @resource = @anime
   end
 
   #def edit
@@ -61,7 +63,8 @@ private
   def review_params
     params
       .require(:review)
-      .permit(:text, :storyline, :characters, :animation, :music, :overall)
+      .permit :user_id, :target_type, :target_id, :text,
+        :storyline, :characters, :animation, :music, :overall
   end
 
   # url текущего обзора
