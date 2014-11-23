@@ -80,7 +80,7 @@ describe AnimesController do
     pending
   end
 
-  describe '#edit',:focus do
+  describe '#edit' do
     context 'guest' do
       let(:page) { nil }
       before { get :edit, id: anime.to_param }
@@ -101,22 +101,19 @@ describe AnimesController do
         it { should respond_with :success }
       end
 
-      describe 'videoo' do
-        let(:page) { 'videos' }
-        #it { should respond_with :success }
-        pending
+      describe 'video' do
+        let(:page) { 'video' }
+        it { should respond_with :success }
       end
 
       describe 'screenshots' do
         let(:page) { 'screenshots' }
-        #it { should respond_with :success }
-        pending
+        it { should respond_with :success }
       end
 
       describe 'torrents_name' do
         let(:page) { 'torrents_name' }
-        pending
-        #it { should respond_with :success }
+        it { should respond_with :success }
       end
     end
   end
