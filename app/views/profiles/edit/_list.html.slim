@@ -1,6 +1,6 @@
 .block
   = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
-    input type="hidden" name="page" value="#{params[:page]}"
+  input type="hidden" name="page" value="#{@page}"
 
     = f.input :volumes_in_manga
     = f.submit 'Сохранить'

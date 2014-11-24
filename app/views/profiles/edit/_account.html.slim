@@ -1,6 +1,6 @@
 / важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
 = simple_form_for @resource.object, url: profile_url(User.find(@resource.id)) do |f|
-  input type="hidden" name="page" value="#{params[:page]}"
+  input type="hidden" name="page" value="#{@page}"
 
   .cc-2
     .c-column.block_m

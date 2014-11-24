@@ -68,35 +68,35 @@ describe ProfilesController do
         it { should respond_with :success }
       end
 
-      #describe 'profile' do
-        #let(:page) { 'profile' }
-        #it { should respond_with :success }
-      #end
+      describe 'profile' do
+        let(:page) { 'profile' }
+        it { should respond_with :success }
+      end
 
-      #describe 'password' do
-        #let(:page) { 'password' }
-        #it { should respond_with :success }
-      #end
+      describe 'password' do
+        let(:page) { 'password' }
+        it { should respond_with :success }
+      end
 
-      #describe 'styles' do
-        #let(:page) { 'styles' }
-        #it { should respond_with :success }
-      #end
+      describe 'styles' do
+        let(:page) { 'styles' }
+        it { should respond_with :success }
+      end
 
-      #describe 'list' do
-        #let(:page) { 'list' }
-        #it { should respond_with :success }
-      #end
+      describe 'list' do
+        let(:page) { 'list' }
+        it { should respond_with :success }
+      end
 
-      #describe 'notifications' do
-        #let(:page) { 'notifications' }
-        #it { should respond_with :success }
-      #end
+      describe 'notifications' do
+        let(:page) { 'notifications' }
+        it { should respond_with :success }
+      end
 
-      #describe 'misc' do
-        #let(:page) { 'misc' }
-        #it { should respond_with :success }
-      #end
+      describe 'misc' do
+        let(:page) { 'misc' }
+        it { should respond_with :success }
+      end
     end
 
     context 'when invalid access' do

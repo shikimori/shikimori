@@ -44,13 +44,14 @@ describe ClubsController do
     context 'when success' do
       before { post :create, club: { name: 'test', owner_id: user.id } }
       it { should redirect_to edit_club_url(resource) }
+      it { expect(resource).to be_persisted }
     end
 
     context 'when validation errors' do
       before { post :create, club: { owner_id: user.id } }
 
       it { should respond_with :success }
-      it { expect(resource.new_record?).to be true }
+      it { expect(resource).to be_new_record }
     end
   end
 
@@ -63,14 +64,14 @@ describe ClubsController do
 
       it { should redirect_to edit_club_url(resource) }
       it { expect(resource.name).to eq 'newnewtest' }
-      it { expect(resource.errors).to be_empty }
+      it { expect(resource).to be_valid }
     end
 
     context 'when validation errors' do
       before { patch 'update', id: club.id, club: { name: '' } }
 
       it { should respond_with :success }
-      it { expect(resource.errors).to_not be_empty }
+      it { expect(resource).to_not be_valid }
     end
   end
 

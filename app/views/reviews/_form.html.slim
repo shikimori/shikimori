@@ -1,7 +1,14 @@
-= simple_form_for [resource, review], remote: true, html: { 'data-type' => :json } do |f|
+= simple_form_for [resource, review] do |f|
   = f.input :user_id, as: :hidden
   = f.input :target_id, as: :hidden
   = f.input :target_type, as: :hidden
+
+  - if review.errors.any?
+    .b-errors
+      .subheadline Ошибки
+      .block
+        == review.errors.full_messages.join('<br>')
+
   .subheadline = review.id ? 'Изменение обзора' : 'Новый обзор'
 
   .b-brief.b-review

@@ -13,7 +13,7 @@ aside.buttons
         ]
 
     - if can? :edit, topic
-      a.item-edit.short href="#{edit_topic_url topic.object}" title="Изменить"
+      a.item-edit.short href="#{topic.edit_url}" title="Изменить"
 
     - if can? :destroy, topic
       span.item-delete.short title="Удалить"
@@ -21,5 +21,5 @@ aside.buttons
 
   - if can? :destroy, topic
     .delete-controls
-      span.item-delete-confirm action="#{topic_path topic.object}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+      span.item-delete-confirm action="#{topic.destroy_url}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
       span.item-delete-cancel title="Отмена"

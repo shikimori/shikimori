@@ -16,7 +16,7 @@ class TopicDecorator < BaseDecorator
 
   # текст топика
   def html_body
-    Rails.cache.fetch [object, h.russian_names_key, 'body'], expires_in: 2.weeks do
+    Rails.cache.fetch [object, linked, h.russian_names_key, 'body'], expires_in: 2.weeks do
       if review?
         BbCodeFormatter.instance.format_description linked.text, linked
       else
@@ -151,6 +151,22 @@ class TopicDecorator < BaseDecorator
       limit: fold_limit,
       review: reviews_only? ? 'review' : nil
     )
+  end
+
+  def edit_url
+    if review?
+      h.send "edit_#{linked.target_type.downcase}_review_url", linked.target, linked
+    else
+      h.edit_topic_url object
+    end
+  end
+
+  def destroy_url
+    if review?
+      h.send "#{linked.target_type.downcase}_review_url", linked.target, linked
+    else
+      h.topic_path object
+    end
   end
 
   # текст для свёрнутых комментариев

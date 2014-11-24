@@ -1,5 +1,5 @@
 = simple_form_for @resource.object, url: profile_url(@resource) do |f|
-  input type="hidden" name="page" value="#{params[:page]}"
+  input type="hidden" name="page" value="#{@page}"
   input type="hidden" name="user[notifications][nothing]" value="0"
 
   table.b-table

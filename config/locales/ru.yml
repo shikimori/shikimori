@@ -37,7 +37,6 @@ ru:
         rerereads: Кол-во повторных чтений
         text: Комментарий
         score: Оценка
-
         scores:
           '0': ''
           '1': Хуже не бывает
@@ -65,6 +64,13 @@ ru:
             completed: Прочитано
             on_hold: Отложено
             dropped: Брошено
+      review:
+        text: Текст
+        storyline: Сюжет
+        animation: Рисовка
+        characters: Персонажи
+        music: Звуковой ряд
+        overall: Итоговая оценка
 
       user_preferences:
         anime_in_profile: Отображать аниме в профиле
