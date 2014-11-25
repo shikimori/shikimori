@@ -1,9 +1,10 @@
 describe ReviewsController do
-  before { create :section, id: DbEntryThread::SectionIDs['Anime'], permalink: 'a', name: 'Аниме' }
+  before { create :section, :anime }
   let(:anime) { create :anime }
   let(:review) { create :review, user: user, target: anime }
 
   describe '#show' do
+    let!(:section) { create :section, :reviews }
     let(:user) { create :user }
     before { get :show, id: review.id, anime_id: anime.to_param, type: 'Anime' }
     it { should respond_with :success }
