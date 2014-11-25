@@ -1,9 +1,15 @@
 # TODO: отрефакторить толстый контроллер
 # TODO: спеки на все методы контроллера
-class MessagesController < UsersController
-  alias :super_show :show
+class MessagesController < ProfilesController
+  skip_before_action :fetch_resource, :set_breadcrumbs, only: [:bounce]
+  before_action :authorize_messages_access, only: [:index]
 
-  @@limit = 15
+  #load_and_authorize_resource except: [:index, :export, :import]
+  #skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
+
+  #alias :super_show :show
+
+  MESSAGES_PER_PAGE = 15
 
   DISABLED_NOTIFICATIONS = User::MY_EPISODE_MOVIE_NOTIFICATIONS + User::MY_EPISODE_OVA_NOTIFICATIONS +
     User::NOTIFICATIONS_TO_EMAIL_SIMPLE + User::NOTIFICATIONS_TO_EMAIL_GROUP + User::NOTIFICATIONS_TO_EMAIL_NONE# +
@@ -11,41 +17,52 @@ class MessagesController < UsersController
 
   DISABLED_CHECKED_NOTIFICATIONS = User::NOTIFICATIONS_TO_EMAIL_GROUP# + User::PRIVATE_MESSAGES_TO_EMAIL
 
-  before_filter :prepare, only: [ ]
+  #before_filter :prepare, only: [ ]
   #before_filter :authenticate_user!, exept: [:feed, :unsubscribe]
-  before_filter :authenticate_user!, only: [:index, :show, :list, :talk, :destroy, :read]
+  #before_filter :authenticate_user!, only: [:index, :show, :list, :talk, :destroy, :read]
 
-  helper_method :message_types
-  helper_method :unread_counts
+  #helper_method :message_types
+  #helper_method :unread_counts
 
   # отображение страницы личных сообщений
   def index
-    @user ||= UserProfileDecorator.new current_user.object
+    @messges_type = (params[:messges_type] || 'inbox').to_sym
+    @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
-    @page_title ||= case params[:type]
-      when 'inbox' then UsersController.profile_title('Личные сообщения', @user)
-      when 'news' then UsersController.profile_title('Новости сайта', @user)
-      when 'notifications' then UsersController.profile_title('Уведомления сайта', @user)
-      when 'sent' then UsersController.profile_title('Отправленные сообщения', @user)
+
+    if @messges_type == :inbox
+      @collection, @add_postloader = DialogsQuery.new(@resource).postload @page, @limit
+    else
+      @collection, @add_postloader = MessagesQuery.new(@resource, params[:type]).postload @page, @limit
     end
 
-    @page = (params[:page] || 1).to_i
-    @messages = MessagesQuery.new(current_user, params[:type]).fetch @page, @@limit
-    @add_postloader = @messages.size > @@limit
-    @messages = @messages.take(@@limit)
+    #@user ||= UserProfileDecorator.new current_user.object
 
-    @postloader_url = messages_list_url(page: @page+1, format: :json)
+    #@page_title ||= case params[:type]
+      #when 'inbox' then UsersController.profile_title('Личные сообщения', @user)
+      #when 'news' then UsersController.profile_title('Новости сайта', @user)
+      #when 'notifications' then UsersController.profile_title('Уведомления сайта', @user)
+      #when 'sent' then UsersController.profile_title('Отправленные сообщения', @user)
+    #end
 
-    respond_to do |format|
-      format.html { super_show }
-      format.json do
-        render json: {
-          content: render_to_string(partial: 'messages/messages', layout: false, formats: :html),
-          title_page: @page_title,
-          counts: unread_counts
-        }
-      end
-    end
+    #@page = (params[:page] || 1).to_i
+    #@messages = MessagesQuery.new(current_user, params[:type]).fetch @page, MESSAGES_PER_PAGE
+    #@add_postloader = @messages.size > MESSAGES_PER_PAGE
+    #@messages = @messages.take(MESSAGES_PER_PAGE)
+
+    #@postloader_url = messages_list_url(page: @page+1, format: :json)
+
+    #respond_to do |format|
+      #format.html { super_show }
+      #format.json do
+        #render json: {
+          #content: render_to_string(partial: 'messages/messages', layout: false, formats: :html),
+          #title_page: @page_title,
+          #counts: unread_counts
+        #}
+      #end
+    #end
   end
 
   # rss лента сообщений
@@ -105,9 +122,9 @@ class MessagesController < UsersController
   # список сообщений
   def list
     @page = (params[:page] || 1).to_i
-    @messages = MessagesQuery.new(current_user, params[:type]).fetch @page, @@limit
-    add_postloader = @messages.size > @@limit
-    @messages = @messages.take(@@limit)
+    @messages = MessagesQuery.new(current_user, params[:type]).fetch @page, MESSAGES_PER_PAGE
+    add_postloader = @messages.size > MESSAGES_PER_PAGE
+    @messages = @messages.take(MESSAGES_PER_PAGE)
 
     render json: {
         content: render_to_string(partial: 'messages/message', collection: @messages, layout: false, formats: :html) +
@@ -163,7 +180,7 @@ class MessagesController < UsersController
 #order by
   #created_at desc
 #limit
-  ##{@@limit * (@page-1)}, #{@@limit + 1}
+  ##{MESSAGES_PER_PAGE * (@page-1)}, #{MESSAGES_PER_PAGE + 1}
               #").each {|v| ids[v['type'].to_sym] << v['id'].to_i }
 
     #@messages = (Message.where(id: ids[:messages]) + Comment.where(id: ids[:comments])).sort_by(&:created_at).reverse
@@ -171,12 +188,12 @@ class MessagesController < UsersController
       .where(kind: MessageType::Private)
       .where("(from_id=#{@user.id} and to_id=#{current_user.id}) or (to_id=#{@user.id} and from_id=#{current_user.id})")
       .order(created_at: :desc)
-      .offset(@@limit * (@page-1))
-      .limit(@@limit + 1)
+      .offset(MESSAGES_PER_PAGE * (@page-1))
+      .limit(MESSAGES_PER_PAGE + 1)
       .to_a
 
-    @add_postloader = @messages.size > @@limit
-    @messages = @messages.take(@@limit)
+    @add_postloader = @messages.size > MESSAGES_PER_PAGE
+    @messages = @messages.take(MESSAGES_PER_PAGE)
 
     @postloader_url = talk_url(id: @user.to_param, page: @page+1, format: :json)
 
@@ -310,22 +327,28 @@ class MessagesController < UsersController
   end
 
   # типы сообщений
-  def message_types
-     [
-      { id: 'inbox', name: 'Входящее' },
-      { id: 'news', name: 'Новости' },
-      { id: 'notifications', name: 'Уведомления' },
-      { id: 'sent', name: 'Отправленное' }
-    ]
-  end
+  #def message_types
+     #[
+      #{ id: 'inbox', name: 'Входящее' },
+      #{ id: 'news', name: 'Новости' },
+      #{ id: 'notifications', name: 'Уведомления' },
+      #{ id: 'sent', name: 'Отправленное' }
+    #]
+  #end
 
-  # число прочитанных сообщений
-  def unread_counts
-    @unread ||= {
-      'inbox' => current_user.unread_messages,
-      'news' => current_user.unread_news,
-      'notifications' => current_user.unread_notifications,
-      'sent' => 0
-    }
+  ## число прочитанных сообщений
+  #def unread_counts
+    #@unread ||= {
+      #'inbox' => current_user.unread_messages,
+      #'news' => current_user.unread_news,
+      #'notifications' => current_user.unread_notifications,
+      #'sent' => 0
+    #}
+  #end
+
+
+private
+  def authorize_messages_access
+    authorize! :access_messages, @resource
   end
 end

@@ -1,8 +1,5 @@
 class MessagesQuery
-  def initialize user, type
-    @user = user
-    @type = type.to_sym
-  end
+  pattr_initialize :user, :messages_type
 
   def fetch page, limit
     Message
@@ -15,13 +12,18 @@ class MessagesQuery
       .limit(limit + 1)
   end
 
+  def postload page, limit
+    collection = fetch(page, limit).to_a
+    [collection.take(limit), collection.size == limit+1]
+  end
+
 private
   def ignores_ids
     @ignores_ids ||= @user.ignores.map(&:target_id) << 0
   end
 
   def id_field
-    if @type == :sent
+    if @messages_type == :sent
       :from_id
     else
       :to_id
@@ -29,7 +31,7 @@ private
   end
 
   def del_field
-    if @type == :sent
+    if @messages_type == :sent
       :src_del
     else
       :dst_del
@@ -37,7 +39,7 @@ private
   end
 
   def kinds
-    case @type
+    case @messages_type
       when :inbox
         [MessageType::Private]
 

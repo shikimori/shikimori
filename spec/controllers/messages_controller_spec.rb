@@ -1,11 +1,15 @@
 describe MessagesController do
-  let!(:user) { create :user, email: email }
+  describe '#index' do
+    include_context :authenticated, :user
+    before { get :index, profile_id: user.to_param }
+    it { should respond_with :success }
+  end
 
-  describe 'bounce' do
-    let(:email) { 'test@gmail.com' }
-    before { post :bounce, Email: email }
+  describe '#bounce' do
+    let(:user) { create :user }
+    before { post :bounce, Email: user.email }
 
-    it { should respond_with 200 }
+    it { should respond_with :success }
     it { expect(user.messages.size).to eq(1) }
   end
 end

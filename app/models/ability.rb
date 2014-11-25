@@ -23,7 +23,7 @@ class Ability
   end
 
   def guest_ability
-    can :see_list, User do |user|
+    can :access_list, User do |user|
       user.preferences.profile_privacy_public?
     end
     can :see_contest, Contest
@@ -39,7 +39,7 @@ class Ability
       image.uploader_id == @user.id || can?(:edit, image.owner)
     end
 
-    can :see_list, User do |user|
+    can :access_list, User do |user|
       if user == @user || user.preferences.profile_privacy_public? || user.preferences.profile_privacy_users?
         true
       elsif user.preferences.profile_privacy_friends? && user.friended?(@user)
@@ -47,6 +47,9 @@ class Ability
       else
         false
       end
+    end
+    can :access_messages, User do |user|
+      user == @user
     end
     can [:edit, :update], User do |user|
       user == @user || @user.admin?

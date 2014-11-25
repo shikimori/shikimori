@@ -9,7 +9,7 @@
     - if @resource.history.any?
       .c-history
         .subheadline.m13
-          - if can? :see_list, @resource
+          - if can? :access_list, @resource
             a href="#{index_profile_user_history_index_url @resource}" История
           - else
             | История

@@ -6,7 +6,7 @@ require_dependency 'publisher'
 class UserRatesController < ProfilesController
   load_and_authorize_resource except: [:index, :export, :import]
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
-  before_action :authorize_list_see, only: [:index, :export, :import]
+  before_action :authorize_list_access, only: [:index, :export, :import]
 
   def index
     @page = (params[:page] || 1).to_i
@@ -148,7 +148,7 @@ private
     params.require(:user_rate).permit(*Api::V1::UserRatesController::UPDATE_PARAMS)
   end
 
-  def authorize_list_see
-    authorize! :see_list, @resource
+  def authorize_list_access
+    authorize! :access_list, @resource
   end
 end

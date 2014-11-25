@@ -87,7 +87,7 @@ class UserProfileDecorator < UserDecorator
   def common_info
     info = []
 
-    if h.can? :see_list, self
+    if h.can? :access_list, self
       info << h.h(name)
       info << 'муж' if male?
       info << 'жен' if female?

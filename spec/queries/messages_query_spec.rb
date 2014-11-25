@@ -1,7 +1,6 @@
 describe MessagesQuery do
   before { Message.antispam = false }
-  subject { query.fetch 1, 1 }
-  let(:query) { MessagesQuery.new user, type }
+  let(:query) { MessagesQuery.new user, messages_type }
 
   let(:user) { build_stubbed :user }
   let(:user_2) { build_stubbed :user }
@@ -10,44 +9,49 @@ describe MessagesQuery do
   let!(:news) { create :message, kind: MessageType::Anons, to: user, from: user_2 }
   let!(:notification) { create :message, kind: MessageType::FriendRequest, to: user, from: user_2, read: true }
 
-  describe 'fetch' do
-    describe 'inbox' do
-      let!(:private_2) { create :message, kind: MessageType::Private, to: user, from: user_2, dst_del: true }
-      let(:type) { :inbox }
+  describe '#fetch' do
+    subject { query.fetch 1, 1 }
 
-      it 'has 1 item' do
-        expect(subject.size).to eq(1)
-      end
+    context 'inbox' do
+      let!(:private_2) { create :message, kind: MessageType::Private, to: user, from: user_2, dst_del: true }
+      let(:messages_type) { :inbox }
+
+      it { expect(subject).to have(1).item }
       its(:first) { should eq private }
     end
 
-    describe 'sent' do
+    context 'sent' do
       let!(:sent_2) { create :message, kind: MessageType::Private, to: user_2, from: user, src_del: true }
-      let(:type) { :sent }
+      let(:messages_type) { :sent }
 
-      it 'has 1 item' do
-        expect(subject.size).to eq(1)
-      end
+      it { expect(subject).to have(1).item }
       its(:first) { should eq sent }
     end
 
-    describe 'news' do
-      let(:type) { :news }
-      it 'has 1 item' do
-        expect(subject.size).to eq(1)
-      end
+    context 'news' do
+      let(:messages_type) { :news }
+      it { expect(subject).to have(1).item }
       its(:first) { should eq news }
     end
 
-    describe 'notifications' do
+    context 'notifications' do
       let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 2.hours.ago }
       let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 3.hours.ago }
-      let(:type) { :notifications }
+      let(:messages_type) { :notifications }
 
-      it 'has 2 item' do
-        expect(subject.size).to eq(2)
-      end
+      it { expect(subject).to have(2).items }
       its(:first) { should eq notification_2 }
     end
+  end
+
+  describe '#postload' do
+    let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 2.hours.ago }
+    let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, created_at: 3.hours.ago }
+    let(:messages_type) { :notifications }
+
+    subject { query.postload 1, 1 }
+
+    its(:first) { should eq [notification_2] }
+    its(:second) { should be_truthy }
   end
 end

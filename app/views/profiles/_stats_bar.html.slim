@@ -4,14 +4,14 @@
       a href="#{users_url similar: 'similar', klass: klass.downcase}" похожие пользователи
   - elsif @resource.compatibility(klass)
     .compatibility
-      - if can? :see_list, @resource
+      - if can? :access_list, @resource
         a href="#{userlist_comparer_path user_1: current_user, user_2: @resource, list_type: klass.downcase}"
           = render 'profiles/stats_bar_compatibility', klass: klass
       - else
         span.link-replacement
           = render 'profiles/stats_bar_compatibility', klass: klass
 
-  - if can? :see_list, @resource
+  - if can? :access_list, @resource
     a.title href="#{profile_user_rates_url @resource, list_type: klass.downcase}"
       = "Список #{t("Genetive.#{klass}").downcase}"
   - else
@@ -33,7 +33,7 @@
   .stat_names
     - stats.select {|v| v[:size] != 0 }.each do |stat|
       .stat_name
-        - if can? :see_list, @resource
+        - if can? :access_list, @resource
           a href="#{profile_user_rates_url @resource, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
             = UserRate.status_name(stat[:name], klass).capitalize
             | &nbsp;

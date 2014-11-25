@@ -187,29 +187,6 @@ Site::Application.routes.draw do
       end
     end
 
-    # messages
-    # TODO: refactor всё в resources :messages
-    get 'messages' => redirect('messages/inbox'), as: :root_messages
-    get 'messages/:id' => 'messages#show', constraints: { id: /\d+/ }
-    constraints type: /inbox|sent|notifications|news/ do
-      get 'messages/:type' => 'messages#index', as: :messages
-      get 'messages/:type/:page' => 'messages#list', as: :messages_list, constraints: { page: /\d+/ }
-    end
-    get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
-    get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
-
-    post 'messages/create' => 'messages#create', as: :create_messages
-    resources :messages do
-      post :bounce, on: :collection
-    end
-    post 'messages/read' => 'messages#read', read: true, as: :read_messages
-    post 'messages/unread' => 'messages#read', read: false, as: :unread_messages
-
-    # translation
-    #get 'translation' => 'translation#index'
-    get 'animes/translate' => redirect('/translation')
-    get 'translation' => redirect('/clubs/2/translation/planned')
-
     resources :clubs do
       member do
         get :comments
@@ -590,7 +567,31 @@ Site::Application.routes.draw do
     post 'users/search' => 'users#search', as: :users_search
     get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
 
-    resources :profiles, path: '/', constraints: { id: /[^\/]+?/ }, only: [:show, :update] do # , format: /json|rss/
+    # TODO: refactor всё в resources :messages
+    get 'messages' => redirect('messages/inbox'), as: :root_messages
+    get 'messages/:id' => 'messages#show', constraints: { id: /\d+/ }
+    constraints type: /inbox|sent|notifications|news/ do
+      get 'messages/:type' => 'messages#index', as: :messages
+      get 'messages/:type/:page' => 'messages#list', as: :messages_list, constraints: { page: /\d+/ }
+    end
+
+    post 'messages/create' => 'messages#create', as: :create_messages
+    post 'messages/read' => 'messages#read', read: true, as: :read_messages
+    post 'messages/unread' => 'messages#read', read: false, as: :unread_messages
+
+    # messages rss & email bounce
+    resources :messages, only: [] do
+      collection do
+        post :bounce
+        #get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
+        #get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
+      end
+    end
+    get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
+    get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
+
+
+    resources :profiles, path: '/', constraints: { id: /[^\/]+?/ }, only: [:show, :update] do
       member do
         get :friends
         get :favourites
@@ -617,6 +618,10 @@ Site::Application.routes.draw do
 
       resources :user_preferences, only: [] do
         patch :update, on: :collection
+      end
+
+      resources :messages do
+        get '(/:messges_type)(/page/:page)' => :index, as: :index, on: :collection, type: /inbox|news|notifications/
       end
     end
 

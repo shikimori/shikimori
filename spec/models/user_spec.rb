@@ -244,27 +244,27 @@ describe User do
     let(:friend_link) { build_stubbed :friend_link, dst: user }
     subject { Ability.new user }
 
-    describe 'see_list' do
+    describe 'access_list' do
       context 'public profile_privacy' do
         let(:profile_privacy) { :public }
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
       end
 
@@ -273,21 +273,21 @@ describe User do
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should_not be_able_to :see_list, profile }
+          it { should_not be_able_to :access_list, profile }
         end
       end
 
@@ -296,21 +296,21 @@ describe User do
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should_not be_able_to :see_list, profile }
+          it { should_not be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should_not be_able_to :see_list, profile }
+          it { should_not be_able_to :access_list, profile }
         end
       end
 
@@ -319,22 +319,40 @@ describe User do
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :see_list, profile }
+          it { should be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
-          it { should_not be_able_to :see_list, profile }
+          it { should_not be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should_not be_able_to :see_list, profile }
+          it { should_not be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should_not be_able_to :see_list, profile }
+          it { should_not be_able_to :access_list, profile }
         end
+      end
+    end
+
+    describe 'access_messages' do
+      let(:profile) { build_stubbed :user }
+
+      context 'owner' do
+        let(:user) { profile }
+        it { should be_able_to :access_messages, profile }
+      end
+
+      context 'user' do
+        it { should_not be_able_to :access_messages, profile }
+      end
+
+      context 'guest' do
+        let(:user) { nil }
+        it { should_not be_able_to :access_messages, profile }
       end
     end
 
