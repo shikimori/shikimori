@@ -1,12 +1,13 @@
 class ReviewsController < AnimesController
   load_and_authorize_resource
-  page_title 'Рецензии'
+
+  before_action :add_title
+  before_action :add_breadcrumbs, except: [:index]
 
   # один обзор
   def show
     @resource = @anime || @manga
-    index
-    render :index
+    @topic = TopicDecorator.new @review.thread
   end
 
   # обзоры аниме или манги
@@ -15,7 +16,6 @@ class ReviewsController < AnimesController
       .new(@resource.object, current_user, params[:id].to_i)
       .fetch.map do |review|
         topic = TopicDecorator.new review.thread
-        #topic.topic_mode!
         topic
       end
   end
@@ -75,5 +75,21 @@ private
 
   def resource_id
     @resource_id = params[:anime_id]
+  end
+
+  def add_breadcrumbs
+    breadcrumb 'Рецензии', anime_reviews_url(@anime || @manga)
+
+    if @review && @review.persisted? && params[:action] != 'show'
+      breadcrumb "Рецензия от #{@review.user.nickname}", anime_review_url(@anime || @manga, @review)
+      @back_url = anime_review_url @anime || @manga, @review
+    else
+      @back_url = anime_reviews_url @anime || @manga
+    end
+  end
+
+  def add_title
+    page_title 'Рецензии'
+    page_title "Рецензия от #{@review.user.nickname}" if params[:action] == 'show'
   end
 end

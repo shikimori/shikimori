@@ -1,12 +1,11 @@
-/- content_for :head do
-  - if params[:action] == 'show'
-    link rel="canonical" href="#{{@resource.reviews_url}}"
+- content_for :head do
+  link rel="canonical" href="#{{section_url :reviews}}"
 
 = render layout: 'animes/page' do |f|
   .subheadline = @page_title.last
   - if @reviews.any?
     /.b-forum закоменчено, т.к. b-forum требует faye
-    div
-      = render partial: 'topics/topic', collection: @reviews, formats: :html
+    .block
+      = render partial: 'topics/topic', collection: @reviews
   - else
     p Тут пока ничего нет.

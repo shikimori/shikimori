@@ -8,7 +8,7 @@ header.head
       = @resource.headline
   - else
     h2
-      a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+      a.back href="#{@back_url || @resource.url}" title="Назад на страницу #{{@resource.name}}"
       = @resource.headline
 
   /- if params[:page] != 'cosplay'
