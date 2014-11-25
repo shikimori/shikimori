@@ -83,7 +83,7 @@ describe CharactersController do
     it { expect(response.content_type).to eq 'application/json' }
   end
 
-  describe '#edit', :focus do
+  describe '#edit' do
     context 'guest' do
       let(:page) { nil }
       before { get :edit, id: character.to_param }

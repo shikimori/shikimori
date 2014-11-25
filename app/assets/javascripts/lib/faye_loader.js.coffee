@@ -47,7 +47,7 @@ class @FayeLoader
     keys.each (channel) =>
       subscription = @client.subscribe channel, (data) =>
         # это колбек, в котором мы получили уведомление от faye
-        _log ['faye:received', data]
+        _log ['faye:received', channel, data]
         # сообщения от самого себя не принимаем
         return if data.publisher_faye_id == @id()
 

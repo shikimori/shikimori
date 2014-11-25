@@ -90,6 +90,19 @@ class UserStatsDecorator
     end
   end
 
+  def spent_time_label
+    gender_label = @user.male? ? 'Провёл' : 'Провела'
+    kind_label = if anime? && manga?
+      'аниме и мангой'
+    elsif manga?
+      'мангой'
+    else
+      'аниме'
+    end
+
+    "#{gender_label} за #{kind_label}"
+  end
+
   def activity
     @stats.by_activity 26
   end
@@ -121,14 +134,6 @@ class UserStatsDecorator
     #@stats.by_criteria :rating, ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx'].reverse#, -> v { v[:rating] != 'None' }
   #end
 
-  #def anime?
-    #@stats.anime_rates.any?
-  #end
-
-  #def manga?
-    #@stats.manga_rates.any?
-  #end
-
   def genres
     {
       anime: @stats.by_categories('genre', @stats.genres, @stats.anime_valuable_rates, [], 19),
@@ -142,5 +147,14 @@ class UserStatsDecorator
 
   def publishers
     { manga: @stats.by_categories('publisher', @stats.publishers, nil, @stats.manga_valuable_rates, 17) }
+  end
+
+private
+  def anime?
+    @stats.anime_rates.any?
+  end
+
+  def manga?
+    @stats.manga_rates.any?
   end
 end

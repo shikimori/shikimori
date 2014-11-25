@@ -54,15 +54,6 @@ module PermissionsPolicy
     end
   end
 
-  # права на действия с обзорами
-  module ReviewPermissions
-    include Defaults
-
-    def can_be_edited_by?(user)
-      super || (user && user.id == self.user_id && self.created_at + 1.month > Time.zone.now)
-    end
-  end
-
   # права на действия с Пользователями
   module UserPermissions
     def can_be_edited_by?(user)
@@ -93,7 +84,7 @@ module PermissionsPolicy
         end
 
       elsif linked.members_comment?
-        if linked.joined?(comment.user_id)
+        if linked.joined?(comment.user)
           true
         else
           comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.not_a_club_member')
