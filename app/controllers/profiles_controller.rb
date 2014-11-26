@@ -1,6 +1,6 @@
 class ProfilesController < ShikimoriController
   before_action :fetch_resource
-  before_action :set_breadcrumbs, if: -> { params[:action] != 'show' }
+  before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
   #authorize_resource :user, class: User
   page_title 'Профиль'
 

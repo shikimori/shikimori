@@ -620,8 +620,13 @@ Site::Application.routes.draw do
         patch :update, on: :collection
       end
 
-      resources :messages do
-        get '(/:messges_type)(/page/:page)' => :index, as: :index, on: :collection, type: /inbox|news|notifications/
+      resources :dialogs, only: [:index, :show, :destroy] do
+        get '/page/:page' => :show, as: :show, on: :member
+        get '(/page/:page)' => :index, as: :index, on: :collection
+      end
+
+      resources :messages, only: [] do
+        get '/:messges_type(/page/:page)' => :index, as: :index, type: /news|notifications/, on: :collection
       end
     end
 

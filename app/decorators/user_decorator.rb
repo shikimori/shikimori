@@ -43,11 +43,11 @@ class UserDecorator < BaseDecorator
 
   def unread_messages_url
     if unread_messages > 0 || (unread_news == 0 && unread_notifications == 0)
-       h.messages_url :inbox
+       h.profile_dialogs_url object
     elsif unread_news > 0
-       h.messages_url :news
+       h.index_profile_messages_url object, :news
     else
-       h.messages_url :notifications
+       h.index_profile_messages_url object, :notifications
     end
   end
 

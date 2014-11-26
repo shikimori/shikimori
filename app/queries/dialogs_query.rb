@@ -8,10 +8,11 @@ class DialogsQuery
       .order(id: :desc)
       .offset(limit * (page-1))
       .limit(limit + 1)
+      .map {|v| Dialog.new(user, v) }
   end
 
   def postload page, limit
-    collection = fetch(page, limit).to_a
+    collection = fetch page, limit
     [collection.take(limit), collection.size == limit+1]
   end
 

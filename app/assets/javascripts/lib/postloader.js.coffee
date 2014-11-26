@@ -2,9 +2,9 @@ $ ->
   $('.b-postloader').appear()
 
 # динамическая подгрузка контента по мере прокрутки страницы
-$(document).on 'click appear', '.b-postloader', ->
+$(document).on 'click appear', '.b-postloader', (e) ->
   $postloader = $(@)
-  return if $postloader.data('locked')
+  return if $postloader.data('locked') || (e.type == 'appear' && $postloader.data('ignore-appear'))
 
   $postloader.html "<div class=\"ajax-loading vk-like\" title=\"Загрузка...\" />"
   url = $postloader.data('remote')
@@ -13,7 +13,12 @@ $(document).on 'click appear', '.b-postloader', ->
   $postloader.data locked: true
 
   $.getJSON url, (data) ->
-    $data = $('<div>').append(data.content + (data.postloader || ''))
+    content = if $postloader.data('append-to-top')
+      "#{data.postloader}#{data.content}"
+    else
+      "#{data.content}#{data.postloader}"
+
+    $data = $('<div>').append(content)
 
     filter_present_entries $data, filter if filter
     $postloader.trigger 'postloader:success', [$data, data]

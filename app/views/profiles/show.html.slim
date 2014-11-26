@@ -1,4 +1,53 @@
-= render layout: 'page' do
+.profile-head
+  - if @resource.history.any?
+    .c-history
+      .subheadline.m13
+        - if can? :access_list, @resource
+          a href="#{index_profile_user_history_index_url @resource}" История
+        - else
+          | История
+
+      ul.block-list-alt
+        - @resource.formatted_history.each do |entry|
+          li.entry
+            a href="#{entry[:url]}" title="#{entry[:name]}"
+              .image-name
+                img src="#{entry[:image]}" srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}" alt="#{entry[:name]}" title="#{entry[:name]}"
+                span.title
+                  == entry[:name]
+              span.misc title="#{entry[:reversed_action]}"
+                = entry[:reversed_action]
+              span.misc.date
+                = time_ago_in_words entry[:created_at], "%s назад"
+
+  .c-brief
+    .avatar
+      img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+      /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+
+    header.head.misc
+      h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
+        - if params[:action] != 'show'
+          a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+        span.nickname
+          = @resource.nickname
+      - if @resource.own_profile?
+        a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
+      - else
+        .misc
+          - if @resource.banned?
+            span.banned забанен
+          - else
+            = @resource.last_online
+      p.notice
+        - @resource.common_info.each do |entry|
+          span = entry
+
+  .c-lists-info
+    - @resource.stats.graph_statuses.each do |klass,stats,graph|
+      = render 'stats_bar', klass: klass, stats: stats, graph: graph
+
+.profile-content
   .cc-2.block
     .c-column
       .lifetime.b-stat_bar

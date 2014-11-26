@@ -55,13 +55,6 @@
 
       .body itemprop="commentText"
         = comment.html_body
-        /- if comment.kind_of? Comment
-          == comment.html_body
-        /- elsif comment.respond_to?(:kind) && comment.kind == MessageType::Private
-          - cache [comment, :body] do
-            = BbCodeFormatter.instance.format_comment comment.body
-        /- else
-          == format_comment comment.body, comment.user
 
       - unless comment.viewed?
         .appear-marker class="appear-comment-#{comment.id}" data-url="#{appear_url}"

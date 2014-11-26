@@ -24,45 +24,12 @@ class MessagesController < ProfilesController
   #helper_method :message_types
   #helper_method :unread_counts
 
-  # отображение страницы личных сообщений
   def index
-    @messges_type = (params[:messges_type] || 'inbox').to_sym
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
-
-    if @messges_type == :inbox
-      @collection, @add_postloader = DialogsQuery.new(@resource).postload @page, @limit
-    else
-      @collection, @add_postloader = MessagesQuery.new(@resource, params[:type]).postload @page, @limit
-    end
-
-    #@user ||= UserProfileDecorator.new current_user.object
-
-    #@page_title ||= case params[:type]
-      #when 'inbox' then UsersController.profile_title('Личные сообщения', @user)
-      #when 'news' then UsersController.profile_title('Новости сайта', @user)
-      #when 'notifications' then UsersController.profile_title('Уведомления сайта', @user)
-      #when 'sent' then UsersController.profile_title('Отправленные сообщения', @user)
-    #end
-
-    #@page = (params[:page] || 1).to_i
-    #@messages = MessagesQuery.new(current_user, params[:type]).fetch @page, MESSAGES_PER_PAGE
-    #@add_postloader = @messages.size > MESSAGES_PER_PAGE
-    #@messages = @messages.take(MESSAGES_PER_PAGE)
-
-    #@postloader_url = messages_list_url(page: @page+1, format: :json)
-
-    #respond_to do |format|
-      #format.html { super_show }
-      #format.json do
-        #render json: {
-          #content: render_to_string(partial: 'messages/messages', layout: false, formats: :html),
-          #title_page: @page_title,
-          #counts: unread_counts
-        #}
-      #end
-    #end
+    @collection, @add_postloader = MessagesQuery.new(@resource, params[:messages_type]).postload @page, @limit
+    page_title params[:messages_type] == 'news' ? 'Новости сайта' : 'Уведомления сайта'
   end
 
   # rss лента сообщений
@@ -122,7 +89,7 @@ class MessagesController < ProfilesController
   # список сообщений
   def list
     @page = (params[:page] || 1).to_i
-    @messages = MessagesQuery.new(current_user, params[:type]).fetch @page, MESSAGES_PER_PAGE
+    @messages = MessagesQuery.new(current_user, params[:messages_type]).fetch @page, MESSAGES_PER_PAGE
     add_postloader = @messages.size > MESSAGES_PER_PAGE
     @messages = @messages.take(MESSAGES_PER_PAGE)
 
