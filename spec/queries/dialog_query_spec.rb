@@ -13,6 +13,30 @@ describe DialogQuery do
   describe '#fetch' do
     subject(:fetch) { query.fetch 1, 1 }
     it { should eq [message_to_1, message_from_1] }
+
+    describe 'message_to_1' do
+      context 'deleted by receiver' do
+        let!(:message_to_1) { create :message, from: target_user, to: user, dst_del: true }
+        it { should eq [message_from_1] }
+      end
+
+      context 'deleted by sender' do
+        let!(:message_to_1) { create :message, from: target_user, to: user, src_del: true }
+        it { should eq [message_to_1, message_from_1] }
+      end
+    end
+
+    describe 'message_from_1' do
+      context 'deleted by receiver' do
+        let!(:message_from_1) { create :message, from: user, to: target_user, dst_del: true }
+        it { should eq [message_to_1, message_from_1] }
+      end
+
+      context 'deleted by sender' do
+        let!(:message_from_1) { create :message, from: user, to: target_user, src_del: true }
+        it { should eq [message_to_1] }
+      end
+    end
   end
 
   describe '#postload' do

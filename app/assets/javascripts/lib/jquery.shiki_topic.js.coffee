@@ -8,7 +8,7 @@
         new ShikiTopic($root)
 ) jQuery
 
-class @ShikiTopic extends ShikiView
+class @ShikiTopic extends ShikiEditable
   initialize: ($root) ->
     @$body = @$('.body', @$inner)
     @$editor_container = @$('.editor-container')
@@ -208,3 +208,6 @@ class @ShikiTopic extends ShikiView
   # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
   _check_height: =>
     @$body.check_height(@MAX_PREVIEW_HEIGHT)
+
+  _type: -> 'topic'
+  _type_label: -> 'Топик'

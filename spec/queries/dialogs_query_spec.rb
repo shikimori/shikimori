@@ -2,12 +2,12 @@ describe DialogsQuery do
   before { Message.antispam = false }
 
   let(:user) { create :user }
-  let(:user_2) { create :user }
+  let(:target_user) { create :user }
   let(:user_3) { create :user }
   let(:query) { DialogsQuery.new user }
 
-  let!(:message_to_1) { create :message, from: user_2, to: user }
-  let!(:message_from_1) { create :message, from: user, to: user_2 }
+  let!(:message_to_1) { create :message, from: target_user, to: user }
+  let!(:message_from_1) { create :message, from: user, to: target_user }
   let!(:message_to_2) { create :message, from: user, to: user_3 }
 
   describe '#fetch' do
@@ -27,6 +27,12 @@ describe DialogsQuery do
         its(:user) { should eq user }
         its(:message) { should eq message_from_1 }
       end
+    end
+
+    context 'deleted messages' do
+      let!(:message_to_1) { create :message, from: target_user, to: user, dst_del: true }
+      let!(:message_from_1) { create :message, from: user, to: target_user, src_del: true }
+      it { should have(1).item }
     end
   end
 

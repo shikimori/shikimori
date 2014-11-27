@@ -21,7 +21,10 @@ private
     Message
       .where(kind: MessageType::Private)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
-      .where("from_id = :user_id or to_id = :user_id", user_id: user.id)
+      .where(
+        "(from_id = :user_id and src_del=false) or
+         (to_id = :user_id and dst_del=false)",
+        user_id: user.id)
       .group("case when from_id = #{user.id} then to_id else from_id end")
       .order('max(id) desc')
       .select('max(id) as id')

@@ -11,7 +11,7 @@ $moderation = (node) ->
 
   # принятие или отказ запроса
   $('.moderation .take, .moderation .deny').on 'ajax:success', ->
-    $comment(@).data('object')._reload()
+    $comment(@).data('shiki_object')._reload()
     $moderation(@).hide()
 
   ## NOTE: порядок следования функций ajax:success важен
@@ -42,6 +42,6 @@ $moderation = (node) ->
 
     # сабмит формы бана пользователю
     $form.on 'ajax:success', (e) ->
-      $comment(@).data('object')._reload()
+      $comment(@).data('shiki_object')._reload()
       $(@).closest('.ban-form').empty()
       $moderation(@).find('.moderation-buttons').hide()

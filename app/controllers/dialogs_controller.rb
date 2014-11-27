@@ -1,5 +1,3 @@
-# TODO: отрефакторить толстый контроллер
-# TODO: спеки на все методы контроллера
 class DialogsController < ProfilesController
   before_action :authorize_messages_access, only: [:index]
   before_action :add_title
@@ -21,14 +19,14 @@ class DialogsController < ProfilesController
     @target_user = User.find params[:id]
     @collection, @add_postloader = DialogQuery.new(@resource, @target_user).postload @page, @limit
 
-    #@thread = TopicProxyDecorator.new object
-    #@thread.preview_mode!
-    #@thread
-
     page_title "Диалог с #{@target_user.nickname}"
   end
 
   def destroy
+    message = Message.find params[:id]
+    Dialog.new(@resource, message).destroy
+
+    render json: { notice: 'Диалог удалён' }
   end
 
 private

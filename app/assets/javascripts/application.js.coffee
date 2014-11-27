@@ -9,6 +9,7 @@
 #= require pages/p-characters
 #= require pages/p-contests
 #= require pages/p-clubs
+#= require pages/p-dialogs
 #= require_directory ./pages/p-reviews
 #= require_directory ./pages/p-profiles
 #= require_directory ./pages/p-user_rates

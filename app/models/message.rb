@@ -69,6 +69,16 @@ class Message < ActiveRecord::Base
     BbCodeFormatter.instance.format_comment body
   end
 
+  def delete_by user
+    if from == user
+      update! src_del: true
+    elsif to == user
+      update! dst_del: true
+    else
+      raise ArgumentError, "unknown deleter: #{user}"
+    end
+  end
+
   # методы для совместимости с интерфейсом Comment
   #def user
     #from

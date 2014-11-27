@@ -1,9 +1,17 @@
-.b-dialog.b-comment.unprocessed id="#{dialog.target_user.id}"
+.b-dialog.unprocessed id="#{dialog.target_user.id}"
   .inner.check_height
+    span.item-mobile title="Действия"
     aside.markers
       - unless dialog.read
         .b-new_marker.active
-    /= render partial: 'comments/buttons', locals: { comment: comment }
+    aside.buttons
+      .main-controls
+        span.item-delete title="Удалить"
+        span.item-cancel title="Отмена"
+
+      .delete-controls
+        span.item-delete-confirm action="#{profile_dialog_url dialog.user, dialog.message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+        span.item-delete-cancel title="Отмена"
 
     header
       span.linkeable data-href="#{profile_dialog_url dialog.user, dialog.target_user.to_param(true)}"
@@ -12,7 +20,7 @@
         a href="#{profile_dialog_url dialog.user, dialog.target_user.to_param(true)}"
           = dialog.target_user.nickname
 
-        time datetime="#{dialog.created_at.iso8601}"
+        time.dialog-time datetime="#{dialog.created_at.iso8601}"
           = time_ago_in_words dialog.created_at, "%s назад"
 
         a.to_dialog href="#{profile_dialog_url dialog.user, dialog.target_user.to_param(true)}"
@@ -20,19 +28,7 @@
 
     .body
       - if dialog.my_message?
-        = render dialog.message
-        /.b-comment.unprocessed
-          /.inner
-            /header
-              /span.linkeable data-href="#{profile_url dialog.user}"
-                /img src="#{dialog.user.avatar_url 48}" srcset="#{dialog.user.avatar_url 80} 2x" alt="#{dialog.user.nickname}"
-              /.name-date
-                /a href="#{profile_url dialog.user}"
-                  /= dialog.user.nickname
-
-            /.body
-              /= dialog.html_body
+        = render dialog.message, message_url: profile_dialog_url(dialog.user, dialog.target_user)
 
       - else
         = dialog.html_body
-

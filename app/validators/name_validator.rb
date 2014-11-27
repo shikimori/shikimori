@@ -2,7 +2,7 @@ class NameValidator < ActiveModel::EachValidator
   def validate_each record, attribute, value
     return unless value.kind_of? String
 
-    is_taken = value =~ /\A(?:#{Section::VARIANTS}|animes|mangas|all|contests)\Z/ ||
+    is_taken = value =~ /\A(?:#{Section::VARIANTS}|animes|mangas|all|contests|users)\Z/ ||
       presence(record, value, Group, :name) || presence(record, value, User, :nickname)
 
     if is_taken

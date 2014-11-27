@@ -115,6 +115,16 @@ class Ability
     can [:destroy], [Topic, AnimeNews, MangaNews] do |topic|
       topic.user_id == @user.id && topic.created_at + 4.hours > Time.zone.now
     end
+
+    can [:read, :destroy], Message do |message|
+      message.from_id == @user.id || message.to_id == @user.id
+    end
+    can [:create], Message do |message|
+      message.from_id == @user.id
+    end
+    can [:edit, :update], Message do |message|
+      message.from_id == @user.id && message.created_at + 10.minutes > Time.zone.now
+    end
   end
 
   def moderator_ability

@@ -17,6 +17,6 @@
   $('.b-shiki_editor')
     .shiki_editor()
     .on 'preview:params', ->
-      body: $(@).data('object').$textarea.val()
+      body: $(@).data('shiki_object').$textarea.val()
       target_id: $('#change_item_id').val()
       target_type: $('#change_model').val()

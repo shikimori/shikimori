@@ -2,6 +2,7 @@
 
 #= require_tree ./vendor
 #= require ./lib/shiki_view
+#= require ./lib/shiki_editable
 #= require_tree ./lib
 #= require_tree ./blocks
 

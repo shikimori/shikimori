@@ -8,10 +8,7 @@
         new ShikiComment($root)
 ) jQuery
 
-# TODO: в кнструктор перенесён весь старый код
-# надо отрефакторить. подумать над view бекбона.
-# сделал бы сразу, но не уверен, что не будет тормозить
-class @ShikiComment extends ShikiView
+class @ShikiComment extends ShikiEditable
   initialize: ($root) ->
     @$body = @$('.body')
 
@@ -69,7 +66,7 @@ class @ShikiComment extends ShikiView
     @$('.item-review,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
       if 'affected_ids' of data && data.affected_ids.length
         data.affected_ids.each (id) ->
-          $(".b-comment##{id}").data('object').mark(data.kind, data.value)
+          $(".b-comment##{id}").data('shiki_object').mark(data.kind, data.value)
           $.notice marker_message(data)
       else
         $.notice 'Ваш запрос будет рассмотрен. Домо аригато.'
@@ -95,31 +92,6 @@ class @ShikiComment extends ShikiView
     @$('.moderation-ban').on 'ajax:success', 'form', (e, response) =>
       @_replace response.html
 
-    # замена комментария новым контентом
-    @on 'comment:replace', (e, html) =>
-      @_replace html
-
-    # по клику на 'новое' пометка прочитанным
-    @$('.b-new_marker').on 'click', =>
-      # эвент appear обрабатывается в shiki-topic
-      @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
-
-    # realtime уведомление об изменении комментария
-    @on 'faye:comment:updated', (e, data) =>
-      @$('.was_updated').remove()
-      $notice = $("<div class='was_updated'>
-        <div><span>Комментарий изменён пользователем</span><a class='actor b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
-        <div>Кликните для обновления.</div>
-      </div>")
-      $notice
-        .appendTo(@$inner)
-        .on 'click', (e) =>
-          @_reload() unless $(e.target).closest('.actor').exists()
-
-    # realtime уведомление об удалении комментария
-    @on 'faye:comment:deleted', (e, data) =>
-      @_replace "<div class='b-comment-info b-comment'><span>Комментарий удалён пользователем</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' /><span>#{data.actor}</span></a></div>"
-
   # пометка комментария маркером (оффтопик/отзыв)
   mark: (kind, value) ->
     @$(".item-#{kind}").toggleClass('selected', value)
@@ -129,21 +101,8 @@ class @ShikiComment extends ShikiView
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
 
-  # перезагрузка комментария
-  _reload: =>
-    @$root.addClass 'ajax:request'
-    $.get "/comments/#{@$root.attr 'id'}", (response) =>
-      @_replace response
-
-  # замена комментария другим контентом
-  _replace: (html) ->
-    $replaced_comment = $(html)
-    @$root.replaceWith($replaced_comment)
-
-    $replaced_comment
-      .process()
-      .shiki_comment()
-      .yellowFade()
+  _type: -> 'comment'
+  _type_label: -> 'Комментарий'
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->

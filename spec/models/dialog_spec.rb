@@ -40,4 +40,22 @@ describe Dialog do
       its(:my_message?) { should be_falsy }
     end
   end
+
+  describe '#messages' do
+    let!(:message_to) { create :message, from: target_user, to: user }
+    let!(:message_from) { create :message, from: user, to: target_user }
+    its(:messages) { should eq [message_to, message_from] }
+  end
+
+  describe '#destroy' do
+    let(:user) { create :user }
+    let(:target_user) { create :user }
+    let!(:message_to) { create :message, from: target_user, to: user }
+    let!(:message_from) { create :message, from: user, to: target_user }
+
+    before { dialog.destroy }
+
+    it { expect(message_from.reload.src_del).to be_truthy }
+    it { expect(message_to.reload.dst_del).to be_truthy }
+  end
 end

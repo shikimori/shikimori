@@ -3,7 +3,7 @@ header.head.misc
     - if params[:action] != 'show' || @back_url
       a.back href="#{@back_url || @resource.url}" title="Назад на страницу #{{@resource.name}}"
     = @resource.nickname
-  - if can?(:edit, @resource) && @resource.persisted?
+  - if can?(:edit, @resource) && @resource.persisted? && params[:controller] == 'profiles'
     a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs

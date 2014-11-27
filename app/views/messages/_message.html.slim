@@ -1,19 +1,34 @@
-.b-message.b-comment.unprocessed[
+.b-message.unprocessed[
     id="#{message.id}"
     data-user_id="#{message.from.id}"
     data-user_nickname="#{message.from.nickname}"
   ]
   .inner
+    span.item-mobile title="Действия"
     aside.markers
-      - unless message.read || message.from == @resource
+      - if !message.read && message.to == @resource
         .b-new_marker.active
-    /= render partial: 'comments/buttons', locals: { comment: comment }
+
+    aside.buttons
+      .main-controls
+        span.item-quote title="Цитировать"
+        span.item-reply data-action="#{profile_message_url @resource, message}" data-type="json" data-remote="true" title="Ответить"
+
+        - if can? :edit, message
+          span.item-edit data-action="#{edit_profile_message_url @resource, message}" data-type="html" data-remote="true" title="Изменить"
+
+        span.item-delete title="Удалить"
+        span.item-cancel title="Отмена"
+
+      .delete-controls
+        span.item-delete-confirm action="#{profile_message_url @resource, message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+        span.item-delete-cancel title="Отмена"
 
     header
-      span.linkeable data-href="#{profile_url message.from}"
+      span.linkeable data-href="#{local_assigns[:message_url] || profile_url(message.from)}"
         img src="#{message.from.avatar_url 48}" srcset="#{message.from.avatar_url 80} 2x" alt="#{message.from.nickname}"
       .name-date
-        a href="#{profile_url message.from}"
+        a href="#{local_assigns[:message_url] || profile_url(message.from)}"
           = message.from.nickname
 
         time datetime="#{message.created_at.iso8601}"

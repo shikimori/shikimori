@@ -291,4 +291,4 @@ class @ShikiEditor extends ShikiView
 
     # замена комментария после успешного сохранения
     @on 'ajax:success', (e, response) ->
-      $comment.trigger 'comment:replace', response.html
+      $comment.data('shiki_object')._replace response.html
