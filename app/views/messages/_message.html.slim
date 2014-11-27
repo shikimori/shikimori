@@ -35,7 +35,10 @@
           = time_ago_in_words message.created_at, "%s назад"
 
     .body
-      = message.html_body
+      - if message.kind == MessageType::Private
+        = message.html_body
+      - else
+        == get_message_body message
 
 /.comment-block.message-block.appear-block class="type-#{message.kind} comment-#{message.id}#{' comment-new' if message.new?(params) }"
   /- if message.new?(params)

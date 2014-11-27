@@ -1,11 +1,11 @@
 = render layout: 'page' do
   .b-options-floated.mobile-support
     a href="#{@resource.comments_reviews_url}"
-      | Все отзывы&nbsp;
+      | Все отзывы
       span.brackets = @resource.comment_reviews_count
 
     span.link.selected
-      | Все комментарии&nbsp;
+      | Все комментарии
       span.brackets = @resource.comments_count
 
   .subheadline.m3 = @page_title.last

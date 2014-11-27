@@ -100,11 +100,11 @@
     - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
       .b-options-floated.mobile-support
         span.linkeable data-href="#{@resource.comments_reviews_url}"
-          | Все отзывы&nbsp;
+          | Все отзывы
           span.brackets = @resource.comment_reviews_count
 
         span.linkeable data-href="#{@resource.comments_all_url}"
-          | Все комментарии&nbsp;
+          | Все комментарии
           span.brackets = @resource.comments_count
 
     - if @resource.comments_count > 0
