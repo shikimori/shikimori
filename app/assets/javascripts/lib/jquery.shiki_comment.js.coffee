@@ -39,7 +39,8 @@ class @ShikiComment extends ShikiEditable
     @$('.item-quote').on 'click', =>
       ids = [@$root.prop('id'), @$root.data('user_id'), @$root.data('user_nickname')]
       selected_text = @$root.data('selected_text')
-      quote = "[quote=#{ids.join ';'}]#{selected_text}[/quote]\n"
+      type = @_type()[0]
+      quote = "[quote=#{type}#{ids.join ';'}]#{selected_text}[/quote]\n"
 
       @$root.trigger 'comment:reply', [quote, @_is_offtopic()]
 

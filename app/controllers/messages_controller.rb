@@ -1,15 +1,6 @@
-# TODO: отрефакторить толстый контроллер
-# TODO: спеки на все методы контроллера
 class MessagesController < ProfilesController
-  skip_before_action :fetch_resource, :set_breadcrumbs, only: [:bounce]
-  before_action :authorize_messages_access, only: [:index]
-
-  load_and_authorize_resource only: [:show, :edit, :update, :destroy]
-
-  #load_and_authorize_resource except: [:index, :export, :import]
-  #skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
-
-  #alias :super_show :show
+  load_and_authorize_resource except: [:index, :bounce, :preview]
+  skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index]
 
   MESSAGES_PER_PAGE = 15
 
@@ -27,6 +18,8 @@ class MessagesController < ProfilesController
   #helper_method :unread_counts
 
   def index
+    authorize! :access_messages, @resource
+
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
     @messages_type = params[:messages_type].to_sym
@@ -35,10 +28,49 @@ class MessagesController < ProfilesController
     page_title @messages_type == :news ? 'Новости сайта' : 'Уведомления сайта'
   end
 
+  def show
+    render @resource
+  end
+
+  def edit
+  end
+
+  def preview
+    message = Message.new create_params
+    render message
+  end
+
+  def create
+    if @resource.save
+      render :create, notice: 'Сообщение создано'
+    else
+      render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не создано'
+    end
+  end
+
+  def update
+    if @resource.update update_params
+      render :create, notice: 'Сообщение изменено'
+    else
+      render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не изменено'
+    end
+  end
+
   def destroy
     @resource.delete_by current_user
     render json: { notice: 'Сообщение удалено' }
   end
+
+  def mark_read
+    ids = params[:ids].split(',').map {|v| v.sub(/message-/, '').to_i }
+
+    Message
+      .where(id: ids, to_id: current_user.id)
+      .update_all(read: true)
+
+    head 200
+  end
+
 
   ## rss лента сообщений
   #def feed
@@ -323,7 +355,11 @@ class MessagesController < ProfilesController
 
 
 private
-  def authorize_messages_access
-    authorize! :access_messages, @resource
+  def create_params
+    params.require(:message).permit(:body, :from_id, :to_id, :kind)
+  end
+
+  def update_params
+    params.require(:message).permit(:body)
   end
 end

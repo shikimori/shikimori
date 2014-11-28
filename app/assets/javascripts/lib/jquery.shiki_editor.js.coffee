@@ -179,18 +179,19 @@ class @ShikiEditor extends ShikiView
     # предпросмотр
     @$('footer .preview').on 'click', =>
       # подстановка данных о текущем элементе, если они есть
+      data = {}
       item_data = if @$form.exists()
-        @$form.serializeHash().comment
+        @$form.serializeHash()[@_type()]
       else
         @$root.trigger_with_return('preview:params') || {
           body: @$textarea.val()
         }
+      data[@_type()] = item_data
 
       $.ajax
         type: 'POST'
         url: $('footer .preview', @$root).data('preview_url')
-        data:
-          comment: item_data
+        data: data
         success: (html) =>
           @_show_preview html
 
@@ -292,3 +293,6 @@ class @ShikiEditor extends ShikiView
     # замена комментария после успешного сохранения
     @on 'ajax:success', (e, response) ->
       $comment.data('shiki_object')._replace response.html
+
+  _type: ->
+    @$textarea.data('item_type')

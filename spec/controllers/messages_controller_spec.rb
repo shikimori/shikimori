@@ -1,26 +1,160 @@
 describe MessagesController do
+  include_context :authenticated, :user
+
   describe '#index' do
-    include_context :authenticated, :user
     before { get :index, profile_id: user.to_param, messages_type: 'notifications' }
     it { should respond_with :success }
   end
 
   describe '#bounce' do
     let(:user) { create :user }
+    before { sign_out user }
     before { post :bounce, Email: user.email }
 
     it { should respond_with :success }
     it { expect(user.messages.size).to eq(1) }
   end
 
-  describe '#destroy' do
-    include_context :authenticated, :user
-    let(:message) { create :message, to: user }
+  describe '#show' do
+    let(:message) { create :message, from: user }
+    let(:make_request) { get :show, id: message.id }
 
-    before { delete :destroy, profile_id: user.to_param, id: message.id }
+    context 'has access' do
+      before { make_request }
+      it { should respond_with :success }
+    end
+
+    context 'no access' do
+      let(:message) { create :message }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
+
+  #describe '#show', :focus do
+    #let(:message) { create :message, from: user }
+    #let(:make_request) { get :show, id: message.id }
+
+    #context 'has access' do
+      #before { make_request }
+
+      #context 'html' do
+        #it { should respond_with :success }
+        #it { expect(response.content_type).to eq 'text/html' }
+      #end
+
+      #context 'json' do
+        #let(:make_request) { get :show, id: message.id, format: :json }
+        #it { should respond_with :success }
+        #it { expect(response.content_type).to eq 'application/json' }
+      #end
+    #end
+
+    #context 'no access' do
+      #let(:message) { create :message }
+      #it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    #end
+  #end
+
+  describe '#edit' do
+    let(:message) { create :message, from: user }
+    let(:make_request) { get :edit, id: message.id }
+
+    context 'has access' do
+      before { make_request }
+      it { should respond_with :success }
+    end
+
+    context 'no access' do
+      let(:message) { create :message }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
+
+  describe '#preview' do
+    let(:user) { create :user }
+    before { post :preview, message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::Private } }
 
     it { should respond_with :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    it { expect(message.reload.dst_del).to be_truthy }
+  end
+
+  describe '#update' do
+    let(:message) { create :message, from: user }
+    let(:params) {{ body: 'werdfghj' }}
+    let(:make_request) { patch :update, id: message.id, message: params, format: :json }
+
+    context 'has access' do
+      before { make_request }
+
+      context 'valid params' do
+        it { should respond_with :success }
+        it { expect(response.content_type).to eq 'application/json' }
+        it { expect(resource).to have_attributes params }
+      end
+
+      context 'invalid params' do
+        let(:params) {{ body: '' }}
+        it { should respond_with 422 }
+      end
+    end
+
+    context 'no access' do
+      let(:message) { create :message }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
+
+  describe '#create' do
+    let(:target_user) { create :user }
+    let(:kind) { MessageType::Private }
+    let(:params) {{ from_id: user.id, to_id: target_user.id, body: body, kind: kind }}
+    let(:body) { 'werdfghj' }
+    let(:make_request) { post :create, message: params, format: :json }
+
+    context 'has access' do
+      before { make_request }
+
+      context 'valid params' do
+        it { should respond_with :success }
+        it { expect(response.content_type).to eq 'application/json' }
+        it { expect(resource).to have_attributes params }
+      end
+
+      context 'invalid params' do
+        let(:body) { '' }
+        it { should respond_with 422 }
+      end
+    end
+
+    context 'no access' do
+      let(:kind) { MessageType::Notification }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
+
+  describe '#destroy' do
+    let(:message) { create :message, to: user }
+    let(:make_request) { delete :destroy, id: message.id }
+
+    context 'has access' do
+      before { make_request }
+      it { should respond_with :success }
+      it { expect(response.content_type).to eq 'application/json' }
+      it { expect(message.reload.dst_del).to be_truthy }
+    end
+
+    context 'no access' do
+      let(:message) { create :message }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
+
+  describe '#mark_read' do
+    let(:message_from) { create :message, from: user }
+    let(:message_to) { create :message, to: user }
+    before { post :mark_read, ids: "message-#{message_to.id},message-#{message_from.id},message-987654" }
+
+    it { should respond_with :success }
+    it { expect(message_from.reload.read).to be_falsy }
+    it { expect(message_to.reload.read).to be_truthy }
   end
 end

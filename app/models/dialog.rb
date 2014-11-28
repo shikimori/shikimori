@@ -32,4 +32,12 @@ class Dialog
       message.delete_by user
     end
   end
+
+  def new_message
+    Message.new from_id: user.id, to_id: target_user.id, kind: MessageType::Private
+  end
+
+  def faye_channel
+    ["dialog-#{[user.id, target_user.id].sort.join '-'}"]
+  end
 end

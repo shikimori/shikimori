@@ -16,10 +16,13 @@ class DialogsController < ProfilesController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
-    @target_user = User.find params[:id]
-    @collection, @add_postloader = DialogQuery.new(@resource, @target_user).postload @page, @limit
+    @dialog = Dialog.new(@resource, Message.new(to_id: params[:id].to_i, from_id: @resource.id))
 
-    page_title "Диалог с #{@target_user.nickname}"
+    @collection, @add_postloader = DialogQuery
+      .new(@resource, @dialog.target_user)
+      .postload(@page, @limit)
+
+    page_title "Диалог с #{@dialog.target_user.nickname}"
   end
 
   def destroy

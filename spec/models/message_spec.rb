@@ -141,32 +141,49 @@ describe Message do
   end
 
   describe 'instance methods' do
-    let(:message) { create :message }
-    before { message.delete_by user }
+    describe '#delete_by' do
+      let(:message) { create :message }
+      before { message.delete_by user }
 
-    context 'by from' do
-      let(:user) { message.from }
-      it { expect(message.src_del).to be_truthy }
-      it { expect(message.dst_del).to be_falsy }
-    end
+      context 'private message' do
+        context 'by from' do
+          let(:user) { message.from }
 
-    context 'by to' do
-      let(:user) { message.to }
-      it { expect(message.dst_del).to be_truthy }
-      it { expect(message.src_del).to be_falsy }
+          it { expect(message).to be_persisted }
+          it { expect(message.src_del).to be_truthy }
+          it { expect(message.dst_del).to be_falsy }
+        end
+
+        context 'by to' do
+          let(:user) { message.to }
+
+          it { expect(message).to be_persisted }
+          it { expect(message.dst_del).to be_truthy }
+          it { expect(message.src_del).to be_falsy }
+        end
+      end
+
+      context 'other messages' do
+        let(:message) { create :message, :notification }
+        let(:user) { nil }
+        it { expect(message).to be_destroyed }
+      end
     end
   end
 
   describe 'permissions' do
-    let(:message) { build_stubbed :message, from: from_user, to: to_user, created_at: created_at }
+    let(:message) { build_stubbed :message, from: from_user, to: to_user, kind: kind, created_at: created_at }
     let(:from_user) { build_stubbed :user }
     let(:to_user) { build_stubbed :user }
     let(:created_at) { 1.minute.ago }
+    let(:kind) { MessageType::Private }
+
     subject { Ability.new user }
 
     context 'guest' do
       let(:user) { nil }
       it { should_not be_able_to :read, message }
+      it { should_not be_able_to :mark_read, message }
       it { should_not be_able_to :create, message }
       it { should_not be_able_to :edit, message }
       it { should_not be_able_to :update, message }
@@ -176,6 +193,7 @@ describe Message do
     context 'user' do
       let(:user) { build_stubbed :user, :user }
 
+      it { should be_able_to :mark_read, message }
       it { should_not be_able_to :read, message }
       it { should_not be_able_to :create, message }
       it { should_not be_able_to :edit, message }
@@ -186,10 +204,21 @@ describe Message do
         let(:user) { from_user }
 
         it { should be_able_to :read, message }
-        it { should be_able_to :create, message }
-        it { should be_able_to :edit, message }
-        it { should be_able_to :update, message }
         it { should be_able_to :destroy, message }
+
+        context 'private message' do
+          let(:kind) { MessageType::Private }
+          it { should be_able_to :create, message }
+          it { should be_able_to :edit, message }
+          it { should be_able_to :update, message }
+        end
+
+        context 'other type messages' do
+          let(:kind) { MessageType::Notification }
+          it { should_not be_able_to :create, message }
+          it { should_not be_able_to :edit, message }
+          it { should_not be_able_to :update, message }
+        end
 
         context '11 minutes ago message' do
           let(:created_at) { 11.minutes.ago }

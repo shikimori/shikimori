@@ -58,4 +58,18 @@ describe Dialog do
     it { expect(message_from.reload.src_del).to be_truthy }
     it { expect(message_to.reload.dst_del).to be_truthy }
   end
+
+  describe '#new_message' do
+    subject { dialog.new_message }
+    it { should be_kind_of Message }
+    it { should have_attributes(body: nil, from_id: user.id, to_id: target_user.id, kind: MessageType::Private) }
+    it { should be_new_record }
+  end
+
+  describe '#dialog' do
+    let(:user) { build_stubbed :user, id: 2 }
+    let(:target_user) { build_stubbed :user, id: 1 }
+
+    its(:faye_channel) { should eq ['dialog-1-2'] }
+  end
 end

@@ -9,8 +9,8 @@ class Message < ActiveRecord::Base
   # откменяю проверку, т.к. могут быть уведомления по AnimeHistory
   #validates_presence_of :body
 
-  validates_presence_of :from
-  validates_presence_of :to
+  validates :from, :to, presence: true
+  validates :body, presence: true, if: -> { kind == MessageType::Private }
 
   before_create :filter_quotes
   before_save :antispam
@@ -70,12 +70,10 @@ class Message < ActiveRecord::Base
   end
 
   def delete_by user
-    if from == user
-      update! src_del: true
-    elsif to == user
-      update! dst_del: true
+    if kind == MessageType::Private
+      delete_by! user
     else
-      raise ArgumentError, "unknown deleter: #{user}"
+      destroy!
     end
   end
 
@@ -112,5 +110,16 @@ class Message < ActiveRecord::Base
   # идентификатор для рсс ленты
   def guid
     "message-#{self.id}"
+  end
+
+private
+  def delete_by! user
+    if from == user
+      update! src_del: true
+    elsif to == user
+      update! dst_del: true
+    else
+      raise ArgumentError, "unknown deleter: #{user}"
+    end
   end
 end

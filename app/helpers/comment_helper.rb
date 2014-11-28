@@ -191,7 +191,8 @@ module CommentHelper
 
     text
       .gsub(/\[quote\]/, '<blockquote>')
-      .gsub(/\[quote=(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
+      .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
+      .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[message=\1 quote]\3[/message]</div>')
       .gsub(/\[quote=([^\]]+)\]/, '<blockquote><div class="quoteable">[user]\1[/user]</div>')
       .gsub(/\[\/quote\](?:\r\n|\r|\n|<br \/>)?/, '</blockquote>')
   end

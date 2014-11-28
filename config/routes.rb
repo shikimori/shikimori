@@ -579,12 +579,16 @@ Site::Application.routes.draw do
     #post 'messages/read' => 'messages#read', read: true, as: :read_messages
     #post 'messages/unread' => 'messages#read', read: false, as: :unread_messages
 
-    ## messages rss & email bounce
-    resources :messages, only: [] do
+    ## messages edit & rss & email bounce
+    resources :messages, only: [:create, :show, :edit, :update, :destroy] do
       collection do
+        post :mark_read
+        post :preview
+
         post :bounce
-        get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
-        get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
+
+        get ':name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
+        get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :unsubscribe
       end
     end
     #get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
@@ -625,7 +629,7 @@ Site::Application.routes.draw do
         get '(/page/:page)' => :index, as: :index, on: :collection
       end
 
-      resources :messages, only: [:show, :edit, :destroy] do
+      resources :messages, only: [] do
         get '/:messages_type(/page/:page)' => :index, as: :index, messages_type: /news|notifications/, on: :collection
       end
     end

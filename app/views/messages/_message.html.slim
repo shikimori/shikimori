@@ -4,25 +4,26 @@
     data-user_nickname="#{message.from.nickname}"
   ]
   .inner
-    span.item-mobile title="Действия"
-    aside.markers
-      - if !message.read && message.to == @resource
-        .b-new_marker.active
+    - if message.persisted?
+      span.item-mobile title="Действия"
+      aside.markers
+        - if !message.read && message.to == current_user
+          .b-new_marker.active
 
-    aside.buttons
-      .main-controls
-        span.item-quote title="Цитировать"
-        span.item-reply data-action="#{profile_message_url @resource, message}" data-type="json" data-remote="true" title="Ответить"
+      aside.buttons
+        .main-controls
+          span.item-quote title="Цитировать"
+          span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="Ответить"
 
-        - if can? :edit, message
-          span.item-edit data-action="#{edit_profile_message_url @resource, message}" data-type="html" data-remote="true" title="Изменить"
+          - if can? :edit, message
+            span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="Изменить"
 
-        span.item-delete title="Удалить"
-        span.item-cancel title="Отмена"
+          span.item-delete title="Удалить"
+          span.item-cancel title="Отмена"
 
-      .delete-controls
-        span.item-delete-confirm action="#{profile_message_url @resource, message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
-        span.item-delete-cancel title="Отмена"
+        .delete-controls
+          span.item-delete-confirm action="#{message_url message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+          span.item-delete-cancel title="Отмена"
 
     header
       span.linkeable data-href="#{local_assigns[:message_url] || profile_url(message.from)}"
@@ -31,14 +32,18 @@
         a href="#{local_assigns[:message_url] || profile_url(message.from)}"
           = message.from.nickname
 
-        time datetime="#{message.created_at.iso8601}"
-          = time_ago_in_words message.created_at, "%s назад"
+        - if message.persisted?
+          time datetime="#{message.created_at.iso8601}"
+            = time_ago_in_words message.created_at, "%s назад"
 
     .body
-      - if message.kind == MessageType::Private
+      == get_message_body message
+
+      - if !message.read && message.to == current_user
+        .appear-marker class="appear-message-#{message.id}" data-url="#{mark_read_messages_url}"
+      /- if message.kind == MessageType::Private
         = message.html_body
-      - else
-        == get_message_body message
+      /- else
 
 /.comment-block.message-block.appear-block class="type-#{message.kind} comment-#{message.id}#{' comment-new' if message.new?(params) }"
   /- if message.new?(params)

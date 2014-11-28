@@ -1,8 +1,12 @@
+- preview_url = comment.kind_of?(Message) ? preview_messages_url : preview_comments_url
+- item_type = comment.kind_of?(Message) ? 'message' : 'comment'
+
 - if defined?(f) && comment.new_record?
   aside.markers
-    - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
+    - if comment.kind_of?(Comment) && comment.commentable.class == AniMangaComment
       .b-review_marker.active class="#{:off unless comment.review?}"
-    .b-offtopic_marker.active class="#{:off unless comment.offtopic?}"
+    - if comment.respond_to? :offtopic?
+      .b-offtopic_marker.active class="#{:off unless comment.offtopic?}"
 
 aside.buttons
   /.preview-controls
@@ -88,18 +92,29 @@ aside.buttons
 .body
   .editor
     - if defined? f
-      = f.input :user_id, as: :hidden
-      = f.input :commentable_id, as: :hidden
-      = f.input :commentable_type, as: :hidden
-      = f.input :offtopic, as: :hidden
-      = f.input :review, as: :hidden
-      = f.input :body, as: :text, label: '',
-        input_html: { class: "b-comment editor-area",
-          placeholder: 'Текст комментария...',
-          'data-upload_url' => user_images_url(linked_type: Comment.name) }
-          /tabindex: options[:tabindex] || 0,
+      - if f.object.kind_of? Comment
+        = f.input :user_id, as: :hidden
+        = f.input :commentable_id, as: :hidden
+        = f.input :commentable_type, as: :hidden
+        = f.input :offtopic, as: :hidden
+        = f.input :review, as: :hidden
+      - elsif f.object.kind_of? Message
+        = f.input :kind, as: :hidden
+        = f.input :from_id, as: :hidden
+        = f.input :to_id, as: :hidden
+      - else
+        - raise ArgumentError, f.object
+
+      = f.input :body, as: :text,
+        input_html: { class: "b-#{f.object.class.name.downcase} editor-area",
+          placeholder: 'Текст комментария', tabindex: 0,
+          'data-upload_url' => user_images_url(linked_type: Comment.name),
+          'data-item_type' => item_type }
     - else
-      = text_area_tag field_name, text, class: "comment_body editor-area", placeholder: 'Текст', tabindex: 0, 'data-upload_url' => user_images_url(linked_type: nil)
+      = text_area_tag field_name, text, class: 'comment_body editor-area',
+        placeholder: 'Текст', tabindex: 0,
+        'data-upload_url' => user_images_url(linked_type: nil),
+        'data-item_type' => item_type
   .preview
 
 footer
@@ -108,15 +123,16 @@ footer
   - if defined?(f)
     - if comment.persisted?
       = f.submit 'Сохранить'
-      .button.preview data-preview_url="#{preview_comments_url}" Предпросмотр
+      .button.preview data-preview_url="#{preview_url}" Предпросмотр
       .unpreview.link Вернуться к редактированию
       .cancel Отмена
 
     - else
       = f.submit 'Написать'
       .unpreview.link Вернуться к редактированию
-      .button.preview data-preview_url="#{preview_comments_url}" Предпросмотр
+      .button.preview data-preview_url="#{preview_url}" Предпросмотр
       .hide Скрыть
+
   - else
-    .button.preview data-preview_url="#{preview_comments_url}" Предпросмотр
+    .button.preview data-preview_url="#{preview_url}" Предпросмотр
     .button.unpreview Вернуться к редактированию

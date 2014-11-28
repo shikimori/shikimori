@@ -60,24 +60,26 @@ class @ShikiTopic extends ShikiEditable
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
       return unless IS_LOGGED_IN
-      $filtered_appeared = ($appeared || $(@)).not -> $(@).data 'disabled'
+      $filtered_appeared = ($appeared || $(@)).not -> $(@).data('disabled') || $(@).data('ignore-appear')
 
-      $comments = $filtered_appeared.closest('.b-comment')
-      $markers = $comments.find('.b-new_marker')
+      if $filtered_appeared.exists()
+        item_type = @_item_type()
+        $comments = $filtered_appeared.closest(".b-#{item_type}")
+        $markers = $comments.find('.b-new_marker')
 
-      ids = $comments.map(-> "comment-#{@id}").toArray()
-      $.ajax
-        url: $appeared.data('url')
-        type: 'POST'
-        data:
-          ids: ids.join ","
+        ids = $comments.map(-> "#{item_type}-#{@id}").toArray()
+        $.ajax
+          url: $appeared.data('url')
+          type: 'POST'
+          data:
+            ids: ids.join ","
 
-      $appeared.remove()
+        $appeared.remove()
 
-      interval = if by_click then 1 else 1500
-      $markers.removeClass 'active'
-      $markers.css.bind($markers).delay(interval, opacity: 0)
-      $markers.hide.bind($markers).delay(interval + 500)
+        interval = if by_click then 1 else 1500
+        $markers.removeClass 'active'
+        $markers.css.bind($markers).delay(interval, opacity: 0)
+        $markers.hide.bind($markers).delay(interval + 500)
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
@@ -211,3 +213,4 @@ class @ShikiTopic extends ShikiEditable
 
   _type: -> 'topic'
   _type_label: -> 'Топик'
+  _item_type: -> @$root.data('item_type') || 'comment'
