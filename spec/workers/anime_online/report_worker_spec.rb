@@ -79,5 +79,20 @@ describe AnimeOnline::ReportWorker do
         end
       end
     end
+
+    context :uploaded do
+      let(:user) { create(:user) }
+      let(:anime_video) { create :anime_video }
+      let(:report) { create :anime_video_report, anime_video: anime_video, kind: 'uploaded', state: 'pending', user: user }
+
+      context :auto_check do
+        before { allow(AnimeOnline::Uploaders).to receive(:responsible).and_return([user.id]) }
+        it { expect(subject).to be_accepted }
+      end
+
+      context :manual_check do
+        it { expect(subject).to be_pending }
+      end
+    end
   end
 end

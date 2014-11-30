@@ -58,7 +58,8 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
     @video.author = find_or_create_author(params[:anime_video][:author])
 
     if @video.save
-      AnimeOnline::AnimeVideosService.upload_report(current_user, @video)
+      AnimeVideoReport.create!(user: current_user, anime_video: @video, kind: :uploaded)
+
       if params[:continue] == "true"
         flash[:notice] = "Эпизод #{@video.episode} добавлен"
         @video = AnimeVideo.new anime_id: @video.anime_id, episode: @video.episode + 1, author: @video.author, kind: @video.kind, source: 'shikimori.org'
