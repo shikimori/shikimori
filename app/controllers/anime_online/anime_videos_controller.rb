@@ -9,6 +9,7 @@ class AnimeOnline::AnimeVideosController < AnimeOnlineController
     anime_query = AnimeVideosQuery.new AnimeOnlineDomain::adult_host?(request), params
     @anime_ids = anime_query.search.order.page.fetch_ids
     @anime_list = AnimeVideoDecorator.decorate_collection anime_query.search.order.page.fetch_entries
+    @top_uploaders = User.where(id: AnimeOnline::Uploaders.current_top)
   end
 
   def search
