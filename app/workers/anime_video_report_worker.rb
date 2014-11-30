@@ -4,19 +4,28 @@ class AnimeVideoReportWorker < SiteParserWithCache
 
   def perform id
     report = AnimeVideoReport.find id
-    return unless report.pending? && report.broken?
+    return unless report.pending?
 
-    if is_broken(report.anime_video)
-      report.accept! BotsService.get_poster
-    elsif report.user_id == User::GuestID && (report.doubles.zero? || report.doubles(:rejected) > 0)
-      report.reject! BotsService.get_poster
+    if report.broken?
+      if video_broken?(report.anime_video)
+        report.accept!(approver)
+      elsif report.user_id == User::GuestID && (report.doubles.zero? || report.doubles(:rejected) > 0)
+        report.reject!(approver)
+      end
+
+    elsif report.uploaded?
+      report.accept!(approver) if AnimeOnline::Uploaders.trusted?(report.user_id)
     end
 
     report
   end
 
 private
-  def is_broken video
+  def approver
+    BotsService.get_poster
+  end
+
+  def video_broken? video
     case video.hosting
       when 'vk.com' then is_vk_broken(video)
       when 'sibnet.ru' then is_sibnet_broken(video)
