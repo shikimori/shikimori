@@ -1,5 +1,9 @@
-class AnimeVideoReportsQuery
-  def self.top_uploaders
+class AnimeOnline::Uploaders
+  def self.top
+    @top ||= (current_top + User::TrustedVideoUploaders).uniq
+  end
+
+  def self.current_top
     AnimeVideoReport
       .select(:user_id, 'count(*) as videos')
       .where(state: :accepted, kind: :uploaded)
@@ -7,5 +11,6 @@ class AnimeVideoReportsQuery
       .order('videos desc')
       .limit(20)
       .map(&:user)
+      #.map(&:user_id)
   end
 end
