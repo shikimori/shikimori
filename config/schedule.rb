@@ -52,6 +52,10 @@ every 2.months, at: '5:09 am' do # макс цифра минус 1
   runner "ImportListWorker.perform_async pages_limit: 424, source: :all, type: Anime.name"
 end
 
+every 1.days, at: '6:29 am' do
+  runner 'MangaOnline::ReadMangaWorker.perform_async'
+end
+
 #every 2.weeks, at: '9:35 am' do
   #runner "Delayed::Job.enqueue_uniq WorldArtJob.new"
 #end

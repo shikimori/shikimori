@@ -6,7 +6,7 @@ class MangaOnline::ReadMangaWorker
 
   def perform
     mangas_for_import.each do |manga|
-      MangaOnline::ReadMangaService.new(manga, true).process
+      process(manga)
     end
   end
 
@@ -17,5 +17,9 @@ private
       .where('read_manga_id is not null')
       .where(parsed_at: nil)
       .limit(10)
+  end
+
+  def process manga
+    MangaOnline::ReadMangaService.new(manga, true).process
   end
 end

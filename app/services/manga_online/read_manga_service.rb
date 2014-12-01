@@ -22,6 +22,7 @@ class MangaOnline::ReadMangaService
       db_pages.each do |page|
         unless page.image_file_name
           page.load_image
+          sleep 1
         end
       end
     end
