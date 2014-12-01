@@ -82,7 +82,7 @@ class @ShikiTopic extends ShikiEditable
         $markers.css.bind($markers).delay(interval, opacity: 0)
         $markers.hide.bind($markers).delay(interval + 500)
 
-      else
+      else if ($appeared || $(@)).first().data('append-to-top')
         false
 
     # ответ на комментарий
