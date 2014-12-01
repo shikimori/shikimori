@@ -23,7 +23,12 @@ class DialogQuery
   def postload page, limit
     dynamic_limit = page > 1 ? limit : 3
     collection = fetch page, limit
-    [collection.take(dynamic_limit), collection.size == dynamic_limit+1]
+
+    if collection.size == dynamic_limit+1
+      [collection.drop(1), true]
+    else
+      [collection, false]
+    end
   end
 
 private

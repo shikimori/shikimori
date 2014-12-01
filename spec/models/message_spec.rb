@@ -152,6 +152,7 @@ describe Message do
           it { expect(message).to be_persisted }
           it { expect(message.src_del).to be_truthy }
           it { expect(message.dst_del).to be_falsy }
+          it { expect(message).to_not be_read }
         end
 
         context 'by to' do
@@ -160,6 +161,7 @@ describe Message do
           it { expect(message).to be_persisted }
           it { expect(message.dst_del).to be_truthy }
           it { expect(message.src_del).to be_falsy }
+          it { expect(message).to be_read }
         end
       end
 

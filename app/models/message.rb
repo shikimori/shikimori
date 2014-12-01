@@ -112,12 +112,16 @@ class Message < ActiveRecord::Base
     "message-#{self.id}"
   end
 
+  def read?
+    read
+  end
+
 private
   def delete_by! user
     if from == user
       update! src_del: true
     elsif to == user
-      update! dst_del: true
+      update! dst_del: true, read: true
     else
       raise ArgumentError, "unknown deleter: #{user}"
     end

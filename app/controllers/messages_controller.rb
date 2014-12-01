@@ -1,6 +1,7 @@
 class MessagesController < ProfilesController
-  load_and_authorize_resource except: [:index, :bounce, :preview]
-  skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index]
+  load_and_authorize_resource except: [:index, :bounce, :preview, :read_all, :delete_all]
+  skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :read_all, :delete_all]
+  before_action :authorize_acess, only: [:index, :read_all, :delete_all]
 
   MESSAGES_PER_PAGE = 15
 
@@ -10,19 +11,9 @@ class MessagesController < ProfilesController
 
   DISABLED_CHECKED_NOTIFICATIONS = User::NOTIFICATIONS_TO_EMAIL_GROUP# + User::PRIVATE_MESSAGES_TO_EMAIL
 
-  #before_filter :prepare, only: [ ]
-  #before_filter :authenticate_user!, exept: [:feed, :unsubscribe]
-  #before_filter :authenticate_user!, only: [:index, :show, :list, :talk, :destroy, :read]
-
-  #helper_method :message_types
-  #helper_method :unread_counts
-
   def index
-    authorize! :access_messages, @resource
-
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
-    @messages_type = params[:messages_type].to_sym
 
     @collection, @add_postloader = MessagesQuery.new(@resource, @messages_type).postload @page, @limit
     page_title @messages_type == :news ? 'Новости сайта' : 'Уведомления сайта'
@@ -69,6 +60,16 @@ class MessagesController < ProfilesController
       .update_all(read: true)
 
     head 200
+  end
+
+  def read_all
+    MessagesService.new(@resource).read_messages type: @messages_type
+    redirect_to index_profile_messages_url(@resource, @messages_type), notice: 'Сообщения прочитаны'
+  end
+
+  def delete_all
+    MessagesService.new(@resource).delete_messages type: @messages_type
+    redirect_to index_profile_messages_url(@resource, @messages_type), notice: 'Сообщения удалены'
   end
 
 
@@ -361,5 +362,10 @@ private
 
   def update_params
     params.require(:message).permit(:body)
+  end
+
+  def authorize_acess
+    authorize! :access_messages, @resource
+    @messages_type = params[:messages_type].to_sym
   end
 end

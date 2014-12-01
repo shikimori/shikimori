@@ -70,17 +70,20 @@ class @ShikiTopic extends ShikiEditable
 
         ids = $comments.map(-> "#{item_type}-#{@id}").toArray()
         $.ajax
-          url: $appeared.data('url')
+          url: $filtered_appeared.data('url')
           type: 'POST'
           data:
             ids: ids.join ","
 
-        $appeared.remove()
+        $filtered_appeared.remove()
 
         interval = if by_click then 1 else 1500
         $markers.removeClass 'active'
         $markers.css.bind($markers).delay(interval, opacity: 0)
         $markers.hide.bind($markers).delay(interval + 500)
+
+      else
+        false
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>

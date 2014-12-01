@@ -5,7 +5,7 @@ class AdminLogInController < ShikimoriController
       @user = if params[:nickname] =~ /\A\d+\Z/
         User.find params[:nickname].to_i
       else
-        User.where(nickname: params[:nickname]).first
+        User.find_by(nickname: params[:nickname]) || User.find_by(email: params[:nickname])
       end
 
       if @user

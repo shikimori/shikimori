@@ -3,11 +3,11 @@ class MessagesQuery
 
   def fetch page, limit
     Message
-      .where(kind: kinds)
+      .where(kind: kinds_by_type)
       .where(id_field => @user.id, del_field => false)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .includes(:linked, :from, :to)
-      .order(:read, created_at: :desc)
+      .order(:read, id: :desc)
       .offset(limit * (page-1))
       .limit(limit + 1)
   end
@@ -17,28 +17,7 @@ class MessagesQuery
     [collection.take(limit), collection.size == limit+1]
   end
 
-private
-  def ignores_ids
-    @ignores_ids ||= @user.ignores.map(&:target_id) << 0
-  end
-
-  def id_field
-    if @messages_type == :sent
-      :from_id
-    else
-      :to_id
-    end
-  end
-
-  def del_field
-    if @messages_type == :sent
-      :src_del
-    else
-      :dst_del
-    end
-  end
-
-  def kinds
+  def kinds_by_type
     case @messages_type
       when :inbox
         [MessageType::Private]
@@ -65,6 +44,27 @@ private
 
       else
         '-1'
+    end
+  end
+
+private
+  def ignores_ids
+    @ignores_ids ||= @user.ignores.map(&:target_id) << 0
+  end
+
+  def id_field
+    if @messages_type == :sent
+      :from_id
+    else
+      :to_id
+    end
+  end
+
+  def del_field
+    if @messages_type == :sent
+      :src_del
+    else
+      :dst_del
     end
   end
 end

@@ -118,21 +118,22 @@ header.head
     padding-top: 3px
     padding-bottom: 2px
 
-  .additional
-    +brackets_surrounded
+  //.additional
+    //+brackets_surrounded
+    //font-size: 11px
+    //font-weight: normal
     //text-transform: initial
     //display: inline-block
-    //font-weight: normal
-    //line-height: 0
+    //margin-left: $block_offset
 
-    a
-      +link
-      //padding-left: $block_offset
-      //padding-right: 0
-      //line-height: 1
+    //&:before
+      //content: '['
 
-      //&:before
-        position: initial
+    //&:after
+      //content: ']'
+
+    //a
+      //+link
 
 .mischeadline
   font-size: 13px

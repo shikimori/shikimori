@@ -157,4 +157,28 @@ describe MessagesController do
     it { expect(message_from.reload.read).to be_falsy }
     it { expect(message_to.reload.read).to be_truthy }
   end
+
+  describe '#read_all' do
+    let!(:message_1) { create :message, :news, to: user, from: user, created_at: 1.hour.ago }
+    let!(:message_2) { create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago }
+    let!(:message_3) { create :message, :private, to: user, from: user }
+    before { post :read_all, profile_id: user.to_param, messages_type: 'news' }
+
+    it { should redirect_to index_profile_messages_url(user.to_param, 'news') }
+    it { expect(message_1.reload).to be_read }
+    it { expect(message_2.reload).to_not be_read }
+    it { expect(message_3.reload).to_not be_read }
+  end
+
+  describe '#delete_all' do
+    let!(:message_1) { create :message, :profile_commented, to: user, from: user, created_at: 1.hour.ago }
+    let!(:message_2) { create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago }
+    let!(:message_3) { create :message, :private, to: user, from: user }
+    before { post :delete_all, profile_id: user.to_param, messages_type: 'notifications' }
+
+    it { should redirect_to index_profile_messages_url(user.to_param, 'notifications') }
+    it { expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound }
+    it { expect(message_2.reload).to be_persisted }
+    it { expect(message_3.reload).to be_persisted }
+  end
 end

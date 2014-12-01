@@ -607,8 +607,8 @@ Site::Application.routes.draw do
 
       resources :user_history, only: [], path: '/history' do
         collection do
-          get '(/:page)' => :index, as: :index
-          delete '/reset/:type' => :reset, as: :reset, type: /anime|manga/
+          get '(:page)' => :index, as: :index
+          delete 'reset/:type' => :reset, as: :reset, type: /anime|manga/
         end
       end
 
@@ -625,12 +625,16 @@ Site::Application.routes.draw do
       end
 
       resources :dialogs, only: [:index, :show, :destroy] do
-        get '/page/:page' => :show, as: :show, on: :member
-        get '(/page/:page)' => :index, as: :index, on: :collection
+        get 'page/:page' => :show, as: :show, on: :member
+        get '(page/:page)' => :index, as: :index, on: :collection
       end
 
-      resources :messages, only: [] do
-        get '/:messages_type(/page/:page)' => :index, as: :index, messages_type: /news|notifications/, on: :collection
+      resources :messages, only: [], messages_type: /news|notifications/ do
+        collection do
+          get ':messages_type(/page/:page)' => :index, as: :index
+          post 'read/:messages_type/all' => :read_all, as: :read_all
+          post 'delete/:messages_type/all' => :delete_all, as: :delete_all
+        end
       end
     end
 
