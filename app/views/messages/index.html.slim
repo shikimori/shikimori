@@ -1,6 +1,11 @@
 = render layout: 'page' do
   = render 'dialogs/navigation'
-  .subheadline = @page_title.last
+  .subheadline
+    = @page_title.last
+    .additional: a href="/" прочитать всё
+    .additional: a href="/"  удалить всё
   .block
-    = render @collection
-    = render 'blocks/postloader', filter: 'b-message', url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @page+1)
+    .b-topic.unprocessed data-item_type="message"
+      .b-comments
+        = render @collection
+        = render 'blocks/postloader', filter: 'b-message', url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @page+1)

@@ -60,7 +60,8 @@ class @ShikiTopic extends ShikiEditable
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
       return unless IS_LOGGED_IN
-      $filtered_appeared = ($appeared || $(@)).not -> $(@).data('disabled') || $(@).data('ignore-appear')
+      $filtered_appeared = ($appeared || $(@))
+        .not -> $(@).data('disabled') || !$(@).hasClass('appear-marker')
 
       if $filtered_appeared.exists()
         item_type = @_item_type()

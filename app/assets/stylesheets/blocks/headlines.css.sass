@@ -1,6 +1,7 @@
 @import globals
-@import mixins/input
+@import mixins/brackets_surrounded
 @import mixins/hover_underlined
+@import mixins/input
 @import mixins/link
 
 header.head
@@ -69,7 +70,7 @@ header.head
   padding: 4px 10px 2px
   text-transform: uppercase
 
-  a
+  &>a
     +ellipsis
     +transition(color, 0.2s)
     color: #123
@@ -116,6 +117,22 @@ header.head
     font-size: 16px
     padding-top: 3px
     padding-bottom: 2px
+
+  .additional
+    +brackets_surrounded
+    //text-transform: initial
+    //display: inline-block
+    //font-weight: normal
+    //line-height: 0
+
+    a
+      +link
+      //padding-left: $block_offset
+      //padding-right: 0
+      //line-height: 1
+
+      //&:before
+        position: initial
 
 .mischeadline
   font-size: 13px

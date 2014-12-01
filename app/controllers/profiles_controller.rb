@@ -5,6 +5,9 @@ class ProfilesController < ShikimoriController
   page_title 'Профиль'
 
   def show
+    Message
+      .where(to: current_user, kind: MessageType::ProfileCommented, read: false)
+      .update_all(read: true) if current_user.id == @profile.id
   end
 
   def friends
