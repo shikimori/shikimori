@@ -31,11 +31,16 @@
       +opacity(0.4)
 
   .match-link
-    padding-bottom: 6px
+    padding-left: 2px
     cursor: pointer
 
-    &.active, &:hover
+    &.active
       font-weight: bold
+
+    &:hover
+      background-color: #eaeaea
+    &:active
+      background-color: #e5e5e5 !important
 
     //&:hover
       +opacity(1)
@@ -49,7 +54,7 @@
       +link_color(#112233)
 
     .c-column
-      line-height: 1.35
+      line-height: $line-height
       margin-bottom: 0
 
       +gte_ipad
