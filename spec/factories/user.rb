@@ -14,7 +14,7 @@ FactoryGirl.define do
     end
 
     trait :user do
-      id 23456789
+      sequence :id, 23456789
     end
 
     trait :admin do

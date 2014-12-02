@@ -173,10 +173,10 @@ describe Message do
     end
   end
 
-  describe 'permissions', :focus do
+  describe 'permissions' do
     let(:message) { build_stubbed :message, from: from_user, to: to_user, kind: kind, created_at: created_at }
-    let(:from_user) { build_stubbed :user }
-    let(:to_user) { build_stubbed :user }
+    let(:from_user) { build_stubbed :user, :user }
+    let(:to_user) { build_stubbed :user, :user }
     let(:created_at) { 1.minute.ago }
     let(:kind) { MessageType::Private }
 

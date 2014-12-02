@@ -1,12 +1,13 @@
-- preview_url = comment.kind_of?(Message) ? preview_messages_url : preview_comments_url
-- item_type = comment.kind_of?(Message) ? 'message' : 'comment'
+- if defined?(f)
+  - preview_url = comment.kind_of?(Message) ? preview_messages_url : preview_comments_url
+  - item_type = comment.kind_of?(Message) ? 'message' : 'comment'
 
-- if defined?(f) && comment.new_record?
-  aside.markers
-    - if comment.kind_of?(Comment) && comment.commentable.class == AniMangaComment
-      .b-review_marker.active class="#{:off unless comment.review?}"
-    - if comment.respond_to? :offtopic?
-      .b-offtopic_marker.active class="#{:off unless comment.offtopic?}"
+  - if comment.new_record?
+    aside.markers
+      - if comment.kind_of?(Comment) && comment.commentable.class == AniMangaComment
+        .b-review_marker.active class="#{:off unless comment.review?}"
+      - if comment.respond_to? :offtopic?
+        .b-offtopic_marker.active class="#{:off unless comment.offtopic?}"
 
 aside.buttons
   /.preview-controls
