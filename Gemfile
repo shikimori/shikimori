@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', github: 'rails', branch: 'master'
+gem 'rails', '4.2.0.rc1'
 
 gem 'pg'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M

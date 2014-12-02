@@ -1,3 +1,5 @@
+#= require core/jquery-2.1.1
+#= require core/jquery-migrate-1.2.1
 #= require_tree ./core
 
 #= require_tree ./vendor
