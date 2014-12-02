@@ -132,14 +132,14 @@ describe MessagesController do
   end
 
   describe '#destroy' do
-    let(:message) { create :message, to: user }
+    let(:message) { create :message, :private, from: user }
     let(:make_request) { delete :destroy, id: message.id }
 
     context 'has access' do
       before { make_request }
       it { should respond_with :success }
       it { expect(response.content_type).to eq 'application/json' }
-      it { expect(message.reload.dst_del).to be_truthy }
+      it { expect(resource).to be_destroyed }
     end
 
     context 'no access' do

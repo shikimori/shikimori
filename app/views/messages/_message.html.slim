@@ -18,12 +18,14 @@
           - if can? :edit, message
             span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="Изменить"
 
-          span.item-delete title="Удалить"
+          - if can? :destroy, message
+            span.item-delete title="Удалить"
           span.item-cancel title="Отмена"
 
-        .delete-controls
-          span.item-delete-confirm action="#{message_url message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
-          span.item-delete-cancel title="Отмена"
+        - if can? :destroy, message
+          .delete-controls
+            span.item-delete-confirm action="#{message_url message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+            span.item-delete-cancel title="Отмена"
 
     header
       span.linkeable data-href="#{local_assigns[:message_url] || profile_url(message.from)}"

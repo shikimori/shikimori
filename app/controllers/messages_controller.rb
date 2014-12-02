@@ -48,7 +48,7 @@ class MessagesController < ProfilesController
   end
 
   def destroy
-    @resource.delete_by current_user
+    @resource.destroy
     render json: { notice: 'Сообщение удалено' }
   end
 

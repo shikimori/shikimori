@@ -173,7 +173,7 @@ describe Message do
     end
   end
 
-  describe 'permissions' do
+  describe 'permissions', :focus do
     let(:message) { build_stubbed :message, from: from_user, to: to_user, kind: kind, created_at: created_at }
     let(:from_user) { build_stubbed :user }
     let(:to_user) { build_stubbed :user }
@@ -206,13 +206,22 @@ describe Message do
         let(:user) { from_user }
 
         it { should be_able_to :read, message }
-        it { should be_able_to :destroy, message }
 
         context 'private message' do
           let(:kind) { MessageType::Private }
           it { should be_able_to :create, message }
           it { should be_able_to :edit, message }
           it { should be_able_to :update, message }
+
+          context 'new message' do
+            let(:created_at) { 1.minute.ago }
+            it { should be_able_to :destroy, message }
+          end
+
+          context 'old message' do
+            let(:created_at) { 11.minute.ago }
+            it { should_not be_able_to :destroy, message }
+          end
         end
 
         context 'other type messages' do
@@ -220,12 +229,14 @@ describe Message do
           it { should_not be_able_to :create, message }
           it { should_not be_able_to :edit, message }
           it { should_not be_able_to :update, message }
+          it { should be_able_to :destroy, message }
         end
 
         context '11 minutes ago message' do
           let(:created_at) { 11.minutes.ago }
           it { should_not be_able_to :edit, message }
           it { should_not be_able_to :update, message }
+          it { should_not be_able_to :destroy, message }
         end
       end
 
@@ -236,7 +247,16 @@ describe Message do
         it { should_not be_able_to :create, message }
         it { should_not be_able_to :edit, message }
         it { should_not be_able_to :update, message }
-        it { should be_able_to :destroy, message }
+
+        context 'private message' do
+          let(:kind) { MessageType::Private }
+          it { should_not be_able_to :destroy, message }
+        end
+
+        context 'other type message' do
+          let(:kind) { MessageType::Notification }
+          it { should be_able_to :destroy, message }
+        end
       end
     end
   end

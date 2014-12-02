@@ -6,13 +6,18 @@ describe CommentsController do
   before { allow(FayePublisher).to receive(:new).and_return double(FayePublisher, publish: true) }
 
   describe '#show' do
-    [:html, :json].each do |format|
-      context format do
-        before { get :show, id: comment.id, format: format }
+    context 'html' do
+      before { get :show, id: comment.id }
 
-        it { should respond_with :success }
-        it { should respond_with_content_type format }
-      end
+      it { should respond_with :success }
+      it { expect(response.content_type).to eq 'text/html' }
+    end
+
+    context 'html' do
+      before { get :show, id: comment.id, format: 'json' }
+
+      it { should respond_with :success }
+      it { expect(response.content_type).to eq 'application/json' }
     end
   end
 
@@ -23,7 +28,7 @@ describe CommentsController do
       before { post :create, comment: { commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: false, review: false } }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
       specify { expect(assigns(:comment)).to be_persisted }
     end
 
@@ -31,7 +36,7 @@ describe CommentsController do
       before { post :create, comment: { body: 'test', offtopic: false, review: false } }
 
       it { should respond_with 422 }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
     end
   end
 
@@ -40,7 +45,6 @@ describe CommentsController do
     before { get :edit, id: comment.id }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe '#update' do
@@ -50,7 +54,7 @@ describe CommentsController do
       before { patch :update, id: comment.id, comment: { body: 'testzxc' } }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
       specify { expect(assigns(:comment).body).to eq 'testzxc' }
     end
   end
@@ -60,7 +64,7 @@ describe CommentsController do
     before { delete :destroy, id: comment.id }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe '#fetch' do
