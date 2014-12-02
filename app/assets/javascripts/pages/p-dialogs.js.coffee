@@ -3,5 +3,10 @@
   $('.b-message.unprocessed').shiki_message()
 
   $('.l-page').on 'postloader:success', '.b-postloader', (e, $data) ->
-    $('.b-dialog.unprocessed', $data).shiki_dialog()
-    $('.b-message.unprocessed', $data).shiki_message()
+    $('.b-dialog.unprocessed').shiki_dialog()
+    $('.b-message.unprocessed').shiki_message()
+
+  $('.l-page').on 'ajax:success', '.messages-postloader', (e, data) ->
+    $data = $("#{data.postloader}#{data.content}")
+    $(@).replaceWith $data
+    $('.b-message.unprocessed').shiki_message()

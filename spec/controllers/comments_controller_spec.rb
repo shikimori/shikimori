@@ -1,5 +1,5 @@
 describe CommentsController do
-  let(:user) { create :user }
+  let(:user) { create :user, :user }
   let(:topic) { create :entry, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
   let(:comment2) { create :comment, commentable: topic, user: user }
@@ -49,22 +49,36 @@ describe CommentsController do
 
   describe '#update' do
     before { sign_in user }
+    let(:make_request) { patch :update, id: comment.id, comment: { body: 'testzxc' } }
 
     context 'success' do
-      before { patch :update, id: comment.id, comment: { body: 'testzxc' } }
+      before { make_request }
 
       it { should respond_with :success }
       it { expect(response.content_type).to eq 'application/json' }
       specify { expect(assigns(:comment).body).to eq 'testzxc' }
     end
+
+    context 'forbidden' do
+      let(:comment) { create :comment, commentable: topic }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
   end
 
   describe '#destroy' do
     before { sign_in user }
-    before { delete :destroy, id: comment.id }
+    let(:make_request) { delete :destroy, id: comment.id }
 
-    it { should respond_with :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    context 'success' do
+      before { make_request }
+      it { should respond_with :success }
+      it { expect(response.content_type).to eq 'application/json' }
+    end
+
+    context 'forbidden' do
+      let(:comment) { create :comment, commentable: topic }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
   end
 
   describe '#fetch' do

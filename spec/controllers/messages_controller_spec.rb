@@ -181,4 +181,16 @@ describe MessagesController do
     it { expect(message_2.reload).to be_persisted }
     it { expect(message_3.reload).to be_persisted }
   end
+
+  describe '#chosen' do
+    let(:target_user) { create :user }
+    let!(:message_1) { create :message, to: user, from: target_user, created_at: 1.hour.ago }
+    let!(:message_2) { create :message, to: target_user, from: user, created_at: 30.minutes.ago }
+    let!(:message_3) { create :message, :private, to: target_user, from: build_stubbed(:user) }
+
+    before { get :chosen, ids: [message_1.id, message_2.id, message_3.id].join(',') }
+
+    it { should respond_with :success }
+    it { expect(collection).to eq [message_1, message_2] }
+  end
 end

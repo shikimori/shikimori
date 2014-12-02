@@ -9,7 +9,7 @@ describe Antispam do
   end
 
   describe Comment do
-    let(:user) { build_stubbed :user }
+    let(:user) { build_stubbed :user, :user }
     let(:topic) { build_stubbed :topic }
 
     it 'works' do

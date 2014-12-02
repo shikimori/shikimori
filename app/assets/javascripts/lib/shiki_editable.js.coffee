@@ -40,8 +40,13 @@ class @ShikiEditable extends ShikiView
     # realtime уведомление об изменении
     @on "faye:#{@_type()}:updated", (e, data) =>
       $('.was_updated', @$inner).remove()
+      message = if @_type() == 'message'
+        "#{@_type_label()} изменено пользователем"
+      else
+        "#{@_type_label()} изменён пользователем"
+
       $notice = $("<div class='was_updated'>
-        <div><span>#{@_type_label()} изменён пользователем</span><a class='actor b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
+        <div><span>#{message}</span><a class='actor b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
         <div>Кликните для обновления.</div>
       </div>")
       $notice
@@ -51,7 +56,12 @@ class @ShikiEditable extends ShikiView
 
     # realtime уведомление об удалении
     @on "faye:#{@_type()}:deleted", (e, data) =>
-      @_replace "<div class='b-comment-info b-#{@_type()}'><span>#{@_type_label()} удалён пользователем</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a></div>"
+      message = if @_type() == 'message'
+        "#{@_type_label()} удалено пользователем"
+      else
+        "#{@_type_label()} удалён пользователем"
+
+      @_replace "<div class='b-comment-info b-#{@_type()}'><span>#{message}</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a></div>"
 
   # закрытие кнопок в мобильной версии
   _close_aside: ->

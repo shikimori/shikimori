@@ -13,12 +13,7 @@ $(document).on 'click appear', '.b-postloader', (e) ->
   $postloader.data locked: true
 
   $.getJSON url, (data) ->
-    content = if $postloader.data('append-to-top')
-      "#{data.postloader}#{data.content}"
-    else
-      "#{data.content}#{data.postloader}"
-
-    $data = $('<div>').append(content)
+    $data = $('<div>').append("#{data.content}#{data.postloader}")
 
     filter_present_entries $data, filter if filter
     $postloader.trigger 'postloader:success', [$data, data]

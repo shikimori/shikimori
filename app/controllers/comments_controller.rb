@@ -19,23 +19,26 @@ class CommentsController < ShikimoriController
 
   def create
     #render json: ['Комментирование топика отключено'], status: :unprocessable_entity and return if comment_params[:commentable_id].to_i == 82468 && !current_user.admin?
-    @comment = comments_service.create comment_params
+    @comment = Comment.new comment_params.merge(user: current_user)
 
-    unless @comment.persisted?
+    unless faye.create @comment
       render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий создан'
     end
   end
 
   def update
-    if comments_service.update @comment, comment_params.except(:offtopic, :review)
+    raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
+
+    if faye.update @comment, comment_params.except(:offtopic, :review)
       render :create
     else
-      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий изменен'
+      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий не изменен'
     end
   end
 
   def destroy
-    comments_service.destroy @comment
+    raise CanCan::AccessDenied unless @comment.can_be_deleted_by? current_user
+    faye.destroy @comment
 
     render json: { notice: 'Комментарий удален' }
   end
@@ -90,7 +93,7 @@ class CommentsController < ShikimoriController
 
     comments.reverse! if params[:order]
 
-    render partial: 'comments/comment', collection: comments, formats: :html
+    render comments
   end
 
   # предпросмотр текста
@@ -117,8 +120,8 @@ private
     @comment = Comment.find(params[:id]).decorate if params[:id]
   end
 
-  def comments_service
-    CommentsService.new current_user, faye_token
+  def faye
+    FayeService.new current_user, faye_token
   end
 
   def comment_params

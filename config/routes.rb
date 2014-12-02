@@ -394,7 +394,6 @@ Site::Application.routes.draw do
     #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
     #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 
-
     # голосования
     resources :contests do
       collection do
@@ -582,6 +581,8 @@ Site::Application.routes.draw do
     ## messages edit & rss & email bounce
     resources :messages, only: [:create, :show, :edit, :update, :destroy] do
       collection do
+        get 'chosen/:ids' => :chosen, as: :chosen
+
         post :mark_read
         post :preview
 

@@ -82,9 +82,6 @@ class @ShikiTopic extends ShikiEditable
         $markers.css.bind($markers).delay(interval, opacity: 0)
         $markers.hide.bind($markers).delay(interval + 500)
 
-      else if ($appeared || $(@)).first().data('append-to-top')
-        false
-
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
       @_show_editor()
@@ -150,16 +147,22 @@ class @ShikiTopic extends ShikiEditable
 
     # realtime обновления
     # изменение / удаление комментария
-    @on 'faye:comment:updated faye:comment:deleted', (e, data) =>
+    @on 'faye:comment:updated faye:message:updated faye:comment:deleted faye:message:deleted', (e, data) =>
       e.stopImmediatePropagation()
+      trackable_type = e.type.match(/comment|message/)[0]
+      trackable_id = data["#{trackable_type}_id"]
+
       if e.target == @$root[0]
-        @$(".b-comment##{data.comment_id}").trigger e.type, data
+        @$(".b-#{trackable_type}##{trackable_id}").trigger e.type, data
 
     # добавление комментария
-    @on 'faye:comment:created', (e, data) =>
+    @on 'faye:comment:created faye:message:created', (e, data) =>
       e.stopImmediatePropagation()
-      return if @$(".b-comment##{data.comment_id}").exists()
-      $placeholder = @_faye_placeholder(data.comment_id)
+      trackable_type = e.type.match(/comment|message/)[0]
+      trackable_id = data["#{trackable_type}_id"]
+
+      return if @$(".b-#{trackable_type}##{trackable_id}").exists()
+      $placeholder = @_faye_placeholder(trackable_id, trackable_type)
 
       # уведомление о добавленном элементе через faye
       $(document.body).trigger "faye:added"
@@ -188,7 +191,7 @@ class @ShikiTopic extends ShikiEditable
       @$editor_container.hide()#animated_collapse()
 
   # получение плейсхолдера для подгрузки новых комментариев
-  _faye_placeholder: (comment_id) ->
+  _faye_placeholder: (trackable_id, trackable_type) ->
     $placeholder = @$('.b-comments .faye-loader')
 
     unless $placeholder.exists()
@@ -200,14 +203,18 @@ class @ShikiTopic extends ShikiEditable
           $placeholder.replaceWith $html
           $html.process()
 
-    if $placeholder.data('ids').indexOf(comment_id) == -1
+    if $placeholder.data('ids').indexOf(trackable_id) == -1
       $placeholder.data
-        ids: $placeholder.data('ids').include(comment_id)
+        ids: $placeholder.data('ids').include(trackable_id)
       $placeholder.data
-        href: "/comments/chosen/#{$placeholder.data("ids").join ","}"
+        href: "/#{trackable_type}s/chosen/#{$placeholder.data("ids").join ","}"
 
       num = $placeholder.data('ids').length
-      $placeholder.html p(num, 'Добавлен ', 'Добавлены ', 'Добавлено ') + num + p(num, ' новый комментарий', ' новых комментария', ' новых комментариев')
+
+      $placeholder.html if trackable_type == 'message'
+        p(num, "Добавлено #{num} новое сообщение", "Добавлены #{num} новых сообщения", "Добавлено #{num} новых сообщений")
+      else
+        p(num, "Добавлен #{num} новый комментарий", "Добавлены #{num} новых комментария", "Добавлено #{num} новых комментариев")
 
     $placeholder
 

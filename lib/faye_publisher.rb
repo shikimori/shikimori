@@ -10,15 +10,18 @@ class FayePublisher
     @actor = actor
   end
 
-  def publish object, event, channels=[]
-    if object.kind_of? Comment
-      publish_comment object, event, channels
+  def publish trackable, event, channels=[]
+    if trackable.kind_of? Comment
+      publish_comment trackable, event, channels
 
-    elsif object.kind_of? Entry
-      publish_topic object, event, channels
+    elsif trackable.kind_of? Entry
+      publish_topic trackable, event, channels
+
+    elsif trackable.kind_of? Message
+      publish_message trackable, event, channels
 
     else
-      publish_data object, event, channels
+      publish_data trackable, event, channels
     end
   end
 
@@ -65,6 +68,23 @@ private
 
     # уведомление в ленты
     publish_data data, event, channels + subscribed_channels(topic)
+  end
+
+  # отправка уведомлений о новом топике
+  def publish_message message, event, channels
+    data = {
+      event: "message:#{event}",
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32),
+      message_id: message.id
+    }
+
+    # уведомление в открытые разделы
+    publish_data data, event, ["#{@namespace}/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
+
+    # уведомление в ленты
+    publish_data data, event, channels
   end
 
   # отправка произвольных уведомлений

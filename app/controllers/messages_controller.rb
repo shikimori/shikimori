@@ -1,5 +1,5 @@
 class MessagesController < ProfilesController
-  load_and_authorize_resource except: [:index, :bounce, :preview, :read_all, :delete_all]
+  load_and_authorize_resource except: [:index, :bounce, :preview, :read_all, :delete_all, :chosen]
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :read_all, :delete_all]
   before_action :authorize_acess, only: [:index, :read_all, :delete_all]
 
@@ -32,7 +32,7 @@ class MessagesController < ProfilesController
   end
 
   def create
-    if @resource.save
+    if faye.create @resource
       render :create, notice: 'Сообщение создано'
     else
       render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не создано'
@@ -40,7 +40,7 @@ class MessagesController < ProfilesController
   end
 
   def update
-    if @resource.update update_params
+    if faye.update @resource, update_params
       render :create, notice: 'Сообщение изменено'
     else
       render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не изменено'
@@ -48,7 +48,7 @@ class MessagesController < ProfilesController
   end
 
   def destroy
-    @resource.destroy
+    faye.destroy @resource
     render json: { notice: 'Сообщение удалено' }
   end
 
@@ -72,6 +72,16 @@ class MessagesController < ProfilesController
     redirect_to index_profile_messages_url(@resource, @messages_type), notice: 'Сообщения удалены'
   end
 
+  def chosen
+    @collection = Message
+      .where(id: params[:ids].split(',').map(&:to_i))
+      .includes(:from, :to, :linked)
+      .order(:id)
+      .limit(100)
+      .select {|message| can? :read, message }
+
+    render @collection
+  end
 
   ## rss лента сообщений
   #def feed
@@ -356,6 +366,10 @@ class MessagesController < ProfilesController
 
 
 private
+  def faye
+    FayeService.new current_user, faye_token
+  end
+
   def create_params
     params.require(:message).permit(:body, :from_id, :to_id, :kind)
   end

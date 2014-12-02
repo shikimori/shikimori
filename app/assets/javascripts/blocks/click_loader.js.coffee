@@ -10,6 +10,8 @@ $(document).on 'click', '.click-loader', ->
     .data(html: $this.html())
     .html('<div class="ajax-loading vk-like" title="Загрузка..." />')
 
-  $.get($this.data 'href').success (data, status, xhr) ->
+  method = if $this.data('format') == 'json' then 'getJSON' else 'get'
+
+  $[method]($this.data 'href').success (data, status, xhr) ->
     $this.data locked: false
     $this.trigger 'ajax:success', data

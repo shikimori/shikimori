@@ -142,7 +142,7 @@ private
     request.format == Mime::Type.lookup_by_extension('json') || params[:format] == 'json'
   end
 
-  # faye токен текущего пользователя, переданный из заголовков
+  # faye токен текущего пользователя
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
   end
