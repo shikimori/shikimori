@@ -1,4 +1,4 @@
-.b-message.unprocessed[
+.b-message.shiki-object.unprocessed[
     id="#{message.id}"
     data-user_id="#{message.from.id}"
     data-user_nickname="#{message.from.nickname}"
@@ -42,7 +42,7 @@
       == get_message_body message
 
       - if !message.read && message.to == current_user
-        .appear-marker class="appear-message-#{message.id}" data-url="#{mark_read_messages_url}"
+        .appear-marker class="appear-message-#{message.id}" data-appear_url="#{mark_read_messages_url}"
       /- if message.kind == MessageType::Private
         = message.html_body
       /- else

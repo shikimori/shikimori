@@ -64,14 +64,18 @@ class @ShikiTopic extends ShikiEditable
         .not -> $(@).data('disabled') || !$(@).hasClass('appear-marker')
 
       if $filtered_appeared.exists()
-        item_type = @_item_type()
-        $comments = $filtered_appeared.closest(".b-#{item_type}")
-        $markers = $comments.find('.b-new_marker')
-        ids = $comments.map(-> "#{item_type}-#{@id}").toArray()
         interval = if by_click then 1 else 1500
+        $objects = $filtered_appeared.closest(".shiki-object")
+        $markers = $objects.find('.b-new_marker')
+        ids = $objects
+          .map ->
+            $object = $(@)
+            item_type = $object.data('appear_type') || $object.attr('class').match(/b-(\w+)/)[1]
+            "#{item_type}-#{@id}"
+          .toArray()
 
         $.ajax
-          url: $filtered_appeared.data('url')
+          url: $filtered_appeared.data('appear_url')
           type: 'POST'
           data:
             ids: ids.join ","
@@ -227,7 +231,6 @@ class @ShikiTopic extends ShikiEditable
 
   _type: -> 'topic'
   _type_label: -> 'Топик'
-  _item_type: -> @$root.data('item_type') || 'comment'
 
   # url перезагрузки содержимого
   _reload_url: =>

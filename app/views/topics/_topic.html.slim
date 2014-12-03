@@ -3,12 +3,13 @@
 /- elsif topic.review?# && !topic.preview?
   = render partial: 'topics/review', locals: { topic: topic }
 - else
-  article.b-topic.unprocessed[
+  article.b-topic.shiki-object.unprocessed[
       id="#{topic.id}"
       class="#{:preview if topic.preview?} #{'b-review' if topic.review?}"
       data-user_nickname="#{topic.user.nickname}"
       data-generated="#{topic.generated?}"
-      data-faye='#{topic.faye_channel}'
+      data-faye="#{topic.faye_channel}"
+      data-appear_type="entry"
     ]
     a name="topic-#{topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
@@ -67,6 +68,6 @@
               span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
 
       - unless topic.viewed?
-        .appear-marker class="appear-entry-#{topic.id}" data-href="#{appear_path}"
+        .appear-marker class="appear-topic-#{topic.id}" data-appear_url="#{appear_path}"
 
     = render partial: 'topics/comments', locals: { topic: topic }

@@ -1,7 +1,10 @@
 = render layout: 'page' do
   .subheadline = @page_title.last
   .block
-    .b-topic.unprocessed data-faye="#{@dialog.faye_channel}" data-item_type="message"
+    .b-topic.shiki-object.unprocessed[
+        data-faye="#{@dialog.faye_channel}"
+        data-appear_type="message"
+      ]
       .b-comments
         - if @add_postloader
           = render 'dialogs/postloader', url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param(true), page: @page+1)

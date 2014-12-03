@@ -14,7 +14,6 @@ class @ShikiDialog extends ShikiEditable
     @$('.b-new_marker.active').on 'click', (e) =>
       $markers = $(e.target)
       ids = [@$root.data('message_id')]
-      interval = 1
 
       $.ajax
         url: @$root.data('appear_url')
@@ -23,8 +22,8 @@ class @ShikiDialog extends ShikiEditable
           ids: ids.join ","
 
       $markers.removeClass 'active'
-      $markers.css.bind($markers).delay(interval, opacity: 0)
-      $markers.hide.bind($markers).delay(interval + 500)
+      $markers.css.bind($markers).delay(1, opacity: 0)
+      $markers.hide.bind($markers).delay(500)
 
   _type: -> 'dialog'
   _type_label: -> 'Диалог'

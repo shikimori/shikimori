@@ -1,7 +1,7 @@
 - if user_signed_in? && comment.persisted? && current_user.ignores?(comment.user)
   = render partial: 'blocks/ignored', object: comment
 - else
-  .b-comment.unprocessed[
+  .b-comment.shiki-object.unprocessed[
       id="#{comment.id}"
       itemprop="comment" itemscope="itemscope"
       itemtype="http://schema.org/UserComments"
@@ -57,4 +57,4 @@
         = comment.html_body
 
       - unless comment.viewed?
-        .appear-marker class="appear-comment-#{comment.id}" data-url="#{appear_url}"
+        .appear-marker class="appear-comment-#{comment.id}" data-appear_url="#{appear_url}"
