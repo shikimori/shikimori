@@ -165,7 +165,8 @@ class UserChange < ActiveRecord::Base
     item.source = source if item.respond_to? :source
     self.status = taken ? UserChangeStatus::Taken : UserChangeStatus::Accepted
     self.status = UserChangeStatus::Accepted if description? && self.prior.blank?
-    save && item.save
+    save
+    item.save
   end
 
   # применение позиций скриншотов
