@@ -5,7 +5,7 @@ module CommentHelper
   #include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -217,6 +217,7 @@ module CommentHelper
     Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :tooltip_person_url],
     UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :tooltip_moderation_user_change_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
+    Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
     Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote>)\](?<text>[^\[]*?)\[\/entry\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
@@ -229,16 +230,18 @@ module CommentHelper
 
     define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
-        if klass == Comment || klass == Entry
+        if klass == Comment || klass == Entry || klass == Message
           url = if klass == Comment
             comment_url id: $~[:id], format: :html
+          elsif klass == Message
+            message_url id: $~[:id], format: :html
           else
             topic_tooltip_url id: $~[:id], format: :html
           end
 
           begin
             comment = klass.find $~[:id]
-            user = comment.user
+            user = comment.respond_to?(:user) ? comment.user : comment.from
 
             if $~[:quote].present?
               text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
