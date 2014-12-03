@@ -5,7 +5,7 @@ require File.expand_path('../application', __FILE__)
 Site::Application.initialize!
 
 require Rails.root.join('lib/string')
-require Rails.root.join('lib/i18n')
+require Rails.root.join('lib/i18n_hack')
 require Rails.root.join('lib/open_image')
 require Rails.root.join('lib/responders/json_responder')
 
