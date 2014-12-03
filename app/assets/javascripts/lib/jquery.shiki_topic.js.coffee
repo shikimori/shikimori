@@ -67,8 +67,9 @@ class @ShikiTopic extends ShikiEditable
         item_type = @_item_type()
         $comments = $filtered_appeared.closest(".b-#{item_type}")
         $markers = $comments.find('.b-new_marker')
-
         ids = $comments.map(-> "#{item_type}-#{@id}").toArray()
+        interval = if by_click then 1 else 1500
+
         $.ajax
           url: $filtered_appeared.data('url')
           type: 'POST'
@@ -77,7 +78,6 @@ class @ShikiTopic extends ShikiEditable
 
         $filtered_appeared.remove()
 
-        interval = if by_click then 1 else 1500
         $markers.removeClass 'active'
         $markers.css.bind($markers).delay(interval, opacity: 0)
         $markers.hide.bind($markers).delay(interval + 500)
