@@ -2,7 +2,7 @@ describe UserPreferencesController do
   let(:user) { create :user, :preferences }
 
   describe '#update' do
-    let(:make_request) { patch :update, id: user.to_param, page: 'profile', user: user_params, user_preferences: preferences_params }
+    let(:make_request) { patch :update, profile_id: user.to_param, page: 'profile', user: user_params, user_preferences: preferences_params }
     let(:user_params) { nil }
     let(:preferences_params) {{ body_background: 'test2' }}
 
