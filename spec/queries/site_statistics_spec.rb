@@ -13,10 +13,7 @@ describe SiteStatistics do
       let(:user) { create :user }
       let!(:comments) { create_list :comment, 1, user: user, commentable: create(:topic, user: user) }
 
-
-      its(:comments) 'has at least 180 items' do
-        expect(subject.size).to be >= 180
-      end
+      its(:comments) { should have_at_least(180).items }
       its(:comments_count) { should eq comments.last.id }
     end
 
@@ -24,10 +21,7 @@ describe SiteStatistics do
       let!(:users) { create_list :user, 2, created_at: Time.zone.yesterday + 8.hours }
 
       its(:users_count) { should eq users.last.id }
-
-      its(:users) 'has at least 180 items' do
-        expect(subject.size).to be >= 180
-      end
+      its(:users) { should have_at_least(180).items }
       it { expect(query.users.last).to eq(date: Time.zone.yesterday.to_s, count: 2) }
     end
   end

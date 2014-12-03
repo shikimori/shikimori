@@ -1,7 +1,4 @@
-describe HentaiAnimeParser do
-  before { allow(SiteParserWithCache).to receive(:load_cache).and_return entries: {} }
-  before { allow(SiteParserWithCache).to receive :save_cache }
-
+describe HentaiAnimeParser, vcr: { cassette_name: 'hentai_anime_parser' } do
   let(:parser) { HentaiAnimeParser.new }
   it { expect(parser.fetch_pages_num).to eq 7 }
   it { expect(parser.fetch_page_links(0).size).to eq(HentaiAnimeParser::PageSize) }
@@ -16,9 +13,7 @@ describe HentaiAnimeParser do
     its(:russian) { should eq 'Шаловливые медсестры' }
     its(:source) { should eq 'http://hentai-anime.ru/heisa_byouin' }
 
-    its(:videos) 'has 2 items' do
-      expect(subject.size).to eq(2)
-    end
+    its(:videos) { should have(2).items }
     its(:year) { should eq 2003 }
 
     describe 'last_episode' do
@@ -37,9 +32,7 @@ describe HentaiAnimeParser do
     let(:episode) { 1 }
     let(:url) { 'http://hentai-anime.ru/sextra_credit/series1' }
 
-    it 'has 2 items' do
-      expect(subject.size).to eq(2)
-    end
+    it { should have(2).items }
 
     describe 'first' do
       subject { videos.first }

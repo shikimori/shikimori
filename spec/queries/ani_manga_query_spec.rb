@@ -1,5 +1,5 @@
 describe AniMangaQuery do
-  describe '#complete', :focus do
+  describe '#complete' do
     let!(:anime_1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }
     let!(:anime_2) { create :anime, name: 'testt', synonyms: ['xxxx'] }
     let!(:anime_3) { create :anime, name: 'zula zula', russian: 'дада То' }
@@ -422,7 +422,7 @@ describe AniMangaQuery do
     end
 
     describe 'with_video' do
-      let!(:anime_1) { create :anime, :with_viedo, kind: 'TV' }
+      let!(:anime_1) { create :anime, :with_video, kind: 'TV' }
       let!(:anime_2) { create :anime, kind: 'TV' }
       let!(:anime_3) { create :anime, kind: 'TV' }
 

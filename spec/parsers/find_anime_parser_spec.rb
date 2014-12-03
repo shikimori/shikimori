@@ -1,11 +1,8 @@
-describe FindAnimeParser do
-  before { allow(SiteParserWithCache).to receive(:load_cache).and_return entries: {} }
-  before { allow(SiteParserWithCache).to receive :save_cache }
-
+describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
   let(:parser) { FindAnimeParser.new }
 
-  it { expect(parser.fetch_pages_num).to eq 39 }
-  it { expect(parser.fetch_page_links(0).size).to eq(FindAnimeParser::PageSize) }
+  it { expect(parser.fetch_pages_num).to eq 41 }
+  it { expect(parser.fetch_page_links(0)).to have(FindAnimeParser::PageSize).items }
 
   describe 'fetch_entry' do
     subject(:entry) { parser.fetch_entry identifier }
@@ -20,9 +17,7 @@ describe FindAnimeParser do
       its(:description) { should be_present }
       its(:source) { should eq '© Hollow, http://world-art.ru' }
 
-      its(:videos) 'has 26 items' do
-        expect(subject.size).to eq(26)
-      end
+      its(:videos) { should have(26).items }
       its(:year) { should eq 2013 }
 
       describe 'last_episode' do
@@ -159,11 +154,7 @@ describe FindAnimeParser do
     let(:pages) { 3 }
 
     it 'fetches pages' do
-      items = nil
-      expect {
-        items = parser.fetch_pages(0..(pages-1))
-      }.to change(parser.cache[:entries], :count).by(items)
-
+      items = parser.fetch_pages(0..(pages-1))
       expect(items.size).to be >= ReadMangaParser::PageSize * pages - 1
     end
   end
