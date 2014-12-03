@@ -2,6 +2,8 @@
   $('.b-dialog.unprocessed').shiki_dialog()
   $('.b-message.unprocessed').shiki_message()
 
+  $('textarea:appeared').focus()
+
   $('.l-page').on 'postloader:success', '.b-postloader', (e, $data) ->
     $('.b-dialog.unprocessed').shiki_dialog()
     $('.b-message.unprocessed').shiki_message()
