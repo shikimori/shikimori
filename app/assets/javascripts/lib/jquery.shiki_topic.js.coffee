@@ -46,6 +46,8 @@ class @ShikiTopic extends ShikiEditable
           @$('.b-comments').prepend $new_comment
 
         $new_comment
+          .shiki_comment()
+          .shiki_message()
           .process()
           .yellowFade()
 
