@@ -53,6 +53,7 @@ class @ShikiEditable extends ShikiView
         .appendTo(@$inner)
         .on 'click', (e) =>
           @_reload() unless $(e.target).closest('.actor').exists()
+      false # очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
 
     # realtime уведомление об удалении
     @on "faye:#{@_type()}:deleted", (e, data) =>
@@ -62,6 +63,7 @@ class @ShikiEditable extends ShikiView
         "#{@_type_label()} удалён пользователем"
 
       @_replace "<div class='b-comment-info b-#{@_type()}'><span>#{message}</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a></div>"
+      false # очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
 
   # закрытие кнопок в мобильной версии
   _close_aside: ->
@@ -80,8 +82,14 @@ class @ShikiEditable extends ShikiView
     $replaced["shiki_#{@_type()}"]()
     $replaced.yellowFade()
 
+    window.faye_loader.apply() if @_type() == 'topic'
+
   # перезагрузка содержимого
   _reload: =>
     @$root.addClass 'ajax:request'
-    $.get "/#{@_type()}s/#{@$root.attr 'id'}", (response) =>
+    $.get @_reload_url(), (response) =>
       @_replace response
+
+  # url перезагрузки содержимого
+  _reload_url: =>
+    "/#{@_type()}s/#{@$root.attr 'id'}"

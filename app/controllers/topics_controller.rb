@@ -62,21 +62,9 @@ class TopicsController < ForumController
 
   # создание топика
   def create
-    #linked = if params[:topic]['linked_id'].present? && params[:topic]['linked_type'].present?
-      #params[:topic]['linked_type'].constantize.find(params[:topic]['linked_id'])
-    #end
-
-    #klass = if params[:topic]['type'].present?
-      #"#{params[:topic]['type'].sub('News', '')}News".constantize
-    #else
-      #Topic
-    #end
-
-    #@topic = klass.new topic_params.merge(user: current_user, linked: linked)
     @resource.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
-    if @resource.save
-      # отправка уведомлений о создании топика
-      FayePublisher.new(current_user, faye_token).publish @resource, :create unless Rails.env.test?
+
+    if faye.create @resource
       redirect_to topic_url(@resource), notice: 'Топик создан'
     else
       new
@@ -94,13 +82,8 @@ class TopicsController < ForumController
   def update
     @resource.class.record_timestamps = false
     @resource.user_image_ids = (params[:wall] || []).uniq if params[:wall].present?
-    #@topic.linked = if params[:topic]['linked_id'].present? && params[:topic]['linked_type'].present?
-      #params[:topic]['linked_type'].constantize.find(params[:topic]['linked_id'])
-    #end
 
-    if @resource.update topic_params
-      # отправка уведомлений о создании топика
-      FayePublisher.new(current_user, faye_token).publish @resource, :update unless Rails.env.test?
+    if faye.update @resource, topic_params
       redirect_to topic_url(@resource), notice: 'Топик изменён'
     else
       edit
@@ -111,7 +94,7 @@ class TopicsController < ForumController
 
   # удаление топика
   def destroy
-    @resource.destroy
+    faye.destroy @resource
     render json: { notice: 'Топик удален' }
   end
 
@@ -134,6 +117,17 @@ class TopicsController < ForumController
     render partial: 'topics/topic', collection: topics, layout: false, formats: :html
   end
 
+  # подгружаемое через ajax тело топика
+  def reload
+    topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
+    if params[:is_preview] == 'true'
+      topic.preview_mode!
+    else
+      topic.topic_mode!
+    end
+    render partial: 'topics/topic', object: topic
+  end
+
 private
   def topic_params
     allowed_params = if params[:action] == 'update' && !can?(:manage, Topic)
@@ -152,5 +146,9 @@ private
 
   def build_forum
     @forum_view = ForumView.new
+  end
+
+  def faye
+    FayeService.new current_user, faye_token
   end
 end

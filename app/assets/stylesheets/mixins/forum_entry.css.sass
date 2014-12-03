@@ -31,24 +31,6 @@ $aside_width: 280px
           position: absolute
           right: 0
 
-      //+iphone
-        //position: relative
-
-        //div
-          //position: absolute
-          //right: 65px
-
-      //+iphone-landscape
-        //div + div
-          //right: 165px
-
-      //+iphone_portrait
-        //float: right
-
-        //&>div
-          //float: none
-          //height: 25px
-
     aside.buttons
       display: none
 
@@ -95,6 +77,25 @@ $aside_width: 280px
             padding-top: 3px
             padding-left: 0
             line-height: $line_height
+
+    .was_updated
+      +link_color($gray-color)
+      clear: both
+      cursor: pointer
+      margin-bottom: 2px
+
+      div
+        display: inline-block
+        font-size: 11px
+        line-height: 20px
+        padding-top: 0
+
+      .b-user16
+        padding-left: 5px
+        margin-right: 0
+
+        img
+          margin-top: 1px
 
   // раскрытое меню в мобильной версии
   &.aside-expanded

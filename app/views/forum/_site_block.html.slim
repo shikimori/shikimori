@@ -70,7 +70,7 @@
               span.misc title="#{truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
                 == truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
             - else
-              span.misc Создана новая группа
+              span.misc Создан новый клуб
 
 - if sticked_topics.any?
   .menu-block.seasons

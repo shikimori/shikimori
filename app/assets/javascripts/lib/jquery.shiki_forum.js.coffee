@@ -10,7 +10,7 @@
 
 class @ShikiForum extends ShikiView
   initialize: ($root) ->
-    @on 'faye:comment:created faye:comment:updated faye:comment:deleted', (e, data) =>
+    @on 'faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
       $topic = @$(".b-topic##{data.topic_id}")
       if $topic.exists()
         $topic.trigger e.type, data
@@ -20,7 +20,6 @@ class @ShikiForum extends ShikiView
         # уведомление о добавленном элементе через faye
         $(document.body).trigger "faye:added"
 
-    # TODO: надо бы потом на эти эвенты тоже обработчики сделать faye:topic:updated faye:topic:deleted
     @on 'faye:topic:created', (e, data) =>
       $placeholder = @_faye_placeholder(data.topic_id)
       # уведомление о добавленном элементе через faye

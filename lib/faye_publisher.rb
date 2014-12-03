@@ -40,17 +40,17 @@ private
       comment_id: comment.id
     }
     topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
-    publish_data data, event, ["#{@namespace}/#{topic_type}-#{topic.id}"]
+    mixed_channels = channels + subscribed_channels(topic) +
+      ["#{@namespace}/#{topic_type}-#{topic.id}"]
 
     # уведомление в открытые разделы
     if topic.kind_of? GroupComment
-      publish_data data, event, ["#{@namespace}/group-#{topic.linked_id}"]
+      mixed_channels += ["#{@namespace}/group-#{topic.linked_id}"]
     elsif topic.respond_to? :section_id
-      publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
+      mixed_channels += ["#{@namespace}/section-#{topic.section_id}"]
     end
 
-    # уведомление в ленты
-    publish_data data, event, channels + subscribed_channels(topic)
+    publish_data data, event, mixed_channels
   end
 
   # отправка уведомлений о новом топике
@@ -63,11 +63,10 @@ private
       topic_id: topic.id
     }
 
-    # уведомление в открытые разделы
-    publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
+    mixed_channels = channels + subscribed_channels(topic) +
+      ["#{@namespace}/section-#{topic.section_id}", "#{@namespace}/topic-#{topic.id}"]
 
-    # уведомление в ленты
-    publish_data data, event, channels + subscribed_channels(topic)
+    publish_data data, event, mixed_channels
   end
 
   # отправка уведомлений о новом топике
@@ -80,11 +79,8 @@ private
       message_id: message.id
     }
 
-    # уведомление в открытые разделы
-    publish_data data, event, ["#{@namespace}/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
-
-    # уведомление в ленты
-    publish_data data, event, channels
+    mixed_channels = channels + ["#{@namespace}/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
+    publish_data data, event, mixed_channels
   end
 
   # отправка произвольных уведомлений

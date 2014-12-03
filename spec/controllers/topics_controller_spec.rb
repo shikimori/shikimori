@@ -162,4 +162,19 @@ describe TopicsController do
       it { expect(response.content_type).to eq 'application/json' }
     end
   end
+
+  describe '#tooltip' do
+    before { get :tooltip, id: topic.to_param }
+    it { should respond_with :success }
+  end
+
+  describe '#chosen' do
+    before { get :chosen, ids: [topic.to_param, topic2.to_param].join(',') }
+    it { should respond_with :success }
+  end
+
+  describe '#reload' do
+    before { get :reload, id: topic.to_param, is_preview: 'true' }
+    it { should respond_with :success }
+  end
 end

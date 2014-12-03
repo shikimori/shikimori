@@ -201,7 +201,10 @@ class @ShikiTopic extends ShikiEditable
         .on 'ajax:success', (e, html) ->
           $html = $(html)
           $placeholder.replaceWith $html
-          $html.process()
+          $html
+            .shiki_comment()
+            .shiki_message()
+            .process()
 
     if $placeholder.data('ids').indexOf(trackable_id) == -1
       $placeholder.data
@@ -225,3 +228,7 @@ class @ShikiTopic extends ShikiEditable
   _type: -> 'topic'
   _type_label: -> 'Топик'
   _item_type: -> @$root.data('item_type') || 'comment'
+
+  # url перезагрузки содержимого
+  _reload_url: =>
+    "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@$root.hasClass 'preview'}"

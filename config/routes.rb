@@ -75,7 +75,9 @@ Site::Application.routes.draw do
       #end
       get ':section(/s-:linked)/:id' => 'topics#show', as: :section_topic
     end
-    resources :topics, only: [:create, :update, :destroy, :edit]
+    resources :topics, only: [:create, :update, :destroy, :edit] do
+      get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
+    end
 
     get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
     get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
