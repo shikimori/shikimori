@@ -6,4 +6,5 @@ Site::Application.configure do
     compress: true,
     value_max_bytes: 1024 * 1024 * 16
   }
+  config.redis_db = 1
 end
