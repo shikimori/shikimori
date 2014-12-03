@@ -16,7 +16,8 @@ class DialogsController < ProfilesController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
-    @dialog = Dialog.new(@resource, Message.new(to_id: params[:id].to_i, from_id: @resource.id))
+    target_user = User.find_by!(nickname: User.param_to(params[:id]))
+    @dialog = Dialog.new(@resource, Message.new(to_id: target_user.id, from_id: @resource.id))
 
     @collection, @add_postloader = DialogQuery
       .new(@resource, @dialog.target_user)
@@ -26,8 +27,7 @@ class DialogsController < ProfilesController
   end
 
   def destroy
-    message = Message.find params[:id]
-    Dialog.new(@resource, message).destroy
+    Dialog.new(@resource, Message.find(params[:id])).destroy
 
     render json: { notice: 'Диалог удалён' }
   end

@@ -13,7 +13,7 @@ describe DialogsController do
     let!(:message_1) { create :message, from: user, to: target_user }
     let!(:message_2) { create :message, from: target_user, to: user }
 
-    before { get :show, profile_id: user.to_param, id: target_user.to_param(true) }
+    before { get :show, profile_id: user.to_param, id: target_user.to_param }
 
     it { should respond_with :success }
   end

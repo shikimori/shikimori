@@ -174,8 +174,8 @@ class User < ActiveRecord::Base
     @anime_uniq_history ||= anime_history.group(:target_id).order('max(updated_at) desc').select('*, max(updated_at) as updated_at')
   end
 
-  def to_param with_id=false
-    (with_id ? "#{id}-" : '') + nickname.gsub(/ /, '+')
+  def to_param
+    nickname.gsub(/ /, '+')
   end
 
   def self.param_to text

@@ -7,7 +7,7 @@
       ]
       .b-comments
         - if @add_postloader
-          = render 'dialogs/postloader', url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param(true), page: @page+1)
+          = render 'dialogs/postloader', url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param, page: @page+1)
         = render @collection
 
       .editor-container
