@@ -10,6 +10,8 @@
 
 class @ShikiDialog extends ShikiEditable
   initialize: ($root) ->
+    @_check_height()
+
     # прочтение комментриев
     @$('.b-new_marker.active').on 'click', (e) =>
       $markers = $(e.target)
@@ -27,5 +29,3 @@ class @ShikiDialog extends ShikiEditable
 
   _type: -> 'dialog'
   _type_label: -> 'Диалог'
-
-
