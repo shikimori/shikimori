@@ -20,7 +20,6 @@ class MessagesController < ProfilesController
   end
 
   def show
-    render @resource
   end
 
   def edit
