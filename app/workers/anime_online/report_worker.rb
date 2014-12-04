@@ -9,6 +9,8 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
     if report.broken?
       if video_broken?(report.anime_video)
         report.accept!(approver)
+      elsif AnimeOnline::Activists.can_trust?(report.user_id, report.anime_video.hosting)
+        report.accept!(approver)
       elsif report.user_id == User::GuestID && (report.doubles.zero? || report.doubles(:rejected) > 0)
         report.reject!(approver)
       end
