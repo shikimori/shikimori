@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 gem 'rake'
 gem 'rails', '4.2.0.rc1'
+#gem 'bower-rails'
 
 gem 'pg'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -155,3 +157,9 @@ gem 'clockwork', require: false, github: 'zph/clockwork', branch: 'master' # TOD
 gem 'faye'
 gem 'faye-redis'
 gem 'thin'
+
+# assets
+gem 'rails-assets-jquery'
+gem 'rails-assets-eventie'
+gem 'rails-assets-eventEmitter'
+gem 'rails-assets-magnific-popup'

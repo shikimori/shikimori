@@ -1,6 +1,10 @@
-#= require core/jquery-2.1.1
+#= require jquery
 #= require core/jquery-migrate-1.2.1
 #= require_tree ./core
+
+#= require eventie
+#= require eventEmitter
+#= require magnific-popup
 
 #= require_tree ./vendor
 #= require ./lib/shiki_view

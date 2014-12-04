@@ -166,7 +166,7 @@ private
 
     if images.any?
       self.text = self.text.sub(/\[wall[\s\S]*/, '') + "\n[wall]" + images.map do |image|
-        "[url=#{image.image.url :original, false}][img]#{image.image.url :preview, false}[/img][/url]"
+        "[url=#{image.image.url :original, false}][poster]#{image.image.url :preview, false}[/poster][/url]"
       end.join('') + "[/wall]"
     end
   end

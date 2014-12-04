@@ -50,11 +50,12 @@ class BbCodeFormatter
   def bb_codes original_text
     text_hash = XXhash.xxh32 original_text, 0
 
-    text = original_text.gsub /\r\n|\r|\n/, '<br />'
+    text = original_text.gsub %r{\r\n|\r|\n}, '<br />'
 
     text = BbCodes::VideoTag.instance.format text
     text = BbCodes::ImageTag.instance.format text, text_hash
     text = BbCodes::ImgTag.instance.format text, text_hash
+    text = BbCodes::PosterTag.instance.format text
 
     text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img
     text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'

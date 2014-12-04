@@ -29,11 +29,18 @@ class @ShikiWall
     @max_height = parseInt @$wall.css('max-height')
     @max_width = parseInt @$wall.css('width')
 
-    images = @$wall.children('a').attr(rel: "wall-#{@id}").css(width: '', height: '')
-    @images = _(images).map (v) -> new ShikiImage $(v)
+    $images = @$wall.children('a').attr(rel: "wall-#{@id}").css(width: '', height: '')
+    $images.children().removeClass 'check-width'
+    @images = $images.toArray().map (v) -> new ShikiImage $(v)
 
     @direction = ShikiCluster.HORIZONTAL
     @margin = 4
+
+    @$wall.magnificPopup
+      type: 'image'
+      delegate: 'a'
+      gallery:
+        enabled: true
 
   each: (func) -> _(@images).each func
   select: (func) -> _(@images).select func
@@ -123,7 +130,6 @@ class @ShikiWall
     else
       throw 'not implemented yet'
 
-
 class ShikiImage
   constructor: ($node) ->
     @$container = $node
@@ -153,7 +159,8 @@ class ShikiImage
       .css
         top: @top
         left: @left
-      .shiki_image()
+      .image_editable()
+      #.shiki_image()
 
   normalize: (width, height) ->
     if @width > width

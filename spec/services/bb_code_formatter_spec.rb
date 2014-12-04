@@ -248,6 +248,12 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
 <img src=\"#{url}\" /></a>" }
     end
 
+    describe '[poster]' do
+      let(:url) { 'http://site.com/image.jpg' }
+      let(:text) { "[poster]#{url}[/poster]" }
+      it { should eq "<img class=\"b-poster\" src=\"#{url}\" />" }
+    end
+
     describe '[spoiler=text]' do
       let(:text) { '[spoiler=1]test[/spoiler]' }
       it { should_not include '[spoiler' }

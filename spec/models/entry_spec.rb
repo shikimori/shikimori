@@ -14,7 +14,7 @@ describe Entry do
 
     describe 'append_wall' do
       it 'wall tag is appended' do
-        expect(entry.text).to eq "text\n[wall][url=#{images[0].image.url :original, false}][img]#{images[0].image.url :preview, false}[/img][/url][url=#{images[1].image.url :original, false}][img]#{images[1].image.url :preview, false}[/img][/url][/wall]"
+        expect(entry.text).to eq "text\n[wall][url=#{images[0].image.url :original, false}][poster]#{images[0].image.url :preview, false}[/poster][/url][url=#{images[1].image.url :original, false}][poster]#{images[1].image.url :preview, false}[/poster][/url][/wall]"
       end
     end
 
@@ -89,54 +89,9 @@ describe Entry do
   end
 
   context 'permissions' do
-    let(:user) { create :user }
-    let(:entry) { create :entry, user: user }
+    let(:user) { build_stubbed :user }
+    let(:entry) { build_stubbed :entry, user: user }
 
-    describe 'with owner' do
-      it 'can be edited' do
-        expect(entry.can_be_edited_by?(user)).to be_truthy
-      end
-
-      describe 'can be deleted' do
-        context 'old' do
-          before { entry.update_column :created_at, 1.month.ago }
-          it { expect(entry.can_be_deleted_by?(user)).to be_falsy }
-        end
-
-        context 'new' do
-          it { expect(entry.can_be_deleted_by?(user)).to be_truthy }
-        end
-      end
-    end
-
-    describe 'with admin' do
-      let(:admin_user) { create :user }
-
-      before do
-        allow(admin_user).to receive(:admin?).and_return(true)
-        allow(admin_user).to receive(:moderator?).and_return(true)
-      end
-
-      it 'can be edited' do
-        expect(entry.can_be_edited_by?(admin_user)).to be_truthy
-      end
-
-      it 'can be deleted' do
-        expect(entry.can_be_deleted_by?(admin_user)).to be_truthy
-      end
-    end
-
-
-    describe 'with random user' do
-      let(:random_user) { create :user }
-
-      it "can't be edited" do
-        expect(entry.can_be_edited_by?(random_user)).to be_falsy
-      end
-
-      it "can't be deleted" do
-        expect(entry.can_be_deleted_by?(random_user)).to be_falsy
-      end
-    end
+    pending 'ability specs'
   end
 end

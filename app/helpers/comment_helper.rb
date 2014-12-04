@@ -350,13 +350,6 @@ private
       '[cut]',
       :cut
     ],
-    'poster' => [
-      /\[poster\](.*?)\[\/poster\]/mi,
-      '<div class="text-poster">\1</div>',
-      'Poster text block',
-      '[poster]some text[/poster]',
-      :poster
-    ],
     'right' => [
       /\[right\](.*?)\[\/right\]/mi,
       '<div class="right-text">\1</div>',

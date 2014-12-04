@@ -11,7 +11,7 @@
       $image.addClass(normalization_class)
 
     if $link.tagName() == 'a' && $link.attr('href').match(/\.(png|jpg|jpeg|bmp|gif)$/i)
-      $link.fancybox(options.fancybox)
+      $link.magnific_rel_gallery()
 
     if options.append_marker && !$link.children('.marker').exists() && (image_width > 300 && image_height > 300)
       $link.append "<span class='marker'>#{image_width}x#{image_height}</span>"

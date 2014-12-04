@@ -59,8 +59,8 @@ $(document).on 'page:restore', ->
 
 # для совместимости с турболинками
 turbolinks_compatibility = ->
-  $('#fancybox-wrap').remove()
-  $.fancybox.init()
+  #$('#fancybox-wrap').remove()
+  #$.fancybox.init()
 
 # поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
 $with = (selector, $root) ->
@@ -74,9 +74,8 @@ $with = (selector, $root) ->
   $root = $(root)
 
   # нормализуем ширину всех огромных картинок
-  $with('img.check-width', $root).normalize_image
-    class: 'check-width'
-    fancybox: $.galleryOptions
+  #$with('img.check-width', $root).normalize_image()
+    #fancybox: $.galleryOptions
 
   # то, что должно превратиться в ссылки
   $with('.linkeable', $root)
@@ -135,9 +134,8 @@ $with = (selector, $root) ->
     .removeClass('unprocessed')
       .children('img')
       .normalize_image
-        class: 'unprocessed'
         append_marker: true
-        fancybox: $.galleryOptions
+        #fancybox: $.galleryOptions
 
   # сворачиваение всех нужных блоков "свернуть"
   _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
