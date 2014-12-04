@@ -96,4 +96,6 @@
       .variants
 
   .buttons
+    - if @resource.persisted?
+      a.cancel href="#{club_url @resource}" Отмена
     = f.submit @resource.persisted? ? 'Сохранить' : 'Создать'

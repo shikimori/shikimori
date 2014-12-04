@@ -1,7 +1,7 @@
 a.c-screenshot.b-image[
     class="#{"entry-#{screenshot_counter+1}" if defined? screenshot_counter}"
     href="#{screenshot.image.url :original}"
-    title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_kind screenshot.anime}" rel="screenshot"
+    title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" rel="screenshot"
   ]
   - if defined? edition
     .mobile-edit
