@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe AnimeVideoReportWorker do
+describe AnimeOnline::ReportWorker do
   before { SiteParserWithCache.stub(:load_cache).and_return entries: {} }
   before { SiteParserWithCache.stub :save_cache }
   let(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
   let(:anime_video) { create :anime_video, url: url }
 
-  subject { AnimeVideoReportWorker.new.perform report.id }
+  subject { AnimeOnline::ReportWorker.new.perform report.id }
 
   describe :perform do
     let(:user) { create :user, id: 9999 }
@@ -46,12 +46,11 @@ describe AnimeVideoReportWorker do
     end
 
     context :cant_check do
-      before { AnimeVideoReportWorker.any_instance.stub(:is_broken).and_return false }
+      before { AnimeOnline::ReportWorker.any_instance.stub(:is_broken).and_return false }
       before { create(:user, id: User::GuestID) unless User.find_by(id: User::GuestID) }
       let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
 
       context :not_guest do
-        let(:user) { create :user, id: 9999 }
         it { should be_pending }
       end
 
@@ -64,7 +63,7 @@ describe AnimeVideoReportWorker do
 
         context :with_doubles do
           let!(:before_report) { create :anime_video_report, kind: 'broken', state: before_state, anime_video: anime_video, user: before_user }
-          let(:before_user) { create :user, id: 9999 }
+          let(:before_user) { create :user, id: user.id - 1 }
           let!(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
 
           context 'Video has report with pending state.' do
@@ -77,6 +76,36 @@ describe AnimeVideoReportWorker do
             it { should be_rejected }
           end
         end
+      end
+    end
+
+    context :uploaded do
+      let(:anime_video) { create :anime_video }
+      let(:report) { create :anime_video_report, anime_video: anime_video, kind: 'uploaded', state: 'pending', user: user }
+      before { AnimeOnline::Uploaders.reset }
+
+      context :auto_check do
+        before { allow(AnimeOnline::Uploaders).to receive(:responsible).and_return([user.id]) }
+        it { expect(subject).to be_accepted }
+      end
+
+      context :manual_check do
+        it { expect(subject).to be_pending }
+      end
+    end
+
+    context :trust_accept_broken do
+      let(:anime_video) { create :anime_video, url: "http://rutube.ru/1" }
+      let(:report) { create :anime_video_report, anime_video: anime_video, kind: "broken", state: "pending", user: user }
+      before { AnimeOnline::Activists.reset }
+
+      context :auto_check do
+        before { allow(AnimeOnline::Activists).to receive(:rutube_responsible).and_return([user.id]) }
+        it { expect(subject).to be_accepted }
+      end
+
+      context :manual_check do
+        it { expect(subject).to be_pending }
       end
     end
   end

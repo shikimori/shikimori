@@ -1,8 +1,7 @@
 h3 Top20 пользователей
 ol
-  - AnimeVideoReportsQuery.top_uploaders.each do |user|
+  - @top_uploaders.each do |user|
     li
-      a.name href="#{user_url(user, subdomain: false)}" title="#{user.nickname}"
-        = user.nickname
+      a.name href="#{user_url(user, subdomain: false)}" title="#{user.nickname}" = user.nickname
       a.avatar href="#{user_url(user, subdomain: false)}" title="#{user.nickname}"
         img.image src="#{user.avatar_url 73}" alt="#{user.nickname}"
