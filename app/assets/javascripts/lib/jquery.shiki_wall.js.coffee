@@ -36,11 +36,11 @@ class @ShikiWall
     @direction = ShikiCluster.HORIZONTAL
     @margin = 4
 
-    @$wall.magnificPopup
-      type: 'image'
-      delegate: 'a'
-      gallery:
-        enabled: true
+    #@$wall.magnificPopup
+      #type: 'image'
+      #delegate: 'a'
+      #gallery:
+        #enabled: true
 
   each: (func) -> _(@images).each func
   select: (func) -> _(@images).select func
@@ -159,8 +159,8 @@ class ShikiImage
       .css
         top: @top
         left: @left
-      .image_editable()
-      #.shiki_image()
+      .shiki_image()
+      #.image_editable()
 
   normalize: (width, height) ->
     if @width > width

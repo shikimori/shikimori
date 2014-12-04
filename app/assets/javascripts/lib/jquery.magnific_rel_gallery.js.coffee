@@ -4,8 +4,11 @@
       @each ->
         $(@).magnificPopup
           type: 'image'
+          closeOnContentClick: true
+
           gallery:
             enabled: true
+
           callbacks:
             beforeOpen: ->
               item = @items[@index]
@@ -13,6 +16,11 @@
                 @items = $("a[rel='#{item.rel}']").toArray()
                 @index = @items.indexOf(item)
 
-                #@items.each (item,index) =>
-                  #@parseEl index
+          mainClass: 'mfp-no-margins mfp-with-zoom'
+          zoom:
+            enabled: true
+            duration: 300
+            easing: 'ease-in-out'
+            opener: (openerElement) ->
+              if openerElement.is('img') then openerElement else openerElement.find('img')
 ) jQuery
