@@ -16,11 +16,12 @@
                 @items = $("a[rel='#{item.rel}']").toArray()
                 @index = @items.indexOf(item)
 
-          mainClass: 'mfp-no-margins mfp-with-zoom'
-          zoom:
-            enabled: true
-            duration: 300
-            easing: 'ease-in-out'
-            opener: (openerElement) ->
-              if openerElement.is('img') then openerElement else openerElement.find('img')
+          mainClass: 'mfp-no-margins mfp-img-mobile'
+          #mainClass: 'mfp-with-zoom'
+          #zoom:
+            #enabled: true
+            #duration: 300
+            #easing: 'ease-in-out'
+            #opener: (openerElement) ->
+              #if openerElement.is('img') then openerElement else openerElement.find('img')
 ) jQuery
