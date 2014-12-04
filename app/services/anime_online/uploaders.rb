@@ -36,4 +36,8 @@ class AnimeOnline::Uploaders
     @trusted ||= (top + responsible).uniq
     @trusted.include? user_id
   end
+
+  def self.reset
+    @trusted = nil
+  end
 end
