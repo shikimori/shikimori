@@ -4,7 +4,7 @@ describe AnimeVideoReportWorker do
   let(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
   let(:anime_video) { create :anime_video, url: url }
 
-  subject { AnimeVideoReportWorker.new.perform report.id }
+  subject { AnimeOnline::ReportWorker.new.perform report.id }
 
   describe '#perform' do
     let(:user) { create :user, id: 9999 }

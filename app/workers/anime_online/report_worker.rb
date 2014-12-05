@@ -1,4 +1,4 @@
-class AnimeVideoReportWorker < SiteParserWithCache
+class AnimeOnline::ReportWorker < SiteParserWithCache
   include Sidekiq::Worker
   sidekiq_options retry: false
 

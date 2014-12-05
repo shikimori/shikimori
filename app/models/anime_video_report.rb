@@ -86,6 +86,6 @@ class AnimeVideoReport < ActiveRecord::Base
 
 private
   def auto_check
-    AnimeVideoReportWorker.delay_for(10.seconds).perform_async id
+    AnimeOnline::ReportWorker.delay_for(10.seconds).perform_async id
   end
 end
