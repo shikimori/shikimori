@@ -37,8 +37,8 @@ $(document).on 'page:restore', (e, is_dom_content_loaded) ->
   $(document.body).process()
 
 $(document).on 'page:load', (e, is_dom_content_loaded) ->
-  unless is_dom_content_loaded
-    turbolinks_compatibility()
+  #unless is_dom_content_loaded
+    #turbolinks_compatibility()
 
   # отображение flash сообщений от рельс
   $('p.flash-notice').each (k, v) ->
@@ -50,15 +50,15 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
   #$(document.body).addClass 'l-mobile' if is_mobile()
   $(document.body).process()
 
-$(document).on 'page:fetch', ->
+#$(document).on 'page:fetch', ->
   #$('.l-page').css opacity: 0.3
 
-$(document).on 'page:restore', ->
-  turbolinks_compatibility()
+#$(document).on 'page:restore', ->
+  #turbolinks_compatibility()
   #$('.l-page').css opacity: 1
 
 # для совместимости с турболинками
-turbolinks_compatibility = ->
+#turbolinks_compatibility = ->
   #$('#fancybox-wrap').remove()
   #$.fancybox.init()
 
