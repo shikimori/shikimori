@@ -16,6 +16,8 @@
 
             gallery:
               enabled: true
+              navigateByImgClick: true
+              preload: [0,1]
 
             callbacks:
               beforeOpen: build_gallery
