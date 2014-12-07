@@ -22,18 +22,20 @@ class MessagesController < ProfilesController
   end
 
   def show
+    @resource = @resource.decorate
   end
 
   def edit
   end
 
   def preview
-    message = Message.new create_params
+    message = Message.new(create_params).decorate
     render message
   end
 
   def create
     if faye.create @resource
+      @resource = @resource.decorate
       render :create, notice: 'Сообщение создано'
     else
       render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не создано'
@@ -42,6 +44,7 @@ class MessagesController < ProfilesController
 
   def update
     if faye.update @resource, update_params
+      @resource = @resource.decorate
       render :create, notice: 'Сообщение изменено'
     else
       render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не изменено'
@@ -81,7 +84,7 @@ class MessagesController < ProfilesController
       .limit(100)
       .select {|message| can? :read, message }
 
-    render @collection
+    render @collection.map(&:decorate)
   end
 
   ## rss лента сообщений
