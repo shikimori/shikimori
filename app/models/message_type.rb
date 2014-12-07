@@ -14,7 +14,7 @@ class MessageType
   Episode = AnimeHistoryAction::Episode
   # запрос на добавление в друзья
   FriendRequest = 'FriendRequest'
-  # пришлашение в группу
+  # пришлашение в клуб
   GroupRequest = 'GroupRequest'
   # новость сайта
   SiteNews = 'SiteNews'

@@ -75,7 +75,7 @@ class @FayeLoader
     channels = {}
     $targets.each (index, node) ->
       found_channels = $(node).data('faye') || []
-      _warn 'no faye channels found for', node unless found_channels.length
+      _warn 'no faye channels found for', node unless found_channels.length || $targets.data('no-faye')
 
       found_channels.each (channel) ->
         channels["/#{channel}"] = $(node)

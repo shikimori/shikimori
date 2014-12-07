@@ -12,14 +12,21 @@
 
       aside.buttons
         .main-controls
-          span.item-quote title="Цитировать"
-          span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="Ответить"
+          - if message.kind == MessageType::FriendRequest
+            span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.from_id}" title="Принять"
+            span.item-request-reject.friend-request title="Отклонить"
+          - elsif message.kind == MessageType::GroupRequest
+            span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{accept_group_invite_url message.subject}" title="Принять"
+            span.item-request-reject data-remote="true" data-method="post" data-type="json" action="#{reject_group_invite_url message.subject}" title="Отклонить"
+          - else
+            - if can? :destroy, message
+              span.item-delete title="Удалить"
+            - if message.kind == MessageType::Private
+              span.item-quote title="Цитировать"
+              span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="Ответить"
+            - if can? :edit, message
+              span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="Изменить"
 
-          - if can? :edit, message
-            span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="Изменить"
-
-          - if can? :destroy, message
-            span.item-delete title="Удалить"
           span.item-cancel title="Отмена"
 
         - if can? :destroy, message
@@ -42,7 +49,7 @@
       == get_message_body message
 
       - if !message.read && message.to == current_user
-        .appear-marker class="appear-message-#{message.id}" data-appear_url="#{mark_read_messages_url}"
+        .appear-marker class="appear-message-#{message.id}" data-appear_url="#{mark_read_messages_url}" data-disabled="#{[MessageType::FriendRequest, MessageType::GroupRequest].include?(message.kind) ? true : false}"
       /- if message.kind == MessageType::Private
         = message.html_body
       /- else

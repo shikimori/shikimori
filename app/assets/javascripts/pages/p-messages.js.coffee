@@ -1,6 +1,16 @@
 @on 'page:load', 'messages_index', ->
-  $('.b-message.unprocessed').shiki_message()
+  process()
 
   $('.l-page').on 'postloader:success', '.b-postloader', (e, $data) ->
-    $('.b-message.unprocessed', $data).shiki_message()
+    process()
 
+process = ->
+  $('.b-message.unprocessed').shiki_message()
+
+  $('.item-request-confirm, .item-request-reject').on 'ajax:success', ->
+    $message = $(@).closest('.b-message')
+    $message.trigger 'appear', [$message.find('.appear-marker'), true]
+
+  $('.item-request-reject.friend-request').on 'click', ->
+    $message = $(@).closest('.b-message')
+    $message.trigger 'appear', [$message.find('.appear-marker'), true]

@@ -209,14 +209,13 @@ Site::Application.routes.draw do
       resources :group_roles, only: [:create, :destroy] do
         get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
       end
-      resources :group_invites, only: [:create] do
-        member do
-          post :accept
-          post :reject
-        end
-      end
+      resources :group_invites, only: [:create]
     end
 
+    resources :group_invites, only: [] do
+      post :accept, on: :member
+      post :reject, on: :member
+    end
     resources :user_images, only: [:create]
     resources :images, only: [:destroy]
 

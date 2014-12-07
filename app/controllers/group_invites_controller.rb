@@ -17,7 +17,7 @@ class GroupInvitesController < ShikimoriController
 
   def reject
     @resource.reject!
-    render nothing: true
+    render json: { }
   end
 
 private

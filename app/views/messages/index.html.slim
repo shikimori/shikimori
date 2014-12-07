@@ -8,7 +8,7 @@
   .subheadline
     = @page_title.last
   .block
-    .b-topic.unprocessed
+    .b-topic.unprocessed data-no-faye="true"
       .b-comments
         - if @collection.any?
           = render @collection

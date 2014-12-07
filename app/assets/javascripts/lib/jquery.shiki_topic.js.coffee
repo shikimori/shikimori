@@ -61,9 +61,10 @@ class @ShikiTopic extends ShikiEditable
 
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
-      return unless IS_LOGGED_IN
-      $filtered_appeared = ($appeared || $(@))
-        .not -> $(@).data('disabled') || !$(@).hasClass('appear-marker')
+      $filtered_appeared = if by_click
+        $appeared
+      else
+        $appeared.not -> $(@).data('disabled') || !$(@).hasClass('appear-marker')
 
       if $filtered_appeared.exists()
         interval = if by_click then 1 else 1500
