@@ -1,6 +1,4 @@
-class CommentDecorator < Draper::Decorator
-  delegate_all
-
+class CommentDecorator < BaseDecorator
   def can_be_edited?
     can_be_edited_by? h.current_user
   end

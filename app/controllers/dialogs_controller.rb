@@ -23,6 +23,8 @@ class DialogsController < ProfilesController
       .new(@resource, @dialog.target_user)
       .postload(@page, @limit)
 
+    @collection = @collection.map(&:decorate)
+
     page_title "Диалог с #{@dialog.target_user.nickname}"
   end
 

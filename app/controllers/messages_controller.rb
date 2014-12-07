@@ -16,6 +16,8 @@ class MessagesController < ProfilesController
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
     @collection, @add_postloader = MessagesQuery.new(@resource, @messages_type).postload @page, @limit
+    @collection = @collection.map(&:decorate)
+
     page_title @messages_type == :news ? 'Новости сайта' : 'Уведомления сайта'
   end
 

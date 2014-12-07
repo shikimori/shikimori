@@ -6,12 +6,6 @@ module MessagesHelper # для truncate в messages helper
     klass.send :include, ActionView::Helpers::SanitizeHelper
   end
 
-  def should_show_more? message
-    [Entry.name].include?(message.linked_type) &&
-      ![MessageType::QuotedByUser, MessageType::SubscriptionCommented].include?(message.kind) &&
-        message.linked_id != 0
-  end
-
   def get_message_body message
     #Rails.logger.info message.to_yaml
     case message.kind

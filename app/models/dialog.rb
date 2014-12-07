@@ -25,10 +25,15 @@ class Dialog
     end
   end
 
+  def message
+    @decorated_message ||= @message.decorate
+  end
+
   def messages
     @messages ||= DialogQuery
       .new(user, target_user)
       .fetch(1, DialogQuery::ALL)
+      .map(&:decorate)
   end
 
   def destroy
