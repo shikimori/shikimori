@@ -15,16 +15,20 @@
           - if message.kind == MessageType::FriendRequest
             span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.from_id}" title="Принять"
             span.item-request-reject.friend-request title="Отклонить"
+            span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
+
           - elsif message.kind == MessageType::GroupRequest
             span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{accept_group_invite_url message.subject}" title="Принять"
             span.item-request-reject data-remote="true" data-method="post" data-type="json" action="#{reject_group_invite_url message.subject}" title="Отклонить"
+            span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
+
           - else
             - if can? :destroy, message
               span.item-delete title="Удалить"
             - if message.kind == MessageType::Private
               span.item-quote title="Цитировать"
               span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="Ответить"
-            - if can? :edit, message
+            - if can?(:edit, message) && message.kind == MessageType::Private
               span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="Изменить"
 
           span.item-cancel title="Отмена"

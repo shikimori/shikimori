@@ -4,12 +4,14 @@ class MessagesService
   def read_messages kind: nil, type: nil
     Message
       .where(to: user, kind: kind || kinds_by_type(type), read: false)
+      .where("not (kind in (?) and read = false)", MessageType::RESPONSE_REQUIRED)
       .update_all(read: true)
   end
 
   def delete_messages kind: nil, type: nil
     Message
       .where(to: user, kind: kind || kinds_by_type(type))
+      .where("not (kind in (?) and read = false)", MessageType::RESPONSE_REQUIRED)
       .delete_all
   end
 

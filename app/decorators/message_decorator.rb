@@ -1,6 +1,4 @@
 class MessageDecorator < BaseDecorator
-  ANIME_TYPES = [MessageType::Anons, MessageType::Ongoing, MessageType::Release, MessageType::Episode]
-
   def image
     anime_related? ? anime.image.url(:x48) : from.avatar_url(48)
   end
@@ -19,7 +17,7 @@ class MessageDecorator < BaseDecorator
 
 private
   def anime_related?
-    ANIME_TYPES.include? kind
+    MessageType::ANIME_RELATED.include? kind
   end
 
   def anime

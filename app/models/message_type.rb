@@ -30,4 +30,7 @@ class MessageType
   Banned = 'Banned'
   # уведомление о предупреждении
   Warned = 'Warned'
+
+  RESPONSE_REQUIRED = [FriendRequest, GroupRequest]
+  ANIME_RELATED = [Anons, Ongoing, Release, Episode]
 end
