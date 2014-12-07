@@ -15,6 +15,8 @@
 
     if options.append_marker && !$link.children('.marker').exists() && (image_width > 300 && image_height > 300)
       $link.append "<span class='marker'>#{image_width}x#{image_height}</span>"
+    else if (image_width < 300 && image_height < 300) && $link.tagName() == 'a'
+      $image.unwrap()
 
   $.fn.extend normalize_image: (options) ->
     @each ->
