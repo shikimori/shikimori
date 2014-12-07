@@ -144,32 +144,32 @@ describe Comment do
       }.to change(Message, :count).by 1
     end
 
-    describe 'only once' do
-      it 'indeed' do
-        create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
+    #describe 'only once' do
+      #it 'indeed' do
+        #create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
 
-        expect {
-          create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
-        }.to change(Message, :count).by 0
-      end
+        #expect {
+          #create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
+        #}.to change(Message, :count).by 0
+      #end
 
-      it 'indeed' do
-        create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[entry=#{topic.id}]ня[/entry]"
+      #it 'indeed' do
+        #create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[entry=#{topic.id}]ня[/entry]"
 
-        expect {
-          create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[entry=#{topic.id}]ня[/entry]"
-        }.to change(Message, :count).by 0
-      end
+        #expect {
+          #create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[entry=#{topic.id}]ня[/entry]"
+        #}.to change(Message, :count).by 0
+      #end
 
-      it 'until old message is read' do
-        create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
-        Message.last.update_attribute :read, true
+      #it 'until old message is read' do
+        #create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
+        #Message.last.update_attribute :read, true
 
-        expect {
-          create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
-        }.to change(Message, :count).by 1
-      end
-    end
+        #expect {
+          #create :comment, :with_notify_quotes, commentable: topic, user: user2, body: "[comment=#{comment.id}]ня[/comment]"
+        #}.to change(Message, :count).by 1
+      #end
+    #end
   end
 
   describe 'notify_quotes' do

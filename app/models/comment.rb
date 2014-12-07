@@ -121,13 +121,13 @@ class Comment < ActiveRecord::Base
       # игнорируем пользователей, которым уже создали уведомления
       next if notified_users.include?(quoted_user.id)
       # игнорируем пользователей, у которых уже есть не прочитанные уведомления о текущей теме
-      next if Message.where(
-          to_id: quoted_user.id,
-          kind: MessageType::QuotedByUser,
-          read: false,
-          linked_type: self.class.name
-        ).includes(:linked)
-         .any? {|v| v.linked && v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
+      #next if Message.where(
+          #to_id: quoted_user.id,
+          #kind: MessageType::QuotedByUser,
+          #read: false,
+          #linked_type: self.class.name
+        #).includes(:linked)
+         #.any? {|v| v.linked && v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
 
       Message.wo_antispam do
         Message.create!(
