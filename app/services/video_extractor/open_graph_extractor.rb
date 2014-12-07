@@ -29,7 +29,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     doc = Nokogiri::HTML html
 
     og_image = doc.css("meta[property='og:image']").first
-    og_video = doc.css("meta[property='og:video']").first
+    og_video = doc.css("meta[property='og:video'],meta[property='og:video:url']").first
 
     [og_image[:content], og_video[:content]] if og_image && og_video
   end

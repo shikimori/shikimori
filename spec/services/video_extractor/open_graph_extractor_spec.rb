@@ -1,9 +1,8 @@
-describe VideoExtractor::OpenGraphExtractor do
+describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_video' } do
   let(:service) { VideoExtractor::OpenGraphExtractor.new url }
 
   describe 'fetch' do
     subject { service.fetch }
-    before { VCR.use_cassette(:open_graph_video) { subject } }
 
     context 'coub' do
       let(:url) { 'http://coub.com/view/bqn2pda' }
