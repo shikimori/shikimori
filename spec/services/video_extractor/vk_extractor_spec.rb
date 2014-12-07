@@ -1,9 +1,8 @@
-describe VideoExtractor::VkExtractor do
+describe VideoExtractor::VkExtractor, vcr: { cassette_name: 'vk_video' } do
   let(:service) { VideoExtractor::VkExtractor.new url }
 
   describe 'fetch' do
     subject { service.fetch }
-    before { VCR.use_cassette(:vk_video) { subject } }
 
     context 'valid_url' do
       context 'common' do

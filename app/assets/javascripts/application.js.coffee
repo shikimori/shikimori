@@ -119,17 +119,7 @@ $with = (selector, $root) ->
     .removeClass('unprocessed')
     .spoiler()
 
-  $with('.b-video.unprocessed', $root)
-    .removeClass('unprocessed')
-    .on 'click', (e) ->
-      # если это спан, то мы жмём на кнопочки
-      return if in_new_tab(e) || $(e.target).tagName() == 'span'
-      unless $(@).data('fancybox')
-        $(@)
-          .fancybox(if $(@).hasClass('vk') then $.vkOptions else $.youtubeOptions)
-          .trigger('click')
-        false
-
+  $with('.b-video.unprocessed', $root).shiki_video()
   $with('.b-image.unprocessed', $root)
     .removeClass('unprocessed')
       .children('img')

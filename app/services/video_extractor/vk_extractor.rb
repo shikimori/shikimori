@@ -12,6 +12,7 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   end
 
   def parse_data html
+    File.open('/tmp/test.html', 'wb') {|f| f.write html }
     data = html.match(/vars = ({.*?});\\nvar/) || raise(EmptyContent, @url)
     JSON.parse data[1].gsub(/\\/, '')
   end
