@@ -1,6 +1,4 @@
-describe AnimeVideoReportWorker do
-  before { allow(SiteParserWithCache).to receive(:load_cache).and_return entries: {} }
-  before { allow(SiteParserWithCache).to receive :save_cache }
+describe AnimeOnline::ReportWorker do
   let(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
   let(:anime_video) { create :anime_video, url: url }
 
@@ -44,7 +42,6 @@ describe AnimeVideoReportWorker do
     end
 
     context 'cant_check' do
-      before { allow_any_instance_of(AnimeVideoReportWorker).to receive(:is_broken).and_return false }
       before { create(:user, id: User::GuestID) unless User.find_by(id: User::GuestID) }
       let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
 
