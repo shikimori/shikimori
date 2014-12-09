@@ -217,6 +217,9 @@ module ReadMangaImportData
       always_together: -1,
       open_sesame: 730,
       heaven_s_love: 6980,
+      one_more_marionnette: -1,
+      marionette: -1,
+      marionette_theater_by_the_moonlight_battery: -1
       #katekyo_hitman_reborn__dj___sanctuary: -1
     }.inject({}) {|rez,v| rez[v[0].to_s] = v[1] and rez }
 end
