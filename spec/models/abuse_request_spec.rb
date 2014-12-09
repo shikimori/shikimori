@@ -66,7 +66,7 @@ describe AbuseRequest do
   end
 
   describe 'instance methods' do
-    describe 'punishable?' do
+    describe '#punishable?' do
       let(:abuse_request) { build :abuse_request, kind: kind }
       subject { abuse_request.punishable? }
 
@@ -97,7 +97,7 @@ describe AbuseRequest do
   end
 
   context 'class_methods' do
-    describe 'has_changes?' do
+    describe '#has_changes?' do
       let(:user) { create :user }
       subject { AbuseRequest.has_changes? }
 
@@ -112,7 +112,7 @@ describe AbuseRequest do
       end
     end
 
-    describe 'has_abuses?' do
+    describe '#has_abuses?' do
       let(:user) { create :user }
       subject { AbuseRequest.has_abuses? }
 

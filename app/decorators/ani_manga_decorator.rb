@@ -165,7 +165,7 @@ private
       name: topic.to_s,
       title: topic.title,
       tooltip: topic.action == AnimeHistoryAction::Episode,
-      url: h.topic_url(topic)
+      #url: h.topic_url(topic)
     }
   end
 end
