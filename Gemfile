@@ -95,17 +95,12 @@ group :development do
   gem 'spring'
   gem 'letter_opener'
   gem 'quiet_assets'
-  #gem 'sextant'
   gem 'mactag'
-  #gem 'better_errors'
-  #gem 'sprockets_better_errors'
-  #gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
-  #gem 'sql-logging'
+  gem 'web-console'
 
   gem 'capistrano'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  #gem 'capistrano-file-permissions', require: false, github: 'morr/file-permissions'
   gem 'rvm1-capistrano3', require: false
 
   gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
