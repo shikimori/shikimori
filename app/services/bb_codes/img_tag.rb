@@ -2,11 +2,11 @@ class BbCodes::ImgTag
   include Singleton
 
   REGEXP = /
-      (?<url_start>\[url=[^\[\]]+\])
+      \[url=(?<link_url>[^\[\]]+)\]
         \[img\]
-          (?<url>[^\[\]].*?)
+          (?<image_url>[^\[\]].*?)
         \[\/img\]
-      (?<url_end>\[\/url\])
+      \[\/url\]
     |
       \[
         img
@@ -17,33 +17,29 @@ class BbCodes::ImgTag
           (?: \s h(?:eight)?=(?<height>\d+) )?
         )*
       \]
-        (?<url>[^\[\]].*?)
+        (?<image_url>[^\[\]].*?)
       \[\/img\]
   /imx
 
   def format text, text_hash
     text.gsub REGEXP do
-      if $~[:url_start] && $~[:url_end]
-        html_for_linked_image $~[:url], $~[:url_start], $~[:url_end]
+      if $~[:link_url]
+        html_for_image $~[:image_url], $~[:link_url], 0, 0, nil, text_hash
       else
-        html_for_image $~[:url], $~[:width].to_i, $~[:height].to_i, $~[:klass], text_hash
+        html_for_image $~[:image_url], nil, $~[:width].to_i, $~[:height].to_i, $~[:klass], text_hash
       end
     end
   end
 
 private
-  def html_for_image url, width, height, klass, text_hash
+  def html_for_image image_url, link_url, width, height, klass, text_hash
     sizes_html = ''
 
     sizes_html += " width=\"#{width}\"" if width > 0
     sizes_html += " height=\"#{height.to_i}\"" if height > 0
 
-    "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" #{"class=\"#{klass}\"" if klass}#{sizes_html}/></a>"
-  end
-
-  # TODO: а не выпилить ли этот случай? тогда check-width вообще удалить можно будет вместе с js обработчиком
-  def html_for_linked_image url, url_start, url_end
-    "#{url_start}<img src=\"#{url}\" class=\"check-width\"/>#{url_end}"
+    "<a href=\"#{link_url || image_url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
+<img src=\"#{image_url}\" class=\"#{'check-width' unless sizes_html.present?}\
+#{' '+klass if klass.present?}\"#{sizes_html}/></a>"
   end
 end

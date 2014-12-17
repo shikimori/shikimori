@@ -120,12 +120,12 @@ $with = (selector, $root) ->
     .spoiler()
 
   $with('.b-video.unprocessed', $root).shiki_video()
+  $with('img.check-width', $root)
+    .removeClass('check-width')
+    .normalize_image(append_marker: true)
   $with('.b-image.unprocessed', $root)
     .removeClass('unprocessed')
-      .children('img')
-      .normalize_image
-        append_marker: true
-        #fancybox: $.galleryOptions
+    .magnific_rel_gallery()
 
   # сворачиваение всех нужных блоков "свернуть"
   _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
