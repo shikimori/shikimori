@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 gem 'rake'
-gem 'rails', '4.2.0.rc1'
+gem 'rails', '4.2.0.rc3'
 #gem 'bower-rails'
 
 gem 'pg'
@@ -97,9 +97,9 @@ group :development do
   gem 'quiet_assets'
   #gem 'sextant'
   gem 'mactag'
-  gem 'better_errors'
+  #gem 'better_errors'
   #gem 'sprockets_better_errors'
-  gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
+  #gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
   #gem 'sql-logging'
 
   gem 'capistrano'
