@@ -36,7 +36,7 @@ shared_examples_for :entry_show do |page|
       before { get :show, id: entry.to_param, page: 'info', format: 'json' }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
 
       it { expect(json).to have_key 'title_page' }
       it { expect(json).to have_key 'content' }
@@ -60,7 +60,7 @@ shared_examples_for :entry_page do |page|
 
       it { expect(assigns(:director).partial).to eq "#{assigns(:director).send(:view_root)}/#{page}" }
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
     end
   end
 end
@@ -94,7 +94,7 @@ shared_examples_for :entry_edit do |subpage|
 
         it { expect(assigns(:director).partial).to eq "#{assigns(:director).send(:view_root)}/edit/#{subpage}" }
         it { should respond_with :success }
-        it { should respond_with_content_type :json }
+        it { expect(response.content_type).to eq 'application/json' }
       end
     end
   end

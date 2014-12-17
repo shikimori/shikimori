@@ -15,6 +15,6 @@ describe Api::V1::CalendarsController do
     specify { expect(assigns(:collection).size).to eq(4) }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 end

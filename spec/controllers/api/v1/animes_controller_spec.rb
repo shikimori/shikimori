@@ -10,7 +10,7 @@ describe Api::V1::AnimesController do
     before { get :index, page: 1, limit: 1, type: 'TV', season: '2014', genre: genre.id.to_s, studio: studio.id.to_s, duration: 'F', rating: 'NC-17', search: 'Te', order: 'ranked', mylist: '1', format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
@@ -19,7 +19,7 @@ describe Api::V1::AnimesController do
     before { get :show, id: anime.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe 'similar' do
@@ -28,7 +28,7 @@ describe Api::V1::AnimesController do
     before { get :similar, id: anime.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
@@ -41,7 +41,7 @@ describe Api::V1::AnimesController do
     before { get :roles, id: anime.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(2) }
   end
 
@@ -51,7 +51,7 @@ describe Api::V1::AnimesController do
     before { get :related, id: anime.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
@@ -61,7 +61,7 @@ describe Api::V1::AnimesController do
     before { get :screenshots, id: anime.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 end

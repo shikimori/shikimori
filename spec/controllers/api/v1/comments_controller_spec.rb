@@ -4,7 +4,7 @@ describe Api::V1::CommentsController do
     before { get :show, id: comment.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe 'index' do
@@ -15,6 +15,6 @@ describe Api::V1::CommentsController do
     before { get :index, commentable_type: User.name, commentable_id: user.id, page: 1, limit: 10, desc: '1', format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 end

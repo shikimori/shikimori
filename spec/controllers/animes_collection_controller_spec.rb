@@ -24,7 +24,7 @@ describe AnimesCollectionController do
               before { get :index, klass: type, format: 'json' }
 
               it { should respond_with 200 }
-              it { should respond_with_content_type :json }
+              it { expect(response.content_type).to eq 'application/json' }
             end
           end
 
@@ -47,7 +47,7 @@ describe AnimesCollectionController do
               before { get :index, klass: type, season: 'summer_2012', format: 'json' } 
 
               it { should respond_with 200 }
-              it { should respond_with_content_type :json }
+              it { expect(response.content_type).to eq 'application/json' }
             end
           end if type == 'anime'
         end

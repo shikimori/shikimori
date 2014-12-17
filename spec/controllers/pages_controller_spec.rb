@@ -132,6 +132,6 @@ describe PagesController do
     before { get :tableau }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 end

@@ -11,7 +11,7 @@ describe Api::V1::DevicesController do
 
     it { expect(assigns(:devices).size).to eq(1) }
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe '#create' do
@@ -19,7 +19,7 @@ describe Api::V1::DevicesController do
 
     it { expect(assigns :device).to be_persisted }
     it { should respond_with :created }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe '#destroy' do
@@ -28,7 +28,7 @@ describe Api::V1::DevicesController do
 
     it { expect(assigns :device).to be_destroyed }
     it { should respond_with :no_content }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe 'permissions' do

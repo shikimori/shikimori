@@ -6,7 +6,7 @@ describe Api::V1::TopicsController do
     before { get :index, section: section.permalink, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:topics).size).to eq(1) }
   end
 

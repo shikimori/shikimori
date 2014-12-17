@@ -18,7 +18,7 @@ describe VideosController do
       before { post :create, id: anime_id, video: { url: url, kind: kind, name: name } }
 
       it { should respond_with 200 }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
     end
 
     describe 'apply' do
@@ -58,7 +58,7 @@ describe VideosController do
     before { post :destroy, id: video.id }
 
     it { should respond_with 200 }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
 
     it 'suggest video deletion' do
       expect {

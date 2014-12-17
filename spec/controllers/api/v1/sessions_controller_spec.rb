@@ -5,6 +5,6 @@ describe Api::V1::SessionsController do
     before { post :create, user: { nickname: user.nickname, password: '123456' }, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 end

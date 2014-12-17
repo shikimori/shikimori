@@ -24,7 +24,7 @@ describe GroupRolesController do
     before { get :autocomplete, club_id: club.to_param, search: user.nickname }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     it { expect(collection).to eq [user] }
   end
 end

@@ -9,7 +9,7 @@ describe Api::V1::UsersController do
     before { get :index, page: 1, limit: 1, search: 'Te', format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(2) }
   end
 
@@ -17,7 +17,7 @@ describe Api::V1::UsersController do
     before { get :show, id: user.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe 'whoami' do

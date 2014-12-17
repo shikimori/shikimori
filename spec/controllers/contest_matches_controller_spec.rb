@@ -14,7 +14,7 @@ describe ContestMatchesController do
       before { post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'left' }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
       it { expect(assigns(:match).votes.size).to eq(1) }
     end
 
@@ -26,7 +26,7 @@ describe ContestMatchesController do
       let(:json) { JSON.parse response.body }
 
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
       it { expect(assigns(:match).votes.size).to eq(1) }
       it { expect(json['variant']).to eq 'right' }
       it { expect(json['vote_id']).to eq match.id }
@@ -39,7 +39,7 @@ describe ContestMatchesController do
       end
 
       it { should respond_with 422 }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
       it { expect(assigns(:match).votes.size).to eq(1) }
     end
   end

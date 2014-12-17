@@ -16,7 +16,7 @@ describe UserImagesController do
       end
 
       it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
 
       it 'creates new image' do
         expect {

@@ -10,7 +10,7 @@ describe Api::V1::MangasController do
     before { get :index, page: 1, limit: 1, type: 'Manga', season: '2014', genre: genre.id.to_s, publisher: publisher.id.to_s, rating: 'NC-17', search: 'Te', order: 'ranked', mylist: '1', format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
@@ -19,7 +19,7 @@ describe Api::V1::MangasController do
     before { get :show, id: manga.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe 'similar' do
@@ -28,7 +28,7 @@ describe Api::V1::MangasController do
     before { get :similar, id: manga.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
@@ -41,7 +41,7 @@ describe Api::V1::MangasController do
     before { get :roles, id: manga.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(2) }
   end
 
@@ -51,7 +51,7 @@ describe Api::V1::MangasController do
     before { get :related, id: manga.id, format: :json }
 
     it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 end

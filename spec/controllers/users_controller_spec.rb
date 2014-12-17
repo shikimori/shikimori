@@ -5,7 +5,7 @@ describe UsersController do
   describe 'settings' do
     describe 'json' do
       before { get :show, id: user.to_param, type: 'settings', page: 'account', format: :json }
-      it { should respond_with_content_type :json }
+      it { expect(response.content_type).to eq 'application/json' }
       it { should respond_with :success }
     end
 
