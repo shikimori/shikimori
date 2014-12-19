@@ -32,7 +32,7 @@ gem 'nokogiri'
 gem 'paperclip'
 gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
-gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master' # перейти на стабильную версию гема после выпуска релиза с поддержкой rails 4.2
+gem 'simple_form'
 gem 'active_model_serializers'
 gem 'virtus'
 gem 'attr_extras'
