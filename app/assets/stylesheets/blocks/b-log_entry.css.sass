@@ -8,10 +8,10 @@
   +log_entry
 
   .duration-ban
-    color: red
+    color: $red
 
   .duration-warning
-    color: orange
+    color: $orange
 
   .duration-ban, .duration-warning
     display: inline-block
@@ -21,6 +21,9 @@
 
   .short
     +ellipsis
+
+  .b-user16
+    margin-right: 0
 
   .collapse
     display: block !important
@@ -42,3 +45,29 @@
 
   .duration + .moderator, .duration-warning + .moderator
     padding-left: 0
+
+  .kind
+    &.broken
+      color: $red
+    &.wrong
+      color: $orange
+    &.uploaded
+      color: $blue
+
+  .state
+    display: inline-block
+
+    &.pending
+      color: $orange
+
+    &.accepted
+      color: $green
+
+    &.taken
+      color: $blue
+
+    &.rejected
+      color: $red
+
+    &.deleted
+      color: $red

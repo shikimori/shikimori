@@ -603,8 +603,15 @@ Site::Application.routes.draw do
         get :favourites
         get :clubs
         #get :stats
-        get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments
         get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
+
+        get 'reviews(/page/:page)' => :reviews, as: :reviews
+        get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments
+        scope 'comments' do
+          get 'reviews(/page/:page)' => :comments_reviews, as: :comments_reviews
+        end
+        get 'changes(/page/:page)' => :changes, as: :changes
+        get 'videos(/page/:page)' => :videos, as: :videos
       end
 
       resources :user_history, only: [], path: '/history' do
@@ -648,8 +655,8 @@ Site::Application.routes.draw do
       #patch ':id(/:type/:page)' => 'users#update'
       #patch ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
       #patch ':id/password' => 'users#update_password', as: :update_user_password
-      get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
-      post ':id/ban' => 'users#do_ban'
+      #get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
+      #post ':id/ban' => 'users#do_ban'
 
       #get ':id/comments(/page/:page)' => 'users#comments', as: :user_comments, type: 'comments'
       #get ':id/reviews(/page/:page)' => 'users#reviews', as: :user_reviews, type: 'reviews'
@@ -668,13 +675,13 @@ Site::Application.routes.draw do
       #post ':id/import' => 'user_lists#list_import', as: :list_import
       #get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }
 
-      get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
+      #get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
       #get ':id/message' => 'messages#new', as: :private_message
       get ':id/provider/:provider' => 'users#remove_provider', as: :user_remove_provider
     end
 
-    post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe
-    delete 'subscriptions/:type/:id' => 'subscriptions#destroy'
+    #post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe
+    delete 'subscriptions/:type/:id' => 'subscriptions#destroy', as: :subscribe
 
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/

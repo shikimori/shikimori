@@ -1,10 +1,12 @@
 @import compass/typography/text/ellipsis
 @import compass/utilities/general/clearfix
+@import globals/variables
 @import mixins/block
 @import mixins/brackets_surrounded
 @import mixins/clear_left
 @import mixins/column
 @import mixins/dash_separated
+@import mixins/comma_separated
 @import mixins/hover_underlined
 @import mixins/link
 @import mixins/menu-blocks
@@ -66,106 +68,128 @@
         clear: left
         margin-top: 0
 
+        a
+          +link
+          padding: 0
+
         span
-          &:after
-            color: $gray-color-0
-            content: '/'
-            padding: 0 5px
+          +dash_separated(5px)
 
-          &:last-child:after
-            content: ''
+          &:last-child
+            font-style: italic
 
-      //+iphone
+      .misc
+        margin-left: 1px
+        span, a
+          +dash_separated(5px)
+          padding: 0
+
+      +iphone
         .misc, .edit
-          float: left
-          line-height: 1.65
-          padding: 0 0 0 1px
+          padding: 0
+          margin-bottom: 2px
 
       .banned
-        color: red
+        color: $red
 
-  .c-lists-info
+  .c-info
     overflow: hidden
-
     +iphone
       clear: both
 
-    .summary
-      font-size: 12px
-      line-height: 17px
-      margin-bottom: 20px
+    .c-additionals
+      margin-bottom: $block_offset
 
-      p
-        font-size: inherit
-        line-height: inherit
+      b
+        color: #333
+        padding-right: 5px
 
-      .last-online
-        font-size: 11px
-        color: #888
+      div
+        +comma_separated(5px)
+        display: inline-block
+        font-size: 12px
+        line-height: 1.45
 
-    // синяя и фиолетовая полоски о размерах списка аниме и манги
-    .b-stat_bar
-      +clearfix
-
-      +gte_ipad
-        margin-bottom: $block_offset / 2
-
-      +iphone
-        margin-bottom: $block_offset
-
-      .compatibility
         a
           +link
 
-        .text
-          &.zero
-            +link_color($gray-color)
-          &.weak
-            +link_color(#6ea36e)
-          &.moderate
-            +link_color(#40a540)
-          &.high
-            +link_color(#18ca18)
-          &.full
-            +link_color(#0092ff)
+    .c-lists-info
+      .summary
+        font-size: 12px
+        line-height: 17px
+        margin-bottom: 20px
 
-        span.link-replacement
+        p
+          font-size: inherit
+          line-height: inherit
+
+        .last-online
+          font-size: 11px
+          color: #888
+
+      // синяя и фиолетовая полоски о размерах списка аниме и манги
+      .b-stat_bar
+        +clearfix
+
+        +gte_ipad
+          margin-bottom: $block_offset / 2
+
+        +iphone
+          margin-bottom: $block_offset
+
+        .compatibility
+          a
+            +link
+
           .text
             &.zero
-              color: $gray-color
+              +link_color($gray-color)
             &.weak
-              color: #6ea36e
+              +link_color(#6ea36e)
             &.moderate
-              color: #40a540
+              +link_color(#40a540)
             &.high
-              color: #18ca18
+              +link_color(#18ca18)
             &.full
-              color: #0092ff
+              +link_color(#0092ff)
 
-        a, span.link-replacement
-          float: right
-          font-size: 11px
-          margin-top: 2px
+          span.link-replacement
+            .text
+              &.zero
+                color: $gray-color
+              &.weak
+                color: #6ea36e
+              &.moderate
+                color: #40a540
+              &.high
+                color: #18ca18
+              &.full
+                color: #0092ff
+
+          a, span.link-replacement
+            float: right
+            font-size: 11px
+            margin-top: 2px
 
 
-        .rate
-          font-weight: bold
-          +brackets_surrounded
-
-      .stat_names
-        font-size: 11px
-        line-height: 1.5
-        margin-left: 2px
-
-        .stat_name
-          +dash_separated
-          display: inline-block
-
-          a
-            +link(#123)
-
-          .size
+          .rate
+            font-weight: bold
             +brackets_surrounded
+
+        .stat_names
+          font-size: 11px
+          line-height: 1.5
+          margin-left: 2px
+
+          .stat_name
+            +dash_separated
+            display: inline-block
+
+            a
+              +link(#123)
+
+            .size
+              +brackets_surrounded
 
     //clear: both
 
@@ -177,6 +201,10 @@
           padding: 0 5px
       .third
         text-align: right
+
+      //div
+        +dash_separated(5px)
+        display: inline-block
 
 
   //.mylist-block

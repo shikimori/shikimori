@@ -3,7 +3,7 @@ describe UserStatsDecorator do
   let(:anime) { create :anime, episodes: 24, duration: 60 }
   let(:manga) { create :manga, chapters: 54 }
 
-  let(:stats) { UserStatsDecorator.new user, nil }
+  subject(:stats) { UserStatsDecorator.new user, nil }
 
   describe '#spent_time' do
     subject { stats.spent_time }
@@ -133,5 +133,52 @@ describe UserStatsDecorator do
       let(:interval) { 365 * 1.25 }
       it { should eq '1 год и 3 месяца' }
     end
+  end
+
+  describe '#comments_count' do
+    let(:topic) { create :topic, user: user }
+    let!(:comment) { create_list :comment, 2, user: user, commentable: topic }
+    let!(:comment_2) { create :comment, commentable: topic }
+    subject { stats.comments_count }
+
+    it { should eq 2 }
+  end
+
+  describe '#comments_reviews_count' do
+    let(:topic) { create :topic, user: user }
+    let!(:comment) { create :comment, user: user, commentable: topic, review: true }
+    let!(:comment_2) { create :comment, user: user, commentable: topic }
+    subject { stats.comments_reviews_count }
+
+    it { should eq 1 }
+  end
+
+  describe '#reviews_count' do
+    let!(:review) { create :review, user: user }
+    let!(:review_2) { create :review }
+    subject { stats.reviews_count }
+
+    it { should eq 1 }
+  end
+
+  describe '#content_changes_count' do
+    let!(:user_change_1) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Taken }
+    let!(:user_change_2) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Accepted }
+    let!(:user_change_3) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Pending }
+    let!(:user_change_4) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Rejected }
+    let!(:user_change_5) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Deleted }
+    let!(:user_change_6) { create :user_change, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Taken }
+    subject { stats.content_changes_count }
+
+    it { should eq 2 }
+  end
+
+  describe '#videos_changes_count' do
+    let!(:report_1) { create :anime_video_report, user: user, state: 'accepted' }
+    let!(:report_2) { create :anime_video_report, user: user, state: 'rejected' }
+    let!(:report_3) { create :anime_video_report, state: 'accepted' }
+    subject { stats.videos_changes_count }
+
+    it { should eq 1 }
   end
 end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user_change do
-    user nil
+    user
     approver nil
     model nil
     item_id nil

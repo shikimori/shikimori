@@ -15,8 +15,7 @@ class ReviewsController < AnimesController
     @reviews = ReviewsQuery
       .new(@resource.object, current_user, params[:id].to_i)
       .fetch.map do |review|
-        topic = TopicDecorator.new review.thread
-        topic
+        TopicDecorator.new review.thread
       end
   end
 

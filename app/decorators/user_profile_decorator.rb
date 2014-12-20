@@ -21,7 +21,7 @@ class UserProfileDecorator < UserDecorator
     return '' if object.website.blank?
 
     url_wo_http = h.h(object.website).sub(/^https?:\/\//, '')
-    h.link_to url_wo_http, "http://#{url_wo_http}", class: 'website'
+    h.link_to url_wo_http.sub(/\/.*/, ''), "http://#{url_wo_http}", class: 'website'
   end
 
   def about_html
@@ -102,6 +102,9 @@ class UserProfileDecorator < UserDecorator
     else
       info << 'Личные данные скрыты'
     end
+
+    info << "на сайте с <span class=\"reg-date\">#{h.l created_at, format: :with_month_name}г.</span>".html_safe
+
     info
   end
 

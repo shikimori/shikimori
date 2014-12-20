@@ -1,4 +1,5 @@
 @import compass/typography/text/ellipsis
+@import globals/variables
 @import mixins/link
 @import mixins/icons
 
@@ -59,7 +60,7 @@ $grid-color: $gray-color-0
       .loser
         +icon("\e813")
         &:before
-          color: red
+          color: $red
 
       .finalist
         +icon("\e83b")

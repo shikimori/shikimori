@@ -21,13 +21,6 @@ class UserChangesQuery
       .uniq
   end
 
-  def lock
-    UserChange
-      .where(model: @entry.class.name, item_id: @entry.id, status: UserChangeStatus::Locked)
-      .includes(:user)
-      .first
-  end
-
 private
   def video_presence_filter
     if @field.to_sym == :video

@@ -25,7 +25,7 @@ class Moderation::UserChangesController < ShikimoriController
       UserChange
         .includes(:user)
         .includes(:approver)
-        .where.not(status: [UserChangeStatus::Pending, UserChangeStatus::Locked])
+        .where.not(status: [UserChangeStatus::Pending])
         .order(updated_at: :desc)
     end
 

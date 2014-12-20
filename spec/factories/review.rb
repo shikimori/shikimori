@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :review do
-    target { FactoryGirl.create(:anime) }
-    user { FactoryGirl.create(:user) }
+    association :target, factory: :anime
+    user
 
     text 1188.times.sum {|v| 's' }
     overall 1

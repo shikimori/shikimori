@@ -25,8 +25,24 @@ class ProfilesController < ShikimoriController
     page_title 'Избранное'
   end
 
+  #def stats
+    #page_title 'Статистика'
+  #end
+
+  def reviews
+    collection = postload_paginate(params[:page], 5) do
+      @resource.reviews.order(id: :desc)
+    end
+
+    @collection = collection.map do |review|
+      TopicDecorator.new review.thread
+    end
+
+    page_title 'Рецензии'
+  end
+
   def comments
-    comments = postload_paginate(params[:page], 20) do
+    collection = postload_paginate(params[:page], 20) do
       Comment
         .where(user: @resource)
         .where(params[:search].present? ?
@@ -34,14 +50,40 @@ class ProfilesController < ShikimoriController
           nil)
         .order(id: :desc)
     end
-    @comments = comments.map {|v| SolitaryCommentDecorator.new v }
+    @collection = collection.map {|v| SolitaryCommentDecorator.new v }
 
     page_title 'Комментарии'
   end
 
-  #def stats
-    #page_title 'Статистика'
-  #end
+  def comments_reviews
+    collection = postload_paginate(params[:page], 20) do
+      Comment
+        .where(user: @resource, review: true)
+        .order(id: :desc)
+    end
+    @collection = collection.map {|v| SolitaryCommentDecorator.new v }
+
+    page_title 'Отзывы'
+  end
+
+  def changes
+    @collection = postload_paginate(params[:page], 30) do
+      @resource.user_changes.order(id: :desc)
+    end
+
+    page_title 'Правки контента'
+  end
+
+  def videos
+    @collection = postload_paginate(params[:page], 30) do
+      AnimeVideoReport
+        .where(user: @resource)
+        .includes(:user, anime_video: :author)
+        .order(id: :desc)
+    end
+
+    page_title 'Видео загрузки и правки'
+  end
 
   def edit
     authorize! :edit, @resource

@@ -37,7 +37,6 @@ module Clockwork
     AnimeCalendarsImporter.perform_async
     ContestsWorker.perform_async
     SakuhindbImporter.perform_async with_fail: false
-    OldLocksCleaner.perform_async
     ReadMangaLinksWorker.perform_async
 
     AnimesVerifier.perform_async

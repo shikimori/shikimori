@@ -1,11 +1,19 @@
 = render layout: 'page' do
+  /.b-options-floated.mobile-support
+    a href="#{comments_reviews_profile_url @resource}"
+      | Отзывы
+      span.brackets = @resource.stats.comments_reviews_count
+    span.link.selected
+      | Комментарии
+      span.brackets = @resource.stats.comments_count
+
   = form_tag '', method: :get, class: 'comments-search' do
     input.subheadline-input.search value="#{SearchHelper.unescape params[:search]}" type="text" placeholder="Поиск по комментариям..." data-search_url="#{comments_profile_url @resource}"
   h2.subheadline.m10 = @page_title.last
   .b-comments
-    - if @comments.any?
-      = render @comments
+    - if @collection.any?
+      = render @collection
       - if @add_postloader
-        = render partial: 'blocks/postloader', locals: { filter: 'b-comment', url: comments_profile_url(page: @page+1, search: params[:search]) }
+        = render 'blocks/postloader', filter: 'b-comment', url: comments_profile_url(page: @page+1, search: params[:search])
     - else
       p.b-nothing_here Нет комментариев

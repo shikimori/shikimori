@@ -2,6 +2,7 @@ class UserStatsDecorator
   prepend ActiveCacher.instance
 
   instance_cache :graph_statuses, :spent_time
+  instance_cache :comments_count, :comments_reviews_count, :reviews_count, :user_changes_count, :uploaded_videos_count
 
   def initialize user, current_user
     @user = user
@@ -60,38 +61,11 @@ class UserStatsDecorator
   end
 
   def spent_time_in_words
-    if spent_time.days.zero?
-      '0 часов'
-
-    elsif spent_time.years >= 1
-      months = spent_time.months_part > 0 ? " и #{I18n.time_part(spent_time.months_part.to_i, :month)}" : ''
-      I18n.time_part(spent_time.years.to_i, :year) + months
-
-    elsif spent_time.months >= 1
-      weeks = spent_time.weeks_part > 0 ?
-        " и #{I18n.time_part(spent_time.weeks_part.to_i, :week)}".sub('1 неделя', '1 неделю') : ''
-      I18n.time_part(spent_time.months.to_i, :month) + weeks
-
-    elsif spent_time.weeks >= 1
-      days = spent_time.days_part > 0 ? " и #{I18n.time_part(spent_time.days_part.to_i, :day)}" : ''
-      I18n.time_part(spent_time.weeks.to_i, :week) + days
-
-    elsif spent_time.days >= 1
-      hours = spent_time.hours_part > 0 ? " и #{I18n.time_part(spent_time.hours_part.to_i, :hour)}" : ''
-      I18n.time_part(spent_time.days.to_i, :day) + hours
-
-    elsif spent_time.hours >= 1
-      minutes = spent_time.minutes_part > 0 ?
-        " и #{I18n.time_part(spent_time.minutes_part.to_i, :minute)}".sub('1 минута', '1 минуту') : ''
-      I18n.time_part(spent_time.hours.to_i, :hour) + minutes
-
-    elsif spent_time.minutes >= 1
-      I18n.time_part(spent_time.minutes.to_i, :minute)
-    end
+    localize_spent_time spent_time, true
   end
 
   def spent_time_label
-    gender_label = @user.male? ? 'Провёл' : 'Провела'
+    gender_label = 'Время'#@user.male? ? 'Провёл' : 'Провела'
     kind_label = if anime? && manga?
       'аниме и мангой'
     elsif manga?
@@ -101,6 +75,11 @@ class UserStatsDecorator
     end
 
     "#{gender_label} за #{kind_label}"
+  end
+
+  def time_since_signup
+    time = SpentTime.new((Time.zone.now - User.first.created_at) / 1.day)
+    localize_spent_time time, false
   end
 
   def activity
@@ -149,6 +128,31 @@ class UserStatsDecorator
     { manga: @stats.by_categories('publisher', @stats.publishers, nil, @stats.manga_valuable_rates, 17) }
   end
 
+  def social_activity?
+    comments_count > 0 || comments_reviews_count > 0 || reviews_count > 0 ||
+      content_changes_count > 0 || videos_changes_count > 0
+  end
+
+  def comments_count
+    Comment.where(user_id: @user.id).count
+  end
+
+  def comments_reviews_count
+    Comment.where(user_id: @user.id, review: true).count
+  end
+
+  def reviews_count
+    @user.reviews.count
+  end
+
+  def content_changes_count
+    @user.user_changes.where(status: [UserChangeStatus::Taken, UserChangeStatus::Accepted]).count
+  end
+
+  def videos_changes_count
+    AnimeVideoReport.where(user: @user).where.not(state: 'rejected').count
+  end
+
 private
   def anime?
     @stats.anime_rates.any?
@@ -156,5 +160,39 @@ private
 
   def manga?
     @stats.manga_rates.any?
+  end
+
+  def localize_spent_time time, is_genitive
+    if time.days.zero?
+      '0 часов'
+
+    elsif time.years >= 1
+      months = time.months_part > 0 ? " и #{I18n.time_part(time.months_part.to_i, :month)}" : ''
+      I18n.time_part(time.years.to_i, :year) + months
+
+    elsif time.months >= 1
+      weeks = time.weeks_part > 0 ?
+        " и #{I18n.time_part(time.weeks_part.to_i, :week)}" : ''
+      weeks.sub! '1 неделя', '1 неделю' if is_genitive
+      I18n.time_part(time.months.to_i, :month) + weeks
+
+    elsif time.weeks >= 1
+      days = time.days_part > 0 ? " и #{I18n.time_part(time.days_part.to_i, :day)}" : ''
+      I18n.time_part(time.weeks.to_i, :week) + days
+
+    elsif time.days >= 1
+      hours = time.hours_part > 0 ? " и #{I18n.time_part(time.hours_part.to_i, :hour)}" : ''
+      I18n.time_part(time.days.to_i, :day) + hours
+
+    elsif time.hours >= 1
+      minutes = time.minutes_part > 0 ?
+        " и #{I18n.time_part(time.minutes_part.to_i, :minute)}" : ''
+      minutes.sub! '1 неделя', '1 неделю' if is_genitive
+
+      I18n.time_part(time.hours.to_i, :hour) + minutes
+
+    elsif time.minutes >= 1
+      I18n.time_part(time.minutes.to_i, :minute)
+    end
   end
 end

@@ -1,4 +1,5 @@
 @import globals/variables
+@import mixins/link
 
 .b-entry-info
   margin-left: 4px
@@ -13,6 +14,9 @@
     .value
       color: #123
       display: inline
+
+    a
+      +link
 
   //&.shortened
     height: 96px

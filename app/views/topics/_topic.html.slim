@@ -51,7 +51,7 @@
 
           - if topic.review? && user_signed_in? && topic.linked.user_id != current_user.id
             p
-              span Этот обзор полезен?
+              span Эта рецензия полезна?
               span.vote class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
               span.vote class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
 

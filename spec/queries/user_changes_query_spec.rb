@@ -14,7 +14,6 @@ describe UserChangesQuery do
     create :user_change, model: 'Anime', column: 'description', item_id: entry.id, user_id: user3.id, status: UserChangeStatus::Accepted
     create :user_change, model: 'Character', column: 'name', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Accepted
     create :user_change, model: 'Character', column: 'description', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Pending
-    @lock = create :user_change, model: 'Character', column: 'description', item_id: entry.id, user_id: user4.id, status: UserChangeStatus::Locked
     1.upto(2) { create :user_change, model: 'Character', column: 'video', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Taken }
     create :user_change, model: 'Character', column: 'screenshots', item_id: entry.id, user_id: user.id, status: UserChangeStatus::Taken
   end
@@ -41,10 +40,4 @@ describe UserChangesQuery do
       it { expect(UserChangesQuery.new(anime, 'video').authors).to eq [user3] }
     end
   end
-
-  describe 'lock' do
-    it { expect(UserChangesQuery.new(entry, 'description').lock).to eql @lock }
-    it { expect(UserChangesQuery.new(entry2, 'description').lock).to be_nil }
-  end
 end
-

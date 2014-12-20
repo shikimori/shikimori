@@ -1,19 +1,13 @@
-- content_for :head do
-  = stylesheet_link_tag :moderation_anime_video_reports
-- content_for :tail do
-  = javascript_include_tag :moderation_anime_video_reports
-
 header.head
   h1 = @page_title
+  p.notice Загрузки видео пользователями и жалобы пользователей на сломанные видео
 
 .anime_video_reports
   h2.subheadline Очередь
-  ul.subcontent
-    = render partial: 'moderation/anime_video_reports/report', collection: @pending, formats: :html
-
-  br
+  .block
+    = render partial: 'moderation/anime_video_reports/report', collection: @pending
 
   h2.subheadline История
-  ul.subcontent
-    = render partial: 'moderation/anime_video_reports/report', collection: @processed, formats: :html
-    = render partial: 'blocks/postloader', locals: { url: page_moderation_anime_video_reports_url(page: @page+1, format: :json) }, formats: :html
+  .block
+    = render partial: 'moderation/anime_video_reports/report', collection: @processed
+    = render 'blocks/postloader', url: page_moderation_anime_video_reports_url(page: @page+1, format: :json)

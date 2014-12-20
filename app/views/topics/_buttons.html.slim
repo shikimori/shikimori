@@ -8,7 +8,7 @@ aside.buttons
           title="Подписаться на топик"
           data-type="json"
           data-action="#{subscribe_url type: topic.class.name, id: topic.id}"
-          data-method="#{current_user.subscribed?(topic.object) ? 'delete' : 'post'}"
+          data-method="#{current_user.subscribed?(topic.object) ? :delete : :post}"
           data-remote="true"
         ]
 

@@ -97,14 +97,14 @@
       color: $gray-color-2
 
     &.voted-left .started:last-child:before, &.voted-right .started:first-child:before
-      color: red
+      color: $red
 
     .winner:before
       color: green
       content: '\e817'
 
     .loser:before
-      color: red
+      color: $red
       content: '\e813'
       padding-right: 5px
 
@@ -125,7 +125,7 @@
       color: green
 
     .loser &
-      color: red
+      color: $red
 
   //.swiss
     .match-day .match-link .c-column

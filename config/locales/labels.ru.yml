@@ -137,12 +137,11 @@ ru:
       chapters: Главы
       days: Дни
   UserChangeStatus:
-    Pending: Ожидает рассмотрения
-    Accepted: Принято
-    Taken: Взято
-    Rejected: Отклонено
-    Deleted: Удалено
-    Locked: Забронировано
+    Pending: ожидает рассмотрения
+    Accepted: принято
+    Taken: взято
+    Rejected: отклонено
+    Deleted: удалено
   Torrents:
     torrents_480p: Эпизоды 480p
     torrents_720p: HD Эпизоды 720p

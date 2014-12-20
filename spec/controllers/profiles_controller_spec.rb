@@ -45,9 +45,35 @@ describe ProfilesController do
     end
   end
 
+  describe '#reviews' do
+    let!(:section) { create :section, :reviews }
+    let!(:review) { create :review, user: user }
+    before { get :reviews, id: user.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#comments' do
-    let!(:comment_role) { create :comment, user: user, commentable: user }
+    let!(:comment) { create :comment, user: user, commentable: user }
     before { get :comments, id: user.to_param }
+    it { should respond_with :success }
+  end
+
+  describe '#comments_reviews' do
+    let!(:comment) { create :comment, user: user, commentable: user, review: true }
+    before { get :comments_reviews, id: user.to_param }
+    it { should respond_with :success }
+  end
+
+  describe '#changes' do
+    let(:anime) { create :anime }
+    let!(:user_change) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Taken }
+    before { get :changes, id: user.to_param }
+    it { should respond_with :success }
+  end
+
+  describe '#videos' do
+    let!(:video) { create :video, uploader: user, state: 'confirmed', url: 'http://youtube.com/watch?v=VdwKZ6JDENc' }
+    before { get :videos, id: user.to_param }
     it { should respond_with :success }
   end
 

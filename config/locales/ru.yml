@@ -1,4 +1,8 @@
 ru:
+  time:
+    formats:
+      with_month_name: '%e %b %Y'
+
   activerecord:
     # названия полей моделей
     attributes:

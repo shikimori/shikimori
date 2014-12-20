@@ -5,7 +5,7 @@ $comment = (node) ->
 $moderation = (node) ->
   $(node).closest('.b-abuse_request').find('.b-request_resolution .moderation')
 
-@on 'page:load', 'bans_index', 'abuse_requests_index', 'user_changes_index', 'review_index', ->
+@on 'page:load', 'bans_index', 'abuse_requests_index', 'user_changes_index', 'review_index', 'anime_video_reports_index', ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
 
@@ -13,6 +13,10 @@ $moderation = (node) ->
   $('.moderation .take, .moderation .deny').on 'ajax:success', ->
     $comment(@).data('shiki_object')._reload()
     $moderation(@).hide()
+
+  $('.p-anime_video_reports .collapsed').on 'click', ->
+    $iframe = $('iframe', $(@).parent())
+    $iframe.attr src: $iframe.data('url')
 
   ## NOTE: порядок следования функций ajax:success важен
   ## редактирвоание коммента

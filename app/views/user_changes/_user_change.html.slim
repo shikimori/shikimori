@@ -17,6 +17,7 @@
         a.bubbled href="#{url_for user_change.item}" = user_change.item.name
       - else
         = t "Deleted.#{user_change.model}"
+
     - if user_change.screenshots?
       - if user_change.action == UserChange::ScreenshotsPosition
         span Порядок кадров
@@ -24,12 +25,14 @@
         span #{user_change.value.include?(',') ? 'Новые кадры' : 'Новый кадр'}
       - else
         span #{user_change.value.include?(',') ? 'Удаление кадров' : 'Удаление кадра'}
+
     - if user_change.video?
       - if user_change.action == UserChange::VideoUpload
         span Новое видео
       - elsif user_change.action == UserChange::VideoDeletion
         span Удаление видео
-    span.status style="color: #{user_change_status_color user_change.status}"
+
+    span.state class="#{user_change.status.downcase}"
       = t "UserChangeStatus.#{user_change.status}"
 
     - if user_change.approver.present?

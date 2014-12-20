@@ -3,13 +3,12 @@
     .c-history
       .subheadline.m13
         - if can? :access_list, @resource
-          a href="#{index_profile_user_history_index_url @resource}" История
+          a href="#{index_profile_user_history_index_url @resource}" Изменения списка
         - else
-          | История
-
-      ul.block-list-alt
+          | Изменения списка
+      .block-list
         - @resource.formatted_history.each do |entry|
-          li.entry
+          .entry
             a href="#{entry[:url]}" title="#{entry[:name]}"
               .image-name
                 img src="#{entry[:image]}" srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}" alt="#{entry[:name]}" title="#{entry[:name]}"
@@ -31,22 +30,45 @@
           a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
         = @resource.nickname
 
-      - if @resource.own_profile?
-        a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
-      - else
-        .misc
-          - if @resource.banned?
-            span.banned забанен
-          - else
-            = @resource.last_online
+      .misc
+        - if @resource.own_profile?
+          a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
+        - else @resource.own_profile?
+          span = @resource.last_online
+        - if @resource.banned?
+          span.banned забанен
 
-      p.notice
+      .notice
         - @resource.common_info.each do |entry|
           span = entry
 
-  .c-lists-info
-    - @resource.stats.graph_statuses.each do |klass,stats,graph|
-      = render 'stats_bar', klass: klass, stats: stats, graph: graph
+  .c-info
+    .c-lists-info
+      - @resource.stats.graph_statuses.each do |klass,stats,graph|
+        = render 'stats_bar', klass: klass, stats: stats, graph: graph
+
+    - if @resource.stats.social_activity?
+      .c-additionals
+        b Активность:
+        - if @resource.stats.reviews_count > 0
+          div: a href="#{reviews_profile_url @resource}"
+            = "#{@resource.stats.reviews_count} #{Russian.p @resource.stats.reviews_count, 'рецензия', 'рецензии', 'рецензий'}"
+
+        - if @resource.stats.comments_reviews_count > 0
+          div: a href="#{comments_reviews_profile_url @resource}"
+            = "#{@resource.stats.comments_reviews_count} #{Russian.p @resource.stats.comments_reviews_count, 'отзыв', 'отзыва', 'отзывов'}"
+
+        - if @resource.stats.content_changes_count > 0
+          div: a href="#{changes_profile_url @resource}"
+            = "#{@resource.stats.content_changes_count} #{Russian.p @resource.stats.content_changes_count, 'правка', 'правки', 'правок'} контента"
+
+        - if @resource.stats.videos_changes_count > 0
+          div: a href="#{videos_profile_url @resource}"
+            = "#{@resource.stats.videos_changes_count} #{Russian.p @resource.stats.videos_changes_count, 'правка', 'правки', 'правок'} видео"
+
+        - if @resource.stats.comments_count > 0
+          div: a href="#{comments_profile_url @resource}"
+            = "#{@resource.stats.comments_count} #{Russian.p @resource.stats.comments_count, 'комментарий', 'комментария', 'комментариев'}"
 
 .profile-content
   .cc-2.block
@@ -125,7 +147,7 @@
 
   - if @resource.about_html.present?
     .block
-      .subheadline.m10 Обо мне
+      .subheadline Обо мне
       = @resource.about_html
 
   - if @resource.show_comments?
