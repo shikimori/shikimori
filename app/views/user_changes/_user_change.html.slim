@@ -73,7 +73,7 @@
                 img src="#{image.image.url :preview, false}"
         - else
           .cc.m0
-            = render user_change.attached_screenshots
+            = render partial: 'screenshots/screenshot', collection: user_change.attached_screenshots
 
       - elsif user_change.video?
         blockquote
