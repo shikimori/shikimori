@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 gem 'rake'
-gem 'rails', '4.2.0.rc3'
+gem 'rails', '4.2.0'
+gem 'railties', '4.2.0'
 #gem 'bower-rails'
 
 gem 'pg'
@@ -10,7 +11,7 @@ gem 'pg'
 gem 'dalli'
 gem 'redis'
 
-gem 'slim-rails'
+gem 'slim-rails', github: 'zlfera/slim-rails' # TODO: заменить на основной репозиторий, когда его для rails 4.2 пофиксят
 gem 'coffee-rails'
 
 gem 'sass-rails', '5.0.0.beta1'
