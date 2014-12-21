@@ -31,7 +31,7 @@ class AnimeVideo < ActiveRecord::Base
 
   scope :worked, -> { where state: ['working', 'uploaded'] }
 
-  CopyrightBanAnimeIDs = [10793]
+  CopyrightBanAnimeIDs = [] # 10793
 
   state_machine :state, initial: :working do
     state :working
