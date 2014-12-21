@@ -11,6 +11,7 @@
   $('h1.aliases').tipsy
     gravity: 'w'
     html: true
+    prependTo: document.body
 
   $(".activity .graph").bar
     before: (stats, options, $chart) ->
