@@ -45,6 +45,15 @@
         +iphone
           width: 80px
 
+      .icon-actions
+        margin-top: 5px
+
+        +iphone
+          display: none
+
+        .talk
+          margin-left: 0
+
     header
       overflow: hidden
       margin-bottom: 10px
@@ -91,6 +100,20 @@
 
       .banned
         color: $red
+
+  .c-mobile-actions
+    clear: both
+    display: none
+    font-size: 12px
+    line-height: 1.65
+    margin-bottom: 20px
+
+    +iphone
+      display: block
+
+    a, span
+      +comma_separated(7px)
+      +link
 
   .c-info
     overflow: hidden

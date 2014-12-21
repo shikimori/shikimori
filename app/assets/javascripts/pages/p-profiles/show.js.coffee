@@ -1,4 +1,13 @@
 @on 'page:load', 'profiles_show', ->
+  # добавление/удаление из друзей
+  $('.friend-action').on 'ajax:success', ->
+    $('.friend-action').toggle()
+
+  # добавление/удаление в игнор
+  $('.ignore-action').on 'ajax:success', ->
+    $('.ignore-action').toggle()
+
+
   $(".activity .graph").bar
     before: (stats, options, $chart) ->
       # конвертируем даты

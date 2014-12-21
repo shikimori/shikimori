@@ -108,6 +108,19 @@
     @include icon_button('\e819');
     @include link_color;
   }
+  .ban {
+    @include icon_button('\e80a');
+  }
+  .ignore-add {
+    @include icon_button('\e812');
+  }
+  .ignore-remove {
+    @include icon_button('\e812');
+    @include link_color;
+  }
+  .talk {
+    @include icon_button('\e81f');
+  }
 }
 
 
@@ -164,43 +177,14 @@
 }
 
 /* профиль пользователя */
-.profile .left-block {
-  .profile {
-    @include menu_icon('\e81d');
-  }
-  .inbox, .notifications, .sent {
-    @include menu_icon('\e81f');
-  }
-  .comments {
-    @include menu_icon('\e80e');
-  }
-  .friends {
-    @include menu_icon('\e81e');
-  }
-  .reviews {
-    @include menu_icon('\e820');
-  }
-  .changes {
-    @include menu_icon('\e821');
-  }
-  .settings {
-    @include menu_icon('\e822');
-  }
-
-  .ban {
-    @include icon_button('\e80a');
-  }
-  .ignore-add {
-    @include icon_button('\e812');
-  }
-  .ignore-remove {
-    @include icon_button('\e812');
-    @include link_color;
-  }
-  .talk {
-    @include icon_button('\e80e');
-  }
-}
+/*.profile .left-block {*/
+  /*.inbox, .notifications, .sent {*/
+    /*@include menu_icon('\e81f');*/
+  /*}*/
+  /*.changes {*/
+    /*@include menu_icon('\e821');*/
+  /*}*/
+/*}*/
 
 .rss {
   @include icon_button('\e81a');

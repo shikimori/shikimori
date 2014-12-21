@@ -85,6 +85,11 @@ class ProfilesController < ShikimoriController
     page_title 'Видео загрузки и правки'
   end
 
+  def ban
+    @ban = Ban.new user_id: @resource.id
+    page_title 'Забанить пользователя'
+  end
+
   def edit
     authorize! :edit, @resource
     page_title 'Настройки'

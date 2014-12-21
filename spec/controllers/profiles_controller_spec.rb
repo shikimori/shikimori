@@ -77,6 +77,11 @@ describe ProfilesController do
     it { should respond_with :success }
   end
 
+  describe '#ban' do
+    before { get :ban, id: user.to_param }
+    it { should respond_with :success }
+  end
+
   #describe '#stats' do
     #before { get :stats, id: user.to_param }
     #it { should respond_with :success }

@@ -602,6 +602,7 @@ Site::Application.routes.draw do
         get :friends
         get :favourites
         get :clubs
+        get :ban
         #get :stats
         get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
 

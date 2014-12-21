@@ -7,4 +7,7 @@
   = f.input :reason, as: :string
 
   = f.submit 'Забанить', class: 'button submit'
-  .form-cancel Отмена
+  - if defined? ban_in_profile
+    a.form-cancel href="#{profile_url @ban.user}" Отмена
+  - else
+    .form-cancel Отмена
