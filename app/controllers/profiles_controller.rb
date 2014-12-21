@@ -127,7 +127,7 @@ class ProfilesController < ShikimoriController
 private
   def fetch_resource
     user = User.find_by! nickname: User.param_to(params[:profile_id] || params[:id])
-    @resource = UserProfileDecorator.new user
+    @resource = @user = UserProfileDecorator.new user
 
     page_title @resource.nickname
   end
