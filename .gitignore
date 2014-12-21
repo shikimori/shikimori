@@ -3,6 +3,7 @@
 *.sassc
 .DS_Store
 .bundle
+.capistrano
 .project
 .rvmrc
 .sass-cache

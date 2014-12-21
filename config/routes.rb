@@ -63,7 +63,7 @@ Site::Application.routes.draw do
     end
 
     #constraints section: Section::VARIANTS do
-    constraints section: /a|m|c|p|s|f|o|g|reviews|v|all|news/ do
+    constraints section: /a|m|c|p|s|f|o|g|reviews|v|all|news/, format: /html|json|rss/ do
       get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
       #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
 
@@ -597,7 +597,7 @@ Site::Application.routes.draw do
     #get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
 
 
-    resources :profiles, path: '/', constraints: { id: /[^\/]+?/ }, only: [:show, :update] do
+    resources :profiles, path: '/', constraints: { id: /[^\/]+/ }, only: [:show, :update] do
       member do
         get :friends
         get :favourites
