@@ -43,13 +43,13 @@
     }
     .sidekiq {
       .busy {
-        color: green;
+        color: $green;
       }
       .enqueued {
-        color: blue;
+        color: $blue;
       }
       .retries {
-        color: red;
+        color: $red;
       }
     }
   }

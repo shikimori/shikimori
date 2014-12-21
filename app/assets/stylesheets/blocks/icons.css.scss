@@ -121,6 +121,12 @@
   .talk {
     @include icon_button('\e81f');
   }
+  .mail {
+    @include icon_button('\e81f');
+  }
+  .settings {
+    @include icon_button('\e822');
+  }
 }
 
 

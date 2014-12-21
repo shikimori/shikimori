@@ -15,11 +15,11 @@
 
   &.disallowed {
     border-color: rgba(255, 0, 0, 0.6);
-    color: red;
+    color: $red;
   }
   &.hovered.allowed {
     border-color: rgba(0, 255, 0, 0.6);
-    color: green;
+    color: $green;
   }
 }
 .drag-here-placeholder {

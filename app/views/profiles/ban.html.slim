@@ -4,13 +4,14 @@
       .subheadline.red Забанен#{'а' if @resource.female?}
       p Время снятия бана #{@resource.read_only_at.strftime '%H:%M %d.%m.%Y'}
 
-  .block
-    .subheadline Забанить
-    p Данной страницей следует пользоваться только в случае невозможности бана за комментарий. Например, если комментарий удалён. Во всех остальных ситуациях баньте через форум в самом комментарии.
-    = render template: 'moderation/bans/new', locals: { ban_in_profile: true }
+  - if user_signed_in? && current_user.moderator?
+    .block
+      .subheadline Забанить
+      p Данной страницей следует пользоваться только в случае невозможности бана по комментарию. Например, если комментарий удалён. Во всех остальных ситуациях баньте через форум в самом комментарии.
+      = render template: 'moderation/bans/new', locals: { ban_in_profile: true }
 
   - if @resource.bans.any?
     .block
-      .subheadline История
+      .subheadline История банов
       .bans
         = render partial: 'moderation/bans/ban', collection: @resource.bans.reverse

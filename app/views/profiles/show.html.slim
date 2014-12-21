@@ -24,15 +24,23 @@
       img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
       /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
 
-      - if user_signed_in? && !@resource.own_profile?
+      - if user_signed_in?
         .icon-actions
-          a.talk href="#{profile_dialog_url current_user, @resource}" title="Написать"
-          span.fav-add.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в друзья"
-          span.fav-remove.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из друзей"
-          span.ignore-add.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в игнор"
-          span.ignore-remove.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из игнора"
-          - if current_user.moderator?
-            a.ban href="#{ban_profile_url @resource}" title="Забанить"
+          - if @resource.own_profile?
+            a.mail href="#{profile_dialogs_url @resource}" title="Почта"
+            a.settings href="#{edit_profile_url @resource}" title="Настройки"
+            a.ban href="#{ban_profile_url @resource}" title="Мои баны"
+
+          - else
+            a.talk href="#{profile_dialog_url current_user, @resource}" title="Написать"
+            span.fav-add.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в друзья"
+            span.fav-remove.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из друзей"
+            span.ignore-add.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в игнор"
+            span.ignore-remove.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из игнора"
+            - if current_user.moderator?
+              a.ban href="#{ban_profile_url @resource}" title="Забанить"
+            - else
+              a.ban href="#{ban_profile_url @resource}" title="История банов"
 
     header.head.misc
       h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
@@ -53,14 +61,22 @@
           span = entry
 
   .c-mobile-actions
-    - if user_signed_in? && !@resource.own_profile?
-      a href="#{profile_dialog_url current_user, @resource}" Написать
-      span.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" Добавить в друзья
-      span.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из друзей
-      span.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" Добавить в игнор
-      span.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из игнора
-      - if current_user.moderator?
-        a href="#{ban_profile_url @resource}" Забанить
+    - if user_signed_in?
+      - if @resource.own_profile?
+        a href="#{profile_dialogs_url @resource}" Почта
+        a href="#{edit_profile_url @resource}" Настройки
+        a href="#{ban_profile_url @resource}" Мои баны
+
+      - else
+        a href="#{profile_dialog_url current_user, @resource}" Написать
+        span.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" Добавить в друзья
+        span.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из друзей
+        span.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" Добавить в игнор
+        span.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из игнора
+        - if current_user.moderator?
+          a href="#{ban_profile_url @resource}" Забанить
+        - else
+          a href="#{ban_profile_url @resource}" История банов
 
   .c-info
     .c-lists-info

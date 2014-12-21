@@ -19,23 +19,23 @@ header.head
     li: p Регистрирующихся через прокси в обход бана баньте сразу без разговора и надолго, все комментарии новозарегенных акков стирайте.
     li: p За старые комментарии банить не стоит; старые комментарии отображаются со сноской <span style="font-size: 11px; color: green;">комментарий создан давно</span>.
 
-- if @pending && @pending.any?
-  .subheadline Очередь
-  .block
-    = render partial: 'moderation/abuse_requests/abuse_request', collection: @pending
-
-- if @declined && @declined.any?
-  .subheadline Отклонено
-  .block
-    = spoiler '...' do
-      = render partial: 'moderation/abuse_requests/abuse_request', collection: @declined
-
 - if user_signed_in? && current_user.moderator?
-  .block
-    .b-options-floated
-      a href="#{moderation_abuse_requests_url}" оффтопик + отзывы
-    .subheadline История
+  - if @pending && @pending.any?
+    .subheadline Очередь
     .block
-      = render partial: 'ban', collection: @bans
-      - if @add_postloader
-        = render partial: 'blocks/postloader', locals: { url: page_moderation_bans_url(page: @page+1) }
+      = render partial: 'moderation/abuse_requests/abuse_request', collection: @pending
+
+  - if @declined && @declined.any?
+    .subheadline Отклонено
+    .block
+      = spoiler '...' do
+        = render partial: 'moderation/abuse_requests/abuse_request', collection: @declined
+
+.block
+  .b-options-floated
+    a href="#{moderation_abuse_requests_url}" оффтопик + отзывы
+  .subheadline История
+  .block
+    = render partial: 'ban', collection: @bans
+    - if @add_postloader
+      = render partial: 'blocks/postloader', locals: { url: page_moderation_bans_url(page: @page+1) }
