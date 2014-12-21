@@ -1,5 +1,5 @@
 class DialogsController < ProfilesController
-  before_action :authorize_messages_access, only: [:index]
+  before_action :authorize_messages_access
   before_action :add_title
   before_action :add_breadcrumb, only: [:show]
 
