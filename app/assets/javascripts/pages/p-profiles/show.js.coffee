@@ -7,6 +7,10 @@
   $('.ignore-action').on 'ajax:success', ->
     $('.ignore-action').toggle()
 
+  # тултип на никнейм
+  $('h1.aliases').tipsy
+    gravity: 'w'
+    html: true
 
   $(".activity .graph").bar
     before: (stats, options, $chart) ->
