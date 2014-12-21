@@ -3728,4 +3728,4 @@ http_interactions:
         END AD TAG -->\n   <!--</div>-->\n\n    </body>\n</html>"
     http_version: 
   recorded_at: Tue, 07 Oct 2014 21:49:38 GMT
-recorded_with: VCR 2.9.0
+recorded_with: VCR 2.9.3
