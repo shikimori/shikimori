@@ -60,6 +60,11 @@ header.head
         .clearfix
 
       .members-block
+        .subheadline.pink.m10 Видео контент
+        = render @statistics.top_video_uploaders, content_by: :avatar
+        .clearfix
+
+      .members-block
         .members-block.left
           .subheadline.orange.m10 Отдельная помощь и идеи
           = render @statistics.thanks_to, content_by: :avatar
