@@ -88,7 +88,7 @@
             .russian itemprop="description"
               = @resource.description_html
 
-        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
+        = render 'blocks/source', entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url
 
   - if user_signed_in?
     = render partial: 'resources'
@@ -111,4 +111,4 @@
       .subheadline.m3 Отзывы
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render partial: 'topics/comments', locals: { topic: @resource.preview_reviews_thread }
+        = render 'topics/comments', topic: @resource.preview_reviews_thread

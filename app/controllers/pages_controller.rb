@@ -26,13 +26,14 @@ class PagesController < ShikimoriController
   def about
     @page_title = 'О сайте'
     @statistics = SiteStatistics.new
+    @thread = Topic.find(84739).decorate
 
-    @topic = TopicPresenter.new(
-      object: Topic.find(84739),
-      template: view_context,
-      limit: 5,
-      with_user: true
-    )
+    #@topic = TopicPresenter.new(
+      #object: Topic.find(84739),
+      #template: view_context,
+      #limit: 5,
+      #with_user: true
+    #)
   end
 
   # rss с новостями

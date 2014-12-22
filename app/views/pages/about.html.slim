@@ -5,94 +5,93 @@
 
 header.head
   h1 #{@page_title}
-  p.notice Немного о самом сайте, плюс список особо отличившихся
+  p.notice Немного о самом сайте и список особо отличившихся людей
 
-.about.item-content.ajax
-  = cache [:about_block, Date.today] do
-    .comment-block.menu-block
-      .description
-        p.m3 У многих из увлёкшихся мангой и японской анимацией рано или поздно возникают вопросы:
-        ul.m10
-          li
-            p Как из огромного разнообразия выбрать то, что посмотреть или почитать дальше?
-          li
-            p Как и где вести список просмотренного аниме и прочитанной манги, ведь со временем просмотренное забывается?
-          li
-            p Как отслеживать появление новых аниме и выход серий у новинок?
-          li
-            p Где и с кем можно обсудить понравившуются анимацию, а так же почитать чужие отзывы и рецензии?
+= cache [:about_block, Date.today] do
+  .b-brief
+    .description
+      p.m3 У многих из увлёкшихся мангой и японской анимацией рано или поздно возникают вопросы:
+      ul.m10
+        li
+          p Как из огромного разнообразия выбрать то, что посмотреть или почитать дальше?
+        li
+          p Как и где вести список просмотренного аниме и прочитанной манги, ведь со временем просмотренное забывается?
+        li
+          p Как отслеживать появление новых аниме и выход серий у новинок?
+        li
+          p Где и с кем можно обсудить понравившуются анимацию, а так же почитать чужие отзывы и рецензии?
 
-        p.m30 Подобными вопросами однажды задался и автор сайта, и, не найдя в интернетах для себя удобного, современного решения, cтал воплощать свои идеи в этом сайте.
+      p.m30 Подобными вопросами однажды задался и автор сайта, и, не найдя в интернетах для себя удобного, современного решения, cтал воплощать свои идеи в этом сайте.
 
-        /*.headline.m20 Участники проекта*/
-        .members-block
-          .subheadline.red.m5 Модерация
-          .members-block.left
-            p Форум
-            = render partial: 'blocks/user', collection: @statistics.forum_moderators, locals: { avatar_size: 32 }
+      /*.headline.m20 Участники проекта*/
+      .members-block
+        .subheadline.red.m5 Модерация
+        .members-block.left
+          p Форум
+          = render @statistics.forum_moderators, content_by: :avatar
 
-          .members-block.left
-            p Контент
-            = render partial: 'blocks/user', collection: @statistics.user_changes_moderators, locals: { avatar_size: 32 }
+        .members-block.left
+          p Контент
+          = render @statistics.user_changes_moderators, content_by: :avatar
 
-          .members-block.left
-            p Опросы
-            = render partial: 'blocks/user', collection: @statistics.contest_moderators, locals: { avatar_size: 32 }
-
-          .members-block
-            p Косплей
-            = render partial: 'blocks/user', collection: @statistics.cosplay_moderators, locals: { avatar_size: 32 }
-
-          .clearfix
+        .members-block.left
+          p Опросы
+          = render @statistics.contest_moderators, content_by: :avatar
 
         .members-block
-          .subheadline.blue.m10 Переводы текстов, описания и правки
-          = render partial: 'blocks/user', collection: @statistics.translators, locals: { avatar_size: 32 }
-          .clearfix
+          p Косплей
+          = render @statistics.cosplay_moderators, content_by: :avatar
 
-        .members-block
-          .subheadline.purple.m10 Новости
-          = render partial: 'blocks/user', collection: @statistics.newsmakers, locals: { avatar_size: 32 }
-          .clearfix
+        .clearfix
 
-        .members-block
-          .subheadline.green.m10 Рецензии
-          = render partial: 'blocks/user', collection: @statistics.reviewers, locals: { avatar_size: 32 }
-          .clearfix
+      .members-block
+        .subheadline.blue.m10 Переводы текстов, описания и правки
+        = render @statistics.translators, content_by: :avatar
+        .clearfix
 
-        .members-block
-          .members-block.left
-            .subheadline.orange.m10 Отдельная помощь и идеи
-            = render partial: 'blocks/user', collection: @statistics.thanks_to, locals: { avatar_size: 32 }
+      .members-block
+        .subheadline.purple.m10 Новости
+        = render @statistics.newsmakers, content_by: :avatar
+        .clearfix
 
-          .members-block.left
-            .subheadline.m10 Android клиент
-            = render partial: 'blocks/user', collection: @statistics.android, locals: { avatar_size: 32 }
+      .members-block
+        .subheadline.green.m10 Рецензии
+        = render @statistics.reviewers, content_by: :avatar
+        .clearfix
 
-          .members-block.left
-            .subheadline.m10 Автор
-            = render partial: 'blocks/user', collection: @statistics.developers, locals: { avatar_size: 32 }
-          .clearfix
+      .members-block
+        .members-block.left
+          .subheadline.orange.m10 Отдельная помощь и идеи
+          = render @statistics.thanks_to, content_by: :avatar
 
-    .subheadline Посещаемость
-    .subcontent.traffic-chart data-stats="#{@statistics.traffic.to_json}"
+        .members-block.left
+          .subheadline.m10 Android клиент
+          = render @statistics.android, content_by: :avatar
 
-    .half-chart
+        .members-block.left
+          .subheadline.m10 Автор
+          = render @statistics.developers, content_by: :avatar
+        .clearfix
+
+  .subheadline Посещаемость
+  .block.traffic-chart data-stats="#{@statistics.traffic.to_json}"
+
+  .cc.block
+    .c-chart
       .b-options-floated
         span Всего:&nbsp;&nbsp;
         a.selected #{@statistics.users_count}
       .subheadline Пользователи
-      .subcontent.users-chart data-stats="#{@statistics.users.to_json}"
+      .block.users-chart data-stats="#{@statistics.users.to_json}"
 
-    .half-chart
+    .c-chart
       .b-options-floated
         span Всего:&nbsp;&nbsp;
         a.selected #{@statistics.comments_count}
       .subheadline Комментарии
-      .subcontent.comments-chart data-stats="#{@statistics.comments.to_json}"
+      .block.comments-chart data-stats="#{@statistics.comments.to_json}"
 
-  .forum-container
-    .comments.zero-margin.zero-top-border
-      .subheadline Комментарии
-      a.to-main-topic href="#{topic_url @topic.object}" Перейти к топику с основным обсуждением (#{@topic.folded_comments} #{Russian.p @topic.folded_comments, 'комментарий', 'комментария', 'комментариев'})
-      = render partial: 'comments/comments', locals: { object: @topic.topic, comments: @topic.comments, bottom_add_block: true }
+.subheadline.m3 Комментарии
+div
+  .b-topic.unprocessed data-faye="#{@thread.faye_channel}"
+    = render 'topics/comments', topic: @thread
