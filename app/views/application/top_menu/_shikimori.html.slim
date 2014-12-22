@@ -32,8 +32,8 @@ a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#
   .submenu-toggler
   .submenu-activator Инфо
   .submenu
-    a.entry class="#{:active if params[:controller] == 'statistics' && params[:action] == 'index'}" href="#{anime_history_url}" title="Индустрия аниме" Индустрия аниме
-    a.entry class="#{:active if params[:controller] == 'pages' && params[:action] == 'about'}" href="#{about_url}" title="О сайте" data-no-turbolinks="true" О сайте
+    a.entry class="#{:active if params[:controller] == 'statistics' && params[:action] == 'index'}" href="#{anime_history_url}" title="Индустрия аниме" data-no-turbolink="true" Индустрия аниме
+    a.entry class="#{:active if params[:controller] == 'pages' && params[:action] == 'about'}" href="#{about_url}" title="О сайте" data-no-turbolink="true" О сайте
     - if user_signed_in?
       a.entry href='/s/79042-Pravila-sayta' title='Правила сайта' Правила сайта
       a.entry href='/s/85018-FAQ-Chasto-zadavaemye-voprosy' title='Часто задаваемые вопросы' FAQ

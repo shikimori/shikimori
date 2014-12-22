@@ -1,6 +1,3 @@
-#= require highcharts.v3.0.5.min
-#= require lib/highcharts
-
 $ =>
   traffic = $('.traffic-chart').data 'stats'
   $('.traffic-chart').highcharts chart_options
