@@ -231,6 +231,11 @@ describe BbCodeFormatter do
       it { should eq '<a href="http://shikimori.org/test" class="b-mention"><s>@</s><span>test</span></a>' }
     end
 
+    describe '[hr]' do
+      let(:text) { '[hr]' }
+      it { should eq '<hr />' }
+    end
+
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
@@ -245,7 +250,7 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[img]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" /></a>" }
+<img src=\"#{url}\" class=\"check-width\"/></a>" }
     end
 
     describe '[poster]' do
