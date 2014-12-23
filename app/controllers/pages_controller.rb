@@ -18,22 +18,14 @@ class PagesController < ShikimoriController
     @page_title = 'Календарь онгоингов'
 
     @ongoings = CalendarsQuery.new.fetch_grouped
-    @topic = TopicDecorator.new Entry.find(94879)
-    @topic.preview_mode!
+    @topic = Topic.find(94879).decorate
   end
 
   # о сайте
   def about
     @page_title = 'О сайте'
     @statistics = SiteStatistics.new
-    @thread = Topic.find(84739).decorate
-
-    #@topic = TopicPresenter.new(
-      #object: Topic.find(84739),
-      #template: view_context,
-      #limit: 5,
-      #with_user: true
-    #)
+    @topic = Topic.find(84739).decorate
   end
 
   # rss с новостями

@@ -28,7 +28,7 @@ a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#
     a.entry class="#{:active if params[:controller] == 'users'}" href="#{users_url}" title="Пользователи" Пользователи
     a.entry class="#{:active if params[:controller] == 'groups'}" href="#{clubs_url}" title="Клубы" Клубы
 
-.entry class="#{:selected if params[:controller] == 'pages' && params[:action] == 'about'}"
+.entry class="#{:selected if (params[:controller] == 'pages' && params[:action] == 'about') || (params[:controller] == 'statistics' && params[:action] == 'index')}"
   .submenu-toggler
   .submenu-activator Инфо
   .submenu
