@@ -7,7 +7,7 @@ class PagesController < ShikimoriController
   include Sidekiq::Paginator
 
   respond_to :html, except: [:news]
-  respond_to :ress, only: [:news]
+  respond_to :rss, only: [:news]
 
   # блок авторизации/регистрации
   def auth_form
@@ -167,14 +167,12 @@ class PagesController < ShikimoriController
     @people_to_import = Person.where(imported_at: nil).count
   end
 
-  def welcome_gallery
-    @gallery = WellcomeGalleryPresenter.new
-    render partial: 'forum/gallery', formats: :html
-  end
-
   def tableau
     render json: {
       messages: user_signed_in? ? current_user.unread_count : 0
     }
+  end
+
+  def bb_codes
   end
 end

@@ -223,24 +223,33 @@ Site::Application.routes.draw do
     get 'anime-history' => 'statistics#index', as: :anime_history
 
     # site pages
-    get 'welcome_gallery' => 'pages#welcome_gallery'
-    get 'user_agreement' => 'pages#user_agreement'
-    get 'user_agent' => 'pages#user_agent'
-    get 'redisign' => 'pages#redisign'
-    get 'ongoings' => 'pages#ongoings'
-    get 'about' => 'pages#about'
-    get 'page404' => 'pages#page404'
-    get 'page503' => 'pages#page503'
-    get 'apanel' => 'pages#admin_panel'
-    get 'test' => 'pages#test'
-    get 'raise-exception' => 'pages#raise_exception'
-    get 'auth_form' => 'pages#auth_form'
-    get "site-news" => 'pages#news', kind: 'site', format: :rss
-    get "anime-news" => 'pages#news', kind: 'anime', format: :rss
-    get "feedback" => 'pages#feedback'
-    get 'disabled_registration' => 'pages#disabled_registration'
-    get 'disabled_openid' => 'pages#disabled_openid'
-    get 'tableau' => 'pages#tableau'
+    resources :pages, path: '/', only: [] do
+      collection do
+        get :ongoings
+        get :about
+
+        get :user_agreement
+
+        get :user_agent
+        get :page404
+        get :page503
+        get :raise_exception
+
+        get :bb_codes
+        get :auth_form
+        get :feedback
+        get 'apanel' => :admin_panel
+
+        get "site-news" => :news, kind: 'site', format: :rss
+        get "anime-news" => :news, kind: 'anime', format: :rss
+
+        get :disabled_registration
+        get :disabled_openid
+        get :tableau
+
+        get :test
+      end
+    end
 
     # картинки с danbooru
     get 'd/autocomplete/:search' => 'danbooru#autocomplete', as: :autocomplete_danbooru_tags, format: :json

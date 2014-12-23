@@ -1,0 +1,30 @@
+@import globals/variables
+@import mixins/pretty_list
+
+.b-bb_codes-examples
+  .name
+    font-size: 15px
+    font-weight: bold
+    line-height: $line_height
+
+  .example, .result, .notice
+    line-height: $line_height
+
+  .example, .result
+    &:before
+      color: $gray-color-2
+      content: 'Пример:'
+      display: inline-block
+      font-size: 12px
+      margin-right: 5px
+
+  .result
+    &:before
+      content: 'Результат:'
+
+  .notice
+    font-size: 12px
+    color: $gray-color-2
+
+  ul
+    +pretty_list
