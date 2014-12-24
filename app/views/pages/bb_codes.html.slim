@@ -7,14 +7,16 @@ header.head
     .block.c-column
       .name Стиль текста
       .example
-        | [b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]
+        .textarea
+          | [b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]
       .result
         = BbCodeFormatter.instance.format_comment '[b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]'
 
     .block_m.c-column
       .name Цвет текста
       .example
-        | [color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]
+        .textarea
+          | [color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]
       .result
         = BbCodeFormatter.instance.format_comment '[color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]'
 
@@ -22,14 +24,16 @@ header.head
     .block.c-column
       .name Выравнивание текста
       .example
-        | слева [right]справа[/right] [center]по центру[/center]
+        .textarea
+          | слева [right]справа[/right] [center]по центру[/center]
       .result
         = BbCodeFormatter.instance.format_comment 'слева [right]справа[/right] [center]по центру[/center]'
 
     .block_m.c-column
       .name Размер текста
       .example
-        | [size=10]текст[/size] и [size=16]текст[/size]
+        .textarea
+          | [size=10]текст[/size] и [size=16]текст[/size]
       .result
         = BbCodeFormatter.instance.format_comment '[size=10]текст[/size] и [size=16]текст[/size]'
       .notice 13 &ndash; стандартный размер
@@ -45,7 +49,8 @@ header.head
     .block.c-column
       .name Упоминание пользователя
       .example
-        | @morr, привет
+        .textarea
+          | @morr, привет
       .result
         = BbCodeFormatter.instance.format_comment '@morr, привет'
       .notice Перед ником пользователя пишется "@". Пользователю придёт уведомление о том, что ему что-то написали на форуме
@@ -53,7 +58,8 @@ header.head
     .block_m.c-column
       .name Ответ на комментарий
       .example
-        | [comment=775324<span>id комментария</span>]morr[/comment], привет
+        .textarea
+          | [comment=775324<span>id комментария</span>]morr[/comment], привет
       .result
         = BbCodeFormatter.instance.format_comment '[comment=775324]morr[/comment], привет'
       .notice При ответе автору комментария придёт уведомление о том, что ему что-то написали на форуме
@@ -61,7 +67,8 @@ header.head
   .block
     .name Цитата
     .example
-      | [quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
+      .textarea
+        | [quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
     .result
       = BbCodeFormatter.instance.format_comment '[quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324;1;morr]цитата комментария[/quote]'
     .notice Если вы цитируете пользователя на форуме, то пользователь получит об этом уведомление.
@@ -69,7 +76,8 @@ header.head
   .block
     .name Название аниме, становящаеся ссылкой с подсказкой
     .example
-      | [Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]
+      .textarea
+        | [Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]
     .result
       = BbCodeFormatter.instance.format_comment '[Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]'
     .notice
@@ -80,7 +88,8 @@ header.head
   .block
     .name Ссылка на аниме со всплывающей подсказкой
     .example
-      | [anime=1<span>id аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
+      .textarea
+        | [anime=1<span>id аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
     .result
       = BbCodeFormatter.instance.format_comment '[anime=1]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]'
     .notice
@@ -95,14 +104,16 @@ header.head
     .block.c-column
       .name Спойлер
       .example
-        | [spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]
+        .textarea
+          | [spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]
       .result
         = BbCodeFormatter.instance.format_comment '[spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]'
 
     .block_m.c-column
       .name Ссылка
       .example
-        | [url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru
+        .textarea
+          | [url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru
       .result
         = BbCodeFormatter.instance.format_comment '[url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru'
       .notice
@@ -111,7 +122,8 @@ header.head
   .block
     .name Ссылка на видео
     .example
-      | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
+      .textarea
+        | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
     .result
       br
       = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
