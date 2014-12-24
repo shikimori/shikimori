@@ -9,7 +9,7 @@ module VideoExtractor
     end
 
     def extractors
-      @extractors ||= [:vk, :rutube, :youtube, :open_graph].map do |extractor|
+      @extractors ||= [:vk, :youtube, :open_graph].map do |extractor|
         "VideoExtractor::#{extractor.to_s.camelize}Extractor".constantize
       end
     end

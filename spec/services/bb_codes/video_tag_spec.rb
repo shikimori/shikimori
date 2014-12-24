@@ -35,11 +35,10 @@ describe BbCodes::VideoTag do
       end
     end
 
-    context 'vk' do
+    context 'vk', vcr: { cassette_name: 'vk_video' } do
       let(:oid) { '98023184' }
       let(:vid) { '165811692' }
       let(:hash2) { '6d9a4c5f93270892' }
-      before { VCR.use_cassette(:vk_video) { subject } }
 
       context 'without text' do
         let(:text) { "http://vk.com/video#{oid}_#{vid}" }
@@ -58,9 +57,7 @@ describe BbCodes::VideoTag do
       end
     end
 
-    context 'open_graph' do
-      before { VCR.use_cassette(:open_graph_video) { subject } }
-
+    context 'open_graph', vcr: { cassette_name: 'open_graph_video' } do
       context 'coub' do
         let(:text) { 'http://coub.com/view/bqn2pda' }
         it { should include "<a class=\"c-video b-video unprocessed coub" }
@@ -97,9 +94,17 @@ describe BbCodes::VideoTag do
       end
 
       context 'dailymotion' do
-        let(:text) { 'http://www.dailymotion.com/video/x19jwj5_boku-wa-tomodachi-ga-sukunai-op-ed-creditless_shortfilms?search_algo=1' }
-        it { should include "<a class=\"c-video b-video unprocessed dailymotion" }
-        it { should match /\A<.*>\Z/ }
+        context 'common url' do
+          let(:text) { 'http://www.dailymotion.com/video/x19jwj5_boku-wa-tomodachi-ga-sukunai-op-ed-creditless_shortfilms?search_algo=1' }
+          it { should include "<a class=\"c-video b-video unprocessed dailymotion" }
+          it { should match /\A<.*>\Z/ }
+        end
+
+        context 'special url' do
+          let(:text) { "http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms" }
+          it { should include "<a class=\"c-video b-video unprocessed dailymotion" }
+          it { should match %r{</a>$} }
+        end
       end
 
       context 'sibnet' do
