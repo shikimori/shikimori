@@ -3,106 +3,144 @@ header.head
   p.notice Список поддерживаемых бб-кодов сайта с примерами их использования
 
 .b-bb_codes-examples
-  .block
-    .name Стиль текста
-    .example
-      | [b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]
-    .result
-      | <b>полужирный</b>, <i>наклонный</i>, <u>подчеркнутый</u>, <s>зачеркнутый</s>
+  .cc-2
+    .block.c-column
+      .name Стиль текста
+      .example
+        | [b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]
+      .result
+        = BbCodeFormatter.instance.format_comment '[b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]'
 
-  .block
-    .name Цвет текста
-    .example
-      | [color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]
-    .result
-      | <span style="color:red">название цвета</span> и <span style="color:#44ff88">RGB код цвета</span>
+    .block_m.c-column
+      .name Цвет текста
+      .example
+        | [color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]
+      .result
+        = BbCodeFormatter.instance.format_comment '[color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]'
 
-  .block
-    .name Размер текста
-    .example
-      | [size=10]текст[/size] и [size=16]текст[/size]
-    .result
-      | <span style="font-size: 10px">текст</span> и <span style="font-size: 16px">текст</span>
-    .notice 13 &ndash; стандартный размер
+  .cc-2
+    .block.c-column
+      .name Выравнивание текста
+      .example
+        | слева [right]справа[/right] [center]по центру[/center]
+      .result
+        = BbCodeFormatter.instance.format_comment 'слева [right]справа[/right] [center]по центру[/center]'
 
-  .block
-    .name Выравнивание текста
-    .example
-      | слева [right]справа[/right] [center]по центру[/center]
-    .result
-      | слева <div class="right-text">справа</div> <center>по центру</center>
+    .block_m.c-column
+      .name Размер текста
+      .example
+        | [size=10]текст[/size] и [size=16]текст[/size]
+      .result
+        = BbCodeFormatter.instance.format_comment '[size=10]текст[/size] и [size=16]текст[/size]'
+      .notice 13 &ndash; стандартный размер
 
   .block
     .name Список
     .example
-      | [list]<br/>
-      | &nbsp;&nbsp;[*]первая строка<br/>
-      | &nbsp;&nbsp;[*]вторая строка<br/>
-      | [/list]
+      | [list][*]первая строка[*]вторая строка[/list]
     .result
-      ul
-        li первая строка
-        li вторая строка
+      = BbCodeFormatter.instance.format_comment '[list][*]первая строка[*]вторая строка[/list]'
 
   .block
-    .name Ссылка на аниме, мангу, персонажа со всплывающей подсказкой
+    .name Название аниме, становящаеся ссылкой с подсказкой
     .example
-      | [anime=1]аниме[/anime], [manga=1]манга[/manga], [character=1]персонаж[/character]
+      | [Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]
     .result
-      | <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://shikimori.dev/animes/1-cowboy-bebop/tooltip">аниме</a>, <a href="http://shikimori.dev/mangas/1-monster" title="Monster" class="bubbled" data-href="http://shikimori.dev/mangas/1-monster/tooltip">манга</a>, <a href="http://shikimori.dev/characters/1-spike-spiegel" title="Spike Spiegel" class="bubbled" data-href="http://shikimori.dev/characters/1-spike-spiegel/tooltip">персонаж</a>
-    .notice 
+      = BbCodeFormatter.instance.format_comment '[Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]'
+    .notice
+      | Всё, что нужно для того, чтобы название стало ссылкой, это записать название в квадратных скобках. Вот так: [Русское или английское название].
+      br
+      | Работает для аниме, манги, персонажей, людей.
 
   .block
-    .name
+    .name Ссылка на аниме со всплывающей подсказкой
     .example
+      | [anime=1<span>идентификатор аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
     .result
+      = BbCodeFormatter.instance.format_comment '[anime=1]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]'
+    .notice
+      | Идентификатор аниме или манги, или персонажа &ndash; номер аниме в базе сайте.
+      |  Определить идентификатор можно из адреса страницы аниме.
+      br
+      | Например, для аниме <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://shikimori.org/animes/790-ergo-proxy/tooltip">Ergo Proxy</a> с адресом <a href="http://shikimori.org/animes/790-ergo-proxy">http://shikimori.org/animes/<b>790</b>-ergo-proxy</a> идентификатор будет равен <b style="color: #000">790</b>.
+      br
+      | Работает для аниме, манги, персонажей, людей.
+
+  .cc-2
+    .block.c-column
+      .name Спойлер
+      .example
+        | [spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]
+      .result
+        = BbCodeFormatter.instance.format_comment '[spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]'
+
+    .block_m.c-column
+      .name Ссылка
+      .example
+        | [url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru
+      .result
+        = BbCodeFormatter.instance.format_comment '[url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru'
+      .notice
+        | В большинстве ситуаций сайт сам распознает ссылки в тексте даже без тегов [url] и делает их "ссылками".
 
   .block
-    .name
+    .name Ссылка на видео
     .example
+      | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
     .result
+      br
+      = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
+    .notice
+      | Сайт сам распознает ссылки на видео в тексте и преобразовывает их в блок просмотра видео. В данном примере перечислены все поддерживаемые сайтом видео хостинги.
 
-  p
-    |  &ndash; "текст" является ссылкой на аниме тайтл, определяемой его индексом в БД Шики.
-  p
-    | [manga=индекс_манги]текст[/manga] &ndash; "текст" является ссылкой на мангу, определяемой ее индексом в БД Шики.
-  p
-    | [character=индекс_персонажа]текст[/character] &ndash; "текст" является ссылкой на аниме/манга персонажа, определяемого его индексом в БД Шики.
+  /.block
+    /.name
+    /.example
+    /.result
 
-  p
-    | Комментарий. Если вы не можете найти персонаж в списке интерактивного редактора Шики, вы можете вручную вставить соответствующий BB код. Для этого найдите страницу персонажа на Шики и воспользуйтесь цифровым кодом из его URL. Например, URL страницы персонажа Симон из Tengen Toppa Gurren Lagann shikimori.org/characters/2257-Simon. Значит ваша ссылка может выглядеть следующим образом: [ character=2257]это Симон[/character].
-  p
-    | @user_id &ndash; ссылка на пользователя, определяемого его идентификатором в БД Шики.
+  /.block
+    /.name
+    /.example
+    /.result
 
-  p
-    | [person=индекс_пользователя]текст[/person]&ndash; текст является ссылкой на пользователя, определяемого его индексом в БД Шики.
-  p
-    | [spoiler]текст[ /spoiler] &ndash; текст является спойлером и будет обозначен меткой "спойлер".
-  p
-    | [spoiler=метка]текст[ /spoiler]&ndash; текст является спойлером и будет обозначен меткой "метка".
-  p
-    | [quote]текст[/quote] &ndash; текст будет форматирован как цитата.
-  p
-    | [quote=пользователь]текст[/quote] &ndash; текст является цитатой пользователя "пользователь".
-  p
-    | [quote=индекс_комментария;индекс_цитаты;пользователь]текст[/quote] &ndash; текст является цитатой из комментария с индексом "индекс_комментария" пользователя "пользователь".
-  p
-    | [comment=индекс_комментария]текст[/comment] &ndash; текст является ссылкой на комментарий с индексом "индекс_комментария".
-  p
-    | [img]URL[/img] &ndash; вставляется картинка по ее URL.
-  p
-    | [img w=ширина]URL[/img] &ndash; вставляется картинка по ее URL. Картинка будет отображаться с шириной "ширина" пикселей.
-  p
-    | [img h=высота]URL[/img]&ndash; вставляется картинка по ее URL. Картинка будет отображаться с высотой "высота" пикселей.
-  p
-    | [image=индекс_картинки] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики.
-  p
-    | [image=индекс_картинки w=ширина] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с шириной "ширина" пикселей.
-  p
-    | [image=индекс_картинки h=высота] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с высотой "высота" пикселей.
-  p
-    | [image=индекс_картинки WxH] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с шириной "W" и высотой "H" пикселей.
-  p
-    | [url=url]текст[/url] &ndash; "текст" является ссылкой на "URL".
-  p
-    | http: //адрес - если текст начинается с "http://", то он будет отображаться как ссылка. Если "адрес" принадлежит одному из видео-хостингов youtube, vkontakte, coub, rutube, vimeo, myvi, sibnet, yandex, dailymotion, то текст будет отображаться как встроенное видео.
+  /.block
+    /.name
+    /.example
+    /.result
+
+  /.block
+    /.name
+    /.example
+    /.result
+
+  /.block
+    /.name
+    /.example
+    /.result
+
+  /p
+    /| @user_id &ndash; ссылка на пользователя, определяемого его идентификатором в БД Шики.
+
+    /| [quote]текст[/quote] &ndash; текст будет форматирован как цитата.
+  /p
+    /| [quote=пользователь]текст[/quote] &ndash; текст является цитатой пользователя "пользователь".
+  /p
+    /| [quote=индекс_комментария;индекс_цитаты;пользователь]текст[/quote] &ndash; текст является цитатой из комментария с индексом "индекс_комментария" пользователя "пользователь".
+  /p
+    /| [comment=индекс_комментария]текст[/comment] &ndash; текст является ссылкой на комментарий с индексом "индекс_комментария".
+  /p
+    /| [img]URL[/img] &ndash; вставляется картинка по ее URL.
+  /p
+    /| [img w=ширина]URL[/img] &ndash; вставляется картинка по ее URL. Картинка будет отображаться с шириной "ширина" пикселей.
+  /p
+    /| [img h=высота]URL[/img]&ndash; вставляется картинка по ее URL. Картинка будет отображаться с высотой "высота" пикселей.
+  /p
+    /| [image=индекс_картинки] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики.
+  /p
+    /| [image=индекс_картинки w=ширина] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с шириной "ширина" пикселей.
+  /p
+    /| [image=индекс_картинки h=высота] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с высотой "высота" пикселей.
+  /p
+    /| [image=индекс_картинки WxH] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с шириной "W" и высотой "H" пикселей.
+  /p
+    /| http: //адрес - если текст начинается с "http://", то он будет отображаться как ссылка. Если "адрес" принадлежит одному из видео-хостингов youtube, vkontakte, coub, rutube, vimeo, myvi, sibnet, yandex, dailymotion, то текст будет отображаться как встроенное видео.

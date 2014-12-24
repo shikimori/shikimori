@@ -1,4 +1,6 @@
 @import globals/variables
+@import mixins/brackets_surrounded
+@import mixins/link
 @import mixins/pretty_list
 
 .b-bb_codes-examples
@@ -10,13 +12,20 @@
   .example, .result, .notice
     line-height: $line_height
 
+  .example span
+    +brackets_surrounded
+    color: $gray-color-0
+    font-size: 12px
+
   .example, .result
     &:before
-      color: $gray-color-2
+      color: $gray-color-0
       content: 'Пример:'
       display: inline-block
       font-size: 12px
       margin-right: 5px
+    a
+      +link
 
   .result
     &:before

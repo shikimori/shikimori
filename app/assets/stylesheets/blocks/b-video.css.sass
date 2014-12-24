@@ -17,6 +17,14 @@
     img
       width: $media_width
 
+    &.twitch, &.myvi, &.coub
+      img
+        height: $media_height
+        width: auto
+
+    &.dailymotion
+      height: $media_height
+
   .marker
     +media_marker
 
@@ -24,3 +32,4 @@
     img
       margin-top: -9.3%
       margin-bottom: -9.3%
+
