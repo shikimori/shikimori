@@ -41,6 +41,31 @@ header.head
     .result
       = BbCodeFormatter.instance.format_comment '[list][*]первая строка[*]вторая строка[/list]'
 
+  .cc-2
+    .block.c-column
+      .name Упоминание пользователя
+      .example
+        | @morr, привет
+      .result
+        = BbCodeFormatter.instance.format_comment '@morr, привет'
+      .notice Перед ником пользователя пишется "@". Пользователю придёт уведомление о том, что ему что-то написали на форуме
+
+    .block_m.c-column
+      .name Ответ на комментарий
+      .example
+        | [comment=775324<span>id комментария</span>]morr[/comment], привет
+      .result
+        = BbCodeFormatter.instance.format_comment '[comment=775324]morr[/comment], привет'
+      .notice При ответе автору комментария придёт уведомление о том, что ему что-то написали на форуме
+
+  .block
+    .name Цитата
+    .example
+      | [quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
+    .result
+      = BbCodeFormatter.instance.format_comment '[quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324;1;morr]цитата комментария[/quote]'
+    .notice Если вы цитируете пользователя на форуме, то пользователь получит об этом уведомление.
+
   .block
     .name Название аниме, становящаеся ссылкой с подсказкой
     .example
@@ -55,12 +80,12 @@ header.head
   .block
     .name Ссылка на аниме со всплывающей подсказкой
     .example
-      | [anime=1<span>идентификатор аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
+      | [anime=1<span>id аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
     .result
       = BbCodeFormatter.instance.format_comment '[anime=1]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]'
     .notice
-      | Идентификатор аниме или манги, или персонажа &ndash; номер аниме в базе сайте.
-      |  Определить идентификатор можно из адреса страницы аниме.
+      | Id аниме или манги, или персонажа &ndash; номер аниме в базе сайте.
+      |  Определить id можно из адреса страницы аниме.
       br
       | Например, для аниме <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://shikimori.org/animes/790-ergo-proxy/tooltip">Ergo Proxy</a> с адресом <a href="http://shikimori.org/animes/790-ergo-proxy">http://shikimori.org/animes/<b>790</b>-ergo-proxy</a> идентификатор будет равен <b style="color: #000">790</b>.
       br
@@ -108,26 +133,6 @@ header.head
     /.example
     /.result
 
-  /.block
-    /.name
-    /.example
-    /.result
-
-  /.block
-    /.name
-    /.example
-    /.result
-
-  /p
-    /| @user_id &ndash; ссылка на пользователя, определяемого его идентификатором в БД Шики.
-
-    /| [quote]текст[/quote] &ndash; текст будет форматирован как цитата.
-  /p
-    /| [quote=пользователь]текст[/quote] &ndash; текст является цитатой пользователя "пользователь".
-  /p
-    /| [quote=индекс_комментария;индекс_цитаты;пользователь]текст[/quote] &ndash; текст является цитатой из комментария с индексом "индекс_комментария" пользователя "пользователь".
-  /p
-    /| [comment=индекс_комментария]текст[/comment] &ndash; текст является ссылкой на комментарий с индексом "индекс_комментария".
   /p
     /| [img]URL[/img] &ndash; вставляется картинка по ее URL.
   /p
@@ -142,5 +147,5 @@ header.head
     /| [image=индекс_картинки h=высота] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с высотой "высота" пикселей.
   /p
     /| [image=индекс_картинки WxH] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с шириной "W" и высотой "H" пикселей.
-  /p
-    /| http: //адрес - если текст начинается с "http://", то он будет отображаться как ссылка. Если "адрес" принадлежит одному из видео-хостингов youtube, vkontakte, coub, rutube, vimeo, myvi, sibnet, yandex, dailymotion, то текст будет отображаться как встроенное видео.
+    /[poster]
+    /[hr]

@@ -273,7 +273,7 @@ module CommentHelper
               User.find $3
             end
 
-            text.gsub! $1, "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" alt=\"#{$4}\" /><span>#{$4}</span></a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
+            text.gsub! $1, "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
           rescue
             text.gsub! $1, "#{$4}#{is_profile ? '' : ' написал:'}"
             break
