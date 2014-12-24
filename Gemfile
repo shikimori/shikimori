@@ -97,7 +97,9 @@ group :development do
   gem 'letter_opener'
   gem 'quiet_assets'
   gem 'mactag'
-  gem 'web-console'
+  #gem 'web-console'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   gem 'capistrano'
   gem 'capistrano-rails', require: false
