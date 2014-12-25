@@ -13,9 +13,14 @@ class BbCodes::ImageTag
   /x
 
   def format text, text_hash
-    text.gsub REGEXP do
-      user_image = UserImage.find $~[:id] rescue ActiveRecord::RecordNotFound
-      user_image ? html_for(user_image, $~[:width].to_i, $~[:height].to_i, $~[:klass], text_hash) : text
+    text.gsub REGEXP do |matched|
+      user_image = UserImage.find_by(id: $~[:id])
+
+      if user_image
+        html_for user_image, $~[:width].to_i, $~[:height].to_i, $~[:klass], text_hash
+      else
+        matched
+      end
     end
   end
 

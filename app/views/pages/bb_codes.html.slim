@@ -1,6 +1,6 @@
 header.head
   h1 Бб-коды сайта
-  p.notice Список поддерживаемых бб-кодов сайта с примерами их использования
+  p.notice Список поддерживаемых сайтом бб-кодов с примерами их использования
 
 .b-bb_codes-examples
   .cc-2
@@ -68,7 +68,7 @@ header.head
     .name Цитата
     .example
       .textarea
-        | [quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
+        | [quote]цитата[/quote]<br>[quote=morr]цитата с ником[/quote]<br>[quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
     .result
       = BbCodeFormatter.instance.format_comment '[quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324;1;morr]цитата комментария[/quote]'
     .notice Если вы цитируете пользователя на форуме, то пользователь получит об этом уведомление.
@@ -130,34 +130,127 @@ header.head
     .notice
       | Сайт сам распознает ссылки на видео в тексте и преобразовывает их в блок просмотра видео. В данном примере перечислены все поддерживаемые сайтом видео хостинги.
 
-  /.block
-    /.name
-    /.example
-    /.result
+  .block
+    .name Картинка
+    .example
+      .textarea
+        | <span>это маленькая картинка</span> [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
+        br
+        | [img w=132<span>ширина</span>]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img]
+        br
+        | [img h=132<span>высота</span>]http://anime.kulichki.com/css/images/10.png[/img]
+        br
+        | [img w=132 h=132<span>ширина и высота</span>]http://wallpaperscraft.com/image/12205/256x256.jpg[/img]
+        br
+        | [img 132x132<span>ширина и высота</span>]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img]
+        br
+        | <span>это большая картинка</span> [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img] [img w=132]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img] [img h=132]http://anime.kulichki.com/css/images/10.png[/img] [img w=132 h=132]http://wallpaperscraft.com/image/12205/256x256.jpg[/img] [img 132x132]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img] [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]'
+    .notice
+      | Если у картинки явно не задан размер, то сайт автоматически уменьшит картинку до размера превьюшки. В полный размер картинка развернётся по клику на неё.
+      br
+      | Если вы хотите получить картинку на всю ширину страницы, не задавайте вручную ширину, используйте тег [poster]
 
-  /.block
-    /.name
-    /.example
-    /.result
 
-  /.block
-    /.name
-    /.example
-    /.result
+  .block
+    .name Картинка, загруженная на сайт
+    .example
+      .textarea
+        | [image=35894]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[image=35894]'
+    .notice
+      | Для image тега можно указывать ширину и высоту точно так же, как и для обычной картинки через img тег: [image=35894 w=100], [image=35894 h=100], [image=35894 320x200]
+      br
+      | Если у картинки явно не задан размер, то сайт автоматически уменьшит картинку до размера превьюшки. В полный размер картинка развернётся по клику на неё.
+      br
+      | Если вы хотите получить картинку на всю ширину страницы, не задавайте вручную ширину, используйте тег [poster]
 
-  /p
-    /| [img]URL[/img] &ndash; вставляется картинка по ее URL.
-  /p
-    /| [img w=ширина]URL[/img] &ndash; вставляется картинка по ее URL. Картинка будет отображаться с шириной "ширина" пикселей.
-  /p
-    /| [img h=высота]URL[/img]&ndash; вставляется картинка по ее URL. Картинка будет отображаться с высотой "высота" пикселей.
-  /p
-    /| [image=индекс_картинки] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики.
-  /p
-    /| [image=индекс_картинки w=ширина] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с шириной "ширина" пикселей.
-  /p
-    /| [image=индекс_картинки h=высота] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с высотой "высота" пикселей.
-  /p
-    /| [image=индекс_картинки WxH] &ndash; вставляется картинка с индексом "индекс_картинки" из БД Шики. Картинка будет отображаться с шириной "W" и высотой "H" пикселей.
-    /[poster]
-    /[hr]
+
+  .block
+    .name Картинка на всю ширину страницы без уменьшения до размеров превьюшки
+    .example
+      .textarea
+        | <span>вариант с произвольной картинкой</span> [poster]http://vignette3.wikia.nocookie.net/creepypasta/images/e/e2/Anime-Girl-With-Silver-Hair-And-Purple-Eyes-HD-Wallpaper.jpg/revision/latest[/poster]
+        br
+        | <span>вариант с загруженной на сайт картиной</span> [poster=10656<span>id берётся из image тега</span>]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[poster]http://vignette3.wikia.nocookie.net/creepypasta/images/e/e2/Anime-Girl-With-Silver-Hair-And-Purple-Eyes-HD-Wallpaper.jpg/revision/latest[/poster] [poster=10656]'
+
+  .block
+    .name Горизонтальная линия
+    .example
+      .textarea
+        | [hr]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[hr]'
+
+  .block
+    .name Картинки без пустот между ними
+    .example
+      .textarea
+        | <span>картинки без пробелов между ними в теге [sоlid]</span>[solid]
+        br
+        | [img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        br
+        | [/solid]
+        br
+        | [hr]
+        br
+        | <span>обычный набор картинок</span>[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]
+        br
+        | [img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        br
+
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment "\
+[solid]\
+[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[/solid]\
+\n\n\n\
+[hr]\
+\n\n\
+[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]\
+[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+"
