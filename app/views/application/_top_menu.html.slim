@@ -13,7 +13,7 @@
 
   .menu.menu-userbox
     .entry.userbox data-source="#{userbox_url}"
-      = render partial: 'application/userbox'
+      = render 'application/userbox'
 
   .menu.menu-search
     .entry.main-search
@@ -32,7 +32,7 @@
           li.type data-type="users" Пользователи
 
   .menu.menu-items
-    = render partial: "application/top_menu/#{domain_folder}"
+    = render "application/top_menu/#{domain_folder}"
 
   .moderation style="#{page_background}"
     - if user_signed_in?

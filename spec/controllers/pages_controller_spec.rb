@@ -4,7 +4,6 @@ describe PagesController do
   describe 'auth_form' do
     before { get :auth_form }
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe 'ongoings' do
@@ -16,7 +15,6 @@ describe PagesController do
     end
 
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
 
     describe 'signed_in user' do
       before do
@@ -59,19 +57,16 @@ describe PagesController do
   describe 'user_agreement' do
     before { get :user_agreement }
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe 'pages404' do
     before { get :page404 }
     it { should respond_with 404 }
-    it { should respond_with_content_type :html }
   end
 
   describe 'pages503' do
     before { get :page503 }
     it { should respond_with 503 }
-    it { should respond_with_content_type :html }
   end
 
   describe 'feedback' do
@@ -82,13 +77,11 @@ describe PagesController do
     end
 
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe 'user_agent' do
     before { get :user_agent }
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe 'admin_panel' do
