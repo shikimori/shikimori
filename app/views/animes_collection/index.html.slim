@@ -21,7 +21,7 @@ header.head.ajaxable
 
     aside.l-menu
       - if user_signed_in? || turbolinks_request?
-          = render partial: 'menu', locals: { social: true, klass: klass }
+          = render 'menu', social: true, klass: klass
       - else
           .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
             .ajax-loading title="Загрузка..."

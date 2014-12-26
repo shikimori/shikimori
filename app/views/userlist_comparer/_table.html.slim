@@ -20,15 +20,13 @@
         tr.border
           th colspan="4"
         - collection.each do |entry|
-          tr class="selectable #{entry[:variety]}" data-href="#{entry[:url]}/tooltip"
+          tr.unprocessed.selectable class="#{entry[:variety]}"
             td.name
-              a href="#{entry[:url]}"
+              a.tooltipped href="#{entry[:url]}" data-predelay="650" title="#{entry[:name]}"
                 = entry[:name]
             - if type == :both || type == :user_1_only
               td.num
-                a href="#{entry[:url]}"
-                  == entry[:rate_1_title]
+                == entry[:rate_1_title]
             - if type == :both || type == :user_2_only
               td.num
-                a href="#{entry[:url]}"
-                  == entry[:rate_2_title]
+                == entry[:rate_2_title]

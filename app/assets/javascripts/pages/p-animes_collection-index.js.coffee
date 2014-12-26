@@ -1,6 +1,6 @@
 # require social/addthis_widget
 
-@on 'page:restore', 'animes_collection_index', 'recommendations_index', ->
+@on 'page:restore', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   # восстановление плюсика у фильтра в актуальное состояние
   $block_filer = $('.block-filter.item-add')
   $block_list = $block_filer.siblings('.block-list')
@@ -9,7 +9,7 @@
       .removeClass('item-add')
       .addClass('item-minus')
 
-@on 'page:load', 'animes_collection_index', 'recommendations_index', ->
+@on 'page:load', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   if $('.l-menu .ajax-loading').exists()
     $('.l-menu').one 'ajax:success', init_catalog
   else
@@ -22,9 +22,10 @@ init_catalog = ->
   type = if $('.anime-params-controls').exists() then 'anime' else 'manga'
   base_catalog_path = "/#{type}s"
 
-  if location.pathname.match(/recommendations/)
+  if location.pathname.match(/\/recommendations\//)
     base_catalog_path = _(location.pathname.split("/")).first(5).join("/")
-    type = "recommendation"
+  else if location.pathname.match(/\/comparer\//)
+    base_catalog_path = _(location.pathname.split("/")).first(6).join("/")
 
   new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true
