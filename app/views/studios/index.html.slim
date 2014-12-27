@@ -1,15 +1,12 @@
-- content_for :head do
-  = stylesheet_link_tag :studios
-
 header.head
   h1
     = @page_title
   p.notice
     = @description
 
-.studios
+.block
   = cache "studios_index_block_#{Date.today.strftime '%Y-%m-%d'}" do
-    - @studios.select(&:real?).each do |studio|
+    - @collection.select(&:real?).each do |studio|
       .studio
         - if studio.image.exists?
           - if user_signed_in?
@@ -25,4 +22,3 @@ header.head
         .years
           | За период:&nbsp;
           span.num #{studio.min_year.year}-#{[DateTime.now.year, studio.max_year.year].min}
-.clearfix

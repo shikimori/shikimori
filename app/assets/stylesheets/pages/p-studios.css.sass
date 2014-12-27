@@ -1,10 +1,13 @@
-@import globals
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/link
 
-.studios
+.p-studios
   .studio
+    +clearfix
     border-bottom: 1px dashed #DDD
-    height: 65px
     margin-bottom: 5px
+    min-height: 65px
     padding-bottom: 5px
 
     &:last-child
@@ -16,8 +19,7 @@
       margin: 3px
 
     .name
-      +normal-link
-      color: #123
+      +link(#123)
       display: block
       font-size: 14px
       font-weight: bold
@@ -27,7 +29,6 @@
       color: darken($gray-color-0, 10%)
       font-size: 11px
       line-height: 19px
-      padding-left: 2px
 
       .num
         color: darken($gray-color-2, 10%)
