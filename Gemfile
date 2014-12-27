@@ -11,7 +11,7 @@ gem 'pg'
 gem 'dalli'
 gem 'redis'
 
-gem 'slim-rails', github: 'zlfera/slim-rails' # TODO: заменить на основной репозиторий, когда его для rails 4.2 пофиксят
+gem 'slim-rails'
 gem 'coffee-rails'
 
 gem 'sass-rails', '5.0.0.beta1'
