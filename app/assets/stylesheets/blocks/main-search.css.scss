@@ -124,7 +124,7 @@
       padding-left: 10!important;
     }
     .input {
-      height: 20px;
+      height: 26px;
       margin: 3px;
       padding: 3px 5px 3px;
       width: 100%;
@@ -146,9 +146,10 @@
 
       li {
         display: inline-block;
-        line-height: 23px;
+        line-height: 24px;
         font-size: 13px;
-        padding: 2px 8px 4px 8px;
+        padding: 2px 8px 2px 8px;
+        height: auto;
       }
     }
   }
