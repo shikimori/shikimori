@@ -38,7 +38,7 @@
           = hidden_field_tag 'animes[]', ''
           ul.container
             - if @group
-              - @group.animes.uniq(&:id).each do |anime|
+              - @group.all_animes.uniq(&:id).each do |anime|
                 li
                   span.item-minus
                   = hidden_field_tag 'animes[]', anime.id
@@ -51,7 +51,7 @@
           = hidden_field_tag 'mangas[]', ''
           ul.container
             - if @group
-              - @group.mangas.uniq(&:id).each do |manga|
+              - @group.all_mangas.uniq(&:id).each do |manga|
                 li
                   span.item-minus
                   = hidden_field_tag 'mangas[]', manga.id
@@ -66,7 +66,7 @@
           = hidden_field_tag 'characters[]', ''
           ul.container
             - if @group
-              - @group.characters.uniq(&:id).each do |character|
+              - @group.all_characters.uniq(&:id).each do |character|
                 li
                   span.item-minus
                   = hidden_field_tag 'characters[]', character.id
