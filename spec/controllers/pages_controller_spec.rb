@@ -33,7 +33,7 @@ describe PagesController do
       before do
         create :topic, broadcast: true, section: section
         create :topic, broadcast: true, section: section
-        get :news, format: 'rss'
+        get :news, kind: 'site', format: 'rss'
       end
 
       it { should respond_with :success }
@@ -91,11 +91,8 @@ describe PagesController do
     end
 
     context 'user' do
-      before do
-        sign_in user
-        get :admin_panel
-      end
-
+      include_context :authenticated, :user
+      before { get :admin_panel }
       it { should respond_with 403 }
     end
 
