@@ -1,4 +1,5 @@
 @on 'page:load', 'profiles_ban', ->
-  $('.b-form.ban').on 'ajax:success', ->
-    #Turbolinks.visit.bind(Turbolinks, location.href).delay(500)
-    location.reload()
+  $('.b-form.new_ban').on 'ajax:success', ->
+    $.info('Перезагрузка страницы...')
+    location.reload.bind(location).delay(500)
+
