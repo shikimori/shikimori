@@ -18,7 +18,7 @@ class TorrentsParser
   AnimeWithExactNameMatch = [10161, 10490, 10379, 6336, 11319, 14645, 15085, 14967, 15611, 17705, 15699, 16241, 16049]
   AnimeWithAllSubGroups = [9539, 12979, 13163, 6702, 15417]
 
-  END_OF_NAME = /[\w\)!~?\.+-]/
+  END_OF_NAME = /[\w\)!~?\.+-‒]/
   EPISODE_FOR_HISTORY_REGEXES = [
     /
       #{END_OF_NAME} # завершающий кусочек названия

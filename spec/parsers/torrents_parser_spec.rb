@@ -76,6 +76,11 @@ describe TorrentsParser do
     it { should eq [22] }
   end
 
+  describe 'with long dash at end of name' do
+    let(:name) { '[Mezashite] Aikatsu! ‒ 101 [6936887B].mkv' }
+    it { should eq [101] }
+  end
+
   describe 'name with brackets' do
     let(:name) { '[HorribleSubs] Rozen Maiden (2013) - 01 [720p].mkv' }
     it { should eq [1] }
