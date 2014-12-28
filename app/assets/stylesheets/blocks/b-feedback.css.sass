@@ -8,6 +8,9 @@ $feedback_height: 150px
 $feedback_width: 31px
 $feedback_top: 270px
 
+$feedback_color_from: #6a95ca
+$feedback_color_to: #4b80c0
+
 .b-feedback
   &>.hover-activator
     background: #4b80c0
@@ -39,7 +42,7 @@ $feedback_top: 270px
       display: block
 
     &>.marker-text
-      +background-with-css2-fallback(linear-gradient(bottom, #6a95ca 0%, #4b80c0 100%), #4b80c0)
+      +background-with-css2-fallback(linear-gradient(bottom, $feedback_color_from 0%, $feedback_color_to 100%), #4b80c0)
       +transform(rotate(-90deg))
       -moz-transform-origin: left top
       -webkit-transform-origin: left top
@@ -49,6 +52,12 @@ $feedback_top: 270px
       height: $feedback_width
       margin-top: $feedback_height
       line-height: $line_height
+
+      &:hover
+        +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%), lighten($feedback_color_to, 3%))
+
+      &:active
+        +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%), lighten($feedback_color_to, 1%))
 
       &:after
         content: 'Сообщить об ошибке'
