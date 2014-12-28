@@ -3,11 +3,9 @@ class DialogsQuery
 
   def fetch page, limit
     Message
-      .where(id: latest_message_ids)
+      .where(id: latest_message_ids(page, limit))
       .includes(:linked, :from, :to)
       .order(id: :desc)
-      .offset(limit * (page-1))
-      .limit(limit + 1)
       .map {|v| Dialog.new(user, v) }
   end
 
@@ -17,7 +15,7 @@ class DialogsQuery
   end
 
 private
-  def latest_message_ids
+  def latest_message_ids page, limit
     Message
       .where(kind: MessageType::Private)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
@@ -28,7 +26,8 @@ private
       .group("case when from_id = #{user.id} then to_id else from_id end")
       .order('max(id) desc')
       .select('max(id) as id')
-      .map(&:id)
+      .offset(limit * (page-1))
+      .limit(limit + 1)
   end
 
   def ignores_ids
