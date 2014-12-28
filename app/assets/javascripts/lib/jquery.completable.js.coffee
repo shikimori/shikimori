@@ -10,7 +10,7 @@
               entry.id = entry.data
               entry.name = entry.value
               $element.trigger 'autocomplete:success', [entry]
-            else
+            else if @value
               $element.trigger 'autocomplete:text', [@value]
 
           .autocomplete 'data-autocomplete',
