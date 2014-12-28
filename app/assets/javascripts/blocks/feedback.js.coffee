@@ -1,4 +1,4 @@
-$(document).on 'page:load', (e, is_dom_content_loaded) ->
+$(document).on 'page:load', ->
   $feedback = $('.b-feedback')
 
   $('.marker-positioner', $feedback).on 'ajax:success', (e, data) ->

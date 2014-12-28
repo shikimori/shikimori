@@ -33,7 +33,7 @@ window.hide_form = ->
 
   $('#shade').trigger 'hide'
 
-$ ->
+$(document).on 'page:load', ->
   # скрытие формы по клику на бекграунд
   $(document.body).on 'click', '#shade, .hover-form .form-buttons .cancel', ->
     $('.hover-form').stop true, false
