@@ -35,7 +35,7 @@
         input.anime-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="club[anime_ids][]" data-autocomplete="#{autocomplete_animes_url search: ''}"
         .subheadline Аниме
         .variants
-          - @resource.animes.uniq(&:id).each do |anime|
+          - @resource.all_animes.uniq(&:id).each do |anime|
             .variant
               = check_box_tag 'club[anime_ids][]', anime.id, checked: true
               a.bubbled href="#{anime_url anime}"
@@ -44,7 +44,7 @@
         input.manga-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название манги" data-variant_name="club[manga_ids][]" data-autocomplete="#{autocomplete_mangas_url search: ''}"
         .subheadline Манга
         .variants
-          - @resource.mangas.uniq(&:id).each do |manga|
+          - @resource.all_mangas.uniq(&:id).each do |manga|
             .variant
               = check_box_tag 'club[manga_ids][]', manga.id, checked: true
               a.bubbled href="#{manga_url manga}"
@@ -54,7 +54,7 @@
       input.character-suggest.subheadline-input type="text" placeholder="Имя персонажа" data-variant_name="club[character_ids][]" data-autocomplete="#{autocomplete_characters_url search: ''}"
       .subheadline Персонажи
       .variants
-        - @resource.characters.uniq(&:id).each do |character|
+        - @resource.all_characters.uniq(&:id).each do |character|
           .variant
             = check_box_tag 'club[character_ids][]', character.id, checked: true
             a.bubbled href="#{character_url character}"
