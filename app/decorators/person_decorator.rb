@@ -50,7 +50,7 @@ class PersonDecorator < DbEntryDecorator
     all_roles
       .select {|v| v.anime || v.manga }
       .map {|v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
-      .sort_by {|v| -(v.score || -999) }
+      .sort_by {|v| -(v.score && v.score < 9.9 ? v.score : -999) }
   end
 
   def best_works
