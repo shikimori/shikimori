@@ -10,8 +10,10 @@
       p Данной страницей следует пользоваться только в случае невозможности бана по комментарию. Например, если комментарий удалён. Во всех остальных ситуациях баньте через форум в самом комментарии.
       = render template: 'moderation/bans/new', locals: { ban_in_profile: true }
 
-  - if @resource.bans.any?
-    .block
-      .subheadline История банов
-      .bans
+  .block
+    .subheadline История банов
+    .bans
+      - if @resource.bans.any?
         = render partial: 'moderation/bans/ban', collection: @resource.bans.reverse
+      - else
+        p.b-nothing_here Нет
