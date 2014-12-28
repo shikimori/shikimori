@@ -23,7 +23,7 @@
               span.refrain data-type="json" data-method="post" data-remote="true" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'none'}"
                 | Воздержаться
               p.next К следующей паре
-              p.finish На сегодня всё. Спасибо за участие.
+              p.finish На сегодня всё! Спасибо за участие!
 
             - elsif @match.finished?
               p.help.success Голосование завершено
