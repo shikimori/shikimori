@@ -371,7 +371,7 @@ class MessagesController < ProfilesController
 
 private
   def faye
-    FayeService.new current_user, faye_token
+    FayeService.new current_user || User.find(User::GuestID), faye_token
   end
 
   def create_params

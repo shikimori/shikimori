@@ -190,6 +190,11 @@ describe Message do
       it { should_not be_able_to :edit, message }
       it { should_not be_able_to :update, message }
       it { should_not be_able_to :destroy, message }
+
+      context 'message to admin' do
+        let(:message) { build_stubbed :message, from_id: User::GuestID, to_id: User::Admins.first, kind: MessageType::Private }
+        it { should be_able_to :create, message }
+      end
     end
 
     context 'user' do

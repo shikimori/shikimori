@@ -38,9 +38,10 @@ html
     .b-to-top
       .slide
       .arrow ↑
-    .feedback-hover-activator
-    span.feedback data-remote="true" data-action="#{feedback_pages_url}" data-type="html"
-      .graphics-feedback title="Оставить отзыв"
+    .b-feedback
+      .hover-activator
+      span.marker-positioner data-remote="true" data-action="#{feedback_pages_url}" data-type="html"
+        .marker-text
     | <!--noindex-->
     = yield :form
     | <!--/noindex-->

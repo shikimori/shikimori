@@ -1,0 +1,95 @@
+@import compass/css3/images
+@import compass/css3/transform
+@import globals/variables
+@import mixins/responsive
+@import mixins/link
+
+$feedback_height: 150px
+$feedback_width: 31px
+$feedback_top: 270px
+
+.b-feedback
+  &>.hover-activator
+    background: #4b80c0
+    display: none
+    height: $feedback_height
+    left: 0
+    position: fixed
+    top: $feedback_top
+    width: 3px
+    z-index: 1
+
+    +responsive(desktop)
+      display: block
+
+    &:hover + .marker-positioner
+      z-index: 1001
+
+  &>.marker-positioner
+    cursor: pointer
+    display: none
+    height: $feedback_height
+    left: 0
+    position: fixed
+    top: $feedback_top
+    width: $feedback_width
+    z-index: 0
+
+    +responsive(desktop)
+      display: block
+
+    &>.marker-text
+      +background-with-css2-fallback(linear-gradient(bottom, #6a95ca 0%, #4b80c0 100%), #4b80c0)
+      +transform(rotate(-90deg))
+      -moz-transform-origin: left top
+      -webkit-transform-origin: left top
+      transform-origin: left top
+      padding: 5px 8px
+      width: $feedback_height
+      height: $feedback_width
+      margin-top: $feedback_height
+      line-height: $line_height
+
+      &:after
+        content: 'Сообщить об ошибке'
+        color: #fff
+
+    &:hover
+      z-index: 1001
+
+  &>.message
+    background: white
+    margin: 0 auto
+    max-width: $site-body-width
+    padding: 15px 10px 0 10px
+    position: relative
+
+    &>.inner
+      background: white
+      margin: -150px auto 0
+      padding: 10px
+      position: fixed
+      top: 50%
+      width: $site-body-width - 17
+      z-index: 1002
+
+      .about
+        margin-bottom: 8px
+
+        a
+          +link
+
+      .warn
+        color: $red
+
+      .post-here
+        color: $gray-color-2
+        position: absolute
+        right: 22px
+        margin-top: -32px
+        font-size: 11px
+
+      .post-here-arrow
+        margin-top: -16px
+        position: absolute
+        right: 98px

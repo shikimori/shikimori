@@ -68,6 +68,7 @@ class PagesController < ShikimoriController
 
   # страница обратной связи
   def feedback
+    @feedback_message = Message.new from_id: (current_user.try(:id) || User::GuestID), to_id: User::Admins.first, kind: MessageType::Private
   end
 
   # отображение юзер-агента пользователя

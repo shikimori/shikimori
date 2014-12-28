@@ -51,6 +51,7 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
   #$(document.body).addClass 'l-mobile' if is_mobile()
   $(document.body).process()
 
+
 #$(document).on 'page:fetch', ->
   #$('.l-page').css opacity: 0.3
 

@@ -29,6 +29,10 @@ class Ability
     can :see_contest, Contest
     can :see_club, Group
     can :read, Review
+
+    can [:create], Message do |message|
+      message.kind == MessageType::Private && message.from_id == User::GuestID && message.to_id == User::Admins.first
+    end
   end
 
   def user_ability

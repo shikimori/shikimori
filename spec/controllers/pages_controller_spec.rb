@@ -37,7 +37,7 @@ describe PagesController do
       end
 
       it { should respond_with :success }
-      it { should respond_with_content_type :rss }
+      it { expect(response.content_type).to eq 'application/rss+xml' }
       it { expect(assigns(:topics).size).to eq(2) }
     end
 
@@ -49,7 +49,7 @@ describe PagesController do
       end
 
       it { should respond_with :success }
-      it { should respond_with_content_type :rss }
+      it { expect(response.content_type).to eq 'application/rss+xml' }
       it { expect(assigns(:topics).size).to eq(2) }
     end
   end
