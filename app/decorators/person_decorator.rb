@@ -50,7 +50,13 @@ class PersonDecorator < DbEntryDecorator
     all_roles
       .select {|v| v.anime || v.manga }
       .map {|v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
-      .sort_by {|v| -(v.score && v.score < 9.9 ? v.score : -999) }
+      .sort_by do |v|
+        if h.params[:order_by] == 'date'
+          v.aired_on || v.released_on || DateTime.now - 99.years
+        else
+          v.score && v.score < 9.9 ? v.score : -999
+        end
+      end.reverse
   end
 
   def best_works

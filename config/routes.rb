@@ -378,7 +378,7 @@ Site::Application.routes.draw do
 
     resources :people, only: [:show] do
       member do
-        get :works
+        get 'works(order-by/:order_by)' => :works, order_by: /date/, as: :works
         get :comments
         get :tooltip
       end
