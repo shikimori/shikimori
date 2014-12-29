@@ -43,10 +43,7 @@ class UsersController < ShikimoriController
       @page_title = 'Пользователи'
       @users = postload_paginate(params[:page], USERS_PER_PAGE) do
         if params[:search]
-          search = "%#{params[:search]}%"
-          User
-            .where('nickname ilike ?', search)
-            .order('nickname, (case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
+          UsersQuery.new(params).search
         else
           User
             .where.not(id: 1)
@@ -54,7 +51,10 @@ class UsersController < ShikimoriController
         end
       end
 
-      @users = @users.sort_by {|v| v.last_online_at }.reverse
+      unless params[:search]
+        @users.sort_by!(&:last_online_at)
+        @users.reverse!
+      end
     end
 
     @users.map!(&:decorate) if @users

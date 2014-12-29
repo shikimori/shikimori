@@ -20,6 +20,11 @@ class UsersQuery
     (warnings > 0 ? 1 : 0) + bans
   end
 
+  # для поиска на странице поиска пользователей (тут специально нет reverse, т.к. на выходе нужен relation)
+  def search
+    search_order @klass.where(search_queries.join(' or '))
+  end
+
 private
   # ключи, по которым будет вестись поиск
   def search_fields term

@@ -18,14 +18,14 @@ private
       memo.sub '<--!-->', "(case when #{condition} then #{index} else <--!--> end)"
     end.sub('<--!-->', '999')
 
-    query.select("#{@klass.table_name}.*, #{matched} as matched")
-        .order("#{matched}, #{@klass.table_name}.name")
+    query
+      .select("#{@klass.table_name}.*, #{matched} as matched")
+      .order("#{matched}, #{@klass.table_name}.name")
   end
 
   # варианты, которые будем перебирать при поиске
   def search_queries
     fields = search_fields @search
-    downcased = Unicode.downcase(@search)
 
     fields.map do |column_name|
       [
