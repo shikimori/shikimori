@@ -1,7 +1,7 @@
 // private message
 function show_private_message_form(user_id, top, text_getter) {
   if (!IS_LOGGED_IN) {
-    $('#sign_in').trigger('click')
+    $('#sign_up').trigger('click')
     return false;
   }
   $shade = $('#shade');

@@ -7,6 +7,29 @@
   margin-top: -6px
   float: right
 
+.social
+  .vk-button
+    +icon_button("\e850")
+
+  .facebook-button
+    +icon_button("\e851")
+
+  .twitter-button
+    +icon_button("\e852")
+
+  .vk-button,
+  .facebook-button,
+  .twitter-button
+    display: inline-block
+    margin-left: 0
+    margin-right: $block_offset
+
+    &:before
+      font-size: 23px
+      height: 30px
+      line-height: 30px
+      width: 30px
+
 .buttons
   color: #999999
   float: right

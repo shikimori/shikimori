@@ -12,8 +12,37 @@
     .search.mobile-search-toggler title="Поиск"
 
   .menu.menu-userbox
-    .entry.userbox data-source="#{userbox_url}"
-      = render 'application/userbox'
+    .entry.userbox
+      - if user_signed_in?
+        - if current_user.unread_count > 0
+          a.unread-count href="#{current_user.unread_messages_url}" title="Почта"
+            = [99, current_user.unread_count].min
+        a.avatar href="#{current_user.url}" title="#{current_user.nickname}"
+          img.avatar src="#{current_user.avatar_url 20}" srcset="#{current_user.avatar_url 48} 2x" title="#{current_user.nickname}" alt="#{current_user.nickname}"
+          - unless current_user.unread_count > 0
+            span.graphics-arrow-down
+        .submenu.right
+          a.entry href="#{profile_user_rates_url current_user, list_type: 'anime'}" Аниме
+          a.entry href="#{profile_user_rates_url current_user, list_type: 'manga'}" Манга
+          a.entry href="#{current_user.unread_messages_url}"
+            span Почта
+            - if current_user.unread_count > 0
+              | &nbsp;
+              span.sep.zero.inline
+                | [
+              = current_user.unread_messages
+              span.sep.zero.inline ;
+              = current_user.unread_news
+              span.sep.zero.inline ;
+              = current_user.unread_notifications
+              span.sep.zero.inline
+                | ]
+
+          a.entry href="#{edit_profile_url current_user}" Настройки
+          a.entry href="#{destroy_user_session_url}" Выход
+
+      - else
+        span#sign_up data-href="#{new_user_registration_url}" title="Регистрация"
 
   .menu.menu-search
     .entry.main-search

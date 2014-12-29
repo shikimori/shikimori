@@ -75,9 +75,9 @@ jQuery(function ($) {
                         $this.data('ajax:locked', false);
                         if (xhr.responseText.match(/invalid/)) {// || xhr.responseText.match(/unauthenticated/)) {
                             $.flash({alert: 'Неверный логин или пароль'});
-                        } else if (xhr.status == 401) {
-                            $.flash({alert: 'Вы не авторизованы'});
-                            $('#sign_in').trigger('click');
+                        //} else if (xhr.status == 401) {
+                            //$.flash({alert: 'Вы не авторизованы'});
+                            //$('#sign_up').trigger('click');
                         } else if (xhr.status == 403) {
                             $.flash({alert: (xhr.responseText != 'Forbidden' ? xhr.responseText : 'У вас нет прав для данного действия')});
                         } else if (xhr.status == 500) {

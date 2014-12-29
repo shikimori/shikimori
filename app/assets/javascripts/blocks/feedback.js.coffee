@@ -13,6 +13,7 @@ $(document).on 'page:load', ->
       $.notice 'Сообщение отправлено администрации'
       $('#shade').trigger 'click'
 
-    $('#shade').trigger('show', 0.2)
+    $('#shade').show()
     $('#shade').one 'click', ->
       $form.remove()
+      $(@).hide()

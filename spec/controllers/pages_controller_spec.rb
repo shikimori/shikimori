@@ -1,11 +1,6 @@
 describe PagesController do
   let(:user) { create :user }
 
-  describe 'auth_form' do
-    before { get :auth_form }
-    it { should respond_with :success }
-  end
-
   describe 'ongoings' do
     before do
       create :ongoing_anime

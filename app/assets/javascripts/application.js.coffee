@@ -51,6 +51,9 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
   #$(document.body).addClass 'l-mobile' if is_mobile()
   $(document.body).process()
 
+  $('#sign_up').on 'click', ->
+    Turbolinks.visit $(@).data('href')
+
 
 #$(document).on 'page:fetch', ->
   #$('.l-page').css opacity: 0.3

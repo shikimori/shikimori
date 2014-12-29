@@ -1,7 +1,6 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
-  get 'users/sign_in' => redirect {|params,request| request.referer || '/' }
   ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
 
   constraints MangaOnlineDomain do
@@ -105,9 +104,6 @@ Site::Application.routes.draw do
 
     # рестарт джобы
     get "job/:id/restart" => 'jobs#restart', as: 'restart_job'
-
-    # верхний блок с инфой о логине пользователя
-    get 'userbox' => 'site#userbox'
 
     # френд реквесты
     post ':id/friend' => 'friends#create', as: :friend_add

@@ -9,10 +9,6 @@ class PagesController < ShikimoriController
   respond_to :html, except: [:news]
   respond_to :rss, only: [:news]
 
-  # блок авторизации/регистрации
-  def auth_form
-  end
-
   # график онгоингов
   def ongoings
     @page_title = 'Календарь онгоингов'

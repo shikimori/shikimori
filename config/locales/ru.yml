@@ -28,7 +28,7 @@ ru:
         location: Откуда
         name: Реальное имя
         nickname: Логин
-        password: Новый пароль
+        password: Пароль
         password_confirmation: Подтверждение пароля
         sex: Пол
         website: Сайт
