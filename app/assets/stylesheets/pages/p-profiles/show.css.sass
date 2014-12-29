@@ -3,6 +3,9 @@
 @import mixins/column
 
 .p-profiles-show
+  .profile-content
+    overflow: hidden // без этого в фаерфоксе появляется отступ в $block_offset пикселей между .profile-head и .profile-content
+
   .lifetime
     +block
 
