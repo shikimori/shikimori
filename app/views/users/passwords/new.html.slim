@@ -4,7 +4,7 @@ header.head.m15
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   .block
-    = f.input :email
+    = f.input :email, input_html: { autofocus: true }
 
   .block
     = f.submit 'Отправить инструкцию'

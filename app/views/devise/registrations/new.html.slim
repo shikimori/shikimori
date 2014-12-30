@@ -10,7 +10,7 @@ header.head.m15
         == resource.errors.full_messages.join('<br>')
 
   .block
-    = f.input :nickname
+    = f.input :nickname, input_html: { autofocus: true }
     = f.input :email
     = f.input :password
 
