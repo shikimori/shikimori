@@ -310,7 +310,7 @@ private
   def fix_nickname
     self.nickname = nickname
       .gsub(/[%&#\/\\?+\]\[:,]+/, '')
-      .gsub(/ +/, ' ')
+      .gsub(/[[:space:]]+/, ' ')
       .strip
       .gsub(/^\.$/, 'точка')
   end
