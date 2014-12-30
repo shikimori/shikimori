@@ -37,6 +37,7 @@ class Ability
 
   def user_ability
     can :manage, UserRate, user_id: @user.id
+    can :manage, UserToken, user_id: @user.id
     can [:cleanup, :reset], UserRate
 
     can :destroy, Image do |image|

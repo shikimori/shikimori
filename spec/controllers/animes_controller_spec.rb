@@ -101,7 +101,7 @@ describe AnimesController do
     context 'guest' do
       let(:page) { nil }
       before { get :edit, id: anime.to_param }
-      it { should redirect_to users_sign_in_url }
+      it { should redirect_to new_user_session_url }
     end
 
     context 'authenticated' do
@@ -133,5 +133,17 @@ describe AnimesController do
         it { should respond_with :success }
       end
     end
+  end
+
+  describe '#autocomplete' do
+    let!(:anime_1) { create :anime, name: 'zzz Ffff' }
+    let!(:anime_2) { create :anime, name: 'Fffff' }
+    let!(:anime_3) { create :anime, name: 'Ff' }
+
+    before { get :autocomplete, search: 'Fff' }
+
+    it { should respond_with :success }
+    it { expect(collection).to eq [anime_1, anime_2] }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 end

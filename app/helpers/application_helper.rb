@@ -75,14 +75,6 @@ module ApplicationHelper
     link_to url.gsub(/^http:\/\/|www\.|\/$/, ''), url, :rel => :nofollow
   end
 
-  def connected_providers_for user
-    user.user_tokens.collect{|v| v.provider.to_sym }
-  end
-
-  def unconnected_providers_for user
-    User.omniauth_providers.select {|v| v != :google_apps && v != :yandex } - user.user_tokens.collect {|v| v.provider.to_sym }
-  end
-
   def format_rss_urls text
     text.gsub('href="/', 'href="http://shikimori.org/').gsub('src="/', 'src="http://shikimori.org/')
   end

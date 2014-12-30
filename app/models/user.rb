@@ -75,15 +75,7 @@ class User < ActiveRecord::Base
 
   has_many :devices, dependent: :destroy
 
-  has_many :user_tokens do
-    def facebook
-      target.detect {|t| t.provider == 'facebook' }
-    end
-
-    def twitter
-      target.detect {|t| t.provider == 'twitter' }
-    end
-  end
+  has_many :user_tokens
 
   has_attached_file :avatar,
     styles: {

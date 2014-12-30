@@ -567,6 +567,8 @@ Site::Application.routes.draw do
       get 'users/by-id/:user_id' => 'users#statistics', type: 'statistics', kind: 'anime'
     end
 
+    resources :user_tokens, only: [:destroy]
+
     # users
     get 'users(/:similar/:klass/(:threshold))(/search/:search)(/page/:page)' => 'users#index', as: :users, page: /\d+/, similar: /similar/, klass: /anime|manga/
     post 'users/search' => 'users#search', as: :users_search
@@ -600,7 +602,6 @@ Site::Application.routes.draw do
     end
     #get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
     #get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
-
 
     resources :profiles, path: '/', constraints: { id: /[^\/]+/ }, only: [:show, :update] do
       member do
@@ -651,39 +652,6 @@ Site::Application.routes.draw do
           post 'delete/:messages_type/all' => :delete_all, as: :delete_all
         end
       end
-    end
-
-    constraints id: /[^\/]+?/, format: /json|rss/ do
-      #get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/
-      #get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications|misc/, type: 'settings'
-      #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
-      #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
-      #patch ':id(/:type/:page)' => 'users#update'
-      #patch ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
-      #patch ':id/password' => 'users#update_password', as: :update_user_password
-      #get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
-      #post ':id/ban' => 'users#do_ban'
-
-      #get ':id/comments(/page/:page)' => 'users#comments', as: :user_comments, type: 'comments'
-      #get ':id/reviews(/page/:page)' => 'users#reviews', as: :user_reviews, type: 'reviews'
-      #get ':id/changes(/page/:page)' => 'users#changes', as: :user_changes, type: 'changes'
-
-      #get ':id/friends' => 'users#friends', as: :user_friends, type: 'friends'
-      #get ':id/clubs' => 'users#clubs', as: :user_clubs, type: 'clubs'
-      #patch ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
-      #get ':id/favourites' => 'users#favourites', as: :user_favourites, type: 'favourites'
-
-      # user_list
-      #constraints list_type: /anime|manga/ do
-        #get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
-        #get ':id/list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
-      #end
-      #post ':id/import' => 'user_lists#list_import', as: :list_import
-      #get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }
-
-      #get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
-      #get ':id/message' => 'messages#new', as: :private_message
-      get ':id/provider/:provider' => 'users#remove_provider', as: :user_remove_provider
     end
 
     #post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe

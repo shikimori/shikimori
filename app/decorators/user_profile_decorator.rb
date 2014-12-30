@@ -178,6 +178,10 @@ class UserProfileDecorator < UserDecorator
     thread
   end
 
+  def unconnected_providers
+    User.omniauth_providers.select {|v| v != :google_apps && v != :yandex } - user_tokens.map {|v| v.provider.to_sym }
+  end
+
 private
   def all_compatibility
     CompatibilityService.fetch self, h.current_user if h.user_signed_in?

@@ -1,0 +1,42 @@
+@import globals/variables
+@import mixins/icons
+
+.b-oauth_token
+  &.vkontakte
+    +icon_button("\e850")
+    color: #587a9e
+    &:hover
+      color: lighten(#587a9e, 9%)
+    &:active
+      color: darken(#587a9e, 9%)
+
+  &.facebook
+    +icon_button("\e851")
+    color: #3a5795
+    &:hover
+      color: lighten(#3a5795, 9%)
+    &:active
+      color: darken(#3a5795, 9%)
+
+  &.twitter
+    +icon_button("\e852")
+    color: #55acee
+    &:hover
+      color: lighten(#55acee, 9%)
+    &:active
+      color: darken(#55acee, 9%)
+
+
+  &.vkontakte,
+  &.facebook,
+  &.twitter
+    display: inline-block
+    margin-left: 0
+    margin-right: 20px
+
+    &:before
+      font-size: 23px
+      height: 30px
+      line-height: 30px
+      width: 30px
+

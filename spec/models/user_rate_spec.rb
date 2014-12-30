@@ -1,3 +1,5 @@
+require 'cancan/matchers'
+
 describe UserRate do
   describe 'relations' do
     it { should belong_to :target }
@@ -394,6 +396,28 @@ describe UserRate do
     describe '#status_name' do
       subject { build :user_rate, target_type: 'Anime' }
       its(:status_name) { should eq 'Запланировано' }
+    end
+  end
+
+  describe 'permissions' do
+    let(:user) { build_stubbed :user }
+    subject { Ability.new user }
+
+    context 'owner' do
+      let(:user_rate) { build_stubbed :user_rate, user: user }
+      it { should be_able_to :mangae, user_rate }
+    end
+
+    context 'guest' do
+      let(:user_rate) { build_stubbed :user_rate }
+      let(:user) { nil }
+      it { should_not be_able_to :manage, user_rate }
+    end
+
+    context 'user' do
+      let(:user_rate) { build_stubbed :user_rate }
+      let(:user) { nil }
+      it { should_not be_able_to :manage, user_rate }
     end
   end
 end

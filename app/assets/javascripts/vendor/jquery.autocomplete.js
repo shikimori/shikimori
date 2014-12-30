@@ -731,7 +731,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
       return this.visible() && (listItems.filter("." + CLASSES.ACTIVE)[0] || options.selectFirst && listItems[0]);
     },
     show: function() {
-      var offset = '$anchor' in options ? options.$anchor.offset() : $(input).offset();
+      var offset = '$anchor' in options && options.$anchor ? options.$anchor.offset() : $(input).offset();
       element.css({
         width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).width(),
         top: offset.top + input.offsetHeight,

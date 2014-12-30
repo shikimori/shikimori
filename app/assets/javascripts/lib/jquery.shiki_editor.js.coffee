@@ -78,18 +78,21 @@ class @ShikiEditor extends ShikiView
         .trigger('change')
 
     # автокомплит для поля ввода ссылки
-    @$(".links input[type=text]").completable null, (e, id, text) =>
-      if @$(".links input[type=radio][value=url]").prop("checked")
-        text = @$(".links input.link-value").val()
+    @$(".links input[type=text]")
+      .completable()
+      .on 'autocomplete:success autocomplete:text',  (e, result) =>
+        $radio = @$(".links input[type=radio]:checked")
+        radio_type = $radio.prop('id').replace('link_type_', '')
 
-      if text
-        if id
-          param =
-            id: id
-            text: text
+        param = if Object.isString(result)
+          if radio_type == 'url'
+            result
         else
-          param = text
-        @$(".links input[type=radio]:checked").trigger("tag:build", param)
+          id: result.id
+          text: result.name
+          type: radio_type
+
+        $radio.trigger("tag:build", param) if param
 
     # изменение типа ссылки
     @$(".links input[type=radio]").on 'change', ->
@@ -107,7 +110,7 @@ class @ShikiEditor extends ShikiView
       $input.trigger('flushCache').focus()
 
     # общий обработчик для всех радио кнопок, закрывающий блок со ссылками
-    @$('.links input[type=radio]').on 'tag:build', (e, id, text) =>
+    @$('.links input[type=radio]').on 'tag:build', (e, data) =>
       @$('.editor-link').trigger('click')
 
     # открытие блока картинки
@@ -135,18 +138,21 @@ class @ShikiEditor extends ShikiView
         false
 
     # автокомплит для поля ввода цитаты
-    @$(".quotes input[type=text]").completable null, (e, id, text) =>
-      @$textarea.insertAtCaret "[quote" + ((if not text or text.isBlank() then "" else "=" + text)) + "]", "[/quote]"
-      @$(".editor-quote").trigger('click')
+    @$(".quotes input[type=text]")
+      .completable()
+      .on 'autocomplete:success autocomplete:text', (e, result) =>
+        debugger
+        text = if Object.isString(result) then result else result.value
+        @$textarea.insertAtCaret "[quote" + ((if not text or text.isBlank() then "" else "=" + text)) + "]", "[/quote]"
+        @$(".editor-quote").trigger('click')
 
-    # построение бб тега для url
+    # построение бб-кода для url
     @$('.links #link_type_url').on 'tag:build', (e, value) =>
       @$textarea.insertAtCaret "[url=#{value}]", "[/url]", value.replace(/^http:\/\/|\/.*/g, "")
 
-    # построение бб тега для аниме,манги,персонажа и человека
+    # построение бб-кода для аниме,манги,персонажа и человека
     @$('.links #link_type_anime,.links #link_type_manga,.links #link_type_character,.links #link_type_person').on 'tag:build', (e, data) =>
-      type = @getAttribute('id').replace('link_type_', '')
-      @$textarea.insertAtCaret "[#{type}=#{data.id}]", "[/#{type}]", data.text
+      @$textarea.insertAtCaret "[#{data.type}=#{data.id}]", "[/#{data.type}]", data.text
 
     # открытие блока со смайлами
     @$('.smileys').on 'click:open', (e) =>

@@ -26,21 +26,19 @@
             img src="#{@resource.avatar_url}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
             p.avatar-delete удалить
 
-      - unless connected_providers_for(@resource).empty?
+      - if @resource.user_tokens.any?
         .block
           .subheadline Подключенная авторизация
           .value.oauth.remove
-            - connected_providers_for(@resource).each do |provider|
-              = link_to user_remove_provider_path(@resource, provider) do
-                = image_tag "/images/omniauth/#{provider}.png", alt: "Отключить авторизацию через #{provider.to_s.titleize}", title: "Отключить авторизацию через #{provider.to_s.titleize}"
+            - @resource.user_tokens.each do |token|
+              a.b-oauth_token class="#{token.provider}" href="#{user_token_url token}" data-method="delete" data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?" title="Отключить авторизацию через #{token.provider.to_s.titleize}"
 
-      - unless unconnected_providers_for(@resource).empty?
+      - if @resource.unconnected_providers.any?
         .block
           .subheadline Не подключенные сервисы
           .value.oauth.add
-            - unconnected_providers_for(@resource).each do |provider|
-              = link_to "/users/auth/#{provider}" do
-                = image_tag "/images/omniauth/#{provider}.png", alt: "Подключить авторизацию через #{provider.to_s.titleize}", title: "Подключить авторизацию через #{provider.to_s.titleize}"
+            - @resource.unconnected_providers.each do |provider|
+              a.b-oauth_token class="#{provider}" href="#{user_omniauth_authorize_url provider}" title="Подключить авторизацию через #{provider.to_s.titleize}"
 
       input.ignore-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="user[ignored_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
       .subheadline Игнорируемые пользователи
