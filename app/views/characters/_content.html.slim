@@ -1,4 +1,7 @@
 .b-catalog_entry-tooltip
+  - if defined?(with_image) && with_image
+    img.image src="#{character.image.url :preview}" srcset="#{character.image.url :original} 2x" alt="#{localized_name character}"
+
   .inner class="#{:offset if defined?(with_image) && with_image}"
     .line itemprop="name"
       .data.name
@@ -8,6 +11,21 @@
         - else
           .linkeable.name data-href="#{character_url character}" data-title="#{localized_name character}"
             = localized_name character
+    .additional-images
+      - if character.has_anime?
+        .anime-link itemprop="anime"
+          a href="#{anime_url character.best_anime}"
+            img.image src="#{character.best_anime.image.url :preview}" srcset="#{character.best_anime.image.url :original} 2x"
+            .test Аниме
+      - elsif character.has_manga?
+        .manga-link itemprop="manga"
+          a href="#{anime_url character.best_manga}"
+            img.image src="#{character.best_manga.image.url :preview}" srcset="#{character.best_manga.image.url :original} 2x"
+            .test Манга
+      .person-link itemprop="person"
+        a href="#{anime_url character.best_person}"
+          img.image src="#{character.best_person.image.url :preview}" srcset="#{character.best_person.image.url :original} 2x"
+          .test Сэйю
 
     .text itemprop="description"
       = character.decorate.description_html_truncated
