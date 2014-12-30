@@ -51,7 +51,7 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
   #$(document.body).addClass 'l-mobile' if is_mobile()
   $(document.body).process()
 
-  $('#sign_up').on 'click', ->
+  $('#sign_in').on 'click', ->
     Turbolinks.visit $(@).data('href')
 
 
