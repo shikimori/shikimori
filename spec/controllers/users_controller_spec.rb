@@ -1,6 +1,6 @@
 describe UsersController do
+  include_context :authenticated, :user
   let(:user) { create :user, password: '123' }
-  before { sign_in user }
 
   describe 'settings' do
     describe 'json' do
