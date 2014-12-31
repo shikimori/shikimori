@@ -12,6 +12,7 @@ class VideoExtractor::BaseExtractor
 
   rescue OpenURI::HTTPError => e
   rescue EmptyContent => e
+  rescue URI::InvalidURIError => e
   end
 
   def hosting
