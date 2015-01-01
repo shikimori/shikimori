@@ -125,36 +125,35 @@ module CommentHelper
 
   BbCodeReplacers = ComplexBbCodes.map { |v| "#{v}_to_html".to_sym }.reverse
 
-  # TODO: удалить метод
-  def format_comment text, poster=nil
-    ActiveSupport::Deprecation.warn "use BbCodeFormatter.instance.format_comment instead.", caller
-    safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
-    text_hash = XXhash.xxh32 text, 0
+  ## TODO: удалить метод
+  #def format_comment text, poster=nil
+    #ActiveSupport::Deprecation.warn "use BbCodeFormatter.instance.format_comment instead.", caller
+    #safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
+    #text_hash = XXhash.xxh32 text, 0
 
-    result = remove_wiki_codes(remove_old_tags(safe_text))
-      .gsub(/\r\n|\r|\n/, '<br />')
-      .bbcode_to_html(@@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img)
-      .gsub(%r{<a href="(?!http|/)}, '<a href="http://')
-      .gsub('<ul><br />', '<ul>')
-      .gsub('</ul><br />', '</ul>')
+    #result = remove_wiki_codes(remove_old_tags(safe_text))
+      #.gsub(/\r\n|\r|\n/, '<br />')
+      #.bbcode_to_html(@@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img)
+      #.gsub(%r{<a href="(?!http|/)}, '<a href="http://')
+      #.gsub('<ul><br />', '<ul>')
+      #.gsub('</ul><br />', '</ul>')
 
-    BbCodeReplacers.each do |processor|
-      result = send processor, result
-    end
+    #BbCodeReplacers.each do |processor|
+      #result = send processor, result
+    #end
 
-    result = db_entry_mention result
-    result = anime_to_html result
-    result = manga_to_html result
-    result = character_to_html result
-    result = person_to_html result
-    result = BbCodes::ImageTag.instance.format result, text_hash
-    #result = spoiler_to_html result
+    #result = db_entry_mention result
+    #result = anime_to_html result
+    #result = manga_to_html result
+    #result = character_to_html result
+    #result = person_to_html result
+    ##result = spoiler_to_html result
 
-    if poster && poster.bot?
-      result = result.gsub('<a href=', '<a rel="nofollow" href=')
-    end
-    result.html_safe
-  end
+    #if poster && poster.bot?
+      #result = result.gsub('<a href=', '<a rel="nofollow" href=')
+    #end
+    #result.html_safe
+  #end
 
   def db_entry_mention text
     text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes + DbEntryBbCodes).map {|v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|

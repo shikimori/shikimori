@@ -61,7 +61,7 @@ module MessagesHelper # для truncate в messages helper
         end
 
       else
-        format_comment cut(message.body || message.linked.text), message.from
+        BbCodeFormatter.instance.format_comment cut(message.body || message.linked.text)
     end
   end
 
