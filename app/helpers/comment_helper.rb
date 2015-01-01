@@ -123,6 +123,7 @@ module CommentHelper
   def format_comment text, poster=nil
     ActiveSupport::Deprecation.warn "use BbCodeFormatter.instance.format_comment instead.", caller
     safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
+    text_hash = XXhash.xxh32 text, 0
 
     result = remove_wiki_codes(remove_old_tags(safe_text))
       .gsub(/\r\n|\r|\n/, '<br />')
@@ -140,6 +141,7 @@ module CommentHelper
     result = manga_to_html result
     result = character_to_html result
     result = person_to_html result
+    result = BbCodes::ImageTag.instance.format result, text_hash
     #result = spoiler_to_html result
 
     if poster && poster.bot?
