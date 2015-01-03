@@ -79,6 +79,7 @@ gem 'ruby-svd', github: 'morr/Ruby-SVD' # для SVD рекомендаций. r
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 
 gem 'jbuilder' # для рендеринга json
+gem 'rack-contrib' # для поддержки jsonp в api
 # TODO: выпилить отовсюду rabl, заменив его на jbuilder
 gem 'rabl' # для рендеринга json
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы

@@ -31,6 +31,7 @@ module Site
 
     config.middleware.use 'Redirecter' unless Rails.env.development?
     config.middleware.insert_before 0, 'ProxyTest'
+    config.middleware.use 'Rack::JSONP'
     Paperclip.logger.level = 2
 
     # Enable the asset pipeline

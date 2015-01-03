@@ -452,6 +452,8 @@ GEM
     rabl (0.11.5)
       activesupport (>= 2.3.14)
     rack (1.6.0)
+    rack-contrib (1.2.0)
+      rack (>= 0.9.1)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.2)
@@ -688,6 +690,7 @@ DEPENDENCIES
   quiet_assets
   quote_extractor!
   rabl
+  rack-contrib
   rails (= 4.2.0)
   rails-assets-eventEmitter
   rails-assets-eventie
