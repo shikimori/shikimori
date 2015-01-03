@@ -1,13 +1,12 @@
 describe FavouritesController do
-  let(:user) { create :user }
-  before { sign_in user }
+  include_context :authenticated, :user
 
   [Anime, Manga, Character, Person].each do |klass|
-    describe klass do
+    context klass.to_s do
       let(:entry) { create klass.name.downcase.to_sym }
       let(:method_name) { "fav_#{klass.name.downcase.pluralize}" }
 
-      context 'POST create' do
+      describe '#create' do
         it 'success' do
           expect {
             post :create, linked_type: entry.class.name, linked_id: entry.id
@@ -23,7 +22,7 @@ describe FavouritesController do
         end if klass == Person
       end
 
-      context 'DELETE destroy' do
+      describe '#destroy' do
         let!(:favourite) { create :favourite, linked: entry, user: user }
 
         it 'success' do

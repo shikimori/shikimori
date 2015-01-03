@@ -18,7 +18,7 @@ class FavouritesController < ShikimoriController
         else
           raise Forbidden
       end
-      render json: ['Лишь %d %s могут быть добавлены в избранные' % [entries_limit, type_name]],
+      render json: ['Лишь %d %s могут быть добавлены в избранное' % [entries_limit, type_name]],
           status: :unprocessable_entity
     else
       @fav = Favourite.new({
@@ -30,9 +30,9 @@ class FavouritesController < ShikimoriController
       @fav.save!
 
       notice_text = case params[:linked_type]
-        when Character.name then 'Персонаж добавлен в избранные'
-        when Anime.name then 'Аниме добавлено в избранные'
-        when Manga.name then 'Манга добавлена в избранные'
+        when Character.name then 'Персонаж добавлен в избранное'
+        when Anime.name then 'Аниме добавлено в избранное'
+        when Manga.name then 'Манга добавлена в избранное'
         when Person.name then 'Добавлено в избранное'
         else
           raise Forbidden
@@ -62,13 +62,13 @@ class FavouritesController < ShikimoriController
 
     notice_text = case params[:linked_type]
       when Character.name
-        'Персонаж удален из избранных'
+        'Персонаж удален из избранного'
       when Anime.name
-        'Аниме удалено из избранных'
+        'Аниме удалено из избранного'
       when Manga.name
-        'Манга удалена из избранных'
+        'Манга удалена из избранного'
       when Person.name
-        'Удалено из избранных'
+        'Удалено из избранного'
       else
         raise Forbidden
     end
