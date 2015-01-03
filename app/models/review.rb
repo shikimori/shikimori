@@ -17,11 +17,11 @@ class Review < ActiveRecord::Base
 
   validates :user, :target, presence: true
   validates :text, length: { minimum: 1000, too_short: "слишком короткий (минимум 1000 знаков)" }
-  validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"
-  validates_inclusion_of :animation, in: 1..10, message: "не имеет оценки"
-  validates_inclusion_of :characters, in: 1..10, message: "не имеют оценки"
-  validates_inclusion_of :music, in: 1..10, message: "не имеет оценки", if: -> { self.target_type != Manga.name  }
-  validates_inclusion_of :overall, in: 1..10, message: "не задана"
+  #validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"
+  #validates_inclusion_of :animation, in: 1..10, message: "не имеет оценки"
+  #validates_inclusion_of :characters, in: 1..10, message: "не имеют оценки"
+  #validates_inclusion_of :music, in: 1..10, message: "не имеет оценки", if: -> { self.target_type != Manga.name  }
+  #validates_inclusion_of :overall, in: 1..10, message: "не задана"
 
   after_create :generate_thread
 
