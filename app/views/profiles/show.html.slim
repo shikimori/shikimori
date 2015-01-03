@@ -42,6 +42,10 @@
             - else
               a.ban href="#{ban_profile_url @resource}" title="История банов"
 
+            - if can? :edit, @resource
+              a.settings href="#{edit_profile_url @resource}" title="Настройки"
+
+
     header.head.misc
       h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
         - if params[:action] != 'show'
@@ -49,9 +53,9 @@
         = @resource.nickname
 
       .misc
-        - if @resource.own_profile?
+        /- if @resource.own_profile?
           a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
-        - else @resource.own_profile?
+        - unless @resource.own_profile?
           span = @resource.last_online
         - if @resource.banned?
           span.banned забанен
@@ -77,6 +81,8 @@
           a href="#{ban_profile_url @resource}" Забанить
         - else
           a href="#{ban_profile_url @resource}" История банов
+        - if can? :edit, @resource
+          a href="#{edit_profile_url @resource}" Настройки
 
   .c-info
     .c-lists-info

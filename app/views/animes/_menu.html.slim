@@ -4,23 +4,19 @@
       img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
 - if user_signed_in?
-  .menu-block.actions
-    .subheadline Дополнительно
-    ul.block-list
-      li.comment
-        span Комментировать
-
-      li.slider-control.slider-control-reviews-edit.reviews-edit
-        a href="#{@resource.new_review_url}" Написать обзор
-
-      li.fav-add style="#{'display: none;' if @resource.favoured?}"
-        span.favourite-add data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" Добавить в избранное
-
-      li.fav-remove style="#{'display: none;' unless @resource.favoured?}"
-        span.favourite-remove data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" Удалить из избранных
-
-      li.edit-entry
-        a href="#{@resource.edit_url}" Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}
+  /.menu-block.actions
+    /.subheadline Дополнительно
+    /ul.block-list
+      /li.comment
+        /span Комментировать
+      /li.slider-control.slider-control-reviews-edit.reviews-edit
+        /a href="#{@resource.new_review_url}" Написать обзор
+      /li.fav-add style="#{'display: none;' if @resource.favoured?}"
+        /span.favourite-add data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" Добавить в избранное
+      /li.fav-remove style="#{'display: none;' unless @resource.favoured?}"
+        /span.favourite-remove data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" Удалить из избранных
+      /li.edit-entry
+        /a href="#{@resource.edit_url}" Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}
 
   - if @resource.display_sensitive?
     .menu-block

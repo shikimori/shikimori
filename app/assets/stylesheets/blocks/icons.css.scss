@@ -99,8 +99,11 @@
   }
 }
 
-// дейсвтия в профиле
 .icon-actions {
+  &>a:first-child, &>span:first-child {
+    margin-left: 0;
+  }
+  // дейсвтия в профиле
   .fav-add {
     @include icon_button('\e819');
   }
@@ -126,6 +129,24 @@
   }
   .settings {
     @include icon_button('\e822');
+  }
+
+  // дейсвтия над аниме
+  .fav-add {
+    @include icon_button('\e819');
+  }
+  .fav-remove {
+    @include icon_button('\e819');
+    @include link_color;
+  }
+  .edit {
+    @include icon_button('\e822');
+  }
+  .new_review {
+    @include icon_button('\e820');
+  }
+  .new_comment {
+    @include icon_button('\e80e');
   }
 }
 

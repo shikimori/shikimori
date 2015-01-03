@@ -3,12 +3,12 @@
   $('.status-date.notice').tipsy gravity: 's'
   $('.c-screenshot').magnific_rel_gallery()
 
+  # сокращение высоты описания
+  $('.text').check_height(200)
+
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
     $('.c-screenshot').magnific_rel_gallery()
-
-  # сокращение высоты описания
-  $('.text').check_height(200)
 
   # клик по загрузке других названий
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->
@@ -29,6 +29,18 @@
     $(@).next().children().unwrap()
     $(@).siblings().show()
     $(@).remove()
+
+  # добавление в избранное
+  $('.icon-actions .fav-add').on 'ajax:success', ->
+    $(@).hide().next().show()
+  # удаление из избранного
+  $('.icon-actions .fav-remove').on 'ajax:success', ->
+    $(@).hide().prev().show()
+  # комментировать
+  $('.icon-actions .new_comment').on 'click', ->
+    $editor = $('.b-form.new_comment textarea')
+    $.scrollTo $editor, ->
+      $editor.focus()
 
   # переключение типа комментариев
   $('.entry-comments .link')

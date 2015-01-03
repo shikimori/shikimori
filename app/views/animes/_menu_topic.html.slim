@@ -7,10 +7,10 @@ li
         = topic[:name]
     - if topic[:tooltip]
       .history-entry-tooltip id="history-entry-#{topic[:id]}-tooltip"
-        = render partial: 'blocks/tooltip', formats: :html
+        = render 'blocks/tooltip'
 
   - else
-    a.entry href="#{topic[:url]}" title="#{topic[:title]}" itemprop="discussionUrl"
+    a.entry href="#{topic[:url]}" itemprop="discussionUrl"
       span.date
         = topic[:date]
       span.name

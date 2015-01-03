@@ -2,12 +2,14 @@
   $('.b-entry-info').check_height 95, true
 
 @on 'page:load', '.people', ->
-  # нажатие кнопки Комментировать в меню
-  $('.l-menu .comment').on 'click', ->
-    $editor = $('.b-topic .editor-container .b-shiki_editor')
-    if $editor.exists()
+  # добавление в избранное
+  $('.icon-actions .fav-add').on 'ajax:success', ->
+    $(@).hide().next().show()
+  # удаление из избранного
+  $('.icon-actions .fav-remove').on 'ajax:success', ->
+    $(@).hide().prev().show()
+  # комментировать
+  $('.icon-actions .new_comment').on 'click', ->
+    $editor = $('.b-form.new_comment textarea')
+    $.scrollTo $editor, ->
       $editor.focus()
-    else
-      $(document).one 'page:change', ->
-        (-> $('.b-topic .editor-container .b-shiki_editor').focus()).delay()
-      Turbolinks.visit $('.head .back').attr('href')

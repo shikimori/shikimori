@@ -39,7 +39,7 @@
           p.votes-count = topic.linked.votes_text
 
         .body
-          - if topic.review? && topic.linked.overall.present?
+          - if topic.review?
             = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
           = topic.html_body
 

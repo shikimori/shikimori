@@ -1,6 +1,6 @@
 (function($){
   $.extend({
-    scrollTo: function(marker, animation) {
+    scrollTo: function(marker, animation, callback) {
       if (typeof marker == "number") {
         var top = marker;
       } else {
@@ -11,7 +11,7 @@
           var top = 0;
         }
       }
-      $('html, body').animate({scrollTop: top}, 250, animation || 'easeInOutCirc'); // easeInOutCirc // easeOutElastic
+      $('html, body').animate({scrollTop: top}, 250, animation || 'easeInOutCirc', callback); // easeInOutCirc // easeOutElastic
     }
   });
 })(jQuery);
