@@ -100,4 +100,9 @@ describe TorrentsParser do
     let(:name) { '[SubDESU] Shijou Saikyou no Deshi Kenichi OVA - 05v0 (640x360 x264 AAC) [8D5C93AE].mp4' }
     it { should eq [5] }
   end
+
+  describe 'multiple episodes' do
+    let(:name) { '[HorribleSubs] Tsukimonogatari - (01-04) [1080p].mkv' }
+    it { should eq [1,2,3,4] }
+  end
 end

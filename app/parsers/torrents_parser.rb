@@ -33,7 +33,7 @@ class TorrentsParser
       ( _rev\d )?
       ( _RAW | _END )?
       ( # различные варианты концовки
-        _
+        (_|-)
         (
             \[(1080|720|480)p\] _? \[ .*
           |
@@ -53,7 +53,8 @@ class TorrentsParser
   EPISODES_FOR_HISTORY_REGEXES = [
     /Vol\.(\d+)-(\d+)_(?:\[|\()(?:BD|DVD)/i,
     /#{END_OF_NAME}_(\d+)-(\d+)(?:_RAW|_END)?_?(?:\(|\[)(?:\d{3}|[A-Z])/i,
-    /#{END_OF_NAME}_(\d+)-(\d+)_\[(?:DVD|BD|ENG|JP|JAP)/i
+    /#{END_OF_NAME}_(\d+)-(\d+)_\[(?:DVD|BD|ENG|JP|JAP)/i,
+    /#{END_OF_NAME}_\((\d+)-(\d+)\)_\[(1080|720|480)p\]/i
   ]
   EPISODES_WITH_COMMA_FOR_HISTORY_REGEXES = [
     /#{END_OF_NAME}_(\d+)-(\d+),_?(\d+)_raw_720/i
