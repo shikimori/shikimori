@@ -136,7 +136,11 @@
         - if defined?(in_user_profile)
           li.order-by-my style="display: none" По оценке
           li.order-by-rate_id По дате добавления
-          li.order-by-episodes style="display: none" По числу #{klass == Anime ? 'эпизодов' : 'глав'}
+          - if klass == Anime
+            li.order-by-episodes style="display: none" По числу эпизодов
+          - else
+            li.order-by-chapters style="display: none" По числу глав
+            li.order-by-volumes style="display: none" По числу томов
           li.order-by-status style="display: none" По статусу
         - else
           li.order-by-id По дате добавления

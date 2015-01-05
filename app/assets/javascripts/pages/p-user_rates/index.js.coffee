@@ -29,6 +29,11 @@ filter_timer = null
   $('.b-options-floated.mylist .link').on 'click', ->
     $(".anime-params.mylist .mylist-#{$(@).data 'id'}").click()
 
+  # сортировка по клику на колонку
+  $('.order-control').on 'click', (e) ->
+    type = $(@).data('order')
+    $(".orders.anime-params li.order-by-#{type}").trigger 'click'
+
   base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')
   new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true

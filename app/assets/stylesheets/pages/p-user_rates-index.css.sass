@@ -1,5 +1,6 @@
-@import mixins/placeholder
 @import mixins/brackets_surrounded
+@import mixins/link
+@import mixins/placeholder
 @import mixins/responsive
 
 .p-user_rates-index
@@ -20,19 +21,19 @@
 
   .b-options-floated
     +iphone
-      //line-height: $line_height
       display: none
 
     span
       +brackets_surrounded
 
-  //.order-control
-    //cursor: pointer
-    //+link_color(#333333)
-    //&.active
-      //text-decoration: underline
-    //&:hover
-      //text-decoration: underline
+  .order-control
+    +link_color(#333333)
+    cursor: pointer
+
+    &.active
+      text-decoration: underline
+    &:hover
+      text-decoration: underline
 
   //.anime-status-selector
     //display: none

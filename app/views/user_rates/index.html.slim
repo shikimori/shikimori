@@ -31,5 +31,5 @@
           center: a href="#{@resource.url}" title="#{{@resource.name}}"
             img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
 
-        = render partial: 'animes_collection/menu', locals: { social: true, klass: @resource.list.klass }
+        = render 'animes_collection/menu', social: true, klass: @resource.list.klass, in_user_profile: true
 

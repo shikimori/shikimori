@@ -132,6 +132,11 @@ describe AnimesController do
         let(:page) { 'torrents_name' }
         it { should respond_with :success }
       end
+
+      describe 'tags' do
+        let(:page) { 'tags' }
+        it { should respond_with :success }
+      end
     end
   end
 
