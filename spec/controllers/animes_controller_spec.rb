@@ -63,7 +63,8 @@ describe AnimesController do
   end
 
   describe '#art' do
-    pending
+    before { get :art, id: anime.to_param }
+    it { should respond_with :success }
   end
 
   describe '#related' do
@@ -73,6 +74,7 @@ describe AnimesController do
   end
 
   describe '#comments' do
+    let!(:section) { create :section, :anime }
     let(:anime) { create :anime, :with_thread }
     let(:comment) { create :comment, commentable: anime.thread }
     before { comment.commentable.update comments_count: 1 }

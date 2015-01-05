@@ -6,7 +6,7 @@ guard :bundler do
   watch('Gemfile')
 end
 
-guard :rspec, cmd: 'bundle exec spring rspec --color --format documentation', all_after_pass: false, all_on_start: false, failed_mode: :focus do
+guard :rspec, cmd: 'bundle exec spring rspec', cmd_additional_args: '--color --format documentation', all_after_pass: false, all_on_start: false, failed_mode: :keep do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^spec/factories/(.+)\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
