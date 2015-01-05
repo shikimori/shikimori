@@ -41,7 +41,6 @@
       $images = $('.b-image', $container).shiki_image()
 
       $container.imagesLoaded ->
-
         $container.addClass('packery')
         $container.packery
           columnWidth: '.grid_sizer'
@@ -50,7 +49,7 @@
           isAnimated: false
           isResizeBound: false
           itemSelector: '.b-image'
-          transitionDuration: '0.25s'
+          transitionDuration: if options.imageboard then 0 else '0.25s'
 
       if options.shiki_upload
         $container
@@ -62,6 +61,12 @@
             $container.prepend($image)
             $container.packery.bind($container, 'prepended', $image).delay 50
             $image.shiki_image()
+
+      if options.imageboard
+        $container.on 'imageboard:success', (e, $image) ->
+          $container.append($image.css(bottom: 9999))
+          $container.packery.bind($container, 'appended', $image).delay 50
+          $image.shiki_image()
 
       unless resize_binded
         resize_binded = true

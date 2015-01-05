@@ -36,3 +36,13 @@
       $root.image_editable()
 
     $('.videos-deleter .b-video').image_editable()
+
+  if $('.edit-page.tags').exists()
+    $('#user_change_value')
+      .completable()
+      .on 'autocomplete:success autocomplete:text', (e, result) ->
+        @value = if Object.isString(result) then result else result.value
+        $('.b-gallery').data(tags: @value)
+        $('.b-gallery').data('shiki_object').refresh()
+
+    $('.b-gallery').imageboard()

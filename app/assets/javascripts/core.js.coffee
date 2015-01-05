@@ -6,6 +6,16 @@
 #= require eventEmitter
 #= require magnific-popup
 
+# dependencies for packery
+#= require jquery-bridget
+#= require matches-selector
+#= require doc-ready
+#= require classie
+#= require get-style-property
+#= require get-size
+#= require outlayer
+#= require packery
+
 #= require_tree ./vendor
 #= require ./lib/shiki_view
 #= require ./lib/shiki_editable
@@ -18,6 +28,8 @@ bindings = {
   'page:load': [],
   'page:restore': []
 }
+
+$.bridget 'packery', Packery
 
 @mobile_detect = new MobileDetect(window.navigator.userAgent)
 

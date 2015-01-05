@@ -46,7 +46,8 @@ function ImagesLoader(options) {
         preview_width: image.preview_width,
         preview_height: image.preview_height,
         url: (options.local_url_builder || local_url_builder)(image),
-        md5: image.md5
+        md5: image.md5,
+        tags: image.tags
       };
     }).reverse();
   }
@@ -58,7 +59,7 @@ function ImagesLoader(options) {
 
   // построитель урла к картинке
   var local_url_builder = function(image) {
-    return '/d/' + image.md5 + '/' + Base64.encode(image.file_url.indexOf('http') == 0 ? image.file_url : base_url + image.file_url) + '.jpg';
+    return '/danbooru/url/' + image.md5 + '/' + Base64.encode(image.file_url.indexOf('http') == 0 ? image.file_url : base_url + image.file_url) + '.jpg';
   };
 
   return {
@@ -77,7 +78,7 @@ function ImagesLoader(options) {
       is_loading = true;
 
       if (options.local_load) {
-        $.getJSON('/y/'+Base64.encode(url)).success(function(data) {
+        $.getJSON('/danbooru/yandere/'+Base64.encode(url)).success(function(data) {
           images = extract_images(data);
           page += 1;
           is_loading = false;

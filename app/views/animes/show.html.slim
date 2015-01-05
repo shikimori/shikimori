@@ -29,14 +29,14 @@
 
       - if user_signed_in?
         .anime-rate
-          = render partial: 'user_rates/user_rate', locals: { user_rate: @resource.rate || @resource.rates.build(user_id: current_user.id), entry: @resource }
+          = render 'user_rates/user_rate', user_rate: @resource.rate || @resource.rates.build(user_id: current_user.id), entry: @resource
 
     .c-about
       .cc
         .c-info-left
           .subheadline Информация
           .block
-            = render partial: 'animes/info', locals: { entry: @resource, details: true }
+            = render 'animes/info', entry: @resource, details: true
 
           - if @resource.anime? && !@resource.anons?
             .block
@@ -55,28 +55,28 @@
                 meta itemprop="bestRating" content="10"
                 meta itemprop="ratingValue" content="#{@resource.score}"
                 meta itemprop="ratingCount" content="#{(@resource.mal_scores.sum/37).to_i}"
-                = render partial: 'blocks/rate', locals: { score: @resource.score }
+                = render 'blocks/rate', score: @resource.score
 
           - if @resource.genres.any?
             .block
               .subheadline
                 = @resource.genres.size > 1 ? 'Жанры' : 'Жанр'
               .block
-                = render partial: 'animes/genres_info', locals: { entry: @resource }
+                = render 'animes/genres_info', entry: @resource
 
           - if @resource.respond_to?(:studios) && @resource.studios.any?
             .block
               .subheadline.m10
                 = @resource.real_studios.size > 1 ? 'Студии' : 'Студия'
               .block
-                = render partial: 'animes/studios_info', locals: { entry: @resource }
+                = render 'animes/studios_info', entry: @resource
 
           - if @resource.respond_to?(:publishers) && @resource.publishers.any?
             .block
               .subheadline
                 = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
               .block
-                = render partial: 'mangas/publishers_info', locals: { entry: @resource }
+                = render 'mangas/publishers_info', entry: @resource
 
     .c-description
       .subheadline.m5 Описание

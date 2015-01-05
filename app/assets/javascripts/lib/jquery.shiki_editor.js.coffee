@@ -141,7 +141,6 @@ class @ShikiEditor extends ShikiView
     @$(".quotes input[type=text]")
       .completable()
       .on 'autocomplete:success autocomplete:text', (e, result) =>
-        debugger
         text = if Object.isString(result) then result else result.value
         @$textarea.insertAtCaret "[quote" + ((if not text or text.isBlank() then "" else "=" + text)) + "]", "[/quote]"
         @$(".editor-quote").trigger('click')

@@ -7,7 +7,7 @@ class @CommentsNotifier
     # текущее значение счётчика
     @current_counter = 0
 
-    @comment_selector = '.appear-marker'
+    @comment_selector = 'div.appear-marker'
     @faye_loader_selector = '.faye-loader'
 
     # при загрузке новой страницы вставляем в DOM счётчик
@@ -51,7 +51,7 @@ class @CommentsNotifier
       count = $comment_new.length
 
       $faye_loader.each ->
-        count += $(this).data('ids').length
+        count += $(@).data('ids').length
 
       @update count
     ).delay()

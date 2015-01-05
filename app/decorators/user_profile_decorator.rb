@@ -103,7 +103,7 @@ class UserProfileDecorator < UserDecorator
       info << 'Личные данные скрыты'
     end
 
-    info << "на сайте с <span class=\"reg-date\">#{h.l created_at, format: :with_month_name}г.</span>".html_safe
+    info << "на сайте с <span class=\"reg-date\">#{h.l created_at, format: :with_month_name} г.</span>".html_safe
 
     info
   end

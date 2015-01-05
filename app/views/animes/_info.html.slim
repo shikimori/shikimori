@@ -1,6 +1,6 @@
 .b-entry-info
   = info_line 'Тип', localized_kind(entry, true) if entry.kind.present?
-  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }
+  = render 'animes/aired_chapters', entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
     = info_line "#{entry.episodes_aired > 0 ? 'Следующий' : 'Первый'} эпизод", Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
@@ -10,8 +10,8 @@
       span itemprop="#{entry.kind == 'Movie' ? 'duration' : ''}"
         = humanize_minutes entry.duration
 
-  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }
-  = render partial: 'animes/aired_chapters', locals: { entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }
+  = render 'animes/aired_chapters', entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired
+  = render 'animes/aired_chapters', entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired
 
   - unless entry.status.blank?
     = info_line 'Статус' do
@@ -85,14 +85,14 @@
         span.linkeable data-href="#{entry.comments_all_url}"
           = "#{entry.comments_count} #{Russian.p entry.comments_count, 'комментарий', 'комментария', 'комментариев'}"
 
-  - if entry.files? || entry.cosplay.galleries.any? || entry.tags.present?
+  - if entry.files? || entry.tags.present?# || entry.cosplay.galleries.any?
     .additional-links
-      - if entry.cosplay.galleries.any?
+      /- if entry.cosplay.galleries.any?
         span.link Косплей
         /= "#{entry.cosplay.galleries.size} #{Russian.p entry.cosplay.galleries.size, 'галерея косплея', 'галереи косплея', 'галерей косплея'}"
 
       - if entry.tags.present?
-        span.link Арт с имиджборд
+        span.linkeable data-href="#{entry.art_url}" Арт с имиджборд
 
       - if entry.files?
         span.link.linkeable data-href="#{entry.files_url}" Файлы

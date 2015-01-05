@@ -161,5 +161,7 @@ gem 'thin'
 gem 'rails-assets-jquery'
 gem 'rails-assets-eventie'
 gem 'rails-assets-eventEmitter'
+gem 'rails-assets-jquery-bridget'
+gem 'rails-assets-packery'
 # когда в master вольют https://github.com/dimsemenov/Magnific-Popup/pull/394 , то строку ниже заменить на её комментарий
 gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails' # заменить на #gem 'rails-assets-magnific-popup'
