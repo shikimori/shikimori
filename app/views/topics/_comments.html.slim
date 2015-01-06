@@ -9,11 +9,11 @@
       = topic.show_hidden_comments_text
 
   - if topic.comments.any?
-    = render partial: 'comments/comment', collection: topic.comments, formats: :html
+    = render partial: 'comments/comment', collection: topic.comments
   - else
     p.no_comments Нет комментариев
 
 - if user_signed_in?
   .editor-container
     .subheadline.m10 Ваш комментарий
-    = render partial: 'comments/form', locals: { comment: topic.new_comment }
+    = render 'comments/form', comment: topic.new_comment

@@ -1,5 +1,5 @@
 @on 'page:load', 'people_show', ->
-  $('.b-entry-info').check_height 95, true
+  $('.b-entry-info').check_height 101, true
 
 @on 'page:load', '.people', ->
   # добавление в избранное

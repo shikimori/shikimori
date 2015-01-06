@@ -2,7 +2,15 @@ class PersonDecorator < DbEntryDecorator
   decorates_finders
 
   instance_cache :website, :all_roles, :groupped_roles, :roles_names, :favoured, :works, :best_works
-  instance_cache :producer?, :mangaka?, :seuy?, :composer?, :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
+  instance_cache :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
+  instance_cache :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
+
+  ROLES = {
+    seyu: ['Japanese', 'English', 'Italian', 'Hungarian', 'German', 'Brazilian', 'French', 'Spanish', 'Korean'],
+    composer: ['Music'],
+    producer: ['Chief Producer', 'Producer', 'Director', 'Episode Director'],
+    mangaka: ['Original Creator', 'Story & Art', 'Story']
+  }
 
   def credentials?
     japanese.present? || object.name.present?
@@ -86,15 +94,15 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def job_title
-    if producer? && mangaka?
-      'Режиссёр аниме и автор манги'
-    elsif producer?
+    #if role?(:producer) && role?(:mangaka)
+      #'Режиссёр аниме и автор манги'
+    if main_role?(:producer)
       'Режиссёр аниме'
-    elsif mangaka?
+    elsif main_role?(:mangaka)
       'Автор манги'
-    elsif seyu?
+    elsif main_role?(:seyu)
       'Сэйю'
-    elsif composer?
+    elsif main_role?(:composer)
       'Композитор'
     elsif has_anime? && has_manga?
       'Участник аниме и манга проектов'
@@ -117,22 +125,16 @@ class PersonDecorator < DbEntryDecorator
     end
   end
 
-  def seyu?
-    flatten_roles.include?('Japanese') || flatten_roles.include?('English')
+  def role? role
+    !roles_counts(role).zero?
   end
 
-  def composer?
-    roles_names.include?('Music')
-  end
+  def main_role? role
+    other_roles = ROLES.keys
+      .select {|v| v != role }
+      .map {|v| roles_counts v }
 
-  def producer?
-    flatten_roles.include?('Chief Producer') || flatten_roles.include?('Producer') ||
-      flatten_roles.include?('Director') || flatten_roles.include?('Episode Director')
-  end
-
-  def mangaka?
-    flatten_roles.include?('Original Creator') ||
-      flatten_roles.include?('Story & Art') || flatten_roles.include?('Story')
+    roles_counts(role) > other_roles.max
   end
 
   def seyu_favoured?
@@ -175,5 +177,9 @@ private
 
   def roles_names
     groupped_roles.map {|k,v| k }
+  end
+
+  def roles_counts role
+    flatten_roles.count {|v| ROLES[role].include? v }
   end
 end
