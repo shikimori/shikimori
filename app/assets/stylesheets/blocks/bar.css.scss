@@ -1,4 +1,5 @@
 @import "globals";
+
 .bar.horizontal {
   box-sizing: initial;
   width: 215px;
@@ -16,7 +17,7 @@
       line-height: 16px;
     }
     .bar-container {
-      width: 180px;
+      margin-right: 30px;
 
       .bar {
         height: 16px;

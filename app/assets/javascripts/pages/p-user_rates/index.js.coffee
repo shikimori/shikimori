@@ -6,6 +6,14 @@ filter_timer = null
   apply_list_handlers $('.b-user_rates')
   update_list_cache()
 
+  # графики
+  $("#scores, #types, #ratings").bar
+    title: (entry, percent) ->
+      (if percent < 10 then entry.value else '')
+
+    no_data: ($chart) ->
+      $chart.html "<p class='b-nothing_here'>Недостаточно данных</p>"
+
   # фокус по инпуту фильтра по тайтлу
   $('.filter input').on 'focus', ->
     update_list_cache() unless list_cache.length

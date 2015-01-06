@@ -4,78 +4,47 @@
 @import mixins/responsive
 
 .p-user_rates-index
-  .avatar img
-    max-width: 100%
+  .l-menu
+    .avatar img
+      max-width: 100%
 
-  .filter
-    margin-bottom: $block-offset/2
+    .mini-charts
+      .types, .ratings
+        .bar-container
+          margin-right: 60px
 
-    input
-      border: none
-      font-size: 13px
-      padding: 10px
-      width: 100%
+    .mylist-block
+      .item-add
+        display: none
 
-      +placeholder
-        color: $gray-color-2
+  .l-content
+    .filter
+      margin-bottom: $block-offset/2
 
-  .b-options-floated
-    +iphone
-      display: none
+      input
+        border: none
+        font-size: 13px
+        padding: 10px
+        width: 100%
 
-    span
-      +brackets_surrounded
+        +placeholder
+          color: $gray-color-2
 
-  .order-control
-    +link_color(#333333)
-    cursor: pointer
+    .b-options-floated
+      +iphone
+        display: none
 
-    &.active
-      text-decoration: underline
-    &:hover
-      text-decoration: underline
+      span
+        +brackets_surrounded
 
-  //.anime-status-selector
-    //display: none
-    //float: right
+    .order-control
+      +link_color(#333333)
+      cursor: pointer
 
-  //.filter + header, .anime-status-selector + header
-    //margin-top: 5px
+      &.active
+        text-decoration: underline
+      &:hover
+        text-decoration: underline
 
-  .b-postloader, .postloader-progress
-    margin-top: 10px !important
-
-  //.episodes
-    //color: #555555
-    //font-family: 'Arial Black','Arial',sans-serif
-    //font-size: 15px
-    //position: absolute
-    //right: 55px
-    //text-align: center
-    //top: 46px
-    //width: 90px
-
-  //.related-block:first-child .episodes
-    //top: 41px
-
-  //.score
-    //color: #555555
-    //font-family: 'Arial Black','Arial',sans-serif
-    //font-size: 22px
-    //position: absolute
-    //right: 5px
-    //text-align: center
-    //top: 45px
-    //width: 30px
-
-  //.related-block:first-child .score
-    //top: 40px
-
-  //.description
-    //padding-right: 145px
-
-  //.related-anime
-    //position: relative
-
-  //.collapsed
-    //margin-bottom: 0
+    .b-postloader, .postloader-progress
+      margin-top: 10px !important
