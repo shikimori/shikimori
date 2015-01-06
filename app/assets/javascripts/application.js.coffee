@@ -120,9 +120,7 @@ $with = (selector, $root) ->
       ]
     , tooltip_options)
 
-  $with('.b-spoiler.unprocessed', $root)
-    .removeClass('unprocessed')
-    .spoiler()
+  $with('.b-spoiler.unprocessed', $root).spoiler()
 
   $with('.b-video.unprocessed', $root).shiki_video()
   $with('img.check-width', $root)

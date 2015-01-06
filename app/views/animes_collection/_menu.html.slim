@@ -189,9 +189,10 @@
 
   .menu-block.genres
     .subheadline Жанр
-    ul.block-list.genres.anime-params.m10
-      - @genres.sort_by {|v| [v.position, localized_name(v)] }.each do |genre|
-        - next if genre.id == Genre::ThrillerDupID
-        li class="#{:bubbled if genre.description} genre-#{genre.to_param} #{:m10 if genre.position % 10 == 0}" data-predelay="150" data-href="#{tooltip_genre_url genre}"
-          input type="checkbox" autocomplete="off"
-          = localized_name genre
+    = text_spoiler 'Показать список' do
+      ul.block-list.genres.anime-params.m10
+        - @genres.sort_by {|v| [v.position, localized_name(v)] }.each do |genre|
+          - next if genre.id == Genre::ThrillerDupID
+          li class="#{:bubbled if genre.description} genre-#{genre.to_param} #{:m10 if genre.position % 10 == 0}" data-predelay="150" data-href="#{tooltip_genre_url genre}"
+            input type="checkbox" autocomplete="off"
+            = localized_name genre

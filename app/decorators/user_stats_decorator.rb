@@ -90,28 +90,29 @@ class UserStatsDecorator
     #{ anime: @stats.anime_statuses, manga: @stats.manga_statuses }
   #end
 
-  def list_counts type
-    if type == :anime
+  def list_counts list_type
+    if list_type.to_sym == :anime
       @stats.statuses @stats.anime_rates, true
     else
       @stats.statuses @stats.manga_rates, true
     end
   end
 
-  #def scores
-    #@stats.by_criteria :score, 1.upto(10).to_a.reverse
-  #end
+  def scores list_type
+    @stats.by_criteria(:score, 1.upto(10).to_a.reverse)[list_type.to_sym]
+  end
 
-  #def types
-    #i18n = !@current_user || (@current_user && @current_user.preferences.russian_genres?) ?
-      #':klass.Short.%s' : nil
+  def types list_type
+    i18n = !@current_user || (@current_user && @current_user.preferences.russian_genres?) ?
+      ':klass.Short.%s' : nil
 
-    #@stats.by_criteria :kind, ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'] + ["Manga", "One Shot", "Manhwa", "Manhua", "Novel", "Doujin"], i18n
-  #end
+    all_types = ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'] + ["Manga", "One Shot", "Manhwa", "Manhua", "Novel", "Doujin"]
+    @stats.by_criteria(:kind, all_types, i18n)[list_type.to_sym]
+  end
 
-  #def ratings
-    #@stats.by_criteria :rating, ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx'].reverse#, -> v { v[:rating] != 'None' }
-  #end
+  def ratings list_type
+    @stats.by_criteria(:rating, ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx'].reverse)[list_type.to_sym]#, -> v { v[:rating] != 'None' }
+  end
 
   def genres
     {

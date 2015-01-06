@@ -2,8 +2,15 @@
   $.fn.extend
     spoiler: ->
       @each ->
-        $label = $(@).children('label')
+        $root = $(@)
+        return unless $root.hasClass('unprocessed')
+        $root.removeClass('unprocessed')
+
+        $label = $root.children('label')
         $content = $label.next()
+
+        $root.on 'spoiler:open', ->
+          $label.click()
 
         $label.on 'click', (e) ->
           return if e.target != $label[0] && !$(@).closest($label).exists()

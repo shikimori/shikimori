@@ -1,6 +1,8 @@
 DEFAULT_LIST_SORT = "ranked"
 
-@AnimeCatalogFilters = (base_path, current_url, change_callback, $root) ->
+@AnimeCatalogFilters = (base_path, current_url, change_callback) ->
+  $root = $('.b-collection-filters')
+
   # вытаскивание из класса элемента типа и значения
   extract_li_info = ($li) ->
     matches = $li.attr("class").match(/([\w\-]+)-([\w.\-]+)/)
@@ -45,9 +47,9 @@ DEFAULT_LIST_SORT = "ranked"
       if $placeholders.length
         $li.insertBefore $placeholders.first()
       else
-        $(".anime-params." + key + "s", $root).append $li
+        $(".anime-params.#{key}s", $root).append $li
     else
-      $(".anime-params." + key + "s", $root).prepend($li).parent().removeClass "hidden"
+      $(".anime-params.#{key}s", $root).prepend($li).parent().removeClass "hidden"
     $li
 
   default_data =
@@ -197,4 +199,6 @@ DEFAULT_LIST_SORT = "ranked"
         _.each values, _.bind(@add, @, key)
 
   params.parse current_url
+  # раскрываем жанры, если какой-то из них выбран
+  $root.find('.genres .b-spoiler').spoiler().trigger('spoiler:open') if data.genre.length
   params

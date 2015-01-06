@@ -7,4 +7,8 @@ module BlocksHelper
   def spoiler title, options = {display: :block}, &block
     block_to_partial 'blocks/spoiler', options.merge(title: title), &block
   end
+
+  def text_spoiler title, &block
+    block_to_partial 'blocks/text_spoiler', title: title, &block
+  end
 end
