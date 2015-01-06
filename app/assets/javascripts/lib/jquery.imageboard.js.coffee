@@ -34,6 +34,7 @@ class ImageboardGallery
     @_init()
 
   start: ->
+    return unless @tags
     @$root.gallery(imageboard: true)
     @$loader = $('<p class="ajax-loading vk-like appear-marker" data-appear-top-offset="900"></p>')
       .appendTo(@$root)
@@ -51,7 +52,7 @@ class ImageboardGallery
     @$container = @$root.find('.container')
 
     # что будем грузить
-    @tags = encodeURIComponent @$root.data('tags')
+    @tags = encodeURIComponent(@$root.data('tags') || '').trim()
     # кеш с картинками
     @cache = []
     # ожидается ли сейчас подгрузка картинок

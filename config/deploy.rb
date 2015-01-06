@@ -15,7 +15,6 @@ set :format, :pretty
 set :user, 'devops'
 set :unicorn_user, 'devops'
 
-
 set :linked_files, %w{
   config/database.yml
   config/secrets.yml
