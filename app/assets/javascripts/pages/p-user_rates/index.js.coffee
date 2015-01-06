@@ -157,8 +157,6 @@ apply_list_handlers = ($root) ->
       ]
       position: 'bottom right'
       opacity: 1
-      onBeforeShow: null
-      onBeforeHide: null
     )
 
   # изменения оценки/числа просмотренных эпизодов

@@ -9,8 +9,6 @@
       ]
       position: 'bottom right'
       opacity: 1
-      onBeforeShow: null
-      onBeforeHide: null
     )
 
 # обработчики для списка
@@ -22,8 +20,6 @@
     #]
     #position: "bottom right"
     #opacity: 1
-    #onBeforeShow: null
-    #onBeforeHide: null
     #moved: true
   #)
 

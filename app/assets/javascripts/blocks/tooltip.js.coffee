@@ -32,14 +32,6 @@ $.tools.tooltip.addEffect 'opacity', (done) ->
       if url.match(/\/genres\//)
         @getTip().find('.link').hide()
 
-  onBeforeHide: ->
-    $trigger = @getTrigger()
-
-    unless $trigger.hasClass('b-user16') || $trigger.parent().hasClass('b-user16')
-      if $trigger.tagName() is 'img' or $trigger.find('img').length
-        $trigger.stop()
-        $trigger.animate opacity: 1, 100
-
 @ANIME_TOOLTIP_OPTIONS = $.extend {}, @tooltip_options,
   offset: [-4, 10, -10]
   position: 'top right'
