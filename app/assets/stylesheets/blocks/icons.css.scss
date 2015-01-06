@@ -9,6 +9,9 @@
 .item-add {
   @include icon_button('+');
 }
+.item-sign {
+  @include icon_button('\e817');
+}
 
 /* разделы навигации */
 .b-navigation, .sections {

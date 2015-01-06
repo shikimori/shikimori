@@ -92,7 +92,7 @@ DEFAULT_LIST_SORT = "ranked"
   # клики по фильтру группы - плюсику или минусику
   $('.anime-params-block .block-filter', $root).on 'click', (e) ->
     to_exclude = $(@).hasClass('item-add')
-    $(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
+    #$(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
     $(@).closest('.anime-params-block').find('li').map(->
       extract_li_info $(@)
     ).each (index, li_info) ->
