@@ -30,31 +30,6 @@ describe MessagesController do
     end
   end
 
-  #describe '#show', :focus do
-    #let(:message) { create :message, from: user }
-    #let(:make_request) { get :show, id: message.id }
-
-    #context 'has access' do
-      #before { make_request }
-
-      #context 'html' do
-        #it { should respond_with :success }
-        #it { expect(response.content_type).to eq 'text/html' }
-      #end
-
-      #context 'json' do
-        #let(:make_request) { get :show, id: message.id, format: :json }
-        #it { should respond_with :success }
-        #it { expect(response.content_type).to eq 'application/json' }
-      #end
-    #end
-
-    #context 'no access' do
-      #let(:message) { create :message }
-      #it { expect{make_request}.to raise_error CanCan::AccessDenied }
-    #end
-  #end
-
   describe '#edit' do
     let(:message) { create :message, from: user }
     let(:make_request) { get :edit, id: message.id }
@@ -192,5 +167,29 @@ describe MessagesController do
 
     it { should respond_with :success }
     it { expect(collection).to eq [message_1, message_2] }
+  end
+
+  describe '#unsubscribe' do
+    let(:user) { create :user, notifications: User::PRIVATE_MESSAGES_TO_EMAIL }
+    let(:make_request) { get :unsubscribe, name: user.nickname, kind: MessageType::Private, key: key }
+
+    before { sign_out user }
+
+    context 'valid key' do
+      before { make_request }
+      let(:key) { MessagesController.unsubscribe_key(user, MessageType::Private) }
+
+      it { should respond_with :success }
+      it { expect(user.reload.notifications).to be_zero }
+    end
+
+    context 'invalid key' do
+      let(:key) { 'asd' }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it 'does not unsubscribe' do
+        make_request rescue CanCan::AccessDenied
+        expect(user.reload.notifications).to eq User::PRIVATE_MESSAGES_TO_EMAIL
+      end
+    end
   end
 end

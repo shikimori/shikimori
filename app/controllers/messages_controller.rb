@@ -1,5 +1,5 @@
 class MessagesController < ProfilesController
-  load_and_authorize_resource except: [:index, :bounce, :preview, :read_all, :delete_all, :chosen]
+  load_and_authorize_resource except: [:index, :bounce, :preview, :read_all, :delete_all, :chosen, :unsubscribe]
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :read_all, :delete_all]
   before_action :authorize_acess, only: [:index, :read_all, :delete_all]
 
@@ -119,16 +119,16 @@ class MessagesController < ProfilesController
     #render 'messages/feed', formats: :rss
   #end
 
-  ## отписка от емайлов о сообщениях
-  #def unsubscribe
-    #@user = User.find_by_nickname(User.param_to params[:name])
-    #raise Forbidden if @user.nil?
-    #raise Forbidden if unsubscribe_key(@user, params[:kind]) != params[:key]
+  # отписка от емайлов о сообщениях
+  def unsubscribe
+    @user = User.find_by_nickname(User.param_to params[:name])
+    raise CanCan::AccessDenied, 'no user' if @user.nil?
+    raise CanCan::AccessDenied, 'bad key' if self.class.unsubscribe_key(@user, params[:kind]) != params[:key]
 
-    #if @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0
-      #@user.update_attribute(:notifications, @user.notifications - User::PRIVATE_MESSAGES_TO_EMAIL)
-    #end
-  #end
+    if @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0
+      @user.update notifications: @user.notifications - User::PRIVATE_MESSAGES_TO_EMAIL
+    end
+  end
 
   ## отображение сообщения
   #def show
@@ -331,10 +331,10 @@ class MessagesController < ProfilesController
     #Digest::SHA1.hexdigest("notifications_feed_for_user_##{user.id}!")
   #end
 
-  ## ключ к отписке от сообщений
-  #def self.unsubscribe_key(user, kind)
-    #Digest::SHA1.hexdigest("unsubscribe_#{kind}_messages_for_user_##{user.id}!")
-  #end
+  # ключ к отписке от сообщений
+  def self.unsubscribe_key(user, kind)
+    Digest::SHA1.hexdigest("unsubscribe_#{kind}_messages_for_user_##{user.id}!")
+  end
 
   #def rss_key(user)
     #MessagesController.rss_key(user)
