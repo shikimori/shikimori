@@ -3,7 +3,7 @@ require 'cancan/matchers'
 describe Api::V1::UserRatesController do
   include_context :authenticated, :user
 
-  describe 'create' do
+  describe '#create' do
     let(:target) { create :anime }
     let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { post :create, user_rate: create_params, format: :json }
@@ -26,7 +26,7 @@ describe Api::V1::UserRatesController do
     end
   end
 
-  describe 'update' do
+  describe '#update' do
     let(:user_rate) { create :user_rate, user: user }
     let(:update_params) {{ score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
@@ -46,7 +46,7 @@ describe Api::V1::UserRatesController do
     end
   end
 
-  describe 'increment' do
+  describe '#increment' do
     let(:user_rate) { create :user_rate, user: user, episodes: 1 }
     before { post :increment, id: user_rate.id, format: :json }
 
@@ -59,7 +59,7 @@ describe Api::V1::UserRatesController do
     end
   end
 
-  describe 'destroy' do
+  describe '#destroy' do
     let(:user_rate) { create :user_rate, user: user }
     before { delete :destroy, id: user_rate.id, format: :json }
 
@@ -67,7 +67,7 @@ describe Api::V1::UserRatesController do
     it { expect(assigns(:user_rate)).to be_new_record }
   end
 
-  describe 'cleanup' do
+  describe '#cleanup' do
     let!(:user_rate) { create :user_rate, user: user, target: entry }
     let!(:user_history) { create :user_history, user: user, target: entry }
 
@@ -90,7 +90,7 @@ describe Api::V1::UserRatesController do
     end
   end
 
-  describe 'reset' do
+  describe '#reset' do
     let!(:user_rate) { create :user_rate, user: user, target: entry, score: 1 }
 
     context 'anime' do

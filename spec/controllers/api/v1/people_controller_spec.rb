@@ -1,5 +1,5 @@
 describe Api::V1::PeopleController do
-  describe 'show' do
+  describe '#show' do
     before { get :show, id: person.id, format: :json }
 
     context 'person' do

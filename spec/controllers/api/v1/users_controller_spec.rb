@@ -1,7 +1,7 @@
 describe Api::V1::UsersController do
   let(:user) { create :user, nickname: 'Test' }
 
-  describe 'index' do
+  describe '#index' do
     let!(:user_1) { create :user, nickname: 'Test1' }
     let!(:user_2) { create :user, nickname: 'Test2' }
     let!(:user_3) { create :user, nickname: 'Test3' }
@@ -13,14 +13,14 @@ describe Api::V1::UsersController do
     specify { expect(assigns(:collection).size).to eq(2) }
   end
 
-  describe 'show' do
+  describe '#show' do
     before { get :show, id: user.id, format: :json }
 
     it { should respond_with :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 
-  describe 'whoami' do
+  describe '#whoami' do
     describe 'signed_in' do
       before { sign_in user }
       before { get :whoami, format: :json }
@@ -40,14 +40,14 @@ describe Api::V1::UsersController do
     end unless ENV['APIPIE_RECORD']
   end
 
-  describe 'friends' do
+  describe '#friends' do
     let(:user) { create :user, friends: [create(:user)] }
 
     before { get :friends, id: user.id, format: :json }
     it { should respond_with :success }
   end
 
-  describe 'anime_rates' do
+  describe '#anime_rates' do
     let(:user) { create :user }
     let(:anime) { create :anime }
     let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
@@ -57,7 +57,7 @@ describe Api::V1::UsersController do
     specify { expect(assigns(:rates).size).to eq(1) }
   end
 
-  describe 'manga_rates' do
+  describe '#manga_rates' do
     let(:user) { create :user }
     let(:manga) { create :manga }
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
@@ -67,14 +67,14 @@ describe Api::V1::UsersController do
     specify { expect(assigns(:rates).size).to eq(1) }
   end
 
-  describe 'clubs' do
+  describe '#clubs' do
     let(:user) { create :user, groups: [create(:group)] }
 
     before { get :clubs, id: user.id, format: :json }
     it { should respond_with :success }
   end
 
-  describe 'favourites' do
+  describe '#favourites' do
     let(:user) do
       create :user,
         fav_animes: [create(:anime)],
@@ -90,7 +90,7 @@ describe Api::V1::UsersController do
     it { should respond_with :success }
   end
 
-  describe 'messages' do
+  describe '#messages' do
     let(:user_2) { create :user }
     let(:topic) { create :anime_news, linked: create(:anime) }
     let!(:news) { create :message, kind: MessageType::Anons, to: user, from: user_2, body: 'anime [b]anons[/b]', linked: topic }
@@ -107,7 +107,7 @@ describe Api::V1::UsersController do
     end unless ENV['APIPIE_RECORD']
   end
 
-  describe 'unread_messages' do
+  describe '#unread_messages' do
     context 'signed_in' do
       before { sign_in user }
       before { get :unread_messages, id: user.id, format: :json }
@@ -120,7 +120,7 @@ describe Api::V1::UsersController do
     end unless ENV['APIPIE_RECORD']
   end
 
-  describe 'history' do
+  describe '#history' do
     let!(:entry_1) { create :user_history, user: user, action: 'mal_anime_import', value: '522' }
     let!(:entry_2) { create :user_history, target: create(:anime), user: user, action: 'status' }
 

@@ -1,5 +1,5 @@
 describe Api::V1::AuthenticityTokensController do
-  describe 'show' do
+  describe '#show' do
     before { get :show }
 
     it { should respond_with :success }

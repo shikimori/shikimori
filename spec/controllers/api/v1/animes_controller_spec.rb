@@ -1,5 +1,5 @@
 describe Api::V1::AnimesController do
-  describe 'index' do
+  describe '#index' do
     let(:user) { create :user }
     let(:genre) { create :genre }
     let(:studio) { create :studio }
@@ -14,7 +14,7 @@ describe Api::V1::AnimesController do
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
-  describe 'show' do
+  describe '#show' do
     let(:anime) { create :anime, :with_thread }
     before { get :show, id: anime.id, format: :json }
 
@@ -22,7 +22,7 @@ describe Api::V1::AnimesController do
     it { expect(response.content_type).to eq 'application/json' }
   end
 
-  describe 'similar' do
+  describe '#similar' do
     let(:anime) { create :anime }
     let!(:similar) { create :similar_anime, src: anime }
     before { get :similar, id: anime.id, format: :json }
@@ -32,7 +32,7 @@ describe Api::V1::AnimesController do
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
-  describe 'roles' do
+  describe '#roles' do
     let(:anime) { create :anime }
     let(:character) { create :character }
     let(:person) { create :person }
@@ -45,7 +45,7 @@ describe Api::V1::AnimesController do
     specify { expect(assigns(:collection).size).to eq(2) }
   end
 
-  describe 'related' do
+  describe '#related' do
     let(:anime) { create :anime }
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
     before { get :related, id: anime.id, format: :json }
@@ -55,7 +55,7 @@ describe Api::V1::AnimesController do
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
-  describe 'screenshots' do
+  describe '#screenshots' do
     let(:anime) { create :anime }
     let!(:screenshot) { create :screenshot, anime: anime }
     before { get :screenshots, id: anime.id, format: :json }

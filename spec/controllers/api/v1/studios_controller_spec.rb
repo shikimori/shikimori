@@ -1,5 +1,5 @@
 describe Api::V1::StudiosController do
-  describe 'show' do
+  describe '#show' do
     let!(:studio) { create :studio }
     before { get :index, format: :json }
 
