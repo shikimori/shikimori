@@ -1,4 +1,4 @@
-class UserStatsDecorator
+class UserStats
   prepend ActiveCacher.instance
 
   instance_cache :graph_statuses, :spent_time

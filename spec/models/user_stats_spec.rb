@@ -1,9 +1,9 @@
-describe UserStatsDecorator do
+describe UserStats do
   let(:user) { create :user }
   let(:anime) { create :anime, episodes: 24, duration: 60 }
   let(:manga) { create :manga, chapters: 54 }
 
-  subject(:stats) { UserStatsDecorator.new user, nil }
+  subject(:stats) { UserStats.new user, nil }
 
   describe '#spent_time' do
     subject { stats.spent_time }
