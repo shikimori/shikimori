@@ -220,11 +220,11 @@ class Comment < ActiveRecord::Base
   # пометка комментария либо оффтопиком, либо обзором
   def mark kind, value
     if value && kind == 'offtopic'
-      ids = quoted_responses.map(&:id)
+      ids = quoted_responses.map(&:id) + [id]
       Comment.where(id: ids).update_all offtopic: true
-      update offtopic: true
+      self.offtopic = true
 
-      ids + [id]
+      ids
     else
       update kind => value if respond_to? kind
 
