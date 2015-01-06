@@ -1,5 +1,5 @@
 describe ReviewsQuery do
-  let(:user) { build_stubbed :user }
+  let(:user) { create :user }
   let(:entry) { create :anime }
 
   before do

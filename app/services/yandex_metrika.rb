@@ -8,7 +8,7 @@ class YandexMetrika
     count = [3, months].max / 3 - 1
 
     count.downto(0).map do |i|
-      traffic Date.yesterday - ((i+1)*3).month, Date.yesterday - ((i)*3).month
+      traffic Time.zone.yesterday - ((i+1)*3).month, Time.zone.yesterday - ((i)*3).month
     end.sum.uniq {|v| v['date'] }
   end
 

@@ -10,7 +10,7 @@ describe NameValidator do
     it { should allow_value('test').for :name }
 
     context 'own_name' do
-      subject { NameValidatable.create! name: 'test' }
+      subject { NameValidatable.create! name: 'test', owner: build_stubbed(:user) }
       it { should allow_value('test').for :name }
     end
   end

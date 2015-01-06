@@ -24,7 +24,7 @@ describe BbCodes::VideoTag do
         it { should include "data-href=\"http://youtube.com/v/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
       end
 
-      context 'with params' do
+      context 'with params', vcr: { cassette_name: 'youtube' } do
         let(:text) { 'https://vk.com/video-61933528_167061553?hash=w4ertfg' }
         it { should match /\A<.*>\Z/ }
       end

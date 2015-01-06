@@ -65,6 +65,7 @@ class Group < ActiveRecord::Base
     default_url: '/images/static/missing_logo_x215.png'
 
   validates :name, presence: true, name: true
+  validates :owner, presence: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
 
   TranslatorsID = 2

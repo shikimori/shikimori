@@ -63,11 +63,11 @@ describe Contest do
       end
 
       context 'when started_on expired' do
-        before { contest.update_attribute :started_on, Date.yesterday }
+        before { contest.update_attribute :started_on, Time.zone.yesterday }
 
         it 'updates started_on' do
           contest.start!
-          expect(contest.started_on).to eq Date.today
+          expect(contest.started_on).to eq Time.zone.today
         end
 
         it 'rebuilds matches' do
@@ -115,7 +115,7 @@ describe Contest do
           end
 
           it { expect(User.all.none? {|v| v.can_vote?(contest) }).to be true }
-          it { expect(contest.finished_on).to eq Date.today }
+          it { expect(contest.finished_on).to eq Time.zone.today }
         end
       end
     end
@@ -162,13 +162,13 @@ describe Contest do
       end
 
       it 'finishes matches' do
-        round.matches.last.finished_on = Date.yesterday
+        round.matches.last.finished_on = Time.zone.yesterday
         contest.process!
         expect(round.matches.last.finished?).to be_truthy
       end
 
       it 'finishes round' do
-        round.matches.each {|v| v.finished_on = Date.yesterday }
+        round.matches.each {|v| v.finished_on = Time.zone.yesterday }
         contest.process!
         expect(round.finished?).to be_truthy
       end
@@ -176,7 +176,7 @@ describe Contest do
       context 'something was changed' do
         before do
           @updated_at = contest.updated_at = DateTime.now - 1.day
-          round.matches.each { |v| v.finished_on = Date.yesterday }
+          round.matches.each { |v| v.finished_on = Time.zone.yesterday }
           contest.process!
         end
 
@@ -303,7 +303,7 @@ describe Contest do
       end
 
       context 'finished not so long ago' do
-        let!(:contest) { create :contest, state: 'finished', finished_on: Date.today - 6.days }
+        let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 6.days }
         it { should eq [contest.id] }
 
         context 'new one started' do
@@ -318,7 +318,7 @@ describe Contest do
       end
 
       context 'finished long ago' do
-        let!(:contest) { create :contest, state: 'finished', finished_on: Date.today - 8.days }
+        let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 9.days }
         it { should be_empty }
 
         context 'new one started' do

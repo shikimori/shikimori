@@ -80,8 +80,8 @@ public
       contest.send :generate_thread unless contest.thread
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
-      contest.update_attribute :started_on, Date.today if contest.started_on < Date.today
-      if contest.rounds.empty? || contest.rounds.any? { |v| v.matches.any? { |v| v.started_on < Date.today } }
+      contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
+      if contest.rounds.empty? || contest.rounds.any? { |v| v.matches.any? { |v| v.started_on < Time.zone.today } }
         contest.prepare
       end
     end
@@ -89,7 +89,7 @@ public
       contest.rounds.first.start!
     end
     after_transition started: :finished do |contest, transition|
-      contest.update_attribute :finished_on, Date.today
+      contest.update_attribute :finished_on, Time.zone.today
       User.update_all contest.user_vote_key => false
     end
   end
@@ -98,7 +98,7 @@ public
     # текущий опрос
     def current
       Contest
-        .where("state in ('proposing', 'started') or (state = 'finished' and finished_on >= ?)", DateTime.now - 1.week)
+        .where("state in ('proposing', 'started') or (state = 'finished' and finished_on >= ?)", Time.zone.now - 1.week)
         .order(:started_on)
         .to_a
     end

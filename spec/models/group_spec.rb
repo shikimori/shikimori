@@ -22,7 +22,11 @@ describe Group do
     it { should have_many :invites }
     it { should have_many :bans }
     it { should have_many :banned_users }
+  end
 
+  describe 'validations' do
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :owner }
     it { should have_attached_file :logo }
   end
 
@@ -160,6 +164,7 @@ describe Group do
       it { should be_able_to :see_club, club }
       it { should be_able_to :update, club }
       it { should be_able_to :upload, club }
+      it { should be_able_to :new, club }
 
       describe 'invite' do
         context 'free_join' do
@@ -261,7 +266,7 @@ describe Group do
 
     context 'user' do
       it { should be_able_to :see_club, club }
-      it { should be_able_to :new, club }
+      it { should_not be_able_to :new, club }
       it { should_not be_able_to :update, club }
       it { should_not be_able_to :invite, club }
       it { should_not be_able_to :upload, club }

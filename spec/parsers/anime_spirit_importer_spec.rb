@@ -1,4 +1,4 @@
-describe AnimeSpiritImporter do
+describe AnimeSpiritImporter, vcr: { cassette_name: 'anime_spirit_parser' } do
   let(:importer) { AnimeSpiritImporter.new }
 
   describe 'import' do
