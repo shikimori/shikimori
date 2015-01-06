@@ -21,7 +21,7 @@ class Svd < ActiveRecord::Base
       where(scale: Partial, kind: Anime.name).last
     end
 
-    def generate!(scale)
+    def generate! scale
       new(scale: scale, kind: Anime.name).send :calculate!
     end
   end
@@ -35,7 +35,9 @@ class Svd < ActiveRecord::Base
     end
 
     ranks = lsa.classify_vector scores_vector
-    kimilar_users = ranks.each_with_object({}) {|(index,similarity),memo| memo[user_ids[index]] = similarity }
+    ranks.each_with_object({}) do |(index,similarity),memo|
+      memo[user_ids[index]] = similarity
+    end
   end
 
 private
@@ -74,19 +76,18 @@ private
           .uniq
 
     else
-      entry_ids = klass.where do
-        (score >= 6) &
-        (kind != 'Special') &
-        (kind != 'Music') &
-        (duration > 5) &
-        (censored.eq(0)) &
-        (status != 'Not yet aired') &
-        (
-          (aired_on > '1995-01-01') |
-          ((score > 7.5) & (aired_on > '1990-01-01')) |
-          (score > 8.0) | ((score > 7.7) & (kind.eq('Movie')))
-        )
-      end.pluck(:id)
+      entry_ids = klass
+        .where('score >= 6 and duration > 5')
+        .where.not(kind: 'Special')
+        .where.not(kind: 'Music')
+        .where(censored: false)
+        .where.not(status: 'Not yet aired')
+        .where("
+          (aired_on > '1995-01-01') or
+          (score > 8.0) or
+          ((score > 7.5) and (aired_on > '1990-01-01')) or
+          ((score > 7.7) and (kind = 'Movie'))")
+        .pluck(:id)
 
       user_ids = UserRate
           .where(target_type: klass.name, target_id: entry_ids)
@@ -106,7 +107,7 @@ private
 
       entry_ids = UserRate
           .where(target_type: klass.name, user_id: user_ids, target_id: entry_ids)
-          .where(Recommendations::RatesFetcher.rate_query(klass))
+          .where(Recommendations::RatesFetcher.rate_query)
           .joins(Recommendations::RatesFetcher.join_query(klass))
           .group(:target_id)
           .having('count(*) > 4')
