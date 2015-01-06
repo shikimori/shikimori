@@ -74,7 +74,7 @@ describe UserRatesController do
     context 'has access' do
       before { make_request }
       it { should respond_with :success }
-      it { should respond_with_content_type :xml }
+      it { expect(response.content_type).to eq 'application/xml' }
     end
 
     context 'has no access' do
@@ -151,7 +151,7 @@ describe UserRatesController do
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserListsController::MangaType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::MangaType}</user_export_type>
   </myinfo>
   <manga>
     <manga_mangadb_id>#{manga_1.id}</manga_mangadb_id>

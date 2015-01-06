@@ -10,7 +10,7 @@ describe UserListParsers::XmlListParser do
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserListsController::AnimeType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::AnimeType}</user_export_type>
   </myinfo>
   <anime>
     <anime_animedb_id>1</anime_animedb_id>
@@ -35,7 +35,7 @@ describe UserListParsers::XmlListParser do
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserListsController::AnimeType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::MangaType}</user_export_type>
   </myinfo>
   <manga>
     <manga_mangadb_id>1</manga_mangadb_id>

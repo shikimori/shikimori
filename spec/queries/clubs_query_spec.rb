@@ -3,10 +3,10 @@ describe ClubsQuery do
 
   before { Timecop.freeze }
   let(:user) { create :user }
-  let!(:club_1) { create :group, id: 1 }
-  let!(:club_2) { create :group, id: 2 }
-  let!(:club_3) { create :group, id: 3 }
-  let!(:club_4) { create :group, id: 4 }
+  let!(:club_1) { create :group, :with_thread, id: 1 }
+  let!(:club_2) { create :group, :with_thread, id: 2 }
+  let!(:club_3) { create :group, :with_thread, id: 3 }
+  let!(:club_4) { create :group, :with_thread, id: 4 }
 
   before do
     club_1.members << user
@@ -14,7 +14,7 @@ describe ClubsQuery do
     club_4.members << user
   end
 
-  describe 'fetch' do
+  describe '#fetch' do
     subject { query.fetch page, limit }
     let(:limit) { 2 }
 
@@ -29,7 +29,7 @@ describe ClubsQuery do
     end
   end
 
-  describe 'postload' do
+  describe '#postload' do
     subject { query.postload page, limit }
     let(:limit) { 2 }
 

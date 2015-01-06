@@ -1,7 +1,7 @@
 xml.instruct!
 xml.myanimelist do
   xml.myinfo do
-    xml.user_export_type @klass == Manga ? UserListsController::MangaType : UserListsController::AnimeType
+    xml.user_export_type @klass == Manga ? UserRatesImporter::MangaType : UserRatesImporter::AnimeType
   end
 
   @list.each do |entry|
