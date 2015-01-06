@@ -1,0 +1,5202 @@
+{
+  "animes#index": [
+    {
+      "verb": "GET",
+      "path": "/api/animes",
+      "versions": [
+        "1"
+      ],
+      "query": "duration=F&genre=6&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=3&type=TV",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 13,
+          "name": "Test",
+          "description": "",
+          "description_mal": "",
+          "kind": "TV",
+          "episodes": 0,
+          "duration": 90,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 13,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:11.714+03:00",
+          "updated_at": "2015-01-06T03:18:11.714+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "aired_on": "2014-01-01",
+          "released_on": null,
+          "status": null,
+          "rating": "R - 17+ (violence & profanity)",
+          "episodes_aired": 0,
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": null,
+          "tags": null,
+          "source": null,
+          "description_html": null,
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes",
+      "versions": [
+        "1"
+      ],
+      "query": "duration=F&genre=7&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=4&type=TV",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 14,
+          "name": "Test",
+          "description": "",
+          "description_mal": "",
+          "kind": "TV",
+          "episodes": 0,
+          "duration": 90,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 14,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:11.854+03:00",
+          "updated_at": "2015-01-06T03:18:11.854+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "aired_on": "2014-01-01",
+          "released_on": null,
+          "status": null,
+          "rating": "R - 17+ (violence & profanity)",
+          "episodes_aired": 0,
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": null,
+          "tags": null,
+          "source": null,
+          "description_html": null,
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes",
+      "versions": [
+        "1"
+      ],
+      "query": "duration=F&genre=8&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=5&type=TV",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 15,
+          "name": "Test",
+          "description": "",
+          "description_mal": "",
+          "kind": "TV",
+          "episodes": 0,
+          "duration": 90,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 15,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:11.939+03:00",
+          "updated_at": "2015-01-06T03:18:11.939+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "aired_on": "2014-01-01",
+          "released_on": null,
+          "status": null,
+          "rating": "R - 17+ (violence & profanity)",
+          "episodes_aired": 0,
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": null,
+          "tags": null,
+          "source": null,
+          "description_html": null,
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "animes#related": [
+    {
+      "verb": "GET",
+      "path": "/api/animes/33/related",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": 34,
+          "id": 1,
+          "manga_id": null,
+          "source_id": 33,
+          "relation": "Adaptation",
+          "created_at": "2015-01-06T03:18:13.232+03:00",
+          "updated_at": "2015-01-06T03:18:13.232+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/35/related",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": 36,
+          "id": 2,
+          "manga_id": null,
+          "source_id": 35,
+          "relation": "Adaptation",
+          "created_at": "2015-01-06T03:18:13.278+03:00",
+          "updated_at": "2015-01-06T03:18:13.278+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/37/related",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": 38,
+          "id": 3,
+          "manga_id": null,
+          "source_id": 37,
+          "relation": "Adaptation",
+          "created_at": "2015-01-06T03:18:13.319+03:00",
+          "updated_at": "2015-01-06T03:18:13.319+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "animes#roles": [
+    {
+      "verb": "GET",
+      "path": "/api/animes/18/roles",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 16,
+          "character_id": null,
+          "person_id": 8,
+          "anime_id": 18,
+          "role": "Director",
+          "created_at": "2015-01-06T03:18:12.207+03:00",
+          "updated_at": "2015-01-06T03:18:12.207+03:00",
+          "manga_id": null
+        },
+        {
+          "id": 14,
+          "character_id": 7,
+          "person_id": null,
+          "anime_id": 18,
+          "role": "Main",
+          "created_at": "2015-01-06T03:18:12.181+03:00",
+          "updated_at": "2015-01-06T03:18:12.181+03:00",
+          "manga_id": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/20/roles",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 19,
+          "character_id": null,
+          "person_id": 9,
+          "anime_id": 20,
+          "role": "Director",
+          "created_at": "2015-01-06T03:18:12.269+03:00",
+          "updated_at": "2015-01-06T03:18:12.269+03:00",
+          "manga_id": null
+        },
+        {
+          "id": 17,
+          "character_id": 8,
+          "person_id": null,
+          "anime_id": 20,
+          "role": "Main",
+          "created_at": "2015-01-06T03:18:12.246+03:00",
+          "updated_at": "2015-01-06T03:18:12.246+03:00",
+          "manga_id": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/22/roles",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 22,
+          "character_id": null,
+          "person_id": 10,
+          "anime_id": 22,
+          "role": "Director",
+          "created_at": "2015-01-06T03:18:12.332+03:00",
+          "updated_at": "2015-01-06T03:18:12.332+03:00",
+          "manga_id": null
+        },
+        {
+          "id": 20,
+          "character_id": 9,
+          "person_id": null,
+          "anime_id": 22,
+          "role": "Main",
+          "created_at": "2015-01-06T03:18:12.306+03:00",
+          "updated_at": "2015-01-06T03:18:12.306+03:00",
+          "manga_id": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "animes#screenshots": [
+    {
+      "verb": "GET",
+      "path": "/api/animes/24/screenshots",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": 24,
+          "id": 1,
+          "image_file_name": "anime.jpg",
+          "image_content_type": "image/jpeg",
+          "image_file_size": 65138,
+          "image_updated_at": "2015-01-06T03:18:12.389+03:00",
+          "url": "MyString",
+          "created_at": "2015-01-06T03:18:12.535+03:00",
+          "updated_at": "2015-01-06T03:18:12.535+03:00",
+          "position": 1,
+          "status": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/25/screenshots",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": 25,
+          "id": 2,
+          "image_file_name": "anime.jpg",
+          "image_content_type": "image/jpeg",
+          "image_file_size": 65138,
+          "image_updated_at": "2015-01-06T03:18:12.628+03:00",
+          "url": "MyString",
+          "created_at": "2015-01-06T03:18:12.770+03:00",
+          "updated_at": "2015-01-06T03:18:12.770+03:00",
+          "position": 1,
+          "status": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/26/screenshots",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": 26,
+          "id": 3,
+          "image_file_name": "anime.jpg",
+          "image_content_type": "image/jpeg",
+          "image_file_size": 65138,
+          "image_updated_at": "2015-01-06T03:18:12.837+03:00",
+          "url": "MyString",
+          "created_at": "2015-01-06T03:18:12.975+03:00",
+          "updated_at": "2015-01-06T03:18:12.975+03:00",
+          "position": 1,
+          "status": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "animes#show": [
+    {
+      "verb": "GET",
+      "path": "/api/animes/16",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 16,
+        "name": "anime_13",
+        "description": "",
+        "description_mal": "нет описания",
+        "kind": "TV",
+        "episodes": 0,
+        "duration": 0,
+        "english": [
+
+        ],
+        "japanese": [
+
+        ],
+        "synonyms": [
+
+        ],
+        "score": 1.0,
+        "ranked": 16,
+        "popularity": null,
+        "created_at": "2015-01-06T03:18:12.017+03:00",
+        "updated_at": "2015-01-06T03:18:12.017+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "aired_on": null,
+        "released_on": null,
+        "status": null,
+        "rating": "G - All Ages",
+        "episodes_aired": 0,
+        "editor_id": null,
+        "russian": null,
+        "world_art_id": 0,
+        "world_art_synonyms": null,
+        "ani_db_id": 0,
+        "mal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "ani_db_scores": null,
+        "world_art_scores": null,
+        "censored": false,
+        "imported_at": null,
+        "next_episode_at": null,
+        "tags": null,
+        "source": null,
+        "description_html": "нет описания",
+        "torrents_name": null,
+        "site_score": 0.0
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/17",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 17,
+        "name": "anime_14",
+        "description": "",
+        "description_mal": "нет описания",
+        "kind": "TV",
+        "episodes": 0,
+        "duration": 0,
+        "english": [
+
+        ],
+        "japanese": [
+
+        ],
+        "synonyms": [
+
+        ],
+        "score": 1.0,
+        "ranked": 17,
+        "popularity": null,
+        "created_at": "2015-01-06T03:18:12.102+03:00",
+        "updated_at": "2015-01-06T03:18:12.102+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "aired_on": null,
+        "released_on": null,
+        "status": null,
+        "rating": "G - All Ages",
+        "episodes_aired": 0,
+        "editor_id": null,
+        "russian": null,
+        "world_art_id": 0,
+        "world_art_synonyms": null,
+        "ani_db_id": 0,
+        "mal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "ani_db_scores": null,
+        "world_art_scores": null,
+        "censored": false,
+        "imported_at": null,
+        "next_episode_at": null,
+        "tags": null,
+        "source": null,
+        "description_html": "нет описания",
+        "torrents_name": null,
+        "site_score": 0.0
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "animes#similar": [
+    {
+      "verb": "GET",
+      "path": "/api/animes/27/similar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 28,
+          "name": "anime_25",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "duration": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 28,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:13.042+03:00",
+          "updated_at": "2015-01-06T03:18:13.042+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "aired_on": null,
+          "released_on": null,
+          "status": null,
+          "rating": "G - All Ages",
+          "episodes_aired": 0,
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": null,
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/29/similar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 30,
+          "name": "anime_27",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "duration": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 30,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:13.133+03:00",
+          "updated_at": "2015-01-06T03:18:13.133+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "aired_on": null,
+          "released_on": null,
+          "status": null,
+          "rating": "G - All Ages",
+          "episodes_aired": 0,
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": null,
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/animes/31/similar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 32,
+          "name": "anime_29",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "duration": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 32,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:13.172+03:00",
+          "updated_at": "2015-01-06T03:18:13.172+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "aired_on": null,
+          "released_on": null,
+          "status": null,
+          "rating": "G - All Ages",
+          "episodes_aired": 0,
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": null,
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "authenticity_tokens#show": [
+    {
+      "verb": "GET",
+      "path": "/api/authenticity_token",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "authenticity_token": "gHfnK6a3AKEmBj26sqhdOAV4l6e22NYLPRlc79ZCgRZRAzwjpJJC7dDpa4gny+0dp6BA3m5iHri7LWQgzkhZzw=="
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/authenticity_token",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "authenticity_token": "fZVBBFg5naQTdg/hyTbfOiHLzZGaqA0X9PMgs6TTG9je01XGWyxXtPrEUNA7R/LiuWW/RSk+0nCb0Bkn1WR5AQ=="
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "calendars#show": [
+    {
+      "verb": "GET",
+      "path": "/api/calendar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 84,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_81",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 84,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.380+03:00",
+          "updated_at": "2015-01-06T03:18:17.380+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        },
+        {
+          "id": 85,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_82",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 85,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.411+03:00",
+          "updated_at": "2015-01-06T03:18:17.411+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        },
+        {
+          "id": 86,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_83",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 86,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.430+03:00",
+          "updated_at": "2015-01-06T03:18:17.430+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/calendar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 92,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_89",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 92,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.618+03:00",
+          "updated_at": "2015-01-06T03:18:17.618+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        },
+        {
+          "id": 93,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_90",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 93,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.636+03:00",
+          "updated_at": "2015-01-06T03:18:17.636+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        },
+        {
+          "id": 94,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_91",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 94,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.654+03:00",
+          "updated_at": "2015-01-06T03:18:17.654+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/calendar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 100,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_97",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 100,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.826+03:00",
+          "updated_at": "2015-01-06T03:18:17.826+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        },
+        {
+          "id": 101,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_98",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 101,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.844+03:00",
+          "updated_at": "2015-01-06T03:18:17.844+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        },
+        {
+          "id": 102,
+          "status": "Not yet aired",
+          "duration": 0,
+          "episodes_aired": 0,
+          "aired_on": "2015-01-13T03:18:03.065+03:00",
+          "name": "anime_99",
+          "description": "",
+          "description_mal": "нет описания",
+          "kind": "TV",
+          "episodes": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 102,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:17.860+03:00",
+          "updated_at": "2015-01-06T03:18:17.860+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "released_on": null,
+          "rating": "G - All Ages",
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": "2015-01-13T03:18:03.065+03:00",
+          "tags": null,
+          "source": null,
+          "description_html": "нет описания",
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "characters#show": [
+    {
+      "verb": "GET",
+      "path": "/api/characters/1",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 1,
+        "name": "character_1",
+        "japanese": null,
+        "fullname": null,
+        "description": "",
+        "description_mal": "нет описания",
+        "spoiler_mal": null,
+        "created_at": "2015-01-06T03:18:08.237+03:00",
+        "updated_at": "2015-01-06T03:18:08.237+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "imported_at": null,
+        "tags": null,
+        "russian": "персонаж_1",
+        "source": null
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/characters/2",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 2,
+        "name": "character_2",
+        "japanese": null,
+        "fullname": null,
+        "description": "",
+        "description_mal": "нет описания",
+        "spoiler_mal": null,
+        "created_at": "2015-01-06T03:18:08.295+03:00",
+        "updated_at": "2015-01-06T03:18:08.295+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "imported_at": null,
+        "tags": null,
+        "russian": "персонаж_2",
+        "source": null
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "clubs#animes": [
+    {
+      "verb": "GET",
+      "path": "/api/clubs/12/animes",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 104,
+          "name": "anime_101",
+          "description": "",
+          "description_mal": "",
+          "kind": "TV",
+          "episodes": 0,
+          "duration": 0,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "score": 1.0,
+          "ranked": 104,
+          "popularity": null,
+          "created_at": "2015-01-06T03:18:19.340+03:00",
+          "updated_at": "2015-01-06T03:18:19.340+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "aired_on": null,
+          "released_on": null,
+          "status": null,
+          "rating": "G - All Ages",
+          "episodes_aired": 0,
+          "editor_id": null,
+          "russian": null,
+          "world_art_id": 0,
+          "world_art_synonyms": null,
+          "ani_db_id": 0,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "ani_db_scores": null,
+          "world_art_scores": null,
+          "censored": false,
+          "imported_at": null,
+          "next_episode_at": null,
+          "tags": null,
+          "source": null,
+          "description_html": null,
+          "torrents_name": null,
+          "site_score": 0.0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "clubs#characters": [
+    {
+      "verb": "GET",
+      "path": "/api/clubs/13/characters",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 11,
+          "name": "character_11",
+          "japanese": null,
+          "fullname": null,
+          "description": "",
+          "description_mal": "",
+          "spoiler_mal": null,
+          "created_at": "2015-01-06T03:18:19.407+03:00",
+          "updated_at": "2015-01-06T03:18:19.407+03:00",
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "imported_at": null,
+          "tags": null,
+          "russian": "персонаж_11",
+          "source": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "clubs#images": [
+    {
+      "verb": "GET",
+      "path": "/api/clubs/10/images",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "owner_id": 10,
+          "owner_type": "Group",
+          "id": 2,
+          "uploader_id": 1003,
+          "created_at": "2015-01-06T03:18:19.176+03:00",
+          "updated_at": "2015-01-06T03:18:19.176+03:00",
+          "image_file_name": "anime.jpg",
+          "image_content_type": "image/jpeg",
+          "image_file_size": 65138,
+          "image_updated_at": "2015-01-06T03:18:18.994+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "clubs#index": [
+    {
+      "verb": "GET",
+      "path": "/api/clubs",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=1&page=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 4,
+          "name": "club_4",
+          "join_policy": "free_join",
+          "owner_id": 68,
+          "created_at": "2015-01-06T03:18:18.197+03:00",
+          "updated_at": "2015-01-06T03:18:18.225+03:00",
+          "description": "",
+          "logo_file_name": null,
+          "logo_content_type": null,
+          "logo_file_size": null,
+          "logo_updated_at": null,
+          "upload_policy": "ByMembers",
+          "group_roles_count": 1,
+          "permalink": "club_4",
+          "display_images": true,
+          "comment_policy": "free_comment"
+        },
+        {
+          "id": 3,
+          "name": "club_3",
+          "join_policy": "free_join",
+          "owner_id": 66,
+          "created_at": "2015-01-06T03:18:18.104+03:00",
+          "updated_at": "2015-01-06T03:18:18.169+03:00",
+          "description": "",
+          "logo_file_name": null,
+          "logo_content_type": null,
+          "logo_file_size": null,
+          "logo_updated_at": null,
+          "upload_policy": "ByMembers",
+          "group_roles_count": 1,
+          "permalink": "club_3",
+          "display_images": true,
+          "comment_policy": "free_comment"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/clubs",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=1&page=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 6,
+          "name": "club_6",
+          "join_policy": "free_join",
+          "owner_id": 71,
+          "created_at": "2015-01-06T03:18:18.345+03:00",
+          "updated_at": "2015-01-06T03:18:18.372+03:00",
+          "description": "",
+          "logo_file_name": null,
+          "logo_content_type": null,
+          "logo_file_size": null,
+          "logo_updated_at": null,
+          "upload_policy": "ByMembers",
+          "group_roles_count": 1,
+          "permalink": "club_6",
+          "display_images": true,
+          "comment_policy": "free_comment"
+        },
+        {
+          "id": 5,
+          "name": "club_5",
+          "join_policy": "free_join",
+          "owner_id": 69,
+          "created_at": "2015-01-06T03:18:18.271+03:00",
+          "updated_at": "2015-01-06T03:18:18.319+03:00",
+          "description": "",
+          "logo_file_name": null,
+          "logo_content_type": null,
+          "logo_file_size": null,
+          "logo_updated_at": null,
+          "upload_policy": "ByMembers",
+          "group_roles_count": 1,
+          "permalink": "club_5",
+          "display_images": true,
+          "comment_policy": "free_comment"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/clubs",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=1&page=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 8,
+          "name": "club_8",
+          "join_policy": "free_join",
+          "owner_id": 74,
+          "created_at": "2015-01-06T03:18:18.488+03:00",
+          "updated_at": "2015-01-06T03:18:18.520+03:00",
+          "description": "",
+          "logo_file_name": null,
+          "logo_content_type": null,
+          "logo_file_size": null,
+          "logo_updated_at": null,
+          "upload_policy": "ByMembers",
+          "group_roles_count": 1,
+          "permalink": "club_8",
+          "display_images": true,
+          "comment_policy": "free_comment"
+        },
+        {
+          "id": 7,
+          "name": "club_7",
+          "join_policy": "free_join",
+          "owner_id": 72,
+          "created_at": "2015-01-06T03:18:18.411+03:00",
+          "updated_at": "2015-01-06T03:18:18.460+03:00",
+          "description": "",
+          "logo_file_name": null,
+          "logo_content_type": null,
+          "logo_file_size": null,
+          "logo_updated_at": null,
+          "upload_policy": "ByMembers",
+          "group_roles_count": 1,
+          "permalink": "club_7",
+          "display_images": true,
+          "comment_policy": "free_comment"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "clubs#mangas": [
+    {
+      "verb": "GET",
+      "path": "/api/clubs/2/mangas",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 29,
+          "name": "manga_26",
+          "description": null,
+          "description_mal": "",
+          "kind": "Manga",
+          "volumes": 0,
+          "volumes_aired": 0,
+          "chapters": 0,
+          "chapters_aired": 0,
+          "status": null,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "russian": "манга_29",
+          "score": 1.0,
+          "ranked": 29,
+          "popularity": null,
+          "rating": null,
+          "aired_on": null,
+          "released_on": null,
+          "imported_at": null,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "editor_id": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "censored": false,
+          "created_at": "2015-01-06T03:18:18.014+03:00",
+          "updated_at": "2015-01-06T03:18:18.014+03:00",
+          "tags": null,
+          "source": null,
+          "read_manga_id": null,
+          "description_html": null,
+          "read_manga_scores": "0.0",
+          "site_score": 0.0,
+          "parsed_at": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "clubs#members": [
+    {
+      "verb": "GET",
+      "path": "/api/clubs/11/members",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 78,
+          "email": "email118@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:19.257+03:00",
+          "updated_at": "2015-01-06T03:18:19.265+03:00",
+          "nickname": "user_99",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:19.257+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "clubs#show": [
+    {
+      "verb": "GET",
+      "path": "/api/clubs/9",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 9,
+        "name": "club_9",
+        "join_policy": "free_join",
+        "owner_id": 75,
+        "created_at": "2015-01-06T03:18:18.581+03:00",
+        "updated_at": "2015-01-06T03:18:18.901+03:00",
+        "description": "",
+        "logo_file_name": null,
+        "logo_content_type": null,
+        "logo_file_size": null,
+        "logo_updated_at": null,
+        "upload_policy": "ByMembers",
+        "group_roles_count": 1,
+        "permalink": "club_9",
+        "display_images": true,
+        "comment_policy": "free_comment"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "comments#index": [
+    {
+      "verb": "GET",
+      "path": "/api/comments",
+      "versions": [
+        "1"
+      ],
+      "query": "commentable_id=50&commentable_type=User&desc=1&limit=10&page=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 2,
+          "user_id": 50,
+          "commentable_id": 50,
+          "commentable_type": "User",
+          "body": "comment_body_2",
+          "created_at": "2015-01-06T03:18:11.387+03:00",
+          "updated_at": "2015-01-06T03:18:11.387+03:00",
+          "html_body": "comment_body_2",
+          "review": false,
+          "offtopic": false
+        },
+        {
+          "id": 1,
+          "user_id": 50,
+          "commentable_id": 50,
+          "commentable_type": "User",
+          "body": "comment_body_1",
+          "created_at": "2015-01-06T03:18:11.369+03:00",
+          "updated_at": "2015-01-06T03:18:11.369+03:00",
+          "html_body": "comment_body_1",
+          "review": false,
+          "offtopic": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/comments",
+      "versions": [
+        "1"
+      ],
+      "query": "commentable_id=51&commentable_type=User&desc=1&limit=10&page=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 4,
+          "user_id": 51,
+          "commentable_id": 51,
+          "commentable_type": "User",
+          "body": "comment_body_4",
+          "created_at": "2015-01-06T03:18:11.514+03:00",
+          "updated_at": "2015-01-06T03:18:11.514+03:00",
+          "html_body": "comment_body_4",
+          "review": false,
+          "offtopic": false
+        },
+        {
+          "id": 3,
+          "user_id": 51,
+          "commentable_id": 51,
+          "commentable_type": "User",
+          "body": "comment_body_3",
+          "created_at": "2015-01-06T03:18:11.508+03:00",
+          "updated_at": "2015-01-06T03:18:11.508+03:00",
+          "html_body": "comment_body_3",
+          "review": false,
+          "offtopic": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "comments#show": [
+    {
+      "verb": "GET",
+      "path": "/api/comments/5",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 5,
+        "commentable_id": 4,
+        "commentable_type": "Entry",
+        "body": "comment_body_5",
+        "user_id": 52,
+        "created_at": "2015-01-06T03:18:11.589+03:00",
+        "updated_at": "2015-01-06T03:18:11.589+03:00",
+        "html_body": "comment_body_5",
+        "review": false,
+        "offtopic": false
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/comments/6",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 6,
+        "commentable_id": 5,
+        "commentable_type": "Entry",
+        "body": "comment_body_6",
+        "user_id": 53,
+        "created_at": "2015-01-06T03:18:11.649+03:00",
+        "updated_at": "2015-01-06T03:18:11.649+03:00",
+        "html_body": "comment_body_6",
+        "review": false,
+        "offtopic": false
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "devices#create": [
+    {
+      "verb": "POST",
+      "path": "/api/devices",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "device": {
+          "user_id": 1,
+          "token": "test",
+          "platform": "ios",
+          "name": "test"
+        }
+      },
+      "response_data": {
+        "id": 1,
+        "user_id": 1,
+        "token": "test",
+        "platform": "ios",
+        "created_at": "2015-01-06T03:18:07.539+03:00",
+        "updated_at": "2015-01-06T03:18:07.539+03:00",
+        "name": "test"
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/devices",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "device": {
+          "user_id": 2,
+          "token": "test",
+          "platform": "ios",
+          "name": "test"
+        }
+      },
+      "response_data": {
+        "id": 2,
+        "user_id": 2,
+        "token": "test",
+        "platform": "ios",
+        "created_at": "2015-01-06T03:18:07.603+03:00",
+        "updated_at": "2015-01-06T03:18:07.603+03:00",
+        "name": "test"
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/devices",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "device": {
+          "user_id": 3,
+          "token": "test",
+          "platform": "ios",
+          "name": "test"
+        }
+      },
+      "response_data": {
+        "id": 3,
+        "user_id": 3,
+        "token": "test",
+        "platform": "ios",
+        "created_at": "2015-01-06T03:18:07.646+03:00",
+        "updated_at": "2015-01-06T03:18:07.646+03:00",
+        "name": "test"
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "devices#destroy": [
+    {
+      "verb": "DELETE",
+      "path": "/api/devices/4",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": null,
+      "code": "204",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "DELETE",
+      "path": "/api/devices/5",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": null,
+      "code": "204",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "DELETE",
+      "path": "/api/devices/6",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": null,
+      "code": "204",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "devices#index": [
+    {
+      "verb": "GET",
+      "path": "/api/devices",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 7,
+          "user_id": 11,
+          "token": "MyString",
+          "platform": "ios",
+          "created_at": "2015-01-06T03:18:07.909+03:00",
+          "updated_at": "2015-01-06T03:18:07.909+03:00",
+          "name": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/devices",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 9,
+          "user_id": 13,
+          "token": "MyString",
+          "platform": "ios",
+          "created_at": "2015-01-06T03:18:08.010+03:00",
+          "updated_at": "2015-01-06T03:18:08.010+03:00",
+          "name": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/devices",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 11,
+          "user_id": 15,
+          "token": "MyString",
+          "platform": "ios",
+          "created_at": "2015-01-06T03:18:08.083+03:00",
+          "updated_at": "2015-01-06T03:18:08.083+03:00",
+          "name": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "genres#index": [
+    {
+      "verb": "GET",
+      "path": "/api/genres",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 1,
+          "name": "genre_1",
+          "created_at": "2015-01-06T03:18:08.186+03:00",
+          "updated_at": "2015-01-06T03:18:08.186+03:00",
+          "russian": null,
+          "position": null,
+          "seo": 99,
+          "description": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/genres",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 2,
+          "name": "genre_2",
+          "created_at": "2015-01-06T03:18:08.212+03:00",
+          "updated_at": "2015-01-06T03:18:08.212+03:00",
+          "russian": null,
+          "position": null,
+          "seo": 99,
+          "description": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "mangas#index": [
+    {
+      "verb": "GET",
+      "path": "/api/mangas",
+      "versions": [
+        "1"
+      ],
+      "query": "genre=3&limit=1&mylist=1&order=ranked&page=1&publisher=1&rating=NC-17&search=Te&season=2014&type=Manga",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 3,
+          "name": "Test",
+          "description": null,
+          "description_mal": "",
+          "kind": "Manga",
+          "volumes": 0,
+          "volumes_aired": 0,
+          "chapters": 0,
+          "chapters_aired": 0,
+          "status": null,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "russian": "манга_3",
+          "score": 1.0,
+          "ranked": 3,
+          "popularity": null,
+          "rating": "R - 17+ (violence & profanity)",
+          "aired_on": "2014-01-01",
+          "released_on": null,
+          "imported_at": null,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "editor_id": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "censored": false,
+          "created_at": "2015-01-06T03:18:08.823+03:00",
+          "updated_at": "2015-01-06T03:18:08.823+03:00",
+          "tags": null,
+          "source": null,
+          "read_manga_id": null,
+          "description_html": null,
+          "read_manga_scores": "0.0",
+          "site_score": 0.0,
+          "parsed_at": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas",
+      "versions": [
+        "1"
+      ],
+      "query": "genre=4&limit=1&mylist=1&order=ranked&page=1&publisher=2&rating=NC-17&search=Te&season=2014&type=Manga",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 4,
+          "name": "Test",
+          "description": null,
+          "description_mal": "",
+          "kind": "Manga",
+          "volumes": 0,
+          "volumes_aired": 0,
+          "chapters": 0,
+          "chapters_aired": 0,
+          "status": null,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "russian": "манга_4",
+          "score": 1.0,
+          "ranked": 4,
+          "popularity": null,
+          "rating": "R - 17+ (violence & profanity)",
+          "aired_on": "2014-01-01",
+          "released_on": null,
+          "imported_at": null,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "editor_id": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "censored": false,
+          "created_at": "2015-01-06T03:18:09.093+03:00",
+          "updated_at": "2015-01-06T03:18:09.093+03:00",
+          "tags": null,
+          "source": null,
+          "read_manga_id": null,
+          "description_html": null,
+          "read_manga_scores": "0.0",
+          "site_score": 0.0,
+          "parsed_at": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas",
+      "versions": [
+        "1"
+      ],
+      "query": "genre=5&limit=1&mylist=1&order=ranked&page=1&publisher=3&rating=NC-17&search=Te&season=2014&type=Manga",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 5,
+          "name": "Test",
+          "description": null,
+          "description_mal": "",
+          "kind": "Manga",
+          "volumes": 0,
+          "volumes_aired": 0,
+          "chapters": 0,
+          "chapters_aired": 0,
+          "status": null,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "russian": "манга_5",
+          "score": 1.0,
+          "ranked": 5,
+          "popularity": null,
+          "rating": "R - 17+ (violence & profanity)",
+          "aired_on": "2014-01-01",
+          "released_on": null,
+          "imported_at": null,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "editor_id": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "censored": false,
+          "created_at": "2015-01-06T03:18:09.179+03:00",
+          "updated_at": "2015-01-06T03:18:09.179+03:00",
+          "tags": null,
+          "source": null,
+          "read_manga_id": null,
+          "description_html": null,
+          "read_manga_scores": "0.0",
+          "site_score": 0.0,
+          "parsed_at": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "mangas#related": [
+    {
+      "verb": "GET",
+      "path": "/api/mangas/15/related",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": null,
+          "id": 1,
+          "manga_id": 16,
+          "source_id": 15,
+          "relation": "Adaptation",
+          "created_at": "2015-01-06T03:18:09.682+03:00",
+          "updated_at": "2015-01-06T03:18:09.682+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas/17/related",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": null,
+          "id": 2,
+          "manga_id": 18,
+          "source_id": 17,
+          "relation": "Adaptation",
+          "created_at": "2015-01-06T03:18:09.738+03:00",
+          "updated_at": "2015-01-06T03:18:09.738+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas/19/related",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "anime_id": null,
+          "id": 3,
+          "manga_id": 20,
+          "source_id": 19,
+          "relation": "Adaptation",
+          "created_at": "2015-01-06T03:18:09.775+03:00",
+          "updated_at": "2015-01-06T03:18:09.775+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "mangas#roles": [
+    {
+      "verb": "GET",
+      "path": "/api/mangas/6/roles",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 3,
+          "character_id": null,
+          "person_id": 1,
+          "manga_id": 6,
+          "role": "Director",
+          "anime_id": null,
+          "created_at": "2015-01-06T03:18:09.353+03:00",
+          "updated_at": "2015-01-06T03:18:09.353+03:00"
+        },
+        {
+          "id": 1,
+          "character_id": 3,
+          "person_id": null,
+          "manga_id": 6,
+          "role": "Main",
+          "anime_id": null,
+          "created_at": "2015-01-06T03:18:09.282+03:00",
+          "updated_at": "2015-01-06T03:18:09.282+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas/7/roles",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 6,
+          "character_id": null,
+          "person_id": 2,
+          "manga_id": 7,
+          "role": "Director",
+          "anime_id": null,
+          "created_at": "2015-01-06T03:18:09.427+03:00",
+          "updated_at": "2015-01-06T03:18:09.427+03:00"
+        },
+        {
+          "id": 4,
+          "character_id": 4,
+          "person_id": null,
+          "manga_id": 7,
+          "role": "Main",
+          "anime_id": null,
+          "created_at": "2015-01-06T03:18:09.399+03:00",
+          "updated_at": "2015-01-06T03:18:09.399+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas/8/roles",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 9,
+          "character_id": null,
+          "person_id": 3,
+          "manga_id": 8,
+          "role": "Director",
+          "anime_id": null,
+          "created_at": "2015-01-06T03:18:09.488+03:00",
+          "updated_at": "2015-01-06T03:18:09.488+03:00"
+        },
+        {
+          "id": 7,
+          "character_id": 5,
+          "person_id": null,
+          "manga_id": 8,
+          "role": "Main",
+          "anime_id": null,
+          "created_at": "2015-01-06T03:18:09.463+03:00",
+          "updated_at": "2015-01-06T03:18:09.463+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "mangas#show": [
+    {
+      "verb": "GET",
+      "path": "/api/mangas/1",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 1,
+        "name": "manga_1",
+        "description": null,
+        "description_mal": "нет описания",
+        "kind": "Manga",
+        "volumes": 0,
+        "volumes_aired": 0,
+        "chapters": 0,
+        "chapters_aired": 0,
+        "status": null,
+        "english": [
+
+        ],
+        "japanese": [
+
+        ],
+        "synonyms": [
+
+        ],
+        "russian": "манга_1",
+        "score": 1.0,
+        "ranked": 1,
+        "popularity": null,
+        "rating": null,
+        "aired_on": null,
+        "released_on": null,
+        "imported_at": null,
+        "mal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "editor_id": null,
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "censored": false,
+        "created_at": "2015-01-06T03:18:08.334+03:00",
+        "updated_at": "2015-01-06T03:18:08.334+03:00",
+        "tags": null,
+        "source": null,
+        "read_manga_id": null,
+        "description_html": "нет описания",
+        "read_manga_scores": "0.0",
+        "site_score": 0.0,
+        "parsed_at": null
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas/2",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 2,
+        "name": "manga_2",
+        "description": null,
+        "description_mal": "нет описания",
+        "kind": "Manga",
+        "volumes": 0,
+        "volumes_aired": 0,
+        "chapters": 0,
+        "chapters_aired": 0,
+        "status": null,
+        "english": [
+
+        ],
+        "japanese": [
+
+        ],
+        "synonyms": [
+
+        ],
+        "russian": "манга_2",
+        "score": 1.0,
+        "ranked": 2,
+        "popularity": null,
+        "rating": null,
+        "aired_on": null,
+        "released_on": null,
+        "imported_at": null,
+        "mal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "editor_id": null,
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "censored": false,
+        "created_at": "2015-01-06T03:18:08.686+03:00",
+        "updated_at": "2015-01-06T03:18:08.686+03:00",
+        "tags": null,
+        "source": null,
+        "read_manga_id": null,
+        "description_html": "нет описания",
+        "read_manga_scores": "0.0",
+        "site_score": 0.0,
+        "parsed_at": null
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "mangas#similar": [
+    {
+      "verb": "GET",
+      "path": "/api/mangas/9/similar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 10,
+          "name": "manga_7",
+          "description": null,
+          "description_mal": "нет описания",
+          "kind": "Manga",
+          "volumes": 0,
+          "volumes_aired": 0,
+          "chapters": 0,
+          "chapters_aired": 0,
+          "status": null,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "russian": "манга_10",
+          "score": 1.0,
+          "ranked": 10,
+          "popularity": null,
+          "rating": null,
+          "aired_on": null,
+          "released_on": null,
+          "imported_at": null,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "editor_id": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "censored": false,
+          "created_at": "2015-01-06T03:18:09.530+03:00",
+          "updated_at": "2015-01-06T03:18:09.530+03:00",
+          "tags": null,
+          "source": null,
+          "read_manga_id": null,
+          "description_html": "нет описания",
+          "read_manga_scores": "0.0",
+          "site_score": 0.0,
+          "parsed_at": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas/11/similar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 12,
+          "name": "manga_9",
+          "description": null,
+          "description_mal": "нет описания",
+          "kind": "Manga",
+          "volumes": 0,
+          "volumes_aired": 0,
+          "chapters": 0,
+          "chapters_aired": 0,
+          "status": null,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "russian": "манга_12",
+          "score": 1.0,
+          "ranked": 12,
+          "popularity": null,
+          "rating": null,
+          "aired_on": null,
+          "released_on": null,
+          "imported_at": null,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "editor_id": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "censored": false,
+          "created_at": "2015-01-06T03:18:09.588+03:00",
+          "updated_at": "2015-01-06T03:18:09.588+03:00",
+          "tags": null,
+          "source": null,
+          "read_manga_id": null,
+          "description_html": "нет описания",
+          "read_manga_scores": "0.0",
+          "site_score": 0.0,
+          "parsed_at": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/mangas/13/similar",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 14,
+          "name": "manga_11",
+          "description": null,
+          "description_mal": "нет описания",
+          "kind": "Manga",
+          "volumes": 0,
+          "volumes_aired": 0,
+          "chapters": 0,
+          "chapters_aired": 0,
+          "status": null,
+          "english": [
+
+          ],
+          "japanese": [
+
+          ],
+          "synonyms": [
+
+          ],
+          "russian": "манга_14",
+          "score": 1.0,
+          "ranked": 14,
+          "popularity": null,
+          "rating": null,
+          "aired_on": null,
+          "released_on": null,
+          "imported_at": null,
+          "mal_scores": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "editor_id": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "censored": false,
+          "created_at": "2015-01-06T03:18:09.629+03:00",
+          "updated_at": "2015-01-06T03:18:09.629+03:00",
+          "tags": null,
+          "source": null,
+          "read_manga_id": null,
+          "description_html": "нет описания",
+          "read_manga_scores": "0.0",
+          "site_score": 0.0,
+          "parsed_at": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "people#show": [
+    {
+      "verb": "GET",
+      "path": "/api/people/11",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "seyu": true,
+        "id": 11,
+        "name": "prson_11",
+        "japanese": null,
+        "description": null,
+        "description_mal": "нет описания",
+        "created_at": "2015-01-06T03:18:13.741+03:00",
+        "updated_at": "2015-01-06T03:18:13.741+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "birthday": null,
+        "given_name": null,
+        "family_name": null,
+        "website": null,
+        "imported_at": null,
+        "producer": false,
+        "mangaka": false
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/people/12",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "seyu": true,
+        "id": 12,
+        "name": "prson_12",
+        "japanese": null,
+        "description": null,
+        "description_mal": "нет описания",
+        "created_at": "2015-01-06T03:18:13.815+03:00",
+        "updated_at": "2015-01-06T03:18:13.815+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "birthday": null,
+        "given_name": null,
+        "family_name": null,
+        "website": null,
+        "imported_at": null,
+        "producer": false,
+        "mangaka": false
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/people/13",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "seyu": false,
+        "id": 13,
+        "name": "prson_13",
+        "japanese": null,
+        "description": null,
+        "description_mal": "нет описания",
+        "created_at": "2015-01-06T03:18:13.847+03:00",
+        "updated_at": "2015-01-06T03:18:13.847+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "birthday": null,
+        "given_name": null,
+        "family_name": null,
+        "website": null,
+        "imported_at": null,
+        "producer": false,
+        "mangaka": false
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/people/14",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "seyu": false,
+        "id": 14,
+        "name": "prson_14",
+        "japanese": null,
+        "description": null,
+        "description_mal": "нет описания",
+        "created_at": "2015-01-06T03:18:13.885+03:00",
+        "updated_at": "2015-01-06T03:18:13.885+03:00",
+        "image_file_name": null,
+        "image_content_type": null,
+        "image_file_size": null,
+        "image_updated_at": null,
+        "birthday": null,
+        "given_name": null,
+        "family_name": null,
+        "website": null,
+        "imported_at": null,
+        "producer": false,
+        "mangaka": false
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "publishers#index": [
+    {
+      "verb": "GET",
+      "path": "/api/publishers",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 4,
+          "name": "publisher_4",
+          "created_at": "2015-01-06T03:18:17.938+03:00",
+          "updated_at": "2015-01-06T03:18:17.938+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/publishers",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 5,
+          "name": "publisher_5",
+          "created_at": "2015-01-06T03:18:17.964+03:00",
+          "updated_at": "2015-01-06T03:18:17.964+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "sections#index": [
+    {
+      "verb": "GET",
+      "path": "/api/sections",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": null,
+          "position": -2,
+          "name": "Аниме и манга",
+          "description": "Все активные топики сайта.",
+          "permalink": "all",
+          "topics_count": 0,
+          "posts_count": 0,
+          "created_at": null,
+          "updated_at": null,
+          "meta_title": "Энциклопедия аниме и манги",
+          "meta_keywords": "аниме, манга, список, каталог, форум, обсуждения, отзывы, персонажи, герои, косплей, сайт, анимэ, anime, manga",
+          "meta_description": "Шикимори - энциклопедия аниме и манги, площадка для дискуссий на анимешные темы.",
+          "is_visible": true
+        },
+        {
+          "id": null,
+          "position": -1,
+          "name": "Новости",
+          "description": "Новости аниме и манги.",
+          "permalink": "news",
+          "topics_count": 0,
+          "posts_count": 0,
+          "created_at": null,
+          "updated_at": null,
+          "meta_title": "Новости аниме и манги",
+          "meta_keywords": "аниме, манга, новости, события",
+          "meta_description": "Новости аниме и манги на шикимори.",
+          "is_visible": true
+        },
+        {
+          "position": 0,
+          "id": 1,
+          "name": "section_1",
+          "description": null,
+          "permalink": "o",
+          "topics_count": 0,
+          "posts_count": 0,
+          "created_at": "2015-01-06T03:18:08.134+03:00",
+          "updated_at": "2015-01-06T03:18:08.134+03:00",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": null,
+          "is_visible": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/sections",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": null,
+          "position": -2,
+          "name": "Аниме и манга",
+          "description": "Все активные топики сайта.",
+          "permalink": "all",
+          "topics_count": 0,
+          "posts_count": 0,
+          "created_at": null,
+          "updated_at": null,
+          "meta_title": "Энциклопедия аниме и манги",
+          "meta_keywords": "аниме, манга, список, каталог, форум, обсуждения, отзывы, персонажи, герои, косплей, сайт, анимэ, anime, manga",
+          "meta_description": "Шикимори - энциклопедия аниме и манги, площадка для дискуссий на анимешные темы.",
+          "is_visible": true
+        },
+        {
+          "id": null,
+          "position": -1,
+          "name": "Новости",
+          "description": "Новости аниме и манги.",
+          "permalink": "news",
+          "topics_count": 0,
+          "posts_count": 0,
+          "created_at": null,
+          "updated_at": null,
+          "meta_title": "Новости аниме и манги",
+          "meta_keywords": "аниме, манга, новости, события",
+          "meta_description": "Новости аниме и манги на шикимори.",
+          "is_visible": true
+        },
+        {
+          "position": 0,
+          "id": 1,
+          "name": "section_1",
+          "description": null,
+          "permalink": "o",
+          "topics_count": 0,
+          "posts_count": 0,
+          "created_at": "2015-01-06T03:18:08.134+03:00",
+          "updated_at": "2015-01-06T03:18:08.134+03:00",
+          "meta_title": null,
+          "meta_keywords": null,
+          "meta_description": null,
+          "is_visible": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "sessions#create": [
+    {
+      "verb": "POST",
+      "path": "/api/sessions",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user": {
+          "nickname": "test",
+          "password": "123456"
+        }
+      },
+      "response_data": {
+        "id": 59,
+        "nickname": "test",
+        "email": "email55@factory.com",
+        "avatar": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=32&d=identicon"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/sessions",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user": {
+          "nickname": "test",
+          "password": "123456"
+        }
+      },
+      "response_data": {
+        "id": 60,
+        "nickname": "test",
+        "email": "email56@factory.com",
+        "avatar": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=32&d=identicon"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "studios#index": [
+    {
+      "verb": "GET",
+      "path": "/api/studios",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 1,
+          "name": "studio_1",
+          "short_name": null,
+          "created_at": "2015-01-06T03:18:07.226+03:00",
+          "updated_at": "2015-01-06T03:18:07.226+03:00",
+          "japanese": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "ani_db_id": null,
+          "ani_db_name": null,
+          "description": null,
+          "ani_db_description": null,
+          "website": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/studios",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 2,
+          "name": "studio_2",
+          "short_name": null,
+          "created_at": "2015-01-06T03:18:07.295+03:00",
+          "updated_at": "2015-01-06T03:18:07.295+03:00",
+          "japanese": null,
+          "image_file_name": null,
+          "image_content_type": null,
+          "image_file_size": null,
+          "image_updated_at": null,
+          "ani_db_id": null,
+          "ani_db_name": null,
+          "description": null,
+          "ani_db_description": null,
+          "website": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "topics#index": [
+    {
+      "verb": "GET",
+      "path": "/api/topics",
+      "versions": [
+        "1"
+      ],
+      "query": "section=o",
+      "request_data": null,
+      "response_data": [
+
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/topics",
+      "versions": [
+        "1"
+      ],
+      "query": "section=o",
+      "request_data": null,
+      "response_data": [
+
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "topics#show": [
+    {
+      "verb": "GET",
+      "path": "/api/topics/9",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "section_id": 12,
+        "linked_type": "Review",
+        "id": 9,
+        "title": "topic_3",
+        "permalink": "topic_3",
+        "user_id": 62,
+        "created_at": "2015-01-06T03:18:13.593+03:00",
+        "updated_at": "2015-01-06T03:18:13.593+03:00",
+        "text": "Обсуждение [review=1]манги[/review].",
+        "generated": false,
+        "linked_id": 1,
+        "processed": false,
+        "action": null,
+        "value": null,
+        "comments_count": 0,
+        "broadcast": false
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "user_rates#cleanup": [
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/manga/cleanup",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнена очистка вашего манги списка и вашей истории по манге"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/manga/cleanup",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнена очистка вашего манги списка и вашей истории по манге"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/manga/cleanup",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнена очистка вашего манги списка и вашей истории по манге"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/anime/cleanup",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнена очистка вашего аниме списка и вашей истории по аниме"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/anime/cleanup",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнена очистка вашего аниме списка и вашей истории по аниме"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/anime/cleanup",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнена очистка вашего аниме списка и вашей истории по аниме"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#create": [
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456791,
+          "target_id": 46,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 13,
+        "user_id": 23456791,
+        "target_id": 46,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.216+03:00",
+        "updated_at": "2015-01-06T03:18:14.216+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456792,
+          "target_id": 47,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 14,
+        "user_id": 23456792,
+        "target_id": 47,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.296+03:00",
+        "updated_at": "2015-01-06T03:18:14.296+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456793,
+          "target_id": 48,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 15,
+        "user_id": 23456793,
+        "target_id": 48,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.370+03:00",
+        "updated_at": "2015-01-06T03:18:14.370+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456794,
+          "target_id": 49,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 16,
+        "user_id": 23456794,
+        "target_id": 49,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.450+03:00",
+        "updated_at": "2015-01-06T03:18:14.450+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456795,
+          "target_id": 50,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 17,
+        "user_id": 23456795,
+        "target_id": 50,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.530+03:00",
+        "updated_at": "2015-01-06T03:18:14.530+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456796,
+          "target_id": 51,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 18,
+        "user_id": 23456796,
+        "target_id": 51,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.611+03:00",
+        "updated_at": "2015-01-06T03:18:14.611+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456797,
+          "target_id": 52,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 19,
+        "user_id": 23456797,
+        "target_id": 52,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.692+03:00",
+        "updated_at": "2015-01-06T03:18:14.692+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456798,
+          "target_id": 53,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 20,
+        "user_id": 23456798,
+        "target_id": 53,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.771+03:00",
+        "updated_at": "2015-01-06T03:18:14.771+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456799,
+          "target_id": 54,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 21,
+        "user_id": 23456799,
+        "target_id": 54,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.852+03:00",
+        "updated_at": "2015-01-06T03:18:14.852+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456800,
+          "target_id": 55,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 22,
+        "user_id": 23456800,
+        "target_id": 55,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:14.963+03:00",
+        "updated_at": "2015-01-06T03:18:14.963+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 23456801,
+          "target_id": 56,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
+      },
+      "response_data": {
+        "id": 23,
+        "user_id": 23456801,
+        "target_id": 56,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.041+03:00",
+        "updated_at": "2015-01-06T03:18:15.041+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#destroy": [
+    {
+      "verb": "DELETE",
+      "path": "/api/user_rates/11",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": null,
+      "code": "204",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "DELETE",
+      "path": "/api/user_rates/12",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": null,
+      "code": "204",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#increment": [
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/36/increment",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "user_id": 23456821,
+        "target_type": "Anime",
+        "episodes": 2,
+        "id": 36,
+        "target_id": 74,
+        "score": 0,
+        "status": "watching",
+        "created_at": "2015-01-06T03:18:16.603+03:00",
+        "updated_at": "2015-01-06T03:18:16.650+03:00",
+        "volumes": 0,
+        "chapters": 0,
+        "text": null,
+        "rewatches": 0
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/37/increment",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "user_id": 23456822,
+        "target_type": "Anime",
+        "episodes": 2,
+        "id": 37,
+        "target_id": 75,
+        "score": 0,
+        "status": "watching",
+        "created_at": "2015-01-06T03:18:16.706+03:00",
+        "updated_at": "2015-01-06T03:18:16.749+03:00",
+        "volumes": 0,
+        "chapters": 0,
+        "text": null,
+        "rewatches": 0
+      },
+      "code": "201",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#reset": [
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/manga/reset",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнен сброс оценок в вашем манги списке"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/manga/reset",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнен сброс оценок в вашем манги списке"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/anime/reset",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнен сброс оценок в вашем аниме списке"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/anime/reset",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнен сброс оценок в вашем аниме списке"
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#update": [
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/24",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456802,
+        "id": 24,
+        "target_id": 57,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.101+03:00",
+        "updated_at": "2015-01-06T03:18:15.159+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/25",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456803,
+        "id": 25,
+        "target_id": 58,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.215+03:00",
+        "updated_at": "2015-01-06T03:18:15.274+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/26",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456804,
+        "id": 26,
+        "target_id": 59,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.322+03:00",
+        "updated_at": "2015-01-06T03:18:15.385+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/27",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456805,
+        "id": 27,
+        "target_id": 60,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.432+03:00",
+        "updated_at": "2015-01-06T03:18:15.488+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/28",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456806,
+        "id": 28,
+        "target_id": 61,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.537+03:00",
+        "updated_at": "2015-01-06T03:18:15.601+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/29",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456807,
+        "id": 29,
+        "target_id": 62,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.647+03:00",
+        "updated_at": "2015-01-06T03:18:15.708+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/30",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456808,
+        "id": 30,
+        "target_id": 63,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.756+03:00",
+        "updated_at": "2015-01-06T03:18:15.818+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PATCH",
+      "path": "/api/user_rates/31",
+      "versions": [
+        "1"
+      ],
+      "query": "user_rate%5Bchapters%5D=4&user_rate%5Bepisodes%5D=2&user_rate%5Brewatches%5D=5&user_rate%5Bscore%5D=10&user_rate%5Bstatus%5D=1&user_rate%5Btext%5D=test&user_rate%5Bvolumes%5D=3",
+      "request_data": null,
+      "response_data": {
+        "user_id": 23456809,
+        "id": 31,
+        "target_id": 64,
+        "score": 10,
+        "status": "watching",
+        "episodes": 2,
+        "created_at": "2015-01-06T03:18:15.868+03:00",
+        "updated_at": "2015-01-06T03:18:15.950+03:00",
+        "target_type": "Anime",
+        "volumes": 3,
+        "chapters": 4,
+        "text": "test",
+        "rewatches": 5
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "users#anime_rates": [
+    {
+      "verb": "GET",
+      "path": "/api/users/48/anime_rates",
+      "versions": [
+        "1"
+      ],
+      "query": "status=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "target_id": 11,
+          "id": 6,
+          "user_id": 48,
+          "score": 0,
+          "status": "watching",
+          "episodes": 0,
+          "created_at": "2015-01-06T03:18:11.211+03:00",
+          "updated_at": "2015-01-06T03:18:11.211+03:00",
+          "target_type": "Anime",
+          "volumes": 0,
+          "chapters": 0,
+          "text": null,
+          "rewatches": 0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/users/49/anime_rates",
+      "versions": [
+        "1"
+      ],
+      "query": "status=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "target_id": 12,
+          "id": 7,
+          "user_id": 49,
+          "score": 0,
+          "status": "watching",
+          "episodes": 0,
+          "created_at": "2015-01-06T03:18:11.297+03:00",
+          "updated_at": "2015-01-06T03:18:11.297+03:00",
+          "target_type": "Anime",
+          "volumes": 0,
+          "chapters": 0,
+          "text": null,
+          "rewatches": 0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "users#clubs": [
+    {
+      "verb": "GET",
+      "path": "/api/users/23/clubs",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 1,
+          "name": "club_1",
+          "join_policy": "free_join",
+          "owner_id": 22,
+          "created_at": "2015-01-06T03:18:09.833+03:00",
+          "updated_at": "2015-01-06T03:18:09.875+03:00",
+          "description": "",
+          "logo_file_name": null,
+          "logo_content_type": null,
+          "logo_file_size": null,
+          "logo_updated_at": null,
+          "upload_policy": "ByMembers",
+          "group_roles_count": 1,
+          "permalink": "club_1",
+          "display_images": true,
+          "comment_policy": "free_comment"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#favourites": [
+    {
+      "verb": "GET",
+      "path": "/api/users/29/favourites",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "animes": [
+          {
+            "id": 5,
+            "name": "anime_5",
+            "russian": null,
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/animes/5-anime_5"
+          }
+        ],
+        "mangas": [
+          {
+            "id": 21,
+            "name": "manga_18",
+            "russian": "манга_21",
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/mangas/21-manga_18"
+          }
+        ],
+        "characters": [
+          {
+            "id": 6,
+            "name": "character_6",
+            "russian": "персонаж_6",
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/characters/6-character_6"
+          }
+        ],
+        "people": [
+          {
+            "id": 4,
+            "name": "prson_4",
+            "russian": null,
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/people/4-prson_4"
+          }
+        ],
+        "mangakas": [
+          {
+            "id": 5,
+            "name": "prson_5",
+            "russian": null,
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/people/5-prson_5"
+          }
+        ],
+        "seyu": [
+          {
+            "id": 7,
+            "name": "prson_7",
+            "russian": null,
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/people/7-prson_7"
+          }
+        ],
+        "producers": [
+          {
+            "id": 6,
+            "name": "prson_6",
+            "russian": null,
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/people/6-prson_6"
+          }
+        ]
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#friends": [
+    {
+      "verb": "GET",
+      "path": "/api/users/25/friends",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 24,
+          "email": "email22@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:09.955+03:00",
+          "updated_at": "2015-01-06T03:18:10.012+03:00",
+          "nickname": "user_22",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:09.955+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#history": [
+    {
+      "verb": "GET",
+      "path": "/api/users/30/history",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=10&page=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 5,
+          "target_id": 10,
+          "user_id": 30,
+          "target_type": "Anime",
+          "action": "status",
+          "value": null,
+          "created_at": "2015-01-06T03:18:10.508+03:00",
+          "updated_at": "2015-01-06T03:18:10.508+03:00",
+          "prior_value": null
+        },
+        {
+          "id": 4,
+          "target_id": null,
+          "user_id": 30,
+          "target_type": null,
+          "action": "mal_anime_import",
+          "value": "522",
+          "created_at": "2015-01-06T03:18:10.489+03:00",
+          "updated_at": "2015-01-06T03:18:10.489+03:00",
+          "prior_value": null
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#index": [
+    {
+      "verb": "GET",
+      "path": "/api/users",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=1&page=1&search=Te",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 33,
+          "email": "email31@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:10.709+03:00",
+          "updated_at": "2015-01-06T03:18:10.715+03:00",
+          "nickname": "Test1",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:10.709+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        },
+        {
+          "id": 34,
+          "email": "email32@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:10.727+03:00",
+          "updated_at": "2015-01-06T03:18:10.733+03:00",
+          "nickname": "Test2",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:10.727+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/users",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=1&page=1&search=Te",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 36,
+          "email": "email34@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:10.785+03:00",
+          "updated_at": "2015-01-06T03:18:10.791+03:00",
+          "nickname": "Test1",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:10.785+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        },
+        {
+          "id": 37,
+          "email": "email35@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:10.803+03:00",
+          "updated_at": "2015-01-06T03:18:10.836+03:00",
+          "nickname": "Test2",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:10.803+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/users",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=1&page=1&search=Te",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 39,
+          "email": "email37@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:10.881+03:00",
+          "updated_at": "2015-01-06T03:18:10.887+03:00",
+          "nickname": "Test1",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:10.881+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        },
+        {
+          "id": 40,
+          "email": "email38@factory.com",
+          "name": null,
+          "created_at": "2015-01-06T03:18:10.900+03:00",
+          "updated_at": "2015-01-06T03:18:10.907+03:00",
+          "nickname": "Test2",
+          "location": null,
+          "notifications": 9373568,
+          "last_online_at": "2015-01-06T03:18:10.900+03:00",
+          "about": null,
+          "sex": null,
+          "website": null,
+          "avatar_file_name": null,
+          "avatar_content_type": null,
+          "avatar_file_size": null,
+          "avatar_updated_at": null,
+          "birth_on": null,
+          "read_only_at": null,
+          "can_vote_1": false,
+          "can_vote_2": false,
+          "can_vote_3": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "users#manga_rates": [
+    {
+      "verb": "GET",
+      "path": "/api/users/31/manga_rates",
+      "versions": [
+        "1"
+      ],
+      "query": "status=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "target_id": 22,
+          "id": 4,
+          "user_id": 31,
+          "score": 0,
+          "status": "watching",
+          "episodes": 0,
+          "created_at": "2015-01-06T03:18:10.597+03:00",
+          "updated_at": "2015-01-06T03:18:10.597+03:00",
+          "target_type": "Manga",
+          "volumes": 0,
+          "chapters": 0,
+          "text": null,
+          "rewatches": 0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/users/32/manga_rates",
+      "versions": [
+        "1"
+      ],
+      "query": "status=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "target_id": 23,
+          "id": 5,
+          "user_id": 32,
+          "score": 0,
+          "status": "watching",
+          "episodes": 0,
+          "created_at": "2015-01-06T03:18:10.668+03:00",
+          "updated_at": "2015-01-06T03:18:10.668+03:00",
+          "target_type": "Manga",
+          "volumes": 0,
+          "chapters": 0,
+          "text": null,
+          "rewatches": 0
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "users#messages": [
+    {
+      "verb": "GET",
+      "path": "/api/users/26/messages",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=20&page=1&type=news",
+      "request_data": null,
+      "response_data": [
+
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#show": [
+    {
+      "verb": "GET",
+      "path": "/api/users/42",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 42,
+        "email": "email40@factory.com",
+        "encrypted_password": "$2a$04$NVVfkDT4os5BIT4e7/CMa.34Gs33MyucRD88efXBFhQl7GNdzVJPy",
+        "reset_password_token": null,
+        "remember_created_at": null,
+        "sign_in_count": 0,
+        "current_sign_in_at": null,
+        "last_sign_in_at": null,
+        "current_sign_in_ip": null,
+        "last_sign_in_ip": null,
+        "name": null,
+        "created_at": "2015-01-06T03:18:10.952+03:00",
+        "updated_at": "2015-01-06T03:18:10.959+03:00",
+        "nickname": "Test",
+        "location": null,
+        "notifications": 9373568,
+        "last_online_at": "2015-01-06T03:18:10.952+03:00",
+        "about": null,
+        "sex": null,
+        "website": "",
+        "avatar_file_name": null,
+        "avatar_content_type": null,
+        "avatar_file_size": null,
+        "avatar_updated_at": null,
+        "birth_on": null,
+        "read_only_at": null,
+        "can_vote_1": false,
+        "can_vote_2": false,
+        "can_vote_3": false,
+        "reset_password_sent_at": null,
+        "remember_token": null
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/users/43",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 43,
+        "email": "email41@factory.com",
+        "encrypted_password": "$2a$04$bYqc1.HsZKSaNLLuNOgg0eX.V21kHWkv5mRY4d67flEl/B2uj3rLa",
+        "reset_password_token": null,
+        "remember_created_at": null,
+        "sign_in_count": 0,
+        "current_sign_in_at": null,
+        "last_sign_in_at": null,
+        "current_sign_in_ip": null,
+        "last_sign_in_ip": null,
+        "name": null,
+        "created_at": "2015-01-06T03:18:11.006+03:00",
+        "updated_at": "2015-01-06T03:18:11.012+03:00",
+        "nickname": "Test",
+        "location": null,
+        "notifications": 9373568,
+        "last_online_at": "2015-01-06T03:18:11.006+03:00",
+        "about": null,
+        "sex": null,
+        "website": "",
+        "avatar_file_name": null,
+        "avatar_content_type": null,
+        "avatar_file_size": null,
+        "avatar_updated_at": null,
+        "birth_on": null,
+        "read_only_at": null,
+        "can_vote_1": false,
+        "can_vote_2": false,
+        "can_vote_3": false,
+        "reset_password_sent_at": null,
+        "remember_token": null
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "users#unread_messages": [
+    {
+      "verb": "GET",
+      "path": "/api/users/44/unread_messages",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "messages": 0,
+        "news": 0,
+        "notifications": 0
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#whoami": [
+    {
+      "verb": "GET",
+      "path": "/api/users/whoami",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "encrypted_password": "$2a$04$l/ljNtNCndd31s6C5sNmt.S6sin9AGXO0XpPHuslWYuBkp/jRUO72",
+        "id": 45,
+        "email": "email43@factory.com",
+        "reset_password_token": null,
+        "remember_created_at": null,
+        "sign_in_count": 0,
+        "current_sign_in_at": null,
+        "last_sign_in_at": null,
+        "current_sign_in_ip": null,
+        "last_sign_in_ip": null,
+        "name": null,
+        "created_at": "2015-01-06T03:18:11.079+03:00",
+        "updated_at": "2015-01-06T03:18:11.085+03:00",
+        "nickname": "Test",
+        "location": null,
+        "notifications": 9373568,
+        "last_online_at": "2015-01-06T03:18:11.079+03:00",
+        "about": null,
+        "sex": null,
+        "website": null,
+        "avatar_file_name": null,
+        "avatar_content_type": null,
+        "avatar_file_size": null,
+        "avatar_updated_at": null,
+        "birth_on": null,
+        "read_only_at": null,
+        "can_vote_1": false,
+        "can_vote_2": false,
+        "can_vote_3": false,
+        "reset_password_sent_at": null,
+        "remember_token": null
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/users/whoami",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "encrypted_password": "$2a$04$f4zf96fGLamhmhfC11j/fuwiR2DVcY1Gxk9rEHCV.hPXQ4np0H1C.",
+        "id": 46,
+        "email": "email44@factory.com",
+        "reset_password_token": null,
+        "remember_created_at": null,
+        "sign_in_count": 0,
+        "current_sign_in_at": null,
+        "last_sign_in_at": null,
+        "current_sign_in_ip": null,
+        "last_sign_in_ip": null,
+        "name": null,
+        "created_at": "2015-01-06T03:18:11.124+03:00",
+        "updated_at": "2015-01-06T03:18:11.131+03:00",
+        "nickname": "Test",
+        "location": null,
+        "notifications": 9373568,
+        "last_online_at": "2015-01-06T03:18:11.124+03:00",
+        "about": null,
+        "sex": null,
+        "website": null,
+        "avatar_file_name": null,
+        "avatar_content_type": null,
+        "avatar_file_size": null,
+        "avatar_updated_at": null,
+        "birth_on": null,
+        "read_only_at": null,
+        "can_vote_1": false,
+        "can_vote_2": false,
+        "can_vote_3": false,
+        "reset_password_sent_at": null,
+        "remember_token": null
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/users/whoami",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "encrypted_password": "$2a$04$dFO7xVLU77XJIDB8gedK1u7N.Bi1EaHztqYORl1VlaLzlt9j20AyG",
+        "id": 47,
+        "email": "email45@factory.com",
+        "reset_password_token": null,
+        "remember_created_at": null,
+        "sign_in_count": 0,
+        "current_sign_in_at": null,
+        "last_sign_in_at": null,
+        "current_sign_in_ip": null,
+        "last_sign_in_ip": null,
+        "name": null,
+        "created_at": "2015-01-06T03:18:11.155+03:00",
+        "updated_at": "2015-01-06T03:18:11.161+03:00",
+        "nickname": "Test",
+        "location": null,
+        "notifications": 9373568,
+        "last_online_at": "2015-01-06T03:18:11.155+03:00",
+        "about": null,
+        "sex": null,
+        "website": null,
+        "avatar_file_name": null,
+        "avatar_content_type": null,
+        "avatar_file_size": null,
+        "avatar_updated_at": null,
+        "birth_on": null,
+        "read_only_at": null,
+        "can_vote_1": false,
+        "can_vote_2": false,
+        "can_vote_3": false,
+        "reset_password_sent_at": null,
+        "remember_token": null
+      },
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ]
+}
