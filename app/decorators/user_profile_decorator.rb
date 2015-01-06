@@ -109,7 +109,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def formatted_history
-    history.formatted.take 2
+    history.formatted.take(stats.anime? && stats.manga? ? 3 : 2)
   end
 
   def random_clubs

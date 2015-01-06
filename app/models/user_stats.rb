@@ -154,7 +154,6 @@ class UserStats
     AnimeVideoReport.where(user: @user).where.not(state: 'rejected').count
   end
 
-private
   def anime?
     @stats.anime_rates.any?
   end
@@ -163,6 +162,7 @@ private
     @stats.manga_rates.any?
   end
 
+private
   def localize_spent_time time, is_genitive
     if time.days.zero?
       '0 часов'
