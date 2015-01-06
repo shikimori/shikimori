@@ -4,7 +4,6 @@
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
-@import mixins/comma_separated
 @import mixins/icons
 @import mixins/plashka
 @import mixins/responsive
@@ -154,23 +153,6 @@
       +gte_ipad
         &:before
           line-height: 20px
-
-  .additional-links
-    +clear_left
-    margin-top: 10px
-
-    .key
-      float: left
-      color: $gray-color
-
-    &>.link, &>a
-      +comma_separated(0)
-      +link
-      float: left
-      margin-left: 5px
-
-      &:first-child
-        margin-left: 0
 
   // блок загрузки ресурсов аниме
   .resources-loader.postloaded

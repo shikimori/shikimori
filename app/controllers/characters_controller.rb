@@ -41,6 +41,11 @@ class CharactersController < PeopleController
     page_title 'Обсуждение персонажа'
   end
 
+  def art
+    noindex
+    page_title 'Арт с имиджборд'
+  end
+
   def tooltip
   end
 

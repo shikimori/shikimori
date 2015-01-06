@@ -1,7 +1,8 @@
 = render layout: 'page' do
   .b-options-floated.mobile-support.mobile-landscape
     a class="#{:selected if @page == 'description'}" href="#{edit_character_url @resource}" Описание
-    a class="#{:selected if @page == 'russian'}" href="#{edit_character_url @resource, page: 'russian'}" Русское название
+    a class="#{:selected if @page == 'russian'}" href="#{edit_character_url @resource, page: :russian}" Русское название
+    a class="#{:selected if @page == 'tags'}" href="#{edit_character_url @resource, :tags}" Тег имиджборд
 
   h2.subheadline.m10 = @page_title.last
 

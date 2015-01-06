@@ -70,6 +70,11 @@ describe CharactersController do
     end
   end
 
+  describe '#art' do
+    before { get :art, id: character.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#tooltip' do
     before { get :tooltip, id: character.to_param }
     it { should respond_with :success }
@@ -87,7 +92,7 @@ describe CharactersController do
     context 'guest' do
       let(:page) { nil }
       before { get :edit, id: character.to_param }
-      it { should redirect_to users_sign_in_url }
+      it { should redirect_to new_user_session_url }
     end
 
     context 'authenticated' do
@@ -101,6 +106,11 @@ describe CharactersController do
 
       describe 'russian' do
         let(:page) { 'russian' }
+        it { should respond_with :success }
+      end
+
+      describe 'tags' do
+        let(:page) { 'tags' }
         it { should respond_with :success }
       end
     end

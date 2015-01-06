@@ -5,9 +5,9 @@
     - if @resource.anime?
       a class="#{:selected if @page == 'screenshots'}" href="#{@resource.edit_url :screenshots}" Кадры
       a class="#{:selected if @page == 'video'}" href="#{@resource.edit_url :video}" Видео
-      a class="#{:selected if @page == 'tags'}" href="#{@resource.edit_url :tags}" Тег имиджборд
-      - if current_user.admin?
-        a class="#{:selected if @page == 'torrents_name'}" href="#{@resource.edit_url :torrents_name}" Название на торрентах
+    a class="#{:selected if @page == 'tags'}" href="#{@resource.edit_url :tags}" Тег имиджборд
+    - if @resource.anime? && current_user.admin?
+      a class="#{:selected if @page == 'torrents_name'}" href="#{@resource.edit_url :torrents_name}" Название на торрентах
   h2.subheadline.m10 = @page_title.last
 
   .block.edit-page class="#{@page}"

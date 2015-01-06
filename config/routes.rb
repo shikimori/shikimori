@@ -359,8 +359,9 @@ Site::Application.routes.draw do
         get :animes
         get :mangas
         get :comments
+        get :art
         get :tooltip
-        get 'edit(/:page)' => :edit, as: :edit, page: /description|russian/
+        get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|tags/
       end
       collection do
         get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/

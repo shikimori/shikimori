@@ -14,6 +14,10 @@
     $.scrollTo $editor, ->
       $editor.focus()
 
+# арт с имиджборд по персонажу
+@on 'page:load', 'characters_art', ->
+  $('.b-gallery').imageboard()
+
 # редактирование персонажа
 @on 'page:load', 'characters_edit', ->
   $('.b-shiki_editor')
@@ -22,3 +26,13 @@
       body: $(@).data('shiki_object').$textarea.val()
       target_id: $('#change_item_id').val()
       target_type: $('#change_model').val()
+
+  if $('.edit-page.tags').exists()
+    $('#user_change_value')
+      .completable()
+      .on 'autocomplete:success autocomplete:text', (e, result) ->
+        @value = if Object.isString(result) then result else result.value
+        $('.b-gallery').data(tags: @value)
+        $('.b-gallery').data('shiki_object').refresh()
+
+    $('.b-gallery').imageboard()

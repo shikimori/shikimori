@@ -15,7 +15,7 @@ describe Moderation::UserChangesController do
   describe '#index' do
     context 'guest' do
       before { get :index }
-      it { should redirect_to users_sign_in_url }
+      it { should redirect_to new_user_session_url }
     end
 
     context 'user' do
@@ -67,7 +67,7 @@ describe Moderation::UserChangesController do
   describe '#take' do
     context 'guest' do
       before { post :take, id: user_change.id }
-      it { should redirect_to users_sign_in_url }
+      it { should redirect_to new_user_session_url }
     end
 
     context 'user' do
@@ -99,7 +99,7 @@ describe Moderation::UserChangesController do
   describe '#deny' do
     context 'guest' do
       before { post :deny, id: user_change.id }
-      it { should redirect_to users_sign_in_url }
+      it { should redirect_to new_user_session_url }
     end
 
     context 'user' do

@@ -1,6 +1,8 @@
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
+@import mixins/comma_separated
+@import mixins/link
 @import mixins/responsive
 
 .b-db_entry
@@ -48,6 +50,23 @@
     &:after
       display: block
       clear: left
+
+    .additional-links
+      +clear_left
+      margin-top: 10px
+
+      .key
+        float: left
+        color: $gray-color
+
+      &>.link, &>a
+        +comma_separated(0)
+        +link
+        float: left
+        margin-left: 5px
+
+        &:first-child
+          margin-left: 0
 
   &>.c-description
     +block
