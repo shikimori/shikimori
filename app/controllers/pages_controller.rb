@@ -144,12 +144,7 @@ class PagesController < ShikimoriController
         .map {|v| JSON.parse v }
         .sort_by {|v| Time.at v['enqueued_at'] }
 
-      @sidkiq_busy = Sidekiq.redis do |conn|
-        conn.smembers('workers').map do |w|
-          msg = conn.get("worker:#{w}")
-          msg ? [w, Sidekiq.load_json(msg)] : [[], nil]
-        end.compact.sort { |x| x[1] ? -1 : 1 }
-      end.select{|k,v| v.present?}.map {|v| v.second['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
+      @sidkiq_busy = Sidekiq::Workers.new.to_a.map {|v| v[2]['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
 
       @sidkiq_retries = page('retry', 'retries', 100)[2]
         .flatten
