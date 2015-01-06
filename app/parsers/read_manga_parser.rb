@@ -56,7 +56,7 @@ class ReadMangaParser < SiteParserWithCache
     content = get(@catalog_url % [page * self.class::PageSize])
     doc = Nokogiri::HTML(content)
 
-    doc.css('table.cTable tr a:first')[1..-2].map do |a_tag|
+    doc.css('.tiles .tile .img a').map do |a_tag|
       a_tag.attr('href').sub(/^.*\//, '')
     end.select {|v| v !~ /\?/ }
   end

@@ -1,7 +1,7 @@
 describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
   let(:parser) { FindAnimeParser.new }
 
-  it { expect(parser.fetch_pages_num).to eq 41 }
+  it { expect(parser.fetch_pages_num).to eq 42 }
   it { expect(parser.fetch_page_links(0)).to have(FindAnimeParser::PageSize).items }
 
   describe 'fetch_entry' do

@@ -28,6 +28,16 @@ class HentaiAnimeParser < FindAnimeParser
     entry[:year] ||= $~[:year].to_i if doc.css('.elementList').to_s.match /Год выпуска:[\s\S]*?(?<year>\d+)<\/a>/
   end
 
+  # ссылки с конкретной страницы
+  def fetch_page_links page
+    content = get(@catalog_url % [page * self.class::PageSize])
+    doc = Nokogiri::HTML(content)
+
+    doc.css('table.cTable tr a:first')[1..-2].map do |a_tag|
+      a_tag.attr('href').sub(/^.*\//, '')
+    end.select {|v| v !~ /\?/ }
+  end
+
 private
   def domain
     'hentai-anime.ru'
