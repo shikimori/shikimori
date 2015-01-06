@@ -16,7 +16,9 @@ class Sendgrid < ActionMailer::Base
       to: message.to.email,
       subject: "Личное сообщение",
       body: "#{message.to.nickname}, у вас 1 новое сообщение на shikimori от пользователя #{message.from.nickname}.
-Прочитать можно тут #{profile_dialogs_url message.to}
+Прочитать полностью можно тут #{profile_dialogs_url message.to}
+
+Текст сообщения: #{message.body}
 
 Отписаться от уведомлений можно по ссылке #{unsubscribe_messages_url name: message.to.to_param, key: MessagesController::unsubscribe_key(message.to, MessageType::Private)}"
     )
