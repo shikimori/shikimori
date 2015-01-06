@@ -224,7 +224,7 @@ class Comment < ActiveRecord::Base
       Comment.where(id: ids).update_all offtopic: true
       update offtopic: true
 
-      ids
+      ids + [id]
     else
       update kind => value if respond_to? kind
 
