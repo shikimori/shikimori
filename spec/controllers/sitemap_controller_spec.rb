@@ -1,9 +1,4 @@
-
 describe SitemapController do
-  it 'works' do
-    FactoryGirl.create :anime, :description => 'test'
-
-    get :index
-    expect(response).to be_success
-  end
+  before { get :index }
+  it { should respond_with :success }
 end
