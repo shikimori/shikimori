@@ -9,7 +9,7 @@ class Proxy < ActiveRecord::Base
   @@proxies_initial_size = 0
 
   # использовать ли кеш
-  @@use_cache = Rails.env == 'test'
+  @@use_cache = false#Rails.env == 'test'
 
   # показывать ли логи
   @@show_log = false

@@ -2,7 +2,7 @@ require 'deep_struct'
 
 describe Users::OmniauthCallbacksController do
   [:facebook, :twitter, :vkontakte].each do |provider|
-    context provider do
+    context provider.to_s do
       let(:uid) { 'test' }
       let(:token_number) { '123456789iouhg' }
 

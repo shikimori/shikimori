@@ -68,7 +68,7 @@ private
       $1
     elsif html =~ %r{(#{HTTP}video.yandex.ru#{CONTENT})}
       $1
-    elsif html =~ VideoExtractor::RutubeExtractor::SRC_REGEX
+    elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
       "http://rutube.ru/play/embed/#{$1}"
 
     #elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}

@@ -13,6 +13,10 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     )
   }xi
 
+  RUTUBE_SRC_REGEX = %r{
+    //rutube.ru/play/embed/(\d+)
+  }xi
+
   def image_url
     parsed_data.first
   end

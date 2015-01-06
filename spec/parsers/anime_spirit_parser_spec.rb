@@ -1,7 +1,7 @@
 describe AnimeSpiritParser, vcr: { cassette_name: 'anime_spirit_parser' } do
   let(:parser) { AnimeSpiritParser.new }
 
-  it { expect(parser.fetch_pages_num).to eq 416 }
+  it { expect(parser.fetch_pages_num).to eq 420 }
   it { expect(parser.fetch_page_links(1).size).to eq(10) }
   it { expect(parser.fetch_pages(1..1).size).to eq(10) }
 
@@ -151,10 +151,10 @@ describe AnimeSpiritParser, vcr: { cassette_name: 'anime_spirit_parser' } do
       its(:categories) { should eq ['дорамы', 'комедия', 'школа'] }
     end
 
-    context 'live action ignore' do
-      let(:link) { 'http://www.animespirit.ru/movies/laction-rus/9644-chelovek-so-zvezdy-you-who-came-from-the-stars.html' }
-      its(:categories) { should eq ['live action', 'фантастика', 'романтика'] }
-    end
+    #context 'live action ignore' do
+      #let(:link) { 'http://www.animespirit.ru/movies/laction-rus/9644-chelovek-so-zvezdy-you-who-came-from-the-stars.html' }
+      #its(:categories) { should eq ['live action', 'фантастика', 'романтика'] }
+    #end
 
     context 'special kind names' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/ova-rus/1146-sladkie-kapelki-honey-x-honey-drops.html' }
