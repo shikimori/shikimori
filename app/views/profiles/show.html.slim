@@ -25,7 +25,7 @@
       /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
 
       - if user_signed_in?
-        .icon-actions
+        .profile-actions
           - if @resource.own_profile?
             a.mail href="#{profile_dialogs_url @resource}" title="Почта"
             a.settings href="#{edit_profile_url @resource}" title="Настройки"

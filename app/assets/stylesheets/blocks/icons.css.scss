@@ -102,7 +102,7 @@
   }
 }
 
-.icon-actions {
+.profile-actions {
   &>a:first-child, &>span:first-child {
     margin-left: 0;
   }
@@ -133,23 +133,25 @@
   .settings {
     @include icon_button('\e822');
   }
+}
 
+.icon-actions {
   // дейсвтия над аниме
   .fav-add {
-    @include icon_button('\e819');
+    @include icon_action('\e819');
   }
   .fav-remove {
-    @include icon_button('\e819');
+    @include icon_action('\e819');
     @include link_color;
   }
   .edit {
-    @include icon_button('\e822');
+    @include icon_action('\e822');
   }
   .new_review {
-    @include icon_button('\e820');
+    @include icon_action('\e820');
   }
   .new_comment {
-    @include icon_button('\e80e');
+    @include icon_action('\e80e');
   }
 }
 
