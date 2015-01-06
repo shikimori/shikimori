@@ -40,16 +40,6 @@ class AniMangaDecorator < DbEntryDecorator
     reviews_count > 0
   end
 
-  # добавлено ли в избранное?
-  def favoured?
-    h.user_signed_in? && h.current_user.favoured?(object)
-  end
-
-  # добавившие в избранное
-  def favoured
-    FavouritesQuery.new.favoured_by object, 12
-  end
-
   # добавлено ли в список текущего пользователя?
   def rate
     rates.where(user_id: h.current_user.id).decorate.first if h.user_signed_in?

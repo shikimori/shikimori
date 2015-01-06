@@ -1,0 +1,5 @@
+= render layout: 'people/page' do
+  .b-options-floated.count = @resource.all_favoured.size
+  .subheadline.m10 = @page_title.last
+  .block
+    = render @resource.all_favoured, content_by: :avatar_fixed_margin

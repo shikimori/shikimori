@@ -3,4 +3,4 @@
     center: a href="#{@resource.url}" title="#{{@resource.name}}"
       img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-= render partial: 'blocks/favoured', object: @resource.favoured
+= render 'blocks/favoured', favoured: @resource.favoured, url: favoured_character_url(@resource)

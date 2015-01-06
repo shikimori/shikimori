@@ -1,16 +1,8 @@
 class CharacterDecorator < PersonDecorator
-  instance_cache :favoured, :favoured?, :seyu, :changes, :all_animes, :all_mangas, :limited_animes, :limited_mangas
+  instance_cache :seyu, :changes, :all_animes, :all_mangas, :limited_animes, :limited_mangas
 
   def url
     h.character_url object
-  end
-
-  def favoured
-    FavouritesQuery.new.favoured_by object, 12
-  end
-
-  def favoured?
-    h.user_signed_in? && h.current_user.favoured?(object)
   end
 
   def seyu

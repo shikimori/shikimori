@@ -22,7 +22,7 @@
               span.date = time_ago_in_words entry[:created_at], "%s назад"
               span.event = entry[:name]
 
-  - elsif content_by == :avatar
+  - elsif content_by == :avatar || content_by == :avatar_fixed_margin
     a.avatar href="#{profile_url user}" title="#{user.nickname}"
       img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
 

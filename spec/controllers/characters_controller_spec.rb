@@ -75,6 +75,12 @@ describe CharactersController do
     it { should respond_with :success }
   end
 
+  describe '#favoured' do
+    let!(:favoured) { create :favourite, linked: character }
+    before { get :favoured, id: character.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#tooltip' do
     before { get :tooltip, id: character.to_param }
     it { should respond_with :success }

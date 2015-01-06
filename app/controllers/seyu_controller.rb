@@ -12,7 +12,7 @@ class SeyuController < PeopleController
 private
   def fetch_resource
     super
-    @resource = SeyuDecorator.new @resource
+    @resource = SeyuDecorator.new @resource.object
   end
 
   def role_redirect

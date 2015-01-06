@@ -1,5 +1,9 @@
 - if favoured.any?
   .b-favoured
-    .subheadline.m10 В избранном
+    .subheadline.m10
+      - if defined?(url)
+        .linkeable data-href="#{url}" В избранном
+      - else
+        | В избранном
     .cc
       = render favoured, content_by: :avatar

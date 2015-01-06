@@ -1,7 +1,7 @@
 class PersonDecorator < DbEntryDecorator
   decorates_finders
 
-  instance_cache :website, :all_roles, :groupped_roles, :roles_names, :favoured, :works, :best_works
+  instance_cache :website, :all_roles, :groupped_roles, :roles_names, :works, :best_works
   instance_cache :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
   instance_cache :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
 

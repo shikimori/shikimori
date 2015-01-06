@@ -6,13 +6,16 @@
 @import mixins/responsive
 
 .b-user
-  &.avatar, &.named_avatar
+  &.avatar, &.named_avatar, &.avatar_fixed_margin
     display: inline-block
     line-height: 0
 
     img
       line-height: 0
       max-width: 100%
+
+  &.avatar_fixed_margin
+    margin: 0 5px 4px 0
 
   &.named_avatar
     .avatar

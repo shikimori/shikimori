@@ -303,6 +303,7 @@ Site::Application.routes.draw do
           get :chronology
           get :art
           get :related
+          get :favoured
 
           get :comments
           scope 'comments' do
@@ -360,6 +361,7 @@ Site::Application.routes.draw do
         get :mangas
         get :comments
         get :art
+        get :favoured
         get :tooltip
         get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|tags/
       end
@@ -377,6 +379,7 @@ Site::Application.routes.draw do
       member do
         get 'works(order-by/:order_by)' => :works, order_by: /date/, as: :works
         get :comments
+        get :favoured
         get :tooltip
       end
       collection do
@@ -390,6 +393,7 @@ Site::Application.routes.draw do
     resources :seyu, only: [:show] do
       member do
         get :roles
+        get :favoured
         get :comments
       end
       collection do

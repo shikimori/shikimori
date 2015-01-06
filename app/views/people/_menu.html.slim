@@ -39,4 +39,4 @@
         //li.edit-entry
           /span Редактировать персонажа
 
-= render partial: 'blocks/favoured', object: @resource.favoured
+= render 'blocks/favoured', favoured: @resource.favoured, url: favoured_person_url(@resource)

@@ -1,5 +1,6 @@
 class DbEntryDecorator < BaseDecorator
   instance_cache :description_mal, :description_html, :main_thread, :preview_thread
+  instance_cache :favoured, :favoured?, :all_favoured
 
   def headline
     headline_array.join(' <span class="sep inline">/</span> ').html_safe
@@ -62,6 +63,21 @@ class DbEntryDecorator < BaseDecorator
     thread = TopicDecorator.new object.thread
     thread.preview_mode!
     thread
+  end
+
+  # добавлено ли в избранное?
+  def favoured?
+    h.user_signed_in? && h.current_user.favoured?(object)
+  end
+
+  # добавившие в избранное
+  def favoured
+    FavouritesQuery.new.favoured_by object, 12
+  end
+
+  # добавившие в избранное
+  def all_favoured
+    FavouritesQuery.new.favoured_by object, 2000
   end
 
 private

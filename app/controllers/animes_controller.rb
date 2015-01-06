@@ -37,28 +37,19 @@ class AnimesController < ShikimoriController
 
   def similar
     redirect_to @resource.url if @resource.related.similar.none?
-    noindex
     page_title(@resource.anime? ? 'Похожие аниме' : 'Похожая манга')
   end
 
   def screenshots
-    noindex
     page_title 'Кадры'
   end
 
   def videos
-    noindex
     page_title 'Видео'
   end
 
   def chronology
-    noindex
     page_title(@resource.anime? ? 'Хронология аниме' : 'Хронология манги')
-  end
-
-  def art
-    noindex
-    page_title 'Арт с имиджборд'
   end
 
   #def recent
@@ -66,20 +57,26 @@ class AnimesController < ShikimoriController
   #end
 
   def related
-    noindex
     page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
   end
 
   def comments
     redirect_to @resource.url if @resource.comments_count.zero?
-    noindex
     page_title "Обсуждение #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def reviews
     redirect_to @resource.url if @resource.comment_reviews_count.zero?
-    noindex
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
+  end
+
+  def art
+    page_title 'Арт с имиджборд'
+  end
+
+  def favoured
+    redirect_to @resource.url if @resource.all_favoured.none?
+    page_title 'В избранном'
   end
 
   def resources

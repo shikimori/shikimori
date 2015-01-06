@@ -48,9 +48,13 @@ module AniMangaDecorator::UrlHelpers
     h.send "art_#{klass_lower}_url", object
   end
 
-  def cosplay_url
-    h.send "cosplay_#{klass_lower}_url", object
+  def favoured_url
+    h.send "favoured_#{klass_lower}_url", object
   end
+
+  #def cosplay_url
+    #h.send "cosplay_#{klass_lower}_url", object
+  #end
 
   def files_url
     h.send "files_#{klass_lower}_url", object

@@ -42,8 +42,12 @@ class CharactersController < PeopleController
   end
 
   def art
-    noindex
     page_title 'Арт с имиджборд'
+  end
+
+  def favoured
+    redirect_to @resource.url if @resource.all_favoured.none?
+    page_title 'В избранном'
   end
 
   def tooltip

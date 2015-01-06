@@ -31,6 +31,11 @@ class PeopleController < ShikimoriController
     page_title 'Обсуждение'
   end
 
+  def favoured
+    redirect_to @resource.url if @resource.all_favoured.none?
+    page_title 'В избранном'
+  end
+
   def tooltip
   end
 

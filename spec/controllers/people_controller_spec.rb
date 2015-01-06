@@ -21,6 +21,12 @@ describe PeopleController do
     it { should respond_with :success }
   end
 
+  describe '#favoured' do
+    let!(:favoured) { create :favourite, linked: person }
+    before { get :favoured, id: person.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#comments' do
     let!(:person) { create :person, :with_thread }
 

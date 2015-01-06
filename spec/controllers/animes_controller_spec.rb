@@ -67,6 +67,12 @@ describe AnimesController do
     it { should respond_with :success }
   end
 
+  describe '#favoured' do
+    let!(:favoured) { create :favourite, linked: anime }
+    before { get :favoured, id: anime.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#related' do
     let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
     before { get :related, id: anime.to_param }
