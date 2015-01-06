@@ -7,7 +7,6 @@ describe Api::V1::TopicsController do
 
     it { should respond_with :success }
     it { expect(response.content_type).to eq 'application/json' }
-    it { expect(assigns(:topics).size).to eq(1) }
   end
 
   describe '#show' do
