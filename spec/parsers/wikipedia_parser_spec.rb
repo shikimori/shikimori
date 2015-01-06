@@ -1,4 +1,4 @@
-describe WikipediaParser do
+describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
   before { allow(WikipediaParser).to receive(:load_cache).and_return(animes: {}, characters: {}) }
   before { allow(parser).to receive :save_cache }
 
@@ -656,7 +656,7 @@ ZXC")).to eq [{
     end
 
     it 'Higashi no Eden' do
-      expect(parser.extract_characters(create :anime, name: 'Higashi no Eden').size).to eq(4)
+      expect(parser.extract_characters(create :anime, name: 'Higashi no Eden').size).to eq(17)
     end
 
     it 'Steins;Gate' do
