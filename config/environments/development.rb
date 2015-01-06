@@ -16,7 +16,7 @@ Site::Application.configure do
   config.cache_store = :dalli_store, 'localhost', {
     namespace: 'shikimori_development',
     compress: true,
-    value_max_bytes: 1024 * 1024 * 20
+    value_max_bytes: 1024 * 1024 * 128
   }
 
   # Expands the lines which load the assets
