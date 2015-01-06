@@ -68,7 +68,7 @@ class @ShikiComment extends ShikiEditable
       if 'affected_ids' of data && data.affected_ids.length
         data.affected_ids.each (id) ->
           $(".b-comment##{id}").data('shiki_object').mark(data.kind, data.value)
-          $.notice marker_message(data)
+        $.notice marker_message(data)
       else
         $.notice 'Ваш запрос будет рассмотрен. Домо аригато.'
 
