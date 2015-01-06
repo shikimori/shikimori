@@ -1,4 +1,4 @@
-describe HentaiAnimeImporter do
+describe HentaiAnimeImporter, vcr: { cassette_name: 'hentai_anime_parser' } do
   let(:importer) { HentaiAnimeImporter.new }
 
   describe 'import' do

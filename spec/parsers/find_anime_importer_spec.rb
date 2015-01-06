@@ -1,4 +1,4 @@
-describe FindAnimeImporter do
+describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
   let(:importer) { FindAnimeImporter.new }
 
   describe 'import' do
@@ -13,13 +13,13 @@ describe FindAnimeImporter do
     describe 'video' do
       context 'no_videos' do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
-        it { expect{subject}.to change(videos, :count).by 6 }
+        it { expect{subject}.to change(videos, :count).by 8 }
       end
 
       context 'with_videos' do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
         let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9&hd=3', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
-        it { expect{subject}.to change(videos, :count).by 5 }
+        it { expect{subject}.to change(videos, :count).by 7 }
 
         describe 'anime_video' do
           before { import }
@@ -27,7 +27,7 @@ describe FindAnimeImporter do
 
           it { should be_working }
           its(:anime_id) { should eq anime.id }
-          its(:url) { should eq 'http://vk.com/video_ext.php?oid=-39848150&id=164101520&hash=fbcfedb24fac74ac&hd=2' }
+          its(:url) { should eq 'http://video.sibnet.ru/shell.php?videoid=1537766' }
           its(:source) { should eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1' }
           its(:episode) { should eq 2 }
           its(:kind) { should eq 'fandub' }
@@ -38,7 +38,7 @@ describe FindAnimeImporter do
 
       context 'same anime twice' do
         before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier, identifier] }
-        it { expect{subject}.to change(AnimeVideo, :count).by 6 }
+        it { expect{subject}.to change(AnimeVideo, :count).by 8 }
       end
     end
 
@@ -58,7 +58,7 @@ describe FindAnimeImporter do
               { episode: episode }
             end
             allow(AnimeVideo).to receive :import
-            expect(importer).to receive(:build_video).exactly(13).times
+            expect(importer).to receive(:build_video).exactly(14).times
           end
 
           it { should be_nil }
@@ -74,7 +74,7 @@ describe FindAnimeImporter do
               { episode: episode }
             end
             allow(AnimeVideo).to receive :import
-            expect(importer).to receive(:build_video).exactly(6).times
+            expect(importer).to receive(:build_video).exactly(7).times
           end
 
           it { should be_nil }
@@ -89,7 +89,7 @@ describe FindAnimeImporter do
       let(:pages) { [] }
       before do
         allow(AnimeVideo).to receive :import
-        expect(importer).to receive(:build_video).exactly(4).times
+        expect(importer).to receive(:build_video).exactly(6).times
       end
       it { should be_nil }
     end
