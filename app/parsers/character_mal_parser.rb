@@ -84,7 +84,7 @@ class CharacterMalParser < BaseMalParser
   end
 
   # привязка персонажа к сэйю
-  def deploy_seyu(entry, seyu)
+  def deploy_seyu entry, seyu
     # сперва удаляем все старые записи, затем создаём новые привязки
     PersonRole.where("character_id = ? and person_id is not null", entry.id).delete_all
     time = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')

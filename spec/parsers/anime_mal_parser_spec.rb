@@ -1,4 +1,4 @@
-describe AnimeMalParser do
+describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
   before { allow(parser).to receive :save_cache }
 

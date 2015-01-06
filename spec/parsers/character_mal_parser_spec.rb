@@ -1,6 +1,5 @@
-
-describe CharacterMalParser do
-  before { allow(SiteParserWithCache).to receive(:load_cache).and_return({list: {}}) }
+describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
   before { allow(parser).to receive :save_cache }
 
   let(:parser) { CharacterMalParser.new }
@@ -32,8 +31,8 @@ describe CharacterMalParser do
   end
 
   describe 'import' do
-    let!(:character_1) { create :character, id: 8177 }
-    let!(:character_2) { create :character, id: 26201, imported_at: Time.zone.now }
+    let!(:character_1) { create :character, :with_thread, id: 8177 }
+    let!(:character_2) { create :character, :with_thread, id: 26201, imported_at: Time.zone.now }
 
     it { expect(parser.prepare.size).to eq(1) }
 

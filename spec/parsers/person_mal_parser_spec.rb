@@ -1,5 +1,4 @@
-
-describe PersonMalParser do
+describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
   before (:each) { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
 
   let (:parser) {

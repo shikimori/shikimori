@@ -1,3 +1,4 @@
+# TODO: refactor
 class AnimeMalParser < BaseMalParser
   # сохранение уже импортированных данных
   def deploy entry, data

@@ -1,3 +1,4 @@
+# TODO: refactor
 module MalDeployer
   # применение импортированных данных к элементу и сохранение элемента в базу
   def deploy entry, data
