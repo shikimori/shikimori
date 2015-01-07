@@ -111,21 +111,6 @@ describe AnimeVideo do
         it { should be_false }
       end
     end
-
-    describe :copyrighted do
-      let(:anime_video) { build :anime_video, anime: create(:anime, id: anime_id) }
-      subject { anime_video.copyrighted? }
-
-      context :ban do
-        let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-        it { should be_true }
-      end
-
-      context :not_ban do
-        let(:anime_id) { 1 }
-        it { should be_false }
-      end
-    end
   end
 
   describe :after_save do
@@ -221,12 +206,12 @@ describe AnimeVideo do
 
         context :with_? do
           let(:url) { 'http://www.vk.com?id=1' }
-          it { should eq "#{url}&quality=480" }
+          it { should eq "#{url}&quality=360" }
         end
 
         context :without_? do
           let(:url) { 'http://www.vk.com' }
-          it { should eq "#{url}?quality=480" }
+          it { should eq "#{url}?quality=360" }
         end
       end
 
@@ -295,6 +280,7 @@ describe AnimeVideo do
   end
 
   describe :copyright_ban do
+    before { stub_const('AnimeVideo::CopyrightBanAnimeIDs', [2]) }
     let(:anime_video) { build :anime_video, anime_id: anime_id }
     subject { anime_video.copyright_ban? }
 
