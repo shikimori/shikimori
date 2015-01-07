@@ -34,7 +34,7 @@ gem 'paperclip'
 gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
 gem 'simple_form'
-gem 'active_model_serializers'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable' # https://github.com/rails-api/active_model_serializers/issues/641
 gem 'virtus'
 gem 'attr_extras'
 

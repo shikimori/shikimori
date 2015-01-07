@@ -86,10 +86,6 @@ class UserStats
     @stats.by_activity 26
   end
 
-  #def statuses
-    #{ anime: @stats.anime_statuses, manga: @stats.manga_statuses }
-  #end
-
   def list_counts list_type
     if list_type.to_sym == :anime
       @stats.statuses @stats.anime_rates, true
@@ -127,6 +123,13 @@ class UserStats
 
   def publishers
     { manga: @stats.by_categories('publisher', @stats.publishers, nil, @stats.manga_valuable_rates, 17) }
+  end
+
+  def statuses
+    { anime: @stats.anime_statuses, manga: @stats.manga_statuses }
+  end
+
+  def manga_statuses
   end
 
   def social_activity?
