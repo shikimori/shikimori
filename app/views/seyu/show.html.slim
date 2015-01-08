@@ -16,6 +16,7 @@
           .c-info-left
             .subheadline Информация
             .b-entry-info
+              - if @resource.credentials?
               = info_line 'По-английски', @resource.name
               = info_line 'По-японски', @resource.japanese
               = info_line 'Дата рождения', rus_date(@resource.birthday, true) if @resource.birthday

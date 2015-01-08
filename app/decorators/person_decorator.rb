@@ -162,7 +162,31 @@ class PersonDecorator < DbEntryDecorator
     'http://schema.org/Person'
   end
 
-private
+  def best_anime
+    object.animes.sort_by {|v| v.rating }.first
+  end
+
+  def best_manga
+    object.mangas.sort_by {|v| v.rating }.first
+  end
+
+  def best_person
+    if object.seyu.present?
+      object.seyu.first
+    else
+      sakuhin = object.animes.present? ? object.animes.sort_by {|v| v.ranked }.first : object.mangas.sort_by {|v| v.ranked }.first
+      directors = sakuhin.person_roles.directors.order("case when role ilike '%Story%' then 0 else 1 end")
+      person_id = directors.first.person_id
+      Person.find(person_id)
+    end
+  end
+
+  def best_character
+    character_ids = object.character_ids
+    fav_character = FavouritesQuery.new.top_favourite([Character.name], 1).where("linked_type=? and linked_id in (?)", Character.name, character_ids).first.linked_id
+    Character.find(fav_character)
+  end
+
   def has_anime?
     all_roles.any? {|v| !v.anime_id.nil? }
   end
@@ -171,6 +195,8 @@ private
     all_roles.any? {|v| !v.manga_id.nil? }
   end
 
+
+private
   def all_roles
     object.person_roles.includes(:anime).includes(:manga).to_a
   end

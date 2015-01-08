@@ -5,7 +5,7 @@ class PeopleController < ShikimoriController
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :role_redirect, if: :resource_id
+  before_action :role_redirect, if: -> { resource_id && params[:action] != 'tooltip' }
 
   helper_method :search_url
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings

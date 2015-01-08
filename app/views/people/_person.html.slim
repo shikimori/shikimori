@@ -1,20 +1,34 @@
+- cover_by ||= :link
+- content_by ||= :tooltip
+
 article.c-column.b-catalog_entry.c-person[
-    class="entry-#{person.id} minified item-#{person_counter if defined? person_counter}"
+    class="entry-#{person.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} item-#{person_counter if defined? person_counter}"
     itemscope itemtype="http://schema.org/Person"
     itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
   ]
   meta itemprop="image" content="#{{attachment_url person.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url person.image, :x48, false}}"
 
-  a.cover href="#{person_url person}"
+  a.cover[
+      class="#{'anime-tooltip' if content_by == :tooltip}"
+      href="#{person_url person}"
+    ]
     span.image-decor
       span.image-cutter
         img src="#{person.image.url :preview}" srcset="#{person.image.url :original} 2x" alt="#{localized_name person}" title="#{localized_name person}"
 
-    span.title class="#{:two_lined unless person.kind_of?(RoleEntry)}" itemprop="name"
-      == person.name
+    - if cover_by == :link
+      span.title class="#{:two_lined unless person.kind_of?(RoleEntry)}" itemprop="name"
+        == localized_name person
 
     - if person.kind_of? RoleEntry
       span.misc.centered
         span.role itemprop="jobTitle"
           = person.formatted_role
+
+  - unless content_by == :tooltip || content_by == :none
+    .content
+      - if content_by == :block
+        = render partial: 'characters/content', object: character, as: :character
+      - else
+        - raise ArgumentError, content_by
