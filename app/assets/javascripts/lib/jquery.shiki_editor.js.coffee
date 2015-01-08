@@ -23,10 +23,26 @@ class @ShikiEditor extends ShikiView
       @$textarea.elastic.bind(@$textarea).delay()
 
     # сохранение по ctrl+enter
-    @$textarea.on 'keypress', (e) =>
-      @$form.submit() if (e.keyCode is 10 or e.keyCode is 13) and e.ctrlKey
-    .on 'keydown', (e) =>
-      @$form.submit() if e.keyCode is 13 and e.metaKey
+    @$textarea.on 'keypress keydown', (e) =>
+      if e.metaKey || e.ctrlKey
+        if e.keyCode is 10 || e.keyCode is 13
+          @$form.submit()
+          false
+
+        else if e.keyCode is 98 || e.keyCode is 66
+          # b tag
+          @$('.editor-bold').click()
+          false
+
+        else if e.keyCode is 105 || e.keyCode is 73
+          # i tag
+          @$('.editor-italic').click()
+          false
+
+        # spoiler tag
+        else if e.keyCode is 115 || e.keyCode is 83
+          @$('.editor-spoiler').click()
+          false
 
     # перед самбитом формы засветление редактора
     @$form.on 'ajax:before', =>
