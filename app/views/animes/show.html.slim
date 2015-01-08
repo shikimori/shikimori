@@ -99,7 +99,7 @@
         = render 'blocks/source', entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url
 
   - if user_signed_in?
-    = render partial: 'resources'
+    = render 'resources'
   - else
     .resources-loader.postloaded data-href="#{@resource.resources_url}"
       .ajax-loading.vk-like title="Загрузка..."

@@ -18,10 +18,11 @@
           a.bubbled href="#{url_for character.best_works.first}" title="#{character.best_works.first.name}"
             img src="#{character.best_works.first.image.url :x48}" srcset="#{character.best_works.first.image.url :x96} 2x"
 
-        .link
-          .title Сэйю
-          a.bubbled href="#{seyu_url character.seyu.first}" title="#{character.seyu.first.name}"
-            img src="#{character.seyu.first.image.url :x48}" srcset="#{character.seyu.first.image.url :x96} 2x"
+        - if character.seyu.any?
+          .link
+            .title Сэйю
+            a.bubbled href="#{seyu_url character.seyu.first}" title="#{character.seyu.first.name}"
+              img src="#{character.seyu.first.image.url :x48}" srcset="#{character.seyu.first.image.url :x96} 2x"
 
     .text itemprop="description"
       = character.decorate.description_html_truncated 250

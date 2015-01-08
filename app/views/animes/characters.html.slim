@@ -2,11 +2,11 @@
   - if @resource.roles.main_characters.any?
     .block.m0
       h2.subheadline.m10 = t 'Role.Main'
-      .cc.m0
+      .cc.eight-characters
         = render @resource.roles.main_characters
 
   - if @resource.roles.supporting_characters.any?
     .block.m0
       h2.subheadline.m10 = t 'Role.Supporting'
-      .cc.m0
+      .cc.eight-characters
         = render @resource.roles.supporting_characters

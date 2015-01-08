@@ -76,10 +76,15 @@
   .four-characters
     +gte_ipad
       .c-characters, .c-people
-        +column(2)
+        +column_bm(2)
 
-      .c-character, .c-person
-        +column(4)
+    .c-character, .c-person
+      +gte_ipad
+        +column_bm(4)
+      +iphone-portrait
+        +column_bm(3)
+      +iphone-landscape
+        +column_bm(5)
 
   .five-characters
     +gte_ipad
@@ -95,6 +100,12 @@
       .c-person
         +column(3)
 
+    .c-character, .c-person
+      +iphone-portrait
+        +column_bm(3)
+      +iphone-landscape
+        +column_bm(5)
+
   .six-characters
     +gte_ipad
       .c-characters
@@ -108,6 +119,12 @@
 
       .c-person
         +column(2)
+
+    .c-character, .c-person
+      +iphone-portrait
+        +column_bm(3)
+      +iphone-landscape
+        +column_bm(5)
 
   .cc
     .c-anime, .c-manga
