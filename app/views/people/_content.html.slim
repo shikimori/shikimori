@@ -2,7 +2,7 @@
   - if defined?(with_image) && with_image
     img.image src="#{person.image.url :preview}" srcset="#{person.image.url :original} 2x" alt="#{localized_name person}"
 
-  .inner class="#{:offset if defined?(with_image) && with_image}"
+  .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
     .line itemprop="name"
       .data.name
         - if !defined?(cover_by) || cover_by != :link
@@ -15,18 +15,6 @@
         .job-title
           = person.job_title
 
-    - if person.main_role?(:seyu)
-      .additional-images
-        .link
-          .title = t "Name.#{person.best_works.first.object.class}"
-          a.bubbled href="#{url_for person.best_works.first}" title="#{person.best_works.first.name}"
-            img src="#{person.best_works.first.image.url :x48}" srcset="#{person.best_works.first.image.url :x96} 2x"
-
-        .link
-          .title = t "Name.Character"
-          a.bubbled href="#{character_url person.best_roles.first}" title="#{character_url person.best_roles.first.name}"
-            img.image src="#{person.best_roles.first.image.url :preview}" srcset="#{person.best_roles.first.image.url :original} 2x"
-
     .text itemprop="description"
       - if @resource.credentials?
         = info_line 'По-японски', @resource.japanese
@@ -36,13 +24,14 @@
             a href="#{@resource.website}" rel="nofollow"
               = @resource.website_host
 
-      - unless person.main_role?(:seyu)
-        .line.works
-          .key Лучшие работы:&nbsp;
-          .value
-            - person.best_works.each do |work|
-              a.bubbled href="#{url_for work}" title="#{work.name}" = work.name
-      /.line
-        .data.name Роли
-      /- @resource.groupped_roles.each do |role,times|
-        = info_line role, times
+    - if person.main_role?(:seyu)
+      .line
+        .key Лучшие роли:&nbsp;
+      .cc-4a.best-works
+        = render person.best_roles.take(4), cover_by: :image_link
+
+    - else
+      .line.works
+        .key Лучшие работы:&nbsp;
+      .cc-4a.best-works
+        = render person.best_works.take(4), cover_by: :image_link
