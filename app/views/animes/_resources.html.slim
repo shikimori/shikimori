@@ -17,14 +17,14 @@
 - if @resource.roles.main_characters.any? || @resource.roles.main_people.any?
   .cc.m0 class="#{@resource.roles.grouping_class}"
     - if @resource.roles.main_characters.any?
-      .c-characters
+      .c-characters.m0
         .subheadline.m10
           span.linkeable data-href="#{@resource.characters_url}" Главные герои
         .cc.m0
           = render @resource.roles.main_characters
 
     - if @resource.roles.main_people.any?
-      .c-people
+      .c-people.m0
         .subheadline.m10
           span.linkeable data-href="#{@resource.staff_url}" Создатели
         .cc.m0

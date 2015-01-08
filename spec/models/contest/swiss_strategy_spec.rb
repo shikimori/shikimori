@@ -2,7 +2,7 @@ describe Contest::SwissStrategy do
   let(:strategy_type) { :swiss }
   let(:strategy) { contest.strategy }
 
-  describe 'total_rounds' do
+  describe '#total_rounds' do
     let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
 
     [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
@@ -14,7 +14,7 @@ describe Contest::SwissStrategy do
     end
   end
 
-  describe 'create_rounds' do
+  describe '#create_rounds' do
     let(:contest) { create :contest, strategy_type: strategy_type }
 
     [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
@@ -39,12 +39,12 @@ describe Contest::SwissStrategy do
     end
   end
 
-  describe 'dynamic_rounds?' do
+  describe '#dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
     its(:dynamic_rounds?) { should be_truthy }
   end
 
-  describe 'fill_round_with_matches' do
+  describe '#fill_round_with_matches' do
     let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
     before { contest.start! }
 
@@ -56,7 +56,7 @@ describe Contest::SwissStrategy do
     end
   end
 
-  describe 'dates' do
+  describe '#dates' do
     let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
     before { contest.prepare }
 
