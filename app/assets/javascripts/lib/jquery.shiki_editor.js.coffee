@@ -40,7 +40,7 @@ class @ShikiEditor extends ShikiView
           false
 
         # [u] tag
-        else if e.keyCode is 105 || e.keyCode is 73
+        else if e.keyCode is 117 || e.keyCode is 85
           @$('.editor-underline').click()
           false
 
