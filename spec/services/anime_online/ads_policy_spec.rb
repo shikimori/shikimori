@@ -7,6 +7,7 @@ describe AnimeOnline::AdsPolicy do
     subject { policy.is_viewed? host, user }
     let(:guest_user) { build :user, id: User::GuestID }
     let(:trust_user) { build :user, id: 11496 }
+    let(:admin_user) { build :user, :admin }
     let(:simple_user) { build :user, id: 444 }
 
     context :host_play do
@@ -20,6 +21,11 @@ describe AnimeOnline::AdsPolicy do
       context :trust do
         let(:user) { trust_user }
         it { should be_false }
+      end
+
+      context :admin do
+        let(:user) { admin_user }
+        it { should be_true }
       end
 
       context :simple do
