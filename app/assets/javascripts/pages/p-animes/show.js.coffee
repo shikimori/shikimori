@@ -1,6 +1,5 @@
 @on 'page:load', 'animes_show', 'mangas_show', ->
-  $('.rating.notice').tipsy gravity: 's'
-  $('.status-date.notice').tipsy gravity: 's'
+  $('.b-notice').tipsy gravity: 's'
   $('.c-screenshot').magnific_rel_gallery()
 
   # сокращение высоты описания
