@@ -231,12 +231,12 @@ describe AnimeVideo do
 
         context 'with_?' do
           let(:url) { 'http://www.vk.com?id=1' }
-          it { should eq "#{url}&quality=480" }
+          it { should eq "#{url}&quality=360" }
         end
 
         context 'without_?' do
           let(:url) { 'http://www.vk.com' }
-          it { should eq "#{url}?quality=480" }
+          it { should eq "#{url}?quality=360" }
         end
       end
 
@@ -305,6 +305,7 @@ describe AnimeVideo do
   end
 
   describe 'copyright_ban' do
+    before { stub_const('AnimeVideo::CopyrightBanAnimeIDs', [2]) }
     let(:anime_video) { build :anime_video, anime_id: anime_id }
     subject { anime_video.copyright_ban? }
 

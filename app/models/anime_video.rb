@@ -71,7 +71,7 @@ class AnimeVideo < ActiveRecord::Base
 
   def player_url
     if vk? && reports.any? {|r| r.broken? }
-      "#{url}#{url.include?('?') ? '&' : '?' }quality=480"
+      "#{url}#{url.include?('?') ? '&' : '?' }quality=360"
     else
       url
     end
