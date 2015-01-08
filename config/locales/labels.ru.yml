@@ -135,6 +135,7 @@ ru:
       music: Клипы
       episodes: Эпизоды
       chapters: Главы
+      volumes: Тома
       days: Дни
   UserChangeStatus:
     Pending: ожидает рассмотрения
