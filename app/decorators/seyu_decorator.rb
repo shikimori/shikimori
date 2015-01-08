@@ -1,7 +1,8 @@
 class SeyuDecorator < PersonDecorator
   WORK_GROUP_SIZE = 5
 
-  instance_cache :works, :best_roles
+  rails_cache :best_roles
+  instance_cache :character_works
 
   def url
     h.seyu_url object
@@ -15,8 +16,8 @@ class SeyuDecorator < PersonDecorator
       .pluck(:linked_id)
 
     drop_index = 0
-    while character_ids.size < 6 && works.size > drop_index
-      character_id = works.drop(drop_index).first[:characters].first.id
+    while character_ids.size < 6 && character_works.size > drop_index
+      character_id = character_works.drop(drop_index).first[:characters].first.id
       character_ids.push character_id unless character_ids.include? character_id
       drop_index += 1
     end
@@ -26,7 +27,7 @@ class SeyuDecorator < PersonDecorator
       .sort_by {|v| character_ids.index v.id }
   end
 
-  def works
+  def character_works
     # группировка по персонажам и аниме
     @characters = []
     backindex = {}

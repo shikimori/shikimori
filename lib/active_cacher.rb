@@ -112,7 +112,7 @@ module ActiveCacher
 
         cacher.send :define_method, method do |*args|
           instance_variable_get("@__#{escaped_method}") ||
-            instance_variable_set("@__#{escaped_method}", Rails.cache.fetch([cache_key_object, method], expires_in: 2.weeks) { prepare_for_cache(super *args) })
+            instance_variable_set("@__#{escaped_method}", Rails.cache.fetch([self.class.name, cache_key_object, method], expires_in: 2.weeks) { prepare_for_cache(super *args) })
         end
       end
     end

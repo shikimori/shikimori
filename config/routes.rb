@@ -395,6 +395,7 @@ Site::Application.routes.draw do
         get :roles
         get :favoured
         get :comments
+        get :tooltip
       end
       collection do
         get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/

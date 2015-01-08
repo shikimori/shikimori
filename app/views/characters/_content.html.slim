@@ -4,28 +4,24 @@
 
   .inner class="#{:offset if defined?(with_image) && with_image}"
     .line itemprop="name"
-      .data.name
-        - if !defined?(cover_by) || cover_by != :link
-          a.data.name href="#{character_url character}" title="#{localized_name character}" itemprop="name"
-            = localized_name character
-        - else
-          .linkeable.name data-href="#{character_url character}" data-title="#{localized_name character}"
-            = localized_name character
-    .additional-images
-      - if character.has_anime?
-        .anime-link itemprop="anime"
-          a href="#{anime_url character.best_anime}"
-            img.image src="#{character.best_anime.image.url :preview}" srcset="#{character.best_anime.image.url :original} 2x"
-            .test Аниме
-      - elsif character.has_manga?
-        .manga-link itemprop="manga"
-          a href="#{anime_url character.best_manga}"
-            img.image src="#{character.best_manga.image.url :preview}" srcset="#{character.best_manga.image.url :original} 2x"
-            .test Манга
-      .person-link itemprop="person"
-        a href="#{anime_url character.best_person}"
-          img.image src="#{character.best_person.image.url :preview}" srcset="#{character.best_person.image.url :original} 2x"
-          .test Сэйю
+      - if !defined?(cover_by) || cover_by != :link
+        a.data.name href="#{character_url character}" title="#{localized_name character}" itemprop="name"
+          = localized_name character
+      - else
+        .linkeable.name data-href="#{character_url character}" data-title="#{localized_name character}"
+          = localized_name character
+
+    - if character.best_works.any?
+      .additional-images
+        .link
+          .title = t "Name.#{character.best_works.first.object.class}"
+          a.bubbled href="#{url_for character.best_works.first}" title="#{character.best_works.first.name}"
+            img src="#{character.best_works.first.image.url :x48}" srcset="#{character.best_works.first.image.url :x96} 2x"
+
+        .link
+          .title Сэйю
+          a.bubbled href="#{seyu_url character.seyu.first}" title="#{character.seyu.first.name}"
+            img src="#{character.seyu.first.image.url :x48}" srcset="#{character.seyu.first.image.url :x96} 2x"
 
     .text itemprop="description"
-      = character.decorate.description_html_truncated
+      = character.decorate.description_html_truncated 250

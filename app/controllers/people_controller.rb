@@ -37,6 +37,7 @@ class PeopleController < ShikimoriController
   end
 
   def tooltip
+    @resource = SeyuDecorator.new @resource.object if @resource.main_role?(:seyu)
   end
 
   def autocomplete

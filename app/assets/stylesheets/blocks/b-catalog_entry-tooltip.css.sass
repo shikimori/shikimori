@@ -26,24 +26,10 @@
       line-height: 20px
       margin-bottom: 5px
 
-    .additional-images
-      display: table-cell
-      float: right
-
-      .image
-        width: 73px
-
-      .test
-        white-space: pre-line
-        word-break: break-all
-        width: 5px
-        float: right
-        font-size: 17px
-        font-weight: bold
-        line-height: 10px
-        font-family: Courier, "Courier New", monospace
-        display: table-cell
-        vertical-align: middle
+    .job-title
+      font-style: italic
+      line-height: 1
+      margin-bottom: 10px
 
     .text
       font-size: 12px
@@ -69,6 +55,10 @@
         +tag
         //+comma_separated
 
+      &.works .value a
+        +comma_separated
+        +link
+
     .rating
       bottom: -10px
       color: #444
@@ -83,3 +73,19 @@
         float: left
         font-size: 11px
         margin: 5px
+
+    .additional-images
+      margin-left: 10px
+      float: right
+
+      .link
+        margin-bottom: 5px
+
+        .title
+          color: #444
+          font-size: 12px
+          font-weight: bold
+          text-align: left
+
+        img
+          width: 48px

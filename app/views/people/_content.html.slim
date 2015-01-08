@@ -12,22 +12,20 @@
           .linkeable.name data-href="#{person_url person}" data-title="#{localized_name person}"
             = localized_name person
 
-    .additional-images
-      - if person.has_anime?
-        .anime-link itemprop="anime"
-          a href="#{anime_url person.best_anime}"
-            img.image src="#{person.best_anime.image.url :preview}" srcset="#{person.best_anime.image.url :original} 2x"
-            .test Аниме
-      - elsif person.has_manga?
-        .manga-link itemprop="manga"
-          a href="#{manga_url person.best_manga}"
-            img.image src="#{person.best_manga.image.url :preview}" srcset="#{person.best_manga.image.url :original} 2x"
-            .test Манга
-      - if person.seyu?
-        .character-link itemprop="character"
-          a href="#{anime_url person.best_character}"
-            img.image src="#{person.best_character.image.url :preview}" srcset="#{person.best_character.image.url :original} 2x"
-            .test Персонаж
+        .job-title
+          = person.job_title
+
+    - if person.main_role?(:seyu)
+      .additional-images
+        .link
+          .title = t "Name.#{person.best_works.first.object.class}"
+          a.bubbled href="#{url_for person.best_works.first}" title="#{person.best_works.first.name}"
+            img src="#{person.best_works.first.image.url :x48}" srcset="#{person.best_works.first.image.url :x96} 2x"
+
+        .link
+          .title = t "Name.Character"
+          a.bubbled href="#{character_url person.best_roles.first}" title="#{character_url person.best_roles.first.name}"
+            img.image src="#{person.best_roles.first.image.url :preview}" srcset="#{person.best_roles.first.image.url :original} 2x"
 
     .text itemprop="description"
       - if @resource.credentials?
@@ -38,5 +36,13 @@
             a href="#{@resource.website}" rel="nofollow"
               = @resource.website_host
 
-      - @resource.groupped_roles.each do |role,times|
+      - unless person.main_role?(:seyu)
+        .line.works
+          .key Лучшие работы:&nbsp;
+          .value
+            - person.best_works.each do |work|
+              a.bubbled href="#{url_for work}" title="#{work.name}" = work.name
+      /.line
+        .data.name Роли
+      /- @resource.groupped_roles.each do |role,times|
         = info_line role, times
