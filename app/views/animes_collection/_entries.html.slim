@@ -15,6 +15,6 @@
   .cc-4.m0
     = render @entries, cover_notice: :year_kind, content_by: :inline_tooltip
 
-    /- if !user_signed_in? || current_user.preferences.postload_in_catalog
-  - if @next_page.present?
-    = render partial: 'blocks/postloader', locals: { url: @next_page, next_url: @next_page, prev_url: @prev_page, filter: nil }
+  - if !user_signed_in? || current_user.preferences.postload_in_catalog
+    - if @next_page.present?
+      = render partial: 'blocks/postloader', locals: { url: @next_page, next_url: @next_page, prev_url: @prev_page, filter: nil }

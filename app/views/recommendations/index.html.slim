@@ -50,7 +50,7 @@ header.head.misc
   .ajax-loading.vk-like.left title="Загрузка..."
 
 - else
-  = render partial: 'animes_collection/pagination'
+  = render 'animes_collection/pagination'
 
   .menu-toggler
     .toggler
@@ -58,15 +58,14 @@ header.head.misc
   .menu-slide-outer
     .menu-slide-inner
       .l-content
-        section.ajax
-          = render partial: 'animes_collection/entries'
+        = render 'animes_collection/entries'
 
       .l-menu
         - if user_signed_in? || turbolinks_request?
-            = render partial:  'animes_collection/menu', locals: { klass: klass }
+            = render 'animes_collection/menu', klass: klass
         - else
             .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
               .ajax-loading title="Загрузка..."
 
-/- if user_signed_in? && !current_user.preferences.postload_in_catalog
-  = render partial: 'animes_collection/pagination'
+  - if user_signed_in? && !current_user.preferences.postload_in_catalog
+    = render 'animes_collection/pagination'
