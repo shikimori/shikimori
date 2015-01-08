@@ -22,21 +22,26 @@ class @ShikiEditor extends ShikiView
     @$textarea.one 'focus', =>
       @$textarea.elastic.bind(@$textarea).delay()
 
-    # сохранение по ctrl+enter
     @$textarea.on 'keypress keydown', (e) =>
       if e.metaKey || e.ctrlKey
+        # сохранение по ctrl+enter
         if e.keyCode is 10 || e.keyCode is 13
           @$form.submit()
           false
 
+        # [b] tag
         else if e.keyCode is 98 || e.keyCode is 66
-          # b tag
           @$('.editor-bold').click()
           false
 
+        # [i] tag
         else if e.keyCode is 105 || e.keyCode is 73
-          # i tag
           @$('.editor-italic').click()
+          false
+
+        # [u] tag
+        else if e.keyCode is 105 || e.keyCode is 73
+          @$('.editor-underline').click()
           false
 
         # spoiler tag
