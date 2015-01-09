@@ -62,21 +62,22 @@
             span
               = rate.user.nickname
 
-    .b-show_more + показать всех
-    .b-show_more-more
-      - @resource.friend_rates.slice(3, 99).each do |rate|
-        .friend-rate
-          .status
-            = rate.status_name
-            - if rate.score && rate.score != 0
-              | &nbsp;&ndash;&nbsp;#{rate.score}
-          .b-user16
-            a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
-              img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
-              span
-                = rate.user.nickname
-      .hide-more
-        | &mdash; спрятать
+    - if @resource.friend_rates.size > 5
+      .b-show_more + показать всех
+      .b-show_more-more
+        - @resource.friend_rates.slice(3, 99).each do |rate|
+          .friend-rate
+            .status
+              = rate.status_name
+              - if rate.score && rate.score != 0
+                | &nbsp;&ndash;&nbsp;#{rate.score}
+            .b-user16
+              a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
+                img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
+                span
+                  = rate.user.nickname
+        .hide-more
+          | &mdash; спрятать
 
 - if @resource.topics.any?
   .block.menu-topics-block
