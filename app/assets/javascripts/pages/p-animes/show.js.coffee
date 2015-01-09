@@ -5,6 +5,11 @@
   # сокращение высоты описания
   $('.text').check_height(200)
 
+  $('.b-show_more').on 'click', ->
+    $(@).hide().next().show()
+  $('.b-show_more-more .hide-more').on 'click', ->
+    $(@).parent().hide().prev().show()
+
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
     $('.c-screenshot').magnific_rel_gallery()

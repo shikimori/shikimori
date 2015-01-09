@@ -4,22 +4,8 @@
       img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
 - if user_signed_in?
-  /.menu-block.actions
-    /.subheadline Дополнительно
-    /ul.block-list
-      /li.comment
-        /span Комментировать
-      /li.slider-control.slider-control-reviews-edit.reviews-edit
-        /a href="#{@resource.new_review_url}" Написать обзор
-      /li.fav-add style="#{'display: none;' if @resource.favoured?}"
-        /span.favourite-add data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" Добавить в избранное
-      /li.fav-remove style="#{'display: none;' unless @resource.favoured?}"
-        /span.favourite-remove data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" Удалить из избранных
-      /li.edit-entry
-        /a href="#{@resource.edit_url}" Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}
-
   - if @resource.display_sensitive?
-    .menu-block
+    .block
       .subheadline На других сайтах
       ul.block-list.sites
         li
@@ -61,21 +47,52 @@
 
 = render 'blocks/favoured', favoured: @resource.favoured, url: @resource.favoured_url
 
+- if @resource.friend_rates.any?
+  .block
+    .subheadline У друзей
+    - @resource.friend_rates.take(3).each do |rate|
+      .friend-rate
+        .status
+          = rate.status_name
+          - if rate.score && rate.score != 0
+            | &nbsp;&ndash;&nbsp;#{rate.score}
+        .b-user16
+          a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
+            img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
+            span
+              = rate.user.nickname
+
+    .b-show_more + показать всех
+    .b-show_more-more
+      - @resource.friend_rates.slice(3, 99).each do |rate|
+        .friend-rate
+          .status
+            = rate.status_name
+            - if rate.score && rate.score != 0
+              | &nbsp;&ndash;&nbsp;#{rate.score}
+          .b-user16
+            a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
+              img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
+              span
+                = rate.user.nickname
+      .hide-more
+        | &mdash; спрятать
+
 - if @resource.topics.any?
-  .menu-block.menu-topics-block
+  .block.menu-topics-block
     .subheadline Форум
     /a.link href="{subsection_url @resource.thread}" Форум
     ul.block-list
       = render partial: 'animes/menu_topic', collection: @resource.topics, as: :topic
 
 - if @resource.news.any?
-  .menu-block.menu-topics-block.history.m30 data-remote="#{episode_torrents_anime_url @resource}"
+  .block.menu-topics-block.history.m30 data-remote="#{episode_torrents_anime_url @resource}"
     .subheadline Новости
     ul.block-list
       = render partial: 'animes/menu_topic', collection: @resource.news, as: :topic, locals: { with_tooltip: true }
 
 - if show_social?
-  .menu-block
+  .block
     .subheadline.m10 Поделиться
     .addthis_toolbox.addthis_default_style.addthis_32x32_style
       a.addthis_button_vk

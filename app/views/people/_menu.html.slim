@@ -3,40 +3,4 @@
     center: a href="#{@resource.url}" title="#{{@resource.name}}"
       img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-/- if user_signed_in?
-  /.menu-block.actions
-    /div
-      /.subheadline Действия
-      /ul.block-list
-
-        /li.comment
-          /span Комментировать
-
-        /- if @resource.producer? || @resource.producer_favoured?
-          /li.fav-add style="#{'display: none;' if @resource.producer_favoured?}"
-            /span.favourite-add data-kind="producer" data-remote="true" data-action="#{favourites_producer_path @resource.object.class.name, @resource.id}" data-method="post" data-type="json" В избранные режиссёры
-          /li.fav-remove style="#{'display: none;' unless @resource.producer_favoured?}"
-            /span.favourite-remove data-kind="producer" data-remote="true" data-action="#{favourites_producer_path @resource.object.class.name, @resource.id}" data-method="delete" data-type="json" Из избранных режиссёров
-
-        /- if @resource.mangaka? || @resource.mangaka_favoured?
-          /li.fav-add style="#{'display: none;' if @resource.mangaka_favoured?}"
-            /span.favourite-add data-kind="mangaka" data-remote="true" data-action="#{favourites_mangaka_path @resource.object.class.name, @resource.id}" data-method="post" data-type="json" В избранные мангаки
-          /li.fav-remove style="#{'display: none;' unless @resource.mangaka_favoured?}"
-            /span.favourite-remove data-kind="mangaka" data-remote="true" data-action="#{favourites_mangaka_path @resource.object.class.name, @resource.id}" data-method="delete" data-type="json" Из избранных мангак
-
-        /- if @resource.seyu? || @resource.seyu_favoured?
-          /li.fav-add style="#{'display: none;' if @resource.seyu_favoured?}"
-            /span.favourite-add data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @resource.object.class.name, @resource.id}" data-method="post" data-type="json" В избранные сэйю
-          /li.fav-remove style="#{'display: none;' unless @resource.seyu_favoured?}"
-            /span.favourite-remove data-kind="seyu" data-remote="true" data-action="#{favourites_seyu_path @resource.object.class.name, @resource.id}" data-method="delete" data-type="json" Из избранных сэйю
-
-        /- if !(@resource.seyu? || @resource.producer? || @resource.mangaka?) || @resource.person_favoured?
-          /li.fav-add style="#{'display: none;' if @resource.person_favoured?}"
-            /span.favourite-add data-kind="person" data-remote="true" data-action="#{favourites_person_path @resource.object.class.name, @resource.id}" data-method="post" data-type="json" В избранные люди
-          /li.fav-remove style="#{'display: none;' unless @resource.person_favoured?}"
-            /span.favourite-remove data-kind="person" data-remote="true" data-action="#{favourites_person_path @resource.object.class.name, @resource.id}" data-method="delete" data-type="json" Из избранных людей
-
-        //li.edit-entry
-          /span Редактировать персонажа
-
 = render 'blocks/favoured', favoured: @resource.favoured, url: favoured_person_url(@resource)

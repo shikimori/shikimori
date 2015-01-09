@@ -10,7 +10,8 @@ class UserRatesQuery
       .where(target_id: @entry.id, target_type: @entry.class.name)
       .where(user_id: @user.friend_links.pluck(:dst_id))
       .includes(:user)
-      .sort_by {|v| v.user.nickname }
+      .sort_by(&:updated_at)
+      .reverse
   end
 
   # последние изменения от всех пользователей
