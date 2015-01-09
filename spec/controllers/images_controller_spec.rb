@@ -7,7 +7,7 @@ describe ImagesController do
     #let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
     #before { post :create, model: club.class.name, id: club.id, image: image }
 
-    #it { should respond_with 200 }
+    #it { should respond_with :success }
     #it { expect(response.content_type).to eq 'application/json' }
     #it { JSON.parse(response.body).should have_key 'html' }
     #it 'creates new image' do

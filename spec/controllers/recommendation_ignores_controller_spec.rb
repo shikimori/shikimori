@@ -7,7 +7,7 @@ describe RecommendationIgnoresController do
 
     before { post :create, target_type: Anime.name, target_id: anime.id }
 
-    it { should respond_with 200 }
+    it { should respond_with :success }
     it { expect(response.content_type).to eq 'application/json' }
     it { expect(json).to eql [anime.id] }
   end
