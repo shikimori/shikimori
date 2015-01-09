@@ -8,7 +8,7 @@ describe UserListParser do
     it { should eq [{id: 1, status: 2, episodes: 3, rewatches: 4, score: 5.0}] }
   end
 
-  context 'anime_planet' do
+  context 'anime_planet', vcr: { cassette_name: 'anime_planet' } do
     let(:klass) { Manga }
     let(:params) {{ list_type: 'anime_planet', login: 'shikitest' }}
     it { should eq [{name: "Maid Sama!", status: 2, score: 6.0, year: 2005, volumes: 18, chapters: 0, id: nil}] }
@@ -22,7 +22,7 @@ describe UserListParser do
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserListsController::MangaType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::MangaType}</user_export_type>
   </myinfo>
   <manga>
     <manga_mangadb_id>#{manga_1.id}</manga_mangadb_id>

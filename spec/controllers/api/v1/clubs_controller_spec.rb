@@ -17,7 +17,7 @@ describe Api::V1::ClubsController do
 
   describe '#show' do
     include_context :authenticated, :user
-    let(:club) { create :group }
+    let(:club) { create :group, :with_thread }
     before do
       club.members << user
       club.animes << create(:anime)

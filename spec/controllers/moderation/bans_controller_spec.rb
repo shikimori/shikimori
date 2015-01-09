@@ -2,7 +2,7 @@ describe Moderation::BansController do
   before { sign_in user }
 
   let(:user) { create :user, id: 1 }
-  let!(:comment) { create :comment, user: user }
+  let!(:comment) { create :comment, user: user, commentable: create(:topic, :with_section, user: user) }
   let!(:abuse_request) { create :abuse_request, user: user, comment: comment }
 
   describe '#index' do
