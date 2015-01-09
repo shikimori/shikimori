@@ -11,8 +11,7 @@ class CalendarsQuery
         AnimeDecorator.new CalendarEntry.new(anime)
       end
 
-      sort entries
-      exclude_overdue entries
+      exclude_overdue sort entries
       #fill_in_list entries, current_user if current_user.present?
     end
   end
@@ -75,7 +74,8 @@ private
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
       .where("anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1")
       .where("kind != 'ONA' or anime_calendars.episode is not null")
-      .where("episodes_aired != 0 or aired_on is null or aired_on > ?", Time.zone.now - 1.months)
+      .where("episodes_aired != 0 or aired_on  is null or aired_on > ?", Time.zone.now - 1.months)
+      .order('animes.id')
   end
 
   # выборка анонсов
@@ -90,10 +90,14 @@ private
       .where("anime_calendars.episode=1 or (anime_calendars.episode is null and aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
               from: Time.zone.today - 1.week, to: Time.zone.today + 1.month, new_year: Time.zone.today.beginning_of_year)
       .where("kind != 'ONA' or anime_calendars.episode is not null")
+      .order('animes.id')
   end
 
   # выкидывание просроченных аниме
   def exclude_overdue entries
-    entries.select! {|v| (v.next_episode_at && v.next_episode_at > Time.zone.now - 1.week) || v.anons? }
+    entries.select do |v|
+      (v.next_episode_at && v.next_episode_at > Time.zone.now - 1.week) ||
+        v.anons?
+    end
   end
 end

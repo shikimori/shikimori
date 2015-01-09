@@ -11,6 +11,7 @@ FactoryGirl.define do
     kind 'TV'
     rating 'G - All Ages'
     censored false
+    next_episode_at nil
 
     after :build do |anime|
       anime.stub :generate_thread
