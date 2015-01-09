@@ -3,7 +3,10 @@ describe GroupInvitesController do
   include_context :authenticated, :user
 
   describe '#create' do
-    before { post :create, club_id: club.id, group_invite: { group_id: club.id, src_id: club.owner_id, dst_id: user.nickname } }
+    let!(:member_role) { create :group_role, group: club, user: user }
+    let(:user_2) { create :user, :user }
+    before { post :create, club_id: club.id, group_invite: { group_id: club.id, src_id: user.id, dst_id: user_2.nickname } }
+
     it { should respond_with :success }
   end
 
