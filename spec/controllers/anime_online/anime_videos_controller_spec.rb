@@ -11,18 +11,15 @@ describe AnimeOnline::AnimeVideosController do
 
       context 'with_video' do
         let(:request) { get :show, id: anime.id }
-        it { should respond_with_content_type :html }
         it { should respond_with :success }
 
         describe 'search' do
           let(:request) { get :show, id: anime.id, search: 'foo' }
-          it { should respond_with_content_type :html }
           it { should redirect_to(anime_videos_url search: 'foo') }
         end
 
         context 'without_current_video' do
           let(:request) { get :show, id: anime.id, episode: video_1.episode, video_id: video_1.id + 1 }
-          it { should respond_with_content_type :html }
           it { should respond_with :success }
         end
       end
@@ -46,7 +43,6 @@ describe AnimeOnline::AnimeVideosController do
           let(:adult) { true }
           let(:domain) { 'play.shikimori.org' }
 
-          it { should respond_with_content_type :html }
           it { should redirect_to(anime_videos_show_url anime.id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
         end
 
@@ -54,7 +50,6 @@ describe AnimeOnline::AnimeVideosController do
           let(:adult) { false }
           let(:domain) { 'xplay.shikimori.org' }
 
-          it { should respond_with_content_type :html }
           it { should redirect_to(anime_videos_show_url anime.id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
         end
       end
@@ -64,7 +59,6 @@ describe AnimeOnline::AnimeVideosController do
           let(:adult) { false }
           let(:domain) { 'play.shikimori.org' }
 
-          it { should respond_with_content_type :html }
           it { should respond_with :success }
         end
 
@@ -72,7 +66,6 @@ describe AnimeOnline::AnimeVideosController do
           let(:adult) { true }
           let(:domain) { 'xplay.shikimori.org' }
 
-          it { should respond_with_content_type :html }
           it { should respond_with :success }
         end
       end
@@ -83,7 +76,6 @@ describe AnimeOnline::AnimeVideosController do
     context 'can_new' do
       let(:anime) { create :anime }
       before { get :new, anime_id: anime.id }
-      it { should respond_with_content_type :html }
       it { should respond_with :success }
     end
 
@@ -100,7 +92,6 @@ describe AnimeOnline::AnimeVideosController do
 
     context 'response' do
       before { create_request }
-      it { should respond_with_content_type :html }
       it { should respond_with :redirect }
     end
 
@@ -115,7 +106,6 @@ describe AnimeOnline::AnimeVideosController do
 
     context 'response' do
       before { destroy_request }
-      it { should respond_with_content_type :html }
       it { should respond_with :redirect }
     end
 
@@ -125,7 +115,6 @@ describe AnimeOnline::AnimeVideosController do
 
   describe 'help' do
     before { get :help }
-    it { should respond_with_content_type :html }
     it { should respond_with :success }
   end
 
@@ -137,7 +126,7 @@ describe AnimeOnline::AnimeVideosController do
 
     context 'response' do
       before { report_request }
-      it { should respond_with_content_type :text }
+      it { expect(response.content_type).to eq 'text/plain' }
       it { should respond_with :success }
     end
 
@@ -197,7 +186,7 @@ describe AnimeOnline::AnimeVideosController do
 
   describe 'extract_url' do
     before { post :extract_url, url: 'http://vk.com/foo' }
-    it { should respond_with_content_type :text }
+    it { expect(response.content_type).to eq 'text/plain' }
     it { should respond_with :success }
   end
 
@@ -212,8 +201,7 @@ describe AnimeOnline::AnimeVideosController do
         request
       end
 
-      it { should respond_with_content_type :html }
-      it { expect(response).to redirect_to(anime_videos_show_url video.anime_id, video.episode + 1) }
+      it { should redirect_to anime_videos_show_url(video.anime_id, video.episode + 1) }
     end
 
     context 'check_user_history' do

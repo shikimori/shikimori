@@ -4,9 +4,7 @@ describe Moderation::ReviewsController do
 
   describe 'index' do
     before { get :index }
-
     it { should respond_with :success }
-    it { should respond_with_content_type :html }
   end
 
   describe 'accept' do
