@@ -24,7 +24,7 @@ class AnimeHistoryService
       .each {|v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 
-    users = users.select {|v| [1].include? v.id }
+    #users = users.select {|v| [1].include? v.id }
 
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.map do |entry|

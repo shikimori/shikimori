@@ -8,12 +8,12 @@ describe AnimeOnline::Uploaders do
 
   describe '.current_top' do
     subject { AnimeOnline::Uploaders.current_top }
-    context :no_user do
+    context 'no_user' do
       #it { is_expected.to eq [] }
       it { expect(subject).to eq [] }
     end
 
-    context :ordered do
+    context 'ordered' do
       let(:user_1) { build_stubbed(:user) }
       let(:user_2) { build_stubbed(:user) }
       let!(:report_1) { create(:uploaded_accepted_report, user: user_1) }
