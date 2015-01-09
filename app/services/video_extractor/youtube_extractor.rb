@@ -5,7 +5,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
       (?:www\.)?youtube\.com/
       .*?(?:&|\?)
       v=(?<key>[\w_-]+)
-      [^ $#<]*
+      [^ $#<\[]*
       (?:\#t=(?<time>\d+))?
     ) | (?:
       https?://
