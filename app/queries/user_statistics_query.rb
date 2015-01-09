@@ -8,7 +8,7 @@ class UserStatisticsQuery
 
   def initialize user
     @user = user
-    @settings = user.preferences
+    @preferences = user.preferences
 
     @seasons = AniMangaSeason.catalog_seasons
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
@@ -69,7 +69,7 @@ class UserStatisticsQuery
     return {} if histories.empty?
 
     # минимальная дата старта статистики
-    histories.select! { |v| v.created_at >= @settings.statistics_start_on } if @settings.statistics_start_on
+    histories.select! { |v| v.created_at >= @preferences.statistics_start_on } if @preferences.statistics_start_on
 
     imported = Set.new histories
       .select {|v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
@@ -217,8 +217,8 @@ class UserStatisticsQuery
   # статистика по статусам аниме и манги в списке пользователя
   def by_statuses
     data = [
-      @settings.anime_in_profile? ? [Anime.name, anime_statuses] : nil,
-      @settings.manga_in_profile? ? [Manga.name, manga_statuses] : nil
+      @preferences.anime_in_profile? ? [Anime.name, anime_statuses] : nil,
+      @preferences.manga_in_profile? ? [Manga.name, manga_statuses] : nil
     ].compact
 
     data = data.map do |klass,stat|
