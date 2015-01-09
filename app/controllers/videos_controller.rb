@@ -3,21 +3,21 @@ class VideosController < ShikimoriController
 
   def create
     @entry = Anime.find params[:id]
-    @video = @entry.videos.build video_params
-    @video.state = 'uploaded'
+    @resource = @entry.videos.build video_params
+    @resource.state = 'uploaded'
 
-    @video.state = 'confirmed' if params[:apply].present? && current_user.user_changes_moderator?
+    @resource.state = 'confirmed' if params[:apply].present? && current_user.user_changes_moderator?
 
-    if @video.save
+    if @resource.save
       render json: { notice: 'Видео сохранено и будет в ближайшее время рассмотрено модератором. Домо аригато.' }
     else
-      render json: @video.errors, status: :unprocessable_entity
+      render json: @resource.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @video = Video.find params[:id]
-    @video.suggest_deletion current_user
+    @resource = Video.find params[:id]
+    @resource.suggest_deletion current_user
 
     render json: {
       notice: 'Запрос на удаление принят и будет рассмотрен модератором. Домо аригато.'
