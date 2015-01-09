@@ -16,13 +16,13 @@ describe Video do
     describe 'suggest_acception' do
       it :uploaded do
         expect {
-          create :video
+          create :video, :with_suggest
         }.to change(UserChange.where(action: UserChange::VideoUpload, status: UserChangeStatus::Pending), :count).by 1
       end
 
       it :confirmed do
         expect {
-          create :video, state: 'confirmed'
+          create :video, :with_suggest, state: 'confirmed'
         }.to change(UserChange.where(action: UserChange::VideoUpload, status: UserChangeStatus::Taken), :count).by 1
       end
     end
@@ -105,12 +105,12 @@ describe Video do
     end
   end
 
-  context 'vkontakte' do
-    subject(:video) { build :video, :with_http_request, url: 'http://vk.com/video98023184_165811692' }
+  context 'vkontakte', vcr: { cassette_name: 'vk_video' } do
+    subject(:video) { build :video, url: 'http://vk.com/video98023184_165811692' }
     its(:hosting) { should eq 'vk' }
 
     context 'saved' do
-      before { VCR.use_cassette(:vk_video) { video.save! } }
+      before { video.save! }
 
       its(:image_url) { should eq 'http://cs514511.vk.me/u98023184/video/l_81cce630.jpg' }
       its(:player_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&hd=1' }

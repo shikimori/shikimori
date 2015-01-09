@@ -20,6 +20,12 @@ FactoryGirl.define do
       state 'deleted'
     end
 
+    trait :with_suggest do
+      after :build do |v|
+        v.unstub :suggest_acception
+      end
+    end
+
     #trait :with_http_request do
       #after(:build) do |v|
         #v.unstub :check_youtube_existence
