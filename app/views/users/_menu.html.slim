@@ -2,7 +2,7 @@ aside.left-block
   .user-avatar
     img src="#{@user.avatar_url 160}" alt="#{@user.nickname}" title="#{@user.nickname}"
 
-  .menu-block.user-menu-container
+  .block.user-menu-container
     - if user_signed_in? && !@user.own_profile?
       .b-options-floated.icon-actions
         a.talk href="#{talk_url @user}" title="Диалог"
@@ -66,7 +66,7 @@ aside.left-block
 
 - if @user.show_profile?
   aside.right-block
-    .menu-block.history-block
+    .block.history-block
       - if @user.history.any?
         .subheadline.m13
           a href="#{list_history_url @user}" История
@@ -84,7 +84,7 @@ aside.left-block
                   = time_ago_in_words entry[:created_at], "%s назад"
 
     - if @user.clubs.any?
-      .menu-block.groups-block
+      .block.groups-block
         .subheadline.m10
           a href="#{user_clubs_url @user}" title="Клубы" Клубы
         .image-links

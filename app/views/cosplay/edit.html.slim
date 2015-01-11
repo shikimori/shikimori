@@ -74,7 +74,7 @@ header.head.misc
                 = "#{entry.id}-#{entry.target}"
 
     .main-content
-      .menu-block
+      .block
         .b-options-floated
           .item-save сохранить
         .subheadline Общая информация
@@ -124,7 +124,7 @@ header.head.misc
           b SourceID:&nbsp;
           = f.object.cos_rain_id
 
-      .menu-block
+      .block
         .subheadline Действия
         p
           = label_tag :move_from_confirm, "Перенести <b>в эту</b> галерею фото из другой галереи".html_safe
@@ -150,7 +150,7 @@ header.head.misc
             a href="#{cosplay_cosplay_gallery_undelete_url(f.object.cosplayers.first, f.object)}" data-confirm="Подтвердите отмену удаления этой галереи" отменить удаление
             | ]
 
-      .menu-block
+      .block
         .subheadline Галерея
         = f.fields_for :images do |ff|
           .gallery
@@ -174,7 +174,7 @@ header.head.misc
               = render partial: 'images/image.html', object: ff.object, locals: {group_name: 'images', style: :original}
 
       - if f.object.deleted_images.any?
-        .menu-block
+        .block
           .subheadline Удалённое
           = f.fields_for :deleted_images do |ff|
             .gallery

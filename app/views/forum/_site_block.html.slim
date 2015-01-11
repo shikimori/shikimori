@@ -1,4 +1,4 @@
-.menu-block.forum
+.block.forum
   .subheadline-buttons
     - if user_signed_in?
       a.new-topic href="#{@forum_view.new_topic_url}" title="Создать топик"
@@ -13,7 +13,7 @@
         /= section[:name_short] || section[:name]
 
 - if presenter.news.any?
-  .menu-block.news
+  .block.news
     h2.subheadline.m13
       a href="#{section_url :news}" alt="К новостям" title="К новостям" Новости
     ul
@@ -21,7 +21,7 @@
 
 - cache "site_block/contests/#{presenter.contests_key}-#{user_signed_in? ? current_user.can_vote_1? : 'guest'}_#{user_signed_in? ? current_user.can_vote_2? : 'guest'}_#{user_signed_in? ? current_user.can_vote_3? : 'guest'}", expires_in: 6.hours do
   - if presenter.contests.any?
-    .menu-block.contests
+    .block.contests
       h2.subheadline.m8
         a href="#{contests_url}" alt="К опросам" title="К опросам"
           - if presenter.contests.all?(&:finished?)
@@ -38,7 +38,7 @@
 
 - cache "site_block/reviews/#{presenter.reviews_key}-#{russian_names_key}", expires_in: 6.hours do
   - if presenter.reviews.any?
-    .menu-block.reviews
+    .block.reviews
       h2.subheadline.m13
         a href="#{section_url :reviews}" title="К рецензиям" Новые рецензии
       ul
@@ -55,7 +55,7 @@
                 = time_ago_in_words(entry.created_at, "%s назад")
 
 - cache "site_block/groups/#{presenter.groups_key}", expires_in: 6.hours do
-  .menu-block.groups
+  .block.groups
     h2.subheadline.m13
         a href="#{clubs_url}" alt="К клубам" title="К клубам" Клубы
     ul
@@ -73,7 +73,7 @@
               span.misc Создан новый клуб
 
 - if sticked_topics.any?
-  .menu-block.seasons
+  .block.seasons
     h2.subheadline.m8 Прикреплённое
     div
       - sticked_topics.take(3).each do |topic|
@@ -94,7 +94,7 @@
 - if user_signed_in?
   - cache [:site_block, :user_history, current_user], expires_in: 6.hours do
     - if current_user.history.any?
-      .menu-block.mylist
+      .block.mylist
         h2.subheadline.m13 Мой список
         ul
           - current_user.history.formatted.take(2).each do |entry|
@@ -109,7 +109,7 @@
                 span.misc.date
                   = time_ago_in_words entry[:created_at]
 
-/.menu-block.seasons
+/.block.seasons
   h2.subheadline.m8 Сезоны аниме
   div
     .season

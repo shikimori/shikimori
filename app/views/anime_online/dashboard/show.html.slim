@@ -16,7 +16,7 @@
           = render partial: 'anime_online/blocks/ads_240x400'
 
       .midheadline.green.m15 Онгоинги сезона
-      .menu-block
+      .block
         = render partial: 'ongoing', collection: @ongoings[0..5], as: :anime
         p.show-more + показать ещё
         .more
@@ -24,7 +24,7 @@
           = render partial: 'ongoing', collection: @ongoings[6..-1], as: :anime
 
       .midheadline.magenta.m15 Топ участников
-      .menu-block
+      .block
         = render partial: 'contributor', collection: @contributors[0..5], as: :user
         p.show-more + показать ещё
         .more
@@ -32,7 +32,7 @@
           = render partial: 'contributor', collection: @contributors[6..-1], as: :user
 
       .midheadline.skyblue.m10 Сезоны аниме
-      .menu-block
+      .block
         - @seasons.each do |season, short_title, full_title|
           a.season href="#{animes_url type: nil, season: season}" title="#{full_title}"
             span.title = short_title
