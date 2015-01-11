@@ -3,9 +3,10 @@
     center: a href="#{@resource.url}" title="#{{@resource.name}}"
       img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-.block
-  .subheadline Оценки людей
-  #rates_scores_stats data-stats="#{@resource.rates_scores_stats.to_json}" data-bar="horizontal"
+- if @resource.with_score?
+  .block
+    .subheadline Оценки людей
+    #rates_scores_stats data-stats="#{@resource.rates_scores_stats.to_json}" data-bar="horizontal"
 
 .block
   .subheadline В списках у людей

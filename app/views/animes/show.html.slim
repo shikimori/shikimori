@@ -48,7 +48,7 @@
                   a href="#{new_anime_online_anime_anime_video_url @resource.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить
 
         .c-info-right
-          - if @resource.with_score? && !@resource.anons?
+          - if @resource.with_score?
             .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
               .subheadline.m5 Рейтинг
               .scores

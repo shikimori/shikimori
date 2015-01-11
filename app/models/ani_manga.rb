@@ -80,7 +80,7 @@ module AniManga
 
   # есть ли оценка?
   def with_score?
-    score != 0.0 && score < 9.9
+    score > 1.0 && score < 9.9 && !anons?
   end
 
   def rus_var(types)
