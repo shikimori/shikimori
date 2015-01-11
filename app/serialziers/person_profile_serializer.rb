@@ -1,6 +1,6 @@
 class PersonProfileSerializer < PersonSerializer
-  attributes :job_title, :birthday, :website, :groupped_roles
-  attributes :roles, :works
+  attributes :japanese, :job_title, :birthday, :website, :groupped_roles
+  attributes :roles, :works, :thread_id
   attributes :person_favoured?
   attributes :producer?, :producer_favoured?
   attributes :mangaka?, :mangaka_favoured?
@@ -18,5 +18,9 @@ class PersonProfileSerializer < PersonSerializer
         role: work.formatted_role
       }
     end
+  end
+
+  def thread_id
+    object.thread.try :id
   end
 end
