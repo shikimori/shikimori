@@ -26,21 +26,26 @@ private
   # варианты, которые будем перебирать при поиске
   def search_queries
     fields = search_fields @search
+    table_field = transalted_field column_name
 
     fields.map do |column_name|
       [
-        "#{column_name} = #{sanitize @search}",
-        "#{column_name} = #{sanitize @search.gsub('_', ' ').strip}",
-        "#{column_name} ilike #{sanitize "#{@search}%"}",
-        "#{column_name} ilike #{sanitize "% #{@search}%"}",
-        "#{column_name} ilike #{sanitize "%#{@search}%"}",
-        (@search.include?(' ') ? "#{column_name} ilike #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
-        (@search.include?(' ') ? "#{column_name} ilike #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
+        "#{table_field} = #{sanitize @search}",
+        "#{table_field} = #{sanitize @search.gsub('_', ' ').strip}",
+        "#{table_field} ilike #{sanitize "#{@search}%"}",
+        "#{table_field} ilike #{sanitize "% #{@search}%"}",
+        "#{table_field} ilike #{sanitize "%#{@search}%"}",
+        (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
+        (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
       ]
     end.flatten.uniq.compact
   end
 
   def sanitize query
     ActiveRecord::Base.sanitize query.sub(/\\+$/, '')
+  end
+
+  def transalted_field field_name
+    "translate(#{field_name}, 'ёЁ', 'еЕ')"
   end
 end
