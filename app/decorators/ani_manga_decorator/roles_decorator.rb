@@ -44,10 +44,8 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
         'five-characters'
       elsif main_characters.size <= 6 && main_people.size <= 2
         'six-characters'
-      else
-        'eight-characters'
       end
-    end
+    end || 'eight-characters'
   end
 
 private
