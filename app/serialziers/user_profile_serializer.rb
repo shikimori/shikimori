@@ -12,6 +12,7 @@ class UserProfileSerializer < UserSerializer
   def stats
     {
       statuses: object.stats.statuses,
+      full_statuses: object.stats.full_statuses,
       scores: {
         anime: object.stats.scores(:anime),
         manga: object.stats.scores(:manga)

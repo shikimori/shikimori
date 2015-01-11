@@ -126,7 +126,11 @@ class UserStats
   end
 
   def statuses
-    { anime: @stats.anime_statuses, manga: @stats.manga_statuses }
+    { anime: @stats.anime_statuses(false), manga: @stats.manga_statuses(false) }
+  end
+
+  def full_statuses
+    { anime: @stats.anime_statuses(true), manga: @stats.manga_statuses(true) }
   end
 
   def manga_statuses

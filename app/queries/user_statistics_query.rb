@@ -192,12 +192,12 @@ class UserStatisticsQuery
     end
   end
 
-  def anime_statuses
-    statuses @anime_rates, false
+  def anime_statuses is_full
+    statuses @anime_rates, is_full
   end
 
-  def manga_statuses
-    statuses @manga_rates, false
+  def manga_statuses is_full
+    statuses @manga_rates, is_full
   end
 
   def statuses rates, is_full
@@ -217,8 +217,8 @@ class UserStatisticsQuery
   # статистика по статусам аниме и манги в списке пользователя
   def by_statuses
     data = [
-      @preferences.anime_in_profile? ? [Anime.name, anime_statuses] : nil,
-      @preferences.manga_in_profile? ? [Manga.name, manga_statuses] : nil
+      @preferences.anime_in_profile? ? [Anime.name, anime_statuses(false)] : nil,
+      @preferences.manga_in_profile? ? [Manga.name, manga_statuses(false)] : nil
     ].compact
 
     data = data.map do |klass,stat|
