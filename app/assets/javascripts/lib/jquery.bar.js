@@ -75,7 +75,14 @@
       $chart.append(html.join(''));
     }
 
-    _.each(stats, function(entry, index) {
+    if (options.filter) {
+      stats = stats.filter(function(entry) {
+        var percent = parseInt(entry.value / maximum * 100 * 100) * 0.01;
+        return options.filter(entry, percent);
+      });
+    }
+
+    stats.each(function(entry, index) {
       var percent = parseInt(entry.value / maximum * 100 * 100) * 0.01;
       if (flattened) {
         percent *= 0.9;
@@ -107,8 +114,11 @@
         var title = options.title(entry, percent);
       }
       $chart.append("<div class='line'><div class='x_label'>" + x_axis
-        + "</div><div class='bar-container'><div class='bar " + color + (percent > 0 ? ' min' : '') + "' style='" + dimension+ ": " + percent + "%'" + (title ? " title='"+title+"'" : '') + ">"
-        + (percent > 6 ? "<div class='value" + (percent < 10 ? " narrow" : "") + (entry.value > 100 ? " mini" : "") + "'>" + entry.value + "</div>" : "")
+        + "</div><div class='bar-container'><div class='bar " + color
+        + (percent > 0 ? ' min' : '') + "' style='" + dimension+ ": "
+        + percent + "%'" + " title='" + (title || entry.value) + "'>"
+        + (percent > 6 ? "<div class='value" + (percent < 10 ? " narrow" : "") + (entry.value > 100 ? " mini" : "") + "'>"
+        + (options.title ? title : entry.value) + "</div>" : "")
         + "</div></div></div>");
     });
 

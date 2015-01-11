@@ -48,14 +48,16 @@ $.bridget 'packery', Packery
 
 $(document).on 'page:load page:restore', (e) ->
   for group in bindings[e.type]
-    body_class = if group.conditions.length && group.conditions[0][0] == '.'
-      "p-#{group.conditions[0].slice 1}-"
+    body_classes = if group.conditions.length && group.conditions[0][0] == '.'
+      group.conditions
+        .filter (v) -> v[0] == '.'
+        .map (v) -> "p-#{v.slice 1}-"
     else
       null
 
     if !group.conditions.length
       group.callback()
-    else if body_class && document.body.className.indexOf(body_class) != -1
+    else if body_classes && body_classes.length && body_classes.any((v) -> document.body.className.indexOf(v) != -1)
       group.callback()
     else if group.conditions.any((v) -> document.body.id == v)
       group.callback()

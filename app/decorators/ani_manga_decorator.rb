@@ -114,7 +114,7 @@ class AniMangaDecorator < DbEntryDecorator
   # статусы пользователей сайта
   def rates_statuses_stats
     rates_query.statuses_stats.map do |k,v|
-      { name: UserRate.status_name(k, Anime.name), value: v }
+      { name: UserRate.status_name(k, object.class.name), value: v }
     end
   end
 

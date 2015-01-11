@@ -1,10 +1,13 @@
 #= require_directory ./p-animes
 
-@on 'page:load', '.animes', ->
+@on 'page:load', '.animes', '.mangas', ->
   # графики
   $("#rates_scores_stats, #rates_statuses_stats").bar
+    filter: (entry, percent) ->
+      percent >= 2
+
     title: (entry, percent) ->
-      (if percent < 15 then entry.value else '')
+      if percent > 15 then entry.value else ''
 
     no_data: ($chart) ->
       $chart.html "<p class='b-nothing_here'>Недостаточно данных</p>"
