@@ -13,8 +13,8 @@ class PersonProfileSerializer < PersonSerializer
   def works
     object.works.map do |work|
       {
-        anime: work[:entry].kind_of?(Anime) ? AnimeSerializer.new(work[:entry]) : nil,
-        manga: work[:entry].kind_of?(Manga) ? MangaSerializer.new(work[:entry]) : nil,
+        anime: work.object.kind_of?(Anime) ? AnimeSerializer.new(work) : nil,
+        manga: work.object.kind_of?(Manga) ? MangaSerializer.new(work) : nil,
         role: work.formatted_role
       }
     end
