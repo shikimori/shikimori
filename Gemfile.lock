@@ -84,7 +84,7 @@ GIT
 
 GIT
   remote: git://github.com/mperham/sidekiq.git
-  revision: c90c6c357cb6a959424e4a398261b6d51bc949e2
+  revision: 3593c1a73873c4b17452c8db901547e686062080
   branch: master
   specs:
     sidekiq (3.3.0)
@@ -182,7 +182,7 @@ GEM
     apipie-rails (0.3.0)
       json
     arel (6.0.0)
-    attr_extras (3.1.0)
+    attr_extras (3.2.0)
     attribute-defaults (0.7.0)
       activerecord (>= 4.0.0, < 5.0.0)
     awesome_print (1.6.1)
@@ -192,7 +192,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     bb-ruby (1.0.4)
     bcrypt (3.1.9)
-    better_errors (2.1.0)
+    better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
@@ -253,7 +253,7 @@ GEM
       sass (>= 3.3.0, < 3.5)
     compass-import-once (1.0.5)
       sass (>= 3.2, < 3.5)
-    compass-rails (2.0.2)
+    compass-rails (2.0.4)
       compass (~> 1.0.0)
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
@@ -308,7 +308,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faraday (0.9.0)
+    faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faye (1.1.0)
       cookiejar (>= 0.3.0)
@@ -332,12 +332,14 @@ GEM
       json
     globalid (0.3.0)
       activesupport (>= 4.1.0)
-    guard (2.10.5)
+    guard (2.11.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
       nenv (~> 0.1)
+      notiffany (~> 0.0)
       pry (>= 0.9.12)
+      shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-bundler (2.1.0)
       bundler (~> 1.0)
@@ -387,7 +389,7 @@ GEM
       yajl-ruby
     mime-types (2.4.3)
     mini_portile (0.6.2)
-    minitest (5.5.0)
+    minitest (5.5.1)
     mobylette (3.5)
       actionpack (>= 3.0)
     multi_json (1.10.1)
@@ -401,6 +403,9 @@ GEM
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     non-stupid-digest-assets (1.0.4)
+    notiffany (0.0.3)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     oauth (0.4.7)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -434,15 +439,15 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    pg (0.17.1)
+    pg (0.18.1)
     pghero (0.1.7)
       activerecord
-    postmark (1.4.3)
+    postmark (1.5.0)
       json
       rake
-    postmark-rails (0.9.0)
+    postmark-rails (0.10.0)
       actionmailer (>= 3.0.0)
-      postmark (~> 1.4.0)
+      postmark (~> 1.5.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -464,7 +469,7 @@ GEM
       rack (>= 0.9.1)
     rack-protection (1.5.3)
       rack
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
       actionmailer (= 4.2.0)
@@ -481,7 +486,7 @@ GEM
     rails-assets-doc-ready (1.0.4)
       rails-assets-eventie (~> 1.0.3)
     rails-assets-eventEmitter (4.2.11)
-    rails-assets-eventie (1.0.5)
+    rails-assets-eventie (1.0.6)
     rails-assets-get-size (1.2.2)
       rails-assets-get-style-property (~> 1.0)
     rails-assets-get-style-property (1.0.4)
@@ -563,6 +568,7 @@ GEM
       sass (~> 3.2)
       sprockets (~> 2.12)
       sprockets-rails (>= 2.0, < 4.0)
+    shellany (0.0.1)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
     sidekiq-limit_fetch (2.3.0)
@@ -618,7 +624,7 @@ GEM
     truncate_html (0.9.3)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.6.1)
+    uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode (0.4.4.2)
