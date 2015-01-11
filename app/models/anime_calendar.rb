@@ -9,6 +9,8 @@ class AnimeCalendar < ActiveRecord::Base
 
   FIXES_MATCHED = 'FIXES_MATCHED'
 
+  FIXES_MATCHED = 'FIXES_MATCHED'
+
   # импорт аниме календаря с animecalendar.net
   def self.parse
     calendar = self.load_calendar.first.events.map do |v|
@@ -220,6 +222,6 @@ class AnimeCalendar < ActiveRecord::Base
     'fairy tail (2014)' => 175,
     'mushishi: the next chapter' => 12,
     'kuroko no basuke 3' => 50,
-    'aldnoah.zero 2' => 13
+    'aldnoah.zero 2' => 12
   }
 end
