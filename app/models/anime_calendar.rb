@@ -7,6 +7,8 @@ class AnimeCalendar < ActiveRecord::Base
 
   validates :anime, :episode, :start_at, presence: true
 
+  FIXES_MATCHED = 'FIXES_MATCHED'
+
   # импорт аниме календаря с animecalendar.net
   def self.parse
     calendar = self.load_calendar.first.events.map do |v|
@@ -28,7 +30,7 @@ class AnimeCalendar < ActiveRecord::Base
       {
         start_at: v.dtstart - 4.hours,
         episode: v.uid.split('_').last.to_i,
-        anime_name: id ? "FIXES MATCHED #{name}" : name,
+        anime_name: id ? "#{FIXES_MATCHED}#{name}" : name,
         anime_id: id
       }
     end
@@ -71,7 +73,8 @@ class AnimeCalendar < ActiveRecord::Base
 
       next unless entry
       next if cache.include?(entry.id) && cache[entry.id].include?(v[:episode])
-      v[:episode] -= EpisodesDiff[v[:anime_name]] if EpisodesDiff[v[:anime_name]]
+
+      v[:episode] -= EpisodesDiff[v[:anime_name].sub(FIXES_MATCHED, '')] if EpisodesDiff[v[:anime_name].sub(FIXES_MATCHED, '')]
 
       batch << AnimeCalendar.new(
           episode: v[:episode],
@@ -215,7 +218,8 @@ class AnimeCalendar < ActiveRecord::Base
     'diabolik lovers' => 1,
     'kuroko no basuke 2' => 25,
     'fairy tail (2014)' => 175,
-    'FIXES MATCHED mushishi: the next chapter' => 12,
-    'FIXES MATCHED kuroko no basuke 3' => 50
+    'mushishi: the next chapter' => 12,
+    'kuroko no basuke 3' => 50,
+    'aldnoah.zero 2' => 13
   }
 end
