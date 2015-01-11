@@ -9,8 +9,6 @@ class AnimeCalendar < ActiveRecord::Base
 
   FIXES_MATCHED = 'FIXES_MATCHED'
 
-  FIXES_MATCHED = 'FIXES_MATCHED'
-
   # импорт аниме календаря с animecalendar.net
   def self.parse
     calendar = self.load_calendar.first.events.map do |v|
