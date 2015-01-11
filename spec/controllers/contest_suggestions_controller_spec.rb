@@ -1,15 +1,14 @@
 describe ContestSuggestionsController do
-  let(:user) { create :user }
-  before { sign_in user }
+  include_context :authenticated, :user
   let(:contest) { create :contest, state: 'proposing' }
 
-  describe 'show' do
+  describe '#show' do
     before { get :show, contest_id: contest.id, id: suggestion.id }
     let(:suggestion) { create :contest_suggestion, contest: contest, user: user }
     it { should respond_with :success }
   end
 
-  describe 'create' do
+  describe '#create' do
     subject(:act) { post :create, contest_id: contest.id, contest_suggestion: { item_id: anime.id, item_type: anime.class.name } }
     let(:anime) { create :anime }
 
@@ -33,7 +32,7 @@ describe ContestSuggestionsController do
     end
   end
 
-  describe 'destroy' do
+  describe '#destroy' do
     subject(:act) { delete :destroy, contest_id: contest.id, id: suggestion }
     let(:suggestion) { create :contest_suggestion, contest: contest, user: user }
 
