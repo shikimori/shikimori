@@ -77,7 +77,7 @@
         .mod-block
           span Правки:
           a href="#{moderation_user_changes_url}" title="Модерация переводов" #{UserChange.pending_count}
-      - if current_user.reviews_moderator? && Review.has_changes?
+      /- if current_user.reviews_moderator? && Review.has_changes?
         .mod-block
           span Рецензии:
           a href="#{moderation_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
