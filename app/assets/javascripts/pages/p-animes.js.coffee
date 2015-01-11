@@ -5,11 +5,11 @@
   $("#rates_scores_stats").bar
     filter: (entry, percent) -> percent >= 2
     title: (entry, percent) -> if percent > 15 then entry.value else ''
-    no_data: ($chart) -> $chart.html "<p class='b-nothing_here'>Недостаточно данных</p>"
+    no_data: ($chart) -> $chart.html "<p class='b-nothing_here'>Нет данных</p>"
 
   $("#rates_statuses_stats").bar
     title: (entry, percent) -> if percent > 15 then entry.value else ''
-    no_data: ($chart) -> $chart.html "<p class='b-nothing_here'>Недостаточно данных</p>"
+    no_data: ($chart) -> $chart.html "<p class='b-nothing_here'>Нет данных</p>"
 
   # генерация истории аниме/манги
   #$history_block = $(".menu-right .history")

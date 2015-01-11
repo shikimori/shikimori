@@ -35,7 +35,7 @@ class DbEntryDecorator < BaseDecorator
 
       BbCodeFormatter.instance.paragraphs text
     else
-      'нет описания'
+      '<p class="b-nothing_here">Нет описания</p>'.html_safe
     end
   end
 
