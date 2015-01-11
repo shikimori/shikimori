@@ -23,7 +23,7 @@ describe AnimeOnline::AdsPolicy do
 
       context 'admin' do
         let(:user) { admin_user }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context 'simple' do
