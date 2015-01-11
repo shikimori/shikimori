@@ -62,7 +62,7 @@
             span
               = rate.user.nickname
 
-    - if @resource.friend_rates.size > 5
+    - if @resource.friend_rates.size > 3
       .b-show_more + показать всех
       .b-show_more-more
         - @resource.friend_rates.slice(3, 99).each do |rate|
