@@ -87,7 +87,7 @@ class ProfilesController < ShikimoriController
 
   def ban
     @ban = Ban.new user_id: @resource.id
-    page_title 'Забанить пользователя'
+    page_title 'История банов'
   end
 
   def edit

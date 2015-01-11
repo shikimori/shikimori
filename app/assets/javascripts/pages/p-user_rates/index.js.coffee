@@ -8,13 +8,6 @@ filter_timer = null
 
   # графики
   $("#scores, #types, #ratings").bar
-    title: (entry, percent) ->
-      console.log [percent, entry.value]
-      if (percent > 15) || (percent > 10 && entry.value < 100) || (percent > 5 && entry.value < 10)
-        entry.value
-      else
-        ''
-
     no_data: ($chart) ->
       $chart.html "<p class='b-nothing_here'>Недостаточно данных</p>"
 

@@ -110,15 +110,19 @@
       } else {
         var x_axis = entry.name;
       }
-      if (options.title) {
-        var title = options.title(entry, percent);
+      var title = options.title ? options.title(entry, percent) : entry.value;
+      if ((percent > 15) || (percent > 10 && entry.value < 100) || (percent > 5 && entry.value < 10)) {
+        var value = entry.value;
+      } else {
+        var value = '';
       }
+
       $chart.append("<div class='line'><div class='x_label'>" + x_axis
         + "</div><div class='bar-container'><div class='bar " + color
         + (percent > 0 ? ' min' : '') + "' style='" + dimension+ ": "
         + percent + "%'" + " title='" + (title || entry.value) + "'>"
-        + (percent > 6 ? "<div class='value" + (percent < 10 ? " narrow" : "") + (entry.value > 100 ? " mini" : "") + "'>"
-        + (options.title ? title : entry.value) + "</div>" : "")
+        + "<div class='value" + (percent < 10 ? " narrow" : "") + (entry.value > 99 ? " mini" : "") + "'>"
+        + value + "</div>"
         + "</div></div></div>");
     });
 

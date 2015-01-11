@@ -6,7 +6,7 @@
 
   - if user_signed_in? && current_user.moderator?
     .block
-      .subheadline Забанить
+      .subheadline = $page_title.last
       p Данной страницей следует пользоваться только в случае невозможности бана по комментарию. Например, если комментарий удалён. Во всех остальных ситуациях баньте через форум в самом комментарии.
       = render template: 'moderation/bans/new', locals: { ban_in_profile: true }
 
