@@ -73,11 +73,11 @@ class AnimeCalendar < ActiveRecord::Base
       next if cache.include?(entry.id) && cache[entry.id].include?(v[:episode])
       v[:episode] -= EpisodesDiff[v[:anime_name]] if EpisodesDiff[v[:anime_name]]
 
-      batch << AnimeCalendar.new({
+      batch << AnimeCalendar.new(
           episode: v[:episode],
           start_at: v[:start_at],
           anime: entry
-        })
+        )
       imported << v[:anime_name]
     end
     AnimeCalendar.import batch.select {|v| v.episode > v.anime.episodes_aired }
@@ -206,15 +206,16 @@ class AnimeCalendar < ActiveRecord::Base
     'ansatsu kyoshitsu' => 24833,
     'jojo no kimyo na boken: stardust crusaders egypt-hen' => 26055,
     'shinmai mao no testament' => 23233,
-    'kamisama hajimemashita 2' => 25681
+    'kamisama hajimemashita 2' => 25681,
+    'binan koko chikyu boei-bu love!' => 27727,
   }
 
   EpisodesDiff = {
     'gintama\' enchousen' => 252,
     'diabolik lovers' => 1,
     'kuroko no basuke 2' => 25,
-    'kuroko no basuke 2' => 25,
     'fairy tail (2014)' => 175,
-    'FIXES MATCHED mushishi: the next chapter' => 12
+    'FIXES MATCHED mushishi: the next chapter' => 12,
+    'FIXES MATCHED kuroko no basuke 3' => 50
   }
 end
