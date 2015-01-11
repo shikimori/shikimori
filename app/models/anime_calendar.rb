@@ -222,6 +222,6 @@ class AnimeCalendar < ActiveRecord::Base
     'fairy tail (2014)' => 175,
     'mushishi: the next chapter' => 12,
     'kuroko no basuke 3' => 50,
-    'aldnoah.zero 2' => 13
+    'aldnoah.zero 2' => 12
   }
 end
