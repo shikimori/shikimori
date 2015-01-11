@@ -179,7 +179,7 @@ GEM
       activerecord (>= 3, < 5)
       activesupport (>= 3, < 5)
     addressable (2.3.6)
-    apipie-rails (0.2.6)
+    apipie-rails (0.3.0)
       json
     arel (6.0.0)
     attr_extras (3.1.0)
@@ -363,7 +363,7 @@ GEM
     jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    json (1.8.1)
+    json (1.8.2)
     jwt (1.0.0)
     kgio (2.9.2)
     launchy (2.4.3)
