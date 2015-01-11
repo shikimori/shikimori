@@ -1,6 +1,6 @@
 describe Api::V1::CharactersController do
   describe '#show' do
-    let(:character) { create :character }
+    let(:character) { create :character, :with_thread }
     before { get :show, id: character.id, format: :json }
 
     it { should respond_with :success }
