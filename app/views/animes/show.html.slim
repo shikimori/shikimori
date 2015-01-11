@@ -116,7 +116,8 @@
           span.brackets = @resource.comments_count
 
     - if @resource.comments_count > 0
-      .subheadline.m3 Отзывы
+      .subheadline.m3
+        = @resource.comment_reviews? ? 'Отзывы' : 'Комментарии'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
         = render 'topics/comments', topic: @resource.preview_reviews_thread
