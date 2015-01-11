@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: git://github.com/morr/cancancan.git
-  revision: 56caca978bae16ac47c5c90a2d7ebb36f55fdedf
+  revision: f4da1ddba325c51d32654e3ad0f248820f73f237
   branch: master
   specs:
     cancancan (1.9.2)
