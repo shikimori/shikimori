@@ -83,4 +83,6 @@ Site::Application.configure do
 
   config.exception_recipients = %w{takandar@gmail.com}
   config.notify_exceptions = true
+
+  config.redis_db = 0
 end

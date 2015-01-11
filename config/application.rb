@@ -43,6 +43,8 @@ module Site
     #config.active_record.disable_implicit_join_references = true
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.redis_db = 2
+
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += [ Proc.new { |path| !%w(.js .css).include?(File.extname(path)) }, /.*.(css|js)$/ ]
 
