@@ -1,6 +1,10 @@
 class DbEntryDecorator < BaseDecorator
   instance_cache :description_mal, :description_html, :main_thread, :preview_thread
+  instance_cache :linked_clubs, :all_linked_clubs
   instance_cache :favoured, :favoured?, :all_favoured
+
+  MAX_CLUBS = 4
+  MAX_FAVOURITES = 12
 
   def headline
     headline_array.join(' <span class="sep inline">/</span> ').html_safe
@@ -65,6 +69,18 @@ class DbEntryDecorator < BaseDecorator
     thread
   end
 
+  # связанные клубы
+  def linked_clubs
+    object.groups.shuffle.take(MAX_CLUBS)
+  end
+
+  # все связанные клубы
+  def all_linked_clubs
+    ClubsQuery.new
+      .fetch(1, 999)
+      .where(id: object.groups)
+  end
+
   # добавлено ли в избранное?
   def favoured?
     h.user_signed_in? && h.current_user.favoured?(object)
@@ -72,7 +88,7 @@ class DbEntryDecorator < BaseDecorator
 
   # добавившие в избранное
   def favoured
-    FavouritesQuery.new.favoured_by object, 12
+    FavouritesQuery.new.favoured_by object, MAX_FAVOURITES
   end
 
   # добавившие в избранное

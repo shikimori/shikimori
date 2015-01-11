@@ -304,6 +304,7 @@ Site::Application.routes.draw do
           get :art
           get :related
           get :favoured
+          get :clubs
 
           get :comments
           scope 'comments' do
@@ -362,7 +363,10 @@ Site::Application.routes.draw do
         get :comments
         get :art
         get :favoured
+        get :clubs
+
         get :tooltip
+
         get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|tags/
       end
       collection do

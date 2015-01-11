@@ -1,5 +1,5 @@
 # TODO: переименовать в Club
-# TODO: удалить колонку permalinked
+# TODO: удалить поле permalinked
 class Group < ActiveRecord::Base
   has_many :member_roles, class_name: GroupRole.name, dependent: :destroy
   has_many :members, through: :member_roles, source: :user

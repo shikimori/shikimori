@@ -81,6 +81,13 @@ describe CharactersController do
     it { should respond_with :success }
   end
 
+  describe '#clubs' do
+    let(:group) { create :group, :with_thread, :with_member }
+    let!(:group_link) { create :group_link, linked: character, group: group }
+    before { get :clubs, id: character.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#tooltip' do
     before { get :tooltip, id: character.to_param }
     it { should respond_with :success }

@@ -6,6 +6,12 @@ FactoryGirl.define do
     association :owner, factory: :user
     description ''
 
+    after :build do |group|
+      group.stub :generate_thread
+      group.stub :sync_thread
+      group.stub :join_owner
+    end
+
     trait :free_join do
       join_policy :free_join
     end
@@ -32,10 +38,10 @@ FactoryGirl.define do
       end
     end
 
-    after :build do |group|
-      group.stub :generate_thread
-      group.stub :sync_thread
-      group.stub :join_owner
+    trait :with_member do
+      after :build do |group|
+        FactoryGirl.create :group_role, group: group
+      end
     end
 
     trait :with_thread do

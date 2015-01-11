@@ -79,6 +79,11 @@ class AnimesController < ShikimoriController
     page_title 'В избранном'
   end
 
+  def clubs
+    redirect_to @resource.url if @resource.all_linked_clubs.none?
+    page_title 'Клубы'
+  end
+
   def resources
     render partial: 'resources'
   end

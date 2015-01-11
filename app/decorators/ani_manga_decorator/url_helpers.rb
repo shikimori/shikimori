@@ -52,6 +52,10 @@ module AniMangaDecorator::UrlHelpers
     h.send "favoured_#{klass_lower}_url", object
   end
 
+  def clubs_url
+    h.send "clubs_#{klass_lower}_url", object
+  end
+
   #def cosplay_url
     #h.send "cosplay_#{klass_lower}_url", object
   #end

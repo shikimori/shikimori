@@ -1,7 +1,7 @@
 - if favoured.any?
   .b-favoured
     .subheadline.m10
-      - if defined?(url)
+      - if defined?(url) && favoured.size == DbEntryDecorator::MAX_FAVOURITES
         .linkeable data-href="#{url}" В избранном
       - else
         | В избранном

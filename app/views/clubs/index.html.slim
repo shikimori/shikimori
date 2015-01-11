@@ -4,7 +4,7 @@ header.head.misc
     a.misc href="#{new_club_url 'club[owner_id]' => current_user.id}" title="Создать новый клуб" создать
   p.notice.clearfix Список всех клубов сайта в порядке активности участников
 
-.cc
+.b-clubs.index
   = render partial: 'club', collection: @collection, locals: { content_by: :detailed }
   - if @add_postloader
     = render 'blocks/postloader', filter: 'b-club', url: page_clubs_url(page: @page+1)

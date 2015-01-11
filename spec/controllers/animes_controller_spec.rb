@@ -73,6 +73,13 @@ describe AnimesController do
     it { should respond_with :success }
   end
 
+  describe '#clubs' do
+    let(:group) { create :group, :with_thread, :with_member }
+    let!(:group_link) { create :group_link, linked: anime, group: group }
+    before { get :clubs, id: anime.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#related' do
     let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
     before { get :related, id: anime.to_param }

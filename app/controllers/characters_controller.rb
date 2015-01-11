@@ -50,6 +50,11 @@ class CharactersController < PeopleController
     page_title 'В избранном'
   end
 
+  def clubs
+    redirect_to @resource.url if @resource.all_linked_clubs.none?
+    page_title 'Клубы'
+  end
+
   def tooltip
   end
 
