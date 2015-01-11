@@ -1,7 +1,5 @@
 class ImageReloader
-  def initialize entry
-    @entry = entry
-  end
+  pattr_initialize :entry
 
   def perform
     if parsed_data && parsed_data[:img]
@@ -12,6 +10,7 @@ class ImageReloader
 private
   def parsed_data
     @parsed_data ||= parser.fetch_entry_data @entry.id
+  rescue InvalidId
   end
 
   def parser
