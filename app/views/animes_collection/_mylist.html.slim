@@ -1,0 +1,8 @@
+.menu-block.anime-params-block.mylist-block
+  span.filter.block-filter.item-sign
+  .subheadline Список
+  ul.block-list.mylist.anime-params
+    - UserRate.statuses.each do |name,id|
+      li class="mylist-#{id}"
+        input type="checkbox" autocomplete="off"
+        = UserRate.status_name name, klass.name
