@@ -2642,6 +2642,7 @@
       "response_data": {
         "id": 11,
         "name": "prson_11",
+        "japanese": "関 智一",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
@@ -2688,7 +2689,8 @@
         "mangaka": false,
         "mangaka_favoured": false,
         "seyu": false,
-        "seyu_favoured": false
+        "seyu_favoured": false,
+        "thread_id": 134206
       },
       "code": "200",
       "show_in_doc": 1,
