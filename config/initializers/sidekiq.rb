@@ -5,8 +5,7 @@ Sidekiq.configure_server do |config|
   Rails.logger = Sidekiq::Logging.logger
   config.poll_interval = 5
 
-  config.redis = { url: "redis://localhost:6379/#{Rails.application.config.redis_db}" }
-  #config.redis = { namespace: "shiki_#{Rails.env}" } unless Rails.env.development?
+  config.redis = { namespace: "shiki_#{Rails.env}", url: "redis://localhost:6379/#{Rails.application.config.redis_db}" }
 end
 
 #class Sidekiq::Extensions::DelayedMailer::ExceptionHandling
