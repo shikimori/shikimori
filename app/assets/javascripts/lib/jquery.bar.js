@@ -26,6 +26,9 @@
           case 'vertical-complex':
             complex_bar($chart, _.extend(options || {}, { type: 'vertical' }));
             break;
+
+          default:
+            throw 'unknown bar-type: ' + $chart.data('bar')
         }
       });
     }

@@ -6,10 +6,11 @@ class AniMangaDecorator < DbEntryDecorator
   NewsPerPage = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count,
-    :is_favoured, :favoured, :rate, :changes, :roles, :related, :cosplay,
-    :friend_rates, :recent_rates, :chronology,
-    :preview_reviews_thread, :main_reviews_thread
+  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
+  instance_cache :is_favoured, :favoured, :rate, :changes, :roles, :related, :cosplay
+  instance_cache :friend_rates, :recent_rates, :chronology
+  instance_cache :preview_reviews_thread, :main_reviews_thread
+  instance_cache :rates_scores_stats, :rates_statuses_stats
 
   # топики
   def topics
@@ -104,15 +105,29 @@ class AniMangaDecorator < DbEntryDecorator
   # оценки друзей
   def friend_rates
     if h.user_signed_in?
-      UserRatesQuery.new(object, h.current_user).friend_rates
+      rates_query.friend_rates
     else
       []
     end
   end
 
+  # статусы пользователей сайта
+  def rates_statuses_stats
+    rates_query.statuses_stats.map do |k,v|
+      { name: UserRate.status_name(k, Anime.name), value: v }
+    end
+  end
+
+  # оценки пользователей сайта
+  def rates_scores_stats
+    rates_query.scores_stats.map do |k,v|
+      { name: k, value: v }
+    end
+  end
+
   # последние изменения от других пользователей
   def recent_rates limit
-    UserRatesQuery.new(object, h.current_user).recent_rates limit
+    rates_query.recent_rates limit
   end
 
   # полная хронология аниме
@@ -157,5 +172,9 @@ private
       tooltip: topic.action == AnimeHistoryAction::Episode,
       url: h.topic_url(topic)
     }
+  end
+
+  def rates_query
+    UserRatesQuery.new(object, h.current_user)
   end
 end

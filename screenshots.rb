@@ -56,6 +56,7 @@ data.each do |anime_dir, files|
   ap anime_name
   ap anime_dir
   ap files
+
   files.each_with_index do |file_name, index|
     file_path = "#{anime_dir}/#{file_name}"
 

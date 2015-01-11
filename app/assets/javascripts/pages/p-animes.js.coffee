@@ -1,6 +1,14 @@
 #= require_directory ./p-animes
 
 @on 'page:load', '.animes', ->
+  # графики
+  $("#rates_scores_stats, #rates_statuses_stats").bar
+    title: (entry, percent) ->
+      (if percent < 15 then entry.value else '')
+
+    no_data: ($chart) ->
+      $chart.html "<p class='b-nothing_here'>Недостаточно данных</p>"
+
   # генерация истории аниме/манги
   #$history_block = $(".menu-right .history")
 
