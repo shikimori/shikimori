@@ -2,7 +2,7 @@
   - if defined?(with_image) && with_image
     img.image src="#{character.image.url :preview}" srcset="#{character.image.url :original} 2x" alt="#{localized_name character}"
 
-  .inner class="#{:offset if defined?(with_image) && with_image}"
+  .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
     .line itemprop="name"
       - if !defined?(cover_by) || cover_by != :link
         a.data.name href="#{character_url character}" title="#{localized_name character}" itemprop="name"
