@@ -92,16 +92,16 @@ class Api::V1::UsersController < Api::V1::ApiController
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
 
-    respond_with MessagesQuery.new(current_user, params[:type] || '').fetch @page, @limit
+    respond_with MessagesQuery.new(current_user, params[:type].try(:to_sym) || '').fetch @page, @limit
   end
 
   api :GET, "/users/:id/unread_messages", "Show current user's unread messages counts. Authorization required."
   def unread_messages
-    respond_with ({
+    respond_with(
       messages: current_user.unread_messages,
       news: current_user.unread_news,
       notifications: current_user.unread_notifications
-    })
+    )
   end
 
   api :GET, "/users/:id/history", "Show user's history"
