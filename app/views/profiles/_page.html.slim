@@ -3,8 +3,13 @@ header.head.misc
     - if params[:action] != 'show' || @back_url
       a.back href="#{@back_url || @resource.url}" title="Назад на страницу #{{@resource.name}}"
     = @resource.nickname
-  /- if can?(:edit, @resource) && @resource.persisted? && params[:controller] == 'profiles'
-    a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
+
+  - if params[:controller] == 'user_rates'
+    - if params[:list_type] == 'anime' && @resource.stats.manga? && @resource.preferences.manga_in_profile?
+      a.edit href="#{profile_user_rates_url @resource, list_type: 'manga'}" title="к манге" к манге
+
+    - if params[:list_type] == 'manga' && @resource.stats.anime? && @resource.preferences.anime_in_profile?
+      a.edit href="#{profile_user_rates_url @resource, list_type: 'anime'}" title="к аниме" к аниме
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
