@@ -2,9 +2,7 @@
 @import compass/typography/text/ellipsis
 @import mixins/link
 
-.tooltip
-  z-index: 1
-
+.tooltip-inner
   //.close, .link
   .close
     +border-radius(15px)
@@ -22,6 +20,9 @@
 
     &:after
       content: '\2715'
+
+.tooltip
+  z-index: 1
 
   //.link
     //right: 21px

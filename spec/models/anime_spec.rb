@@ -41,6 +41,7 @@ describe Anime do
     it { should have_many :recommendation_ignores }
 
     it { should have_many :anime_videos }
+    it { should have_many :episode_notifications }
   end
 
   context 'hooks' do

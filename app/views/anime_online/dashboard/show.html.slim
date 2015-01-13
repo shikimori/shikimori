@@ -7,7 +7,7 @@
       .midheadline.blue.m12 Новые серии
       .cc
         - @recent_videos.each do |anime|
-          = render partial: 'animes/anime', object: anime, locals: { cover_notice: :studio, content_by: :block }, formats: :html
+          = render partial: 'animes/anime', object: anime, locals: { cover_notice: :studio, content_by: :block }
       .clearfix
 
     .l-menu
@@ -18,18 +18,23 @@
       .midheadline.green.m15 Онгоинги сезона
       .block
         = render partial: 'ongoing', collection: @ongoings[0..5], as: :anime
-        p.show-more + показать ещё
-        .more
+        p.b-show_more + показать ещё
+        .b-show_more-more
           .first-element
           = render partial: 'ongoing', collection: @ongoings[6..-1], as: :anime
+          .hide-more
+            | &mdash; спрятать
 
-      .midheadline.magenta.m15 Топ участников
+      .midheadline.magenta.m10 Топ участников
       .block
-        = render partial: 'contributor', collection: @contributors[0..5], as: :user
-        p.show-more + показать ещё
-        .more
-          .first-element
-          = render partial: 'contributor', collection: @contributors[6..-1], as: :user
+        .c-contributors
+          = render partial: 'users/user', collection: @contributors[0..5], locals: { content_by: :named_avatar }
+        p.b-show_more + показать ещё
+        .b-show_more-more
+          .c-contributors
+            = render partial: 'users/user', collection: @contributors[6..-1], locals: { content_by: :named_avatar }
+          .hide-more
+            | &mdash; спрятать
 
       .midheadline.skyblue.m10 Сезоны аниме
       .block

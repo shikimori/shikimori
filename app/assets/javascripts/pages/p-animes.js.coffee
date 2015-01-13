@@ -9,6 +9,8 @@
     title: (entry, percent) -> if percent > 15 then entry.value else ''
     no_data: ($chart) -> $chart.html "<p class='b-nothing_here'>Нет данных</p>"
 
+  $('.b-show_more').show_more()
+
   # генерация истории аниме/манги
   #$history_block = $(".menu-right .history")
 

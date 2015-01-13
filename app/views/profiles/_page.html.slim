@@ -6,10 +6,10 @@ header.head.misc
 
   - if params[:controller] == 'user_rates'
     - if params[:list_type] == 'anime' && @resource.stats.manga? && @resource.preferences.manga_in_profile?
-      a.edit href="#{profile_user_rates_url @resource, list_type: 'manga'}" title="к манге" к манге
+      a.misc href="#{profile_user_rates_url @resource, list_type: 'manga'}" title="к манге" к манге
 
     - if params[:list_type] == 'manga' && @resource.stats.anime? && @resource.preferences.anime_in_profile?
-      a.edit href="#{profile_user_rates_url @resource, list_type: 'anime'}" title="к аниме" к аниме
+      a.misc href="#{profile_user_rates_url @resource, list_type: 'anime'}" title="к аниме" к аниме
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

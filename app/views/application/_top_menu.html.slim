@@ -47,7 +47,7 @@
   .menu.menu-search
     .entry.main-search
       .input
-        input value="#{SearchHelper.unescape params[:search]}"
+        input value="#{SearchHelper.unescape params[:search]}" data-type="#{manga_online? ? 'mangas' : 'animes'}"
         .suggest-placeholder
       - if shikimori?
         ul.popup

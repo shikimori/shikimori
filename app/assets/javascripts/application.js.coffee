@@ -78,10 +78,6 @@ $with = (selector, $root) ->
 @process_current_dom = (root = document.body) ->
   $root = $(root)
 
-  # нормализуем ширину всех огромных картинок
-  #$with('img.check-width', $root).normalize_image()
-    #fancybox: $.galleryOptions
-
   # то, что должно превратиться в ссылки
   $with('.linkeable', $root)
     .change_tag('a')
@@ -89,7 +85,6 @@ $with = (selector, $root) ->
 
   # стена картинок
   $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
-  #$('.b-shiki_editor.unprocessed', $root).shiki_editor()
   $with('.b-forum.unprocessed', $root).shiki_forum()
   $with('.b-topic.unprocessed', $root).shiki_topic()
   $with('.b-comment.unprocessed', $root).shiki_comment()

@@ -1,5 +1,2 @@
-$ ->
-  return unless document.body.id.startsWith 'dashboard_'
-
-  $('.show-more').on 'click', ->
-    $(@).hide().next().show()
+@on 'page:load', 'dashboard_show', ->
+  $('.b-show_more').show_more()

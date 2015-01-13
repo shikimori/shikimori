@@ -86,6 +86,7 @@ class Anime < DbEntry
   has_many :anime_calendars, dependent: :destroy
 
   has_many :anime_videos, -> { order :episode }, dependent: :destroy
+  has_many :episode_notifications, dependent: :destroy 
 
   has_attached_file :image,
     styles: {

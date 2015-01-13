@@ -259,7 +259,7 @@
                                          .appendTo(document.body);
 
             _.delay(function() {
-              tip.find('.tooltip-details').load(trigger.data('href') || (trigger.attr('href') + '/tooltip'), function() {
+              tip.find('.tooltip-details').load(trigger.data('tooltip_url') || trigger.data('href') || (trigger.attr('href') + '/tooltip'), function() {
                 // если есть только картинка, то ставим класс tooltip-image
                 var $this = $(this);
                 var $desc = $this.find('.tooltip-desc');

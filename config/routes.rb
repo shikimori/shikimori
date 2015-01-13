@@ -3,6 +3,10 @@ require 'sidekiq/web'
 Site::Application.routes.draw do
   ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
 
+  resources :genres, only: [:index, :edit, :update] do
+    get :tooltip, on: :member
+  end
+
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
     get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
@@ -438,10 +442,6 @@ Site::Application.routes.draw do
       end
     end
 
-    resources :genres, only: [:index, :edit, :update] do
-      get :tooltip, on: :member
-    end
-
     # votes
     post 'votes/:type/:id/yes' => 'votes#create', voting: 'yes', as: :vote_yes
     post 'votes/:type/:id/no' => 'votes#create', voting: 'no', as: :vote_no
@@ -584,19 +584,7 @@ Site::Application.routes.draw do
     post 'users/search' => 'users#search', as: :users_search
     get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
 
-    ## TODO: refactor всё в resources :messages
-    #get 'messages' => redirect('messages/inbox'), as: :root_messages
-    #get 'messages/:id' => 'messages#show', constraints: { id: /\d+/ }
-    #constraints type: /inbox|sent|notifications|news/ do
-      #get 'messages/:type' => 'messages#index', as: :messages
-      #get 'messages/:type/:page' => 'messages#list', as: :messages_list, constraints: { page: /\d+/ }
-    #end
-
-    #post 'messages/create' => 'messages#create', as: :create_messages
-    #post 'messages/read' => 'messages#read', read: true, as: :read_messages
-    #post 'messages/unread' => 'messages#read', read: false, as: :unread_messages
-
-    ## messages edit & rss & email bounce
+    # messages edit & rss & email bounce
     resources :messages, only: [:create, :show, :edit, :update, :destroy] do
       collection do
         get 'chosen/:ids' => :chosen, as: :chosen

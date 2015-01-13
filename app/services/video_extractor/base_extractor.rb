@@ -10,9 +10,7 @@ class VideoExtractor::BaseExtractor
   def fetch
     VideoData.new hosting, image_url, player_url if valid_url? && opengraph_page?
 
-  rescue OpenURI::HTTPError => e
-  rescue EmptyContent => e
-  rescue URI::InvalidURIError => e
+  rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError, SocketError
   end
 
   def hosting
