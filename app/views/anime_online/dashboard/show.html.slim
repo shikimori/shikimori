@@ -5,7 +5,7 @@
   .menu-slide-inner
     .l-content
       .midheadline.blue.m12 Новые серии
-      .cc
+      .cc.m0
         - @recent_videos.each do |anime|
           = render partial: 'animes/anime', object: anime, locals: { cover_notice: :studio, content_by: :block }
       .clearfix
