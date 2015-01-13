@@ -71,7 +71,7 @@ class TorrentsParser
     elsif episode_name =~ /Yu-Gi-Oh![ _]Zexal[ _]II/i
       num.map {|v| v - 73 }
     elsif episode_name =~ /stardust[ _]crusaders/i
-      num.map {|v| v > 26 ? v - 26 : v }
+      num.map {|v| v > 24 ? v - 24 : v }
     elsif episode_name =~ /kuroko[ _]no[ _](basuke|basket)/i
       num.map {|v| v > 25 ? v - 25 : v }
     elsif episode_name =~ /fairy[ _]?tail/i
