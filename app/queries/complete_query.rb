@@ -25,7 +25,7 @@ private
 
   # варианты, которые будем перебирать при поиске
   def search_queries
-    search_fields(@search).map {|field| field_search_query field }.flatten.compact
+    search_fields(@search).flat_map {|field| field_search_query field }.compact
   end
 
   def field_search_query field
