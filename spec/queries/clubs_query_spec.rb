@@ -2,6 +2,8 @@ describe ClubsQuery do
   let(:query) { ClubsQuery.new }
 
   before { Timecop.freeze }
+  after { Timecop.return }
+
   let(:user) { create :user }
   let!(:club_1) { create :group, :with_thread, id: 1 }
   let!(:club_2) { create :group, :with_thread, id: 2 }
