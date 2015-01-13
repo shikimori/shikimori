@@ -25,20 +25,20 @@ private
 
   # варианты, которые будем перебирать при поиске
   def search_queries
-    fields = search_fields @search
-    table_field = transalted_field column_name
+    search_fields(@search).map {|field| field_search_query field }.flatten.compact
+  end
 
-    fields.map do |column_name|
-      [
-        "#{table_field} = #{sanitize @search}",
-        "#{table_field} = #{sanitize @search.gsub('_', ' ').strip}",
-        "#{table_field} ilike #{sanitize "#{@search}%"}",
-        "#{table_field} ilike #{sanitize "% #{@search}%"}",
-        "#{table_field} ilike #{sanitize "%#{@search}%"}",
-        (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
-        (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
-      ]
-    end.flatten.uniq.compact
+  def field_search_query field
+    table_field = transalted_field field
+    [
+      "#{table_field} = #{sanitize @search}",
+      "#{table_field} = #{sanitize @search.gsub('_', ' ').strip}",
+      "#{table_field} ilike #{sanitize "#{@search}%"}",
+      "#{table_field} ilike #{sanitize "% #{@search}%"}",
+      "#{table_field} ilike #{sanitize "%#{@search}%"}",
+      (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
+      (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
+    ]
   end
 
   def sanitize query
