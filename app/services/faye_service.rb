@@ -1,8 +1,5 @@
 class FayeService
-  def initialize actor, faye
-    @actor = actor
-    @faye = faye
-  end
+  pattr_initialize :actor, :faye
 
   def create trackable
     if trackable.save
@@ -24,7 +21,12 @@ class FayeService
 
   def destroy trackable
     publisher.publish trackable, :deleted
-    trackable.destroy
+
+    if trackable.kind_of?(Message)
+      trackable.delete_by @actor
+    else
+      trackable.destroy
+    end
   end
 
 private

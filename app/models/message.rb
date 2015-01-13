@@ -76,6 +76,8 @@ class Message < ActiveRecord::Base
     else
       destroy!
     end
+
+    self
   end
 
   # методы для совместимости с интерфейсом Comment

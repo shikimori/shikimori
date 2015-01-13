@@ -76,14 +76,14 @@ describe Message do
         expect(created_message.linked_type).to eq new_comment.class.name
       end
 
-      it 'should not be on quote if notification is already exists' do
-        create :comment, :with_notify_quotes, user: user, commentable: topic, body: "[quote=#{user2.nickname}]test[/quote]"
-        expect {
-          Comment.wo_antispam do
-            create :comment, :with_notify_quotes, user: user, commentable: topic, body: "[quote=#{user2.nickname}]test[/quote]"
-          end
-        }.to_not change Message, :count
-      end
+      #it 'should not be on quote if notification is already exists' do
+        #create :comment, :with_notify_quotes, user: user, commentable: topic, body: "[quote=#{user2.nickname}]test[/quote]"
+        #expect {
+          #Comment.wo_antispam do
+            #create :comment, :with_notify_quotes, user: user, commentable: topic, body: "[quote=#{user2.nickname}]test[/quote]"
+          #end
+        #}.to_not change Message, :count
+      #end
 
       it 'should not be on nested quote' do
         expect {
@@ -255,7 +255,16 @@ describe Message do
 
         context 'private message' do
           let(:kind) { MessageType::Private }
-          it { should_not be_able_to :destroy, message }
+
+          context 'new message' do
+            let(:created_at) { 1.minute.ago }
+            it { should be_able_to :destroy, message }
+          end
+
+          context 'old message' do
+            let(:created_at) { 11.minute.ago }
+            it { should be_able_to :destroy, message }
+          end
         end
 
         context 'other type message' do

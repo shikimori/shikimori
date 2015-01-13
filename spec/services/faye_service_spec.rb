@@ -6,7 +6,7 @@ describe FayeService do
   let(:topic) { create :entry, user: user }
   let!(:publisher) { FayePublisher.new user, faye }
 
-  describe 'create' do
+  describe '#create' do
     let(:trackable) { build :comment, commentable: topic, body: body }
     subject(:act) { service.create trackable }
 
@@ -34,7 +34,7 @@ describe FayeService do
     end
   end
 
-  describe 'update' do
+  describe '#update' do
     let(:params) {{ body: body }}
     let(:trackable) { create :comment, user: user }
     subject(:act) { service.update trackable, params }
@@ -63,13 +63,29 @@ describe FayeService do
     end
   end
 
-  describe 'destroy' do
-    let(:trackable) { create :comment, user: user }
+  describe '#destroy' do
     subject { service.destroy trackable }
 
     before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
     before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(trackable.class), :deleted }
 
-    it { should_not be_persisted }
+    context 'comment' do
+      let(:trackable) { create :comment, user: user }
+      it { should_not be_persisted }
+    end
+
+    context 'message' do
+      context 'private' do
+        let(:trackable) { create :message, :private, to: user }
+
+        it { should be_persisted }
+        its(:dst_del) { should be_truthy }
+      end
+
+      context 'notification' do
+        let(:trackable) { create :message, :notification, to: user }
+        it { should_not be_persisted }
+      end
+    end
   end
 end

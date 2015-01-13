@@ -126,9 +126,8 @@ class Ability
       message.from_id == @user.id || message.to_id == @user.id
     end
     can [:destroy], Message do |message|
-      #спеки на новый дестрой
-      (message.kind == MessageType::Private && can?(:edit, message)) ||
-      (message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
+      (message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
+        (message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
     can [:create], Message do |message|
       message.kind == MessageType::Private && message.from_id == @user.id
