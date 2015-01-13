@@ -80,36 +80,6 @@ class Message < ActiveRecord::Base
     self
   end
 
-  # методы для совместимости с интерфейсом Comment
-  #def user
-    #from
-  #end
-  #def user_id
-    #from_id
-  #end
-  #def commentable_type
-    #User.name
-  #end
-  #def commentable_id
-    #to_id
-  #end
-  #def can_be_edited_by? user
-    #false
-  #end
-  #def can_be_deleted_by? user
-    #false
-  #end
-  #def html
-    #false
-  #end
-  #def viewed?
-    #true
-  #end
-
-  #def offtopic?
-    #false
-  #end
-
   # идентификатор для рсс ленты
   def guid
     "message-#{self.id}"
