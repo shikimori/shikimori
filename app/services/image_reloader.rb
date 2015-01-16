@@ -1,5 +1,8 @@
 class ImageReloader
-  pattr_initialize :entry
+  #pattr_initialize :entry
+  def initialize entry
+    @entry = entry
+  end
 
   def perform
     if parsed_data && parsed_data[:img]
