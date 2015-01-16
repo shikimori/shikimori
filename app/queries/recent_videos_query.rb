@@ -1,18 +1,16 @@
-class RecentVideosQuery
-  PER_PAGE = 16
-
+class RecentVideosQuery < QueryObjectBase
   pattr_initialize :is_adult
 
-  def fetch
+private
+  def query
     EpisodeNotification
       .where(id: episode_ids)
       .joins(:anime)
       .where("(#{AniMangaStatus.query_for('ongoing', Anime)}) or released_on > ?", 1.month.ago)
-      .where.not(animes: { rating: 'G - All Ages' })
-      .limit(PER_PAGE)
+      .where.not(animes: { rating: 'G - All Ages' }, id: Anime::EXCLUDED_ONGOINGS)
+      .order('episode_notifications.updated_at desc')
   end
 
-private
   def episode_ids
     EpisodeNotification
       .joins(:anime)

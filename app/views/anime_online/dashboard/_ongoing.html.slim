@@ -11,8 +11,7 @@
         .line
           .key Анонс на:&nbsp;
           .value = Russian.strftime(anime.aired_on, '%e %b %H:%M').strip
-    .misc
-      span.key Жанры:&nbsp;
-      - anime.main_genres.each do |genre|
-        span.genre
-          = localized_name genre
+    - if anime.real_studios.any?
+      .misc
+        span.key Студия:&nbsp;
+        span.studio = anime.real_studios.first.name

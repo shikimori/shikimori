@@ -1,20 +1,13 @@
-class MessagesQuery
+class MessagesQuery < QueryObjectBase
   pattr_initialize :user, :messages_type
 
-  def fetch page, limit
+  def query
     Message
       .where(kind: kinds_by_type)
       .where(id_field => @user.id, del_field => false)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .includes(:linked, :from, :to)
       .order(:read, id: :desc)
-      .offset(limit * (page-1))
-      .limit(limit + 1)
-  end
-
-  def postload page, limit
-    collection = fetch(page, limit).to_a
-    [collection.take(limit), collection.size == limit+1]
   end
 
   def kinds_by_type

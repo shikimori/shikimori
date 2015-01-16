@@ -7,7 +7,12 @@
       .midheadline.blue.m12 Новые серии
       .cc.m0
         = render partial: 'animes/anime', collection: @recent_videos, locals: { cover_title: :none, cover_notice: :latest_episode, content_by: :block }
-      .clearfix
+
+        - if @add_postloader
+          = render 'blocks/postloader', filter: 'b-catalog_entry',
+            url: anime_dashboard_page_url(page: @page+1),
+            next_url: anime_dashboard_page_url(page: @page+1),
+            prev_url: (@page > 1 ? anime_dashboard_page_url(page: @page-1) : nil)
 
     .l-menu
       - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user

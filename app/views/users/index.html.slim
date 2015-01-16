@@ -54,4 +54,7 @@ header.head.misc
     = render @collection, content_by: :detailed
 
     - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }
+      = render 'blocks/postloader', filter: 'b-user',
+        url: users_url(page: @page+1, search: params[:search]),
+        next_url: users_url(page: @page+1, search: params[:search]),
+        prev_url: (@page > 1 ? users_url(page: @page+1, search: params[:search]) : nil)

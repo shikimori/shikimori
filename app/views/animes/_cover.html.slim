@@ -46,7 +46,7 @@ span.misc
   - elsif cover_notice == :latest_episode
     span.episode
       span.number = "#{anime.episode.episode} эпизод"
-      span.type Озвучка и субтитры
+      span.type = anime.video_types
 
   - elsif cover_notice == :none
   - else

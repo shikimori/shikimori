@@ -7,6 +7,12 @@ Site::Application.routes.draw do
     get :tooltip, on: :member
   end
 
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
+
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
     get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
@@ -17,37 +23,38 @@ Site::Application.routes.draw do
 
   constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/dashboard#show'
-    #get '/', to: 'anime_online/anime_videos#index'
+    get '/page/:page', to: 'anime_online/dashboard#show', as: :anime_dashboard_page
+
     get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
     scope page: 'online_video' do
       resources :animes, only: [:show]
     end
 
-    namespace :anime_online do
-      resources :anime, only: [:show] do
-        resources :anime_videos, only: [:new, :create, :edit, :update] do
-          get :viewed, on: :member
-        end
-      end
+    #namespace :anime_online do
+      #resources :anime, only: [:show] do
+        #resources :anime_videos, only: [:new, :create, :edit, :update] do
+          #get :viewed, on: :member
+        #end
+      #end
 
-      resource :anime_videos do
-        get :help, on: :member
-      end
+      #resource :anime_videos do
+        #get :help, on: :member
+      #end
 
-      resources :anime_videos do
-        get :watch_view_increment, on: :member
-      end
+      #resources :anime_videos do
+        #get :watch_view_increment, on: :member
+      #end
 
-      post 'anime_videos/:id/rate' => 'anime_videos#rate', as: :rate_anime
-    end
+      #post 'anime_videos/:id/rate' => 'anime_videos#rate', as: :rate_anime
+    #end
 
-    post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
-    get 'videos/:id(/:episode)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode: /\d+/, video_id: /\d+/, all: 'all' }
-    post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
-    delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
-    get 'pingmedia/google' => 'anime_online/pingmedia#google'
-    get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
+    #post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
+    #get 'videos/:id(/:episode)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode: /\d+/, video_id: /\d+/, all: 'all' }
+    #post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
+    #delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
+    #get 'pingmedia/google' => 'anime_online/pingmedia#google'
+    #get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
 
     get 'robots.txt' => 'robots#anime_online'
   end
@@ -115,12 +122,6 @@ Site::Application.routes.draw do
     # игнор лист
     post ':id/ignore' => 'ignores#create', as: :ignore_add
     delete ':id/ignore' => 'ignores#destroy', as: :ignore_remove
-
-    devise_for :users, controllers: {
-      omniauth_callbacks: 'users/omniauth_callbacks',
-      registrations: 'users/registrations',
-      passwords: 'users/passwords'
-    }
 
     # комментарии
     resources :comments do

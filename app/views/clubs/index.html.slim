@@ -7,4 +7,7 @@ header.head.misc
 .b-clubs.index
   = render partial: 'club', collection: @collection, locals: { content_by: :detailed }
   - if @add_postloader
-    = render 'blocks/postloader', filter: 'b-club', url: page_clubs_url(page: @page+1)
+    = render 'blocks/postloader', filter: 'b-club',
+      url: page_clubs_url(page: @page+1),
+      next_url: page_clubs_url(page: @page+1),
+      prev_url: (@page > 1 ? page_clubs_url(page: @page-1) : nil)

@@ -7,25 +7,31 @@ describe RecentVideosQuery do
   let(:anime_adult) { create :anime, :ongoing, :with_video, rating: Anime::ADULT_RATINGS.first }
   let(:anime_g) { create :anime, :ongoing, :with_video, rating: 'G - All Ages' }
 
-  let!(:episode_notification_1) { create :episode_notification, id: 1, episode: 1, anime: anime_ongoing }
-  let!(:episode_notification_2) { create :episode_notification, id: 2, episode: 2, anime: anime_ongoing }
-  let!(:episode_notification_3) { create :episode_notification, id: 3, episode: 1, anime: anime_adult }
-  let!(:episode_notification_4) { create :episode_notification, id: 4, episode: 1, anime: anime_recent }
-  let!(:episode_notification_5) { create :episode_notification, id: 5, episode: 1, anime: anime_old }
-  let!(:episode_notification_6) { create :episode_notification, id: 6, episode: 1, anime: anime_g }
+  let!(:episode_notification_1) { create :episode_notification, id: 1, episode: 1, anime: anime_ongoing, updated_at: 10.minutes.ago }
+  let!(:episode_notification_2) { create :episode_notification, id: 2, episode: 2, anime: anime_ongoing, updated_at: 9.minutes.ago }
+  let!(:episode_notification_3) { create :episode_notification, id: 3, episode: 1, anime: anime_adult, updated_at: 8.minutes.ago }
+  let!(:episode_notification_4) { create :episode_notification, id: 4, episode: 1, anime: anime_recent, updated_at: 7.minutes.ago }
+  let!(:episode_notification_5) { create :episode_notification, id: 5, episode: 1, anime: anime_old, updated_at: 6.minutes.ago }
+  let!(:episode_notification_6) { create :episode_notification, id: 6, episode: 1, anime: anime_g, updated_at: 5.minutes.ago }
 
   describe '#fetch' do
-    #subject { query.fetch.map(&:episode) }
-    subject { query.fetch }
+    subject { query.fetch 1, 10 }
 
     context 'not adult' do
       let(:is_adult) { false }
-      it { should eq [episode_notification_2, episode_notification_4] }
+      it { should eq [episode_notification_4, episode_notification_2] }
     end
 
     context 'adult' do
       let(:is_adult) { true }
       it { should eq [episode_notification_3] }
     end
+  end
+
+  describe '#postload' do
+    let(:is_adult) { false }
+    subject { query.postload 1, 1 }
+
+    it { should eq [[episode_notification_4], true] }
   end
 end

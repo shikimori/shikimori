@@ -5,6 +5,7 @@
 
 article.c-column.b-catalog_entry[
     class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
+    id="#{anime.id}"
     itemscope itemtype="#{{anime.itemtype if anime.respond_to? :itemtype}}"
   ]
   meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"
@@ -19,7 +20,7 @@ article.c-column.b-catalog_entry[
         data-relative="#{content_by == :inline_tooltip}"
         data-offset-left="#{-15 if content_by == :inline_tooltip}"
       ]
-      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_by: cover_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil }
+      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_title: cover_title, cover_by: cover_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil }
 
   - elsif cover_by == :linkeable
     .cover.linkeable[

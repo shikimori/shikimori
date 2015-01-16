@@ -1,4 +1,4 @@
-class DialogsQuery
+class DialogsQuery < QueryBase
   pattr_initialize :user
 
   def fetch page, limit
@@ -7,11 +7,6 @@ class DialogsQuery
       .includes(:linked, :from, :to)
       .order(id: :desc)
       .map {|v| Dialog.new(user, v) }
-  end
-
-  def postload page, limit
-    collection = fetch page, limit
-    [collection.take(limit), collection.size == limit+1]
   end
 
 private
