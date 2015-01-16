@@ -9,7 +9,7 @@ FactoryGirl.define do
     score 1
     mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind 'TV'
-    rating 'G - All Ages'
+    rating 'PG-13 - Teens 13 or older'
     censored false
     next_episode_at nil
 
@@ -41,13 +41,17 @@ FactoryGirl.define do
       after(:create) {|v| FactoryGirl.create :anime_video, anime: v }
     end
 
-    factory :ongoing_anime do
+    trait :ongoing do
       status AniMangaStatus::Ongoing
       aired_on DateTime.now - 2.weeks
       duration 0
     end
 
-    factory :anons_anime do
+    trait :released do
+      status AniMangaStatus::Released
+    end
+
+    trait :anons do
       status AniMangaStatus::Anons
       aired_on DateTime.now + 2.weeks
       episodes_aired 0

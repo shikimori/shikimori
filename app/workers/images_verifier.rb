@@ -14,7 +14,7 @@ class ImagesVerifier
   def check_image entry
     return if !entry.image.exists? || ImageChecker.valid?(entry.image.path)
 
-    NamedLogger.sendimages_verifier.info "#{entry.class.name.downcase} #{entry.to_param}"
+    NamedLogger.images_verifier.info "#{entry.class.name.downcase} #{entry.to_param}"
     puts "reloading #{entry.class.name.downcase} #{entry.to_param} image..."
     ImageReloader.new(entry).perform
   end

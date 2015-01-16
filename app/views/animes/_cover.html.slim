@@ -5,12 +5,13 @@ span.image-decor
     - else
       img src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}" title="#{localized_name anime}"
 
-- if cover_by == :link
-  span.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" itemprop="name"
-    = localized_name anime
-- elsif cover_by == :linkeable
-  a.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
-    = localized_name anime
+- if cover_title != :none
+  - if cover_by == :link
+    span.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" itemprop="name"
+      = localized_name anime
+  - elsif cover_by == :linkeable
+    a.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
+      = localized_name anime
 
 span.misc
   - if cover_notice == :studio
@@ -41,6 +42,11 @@ span.misc
     span.misc.centered
       span.role
         = anime.formatted_role
+
+  - elsif cover_notice == :latest_episode
+    span.episode
+      span.number = "#{anime.episode.episode} эпизод"
+      span.type Озвучка и субтитры
 
   - elsif cover_notice == :none
   - else

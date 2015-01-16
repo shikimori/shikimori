@@ -3,8 +3,8 @@ describe PagesController do
 
   describe 'ongoings' do
     before do
-      create :ongoing_anime
-      create :anons_anime
+      create :anime, :ongoing
+      create :anime, :anons
       create :topic, :with_section, id: 94879
       get :ongoings
     end
