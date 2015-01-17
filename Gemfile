@@ -133,9 +133,11 @@ group :test, :development do
 
   gem 'spring-commands-rspec'
 
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-bundler'
+  gem 'guard', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-spring', require: false
+  gem 'guard-pow', require: false
 end
 
 group :test do

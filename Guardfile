@@ -4,6 +4,7 @@ ignore %r{
 
 guard :bundler do
   watch('Gemfile')
+  watch('Gemfile.lock')
 end
 
 guard :rspec, cmd: 'bundle exec spring rspec --color --format documentation', all_after_pass: false, all_on_start: false, failed_mode: :keep do
@@ -32,4 +33,16 @@ guard :rspec, cmd: 'bundle exec spring rspec --color --format documentation', al
 
   # Capybara request specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml|slim|rabl)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
+end
+
+guard :pow do
+  watch('.powrc')
+  watch('.powenv')
+  watch('.rvmrc')
+  watch('Gemfile')
+  watch('Gemfile.lock')
+  watch('config/application.rb')
+  watch('config/environment.rb')
+  watch(%r{^config/environments/.*\.rb$})
+  watch(%r{^config/initializers/.*\.rb$})
 end

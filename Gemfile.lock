@@ -346,10 +346,15 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.2.0)
+    guard-pow (2.0.0)
+      guard (~> 2.0)
     guard-rspec (4.5.0)
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    guard-spring (0.0.4)
+      guard
+      spring
     hashie (3.3.2)
     hike (1.2.3)
     hiredis (0.5.2)
@@ -694,7 +699,9 @@ DEPENDENCIES
   gcm
   guard
   guard-bundler
+  guard-pow
   guard-rspec
+  guard-spring
   htmldiff!
   htmlentities
   icalendar
