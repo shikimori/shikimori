@@ -96,7 +96,6 @@ module ReadMangaImportData
     'crazy paradise' => 'http://www.diary.ru/~crazy-paradise',
     'world art' => 'http://world-art.ru',
     'death note - kira revival project' => 'http://deathnote.ru',
-    'moonlight team' => 'http://moonlight-team.ru',
     'manga-kya' => 'http://manga-kya.ucoz.ru',
     'kukuruka team' => 'http://kukurukateam.ucoz.ru',
     'flower rain' => 'http://flower-rain.ucoz.ru',
