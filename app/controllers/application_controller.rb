@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   helper_method :anime_online?
   helper_method :manga_online?
   helper_method :turbolinks_request?
+  helper_method :base_controller_name
 
   unless Rails.env.test?
     rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,
@@ -94,6 +95,11 @@ class ApplicationController < ActionController::Base
     else
       'shikimori'
     end
+  end
+
+  def base_controller_name
+    name = self.class.superclass.name.to_underscore.sub(/_controller$/, '')
+    name if name != 'application' && name != 'shikimori'
   end
 
 private

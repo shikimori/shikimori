@@ -42,7 +42,7 @@
             .block
               - if @resource.anime_videos?
                 .watch-online.subheadline.blue
-                  span.linkeable data-href="#{anime_videos_show_url @resource.id, 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
+                  span.linkeable data-href="#{play_video_online_index_url @resource, episode: 1, domain: AnimeOnlineDomain::HOST, subdomain: false}" Смотреть онлайн
               - elsif user_signed_in?
                 .watch-online.subheadline.blue
                   a href="#{new_anime_online_anime_anime_video_url @resource.id, domain: AnimeOnlineDomain::HOST, subdomain: false}" Нет видео. Загрузить

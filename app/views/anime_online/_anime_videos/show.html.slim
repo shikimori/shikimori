@@ -2,7 +2,7 @@
 - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
   .ads_container = render partial: 'anime_online/blocks/ads_top_line'
 
-.p-anime_video-show.container data-watch-delay="#{@anime.watch_increment_delay}" data-watch-url="#{watch_view_increment_anime_online_anime_video_url @anime.current_video if @anime.current_video}"
+.p-anime_video-show.container data-watch-delay="#{@anime.watch_increment_delay}" data-watch-url="#{track_view_video_online_url @anime, @anime.current_video if @anime.current_video}"
   .title = @anime.name.to_s.html_safe
   .row
     .col-md-3.col-sm-4

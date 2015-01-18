@@ -1,7 +1,7 @@
 = cache report do
   .b-log_entry
     span.id-label #
-    span: a href="#{anime_videos_show_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
+    span: a href="#{play_video_online_index_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
       = report.id
     span.date #{report.created_at.strftime '%d.%m.%Y'}
     .b-user16
@@ -12,7 +12,7 @@
     span.kind class="#{report.kind}" = report.kind_text
 
     span
-      = link_to report.anime_video.anime.name, anime_videos_show_url(report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play), class: 'bubbled', 'data-href' => tooltip_anime_url(report.anime_video.anime)
+      = link_to report.anime_video.anime.name, play_video_online_index_url(report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play), class: 'bubbled', 'data-href' => tooltip_anime_url(report.anime_video.anime)
 
     span.state class="#{report.state.downcase}"
       = t "UserChangeStatus.#{report.state.capitalize}"

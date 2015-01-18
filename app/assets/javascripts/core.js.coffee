@@ -51,7 +51,7 @@ $(document).on 'page:load page:restore', (e) ->
     body_classes = if group.conditions.length && group.conditions[0][0] == '.'
       group.conditions
         .filter (v) -> v[0] == '.'
-        .map (v) -> "p-#{v.slice 1}-"
+        .map (v) -> "p-#{v.slice 1} "
     else
       null
 

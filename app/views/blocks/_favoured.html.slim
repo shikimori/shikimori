@@ -6,4 +6,4 @@
       - else
         | В избранном
     .cc
-      = render favoured, content_by: :avatar
+      = render partial: 'users/user', collection: favoured, locals: { content_by: :avatar }

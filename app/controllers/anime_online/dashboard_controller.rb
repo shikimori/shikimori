@@ -1,4 +1,4 @@
-class AnimeOnline::DashboardController < AnimeOnlineController
+class AnimeOnline::DashboardController < ShikimoriController
   def show
     @page = [params[:page].to_i, 1].max
     @limit = 8

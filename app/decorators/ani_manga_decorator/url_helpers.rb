@@ -2,9 +2,9 @@ module AniMangaDecorator::UrlHelpers
   # адрес аниме
   def url
     if anime?
-      h.anime_url object
+      h.anime_url object, subdomain: nil
     else
-      h.manga_url object
+      h.manga_url object, subdomain: nil
     end
   end
 

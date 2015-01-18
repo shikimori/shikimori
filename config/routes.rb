@@ -25,10 +25,24 @@ Site::Application.routes.draw do
     get '/', to: 'anime_online/dashboard#show'
     get '/page/:page', to: 'anime_online/dashboard#show', as: :anime_dashboard_page
 
-    get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
+    get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
+      with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
-    scope page: 'online_video' do
-      resources :animes, only: [:show]
+    #scope page: 'online_video' do
+      #resources :animes, only: [:show]
+    #end
+
+    scope 'animes/:anime_id', module: 'anime_online' do
+      resources :video_online, controller: 'anime_videos', only: [:index] do
+        member do
+          post :track_view
+        end
+
+        collection do
+          get '(/:episode)(/:video_id)(/:all)', action: :index, as: :play,
+            episode: /\d+/, video_id: /\d+/, all: 'all'
+        end
+      end
     end
 
     #namespace :anime_online do
@@ -178,7 +192,7 @@ Site::Application.routes.draw do
         end
       end
 
-      resources :anime_video_reports, only: [:index] do
+      resources :anime_video_reports, only: [:index, :create] do
         get '/page/:page', action: :index, as: :page, on: :collection
 
         member do

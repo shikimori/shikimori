@@ -1,8 +1,8 @@
 describe Moderation::AnimeVideoReportsController do
   before { sign_in moderator }
 
-  let(:user) { create :user }
-  let(:moderator) { create :user, id: User::Blackchestnut_ID }
+  let(:user) { create :user, :user }
+  let(:moderator) { create :user, :video_moderator }
   let(:anime_video) { create :anime_video, anime: create(:anime) }
   let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video }
 
@@ -26,6 +26,16 @@ describe Moderation::AnimeVideoReportsController do
       it { should redirect_to moderation_anime_video_reports_url }
       specify { expect(anime_video.reload.state).to eq kind }
     end
+  end
+
+  describe '#create' do
+    let(:anime_video_report) {}
+    let(:params) {{ kind: 'broken', anime_video_id: anime_video.id, user_id: user.id, message: 'test' }}
+    before { post :create, anime_video_report: params }
+
+    it { should respond_with :success }
+    it { expect(resource).to be_persisted }
+    it { expect(resource).to have_attributes params }
   end
 
   describe '#cancel' do

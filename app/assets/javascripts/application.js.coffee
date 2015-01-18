@@ -17,6 +17,9 @@
 #= require_directory ./pages/p-user_rates
 #= require_directory ./pages/p-topics
 
+# require anime_online/application
+# require manga_online/application
+
 $ =>
   $(document).trigger 'page:load', true
   Turbolinks.enableProgressBar()
