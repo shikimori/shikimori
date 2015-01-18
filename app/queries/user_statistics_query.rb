@@ -297,9 +297,13 @@ class UserStatisticsQuery
     # подсчёт процентов
     sum = stats_by_categories.sum {|k,v| v }.to_f
 
-    stats = sum > 8 ? stats_by_categories.map do |k,v|
-      [k, ((v * 1000 / sum).to_i / 10.0).to_f]
-    end.compact.sort_by {|k,v| k.name } : []
+    stats = if sum > 8
+      stats_by_categories.map do |k,v|
+        [k, ((v * 1000 / sum).to_i / 10.0).to_f]
+      end
+    else
+      []
+    end.compact.sort_by {|k,v| k.name }
 
     if stats.any?
       # для жанров занижаем долю комедий
