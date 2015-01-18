@@ -1,4 +1,4 @@
-class MangaOnline::ChaptersController < MangaOnlineController
+class MangaOnline::ChaptersController < ShikimoriController
   def show
     @chapter = MangaChapter.includes(:pages).find params[:id]
     @manga = @chapter.manga
