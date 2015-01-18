@@ -33,6 +33,10 @@ FactoryGirl.define do
       id User::ReviewsModerators.last
     end
 
+    trait :video_moderator do
+      id User::VideoModerators.last
+    end
+
     trait :user_changes_moderator do
       id User::UserChangesModerators.last
     end

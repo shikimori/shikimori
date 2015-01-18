@@ -1,3 +1,5 @@
+require 'cancan/matchers'
+
 describe AnimeVideoReport do
   describe 'relations' do
     it { should belong_to :anime_video }
@@ -235,6 +237,45 @@ describe AnimeVideoReport do
           specify { expect(report_other_kind.reload.approver_id).to be_nil }
         end
       end
+    end
+  end
+
+  describe 'permissions' do
+    let(:report) { build_stubbed :anime_video_report, user_id: user_id, kind: kind }
+    let(:user_id) { user.id }
+    let(:kind) { :broken }
+    subject { Ability.new user }
+
+    context 'moderator' do
+      let(:user) { build_stubbed :user, :video_moderator }
+      it { should be_able_to :manage, report }
+    end
+
+    context 'user' do
+      let(:user) { build_stubbed :user }
+      it { should_not be_able_to :manage, report }
+
+      context 'uploaded' do
+        let(:kind) { :uploaded }
+        it { should_not be_able_to :create, report }
+      end
+
+      context 'broken' do
+        let(:kind) { :broken }
+        it { should be_able_to :create, report }
+      end
+
+      context 'wrong' do
+        let(:kind) { :wrong }
+        it { should be_able_to :create, report }
+      end
+    end
+
+    context 'guest' do
+      let(:user) { nil }
+      let(:user_id) { User::GuestID }
+      it { should_not be_able_to :manage, report }
+      it { should be_able_to :create, report }
     end
   end
 end

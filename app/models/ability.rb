@@ -12,6 +12,7 @@ class Ability
       moderator_ability if @user.moderator?
       contests_moderator_ability if @user.contests_moderator?
       reviews_moderator_ability if @user.reviews_moderator?
+      video_moderator_ability if @user.video_moderator?
       admin_ability if @user.admin?
     end
   end
@@ -32,6 +33,10 @@ class Ability
 
     can [:create], Message do |message|
       message.kind == MessageType::Private && message.from_id == User::GuestID && message.to_id == User::Admins.first
+    end
+
+    can [:create], AnimeVideoReport do |report|
+      report.user_id == User::GuestID && (report.broken? || report.wrong?)
     end
   end
 
@@ -136,6 +141,10 @@ class Ability
       message.kind == MessageType::Private &&
         message.from_id == @user.id && message.created_at + 10.minutes > Time.zone.now
     end
+
+    can [:create], AnimeVideoReport do |report|
+      report.user_id == @user.id && (report.broken? || report.wrong?)
+    end
   end
 
   def moderator_ability
@@ -149,6 +158,10 @@ class Ability
 
   def reviews_moderator_ability
     can :manage, Review
+  end
+
+  def video_moderator_ability
+    can :manage, AnimeVideoReport
   end
 
   def admin_ability
