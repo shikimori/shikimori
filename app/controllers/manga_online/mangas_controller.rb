@@ -1,4 +1,4 @@
-class MangaOnline::MangasController < MangaOnlineController
+class MangaOnline::MangasController < ShikimoriController
   def index
     manga_ids = MangaChapter.select(:manga_id).distinct.map(&:manga_id)
     @mangas = Manga.where id: manga_ids
