@@ -1,4 +1,4 @@
-describe AnimeOnline::ReportWorker do
+describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_worker' } do
   let(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
   let(:anime_video) { create :anime_video, url: url }
 
@@ -25,6 +25,11 @@ describe AnimeOnline::ReportWorker do
 
       context 'broken_hide' do
         let(:url) { 'http://vk.com/video_ext.php?oid=-24168188&id=160084503&hash=158435bbc70b2697&hd=3' }
+        it { should be_accepted }
+      end
+
+      context 'adult export forbidden' do
+        let(:url) { 'http://vk.com/video_ext.php?oid=-23314707&id=160661445&hash=5bc587ab61aace17&hd=3' }
         it { should be_accepted }
       end
     end

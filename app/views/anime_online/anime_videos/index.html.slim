@@ -33,7 +33,7 @@
     .c-videos
       .title Варианты видео
       - @player.episode_videos.each do |video|
-        .episode
+        .episode data-id="#{video.id}"
           a class="#{:active if video.id == @player.current_video.id}" href="#{play_video_online_index_url @player.anime.id, @player.current_episode, video.id}"
             span.video-kind = t ".kind.#{video.kind}"
             span.video-hosting = video.hosting

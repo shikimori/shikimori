@@ -37,6 +37,10 @@ end
   #runner "Delayed::Job.enqueue_uniq TorrentsLatestJob.new"
 #end
 
+every 2.weeks, at: '2:30 am' do
+  runner "AnimeOnline::BrokenVkVideosCleaner.perform_async"
+end
+
 every 32.days, at: '4:13 am' do
   runner "WikipediaImporter.perform_async"
 end

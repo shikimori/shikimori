@@ -15,7 +15,7 @@ class AnimeVideo < ActiveRecord::Base
   enumerize :language, in: [:russian, :english], predicates: true
 
   validates :anime, presence: true
-  validates :url, presence: true, url: true, uniqueness: { scope: :anime_id }
+  validates :url, presence: true, url: true
   validates :source, presence: true
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
@@ -34,8 +34,12 @@ class AnimeVideo < ActiveRecord::Base
   CopyrightBanAnimeIDs = [] # 10793
 
   state_machine :state, initial: :working do
-    state :working
-    state :uploaded
+    state :working do
+      validates :url, uniqueness: { scope: :anime_id }
+    end
+    state :uploaded do
+      validates :url, uniqueness: { scope: :anime_id }
+    end
     state :rejected
     state :broken
     state :wrong
