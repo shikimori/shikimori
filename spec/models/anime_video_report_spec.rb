@@ -60,6 +60,34 @@ describe AnimeVideoReport do
     end
   end
 
+  describe 'callbacks' do
+    describe 'after_create' do
+      describe '#auto_check' do
+        before { allow(AnimeOnline::ReportWorker).to receive(:delay_for).and_return task_double }
+
+        let!(:report) { create :anime_video_report, :with_video, :with_user }
+        let(:task_double) { double perform_async: nil }
+
+        it { expect(AnimeOnline::ReportWorker).to have_received(:delay_for).with(10.seconds) }
+        it { expect(task_double).to have_received(:perform_async).with report.id }
+      end
+
+      describe '#auto_accept' do
+        subject { create :anime_video_report, :with_video, user: user }
+
+        context 'user' do
+          let(:user) { create :user, :user }
+          it { should be_pending }
+        end
+
+        context 'video moderator' do
+          let(:user) { create :user, :video_moderator }
+          it { should be_accepted }
+        end
+      end
+    end
+  end
+
   describe 'doubles' do
     let!(:report) { create :anime_video_report, anime_video: anime_video, state: state_1 }
     let(:state_1) { 'rejected' }
@@ -70,7 +98,7 @@ describe AnimeVideoReport do
       it { should be_zero }
 
       context 'one_user_not_filter' do
-        let(:user) { create :user }
+        let(:user) { create :user, :user }
         let(:report) { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
         before { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
 
@@ -154,9 +182,9 @@ describe AnimeVideoReport do
 
 
     describe 'repeat event for doubles' do
-      let(:report_user_1) { create :user }
-      let(:report_user_2) { create :user }
-      let(:report_user_3) { create :user }
+      let(:report_user_1) { create :user, :user }
+      let(:report_user_2) { create :user, :user }
+      let(:report_user_3) { create :user, :user }
       let!(:report_1) { create :anime_video_report, anime_video: anime_video, kind: report_kind, user: report_user_1 }
       let!(:report_2) { create :anime_video_report, anime_video: anime_video, kind: report_kind, user: report_user_2 }
       let!(:report_3) { create :anime_video_report, anime_video: anime_video, kind: report_kind, user: report_user_3 }

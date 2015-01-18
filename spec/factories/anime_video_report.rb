@@ -19,5 +19,13 @@ FactoryGirl.define do
       v.user = FactoryGirl.build_stubbed(:user) unless v.user_id
       v.approver = FactoryGirl.build_stubbed(:user) unless v.user_id && v.pending?
     end
+
+    trait :with_video do
+      anime_video
+    end
+
+    trait :with_user do
+      user
+    end
   end
 end
