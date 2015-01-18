@@ -8,5 +8,5 @@
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
 
 resize_video_player = ->
-  $player = $('.video-player iframe').add $('.video-player embed')
+  $player = $('iframe,object,embed', '.video-player')
   $player.height($player.width() * 9 / 16)

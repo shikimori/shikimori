@@ -42,7 +42,7 @@ Site::Application.routes.draw do
     scope 'animes/:anime_id', module: 'anime_online' do
       get '' => redirect {|params, request| "#{request.url}/video_online" }
 
-      resources :video_online, controller: 'anime_videos', only: [:index] do
+      resources :video_online, controller: 'anime_videos', only: [:new, :create, :index] do
         member do
           post :track_view
         end

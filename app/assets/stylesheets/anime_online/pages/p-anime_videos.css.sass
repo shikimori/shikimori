@@ -11,15 +11,23 @@
       border: none
       width: 100%
 
+    object
+      width: 100%
+
     embed
       width: 100%
 
   .c-episodes, .c-videos
     +block
-    +gte_ipad
-      +column(2)
     +iphone
       +column(1)
+    +gte_ipad
+      +column(2)
+
+      &.c-videos
+        float: right
+        margin-right: 0
+
 
     .title
       font-weight: bold

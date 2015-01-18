@@ -10,6 +10,16 @@
       iframe src="#{@player.current_video.player_url}"
 
   .cc
+    .c-videos
+      .title Варианты видео
+      - @player.episode_videos.each do |video|
+        .episode data-id="#{video.id}"
+          a class="#{:active if video.id == @player.current_video.id}" href="#{play_video_online_index_url @player.anime.id, @player.current_episode, video.id}"
+            span.video-kind = t ".kind.#{video.kind}"
+            span.video-hosting = video.hosting
+            - if video.author
+              span.video-author = strip_tags video.author.name
+
     .c-episodes
       .title Эпизоды
       - @player.videos.take(10).each do |(episode, videos)|
@@ -29,16 +39,6 @@
               span.episode-hostings = @player.hostings videos
         .hide-more
           | &mdash; спрятать
-
-    .c-videos
-      .title Варианты видео
-      - @player.episode_videos.each do |video|
-        .episode data-id="#{video.id}"
-          a class="#{:active if video.id == @player.current_video.id}" href="#{play_video_online_index_url @player.anime.id, @player.current_episode, video.id}"
-            span.video-kind = t ".kind.#{video.kind}"
-            span.video-hosting = video.hosting
-            - if video.author
-              span.video-author = strip_tags video.author.name
 
   /.nav-video
     /ul.nav.nav-pills

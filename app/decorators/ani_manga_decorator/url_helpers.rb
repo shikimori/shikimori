@@ -117,4 +117,12 @@ module AniMangaDecorator::UrlHelpers
   def comments_all_url
     h.send "comments_#{klass_lower}_url", object
   end
+
+  def video_online_url
+    h.play_video_online_index_url object, episode: 1, domain: AnimeOnlineDomain::HOST, subdomain: false
+  end
+
+  def upload_first_video_online_url
+    h.new_video_online_url object, domain: AnimeOnlineDomain::HOST, subdomain: false
+  end
 end

@@ -1,12 +1,12 @@
 describe CharactersService do
-  let (:processor) { CharactersService.instance }
+  let(:processor) { CharactersService.instance }
 
-  let (:anime) { create :anime }
-  let (:character1) { create :character, japanese: 'ドイツ', russian: 'Ода Нобунага', name: 'Oda Nobunaga' }
-  let (:character2) { create :character, japanese: 'イタリア', russian: 'Ода Бобунага', name: 'Oda Bobunaga' }
-  let (:person1) { create :person, japanese: '新海 誠' }
+  let(:anime) { create :anime }
+  let(:character1) { create :character, japanese: 'ドイツ', russian: 'Ода Нобунага', name: 'Oda Nobunaga' }
+  let(:character2) { create :character, japanese: 'イタリア', russian: 'Ода Бобунага', name: 'Oda Bobunaga' }
+  let(:person1) { create :person, japanese: '新海 誠' }
 
-  before (:each) do
+  before do
     anime.characters << character1
     anime.characters << character2
     anime.people << person1
