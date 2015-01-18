@@ -13,9 +13,16 @@ private
     logfile = File.open(Rails.root.join('log', "#{name}.log"), 'a')
     logfile.sync = true
 
-    logger = ActiveSupport::Logger.new logfile
+    logger = NamedLoggerProxy.new ActiveSupport::Logger.new(logfile)
     logger.formatter = CommonLogFormatter.new
     logger
+  end
+end
+
+class NamedLoggerProxy < SimpleDelegator
+  def info text, *args
+    puts text
+    super
   end
 end
 
@@ -30,7 +37,7 @@ class CommonLogFormatter < Logger::Formatter
 end
 
 class ColouredLogFormatter < Logger::Formatter
-  SEVERITY_TO_COLOR_MAP   = {'DEBUG'=>'32', 'INFO'=>'0;37', 'WARN'=>'35', 'ERROR'=>'31', 'FATAL'=>'31', 'UNKNOWN'=>'37'}
+  SEVERITY_TO_COLOR_MAP = {'DEBUG'=>'32', 'INFO'=>'0;37', 'WARN'=>'35', 'ERROR'=>'31', 'FATAL'=>'31', 'UNKNOWN'=>'37'}
 
   def call severity, time, progname, msg
     color = SEVERITY_TO_COLOR_MAP[severity]
