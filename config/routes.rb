@@ -3,15 +3,22 @@ require 'sidekiq/web'
 Site::Application.routes.draw do
   ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
 
-  resources :genres, only: [:index, :edit, :update] do
-    get :tooltip, on: :member
-  end
-
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
+
+  resources :genres, only: [:index, :edit, :update] do
+    get :tooltip, on: :member
+  end
+
+  resources :animes, only: [] do
+    get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+  end
+  resources :mangas, only: [] do
+    get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+  end
 
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
@@ -33,6 +40,8 @@ Site::Application.routes.draw do
     #end
 
     scope 'animes/:anime_id', module: 'anime_online' do
+      get '' => redirect {|params, request| "#{request.url}/video_online" }
+
       resources :video_online, controller: 'anime_videos', only: [:index] do
         member do
           post :track_view
@@ -348,7 +357,6 @@ Site::Application.routes.draw do
           get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
           get 'cosplay/:character(/:gallery)' => "#{kind}#cosplay", page: 'cosplay', as: :cosplay
         end
-        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
 
         # обзоры
         resources :reviews, type: kind.singularize.capitalize

@@ -33,13 +33,18 @@ class ShikimoriController < ApplicationController
 
   def resource_redirect
     if resource_id != @resource.to_param && request.method == 'GET' && params[:action] != 'new'
-      redirect_to url_for(url_params(id: @resource.to_param))
+      redirect_to url_for(url_params(resource_id_key => @resource.to_param))
       false
     end
   end
 
   def resource_id
-    @resource_id ||= params["#{self.class.name.underscore.sub(/_controller$/, '')}_id"] || params[:id]
+    @resource_id ||= params[resource_id_key]
+  end
+
+  def resource_id_key
+    key = "#{resource_klass.name.downcase}_id".to_sym
+    params[key] ? key : :id
   end
 
   def resource_klass

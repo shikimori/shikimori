@@ -67,38 +67,38 @@ describe AnimeOnline::VideoPlayer do
     end
   end
 
-  #describe 'dropdown_videos' do
-    #subject { AnimeOnline::VideoPlayer.new(anime).dropdown_videos }
-    #let(:anime) { build :anime }
+  describe 'episode_videos' do
+    subject { AnimeOnline::VideoPlayer.new(anime).episode_videos }
+    let(:anime) { build :anime }
 
-    #context 'without_vidoes' do
-      #it { should be_blank }
-    #end
+    context 'without_vidoes' do
+      it { should be_blank }
+    end
 
-    #context 'vk_first' do
-      #let(:video_vk) { build :anime_video, url: 'http://vk.com/video' }
-      #let(:video_other) { build :anime_video, url: 'http://aaa.com/video' }
-      #before { anime.anime_videos << [video_other, video_vk] }
+    context 'vk_first' do
+      let(:video_vk) { build :anime_video, url: 'http://vk.com/video' }
+      let(:video_other) { build :anime_video, url: 'http://aaa.com/video' }
+      before { anime.anime_videos << [video_other, video_vk] }
 
-      #its(:first) { should eq video_vk }
-    #end
+      its(:first) { should eq video_vk }
+    end
 
-    #context 'fandub_first' do
-      #let(:video_fandub) { build :anime_video, kind: :fandub }
-      #let(:video_sublitles) { build :anime_video, kind: :subtitles }
-      #before { anime.anime_videos << [video_sublitles, video_fandub] }
+    context 'fandub_first' do
+      let(:video_fandub) { build :anime_video, kind: :fandub }
+      let(:video_sublitles) { build :anime_video, kind: :subtitles }
+      before { anime.anime_videos << [video_sublitles, video_fandub] }
 
-      #its(:first) { should eq video_fandub }
-    #end
+      its(:first) { should eq video_fandub }
+    end
 
-    #context 'unknown_as_fandub_first' do
-      #let(:video_unknown) { build :anime_video, kind: :unknown }
-      #let(:video_sublitles) { build :anime_video, kind: :subtitles }
-      #before { anime.anime_videos << [video_sublitles, video_unknown] }
+    context 'unknown_as_fandub_first' do
+      let(:video_unknown) { build :anime_video, kind: :unknown }
+      let(:video_sublitles) { build :anime_video, kind: :subtitles }
+      before { anime.anime_videos << [video_sublitles, video_unknown] }
 
-      #its(:first) { should eq video_unknown }
-    #end
-  #end
+      its(:first) { should eq video_unknown }
+    end
+  end
 
   describe 'try_select_by' do
     subject { AnimeOnline::VideoPlayer.new(anime).send :try_select_by, kind.to_s, hosting, author_id }

@@ -78,7 +78,7 @@ class AnimeOnline::VideoPlayer
   end
 
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
-  def dropdown_videos
+  def episode_videos
     return [] if current_videos.blank?
     current_videos.sort_by do |v|
       [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.vk? ? '' : v.hosting, v.author ? v.author.name : '']

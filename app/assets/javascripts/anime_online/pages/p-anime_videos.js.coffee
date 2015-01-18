@@ -1,14 +1,12 @@
 @on 'page:load', 'anime_videos_index', ->
-  resize_player()
-  $(window).resize resize_player
+  $('.b-show_more').show_more()
 
-resize_player = ->
-  $frame = $('.video-player iframe')
-  $frame.height($frame.width() * 9 / 16) if $frame
+  resize_video_player()
 
-  $object = $('.video-player object')
-  if $object
-    width = $object.parent().width()
-    $object.width(width).height(width * 9 / 16)
-    $('embed', $object).width(width).height(width * 9 / 16)
+  debounced_resize = $.debounce(250, resize_video_player)
+  $(window).on('resize', debounced_resize)
+  $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
 
+resize_video_player = ->
+  $player = $('.video-player iframe').add $('.video-player embed')
+  $player.height($player.width() * 9 / 16)

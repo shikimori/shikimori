@@ -2,10 +2,7 @@
 class AnimeOnline::AnimeVideosController < AnimesController
   #layout 'anime_online'
 
-  #before_action do
-    #noindex
-    #nofollow
-  #end
+  before_action { noindex && nofollow }
 
   before_action :authenticate_user!, only: [:destroy, :rate, :viewed]
   before_action :check_redirect, only: :show

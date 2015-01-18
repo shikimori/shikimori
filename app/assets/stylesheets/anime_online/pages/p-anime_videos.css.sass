@@ -1,5 +1,61 @@
+@import mixins/block
+@import mixins/column
+@import mixins/link
+@import mixins/responsive
+
 .p-anime_videos
   .video-player
+    margin-bottom: $block-offset
+
     iframe
       border: none
       width: 100%
+
+    embed
+      width: 100%
+
+  .c-episodes, .c-videos
+    +block
+    +gte_ipad
+      +column(2)
+    +iphone
+      +column(1)
+
+    .title
+      font-weight: bold
+      color: #123
+      margin-bottom: 5px
+
+    .episode
+      &:first-letter
+        text-transform: uppercase
+
+      a
+        +link
+
+        &.active
+          font-weight: bold
+
+      .episode-num
+        color: #123
+        display: inline-block
+        font-weight: bold
+        padding-right: 6px
+
+      .video-author
+        color: #123
+        padding-left: 6px
+
+      .episode-hostings, .video-hosting
+        padding-left: 6px
+        color: $gray-color-2
+
+        &:before, &:after
+          color: $gray-color-0
+          display: inline-block // чтбы по hover подчёркивание не появлялось у ссылок
+
+        &:before
+          content: '('
+
+        &:after
+          content: ')'
