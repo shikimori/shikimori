@@ -31,11 +31,13 @@ class AnimeOnline::VideoPlayer
 
   def current_video
     unless current_videos.blank?
-      if video_id > 0
+      video = if video_id > 0
         current_videos.find {|v| v.id == video_id }
       else
         try_select_by h.cookies[:preference_kind], h.cookies[:preference_hosting], h.cookies[:preference_author_id].to_i
       end
+
+      video.decorate if video
     end
   end
 

@@ -133,6 +133,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "4e511190b60f329d08301eb6869c5130",
+      "css": "fast-fw",
+      "code": 59450,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b3d902fcead809e3a64c7ddcda497a6c",
+      "css": "fast-bw",
+      "code": 59442,
+      "src": "fontawesome"
+    },
+    {
       "uid": "02cca871bb69da75e8ee286b7055832c",
       "css": "bold",
       "code": 59394,
@@ -265,6 +277,12 @@
       "src": "entypo"
     },
     {
+      "uid": "d10920db2e79c997c5e783279291970c",
+      "css": "dot-3",
+      "code": 59459,
+      "src": "entypo"
+    },
+    {
       "uid": "ddecf5ad7935e3fb1b70dac6ed00d06a",
       "css": "language",
       "code": 59439,
@@ -322,6 +340,12 @@
       "uid": "in76hg99crrkpcbz2rjnmgbiw74s72y0",
       "css": "ok-1",
       "code": 59415,
+      "src": "modernpics"
+    },
+    {
+      "uid": "587bjlxppui6u4japooa2foe58rsvicp",
+      "css": "pencil",
+      "code": 59458,
       "src": "modernpics"
     },
     {

@@ -1,17 +1,16 @@
-#TODO разделить аниме для play и xplay в #index, #show, #search
 class AnimeOnline::AnimeVideosController < AnimesController
-  #layout 'anime_online'
-
   before_action { noindex && nofollow }
 
   before_action :authenticate_user!, only: [:destroy, :rate, :viewed]
-  before_action :check_redirect, only: :show
   after_action :save_preferences, only: :index
 
   def index
+    return redirect_to valid_host_url unless valid_host?
+    raise ActionController::RoutingError.new('Not Found') if @resource.anime_videos.blank?
+
     @player = AnimeOnline::VideoPlayer.new @resource
+    @video = @player.current_video
     page_title @player.episode_title
-    #raise ActionController::RoutingError.new 'Not Found' if @anime.anime_videos.blank?
   end
 
   def track_view
@@ -120,12 +119,6 @@ private
     Anime
   end
 
-  def check_redirect
-    unless AnimeOnlineDomain::valid_host? @anime, request
-      return redirect_to anime_videos_show_url(@anime.id, domain: AnimeOnlineDomain::host(@anime), subdomain: false)
-    end
-  end
-
   def save_preferences
     if params[:video_id]
       if video = AnimeVideo.find_by(id: params[:video_id])
@@ -134,5 +127,19 @@ private
         cookies[:preference_author_id] = video.anime_video_author_id
       end
     end
+  end
+
+  def valid_host?
+    AnimeOnlineDomain::valid_host? @resource, request
+  end
+
+  def valid_host_url
+    ap play_video_online_index_url @resource,
+      episode: params[:episode], video_id: params[:video_id],
+      domain: AnimeOnlineDomain::host(@resource), subdomain: false
+
+    play_video_online_index_url @resource,
+      episode: params[:episode], video_id: params[:video_id],
+      domain: AnimeOnlineDomain::host(@resource), subdomain: false
   end
 end

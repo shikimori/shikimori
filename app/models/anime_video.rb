@@ -16,6 +16,7 @@ class AnimeVideo < ActiveRecord::Base
 
   validates :anime, presence: true
   validates :url, presence: true, url: true
+  validates :url, uniqueness: { scope: :anime_id }
   validates :source, presence: true
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
@@ -31,15 +32,11 @@ class AnimeVideo < ActiveRecord::Base
 
   scope :worked, -> { where state: ['working', 'uploaded'] }
 
-  CopyrightBanAnimeIDs = [] # 10793
+  CopyrightBanAnimeIDs = [-1] # 10793
 
   state_machine :state, initial: :working do
-    state :working do
-      validates :url, uniqueness: { scope: :anime_id }
-    end
-    state :uploaded do
-      validates :url, uniqueness: { scope: :anime_id }
-    end
+    state :working
+    state :uploaded
     state :rejected
     state :broken
     state :wrong
@@ -73,14 +70,6 @@ class AnimeVideo < ActiveRecord::Base
     hosting == 'vk.com'
   end
 
-  def player_url
-    if vk? && reports.any? {|r| r.broken? }
-      "#{url}#{url.include?('?') ? '&' : '?' }quality=360"
-    else
-      url
-    end
-  end
-
   def allowed?
     working? || uploaded?
   end
@@ -94,8 +83,8 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def uploader
-    if uploaded?
-      @uploader ||= AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').last.try(:user)
+    @uploader ||= if uploaded?
+      AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').last.try(:user)
     end
   end
 

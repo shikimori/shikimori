@@ -2,6 +2,9 @@
 @import mixins/link
 @import mixins/responsive
 
+$icon_desktop_size: 20px
+$icon_mobile_size: 30px
+
 // кнопочки иконочные
 =icon($content, $font-size: 14px)
   cursor: pointer
@@ -13,7 +16,7 @@
     margin-left: 35px
 
   +responsive(narrow-phone)
-    margin-left: 30px
+    margin-left: $icon_mobile_size
 
   &:before
     content: $content
@@ -21,9 +24,9 @@
     display: inline-block
     font-family: 'shikimori'
     font-size: $font-size
-    line-height: 20px
+    line-height: $icon_desktop_size
     text-align: center
-    width: 20px
+    width: $icon_desktop_size
 
   +lte_ipad
     white-space: nowrap
@@ -31,8 +34,8 @@
 
     &:before
       font-size: 22px
-      line-height: 30px
-      width: 30px
+      line-height: $icon_mobile_size
+      width: $icon_mobile_size
 
 =menu_icon($content)
   +icon($content)
@@ -78,16 +81,16 @@
     content: $content
     display: inline-block
     font-size: 22px
-    line-height: 30px
+    line-height: $icon_mobile_size
     margin-left: 11px
 
 =icon_action($content)
   +link_color(#444444)
   cursor: pointer
   display: inline-block
-  height: 30px
-  margin-right: 20px
-  width: 30px
+  height: $icon_mobile_size
+  margin-right: $icon_desktop_size
+  width: $icon_mobile_size
 
   &:last-child
     margin-right: 0
@@ -100,7 +103,7 @@
     display: inline-block
     font-family: 'shikimori'
     font-size: 18px
-    line-height: 30px
+    line-height: $icon_mobile_size
     text-align: center
 
     +iphone

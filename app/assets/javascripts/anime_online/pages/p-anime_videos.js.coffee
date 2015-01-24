@@ -7,6 +7,12 @@
   $(window).on('resize', debounced_resize)
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
 
+  # показ дополнительных кнопок для видео
+  $('.show-options').on 'click', ->
+    $(@).toggleClass 'selected'
+    $('.cc-navigation').toggle()
+    $('.cc-optional_controls').toggle()
+
 resize_video_player = ->
-  $player = $('iframe,object,embed', '.video-player')
+  $player = $('iframe,object,embed,.placeholder', '.video-player')
   $player.height($player.width() * 9 / 16)

@@ -1,23 +1,135 @@
+@import compass/utilities/general/clearfix
+@import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/column
+@import mixins/icons
 @import mixins/link
 @import mixins/responsive
+@import mixins/clear_left
 
 .p-anime_videos
   .video-player
-    margin-bottom: $block-offset
+    margin-bottom: 10px
 
     iframe
       border: none
       width: 100%
-
     object
       width: 100%
-
     embed
       width: 100%
 
-  .c-episodes, .c-videos
+  .cc-player_controls
+    +clearfix
+
+    .cc-navigation, .cc-optional_controls
+      +clear_left
+
+      &>.c-control
+        +column(3)
+
+    .cc-optional_controls
+      display: none
+
+    .cc-options
+      +clear_left
+
+      &>.c-column
+        +column(2)
+
+  .cc-player_controls
+    a.c-control
+      +link
+      //+link_color
+
+      &:hover .icon
+        color: $link_hover
+      &:active .icon
+        color: $link_active
+
+    .c-control
+      +link_color(#333)
+      cursor: pointer
+      text-align: center
+
+      &.selected, &.selected .icon
+        color: $link_hover
+
+      .icon
+        margin: 0 !important
+
+        &:before
+          font-size: 18px !important
+          width: 100%
+
+    //a.c-control
+      +link
+
+    .label
+      +ellipsis
+      +iphone_portrait
+        display: none
+      font-size: 10px
+      b
+        color: #123
+
+    .episode-title
+      color: #444 !important
+      cursor: default
+      font-size: 17px
+      line-height: $icon_desktop_size
+      text-align: center
+      text-decoration: none !important
+
+      +lte_ipad
+        line-height: $icon_mobile_size
+
+      +iphone_portrait
+        span
+          display: none
+
+    .prev .icon
+      +icon_button("\e832")
+    .next .icon
+      +icon_button("\e83a")
+    .add .icon
+      +icon_button("\002b")
+    .show-options .icon
+      +icon_button("\e843")
+
+    .edit .icon
+      +icon_button("\e842")
+    .report .icon
+      +icon_button("\e806")
+    .upload .icon
+      +icon_button("\e80c")
+
+  .c-video-stats
+    font-size: 12px
+    margin-top: -4px
+    text-align: right
+
+    .views_count
+      color: $gray-color-2
+
+    .uploader
+      color: #333
+      white-space: nowrap
+
+      +iphone_portrait
+        &>span
+          display: none
+
+      .b-user16
+        line-height: 17px
+        margin-right: 0
+        padding-left: 5px
+
+        img
+          margin-top: 0
+
+  .c-episodes,
+  .c-videos
     +block
     +iphone
       +column(1)
@@ -27,7 +139,6 @@
       &.c-videos
         float: right
         margin-right: 0
-
 
     .title
       font-weight: bold

@@ -4,53 +4,55 @@ describe AnimeOnline::AnimeVideosController do
 
   describe '#index' do
     describe 'video_content' do
-      before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
-      before { request }
       let(:anime) { create :anime, name: 'anime_test' }
       let!(:anime_video) { create :anime_video, anime: anime }
 
-      context 'with_video', :focus do
-        let(:request) { get :index, anime_id: anime.id }
+      before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
+      before { request }
+
+      context 'with_video' do
+        let(:request) { get :index, anime_id: anime.to_param }
         it { should respond_with :success }
 
-        #describe 'search' do
-          #let(:request) { get :index, anime_id: anime.id, search: 'foo' }
-          #it { should redirect_to(anime_videos_url search: 'foo') }
-        #end
-
-        #context 'without_current_video' do
-          #let(:request) { get :index, anime_id: anime.id, episode: anime_video.episode, video_id: anime_video.id + 1 }
-          #it { should respond_with :success }
-        #end
+        context 'without_current_video' do
+          let(:request) { get :index, anime_id: anime.to_param, episode: anime_video.episode, video_id: anime_video.id + 1 }
+          it { should respond_with :success }
+        end
       end
 
       context 'without_any_video' do
         let(:anime) { create :anime, name: 'anime_test' }
-        it { expect{get :index, anime_id: anime.id}.to raise_error(ActionController::RoutingError) }
+        it { expect{get :index, anime_id: anime.to_param}.to raise_error(ActionController::RoutingError) }
       end
     end
 
     describe 'verify_adult' do
-      before do
-        allow_any_instance_of(Anime).to receive(:adult?).and_return adult
-        @request.host = domain
-        get :index, anime_id: anime.id, domain: 'play'
-      end
-      let(:anime) { create :anime, anime_videos: [create(:anime_video)] }
+      before { allow_any_instance_of(Anime).to receive(:adult?).and_return adult }
+      before { @request.host = domain }
+      before { get :index, anime_id: anime.to_param, episode: episode, video_id: video_id, domain: 'play' }
+
+      let(:anime) { create :anime, anime_videos: [] }
+      let(:anime_video) { create :anime_video, episode: 1, anime: anime }
+
+      let(:episode) { }
+      let(:video_id) { }
 
       context 'with_redirect' do
+        let(:episode) { 2 }
+        let(:video_id) { anime_video.id }
+
         context 'adult_video' do
           let(:adult) { true }
           let(:domain) { 'play.shikimori.org' }
 
-          it { should redirect_to(anime_videos_show_url anime.id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
+          it { should redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
         end
 
         context 'adult_domain' do
           let(:adult) { false }
           let(:domain) { 'xplay.shikimori.org' }
 
-          it { should redirect_to(anime_videos_show_url anime.id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
+          it { should redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
         end
       end
 
@@ -75,20 +77,20 @@ describe AnimeOnline::AnimeVideosController do
   #describe 'new' do
     #context 'can_new' do
       #let(:anime) { create :anime }
-      #before { get :new, anime_id: anime.id }
+      #before { get :new, anime_id: anime.to_param }
       #it { should respond_with :success }
     #end
 
     #context 'copyright_ban' do
       #let(:anime) { create :anime, id: AnimeVideo::CopyrightBanAnimeIDs.first }
-      #it { expect { get :new, anime_id: anime.id }.to raise_error(ActionController::RoutingError) }
+      #it { expect { get :new, anime_id: anime.to_param }.to raise_error(ActionController::RoutingError) }
     #end
   #end
 
   #describe 'create' do
     #before { sign_in user }
     #let(:anime) { create :anime }
-    #let(:create_request) { post :create, anime_video: { episode: 1, url: 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7', anime_id: anime.id, source: 'test', kind: 'fandub', author: 'test_author' } }
+    #let(:create_request) { post :create, anime_video: { episode: 1, url: 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7', anime_id: anime.to_param, source: 'test', kind: 'fandub', author: 'test_author' } }
 
     #context 'response' do
       #before { create_request }
@@ -193,7 +195,7 @@ describe AnimeOnline::AnimeVideosController do
   #describe 'viewed' do
     #let(:anime) { create :anime }
     #let(:video) { create :anime_video }
-    #let(:request) { get :viewed, id: video.id, anime_id: anime.id }
+    #let(:request) { get :viewed, id: video.id, anime_id: anime.to_param }
 
     #context 'check_response' do
       #before do
@@ -201,7 +203,7 @@ describe AnimeOnline::AnimeVideosController do
         #request
       #end
 
-      #it { should redirect_to anime_videos_show_url(video.anime_id, video.episode + 1) }
+      #it { should redirect_to play_video_online_index_url(video.anime_id, video.episode + 1) }
     #end
 
     #context 'check_user_history' do
@@ -222,7 +224,7 @@ describe AnimeOnline::AnimeVideosController do
     let(:anime) { create :anime }
     let(:video) { create :anime_video, watch_view_count: view_count, anime: anime }
 
-    before { post :track_view, anime_id: anime.id, id: video.id }
+    before { post :track_view, anime_id: anime.to_param, id: video.id }
 
     context 'first_time' do
       let(:view_count) { nil }
