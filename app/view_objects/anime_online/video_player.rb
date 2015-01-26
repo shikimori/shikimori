@@ -3,7 +3,7 @@ class AnimeOnline::VideoPlayer
   prepend ActiveCacher.instance
 
   vattr_initialize :anime
-  instance_cache :nav, :videos, :current_video
+  instance_cache :nav, :videos, :current_video, :last_episode
 
   def nav
     AnimeOnline::VideoPlayerNavigation.new self
@@ -89,6 +89,10 @@ class AnimeOnline::VideoPlayer
 
   def hostings videos
     videos.map(&:hosting).uniq.sort_by{|h| h == 'vk.com' ? '' : h}.join ', '
+  end
+
+  def last_episode
+    videos.max().first unless videos.blank?
   end
 
 private

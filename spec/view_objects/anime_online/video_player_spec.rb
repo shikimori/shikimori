@@ -114,20 +114,20 @@ describe AnimeOnline::VideoPlayer do
     end
   end
 
-  #describe 'last_episode' do
-    #subject { AnimeOnline::VideoPlayer.new(anime).last_episode }
-    #let(:anime) { build :anime }
-    #context 'without_video' do
-      #it { should be_nil }
-    #end
+  describe 'last_episode' do
+    subject { AnimeOnline::VideoPlayer.new(anime).last_episode }
+    let(:anime) { build :anime }
+    context 'without_video' do
+      it { should be_nil }
+    end
 
-    #context 'with_video' do
-      #let(:video_1) { build :anime_video, episode: 1 }
-      #let(:video_2) { build :anime_video, episode: 2 }
-      #before { anime.anime_videos << [video_1, video_2] }
-      #it { should eq 2 }
-    #end
-  #end
+    context 'with_video' do
+      let(:video_1) { build :anime_video, episode: 1 }
+      let(:video_2) { build :anime_video, episode: 2 }
+      before { anime.anime_videos << [video_1, video_2] }
+      it { should eq 2 }
+    end
+  end
 
   #describe 'current_author' do
     #subject { AnimeOnline::VideoPlayer.new(anime).current_author }

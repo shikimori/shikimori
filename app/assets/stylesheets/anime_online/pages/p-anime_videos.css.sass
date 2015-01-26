@@ -9,8 +9,6 @@
 
 .p-anime_videos
   .video-player
-    margin-bottom: 10px
-
     iframe
       border: none
       width: 100%
@@ -21,6 +19,7 @@
 
   .cc-player_controls
     +clearfix
+    padding-top: 10px
 
     .cc-navigation, .cc-optional_controls
       +clear_left
@@ -40,12 +39,6 @@
   .cc-player_controls
     a.c-control
       +link
-      //+link_color
-
-      &:hover .icon
-        color: $link_hover
-      &:active .icon
-        color: $link_active
 
     .c-control
       +link_color(#333)
@@ -54,6 +47,11 @@
 
       &.selected, &.selected .icon
         color: $link_hover
+
+      &:hover .icon
+        color: $link_hover
+      &:active .icon
+        color: $link_active
 
       .icon
         margin: 0 !important
@@ -92,8 +90,15 @@
       +icon_button("\e832")
     .next .icon
       +icon_button("\e83a")
-    .add .icon
+    .create-user_rate .icon
       +icon_button("\002b")
+    .increment-user_rate
+      .icon
+        +icon_button("\e817")
+
+      &.watched, &.watched .icon
+        +link_color($green)
+
     .show-options .icon
       +icon_button("\e843")
 
@@ -104,10 +109,13 @@
     .upload .icon
       +icon_button("\e80c")
 
-  .c-video-stats
+  .c-video_stats
     font-size: 12px
     margin-top: -4px
     text-align: right
+
+    &.single
+      padding-top: 10px
 
     .views_count
       color: $gray-color-2

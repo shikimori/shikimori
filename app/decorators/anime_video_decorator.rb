@@ -14,6 +14,34 @@ class AnimeVideoDecorator < BaseDecorator#AnimeVideoPreviewDecorator
     end
   end
 
+  def in_list?
+    user_rate.present?
+  end
+
+  def watched?
+    user_rate.episodes >= episode if in_list?
+  end
+
+  def user_rate
+    @user_rate ||= if h.user_signed_in?
+      h.current_user.anime_rates.where(target_id: anime_id, target_type: Anime.name).first
+    end
+  end
+
+  def add_to_list_url
+    h.api_user_rates_path(
+      'user_rate[episodes]' => 0,
+      'user_rate[score]' => 0,
+      'user_rate[status]' => UserRate.statuses[:planned],
+      'user_rate[target_id]' => anime.id,
+      'user_rate[target_type]' => anime.class.name,
+      'user_rate[user_id]' => h.current_user.id
+    )
+  end
+
+  def viewed_url
+    h.viewed_video_online_url(anime, id)
+  end
 
   #delegate_all
 
@@ -30,27 +58,12 @@ class AnimeVideoDecorator < BaseDecorator#AnimeVideoPreviewDecorator
     #duration * 60000 / 3 if duration > 0
   #end
 
-
-
-
-
-
-
   #def kinds
     #@kinds ||= current_videos.map(&:kind).uniq
   #end
 
 
-
-  #def last_episode
-    #@last_episode ||= videos.max().first unless videos.blank?
-  #end
-
   #def last_date
     #@last_date ||= anime_videos.select{|v| v.allowed?}.map(&:created_at).max || created_at
-  #end
-
-  #def rate
-    #@rate ||= h.user_signed_in? ? object.rates.where(user_id: h.current_user).first : nil
   #end
 end

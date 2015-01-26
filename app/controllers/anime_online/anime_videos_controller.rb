@@ -1,7 +1,7 @@
 class AnimeOnline::AnimeVideosController < AnimesController
   before_action { noindex && nofollow }
 
-  before_action :authenticate_user!, only: [:destroy, :rate, :viewed]
+  before_action :authenticate_user!, only: [:viewed] # :destroy
   after_action :save_preferences, only: :index
 
   def index
@@ -15,6 +15,15 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def track_view
     AnimeVideo.find(params[:id]).increment! :watch_view_count
+    render nothing: true
+  end
+
+  def viewed
+    video = AnimeVideo.find params[:id]
+    @user_rate = @resource.rates.find_by(user_id: current_user.id) ||
+      @resource.rates.build(user: current_user)
+
+    @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
     render nothing: true
   end
 
@@ -134,10 +143,6 @@ private
   end
 
   def valid_host_url
-    ap play_video_online_index_url @resource,
-      episode: params[:episode], video_id: params[:video_id],
-      domain: AnimeOnlineDomain::host(@resource), subdomain: false
-
     play_video_online_index_url @resource,
       episode: params[:episode], video_id: params[:video_id],
       domain: AnimeOnlineDomain::host(@resource), subdomain: false

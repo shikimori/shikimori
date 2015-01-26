@@ -1,170 +1,185 @@
 = render layout: 'animes/page' do
   - if @video.blank?
-    - raise 'not implemented'
+    .b-errors
+      .subheadline Такого видео нет!
+      - if @player.last_episode
+        p
+          | Перейти к последнему&nbsp;
+          a href="#{@player.episode_url @player.last_episode}" = "эпизоду #{@player.last_episode}"
+          | .
 
-  .video-player
-    /.placeholder style="width: 100%; background: gray; border: 1px solid #666;" == '&nbsp;'
-    - if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
-      object
-        param name="movie" value="#{@video.url}"
-        param name="allowFullScreen" value="true"
-        param name="allowScriptAccess" value="always"
-        embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
-    - else
-      iframe src="#{@video.player_url}"
+  - else
+    .video-player
+      .placeholder style="width: 100%; background: gray; border: 1px solid #666;" == '&nbsp;'
+      /- if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
+        /object
+          /param name="movie" value="#{@video.url}"
+          /param name="allowFullScreen" value="true"
+          /param name="allowScriptAccess" value="always"
+          /embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
+      /- else
+        /iframe src="#{@video.player_url}"
 
-  .cc-player_controls.cc-2a
-    .c-column
-      .cc-navigation
-        a.c-control.prev href="#{@player.prev_url}"
-          .icon
-          .label предыдущее
-        .c-control.episode-title
-          - if @video.episode.zero?
-            | Прочее
-          - else
-            span Эпизод
-            b  ##{@video.episode}
-        a.c-control.next href="#{@player.next_url}"
-          .icon
-          .label следующее
+    .cc-player_controls.cc-2a
+      .c-column
+        .cc-navigation
+          a.c-control.prev href="#{@player.prev_url}"
+            .icon
+            .label предыдущее
+          .c-control.episode-title
+            - if @video.episode.zero?
+              | Прочее
+            - else
+              span Эпизод
+              b  ##{@video.episode}
+          a.c-control.next href="#{@player.next_url}"
+            .icon
+            .label следующее
 
-      .cc-optional_controls
-        a.c-control.edit
-          .icon
-          .label изменить
+        .cc-optional_controls
+          a.c-control.edit
+            .icon
+            .label изменить
 
-        a.c-control.upload
-          .icon
-          .label загрузить
+          - unless @player.current_video.copyright_ban?
+            a.c-control.upload
+              .icon
+              .label загрузить
 
-        .c-control.report
-          .icon
-          .label пожаловаться
+          .c-control.report
+            .icon
+            .label пожаловаться
 
-    .c-column.cc-options
-      .c-column.cc-2a
-        a.c-column.c-control.add
-          .icon
-          .label в мой список
+      .c-column.cc-options
+        .c-column.cc-2a
+          - if user_signed_in?
+            - if @video.in_list?
+              a.c-column.c-control.increment-user_rate class="#{:watched if @video.watched?}" data-remote="true" data-method="post" href="#{@video.viewed_url}"
+                .icon
+                .label просмотрено
 
-        .c-column.c-control.show-options
-          .icon
-          .label опции
+            - else
+              a.c-column.c-control.create-user_rate href="#{@video.add_to_list_url}" data-remote="true" data-method="post" data-type="json" data-increment_url="#{@video.viewed_url}"
+                .icon
+                .label в мой список
 
-      - if @video.uploader || @video.views_count
-        .c-column.c-video-stats
-          - if @video.views_count
-            .views_count
-              = @video.views_count
-          - if @video.uploader
-            .uploader
-              span
-                - if @video.uploader.female?
-                  | Добавила
-                - else
-                  | Добавил
-              .b-user16
-                a href="#{profile_url @video.uploader}" title="#{@video.uploader.nickname}"
-                  img src="#{@video.uploader.avatar_url 16}" srcset="#{@video.uploader.avatar_url 32} 2x" alt="#{@video.uploader.nickname}"
-                  span = @video.uploader.nickname
-  .cc
-    .c-videos
-      .title Варианты видео
-      - @player.episode_videos.each do |video|
-        .episode data-id="#{video.id}"
-          a class="#{:active if video.id == @video.id}" href="#{play_video_online_index_url @player.anime.id, @player.current_episode, video.id}"
-            span.video-kind = t ".kind.#{video.kind}"
-            span.video-hosting = video.hosting
-            - if video.author
-              span.video-author = strip_tags video.author.name
+          .c-column.c-control.show-options
+            .icon
+            .label опции
 
-    .c-episodes
-      .title Эпизоды
-      - @player.videos.take(10).each do |(episode, videos)|
-        .episode
-          a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
-            span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
-            span.episode-kinds = @player.dropdown_kinds videos
-            span.episode-hostings = @player.hostings videos
-      - if @player.videos.size > 10
-        .b-show_more + показать всё
-        .b-show_more-more
-          - @player.videos.to_a.slice(10,9999).each do |(episode, videos)|
-            .episode
-              a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
-                span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
-                span.episode-kinds = @player.dropdown_kinds videos
-                span.episode-hostings = @player.hostings videos
-          .hide-more
-            | &mdash; спрятать
+        - if @video.uploader || @video.views_count
+          .c-column.c-video_stats class="#{:single unless @video.views_count && @video.uploader}"
+            - if @video.views_count
+              .views_count
+                = @video.views_count
+            - if @video.uploader
+              .uploader
+                span
+                  - if @video.uploader.female?
+                    | Добавила
+                  - else
+                    | Добавил
+                .b-user16
+                  a href="#{profile_url @video.uploader}" title="#{@video.uploader.nickname}"
+                    img src="#{@video.uploader.avatar_url 16}" srcset="#{@video.uploader.avatar_url 32} 2x" alt="#{@video.uploader.nickname}"
+                    span = @video.uploader.nickname
+    .cc
+      .c-videos
+        .title Варианты видео
+        - @player.episode_videos.each do |video|
+          .episode data-id="#{video.id}"
+            a class="#{:active if video.id == @video.id}" href="#{play_video_online_index_url @resource.id, @player.current_episode, video.id}"
+              span.video-kind = t ".kind.#{video.kind}"
+              span.video-hosting = video.hosting
+              - if video.author
+                span.video-author = strip_tags video.author.name
 
-  /.nav-video
-    /ul.nav.nav-pills
-      /li
-        /.btn-group.episodes
-          /a.btn.btn-default.btn-sm class="#{:disabled if @player.first_episode?}" href="#{@player.prev_url}" title="Предыдущий эпизод" &nbsp;<&nbsp;
+      .c-episodes
+        .title Эпизоды
+        - @player.videos.take(10).each do |(episode, videos)|
+          .episode
+            a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
+              span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
+              span.episode-kinds = @player.dropdown_kinds videos
+              span.episode-hostings = @player.hostings videos
+        - if @player.videos.size > 10
+          .b-show_more + показать всё
+          .b-show_more-more
+            - @player.videos.to_a.slice(10,9999).each do |(episode, videos)|
+              .episode
+                a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
+                  span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
+                  span.episode-kinds = @player.dropdown_kinds videos
+                  span.episode-hostings = @player.hostings videos
+            .hide-more
+              | &mdash; спрятать
 
-          /.btn-group
-            /button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button"
-              /= @player.episode_title
-              /span.caret
-            /ul.dropdown-menu
-              /- @player.videos.each_pair do |episode, videos|
-                /li class="#{:active if episode == @player.current_episode}"
-                  /a href="#{@player.episode_url episode}"
-                    /span.num = "##{episode.zero? ? 'прочее' : episode}"
-                    /span.kinds = "#{@player.dropdown_kinds videos}"
-                    /span.hostings = "/ #{@player.hostings videos}"
-
-          /a.btn.btn-default.btn-sm class="#{:disabled if @player.last_episode?}" href="#{@player.next_url}" title="Следующий эпизод" &nbsp;>&nbsp;
-
-      /- unless @player.current_videos.blank?
+    /.nav-video
+      /ul.nav.nav-pills
         /li
-          /.btn-group.video
-            /button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button"
-              /span.kind = t ".kind.#{@video.kind}"
-              /span.hosting = @video.hosting
-              /span.author = @player.current_author
-              /span.caret
-            /ul.dropdown-menu
-              /- @player.episode_videos.each_with_index do |video, index|
-                /li
-                  /a href="#{play_video_online_index_url @player.anime.id, @player.current_episode, video.id}"
-                    /span.kind = t ".kind.#{video.kind}"
-                    /span.hosting = video.hosting
-                    /- if video.author
-                      /span.author = strip_tags video.author.name
+          /.btn-group.episodes
+            /a.btn.btn-default.btn-sm class="#{:disabled if @player.first_episode?}" href="#{@player.prev_url}" title="Предыдущий эпизод" &nbsp;<&nbsp;
 
-        /- if user_signed_in? && @video.uploader == current_user && @video.created_at > 1.week.ago
-          /li.pull-right
-            /a.btn.btn-default.btn-sm href="#{delete_anime_videos_url @video.id}" data-method="delete" data-confirm="Вы точно хотить удалить это видео?" title='Удалить видео'
-              /span.glyphicon.glyphicon-trash
-        /- else
-          /li.report.pull-right
             /.btn-group
-              /button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
-                /span.glyphicon.glyphicon-flag
+              /button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button"
+                /= @player.episode_title
                 /span.caret
               /ul.dropdown-menu
-                /li: a href="#{@player.report_url :broken}" data-remote="true" data-method="post" Видео не работает
-                /li: a.wrong href="#" data-url="#{@player.report_url :wrong}" Видео не от этого аниме
+                /- @player.videos.each_pair do |episode, videos|
+                  /li class="#{:active if episode == @player.current_episode}"
+                    /a href="#{@player.episode_url episode}"
+                      /span.num = "##{episode.zero? ? 'прочее' : episode}"
+                      /span.kinds = "#{@player.dropdown_kinds videos}"
+                      /span.hostings = "/ #{@player.hostings videos}"
 
-        /- if user_signed_in?
-          /li.pull-right
-            /button.btn.btn-default.btn-sm data-href="#{edit_anime_online_anime_anime_video_url @player.anime.id, @video.id}" type='button' title='Редактировать видео'
-              /span.glyphicon.glyphicon-pencil
+            /a.btn.btn-default.btn-sm class="#{:disabled if @player.last_episode?}" href="#{@player.next_url}" title="Следующий эпизод" &nbsp;>&nbsp;
 
-          /- unless @video.copyright_ban?
+        /- unless @player.current_videos.blank?
+          /li
+            /.btn-group.video
+              /button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button"
+                /span.kind = t ".kind.#{@video.kind}"
+                /span.hosting = @video.hosting
+                /span.author = @player.current_author
+                /span.caret
+              /ul.dropdown-menu
+                /- @player.episode_videos.each_with_index do |video, index|
+                  /li
+                    /a href="#{play_video_online_index_url @resource.id, @player.current_episode, video.id}"
+                      /span.kind = t ".kind.#{video.kind}"
+                      /span.hosting = video.hosting
+                      /- if video.author
+                        /span.author = strip_tags video.author.name
+
+          /- if user_signed_in? && @video.uploader == current_user && @video.created_at > 1.week.ago
             /li.pull-right
-              /button.btn.btn-default.btn-sm data-href="#{new_anime_online_anime_anime_video_url @player.anime.id}" type='button' title='Загрузить новое видео'
-                /span.glyphicon.glyphicon-upload
+              /a.btn.btn-default.btn-sm href="#{delete_anime_videos_url @video.id}" data-method="delete" data-confirm="Вы точно хотить удалить это видео?" title='Удалить видео'
+                /span.glyphicon.glyphicon-trash
+          /- else
+            /li.report.pull-right
+              /.btn-group
+                /button.btn.btn-default.btn-sm.dropdown-toggle data-toggle="dropdown" type="button" title='Пожаловаться на видео'
+                  /span.glyphicon.glyphicon-flag
+                  /span.caret
+                /ul.dropdown-menu
+                  /li: a href="#{@player.report_url :broken}" data-remote="true" data-method="post" Видео не работает
+                  /li: a.wrong href="#" data-url="#{@player.report_url :wrong}" Видео не от этого аниме
 
-          /- unless @player.rate
-            /li.rate.pull-right
-              /a.btn.btn-default.btn-sm href="#{anime_online_rate_anime_url @player.anime.id}" title='Добавить в список к просмотру' data-remote="true" data-method="post"
-                /span.glyphicon.glyphicon-plus
+          /- if user_signed_in?
+            /li.pull-right
+              /button.btn.btn-default.btn-sm data-href="#{edit_anime_online_anime_anime_video_url @resource.id, @video.id}" type='button' title='Редактировать видео'
+                /span.glyphicon.glyphicon-pencil
 
-          /li.ok.pull-right class="#{'hide' unless @player.rate && @player.rate.episodes < @video.episode}"
-            /a.btn.btn-success.btn-sm href="#{viewed_anime_online_anime_anime_video_url @player.anime.id, @video.id}" title='Просмотрено, перейти к следующему эпизоду'
-              /span.glyphicon.glyphicon-ok
+            /- unless @video.copyright_ban?
+              /li.pull-right
+                /button.btn.btn-default.btn-sm data-href="#{new_anime_online_anime_anime_video_url @resource.id}" type='button' title='Загрузить новое видео'
+                  /span.glyphicon.glyphicon-upload
+
+            /- unless @player.rate
+              /li.rate.pull-right
+                /a.btn.btn-default.btn-sm href="#{anime_online_rate_anime_url @resource.id}" title='Добавить в список к просмотру' data-remote="true" data-method="post"
+                  /span.glyphicon.glyphicon-plus
+
+            /li.ok.pull-right class="#{'hide' unless @player.rate && @player.rate.episodes < @video.episode}"
+              /a.btn.btn-success.btn-sm href="#{viewed_anime_online_anime_anime_video_url @resource.id, @video.id}" title='Просмотрено, перейти к следующему эпизоду'
+                /span.glyphicon.glyphicon-ok

@@ -20,6 +20,85 @@ Site::Application.routes.draw do
     get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
   end
 
+  apipie
+  namespace :api, defaults: { format: 'json' } do
+    scope module: :v1 do
+      resources :animes, only: [:show, :index] do
+        member do
+          get :roles
+          get :similar
+          get :related
+          get :screenshots
+        end
+      end
+      resource :calendar, only: [:show]
+      resources :mangas, only: [:show, :index] do
+        member do
+          get :roles
+          get :similar
+          get :related
+        end
+      end
+
+      resources :devices, only: [:create, :index, :destroy] do
+        get :test, on: :member
+      end
+      resources :characters, only: [:show]
+      resources :people, only: [:show]
+
+      resources :studios, only: [:index]
+      resources :genres, only: [:index]
+      resources :publishers, only: [:index]
+
+      resources :sections, only: [:index]
+      resources :topics, only: [:index, :show]
+      resources :comments, only: [:show, :index]
+
+      resources :clubs, only: [:show, :index] do
+        member do
+          get :members
+          get :animes
+          get :mangas
+          get :characters
+          get :images
+        end
+      end
+
+      resources :user_rates, only: [:create, :update, :destroy] do
+        post :increment, on: :member
+
+        collection do
+          scope ':type', type: /anime|manga/ do
+            delete :cleanup
+            delete :reset
+          end
+        end
+      end
+
+      resource :authenticity_token, only: [:show]
+
+      devise_scope :user do
+        resources :sessions, only: [:create]
+      end
+
+      resources :users, only: [:index, :show] do
+        collection do
+          get :whoami
+        end
+        member do
+          get :friends
+          get :clubs
+          get :favourites
+          get :messages
+          get :unread_messages
+          get :history
+          get :anime_rates
+          get :manga_rates
+        end
+      end
+    end
+  end
+
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
     get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
@@ -45,6 +124,7 @@ Site::Application.routes.draw do
       resources :video_online, controller: 'anime_videos', only: [:new, :create, :index] do
         member do
           post :track_view
+          post :viewed
         end
 
         collection do
@@ -515,85 +595,6 @@ Site::Application.routes.draw do
     authenticate :user, lambda { |u| u.admin? } do
       mount Sidekiq::Web, at: 'sidekiq'
       mount PgHero::Engine, at: 'pghero'
-    end
-
-    apipie
-    namespace :api, defaults: { format: 'json' } do
-      scope module: :v1 do
-        resources :animes, only: [:show, :index] do
-          member do
-            get :roles
-            get :similar
-            get :related
-            get :screenshots
-          end
-        end
-        resource :calendar, only: [:show]
-        resources :mangas, only: [:show, :index] do
-          member do
-            get :roles
-            get :similar
-            get :related
-          end
-        end
-
-        resources :devices, only: [:create, :index, :destroy] do
-          get :test, on: :member
-        end
-        resources :characters, only: [:show]
-        resources :people, only: [:show]
-
-        resources :studios, only: [:index]
-        resources :genres, only: [:index]
-        resources :publishers, only: [:index]
-
-        resources :sections, only: [:index]
-        resources :topics, only: [:index, :show]
-        resources :comments, only: [:show, :index]
-
-        resources :clubs, only: [:show, :index] do
-          member do
-            get :members
-            get :animes
-            get :mangas
-            get :characters
-            get :images
-          end
-        end
-
-        resources :user_rates, only: [:create, :update, :destroy] do
-          post :increment, on: :member
-
-          collection do
-            scope ':type', type: /anime|manga/ do
-              delete :cleanup
-              delete :reset
-            end
-          end
-        end
-
-        resource :authenticity_token, only: [:show]
-
-        devise_scope :user do
-          resources :sessions, only: [:create]
-        end
-
-        resources :users, only: [:index, :show] do
-          collection do
-            get :whoami
-          end
-          member do
-            get :friends
-            get :clubs
-            get :favourites
-            get :messages
-            get :unread_messages
-            get :history
-            get :anime_rates
-            get :manga_rates
-          end
-        end
-      end
     end
 
     if Rails.env.development?

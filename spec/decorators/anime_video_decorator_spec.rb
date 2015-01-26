@@ -1,5 +1,6 @@
-describe AnimeVideoDecorator do
-  let(:decorator) { AnimeVideoDecorator.new video }
+describe AnimeVideoDecorator, type: :controller do
+  let(:video) { create :anime_video }
+  subject(:decorator) { AnimeVideoDecorator.new video }
 
   describe '#player_url' do
     subject { decorator.player_url }
@@ -43,6 +44,48 @@ describe AnimeVideoDecorator do
       context 'without_reports' do
         it { should eq url }
       end
+    end
+  end
+
+  describe '#user_rate & #in_list? & #watched?' do
+    before { allow(decorator).to receive(:h).and_return auth_double }
+    let(:auth_double) { double current_user: user, user_signed_in?: user_signed_in }
+
+    context 'authenticated' do
+      let(:user_signed_in) { true }
+      let(:user) { create :user }
+
+      context 'with user rate' do
+        let!(:user_rate) { create :user_rate, target: video.anime, user: user, episodes: episodes }
+        let(:episodes) { 99 }
+
+        its(:user_rate) { should eq user_rate }
+        its(:in_list?) { should be_truthy }
+
+        context 'watched episode' do
+          its(:watched?) { should be_truthy }
+        end
+
+        context 'not watched episode' do
+          let(:episodes) { 0 }
+          its(:watched?) { should be_falsy }
+        end
+      end
+
+      context 'without user rate' do
+        its(:user_rate) { should be_nil }
+        its(:in_list?) { should be_falsy }
+        its(:watched?) { should be_falsy }
+      end
+    end
+
+    context 'not authenticated' do
+      let(:user) { }
+      let(:user_signed_in) { false }
+
+      its(:user_rate) { should be_nil }
+      its(:in_list?) { should be_falsy }
+      its(:watched?) { should be_falsy }
     end
   end
 

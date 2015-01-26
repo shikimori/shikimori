@@ -45,9 +45,9 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   api :POST, "/user_rates/:id/increment"
   def increment
     if @user_rate.anime?
-      @user_rate.update episodes: @user_rate.episodes + 1
+      @user_rate.update episodes: (params[:episodes] || @user_rate.episodes) + 1
     else
-      @user_rate.update chapters: @user_rate.chapters + 1
+      @user_rate.update chapters: (params[:chapters] || @user_rate.chapters) + 1
     end
 
     respond_with @user_rate
