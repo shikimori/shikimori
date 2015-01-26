@@ -42,9 +42,9 @@ class AnimeOnline::VideoPlayer
   end
 
   # TODO move to VideoDecorator
-  def current_author
-    h.truncate h.strip_tags(current_video.author.name), :length => 20, :omission => '...' if current_video && current_video.author
-  end
+  #def current_author
+    #h.truncate h.strip_tags(current_video.author.name), :length => 20, :omission => '...' if current_video && current_video.author
+  #end
 
   def episode_url episode = self.current_episode
     h.play_video_online_index_url anime, episode
@@ -76,7 +76,12 @@ class AnimeOnline::VideoPlayer
   end
 
   def dropdown_kinds videos
-    videos.map(&:kind).uniq.collect {|v| I18n.t("enumerize.anime_video.kind.#{v}")}.uniq.join ', '
+    videos
+      .map(&:kind)
+      .uniq
+      .map {|v| I18n.t "enumerize.anime_video.kind.#{v}" }
+      .uniq
+      .join(', ')
   end
 
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
@@ -88,7 +93,11 @@ class AnimeOnline::VideoPlayer
   end
 
   def hostings videos
-    videos.map(&:hosting).uniq.sort_by{|h| h == 'vk.com' ? '' : h}.join ', '
+    videos
+      .map(&:hosting)
+      .uniq
+      .sort_by {|h| h == 'vk.com' ? '' : h }
+      .join(', ')
   end
 
   def last_episode

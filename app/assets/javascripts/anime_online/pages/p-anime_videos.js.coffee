@@ -23,7 +23,9 @@
       .attr
         href: $link.data('increment_url')
 
-    $link.find('.label').text('просмотрено')
+    $link
+      .find('.label')
+      .text $link.data('increment_text')
 
   $('.cc-player_controls').on 'ajax:success', '.increment-user_rate', ->
     unless $('.increment-user_rate').hasClass('watched')

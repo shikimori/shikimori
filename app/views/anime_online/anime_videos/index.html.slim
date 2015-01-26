@@ -25,7 +25,7 @@
         .cc-navigation
           a.c-control.prev href="#{@player.prev_url}"
             .icon
-            .label предыдущее
+            .label Предыдущее
           .c-control.episode-title
             - if @video.episode.zero?
               | Прочее
@@ -34,21 +34,21 @@
               b  ##{@video.episode}
           a.c-control.next href="#{@player.next_url}"
             .icon
-            .label следующее
+            .label Следующее
 
         .cc-optional_controls
           a.c-control.edit
             .icon
-            .label изменить
+            .label Изменить
 
           - unless @player.current_video.copyright_ban?
             a.c-control.upload
               .icon
-              .label загрузить
+              .label Загрузить
 
           .c-control.report
             .icon
-            .label пожаловаться
+            .label Пожаловаться
 
       .c-column.cc-options
         .c-column.cc-2a
@@ -56,16 +56,16 @@
             - if @video.in_list?
               a.c-column.c-control.increment-user_rate class="#{:watched if @video.watched?}" data-remote="true" data-method="post" href="#{@video.viewed_url}"
                 .icon
-                .label просмотрено
+                .label Просмотрено
 
             - else
-              a.c-column.c-control.create-user_rate href="#{@video.add_to_list_url}" data-remote="true" data-method="post" data-type="json" data-increment_url="#{@video.viewed_url}"
+              a.c-column.c-control.create-user_rate href="#{@video.add_to_list_url}" data-remote="true" data-method="post" data-type="json" data-increment_url="#{@video.viewed_url}" data-increment_text="Просмотрено"
                 .icon
-                .label в мой список
+                .label В мой список
 
           .c-column.c-control.show-options
             .icon
-            .label опции
+            .label Опции
 
         - if @video.uploader || @video.views_count
           .c-column.c-video_stats class="#{:single unless @video.views_count && @video.uploader}"
@@ -92,7 +92,7 @@
               span.video-kind = t ".kind.#{video.kind}"
               span.video-hosting = video.hosting
               - if video.author
-                span.video-author = strip_tags video.author.name
+                span.video-author = strip_tags(video.author.name).gsub('&amp;', '&')
 
       .c-episodes
         .title Эпизоды

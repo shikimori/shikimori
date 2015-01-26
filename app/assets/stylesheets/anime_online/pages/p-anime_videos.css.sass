@@ -92,22 +92,28 @@
       +icon_button("\e83a")
     .create-user_rate .icon
       +icon_button("\002b")
+    .show-options .icon
+      +icon_button("\e843")
+    .edit .icon
+      +icon_button("\e842")
+    .upload .icon
+      +icon_button("\e80c")
+
     .increment-user_rate
       .icon
         +icon_button("\e817")
-
       &.watched, &.watched .icon
-        +link_color($green)
+        color: $green !important
 
-    .show-options .icon
-      +icon_button("\e843")
+    .report
+      color: $red !important
+      &:hover
+        text-decoration: underline
 
-    .edit .icon
-      +icon_button("\e842")
-    .report .icon
-      +icon_button("\e806")
-    .upload .icon
-      +icon_button("\e80c")
+      .icon
+        +icon_button("\e806")
+        color: $red !important
+        //+link_color($red)
 
   .c-video_stats
     font-size: 12px

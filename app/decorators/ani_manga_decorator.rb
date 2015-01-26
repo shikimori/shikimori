@@ -118,6 +118,10 @@ class AniMangaDecorator < DbEntryDecorator
     end
   end
 
+  def total_rates
+    rates_statuses_stats.map {|v| v[:value] }.sum
+  end
+
   # оценки пользователей сайта
   def rates_scores_stats
     rates_query.scores_stats.map do |k,v|
