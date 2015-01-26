@@ -13,7 +13,7 @@
     $('.cc-navigation').toggle()
     $('.cc-optional_controls').toggle()
 
-  $('.create-user_rate').on 'ajax:success', ->
+  $('.cc-player_controls').on 'ajax:success', '.create-user_rate', ->
     $link = $(@)
 
     $.notice 'Аниме добавлено в список'
@@ -25,7 +25,7 @@
 
     $link.find('.label').text('просмотрено')
 
-  $('.increment-user_rate').on 'ajax:success', ->
+  $('.cc-player_controls').on 'ajax:success', '.increment-user_rate', ->
     unless $('.increment-user_rate').hasClass('watched')
       $.notice 'Эпизод отмечен просмотренным'
     (-> Turbolinks.visit $('.c-control.next').attr('href')).delay 500

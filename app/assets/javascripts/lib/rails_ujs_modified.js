@@ -62,7 +62,7 @@ jQuery(function ($) {
                     },
                     success: function (data, status, xhr) {
                         $this.data('ajax:locked', false);
-                        if (!_.isString(data) && 'notice' in data && data.notice) {
+                        if (!_.isString(data) && data && 'notice' in data && data.notice) {
                             $.flash({notice: data.notice});
                         }
                         el.trigger('ajax:success', [data, status, xhr]);
