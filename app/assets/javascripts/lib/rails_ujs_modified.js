@@ -81,7 +81,7 @@ jQuery(function ($) {
                         } else if (xhr.status == 403) {
                             $.flash({alert: (xhr.responseText != 'Forbidden' ? xhr.responseText : 'У вас нет прав для данного действия')});
                         } else if (xhr.status == 500) {
-                            $.flash({alert: 'Пожалуста, повторите попытку позже'});
+                            $.flash({alert: 'Пожалуйста, повторите попытку позже'});
                         } else {
                             try {
                               var errors = JSON.parse(xhr.responseText);
@@ -109,7 +109,7 @@ jQuery(function ($) {
                                   $.flash({alert: text});
                                 }
                             } else {
-                                $.flash({alert: 'Пожалуста, повторите попытку позже'});
+                                $.flash({alert: 'Пожалуйста, повторите попытку позже'});
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);

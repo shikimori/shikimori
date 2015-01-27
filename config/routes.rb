@@ -20,6 +20,51 @@ Site::Application.routes.draw do
     get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
   end
 
+  namespace :moderation do
+    resources :user_changes, only: [:show, :index, :create] do
+      collection do
+        get '(/page/:page)' => :index, as: :index
+      end
+
+      member do
+        get :tooltip
+        post :take
+        post :deny
+      end
+    end
+
+    resources :bans, only: [:create, :index] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+    end
+    resources :abuse_requests, only: [:index] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+
+      member do
+        post :take
+        post :deny
+      end
+    end
+    resources :reviews, only: [:index] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+
+      member do
+        post :accept
+        post :reject
+      end
+    end
+
+    resources :anime_video_reports, only: [:index, :create] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+
+      member do
+        get :accept
+        get :reject
+        get :work
+        get :cancel
+      end
+    end
+  end
+
   apipie
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
@@ -245,51 +290,6 @@ Site::Application.routes.draw do
         post :preview
         get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
         get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
-      end
-    end
-
-    namespace :moderation do
-      resources :user_changes, only: [:show, :index, :create] do
-        collection do
-          get '(/page/:page)' => :index, as: :index
-        end
-
-        member do
-          get :tooltip
-          post :take
-          post :deny
-        end
-      end
-
-      resources :bans, only: [:create, :index] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-      end
-      resources :abuse_requests, only: [:index] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-
-        member do
-          post :take
-          post :deny
-        end
-      end
-      resources :reviews, only: [:index] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-
-        member do
-          post :accept
-          post :reject
-        end
-      end
-
-      resources :anime_video_reports, only: [:index, :create] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-
-        member do
-          get :accept
-          get :reject
-          get :work
-          get :cancel
-        end
       end
     end
 

@@ -104,6 +104,15 @@ class AnimeOnline::VideoPlayer
     videos.max().first unless videos.blank?
   end
 
+  def new_report
+    AnimeVideoReport.new(
+      anime_video_id: current_video.id,
+      user_id: h.current_user.try(:id) || User::GuestID,
+      state: 'pending',
+      kind: 'broken'
+    )
+  end
+
 private
   def videos
     @anime.anime_videos

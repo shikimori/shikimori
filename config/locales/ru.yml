@@ -123,6 +123,9 @@ ru:
         posters: Постеры
       user_change:
         source: Источник
+      anime_video_report:
+        kind: Причина
+        message: Сообщение модератору
 
     # сообщения валидаций
     errors:

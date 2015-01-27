@@ -86,7 +86,7 @@ class @ShikiComment extends ShikiEditable
       @_close_aside()
 
     # закрытие формы бана
-    @$('.moderation-ban').on 'click', '.form-cancel', =>
+    @$('.moderation-ban').on 'click', '.cancel', =>
       @$('.moderation-ban').hide()
 
     # сабмит формы бана

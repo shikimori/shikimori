@@ -50,6 +50,9 @@
             .icon
             .label Пожаловаться
 
+        .cc-anime_video_report-new
+          = render 'moderation/anime_video_reports/form', anime_video_report: @player.new_report
+
       .c-column.cc-options
         .c-column.cc-2a
           - if user_signed_in?
@@ -83,6 +86,7 @@
                   a href="#{profile_url @video.uploader}" title="#{@video.uploader.nickname}"
                     img src="#{@video.uploader.avatar_url 16}" srcset="#{@video.uploader.avatar_url 32} 2x" alt="#{@video.uploader.nickname}"
                     span = @video.uploader.nickname
+
     .cc
       .c-videos
         .title Варианты видео

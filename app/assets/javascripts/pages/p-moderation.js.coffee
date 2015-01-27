@@ -40,7 +40,7 @@ $moderation = (node) ->
         $form.find('#ban_reason').val 'спойлеры'
 
     # закрытие формы бана
-    $('.form-cancel', $form).on 'click', ->
+    $('.cancel', $form).on 'click', ->
       $moderation(@).find('.moderation-buttons').show()
       $(@).closest('.ban-form').empty()
 

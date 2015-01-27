@@ -27,6 +27,9 @@
       &>.c-control
         +column(3)
 
+    .cc-anime_video_report-new
+      display: none
+
     .cc-optional_controls
       display: none
 
@@ -35,6 +38,13 @@
 
       &>.c-column
         +column(2)
+
+  .cc-anime_video_report-new
+    input[type=text]
+      width: 100%
+
+    .broken, .wrong
+      margin-right: 20px
 
   .cc-player_controls
     a.c-control
@@ -106,14 +116,13 @@
         color: $green !important
 
     .report
-      color: $red !important
-      &:hover
-        text-decoration: underline
+      //color: $red !important
+      //&:hover
+        //text-decoration: underline
 
       .icon
         +icon_button("\e806")
-        color: $red !important
-        //+link_color($red)
+        //color: $red !important
 
   .c-video_stats
     font-size: 12px

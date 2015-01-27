@@ -259,11 +259,6 @@ div.title {
 input.common {
   @include input;
 }
-.form-cancel {
-  @include normal-link;
-  display: inline-block;
-  margin-left: 10px;
-}
 
 input[type=submit] {
   @include button;

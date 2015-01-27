@@ -43,7 +43,7 @@
                 $.flash alert: 'Файл слишком большой: максимум 4 мегабайта'
 
               when 'Unprocessable Entity'
-                $.flash alert: 'Пожалуста, повторите попытку позже'
+                $.flash alert: 'Пожалуйста, повторите попытку позже'
 
             global_lock = false
 
@@ -113,7 +113,7 @@
           uploadFinished: (i, file, response, time) ->
             if _.isString(response) || 'error' of response
               $node.trigger 'upload:failed', [response, i]
-              $.flash alert: if _.isString(response) then 'Пожалуста, повторите попытку позже' else response.error
+              $.flash alert: if _.isString(response) then 'Пожалуйста, повторите попытку позже' else response.error
             else
               $node.trigger 'upload:success', [response, i]
             #$.hideCursorMessage()
