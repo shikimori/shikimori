@@ -79,6 +79,12 @@ describe AnimeOnline::AnimeVideosController do
     end
   end
 
+  describe 'extract_url' do
+    before { post :extract_url, anime_id: anime.id, url: 'http://vk.com/foo' }
+    it { expect(response.content_type).to eq 'application/json' }
+    it { should respond_with :success }
+  end
+
   #describe 'new' do
     #context 'can_new' do
       #let(:anime) { create :anime }
@@ -189,12 +195,6 @@ describe AnimeOnline::AnimeVideosController do
         #specify { expect(AnimeVideoReport.first).to be_accepted }
       #end
     #end
-  #end
-
-  #describe 'extract_url' do
-    #before { post :extract_url, url: 'http://vk.com/foo' }
-    #it { expect(response.content_type).to eq 'text/plain' }
-    #it { should respond_with :success }
   #end
 
   #describe 'viewed' do

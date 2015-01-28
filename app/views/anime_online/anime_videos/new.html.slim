@@ -15,12 +15,15 @@
       = f.input :author, hint: 'Не обязательно'
       = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
 
-    .block
-      .button.preview Проверить
-
-    .block
-      = f.submit 'Сохранить'
+    div
+      .button.do-preview data-href="#{extract_url_video_online_index_url @resource}"
+        | Проверить видео
+      = f.submit 'Работает. Сохранить'
+      = f.submit 'Работает. Сохранить и добавить ещё', class: 'continue'
       a.cancel href="#{video_online_index_url @resource}" Отмена
+
+    .block.video-preview
+      iframe.m15
 
     /input.hidden#continue name="continue" type="hidden" value=""
 

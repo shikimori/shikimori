@@ -175,6 +175,7 @@ Site::Application.routes.draw do
         collection do
           get '(/:episode)(/:video_id)(/:all)', action: :index, as: :play,
             episode: /\d+/, video_id: /\d+/, all: /all/
+          get :extract_url
         end
       end
     end

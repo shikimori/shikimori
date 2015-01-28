@@ -37,6 +37,10 @@ class AnimeOnline::AnimeVideosController < AnimesController
     render nothing: true
   end
 
+  def extract_url
+    render json: { url: VideoExtractor::UrlExtractor.new(params[:url]).extract }
+  end
+
   #def search
     #search = params[:search].to_s.strip
     #if search.blank?
@@ -97,10 +101,6 @@ class AnimeOnline::AnimeVideosController < AnimesController
   #end
 
   #def help
-  #end
-
-  #def extract_url
-    #render text: VideoExtractor::UrlExtractor.new(params[:url]).extract
   #end
 
   #def viewed
