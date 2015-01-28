@@ -14,10 +14,13 @@ header.head
 - if @pending.any?
   .subheadline Очередь
   .block
-    = render partial: 'moderation/reviews/review', collection: @pending
-    - if @pending.size == Moderation::ReviewsController::PENDING_PER_PAGE
-      .m5
-      .b-nothing_here Это ещё не всё. Прочие рецензиии будут доступны после принятия отображённых выше.
+    - if @pending.any?
+      = render partial: 'moderation/reviews/review', collection: @pending
+      - if @pending.size == Moderation::ReviewsController::PENDING_PER_PAGE
+        .m5
+        .b-nothing_here Это ещё не всё. Прочие рецензиии будут доступны после принятия отображённых выше.
+    - else
+      .b-nothing_here Очередь пуста
 
 - if @processed.any?
   .subheadline История

@@ -5,7 +5,10 @@ header.head
 .anime_video_reports
   h2.subheadline Очередь
   .block
-    = render partial: 'moderation/anime_video_reports/report', collection: @pending
+    - if @pending.any?
+      = render partial: 'moderation/anime_video_reports/report', collection: @pending
+    - else
+      .b-nothing_here Очередь пуста
 
   h2.subheadline История
   .block

@@ -13,9 +13,14 @@ class AnimeOnline::AnimeVideosController < AnimesController
     page_title @player.episode_title
   end
 
-  def track_view
-    AnimeVideo.find(params[:id]).increment! :watch_view_count
-    render nothing: true
+  def new
+    page_title 'Добавление нового видео'
+    raise ActionController::RoutingError.new 'Not Found' if AnimeVideo::CopyrightBanAnimeIDs.include?(@resource.id) && (!user_signed_in? || !current_user.admin?)
+    @video = AnimeVideo.new anime: @resource, source: 'shikimori.org', kind: :fandub
+  end
+
+  def edit
+    page_title 'Изменение видео'
   end
 
   def viewed
@@ -24,6 +29,11 @@ class AnimeOnline::AnimeVideosController < AnimesController
       @resource.rates.build(user: current_user)
 
     @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
+    render nothing: true
+  end
+
+  def track_view
+    AnimeVideo.find(params[:id]).increment! :watch_view_count
     render nothing: true
   end
 

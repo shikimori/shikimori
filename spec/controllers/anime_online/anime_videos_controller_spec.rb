@@ -2,9 +2,15 @@ describe AnimeOnline::AnimeVideosController do
   let(:user) { create :user, :user }
   let(:admin_user) { create :user, :admin }
 
+  let(:anime) { create :anime }
+
+  describe '#new' do
+    before { get :new, anime_id: anime.to_param }
+    it { should respond_with :success }
+  end
+
   describe '#index' do
     describe 'video_content' do
-      let(:anime) { create :anime, name: 'anime_test' }
       let!(:anime_video) { create :anime_video, anime: anime }
 
       before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
@@ -219,7 +225,6 @@ describe AnimeOnline::AnimeVideosController do
   #end
 
   describe '#track_view' do
-    let(:anime) { create :anime }
     let(:video) { create :anime_video, watch_view_count: view_count, anime: anime }
 
     before { post :track_view, anime_id: anime.to_param, id: video.id }
@@ -236,9 +241,8 @@ describe AnimeOnline::AnimeVideosController do
     end
   end
 
-  describe '#mark_viewed' do
+  describe '#viewed' do
     include_context :authenticated, :user
-    let(:anime) { create :anime }
     let(:video) { create :anime_video, episode: 10, anime: anime }
     let!(:user_rate) { }
 

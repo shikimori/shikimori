@@ -23,7 +23,10 @@ header.head
   - if @pending && @pending.any?
     .subheadline Очередь
     .block
-      = render partial: 'moderation/abuse_requests/abuse_request', collection: @pending
+      - if @pending.any?
+        = render partial: 'moderation/abuse_requests/abuse_request', collection: @pending
+      - else
+        .b-nothing_here Очередь пуста
 
   - if @declined && @declined.any?
     .subheadline Отклонено

@@ -20,79 +20,14 @@
       /- else
         /iframe src="#{@video.player_url}"
 
-    .cc-player_controls.cc-2a
-      .c-column
-        .cc-navigation
-          a.c-control.prev href="#{@player.prev_url}"
-            .icon
-            .label Предыдущее
-          .c-control.episode-title
-            - if @video.episode.zero?
-              | Прочее
-            - else
-              span Эпизод
-              b  ##{@video.episode}
-          a.c-control.next href="#{@player.next_url}"
-            .icon
-            .label Следующее
-
-        .cc-optional_controls
-          a.c-control.edit
-            .icon
-            .label Изменить
-
-          - unless @player.current_video.copyright_ban?
-            a.c-control.upload
-              .icon
-              .label Загрузить
-
-          .c-control.report
-            .icon
-            .label Пожаловаться
-
-        .cc-anime_video_report-new
-          = render 'moderation/anime_video_reports/form', anime_video_report: @player.new_report
-
-      .c-column.cc-options
-        .c-column.cc-2a
-          - if user_signed_in?
-            - if @video.in_list?
-              a.c-column.c-control.increment-user_rate class="#{:watched if @video.watched?}" data-remote="true" data-method="post" href="#{@video.viewed_url}"
-                .icon
-                .label Просмотрено
-
-            - else
-              a.c-column.c-control.create-user_rate href="#{@video.add_to_list_url}" data-remote="true" data-method="post" data-type="json" data-increment_url="#{@video.viewed_url}" data-increment_text="Просмотрено"
-                .icon
-                .label В мой список
-
-          .c-column.c-control.show-options
-            .icon
-            .label Опции
-
-        - if @video.uploader || @video.views_count
-          .c-column.c-video_stats class="#{:single unless @video.views_count && @video.uploader}"
-            - if @video.views_count
-              .views_count
-                = @video.views_count
-            - if @video.uploader
-              .uploader
-                span
-                  - if @video.uploader.female?
-                    | Добавила
-                  - else
-                    | Добавил
-                .b-user16
-                  a href="#{profile_url @video.uploader}" title="#{@video.uploader.nickname}"
-                    img src="#{@video.uploader.avatar_url 16}" srcset="#{@video.uploader.avatar_url 32} 2x" alt="#{@video.uploader.nickname}"
-                    span = @video.uploader.nickname
+    = render 'anime_online/anime_videos/player_controls'
 
     .cc
       .c-videos
         .title Варианты видео
         - @player.episode_videos.each do |video|
           .episode data-id="#{video.id}"
-            a class="#{:active if video.id == @video.id}" href="#{play_video_online_index_url @resource.id, @player.current_episode, video.id}"
+            a class="#{:active if video.id == @video.id} #{video.state}" href="#{play_video_online_index_url @resource.id, @player.current_episode, video.id}"
               span.video-kind = t ".kind.#{video.kind}"
               span.video-hosting = video.hosting
               - if video.author
@@ -104,7 +39,7 @@
           .episode
             a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
               span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
-              span.episode-kinds = @player.dropdown_kinds videos
+              span.episode-kinds = @player.kinds videos
               span.episode-hostings = @player.hostings videos
         - if @player.videos.size > 10
           .b-show_more + показать всё
@@ -113,7 +48,7 @@
               .episode
                 a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
                   span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
-                  span.episode-kinds = @player.dropdown_kinds videos
+                  span.episode-kinds = @player.kinds videos
                   span.episode-hostings = @player.hostings videos
             .hide-more
               | &mdash; спрятать
@@ -133,7 +68,7 @@
                   /li class="#{:active if episode == @player.current_episode}"
                     /a href="#{@player.episode_url episode}"
                       /span.num = "##{episode.zero? ? 'прочее' : episode}"
-                      /span.kinds = "#{@player.dropdown_kinds videos}"
+                      /span.kinds = "#{@player.kinds videos}"
                       /span.hostings = "/ #{@player.hostings videos}"
 
             /a.btn.btn-default.btn-sm class="#{:disabled if @player.last_episode?}" href="#{@player.next_url}" title="Следующий эпизод" &nbsp;>&nbsp;

@@ -28,6 +28,7 @@
         +column(3)
 
     .cc-anime_video_report-new
+      +block
       display: none
 
     .cc-optional_controls
@@ -177,6 +178,19 @@
 
         &.active
           font-weight: bold
+
+        &.broken:after, &.wrong:after
+          float: left
+          font-weight: normal
+          padding-right: 5px
+
+        &.broken:after
+          color: $red
+          content: 'broken'
+
+        &.wrong:after
+          color: $orange
+          content: 'wrong'
 
       .episode-num
         color: #123

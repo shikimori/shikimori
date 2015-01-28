@@ -75,15 +75,6 @@ class AnimeOnline::VideoPlayer
     end
   end
 
-  def dropdown_kinds videos
-    videos
-      .map(&:kind)
-      .uniq
-      .map {|v| I18n.t "enumerize.anime_video.kind.#{v}" }
-      .uniq
-      .join(', ')
-  end
-
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
   def episode_videos
     return [] if current_videos.blank?
@@ -92,6 +83,17 @@ class AnimeOnline::VideoPlayer
     end
   end
 
+  # список типов коллекции видео
+  def kinds videos
+    videos
+      .map(&:kind)
+      .uniq
+      .map {|v| I18n.t "enumerize.anime_video.kind.#{v}" }
+      .uniq
+      .join(', ')
+  end
+
+  # список хостингов коллекции видео
   def hostings videos
     videos
       .map(&:hosting)

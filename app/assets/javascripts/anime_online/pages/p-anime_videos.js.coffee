@@ -12,10 +12,7 @@
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
 
   # показ дополнительных кнопок для видео
-  $('.cc-player_controls .show-options').on 'click', ->
-    $(@).toggleClass 'selected'
-    $('.cc-navigation').toggle()
-    $('.cc-optional_controls').toggle()
+  $('.cc-player_controls .show-options').on 'click', toggle_options
 
   # добавление в список
   $('.cc-player_controls').on 'ajax:success', '.create-user_rate', ->
@@ -39,7 +36,12 @@
     (-> Turbolinks.visit $('.c-control.next').attr('href')).delay 500
 
   # кнопка жалобы
-  $('.cc-player_controls .report').on 'click', show_report
+  $('.cc-player_controls .report').on 'click', ->
+    if $(@).hasClass 'selected'
+      hide_report()
+    else
+      show_report()
+
   # отмена жалобы
   $('.cc-anime_video_report-new .cancel').on 'click', hide_report
 
@@ -49,13 +51,20 @@
     hide_report()
 
 show_report = ->
-  $('.cc-optional_controls').hide()
+  $('.cc-player_controls .report').addClass 'selected'
+  $('.cc-options').hide()
   $('.cc-anime_video_report-new').show()
 
 hide_report = ->
-  $('.cc-optional_controls').show()
+  $('.cc-player_controls .report').removeClass 'selected'
+  $('.cc-options').show()
   $('.cc-anime_video_report-new').hide()
-  $('.cc-player_controls .show-options').click()
+  toggle_options
+
+toggle_options = ->
+  $('.cc-player_controls .show-options').toggleClass 'selected'
+  $('.cc-navigation').toggle()
+  $('.cc-optional_controls').toggle()
 
 resize_video_player = ->
   $player = $('iframe,object,embed,.placeholder', '.video-player')

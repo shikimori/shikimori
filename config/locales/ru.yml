@@ -97,6 +97,8 @@ ru:
       anime_video:
         url: Url на видео
         episode: Эпизод
+        kind: Тип видео
+        author: Автор (озвучки,субтитров)
       video:
         url: Ссылка
         kind: Тип
