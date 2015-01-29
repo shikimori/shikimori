@@ -8,7 +8,8 @@ describe AnimeVideo do
     it { should validate_presence_of :anime }
     it { should validate_presence_of :url }
     it { should validate_presence_of :source }
-    it { should validate_numericality_of :episode }
+    it { should validate_presence_of :kind }
+    it { should validate_numericality_of(:episode).is_greater_than_or_equal_to(0) }
   end
 
   describe 'scopes' do
@@ -308,7 +309,9 @@ describe AnimeVideo do
     context 'with_uploader' do
       let(:state) { 'uploaded' }
       let(:kind) { state }
+      let(:anime_video) { create :anime_video, state: state }
       let!(:anime_video_report) { create :anime_video_report, anime_video: anime_video, kind: kind, user: user }
+
       it { should eq user }
     end
 

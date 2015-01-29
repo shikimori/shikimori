@@ -20,7 +20,7 @@
           .icon
           .label Изменить
         - unless @player.current_video.copyright_ban?
-          a.c-control.upload href="#{new_video_online_url @resource}"
+          a.c-control.upload href="#{@player.new_video_url}"
             .icon
             .label Загрузить
         .c-control.report
@@ -49,7 +49,7 @@
             .label Опции
         - else
           - unless @player.current_video.copyright_ban?
-            a.c-column.c-control.upload href="#{new_video_online_url @resource}"
+            a.c-column.c-control.upload href="#{@player.new_video_url}"
               .icon
               .label Загрузить
           .c-column.c-control.report

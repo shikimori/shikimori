@@ -38,6 +38,10 @@ class Ability
     can [:create], AnimeVideoReport do |report|
       report.user_id == User::GuestID && (report.broken? || report.wrong?)
     end
+    can [:create], AnimeVideo do |anime_video|
+      anime_video.state == 'uploaded'
+    end
+
   end
 
   def user_ability
@@ -144,6 +148,9 @@ class Ability
 
     can [:create], AnimeVideoReport do |report|
       report.user_id == @user.id && (report.broken? || report.wrong?)
+    end
+    can [:create, :update], AnimeVideo do |anime_video|
+      anime_video.state == 'uploaded'
     end
   end
 

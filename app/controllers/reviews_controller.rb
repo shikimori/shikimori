@@ -1,19 +1,19 @@
 class ReviewsController < AnimesController
   load_and_authorize_resource
 
+  before_action :actualize_resource
   before_action :add_title
   before_action :add_breadcrumbs, except: [:index]
 
   # один обзор
   def show
-    @resource = @anime || @manga
     @topic = TopicDecorator.new @review.thread
   end
 
   # обзоры аниме или манги
   def index
     @reviews = ReviewsQuery
-      .new(@resource.object, current_user, params[:id].to_i)
+      .new(@review.object, current_user, params[:id].to_i)
       .fetch.map do |review|
         TopicDecorator.new review.thread
       end
@@ -21,19 +21,15 @@ class ReviewsController < AnimesController
 
   def new
     page_title 'Новый обзор'
-    @review = @resource
-    @resource = @anime || @manga
   end
 
   def edit
     page_title 'Изменение обзора'
-    @review = @resource
-    @resource = @anime || @manga
   end
 
   def create
-    if @resource.save
-      redirect_to anime_review_path(@anime || @manga, @resource), notice: 'Рецензия создана'
+    if @review.save
+      redirect_to anime_review_path(@resource, @review), notice: 'Рецензия создана'
     else
       new
       render :new
@@ -41,8 +37,8 @@ class ReviewsController < AnimesController
   end
 
   def update
-    if @resource.update review_params
-      redirect_to anime_review_url(@anime || @manga, @resource), notice: 'Рецензия изменена'
+    if @review.update review_params
+      redirect_to anime_review_url(@resource, @review), notice: 'Рецензия изменена'
     else
       edit
       render :edit
@@ -50,7 +46,7 @@ class ReviewsController < AnimesController
   end
 
   def destroy
-    @resource.destroy
+    @review.destroy
     render json: { notice: 'Рецензия удалена' }
   end
 
@@ -90,5 +86,10 @@ private
   def add_title
     page_title 'Рецензии'
     page_title "Рецензия от #{@review.user.nickname}" if params[:action] == 'show'
+  end
+
+  def actualize_resource
+    @review = @resource
+    @resource = @anime || @manga
   end
 end

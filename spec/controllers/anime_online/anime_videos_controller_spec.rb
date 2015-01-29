@@ -1,12 +1,53 @@
-describe AnimeOnline::AnimeVideosController do
+describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_controller' } do
   let(:user) { create :user, :user }
   let(:admin_user) { create :user, :admin }
 
   let(:anime) { create :anime }
 
   describe '#new' do
-    before { get :new, anime_id: anime.to_param }
-    it { should respond_with :success }
+    before { get :new, anime_id: anime.to_param, anime_video: { anime_id: @resource, state: 'uploaded' } }
+    it { expect(response).to have_http_status(:success) }
+  end
+
+  describe '#create' do
+    before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
+    let(:video_params) {{ state: 'uploaded', kind: kind, author: 'test', episode: 3, url: 'https://vk.com/video-16326869_166521208', source: 'test', anime_id: anime.id }}
+    let(:continue) { '' }
+    let(:kind) { 'fandub' }
+
+    let(:video) { assigns :video }
+
+    context 'valid params' do
+      context 'without continue' do
+        it do
+          expect(video).to be_valid
+          expect(video).to be_persisted
+          expect(video).to have_attributes video_params.except(:author, :url)
+          expect(video.author.name).to eq video_params[:author]
+          expect(video.url).to eq VideoExtractor::UrlExtractor.new(video_params[:url]).extract
+          expect(response).to redirect_to play_video_online_index_url(anime.id, video.episode, video.id)
+        end
+      end
+
+      context 'with continue' do
+        let(:continue) { 'true' }
+        it do
+          expect(assigns :created_video).to be_valid
+          expect(assigns :created_video).to be_persisted
+          expect(response).to have_http_status(:success)
+        end
+      end
+    end
+
+    context 'invalid params' do
+      let(:kind) { }
+
+      it do
+        expect(response).to have_http_status(:success)
+        expect(video).to_not be_valid
+        expect(video).to_not be_persisted
+      end
+    end
   end
 
   describe '#index' do
@@ -18,11 +59,11 @@ describe AnimeOnline::AnimeVideosController do
 
       context 'with video' do
         let(:request) { get :index, anime_id: anime.to_param }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status(:success) }
 
         context 'without current_video' do
           let(:request) { get :index, anime_id: anime.to_param, episode: anime_video.episode, video_id: anime_video.id + 1 }
-          it { should respond_with :success }
+          it { expect(response).to have_http_status(:success) }
         end
       end
 
@@ -66,14 +107,14 @@ describe AnimeOnline::AnimeVideosController do
           let(:adult) { false }
           let(:domain) { 'play.shikimori.org' }
 
-          it { should respond_with :success }
+          it { expect(response).to have_http_status(:success) }
         end
 
         context 'adult' do
           let(:adult) { true }
           let(:domain) { 'xplay.shikimori.org' }
 
-          it { should respond_with :success }
+          it { expect(response).to have_http_status(:success) }
         end
       end
     end
@@ -82,14 +123,14 @@ describe AnimeOnline::AnimeVideosController do
   describe 'extract_url' do
     before { post :extract_url, anime_id: anime.id, url: 'http://vk.com/foo' }
     it { expect(response.content_type).to eq 'application/json' }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status(:success) }
   end
 
   #describe 'new' do
     #context 'can_new' do
       #let(:anime) { create :anime }
       #before { get :new, anime_id: anime.to_param }
-      #it { should respond_with :success }
+      #it { expect(response).to have_http_status(:success) }
     #end
 
     #context 'copyright_ban' do
@@ -98,7 +139,7 @@ describe AnimeOnline::AnimeVideosController do
     #end
   #end
 
-  #describe 'create' do
+  describe '#create' do
     #before { sign_in user }
     #let(:anime) { create :anime }
     #let(:create_request) { post :create, anime_video: { episode: 1, url: 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7', anime_id: anime.to_param, source: 'test', kind: 'fandub', author: 'test_author' } }
@@ -109,7 +150,7 @@ describe AnimeOnline::AnimeVideosController do
     #end
 
     #it { expect{create_request}.to change(AnimeVideoReport, :count).by 1 }
-  #end
+  end
 
   #describe 'destroy' do
     #before { sign_in user }
@@ -128,7 +169,7 @@ describe AnimeOnline::AnimeVideosController do
 
   #describe 'help' do
     #before { get :help }
-    #it { should respond_with :success }
+    #it { expect(response).to have_http_status(:success) }
   #end
 
   #describe 'report' do
@@ -140,7 +181,7 @@ describe AnimeOnline::AnimeVideosController do
     #context 'response' do
       #before { report_request }
       #it { expect(response.content_type).to eq 'text/plain' }
-      #it { should respond_with :success }
+      #it { expect(response).to have_http_status(:success) }
     #end
 
     #context 'first_request' do
@@ -251,12 +292,12 @@ describe AnimeOnline::AnimeVideosController do
     context 'with user_rate' do
       let!(:user_rate) { create :user_rate, target: anime, user: user, episodes: 1 }
       it { expect(assigns(:user_rate).episodes).to eq video.episode }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status(:success) }
     end
 
     context 'without user_rate' do
       it { expect(assigns(:user_rate).episodes).to eq video.episode }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status(:success) }
     end
   end
 end

@@ -1,4 +1,6 @@
 class ShikimoriController < ApplicationController
+  before_action { noindex && nofollow unless shikimori? }
+
   def self.page_title value
     before_action do
       if @page_title.present?

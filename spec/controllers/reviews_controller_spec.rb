@@ -30,9 +30,9 @@ describe ReviewsController do
         storyline: 1, characters: 2, animation: 3, music: 4, overall: 5 }}
       before { post :create, anime_id: anime.to_param, type: 'Anime', review: params }
 
-      it { should redirect_to anime_review_url(anime, resource) }
-      it { expect(resource).to be_persisted }
-      it { expect(resource).to have_attributes(params) }
+      it { should redirect_to anime_review_url(anime, assigns(:review)) }
+      it { expect(assigns :review).to be_persisted }
+      it { expect(assigns :review).to have_attributes(params) }
     end
 
     context 'when validation errors' do
@@ -58,9 +58,9 @@ describe ReviewsController do
         storyline: 1, characters: 2, animation: 3, music: 4, overall: 5 }}
       before { patch :update, id: review.id, review: params, anime_id: anime.to_param, type: 'Anime' }
 
-      it { should redirect_to anime_review_url(anime, resource) }
-      it { expect(resource).to be_persisted }
-      it { expect(resource).to have_attributes(params) }
+      it { should redirect_to anime_review_url(anime, assigns(:review)) }
+      it { expect(assigns :review).to be_persisted }
+      it { expect(assigns :review).to have_attributes(params) }
     end
 
     context 'when validation errors' do
@@ -76,6 +76,6 @@ describe ReviewsController do
     before { delete :destroy, id: review.id, anime_id: anime.to_param, type: 'Anime' }
     it { should respond_with :success }
     it { expect(response.content_type).to eq 'application/json' }
-    it { expect(resource).to be_destroyed }
+    it { expect(assigns :review).to be_destroyed }
   end
 end

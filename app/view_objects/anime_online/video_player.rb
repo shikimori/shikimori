@@ -115,6 +115,16 @@ class AnimeOnline::VideoPlayer
     )
   end
 
+  def new_video_url
+    h.new_video_online_url(
+      'anime_video[anime_id]' => anime.id,
+      'anime_video[source]' => 'shikimori.org',
+      'anime_video[state]' => 'uploaded',
+      'anime_video[kind]' => 'fandub',
+      'anime_video[episode]' => current_video.episode
+    )
+  end
+
 private
   def videos
     @anime.anime_videos
