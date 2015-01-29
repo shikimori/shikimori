@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141116115819) do
+ActiveRecord::Schema.define(version: 20150129174425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,7 @@ ActiveRecord::Schema.define(version: 20141116115819) do
     t.string  "ip",               limit: 255, null: false
   end
 
+  add_index "contest_user_votes", ["contest_match_id", "ip"], name: "index_contest_user_votes_on_contest_vote_id_and_ip", unique: true, using: :btree
   add_index "contest_user_votes", ["contest_match_id", "item_id"], name: "index_contest_user_votes_on_contest_vote_id_and_item_id", using: :btree
   add_index "contest_user_votes", ["contest_match_id", "user_id"], name: "index_contest_user_votes_on_contest_vote_id_and_user_id", unique: true, using: :btree
   add_index "contest_user_votes", ["contest_match_id"], name: "index_contest_user_votes_on_contest_vote_id", using: :btree
