@@ -14,7 +14,7 @@ class ContestMatch < ActiveRecord::Base
         .group("#{table_name}.id, cuv.item_id")
         .select("#{table_name}.*, cuv.item_id as voted_id")
     else
-      select("#{table_name}.*, null as voted_id")
+      select("#{table_name}.*, null::integer as voted_id")
     end
   }
 
