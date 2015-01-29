@@ -15,7 +15,7 @@
       = f.input :state, as: :hidden
       = f.input :episode
       = f.input :url
-      = f.input :author, hint: 'Не обязательно'
+      = f.input :author, hint: 'не обязательно'
       = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
 
     .block

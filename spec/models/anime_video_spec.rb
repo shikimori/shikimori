@@ -13,8 +13,8 @@ describe AnimeVideo do
   end
 
   describe 'scopes' do
-    describe '#worked' do
-      subject { AnimeVideo.worked }
+    describe '#available' do
+      subject { AnimeVideo.available }
 
       context 'filter_by_video_status' do
         before do

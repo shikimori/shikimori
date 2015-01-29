@@ -25,10 +25,10 @@ class AnimeVideo < ActiveRecord::Base
   PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false"
   XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true"
 
-  scope :allowed_play, -> { worked.joins(:anime).where(PLAY_CONDITION) }
-  scope :allowed_xplay, -> { worked.joins(:anime).where(XPLAY_CONDITION) }
+  scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
+  scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }
 
-  scope :worked, -> { where state: ['working', 'uploaded'] }
+  scope :available, -> { where state: ['working', 'uploaded'] }
 
   CopyrightBanAnimeIDs = [-1] # 10793
 
