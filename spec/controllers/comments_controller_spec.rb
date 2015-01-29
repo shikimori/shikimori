@@ -9,14 +9,14 @@ describe CommentsController do
     context 'html' do
       before { get :show, id: comment.id }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'text/html' }
     end
 
     context 'html' do
       before { get :show, id: comment.id, format: 'json' }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
     end
   end
@@ -27,7 +27,7 @@ describe CommentsController do
     context 'success' do
       before { post :create, comment: { commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: false, review: false } }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
       specify { expect(assigns(:comment)).to be_persisted }
     end
@@ -35,7 +35,7 @@ describe CommentsController do
     context 'failure' do
       before { post :create, comment: { body: 'test', offtopic: false, review: false } }
 
-      it { should respond_with 422 }
+      it { expect(response).to have_http_status :error }
       it { expect(response.content_type).to eq 'application/json' }
     end
   end
@@ -44,7 +44,7 @@ describe CommentsController do
     before { sign_in user }
     before { get :edit, id: comment.id }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
@@ -54,7 +54,7 @@ describe CommentsController do
     context 'success' do
       before { make_request }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
       specify { expect(assigns(:comment).body).to eq 'testzxc' }
     end
@@ -71,7 +71,7 @@ describe CommentsController do
 
     context 'success' do
       before { make_request }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
     end
 
@@ -113,23 +113,23 @@ describe CommentsController do
   describe '#chosen' do
     describe 'one' do
       before { get :chosen, ids: "#{comment.id}" }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
 
     describe 'multiple' do
       before { get :chosen, ids: "#{comment.id},#{comment2.id}" }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
 
     describe 'unexisted' do
       before { get :chosen, ids: "#{comment2.id+1}" }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#postload' do
     let(:user) { build_stubbed :user }
     before { get :postloader, commentable_type: topic.class.name, commentable_id: topic.id, offset: 0, limit: 1 }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 end

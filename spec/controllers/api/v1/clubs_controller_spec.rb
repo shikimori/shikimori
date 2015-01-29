@@ -10,7 +10,7 @@ describe Api::V1::ClubsController do
 
     before { get :index, page: 1, limit: 1, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(2) }
   end
@@ -27,7 +27,7 @@ describe Api::V1::ClubsController do
     end
     before { get :show, id: club.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#animes' do
@@ -35,7 +35,7 @@ describe Api::V1::ClubsController do
     before { club.animes << create(:anime) }
     before { get :animes, id: club.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#mangas' do
@@ -43,7 +43,7 @@ describe Api::V1::ClubsController do
     before { club.mangas << create(:manga) }
     before { get :mangas, id: club.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#characters' do
@@ -51,7 +51,7 @@ describe Api::V1::ClubsController do
     before { club.characters << create(:character) }
     before { get :characters, id: club.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#members' do
@@ -59,7 +59,7 @@ describe Api::V1::ClubsController do
     before { club.members << create(:user) }
     before { get :members, id: club.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#images' do
@@ -67,6 +67,6 @@ describe Api::V1::ClubsController do
     before { club.images << create(:image, uploader: build_stubbed(:user), owner: club) }
     before { get :images, id: club.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 end

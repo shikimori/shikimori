@@ -27,7 +27,7 @@ describe Users::OmniauthCallbacksController do
 
         it { expect{subject}.to change(User, :count).by 1 }
         it { expect{subject}.to change(UserToken, :count).by 1 }
-        it { should redirect_to :root }
+        it { expect(response).to redirect_to :root }
       end
 
       context 'with_token' do
@@ -39,7 +39,7 @@ describe Users::OmniauthCallbacksController do
 
         it { expect{subject}.to_not change User, :count }
         it { expect{subject}.to_not change UserToken, :count }
-        it { should redirect_to :root }
+        it { expect(response).to redirect_to :root }
       end
     end
   end

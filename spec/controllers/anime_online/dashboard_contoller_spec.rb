@@ -3,6 +3,6 @@ describe AnimeOnline::DashboardController do
 
   describe 'show' do
     before { get :show }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 end

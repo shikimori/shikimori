@@ -6,7 +6,7 @@ describe ContestsController do
 
   describe '#index' do
     before { get :index }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#grid' do
@@ -14,14 +14,14 @@ describe ContestsController do
       let(:contest) { create :contest, user: user }
       before { get :grid, id: contest.to_param }
 
-      it { should redirect_to contests_url }
+      it { expect(response).to redirect_to contests_url }
     end
 
     context 'proposing' do
       let(:contest) { create :contest, :proposing, user: user }
       before { get :grid, id: contest.to_param }
 
-      it { should redirect_to contest_url(contest) }
+      it { expect(response).to redirect_to contest_url(contest) }
     end
 
     context 'started' do
@@ -29,7 +29,7 @@ describe ContestsController do
       before { contest.start! }
       before { get :grid, id: contest.to_param }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
@@ -42,12 +42,12 @@ describe ContestsController do
 
       context 'w/o round' do
         before { get :show, id: contest.to_param }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       context 'with round' do
         before { get :show, id: contest.to_param, round: 1 }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
     end
 
@@ -62,14 +62,14 @@ describe ContestsController do
 
         get :show, id: contest.to_param
       end
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
 
     context 'proposing' do
       let(:contest) { create :contest, :with_generated_thread, :proposing, user: user }
       before { get :show, id: contest.to_param }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
@@ -81,7 +81,7 @@ describe ContestsController do
 
     context 'not finished' do
       before { make_request }
-      it { should redirect_to contest_url(contest) }
+      it { expect(response).to redirect_to contest_url(contest) }
     end
 
     context 'finished' do
@@ -92,25 +92,25 @@ describe ContestsController do
         contest.current_round.finish!
       end
       before { make_request }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#new' do
     before { get :new }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
     before { get :edit, id: contest.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     context 'when success' do
       before { patch :update, id: contest.id, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on').merge(description: 'zxc') }
 
-      it { should redirect_to edit_contest_url(assigns :resource) }
+      it { expect(response).to redirect_to edit_contest_url(assigns :resource) }
       it { expect(resource.description).to eq 'zxc' }
       it { expect(resource.errors).to be_empty }
     end
@@ -118,7 +118,7 @@ describe ContestsController do
     context 'when validation errors' do
       before { patch 'update', id: contest.id, contest: { title: '' } }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(resource.errors).to_not be_empty }
     end
   end
@@ -126,13 +126,13 @@ describe ContestsController do
   describe '#create' do
     context 'when success' do
       before { post :create, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on') }
-      it { should redirect_to edit_contest_url(resource) }
+      it { expect(response).to redirect_to edit_contest_url(resource) }
     end
 
     context 'when validation errors' do
       before { post :create, contest: { id: 1 } }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(resource.new_record?).to be true }
     end
   end
@@ -141,7 +141,7 @@ describe ContestsController do
     let(:contest) { create :contest, :with_5_members, user: user }
     before { post :start, id: contest.to_param }
 
-    it { should redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
     it { expect(resource.started?).to be true }
   end
 
@@ -149,7 +149,7 @@ describe ContestsController do
     let(:contest) { create :contest, user: user }
     before { post :propose, id: contest.to_param }
 
-    it { should redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
     it { expect(resource.proposing?).to be true }
   end
 
@@ -159,7 +159,7 @@ describe ContestsController do
     let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, id: 2, sign_in_count: 999) }
     before { post :cleanup_suggestions, id: contest.to_param }
 
-    #it { should redirect_to edit_contest_url(id: resource.to_param) }
+    #it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
     it { expect(resource.suggestions.size).to eq(1) }
   end
 
@@ -167,7 +167,7 @@ describe ContestsController do
     let(:contest) { create :contest, state: :proposing, user: user }
     before { post :stop_propose, id: contest.to_param }
 
-    it { should redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
     it { expect(resource.created?).to be true }
   end
 
@@ -178,7 +178,7 @@ describe ContestsController do
       #get 'finish', id: contest.to_param
     #end
 
-    #it { should redirect_to edit_contest_url(id: resource.to_param) }
+    #it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
     #it { expect(resource.state).to eq 'finished' }
   #end
 
@@ -186,7 +186,7 @@ describe ContestsController do
     let(:contest) { create :contest,:with_5_members, user: user }
     before { post :build, id: contest.to_param }
 
-    it { should redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
     it { expect(resource.rounds.size).to eq(6) }
   end
 end

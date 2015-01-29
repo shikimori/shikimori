@@ -4,7 +4,7 @@ describe Api::V1::SectionsController do
 
     before { get :index, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 end

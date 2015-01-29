@@ -4,7 +4,7 @@ describe DialogsController do
     let!(:message) { create :message, from: user, to: create(:user) }
     before { get :index, profile_id: user.to_param }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#show' do
@@ -15,7 +15,7 @@ describe DialogsController do
 
     before { get :show, profile_id: user.to_param, id: target_user.to_param }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#destroy' do
@@ -25,7 +25,7 @@ describe DialogsController do
 
     before { delete :destroy, profile_id: user.to_param, id: message }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
     it { expect(message.reload.src_del).to be_truthy }
   end

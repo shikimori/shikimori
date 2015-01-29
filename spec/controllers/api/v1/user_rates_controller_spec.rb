@@ -31,7 +31,7 @@ describe Api::V1::UserRatesController do
     let(:update_params) {{ score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
 
     describe 'user_rate' do
       subject { assigns :user_rate }
@@ -75,7 +75,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :anime }
       before { post :cleanup, type: :anime }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user.anime_rates).to be_empty }
       it { expect(user.history).to be_empty }
     end
@@ -84,7 +84,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :manga }
       before { post :cleanup, type: :manga }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user.manga_rates).to be_empty }
       it { expect(user.history).to be_empty }
     end
@@ -97,7 +97,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :anime }
       before { post :reset, type: :anime }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user_rate.reload.score).to be_zero }
     end
 
@@ -105,7 +105,7 @@ describe Api::V1::UserRatesController do
       let(:entry) { create :manga }
       before { post :reset, type: :manga }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user_rate.reload.score).to be_zero }
     end
   end

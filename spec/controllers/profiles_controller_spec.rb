@@ -3,45 +3,45 @@ describe ProfilesController do
 
   describe '#show' do
     before { get :show, id: user.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#friends' do
     context 'without friends' do
       before { get :friends, id: user.to_param }
-      it { should redirect_to profile_url(user) }
+      it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with friends' do
       let!(:friend_link) { create :friend_link, src: user, dst: create(:user) }
       before { get :friends, id: user.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#clubs' do
     context 'without clubs' do
       before { get :clubs, id: user.to_param }
-      it { should redirect_to profile_url(user) }
+      it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with clubs' do
       let!(:club_role) { create :group_role, user: user }
       before { get :clubs, id: user.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#favourites' do
     context 'without favourites' do
       before { get :favourites, id: user.to_param }
-      it { should redirect_to profile_url(user) }
+      it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with favourites' do
       let!(:favourite) { create :favourite, user: user, linked: create(:anime) }
       before { get :favourites, id: user.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
@@ -49,42 +49,42 @@ describe ProfilesController do
     let!(:section) { create :section, :reviews }
     let!(:review) { create :review, user: user }
     before { get :reviews, id: user.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
     let!(:comment) { create :comment, user: user, commentable: user }
     before { get :comments, id: user.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#comments_reviews' do
     let!(:comment) { create :comment, user: user, commentable: user, review: true }
     before { get :comments_reviews, id: user.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#changes' do
     let(:anime) { create :anime }
     let!(:user_change) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Taken }
     before { get :changes, id: user.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#videos' do
     let!(:video) { create :video, uploader: user, state: 'confirmed', url: 'http://youtube.com/watch?v=VdwKZ6JDENc' }
     before { get :videos, id: user.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#ban' do
     before { get :ban, id: user.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   #describe '#stats' do
     #before { get :stats, id: user.to_param }
-    #it { should respond_with :success }
+    #it { expect(response).to have_http_status :success }
   #end
 
   describe '#edit' do
@@ -96,37 +96,37 @@ describe ProfilesController do
 
       describe 'account' do
         let(:page) { 'account' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'profile' do
         let(:page) { 'profile' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'password' do
         let(:page) { 'password' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'styles' do
         let(:page) { 'styles' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'list' do
         let(:page) { 'list' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'notifications' do
         let(:page) { 'notifications' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'misc' do
         let(:page) { 'misc' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
     end
 
@@ -148,7 +148,7 @@ describe ProfilesController do
         context 'common change' do
           let(:update_params) {{ nickname: 'morr' }}
 
-          it { should redirect_to edit_profile_url(resource, page: 'account') }
+          it { expect(response).to redirect_to edit_profile_url(resource, page: 'account') }
           it { expect(resource.nickname).to eq 'morr' }
           it { expect(resource.errors).to be_empty }
         end
@@ -185,7 +185,7 @@ describe ProfilesController do
         let(:update_params) {{ nickname: user_2.nickname }}
         before { make_request }
 
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
         it { expect(resource.errors).to_not be_empty }
       end
     end

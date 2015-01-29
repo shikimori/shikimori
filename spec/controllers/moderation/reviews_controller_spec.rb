@@ -4,7 +4,7 @@ describe Moderation::ReviewsController do
 
   describe 'index' do
     before { get :index }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe 'accept' do
@@ -12,7 +12,7 @@ describe Moderation::ReviewsController do
     before { post :accept, id: review.id }
 
     specify { expect(assigns(:review).accepted?).to be_truthy }
-    it { should redirect_to moderation_reviews_url }
+    it { expect(response).to redirect_to moderation_reviews_url }
   end
 
   describe 'reject' do
@@ -20,6 +20,6 @@ describe Moderation::ReviewsController do
     before { post :reject, id: review.id }
 
     specify { expect(assigns(:review).rejected?).to be_truthy }
-    it { should redirect_to moderation_reviews_url }
+    it { expect(response).to redirect_to moderation_reviews_url }
   end
 end

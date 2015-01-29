@@ -7,7 +7,7 @@ describe UserRatesController do
 
     context 'has access to list' do
       before { make_request }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
 
     context 'has no access to list' do
@@ -21,14 +21,14 @@ describe UserRatesController do
     let(:user_rate) { create :user_rate, user: user }
     before { get :edit, id: user_rate.id }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#destroy' do
     let(:user_rate) { create :user_rate, user: user }
     before { delete :destroy, id: user_rate.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(assigns(:user_rate)).to be_destroyed }
   end
 
@@ -37,7 +37,7 @@ describe UserRatesController do
     let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { post :create, user_rate: create_params, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
 
     describe 'user_rate' do
       subject { assigns :user_rate }
@@ -59,7 +59,7 @@ describe UserRatesController do
     let(:user_rate) { create :user_rate, user: user, episodes: 1 }
     before { post :increment, id: user_rate.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
 
     describe 'user_rate' do
       subject { assigns :user_rate }
@@ -73,7 +73,7 @@ describe UserRatesController do
 
     context 'has access' do
       before { make_request }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/xml' }
     end
 
@@ -108,7 +108,7 @@ describe UserRatesController do
         let(:rewrite) { false }
 
         it 'imports data' do
-          should redirect_to messages_url(type: :inbox)
+          expect(response).to redirect_to messages_url(type: :inbox)
           expect(user.reload.anime_rates.size).to eq(2)
           expect(assigns(:added).size).to eq(1)
           expect(assigns :updated).to be_empty
@@ -119,7 +119,7 @@ describe UserRatesController do
         let(:rewrite) { true }
 
         it 'imports data' do
-          should redirect_to messages_url(type: :inbox)
+          expect(response).to redirect_to messages_url(type: :inbox)
           expect(user.reload.anime_rates.size).to eq(2)
           expect(assigns(:added).size).to eq(1)
           expect(assigns(:updated).size).to eq(1)
@@ -135,7 +135,7 @@ describe UserRatesController do
       before { post :import, profile_id: user.to_param, klass: 'anime', rewrite: true, list_type: :anime_planet, login: 'shikitest' }
 
       it 'imports data' do
-        should redirect_to messages_url(type: :inbox)
+        expect(response).to redirect_to messages_url(type: :inbox)
         expect(user.reload.anime_rates.size).to eq(2)
 
         expect(assigns(:added).size).to eq(2)
@@ -173,7 +173,7 @@ describe UserRatesController do
       before { post :import, profile_id: user.to_param, klass: 'manga', rewrite: true, list_type: :xml, file: xml }
 
       it 'imports data' do
-        should redirect_to messages_url(type: :inbox)
+        expect(response).to redirect_to messages_url(type: :inbox)
         expect(user.reload.manga_rates.size).to eq(1)
 
         expect(assigns(:added).size).to eq(1)

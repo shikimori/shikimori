@@ -6,13 +6,13 @@ describe UsersController do
 
     describe 'whole collection' do
       before { get :index }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(collection).to have(3).items }
     end
 
     describe 'search' do
       before { get :index, search: 'Fff' }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(collection).to eq [user_2, user_1] }
     end
   end
@@ -24,7 +24,7 @@ describe UsersController do
 
     before { get :autocomplete, search: 'Fff' }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(collection).to eq [user_1, user_2] }
     it { expect(response.content_type).to eq 'application/json' }
   end

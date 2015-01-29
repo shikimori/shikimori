@@ -4,13 +4,13 @@ describe Api::V1::PeopleController do
 
     context 'person' do
       let(:person) { create :person }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
     end
 
     context 'seyu' do
       let(:person) { create :person, seyu: true }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
     end
   end

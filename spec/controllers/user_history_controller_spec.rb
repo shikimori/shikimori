@@ -4,7 +4,7 @@ describe UserHistoryController do
   describe '#index' do
     context 'without history' do
       before { get :index, profile_id: user.to_param }
-      it { should redirect_to profile_url(user) }
+      it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with history' do
@@ -13,7 +13,7 @@ describe UserHistoryController do
 
       context 'has access to list' do
         before { make_request }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       context 'has no access to list' do
@@ -41,7 +41,7 @@ describe UserHistoryController do
         let(:entry) { create :anime }
         before { make_request }
 
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
         it { expect(user.history).to be_empty }
       end
 
@@ -49,7 +49,7 @@ describe UserHistoryController do
         let(:entry) { create :manga }
         before { make_request }
 
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
         it { expect(user.history).to be_empty }
       end
     end

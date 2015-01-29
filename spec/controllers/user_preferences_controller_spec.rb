@@ -16,13 +16,13 @@ describe UserPreferencesController do
 
       context 'preference change' do
         it { expect(resource.preferences.body_background).to eq preferences_params[:body_background] }
-        it { should redirect_to edit_profile_url(user, page: :profile) }
+        it { expect(response).to redirect_to edit_profile_url(user, page: :profile) }
       end
 
       context 'user changes' do
         let(:user_params) {{ about: 'zxc' }}
         it { expect(resource.about).to eq user_params[:about] }
-        it { should redirect_to edit_profile_url(user, page: :profile) }
+        it { expect(response).to redirect_to edit_profile_url(user, page: :profile) }
       end
     end
   end

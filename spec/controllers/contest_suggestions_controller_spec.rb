@@ -5,7 +5,7 @@ describe ContestSuggestionsController do
   describe '#show' do
     before { get :show, contest_id: contest.id, id: suggestion.id }
     let(:suggestion) { create :contest_suggestion, contest: contest, user: user }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
@@ -13,7 +13,7 @@ describe ContestSuggestionsController do
     let(:anime) { create :anime }
 
     context 'valid record' do
-      it { should redirect_to contest }
+      it { expect(response).to redirect_to contest }
 
       describe 'entry' do
         after { act }
@@ -38,7 +38,7 @@ describe ContestSuggestionsController do
 
     context 'valid record' do
       before { act }
-      it { should redirect_to contest }
+      it { expect(response).to redirect_to contest }
       it { expect{suggestion.reload}.to raise_error ActiveRecord::RecordNotFound }
     end
 

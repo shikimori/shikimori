@@ -9,7 +9,7 @@ describe Moderation::AnimeVideoReportsController do
   describe '#index' do
     before { get :index }
     let(:kind) { 'broken' }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#accept' do
@@ -17,13 +17,13 @@ describe Moderation::AnimeVideoReportsController do
 
     context 'broken' do
       let(:kind) { 'broken' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
       specify { expect(anime_video.reload.state).to eq kind }
     end
 
     context 'wrong' do
       let(:kind) { 'wrong' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
       specify { expect(anime_video.reload.state).to eq kind }
     end
   end
@@ -33,7 +33,7 @@ describe Moderation::AnimeVideoReportsController do
     let(:params) {{ kind: 'broken', anime_video_id: anime_video.id, user_id: user.id, message: 'test' }}
     before { post :create, anime_video_report: params }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(resource).to be_persisted }
     it { expect(resource).to have_attributes params }
   end
@@ -47,19 +47,19 @@ describe Moderation::AnimeVideoReportsController do
 
     context 'broken' do
       let(:kind) { 'broken' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
       specify { expect(anime_video.reload).to be_working }
     end
 
     context 'wrong' do
       let(:kind) { 'wrong' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
       specify { expect(anime_video.reload).to be_working }
     end
 
     context 'uploaded' do
       let(:kind) { 'uploaded' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
 
       context 'rejected' do
         let(:state) { 'rejected' }
@@ -78,13 +78,13 @@ describe Moderation::AnimeVideoReportsController do
 
     context 'broken' do
       let(:kind) { 'broken' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
       specify { expect(anime_video.reload.state).to eq 'working' }
     end
 
     context 'wrong' do
       let(:kind) { 'wrong' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
       specify { expect(anime_video.reload.state).to eq 'working' }
     end
   end

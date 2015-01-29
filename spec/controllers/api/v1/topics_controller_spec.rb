@@ -5,7 +5,7 @@ describe Api::V1::TopicsController do
 
     before { get :index, section: section.permalink, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 
@@ -15,6 +15,6 @@ describe Api::V1::TopicsController do
 
     before { get :show, id: topic.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 end

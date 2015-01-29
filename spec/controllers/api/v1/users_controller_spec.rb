@@ -8,7 +8,7 @@ describe Api::V1::UsersController do
 
     before { get :index, page: 1, limit: 1, search: 'Te', format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
     specify { expect(assigns(:collection).size).to eq(2) }
   end
@@ -16,7 +16,7 @@ describe Api::V1::UsersController do
   describe '#show' do
     before { get :show, id: user.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 
@@ -25,7 +25,7 @@ describe Api::V1::UsersController do
       before { sign_in user }
       before { get :whoami, format: :json }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
 
       context 'json' do
         subject { OpenStruct.new JSON.parse(response.body) }
@@ -44,7 +44,7 @@ describe Api::V1::UsersController do
     let(:user) { create :user, friends: [create(:user)] }
 
     before { get :friends, id: user.id, format: :json }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#anime_rates' do
@@ -53,7 +53,7 @@ describe Api::V1::UsersController do
     let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
     before { get :anime_rates, id: user.id, status: 1, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     specify { expect(assigns(:rates).size).to eq(1) }
   end
 
@@ -63,7 +63,7 @@ describe Api::V1::UsersController do
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
     before { get :manga_rates, id: user.id, status: 1, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     specify { expect(assigns(:rates).size).to eq(1) }
   end
 
@@ -71,7 +71,7 @@ describe Api::V1::UsersController do
     let(:user) { create :user, groups: [create(:group)] }
 
     before { get :clubs, id: user.id, format: :json }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#favourites' do
@@ -87,7 +87,7 @@ describe Api::V1::UsersController do
     end
 
     before { get :favourites, id: user.id, format: :json }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#messages' do
@@ -98,7 +98,7 @@ describe Api::V1::UsersController do
     context 'signed_in' do
       before { sign_in user }
       before { get :messages, id: user.id, page: 1, limit: 20, type: 'news', format: :json }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
 
     context 'guest' do
@@ -111,7 +111,7 @@ describe Api::V1::UsersController do
     context 'signed_in' do
       before { sign_in user }
       before { get :unread_messages, id: user.id, format: :json }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
 
     context 'guest' do
@@ -126,7 +126,7 @@ describe Api::V1::UsersController do
 
     describe 'index' do
       before { get :history, id: user.id, limit: 10, page: 1, format: :json }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 end

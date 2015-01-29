@@ -9,7 +9,7 @@ describe PagesController do
       get :ongoings
     end
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
 
     describe 'signed_in user' do
       before do
@@ -17,7 +17,7 @@ describe PagesController do
         get :ongoings
       end
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
@@ -31,7 +31,7 @@ describe PagesController do
         get :news, kind: 'site', format: 'rss'
       end
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/rss+xml' }
       it { expect(assigns(:topics).size).to eq(2) }
     end
@@ -43,7 +43,7 @@ describe PagesController do
         get :news, kind: 'anime', format: 'rss'
       end
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/rss+xml' }
       it { expect(assigns(:topics).size).to eq(2) }
     end
@@ -51,7 +51,7 @@ describe PagesController do
 
   describe 'user_agreement' do
     before { get :user_agreement }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe 'pages404' do
@@ -71,12 +71,12 @@ describe PagesController do
       get :feedback
     end
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe 'user_agent' do
     before { get :user_agent }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe 'admin_panel' do
@@ -99,24 +99,24 @@ describe PagesController do
         get :admin_panel
       end
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe 'about' do
     before { get :user_agent }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe 'welcome_gallery' do
     before { get :user_agent }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe 'tableau' do
     before { get :tableau }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 end

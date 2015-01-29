@@ -7,19 +7,19 @@ describe Moderation::BansController do
 
   describe '#index' do
     before { get :index }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#new' do
     context 'moderator' do
       context 'with abuse_request' do
         before { get :new, comment_id: comment.id, abuse_request_id: abuse_request.id }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       context 'wo abuse_request' do
         before { get :new, comment_id: comment.id }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
     end
   end
@@ -28,7 +28,7 @@ describe Moderation::BansController do
     context 'moderator' do
       before { post :create, ban: { reason: 'test', duration: '1h', comment_id: comment.id, abuse_request_id: abuse_request.id } }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
     end
   end

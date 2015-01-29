@@ -4,7 +4,7 @@ describe Moderation::AbuseRequestsController do
 
   describe '#index' do
     before { get :index }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   [:review, :offtopic, :abuse, :spoiler].each do |method|
@@ -13,7 +13,7 @@ describe Moderation::AbuseRequestsController do
 
       describe 'response' do
         before { post method, comment_id: comment.id }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
         it { expect(response.content_type).to eq 'application/json' }
       end
 

@@ -16,14 +16,14 @@ describe AnimesCollectionController do
             describe 'html' do
               before { get :index, klass: type }
 
-              it { should respond_with :success }
+              it { expect(response).to have_http_status :success }
               it { expect(response.content_type).to eq 'text/html' }
             end
 
             describe 'json' do
               before { get :index, klass: type, format: 'json' }
 
-              it { should respond_with :success }
+              it { expect(response).to have_http_status :success }
               it { expect(response.content_type).to eq 'application/json' }
             end
           end
@@ -31,7 +31,7 @@ describe AnimesCollectionController do
           describe 'search' do
             before { get :index, klass: type, search: 'test' }
 
-            it { should respond_with :success }
+            it { expect(response).to have_http_status :success }
             it { expect(response.content_type).to eq 'text/html' }
           end
 
@@ -39,14 +39,14 @@ describe AnimesCollectionController do
             describe 'html' do
               before { get :index, klass: type, season: 'summer_2012' }
 
-              it { should respond_with :success }
+              it { expect(response).to have_http_status :success }
               it { expect(response.content_type).to eq 'text/html' }
             end
 
             describe 'json' do
               before { get :index, klass: type, season: 'summer_2012', format: 'json' } 
 
-              it { should respond_with :success }
+              it { expect(response).to have_http_status :success }
               it { expect(response.content_type).to eq 'application/json' }
             end
           end if type == 'anime'

@@ -91,14 +91,14 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
           let(:adult) { true }
           let(:domain) { 'play.shikimori.org' }
 
-          it { should redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
+          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
         end
 
         context 'adult domain' do
           let(:adult) { false }
           let(:domain) { 'xplay.shikimori.org' }
 
-          it { should redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
+          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
         end
       end
 
@@ -249,7 +249,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         #request
       #end
 
-      #it { should redirect_to play_video_online_index_url(video.anime_id, video.episode + 1) }
+      #it { expect(response).to redirect_to play_video_online_index_url(video.anime_id, video.episode + 1) }
     #end
 
     #context 'check_user_history' do

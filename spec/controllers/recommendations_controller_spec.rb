@@ -4,7 +4,7 @@ describe RecommendationsController do
       describe '#index' do
         context 'with_params' do
           before { get :index, klass: type, metric: 'pearson', threshold: RecommendationsController::THRESHOLDS[Anime].first }
-          it { should respond_with :success }
+          it { expect(response).to have_http_status :success }
         end
 
         describe 'witout_params' do

@@ -5,52 +5,52 @@ describe CharactersController do
     let!(:character_2) { create :character, name: 'zzz' }
     before { get :index, search: 'zzz' }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(assigns :collection).to eq [character_2] }
   end
 
   describe '#show' do
     let!(:character) { create :character, :with_thread }
     before { get :show, id: character.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#seyu' do
     context 'without_seyu' do
       before { get :seyu, id: character.to_param }
-      it { should redirect_to character }
+      it { expect(response).to redirect_to character }
     end
 
     context 'with_seyu' do
       let!(:role) { create :person_role, :seyu_role, character: character }
       before { get :seyu, id: character.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#animes' do
     context 'without_anime' do
       before { get :animes, id: character.to_param }
-      it { should redirect_to character }
+      it { expect(response).to redirect_to character }
     end
 
     context 'with_animes' do
       let!(:role) { create :person_role, :anime_role, character: character }
       before { get :animes, id: character.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#mangas' do
     context 'without_manga' do
       before { get :mangas, id: character.to_param }
-      it { should redirect_to character }
+      it { expect(response).to redirect_to character }
     end
 
     context 'with_mangas' do
       let!(:role) { create :person_role, :manga_role, character: character }
       before { get :mangas, id: character.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
@@ -59,45 +59,45 @@ describe CharactersController do
 
     context 'without_comments' do
       before { get :comments, id: character.to_param }
-      it { should redirect_to character }
+      it { expect(response).to redirect_to character }
     end
 
     context 'with_comments' do
       let!(:comment) { create :comment, commentable: character.thread }
       before { character.thread.update comments_count: 1 }
       before { get :comments, id: character.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#art' do
     before { get :art, id: character.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#favoured' do
     let!(:favoured) { create :favourite, linked: character }
     before { get :favoured, id: character.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#clubs' do
     let(:group) { create :group, :with_thread, :with_member }
     let!(:group_link) { create :group_link, linked: character, group: group }
     before { get :clubs, id: character.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#tooltip' do
     before { get :tooltip, id: character.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#autocomplete' do
     let!(:character_1) { create :character, name: 'Fffff' }
     before { get :autocomplete, search: 'Fff' }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 
@@ -105,7 +105,7 @@ describe CharactersController do
     context 'guest' do
       let(:page) { nil }
       before { get :edit, id: character.to_param }
-      it { should redirect_to new_user_session_url }
+      it { expect(response).to redirect_to new_user_session_url }
     end
 
     context 'authenticated' do
@@ -114,17 +114,17 @@ describe CharactersController do
 
       describe 'description' do
         let(:page) { nil }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'russian' do
         let(:page) { 'russian' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
 
       describe 'tags' do
         let(:page) { 'tags' }
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
       end
     end
   end

@@ -7,7 +7,7 @@ describe StudiosController do
   describe '#index' do
     before { get :index }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(collection).to eq [studio] }
   end
 end

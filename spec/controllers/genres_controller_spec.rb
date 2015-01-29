@@ -4,23 +4,23 @@ describe GenresController do
 
   describe '#index' do
     before { get :index }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
     before { get :edit, id: genre.id }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     before { patch :update, id: genre.id, genre: { description: 'new description' } }
-    it { should redirect_to genres_url }
+    it { expect(response).to redirect_to genres_url }
     it { expect(genre.reload.description).to eq 'new description' }
   end
 
   describe '#tooltip' do
     before { get :tooltip, id: genre }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 end

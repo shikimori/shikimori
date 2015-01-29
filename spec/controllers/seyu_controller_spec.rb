@@ -5,7 +5,7 @@ describe SeyuController do
     let!(:person_2) { create :person, seyu: false }
     before { get :index, search: 'test', kind: 'seyu' }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(assigns :collection).to eq [seyu] }
   end
 
@@ -14,18 +14,18 @@ describe SeyuController do
 
     context 'seyu' do
       let!(:seyu) { create :person, :with_thread, seyu: true }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
 
     context 'person' do
       let!(:seyu) { create :person, seyu: false }
-      it { should redirect_to person_url(seyu) }
+      it { expect(response).to redirect_to person_url(seyu) }
     end
   end
 
   describe '#roles' do
     before { get :roles, id: seyu.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
@@ -33,6 +33,6 @@ describe SeyuController do
     let!(:comment) { create :comment, commentable: seyu.thread }
     before { get :roles, id: seyu.to_param }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 end

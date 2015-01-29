@@ -5,7 +5,7 @@ describe SubscriptionsController do
   #describe '#create' do
     #before { post :create, id: topic.id, type: topic.class.name }
 
-    #it { should respond_with :success }
+    #it { expect(response).to have_http_status :success }
     #it { expect(user.reload.subscribed?(topic)).to be_truthy }
   #end
 
@@ -13,7 +13,7 @@ describe SubscriptionsController do
     let!(:subscription) { create :subscription, user: user, target: topic }
     before { delete :destroy, id: topic.id, type: topic.class.name }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(user.reload.subscribed?(topic)).to be_falsy }
   end
 end

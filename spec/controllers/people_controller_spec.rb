@@ -5,26 +5,26 @@ describe PeopleController do
     let!(:person_2) { create :person, name: 'test', mangaka: true }
     before { get :index, search: 'test', kind: 'mangaka' }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(assigns :collection).to eq [person_2] }
   end
 
   describe '#show' do
     let!(:person) { create :person, :with_thread, mangaka: true }
     before { get :show, id: person.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#works' do
     let!(:manga) { create :manga, person_roles: [create(:person_role, person: person, role: 'Director')] }
     before { get :works, id: person.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#favoured' do
     let!(:favoured) { create :favourite, linked: person }
     before { get :favoured, id: person.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
@@ -32,20 +32,20 @@ describe PeopleController do
 
     context 'without_comments' do
       before { get :comments, id: person.to_param }
-      it { should redirect_to person }
+      it { expect(response).to redirect_to person }
     end
 
     context 'with_comments' do
       let!(:comment) { create :comment, commentable: person.thread }
       before { person.thread.update comments_count: 1 }
       before { get :comments, id: person.to_param }
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#tooltip' do
     before { get :tooltip, id: person.to_param }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#autocomplete' do
@@ -56,7 +56,7 @@ describe PeopleController do
         let!(:person_3) { create :person, name: 'Ffff' }
         before { get :autocomplete, search: 'Fff', kind: kind }
 
-        it { should respond_with :success }
+        it { expect(response).to have_http_status :success }
         it { expect(response.content_type).to eq 'application/json' }
       end
     end

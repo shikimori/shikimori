@@ -3,7 +3,7 @@ describe Api::V1::CommentsController do
     let(:comment) { create :comment }
     before { get :show, id: comment.id, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 
@@ -14,7 +14,7 @@ describe Api::V1::CommentsController do
 
     before { get :index, commentable_type: User.name, commentable_id: user.id, page: 1, limit: 10, desc: '1', format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 end

@@ -14,7 +14,7 @@ describe Api::V1::CalendarsController do
     before { get :show, format: :json }
     specify { expect(assigns(:collection).size).to eq(4) }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 end

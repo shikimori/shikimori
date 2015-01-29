@@ -4,7 +4,7 @@ describe Api::V1::SessionsController do
     before { @request.env["devise.mapping"] = Devise.mappings[:user] }
     before { post :create, user: { nickname: user.nickname, password: '123456' }, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
   end
 end

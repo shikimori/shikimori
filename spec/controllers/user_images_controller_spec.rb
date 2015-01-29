@@ -15,7 +15,7 @@ describe UserImagesController do
         post :create, model: group.class.name, id: group.id, image: image
       end
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
 
       it 'creates new image' do
