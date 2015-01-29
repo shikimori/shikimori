@@ -35,7 +35,7 @@ describe CommentsController do
     context 'failure' do
       before { post :create, comment: { body: 'test', offtopic: false, review: false } }
 
-      it { expect(response).to have_http_status :error }
+      it { expect(response).to have_http_status 422 }
       it { expect(response.content_type).to eq 'application/json' }
     end
   end

@@ -11,8 +11,10 @@ describe MessagesController do
     before { sign_out user }
     before { post :bounce, Email: user.email }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(user.messages.size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(user.messages.size).to eq(1)
+    end
   end
 
   describe '#show' do
@@ -60,10 +62,10 @@ describe MessagesController do
     context 'has access' do
       before { make_request }
 
-      context 'valid params' do
-        it { expect(response).to have_http_status :success }
-        it { expect(response.content_type).to eq 'application/json' }
-        it { expect(resource).to have_attributes params }
+      it 'valid params' do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+        expect(resource).to have_attributes params
       end
 
       context 'invalid params' do
@@ -88,10 +90,10 @@ describe MessagesController do
     context 'has access' do
       before { make_request }
 
-      context 'valid params' do
-        it { expect(response).to have_http_status :success }
-        it { expect(response.content_type).to eq 'application/json' }
-        it { expect(resource).to have_attributes params }
+      it 'valid params' do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+        expect(resource).to have_attributes params
       end
 
       context 'invalid params' do
@@ -112,9 +114,12 @@ describe MessagesController do
 
     context 'has access' do
       before { make_request }
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
-      it { expect(resource).to be_destroyed }
+
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+        expect(resource.src_del).to be_truthy
+      end
     end
 
     context 'no access' do
@@ -128,9 +133,11 @@ describe MessagesController do
     let(:message_to) { create :message, to: user }
     before { post :mark_read, ids: "message-#{message_to.id},message-#{message_from.id},message-987654" }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(message_from.reload.read).to be_falsy }
-    it { expect(message_to.reload.read).to be_truthy }
+    it do
+      expect(response).to have_http_status :success
+      expect(message_from.reload.read).to be_falsy
+      expect(message_to.reload.read).to be_truthy
+    end
   end
 
   describe '#read_all' do
@@ -139,10 +146,12 @@ describe MessagesController do
     let!(:message_3) { create :message, :private, to: user, from: user }
     before { post :read_all, profile_id: user.to_param, messages_type: 'news' }
 
-    it { expect(response).to redirect_to index_profile_messages_url(user.to_param, 'news') }
-    it { expect(message_1.reload).to be_read }
-    it { expect(message_2.reload).to_not be_read }
-    it { expect(message_3.reload).to_not be_read }
+    it do
+      expect(response).to redirect_to index_profile_messages_url(user.to_param, 'news')
+      expect(message_1.reload).to be_read
+      expect(message_2.reload).to_not be_read
+      expect(message_3.reload).to_not be_read
+    end
   end
 
   describe '#delete_all' do
@@ -151,10 +160,12 @@ describe MessagesController do
     let!(:message_3) { create :message, :private, to: user, from: user }
     before { post :delete_all, profile_id: user.to_param, messages_type: 'notifications' }
 
-    it { expect(response).to redirect_to index_profile_messages_url(user.to_param, 'notifications') }
-    it { expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound }
-    it { expect(message_2.reload).to be_persisted }
-    it { expect(message_3.reload).to be_persisted }
+    it do
+      expect(response).to redirect_to index_profile_messages_url(user.to_param, 'notifications')
+      expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound
+      expect(message_2.reload).to be_persisted
+      expect(message_3.reload).to be_persisted
+    end
   end
 
   describe '#chosen' do
@@ -165,8 +176,10 @@ describe MessagesController do
 
     before { get :chosen, ids: [message_1.id, message_2.id, message_3.id].join(',') }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(collection).to eq [message_1, message_2] }
+    it do
+      expect(response).to have_http_status :success
+      expect(collection).to eq [message_1, message_2]
+    end
   end
 
   describe '#unsubscribe' do
@@ -179,15 +192,16 @@ describe MessagesController do
       before { make_request }
       let(:key) { MessagesController.unsubscribe_key(user, MessageType::Private) }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(user.reload.notifications).to be_zero }
+      it do
+        expect(response).to have_http_status :success
+        expect(user.reload.notifications).to be_zero
+      end
     end
 
     context 'invalid key' do
       let(:key) { 'asd' }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
-      it 'does not unsubscribe' do
-        make_request rescue CanCan::AccessDenied
+      it do
+        expect{make_request}.to raise_error CanCan::AccessDenied
         expect(user.reload.notifications).to eq User::PRIVATE_MESSAGES_TO_EMAIL
       end
     end
