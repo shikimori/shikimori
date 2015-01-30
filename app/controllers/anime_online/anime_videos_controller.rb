@@ -55,6 +55,9 @@ class AnimeOnline::AnimeVideosController < AnimesController
     #end
   #end
 
+  def help
+  end
+
   def viewed
     video = AnimeVideo.find params[:id]
     @user_rate = @anime.rates.find_by(user_id: current_user.id) ||
@@ -109,27 +112,9 @@ class AnimeOnline::AnimeVideosController < AnimesController
     #redirect_to anime_videos_show_url(video.anime_id), notice: 'Видео удалено'
   #end
 
-  #def help
-  #end
-
-  #def viewed
-    #video = AnimeVideo.find params[:id]
-    #anime = Anime.find params[:anime_id]
-    #user_rate = anime.rates.find_by_user_id current_user.id
-    #UserRate.update(user_rate.id, episodes: video.episode) if user_rate
-
-    #redirect_to anime_videos_show_url video.anime_id, video.episode + 1
-  #end
-
-  #def rate
-    #UserRate.create_or_find(current_user.id, params[:id], 'Anime').save
-    #render nothing: true
-  #end
-
-
 private
   def new_params
-    params.require(:anime_video).permit(:anime_id, :state)
+    create_params
   end
 
   def create_params

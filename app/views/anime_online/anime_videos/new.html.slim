@@ -1,5 +1,5 @@
 = render layout: 'animes/page' do
-  = simple_form_for @video, url: video_online_index_url(@resource) do |f|
+  = simple_form_for @video, url: video_online_index_url(@anime) do |f|
     input.hidden#continue name="continue" type="hidden"
 
     - if @video.errors.any?
@@ -14,14 +14,14 @@
       = f.input :source, as: :hidden
       = f.input :state, as: :hidden
       = f.input :episode
-      = f.input :url
+      = f.input :url, hint: "<a href='#{help_video_online_index_url @anime}' target='_blank'>как правильно получить ссылку</a>".html_safe
       = f.input :author, hint: 'не обязательно'
       = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
 
     .block
-      .button.do-preview data-href="#{extract_url_video_online_index_url @resource}"
+      .button.do-preview data-href="#{extract_url_video_online_index_url @anime}"
         | Проверить видео
-      a.cancel href="#{video_online_index_url @resource}" Отмена
+      a.cancel href="#{video_online_index_url @anime}" Отмена
 
     .block.video-preview
       iframe

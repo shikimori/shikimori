@@ -267,6 +267,11 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     #end
   #end
 
+  describe '#help' do
+    before { get :help, anime_id: anime.to_param }
+    it { expect(response).to have_http_status(:success) }
+  end
+
   describe '#track_view' do
     let(:video) { create :anime_video, watch_view_count: view_count, anime: anime }
 
