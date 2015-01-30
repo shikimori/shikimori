@@ -2,6 +2,7 @@ describe AnimeVideo do
   describe 'relations' do
     it { should belong_to :anime }
     it { should belong_to :author }
+    it { should have_many(:reports).dependent :destroy }
   end
 
   describe 'validations' do
@@ -16,25 +17,21 @@ describe AnimeVideo do
     describe '#available' do
       subject { AnimeVideo.available }
 
-      context 'filter_by_video_status' do
+      context 'filter by video status' do
         before do
           states.each do |s|
             create :anime_video, state: s, anime: create(:anime)
           end
         end
 
-        context 'good_states' do
+        context 'good states' do
           let(:states) { ['working', 'uploaded' ] }
-          it 'has states.size items' do
-            expect(subject.size).to eq(states.size)
-          end
+          it { should have(states.size).items }
         end
 
-        context 'bad_states' do
+        context 'bad states' do
           let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
-          it 'has no items' do
-            expect(subject.size).to eq(0)
-          end
+          it { should be_empty }
         end
       end
     end
@@ -45,16 +42,12 @@ describe AnimeVideo do
       context 'true' do
         context 'by_censored' do
           before { create :anime_video, anime: create(:anime, censored: false) }
-          it 'has 1 item' do
-            expect(subject.size).to eq(1)
-          end
+          it { should have(1).item }
         end
 
         context 'by_reting' do
           before { create :anime_video, anime: create(:anime, rating: 'None') }
-          it 'has 1 item' do
-            expect(subject.size).to eq(1)
-          end
+          it { should have(1).item }
         end
       end
 
@@ -94,96 +87,96 @@ describe AnimeVideo do
       context 'true' do
         context 'by_censored' do
           before { create :anime_video, anime: create(:anime, censored: true) }
-          it 'has 1 item' do
-            expect(subject.size).to eq(1)
-          end
+          it { should have(1).item }
         end
 
         context 'by_rating' do
           before { create :anime_video, anime: create(:anime, rating: Anime::ADULT_RATINGS.first) }
-          it 'has 1 item' do
-            expect(subject.size).to eq(1)
-          end
+          it { should have(1).item }
         end
       end
     end
   end
 
-  describe 'before_save' do
-    before { anime_video.save }
+  describe 'callbacks' do
+    describe 'before_save' do
+      before { anime_video.save }
 
-    describe '#check_ban' do
-      subject { anime_video.banned? }
-      let(:anime_video) { build :anime_video, url: url }
+      describe '#check_ban' do
+        subject { anime_video.banned? }
+        let(:anime_video) { build :anime_video, url: url }
 
-      context 'in_ban' do
-        let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
-        it { should be_truthy }
+        context 'in_ban' do
+          let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
+          it { should be_truthy }
+        end
+
+        context 'no_ban' do
+          let(:url) { 'http://vk.com/j8n3/' }
+          it { should be_falsy }
+        end
       end
 
-      context 'no_ban' do
-        let(:url) { 'http://vk.com/j8n3/' }
-        it { should be_falsy }
+      describe '#copyrighted' do
+        let(:anime_video) { build :anime_video, anime: create(:anime, id: anime_id) }
+        subject { anime_video.copyrighted? }
+
+        context 'ban' do
+          let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
+          it { should be_truthy }
+        end
+
+        context 'not_ban' do
+          let(:anime_id) { 1 }
+          it { should be_falsy }
+        end
       end
     end
 
-    describe '#copyrighted' do
-      let(:anime_video) { build :anime_video, anime: create(:anime, id: anime_id) }
-      subject { anime_video.copyrighted? }
+    describe 'after_create' do
+      describe '#create_episode_notificaiton' do
+        let(:anime) { build_stubbed :anime }
+        let(:url_1) { 'http://foo/1' }
+        let(:url_2) { 'http://foo/2' }
 
-      context 'ban' do
-        let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-        it { should be_truthy }
+        context 'new_video' do
+          subject { EpisodeNotification.first }
+          let!(:anime_video) { create :anime_video, :with_notification, anime: anime, kind: :raw }
+
+          its(:is_raw) { should be_truthy }
+          its(:is_subtitles) { should be_nil }
+          its(:is_fandub) { should be_nil }
+          it { expect(EpisodeNotification.all).to have(1).item }
+        end
+
+        context 'new_episode' do
+          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, episode: 1, url: url_1 }
+          let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, episode: 2, url: url_2 }
+          it { expect(EpisodeNotification.all).to have(2).items }
+        end
+
+        context 'not_new_episode_but_other_kind' do
+          subject { EpisodeNotification.first }
+          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, kind: :raw, url: url_1 }
+          let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, kind: :subtitles, url: url_2 }
+
+          its(:is_raw) { should be_truthy }
+          its(:is_subtitles) { should be_truthy }
+          its(:is_fandub) { should be_nil }
+          it { expect(EpisodeNotification.all).to have(1).item }
+        end
+
+        context 'not_new_episode' do
+          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1 }
+          let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, url: url_2 }
+          it { expect(EpisodeNotification.all).to have(1).item }
+        end
+
+        context 'not need notification if video kind is unknown' do
+          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
+          it { expect(EpisodeNotification.all).to be_empty }
+        end
       end
-
-      context 'not_ban' do
-        let(:anime_id) { 1 }
-        it { should be_falsy }
-      end
-    end
-  end
-
-  describe 'after_save' do
-    let(:anime) { build_stubbed :anime }
-    let(:url_1) { 'http://foo/1' }
-    let(:url_2) { 'http://foo/2' }
-
-    context 'new_video' do
-      subject { EpisodeNotification.first }
-      let!(:anime_video) { create :anime_video, :with_notification, anime: anime, kind: :raw }
-
-      its(:is_raw) { should eq true }
-      its(:is_subtitles) { should be_nil }
-      its(:is_fandub) { should be_nil }
-      it { expect(EpisodeNotification.all.size).to eq(1) }
-    end
-
-    context 'new_episode' do
-      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, episode: 1, url: url_1 }
-      let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, episode: 2, url: url_2 }
-      it { expect(EpisodeNotification.all.size).to eq(2) }
-    end
-
-    context 'not_new_episode_but_other_kind' do
-      subject { EpisodeNotification.first }
-      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, kind: :raw, url: url_1 }
-      let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, kind: :subtitles, url: url_2 }
-
-      its(:is_raw) { should eq true }
-      its(:is_subtitles) { should eq true }
-      its(:is_fandub) { should be_nil }
-      it { expect(EpisodeNotification.all.size).to eq(1) }
-    end
-
-    context 'not_new_episode' do
-      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1 }
-      let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, url: url_2 }
-      it { expect(EpisodeNotification.all.size).to eq(1) }
-    end
-
-    context 'not need notification if video kind is unknown' do
-      let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
-      it { expect(EpisodeNotification.all.size).to eq(0) }
     end
   end
 
@@ -335,13 +328,13 @@ describe AnimeVideo do
     context 'without_current_user' do
       let(:moderated_update) { video.moderated_update params }
 
-      it { expect(moderated_update).to eq true }
+      it { expect(moderated_update).to be_truthy }
       it { moderated_update; expect(video.reload.episode).to eq 2 }
 
       context 'check_versions' do
         before { moderated_update }
         subject { Version.last }
-        let(:diff_hash) { {episode: [1,2]} }
+        let(:diff_hash) {{ episode: [1,2] }}
 
         it { should_not be_nil }
         its(:item_id) { should eq video.id }

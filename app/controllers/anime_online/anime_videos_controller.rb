@@ -27,13 +27,10 @@ class AnimeOnline::AnimeVideosController < AnimesController
   end
 
   def create
-    #@video = AnimeVideo.new(video_params.merge(url: VideoExtractor::UrlExtractor.new(video_params[:url]).extract))
-    @video.url = VideoExtractor::UrlExtractor.new(@video.url).extract
-    @video.author = find_or_create_author(params[:anime_video][:author])
+    merged_params = create_params.merge(author: params[:anime_video][:author], url: params[:anime_video][:url])
+    @video = AnimeVideosService.new(merged_params, current_user).create
 
-    if @video.save
-      #AnimeVideoReport.create!(user: current_user, anime_video: @video, kind: :uploaded)
-
+    if @video.persisted?
       if params[:continue] == 'true'
         flash[:notice] = "Эпизод #{@video.episode} добавлен"
         @created_video = @video
@@ -131,16 +128,12 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
 
 private
-  def resource_params
-    params
-      .require(:anime_video)
-      .permit(:episode, :url, :anime_id, :source, :kind, :state)
+  def new_params
+    params.require(:anime_video).permit(:anime_id, :state)
   end
 
-  def find_or_create_author name
-    name = name.to_s.strip
-    AnimeVideoAuthor.where(name: name).first ||
-      AnimeVideoAuthor.create(name: name)
+  def create_params
+    params.require(:anime_video).permit(:episode, :anime_id, :source, :kind, :state)
   end
 
   def resource_id

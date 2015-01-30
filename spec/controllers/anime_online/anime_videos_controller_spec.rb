@@ -10,12 +10,14 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   end
 
   describe '#create' do
-    before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
+    let!(:guest) { create :user, :guest }
     let(:video_params) {{ state: 'uploaded', kind: kind, author: 'test', episode: 3, url: 'https://vk.com/video-16326869_166521208', source: 'test', anime_id: anime.id }}
     let(:continue) { '' }
     let(:kind) { 'fandub' }
 
     let(:video) { assigns :video }
+
+    before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
 
     context 'valid params' do
       context 'without continue' do

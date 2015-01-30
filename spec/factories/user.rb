@@ -17,6 +17,10 @@ FactoryGirl.define do
       sequence :id, 23456789
     end
 
+    trait :guest do
+      id User::GuestID
+    end
+
     trait :admin do
       id User::Admins.last
     end

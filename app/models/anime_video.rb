@@ -20,7 +20,7 @@ class AnimeVideo < ActiveRecord::Base
 
   before_save :check_ban
   before_save :check_copyright
-  after_create :notify
+  after_create :create_episode_notificaiton, if: -> { !unknown? && single_video? }
 
   PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false"
   XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true"
@@ -95,13 +95,13 @@ private
     self.state = 'copyrighted' if copyright_ban?
   end
 
-  def notify
-    if !unknown? && AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
-      notify = EpisodeNotification.where(anime_id: anime_id, episode: episode).first_or_create
-      unless notify.send("is_#{kind}")
-        notify.send("is_#{kind}=", true)
-        notify.save
-      end
-    end
+  def create_episode_notificaiton
+    EpisodeNotification
+      .find_or_initialize_by(anime_id: anime_id, episode: episode)
+      .update("is_#{kind}" => true)
+  end
+
+  def single_video?
+    AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
   end
 end
