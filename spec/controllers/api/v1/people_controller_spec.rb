@@ -1,4 +1,4 @@
-describe Api::V1::PeopleController do
+describe Api::V1::PeopleController, :show_in_doc do
   describe '#show' do
     before { get :show, id: person.id, format: :json }
 

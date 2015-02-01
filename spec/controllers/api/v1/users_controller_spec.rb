@@ -1,4 +1,4 @@
-describe Api::V1::UsersController do
+describe Api::V1::UsersController, :show_in_doc do
   let(:user) { create :user, nickname: 'Test' }
 
   describe '#index' do

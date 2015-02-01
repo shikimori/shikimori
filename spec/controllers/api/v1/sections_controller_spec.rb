@@ -1,4 +1,4 @@
-describe Api::V1::SectionsController do
+describe Api::V1::SectionsController, :show_in_doc do
   describe '#index' do
     let!(:section) { create :section }
 

@@ -1,4 +1,4 @@
-describe Api::V1::CommentsController do
+describe Api::V1::CommentsController, :show_in_doc do
   let(:user) { create :user, :user }
   let(:topic) { create :entry, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }

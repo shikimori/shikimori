@@ -4,7 +4,7 @@ class Api::V1::ClubsController < Api::V1::ApiController
   before_action :fetch_club, except: :index
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/clubs", "List clubs"
+  api :GET, '/clubs', 'List clubs'
   def index
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, 30].min
@@ -15,7 +15,7 @@ class Api::V1::ClubsController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/clubs/:id", "Show a club"
+  api :GET, '/clubs/:id', 'Show a club'
   def show
     respond_with @club, serializer: GroupProfileSerializer
   end

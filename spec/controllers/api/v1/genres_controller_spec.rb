@@ -1,4 +1,4 @@
-describe Api::V1::GenresController do
+describe Api::V1::GenresController, :show_in_doc do
   describe '#show' do
     let!(:genre) { create :genre }
     before { get :index, format: :json }

@@ -6,13 +6,13 @@ class Api::V1::CommentsController < Api::V1::ApiController
   before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/comments/:id", "Show a comment"
+  api :GET, '/comments/:id', 'Show a comment'
   def show
     respond_with Comment.find(params[:id]).decorate
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/comments", "List comments"
+  api :GET, '/comments', 'List comments'
   def index
     @limit = [[params[:limit].to_i, 1].max, 30].min
     @page = [params[:page].to_i, 1].max
@@ -25,6 +25,16 @@ class Api::V1::CommentsController < Api::V1::ApiController
       .decorate
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :POST, '/comments', 'Create a comment'
+  param :comment, Hash do
+    param :body, :undef
+    param :commentable_id, :number
+    param :commentable_type, :undef
+    param :offtopic, :bool
+    param :review, :bool
+  end
+  error code: 422
   def create
     @comment = Comment.new comment_params.merge(user: current_user)
 
@@ -35,6 +45,12 @@ class Api::V1::CommentsController < Api::V1::ApiController
     end
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :PATCH, '/comments/:id', 'Update a comment'
+  api :PUT, '/comments/:id', 'Update a comment'
+  param :comment, Hash do
+    param :body, :undef
+  end
   def update
     raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
 
@@ -45,6 +61,8 @@ class Api::V1::CommentsController < Api::V1::ApiController
     end
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :DELETE, '/comments/:id', 'Destroy a comment'
   def destroy
     raise CanCan::AccessDenied unless @comment.can_be_deleted_by? current_user
     faye.destroy @comment

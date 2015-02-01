@@ -1,4 +1,4 @@
-describe Api::V1::ClubsController do
+describe Api::V1::ClubsController, :show_in_doc do
   describe '#index' do
     let(:user) { create :user }
     let(:club_1) { create :group, :with_thread }

@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe Api::V1::UserRatesController do
+describe Api::V1::UserRatesController, :show_in_doc do
   include_context :authenticated, :user
 
   describe '#create' do

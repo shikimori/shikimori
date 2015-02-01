@@ -6,7 +6,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   UPDATE_PARAMS = [:status, :episodes, :chapters, :volumes, :score, :text, :rewatches]
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :POST, "/user_rates", "Create an user rate"
+  api :POST, '/user_rates', 'Create an user rate'
   param :user_rate, Hash do
     param :chapters, :undef
     param :episodes, :undef
@@ -25,8 +25,8 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :PATCH, "/user_rates/:id", "Update an user rate"
-  api :PUT, "/user_rates/:id", "Update an user rate"
+  api :PATCH, '/user_rates/:id', 'Update an user rate'
+  api :PUT, '/user_rates/:id', 'Update an user rate'
   param :user_rate, Hash do
     param :chapters, :undef
     param :episodes, :undef
@@ -42,7 +42,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :POST, "/user_rates/:id/increment"
+  api :POST, '/user_rates/:id/increment'
   def increment
     if @user_rate.anime?
       @user_rate.update episodes: (params[:episodes] || @user_rate.episodes) + 1
@@ -54,7 +54,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :DELETE, "/user_rates/:id", "Destroy an user rate"
+  api :DELETE, '/user_rates/:id', 'Destroy an user rate'
   def destroy
     @user_rate.destroy!
     respond_with @user_rate, location: nil

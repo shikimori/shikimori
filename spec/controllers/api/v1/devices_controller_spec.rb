@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe Api::V1::DevicesController do
+describe Api::V1::DevicesController, :show_in_doc do
   before { sign_in user }
   let(:user) { create :user }
 
