@@ -62,4 +62,10 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
+
+  class Faye::Client
+    def publis *args
+    end
+  end
+
 end
