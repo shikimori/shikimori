@@ -46,7 +46,7 @@
   height: $menu_height
   float: none
 
-+responsive(desktop)
++gte_ipad
   .userbox
     white-space: nowrap
 
@@ -75,7 +75,10 @@
     .unread-count, .contest
       margin-left: 8px
 
-+responsive(tablet)
++ipad
+  .userbox #sign_in
+    margin-top: -4px
+
   .userbox img.avatar,
   .menu .unread-count
     margin-top: 7px
@@ -86,4 +89,3 @@
 
     .unread-count
       margin-left: 12px
-
