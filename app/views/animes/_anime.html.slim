@@ -14,7 +14,7 @@ article.c-column.b-catalog_entry[
   - if cover_by == :link || cover_by == :image_link
     a.cover[
         class="#{'anime-tooltip' if content_by == :tooltip || content_by == :inline_tooltip}"
-        href="#{url_for anime}"
+        href="#{anime.url}"
         title="#{anime.name}"
         data-local-tooltip="#{content_by == :inline_tooltip}"
         data-relative="#{content_by == :inline_tooltip}"
@@ -25,7 +25,7 @@ article.c-column.b-catalog_entry[
   - elsif cover_by == :linkeable
     .cover.linkeable[
         class="#{'anime-tooltip' if content_by == :tooltip || content_by == :inline_tooltip}"
-        data-href="#{url_for anime}"
+        data-href="#{anime.url}"
         data-title="#{anime.name}"
         data-local-tooltip="#{content_by == :inline_tooltip}"
         data-relative="#{content_by == :inline_tooltip}"
