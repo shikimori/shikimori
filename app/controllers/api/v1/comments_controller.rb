@@ -34,7 +34,6 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :offtopic, :bool
     param :review, :bool
   end
-  error code: 422
   def create
     @comment = Comment.new comment_params.merge(user: current_user)
 
