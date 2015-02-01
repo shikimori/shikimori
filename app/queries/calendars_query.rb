@@ -70,7 +70,7 @@ private
       .includes(:episodes_news, :anime_calendars)
       .references(:anime_calendars)
       .where(AniMangaStatus.query_for('ongoing'))
-      .where(kind: ['TV', 'ONA']) # 15133 - спешиал Aoi Sekai no Chuushin de
+      .where(kind: ['TV', 'ONA']) # 15133 - спешл Aoi Sekai no Chuushin de
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
       .where("anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1")
       .where("kind != 'ONA' or anime_calendars.episode is not null")
