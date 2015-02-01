@@ -75,42 +75,6 @@ class AnimeOnline::AnimeVideosController < AnimesController
     render json: { url: VideoExtractor::UrlExtractor.new(params[:url]).extract }
   end
 
-  #def search
-    #search = params[:search].to_s.strip
-    #if search.blank?
-      #redirect_to root_url
-    #else
-      #redirect_to anime_videos_url search: params[:search], page: 1
-    #end
-  #end
-
-  #def new
-    #anime = Anime.find params[:anime_id]
-    #raise ActionController::RoutingError.new 'Not Found' if AnimeVideo::CopyrightBanAnimeIDs.include?(anime.id) && (!user_signed_in? || !current_user.admin?)
-    #@video = AnimeVideo.new anime: anime, source: 'shikimori.org', kind: :fandub
-  #end
-
-  #def update
-    #@video = AnimeVideo.find(params[:id])
-    #author = find_or_create_author(params[:anime_video][:author])
-    #if video_params[:episode] != @video.episode || video_params[:kind] != @video.kind || author.id != @video.author_id
-      #if @video.moderated_update video_params.merge(anime_video_author_id: author.id), current_user
-        #redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео изменено'
-      #else
-        #render :edit
-      #end
-    #end
-  #end
-
-  #def destroy
-    #video = AnimeVideo.find(params[:id])
-    #report = AnimeVideoReport.where(user_id: current_user, anime_video_id: params[:id]).first
-    #if report
-      #video.destroy
-    #end
-    #redirect_to anime_videos_show_url(video.anime_id), notice: 'Видео удалено'
-  #end
-
 private
   def new_params
     create_params
