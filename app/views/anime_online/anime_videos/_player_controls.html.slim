@@ -16,13 +16,13 @@
 
     - if user_signed_in?
       .cc-optional_controls
-        a.c-control.edit href="#{edit_video_online_url @resource, @video}"
-          .icon
-          .label Изменить
         - unless @player.current_video.copyright_ban?
           a.c-control.upload href="#{@player.new_video_url}"
             .icon
             .label Загрузить
+        a.c-control.edit href="#{edit_video_online_url @resource, @video}"
+          .icon
+          .label Изменить
         .c-control.report
           .icon
           .label Пожаловаться

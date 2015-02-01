@@ -98,7 +98,7 @@ ru:
         url: Url на видео
         episode: Эпизод
         kind: Тип видео
-        author: Автор (озвучки,субтитров)
+        author_name: Автор (озвучки,субтитров)
       video:
         url: Ссылка
         kind: Тип

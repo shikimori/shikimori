@@ -86,6 +86,10 @@ class AnimeVideo < ActiveRecord::Base
     end
   end
 
+  def author_name
+    author.try :name
+  end
+
 private
   def check_ban
     self.state = 'banned' if hosting == 'kiwi.kz'

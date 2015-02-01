@@ -1,3 +1,18 @@
 = render layout: 'animes/page' do
-  /= render 'form'
+  = simple_form_for @video, url: edit_video_online_url(@anime, @video) do |f|
+    - if @video.errors.any?
+      .b-errors
+        .subheadline Ошибки
+        .block
+          == @video.errors.full_messages.join('<br>')
 
+    .subheadline Редактирование видео
+    .block
+      = f.input :episode
+      = f.input :url, input_html: { disabled: true }
+      = f.input :author_name, hint: 'не обязательно'
+      = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
+
+    .block
+      = f.submit 'Сохранить'
+      a.cancel href="#{@back_url}" Отмена

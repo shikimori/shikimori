@@ -1,4 +1,4 @@
-@on 'page:load', 'anime_videos_new', 'anime_videos_edit', ->
+@on 'page:load', 'anime_videos_new', 'anime_videos_edit', 'anime_videos_create', 'anime_videos_update', ->
   $video_url = $('#anime_video_url')
   $episode = $('#anime_video_episode')
 

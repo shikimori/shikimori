@@ -10,15 +10,15 @@
 
   - else
     .video-player
-      .placeholder style="width: 100%; background: gray; border: 1px solid #666;" == '&nbsp;'
-      /- if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
-        /object
-          /param name="movie" value="#{@video.url}"
-          /param name="allowFullScreen" value="true"
-          /param name="allowScriptAccess" value="always"
-          /embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
-      /- else
-        /iframe src="#{@video.player_url}"
+      /.placeholder style="width: 100%; background: gray; border: 1px solid #666;" == '&nbsp;'
+      - if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
+        object
+          param name="movie" value="#{@video.url}"
+          param name="allowFullScreen" value="true"
+          param name="allowScriptAccess" value="always"
+          embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
+      - else
+        iframe src="#{@video.player_url}"
 
     = render 'anime_online/anime_videos/player_controls'
 

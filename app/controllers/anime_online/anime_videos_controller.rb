@@ -23,12 +23,11 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def edit
     page_title 'Изменение видео'
-    #@video = AnimeVideo.includes(:anime).find params[:id]
   end
 
   def create
-    merged_params = create_params.merge(author: params[:anime_video][:author], url: params[:anime_video][:url])
-    @video = AnimeVideosService.new(merged_params, current_user).create
+    merged_params = create_params.merge(author_name: params[:anime_video][:author_name], url: params[:anime_video][:url])
+    @video = AnimeVideosService.new(merged_params).create(current_user)
 
     if @video.persisted?
       if params[:continue] == 'true'
@@ -40,20 +39,20 @@ class AnimeOnline::AnimeVideosController < AnimesController
       end
     end
 
+    page_title 'Новое видео'
     render :new
   end
 
-  #def update
-    #@video = AnimeVideo.find(params[:id])
-    #author = find_or_create_author(params[:anime_video][:author])
-    #if video_params[:episode] != @video.episode || video_params[:kind] != @video.kind || author.id != @video.author_id
-      #if @video.moderated_update video_params.merge(anime_video_author_id: author.id), current_user
-        #redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео изменено'
-      #else
-        #render :edit
-      #end
-    #end
-  #end
+  def update
+    @video = AnimeVideosService.new(update_params).update(@video)
+
+    if @video.valid?
+      redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+    else
+      page_title 'Изменение видео'
+      render :edit
+    end
+  end
 
   def help
   end
@@ -119,6 +118,10 @@ private
 
   def create_params
     params.require(:anime_video).permit(:episode, :anime_id, :source, :kind, :state)
+  end
+
+  def update_params
+    params.require(:anime_video).permit(:episode, :author_name, :kind)
   end
 
   def resource_id

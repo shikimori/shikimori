@@ -181,191 +181,206 @@ describe AnimeVideo do
   end
 
   describe 'state_machine' do
-    subject { video.state }
-    let(:video) { create :anime_video }
+    subject(:video) { create :anime_video }
 
     context 'initial' do
-      it { should eq 'working' }
+      it { should be_working }
     end
 
     context 'broken' do
       before { video.broken }
-      it { should eq 'broken' }
+      it { should be_broken }
     end
 
     context 'wrong' do
       before { video.wrong }
-      it { should eq 'wrong' }
+      it { should be_wrong }
     end
 
     context 'ban' do
       before { video.ban }
-      it { should eq 'banned' }
+      it { should be_banned }
     end
   end
 
-  describe 'hosting' do
-    subject { build(:anime_video, url: url).hosting }
+  describe 'instance methods' do
+    describe '#hosting' do
+      subject { build(:anime_video, url: url).hosting }
 
-    context 'valid_url' do
-      let(:url) { 'http://vk.com/video_ext.php?oid=1' }
-      it { should eq 'vk.com' }
-    end
+      context 'valid_url' do
+        let(:url) { 'http://vk.com/video_ext.php?oid=1' }
+        it { should eq 'vk.com' }
+      end
 
-    context 'remove_www' do
-      let(:url) { 'http://www.vk.com?id=1' }
-      it { should eq 'vk.com' }
-    end
+      context 'remove_www' do
+        let(:url) { 'http://www.vk.com?id=1' }
+        it { should eq 'vk.com' }
+      end
 
-    context 'second_level_domain' do
-      let(:url) { 'http://www.foo.bar.com/video?id=1' }
-      it { should eq 'bar.com' }
-    end
+      context 'second_level_domain' do
+        let(:url) { 'http://www.foo.bar.com/video?id=1' }
+        it { should eq 'bar.com' }
+      end
 
-    context 'alias_vk_com' do
-      let(:url) { 'http://vkontakte.ru/video?id=1' }
-      it { should eq 'vk.com' }
-    end
-  end
-
-  describe '#vk?' do
-    subject { video.vk? }
-    let(:video) { build :anime_video, url: url }
-
-    context 'true' do
-      let(:url) { 'http://www.vk.com?id=1' }
-      it { should be_truthy }
-    end
-
-    context 'false' do
-      let(:url) { 'http://www.foo.bar.com/video?id=1' }
-      it { should be_falsy }
-    end
-  end
-
-  describe 'allowed?' do
-    context 'true' do
-      ['working', 'uploaded'].each do |state|
-        it { expect(build(:anime_video, state: state).allowed?).to be_truthy }
+      context 'alias_vk_com' do
+        let(:url) { 'http://vkontakte.ru/video?id=1' }
+        it { should eq 'vk.com' }
       end
     end
 
-    context 'false' do
-      ['broken', 'wrong', 'banned'].each do |state|
-        it { expect(build(:anime_video, state: state).allowed?).to be_falsy }
-      end
-    end
-  end
+    describe '#vk?' do
+      subject { video.vk? }
+      let(:video) { build :anime_video, url: url }
 
-  describe 'copyright_ban' do
-    before { stub_const('AnimeVideo::CopyrightBanAnimeIDs', [2]) }
-    let(:anime_video) { build :anime_video, anime_id: anime_id }
-    subject { anime_video.copyright_ban? }
-
-    context 'ban' do
-      let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-      it { should be_truthy }
-    end
-
-    context 'not_ban' do
-      let(:anime_id) { 1 }
-      it { should be_falsy }
-    end
-  end
-
-  describe 'mobile_compatible?' do
-    let(:anime_video) { build :anime_video, url: url }
-    subject { anime_video.mobile_compatible? }
-
-    context 'true' do
-      context 'vk_com' do
-        let(:url) { 'http://vk.com?video=1' }
+      context 'true' do
+        let(:url) { 'http://www.vk.com?id=1' }
         it { should be_truthy }
       end
 
-      context 'vkontakte_com' do
-        let(:url) { 'http://vkontakte.ru?video=1' }
+      context 'false' do
+        let(:url) { 'http://www.foo.bar.com/video?id=1' }
+        it { should be_falsy }
+      end
+    end
+
+    describe '#allowed?' do
+      context 'true' do
+        ['working', 'uploaded'].each do |state|
+          it { expect(build(:anime_video, state: state).allowed?).to be_truthy }
+        end
+      end
+
+      context 'false' do
+        ['broken', 'wrong', 'banned'].each do |state|
+          it { expect(build(:anime_video, state: state).allowed?).to be_falsy }
+        end
+      end
+    end
+
+    describe '#copyright_ban' do
+      before { stub_const('AnimeVideo::CopyrightBanAnimeIDs', [2]) }
+      let(:anime_video) { build :anime_video, anime_id: anime_id }
+      subject { anime_video.copyright_ban? }
+
+      context 'ban' do
+        let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
         it { should be_truthy }
       end
-    end
-    context 'false' do
-      let(:url) { 'http://rutube.ru?video=1' }
-      it { should be_falsy }
-    end
-  end
 
-  describe 'uploader' do
-    let(:anime_video) { build_stubbed :anime_video, state: state }
-    let(:user) { create :user, nickname: 'foo' }
-    subject { anime_video.uploader }
-
-    context 'with_uploader' do
-      let(:state) { 'uploaded' }
-      let(:kind) { state }
-      let(:anime_video) { create :anime_video, state: state }
-      let!(:anime_video_report) { create :anime_video_report, anime_video: anime_video, kind: kind, user: user }
-
-      it { should eq user }
-    end
-
-    context 'without_uploader' do
-      context 'working' do
-        let(:state) { 'working' }
-        it { should be_nil }
+      context 'not_ban' do
+        let(:anime_id) { 1 }
+        it { should be_falsy }
       end
+    end
 
-      context 'uploaded_without_report' do
+    describe '#mobile_compatible?' do
+      let(:anime_video) { build :anime_video, url: url }
+      subject { anime_video.mobile_compatible? }
+
+      context 'true' do
+        context 'vk_com' do
+          let(:url) { 'http://vk.com?video=1' }
+          it { should be_truthy }
+        end
+
+        context 'vkontakte_com' do
+          let(:url) { 'http://vkontakte.ru?video=1' }
+          it { should be_truthy }
+        end
+      end
+      context 'false' do
+        let(:url) { 'http://rutube.ru?video=1' }
+        it { should be_falsy }
+      end
+    end
+
+    describe '#uploader' do
+      let(:anime_video) { build_stubbed :anime_video, state: state }
+      let(:user) { create :user, nickname: 'foo' }
+      subject { anime_video.uploader }
+
+      context 'with_uploader' do
         let(:state) { 'uploaded' }
-        it { should be_nil }
+        let(:kind) { state }
+        let(:anime_video) { create :anime_video, state: state }
+        let!(:anime_video_report) { create :anime_video_report, anime_video: anime_video, kind: kind, user: user }
+
+        it { should eq user }
+      end
+
+      context 'without_uploader' do
+        context 'working' do
+          let(:state) { 'working' }
+          it { should be_nil }
+        end
+
+        context 'uploaded_without_report' do
+          let(:state) { 'uploaded' }
+          it { should be_nil }
+        end
       end
     end
-  end
 
-  describe '#moderated_update' do
-    let(:video) { create :anime_video, episode: 1 }
-    let(:params) { {episode: 2} }
+    describe '#author_name' do
+      subject(:anime_video) { build_stubbed :anime_video, author: author }
 
-    context 'without_current_user' do
-      let(:moderated_update) { video.moderated_update params }
+      context 'no author' do
+        let(:author) { }
+        its(:author_name) { should be_nil }
+      end
 
-      it { expect(moderated_update).to be_truthy }
-      it { moderated_update; expect(video.reload.episode).to eq 2 }
+      context 'with author' do
+        let(:author) { build_stubbed :anime_video_author }
+        its(:author_name) { should eq author.name }
+      end
+    end
 
-      context 'check_versions' do
+    describe '#moderated_update' do
+      let(:video) { create :anime_video, episode: 1 }
+      let(:params) { {episode: 2} }
+
+      context 'without_current_user' do
+        let(:moderated_update) { video.moderated_update params }
+
+        it { expect(moderated_update).to be_truthy }
+        it { moderated_update; expect(video.reload.episode).to eq 2 }
+
+        context 'check_versions' do
+          before { moderated_update }
+          subject { Version.last }
+          let(:diff_hash) {{ episode: [1,2] }}
+
+          it { should_not be_nil }
+          its(:item_id) { should eq video.id }
+          its(:item_diff) { should eq diff_hash.to_s }
+          its(:item_type) { should eq video.class.name }
+        end
+      end
+
+      context 'with_current_user' do
+        let(:current_user) { create :user }
+        let(:moderated_update) { video.moderated_update params, current_user }
         before { moderated_update }
         subject { Version.last }
-        let(:diff_hash) {{ episode: [1,2] }}
 
-        it { should_not be_nil }
-        its(:item_id) { should eq video.id }
-        its(:item_diff) { should eq diff_hash.to_s }
-        its(:item_type) { should eq video.class.name }
+        its(:user_id) { should eq current_user.id }
       end
     end
 
-    context 'with_current_user' do
-      let(:current_user) { create :user }
-      let(:moderated_update) { video.moderated_update params, current_user }
-      before { moderated_update }
-      subject { Version.last }
+    describe '#versions' do
+      let(:video) { create :anime_video, episode: 1 }
+      let(:update_params_1) { {episode: 2} }
+      let(:update_params_2) { {episode: 3} }
+      let(:last_diff_hash) { {episode: [2,3]} }
+      before do
+        video.moderated_update update_params_1
+        video.moderated_update update_params_2
+      end
 
-      its(:user_id) { should eq current_user.id }
+      subject { video.reload.versions }
+      it { should_not be_blank }
+      it { should have(2).items }
+      it { expect(subject.last.item_diff).to eq last_diff_hash.to_s }
     end
-  end
-
-  describe '#versions' do
-    let(:video) { create :anime_video, episode: 1 }
-    let(:update_params_1) { {episode: 2} }
-    let(:update_params_2) { {episode: 3} }
-    let(:last_diff_hash) { {episode: [2,3]} }
-    before do
-      video.moderated_update update_params_1
-      video.moderated_update update_params_2
-    end
-
-    subject { video.reload.versions }
-    it { should_not be_blank }
-    it { should have(2).items }
-    it { expect(subject.last.item_diff).to eq last_diff_hash.to_s }
   end
 end

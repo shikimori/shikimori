@@ -11,21 +11,21 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
   describe '#create' do
     let!(:guest) { create :user, :guest }
-    let(:video_params) {{ state: 'uploaded', kind: kind, author: 'test', episode: 3, url: 'https://vk.com/video-16326869_166521208', source: 'test', anime_id: anime.id }}
+    let(:video_params) {{ state: 'uploaded', kind: kind, author_name: 'test', episode: 3, url: 'https://vk.com/video-16326869_166521208', source: 'test', anime_id: anime.id }}
     let(:continue) { '' }
-    let(:kind) { 'fandub' }
 
     let(:video) { assigns :video }
 
     before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
 
     context 'valid params' do
+      let(:kind) { 'fandub' }
+
       context 'without continue' do
         it do
           expect(video).to be_valid
           expect(video).to be_persisted
-          expect(video).to have_attributes video_params.except(:author, :url)
-          expect(video.author.name).to eq video_params[:author]
+          expect(video).to have_attributes video_params.except(:url)
           expect(video.url).to eq VideoExtractor::UrlExtractor.new(video_params[:url]).extract
           expect(response).to redirect_to play_video_online_index_url(anime.id, video.episode, video.id)
         end
@@ -48,6 +48,44 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         expect(response).to have_http_status(:success)
         expect(video).to_not be_valid
         expect(video).to_not be_persisted
+      end
+    end
+  end
+
+  describe '#edit' do
+    include_context :authenticated, :user
+    let(:video) { create :anime_video, anime: anime, state: 'uploaded' }
+    before { get :edit, anime_id: anime.to_param, id: video.id }
+
+    it { expect(response).to have_http_status(:success) }
+  end
+
+  describe '#update' do
+    include_context :authenticated, :user
+
+    let(:anime_video) { create :anime_video, anime: anime, state: 'uploaded' }
+    let(:video_params) {{ kind: kind, author_name: 'test', episode: 3 }}
+
+    let(:video) { assigns :video }
+
+    before { put :update, anime_id: anime.to_param, id: anime_video.id, anime_video: video_params }
+
+    context 'valid params' do
+      let(:kind) { 'fandub' }
+      it do
+        expect(video).to be_valid
+        expect(video).to have_attributes video_params
+        expect(response).to redirect_to play_video_online_index_url(anime.id, video.episode, video.id)
+      end
+    end
+
+    context 'invalid params' do
+      let(:kind) { }
+
+      it do
+        expect(response).to have_http_status(:success)
+        expect(video).to_not be_valid
+        expect(video).to be_persisted
       end
     end
   end

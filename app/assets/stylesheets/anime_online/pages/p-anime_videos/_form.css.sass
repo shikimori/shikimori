@@ -1,7 +1,8 @@
 @import globals/variables
 @import mixins/link
 
-.p-anime_videos-new, .p-anime_videos-edit
+.p-anime_videos-new, .p-anime_videos-create,
+.p-anime_videos-edit, .p-anime_videos-update
   .hint
     a
       +link
@@ -19,5 +20,11 @@
     display: none
 
     input[type=submit]
-      margin-left: $block_offset
       margin-bottom: $block_offset / 2
+      margin-right: $block_offset
+
+    .doesnt-work-info
+      margin-bottom: $block_offset
+
+      a
+        +link
