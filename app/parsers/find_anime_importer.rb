@@ -37,10 +37,13 @@ private
     filtered_videos = videos.select {|episode| last_episodes ? episode[:episode] > last_episode - 3 : true }
 
     fetch_videos(filtered_videos, anime, imported_videos).each do |video|
-      next if !video.valid? && video.errors.size == 1 && video.errors[:url].include?(I18n.t 'activerecord.errors.messages.taken')
       binding.pry if !video.valid? && Rails.env.development?
-      video.save!
+      video.save! if video_valid?(video)
     end
+  end
+
+  def video_valid?(video)
+    !(!video.valid? && video.errors.size == 1 && video.errors[:url].include?(I18n.t 'activerecord.errors.messages.taken'))
   end
 
   def fetch_videos videos, anime, imported_videos
