@@ -20,8 +20,8 @@ class FindAnimeImporter
   end
 
   def import ids: [], pages: [], last_episodes: false
-    fetch_pages(pages).each {|(id, anime, videos)| import_videos anime, videos, last_episodes } if pages.any?
-    fetch_ids(ids).each {|(id, anime, videos)| import_videos anime, videos, last_episodes } if ids.any?
+    fetch_pages(pages).each { |_id, anime, videos| import_videos anime, videos, last_episodes } if pages.any?
+    fetch_ids(ids).each { |_id, anime, videos| import_videos anime, videos, last_episodes } if ids.any?
 
     raise MismatchedEntries.new @unmatched, @ambiguous, @twice_matched if @unmatched.any? || @ambiguous.any? || @twice_matched.any?
   end
