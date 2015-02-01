@@ -3411,15 +3411,15 @@
   "user_rates#create": [
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456804,
-          "target_id": 68,
+          "user_id": 12,
+          "target_id": 17,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3430,134 +3430,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 13,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456804,
-          "nickname": "user_55",
-          "avatar": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/c4215633aa757e89a9704bb72c598cad?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 68,
-          "name": "anime_65",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/68-anime_65",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api/user_rates",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": {
-        "user_rate": {
-          "user_id": 23456805,
-          "target_id": 69,
-          "target_type": "Anime",
-          "score": 10,
-          "status": 1,
-          "episodes": 2,
-          "volumes": 3,
-          "chapters": 4,
-          "text": "test",
-          "rewatches": 5
-        }
-      },
-      "response_data": {
-        "id": 14,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456805,
-          "nickname": "user_56",
-          "avatar": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/7065f214f877f6e2ec1d9c78348ec8a2?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 69,
-          "name": "anime_66",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/69-anime_66",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/13/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/13/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_13\" action=\"/user_rates/13\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456806,
-          "target_id": 70,
+          "user_id": 13,
+          "target_id": 18,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3568,65 +3456,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 15,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456806,
-          "nickname": "user_57",
-          "avatar": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/24802e8a226774af5578adae44e6223a?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 70,
-          "name": "anime_67",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/70-anime_67",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/14/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/14/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_14\" action=\"/user_rates/14\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456807,
-          "target_id": 71,
+          "user_id": 14,
+          "target_id": 19,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3637,65 +3482,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 16,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456807,
-          "nickname": "user_58",
-          "avatar": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/73c8435c65361b24de0aa28aab3474ac?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 71,
-          "name": "anime_68",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/71-anime_68",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/15/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/15/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_15\" action=\"/user_rates/15\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456808,
-          "target_id": 72,
+          "user_id": 15,
+          "target_id": 20,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3706,65 +3508,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 17,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456808,
-          "nickname": "user_59",
-          "avatar": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/bb2fa1a8adb11e6bc4ba826245631a53?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 72,
-          "name": "anime_69",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/72-anime_69",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/16/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/16/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_16\" action=\"/user_rates/16\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456809,
-          "target_id": 73,
+          "user_id": 16,
+          "target_id": 21,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3775,65 +3534,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 18,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456809,
-          "nickname": "user_60",
-          "avatar": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/07e7f3113602a7d7ddfe1b2e8e171d07?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 73,
-          "name": "anime_70",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/73-anime_70",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/17/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/17/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_17\" action=\"/user_rates/17\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456810,
-          "target_id": 74,
+          "user_id": 17,
+          "target_id": 22,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3844,65 +3560,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 19,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456810,
-          "nickname": "user_61",
-          "avatar": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/be8e54ca24bfb2aff9ef70fc01e16a2b?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 74,
-          "name": "anime_71",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/74-anime_71",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/18/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/18/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_18\" action=\"/user_rates/18\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456811,
-          "target_id": 75,
+          "user_id": 18,
+          "target_id": 23,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3913,65 +3586,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 20,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456811,
-          "nickname": "user_62",
-          "avatar": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/166e85d7b73e5a67a7956b9d58ac063b?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 75,
-          "name": "anime_72",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/75-anime_72",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/19/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/19/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_19\" action=\"/user_rates/19\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456812,
-          "target_id": 76,
+          "user_id": 19,
+          "target_id": 24,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3982,65 +3612,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 21,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456812,
-          "nickname": "user_63",
-          "avatar": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/76bcc2ce2ddd7e15a1c74e7242fbb688?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 76,
-          "name": "anime_73",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/76-anime_73",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/20/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/20/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_20\" action=\"/user_rates/20\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456813,
-          "target_id": 77,
+          "user_id": 20,
+          "target_id": 25,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -4051,65 +3638,22 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 22,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456813,
-          "nickname": "user_64",
-          "avatar": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/0372e8aadb15abbc85af882cb1179947?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 77,
-          "name": "anime_74",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/77-anime_74",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/21/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/21/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_21\" action=\"/user_rates/21\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates",
+      "path": "/user_rates.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456814,
-          "target_id": 78,
+          "user_id": 21,
+          "target_id": 26,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -4120,51 +3664,34 @@
           "rewatches": 5
         }
       },
-      "response_data": {
-        "id": 23,
-        "score": 10,
-        "status": 1,
-        "status_name": "Watching",
-        "text": "test",
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": "test",
-        "rewatches": 5,
-        "user": {
-          "id": 23456814,
-          "nickname": "user_65",
-          "avatar": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/976df90151bec56fd9e72b99076a8592?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 78,
-          "name": "anime_75",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/78-anime_75",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/22/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/22/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_22\" action=\"/user_rates/22\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/user_rates.json",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "user_rate": {
+          "user_id": 22,
+          "target_id": 27,
+          "target_type": "Anime",
+          "score": 10,
+          "status": 1,
+          "episodes": 2,
+          "volumes": 3,
+          "chapters": 4,
+          "text": "test",
+          "rewatches": 5
+        }
       },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/23/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/23/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_23\" action=\"/user_rates/23\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"10\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-10\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-10\">10</div><div class=\"score-notice\">Эпик вин!</div></div></form><p class=\"note\">test</p></div></div>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     }
@@ -4172,27 +3699,144 @@
   "user_rates#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/user_rates/11",
+      "path": "/user_rates/1.json",
       "versions": [
-        "1"
+
       ],
       "query": "",
       "request_data": null,
-      "response_data": null,
-      "code": "204",
-      "show_in_doc": 1,
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"expand-options\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form new_user_rate\" id=\"new_user_rate_1\" action=\"/user_rates\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><div class=\"b-input hidden user_rate_user_id\"><input class=\"hidden\" type=\"hidden\" value=\"1\" name=\"user_rate[user_id]\" id=\"user_rate_user_id\" /></div><div class=\"b-input hidden user_rate_target_id\"><input class=\"hidden\" type=\"hidden\" value=\"1\" name=\"user_rate[target_id]\" id=\"user_rate_target_id\" /></div><div class=\"b-input hidden user_rate_target_type\"><input class=\"hidden\" type=\"hidden\" value=\"Anime\" name=\"user_rate[target_type]\" id=\"user_rate_target_type\" /></div><div class=\"b-input hidden user_rate_status\"><input class=\"hidden\" type=\"hidden\" value=\"planned\" name=\"user_rate[status]\" id=\"user_rate_status\" /></div><span class=\"add-to-list\" data-status=\"planned\">Добавить в список</span><div class=\"expanded-options\"><div class=\"add-to-list option\" data-status=\"planned\">Запланировано</div><div class=\"add-to-list option\" data-status=\"watching\">Смотрю</div><div class=\"add-to-list option\" data-status=\"completed\">Просмотрено</div><div class=\"add-to-list option\" data-status=\"rewatching\">Пересматриваю</div><div class=\"add-to-list option\" data-status=\"on_hold\">Отложено</div><div class=\"add-to-list option\" data-status=\"dropped\">Брошено</div></div></form></div>",
+      "code": "200",
+      "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "DELETE",
-      "path": "/api/user_rates/12",
+      "path": "/user_rates/2.json",
       "versions": [
-        "1"
+
       ],
       "query": "",
       "request_data": null,
-      "response_data": null,
-      "code": "204",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"expand-options\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form new_user_rate\" id=\"new_user_rate_2\" action=\"/user_rates\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><div class=\"b-input hidden user_rate_user_id\"><input class=\"hidden\" type=\"hidden\" value=\"2\" name=\"user_rate[user_id]\" id=\"user_rate_user_id\" /></div><div class=\"b-input hidden user_rate_target_id\"><input class=\"hidden\" type=\"hidden\" value=\"2\" name=\"user_rate[target_id]\" id=\"user_rate_target_id\" /></div><div class=\"b-input hidden user_rate_target_type\"><input class=\"hidden\" type=\"hidden\" value=\"Anime\" name=\"user_rate[target_type]\" id=\"user_rate_target_type\" /></div><div class=\"b-input hidden user_rate_status\"><input class=\"hidden\" type=\"hidden\" value=\"planned\" name=\"user_rate[status]\" id=\"user_rate_status\" /></div><span class=\"add-to-list\" data-status=\"planned\">Добавить в список</span><div class=\"expanded-options\"><div class=\"add-to-list option\" data-status=\"planned\">Запланировано</div><div class=\"add-to-list option\" data-status=\"watching\">Смотрю</div><div class=\"add-to-list option\" data-status=\"completed\">Просмотрено</div><div class=\"add-to-list option\" data-status=\"rewatching\">Пересматриваю</div><div class=\"add-to-list option\" data-status=\"on_hold\">Отложено</div><div class=\"add-to-list option\" data-status=\"dropped\">Брошено</div></div></form></div>",
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#edit": [
+    {
+      "verb": "GET",
+      "path": "/user_rates/12/edit",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<!DOCTYPE html><html><head><meta charset=\"utf-8\" /><meta content=\"IE=edge,chrome=1\" http-equiv=\"X-UA-Compatible\" /><meta content=\"noindex,nofollow\" name=\"robots\" /><meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\" /><!---- Standard Favicon--><link href=\"/favicon.ico\" rel=\"icon\" type=\"image/x-icon\" /><!---- For iPad with high-resolution Retina display running iOS ≥ 7:--><link href=\"/favicons/favicon-152x152.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"152x152\" /><!---- For iPad with high-resolution Retina display running iOS ≤ 6:--><link href=\"/favicons/favicon-144x144.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"144x144\" /><!---- For iPhone with high-resolution Retina display running iOS ≥ 7:--><link href=\"/favicons/favicon-120x120.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"120x120\" /><!---- For iPhone with high-resolution Retina display running iOS ≤ 6:--><link href=\"/favicons/favicon-114x114.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"114x114\" /><!---- For first- and second-generation iPad:--><link href=\"/favicons/favicon-72x72.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"72x72\" /><!---- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices:--><link href=\"/favicons/favicon-57x57.png\" rel=\"apple-touch-icon-precomposed\" /><!---- For Windows 8:--><meta content=\"/favicons/favicon-144x144.png\" name=\"msapplication-TileImage\" /><meta content=\"#ffffff\" name=\"msapplication-TileColor\" /><!---- For Opera Coast:--><link href=\"favicons/favicon-228x228.png\" rel=\"icon\" sizes=\"228x228\" /><link href=\"/search.xml\" rel=\"search\" title=\"shikimori.org\" type=\"application/opensearchdescription+xml\" /><link href=\"http://shikimori.org/yandex-tableau-widget-manifest.json\" rel=\"yandex-tableau-widget\" /><title>Профиль / Шикимори</title>\n<meta name=\"robots\" content=\"noindex, nofollow\" /><link rel=\"stylesheet\" media=\"all\" href=\"/assets/application.css\" data-turbolinks-track=\"\" /><script src=\"/assets/core.js\" data-turbolinks-track=\"\"></script><script src=\"/assets/application.js\" data-turbolinks-track=\"\"></script><script type=\"text/javascript\">window.IS_LOGGED_IN = true;</script></head><body class=\"p-user_rates p-profiles p-user_rates-edit   \" id=\"user_rates_edit\" style=\"\"><header class=\"l-top_menu\"><div class=\"to-top-fix\"></div><div class=\"inner\"><a href=\"http://test.host/\" title=\"Шикимори\"><div class=\"logo\"></div></a><div class=\"menu-mobile\"><div class=\"menu mobile-menu-toggler\" title=\"Основное меню\"></div><div class=\"search mobile-search-toggler\" title=\"Поиск\"></div></div><div class=\"menu menu-userbox\"><div class=\"entry userbox\"><a class=\"avatar\" href=\"http://test.host/user_11\" title=\"user_11\"><img alt=\"user_11\" class=\"avatar\" src=\"http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=20&amp;d=identicon\" srcset=\"http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=48&amp;d=identicon 2x\" title=\"user_11\" /><span class=\"graphics-arrow-down\"></span></a><div class=\"submenu right\"><a class=\"entry\" href=\"http://test.host/user_11/list/anime\">Аниме</a><a class=\"entry\" href=\"http://test.host/user_11/list/manga\">Манга</a><a class=\"entry\" href=\"http://test.host/user_11/dialogs\"><span>Почта</span></a><a class=\"entry\" href=\"http://test.host/user_11/edit\">Настройки</a><a class=\"entry\" href=\"http://test.host/users/sign_out\">Выход</a></div></div></div><div class=\"menu menu-search\"><div class=\"entry main-search\"><div class=\"input\"><input data-type=\"animes\" value=\"\" /><div class=\"suggest-placeholder\"></div></div></div></div><div class=\"menu menu-items\"><div class=\"entry\"><a href=\"http://test.host/animes\" title=\"Аниме\">Аниме</a><div class=\"submenu-toggler\"></div><div class=\"submenu\"><a class=\"entry\" href=\"http://test.host/animes/status/ongoing\" title=\"Аниме онгоинги\">Онгоинги</a><a class=\"entry\" href=\"http://test.host/animes/season/2015\" title=\"Аниме 2015 года\">2015 год</a><a class=\"entry\" href=\"http://test.host/animes/season/2014\" title=\"Аниме 2014 года\">2014 год</a><a class=\"entry\" href=\"http://test.host/animes/season/spring_2015\" title=\"Весенний сезон 2015 года\">Весенний сезон</a><a class=\"entry\" href=\"http://test.host/animes/season/winter_2015\" title=\"Зимний сезон 2015 года\">Зимний сезон</a><a class=\"entry\" href=\"http://test.host/animes/season/fall_2014\" title=\"Осенний сезон 2014 года\">Осенний сезон</a><a class=\"entry\" href=\"http://test.host/animes/season/summer_2014\" title=\"Летний сезон 2014 года\">Летний сезон</a><a class=\"entry\" href=\"http://test.host/studios\" title=\"Студии\">Студии</a></div></div><a class=\"entry calendar\" href=\"http://test.host/ongoings\" title=\"Календарь\"></a><a class=\"entry\" href=\"http://test.host/mangas\" title=\"Манга\">Манга</a><a class=\"entry rel\" href=\"http://test.host/news\" title=\"Новости\">Новости</a><a class=\"entry rel\" href=\"http://test.host/reviews\" title=\"Обзоры\">Обзоры</a><div class=\"entry\"><a href=\"http://test.host/contests\" title=\"Опросы\">Опросы</a></div><a class=\"entry\" href=\"http://test.host/recommendations/anime\" title=\"Рекомендации\">Рекомендации</a><div class=\"entry\"><div class=\"submenu-toggler\"></div><div class=\"submenu-activator\">Сообщество</div><div class=\"submenu\"><a class=\"entry\" href=\"http://test.host/users\" title=\"Пользователи\">Пользователи</a><a class=\"entry\" href=\"http://test.host/clubs\" title=\"Клубы\">Клубы</a></div></div><div class=\"entry\"><div class=\"submenu-toggler\"></div><div class=\"submenu-activator\">Инфо</div><div class=\"submenu\"><a class=\"entry\" data-no-turbolink=\"true\" href=\"http://test.host/anime-history\" title=\"Индустрия аниме\">Индустрия аниме</a><a class=\"entry\" data-no-turbolink=\"true\" href=\"http://test.host/about\" title=\"О сайте\">О сайте</a><a class=\"entry\" href=\"/s/79042-Pravila-sayta\" title=\"Правила сайта\">Правила сайта</a><a class=\"entry\" href=\"/s/85018-FAQ-Chasto-zadavaemye-voprosy\" title=\"Часто задаваемые вопросы\">FAQ</a><a class=\"entry\" href=\"http://test.host/moderation/bans\" title=\"Журнал модерации\">Журнал модерации</a><a class=\"entry\" href=\"/clubs/2/translation/planned\" title=\"Переводы\">Переводы</a></div></div></div><div class=\"moderation\" style=\"\"></div></div></header><section class=\"l-page\" style=\"\"><div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_12\" action=\"/user_rates/12\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"remove\"><a data-method=\"delete\" data-remote=\"true\" data-type=\"html\" href=\"http://test.host/user_rates/12\">Удалить из списка</a></div><div class=\"b-input select optional user_rate_score\"><label class=\"select optional control-label\" for=\"user_rate_score\">Оценка</label><select class=\"select optional\" name=\"user_rate[score]\" id=\"user_rate_score\"><option value=\"\"></option>\n<option value=\"1\">(1) Хуже не бывает</option>\n<option value=\"2\">(2) Ужасно</option>\n<option value=\"3\">(3) Очень плохо</option>\n<option value=\"4\">(4) Плохо</option>\n<option value=\"5\">(5) Более-менее</option>\n<option value=\"6\">(6) Нормально</option>\n<option value=\"7\">(7) Хорошо</option>\n<option value=\"8\">(8) Отлично</option>\n<option value=\"9\">(9) Великолепно</option>\n<option value=\"10\">(10) Эпик вин!</option></select></div><div class=\"b-input integer optional user_rate_episodes\"><label class=\"integer optional control-label\" for=\"user_rate_episodes\">Эпизоды</label><input min=\"0\" max=\"999\" class=\"numeric integer optional\" type=\"number\" step=\"1\" value=\"0\" name=\"user_rate[episodes]\" id=\"user_rate_episodes\" /></div><div class=\"b-input select optional user_rate_status\"><label class=\"select optional control-label\" for=\"user_rate_status\">Статус</label><select class=\"select optional\" name=\"user_rate[status]\" id=\"user_rate_status\"><option selected=\"selected\" value=\"planned\">Запланировано</option>\n<option value=\"watching\">Смотрю</option>\n<option value=\"completed\">Просмотрено</option>\n<option value=\"rewatching\">Пересматриваю</option>\n<option value=\"on_hold\">Отложено</option>\n<option value=\"dropped\">Брошено</option></select></div><div class=\"b-input integer optional user_rate_rewatches\"><label class=\"integer optional control-label\" for=\"user_rate_rewatches\">Кол-во повторных просмотров</label><input min=\"0\" class=\"numeric integer optional\" type=\"number\" step=\"1\" value=\"0\" name=\"user_rate[rewatches]\" id=\"user_rate_rewatches\" /></div><div class=\"b-input text optional user_rate_text\"><label class=\"text optional control-label\" for=\"user_rate_text\">Комментарий</label><textarea class=\"text optional\" name=\"user_rate[text]\" id=\"user_rate_text\">\n</textarea></div><div><input type=\"submit\" name=\"commit\" value=\"Сохранить\" /><div class=\"cancel\">Отмена</div></div></form></div><footer class=\"l-footer\"><div class=\"sitemap\"><a href=\"http://test.host/sitemap\">карта сайта</a></div><div class=\"copyright\">&copy; shikimori.org&nbsp;<span class=\"date\">2011-2015</span></div></footer></section><div id=\"shade\"></div><div class=\"b-to-top\"><div class=\"slide\"></div><div class=\"arrow\">↑</div></div><div class=\"b-feedback\"><div class=\"hover-activator\"></div><span class=\"marker-positioner\" data-action=\"http://test.host/feedback\" data-remote=\"true\" data-type=\"html\"><div class=\"marker-text\"></div></span></div><!--noindex--><!--/noindex--></body></html>",
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#export": [
+    {
+      "verb": "GET",
+      "path": "/user_26/list/anime/export.xml",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<myanimelist>\n  <myinfo>\n    <user_export_type>1</user_export_type>\n  </myinfo>\n  <anime>\n    <series_title>anime_19</series_title>\n    <series_type>TV</series_type>\n    <series_episodes>0</series_episodes>\n    <series_animedb_id>30</series_animedb_id>\n    <my_watched_episodes>0</my_watched_episodes>\n    <my_times_watched>0</my_times_watched>\n    <my_score>0</my_score>\n    <my_status>Plan to Watch</my_status>\n    <shiki_status>Plan to Watch</shiki_status>\n    <my_comments/>\n    <update_on_import>1</update_on_import>\n  </anime>\n</myanimelist>\n",
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/user_27/list/anime/export.xml",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<myanimelist>\n  <myinfo>\n    <user_export_type>1</user_export_type>\n  </myinfo>\n  <anime>\n    <series_title>anime_20</series_title>\n    <series_type>TV</series_type>\n    <series_episodes>0</series_episodes>\n    <series_animedb_id>31</series_animedb_id>\n    <my_watched_episodes>0</my_watched_episodes>\n    <my_times_watched>0</my_times_watched>\n    <my_score>0</my_score>\n    <my_status>Plan to Watch</my_status>\n    <shiki_status>Plan to Watch</shiki_status>\n    <my_comments/>\n    <update_on_import>1</update_on_import>\n  </anime>\n</myanimelist>\n",
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#import": [
+    {
+      "verb": "POST",
+      "path": "/user_3/list/import",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "klass": "anime",
+        "rewrite": true,
+        "list_type": "anime_planet",
+        "login": "shikitest"
+      },
+      "response_data": "<html><body>You are being <a href=\"http://test.host/user_3/dialogs\">redirected</a>.</body></html>",
+      "code": "302",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/user_4/list/import",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "klass": "manga",
+        "rewrite": true,
+        "list_type": "xml",
+        "file": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<myanimelist>\n  <myinfo>\n    <user_export_type>2</user_export_type>\n  </myinfo>\n  <manga>\n    <manga_mangadb_id>1</manga_mangadb_id>\n    <my_read_volumes>0</my_read_volumes>\n    <my_read_chapters>0</my_read_chapters>\n    <my_score></my_score>\n    <my_status>Plan to Read</my_status>\n    <update_on_import>1</update_on_import>\n  </manga>\n  <manga>\n    <manga_mangadb_id>1234</manga_mangadb_id>\n    <my_watched_episodes>0</my_watched_episodes>\n    <my_score></my_score>\n    <my_status>Reading</my_status>\n    <update_on_import>1</update_on_import>\n  </manga>\n</myanimelist>"
+      },
+      "response_data": "<html><body>You are being <a href=\"http://test.host/user_4/dialogs\">redirected</a>.</body></html>",
+      "code": "302",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/user_7/list/import",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "klass": "anime",
+        "rewrite": false,
+        "list_type": "mal",
+        "data": "[{\"id\":10,\"status\":1,\"score\":5.0,\"name\":\"Zombie-Loan Specials\",\"episodes\":1},{\"id\":11,\"status\":2,\"score\":5.0,\"name\":\"Zombie-Loan,.\",\"episodes\":1}]"
+      },
+      "response_data": "<html><body>You are being <a href=\"http://test.host/user_7/dialogs\">redirected</a>.</body></html>",
+      "code": "302",
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/user_8/list/import",
+      "versions": [
+
+      ],
+      "query": null,
+      "request_data": {
+        "klass": "anime",
+        "rewrite": true,
+        "list_type": "mal",
+        "data": "[{\"id\":12,\"status\":1,\"score\":5.0,\"name\":\"Zombie-Loan Specials\",\"episodes\":1},{\"id\":13,\"status\":2,\"score\":5.0,\"name\":\"Zombie-Loan,.\",\"episodes\":1}]"
+      },
+      "response_data": "<html><body>You are being <a href=\"http://test.host/user_8/dialogs\">redirected</a>.</body></html>",
+      "code": "302",
       "show_in_doc": 0,
       "recorded": true
     }
@@ -4200,115 +3844,44 @@
   "user_rates#increment": [
     {
       "verb": "POST",
-      "path": "/api/user_rates/24/increment",
+      "path": "/user_rates/10/increment.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
       },
-      "response_data": {
-        "id": 24,
-        "score": 0,
-        "status": 1,
-        "status_name": "Watching",
-        "text": null,
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": null,
-        "rewatches": 0,
-        "user": {
-          "id": 23456815,
-          "nickname": "user_66",
-          "avatar": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/8b3b299d6c67f321211190f7c35346a3?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 79,
-          "name": "anime_76",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/79-anime_76",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
-      "show_in_doc": 1,
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/10/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/10/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_10\" action=\"/user_rates/10\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"0\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-0\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-0\">0</div><div class=\"score-notice\">&nbsp;</div></div></form><p class=\"note\"></p></div></div>",
+      "code": "200",
+      "show_in_doc": 0,
       "recorded": true
     },
     {
       "verb": "POST",
-      "path": "/api/user_rates/25/increment",
+      "path": "/user_rates/11/increment.json",
       "versions": [
-        "1"
+
       ],
       "query": null,
       "request_data": {
       },
-      "response_data": {
-        "id": 25,
-        "score": 0,
-        "status": 1,
-        "status_name": "Watching",
-        "text": null,
-        "episodes": 2,
-        "chapters": null,
-        "volumes": null,
-        "text_html": null,
-        "rewatches": 0,
-        "user": {
-          "id": 23456816,
-          "nickname": "user_67",
-          "avatar": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=48&d=identicon",
-          "image": {
-            "x160": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/e711257c1bfb851c2dca1b7233123424?s=16&d=identicon"
-          },
-          "last_online_at": "2015-02-01T17:45:44.923+03:00"
-        },
-        "anime": {
-          "id": 80,
-          "name": "anime_77",
-          "russian": null,
-          "image": {
-            "original": "/assets/globals/missing_original.jpg",
-            "preview": "/assets/globals/missing_preview.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x64": "/assets/globals/missing_x64.jpg"
-          },
-          "url": "/animes/80-anime_77",
-          "ongoing": false,
-          "anons": false,
-          "episodes": 0,
-          "episodes_aired": 0
-        },
-        "manga": null
-      },
-      "code": "201",
+      "response_data": "<div class=\"subheadline-buttons\"><div class=\"item-edit\" data-action=\"http://test.host/user_rates/11/edit\" data-remote=\"true\" data-type=\"html\"></div></div><div class=\"subheadline\">Мой список</div><div class=\"rate-container\"><div class=\"rate-edit\"></div><div class=\"rate-show\"><div class=\"rate-number\"><span class=\"current-episodes\">2</span><span class=\"item-add increment\" data-action=\"http://test.host/user_rates/11/increment\" data-method=\"post\" data-remote=\"true\" data-type=\"html\"></span></div><div class=\"status\">Смотрю</div><form data-type=\"html\" novalidate=\"novalidate\" class=\"simple_form b-form edit_user_rate\" id=\"edit_user_rate_11\" action=\"/user_rates/11\" accept-charset=\"UTF-8\" data-remote=\"true\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" /><div class=\"b-input hidden user_rate_score\"><input class=\"hidden\" type=\"hidden\" value=\"0\" name=\"user_rate[score]\" id=\"user_rate_score\" /></div><div class=\"b-rate rateable\" data-input_selector=\"#user_rate_score\" data-notices=\"{&quot;0&quot;:&quot;&quot;,&quot;1&quot;:&quot;Хуже не бывает&quot;,&quot;2&quot;:&quot;Ужасно&quot;,&quot;3&quot;:&quot;Очень плохо&quot;,&quot;4&quot;:&quot;Плохо&quot;,&quot;5&quot;:&quot;Более-менее&quot;,&quot;6&quot;:&quot;Нормально&quot;,&quot;7&quot;:&quot;Хорошо&quot;,&quot;8&quot;:&quot;Отлично&quot;,&quot;9&quot;:&quot;Великолепно&quot;,&quot;10&quot;:&quot;Эпик вин!&quot;}\" data-with_submit=\"true\"><div class=\"stars-container\"><div class=\"stars score score-0\"></div><div class=\"stars hover\"></div><div class=\"stars background\"></div></div><div class=\"text-score score-0\">0</div><div class=\"score-notice\">&nbsp;</div></div></form><p class=\"note\"></p></div></div>",
+      "code": "200",
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "user_rates#index": [
+    {
+      "verb": "GET",
+      "path": "/user_23/list/anime",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": "<!DOCTYPE html><html><head><meta charset=\"utf-8\" /><meta content=\"IE=edge,chrome=1\" http-equiv=\"X-UA-Compatible\" /><meta content=\"noindex,nofollow\" name=\"robots\" /><meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\" /><!---- Standard Favicon--><link href=\"/favicon.ico\" rel=\"icon\" type=\"image/x-icon\" /><!---- For iPad with high-resolution Retina display running iOS ≥ 7:--><link href=\"/favicons/favicon-152x152.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"152x152\" /><!---- For iPad with high-resolution Retina display running iOS ≤ 6:--><link href=\"/favicons/favicon-144x144.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"144x144\" /><!---- For iPhone with high-resolution Retina display running iOS ≥ 7:--><link href=\"/favicons/favicon-120x120.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"120x120\" /><!---- For iPhone with high-resolution Retina display running iOS ≤ 6:--><link href=\"/favicons/favicon-114x114.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"114x114\" /><!---- For first- and second-generation iPad:--><link href=\"/favicons/favicon-72x72.png\" rel=\"apple-touch-icon-precomposed\" sizes=\"72x72\" /><!---- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices:--><link href=\"/favicons/favicon-57x57.png\" rel=\"apple-touch-icon-precomposed\" /><!---- For Windows 8:--><meta content=\"/favicons/favicon-144x144.png\" name=\"msapplication-TileImage\" /><meta content=\"#ffffff\" name=\"msapplication-TileColor\" /><!---- For Opera Coast:--><link href=\"favicons/favicon-228x228.png\" rel=\"icon\" sizes=\"228x228\" /><link href=\"/search.xml\" rel=\"search\" title=\"shikimori.org\" type=\"application/opensearchdescription+xml\" /><link href=\"http://shikimori.org/yandex-tableau-widget-manifest.json\" rel=\"yandex-tableau-widget\" /><title>Список аниме / user_23 / Профиль / Шикимори</title>\n<meta name=\"robots\" content=\"noindex, nofollow\" /><link rel=\"stylesheet\" media=\"all\" href=\"/assets/application.css\" data-turbolinks-track=\"\" /><script src=\"/assets/core.js\" data-turbolinks-track=\"\"></script><script src=\"/assets/application.js\" data-turbolinks-track=\"\"></script><script type=\"text/javascript\">window.IS_LOGGED_IN = true;</script></head><body class=\"p-user_rates p-profiles p-user_rates-index   \" id=\"user_rates_index\" style=\"\"><header class=\"l-top_menu\"><div class=\"to-top-fix\"></div><div class=\"inner\"><a href=\"http://test.host/\" title=\"Шикимори\"><div class=\"logo\"></div></a><div class=\"menu-mobile\"><div class=\"menu mobile-menu-toggler\" title=\"Основное меню\"></div><div class=\"search mobile-search-toggler\" title=\"Поиск\"></div></div><div class=\"menu menu-userbox\"><div class=\"entry userbox\"><a class=\"avatar\" href=\"http://test.host/user_23\" title=\"user_23\"><img alt=\"user_23\" class=\"avatar\" src=\"http://www.gravatar.com/avatar/9346441d9b75cbe1e3eb63fc28a8c187?s=20&amp;d=identicon\" srcset=\"http://www.gravatar.com/avatar/9346441d9b75cbe1e3eb63fc28a8c187?s=48&amp;d=identicon 2x\" title=\"user_23\" /><span class=\"graphics-arrow-down\"></span></a><div class=\"submenu right\"><a class=\"entry\" href=\"http://test.host/user_23/list/anime\">Аниме</a><a class=\"entry\" href=\"http://test.host/user_23/list/manga\">Манга</a><a class=\"entry\" href=\"http://test.host/user_23/dialogs\"><span>Почта</span></a><a class=\"entry\" href=\"http://test.host/user_23/edit\">Настройки</a><a class=\"entry\" href=\"http://test.host/users/sign_out\">Выход</a></div></div></div><div class=\"menu menu-search\"><div class=\"entry main-search\"><div class=\"input\"><input data-type=\"animes\" value=\"\" /><div class=\"suggest-placeholder\"></div></div></div></div><div class=\"menu menu-items\"><div class=\"entry\"><a href=\"http://test.host/animes\" title=\"Аниме\">Аниме</a><div class=\"submenu-toggler\"></div><div class=\"submenu\"><a class=\"entry\" href=\"http://test.host/animes/status/ongoing\" title=\"Аниме онгоинги\">Онгоинги</a><a class=\"entry\" href=\"http://test.host/animes/season/2015\" title=\"Аниме 2015 года\">2015 год</a><a class=\"entry\" href=\"http://test.host/animes/season/2014\" title=\"Аниме 2014 года\">2014 год</a><a class=\"entry\" href=\"http://test.host/animes/season/spring_2015\" title=\"Весенний сезон 2015 года\">Весенний сезон</a><a class=\"entry\" href=\"http://test.host/animes/season/winter_2015\" title=\"Зимний сезон 2015 года\">Зимний сезон</a><a class=\"entry\" href=\"http://test.host/animes/season/fall_2014\" title=\"Осенний сезон 2014 года\">Осенний сезон</a><a class=\"entry\" href=\"http://test.host/animes/season/summer_2014\" title=\"Летний сезон 2014 года\">Летний сезон</a><a class=\"entry\" href=\"http://test.host/studios\" title=\"Студии\">Студии</a></div></div><a class=\"entry calendar\" href=\"http://test.host/ongoings\" title=\"Календарь\"></a><a class=\"entry\" href=\"http://test.host/mangas\" title=\"Манга\">Манга</a><a class=\"entry rel\" href=\"http://test.host/news\" title=\"Новости\">Новости</a><a class=\"entry rel\" href=\"http://test.host/reviews\" title=\"Обзоры\">Обзоры</a><div class=\"entry\"><a href=\"http://test.host/contests\" title=\"Опросы\">Опросы</a></div><a class=\"entry\" href=\"http://test.host/recommendations/anime\" title=\"Рекомендации\">Рекомендации</a><div class=\"entry\"><div class=\"submenu-toggler\"></div><div class=\"submenu-activator\">Сообщество</div><div class=\"submenu\"><a class=\"entry\" href=\"http://test.host/users\" title=\"Пользователи\">Пользователи</a><a class=\"entry\" href=\"http://test.host/clubs\" title=\"Клубы\">Клубы</a></div></div><div class=\"entry\"><div class=\"submenu-toggler\"></div><div class=\"submenu-activator\">Инфо</div><div class=\"submenu\"><a class=\"entry\" data-no-turbolink=\"true\" href=\"http://test.host/anime-history\" title=\"Индустрия аниме\">Индустрия аниме</a><a class=\"entry\" data-no-turbolink=\"true\" href=\"http://test.host/about\" title=\"О сайте\">О сайте</a><a class=\"entry\" href=\"/s/79042-Pravila-sayta\" title=\"Правила сайта\">Правила сайта</a><a class=\"entry\" href=\"/s/85018-FAQ-Chasto-zadavaemye-voprosy\" title=\"Часто задаваемые вопросы\">FAQ</a><a class=\"entry\" href=\"http://test.host/moderation/bans\" title=\"Журнал модерации\">Журнал модерации</a><a class=\"entry\" href=\"/clubs/2/translation/planned\" title=\"Переводы\">Переводы</a></div></div></div><div class=\"moderation\" style=\"\"></div></div></header><section class=\"l-page\" style=\"\"><div><header class=\"head misc\"><h1 title=\"\"><a class=\"back\" href=\"http://test.host/user_23\" title=\"Назад на страницу \"></a>user_23</h1><div class=\"b-breadcrumbs\"><span itemscope=\"\" itemtype=\"http://data-vocabulary.org/Breadcrumb\"><a href=\"http://test.host/users\" itemprop=\"url\" title=\"Пользователи\"><span itemprop=\"title\">Пользователи</span></a></span><span itemscope=\"\" itemtype=\"http://data-vocabulary.org/Breadcrumb\"><a href=\"http://test.host/user_23\" itemprop=\"url\" title=\"user_23\"><span itemprop=\"title\">user_23</span></a></span></div></header><div class=\"block m0\"><div class=\"menu-toggler\"><div class=\"toggler\"></div></div><div class=\"menu-slide-outer\"><div class=\"menu-slide-inner\"><div class=\"l-content\"><div class=\"b-options-floated mylist\"><div class=\"link always-active selected\" data-id=\"0\">Запланировано&nbsp;<span>1</span></div><div class=\"link always-active selected\" data-id=\"1\">Смотрю&nbsp;<span>0</span></div><div class=\"link always-active selected\" data-id=\"2\">Просмотрено&nbsp;<span>0</span></div><div class=\"link always-active selected\" data-id=\"9\">Пересматриваю&nbsp;<span>0</span></div><div class=\"link always-active selected\" data-id=\"3\">Отложено&nbsp;<span>0</span></div><div class=\"link always-active selected\" data-id=\"4\">Брошено&nbsp;<span>0</span></div></div><h2 class=\"subheadline\">Список аниме</h2><div class=\"filter\"><input placeholder=\"Поиск по названию...\" /></div><div class=\"b-user_rates\"><header class=\"status-0\"><a name=\"0\"></a><div class=\"b-options-floated collapse\" id=\"collapse-0\"><span class=\"action\">свернуть (1)</span></div><div class=\"subheadline\">Запланировано</div><div class=\"collapsed tiny\">...</div></header><table class=\"b-table\"><tr><th class=\"index\">#</th><th class=\"name order-control\" data-order=\"name\" title=\"Упорядочить по названию\">Название</th><th class=\"num order-control\" data-order=\"my\" title=\"Упорядочить по оценке\">Оценка</th><th class=\"num order-control\" data-order=\"episodes\" title=\"Упорядочить по эпизодам\">Эпизоды</th><th class=\"num order-control\" data-order=\"kind\" title=\"Упорядочить по типу\">Тип</th></tr><tr class=\"border\"><th colspan=\"5\"></th></tr><tr class=\"unprocessed selectable editable\" data-action=\"/user_rates/24/edit?api=true\" data-rate_url=\"/api/user_rates/24\" data-remote=\"true\" data-title=\"anime_17\" data-type=\"html\"><td class=\"index\"><span>1</span></td><td class=\"name\"><a class=\"tooltipped\" data-predelay=\"650\" href=\"http://test.host/animes/28-anime_17\">anime_17</a><span class=\"rewatches\"></span><div class=\"rate-text\"></div></td><td class=\"num hoverable\"><span class=\"current-value\" data-field=\"score\" data-max=\"10\" data-min=\"0\">&ndash;</span></td><td class=\"num hoverable\"><span class=\"current-value\" data-field=\"episodes\" data-max=\"0\" data-min=\"0\"><span>0</span></span><span class=\"misc-value\"><span class=\"sep inline\">/</span>?</span></td><td class=\"num\">Сериал</td></tr><tr class=\"summary\"><td colspan=\"5\">Сериалы:&nbsp;<span class=\"stat-value\">1</span></td></tr></table><header class=\"summary\"><h2></h2></header><table class=\"b-table\"><tr class=\"summary total\"><td colspan=\"5\">Сериалы:&nbsp;<span class=\"stat-value\">1</span></td></tr></table></div></div><aside class=\"l-menu\"><div class=\"block avatar\"><center><a href=\"http://test.host/user_23\" title=\"\"><img alt=\"user_23\" src=\"http://www.gravatar.com/avatar/9346441d9b75cbe1e3eb63fc28a8c187?s=160&amp;d=identicon\" title=\"user_23\" /></a></center></div><div class=\"block mini-charts\"><div class=\"scores block\"><div class=\"subheadline\">Оценки</div><div data-bar=\"horizontal\" data-stats=\"[]\" id=\"scores\"></div></div><div class=\"types block\"><div class=\"subheadline\">Типы</div><div data-bar=\"horizontal\" data-stats=\"[]\" id=\"types\"></div></div><div class=\"ratings block\"><div class=\"subheadline\">Рейтинги</div><div data-bar=\"horizontal\" data-stats=\"[]\" id=\"ratings\"></div></div></div><div class=\"b-collection-filters anime-params-controls\"><div class=\"block anime-params-block mylist-block\"><span class=\"filter block-filter item-sign\"></span><div class=\"subheadline\">Список</div><ul class=\"block-list mylist anime-params\"><li class=\"mylist-0\"><input autocomplete=\"off\" type=\"checkbox\" />Запланировано</li><li class=\"mylist-1\"><input autocomplete=\"off\" type=\"checkbox\" />Смотрю</li><li class=\"mylist-2\"><input autocomplete=\"off\" type=\"checkbox\" />Просмотрено</li><li class=\"mylist-9\"><input autocomplete=\"off\" type=\"checkbox\" />Пересматриваю</li><li class=\"mylist-3\"><input autocomplete=\"off\" type=\"checkbox\" />Отложено</li><li class=\"mylist-4\"><input autocomplete=\"off\" type=\"checkbox\" />Брошено</li></ul></div><div class=\"block\"><div class=\"subheadline\">Статус</div><ul class=\"block-list statuses anime-params\"><li class=\"status-planned\"><input autocomplete=\"off\" type=\"checkbox\" />Анонсировано</li><li class=\"status-ongoing\"><input autocomplete=\"off\" type=\"checkbox\" />Онгоинг</li><li class=\"status-latest\"><input autocomplete=\"off\" type=\"checkbox\" />Недавно вышедшее</li><li class=\"status-released\"><input autocomplete=\"off\" type=\"checkbox\" />Вышедшее</li></ul></div><div class=\"block\"><div class=\"subheadline\">Тип</div><ul class=\"block-list types anime-params\"><li class=\"type-TV\"><input autocomplete=\"off\" type=\"checkbox\" />Сериал</li><li class=\"type-TV-13 sub\"><input autocomplete=\"off\" type=\"checkbox\" />Односезонное</li><li class=\"type-TV-24 sub\"><input autocomplete=\"off\" type=\"checkbox\" />Двухсезонное</li><li class=\"type-TV-48 sub\"><input autocomplete=\"off\" type=\"checkbox\" />Многосезонное</li><li class=\"type-Movie\"><input autocomplete=\"off\" type=\"checkbox\" />Полнометражное</li><li class=\"type-OVA\"><input autocomplete=\"off\" type=\"checkbox\" />OVA</li><li class=\"type-ONA\"><input autocomplete=\"off\" type=\"checkbox\" />ONA</li><li class=\"type-Special\"><input autocomplete=\"off\" type=\"checkbox\" />Спешл</li><li class=\"type-Music\"><input autocomplete=\"off\" type=\"checkbox\" />Клип</li></ul></div><div class=\"block\"><div class=\"subheadline\">Сортировка</div><ul class=\"block-list orders anime-params subcontent\"><li class=\"order-by-ranked\">По рейтингу</li><li class=\"order-by-kind hidden\">По типу</li><li class=\"order-by-popularity\">По популярности</li><li class=\"order-by-name\">По алфавиту</li><li class=\"order-by-aired_on\">По дате выхода</li><li class=\"order-by-my\" style=\"display: none\">По оценке</li><li class=\"order-by-rate_id\">По дате добавления</li><li class=\"order-by-episodes\" style=\"display: none\">По числу эпизодов</li><li class=\"order-by-status\" style=\"display: none\">По статусу</li></ul></div><div class=\"block hidden\"><div class=\"subheadline\">Студия</div><ul class=\"block-list studios anime-params\"></ul></div><div class=\"block hidden\"><div class=\"subheadline\">Издатель</div><ul class=\"block-list publishers anime-params\"></ul></div><div class=\"block\"><div class=\"subheadline\">Сезон</div><ul class=\"block-list seasons anime-params\"><li class=\"season-spring_2015\"><input autocomplete=\"off\" type=\"checkbox\" />Весна 2015</li><li class=\"season-winter_2015\"><input autocomplete=\"off\" type=\"checkbox\" />Зима 2015</li><li class=\"season-fall_2014\"><input autocomplete=\"off\" type=\"checkbox\" />Осень 2014</li><li class=\"season-summer_2014\"><input autocomplete=\"off\" type=\"checkbox\" />Лето 2014</li><li class=\"season-2015\"><input autocomplete=\"off\" type=\"checkbox\" />2015 год</li><li class=\"season-2014\"><input autocomplete=\"off\" type=\"checkbox\" />2014 год</li><li class=\"season-2012_2013\"><input autocomplete=\"off\" type=\"checkbox\" />2012-2013</li><li class=\"season-2007_2011\"><input autocomplete=\"off\" type=\"checkbox\" />2007-2011</li><li class=\"season-2000_2006\"><input autocomplete=\"off\" type=\"checkbox\" />2000-2006</li><li class=\"season-199x\"><input autocomplete=\"off\" type=\"checkbox\" />90е годы</li><li class=\"season-198x\"><input autocomplete=\"off\" type=\"checkbox\" />80е годы</li><li class=\"season-ancient\"><input autocomplete=\"off\" type=\"checkbox\" />более старые</li></ul></div><div class=\"block durations\"><div class=\"subheadline\">Эпизод</div><ul class=\"block-list durations anime-params\"><li class=\"duration-S\"><input autocomplete=\"off\" type=\"checkbox\" />До 10 минут</li><li class=\"duration-D\"><input autocomplete=\"off\" type=\"checkbox\" />До 30 минут</li><li class=\"duration-F\"><input autocomplete=\"off\" type=\"checkbox\" />Более 30 минут</li></ul></div><div class=\"block ratings\"><div class=\"subheadline\">Рейтинг</div><ul class=\"block-list ratings anime-params\"><li class=\"rating-NC-17\"><input autocomplete=\"off\" type=\"checkbox\" />NC-17</li><li class=\"rating-R\"><input autocomplete=\"off\" type=\"checkbox\" />R</li><li class=\"rating-PG-13\"><input autocomplete=\"off\" type=\"checkbox\" />PG-13</li><li class=\"rating-PG\"><input autocomplete=\"off\" type=\"checkbox\" />PG</li><li class=\"rating-G\"><input autocomplete=\"off\" type=\"checkbox\" />G</li></ul></div><div class=\"block genres\"><div class=\"subheadline\">Жанр</div><div class=\"b-spoiler unprocessed\"><label>Показать список</label><div class=\"content\"><div class=\"inner\"><ul class=\"block-list genres anime-params m10\"></ul></div></div></div></div></div></aside></div></div></div></div><footer class=\"l-footer\"><div class=\"sitemap\"><a href=\"http://test.host/sitemap\">карта сайта</a></div><div class=\"copyright\">&copy; shikimori.org&nbsp;<span class=\"date\">2011-2015</span></div></footer></section><div id=\"shade\"></div><div class=\"b-to-top\"><div class=\"slide\"></div><div class=\"arrow\">↑</div></div><div class=\"b-feedback\"><div class=\"hover-activator\"></div><span class=\"marker-positioner\" data-action=\"http://test.host/feedback\" data-remote=\"true\" data-type=\"html\"><div class=\"marker-text\"></div></span></div><!--noindex--><!--/noindex--></body></html>",
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     }

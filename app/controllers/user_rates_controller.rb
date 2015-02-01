@@ -128,7 +128,7 @@ class UserRatesController < ProfilesController
       sleep(1)
     end
 
-    redirect_to messages_url(type: :inbox)
+    redirect_to profile_dialogs_url(@resource)
 
   rescue Exception => e
     if Rails.env.production?
