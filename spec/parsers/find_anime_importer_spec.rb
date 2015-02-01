@@ -79,6 +79,66 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
           it { should be_nil }
         end
+
+        context 'enough videos:' do
+          let!(:author_1) { create(:anime_video_author, name: '123') }
+          let!(:video_1) { create(:anime_video, anime: anime, url: 'http://vk.com/video/1', author: author_1, episode: 1) }
+          let!(:video_2) { create(:anime_video, anime: anime, url: 'http://vk.com/video/2', author: author_1, episode: 1) }
+
+          before do
+            allow_any_instance_of(FindAnimeImporter)
+              .to receive(:fetch_videos).and_return(videos)
+            allow_any_instance_of(AnimeVideo)
+              .to receive(:save!)
+          end
+
+          context 'flase - no video' do
+            let(:video) { build(:anime_video, anime: anime) }
+            let(:videos) { [video] }
+            after { subject }
+            it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+          end
+
+          context 'check hosting, episode and author:' do
+            let(:videos) { [video_3] }
+
+            context 'flase - other hosting, other episode and other author' do
+              let(:video_3) { build(:anime_video, anime: anime, url: 'http://video.sibnet.ru/1', episode: 1) }
+              after { subject }
+              it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+            end
+
+            context 'flase - eq hosting, other episode and other author' do
+              let(:video_3) { build(:anime_video, anime: anime, url: 'http://vk.com/video/3', episode: 2) }
+              after { subject }
+              it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+            end
+
+            context 'flase - other hosting, eq episode and other author' do
+              let(:video_3) { build(:anime_video, anime: anime, url: 'http://vk.com/video/3', episode: 1) }
+              after { subject }
+              it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+            end
+
+            context 'flase - other hosting, other episode and eq author' do
+              let(:video_3) { build(:anime_video, anime: anime, url: 'http://video.sibnet.ru/1', author: author_1, episode: 2) }
+              after { subject }
+              it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+            end
+
+            context 'true - eq hosting, eq episode and other author' do
+              let(:video_3) { build(:anime_video, anime: anime, url: 'http://vk.com/video/3', author: author_1, episode: 1) }
+              after { subject }
+              it { expect_any_instance_of(AnimeVideo).to_not receive(:save!) }
+            end
+
+            context 'true - other hosting, eq episode and eq author' do
+              let(:video_3) { build(:anime_video, anime: anime, url: 'http://video.sibnet.ru/1', episode: 1, author: author_1) }
+              after { subject }
+              it { expect_any_instance_of(AnimeVideo).to_not receive(:save!) }
+            end
+          end
+        end
       end
     end
 

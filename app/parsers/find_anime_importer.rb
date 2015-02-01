@@ -1,5 +1,6 @@
 class FindAnimeImporter
   SERVICE = 'findanime'
+  LIMIT_RELATED_VIDEOS = 2
 
   attr_reader :ignored_in_twice_match
 
@@ -38,12 +39,23 @@ private
 
     fetch_videos(filtered_videos, anime, imported_videos).each do |video|
       binding.pry if !video.valid? && Rails.env.development?
-      video.save! if video_valid?(video)
+      video.save! if video_valid?(video) && video_enough?(video)
     end
   end
 
   def video_valid?(video)
     !(!video.valid? && video.errors.size == 1 && video.errors[:url].include?(I18n.t 'activerecord.errors.messages.taken'))
+  end
+
+  # FIX : need to check the video kind!
+  def video_enough?(video)
+    related_video_count = AnimeVideo
+      .available
+      .where(anime_video_author_id: video.anime_video_author_id)
+      .where(anime_id: video.anime_id)
+      .where(episode: video.episode)
+      .count
+    related_video_count < LIMIT_RELATED_VIDEOS
   end
 
   def fetch_videos videos, anime, imported_videos
