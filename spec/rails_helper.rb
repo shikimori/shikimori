@@ -63,9 +63,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with :truncation
   end
 
-  class Faye::Client
-    def publis *args
+  config.before :all do
+    RSpec::Mocks.with_temporary_scope do
+      allow_any_instance_of(FayePublisher).to receive :run_event_machine
+      allow_any_instance_of(Faye::Client).to receive :publish
     end
   end
-
 end
