@@ -23,13 +23,13 @@
             span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
 
           - else
-            - if can? :destroy, message
-              span.item-delete title="Удалить"
             - if message.kind == MessageType::Private
               span.item-quote title="Цитировать"
               span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="Ответить"
             - if can?(:edit, message) && message.kind == MessageType::Private
               span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="Изменить"
+            - if can? :destroy, message
+              span.item-delete title="Удалить"
 
           span.item-cancel title="Отмена"
 
