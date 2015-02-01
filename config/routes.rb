@@ -181,30 +181,8 @@ Site::Application.routes.draw do
       end
     end
 
-    #namespace :anime_online do
-      #resources :anime, only: [:show] do
-        #resources :anime_videos, only: [:new, :create, :edit, :update] do
-          #get :viewed, on: :member
-        #end
-      #end
-
-      #resource :anime_videos do
-        #get :help, on: :member
-      #end
-
-      #resources :anime_videos do
-        #get :watch_view_increment, on: :member
-      #end
-
-      #post 'anime_videos/:id/rate' => 'anime_videos#rate', as: :rate_anime
-    #end
-
-    #post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
-    #get 'videos/:id(/:episode)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode: /\d+/, video_id: /\d+/, all: 'all' }
-    #post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
-    #delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
-    #get 'pingmedia/google' => 'anime_online/pingmedia#google'
-    #get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
+    get 'pingmedia/google' => 'anime_online/pingmedia#google'
+    get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
 
     get 'robots.txt' => 'robots#anime_online'
   end

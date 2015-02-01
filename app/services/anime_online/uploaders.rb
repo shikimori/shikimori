@@ -5,7 +5,7 @@ class AnimeOnline::Uploaders
     current_top + User::TrustedVideoUploaders
   end
 
-  def self.current_top(limit=20)
+  def self.current_top limit=20
     AnimeVideoReport
       .select(:user_id, 'count(*) as videos')
       .where(state: :accepted, kind: :uploaded)

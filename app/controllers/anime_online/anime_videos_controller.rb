@@ -5,6 +5,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
   before_action :authenticate_user!, only: [:viewed]
   before_action :add_breadcrumb, except: [:index]
 
+  before_action { @anime_online_ad = true }
   after_action :save_preferences, only: :index
 
   def index

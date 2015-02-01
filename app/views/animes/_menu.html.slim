@@ -1,4 +1,7 @@
-- unless @itemtype
+- if @anime_online_ad && AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
+   = render partial: 'anime_online/blocks/ads_240x400'
+
+- elsif !@itemtype
   .block.logo
     center: a href="#{@resource.url}" title="#{{@resource.name}}"
       img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
