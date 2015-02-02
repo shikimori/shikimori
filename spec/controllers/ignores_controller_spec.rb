@@ -1,66 +1,53 @@
 describe IgnoresController do
   let(:user) { create :user }
-  let(:user2) { create :user }
+  let(:user_2) { create :user }
 
-  let(:create_request) { post :create, id: user2.id }
-  let(:destroy_request) { delete :destroy, id: user2.id }
+  describe '#create' do
+    let(:make_request) { post :create, id: user_2.id }
 
-  describe 'create' do
-    it 'unauthorized' do
-      create_request
-      expect(response).to be_redirect
+    context 'unauthorized' do
+      before { make_request }
+      it { expect(response).to redirect_to new_user_session_url }
     end
 
-    describe 'success' do
-      before (:each) { sign_in user }
+    context 'authorized' do
+      include_context :authenticated, :user
 
-      it 'success' do
-        create_request
-        expect(response).to be_success
+      context 'not yet ignored' do
+        before { make_request }
 
-        expect(User.find(user.id).ignores?(user2)).to be_truthy
+        it { expect(response).to have_http_status :success }
+        it { expect(user.reload.ignores?(user_2)).to be_truthy }
+        it { expect(user.reload.ignores).to have(1).item }
       end
 
-      describe Ignore do
-        it do
-          expect {
-            create_request
-          }.to change(Ignore, :count).by(1)
-        end
+      context 'already ignored' do
+        let!(:ignore) { create :ignore, user: user, target: user_2 }
+        before { make_request }
 
-        it 'only once' do
-          expect {
-            create_request
-            create_request
-          }.to change(Ignore, :count).by(1)
-        end
+        it { expect(response).to have_http_status :success }
+        it { expect(user.reload.ignores?(user_2)).to be_truthy }
+        it { expect(user.reload.ignores).to have(1).item }
       end
     end
   end
 
-  describe "destroy" do
-    it 'unauthorized' do
-      destroy_request
-      expect(response).to be_redirect
+  describe '#destroy' do
+    let(:make_request) { delete :destroy, id: user_2.id }
+
+    context 'unauthorized' do
+      before { make_request }
+      it { expect(response).to redirect_to new_user_session_url }
     end
 
-    describe 'success' do
-      before (:each) { sign_in user }
+    context 'authorized' do
+      include_context :authenticated, :user
 
-      it 'success' do
-        destroy_request
-        expect(response).to be_success
+      before { make_request }
 
-        expect(User.find(user.id).ignores?(user2)).to be_falsy
-      end
-
-      it Ignore do
-        create_request
-
-        expect {
-          destroy_request
-        }.to change(Ignore, :count).by(-1)
-      end
+      it { expect(response).to have_http_status :success }
+      it { expect(user.reload.ignores?(user_2)).to be_falsy }
+      it { expect(user.reload.ignores).to be_empty }
     end
   end
 end
