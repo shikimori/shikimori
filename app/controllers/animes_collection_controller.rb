@@ -8,6 +8,7 @@ class AnimesCollectionController < ShikimoriController
     mylist_redirect_check
     build_background
 
+    params[:is_adult] = AnimeOnlineDomain::adult_host?(request) unless shikimori?
     query = AniMangaQuery.new(klass, params, current_user).fetch
 
     if params[:search]
@@ -23,7 +24,9 @@ class AnimesCollectionController < ShikimoriController
     end
     one_found_redirect_check
 
-    if params[:rel] || request.url.include?('order') || @description.blank? || params.any? {|k,v| k != 'genre' && v.include?(',') } || @entries.empty?
+    if params[:rel] || request.url.include?('order') ||
+        @description.blank? || @entries.empty? ||
+        params.any? {|k,v| k != 'genre' && v.kind_of?(String) && v.include?(',') }
       noindex and nofollow
     end
 
@@ -94,7 +97,7 @@ private
 
   # постраничное разбитие коллекции
   def build_pagination_links(entries, total_pages)
-    options = params.except :format, :exclude_ids, :ids_with_sort, :template
+    options = filtered_params
 
     if total_pages
       @total_pages = total_pages == 0 ? 1 : total_pages
@@ -118,7 +121,7 @@ private
   def mylist_redirect_check
     if params.include?(:mylist) && !user_signed_in?
       params.except! :mylist
-      raise ForceRedirect, url_for(params)
+      raise ForceRedirect, url_for(filtered_params)
     end
   end
 
@@ -136,7 +139,7 @@ private
   # выборка из датасорса с пагинацией
   def fetch_with_pagination(ds)
     entries = []
-    # выборка id элементов с разбивкой по странциам
+    # выборка id элементов с разбивкой по страницам
     unless params.include? :ids_with_sort
       entries = ds
         .select("#{klass.name.tableize}.id")
@@ -239,5 +242,9 @@ private
   # число аниме/манги на странице
   def entries_per_page
     user_signed_in? ? 24 : 12
+  end
+
+  def filtered_params
+    params.except :format, :exclude_ids, :ids_with_sort, :template, :is_adult
   end
 end

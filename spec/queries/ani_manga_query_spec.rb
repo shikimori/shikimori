@@ -1,3 +1,4 @@
+# TODO: refactor from "expect((...).size).to eq(...)" to expect(...).to eq [...]
 describe AniMangaQuery do
   describe '#complete' do
     let!(:anime_1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }
@@ -32,23 +33,31 @@ describe AniMangaQuery do
 
       context 'TV' do
         before { create :anime, kind: 'Movie' }
-        it { expect(fetch(type: 'TV').size).to eq(9) }
-        it { expect(fetch(type: '!TV').size).to eq(1) }
+        it do
+          expect(fetch(type: 'TV').size).to eq(9)
+          expect(fetch(type: '!TV').size).to eq(1)
+        end
       end
 
       context 'TV-13' do
-        it { expect(fetch(type: 'TV-13').size).to eq(4) }
-        it { expect(fetch(type: '!TV-13').size).to eq(5) }
+        it do
+          expect(fetch(type: 'TV-13').size).to eq(4)
+          expect(fetch(type: '!TV-13').size).to eq(5)
+        end
       end
 
       context 'TV-24' do
-        it { expect(fetch(type: 'TV-24').size).to eq(3) }
-        it { expect(fetch(type: '!TV-24').size).to eq(6) }
+        it do
+          expect(fetch(type: 'TV-24').size).to eq(3)
+          expect(fetch(type: '!TV-24').size).to eq(6)
+        end
       end
 
       context 'TV-48' do
-        it { expect(fetch(type: 'TV-48').size).to eq(2) }
-        it { expect(fetch(type: '!TV-48').size).to eq(7) }
+        it do
+          expect(fetch(type: 'TV-48').size).to eq(2)
+          expect(fetch(type: '!TV-48').size).to eq(7)
+        end
       end
 
       it 'multiple negative' do
@@ -136,45 +145,45 @@ describe AniMangaQuery do
       let!(:anime_5) { create :anime, genres: [shoujo] }
 
       describe 'genre' do
-        describe 'inclusive' do
-          it { expect(fetch(genre: "#{shounen.to_param}").to_a.size).to eq(3) }
-          it { expect(fetch(genre: "#{shoujo.to_param}").to_a.size).to eq(2) }
-          it { expect(fetch(genre: "#{shounen.to_param},#{shoujo.to_param}").to_a.size).to eq(1) }
+        it 'inclusive' do
+          expect(fetch(genre: "#{shounen.to_param}").to_a.size).to eq(3)
+          expect(fetch(genre: "#{shoujo.to_param}").to_a.size).to eq(2)
+          expect(fetch(genre: "#{shounen.to_param},#{shoujo.to_param}").to_a.size).to eq(1)
         end
 
-        describe 'exclusive' do
-          it { expect(fetch(genre: "!#{shounen.to_param}").to_a.size).to eq(2) }
-          it { expect(fetch(genre: "!#{shoujo.to_param}").to_a.size).to eq(3) }
-          it { expect(fetch(genre: "!#{shoujo.to_param},!#{shounen.to_param}").to_a.size).to eq(1) }
+        it 'exclusive' do
+          expect(fetch(genre: "!#{shounen.to_param}").to_a.size).to eq(2)
+          expect(fetch(genre: "!#{shoujo.to_param}").to_a.size).to eq(3)
+          expect(fetch(genre: "!#{shoujo.to_param},!#{shounen.to_param}").to_a.size).to eq(1)
         end
 
-        describe 'both' do
-          it { expect(fetch(genre: "#{shounen.to_param},!#{shoujo.to_param}").to_a.size).to eq(2) }
-          it { expect(fetch(genre: "!#{shounen.to_param},#{shoujo.to_param}").to_a.size).to eq(1) }
+        it 'both' do
+          expect(fetch(genre: "#{shounen.to_param},!#{shoujo.to_param}").to_a.size).to eq(2)
+          expect(fetch(genre: "!#{shounen.to_param},#{shoujo.to_param}").to_a.size).to eq(1)
         end
       end
 
       describe 'studio' do
-        describe 'inclusive' do
-          it { expect(fetch(studio: "#{ghibli.to_param}").to_a.size).to eq(3) }
-          it { expect(fetch(studio: "#{shaft.to_param}").to_a.size).to eq(2) }
-          it { expect(fetch(studio: "#{ghibli.to_param},#{shaft.to_param}").to_a.size).to eq(1) }
+        it 'inclusive' do
+          expect(fetch(studio: "#{ghibli.to_param}").to_a.size).to eq(3)
+          expect(fetch(studio: "#{shaft.to_param}").to_a.size).to eq(2)
+          expect(fetch(studio: "#{ghibli.to_param},#{shaft.to_param}").to_a.size).to eq(1)
         end
 
-        describe 'exclusive' do
-          it { expect(fetch(studio: "!#{ghibli.to_param}").to_a.size).to eq(2) }
-          it { expect(fetch(studio: "!#{shaft.to_param}").to_a.size).to eq(3) }
-          it { expect(fetch(studio: "!#{shaft.to_param},!#{ghibli.to_param}").to_a.size).to eq(1) }
+        it 'exclusive' do
+          expect(fetch(studio: "!#{ghibli.to_param}").to_a.size).to eq(2)
+          expect(fetch(studio: "!#{shaft.to_param}").to_a.size).to eq(3)
+          expect(fetch(studio: "!#{shaft.to_param},!#{ghibli.to_param}").to_a.size).to eq(1)
         end
 
-        describe 'both' do
-          it { expect(fetch(studio: "#{ghibli.to_param},!#{shaft.to_param}").to_a.size).to eq(2) }
-          it { expect(fetch(studio: "!#{ghibli.to_param},#{shaft.to_param}").to_a.size).to eq(1) }
+        it 'both' do
+          expect(fetch(studio: "#{ghibli.to_param},!#{shaft.to_param}").to_a.size).to eq(2)
+          expect(fetch(studio: "!#{ghibli.to_param},#{shaft.to_param}").to_a.size).to eq(1)
         end
       end
 
-      describe 'both' do
-        it { expect(fetch(studio: "!#{shaft.to_param},#{ghibli.to_param}", genre: "#{shounen.to_param},#{shoujo.to_param}").to_a.size).to eq(1) }
+      it 'both' do
+        expect(fetch(studio: "!#{shaft.to_param},#{ghibli.to_param}", genre: "#{shounen.to_param},#{shoujo.to_param}").to_a.size).to eq(1)
       end
 
       describe 'publisher' do
@@ -194,9 +203,9 @@ describe AniMangaQuery do
 
         it 'with genres' do
           expect(AniMangaQuery.new(Manga,
-              publisher: "#{jump.to_param}",
-              genre: "#{shounen.to_param},!#{shoujo.to_param}"
-            ).fetch().to_a.size).to eq(1)
+            publisher: "#{jump.to_param}",
+            genre: "#{shounen.to_param},!#{shoujo.to_param}"
+          ).fetch().to_a.size).to eq(1)
         end
       end
     end
@@ -207,21 +216,21 @@ describe AniMangaQuery do
       let!(:anime_3) { create :anime, rating: AniMangaQuery::Ratings['G'][0] }
       let!(:anime_4) { create :anime, rating: AniMangaQuery::Ratings['R'][0] }
 
-      describe 'inclusive' do
-        it { expect(fetch(rating: 'NC-17').size).to eq(2) }
-        it { expect(fetch(rating: 'G').size).to eq(1) }
-        it { expect(fetch(rating: 'NC-17,G').size).to eq(3) }
+      it 'inclusive' do
+        expect(fetch(rating: 'NC-17').size).to eq(2)
+        expect(fetch(rating: 'G').size).to eq(1)
+        expect(fetch(rating: 'NC-17,G').size).to eq(3)
       end
 
-      describe 'exclusive' do
-        it { expect(fetch(rating: '!NC-17').size).to eq(2) }
-        it { expect(fetch(rating: '!G').size).to eq(3) }
-        it { expect(fetch(rating: '!NC-17,!G').size).to eq(1) }
+      it 'exclusive' do
+        expect(fetch(rating: '!NC-17').size).to eq(2)
+        expect(fetch(rating: '!G').size).to eq(3)
+        expect(fetch(rating: '!NC-17,!G').size).to eq(1)
       end
 
-      describe 'both' do
-        it { expect(fetch(rating: 'NC-17,!G').size).to eq(2) }
-        it { expect(fetch(rating: '!NC-17,G').size).to eq(1) }
+      it 'both' do
+        expect(fetch(rating: 'NC-17,!G').size).to eq(2)
+        expect(fetch(rating: '!NC-17,G').size).to eq(1)
       end
     end
 
@@ -233,22 +242,22 @@ describe AniMangaQuery do
       let!(:anime_5) { create :anime, duration: 35 }
       let!(:anime_6) { create :anime, duration: 35 }
 
-      describe 'inclusive' do
-        it { expect(fetch(duration: 'S').size).to eq(1) }
-        it { expect(fetch(duration: 'D').size).to eq(2) }
-        it { expect(fetch(duration: 'F').size).to eq(3) }
-        it { expect(fetch(duration: 'S,D,F').size).to eq(6) }
+      it 'inclusive' do
+        expect(fetch(duration: 'S').size).to eq(1)
+        expect(fetch(duration: 'D').size).to eq(2)
+        expect(fetch(duration: 'F').size).to eq(3)
+        expect(fetch(duration: 'S,D,F').size).to eq(6)
       end
 
-      describe 'exclusive' do
-        it { expect(fetch(duration: '!S').size).to eq(5) }
-        it { expect(fetch(duration: '!D').size).to eq(4) }
-        it { expect(fetch(duration: '!S,!F').size).to eq(2) }
+      it 'exclusive' do
+        expect(fetch(duration: '!S').size).to eq(5)
+        expect(fetch(duration: '!D').size).to eq(4)
+        expect(fetch(duration: '!S,!F').size).to eq(2)
       end
 
-      describe 'both' do
-        it { expect(fetch(duration: 'S,!F').size).to eq(1) }
-        it { expect(fetch(duration: '!S,F').size).to eq(3) }
+      it 'both' do
+        expect(fetch(duration: 'S,!F').size).to eq(1)
+        expect(fetch(duration: '!S,F').size).to eq(3)
       end
     end
 
@@ -257,20 +266,20 @@ describe AniMangaQuery do
       let!(:anime_2) { create :anime, aired_on: Date.parse('2011-02-01') }
       let!(:anime_3) { create :anime, aired_on: Date.parse('2010-02-01') }
 
-      describe 'inclusive' do
-        it { expect(fetch(season: '2011').size).to eq(2) }
-        it { expect(fetch(season: 'winter_2011').size).to eq(2) }
-        it { expect(fetch(season: '2010_2011').size).to eq(3) }
-        it { expect(fetch(season: '2010,2011').size).to eq(3) }
+      it 'inclusive' do
+        expect(fetch(season: '2011').size).to eq(2)
+        expect(fetch(season: 'winter_2011').size).to eq(2)
+        expect(fetch(season: '2010_2011').size).to eq(3)
+        expect(fetch(season: '2010,2011').size).to eq(3)
       end
 
-      describe 'exclusive' do
-        it { expect(fetch(season: '!2011').size).to eq(1) }
-        it { expect(fetch(season: '!2011,!2010').size).to eq(0) }
+      it 'exclusive' do
+        expect(fetch(season: '!2011').size).to eq(1)
+        expect(fetch(season: '!2011,!2010').size).to eq(0)
       end
 
-      describe 'both' do
-        it { expect(fetch(season: '!2011,2010').size).to eq(1) }
+      it 'both' do
+        expect(fetch(season: '!2011,2010').size).to eq(1)
       end
     end
 
@@ -282,21 +291,21 @@ describe AniMangaQuery do
       let!(:anime_5) { create :anime, status: AniMangaStatus::Released }
       let!(:anime_6) { create :anime, status: AniMangaStatus::Released, aired_on: 6.months.ago, released_on: 2.months.ago }
 
-      describe 'inclusive' do
-        it { expect(fetch(status: 'ongoing').size).to eq(1) }
-        it { expect(fetch(status: 'planned').size).to eq(2) }
-        it { expect(fetch(status: 'released').size).to eq(3) }
-        it { expect(fetch(status: 'ongoing,planned').size).to eq(3) }
-        it { expect(fetch(status: 'latest').size).to eq(1) }
+      it 'inclusive' do
+         expect(fetch(status: 'ongoing').size).to eq(1)
+         expect(fetch(status: 'planned').size).to eq(2)
+         expect(fetch(status: 'released').size).to eq(3)
+         expect(fetch(status: 'ongoing,planned').size).to eq(3)
+         expect(fetch(status: 'latest').size).to eq(1)
       end
 
-      describe 'exclusive' do
-        it { expect(fetch(status: '!ongoing').size).to eq(5) }
-        it { expect(fetch(status: '!planned,!released').size).to eq(1) }
+      it 'exclusive' do
+        expect(fetch(status: '!ongoing').size).to eq(5)
+        expect(fetch(status: '!planned,!released').size).to eq(1)
       end
 
-      describe 'both' do
-        it { expect(fetch(status: '!planned,ongoing').size).to eq(1) }
+      it 'both' do
+        expect(fetch(status: '!planned,ongoing').size).to eq(1)
       end
     end
 
@@ -313,19 +322,19 @@ describe AniMangaQuery do
       let!(:anime_4) { create :anime }
       let!(:anime_5) { create :anime }
 
-      describe 'inclusive' do
-        it { expect(fetch({mylist: "#{UserRate.statuses[:planned]}"}, user).size).to eq(1) }
-        it { expect(fetch({mylist: "#{UserRate.statuses[:watching]}"}, user).size).to eq(2) }
-        it { expect(fetch({mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}"}, user).size).to eq(3) }
+      it 'inclusive' do
+        expect(fetch({mylist: "#{UserRate.statuses[:planned]}"}, user).size).to eq(1)
+        expect(fetch({mylist: "#{UserRate.statuses[:watching]}"}, user).size).to eq(2)
+        expect(fetch({mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}"}, user).size).to eq(3)
       end
 
-      describe 'exclusive' do
-        it { expect(fetch({mylist: "!#{UserRate.statuses[:planned]}"}, user).size).to eq(4) }
-        it { expect(fetch({mylist: "!#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user).size).to eq(2) }
+      it 'exclusive' do
+        expect(fetch({mylist: "!#{UserRate.statuses[:planned]}"}, user).size).to eq(4)
+        expect(fetch({mylist: "!#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user).size).to eq(2)
       end
 
-      describe 'both' do
-        it { expect(fetch({mylist: "#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user).size).to eq(1) }
+      it 'both' do
+        expect(fetch({mylist: "#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user).size).to eq(1)
       end
     end
 
@@ -334,18 +343,22 @@ describe AniMangaQuery do
       let!(:anime_2) { create :anime, id: 2 }
       let!(:anime_3) { create :anime, id: 3 }
 
-      it { expect(fetch(exclude_ids: ['1']).size).to eq(2) }
-      it { expect(fetch(exclude_ids: [2]).size).to eq(2) }
-      it { expect(fetch(exclude_ids: [1, 2]).size).to eq(1) }
+      it do
+        expect(fetch(exclude_ids: ['1']).size).to eq(2)
+        expect(fetch(exclude_ids: [2]).size).to eq(2)
+        expect(fetch(exclude_ids: [1, 2]).size).to eq(1)
+      end
     end
 
     describe 'order' do
       let!(:anime_1) { create :anime, ranked: 10, name: 'AAA', episodes: 10 }
       let!(:anime_2) { create :anime, ranked: 5, name: 'BBB', episodes: 20 }
 
-      it { expect(fetch().first.id).to eq anime_2.id }
-      it { expect(fetch(order: 'name').first.id).to eq anime_1.id }
-      it { expect(fetch(order: 'id').first.id).to eq anime_2.id }
+      it do
+        expect(fetch().first.id).to eq anime_2.id
+        expect(fetch(order: 'name').first.id).to eq anime_1.id
+        expect(fetch(order: 'id').first.id).to eq anime_2.id
+      end
 
       describe 'episodes' do
         let!(:anime_3) { create :anime, ranked: 5, name: 'BBB', episodes: 0, episodes_aired: 15 }
@@ -425,8 +438,12 @@ describe AniMangaQuery do
       let!(:anime_1) { create :anime, :with_video, kind: 'TV' }
       let!(:anime_2) { create :anime, kind: 'TV' }
       let!(:anime_3) { create :anime, kind: 'TV' }
+      let!(:anime_adult) { create :anime, :with_video, kind: 'TV', rating: Anime::ADULT_RATINGS.first }
 
-      it { expect(fetch(with_video: true).size).to eq(1) }
+      it do
+        expect(fetch with_video: true).to eq [anime_1]
+        expect(fetch with_video: true, is_adult: true).to eq [anime_adult]
+      end
     end
   end
 end

@@ -257,7 +257,9 @@ private
   def video!
     return if @params[:with_video].blank?
 
-    @query = @query.where("animes.id in (select distinct(anime_id) from anime_videos)")
+    @query = @query
+      .where('animes.id in (select distinct(anime_id) from anime_videos)')
+      .where(@params[:is_adult] ? AnimeVideo::XPLAY_CONDITION : AnimeVideo::PLAY_CONDITION)
   end
 
   # пагинация

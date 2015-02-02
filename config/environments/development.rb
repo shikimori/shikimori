@@ -31,6 +31,8 @@ Site::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
+  config.middleware.use 'TurboDev'
+
   if defined? Pry
     Pry.config.auto_indent = false
     Pry.config.editor = 'mvim'
