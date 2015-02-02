@@ -1,9 +1,11 @@
 # починка sequences
 # ActiveRecord::Base.connection.execute("SELECT setval('danbooru_tags_id_seq', (SELECT MAX(id) FROM danbooru_tags))").first
 class DanbooruImporter
+  LIMIT = 1000
+
   def do_import
-    import_page :danbooru, 1, 1000
-    import_page :danbooru, 2, 1000
+    import_page :danbooru, 1, LIMIT
+    import_page :danbooru, 2, LIMIT
 
     import_page :konachan, nil, nil
   end

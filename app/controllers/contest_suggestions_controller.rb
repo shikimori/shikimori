@@ -23,7 +23,7 @@ class ContestSuggestionsController < ShikimoriController
   end
 
   def destroy
-    suggestion = @contest
+    @contest
       .suggestions
       .where(id: params[:id])
       .where(user_id: current_user.id)
