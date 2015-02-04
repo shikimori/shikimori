@@ -33,10 +33,10 @@ GIT
 
 GIT
   remote: git://github.com/morr/cancancan.git
-  revision: f4da1ddba325c51d32654e3ad0f248820f73f237
+  revision: 18331636f2fcdd6d26358a2a338b7438c7191c5c
   branch: master
   specs:
-    cancancan (1.9.2)
+    cancancan (1.10.1)
 
 GIT
   remote: git://github.com/morr/foreman.git
