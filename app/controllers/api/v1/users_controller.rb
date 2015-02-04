@@ -45,6 +45,9 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   api :GET, "/users/:id/anime_rates", "Show user's anime list"
   def anime_rates
+    @limit = [[params[:limit].to_i, 1].max, 5000].min
+    @page = [params[:page].to_i, 1].max
+
     @rates = Rails.cache.fetch [user, :anime_rates, params[:status]] do
       rates = user
         .anime_rates
@@ -53,11 +56,16 @@ class Api::V1::UsersController < Api::V1::ApiController
       rates = rates.where status: params[:status] if params[:status].present?
       rates.to_a
     end
+
+    @rates = @rates[@limit * (@page-1), @limit+1]
     respond_with @rates
   end
 
   api :GET, "/users/:id/manga_rates", "Show user's manga list"
   def manga_rates
+    @limit = [[params[:limit].to_i, 1].max, 5000].min
+    @page = [params[:page].to_i, 1].max
+
     @rates = Rails.cache.fetch [user, :manga_rates, params[:status]] do
       rates = user
         .manga_rates
@@ -66,6 +74,8 @@ class Api::V1::UsersController < Api::V1::ApiController
       rates = rates.where status: params[:status] if params[:status].present?
       rates.to_a
     end
+
+    @rates = @rates[@limit * (@page-1), @limit+1]
     respond_with @rates
   end
 

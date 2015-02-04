@@ -51,7 +51,8 @@ describe Api::V1::UsersController, :show_in_doc do
     let(:user) { create :user }
     let(:anime) { create :anime }
     let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
-    before { get :anime_rates, id: user.id, status: 1, format: :json }
+
+    before { get :anime_rates, id: user.id, status: 1, limit: 250, page: 1, format: :json }
 
     it { expect(response).to have_http_status :success }
     specify { expect(assigns(:rates).size).to eq(1) }
@@ -61,7 +62,7 @@ describe Api::V1::UsersController, :show_in_doc do
     let(:user) { create :user }
     let(:manga) { create :manga }
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
-    before { get :manga_rates, id: user.id, status: 1, format: :json }
+    before { get :manga_rates, id: user.id, status: 1, limit: 250, page: 1, format: :json }
 
     it { expect(response).to have_http_status :success }
     specify { expect(assigns(:rates).size).to eq(1) }
