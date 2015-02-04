@@ -79,6 +79,84 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
           it { should be_nil }
         end
+
+        context 'enough videos:' do
+          let!(:author_1) { create(:anime_video_author, name: '123') }
+
+          before do
+            create_list(:anime_video, FindAnimeImporter::LIMIT_RELATED_VIDEOS, anime: anime, author: author_1, episode: 1, kind: :raw)
+            allow_any_instance_of(FindAnimeImporter)
+              .to receive(:fetch_videos).and_return(videos)
+            allow_any_instance_of(AnimeVideo)
+              .to receive(:save!)
+          end
+
+          context 'flase - no video' do
+            let(:video) { build(:anime_video, anime: anime) }
+            let(:videos) { [video] }
+            after { subject }
+            it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+          end
+
+          context 'check hosting, episode and author:' do
+            let(:videos) { [build(:anime_video, anime: anime, author: author, url: url, episode: episode, kind: kind)] }
+            let(:url) { 'http://video.sibnet.ru/1' }
+            let(:episode) { 2 }
+            let(:kind) { :fandub }
+            let(:author) { create(:anime_video_author) }
+            after { subject }
+
+            context 'saved' do
+              context ' - other hosting, other episode, other kind and other author' do
+                it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+              end
+
+              context ' - eq hosting, other episode, other kind and other author' do
+                let(:url) { 'http://vk.com/video/other' }
+                it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+              end
+
+              context ' - other hosting, eq episode, other kind and other author' do
+                let(:episode) { 1 }
+                it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+              end
+
+              context ' - other hosting, other episode, other kind and eq author' do
+                let(:author) { author_1 }
+                it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
+              end
+
+              context ' - eq hosting, eq episode, other kind and other author' do
+                let(:url) { 'http://vk.com/video/other' }
+                let(:episode) { 1 }
+                it { expect_any_instance_of(AnimeVideo).to receive(:save!) }
+              end
+
+              context ' - other hosting, eq episode, other kind and eq author' do
+                let(:episode) { 1 }
+                let(:author) { author_1 }
+                it { expect_any_instance_of(AnimeVideo).to receive(:save!) }
+              end
+
+              context ' - eq hosting, eq episode, other kind and eq author' do
+                let(:url) { 'http://vk.com/video/other' }
+                let(:episode) { 1 }
+                let(:author) { author_1 }
+                it { expect_any_instance_of(AnimeVideo).to receive(:save!) }
+              end
+            end
+
+            context 'not saved' do
+              context ' - eq hosting, eq episode, eq kind and eq author' do
+                let(:url) { 'http://vk.com/video/other' }
+                let(:episode) { 1 }
+                let(:author) { author_1 }
+                let(:kind) { :raw }
+                it { expect_any_instance_of(AnimeVideo).to_not receive(:save!) }
+              end
+            end
+          end
+        end
       end
     end
 

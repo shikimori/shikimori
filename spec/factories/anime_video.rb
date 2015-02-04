@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :anime_video do
-    url 'http://test.com/video/1'
+    sequence(:url) { |n| "http://vk.com/video/#{n}" }
     source 'http://source.com'
     kind AnimeVideo.kind.values.first
     anime { FactoryGirl.build_stubbed(:anime) }
