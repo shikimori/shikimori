@@ -16,12 +16,12 @@ module AnimeOnlineDomain
     if anime.adult?
       self.adult_host? request
     else
-      request.host =~ /^#{DOMAIN_COMMON}\./
+      !!(request.host =~ /^#{DOMAIN_COMMON}\./)
     end
   end
 
   def self.adult_host? request
-    request.host =~ /^#{DOMAIN_ADULT}\./
+    !!(request.host =~ /^#{DOMAIN_ADULT}\./)
   end
 
   def self.host anime

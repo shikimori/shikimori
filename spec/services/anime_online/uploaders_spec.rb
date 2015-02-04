@@ -4,24 +4,34 @@ describe AnimeOnline::Uploaders do
   before { AnimeOnline::Uploaders.reset }
 
   describe '.current_top' do
-    subject { AnimeOnline::Uploaders.top }
-    it { expect(subject).to_not be_blank }
-  end
+    let(:user_1) { create :user, :user }
+    let(:user_2) { create :user, :user }
 
-  describe '.current_top' do
-    subject { AnimeOnline::Uploaders.current_top }
-    context 'no_user' do
-      it { expect(subject).to eq [] }
-    end
+    subject { AnimeOnline::Uploaders.current_top 20, is_adult }
+    let(:is_adult) { nil }
+
+    let(:anime_pg) { create :anime, :pg_13 }
+    let(:anime_rx) { create :anime, :rx_hentai }
+
+    let(:anime_video_pg) { create :anime_video, anime: anime_pg }
+    let(:anime_video_rx) { create :anime_video, anime: anime_rx }
+
+    let!(:report_1) { create :anime_video_report, :uploaded, :accepted, user: user_1, anime_video: anime_video_pg }
+    let!(:report_2_1) { create :anime_video_report, :uploaded, :accepted, user: user_2, anime_video: anime_video_rx }
+    let!(:report_2_2) { create :anime_video_report, :uploaded, :accepted, user: user_2, anime_video: anime_video_rx }
 
     context 'ordered' do
-      let(:user_1) { create :user, :user }
-      let(:user_2) { create :user, :user }
-      let!(:report_1) { create :anime_video_report, :uploaded, :accepted, user: user_1 }
-      let!(:report_2_1) { create :anime_video_report, :uploaded, :accepted, user: user_2 }
-      let!(:report_2_2) { create :anime_video_report, :uploaded, :accepted, user: user_2 }
+      it { should eq [user_2, user_1] }
+    end
 
-      it { expect(subject).to eq [user_2, user_1] }
+    context 'is_adult=true' do
+      let(:is_adult) { true }
+      it { should eq [user_2] }
+    end
+
+    context 'is_adult=false' do
+      let(:is_adult) { false }
+      it { should eq [user_1] }
     end
   end
 
@@ -41,7 +51,7 @@ describe AnimeOnline::Uploaders do
 
     before { stub_const 'AnimeOnline::Uploaders::ENOUGH_TO_TRUST', 2 }
 
-    it { expect(subject).to eq [user_enough_accepted.id] }
+    it { should eq [user_enough_accepted.id] }
   end
 
   describe '.trusted?' do

@@ -41,6 +41,16 @@ FactoryGirl.define do
       after(:create) {|v| FactoryGirl.create :anime_video, anime: v }
     end
 
+    trait :pg_13 do
+      rating 'PG-13 - Teens 13 or older'
+      censored false
+    end
+
+    trait :rx_hentai do
+      rating 'Rx - Hentai'
+      censored true
+    end
+
     trait :ongoing do
       status AniMangaStatus::Ongoing
       aired_on DateTime.now - 2.weeks

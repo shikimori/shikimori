@@ -32,11 +32,11 @@
       .midheadline.magenta.m10 Топ участников
       .block
         .c-contributors
-          = render partial: 'users/user', collection: @contributors[0..5], locals: { content_by: :named_avatar }
+          = render partial: 'users/user', collection: @contributors[0..7], locals: { content_by: :named_avatar }
         p.b-show_more + показать ещё
         .b-show_more-more
           .c-contributors
-            = render partial: 'users/user', collection: @contributors[6..-1], locals: { content_by: :named_avatar }
+            = render partial: 'users/user', collection: @contributors[8..-1], locals: { content_by: :named_avatar }
           .hide-more
             | &mdash; спрятать
 
