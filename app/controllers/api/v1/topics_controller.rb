@@ -12,6 +12,7 @@ class Api::V1::TopicsController < Api::V1::ApiController
       .new(@section, current_user)
       .fetch(@page, @limit)
       .includes(:section, :user)
+      .map {|v| TopicDecorator.new v }
 
     respond_with @topics, each_serializer: TopicSerializer
   end
