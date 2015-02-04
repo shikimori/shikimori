@@ -10,6 +10,9 @@ describe Message do
     it { should validate_presence_of :to }
   end
 
+  before(:all) { Message.antispam = false }
+  after(:all) { Message.antispam = true }
+
   describe 'callbacks' do
     let(:user) { build_stubbed :user }
 
@@ -19,6 +22,9 @@ describe Message do
     end
 
     describe 'antispam' do
+      before { Message.antispam = true }
+      after { Message.antispam = false }
+
       it 'works' do
         create :message, to: user, from: user
 
