@@ -18,7 +18,7 @@
       preview_video data.url
 
   # клик по "Работает и загрузить ещё"
-  $('.continue', $page).on 'click', ->
+  $('.continue').on 'click', ->
     $('#continue').val('true')
 
 preview_video = (url) ->

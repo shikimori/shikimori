@@ -27,21 +27,17 @@ class AnimeOnline::AnimeVideosController < AnimesController
   end
 
   def create
-    merged_params = create_params.merge(author_name: params[:anime_video][:author_name], url: params[:anime_video][:url])
-    @video = AnimeVideosService.new(merged_params).create(current_user)
+    @video = AnimeVideosService.new(create_params).create(current_user)
 
     if @video.persisted?
       if params[:continue] == 'true'
-        flash[:notice] = "Эпизод #{@video.episode} добавлен"
-        @created_video = @video
-        @video = AnimeVideo.new @video.attributes.except(:id, :url)
+        redirect_to next_video_url(@video), notice: "Эпизод #{@video.episode} добавлен"
       else
-        return redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+        redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
       end
+    else
+      render :new
     end
-
-    page_title 'Новое видео'
-    render :new
   end
 
   def update
@@ -82,7 +78,7 @@ private
   end
 
   def create_params
-    params.require(:anime_video).permit(:episode, :anime_id, :source, :kind, :state)
+    params.require(:anime_video).permit(:episode, :author_name, :url, :anime_id, :source, :kind, :state)
   end
 
   def update_params
@@ -113,6 +109,17 @@ private
     play_video_online_index_url @anime,
       episode: params[:episode], video_id: params[:video_id],
       domain: AnimeOnlineDomain::host(@anime), subdomain: false
+  end
+
+  def next_video_url video
+    new_video_online_url(
+      'anime_video[anime_id]' => video.anime_id,
+      'anime_video[source]' => video.source,
+      'anime_video[state]' => video.state,
+      'anime_video[kind]' => video.kind,
+      'anime_video[episode]' => video.episode + 1,
+      'anime_video[author_name]' => video.author_name,
+    )
   end
 
   def add_breadcrumb

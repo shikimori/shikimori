@@ -12,20 +12,14 @@ class AnimeVideosService
   def update video
     return if video.author_name == params[:author_name] && video.episode == params[:episode] && video[:kind] == params[:kind]
 
-    video.moderated_update(
-      episode: params[:episode],
-      anime_video_author_id: fetch_author(params[:author_name]).id,
-      kind: params[:kind]
-    )
-
+    video.moderated_update params
     video
   end
 
 private
   def created_video
-    @video ||= AnimeVideo.create params.except(:url, :author_name) do |video|
+    @video ||= AnimeVideo.create params.except(:url) do |video|
       video.url = fetch_url params[:url]
-      video.author = fetch_author params[:author_name]
     end
   end
 

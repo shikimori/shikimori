@@ -335,6 +335,22 @@ describe AnimeVideo do
       end
     end
 
+    describe '#author_name=' do
+      subject(:anime_video) { build_stubbed :anime_video }
+      let!(:author) { }
+      let(:author_name) { 'fofofo' }
+      before { anime_video.author_name = author_name }
+
+      context 'new author' do
+        its(:author_name) { should eq author_name }
+      end
+
+      context 'present author' do
+        let(:author) { create :anime_video_author, name: author_name }
+        its(:author) { should eq author }
+      end
+    end
+
     describe '#moderated_update' do
       let(:video) { create :anime_video, episode: 1 }
       let(:params) { {episode: 2} }

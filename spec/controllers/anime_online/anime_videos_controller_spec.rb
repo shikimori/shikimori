@@ -6,7 +6,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
   describe '#new' do
     before { get :new, anime_id: anime.to_param, anime_video: { anime_id: @resource, state: 'uploaded' } }
-    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
@@ -14,7 +14,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     let(:video_params) {{ state: 'uploaded', kind: kind, author_name: 'test', episode: 3, url: 'https://vk.com/video-16326869_166521208', source: 'test', anime_id: anime.id }}
     let(:continue) { '' }
 
-    let(:video) { assigns :video }
+    let(:created_video) { assigns :video }
 
     before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
 
@@ -23,20 +23,27 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
       context 'without continue' do
         it do
-          expect(video).to be_valid
-          expect(video).to be_persisted
-          expect(video).to have_attributes video_params.except(:url)
-          expect(video.url).to eq VideoExtractor::UrlExtractor.new(video_params[:url]).extract
-          expect(response).to redirect_to play_video_online_index_url(anime.id, video.episode, video.id)
+          expect(created_video).to be_valid
+          expect(created_video).to be_persisted
+          expect(created_video).to have_attributes video_params.except(:url)
+          expect(created_video.url).to eq VideoExtractor::UrlExtractor.new(video_params[:url]).extract
+          expect(response).to redirect_to play_video_online_index_url(anime.id, created_video.episode, created_video.id)
         end
       end
 
       context 'with continue' do
         let(:continue) { 'true' }
         it do
-          expect(assigns :created_video).to be_valid
-          expect(assigns :created_video).to be_persisted
-          expect(response).to have_http_status(:success)
+          expect(created_video).to be_valid
+          expect(created_video).to be_persisted
+          expect(response).to redirect_to new_video_online_url(
+            'anime_video[anime_id]' => video_params[:anime_id],
+            'anime_video[source]' => video_params[:source],
+            'anime_video[state]' => video_params[:state],
+            'anime_video[kind]' => video_params[:kind],
+            'anime_video[episode]' => video_params[:episode] + 1,
+            'anime_video[author_name]' => video_params[:author_name],
+          )
         end
       end
     end
@@ -45,9 +52,9 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
       let(:kind) { }
 
       it do
-        expect(response).to have_http_status(:success)
-        expect(video).to_not be_valid
-        expect(video).to_not be_persisted
+        expect(response).to have_http_status :success
+        expect(created_video).to_not be_valid
+        expect(created_video).to_not be_persisted
       end
     end
   end
@@ -57,7 +64,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     let(:video) { create :anime_video, anime: anime, state: 'uploaded' }
     before { get :edit, anime_id: anime.to_param, id: video.id }
 
-    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
@@ -83,7 +90,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
       let(:kind) { }
 
       it do
-        expect(response).to have_http_status(:success)
+        expect(response).to have_http_status :success
         expect(video).to_not be_valid
         expect(video).to be_persisted
       end
@@ -99,11 +106,11 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
       context 'with video' do
         let(:make_request) { get :index, anime_id: anime.to_param }
-        it { expect(response).to have_http_status(:success) }
+        it { expect(response).to have_http_status :success }
 
         context 'without current_video' do
           let(:make_request) { get :index, anime_id: anime.to_param, episode: anime_video.episode, video_id: anime_video.id + 1 }
-          it { expect(response).to have_http_status(:success) }
+          it { expect(response).to have_http_status :success }
         end
       end
 
@@ -148,14 +155,14 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
           let(:adult) { false }
           let(:domain) { 'play.shikimori.org' }
 
-          it { expect(response).to have_http_status(:success) }
+          it { expect(response).to have_http_status :success }
         end
 
         context 'adult' do
           let(:adult) { true }
           let(:domain) { 'xplay.shikimori.org' }
 
-          it { expect(response).to have_http_status(:success) }
+          it { expect(response).to have_http_status :success }
         end
       end
     end
@@ -164,12 +171,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   describe 'extract_url' do
     before { post :extract_url, anime_id: anime.id, url: 'http://vk.com/foo' }
     it { expect(response.content_type).to eq 'application/json' }
-    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#help' do
     before { get :help, anime_id: anime.to_param }
-    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#track_view' do
@@ -199,12 +206,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     context 'with user_rate' do
       let!(:user_rate) { create :user_rate, target: anime, user: user, episodes: 1 }
       it { expect(assigns(:user_rate).episodes).to eq video.episode }
-      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to have_http_status :success }
     end
 
     context 'without user_rate' do
       it { expect(assigns(:user_rate).episodes).to eq video.episode }
-      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to have_http_status :success }
     end
   end
 end

@@ -4,14 +4,16 @@ FactoryGirl.define do
     state 'pending'
     user_agent 'ipad'
 
-    factory :uploaded_accepted_report do
-      state 'accepted'
+    trait :uploaded do
       kind 'uploaded'
     end
 
-    factory :uploaded_rejected_report do
+    trait :accepted do
+      state 'accepted'
+    end
+
+    trait :rejected do
       state 'rejected'
-      kind 'uploaded'
     end
 
     after :build do |v|
