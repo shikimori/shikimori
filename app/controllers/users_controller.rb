@@ -32,7 +32,7 @@ class UsersController < ShikimoriController
     else
       @page_title = 'Пользователи'
       @collection = postload_paginate(params[:page], USERS_PER_PAGE) do
-        if params[:search]
+        if params[:search].present?
           UsersQuery.new(params).search
         else
           User

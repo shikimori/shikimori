@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     @limit = [[params[:limit].to_i, 1].max, 30].min
     @page = [params[:page].to_i, 1].max
 
-    query = if params[:search]
+    query = if params[:search].present?
       UsersQuery.new(params).search
     else
       User
