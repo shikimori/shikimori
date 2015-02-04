@@ -37,6 +37,7 @@ class UsersController < ShikimoriController
         else
           User
             .where.not(id: 1)
+            .where.not(last_online_at: nil)
             .order('(case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
         end
       end

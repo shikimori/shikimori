@@ -14,6 +14,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     else
       User
         .where.not(id: 1)
+        .where.not(last_online_at: nil)
         .order('(case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
     end
 
