@@ -104,6 +104,14 @@ GIT
       activemodel (>= 3.0)
 
 GIT
+  remote: git://github.com/smartinez87/exception_notification.git
+  revision: f9dee5b5f6a1e1823bb274f719f1ae9c551e2f84
+  specs:
+    exception_notification (4.1.0.rc1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
+
+GIT
   remote: git://github.com/yaroslav/russian.git
   revision: 6da1fe45cbff7c812faaa1bebf25b47b1f14377a
   specs:
@@ -287,9 +295,6 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     eventmachine (1.0.4)
-    exception_notification (4.0.1)
-      actionmailer (>= 3.0.4)
-      activesupport (>= 3.0.4)
     execjs (2.2.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -689,7 +694,7 @@ DEPENDENCIES
   devise-async
   draper
   enumerize
-  exception_notification
+  exception_notification!
   factory_girl_rails
   faye
   faye-redis

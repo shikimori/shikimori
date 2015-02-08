@@ -56,7 +56,7 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'bb-ruby'
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 gem 'newrelic_rpm'
-gem 'exception_notification'
+gem 'exception_notification', github: 'smartinez87/exception_notification'
 gem 'slack-notifier'
 gem 'awesome_print'
 gem 'ruby-progressbar', github: 'morr/ruby-progressbar'
