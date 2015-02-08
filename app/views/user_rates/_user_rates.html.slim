@@ -110,11 +110,12 @@
               span.stat-value = value
 
   - if @resource.list.total_stats.any? && !@resource.list.add_postloader?
-    header.summary: h2
-    table.b-table
-      tr.summary.total
-        td colspan="5"
-          - @resource.list.total_stats.each do |stat,value|
-            = t "UserList.Short.#{stat}"
-            | :&nbsp;
-            span.stat-value = value
+    - if @resource.list.list_page.size > 1 || @page > 1
+      header.summary: h2
+      table.b-table
+        tr.summary.total
+          td colspan="5"
+            - @resource.list.total_stats.each do |stat,value|
+              = t "UserList.Short.#{stat}"
+              | :&nbsp;
+              span.stat-value = value
