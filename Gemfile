@@ -104,6 +104,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
+  gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
 
   gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами

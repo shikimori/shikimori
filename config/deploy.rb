@@ -12,6 +12,11 @@ set :format, :pretty
 set :log_level, :info
 # set :pty, true # https://github.com/capistrano/capistrano#a-word-about-ptys
 
+set :slack_team, fetch(:application)
+set :slack_token, 'Ir0HqbTOBnhbf8hXGosJBqh6'
+set :slack_channel, ->{ '#general' }
+set :slack_username, ->{ ENV['USER'] }
+
 set :user, 'devops'
 set :unicorn_user, 'devops'
 
