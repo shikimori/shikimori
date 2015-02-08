@@ -1,5 +1,6 @@
 = render layout: 'page' do
-  = render 'logo', club: @resource
+  .logo.block
+    center: img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
 
   .block
     = @resource.description_html

@@ -1,128 +1,129 @@
-- if @anime_online_ad && AnimeOnline::AdsPolicy.is_viewed?(request.host, current_user)
-   = render partial: 'anime_online/blocks/ads_240x400'
+.b-animes-menu
+  - if @anime_online_ad && AnimeOnline::AdsPolicy.is_viewed?(request.host, current_user)
+    = render partial: 'anime_online/blocks/ads_240x400'
 
-- elsif !@itemtype
-  .block.logo
-    center: a href="#{@resource.url}" title="#{{@resource.name}}"
-      img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+  - elsif !@itemtype
+    .b-menu_logo
+      center: a href="#{resource.url}" title="#{{resource.name}}"
+        img src="#{attachment_url resource.image}" title="#{{resource.name}}" alt="#{{resource.name}}"
 
-- if @resource.with_score?
-  .block
-    .subheadline Оценки людей
-    #rates_scores_stats data-stats="#{@resource.rates_scores_stats.to_json}" data-bar="horizontal"
-
-.block
-  .subheadline В списках у людей
-  #rates_statuses_stats data-stats="#{@resource.rates_statuses_stats.to_json}" data-bar="horizontal"
-  .total-rates В #{@resource.total_rates > 1 ? 'списках' : 'списке'} у #{@resource.total_rates} #{Russian.p @resource.total_rates, 'человека', 'человек', 'человек'}
-
-- if @resource.friend_rates.any?
-  .block
-    .subheadline У друзей
-    - @resource.friend_rates.take(3).each do |rate|
-      .friend-rate
-        .status
-          = rate.status_name
-          - if rate.score && rate.score != 0
-            | &nbsp;&ndash;&nbsp;#{rate.score}
-        .b-user16
-          a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
-            img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
-            span
-              = rate.user.nickname
-
-    - if @resource.friend_rates.size > 3
-      .b-show_more + показать всех
-      .b-show_more-more
-        - @resource.friend_rates.slice(3, 99).each do |rate|
-          .friend-rate
-            .status
-              = rate.status_name
-              - if rate.score && rate.score != 0
-                | &nbsp;&ndash;&nbsp;#{rate.score}
-            .b-user16
-              a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
-                img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
-                span
-                  = rate.user.nickname
-        .hide-more
-          | &mdash; спрятать
-
-= render 'blocks/favoured', favoured: @resource.favoured, url: @resource.favoured_url
-
-- if @resource.linked_clubs.any?
-  .block
-    .subheadline.m10
-      - if @resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
-        .linkeable data-href="#{@resource.clubs_url}" Клубы
-      - else
-        | Клубы
-
-    .b-clubs.one-line
-      = render partial: 'clubs/club', collection: @resource.linked_clubs, locals: { content_by: :avatar }
-
-- if user_signed_in?
-  - if @resource.display_sensitive?
+  - if resource.with_score?
     .block
-      .subheadline На других сайтах
-      ul.block-list.sites
-        li
-          a href="#{@resource.mal_url}"
-            - if @klass != Manga && average_score(@resource.mal_scores).to_f > 0
-              span.right = average_score(@resource.mal_scores)
-            img.site-icon src="/images/favicons/myanimelist.ico" title="MyAnimeList"
-            | MyAnimeList
+      .subheadline Оценки людей
+      #rates_scores_stats data-stats="#{resource.rates_scores_stats.to_json}" data-bar="horizontal"
 
-        - if @resource.respond_to?(:ani_db_id) && @resource.ani_db_id != 0
-          li
-            a href="#{"http://anidb.net/perl-bin/animedb.pl?show=anime&aid=#{@resource.ani_db_id}"}"
-              - if average_score(@resource.ani_db_scores).to_f > 0
-                span.right = average_score(@resource.ani_db_scores)
-              img.site-icon src="/images/favicons/anidb.ico" title="AniDb"
-              | AniDb
-
-        - if @resource.respond_to?(:world_art_id) && @resource.world_art_id != 0
-          li
-            a href="#{"http://www.world-art.ru/animation/animation.php?id=#{@resource.world_art_id}"}"
-              - if average_score(@resource.world_art_scores).to_f > 0
-                span.right = average_score(@resource.world_art_scores)
-              img.site-icon src="/images/favicons/world-art.ico" title="WorldArt"
-              | WorldArt
-
-        - if @resource.respond_to?(:read_manga_id) && !@resource.read_manga_id.blank?
-          li
-            a href="#{@resource.read_manga_url}"
-              /*- if @resource.read_manga_scores > 0*/
-                span.right = @resource.read_manga_scores
-              img.site-icon src="/images/favicons/readmanga.ico" title="#{@resource.read_manga_name}"
-              = @resource.read_manga_name
-
-        - if Rails.env == 'development'
-          li
-            a href="#{"http://shikimori.org#{url_for(@resource)}"}"
-              img.site-icon src="/images/favicons/shikimori.ico" title="Shikimori"
-              | Shikimori
-
-- if @resource.topics.any?
-  .block.menu-topics-block
-    .subheadline Форум
-    /a.link href="{subsection_url @resource.thread}" Форум
-    ul.block-list
-      = render partial: 'animes/menu_topic', collection: @resource.topics, as: :topic
-
-- if @resource.news.any?
-  .block.menu-topics-block.history.m30 data-remote="#{episode_torrents_anime_url @resource}"
-    .subheadline Новости
-    ul.block-list
-      = render partial: 'animes/menu_topic', collection: @resource.news, as: :topic, locals: { with_tooltip: true }
-
-- if show_social?
   .block
-    .subheadline.m10 Поделиться
-    .addthis_toolbox.addthis_default_style.addthis_32x32_style
-      a.addthis_button_vk
-      a.addthis_button_facebook
-      a.addthis_button_twitter
-      a.addthis_button_google_plusone_share
-      a.addthis_button_odnoklassniki_ru
-      a.addthis_button_compact
+    .subheadline В списках у людей
+    #rates_statuses_stats data-stats="#{resource.rates_statuses_stats.to_json}" data-bar="horizontal"
+    .total-rates В #{resource.total_rates > 1 ? 'списках' : 'списке'} у #{resource.total_rates} #{Russian.p resource.total_rates, 'человека', 'человек', 'человек'}
+
+  - if resource.friend_rates.any?
+    .block
+      .subheadline У друзей
+      - resource.friend_rates.take(3).each do |rate|
+        .friend-rate
+          .status
+            = rate.status_name
+            - if rate.score && rate.score != 0
+              | &nbsp;&ndash;&nbsp;#{rate.score}
+          .b-user16
+            a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
+              img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
+              span
+                = rate.user.nickname
+
+      - if resource.friend_rates.size > 3
+        .b-show_more + показать всех
+        .b-show_more-more
+          - resource.friend_rates.slice(3, 99).each do |rate|
+            .friend-rate
+              .status
+                = rate.status_name
+                - if rate.score && rate.score != 0
+                  | &nbsp;&ndash;&nbsp;#{rate.score}
+              .b-user16
+                a href="#{profile_url rate.user}" title="#{rate.user.nickname}"
+                  img src="#{rate.user.avatar_url 16}" srcset="#{rate.user.avatar_url 32} 2x" alt="#{rate.user.nickname}" title="#{rate.user.nickname}"
+                  span
+                    = rate.user.nickname
+          .hide-more
+            | &mdash; спрятать
+
+  = render 'blocks/favoured', favoured: resource.favoured, url: resource.favoured_url
+
+  - if resource.linked_clubs.any?
+    .block
+      .subheadline.m10
+        - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
+          .linkeable data-href="#{resource.clubs_url}" Клубы
+        - else
+          | Клубы
+
+      .b-clubs.one-line
+        = render partial: 'clubs/club', collection: resource.linked_clubs, locals: { content_by: :avatar }
+
+  - if user_signed_in?
+    - if resource.display_sensitive?
+      .block
+        .subheadline На других сайтах
+        ul.block-list.sites
+          li
+            a href="#{resource.mal_url}"
+              - if @klass != Manga && average_score(resource.mal_scores).to_f > 0
+                span.right = average_score(resource.mal_scores)
+              img.site-icon src="/images/favicons/myanimelist.ico" title="MyAnimeList"
+              | MyAnimeList
+
+          - if resource.respond_to?(:ani_db_id) && resource.ani_db_id != 0
+            li
+              a href="#{"http://anidb.net/perl-bin/animedb.pl?show=anime&aid=#{resource.ani_db_id}"}"
+                - if average_score(resource.ani_db_scores).to_f > 0
+                  span.right = average_score(resource.ani_db_scores)
+                img.site-icon src="/images/favicons/anidb.ico" title="AniDb"
+                | AniDb
+
+          - if resource.respond_to?(:world_art_id) && resource.world_art_id != 0
+            li
+              a href="#{"http://www.world-art.ru/animation/animation.php?id=#{resource.world_art_id}"}"
+                - if average_score(resource.world_art_scores).to_f > 0
+                  span.right = average_score(resource.world_art_scores)
+                img.site-icon src="/images/favicons/world-art.ico" title="WorldArt"
+                | WorldArt
+
+          - if resource.respond_to?(:read_manga_id) && !resource.read_manga_id.blank?
+            li
+              a href="#{resource.read_manga_url}"
+                /*- if resource.read_manga_scores > 0*/
+                  span.right = resource.read_manga_scores
+                img.site-icon src="/images/favicons/readmanga.ico" title="#{resource.read_manga_name}"
+                = resource.read_manga_name
+
+          - if Rails.env == 'development'
+            li
+              a href="#{"http://shikimori.org#{url_for(resource)}"}"
+                img.site-icon src="/images/favicons/shikimori.ico" title="Shikimori"
+                | Shikimori
+
+  - if resource.topics.any?
+    .block.menu-topics-block
+      .subheadline Форум
+      /a.link href="{subsection_url resource.thread}" Форум
+      ul.block-list
+        = render partial: 'animes/menu_topic', collection: resource.topics, as: :topic
+
+  - if resource.news.any?
+    .block.menu-topics-block.history.m30 data-remote="#{episode_torrents_anime_url resource}"
+      .subheadline Новости
+      ul.block-list
+        = render partial: 'animes/menu_topic', collection: resource.news, as: :topic, locals: { with_tooltip: true }
+
+  - if show_social?
+    .block
+      .subheadline.m10 Поделиться
+      .addthis_toolbox.addthis_default_style.addthis_32x32_style
+        a.addthis_button_vk
+        a.addthis_button_facebook
+        a.addthis_button_twitter
+        a.addthis_button_google_plusone_share
+        a.addthis_button_odnoklassniki_ru
+        a.addthis_button_compact

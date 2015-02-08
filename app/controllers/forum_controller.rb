@@ -128,7 +128,7 @@ private
         when 'm' then Manga.find(params[:linked].to_i)
         when 'c' then Character.find(params[:linked].to_i)
         when 'g' then Group.find(params[:linked].to_i)
-        when 'reviews' then Review.find(params[:linked].to_i)
+        #when 'reviews' then Review.find(params[:linked].to_i)
         else nil
       end
       #end

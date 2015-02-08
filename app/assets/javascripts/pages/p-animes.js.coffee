@@ -1,6 +1,6 @@
 #= require_directory ./p-animes
 
-@on 'page:load', '.animes', '.mangas', ->
+@init_animes_menu = ->
   # графики
   $("#rates_scores_stats").bar
     filter: (entry, percent) -> percent >= 2
@@ -10,6 +10,9 @@
     no_data: ($chart) -> $chart.html "<p class='b-nothing_here'>Нет данных</p>"
 
   $('.b-show_more').show_more()
+
+@on 'page:load', '.animes', '.mangas', ->
+  init_animes_menu()
 
   # генерация истории аниме/манги
   #$history_block = $(".menu-right .history")
