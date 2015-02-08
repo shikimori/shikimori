@@ -7,13 +7,13 @@ header.head.misc
   h1 style="#{'white-space: nowrap;' if !params[:similar] && user_signed_in?}"
     = @page_title
 
-    - if params[:similar]
-      - if @klass == Anime
-        a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по манге
-      - else
-        a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по аниме
-    - elsif user_signed_in?
-      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
+  - if params[:similar]
+    - if @klass == Anime
+      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по манге
+    - else
+      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по аниме
+  - elsif user_signed_in?
+    a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
 
   - if params[:similar]
     .b-header_filters

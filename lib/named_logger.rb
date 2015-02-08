@@ -21,7 +21,7 @@ end
 
 class NamedLoggerProxy < SimpleDelegator
   def info text, *args
-    puts text
+    puts text unless Rails.env.test?
     super
   end
 end

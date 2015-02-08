@@ -2,10 +2,10 @@ header.head.misc
   h1
     = @page_title
 
-    - if @klass == Anime
-      a.misc href="#{recommendations_manga_url}" переключиться на мангу
-    - else
-      a.misc href="#{recommendations_anime_url}" переключиться на аниме
+  - if @klass == Anime
+    a.misc href="#{recommendations_manga_url}" переключиться на мангу
+  - else
+    a.misc href="#{recommendations_anime_url}" переключиться на аниме
 
   - if user_signed_in?
     .b-header_filters style="#{'display: none;' if @entries.nil?}"
