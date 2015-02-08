@@ -25,6 +25,11 @@ class ProfilesController < ShikimoriController
     page_title 'Избранное'
   end
 
+  def feed
+    redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
+    page_title 'Лента'
+  end
+
   #def stats
     #page_title 'Статистика'
   #end

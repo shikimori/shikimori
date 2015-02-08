@@ -193,7 +193,7 @@
 
   - if @resource.show_comments?
     .block
-      .subheadline.m3 Лента
+      .subheadline.m3: a href="#{feed_profile_url @resource}" title="Лента" Лента
       div
-        .b-topic.unprocessed data-faye="#{@resource.comments_thread.faye_channel}"
-          = render partial: 'topics/comments', locals: { topic: @resource.comments_thread }
+        .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+          = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

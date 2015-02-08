@@ -176,8 +176,15 @@ class UserProfileDecorator < UserDecorator
       end
   end
 
+  # полный топик
+  def main_thread
+    thread = TopicProxyDecorator.new object
+    thread.topic_mode!
+    thread
+  end
+
   # превью топика
-  def comments_thread
+  def preview_thread
     thread = TopicProxyDecorator.new object
     thread.preview_mode!
     thread
