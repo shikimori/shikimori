@@ -60,16 +60,15 @@ class AnimesController < ShikimoriController
     page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
   end
 
+  # TODO: удалить после 05.2015
   def comments
-    redirect_to @resource.url if @resource.comments_count.zero?
-    page_title "Обсуждение #{@resource.anime? ? 'аниме' : 'манги'}"
-    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
+    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
   def reviews
     redirect_to @resource.url if @resource.comment_reviews_count.zero?
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
-    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
+    #@canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
 
   def art

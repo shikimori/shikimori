@@ -104,19 +104,12 @@ describe ClubsController do
   end
 
   describe '#comments' do
-    let!(:club) { create :group, :with_thread }
+    let!(:section) { create :section, :club }
+    let(:club) { create :group, :with_thread }
+    let!(:comment) { create :comment, commentable: club.thread }
+    before { get :comments, id: club.to_param }
 
-    context 'without_comments' do
-      before { get :comments, id: club.to_param }
-      it { expect(response).to redirect_to club_url(club) }
-    end
-
-    context 'with_comments' do
-      let!(:comment) { create :comment, commentable: club.thread }
-      before { club.thread.update comments_count: 1 }
-      before { get :comments, id: club.to_param }
-      it { expect(response).to have_http_status :success }
-    end
+    it { expect(response).to redirect_to section_topic_url(id: club.thread, section: section, linked: club) }
   end
 
   describe '#animes' do

@@ -90,15 +90,17 @@ describe AnimesController do
     let!(:section) { create :section, :anime }
     let(:anime) { create :anime, :with_thread }
     let(:comment) { create :comment, commentable: anime.thread }
-    before { comment.commentable.update comments_count: 1 }
     before { get :comments, id: anime.to_param }
-    it { expect(response).to have_http_status :success }
+
+    it { expect(response).to redirect_to section_topic_url(id: anime.thread, section: section, linked: anime) }
   end
 
   describe '#reviews' do
+    let!(:section) { create :section, :anime }
     let(:anime) { create :anime, :with_thread }
     let!(:comment) { create :comment, commentable: anime.thread, review: true }
     before { get :reviews, id: anime.to_param }
+
     it { expect(response).to have_http_status :success }
   end
 

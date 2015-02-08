@@ -28,19 +28,12 @@ describe PeopleController do
   end
 
   describe '#comments' do
-    let!(:person) { create :person, :with_thread }
+    let!(:section) { create :section, :person }
+    let(:person) { create :person, :with_thread }
+    let!(:comment) { create :comment, commentable: person.thread }
+    before { get :comments, id: person.to_param }
 
-    context 'without_comments' do
-      before { get :comments, id: person.to_param }
-      it { expect(response).to redirect_to person }
-    end
-
-    context 'with_comments' do
-      let!(:comment) { create :comment, commentable: person.thread }
-      before { person.thread.update comments_count: 1 }
-      before { get :comments, id: person.to_param }
-      it { expect(response).to have_http_status :success }
-    end
+    it { expect(response).to redirect_to section_topic_url(id: person.thread, section: section, linked: person) }
   end
 
   describe '#tooltip' do

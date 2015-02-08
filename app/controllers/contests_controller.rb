@@ -46,11 +46,9 @@ class ContestsController < ShikimoriController
     page_title 'Голоса'
   end
 
-  # комментарии опроса
+  # TODO: удалить после 05.2015
   def comments
-    redirect_to contest_url(@resource) if @resource.main_thread.comments_count.zero?
-    page_title 'Обсуждение опроса'
-    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
+    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
   # турнирная сетка

@@ -96,6 +96,16 @@ describe ContestsController do
     end
   end
 
+  describe '#comments' do
+    let!(:section) { create :section, :contest }
+    let!(:contest) { create :contest, :with_thread, user: user }
+    before { contest.send :generate_thread }
+    let!(:comment) { create :comment, commentable: contest.thread }
+    before { get :comments, id: contest.to_param }
+
+    it { expect(response).to redirect_to section_topic_url(id: contest.thread, section: section) }
+  end
+
   describe '#new' do
     before { get :new }
     it { expect(response).to have_http_status :success }

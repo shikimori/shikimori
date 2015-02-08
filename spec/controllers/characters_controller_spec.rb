@@ -55,19 +55,12 @@ describe CharactersController do
   end
 
   describe '#comments' do
-    let!(:character) { create :character, :with_thread }
+    let!(:section) { create :section, :character }
+    let(:character) { create :character, :with_thread }
+    let!(:comment) { create :comment, commentable: character.thread }
+    before { get :comments, id: character.to_param }
 
-    context 'without_comments' do
-      before { get :comments, id: character.to_param }
-      it { expect(response).to redirect_to character }
-    end
-
-    context 'with_comments' do
-      let!(:comment) { create :comment, commentable: character.thread }
-      before { character.thread.update comments_count: 1 }
-      before { get :comments, id: character.to_param }
-      it { expect(response).to have_http_status :success }
-    end
+    it { expect(response).to redirect_to section_topic_url(id: character.thread, section: section, linked: character) }
   end
 
   describe '#art' do

@@ -26,10 +26,9 @@ class PeopleController < ShikimoriController
     page_title 'Участие в проектах'
   end
 
+  # TODO: удалить после 05.2015
   def comments
-    redirect_to @resource.url if @resource.main_thread.comments_count.zero?
-    page_title 'Обсуждение'
-    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
+    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
   def favoured
