@@ -15,7 +15,8 @@
 
   # голосование загружено
   $root.on 'ajax:success', '.match-container', (e) ->
-    $.scrollTo() unless $('.vs').is(':appeared')
+    $first_member = $('.match-members .match-member').first()
+    $.scrollTo $first_member unless $first_member.is(':appeared')
 
     # подсветка по ховеру курсора
     $('.match-member', e.target).hover ->
