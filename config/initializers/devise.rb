@@ -5,7 +5,7 @@ Devise.setup do |config|
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = "mail@shikimori.org"
+  config.mailer_sender = "mail@#{Site::DOMAIN}"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"

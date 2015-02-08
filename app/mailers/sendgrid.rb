@@ -1,6 +1,6 @@
 class Sendgrid < ActionMailer::Base
-  default from: "mail@shikimori.org"
-  default_url_options[:host] = 'shikimori.org'
+  include Routing
+  default from: "mail@#{Site::DOMAIN}"
 
   def test email = 'takandar@gmail.com'
     return if generated?(email)

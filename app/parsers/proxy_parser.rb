@@ -2,8 +2,8 @@ require 'thread_pool'
 
 # http://pastebin.com/r2Xz6i0M
 class ProxyParser
-  TestUrl = "http://shikimori.org#{ProxyTest::TestPage}"
-  IpUrl ="http://shikimori.org#{ProxyTest::WhatIsMyIpPage}"
+  TestUrl = "http://#{Site::DOMAIN}#{ProxyTest::TestPage}"
+  IpUrl ="http://#{Site::DOMAIN}#{ProxyTest::WhatIsMyIpPage}"
 
   # импорт проксей
   def import

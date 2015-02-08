@@ -76,7 +76,7 @@ module ApplicationHelper
   end
 
   def format_rss_urls text
-    text.gsub('href="/', 'href="http://shikimori.org/').gsub('src="/', 'src="http://shikimori.org/')
+    text.gsub('href="/', "href=\"http://#{Site::DOMAIN}/").gsub('src="/', "src=\"http://#{Site::DOMAIN}/")
   end
 
   # активны ли рекомендации манги

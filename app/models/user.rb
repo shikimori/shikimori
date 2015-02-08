@@ -322,9 +322,9 @@ private
       to_id: self.id,
       kind: MessageType::Notification,
       body: "Добро пожаловать.
-[url=http://shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся ответы на наиболее часто задаваемые вопросы.
+[url=http://#{Site::DOMAIN}/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся ответы на наиболее часто задаваемые вопросы.
 Импортировать список аниме и манги из [url=http://myanimelist.net]myanimelist.net[/url] или [url=http://anime-planet.com]anime-planet.com[/url] можно в [url=/#{to_param}/settings]настройках профиля[/url]. Там же можно изменить свой никнейм.
-Перед постингом на форуме рекомендуем ознакомиться с [url=http://shikimori.org/s/79042-Pravila-sayta]правилами сайта[/url].
+Перед постингом на форуме рекомендуем ознакомиться с [url=http://#{Site::DOMAIN}/s/79042-Pravila-sayta]правилами сайта[/url].
 
 Если возникнут вопросы или пожелания - пишите, мы постараемся вам ответить."
     )

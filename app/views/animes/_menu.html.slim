@@ -100,7 +100,7 @@
 
           - if Rails.env == 'development'
             li
-              a href="#{"http://shikimori.org#{url_for(resource)}"}"
+              a href="#{"http://#{Site::DOMAIN}#{url_for(resource)}"}"
                 img.site-icon src="/images/favicons/shikimori.ico" title="Shikimori"
                 | Shikimori
 

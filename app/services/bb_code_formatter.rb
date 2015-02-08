@@ -11,9 +11,9 @@ class BbCodeFormatter
   default_url_options[:host] ||= if Rails.env.development?
     'shikimori.dev'
   elsif Rails.env.beta?
-    'beta.shikimori.org'
+    "beta.#{Site::DOMAIN}"
   else
-    'shikimori.org'
+    Site::DOMAIN
   end
 
   MALWARE_DOMAINS = /(https?:\/\/)?images.webpark.ru/i

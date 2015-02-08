@@ -7,7 +7,10 @@ require 'rails/all'
 Bundler.require(:default, Rails.env)
 
 module Site
+  DOMAIN = 'shikimori.org'
+
   class Application < Rails::Application
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -48,14 +51,14 @@ module Site
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += [ Proc.new { |path| !%w(.js .css).include?(File.extname(path)) }, /.*.(css|js)$/ ]
 
-    config.action_mailer.default_url_options = { host: 'shikimori.org' }
+    config.action_mailer.default_url_options = { host: Site::DOMAIN }
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { api_key: Rails.application.secrets.postmark[:api_key] }
 
     config.action_mailer.smtp_settings = {
       address: "smtp.gmail.com",
       port: 587,
-      domain: 'shikimori.org',
+      domain: Site::DOMAIN,
       user_name: Rails.application.secrets.smtp[:login],
       password: Rails.application.secrets.smtp[:password],
       authentication: 'plain',

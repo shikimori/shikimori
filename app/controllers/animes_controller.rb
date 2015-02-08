@@ -63,11 +63,13 @@ class AnimesController < ShikimoriController
   def comments
     redirect_to @resource.url if @resource.comments_count.zero?
     page_title "Обсуждение #{@resource.anime? ? 'аниме' : 'манги'}"
+    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
 
   def reviews
     redirect_to @resource.url if @resource.comment_reviews_count.zero?
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
+    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
 
   def art

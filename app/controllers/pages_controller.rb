@@ -46,7 +46,6 @@ class PagesController < ShikimoriController
 
   # пользовательское соглашение
   def user_agreement
-    @sitename = 'shikimori.org'
     @page_title = 'Пользовательское соглашение'
   end
 

@@ -76,7 +76,7 @@ private
     values = [rand(0x0010000), rand(0x0010000), rand(0x0010000), rand(0x0010000), rand(0x0010000), rand(0x1000000), rand(0x1000000)]
     fast_token = "%04x%04x%04x%04x%04x%06x%06x" % values
 
-    "generated_#{fast_token}@shikimori.org"
+    "generated_#{fast_token}@#{Site::DOMAIN}"
   end
 
   def facebook?

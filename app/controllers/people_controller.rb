@@ -29,6 +29,7 @@ class PeopleController < ShikimoriController
   def comments
     redirect_to @resource.url if @resource.main_thread.comments_count.zero?
     page_title 'Обсуждение'
+    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
 
   def favoured

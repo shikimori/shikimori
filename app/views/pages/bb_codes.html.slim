@@ -96,7 +96,7 @@ header.head
       | Id аниме или манги, или персонажа &ndash; номер аниме в базе сайте.
       |  Определить id можно из адреса страницы аниме.
       br
-      | Например, для аниме <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://shikimori.org/animes/790-ergo-proxy/tooltip">Ergo Proxy</a> с адресом <a href="http://shikimori.org/animes/790-ergo-proxy">http://shikimori.org/animes/<b>790</b>-ergo-proxy</a> идентификатор будет равен <b style="color: #000">790</b>.
+      | Например, для аниме <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://#{Site::DOMAIN}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a> с адресом <a href="http://#{Site::DOMAIN}/animes/790-ergo-proxy">http://#{Site::DOMAIN}/animes/<b>790</b>-ergo-proxy</a> идентификатор будет равен <b style="color: #000">790</b>.
       br
       | Работает для аниме, манги, персонажей, людей.
 
@@ -196,61 +196,61 @@ header.head
       .textarea
         | <span>картинки без пробелов между ними в теге [sоlid]</span>[solid]
         br
-        | [img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]
         br
         | [/solid]
         br
         | [hr]
         br
-        | <span>обычный набор картинок</span>[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        | <span>обычный набор картинок</span>[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]
         br
-        | [img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        | [img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]
         br
 
     .result
       br
       = BbCodeFormatter.instance.format_comment "\
 [solid]\
-[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
 [/solid]\
 \n\n\n\
 [hr]\
 \n\n\
-[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/ukGtG8wbBJc.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/hFT-H0phBKs.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/QGin9ZjfGWg.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/gPVKwBuneIo.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/sC6BfT6LVj8.jpg[/img]\
-[img]http://shikimori.org/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
 "

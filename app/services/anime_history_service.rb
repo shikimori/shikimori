@@ -1,7 +1,6 @@
 class AnimeHistoryService
-  include Rails.application.routes.url_helpers
+  include Routing
   NewsExpireIn = 1.week
-  default_url_options[:host] = 'shikimori.org'
 
   # обрабатывает всю небработанную историю, отправляет уведомления пользователям
   def self.process
