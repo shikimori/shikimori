@@ -1,6 +1,7 @@
 @import compass/typography/text/ellipsis
 @import mixins/clear_left
 @import mixins/column
+@import mixins/link
 
 .p-profiles-show
   .profile-content
@@ -99,6 +100,10 @@
 
       .title
         display: none
+
+  .about
+    a
+      +link
 
   .activity
     +gte_ipad
