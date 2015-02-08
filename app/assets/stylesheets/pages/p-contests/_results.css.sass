@@ -1,66 +1,82 @@
 @import compass/typography/text/ellipsis
 @import globals/variables
 @import mixins/link
+@import mixins/responsive
+@import mixins/column
+@import mixins/clear_left
 
 .p-contests .results
-  .rounds
-    float: right
-    width: 220px
+  a
+    +link
 
-    .label
-      color: #444
-      font-size: 12px
-      font-weight: bold
-      margin-bottom: 10px
+  .cc-result
+    +clear_left
+    margin-bottom: $block_offset
+    position: relative
 
-    .match-day
-      margin-top: 0
+    +gte_ipad
+      .c-winner
+        +column(2, 2/3)
+      .c-rounds
+        +column(2, 1/3)
 
-      .match
-        +ellipsis
-        padding-bottom: 7px
+    +iphone_landscape
+      .c-rounds
+        +column(2, 2/5)
+      .c-winner
+        +column(2, 3/5)
+        .b-catalog_entry .text
+          display: none
 
-        p
-          display: inline
+    +iphone_portrait
+      .c-rounds, .c-winner
+        +column(2, 1/2)
 
-        .match-link
-          font-weight: normal !important // из-за bold от hover высота прыгает
+      .c-winner .b-catalog_entry
+        .cover
+          width: 100%
 
-      .group
-        position: initial
+        .content
+          display: none
 
-    a
-      +link
-
-    .match-link
-      display: inline
-
-      &:hover
-        text-decoration: none
-        .group
-          text-decoration: underline
-
-      .group
+    .c-winner .b-catalog_entry
+      .rating
         display: none
-        //color: $gray-color-2
-        //display: inline-block
-        //float: none
-        //font-size: inherit
-        //line-height: inherit
-        //margin: 0 7px 0 4px
-        //width: 22px
 
-        //.letter
-          //padding-left: 5px
+    .c-rounds
+      .label
+        color: #444
+        font-size: 12px
+        font-weight: bold
+        margin-bottom: 10px
 
-  .b-catalog_entry
-    .rating
-      display: none
+      .letter
+        display: none
 
-//.p-contests .swiss .results
-  .group
-    width: 8px !important
-    margin-left: 2px !important
+      .match-day
+        margin-top: 0
 
-    .letter
-      display: none
+        .match
+          +ellipsis
+          padding-bottom: 7px
+
+          p
+            display: inline
+
+          .match-link
+            font-weight: normal !important // из-за bold от hover высота прыгает
+
+        .group
+          position: initial
+
+
+      .match-link
+        display: inline
+
+        &:hover
+          text-decoration: none
+          .group
+            text-decoration: underline
+
+        .group
+          display: none

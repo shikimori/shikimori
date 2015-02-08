@@ -1,24 +1,26 @@
 .results
-  - cache [:results, :v2, contest, russian_names_key, russian_genres_key] do
+  - cache [:results, :v3, contest, russian_names_key, russian_genres_key] do
     - contest.results.each_with_index do |entry, index|
       .subheadline.m10 #{index+1} место
-      .rounds
-        .label Соперники:
-        .match-day
-          - contest.matches_with(entry).each do |match|
-            .match
-              a.match-link title="#{match.round.title}" href="#{round_match_contest_url contest, round: match.round, match_id: match.id}"
-                span class="#{entry.id == match.winner_id ? 'winner' : 'loser'}"
-                  span.group
-                    span = match.round.title true
-                    span.letter = match.group
-              - if match.left_id && match.right_id
-                a.bubbled href="#{url_for match.left_id == entry.id ? match.right : match.left}" title="#{localized_name match.left_id == entry.id ? match.right : match.left}"
-                  = localized_name match.left_id == entry.id ? match.right : match.left
-              - else
-                p нет
-      - if contest.anime?
-        = render partial: 'animes/anime', object: entry, locals: { cover_notice: :studio, content_by: :block }
-      - else
-        = render partial: 'characters/character', object: entry, locals: { content_by: :block }
-      .clearfix
+      .cc-result
+        .c-winner
+          - if contest.anime?
+            = render partial: 'animes/anime', object: entry, locals: { cover_notice: :studio, content_by: :block }
+          - else
+            = render partial: 'characters/character', object: entry, locals: { content_by: :block }
+
+        .c-rounds
+          .label Соперники:
+          .match-day
+            - contest.matches_with(entry).each do |match|
+              .match
+                a.match-link title="#{match.round.title}" href="#{round_match_contest_url contest, round: match.round, match_id: match.id}"
+                  span class="#{entry.id == match.winner_id ? 'winner' : 'loser'}"
+                    span.group
+                      span = match.round.title true
+                      span.letter = match.group
+                - if match.left_id && match.right_id
+                  a.bubbled href="#{url_for match.left_id == entry.id ? match.right : match.left}" title="#{localized_name match.left_id == entry.id ? match.right : match.left}"
+                    = localized_name match.left_id == entry.id ? match.right : match.left
+                - else
+                  p нет

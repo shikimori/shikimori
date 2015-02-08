@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   unless Rails.env.test?
     rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,
       ActionController::RoutingError, ActionView::MissingTemplate, ActionView::Template::Error, Exception, PG::Error,
-      NoMethodError, StandardError, SyntaxError, CanCan::AccessDenied, with: :runtime_error
+      Encoding::CompatibilityError, NoMethodError, StandardError, SyntaxError, CanCan::AccessDenied, with: :runtime_error
   else
     rescue_from StatusCodeError, with: :runtime_error
   end
