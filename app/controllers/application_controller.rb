@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, ActionController::UnknownFormat, NotFound].include?(e.class)
       @page_title = "Страница не найдена"
       @sub_layout = nil
-      render 'pages/page404.html', layout: set_layout, status: 404
+      render 'pages/page404.html', layout: false, status: 404
 
     elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
       render text: e.message, status: 403
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
 
     else
       @page_title = "Ошибка"
-      render 'pages/page503.html', layout: set_layout, status: 503
+      render 'pages/page503.html', layout: false, status: 503
     end
   end
 

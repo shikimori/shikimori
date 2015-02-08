@@ -53,13 +53,13 @@ class PagesController < ShikimoriController
   # 404 страница
   def page404
     @page_title = "Страница не найдена"
-    render 'pages/page404', layout: 'application', status: 404, formats: :html
+    render 'pages/page404', layout: false, status: 404, formats: :html
   end
 
   # страница с ошибкой
   def page503
     @page_title = "Ошибка"
-    render 'pages/page503', layout: 'application', status: 503, formats: :html
+    render 'pages/page503', layout: false, status: 503, formats: :html
   end
 
   # страница обратной связи
