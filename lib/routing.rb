@@ -4,7 +4,9 @@ module Routing
 
   included do
     def default_url_options
-      { host: Site::DOMAIN }
+      {
+        host: Rails.env.test? ? 'test.host' : Site::DOMAIN
+      }
     end
   end
 

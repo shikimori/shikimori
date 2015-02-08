@@ -147,9 +147,9 @@ private
   def build_forum
     @forum_view = ForumView.new
 
-    if params[:action] != 'index'
+    if params[:action] != 'index' && @section.try(:id)
       breadcrumb 'Форум', root_url
-      breadcrumb @section.name, section_url
+      breadcrumb @section.name, section_url(@section)
     end
   end
 
