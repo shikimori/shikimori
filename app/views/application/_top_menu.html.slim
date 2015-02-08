@@ -62,6 +62,8 @@
 
   .menu.menu-items
     = render "application/top_menu/#{domain_folder}"
+    - if user_signed_in?
+      a.entry.sign_out href="#{destroy_user_session_url}" Выход
 
   .moderation style="#{page_background}"
     - if user_signed_in?
