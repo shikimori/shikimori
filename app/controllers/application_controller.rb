@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
 
   def runtime_error e
     ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? current_user.nickname : nil })
-    Rails.logger.error e.message
-    Rails.logger.error e.backtrace.join("\n")
+    NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
+    Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
     raise e if remote_addr == '127.0.0.1'
 
     if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, ActionController::UnknownFormat, NotFound].include?(e.class)
