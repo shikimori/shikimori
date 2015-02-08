@@ -2,6 +2,8 @@
 @import mixins/icons
 @import mixins/responsive
 
+$entry_padding_left: 10px
+
 +lte_ipad
   .l-top_menu
     +clearfix
@@ -51,6 +53,9 @@
     .menu-items
       .entry a
         display: block
+        // чтобы на телефонах при нажатии на пункт меню подсвечивалась вся строка с пунктом (у .entry padding-left: $entry_padding_left)
+        margin-left: -$entry_padding_left
+        padding-left: $entry_padding_left
 
       .submenu-activator
         cursor: pointer
@@ -90,7 +95,7 @@
       color: white
       display: block
       line-height: $menu_height
-      padding-left: 10px
+      padding-left: $entry_padding_left
 
       a
         color: inherit
