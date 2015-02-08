@@ -1,4 +1,5 @@
-class ForumView < Draper::Decorator
+class ForumView
+  include Draper::ViewHelpers
   prepend ActiveCacher.instance
 
   instance_cache :section, :linked, :new_topic_section

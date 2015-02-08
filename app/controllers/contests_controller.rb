@@ -44,7 +44,6 @@ class ContestsController < ShikimoriController
 
     page_title @resource.displayed_round.title
     page_title 'Голоса'
-
   end
 
   # комментарии опроса

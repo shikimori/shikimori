@@ -4,9 +4,17 @@ module Routing
 
   included do
     def default_url_options
-      {
-        host: Rails.env.test? ? 'test.host' : Site::DOMAIN
-      }
+      host = if Rails.env.test?
+        'test.host'
+      else
+        if Draper::ViewContext.current.request.host == 'test.host'
+          Site::DOMAIN
+        else
+          Draper::ViewContext.current.request.host
+        end
+      end
+
+      { host: host }
     end
   end
 
