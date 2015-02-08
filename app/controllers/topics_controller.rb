@@ -13,7 +13,7 @@ class TopicsController < ForumController
 
   caches_action :show,
     cache_path: proc {
-      topic = Entry.find params[:topic]
+      topic = Entry.find params[:id]
       Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{topic.updated_at}|#{topic.linked ? topic.linked.updated_at : ''}|#{json?}"
     },
     unless: proc { user_signed_in? },
