@@ -1,6 +1,6 @@
 # общий класс для комментария, топика, редактора
 class @ShikiView
-  MAX_PREVIEW_HEIGHT: 200
+  MAX_PREVIEW_HEIGHT: 300
 
   constructor: ($root) ->
     @_initialize($root)
