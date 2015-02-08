@@ -65,6 +65,7 @@ class ClubsController < ShikimoriController
   def comments
     redirect_to club_url(@resource) if @resource.main_thread.comments_count.zero?
     page_title 'Обсуждение клуба'
+    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
 
   def animes

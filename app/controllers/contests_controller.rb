@@ -51,6 +51,7 @@ class ContestsController < ShikimoriController
   def comments
     redirect_to contest_url(@resource) if @resource.main_thread.comments_count.zero?
     page_title 'Обсуждение опроса'
+    @canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
 
   # турнирная сетка
