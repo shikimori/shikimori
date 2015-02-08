@@ -2,7 +2,7 @@ class ForumController < ShikimoriController
   @@first_page_comments = 3
   @@other_page_comments = 1
 
-  before_action :build_background, only: [:index, :show, :new, :edit, :create, :site_block, :create, :update]
+  before_action :build_background, only: [:index, :show, :new, :edit, :create, :create, :update]
   helper_method :sticked_topics
 
   #caches_action :site_block,
@@ -82,16 +82,10 @@ class ForumController < ShikimoriController
     @notice = "в разделе #{@section[:name]}."
 
     @json.merge!(
-        h1: @h1,
-        title_notice: @notice,
-        title_page: @page_title
-      ) if json?
-  end
-
-  # блок с контентом правого меню сайта
-  def site_block to_render=true
-    @news = WellcomeNewsPresenter.new
-    render partial: 'forum/site_block', layout: false, locals: { presenter: @news, user_presenter: @user_presenter }, formats: :html if to_render
+      h1: @h1,
+      title_notice: @notice,
+      title_page: @page_title
+    ) if json?
   end
 
 private

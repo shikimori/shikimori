@@ -146,6 +146,11 @@ private
 
   def build_forum
     @forum_view = ForumView.new
+
+    if params[:action] != 'index'
+      breadcrumb 'Форум', root_url
+      breadcrumb @section.name, section_url
+    end
   end
 
   def faye

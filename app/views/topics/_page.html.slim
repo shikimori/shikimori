@@ -4,8 +4,13 @@
 header.head
   h1
     = @h1 || @section.name
-  .notice
-    = @notice || @section.description
+
+
+  - if @breadcrumbs
+    = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  - else
+    .notice
+      = @notice || @section.description
 
   /- if params[:page] != 'cosplay'
   /- else
@@ -40,12 +45,6 @@ header.head
       = yield
 
     aside.l-menu.ajax-opacity
-      /.local-menu-block
-        - if @linked
-          - content_for :local_menu_block do
-            = render partial: 'topics/linked_block', object: @linked_presenter, as: :linked
-        = yield :local_menu_block
-
       - if @topic && @topic.linked
         - if @topic.linked.kind_of?(Anime) || @topic.linked.kind_of?(Manga)
           = render 'animes/menu', resource: @topic.linked.decorate
@@ -62,11 +61,10 @@ header.head
         - elsif @topic.linked.kind_of? Group
             = render 'clubs/menu', resource: @topic.linked.decorate
 
+        - elsif @topic.linked.kind_of? Contest
+            = render 'contests/menu', resource: @topic.linked.decorate
+
         - else raise "unknown linked: #{@linekd.class}"
+
       - else
-        .site-menu-block data-remote="#{forum_site_block_url section: @section}"
-          /- if user_signed_in?
-          = render 'forum/site_block', presenter: @news
-          /- else
-            .ajax-loading.top title="Загрузка..."
-          /= yield :site_menu_block
+        = render 'forum/site_block', presenter: @news

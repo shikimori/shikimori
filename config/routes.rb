@@ -205,8 +205,6 @@ Site::Application.routes.draw do
       get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
       #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
 
-      get ':section/block' => 'forum#site_block', as: :forum_site_block
-
       get ':section(/s-:linked)(/p-:page)' => 'topics#index', as: :section
       #[:section_topic, :section_blog_post, :section_contest_comment].each do |name|
         #get ':section(/s-:linked)/:id' => 'topics#show', as: name
