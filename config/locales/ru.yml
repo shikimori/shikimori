@@ -123,6 +123,7 @@ ru:
         type: Тип
         linked: Связанное
         posters: Постеры
+        section_id: Раздел
       user_change:
         source: Источник
       anime_video_report:

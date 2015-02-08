@@ -29,6 +29,12 @@ class ForumView < Draper::Decorator
 
 private
   def new_topic_section
-    section.id ? section : Section.find_by_permalink('o')
+    if section.id
+      section
+    elsif section.permalink == 'news'
+      Section.find_by_permalink('a')
+    else
+      section.id ? section : Section.find_by_permalink('o')
+    end
   end
 end

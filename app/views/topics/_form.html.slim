@@ -9,10 +9,14 @@
         == topic.errors.full_messages.join('<br>')
 
   = f.input :user_id, as: :hidden
-  = f.input :section_id, as: :hidden
   = f.input :linked_id, as: :hidden
   = f.input :linked_type, as: :hidden
   = f.input :type, as: :hidden
+
+  .m20
+    = f.input :section_id, as: :select, include_blank: false,
+      collection: Section.visible.select {|v| v.id.present? },
+      input_html: { disabled: topic.persisted? }
 
   .m20
     = f.input :title
@@ -21,40 +25,33 @@
   .b-shiki_editor.unprocessed.block
     = render 'comments/shiki_editor', text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip, field_name: 'topic[text]'
 
-  - if ['news', 'a', 'm'].include?(topic.section.permalink)
-    .topic_linked
-      .b-input.string.optional
-        label.string.optional.control-label for="topic_linked"
-          = t 'activerecord.attributes.topic.linked'
-          .cleanup очистить
-        input.string.optional type="text" id="topic_linked" placeholder="Название аниме" data-autocomplete="#{autocomplete_animes_url search: ''}"
-        /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url search: ''}"
+  .topic_linked
+    .b-input.string.optional
+      label.string.optional.control-label for="topic_linked"
+        = t 'activerecord.attributes.topic.linked'
+        .cleanup очистить
+      input.string.optional type="text" id="topic_linked" placeholder="Название аниме" data-autocomplete="#{autocomplete_animes_url search: ''}"
+      /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url search: ''}"
 
-      .topic-video
-        - if topic.linked.present?
-          a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
-      .topic-link
-        - if topic.linked.present?
-          a.bubbled href="#{url_for topic.linked}" title="#{topic.linked.name}"
-            = topic.linked.name
+    .topic-video
+      - if topic.linked.present?
+        a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
+    .topic-link
+      - if topic.linked.present?
+        a.bubbled href="#{url_for topic.linked}" title="#{topic.linked.name}"
+          = topic.linked.name
 
-        /- else
-          /p
-            /= topic.linked_type
-      /.action-misc Выберите с помощью автодополнения существующее аниме(мангу), либо, если на сайте нужное аниме(манга) ещё не добавлено, то просто напишите в поле полное название, не используя автодополнение.
-
-  - if ['news'].include?(topic.section.permalink)
-    .topic_posters
-      .b-input.string.optional
-        label.string.optional.control-label for="topic_linked"
-          = t 'activerecord.attributes.topic.posters'
-      .wall-ids
-      .drag-here-placeholder data-upload_url="#{user_images_url linked_type: AnimeNews.name}"
-        p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
-        = render 'blocks/upload_progress'
-        .b-shiki_wall.unprocessed
-          = render partial: 'images/image', collection: topic.user_images, locals: { topic_poster_edit: true }
-        input type="file" multiple="multiple"
+  .topic_posters
+    .b-input.string.optional
+      label.string.optional.control-label for="topic_linked"
+        = t 'activerecord.attributes.topic.posters'
+    .wall-ids
+    .drag-here-placeholder data-upload_url="#{user_images_url linked_type: AnimeNews.name}"
+      p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
+      = render 'blocks/upload_progress'
+      .b-shiki_wall.unprocessed
+        = render partial: 'images/image', collection: topic.user_images, locals: { topic_poster_edit: true }
+      input type="file" multiple="multiple"
 
   = f.submit
   - if topic.persisted?
