@@ -8,7 +8,7 @@ ExceptionNotification.configure do |config|
   # config.ignored_exceptions += %w{ActionView::TemplateError CustomError}
 
   config.ignore_if do |exception, options|
-    not Rails.env.production?
+    !Rails.env.production? && !Rails.env.staging?
   end
 
   config.add_notifier :email,
