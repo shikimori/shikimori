@@ -2,6 +2,16 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
   include Sidekiq::Worker
   sidekiq_options retry: false
 
+  VK_BROKEN_TEXTS = [
+    "\n\nЭто видео изъято из публичного доступа.\n\n",
+    "\n\nThis video has been removed from public access.\n\n",
+    "\n\nДанная видеозапись скрыта настройками приватности и недоступна для просмотра.\n\n",
+    "\n\nThis video is protected by privacy settings.\n\n",
+    "\n\nВидеозапись была помечена модераторами сайта как «Материал для взрослых». Такие видеозаписи запрещено вставлять на внешние сайты.\n\n",
+    "\n\nThis video was marked as Adult.Embedding adult videos is not allowed by VK.\n\n"
+  ]
+  SIBNET_BROKEN_TEXTS = ["Ошибка обработки видео", "Îøèáêà îáðàáîòêè âèäåî"]
+
   def perform id
     report = AnimeVideoReport.find id
     return unless report.pending?
@@ -22,28 +32,30 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
     report
   end
 
+  def video_broken? video
+    case video.hosting
+      when 'vk.com' then vk_broken?(video)
+      when 'sibnet.ru' then sibnet_broken?(video)
+    end
+  end
+
 private
   def approver
     BotsService.get_poster
   end
 
-  def video_broken? video
-    case video.hosting
-      when 'vk.com' then is_vk_broken(video)
-      when 'sibnet.ru' then is_sibnet_broken(video)
-    end
+  def vk_broken? video
+    doc = Nokogiri::HTML get(video.url)
+    text = doc.css('#page_wrap div').first.try(:text)
+    VK_BROKEN_TEXTS.any? {|v| text.include? v }
   end
 
-  def is_vk_broken video
+  def sibnet_broken? video
     doc = Nokogiri::HTML get(video.url)
-    [
-      "\n\nЭто видео изъято из публичного доступа.\n\n", "\n\nThis video has been removed from public access.\n\n",
-      "\n\nДанная видеозапись скрыта настройками приватности и недоступна для просмотра.\n\n", "\n\nThis video is protected by privacy settings.\n\n"
-    ].include? doc.css('#page_wrap div').first.try(:text)
+    SIBNET_BROKEN_TEXTS.include? doc.css('.videostatus').try(:text)
   end
 
-  def is_sibnet_broken video
-    doc = Nokogiri::HTML get(video.url)
-    ["Ошибка обработки видео", "Îøèáêà îáðàáîòêè âèäåî"].include? doc.css('.videostatus').try(:text)
+  def get url
+    open(url).read.fix_encoding
   end
 end

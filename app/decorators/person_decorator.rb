@@ -1,8 +1,19 @@
-class PersonDecorator < Draper::Decorator
-  delegate_all
+class PersonDecorator < DbEntryDecorator
   decorates_finders
 
-  def with_credentials?
+  rails_cache :best_works
+  instance_cache :website, :all_roles, :groupped_roles, :roles_names, :works
+  instance_cache :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
+  instance_cache :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
+
+  ROLES = {
+    seyu: ['Japanese', 'English', 'Italian', 'Hungarian', 'German', 'Brazilian', 'French', 'Spanish', 'Korean'],
+    composer: ['Music'],
+    producer: ['Chief Producer', 'Producer', 'Director', 'Episode Director'],
+    mangaka: ['Original Creator', 'Story & Art', 'Story']
+  }
+
+  def credentials?
     japanese.present? || object.name.present?
   end
 
@@ -10,77 +21,89 @@ class PersonDecorator < Draper::Decorator
     h.person_url object
   end
 
+  def website_host
+    begin
+      URI.parse(website).host
+    rescue
+    end
+  end
+
   def website
-    @website ||= if object.website.present?
-      'http://%s' % object.website.sub(/^(http:\/\/)?/, '')
+    if object.website.present?
+      'http://%s' % object.website.sub(/^(https?:\/\/)?/, '')
     else
       nil
     end
   end
 
-  def groupped_roles
-    @groupped_roles ||= begin
-      person_roles = object.person_roles
-        .group(:role)
-        .select('role, count(*) as times')
+  def flatten_roles
+    object.person_roles
+      .pluck(:role)
+      .map {|v| v.split(/, */) }
+      .flatten
+  end
 
-      roles = {}
-      person_roles.each do |person_role|
-        person_role.role.split(',').each do |v|
-          v = process_role v
-          if roles.keys.include?(v)
-            roles[v] += person_role.times.to_i
-          else
-            roles[v] = person_role.times.to_i
-          end
-        end
-      end
-      roles = roles.sort do |lhs,rhs|
-        if lhs[1] < rhs[1]
-          1
-        elsif lhs[1] > rhs[1]
-          -1
-        else
-          begin
-            I18n.t("Role.#{lhs[0]}") <=> I18n.t("Role.#{rhs[0]}")
-          rescue
-            0
-          end
-        end
-      end
-    end
+  def groupped_roles
+    flatten_roles.each_with_object({}) do |role, memo|
+      role_name = I18n.t("Role.#{role}")
+      memo[role_name] ||= 0
+      memo[role_name] += 1
+    end.sort_by {|v| [-v.second, v.first] }
   end
 
   def favoured
-    @favoured ||= FavouritesQuery.new.favoured_by object, 12
+    FavouritesQuery.new.favoured_by object, 12
   end
 
   def works
-    @works ||= begin
-      entries = all_roles.select {|v| v.anime || v.manga }.map do |v|
-        {
-          role: v.role,
-          entry: v.anime || v.manga
-        }
-      end
-      entries = if h.params[:sort] == 'time'
-        entries.sort_by {|v| (v[:entry].aired_on || v[:entry].released_on || DateTime.now + 10.years).to_datetime.to_i * -1 }
-      else
-        entries.sort_by {|v| -(v[:entry].score || -999) }
-      end
+    all_roles
+      .select {|v| v.anime || v.manga }
+      .map {|v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
+      .sort_by do |v|
+        if h.params[:order_by] == 'date'
+          v.aired_on || v.released_on || DateTime.now - 99.years
+        else
+          v.score && v.score < 9.9 ? v.score : -999
+        end
+      end.reverse
+  end
+
+  def best_works
+    anime_ids = object.animes.pluck(:id)
+    manga_ids = object.mangas.pluck(:id)
+
+    sorted_works = FavouritesQuery.new
+      .top_favourite([Anime.name, Manga.name], 6)
+      .where("(linked_type=? and linked_id in (?)) or (linked_type=? and linked_id in (?))",
+        Anime.name, anime_ids, Manga.name, manga_ids)
+      .map {|v| [v.linked_id, v.linked_type] }
+
+    drop_index = 0
+    while sorted_works.size < 6 && works.size > drop_index
+      work = works.drop(drop_index).first
+      mapped_work = [work.id, work.object.class.name]
+      sorted_works.push mapped_work unless sorted_works.include?(mapped_work)
+      drop_index += 1
     end
+
+    selected_anime_ids = sorted_works.select {|v| v[1] == Anime.name }.map(&:first)
+    selected_manga_ids = sorted_works.select {|v| v[1] == Manga.name }.map(&:first)
+    (
+      works.select {|v| v.anime? && selected_anime_ids.include?(v.id) } +
+        works.select {|v| v.manga? && selected_manga_ids.include?(v.id) }
+    ).sort_by {|v| sorted_works.index [v.id, v.object.class.name] }
   end
 
   def job_title
-    if producer? && mangaka?
-      'Режиссёр аниме и автор манги'
-    elsif producer?
+    #if role?(:producer) && role?(:mangaka)
+      #'Режиссёр аниме и автор манги'
+    if main_role?(:producer)
       'Режиссёр аниме'
-    elsif mangaka?
+    elsif main_role?(:mangaka)
       'Автор манги'
-    elsif seyu?
+    elsif main_role?(:seyu)
       'Сэйю'
-    elsif composer?
+    elsif main_role?(:composer)
       'Композитор'
     elsif has_anime? && has_manga?
       'Участник аниме и манга проектов'
@@ -98,58 +121,52 @@ class PersonDecorator < Draper::Decorator
       'Аниме'
     elsif has_manga?
       'Манга'
+    else
+      'Проекты'
     end
   end
 
-  def seyu?
-    @is_seyu ||= (roles_names & [
-      'Japanese',
-      'English'
-    ]).any?
+  def role? role
+    !roles_counts(role).zero?
   end
 
-  def composer?
-    @is_composer ||= (roles_names & [
-      'Music'
-    ]).any?
+  def main_role? role
+    other_roles = ROLES.keys
+      .select {|v| v != role }
+      .map {|v| roles_counts v }
+
+    roles_counts(role) > other_roles.max
   end
 
   def seyu_favoured?
     h.user_signed_in? && h.current_user.favoured?(object, Favourite::Seyu)
   end
 
-  def producer?
-    @is_producer ||= (roles_names & [
-      'Chief Producer',
-      'Producer',
-      'Director',
-      'Episode Director'
-    ]).any?
-  end
-
   def producer_favoured?
-    @producer_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Producer)
-  end
-
-  def mangaka?
-    @is_mangaka ||= (roles_names & [
-      'Original Creator',
-      'Story & Art',
-      'Story'
-    ]).any?
+    h.user_signed_in? && h.current_user.favoured?(object, Favourite::Producer)
   end
 
   def mangaka_favoured?
-    @mangaka_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Mangaka)
+    h.user_signed_in? && h.current_user.favoured?(object, Favourite::Mangaka)
   end
 
   def person_favoured?
-    @person_favoured ||= h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
+    h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
   end
 
-private
-  def process_role(role)
-    role.strip
+  def url
+    h.person_url object
+  end
+
+  # тип элемента для schema.org
+  def itemtype
+    'http://schema.org/Person'
+  end
+
+  def best_character
+    character_ids = object.character_ids
+    fav_character = FavouritesQuery.new.top_favourite([Character.name], 1).where("linked_type=? and linked_id in (?)", Character.name, character_ids).first.linked_id
+    Character.find(fav_character)
   end
 
   def has_anime?
@@ -160,11 +177,16 @@ private
     all_roles.any? {|v| !v.manga_id.nil? }
   end
 
+private
   def all_roles
-    @all_roles ||= object.person_roles.includes(:anime).includes(:manga).to_a
+    object.person_roles.includes(:anime).includes(:manga).to_a
   end
 
   def roles_names
-    @roles_names ||= groupped_roles.map {|k,v| k }
+    groupped_roles.map {|k,v| k }
+  end
+
+  def roles_counts role
+    flatten_roles.count {|v| ROLES[role].include? v }
   end
 end

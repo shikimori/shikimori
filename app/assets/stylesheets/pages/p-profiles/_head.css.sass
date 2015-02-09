@@ -1,0 +1,294 @@
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/block
+@import mixins/brackets_surrounded
+@import mixins/clear_left
+@import mixins/column
+@import mixins/dash_separated
+@import mixins/comma_separated
+@import mixins/hover_underlined
+@import mixins/link
+@import mixins/menu-blocks
+
+.p-profiles .profile-head
+  +clear_left
+  +clearfix
+
+  .c-history
+    float: right
+    margin-bottom: $block_offset
+    margin-left: $block_offset
+    position: relative
+    width: 23%
+
+    &.x3
+      margin-bottom: $block_offset / 2
+
+    .entry
+      +menu-block-with-image
+
+    +iphone
+      display: none
+
+  .c-brief
+    margin-bottom: 0
+
+    .avatar
+      float: left
+
+      +gte_ipad
+        margin: 10px $block_offset $block_offset 0
+
+      +iphone
+        margin: 10px $block_offset/2 $block_offset/2 0
+
+      img
+        +iphone
+          width: 80px
+
+      .profile-actions
+        margin-top: 5px
+        text-align: center
+
+        +iphone
+          display: none
+
+    header
+      overflow: hidden
+      margin-bottom: 10px
+      white-space: nowrap
+
+      h1
+        margin-bottom: 0
+
+        &.aliases:after
+          color: #333
+          content: '\e816'
+          cursor: pointer
+          font-family: 'shikimori'
+          font-size: 12px
+          margin-left: 8px
+          margin-top: 16px
+
+      .notice
+        font-size: 12px
+        line-height: 17px
+        clear: left
+        margin-top: 0
+
+        a
+          +link
+          padding: 0
+
+        span
+          +dash_separated(5px)
+
+          //&:last-child
+            font-style: italic
+
+      .misc
+        margin-left: 1px
+        span, a
+          +dash_separated(5px)
+          padding: 0
+
+      +iphone
+        .notice
+          white-space: normal
+
+        .misc
+          display: block
+
+        .misc, .edit
+          padding: 0
+          margin-bottom: 2px
+
+      .banned
+        color: $red
+
+  .c-mobile-actions
+    clear: both
+    display: none
+    font-size: 12px
+    line-height: 1.65
+    margin-bottom: 20px
+
+    +iphone
+      display: block
+
+    a, span
+      +comma_separated(7px)
+      +link
+
+  .c-info
+    overflow: hidden
+    +iphone
+      clear: both
+
+    .c-additionals
+      margin-bottom: $block_offset
+
+      b
+        color: #333
+        padding-right: 5px
+
+      div
+        +comma_separated(5px)
+        display: inline-block
+        font-size: 12px
+        line-height: 1.45
+
+        a
+          +link
+
+    .c-lists-info
+      .summary
+        font-size: 12px
+        line-height: 17px
+        margin-bottom: 20px
+
+        p
+          font-size: inherit
+          line-height: inherit
+
+        .last-online
+          font-size: 11px
+          color: #888
+
+      // синяя и фиолетовая полоски о размерах списка аниме и манги
+      .b-stat_bar
+        +clearfix
+
+        +gte_ipad
+          margin-bottom: $block_offset / 2
+
+        +iphone
+          margin-bottom: $block_offset
+
+        .compatibility
+          a
+            +link
+
+          .text
+            &.zero
+              +link_color($gray-color)
+            &.weak
+              +link_color(#6ea36e)
+            &.moderate
+              +link_color(#40a540)
+            &.high
+              +link_color(#18ca18)
+            &.full
+              +link_color(#0092ff)
+
+          span.link-replacement
+            .text
+              &.zero
+                color: $gray-color
+              &.weak
+                color: #6ea36e
+              &.moderate
+                color: #40a540
+              &.high
+                color: #18ca18
+              &.full
+                color: #0092ff
+
+          a, span.link-replacement
+            float: right
+            font-size: 11px
+            margin-top: 2px
+
+
+          .rate
+            font-weight: bold
+            +brackets_surrounded
+
+        .stat_names
+          font-size: 11px
+          line-height: 1.5
+          margin-left: 2px
+
+          .stat_name
+            +dash_separated
+            display: inline-block
+
+            a
+              +link(#123)
+
+            .size
+              +brackets_surrounded
+
+    //clear: both
+
+    //.bar
+      .first, .second, .third
+        +ellipsis
+        span
+          +ellipsis
+          padding: 0 5px
+      .third
+        text-align: right
+
+      //div
+        +dash_separated(5px)
+        display: inline-block
+
+
+  //.mylist-block
+    //.item-add
+      //display: none !important
+
+  //.image-links a
+    //margin-right: 11px !important
+
+    //&:last-child
+      //margin-right: 0px !important
+    //img
+      //padding: 1px !important
+
+  //.left-block
+    //float: left
+    //margin: 10px 15px 35px 0
+    //padding: 0 15px 0 0
+    //width: 160px
+
+    //.user-menu-container
+      //position: relative
+      //.b-options-floated
+        //line-height: 20px
+        //right: -590px
+        //margin-top: -179px
+        //a, span
+          //margin-left: 5px
+
+    //.slider-control a
+      //display: block
+    //.unread-count
+      //font-weight: bold
+      //float: right
+
+  //.right-block
+    //float: right
+    //margin: 10px 0 30px 0
+    //padding-left: 15px
+    //width: $menu-width
+
+    //.history-block
+      //.entry
+        //+menu-block-with-image
+
+    //.groups-block
+      //img
+        //width: 43px
+
+  //.middle-block
+    //margin-right: 244px
+    //margin-left: 190px
+
+  //.website
+    //+normal-link
+
+  //.favourites-block
+    //height: 100px

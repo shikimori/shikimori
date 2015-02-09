@@ -1,18 +1,16 @@
-require 'spec_helper'
-
 describe UserListParsers::XmlListParser do
   let(:parser) { UserListParsers::XmlListParser.new klass }
   let(:login) { 'shikitest' }
   let(:wont_watch_strategy) { nil }
   subject(:parsed) { parser.parse xml }
 
-  context :anime do
+  context 'anime' do
     let(:klass) { Anime }
     let(:xml) {
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserListsController::AnimeType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::AnimeType}</user_export_type>
   </myinfo>
   <anime>
     <anime_animedb_id>1</anime_animedb_id>
@@ -30,14 +28,14 @@ describe UserListParsers::XmlListParser do
     it { should eq [{id: 1, status: UserRate.status_id(:rewatching), episodes: 2, rewatches: 4, score: 5.0, text: 'test test'}] }
   end
 
-  context :manga do
+  context 'manga' do
     let(:klass) { Manga }
 
     let(:xml) {
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserListsController::AnimeType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::MangaType}</user_export_type>
   </myinfo>
   <manga>
     <manga_mangadb_id>1</manga_mangadb_id>

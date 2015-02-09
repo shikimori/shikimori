@@ -5,7 +5,6 @@
 .bundle
 .capistrano
 .project
-.rspec
 .rvmrc
 .sass-cache
 /.bundle

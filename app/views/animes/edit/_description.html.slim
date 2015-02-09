@@ -1,0 +1,15 @@
+p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://#{Site::DOMAIN}/groups/2">правилами</a>.
+
+= simple_form_for [:moderation, user_change] do |f|
+  = f.input :model, as: :hidden
+  = f.input :column, as: :hidden
+  = f.input :item_id, as: :hidden
+
+  .block
+    .b-shiki_editor.unprocessed.block
+      = render 'comments/shiki_editor', text: resource.description, field_name: 'user_change[value]'
+
+    = f.input :source, label: 'Источник (адрес страницы, откуда взят текст)'
+
+  = f.submit 'Сохранить'
+  a.cancel href="#{resource.url}" Отмена

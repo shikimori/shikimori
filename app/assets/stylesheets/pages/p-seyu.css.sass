@@ -1,0 +1,117 @@
+@import compass/utilities/general/clearfix
+@import mixins/brackets_surrounded
+@import mixins/column
+@import mixins/responsive
+
+.p-seyu-index
+  .b-postloader
+    clear: left
+    margin-bottom: 0
+
+.p-seyu .l-menu
+  .logo img
+    max-width: 100%
+
+.p-seyu-show
+  .c-characters
+    overflow: hidden
+    position: relative
+
+    +gte_ipad
+      .c-character
+        +column_bm(6)
+
+    +iphone-landscape
+      .c-character
+        +column_bm(5)
+
+        &:nth-child(6n)
+          display: none
+
+    +iphone-portrait
+      .c-character
+        +column_bm(3)
+
+.p-seyu-roles
+  .c-work
+    +clearfix
+
+    .c-characters
+      margin-bottom: $block_offset
+
+    .c-animes
+      float: right !important
+      margin-bottom: $block_offset
+
+    +gte_ipad
+      .c-characters
+        &.s-1
+          +column(6, 1/6)
+          .c-character
+            +column(1)
+        &.s-2
+          +column(6, 2/6)
+          .c-character
+            +column(2)
+        &.s-3
+          +column(6, 3/6)
+          .c-character
+            +column(3)
+
+      .c-animes
+        &.s-1
+          +column(6, 1/6)
+          .c-anime
+            +column(1)
+        &.s-2
+          +column(6, 2/6)
+          .c-anime
+            +column(2)
+        &.s-3
+          +column(6, 3/6)
+          .c-anime
+            +column(3)
+        &.s-4
+          +column(6, 4/6)
+          .c-anime
+            +column(4)
+
+    +iphone
+      .c-characters
+        &.s-1
+          +column(6, 1/4)
+          .c-character
+            +column(1)
+        &.s-2
+          +column(6, 2/4)
+          .c-character
+            +column(2)
+        &.s-3
+          +column(6, 3/4)
+          .c-character
+            +column(3)
+
+      .c-animes
+        &.s-1
+          +column(6, 1/4)
+          .c-anime
+            +column(1)
+        &.s-2
+          +column(6, 2/4)
+          .c-anime
+            +column(2)
+
+          &.c-3
+            +column(6, 1/4)
+            .c-anime
+              +column(1)
+
+              &:last-child
+                display: none
+
+        &.s-3, &.s-4
+          +column(6, 2/4)
+          .c-anime
+            +column(2)
+            &:nth-child(3), &:nth-child(4)
+              display: none

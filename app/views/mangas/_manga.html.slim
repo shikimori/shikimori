@@ -1,0 +1,5 @@
+- cover_by ||= (json? || user_signed_in?) ? :link : :linkeable
+- content_by ||= :tooltip
+- cover_notice ||= :none
+
+= render partial: 'animes/anime', object: manga, locals: { cover_by: cover_by, content_by: content_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil, anime_counter: defined?(manga_counter) ? manga_counter : nil }

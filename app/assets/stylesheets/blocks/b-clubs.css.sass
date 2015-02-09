@@ -1,0 +1,38 @@
+@import compass/utilities/general/clearfix
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/responsive
+
+.b-clubs
+  +clearfix
+  +block
+
+  &.one-line
+    +clear_left
+
+    .b-club
+      +gte_ipad
+        +column(4)
+
+      +iphone_landscape
+        +column(4)
+
+      +iphone_portrait
+        +column(3)
+
+        &.item-3
+          display: none
+
+  &.index
+    .b-club
+      margin-bottom: $block_offset / 2
+
+      +gte_ipad
+        +column(3)
+
+      +iphone_landscape
+        +column(2)
+
+      +iphone_portrait
+        +column(1)

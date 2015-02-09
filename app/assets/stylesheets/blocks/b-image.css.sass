@@ -1,0 +1,34 @@
+@import compass/css3/transition
+@import globals/variables
+@import mixins/image_editable
+
+.b-image
+  +image_editable
+  cursor: zoom-in !important
+  line-height: 0
+  margin-bottom: 10px
+  overflow: hidden
+  position: relative
+
+  img
+    +transition(opacity 0.25s ease)
+    max-width: 100%
+
+  &.fixed
+    margin-bottom: 0
+
+    img
+      width: $media_width
+
+  &.unprocessed img
+    max-width: $media_width !important
+    max-height: $media_width !important
+
+  .marker
+    +media_marker
+
+  .normalized_width
+    max-width: $media_width !important
+
+  .normalized_height
+    max-height: $media_width !important

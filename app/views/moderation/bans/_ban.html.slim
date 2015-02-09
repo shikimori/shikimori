@@ -1,21 +1,20 @@
-.b-ban_log_entry
+.b-log_entry
   .moderator
-    a.nickname.short href="#{user_url ban.moderator}" title="#{ban.moderator.nickname}"
+    a.nickname.short href="#{profile_url ban.moderator}" title="#{ban.moderator.nickname}"
       = ban.moderator.nickname
 
     - if ban.abuse_request
-      a.abuser href="#{user_url ban.abuse_request.user}"
+      a.abuser href="#{profile_url ban.abuse_request.user}"
         = ban.abuse_request.user.nickname
 
   span.id-label #
   span = ban.id
   span.date = ban.created_at.strftime('%d.%m.%Y')
 
-  .user
-    a href="#{user_url ban.user}"
-      img.avatar src="#{ban.user.avatar_url 16}" alt="#{ban.user.nickname}" title="#{ban.user.nickname}"
-    a.nickname.short href="#{user_url ban.user}" title="#{ban.user.nickname}"
-      = ban.user.nickname
+  .b-user16
+    a href="#{profile_url ban.user}" title="#{ban.user.nickname}"
+      img src="#{ban.user.avatar_url 16}" srcset="#{ban.user.avatar_url 32} 2x" alt="#{ban.user.nickname}" title="#{ban.user.nickname}"
+      span = ban.user.nickname
 
   - if ban.warning?
     span.duration-warning предупреждение

@@ -1,2 +1,2 @@
-class MangasController < AniMangasController
+class MangasController < AnimesController
 end

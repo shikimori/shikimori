@@ -1,0 +1,18 @@
+= render layout: 'page' do
+  .b-options-floated.mobile-support
+    span.link.selected
+      | Отзывы
+      span.brackets = @resource.stats.comments_reviews_count
+
+    a href="#{comments_profile_url @resource}"
+      | Комментарии
+      span.brackets = @resource.stats.comments_count
+
+  h2.subheadline.m10 = @page_title.last
+  .b-comments
+    - if @collection.any?
+      = render @collection
+      - if @add_postloader
+        = render 'blocks/postloader', filter: 'b-comment', url: comments_reviews_profile_url(page: @page+1)
+    - else
+      p.b-nothing_here Нет отзывов

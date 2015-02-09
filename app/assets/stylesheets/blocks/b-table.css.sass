@@ -1,12 +1,13 @@
-@import globals
+@import globals/variables
+@import mixins/link
 
 .b-table
   border-collapse: collapse
-  margin: 0 0 20px 10px
-  width: 96%
+  margin-bottom: $block_offset
+  width: 100%
 
   a
-    +normal-link
+    +link
 
   tr.border
     border-top: 1px solid #DDDDDD
@@ -23,7 +24,7 @@
     font-size: 100%
     font-style: inherit
     font-weight: inherit
-    line-height: $line-height
+    line-height: $line_height
     margin: 0
     outline: 0 none
     padding: 0

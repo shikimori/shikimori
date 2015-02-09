@@ -5,8 +5,6 @@ class Comment < ActiveRecord::Base
   include Antispam
   include Viewable
 
-  attr_accessor :topic_name, :topic_url
-
   # assiciations
   belongs_to :user
   belongs_to :commentable, polymorphic: true
@@ -123,13 +121,13 @@ class Comment < ActiveRecord::Base
       # игнорируем пользователей, которым уже создали уведомления
       next if notified_users.include?(quoted_user.id)
       # игнорируем пользователей, у которых уже есть не прочитанные уведомления о текущей теме
-      next if Message.where(
-          to_id: quoted_user.id,
-          kind: MessageType::QuotedByUser,
-          read: false,
-          linked_type: self.class.name
-        ).includes(:linked)
-         .any? {|v| v.linked && v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
+      #next if Message.where(
+          #to_id: quoted_user.id,
+          #kind: MessageType::QuotedByUser,
+          #read: false,
+          #linked_type: self.class.name
+        #).includes(:linked)
+         #.any? {|v| v.linked && v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
 
       Message.wo_antispam do
         Message.create!(
@@ -222,13 +220,13 @@ class Comment < ActiveRecord::Base
   # пометка комментария либо оффтопиком, либо обзором
   def mark kind, value
     if value && kind == 'offtopic'
-      ids = quoted_responses.map(&:id) + [self.id]
+      ids = quoted_responses.map(&:id) + [id]
       Comment.where(id: ids).update_all offtopic: true
       self.offtopic = true
 
       ids
     else
-      update_attribute kind, value if respond_to? kind
+      update kind => value if respond_to? kind
 
       [id]
     end
@@ -239,11 +237,15 @@ class Comment < ActiveRecord::Base
     comments = Comment
       .where("id > ?", id)
       .where(commentable_type: commentable_type, commentable_id: commentable_id)
+      .order(:id)
+
     search_ids = Set.new [id]
 
     comments.each do |comment|
       search_ids.clone.each do |id|
-        search_ids << comment.id if comment.body.include?("[comment=#{id}]") || comment.body.include?("[quote=#{id};")
+        if comment.body.include?("[comment=#{id}]") || comment.body.include?("[quote=#{id};") || comment.body.include?("[quote=c#{id};")
+          search_ids << comment.id
+        end
       end
     end
 

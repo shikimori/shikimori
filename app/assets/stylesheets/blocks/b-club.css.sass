@@ -1,0 +1,29 @@
+@import compass/typography/text/ellipsis
+@import mixins/link
+
+.b-club
+  &.avatar
+    display: inline-block
+    line-height: 0
+
+  .logo
+    float: left
+    line-height: 0
+    margin-right: 10px
+    max-width: 100%
+    width: 48px
+
+  .name, .info
+    +ellipsis
+    display: block
+    font-size: 13px
+    line-height: 1
+
+  .name
+    +link
+    font-weight: bold
+
+  .info
+    color: $date
+    display: inline
+    font-size: 11px

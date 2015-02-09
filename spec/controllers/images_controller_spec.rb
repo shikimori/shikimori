@@ -1,30 +1,27 @@
-require 'spec_helper'
-
 describe ImagesController do
-  describe :create do
-    let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
+  include_context :authenticated, :user
+  let(:club) { create :group, owner: user }
 
-    context 'guest' do
-      before { post :create }
-      it { should respond_with(302) }
-    end
+  describe 'create' do
+    pending
+    #let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
+    #before { post :create, model: club.class.name, id: club.id, image: image }
 
-    context 'user' do
-      let(:group) { create :group }
+    #it { expect(response).to have_http_status :success }
+    #it { expect(response.content_type).to eq 'application/json' }
+    #it { JSON.parse(response.body).should have_key 'html' }
+    #it 'creates new image' do
+      #expect {
+        #post :create, model: group.class.name, id: group.id, image: image
+      #}.to change(Image, :count).by 1
+    #end
+  end
 
-      before do
-        sign_in create(:user)
-        post :create, model: group.class.name, id: group.id, image: image
-      end
+  describe 'destroy' do
+    let(:image) { create :image, uploader: user, owner: club }
+    before { delete :destroy, id: image.id }
 
-      it { should respond_with 200 }
-      it { should respond_with_content_type :json }
-      it { JSON.parse(response.body).should have_key 'html' }
-      it 'creates new image' do
-        expect {
-          post :create, model: group.class.name, id: group.id, image: image
-        }.to change(Image, :count).by 1
-      end
-    end
+    it { expect(response).to have_http_status :success }
+    it { expect(resource).to_not be_persisted }
   end
 end

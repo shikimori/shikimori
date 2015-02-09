@@ -1,102 +1,124 @@
-require 'spec_helper'
-
 describe CharactersController do
-  let(:entry) { create :character, name: 'test' }
-  let(:user) { create :user }
-  let(:json) { JSON.parse response.body }
-  before do
-    1.upto(11) do
-      create :character, name: 'test2'
-    end
-    create :anime, characters: [entry]
-    create :anime, characters: [entry]
-    create :character
+  let!(:character) { create :character }
+
+  describe '#index' do
+    let!(:character_2) { create :character, name: 'zzz' }
+    before { get :index, search: 'zzz' }
+
+    it { expect(response).to have_http_status :success }
+    it { expect(assigns :collection).to eq [character_2] }
   end
 
-  describe :index do
-    describe 'html' do
-      before { get :index, search: 'test', format: :html }
+  describe '#show' do
+    let!(:character) { create :character, :with_thread }
+    before { get :show, id: character.to_param }
+    it { expect(response).to have_http_status :success }
+  end
 
-      it { should respond_with 200 }
-      it { should respond_with_content_type :html }
-
-      it { assigns(:people).should have(10).items }
-      it { assigns(:people).first.best_works.should have(3).items }
+  describe '#seyu' do
+    context 'without_seyu' do
+      before { get :seyu, id: character.to_param }
+      it { expect(response).to redirect_to character }
     end
 
-    describe :json do
-      before { get :index, search: 'test', format: :json }
-
-      it { should respond_with 200 }
-      it { should respond_with_content_type :json }
-      it { json.should have_key 'content' }
+    context 'with_seyu' do
+      let!(:role) { create :person_role, :seyu_role, character: character }
+      before { get :seyu, id: character.to_param }
+      it { expect(response).to have_http_status :success }
     end
   end
 
-  describe :show do
-    it_should_behave_like :entry_show do
-      before { create :favourite, user: user, linked: entry, kind: Favourite::Mangaka }
+  describe '#animes' do
+    context 'without_anime' do
+      before { get :animes, id: character.to_param }
+      it { expect(response).to redirect_to character }
     end
 
-    context 'sort: time' do
-      before { get :show, id: entry.to_param, sort: 'time', page: 'info' }
-
-      it { should respond_with 200 }
+    context 'with_animes' do
+      let!(:role) { create :person_role, :anime_role, character: character }
+      before { get :animes, id: character.to_param }
+      it { expect(response).to have_http_status :success }
     end
-
   end
 
-  describe :page do
-    it_should_behave_like :entry_page, :comments
+  describe '#mangas' do
+    context 'without_manga' do
+      before { get :mangas, id: character.to_param }
+      it { expect(response).to redirect_to character }
+    end
 
-    it_should_behave_like :entry_page, :cosplay do
-      before do
-        create :cosplay_gallery, links: [
-          create(:cosplay_gallery_link, linked: entry),
-          create(:cosplay_gallery_link, linked: create(:cosplayer))
-        ]
+    context 'with_mangas' do
+      let!(:role) { create :person_role, :manga_role, character: character }
+      before { get :mangas, id: character.to_param }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
+  describe '#comments' do
+    let!(:section) { create :section, :character }
+    let(:character) { create :character, :with_thread }
+    let!(:comment) { create :comment, commentable: character.thread }
+    before { get :comments, id: character.to_param }
+
+    it { expect(response).to redirect_to section_topic_url(id: character.thread, section: section, linked: character) }
+  end
+
+  describe '#art' do
+    before { get :art, id: character.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#favoured' do
+    let!(:favoured) { create :favourite, linked: character }
+    before { get :favoured, id: character.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#clubs' do
+    let(:group) { create :group, :with_thread, :with_member }
+    let!(:group_link) { create :group_link, linked: character, group: group }
+    before { get :clubs, id: character.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#tooltip' do
+    before { get :tooltip, id: character.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#autocomplete' do
+    let!(:character_1) { create :character, name: 'Fffff' }
+    before { get :autocomplete, search: 'Fff' }
+
+    it { expect(response).to have_http_status :success }
+    it { expect(response.content_type).to eq 'application/json' }
+  end
+
+  describe '#edit' do
+    context 'guest' do
+      let(:page) { nil }
+      before { get :edit, id: character.to_param }
+      it { expect(response).to redirect_to new_user_session_url }
+    end
+
+    context 'authenticated' do
+      include_context :authenticated, :user
+      before { get :edit, id: character.to_param, page: page }
+
+      describe 'description' do
+        let(:page) { nil }
+        it { expect(response).to have_http_status :success }
       end
-    end
 
-    it_should_behave_like :entry_page, :images do
-      before { create :attached_image, owner: entry }
-    end
-  end
+      describe 'russian' do
+        let(:page) { 'russian' }
+        it { expect(response).to have_http_status :success }
+      end
 
-  describe :edit do
-    it_should_behave_like :entry_edit, :russian
-    it_should_behave_like :entry_edit, :description
-  end
-
-  describe :tooltip do
-    context 'to_param' do
-      before { get :tooltip, id: entry.to_param }
-
-      it { should respond_with 200 }
-      it { should respond_with_content_type :html }
-    end
-
-    context 'id' do
-      before { get :tooltip, id: entry.id }
-      it { should redirect_to character_tooltip_url(entry) }
-    end
-  end
-
-  describe :autocomplete do
-    before do
-      create :character, name: 'Fffff'
-      create :character, name: 'zzz Ffff'
-      get :autocomplete, search: 'Fff', format: 'json'
-    end
-
-    it { should respond_with 200 }
-    it { should respond_with_content_type :json }
-
-    describe 'json' do
-      it { json.should have(2).items }
-      it { json.first.should have_key 'data' }
-      it { json.first.should have_key 'value' }
-      it { json.first.should have_key 'label' }
+      describe 'tags' do
+        let(:page) { 'tags' }
+        it { expect(response).to have_http_status :success }
+      end
     end
   end
 end

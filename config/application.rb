@@ -7,7 +7,10 @@ require 'rails/all'
 Bundler.require(:default, Rails.env)
 
 module Site
+  DOMAIN = 'shikimori.org'
+
   class Application < Rails::Application
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -31,6 +34,7 @@ module Site
 
     config.middleware.use 'Redirecter' unless Rails.env.development?
     config.middleware.insert_before 0, 'ProxyTest'
+    config.middleware.use 'Rack::JSONP'
     Paperclip.logger.level = 2
 
     # Enable the asset pipeline
@@ -40,18 +44,21 @@ module Site
 
     ActiveRecord::Base.include_root_in_json = false
     #config.active_record.disable_implicit_join_references = true
+    config.active_record.raise_in_transactional_callbacks = true
+
+    config.redis_db = 2
 
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += [ Proc.new { |path| !%w(.js .css).include?(File.extname(path)) }, /.*.(css|js)$/ ]
 
-    config.action_mailer.default_url_options = { host: 'shikimori.org' }
+    config.action_mailer.default_url_options = { host: Site::DOMAIN }
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { api_key: Rails.application.secrets.postmark[:api_key] }
 
     config.action_mailer.smtp_settings = {
       address: "smtp.gmail.com",
       port: 587,
-      domain: 'shikimori.org',
+      domain: Site::DOMAIN,
       user_name: Rails.application.secrets.smtp[:login],
       password: Rails.application.secrets.smtp[:password],
       authentication: 'plain',
@@ -66,13 +73,6 @@ module Site
       g.helper_specs false
       g.view_specs false
       g.test_framework :rspec
-    end
-
-    console do
-      Pry.config.print = -> (output, value) {
-        value = value.kind_of?(ActiveRecord::Relation) ? value.to_a : value
-        Pry::Helpers::BaseHelpers.stagger_output("=> #{value.ai}", output)
-      }
     end
   end
 end

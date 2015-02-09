@@ -10,9 +10,7 @@ class VideoExtractor::BaseExtractor
   def fetch
     VideoData.new hosting, image_url, player_url if valid_url? && opengraph_page?
 
-  rescue OpenURI::HTTPError => e
-  rescue EmptyContent => e
-  rescue URI::InvalidURIError => e
+  rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError, SocketError
   end
 
   def hosting
@@ -44,6 +42,6 @@ class VideoExtractor::BaseExtractor
   end
 
   def fetch_page
-    @fetched_page ||= open(@url).read
+    @fetched_page ||= open(@url, 'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36').read
   end
 end

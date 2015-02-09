@@ -1,6 +1,0 @@
-.item-editor
-  - if defined?(no_format)
-    = render partial: 'blocks/editor/changes', locals: { changes: [@entry], moderation: true, no_header: true }, formats: :html
-  - else
-    == format_tooltip do
-      = render partial: 'blocks/editor/changes', locals: { changes: [@entry], moderation: true, no_header: true }, formats: :html

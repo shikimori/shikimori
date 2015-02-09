@@ -1,17 +1,61 @@
+@import globals/variables
+
+=iphone
+  @media screen and (max-width: $iphone_max)
+    @content
+
+=iphone-portrait
+  @media screen and (max-width: $iphone) and (orientation: portrait)
+    @content
+
+=iphone-landscape
+  @media screen and (min-width: $iphone+1) and (max-width: $iphone_max), screen and (max-width: $iphone_max) and (orientation: landscape)
+    @content
+
+=ipad
+  @media screen and (min-width: $ipad) and (max-width: $ipad_max)
+    @content
+
+=ipad-landscape
+  @media screen and (max-width: $ipad_max) and (orientation: landscape)
+    @content
+
+=lte_ipad
+  @media screen and (max-width: $ipad_max)
+    @content
+
+=gt_ipad
+  @media only screen and (min-width: $ipad_max+1)
+    @content
+
+=gte_ipad
+  @media only screen and (min-width: $ipad)
+    @content
+
+=desktop
+  @media only screen and (min-width: $ipad+1)
+    @content
+
+=widescreen
+  @media only screen and (min-width: $widescreen)
+    @content
+
+
+// TODO: выпилить миксин
 =responsive($media)
   @if $media == narrow-phone
-    @media only screen and (max-width: 320px)
+    @media only screen and (max-width: $phone)
       @content
 
   @else if $media == phone
-    @media only screen and (max-width: 480px)
+    @media only screen and (max-width: $iphone)
       @content
 
   @else if $media == tablet
     /*@media only screen and (min-width: 768px) and (max-width: 980px) { @content; }
-    @media only screen and (max-width: 768px)
+    @media only screen and (max-width: $ipad)
       @content
 
   @else if $media == desktop
-    @media only screen and (min-width: 769px)
+    @media only screen and (min-width: $ipad+1)
       @content

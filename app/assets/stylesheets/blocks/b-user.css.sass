@@ -1,0 +1,109 @@
+@import compass/typography/text/ellipsis
+@import globals
+@import mixins/column
+@import mixins/date
+@import mixins/link
+@import mixins/responsive
+
+.b-user
+  &.avatar, &.named_avatar, &.avatar_fixed_margin
+    display: inline-block
+    line-height: 0
+
+    img
+      line-height: 0
+      max-width: 100%
+
+  &.avatar_fixed_margin
+    margin: 0 5px 4px 0
+
+  &.named_avatar
+    .avatar
+      display: block
+      line-height: 0
+      margin-bottom: 5px
+
+    &:hover .name
+      text-decoration: underline
+
+    .name
+      +ellipsis
+      +link
+      display: block
+      line-height: $line_height
+      text-align: center
+
+  &.detailed
+    border-bottom: 1px dashed #ddd
+    margin-bottom: 5px
+    height: 96px
+
+    &:last-child
+      border-bottom: none
+      margin-bottom: 0
+
+    .info
+      +column(2)
+
+      +iphone-portrait
+        +column(2, 6/10)
+
+      .last-online
+        font-size: 11px
+        line-height: 1.3
+        margin-top: 1px
+
+      .image-name
+        +link
+        display: inline
+
+        .image
+          float: left
+          height: 73px
+          padding: 2px 4px 4px 0
+          vertical-align: middle
+          width: 73px
+          margin-right: 10px
+
+        .name
+          +header-font
+          color: inherit
+          padding-top: 5px
+
+          &:hover
+            color: inherit
+
+          &:active
+            color: inherit
+
+    .history
+      +column(2)
+      float: right
+      margin-top: -3px
+
+      +iphone-portrait
+        +column(2, 4/10)
+
+        .date
+          display: none
+
+      .line
+        font-size: 12px
+        line-height: 20.34px
+        margin: 1px 0 2px
+        padding: 1px 3px 0 3px
+
+        .date
+          +date
+          float: right
+
+        .event
+          +ellipsis
+          color: #123
+          display: block
+
+        a
+          display: block
+
+          .event
+            +link

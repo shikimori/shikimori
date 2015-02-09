@@ -1,38 +1,78 @@
 class PeopleController < ShikimoriController
-  layout false, only: [:tooltip, :autocomplete]
-
   respond_to :html, only: [:show, :tooltip]
   respond_to :html, :json, only: :index
   respond_to :json, only: :autocomplete
 
-  caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
+  before_action :fetch_resource, if: :resource_id
+  before_action :resource_redirect, if: :resource_id
+  before_action :role_redirect, if: -> { resource_id && params[:action] != 'tooltip' }
 
-  # отображение списка людей
+  helper_method :search_url
+  #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
+
   def index
-    @query = PeopleQuery.new params
-    @people = postload_paginate(params[:page], 10) { @query.fetch }
-    @query.fill_works @people
-    direct
+    page_title search_title
+    page_title SearchHelper.unescape(params[:search])
+
+    search_query.fetch.to_sql
+    @collection = postload_paginate(params[:page], 48) { search_query.fetch }
   end
 
-  # отображение человка
   def show
-    @entry = PersonDecorator.find params[:id].to_i
-    direct
+    @itemtype = @resource.itemtype
+  end
 
-    unless @director.redirected?
-      redirect_to seyu_url(@entry) if @entry.seyu && !@entry.producer && !@entry.mangaka
+  def works
+    page_title 'Участие в проектах'
+  end
+
+  # TODO: удалить после 05.2015
+  def comments
+    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
+  end
+
+  def favoured
+    redirect_to @resource.url if @resource.all_favoured.none?
+    page_title 'В избранном'
+  end
+
+  def tooltip
+    @resource = SeyuDecorator.new @resource.object if @resource.main_role?(:seyu)
+  end
+
+  def autocomplete
+    @collection = PeopleQuery.new(params).complete
+  end
+
+private
+
+  def search_title
+    if params[:kind] == 'producer'
+      'Поиск режиссёров'
+    elsif params[:kind] == 'mangaka'
+      'Поиск мангак'
+    else
+      'Поиск людей'
     end
   end
 
-  # тултип
-  def tooltip
-    @entry = Person.find params[:id].to_i
-    direct
+  def search_url *args
+    if params[:kind] == 'producer'
+      search_producers_url(*args)
+    elsif params[:kind] == 'mangaka'
+      search_mangakas_url(*args)
+    else
+      search_people_url(*args)
+    end
   end
 
-  # автодополнение
-  def autocomplete
-    @items = PeopleQuery.new(params).complete
+  def search_query
+    PeopleQuery.new params
+  end
+
+  def role_redirect
+    if @resource.seyu && !(@resource.producer || @resource.mangaka)
+      redirect_to seyu_url(@resource)
+    end
   end
 end

@@ -14,16 +14,16 @@ class SeyuQuery < PeopleQuery
       .select([:person_id, :character_id])
       .to_a
 
-    anime_roles = PersonRole
+    animes = PersonRole
       .where(character_id: character_roles.map(&:character_id))
       .where.not(anime_id: 0)
       .select([:character_id, :anime_id])
       .to_a
 
-    anime_characters = anime_roles.each_with_object({}) do |role,memo|
+    anime_characters = animes.each_with_object({}) do |role,memo|
       (memo[role.anime_id] = memo[role.anime_id] || []) << role.character_id
     end
-    #character_animes = anime_roles.each_with_object({}) do |role,memo|
+    #character_animes = animes.each_with_object({}) do |role,memo|
       #(memo[role.character_id] = memo[role.character_id] || []) << role.anime_id
     #end
 
@@ -42,7 +42,7 @@ class SeyuQuery < PeopleQuery
     end
 
     animes = Anime
-      .where(id: anime_roles.map(&:anime_id))
+      .where(id: animes.map(&:anime_id))
       .order(score: :desc)
       .to_a
     characters = Character

@@ -1,25 +1,17 @@
-- unless json?
-  - content_for :head do
-    = stylesheet_link_tag :forum
-    - if @add_postloader
-      link rel="next" href="#{{section_url page: @page+1, section: @section[:permalink], linked: params[:linked]}}"
-    - if @page != 1
-      link rel="prev" href="#{{section_url page: @page == 2 ? nil : @page-1, section: @section[:permalink], linked: params[:linked]}}"
+- content_for :head do
+  - if @add_postloader
+    link rel="next" href="#{{section_url page: @page+1, section: @section[:permalink], linked: params[:linked]}}"
+  - if @page != 1
+    link rel="prev" href="#{{section_url page: @page == 2 ? nil : @page-1, section: @section[:permalink], linked: params[:linked]}}"
 
-  - content_for :tail do
-    = javascript_include_tag :forum
-
-- if @page == 1
   = auto_discovery_link_tag :rss, section_url(section: @section[:permalink], format: :rss), title: 'Топики раздела'
+
   - if @section[:id] == 'all'
     = auto_discovery_link_tag :rss, "http://feeds.feedburner.com/shikimori/anime", title: 'Новости аниме'
     = auto_discovery_link_tag :rss, "http://feeds.feedburner.com/shikimori/site", title: 'Новости сайта'
-  .section-block class="#{section_ids_class}"
-    = render partial: 'topics/topic', collection: @topics, formats: :html
-    - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { filter: 'topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil }, formats: :html
 
-- else
-  = render partial: 'topics/topic', collection: @topics, formats: :html
-  - if @add_postloader
-    = render partial: 'blocks/postloader', locals: { filter: 'topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil }, formats: :html
+= render layout: 'topics/page' do |f|
+  .b-forum.unprocessed data-faye="#{@faye_subscriptions if user_signed_in?}"
+    = render partial: 'topics/topic', collection: @topics
+    - if @add_postloader
+      = render 'blocks/postloader', filter: 'b-topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil

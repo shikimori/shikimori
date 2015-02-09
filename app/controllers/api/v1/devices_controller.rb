@@ -7,7 +7,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, "/devices", "List devices"
+  api :GET, '/devices', 'List devices'
   def index
     respond_with @devices
   end
@@ -30,7 +30,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :DELETE, "/devices/:id", "Destroy a device"
+  api :DELETE, '/devices/:id', 'Destroy a device'
   def destroy
     @device.destroy
     respond_with @device, location: nil

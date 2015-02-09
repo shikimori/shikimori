@@ -1,18 +1,16 @@
-@import globals
+@import mixins/link
 
 .b-comment-info
-  color: #555
+  color: $gray-color-2
   font-size: 12px
   line-height: 35px
   min-height: 23px !important
-  padding-top: 0
+  padding-top: 0 !important
+  margin-bottom: 0 !important
   text-align: center
 
-  a
-    +normal-link
+  a.b-user16
     padding-left: 5px
-    span
-      padding-left: 19px
-  img
-    position: absolute
-    margin-top: 9px
+
+    img
+      margin-top: 1px

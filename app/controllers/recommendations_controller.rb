@@ -1,5 +1,5 @@
 # TODO: отрефакторить толстый контроллер
-class RecommendationsController < AniMangasCollectionController
+class RecommendationsController < AnimesCollectionController
   before_filter :authenticate_user!, if: -> { json? }
 
   CookieName = 'rec_type'
@@ -13,9 +13,9 @@ class RecommendationsController < AniMangasCollectionController
     @threshold = params[:threshold].to_i
     @metric = params[:metric]
 
-    redirect_to recommendations_url(params.merge metric: 'pearson_z') and return if @metric.blank?
+    redirect_to recommendations_url(url_params(metric: 'pearson_z')) and return if @metric.blank?
     unless THRESHOLDS[@klass].include? @threshold
-      redirect_to recommendations_url(params.merge threshold: THRESHOLDS[@klass][-1])
+      redirect_to recommendations_url(url_params(threshold: THRESHOLDS[@klass][-1]))
       return
     end
 
@@ -32,7 +32,7 @@ class RecommendationsController < AniMangasCollectionController
       User.find_by_nickname(SearchHelper.unescape(params[:user])) || User.find_by_id(params[:user])
     end
 
-    @page_title = 'Рекомендации'
+    @page_title = "Рекомендации #{@klass == Anime ? 'аниме' : 'манги'}"
     @title_notice = "На данной странице отображен список #{@klass == Anime ? 'аниме' : 'манги'}, автоматически #{@klass == Anime ? 'подобранных' : 'подобранной'} сайтом, исходя из оценок похожих на вас людей"
 
     @rankings = Recommendations::Fetcher.new(user, @klass, @metric, @threshold).fetch

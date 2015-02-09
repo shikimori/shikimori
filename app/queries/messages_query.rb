@@ -1,43 +1,17 @@
-class MessagesQuery
-  def initialize user, type
-    @user = user
-    @type = type.to_sym
-  end
+class MessagesQuery < QueryObjectBase
+  pattr_initialize :user, :messages_type
 
-  def fetch page, limit
+  def query
     Message
-      .where(kind: kinds)
+      .where(kind: kinds_by_type)
       .where(id_field => @user.id, del_field => false)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .includes(:linked, :from, :to)
-      .order(:read, created_at: :desc)
-      .offset(limit * (page-1))
-      .limit(limit + 1)
+      .order(:read, id: :desc)
   end
 
-private
-  def ignores_ids
-    @ignores_ids ||= @user.ignores.map(&:target_id) << 0
-  end
-
-  def id_field
-    if @type == :sent
-      :from_id
-    else
-      :to_id
-    end
-  end
-
-  def del_field
-    if @type == :sent
-      :src_del
-    else
-      :dst_del
-    end
-  end
-
-  def kinds
-    case @type
+  def kinds_by_type
+    case @messages_type
       when :inbox
         [MessageType::Private]
 
@@ -63,6 +37,27 @@ private
 
       else
         '-1'
+    end
+  end
+
+private
+  def ignores_ids
+    @ignores_ids ||= @user.ignores.map(&:target_id) << 0
+  end
+
+  def id_field
+    if @messages_type == :sent
+      :from_id
+    else
+      :to_id
+    end
+  end
+
+  def del_field
+    if @messages_type == :sent
+      :src_del
+    else
+      :dst_del
     end
   end
 end

@@ -1,0 +1,149 @@
+@import compass/typography/text/ellipsis
+@import globals
+@import mixins/column
+@import mixins/link
+@import mixins/two_line_ellipsis
+
+$max_minified_width: 162px
+$max_width: 167px
+
+.b-catalog_entry
+  max-width: 460px
+
+  &.cc
+    .cover
+      +column(2, 0.4)
+    .content
+      +column(2, 0.6)
+
+    &.column-2
+      +iphone-landscape
+        .cover
+          +column(2, 0.35)
+        .content
+          +column(2, 0.65)
+
+  .cover
+    +link_color(#333333)
+    font-size: 12px
+    display: block
+
+    .image-decor
+      +image-selectable-decor
+      border: 1px solid darken($default-image-background, 6%)
+      display: block
+      line-height: 0px
+      margin-bottom: 5px
+      padding: 2.5%
+      max-width: $max_width
+
+      &:hover
+        border: 1px solid darken($default-image-hover-background, 6%)
+
+      &:active
+        border: 1px solid darken($default-image-active-background, 9%)
+
+      .image-cutter
+        display: block
+        line-height: 0
+        max-height: 239px
+        max-width: $max_minified_width - 2px
+        overflow: hidden
+
+      img
+        width: 100%
+
+    .title
+      +ellipsis
+      +link
+      display: block
+      font-weight: bold
+      line-height: $line_height
+      max-width: $max_width
+
+      &.two_lined
+        +two_line_ellipsis
+
+    &:hover .title
+      text-decoration: underline
+
+    .misc
+      color: #555
+      font-size: 11px
+      line-height: 17px
+      max-width: $max_width
+
+      &.centered
+        text-align: center
+
+      span
+        +ellipsis
+        color: #123
+        display: block
+        padding-right: 5px
+
+        &.relation
+          line-height: 1.4
+          margin-top: 2px
+          padding-right: 0
+          text-align: center
+          white-space: normal
+
+        &.anons
+          color: #307a3d
+
+        &.release
+          color: #ca4929
+
+        &.right
+          float: right
+          padding-right: 0
+
+        &.role
+          overflow: visible
+          white-space: normal
+
+        &.episode
+          .number
+            font-weight: bold
+
+          .type
+
+  .content
+    .tooltip-details
+      min-height: 100px
+
+  &.minified
+    .image-decor
+      padding: 0
+      max-width: $max_minified_width
+
+    .title
+      text-align: center
+      max-width: $max_minified_width
+
+      &.left_aligned
+        text-align: left
+
+    .misc
+      max-width: $max_minified_width
+
+
+  &.tooltipped
+    .content
+      display: none
+      cursor: default
+      z-index: 1
+
+    .tooltip-inner
+      min-height: 20px
+      width: 270px
+
+  //&.in_list
+    //.image-decor
+      //border-color: darken(#c2dff2, 6%)
+
+      //&:hover
+        //border-color: 1px solid darken(darken(#c2dff2, 6%), 6%)
+      //&:active
+        //border-color: 1px solid darken(darken(#c2dff2, 6%), 9%)

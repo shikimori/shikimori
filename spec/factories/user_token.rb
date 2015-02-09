@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :user_token do
-    user nil
+    user
+    provider 'facebook'
   end
 end

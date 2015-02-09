@@ -2,7 +2,6 @@
 class Review < ActiveRecord::Base
   include Antispam
   include Moderatable
-  include PermissionsPolicy
   include Viewable
 
   acts_as_voteable
@@ -16,15 +15,15 @@ class Review < ActiveRecord::Base
     foreign_key: :linked_id,
     dependent: :destroy
 
-  validates_presence_of :user, :target
+  validates :user, :target, presence: true
   validates :text, length: { minimum: 1000, too_short: "слишком короткий (минимум 1000 знаков)" }
-  validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"
-  validates_inclusion_of :animation, in: 1..10, message: "не имеет оценки"
-  validates_inclusion_of :characters, in: 1..10, message: "не имеют оценки"
-  validates_inclusion_of :music, in: 1..10, message: "не имеет оценки", if: -> { self.target_type != Manga.name  }
-  validates_inclusion_of :overall, in: 1..10, message: "не задана"
+  #validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"
+  #validates_inclusion_of :animation, in: 1..10, message: "не имеет оценки"
+  #validates_inclusion_of :characters, in: 1..10, message: "не имеют оценки"
+  #validates_inclusion_of :music, in: 1..10, message: "не имеет оценки", if: -> { self.target_type != Manga.name  }
+  #validates_inclusion_of :overall, in: 1..10, message: "не задана"
 
-  after_create :create_thread
+  after_create :generate_thread
 
   scope :pending, -> { where state: 'pending' }
   scope :visible, -> { where state: ['pending', 'accepted'] }
@@ -57,7 +56,7 @@ class Review < ActiveRecord::Base
   end
 
   # создание ReviewComment для элемента сразу после создания
-  def create_thread
+  def generate_thread
     ReviewComment.create!(
       linked_id: self.id,
       linked_type: self.class.name,
@@ -79,10 +78,9 @@ class Review < ActiveRecord::Base
 
   def votes_text
     if votes_for == votes_count
-      "#{votes_count} #{Russian.p(votes_count, 'пользователь', 'пользователя', 'пользователей')} #{votes_for > 1 ? 'посчитали' : 'посчитал'} этот обзор полезным"
+      "#{votes_count} #{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'} #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'} этот обзор полезным"
     else
-      #"#{votes_for} из #{votes_count} #{Russian.p(votes_count, 'пользователя', 'пользователей', 'пользователей')} #{Russian.p(votes_for == 0 ? 8 : votes_for, 'посчитал', 'посчитали', 'посчитало')} этот обзор полезным"
-      "#{votes_for} из #{votes_count} #{Russian.p(votes_count, 'пользователя', 'пользователей', 'пользователей')} #{votes_for > 1 ? 'посчитали' : 'посчитал'} этот обзор полезным"
+      "#{votes_for} из #{votes_count} #{Russian.p votes_count, 'пользователя', 'пользователей', 'пользователей'} #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'} этот обзор полезным"
     end
   end
 

@@ -1,3 +1,4 @@
+# не заменять на "class CommentDecorator < BaseDecorator" - ломает
 class CommentDecorator < Draper::Decorator
   delegate_all
 

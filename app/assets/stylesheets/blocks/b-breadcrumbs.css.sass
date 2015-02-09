@@ -1,13 +1,17 @@
-@import globals
+@import compass/typography/text/ellipsis
+@import globals/variables
+@import mixins/link
 
 .b-breadcrumbs
-  line-height: 17px
-  color: #333
-  margin: 2px 0 2px 1px
+  +ellipsis
   clear: left
+  color: #333
+  font-size: 12px
+  line-height: $line_height
+  margin: 2px 0 2px 1px
 
   a
-    +normal-link
+    +link
 
   &>span
     &:after

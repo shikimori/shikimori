@@ -1,0 +1,174 @@
+@import globals
+@import globals/fonts
+@import mixins/icons
+@import mixins/link
+
+.item-minus
+  +icon_button("-")
+
+.item-add
+  +icon_button("+")
+
+.item-sign
+  +icon_button("\e817")
+
+// разделы навигации
+.b-navigation, .sections
+  li span
+    display: block
+  .info
+    +menu_icon("\e823")
+  .stats
+    +menu_icon("\e81d")
+  .characters
+    +menu_icon("\e81e")
+  .similar
+    +menu_icon("\e82a")
+  .reviews, .reviews-index
+    +menu_icon("\e820")
+  .cosplay
+    +menu_icon("\e831")
+  .screenshots
+    +menu_icon("\e82c")
+  .videos
+    +menu_icon("\e82b")
+  .images
+    +menu_icon("\e809")
+  .files
+    +menu_icon("\e82d")
+  .comments
+    +menu_icon("\e80e")
+  // группы
+  .members
+    +menu_icon("\e824")
+  .settings
+    +menu_icon("\e822")
+
+// действия
+.actions
+  li span
+    display: block
+  .comment
+    +menu_icon("\e80e")
+  .reviews-edit
+    +menu_icon("\e820")
+  .list-add
+    +menu_icon("+")
+  .list-remove
+    +menu_icon("-")
+  .fav-remove
+    +menu_icon("\e829")
+  .fav-add
+    +menu_icon("\e819")
+  .edit-entry
+    +menu_icon("\e822")
+    // TODO: удалить из шрифта
+    +menu_icon("\e814")
+  // группы
+  .upload
+    +menu_icon("\e80c")
+  .invite
+    +menu_icon("\e826")
+  .join
+    +menu_icon("\e826")
+  .leave
+    +menu_icon("\e827")
+
+.profile-actions
+  & > a:first-child, & > span:first-child
+    margin-left: 0
+  // дейсвтия в профиле
+  .fav-add
+    +icon_button("\e819")
+  .fav-remove
+    +icon_button("\e819")
+    +link_color
+  .ban
+    +icon_button("\e80a")
+  .ignore-add
+    +icon_button("\e812")
+  .ignore-remove
+    +icon_button("\e812")
+    +link_color
+  .talk
+    +icon_button("\e81f")
+  .mail
+    +icon_button("\e81f")
+  .settings
+    +icon_button("\e822")
+
+.icon-actions
+  text-align: center
+
+  // дейсвтия над аниме
+  .fav-add
+    +icon_action("\e819")
+  .fav-remove
+    +icon_action("\e819")
+    +link_color
+  .edit
+    +icon_action("\e822")
+  .new_review
+    +icon_action("\e820")
+  .new_comment
+    +icon_action("\e80e")
+
+/* редактирование
+// TODO: не используется. выпилить
+.editions
+  .edit-description
+    +menu_icon("\e82e")
+  .edit-russian
+    +menu_icon("\e82f")
+  .edit-screenshots
+    +menu_icon("\e82c")
+  .edit-videos
+    +menu_icon("\e82b")
+  .edit-cancel
+    +menu_icon("\e830")
+  .edit-torrents_name
+    +menu_icon("\e82d")
+
+/* переводы
+.translations
+  .translation_planned
+    +menu_icon("\e818")
+  .translation_finished
+    +menu_icon("\e825")
+
+/* статусы просмотра/чтения
+.rate-statuses
+  #rate-status-0
+    +menu_icon("\e833")
+  #rate-status-1
+    +menu_icon("\e834")
+  #rate-status-2
+    +menu_icon("\e835")
+  #rate-status-3
+    +menu_icon("\e836")
+  #rate-status-4
+    +menu_icon("\e837")
+
+/* профиль пользователя
+/*.profile .left-block {
+/*.changes {
+/*@include menu_icon('\e821');
+/*}
+/*}
+
+.rss
+  +icon_button("\e81a")
+  color: $gray-color !important
+  float: right
+  margin-right: -7px !important
+  margin-top: -3px
+  &:before
+    font-size: 12px !important
+  &:hover
+    color: $link_hover !important
+    text-decoration: none !important
+  &:active
+    color: $link_active !important
+  &:after
+    content: "" !important
+

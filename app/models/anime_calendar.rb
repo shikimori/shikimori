@@ -5,9 +5,7 @@ require 'set'
 class AnimeCalendar < ActiveRecord::Base
   belongs_to :anime
 
-  validates_presence_of :anime
-  validates_presence_of :episode
-  validates_presence_of :start_at
+  validates :anime, :episode, :start_at, presence: true
 
   FIXES_MATCHED = 'FIXES_MATCHED'
 

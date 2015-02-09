@@ -1,0 +1,111 @@
+= cache [user_change, user_signed_in? && current_user.user_changes_moderator?, current_user && current_user.admin?] do
+  .b-log_entry
+    span.id-label #
+    span = user_change.id
+    span.date
+      = user_change.created_at.strftime('%d.%m.%Y')
+
+    .b-user16
+      a href="#{profile_url user_change.user}" title="#{user_change.user.nickname}"
+        img src="#{user_change.user.avatar_url 16}" srcset="#{user_change.user.avatar_url 32} 2x" alt="#{user_change.user.nickname}" title="#{user_change.user.nickname}"
+        span = user_change.user.nickname
+
+    span.column
+      = user_change.column
+    span.id
+      - if user_change.item
+        a.bubbled href="#{url_for user_change.item}" = user_change.item.name
+      - else
+        = t "Deleted.#{user_change.model}"
+
+    - if user_change.screenshots?
+      - if user_change.action == UserChange::ScreenshotsPosition
+        span Порядок кадров
+      - elsif user_change.action == UserChange::ScreenshotsUpload
+        span #{user_change.value.include?(',') ? 'Новые кадры' : 'Новый кадр'}
+      - else
+        span #{user_change.value.include?(',') ? 'Удаление кадров' : 'Удаление кадра'}
+
+    - if user_change.video?
+      - if user_change.action == UserChange::VideoUpload
+        span Новое видео
+      - elsif user_change.action == UserChange::VideoDeletion
+        span Удаление видео
+
+    span.state class="#{user_change.status.downcase}"
+      = t "UserChangeStatus.#{user_change.status}"
+
+    - if user_change.approver.present?
+      span
+        = user_change.approver.nickname
+
+    .spoiler.collapse
+      span.action.half-hidden style="display: none;" развернуть
+    .collapsed.spoiler изменения
+
+    .spoiler.target style="display: none;"
+      .moderation
+        - if user_change[:locked]
+          p сначала предыдущие правки
+        - elsif user_change.pending?
+          - if user_change.column == 'torrents_name' && user_signed_in? && !current_user.admin?
+            p эту правку посмотрит morr
+          - elsif user_signed_in? && current_user.user_changes_moderator?
+            - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? user_change.column
+              a href="#{take_moderation_user_change_url user_change, is_applied: true}" data-method="post" title="Применить правку" принять
+            a href="#{take_moderation_user_change_url user_change}" data-method="post" title="Применить правку, но НЕ учтывать пользователя среди авторов" взять
+            a href="#{deny_moderation_user_change_url user_change}" data-method="post" title="Отменить правку и послать пользователю уведомление об этом" отклонить
+          - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == user_change.user_id)
+            a href="#{deny_moderation_user_change_url user_change, is_deleted: true}" data-method="post" title="Отменить правку и не посылать пользователю уведомление об этом" удалить
+      .clearfix
+
+      - if user_change.screenshots?
+        - if user_change.action == UserChange::ScreenshotsPosition
+          .screenshots-compare
+            .after
+              p Стало
+              - user_change.positioned_screenshots.each do |image|
+                img src="#{image.image.url :preview, false}"
+            .before
+              p Было
+              / для не принятых правок берём текущие скриншоты, а при просмотре истории отображаем запомненные
+              - (user_change.pending? ? user_change.current_screenshots : user_change.positioned_screenshots(user_change.prior)).each do |image|
+                img src="#{image.image.url :preview, false}"
+        - else
+          .cc.m0
+            = render partial: 'screenshots/screenshot', collection: user_change.attached_screenshots
+
+      - elsif user_change.video?
+        blockquote
+          .quoteable
+            = user_change.attached_video.kind
+            span.name
+              = user_change.attached_video.name
+          == BbCodeFormatter.instance.format_comment user_change.attached_video.url
+      - else
+        .comment-block
+          - if user_change.prior || user_change.pending?
+            blockquote
+              .quoteable Было
+              p
+                = user_change.prior || user_change.current_prior
+          blockquote
+            .quoteable
+              - if user_change.prior || user_change.pending?
+                | Стало
+              - else
+                | Изменение
+            p
+              = user_change.value
+          - if user_change.prior || user_change.pending?
+            blockquote
+              .quoteable Изменения
+              p
+                = sanitize user_change.get_diff
+          - if user_change.source.present?
+            p.source
+              b Источник:&nbsp;
+              a href="#{user_change.source}"
+                = h(user_change.source).sub(/^https?:\/\//, '')
+
+      span.closing

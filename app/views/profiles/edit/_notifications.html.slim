@@ -1,0 +1,107 @@
+= simple_form_for @resource.object, url: profile_url(@resource) do |f|
+  input type="hidden" name="page" value="#{@page}"
+  input type="hidden" name="user[notifications][nothing]" value="0"
+
+  table.b-table
+    tr
+      th.name Тип уведомления
+      th.num TV
+      th.num Movie
+      th.num OVA
+    tr.border
+      th colspan="4"
+    tr
+      td.name Новый анонс, появление нового анонсированного аниме на сайте
+      td.num
+        = check_box_tag 'user[notifications][anons_tv]', User::ANONS_TV_NOTIFICATIONS, @resource.notifications & User::ANONS_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ANONS_TV_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][anons_movie]', User::ANONS_MOVIE_NOTIFICATIONS, @resource.notifications & User::ANONS_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ANONS_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][anons_ova]', User::ANONS_OVA_NOTIFICATIONS, @resource.notifications & User::ANONS_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ANONS_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off
+    tr
+      td.name Новый онгоинг (выход первой серии любого онгоинга)
+      td.num
+        = check_box_tag 'user[notifications][ongoing_tv]', User::ONGOING_TV_NOTIFICATIONS, @resource.notifications & User::ONGOING_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ONGOING_TV_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][ongoing_movie]', User::ONGOING_MOVIE_NOTIFICATIONS, @resource.notifications & User::ONGOING_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ONGOING_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][ongoing_ova]', User::ONGOING_OVA_NOTIFICATIONS, @resource.notifications & User::ONGOING_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::ONGOING_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off
+    tr
+      td.name Новый онгоинг (выход первой серии только добавленного в мой список онгоинга)
+      td.num
+        = check_box_tag 'user[notifications][my_ongoing_tv]', User::MY_ONGOING_TV_NOTIFICATIONS, @resource.notifications & User::MY_ONGOING_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_ONGOING_TV_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][my_ongoing_movie]', User::MY_ONGOING_MOVIE_NOTIFICATIONS, @resource.notifications & User::MY_ONGOING_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_ONGOING_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][my_ongoing_ova]', User::MY_ONGOING_OVA_NOTIFICATIONS, @resource.notifications & User::MY_ONGOING_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_ONGOING_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off
+    tr
+      td.name Новый релиз (выход последней серии любого онгоинга)
+      td.num
+        = check_box_tag 'user[notifications][release_tv]', User::RELEASE_TV_NOTIFICATIONS, @resource.notifications & User::RELEASE_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::RELEASE_TV_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][release_movie]', User::RELEASE_MOVIE_NOTIFICATIONS, @resource.notifications & User::RELEASE_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::RELEASE_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][release_ova]', User::RELEASE_OVA_NOTIFICATIONS, @resource.notifications & User::RELEASE_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::RELEASE_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off
+    tr
+      td.name Новый релиз (выход последней серии только добавленного в мой список онгоинга)
+      td.num
+        = check_box_tag 'user[notifications][my_release_tv]', User::MY_RELEASE_TV_NOTIFICATIONS, @resource.notifications & User::MY_RELEASE_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_RELEASE_TV_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][my_release_movie]', User::MY_RELEASE_MOVIE_NOTIFICATIONS, @resource.notifications & User::MY_RELEASE_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_RELEASE_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][my_release_ova]', User::MY_RELEASE_OVA_NOTIFICATIONS, @resource.notifications & User::MY_RELEASE_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_RELEASE_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off
+    tr
+      td.name Выход эпизода добавленного в мой список онгоинга
+      td.num
+        = check_box_tag 'user[notifications][my_episode_tv]', User::MY_EPISODE_TV_NOTIFICATIONS, @resource.notifications & User::MY_EPISODE_TV_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_EPISODE_TV_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][my_episode_movie]', User::MY_EPISODE_MOVIE_NOTIFICATIONS, @resource.notifications & User::MY_EPISODE_MOVIE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_EPISODE_MOVIE_NOTIFICATIONS != 0, 'autocomplete' => :off
+      td.num
+        = check_box_tag 'user[notifications][my_episode_ova]', User::MY_EPISODE_OVA_NOTIFICATIONS, @resource.notifications & User::MY_EPISODE_OVA_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::MY_EPISODE_OVA_NOTIFICATIONS != 0, 'autocomplete' => :off
+
+  .b-table style="display: none;"
+    tr
+      th.name Уведомления на e-mail
+      th.num Тип
+    tr.border
+      th colspan="4"
+    tr
+      td.name По одному письму на каждое уведомления
+      td.num
+        = radio_button_tag 'user[notifications][notifications_to_email]', User::NOTIFICATIONS_TO_EMAIL_SIMPLE, @resource.notifications & User::NOTIFICATIONS_TO_EMAIL_SIMPLE != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NOTIFICATIONS_TO_EMAIL_SIMPLE != 0
+    tr
+      td.name Группировать уведомления и слать мне один раз в сутки
+      td.num
+        = radio_button_tag 'user[notifications][notifications_to_email]', User::NOTIFICATIONS_TO_EMAIL_GROUP, @resource.notifications & User::NOTIFICATIONS_TO_EMAIL_GROUP != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NOTIFICATIONS_TO_EMAIL_GROUP != 0
+    tr
+      td.name Не слать уведомления мне на e-mail
+      td.num
+        = radio_button_tag 'user[notifications][notifications_to_email]', User::NOTIFICATIONS_TO_EMAIL_NONE, @resource.notifications & User::NOTIFICATIONS_TO_EMAIL_NONE != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NOTIFICATIONS_TO_EMAIL_NONE != 0
+
+  table.b-table
+    tr
+      th.name Письма
+      th.num
+    tr.border
+      th colspan="4"
+    tr
+      td.name
+        label for="notifications_private_messages_to_email" Отсылать личные сообщения мне на e-mail
+      td.num
+        = check_box_tag 'user[notifications][private_messages_to_email]', User::PRIVATE_MESSAGES_TO_EMAIL, @resource.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::PRIVATE_MESSAGES_TO_EMAIL != 0, 'autocomplete' => :off
+
+  table.b-table
+    tr
+      th.name Прочее
+      th.num
+    tr.border
+      th colspan="4"
+    tr
+      td.name
+        label for="notifications_nickname_change_notifications" Уведомления о смене ников друзей
+      td.num
+        = check_box_tag 'user[notifications][nickname_change_notifications]', User::NICKNAME_CHANGE_NOTIFICATIONS, @resource.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NICKNAME_CHANGE_NOTIFICATIONS != 0, 'autocomplete' => :off
+
+  .buttons
+    a.cancel href="#{profile_url @resource}" Отмена
+    = f.submit

@@ -1,13 +1,31 @@
 @import compass/css3/border-radius
+@import mixins/responsive
+@import mixins/placeholder
 
 =input
   +border-radius(0)
-  &[type=text], &[type=password], &[type=email]
+  &[type=submit], &[type=text], &[type=password], &[type=email]
     -webkit-appearance: none
   background-color: #fcfcfc
   border-color: #ddd
   color: #333
   line-height: 14px
   margin: 0
-  padding-left: 5px
-  width: 375px
+  padding: 1px 0 1px 5px
+
+  +placeholder
+    line-height: 14px
+    color: #999
+    padding-top: 1px
+
+    +iphone
+      padding-top: 0
+      line-height: 23px
+
+  +gte_ipad
+    //line-height: 14px
+    width: 375px
+
+  +iphone
+    line-height: 23px
+    width: 100%

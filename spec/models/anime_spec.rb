@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 describe Anime do
-  context :relations do
+  describe 'relations' do
     it { should have_and_belong_to_many :genres }
     it { should have_and_belong_to_many :studios }
 
@@ -43,9 +41,10 @@ describe Anime do
     it { should have_many :recommendation_ignores }
 
     it { should have_many :anime_videos }
+    it { should have_many :episode_notifications }
   end
 
-  context :hooks do
+  context 'hooks' do
     it { expect{create :anime, :with_thread}.to change(AniMangaComment, :count).by 1 }
   end
 
@@ -89,7 +88,7 @@ describe Anime do
           expect {
             anime.update_attribute :status, AniMangaStatus::Ongoing
           }.to_not change(AnimeNews, :count)
-          anime.status.should == AniMangaStatus::Anons
+          expect(anime.status).to eq(AniMangaStatus::Anons)
         end
 
         it 'Ongoing to Anons' do
@@ -98,7 +97,7 @@ describe Anime do
           expect {
             anime.update_attribute :status, AniMangaStatus::Anons
           }.to_not change(AnimeNews, :count)
-          anime.status.should == AniMangaStatus::Anons
+          expect(anime.status).to eq(AniMangaStatus::Anons)
         end
 
         it 'Ongoing to Release' do
@@ -107,7 +106,7 @@ describe Anime do
           expect {
             anime.update_attribute :status, AniMangaStatus::Released
           }.to change(AnimeNews, :count).by 1
-          anime.status.should == AniMangaStatus::Released
+          expect(anime.status).to eq(AniMangaStatus::Released)
         end
 
         it "should not crete news for ancient releases" do
@@ -125,14 +124,14 @@ describe Anime do
           expect {
             anime.update_attributes(status: AniMangaStatus::Released)
           }.to_not change(AnimeNews, :count)
-          anime.status.should == AniMangaStatus::Ongoing
+          expect(anime.status).to eq(AniMangaStatus::Ongoing)
 
           # менее одного дня - меняем статус
           anime.update_attributes(released_on: DateTime.now + 1.hour)
           expect {
             anime.update_attributes(status: AniMangaStatus::Released)
           }.to change(AnimeNews, :count)
-          anime.status.should == AniMangaStatus::Released
+          expect(anime.status).to eq(AniMangaStatus::Released)
         end
 
         it 'Ongoing to Release with released_on more than 2.weeks.ago' do
@@ -141,8 +140,8 @@ describe Anime do
           anime.update_attributes(status: AniMangaStatus::Released, released_on: DateTime.now - 15.days)
           news = AnimeNews.last
 
-          news.processed.should be(true)
-          news.created_at.to_date.should eq anime.released_on
+          expect(news.processed).to be(true)
+          expect(news.created_at.to_date).to eq anime.released_on
         end
 
         it 'Ongoing to Released to Ongoing to Released' do
@@ -152,12 +151,12 @@ describe Anime do
           expect {
             anime.update_attribute :status, AniMangaStatus::Ongoing
           }.to_not change(AnimeNews, :count)
-          anime.status.should == AniMangaStatus::Ongoing
+          expect(anime.status).to eq(AniMangaStatus::Ongoing)
 
           expect {
             anime.update_attribute :status, AniMangaStatus::Released
           }.to_not change(AnimeNews, :count)
-          anime.status.should == AniMangaStatus::Released
+          expect(anime.status).to eq(AniMangaStatus::Released)
         end
 
         it "'' to #{AniMangaStatus::Released}" do
@@ -175,7 +174,7 @@ describe Anime do
           expect {
             anime.update_attribute :episodes_aired, 1
           }.to change(AnimeNews.where(action: AnimeHistoryAction::Ongoing), :count).by 1
-          anime.status.should == AniMangaStatus::Ongoing
+          expect(anime.status).to eq(AniMangaStatus::Ongoing)
         end
 
         it 'Ongoing with episodes_aired == episodes becomes Released' do
@@ -184,7 +183,7 @@ describe Anime do
           expect {
             anime.update_attribute :episodes_aired, 2
           }.to change(AnimeNews.where(action: AnimeHistoryAction::Release), :count).by 1
-          anime.status.should == AniMangaStatus::Released
+          expect(anime.status).to eq(AniMangaStatus::Released)
         end
       end
     end
@@ -217,7 +216,7 @@ describe Anime do
         @anime.check_aired_episodes([
             {title: "[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
           ])
-        @anime.episodes_aired.should be(2)
+        expect(@anime.episodes_aired).to be(2)
       end
 
       it "wrong episode number shouldn't affect anime if episodes is specified" do
@@ -225,7 +224,7 @@ describe Anime do
           @anime.check_aired_episodes([
               {title: "[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
             ])
-          @anime.episodes_aired.should be(episodes_aired)
+          expect(@anime.episodes_aired).to be(episodes_aired)
         }.to_not change(AnimeNews, :count)
       end
 
@@ -235,7 +234,7 @@ describe Anime do
           @anime.check_aired_episodes([
               {title: "[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
             ])
-          @anime.episodes_aired.should be 99
+          expect(@anime.episodes_aired).to be 99
         }.to change(AnimeNews, :count).by 1
       end
     end
@@ -261,11 +260,11 @@ describe Anime do
 
   describe 'matches_for' do
     def positive_match(string, options)
-      build(:anime, options).matches_for(string).should be_true
+      expect(build(:anime, options).matches_for(string)).to be_truthy
     end
 
     def negative_match(string, options)
-      build(:anime, options).matches_for(string).should be_false
+      expect(build(:anime, options).matches_for(string)).to be_falsy
     end
 
     it 'works' do
@@ -343,34 +342,34 @@ describe Anime do
     end
   end
 
-  describe :adult? do
+  describe 'adult?' do
     subject { anime.adult? }
 
-    context :by_rating do
+    context 'by_rating' do
       let(:anime) { build :anime, rating: rating }
 
-      context :false do
+      context 'false' do
         let(:rating) { 'G - All Ages' }
-        it { should be_false }
+        it { should be_falsy }
       end
 
-      context :true do
+      context 'true' do
         let(:rating) { 'R+ - Mild Nudity' }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
 
-    context :censored do
+    context 'censored' do
       let(:anime) { build :anime, censored: censored }
 
-      context :false do
+      context 'false' do
         let(:censored) { false }
-        it { should be_false }
+        it { should be_falsy }
       end
 
-      context :true do
+      context 'true' do
         let(:censored) { true }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
   end

@@ -10,6 +10,7 @@ class OmniauthService
       fill_vkontakte_fields if vkontakte?
     end
     fill_common_fields
+    @user.nickname = @user.nickname[0..User::MAX_NICKNAME_LENGTH-1] if @user.nickname.length >= User::MAX_NICKNAME_LENGTH
     build_token
 
     @user.nickname = 'Новый пользователь' if @user.nickname.blank?
@@ -75,7 +76,7 @@ private
     values = [rand(0x0010000), rand(0x0010000), rand(0x0010000), rand(0x0010000), rand(0x0010000), rand(0x1000000), rand(0x1000000)]
     fast_token = "%04x%04x%04x%04x%04x%06x%06x" % values
 
-    "generated_#{fast_token}@shikimori.org"
+    "generated_#{fast_token}@#{Site::DOMAIN}"
   end
 
   def facebook?

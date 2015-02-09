@@ -1,21 +1,18 @@
-require 'spec_helper'
-
 describe RecommendationIgnoresController do
   let(:user) { create :user }
   before { sign_in user }
 
-  describe :create do
+  describe '#create' do
     let(:anime) { create :anime, kind: 'Special' }
-    let(:json) { JSON.parse response.body }
 
     before { post :create, target_type: Anime.name, target_id: anime.id }
 
-    it { should respond_with 200 }
-    it { should respond_with_content_type :json }
-    it { json.should eql [anime.id] }
+    it { expect(response).to have_http_status :success }
+    it { expect(response.content_type).to eq 'application/json' }
+    it { expect(json).to eql [anime.id] }
   end
 
-  describe :cleanup do
+  describe '#cleanup' do
     let(:anime1) { create :anime, kind: 'Special' }
     let(:anime2) { create :anime }
     let(:anime3) { create :anime }
@@ -28,8 +25,7 @@ describe RecommendationIgnoresController do
       delete :cleanup, target_type: 'anime'
     end
 
-    it { should respond_with 302 }
-    it { RecommendationIgnore.blocked(Anime, user).should be_empty }
-    it { RecommendationIgnore.blocked(Anime, user) }
+    it { expect(response).to have_http_status :success }
+    it { expect(RecommendationIgnore.blocked(Anime, user)).to be_empty }
   end
 end

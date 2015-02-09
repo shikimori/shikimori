@@ -3,13 +3,13 @@
 
 header.head.misc
   h1
-    = @page_title.first
+    = @page_title.last
     = link_to 'создать', new_cosplay_url, class: 'misc'
   p.notice.clearfix Список косплея на модерацию
 
 .cosplay-mod.index
   .subheadline Инструкция
-  .item-content.menu-block
+  .item-content.block
     .comment-block
       .moderators
         = render partial: 'blocks/user', collection: @moderators, locals: { avatar_size: 48 }

@@ -1,76 +1,74 @@
-- content_for :head do
-  = stylesheet_link_tag :anime_history
 - content_for :tail do
-  = javascript_include_tag :anime_history
+  = javascript_include_tag 'highcharts.v3.0.5.min'
+  = javascript_include_tag 'lib/highcharts'
+  = javascript_include_tag 'anime_history'
 
-.statistics.item-content.ajax
-  header.new-header
-    h1 = @page_title
-    p.description = @page_description
+header.head
+  h1 = @page_title
+  p.notice = @page_description
 
-  javascript:
-    total = #{{@total.to_json}};
-    by_kind = #{{@by_kind.to_json}};
-    by_rating = #{{@by_rating.to_json}};
-    by_genre = #{{@by_genre.to_json}};
-    by_studio = #{{@by_studio.to_json}};
+javascript:
+  total = #{{@total.to_json}};
+  by_kind = #{{@by_kind.to_json}};
+  by_rating = #{{@by_rating.to_json}};
+  by_genre = #{{@by_genre.to_json}};
+  by_studio = #{{@by_studio.to_json}};
 
-  .group
-    .headline.blue Общее
-    p Общее количество по типам и оценкам зрителей:
-    #image_placeholder
-      img src="/images/static/stats.png" alt="Статистика аниме" title="Статистика аниме"
-    #total style="min-width: 800px; height: 400px; margin: 0 auto"
+.block
+  .headline.blue Общее
+  p Общее количество по типам и оценкам зрителей:
+  #image_placeholder
+    img src="/images/static/stats.png" alt="Статистика аниме" title="Статистика аниме"
+  #total style="min-width: 800px; height: 400px; margin: 0 auto"
 
-    p.m10 Распределение по годам выпуска:
-    #by_kind style="min-width: 400px; height: 400px; margin: 0 auto"
+  p.m10 Распределение по годам выпуска:
+  #by_kind style="min-width: 400px; height: 400px; margin: 0 auto"
 
-  .group
-    .headline.green Возрастной рейтинг
-    .forum-nav.by_rating
-      nav.sections
-        - @rating_kinds.each do |kind|
-          a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
-            = kind
+.block
+  .headline.green Возрастной рейтинг
+  .forum-nav.by_rating
+    nav.sections
+      - @rating_kinds.each do |kind|
+        a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
+          = kind
 
-    p Распределение по годам с учётом возрастного рейтинга:
-    #by_rating style="min-width: 400px; height: 400px; margin: 0 auto"
-    p Интересно, как меняется аудитория со временем: доля детского аниме неуклонно снижается, а подросткового и "взрослого" рисуется всё больше, причём ориентация неуклонно смещается в сторону совершеннолетнего зрителя. А OVA и вовсе выпускают лишь для платёжеспособной аудитории, причём значительная доля тайтлов приходится на хентай. И кто тут говорит, что аниме - это детские мультики?
+  p Распределение по годам с учётом возрастного рейтинга:
+  #by_rating style="min-width: 400px; height: 400px; margin: 0 auto"
+  p Интересно, как меняется аудитория со временем: доля детского аниме неуклонно снижается, а подросткового и "взрослого" рисуется всё больше, причём ориентация неуклонно смещается в сторону совершеннолетнего зрителя. А OVA и вовсе выпускают лишь для платёжеспособной аудитории, причём значительная доля тайтлов приходится на хентай. И кто тут говорит, что аниме - это детские мультики?
 
-  .group
-    .headline.red Жанры
-    .forum-nav.by_genre
-      nav.sections
-        - @rating_kinds.each do |kind|
-          a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
-            = kind
-    p Как с годами менялись жанровые предпочтения зрителей:
-    #by_genre style="width: 975px; height: 600px; margin: 0 auto"
-    p Практически полностью исчезла с экранов меха и каждый год снижается доля приключений с фантастикой, но всё больше и больше делают мистики. Про смену ориентации на более взрослую аудиторию писалось выше, и здесь мы видим подтверждение: растёт число этти, гаремников, сейненов и даже появляется немного дзёсея.
+.block
+  .headline.red Жанры
+  .forum-nav.by_genre
+    nav.sections
+      - @rating_kinds.each do |kind|
+        a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
+          = kind
+  p Как с годами менялись жанровые предпочтения зрителей:
+  #by_genre style="width: 975px; height: 600px; margin: 0 auto"
+  p Практически полностью исчезла с экранов меха и каждый год снижается доля приключений с фантастикой, но всё больше и больше делают мистики. Про смену ориентации на более взрослую аудиторию писалось выше, и здесь мы видим подтверждение: растёт число этти, гаремников, сейненов и даже появляется немного дзёсея.
 
-  .group
-    .headline.orange Студии
-    .forum-nav.by_studio
-      nav.sections
-        - ['TV'].each do |kind|
-          a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
-            = kind
-    p Аниме последнего десятилетия в разрезе по студиям:
-    /= spoiler('большой график со всеми более-менее крупными студиями двухтысячных годов') do
-    #by_studio style="width: 975px; height: 800px; margin: 0 auto"
-    - if !user_signed_in? || current_user.preferences.show_social_buttons?
-      div.social.addthis_toolbox.addthis_default_style.addthis_32x32_style
-        a.addthis_button_vk
-        a.addthis_button_facebook
-        a.addthis_button_twitter
-        a.addthis_button_google_plusone_share
-        a.addthis_button_odnoklassniki_ru
-        a.addthis_button_compact
-    p Ничего интересного тут в принципе нет, можно лишь посмотреть, как росла и падала доля различных студий.
-    p Все мелкие студии, выпустившие менее 10 аниме за десятилетие, отнесены в "Прочее" (отключено по-умолчанию).
+.block
+  .headline.orange Студии
+  .forum-nav.by_studio
+    nav.sections
+      - ['TV'].each do |kind|
+        a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
+          = kind
+  p Аниме последнего десятилетия в разрезе по студиям:
+  /= spoiler('большой график со всеми более-менее крупными студиями двухтысячных годов') do
+  #by_studio style="width: 975px; height: 800px; margin: 0 auto"
+  - if show_social?
+    div.social.addthis_toolbox.addthis_default_style.addthis_32x32_style
+      a.addthis_button_vk
+      a.addthis_button_facebook
+      a.addthis_button_twitter
+      a.addthis_button_google_plusone_share
+      a.addthis_button_odnoklassniki_ru
+      a.addthis_button_compact
+  p Ничего интересного тут в принципе нет, можно лишь посмотреть, как росла и падала доля различных студий.
+  p Все мелкие студии, выпустившие менее 10 аниме за десятилетие, отнесены в "Прочее" (отключено по-умолчанию).
 
-  .forum-container
-    .comments.zero-margin.zero-top-border
-      .headline.magenta Комментарии
-      a.to-main-topic href="#{topic_url @topic.object}" Перейти к топику с основным обсуждением (#{@topic.folded_comments} #{Russian.p @topic.folded_comments, 'комментарий', 'комментария', 'комментариев'})
-      = render partial: 'comments/comments.html', locals: { object: @topic.topic, comments: @topic.comments, bottom_add_block: true }
+.subheadline.m3 Комментарии
+div
+  .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
+    = render 'topics/comments', topic: @topic

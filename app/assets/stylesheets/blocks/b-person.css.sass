@@ -1,0 +1,33 @@
+@import compass/typography/text/ellipsis
+@import globals
+@import mixins/hover_underlined
+
+// TODO: выпилить
+.b-person
+  img
+    max-width: 100%
+    margin-bottom: 5px
+
+  .name, .role
+    padding: 0px
+    text-align: center
+    display: block
+
+  .role
+    font-size: 11px
+    color: #123
+    line-height: 1.4
+    margin-top: 2px
+
+  .name
+    +normal-link
+    +hover_underlined
+    font-size: 12px
+    font-weight: bold
+    line-height: $line_height
+
+  .linkeable, .linkeable-processed
+    line-height: 0
+
+  &:hover .name
+    text-decoration: underline

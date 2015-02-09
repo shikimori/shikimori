@@ -1,20 +1,64 @@
-<header class="head">
-  <h1>
-    NOOOOOOOOOOOOO
-  </h1>
-</header>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>500</title>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+    body {
+      background-color: #fff;
+      font-family: 'PT Sans', sans-serif;
+      text-align: center;
+    }
+    .error-500 {
+      color: #fc575e;
+      font-weight: bold;
+      font-size: 42pt;
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+    h1 {
+      color: #2E2F30;
+      font-weight: normal;
+      font-size: 20pt;
+    }
+    .dialog {
+      margin: 40px auto 0;
+      max-width: 600px;
+    }
+    p {
+      color: #777;
+      margin: 0 0 0.1em 0;
+    }
+    a,
+    a:visited {
+      color: #176093;
+      cursor: pointer;
+      text-decoration: underlined;
+    }
+    a:hover {
+      color: #1d78b7;
+    }
+    .image {
+      margin-top: 40px;
+      max-width: 300px;
+    }
+  </style>
+</head>
 
-<img src="/images/static/503.jpg" style="float: left; margin-right: 10px;"/>
-<p>
-  С сайтом случилось что-то непредвиденное &ndash; он упал с ошибкой.
-</p>
-<p>
-  Уведомление об этом было выслано администрации, виновные будут наказаны.
-</p>
-<p>
-  Пожалуйста, попробуйте повторить ваши действия чуть позже, наверняка все будет уже работать.
-</p>
-<p>
-  Если же ошибка не исчезла, пожалуйста, напишите нам об этом, нажав синюю кнопочку "оставить отзыв" в левой части экрана.
-</p>
-<div class="clearfix m20"></div>
+<body>
+  <div class="dialog">
+    <p class="error-500">500</p>
+    <h1>Nooooooooooooo</h1>
+    <p>Что-то сломалось. Возможно, мы уже чиним ошибку.</p>
+    <p>Попробуйте <a onClick="location.reload();">перезагрузить страницу</a> или свяжитесь с администрацией сайта.</p>
+    <img class="image" src="/images/static/503.jpg" srcset="/images/static/503@2x.jpg 2x" />
+  </div>
+</body>
+</html>

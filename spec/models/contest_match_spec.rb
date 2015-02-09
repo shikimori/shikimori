@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 describe ContestMatch do
-  context :relations do
+  describe 'relations' do
     it { should belong_to :round }
     it { should belong_to :left }
     it { should belong_to :right }
@@ -10,56 +8,56 @@ describe ContestMatch do
 
   let(:user) { create :user }
 
-  describe :states do
+  describe 'states' do
     let(:match) { create :contest_match, started_on: Date.yesterday, finished_on: Date.yesterday }
 
     it 'full cycle' do
-      match.created?.should be_true
+      expect(match.created?).to be_truthy
       match.start!
-      match.started?.should be_true
+      expect(match.started?).to be_truthy
       match.finish!
-      match.finished?.should be_true
+      expect(match.finished?).to be_truthy
     end
 
-    describe :can_vote? do
+    describe 'can_vote?' do
       subject { match.can_vote? }
 
       context 'created' do
-        it { should be_false }
+        it { should be_falsy }
       end
 
       context 'started' do
         before { match.start! }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
 
-    describe :can_finish? do
+    describe 'can_finish?' do
       subject { match.can_finish? }
       before { match.start! }
 
       context 'true' do
         before { match.finished_on = Date.yesterday }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context 'false' do
         before { match.finished_on = Date.today }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 
-    context :can_start? do
+    context 'can_start?' do
       subject { match.can_start? }
 
       context 'true' do
         before { match.started_on = Date.today }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       context 'false' do
         before { match.started_on = Date.tomorrow }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 
@@ -72,27 +70,27 @@ describe ContestMatch do
 
             create_list :user, 2
 
-            match.round.contest.stub(:started?).and_return true
+            allow(match.round.contest).to receive(:started?).and_return true
             match.start!
           end
 
-          it { User.all.all? {|v| v.can_vote?(match.round.contest) }.should be true }
+          it { expect(User.all.all? {|v| v.can_vote?(match.round.contest) }).to be true }
         end
       end
 
       describe 'right_id = nil, right_type = Anime' do
         let(:match) { create :contest_match, started_on: Date.yesterday, finished_on: Date.yesterday, right_id: nil, right_type: Anime.name }
         before { match.start! }
-        it { match.right_type.should be_nil }
+        it { expect(match.right_type).to be_nil }
       end
 
       describe 'left_id = nil, right_id != nil' do
         let(:match) { create :contest_match, started_on: Date.yesterday, finished_on: Date.yesterday, left_id: nil, left_type: Anime.name }
         before { match.start! }
-        it { match.left_type.should_not be_nil }
-        it { match.left_id.should_not be_nil }
-        it { match.right_type.should be_nil }
-        it { match.right_id.should be_nil }
+        it { expect(match.left_type).not_to be_nil }
+        it { expect(match.left_id).not_to be_nil }
+        it { expect(match.right_type).to be_nil }
+        it { expect(match.right_id).to be_nil }
       end
     end
 
@@ -101,7 +99,7 @@ describe ContestMatch do
 
       it 'should be false' do
         match.finish!
-        match.can_vote?.should be_false
+        expect(match.can_vote?).to be_falsy
       end
 
       context 'no right variant' do
@@ -110,7 +108,7 @@ describe ContestMatch do
           match.finish!
         end
 
-        it { match.winner_id.should eq match.left_id }
+        it { expect(match.winner_id).to eq match.left_id }
       end
 
       context 'left_votes > right_votes' do
@@ -119,7 +117,7 @@ describe ContestMatch do
           match.finish!
         end
 
-        it { match.winner_id.should eq match.left_id }
+        it { expect(match.winner_id).to eq match.left_id }
       end
 
       context 'right_votes > left_votes' do
@@ -128,7 +126,7 @@ describe ContestMatch do
           match.finish!
         end
 
-        it { match.winner_id.should eq match.right_id }
+        it { expect(match.winner_id).to eq match.right_id }
       end
 
       context 'left_votes == right_votes' do
@@ -139,7 +137,7 @@ describe ContestMatch do
             match.finish!
           end
 
-          it { match.winner_id.should eq match.left_id }
+          it { expect(match.winner_id).to eq match.left_id }
         end
 
         context 'right.score > left.score' do
@@ -149,7 +147,7 @@ describe ContestMatch do
             match.finish!
           end
 
-          it { match.winner_id.should eq match.right_id }
+          it { expect(match.winner_id).to eq match.right_id }
         end
 
         context 'left.score == right.score' do
@@ -159,13 +157,13 @@ describe ContestMatch do
             match.finish!
           end
 
-          it { match.winner_id.should eq match.left_id }
+          it { expect(match.winner_id).to eq match.left_id }
         end
       end
     end
   end
 
-  describe :vote_for do
+  describe 'vote_for' do
     let(:match) { create :contest_match, state: 'started' }
 
     it 'creates ContestUserVote' do
@@ -177,27 +175,27 @@ describe ContestMatch do
     context 'no match' do
       context 'left' do
         before { match.vote_for 'left', user, "123" }
-        it { match.votes.first.item_id.should eq match.left_id }
+        it { expect(match.votes.first.item_id).to eq match.left_id }
       end
 
       context 'right' do
         before { match.vote_for 'right', user, "123" }
-        it { match.votes.first.item_id.should eq match.right_id }
+        it { expect(match.votes.first.item_id).to eq match.right_id }
       end
 
       context 'none' do
         before { match.vote_for 'none', user, "123" }
-        it { match.votes.first.item_id.should eq 0 }
+        it { expect(match.votes.first.item_id).to eq 0 }
       end
 
       context 'user' do
         before { match.vote_for 'right', user, "123" }
-        it { match.votes.first.user_id.should eq user.id }
+        it { expect(match.votes.first.user_id).to eq user.id }
       end
 
       context 'ip' do
         before { match.vote_for 'right', user, "123" }
-        it { match.votes.first.ip.should eq '123' }
+        it { expect(match.votes.first.ip).to eq '123' }
       end
     end
 
@@ -207,70 +205,70 @@ describe ContestMatch do
         match.vote_for 'right', user, "123"
       end
 
-      it { match.votes.first.item_id.should eq match.right_id }
-      it { match.votes.count.should eq 1 }
+      it { expect(match.votes.first.item_id).to eq match.right_id }
+      it { expect(match.votes.count).to eq 1 }
     end
   end
 
-  describe :voted_id do
+  describe 'voted_id' do
     let!(:match) { create :contest_match, state: 'started', round: build_stubbed(:contest_round) }
     let(:vote_with_user_vote) { ContestMatch.with_user_vote(user, '').first }
     subject { vote_with_user_vote.voted_id }
 
-    context :not_voted do
+    context 'not_voted' do
       it { should be_nil }
     end
 
-    context :voted do
-      context :really_voted do
-        context :left do
+    context 'voted' do
+      context 'really_voted' do
+        context 'left' do
           before { match.vote_for(:left, user, '') }
           it { should eq match.left_id }
         end
 
-        context :right do
+        context 'right' do
           before { match.vote_for(:right, user, '') }
           it { should eq match.right_id }
         end
       end
 
-      context :right_type_is_nil do
+      context 'right_type_is_nil' do
         before { vote_with_user_vote.right_type = nil }
         it { should be_nil }
       end
     end
   end
 
-  describe :voted? do
+  describe 'voted?' do
     let!(:match) { create :contest_match, state: 'started', round: build_stubbed(:contest_round) }
     let(:vote_with_user_vote) { ContestMatch.with_user_vote(user, '').first }
     subject { vote_with_user_vote.voted? }
 
-    context :not_voted do
-      it { should be_false }
+    context 'not_voted' do
+      it { should be_falsy }
     end
 
-    context :voted do
-      context :really_voted do
-        context :left do
+    context 'voted' do
+      context 'really_voted' do
+        context 'left' do
           before { match.vote_for(:left, user, '') }
-          it { should be_true }
+          it { should be_truthy }
         end
 
-        context :right do
+        context 'right' do
           before { match.vote_for(:right, user, '') }
-          it { should be_true }
+          it { should be_truthy }
         end
       end
 
-      context :right_type_is_nil do
+      context 'right_type_is_nil' do
         before { vote_with_user_vote.right_type = nil }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
   end
 
-  describe :update_user do
+  describe 'update_user' do
     let(:round) { create :contest_round, state: 'started' }
     subject { user.can_vote_1? }
     before do
@@ -285,7 +283,7 @@ describe ContestMatch do
         ContestMatch.first.update_user user, 'z'
       end
 
-      it { should be_true }
+      it { should be_truthy }
     end
 
     describe 'updated' do
@@ -296,11 +294,11 @@ describe ContestMatch do
         round.matches.first.update_user user, 'z'
       end
 
-      it { should be_false }
+      it { should be_falsy }
     end
   end
 
-  describe :winner do
+  describe 'winner' do
     let(:match) { build_stubbed :contest_match, state: 'finished' }
     subject { match.winner }
 
@@ -315,7 +313,7 @@ describe ContestMatch do
     end
   end
 
-  describe :loser do
+  describe 'loser' do
     let(:match) { build_stubbed :contest_match, state: 'finished' }
     subject { match.loser }
 
@@ -334,11 +332,11 @@ describe ContestMatch do
         match.winner_id = match.left_id
         match.right = nil
       end
-      it { match.loser.should be_nil }
+      it { expect(match.loser).to be_nil }
     end
   end
 
-  describe :contest do
+  describe 'contest' do
     subject(:match) { create :contest_match }
     its(:contest) { should eq match.round.contest }
   end

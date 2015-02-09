@@ -1,0 +1,14 @@
+@import compass/utilities/general/clearfix
+@import mixins/block
+@import mixins/responsive
+
+.p-clubs-show
+  .l-content
+    .logo
+      +gte_ipad
+        display: none
+
+  .l-menu
+    .b-menu_logo
+      +iphone
+        display: none

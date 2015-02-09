@@ -3,7 +3,7 @@ xml.rss version: "2.0" do
   xml.channel do
     xml.title "#{@user.nickname} / Шикимори"
     xml.description "Изменения списка #{@user.nickname}"
-    xml.link user_url(@user)
+    xml.link profile_url(@user)
 
     @history.each do |h_entry|
       xml.item do

@@ -1,0 +1,28 @@
+@import mixins/block
+@import mixins/hover_underlined
+
+.p-profiles-stats
+  //.genres, .studios, .publishers
+    +block
+
+  .stat-categories
+    .category
+      +hover_underlined
+      float: left
+      height: 21px
+      line-height: 5px
+      margin: 0 0 0 2px
+      padding: 1px 5px
+
+    .t0
+      font-size: 9px
+    .t1
+      font-size: 11px
+    .t2
+      font-size: 12px
+    .t3
+      font-size: 13px
+      font-weight: bold
+    .t4
+      font-size: 14px
+      font-weight: bold

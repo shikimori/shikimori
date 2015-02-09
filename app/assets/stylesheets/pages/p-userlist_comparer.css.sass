@@ -1,0 +1,51 @@
+@import globals
+@import mixins/link
+
+.p-userlist_comparer
+  //.head .notice a
+    +normal-link
+
+  //.menu-left
+    //float: left
+    //width: $menu-width-narrow
+    //margin-right: 30px
+
+    //.filter
+      //float: right
+      //margin-left: 0
+
+  .legend
+    padding: 5px 0
+
+  .comparer
+    table
+      .selectable:hover
+        background-color: #f5f5f5
+
+      a
+        color: #333
+
+      .name
+        padding-left: 5px
+        a
+          +link
+
+      .notice
+        font-size: 11px
+        color: $gray-color-2
+
+      .num
+        width: 90px
+
+  .comparer table, .legend
+    .exact-same
+      background-color: #e6ffe6
+
+    .almost-same
+      background-color: #f2fff2
+
+    .slightly-difr
+      background-color: #fff2f2
+
+    .abslt-difr
+      background-color: #ffe6e6

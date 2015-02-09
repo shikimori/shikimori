@@ -10,15 +10,18 @@ class FayePublisher
     @actor = actor
   end
 
-  def publish object, event, channels=[]
-    if object.kind_of? Comment
-      publish_comment object, event, channels
+  def publish trackable, event, channels=[]
+    if trackable.kind_of? Comment
+      publish_comment trackable, event, channels
 
-    elsif object.kind_of? Entry
-      publish_topic object, event, channels
+    elsif trackable.kind_of? Entry
+      publish_topic trackable, event, channels
+
+    elsif trackable.kind_of? Message
+      publish_message trackable, event, channels
 
     else
-      publish_data object, event, channels
+      publish_data trackable, event, channels
     end
   end
 
@@ -26,33 +29,58 @@ private
   # отправка уведомлений о новом комментарии
   def publish_comment comment, event, channels
     topic = comment.commentable
-    return unless topic.respond_to? :section_id
 
     # уведомление в открытые топики
-    data = { event: event, actor: @actor.nickname, actor_avatar: @actor.decorate.avatar_url(16), comment_id: comment.id }
-    publish_data data, event, ["#{@namespace}/topic-#{topic.id}"]
+    data = {
+      event: "comment:#{event}",
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32),
+      topic_id: topic.id,
+      comment_id: comment.id
+    }
+    topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
+    mixed_channels = channels + subscribed_channels(topic) +
+      ["#{@namespace}/#{topic_type}-#{topic.id}"]
 
-    data[:topic_id] = topic.id
     # уведомление в открытые разделы
     if topic.kind_of? GroupComment
-      publish_data data, event, ["#{@namespace}/group-#{topic.linked_id}"]
-    else
-      publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
+      mixed_channels += ["#{@namespace}/group-#{topic.linked_id}"]
+    elsif topic.respond_to? :section_id
+      mixed_channels += ["#{@namespace}/section-#{topic.section_id}"]
     end
 
-    # уведомление в ленты
-    publish_data data, event, channels + subscribed_channels(topic)
+    publish_data data, event, mixed_channels
   end
 
   # отправка уведомлений о новом топике
   def publish_topic topic, event, channels
-    data = { event: event, actor: @actor.nickname, actor_avatar: @actor.decorate.avatar_url(16), topic_id: topic.id }
+    data = {
+      event: "topic:#{event}",
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32),
+      topic_id: topic.id
+    }
 
-    # уведомление в открытые разделы
-    publish_data data, event, ["#{@namespace}/section-#{topic.section_id}"]
+    mixed_channels = channels + subscribed_channels(topic) +
+      ["#{@namespace}/section-#{topic.section_id}", "#{@namespace}/topic-#{topic.id}"]
 
-    # уведомление в ленты
-    publish_data data, event, channels + subscribed_channels(topic)
+    publish_data data, event, mixed_channels
+  end
+
+  # отправка уведомлений о новом топике
+  def publish_message message, event, channels
+    data = {
+      event: "message:#{event}",
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32),
+      message_id: message.id
+    }
+
+    mixed_channels = channels + ["#{@namespace}/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
+    publish_data data, event, mixed_channels
   end
 
   # отправка произвольных уведомлений
@@ -67,13 +95,14 @@ private
   end
 
   def subscribed_channels target
-    Subscription
-      .where(target_id: target.id)
-      .where(target_type: target.class.name)
-      .select(:user_id)
-      .map do |v|
-        "/user-#{v.user_id}"
-      end
+    #Subscription
+      #.where(target_id: target.id)
+      #.where(target_type: target.class.name)
+      #.select(:user_id)
+      #.map do |v|
+        #"/user-#{v.user_id}"
+      #end
+    []
   end
 
 private

@@ -1,18 +1,16 @@
-require 'spec_helper'
-
 describe RecommendationIgnore do
-  context :relations do
+  describe 'relations' do
     it { should belong_to :user }
     it { should belong_to :target }
   end
 
-  context :class_methods do
+  context 'class_methods' do
     let(:user) { create :user }
     let(:anime1) { create :anime, kind: 'Special' }
     let(:anime2) { create :anime }
     let(:anime3) { create :anime }
 
-    describe :block do
+    describe 'block' do
       before do
         create :related_anime, source_id: anime1.id, anime_id: anime2.id
         create :related_anime, source_id: anime2.id, anime_id: anime1.id
@@ -46,7 +44,7 @@ describe RecommendationIgnore do
       end
     end
 
-    describe :blocked do
+    describe 'blocked' do
       before do
         create :recommendation_ignore, user: user, target: create(:manga)
         create :recommendation_ignore, user: user, target: anime1

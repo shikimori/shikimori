@@ -1,0 +1,10 @@
+= simple_form_for [:moderation, user_change] do |f|
+  = f.input :model, as: :hidden
+  = f.input :column, as: :hidden
+  = f.input :item_id, as: :hidden
+
+  .block
+    = f.input :value, as: :string, label: 'Русское название'
+
+  = f.submit 'Сохранить'
+  a.cancel href="#{resource.url}" Отмена

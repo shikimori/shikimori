@@ -2,11 +2,12 @@ class BanDuration
   delegate :to_i, :zero?, :minutes, to: :value
   attr_reader :value
 
-  def initialize data
-    @value = if data.kind_of? String
-      parse data
+  # duration in minutes
+  def initialize duration
+    @value = if duration.kind_of? String
+      parse duration
     else
-      data
+      duration
     end
   end
 

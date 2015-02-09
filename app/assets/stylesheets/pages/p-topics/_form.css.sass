@@ -1,0 +1,35 @@
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/responsive
+@import mixins/bracket_action
+
+.p-topics-new, .p-topics-edit, .p-topics-create, .p-topics-update
+  .topic_posters
+    margin-bottom: $block_offset / 2
+
+    .b-input
+      margin-bottom: 0
+
+  .topic_linked
+    +clearfix
+    margin-bottom: $block_offset / 2
+
+    .b-input
+      display: inline-block
+
+    .topic-link
+      display: inline-block
+      margin-left: $block_offset
+
+    .topic-video
+      float: right
+      margin-top: 23px
+
+      +iphone
+        display: none
+
+    .cleanup
+      +bracket_action
+
+  input[type=submit]
+    margin-top: $block_offset / 2

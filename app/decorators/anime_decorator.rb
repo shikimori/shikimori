@@ -1,4 +1,6 @@
 class AnimeDecorator < AniMangaDecorator
+  instance_cache :files, :next_episode_at
+
   # скриншоты
   def screenshots limit=nil
     (@screenshots ||= {})[limit] ||= if object.respond_to? :screenshots
@@ -19,18 +21,13 @@ class AnimeDecorator < AniMangaDecorator
 
   # презентер файлов
   def files
-    @files ||= AniMangaPresenter::FilesPresenter.new object, h
-  end
-
-  # ролики, отображаемые на инфо странице аниме
-  def main_videos
-    @main_videos ||= object.videos.limit(2)
+    AniMangaPresenter::FilesPresenter.new object, h
   end
 
   # дата выхода следующего эпизода
   def next_episode_at
-    @next_episode_at ||= if object.episodes_aired && (object.ongoing? || object.anons?)
-      calendars = anime_calendars.where(episode: [object.episodes_aired + 1, object.episodes_aired + 2]).to_a
+    if episodes_aired && (ongoing? || anons?)
+      calendars = anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
 
       if calendars[0].present? && calendars[0].start_at > Time.zone.now
         calendars[0].start_at
@@ -38,11 +35,11 @@ class AnimeDecorator < AniMangaDecorator
       elsif calendars[1].present?
         calendars[1].start_at
       end
-    end
+    end || object.next_episode_at
   end
 
   # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
   def aired_on
-    object.anons? && next_episode_at ? next_episode_at : object.aired_on
+    anons? && next_episode_at ? next_episode_at : object.aired_on
   end
 end

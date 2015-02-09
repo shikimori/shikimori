@@ -1,0 +1,113 @@
+@import compass/css3/opacity
+@import globals/variables
+@import mixins/icons
+@import mixins/media_marker
+
+=image_editable
+  .controls
+    position: absolute
+    right: 0px
+    top: 0px
+    z-index: 1
+
+  .controls, .move-controls
+    display: none
+    z-index: 1
+
+  &.mobile-editing .controls,
+  &.mobile-editing .move-controls,
+    display: block
+
+  +gt_ipad
+    &:hover .controls,
+    &:hover .move-controls
+      display: block
+
+  &.mobile-editing
+    .mobile-edit
+      display: none
+
+  &.deletable, &.deleted
+    img
+      +opacity(0.3)
+
+    .controls
+      display: block
+
+      .delete
+        display: none
+
+    .move-controls, .mobile-edit
+      display: none
+
+  &.deletable
+    .confirm, .cancel
+      display: inline-block
+
+  &.deleted
+    .confirm, .cancel, .move-left, .move-right
+      display: none
+
+    //.restore
+      display: inline-block
+
+  &:first-child .move-left,
+  &:last-child .move-right
+    display: none !important
+
+  .delete, .confirm, .cancel, .move-left, .move-right, .mobile-edit//, .restore
+    +transition(background 0.25s ease)
+    background: $link_hover
+    color: white
+    cursor: pointer
+    display: inline-block
+    padding: 0
+    margin: 0 !important
+    z-index: 999
+
+    &:hover
+      background-color: $link_hover_light
+
+    &:active
+      background-color: $link_active
+
+  .delete
+    +icon('\e813', 12px)
+
+  .confirm
+    +icon('\e817', 12px)
+    display: none
+
+  .cancel
+    +icon('\e813', 12px)
+    display: none
+
+    &:hover
+      color: #fff
+
+  //.restore
+    +icon("\e801", 12px)
+    display: none
+
+  .move-left
+    +icon("\e83e", 12px)
+    left: 0
+    margin-top: -10px !important
+    position: absolute
+    top: 50%
+
+  .move-right
+    +icon("\e83f", 12px)
+    margin-top: -10px !important
+    position: absolute
+    right: 0
+    top: 50%
+
+  .mobile-edit
+    +icon('\e814', 12px)
+    position: absolute
+    right: 0
+    top: 0
+
+    +gt_ipad
+      display: none

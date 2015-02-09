@@ -1,57 +1,33 @@
+$ ->
+  $('.b-postloader').appear()
+
 # динамическая подгрузка контента по мере прокрутки страницы
-$(".b-postloader").appear()
-$(".b-postloader").live 'click appear', ->
+$(document).on 'click appear', '.b-postloader', (e) ->
   $postloader = $(@)
-  return if $postloader.data('locked')
-  #new_postloader = $postloader.hasClass('new')
+  return if $postloader.data('locked') || (e.type == 'appear' && $postloader.data('ignore-appear'))
 
-  # для нового лоадера никаких манипуляций делать не нужно
-  #if new_postloader
   $postloader.html "<div class=\"ajax-loading vk-like\" title=\"Загрузка...\" />"
-
-  #else
-    #$postloader.hide()
-    #$loader = $postloader.next()
-    #if $loader.hasClass('postloader-progress')
-      #$loader
-        #.css(visibility: 'visible')
-        #.show()
-    #else
-      #$loader = $("<div class=\"ajax-loading vk-like\" title=\"Загрузка...\" />").insertAfter($postloader)
-
   url = $postloader.data('remote')
-  if !url
-    $postloader.trigger 'postloader:trigger'
+  filter = $postloader.data('filter')
 
-  else
-    $postloader.data "locked", true
-    $.getJSON url, (data) ->
-      $data = $(data.content)
+  $postloader.data locked: true
 
-      # передаём в колбек данные, а затем трём элемент
-      $postloader.trigger 'postloader:success', [$data]
+  $.getJSON url, (data) ->
+    $data = $('<div>').append("#{data.content}#{data.postloader}")
 
-      # после колбеказабираем данные из filtered-data
-      $data = $postloader.data('filtered-data')
-      #if new_postloader
-      $postloader.replaceWith $data
+    filter_present_entries $data, filter if filter
+    $postloader.trigger 'postloader:success', [$data, data]
+    $postloader.replaceWith $data.children()
 
-      #else
-        #$postloader.remove()
-        #$loader.replaceWith $data
-
-      process_current_dom()
-      $postloader.data locked: false
-      $('.ajax').trigger 'postloader:success'
+    process_current_dom()
+    $postloader.data locked: false
 
 # удаляем уже имеющиеся подгруженные элементы
-$('.b-postloader').live 'postloader:success', (e, $data) ->
-  filter = $(@).data('filter') || 'comment'
-  regex = new RegExp("#{filter}-\\d+")
-  $present_entries = $(".#{filter}-block")
+filter_present_entries = ($new_entries, filter) ->
+  present_ids = $(".#{filter}").toArray().map (v) -> v.id
 
-  exclude_selector = _.compact(_.map($present_entries, (v, k) ->
-    ".#{match[0]}" if match = v.className.match(regex)
-  )).join(', ')
+  exclude_selector = present_ids.map (id) ->
+      ".#{filter}##{id}"
+    .join(',')
 
-  $(@).data 'filtered-data', $data.not(exclude_selector)
+  $new_entries.children().filter(exclude_selector).remove()

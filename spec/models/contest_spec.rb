@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'cancan/matchers'
 
 describe Contest do
-  context :relations do
+  describe 'relations' do
     it { should belong_to :user }
     it { should have_many :links }
     it { should have_many :rounds }
@@ -9,7 +9,7 @@ describe Contest do
     it { should have_one :thread }
   end
 
-  context :validations do
+  describe 'validations' do
     it { should validate_presence_of :title }
     it { should validate_presence_of :user }
     it { should validate_presence_of :strategy_type }
@@ -18,85 +18,85 @@ describe Contest do
     it { should validate_presence_of :user_vote_key }
   end
 
-  context :state_machine do
-    let(:contest) { create :contest_with_5_members }
+  describe 'state machine' do
+    let(:contest) { create :contest, :with_5_members }
 
     it 'full cycle' do
-      contest.created?.should be_true
+      expect(contest.created?).to be_truthy
       contest.propose!
       contest.start!
       contest.finish!
     end
 
-    describe :can_propose? do
+    describe 'can_propose?' do
       subject { contest.can_propose? }
-      it { should be_true }
+      it { should be_truthy }
     end
 
-    describe :can_start? do
+    describe 'can_start?' do
       subject { contest.can_start? }
       context 'normal count' do
-        before { contest.links.stub(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
-        it { should be_true }
+        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
+        it { should be_truthy }
       end
 
       context 'Contest::MINIMUM_MEMBERS' do
-        before { contest.links.stub(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
-        it { should be_false }
+        before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
+        it { should be_falsy }
       end
 
       context 'Contest::MAXIMUM_MEMBERS' do
-        before { contest.links.stub(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
-        it { should be_false }
+        before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
+        it { should be_falsy }
       end
     end
 
     context 'before started' do
       it 'builds rounds' do
         contest.start!
-        contest.rounds.should_not be_empty
+        expect(contest.rounds).not_to be_empty
       end
 
       it 'fills first contest matches' do
         contest.start!
-        contest.rounds.first.matches.should_not be_empty
+        expect(contest.rounds.first.matches).not_to be_empty
       end
 
       context 'when started_on expired' do
-        before { contest.update_attribute :started_on, Date.yesterday }
+        before { contest.update_attribute :started_on, Time.zone.yesterday }
 
         it 'updates started_on' do
           contest.start!
-          contest.started_on.should eq Date.today
+          expect(contest.started_on).to eq Time.zone.today
         end
 
         it 'rebuilds matches' do
           contest.prepare
-          contest.should_receive :prepare
+          expect(contest).to receive :prepare
           contest.start!
         end
       end
     end
 
     context 'after propose' do
-      let(:contest) { create :contest_with_5_members, :with_thread }
+      let(:contest) { create :contest, :with_5_members, :with_thread }
 
       it 'creates thread' do
         contest.propose!
-        contest.reload.thread.present?.should be_true
+        expect(contest.reload.thread.present?).to be_truthy
       end
     end
 
     context 'after started' do
       it 'starts first round' do
         contest.start!
-        contest.rounds.first.started?.should be_true
+        expect(contest.rounds.first.started?).to be_truthy
       end
 
-      let(:contest) { create :contest_with_5_members, :with_thread }
+      let(:contest) { create :contest, :with_5_members, :with_thread }
       it 'creates thread' do
         contest.start!
-        contest.reload.thread.present?.should be_true
+        expect(contest.reload.thread.present?).to be_truthy
       end
     end
 
@@ -109,21 +109,21 @@ describe Contest do
 
             contest.update_attribute :user_vote_key, user_vote_key
             contest.start!
-            contest.stub(:can_finish?).and_return true
+            allow(contest).to receive(:can_finish?).and_return true
             contest.finish!
             contest.reload
           end
 
-          it { User.all.none? {|v| v.can_vote?(contest) }.should be true }
-          it { contest.finished_on.should eq Date.today }
+          it { expect(User.all.none? {|v| v.can_vote?(contest) }).to be true }
+          it { expect(contest.finished_on).to eq Time.zone.today }
         end
       end
     end
   end
 
-  describe :instance_methods do
-    describe :prepare do
-      let(:contest) { create :contest_with_5_members }
+  describe 'instance methods' do
+    describe '#prepare' do
+      let(:contest) { create :contest, :with_5_members }
 
       it 'deletes existing rounds' do
         round = create :contest_round, contest_id: contest.id
@@ -136,12 +136,12 @@ describe Contest do
       end
 
       it 'create_rounds' do
-        contest.strategy.should_receive :create_rounds
+        expect(contest.strategy).to receive :create_rounds
         contest.prepare
       end
     end
 
-    describe :cleanup_suggestions do
+    describe '#cleanup_suggestions' do
       let(:contest) { create :contest, :proposing }
       let!(:contest_suggestion_1) { create :contest_suggestion, contest: contest, user: contest.user }
       let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, sign_in_count: 999) }
@@ -150,37 +150,37 @@ describe Contest do
       it { expect(contest.suggestions).to eq [contest_suggestion_2] }
     end
 
-    describe :process! do
-      let(:contest) { create :contest_with_5_members }
+    describe '#process!' do
+      let(:contest) { create :contest, :with_5_members }
       let(:round) { contest.current_round }
       before { contest.start! }
 
       it 'starts matches' do
         round.matches.last.state = 'created'
         contest.process!
-        round.matches.last.started?.should be_true
+        expect(round.matches.last.started?).to be_truthy
       end
 
       it 'finishes matches' do
-        round.matches.last.finished_on = Date.yesterday
+        round.matches.last.finished_on = Time.zone.yesterday
         contest.process!
-        round.matches.last.finished?.should be_true
+        expect(round.matches.last.finished?).to be_truthy
       end
 
       it 'finishes round' do
-        round.matches.each {|v| v.finished_on = Date.yesterday }
+        round.matches.each {|v| v.finished_on = Time.zone.yesterday }
         contest.process!
-        round.finished?.should be_true
+        expect(round.finished?).to be_truthy
       end
 
       context 'something was changed' do
         before do
           @updated_at = contest.updated_at = DateTime.now - 1.day
-          round.matches.each { |v| v.finished_on = Date.yesterday }
+          round.matches.each { |v| v.finished_on = Time.zone.yesterday }
           contest.process!
         end
 
-        it { contest.updated_at.should_not eq @updated_at }
+        it { expect(contest.updated_at).not_to eq @updated_at }
       end
 
       context 'nothing was changed' do
@@ -189,35 +189,35 @@ describe Contest do
           contest.process!
         end
 
-        it { contest.updated_at.should eq @updated_at }
+        it { expect(contest.updated_at).to eq @updated_at }
       end
     end
 
-    describe :current_round do
-      let(:contest) { create :contest_with_5_members }
+    describe '#current_round' do
+      let(:contest) { create :contest, :with_5_members }
       before { contest.prepare }
 
       it 'first round' do
-        contest.current_round.should eq contest.rounds.first
+        expect(contest.current_round).to eq contest.rounds.first
       end
 
       it 'started round' do
-        contest.rounds[1].stub(:started?).and_return true
-        contest.current_round.should eq contest.rounds.second
+        allow(contest.rounds[1]).to receive(:started?).and_return true
+        expect(contest.current_round).to eq contest.rounds.second
       end
 
       it 'first created' do
-        contest.rounds[0].stub(:finished?).and_return true
-        contest.current_round.should eq contest.rounds.second
+        allow(contest.rounds[0]).to receive(:finished?).and_return true
+        expect(contest.current_round).to eq contest.rounds.second
       end
 
       it 'last round' do
         contest.state = 'finished'
-        contest.current_round.should eq contest.rounds.last
+        expect(contest.current_round).to eq contest.rounds.last
       end
     end
 
-    describe :defeated_by do
+    describe '#defeated_by' do
       let(:contest) { create :contest }
       let(:round1) { create :contest_round, contest_id: contest.id }
       let(:round2) { create :contest_round, contest_id: contest.id }
@@ -232,12 +232,12 @@ describe Contest do
       end
 
       it 'returns defeated entries' do
-        contest.defeated_by(members[0], round1).map(&:id).should eq [members[2].id, members[4].id]
-        contest.defeated_by(members[0], round2).map(&:id).should eq [members[2].id, members[4].id, members[3].id]
+        expect(contest.defeated_by(members[0], round1).map(&:id)).to eq [members[2].id, members[4].id]
+        expect(contest.defeated_by(members[0], round2).map(&:id)).to eq [members[2].id, members[4].id, members[3].id]
       end
     end
 
-    describe :user_vote_key do
+    describe '#user_vote_key' do
       subject { contest.user_vote_key }
       let(:contest) { create :contest, user_vote_key: vote_key }
 
@@ -263,21 +263,21 @@ describe Contest do
       end
     end
 
-    describe :strategy do
+    describe '#strategy' do
       subject { create :contest, strategy_type: strategy_type }
 
-      context :double_elimination do
+      context 'double_elimination' do
         let(:strategy_type) { :double_elimination }
         its(:strategy) { should be_kind_of Contest::DoubleEliminationStrategy }
       end
 
-      context :play_off do
+      context 'play_off' do
         let(:strategy_type) { :play_off }
         its(:strategy) { should be_kind_of Contest::PlayOffStrategy }
       end
     end
 
-    describe :member_klass do
+    describe '#member_klass' do
       let(:contest) { create :contest, member_type: member_type }
       subject { contest.member_klass }
 
@@ -293,8 +293,8 @@ describe Contest do
     end
   end
 
-  context :class_methods do
-    describe :current do
+  context '#class_methods' do
+    describe 'current' do
       subject { Contest.current.map(&:id) }
 
       context 'nothing' do
@@ -303,7 +303,7 @@ describe Contest do
       end
 
       context 'finished not so long ago' do
-        let!(:contest) { create :contest, state: 'finished', finished_on: Date.today - 6.days }
+        let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 6.days }
         it { should eq [contest.id] }
 
         context 'new one started' do
@@ -318,7 +318,7 @@ describe Contest do
       end
 
       context 'finished long ago' do
-        let!(:contest) { create :contest, state: 'finished', finished_on: Date.today - 8.days }
+        let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 9.days }
         it { should be_empty }
 
         context 'new one started' do
@@ -326,6 +326,27 @@ describe Contest do
           it { should eq [contest.id] }
         end
       end
+    end
+  end
+
+  describe 'permissions' do
+    let(:contest) { build_stubbed :contest }
+
+    context 'contests_moderator' do
+      subject { Ability.new build_stubbed(:user, :contests_moderator) }
+      it { should be_able_to :manage, contest }
+    end
+
+    context 'guest' do
+      subject { Ability.new nil }
+      it { should be_able_to :see_contest, contest }
+      it { should_not be_able_to :manage, contest }
+    end
+
+    context 'user' do
+      subject { Ability.new build_stubbed(:user) }
+      it { should be_able_to :see_contest, contest }
+      it { should_not be_able_to :manage, contest }
     end
   end
 end

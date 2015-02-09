@@ -454,7 +454,7 @@ class WikipediaParser < SiteParserWithCache
       text.sub!($1, '') if text =~ /
         \n
         (
-          (?: (?: \*|:|\[\*\] )? )?
+          (?: \*|:|\[\*\] )?
           (?:'''|'')?
           (?:\[\[)?
             (?:С[еэ]йю|Акт[ёе]р)

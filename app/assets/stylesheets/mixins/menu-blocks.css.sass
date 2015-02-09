@@ -1,0 +1,131 @@
+@import globals
+
+// второстепенный текст в меню
+=menu-block-misc-text
+  +ellipsis
+  +clearfix
+  color: $gray-color-2 !important
+  display: block
+  font-size: 11px
+  line-height: 19px
+
+  &.date
+    color: $date !important
+
+// дефолтный блок меню с картинкой и текстом
+=menu-block-with-image
+  +clearfix
+  border-top: 1px dashed #DDD
+  padding-top: 7px
+  margin-bottom: 4px
+
+  &:first-child
+    border-top: none
+    margin-top: -5px
+    padding-top: 0
+
+  &:hover .title
+    text-decoration: underline
+
+  //a
+    +normal-link
+
+  img
+    float: left
+    margin: 2px 10px 5px 2px
+    max-height: 52px
+    max-width: 37px
+    //max-height: 100%
+
+  .title
+    +ellipsis
+    display: block
+    font-size: 14px
+    font-weight: bold
+    line-height: 19px
+
+  .b-anime_status_tag
+    padding-left: 4px
+    padding-right: 4px
+    margin-left: 5px
+
+    &:first-child
+      margin-left: 0
+
+  .misc
+    +menu-block-misc-text
+    //margin-left: 49px // img width + img paddings
+
+// блок в меню с текстом и ссылкой
+=menu-block-with-text-link
+  +clearfix
+  padding: 1px 3px 0 5px
+  border-top: 1px dashed #DDD
+  padding-top: 3px
+  padding-bottom: 5px
+  margin-top: 2px
+  display: block
+
+  &:first-child
+    border-top: none
+    padding-top: 0
+    margin-top: 0
+
+  &:hover .title
+    color: $link_hover
+    text-decoration: underline
+
+    &:after
+      color: $link_hover
+
+  &:active .title
+    color: $link_active
+
+    &:after
+      color: $link_active
+
+  .title
+    +ellipsis
+    display: block
+    font-size: 14px
+    font-weight: bold
+    line-height: $line_height
+    padding-right: 20px
+
+    &:after
+      color: $gray-color
+      content: "\e81c"
+      cursor: pointer
+      font-family: "shikimori"
+      line-height: 24px
+      position: absolute
+      right: 10px
+
+    &:hover
+      color: $link_hover
+
+      &:after
+        color: $link_hover
+
+    &:active
+      color: $link_active
+
+      &:after
+        color: $link_active
+
+  .notice
+    +ellipsis
+    color: $gray-color
+    display: block
+    font-size: 11px
+    margin-top: -2px
+
+  .misc
+    +menu-block-misc-text
+
+=menu-block-show-more
+  +link-color(#333333)
+  cursor: pointer
+  margin-left: 5px
+  margin-top: 2px
+  font-size: 11px

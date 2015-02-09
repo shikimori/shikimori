@@ -1,27 +1,44 @@
-$line-height: 1.65
+$font-family: "Helvetica Neue",Arial,Verdana,sans-serif
+$line_height: 1.65
+
+// ширина контента сайта
+$site-body-width: 1005px
 
 // высота меню
-$menu-height: 31px
+$menu_height: 33px
 // ширина слайда
-$slide-width: 740px
+$slide-width: 755px
 // ширина меню
-$menu-width: 215px
-// ширина меню
+$menu-width: 230px
+// ширина узкого меню
 $menu-width-narrow: 160px
 
+// стандартный отступ
+$block_offset: 30px
+
+// стандартная ширина и высота медиа-элемента (видео, картинка)
+$media_height: 132px
+$media_width: 235px
+
 // цвета
-$selected-color: #176093
-$hover-color: #1d78b7
-$hover-color-0: #2b8acc
-$active-color: #155785 !important
+$link: #176093
+$link_hover: #1d78b7
+$link_hover_light: #2b8acc
+//$link_active: #155785// !important
+$link_active: #155785
+$link_active_raw: #155785
 
 $gray-color-0: #acb1b4
 $gray-color: #9da2a8
 $gray-color-2: #7b8084
 $gray-color-3: #4e5257
 
+$anons_tag: #ca4929
+$ongoing_tag: #1d78b7
+$released_tag: #419541
+
 // даты
-$date-color: #acb1b4
+$date: #acb1b4
 
 // adaptive
 /*320px for common smartphones including iPhone at portrait orientation*/
@@ -29,7 +46,17 @@ $date-color: #acb1b4
 /*768px – 980px for iPad and other tablets*/
 /*980px and upwards for desktop monitors*/
 /*1200px and upwards for larger desktop monitors*/
-$tablets-break: 768px
+$phone: 320px
+$iphone: 480px
+$ipad: 768px
+$desktop: $ipad + 1px
+$widescreen: 1025px
+
+//$iphone_max: 568px
+//$iphone_max: 640px // эта цифра и для последних самсунговских плафонов
+$iphone_max: 767px // берём всё до ипада
+$ipad_max: 1024px
+
 
 // Cool
 

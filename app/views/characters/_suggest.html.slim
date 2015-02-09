@@ -1,15 +1,15 @@
 .character-suggest
-  img.avatar src="#{character.image.url(:preview)}" title="#{character.name}"
+  img.avatar src="#{entry.image.url :preview}" title="#{entry.name}"
   .name
     - if defined?(render_link) && render_link
-      a href="#{send url_builder, character}"
-        == character.name
+      a href="#{send url_builder, entry}"
+        == entry.name
     - else
-      == [character.name, character.russian].compact.join(' / ')
+      == [entry.name, entry.russian].compact.join(' / ')
     - if defined?(render_after_name) && render_after_name
       == render_after_name
   .animes
-    - (character.animes+character.mangas).shuffle.take(3).each do |entry|
+    - (entry.animes+entry.mangas).shuffle.take(3).each do |entry|
       div
         a href="#{url_for entry}"
           == entry.name

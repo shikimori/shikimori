@@ -1,4 +1,5 @@
 # права на действия с различными сущностями
+# TODO: постепенно заменить всё на cancancan
 module PermissionsPolicy
   def self.included(base)
     base.send :include, PermissionsPolicy.const_get(base.name+'Permissions')
@@ -40,13 +41,6 @@ module PermissionsPolicy
     end
   end
 
-  # права на изменение контестов
-  module ContestPermissions
-    def can_be_edited_by?(user)
-      user && user.contests_moderator?
-    end
-  end
-
   # права на действия с топиками
   module EntryPermissions
     include Defaults
@@ -57,15 +51,6 @@ module PermissionsPolicy
 
     def can_be_deleted_by?(user)
       !self.generated? && super
-    end
-  end
-
-  # права на действия с обзорами
-  module ReviewPermissions
-    include Defaults
-
-    def can_be_edited_by?(user)
-      super || (user && user.id == self.user_id && self.created_at + 1.month > Time.zone.now)
     end
   end
 
@@ -80,52 +65,9 @@ module PermissionsPolicy
       unless self.ignores.any? {|v| v.target_id == comment.user_id }
         true
       else
-        comment.errors[:forbidden] = User::CommentForbiddenMessage
+        comment.errors[:forbidden] = I18n.t('activerecord.errors.models.messages.ignored')
         false
       end
-    end
-  end
-
-  # права на действия с Группами
-  module GroupPermissions
-    # может ли пользователь редактировать группу?
-    def can_be_edited_by?(user)
-      user && (user.admin? || staff?(user))
-    end
-
-    # может ли пользователь вступить группу?
-    def can_be_joined_by?(user)
-      user && (user.id == owner_id || (free_join? && !banned?(user)))
-    end
-
-    # может ли пользователь загружать картинку
-    def can_be_uploaded_by?(user)
-      if upload_policy == GroupUploadPolicy::ByMembers
-        member?(user)
-      elsif self.upload_policy == GroupUploadPolicy::ByStaff
-        staff?(user)
-      else
-        false
-      end
-    end
-
-    # может ли пользователь посылать приглашения в эту группу?
-    def can_send_invites?(user)
-      if free_join?
-        members.include?(user)
-      elsif owner_invite_join?
-        members.include?(user) && owner_id == user.id
-      else
-        false
-      end
-    end
-
-    def can_delete_images?(user)
-      staff?(user)
-    end
-
-    def can_delete_videos?(user)
-      staff?(user)
     end
   end
 
@@ -142,7 +84,7 @@ module PermissionsPolicy
         end
 
       elsif linked.members_comment?
-        if linked.member?(comment.user_id)
+        if linked.joined?(comment.user)
           true
         else
           comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.not_a_club_member')
@@ -151,12 +93,6 @@ module PermissionsPolicy
       else
         raise ArgumentError, linked.comment_policy
       end
-    end
-  end
-
-  module ImagePermissions
-    def can_be_deleted_by?(user)
-      user.id == self.uploader_id || (self.owner.respond_to?(:can_delete_images?) && self.owner.can_delete_images?(user))
     end
   end
 

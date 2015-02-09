@@ -1,0 +1,102 @@
+@import globals/variables
+@import mixins/clear_left
+@import mixins/link
+@import mixins/tag
+@import mixins/comma_separated
+
+.b-catalog_entry-tooltip
+  +clear_left
+  line-height: $line_height
+  position: relative
+
+  .image
+    width: 160px
+    float: left
+
+  .inner
+    padding-bottom: $block_offset // нужно т.к. .rating с абсолютным позиционированием. чтобы контекнт на рейтинг не налез
+
+    &.offset
+      margin-left: 180px
+
+    a.name
+      +link
+      font-size: 13px
+      font-weight: bold
+      line-height: 20px
+      margin-bottom: 5px
+
+    .job-title
+      font-style: italic
+      line-height: 1
+      margin-bottom: 10px
+
+    .text
+      font-size: 12px
+      line-height: 20px
+      margin-bottom: 5px
+
+      .prgrph
+        margin-bottom: 2px !important
+
+      .b-nothing_here
+        margin-left: 0
+
+    .line
+      font-size: 12px
+      line-height: 23px
+
+      .key
+        color: #444
+        font-weight: bold
+        display: inline
+
+      .value
+        display: inline
+
+        a
+          +link
+
+        .tag
+          +tag
+
+      &.works .value a
+        +comma_separated
+        +link
+
+    .rating
+      bottom: -10px
+      color: #444
+      font-family: Tahoma
+      font-size: 23px
+      line-height: 18px
+      position: absolute
+      right: 0
+
+      .text
+        color: #555
+        float: left
+        font-size: 11px
+        margin: 5px
+
+    .best-works
+      overflow: hidden
+
+      .b-catalog_entry
+        margin-bottom: 0
+
+    .additional-images
+      margin-left: 10px
+      float: right
+
+      .link
+        margin-bottom: 5px
+
+        .title
+          color: #444
+          font-size: 12px
+          font-weight: bold
+          text-align: left
+
+        img
+          width: 48px

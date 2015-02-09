@@ -7,7 +7,7 @@ class CharactersService
   RussianCleaner = %r{(?:#{RussianReplacements.join('|')})$}
 
   # замена имён персонажей с транскрипцией на [character] теги
-  def process(data, anime)
+  def process data, anime
     characters = extract_characters(anime)
     people = extract_people(anime)
 
@@ -26,7 +26,7 @@ class CharactersService
 
 private
   # выборка персонажей
-  def extract_characters(anime)
+  def extract_characters anime
      anime.characters.inject({}) do |rez,v|
       rez[v.japanese.cleanup_japanese.gsub(' ', '')] = v if v.japanese.present?
       rez[v.name.gsub(' ', '')] = v
@@ -35,7 +35,7 @@ private
   end
 
   # выборка людей
-  def extract_people(anime)
+  def extract_people anime
      anime.people.inject({}) do |rez,v|
       rez[v.japanese.cleanup_japanese.gsub(' ', '')] = v if v.japanese.present?
       rez[v.name.gsub(' ', '')] = v
@@ -44,7 +44,7 @@ private
   end
 
   # выборка реальных имён с транскрипцией из текста
-  def extract_transcribed_matches(text, characters, people)
+  def extract_transcribed_matches text, characters, people
     text.gsub(/
       (?<name> (?: [А-ЯЁA-Z][А-ЯЁа-яё\w\.-]+(\s д[е'])? (?: \s (?=[А-ЯЁA-Z]) )? )+ )
       \s*
@@ -73,7 +73,7 @@ private
   end
 
   # выборка имён, напрямую совпадающих с именами персонажей в тексте
-  def extract_russian_matches(matches, text, characters)
+  def extract_russian_matches matches, text, characters
     characters.each do |japanese,character|
       next if character.russian.blank?
       next if matches.any? { |v| v[:name] == character.russian }
@@ -89,12 +89,12 @@ private
   end
 
   # регексп, по которому в тексте будет производиться финальная замена
-  def build_regexp(name)
+  def build_regexp name
     %r{(?<![\[\]\(\)])\b#{name}\b(?![\[\]\(\)]\/?(?:character|person))(\s*(?:\(|\[).*?(?:\)|\]))?}
   end
 
   # разбивка имён по пробелам
-  def variate_matches(matches, &variator)
+  def variate_matches matches, &variator
     # карта существующих имён - нужна, чтобы не было конфликтов имён
     counts_map = matches.map { |v| variator.(v[:name]) }
                         .flatten
@@ -121,7 +121,7 @@ private
   end
 
   # замена в тексте имён
-  def replace_names(text, matches)
+  def replace_names text, matches
     matches.each do |data|
       if data.include?(:person)
         text.gsub! data[:regex], "[person=#{data[:person].id}]#{data[:name]}[/person]"
@@ -149,7 +149,7 @@ private
   end
 
   # различные варианты написания слова с учётом разных падежей
-  def russian_variations(word)
+  def russian_variations word
     return [word] if word.size < 3 || word.include?(' ')
     cleaned_word = word.sub(RussianCleaner, '')
     [word, cleaned_word] + RussianReplacements.map {|v| cleaned_word + v }

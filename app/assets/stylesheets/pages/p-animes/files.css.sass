@@ -1,0 +1,47 @@
+@import globals
+@import mixins/column
+
+.p-animes-files, .p-mangas-files
+  .l-content
+    a
+      +ellipsis
+      +normal-link
+      line-height: $line_height
+
+  .b-table
+    margin-left: 0
+
+  .c-toshokan, .c-rutracker
+    +column(2)
+
+    a
+      //+normal-link
+      display: block
+      line-height: $line_height
+
+  table
+    font-size: 12px
+
+    th
+      font-size: 13px
+
+      &.num
+        text-align: left
+        width: 50px
+
+    td
+      &:first-child
+        padding-left: 5px
+
+      &.name.other-torrents a
+        width: 490px
+
+      &.name.subtitles a
+        width: 655px
+
+      &.name.full-subtitles a
+        width: 705px
+
+      &.num
+        text-align: left
+        width: 50px

@@ -1,34 +1,18 @@
-.p-anime_video-edit.container
-  = simple_form_for @video, url: anime_online_anime_anime_video_url(@video.anime_id, @video.id) do |f|
-    h3 : a href="#{anime_videos_show_url(@video.anime.id, @video.episode, @video.id)}" #{@video.anime.name}
-    legend Правка видео
+= render layout: 'animes/page' do
+  = simple_form_for @video, url: edit_video_online_url(@anime, @video) do |f|
+    - if @video.errors.any?
+      .b-errors
+        .subheadline Ошибки
+        .block
+          == @video.errors.full_messages.join('<br>')
 
-    - unless @video.errors.blank?
-      .alert.alert-danger = @video.errors.full_messages.join ', '
+    .subheadline Редактирование видео
+    .block
+      = f.input :episode
+      = f.input :url, input_html: { disabled: true }
+      = f.input :author_name, hint: 'не обязательно'
+      = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
 
-    .form-group
-      label Url
-      br
-      a href="#{@video.url}" target='_blank' = @video.url
-    .form-group
-      label Эпизод
-      = f.input_field :episode, class: 'form-control', placeholder: 'Число'
-    .form-group
-      label Автор озвучки
-      = f.input_field :author, class: 'form-control', placeholder: 'Строка (если автор неизвестен может быть пустой)', value: (@video.author ? @video.author.name : '')
-    .form-group
-      label Озвучка
-      br
-      label.radio-inline
-        = f.radio_button :kind, :fandub, value: :fandub
-        = t '.kind.fandub'
-      label.radio-inline
-        = f.radio_button :kind, :subtitles, value: :subtitles
-        = t '.kind.subtitles'
-      label.radio-inline
-        = f.radio_button :kind, :raw, value: :raw
-        = t '.kind.raw'
-
-    button.btn.btn-success type='submit' Сохранить
-
-    br
+    .block
+      = f.submit 'Сохранить'
+      a.cancel href="#{@back_url}" Отмена

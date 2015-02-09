@@ -1,0 +1,33 @@
+.stat-block id="stat-#{name}"
+  - if @resource.send(key).respond_to?(:[]) && !@resource.send(key).kind_of?(Fixnum)
+    table.stat-data id="#{name}-data"
+      tfoot
+        tr
+          th 1
+          th 2
+          th 3
+          th 4
+          th 5
+          th 6
+          th 7
+          th 8
+          th 9
+          th 10
+      tbody
+        tr
+          - @resource.send(key).each do |v|
+            td
+              = v
+  .subheadline.clearfix
+    = name
+  p
+    span.key
+      | Средняя оценка
+    | :&nbsp;
+    b id="#{name}-score"
+      = average_score @resource.send(key)
+    - if @resource.send(key).respond_to?(:[]) && !@resource.send(key).kind_of?(Fixnum)
+      |  от #{@resource.send(key).sum} пользователей
+
+  - if @resource.send(key).respond_to?(:[]) && !@resource.send(key).kind_of?(Fixnum)
+    .stat-chart id="#{name}-chart"

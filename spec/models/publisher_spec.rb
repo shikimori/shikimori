@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Publisher do
   # по-моему какой-то баг в rails 4
   # TODO: проверить, не заработало ли в rails 4.1

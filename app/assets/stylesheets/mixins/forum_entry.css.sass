@@ -1,0 +1,152 @@
+@import compass/css3/transition
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import mixins/clear_right
+@import mixins/icons
+@import mixins/responsive
+@import mixins/link
+
+$aside_width: 280px
+
+=forum_entry
+  +clear_right
+  overflow: hidden // без height-shortener не работает вообще
+  padding-top: 5px
+
+  &:first-child
+    padding-top: 0
+
+  &>.inner
+    +clearfix
+    +transition(margin-left 0.25s ease)
+    width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
+
+    aside.markers
+      +iphone
+        position: absolute
+        right: 45px
+
+      +iphone_portrait
+        div
+          position: absolute
+          right: 0
+
+    aside.buttons
+      display: none
+
+      .item-cancel
+        display: none
+
+    &:hover
+      +gt_ipad
+        aside.buttons
+          display: block
+
+    header
+      margin-bottom: 3px
+
+      img
+        float: left
+        +gte_ipad
+          margin: 1px 10px 7px 0
+          width: 48px
+
+        +iphone
+          margin: 1px 7px 4px 0
+          width: 32px
+
+      .name-date
+        +ellipsis
+        display: block
+        font-size: 13px
+        line-height: 1
+
+        a
+          +link
+          font-weight: bold
+
+        time
+          +ellipsis
+          color: $date
+          display: inline
+          font-size: 11px
+          padding-left: 10px
+
+          +lte_ipad
+            display: block
+            padding-top: 3px
+            padding-left: 0
+            line-height: $line_height
+
+    .was_updated
+      +link_color($gray-color)
+      clear: both
+      cursor: pointer
+      margin-bottom: 2px
+
+      div
+        display: inline-block
+        font-size: 11px
+        line-height: 20px
+        padding-top: 0
+
+      .b-user16
+        padding-left: 5px
+        margin-right: 0
+
+        img
+          margin-top: 1px
+
+  // раскрытое меню в мобильной версии
+  &.aside-expanded
+    &>.item-mobile
+      display: none
+
+    &>.inner
+      margin-left: -$aside_width
+      overflow: visible
+      position: relative
+
+      aside.buttons
+        display: block
+        margin-right: -$aside_width - $block_offset * 3
+        margin-top: -6px
+        padding-top: 5px
+        width: $aside_width
+
+        .main-controls
+          .item-reply
+            +icon_expandable('Ответить')
+          .item-edit
+            +icon_expandable('Редактировать')
+          .item-delete
+            +icon_expandable('Удалить')
+          .item-moderation
+            +icon_expandable('На модерацию')
+          .item-cancel
+            +icon_expandable('Отмена')
+
+          .item-request-confirm
+            +icon_expandable('Принять')
+          .item-request-reject
+            +icon_expandable('Отклонить')
+
+        .delete-controls
+          .item-delete-confirm
+            +icon_expandable('Удалить')
+          .item-delete-cancel
+            +icon_expandable('Отмена')
+
+        .moderation-controls
+          .item-ban
+            +icon_expandable('Забанить')
+          .item-abuse
+            +icon_expandable('Нарушение правил')
+          .item-spoiler
+            +icon_expandable('Это спойлер')
+          .item-review
+            +icon_expandable('Это (не) отзыв')
+          .item-offtopic
+            +icon_expandable('Это (не) оффтопик')
+          .item-moderation-cancel
+            +icon_expandable('Отмена')

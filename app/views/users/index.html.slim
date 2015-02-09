@@ -1,10 +1,11 @@
-- content_for :head do
+/- content_for :head do
   = stylesheet_link_tag :users
-- content_for :tail do
+/- content_for :tail do
   = javascript_include_tag :similar_users
 
 header.head.misc
-  h1 = @page_title
+  h1 style="#{'white-space: nowrap;' if !params[:similar] && user_signed_in?}"
+    = @page_title
 
   - if params[:similar]
     - if @klass == Anime
@@ -15,10 +16,10 @@ header.head.misc
     a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
 
   - if params[:similar]
-    .header-filters.clearfix
+    .b-header_filters
       .filter-line
         span.title Список #{@klass == Anime ? 'просмотренного' : 'прочитанного'}:
-        - UsersController::Thresholds.each do |threshold|
+        - UsersController::THRESHOLDS.each do |threshold|
           a class="#{:current if @threshold == threshold}" href="#{users_url similar: 'similar', threshold: threshold}" #{threshold}+
   p.notice
     - if params[:similar]
@@ -28,7 +29,7 @@ header.head.misc
     - else
       | В данном разделе представлены все пользователи сайта, отсортированные по дате последнего захода на сайт
 
-.index-list
+.ajax
   - if params[:similar] && @similar_ids.nil?
     p.pending Ищем похожих на вас пользователей. Пожалуйста, подождите, процесс может занять некоторое время.
     .ajax-loading.vk-like.left title="Загрузка..."
@@ -50,6 +51,10 @@ header.head.misc
               - else
                 p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
   - else
-    = render partial: 'users/user', collection: @users, formats: :html
+    = render @collection, content_by: :detailed
+
     - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { filter: 'b-user', url: users_url(page: @page+1, search: params[:search]) }, formats: :html
+      = render 'blocks/postloader', filter: 'b-user',
+        url: users_url(page: @page+1, search: params[:search]),
+        next_url: users_url(page: @page+1, search: params[:search]),
+        prev_url: (@page > 1 ? users_url(page: @page+1, search: params[:search]) : nil)

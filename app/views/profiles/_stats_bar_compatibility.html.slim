@@ -1,0 +1,7 @@
+span.text class="#{@resource.compatibility_class klass}"
+  = @resource.compatibility_text klass
+
+- if @resource.compatibility(klass) > 0
+  span.text &nbsp;
+  span.rate
+    = @resource.compatibility(klass)

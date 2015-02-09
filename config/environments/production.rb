@@ -20,7 +20,7 @@ Site::Application.configure do
   #config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -32,7 +32,7 @@ Site::Application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.0'
+  config.assets.version = '2.0'
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   #config.assets.precompile += %w( admin.css email.css registrations.css standart.css admin.js application_new.js application_new.css *.js admin/*.css)
@@ -57,7 +57,7 @@ Site::Application.configure do
   config.cache_store = :dalli_store, 'localhost', {
     namespace: 'shikimori_production',
     compress: true,
-    value_max_bytes: 1024 * 1024 * 16
+    value_max_bytes: 1024 * 1024 * 128
   }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
@@ -83,4 +83,6 @@ Site::Application.configure do
 
   config.exception_recipients = %w{takandar@gmail.com}
   config.notify_exceptions = true
+
+  config.redis_db = 0
 end

@@ -1,0 +1,198 @@
+.b-collection-filters class="#{klass == Anime ? 'anime' : 'manga'}-params-controls"
+  - if defined?(in_user_profile)
+    = render 'animes_collection/mylist', klass: klass
+
+  .block
+    .subheadline Статус
+    ul.block-list.statuses.anime-params
+      - AniMangaStatus.all.each do |(status,title)|
+        li class="status-#{status}"
+          input type="checkbox" autocomplete="off"
+          = title
+
+  .block
+    .subheadline Тип
+    ul.block-list.types.anime-params
+      / аниме
+      - if klass == Anime
+        li.type-TV
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Anime.TV')
+          - else
+            | TV
+
+        li.type-TV-13.sub
+          input type="checkbox" autocomplete="off"
+          = t('Anime.TV-13')
+
+        li.type-TV-24.sub
+          input type="checkbox" autocomplete="off"
+          = t('Anime.TV-24')
+
+        li.type-TV-48.sub
+          input type="checkbox" autocomplete="off"
+          = t('Anime.TV-48')
+
+        li.type-Movie
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Anime.Movie')
+          - else
+            | Movie
+
+        li.type-OVA
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Anime.OVA')
+          - else
+            | OVA
+
+        li.type-ONA
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Anime.ONA')
+          - else
+            | ONA
+
+        li.type-Special
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Anime.Special')
+          - else
+            | Special
+
+        li.type-Music
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Anime.Music')
+          - else
+            | Music
+      / манга
+      - else
+        li.type-Manga
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Manga.Manga')
+          - else
+            | Manga
+
+        li.type-Manhua
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Manga.Manhua')
+          - else
+            | Manhua
+
+        li.type-Manhwa
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Manga.Manhwa')
+          - else
+            | Manhwa
+
+        li.type-Novel
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Manga.Novel')
+          - else
+            | Novel
+
+        li.type-One-Shot
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Manga.One Shot')
+          - else
+            | One Shot
+
+        li.type-Doujin
+          input type="checkbox" autocomplete="off"
+          - if !current_user || (current_user && current_user.preferences.russian_genres?)
+            = t('Manga.Doujin')
+          - else
+            | Doujin
+
+  - if defined?(social) && show_social?
+    .addthis_toolbox.addthis_default_style
+      a.addthis_button_vk
+      a.addthis_button_facebook
+      a.addthis_button_twitter
+      a.addthis_button_google_plusone_share
+      a.addthis_button_mymailru
+      a.addthis_button_odnoklassniki_ru
+      a.addthis_button_compact
+
+  - unless defined?(in_recommendations)
+    .block
+      .subheadline Сортировка
+      ul.block-list.orders.anime-params.subcontent
+        li.order-by-ranked По рейтингу
+        li.order-by-kind.hidden По типу
+        li.order-by-popularity По популярности
+        li.order-by-name По алфавиту
+        li.order-by-aired_on По дате выхода
+
+        / используется в профиле пользователя
+        - if defined?(in_user_profile)
+          li.order-by-my style="display: none" По оценке
+          li.order-by-rate_id По дате добавления
+          - if klass == Anime
+            li.order-by-episodes style="display: none" По числу эпизодов
+          - else
+            li.order-by-chapters style="display: none" По числу глав
+            li.order-by-volumes style="display: none" По числу томов
+          li.order-by-status style="display: none" По статусу
+        - else
+          li.order-by-id По дате добавления
+
+        / используется в userlist comparer
+        - if defined?(custom_sorts) && !custom_sorts.empty?
+          - custom_sorts.each do |name, title|
+            li class="order-by-#{name}"
+              = title
+
+  - if user_signed_in? && !defined?(in_user_profile) && !defined?(in_lists_comparsion)
+    = render 'animes_collection/mylist', klass: klass
+
+  .block.hidden
+    .subheadline Студия
+    ul.block-list.studios.anime-params
+
+  .block.hidden
+    .subheadline Издатель
+    ul.block-list.publishers.anime-params
+
+  .block
+    .subheadline Сезон
+    ul.block-list.seasons.anime-params
+      - AniMangaSeason.catalog_seasons.each do |(season,title)|
+        li class="season-#{season}"
+          input type="checkbox" autocomplete="off"
+          = title
+
+  - if klass == Anime
+    .block.durations
+      .subheadline Эпизод
+      ul.block-list.durations.anime-params
+        - AniMangaQuery::Durations.keys.each do |v|
+          li class="duration-#{v}"
+            input type="checkbox" autocomplete="off"
+            = t("#{klass}.Duration.#{v}")
+
+    .block.ratings
+      .subheadline Рейтинг
+      ul.block-list.ratings.anime-params
+        - AniMangaQuery::Ratings.keys.reverse.each do |v|
+          li class="rating-#{v}"
+            input type="checkbox" autocomplete="off"
+            = v
+
+  .block.genres
+    .subheadline Жанр
+    = text_spoiler 'Показать список' do
+      ul.block-list.genres.anime-params.m10
+        - @genres.sort_by {|v| [v.position, localized_name(v)] }.each do |genre|
+          - next if genre.id == Genre::ThrillerDupID
+          li class="#{:bubbled if genre.description} genre-#{genre.to_param} #{:m10 if genre.position % 10 == 0}" data-predelay="150" data-href="#{tooltip_genre_url genre}"
+            input type="checkbox" autocomplete="off"
+            = localized_name genre

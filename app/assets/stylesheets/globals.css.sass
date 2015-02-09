@@ -1,77 +1,14 @@
-$legacy-support-for-ie: false
-$legacy-support-for-ie6: $legacy-support-for-ie
-$legacy-support-for-ie7: $legacy-support-for-ie
-$legacy-support-for-ie8: $legacy-support-for-ie
-$legacy-support-for-mozilla: $legacy-support-for-ie
-
+// TODO: удалить из этого файла вообще всё. и сам файл тоже удалить
 @import compass
 @import globals/variables
 @import mixins/responsive
-
-// кнопочки иконочные
-=icon($content, $font-size: 14px)
-  cursor: pointer
-
-  +responsive(desktop)
-    margin-left: 15px
-
-  +responsive(tablet)
-    margin-left: 35px
-
-  +responsive(narrow-phone)
-    margin-left: 30px
-
-  &:before
-    content: $content
-    cursor: pointer
-    display: inline-block
-    font-family: 'shikimori'
-    font-size: $font-size
-    line-height: 20px
-    text-align: center
-    width: 20px
-
-=menu-icon($content)
-  +icon($content)
-  +responsive(desktop)
-    margin-left: 0
-
-  +responsive(tablet)
-    margin-left: 0
-
-  +responsive(narrow-phone)
-    margin-left: 0
-
-  &:before
-    float: left
-    margin-right: 2px
-
-=icon-button-selected-decor
-  color: $selected-color
-  &:hover
-    color: $hover-color
-  &:active
-    color: $active-color
-
-=icon-button($content)
-  +link-color(#444444)
-  +icon($content, 13px)
-  &.selected
-    +icon-button-selected-decor
-
-=headline-icon-button($content)
-  +icon-button($content)
-  +link-color(#666666)
-  font-size: 12px
-  cursor: pointer
-  float: right
-  font-weight: normal
-  margin: 3px 10px 0
 
 =new-header-font
   color: #111
   font: 26px normal tahoma, verdana, arial, sans-serif
   border-bottom: none
+  +iphone
+    font-size: 24px
 
 =new-subheader-font
   color: #222
@@ -140,49 +77,6 @@ $default-image-active-background: #adadad
   &:active
     background-color: $default-image-active-background
 
-/* новое отображение спойлера
-=spoiler-new
-  &.target
-    display: inline
-
-    &.dashed
-      border-bottom: 1px dashed #FFB3B3
-      cursor: pointer
-      //cursor: default
-
-  &.collapsed
-    +normal-link
-    background: transparent !important
-    border: none
-    //border-bottom: 1px dashed $selected-color
-    //cursor: default
-    display: inline
-    padding: 0
-    text-decoration: none
-
-    &:hover, &:active
-      background: transparent !important
-      text-decoration: none
-
-  &.collapse
-    +normal-link
-    font-size: 11px
-    margin-top: 4.5px
-    padding: 0 0 0 0
-    text-decoration: none
-    //border-bottom: 1px dashed $selected-color
-
-    &:hover, &:active
-      background: transparent !important
-      text-decoration: none
-
-/* стандартное оформление дат
-=date
-  color: $date-color
-  /*font-style: italic;
-  font-weight: normal
-  font-size: 11px
-
 /* стандартное оформление аватара
 =avatar
   +border-radius(3px)
@@ -194,9 +88,9 @@ $default-image-active-background: #adadad
   +transition(color, 0.2s)
   color: $color
   &:hover
-    color: $hover-color
+    color: $link_hover
   &:active
-    color: $active-color
+    color: $link_active
 
 =link_color_hover_underlined($color)
   +link-color($color)
@@ -208,7 +102,7 @@ $default-image-active-background: #adadad
 /* нормальная голубая ссылка
 =normal-link
   +transition(color, 0.2s)
-  +link-color($selected-color)
+  +link-color($link)
   cursor: pointer
   &:hover
     text-decoration: underline
@@ -242,46 +136,16 @@ $default-image-active-background: #adadad
     +default-link-a
     cursor: inherit
 
-/* серый прямоугольный блок
-$gray-block-background: #f9f9f9
-
-=gray-block
-  +transition(color, 0.2s)
-  +transition(background-color, 0.2s)
-  background: $gray-block-background
-  color: #555
-  cursor: pointer
-  line-height: $line-height
-  padding: 5px 10px
-
-  &:hover
-    background-color: #EEEEEE
-    color: black
-  &:active
-    background-color: #E7E7E7
-
-=plashka
-  +gray-block
-  border: 1px solid #F2F2F2
-  padding: 5px 4px
-  text-align: center
-
-  &:hover
-    border: 1px solid #E7E7E7
-  &:active
-    border: 1px solid #E0E0E0
-
 /* цвета логотипа
 $logo-color: #333333
 $logo-hover-color: #176093
-$logo-active-color: #104265 !important
+//$logo-active-color: #104265 !important
+$logo-active-color: #104265
+
 
 $default-link-color: #666666
 
 /* вертикальный отступ для ссылок more
 $more-offset: 3px
-
-/* ширина контента сайта
-$site-body-width: 1005px
 
 /*$use-mozilla-ellipsis-binding: true;

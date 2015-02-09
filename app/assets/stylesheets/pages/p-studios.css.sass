@@ -1,0 +1,35 @@
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/link
+
+.p-studios
+  .studio
+    +clearfix
+    border-bottom: 1px dashed #DDD
+    margin-bottom: 5px
+    min-height: 65px
+    padding-bottom: 5px
+
+    &:last-child
+      border-bottom: none
+
+    .logo
+      float: right
+      max-height: 58px
+      margin: 3px
+
+    .name
+      +link(#123)
+      display: block
+      font-size: 14px
+      font-weight: bold
+      line-height: $line_height
+
+    .animes, .years
+      color: darken($gray-color-0, 10%)
+      font-size: 11px
+      line-height: 19px
+
+      .num
+        color: darken($gray-color-2, 10%)
+

@@ -1,9 +1,44 @@
+@import compass/typography/text/ellipsis
+@import compass/css3/opacity
+@import compass/css3/transition
+
 =placeholder
   &::-webkit-input-placeholder
+    +ellipsis
+    +opacity(1)
+    +transition(opacity 0.3s ease)
+
     @content
+
   &:-moz-placeholder
+    +ellipsis
+    +opacity(1)
+    +transition(opacity 0.3s ease)
+
     @content
+
   &::-moz-placeholder
+    +ellipsis
+    +opacity(1)
+    +transition(opacity 0.3s ease)
+
     @content
+
   &:-ms-input-placeholder
+    +ellipsis
+    +opacity(1)
+    +transition(opacity 0.3s ease)
+
     @content
+
+  &:focus::-webkit-input-placeholder
+    +opacity(0)
+
+  &:focus:-moz-placeholder
+    +opacity(0)
+
+  &:focus::-moz-placeholder
+    +opacity(0)
+
+  &:focus:-ms-input-placeholder
+    +opacity(0)

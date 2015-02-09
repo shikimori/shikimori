@@ -1,7 +1,7 @@
-class GroupDecorator < BaseDecorator
+class GroupDecorator < DbEntryDecorator
   VisibleEntries = 12
 
-  rails_cache :description_html, :all_members, :all_animes, :all_mangas, :all_characters, :all_images
+  rails_cache :all_members, :all_animes, :all_mangas, :all_characters, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images, :comments, :banned
 
   def url
@@ -10,10 +10,6 @@ class GroupDecorator < BaseDecorator
 
   def image
     object.logo
-  end
-
-  def description_html
-    BbCodeFormatter.instance.format_comment object.description
   end
 
   def all_members
@@ -28,7 +24,7 @@ class GroupDecorator < BaseDecorator
   end
 
   def members
-    all_members.take 9
+    all_members.take 12
   end
 
   def all_animes
@@ -73,43 +69,27 @@ class GroupDecorator < BaseDecorator
       .sort_by(&:name)
   end
 
-  def all_images
-    return [] unless display_images?
-    object
-      .images
-      .order(created_at: :desc)
-  end
-
-  def images
-    all_images.take(12)
-  end
-
-  def comments
-    object
-      .thread
-      .comments
-      .with_viewed(h.current_user)
-      .limit(15)
-      .to_a
+  def images limit = 999
+    all_images.take limit
   end
 
   def show_comments?
     h.user_signed_in? || comments.any?
   end
 
-  def banned
-    bans.includes(:user).map(&:user)
+  def new_invite
+    invites.new(src: h.current_user)
   end
 
-  # для отображения топиков клуба на форуме
-  def topics
-    []
-  end
+  ## для отображения топиков клуба на форуме
+  #def topics
+    #[]
+  #end
 
-  # для отображения топиков клуба на форуме
-  def news
-    []
-  end
+  ## для отображения топиков клуба на форуме
+  #def news
+    #[]
+  #end
 
   class << self
     def join_policy_options
@@ -123,5 +103,13 @@ class GroupDecorator < BaseDecorator
         [I18n.t("activerecord.attributes.group.comment_policies.#{policy_name}"), policy_name]
       end
     end
+  end
+
+private
+  def all_images
+    return [] unless display_images?
+    object
+      .images
+      .order(created_at: :desc)
   end
 end

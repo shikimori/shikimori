@@ -1,0 +1,250 @@
+@import compass/css3/transition
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/icons
+@import mixins/plashka
+@import mixins/responsive
+
+.p-animes-show, .p-mangas-show
+  .no-video
+    .c-screenshots
+      +block_m
+
+    .c-videos
+      +block_m
+
+  .one-video
+    +gte_ipad
+      .c-screenshots
+        +column_bm(2, 0.75)
+
+      .c-videos
+        +column_bm(2, 0.25)
+
+      .c-screenshot
+        +column(3)
+
+        &.entry-4, &.entry-5
+          display: none
+
+      .c-video
+        +column(1)
+
+        &.entry-2, &.entry-3, &.entry-4, &.entry-5
+          display: none
+
+  .two-videos
+    +gte_ipad
+      .c-screenshots, .c-videos
+        +column_bm(2)
+
+    +widescreen
+      .c-screenshot, .c-video
+        +column(2)
+
+        &.entry-3, &.entry-4, &.entry-5
+          display: none
+
+    +ipad
+      .c-screenshot, .c-video
+        +column(3)
+        &.entry-4, &.entry-5
+          display: none
+
+    +iphone
+      .c-screenshots, .c-videos
+        +block_m
+
+  .c-screenshot, .c-video
+    margin-bottom: 0
+
+    +iphone-portrait
+      &.entry-3, &.entry-4, &.entry-5
+        display: none
+
+    +iphone-landscape
+      &.entry-4, &.entry-5
+        display: none
+
+  .four-characters
+    +gte_ipad
+      .c-characters, .c-people
+        +column(2)
+
+    .c-character, .c-person
+      +gte_ipad
+        +column_bm(4)
+      +iphone-portrait
+        +column_bm(3)
+      +iphone-landscape
+        +column_bm(5)
+
+  .five-characters
+    +gte_ipad
+      .c-characters
+        +column(2, 5/8)
+
+      .c-people
+        +column(2, 3/8)
+
+      .c-character
+        +column_bm(5)
+
+      .c-person
+        +column_bm(3)
+
+    .c-character, .c-person
+      +iphone-portrait
+        +column_bm(3)
+      +iphone-landscape
+        +column_bm(5)
+
+  .six-characters
+    +gte_ipad
+      .c-characters
+        +column(2, 6/8)
+
+      .c-people
+        +column(2, 2/8)
+
+      .c-character
+        +column_bm(6)
+
+      .c-person
+        +column_bm(2)
+
+    .c-character, .c-person
+      +iphone-portrait
+        +column_bm(3)
+      +iphone-landscape
+        +column_bm(5)
+
+  .cc
+    .c-anime, .c-manga
+      +gte_ipad
+        +column_bm(7)
+      +iphone-portrait
+        +column_bm(3)
+        &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7)
+          display: none
+      +iphone-landscape
+        +column_bm(5)
+        &:nth-child(6), &:nth-child(7)
+          display: none
+
+  .text
+    //&.shortened
+      height: 142px
+      overflow: hidden
+
+  .other-names.click-loader
+    +plashka
+    height: 15px
+    line-height: 15px
+    margin-left: 5px
+    margin-top: 5px
+    padding: 0 10px
+    position: absolute
+    text-align: center
+
+    .vk-like
+      min-height: 14px
+
+  .watch-online
+    +ellipsis
+    text-align: center
+
+    +gte_ipad
+      font-size: 13px
+      line-height: $line_height
+      margin: 6px 0 10px 0
+
+    span, a
+      +link
+      +gte_ipad
+        &:before
+          line-height: 20px
+
+  // блок загрузки ресурсов аниме
+  .resources-loader.postloaded
+    +plashka
+    +block
+
+  // блок "показать остальное"
+  .related-shower
+    +plashka
+    border: 1px solid #F2F2F2
+    clear: left
+    margin: -5px 0 $block_offset 0
+  .related-hidden
+    display: none
+
+  .studio-logo
+    max-width: 195px
+
+  .anime-rate
+    +block
+    width: auto
+
+    .add-to-list
+      +link
+
+      +lte_ipad
+        line-height: 2
+
+    .expand-options
+      +icon_button('\006d')
+
+    .expanded-options
+      +transition(height 0.3s ease)
+      display: none
+
+    .rate-container
+      +transition(height 0.3s ease)
+      overflow: hidden
+
+    .rate-show
+      margin-bottom: 5px
+
+      .rate-number
+        float: right
+
+        .b-input
+          display: inline
+
+        label
+          display: none
+
+        input
+          text-align: center
+          width: 25px
+
+        .item-add
+          margin-left: 10px
+
+      .status
+        margin-bottom: 5px
+
+      .note
+        color: $gray-color-0
+        margin-top: 5px
+
+    .rate-edit
+      display: none
+
+      .b-input.integer input
+        width: 45px
+
+      .remove
+        +clearfix
+        margin-bottom: 10px
+
+        a
+          +link
+          float: right
+
+      textarea
+        width: 195px

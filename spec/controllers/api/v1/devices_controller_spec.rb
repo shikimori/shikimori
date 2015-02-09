@@ -1,7 +1,6 @@
-require 'spec_helper'
 require 'cancan/matchers'
 
-describe Api::V1::DevicesController do
+describe Api::V1::DevicesController, :show_in_doc do
   before { sign_in user }
   let(:user) { create :user }
 
@@ -10,9 +9,9 @@ describe Api::V1::DevicesController do
     let!(:device_2) { create :device }
     before { get :index, format: :json }
 
-    it { expect(assigns :devices).to have(1).item }
-    it { should respond_with :success }
-    it { should respond_with_content_type :json }
+    it { expect(assigns(:devices).size).to eq(1) }
+    it { expect(response).to have_http_status :success }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe '#create' do
@@ -20,7 +19,7 @@ describe Api::V1::DevicesController do
 
     it { expect(assigns :device).to be_persisted }
     it { should respond_with :created }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
   describe '#destroy' do
@@ -29,23 +28,23 @@ describe Api::V1::DevicesController do
 
     it { expect(assigns :device).to be_destroyed }
     it { should respond_with :no_content }
-    it { should respond_with_content_type :json }
+    it { expect(response.content_type).to eq 'application/json' }
   end
 
-  describe :permissions do
+  describe 'permissions' do
     subject { Ability.new user }
 
-    context :own_device do
+    context 'own_device' do
       let(:device) { build :device, user: user }
       it { should be_able_to :manage, device }
     end
 
-    context :foreign_device do
+    context 'foreign_device' do
       let(:device) { build :device }
       it { should_not be_able_to :manage, device }
     end
 
-    context :guest do
+    context 'guest' do
       subject { Ability.new nil }
       let(:device) { build :device, user: user }
       it { should_not be_able_to :manage, device }

@@ -1,27 +1,28 @@
 header.head.m15
-  h1 Авторизация
+  h1 Регистрация
   p.notice На данной странице вы сможете зарегистрироваться на нашем сайте.
 
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :multipart => true }) do |f|
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :multipart => true }) do |f|
   - if resource.errors.any?
-    .validation-errors
-      .subheadline.red Ошибки
-      .subcontent.m10
+    .b-errors
+      .subheadline Ошибки
+      .block
         == resource.errors.full_messages.join('<br>')
 
-  .m20
-    p
-      label for="user_nickname" Логин
-    = f.text_field :nickname, class: 'common'
+  .block
+    = f.input :nickname, input_html: { autofocus: true }
+    = f.input :email
+    = f.input :password
 
-  .m20
-    p
-      label for="user_email" E-mail
-    = f.text_field :email, class: 'common'
+  .block
+    = f.submit 'Зарегистрироваться'
+    a.cancel href="#{new_user_session_url}" Войти в уже существующий аккаунт
+    a.cancel href="#{new_user_password_url}" Забыли пароль?
 
-  .m20
-    p
-      label for="user_password" Пароль
-    = f.text_field :password, class: 'common'
+  .social
+    p.m5 Через социальные сети
 
-  = f.submit 'Зарегистрироваться', class: 'button'
+    div
+      a.b-oauth_token.vkontakte href="#{user_omniauth_authorize_url :vkontakte}" title="Регистрация через Вконтакте"
+      a.b-oauth_token.facebook href="#{user_omniauth_authorize_url :facebook}" title="Регистрация через Вконтакте"
+      a.b-oauth_token.twitter href="#{user_omniauth_authorize_url :twitter}" title="Регистрация через Вконтакте"

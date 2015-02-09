@@ -1,0 +1,70 @@
+.menu-toggler
+  .toggler
+
+header.head
+  h1
+    = @h1 || @section.name
+
+
+  - if @breadcrumbs
+    = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  - else
+    .notice
+      = @notice || @section.description
+
+  /- if params[:page] != 'cosplay'
+  /- else
+    h2.h1-like title="#{h1_text @resource}"
+      = h1_text @resource, true
+
+  /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs, formats: :html
+
+.menu-slide-outer
+  /- if defined?(@gallery)
+    - if user_signed_in?
+      = render partial: 'forum/gallery', formats: :html
+    - else
+      .welcome-gallery-loader data-remote="#{welcome_gallery_url}"
+        .ajax-loading title="Загрузка..."
+
+  .menu-slide-inner
+    .l-content
+      /.forum-nav
+        /nav.sections
+          /- if user_signed_in?
+            /a data-section="new" class="control section-new section-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url section: @section[:permalink], linked: @linked}"
+          /- @sections.each do |section|
+            /a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
+              /= section[:name_short] || section[:name]
+
+        /h1.title
+          /= @h1 || @section.name.sub(/^Все$/, 'Обсуждения')
+        /p.notice
+          /= @notice || @section.description
+
+      = yield
+
+    aside.l-menu.ajax-opacity
+      - if @topic && @topic.linked
+        - if @topic.linked.kind_of?(Anime) || @topic.linked.kind_of?(Manga)
+          = render 'animes/menu', resource: @topic.linked.decorate
+
+        - elsif @topic.linked.kind_of? Review
+          = render 'animes/menu', resource: @topic.linked.target.decorate
+
+        - elsif @topic.linked.kind_of? Character
+          = render 'characters/menu', resource: @topic.linked.decorate
+
+        - elsif @topic.linked.kind_of? Person
+          = render 'people/menu', resource: @topic.linked.decorate
+
+        - elsif @topic.linked.kind_of? Group
+            = render 'clubs/menu', resource: @topic.linked.decorate
+
+        - elsif @topic.linked.kind_of? Contest
+            = render 'contests/menu', resource: @topic.linked.decorate
+
+        - else raise "unknown linked: #{@linekd.class}"
+
+      - else
+        = render 'forum/site_block', presenter: @news

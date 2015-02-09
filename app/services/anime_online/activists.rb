@@ -6,7 +6,7 @@ class AnimeOnline::Activists
       @rutube_responsible ||= resposible_users("rutube.ru")
     end
 
-    def can_trust?(user_id, hosting)
+    def can_trust? user_id, hosting
       case hosting
         when 'rutube.ru' then rutube_responsible.include?(user_id)
       end
@@ -16,9 +16,8 @@ class AnimeOnline::Activists
       @rutube_responsible = nil
     end
 
-    private
-
-    def resposible_users(hosting)
+  private
+    def resposible_users hosting
       active_users = AnimeVideoReport
         .select(:user_id, "count(*) as videos")
         .joins(:anime_video)

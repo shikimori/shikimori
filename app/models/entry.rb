@@ -1,5 +1,4 @@
 class Entry < ActiveRecord::Base
-  include PermissionsPolicy
   include Commentable
   include Viewable
 
@@ -23,7 +22,7 @@ class Entry < ActiveRecord::Base
   after_save :claim_images
 
   # классы, которые не отображаются на общем форуме, пока у них нет комментарив
-  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'GroupComment']
+  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'GroupComment']
 
   # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
   SpecialInnerTypes = ['AnimeNews', 'MangaNews']
@@ -155,7 +154,7 @@ class Entry < ActiveRecord::Base
 private
   # проверка, что linked при его наличии нужного типа
   def validates_linked
-    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Group|Review|Contest)$/
+    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Group|Review|Contest)$/
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end
@@ -167,7 +166,7 @@ private
 
     if images.any?
       self.text = self.text.sub(/\[wall[\s\S]*/, '') + "\n[wall]" + images.map do |image|
-        "[url=#{image.image.url :original, false}][img]#{image.image.url :preview, false}[/img][/url]"
+        "[url=#{image.image.url :original, false}][poster]#{image.image.url :preview, false}[/poster][/url]"
       end.join('') + "[/wall]"
     end
   end

@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   include Commentable
   include User::Roles
 
-  CommentForbiddenMessage = 'Вы не можете писать этому пользователю'
-  CensoredIds = Set.new [4357]
+  MAX_NICKNAME_LENGTH = 20
+  LAST_ONLINE_CACHE_INTERVAL = 5.minutes
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :async
 
@@ -75,15 +75,7 @@ class User < ActiveRecord::Base
 
   has_many :devices, dependent: :destroy
 
-  has_many :user_tokens do
-    def facebook
-      target.detect {|t| t.provider == 'facebook' }
-    end
-
-    def twitter
-      target.detect {|t| t.provider == 'twitter' }
-    end
-  end
+  has_many :user_tokens
 
   has_attached_file :avatar,
     styles: {
@@ -101,7 +93,8 @@ class User < ActiveRecord::Base
     url: "/images/user/:style/:id.:extension",
     path: ":rails_root/public/images/user/:style/:id.:extension"
 
-  validates :nickname, presence: true, name: true
+  validates :nickname, presence: true, name: true, length: { maximum: MAX_NICKNAME_LENGTH }
+  validates :email, presence: true, if: :persisted?
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :fix_nickname
@@ -109,7 +102,7 @@ class User < ActiveRecord::Base
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry unless Rails.env.test?
-  after_create :create_preferences!
+  after_create :create_preferences!, unless: :preferences
   after_create :check_ban
   # personal message from me
   after_create :send_welcome_message unless Rails.env.test?
@@ -120,7 +113,7 @@ class User < ActiveRecord::Base
       .where('users.id not in (select distinct(user_id) from user_rates)')
   }
 
-  LAST_ONLINE_CACHE_INTERVAL = 5.minutes
+  CensoredAvatarIds = Set.new [4357]
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -262,6 +255,10 @@ class User < ActiveRecord::Base
     cached_ignores.any? { |v| v.target_id == user.id }
   end
 
+  def friended? user
+    friend_links.any? {|v| v.dst_id == user.id }
+  end
+
   # ключ для кеша по дате изменения пользователя
   def cache_key
     "#{self.id}_#{self.updated_at.to_i}"
@@ -270,10 +267,10 @@ class User < ActiveRecord::Base
   # повесить пользователю такой же бан, что и другим с тем же ip
   def prolongate_ban
     read_only_at = User
-        .where(current_sign_in_ip: current_sign_in_ip)
-        .select {|v| v.read_only_at.present? && v.read_only_at > DateTime.now }
-        .map {|v| v.read_only_at }
-        .max
+      .where(current_sign_in_ip: current_sign_in_ip)
+      .select {|v| v.read_only_at.present? && v.read_only_at > DateTime.now }
+      .map {|v| v.read_only_at }
+      .max
 
     update_column :read_only_at, read_only_at
   end
@@ -288,7 +285,7 @@ class User < ActiveRecord::Base
 
   def avatar_url size
     if avatar.exists?
-      if CensoredIds.include?(id)
+      if CensoredAvatarIds.include?(id)
         "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
       else
         avatar.url "x#{size}".to_sym
@@ -325,9 +322,9 @@ private
       to_id: self.id,
       kind: MessageType::Notification,
       body: "Добро пожаловать.
-[url=http://shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся ответы на наиболее часто задаваемые вопросы.
+[url=http://#{Site::DOMAIN}/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся ответы на наиболее часто задаваемые вопросы.
 Импортировать список аниме и манги из [url=http://myanimelist.net]myanimelist.net[/url] или [url=http://anime-planet.com]anime-planet.com[/url] можно в [url=/#{to_param}/settings]настройках профиля[/url]. Там же можно изменить свой никнейм.
-Перед постингом на форуме рекомендуем ознакомиться с [url=http://shikimori.org/s/79042-Pravila-sayta]правилами сайта[/url].
+Перед постингом на форуме рекомендуем ознакомиться с [url=http://#{Site::DOMAIN}/s/79042-Pravila-sayta]правилами сайта[/url].
 
 Если возникнут вопросы или пожелания - пишите, мы постараемся вам ответить."
     )
@@ -363,3 +360,14 @@ private
     ProlongateBan.delay_for(10.seconds).perform_async id
   end
 end
+
+    #if h.user_signed_in? && h.current_user.id == id
+      #true
+    #elsif preferences.profile_privacy_owner? || (!h.user_signed_in? && preferences.profile_privacy_users?)
+      #false
+    #elsif preferences.profile_privacy_friends? && !mutual_friended?
+      #false
+    #else
+      #true
+    #end
+

@@ -1,32 +1,57 @@
-.p-anime_video-index.container
-  - if @anime_list.any?
-    .row.videos
-      .previews
-        - @anime_list.each do |anime|
-          .item
-            a href="#{anime_videos_show_url anime.id}"
-              .cover
-                img width="160" height="240" src="http://shikimori.org#{anime.image.url(:preview) }" alt="#{{anime.name}}"
-                .title = (anime.russian || anime.name).html_safe
+- if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
+  .ads_container = render partial: 'anime_online/blocks/ads_top_line'
 
-                - if anime.last_date > DateTime.now.prev_week
-                  .episode = anime.last_episode
-
-              .info
-                - if anime.name.size > 90
-                  .title title="#{anime.name.html_safe}" = truncate anime.name.html_safe, length: 90
-                - else
-                  .title = anime.name.html_safe
-
-                = render 'anime_online/blocks/info', anime: anime
-                .date = anime.last_date.strftime '%d.%m.%Y'
-    .row
-      = will_paginate @anime_ids, renderer: BootstrapPagination::Rails
-    .menu_right
-      - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
-        .ads_container = render partial: 'anime_online/blocks/ads_240x400'
-      .top_uploaders
-        = render partial: 'uploaders'
+= render layout: 'animes/page' do
+  - if @video.blank?
+    .b-errors
+      .subheadline Такого видео нет!
+      - if @player.last_episode
+        p
+          | Перейти к последнему&nbsp;
+          a href="#{@player.episode_url @player.last_episode}" = "эпизоду #{@player.last_episode}"
+          | .
 
   - else
-    .alert.alert-info.center Ничего не нашлось
+    .video-player
+      /.placeholder style="width: 100%; background: gray; border: 1px solid #666;" == '&nbsp;'
+      - if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
+        object
+          param name="movie" value="#{@video.url}"
+          param name="allowFullScreen" value="true"
+          param name="allowScriptAccess" value="always"
+          embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
+      - else
+        iframe src="#{@video.player_url}"
+
+    = render 'anime_online/anime_videos/player_controls'
+
+    .cc
+      .c-videos
+        .title Варианты видео
+        - @player.episode_videos.each do |video|
+          .episode data-id="#{video.id}"
+            a class="#{:active if video.id == @video.id} #{video.state}" href="#{play_video_online_index_url @resource.id, @player.current_episode, video.id}"
+              span.video-kind = t ".kind.#{video.kind}"
+              span.video-hosting = video.hosting
+              - if video.author
+                span.video-author = strip_tags(video.author.name).gsub('&amp;', '&')
+
+      .c-episodes
+        .title Эпизоды
+        - @player.videos.take(10).each do |(episode, videos)|
+          .episode
+            a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
+              span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
+              span.episode-kinds = @player.kinds videos
+              span.episode-hostings = @player.hostings videos
+        - if @player.videos.size > 10
+          .b-show_more + показать всё
+          .b-show_more-more
+            - @player.videos.to_a.slice(10,9999).each do |(episode, videos)|
+              .episode
+                a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
+                  span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
+                  span.episode-kinds = @player.kinds videos
+                  span.episode-hostings = @player.hostings videos
+            .hide-more
+              | &mdash; спрятать

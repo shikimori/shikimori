@@ -1,0 +1,35 @@
+.b-dialog.shiki-object.unprocessed id="#{dialog.target_user.id}" data-message_id="#{dialog.message.id}" data-appear_url="#{mark_read_messages_url}"
+  .inner.check_height
+    span.item-mobile title="Действия"
+    aside.markers
+      - unless dialog.read
+        .b-new_marker.active
+    aside.buttons
+      .main-controls
+        a.item-reply href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}" title="Ответить"
+        span.item-delete title="Удалить"
+        span.item-cancel title="Отмена"
+
+      .delete-controls
+        span.item-delete-confirm action="#{profile_dialog_url dialog.user, dialog.message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+        span.item-delete-cancel title="Отмена"
+
+    header
+      span.linkeable data-href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
+        img src="#{dialog.target_user.avatar_url 48}" srcset="#{dialog.target_user.avatar_url 80} 2x" alt="#{dialog.target_user.nickname}"
+      .name-date
+        a href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
+          = dialog.target_user.nickname
+
+        time.dialog-time datetime="#{dialog.created_at.iso8601}"
+          = time_ago_in_words dialog.created_at, "%s назад"
+
+        a.to_dialog href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
+          | <<< перейти к диалогу
+
+    .body
+      - if dialog.my_message?
+        = render dialog.message, message_url: profile_dialog_url(dialog.user, dialog.target_user)
+
+      - else
+        = dialog.html_body

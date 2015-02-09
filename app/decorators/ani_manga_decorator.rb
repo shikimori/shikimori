@@ -1,17 +1,16 @@
-class AniMangaDecorator < BaseDecorator
+class AniMangaDecorator < DbEntryDecorator
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers
 
   TopicsPerPage = 4
   NewsPerPage = 12
+  VISIBLE_RELATED = 7
 
   instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
-  instance_cache :is_favoured, :favoured, :rate, :thread, :comments, :changes, :roles, :related, :cosplay
+  instance_cache :is_favoured, :favoured, :rate, :changes, :roles, :related, :cosplay
   instance_cache :friend_rates, :recent_rates, :chronology
-
-  def source
-    object.source
-  end
+  instance_cache :preview_reviews_thread, :main_reviews_thread
+  instance_cache :rates_scores_stats, :rates_statuses_stats
 
   # топики
   def topics
@@ -32,19 +31,6 @@ class AniMangaDecorator < BaseDecorator
       .map { |topic| format_menu_topic topic, :created_at }
   end
 
-  # обзоры
-  def reviews
-    ReviewsQuery.new(object, h.current_user, h.params[:id].to_i).fetch.map do |review|
-      TopicPresenter.new(
-        object: review.thread,
-        template: h,
-        linked: review,
-        limit: 2,
-        with_user: true
-      )
-    end
-  end
-
   # число обзоров
   def reviews_count
     object.reviews.visible.count
@@ -55,53 +41,45 @@ class AniMangaDecorator < BaseDecorator
     reviews_count > 0
   end
 
-  # добавлено ли в избранное?
-  def favoured?
-    h.user_signed_in? && h.current_user.favoured?(object)
-  end
-
-  # добавившие в избранное
-  def favoured
-    FavouritesQuery.new.favoured_by object, 12
-  end
-
   # добавлено ли в список текущего пользователя?
   def rate
     rates.where(user_id: h.current_user.id).decorate.first if h.user_signed_in?
   end
 
   # основной топик
-  def thread
-    object.thread
+  def preview_reviews_thread
+    thread = TopicDecorator.new object.thread
+    thread.reviews_only! if comment_reviews?
+    thread.preview_mode!
+    thread
   end
 
-  # комментарии топика
-  def comments with_reviews=false
-    if with_reviews && comment_reviews?
-      thread.comments.reviews.with_viewed(h.current_user)
-    else
-      thread.comments.with_viewed(h.current_user)
-    end.limit(15).to_a
+  # полный топик отзывов
+  def main_reviews_thread
+    thread = TopicDecorator.new object.thread
+    thread.reviews_only!
+    thread.topic_mode!
+    thread
   end
 
   # презентер пользовательских изменений
   def changes
-    AniMangaPresenter::ChangesPresenter.new object, h
+    ChangesDecorator.new object
   end
 
-  # презентер с ролями аниме
+  # объект с ролями аниме
   def roles
-    AniMangaPresenter::RolesPresenter.new object, h
+    RolesDecorator.new object
   end
 
   # презентер связанных аниме
   def related
-    AniMangaPresenter::RelatedPresenter.new object, h
+    RelatedDecorator.new object
   end
 
-  # презентер косплея
+  # объект с косплеем
   def cosplay
-    AniMangaPresenter::CosplayPresenter.new object, h
+    CosplayDecorator.new object
   end
 
   # число коментариев
@@ -111,7 +89,7 @@ class AniMangaDecorator < BaseDecorator
 
   # число отзывов
   def comment_reviews_count
-    thread.comments.reviews.count
+    object.thread.comments.reviews.count
   end
 
   # есть ли отзывы?
@@ -127,20 +105,43 @@ class AniMangaDecorator < BaseDecorator
   # оценки друзей
   def friend_rates
     if h.user_signed_in?
-      UserRatesQuery.new(object, h.current_user).friend_rates
+      rates_query.friend_rates
     else
       []
     end
   end
 
+  # статусы пользователей сайта
+  def rates_statuses_stats
+    rates_query.statuses_stats.map do |k,v|
+      { name: UserRate.status_name(k, object.class.name), value: v }
+    end
+  end
+
+  def total_rates
+    rates_statuses_stats.map {|v| v[:value] }.sum
+  end
+
+  # оценки пользователей сайта
+  def rates_scores_stats
+    rates_query.scores_stats.map do |k,v|
+      { name: k, value: v }
+    end
+  end
+
   # последние изменения от других пользователей
   def recent_rates limit
-    UserRatesQuery.new(object, h.current_user).recent_rates limit
+    rates_query.recent_rates limit
   end
 
   # полная хронология аниме
   def chronology
-    ChronologyQuery.new(object, true).fetch
+    ChronologyQuery.new(object, true).fetch.map(&:decorate)
+  end
+
+  # показывать ли блок файлов
+  def files?
+    h.user_signed_in? && anime? && !anons? && display_sensitive?
   end
 
   # показывать ли ссылки, если аниме или манга для взрослых?
@@ -151,7 +152,18 @@ class AniMangaDecorator < BaseDecorator
 
   # есть ли видео для просмотра онлайн?
   def anime_videos?
-    object.respond_to?(:anime_videos) && object.anime_videos.worked.any?
+    object.respond_to?(:anime_videos) && object.anime_videos.available.any?
+  end
+
+  # тип элемента для schema.org
+  def itemtype
+    if kind == 'Movie'
+      'http://schema.org/Movie'
+    elsif kind == 'TV'
+      'http://schema.org/TVSeries'
+    else
+      'http://schema.org/CreativeWork'
+    end
   end
 
 private
@@ -166,8 +178,7 @@ private
     }
   end
 
-  # имя класса текущего элемента в нижнем регистре
-  def klass_lower
-    object.class.name.downcase
+  def rates_query
+    UserRatesQuery.new(object, h.current_user)
   end
 end

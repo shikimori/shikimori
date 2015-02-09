@@ -1,0 +1,53 @@
+span.image-decor
+  span.image-cutter
+    - if defined?(shortened) && shortened
+      img src="#{anime.image.url :short}" alt="#{localized_name anime}" title="#{localized_name anime}"
+    - else
+      img src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}" title="#{localized_name anime}"
+
+- if cover_title != :none
+  - if cover_by == :link
+    span.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" itemprop="name"
+      = localized_name anime
+  - elsif cover_by == :linkeable
+    a.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
+      = localized_name anime
+
+span.misc
+  - if cover_notice == :studio
+    - if anime.real_studios.any?
+      span.studio = anime.real_studios.first.name
+
+  - elsif cover_notice == :year_kind
+    span.right = anime.year
+
+    - if anime.kind.present?
+      span = localized_kind anime, true
+
+  - elsif cover_notice == :next_episode
+    - if time_of_next_episode(anime) != '00:00'
+      span.right = time_of_next_episode anime
+
+    - if (anime.next_episode || 1) == 1
+      span.anons анонс
+    - elsif anime.next_episode == anime.episodes
+      span.release релиз
+    - else
+      span #{anime.next_episode || 1} эпизод
+
+  - elsif cover_notice == :relation
+    span.relation = t "Relation.#{anime.relation}"
+
+  - elsif cover_notice == :role
+    span.misc.centered
+      span.role
+        = anime.formatted_role
+
+  - elsif cover_notice == :latest_episode
+    span.episode
+      span.number = "#{anime.episode.episode} эпизод"
+      span.type = anime.video_types
+
+  - elsif cover_notice == :none
+  - else
+    - raise ArgumentError, cover_notice

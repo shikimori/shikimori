@@ -1,52 +1,26 @@
-- content_for :head do
-  = stylesheet_link_tag :contests
-- content_for :tail do
-  = javascript_include_tag :contests
+= render layout: 'page' do
+  /- cache [@resource, :users, :v2, @resource.displayed_match.id, @resource.displayed_match.updated_at, russian_names_key], expires_in: @resource.displayed_match.finished? ? nil : 1.hour do
+  div
+    .block
+      .b-options-floated.count = @resource.left_voters.size
+      .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.left}
+      - if @resource.left_voters.any?
+        = render @resource.left_voters, content_by: :avatar_fixed_margin
+      - else
+        p Нет проголосовавших.
 
-header.head.misc
-  h1
-    = @page_title.last
-  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+    .block
+      .b-options-floated.count
+        = @resource.right_voters.size
+      .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.right}
+      - if @resource.right_voters.any?
+        = render @resource.right_voters, content_by: :avatar_fixed_margin
+      - else
+        p Нет проголосовавших.
 
-= render partial: 'contests/menu', locals: { contest: @contest }
-
-- cache "contests/users/#{@contest.displayed_match.id}-#{@contest.displayed_match.updated_at}-#{russian_names_key}", expires_in: @contest.displayed_match.finished? ? nil : 1.hour do
-  .contest.item-content
-    .votes
-      .menu-block
-        .left-votes
-          .b-options-floated.count
-            = @contest.left_voters.size
-          .subheadline.m10
-            = localized_name @contest.displayed_match.left
-          - if @contest.left_voters.any?
-            .voters
-              - @contest.left_voters.each do |user|
-                a href="#{user_url user}" title="#{user.nickname}"
-                  img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
-          - else
-            p Нет проголосовавших.
-
-        .right-votes
-          .b-options-floated.count
-            = @contest.right_voters.size
-          .subheadline.m10
-            = localized_name @contest.displayed_match.right
-          - if @contest.right_voters.any?
-            .voters
-              - @contest.right_voters.each do |user|
-                a href="#{user_url user}" title="#{user.nickname}"
-                  img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
-          - else
-            p Нет проголосовавших.
-
-      - if @contest.refrained_voters.any?
-        .refrained-votes
-          .b-options-floated.count
-            = @contest.refrained_voters.size
-          .subheadline.m10 Воздержались
-          .voters
-            - @contest.refrained_voters.each do |user|
-              a href="#{user_url user}" title="#{user.nickname}"
-                img src="#{user.avatar_url 32}" alt="#{user.nickname}" title="#{user.nickname}"
-  .clearfix
+    - if @resource.refrained_voters.any?
+      .block
+        .b-options-floated.count
+          = @resource.refrained_voters.size
+        .subheadline.m10 Воздержавшиеся
+        = render @resource.refrained_voters, content_by: :avatar_fixed_margin

@@ -1,4 +1,4 @@
-class AnimeNews < AniMangaEntry
+class AnimeNews < DbEntryThread
   attr_defaults section_id: -> { SectionIDs[Anime.name] }
   attr_defaults title: -> { generate_title linked }
   attr_defaults text: -> { generate_text linked }

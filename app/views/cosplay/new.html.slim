@@ -11,7 +11,7 @@ header.head.misc
 
 = form_for @gallery, url: cosplay_index_url do |f|
   .cosplay-mod.edit.new
-    .menu-block
+    .block
       .subheadline Общая информация
 
       .field-name Косплеер
@@ -26,7 +26,7 @@ header.head.misc
       .m10
         = f.text_field :source, class: 'common', size: 30
 
-    .menu-block.links
+    .block.links
       span.right.anime.item-add
       .subheadline Галерея
       .notice Задаётся прямыми ссылками на картинки, например <a href="http://2.bp.blogspot.com/-MA-NZyZbwIM/UMP2Z4FBzEI/AAAAAAAAMS0/Aij-lUd43QU/s1600/1.jpg">http://2.bp.blogspot.com/-MA-NZyZbwIM/UMP2Z4FBzEI/AAAAAAAAMS0/Aij-lUd43QU/s1600/1.jpg</a>

@@ -1,0 +1,37 @@
+.b-catalog_entry-tooltip
+  - if defined?(with_image) && with_image
+    img.image src="#{person.image.url :preview}" srcset="#{person.image.url :original} 2x" alt="#{localized_name person}"
+
+  .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
+    .line itemprop="name"
+      .data.name
+        - if !defined?(cover_by) || cover_by != :link
+          a.data.name href="#{person_url person}" title="#{localized_name person}" itemprop="name"
+            = localized_name person
+        - else
+          .linkeable.name data-href="#{person_url person}" data-title="#{localized_name person}"
+            = localized_name person
+
+        .job-title
+          = person.job_title
+
+    .text itemprop="description"
+      - if @resource.credentials?
+        = info_line 'По-японски', @resource.japanese
+        = info_line 'Дата рождения', rus_date(@resource.birthday, true) if @resource.birthday
+        - if @resource.website_host.present?
+          = info_line 'Сайт' do
+            a href="#{@resource.website}" rel="nofollow"
+              = @resource.website_host
+
+    - if person.main_role?(:seyu)
+      .line
+        .key Лучшие роли:&nbsp;
+      .cc-4a.best-works
+        = render person.best_roles.take(4), cover_by: :image_link
+
+    - else
+      .line.works
+        .key Лучшие работы:&nbsp;
+      .cc-4a.best-works
+        = render person.best_works.take(4), cover_by: :image_link

@@ -8,24 +8,32 @@ class BbCodeFormatter
   include CommentHelper
   include Rails.application.routes.url_helpers
 
-  default_url_options[:host] ||= Rails.env.development? ? 'shikimori.dev' : 'shikimori.org'
+  default_url_options[:host] ||= if Rails.env.development?
+    'shikimori.dev'
+  elsif Rails.env.beta?
+    "beta.#{Site::DOMAIN}"
+  else
+    Site::DOMAIN
+  end
 
   MALWARE_DOMAINS = /(https?:\/\/)?images.webpark.ru/i
 
   # форматирование описания чего-либо
   def format_description text, entry
-    if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre)
+    if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre) || entry.kind_of?(Group)
       paragraphs format_comment(text)
     elsif entry.respond_to? :characters
       paragraphs format_comment(character_names(text, entry))
     else
-      format_comment text
+      #format_comment text
+      paragraphs format_comment(text)
     end
   end
 
   # форматирование текста комментариев
   def format_comment original_text
-    text = remove_wiki_codes original_text || ''
+    text = (original_text || '').strip
+    text = remove_wiki_codes text
     text = strip_malware text
     text = user_mention text
 
@@ -42,11 +50,13 @@ class BbCodeFormatter
   def bb_codes original_text
     text_hash = XXhash.xxh32 original_text, 0
 
-    text = original_text.gsub /\r\n|\r|\n/, '<br />'
+    text = original_text.gsub %r{\r\n|\r|\n}, '<br />'
 
     text = BbCodes::VideoTag.instance.format text
     text = BbCodes::ImageTag.instance.format text, text_hash
     text = BbCodes::ImgTag.instance.format text, text_hash
+    text = BbCodes::PosterTag.instance.format text
+    text = BbCodes::HrTag.instance.format text
 
     text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img
     text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
@@ -73,7 +83,7 @@ class BbCodeFormatter
 
   # замена концов строк на параграфы
   def paragraphs text
-    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>')
+    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>').html_safe
   end
 
   # замена имён персонажей на ббкоды

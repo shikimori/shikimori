@@ -1,13 +1,11 @@
-require 'spec_helper'
-
 describe ContestSuggestion do
-  context :relations do
+  describe 'relations' do
     it { should belong_to :user }
     it { should belong_to :contest }
     it { should belong_to :item }
   end
 
-  context :validations do
+  describe 'validations' do
     it { should validate_presence_of :contest }
     it { should validate_presence_of :user }
     it { should validate_presence_of :item }
@@ -17,24 +15,24 @@ describe ContestSuggestion do
   let(:contest) { create :contest }
   let(:item) { create :anime }
 
-  context :scopes do
+  context 'scopes' do
     let(:item2) { create :anime }
     let!(:suggestion1) { create :contest_suggestion, contest: contest, item: item }
     let!(:suggestion2) { create :contest_suggestion, contest: contest, user: user, item: item }
     let!(:suggestion3) { create :contest_suggestion, contest: contest, user: user, item: item2 }
 
-    describe :by_user do
-      it { ContestSuggestion.by_user(user).should eq [suggestion2, suggestion3] }
+    describe 'by_user' do
+      it { expect(ContestSuggestion.by_user(user)).to eq [suggestion2, suggestion3] }
     end
 
-    describe :by_votes do
-      it { ContestSuggestion.by_votes.map(&:item).should eq [item, item2] }
-      it { ContestSuggestion.by_votes.first.votes.should eq 2 }
+    describe 'by_votes' do
+      it { expect(ContestSuggestion.by_votes.map(&:item)).to eq [item, item2] }
+      it { expect(ContestSuggestion.by_votes.first.votes).to eq 2 }
     end
   end
 
-  context :class_methods do
-    describe :suggest do
+  context 'class_methods' do
+    describe 'suggest' do
       subject(:act) { ContestSuggestion.suggest contest, user, item }
 
       it { expect{act}.to change(ContestSuggestion, :count).by 1 }

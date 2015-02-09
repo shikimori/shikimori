@@ -1,9 +1,15 @@
 SidekiqUniqueJobs::Config.unique_args_enabled = true
 SidekiqUniqueJobs::Config.default_expiration = 2.days
 
+Sidekiq.configure_client do |config|
+  config.redis = { namespace: "shiki_#{Rails.env}", url: "redis://localhost:6379/#{Rails.application.config.redis_db}" }
+end
+
 Sidekiq.configure_server do |config|
   Rails.logger = Sidekiq::Logging.logger
   config.poll_interval = 5
+
+  config.redis = { namespace: "shiki_#{Rails.env}", url: "redis://localhost:6379/#{Rails.application.config.redis_db}" }
 end
 
 #class Sidekiq::Extensions::DelayedMailer::ExceptionHandling

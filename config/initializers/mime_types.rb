@@ -6,4 +6,4 @@
 # Mime::Type.register_alias "text/html", :iphone
 
 # open search
-Mime::Type.register_alias "application/json", :os
+Mime::Type.register_alias 'application/json', :os

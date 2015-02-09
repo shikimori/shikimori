@@ -1,11 +1,11 @@
 class AdminLogInController < ShikimoriController
   # выход под любым пользователем для администратора
   def log_in
-    if (Rails.env.development? && remote_addr == '127.0.0.1') || current_user.admin?
+    if !Rails.env.production? || (user_signed_in? && current_user.admin?)
       @user = if params[:nickname] =~ /\A\d+\Z/
         User.find params[:nickname].to_i
       else
-        User.where(nickname: params[:nickname]).first
+        User.find_by(nickname: params[:nickname]) || User.find_by(email: params[:nickname])
       end
 
       if @user
@@ -19,7 +19,7 @@ class AdminLogInController < ShikimoriController
         render text: "пользователь с ником на \"#{params[:nickname]}\" не найден", status: :unprocessable_entity
       end
     else
-      head 404
+      render 'pages/page404.html', layout: set_layout, status: 404
     end
   end
 
@@ -31,7 +31,7 @@ class AdminLogInController < ShikimoriController
 
       sign_in_and_redirect(@user)
     else
-      head 404
+      render 'pages/page404.html', layout: set_layout, status: 404
     end
   end
 

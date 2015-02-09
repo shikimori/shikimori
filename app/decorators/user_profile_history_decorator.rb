@@ -40,10 +40,10 @@ private
     if UserHistoryAction::Registration == entry.action
       {
         image: '/assets/blocks/history/shikimori.x43.png',
-        name: 'shikimori.org',
+        name: Site::DOMAIN,
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
-        url: 'http://shikimori.org',
+        url: "http://#{Site::DOMAIN}",
         short_name: 'Регистрация на сайте',
         special?: true
       }
@@ -71,7 +71,8 @@ private
       nil
     else
       {
-        image: entry.target.image.url(:x64),
+        image: entry.target.image.url(:x48),
+        image_2x: entry.target.image.url(:x96),
         name: UsersHelper.localized_name(entry.target, h.current_user),
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,

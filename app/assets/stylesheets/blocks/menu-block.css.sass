@@ -1,0 +1,14 @@
+@import mixins/block
+
+.block
+  +block
+
+.block_m
+  +block_m
+
+.block, .block_m
+  .subcontent:last-child
+    margin-bottom: 0
+
+  &.editions
+    display: none

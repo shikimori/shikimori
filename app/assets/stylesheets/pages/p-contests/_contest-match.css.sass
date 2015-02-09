@@ -1,0 +1,230 @@
+@import compass/css3/opacity
+@import compass/css3/transition
+@import compass/utilities/general/clearfix
+@import globals
+@import mixins/block
+@import mixins/column
+@import mixins/link
+@import mixins/responsive
+
+$horizontal-offset: 90px
+$centered-block-offset: 283.5px
+
+.p-contests .contest-match
+  +block_m
+  position: relative
+
+  .prev-match, .next-match
+    +link_color(#acb1b4)
+    cursor: pointer
+
+    +gte_ipad
+      width: 10%
+      padding-top: 12%
+    +iphone_landscape
+      width: 50px
+      padding-top: 15%
+    +iphone_portrait
+      //width: 35px
+      //padding-top: 13%
+      width: 59px
+      padding-top: 325px
+
+    &:before
+      font-family: shikimori
+      +gte_ipad
+        font-size: 54px
+      +iphone_landscape
+        font-size: 42px
+      +iphone_portrait
+        font-size: 54px
+
+  .prev-match
+    float: left
+    &:before
+      content: '\e83e'
+
+  .next-match
+    float: right
+    text-align: right
+    &:before
+      content: '\e83f'
+      margin-right: 1px
+
+  .current-match
+    overflow: hidden
+
+    .match-members
+      +block_m
+      +clearfix
+      margin-bottom: 15px
+
+      .match-member, .vs
+        +gte_ipad
+          width: 33.333%
+          float: left
+        +iphone_landscape
+          width: 33.333%
+          float: left
+
+      .b-catalog_entry
+        width: 100%
+        +gte_ipad
+          max-width: 160px
+
+      .vs + .match-member
+        &>.b-catalog_entry
+          float: right
+
+  //.b-catalog_entry
+    float: left
+    margin-right: 0
+
+  .match-member
+    //+opacity(0.4)
+    +transition(opacity 0.3s ease)
+
+    &.voted, &.hovered
+      +opacity(1)
+
+    &.unvoted, &.unhovered
+      +opacity(0.4)
+
+    //&:first-child
+      margin-left: $horizontal-offset
+      &.centered
+        margin-left: $centered-block-offset
+
+  .vs
+    color: darken($gray-color-2, 10%)
+    text-align: center
+
+    +gte_ipad
+      font-size: 64px
+      margin-top: 12%
+    +iphone_landscape
+      font-size: 46px
+      margin-top: 11%
+    +iphone_portrait
+      //font-size: 30px
+      //margin-top: 13%
+      font-size: 66px
+      margin-bottom: 25px
+      margin-top: -5px
+
+    &.empty
+      margin-top: 125px
+      width: 100%
+
+    .help, .next, .finish, .refrain, .refrained
+      color: $gray-color-2
+      font-size: 11px
+      line-height: $line_height
+      margin-bottom: 10px
+      padding: 0 10px
+
+      &.success, &.refrained
+        display: none
+
+    .finish
+      color: darken($gray-color-2, 10%)
+      display: none
+
+    .next
+      +link
+      display: none
+
+    .refrain
+      +link
+      display: block
+
+  .match-losers
+    +block
+    clear: both
+    padding-top: $block_offset / 2
+
+    +iphone_portrait
+      display: none
+
+    .losers
+      +column(2)
+
+      +gte_ipad
+        max-width: 160px
+
+      &:last-child
+        float: right
+
+      .b-catalog_entry
+        margin-bottom: 5px !important
+    //+clearfix
+    //margin: -5px $horizontal-offset 15px
+
+    //.left-part
+      //float: left
+      //width: 170px
+
+    //.right-part
+      //float: right
+      //width: 170px
+
+    //.center-part
+      //margin-left: $centered-block-offset - $horizontal-offset
+      //width: 170px
+
+    //.title
+      //color: #333
+      //margin-bottom: 3px
+
+    //a
+      //float: left
+      //margin: 0 8px 5px 0
+
+      //&:nth-child(4n)
+        //margin-right: 0
+
+      //img
+        //+image-selectable-decor
+        //padding: 1px
+        //width: 34px
+
+  .votes-percents
+    +text-field
+    display: block
+    line-height: 18px
+    //margin: 0 $horizontal-offset
+    padding: 0
+
+    .left-part
+      background-color: #4682b4
+      color: white
+      cursor: pointer
+      height: 18px
+      min-width: 45px
+      overflow: hidden
+      padding-left: 5px
+      width: 100%
+
+      &:hover
+        background-color: #79a9cf
+        .right-part
+          background-color: #edacd9
+          &:before
+            border-right: 30px solid #edacd9
+
+    .right-part
+      background-color: #b78bc7
+      color: white
+      float: right
+      height: 18px
+      min-width: 45px
+      padding-right: 5px
+      position: relative
+      text-align: right
+
+      &:before
+        border-right: 30px solid #b78bc7
+        border-top: 70px solid transparent
+        content: ''
+        left: -30px
+        position: absolute

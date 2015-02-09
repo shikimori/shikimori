@@ -2,15 +2,19 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   PARAMS_REGEXP = /(?:\?[\w=+%&]+)?/
   URL_REGEX = %r{
     https?://(?:www\.)?(
-      (?<hosting>coub).com/view/[\w_-]+#{PARAMS_REGEXP.source} |
-      (?:\w+\.)?(?<hosting>twitch).tv/[\w_-]+/[\w_-]+/[\w_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>rutube).ru/video/[\w_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>vimeo).com/[\w_-]+#{PARAMS_REGEXP.source} |
-      (?:\w+\.)?(?<hosting>myvi).ru/watch/[\w_-]+#{PARAMS_REGEXP.source} |
-      video.(?<hosting>sibnet).ru/video[\w_-]+#{PARAMS_REGEXP.source} |
-      video.(?<hosting>yandex).ru/users/[\w_-]+/view/[\w_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>dailymotion).com/video/[\w_-]+#{PARAMS_REGEXP.source}
+      (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?:\w+\.)?(?<hosting>twitch).tv/[\wА-я_-]+/[\wА-я_-]+/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?<hosting>rutube).ru/video/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      video.(?<hosting>yandex).ru/users/[\wА-я_-]+/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?<hosting>dailymotion).com/video/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
+  }xi
+
+  RUTUBE_SRC_REGEX = %r{
+    //rutube.ru/play/embed/(\d+)
   }xi
 
   def image_url

@@ -1,22 +1,26 @@
-@import globals/variables
 @import compass/css3/transition
+@import globals/variables
 
 =tag
-  +transition-duration(0s)
-  border-bottom: 1px dashed $hover-color-0
-  color: #333
+  +transition(none)
+  border-bottom: 1px dashed $link_hover_light
+  color: #123
   cursor: pointer
   display: inline-block
   line-height: 16px
-  margin: 0 4px 3px
+  margin: 0 5px 3px
 
   &:hover
-    margin: 0 2px 4px
-    padding: 0 2px
-    color: #fff
+    background-color: $link_hover_light
     border: none
-    background-color: $hover-color-0
+    color: #fff
+    margin: 0 2px 4px
+    padding: 0 3px
+    text-decoration: none
 
   &:active
-    background-color: $hover-color
+    background-color: $link_hover
 
+  a
+    +transition(none)
+    color: inherit

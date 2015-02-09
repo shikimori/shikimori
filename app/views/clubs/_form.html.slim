@@ -1,0 +1,101 @@
+= simple_form_for @resource, as: :club, url: (@resource.persisted? ? club_url(@resource) : clubs_url), html: { multipart: true } do |f|
+  - if @resource.errors.any?
+    .b-errors
+      .subheadline Ошибки
+      == @resource.errors.full_messages.join('<br>')
+
+  = f.input :owner_id, as: :hidden
+
+  /.item-save = @resource.persisted? ? 'Сохранить' : 'Создать'
+  .block
+    .subheadline Настройки
+    = f.input :name
+
+    = f.input :join_policy, collection: GroupDecorator.join_policy_options, include_blank: false
+    = f.input :comment_policy, collection: GroupDecorator.comment_policy_options, include_blank: false
+    = f.input :display_images
+
+  /.block
+    /.subheadline: a href="#{images_club_url @resource}" Картинки
+
+  .block
+    .subheadline Описание
+    .b-shiki_editor.unprocessed
+      = render 'comments/shiki_editor', text: @resource.description, field_name: 'club[description]'
+
+  .block
+    .subheadline.m10 Логотип
+    - if @resource.logo.exists?
+      img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
+    = f.input :logo, label: false
+
+  - if @resource.persisted?
+    .block.cc-2a
+      .c-column
+        input.anime-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="club[anime_ids][]" data-autocomplete="#{autocomplete_animes_url search: ''}"
+        .subheadline Аниме
+        .variants
+          - @resource.all_animes.uniq(&:id).each do |anime|
+            .variant
+              = check_box_tag 'club[anime_ids][]', anime.id, checked: true
+              a.bubbled href="#{anime_url anime}"
+                = anime.name
+      .c-column
+        input.manga-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название манги" data-variant_name="club[manga_ids][]" data-autocomplete="#{autocomplete_mangas_url search: ''}"
+        .subheadline Манга
+        .variants
+          - @resource.all_mangas.uniq(&:id).each do |manga|
+            .variant
+              = check_box_tag 'club[manga_ids][]', manga.id, checked: true
+              a.bubbled href="#{manga_url manga}"
+                = manga.name
+
+    .block
+      input.character-suggest.subheadline-input type="text" placeholder="Имя персонажа" data-variant_name="club[character_ids][]" data-autocomplete="#{autocomplete_characters_url search: ''}"
+      .subheadline Персонажи
+      .variants
+        - @resource.all_characters.uniq(&:id).each do |character|
+          .variant
+            = check_box_tag 'club[character_ids][]', character.id, checked: true
+            a.bubbled href="#{character_url character}"
+              = character.name
+
+    /- if @resource && @resource.admins.include?(current_user)
+      div style="display: none;"
+        .subheadline Модераторы
+        .m30
+          input.moderator-suggest.subheadline-input type="text" placeholder="Имя пользователя" data-variant_name="club[moderator_ids][]" data-autocomplete="#{autocomplete_club_group_roles_url @resource, search: ''}"
+          .variants
+            - @resource.moderators.each do |user|
+              .variant
+                = check_box_tag 'club[moderator_ids][]', moderator.id, checked: true
+                a href="#{profile_url user}" = user.nickname
+
+    .cc-2a
+      .c-column
+        input.admin-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="club[admin_ids][]" data-autocomplete="#{autocomplete_club_group_roles_url @resource, search: ''}"
+        .subheadline Админы
+        .variants
+          - @resource.admins.each do |user|
+            .variant
+              = check_box_tag 'club[admin_ids][]', user.id, checked: true
+              a href="#{profile_url user}" = user.nickname
+
+      .c-column
+        input.ban-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="club[banned_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
+        .subheadline Баны
+        .variants
+          - @resource.banned_users.each do |user|
+            .variant
+              = check_box_tag 'club[banned_user_ids][]', user.id, checked: true
+              a href="#{profile_url user}" = user.nickname
+
+    .block
+      input.kick-suggest.subheadline-input type="text" placeholder="Имя пользователя" data-variant_name="kick_ids[]" data-autocomplete="#{autocomplete_club_group_roles_url @resource, search: ''}"
+      .subheadline Удаление пользователей
+      .variants
+
+  .buttons
+    - if @resource.persisted?
+      a.cancel href="#{club_url @resource}" Отмена
+    = f.submit @resource.persisted? ? 'Сохранить' : 'Создать'

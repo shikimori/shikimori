@@ -1,37 +1,38 @@
-= cache report do
-  li.change
+= cache [report, user_signed_in? && current_user.video_moderator?] do
+  .b-log_entry
     span.id-label #
-    span: a href="#{anime_videos_show_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
+    span: a href="#{play_video_online_index_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
       = report.id
     span.date #{report.created_at.strftime '%d.%m.%Y'}
-    span
-      = link_to user_url(report.user) do
-        img.avatar src="#{report.user.avatar_url 16}" alt="#{report.user.nickname}" title="#{report.user.nickname}"
-      = link_to report.user.nickname, user_url(report.user), class: 'nickname', title: "#{report.user.nickname}"
+    .b-user16
+      a href="#{profile_url report.user}" title="#{report.user.nickname}"
+        img src="#{report.user.avatar_url 16}" srcset="#{report.user.avatar_url 32} 2x" alt="#{report.user.nickname}" title="#{report.user.nickname}"
+        span = report.user.nickname
+
     span.kind class="#{report.kind}" = report.kind_text
 
     span
-      = link_to report.anime_video.anime.name, anime_videos_show_url(report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play), class: 'bubbled', 'data-href' => tooltip_anime_url(report.anime_video.anime)
+      = link_to report.anime_video.anime.name, play_video_online_index_url(report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play), class: 'bubbled', 'data-href' => tooltip_anime_url(report.anime_video.anime)
 
-    span.state class="#{report.state}"
+    span.state class="#{report.state.downcase}"
+      = t "UserChangeStatus.#{report.state.capitalize}"
 
-    - if report.approver
+    - if report.approver.present?
       span
-        = link_to user_url(report.approver) do
-          img.avatar src="#{report.approver.avatar_url 16}" alt="#{report.approver.nickname}" title="#{report.approver.nickname}"
-        = link_to report.approver.nickname, user_url(report.approver), class: 'nickname', title: "#{report.approver.nickname}"
+        = report.approver.nickname
 
     .spoiler.collapse
       span.action.half-hidden style="display: none;" развернуть
     .collapsed.spoiler подробности
     .spoiler.target.info style="display: none;"
-      - if report.pending?
-        span.moderation
-          a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
-          a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
-      - else
-        span.moderation
-          a href="#{cancel_moderation_anime_video_report_url report.id}" отменить
+      - if user_signed_in? && current_user.video_moderator?
+        - if report.pending?
+          span.moderation
+            a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
+            a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
+        - else
+          span.moderation
+            a href="#{cancel_moderation_anime_video_report_url report.id}" отменить
       p
         span ID:
         span = report.anime_video.id

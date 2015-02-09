@@ -1,0 +1,53 @@
+@import mixins/icons
+@import mixins/menu-blocks
+
+.p-topics .l-menu
+  .calendar .entry,
+  .reviews .entry,
+  .news .entry,
+  .groups .entry,
+  .mylist .entry
+    +menu-block-with-image
+
+  .groups .entry img
+    width: 35px
+    height: 35px
+
+  .seasons .season,
+  .forum .section
+    +menu-block-with-text-link
+
+  .forum .new-topic
+    +icon_button("\e83d")
+
+  .contests
+    +clearfix
+
+    margin-bottom: 25px
+
+    .contest
+      +menu-block-with-text-link
+
+      a
+        +ellipsis
+        max-width: 195px
+
+        &:after
+          position: absolute
+          right: 10px
+
+      .finished
+        color: $gray-color-0
+
+      .started
+        color: $gray-color-2
+
+      .can-vote
+        color: #307a3d
+
+    .show-more
+      float: right
+
+  .b-clubs-menu, .b-contests-menu
+    .actions
+      display: none

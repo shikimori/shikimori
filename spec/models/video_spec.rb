@@ -1,12 +1,10 @@
-require 'spec_helper'
-
 describe Video do
-  context :relations do
+  describe 'relations' do
     it { should belong_to :anime }
     it { should belong_to :uploader }
   end
 
-  context :validations do
+  describe 'validations' do
     it { should validate_presence_of :anime_id }
     it { should validate_presence_of :uploader_id }
     it { should validate_presence_of :url }
@@ -14,22 +12,22 @@ describe Video do
     #it { should validate_presence_of :hosting }
   end
 
-  context :hooks do
-    describe :suggest_acception do
+  context 'hooks' do
+    describe 'suggest_acception' do
       it :uploaded do
         expect {
-          create :video
+          create :video, :with_suggest
         }.to change(UserChange.where(action: UserChange::VideoUpload, status: UserChangeStatus::Pending), :count).by 1
       end
 
       it :confirmed do
         expect {
-          create :video, state: 'confirmed'
+          create :video, :with_suggest, state: 'confirmed'
         }.to change(UserChange.where(action: UserChange::VideoUpload, status: UserChangeStatus::Taken), :count).by 1
       end
     end
 
-    describe :suggest_deletion do
+    describe 'suggest_deletion' do
       it :confirmed do
         video = create :video, state: 'confirmed'
         expect {
@@ -46,8 +44,8 @@ describe Video do
     end
   end
 
-  context :validations do
-    describe :normalize do
+  describe 'validations' do
+    describe 'normalize' do
       let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
       subject { video }
 
@@ -64,7 +62,7 @@ describe Video do
         describe 'bad youtube url' do
           let(:url) { 'https://yyoutube.com/watch?v=VdwKZ6JDENc' }
           it { should_not be_persisted }
-          specify { video.errors.messages[:url].should eq [I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')] }
+          specify { expect(video.errors.messages[:url]).to eq [I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')] }
         end
 
         describe 'no v param' do
@@ -75,7 +73,7 @@ describe Video do
     end
   end
 
-  context :youtube do
+  context 'youtube' do
     subject(:video) { build :video, url: 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
 
     its(:hosting) { should eq 'youtube' }
@@ -107,12 +105,12 @@ describe Video do
     end
   end
 
-  context :vkontakte do
-    subject(:video) { build :video, :with_http_request, url: 'http://vk.com/video98023184_165811692' }
+  context 'vkontakte', vcr: { cassette_name: 'vk_video' } do
+    subject(:video) { build :video, url: 'http://vk.com/video98023184_165811692' }
     its(:hosting) { should eq 'vk' }
 
-    context :saved do
-      before { VCR.use_cassette(:vk_video) { video.save! } }
+    context 'saved' do
+      before { video.save! }
 
       its(:image_url) { should eq 'http://cs514511.vk.me/u98023184/video/l_81cce630.jpg' }
       its(:player_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&hd=1' }

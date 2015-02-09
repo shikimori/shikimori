@@ -1,0 +1,25 @@
+aside.buttons
+  .main-controls
+    span.item-reply title="#{topic.generated? ? 'Написать' : 'Ответить'}"
+
+    - if topic.object.kind_of?(GroupComment) && current_user.subscribed?(topic.object)
+      span[
+          class="item-subscribe #{:selected if current_user.subscribed? topic.object}"
+          title="Подписаться на топик"
+          data-type="json"
+          data-action="#{subscribe_url type: topic.class.name, id: topic.id}"
+          data-method="#{current_user.subscribed?(topic.object) ? :delete : :post}"
+          data-remote="true"
+        ]
+
+    - if can? :edit, topic
+      a.item-edit.short href="#{topic.edit_url}" title="Изменить"
+
+    - if can? :destroy, topic
+      span.item-delete.short title="Удалить"
+    span.item-cancel title="Отмена"
+
+  - if can? :destroy, topic
+    .delete-controls
+      span.item-delete-confirm action="#{topic.destroy_url}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+      span.item-delete-cancel title="Отмена"

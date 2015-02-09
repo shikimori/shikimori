@@ -1,14 +1,12 @@
-require 'spec_helper'
-
 describe BbCodeFormatter do
   let(:processor) { BbCodeFormatter.instance }
 
   it :remove_wiki_codes do
-    processor.remove_wiki_codes("[[test]]").should eq "test"
-    processor.remove_wiki_codes("[[test|123]]").should eq "123"
+    expect(processor.remove_wiki_codes("[[test]]")).to eq "test"
+    expect(processor.remove_wiki_codes("[[test|123]]")).to eq "123"
   end
 
-  describe :paragraphs do
+  describe '#paragraphs' do
     subject { processor.paragraphs text }
 
     describe '\n' do
@@ -27,7 +25,7 @@ describe BbCodeFormatter do
     end
   end
 
-  describe :user_mention do
+  describe '#user_mention' do
     let!(:user) { create :user, nickname: 'test' }
     subject { processor.user_mention text }
 
@@ -51,7 +49,7 @@ describe BbCodeFormatter do
     end
   end
 
-  describe :db_entry_mention do
+  describe '#db_entry_mention' do
     subject { processor.db_entry_mention text }
 
     describe 'english' do
@@ -118,7 +116,7 @@ describe BbCodeFormatter do
     end
   end
 
-  describe :remove_old_tags do
+  describe '#remove_old_tags' do
     subject { processor.remove_old_tags text }
 
     describe '<p>' do
@@ -147,10 +145,10 @@ describe BbCodeFormatter do
     end
   end
 
-  describe :format_comment do
+  describe '#format_comment' do
     subject { processor.format_comment text }
 
-    describe :cleanup do
+    describe 'cleanup' do
       describe 'smileys' do
         describe 'multiple with spaces' do
           let(:text) { ":):D:-D" }
@@ -196,19 +194,18 @@ describe BbCodeFormatter do
 
     describe '[wall]' do
       let(:text) { '[wall][/wall]' }
-      it { should eq '<div class="height-unchecked inner-block"></div><div class="wall"></div>' }
+      it { should eq '<div class="b-shiki_wall unprocessed"></div>' }
     end
 
-    describe '[vkontakte]' do
+    describe '[vkontakte]', vcr: { cassette_name: 'vk_video' } do
       let(:text) { "http://vk.com/video98023184_165811692" }
-      before { VCR.use_cassette(:vk_video) { subject } }
-      it { should include '<div class="image-container video vk"' }
+      it { should include '<a class="c-video b-video unprocessed vk' }
     end
 
-    describe '[youtube]' do
+    describe '[youtube]', vcr: { cassette_name: 'youtube_video' } do
       let(:hash) { "og2a5lngYeQ" }
       let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
-      it { should include '<div class="image-container video youtube"' }
+      it { should include '<a class="c-video b-video unprocessed youtube' }
     end
 
     describe '[url]' do
@@ -233,16 +230,32 @@ describe BbCodeFormatter do
       it { should eq '<a href="http://shikimori.org/test" class="b-mention"><s>@</s><span>test</span></a>' }
     end
 
+    describe '[hr]' do
+      let(:text) { '[hr]' }
+      it { should eq '<hr />' }
+    end
+
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
-      it { should eq "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{user_image.image.url :thumbnail, false}\" class=\"check-width\"/></a>" }
+      it { should eq "<a href=\"#{user_image.image.url :original, false}\" \
+rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
+<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\"/>\
+<span class=\"marker\">1000x1000</span>\
+</a>" }
     end
 
     describe '[img]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[img]#{url}[/img]" }
-      it { should eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\"><img src=\"#{url}\" class=\"check-width\"/></a>" }
+      it { should eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
+<img src=\"#{url}\" class=\"check-width\"/></a>" }
+    end
+
+    describe '[poster]' do
+      let(:url) { 'http://site.com/image.jpg' }
+      let(:text) { "[poster]#{url}[/poster]" }
+      it { should eq "<img class=\"b-poster\" src=\"#{url}\" />" }
     end
 
     describe '[spoiler=text]' do
@@ -263,6 +276,28 @@ describe BbCodeFormatter do
     describe 'malware domains' do
       let(:text) { 'http://images.webpark.ru' }
       it { should eq 'malware.domain' }
+    end
+
+    describe '[quote]' do
+      context 'simple' do
+        let(:text) { '[quote]test[/quote]zz' }
+        it { should eq '<blockquote>test</blockquote>zz' }
+      end
+
+      context 'simple with \\n' do
+        let(:text) { '[quote]test[/quote]\nzz' }
+        it { should eq '<blockquote>test</blockquote>\nzz' }
+      end
+
+      context 'link inside with space' do
+        let(:text) { '[quote] http://test.ru/ [/quote]\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a> </blockquote>\ntest' }
+      end
+
+      context 'link inside w/o space' do
+        let(:text) { '[quote] http://test.ru/[/quote]\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a></blockquote>\ntest' }
+      end
     end
   end
 end

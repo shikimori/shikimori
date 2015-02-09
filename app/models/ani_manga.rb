@@ -3,30 +3,6 @@ module AniManga
 
   def self.included klass
     klass.extend ClassMethods
-
-    klass.before_save do
-      self.russian = CGI::escapeHTML russian if changes['russian']
-    end
-  end
-
-  # при изменении description будем менять и description_html
-  def description=(text)
-    self[:description] = text
-    self.description_html = BbCodeFormatter.instance.format_description(text, self)
-  end
-
-  def to_param
-    "#{id}-#{name.permalinked}"
-  end
-
-  # аниме ли это?
-  def anime?
-    self.class == Anime
-  end
-
-  # манга ли это?
-  def manga?
-    self.class == Manga
   end
 
   def year
@@ -55,14 +31,14 @@ module AniManga
     name.gsub(/:.*|'$/, '')
   end
 
-  def description
-    desc = HTMLEntities.new.decode(self[:description] || self[:description_mal] || '')
-    if desc.blank?
-      self.class == Anime ? 'У этого аниме пока ещё нет описания.' : 'У этой манги пока ещё нет описания.'
-    else
-      desc.html_safe
-    end
-  end
+  #def description
+    #desc = HTMLEntities.new.decode(self[:description] || self[:description_mal] || '')
+    #if desc.blank?
+      #self.class == Anime ? 'У этого аниме пока ещё нет описания.' : 'У этой манги пока ещё нет описания.'
+    #else
+      #desc.html_safe
+    #end
+  #end
 
   def russian
     self[:russian] ? self[:russian].gsub(/\.? *\((?:С|с)езон .*\)$|\.? *\((?:С|с)езон .*\)$|\.? *\(.* (?:С|с)езон\)$|\.? *(\[|\()(?:TV|ТВ|OVA|ONA|ОВА|Movie).*(\]|\))$|(?: - )?\(?(?:Ф|ф)ильм[^,]*?\)?$/i, '').strip : nil
@@ -102,20 +78,9 @@ module AniManga
     status.present? ? I18n.t("AniMangaStatusUpper.#{status}") : ''
   end
 
-  # тип элемента для schema.org
-  def itemtype
-    if kind == 'Movie'
-      'http://schema.org/Movie'
-    elsif kind == 'TV'
-      'http://schema.org/TVSeries'
-    else
-      'http://schema.org/CreativeWork'
-    end
-  end
-
   # есть ли оценка?
   def with_score?
-    score != 0.0 && score < 9.9
+    score > 1.0 && score < 9.9 && !anons?
   end
 
   def rus_var(types)

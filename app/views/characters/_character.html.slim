@@ -1,0 +1,28 @@
+- cover_by ||= :link
+- content_by ||= :tooltip
+
+article.c-column.b-catalog_entry.c-character[
+    class="entry-#{character.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} item-#{character_counter if defined? character_counter}"
+    itemscope itemtype="http://schema.org/Person"
+  ]
+  meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"
+  meta itemprop="thumbnailUrl" content="#{{attachment_url character.image, :x48, false}}"
+
+  a.cover[
+      class="#{'anime-tooltip' if content_by == :tooltip}"
+      href="#{character_url character}"
+    ]
+    span.image-decor
+      span.image-cutter
+        img src="#{character.image.url :preview}" srcset="#{character.image.url :original} 2x" alt="#{localized_name character}" title="#{localized_name character}"
+
+    - if cover_by == :link
+      span.title.two_lined itemprop="name"
+        = localized_name character
+
+  - unless content_by == :tooltip || content_by == :none
+    .content
+      - if content_by == :block
+        = render partial: 'characters/content', object: character, as: :character
+      - else
+        - raise ArgumentError, content_by

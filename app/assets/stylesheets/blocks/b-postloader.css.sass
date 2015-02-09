@@ -1,11 +1,14 @@
-@import globals
+@import mixins/gray_block
 @import mixins/hover_underlined
 
 .b-postloader
-  @include gray-block
+  +gray-block
   display: block
   position: relative
   text-align: center
+
+  &:first-child
+    margin-bottom: 5px
 
   .next, .prev
     position: absolute

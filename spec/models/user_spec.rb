@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'cancan/matchers'
 
 describe User do
-  context :relations do
+  describe 'relations' do
     it { should have_one :preferences }
 
     it { should have_many :user_changes }
@@ -54,76 +54,75 @@ describe User do
   let(:user2) { create :user }
   let(:topic) { create :topic }
 
-  context :hooks do
-    it { user.preferences.should be_persisted }
+  describe 'hooks' do
+    it { expect(user.preferences).to be_persisted }
 
     #it 'creates registration history entry' do
       #user.history.should have(1).item
       #user.history.first.action.should eq UserHistoryAction::Registration
     #end
 
-    describe :fix_nickname do
+    describe '#fix_nickname' do
       let(:user) { create :user, nickname: '#[test]%&?+' }
       it { expect(user.nickname).to eq 'test' }
     end
 
-    describe :log_nickname_change do
+    describe '#log_nickname_change' do
       let(:user) { create :user }
       after { user.update nickname: 'test' }
       it { expect(UserNicknameChange).to receive(:create).with(user: user, value: user.nickname) }
     end
   end
 
-  context :instance_methods do
-    describe :can_post do
+  describe 'instance methods' do
+    describe '#can_post' do
       before { user.read_only_at = read_only_at }
       subject { user.can_post? }
 
-      context :no_ban do
+      context 'no ban' do
         let(:read_only_at) { nil }
-        it { should be_true }
+        it { should be_truthy }
       end
 
-      context :expired_ban do
+      context 'expired ban' do
         let(:read_only_at) { Time.zone.now - 1.second }
-        it { should be_true }
+        it { should be_truthy }
       end
 
-      context :valid_ban do
+      context 'valid ban' do
         let(:read_only_at) { Time.zone.now + 1.seconds }
-        it { should be_false }
+        it { should be_falsy }
       end
     end
 
-    it :subscribed? do
+    it '#subscribed?' do
       create :subscription, user: user, target_id: topic.id, target_type: topic.class.name
-
-      user.subscribed?(topic).should be_true
+      expect(user.subscribed?(topic)).to be_truthy
     end
 
-    describe :ignores? do
+    describe '#ignores?' do
       it do
         user.ignored_users << user2
-        user.ignores?(user2).should be_true
+        expect(user.ignores?(user2)).to be_truthy
       end
 
       it do
-        user.ignores?(user2).should be_false
+        expect(user.ignores?(user2)).to be_falsy
       end
     end
 
-    describe :subscribe do
-      it :works do
+    describe '#subscribe' do
+      it 'works' do
         topic
 
         expect {
           user.subscribe(topic)
         }.to change(Subscription, :count).by 1
 
-        user.subscribed?(topic).should be_true
+        expect(user.subscribed?(topic)).to be_truthy
       end
 
-      it :only_once do
+      it 'only_once' do
         topic
 
         expect {
@@ -133,16 +132,16 @@ describe User do
       end
     end
 
-    it :usubscribe do
+    it '#usubscribe' do
       user.subscribe(topic)
       expect {
         user.unsubscribe(topic)
       }.to change(Subscription, :count).by -1
 
-      User.find(user.id).subscribed?(topic).should be_false
+      expect(User.find(user.id).subscribed?(topic)).to be_falsy
     end
 
-    describe "when profile is commented" do
+    context 'when profile is commented' do
       it "then new MessageType::ProfileCommented notification is created" do
         user1 = create :user
         user2 = create :user
@@ -150,9 +149,9 @@ describe User do
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
         }.to change(Message, :count).by 1
         message = Message.last
-        message.kind.should == MessageType::ProfileCommented
-        message.from_id.should eq user1.id
-        message.to_id.should eq user2.id
+        expect(message.kind).to eq(MessageType::ProfileCommented)
+        expect(message.from_id).to eq user1.id
+        expect(message.to_id).to eq user2.id
       end
 
       it "two times, then only one MessageType::ProfileCommented notification is created" do
@@ -164,9 +163,9 @@ describe User do
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
         }.to change(Message, :count).by 1
         message = Message.last
-        message.kind.should == MessageType::ProfileCommented
-        message.from_id.should eq user1.id
-        message.to_id.should eq user2.id
+        expect(message.kind).to eq(MessageType::ProfileCommented)
+        expect(message.from_id).to eq user1.id
+        expect(message.to_id).to eq user2.id
       end
 
       it "by its owner, then no MessageType::ProfileCommented notification is created" do
@@ -186,13 +185,13 @@ describe User do
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
         }.to change(Message, :count).by 2
         message = Message.last
-        message.kind.should eq MessageType::ProfileCommented
-        message.from_id.should eq user3.id
-        message.to_id.should eq user2.id
+        expect(message.kind).to eq MessageType::ProfileCommented
+        expect(message.from_id).to eq user3.id
+        expect(message.to_id).to eq user2.id
       end
     end
 
-    it :prolongate_ban do
+    it '#prolongate_ban' do
       read_only_at = DateTime.now + 5.hours
       ip = '127.0.0.1'
 
@@ -203,23 +202,183 @@ describe User do
       user2.current_sign_in_ip = ip
       user2.prolongate_ban
 
-      user2.read_only_at.to_i.should eq read_only_at.to_i
+      expect(user2.read_only_at.to_i).to eq read_only_at.to_i
     end
 
-    describe :banned? do
+    describe '#banned?' do
       let(:read_only_at) { nil }
       subject { create(:user, read_only_at: read_only_at).banned? }
 
-      it { should be_false }
+      it { should be_falsy }
 
-      describe true do
+      describe 'true' do
         let(:read_only_at) { DateTime.now + 1.hour }
-        it { should be_true }
+        it { should be_truthy }
       end
 
-      describe false do
+      describe 'false' do
         let(:read_only_at) { DateTime.now - 1.second }
-        it { should be_false }
+        it { should be_falsy }
+      end
+    end
+
+    describe '#friended?' do
+      subject { user.friended? user_2 }
+      let(:user_2) { build_stubbed :user }
+
+      context 'friended' do
+        let(:user) { build_stubbed :user, friend_links: [build_stubbed(:friend_link, dst: user_2)] }
+        it { should be true }
+      end
+
+      context 'not friended' do
+        it { should be false }
+      end
+    end
+  end
+
+  describe 'permissions' do
+    let(:preferences) { build_stubbed(:user_preferences, profile_privacy: profile_privacy) }
+    let(:profile) { build_stubbed :user, preferences: preferences }
+    let(:user) { build_stubbed :user }
+    let(:friend_link) { build_stubbed :friend_link, dst: user }
+    subject { Ability.new user }
+
+    describe 'access_list' do
+      context 'public profile_privacy' do
+        let(:profile_privacy) { :public }
+
+        context 'owner' do
+          let(:user) { profile }
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'friend' do
+          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'user' do
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'guest' do
+          let(:user) { nil }
+          it { should be_able_to :access_list, profile }
+        end
+      end
+
+      context 'users profile_privacy' do
+        let(:profile_privacy) { :users }
+
+        context 'owner' do
+          let(:user) { profile }
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'friend' do
+          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'user' do
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'guest' do
+          let(:user) { nil }
+          it { should_not be_able_to :access_list, profile }
+        end
+      end
+
+      context 'friends profile_privacy' do
+        let(:profile_privacy) { :friends }
+
+        context 'owner' do
+          let(:user) { profile }
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'friend' do
+          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'user' do
+          it { should_not be_able_to :access_list, profile }
+        end
+
+        context 'guest' do
+          let(:user) { nil }
+          it { should_not be_able_to :access_list, profile }
+        end
+      end
+
+      context 'owner profile_privacy' do
+        let(:profile_privacy) { :owner }
+
+        context 'owner' do
+          let(:user) { profile }
+          it { should be_able_to :access_list, profile }
+        end
+
+        context 'friend' do
+          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          it { should_not be_able_to :access_list, profile }
+        end
+
+        context 'user' do
+          it { should_not be_able_to :access_list, profile }
+        end
+
+        context 'guest' do
+          let(:user) { nil }
+          it { should_not be_able_to :access_list, profile }
+        end
+      end
+    end
+
+    describe 'access_messages' do
+      let(:profile) { build_stubbed :user }
+
+      context 'owner' do
+        let(:user) { profile }
+        it { should be_able_to :access_messages, profile }
+      end
+
+      context 'user' do
+        it { should_not be_able_to :access_messages, profile }
+      end
+
+      context 'guest' do
+        let(:user) { nil }
+        it { should_not be_able_to :access_messages, profile }
+      end
+    end
+
+    describe 'edit & update' do
+      let(:profile) { build_stubbed :user }
+
+      context 'own profile' do
+        let(:user) { profile }
+        it { should be_able_to :edit, profile }
+        it { should be_able_to :update, profile }
+      end
+
+      context 'admin' do
+        let(:user) { build_stubbed :user, id: User::Admins.first }
+        it { should be_able_to :edit, profile }
+        it { should be_able_to :update, profile }
+      end
+
+      context 'user' do
+        it { should_not be_able_to :edit, profile }
+        it { should_not be_able_to :update, profile }
+      end
+
+      context 'guest' do
+        it { should_not be_able_to :edit, profile }
+        it { should_not be_able_to :update, profile }
       end
     end
   end

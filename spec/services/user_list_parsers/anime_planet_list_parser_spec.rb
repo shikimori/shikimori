@@ -1,12 +1,10 @@
-require 'spec_helper'
-
 describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_planet' } do
   let(:parser) { UserListParsers::AnimePlanetListParser.new klass, wont_watch_strategy }
   let(:login) { 'shikitest' }
   let(:wont_watch_strategy) { nil }
   subject(:parsed) { parser.parse login }
 
-  context :anime do
+  context 'anime' do
     let(:klass) { Anime }
     let!(:anime_1) { create :anime, name: 'Black Bullet' }
     let!(:anime_2) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2007-01-01') }
@@ -14,7 +12,7 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
 
     context 'without wont watch' do
       it 'properly parsed' do
-        expect(parsed).to have(6).items
+        expect(parsed.size).to eq(6)
 
         expect(parsed[0]).to eq(name: "Attack on Titan", status: UserRate.status_id(:completed), score: 4.0, year: 2013, episodes: 25, id: nil)
         expect(parsed[1]).to eq(name: "Black Bullet", id: anime_1.id, status: UserRate.status_id(:dropped), score: 4.0, episodes: 5, year: 2014)
@@ -28,7 +26,7 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
     context 'with wont watch' do
       let(:wont_watch_strategy) { UserRate.status_id :dropped }
       it 'properly parsed' do
-        expect(parsed).to have(6).items
+        expect(parsed.size).to eq(6)
 
         expect(parsed[0]).to eq(name: "Attack on Titan", status: UserRate.status_id(:completed), score: 4.0, year: 2013, episodes: 25, id: nil)
         expect(parsed[1]).to eq(name: "Black Bullet", id: anime_1.id, status: UserRate.status_id(:dropped), score: 4.0, episodes: 5, year: 2014)
@@ -40,12 +38,12 @@ describe UserListParsers::AnimePlanetListParser, vcr: { cassette_name: 'anime_pl
     end
   end
 
-  context :manga do
+  context 'manga' do
     let(:klass) { Manga }
     let!(:manga) { create :manga, name: 'Maid Sama!' }
 
     it 'properly parsed' do
-      expect(parsed).to have(1).item
+      expect(parsed.size).to eq(1)
       expect(parsed[0]).to eq(name: "Maid Sama!", status: 2, score: 6.0, year: 2005, volumes: 18, chapters: 0, id: manga.id)
     end
   end

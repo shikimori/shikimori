@@ -15,6 +15,7 @@ class AnimeVideoReport < ActiveRecord::Base
   scope :processed, -> { where(state: ['accepted', 'rejected']).order(updated_at: :desc) }
 
   after_create :auto_check
+  after_create :auto_accept
 
   def doubles state=nil
     reports = AnimeVideoReport
@@ -47,7 +48,7 @@ class AnimeVideoReport < ActiveRecord::Base
 
     before_transition pending: :accepted do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
-      anime_video_report.anime_video.update_attribute :state, anime_video_report.kind
+      anime_video_report.anime_video.update state: anime_video_report.kind
       anime_video_report.find_doubles.update_all(
         approver_id: transition.args.first.id,
         state: :accepted
@@ -87,5 +88,9 @@ class AnimeVideoReport < ActiveRecord::Base
 private
   def auto_check
     AnimeOnline::ReportWorker.delay_for(10.seconds).perform_async id
+  end
+
+  def auto_accept
+    accept! user if user.video_moderator?
   end
 end

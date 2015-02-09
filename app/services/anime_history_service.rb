@@ -1,7 +1,6 @@
 class AnimeHistoryService
-  include Rails.application.routes.url_helpers
+  include Routing
   NewsExpireIn = 1.week
-  default_url_options[:host] = 'shikimori.org'
 
   # обрабатывает всю небработанную историю, отправляет уведомления пользователям
   def self.process
@@ -24,7 +23,7 @@ class AnimeHistoryService
       .each {|v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 
-    #users = users.select {|v| v.id == 11 || v.id == 1 }
+    #users = users.select {|v| [1].include? v.id }
 
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.map do |entry|
@@ -49,7 +48,10 @@ class AnimeHistoryService
 
     ActiveRecord::Base.transaction do
       Entry.where(id: entries.map(&:id)).update_all processed: true
-      Message.import messages.flatten.compact
+
+      messages.flatten.compact.each_slice 1000 do |slice|
+        Message.import slice
+      end
     end
   end
 

@@ -1,0 +1,36 @@
+@import compass/css3/opacity
+@import compass/css3/transition
+@import compass/css3/images
+@import mixins/link
+
+$shade_height: 15px
+$text_margin: 0px
+
+.b-height_shortener
+  .shade
+    +background-image(linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)))
+    height: $shade_height
+    margin-top: -$shade_height - $text_margin
+    position: absolute
+    width: 100%
+
+  &:hover
+    .expand
+      +opacity(1)
+      &:after
+        content: '↓'
+
+  .expand
+    +link_color
+    +opacity(0.4)
+    +transition(none)
+    cursor: pointer
+    font-size: 11px
+    line-height: 1
+    margin-top: $text_margin
+    text-align: center
+
+    &:after
+      content: '↑'
+      display: inline-block
+      margin-left: 5px

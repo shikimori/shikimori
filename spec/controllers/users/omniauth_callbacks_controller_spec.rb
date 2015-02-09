@@ -1,9 +1,8 @@
-require 'spec_helper'
 require 'deep_struct'
 
 describe Users::OmniauthCallbacksController do
   [:facebook, :twitter, :vkontakte].each do |provider|
-    context provider do
+    describe "##{provider}" do
       let(:uid) { 'test' }
       let(:token_number) { '123456789iouhg' }
 
@@ -23,24 +22,32 @@ describe Users::OmniauthCallbacksController do
         )
       end
 
-      context :no_token do
-        subject { get provider }
+      context 'no token' do
+        let(:make_request) { get provider }
 
-        it { expect{subject}.to change(User, :count).by 1 }
-        it { expect{subject}.to change(UserToken, :count).by 1 }
-        it { should redirect_to :root }
+        it { expect{make_request}.to change(User, :count).by 1 }
+        it { expect{make_request}.to change(UserToken, :count).by 1 }
+
+        describe 'response' do
+          before { make_request }
+          it { expect(response).to redirect_to :root }
+        end
       end
 
-      context :with_token do
+      context 'with token' do
         let(:user) { create :user }
         before { create :user }
         before { create :user_token, user: user, uid: uid, provider: provider }
 
-        subject { get provider }
+        let(:make_request) { get provider }
 
-        it { expect{subject}.to_not change User, :count }
-        it { expect{subject}.to_not change UserToken, :count }
-        it { should redirect_to :root }
+        it { expect{make_request}.to_not change User, :count }
+        it { expect{make_request}.to_not change UserToken, :count }
+
+        describe 'response' do
+          before { make_request }
+          it { expect(response).to redirect_to :root }
+        end
       end
     end
   end

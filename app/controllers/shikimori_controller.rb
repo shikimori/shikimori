@@ -1,4 +1,74 @@
 class ShikimoriController < ApplicationController
+  before_action { noindex && nofollow unless shikimori? }
+
+  def self.page_title value
+    before_action do
+      if @page_title.present?
+        @page_title.unshift value
+      else
+        page_title value
+      end
+    end
+  end
+
+  def self.breadcrumb value, url_builder
+    before_action do
+      if @breadcrumbs.present?
+        @breadcrumbs = Hash[@breadcrumbs.to_a.unshift([value, send(url_builder)])]
+      else
+        breadcrumb value, send(url_builder)
+      end
+    end
+  end
+
+  def fetch_resource
+    @resource ||= resource_klass.find(resource_id)
+    @resource = @resource.decorate
+    instance_variable_set "@#{resource_klass.name.downcase}", @resource
+
+    if @resource.respond_to? :name
+      page_title @resource.name
+    elsif @resource.respond_to? :title
+      page_title @resource.title
+    end
+  end
+
+  def resource_redirect
+    if resource_id != @resource.to_param && request.method == 'GET' && params[:action] != 'new'
+      redirect_to url_for(url_params(resource_id_key => @resource.to_param))
+      false
+    end
+  end
+
+  def resource_id
+    @resource_id ||= params[resource_id_key]
+  end
+
+  def resource_id_key
+    key = "#{resource_klass.name.downcase}_id".to_sym
+    params[key] ? key : :id
+  end
+
+  def resource_klass
+    self.class.name.sub(/Controller$/ ,'').singularize.constantize
+  end
+
+  # заполнение хлебных крошек
+  def breadcrumb title, url
+    @breadcrumbs ||= {}
+    @breadcrumbs[title] = url
+  end
+
+  def page_title title, replace=false
+    if replace
+      @page_title = []
+    else
+      @page_title ||= []
+    end
+
+    @page_title.push HTMLEntities.new.decode(title)
+  end
+
   def noindex
     set_meta_tags noindex: true
   end
@@ -23,14 +93,6 @@ class ShikimoriController < ApplicationController
     end
   end
 
-  # создание директора
-  def direct object=nil
-    klass = "#{self.class.name.sub(/Controller$/, '').sub(/^(Animes|Mangas)$/, 'AniMangas').sub(/Controller::/, 'Director::')}Director".constantize
-    director = klass.new(self)
-    director.send params[:action]
-    director
-  end
-
   # TODO: выпилить
   # пагинация датасорса
   # задаёт переменные класса @page, @limit, @add_postloader
@@ -44,20 +106,6 @@ class ShikimoriController < ApplicationController
     @add_postloader = entries.size > @limit
 
     @add_postloader ? entries.take(limit) : entries
-  end
-
-  # TODO: выпилить
-  # создание презентера
-  def present object, klass=nil
-    klass ||= case object.class.name
-      when Anime.name, Manga.name
-        AniMangaPresenter
-
-      else
-        "#{object.class.model_name}Presenter".constantize
-    end
-
-    klass.new object, view_context
   end
 
   # TODO: выпилить

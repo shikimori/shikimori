@@ -1,0 +1,13 @@
+header.head.misc
+  h1 = @page_title.last
+  - if can? :new, Group
+    a.misc href="#{new_club_url 'club[owner_id]' => current_user.id}" title="Создать новый клуб" создать
+  p.notice.clearfix Список всех клубов сайта в порядке активности участников
+
+.b-clubs.index
+  = render partial: 'club', collection: @collection, locals: { content_by: :detailed }
+  - if @add_postloader
+    = render 'blocks/postloader', filter: 'b-club',
+      url: page_clubs_url(page: @page+1),
+      next_url: page_clubs_url(page: @page+1),
+      prev_url: (@page > 1 ? page_clubs_url(page: @page-1) : nil)

@@ -1,0 +1,217 @@
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/icons
+@import mixins/link
+@import mixins/responsive
+
+.p-anime_videos-index
+  .video-player
+    iframe
+      border: none
+      width: 100%
+    object
+      width: 100%
+    embed
+      width: 100%
+
+  .cc-player_controls
+    +clearfix
+    padding-top: 10px
+
+    .cc-navigation, .cc-optional_controls
+      +clear_left
+
+      &>.c-control
+        +column(3)
+
+    .cc-anime_video_report-new
+      +block
+      display: none
+
+    .cc-optional_controls
+      display: none
+
+    .cc-options
+      +clear_left
+
+      &>.c-column
+        +column(2)
+
+  .cc-anime_video_report-new
+    input[type=text]
+      width: 100%
+
+    .broken, .wrong
+      margin-right: 20px
+
+  .cc-player_controls
+    a.c-control
+      +link
+
+    .c-control
+      +link_color(#333)
+      cursor: pointer
+      text-align: center
+
+      &.selected, &.selected .icon
+        color: $link_hover
+
+      &:hover .icon
+        color: $link_hover
+      &:active .icon
+        color: $link_active
+
+      .icon
+        margin: 0 !important
+
+        &:before
+          font-size: 18px !important
+          width: 100%
+
+    //a.c-control
+      +link
+
+    .label
+      +ellipsis
+      +iphone_portrait
+        display: none
+      font-size: 10px
+      b
+        color: #123
+
+    .episode-title
+      color: #444 !important
+      cursor: default
+      font-size: 17px
+      line-height: $icon_desktop_size
+      text-align: center
+      text-decoration: none !important
+
+      +lte_ipad
+        line-height: $icon_mobile_size
+
+      +iphone_portrait
+        span
+          display: none
+
+    .prev .icon
+      +icon_button("\e832")
+    .next .icon
+      +icon_button("\e83a")
+    .create-user_rate .icon
+      +icon_button("\002b")
+    .show-options .icon
+      +icon_button("\e843")
+    .edit .icon
+      +icon_button("\e842")
+    .upload .icon
+      +icon_button("\e80c")
+
+    .increment-user_rate
+      .icon
+        +icon_button("\e817")
+      &.watched, &.watched .icon
+        color: $green !important
+
+    .report
+      //color: $red !important
+      //&:hover
+        //text-decoration: underline
+
+      .icon
+        +icon_button("\e806")
+        //color: $red !important
+
+  .c-video_stats
+    font-size: 12px
+    margin-top: -4px
+    text-align: right
+
+    &.single
+      padding-top: 10px
+
+    .views_count
+      color: $gray-color-2
+
+    .uploader
+      color: #333
+      white-space: nowrap
+
+      +iphone_portrait
+        &>span
+          display: none
+
+      .b-user16
+        line-height: 17px
+        margin-right: 0
+        padding-left: 5px
+
+        img
+          margin-top: 0
+
+  .c-episodes,
+  .c-videos
+    +block
+    +iphone
+      +column(1)
+    +gte_ipad
+      +column(2)
+
+      &.c-videos
+        float: right
+        margin-right: 0
+
+    .title
+      font-weight: bold
+      color: #123
+      margin-bottom: 5px
+
+    .episode
+      &:first-letter
+        text-transform: uppercase
+
+      a
+        +link
+
+        &.active
+          font-weight: bold
+
+        &.broken:after, &.wrong:after
+          float: left
+          font-weight: normal
+          padding-right: 5px
+
+        &.broken:after
+          color: $red
+          content: 'broken'
+
+        &.wrong:after
+          color: $orange
+          content: 'wrong'
+
+      .episode-num
+        color: #123
+        display: inline-block
+        font-weight: bold
+        padding-right: 6px
+
+      .video-author
+        color: #123
+        padding-left: 6px
+
+      .episode-hostings, .video-hosting
+        padding-left: 6px
+        color: $gray-color-2
+
+        &:before, &:after
+          color: $gray-color-0
+          display: inline-block // чтбы по hover подчёркивание не появлялось у ссылок
+
+        &:before
+          content: '('
+
+        &:after
+          content: ')'

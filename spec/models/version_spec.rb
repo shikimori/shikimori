@@ -1,13 +1,11 @@
-require 'spec_helper'
-
 describe Version do
-  describe :validations do
+  describe 'validations' do
     it { should validate_presence_of :item_type }
     it { should validate_presence_of :item_id }
     it { should validate_presence_of :item_diff }
   end
 
-  describe :state_machine do
+  describe 'state_machine' do
     let(:anime) { create :anime }
     let(:video) { create :anime_video, anime: anime, episode: 2 }
     let(:diff_hash) { {episode: [1,2]} }
@@ -20,13 +18,13 @@ describe Version do
       describe 'from accepted_pending' do
         let(:state) { :accepted_pending }
         it { should be_accepted }
-        specify { video.reload.episode.should eq 2 }
+        specify { expect(video.reload.episode).to eq 2 }
       end
 
       describe 'from pending' do
         let(:state) { :pending }
         it { should be_accepted }
-        specify { video.reload.episode.should eq 2 }
+        specify { expect(video.reload.episode).to eq 2 }
       end
     end
 
@@ -37,13 +35,13 @@ describe Version do
         let(:state) { :accepted_pending }
         subject { version }
         it { should be_rejected }
-        specify { video.reload.episode.should eq 1 }
+        specify { expect(video.reload.episode).to eq 1 }
       end
 
       describe 'from pending' do
         let(:state) { :pending }
         it { should be_rejected }
-        specify { video.reload.episode.should eq 1 }
+        specify { expect(video.reload.episode).to eq 1 }
       end
     end
   end

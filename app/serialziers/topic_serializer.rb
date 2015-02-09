@@ -1,5 +1,6 @@
 class TopicSerializer < ActiveModel::Serializer
-  attributes :id, :title, :body, :html_body, :viewed?, :created_at, :comments_count, :section, :user, :type, :linked_id, :linked_type, :linked
+  attributes :id, :title, :body, :html_body, :created_at, :comments_count, :section, :user, :type, :linked_id, :linked_type, :linked
+  attributes :viewed?, :last_comment_viewed?
 
   def section
     SectionSerializer.new object.section
@@ -25,5 +26,9 @@ class TopicSerializer < ActiveModel::Serializer
       when Group.name then GroupSerializer.new object.linked
       when Review.name then ReviewSerializer.new object.linked
     end
+  end
+
+  def last_comment_viewed?
+    object.comments.last.try(:viewed?)
   end
 end

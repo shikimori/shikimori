@@ -1,0 +1,183 @@
+@import globals
+@import mixins/brackets_surrounded
+@import mixins/hover_underlined
+@import mixins/input
+@import mixins/link
+
+header.head
+  margin-bottom: 15px
+
+  h1, h2
+    +new-header-font
+    display: inline-block
+
+    a.back
+      +link_color
+      display: inline-block
+      font-size: 24px
+      position: relative
+      width: 40px
+
+      &:before
+        color: #123
+        content: '←'
+        left: 5px
+        position: absolute
+        top: -32px
+
+      &:after
+        content: 'назад'
+        font-size: 9px
+        left: 5px
+        position: absolute
+        top: -9px
+
+      &:hover:after
+        border-bottom: 1px solid $link_hover
+
+  .misc, a.edit
+    color: $gray-color
+    display: inline-block
+    font-family: $font-family
+    font-size: 11px
+    line-height: 12px
+    padding: 17px 0 0 10px
+
+  a.misc, a.edit
+    +link
+
+  +iphone
+    h1, h2
+      display: block
+
+    .misc, a.edit
+      line-height: 1.65
+      padding: 0 0 0 1px
+
+  .notice
+    clear: left
+    color: #333
+    font-size: 12px
+    line-height: $line_height
+    margin: 2px 0 2px 1px
+
+.headline
+  +transition(color, 0.2s)
+  +ellipsis
+  background: darken(#ebeef1, 1%)
+  border-left: 5px solid darken(#dbe0e6, 1%)
+  color: #123
+  font-size: 18px
+  line-height: $line_height
+  font-weight: bold
+  margin-bottom: 5px
+  padding: 4px 10px 2px
+  text-transform: uppercase
+
+  &>a
+    +ellipsis
+    +transition(color, 0.2s)
+    color: #123
+    display: block
+    text-decoration: none
+    padding-right: 20px
+
+    &:before
+      +transition(color, 0.2s)
+      color: $gray-color
+      content: "\e81c"
+      font-family: "shikimori"
+      position: absolute
+      right: 10px
+
+    &:hover
+      color: $link_hover
+
+      &:before
+        color: $link_hover
+
+    &:active
+      color: $link_active
+
+      &:before
+        color: $link_active
+
+.midheadline
+  @extend .headline
+  font-size: 16px
+  padding-top: 3px
+  padding-bottom: 2px
+
+.subheadline
+  @extend .headline
+  margin-bottom: 5px
+
+  +gte_ipad
+    font-size: 14px
+    padding: 6px 10px 4px 8px
+    line-height: 14px
+
+  +iphone
+    font-size: 16px
+    padding-top: 3px
+    padding-bottom: 2px
+
+  //.additional
+    //+brackets_surrounded
+    //font-size: 11px
+    //font-weight: normal
+    //text-transform: initial
+    //display: inline-block
+    //margin-left: $block_offset
+
+    //&:before
+      //content: '['
+
+    //&:after
+      //content: ']'
+
+    //a
+      //+link
+
+.mischeadline
+  font-size: 13px
+  font-weight: bold
+  margin-bottom: 5px
+
+// инпунт с правого края заголовка
+.subheadline-input
+  +input
+  margin-right: 2px !important
+  margin-top: 2px !important
+  position: absolute
+  right: 0
+  width: 248px !important
+
+  +gte_ipad
+    font-size: 12px
+    line-height: 16px !important
+
+  +iphone
+    font-size: 13px
+    line-height: 21px !important
+    padding-bottom: 2px !important
+    padding-top: 2px !important
+
+  +iphone-portrait
+    margin-bottom: 10px !important
+    position: initial
+    width: 100% !important
+
+  &.downgrade_landscape
+    +iphone-landscape
+      margin-bottom: 10px !important
+      position: initial
+      width: 100% !important
+
+.subheadline-buttons
+  position: absolute
+  right: 3px
+  margin-top: 2px
+
+  +lte_ipad
+    margin-top: 1px

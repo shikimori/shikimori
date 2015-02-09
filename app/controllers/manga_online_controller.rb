@@ -1,2 +1,0 @@
-class MangaOnlineController < ShikimoriController
-end

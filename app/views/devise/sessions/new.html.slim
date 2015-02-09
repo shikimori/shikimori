@@ -2,15 +2,27 @@ header.head.m15
   h1 Авторизация
   p.notice На данной странице вы сможете авторизоваться на нашем сайте.
 
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  .m20
-    p
-      label for="user_nickname" Логин
-    = f.text_field :nickname, class: 'common'
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  - if resource.errors.any?
+    .b-errors
+      .subheadline Ошибки
+      .block
+        == resource.errors.full_messages.join('<br>')
 
-  .m20
-    p
-      label for="user_password" Пароль
-    = f.text_field :password, class: 'common'
 
-  = f.submit 'Войти', class: 'button'
+  .block
+    = f.input :nickname, input_html: { autofocus: true }
+    = f.input :password
+
+  .block
+    = f.submit 'Войти'
+    a.cancel href="#{new_user_registration_url}" Зарегистрировать новый аккаунт
+    a.cancel href="#{new_user_password_url}" Забыли пароль?
+
+  .social
+    p.m5 Через социальные сети
+
+    div
+      a.b-oauth_token.vkontakte href="#{user_omniauth_authorize_url :vkontakte}" title="Вход через Вконтакте"
+      a.b-oauth_token.facebook href="#{user_omniauth_authorize_url :facebook}" title="Вход через Facebook"
+      a.b-oauth_token.twitter href="#{user_omniauth_authorize_url :twitter}" title="Вход через Twitter"

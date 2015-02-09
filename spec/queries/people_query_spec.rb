@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe PeopleQuery do
   let(:person) { create :person, name: 'test', mangaka: true }
   let(:query) { PeopleQuery.new(search: 'test', kind: 'mangaka') }
@@ -12,13 +10,13 @@ describe PeopleQuery do
   end
 
   describe 'fetch' do
-    it { query.fetch.to_a.should have(2).items }
+    it { expect(query.fetch.to_a.size).to eq(2) }
 
     it 'should be in correct order' do
-      query.fetch.first.id.should eq person.id
+      expect(query.fetch.first.id).to eq person.id
     end
     it 'japanese search' do
-      PeopleQuery.new(search: 'シュタインズ', kind: 'mangaka').fetch.to_a.should have(1).item
+      expect(PeopleQuery.new(search: 'シュタインズ', kind: 'mangaka').fetch.to_a.size).to eq(1)
     end
   end
 
@@ -26,19 +24,19 @@ describe PeopleQuery do
     before { 1.upto(6) { create :manga, people: [person] } }
     let(:fetched_query) { query.fill_works(query.fetch) }
 
-    it { fetched_query.first.best_works.should have(PeopleQuery::WorksLimit).items }
-    it { fetched_query.first.last_works.should have(PeopleQuery::WorksLimit).items }
+    it { expect(fetched_query.first.best_works.size).to eq(PeopleQuery::WorksLimit) }
+    it { expect(fetched_query.first.last_works.size).to eq(PeopleQuery::WorksLimit) }
   end
 
   describe 'is_producer' do
-    it { PeopleQuery.new(search: 'test', kind: 'producer').producer?.should be_true }
-    it { PeopleQuery.new(search: 'test', kind: 'mangaka').producer?.should be_false }
+    it { expect(PeopleQuery.new(search: 'test', kind: 'producer').producer?).to be_truthy }
+    it { expect(PeopleQuery.new(search: 'test', kind: 'mangaka').producer?).to be_falsy }
   end
 
   describe 'complete' do
-    it { PeopleQuery.new(search: 'test', kind: 'mangaka').complete.should have(2).items }
-    it { PeopleQuery.new(search: 'シュタインズ', kind: 'mangaka').complete.should have(1).item }
-    it { PeopleQuery.new(search: 'qwert', kind: 'producer').complete.should have(0).items }
-    it { PeopleQuery.new(search: 'qwert', kind: nil).complete.should have(1).item }
+    it { expect(PeopleQuery.new(search: 'test', kind: 'mangaka').complete.size).to eq(2) }
+    it { expect(PeopleQuery.new(search: 'シュタインズ', kind: 'mangaka').complete.size).to eq(1) }
+    it { expect(PeopleQuery.new(search: 'qwert', kind: 'producer').complete.size).to eq(0) }
+    it { expect(PeopleQuery.new(search: 'qwert', kind: nil).complete.size).to eq(1) }
   end
 end

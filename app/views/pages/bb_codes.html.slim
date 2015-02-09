@@ -1,0 +1,256 @@
+header.head
+  h1 Бб-коды сайта
+  p.notice Список поддерживаемых сайтом бб-кодов с примерами их использования
+
+.b-bb_codes-examples
+  .cc-2
+    .block.c-column
+      .name Стиль текста
+      .example
+        .textarea
+          | [b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]
+      .result
+        = BbCodeFormatter.instance.format_comment '[b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]'
+
+    .block_m.c-column
+      .name Цвет текста
+      .example
+        .textarea
+          | [color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]
+      .result
+        = BbCodeFormatter.instance.format_comment '[color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]'
+
+  .cc-2
+    .block.c-column
+      .name Выравнивание текста
+      .example
+        .textarea
+          | слева [right]справа[/right] [center]по центру[/center]
+      .result
+        = BbCodeFormatter.instance.format_comment 'слева [right]справа[/right] [center]по центру[/center]'
+
+    .block_m.c-column
+      .name Размер текста
+      .example
+        .textarea
+          | [size=10]текст[/size] и [size=16]текст[/size]
+      .result
+        = BbCodeFormatter.instance.format_comment '[size=10]текст[/size] и [size=16]текст[/size]'
+      .notice 13 &ndash; стандартный размер
+
+  .block
+    .name Список
+    .example
+      | [list][*]первая строка[*]вторая строка[/list]
+    .result
+      = BbCodeFormatter.instance.format_comment '[list][*]первая строка[*]вторая строка[/list]'
+
+  .cc-2
+    .block.c-column
+      .name Упоминание пользователя
+      .example
+        .textarea
+          | @morr, привет
+      .result
+        = BbCodeFormatter.instance.format_comment '@morr, привет'
+      .notice Перед ником пользователя пишется "@". Пользователю придёт уведомление о том, что ему что-то написали на форуме
+
+    .block_m.c-column
+      .name Ответ на комментарий
+      .example
+        .textarea
+          | [comment=775324<span>id комментария</span>]morr[/comment], привет
+      .result
+        = BbCodeFormatter.instance.format_comment '[comment=775324]morr[/comment], привет'
+      .notice При ответе автору комментария придёт уведомление о том, что ему что-то написали на форуме
+
+  .block
+    .name Цитата
+    .example
+      .textarea
+        | [quote]цитата[/quote]<br>[quote=morr]цитата с ником[/quote]<br>[quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
+    .result
+      = BbCodeFormatter.instance.format_comment '[quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324;1;morr]цитата комментария[/quote]'
+    .notice Если вы цитируете пользователя на форуме, то пользователь получит об этом уведомление.
+
+  .block
+    .name Название аниме, становящаеся ссылкой с подсказкой
+    .example
+      .textarea
+        | [Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]
+    .result
+      = BbCodeFormatter.instance.format_comment '[Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]'
+    .notice
+      | Всё, что нужно для того, чтобы название стало ссылкой, это записать название в квадратных скобках. Вот так: [Русское или английское название].
+      br
+      | Работает для аниме, манги, персонажей, людей.
+
+  .block
+    .name Ссылка на аниме со всплывающей подсказкой
+    .example
+      .textarea
+        | [anime=1<span>id аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
+    .result
+      = BbCodeFormatter.instance.format_comment '[anime=1]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]'
+    .notice
+      | Id аниме или манги, или персонажа &ndash; номер аниме в базе сайте.
+      |  Определить id можно из адреса страницы аниме.
+      br
+      | Например, для аниме <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://#{Site::DOMAIN}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a> с адресом <a href="http://#{Site::DOMAIN}/animes/790-ergo-proxy">http://#{Site::DOMAIN}/animes/<b>790</b>-ergo-proxy</a> идентификатор будет равен <b style="color: #000">790</b>.
+      br
+      | Работает для аниме, манги, персонажей, людей.
+
+  .cc-2
+    .block.c-column
+      .name Спойлер
+      .example
+        .textarea
+          | [spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]
+      .result
+        = BbCodeFormatter.instance.format_comment '[spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]'
+
+    .block_m.c-column
+      .name Ссылка
+      .example
+        .textarea
+          | [url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru
+      .result
+        = BbCodeFormatter.instance.format_comment '[url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru'
+      .notice
+        | В большинстве ситуаций сайт сам распознает ссылки в тексте даже без тегов [url] и делает их "ссылками".
+
+  .block
+    .name Ссылка на видео
+    .example
+      .textarea
+        | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
+    .notice
+      | Сайт сам распознает ссылки на видео в тексте и преобразовывает их в блок просмотра видео. В данном примере перечислены все поддерживаемые сайтом видео хостинги.
+
+  .block
+    .name Картинка
+    .example
+      .textarea
+        | <span>это маленькая картинка</span> [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
+        br
+        | [img w=132<span>ширина</span>]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img]
+        br
+        | [img h=132<span>высота</span>]http://anime.kulichki.com/css/images/10.png[/img]
+        br
+        | [img w=132 h=132<span>ширина и высота</span>]http://wallpaperscraft.com/image/12205/256x256.jpg[/img]
+        br
+        | [img 132x132<span>ширина и высота</span>]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img]
+        br
+        | <span>это большая картинка</span> [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img] [img w=132]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img] [img h=132]http://anime.kulichki.com/css/images/10.png[/img] [img w=132 h=132]http://wallpaperscraft.com/image/12205/256x256.jpg[/img] [img 132x132]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img] [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]'
+    .notice
+      | Если у картинки явно не задан размер, то сайт автоматически уменьшит картинку до размера превьюшки. В полный размер картинка развернётся по клику на неё.
+      br
+      | Если вы хотите получить картинку на всю ширину страницы, не задавайте вручную ширину, используйте тег [poster]
+
+
+  .block
+    .name Картинка, загруженная на сайт
+    .example
+      .textarea
+        | [image=35894]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[image=35894]'
+    .notice
+      | Для image тега можно указывать ширину и высоту точно так же, как и для обычной картинки через img тег: [image=35894 w=100], [image=35894 h=100], [image=35894 320x200]
+      br
+      | Если у картинки явно не задан размер, то сайт автоматически уменьшит картинку до размера превьюшки. В полный размер картинка развернётся по клику на неё.
+      br
+      | Если вы хотите получить картинку на всю ширину страницы, не задавайте вручную ширину, используйте тег [poster]
+
+
+  .block
+    .name Картинка на всю ширину страницы без уменьшения до размеров превьюшки
+    .example
+      .textarea
+        | <span>вариант с произвольной картинкой</span> [poster]http://wallpaperwonder.com/wp-content/uploads/2014/03/Anime-Gotico-Taringa-HD-Wallpaper.jpg[/poster]
+        br
+        | <span>вариант с загруженной на сайт картиной</span> [poster=10656<span>id берётся из image тега</span>]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[poster]http://wallpaperwonder.com/wp-content/uploads/2014/03/Anime-Gotico-Taringa-HD-Wallpaper.jpg[/poster] [poster=10656]'
+
+  .block
+    .name Горизонтальная линия
+    .example
+      .textarea
+        | [hr]
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment '[hr]'
+
+  .block
+    .name Картинки без пустот между ними
+    .example
+      .textarea
+        | <span>картинки без пробелов между ними в теге [sоlid]</span>[solid]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        br
+        | [/solid]
+        br
+        | [hr]
+        br
+        | <span>обычный набор картинок</span>[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]
+        br
+        | [img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        br
+
+    .result
+      br
+      = BbCodeFormatter.instance.format_comment "\
+[solid]\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[/solid]\
+\n\n\n\
+[hr]\
+\n\n\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]\
+[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
+"

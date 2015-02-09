@@ -1,4 +1,8 @@
 ru:
+  time:
+    formats:
+      with_month_name: '%e %b %Y'
+
   activerecord:
     # названия полей моделей
     attributes:
@@ -17,17 +21,17 @@ ru:
         reason: Причина
         duration: Срок
       user:
-        birth_on: Дата рождения
-        sex: Пол
-        nickname: Логин
-        email: E-mail
-        name: Реальное имя
-        location: Откуда
-        website: Сайт
         avatar: Аватар
-        password: Новый пароль
-        password_confirmation: Подтверждение пароля
+        birth_on: Дата рождения
         current_password: Текущий пароль
+        email: E-mail
+        location: Откуда
+        name: Реальное имя
+        nickname: Логин
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        sex: Пол
+        website: Сайт
       user_rate:
         status: Статус
         episodes: Эпизоды
@@ -37,8 +41,8 @@ ru:
         rerereads: Кол-во повторных чтений
         text: Комментарий
         score: Оценка
-
         scores:
+          '0': ''
           '1': Хуже не бывает
           '2': Ужасно
           '3': Очень плохо
@@ -64,23 +68,27 @@ ru:
             completed: Прочитано
             on_hold: Отложено
             dropped: Брошено
+      review:
+        text: Текст
+        storyline: Сюжет
+        animation: Рисовка
+        characters: Персонажи
+        music: Звуковой ряд
+        overall: Итоговая оценка
 
       user_preferences:
         anime_in_profile: Отображать аниме в профиле
         manga_in_profile: Отображать мангу в профиле
-        manga_first: Отображать сначала мангу, потом аниме
-        clubs_in_profile: Отображать клубы в профиле
-        statistics_in_profile: Отображать статистику в профиле
         comments_in_profile: Отображать комментарии в профиле
         body_background: Фон боковой области
         page_border: Полупрозрачная рамка по бокам страницы
         about_on_top: Отображать над статистикой
-        show_hentai_images: Отображать картинки с имиджборд без цензуры
+        show_hentai_images: Картинки с имиджборд без цензуры
         show_social_buttons: Отображать кнопки соц сетей
         show_smileys: Отображать смайлики
         menu_contest: Уведомление о голосованиях в меню
 
-        profile_privacy: Могут видеть мой профиль
+        profile_privacy: Могут видеть мой список
         russian_genres: Русские названия жанров
         russian_names: Русские названия аниме и манги
         mylist_in_catalog: Подсвечивать находящееся в моём списке в каталоге аниме
@@ -89,6 +97,8 @@ ru:
       anime_video:
         url: Url на видео
         episode: Эпизод
+        kind: Тип видео
+        author_name: Автор (озвучки,субтитров)
       video:
         url: Ссылка
         kind: Тип
@@ -99,11 +109,26 @@ ru:
         join_policy: Возможность вступления
         join_policies:
           free_join: Свободное для всех желающих
+          admin_invite_join: Только по приглашению администрации
           owner_invite_join: Только по приглашению создателя
         comment_policy: Возможность комментирования
         comment_policies:
           free_comment: Свободное для всех
           members_comment: Только для участников клуба
+      group_invite:
+        dst: Пользователь
+      topic:
+        title: Название
+        body: Текст
+        type: Тип
+        linked: Связанное
+        posters: Постеры
+        section_id: Раздел
+      user_change:
+        source: Источник
+      anime_video_report:
+        kind: Причина
+        message: Сообщение модератору
 
     # сообщения валидаций
     errors:
@@ -113,10 +138,20 @@ ru:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'
           not_a_club_member: Вступите в клуб, чтобы оставлять комментарии
-          in_club_black_list: Вы занесены в чёрный список клуба
-        group_invites:
-          you_are_banned: Вы занесены в чёрный список клуба
-          user_is_banned: Пользователь занесён в чёрный список клуба
+          in_club_black_list: Вас внесли в чёрный список клуба. Комментирование невозможно
+        messages:
+          ignored: Вы не можете писать этому пользователю
+
+        group_invite:
+          attributes:
+            base:
+              banned: Пользователь забанен в этом клубе. Приглашение невозможно
+              invited: Пользователь уже был приглашён в этот клуб
+              joined: Пользователь уже находится в клубе
+            dst:
+              empty: не зайдан
+              blank: не найден
+
         videos:
           attributes:
             url:
@@ -191,6 +226,25 @@ ru:
       one: минута
       few: минуты
       many: минут
+
+    intervals:
+      today: сегодня
+      yesterday: вчера
+      week: в течение недели
+      two_weeks: две недели назад
+      three_weeks: три недели назад
+      four_weeks: четыре недели назад
+      month: месяц назад
+      two_months: два месяца назад
+      three_months: три месяца назад
+      four_months: четыре месяца назад
+      five_months: пять месяцев назад
+      half_year: более полугода назад
+      year: почти год назад
+      two_years: более года назад
+      many_years: совсем давно
+
+  # в bans#create отображаются
   messages:
     user_banned: Пользователь забанен
     user_warned: Пользователь предупреждён

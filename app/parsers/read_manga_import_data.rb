@@ -96,7 +96,6 @@ module ReadMangaImportData
     'crazy paradise' => 'http://www.diary.ru/~crazy-paradise',
     'world art' => 'http://world-art.ru',
     'death note - kira revival project' => 'http://deathnote.ru',
-    'moonlight team' => 'http://moonlight-team.ru',
     'manga-kya' => 'http://manga-kya.ucoz.ru',
     'kukuruka team' => 'http://kukurukateam.ucoz.ru',
     'flower rain' => 'http://flower-rain.ucoz.ru',
@@ -216,6 +215,7 @@ module ReadMangaImportData
       just_the_two_of_us: -1,
       always_together: -1,
       open_sesame: 730,
+      heaven_s_love: 6980,
       one_more_marionnette: -1,
       marionette: -1,
       marionette_theater_by_the_moonlight_battery: -1

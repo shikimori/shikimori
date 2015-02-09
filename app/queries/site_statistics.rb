@@ -58,7 +58,7 @@ class SiteStatistics
       .group('users.id')
       .having("sum(case when user_changes.status='#{UserChangeStatus::Accepted}' then 7 else 1 end) > 10")
       .order("sum(case when user_changes.status='#{UserChangeStatus::Accepted}' then 7 else 1 end) desc")
-      .limit(96)
+      .limit(104)
       #.select("users.*, sum(if(user_changes.status='#{UserChangeStatus::Accepted}',7,1)) as points")
       #.each {|v| v.nickname = v.points.to_i.to_s }
   end
@@ -68,7 +68,7 @@ class SiteStatistics
       .joins(:reviews)
       .group('users.id')
       .order('count(reviews.id) desc')
-      .limit(24)
+      .limit(26)
   end
 
   def newsmakers
@@ -81,9 +81,13 @@ class SiteStatistics
     newsmarker_ids = anime_newsmakers
         .sort_by {|k,v| -v }
         .map(&:first)
-        .take(24)
+        .take(26)
 
     User.where(id: newsmarker_ids).sort_by {|v| newsmarker_ids.index(v.id) }
+  end
+
+  def top_video_uploaders
+    AnimeOnline::Uploaders.current_top(52)
   end
 
 private

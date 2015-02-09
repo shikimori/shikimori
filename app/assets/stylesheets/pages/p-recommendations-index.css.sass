@@ -1,0 +1,26 @@
+@import compass/css3/transition
+
+.p-recommendations-index
+  .b-options-floated
+    right: 20px !important
+
+  .mylist-block
+    display: none
+
+  .b-catalog_entry
+    .mark-ignored
+      line-height: 16px
+      right: 5px
+      top: 5px
+
+    &.entry-ignored
+      +transition(opacity 0.4s ease)
+      cursor: default !important
+      opacity: 0.3
+
+      a
+        cursor: default !important
+
+      .content
+        display: none !important
+

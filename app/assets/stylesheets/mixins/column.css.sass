@@ -1,0 +1,38 @@
+@import compass/css3/box-sizing
+@import mixins/responsive
+@import mixins/block
+
+=column($columns, $column_size: 1/$columns, $gutter: 4%)
+  @if $columns == 1
+    $gutter: 0%
+
+  +box-sizing(border-box)
+  float: left
+  margin-right: $gutter
+  position: relative
+  width: 100% * $column_size - $gutter * ($columns - 1) / $columns
+
+  &:nth-child(#{$columns}n)
+    margin-right: 0
+
+  &:nth-child(#{$columns}n+1)
+    clear: left
+
+  &:last-child
+    margin-right: 0
+
+    &.block
+      margin-bottom: 0
+
+  &>.block:last-child, &>.subcontent:last-child
+    margin-bottom: 0
+
+// колонка, состоящая из блока+колонки
+=column_b($columns, $column_size: 1/$columns, $gutter: 4%)
+  +block
+  +column($columns, $column_size, $gutter)
+
+// колонка, состоящая из блока с обязательным отступом+колонки
+=column_bm($columns, $column_size: 1/$columns, $gutter: 4%)
+  +block_m
+  +column($columns, $column_size, $gutter)

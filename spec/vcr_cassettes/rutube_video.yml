@@ -1999,4 +1999,4 @@ http_interactions:
         Pjwvbm9zY3JpcHQ+CgkJCgk8L2JvZHk+CjwvaHRtbD4K
     http_version: 
   recorded_at: Tue, 04 Nov 2014 11:25:00 GMT
-recorded_with: VCR 2.9.0
+recorded_with: VCR 2.9.3

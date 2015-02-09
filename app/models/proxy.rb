@@ -9,7 +9,7 @@ class Proxy < ActiveRecord::Base
   @@proxies_initial_size = 0
 
   # использовать ли кеш
-  @@use_cache = Rails.env == 'test'
+  @@use_cache = false#Rails.env == 'test'
 
   # показывать ли логи
   @@show_log = false
@@ -139,6 +139,7 @@ class Proxy < ActiveRecord::Base
           attempts += 1
 
         rescue Exception => e
+          raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
           if e.message =~ SafeErrors
             log "#{e.message}", options
           else
@@ -184,6 +185,7 @@ class Proxy < ActiveRecord::Base
       options[:return_file] ? file : file.read
 
     rescue Exception => e
+      raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
       if e.message =~ SafeErrors
         log "#{e.message}", options
       else
@@ -213,6 +215,7 @@ class Proxy < ActiveRecord::Base
       resp = http.post(path, data, headers)
       resp.body
     rescue Exception => e
+      raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
       if e.message =~ SafeErrors
         log "#{e.message}", options
       else

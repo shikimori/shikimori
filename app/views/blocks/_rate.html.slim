@@ -1,0 +1,17 @@
+.b-rate[
+    class="#{:rateable if defined?(input_selector) && input_selector.present?}"
+    data-notices="#{t("activerecord.attributes.user_rate.scores").to_json if defined?(input_selector) && input_selector.present?}"
+    data-input_selector="#{input_selector if defined?(input_selector) && input_selector.present?}"
+    data-with_submit="#{with_submit if defined?(with_submit) && with_submit.present?}"
+  ]
+  .stars-container
+    .stars.score class="score-#{score.round}"
+    .stars.hover
+    .stars.background
+  .text-score class="score-#{score.round}"
+    = score
+  .score-notice
+    - if score > 0
+      = t "activerecord.attributes.user_rate.scores.#{score.round}"
+    - else
+      | &nbsp;

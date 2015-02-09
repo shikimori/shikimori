@@ -1,0 +1,51 @@
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import mixins/block
+@import mixins/clear_left
+@import mixins/clear_right
+@import mixins/column
+@import mixins/link
+@import mixins/responsive
+
+.b-form
+  +clearfix
+  position: relative
+
+  .variants
+    +block
+    +clear_left
+    margin-bottom: 0
+
+    .variant
+      +ellipsis
+      +gte_ipad
+        +column(3)
+
+      +iphone_landscape
+        +column(2)
+
+      +iphone_portrait
+        +column(1)
+
+      line-height: $line_height
+
+      input[type=checkbox]
+        display: inline-block
+        margin-right: 5px
+
+      a
+        +link
+
+  .actions
+    +block
+    +clear_right
+    +clearfix
+
+  .apply
+    display: inline
+    margin-left: 20px
+
+  .cancel
+    +link
+    display: inline
+    margin-left: 20px

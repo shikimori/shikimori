@@ -1,8 +1,0 @@
-- if entry.respond_to?(counter) && (entry[counter] > 0 || (entry[counter_aired] > 0 && entry.status != AniMangaStatus::Released))
-  p
-    span.key
-      = field_label
-      | :&nbsp;
-    span.value
-      = entry[counter_aired] != entry[counter] && entry.status == AniMangaStatus::Ongoing ? "#{entry[counter_aired]} / "  : ''
-      = entry[counter] == 0 ? '?' : entry[counter]

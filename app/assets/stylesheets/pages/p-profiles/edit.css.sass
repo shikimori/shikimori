@@ -1,0 +1,175 @@
+@import compass/css3/border-radius
+@import compass/css3/box-shadow
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/block
+@import mixins/bracket_action
+@import mixins/link
+@import mixins/responsive
+
+.p-profiles-edit
+  .account
+    .change-password
+      margin-top: 20px
+      margin-bottom: 15px
+
+      a
+        +link
+
+    .avatar-edit
+      +clearfix
+      img
+        margin-top: 5px
+        margin-right: 10px
+        margin-bottom: 10px
+        float: left
+
+    .avatar-delete
+      +bracket_action
+
+    .oauth img
+      margin-right: 5px
+
+    .ignore-suggest
+      +gt_ipad
+        width: 200px !important
+
+  .styles
+    .range-slider
+      +border-radius(0)
+      +box-shadow(none)
+      margin-top: 10px
+      margin-left: 16px
+      margin-bottom: 20px
+      max-width: 360px
+
+      .noUi-handle
+        +border-radius(0)
+        +box-shadow(none)
+
+    #user_page_background
+      display: none
+
+    .samples
+      +clearfix
+      margin-top: 15px
+
+      .collapsed
+        clear: both
+
+      li
+        float: left
+        height: 104px
+        margin-bottom: 20px
+        cursor: pointer
+        margin-right: 20px
+        width: 104px
+
+        &:nth-child(8n)
+          margin-right: 0
+
+      .bg1
+        background: image-url('/assets/background/square_bg.png') repeat
+      .bg2
+        background: image-url('/assets/background/agsquare.png') repeat
+      .bg3
+        background: image-url('/assets/background/fabric_of_squares_gray.png') repeat
+      .bg4
+        background: image-url('/assets/background/furley_bg.png') repeat
+      .bg5
+        background: image-url('/assets/background/gplaypattern.png') repeat
+      .bg6
+        background: image-url('/assets/background/grey.png') repeat
+      .bg7
+        background: image-url('/assets/background/greyfloral.png') repeat
+      .bg8
+        background: image-url('/assets/background/hexellence.png') repeat
+      .bg9
+        background: image-url('/assets/background/light_wool.png') repeat
+      .bg10
+        background: image-url('/assets/background/snow.png') repeat
+      .bg11
+        background: image-url('/assets/background/ice_age.png') repeat
+      .bg12
+        background: image-url('/assets/background/paper_fibers.png') repeat
+      .bg13
+        background: image-url('/assets/background/scribble_light.png') repeat
+      .bg14
+        background: image-url('/assets/background/redox_02.png') repeat
+      .bg15
+        background: image-url('/assets/background/bright_squares.png') repeat
+      .bg16
+        background: image-url('/assets/background/shattered.png') repeat
+      .bg17
+        background: image-url('/assets/background/tactile_noise.png') repeat
+      .bg18
+        background: image-url('/assets/background/twinkle_twinkle.png') repeat
+      .bg19
+        background: image-url('/assets/background/wild_oliva.png') repeat
+      .bg20
+        background: image-url('/assets/background/use_your_illusion.png') repeat
+      .bg21
+        background: image-url('/assets/background/noisy_net.png') repeat
+      .bg22
+        background: image-url('/assets/background/dirty_old_shirt.png') repeat
+      .bg23
+        background: image-url('/assets/background/cartographer.png') repeat
+      .bg24
+        background: image-url('/assets/background/px_by_Gre3g.png') repeat
+      .bg25
+        background: image-url('/assets/background/diagmonds.png') repeat
+      .bg26
+        background: image-url('/assets/background/type.png') repeat
+      .bg27
+        background: image-url('/assets/background/crissXcross.png') repeat
+      .bg28
+        background: image-url('/assets/background/random_grey_variations.png') repeat
+      .bg29
+        background: image-url('/assets/background/crossword.png') repeat
+      .bg30
+        background: image-url('/assets/background/congruent_pentagon.png') repeat
+      .bg31
+        background: image-url('/assets/background/food.png') repeat
+      .bg32
+        background: image-url('/assets/background/tree_bark.png') repeat
+      .bg33
+        background: image-url('/assets/background/geometry2.png') repeat
+      .bg34
+        background: image-url('/assets/background/skulls.png') repeat
+
+  .notifications
+    .b-table
+      margin: 0 0 $block_offset 0
+      width: 100%
+
+      .num
+        width: 50px
+
+  .misc, .list
+    .profile-action
+      +block
+
+      a, .link
+        +link
+
+      .form
+        display: none
+
+      .control
+        padding-right: $block_offset
+
+      .warn
+        color: $red
+        padding-right: 5px
+
+
+  .list
+    #import_form
+      .link
+        +link
+
+      &>div
+        display: none
+
+      #import-export
+        display: block

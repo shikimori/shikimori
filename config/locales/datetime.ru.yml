@@ -1,0 +1,38 @@
+ru:
+  datetime:
+    parts:
+      second:
+        one: секунда
+        few: секунды
+        many: секунд
+        other: секунды
+      minute:
+        one: минута
+        few: минуты
+        many: минут
+        other: минуты
+      hour:
+        one: час
+        few: часа
+        many: часов
+        other: часа
+      day:
+        one: день
+        few: дня
+        many: дней
+        other: дня
+      week:
+        one: неделя
+        few: недели
+        many: недель
+        other: недели
+      month:
+        one: месяц
+        few: месяца
+        many: месяцев
+        other: месяца
+      year:
+        one: год
+        few: года
+        many: лет
+        other: года

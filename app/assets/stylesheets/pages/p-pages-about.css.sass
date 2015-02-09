@@ -1,0 +1,35 @@
+@import mixins/column
+
+.p-pages-about
+  .b-user
+    margin: 0 5px 4px 0
+
+  .comment-block.block, .members-block .members-block
+    margin-bottom: 0
+
+  .members-block
+    margin-bottom: 30px
+    overflow: hidden
+
+    .item-block
+      height: 40px
+      width: 40px
+
+      .name
+        display: none
+
+    &.left
+      margin-right: 30px
+      margin-bottom: 0
+
+      &:last-child
+        margin-right: 0
+
+  .traffic-chart, .comments-chart, .users-chart
+    height: 250px
+
+  .c-chart
+    +gte_ipad
+      +column(2)
+    +iphone
+      +column(1)

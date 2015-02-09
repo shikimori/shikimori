@@ -1,22 +1,20 @@
+# TODO: переделать авторизацию на cancancan
 class Moderation::UserChangesController < ShikimoriController
   include ActionView::Helpers::SanitizeHelper
-  before_filter :authenticate_user!, only: [:index, :apply, :deny, :get_anime_lock, :release_anime_lock]
+  before_filter :authenticate_user!, only: [:index, :take, :deny]
+  PENDING_PER_PAGE = 40
 
-  # отображение одной правки
+  page_title 'Правки пользователей'
+
   def show
-    set_meta_tags noindex: true, nofollow: true
-
-    @entry = UserChange.includes(:user).find(params[:id])
-    @page_title = [
-      'Правки пользователей',
-      "Правка ##{@entry.id} пользователя #{@entry.user.nickname}"
-    ]
+    noindex
+    @resource = UserChange.find(params[:id])
+    page_title "Правка ##{@resource.id} от пользователя #{@resource.user.nickname}"
   end
 
-  # тултип о правке
   def tooltip
-    show
-    render 'blocks/tooltip', layout: params.include?('test')
+    noindex
+    @resource = UserChange.find(params[:id])
   end
 
   # отображение списка предложенных пользователями изменений
@@ -27,17 +25,17 @@ class Moderation::UserChangesController < ShikimoriController
       UserChange
         .includes(:user)
         .includes(:approver)
-        .where.not(status: [UserChangeStatus::Pending, UserChangeStatus::Locked])
+        .where.not(status: [UserChangeStatus::Pending])
         .order(updated_at: :desc)
     end
 
-    unless json?
+    unless request.xhr?
       @page_title = 'Правки пользователей'
       @pending = UserChange
         .includes(:user)
         .where(status: UserChangeStatus::Pending)
         .order("(case when \"column\"='tags' then 0 when \"column\"='screenshots' then 1 when \"column\"='video' then 2 else 3 end), created_at")
-        .limit(40)
+        .limit(PENDING_PER_PAGE)
         .to_a
 
       @changes_map = {}
@@ -56,141 +54,64 @@ class Moderation::UserChangesController < ShikimoriController
   end
 
   # изменение пользователем чего-либо
-  def change
-    user = current_user
-    unless user_signed_in?
-      # теги можно и гостям задавать
-      if params[:change]['column'] == 'tags'
-        user = User.find(User::GuestID)
-      else
-        raise Unauthorized
-      end
-    end
-    #raise Forbidden unless UserChange.where(model: params[:change]['model'],
-                                            #item_id: params[:change]['item_id'],
-                                            #:user_id.not_eq => user.id,
-                                            #status: UserChangeStatus::Locked).count == 0
-    change = UserChange.new user_change_params
-    change.user_id = user.id
+  def create
+    @resource = UserChange.new user_change_params.merge(user_id: current_user.try(:id) || User::GuestID)
 
-    if change.value == change.current_value
-      unless (change.source.present? || change.item.source.present?) && change.source != change.item.source
-        if params[:apply].present?
-          redirect_to_back_or_to change.item, alert: 'Нет никаких изменений'
-        else
-          render json: ['Нет никаких изменений'], status: :unprocessable_entity
-        end
-        return
-      end
+    if @resource.value == @resource.current_value && @resource.source == @resource.item.source
+      return redirect_to_back_or_to @resource.item, alert: 'Нет изменений'
     end
 
-    if change.save
-      # сразу же применение изменений при apply
-      if params[:apply].present?
-        params[:id] = change.id
-        params[:taken] = true
-        return apply
-      end
-
-      render json: {}
+    if @resource.save
+      redirect_to_back_or_to @resource.item, notice: 'Правка сохранена и будет в ближайшее время рассмотрена модератором. Домо аригато.'
     else
-      render json: change.errors, status: :unprocessable_entity
+      render text: 'Произошла ошибка при создании правки. Пожалуйста, напишите об этом администратору.', status: :unprocessable_entity
     end
   end
 
   # применение предложенного пользователем изменения
-  def apply
+  def take
     raise Forbidden unless current_user.user_changes_moderator?
-    change = UserChange.find(params[:id])
+    @resource = UserChange.find(params[:id])
 
-    if change.apply current_user.id, params[:taken]
+    if @resource.apply current_user.id, !params[:is_applied]
       Message.create(
         from_id: current_user.id,
-        to_id: change.user_id,
+        to_id: @resource.user_id,
         kind: MessageType::Notification,
-        body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] принята."
-      ) unless change.user_id == current_user.id
+        body: "Ваша [user_change=#{@resource.id}]правка[/user_change] для [#{@resource.item.class.name.downcase}]#{@resource.item.id}[/#{@resource.item.class.name.downcase}] принята."
+      ) unless @resource.user_id == current_user.id
 
-      redirect_to_back_or_to moderation_users_changes_url, notice: 'Правка успешно применена'
+      redirect_to_back_or_to moderation_user_changes_url, notice: 'Правка успешно применена'
     else
-      render text: "Произошла ошибка при принятии правки. Номер правки ##{change.id}. Пожалуйста, напишите об этом администратору.", status: :unprocessable_entity
+      render text: "Произошла ошибка при принятии правки. Номер правки ##{@resource.id}. Пожалуйста, напишите об этом администратору.", status: :unprocessable_entity
     end
   end
 
   # отказ предложенного пользователем изменения
   def deny
-    change = UserChange.find params[:id]
-    raise Forbidden unless current_user.user_changes_moderator? || current_user.id == change.user_id
+    @resource = UserChange.find params[:id]
+    raise Forbidden unless current_user.user_changes_moderator? || current_user.id == @resource.user_id
 
-    if change.deny(current_user.id, params[:notify])
-      if params[:notify]
+    if @resource.deny(current_user.id, params[:is_deleted])
+      if !params[:is_deleted] && @resource.user_id != current_user.id
         Message.create(
           from_id: current_user.id,
-          to_id: change.user_id,
+          to_id: @resource.user_id,
           kind: MessageType::Notification,
-          body: "Ваша [user_change=#{change.id}]правка[/user_change] для [#{change.item.class.name.downcase}]#{change.item.id}[/#{change.item.class.name.downcase}] отклонена."
-        ) unless change.user_id == current_user.id
+          body: "Ваша [user_change=#{@resource.id}]правка[/user_change] для [#{@resource.item.class.name.downcase}]#{@resource.item.id}[/#{@resource.item.class.name.downcase}] отклонена."
+        )
       end
 
-      redirect_to_back_or_to moderation_users_changes_url
+      redirect_to_back_or_to moderation_user_changes_url
     else
-      render json: change.errors, status: :unprocessable_entity
+      render text: "Произошла ошибка при отказе правки. Номер правки ##{@resource.id}. Пожалуйста, напишите об этом администратору.", status: :unprocessable_entity
     end
-  end
-
-  # забрать аниме на перевод
-  def get_anime_lock
-    unless Group.find(Group::TranslatorsID).member?(current_user)
-      render json: ['Только участники группы переводов могут забирать аниме на перевод'], status: :unprocessable_entity
-      return
-    end
-    anime = Anime.find(params[:anime_id])
-
-    can_be_locked = UserChange.where(status: [UserChangeStatus::Locked])
-      .where(item_id: anime, model: Anime.name, column: 'description')
-      .empty?
-    raise Forbidden unless can_be_locked
-
-    if UserChange.where(status: UserChangeStatus::Locked, user_id: current_user.id).count > 4
-      render json: ['Нельзя забрать на перевод более четырёх аниме'], status: :unprocessable_entity
-    else
-      UserChange.create!(user_id: current_user.id, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Locked, column: 'description')
-      render json: {
-        success: true,
-        notice: '%s забрано на перевод' % anime.name,
-        html: render_to_string(partial: 'translation/lock', locals: {
-          anime: anime.reload,
-          changes: TranslationController.pending_animes,
-          locks: TranslationController.locked_animes
-        }, formats: :html)
-      }
-    end
-  end
-
-  # отменить право на перевод аниме
-  def release_anime_lock
-    anime = Anime.find(params[:anime_id])
-
-    lock = UserChange.where(status: UserChangeStatus::Locked, user_id: current_user.id, item_id: anime, model: Anime.name).first
-    can_be_unlocked = current_user.admin? || lock != nil
-    raise Forbidden unless can_be_unlocked
-    lock.destroy
-
-    render json: {
-      success: true,
-      notice: 'Перевод %s отменен' % anime.name,
-      html: render_to_string(partial: 'translation/lock', locals: {
-        anime: anime,
-        changes: TranslationController.pending_animes,
-        locks: TranslationController.locked_animes
-      }, formats: :html)
-    }
   end
 
 private
   def user_change_params
     params
-      .require(:change)
+      .require(:user_change)
       .permit(:model, :column, :item_id, :value, :source, :action)
   end
 end

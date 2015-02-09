@@ -1,0 +1,36 @@
+@import globals/variables
+@import mixins/bracket_action
+
+.b-request_resolution
+  margin-bottom: $block_offset
+
+  .info
+    line-height: $line_height
+
+    .marker
+      display: inline-block
+      float: none
+      height: 12px
+      margin-left: 8px
+
+  .moderation
+    margin-top: 10px
+
+    .moderation-buttons
+      .button
+        display: inline-block
+        line-height: 1
+        margin-right: 20px
+        margin-bottom: 8px
+
+      .outdated
+        font-size: 11px
+        color: $green
+
+    .ban-form
+      input[type=text]
+        width: 140px
+
+  .resolution
+    span
+      padding-right: 8px

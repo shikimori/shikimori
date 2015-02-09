@@ -1,11 +1,11 @@
-.buttons
+.subheadline-buttons
   - if user_rate.persisted?
-    span.item-edit data-remote="true" data-type="html" data-action="#{edit_user_rate_url user_rate}"
+    .item-edit data-remote="true" data-type="html" data-action="#{edit_user_rate_url user_rate}"
   - else
-    span.expand-options
+    .expand-options
 
 .subheadline Мой список
-.subcontent.rate-container
+.rate-container
   - if user_rate.persisted?
     .rate-edit
     .rate-show
@@ -17,7 +17,7 @@
               | /
             span.total-episodes
               = entry.episodes
-          - if user_rate.episodes != entry.episodes
+          - if user_rate.episodes != entry.episodes || user_rate.episodes.zero?
             span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
         - else
           span.current-episodes = user_rate.chapters
@@ -26,15 +26,14 @@
               | /
             span.total-episodes
               = entry.chapters
-          - if user_rate.chapters != entry.chapters
+          - if user_rate.chapters != entry.chapters || user_rate.chapters.zero?
             span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
 
       .status = user_rate.status_name
 
-      = simple_form_for [:api, user_rate], remote: true, html: { class: 'rate-block', 'data-type' => 'json' } do |f|
+      = simple_form_for user_rate, remote: true, authenticity_token: true, html: { 'data-type' => :html } do |f|
         = f.input :score, as: :hidden
-        .scores-user
-          = render partial: 'ani_mangas/rate', locals: { key: 'user', value: user_signed_in? && user_rate ? user_rate.score : '' }
+        = render partial: 'blocks/rate', locals: { score: user_rate ? user_rate.score : '', with_submit: true, input_selector: '#user_rate_score' }
 
       p.note = user_rate.text_html
 

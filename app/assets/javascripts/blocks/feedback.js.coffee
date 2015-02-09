@@ -1,35 +1,19 @@
-# оставить отзыв
-$(document.body).on 'ajax:success', '.feedback', (e, data) ->
-  $('body').append data
+$(document).on 'page:load', ->
+  $feedback = $('.b-feedback')
 
-  $feedback_container = $('.feedback-container')
+  $('.marker-positioner', $feedback).on 'ajax:success', (e, data) ->
+    $feedback.find('.message').remove()
+    $form = $(data).prependTo($feedback)
 
-  $feedback_container.css(left: $('.page').offset().left)
-    .find('form')
-    .on 'ajax:success', ->
-      $('#shade').trigger "click"
+    $form
+      .find('.b-shiki_editor.unprocessed')
+      .shiki_editor()
 
-  $("<input type=\"hidden\" name=\"comment[feedback]\"/><div class=\"hidden-block email\"><p><label for=\"comment_email\">E-mail: </label><input class=\"link-value\" type=\"text\" id=\"comment_email\" name=\"comment[email]\" placeholder=\"Сюда придёт ответ...\" /></p></div>")
-    .insertAfter $(".body", $feedback_container) unless IS_LOGGED_IN
-  $("<input type=\"hidden\" name=\"comment[location]\"/>")
-    .val(location.href)
-    .insertAfter $('.body', $feedback_container)
-  $("<input type=\"hidden\" name=\"comment[user_agent]\"/>")
-    .val(navigator.userAgent)
-    .insertAfter $('.body', $feedback_container)
+    $form.on 'ajax:success', ->
+      $.notice 'Сообщение отправлено администрации'
+      $('#shade').trigger 'click'
 
-  process_current_dom()
-
-  $(@)
-    .attr('data-remote', null)
-    .click( ->
-      $feedback_container.show()
-      $('#shade').trigger 'show', 0.2
-      $('#shade').one 'click', ->
-        $feedback_container.hide()
-
-      $feedback_container
-        .find('textarea')
-        .attr(value: '')
-        .focus()
-    ).trigger "click"
+    $('#shade').show()
+    $('#shade').one 'click', ->
+      $form.remove()
+      $(@).hide()

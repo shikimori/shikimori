@@ -1,0 +1,152 @@
+//= require_tree ./globals
+
+//= require magnific-popup
+
+//= require_tree ./vendor
+//= require ./layouts/reset
+//= require ./layouts/l-page
+//= require ./layouts/l-menu
+//= require ./layouts/l-footer
+//= require ./layouts/screen
+//= require_directory ./layouts/top_menu
+//= require_tree ./blocks
+//= require_tree ./lib
+
+//= require pages/p-topics
+//= require pages/p-animes
+//= require pages/p-characters
+//= require pages/p-seyu
+//= require pages/p-people
+//= require pages/p-animes_collection-index
+//= require pages/p-recommendations-index
+//= require pages/p-profiles
+//= require pages/p-messages
+//= require pages/p-user_rates-index
+//= require pages/p-user_history-index
+//= require pages/p-pages-about
+//= require pages/p-statistics-index
+//= require pages/p-userlist_comparer
+//= require pages/p-studios
+//= require_directory ./pages/p-reviews
+//= require_directory ./pages/p-clubs
+//= require_directory ./pages/p-contests
+
+// require anime_online/application
+// require manga_online/application
+
+@import globals
+@import mixins/responsive
+@import mixins/link
+
+body
+  background-image: inline-image("/background/square_bg.png")
+  font-family: $font-family
+  font-size: 13px
+  -webkit-overflow-scrolling: touch
+
+  +lte_ipad
+    background: none !important
+
+  &.chrome
+    text-rendering: auto
+  &.no-smileys .smiley
+    display: none
+
+html.turbolinks-progress-bar:before
+  z-index: 9999
+
+a
+  +link_color
+  -moz-outline-style: none
+  outline: none
+  text-decoration: none
+
+p
+  line-height: $line_height
+
+  a
+    text-decoration: underline
+
+div.body
+  line-height: $line_height
+
+  a
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline
+
+img
+  border: none
+
+strike
+  color: #555
+em
+  font-style: italic
+strong, b
+  font-weight: bold
+
+input, select, button, textarea
+  border: 1px solid #999999
+  font-family: $font-family
+  outline: none
+
+  +gte_ipad
+    font-size: 13px
+
+  +iphone
+    font-size: 15px
+
+select
+  +gte_ipad
+    font-size: 11px
+
+  +iphone
+    font-size: 13px
+
+textarea
+  line-height: $line_height
+input[type=radio]
+  border: none
+textarea, input[type=submit], input[type=text], input[type=email], input[type=number]
+  -webkit-appearance: none
+  -webkit-border-radius: 0px
+
+li
+  list-style: none outside none
+
+p.flash-notice, p.flash-alert
+  display: none
+
+::selection
+  background: #FFCC89
+  color: #555
+
+hr
+  // 1
+  //border: 0
+  //height: 1px
+  //background: #333
+  //background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc)
+  //background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc)
+  //background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc)
+  //background-image:      -o-linear-gradient(left, #ccc, #333, #ccc)
+
+  // 2
+  border: 0
+  height: 1px
+  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+
+  // 3
+  //border: 0
+  //height: 0
+  //border-top: 1px solid rgba(0, 0, 0, 0.1)
+  //border-bottom: 1px solid rgba(255, 255, 255, 0.3)
+
+  // 4
+  //border: 0
+  //border-bottom: 1px dashed #ccc
+  //background: #999

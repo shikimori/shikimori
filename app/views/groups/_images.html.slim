@@ -1,6 +1,0 @@
-.subheadline.m10 Картинки
-.images-container
-  = render partial: 'blocks/upload_progress', formats: :html
-  .images-list data-upload_url="#{create_images_url model: :group, id: @group.id}"
-    - if @group.display_images? || @group.can_be_edited_by?(current_user)
-      = render partial: 'images/image', collection: @group.all_images, locals: { group_name: 'images', style: :main }, formats: :html

@@ -1,25 +1,40 @@
 class SeyuController < PeopleController
-  # поиск по сэйю
-  def index
-    @query = SeyuQuery.new(params)
-    @people = postload_paginate(params[:page], 10) { @query.fetch }
-    @query.fill_works @people
-    direct
+  page_title 'Сейю'
+
+  def show
+    @itemtype = @resource.itemtype
   end
 
-  # отображение сэйю
-  def show
-    @entry = SeyuDecorator.new Person.find(params[:id].to_i)
-    direct
+  def roles
+    page_title 'Роли в аниме'
+  end
 
-    unless @director.redirected?
-      if !@entry.seyu || (@entry.seyu && (@entry.producer || @entry.mangaka))
-        if params[:direct]
-          @canonical = person_url(@entry)
-        else
-          redirect_to person_url(@entry)
-        end
-      end
+private
+  def fetch_resource
+    super
+    @resource = SeyuDecorator.new @resource.object
+  end
+
+  def role_redirect
+    if !@resource.seyu || (@resource.seyu && (@resource.producer || @resource.mangaka))
+      #if params[:direct]
+        #@canonical = person_url(@resource)
+      #else
+        #redirect_to person_url(@resource)
+      #end
+      redirect_to person_url(@resource)
     end
+  end
+
+  def search_title
+    'Поиск сэйю'
+  end
+
+  def search_url *args
+    search_seyu_index_url(*args)
+  end
+
+  def resource_klass
+    Person
   end
 end

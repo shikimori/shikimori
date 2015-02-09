@@ -2,8 +2,7 @@ class ForumController < ShikimoriController
   @@first_page_comments = 3
   @@other_page_comments = 1
 
-  before_filter :build_background, only: [:index, :show, :new, :edit, :create, :site_block]
-  helper_method :section_ids_class
+  before_action :build_background, only: [:index, :show, :new, :edit, :create, :create, :update]
   helper_method :sticked_topics
 
   #caches_action :site_block,
@@ -31,7 +30,7 @@ class ForumController < ShikimoriController
 
   def show
     #@h1 = @topic.linked && @topic.class != AnimeNews ? @topic.linked.name : @topic.title
-    @h1 = @topic.title
+    @h1 = @topic.object.title
     @page_title = @topic.linked && @topic.linked.respond_to?(:name) ?
       [@section[:meta_title], @topic.linked.name, @topic.to_s] :
       [@section[:meta_title], @h1]
@@ -82,64 +81,61 @@ class ForumController < ShikimoriController
     @page_title = [@section[:meta_title], @h1]
     @notice = "в разделе #{@section[:name]}."
 
-    @json.merge!({
-        h1: @h1,
-        title_notice: @notice,
-        title_page: @page_title
-      }) if json?
-  end
-
-  # блок с контентом правого меню сайта
-  def site_block(to_render=true)
-    @news = WellcomeNewsPresenter.new
-    render partial: 'forum/site_block', layout: false, locals: { presenter: @news, user_presenter: @user_presenter }, formats: :html if to_render
+    @json.merge!(
+      h1: @h1,
+      title_notice: @notice,
+      title_page: @page_title
+    ) if json?
   end
 
 private
-  # класс с id текущих разделов
-  def section_ids_class
-    case @section.permalink
-      when Section::All.permalink then Section.real.map {|v| "section-#{v[:id]}" }.join(' ') + (user_signed_in? ? ' ' + current_user.groups.map { |v| "group-#{v[:id]}" }.join(' ') : '')
-      when Section::Feed.permalink then "user-#{current_user.id} #{FayePublisher::BroadcastFeed}"
-      else "section-#{@section.permalink}"
-    end
-  end
-
   # построние окружения форума
+  # TODO: отрефакторить
   def build_background
-    redirect_to :root, :status => :moved_permanently and return false if params[:format] == 'user'
+    redirect_to :root, status: :moved_permanently and return false if params[:format] == 'user'
 
-    @sub_layout = 'forum'
     params[:section] ||= Section::All[:permalink]
 
     @sections = Section.visible
     @section = Section.find_by_permalink params[:section]
 
-    if params[:linked] || (params[:topic] && !params[:topic].kind_of?(Hash))
-      @topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
+    @faye_subscriptions = case @section.permalink
+      when Section::All.permalink
+        Section.real.map {|v| "section-#{v[:id]}" } +
+          (user_signed_in? ? current_user.groups.map { |v| "group-#{v[:id]}" } : [])
 
-      @linked = if @topic && @section.permalink != 'v'
-        @topic.linked
+      #when Section::Feed.permalink
+        #["user-#{current_user.id}", FayePublisher::BroadcastFeed]
+
       else
-        case @section.permalink
-          when 'a' then Anime.find(params[:linked].to_i)
-          when 'm' then Manga.find(params[:linked].to_i)
-          when 'c' then Character.find(params[:linked].to_i)
-          when 'g' then Group.find(params[:linked].to_i)
-          when 'reviews' then Review.find(params[:linked].to_i)
-          else nil
-        end
+        ["section-#{@section.permalink}"]
+    end.to_json if user_signed_in?
+
+    if params[:linked]# || (params[:topic] && !params[:topic].kind_of?(Hash))
+      ##@topic = Entry.with_viewed(current_user).find(params[:topic]) if params[:topic]
+
+      #@linked = if @topic && @section.permalink != 'v'
+        #@topic.linked
+      #else
+      @linked = case @section.permalink
+        when 'a' then Anime.find(params[:linked].to_i)
+        when 'm' then Manga.find(params[:linked].to_i)
+        when 'c' then Character.find(params[:linked].to_i)
+        when 'g' then Group.find(params[:linked].to_i)
+        #when 'reviews' then Review.find(params[:linked].to_i)
+        else nil
       end
-      @linked_presenter = if @linked.class == Review
-        @linked.entry.decorate
-      elsif @linked
-        @linked.decorate
-      end
+      #end
+      #@linked_presenter = if @linked.class == Review
+        #@linked.entry.decorate
+      #elsif @linked
+        #@linked.decorate
+      #end
     end
 
     raise NotFound, "неизвестный раздел: #{params[:section]}" unless @section
 
-    @news = WellcomeNewsPresenter.new if user_signed_in?
+    @news = WellcomeNewsPresenter.new# if user_signed_in?
 
     @json = if json?
       {
@@ -151,11 +147,6 @@ private
     else
       {}
     end
-  end
-
-  # количество отображаемых топиков
-  def topics_limit
-    params[:format] == 'rss' ? 30 : 8
   end
 
   # прикреплённые топики на форуме

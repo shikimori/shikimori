@@ -1,0 +1,8 @@
+= render layout: 'page' do
+  .subheadline-buttons
+    a.item-edit href="#{@resource.edit_url :screenshots}"
+  .subheadline.m10 = @page_title.last
+  .cc.m10
+    = render @resource.screenshots
+
+  = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:screenshots), field: 'screenshots' }

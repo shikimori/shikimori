@@ -95,62 +95,6 @@ module AnimeHelper
     text
   end
 
-  def person_tooltip_class(person)
-    if person.class == UserChange || (
-           person.image.exists? && ((person.description_mal && !person.description_mal.empty?) || (person.description && !person.description.empty?) || person.class == Character)
-         )
-      "person-tooltip-full"
-    elsif person.image.exists? && !((person.description_mal && !person.description_mal.empty?) || (person.description && !person.description.empty?))
-      "person-tooltip-image"
-    else
-      "person-tooltip-none"
-    end
-  end
-
-  # TODO: refactor this shit
-  def person_tooltip_text(person, with_seyu=true, no_format=false)
-    return "" unless person.image.exists? || (person.description_mal && !person.description_mal.empty?) || (person.description && !person.description.empty?)
-
-    text = '<div class="block-title">'
-    person_name = if person.respond_to?(:russian) && person.russian.present?
-      [person.name, person.russian].compact.join(' / ')
-    else
-      person.name || person.title
-    end
-    text += "<div class=\"title\" title=\"%s\">%s</div>" % [
-      h(person_name),
-      person_name
-    ]
-    text += "</div>"
-    if person.image.exists?
-      text += "<a href=\"#{url_for(person)}\">"
-      text += "<img src=\"%s\" title=\"%s\" class=\"tooltip-img\">" % [person.image.url, person[:name] || person.name]
-      text += "</a>"
-    end
-    #text += "<span class=\"created\">10/01/2009</span>"
-    text += "<div class=\"tooltip-desc\">"
-    if with_seyu && person.class == Character && !person.seyu.empty?
-      text += "<div class=\"person-block item-block\">"
-      text += render :partial => 'blocks/person_content.html.slim', :locals => {:person => person.seyu.first, :role => 'Japanese', :link_to_seyu => true}
-      text += "</div>"
-    end
-
-    if person.description || person.description_mal
-      description = if person.respond_to?(:description_html) && person.description_html.present?
-        person.description_html
-      elsif !person.respond_to?(:source) || person[:description].blank?
-        remove_misc_data(person.description.blank? ? person.description_mal : person.description)
-      else
-        BbCodeFormatter.instance.format_comment person.description.blank? ? person.description_mal : person.description
-      end
-      text += truncate_html description, :length => 350, :separator => ' ', word_boundary: /\S[\.\?\!]/
-    end
-    text += "</div>"
-    #text += "<div class=\"tooltip-restrictions\">This video is available for Anime Members only.</div>"
-
-    no_format ? text : format_tooltip(text)
-  end
-
   def truncate_html(text, options)
     super(text.gsub('№', 'CODE_N').gsub('°', 'CODE_PER'), options).gsub('CODE_N', '№').gsub('CODE_PER', '°')
   end

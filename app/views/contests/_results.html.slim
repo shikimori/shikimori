@@ -1,10 +1,16 @@
 .results
-  - cache ['results', contest, russian_names_key, russian_genres_key] do
-    .animes.new
-      - contest.results.each_with_index do |entry, index|
-        .subheadline.m10 #{index+1} место
-        .rounds
-          p Соперники:
+  - cache [:results, :v3, contest, russian_names_key, russian_genres_key] do
+    - contest.results.each_with_index do |entry, index|
+      .subheadline.m10 #{index+1} место
+      .cc-result
+        .c-winner
+          - if contest.anime?
+            = render partial: 'animes/anime', object: entry, locals: { cover_notice: :studio, content_by: :block }
+          - else
+            = render partial: 'characters/character', object: entry, locals: { content_by: :block }
+
+        .c-rounds
+          .label Соперники:
           .match-day
             - contest.matches_with(entry).each do |match|
               .match
@@ -18,8 +24,3 @@
                     = localized_name match.left_id == entry.id ? match.right : match.left
                 - else
                   p нет
-        - if contest.anime?
-          = render partial: 'ani_mangas_collection/entry', object: entry, locals: { alter: true, with_link: true }, formats: :html
-        - else
-          = render partial: 'characters/entry', object: entry, formats: :html
-        .clearfix

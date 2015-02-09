@@ -20,8 +20,6 @@ class UserChange < ActiveRecord::Base
   #validates_presence_of :column
   #validates_presence_of :value
 
-  before_create :release_lock
-
   class << self
     # число не принятых изменений
     def pending_count
@@ -97,7 +95,7 @@ class UserChange < ActiveRecord::Base
     column == 'description'
   end
 
-  def deny approver_id, is_rejected
+  def deny approver_id, is_deleted
     self.approver_id = approver_id
 
     # для скриншотов спец логика
@@ -124,7 +122,7 @@ class UserChange < ActiveRecord::Base
       item = klass.find(self.item_id)
       self.prior = item[self.column]
     end
-    self.status = is_rejected ? UserChangeStatus::Rejected : UserChangeStatus::Deleted
+    self.status = is_deleted ? UserChangeStatus::Deleted : UserChangeStatus::Rejected
 
     self.save
   end
@@ -253,19 +251,6 @@ class UserChange < ActiveRecord::Base
       end
     else
       column
-    end
-  end
-
-  # ключ для кеша
-  def cache_key(moderation, current_user)
-    "change-#{id}-#{moderation}-#{self[:locked]}-#{updated_at}_#{current_user && current_user.user_changes_moderator?}_#{current_user && current_user.admin?}"
-  end
-
-private
-  # снятие лока после принятия правки
-  def release_lock
-    if description?
-      UserChange.where(model: model, item_id: item_id, status: UserChangeStatus::Locked).destroy_all
     end
   end
 end

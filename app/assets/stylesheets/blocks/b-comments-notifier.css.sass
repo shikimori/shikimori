@@ -6,7 +6,7 @@
 .b-comments-notifier
   +transition(background-color 300ms)
   +box-sizing(border-box)
-  background: $hover-color
+  background: $link_hover
   color: white
   cursor: pointer
   height: 25px
@@ -19,11 +19,11 @@
   text-align: center
   top: 31px
 
-  +responsive(phone)
+  +iphone
     visibility: collapse
 
   &:hover
-    background-color: $hover-color-0
+    background-color: $link_hover_light
 
   &:active
-    background-color: $active-color
+    background-color: $link_active

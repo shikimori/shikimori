@@ -1,0 +1,42 @@
+@import mixins/block
+@import mixins/link
+@import mixins/plashka
+
+.b-comments
+  +block
+  margin-bottom: 0
+  overflow: hidden
+
+  .comments-shower, .comments-hider
+    +plashka
+    border: 1px solid #F2F2F2
+    clear: left
+    margin: 5px 0 5px 0
+
+  .comments-hider
+    display: none
+
+  .comments-shower + .b-comment
+
+  .comments-loaded
+    overflow: hidden
+    position: relative
+
+    .b-comment:last-child
+      margin-bottom: 15px
+
+  .faye-loader
+    +plashka
+    clear: left
+
+  .messages-postloader
+    +plashka
+    margin-bottom: 5px
+
+  .no_comments
+    color: $gray-color
+    font-size: 12px
+    margin-left: 5px
+
+    a
+      +link

@@ -1,8 +1,5 @@
 - content_for :head do
-  = stylesheet_link_tag :forum
   = auto_discovery_link_tag :rss, section_topic_url(section: @topic.section, linked: @topic.linked, topic: @topic, format: :rss), title: 'Комментарии топика'
 
-- content_for :tail do
-  = javascript_include_tag :forum
-
-= render partial: 'topics/topic', locals: { topic: @presenter }, formats: :html
+= render layout: 'topics/page' do |f|
+  = render partial: 'topics/topic', object: @topic

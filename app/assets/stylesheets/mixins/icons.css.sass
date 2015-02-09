@@ -1,0 +1,110 @@
+@import globals/variables
+@import mixins/link
+@import mixins/responsive
+
+$icon_desktop_size: 20px
+$icon_mobile_size: 30px
+
+// кнопочки иконочные
+=icon($content, $font-size: 14px)
+  cursor: pointer
+
+  +responsive(desktop)
+    margin-left: 15px
+
+  +responsive(tablet)
+    margin-left: 35px
+
+  +responsive(narrow-phone)
+    margin-left: $icon_mobile_size
+
+  &:before
+    content: $content
+    cursor: pointer
+    display: inline-block
+    font-family: 'shikimori'
+    font-size: $font-size
+    line-height: $icon_desktop_size
+    text-align: center
+    width: $icon_desktop_size
+
+  +lte_ipad
+    white-space: nowrap
+    //margin-bottom: 10px
+
+    &:before
+      font-size: 22px
+      line-height: $icon_mobile_size
+      width: $icon_mobile_size
+
+=menu_icon($content)
+  +icon($content)
+  +responsive(desktop)
+    margin-left: 0
+
+  +responsive(tablet)
+    margin-left: 0
+
+  +responsive(narrow-phone)
+    margin-left: 0
+
+  &:before
+    float: left
+    margin-right: 2px
+
+    +iphone
+      margin-right: 7px
+
+
+=icon_button($content)
+  +icon($content, 13px)
+  +link_color(#444444)
+
+  &.selected
+    +link_color($link)
+
+=headline_icon_button($content)
+  +icon_button($content)
+  +link_color(#666666)
+  cursor: pointer
+  font-size: 12px
+  font-weight: normal
+  margin: 3px 10px 0
+
+=icon_expandable($content)
+  +link_color(#123)
+  display: block
+  margin-left: 0
+  margin-bottom: 5px
+
+  &:after
+    content: $content
+    display: inline-block
+    font-size: 22px
+    line-height: $icon_mobile_size
+    margin-left: 11px
+
+=icon_action($content)
+  +link_color(#444444)
+  cursor: pointer
+  display: inline-block
+  height: $icon_mobile_size
+  margin-right: $icon_desktop_size
+  width: $icon_mobile_size
+
+  &:last-child
+    margin-right: 0
+
+  &.selected
+    +link_color($link)
+
+  &:before
+    content: $content
+    display: inline-block
+    font-family: 'shikimori'
+    font-size: 18px
+    line-height: $icon_mobile_size
+    text-align: center
+
+    +iphone
+      font-size: 22px

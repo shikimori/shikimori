@@ -1,4 +1,4 @@
-= simple_form_for [:moderation, @ban], remote: true, html: { 'data-type' => :json, class: :ban } do |f|
+= simple_form_for [:moderation, @ban], remote: true, html: { 'data-type' => :json } do |f|
   = f.input :user_id, as: :hidden
   = f.input :comment_id, as: :hidden
   = f.input :abuse_request_id, as: :hidden
@@ -7,4 +7,7 @@
   = f.input :reason, as: :string
 
   = f.submit 'Забанить', class: 'button submit'
-  .form-cancel Отмена
+  - if defined? ban_in_profile
+    a.cancel href="#{profile_url @ban.user}" Отмена
+  - else
+    .cancel Отмена

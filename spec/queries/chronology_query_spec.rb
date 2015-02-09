@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ChronologyQuery do
   let(:anime1) { create :anime, kind: 'Special' }
   let(:anime2) { create :anime }
@@ -23,11 +21,11 @@ describe ChronologyQuery do
 
   describe 'fetch' do
     describe 'with specials' do
-      it { ChronologyQuery.new(anime2, true).fetch.should have(4).items }
+      it { expect(ChronologyQuery.new(anime2, true).fetch.size).to eq(4) }
     end
 
     describe 'without specials' do
-      it { ChronologyQuery.new(anime2, false).fetch.should have(3).items }
+      it { expect(ChronologyQuery.new(anime2, false).fetch.size).to eq(3) }
     end
   end
 end

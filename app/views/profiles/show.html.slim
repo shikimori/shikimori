@@ -1,0 +1,199 @@
+.profile-head
+  - if @resource.history.any?
+    .c-history class="x#{@resource.formatted_history.size}"
+      .subheadline.m13
+        - if can? :access_list, @resource
+          a href="#{index_profile_user_history_index_url @resource}" Изменения списка
+        - else
+          | Изменения списка
+      .block-list
+        - @resource.formatted_history.each do |entry|
+          .entry
+            a href="#{entry[:url]}" title="#{entry[:name]}"
+              .image-name
+                img src="#{entry[:image]}" srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}" alt="#{entry[:name]}" title="#{entry[:name]}"
+                span.title
+                  == entry[:name]
+              span.misc title="#{entry[:reversed_action]}"
+                = entry[:reversed_action]
+              span.misc.date
+                = time_ago_in_words entry[:created_at], "%s назад"
+
+  .c-brief
+    .avatar
+      img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+      /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+
+      - if user_signed_in?
+        .profile-actions
+          - if @resource.own_profile?
+            a.mail href="#{profile_dialogs_url @resource}" title="Почта"
+            a.settings href="#{edit_profile_url @resource}" title="Настройки"
+            a.ban href="#{ban_profile_url @resource}" title="Мои баны"
+
+          - else
+            a.talk href="#{profile_dialog_url current_user, @resource}" title="Написать"
+            span.fav-add.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в друзья"
+            span.fav-remove.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из друзей"
+            span.ignore-add.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в игнор"
+            span.ignore-remove.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из игнора"
+            - if can? :edit, @resource
+              a.settings href="#{edit_profile_url @resource}" title="Настройки"
+            - if current_user.moderator?
+              a.ban href="#{ban_profile_url @resource}" title="Забанить"
+            - else
+              a.ban href="#{ban_profile_url @resource}" title="История банов"
+
+
+    header.head.misc
+      h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
+        - if params[:action] != 'show'
+          a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+        = @resource.nickname
+
+      .misc
+        /- if @resource.own_profile?
+          a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
+        - unless @resource.own_profile?
+          span = @resource.last_online
+        - if @resource.banned?
+          span.banned забанен
+
+      .notice
+        - @resource.common_info.each do |entry|
+          span = entry
+
+  .c-mobile-actions
+    - if user_signed_in?
+      - if @resource.own_profile?
+        a href="#{profile_dialogs_url @resource}" Почта
+        a href="#{edit_profile_url @resource}" Настройки
+        a href="#{ban_profile_url @resource}" Мои баны
+
+      - else
+        a href="#{profile_dialog_url current_user, @resource}" Написать
+        span.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" Добавить в друзья
+        span.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из друзей
+        span.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" Добавить в игнор
+        span.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из игнора
+        - if current_user.moderator?
+          a href="#{ban_profile_url @resource}" Забанить
+        - else
+          a href="#{ban_profile_url @resource}" История банов
+        - if can? :edit, @resource
+          a href="#{edit_profile_url @resource}" Настройки
+
+  .c-info
+    .c-lists-info
+      - @resource.stats.graph_statuses.each do |klass,stats,graph|
+        = render 'stats_bar', klass: klass, stats: stats, graph: graph
+
+    - if @resource.stats.social_activity?
+      .c-additionals
+        b Активность:
+        - if @resource.stats.reviews_count > 0
+          div: a href="#{reviews_profile_url @resource}"
+            = "#{@resource.stats.reviews_count} #{Russian.p @resource.stats.reviews_count, 'рецензия', 'рецензии', 'рецензий'}"
+
+        - if @resource.stats.comments_reviews_count > 0
+          div: a href="#{comments_reviews_profile_url @resource}"
+            = "#{@resource.stats.comments_reviews_count} #{Russian.p @resource.stats.comments_reviews_count, 'отзыв', 'отзыва', 'отзывов'}"
+
+        - if @resource.stats.content_changes_count > 0
+          div: a href="#{changes_profile_url @resource}"
+            = "#{@resource.stats.content_changes_count} #{Russian.p @resource.stats.content_changes_count, 'правка', 'правки', 'правок'} контента"
+
+        - if @resource.stats.videos_changes_count > 0
+          div: a href="#{videos_profile_url @resource}"
+            = "#{@resource.stats.videos_changes_count} #{Russian.p @resource.stats.videos_changes_count, 'правка', 'правки', 'правок'} видео"
+
+        - if @resource.stats.comments_count > 0
+          div: a href="#{comments_profile_url @resource}"
+            = "#{@resource.stats.comments_count} #{Russian.p @resource.stats.comments_count, 'комментарий', 'комментария', 'комментариев'}"
+
+.profile-content
+  .cc-2.block
+    .c-column
+      .lifetime.b-stat_bar
+        .title
+          - if @resource.stats.spent_time.days > 0
+            .value = @resource.stats.spent_time_in_words
+            .label = @resource.stats.spent_time_label
+          - else
+            | Нет просмотров аниме
+
+        .bar
+          .cuts
+            .cut.week
+            .cut.month
+            .cut.month_3
+            .cut.month_6
+            .cut.year
+
+          .first style="width: #{@resource.stats.spent_time_percent}%" title="Просмотрено и прочитано"
+          /.second style="width: 12%" title="Запланировано"
+          /.third style="width: 58%"
+          .third style="width: #{100 - @resource.stats.spent_time_percent}%"
+        .times
+          .time class="#{:checked if @resource.stats.spent_time.weeks >= 1}" неделя
+          .time class="#{:checked if @resource.stats.spent_time.months >= 1}" месяц
+          .time class="#{:checked if @resource.stats.spent_time.months_3 >= 1}" 3 месяца
+          .time class="#{:checked if @resource.stats.spent_time.months_6 >= 1}" 6 месяцев
+          .time class="#{:checked if @resource.stats.spent_time.years >= 1}" год
+
+      .activity
+        .title Активность на сайте
+        - if @resource.stats.activity.any?
+          .graph data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
+        - else
+          .b-nothing_here Нет статистики
+
+    .c-column
+      .cc-2a.m30
+        .c-column.m0
+          .subheadline.m10
+            - if @resource.friends.any? && @resource.friends.size > 12
+              a href="#{friends_profile_url @resource}" Друзья
+            - else
+              | Друзья
+          .cc-friends
+            - if @resource.friends.any?
+              = render @resource.friends.take(12), content_by: :avatar
+            - else
+              .b-nothing_here Нет друзей
+
+        .c-column.m0
+          .subheadline.m10
+            - if @resource.clubs.any? && @resource.clubs.size > 4
+              a href="#{clubs_profile_url @resource}" Клубы
+            - else
+              | Клубы
+          .b-clubs.one-line
+            - if @resource.clubs.any?
+              = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
+            - else
+              .b-nothing_here Не состоит ни в одном из клубов
+
+      .block
+        .subheadline.m10
+          - if @resource.favourites.any?
+            a href="#{favourites_profile_url @resource}" Избранное
+          - else
+            | Избранное
+        .cc-favourites
+          - if @resource.favourites.any?
+            = render @resource.favourites, cover_by: :image_link
+          - else
+            .b-nothing_here Список изранного пуст
+
+  - if @resource.about_html.present?
+    .about.block
+      .subheadline Обо мне
+      = @resource.about_html
+
+  - if @resource.show_comments?
+    .block
+      .subheadline.m3: a href="#{feed_profile_url @resource}" title="Лента" Лента
+      div
+        .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+          = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

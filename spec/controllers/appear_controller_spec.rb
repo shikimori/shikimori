@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe AppearController do
   let!(:topic) { create :entry }
   let(:user2) { create :user }
@@ -15,7 +13,7 @@ describe AppearController do
         post :read, ids: "comment-#{comment.id}"
       }.to change(CommentView, :count).by 0
 
-      response.should be_redirect
+      expect(response).to be_redirect
     end
 
     describe 'user signed in' do
@@ -23,7 +21,7 @@ describe AppearController do
       before { sign_in user }
 
       it 'success' do
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'one view' do
@@ -66,16 +64,16 @@ describe AppearController do
 
         # должно создаться уведомление о новом комменте
         message = Message.last
-        message.read.should be_false
-        message.from_id.should eq user3.id
-        message.to_id.should eq user.id
-        message.kind.should eq MessageType::QuotedByUser
+        expect(message.read).to be_falsy
+        expect(message.from_id).to eq user3.id
+        expect(message.to_id).to eq user.id
+        expect(message.kind).to eq MessageType::QuotedByUser
 
         post :read, ids: "comment-#{reply_comment.id}", log: true
 
         # то самое уведомление должно стать прочитанным
         message = Message.find(message.id)
-        message.read.should be_true
+        expect(message.read).to be_truthy
       end
     end
   end

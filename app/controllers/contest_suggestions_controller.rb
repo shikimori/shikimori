@@ -23,7 +23,7 @@ class ContestSuggestionsController < ShikimoriController
   end
 
   def destroy
-    suggestion = @contest
+    @contest
       .suggestions
       .where(id: params[:id])
       .where(user_id: current_user.id)
@@ -35,6 +35,6 @@ class ContestSuggestionsController < ShikimoriController
 
 private
   def fetch_contest
-    @contest = Contest.where(id: params[:contest_id]).first!
+    @contest = Contest.where(id: params[:contest_id], state: 'proposing').first!
   end
 end

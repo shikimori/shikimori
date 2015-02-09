@@ -1,0 +1,9 @@
+@import compass/typography/text/ellipsis
+
+=two_line_ellipsis
+  @supports (-webkit-line-clamp: 3)
+    -webkit-box-orient: vertical
+    -webkit-line-clamp: 2
+    display: -webkit-box
+    text-overflow: ellipsis
+    white-space: normal

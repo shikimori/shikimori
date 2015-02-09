@@ -1,0 +1,31 @@
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/link
+
+.p-contests .rating
+  .member
+    +clearfix
+    +ellipsis
+    height: 22px
+
+    .position
+      float: left
+      padding-right: 5px
+      color: $gray-color-2
+
+      &:after
+        content: '.'
+
+    .progress
+      padding-left: 5px
+      float: right
+
+      &.positive
+        color: $green
+
+      &.negative
+        color: $red
+
+    a
+      +link

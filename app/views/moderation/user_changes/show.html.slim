@@ -1,10 +1,5 @@
-- content_for :head do
-  = stylesheet_link_tag :ani_manga
+header.head
+  h1
+    = @page_title.last
 
-- content_for :before_page_content do
-  header.common-title.m5
-    h1.h1
-      = @page_title.last
-
-.item-editor
-  = render partial: 'blocks/editor/changes', locals: { changes: [@entry], moderation: true }
+= render 'user_changes/user_change', user_change: @resource

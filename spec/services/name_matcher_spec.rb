@@ -1,18 +1,16 @@
-require 'spec_helper'
-
 describe NameMatcher do
   let(:matcher) { NameMatcher.new Anime }
 
-  describe :match do
+  describe 'match' do
     describe 'single match' do
       let!(:anime) { create :anime, kind: 'TV', name: 'My anime', synonyms: ['My little anime', 'My : little anime', 'My Little Anime', 'MyAnim'] }
 
-      it { matcher.matches(anime.name).should eq [anime] }
-      it { matcher.matches("#{anime.synonyms.last}!").should eq [anime] }
-      it { matcher.matches("#{anime.name} TV").should eq [anime] }
-      it { matcher.matches(anime.synonyms.first).should eq [anime] }
-      it { matcher.matches("#{anime.synonyms.first} TV").should eq [anime] }
-      it { matcher.matches("#{anime.synonyms.first}, with comma").should eq [anime] }
+      it { expect(matcher.matches(anime.name)).to eq [anime] }
+      it { expect(matcher.matches("#{anime.synonyms.last}!")).to eq [anime] }
+      it { expect(matcher.matches("#{anime.name} TV")).to eq [anime] }
+      it { expect(matcher.matches(anime.synonyms.first)).to eq [anime] }
+      it { expect(matcher.matches("#{anime.synonyms.first} TV")).to eq [anime] }
+      it { expect(matcher.matches("#{anime.synonyms.first}, with comma")).to eq [anime] }
     end
 
     describe '"&" with "and"' do
@@ -47,7 +45,7 @@ describe NameMatcher do
 
     describe '"Season 3" with "S3"' do
       let!(:anime) { create :anime, kind: 'TV', name: 'Anime S3' }
-      it { matcher.match("Anime Season 3").should eq anime }
+      it { expect(matcher.match("Anime Season 3")).to eq anime }
     end
 
     describe 'Madoka' do
@@ -306,8 +304,8 @@ describe NameMatcher do
     end
   end
 
-  describe :matches do
-    describe :common_case do
+  describe 'matches' do
+    describe 'common_case' do
       subject { matcher.matches anime2.name, year: 2001 }
       let!(:anime1) { create :anime, aired_on: DateTime.parse('2001-01-01'), kind: 'TV', name: 'test' }
       let!(:anime2) { create :anime, kind: 'Movie', name: anime1.name }
@@ -316,7 +314,7 @@ describe NameMatcher do
       it { should eq [anime1, anime3] }
     end
 
-    describe :only_one_match do
+    describe 'only_one_match' do
       subject { matcher.matches anime1.name, year: 2001 }
       let!(:anime1) { create :anime, name: 'Yowamushi Pedal' }
       let!(:anime2) { create :anime, name: 'Yowamushi Pedal: Special Ride' }
@@ -325,7 +323,7 @@ describe NameMatcher do
     end
   end
 
-  describe :fetch do
+  describe 'fetch' do
     subject { matcher.fetch 'The Genius' }
     let!(:anime1) { create :anime, kind: 'TV', name: 'The Genius Bakabon' }
     let!(:anime2) { create :anime, kind: 'TV', name: 'zzz' }
@@ -333,7 +331,7 @@ describe NameMatcher do
     it { should eq anime1 }
   end
 
-  describe :by_link do
+  describe 'by_link' do
     subject { matcher.by_link link.identifier, :findanime }
     let(:matcher) { NameMatcher.new Anime, nil, [:findanime] }
     let!(:anime) { create :anime }

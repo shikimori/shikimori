@@ -1,58 +1,91 @@
+# TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
-  layout false, only: [:tooltip]
-  before_filter :authenticate_user!, only: [:edit]
+  before_action :authenticate_user!, only: [:edit]
+  skip_before_action :role_redirect
 
-  caches_action :index,
-                CacheHelper.cache_settings
+  page_title 'Персонажи'
 
-  caches_action :page, :show, :tooltip,
-                cache_path: proc {
-                  entry = Character.find(params[:id].to_i)
-                  "#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.thread.updated_at.to_i}|#{json?}"
-                },
-                unless: proc { user_signed_in? },
-                expires_in: 2.days
+  #caches_action :index, CacheHelper.cache_settings
+  #caches_action :page, :show, :tooltip,
+    #cache_path: proc {
+      #entry = Character.find(params[:id].to_i)
+      #"#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.thread.updated_at.to_i}|#{json?}"
+    #},
+    #unless: proc { user_signed_in? },
+    #expires_in: 2.days
 
-
-  # список персонажей
-  def index
-    @query = CharactersQuery.new params
-    @people = postload_paginate(params[:page], 10) { @query.fetch }
-    @query.fill_works @people
-    direct
-  end
-
-  # отображение персонажа
   def show
-    @entry = CharacterDecorator.find params[:id].to_i
-    direct
+    @itemtype = @resource.itemtype
   end
 
-  # подстраница персонажа
-  def page
-    show
-    render :show unless @director.redirected?
+  # все сэйю персонажа
+  def seyu
+    redirect_to @resource.url if @resource.seyu.none?
+    page_title 'Сэйю'
   end
 
-  # тултип
+  # все аниме персонажа
+  def animes
+    redirect_to @resource.url if @resource.animes.none?
+    page_title 'Анимеграфия'
+  end
+
+  # вся манга персонажа
+  def mangas
+    redirect_to @resource.url if @resource.mangas.none?
+    page_title 'Мангаграфия'
+  end
+
+  # TODO: удалить после 05.2015
+  def comments
+    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
+  end
+
+  def art
+    page_title 'Арт с имиджборд'
+  end
+
+  def favoured
+    redirect_to @resource.url if @resource.all_favoured.none?
+    page_title 'В избранном'
+  end
+
+  def clubs
+    redirect_to @resource.url if @resource.all_linked_clubs.none?
+    page_title 'Клубы'
+  end
+
   def tooltip
-    @entry = Character.find params[:id].to_i
-    direct
   end
 
-  # редактирование персонажа
   def edit
-    show
-    render :show unless @director.redirected?
+    noindex
+    page_title 'Редактирование'
+    @page = params[:page] || 'description'
+
+    @user_change = UserChange.new(
+      model: @resource.object.class.name,
+      item_id: @resource.id,
+      column: @page,
+      source: @resource.source,
+      value: @resource[@page]
+    )
   end
 
-  # автодополнение
   def autocomplete
-    @items = CharactersQuery.new(params).complete
+    @collection = CharactersQuery.new(params).complete
   end
 
 private
-  def klass
-    Character
+  def search_title
+    'Поиск персонажей'
+  end
+
+  def search_url *args
+    search_characters_url(*args)
+  end
+
+  def search_query
+    CharactersQuery.new params
   end
 end

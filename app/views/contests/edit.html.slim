@@ -1,11 +1,9 @@
-- content_for :head do
-  = stylesheet_link_tag :contests
-- content_for :tail do
-  = javascript_include_tag :contests
-
 header.head
-  h1
+  h2
+    - unless @resource.created?
+      a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
     = @page_title.last
-  = render partial: 'blocks/breadcrumbs', object: breadcrumbs, formats: :html
 
-= render partial: 'contests/form', locals: { contest: @contest }, formats: :html
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+= render 'form', contest: @resource

@@ -18,7 +18,7 @@ class Section < ActiveRecord::Base
   )
   All = Section.new(
     position: -2,
-    name: 'Все',
+    name: 'Аниме и манга',
     description: 'Все активные топики сайта.',
     permalink: 'all',
     meta_title: 'Энциклопедия аниме и манги',

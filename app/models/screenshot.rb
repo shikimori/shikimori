@@ -6,7 +6,7 @@ class Screenshot < ActiveRecord::Base
   belongs_to :anime
 
   has_attached_file :image,
-    styles: { preview: ['170x95#', :jpg] },
+    styles: { x166: ['166x93#', :jpg], x332: ['332x186#', :jpg] },
     url: "/images/screenshot/:style/:access_token.:extension"
 
   #validates_presence_of :anime # ну что за хрень с валидациями??

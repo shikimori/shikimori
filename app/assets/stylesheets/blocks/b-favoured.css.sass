@@ -1,0 +1,24 @@
+@import mixins/block
+@import mixins/column
+@import mixins/responsive
+
+.b-favoured
+  +block
+
+  .b-user
+    margin-bottom: 6px
+
+    +gte_ipad
+      +column(6, 1/6, 3%)
+
+    +iphone_landscape
+      +column(6, 1/6, 3%)
+
+    +iphone_portrait
+      +column(5, 1/5, 3%)
+
+      &.item-10, &.item-11
+        display: none
+
+    img
+      max-width: 100%

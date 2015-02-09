@@ -1,0 +1,73 @@
+@import compass/typography/text/ellipsis
+@import mixins/bracket_details
+@import mixins/date
+@import mixins/link
+@import mixins/log_entry
+
+.b-log_entry
+  +log_entry
+
+  .duration-ban
+    color: $red
+
+  .duration-warning
+    color: $orange
+
+  .duration-ban, .duration-warning
+    display: inline-block
+
+  .duration
+    +date
+
+  .short
+    +ellipsis
+
+  .b-user16
+    margin-right: 0
+
+  .collapse
+    display: block !important
+    margin-right: 0 !important
+
+  .spoiler.collapsed, .spoiler .action
+    padding-left: 5px !important
+
+  .moderator
+    position: absolute
+    right: 95px
+    text-align: right
+
+  .abuser
+    +bracket_details
+    +link
+    &:hover
+      text-decoration: underline !important
+
+  .duration + .moderator, .duration-warning + .moderator
+    padding-left: 0
+
+  .kind
+    &.broken
+      color: $red
+    &.wrong
+      color: $orange
+    &.uploaded
+      color: $blue
+
+  .state
+    display: inline-block
+
+    &.pending
+      color: $orange
+
+    &.accepted
+      color: $green
+
+    &.taken
+      color: $blue
+
+    &.rejected
+      color: $red
+
+    &.deleted
+      color: $red

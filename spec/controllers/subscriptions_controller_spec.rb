@@ -1,30 +1,19 @@
-
-require 'spec_helper'
-
 describe SubscriptionsController do
-  before (:each) do
-    @user = FactoryGirl.create :user
-    @topic = FactoryGirl.create :topic
-    sign_in @user
-  end
+  include_context :authenticated, :user
+  let(:topic) { create :topic }
 
-  describe "POST 'create'" do
-    it "should be successful" do
-      post 'create', :id => @topic.id, :type => @topic.class.name
-      response.should be_success
+  #describe '#create' do
+    #before { post :create, id: topic.id, type: topic.class.name }
 
-      User.find(@user.id).subscribed?(@topic).should be_true
-    end
-  end
+    #it { expect(response).to have_http_status :success }
+    #it { expect(user.reload.subscribed?(topic)).to be_truthy }
+  #end
 
-  describe "DELETE 'destroy'" do
-    it "should be successful" do
-      @user.subscribe(@topic)
+  describe '#destroy' do
+    let!(:subscription) { create :subscription, user: user, target: topic }
+    before { delete :destroy, id: topic.id, type: topic.class.name }
 
-      delete 'destroy', :id => @topic.id, :type => @topic.class.name
-      response.should be_success
-
-      User.find(@user.id).subscribed?(@topic).should be_false
-    end
+    it { expect(response).to have_http_status :success }
+    it { expect(user.reload.subscribed?(topic)).to be_falsy }
   end
 end

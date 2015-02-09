@@ -15,16 +15,8 @@ class UserPreferences < ActiveRecord::Base
     manga_in_profile
   end
 
-  def clubs_in_profile?
-    clubs_in_profile
-  end
-
   def comments_in_profile?
     comments_in_profile
-  end
-
-  def manga_first?
-    manga_first
   end
 
   def russian_names?
@@ -37,10 +29,6 @@ class UserPreferences < ActiveRecord::Base
 
   def about_on_top?
     about_on_top
-  end
-
-  def statistics_in_profile?
-    statistics_in_profile
   end
 
   def mylist_in_catalog?
@@ -69,5 +57,10 @@ class UserPreferences < ActiveRecord::Base
 
   def update_sorting(order)
     update_attribute(:default_sort, order) if default_sort != order
+  end
+
+  # TODO: выпилить это поле из базы и из кода
+  def postload_in_catalog?
+    postload_in_catalog
   end
 end

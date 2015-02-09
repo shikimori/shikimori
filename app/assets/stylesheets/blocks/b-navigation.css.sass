@@ -1,0 +1,32 @@
+@import globals
+
+.b-navigation
+  li
+    +ellipsis
+    +selectable-decor
+    background-color: transparent
+    color: #555555
+    cursor: pointer
+    display: block
+    font-size: 12px
+    line-height: 20.34px
+    margin: 1px 0 2px
+    overflow: hidden
+    padding: 1px 3px 0 3px
+
+    &:hover
+      color: black
+
+    &.selected
+      background-color: #e5e5e5
+      color: #123
+
+    //&.sub
+      margin-left: 15px
+
+    //input
+      margin: 2px 5px 0pt 2px
+      float: left
+      display: block
+  //a
+    color: #555555

@@ -1,17 +1,18 @@
-DOCTYPE html
+doctype html
 html
-  = render partial: 'application/head'
-  body class="#{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{controller_name == 'topics' ? 'adaptive' : 'static'}" style="#{body_background}"
+  head
+    = render partial: 'application/head'
+  body class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} " id="#{controller_name}_#{action_name}" style="#{body_background}"
     - if defined?(notice) && notice
       p.flash-notice
         == notice
     - if defined?(alert) && alert
       p.flash-alert
         == alert
-    header.header
+    header.l-top_menu
       = render partial: 'application/top_menu'
 
-    .page style="#{page_background}"
+    section.l-page *itemprop style="#{page_background}"
       - if Rails.env.development?
         javascript:
           window.DEVELOP = true;
@@ -27,24 +28,21 @@ html
           });
         .admin_panel
 
-      - if @itemtype.present?
-        section[itemscope itemtype="#{{@itemtype}}"]
-          = render partial: 'application/page_container'
-      - else
-        section
-          = render partial: 'application/page_container'
-      footer
+      div
+        = yield
+
+      footer.l-footer
         = render partial: 'application/footer'
 
     #shade
     .b-to-top
       .slide
       .arrow ↑
-    .feedback-hover-activator
-    span.feedback data-remote="true" data-action="#{feedback_url}" data-type="html"
-      .graphics-feedback title="Оставить отзыв"
+    .b-feedback
+      .hover-activator
+      span.marker-positioner data-remote="true" data-action="#{feedback_pages_url}" data-type="html"
+        .marker-text
     | <!--noindex-->
     = yield :form
     | <!--/noindex-->
-    = javascript_include_tag :common
     = yield :tail

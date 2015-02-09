@@ -1,3 +1,4 @@
+# TODO: refactor
 class BaseMalParser < SiteParserWithCache
   include MalFetcher
   include MalDeployer
@@ -47,7 +48,7 @@ class BaseMalParser < SiteParserWithCache
   end
 
   # применение правок для импортированных данных
-  def apply_mal_fixes(id, data)
+  def apply_mal_fixes id, data
     mal_fixes[id].each do |k2,v2|
       #if data[:entry][k2].respond_to?('merge!')
         #data[:entry][k2].merge!(v2)
@@ -64,7 +65,7 @@ class BaseMalParser < SiteParserWithCache
   end
 
   # импорт всех новых и помеченных к импорту элементов
-  def import(ids=nil)
+  def import ids=nil
     Proxy.preload
     ThreadPool.defaults = { threads: 60 }# timeout: 90, log: true debug_log: true }
     #@proxy_log = true
@@ -80,15 +81,15 @@ class BaseMalParser < SiteParserWithCache
     data.send(Rails.env == 'test' ? :each : :parallel) do |id|
       begin
         print "downloading %s %s\n" % [type, id] if Rails.env != 'test'
-        fetched_data = fetch_entry(id)
+        fetched_data = fetch_entry id
 
         # применение mal_fixes
-        apply_mal_fixes(id, fetched_data)
+        apply_mal_fixes id, fetched_data
 
-        entry = klass.find_or_create_by(id: id)
+        entry = klass.find_by(id: id) || klass.create!(id: id, name: fetched_data[:entry][:name])
         @import_mutex.synchronize do
           print "deploying %s %s %s\n" % [type, id, entry.name] if Rails.env != 'test'
-          deploy(entry, fetched_data)
+          deploy entry, fetched_data
         end
         print "successfully imported %s %s %s\n" % [type, id, entry.name] if Rails.env != 'test'
       rescue Exception => e

@@ -14,24 +14,31 @@ class CommentsController < ShikimoriController
   end
 
   def edit
+    @comment = Comment.find params[:id]
   end
 
   def create
     #render json: ['Комментирование топика отключено'], status: :unprocessable_entity and return if comment_params[:commentable_id].to_i == 82468 && !current_user.admin?
-    @comment = comments_service.create comment_params
-    render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий создан' unless @comment.persisted?
+    @comment = Comment.new comment_params.merge(user: current_user)
+
+    unless faye.create @comment
+      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий создан'
+    end
   end
 
   def update
-    if comments_service.update @comment, comment_params.except(:offtopic, :review)
+    raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
+
+    if faye.update @comment, comment_params.except(:offtopic, :review)
       render :create
     else
-      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий изменен'
+      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий не изменен'
     end
   end
 
   def destroy
-    comments_service.destroy @comment
+    raise CanCan::AccessDenied unless @comment.can_be_deleted_by? current_user
+    faye.destroy @comment
 
     render json: { notice: 'Комментарий удален' }
   end
@@ -49,8 +56,8 @@ class CommentsController < ShikimoriController
 
   # все комментарии сущности до определённого коммента
   def fetch
-    comment = Comment.find(params[:id])
-    entry = Entry.find(params[:topic_id])
+    comment = Comment.find(params[:comment_id])
+    entry = params[:topic_type].constantize.find(params[:topic_id])
 
     raise Forbidden unless comment.commentable_id == entry.id && (
                              comment.commentable_type == entry.class.name || (
@@ -59,13 +66,17 @@ class CommentsController < ShikimoriController
     from = params[:skip].to_i
     to = [params[:limit].to_i, 100].min
 
-    comments = entry
+    query = entry
       .comments
       .with_viewed(current_user)
       .includes(:user, :commentable)
       .offset(from)
       .limit(to)
-      .to_a
+
+    query.where! review: true if params[:review]
+
+    comments = query
+      .decorate
       .reverse
 
     render partial: 'comments/comment', collection: comments, formats: :html
@@ -78,20 +89,24 @@ class CommentsController < ShikimoriController
       .where(id: params[:ids].split(',').map(&:to_i))
       .includes(:user, :commentable)
       .limit(100)
-      .to_a
+      .decorate
 
     comments.reverse! if params[:order]
 
-    render partial: 'comments/comment', collection: comments, formats: :html
+    render comments
   end
 
   # предпросмотр текста
   def preview
-    if params[:target_type] && params[:target_id]
-      render text: BbCodeFormatter.instance.format_description(params[:body], params[:target_type].constantize.find(params[:target_id]))
-    else
-      render text: BbCodeFormatter.instance.format_comment(params[:body])
+    @comment = Comment.new(comment_params).decorate
+
+    # это может быть предпросмотр не просто текста, а описания к аниме или манге
+    if params[:comment][:target_type] && params[:comment][:target_id]
+      @comment = DescriptionComment.new(@comment,
+        params[:comment][:target_type], params[:comment][:target_id])
     end
+
+    render @comment
   end
 
   # смайлики для комментария
@@ -102,16 +117,16 @@ class CommentsController < ShikimoriController
 private
   def prepare_edition
     Rails.logger.info params.to_yaml
-    @comment = Comment.find(params[:id]) if params[:id]
+    @comment = Comment.find(params[:id]).decorate if params[:id]
   end
 
-  def comments_service
-    CommentsService.new current_user, faye_token
+  def faye
+    FayeService.new current_user, faye_token
   end
 
   def comment_params
     params
       .require(:comment)
-      .permit(:body, :review, :offtopic, :commentable_id, :commentable_type)
+      .permit(:body, :review, :offtopic, :commentable_id, :commentable_type, :user_id)
   end
 end

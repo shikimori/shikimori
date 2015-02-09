@@ -14,7 +14,7 @@ class MessageType
   Episode = AnimeHistoryAction::Episode
   # запрос на добавление в друзья
   FriendRequest = 'FriendRequest'
-  # пришлашение в группу
+  # пришлашение в клуб
   GroupRequest = 'GroupRequest'
   # новость сайта
   SiteNews = 'SiteNews'
@@ -30,4 +30,7 @@ class MessageType
   Banned = 'Banned'
   # уведомление о предупреждении
   Warned = 'Warned'
+
+  RESPONSE_REQUIRED = [FriendRequest, GroupRequest]
+  ANIME_RELATED = [Anons, Ongoing, Release, Episode]
 end

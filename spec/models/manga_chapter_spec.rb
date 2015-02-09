@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MangaChapter do
   it { should belong_to :manga }
   it { should have_many :pages }

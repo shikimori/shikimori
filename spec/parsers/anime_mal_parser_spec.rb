@@ -1,92 +1,90 @@
-require 'spec_helper'
-
-describe AnimeMalParser do
-  before { SiteParserWithCache.stub(:load_cache).and_return list: {} }
-  before { parser.stub :save_cache }
+describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
+  before { allow(parser).to receive :save_cache }
 
   let(:parser) { AnimeMalParser.new }
   let(:anime_id) { 1 }
 
   it 'have correct type' do
-    parser.instance_eval { type }.should eq 'anime'
+    expect(parser.instance_eval { type }).to eq 'anime'
   end
 
   it 'fetches list page' do
-    parser.fetch_list_page(0, :all_catalog_url).should have(BaseMalParser::EntriesPerPage).items
-    parser.list.should have(BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches updated list page' do
-    parser.fetch_list_page(0, :updated_catalog_url).should have(BaseMalParser::EntriesPerPage).items
-    parser.list.should have(BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches 3 list pages' do
-    parser.fetch_list_pages(limit: 3).should have(3 * BaseMalParser::EntriesPerPage).items
-    parser.list.should have(3 * BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage)
   end
 
   it 'stops when got 0 entries' do
     urls = [parser.instance_eval { all_catalog_url(0) }, parser.instance_eval { all_catalog_url(99999) }, parser.instance_eval { all_catalog_url(2) }]
-    parser.stub(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
+    allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
-    parser.fetch_list_pages(limit: 3).should have(1 * BaseMalParser::EntriesPerPage).items
-    parser.list.should have(1 * BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches anime data' do
     data = parser.fetch_entry_data(anime_id)
 
-    data[:name].should eq 'Cowboy Bebop'
-    data.should include(:description_mal)
-    data[:related].should_not be_empty
-    data.should include(:english)
-    data.should include(:synonyms)
-    data[:japanese].should eq ['カウボーイビバップ']
-    data.should include(:kind)
+    expect(data[:name]).to eq 'Cowboy Bebop'
+    expect(data).to include(:description_mal)
+    expect(data[:related]).not_to be_empty
+    expect(data).to include(:english)
+    expect(data).to include(:synonyms)
+    expect(data[:japanese]).to eq ['カウボーイビバップ']
+    expect(data).to include(:kind)
 
-    data.should include(:episodes)
+    expect(data).to include(:episodes)
 
-    data.should include(:released_on)
-    data.should include(:aired_on)
+    expect(data).to include(:released_on)
+    expect(data).to include(:aired_on)
 
-    data[:genres].should_not be_empty
-    data[:studios].should_not be_empty
-    data.should include(:duration)
+    expect(data[:genres]).not_to be_empty
+    expect(data[:studios]).not_to be_empty
+    expect(data).to include(:duration)
 
-    data.should include(:rating)
-    data.should include(:score)
-    data.should include(:ranked)
-    data.should include(:popularity)
-    data.should include(:members)
-    data.should include(:favorites)
+    expect(data).to include(:rating)
+    expect(data).to include(:score)
+    expect(data).to include(:ranked)
+    expect(data).to include(:popularity)
+    expect(data).to include(:members)
+    expect(data).to include(:favorites)
 
-    data[:img].should eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
+    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
   end
 
   it 'fetches anime characters' do
     characters, people = parser.fetch_entry_characters(anime_id)
-    characters.should have_at_least(29).items
-    people.should have_at_least(38).items
+    expect(characters.size).to be >= 29
+    expect(people.size).to be >= 38
   end
 
   it 'fetches anime recommendations' do
     recs = parser.fetch_entry_recommendations(anime_id)
-    recs.should have_at_least(55).items
+    expect(recs.size).to be >= 55
   end
 
   it 'fetches anime scores' do
     scores = parser.fetch_entry_scores(anime_id)
-    scores.should have(10).items
+    expect(scores.size).to eq(10)
   end
 
   it 'fetches anime images' do
     images = parser.fetch_entry_images(anime_id)
-    images.should have(7).items
+    expect(images.size).to eq(7)
   end
 
   it 'fetches the whole entry' do
-    parser.fetch_entry(anime_id).should have(6).items
+    expect(parser.fetch_entry(anime_id).size).to eq(6)
   end
 
   #describe 'import' do

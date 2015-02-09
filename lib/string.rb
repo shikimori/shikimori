@@ -62,7 +62,7 @@ class String
   end
 
   # привод кривой строки в валидное состояние
-  def fix_encoding(encoding=nil, dont_unpack=false)
+  def fix_encoding encoding=nil, dont_unpack=false
     result = self
     encoding ||= 'utf-8'
 
@@ -88,7 +88,7 @@ class String
   # японский ли текст?
   def contains_cjkv?
     each_char do |ch|
-      return true if CJKV_RANGES.any? {|range| range.member? ch.unpack('H*').first.hex }
+      return true if CJKV_RANGES.any? {|range| range.cover? ch.unpack('H*').first.hex }
     end
     false
   end
@@ -97,7 +97,7 @@ class String
   def contains_russian?
     matched = 0
     each_char do |char|
-      matched += 1 if RussianRange.member?(char.ord) || char == ' '
+      matched += 1 if RussianRange.cover?(char.ord) || char == ' '
     end
     matched >= size / 2
   end
@@ -107,9 +107,9 @@ class String
       .gsub(/&#szlig;|ß/, 'ss')
       .gsub(/&#\d{4};/, '-')
       .gsub(/[^A-zА-я0-9]/, '-')
-      .gsub(/-+/, '-')
+      .gsub(/\]|\[|-+/, '-')
       .gsub('Ä', 'A')
-      .gsub(/^-|-$/, '')
+      .gsub(/^-|-$|[`'"]/, '')
       .downcase
   end
 

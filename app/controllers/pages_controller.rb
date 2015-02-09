@@ -7,36 +7,21 @@ class PagesController < ShikimoriController
   include Sidekiq::Paginator
 
   respond_to :html, except: [:news]
-  respond_to :ress, only: [:news]
-
-  # блок авторизации/регистрации
-  def auth_form
-  end
+  respond_to :rss, only: [:news]
 
   # график онгоингов
-  def calendar
+  def ongoings
     @page_title = 'Календарь онгоингов'
 
-    @calendars = OngoingsQuery.new.fetch_grouped
-    @topic = TopicPresenter.new(
-      object: Topic.find(94879),
-      template: view_context,
-      limit: 5,
-      with_user: true
-    )
+    @ongoings = CalendarsQuery.new.fetch_grouped
+    @topic = Topic.find(94879).decorate
   end
 
   # о сайте
   def about
     @page_title = 'О сайте'
     @statistics = SiteStatistics.new
-
-    @topic = TopicPresenter.new(
-      object: Topic.find(84739),
-      template: view_context,
-      limit: 5,
-      with_user: true
-    )
+    @topic = Topic.find(84739).decorate
   end
 
   # rss с новостями
@@ -61,24 +46,24 @@ class PagesController < ShikimoriController
 
   # пользовательское соглашение
   def user_agreement
-    @sitename = 'shikimori.org'
     @page_title = 'Пользовательское соглашение'
   end
 
   # 404 страница
   def page404
     @page_title = "Страница не найдена"
-    render 'pages/page404', layout: 'application', status: 404, formats: :html
+    render 'pages/page404', layout: false, status: 404, formats: :html
   end
 
   # страница с ошибкой
   def page503
     @page_title = "Ошибка"
-    render 'pages/page503', layout: 'application', status: 503, formats: :html
+    render 'pages/page503', layout: false, status: 503, formats: :html
   end
 
   # страница обратной связи
   def feedback
+    @feedback_message = Message.new from_id: (current_user.try(:id) || User::GuestID), to_id: User::Admins.first, kind: MessageType::Private
   end
 
   # отображение юзер-агента пользователя
@@ -89,6 +74,7 @@ class PagesController < ShikimoriController
   # тестовая страница
   def test
     @traffic = Rails.cache.fetch("traffic_#{Date.today}") { YandexMetrika.new.traffic_for_months 18 }
+  rescue Faraday::ConnectionFailed
   end
 
   # страница для теста эксепшенов
@@ -143,7 +129,7 @@ class PagesController < ShikimoriController
       end
     end
     stat = statistics.join.split("\r\n").select {|v| v =~ /STAT (?:bytes|limit_maxbytes) / }.map {|v| v.match(/\d+/)[0].to_f }
-    @memcached_space = ((1 - (stat[0]-stat[1]) / stat[0])*100).round(2)
+    @memcached_space = ((stat[0]/stat[1]) * 100).round(2) # ((1 - (stat[0]-stat[1]) / stat[0])*100).round(2)
 
     @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
 
@@ -172,14 +158,12 @@ class PagesController < ShikimoriController
     @people_to_import = Person.where(imported_at: nil).count
   end
 
-  def welcome_gallery
-    @gallery = WellcomeGalleryPresenter.new
-    render partial: 'forum/gallery', formats: :html
-  end
-
   def tableau
     render json: {
       messages: user_signed_in? ? current_user.unread_count : 0
     }
+  end
+
+  def bb_codes
   end
 end

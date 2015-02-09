@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 feature 'sign up' do#, troublesome: true do
   let(:user) { build :user, email: "test#{rand}@gmail.com", password: '123456' }
 

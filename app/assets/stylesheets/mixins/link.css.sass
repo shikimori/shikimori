@@ -1,0 +1,46 @@
+@import compass/css3/transition
+@import globals/variables
+
+/* цвет, становящийся ссылковым по наведению
+=link_color($color: $link)
+  +transition(color 0.2s ease)
+  color: $color
+
+  &:hover
+    color: $link_hover
+
+  &:active
+    color: $link_active
+
+/* голубая ссылка без подчёркивания
+=link($color: $link)
+  +link_color($color)
+  cursor: pointer
+
+  &:hover
+    text-decoration: underline
+
+/* голубая ссылка аяксового действия
+//=ajax_link
+  +link_color
+  +transition('color, border-bottom-color', 0.2s)
+  border-bottom: 1px dotted $link
+  cursor: pointer
+
+  //&:hover
+    border-bottom-color: $link_hover
+
+  //&:actibe
+    border-bottom-color: $link_active
+
+
+/* голубая ссылка с подчёркиванием
+=link_underlined
+  +link
+  text-decoration: underline
+
+=link_js
+  +link
+  border-bottom: 1px dotted $link_hover_light
+  &:hover
+    text-decoration: none !important

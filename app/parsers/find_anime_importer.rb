@@ -1,5 +1,6 @@
 class FindAnimeImporter
   SERVICE = 'findanime'
+  LIMIT_RELATED_VIDEOS = 2
 
   attr_reader :ignored_in_twice_match
 
@@ -20,8 +21,8 @@ class FindAnimeImporter
   end
 
   def import ids: [], pages: [], last_episodes: false
-    fetch_pages(pages).each {|(id, anime, videos)| import_videos anime, videos, last_episodes } if pages.any?
-    fetch_ids(ids).each {|(id, anime, videos)| import_videos anime, videos, last_episodes } if ids.any?
+    fetch_pages(pages).each { |_id, anime, videos| import_videos anime, videos, last_episodes } if pages.any?
+    fetch_ids(ids).each { |_id, anime, videos| import_videos anime, videos, last_episodes } if ids.any?
 
     raise MismatchedEntries.new @unmatched, @ambiguous, @twice_matched if @unmatched.any? || @ambiguous.any? || @twice_matched.any?
   end
@@ -37,10 +38,24 @@ private
     filtered_videos = videos.select {|episode| last_episodes ? episode[:episode] > last_episode - 3 : true }
 
     fetch_videos(filtered_videos, anime, imported_videos).each do |video|
-      next if !video.valid? && video.errors.size == 1 && video.errors[:url].include?(I18n.t 'activerecord.errors.messages.taken')
       binding.pry if !video.valid? && Rails.env.development?
-      video.save!
+      video.save! if video_uniq_url?(video) && videos_not_enough?(video)
     end
+  end
+
+  def video_uniq_url?(video)
+    !(!video.valid? && video.errors.size == 1 && video.errors[:url].include?(I18n.t 'activerecord.errors.messages.taken'))
+  end
+
+  def videos_not_enough?(video)
+    related_video = AnimeVideo
+      .available
+      .where(anime_video_author_id: video.anime_video_author_id)
+      .where(anime_id: video.anime_id)
+      .where(kind: video.kind)
+      .where(episode: video.episode)
+    related_video_count = related_video.select { |v| v.hosting == video.hosting }.count
+    related_video_count < LIMIT_RELATED_VIDEOS
   end
 
   def fetch_videos videos, anime, imported_videos

@@ -1,0 +1,123 @@
+= render layout: 'page' do
+  meta itemprop="url" content="#{{@resource.url}}"
+  meta itemprop="headline" content="#{{@resource.name}}"
+
+  - if @resource.russian
+    meta itemprop="alternativeHeadline" content="#{{@resource.russian}}"
+
+  - if @resource.kind == 'Movie' && (@resource.aired_on || @resource.released_on)
+    meta itemprop="datePublished" content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
+  - elsif @resource.anime?
+    - if @resource.aired_on
+      meta itemprop="startDate" content="#{@resource.aired_on.to_s}"
+    - if @resource.released_on
+      meta itemprop="endDate" content="#{@resource.released_on.to_s}"
+
+  .b-db_entry
+    .c-image
+      .block
+        .anime-image
+          center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+
+        - if user_signed_in?
+          .icon-actions
+            span.new_comment title="Комментировать"
+            a.new_review href="#{@resource.new_review_url}" title="Написать обзор"
+            span.fav-add style="#{'display: none;' if @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное" data-kind=""
+            span.fav-remove style="#{'display: none;' unless @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного" data-kind=""
+            a.edit href="#{@resource.edit_url}" title="Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}"
+
+      - if user_signed_in?
+        .anime-rate
+          = render 'user_rates/user_rate', user_rate: @resource.rate || @resource.rates.build(user_id: current_user.id), entry: @resource
+
+    .c-about
+      .cc
+        .c-info-left
+          .subheadline Информация
+          .block
+            = render 'animes/info', entry: @resource, details: true
+
+          - if @resource.anime? && !@resource.anons?
+            .block
+              - if @resource.anime_videos?
+                .watch-online.subheadline.blue
+                  span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
+              - elsif user_signed_in?
+                .watch-online.subheadline.blue
+                  a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
+
+        .c-info-right
+          - if @resource.with_score?
+            .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+              .subheadline.m5 Рейтинг
+              .scores
+                meta itemprop="bestRating" content="10"
+                meta itemprop="ratingValue" content="#{@resource.score}"
+                meta itemprop="ratingCount" content="#{(@resource.mal_scores.sum/37).to_i}"
+                = render 'blocks/rate', score: @resource.score
+
+          - if @resource.genres.any?
+            .block
+              .subheadline
+                = @resource.genres.size > 1 ? 'Жанры' : 'Жанр'
+              .block
+                = render 'animes/genres_info', entry: @resource
+
+          - if @resource.respond_to?(:studios) && @resource.studios.any?
+            .block
+              .subheadline.m10
+                = @resource.real_studios.size > 1 ? 'Студии' : 'Студия'
+              .block
+                = render 'animes/studios_info', entry: @resource
+
+          - if @resource.respond_to?(:publishers) && @resource.publishers.any?
+            .block
+              .subheadline
+                = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
+              .block
+                = render 'mangas/publishers_info', entry: @resource
+
+    .c-description
+      .subheadline.m5 Описание
+      .block
+        meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
+        meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
+
+        .m20
+          / .text должен быть вложен в блок с отступом, иначе при сокращении
+          / длинного текста между height shortener и текстом будет отступ
+          .text
+            - if @resource.show_mal_description?
+              .lang-trigger
+                | [<span>eng</span>]
+              .english
+                = @resource.description_mal
+            .russian itemprop="description"
+              = @resource.description_html
+
+        = render 'blocks/source', entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url
+
+  - if user_signed_in?
+    = render 'resources'
+  - else
+    .resources-loader.postloaded data-href="#{@resource.resources_url}"
+      .ajax-loading.vk-like title="Загрузка..."
+
+  - if user_signed_in? || @resource.comments_count > 0
+    - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
+      .b-options-floated.mobile-support
+        span.linkeable data-href="#{@resource.comments_reviews_url}"
+          | Все отзывы
+          span.brackets = @resource.comment_reviews_count
+
+        span.linkeable data-href="#{@resource.comments_all_url}"
+          | Все комментарии
+          span.brackets = @resource.comments_count
+
+    - if @resource.comments_count > 0
+      .subheadline.m3
+        = @resource.comment_reviews? ? 'Отзывы' : 'Комментарии'
+    div
+      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+        = render 'topics/comments', topic: @resource.preview_reviews_thread

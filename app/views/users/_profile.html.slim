@@ -16,7 +16,7 @@
 
   - if @user.show_profile?
     .user-info
-      - @user.stats[:graph_statuses].each do |klass,stats,graph|
+      - @user.stats.graph_statuses.each do |klass,stats,graph|
         - if stats.any? {|v| v[:size] > 0 }
           .stat
             - if @user.own_profile?
@@ -66,7 +66,7 @@
                       | /
 
     - if @favourites.any?
-      .menu-block.favourites-block
+      .block.favourites-block
         .subheadline.m10
           a href="#{user_favourites_url @user}" title="Избранное" Избранное
         .image-links

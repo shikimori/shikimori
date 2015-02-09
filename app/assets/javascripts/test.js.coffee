@@ -1,3 +1,52 @@
+$ =>
+  $('.images-test .wall').shiki_wall()
+
+  if $('.traffic-test').length
+    @traffic = $('.traffic-test').data 'stats'
+    $('.traffic-test').highcharts chart_options
+      series: [
+        name: 'Просмотры'
+        pointInterval: 24 * 3600 * 1000
+        pointStart: Date.create(traffic.first().date).getTime()
+        data: traffic.map (v) -> v.page_views
+        visible: false
+        color: Highcharts.getOptions().colors[3]
+        fillColor:
+          linearGradient:
+            x1: 0
+            y1: 0
+            x2: 0
+            y2: 1
+          stops: [[0, Highcharts.getOptions().colors[3]], [1, Highcharts.Color(Highcharts.getOptions().colors[3]).setOpacity(0).get("rgba")]]
+      ,
+        name: 'Визиты'
+        pointInterval: 24 * 3600 * 1000
+        pointStart: Date.create(traffic.first().date).getTime()
+        data: traffic.map (v) -> v.visits
+        visible: false
+        color: Highcharts.getOptions().colors[1]
+        fillColor:
+          linearGradient:
+            x1: 0
+            y1: 0
+            x2: 0
+            y2: 1
+          stops: [[0, Highcharts.getOptions().colors[1]], [1, Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0).get("rgba")]]
+      ,
+        name: 'Уникальные посетители'
+        pointInterval: 24 * 3600 * 1000
+        pointStart: Date.create(traffic.first().date).getTime()
+        data: traffic.map (v) -> v.visitors
+        color: Highcharts.getOptions().colors[0]
+        fillColor:
+          linearGradient:
+            x1: 0
+            y1: 0
+            x2: 0
+            y2: 1
+          stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get("rgba")]]
+      ]
+
 chart_options = (options) ->
   $.extend true,
     chart:
@@ -39,51 +88,3 @@ chart_options = (options) ->
         threshold: null
     credits: false
   , options
-
-$ =>
-  $('.images-test .wall').shikiWall()
-
-  @traffic = $('.traffic-test').data 'stats'
-  $('.traffic-test').highcharts chart_options
-    series: [
-      name: 'Просмотры'
-      pointInterval: 24 * 3600 * 1000
-      pointStart: Date.create(traffic.first().date).getTime()
-      data: traffic.map (v) -> v.page_views
-      visible: false
-      color: Highcharts.getOptions().colors[3]
-      fillColor:
-        linearGradient:
-          x1: 0
-          y1: 0
-          x2: 0
-          y2: 1
-        stops: [[0, Highcharts.getOptions().colors[3]], [1, Highcharts.Color(Highcharts.getOptions().colors[3]).setOpacity(0).get("rgba")]]
-    ,
-      name: 'Визиты'
-      pointInterval: 24 * 3600 * 1000
-      pointStart: Date.create(traffic.first().date).getTime()
-      data: traffic.map (v) -> v.visits
-      visible: false
-      color: Highcharts.getOptions().colors[1]
-      fillColor:
-        linearGradient:
-          x1: 0
-          y1: 0
-          x2: 0
-          y2: 1
-        stops: [[0, Highcharts.getOptions().colors[1]], [1, Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0).get("rgba")]]
-    ,
-      name: 'Уникальные посетители'
-      pointInterval: 24 * 3600 * 1000
-      pointStart: Date.create(traffic.first().date).getTime()
-      data: traffic.map (v) -> v.visitors
-      color: Highcharts.getOptions().colors[0]
-      fillColor:
-        linearGradient:
-          x1: 0
-          y1: 0
-          x2: 0
-          y2: 1
-        stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get("rgba")]]
-    ]

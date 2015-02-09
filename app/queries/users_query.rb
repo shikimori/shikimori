@@ -1,6 +1,6 @@
 class UsersQuery
   include CompleteQuery
-  AutocompleteLimit = 10
+  AUTOCOMPLETE_LIMIT = 10
 
   def initialize params
     @params = params
@@ -18,6 +18,11 @@ class UsersQuery
     bans = query.where("duration > 0").count
 
     (warnings > 0 ? 1 : 0) + bans
+  end
+
+  # для поиска на странице поиска пользователей (тут специально нет reverse, т.к. на выходе нужен relation)
+  def search
+    search_order @klass.where(search_queries.join(' or '))
   end
 
 private

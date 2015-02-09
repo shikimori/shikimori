@@ -1,0 +1,20 @@
+/ специальная вёрстка отображения отдельного сезона: каталог разбит на куски по kind, каждый кусок отображается с заголовков
+- if @render_by_kind
+  - kinds_with_colors.each do |data|
+    - next unless @entries[data[:kind]]
+
+    .headline.m10 class="#{data[:color]}"
+      = t "Anime.Plural.#{data[:kind]}"
+
+    .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 4 : 6}"
+      = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
+    /div
+      = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie')
+
+- else
+  .cc-4.m0
+    = render @entries, cover_notice: :year_kind, content_by: :inline_tooltip
+
+  - if !user_signed_in? || current_user.preferences.postload_in_catalog
+    - if @next_page.present?
+      = render 'blocks/postloader', url: "#{@next_page}.json", next_url: @next_page, prev_url: @prev_page, filter: nil

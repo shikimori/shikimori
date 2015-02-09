@@ -1,4 +1,6 @@
 class FavouriteSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :id, :name, :russian, :image, :url
 
   def image

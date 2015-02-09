@@ -1,45 +1,42 @@
-
-require 'spec_helper'
-
-describe PersonMalParser do
-  before (:each) { SiteParserWithCache.stub(:load_cache).and_return(list: {}) }
+describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
+  before (:each) { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
 
   let (:parser) {
     p = PersonMalParser.new
-    p.stub(:save_cache)
+    allow(p).to receive(:save_cache)
     p
   }
 
   let(:person_id) { 1 }
 
   it 'have correct type' do
-    parser.instance_eval { type }.should == 'person'
+    expect(parser.instance_eval { type }).to eq('person')
   end
 
   it 'fetches person data' do
     data = parser.fetch_entry_data(person_id)
-    data[:name].should == 'Tomokazu Seki'
-    data[:img].should eq 'http://cdn.myanimelist.net/images/voiceactors/3/17141.jpg'
-    data.should include(:given_name)
-    data.should include(:family_name)
-    data.should include(:japanese)
-    data.should include(:birthday)
+    expect(data[:name]).to eq('Tomokazu Seki')
+    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/voiceactors/3/17141.jpg'
+    expect(data).to include(:given_name)
+    expect(data).to include(:family_name)
+    expect(data).to include(:japanese)
+    expect(data).to include(:birthday)
   end
 
   it 'fetches person images' do
     images = parser.fetch_entry_pictures(person_id)
-    images.should have(5).items
+    expect(images.size).to eq(5)
   end
 
   it 'fetches the whole entry' do
-    parser.fetch_entry(person_id).should have(2).items
+    expect(parser.fetch_entry(person_id).size).to eq(2)
   end
 
   describe 'import' do
     let!(:person_1) { create :person, id: 1 }
     let!(:person_2) { create :person, id: 2, imported_at: Time.zone.now }
 
-    it { expect(parser.prepare).to have(1).item }
+    it { expect(parser.prepare.size).to eq(1) }
 
     #it 'imports' do
       #create :person_role, person_id: 3

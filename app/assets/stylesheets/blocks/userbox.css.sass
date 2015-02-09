@@ -1,0 +1,88 @@
+@import globals
+@import mixins/responsive
+@import mixins/icons
+
+.usernav
+  padding-bottom: 4px
+  padding-top: 6px
+  & > span
+    float: left
+
+.menu
+  .unread-count, .contest
+    +border-radius(1px)
+    +transition(backround-color, 0.3s)
+    background: #5a5a5a
+    color: #f9f9f9
+    display: block
+    float: right !important
+    font-size: 12px
+    font-weight: bold
+    text-align: center
+    width: 20px
+    height: 20px
+    line-height: 20px
+
+    &:hover
+      background: #7a7a7a !important
+
+  .contest
+    &:before
+      color: white
+      content: '\e817'
+      font-family: 'shikimori'
+      font-weight: normal
+      font-size: 12px
+      line-height: 17px
+
+  .avatar
+    height: 20px
+
+  &:hover .unread-count, &:hover .contest
+    background: #6a6a6a
+    color: white
+
+.userbox
+  height: $menu_height
+  float: none
+
++gte_ipad
+  .userbox
+    white-space: nowrap
+
+    & > a
+      display: inline-block
+      color: inherit
+
+      .graphics-arrow-down
+        display: inline-block
+        height: 14px
+        margin-left: 3px
+        margin-top: -10px
+        vertical-align: middle
+        width: 15px
+
+    #sign_in
+      +icon("r")
+      display: block
+      // onlick bug in safari
+      margin-left: 0 !important
+
+      &:before
+        font-size: 18px
+
+  .menu
+    .unread-count, .contest
+      margin-left: 8px
+
++lte_ipad
+  .menu
+    .contest
+      display: none
+
+    .unread-count
+      margin-left: 12px
+
+  .userbox img.avatar,
+  .menu .unread-count
+    margin-top: 6px

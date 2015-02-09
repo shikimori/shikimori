@@ -1,4 +1,5 @@
 # базовый класс для презентера с отложенной загрузкой
+# TODO: выпилить
 class LazyPresenter < BasePresenter
   def initialize(object=nil, template=nil)
     super object, template

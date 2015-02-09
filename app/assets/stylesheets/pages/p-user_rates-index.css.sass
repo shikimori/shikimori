@@ -1,0 +1,66 @@
+@import mixins/brackets_surrounded
+@import mixins/link
+@import mixins/placeholder
+@import mixins/responsive
+
+.p-user_rates-index
+  +iphone
+    header.head a.misc
+      display: none
+
+  .l-menu
+    .avatar img
+      max-width: 100%
+
+    .mini-charts
+      .bar
+        width: auto
+
+      .types, .ratings
+        .bar-container
+          margin-right: 60px
+
+    .mylist-block
+      .item-sign
+        display: none
+
+  +lte_ipad
+    .l-menu .b-collection-filters
+      display: none
+
+    .menu-expanded
+      .l-menu .b-collection-filters
+        display: block
+
+.p-user_rates-index
+  .l-content
+    .filter
+      margin-bottom: $block-offset/2
+
+      input
+        border: none
+        font-size: 13px
+        padding: 10px
+        width: 100%
+
+        +placeholder
+          color: $gray-color-2
+
+    .b-options-floated
+      +iphone
+        display: none
+
+      span
+        +brackets_surrounded
+
+    .order-control
+      +link_color(#333333)
+      cursor: pointer
+
+      &.active
+        text-decoration: underline
+      &:hover
+        text-decoration: underline
+
+    .b-postloader, .postloader-progress
+      margin-top: 10px !important

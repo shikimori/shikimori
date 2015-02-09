@@ -1,0 +1,36 @@
+@import mixins/link
+
+=spoiler
+  &.target
+    display: inline
+
+    &.dashed
+      border-bottom: 1px dashed #FFB3B3
+      cursor: pointer
+      //cursor: default
+
+  &.collapsed
+    +link
+    background: transparent !important
+    border: none
+    //border-bottom: 1px dashed $link
+    //cursor: default
+    display: inline
+    padding: 0
+    text-decoration: none
+
+    &:hover, &:active
+      background: transparent !important
+      text-decoration: none
+
+  &.collapse
+    +link
+    //border-bottom: 1px dashed $link
+    font-size: 11px
+    margin-top: 4.5px
+    padding: 0
+    text-decoration: none
+
+    &:hover, &:active
+      background: transparent !important
+      text-decoration: none

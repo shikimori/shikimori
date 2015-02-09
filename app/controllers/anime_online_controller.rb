@@ -1,2 +1,0 @@
-class AnimeOnlineController < ShikimoriController
-end

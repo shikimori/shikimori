@@ -1,33 +1,44 @@
-- content_for :head do
-  = stylesheet_link_tag :people
+= render layout: 'page' do
+  .b-db_entry
+    .c-image
+      center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-header.head
-  h1 title="#{@page_title.last}" itemprop="name"
-    = @page_title.last
-  p.notice Сэйю
+      - if user_signed_in?
+        .icon-actions
+          span.new_comment title="Комментировать"
+          /a.edit href="#{edit_seyu_url @resource}" title="Редактировать персонажа"
+          span.fav-add style="#{'display: none;' if @resource.seyu_favoured?}" data-kind="seyu" data-remote="true" action="#{favourites_seyu_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное"
+          span.fav-remove style="#{'display: none;' unless @resource.seyu_favoured?}" data-kind="seyu" data-remote="true" action="#{favourites_seyu_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного"
 
-.info
-  aside.left-column
-    = render 'menu_left'
+    .c-about
+      .cc
+        - if @resource.credentials?
+          .c-info-left
+            .subheadline Информация
+            .b-entry-info
+              = info_line 'По-английски', @resource.name
+              = info_line 'По-японски', @resource.japanese
+              = info_line 'Дата рождения', rus_date(@resource.birthday, true) if @resource.birthday
+              = info_line 'Сайт' do
+                - if @resource.website_host.present?
+                  a href="#{@resource.website}" rel="nofollow"
+                    = @resource.website_host
 
-  section.right-column
-    .b-options-floated
-      span class="#{' selected' if params[:sort] == nil}"
-        - if params[:sort] == nil
-          | Рейтинг
-        - else
-          = link_to 'Рейтинг', seyu_url(@entry, direct: params[:direct])
-      | &nbsp;&nbsp;/&nbsp;&nbsp;
-      span class="#{' selected' if params[:sort] == 'time'}"
-        - if params[:sort] == 'time'
-          | Дата
-        - else
-          a href="#{seyu_url @entry, sort: 'time', direct: params[:direct]}" Дата
+        .c-info-right
+          .subheadline Роли в аниме
+          .b-entry-info
+            - @resource.groupped_roles.each do |role,times|
+              = info_line role, times
 
-    .subheadline.m10 Персонажи и аниме
-    - @entry.works.each do |group|
-      .char-ani-block
-        - group[:characters].each do |character|
-          = render partial: 'blocks/person', locals: { person: character, role: nil, link_to_character: true, no_seyu: true, no_tooltip: true, remote: :character_tooltip_url }, formats: :html
-        = render partial: 'blocks/ani_manga', collection: group[:animes], formats: :html
-  .clearfix-full
+    .c-description.m0
+      .subheadline.m10
+        .linkeable data-href="#{roles_seyu_url @resource}" Лучшие роли
+      .c-characters
+        = render @resource.best_roles
+
+  - if user_signed_in? || @resource.preview_thread.comments_count > 0
+    .subheadline.m3
+      .linkeable data-href="#{comments_seyu_url @resource}" Обсуждение
+    div
+      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+        = render 'topics/comments', topic: @resource.preview_thread

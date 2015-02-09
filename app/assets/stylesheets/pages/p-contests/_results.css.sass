@@ -1,0 +1,82 @@
+@import compass/typography/text/ellipsis
+@import globals/variables
+@import mixins/link
+@import mixins/responsive
+@import mixins/column
+@import mixins/clear_left
+
+.p-contests .results
+  a
+    +link
+
+  .cc-result
+    +clear_left
+    margin-bottom: $block_offset
+    position: relative
+
+    +gte_ipad
+      .c-winner
+        +column(2, 2/3)
+      .c-rounds
+        +column(2, 1/3)
+
+    +iphone_landscape
+      .c-rounds
+        +column(2, 2/5)
+      .c-winner
+        +column(2, 3/5)
+        .b-catalog_entry .text
+          display: none
+
+    +iphone_portrait
+      .c-rounds, .c-winner
+        +column(2, 1/2)
+
+      .c-winner .b-catalog_entry
+        .cover
+          width: 100%
+
+        .content
+          display: none
+
+    .c-winner .b-catalog_entry
+      .rating
+        display: none
+
+    .c-rounds
+      .label
+        color: #444
+        font-size: 12px
+        font-weight: bold
+        margin-bottom: 10px
+
+      .letter
+        display: none
+
+      .match-day
+        margin-top: 0
+
+        .match
+          +ellipsis
+          padding-bottom: 7px
+
+          p
+            display: inline
+
+          .match-link
+            font-weight: normal !important // из-за bold от hover высота прыгает
+
+        .group
+          position: initial
+
+
+      .match-link
+        display: inline
+
+        &:hover
+          text-decoration: none
+          .group
+            text-decoration: underline
+
+        .group
+          display: none

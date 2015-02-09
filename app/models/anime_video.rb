@@ -14,31 +14,23 @@ class AnimeVideo < ActiveRecord::Base
   enumerize :kind, in: [:raw, :subtitles, :fandub, :unknown], predicates: true
   enumerize :language, in: [:russian, :english], predicates: true
 
-  validates :anime, presence: true
+  validates :anime, :source, :kind, presence: true
   validates :url, presence: true, url: true, uniqueness: { scope: :anime_id }
-  validates :source, presence: true
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
   before_save :check_ban
   before_save :check_copyright
-  after_create :notify
+  after_create :create_episode_notificaiton, if: -> { !unknown? && single_video? }
 
-  scope :allowed_play, -> {
-    worked
-      .joins(:anime)
-      .where('animes.rating not in (?)', Anime::ADULT_RATINGS)
-      .where('animes.censored = false')
-  }
+  PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false"
+  XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true"
 
-  scope :allowed_xplay, -> {
-    worked
-      .joins(:anime)
-      .where('animes.rating in (?) or animes.censored = true', Anime::ADULT_RATINGS)
-  }
+  scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
+  scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }
 
-  scope :worked, -> { where state: ['working', 'uploaded'] }
+  scope :available, -> { where state: ['working', 'uploaded'] }
 
-  CopyrightBanAnimeIDs = [] # 10793
+  CopyrightBanAnimeIDs = [-1] # 10793
 
   state_machine :state, initial: :working do
     state :working
@@ -76,14 +68,6 @@ class AnimeVideo < ActiveRecord::Base
     hosting == 'vk.com'
   end
 
-  def player_url
-    if vk? && reports.any? {|r| r.broken? }
-      "#{url}#{url.include?('?') ? '&' : '?' }quality=360"
-    else
-      url
-    end
-  end
-
   def allowed?
     working? || uploaded?
   end
@@ -97,9 +81,17 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def uploader
-    if uploaded?
-      @uploader ||= AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').last.try(:user)
+    @uploader ||= if uploaded?
+      AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').last.try(:user)
     end
+  end
+
+  def author_name
+    author.try :name
+  end
+
+  def author_name= name
+    self.author = AnimeVideoAuthor.find_or_create_by name: name.to_s.strip
   end
 
 private
@@ -111,13 +103,13 @@ private
     self.state = 'copyrighted' if copyright_ban?
   end
 
-  def notify
-    if !unknown? && AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
-      notify = EpisodeNotification.where(anime_id: anime_id, episode: episode).first_or_create
-      unless notify.send("is_#{kind}")
-        notify.send("is_#{kind}=", true)
-        notify.save
-      end
-    end
+  def create_episode_notificaiton
+    EpisodeNotification
+      .find_or_initialize_by(anime_id: anime_id, episode: episode)
+      .update("is_#{kind}" => true)
+  end
+
+  def single_video?
+    AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
   end
 end

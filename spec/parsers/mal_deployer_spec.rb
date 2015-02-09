@@ -1,14 +1,12 @@
-require 'spec_helper'
-
 describe MalDeployer do
-  before { SiteParserWithCache.stub(:load_cache).and_return(list: {}) }
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
 
   [[AnimeMalParser, Anime], [MangaMalParser, Manga]].each do |parser_klass, klass|
-    describe parser_klass do
+    describe parser_klass, vcr: { cassette_name: "#{klass.name.downcase}_mal_deployer" } do
       describe klass do
-        let (:parser) {
+        let(:parser) {
           p = parser_klass.new
-          p.stub(:save_cache)
+          allow(p).to receive(:save_cache)
           p
         }
 
@@ -17,27 +15,27 @@ describe MalDeployer do
         let(:data) { parser.fetch_entry(entry_id) }
 
         it 'updates imported_at' do
-          entry.imported_at.should be(nil)
+          expect(entry.imported_at).to be(nil)
           parser.deploy(entry, data)
-          entry.imported_at.should_not be(nil)
+          expect(entry.imported_at).not_to be(nil)
         end
 
         it 'updates mal_scores' do
           parser.deploy(entry, data)
-          entry.mal_scores.should have(10).items
+          expect(entry.mal_scores.size).to eq(10)
         end
 
         it 'sets censored for hentai' do
           data[:entry][:genres] = [{id: Genre::HentaiID}]
-          entry.censored.should_not be(true)
+          expect(entry.censored).not_to be(true)
           parser.deploy(entry, data)
-          entry.censored.should be(true)
+          expect(entry.censored).to be(true)
         end
 
         it "doesn't set censored for non-hentai" do
-          entry.censored.should_not be(true)
+          expect(entry.censored).not_to be(true)
           parser.deploy(entry, data)
-          entry.censored.should_not be(true)
+          expect(entry.censored).not_to be(true)
         end
 
         it "doesn't change status from Released to Ongoing" do
@@ -46,7 +44,7 @@ describe MalDeployer do
 
           data[:entry][:status] = AniMangaStatus::Ongoing
           parser.deploy(entry, data)
-          entry.status.should == AniMangaStatus::Released
+          expect(entry.status).to eq(AniMangaStatus::Released)
         end if klass == Anime
 
         it "changes status from Released to Ongoing" do
@@ -56,13 +54,13 @@ describe MalDeployer do
 
           data[:entry][:status] = AniMangaStatus::Ongoing
           parser.deploy(entry, data)
-          entry.status.should == AniMangaStatus::Ongoing
+          expect(entry.status).to eq(AniMangaStatus::Ongoing)
         end if klass == Anime
 
         describe 'genres' do
           it 'linked to entry' do
             parser.deploy(entry, data)
-            entry.genres.count.should be(data[:entry][:genres].size)
+            expect(entry.genres.count).to be(data[:entry][:genres].size)
           end
 
           it 'creates only new' do
@@ -76,7 +74,7 @@ describe MalDeployer do
         describe 'studios' do
           it 'linked to entry' do
             parser.deploy(entry, data)
-            entry.studios.should have(data[:entry][:studios].size).items
+            expect(entry.studios.size).to eq(data[:entry][:studios].size)
           end
 
           it 'creates only new' do
@@ -90,7 +88,7 @@ describe MalDeployer do
         describe 'publishers' do
           it 'linked to entry' do
             parser.deploy(entry, data)
-            entry.publishers.should have(data[:entry][:publishers].size).items
+            expect(entry.publishers.size).to eq(data[:entry][:publishers].size)
           end
 
           it 'creates only new' do
@@ -105,14 +103,14 @@ describe MalDeployer do
         describe 'recommendations' do
           it 'linked to entry' do
             parser.deploy(entry, data)
-            klass.find(entry.id).similar.should have(data[:recommendations].size).items
+            expect(klass.find(entry.id).similar.size).to eq(data[:recommendations].size)
           end
         end
 
         describe 'related' do
           it 'linked to entry' do
             parser.deploy(entry, data)
-            klass.find(entry.id).related.should_not be_empty
+            expect(klass.find(entry.id).related).not_to be_empty
           end
         end
 

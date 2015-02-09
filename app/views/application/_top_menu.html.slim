@@ -1,75 +1,89 @@
-.l-top_menu
-  .to-top-fix
-  .inner
-    - if request.path == '/' && !user_signed_in?
-      span.linkeable data-href="#{root_url}" data-title="Шикимори"
-        .logo
-    - else
-      a href="#{root_url}" title="Шикимори"
-        .logo
+.to-top-fix
+.inner
+  - if request.path == '/' && !user_signed_in?
+    span.linkeable data-href="#{root_url}" data-title="Шикимори"
+      .logo
+  - else
+    a href="#{root_url}" title="Шикимори"
+      .logo
 
-    .menu-mobile
-      .menu.mobile-menu-toggler title="Основное меню"
-      .search.mobile-search-toggler title="Поиск"
+  .menu-mobile
+    .menu.mobile-menu-toggler title="Основное меню"
+    .search.mobile-search-toggler title="Поиск"
 
-    .menu.menu-userbox
-      .entry.userbox data-source="#{userbox_url}"
-        = render partial: 'application/userbox'
+  .menu.menu-userbox
+    .entry.userbox
+      - if user_signed_in?
+        - if current_user.unread_count > 0
+          a.unread-count href="#{current_user.unread_messages_url}" title="Почта"
+            = [99, current_user.unread_count].min
+        a.avatar href="#{current_user.url}" title="#{current_user.nickname}"
+          img.avatar src="#{current_user.avatar_url 20}" srcset="#{current_user.avatar_url 48} 2x" title="#{current_user.nickname}" alt="#{current_user.nickname}"
+          - unless current_user.unread_count > 0
+            span.graphics-arrow-down
+        .submenu.right
+          a.entry href="#{profile_user_rates_url current_user, list_type: 'anime', subdomain: nil}" Аниме
+          a.entry href="#{profile_user_rates_url current_user, list_type: 'manga', subdomain: nil}" Манга
+          a.entry href="#{current_user.unread_messages_url}"
+            span Почта
+            - if current_user.unread_count > 0
+              | &nbsp;
+              span.sep.zero.inline
+                | [
+              = current_user.unread_messages
+              span.sep.zero.inline ;
+              = current_user.unread_news
+              span.sep.zero.inline ;
+              = current_user.unread_notifications
+              span.sep.zero.inline
+                | ]
 
-    .menu.menu-search
-      .entry.main-search
-        .input
-          input value="#{SearchHelper.unescape params[:search]}"
-          .suggest-placeholder
+          a.entry href="#{edit_profile_url current_user, subdomain: nil}" Настройки
+          a.entry href="#{destroy_user_session_url subdomain: nil}" Выход
+
+      - else
+        span#sign_in data-href="#{new_user_session_url subdomain: nil}" title="Вход"
+
+  .menu.menu-search
+    .entry.main-search
+      .input
+        input value="#{SearchHelper.unescape params[:search]}" data-type="#{manga_online? ? 'mangas' : 'animes'}"
+        .suggest-placeholder
+      - if shikimori?
         ul.popup
-          - if user_signed_in? && current_user.preferences.manga_first?
-            - unless anime_online?
-              li.type data-type="mangas" Манга
-
-            - unless manga_online?
-              li.type data-type="animes" Аниме
-
-          - else
-            - unless manga_online?
-              li.type data-type="animes" Аниме
-
-            - unless anime_online?
-              li.type data-type="mangas" Манга
-
+          li.type data-type="animes" Аниме
+          li.type data-type="mangas" Манга
           li.type data-type="characters" Персонажи
           li.type data-type="seyu" Сэйю
-          li.type data-type="producer" Режиссёры
-          li.type data-type="mangaka" Мангаки
+          li.type data-type="producers" Режиссёры
+          li.type data-type="mangakas" Мангаки
           li.type data-type="people" Люди
           li.type data-type="users" Пользователи
 
-    .menu.menu-items
-      - if shikimori?
-        = render partial: 'application/shikimori/top_menu'
-      - elsif anime_online?
-        = render partial: 'application/anime_online/top_menu'
-      - else
-        = render partial: 'application/manga_online/top_menu'
+  .menu.menu-items
+    = render "application/top_menu/#{domain_folder}"
+    - if user_signed_in?
+      a.entry.sign_out href="#{destroy_user_session_url}" Выход
 
-    .moderation style="#{page_background}"
-      - if user_signed_in?
-        - if current_user.moderator? && (AbuseRequest.has_abuses? || AbuseRequest.has_changes?)
-          .mod-block
-            span Форум:
-            a href="#{moderation_bans_url}" title="Модерация жалоб" #{AbuseRequest.abuses.count + AbuseRequest.pending.count}
-        - elsif current_user.abuse_requests_moderator? && AbuseRequest.has_changes?
-          .mod-block
-            span Форум:
-            a href="#{moderation_abuse_requests_url}" title="Модерация форума" #{AbuseRequest.pending.count}
-        - if current_user.user_changes_moderator? && UserChange.has_changes?
-          .mod-block
-            span Правки:
-            a href="#{moderation_users_changes_url}" title="Модерация переводов" #{UserChange.pending_count}
-        - if current_user.reviews_moderator? && Review.has_changes?
-          .mod-block
-            span Рецензии:
-            a href="#{moderation_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
-        - if current_user.video_moderator? && AnimeVideoReport.pending.count > 0
-          .mod-block
-            span Видео:
-            a href="#{moderation_anime_video_reports_url}" title="Модерация видео" #{AnimeVideoReport.pending.count}
+  .moderation style="#{page_background}"
+    - if user_signed_in?
+      - if current_user.moderator? && (AbuseRequest.has_abuses? || AbuseRequest.has_changes?)
+        .mod-block
+          span Форум:
+          a href="#{moderation_bans_url}" title="Модерация жалоб" #{AbuseRequest.abuses.count + AbuseRequest.pending.count}
+      - elsif current_user.abuse_requests_moderator? && AbuseRequest.has_changes?
+        .mod-block
+          span Форум:
+          a href="#{moderation_abuse_requests_url}" title="Модерация форума" #{AbuseRequest.pending.count}
+      - if current_user.user_changes_moderator? && UserChange.has_changes?
+        .mod-block
+          span Правки:
+          a href="#{moderation_user_changes_url}" title="Модерация переводов" #{UserChange.pending_count}
+      /- if current_user.reviews_moderator? && Review.has_changes?
+        .mod-block
+          span Рецензии:
+          a href="#{moderation_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
+      - if current_user.video_moderator? && AnimeVideoReport.pending.count > 0
+        .mod-block
+          span Видео:
+          a href="#{moderation_anime_video_reports_url}" title="Модерация видео" #{AnimeVideoReport.pending.count}

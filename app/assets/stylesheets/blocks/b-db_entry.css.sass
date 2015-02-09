@@ -1,0 +1,72 @@
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/comma_separated
+@import mixins/link
+@import mixins/responsive
+
+.b-db_entry
+  +block_m
+  +clear_left
+
+  &>.c-image
+    +gte_ipad
+      +column(2)
+      width: 30.5%
+
+    +iphone-portrait
+      +column_b(1)
+
+    +iphone-landscape
+      +column_b(2)
+
+    img
+      max-width: 100%
+
+  &>.c-about
+    +gte_ipad
+      +column(2)
+      width: 65.5%
+      z-index: 1 // без этого нижний блок с description перекрывает текущий
+
+    +iphone-portrait
+      +column(1)
+
+    +iphone-landscape
+      +column(2)
+
+    .c-info-left, .c-info-right
+      +column_bm(2, 0.5, 6%)
+
+      +iphone
+        +column(1)
+
+    &:after
+      display: block
+      clear: left
+
+    .additional-links
+      +clear_left
+      margin-top: 10px
+
+      .key
+        float: left
+        color: $gray-color
+
+      &>.link, &>a
+        +comma_separated(0)
+        +link
+        float: left
+        margin-left: 5px
+
+        &:first-child
+          margin-left: 0
+
+  &>.c-description
+    +block
+    margin-left: 34.6%
+    padding-top: 1px // из-за странной баги в фаерфоксе
+
+    +iphone
+      clear: both
+      margin-left: 0

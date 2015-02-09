@@ -1,36 +1,34 @@
-require 'spec_helper'
-
 describe BaseMalParser do
-  before { SiteParserWithCache.stub(:load_cache).and_return list: {} }
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
 
   let (:parser) {
     p = BaseMalParser.new
-    p.stub(:save_cache)
+    allow(p).to receive(:save_cache)
     p
   }
 
   describe 'load' do
     it 'genres' do
       genre = FactoryGirl.create :genre
-      parser.genres.should have(1).item
-      parser.genres[genre.id].name.should eq genre.name
+      expect(parser.genres.size).to eq(1)
+      expect(parser.genres[genre.id].name).to eq genre.name
     end
 
     it 'studios' do
       studio = FactoryGirl.create :studio
-      parser.studios.should have(1).item
-      parser.studios[studio.id].name.should eq studio.name
+      expect(parser.studios.size).to eq(1)
+      expect(parser.studios[studio.id].name).to eq studio.name
     end
 
     it 'publishers' do
       publisher = FactoryGirl.create :publisher
-      parser.publishers.should have(1).item
-      parser.publishers[publisher.id].name.should eq publisher.name
+      expect(parser.publishers.size).to eq(1)
+      expect(parser.publishers[publisher.id].name).to eq publisher.name
     end
   end
 
   it 'applies mal_fixes' do
-    parser.stub(:mal_fixes).and_return 1 => {name: 'Test'}
-    parser.apply_mal_fixes(1, {entry: {name: 'zzzz'}})[:entry][:name].should eq 'Test'
+    allow(parser).to receive(:mal_fixes).and_return 1 => {name: 'Test'}
+    expect(parser.apply_mal_fixes(1, {entry: {name: 'zzzz'}})[:entry][:name]).to eq 'Test'
   end
 end

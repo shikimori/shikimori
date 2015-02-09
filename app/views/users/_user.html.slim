@@ -1,5 +1,16 @@
-.b-user-block class="user-#{user.id}"
-  - if user.show_profile?
+.b-user.c-column id="#{user.id}" class="#{content_by} item-#{user_counter if defined? user_counter}"
+  - if content_by == :detailed
+    .info
+      .image-name
+        a.name href="#{profile_url user}" title="#{user.nickname}"
+          = user.nickname
+
+        a href="#{profile_url user}" title="#{user.nickname}"
+          img.image src="#{user.avatar_url 73}" srcset="#{user.avatar_url 148} 2x" alt="#{user.nickname}"
+
+      p.last-online
+        = user.last_online
+
     .history
       - user.history.formatted.each do |entry|
         .line
@@ -11,12 +22,15 @@
               span.date = time_ago_in_words entry[:created_at], "%s назад"
               span.event = entry[:name]
 
-  .image-name
-    a href="#{user_url user}" title="#{user.nickname}"
-      img.image src="#{user.avatar_url 73}" alt="#{user.nickname}"
-    a.name href="#{user_url user}" title="#{user.nickname}"
+  - elsif content_by == :avatar || content_by == :avatar_fixed_margin
+    a.avatar href="#{profile_url user}" title="#{user.nickname}"
+      img src="#{user.avatar_url 32}" srcset="#{user.avatar_url 64} 2x" alt="#{user.nickname}" title="#{user.nickname}"
+
+  - elsif content_by == :named_avatar
+    a.avatar href="#{profile_url user}" title="#{user.nickname}"
+      img src="#{user.avatar_url 80}" srcset="#{user.avatar_url 160} 2x" alt="#{user.nickname}" title="#{user.nickname}"
+    a.name href="#{profile_url user}" title="#{user.nickname}"
       = user.nickname
 
-  .info
-    p.last-online
-      = user.last_online
+  - else
+    - raise ArgumentError, content_by

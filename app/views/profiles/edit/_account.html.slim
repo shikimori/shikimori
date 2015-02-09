@@ -1,0 +1,53 @@
+/ важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
+= simple_form_for @resource.object, url: profile_url(User.find(@resource.id)) do |f|
+  input type="hidden" name="page" value="#{@page}"
+
+  .cc-2
+    .c-column.block_m
+      .block
+        = f.input :nickname, label: 'Логин (никнейм)'
+        = f.input :email
+
+        .change-password
+          a href="#{edit_profile_url @resource, page: 'password'}"
+            = @resource.encrypted_password.blank? ? 'Задать пароль' : 'Изменить пароль'
+
+        = f.input :name
+        = f.input :location
+        = f.input :website
+        = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
+        = f.input :birth_on, include_blank: true, start_year: Date.today.year - 90, end_year: Date.today.year - 8
+
+    .c-column.block_m
+      .block
+        = f.input :avatar, label: 'Аватар (160x160)'
+        .avatar-edit
+          - if @resource.avatar.exists?
+            img src="#{@resource.avatar_url}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
+            p.avatar-delete удалить
+
+      - if @resource.user_tokens.any?
+        .block
+          .subheadline Подключенная авторизация
+          .value.oauth.remove
+            - @resource.user_tokens.each do |token|
+              a.b-oauth_token class="#{token.provider}" href="#{user_token_url token}" data-method="delete" data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?" title="Отключить авторизацию через #{token.provider.to_s.titleize}"
+
+      - if @resource.unconnected_providers.any?
+        .block
+          .subheadline Не подключенные сервисы
+          .value.oauth.add
+            - @resource.unconnected_providers.each do |provider|
+              a.b-oauth_token class="#{provider}" href="#{user_omniauth_authorize_url provider}" title="Подключить авторизацию через #{provider.to_s.titleize}"
+
+      input.ignore-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="user[ignored_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
+      .subheadline Игнорируемые пользователи
+      .variants
+        - @resource.ignored_users.each do |user|
+          .variant
+            = check_box_tag 'user[ignored_user_ids][]', user.id, checked: true
+            a href="#{profile_url user}" = user.nickname
+
+  .buttons
+    a.cancel href="#{profile_url @resource}" Отмена
+    = f.submit

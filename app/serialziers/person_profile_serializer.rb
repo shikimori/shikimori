@@ -1,9 +1,6 @@
 class PersonProfileSerializer < PersonSerializer
-  include PeopleHelper
-
-  attributes :job_title, :birthday, :website, :groupped_roles
-  attribute :roles
-  attribute :works
+  attributes :japanese, :job_title, :birthday, :website, :groupped_roles
+  attributes :roles, :works, :thread_id
   attributes :person_favoured?
   attributes :producer?, :producer_favoured?
   attributes :mangaka?, :mangaka_favoured?
@@ -16,10 +13,14 @@ class PersonProfileSerializer < PersonSerializer
   def works
     object.works.map do |work|
       {
-        anime: work[:entry].kind_of?(Anime) ? AnimeSerializer.new(work[:entry]) : nil,
-        manga: work[:entry].kind_of?(Manga) ? MangaSerializer.new(work[:entry]) : nil,
-        role: format_person_role(work[:role], full: true)
+        anime: work.object.kind_of?(Anime) ? AnimeSerializer.new(work) : nil,
+        manga: work.object.kind_of?(Manga) ? MangaSerializer.new(work) : nil,
+        role: work.formatted_role
       }
     end
+  end
+
+  def thread_id
+    object.thread.try :id
   end
 end

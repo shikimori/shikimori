@@ -33,12 +33,16 @@ data = ARGV.each_with_object({}) do |anime_dir, memo|
 end
 
 SCREEN_EVERY = {
-  true => 17,
-  false => 29
+  one_long: 17,
+  many_long: 29,
+  one_short: 7,
+  many_short: 12,
 }
 START_FROM = {
-  true => 17,
-  false => 240
+  one_long: 7,
+  many_long: 240,
+  one_short: 1,
+  many_short: 1,
 }
 
 puts "\n\nfound animes: "
@@ -52,6 +56,7 @@ data.each do |anime_dir, files|
   ap anime_name
   ap anime_dir
   ap files
+
   files.each_with_index do |file_name, index|
     file_path = "#{anime_dir}/#{file_name}"
 
@@ -62,7 +67,17 @@ data.each do |anime_dir, files|
 
     begin
       target_file = "%s/%s_#{index}_%03d.jpg" % [target_path, anime_name, i]
-      time = START_FROM[files.size == 1] + i * SCREEN_EVERY[files.size == 1]
+      duration = %x{ffprobe -i #{Shellwords.escape file_path} -show_format|grep duration}.strip.split('=')[1].to_i
+
+      grab_type = if duration > 420
+        files.size == 1 ? :one_long : :many_long
+      else
+        files.size == 1 ? :one_short : :many_short
+      end
+
+      time = START_FROM[grab_type] + i * SCREEN_EVERY[grab_type]
+
+
       %x{/usr/local/bin/ffmpeg -ss #{time} -i #{Shellwords.escape file_path} -y #{Shellwords.escape target_file}}
       images << target_file if File.exists?(target_file)
       i += 1

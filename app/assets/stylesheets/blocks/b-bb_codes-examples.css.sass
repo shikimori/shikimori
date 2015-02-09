@@ -1,0 +1,54 @@
+@import globals/variables
+@import mixins/brackets_surrounded
+@import mixins/link
+@import mixins/pretty_list
+
+.b-bb_codes-examples
+  .name
+    font-size: 15px
+    font-weight: bold
+    line-height: $line_height
+
+  .example, .result, .notice
+    line-height: $line_height
+
+  .example
+    margin-bottom: 10px
+
+    span
+      +brackets_surrounded
+      color: $gray-color-0
+      font-size: 12px
+
+    .textarea
+      background: #FCFCFC
+      border: 1px solid #DDD
+      color: #333
+      line-height: 1.65
+      min-height: 89px
+      outline: none
+      padding: 3px 7px 5px
+      position: relative
+      resize: none
+      width: 100%
+
+  .example, .result
+    &:before
+      color: $gray-color-0
+      content: 'Пример:'
+      display: inline-block
+      font-size: 12px
+      margin-right: 5px
+    a
+      +link
+
+  .result
+    &:before
+      content: 'Результат:'
+
+  .notice
+    font-size: 12px
+    color: $gray-color-2
+
+  ul
+    +pretty_list

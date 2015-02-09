@@ -1,17 +1,16 @@
-require 'spec_helper'
 require 'cancan/matchers'
 
-describe Api::V1::UserRatesController do
-  include_context :authenticated
+describe Api::V1::UserRatesController, :show_in_doc do
+  include_context :authenticated, :user
 
-  describe :create do
+  describe '#create' do
     let(:target) { create :anime }
     let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { post :create, user_rate: create_params, format: :json }
 
     it { should respond_with :created }
 
-    describe :user_rate do
+    describe 'user_rate' do
       subject { assigns :user_rate }
 
       its(:user_id) { should eq create_params[:user_id] }
@@ -27,14 +26,14 @@ describe Api::V1::UserRatesController do
     end
   end
 
-  describe :update do
+  describe '#update' do
     let(:user_rate) { create :user_rate, user: user }
     let(:update_params) {{ score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
     before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
 
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
 
-    describe :user_rate do
+    describe 'user_rate' do
       subject { assigns :user_rate }
 
       its(:score) { should eq update_params[:score] }
@@ -47,20 +46,20 @@ describe Api::V1::UserRatesController do
     end
   end
 
-  describe :increment do
+  describe '#increment' do
     let(:user_rate) { create :user_rate, user: user, episodes: 1 }
     before { post :increment, id: user_rate.id, format: :json }
 
     it { should respond_with :created }
 
-    describe :user_rate do
+    describe 'user_rate' do
       subject { assigns :user_rate }
 
       its(:episodes) { should eq user_rate.episodes + 1 }
     end
   end
 
-  describe :destroy do
+  describe '#destroy' do
     let(:user_rate) { create :user_rate, user: user }
     before { delete :destroy, id: user_rate.id, format: :json }
 
@@ -68,53 +67,53 @@ describe Api::V1::UserRatesController do
     it { expect(assigns(:user_rate)).to be_new_record }
   end
 
-  describe :cleanup do
+  describe '#cleanup' do
     let!(:user_rate) { create :user_rate, user: user, target: entry }
     let!(:user_history) { create :user_history, user: user, target: entry }
 
-    context :anime do
+    context 'anime' do
       let(:entry) { create :anime }
       before { post :cleanup, type: :anime }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user.anime_rates).to be_empty }
       it { expect(user.history).to be_empty }
     end
 
-    context :manga do
+    context 'manga' do
       let(:entry) { create :manga }
       before { post :cleanup, type: :manga }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user.manga_rates).to be_empty }
       it { expect(user.history).to be_empty }
     end
   end
 
-  describe :reset do
+  describe '#reset' do
     let!(:user_rate) { create :user_rate, user: user, target: entry, score: 1 }
 
-    context :anime do
+    context 'anime' do
       let(:entry) { create :anime }
       before { post :reset, type: :anime }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user_rate.reload.score).to be_zero }
     end
 
-    context :manga do
+    context 'manga' do
       let(:entry) { create :manga }
       before { post :reset, type: :manga }
 
-      it { should respond_with :success }
+      it { expect(response).to have_http_status :success }
       it { expect(user_rate.reload.score).to be_zero }
     end
   end
 
-  describe :permissions do
+  describe 'permissions' do
     subject { Ability.new user }
 
-    context :own_data do
+    context 'own_data' do
       let(:user_rate) { build :user_rate, user: user }
 
       it { should be_able_to :manage, user_rate }
@@ -122,13 +121,13 @@ describe Api::V1::UserRatesController do
       it { should be_able_to :reset, user_rate }
     end
 
-    context :foreign_data do
+    context 'foreign_data' do
       let(:user_rate) { build :user_rate, user: build_stubbed(:user) }
 
       it { should_not be_able_to :manage, user_rate }
     end
 
-    context :guest do
+    context 'guest' do
       subject { Ability.new nil }
       let(:user_rate) { build :user_rate, user: user }
 

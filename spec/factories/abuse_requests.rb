@@ -4,6 +4,7 @@ FactoryGirl.define do
     comment
     approver nil
     kind 'offtopic'
+    state 'pending'
     value true
 
     factory :accepted_abuse_request do

@@ -28,7 +28,7 @@ every 1.day, at: '4:30 am' do
 end
 
 # пока есть бета-стейджинг, будут постоянно синхронизиться картинки
-every 13.minutes do
+every 2.minutes do
   command 'rsync -ahvu /home/apps/shikimori/production/shared/public/images /home/apps/shikimori/beta/shared/public/'
   command 'rsync -ahvu /home/apps/shikimori/beta/shared/public/images/user_image /home/apps/shikimori/production/shared/public/images/'
 end
@@ -36,6 +36,10 @@ end
 #every 1.day, at: '0:45 am' do
   #runner "Delayed::Job.enqueue_uniq TorrentsLatestJob.new"
 #end
+
+every 2.weeks, at: '2:30 am' do
+  runner "AnimeOnline::BrokenVkVideosCleaner.perform_async"
+end
 
 every 32.days, at: '4:13 am' do
   runner "WikipediaImporter.perform_async"

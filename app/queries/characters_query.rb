@@ -12,25 +12,25 @@ class CharactersQuery < PeopleQuery
       .select([:character_id, :anime_id, :manga_id])
       .to_a
 
-    anime_roles = roles.each_with_object({}) do |role, memo|
+    animes = roles.each_with_object({}) do |role, memo|
       (memo[role.anime_id] = memo[role.anime_id] || []) << people_by_id[role.character_id]
     end
 
-    manga_roles = roles.each_with_object({}) do |role, memo|
+    mangas = roles.each_with_object({}) do |role, memo|
       (memo[role.manga_id] = memo[role.manga_id] || []) << people_by_id[role.character_id]
     end
 
-    works = Anime.where(id: anime_roles.keys) + Manga.where(id: manga_roles.keys)
+    works = Anime.where(id: animes.keys) + Manga.where(id: mangas.keys)
 
     works.sort_by {|v| v.aired_on || v.released_on || DateTime.now - 99.years }.reverse.each do |entry|
-      (entry.class == Anime ? anime_roles : manga_roles)[entry.id].each do |person|
+      (entry.class == Anime ? animes : mangas)[entry.id].each do |person|
         break if person.last_works.size >= WorksLimit
         person.last_works << entry
       end
     end
 
     works.sort_by {|v| v.score }.reverse.each do |entry|
-      (entry.class == Anime ? anime_roles : manga_roles)[entry.id].each do |person|
+      (entry.class == Anime ? animes : mangas)[entry.id].each do |person|
         break if person.best_works.size >= WorksLimit
         person.best_works << entry
       end

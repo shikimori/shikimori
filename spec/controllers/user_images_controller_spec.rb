@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 describe UserImagesController do
-  describe :create do
+  describe 'create' do
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
 
     context 'guest' do
@@ -17,8 +15,8 @@ describe UserImagesController do
         post :create, model: group.class.name, id: group.id, image: image
       end
 
-      it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response).to have_http_status :success }
+      it { expect(response.content_type).to eq 'application/json' }
 
       it 'creates new image' do
         expect {
@@ -26,9 +24,9 @@ describe UserImagesController do
         }.to change(UserImage, :count).by 1
       end
 
-      it { JSON.parse(response.body).should have_key 'id' }
-      it { JSON.parse(response.body).should have_key 'preview' }
-      it { JSON.parse(response.body).should have_key 'url' }
+      it { expect(JSON.parse(response.body)).to have_key 'id' }
+      it { expect(JSON.parse(response.body)).to have_key 'preview' }
+      it { expect(JSON.parse(response.body)).to have_key 'url' }
     end
   end
 end

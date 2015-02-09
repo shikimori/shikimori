@@ -1,21 +1,44 @@
 - content_for :head do
-  = stylesheet_link_tag :forum
   = stylesheet_link_tag :test
 
 - content_for :tail do
+  = javascript_include_tag 'highcharts.v3.0.5.min'
   = javascript_include_tag :test
 
 header.head
   h1 Тестовая страница
   p.description Здесь просто тест всякого разного
 
-.subheadline @font-face: shikimori
-.subcontent.fonts-test
-  - 70.times do |i|
-    div class="icon-#{i}"
+.block
+  .subheadline.m10 spoiler
+  div == BbCodeFormatter.instance.format_comment "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
+  div == BbCodeFormatter.instance.format_comment "[spoiler=[b]Темы прошлых опросов[/b]]содержимое[/spoiler]"
 
-.subheadline traffic
-.subcontent.traffic-test data-stats="#{@traffic.to_json}"
+.subheadline.m10 content_by block
+.subcontent.cc.m0.animes-2
+  = render partial: 'animes/anime', collection: Anime.where(id: [457, 1]).decorate, locals: { cover_notice: :studio, content_by: :block }
+
+.subheadline.m10 tooltipped c8
+.subcontent.cc.m0.animes-8
+  = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
+
+.subheadline.m10 tooltipped c5
+.subcontent.cc.m0.animes-5
+  = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
+
+.subheadline.m10 tooltipped shortened
+.cc.m0.animes-5
+  = render partial: 'animes/anime', collection: Anime.where(id: [245, 11741, 4282, 10408, 16894]).decorate, locals: { cover_notice: :studio, content_by: :tooltip, shortened: true }
+
+.block
+  .subheadline @font-face: shikimori
+  .fonts-test
+    - 70.times do |i|
+      div class="icon-#{i}"
+
+.block
+  .subheadline График
+  .traffic-test data-stats="#{@traffic.to_json}"
 
 /*.half-chart*/
   /*.b-options-floated*/
@@ -34,85 +57,103 @@ header.head
   /*.subcontent.comments-test data-stats="#{@comments.to_json}"*/
 
 .images-test
-  .subheadline images wall
+  .subheadline Растягивающаяся галерея
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/8bxMha3liII.jpg"
         img src="/images/static/embed/8bxMha3liII.jpg"
-      a href="#"
+      a href="/images/static/embed/nrAv4Wyt6iM.jpg"
         img src="/images/static/embed/nrAv4Wyt6iM.jpg"
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/_bhm0PWtYi4.jpg"
         img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      a href="#"
+      a href="/images/static/embed/wjOz1uP-OLs.jpg"
         img src="/images/static/embed/wjOz1uP-OLs.jpg"
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/_bhm0PWtYi4.jpg"
         img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      a href="#"
+      a href="/images/static/embed/73367604.png"
         img src="/images/static/embed/73367604.png"
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/dnVCwMIwukY.jpg"
         img src="/images/static/embed/dnVCwMIwukY.jpg"
-      a href="#"
+      a href="/images/static/embed/LkKWpGsK6IQ.jpg"
         img src="/images/static/embed/LkKWpGsK6IQ.jpg"
-      a href="#"
+      a href="/images/static/embed/_bhm0PWtYi4.jpg"
         img src="/images/static/embed/_bhm0PWtYi4.jpg"
-      a href="#"
+      a href="/images/static/embed/wIXrZfprFFU.jpg"
         img src="/images/static/embed/wIXrZfprFFU.jpg"
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/ODAcucvZDY8.jpg"
         img src="/images/static/embed/ODAcucvZDY8.jpg"
 
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/1q3c_6mjJ24.jpg"
         img src="/images/static/embed/1q3c_6mjJ24.jpg"
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/KVR8N3M4Dps.jpg"
         img src="/images/static/embed/KVR8N3M4Dps.jpg"
-      a href="#"
+      a href="/images/static/embed/48y6FjfFRqk.jpg"
         img src="/images/static/embed/48y6FjfFRqk.jpg"
-      a href="#"
+      a href="/images/static/embed/4NJfrrCTa7o.jpg"
         img src="/images/static/embed/4NJfrrCTa7o.jpg"
-      a href="#"
+      a href="/images/static/embed/Z27atr-WSCA.jpg"
         img src="/images/static/embed/Z27atr-WSCA.jpg"
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/F3G8LVGAbXw.jpg"
         img src="/images/static/embed/F3G8LVGAbXw.jpg"
-      a href="#"
+      a href="/images/static/embed/ZHBE0Kavy-o.jpg"
         img src="/images/static/embed/ZHBE0Kavy-o.jpg"
-      a href="#"
+      a href="/images/static/embed/ukGtG8wbBJc.jpg"
         img src="/images/static/embed/ukGtG8wbBJc.jpg"
-      a href="#"
+      a href="/images/static/embed/hFT-H0phBKs.jpg"
         img src="/images/static/embed/hFT-H0phBKs.jpg"
-      a href="#"
+      a href="/images/static/embed/QGin9ZjfGWg.jpg"
         img src="/images/static/embed/QGin9ZjfGWg.jpg"
-      a href="#"
+      a href="/images/static/embed/gPVKwBuneIo.jpg"
         img src="/images/static/embed/gPVKwBuneIo.jpg"
-      a href="#"
+      a href="/images/static/embed/sC6BfT6LVj8.jpg"
         img src="/images/static/embed/sC6BfT6LVj8.jpg"
   .main
-    .wall
-      a href="#"
+    .shiki-wall.unprocessed
+      a href="/images/static/embed/8bxMha3liII.jpg"
         img src="/images/static/embed/8bxMha3liII.jpg"
-      a href="#"
+      a href="/images/static/embed/nrAv4Wyt6iM.jpg"
         img src="/images/static/embed/nrAv4Wyt6iM.jpg"
-      a href="#"
+      a href="/images/static/embed/LfJyA2VOKWA.jpg"
         img src="/images/static/embed/LfJyA2VOKWA.jpg"
-      a href="#"
+      a href="/images/static/embed/r6EV2fGZxDM.jpg"
         img src="/images/static/embed/r6EV2fGZxDM.jpg"
-      a href="#"
+      a href="/images/static/embed/HCaAsHPCWkg.jpg"
         img src="/images/static/embed/HCaAsHPCWkg.jpg"
-      a href="#"
+      a href="/images/static/embed/Qj7Fitg7QBE.jpg"
         img src="/images/static/embed/Qj7Fitg7QBE.jpg"
-      a href="#"
+      a href="/images/static/embed/UMgzOEhIOS0.jpg"
         img src="/images/static/embed/UMgzOEhIOS0.jpg"
-      a href="#"
+      a href="/images/static/embed/7H8OKNKMO88.jpg"
         img src="/images/static/embed/7H8OKNKMO88.jpg"
+
+.m20
+  .headline Большой заголовок
+  .subheadline.m20 Малый заголовок
+
+.subheadline Цвета заголовков
+.subheadline.gray .gray
+.subheadline.blue .blue
+.subheadline.powderblue .powderblue
+.subheadline.skyblue .skyblue
+.subheadline.purple .purple
+.subheadline.green .green
+.subheadline.yellow .yellow
+.subheadline.orange .orange
+.subheadline.red .red
+.subheadline.pink .pink
+.subheadline.magenta .magenta
+.subheadline.brown .brown

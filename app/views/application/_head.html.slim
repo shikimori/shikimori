@@ -1,88 +1,73 @@
-head
-  meta charset="utf-8"
-  meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
-  - if Rails.env.development?
-    meta content="noindex,nofollow" name="robots"
-  meta content="width=device-width, initial-scale=1.0" name="viewport"
+meta charset="utf-8"
+meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+- unless Rails.env.production?
+  meta content="noindex,nofollow" name="robots"
+meta content="width=device-width, initial-scale=1.0" name="viewport"
 
-  /link type="text/plain" rel="author" href="/humans.txt"
-  / http://iconhandbook.co.uk/reference/chart/favicons/
-  / convert favicons/favicon-16x16.png favicons/favicon-24x24.png favicons/favicon-32x32.png favicons/favicon-48x48.png favicons/favicon-64x64.png favicon.ico
-  /!-- Standard Favicon
-  link rel="icon" type="image/x-icon" href="/favicon.ico"
-  /!-- For iPad with high-resolution Retina display running iOS ≥ 7:
-  link rel="apple-touch-icon-precomposed" sizes="152x152" href="/favicons/favicon-152x152.png"
+/link type="text/plain" rel="author" href="/humans.txt"
+/ https://github.com/audreyr/favicon-cheat-sheet
+/ convert favicons/favicon-16x16.png favicons/favicon-24x24.png favicons/favicon-32x32.png favicons/favicon-48x48.png favicons/favicon-64x64.png favicon.ico
+/ convert favicons/favicon-16x16.png favicons/favicon-32x32.png favicon.ico
+/!-- Standard Favicon
+link rel="icon" type="image/x-icon" href="/favicon.ico"
+/!-- For iPad with high-resolution Retina display running iOS ≥ 7:
+link rel="apple-touch-icon-precomposed" sizes="152x152" href="/favicons/favicon-152x152.png"
 
-  /!-- For iPad with high-resolution Retina display running iOS ≤ 6:
-  link rel="apple-touch-icon-precomposed" sizes="144x144" href="/favicons/favicon-144x144.png"
+/!-- For iPad with high-resolution Retina display running iOS ≤ 6:
+link rel="apple-touch-icon-precomposed" sizes="144x144" href="/favicons/favicon-144x144.png"
 
-  /!-- For iPhone with high-resolution Retina display running iOS ≥ 7:
-  link rel="apple-touch-icon-precomposed" sizes="120x120" href="/favicons/favicon-120x120.png"
+/!-- For iPhone with high-resolution Retina display running iOS ≥ 7:
+link rel="apple-touch-icon-precomposed" sizes="120x120" href="/favicons/favicon-120x120.png"
 
-  /!-- For iPhone with high-resolution Retina display running iOS ≤ 6:
-  link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicons/favicon-114x114.png"
+/!-- For iPhone with high-resolution Retina display running iOS ≤ 6:
+link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicons/favicon-114x114.png"
 
-  /!-- For first- and second-generation iPad:
-  link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicons/favicon-72x72.png"
+/!-- For first- and second-generation iPad:
+link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicons/favicon-72x72.png"
 
-  /!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices:
-  link rel="apple-touch-icon-precomposed" href="/favicons/favicon-57x57.png"
+/!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices:
+link rel="apple-touch-icon-precomposed" href="/favicons/favicon-57x57.png"
 
-  /!-- For Windows 8:
-  meta name="msapplication-TileImage" content="/favicons/favicon-144x144.png"
-  meta name="msapplication-TileColor" content="#ffffff"
-  /!-- For Opera Coast:
-  link rel="icon" href="favicons/favicon-228x228.png" sizes="228x228"
+/!-- For Windows 8:
+meta name="msapplication-TileImage" content="/favicons/favicon-144x144.png"
+meta name="msapplication-TileColor" content="#ffffff"
+/!-- For Opera Coast:
+link rel="icon" href="favicons/favicon-228x228.png" sizes="228x228"
 
-  link rel="search" type="application/opensearchdescription+xml" title="shikimori.org" href="/search.xml"
-  link rel="yandex-tableau-widget" href="http://shikimori.org/yandex-tableau-widget-manifest.json"
+link rel="search" type="application/opensearchdescription+xml" title="#{Site::DOMAIN}" href="/search.xml"
+link rel="yandex-tableau-widget" href="http://#{Site::DOMAIN}/yandex-tableau-widget-manifest.json"
 
-  link rel="search" type="application/opensearchdescription+xml" title="shikimori.org" href="/search.xml"
-  link rel="yandex-tableau-widget" href="http://shikimori.org/yandex-tableau-widget-manifest.json"
+- if defined?(@next_page) && !@next_page.blank?
+  link rel="next" href="#{{@next_page}}"
 
-  - if defined?(@next_page) && !@next_page.blank?
-    link rel="next" href="#{{@next_page}}"
+- if defined?(@prev_page) && !@prev_page.blank?
+  link rel="prev" href="#{{@prev_page}}"
 
-  - if defined?(@prev_page) && !@prev_page.blank?
-    link rel="prev" href="#{{@prev_page}}"
+- if defined?(@canonical) && !@canonical.blank?
+  link rel="canonical" href="#{{@canonical}}"
 
-  - if defined?(@canonical) && !@canonical.blank?
-    link rel="canonical" href="#{{@canonical}}"
+- if defined?(@current_page) && @current_page > 1
+  - @meta_tags[:title] = (@meta_tags[:title].class == Array ? @meta_tags[:title] << "Страница #{@current_page}" : "Страница #{@current_page} / #{@meta_tags[:title]}")
 
-  - if defined?(@current_page) && @current_page > 1
-    - @meta_tags[:title] = (@meta_tags[:title].class == Array ? @meta_tags[:title] << "Страница #{@current_page}" : "Страница #{@current_page} / #{@meta_tags[:title]}")
+= display_meta_tags site: 'Шикимори', separator: '/', reverse: true
+= csrf_meta_tag
 
-  = display_meta_tags site: 'Шикимори', separator: '/', reverse: true
-  = csrf_meta_tag
-  = stylesheet_link_tag :common
-  = yield :head
-  = javascript_include_tag :core
+= stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
+- if anime_online?
+  = stylesheet_link_tag 'anime_online/application', media: 'all', data: { 'turbolinks-track' => ''}
+- elsif manga_online?
+  = stylesheet_link_tag 'manga_online/application', media: 'all', data: { 'turbolinks-track' => ''}
 
-  - if Rails.env.production?
-    javascript:
-      window.IS_LOGGED_IN = #{user_signed_in? ? 'true' : 'false'};
+= yield :head
 
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+= javascript_include_tag :core, data: { 'turbolinks-track' => ''}
+= javascript_include_tag :application, data: { 'turbolinks-track' => ''}
+- if anime_online?
+  = javascript_include_tag 'anime_online/application', data: { 'turbolinks-track' => ''}
+- elsif manga_online?
+  = javascript_include_tag 'manga_online/application', data: { 'turbolinks-track' => ''}
 
-      ga('create', 'UA-21173910-1', 'shikimori.org');
-      ga('send', 'pageview');
-
-      (function() {
-        var ym = document.createElement('script'); ym.type = 'text/javascript'; ym.async = true;
-        ym.src = 'http://mc.yandex.ru/metrika/watch.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ym, s);
-      })();
-
-      (function(w, c) {
-        (w[c] = w[c] || []).push(function() {
-          try {
-            w.yaCounter7915231 = new Ya.Metrika({id:7915231, enableAll: true});
-          } catch(e) { }
-        });
-      })(window, 'yandex_metrika_callbacks');
-  - else
-    javascript:
-      window.IS_LOGGED_IN = #{user_signed_in? ? 'true' : 'false'};
+javascript:
+  window.IS_LOGGED_IN = #{user_signed_in? ? 'true' : 'false'};
+- if Rails.env.production?
+  = render partial: "application/counters/#{domain_folder}"

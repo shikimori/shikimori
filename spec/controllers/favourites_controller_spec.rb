@@ -1,38 +1,35 @@
-require 'spec_helper'
-
 describe FavouritesController do
-  let(:user) { create :user }
-  before { sign_in user }
+  include_context :authenticated, :user
 
   [Anime, Manga, Character, Person].each do |klass|
-    describe klass do
+    context klass.to_s do
       let(:entry) { create klass.name.downcase.to_sym }
       let(:method_name) { "fav_#{klass.name.downcase.pluralize}" }
 
-      context 'POST create' do
+      describe '#create' do
         it 'success' do
           expect {
             post :create, linked_type: entry.class.name, linked_id: entry.id
           }.to change(Favourite, :count).by(1)
-          user.send(method_name).should include(entry)
+          expect(user.send(method_name)).to include(entry)
         end
 
         it 'supports kind parameter' do
           expect {
             post :create, linked_type: entry.class.name, linked_id: entry.id, kind: Favourite::Producer
           }.to change(Favourite, :count).by(1)
-          user.fav_producers.should include(entry)
+          expect(user.fav_producers).to include(entry)
         end if klass == Person
       end
 
-      context 'DELETE destroy' do
+      describe '#destroy' do
         let!(:favourite) { create :favourite, linked: entry, user: user }
 
         it 'success' do
           expect {
             delete :destroy, linked_type: entry.class.name, linked_id: entry.id
           }.to change(Favourite, :count).by -1
-          user.reload.send(method_name).should_not include(entry)
+          expect(user.reload.send(method_name)).not_to include(entry)
         end
       end
     end

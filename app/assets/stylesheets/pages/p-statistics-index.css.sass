@@ -1,0 +1,32 @@
+@import mixins/dash_separated
+@import mixins/link
+
+.p-statistics-index
+  .social
+    float: right
+    margin-top: 10px
+
+  .forum-nav
+    margin-bottom: 0
+    float: right
+
+    .sections
+      top: 0
+      right: 10px
+
+      a
+        +dash_separated
+        +link_color(#333)
+        cursor: pointer
+
+        &.selected
+          color: $link
+          text-decoration: underline
+
+  #by_genre_all
+    margin-bottom: 20px !important
+
+  #image_placeholder
+    img
+      margin: 0 auto
+      display: block

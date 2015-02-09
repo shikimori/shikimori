@@ -1,5 +1,6 @@
 @import compass/css3/opacity
 @import compass/css3/transition
+@import compass/css3/text-shadow
 @import mixins/responsive
 
 .b-to-top
@@ -18,7 +19,7 @@
 
   .slide
     +opacity(0)
-    +transition(opacity 0.3s)
+    +transition(opacity ease 0.25s)
     background: #f0f0f0
     cursor: pointer
     height: 100%
@@ -32,15 +33,16 @@
       +opacity(0.6)
 
     .arrow
-      color: black
+      +text-shadow(0px 0px 1px #fff)
+      color: #123
 
   &:active
     .slide
       +opacity(0.85)
 
   .arrow
-    +transition(color 0.3s)
-    color: white
+    +text-shadow(0px 0px 1px #123)
+    color: #fff
     font-family: tahoma
     font-size: 20px
     font-style: normal
@@ -50,4 +52,3 @@
     text-align: center
     top: 5px
     width: 60px
-

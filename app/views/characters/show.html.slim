@@ -1,30 +1,83 @@
-- content_for :head do
-  = stylesheet_link_tag :people
-- content_for :tail do
-  = javascript_include_tag :characters
+= render layout: 'page' do
+  .b-db_entry
+    .c-image
+      center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-header.head
-  h1 title="#{h1_text @entry}" itemprop="name"
-    = h1_text @entry, true
-  p.notice
-    = @entry.job_title
+      - if user_signed_in?
+        .icon-actions
+          span.new_comment title="Комментировать"
+          span.fav-add style="#{'display: none;' if @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное" data-kind=""
+          span.fav-remove style="#{'display: none;' unless @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного" data-kind=""
+          a.edit href="#{edit_character_url @resource}" title="Редактировать персонажа"
 
-.info
-  aside.character-left-menu.left-column
-    = render 'menu_left'
+    .c-about
+      .cc
+        - if @resource.credentials?
+          .c-info-left
+            .subheadline Имена
+            .b-entry-info
+              = info_line 'По-русски', @resource.russian
+              = info_line 'По-японски', @resource.japanese
+              = info_line 'Прочие', @resource.altname
 
-  section.right-column
-    .entry-content-slider.view-port.vertical-slider class="#{@entry.class.name.downcase}-content-slider" data-width="770"
-      .view-content style="margin-left: #{-1*770*@director.page_index}px"
-        - @director.pages.each_with_index do |page, index|
-          .slide
-            - if @director.page_index == index
-              section class="#{page_class page} selected"
-                = render @director.partial
-            - else
-              div class="#{page_class page}"
-                - if params[:page] == 'info' && page == 'comments'
-                  = render @director.partial.sub(params[:page], page)
-                - else
-                  br
-.clearfix
+              - if @resource.tags.present?# || @resource.cosplay.galleries.any?
+                .additional-links
+                  /- if @resource.cosplay.galleries.any?
+                    span.link Косплей
+                    /= "#{@resource.cosplay.galleries.size} #{Russian.p @resource.cosplay.galleries.size, 'галерея косплея', 'галереи косплея', 'галерей косплея'}"
+
+                  - if @resource.tags.present?
+                    span.linkeable data-href="#{art_character_url @resource}" Арт с имиджборд
+
+        - if @resource.seyu.present?
+          .c-info-right
+            .subheadline.m10
+              .linkeable href="#{seyu_character_url @resource}" Сэйю
+              /- if @resource.seyu.size > 3
+                | Сэйю <span>#{@resource.seyu.size}</span>
+              /- else
+                | Сэйю
+            .cc.m0
+              = render @resource.seyu.take(3)
+
+    .c-description
+      .subheadline.m5 Описание
+      .block
+        meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
+        meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
+
+        .m20
+          / .text должен быть вложен в блок с отступом, иначе при сокращении
+          / длинного текста между height shortener и текстом будет отступ
+          .text
+            - if @resource.show_mal_description?
+              .lang-trigger
+                | [<span>eng</span>]
+              .english
+                = @resource.description_mal
+            .russian itemprop="description"
+              = @resource.description_html
+
+        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
+
+  - if @resource.animes(7).any?
+    .subheadline.m10
+      .linkeable data-href="#{animes_character_url @resource}" Анимеграфия
+    .cc.m0
+      = render @resource.animes(7)
+
+  - if @resource.mangas(7).any?
+    .subheadline.m10
+      .linkeable data-href="#{mangas_character_url @resource}" Мангаграфия
+    .cc.m0
+      = render @resource.mangas(7)
+
+  - if user_signed_in? || @resource.preview_thread.comments_count > 0
+    .subheadline.m3
+      - if @resource.preview_thread.comments_count > 0
+        .linkeable data-href="#{comments_character_url @resource}" Обсуждение
+      - else
+        | Обсуждение
+    div
+      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+        = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

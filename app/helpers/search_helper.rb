@@ -9,6 +9,8 @@ module SearchHelper
         .gsub('(d)', '.')
         .gsub('(p)', '%')
         .sub(/[ \\]+$/, '')
+        .gsub('ё', 'е')
+        .gsub('Ё', 'Е')
         .strip
   end
 end

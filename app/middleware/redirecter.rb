@@ -9,7 +9,7 @@ class Redirecter
     request = Rack::Request.new env
 
     if !VALID_HOSTS.include? request.host
-      [301, {"Location" => request.url.sub(request.host, 'shikimori.org')}, []]
+      [301, {"Location" => request.url.sub(request.host, Site::DOMAIN)}, []]
 
     elsif request.host.starts_with? 'www.'
       [301, {"Location" => request.url.sub('//www.', '//')}, self]
@@ -20,7 +20,9 @@ class Redirecter
     elsif request.url.end_with?('&') && request.path != '/'
       [301, {"Location" => request.url.sub(/&$/, '')}, []]
 
-    elsif request.get? && request.url.include?('?') && !request.url.include?('reset_password') && !request.url.include?('/users/auth/') && !request.url.include?('/api/') && request.path !~ /\.(css|js)\Z/
+    elsif request.get? && request.url.include?('?') &&
+      !(request.url.include?('reset_password') || request.url.include?('/users/auth/') ||
+        request.url.include?('/api/') || request.url.include?('/new?') || request.path =~ /\.(css|js)\Z/)
       [301, {"Location" => request.url.sub(/\?.*/, '')}, []]
 
     else

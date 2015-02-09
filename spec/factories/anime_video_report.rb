@@ -4,20 +4,30 @@ FactoryGirl.define do
     state 'pending'
     user_agent 'ipad'
 
-    factory :uploaded_accepted_report do
-      state 'accepted'
+    trait :uploaded do
       kind 'uploaded'
     end
 
-    factory :uploaded_rejected_report do
+    trait :accepted do
+      state 'accepted'
+    end
+
+    trait :rejected do
       state 'rejected'
-      kind 'uploaded'
     end
 
     after :build do |v|
       v.anime_video = FactoryGirl.build_stubbed(:anime_video) unless v.anime_video_id
       v.user = FactoryGirl.build_stubbed(:user) unless v.user_id
       v.approver = FactoryGirl.build_stubbed(:user) unless v.user_id && v.pending?
+    end
+
+    trait :with_video do
+      anime_video
+    end
+
+    trait :with_user do
+      user
     end
   end
 end

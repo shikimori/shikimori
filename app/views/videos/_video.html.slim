@@ -1,19 +1,18 @@
-.image-container.video class="#{video.hosting}"
-  - if defined?(user_signed_in?) && user_signed_in? && defined?(with_deletion)
-    span.image-delete.hidden title="Удалить видео"
-    span.image-delete-confirm.hidden title="Подтвердить удаление" data-remote="true" action="#{url_for video}" data-method="delete" data-type="json"
-    span.image-delete-cancel.hidden title="Отменить удаление"
+a.c-video.b-video.unprocessed[
+    class="#{video.hosting} #{"entry-#{video_counter+1}" if defined? video_counter} #{:fixed unless defined? video_counter}"
+    href="#{video.url}"
+    data-href="#{video.player_url}"
+  ]
+  - if defined? edition
+    .mobile-edit
+    .controls
+      .delete title="Удалить видео"
+      .confirm title="Подтвердить удаление" data-remote="true" data-action="#{video_url video}" data-method="delete" data-type="json"
+      .cancel title="Отменить удаление"
 
-  - if defined?(expanded)
-    p
+  img src="#{video.image_url}" data-id="#{video.id}"
+  span.marker
+    - if defined? video_counter
       = video.kind
-      span = video.name
-
-  a href="#{video.url}" data-href="#{video.player_url}"
-    img src="#{video.image_url}" data-id="#{video.id}"
-    - if defined?(expanded) || defined?(marker) # marker изпользуется в youtube_to_html
-      p.video-marker
-        = video.hosting
     - else
-      p.video-marker
-        = video.kind || video.hosting
+      = video.hosting

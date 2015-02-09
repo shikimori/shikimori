@@ -1,0 +1,31 @@
+header.head.ajaxable
+  /h1 itemprop="name"
+  h1
+    = @page_title
+  /.notice itemprop="description"
+  .notice
+    == @title_notice
+
+= render 'pagination'
+
+.menu-toggler
+  .toggler
+
+.menu-slide-outer
+  .menu-slide-inner
+    section.l-content
+      - if @entries.any?
+        = render 'entries'
+      - else
+        p.b-nothing_here Ничего не найдено.
+
+
+    aside.l-menu
+      - if user_signed_in? || turbolinks_request?
+          = render 'menu', social: true, klass: klass
+      - else
+          .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
+            .ajax-loading title="Загрузка..."
+
+- if user_signed_in? && !current_user.preferences.postload_in_catalog
+  = render 'pagination'

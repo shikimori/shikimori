@@ -1,23 +1,21 @@
-require 'spec_helper'
-
 describe ContestMatchesController do
   let(:match) { create :contest_match, state: 'started' }
 
-  describe :show do
+  describe '#show' do
     before { get :show, contest_id: match.round.contest_id, id: match.id }
-    it { should respond_with :success }
+    it { expect(response).to have_http_status :success }
   end
 
-  describe :vote do
+  describe '#vote' do
     let(:user) { create :user }
     before { sign_in user }
 
     context 'new vote' do
       before { post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'left' }
 
-      it { should respond_with :success }
-      it { should respond_with_content_type :json }
-      it { assigns(:match).votes.should have(1).item }
+      it { expect(response).to have_http_status :success }
+      it { expect(response.content_type).to eq 'application/json' }
+      it { expect(assigns(:match).votes.size).to eq(1) }
     end
 
     context 'has user_id vote' do
@@ -27,11 +25,11 @@ describe ContestMatchesController do
       end
       let(:json) { JSON.parse response.body }
 
-      it { should respond_with :success }
-      it { should respond_with_content_type :json }
-      it { assigns(:match).votes.should have(1).item }
-      it { json['variant'].should eq 'right' }
-      it { json['vote_id'].should eq match.id }
+      it { expect(response).to have_http_status :success }
+      it { expect(response.content_type).to eq 'application/json' }
+      it { expect(assigns(:match).votes.size).to eq(1) }
+      it { expect(json['variant']).to eq 'right' }
+      it { expect(json['vote_id']).to eq match.id }
     end
 
     context 'has ip vote' do
@@ -40,9 +38,9 @@ describe ContestMatchesController do
         post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'right'
       end
 
-      it { should respond_with 422 }
-      it { should respond_with_content_type :json }
-      it { assigns(:match).votes.should have(1).item }
+      it { expect(response).to have_http_status 422 }
+      it { expect(response.content_type).to eq 'application/json' }
+      it { expect(assigns(:match).votes.size).to eq(1) }
     end
   end
 end

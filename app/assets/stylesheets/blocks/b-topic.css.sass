@@ -1,0 +1,116 @@
+@import compass/css3/transition
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import mixins/block
+@import mixins/forum_entry
+@import mixins/plashka
+@import mixins/responsive
+@import mixins/tag
+
+.b-topic
+  +block
+  +forum_entry
+  border-bottom: none
+  border-top: 1px solid #ddd
+
+  &:first-child
+    border-top: none
+    padding-top: 0 !important
+
+  &.preview
+    margin-bottom: 35px
+
+    &:last-child
+      margin-bottom: 0
+
+    &>.b-comments
+      margin-left: 24px
+
+      // в превью топика первый комментарий отобразим с дефолтным отступом и бордером
+      .b-comment:first-child
+        padding-top: 5px
+        border-top-width: 1px
+
+    // блок шики-эдитора
+    &>.editor-container
+      display: none
+
+      .hide
+        display: inline-block
+
+    &>.inner
+      &>.body, &>footer
+        margin-left: 58px
+        +iphone
+          margin-left: 42px
+
+  // заигноренный топик
+  &.b-comment-info
+    padding: 10px 0 10px 0 !important
+
+  &>.editor-container
+    margin-top: $block_offset
+
+  &>.inner
+    min-height: 80px
+
+    //&.shortened
+      height: 165px
+      overflow: hidden
+
+    &>header
+      .name-date a
+        font-size: 15px
+
+    &>footer
+      +ellipsis
+      color: #555
+      font-size: 11px
+      line-height: $line_height
+      margin-top: 3px
+
+      p
+        display: inline-block
+
+      .b-user16
+        display: inline-block
+        font-size: 13px
+        padding-right: 10px
+
+      .date
+        color: $date
+        float: right
+        margin-left: 10px
+
+      .tags
+        float: right
+
+      .tag
+        +tag
+
+        a
+          +transition('color,background-color', 0.2s)
+          color: inherit
+          text-decoration: inherit
+
+          &:hover
+            color: inherit
+            text-decoration: inherit
+
+          &:active
+            color: inherit !important
+            text-decoration: inherit
+
+  &>.b-comments
+    margin-top: 5px
+
+    // комментарии на странице комментариев к аниме/манге/персонажу (тут между заголовком и началом комментариев ничего нет)
+    &:first-child
+      //margin-top: 0
+
+      .comments-shower, .comments-hider
+        margin-top: 0
+
+    .b-comment:first-child
+      border-top-width: 1px
+      padding-top: 5px

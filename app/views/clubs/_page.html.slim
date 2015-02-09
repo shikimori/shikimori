@@ -1,0 +1,23 @@
+.menu-toggler
+  .toggler
+
+header.head
+  h1
+    - if params[:action] != 'show' && @resource && @resource.persisted?
+      a.back href="#{club_url @resource}" title="Назад на страницу клуба"
+    - if @resource.name.present?
+      = @resource.name
+    - else
+      | Новый клуб
+  - if can?(:edit, @resource) && @resource.persisted?
+    a.edit href="#{edit_club_url @resource}" title="Изменить клуб" изменить
+
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+.menu-slide-outer
+  .menu-slide-inner
+    .l-content
+      = yield
+
+    aside.l-menu
+      = render 'menu', resource: @resource

@@ -8,7 +8,6 @@ class StatisticsController < ShikimoriController
     set_meta_tags description: @page_description
     set_meta_tags keywords: 'история аниме, статистка аниме сериалов, индустрия аниме, рейтинги аниме, студии аниме, жанры аниме'
 
-
     @kinds = ['TV', 'Movie', 'OVA', 'ONA', 'Special']
     @rating_kinds = ['TV', 'Movie', 'OVA']
 
@@ -17,12 +16,7 @@ class StatisticsController < ShikimoriController
       [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
     end
 
-    @topic = TopicPresenter.new(
-      object: Topic.find(81906),
-      template: view_context,
-      limit: 5,
-      with_user: true
-    )
+    @topic = Topic.find(81906).decorate
   end
 
 private

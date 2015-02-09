@@ -1,31 +1,18 @@
-- content_for :head do
-  = stylesheet_link_tag :contests
-- content_for :tail do
-  = javascript_include_tag :contests
+= render layout: 'page' do
+  img#social_image src="/images/static/contest.jpg" alt="Аниме турнир" title="Аниме турнир"
 
-header.head.misc
-  h1
-    = @page_title.last
-  - if @contest.can_be_edited_by? current_user
-    = link_to 'изменить', edit_contest_url(@contest), title: 'Изменить голосование', class: 'misc'
-  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+  div
+    - if @resource.showing_results?
+      = render 'results', contest: @resource
+    - elsif @resource.proposing?
+      = render 'proposing', contest: @resource
+    - else
+      = render 'round', contest: @resource
 
-img#social_image src="/images/static/contest.jpg" alt="Аниме турнир" title="Аниме турнир"
-
-= render partial: 'contests/menu', locals: { contest: @contest }
-
-section.contest class="#{@contest.strategy_type}"
-  - if @contest.showing_results?
-    = render 'contests/results', contest: @contest
-  - elsif @contest.proposing?
-    = render 'contests/proposing', contest: @contest
-  - else
-    = render 'contests/round', contest: @contest
-
-  - if @contest.thread.present?
-    .ajax
-      .subheadline Обсуждение
-      .forum-container.topic-block.faye-top-add class="topic-#{@contest.thread.id}"
-        .comments.zero-margin.zero-top-border
-          = render partial: 'comments/comments', locals: { object: @contest.thread, comments: @contest.displayed_comments, postloader: 15 }
-.clearfix
+  - if user_signed_in? || @resource.thread.comments_count > 0
+    - if @resource.thread.comments_count > 0
+      .subheadline.m3
+        .linkeable data-href="#{comments_contest_url @resource}" Обсуждение
+    div
+      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+        = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

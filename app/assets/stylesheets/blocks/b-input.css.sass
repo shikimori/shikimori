@@ -1,8 +1,15 @@
-@import globals
+@import globals/variables
 @import mixins/input
 
 .b-input
-  margin-bottom: 10px
+  +gte_ipad
+    margin-bottom: 10px
+
+  +iphone
+    margin-bottom: 15px
+
+  &:last-child
+    margin-bottom: 0
 
   input, textarea
     +input
@@ -11,22 +18,27 @@
     margin-right: 6px
     width: auto !important
 
+  input[disabled]
+    background: #EEE
+    color: #666
+
   textarea
     height: 98px
+    -webkit-appearance: none
 
   label
     display: block
-    line-height: $line-height
+    line-height: $line_height
 
   abbr
     display: none
 
   .error
     display: block
-    color: red
+    color: $red
 
   .hint
     color: #9da2a8
     display: block
     font-size: 11px
-    line-height: $line-height
+    line-height: $line_height

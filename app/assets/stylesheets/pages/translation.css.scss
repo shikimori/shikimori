@@ -1,0 +1,81 @@
+@import "globals";
+@import "mixins/hover_underlined";
+@import "mixins/icons";
+@import "mixins/date";
+
+.translation_planned {
+  .examples {
+    margin-bottom: 20px;
+    p {
+      margin-bottom: 5px;
+    }
+    img {
+      width: 368px;
+    }
+  }
+}
+.translation {
+  .goal {
+    margin-bottom: 15px;
+    margin-right: 15px;
+    float: left;
+    width: 345px;
+    overflow: hidden;
+    h3 {
+      margin-bottom: 5px;
+    }
+    a.TV, a.Movie, a.ONA {
+      @include hover_underlined;
+      @include link-color(#333);
+    }
+    a.OVA {
+      @include hover_underlined;
+      @include link-color(#666);
+    }
+    .translated {
+      text-decoration: line-through;
+      color: #777777;
+    }
+    .translated  a {
+      color: inherit!important;
+    }
+    .locked-by {
+      color: #176093;
+      font-weight: bold;
+    }
+    .unlockable {
+      cursor: pointer;
+    }
+  }
+  .translate-lock {
+    @include icon_button('\e838');
+    cursor: pointer;
+    margin-left: 0!important;
+
+    &:before {
+      margin-left: 0;
+    }
+  }
+}
+.user_translations {
+  .animes {
+    .date {
+      @include date;
+      padding-right: 3px;
+    }
+    a {
+      @include normal-link;
+      color: #333;
+    }
+    .translated {
+      text-decoration: line-through;
+      color: #777777;
+    }
+    .translated  a {
+      color: inherit!important;
+    }
+  }
+  h2 {
+    margin-bottom: 5px;
+  }
+}

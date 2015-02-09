@@ -1,5 +1,3 @@
-#= require pages/forum/appear
-#= require pages/forum/faye
 #= require_tree ./social
 
 $ ->
@@ -19,7 +17,7 @@ $ ->
   _.extend total.series[1],
     dataLabels:
       formatter: ->
-        (if @y > 20 then "<b>" + @point.name + "</b>:" + "<b>" + @y + "</b>" else null)
+        (if @y > 20 then "<b>#{@point.name}</b>:<b>#{@y}</b>" else null)
     innerSize: "70%"
 
   _.each total.series[0].data, (v, k) ->
@@ -32,9 +30,9 @@ $ ->
 
   chart "pie", "total", total, "normal", "Количество", (->
     if @key.match(/^\d/)
-      "<b>" + @y + "</b> аниме с оценкой <b>" + @key + "</b>"
+      "<b>#{@y}</b> аниме с оценкой <b>#{@key}</b>"
     else
-      "<b>" + @y + "</b> аниме типа <b>" + @key + "</b>"
+      "<b>#{@y}</b> аниме типа <b>#{@key}</b>"
   ),
     xAxis: null
     plotOptions:
@@ -62,8 +60,6 @@ $ ->
 
       title:
         enabled: false
-
-
 
 # переключение типа диаграммы рейтинга
 $(document).on "click", ".by_rating .control", ->

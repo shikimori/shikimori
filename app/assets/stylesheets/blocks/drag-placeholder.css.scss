@@ -2,23 +2,24 @@
 
 .drag-placeholder {
   @include border-radius(1px);
-  @include transition('opacity,border-color,color', 0.5s);
   @include box-sizing(border-box);
+  @include transition('opacity,border-color,color', 0.5s);
   background: white;
-  border: 1px dashed rgba(0, 0, 0, 0.6);
+  border: 2px dashed rgba(0, 0, 0, 0.6);
   font-family: Verdana, Arial;
   font-size: 25px;
+  min-height: 89px; // минимальная высота textarea комментария //140px;
   position: absolute;
   text-align: center;
   z-index: 10;
 
   &.disallowed {
     border-color: rgba(255, 0, 0, 0.6);
-    color: red;
+    color: $red;
   }
   &.hovered.allowed {
     border-color: rgba(0, 255, 0, 0.6);
-    color: green;
+    color: $green;
   }
 }
 .drag-here-placeholder {
@@ -26,7 +27,7 @@
   background-color: #F9F9F9;
   border: 1px dashed #CCC;
   min-height: 75px;
-  padding: 0 5px;
+  padding: 0 10px;
 
   p {
     color: #555;
@@ -36,11 +37,15 @@
     margin-bottom: 11px;
   }
   .thank-you {
-    clear: both;
+    color: #008000;
     display: none;
-    margin-top: -10px;
+    margin-bottom: 5px;
   }
-  .upload-progress.active {
+  .b-upload_progress.active {
     margin-bottom: 3px;
+  }
+  input[type=file] {
+    border: none;
+    margin: 10px 0 5px -5px;
   }
 }

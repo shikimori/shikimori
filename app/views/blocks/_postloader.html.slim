@@ -1,6 +1,16 @@
-.b-postloader.collapsed data-remote="#{url}" data-filter="#{defined?(filter) ? filter : ''}" data-appear-top-offset="900"
+.b-postloader.collapsed[
+    data-remote="#{url}"
+    data-filter="#{defined?(filter) ? filter : ''}"
+    data-append-to-top="#{true if defined? append_to_top}"
+    data-appear-top-offset="900"
+  ]
   - if defined?(prev_url) && prev_url.present?
     a.prev href="#{prev_url.sub /.json$/, ''}" rel="prev" ← Назад
-  | ...
+
   - if defined?(next_url) && next_url.present?
     a.next href="#{url.sub /.json$/, ''}" rel="next" Вперед →
+
+  - if defined? block_text
+    = block_text
+  - else
+    | ...

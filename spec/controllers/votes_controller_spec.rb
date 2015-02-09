@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe VotesController do
   let (:user) { FactoryGirl.create :user }
   let (:entry) { FactoryGirl.create :review }
@@ -8,7 +6,7 @@ describe VotesController do
   describe "create" do
     it "forbidden" do
       post :create, defaults
-      response.should be_redirect
+      expect(response).to be_redirect
     end
 
     describe 'sign_in user' do
@@ -16,7 +14,7 @@ describe VotesController do
 
       it 'success' do
         post :create, defaults
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'only once' do
@@ -25,15 +23,15 @@ describe VotesController do
           post :create, defaults.merge(voting: 'no')
         }.to change(Vote, :count).by(1)
 
-        user.votes.first.voting.should be_false
+        expect(user.votes.first.voting).to be_falsy
 
-        response.should be_success
+        expect(response).to be_success
       end
 
       it 'forbidden for own' do
         entry2 =  FactoryGirl.create :review, user: user
         post :create, id: entry2.to_param, type: entry2.class.name, voting: 'yes'
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
   end

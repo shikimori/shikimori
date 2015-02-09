@@ -1,0 +1,78 @@
+= render layout: 'page' do
+  - @resource.files.groupped_torrents.each do |key, group|
+    .block
+      .b-options-floated.collapse
+        span.action свернуть (#{group.size})
+        /a.rss href="#{rss_anime_url @resource, type: key}" title="RSS"
+      h2.subheadline.m10 = t "Torrents.#{key}"
+      .collapsed.tiny ...
+      table.b-table
+        - group.each do |entry|
+          tr
+            td.name
+              a href="#{{entry[:guid] || entry[:link]}}"
+                == entry[:title]
+
+  .cc
+    .c-toshokan
+      .subheadline Поиск на тошокане
+      - @resource.files.toshokan_search.each do |phrase|
+        a href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
+          = phrase
+
+    .c-rutracker
+      .subheadline Поиск на рутрекере
+      .content
+        - @resource.files.rutracker_search.compact.each do |phrase|
+          a href="http://rutracker.org/forum/tracker.php?nm=#{URI.encode phrase}&f[]=33&f[]=281&f[]=1386&f[]=1387&f[]=1388&f[]=282&f[]=599&f[]=1105&f[]=1389&f[]=404&f[]=1390&f[]=1642&f[]=1391&f[]=893&f[]=1478"
+            = phrase
+
+  - if @resource.files.subtitles.any?
+    .subtitles
+      - @resource.files.subtitles.each do |k,subs|
+        .b-options-floated.collapse
+          span.action свернуть (#{subs[:feed].size})
+          /- if subs[:link].nil?
+            a.rss href="#{subtitles_anime_url @resource, :group => Digest::MD5.hexdigest(subs[:title])}" title="RSS"
+        h2.subheadline.m10 Субтитры #{subs[:title]}
+        .collapsed.tiny ...
+        table.b-table
+          - if subs[:link].present?
+            tr
+              th.num Тип
+              th.name Название
+            tr.border
+              th colspan="4"
+          - subs[:feed].reverse.each do |sub|
+            tr
+              - if subs[:link].present?
+                td.num
+                  = sub[:type]
+              td class="name #{"full-" if subs[:link].nil?}subtitles"
+                a href="#{{subs[:link].nil? ? sub[:link] : subs[:link]}}" rel="nofollow"
+                  == sub[:title].encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '').blank? ? 'ссылка' : sub[:title].encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '')
+
+  - if user_signed_in? && current_user.admin?
+    .subheadline Новый торрент
+    .subcontent
+      = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
+        .m5
+          p Link
+          = text_field_tag 'torrent[link]', params[:torrent] ? params[:torrent]['link'] : '', class: 'common', size: 100
+        .m5
+          p PubDate
+          = text_field_tag 'torrent[pubDate]', params[:torrent] ? params[:torrent]['pubDate'] : '', class: 'common', size: 40
+        .m15
+          p Title
+          = text_field_tag 'torrent[title]', params[:torrent] ? params[:torrent]['title'] : '', class: 'common', size: 100
+        .m5
+          = submit_tag 'Добавить', class: 'button'
+
+    .subheadline Распарсить страницу
+    .subcontent
+      = form_tag torrent_anime_path(@resource.object), method: :post do |f|
+        .m15
+          p URL
+          = text_field_tag 'torrent[url]', params[:torrent] ? params[:torrent]['url'] : '', class: 'common', size: 100
+        .m5
+          = submit_tag 'Выполнить', class: 'button'

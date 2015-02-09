@@ -1,102 +1,100 @@
-require 'spec_helper'
-
-describe MangaMalParser do
-  before { SiteParserWithCache.stub(:load_cache).and_return list: {} }
-  before { parser.stub :save_cache }
+describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
+  before { allow(parser).to receive :save_cache }
 
   let(:parser) { MangaMalParser.new }
   let(:manga_id) { 4 }
 
   it 'have correct type' do
-    parser.instance_eval { type }.should == 'manga'
+    expect(parser.instance_eval { type }).to eq('manga')
   end
 
   it 'fetches list page' do
-    parser.fetch_list_page(0, :all_catalog_url).should have(BaseMalParser::EntriesPerPage).items
-    parser.list.should have(BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches updated list page' do
-    parser.fetch_list_page(0, :updated_catalog_url).should have(BaseMalParser::EntriesPerPage).items
-    parser.list.should have(BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches 3 list pages' do
-    parser.fetch_list_pages(limit: 3).should have(3 * BaseMalParser::EntriesPerPage).items
-    parser.list.should have(3 * BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage)
   end
 
   it 'stops when got 0 entries' do
     urls = [parser.instance_eval { all_catalog_url(0) }, parser.instance_eval { all_catalog_url(99999) }, parser.instance_eval { all_catalog_url(2) }]
-    parser.stub(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
+    allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
-    parser.fetch_list_pages(limit: 3).should have(1 * BaseMalParser::EntriesPerPage).items
-    parser.list.should have(1 * BaseMalParser::EntriesPerPage).items
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches manga data' do
     data = parser.fetch_entry_data(manga_id)
-    data[:name].should == 'Yokohama Kaidashi Kikou'
-    data.should include(:description_mal)
-    data[:related].should_not be_empty
-    data.should include(:english)
-    data.should include(:synonyms)
-    data.should include(:japanese)
-    data.should include(:kind)
+    expect(data[:name]).to eq('Yokohama Kaidashi Kikou')
+    expect(data).to include(:description_mal)
+    expect(data[:related]).not_to be_empty
+    expect(data).to include(:english)
+    expect(data).to include(:synonyms)
+    expect(data).to include(:japanese)
+    expect(data).to include(:kind)
 
-    data[:volumes].should be(14)
-    data[:chapters].should be(142)
+    expect(data[:volumes]).to be(14)
+    expect(data[:chapters]).to be(142)
 
-    data.should include(:released_on)
-    data.should include(:aired_on)
+    expect(data).to include(:released_on)
+    expect(data).to include(:aired_on)
 
-    data[:genres].should_not be_empty
-    data[:authors].should_not be_empty
-    data[:publishers].should_not be_empty
+    expect(data[:genres]).not_to be_empty
+    expect(data[:authors]).not_to be_empty
+    expect(data[:publishers]).not_to be_empty
 
     #data.should include(:rating)
-    data.should include(:score)
-    data.should include(:ranked)
-    data.should include(:popularity)
-    data.should include(:members)
-    data.should include(:favorites)
+    expect(data).to include(:score)
+    expect(data).to include(:ranked)
+    expect(data).to include(:popularity)
+    expect(data).to include(:members)
+    expect(data).to include(:favorites)
 
-    data[:img].should eq 'http://cdn.myanimelist.net/images/manga/1/4743.jpg'
+    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/manga/1/4743.jpg'
   end
 
   it 'fetches manga characters' do
     characters, people = parser.fetch_entry_characters(manga_id)
-    characters.should have_at_least(11).items
-    people.should be_empty
+    expect(characters.size).to be >= 11
+    expect(people).to be_empty
   end
 
   it 'fetches manga people' do
     data = parser.fetch_entry(manga_id)
-    data[:entry][:authors].should_not be_empty
-    data[:people].should have(1).item
+    expect(data[:entry][:authors]).not_to be_empty
+    expect(data[:people].size).to eq(1)
   end
 
   it 'fetches manga publishers' do
     entry = parser.fetch_entry_data(manga_id)
-    entry[:publishers].should_not be_empty
+    expect(entry[:publishers]).not_to be_empty
   end
 
   it 'fetches manga recommendations' do
     recs = parser.fetch_entry_recommendations(manga_id)
-    recs.should have_at_least(17).items
+    expect(recs.size).to be >= 17
   end
 
   it 'fetches manga scores' do
     scores = parser.fetch_entry_scores(manga_id)
-    scores.should have(10).items
+    expect(scores.size).to eq(10)
   end
 
   it 'fetches manga images' do
     images = parser.fetch_entry_images(manga_id)
-    images.should have_at_least(5).items
+    expect(images.size).to be >= 5
   end
 
   it 'fetches the whole entry' do
-    parser.fetch_entry(manga_id).should have(6).items
+    expect(parser.fetch_entry(manga_id).size).to eq(6)
   end
 end

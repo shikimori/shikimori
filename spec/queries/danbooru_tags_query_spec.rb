@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe DanbooruTagsQuery do
   describe 'complete' do
     before do
@@ -9,8 +7,8 @@ describe DanbooruTagsQuery do
       create :danbooru_tag, name: 'test'
     end
 
-    it { DanbooruTagsQuery.new(search: 'test').complete.should have(2).items }
-    it { DanbooruTagsQuery.new(search: 'z').complete.should have(1).item }
-    it { DanbooruTagsQuery.new(search: 'fofo').complete.should have(0).items }
+    it { expect(DanbooruTagsQuery.new(search: 'test').complete.size).to eq(2) }
+    it { expect(DanbooruTagsQuery.new(search: 'z').complete.size).to eq(1) }
+    it { expect(DanbooruTagsQuery.new(search: 'fofo').complete.size).to eq(0) }
   end
 end

@@ -9,12 +9,16 @@ set :scm, :git
 
 set :keep_releases, 5
 set :format, :pretty
-# set :log_level, :debug
+set :log_level, :info
 # set :pty, true # https://github.com/capistrano/capistrano#a-word-about-ptys
+
+set :slack_team, fetch(:application)
+set :slack_token, 'Ir0HqbTOBnhbf8hXGosJBqh6'
+set :slack_channel, ->{ '#general' }
+set :slack_username, ->{ ENV['USER'] }
 
 set :user, 'devops'
 set :unicorn_user, 'devops'
-
 
 set :linked_files, %w{
   config/database.yml
@@ -65,10 +69,24 @@ namespace :deploy do
   end
 end
 
+namespace :cache do
+  task :clear do
+    on roles(:app), in: :sequence, wait: 5 do
+      bundle_exec "rake tmp:cache:clear"
+    end
+  end
+end
+
 namespace :test do
   task :ruby do
     on roles(:app), in: :sequence, wait: 5 do
       shell_exec "ruby -v"
+    end
+  end
+
+  task :whoami do
+    on roles(:app), in: :sequence, wait: 5 do
+      shell_exec "whoami"
     end
   end
 
@@ -175,11 +193,13 @@ after 'deploy:updated', 'sidekiq:stop'
 after 'deploy:reverted', 'sidekiq:stop'
 after 'deploy:published', 'sidekiq:start'
 
-after 'deploy:updated', 'clockwork:stop'
-after 'deploy:reverted', 'clockwork:stop'
-after 'deploy:published', 'clockwork:start'
+if fetch(:stage) == :production
+  after 'deploy:updated', 'clockwork:stop'
+  after 'deploy:reverted', 'clockwork:stop'
+  after 'deploy:published', 'clockwork:start'
+
+  after 'deploy:published', 'whenever:schedule'
+end
 
 after 'deploy:published', 'unicorn:restart'
-after 'deploy:published', 'whenever:schedule'
-
 after 'deploy:finishing', 'deploy:cleanup'

@@ -1,0 +1,7 @@
+= render layout: 'page' do
+  = render 'navigation'
+  .subheadline = @page_title.last
+  .block
+    = render partial: 'dialog', collection: @collection
+    - if @add_postloader
+      = render 'blocks/postloader', filter: 'b-dialog', url: index_profile_dialogs_url(@resource, page: @page+1)

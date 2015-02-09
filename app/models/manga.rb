@@ -1,5 +1,5 @@
 # TODO: переделать kind в enumerize (https://github.com/brainspec/enumerize)
-class Manga < ActiveRecord::Base
+class Manga < DbEntry
   include AniManga
   EXCLUDED_ONGOINGS = [-1]
   DURATION = 8
@@ -61,18 +61,8 @@ class Manga < ActiveRecord::Base
     through: :cosplay_gallery_links,
     class_name: CosplaySession.name
 
-  has_one :thread, -> { where linked_type: Manga.name },
-    class_name: AniMangaComment.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
-
   has_many :reviews, -> { where target_type: Manga.name },
     foreign_key: :target_id,
-    dependent: :destroy
-
-  has_many :images, -> { where owner_type: Manga.name },
-    class_name: AttachedImage.name,
-    foreign_key: :owner_id,
     dependent: :destroy
 
   has_many :recommendation_ignores, -> { where target_type: Anime.name },
@@ -85,18 +75,14 @@ class Manga < ActiveRecord::Base
     styles: {
       original: ['225x350>', :jpg],
       preview: ['160x240>', :jpg],
-      x96: ['64x96#', :jpg],
-      x64: ['43x64#', :jpg]
+      x96: ['96x150#', :jpg],
+      x48: ['48x75#', :jpg]
     },
     url: "/images/manga/:style/:id.:extension",
     path: ":rails_root/public/images/manga/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
-
-  # Hooks
-  after_create :create_thread
-  after_save :sync_thread
 
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
   scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
@@ -123,23 +109,9 @@ class Manga < ActiveRecord::Base
   end
 
   # манга ли это?
-  def manga?
-    kind == 'Manga' || kind == 'Manhwa' || kind == 'Manhua'
-  end
-
-  # создание AniMangaComment для элемента сразу после создания
-  def create_thread
-    AniMangaComment.create! linked: self, generated: true, title: name
-  end
-
-  # при сохранении аниме обновление его CommentEntry
-  def sync_thread
-    if changes["name"]
-      thread.class.record_timestamps = false
-      thread.save
-      thread.class.record_timestamps = true
-    end
-  end
+  #def manga?
+    #kind == 'Manga' || kind == 'Manhwa' || kind == 'Manhua'
+  #end
 
   def duration
     Manga::DURATION

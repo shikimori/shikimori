@@ -1,0 +1,30 @@
+@import compass/typography/text/ellipsis
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/link
+@import mixins/responsive
+
+.p-contests-edit
+  .variants
+    margin-bottom: 5px
+    +clear_left
+
+    .variant
+      +ellipsis
+      +gte_ipad
+        +column(3)
+
+      +iphone_landscape
+        +column(2)
+
+      +iphone_portrait
+        +column(1)
+
+  .contest_actions
+    +block_m
+
+    a
+      +link
+      display: block
+      line-height: $line_height

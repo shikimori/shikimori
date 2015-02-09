@@ -1,46 +1,46 @@
-aside.menu-right
-  .menu-block.status
+.b-contests-menu
+  - if user_signed_in?
+    .block.actions.r-iphone
+      .subheadline Действия
+      ul.block-list
+        - if can?(:edit, resource) && resource.persisted?
+          li.edit-entry
+            a href="#{edit_club_url resource}" Изменить опрос
+
+  .block
     .subheadline.m5 Статус турнира
-    .subcontent
-      p = contest.status
-      - if contest.finished? && !contest.showing_results?
-        a.results href="#{contest_url contest}" title="Результаты опроса" К результатам →
-      /*.menu-block*/
-        .subheadline.m5 Опрос завершён
+    p = resource.status
+    - if (resource.finished? && !resource.showing_results?) || params[:controller] != 'contests'
+      a.results href="#{contest_url resource}" title="Результаты опроса" К результатам →
 
-    .menu-block.grid
-      .subheadline.m5 Система турнира
-      .subcontent
-        p
-          = contest.strategy_type.text
+  .block
+    .subheadline.m5 Условия турнира
+    p = resource.strategy_type.text
 
-  - cache ['uniq-voters', contest] do
-    - if contest.uniq_voters > 0
-      .menu-block.grid
+  - cache ['uniq-voters', resource] do
+    - if resource.uniq_voters > 0
+      .block
         .subheadline.m5 Участники
-        .subcontent
-          p #{contest.uniq_voters} #{Russian.p contest.uniq_voters, 'пользователь', 'пользователя', 'пользователей'} сайта
+        p #{resource.uniq_voters} #{Russian.p resource.uniq_voters, 'пользователь', 'пользователя', 'пользователей'} сайта
 
-  - cache ['nominants', contest, russian_names_key, social_key] do
-    - unless contest.proposing?
-      .menu-block
-        .b-options-floated.r10.count
-          = contest.members.size
+  - cache ['nominants', resource, russian_names_key, social_key] do
+    - unless resource.proposing?
+      .block
+        .b-options-floated.count
+          = resource.members.size
         .subheadline.m10 Номинанты
-        .image-links
-          - contest.members.each do |entry|
-            a.bubbled href="#{url_for entry}" data-offset-left="-10" data-offset-top="20" data-place-to-left="true" title="#{localized_name entry}"
-              img src="#{entry.image.url :x64}" alt="#{localized_name entry}" title="#{localized_name entry}"
+        .cc-4a
+          = render resource.members, cover_by: :image_link
 
-    - unless contest.proposing? || contest.swiss?
-      .menu-block.grid
+    - unless resource.proposing? || resource.swiss?
+      .block.grid
         .subheadline.m5 Турнирная сетка
-        a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
+        a href="#{grid_contest_url resource}" title="Турнирная сетка" Перейти →
 
-    - if !user_signed_in? || current_user.preferences.show_social_buttons?
+    - if show_social?
       .menu-right
         .subheadline.m15 Рассказать друзьям
-        .menu-block.addthis_toolbox.addthis_default_style.addthis_32x32_style
+        .block.addthis_toolbox.addthis_default_style.addthis_32x32_style
           a.addthis_button_vk
           a.addthis_button_facebook
           a.addthis_button_twitter

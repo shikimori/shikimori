@@ -1,0 +1,6 @@
+.c-work
+  .c-characters class="s-#{work[:characters].size}"
+    = render work[:characters]
+
+  .c-animes class="s-#{work[:animes].size} c-#{work[:characters].size}"
+    = render work[:animes]

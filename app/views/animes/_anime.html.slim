@@ -1,0 +1,48 @@
+- cover_by ||= (json? || user_signed_in?) ? :link : :linkeable
+- content_by ||= :tooltip
+- cover_notice ||= :none
+- cover_title ||= :present
+
+article.c-column.b-catalog_entry[
+    class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
+    id="#{anime.id}"
+    itemscope itemtype="#{{anime.itemtype if anime.respond_to? :itemtype}}"
+  ]
+  meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"
+  meta itemprop="thumbnailUrl" content="#{{attachment_url anime.image, :x48, false}}"
+
+  - if cover_by == :link || cover_by == :image_link
+    a.cover[
+        class="#{'anime-tooltip' if content_by == :tooltip || content_by == :inline_tooltip}"
+        href="#{anime.respond_to?(:url) ? anime.url : url_for(anime)}"
+        title="#{anime.name}"
+        data-local-tooltip="#{content_by == :inline_tooltip}"
+        data-relative="#{content_by == :inline_tooltip}"
+        data-offset-left="#{-15 if content_by == :inline_tooltip}"
+      ]
+      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_title: cover_title, cover_by: cover_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil }
+
+  - elsif cover_by == :linkeable
+    .cover.linkeable[
+        class="#{'anime-tooltip' if content_by == :tooltip || content_by == :inline_tooltip}"
+        data-href="#{anime.respond_to?(:url) ? anime.url : url_for(anime)}"
+        data-title="#{anime.name}"
+        data-local-tooltip="#{content_by == :inline_tooltip}"
+        data-relative="#{content_by == :inline_tooltip}"
+        data-offset-left="#{-15 if content_by == :inline_tooltip}"
+      ]
+      = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_title: cover_title, cover_by: cover_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil }
+
+  - else
+    - raise ArgumentError, cover_by
+
+  - unless content_by == :tooltip || content_by == :none
+    .content
+      - if content_by == :inline_tooltip
+        = render partial: 'blocks/tooltip', locals: { template_name: 'animes/content', objects: { anime: anime } }
+
+      - elsif content_by == :block
+        = render partial: 'animes/content', locals: { anime: anime, cover_by: cover_by }
+
+      - else
+        - raise ArgumentError, content_by

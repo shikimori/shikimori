@@ -55,20 +55,17 @@ jQuery(function ($) {
                     dataType: dataType,
                     type: method.toUpperCase(),
                     beforeSend: function (xhr) {
-                        $.cursorMessage();
                         el.trigger('ajax:loading', {xhr: xhr, ajax: this});
                         if (xhr.statusText == 'abort') {
                           $this.data('ajax:locked', false);
-                          $.hideCursorMessage();
                         }
                     },
                     success: function (data, status, xhr) {
                         $this.data('ajax:locked', false);
-                        if (!_.isString(data) && 'notice' in data && data.notice) {
+                        if (!_.isString(data) && data && 'notice' in data && data.notice) {
                             $.flash({notice: data.notice});
                         }
                         el.trigger('ajax:success', [data, status, xhr]);
-                        $.hideCursorMessage();
                     },
                     complete: function (xhr) {
                         $this.data('ajax:locked', false);
@@ -78,13 +75,13 @@ jQuery(function ($) {
                         $this.data('ajax:locked', false);
                         if (xhr.responseText.match(/invalid/)) {// || xhr.responseText.match(/unauthenticated/)) {
                             $.flash({alert: 'Неверный логин или пароль'});
-                        } else if (xhr.status == 401) {
-                            $.flash({alert: 'Вы не авторизованы'});
-                            $('#sign_in').trigger('click');
+                        //} else if (xhr.status == 401) {
+                            //$.flash({alert: 'Вы не авторизованы'});
+                            //$('#sign_in').trigger('click');
                         } else if (xhr.status == 403) {
                             $.flash({alert: (xhr.responseText != 'Forbidden' ? xhr.responseText : 'У вас нет прав для данного действия')});
                         } else if (xhr.status == 500) {
-                            $.flash({alert: 'Пожалуста, повторите попытку позже'});
+                            $.flash({alert: 'Пожалуйста, повторите попытку позже'});
                         } else {
                             try {
                               var errors = JSON.parse(xhr.responseText);
@@ -112,11 +109,10 @@ jQuery(function ($) {
                                   $.flash({alert: text});
                                 }
                             } else {
-                                $.flash({alert: 'Пожалуста, повторите попытку позже'});
+                                $.flash({alert: 'Пожалуйста, повторите попытку позже'});
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);
-                        $.hideCursorMessage();
                     }
                 });
             } else {
@@ -177,7 +173,7 @@ jQuery(function ($) {
         e.preventDefault();
     });
 
-    $('a[data-remote],input[data-remote],span[data-remote],li[data-remote],button[data-remote],tr[data-remote]').live('click', function (e) {
+    $('a[data-remote],input[data-remote],span[data-remote],div[data-remote],li[data-remote],button[data-remote],tr[data-remote]').live('click', function (e) {
         if ('in_new_tab' in window && in_new_tab(e)) {
           return;
         }

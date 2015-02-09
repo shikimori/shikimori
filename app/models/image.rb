@@ -1,5 +1,4 @@
 class Image < ActiveRecord::Base
-  include PermissionsPolicy
   belongs_to :uploader, class_name: User.name, foreign_key: :uploader_id
   belongs_to :owner, polymorphic: true, touch: true
 

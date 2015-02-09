@@ -1,0 +1,222 @@
+@import globals
+@import mixins/icons
+@import mixins/responsive
+
+.item-mobile
+  +icon_button("m")
+  margin-top: -6px
+  float: right
+
+.buttons
+  color: #999999
+  float: right
+  font: 13px/20px "Trebuchet MS",Tahoma,Arial,Helvetica,sans-serif
+  margin-right: 5px
+
+  span, a
+    display: inline-block
+
+    &:first-child
+      margin-left: 0
+
+  +gt_ipad
+    span, a
+      line-height: 15px !important
+
+      &:before
+        line-height: 15px !important
+
+    & > div
+      line-height: 15px !important
+
+  +lte-ipad
+    span, a
+      line-height: 25px !important
+
+      &:before
+        line-height: 25px !important
+
+    & > div
+      line-height: 25px !important
+
+
+  .main-controls
+
+    a
+      color: #666666
+
+      &:hover
+        color: $link_hover
+        text-decoration: none
+
+    span:last-child, span:last-child
+      margin-right: 0
+
+  .edit-controls, .delete-controls, .moderation-controls
+    display: none
+    span:last-child, a:last-child
+      margin-right: 0
+
+  .item-save
+    +icon_button("\e80e")
+  .item-review
+    +icon_button("\e80f")
+  .item-moderation
+    +icon_button("\e806")
+  .item-offtopic
+    +icon_button("\e810")
+  .item-preview
+    +icon_button("\e811")
+  .item-unpreview
+    +icon_button("\e812")
+  .item-quote
+    +icon_button("\e80B")
+    display: none
+  .item-reply
+    +icon_button("\e80e")
+  .item-edit
+    +icon_button("\e814")
+  .item-delete
+    +icon_button("\e815")
+  .item-apply,
+  .item-request-confirm,
+  .item-delete-confirm
+    +icon_button("\e817")
+  .item-cancel,
+  .item-request-reject,
+  .item-delete-cancel,
+  .item-moderation-cancel
+    +icon_button("\e813")
+  .item-subscribe
+    +icon_button("\e819")
+  .item-spoiler
+    +icon_button("\e81b")
+  .item-abuse
+    +icon_button("\e803")
+  .item-ban
+    +icon_button("\e80a")
+
+  .editor-bold
+    +icon_button("\e802")
+  .editor-italic
+    +icon_button("\e804")
+  .editor-underline
+    +icon_button("\e807")
+  .editor-strike
+    +icon_button("\e805")
+  .editor-link
+    +icon_button("\e808")
+  .editor-image
+    +icon_button("\e809")
+  .editor-quote
+    +icon_button("\e80B")
+  .editor-spoiler
+    +icon_button("\e81b")
+  .editor-smiley
+    +icon_button("\e800")
+  .editor-file
+    +icon_button("\e80c")
+    position: relative
+
+    span, a
+      height: 20px
+      margin: 0 0 0 -20px !important
+      overflow: hidden
+      padding: 0
+      position: absolute
+      width: 20px
+
+    input
+      +opacity(0)
+      cursor: pointer
+      height: 20px
+      padding: 0
+      position: absolute
+      right: 0
+      top: 0
+      width: 20px
+      z-index: 1
+
+  .editor-upload
+    display: none
+
+  .cancel
+    margin-right: 20px
+
++gt_ipad
+  .item-mobile
+    display: none
+
++lte_ipad
+  .item-mobile
+    color: #999
+
+    &:before
+      font-size: 22px !important
+      width: 30px !important
+
+  //.comment-block
+    //.item-mobile
+      //margin-top: 5px
+
+    //.buttons
+      //margin-top: 5px
+
+  //.shiki-editor .buttons
+    //float: none !important
+    //margin-bottom: 5px !important
+    //margin-top: 10px !important
+
+    //.editor-image, .editor-underline, .editor-strike
+      //display: none
+
+    //+iphone
+      //.group.second, .editor-file, .editor-quote
+        //display: none
+
+      //.group
+        //float: none !important
+
+      //.editor-controls
+        //float: none
+
+      //.group.third
+        //margin-left: 0 !important
+
+    //+iphone-landscape
+      //.group.second
+        //display: inline-block
+
+    //+iphone-portrait
+      //.group.first
+        //display: none
+
+      //.editor-smiley
+        //margin-left: 0 !important
+
+  //.buttons
+    //height: auto !important
+    //float: right !important
+    //white-space: nowrap
+    //margin-bottom: 10px
+
+    //span
+      //&:before
+        //font-size: 22px !important
+        //width: 30px !important
+
+
+//+responsive(narrow-phone)
+  //.comment-block
+    //.moderation-controls span:first-child
+      //margin-left: 0
+
+    //.buttons
+      //float: none !important
+      //overflow: hidden
+
+      //.item-reply
+        //margin-left: 0
+
+    //.item-mobile.selected
+      //margin-left: 0

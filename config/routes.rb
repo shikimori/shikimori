@@ -1,8 +1,148 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
-  get 'users/sign_in' => redirect {|params,request| request.referer || '/' }
   ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
+
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
+
+  resources :genres, only: [:index, :edit, :update] do
+    get :tooltip, on: :member
+  end
+
+  resources :animes, only: [] do
+    get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+  end
+  resources :mangas, only: [] do
+    get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+  end
+
+  namespace :moderation do
+    resources :user_changes, only: [:show, :index, :create] do
+      collection do
+        get '(/page/:page)' => :index, as: :index
+      end
+
+      member do
+        get :tooltip
+        post :take
+        post :deny
+      end
+    end
+
+    resources :bans, only: [:create, :index] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+    end
+    resources :abuse_requests, only: [:index] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+
+      member do
+        post :take
+        post :deny
+      end
+    end
+    resources :reviews, only: [:index] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+
+      member do
+        post :accept
+        post :reject
+      end
+    end
+
+    resources :anime_video_reports, only: [:index, :create] do
+      get '/page/:page', action: :index, as: :page, on: :collection
+
+      member do
+        get :accept
+        get :reject
+        get :work
+        get :cancel
+      end
+    end
+  end
+
+  apipie
+  namespace :api, defaults: { format: 'json' } do
+    scope module: :v1 do
+      resources :animes, only: [:show, :index] do
+        member do
+          get :roles
+          get :similar
+          get :related
+          get :screenshots
+        end
+      end
+      resource :calendar, only: [:show]
+      resources :mangas, only: [:show, :index] do
+        member do
+          get :roles
+          get :similar
+          get :related
+        end
+      end
+
+      resources :devices, only: [:create, :index, :destroy] do
+        get :test, on: :member
+      end
+      resources :characters, only: [:show]
+      resources :people, only: [:show]
+
+      resources :studios, only: [:index]
+      resources :genres, only: [:index]
+      resources :publishers, only: [:index]
+
+      resources :sections, only: [:index]
+      resources :topics, only: [:index, :show]
+      resources :comments, only: [:show, :index, :create, :update, :destroy]
+
+      resources :clubs, only: [:show, :index] do
+        member do
+          get :members
+          get :animes
+          get :mangas
+          get :characters
+          get :images
+        end
+      end
+
+      resources :user_rates, only: [:create, :update, :destroy] do
+        post :increment, on: :member
+
+        collection do
+          scope ':type', type: /anime|manga/ do
+            delete :cleanup
+            delete :reset
+          end
+        end
+      end
+
+      resource :authenticity_token, only: [:show]
+
+      devise_scope :user do
+        resources :sessions, only: [:create]
+      end
+
+      resources :users, only: [:index, :show] do
+        collection do
+          get :whoami
+        end
+        member do
+          get :friends
+          get :clubs
+          get :favourites
+          get :messages
+          get :unread_messages
+          get :history
+          get :anime_rates
+          get :manga_rates
+        end
+      end
+    end
+  end
 
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
@@ -13,35 +153,37 @@ Site::Application.routes.draw do
   end
 
   constraints AnimeOnlineDomain do
-    get '/', to: 'anime_online/anime_videos#index'
-    get "animes#{ani_manga_format}" => "ani_mangas_collection#index", klass: 'anime', with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
+    get '/', to: 'anime_online/dashboard#show'
+    get '/page/:page', to: 'anime_online/dashboard#show', as: :anime_dashboard_page
 
-    namespace :anime_online do
-      resources :anime, only: [:show] do
-        resources :anime_videos, only: [:new, :create, :edit, :update] do
-          get :viewed, on: :member
+    get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
+      with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
+
+    #scope page: 'online_video' do
+      #resources :animes, only: [:show]
+    #end
+
+    scope 'animes/:anime_id', module: 'anime_online' do
+      get '' => redirect {|params, request| "#{request.url}/video_online" }
+
+      resources :video_online, controller: 'anime_videos', except: [:show] do
+        member do
+          post :track_view
+          post :viewed
+        end
+
+        collection do
+          get :help
+          get '(/:episode)(/:video_id)(/:all)', action: :index, as: :play,
+            episode: /\d+/, video_id: /\d+/, all: /all/
+          get :extract_url
         end
       end
-
-      resource :anime_videos do
-        get :help, on: :member
-      end
-
-      resources :anime_videos do
-        get :watch_view_increment, on: :member
-      end
-
-      post 'anime_videos/:id/rate' => 'anime_videos#rate', as: :rate_anime
     end
 
-    get 'videos(/search/:search)(/page/:page)' => 'anime_online/anime_videos#index', as: :anime_videos
-    post 'videos/extract_url' => 'anime_online/anime_videos#extract_url', as: :anime_videos_extract_url
-    get 'videos/:id(/:episode)(/:video_id)(/:all)' => 'anime_online/anime_videos#show', as: :anime_videos_show, constraints: { episode: /\d+/, video_id: /\d+/, all: 'all' }
-    post 'videos/search' => 'anime_online/anime_videos#search', as: :anime_videos_search
-    post 'videos/:id/report/:kind' => 'anime_online/anime_videos#report', as: :anime_videos_report, constraints: { kind: /broken|wrong/ }
-    delete 'videos/:id' => 'anime_online/anime_videos#destroy', as: :delete_anime_videos
     get 'pingmedia/google' => 'anime_online/pingmedia#google'
     get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
+
     get 'robots.txt' => 'robots#anime_online'
   end
 
@@ -55,21 +197,23 @@ Site::Application.routes.draw do
     get 'r' => redirect('/reviews')
     constraints other: /.*/  do
       get 'r/:other' => redirect { |params,request| "/reviews/#{params[:other]}" }
+      get 'person/:other' => redirect { |params,request| "/people/#{params[:other]}" }
     end
 
     #constraints section: Section::VARIANTS do
-    constraints section: /a|m|c|p|s|f|o|g|reviews|v|all|news/ do
+    constraints section: /a|m|c|p|s|f|o|g|reviews|v|all|news/, format: /html|json|rss/ do
       get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
       #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
 
-      get ':section/block' => 'forum#site_block', as: :forum_site_block
-
       get ':section(/s-:linked)(/p-:page)' => 'topics#index', as: :section
-      [:section_topic, :section_blog_post, :section_contest_comment].each do |name|
-        get ':section(/s-:linked)/:topic' => 'topics#show', as: name
-      end
+      #[:section_topic, :section_blog_post, :section_contest_comment].each do |name|
+        #get ':section(/s-:linked)/:id' => 'topics#show', as: name
+      #end
+      get ':section(/s-:linked)/:id' => 'topics#show', as: :section_topic
     end
-    resources :topics, only: [:create, :update, :destroy, :edit]
+    resources :topics, only: [:create, :update, :destroy, :edit] do
+      get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
+    end
 
     get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
     get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
@@ -98,9 +242,6 @@ Site::Application.routes.draw do
     # рестарт джобы
     get "job/:id/restart" => 'jobs#restart', as: 'restart_job'
 
-    # верхний блок с инфой о логине пользователя
-    get 'userbox' => 'site#userbox'
-
     # френд реквесты
     post ':id/friend' => 'friends#create', as: :friend_add
     delete ':id/friend' => 'friends#destroy', as: :friend_remove
@@ -108,17 +249,9 @@ Site::Application.routes.draw do
     post ':id/ignore' => 'ignores#create', as: :ignore_add
     delete ':id/ignore' => 'ignores#destroy', as: :ignore_remove
 
-    devise_for :users, controllers: {
-      omniauth_callbacks: 'users/omniauth_callbacks',
-      registrations: 'users/registrations',
-      passwords: 'users/passwords'
-    }
-
     # комментарии
     resources :comments do
-      post :raw
       resources :bans, only: [:new], controller: 'moderation/bans'
-
       resources :abuse_requests, controller: 'moderation/abuse_requests', only: [] do
         resources :bans, only: [:new], controller: 'moderation/bans'
 
@@ -133,154 +266,80 @@ Site::Application.routes.draw do
       collection do
         get :smileys
         post :preview
-        get 'fetch/:id/:topic_id/:skip/:limit' => 'comments#fetch', as: :fetch
-        get ':commentable_type/:commentable_id/:offset/:limit(/:review)', action: :postloader, as: :model
+        get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
+        get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
       end
     end
 
-    namespace :moderation do
-      # TODO: refactor to resource
-      get 'changes(/page/:page)' => 'user_changes#index', as: :users_changes
-
-      get 'changes/:id/take' => 'user_changes#apply', as: :take_user_change, notify: true, taken: true
-      get 'changes/:id/apply' => 'user_changes#apply', as: :aplly_user_change, notify: true
-      get 'changes/:id/deny' => 'user_changes#deny', as: :deny_user_change, notify: true
-      get 'changes/:id/delete' => 'user_changes#deny', as: :delete_user_change, notify: false
-      post 'changes/anime/:anime_id/lock' => 'user_changes#get_anime_lock', as: :anime_lock
-      delete 'changes/anime/:anime_id/lock' => 'user_changes#release_anime_lock'
-
-      post 'changes/do' => 'user_changes#change', as: :do_user_change
-      get 'changes/:id/tooltip(/:test)' => 'user_changes#tooltip', as: :user_change_tooltip
-      get 'changes/:id' => 'user_changes#show', as: :user_change
-
-      resources :bans, only: [:create, :index] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-      end
-      resources :abuse_requests, only: [:index] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-
-        member do
-          post :take
-          post :deny
-        end
-      end
-      resources :reviews, only: [:index] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-
-        member do
-          post :accept
-          post :reject
-        end
+    resources :clubs do
+      member do
+        get :comments
+        get :members
+        get :animes
+        get :mangas
+        get :characters
+        get :images
+        post :upload
       end
 
-      resources :anime_video_reports, only: [:index] do
-        get '/page/:page', action: :index, as: :page, on: :collection
-
-        member do
-          get :accept
-          get :reject
-          get :work
-          get :cancel
-        end
-      end
-    end
-
-    # messages
-    # TODO: refactor всё в resources :messages
-    get 'messages' => redirect('messages/inbox'), as: :root_messages
-    get 'messages/:id' => 'messages#show', constraints: { id: /\d+/ }
-    constraints type: /inbox|sent|notifications|news/ do
-      get 'messages/:type' => 'messages#index', as: :messages
-      get 'messages/:type/:page' => 'messages#list', as: :messages_list, constraints: { page: /\d+/ }
-    end
-    get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
-    get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
-
-    post 'messages/create' => 'messages#create', as: :create_messages
-    resources :messages do
-      post :bounce, on: :collection
-    end
-    post 'messages/read' => 'messages#read', read: true, as: :read_messages
-    post 'messages/unread' => 'messages#read', read: false, as: :unread_messages
-
-    # translation
-    #get 'translation' => 'translation#index'
-    get 'animes/translate' => redirect('/translation')
-    get 'translation' => redirect('/clubs/2/translation/planned')
-
-    # groups
-    get 'groups' => redirect('/clubs')
-    get 'groups/:id' => redirect('/clubs/%{id}'), as: :group
-    post 'groups' => 'groups#create'
-
-    resources :clubs, controller: :groups, except: [:create] do
-      #get 'groups' => 'groups#index'
-      #get 'groups/new' => 'groups#new', as: 'new_group'
-      #get 'groups/:id' => 'groups#show', as: 'group', type: 'info'
       collection do
         get '/page/:page', action: :index, as: :page
       end
-      member do
-        get 'members', type: 'members'
-        get 'settings', type: 'settings'
-        get 'images', type: 'images'
 
-        get 'animes', type: 'animes'
-        get 'mangas', type: 'mangas'
-        get 'characters', type: 'characters'
+      #get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
+      #get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
+      resources :group_roles, only: [:create, :destroy] do
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
       end
-
-      get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
-      get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
+      resources :group_invites, only: [:create]
     end
-    patch 'groups/:id' => 'groups#update', as: :update_group
-    post 'groups/:id' => 'groups#update'
-    get 'groups/:id/autocomplete/:search' => 'groups#autocomplete', as: 'autocomplete_group_members', format: :json, search: /.*/
 
+    resources :group_invites, only: [] do
+      post :accept, on: :member
+      post :reject, on: :member
+    end
     resources :user_images, only: [:create]
-    resources :images do
-      post ':model/:id/new', action: :new, on: :collection, as: :new
-      post ':model/:id', action: :create, on: :collection, as: :create
-      get 'original', action: :edit, on: :member, as: 'edit_original', original: true
-      get 'raw', action: :raw, on: :member
-    end
-
-    # join/leave
-    post 'groups/:id/roles(/:user_id)' => 'group_roles#create', as: :group_roles
-    delete 'groups/:id/roles(/:user_id)' => 'group_roles#destroy'
-    # invite
-    post 'invites/:group_id/:nickname' => 'group_invites#create', as: :group_invites, nickname: /.*/
-    patch 'invites/:id/accept' => 'group_invites#accept', as: :group_invites_accept
-    patch 'invites/:id/reject' => 'group_invites#reject', as: :group_invites_reject
+    resources :images, only: [:destroy]
 
     # statistics
     get 'anime-history' => 'statistics#index', as: :anime_history
 
     # site pages
-    get 'welcome_gallery' => 'pages#welcome_gallery'
-    get 'user_agreement' => 'pages#user_agreement'
-    get 'user_agent' => 'pages#user_agent'
-    get 'redisign' => 'pages#redisign'
-    get 'ongoings' => 'pages#calendar'
-    get 'about' => 'pages#about'
-    get 'page404' => 'pages#page404'
-    get 'page503' => 'pages#page503'
-    get 'apanel' => 'pages#admin_panel'
-    get 'test' => 'pages#test'
-    get 'raise-exception' => 'pages#raise_exception'
-    get 'auth_form' => 'pages#auth_form'
-    get "site-news" => 'pages#news', kind: 'site', format: :rss
-    get "anime-news" => 'pages#news', kind: 'anime', format: :rss
-    get "feedback" => 'pages#feedback'
-    get 'disabled_registration' => 'pages#disabled_registration'
-    get 'disabled_openid' => 'pages#disabled_openid'
-    get 'tableau' => 'pages#tableau'
+    resources :pages, path: '/', only: [] do
+      collection do
+        get :ongoings
+        get :about
+
+        get :user_agreement
+
+        get :user_agent
+        get :page404
+        get :page503
+        get :raise_exception
+
+        get :bb_codes
+        get :auth_form
+        get :feedback
+        get 'apanel' => :admin_panel
+
+        get "site-news" => :news, kind: 'site', format: :rss
+        get "anime-news" => :news, kind: 'anime', format: :rss
+
+        get :disabled_registration
+        get :disabled_openid
+        get :tableau
+
+        get :test
+      end
+    end
 
     # картинки с danbooru
     get 'd/autocomplete/:search' => 'danbooru#autocomplete', as: :autocomplete_danbooru_tags, format: :json
-    constraints url: /.*/ do
-      get "d/:md5/:url" => 'danbooru#show'
-      get "y/:url" => 'danbooru#yandere'
+    resources :danbooru, only: [] do
+      constraints url: /.*/ do
+        get 'yandere/:url' => :yandere, on: :collection
+        get 'url/:md5/:url' => :show, on: :collection
+      end
     end
 
     # cosplay
@@ -301,17 +360,6 @@ Site::Application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
-    # characters
-    get 'characters/autocomplete/:search' => 'characters#autocomplete', as: :autocomplete_characters, format: :json, search: /.*/
-    get 'characters/:id/tooltip(/:test)' => 'characters#tooltip', as: :character_tooltip # это должно идти перед character_path
-    constraints id: /\d[^\/]*?/ do
-      get 'characters/:id' => 'characters#show', as: :character, page: 'info'
-      patch 'characters/:id/apply' => 'characters#apply', as: :apply_character
-      get 'characters/:id/:page' => 'characters#page', as: :page_character, constraints: { page: /comments|images|cosplay/ }
-      get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
-      get 'characters/:id/edit/:subpage' => "characters#edit", as: :edit_character, page: 'edit', constraints: { subpage: /description|russian/ }
-    end
-    get "characters/:search(/page/:page)" => 'characters#index', as: :character_search, page: /\d+/
     # tags
     #get 'tags/autocomplete/:search' => 'tags#autocomplete', as: :autocomplete_tags, format: :json
 
@@ -327,35 +375,49 @@ Site::Application.routes.draw do
 
     # аниме и манга
     ['animes', 'mangas'].each do |kind|
-      get "#{kind}#{ani_manga_format}" => "ani_mangas_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
-      get "#{kind}/menu(/rating/:rating)" => "ani_mangas_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
+      get "#{kind}#{ani_manga_format}" => "animes_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
+      get "#{kind}/menu(/rating/:rating)" => "animes_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
 
-      resources kind, defaults: { page: 'info' }, only: [:show, :edit] do
-        collection do
-          get 'autocomplete/:search', action: :autocomplete, as: :autocomplete, format: :json, search: /.*/
-        end
-
+      resources kind, only: [:show] do
         member do
-          # связанные
-          get 'related/all', action: :related_all
-          # другие названия
-          get 'names/other', action: :other_names, as: :other_names
+          get :characters
+          get :staff
+          get :files
+          get :similar
+          get :screenshots
+          get :videos
+          get :chronology
+          get :art
+          get :related
+          get :favoured
+          get :clubs
+
+          get :comments
+          scope 'comments' do
+            get :reviews
+          end
+
+          get :other_names # другие названия
+          get :resources # подгружаемый центральный блок с персонажами, скриншотами, видео
+
+          get :stats
+          get :recent
+
           # инфо по торрентам эпизодов
           get 'episode_torrents'
           # тултип
-          get 'tooltip(/:test)', action: :tooltip, as: :tooltip
+          get :tooltip
           # редактирование
           patch 'apply'
 
-          get ':page' => "#{kind}#page", as: 'page', page: /characters|similar|chronology|screenshots|videos|images|files|stats|recent/
-          get 'edit/:subpage' => "#{kind}#edit", page: 'edit', as: 'edit', subpage: /description|russian|screenshot|videos|inks|torrents_name/
+          get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|screenshots|video|torrents_name|tags/
 
           get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
           get 'cosplay/:character(/:gallery)' => "#{kind}#cosplay", page: 'cosplay', as: :cosplay
         end
 
         # обзоры
-        resources :reviews, type: kind.singularize.capitalize, controller: 'ani_mangas_controller/reviews'
+        resources :reviews, type: kind.singularize.capitalize
       end
     end
 
@@ -370,13 +432,68 @@ Site::Application.routes.draw do
     resources :animes do
       member do
         post 'torrent' => 'torrents#create'
-        get ':type.rss' => 'animes#rss', as: 'rss', constraints: { type: /torrents|torrents_480p|torrents_720p|torrents_1080p/ }
-        get 'subtitles/:group.rss' => 'animes#rss', as: 'subtitles', type: 'subtitles'
+        #get ':type.rss' => 'animes#rss', as: 'rss', constraints: { type: /torrents|torrents_480p|torrents_720p|torrents_1080p/ }
+        #get 'subtitles/:group.rss' => 'animes#rss', as: 'subtitles', type: 'subtitles'
 
         resource :screenshots, only: [:create]
         resource :videos, only: [:create]
       end
     end
+
+    resources :characters, only: [:show] do
+      member do
+        get :seyu
+        get :animes
+        get :mangas
+        get :comments
+        get :art
+        get :favoured
+        get :clubs
+
+        get :tooltip
+
+        get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|tags/
+      end
+      collection do
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
+      end
+    end
+
+    constraints id: /\d[^\/]*?/ do
+      get 'characters/:id/cosplay/:gallery' => 'characters#page', page: 'cosplay', as: 'cosplay_character'
+    end
+
+    resources :people, only: [:show] do
+      member do
+        get 'works(order-by/:order_by)' => :works, order_by: /date/, as: :works
+        get :comments
+        get :favoured
+        get :tooltip
+      end
+      collection do
+        get 'autocomplete(/:kind)/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
+      end
+    end
+    get "producers/search/:search(/page/:page)" => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
+    get "mangakas/search/:search(/page/:page)" => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
+
+    resources :seyu, only: [:show] do
+      member do
+        get :roles
+        get :favoured
+        get :comments
+        get :tooltip
+      end
+      collection do
+        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
+      end
+    end
+    #get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
+    #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
+    #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 
     # голосования
     resources :contests do
@@ -390,6 +507,8 @@ Site::Application.routes.draw do
         post :stop_propose
         post :cleanup_suggestions
 
+        get :comments
+
         get :grid
         get 'rounds/:round', action: 'show', as: 'round'
         get 'rounds/:round/match/:match_id', action: 'show', as: 'round_match'
@@ -402,10 +521,6 @@ Site::Application.routes.draw do
           post 'vote/:variant' => 'contest_matches#vote', as: 'vote'
         end
       end
-    end
-
-    resources :genres, only: [:index, :edit, :update] do
-      get :tooltip, on: :member
     end
 
     # votes
@@ -434,24 +549,13 @@ Site::Application.routes.draw do
                                                                                                   format: /json/
                                                                                                 }
 
-    # people
-    #post "person/:id/apply" => 'people#apply', as: :apply_person
-    get 'people/autocomplete(/:kind)/:search' => 'people#autocomplete', as: :autocomplete_people, format: :json
-    get 'person/:id/tooltip(/:test)' => 'people#tooltip', as: :person_tooltip # это должно идти перед person_path
-    get "person/:id/(/:sort)" => 'people#show', as: :person, constraints: { id: /\d[^\/]*/, sort: /time/ }
-    get "seyu/:id/(/:sort)(/:direct)" => 'seyu#show', as: :seyu, constraints: { id: /\d[^\/]*/, sort: /time/, direct: /direct/ }
-    get "seyu/:search(/page/:page)" => 'seyu#index', as: :seyu_search, kind: 'seyu', constraints: { page: /\d+/ }
-    get "producer/:search(/page/:page)" => 'people#index', as: :producer_search, kind: 'producer', constraints: { page: /\d+/ }
-    get "mangaka/:search(/page/:page)" => 'people#index', as: :mangaka_search, kind: 'mangaka', constraints: { page: /\d+/ }
-    get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
-    #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
-    #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
-
     # studios
-    get "studios" => 'studios#index', as: :studios
+    resources :studios, only: [:index]
+    #get "studios" => 'studios#index', as: :studios
 
     # proxies
-    get 'proxies' => 'proxies#index'
+    resources :proxies, only: [:index]
+    #get 'proxies' => 'proxies#index'
 
     # news
     get 'entries/:id' => 'entries#show', as: :entry_body, constraints: { format: /json/ }
@@ -471,148 +575,91 @@ Site::Application.routes.draw do
       mount PgHero::Engine, at: 'pghero'
     end
 
-    apipie
-    namespace :api, defaults: { format: 'json' } do
-      scope module: :v1 do
-        resources :animes, only: [:show, :index] do
-          member do
-            get :roles
-            get :similar
-            get :related
-            get :screenshots
-          end
-        end
-        resource :calendar, only: [:show]
-        resources :mangas, only: [:show, :index] do
-          member do
-            get :roles
-            get :similar
-            get :related
-          end
-        end
-
-        resources :devices, only: [:create, :index, :destroy] do
-          get :test, on: :member
-        end
-        resources :characters, only: [:show]
-        resources :people, only: [:show]
-
-        resources :studios, only: [:index]
-        resources :genres, only: [:index]
-        resources :publishers, only: [:index]
-
-        resources :sections, only: [:index]
-        resources :topics, only: [:index, :show]
-        resources :comments, only: [:show, :index]
-
-        resources :clubs, only: [:show, :index] do
-          member do
-            get :members
-            get :animes
-            get :mangas
-            get :characters
-            get :images
-          end
-        end
-
-        resources :user_rates, only: [:create, :update, :destroy] do
-          post :increment, on: :member
-
-          collection do
-            scope ':type', type: /anime|manga/ do
-              delete :cleanup
-              delete :reset
-            end
-          end
-        end
-
-        resource :authenticity_token, only: [:show]
-
-        devise_scope :user do
-          resources :sessions, only: [:create]
-        end
-
-        resources :users, only: [:index, :show] do
-          collection do
-            get :whoami
-          end
-          member do
-            get :friends
-            get :clubs
-            get :favourites
-            get :messages
-            get :unread_messages
-            get :history
-            get :anime_rates
-            get :manga_rates
-          end
-        end
-      end
-    end
-
     if Rails.env.development?
       get 'users/by-id/:user_id' => 'users#statistics', type: 'statistics', kind: 'anime'
     end
 
+    resources :user_tokens, only: [:destroy]
+
     # users
-    get 'users(/:similar/:klass/(:threshold))(/:search)(/page/:page)' => 'users#index', as: :users, page: /\d+/, similar: /similar/, klass: /anime|manga/
+    get 'users(/:similar/:klass/(:threshold))(/search/:search)(/page/:page)' => 'users#index', as: :users, page: /\d+/, similar: /similar/, klass: /anime|manga/
     post 'users/search' => 'users#search', as: :users_search
     get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
 
-    resources :profiles, constraints: { id: /[^\/]+?/ }, format: /json|rss/, only: [:show] do
+    # messages edit & rss & email bounce
+    resources :messages, only: [:create, :show, :edit, :update, :destroy] do
+      collection do
+        get 'chosen/:ids' => :chosen, as: :chosen
+
+        post :mark_read
+        post :preview
+
+        post :bounce
+
+        get ':name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
+        get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :unsubscribe
+      end
+    end
+    #get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
+    #get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
+
+    resources :profiles, path: '/', constraints: { id: /[^\/]+/ }, only: [:show, :update] do
       member do
-        get '/settings(/:page)', page: /account|profile|password|styles|list|notifications|misc/, action: :settings
+        get :friends
+        get :favourites
+        get :clubs
+        get :ban
+        get :feed
+        #get :stats
+        get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
+
+        get 'reviews(/page/:page)' => :reviews, as: :reviews
+        get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments
+        scope 'comments' do
+          get 'reviews(/page/:page)' => :comments_reviews, as: :comments_reviews
+        end
+        get 'changes(/page/:page)' => :changes, as: :changes
+        get 'videos(/page/:page)' => :videos, as: :videos
+      end
+
+      resources :user_history, only: [], path: '/history' do
+        collection do
+          get '(:page)' => :index, as: :index
+          delete 'reset/:type' => :reset, as: :reset, type: /anime|manga/
+        end
+      end
+
+      resources :user_rates, only: [], path: '/list' do
+        collection do
+          get ":list_type#{ani_manga_format}" => :index, as: '', list_type: /anime|manga/
+          get ':list_type/export' => :export, as: :export
+          post :import
+        end
+      end
+
+      resources :user_preferences, only: [] do
+        patch :update, on: :collection
+      end
+
+      resources :dialogs, only: [:index, :show, :destroy] do
+        get 'page/:page' => :show, as: :show, on: :member
+        get '(page/:page)' => :index, as: :index, on: :collection
+      end
+
+      resources :messages, only: [], messages_type: /news|notifications/ do
+        collection do
+          get ':messages_type(/page/:page)' => :index, as: :index
+          post 'read/:messages_type/all' => :read_all, as: :read_all
+          post 'delete/:messages_type/all' => :delete_all, as: :delete_all
+        end
       end
     end
 
-    constraints id: /[^\/]+?/, format: /json|rss/ do
-      get ':id(/:kind)' => 'users#statistics', as: :user, type: 'statistics', kind: /anime|manga/
-      get ':id/settings(/:page)' => 'users#settings', as: :user_settings, page: /account|profile|password|styles|list|notifications|misc/, type: 'settings'
-      #get ':id/blog' => 'users#topics', as: :user_topics, type: 'topics'
-      #get ':id/reply/:comment_id' => 'users#show', as: :reply_to_user, type: 'profile'
-      patch ':id(/:type/:page)' => 'users#update'
-      patch ':id/preferences' => 'user_preferences#update', as: :update_user_preferences, type: 'settings'
-      patch ':id/password' => 'users#update_password', as: :update_user_password
-      get ':id/ban' => 'users#ban', as: :ban_user, type: 'ban'
-      post ':id/ban' => 'users#do_ban'
-
-      get ':id/comments(/page/:page)' => 'users#comments', as: :user_comments, type: 'comments'
-      get ':id/reviews(/page/:page)' => 'users#reviews', as: :user_reviews, type: 'reviews'
-      get ':id/changes(/page/:page)' => 'users#changes', as: :user_changes, type: 'changes'
-
-      get ':id/friends' => 'users#friends', as: :user_friends, type: 'friends'
-      get ':id/clubs' => 'users#clubs', as: :user_clubs, type: 'clubs'
-      patch ':id/contacts_privacy' => 'users#contacts_privacy', as: :user_contacts_privacy
-      get ':id/favourites' => 'users#favourites', as: :user_favourites, type: 'favourites'
-
-      # user_list
-      constraints list_type: /anime|manga/ do
-        get ":id/list/:list_type#{ani_manga_format}" => 'user_lists#show', as: :ani_manga_list
-        get ':id/list/:list_type.xml' => 'user_lists#export', format: :xml, as: :ani_manga_export
-      end
-      post ':id/import' => 'user_lists#list_import', as: :list_import
-      get ":id/list/history(/page/:page)" => 'user_lists#history', as: :list_history, type: 'list_history', constraints: { page: /\d+/ }
-
-      get ':id/talk(/:target)(/page/:page)(/comment/:comment_id)(/message/:message_id)' => 'messages#talk', as: :talk, type: 'talk'
-      #get ':id/message' => 'messages#new', as: :private_message
-      get ':id/provider/:provider' => 'users#remove_provider', as: :user_remove_provider
-    end
-
-    post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe
-    delete 'subscriptions/:type/:id' => 'subscriptions#destroy'
+    #post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe
+    delete 'subscriptions/:type/:id' => 'subscriptions#destroy', as: :subscribe
 
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
-
-    if Rails.env.test?
-      get 'users(/:action(/:id(.:format)))', controller: :users
-      resources :user_preferences, only: [:update]
-      get 'groups(/:action(/:id(.:format)))', controller: :groups
-      get 'characters(/:action(/:id(.:format)))', controller: :characters
-      get 'comments(/:action(/:id(.:format)))', controller: :comments
-      get 'pages(/:action(/:id(.:format)))', controller: :pages
-      get 'danbooru(/:action(/:id(.:format)))', controller: :danbooru
-    end
 
     get '*a', to: 'pages#page404' unless Rails.env.development?
   end

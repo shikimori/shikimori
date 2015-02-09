@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 describe ReviewsQuery do
-  let(:user) { build_stubbed :user }
+  let(:user) { create :user }
   let(:entry) { create :anime }
 
   before do
@@ -14,18 +12,22 @@ describe ReviewsQuery do
     end
   end
 
-  describe :fetch do
-    describe :with_id do
+  describe 'fetch' do
+    describe 'with_id' do
       subject { ReviewsQuery.new(entry, entry, @reviews[0].id).fetch.to_a }
 
-      it { should have(1).item  }
+      it 'has 1 item' do
+        expect(subject.size).to eq(1)
+      end
       its(:first) { should eq @reviews[0] }
     end
 
-    describe :without_id do
+    describe 'without_id' do
       subject { ReviewsQuery.new(entry, entry).fetch }
 
-      it { should have(3).items  }
+      it 'has 3 items' do
+        expect(subject.size).to eq(3)
+      end
       its(:last) { should eq @reviews[1] }
       its(:first) { should eq @reviews[2] }
     end

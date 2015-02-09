@@ -1,11 +1,4 @@
-
-require 'spec_helper'
-
 describe SitemapController do
-  it 'works' do
-    FactoryGirl.create :anime, :description => 'test'
-
-    get :index
-    response.should be_success
-  end
+  before { get :index }
+  it { expect(response).to have_http_status :success }
 end

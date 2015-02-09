@@ -1,0 +1,24 @@
+@import globals
+@import mixins/dash_separated
+@import mixins/hover_underlined
+
+.b-header_filters
+  margin: 10px 0
+
+  .filter-line
+    line-height: $line_height
+    font-size: 12px
+
+    a
+      +normal-link
+      +dash_separated
+
+      &.current
+        color: #123
+        text-decoration: none
+        cursor: default
+
+    .title
+      font-weight: bold
+      color: #123
+      padding-right: 6px

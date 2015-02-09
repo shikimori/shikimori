@@ -1,0 +1,42 @@
+@import compass/utilities/general/clearfix
+@import mixins/date
+@import mixins/hover_underlined
+@import mixins/link
+
+.p-user_history-index
+  .history-page
+    &:first-child
+      .mischeadline
+        display: block !important
+
+    .mischeadline
+      margin-bottom: 7px
+
+      &:first-child
+        display: none
+
+      &:first-letter
+        text-transform: uppercase
+
+    .history-interval
+      +clearfix
+      margin-bottom: 25px
+
+      &:last-child
+        margin-bottom: 0
+
+      p
+        line-height: 1.4
+        margin-bottom: 5px
+
+        a
+          +link_color
+          +hover_underlined
+
+        .date
+          +date
+          font-size: 12px
+          float: right
+
+    .b-postloader
+      margin-top: -20px

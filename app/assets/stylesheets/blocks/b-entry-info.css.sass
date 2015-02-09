@@ -1,13 +1,23 @@
 @import globals/variables
+@import mixins/link
 
 .b-entry-info
   margin-left: 4px
 
-  p
+  .line
     line-height: 1.8
 
     .key
-      color: $gray-color
+      color: $gray-color-2
+      display: inline
 
     .value
-      color: #333
+      color: #123
+      display: inline
+
+    a
+      +link
+
+  //&.shortened
+    height: 96px
+    overflow: hidden

@@ -9,8 +9,8 @@ class Message < ActiveRecord::Base
   # откменяю проверку, т.к. могут быть уведомления по AnimeHistory
   #validates_presence_of :body
 
-  validates_presence_of :from
-  validates_presence_of :to
+  validates :from, :to, presence: true
+  validates :body, presence: true, if: -> { kind == MessageType::Private }
 
   before_create :filter_quotes
   before_save :antispam
@@ -34,6 +34,7 @@ class Message < ActiveRecord::Base
     return if BotsService.posters.include?(from_id)
     return if kind == MessageType::Notification
     return if kind == MessageType::GroupRequest
+    return if User::Admins.include?(from_id)
 
     prior_comment = Message
       .includes(:from, :to)
@@ -65,38 +66,37 @@ class Message < ActiveRecord::Base
     self.kind == MessageType::GroupRequest ? self[:subject].to_i : self[:subject]
   end
 
-  # методы для совместимости с интерфейсом Comment
-  def user
-    from
-  end
-  def user_id
-    from_id
-  end
-  def commentable_type
-    User.name
-  end
-  def commentable_id
-    to_id
-  end
-  def can_be_edited_by? user
-    false
-  end
-  def can_be_deleted_by? user
-    false
-  end
-  def html
-    false
-  end
-  def viewed?
-    true
+  def html_body
+    BbCodeFormatter.instance.format_comment body
   end
 
-  def offtopic?
-    false
+  def delete_by user
+    if kind == MessageType::Private
+      delete_by! user
+    else
+      destroy!
+    end
+
+    self
   end
 
   # идентификатор для рсс ленты
   def guid
     "message-#{self.id}"
+  end
+
+  def read?
+    read
+  end
+
+private
+  def delete_by! user
+    if from == user
+      update! src_del: true
+    elsif to == user
+      update! dst_del: true, read: true
+    else
+      raise ArgumentError, "unknown deleter: #{user}"
+    end
   end
 end

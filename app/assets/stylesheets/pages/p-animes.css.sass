@@ -1,0 +1,25 @@
+//= require_directory ./p-animes
+@import mixins/column
+@import mixins/icons
+
+.p-animes, .p-mangas
+  .item-edit
+    //+icon_button('\e814')
+    +icon_button('\e842')
+
+  .eight-characters
+    .c-character, .c-person
+      +gte_ipad
+        +column_bm(7)
+      +iphone-portrait
+        +column_bm(3)
+      +iphone-landscape
+        +column_bm(5)
+
+  .c-screenshot, .c-video
+    +gte_ipad
+      +column(5, 1/5, 1.5%)
+    +iphone-portrait
+      +column(2)
+    +iphone-landscape
+      +column(3)

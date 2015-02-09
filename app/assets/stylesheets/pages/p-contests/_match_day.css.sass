@@ -1,0 +1,132 @@
+@import compass/typography/text/ellipsis
+@import compass/css3/opacity
+@import compass/css3/transition
+@import globals/variables
+@import mixins/link
+@import mixins/column
+@import mixins/responsive
+
+.p-contests .match-day
+  overflow: hidden
+  //margin-left: 5px
+  margin-bottom: $block_offset / 2
+
+  &:last-child
+    margin-bottom: 0
+
+  &>.date
+    margin-bottom: 2px
+
+    .from
+      color: $gray-color-2
+      margin-right: 5px
+
+    .to
+      color: $gray-color-2
+      margin-left: 5px
+      margin-right: 5px
+
+  //&:hover
+    .match-link
+      +opacity(0.4)
+
+  .match-link
+    padding-left: 2px
+    cursor: pointer
+
+    &.active
+      font-weight: bold
+
+    &:hover
+      background-color: #eaeaea
+    &:active
+      background-color: #e5e5e5 !important
+
+    //&:hover
+      +opacity(1)
+
+    a
+      +link
+
+    &.voted-none > .c-column a,
+    &.voted-left > .c-column:last-child a,
+    &.voted-right > .c-column:first-child a
+      +link_color(#112233)
+
+    .c-column
+      line-height: $line-height
+      margin-bottom: 0
+
+      +gte_ipad
+        +ellipsis
+
+      +iphone
+        +column(2)
+
+      &.loser a, &.created a
+        +link_color(#112233)
+
+    .voted, .winner, .loser, .created, .started, .finished
+      &:before
+        display: inline-block
+        font-family: 'shikimori'
+        font-size: 11px
+        font-weight: normal !important
+        margin-right: 4px
+        padding-left: 1px
+        padding-right: 3px
+
+    .created:before
+      color: $gray-color-2
+      content: '\e828'
+      padding-right: 5px
+
+    .started:before
+      color: #123
+      content: '\e818'
+
+    &.voted-left .started:first-child:before, &.voted-right .started:last-child:before
+      content: '\e825'
+      color: $green
+
+    &.voted-none .started:before
+      color: $gray-color-2
+
+    &.voted-auto .started:before
+      content: '\e825'
+      color: $gray-color-2
+
+    &.voted-left .started:last-child:before, &.voted-right .started:first-child:before
+      color: $red
+
+    .winner:before
+      color: $green
+      content: '\e817'
+
+    .loser:before
+      color: $red
+      content: '\e813'
+      padding-right: 5px
+
+  .group
+    color: $gray-color-2
+    position: absolute
+    line-height: 24px
+    display: none
+
+  .matches-num
+    color: $gray-color-2
+    cursor: pointer
+    font-size: 11px
+    line-height: inherit
+    padding-right: 3px
+
+    .winner &
+      color: $green
+
+    .loser &
+      color: $red
+
+  //.swiss
+    .match-day .match-link .c-column
+      padding-left: 15px

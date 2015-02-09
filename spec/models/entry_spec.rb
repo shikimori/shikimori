@@ -1,6 +1,5 @@
-require 'spec_helper'
 describe Entry do
-  context :relations do
+  describe 'relations' do
     it { should belong_to :section }
     it { should belong_to :linked }
     it { should belong_to :user }
@@ -8,14 +7,14 @@ describe Entry do
     it { should have_many :messages }
   end
 
-  context :hooks do
+  context 'hooks' do
     let(:user) { create :user }
     let(:images) { create_list :user_image, 4, user: user, linked_type: 'Entry' }
     let(:entry) { create :entry, text: 'text', user: user, value: "#{images[0].id},#{images[1].id}" }
 
     describe 'append_wall' do
       it 'wall tag is appended' do
-        entry.text.should eq "text\n[wall][url=#{images[0].image.url :original, false}][img]#{images[0].image.url :preview, false}[/img][/url][url=#{images[1].image.url :original, false}][img]#{images[1].image.url :preview, false}[/img][/url][/wall]"
+        expect(entry.text).to eq "text\n[wall][url=#{images[0].image.url :original, false}][poster]#{images[0].image.url :preview, false}[/poster][/url][url=#{images[1].image.url :original, false}][poster]#{images[1].image.url :preview, false}[/poster][/url][/wall]"
       end
     end
 
@@ -29,7 +28,7 @@ describe Entry do
     describe 'claim_images' do
       before { entry }
       it 'all images are claimed' do
-        images[0].reload.linked.should eq entry
+        expect(images[0].reload.linked).to eq entry
       end
     end
 
@@ -46,7 +45,7 @@ describe Entry do
     end
   end
 
-  context :instance_methods do
+  describe 'instance methods' do
     let(:user) { create :user }
     let(:user2) { create :user }
     let(:entry) { create :entry, user: user }
@@ -56,7 +55,7 @@ describe Entry do
       let(:entry) { create :entry, user: user, value: "#{images[0].id},#{images[2].id},#{images[1].id}" }
 
       it 'returns user images stored in value in correct order' do
-        entry.user_images.should eq [images[0], images[2], images[1]]
+        expect(entry.user_images).to eq [images[0], images[2], images[1]]
       end
     end
 
@@ -69,7 +68,7 @@ describe Entry do
           third = create :comment, commentable: entry, created_at: DateTime.now - 30.minutes, body: 'third'
         end
         third.destroy
-        Entry.last.updated_at.to_i.should eq(second.created_at.to_i)
+        expect(Entry.last.updated_at.to_i).to eq(second.created_at.to_i)
       end
     end
 
@@ -79,65 +78,20 @@ describe Entry do
       end
 
       it 'false' do
-        entry.comments.with_viewed(user2).first.viewed?.should be_false
+        expect(entry.comments.with_viewed(user2).first.viewed?).to be_falsy
       end
 
       it 'true' do
         create :comment_view, comment: @comment, user: user2
-        entry.comments(user2).first.viewed?.should be_true
+        expect(entry.comments(user2).first.viewed?).to be_truthy
       end
     end
   end
 
-  context :permissions do
-    let(:user) { create :user }
-    let(:entry) { create :entry, user: user }
+  context 'permissions' do
+    let(:user) { build_stubbed :user }
+    let(:entry) { build_stubbed :entry, user: user }
 
-    describe 'with owner' do
-      it 'can be edited' do
-        entry.can_be_edited_by?(user).should be_true
-      end
-
-      describe 'can be deleted' do
-        context 'old' do
-          before { entry.update_column :created_at, 1.month.ago }
-          it { entry.can_be_deleted_by?(user).should be_false }
-        end
-
-        context 'new' do
-          it { entry.can_be_deleted_by?(user).should be_true }
-        end
-      end
-    end
-
-    describe 'with admin' do
-      let(:admin_user) { create :user }
-
-      before do
-        admin_user.stub(:admin?).and_return(true)
-        admin_user.stub(:moderator?).and_return(true)
-      end
-
-      it 'can be edited' do
-        entry.can_be_edited_by?(admin_user).should be_true
-      end
-
-      it 'can be deleted' do
-        entry.can_be_deleted_by?(admin_user).should be_true
-      end
-    end
-
-
-    describe 'with random user' do
-      let(:random_user) { create :user }
-
-      it "can't be edited" do
-        entry.can_be_edited_by?(random_user).should be_false
-      end
-
-      it "can't be deleted" do
-        entry.can_be_deleted_by?(random_user).should be_false
-      end
-    end
+    pending 'ability specs'
   end
 end

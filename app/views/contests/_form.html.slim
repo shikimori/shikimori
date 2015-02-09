@@ -2,39 +2,40 @@
   - if contest.errors.any?
     .b-errors
       .subheadline Ошибки
-      .subcontent
+      .block
         == contest.errors.full_messages.join('<br>')
 
   .subheadline Общее
-  .subcontent
+  .block
     = f.input :description, as: :hidden
     = f.input :title
     = f.input :member_type, as: :select, collection: Contest.member_type.options, include_blank: false, disabled: contest.persisted?
     = f.input :strategy_type, as: :select, collection: Contest.strategy_type.options, include_blank: false, disabled: contest.started? || contest.finished?
     = f.input :user_vote_key, as: :select, collection: [:can_vote_1, :can_vote_2, :can_vote_3], include_blank: false, hint: 'Не должно быть голосований, запущенных в одно время с одинаковым ключём. Иначе галочка в меню будет неправильно работать.'
 
-  .two-columns.m30
-    .column
+  .cc-2
+    .c-column
       .subheadline Длительность
-      .subcontent
-        = f.input :matches_per_round, disabled: contest.started? || contest.finished?, hint: (contest.swiss? ? 'Для швейцарской системы эту цифру желательно подобрать таким образом, чтобы каждый раунд разбивался не более, чем на три равных блока. Для 72 участников это будет 12, для 60 - 10.' : '')
-        = f.input :suggestions_per_user, disabled: contest.started? || contest.finished?
-        = f.input :matches_interval, disabled: contest.started? || contest.finished?
-        = f.input :match_duration, disabled: contest.started? || contest.finished?
-        = f.input :started_on, disabled: contest.started? || contest.finished?, start_year: [contest.started_on.year, Date.today.year].min, end_year: [contest.started_on.year, Date.today.year + 1].max
+      = f.input :matches_per_round, disabled: contest.started? || contest.finished?,
+        hint: (contest.swiss? ? 'Для швейцарской системы эту цифру желательно подобрать таким образом, чтобы каждый раунд разбивался не более, чем на три равных блока. Для 72 участников это будет 12, для 60 - 10.' : ''),
+        input_html: { min: 1 }
+      = f.input :suggestions_per_user, disabled: contest.started? || contest.finished?, input_html: { min: 1 }
+      = f.input :matches_interval, disabled: contest.started? || contest.finished?, input_html: { min: 1 }
+      = f.input :match_duration, disabled: contest.started? || contest.finished?, input_html: { min: 1 }
+      = f.input :started_on, disabled: contest.started? || contest.finished?, start_year: [contest.started_on.year, Date.today.year].min, end_year: [contest.started_on.year, Date.today.year + 1].max
 
-        - if contest.rounds.any?
-          span.action-misc При изменении этих параметров голосования будут перетасованы.
+      - if contest.rounds.any?
+        span.action-misc При изменении этих параметров голосования будут перетасованы.
 
-    .column
+    .c-column
       - if contest.persisted?
         .subheadline Статус
-        .subcontent
+        .block
           p.m5 = t("Contest.#{contest.state}")
 
         - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
           .subheadline Действия
-          .subcontent.actions
+          .contest_actions
             - if contest.object.can_propose?
               a.action href="#{propose_contest_url contest}" data-method="post" Начать приём кандидатов от пользователей
 
@@ -67,19 +68,19 @@
 
       - if contest.rounds.any?
         .subheadline Турнирная сетка
-        .subcontent.grid
+        .block_m.grid
           a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
 
   - if contest.persisted?
     - if contest.created? || contest.proposing?
-      input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
+      .block
+        input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
+        .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
 
-      .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
-      .subcontent
-        = hidden_field_tag "members[]", ''
-        ul.container.m5
+        = hidden_field_tag 'members[]', ''
+        .variants
           - contest.members.uniq(&:id).each do |member|
-            li
+            .variant
               = hidden_field_tag 'members[]', member.id
               a.bubbled href="#{url_for member}"
                 = member.name
@@ -90,24 +91,23 @@
                 span.b-bracket-actions
                   span.item-delete удалить
 
-      p
-        | Итого:&nbsp;
-        span.members-count #{contest.members.count}
-        | &nbsp;участников
+        p
+          | Итого:&nbsp;
+          span.members_count = contest.members.count
+          | &nbsp;
+          span.members_count_label = Russian.p contest.members.count, 'участник', 'участника', 'участников'
 
     - if contest.suggestions.any?
       .suggestions
-        = render 'contests/suggestions', contest: contest
+        = render 'suggestions', contest: contest
 
-  p.buttons.m30
-    span.save.button
-      = contest.persisted? ? 'Сохранить' : 'Создать'
-  .clearfix
+  .actions
+    = f.submit contest.persisted? ? 'Сохранить' : 'Создать', class: 'right'
 
   - if contest.persisted?
     - if contest.rounds.any?
       - contest.rounds.each do |round|
-        .subheadline
-          = round.title
-        .subcontent
+        .block
+          .subheadline
+            = round.title
           = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(round)

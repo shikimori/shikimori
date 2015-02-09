@@ -2,13 +2,11 @@ header.head.m15
   h1 Восстановление пароля
   p.notice На данной странице вы сможете запустить процедуру восстановления пароля, введя ваш e-mail в расположенное ниже поле.
 
-= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-  - unless devise_error_messages!.blank?
-    p.m5 style="color: red;" E-mail не найден
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  .block
+    = f.input :email, input_html: { autofocus: true }
 
-  .m20
-    p
-      label for="user_email" E-mail
-    = f.email_field :email, class: 'common'
-
-  = f.submit 'Отправить инструкцию', class: 'button'
+  .block
+    = f.submit 'Отправить инструкцию'
+    a.cancel href="#{new_user_session_url}" Войти в уже существующий аккаунт
+    a.cancel href="#{new_user_registration_url}" Зарегистрировать новый аккаунт

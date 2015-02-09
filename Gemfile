@@ -1,23 +1,23 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails'
+gem 'rails', '4.2.0'
+gem 'railties', '4.2.0'
+#gem 'bower-rails'
 
 gem 'pg'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
 gem 'redis'
 
-gem 'therubyracer'
-gem 'libv8', '3.16.14.7' # нужно после перехода на yosemite
-
-gem 'sprockets'
-gem 'sass-rails'
 gem 'slim-rails'
-gem 'susy', '1.0.8'
 gem 'coffee-rails'
-gem 'uglifier'
+
+gem 'sass-rails', '5.0.0.beta1'
 gem 'compass-rails'
+gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
+
+gem 'uglifier'
 gem 'non-stupid-digest-assets'
 
 gem 'rmagick', require: 'RMagick', github: 'gemhome/rmagick', branch: 'master' # dependence: sudo apt-get install libmagickwand-dev
@@ -28,15 +28,17 @@ gem 'attribute-defaults'
 #gem 'attr_extras'
 gem 'state_machine'
 gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
-gem 'will_paginate-bootstrap'
 gem 'nokogiri'
 gem 'paperclip'
 gem 'russian', github: 'yaroslav/russian'
 gem 'metrika'
 gem 'simple_form'
-gem 'active_model_serializers'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable' # https://github.com/rails-api/active_model_serializers/issues/641
 gem 'virtus'
+gem 'attr_extras'
 
+gem 'mobylette'
+gem 'browser' # для детекта internet explorer в рендере shiki_editor
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
 
@@ -46,7 +48,7 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 
 gem 'pghero'
-gem 'sidekiq', github: 'mperham/sidekiq', branch: 'master'
+gem 'sidekiq'
 gem 'sidekiq-unique-jobs'
 gem 'sidekiq-limit_fetch'
 gem 'sinatra', '>= 1.3.0', require: nil
@@ -55,7 +57,8 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'bb-ruby'
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 gem 'newrelic_rpm'
-gem 'exception_notification'
+gem 'exception_notification', github: 'smartinez87/exception_notification'
+gem 'slack-notifier'
 gem 'awesome_print'
 gem 'ruby-progressbar', github: 'morr/ruby-progressbar'
 gem 'htmldiff', github: 'myobie/htmldiff'
@@ -63,11 +66,10 @@ gem 'htmldiff', github: 'myobie/htmldiff'
 gem 'retryable'
 gem 'truncate_html'
 gem 'acts-as-taggable-on'
-gem 'uuid'
 gem 'meta-tags', github: 'morr/meta-tags', require: 'meta_tags'
 gem 'enumerize'
 gem 'draper'
-gem 'cancancan'
+gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 
 gem 'unicode' # для downcase русских слов
 gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'
@@ -77,6 +79,9 @@ gem 'amatch', github: 'flori/amatch' # для поиска русских имё
 gem 'ruby-svd', github: 'morr/Ruby-SVD' # для SVD рекомендаций. ruby 2.0
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 
+gem 'jbuilder' # для рендеринга json
+gem 'rack-contrib' # для поддержки jsonp в api
+# TODO: выпилить отовсюду rabl, заменив его на jbuilder
 gem 'rabl' # для рендеринга json
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 gem 'zaru'
@@ -85,7 +90,7 @@ gem 'postmark-rails'
 gem 'apipie-rails'
 gem 'gcm'
 
-group :production do
+group :beta, :production do
   gem 'lograge'
 end
 
@@ -93,17 +98,15 @@ group :development do
   gem 'spring'
   gem 'letter_opener'
   gem 'quiet_assets'
-  #gem 'sextant'
   gem 'mactag'
+  #gem 'web-console'
   gem 'better_errors'
-  #gem 'sprockets_better_errors'
-  gem 'binding_of_caller'#, github: 'badosu/binding_of_caller'
-  #gem 'sql-logging'
+  gem 'binding_of_caller'
 
   gem 'capistrano'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  #gem 'capistrano-file-permissions', require: false, github: 'morr/file-permissions'
+  gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
 
   gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
@@ -115,29 +118,38 @@ gem 'pry-stack_explorer'
 
 group :test, :development do
   gem 'byebug'
-  #gem 'pry-byebug' # пока ещё не поддерживает byubug 3.0
-  #
-  gem 'rspec-rails'
-
-  gem 'vcr'
-  gem 'capybara'
-  gem 'shoulda-matchers', require: false
-  gem 'database_cleaner'
+  gem 'pry-byebug'
 
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
 
-  gem 'spork', github: 'sporkrb/spork', branch: 'master'
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'guard-livereload'#, '2.1.2'
+  gem 'listen', github: 'morr/listen'
+  gem 'rspec'
+  gem 'rspec-core'
+  gem 'rspec-expectations'
+  gem 'rspec-mocks'
+  gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-its'
 
-  gem 'timecop'
-  gem 'webmock', '1.13'
+  gem 'spring-commands-rspec'
 
+  gem 'guard', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-spring', require: false
+  gem 'guard-pow', require: false
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
   gem 'factory_girl_rails', require: false
+  gem 'shoulda-matchers', require: false
+  gem 'timecop'
+  gem 'vcr'
+  gem 'webmock', require: false
 end
 
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
@@ -148,3 +160,14 @@ gem 'clockwork', require: false, github: 'zph/clockwork', branch: 'master' # TOD
 gem 'faye'
 gem 'faye-redis'
 gem 'thin'
+
+# assets
+source 'https://rails-assets.org' do
+  gem 'rails-assets-jquery'
+  gem 'rails-assets-eventie'
+  gem 'rails-assets-eventEmitter'
+  gem 'rails-assets-jquery-bridget'
+  gem 'rails-assets-packery'
+  # когда в master вольют https://github.com/dimsemenov/Magnific-Popup/pull/394 , то строку ниже заменить на её комментарий
+  gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails' # заменить на #gem 'rails-assets-magnific-popup'
+end

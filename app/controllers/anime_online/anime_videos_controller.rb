@@ -1,163 +1,137 @@
-#TODO разделить аниме для play и xplay в #index, #show, #search
-class AnimeOnline::AnimeVideosController < AnimeOnlineController
-  layout 'anime_online'
+class AnimeOnline::AnimeVideosController < AnimesController
+  load_and_authorize_resource only: [:new, :create, :edit, :update]
 
-  before_filter :authenticate_user!, only: [:destroy, :rate, :viewed]
-  after_filter :save_preferences, only: :show
+  before_action :actualize_resource, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:viewed]
+  before_action :add_breadcrumb, except: [:index]
+
+  before_action { @anime_online_ad = true }
+  after_action :save_preferences, only: :index
 
   def index
-    anime_query = AnimeVideosQuery.new AnimeOnlineDomain::adult_host?(request), params
-    @anime_ids = anime_query.search.order.page.fetch_ids
-    @anime_list = AnimeVideoDecorator.decorate_collection anime_query.search.order.page.fetch_entries
-    @top_uploaders = User.where(id: AnimeOnline::Uploaders.current_top)
-  end
+    return redirect_to valid_host_url unless valid_host?
+    raise ActionController::RoutingError.new('Not Found') if @anime.anime_videos.blank?
 
-  def search
-    search = params[:search].to_s.strip
-    if search.blank?
-      redirect_to root_url
-    else
-      redirect_to anime_videos_url search: params[:search], page: 1
-    end
-  end
-
-  def show
-    unless params[:search].blank?
-      redirect_to anime_videos_url search: params[:search]
-      return
-    end
-
-    @anime = AnimeVideoDecorator.new(
-      Anime
-        .includes(:anime_videos, :genres)
-        .find params[:id])
-
-    raise ActionController::RoutingError.new 'Not Found' if @anime.anime_videos.blank?
-
-    unless AnimeOnlineDomain::valid_host? @anime, request
-      redirect_to anime_videos_show_url @anime.id, domain: AnimeOnlineDomain::host(@anime), subdomain: false
-      return
-    end
-
-    unless @anime.current_episode > 1
-      @reviews = Comment
-        .includes(:user)
-        .where(commentable_id: @anime.thread)
-        .reviews.order('id desc').limit 10
-    end
+    @player = AnimeOnline::VideoPlayer.new @anime
+    @video = @player.current_video
+    page_title @player.episode_title
   end
 
   def new
-    anime = Anime.find params[:anime_id]
-    raise ActionController::RoutingError.new 'Not Found' if AnimeVideo::CopyrightBanAnimeIDs.include?(anime.id) && (!user_signed_in? || !current_user.admin?)
-    @video = AnimeVideo.new anime: anime, source: 'shikimori.org', kind: :fandub
+    page_title 'Новое видео'
+    raise ActionController::RoutingError.new 'Not Found' if AnimeVideo::CopyrightBanAnimeIDs.include?(@anime.id) && (!user_signed_in? || !current_user.admin?)
+  end
+
+  def edit
+    page_title 'Изменение видео'
   end
 
   def create
-    @video = AnimeVideo.new(video_params.merge(url: VideoExtractor::UrlExtractor.new(video_params[:url]).extract))
-    @video.author = find_or_create_author(params[:anime_video][:author])
+    @video = AnimeVideosService.new(create_params).create(current_user)
 
-    if @video.save
-      AnimeVideoReport.create!(user: current_user, anime_video: @video, kind: :uploaded)
-
-      if params[:continue] == "true"
-        flash[:notice] = "Эпизод #{@video.episode} добавлен"
-        @video = AnimeVideo.new anime_id: @video.anime_id, episode: @video.episode + 1, author: @video.author, kind: @video.kind, source: 'shikimori.org'
-        render :new
+    if @video.persisted?
+      if params[:continue] == 'true'
+        redirect_to next_video_url(@video), notice: "Эпизод #{@video.episode} добавлен"
       else
-        redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+        redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
       end
     else
       render :new
     end
   end
 
-  def edit
-    @video = AnimeVideo.includes(:anime).find params[:id]
-  end
-
   def update
-    @video = AnimeVideo.find(params[:id])
-    author = find_or_create_author(params[:anime_video][:author])
-    if video_params[:episode] != @video.episode || video_params[:kind] != @video.kind || author.id != @video.author_id
-      if @video.moderated_update video_params.merge(anime_video_author_id: author.id), current_user
-        redirect_to anime_videos_show_url(@video.anime.id, @video.episode, @video.id), notice: 'Видео изменено'
-      else
-        render :edit
-      end
-    end
-  end
+    @video = AnimeVideosService.new(update_params).update(@video)
 
-  def destroy
-    video = AnimeVideo.find(params[:id])
-    report = AnimeVideoReport.where(user_id: current_user, anime_video_id: params[:id]).first
-    if report
-      video.destroy
+    if @video.valid?
+      redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+    else
+      page_title 'Изменение видео'
+      render :edit
     end
-    redirect_to anime_videos_show_url(video.anime_id), notice: 'Видео удалено'
   end
 
   def help
   end
 
-  def report
-    user = user_signed_in? ? current_user : User.find(User::GuestID)
-    anime_video = AnimeVideo.find params[:id]
-    unless AnimeVideoReport.where(kind: params[:kind], anime_video_id: params[:id], user: user, state: :pending).first
-      anime_report = AnimeVideoReport.find_or_create_by(user: user, anime_video: anime_video, state: :pending)
-      anime_report.kind = params[:kind]
-      anime_report.user_agent = request.user_agent
-      anime_report.message = params[:message]
-      anime_report.save
-      anime_report.accept!(user) if user.admin?
-    end
+  def viewed
+    video = AnimeVideo.find params[:id]
+    @user_rate = @anime.rates.find_by(user_id: current_user.id) ||
+      @anime.rates.build(user: current_user)
+
+    @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
+    render nothing: true
+  end
+
+  def track_view
+    AnimeVideo.find(params[:id]).increment! :watch_view_count
     render nothing: true
   end
 
   def extract_url
-    render text: VideoExtractor::UrlExtractor.new(params[:url]).extract
-  end
-
-  def viewed
-    video = AnimeVideo.find params[:id]
-    anime = Anime.find params[:anime_id]
-    user_rate = anime.rates.find_by_user_id current_user.id
-    UserRate.update(user_rate.id, episodes: video.episode) if user_rate
-
-    redirect_to anime_videos_show_url video.anime_id, video.episode + 1
-  end
-
-  def rate
-    UserRate.create_or_find(current_user.id, params[:id], 'Anime').save
-    render nothing: true
-  end
-
-  def watch_view_increment
-    video = AnimeVideo.find params[:id]
-    video.update watch_view_count: video.watch_view_count.to_i + 1
-    render nothing: true
+    render json: { url: VideoExtractor::UrlExtractor.new(params[:url]).extract }
   end
 
 private
-  def video_params
-    params
-      .require(:anime_video)
-      .permit(:episode, :url, :anime_id, :source, :kind)
-      .merge(state: 'uploaded')
+  def new_params
+    create_params
   end
 
-  def find_or_create_author name
-    name = name.to_s.strip
-    AnimeVideoAuthor.where(name: name).first || AnimeVideoAuthor.create(name: name)
+  def create_params
+    params.require(:anime_video).permit(:episode, :author_name, :url, :anime_id, :source, :kind, :state)
+  end
+
+  def update_params
+    params.require(:anime_video).permit(:episode, :author_name, :kind)
+  end
+
+  def resource_id
+    params[:anime_id]
+  end
+
+  def resource_klass
+    Anime
   end
 
   def save_preferences
-    if params[:video_id].to_i > 0
-      if video = AnimeVideo.find_by_id(params[:video_id])
-        cookies[:preference_kind] = video.kind
-        cookies[:preference_hosting] = video.hosting
-        cookies[:preference_author_id] = video.anime_video_author_id
-      end
+    if @video && @video.persisted? && @video.valid?
+      cookies[:preference_kind] = @video.kind
+      cookies[:preference_hosting] = @video.hosting
+      cookies[:preference_author_id] = @video.anime_video_author_id
     end
+  end
+
+  def valid_host?
+    AnimeOnlineDomain::valid_host? @anime, request
+  end
+
+  def valid_host_url
+    play_video_online_index_url @anime,
+      episode: params[:episode], video_id: params[:video_id],
+      domain: AnimeOnlineDomain::host(@anime), subdomain: false
+  end
+
+  def next_video_url video
+    new_video_online_url(
+      'anime_video[anime_id]' => video.anime_id,
+      'anime_video[source]' => video.source,
+      'anime_video[state]' => video.state,
+      'anime_video[kind]' => video.kind,
+      'anime_video[episode]' => video.episode + 1,
+      'anime_video[author_name]' => video.author_name,
+    )
+  end
+
+  def add_breadcrumb
+    episode = @video.try(:episode)
+    index_url = play_video_online_index_url(@anime, episode: episode)
+
+    breadcrumb episode ? "Эпизод #{episode}" : 'Просмотр онлайн', index_url
+    @back_url = index_url
+  end
+
+  def actualize_resource
+    @video = @resource
+    @resource = @anime
   end
 end

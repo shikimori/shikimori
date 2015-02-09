@@ -87,8 +87,8 @@
 
 
 <% content_for :before_page_content do %>
-  <div class="common-title">
-    <h1 class="h1" title="<%=raw @title %>">
+  <div class="head">
+    <h1 title="<%=raw @title %>">
       <%=raw @title %>
       <% if user_signed_in? && current_user.moderator? %>
         <div class="buttons" style="">

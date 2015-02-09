@@ -6,7 +6,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :POST, "/sessions", "Create a session"
+  api :POST, '/sessions', 'Create a session'
   param :user, Hash do
     param :nickname, :undef
     param :password, :undef

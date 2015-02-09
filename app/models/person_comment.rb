@@ -1,6 +1,20 @@
-class PersonComment < CharacterComment
+class PersonComment < AniMangaComment
   # текст топика
   def text
-    "Обсуждение [#{self.linked_type.downcase}=#{self.linked_id}]человека[/#{self.linked_type.downcase}]."
+    "Обсуждение [person=#{linked_id}]#{human_role}[/person]."
+  end
+
+  def human_role
+    if linked.producer && linked.mangaka
+      'режиссёра аниме и автора манги'
+    elsif linked.producer
+      'режиссёра аниме'
+    elsif linked.mangaka
+      'автора манги'
+    elsif linked.seyu
+      'сэйю'
+    else
+      'человека'
+    end
   end
 end

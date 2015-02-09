@@ -1,0 +1,23 @@
+@import mixins/column
+@import mixins/responsive
+
+.p-profiles-favourites
+  .c-anime, .c-manga
+    +gte_ipad
+      +column_bm(7, 1/7, 2%)
+
+    +iphone-landscape
+      +column_bm(5)
+
+    +iphone-portrait
+      +column_bm(4)
+
+  .c-character, .c-person
+    +gte_ipad
+      +column_bm(9, 1/9, 2%)
+
+    +iphone-landscape
+      +column_bm(6)
+
+    +iphone-portrait
+      +column_bm(4)

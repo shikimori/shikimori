@@ -1,6 +1,5 @@
 class Moderation::AnimeVideoReportsController < ShikimoriController
-  before_filter :authenticate_user!
-  before_filter :check_permissions
+  load_and_authorize_resource
 
   def index
     @page_title = 'Модерация видео'
@@ -16,28 +15,36 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
     end
   end
 
+  def create
+    @resource.save!
+    head 200
+  end
+
   def accept
-    AnimeVideoReport.find(params[:id]).accept! current_user
+    @resource.accept! current_user
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
   def reject
-    AnimeVideoReport.find(params[:id]).reject! current_user
+    @resource.reject! current_user
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
   def work
-    AnimeVideo.find(params[:id]).work!
+    @resource.work!
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
   def cancel
-    AnimeVideoReport.find(params[:id]).cancel! current_user
+    @resource.cancel! current_user
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
 private
-  def check_permissions
-    raise Forbidden unless current_user.video_moderator?
+  def anime_video_report_params
+    params
+      .require(:anime_video_report)
+      .permit(:kind, :anime_video_id, :user_id, :message)
+      .merge(user_agent: request.user_agent)
   end
 end

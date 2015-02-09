@@ -1,40 +1,60 @@
-- if user_signed_in? && current_user.ignores?(comment.user)
-  = render partial: 'blocks/ignored', object: comment, formats: :html
+- if user_signed_in? && comment.persisted? && current_user.ignores?(comment.user)
+  = render partial: 'blocks/ignored', object: comment
 - else
-
-  .comment-block.appear-block class="comment-#{comment.id}#{' comment-new' unless comment.viewed?}" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments" data-id="#{comment.id}"
+  .b-comment.shiki-object.unprocessed[
+      id="#{comment.id}"
+      itemprop="comment" itemscope="itemscope"
+      itemtype="http://schema.org/UserComments"
+      data-user_id="#{comment.user.try :id}"
+      data-user_nickname="#{comment.user.try :nickname}"
+    ]
     a name="comment-#{comment.id}"
+    / класс нужен из-за проверки высоты
+    .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
+      - if comment.persisted?
+        - if user_signed_in?
+          span.item-mobile title="Действия"
 
-    - if user_signed_in?
-      span.item-mobile title="Действия"
-    - if comment.respond_to?(:review?)
-      span.review-marker data-action="#{review_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва" отзыв
+        aside.markers
+          - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
+            .b-review_marker[
+                class="#{:active if user_signed_in?}"
+                style="#{'display: none;' unless comment.review?}" title="Снять метку отзыва"
+                data-action="#{review_comment_abuse_requests_url comment}"
+                data-method="post" data-type="json" data-remote="true"
+              ]
+          .b-offtopic_marker[
+              class="#{:active if user_signed_in?}"
+              style="#{'display: none;' unless comment.offtopic?}" title="Снять метку оффтопика"
+              data-action="#{offtopic_comment_abuse_requests_url comment}"
+              data-method="post" data-type="json" data-remote="true"
+            ]
+          - unless comment.viewed?
+            .b-new_marker.active
 
-    span.offtopic-marker data-action="#{offtopic_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" style="#{'display: none;' unless comment.offtopic?}" title="Снять метку оффтопика"
-    - unless comment.viewed?
-      p.new-marker новое
+        - if user_signed_in?
+          - if current_user.moderator?
+            aside.moderation-ban
+          = render partial: 'comments/buttons', locals: { comment: comment }
 
-    - if user_signed_in?
-      - if current_user.moderator?
-        .moderation-ban
-      = render partial: 'comments/buttons', locals: { comment: comment }, formats: :html
+      / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
+      - if comment.user
+        header
+          span.linkeable data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user)}"
+            img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
+          .name-date
+            a href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user)}" itemprop="creator"
+              - if comment.respond_to?(:topic_url)
+                = comment.topic_name
+              - else
+                = comment.user.nickname
 
-    .image-name
-      a href="#{comment.topic_url || user_url(comment.user)}" title="#{comment.user.nickname}"
-        img src="#{comment.user.avatar_url 48}" alt="#{comment.user.nickname}"
-      .name-date
-        a.name href="#{comment.topic_url || user_url(comment.user)}" itemprop="creator" data-user_id="#{comment.user.id}"
-          == comment.topic_name || h(comment.user.nickname)
-        time.date itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
-          = time_ago_in_words comment.created_at, "%s назад"
+            - if comment.persisted?
+              time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
+                = time_ago_in_words comment.created_at, "%s назад"
 
-    .body itemprop="commentText"
-      - if comment.kind_of? Comment
-        == comment.html_body
-      - elsif comment.respond_to?(:kind) && comment.kind == MessageType::Private
-        - cache [comment, :body] do
-          = BbCodeFormatter.instance.format_comment comment.body
-      - else
-        == format_comment comment.body, comment.user
-    - unless comment.viewed?
-      .appear-marker class="appear-comment-#{comment.id}" data-href="#{appear_url}"
+      .body itemprop="commentText"
+        = comment.html_body
+
+      - unless comment.viewed?
+        .appear-marker class="appear-comment-#{comment.id}" data-appear_url="#{appear_url}"

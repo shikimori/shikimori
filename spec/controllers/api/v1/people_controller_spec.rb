@@ -1,19 +1,17 @@
-require 'spec_helper'
-
-describe Api::V1::PeopleController do
-  describe :show do
+describe Api::V1::PeopleController, :show_in_doc do
+  describe '#show' do
     before { get :show, id: person.id, format: :json }
 
-    context :person do
+    context 'person' do
       let(:person) { create :person }
-      it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response).to have_http_status :success }
+      it { expect(response.content_type).to eq 'application/json' }
     end
 
-    context :seyu do
+    context 'seyu' do
       let(:person) { create :person, seyu: true }
-      it { should respond_with :success }
-      it { should respond_with_content_type :json }
+      it { expect(response).to have_http_status :success }
+      it { expect(response.content_type).to eq 'application/json' }
     end
   end
 end

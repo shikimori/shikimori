@@ -1,9 +1,15 @@
-@import mixins/responsive
 @import globals
+@import mixins/icons
+@import mixins/responsive
 
-+responsive(tablet)
+$entry_padding_left: 10px
+
++lte_ipad
   .l-top_menu
     +clearfix
+
+    .mobile-menu-toggler.active
+      background: #545454
 
     .menu-mobile, .menu-userbox
       float: right
@@ -23,12 +29,12 @@
         color: #f9f9f9
         float: right
         cursor: pointer
-        height: $menu-height - 1px
+        height: $menu_height - 1px
         margin-left: 15px !important
 
         &:before
           font-size: 22px
-          line-height: $menu-height
+          line-height: $menu_height
           width: 30px
 
     .menu-userbox
@@ -39,21 +45,31 @@
 
     .menu-items, .menu-search
       display: none
-      padding-top: $menu-height + 2px
+      padding-top: $menu_height + 2px
 
       &.active
         display: block
 
     .menu-items
+      .entry a
+        display: block
+        // чтобы на телефонах при нажатии на пункт меню подсвечивалась вся строка с пунктом (у .entry padding-left: $entry_padding_left)
+        margin-left: -$entry_padding_left
+        padding-left: $entry_padding_left
+
+      .submenu-activator
+        cursor: pointer
+
       .submenu-toggler
         +icon("m")
         cursor: pointer
-        float: right
-        margin-right: 10px
+        position: absolute
+        right: 10px
 
         &:before
           content: '+'
           width: 30px
+          line-height: 34px
 
         &.active:before
           content: '-'
@@ -69,7 +85,7 @@
       // important из-за назначения стилей десктопного меню скриптами
       display: none !important
       height: auto !important
-      padding-left: 5px
+      padding-left: 25px
 
       &.active
         display: block !important
@@ -78,11 +94,14 @@
       border-top: 1px solid white
       color: white
       display: block
-      line-height: $menu-height
-      padding-left: 10px
+      line-height: $menu_height
+      padding-left: $entry_padding_left
 
       a
         color: inherit
+
+      &.sign_out
+        display: block !important
 
     .moderation
       display: none

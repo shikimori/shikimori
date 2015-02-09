@@ -1,85 +1,91 @@
-require 'spec_helper'
-
 describe Moderation::AnimeVideoReportsController do
   before { sign_in moderator }
 
-  let(:user) { create :user }
-  let(:moderator) { create :user, id: User::Blackchestnut_ID }
+  let(:user) { create :user, :user }
+  let(:moderator) { create :user, :video_moderator }
   let(:anime_video) { create :anime_video, anime: create(:anime) }
   let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video }
 
-  describe :index do
+  describe '#index' do
     before { get :index }
     let(:kind) { 'broken' }
-
-    it { should respond_with :success }
-    it { should respond_with_content_type :html }
+    it { expect(response).to have_http_status :success }
   end
 
-  describe :accept do
+  describe '#accept' do
     before { get :accept, id: anime_video_report.id }
 
-    context :broken do
+    context 'broken' do
       let(:kind) { 'broken' }
-      it { should redirect_to moderation_anime_video_reports_url }
-      specify { anime_video.reload.state.should eq kind }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
+      specify { expect(anime_video.reload.state).to eq kind }
     end
 
-    context :wrong do
+    context 'wrong' do
       let(:kind) { 'wrong' }
-      it { should redirect_to moderation_anime_video_reports_url }
-      specify { anime_video.reload.state.should eq kind }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
+      specify { expect(anime_video.reload.state).to eq kind }
     end
   end
 
-  describe :cancel do
+  describe '#create' do
+    let(:anime_video_report) {}
+    let(:params) {{ kind: 'broken', anime_video_id: anime_video.id, user_id: user.id, message: 'test' }}
+    before { post :create, anime_video_report: params }
+
+    it { expect(response).to have_http_status :success }
+    it { expect(resource).to be_persisted }
+    it { expect(resource).to have_attributes params }
+  end
+
+  describe '#cancel' do
     let(:anime_video) { create :anime_video, anime: create(:anime), state: state }
     let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video, state: 'accepted' }
     let(:state) { kind }
 
     before { get :cancel, id: anime_video_report.id }
 
-    context :broken do
+    context 'broken' do
       let(:kind) { 'broken' }
-      it { should redirect_to moderation_anime_video_reports_url }
-      specify { anime_video.reload.should be_working }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
+      specify { expect(anime_video.reload).to be_working }
     end
 
-    context :wrong do
+    context 'wrong' do
       let(:kind) { 'wrong' }
-      it { should redirect_to moderation_anime_video_reports_url }
-      specify { anime_video.reload.should be_working }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
+      specify { expect(anime_video.reload).to be_working }
     end
 
-    context :uploaded do
+    context 'uploaded' do
       let(:kind) { 'uploaded' }
-      it { should redirect_to moderation_anime_video_reports_url }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
 
-      context :rejected do
+      context 'rejected' do
         let(:state) { 'rejected' }
-        specify { anime_video.reload.should be_uploaded }
+        specify { expect(anime_video.reload).to be_uploaded }
       end
 
-      context :rejected do
+      context 'rejected' do
         let(:state) { 'working' }
-        specify { anime_video.reload.should be_uploaded }
+        specify { expect(anime_video.reload).to be_uploaded }
       end
     end
   end
 
-  describe :reject do
+  describe '#reject' do
     before { get :reject, id: anime_video_report.id }
 
-    context :broken do
+    context 'broken' do
       let(:kind) { 'broken' }
-      it { should redirect_to moderation_anime_video_reports_url }
-      specify { anime_video.reload.state.should eq 'working' }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
+      specify { expect(anime_video.reload.state).to eq 'working' }
     end
 
-    context :wrong do
+    context 'wrong' do
       let(:kind) { 'wrong' }
-      it { should redirect_to moderation_anime_video_reports_url }
-      specify { anime_video.reload.state.should eq 'working' }
+      it { expect(response).to redirect_to moderation_anime_video_reports_url }
+      specify { expect(anime_video.reload.state).to eq 'working' }
     end
   end
 end

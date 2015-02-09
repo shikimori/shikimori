@@ -1,0 +1,195 @@
+@import compass/css3/border-radius
+@import compass/css3/opacity
+@import compass/css3/transition
+@import compass/utilities/general/clearfix
+@import mixins/icons
+@import mixins/link
+@import mixins/placeholder
+@import mixins/responsive
+
+.b-shiki_editor
+  +transition(opacity 0.5s ease)
+
+  .hidden-block
+    display: none
+    overflow: hidden
+
+    &.with-transition
+      +transition(all 0.5s ease)
+
+  .smileys
+    div
+      margin-bottom: 5px
+    img
+      cursor: pointer
+      margin-right: 3px
+      margin-bottom: 3px
+
+  .links, .images, .quotes, .email, .upload
+    height: 25px
+    line-height: 25px
+    padding-left: 4px
+
+    +responsive(phone)
+      height: 43px
+
+    +responsive(narrow-phone)
+      height: 64px
+
+    p
+      line-height: inherit
+
+    span
+      padding-left: 5px
+
+    input
+      margin-top: 4px
+
+    .link-value
+      background-color: #FCFCFC
+      border-color: #DDD
+      color: #333
+      line-height: 16px
+      margin-top: 2px
+      outline: none
+      padding: 0 5px
+      width: 275px
+
+      &.ac_input
+        width: 200px
+
+    label
+      display: inline-block
+      cursor: pointer
+      margin-right: 10px
+
+  .links p
+    overflow: hidden
+    white-space: nowrap
+
+  .b-upload_progress.active
+    margin-bottom: 1px
+
+  .images,.quotes,.email
+    input
+      margin-left: 5px !important
+      width: 380px !important
+
+  .email
+    margin-top: -5px
+    margin-bottom: 10px
+    display: block
+
+  .body
+    .preview
+      display: none
+      margin-bottom: 10px
+
+    .editor
+      label
+        display: none
+
+      textarea
+        +border-radius(0)
+        +transition(height 0.2s ease)
+        -webkit-appearance: none
+        background: #FCFCFC
+        border: 1px solid #DDD
+        color: #333333
+        height: 89px
+        line-height: $line_height
+        max-height: 417px
+        outline: none
+        padding: 3px 7px 5px
+        position: relative
+        resize: none
+        width: 100%
+
+        +placeholder
+          line-height: $line_height
+          color: #999
+
+  .ajax-loading
+    height: 100%
+
+  aside.markers
+    float: right
+
+    +iphone
+      line-height: 20px
+      .b-review_marker, .b-offtopic_marker
+        &:before
+          line-height: 20px
+
+  aside.buttons
+    float: none !important
+    margin: 2px 0 7px
+
+    .editor-strike, .editor-file
+      +gt_ipad
+        margin-left: 30px
+
+    +iphone
+      span
+        display: none
+
+      .editor-link, .editor-spoiler, .editor-smiley
+        display: inline-block
+
+    +iphone_portrait
+      .editor-link
+        margin-left: 0
+
+    +iphone-landscape
+      .editor-bold, .editor-italic
+        display: inline-block
+
+  footer
+    margin-top: 10px
+
+    input[type=submit], .unpreview, .preview
+      margin-right: 20px
+      +iphone_portrait
+        margin-bottom: 10px
+
+    .unpreview.link, .cancel, .hide
+      +link
+      font-size: 13px
+
+    .about-bb_codes
+      +link_js
+      float: right
+      margin-top: 4px
+      font-size: 11px
+      line-height: 1.2
+
+    .hide
+      display: none
+
+    .unpreview
+      display: none
+
+  &.previewed
+    .editor-controls
+      display: none
+
+    .body
+      .editor
+        display: none
+
+      .preview
+        display: block
+
+        .b-comment, .b-message
+          border-top: none
+          padding-top: 0
+
+    footer
+      .unpreview
+        display: inline
+
+      .cancel, .button.preview
+        display: none
+
+  &.ajax_request
+    +opacity(0.4)

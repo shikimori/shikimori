@@ -1,7 +1,7 @@
-class ContestDecorator < BaseDecorator
+class ContestDecorator < DbEntryDecorator
   instance_cache :displayed_round, :prior_round, :nearby_rounds, :displayed_match
   instance_cache :left_voters, :right_voters, :uniq_voters, :refrained_voters, :suggestions
-  instance_cache :median_votes, :user_suggestions, :matches_with_associations, :displayed_comments, :rounds
+  instance_cache :median_votes, :user_suggestions, :matches_with_associations, :rounds
 
   # текущий раунд
   def displayed_round
@@ -87,7 +87,7 @@ class ContestDecorator < BaseDecorator
 
   # победители контеста
   def results round=nil
-    object.results(round).take winners_count
+    object.results(round).take(winners_count).map(&:decorate)
   end
 
   # число победителей
@@ -103,11 +103,6 @@ class ContestDecorator < BaseDecorator
   # голосования с аниме
   def matches_with target
     matches_with_associations.select {|v| v.left_id == target.id || v.right_id == target.id }
-  end
-
-  # изначально отображаемые комментарии
-  def displayed_comments
-    object.thread.comments.with_viewed(h.current_user).limit(15).to_a
   end
 
   # текущий статус опроса

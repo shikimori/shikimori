@@ -1,0 +1,45 @@
+@import compass/typography/text/ellipsis
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/link
+@import mixins/responsive
+
+.p-contests
+  .proposing
+    +block_m
+    +clear_left
+
+  .suggestion, .variant
+    +ellipsis
+    +gte_ipad
+      +column(3)
+
+    +iphone_landscape
+      +column(2)
+
+    +iphone_portrait
+      +column(1)
+
+    line-height: $line_height
+
+    .show, .hide
+      cursor: pointer
+
+      span
+        padding-left: 4px
+
+    .hide
+      display: none
+
+    &>a
+      +link
+      +ellipsis
+      float: left
+      max-width: 50%
+
+    .voters img
+      padding-right: 5px
+
+    .voters-container
+      display: none

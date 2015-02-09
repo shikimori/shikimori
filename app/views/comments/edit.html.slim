@@ -1,1 +1,1 @@
-= render partial: 'comments/add', layout: false, locals: { options: { text: @comment.body, review: @comment.review?, offtopic: @comment.offtopic?, object: @comment.commentable, editable: @comment } }
+= render partial: 'comments/form', locals: { comment: @comment }

@@ -88,11 +88,11 @@ class SitemapController < ShikimoriController
     ]
     @sections = [
       ['Аниме студии', studios_url],
-      ['График онгоингов', ongoings_url],
+      ['График онгоингов', ongoings_pages_url],
       ['Аниме форум', section_url(:a)],
       #['Форум', forums_url],
       #['Блоги', blogs_url],
-      ['Клубы', groups_url],
+      ['Клубы', clubs_url],
       ['Рецензии и обзоры', section_url(:reviews)],
       ['Турниры и голосования', contests_url],
       ['Новости', section_url(:news)]

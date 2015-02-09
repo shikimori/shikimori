@@ -1,40 +1,36 @@
-.p-anime_video-new.container
-  - if flash[:notice]
-    .alert.alert-success = flash[:notice]
+= render layout: 'animes/page' do
+  = simple_form_for @video, url: video_online_index_url(@anime) do |f|
+    input.hidden#continue name="continue" type="hidden"
 
-  = simple_form_for @video, url: anime_online_anime_anime_videos_url do |f|
-    h3 #{@video.anime.name}
-    legend Новое видео
-    = f.input :anime_id, as: :hidden
-    = f.input :source, as: :hidden
-    input.hidden#continue name="continue" type="hidden" value=""
+    - if @video.errors.any?
+      .b-errors
+        .subheadline Ошибки
+        .block
+          == @video.errors.full_messages.join('<br>')
 
-    - unless @video.errors.blank?
-      .alert.alert-danger = @video.errors.full_messages.join ', '
+    .subheadline Новое видео
+    .block
+      = f.input :anime_id, as: :hidden
+      = f.input :source, as: :hidden
+      = f.input :state, as: :hidden
+      = f.input :episode
+      = f.input :url, hint: "<a href='#{help_video_online_index_url @anime}' target='_blank'>как правильно получить ссылку на видео</a>".html_safe
+      = f.input :author_name, hint: 'не обязательно'
+      = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
 
-    .form-group
-      = f.input_field :episode, class: 'form-control', placeholder: 'Эпизод'
-    .form-group
-      = f.input_field :url, class: 'form-control', placeholder: 'URL на видео, например: http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
-      a href='#{help_anime_online_anime_videos_url}' как правильно получить ссылку
-    .form-group
-      = f.input_field :author, class: 'form-control', placeholder: 'Автор озвучки (может быть пустым)', value: (@video.author ? @video.author.name : '')
-    .form-group
-      label.radio-inline
-        = f.radio_button :kind, :fandub, value: :fandub
-        = t '.kind.fandub'
-      label.radio-inline
-        = f.radio_button :kind, :subtitles, value: :subtitles
-        = t '.kind.subtitles'
-      label.radio-inline
-        = f.radio_button :kind, :raw, value: :raw
-        = t '.kind.raw'
-    .form-group
-      .alert.alert-info
-        a.btn.btn-primary.check Проверить
-        | Перед сохранением необходимо проверить корректность введенного URL на видео, чтобы не добавлять видео, которое не работает.
-      p.load.hidden Подождите...
-      button.btn.btn-success.hidden.save.continue type='submit' Видео работает, сохранить и добавить еще
-      button.btn.btn-success.hidden.save type='submit' Видео работает, сохранить
-    .form-group
-      iframe.hidden
+    .block
+      .button.do-preview data-href="#{extract_url_video_online_index_url @anime}"
+        | Проверить видео
+      a.cancel href="#{@back_url}" Отмена
+
+    .block.video-preview
+      iframe
+
+    .buttons.m5
+      .doesnt-work-info
+        p Если видео не отображается, проверьте, что ссылка рабочая, тоесть по ней в браузере у вас открывается страница видео.
+        p Далее внимательно проверьте, что вы <a href='#{help_video_online_index_url @anime}' target='_blank'>правильно получили ссылку</a> на видео.
+        p Если ссылка правильная, и видео по-прежнему не работает, то пожалуйста обратитесь за помощью <a href="http://#{Site::DOMAIN}/s/102-Tema-ob-oshibkah">на форум сайта</a>.
+
+      = f.submit 'Работает. Сохранить'
+      = f.submit 'Работает. Сохранить и добавить ещё', class: 'continue'

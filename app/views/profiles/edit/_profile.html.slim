@@ -1,0 +1,21 @@
+= simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
+  input type="hidden" name="page" value="#{@page}"
+
+  .block
+    = f.input :profile_privacy, include_blank: false
+    = f.input :anime_in_profile
+    = f.input :manga_in_profile
+    = f.input :comments_in_profile
+    = f.input :statistics_start_on, label: 'Отображать график активности начиная с даты', start_year: @resource.created_at.year, end_year: Date.today.year, default: @resource.created_at
+
+  .b-options-floated.about-options
+    = f.input :about_on_top
+
+  .block
+    .subheadline.m10 О себе
+    .b-shiki_editor.unprocessed
+      = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
+
+  .buttons
+    a.cancel href="#{profile_url @resource}" Отмена
+    = f.submit

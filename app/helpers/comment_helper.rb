@@ -2,10 +2,10 @@ require Rails.root.join('lib', 'string')
 
 module CommentHelper
   include SiteHelper
-  include AniMangaHelper
+  #include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :comment, :entry, :review, :quote, :posters, :wall_container, :ban, :spoiler]
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -89,66 +89,71 @@ module CommentHelper
   def mention_to_html text, poster=nil
     text.gsub /\[mention=\d+\]([\s\S]*?)\[\/mention\]/ do
       nickname = $1
-      "<a href=\"#{user_url User.param_to(nickname)}\" class=\"b-mention\"><s>@</s><span>#{nickname}</span></a>"
+      "<a href=\"#{profile_url User.param_to(nickname)}\" class=\"b-mention\"><s>@</s><span>#{nickname}</span></a>"
     end
   end
 
-  def wall_container_to_html text, poster=nil
-    text.sub /(^[\s\S]*)(<div class="wall")/ , '<div class="height-unchecked inner-block">\1</div>\2'
-  end
+  #def wall_container_to_html text, poster=nil
+    #text.sub /(^[\s\S]*)(<div class="wall")/ , '<div class="height-unchecked inner-block">\1</div>\2'
+  #end
 
   def spoiler_to_html text, nesting = 0
     return text if nesting > 2
-
     text = spoiler_to_html text, nesting + 1
 
+    #/\[spoiler\](?:<br ?\/?>|\n)?(.*?)(?:<br ?\/?>|\n)?\[\/spoiler\](?:<br ?\/?>|\n)?/mi,
+    #'<div class="collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div class="target spoiler" style="display: none;">\1<span class="closing"></span></div>')
+
+
     text.gsub(/
-        \[spoiler (?:= (?<label> [^\[\]\n\r]*? ) )? \]
-          (?:<br ?\/?> | \n | \r )?
-          (?<content>
-            (?:
-              (?! \[\/?spoiler\] ) (?>[\s\S])
-            )+
-          )
-          (?: <br ?\/?> | \n | \r )?
-        \[\/spoiler\]
+      \[spoiler (?:= (?<label> [^\[\]\n\r]*? ) )? \]
+        (?:<br ?\/?> | \n | \r )?
+        (?<content>
+          (?:
+            (?! \[\/?spoiler\] ) (?>[\s\S])
+          )+
+        )
+        (?: <br ?\/?> | \n | \r )?
+      \[\/spoiler\]
     /xi) do |match|
-      '<div class="spoiler collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed spoiler">' + ($~[:label] || 'спойлер') + '</div><div class="spoiler target" style="display: none;">' + $~[:content] + '<span class="closing"></span></div>'
+      '<div class="b-spoiler unprocessed">' +
+        "<label>#{$~[:label] || 'спойлер'}</label>" +
+        "<div class='content'><div class='before'></div><div class='inner'>#{$~[:content]}</div><div class='after'></div></div>" +
+      '</div>'
     end
   end
 
   BbCodeReplacers = ComplexBbCodes.map { |v| "#{v}_to_html".to_sym }.reverse
 
-  # TODO: удалить метод
-  def format_comment text, poster=nil
-    ActiveSupport::Deprecation.warn "use BbCodeFormatter.instance.format_comment instead.", caller
-    safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
-    text_hash = XXhash.xxh32 text, 0
+  ## TODO: удалить метод
+  #def format_comment text, poster=nil
+    #ActiveSupport::Deprecation.warn "use BbCodeFormatter.instance.format_comment instead.", caller
+    #safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
+    #text_hash = XXhash.xxh32 text, 0
 
-    result = remove_wiki_codes(remove_old_tags(safe_text))
-      .gsub(/\r\n|\r|\n/, '<br />')
-      .bbcode_to_html(@@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img)
-      .gsub(%r{<a href="(?!http|/)}, '<a href="http://')
-      .gsub('<ul><br />', '<ul>')
-      .gsub('</ul><br />', '</ul>')
+    #result = remove_wiki_codes(remove_old_tags(safe_text))
+      #.gsub(/\r\n|\r|\n/, '<br />')
+      #.bbcode_to_html(@@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img)
+      #.gsub(%r{<a href="(?!http|/)}, '<a href="http://')
+      #.gsub('<ul><br />', '<ul>')
+      #.gsub('</ul><br />', '</ul>')
 
-    BbCodeReplacers.each do |processor|
-      result = send processor, result
-    end
+    #BbCodeReplacers.each do |processor|
+      #result = send processor, result
+    #end
 
-    result = db_entry_mention result
-    result = anime_to_html result
-    result = manga_to_html result
-    result = character_to_html result
-    result = person_to_html result
-    result = BbCodes::ImageTag.instance.format result, text_hash
-    #result = spoiler_to_html result
+    #result = db_entry_mention result
+    #result = anime_to_html result
+    #result = manga_to_html result
+    #result = character_to_html result
+    #result = person_to_html result
+    ##result = spoiler_to_html result
 
-    if poster && poster.bot?
-      result = result.gsub('<a href=', '<a rel="nofollow" href=')
-    end
-    result.html_safe
-  end
+    #if poster && poster.bot?
+      #result = result.gsub('<a href=', '<a rel="nofollow" href=')
+    #end
+    #result.html_safe
+  #end
 
   def db_entry_mention text
     text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes + DbEntryBbCodes).map {|v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|
@@ -188,6 +193,7 @@ module CommentHelper
     text
       .gsub(/\[quote\]/, '<blockquote>')
       .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
+      .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[message=\1 quote]\3[/message]</div>')
       .gsub(/\[quote=([^\]]+)\]/, '<blockquote><div class="quoteable">[user]\1[/user]</div>')
       .gsub(/\[\/quote\](?:\r\n|\r|\n|<br \/>)?/, '</blockquote>')
   end
@@ -208,10 +214,11 @@ module CommentHelper
   @@type_matchers = {
     Anime => [/(\[anime(?:=(\d+))?\]([^\[]*?)\[\/anime\])/, :tooltip_anime_url],
     Manga => [/(\[manga(?:=(\d+))?\]([^\[]*?)\[\/manga\])/, :tooltip_manga_url],
-    Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :character_tooltip_url],
-    Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :person_tooltip_url],
-    UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :moderation_user_change_tooltip_url],
+    Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :tooltip_character_url],
+    Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :tooltip_person_url],
+    UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :tooltip_moderation_user_change_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
+    Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
     Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote>)\](?<text>[^\[]*?)\[\/entry\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
@@ -224,22 +231,24 @@ module CommentHelper
 
     define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
-        if klass == Comment || klass == Entry
+        if klass == Comment || klass == Entry || klass == Message
           url = if klass == Comment
             comment_url id: $~[:id], format: :html
+          elsif klass == Message
+            message_url id: $~[:id], format: :html
           else
             topic_tooltip_url id: $~[:id], format: :html
           end
 
           begin
             comment = klass.find $~[:id]
-            user = comment.user
+            user = comment.respond_to?(:user) ? comment.user : comment.from
 
             if $~[:quote].present?
-              text.gsub! $~[:match], "<a href=\"#{user_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
-<img src=\"#{user.avatar_url 16}\" alt=\"#{user.nickname}\" /><span>#{user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
+<img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{user.nickname}\" /><span>#{user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
             else
-              text.gsub! $~[:match], "<a href=\"#{url_for user}\" title=\"#{user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
             end
 
           rescue
@@ -265,7 +274,7 @@ module CommentHelper
               User.find $3
             end
 
-            text.gsub! $1, "<a href=\"#{user_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" alt=\"#{$4}\" />#{$4}</a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
+            text.gsub! $1, "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
           rescue
             text.gsub! $1, "#{$4}#{is_profile ? '' : ' написал:'}"
             break
@@ -275,9 +284,9 @@ module CommentHelper
           begin
             ban = Ban.find $2
 
-            moderator_html = "<a href=\"#{user_url ban.moderator}\" title=\"#{ban.moderator.nickname}\"><img src=\"#{ban.moderator.avatar_url 16}\" alt=\"#{ban.moderator.nickname}\" /></a>
-<a href=\"#{user_url ban.moderator}\" title=\"#{ban.moderator.nickname}\">#{ban.moderator.nickname}</a>"
-            text.gsub! $1, "<div class=\"ban-message\">#{moderator_html}: <span class=\"details\">#{ban.message}</span></div>"
+            moderator_html = "<div class=\"b-user16\"><a href=\"#{profile_url ban.moderator}\" title=\"#{ban.moderator.nickname}\">
+<img src=\"#{ban.moderator.avatar_url 16}\" alt=\"#{ban.moderator.nickname}\" /><span>#{ban.moderator.nickname}</span></a></div>"
+            text.gsub! $1, "<div class=\"ban\">#{moderator_html}: <span class=\"resolution\">#{ban.message}</span></div>"
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, ''
             text.strip!
@@ -292,6 +301,8 @@ module CommentHelper
             preload = preloader ? " class=\"bubbled\" data-href=\"#{send preloader, entry}\"" : nil
             url = if entry.kind_of? UserChange
               moderation_user_change_url entry
+            elsif entry.kind_of? Group
+              club_url entry
             else
               url_for entry
             end
@@ -339,13 +350,6 @@ private
       'cut for cutting news',
       '[cut]',
       :cut
-    ],
-    'poster' => [
-      /\[poster\](.*?)\[\/poster\]/mi,
-      '<div class="text-poster">\1</div>',
-      'Poster text block',
-      '[poster]some text[/poster]',
-      :poster
     ],
     'right' => [
       /\[right\](.*?)\[\/right\]/mi,
@@ -409,7 +413,8 @@ private
       :link2],
     'wall' => [
       /(?:<br \/>|\n)*\[wall\](.*?)\[\/wall\]/mi,
-      '<div class="wall">\1</div>',
+      #'<div class="wall">\1</div>',
+      '<div class="b-shiki_wall unprocessed">\1</div>',
       'wall with images',
       "[wall]images here[/wall]",
       :wall]

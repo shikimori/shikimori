@@ -1,6 +1,4 @@
 
-require 'spec_helper'
-
 #describe WorldArtParser do
   #before { SiteParserWithCache.stub(:load_cache).and_return(list: {}) }
 

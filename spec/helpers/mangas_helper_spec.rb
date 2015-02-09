@@ -1,14 +1,12 @@
 
-require 'spec_helper'
-
-describe MangasHelper do
+describe MangasHelper, :type => :helper do
 
   it "truncate_publisher" do
-    truncate_publisher("test test").should == "test test"
-    truncate_publisher("test test test test Comics").should == "test test test test"
-    truncate_publisher("test test test test Magazine").should == "test test test test"
-    truncate_publisher("test test test test Collection").should == "test test test test"
-    truncate_publisher("test test test test Collection").should == "test test test test"
-    truncate_publisher("test test test test ZXC").should == "test test test test ZXC"
+    expect(truncate_publisher("test test")).to eq("test test")
+    expect(truncate_publisher("test test test test Comics")).to eq("test test test test")
+    expect(truncate_publisher("test test test test Magazine")).to eq("test test test test")
+    expect(truncate_publisher("test test test test Collection")).to eq("test test test test")
+    expect(truncate_publisher("test test test test Collection")).to eq("test test test test")
+    expect(truncate_publisher("test test test test ZXC")).to eq("test test test test ZXC")
   end
 end

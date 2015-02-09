@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 describe Manga do
-  context :relations do
+  describe 'relations' do
     it { should have_and_belong_to_many :genres }
     it { should have_and_belong_to_many :publishers }
 

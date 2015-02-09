@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SimilarUsersService do
   let(:user) { create :user }
 
@@ -8,7 +6,7 @@ describe SimilarUsersService do
   let(:user3) { create :user }
 
   before do
-    SimilarUsersService.any_instance.stub(:similarities).and_return [
+    allow_any_instance_of(SimilarUsersService).to receive(:similarities).and_return [
       [user1.id, 0.2],
       [user2.id, 0.7],
       [user3.id, 0.4]

@@ -1,33 +1,62 @@
-- content_for :head do
-  = stylesheet_link_tag :people
+= render layout: 'page' do
+  .b-db_entry
+    .c-image
+      center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
 
-header.head
-  h1 title="#{@page_title.last}" itemprop="name"
-    = @page_title.last
-  p.notice
-    = @entry.job_title
+      - if user_signed_in?
+        .icon-actions
+          span.new_comment title="Комментировать"
+          /a.edit href="#{edit_character_url @resource}" title="Редактировать персонажа"
 
-.info
-  aside.left-column
-    = render 'menu_left'
+          - if @resource.main_role?(:producer) || @resource.producer_favoured?
+            span.fav-add style="#{'display: none;' if @resource.producer_favoured?}" data-kind="producer" data-remote="true" action="#{favourites_producer_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное"
+            span.fav-remove style="#{'display: none;' unless @resource.producer_favoured?}" data-kind="producer" data-remote="true" action="#{favourites_producer_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного"
 
-  section.right-column
-    .b-options-floated
-      span class="#{' selected' if params[:sort] == nil}"
-        - if params[:sort] == nil
-          | Рейтинг
-        - else
-          = link_to 'Рейтинг', person_url(@entry)
-      | &nbsp;&nbsp;/&nbsp;&nbsp;
-      span class="#{' selected' if params[:sort] == 'time'}"
-        - if params[:sort] == 'time'
-          | Дата
-        - else
-          = link_to 'Дата', person_url(@entry, sort: 'time')
-    .subheadline.m10
-      = @entry.occupation
-    .ajax
-      - @entry.works.each do |work|
-        = render partial: 'ani_mangas/related', object: work[:entry], locals: { info: format_person_role(work[:role], full: true), clearfix: false }, formats: :html
+          - if @resource.main_role?(:mangaka) || @resource.mangaka_favoured?
+            span.fav-add style="#{'display: none;' if @resource.mangaka_favoured?}" data-kind="mangaka" data-remote="true" action="#{favourites_mangaka_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное"
+            span.fav-remove style="#{'display: none;' unless @resource.mangaka_favoured?}" data-kind="mangaka" data-remote="true" action="#{favourites_mangaka_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного"
 
-  .clearfix-full
+          - if @resource.main_role?(:seyu) || @resource.seyu_favoured?
+            span.fav-add style="#{'display: none;' if @resource.seyu_favoured?}" data-kind="seyu" data-remote="true" action="#{favourites_seyu_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное"
+            span.fav-remove style="#{'display: none;' unless @resource.seyu_favoured?}" data-kind="seyu" data-remote="true" action="#{favourites_seyu_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного"
+
+          - if !(@resource.main_role?(:seyu) || @resource.main_role?(:producer) || @resource.main_role?(:mangaka)) || @resource.person_favoured?
+            span.fav-add style="#{'display: none;' if @resource.person_favoured?}" data-kind="person" data-remote="true" action="#{favourites_person_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное"
+            span.fav-remove style="#{'display: none;' unless @resource.person_favoured?}" data-kind="person" data-remote="true" action="#{favourites_person_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного"
+
+    .c-about
+      .cc
+        - if @resource.credentials?
+          .c-info-left
+            .subheadline Информация
+            .b-entry-info
+              - if @resource.credentials?
+                = info_line 'По-английски', @resource.name
+                = info_line 'По-японски', @resource.japanese
+                = info_line 'Дата рождения', rus_date(@resource.birthday, true) if @resource.birthday
+                = info_line 'Сайт' do
+                  - if @resource.website_host.present?
+                    a href="#{@resource.website}" rel="nofollow"
+                      = @resource.website_host
+
+        .c-info-right
+          .subheadline Роли в #{@resource.occupation.downcase.sub 'манга', 'манге'}
+          .b-entry-info
+            - @resource.groupped_roles.each do |role,times|
+              = info_line role, times
+
+    .c-description.m0
+      .subheadline.m10
+        .linkeable data-href="#{works_person_url @resource}" Лучшие работы
+      .c-works
+        = render @resource.best_works, cover_notice: :role
+
+  - if user_signed_in? || @resource.preview_thread.comments_count > 0
+    .subheadline.m3
+      - if @resource.preview_thread.comments_count > 0
+        .linkeable data-href="#{comments_person_url @resource}" Обсуждение
+      - else
+        | Обсуждение
+    div
+      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+        = render 'topics/comments', topic: @resource.preview_thread

@@ -1,32 +1,26 @@
-@import "globals";
+// https://github.com/jaz303/tipsy
+.tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
+  .tipsy-inner { background-color: #123; color: #FFF; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }
 
-.tipsy {
-  padding: 5px;
-  background-repeat: no-repeat;
-  background: inline-image("/bubble/tipsy_white.png");
-}
-.tipsy-inner {
-  @include border-radius(4px);
-  @include box-shadow(rgba(80, 80, 80, 0.6), 1px, 1px, 1px);
-  /*@include text-shadow(rgba(100, 100, 100, 0.5), 1px, 1px, 1px);*/
-  background-color: white;
-  border: 1px solid #F5F5F5;
-  color: #333333;
-  font-size: 12px;
-  line-height: 17px;
-  max-width: 250px;
-  padding: 0 7px;
-  text-align: center;
-}
-.tipsy-north {
-  background-position: top center;
-}
-.tipsy-south {
-  background-position: bottom center;
-}
-.tipsy-east {
-  background-position: right center;
-}
-.tipsy-west {
-  background-position: left center;
-}
+  /* Rounded corners */
+  .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+  
+  /* Uncomment for shadow */
+  /*.tipsy-inner { box-shadow: 0 0 5px #123000; -webkit-box-shadow: 0 0 5px #123000; -moz-box-shadow: 0 0 5px #123000; }*/
+  
+  .tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0; border: 5px dashed #123; }
+  
+  /* Rules to colour arrows */
+  .tipsy-arrow-n { border-bottom-color: #123; }
+  .tipsy-arrow-s { border-top-color: #123; }
+  .tipsy-arrow-e { border-left-color: #123; }
+  .tipsy-arrow-w { border-right-color: #123; }
+  
+	.tipsy-n .tipsy-arrow { top: 0px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-nw .tipsy-arrow { top: 0; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}
+    .tipsy-ne .tipsy-arrow { top: 0; right: 10px; border-bottom-style: solid; border-top: none;  border-left-color: transparent; border-right-color: transparent;}
+  .tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -5px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
+  .tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
+  .tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }

@@ -1,20 +1,14 @@
-- content_for :head do
-  = stylesheet_link_tag :ani_mangas
-  = stylesheet_link_tag :recommendations
-
-- content_for :tail do
-  = javascript_include_tag :ani_mangas
-  = javascript_include_tag :recommendations
-
 header.head.misc
   h1
     = @page_title
+
   - if @klass == Anime
-    a.misc href="#{recommendations_manga_url}" по манге
+    a.misc href="#{recommendations_manga_url}" переключиться на мангу
   - else
-    a.misc href="#{recommendations_anime_url}" по аниме
+    a.misc href="#{recommendations_anime_url}" переключиться на аниме
+
   - if user_signed_in?
-    .header-filters.clearfix.pending-loaded
+    .b-header_filters style="#{'display: none;' if @entries.nil?}"
       .filter-line
         span.title Метод:
         /a class="#{:current if @metric == 'pearson'}" href="#{recommendations_url metric: 'pearson', threshold: @threshold, user: params[:user]}" пирсон
@@ -35,6 +29,7 @@ header.head.misc
   .notice
     p Данный раздел предназначен для автоматического подбора рекомендаций к #{@klass == Anime ? 'просмотру' : 'чтению'} на основе вашего списка #{@klass == Anime ? 'аниме' : 'манги'}. Исходя из поставленных вами оценок, находятся другие пользователи сайта, имеющие схожие предпочтения, и на основе их списков составляется каталог того, что возможно было бы вам интересно.
 
+
 - if @rankings && @rankings.empty?
   div
     .comment-block
@@ -50,26 +45,27 @@ header.head.misc
               p наличие в вашем списке аниме 20-30 просмотренных и оценённых тайтлов;
             - else
               p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
+- elsif !@rankings
+  p.pending Подбираем для вас рекомендации. Пожалуйста, подождите, процесс может занять некоторое время.
+  .ajax-loading.vk-like.left title="Загрузка..."
+
 - else
-  div
-    = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+  = render 'animes_collection/pagination'
 
-  .animes data-entries-per-page="#{entries_per_page}"
-    .left-column-wrap
-      .right-column-wrap
-        .left-column
-          aside.menu-left.loaded
-            = render partial:  'ani_mangas_collection/menu', locals: { klass: klass, in_recommendations: true }
-        .right-column
-          section.ajax#ajax
-            - if @rankings
-              = render partial: 'ani_mangas_collection/entry', collection: @entries
-              - if @next_page.present?
-                = render partial: 'blocks/postloader', locals: { url: nil, filter: nil }
-            - else
-              p.pending Подбираем для вас рекомендации. Пожалуйста, подождите, процесс может занять некоторое время.
-              .ajax-loading.vk-like.left title="Загрузка..."
-        .clearfix-full
+  .menu-toggler
+    .toggler
 
-  .bottom-pages.clearfix
-    = render partial: 'ani_mangas_collection/pagination', locals: { with_cache: true }
+  .menu-slide-outer
+    .menu-slide-inner
+      .l-content
+        = render 'animes_collection/entries'
+
+      .l-menu
+        - if user_signed_in? || turbolinks_request?
+            = render 'animes_collection/menu', klass: klass
+        - else
+            .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
+              .ajax-loading title="Загрузка..."
+
+  - if user_signed_in? && !current_user.preferences.postload_in_catalog
+    = render 'animes_collection/pagination'

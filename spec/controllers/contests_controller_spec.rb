@@ -1,63 +1,59 @@
-require 'spec_helper'
-require 'cancan/matchers'
-
 describe ContestsController do
-  let(:user) { create :user, id: 1 }
+  let(:user) { create :user, :admin }
   before { sign_in user }
 
   let(:contest) { create :contest, user: user }
 
   describe '#index' do
     before { get :index }
-    it { should respond_with :success }
-    it { should respond_with_content_type :html }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#grid' do
-    context :created do
+    context 'created' do
       let(:contest) { create :contest, user: user }
       before { get :grid, id: contest.to_param }
 
-      it { should respond_with :redirect }
-      it { should redirect_to contests_url }
+      it { expect(response).to redirect_to contests_url }
     end
 
-    context :proposing do
-      let(:contest) { create :contest, user: user, state: 'proposing' }
+    context 'proposing' do
+      let(:contest) { create :contest, :proposing, user: user }
       before { get :grid, id: contest.to_param }
 
-      it { should respond_with :redirect }
-      it { should redirect_to contest_url(contest) }
+      it { expect(response).to redirect_to contest_url(contest) }
     end
 
-    context :started do
-      let(:contest) { create :contest_with_5_members, user: user }
+    context 'started' do
+      let(:contest) { create :contest, :with_5_members, user: user }
       before { contest.start! }
       before { get :grid, id: contest.to_param }
 
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#show' do
-    let(:contest) { create :contest_with_5_members, user: user }
-    before { contest.start! if contest.can_start? }
+    let(:user) { create :user, :user }
+    let(:contest) { create :contest, :with_5_members, :with_thread, user: user }
 
-    context 'w/o round' do
-      before { get :show, id: contest.to_param }
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
+    context 'started' do
+      before { contest.start! }
+
+      context 'w/o round' do
+        before { get :show, id: contest.to_param }
+        it { expect(response).to have_http_status :success }
+      end
+
+      context 'with round' do
+        before { get :show, id: contest.to_param, round: 1 }
+        it { expect(response).to have_http_status :success }
+      end
     end
 
-    context 'with round' do
-      before { get :show, id: contest.to_param, round: 1 }
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
-    end
-
-    context :finished do
+    context 'finished' do
       before do
+        contest.start!
         contest.rounds.each do |round|
           contest.current_round.matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday }
           contest.process!
@@ -66,167 +62,141 @@ describe ContestsController do
 
         get :show, id: contest.to_param
       end
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
+      it { expect(response).to have_http_status :success }
     end
 
-    context :proposing do
-      let(:contest) { create :contest, state: 'proposing', user: user }
+    context 'proposing' do
+      let(:contest) { create :contest, :with_generated_thread, :proposing, user: user }
       before { get :show, id: contest.to_param }
 
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
+      it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#users' do
-    let(:contest) { create :contest_with_5_members, user: user }
+    let(:user) { create :user, :user }
+    let(:contest) { create :contest, :with_5_members, user: user }
+    let(:make_request) { get :users, id: contest.to_param, round: 1, match_id: contest.rounds.first.matches.first.id }
     before { contest.start }
 
-    describe 'not finished' do
-      it 'it raises not found error' do
-        expect { get 'users', id: contest.id, round: 1, match_id: contest.rounds.first.matches.first.id }
-      end
+    context 'not finished' do
+      before { make_request }
+      it { expect(response).to redirect_to contest_url(contest) }
     end
 
-    describe 'finished' do
+    context 'finished' do
+      let!(:contest_user_vote) { create :contest_user_vote, match: contest.current_round.matches.first, user: user, item_id: contest.current_round.matches.first.left_id, ip: '1.1.1.1' }
       before do
         contest.current_round.matches.update_all started_on: Date.yesterday, finished_on: Date.yesterday
         contest.current_round.reload
         contest.current_round.finish!
-        get :users, id: contest.id, round: 1, match_id: contest.rounds.first.matches.first.id
       end
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
+      before { make_request }
+      it { expect(response).to have_http_status :success }
     end
+  end
+
+  describe '#comments' do
+    let!(:section) { create :section, :contest }
+    let!(:contest) { create :contest, :with_thread, user: user }
+    before { contest.send :generate_thread }
+    let!(:comment) { create :comment, commentable: contest.thread }
+    before { get :comments, id: contest.to_param }
+
+    it { expect(response).to redirect_to section_topic_url(id: contest.thread, section: section) }
   end
 
   describe '#new' do
     before { get :new }
-
-    it { should respond_with :success }
-    it { should respond_with_content_type :html }
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
-    before { get :edit, id: contest.id }
-
-    it { should respond_with :success }
-    it { should respond_with_content_type :html }
+    before { get :edit, id: contest.to_param }
+    it { expect(response).to have_http_status :success }
   end
 
-  describe :update do
+  describe '#update' do
     context 'when success' do
       before { patch :update, id: contest.id, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on').merge(description: 'zxc') }
 
-      it { should respond_with 302 }
-      it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-      it { expect(assigns(:contest).description).to eq 'zxc' }
-      it { expect(assigns(:contest).errors).to be_empty }
+      it { expect(response).to redirect_to edit_contest_url(assigns :resource) }
+      it { expect(resource.description).to eq 'zxc' }
+      it { expect(resource.errors).to be_empty }
     end
 
     context 'when validation errors' do
       before { patch 'update', id: contest.id, contest: { title: '' } }
 
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
-      it { expect(assigns(:contest).errors).to_not be_empty }
+      it { expect(response).to have_http_status :success }
+      it { expect(resource.errors).to_not be_empty }
     end
   end
 
   describe '#create' do
     context 'when success' do
       before { post :create, contest: contest.attributes.except('id', 'user_id', 'state', 'created_at', 'updated_at', 'permalink', 'finished_on') }
-
-      it { should respond_with :redirect }
-      it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-      it { expect(assigns :contest).to be_persisted }
+      it { expect(response).to redirect_to edit_contest_url(resource) }
     end
 
     context 'when validation errors' do
       before { post :create, contest: { id: 1 } }
 
-      it { should respond_with :success }
-      it { should respond_with_content_type :html }
-      it { expect(assigns(:contest).new_record?).to be true }
+      it { expect(response).to have_http_status :success }
+      it { expect(resource.new_record?).to be true }
     end
   end
 
   describe '#start' do
-    let(:contest) { create :contest_with_5_members, user: user }
-    before { post :start, id: contest.id }
+    let(:contest) { create :contest, :with_5_members, user: user }
+    before { post :start, id: contest.to_param }
 
-    it { should respond_with 302 }
-    it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { expect(assigns(:contest).started?).to be true }
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(resource.started?).to be true }
   end
 
   describe '#propose' do
     let(:contest) { create :contest, user: user }
-    before { post :propose, id: contest.id }
+    before { post :propose, id: contest.to_param }
 
-    it { should respond_with 302 }
-    it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { expect(assigns(:contest).proposing?).to be true }
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(resource.proposing?).to be true }
   end
 
   describe '#cleanup_suggestions' do
     let(:contest) { create :contest, :proposing, user: user }
     let!(:contest_suggestion_1) { create :contest_suggestion, contest: contest, user: user }
     let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, id: 2, sign_in_count: 999) }
-    before { post :cleanup_suggestions, id: contest.id }
+    before { post :cleanup_suggestions, id: contest.to_param }
 
-    #it { should respond_with 302 }
-    #it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { expect(assigns(:contest).suggestions).to have(1).item }
+    #it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(resource.suggestions.size).to eq(1) }
   end
 
   describe '#stop_propose' do
     let(:contest) { create :contest, state: :proposing, user: user }
-    before { post :stop_propose, id: contest.id }
+    before { post :stop_propose, id: contest.to_param }
 
-    it { should respond_with 302 }
-    it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { expect(assigns(:contest).created?).to be true }
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(resource.created?).to be true }
   end
 
   #describe '#finish' do
-    #let(:contest) { create :contest_with_5_members, user: user }
+    #let(:contest) { create :contest, :with_5_members, user: user }
     #before do
       #contest.start
-      #get 'finish', id: contest.id
+      #get 'finish', id: contest.to_param
     #end
 
-    #it { should respond_with 302 }
-    #it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    #it { expect(assigns(:contest).state).to eq 'finished' }
+    #it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
+    #it { expect(resource.state).to eq 'finished' }
   #end
 
   describe '#build' do
-    let(:contest) { create :contest_with_5_members, user: user }
-    before { post :build, id: contest.id }
+    let(:contest) { create :contest,:with_5_members, user: user }
+    before { post :build, id: contest.to_param }
 
-    it { should respond_with 302 }
-    it { should redirect_to edit_contest_url(id: assigns(:contest).to_param) }
-    it { expect(assigns(:contest).rounds).to have(6).items }
-  end
-
-  describe :permissions do
-    context :contests_moderator do
-      subject { Ability.new build_stubbed(:user, :contests_moderator) }
-      it { should be_able_to :manage, contest }
-    end
-
-    context :guest do
-      subject { Ability.new nil }
-      it { should be_able_to :read, contest }
-      it { should_not be_able_to :manage, contest }
-    end
-
-    context :user do
-      subject { Ability.new build_stubbed(:user) }
-      it { should be_able_to :read, contest }
-      it { should_not be_able_to :manage, contest }
-    end
+    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
+    it { expect(resource.rounds.size).to eq(6) }
   end
 end

@@ -1,5 +1,5 @@
 a href="#{url_for ani_manga}" class="item-block ani-block #{extra_class if defined?(extra_class) && extra_class}"
   center
-    img.image.bubbled-image src="#{ani_manga.image.url :preview}" alt="#{localized_name ani_manga}" title="#{localized_name ani_manga}" data-href="#{url_for ani_manga}/tooltip" data-offset-left="-5"
+    img.image.bubbled src="#{ani_manga.image.url :preview}" alt="#{localized_name ani_manga}" title="#{localized_name ani_manga}" data-href="#{url_for ani_manga}/tooltip" data-offset-left="-5"
   p.name
     = localized_name ani_manga

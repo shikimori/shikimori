@@ -1,0 +1,20 @@
+.menu-toggler
+  .toggler
+
+header.head.misc
+  h1
+    - if params[:action] != 'show' || params[:round] || params[:vote]
+      a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
+    = @resource.name
+  - if can?(:edit, @resource) && @resource.persisted?
+    a.edit href="#{edit_contest_url @resource}" title="Изменить опрос" изменить
+
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+.menu-slide-outer
+  .menu-slide-inner
+    .l-content class="#{@resource.strategy_type}"
+      = yield
+
+    aside.l-menu
+      = render 'menu', resource: @resource

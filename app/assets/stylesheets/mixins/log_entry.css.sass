@@ -1,8 +1,11 @@
-@import globals
+@import globals/variables
 @import mixins/bracket_action
+@import mixins/date
+@import mixins/link
+@import mixins/spoiler
 
 =log_entry
-  line-height: $line-height
+  line-height: $line_height
 
   span
     padding-right: 5px
@@ -12,7 +15,7 @@
     padding-right: 8px
 
   a,.link
-    +normal-link
+    +link
 
   .id-label
     padding-right: 1px
@@ -29,7 +32,7 @@
     padding-left: 21px
 
   .spoiler
-    +spoiler-new
+    +spoiler
 
     &.collapsed
       +bracket_action
@@ -50,14 +53,15 @@
       padding-left: 5px
 
   .comment-block
-    min-height: 0
     border-top: none
+    min-height: 0
+
     blockquote
       margin-left: 5px
     del
-      color: red
+      color: $red
     ins
-      color: $selected-color
+      color: $link
 
   .moderation
     float: right

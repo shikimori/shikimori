@@ -1,0 +1,17 @@
+- unless @itemtype
+  .b-menu_logo
+    center: a href="#{resource.url}" title="#{{resource.name}}"
+      img src="#{attachment_url resource.image}" title="#{{resource.name}}" alt="#{{resource.name}}"
+
+= render 'blocks/favoured', favoured: resource.favoured, url: favoured_character_url(resource)
+
+- if resource.linked_clubs.any?
+  .block
+    .subheadline.m10
+      - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
+        .linkeable data-href="#{resource.clubs_url}" Клубы
+      - else
+        | Клубы
+
+    .b-clubs.one-line
+      = render partial: 'clubs/club', collection: resource.linked_clubs, locals: { content_by: :avatar }

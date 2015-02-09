@@ -1,0 +1,29 @@
+@import globals
+@import mixins/responsive
+@import mixins/column
+
+.l-page
+  background: white
+  clear: both
+  margin: 0 auto
+  max-width: $site-body-width
+  padding: 15px 10px 0 10px
+  position: relative
+  z-index: 1
+
+  +gt_ipad
+    .bordered &
+      &:before, &:after
+        background: rgba(255,255,255,0.3)
+        content: ""
+        height: 100%
+        position: absolute
+        top: 0
+        width: 20px
+
+      &:before
+        left: -20px
+
+      &:after
+        display: block!important
+        right: -20px

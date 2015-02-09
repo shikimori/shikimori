@@ -1,48 +1,3 @@
-#= require pages/forum/appear
-#= require pages/forum/faye
-
-chart_options = (options) ->
-  $.extend true,
-    chart:
-      zoomType: 'x'
-      type: 'areaspline'
-    title: null
-    xAxis:
-      type: "datetime"
-      title: null
-      maxZoom: 14 * 24 * 3600000
-      dateTimeLabelFormats:
-        millisecond: '%H:%M:%S.%L'
-        second: '%H:%M:%S'
-        minute: '%H:%M'
-        hour: '%H:%M'
-        day: '%e. %b'
-        week: '%e. %b'
-        month: '%b'
-        year: '%Y'
-    yAxis:
-      title: null
-      gridLineColor: "#eaeaea"
-      min: 0
-    tooltip:
-      shared: true
-    legend:
-      borderRadius: 0
-      borderWidth: 0
-    plotOptions:
-      areaspline:
-        lineWidth: 1
-        fillOpacity: 0.5
-        marker:
-          enabled: false
-        shadow: false
-        states:
-          hover:
-            lineWidth: 1
-        threshold: null
-    credits: false
-  , options
-
 $ =>
   traffic = $('.traffic-chart').data 'stats'
   $('.traffic-chart').highcharts chart_options
@@ -129,3 +84,45 @@ $ =>
     ]
     legend:
       enabled: false
+
+chart_options = (options) ->
+  $.extend true,
+    chart:
+      zoomType: 'x'
+      type: 'areaspline'
+    title: null
+    xAxis:
+      type: "datetime"
+      title: null
+      maxZoom: 14 * 24 * 3600000
+      dateTimeLabelFormats:
+        millisecond: '%H:%M:%S.%L'
+        second: '%H:%M:%S'
+        minute: '%H:%M'
+        hour: '%H:%M'
+        day: '%e. %b'
+        week: '%e. %b'
+        month: '%b'
+        year: '%Y'
+    yAxis:
+      title: null
+      gridLineColor: "#eaeaea"
+      min: 0
+    tooltip:
+      shared: true
+    legend:
+      borderRadius: 0
+      borderWidth: 0
+    plotOptions:
+      areaspline:
+        lineWidth: 1
+        fillOpacity: 0.5
+        marker:
+          enabled: false
+        shadow: false
+        states:
+          hover:
+            lineWidth: 1
+        threshold: null
+    credits: false
+  , options

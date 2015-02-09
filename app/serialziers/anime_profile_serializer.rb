@@ -20,4 +20,8 @@ class AnimeProfileSerializer < AnimeSerializer
   def myanimelist_id
     object.id
   end
+
+  def description
+    object.description || object[:description_mal]
+  end
 end

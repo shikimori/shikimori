@@ -16,7 +16,7 @@ Site::Application.configure do
   config.cache_store = :dalli_store, 'localhost', {
     namespace: 'shikimori_development',
     compress: true,
-    value_max_bytes: 1024 * 1024 * 20
+    value_max_bytes: 1024 * 1024 * 128
   }
 
   # Expands the lines which load the assets
@@ -24,12 +24,13 @@ Site::Application.configure do
   config.assets.raise_production_errors = true
 
   # Don't care if the mailer can't send
-  #config.action_mailer.asset_host = 'http://dev.shikimori.org'
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :letter_opener
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
+
+  config.middleware.use 'TurboDev'
 
   if defined? Pry
     Pry.config.auto_indent = false
@@ -48,9 +49,11 @@ Site::Application.configure do
     SqlLogging::Statistics.show_sql_backtrace = false
   end
 
-  if defined? BetterErrors
-    BetterErrors::Middleware.allow_ip! '127.0.0.1'
-    BetterErrors.editor = :macvim
-    BetterErrors.use_pry!
-  end
+  Slim::Engine.set_default_options pretty: false
+
+  #if defined? BetterErrors
+    #BetterErrors::Middleware.allow_ip! '127.0.0.1'
+    #BetterErrors.editor = :macvim
+    #BetterErrors.use_pry!
+  #end
 end

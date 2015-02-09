@@ -1,6 +1,6 @@
 class Sendgrid < ActionMailer::Base
-  default from: "mail@shikimori.org"
-  default_url_options[:host] = 'shikimori.org'
+  include Routing
+  default from: "mail@#{Site::DOMAIN}"
 
   def test email = 'takandar@gmail.com'
     return if generated?(email)
@@ -15,10 +15,12 @@ class Sendgrid < ActionMailer::Base
     mail(
       to: message.to.email,
       subject: "Личное сообщение",
-      body: "#{message.to.nickname}, на ваш аккаунт на shikimori поступило личное сообщение от пользователя #{message.from.nickname}.
-Прочитать можно тут #{messages_url :inbox}
+      body: "#{message.to.nickname}, у вас 1 новое сообщение на shikimori от пользователя #{message.from.nickname}.
+Прочитать полностью можно тут #{profile_dialogs_url message.to}
 
-Отписаться от получения уведомлений о личных сообщениях можно перейдя по ссылке #{messages_unsubscribe_url name: message.to.to_param, key: MessagesController::unsubscribe_key(message.to, MessageType::Private)}"
+Текст сообщения: #{message.body}
+
+Отписаться от уведомлений можно по ссылке #{unsubscribe_messages_url name: message.to.to_param, key: MessagesController::unsubscribe_key(message.to, MessageType::Private)}"
     )
   end
 

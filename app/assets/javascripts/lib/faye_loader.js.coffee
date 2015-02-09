@@ -1,14 +1,21 @@
 # уведомлялка Faye
 # назначение класса - слушать Faye и отправлять получившим обновление топикам и разделам события faye:success
-@FayeLoader = ->
-  client = null
-  subscriptions = {}
-  FAYE_NODE_REGEXP = /(?:topic|section|user|group)-\d+|myfeed/
+class @FayeLoader
+  constructor: ->
+    @client = null
+    @subscriptions = {}
+
+    # привязка подписки/отписки каналов к событиям внешнего мира
+    $(document).on 'page:load page:restore ajax:success postloader:success', @apply
+    @apply()
+
+  id: ->
+    (if @client then @client._clientId else null)
 
   # подключение к Faye серверу
-  connect = ->
+  connect: ->
     port = (if window.DEVELOP then ':9292' else '')
-    client = new Faye.Client("http://#{location.hostname}#{port}/faye-server",
+    @client = new Faye.Client("http://#{location.hostname}#{port}/faye-server",
       timeout: 300
       retry: 5
       endpoints:
@@ -18,74 +25,61 @@
     _log 'faye connected'
 
   # отписка ото всех не актуальных каналов
-  unsubscribe = (channels) ->
-    to_stay = _.keys(channels)
-    to_remove = _.without(_.keys(subscriptions), to_stay)
+  unsubscribe: (channels) ->
+    to_stay = Object.keys(channels)
+    to_remove = _.without(Object.keys(@subscriptions), to_stay)
 
-    _.each to_remove, (channel) ->
-      client.unsubscribe channel
-      delete subscriptions[channel]
+    to_remove.each (channel) =>
+      @client.unsubscribe channel
+      delete @subscriptions[channel]
 
       _log "faye unsubscribed #{channel}"
 
   # обновление уже существующих каналов
-  update = (channels) ->
-    keys = _.intersect(_.keys(channels), _.keys(subscriptions))
-    _.each keys, (channel) ->
-      subscriptions[channel].node = channels[channel]
+  update: (channels) ->
+    keys = _.intersect(Object.keys(channels), Object.keys(@subscriptions))
+    keys.each (channel) =>
+      @subscriptions[channel].node = channels[channel]
 
   # подписка на ещё не подписанные каналы
-  subscribe = (channels) ->
-    keys = _.without(_.keys(channels), _.keys(subscriptions))
-    _.each keys, (channel) ->
-
-      subscription = client.subscribe channel, (data) ->
+  subscribe: (channels) ->
+    keys = _.without(Object.keys(channels), Object.keys(@subscriptions))
+    keys.each (channel) =>
+      subscription = @client.subscribe channel, (data) =>
         # это колбек, в котором мы получили уведомление от faye
-        _log ['faye:received', data]
+        _log ['faye:received', channel, data]
         # сообщения от самого себя не принимаем
-        return if data.publisher_faye_id == client._clientId
+        return if data.publisher_faye_id == @id()
 
-        # TODO: выпилить это. временный костыль на время beta с изменённым протоколом faye
-        if data.event != 'deleted' && data.event != 'updated' && data.event != 'created'
-          data.event = data.event.replace(/.*:/, '')
+        # TODO: выпилить весь IF после публикация на мастер. этот код для совместимости старого формата уведомлений faye
+        if data.event == 'deleted' || data.event == 'updated' || data.event == 'created'
+          data.actor_avatar_2x = data.actor_avatar
+          type = if data.comment_id then 'comment' else 'topic'
+          data.event = "#{type}:#{data.event}"
 
-        subscriptions[channel].node.trigger 'faye:success', data
+        @subscriptions[channel].node.trigger "faye:#{data.event}", data
 
-      subscriptions[channel] =
+      @subscriptions[channel] =
         node: channels[channel]
         channel: subscription
 
       _log "faye subscribed #{channel}"
 
   # подписка/отписка на актуальные каналы Faye исходя из контента страницы
-  apply = (e, data) ->
-    $targets = $('.section-block')
-    $targets = $('.topic-block')  unless $targets.length
-    connect() if not client and $targets.length
+  apply: (e, data) =>
+    $targets = $('.b-forum')
+    $targets = $('.b-topic') unless $targets.length
+    @connect() if !@client && $targets.length
 
     # список актуальных каналов из текущего dom дерева
     channels = {}
-    _.each $targets, (node, k) ->
-      found_channels = _.select(node.className.split(' '), (v) ->
-        v.match FAYE_NODE_REGEXP
-      )
-      _.each found_channels, (v) ->
-        channel = "/" + v.match(FAYE_NODE_REGEXP)[0]
-        channels[channel] = $(node)
+    $targets.each (index, node) ->
+      found_channels = $(node).data('faye') || []
+      _warn 'no faye channels found for', node unless found_channels.length || $targets.data('no-faye')
 
-    unsubscribe channels
-    update channels
-    subscribe channels
+      found_channels.each (channel) ->
+        channels["/#{channel}"] = $(node)
 
-  # привязка подписки/отписки каналов к событиям внешнего мира
-  $('.ajax').live 'ajax:success postloader:success', apply
-
-  apply: apply
-  client: ->
-    client
-
-  id: ->
-    (if client then client._clientId else null)
-
-  subscriptions: ->
-    subscriptions
+    @unsubscribe channels
+    @update channels
+    @subscribe channels

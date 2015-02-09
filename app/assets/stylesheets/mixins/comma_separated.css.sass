@@ -1,7 +1,10 @@
-=comma_separated
+@import globals/variables
+
+=comma_separated($padding: 7px)
   &:after
     content: ','
     color: $gray-color
+    padding: 0 $padding 0 0
     display: inline-block // чтбы по hover подчёркивание не появлялось у ссылок
 
   &:last-child

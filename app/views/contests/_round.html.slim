@@ -17,30 +17,31 @@
       span.red-warning Внимание!
       | &nbsp;Если вы не смотрели хотя бы один из вариантов, то мы рекомендуем вам воздержаться от голосования по данной паре. Это повысит объективность результатов опроса.
 
-  .animes.new.match-container data-id="#{params[:match_id]}"
-    .ajax-loading title="Загрузка..."
+  .match-container data-id="#{params[:match_id]}"
+    .ajax-loading.m30 title="Загрузка..."
 
-  .one-third-columns
+  .cc-2_3
     - if contest.displayed_round.finished?
-      = render 'contests/rating', contest: contest, round: contest.displayed_round
+      .c-column
+        = render 'rating', contest: contest, round: contest.displayed_round
 
-    .column
+    .c-column
       .b-options-floated
           span.selected = contest.displayed_round.title
-      .subheadline.m10 В этом раунде
-      .subcontent
+      .subheadline В этом раунде
+      .block
         = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.displayed_round)
 
   - if contest.displayed_round.number > 1 && contest.prior_round.finished?
     - cache ['prior_round', contest, contest.displayed_round, contest.prior_round, russian_names_key] do
-      .one-third-columns
-        .column
-          = render 'contests/rating', contest: contest, round: contest.prior_round
+      .cc-2_3
+        .c-column
+          = render 'rating', contest: contest, round: contest.prior_round
 
-        .column
+        .c-column
           .b-options-floated
             span.linkeable data-href="#{round_contest_url contest, round: contest.prior_round}" title="#{contest.prior_round.title}"
               = contest.prior_round.title
-          .subheadline.m10 В прошлом раунде
-          .subcontent
+          .subheadline В прошлом раунде
+          .block
             = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.prior_round)

@@ -16,14 +16,23 @@ class UserChangesQuery
   def authors with_taken = true
     fetch
       .where(status: with_taken ? [UserChangeStatus::Taken, UserChangeStatus::Accepted] : [UserChangeStatus::Accepted])
+      .where(video_presence_filter)
       .map(&:user)
       .uniq
   end
 
-  def lock
-    UserChange
-      .where(model: @entry.class.name, item_id: @entry.id, status: UserChangeStatus::Locked)
-      .includes(:user)
-      .first
+private
+  def video_presence_filter
+    if @field.to_sym == :video
+      {
+        value: Video
+          .where(anime_id: @entry.id)
+          .where.not(state: :deleted)
+          .pluck(:id)
+          .map(&:to_s)
+      }
+    else
+      '1=1'
+    end
   end
 end

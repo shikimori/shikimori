@@ -1,7 +1,19 @@
-div class="comments#{:' zero-margin' unless topic.preview?}#{:' zero-top-border' unless topic.show_body?}"
+.b-comments
   - if topic.folded?
-    .comments-hider Скрыть комментарии
-    .comments-shower.click-loader data-href-template="#{topic.comments_url}" data-skip="#{topic.limit}" data-limit="#{topic.fold_limit}" data-count="#{topic.folded_comments}" data-infinite="#{!topic.preview?}"
+    .comments-hider Скрыть #{topic.reviews_only? ? 'отзывы' : 'комментарии'}
+    .comments-shower.click-loader[
+        data-href-template="#{topic.comments_url}" data-infinite="#{!topic.preview?}"
+        data-skip="#{topic.comments_limit}" data-limit="#{topic.fold_limit}"
+        data-count="#{topic.folded_comments}"
+      ]
       = topic.show_hidden_comments_text
 
-  = render partial: 'comments/comments', locals: { object: topic.topic, comments: topic.comments, bottom_add_block: true }, formats: :html
+  - if topic.comments.any?
+    = render partial: 'comments/comment', collection: topic.comments
+  - else
+    p.no_comments Нет комментариев
+
+- if user_signed_in?
+  .editor-container
+    .subheadline.m10 Ваш комментарий
+    = render 'comments/form', comment: topic.new_comment

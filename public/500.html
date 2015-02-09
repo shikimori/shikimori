@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+  <title>500</title>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    body {
+      background-color: #fff;
+      font-family: 'PT Sans', sans-serif;
+      text-align: center;
+    }
+    .error-500 {
+      color: #fc575e;
+      font-weight: bold;
+      font-size: 42pt;
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+    h1 {
+      color: #2E2F30;
+      font-weight: normal;
+      font-size: 20pt;
+    }
+    .dialog {
+      margin: 40px auto 0;
+      max-width: 600px;
+    }
+    p {
+      color: #777;
+      margin: 0 0 0.1em 0;
+    }
+    a,
+    a:visited {
+      color: #176093;
+      cursor: pointer;
+      text-decoration: underlined;
+    }
+    a:hover {
+      color: #1d78b7;
+    }
+    .image {
+      margin-top: 40px;
+    }
   </style>
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
   <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
-    <p>We've been notified about this issue and we'll take a look at it shortly.</p>
+    <p class="error-500">500</p>
+    <h1>Nooooooooooooo</h1>
+    <p>Что-то сломалось. Возможно, мы уже чиним ошибку.</p>
+    <p>Попробуйте <a onClick="location.reload();">перезагрузить страницу</a> или свяжитесь с администрацией сайта.</p>
+    <img class="image" src="/images/static/503.jpg" srcset="/images/static/503@2x.jpg 2x" />
   </div>
 </body>
 </html>

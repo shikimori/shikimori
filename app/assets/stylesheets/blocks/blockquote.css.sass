@@ -1,3 +1,5 @@
+@import mixins/responsive
+
 $quote_odd: #f9f9f9
 $quote_even: #f6f6f6
 
@@ -6,9 +8,13 @@ blockquote
   border: 1px dashed #DDDDDD
   color: #333333
   font-style: italic
-  margin: 5px 5px 5px 5px
+  margin: 5px 0 5px 5px
   overflow: hidden
   padding: 5px 10px
+
+  +lte_ipad
+    margin-left: 0
+    overflow: hidden
 
   .quoteable
     font-style: normal

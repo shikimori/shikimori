@@ -16,6 +16,7 @@ private
   def fetch_chapters
     chapters = []
     doc = Nokogiri::HTML(get chapters_url)
+
     doc.css('#chapterSelectorSelect').css('option').each do |elem|
       chapters << MangaChapter.new(manga_id: @manga_id, url: "#{DOMAIN}#{elem.attr('value')}", name: elem.text)
     end
