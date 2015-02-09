@@ -32,7 +32,7 @@
           - unless comment.viewed?
             .b-new_marker.active
 
-        - if user_signed_in?
+        - if user_signed_in? && comment.respond_to?(:can_be_edited_by?)
           - if current_user.moderator?
             aside.moderation-ban
           = render partial: 'comments/buttons', locals: { comment: comment }
@@ -44,7 +44,8 @@
             img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
           .name-date
             a href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user)}" itemprop="creator"
-              - if comment.respond_to?(:topic_url)
+              /- if comment.respond_to?(:topic_url)
+              - if comment.kind_of?(SolitaryCommentDecorator)
                 = comment.topic_name
               - else
                 = comment.user.nickname
