@@ -238,7 +238,11 @@ class @ShikiEditor extends ShikiView
 
     # фокус на редакторе
     if @$textarea.val().length > 0
-      @$textarea.focus().setCursorPosition @$textarea.val().length
+      (=>
+        @$textarea.focus()
+        #@$textarea.focus().setCursorPosition @$textarea.val().length
+      ).delay() # delay надо, т.к. IE не может делать focus и работать с Range (внутри setCursorPosition) для невидимых элементов
+
     if $.browser.opera && parseInt($.browser.version) < 12
       @$('.editor-file').hide()
 

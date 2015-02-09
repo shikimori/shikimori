@@ -108,12 +108,12 @@ aside.buttons
 
       = f.input :body, as: :text,
         input_html: { class: "b-#{f.object.class.name.downcase} editor-area",
-          placeholder: 'Текст комментария', tabindex: 0,
+          placeholder: (browser.ie? ? '' : 'Текст комментария'), tabindex: 0,
           'data-upload_url' => user_images_url(linked_type: Comment.name),
           'data-item_type' => item_type }
     - else
       = text_area_tag field_name, text, class: 'comment_body editor-area',
-        placeholder: 'Текст', tabindex: 0,
+        placeholder: (browser.ie? ? '' : 'Текст'), tabindex: 0,
         'data-upload_url' => user_images_url(linked_type: nil),
         'data-item_type' => item_type
   .preview

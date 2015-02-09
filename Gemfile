@@ -38,6 +38,7 @@ gem 'virtus'
 gem 'attr_extras'
 
 gem 'mobylette'
+gem 'browser' # для детекта internet explorer в рендере shiki_editor
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
 

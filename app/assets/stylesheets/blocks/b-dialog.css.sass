@@ -1,9 +1,9 @@
 @import compass/typography/text/ellipsis
 @import globals/variables
-@import blocks/b-comment
+@import mixins/shiki_comment
 
 .b-dialog
-  @extend .b-comment
+  +shiki_comment
 
   .dialog-time
     +lte_ipad
