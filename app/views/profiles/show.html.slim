@@ -184,7 +184,7 @@
           - if @resource.favourites.any?
             = render @resource.favourites, cover_by: :image_link
           - else
-            .b-nothing_here Список изранного пуст
+            .b-nothing_here Список избранного пуст
 
   - if @resource.about_html.present?
     .about.block
