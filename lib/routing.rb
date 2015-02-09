@@ -7,7 +7,7 @@ module Routing
       host = if Rails.env.test?
         'test.host'
       else
-        if Draper::ViewContext.current.request.host == 'test.host'
+        if (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
           Site::DOMAIN
         else
           Draper::ViewContext.current.request.host
