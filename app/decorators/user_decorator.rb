@@ -7,7 +7,7 @@ class UserDecorator < BaseDecorator
   end
 
   def url
-    h.profile_url self
+    h.profile_url self, subdomain: nil
   end
 
   def show_contest_link?
@@ -43,11 +43,11 @@ class UserDecorator < BaseDecorator
 
   def unread_messages_url
     if unread_messages > 0 || (unread_news == 0 && unread_notifications == 0)
-       h.profile_dialogs_url object
+       h.profile_dialogs_url object, subdomain: nil
     elsif unread_news > 0
-       h.index_profile_messages_url object, messages_type: :news
+       h.index_profile_messages_url object, messages_type: :news, subdomain: nil
     else
-       h.index_profile_messages_url object, messages_type: :notifications
+       h.index_profile_messages_url object, messages_type: :notifications, subdomain: nil
     end
   end
 

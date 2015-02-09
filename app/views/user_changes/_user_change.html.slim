@@ -1,4 +1,4 @@
-= cache [user_change, current_user && current_user.user_changes_moderator?, current_user && current_user.admin?] do
+= cache [user_change, user_signed_in? && current_user.user_changes_moderator?, current_user && current_user.admin?] do
   .b-log_entry
     span.id-label #
     span = user_change.id
