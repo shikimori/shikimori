@@ -4,6 +4,82 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
   let(:anime) { create :anime }
 
+  describe '#root_redirect' do
+    before { get :root_redirect, anime_id: anime.to_param }
+    it { expect(response).to redirect_to play_video_online_index_url(anime, domain: AnimeOnlineDomain::host(anime)) }
+  end
+
+  describe '#index' do
+    describe 'video_content' do
+      let!(:anime_video) { create :anime_video, anime: anime }
+
+      before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
+      before { make_request }
+
+      context 'with video' do
+        let(:make_request) { get :index, anime_id: anime.to_param }
+        it { expect(response).to have_http_status :success }
+
+        context 'without current_video' do
+          let(:make_request) { get :index, anime_id: anime.to_param, episode: anime_video.episode, video_id: anime_video.id + 1 }
+          it { expect(response).to have_http_status :success }
+        end
+      end
+
+      context 'without any video' do
+        let!(:anime_video) { }
+        let(:make_request) { }
+        it { expect{get :index, anime_id: anime.to_param}.to raise_error(ActionController::RoutingError) }
+      end
+    end
+
+    describe 'verify adult' do
+      let!(:anime) { create :anime }
+      let!(:anime_video) { create :anime_video, episode: 1, anime: anime }
+      let(:episode) { }
+      let(:video_id) { }
+
+      before { allow_any_instance_of(Anime).to receive(:adult?).and_return adult }
+      before { @request.host = domain }
+      before { get :index, anime_id: anime.to_param, episode: episode, video_id: video_id, domain: 'play' }
+
+      context 'with redirect' do
+        let(:episode) { 2 }
+        let(:video_id) { anime_video.id }
+
+        context 'adult video' do
+          let(:adult) { true }
+          let(:domain) { 'play.shikimori.org' }
+
+          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
+        end
+
+        context 'adult domain' do
+          let(:adult) { false }
+          let(:domain) { 'xplay.shikimori.org' }
+
+          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
+        end
+      end
+
+      context 'without redirect' do
+        context 'not adult' do
+          let(:adult) { false }
+          let(:domain) { 'play.shikimori.org' }
+
+          it { expect(response).to have_http_status :success }
+        end
+
+        context 'adult' do
+          let(:adult) { true }
+          let(:domain) { 'xplay.shikimori.org' }
+
+          it { expect(response).to have_http_status :success }
+        end
+      end
+    end
+  end
+
   describe '#new' do
     before { get :new, anime_id: anime.to_param, anime_video: { anime_id: @resource, state: 'uploaded' } }
     it { expect(response).to have_http_status :success }
@@ -93,77 +169,6 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         expect(response).to have_http_status :success
         expect(video).to_not be_valid
         expect(video).to be_persisted
-      end
-    end
-  end
-
-  describe '#index' do
-    describe 'video_content' do
-      let!(:anime_video) { create :anime_video, anime: anime }
-
-      before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
-      before { make_request }
-
-      context 'with video' do
-        let(:make_request) { get :index, anime_id: anime.to_param }
-        it { expect(response).to have_http_status :success }
-
-        context 'without current_video' do
-          let(:make_request) { get :index, anime_id: anime.to_param, episode: anime_video.episode, video_id: anime_video.id + 1 }
-          it { expect(response).to have_http_status :success }
-        end
-      end
-
-      context 'without any video' do
-        let!(:anime_video) { }
-        let(:make_request) { }
-        it { expect{get :index, anime_id: anime.to_param}.to raise_error(ActionController::RoutingError) }
-      end
-    end
-
-    describe 'verify adult' do
-      let!(:anime) { create :anime }
-      let!(:anime_video) { create :anime_video, episode: 1, anime: anime }
-      let(:episode) { }
-      let(:video_id) { }
-
-      before { allow_any_instance_of(Anime).to receive(:adult?).and_return adult }
-      before { @request.host = domain }
-      before { get :index, anime_id: anime.to_param, episode: episode, video_id: video_id, domain: 'play' }
-
-      context 'with redirect' do
-        let(:episode) { 2 }
-        let(:video_id) { anime_video.id }
-
-        context 'adult video' do
-          let(:adult) { true }
-          let(:domain) { 'play.shikimori.org' }
-
-          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
-        end
-
-        context 'adult domain' do
-          let(:adult) { false }
-          let(:domain) { 'xplay.shikimori.org' }
-
-          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
-        end
-      end
-
-      context 'without redirect' do
-        context 'not adult' do
-          let(:adult) { false }
-          let(:domain) { 'play.shikimori.org' }
-
-          it { expect(response).to have_http_status :success }
-        end
-
-        context 'adult' do
-          let(:adult) { true }
-          let(:domain) { 'xplay.shikimori.org' }
-
-          it { expect(response).to have_http_status :success }
-        end
       end
     end
   end

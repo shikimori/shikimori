@@ -8,6 +8,10 @@ class AnimeOnline::AnimeVideosController < AnimesController
   before_action { @anime_online_ad = true }
   after_action :save_preferences, only: :index
 
+  def root_redirect
+    redirect_to valid_host_url, status: 301
+  end
+
   def index
     return redirect_to valid_host_url unless valid_host?
     raise ActionController::RoutingError.new('Not Found') if @anime.anime_videos.blank?
