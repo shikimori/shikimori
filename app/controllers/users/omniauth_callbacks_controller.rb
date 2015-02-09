@@ -31,7 +31,7 @@ private
 
       flash[:notice] = "Подключена авторизация через %s" % @omni.provider.titleize
     end
-    redirect_to user_settings_url(current_user)
+    redirect_to edit_profile_url(current_user)
   end
 
   def omniauth_sign_in
