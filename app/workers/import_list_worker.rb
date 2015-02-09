@@ -32,18 +32,18 @@ class ImportListWorker
     end
 
     entries = klass
-      .where('imported_at < ?', hours_limit.ago)
+      .where('imported_at < ?', hours_limit.hours.ago)
       .where(id: entry_ids)
       .pluck(:id)
 
     roles = PersonRole.where("#{klass.name.downcase}_id".to_sym => entries)
     characters = Character
-      .where('imported_at < ?', (hours_limit*10).ago)
+      .where('imported_at < ?', (hours_limit*10).hours.ago)
       .where(id: roles.map(&:character_id).compact.uniq)
       .pluck(:id)
 
     people = Person
-      .where('imported_at < ?', (hours_limit*10).ago)
+      .where('imported_at < ?', (hours_limit*10).hours.ago)
       .where(id: roles.map(&:person_id).compact.uniq)
       .pluck(:id)
 
