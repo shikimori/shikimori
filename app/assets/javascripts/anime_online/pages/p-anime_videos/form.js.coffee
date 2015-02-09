@@ -14,8 +14,14 @@
   $('.do-preview').on 'click', ->
     $('.video-preview').show()
 
-    $.getJSON "#{$(@).data 'href'}?url=#{encodeURIComponent $('#anime_video_url').val()}", (data) ->
-      preview_video data.url
+    $.ajax
+      url: $(@).data 'href'
+      data:
+        url: $('#anime_video_url').val()
+      type: 'POST'
+      dataType: 'json'
+      success: (data, status, xhr) ->
+        preview_video data.url
 
   # клик по "Работает и загрузить ещё"
   $('.continue').on 'click', ->
