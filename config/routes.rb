@@ -20,6 +20,21 @@ Site::Application.routes.draw do
     get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
   end
 
+  # site pages
+  resources :pages, path: '/', only: [] do
+    collection do
+      get :user_agent
+      get :page404
+      get :page503
+      get :raise_exception
+
+      get :bb_codes
+      get :feedback
+      get 'apanel' => :admin_panel
+    end
+  end
+
+
   namespace :moderation do
     resources :user_changes, only: [:show, :index, :create] do
       collection do
@@ -311,16 +326,6 @@ Site::Application.routes.draw do
         get :about
 
         get :user_agreement
-
-        get :user_agent
-        get :page404
-        get :page503
-        get :raise_exception
-
-        get :bb_codes
-        get :auth_form
-        get :feedback
-        get 'apanel' => :admin_panel
 
         get "site-news" => :news, kind: 'site', format: :rss
         get "anime-news" => :news, kind: 'anime', format: :rss

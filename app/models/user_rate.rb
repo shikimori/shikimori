@@ -43,7 +43,12 @@ class UserRate < ActiveRecord::Base
   end
 
   def self.status_name status, target_type
-    status_name = status.kind_of?(Integer) ? statuses.find {|k,v| v == status }.first : status
+    status_name = if status.kind_of?(Integer)
+      (statuses.find {|k,v| v == status } || raise("unknown status #{status} #{target_type}")).first
+      found_status.first
+    else
+      status
+    end
     I18n.t "activerecord.attributes.user_rate.statuses.#{target_type.downcase}.#{status_name}"
   end
 

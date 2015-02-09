@@ -15,6 +15,6 @@ production:
   - [critical, 6]
 
 :limits:
-  cpu_intensive: 1
+  cpu_intensive: 2
   slow_parsers: 2
   torrents_parsers: 1
