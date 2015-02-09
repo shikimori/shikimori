@@ -28,10 +28,10 @@ every 1.day, at: '4:30 am' do
 end
 
 # пока есть бета-стейджинг, будут постоянно синхронизиться картинки
-every 2.minutes do
-  command 'rsync -ahvu /home/apps/shikimori/production/shared/public/images /home/apps/shikimori/beta/shared/public/'
-  command 'rsync -ahvu /home/apps/shikimori/beta/shared/public/images/user_image /home/apps/shikimori/production/shared/public/images/'
-end
+#every 2.minutes do
+  #command 'rsync -ahvu /home/apps/shikimori/production/shared/public/images /home/apps/shikimori/beta/shared/public/'
+  #command 'rsync -ahvu /home/apps/shikimori/beta/shared/public/images/user_image /home/apps/shikimori/production/shared/public/images/'
+#end
 
 #every 1.day, at: '0:45 am' do
   #runner "Delayed::Job.enqueue_uniq TorrentsLatestJob.new"
