@@ -179,7 +179,8 @@ Site::Application.routes.draw do
     #end
 
     scope 'animes/:anime_id', module: 'anime_online' do
-      get '' => 'anime_videos#root_redirect'
+      get '' => redirect {|params, request| "#{request.url}/video_online" }
+      #get '' => 'anime_videos#index'
 
       resources :video_online, controller: 'anime_videos', except: [:show] do
         member do

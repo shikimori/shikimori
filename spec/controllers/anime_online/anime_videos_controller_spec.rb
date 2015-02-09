@@ -4,11 +4,6 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
   let(:anime) { create :anime }
 
-  describe '#root_redirect' do
-    before { get :root_redirect, anime_id: anime.to_param }
-    it { expect(response).to redirect_to play_video_online_index_url(anime, domain: AnimeOnlineDomain::host(anime)) }
-  end
-
   describe '#index' do
     describe 'video_content' do
       let!(:anime_video) { create :anime_video, anime: anime }

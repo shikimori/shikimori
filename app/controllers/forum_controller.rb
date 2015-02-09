@@ -140,7 +140,6 @@ private
     @json = if json?
       {
         action: params[:action],
-        local_menu_block: @linked ? render_to_string(partial: 'topics/linked_block', object: @linked_presenter, as: :linked, formats: :html) : nil,
         new_topic_url: new_topic_url(section: @section.permalink, linked: @linked),
         section: @section.permalink,
       } if json?
