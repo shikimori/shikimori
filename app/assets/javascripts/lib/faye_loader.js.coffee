@@ -15,12 +15,12 @@ class @FayeLoader
   # подключение к Faye серверу
   connect: ->
     port = (if window.DEVELOP then ':9292' else '')
-    @client = new Faye.Client("http://#{location.hostname}#{port}/faye-server",
+    @client = new Faye.Client "http://#{location.hostname}#{port}/faye-server",
       timeout: 300
       retry: 5
-      endpoints:
-        websocket: "http://#{location.hostname}:9292/faye-server"
-    )
+      #endpoints:
+        #websocket: "http://#{location.hostname}:9292/faye-server"
+
     #client.disable 'eventsource'
     _log 'faye connected'
 
@@ -50,12 +50,6 @@ class @FayeLoader
         _log ['faye:received', channel, data]
         # сообщения от самого себя не принимаем
         return if data.publisher_faye_id == @id()
-
-        # TODO: выпилить весь IF после публикация на мастер. этот код для совместимости старого формата уведомлений faye
-        if data.event == 'deleted' || data.event == 'updated' || data.event == 'created'
-          data.actor_avatar_2x = data.actor_avatar
-          type = if data.comment_id then 'comment' else 'topic'
-          data.event = "#{type}:#{data.event}"
 
         @subscriptions[channel].node.trigger "faye:#{data.event}", data
 
