@@ -1,6 +1,8 @@
 class MessagesQuery < QueryObjectBase
   pattr_initialize :user, :messages_type
 
+  NEWS_KINDS = [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews]
+
   def query
     Message
       .where(kind: kinds_by_type)
@@ -12,15 +14,9 @@ class MessagesQuery < QueryObjectBase
 
   def kinds_by_type
     case @messages_type
-      when :inbox
-        [MessageType::Private]
-
-      when :sent
-        #[MessageType::Private, MessageType::Notification]
-        [MessageType::Private]
-
-      when :news
-        [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews]
+      when :inbox then [MessageType::Private]
+      when :sent then [MessageType::Private]
+      when :news then NEWS_KINDS
 
       when :notifications
         [
@@ -35,8 +31,7 @@ class MessagesQuery < QueryObjectBase
           MessageType::Warned
         ]
 
-      else
-        '-1'
+      else '-1'
     end
   end
 

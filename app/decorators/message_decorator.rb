@@ -8,7 +8,11 @@ class MessageDecorator < BaseDecorator
   end
 
   def url
-    h.profile_url(from)
+    if MessagesQuery::NEWS_KINDS.include?(kind)
+      h.topic_url linked
+    else
+      h.profile_url from
+    end
   end
 
   def title
