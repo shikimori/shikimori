@@ -129,7 +129,10 @@
         li.order-by-ranked По рейтингу
         li.order-by-kind.hidden По типу
         li.order-by-popularity По популярности
-        li.order-by-name По алфавиту
+        li.order-by-russian style="#{'display: none' unless user_signed_in? && current_user.preferences.russian_names?}"
+          | По алфавиту
+        li.order-by-name style="#{'display: none' if user_signed_in? && current_user.preferences.russian_names?}"
+          | По алфавиту
         li.order-by-aired_on По дате выхода
 
         / используется в профиле пользователя

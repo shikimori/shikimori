@@ -11,7 +11,11 @@
     table.b-table
       tr
         th.index #
-        th.name.order-control class="#{:active if params[:order] == 'name'}" data-order="name" title="Упорядочить по названию" Название
+        - if user_signed_in? && current_user.preferences.russian_names?
+          th.name.order-control class="#{:active if params[:order] == 'russian'}" data-order="russian" title="Упорядочить по названию" Название
+        - else
+          th.name.order-control class="#{:active if params[:order] == 'name'}" data-order="name" title="Упорядочить по названию" Название
+
         th.num.order-control class="#{:active if params[:order] == 'my'}" data-order="my" title="Упорядочить по оценке" Оценка
         - if @resource.list.anime?
           th.num.order-control class="#{:active if params[:order] == 'episodes'}" data-order="episodes" title="Упорядочить по эпизодам" Эпизоды
