@@ -3,9 +3,9 @@
     .c-history class="x#{@resource.formatted_history.size}"
       .subheadline.m13
         - if can? :access_list, @resource
-          a href="#{index_profile_user_history_index_url @resource}" Изменения списка
+          a href="#{index_profile_user_history_index_url @resource}" История
         - else
-          | Изменения списка
+          | История
       .block-list
         - @resource.formatted_history.each do |entry|
           .entry
