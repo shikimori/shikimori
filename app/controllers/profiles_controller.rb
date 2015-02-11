@@ -108,13 +108,12 @@ class ProfilesController < ShikimoriController
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
     params[:user][:notifications] = params[:user][:notifications].sum {|k,v| v.to_i } + MessagesController::DISABLED_CHECKED_NOTIFICATIONS if params[:user][:notifications].present?
 
-    update_successfull = if params[:user][:password].present?
-      @resource.update password: params[:user][:password]
-      #if @resource.encrypted_password.present?
-        #@resource.update_with_password password_params
-      #else
-        #@resource.update password: params[:user][:password]
-      #end
+    update_successfull = if params[:user][:password].present? || params[:user][:email].present?
+      if @resource.encrypted_password.present?
+        @resource.update_with_password password_params
+      else
+        @resource.update password_params
+      end
     else
       @resource.update update_params
     end
@@ -150,7 +149,7 @@ private
 
   def update_params
     params.require(:user).permit(
-      :avatar, :nickname, :email, :name, :location, :website,
+      :avatar, :nickname, :name, :location, :website,
       :sex, :birth_on, :notifications, :about,
       ignored_user_ids: []
     )
@@ -161,6 +160,6 @@ private
   end
 
   def password_params
-    params.required(:user).permit(:password, :current_password)
+    params.required(:user).permit(:password, :current_password, :email)
   end
 end

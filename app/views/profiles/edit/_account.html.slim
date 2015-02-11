@@ -6,11 +6,10 @@
     .c-column.block_m
       .block
         = f.input :nickname, label: 'Логин (никнейм)'
-        = f.input :email
+        = f.input :email, input_html: { disabled: true }
 
         .change-password
-          a href="#{edit_profile_url @resource, page: 'password'}"
-            = @resource.encrypted_password.blank? ? 'Задать пароль' : 'Изменить пароль'
+          a href="#{edit_profile_url @resource, page: 'password'}" Изменить email и пароль
 
         = f.input :name
         = f.input :location
