@@ -1,5 +1,8 @@
 #= require_directory ./p-animes
 
+@on 'page:load', '.animes', '.mangas', ->
+  init_animes_menu()
+
 @init_animes_menu = ->
   # графики
   $("#rates_scores_stats").bar
@@ -11,11 +14,12 @@
 
   $('.b-show_more').show_more()
 
-@on 'page:load', '.animes', '.mangas', ->
-  init_animes_menu()
+  @init_history() if IS_LOGGED_IN
 
+
+@init_history = ->
   # генерация истории аниме/манги
-  #$history_block = $(".menu-right .history")
+  $history_block = $(".l-menu .history")
 
   # тултипы истории
   #$(".person-tooltip", $history_block).tooltip
@@ -28,26 +32,30 @@
     #place_to_left: true
 
   # подгрузка тултипов истории
-  #history_load_triggered = false
+  history_load_triggered = false
 
-  #$history_block.hover ->
-    #return if history_load_triggered
-    #history_load_triggered = true
-    #$.getJSON $(@).attr("data-remote"), (data) ->
-      #for id of data
-        #$tooltip = $(".tooltip-details", "#history-entry-#{id}-tooltip")
-        #continue unless $tooltip.length
+  $history_block.hover ->
+    return if history_load_triggered
+    history_load_triggered = true
+    $.getJSON $(@).attr("data-remote"), (data) ->
+      for id of data
+        $tooltip = $(".tooltip-details", "#history-entry-#{id}-tooltip")
+        continue unless $tooltip.length
 
-        #if data[id].length
-          #$tooltip.html _.map(data[id], (v, k) ->
-            #"<a href=\"#{v.link}\" rel=\"nofollow\">#{v.title}</a>"
-          #).join('<br />')
-        #else
-          #$("#history-entry-#{id}-tooltip").children().remove()
+        if data[id].length
+          $tooltip.html _.map(data[id], (v, k) ->
+            "<a href=\"#{v.link}\" rel=\"nofollow\">#{v.title}</a>"
+          ).join('')
+        else
+          $("#history-entry-#{id}-tooltip").children().remove()
 
   # anime history tooltips
-  #$('.person-tooltip').tooltip
-    #position: 'top right'
-    #offset: [-28, -22]
-    #relative: true
-    #place_to_left: true
+  $('.person-tooltip', $history_block).tooltip $.extend({}, @ANIME_TOOLTIP_OPTIONS,
+    position: 'top right'
+    offset: [-28, 59]
+    relative: true
+    place_to_left: true
+    predelay: 100
+    delay: 100
+    effect: 'toggle'
+  )

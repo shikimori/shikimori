@@ -413,7 +413,7 @@ Site::Application.routes.draw do
           get :recent
 
           # инфо по торрентам эпизодов
-          get 'episode_torrents'
+          get :episode_torrents
           # тултип
           get :tooltip
           # редактирование

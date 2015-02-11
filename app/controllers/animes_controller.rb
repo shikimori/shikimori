@@ -93,6 +93,11 @@ class AnimesController < ShikimoriController
     noindex
   end
 
+  # торренты к эпизодам аниме
+  def episode_torrents
+    render json: @resource.files.episodes_data
+  end
+
   # редактирование аниме
   def edit
     noindex
@@ -114,13 +119,6 @@ class AnimesController < ShikimoriController
     #1/0
     #show
     #render :show unless @director.redirected?
-  #end
-
-  ## торренты к эпизодам аниме
-  #def episode_torrents
-    #1/0
-    ##@resource = klass.find(params[:id].to_i).decorate
-    #render json: @resource.files.episodes_data
   #end
 
   # тултип

@@ -11,3 +11,4 @@ exceptions:
     - 'Forbidden'
     - 'ActionController::InvalidAuthenticityToken'
     - 'ActionController::UnknownFormat'
+    - 'ActiveRecord::RecordNotFound'

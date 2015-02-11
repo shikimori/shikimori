@@ -114,6 +114,11 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#episode_torrents' do
+    before { get :episode_torrents, id: anime.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#edit' do
     context 'guest' do
       let(:page) { nil }
