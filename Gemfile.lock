@@ -520,6 +520,10 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.4.2)
+    raygun4ruby (1.1.5)
+      httparty (~> 0.11)
+      json
+      rack
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.4)
@@ -746,6 +750,7 @@ DEPENDENCIES
   rails-assets-packery!
   railties (= 4.2.0)
   rake
+  raygun4ruby
   rb-fchange
   rb-fsevent
   rb-inotify
