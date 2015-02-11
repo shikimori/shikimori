@@ -9,7 +9,7 @@
   .block
     .subheadline.m10
       - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
-        .linkeable data-href="#{resource.clubs_url}" Клубы
+        .linkeable data-href="#{clubs_character_url(resource)}" Клубы
       - else
         | Клубы
 
