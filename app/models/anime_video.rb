@@ -57,9 +57,7 @@ class AnimeVideo < ActiveRecord::Base
       transition [:uploaded, :broken, :wrong, :banned] => :working
     end
 
-    before_transition working: [:broken, :wrong, :banned] do |video, transition|
-      video.send('remove_episode_notification') if video.single?
-    end
+    before_transition working: [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
   end
 
   def hosting
