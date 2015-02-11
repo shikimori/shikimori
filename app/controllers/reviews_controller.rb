@@ -13,7 +13,7 @@ class ReviewsController < AnimesController
   # обзоры аниме или манги
   def index
     @reviews = ReviewsQuery
-      .new(@review.object, current_user, params[:id].to_i)
+      .new(@resource.object, current_user, params[:id].to_i)
       .fetch.map do |review|
         TopicDecorator.new review.thread
       end
@@ -29,7 +29,7 @@ class ReviewsController < AnimesController
 
   def create
     if @review.save
-      redirect_to anime_review_path(@resource, @review), notice: 'Рецензия создана'
+      redirect_to send("#{resource_klass.name.downcase}_review_path", @resource, @review), notice: 'Рецензия создана'
     else
       new
       render :new
@@ -38,7 +38,7 @@ class ReviewsController < AnimesController
 
   def update
     if @review.update review_params
-      redirect_to anime_review_url(@resource, @review), notice: 'Рецензия изменена'
+      redirect_to send("#{resource_klass.name.downcase}_review_path", @resource, @review), notice: 'Рецензия изменена'
     else
       edit
       render :edit
@@ -69,17 +69,17 @@ private
   end
 
   def resource_id
-    @resource_id = params[:anime_id]
+    @resource_id ||= params[:anime_id] || params[:manga_id]
   end
 
   def add_breadcrumbs
-    breadcrumb 'Рецензии', anime_reviews_url(@anime || @manga)
+    breadcrumb 'Рецензии', send("#{resource_klass.name.downcase}_reviews_url", @resource)
 
     if @review && @review.persisted? && params[:action] != 'show'
-      breadcrumb "Рецензия от #{@review.user.nickname}", anime_review_url(@anime || @manga, @review)
-      @back_url = anime_review_url @anime || @manga, @review
+      breadcrumb "Рецензия от #{@review.user.nickname}", send("#{resource_klass.name.downcase}_reviews_url", @resource, @review)
+      @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource, @review)
     else
-      @back_url = anime_reviews_url @anime || @manga
+      @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource)
     end
   end
 
@@ -89,7 +89,9 @@ private
   end
 
   def actualize_resource
-    @review = @resource
-    @resource = @anime || @manga
+    if @resource.kind_of?(Review)
+      @review = @resource
+      @resource = @anime || @manga
+    end
   end
 end
