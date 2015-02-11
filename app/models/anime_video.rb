@@ -20,7 +20,7 @@ class AnimeVideo < ActiveRecord::Base
 
   before_save :check_ban
   before_save :check_copyright
-  after_create :create_episode_notificaiton, if: -> { !unknown? && single_video? }
+  after_create :create_episode_notificaiton, if: -> { !unknown? && single? }
 
   PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false"
   XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true"
@@ -55,6 +55,10 @@ class AnimeVideo < ActiveRecord::Base
     end
     event :work do
       transition [:uploaded, :broken, :wrong, :banned] => :working
+    end
+
+    before_transition working: [:broken, :wrong, :banned] do |video, transition|
+      video.send('remove_episode_notification') if video.single?
     end
   end
 
@@ -94,6 +98,10 @@ class AnimeVideo < ActiveRecord::Base
     self.author = AnimeVideoAuthor.find_or_create_by name: name.to_s.strip
   end
 
+  def single?
+    AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
+  end
+
 private
   def check_ban
     self.state = 'banned' if hosting == 'kiwi.kz'
@@ -103,13 +111,17 @@ private
     self.state = 'copyrighted' if copyright_ban?
   end
 
+  # FIX: extract create_episode_notificaiton and remove_episode_notification to service.
   def create_episode_notificaiton
     EpisodeNotification
       .find_or_initialize_by(anime_id: anime_id, episode: episode)
       .update("is_#{kind}" => true)
   end
 
-  def single_video?
-    AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
+  def remove_episode_notification
+    notify = EpisodeNotification
+      .where(anime_id: anime_id, episode: episode)
+      .first
+    notify && notify.update("is_#{kind}" => false)
   end
 end

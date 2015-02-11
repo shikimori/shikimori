@@ -201,6 +201,39 @@ describe AnimeVideo do
       before { video.ban }
       it { should be_banned }
     end
+
+    describe 'remove_episode_notification' do
+      [:fandub, :raw, :subtitles].each do |kind|
+        [:broken, :wrong, :ban].each do |action|
+          context "#{kind} #{action}" do
+            let(:video) { create(:anime_video, kind: kind) }
+            before do
+              create(
+                :episode_notification,
+                anime_id: video.anime_id,
+                episode: video.episode,
+                is_raw: video.raw?,
+                is_fandub: video.fandub?,
+                is_subtitles: video.subtitles?
+              )
+            end
+
+            subject { EpisodeNotification.last }
+
+            context 'single video' do
+              before { video.send(action) }
+              it { expect(subject.send("is_#{kind}")).to eq false }
+            end
+
+            context 'not single video' do
+              before { create(:anime_video, anime: video.anime, episode: video.episode, kind: kind) }
+              before { video.send(action) }
+              it { expect(subject.send("is_#{kind}")).to eq true }
+            end
+          end
+        end
+      end
+    end
   end
 
   describe 'instance methods' do
