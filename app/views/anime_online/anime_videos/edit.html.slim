@@ -1,5 +1,5 @@
 = render layout: 'animes/page' do
-  = simple_form_for @video, url: edit_video_online_url(@anime, @video) do |f|
+  = simple_form_for @video, url: video_online_url(@anime, @video) do |f|
     - if @video.errors.any?
       .b-errors
         .subheadline Ошибки
