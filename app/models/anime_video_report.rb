@@ -46,32 +46,32 @@ class AnimeVideoReport < ActiveRecord::Base
       transition [:accepted, :rejected] => :pending
     end
 
-    before_transition pending: :accepted do |anime_video_report, transition|
-      anime_video_report.approver = transition.args.first
-      video = anime_video_report.anime_video
-      video.send(anime_video_report.kind)
-      anime_video_report.find_doubles.update_all(
+    before_transition pending: :accepted do |report, transition|
+      report.approver = transition.args.first
+      video = report.anime_video
+      video.send(report.kind)
+      report.find_doubles.update_all(
         approver_id: transition.args.first.id,
         state: :accepted
       )
     end
 
-    before_transition pending: :rejected do |anime_video_report, transition|
-      anime_video_report.approver = transition.args.first
-      if anime_video_report.kind.uploaded?
-        anime_video_report.anime_video.reject!
+    before_transition pending: :rejected do |report, transition|
+      report.approver = transition.args.first
+      if report.kind.uploaded?
+        report.anime_video.reject!
       end
-      anime_video_report.find_doubles.update_all(
+      report.find_doubles.update_all(
         approver_id: transition.args.first.id,
         state: :rejected
       )
     end
 
-    before_transition [:accepted, :rejected] => :pending do |anime_video_report, transition|
-      anime_video_report.approver = transition.args.first
-      prev_state = anime_video_report.uploaded? ? 'uploaded' : 'working'
-      anime_video_report.anime_video.update_attribute :state, prev_state
-      anime_video_report.find_doubles(transition.from).update_all(
+    before_transition [:accepted, :rejected] => :pending do |report, transition|
+      report.approver = transition.args.first
+      prev_state = report.uploaded? ? 'uploaded' : 'working'
+      report.anime_video.update_attribute :state, prev_state
+      report.find_doubles(transition.from).update_all(
         approver_id: transition.args.first.id,
         state: transition.to
       )
@@ -92,6 +92,6 @@ private
   end
 
   def auto_accept
-    accept! user if user.video_moderator?
+    accept!(user) if user.video_moderator?
   end
 end
