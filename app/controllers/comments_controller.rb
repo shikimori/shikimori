@@ -18,7 +18,7 @@ class CommentsController < ShikimoriController
   end
 
   def create
-    #render json: ['Комментирование топика отключено'], status: :unprocessable_entity and return if comment_params[:commentable_id].to_i == 82468 && !current_user.admin?
+    render json: ['Комментирование топика отключено'], status: :unprocessable_entity and return if comment_params[:commentable_id].to_i == 152575 && !current_user.admin?
     @comment = Comment.new comment_params.merge(user: current_user)
 
     unless faye.create @comment
