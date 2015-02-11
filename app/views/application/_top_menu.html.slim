@@ -84,6 +84,7 @@
           span Рецензии:
           a href="#{moderation_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
       - if current_user.video_moderator? && AnimeVideoReport.pending.count > 0
-        .mod-block
-          span Видео:
-          a href="#{moderation_anime_video_reports_url}" title="Модерация видео" #{AnimeVideoReport.pending.count}
+        - unless current_user.id == User::Morr_ID && AnimeVideoReport.pending.count < 1000
+          .mod-block
+            span Видео:
+            a href="#{moderation_anime_video_reports_url}" title="Модерация видео" #{AnimeVideoReport.pending.count}
