@@ -109,11 +109,12 @@ class ProfilesController < ShikimoriController
     params[:user][:notifications] = params[:user][:notifications].sum {|k,v| v.to_i } + MessagesController::DISABLED_CHECKED_NOTIFICATIONS if params[:user][:notifications].present?
 
     update_successfull = if params[:user][:password].present?
-      if @resource.encrypted_password.present?
-        @resource.update_with_password password_params
-      else
-        @resource.update password: params[:user][:password]
-      end
+      @resource.update password: params[:user][:password]
+      #if @resource.encrypted_password.present?
+        #@resource.update_with_password password_params
+      #else
+        #@resource.update password: params[:user][:password]
+      #end
     else
       @resource.update update_params
     end
