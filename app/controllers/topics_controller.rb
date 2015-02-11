@@ -5,6 +5,7 @@ class TopicsController < ForumController
   load_and_authorize_resource class: Topic, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :build_forum
+  before_action :set_breadcrumbs, only: [:show, :edit, :new]
 
   caches_action :index,
     cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{Comment.last.updated_at}|#{json?}" },
@@ -74,7 +75,6 @@ class TopicsController < ForumController
 
   # редактирование топика
   def edit
-    @section = @resource.section
     super
   end
 
@@ -145,12 +145,13 @@ private
   end
 
   def build_forum
-    @forum_view = ForumView.new
+    @forum_view = ForumView.new @resource
+  end
 
-    if params[:action] != 'index' && @section.try(:id)
-      breadcrumb 'Форум', root_url
-      breadcrumb @section.name, section_url(@section)
-    end
+  def set_breadcrumbs
+    breadcrumb 'Форум', root_url
+    breadcrumb @forum_view.section.name, section_url(@forum_view.section)
+    breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource) if params[:action] == 'edit'
   end
 
   def faye

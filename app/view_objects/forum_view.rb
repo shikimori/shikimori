@@ -2,10 +2,8 @@ class ForumView
   include Draper::ViewHelpers
   prepend ActiveCacher.instance
 
+  pattr_initialize :resource
   instance_cache :section, :linked, :new_topic_section
-
-  def initialize
-  end
 
   def new_topic_url
     h.new_topic_url new_topic_section, linked, 'topic[user_id]' => h.current_user.id,
@@ -14,7 +12,11 @@ class ForumView
   end
 
   def section
-    Section.find_by_permalink h.params[:section]
+    if h.params[:section]
+      Section.find_by_permalink(h.params[:section])
+    else
+      resource.section
+    end
   end
 
   def linked
