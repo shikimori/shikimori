@@ -22,4 +22,10 @@ class AnimeOnline::DashboardController < ShikimoriController
       @seasons.delete_at(2)
     end
   end
+
+  def pingmedia_test_1
+  end
+
+  def pingmedia_test_2
+  end
 end

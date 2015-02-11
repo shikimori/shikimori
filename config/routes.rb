@@ -171,6 +171,9 @@ Site::Application.routes.draw do
     get '/', to: 'anime_online/dashboard#show'
     get '/page/:page', to: 'anime_online/dashboard#show', as: :anime_dashboard_page
 
+    get 'pingmedia_test_1', to: 'anime_online/dashboard#pingmedia_test_1', as: :pingmedia_test_1
+    get 'pingmedia_test_2', to: 'anime_online/dashboard#pingmedia_test_2', as: :pingmedia_test_2
+
     get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
