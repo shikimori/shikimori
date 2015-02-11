@@ -35,12 +35,14 @@ class ApplicationController < ActionController::Base
 
   def runtime_error e
     ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? current_user.nickname : nil })
+    Raygun.track_exception(exception, env)
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
+
     raise e if remote_addr == '127.0.0.1'
 
     if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, ActionController::UnknownFormat, NotFound].include?(e.class)
-      @page_title = "Страница не найдена"
+      @page_title = 'Страница не найдена'
       @sub_layout = nil
       render 'pages/page404.html', layout: false, status: 404
 
@@ -51,7 +53,7 @@ class ApplicationController < ActionController::Base
       render json: {}, status: e.status
 
     else
-      @page_title = "Ошибка"
+      @page_title = 'Ошибка'
       render 'pages/page503.html', layout: false, status: 503
     end
   end
