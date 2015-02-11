@@ -86,7 +86,8 @@ gem 'rabl' # для рендеринга json
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 gem 'zaru'
 
-gem 'raygun4ruby' # error handling
+gem 'honeybadger', '~> 2.0' # error handling
+
 gem 'postmark-rails' # email delivery service
 gem 'apipie-rails'
 gem 'gcm'

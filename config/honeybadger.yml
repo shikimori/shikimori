@@ -1,0 +1,13 @@
+---
+api_key: 'aa8f4e69'
+development_environments:
+  - 'development'
+  - 'test'
+exceptions:
+  ignore:
+    - 'CanCan::AccessDenied'
+    - 'NotFound'
+    - 'Unauthorized'
+    - 'Forbidden'
+    - 'ActionController::InvalidAuthenticityToken'
+    - 'ActionController::UnknownFormat'

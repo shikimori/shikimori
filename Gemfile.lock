@@ -353,6 +353,7 @@ GEM
     hike (1.2.3)
     hiredis (0.5.2)
     hitimes (1.2.2)
+    honeybadger (2.0.4)
     htmlentities (4.3.3)
     http_parser.rb (0.6.0)
     httparty (0.13.3)
@@ -520,10 +521,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.4.2)
-    raygun4ruby (1.1.5)
-      httparty (~> 0.11)
-      json
-      rack
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.4)
@@ -711,6 +708,7 @@ DEPENDENCIES
   guard-pow
   guard-rspec
   guard-spring
+  honeybadger (~> 2.0)
   htmldiff!
   htmlentities
   icalendar
@@ -750,7 +748,6 @@ DEPENDENCIES
   rails-assets-packery!
   railties (= 4.2.0)
   rake
-  raygun4ruby
   rb-fchange
   rb-fsevent
   rb-inotify
