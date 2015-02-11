@@ -56,6 +56,9 @@ class AnimeVideo < ActiveRecord::Base
     event :work do
       transition [:uploaded, :broken, :wrong, :banned] => :working
     end
+    event :uploaded do
+      transition uploaded: :working
+    end
 
     before_transition working: [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
   end

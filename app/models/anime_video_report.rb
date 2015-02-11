@@ -49,10 +49,7 @@ class AnimeVideoReport < ActiveRecord::Base
     before_transition pending: :accepted do |anime_video_report, transition|
       anime_video_report.approver = transition.args.first
       video = anime_video_report.anime_video
-      # FIX : use statemachine events
-      video.update(state: anime_video_report.kind)
-      video.send('remove_episode_notification') if video.single?
-      #
+      video.send(anime_video_report.kind)
       anime_video_report.find_doubles.update_all(
         approver_id: transition.args.first.id,
         state: :accepted
