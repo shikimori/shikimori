@@ -176,17 +176,17 @@ class User < ActiveRecord::Base
   # last online time from memcached/or from database
   def last_online_at
     cached = Rails.cache.read(self.last_online_cache_key)
-    cached = DateTime.parse(cached) if cached
+    cached = Time.zone.parse(cached) if cached
     [cached, self[:last_online_at], current_sign_in_at, created_at].compact.max
   end
 
   # updates user's last online date
   def update_last_online
-    now = DateTime.now
+    now = Time.zone.now
     if self[:last_online_at].nil? || now - User::LAST_ONLINE_CACHE_INTERVAL > self[:last_online_at]
       update_column :last_online_at, now
     else
-      Rails.cache.write last_online_cache_key, now.to_s # wtf? Rails is crushed when it loads DateTime type from memcached
+      Rails.cache.write last_online_cache_key, now.to_s # wtf? Rails is crushed when it loads Time.zone type from memcached
     end
   end
 
@@ -268,7 +268,7 @@ class User < ActiveRecord::Base
   def prolongate_ban
     read_only_at = User
       .where(current_sign_in_ip: current_sign_in_ip)
-      .select {|v| v.read_only_at.present? && v.read_only_at > DateTime.now }
+      .select {|v| v.read_only_at.present? && v.read_only_at > Time.zone.now }
       .map {|v| v.read_only_at }
       .max
 
@@ -276,7 +276,7 @@ class User < ActiveRecord::Base
   end
 
   def banned?
-    !!(read_only_at && read_only_at > DateTime.now)
+    !!(read_only_at && read_only_at > Time.zone.now)
   end
 
   def remember_me
