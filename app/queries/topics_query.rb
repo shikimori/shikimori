@@ -21,17 +21,17 @@ private
 
   def by_section query
     case @section.permalink
-      when Section::All.permalink
+      when Section::static[:all].permalink
         if @user
           query.where "type != ? or (type = ? and #{Entry.table_name}.id in (?))", GroupComment.name, GroupComment.name, user_subscription_ids
         else
           query.where.not type: GroupComment.name
         end
 
-      when Section::Feed.permalink
+      when Section::static[:feed].permalink
         query.where id: user_subscription_ids
 
-      when Section::News.permalink
+      when Section::static[:news].permalink
         query.where type: [AnimeNews.name, MangaNews.name]
 
       else

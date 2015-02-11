@@ -11,7 +11,7 @@ class ForumController < ShikimoriController
                 #:expires_in => 2.days
 
   def index
-    @gallery = WellcomeGalleryPresenter.new if @page == 1 && @section.permalink == Section::All.permalink
+    @gallery = WellcomeGalleryPresenter.new if @page == 1 && @section.permalink == Section::static[:all].permalink
 
     @h1 = @linked && @linked.respond_to?(:name) ? @linked.name : @section[:title]
     @page_title = @page == 1 ? @section[:meta_title] : [@section[:meta_title], "Страница #{@page}"]
@@ -94,17 +94,17 @@ private
   def build_background
     redirect_to :root, status: :moved_permanently and return false if params[:format] == 'user'
 
-    params[:section] ||= Section::All[:permalink]
+    params[:section] ||= Section::static[:all][:permalink]
 
     @sections = Section.visible
     @section = Section.find_by_permalink params[:section]
 
     @faye_subscriptions = case @section.permalink
-      when Section::All.permalink
+      when Section::static[:all].permalink
         Section.real.map {|v| "section-#{v[:id]}" } +
           (user_signed_in? ? current_user.groups.map { |v| "group-#{v[:id]}" } : [])
 
-      #when Section::Feed.permalink
+      #when Section::static[:feed].permalink
         #["user-#{current_user.id}", FayePublisher::BroadcastFeed]
 
       else

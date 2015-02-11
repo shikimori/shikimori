@@ -29,7 +29,7 @@ class DbEntryThread < Topic
   # раздел топика
   def section
     if news?
-      Section::News
+      Section::static[:news]
     else
       super
     end

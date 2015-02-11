@@ -26,8 +26,8 @@ describe TopicsController do
       it { expect(assigns :topics).to have(3).items }
     end
 
-    context 'Section::All' do
-      before { get :index, section: Section::All.permalink }
+    context 'Section::static[:all]' do
+      before { get :index, section: Section::static[:all].permalink }
       it { expect(response).to have_http_status :success }
       it { expect(assigns :topics).to have(3).items }
     end
