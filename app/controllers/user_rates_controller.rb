@@ -5,8 +5,12 @@ require_dependency 'publisher'
 # TODO: refactor list import into service object
 class UserRatesController < ProfilesController
   load_and_authorize_resource except: [:index, :export, :import]
-  skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
+
   before_action :authorize_list_access, only: [:index, :export, :import]
+  before_action :set_sort_order, only: [:index], if: :user_signed_in?
+  after_action :save_sort_order, only: [:index], if: :user_signed_in?
+
+  skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
 
   def index
     @page = (params[:page] || 1).to_i
@@ -150,5 +154,15 @@ private
 
   def authorize_list_access
     authorize! :access_list, @resource
+  end
+
+  def set_sort_order
+    params[:order] ||= current_user.preferences.default_sort
+  end
+
+  def save_sort_order
+    if current_user.preferences.default_sort != params[:order]
+      current_user.preferences.update default_sort: params[:order]
+    end
   end
 end

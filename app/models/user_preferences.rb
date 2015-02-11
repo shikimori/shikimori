@@ -7,6 +7,10 @@ class UserPreferences < ActiveRecord::Base
 
   belongs_to :user, touch: true
 
+  def default_sort
+    super || (russian_names? ? 'russian' : 'name')
+  end
+
   def anime_in_profile?
     anime_in_profile
   end
@@ -53,10 +57,6 @@ class UserPreferences < ActiveRecord::Base
 
   def volumes_in_manga?
     volumes_in_manga
-  end
-
-  def update_sorting(order)
-    update_attribute(:default_sort, order) if default_sort != order
   end
 
   # TODO: выпилить это поле из базы и из кода
