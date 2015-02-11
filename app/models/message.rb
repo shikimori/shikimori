@@ -1,6 +1,7 @@
+# TODO: refactor kind = MessageType::... в enumerize kind или в enum kind
 class Message < ActiveRecord::Base
   # для совместимости с comment
-  attr_accessor :topic_name, :topic_url
+  #attr_accessor :topic_name, :topic_url
 
   belongs_to :from, class_name: User.name
   belongs_to :to, class_name: User.name
@@ -14,6 +15,8 @@ class Message < ActiveRecord::Base
 
   before_create :filter_quotes
   before_save :antispam
+
+  after_create :send_email
 
   cattr_writer :antispam
   # включен ли антиспам
@@ -98,5 +101,9 @@ private
     else
       raise ArgumentError, "unknown deleter: #{user}"
     end
+  end
+
+  def send_email
+    EmailNotifier.instance.private_message(self) if kind == MessageType::Private
   end
 end

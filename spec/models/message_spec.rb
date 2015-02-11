@@ -144,6 +144,24 @@ describe Message do
         end
       end
     end
+
+    describe 'after_create' do
+      let(:message) { build :message, kind: kind }
+      before { allow(EmailNotifier.instance).to receive :private_message }
+      before { message.save! }
+
+      describe 'send_email' do
+        context 'private message' do
+          let(:kind) { MessageType::Private }
+          it { expect(EmailNotifier.instance).to have_received(:private_message).with message }
+        end
+
+        context 'common message' do
+          let(:kind) { MessageType::Notification }
+          it { expect(EmailNotifier.instance).to_not have_received(:private_message) }
+        end
+      end
+    end
   end
 
   describe 'instance methods' do
