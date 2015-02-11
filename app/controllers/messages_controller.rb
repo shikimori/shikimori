@@ -2,6 +2,7 @@ class MessagesController < ProfilesController
   load_and_authorize_resource except: [:index, :bounce, :preview, :read_all, :delete_all, :chosen, :unsubscribe]
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :read_all, :delete_all]
   before_action :authorize_acess, only: [:index, :read_all, :delete_all]
+  before_action :append_info, only: [:create]
 
   MESSAGES_PER_PAGE = 15
 
@@ -385,5 +386,16 @@ private
   def authorize_acess
     authorize! :access_messages, @resource
     @messages_type = params[:messages_type].to_sym
+  end
+
+  def append_info
+    return unless @resource.to.admin?
+
+    @resource.body.strip!
+    @resource.body += " [right][size=11][color=gray][spoiler=info]\n"
+    @resource.body += "e-mail: #{params[:message][:email]}\n" unless params[:message][:email].blank?
+    @resource.body += "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n" unless params[:message][:location].blank?
+    @resource.body += "#{params[:message][:user_agent] || request.env['HTTP_USER_AGENT']}\n"
+    @resource.body += '[/spoiler][/color][/size][/right]'
   end
 end
