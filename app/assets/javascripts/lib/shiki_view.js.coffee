@@ -1,6 +1,7 @@
 # общий класс для комментария, топика, редактора
 class @ShikiView
-  MAX_PREVIEW_HEIGHT: 300
+  MAX_PREVIEW_HEIGHT: 450
+  COLLAPSED_HEIGHT: 150
 
   constructor: ($root) ->
     @_initialize($root)
@@ -25,4 +26,4 @@ class @ShikiView
 
   # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
   _check_height: =>
-    @$inner.check_height(@MAX_PREVIEW_HEIGHT)
+    @$inner.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
