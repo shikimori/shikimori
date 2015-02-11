@@ -283,6 +283,7 @@ class @ShikiEditor extends ShikiView
 
   _hide_preview: =>
     @$root.removeClass('previewed')
+    $.scrollTo @$root unless @$('.editor-controls').is(':appeared')
 
   _mark_offtopic: (is_offtopic) ->
     @$('#comment_offtopic').val if is_offtopic then 't' else 'f'
