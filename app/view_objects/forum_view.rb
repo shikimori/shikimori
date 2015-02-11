@@ -6,7 +6,7 @@ class ForumView
   instance_cache :section, :linked, :new_topic_section
 
   def new_topic_url
-    h.new_topic_url new_topic_section, linked, 'topic[user_id]' => h.current_user.id,
+    h.new_topic_url section, linked, 'topic[user_id]' => h.current_user.id,
       'topic[section_id]' => new_topic_section.id,
       'topic[linked_id]' => linked ? linked.id : nil, 'topic[linked_type]' => linked ? linked.class.name : nil
   end

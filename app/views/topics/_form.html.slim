@@ -15,7 +15,7 @@
 
   .m20
     = f.input :section_id, as: :select, include_blank: false,
-      collection: Section.visible.select {|v| v.id.present? },
+      collection: Section.public,
       input_html: { disabled: topic.persisted? }
 
   .m20

@@ -5,6 +5,8 @@ class Section < ActiveRecord::Base
   before_create :set_permalink
 
   VARIANTS = /a|m|c|s|f|o|g|reviews|v|all|news/
+  # разделы, в которые можно создавать топики из интерфейса
+  PUBLIC_SECTIONS = %w{ o a m c p s }
 
   NewsId = [2,6]
   AnimeNewsId = 2
@@ -54,6 +56,12 @@ class Section < ActiveRecord::Base
           is_visible: true
         )
       }
+    end
+
+    def public
+      with_aggregated
+        .select {|v| PUBLIC_SECTIONS.include? v.permalink }
+        .sort_by {|v| PUBLIC_SECTIONS.index v.permalink }
     end
 
     def with_aggregated
