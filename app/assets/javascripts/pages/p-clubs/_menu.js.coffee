@@ -1,5 +1,5 @@
 @on 'page:load', '.clubs', ->
-  $menu = $('.l-menu')
+  $menu = $('.b-clubs-menu')
   $actions_block = $('.actions', $menu)
   $invite_block = $menu.children('.invite')
   $nickname_input = $('#group_invite_dst_id', $invite_block)
