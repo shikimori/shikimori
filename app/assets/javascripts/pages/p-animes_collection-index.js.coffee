@@ -15,7 +15,6 @@
   else
     init_catalog()
 
-  new PaginatedCatalog()
   $(document).trigger('page:restore')
 
 init_catalog = ->
@@ -27,6 +26,7 @@ init_catalog = ->
   else if location.pathname.match(/\/comparer\//)
     base_catalog_path = _(location.pathname.split("/")).first(6).join("/")
 
+  new PaginatedCatalog()
   new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true
     if $('.l-page.menu-expanded').exists()
