@@ -55,6 +55,9 @@ class @ShikiEditor extends ShikiView
     # восстановление засветлённости после сабмита
     @$form.on 'ajax:complete', =>
       @$root.removeClass 'ajax_request'
+    # убираем preview по завершению сабмита
+    @$form.on 'ajax:success', =>
+      @_hide_preview()
 
     # при клике на неselected кнопку, закрываем все остальные selected кнопки
     @$('.editor-controls span').on 'click', (e) =>
