@@ -28,7 +28,17 @@
     .entry
       +menu-block-with-image
 
-    +iphone
+    +iphone_landscape
+      width: 30%
+      margin-bottom: 0 !important
+
+      .entry
+        display: none
+
+        &:first-child
+          display: block
+
+    +iphone_portrait
       display: none
 
   .c-brief
