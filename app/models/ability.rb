@@ -149,8 +149,11 @@ class Ability
     can [:create], AnimeVideoReport do |report|
       report.user_id == @user.id && (report.broken? || report.wrong?)
     end
-    can [:create, :update], AnimeVideo do |anime_video|
-      anime_video.state == 'uploaded'
+    can [:create], AnimeVideo do |anime_video|
+      anime_video.uploaded?
+    end
+    can [:edit, :update], AnimeVideo do |anime_video|
+      anime_video.uploaded? || anime_video.working?
     end
   end
 
