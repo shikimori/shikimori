@@ -11,7 +11,7 @@
 
 @on 'page:load', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   if $('.l-menu .ajax-loading').exists()
-    $('.l-menu').one 'ajax:success', init_catalog
+    $('.l-menu').one 'postloaded:success', init_catalog
   else
     init_catalog()
 
