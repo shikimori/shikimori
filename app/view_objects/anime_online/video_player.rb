@@ -51,11 +51,23 @@ class AnimeOnline::VideoPlayer
   end
 
   def prev_url
-    episode_url videos.keys[videos.keys.index(current_episode)-1]
+    return if videos.none?
+
+    if videos.keys.index(current_episode)
+      episode_url videos.keys[videos.keys.index(current_episode)-1]
+    else
+      episode_url videos.keys.sort.last
+    end
   end
 
   def next_url
-    episode_url videos.keys[videos.keys.index(current_episode)+1]
+    return if videos.none?
+
+    if videos.keys.index(current_episode)
+      episode_url videos.keys[videos.keys.index(current_episode)+1]
+    else
+      episode_url videos.keys.first
+    end
   end
 
   def report_url kind
@@ -121,7 +133,7 @@ class AnimeOnline::VideoPlayer
       'anime_video[source]' => Site::DOMAIN,
       'anime_video[state]' => 'uploaded',
       'anime_video[kind]' => 'fandub',
-      'anime_video[episode]' => current_video.episode
+      'anime_video[episode]' => current_episode
     )
   end
 

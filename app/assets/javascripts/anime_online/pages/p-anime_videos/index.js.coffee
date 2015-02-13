@@ -2,7 +2,6 @@
   #$('.cc-player_controls .show-options').click()
   #$('.cc-player_controls .report').click()
 
-
   $('.b-show_more').show_more()
 
   resize_video_player()
@@ -67,5 +66,5 @@ toggle_options = ->
   $('.cc-optional_controls').toggle()
 
 resize_video_player = ->
-  $player = $('iframe,object,embed,.placeholder', '.video-player')
+  $player = $('iframe,object,embed,.player-placeholder', '.player-area')
   $player.height($player.width() * 9 / 16)

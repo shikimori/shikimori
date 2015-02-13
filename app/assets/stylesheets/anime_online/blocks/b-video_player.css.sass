@@ -1,0 +1,137 @@
+@import compass/typography/text/ellipsis
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/icons
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/link
+
+.b-video_player
+  .player-area
+    iframe
+      border: none
+      width: 100%
+    object
+      width: 100%
+    embed
+      width: 100%
+
+    .player-placeholder
+      background: #ddd
+      border: 1px solid #aaa
+      width: 100%
+
+  .cc-player_controls
+    +clearfix
+    padding-top: 10px
+
+    .cc-navigation, .cc-optional_controls
+      +clear_left
+
+      &>.c-control
+        +column(3)
+
+    .cc-anime_video_report-new
+      +block
+      display: none
+
+    .cc-optional_controls
+      display: none
+
+    .cc-options
+      +clear_left
+
+      &>.c-column
+        +column(2)
+
+  .cc-player_controls
+    a.c-control
+      +link
+
+    .c-control
+      +link_color(#333)
+      cursor: pointer
+      text-align: center
+
+      &.selected, &.selected .icon
+        color: $link_hover
+
+      &:hover .icon
+        color: $link_hover
+      &:active .icon
+        color: $link_active
+
+      .icon
+        margin: 0 !important
+
+        &:before
+          font-size: 18px !important
+          width: 100%
+
+    //a.c-control
+      +link
+
+    .label
+      +ellipsis
+      +iphone_portrait
+        display: none
+      font-size: 10px
+      b
+        color: #123
+
+    .episode-title
+      color: #444 !important
+      cursor: default
+      font-size: 17px
+      line-height: $icon_desktop_size
+      text-align: center
+      text-decoration: none !important
+
+      +lte_ipad
+        line-height: $icon_mobile_size
+
+      +iphone_portrait
+        span
+          display: none
+
+      &.no-video
+        color: $red !important
+        font-size: 14px
+        margin-top: 5px
+        line-height: 1.2
+
+        +lte_ipad
+          line-height: 1.2
+          margin-top: 10px
+
+        +iphone_portrait
+          margin-top: 2px
+
+    .prev .icon
+      +icon_button("\e832")
+    .next .icon
+      +icon_button("\e83a")
+    .create-user_rate .icon
+      +icon_button("\002b")
+    .show-options .icon
+      +icon_button("\e843")
+    .edit .icon
+      +icon_button("\e842")
+    .upload .icon
+      +icon_button("\e80c")
+
+    .increment-user_rate
+      .icon
+        +icon_button("\e817")
+      &.watched, &.watched .icon
+        color: $green !important
+
+    .report
+      //color: $red !important
+      //&:hover
+        //text-decoration: underline
+
+      .icon
+        +icon_button("\e806")
+        //color: $red !important

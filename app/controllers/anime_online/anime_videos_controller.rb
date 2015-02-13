@@ -10,7 +10,6 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def index
     return redirect_to valid_host_url unless valid_host?
-    raise ActionController::RoutingError.new('Not Found') if @anime.anime_videos.blank?
 
     @player = AnimeOnline::VideoPlayer.new @anime
     @video = @player.current_video

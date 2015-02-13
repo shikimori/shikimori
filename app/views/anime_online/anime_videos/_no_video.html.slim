@@ -1,0 +1,24 @@
+.b-video_player
+  .player-area
+    .player-placeholder &nbsp;
+
+
+  .cc-player_controls.cc-2a
+    .c-column
+      .cc-navigation
+        a.c-control.prev href="#{@player.prev_url}"
+          .icon
+          .label Предыдущее
+
+        .c-control.episode-title.no-video Нет видео
+
+        a.c-control.next href="#{@player.next_url}"
+          .icon
+          .label Следующее
+
+    .c-column
+      .cc-options
+        .c-column.cc-2a
+          a.c-control.upload href="#{@player.new_video_url}"
+            .icon
+            .label Загрузить

@@ -1,6 +1,6 @@
 <div class="m30">
   <% if Rails.env.development? || Rails.env.test? %>
-    <div style="width: 240px; height: 400px; background: gray; border: 1px solid #666;">&nbsp;</div>
+    <div style="width: 240px; height: 400px; background: #ddd; border: 1px solid #aaa;">&nbsp;</div>
   <% else %>
     <iframe src="<%=pingmedia_iframe_240x400_url%>" width='240px' height='400px'></iframe>
   <% end %>

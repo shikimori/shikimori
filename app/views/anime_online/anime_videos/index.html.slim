@@ -3,31 +3,14 @@
 
 = render layout: 'animes/page' do
   - if @video.blank?
-    .b-errors
-      .subheadline Такого видео нет!
-      - if @player.last_episode
-        p
-          | Перейти к последнему&nbsp;
-          a href="#{@player.episode_url @player.last_episode}" = "эпизоду #{@player.last_episode}"
-          | .
-
+    = render 'anime_online/anime_videos/no_video'
   - else
-    .video-player
-      /.placeholder style="width: 100%; background: gray; border: 1px solid #666;" == '&nbsp;'
-      - if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
-        object
-          param name="movie" value="#{@video.url}"
-          param name="allowFullScreen" value="true"
-          param name="allowScriptAccess" value="always"
-          embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
-      - else
-        iframe src="#{@video.player_url}"
+    = render 'anime_online/anime_videos/video_player'
 
-    = render 'anime_online/anime_videos/player_controls'
-
-    .cc
-      .c-videos
-        .title Варианты видео
+  .cc
+    .c-videos
+      .title Варианты видео
+      - if @player.episode_videos.any?
         - @player.episode_videos.each do |video|
           .episode data-id="#{video.id}"
             a class="#{:active if video.id == @video.id} #{video.state}" href="#{play_video_online_index_url @resource, @player.current_episode, video.id}"
@@ -35,9 +18,12 @@
               span.video-hosting = video.hosting
               - if video.author
                 span.video-author = strip_tags(video.author.name).gsub('&amp;', '&')
+      - else
+        .b-nothing_here Нет видео
 
-      .c-episodes
-        .title Эпизоды
+    .c-episodes
+      .title Эпизоды
+      - if @player.videos.any?
         - @player.videos.take(10).each do |(episode, videos)|
           .episode
             a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
@@ -55,3 +41,5 @@
                   span.episode-hostings = @player.hostings videos
             .hide-more
               | &mdash; спрятать
+      - else
+        .b-nothing_here Нет эпизодов
