@@ -98,10 +98,10 @@ class @ShikiEditor extends ShikiView
         .trigger('change')
 
     # автокомплит для поля ввода ссылки
-    @$(".links input[type=text]")
+    @$('.links input[type=text]')
       .completable()
       .on 'autocomplete:success autocomplete:text',  (e, result) =>
-        $radio = @$(".links input[type=radio]:checked")
+        $radio = @$('.links input[type=radio]:checked')
         radio_type = $radio.prop('id').replace('link_type_', '')
 
         param = if Object.isString(result)
@@ -115,7 +115,7 @@ class @ShikiEditor extends ShikiView
         $radio.trigger("tag:build", param) if param
 
     # изменение типа ссылки
-    @$(".links input[type=radio]").on 'change', ->
+    @$('.links input[type=radio]').on 'change', ->
       $this = $(@)
       $input = $('.links input[type=text]', $root)
       $input.attr placeholder: $this.data('placeholder') # меняем плейсхолдер
@@ -139,22 +139,22 @@ class @ShikiEditor extends ShikiView
       @$('.images input[type=text]').val('').focus()
 
     # сабмит картинки в текстовом поле
-    @$(".images input[type=text]").on 'keypress', (e) =>
+    @$('.images input[type=text]').on 'keypress', (e) =>
       if e.keyCode is 13
-        @$textarea.insertAtCaret '', "[img]#{@value}[/img]"
-        @$(".editor-image").trigger('click')
+        @$textarea.insertAtCaret '', "[img]#{$(e.target).val()}[/img]"
+        @$('.editor-image').trigger('click')
         false
 
     # открытие блока цитаты
-    @$(".quotes").on "click:open", =>
+    @$('.quotes').on 'click:open', =>
       # чистим текущий введённый текст
-      @$(".quotes input[type=text]").val('').focus()
+      @$('.quotes input[type=text]').val('').focus()
 
     # сабмит цитаты в текстовом поле
-    @$(".quotes input[type=text]").on 'keypress', (e) =>
+    @$('.quotes input[type=text]').on 'keypress', (e) =>
       if e.keyCode is 13
         @$textarea.insertAtCaret "[quote" + ((if not @value or @value.isBlank() then "" else "=" + @value)) + "]", "[/quote]"
-        @$(".editor-quote").trigger('click')
+        @$('.editor-quote').trigger('click')
         false
 
     # автокомплит для поля ввода цитаты
