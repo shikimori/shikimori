@@ -1,3 +1,5 @@
+require 'cancan/matchers'
+
 describe AnimeVideo do
   describe 'relations' do
     it { should belong_to :anime }
@@ -430,6 +432,37 @@ describe AnimeVideo do
       it { should_not be_blank }
       it { should have(2).items }
       it { expect(subject.last.item_diff).to eq last_diff_hash.to_s }
+    end
+  end
+
+  describe 'permissions' do
+    subject { Ability.new user }
+    let(:uploaded_video) { build :anime_video, state: 'uploaded' }
+    let(:working_video) { build :anime_video, state: 'working' }
+    let(:broken_video) { build :anime_video, state: 'working' }
+
+    describe 'guest' do
+      let(:user) { }
+      it { should be_able_to :create, uploaded_video }
+      it { should_not be_able_to :create, working_video }
+      it { should_not be_able_to :create, broken_video }
+
+      it { should_not be_able_to :edit, uploaded_video }
+      it { should_not be_able_to :update, uploaded_video }
+      it { should_not be_able_to :edit, working_video }
+      it { should_not be_able_to :update, working_video }
+    end
+
+    describe 'user' do
+      let(:user) { build_stubbed :user }
+      it { should be_able_to :create, uploaded_video }
+      it { should_not be_able_to :create, working_video }
+      it { should_not be_able_to :create, broken_video }
+
+      it { should be_able_to :edit, uploaded_video }
+      it { should be_able_to :update, uploaded_video }
+      it { should be_able_to :edit, working_video }
+      it { should be_able_to :update, working_video }
     end
   end
 end

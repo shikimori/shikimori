@@ -39,9 +39,8 @@ class Ability
       report.user_id == User::GuestID && (report.broken? || report.wrong?)
     end
     can [:create], AnimeVideo do |anime_video|
-      anime_video.state == 'uploaded'
+      anime_video.uploaded?
     end
-
   end
 
   def user_ability

@@ -171,7 +171,7 @@ class @ShikiTopic extends ShikiEditable
 
       # уведомление о добавленном элементе через faye
       $(document.body).trigger "faye:added"
-      if $placeholder.is(':appeared') && !$('textarea:focus').html()
+      if $placeholder.is(':appeared') && !$('textarea:focus').val()
         $placeholder.click()
 
   # удаляем уже имеющиеся подгруженные элементы

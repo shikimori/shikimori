@@ -69,6 +69,6 @@
                 - else
                   | Добавил
               .b-user16
-                a href="#{profile_url @video.uploader}" title="#{@video.uploader.nickname}"
+                a href="#{profile_url @video.uploader, subdomain: false}" title="#{@video.uploader.nickname}"
                   img src="#{@video.uploader.avatar_url 16}" srcset="#{@video.uploader.avatar_url 32} 2x" alt="#{@video.uploader.nickname}"
                   span = @video.uploader.nickname

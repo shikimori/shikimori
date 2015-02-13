@@ -49,11 +49,11 @@ module AniMangaDecorator::UrlHelpers
   end
 
   def favoured_url
-    h.send "favoured_#{klass_lower}_url", object
+    h.send "favoured_#{klass_lower}_url", object, subdomain: false
   end
 
   def clubs_url
-    h.send "clubs_#{klass_lower}_url", object
+    h.send "clubs_#{klass_lower}_url", object, subdomain: false
   end
 
   #def cosplay_url

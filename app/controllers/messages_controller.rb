@@ -392,10 +392,10 @@ private
     return unless @resource.to.admin?
 
     @resource.body.strip!
-    @resource.body += " [right][size=11][color=gray][spoiler=info]\n"
-    @resource.body += "e-mail: #{params[:message][:email]}\n" unless params[:message][:email].blank?
-    @resource.body += "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n" unless params[:message][:location].blank?
+    @resource.body += " [right][size=11][color=gray][spoiler=info][quote]"
     @resource.body += "#{params[:message][:user_agent] || request.env['HTTP_USER_AGENT']}\n"
-    @resource.body += '[/spoiler][/color][/size][/right]'
+    @resource.body += "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n" if params[:message][:location].present?
+    @resource.body += "#{params[:message][:feedback_address]}\n" if params[:message][:feedback_address].present?
+    @resource.body += '[/quote][/spoiler][/color][/size][/right]'
   end
 end

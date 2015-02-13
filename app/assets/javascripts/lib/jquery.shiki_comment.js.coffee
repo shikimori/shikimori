@@ -50,9 +50,12 @@ class @ShikiComment extends ShikiEditable
       @$root.trigger 'comment:reply', [reply, @_is_offtopic()]
 
     # edit message
-    @$('.main-controls .item-edit').on 'ajax:success', (e, html, status, xhr) =>
-      $editor = $(html)
-      new ShikiEditor($editor).edit_comment(@$root)
+    @$('.main-controls .item-edit')
+      .on 'ajax:before', @_shade
+      .on 'ajax:complete', @_unshade
+      .on 'ajax:success', (e, html, status, xhr) =>
+        $editor = $(html)
+        new ShikiEditor($editor).edit_comment(@$root)
 
     # moderation
     @$('.main-controls .item-moderation').on 'click', =>

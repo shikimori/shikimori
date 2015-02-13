@@ -63,7 +63,12 @@ class PagesController < ShikimoriController
 
   # страница обратной связи
   def feedback
-    @feedback_message = Message.new from_id: (current_user.try(:id) || User::GuestID), to_id: User::Admins.first, kind: MessageType::Private
+    @feedback_message = FeedbackMessage.new(
+      from_id: (current_user.try(:id) || User::GuestID),
+      to_id: User::Admins.first,
+      kind: MessageType::Private
+    )
+    @feedback_message.location = request.env["HTTP_REFERER"] || request.url
   end
 
   # отображение юзер-агента пользователя

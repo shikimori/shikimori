@@ -49,15 +49,11 @@ class @ShikiEditor extends ShikiView
           @$('.editor-spoiler').click()
           false
 
-    # перед самбитом формы засветление редактора
-    @$form.on 'ajax:before', =>
-      @$root.addClass 'ajax_request'
-    # восстановление засветлённости после сабмита
-    @$form.on 'ajax:complete', =>
-      @$root.removeClass 'ajax_request'
-    # убираем preview по завершению сабмита
-    @$form.on 'ajax:success', =>
-      @_hide_preview()
+    @$form
+      .on 'ajax:before', @_shade
+      .on 'ajax:complete', @_unshade
+      .on 'ajax:success', =>
+        @_hide_preview()
 
     # при клике на неselected кнопку, закрываем все остальные selected кнопки
     @$('.editor-controls span').on 'click', (e) =>
@@ -221,10 +217,10 @@ class @ShikiEditor extends ShikiView
         type: 'POST'
         url: $('footer .preview', @$root).data('preview_url')
         data: data
+        beforeSend: @_shade
+        complete: @_unshade
         success: (html) =>
           @_show_preview html
-
-        error: ->
 
     # отзыв и оффтопик
     #@$('.item-offtopic, .item-review').click (e, data) =>

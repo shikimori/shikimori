@@ -20,13 +20,13 @@ module Routing
 
   def topic_url topic, format = nil
     if topic.kind_of?(User)
-      profile_url topic
+      profile_url topic, subdomain: false
 
     elsif topic.kind_of?(ContestComment) || topic.news? || topic.review?
-      section_topic_url id: topic, section: topic.section, linked: nil, format: format
+      section_topic_url id: topic, section: topic.section, linked: nil, format: format, subdomain: false
 
     else
-      section_topic_url id: topic, section: topic.section, linked: topic.linked, format: format
+      section_topic_url id: topic, section: topic.section, linked: topic.linked, format: format, subdomain: false
     end
   end
 end
