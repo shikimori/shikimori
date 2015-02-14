@@ -7,12 +7,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   describe '#index' do
     describe 'video_content' do
       let!(:anime_video) { create :anime_video, anime: anime }
+      let(:make_request) { get :index, anime_id: anime.to_param }
 
       before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
       before { make_request }
 
       context 'with video' do
-        let(:make_request) { get :index, anime_id: anime.to_param }
         it { expect(response).to have_http_status :success }
 
         context 'without current_video' do
@@ -23,8 +23,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
       context 'without any video' do
         let!(:anime_video) { }
-        let(:make_request) { }
-        it { expect{get :index, anime_id: anime.to_param}.to raise_error(ActionController::RoutingError) }
+        it { expect(response).to have_http_status :success }
       end
     end
 
