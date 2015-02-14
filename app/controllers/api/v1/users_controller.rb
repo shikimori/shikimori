@@ -6,7 +6,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/users', 'List users'
   def index
-    @limit = [[params[:limit].to_i, 1].max, 30].min
+    @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
 
     query = if params[:search].present?
