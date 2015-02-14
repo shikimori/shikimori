@@ -25,11 +25,13 @@ describe CommentsController do
     before { sign_in user }
 
     context 'success' do
-      before { post :create, comment: { commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: false, review: false } }
+      let(:comment_params) {{ commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: true, review: true }}
+      before { post :create, comment: comment_params }
 
       it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }
-      specify { expect(assigns(:comment)).to be_persisted }
+      it { expect(assigns(:comment)).to be_persisted }
+      it { expect(assigns(:comment)).to have_attributes(comment_params) }
     end
 
     context 'failure' do
