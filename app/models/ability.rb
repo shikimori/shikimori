@@ -38,7 +38,7 @@ class Ability
     can [:create], AnimeVideoReport do |report|
       report.user_id == User::GuestID && (report.broken? || report.wrong?)
     end
-    can [:create], AnimeVideo do |anime_video|
+    can [:new, :create], AnimeVideo do |anime_video|
       anime_video.uploaded?
     end
   end
@@ -148,7 +148,7 @@ class Ability
     can [:create], AnimeVideoReport do |report|
       report.user_id == @user.id && (report.broken? || report.wrong?)
     end
-    can [:create], AnimeVideo do |anime_video|
+    can [:new, :create], AnimeVideo do |anime_video|
       anime_video.uploaded?
     end
     can [:edit, :update], AnimeVideo do |anime_video|

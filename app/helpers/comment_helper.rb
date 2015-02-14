@@ -284,8 +284,8 @@ module CommentHelper
           begin
             ban = Ban.find $2
 
-            moderator_html = "<div class=\"b-user16\"><a href=\"#{profile_url ban.moderator}\" title=\"#{ban.moderator.nickname}\">
-<img src=\"#{ban.moderator.avatar_url 16}\" alt=\"#{ban.moderator.nickname}\" /><span>#{ban.moderator.nickname}</span></a></div>"
+            moderator_html = "<div class=\"b-user16\"><a href=\"#{profile_url ban.moderator}\" title=\"#{ERB::Util.h ban.moderator.nickname}\">
+<img src=\"#{ban.moderator.avatar_url 16}\" srcset=\"#{ban.moderator.avatar_url 32} 2x\" alt=\"#{ERB::Util.h ban.moderator.nickname}\" /><span>#{ERB::Util.h ban.moderator.nickname}</span></a></div>"
             text.gsub! $1, "<div class=\"ban\">#{moderator_html}: <span class=\"resolution\">#{ban.message}</span></div>"
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, ''

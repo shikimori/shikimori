@@ -57,7 +57,7 @@
         - unless @resource.own_profile?
           span = @resource.last_online
         - if @resource.banned?
-          span.banned забанен
+          span.banned забанен#{'а' if @resource.female?}
 
       .notice
         - @resource.common_info.each do |entry|
