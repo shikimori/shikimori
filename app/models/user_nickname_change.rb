@@ -2,7 +2,7 @@ class UserNicknameChange < ActiveRecord::Base
   belongs_to :user
 
   validates :user, :value, presence: true
-  validates :user_id, uniqueness: { scope: [:value] }
+  validates :value, uniqueness: { scope: [:user_id] }
 
   MINIMUM_LIFE_INTERVAL = 1.day
   MINIMUM_COMMENTS_COUNT = 10

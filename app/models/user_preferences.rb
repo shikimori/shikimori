@@ -4,6 +4,8 @@ class UserPreferences < ActiveRecord::Base
   DefaultSort = 'name'
 
   enumerize :profile_privacy, in: [:public, :users, :friends, :owner], predicates: { prefix: true }
+  validates :default_sort, :page_background, :profile_privacy, length: { maximum: 255 }, allow_blank: true
+  validates :body_background, length: { maximum: 512 }, allow_blank: true
 
   belongs_to :user, touch: true
 

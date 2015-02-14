@@ -18,29 +18,37 @@ describe NameValidator do
   context 'invalid' do
     context 'group' do
       let!(:group) { create :group, name: 'test' }
-      it { should_not allow_value('test').for :name }
-      it { should_not allow_value('Test').for :name }
-      it { should_not allow_value('Tést').for :name }
-      it { should_not allow_value('Tеst').for :name }
-      it { should_not allow_value('Теst').for :name }
+
+      it do
+        should_not allow_value('test').for :name
+        should_not allow_value('Test').for :name
+        should_not allow_value('Tést').for :name
+        should_not allow_value('Tеst').for :name
+        should_not allow_value('Теst').for :name
+      end
     end
 
     context 'user' do
       let!(:group) { create :user, nickname: 'test' }
-      it { should_not allow_value('test').for :name }
-      it { should_not allow_value('Test').for :name }
-      it { should_not allow_value('Tést').for :name }
-      it { should_not allow_value('Tеst').for :name }
-      it { should_not allow_value('Теst').for :name }
+
+      it do
+        should_not allow_value('test').for :name
+        should_not allow_value('Test').for :name
+        should_not allow_value('Tést').for :name
+        should_not allow_value('Tеst').for :name
+        should_not allow_value('Теst').for :name
+      end
     end
 
     context 'routing' do
-      it { should_not allow_value('v').for :name }
-      it { should_not allow_value('animes').for :name }
-      it { should_not allow_value('mangas').for :name }
-      it { should_not allow_value('reviews').for :name }
-      it { should_not allow_value('contests').for :name }
-      it { should_not allow_value('all').for :name }
+      it do
+        should_not allow_value('v').for :name
+        should_not allow_value('animes').for :name
+        should_not allow_value('mangas').for :name
+        should_not allow_value('reviews').for :name
+        should_not allow_value('contests').for :name
+        should_not allow_value('all').for :name
+      end
 
       describe 'message' do
         let!(:group) { create :user, nickname: 'test' }
