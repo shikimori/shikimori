@@ -433,6 +433,7 @@ GEM
       multi_json
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
+    open_uri_redirections (0.2.1)
     orm_adapter (0.5.0)
     paperclip (4.2.1)
       activemodel (>= 3.0.0)
@@ -729,6 +730,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-twitter
   omniauth-vkontakte
+  open_uri_redirections
   paperclip
   pg
   pghero

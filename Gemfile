@@ -89,6 +89,7 @@ gem 'zaru'
 gem 'postmark-rails' # email delivery service
 gem 'apipie-rails'
 gem 'gcm'
+gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
 group :beta, :production do
   gem 'honeybadger', '~> 2.0' # error handling

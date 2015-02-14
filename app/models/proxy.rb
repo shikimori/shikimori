@@ -247,9 +247,9 @@ class Proxy < ActiveRecord::Base
 
     def get_open_uri url, params={}
       if url =~ /\.(jpe?g|png)$/
-        open_image url, params.merge('User-Agent' => user_agent(url))
+        open_image url, params.merge('User-Agent' => user_agent(url), allow_redirections: :all)
       else
-        open url, params.merge('User-Agent' => user_agent(url))
+        open url, params.merge('User-Agent' => user_agent(url), allow_redirections: :all)
       end
     end
   end
