@@ -28,9 +28,9 @@
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
           span.linkeable data-href="#{topic.url}"
-            img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.title}"
+            img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.display_title}"
           .name-date
-            a href="#{topic.url}" title="#{topic.title}" = topic.title
+            a href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
             - unless topic.generated?
               time itemprop="commentTime" datetime="#{topic.created_at.iso8601}"
                 = topic.date

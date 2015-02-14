@@ -2,12 +2,10 @@ class TopicDecorator < BaseDecorator
   instance_cache :comments
 
   # имя топика
-  def title
+  def display_title
     if !preview?
       user.nickname
-    elsif contest?
-      object.title
-    elsif object.respond_to? :title
+    elsif contest? || object.respond_to?(:title)
       object.title
     else
       object.name
