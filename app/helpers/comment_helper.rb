@@ -245,10 +245,10 @@ module CommentHelper
             user = comment.respond_to?(:user) ? comment.user : comment.from
 
             if $~[:quote].present?
-              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
-<img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{user.nickname}\" /><span>#{user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
+<img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{ERB::Util.h user.nickname}\" /><span>#{ERB::Util.h user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
             else
-              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
             end
 
           rescue
