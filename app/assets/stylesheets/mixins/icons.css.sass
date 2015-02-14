@@ -9,13 +9,13 @@ $icon_mobile_size: 30px
 =icon($content, $font-size: 14px)
   cursor: pointer
 
-  +responsive(desktop)
+  +gt_ipad
     margin-left: 15px
 
-  +responsive(tablet)
+  +lte_ipad
     margin-left: 35px
 
-  +responsive(narrow-phone)
+  //+responsive(narrow-phone)
     margin-left: $icon_mobile_size
 
   &:before
