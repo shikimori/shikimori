@@ -11,7 +11,7 @@ class AnimeVideoReport < ActiveRecord::Base
   validates :anime_video, presence: true
   validates :kind, presence: true
 
-  scope :pending, -> { where state: 'pending' }
+  scope :pending, -> { where(state: 'pending').order(created_at: :asc) }
   scope :processed, -> { where(state: ['accepted', 'rejected']).order(updated_at: :desc) }
 
   after_create :auto_check

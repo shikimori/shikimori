@@ -39,6 +39,12 @@ describe AnimeVideoReport do
         its(:count) { should eq 1 }
         its(:first) { should eq pending_report }
       end
+
+      context 'order' do
+        let!(:report_new) { create :anime_video_report, state: 'pending', created_at: Date.today - 1.day }
+        let!(:report_old) { create :anime_video_report, state: 'pending', created_at: Date.today - 100.day }
+        it { expect(subject.first).to eq report_old }
+      end
     end
 
     describe 'processed' do
