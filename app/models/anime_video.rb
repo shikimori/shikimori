@@ -123,6 +123,6 @@ private
     notify = EpisodeNotification
       .where(anime_id: anime_id, episode: episode)
       .first
-    notify && notify.update("is_#{kind}" => false)
+    !unknown? && notify && notify.update("is_#{kind}" => false)
   end
 end
