@@ -50,21 +50,14 @@ class AnimeVideoReport < ActiveRecord::Base
       report.approver = transition.args.first
       video = report.anime_video
       video.send(report.kind)
-      report.find_doubles.update_all(
-        approver_id: transition.args.first.id,
-        state: :accepted
-      )
+      report.process_doubles(:accepted)
+      report.process_conflict(:uploaded, :rejected)
     end
 
     before_transition pending: :rejected do |report, transition|
       report.approver = transition.args.first
-      if report.kind.uploaded?
-        report.anime_video.reject!
-      end
-      report.find_doubles.update_all(
-        approver_id: transition.args.first.id,
-        state: :rejected
-      )
+      report.anime_video.reject! if report.uploaded?
+      report.process_doubles(:rejected)
     end
 
     before_transition [:accepted, :rejected] => :pending do |report, transition|
@@ -72,13 +65,13 @@ class AnimeVideoReport < ActiveRecord::Base
       prev_state = report.uploaded? ? 'uploaded' : 'working'
       report.anime_video.update_attribute :state, prev_state
       report.find_doubles(transition.from).update_all(
-        approver_id: transition.args.first.id,
+        approver_id: report.approver.id,
         state: transition.to
       )
     end
   end
 
-  def find_doubles state='pending'
+  def find_doubles(state = 'pending')
     AnimeVideoReport.where(
       kind: kind,
       state: state,
@@ -86,7 +79,28 @@ class AnimeVideoReport < ActiveRecord::Base
     )
   end
 
-private
+  def process_doubles(to_state)
+    find_doubles.update_all(
+      approver_id: approver.id,
+      state: to_state
+    )
+  end
+
+  def process_conflict(conflict_kind, to_state)
+    AnimeVideoReport
+      .where(
+        kind: conflict_kind,
+        state: 'pending',
+        anime_video_id: anime_video_id
+      )
+      .update_all(
+        approver_id: approver.id,
+        state: to_state
+      )
+  end
+
+  private
+
   def auto_check
     AnimeOnline::ReportWorker.delay_for(10.seconds).perform_async id
   end

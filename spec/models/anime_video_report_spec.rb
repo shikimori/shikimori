@@ -134,15 +134,29 @@ describe AnimeVideoReport do
     let(:anime_video) { create :anime_video, state: anime_video_state }
     let(:anime_video_state) { 'working' }
     let(:report_kind) { 'broken' }
-    subject(:report) { create :anime_video_report, anime_video: anime_video, kind: report_kind }
+    let(:other_report) { }
+    subject(:report) { create :anime_video_report, anime_video: anime_video, kind: report_kind, state: 'pending' }
 
     describe '#accept' do
+      before { other_report }
       before { report.accept approver }
       its(:approver) { should eq approver }
 
-      describe 'anime_video_state' do
-        subject { report.anime_video.state }
-        it { should eq report_kind }
+      context 'video was working' do
+        let(:anime_video_state) { 'working' }
+        it { is_expected.to be_accepted }
+        it { expect(subject.anime_video).to be_broken }
+      end
+
+      context 'video was uploaded' do
+        let(:anime_video_state) { 'uploaded' }
+        it { is_expected.to be_accepted }
+        it { expect(subject.anime_video).to be_broken }
+
+        describe 'cancel other uploaded report' do
+          let(:other_report) { create(:anime_video_report, anime_video: anime_video, kind: 'uploaded', state: 'pending') }
+          it { expect(other_report.reload.state).to eq 'rejected' }
+        end
       end
     end
 
