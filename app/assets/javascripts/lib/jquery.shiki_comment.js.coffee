@@ -13,7 +13,11 @@ class @ShikiComment extends ShikiEditable
     @$body = @$('.body')
 
     if @$inner.hasClass('check_height')
-      @_check_height()
+      $images = @$body.find('img')
+      if $images.exists()
+        $images.imagesLoaded @_check_height
+      else
+        @_check_height()
 
     # выделение текста в комментарии
     @$body.on 'mouseup', =>
