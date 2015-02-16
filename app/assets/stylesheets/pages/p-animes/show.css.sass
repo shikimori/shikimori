@@ -9,14 +9,14 @@
 @import mixins/responsive
 
 .p-animes-show, .p-mangas-show
-  .no-video
+  .cc.no-video
     .c-screenshots
       +block_m
 
     .c-videos
       +block_m
 
-  .one-video
+  .cc.one-video
     +gte_ipad
       .c-screenshots
         +column_bm(2, 0.75)
@@ -36,7 +36,7 @@
         &.entry-2, &.entry-3, &.entry-4, &.entry-5
           display: none
 
-  .two-videos
+  .cc.two-videos
     +gte_ipad
       .c-screenshots, .c-videos
         +column_bm(2)
@@ -58,16 +58,17 @@
       .c-screenshots, .c-videos
         +block_m
 
-  .c-screenshot, .c-video
-    margin-bottom: 0
+  .cc
+    .c-screenshot, .c-video
+      margin-bottom: 0
 
-    +iphone-portrait
-      &.entry-3, &.entry-4, &.entry-5
-        display: none
+      +iphone-portrait
+        &.entry-3, &.entry-4, &.entry-5
+          display: none
 
-    +iphone-landscape
-      &.entry-4, &.entry-5
-        display: none
+      +iphone-landscape
+        &.entry-4, &.entry-5
+          display: none
 
   .four-characters
     +gte_ipad
