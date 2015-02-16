@@ -1,5 +1,5 @@
 a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="#{rel if defined? rel}"
-  - if defined?(topic_poster_edit) || can?(:delete, image)
+  - if defined?(topic_poster_edit) || can?(:destroy, image)
     .mobile-edit
     .controls
       .delete title="Удалить картинку"
