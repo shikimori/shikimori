@@ -76,7 +76,7 @@ GIT
 
 GIT
   remote: git://github.com/morr/turbolinks.git
-  revision: 1c0dfd19d4ea8c1d2c9078804c2c155137a74c4b
+  revision: 8e69c7d8e6b96b7cf2f2d0d53258334c769ef79e
   branch: master
   specs:
     turbolinks (2.5.3)
@@ -235,7 +235,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.9.0)
     colorize (0.7.5)
     columnize (0.9.0)
     compass (1.0.3)
@@ -296,7 +296,7 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     eventmachine (1.0.4)
-    execjs (2.2.2)
+    execjs (2.3.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
