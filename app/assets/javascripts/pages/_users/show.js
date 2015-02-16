@@ -45,7 +45,7 @@ $(function() {
     }
   });
   // отображалка новых комментариев
-  if (IS_LOGGED_IN) {
+  if (USER_SIGNED_IN) {
     window.comments_notifier = new CommentsNotifier();
   }
 

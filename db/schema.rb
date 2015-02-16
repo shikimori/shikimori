@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129174425) do
+ActiveRecord::Schema.define(version: 20150216065135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -932,28 +932,30 @@ ActiveRecord::Schema.define(version: 20150129174425) do
 
   create_table "user_preferences", force: :cascade do |t|
     t.integer "user_id"
-    t.boolean "anime_in_profile",                  default: true
-    t.boolean "manga_in_profile",                  default: true
-    t.string  "default_sort",          limit: 255, default: "name",   null: false
-    t.boolean "clubs_in_profile",                  default: true
-    t.boolean "comments_in_profile",               default: true
-    t.boolean "postload_in_catalog",               default: true
+    t.boolean "anime_in_profile",                       default: true
+    t.boolean "manga_in_profile",                       default: true
+    t.string  "default_sort",               limit: 255, default: "name",   null: false
+    t.boolean "clubs_in_profile",                       default: true
+    t.boolean "comments_in_profile",                    default: true
+    t.boolean "postload_in_catalog",                    default: true
     t.date    "statistics_start_on"
-    t.boolean "manga_first",                       default: false
-    t.boolean "russian_names",                     default: false
-    t.boolean "about_on_top",                      default: false
-    t.boolean "russian_genres",                    default: true,     null: false
-    t.boolean "mylist_in_catalog",                 default: false,    null: false
-    t.boolean "statistics_in_profile",             default: true
-    t.boolean "menu_contest",                      default: true,     null: false
-    t.string  "page_background",       limit: 255
-    t.boolean "page_border",                       default: false
-    t.string  "body_background",       limit: 512
-    t.boolean "show_smileys",                      default: true
-    t.boolean "show_social_buttons",               default: true
-    t.boolean "show_hentai_images",                default: false
-    t.string  "profile_privacy",       limit: 255, default: "public"
-    t.boolean "volumes_in_manga",                  default: false,    null: false
+    t.boolean "manga_first",                            default: false
+    t.boolean "russian_names",                          default: false
+    t.boolean "about_on_top",                           default: false
+    t.boolean "russian_genres",                         default: true,     null: false
+    t.boolean "mylist_in_catalog",                      default: false,    null: false
+    t.boolean "statistics_in_profile",                  default: true
+    t.boolean "menu_contest",                           default: true,     null: false
+    t.string  "page_background",            limit: 255
+    t.boolean "page_border",                            default: false
+    t.string  "body_background",            limit: 512
+    t.boolean "show_smileys",                           default: true
+    t.boolean "show_social_buttons",                    default: true
+    t.boolean "show_hentai_images",                     default: false
+    t.string  "profile_privacy",            limit: 255, default: "public"
+    t.boolean "volumes_in_manga",                       default: false,    null: false
+    t.boolean "is_comments_auto_collapsed",             default: true
+    t.boolean "is_comments_auto_loaded",                default: true
   end
 
   add_index "user_preferences", ["user_id"], name: "index_profile_settings_on_user_id", using: :btree

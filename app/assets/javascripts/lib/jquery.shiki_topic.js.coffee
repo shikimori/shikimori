@@ -23,7 +23,7 @@ class @ShikiTopic extends ShikiEditable
     # ответ на топик
     $('.item-reply', @$inner).on 'click', =>
       reply = if @$root.data 'generated'
-        ""
+        ''
       else
         "[entry=#{@$root.attr('id')}]#{@$root.data 'user_nickname'}[/entry], "
 
@@ -170,9 +170,9 @@ class @ShikiTopic extends ShikiEditable
       $placeholder = @_faye_placeholder(trackable_id, trackable_type)
 
       # уведомление о добавленном элементе через faye
-      $(document.body).trigger "faye:added"
-      if $placeholder.is(':appeared') && !$('textarea:focus').val()
-        $placeholder.click()
+      $(document.body).trigger 'faye:added'
+      if OPTIONS.comments_auto_loaded
+        $placeholder.click() if $placeholder.is(':appeared') && !$('textarea:focus').val()
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
@@ -228,7 +228,8 @@ class @ShikiTopic extends ShikiEditable
 
   # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
   _check_height: =>
-    @$body.check_height(@MAX_PREVIEW_HEIGHT)
+    if OPTIONS.comments_auto_collapsed
+      @$body.check_height(@MAX_PREVIEW_HEIGHT)
 
   _type: -> 'topic'
   _type_label: -> 'Топик'

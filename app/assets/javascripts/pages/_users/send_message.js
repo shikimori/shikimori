@@ -1,6 +1,6 @@
 // private message
 function show_private_message_form(user_id, top, text_getter) {
-  if (!IS_LOGGED_IN) {
+  if (!USER_SIGNED_IN) {
     $('#sign_in').trigger('click')
     return false;
   }

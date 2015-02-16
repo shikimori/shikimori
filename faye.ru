@@ -1,4 +1,4 @@
-# запуск faye из консоли
+# to start faye in console
 # RAILS_ENV=development rackup faye.ru -s thin -E production
 
 require 'faye'
@@ -8,7 +8,7 @@ require 'psych'
 CONFIG = Psych.load_file(File.expand_path(File.dirname(__FILE__) + '/config/faye.yml'))
 Faye::WebSocket.load_adapter 'thin'
 
-# все сообщения от клиентов будем отвергать
+# ignore all messages from clients
 class ServerAuth
   def incoming message, callback
     if message['channel'] !~ %r{^/meta/}

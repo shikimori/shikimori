@@ -83,10 +83,12 @@ ru:
         body_background: Фон боковой области
         page_border: Полупрозрачная рамка по бокам страницы
         about_on_top: Отображать над статистикой
-        show_hentai_images: Картинки с имиджборд без цензуры
         show_social_buttons: Отображать кнопки соц сетей
         show_smileys: Отображать смайлики
         menu_contest: Уведомление о голосованиях в меню
+        show_hentai_images: Картинки с имиджборд без цензуры
+        is_comments_auto_collapsed: Сворачивать длинные комментарии
+        is_comments_auto_loaded: Автоподгрузка новых комментариев
 
         profile_privacy: Могут видеть мой список
         russian_genres: Русские названия жанров

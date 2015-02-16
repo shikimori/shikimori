@@ -2,7 +2,7 @@
 
 $ ->
   $("#image_placeholder").hide()
-  window.comments_notifier = new CommentsNotifier()  if IS_LOGGED_IN
+  window.comments_notifier = new CommentsNotifier() if USER_SIGNED_IN
 
   colors = Highcharts.getOptions().colors
   _.extend total.series[0],

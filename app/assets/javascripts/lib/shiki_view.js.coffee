@@ -26,7 +26,8 @@ class @ShikiView
 
   # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
   _check_height: =>
-    @$inner.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
+    if OPTIONS.comments_auto_collapsed
+      @$inner.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
 
   _shade: =>
     @$root.addClass 'ajax_request'

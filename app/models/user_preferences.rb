@@ -3,11 +3,14 @@ class UserPreferences < ActiveRecord::Base
   extend Enumerize
   DefaultSort = 'name'
 
+  belongs_to :user, touch: true
+
   enumerize :profile_privacy, in: [:public, :users, :friends, :owner], predicates: { prefix: true }
+  boolean_attribute :comments_auto_collapsed
+  boolean_attribute :comments_auto_loaded
+
   validates :default_sort, :page_background, :profile_privacy, length: { maximum: 255 }, allow_blank: true
   validates :body_background, length: { maximum: 512 }, allow_blank: true
-
-  belongs_to :user, touch: true
 
   def default_sort
     super || (russian_names? ? 'russian' : 'name')

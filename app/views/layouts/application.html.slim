@@ -2,7 +2,15 @@ doctype html
 html
   head
     = render partial: 'application/head'
-  body class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} " id="#{controller_name}_#{action_name}" style="#{body_background}"
+  body[
+      class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} "
+      id="#{controller_name}_#{action_name}"
+      style="#{body_background}"
+      data-env="#{Rails.env}"
+      data-user-signed-in="#{user_signed_in?}"
+      data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
+      data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
+    ]
     - if defined?(notice) && notice
       p.flash-notice
         == notice
@@ -13,10 +21,6 @@ html
       = render partial: 'application/top_menu'
 
     section.l-page *itemprop style="#{page_background}"
-      - if Rails.env.development?
-        javascript:
-          window.DEVELOP = true;
-
       - if user_signed_in? && current_user.admin? && !Rails.env.development?
         javascript:
           $(function() {

@@ -2,6 +2,8 @@
   input type="hidden" name="page" value="#{@page}"
   .block
     = f.input :show_hentai_images
+    = f.input :is_comments_auto_collapsed
+    = f.input :is_comments_auto_loaded
 
   .buttons
     a.cancel href="#{profile_url @resource}" Отмена

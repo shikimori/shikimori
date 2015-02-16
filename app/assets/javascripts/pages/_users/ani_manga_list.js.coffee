@@ -42,7 +42,7 @@ $('.order-control').live 'click', (e) ->
 
 # при выборе сортировке будем ставить её в дефолтные
 $('.anime-params-controls .orders li, .manga-params-controls .orders li').live 'click', ->
-  DEFAULT_LIST_SORT = $(this).attr('class').match(/order-by-([\w-]+)/)[1] if IS_LOGGED_IN
+  DEFAULT_LIST_SORT = $(this).attr('class').match(/order-by-([\w-]+)/)[1] if USER_SIGNED_IN
 
 # парсинг параметров из урла для анимелиста
 get_anime_params = ->

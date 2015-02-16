@@ -14,7 +14,7 @@
 
   $('.b-show_more').show_more()
 
-  @init_history() if IS_LOGGED_IN
+  @init_history() if USER_SIGNED_IN
 
 
 @init_history = ->

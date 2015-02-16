@@ -1,5 +1,6 @@
-.sitemap
-  = link_to 'карта сайта', sitemap_url
+- if shikimori?
+  .sitemap
+    = link_to 'карта сайта', sitemap_url
 .copyright
   |&copy; #{Site::DOMAIN}&nbsp;
   span.date 2011-#{Date.today.year}

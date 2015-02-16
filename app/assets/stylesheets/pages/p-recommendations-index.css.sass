@@ -1,4 +1,5 @@
 @import compass/css3/transition
+@import mixins/image_editable
 
 .p-recommendations-index
   .b-options-floated
@@ -8,10 +9,11 @@
     display: none
 
   .b-catalog_entry
+    +image_editable
     .mark-ignored
       line-height: 16px
-      right: 5px
-      top: 5px
+      right: 6px
+      top: 6px
 
     &.entry-ignored
       +transition(opacity 0.4s ease)

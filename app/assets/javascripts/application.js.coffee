@@ -21,10 +21,18 @@
 # require manga_online/application
 
 $ =>
+  $body = $(document.body)
+  @ENV = $body.data 'env'
+  @USER_SIGNED_IN = $body.data 'user-signed-in'
+
+  @OPTIONS =
+    comments_auto_collapsed: $body.data('comments-auto-collapsed')
+    comments_auto_loaded: $body.data('comments-auto-loaded')
+
   $(document).trigger 'page:load', true
   Turbolinks.enableProgressBar()
 
-  if IS_LOGGED_IN && !window.faye_loader
+  if USER_SIGNED_IN && !window.faye_loader
     @faye_loader = new FayeLoader()
     @comments_notifier = new CommentsNotifier()
 

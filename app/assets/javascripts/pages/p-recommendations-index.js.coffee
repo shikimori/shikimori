@@ -13,7 +13,8 @@
     if $node.data 'ignore_augmented'
       $node.data('ignore_button').show()
     else
-      $button = $('<span class="image-delete mark-ignored" title="Больше не рекомендовать эту франшизу"></span>').appendTo($node.children('a'))
+      $button = $('<span class="controls"><span class="delete mark-ignored" title="Больше не рекомендовать эту франшизу"></span></span>')
+        .appendTo($node.find('.image-cutter'))
       $node.data
         ignore_augmented: true
         ignore_button: $button
@@ -40,3 +41,4 @@
       $node.addClass 'entry-ignored'
       $(@).hide()
       AjaxCacher.reset()
+    false

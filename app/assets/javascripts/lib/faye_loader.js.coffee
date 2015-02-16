@@ -14,7 +14,7 @@ class @FayeLoader
 
   # подключение к Faye серверу
   connect: ->
-    port = (if window.DEVELOP then ':9292' else '')
+    port = (if ENV == 'development' then ':9292' else '')
     @client = new Faye.Client "http://#{location.hostname}#{port}/faye-server",
       timeout: 300
       retry: 5
