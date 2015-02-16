@@ -16,14 +16,7 @@ private
   end
 
   def role_redirect
-    if !@resource.seyu || (@resource.seyu && (@resource.producer || @resource.mangaka))
-      #if params[:direct]
-        #@canonical = person_url(@resource)
-      #else
-        #redirect_to person_url(@resource)
-      #end
-      redirect_to person_url(@resource)
-    end
+    redirect_to person_url(@resource) unless @resource.main_role?(:seyu)
   end
 
   def search_title

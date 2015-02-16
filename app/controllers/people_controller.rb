@@ -71,8 +71,6 @@ private
   end
 
   def role_redirect
-    if @resource.seyu && !(@resource.producer || @resource.mangaka)
-      redirect_to seyu_url(@resource)
-    end
+    redirect_to seyu_url(@resource) if @resource.main_role?(:seyu)
   end
 end
