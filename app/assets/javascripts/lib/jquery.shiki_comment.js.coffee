@@ -15,7 +15,8 @@ class @ShikiComment extends ShikiEditable
     if @$inner.hasClass('check_height')
       $images = @$body.find('img')
       if $images.exists()
-        $images.imagesLoaded @_check_height
+        # картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
+        $images.imagesLoaded => @_check_height.delay(10)
       else
         @_check_height()
 
