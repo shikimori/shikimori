@@ -12,7 +12,7 @@ class CosplayController < ShikimoriController
 
     @moderators = User.where(id: User::CosplayModerators - User::Admins)
     limit = 480
-    @cosplay = CosplaySession
+    @cosplay = CosplayGallery
       .where(confirmed: false, deleted: false)
       .includes(:cosplayers)
       .order(id: :desc)
@@ -144,10 +144,12 @@ class CosplayController < ShikimoriController
   # создание галереи
   def create
     cosplayer = Cosplayer.find_or_create_by_name(name: params[:cosplay_gallery][:name])
-    gallery = CosplaySession.create(target: params[:cosplay_gallery][:target],
-                                    date: DateTime.now,
-                                    source: params[:cosplay_gallery][:source],
-                                    user_id: current_user.id)
+    gallery = CosplayGallery.create(
+      target: params[:cosplay_gallery][:target],
+      date: DateTime.now,
+      source: params[:cosplay_gallery][:source],
+      user_id: current_user.id
+    )
 
     pos = CosplayImage::PositionStep
     cosplayer.cosplay_galleries << gallery

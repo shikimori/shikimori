@@ -41,7 +41,18 @@ class AnimesController < ShikimoriController
   end
 
   def screenshots
+    redirect_to @resource.url if @resource.screenshots.none?
     page_title 'Кадры'
+  end
+
+  def cosplay
+    @page = [params[:page].to_i, 1].max
+    @limit = 2
+    @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
+
+    redirect_to @resource.url if @collection.none?
+
+    page_title 'Косплей'
   end
 
   def videos
@@ -113,13 +124,6 @@ class AnimesController < ShikimoriController
       action: params[:page] == 'screenshots' ? UserChange::ScreenshotsPosition : nil
     )
   end
-
-  ## подстраница косплея
-  #def cosplay
-    #1/0
-    #show
-    #render :show unless @director.redirected?
-  #end
 
   # тултип
   def tooltip

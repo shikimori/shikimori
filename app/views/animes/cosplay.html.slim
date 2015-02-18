@@ -1,0 +1,6 @@
+= render layout: 'page' do
+  h1.subheadline.m10 Косплей #{@resource.name}
+
+  = render @collection
+  - if @add_postloader
+    = render 'blocks/postloader', filter: 'b-cosplay_gallery', url: @resource.cosplay_url(@page+1)

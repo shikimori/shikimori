@@ -1,5 +1,5 @@
 class CosplayGallery < ActiveRecord::Base
-  include Commentable
+  #acts_as_voteable
 
   has_many :image, -> { where(deleted: false).limit(1) },
     class_name: 'CosplayImage'
@@ -61,15 +61,13 @@ class CosplayGallery < ActiveRecord::Base
   end
 
   # полное название галереи
-  def full_title(anime)
-    @full_title_ ||= ("Косплей %s от %s" % [
-        self.characters.empty? ? anime.name : (
-            self.characters.size == 1 ? self.characters.first.name : (
-                self.characters.size == 2 ? self.characters.map {|v| v.name }.join(' и ') : anime.name
-              )
-          ),
-        self.cosplayers.size == 1 ? self.cosplayers.first.name : self.cosplayers.map {|v| v.name }.join(' и ')
-      ]).html_safe
+  def title linked
+    titles = title_components(linked).map {|c| c.map(&:name).join(' и ') }
+    "Косплей #{titles.first} от #{titles.second}".html_safe
+  end
+
+  def title_components linked
+    [characters.any? ? characters : [linked], cosplayers]
   end
 
   # подтверждена ли модератором галерея
@@ -81,16 +79,4 @@ class CosplayGallery < ActiveRecord::Base
   def deleted?
     deleted
   end
-end
-
-class CosplayerProfile < CosplayGallery
-end
-
-class CosplayerEveryDay < CosplayGallery
-end
-
-class CosplayEvent < CosplayGallery
-end
-
-class CosplayOther < CosplayGallery
 end

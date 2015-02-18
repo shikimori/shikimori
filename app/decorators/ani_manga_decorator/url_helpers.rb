@@ -56,9 +56,13 @@ module AniMangaDecorator::UrlHelpers
     h.send "clubs_#{klass_lower}_url", object, subdomain: false
   end
 
-  #def cosplay_url
-    #h.send "cosplay_#{klass_lower}_url", object
-  #end
+  def cosplay_url page=1
+    if page > 1
+      h.send "cosplay_#{klass_lower}_url", object, page: page
+    else
+      h.send "cosplay_#{klass_lower}_url", object
+    end
+  end
 
   def files_url
     h.send "files_#{klass_lower}_url", object
@@ -69,13 +73,13 @@ module AniMangaDecorator::UrlHelpers
   end
 
   # адрес косплея персонажа
-  def cosplay_url character, gallery = nil
-    if gallery
-      h.send "cosplay_#{klass_lower}_url", object, character, gallery
-    else
-      h.send "cosplay_#{klass_lower}_url", object, character
-    end
-  end
+  #def cosplay_url character, gallery = nil
+    #if gallery
+      #h.send "cosplay_#{klass_lower}_url", object, character, gallery
+    #else
+      #h.send "cosplay_#{klass_lower}_url", object, character
+    #end
+  #end
 
   # адрес обзоров
   def reviews_url

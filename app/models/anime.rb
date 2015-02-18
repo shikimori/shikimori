@@ -66,8 +66,7 @@ class Anime < DbEntry
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
   has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
-    through: :cosplay_gallery_links,
-    class_name: CosplaySession.name
+    through: :cosplay_gallery_links
 
   has_many :reviews, -> { where target_type: Anime.name },
     foreign_key: :target_id,

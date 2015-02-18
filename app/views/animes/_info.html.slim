@@ -85,11 +85,14 @@
         span.linkeable data-href="#{entry.comments_all_url}"
           = "#{entry.comments_count} #{Russian.p entry.comments_count, 'комментарий', 'комментария', 'комментариев'}"
 
-  - if entry.files? || entry.tags.present?# || entry.cosplay.galleries.any?
+  - if entry.files? || entry.tags.present? || entry.cosplay?
     .additional-links
       /- if entry.cosplay.galleries.any?
         span.link Косплей
         /= "#{entry.cosplay.galleries.size} #{Russian.p entry.cosplay.galleries.size, 'галерея косплея', 'галереи косплея', 'галерей косплея'}"
+
+      - if entry.cosplay?
+        span.linkeable data-href="#{entry.cosplay_url}" Косплей
 
       - if entry.tags.present?
         span.linkeable data-href="#{entry.art_url}" Арт с имиджборд

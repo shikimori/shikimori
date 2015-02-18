@@ -20,7 +20,7 @@ class CosplayGalleriesController < ShikimoriController
                                         inner join cosplay_galleries cg
                                             on cgl.cosplay_gallery_id = cg.id
                                      where
-                                         cg.type = 'CosplaySession' and cg.deleted = 0
+                                         cg.type = 'CosplayGallery' and cg.deleted = 0
                                      group by c.id
                                      having
                                          count(cg.id) >= 6").
@@ -41,7 +41,7 @@ class CosplayGalleriesController < ShikimoriController
 
     @cosplayer = Cosplayer.find(params[:cosplayer].to_i)
     if params[:gallery]
-      @gallery = CosplaySession.find(params[:gallery].to_i)
+      @gallery = CosplayGallery.find(params[:gallery].to_i)
     else
       @gallery = @cosplayer.cosplay_galleries.order('rand()').limit(1).first
     end
@@ -63,7 +63,7 @@ class CosplayGalleriesController < ShikimoriController
                              entry: @gallery)
 
     #debug(@gallery.images.count)
-    #debug(CosplaySession.where(:date.gteq => @gallery.date).limit(1).debug_sql)
+    #debug(CosplayGallery.where(:date.gteq => @gallery.date).limit(1).debug_sql)
 
     @title = "%s косплеит %s" % [@cosplayer.name, @gallery.target]
   end
@@ -71,7 +71,7 @@ class CosplayGalleriesController < ShikimoriController
   # комментарии к галлереи косплея
   def comments
     if params[:gallery]
-      @gallery = CosplaySession.find(params[:gallery].to_i)
+      @gallery = CosplayGallery.find(params[:gallery].to_i)
     else
       @gallery = @cosplayer.cosplay_galleries.order('rand()').limit(1).first
     end

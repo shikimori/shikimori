@@ -85,8 +85,8 @@ module MessagesHelper # для truncate в messages helper
   def format_linked_name linked_id, linked_type, comment_id=nil
     url = ''
     content = case linked_type
-      when CosplaySession.name
-        target = CosplaySession.includes(:animes).find(linked_id)
+      when CosplayGallery.name
+        target = CosplayGallery.includes(:animes).find(linked_id)
         if target.animes.empty?
           linked_type
         else

@@ -6,8 +6,8 @@ class AniMangaDecorator < DbEntryDecorator
   NewsPerPage = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count
-  instance_cache :is_favoured, :favoured, :rate, :changes, :roles, :related, :cosplay
+  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count, :cosplay?
+  instance_cache :is_favoured, :favoured, :rate, :changes, :roles, :related
   instance_cache :friend_rates, :recent_rates, :chronology
   instance_cache :preview_reviews_thread, :main_reviews_thread
   instance_cache :rates_scores_stats, :rates_statuses_stats
@@ -39,6 +39,11 @@ class AniMangaDecorator < DbEntryDecorator
   # есть ли обзоры
   def reviews?
     reviews_count > 0
+  end
+
+  # есть ли косплей
+  def cosplay?
+    CosplayGalleriesQuery.new(object).fetch(1,1).any?
   end
 
   # добавлено ли в список текущего пользователя?
@@ -75,11 +80,6 @@ class AniMangaDecorator < DbEntryDecorator
   # презентер связанных аниме
   def related
     RelatedDecorator.new object
-  end
-
-  # объект с косплеем
-  def cosplay
-    CosplayDecorator.new object
   end
 
   # число коментариев

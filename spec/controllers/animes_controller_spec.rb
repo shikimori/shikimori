@@ -47,7 +47,15 @@ describe AnimesController do
   end
 
   describe '#screenshots' do
+    let!(:screenshot) { create :screenshot, anime: anime }
     before { get :screenshots, id: anime.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#cosplay' do
+    let(:cosplay_gallery) { create :cosplay_gallery }
+    let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: anime }
+    before { get :cosplay, id: anime.to_param }
     it { expect(response).to have_http_status :success }
   end
 

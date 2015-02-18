@@ -397,6 +397,7 @@ Site::Application.routes.draw do
           get :similar
           get :screenshots
           get :videos
+          get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
           get :chronology
           get :art
           get :related
@@ -423,8 +424,7 @@ Site::Application.routes.draw do
 
           get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|screenshots|video|torrents_name|tags/
 
-          get 'cosplay' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay/all" }, as: :root_cosplay
-          get 'cosplay/:character(/:gallery)' => "#{kind}#cosplay", page: 'cosplay', as: :cosplay
+          get 'cosplay/:anything' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
         end
 
         # обзоры

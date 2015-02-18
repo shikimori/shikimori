@@ -22,8 +22,7 @@ class Character < DbEntry
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
   has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
-    through: :cosplay_gallery_links,
-    class_name: CosplaySession.name
+    through: :cosplay_gallery_links
 
   # альтернативное имя "в кавычках"
   def altname

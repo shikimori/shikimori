@@ -11,18 +11,14 @@ describe CosplayQuery do
     end
   end
 
-  describe 'characters' do
+  describe '#characters' do
     subject { CosplayQuery.new.characters anime }
-    it 'has 3 items' do
-      expect(subject.size).to eq(3)
-    end
+    it { expect(subject).to have(3).items }
   end
 
-  describe 'fetch' do
+  describe '#fetch' do
     let(:links) { CosplayGalleryLink.where(linked_type: Character.name).limit(2) }
     subject { CosplayQuery.new.fetch links }
-    it 'has 2 items' do
-      expect(subject.size).to eq(2)
-    end
+    it { expect(subject).to have(2).items }
   end
 end

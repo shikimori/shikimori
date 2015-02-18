@@ -1,3 +1,4 @@
+# TODO: выпилить
 class CosplayQuery
   def characters entry
     gallery_ids = gallery_ids_by_entry entry
@@ -16,7 +17,7 @@ class CosplayQuery
     CosplayGallery
       .where(id: gallery_ids)
       .includes(:images, :cosplayers, :characters)
-      .order('date desc')
+      .order(created_at: :desc)
   end
 
 private
@@ -47,7 +48,7 @@ private
     links
       .includes(:cosplay_gallery)
       .where("cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true")
-      .order('cosplay_galleries.date desc')
+      .order('cosplay_galleries.created_at desc')
       .select('cosplay_galleries.id')
       .map(&:cosplay_gallery_id)
       .compact

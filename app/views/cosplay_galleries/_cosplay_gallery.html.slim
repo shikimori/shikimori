@@ -1,0 +1,17 @@
+.b-cosplay_gallery id="#{cosplay_gallery.id}"
+  h3
+    | Косплей&nbsp;
+    - cosplay_gallery.title_components(@resource).first.each do |component|
+      a href="#{url_for component}" = localized_name component
+      - if component != cosplay_gallery.title_components(@resource).first.last
+        | &nbsp;и&nbsp;
+      - else
+        | &nbsp;
+    | от&nbsp;
+    = cosplay_gallery.title_components(@resource).second.map(&:name).join(' и ')
+  .b-gallery
+    .container
+      .grid_sizer
+      - cosplay_gallery.images.each do |image|
+        a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="cosplay_gallery_#{cosplay_gallery.id}"
+          img src="#{image.image.url :preview}"
