@@ -2,7 +2,7 @@
   h3
     | Косплей&nbsp;
     - cosplay_gallery.title_components(@resource).first.each do |component|
-      a href="#{url_for component}" = localized_name component
+      a.bubbled href="#{url_for component}" = localized_name component
       - if component != cosplay_gallery.title_components(@resource).first.last
         | &nbsp;и&nbsp;
       - else
