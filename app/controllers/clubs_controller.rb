@@ -42,14 +42,20 @@ class ClubsController < ShikimoriController
       @resource.leave User.find(user_id)
     end
 
-    if @resource.update update_params
+    update_result = Group.transaction do
       @resource.animes = []
       @resource.mangas = []
       @resource.characters = []
       @resource.admins = []
       @resource.banned_users = []
-      @resource.update update_params
 
+      @resource.object.members
+        .where(id: update_params['admin_ids'])
+        .each { |member| @resource.leave member }
+      @resource.update update_params
+    end
+
+    if update_result
       redirect_to edit_club_url(@resource), notice: 'Изменения сохранены'
     else
       flash[:alert] = 'Изменения не сохранены!'
