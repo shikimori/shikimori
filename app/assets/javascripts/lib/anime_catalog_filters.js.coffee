@@ -91,9 +91,15 @@ DEFAULT_LIST_SORT = "ranked"
 
   # клики по фильтру группы - плюсику или минусику
   $('.anime-params-block .block-filter', $root).on 'click', (e) ->
-    to_exclude = $(@).hasClass('item-add')
+    $params_block = $(@).closest('.anime-params-block')
+
+    to_exclude = if $(@).hasClass('item-sign')
+      $params_block.find('li').length == $params_block.find('.item-add').length
+    else
+      $(@).hasClass('item-add')
+
     #$(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
-    $(@).closest('.anime-params-block').find('li').map(->
+    $params_block.find('li').map(->
       extract_li_info $(@)
     ).each (index, li_info) ->
       data[li_info.type][index] = (if to_exclude then '!' + li_info.value else li_info.value)
