@@ -69,13 +69,13 @@ private
   end
 
   def set_omniauth_data
-    @omni = env["omniauth.auth"]
+    @omni = env['omniauth.auth']
 
     if @omni.nil?
       flash[:alert] = 'Не удалось авторизоваться'
 
       if user_signed_in?
-        redirect_to user_settings_url(current_user)
+        redirect_to edit_profile_url(current_user)
       else
         redirect_to :root
       end
