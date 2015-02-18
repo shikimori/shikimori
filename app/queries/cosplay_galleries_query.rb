@@ -4,7 +4,7 @@ class CosplayGalleriesQuery < QueryObjectBase
 private
   def query
     CosplayGallery
-      .where(id: cosplay_gallery_ids)
+      .where(confirmed: true, id: cosplay_gallery_ids)
       .includes(:images, :cosplayers, :characters)
       .order(created_at: :desc)
   end
