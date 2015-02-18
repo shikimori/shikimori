@@ -26,14 +26,13 @@ class UserlistComparerController < ShikimoriController
 
     @page_title = "Сравнение списка #{@klass == Anime ? 'аниме' : 'манги'} #{@user_1.nickname} и #{@user_2.nickname}"
 
+    # для левого меню
+    @genres, @studios, @publishers = Rails.cache.fetch('genres_studios_publishers', expires_in: 30.minutes) do
+      [Genre.order(:position).all, Studio.all, Publisher.all]
+    end
+
     respond_to do |format|
-      format.html {
-        # для левого меню
-        @genres, @studios, @publishers = Rails.cache.fetch('genres_studios_publishers', expires_in: 30.minutes) do
-          [Genre.order(:position).all, Studio.all, Publisher.all]
-        end
-        render
-      }
+      format.html { render }
       format.json {
         render json: { content: render_to_string(partial: 'userlist_comparer/table.html', layout: false, formats: :html) }
       }

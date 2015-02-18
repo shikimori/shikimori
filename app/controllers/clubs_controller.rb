@@ -42,20 +42,7 @@ class ClubsController < ShikimoriController
       @resource.leave User.find(user_id)
     end
 
-    update_result = Group.transaction do
-      @resource.animes = []
-      @resource.mangas = []
-      @resource.characters = []
-      @resource.admins = []
-      @resource.banned_users = []
-
-      @resource.object.members
-        .where(id: update_params['admin_ids'])
-        .each { |member| @resource.leave member }
-      @resource.update update_params
-    end
-
-    if update_result
+    if update_club(@resource, update_params)
       redirect_to edit_club_url(@resource), notice: 'Изменения сохранены'
     else
       flash[:alert] = 'Изменения не сохранены!'
@@ -127,5 +114,22 @@ private
       .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,
         :comment_policy, :logo,
         anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], banned_user_ids: [])
+  end
+
+  def update_club resource, update_params
+    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
+      Group.transaction do
+        resource.animes = []
+        resource.mangas = []
+        resource.characters = []
+        resource.admins = []
+        resource.banned_users = []
+
+        resource.object.members
+          .where(id: update_params['admin_ids'])
+          .each {|member| resource.leave member }
+        resource.update update_params
+      end
+    end
   end
 end
