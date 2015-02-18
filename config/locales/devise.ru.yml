@@ -25,8 +25,13 @@ ru:
       unauthenticated: "Вам необходимо войти в систему или зарегистрироваться."
       unconfirmed: "Вы должны подтвердить вашу учётную запись."
     sessions:
-      signed_in: "Вход в систему выполнен."
-      signed_out: "Выход из системы выполнен."
+      already_signed_out: :devise.sessions.signed_out
+      signed_in: "Добро пожаловать!"
+      signed_out: "До свидания!"
+    user:
+      already_signed_out: :devise.sessions.signed_out
+      signed_in: :devise.sessions.signed_in
+      signed_out: :devise.sessions.signed_out
     passwords:
       send_instructions: "В течение нескольких минут вы получите письмо с инструкциями по восстановлению вашего пароля."
       updated: "Ваш пароль изменён. Теперь вы вошли в систему."
