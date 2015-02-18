@@ -18,7 +18,7 @@ private
   def accept_invites
     GroupInvite.where(dst_id: user_id, group_id: group_id).each do |v|
       v.update_columns status: GroupInviteStatus::Accepted
-      v.message.update! read: true
+      v.message.update! read: true if v.message
     end
   end
 
