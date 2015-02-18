@@ -76,7 +76,7 @@ GIT
 
 GIT
   remote: git://github.com/morr/turbolinks.git
-  revision: 8e69c7d8e6b96b7cf2f2d0d53258334c769ef79e
+  revision: 14f4ee2215d32bdb8fcd51c49ae65ed3f46488eb
   branch: master
   specs:
     turbolinks (2.5.3)
