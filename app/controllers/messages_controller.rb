@@ -88,38 +88,6 @@ class MessagesController < ProfilesController
     render @collection.map(&:decorate)
   end
 
-  ## rss лента сообщений
-  #def feed
-    #@user = User.find_by_nickname(User.param_to params[:name])
-    #raise NotFound.new('user not found') if @user.nil?
-    #raise NotFound.new('wrong rss key') if rss_key(@user) != params[:key]
-
-    #raw_messages = Rails.cache.fetch "notifications_feed_#{@user.id}", expires_in: 60.minutes do
-      #Message
-        #.where(to_id: @user.id)
-        #.where.not(kind: MessageType::Private)
-        #.order('read, created_at desc')
-        #.includes(:linked)
-        #.limit(25)
-        #.to_a
-    #end
-
-    #@messages = raw_messages.map do |message|
-      #linked = message.linked && message.linked.respond_to?(:linked) && message.linked.linked ? message.linked.linked : nil
-      #{
-        #entry: message,
-        #guid: message.guid,
-        #image_url: linked && linked.image.exists? ? 'http://shikimori.org' + linked.image.url(:preview, false) : nil,
-        #link: linked ? url_for(linked) : messages_url(type: :notifications),
-        #linked_name: linked ? linked.name : nil,
-        #pubDate: Time.at(message.created_at.to_i).to_s(:rfc822),
-        #title: linked ? linked.name : 'Сайт'
-      #}
-    #end
-    #response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
-    #render 'messages/feed', formats: :rss
-  #end
-
   # отписка от емайлов о сообщениях
   def unsubscribe
     @user = User.find_by_nickname(User.param_to params[:name])
@@ -129,6 +97,38 @@ class MessagesController < ProfilesController
     if @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0
       @user.update notifications: @user.notifications - User::PRIVATE_MESSAGES_TO_EMAIL
     end
+  end
+
+  # rss лента уведомлений
+  def feed
+    @user = User.find_by_nickname(User.param_to params[:name])
+    raise NotFound.new('user not found') if @user.nil?
+    raise NotFound.new('wrong rss key') if self.class.rss_key(@user) != params[:key]
+
+    raw_messages = Rails.cache.fetch "notifications_feed_#{@user.id}", expires_in: 60.minutes do
+      Message
+        .where(to_id: @user.id)
+        .where.not(kind: MessageType::Private)
+        .order('read, created_at desc')
+        .includes(:linked)
+        .limit(25)
+        .to_a
+    end
+
+    @messages = raw_messages.map do |message|
+      linked = message.linked && message.linked.respond_to?(:linked) && message.linked.linked ? message.linked.linked : nil
+      {
+        entry: message,
+        guid: message.guid,
+        image_url: linked && linked.image.exists? ? 'http://shikimori.org' + linked.image.url(:preview, false) : nil,
+        link: linked ? url_for(linked) : messages_url(type: :notifications),
+        linked_name: linked ? linked.name : nil,
+        pubDate: Time.at(message.created_at.to_i).to_s(:rfc822),
+        title: linked ? linked.name : 'Сайт'
+      }
+    end
+    response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
+    render 'messages/feed', formats: :rss
   end
 
   ## отображение сообщения
@@ -327,22 +327,15 @@ class MessagesController < ProfilesController
     #render json: { notice: 'Сообщение удалено' }
   #end
 
-  ## ключ к rss ленте уведомлений
-  #def self.rss_key(user)
-    #Digest::SHA1.hexdigest("notifications_feed_for_user_##{user.id}!")
-  #end
+  # ключ к rss ленте уведомлений
+  def self.rss_key(user)
+    Digest::SHA1.hexdigest("notifications_feed_for_user_##{user.id}!")
+  end
 
   # ключ к отписке от сообщений
   def self.unsubscribe_key(user, kind)
     Digest::SHA1.hexdigest("unsubscribe_#{kind}_messages_for_user_##{user.id}!")
   end
-
-  #def rss_key(user)
-    #MessagesController.rss_key(user)
-  #end
-  #def unsubscribe_key(user, kind)
-    #MessagesController.unsubscribe_key(user, kind)
-  #end
 
   def bounce
     User.where(email: params[:Email]).each(&:notify_bounced_email)

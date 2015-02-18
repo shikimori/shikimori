@@ -1,4 +1,4 @@
-/= auto_discovery_link_tag :rss, rss_notifications_url(@user.to_param, MessagesController.rss_key(@user)), title: 'RSS'
+= auto_discovery_link_tag :rss, feed_messages_url(@user.to_param, MessagesController.rss_key(@user)), title: 'RSS'
 
 = render layout: 'page' do
   .messages-action
