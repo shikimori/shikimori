@@ -115,7 +115,9 @@ class ProfilesController < ShikimoriController
         @resource.update password_params
       end
     else
-      @resource.update update_params
+      Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
+        @resource.update update_params
+      end
     end
 
     if update_successfull
