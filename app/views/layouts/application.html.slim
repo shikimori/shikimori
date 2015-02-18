@@ -11,6 +11,7 @@ html
       data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
       data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
     ]
+    .turbolinks
     - if defined?(notice) && notice
       p.flash-notice
         == notice

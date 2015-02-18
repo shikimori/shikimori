@@ -30,7 +30,6 @@ $ =>
     comments_auto_loaded: $body.data('comments-auto-loaded')
 
   $(document).trigger 'page:load', true
-  Turbolinks.enableProgressBar()
 
   if USER_SIGNED_IN && !window.faye_loader
     @faye_loader = new FayeLoader()
@@ -49,6 +48,9 @@ $(document).on 'page:restore', (e, is_dom_content_loaded) ->
   $(document.body).process()
 
 $(document).on 'page:load', (e, is_dom_content_loaded) ->
+  Turbolinks.enableProgressBar false
+  Turbolinks.enableProgressBar true, '.turbolinks'
+
   #unless is_dom_content_loaded
     #turbolinks_compatibility()
 
