@@ -60,7 +60,7 @@ class @FayeLoader
       _log "faye subscribed #{channel}"
 
   # подписка/отписка на актуальные каналы Faye исходя из контента страницы
-  apply: (e, data) =>
+  apply: =>
     $targets = $('.b-forum')
     $targets = $('.b-topic') unless $targets.length
     @connect() if !@client && $targets.length

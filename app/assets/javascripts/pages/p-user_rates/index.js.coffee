@@ -103,7 +103,8 @@ update_list_cache = ->
 # обработчики для списка
 apply_list_handlers = ($root) ->
   # хендлер подгрузки очередной страницы
-  $('.b-postloader').on 'postloader:success', insert_next_page
+  $('.b-postloader').on 'postloader:before', insert_next_page
+  $('l-content').on 'postloader:success', process_next_page
 
   # открытие блока с редактирование записи по клику на строку с аниме
   $('tr.editable', $root).on 'click', (e) ->
@@ -291,10 +292,9 @@ insert_next_page = (e, $data) ->
           .find('tr:first,tr.border')
           .hide()
 
-  (->
-    apply_list_handlers $data
+  apply_list_handlers $data
 
-    update_list_cache()
-    $input = $('.filter input')
-    $input.trigger('keyup') unless _.isEmpty($input.val())
-  ).delay 250
+process_next_page = ->
+  update_list_cache()
+  $input = $('.filter input')
+  $input.trigger('keyup') unless _.isEmpty($input.val())

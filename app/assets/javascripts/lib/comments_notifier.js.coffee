@@ -44,7 +44,7 @@ class @CommentsNotifier
     @scroll = $(window).scrollTop()
 
   # пересчёт значения счётчика
-  refresh: (e) =>
+  refresh: =>
     (=>
       $comment_new = $(@comment_selector)
       $faye_loader = $(@faye_loader_selector)

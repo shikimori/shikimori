@@ -15,7 +15,7 @@ class @PaginatedCatalog
 
     @page_change = {}
 
-    @$ajax.on 'postloader:success', @page_loaded
+    @$ajax.on 'postloader:before', @page_loaded
     @$pagination.on 'click', '.link', @link_click
     @$pagination.on 'click', '.no-hover', @page_select
 

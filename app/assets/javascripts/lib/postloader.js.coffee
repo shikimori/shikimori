@@ -14,10 +14,12 @@ $(document).on 'click appear', '.b-postloader', (e) ->
 
   $.getJSON url, (data) ->
     $data = $('<div>').append("#{data.content}#{data.postloader}")
+    $insert_content = $data.children()
 
     filter_present_entries $data, filter if filter
-    $postloader.trigger 'postloader:success', [$data, data]
-    $postloader.replaceWith $data.children()
+    $postloader.trigger 'postloader:before', [$data, data]
+    $postloader.replaceWith $insert_content
+    $insert_content.trigger 'postloader:success'
 
     process_current_dom()
     $postloader.data locked: false
