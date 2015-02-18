@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def show_social?
-    !is_mobile_request? && (!user_signed_in? || current_user.preferences.show_social_buttons?)
+    #!is_mobile_request? && (!user_signed_in? || current_user.preferences.show_social_buttons?)
     false
   end
 

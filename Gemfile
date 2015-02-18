@@ -37,7 +37,7 @@ gem 'active_model_serializers', github: 'rails-api/active_model_serializers', br
 gem 'virtus'
 gem 'attr_extras'
 
-gem 'mobylette'
+gem 'mobylette' # для is_mobile_request в application_controller#show_social?
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
