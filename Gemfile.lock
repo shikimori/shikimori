@@ -390,8 +390,6 @@ GEM
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
-    mobylette (3.5)
-      actionpack (>= 3.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -722,7 +720,6 @@ DEPENDENCIES
   marco-polo
   meta-tags!
   metrika
-  mobylette
   newrelic_rpm
   nokogiri
   non-stupid-digest-assets

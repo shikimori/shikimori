@@ -37,7 +37,7 @@ gem 'active_model_serializers', github: 'rails-api/active_model_serializers', br
 gem 'virtus'
 gem 'attr_extras'
 
-gem 'mobylette' # для is_mobile_request в application_controller#show_social?
+#gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
