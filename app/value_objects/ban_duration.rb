@@ -44,6 +44,10 @@ class BanDuration
     end.compact.join ' '
   end
 
+  def eql? ban_duration
+    to_i == ban_duration.to_i
+  end
+
 private
   def to_hash
     {

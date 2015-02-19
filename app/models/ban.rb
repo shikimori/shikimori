@@ -39,9 +39,9 @@ class Ban < ActiveRecord::Base
 
   def message
     if warning?
-      "предупреждение. #{reason.strip}."
+      "предупреждение. #{BbCodeFormatter.instance.format_comment reason}."
     else
-      "бан на #{duration.humanize}. #{reason.strip}."
+      "бан на #{duration.humanize}. #{BbCodeFormatter.instance.format_comment reason}."
     end.sub /\.+\Z/, '.'
   end
 
@@ -64,9 +64,8 @@ class Ban < ActiveRecord::Base
 
   def mention_in_comment
     return if comment.nil?
-
-    comment.body = (comment.body.strip + "\n\n[ban=#{id}]").gsub /(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2'
-    comment.save! validate: false
+    updated_body = (comment.body.strip + "\n\n[ban=#{id}]").gsub(/(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2')
+    comment.update_column :body, updated_body
   end
 
   def accept_abuse_request

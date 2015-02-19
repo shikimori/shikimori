@@ -32,7 +32,7 @@ class UserDecorator < BaseDecorator
   end
 
   def last_online
-    if object.admin?
+    if object.admin? || object.banhammer? || object.bot?
       'всегда на сайте'
     elsif DateTime.now - 5.minutes <= last_online_at
       'сейчас на сайте'

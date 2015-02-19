@@ -45,6 +45,10 @@ FactoryGirl.define do
       id User::UserChangesModerators.last
     end
 
+    trait :banhammer do
+      id User::Banhammer_ID
+    end
+
     trait :without_password do
       password nil
 

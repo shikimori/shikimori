@@ -33,6 +33,7 @@ class Comment < ActiveRecord::Base
   after_create :creation_callbacks
   after_create :subscribe
   after_create :notify_quotes
+  after_save :release_the_banhammer!
   #after_create :notify_subscribed
 
   before_destroy :decrement_comments
@@ -140,6 +141,11 @@ class Comment < ActiveRecord::Base
 
       notified_users << quoted_user.id
     end
+  end
+
+  # автобан за мат
+  def release_the_banhammer!
+    Banhammer.new(self).release
   end
 
   # подписка автора на комментируемую сущность

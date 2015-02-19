@@ -2,6 +2,7 @@ class User
   module Roles
     GuestID = 5
     Morr_ID = 1
+    Banhammer_ID = 6942
     Blackchestnut_ID = 1077
 
     # access rights
@@ -25,6 +26,11 @@ class User
     # администратор ли пользователь?
     def admin?
       Admins.include? self.id
+    end
+
+    # банхаммер ли пользователь
+    def banhammer?
+      self.id == Banhammer_ID
     end
 
     # модератор ли пользователь,

@@ -18,65 +18,71 @@ describe Comment do
   let(:topic) { build_stubbed :entry, user: user }
   let(:comment) { create :comment, user: user, commentable: topic }
 
-  context 'hooks' do
-    describe 'check_access' do
+  context 'callbacks' do
+    describe '#clean' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :clean }
     end
 
-    describe 'forbid_ban_change' do
+    describe '#forbid_ban_change' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :forbid_ban_change }
     end
 
-    describe 'check_access' do
+    describe '#check_access' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :check_access }
     end
 
-    describe 'filter_quotes' do
+    describe '#filter_quotes' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :filter_quotes }
     end
 
-    describe 'increment_comments' do
+    describe '#increment_comments' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :increment_comments }
     end
 
-    describe 'creation_callbacks' do
+    describe '#creation_callbacks' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :creation_callbacks }
     end
 
-    describe 'subscribe' do
+    describe '#subscribe' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :subscribe }
     end
 
-    describe 'notify_quotes' do
+    describe '#notify_quotes' do
       let(:comment) { build :comment }
       after { comment.save }
       it { expect(comment).to receive :notify_quotes }
     end
 
-    describe 'decrement_comments' do
+    describe '#decrement_comments' do
       let(:comment) { create :comment }
       after { comment.destroy }
       it { expect(comment).to receive :decrement_comments }
     end
 
-    describe 'destruction_callbacks' do
+    describe '#destruction_callbacks' do
       let(:comment) { create :comment }
       after { comment.destroy }
       it { expect(comment).to receive :destruction_callbacks }
+    end
+
+    describe '#release_the_banhammer!' do
+      let(:comment) { build :comment, :with_banhammer }
+      after { comment.save }
+      it { expect_any_instance_of(Banhammer).to receive(:release) }
     end
   end
 

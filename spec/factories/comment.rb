@@ -14,30 +14,27 @@ FactoryGirl.define do
       comment.stub :creation_callbacks
       comment.stub :subscribe
       comment.stub :notify_quotes
+      comment.stub :release_the_banhammer!
     end
 
     trait :with_subscribe do
-      after(:build) do |comment|
-        comment.unstub :subscribe
-      end
+      after(:build) { |comment| comment.unstub :subscribe }
     end
 
     trait :with_notify_quotes do
-      after(:build) do |comment|
-        comment.unstub :notify_quotes
-      end
+      after(:build) { |comment| comment.unstub :notify_quotes }
     end
 
     trait :with_antispam do
-      after(:build) do |comment|
-        comment.unstub :check_antispam
-      end
+      after(:build) { |comment| comment.unstub :check_antispam }
     end
 
     trait :with_creation_callbacks do
-      after(:build) do |comment|
-        comment.unstub :creation_callbacks
-      end
+      after(:build) { |comment| comment.unstub :creation_callbacks }
+    end
+
+    trait :with_banhammer do
+      after(:build) { |comment| comment.unstub :release_the_banhammer! }
     end
   end
 end
