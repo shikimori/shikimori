@@ -226,10 +226,9 @@ class @ShikiTopic extends ShikiEditable
 
     $placeholder
 
-  # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
+  # проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
   _check_height: =>
-    if OPTIONS.comments_auto_collapsed
-      @$body.check_height(@MAX_PREVIEW_HEIGHT)
+    @$body.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
 
   _type: -> 'topic'
   _type_label: -> 'Топик'
