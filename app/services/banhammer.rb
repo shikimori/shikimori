@@ -6,6 +6,7 @@ class Banhammer
     [хx][еe][рp] |
     н[аaеe][хx][еe][рp] |
     бля |
+    [сc][уy][ч4]?[kк][аa] |
     н[аa][хx] |
     п[оo][хh]
   )\b/imx
