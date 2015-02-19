@@ -19,7 +19,7 @@ $(document).on 'click appear', '.b-postloader', (e) ->
     filter_present_entries $data, filter if filter
     $postloader.trigger 'postloader:before', [$data, data]
     $postloader.replaceWith $insert_content
-    $insert_content.trigger 'postloader:success'
+    $insert_content.first().trigger 'postloader:success'
 
     process_current_dom()
     $postloader.data locked: false

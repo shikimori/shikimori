@@ -1,6 +1,6 @@
 @on 'page:load', 'messages_index', ->
   process()
-  $('.l-page').on 'postloader:success', '.b-postloader', process
+  $('.l-page').on 'postloader:success', process
 
 process = ->
   $('.b-message.unprocessed').shiki_message()

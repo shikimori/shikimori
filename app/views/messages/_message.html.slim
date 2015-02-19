@@ -14,14 +14,20 @@
       aside.buttons
         .main-controls
           - if message.kind == MessageType::FriendRequest
-            span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.from_id}" title="Принять"
-            span.item-request-reject.friend-request title="Отклонить"
-            span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
+            - if message.read
+              span.item-delete title="Удалить"
+            - else
+              span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.from_id}" title="Принять"
+              span.item-request-reject.friend-request title="Отклонить"
+              span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
 
           - elsif message.kind == MessageType::GroupRequest
-            span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{accept_group_invite_url message.subject}" title="Принять"
-            span.item-request-reject data-remote="true" data-method="post" data-type="json" action="#{reject_group_invite_url message.subject}" title="Отклонить"
-            span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
+            - if message.read
+              span.item-delete title="Удалить"
+            - else
+              span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{accept_group_invite_url message.subject}" title="Принять"
+              span.item-request-reject data-remote="true" data-method="post" data-type="json" action="#{reject_group_invite_url message.subject}" title="Отклонить"
+              span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
 
           - else
             - if message.kind == MessageType::Private
