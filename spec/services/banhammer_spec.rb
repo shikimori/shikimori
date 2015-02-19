@@ -54,6 +54,8 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'с*ка').to be_truthy }
     it { expect(banhammer.abusive? 'су*а').to be_truthy }
     it { expect(banhammer.abusive? 'сучка').to be_truthy }
+    it { expect(banhammer.abusive? 'хер').to be_truthy }
+    it { expect(banhammer.abusive? 'херо*о').to be_truthy }
   end
 
   describe '#abusiveness' do
