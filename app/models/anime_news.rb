@@ -4,7 +4,11 @@ class AnimeNews < DbEntryThread
   attr_defaults text: -> { generate_text linked }
 
   def localized_action
-    I18n.t "AnimeNews.actions.#{action}"
+    if action == AnimeHistoryAction::Episode
+      I18n.t("AnimeNews.actions.#{action}").capitalize + " #{value}"
+    else
+      I18n.t("AnimeNews.actions.#{action}").capitalize
+    end
   end
 
   # получение названия для новости

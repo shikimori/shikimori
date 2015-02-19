@@ -8,7 +8,9 @@ class MessageDecorator < BaseDecorator
   end
 
   def url
-    if MessagesQuery::NEWS_KINDS.include?(kind)
+    if kind == MessageType::Episode
+      linked.linked.decorate.url
+    elsif MessagesQuery::NEWS_KINDS.include?(kind)
       h.topic_url linked
     else
       h.profile_url from
@@ -17,6 +19,10 @@ class MessageDecorator < BaseDecorator
 
   def title
     anime_related? ? h.localized_name(anime) : from.nickname
+  end
+
+  def generated_news?
+    linked.respond_to?(:generated_news?) && linked.generated_news?
   end
 
 private

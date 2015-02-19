@@ -75,11 +75,6 @@ class TopicDecorator < BaseDecorator
     preview? && (news? || review?) && (!show_author_in_header? || avatar != user.avatar_url(48))
   end
 
-  # топик ли это сгенерированной новости?
-  def generated_news?
-    news? && generated?
-  end
-
   # по опросу ли данный топик
   def contest?
     object.class == ContestComment

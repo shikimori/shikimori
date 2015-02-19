@@ -1,4 +1,5 @@
 .b-message.shiki-object.unprocessed[
+    class="#{'b-generated_news' if message.generated_news?}"
     id="#{message.id}"
     data-user_id="#{message.from.id}"
     data-user_nickname="#{message.from.nickname}"
@@ -39,9 +40,13 @@
             span.item-delete-cancel title="Отмена"
 
     header
-      span.linkeable data-href="#{local_assigns[:message_url] || message.url}"
-        img src="#{message.image}" srcset="#{message.image_2x} 2x" alt="#{message.title}"
+      - unless message.generated_news?
+        span.linkeable data-href="#{local_assigns[:message_url] || message.url}"
+          img src="#{message.image}" srcset="#{message.image_2x} 2x" alt="#{message.title}"
       .name-date
+        - if message.generated_news?
+          .b-anime_status_tag class="#{message.linked.action}" = message.linked.localized_action
+
         a href="#{local_assigns[:message_url] || message.url}"
           = message.title
 
@@ -50,7 +55,10 @@
             = time_ago_in_words message.created_at, "%s назад"
 
     .body
-      == get_message_body message
+      - if message.generated_news?
+        = render message.linked.linked.decorate, cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
+      - else
+        == get_message_body message
 
       - if message.kind == MessageType::SiteNews && message.linked
         = link_to 'к новости→', topic_url(message.linked), class: 'right to-entry'

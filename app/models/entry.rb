@@ -121,6 +121,11 @@ class Entry < ActiveRecord::Base
     !!(self.class.name =~ /News/)
   end
 
+  # топик ли это сгенерированной новости?
+  def generated_news?
+    news? && generated?
+  end
+
   # топик ли это обзора?
   def review?
     self.class == ReviewComment

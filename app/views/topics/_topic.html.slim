@@ -1,11 +1,9 @@
 - if user_signed_in? && current_user.ignores?(topic.user)
   = render partial: 'blocks/ignored', object: topic
-/- elsif topic.review?# && !topic.preview?
-  = render partial: 'topics/review', locals: { topic: topic }
 - else
   article.b-topic.shiki-object.unprocessed[
       id="#{topic.id}"
-      class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'generated_news_topic' if topic.generated_news?}"
+      class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'b-generated_news' if topic.generated_news?}"
       data-user_nickname="#{topic.user.nickname}"
       data-generated="#{topic.generated?}"
       data-faye="#{topic.faye_channel}"
@@ -31,10 +29,10 @@
             span.linkeable data-href="#{topic.url}"
               img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.display_title}"
           .name-date
-            a href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
-            /- unless topic.generated_news?
             - if topic.generated_news?
               .b-anime_status_tag class="#{topic.action}" = topic.localized_action
+
+            a href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
             time itemprop="commentTime" datetime="#{topic.created_at.iso8601}"
               = topic.date
 
