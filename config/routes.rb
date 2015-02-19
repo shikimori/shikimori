@@ -433,6 +433,7 @@ Site::Application.routes.draw do
     end
 
     resources :user_rates, only: [:create, :edit, :update, :destroy] do
+      get :edit_api => :edit, action: :edit, as: :edit_api, on: :member, api: true
       post :increment, on: :member
     end
 

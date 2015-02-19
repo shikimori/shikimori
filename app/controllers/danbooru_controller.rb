@@ -25,10 +25,10 @@ class DanbooruController < ShikimoriController
     end
     redirect_to "/images/#{TmpImagesDir}/#{md5}"
 
-  rescue OpenURI::HTTPError, URI::InvalidURIError
+  rescue URI::InvalidURIError
     raise NotFound, url
 
-  rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ECONNREFUSED
+  rescue OpenURI::HTTPError, Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ECONNREFUSED
     @retries ||= 2
     @retries -= 1
 

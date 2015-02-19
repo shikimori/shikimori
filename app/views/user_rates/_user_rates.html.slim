@@ -35,7 +35,7 @@
         tr.unprocessed.selectable[
             class="#{:editable if @resource.own_profile?}"
             data-remote="#{true if @resource.own_profile?}"
-            data-action="#{edit_user_rate_path user_rate, api: true if @resource.own_profile?}"
+            data-action="#{edit_api_user_rate_path user_rate if @resource.own_profile?}"
             data-type="html"
             data-rate_url="#{api_user_rate_path user_rate}" data-title="#{user_rate.target_name}"
           ]
