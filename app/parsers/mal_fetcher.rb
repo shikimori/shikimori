@@ -194,26 +194,28 @@ module MalFetcher
   end
 
 private
-  def cleanup(text)
-    text = text.gsub(/<br>/, '<br />').
-                gsub(/\r\n/, '<br />').
-                gsub(/<br \/>(<br \/>)?(\(|\[)?source[\s\S]*/i, '').
-                gsub(/<br \/>(<br \/>)?\[written[\s\S]*/i, '').
-                gsub(/<br \/>(<br \/>)?(\(|- ?)?from[\s\S]*/i, '').
-                gsub(/<br \/>(<br \/>)?Taken from[\s\S]*/i, '').
-                gsub(/<br \/>(<br \/>)?\(description from[\s\S]*/i, '').
-                gsub(/<br \/>(<br \/>)?\(adapted from[\s\S]*/i, '').
-                gsub(/<br \/>(<br \/>)<strong>Note:<\/strong><br \/>[\s\S]*/i, '').
-                gsub(/=Tricks=[\s\S]*/i, '').
-                gsub(/No synopsis has been added for this .*? yet[\s\S]*/i, '').
-                gsub(/No biography written.[\s\S]*/i, '').
-                gsub(/No summary yet.[\s\S]*/i, '').
-                strip.
-                gsub(/(<br \/>)+$/m, '').
-                gsub(/(<br \/?>){2}+/m, '<br />').
-                gsub(/<div class="spoiler[\s\S]*?(<br? \/?>|value="Hide spoiler">)/, '[spoiler]').
-                gsub(/(?:<!--spoiler[\s\S]*?|<\/span>)<\/div>(?:<br \/>)?/, '[/spoiler]').
-                strip if text
+  def cleanup text
+    (text || '')
+      .gsub(/<br>/, '<br />')
+      .gsub(/\r\n/, '<br />')
+      .gsub(/<br \/>(<br \/>)?(\(|\[)?source[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?\[written[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?(\(|- ?)?from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?Taken from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?\(description from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?\(adapted from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)<strong>Note:<\/strong><br \/>[\s\S]*/i, '')
+      .gsub(/=Tricks=[\s\S]*/i, '')
+      .gsub(/No synopsis has been added for this .*? yet[\s\S]*/i, '')
+      .gsub(/No biography written.[\s\S]*/i, '')
+      .gsub(/No summary yet.[\s\S]*/i, '')
+      .strip
+      .gsub(/(<br \/>)+$/m, '')
+      .gsub(/(<br \/?>){2}+/m, '<br />')
+      .gsub(/<div class="spoiler[\s\S]*?(<br? \/?>|value="Hide spoiler">)/, '[spoiler]')
+      .gsub(/(?:<!--spoiler[\s\S]*?|<\/span>)<\/div>(?:<br \/>)?/, '[/spoiler]')
+      .gsub(/<div class=\"border_top\"[\s\S]*<\/div>/, '') # Naruto: Shippuuden (id: 1735)
+      .strip
   end
 
   def parse_block(entry, key, regexp, content)
