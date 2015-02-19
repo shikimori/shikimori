@@ -33,6 +33,27 @@ describe Banhammer do
     end
   end
 
+  describe '#abusive?',:focus do
+    it { expect(banhammer.abusive? 'х*о').to be_falsy }
+    it { expect(banhammer.abusive? 'тест').to be_falsy }
+
+    it { expect(banhammer.abusive? 'хуй').to be_truthy }
+    it { expect(banhammer.abusive? 'ху*').to be_truthy }
+    it { expect(banhammer.abusive? 'х*й').to be_truthy }
+    it { expect(banhammer.abusive? 'хуйло').to be_truthy }
+    it { expect(banhammer.abusive? 'бля').to be_truthy }
+    it { expect(banhammer.abusive? 'нах').to be_truthy }
+    it { expect(banhammer.abusive? 'пох').to be_truthy }
+    it { expect(banhammer.abusive? 'охуел').to be_truthy }
+    it { expect(banhammer.abusive? 'оху*ть').to be_truthy }
+    it { expect(banhammer.abusive? 'похер').to be_truthy }
+    it { expect(banhammer.abusive? 'нахер').to be_truthy }
+    it { expect(banhammer.abusive? 'сука').to be_truthy }
+    it { expect(banhammer.abusive? 'с*ка').to be_truthy }
+    it { expect(banhammer.abusive? 'су*а').to be_truthy }
+    it { expect(banhammer.abusive? 'сучка').to be_truthy }
+  end
+
   describe '#abusiveness' do
     subject { banhammer.send :abusiveness }
 

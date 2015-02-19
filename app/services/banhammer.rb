@@ -1,18 +1,24 @@
 class Banhammer
-  pattr_initialize :comment
+  vattr_initialize :comment
 
-  ABUSE = /\b(
-    [хx][уy]й |
-    [хx][еe][рp] |
-    н[аaеe][хx][еe][рp] |
-    бля |
-    [сc][уy][ч4]?[kк][аa] |
-    н[аa][хx]([уy]й)? |
-    п[оo][хh]
-  )\b/imx
+  Z = '[!@#$%&*^]'
+  ABUSE = /(\b|\n|\r|\A|^)(
+    (н[аaеe])?       (х|x|#{Z})(у|y|#{Z})(й|#{Z}) (л[оo])? | # нахуй, хуй, хуйло, ***
+    (н[аaеe]|п[оo])? (х|x|#{Z})(е|e|#{Z})(р|p|#{Z})        | # нахер, хер, похер, ***
+                     (б|b|#{Z})(л|l|#{Z})(я|#{Z})          | # бля
+    (с|c|#{Z})(у|y|#{Z}) (ч|4|#{Z})? (k|к|#{Z})(а|a|#{Z})  | # сука и сучка
+    (о|o|#{Z})(х|x|#{Z})(у|y|#{Z})(е|e|#{Z})(л|ть)         |
+
+                     (п|#{Z})(о|o|#{Z})(х|h|#{Z})          | # пох
+                     (н|#{Z})(а|a|#{Z})(х|h|#{Z})            # нах
+  )(\b|\n|\r|\Z|$)/imx
 
   def release
-    ban unless abusiveness.zero?
+    ban if abusive?
+  end
+
+  def abusive? text = self.comment.body
+    !!(text =~ ABUSE)
   end
 
 private
@@ -34,13 +40,13 @@ private
     BanDuration.new(multiplier * abusiveness).to_s
   end
 
-  def abusiveness
-    comment.body.scan(ABUSE).size
-  end
-
   def censored_body
     comment.body.gsub ABUSE do |match|
       "[color=#ff4136]#{match.size.times.inject(''){|v| v + '#' }}[/color]"
     end
+  end
+
+  def abusiveness
+    comment.body.scan(ABUSE).size
   end
 end
