@@ -3,7 +3,7 @@ class Banhammer
 
   Z = '[!@#$%&*^]'
   ABUSE = /(\b|\n|\r|\A|^)(
-    false
+    fffffffalse
   )(\b|\n|\r|\Z|$)/imx
 
   def release
