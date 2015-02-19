@@ -36,6 +36,8 @@ describe Banhammer do
   describe '#abusive?',:focus do
     it { expect(banhammer.abusive? 'х*о').to be_falsy }
     it { expect(banhammer.abusive? 'тест').to be_falsy }
+    it { expect(banhammer.abusive? '!!!').to be_falsy }
+    it { expect(banhammer.abusive? '*!!!*').to be_falsy }
 
     it { expect(banhammer.abusive? 'хуй').to be_truthy }
     it { expect(banhammer.abusive? 'ху*').to be_truthy }
