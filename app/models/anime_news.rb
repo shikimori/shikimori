@@ -3,6 +3,10 @@ class AnimeNews < DbEntryThread
   attr_defaults title: -> { generate_title linked }
   attr_defaults text: -> { generate_text linked }
 
+  def localized_action
+    I18n.t "AnimeNews.actions.#{action}"
+  end
+
   # получение названия для новости
   def generate_title(anime)
     service = AnimeHistoryService.new

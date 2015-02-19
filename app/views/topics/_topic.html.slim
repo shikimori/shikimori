@@ -5,7 +5,7 @@
 - else
   article.b-topic.shiki-object.unprocessed[
       id="#{topic.id}"
-      class="#{:preview if topic.preview?} #{'b-review' if topic.review?}"
+      class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'generated_news_topic' if topic.generated_news?}"
       data-user_nickname="#{topic.user.nickname}"
       data-generated="#{topic.generated?}"
       data-faye="#{topic.faye_channel}"
@@ -27,21 +27,27 @@
 
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
-          span.linkeable data-href="#{topic.url}"
-            img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.display_title}"
+          - if topic.show_author_in_header?
+            span.linkeable data-href="#{topic.url}"
+              img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.display_title}"
           .name-date
             a href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
-            - unless topic.generated?
-              time itemprop="commentTime" datetime="#{topic.created_at.iso8601}"
-                = topic.date
+            /- unless topic.generated_news?
+            - if topic.generated_news?
+              .b-anime_status_tag class="#{topic.action}" = topic.localized_action
+            time itemprop="commentTime" datetime="#{topic.created_at.iso8601}"
+              = topic.date
 
         - if topic.review? && topic.linked.votes_count > 0
           p.votes-count = topic.linked.votes_text
 
         .body
-          - if topic.review?
-            = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
-          = topic.html_body
+          - if topic.generated_news?
+            = render topic.linked.decorate, cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
+          - else
+            - if topic.review?
+              = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
+            = topic.html_body
 
         footer
           - if topic.show_author_in_footer?

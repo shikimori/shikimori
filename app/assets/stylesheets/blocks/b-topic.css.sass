@@ -8,6 +8,7 @@
 @import mixins/responsive
 @import mixins/tag
 
+$comments_left_margin: 24px
 .b-topic
   +block
   +forum_entry
@@ -25,7 +26,7 @@
       margin-bottom: 0
 
     &>.b-comments
-      margin-left: 24px
+      margin-left: $comments_left_margin
 
       // в превью топика первый комментарий отобразим с дефолтным отступом и бордером
       .b-comment:first-child
@@ -119,3 +120,28 @@
     .b-comment:first-child
       border-top-width: 1px
       padding-top: 5px
+
+  &.generated_news_topic > .inner
+    &>header
+      .b-anime_status_tag
+        margin-left: 10px
+
+    &>.body
+      margin-left: 0
+
+      .b-catalog_entry
+        .inner
+          padding-bottom: 0
+
+        .cover
+          max-width: 115px
+          padding-top: 5px
+
+        .rating
+          display: none
+
+    &>footer
+      margin-left: $comments_left_margin
+
+  &.generated_news_topic .no_comments
+    margin-left: 0

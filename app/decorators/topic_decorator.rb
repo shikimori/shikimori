@@ -5,6 +5,8 @@ class TopicDecorator < BaseDecorator
   def display_title
     if !preview?
       user.nickname
+    elsif generated_news?
+      h.localized_name object.linked
     elsif contest? || object.respond_to?(:title)
       object.title
     else
@@ -63,9 +65,19 @@ class TopicDecorator < BaseDecorator
     preview? || !generated? || contest? || review?
   end
 
+  # показывать ли автора в header блоке
+  def show_author_in_header?
+    !generated_news?
+  end
+
   # показывать ли автора в footer блоке
   def show_author_in_footer?
-    preview? && (news? || review?) && avatar != user.avatar_url(48)
+    preview? && (news? || review?) && (!show_author_in_header? || avatar != user.avatar_url(48))
+  end
+
+  # топик ли это сгенерированной новости?
+  def generated_news?
+    news? && generated?
   end
 
   # по опросу ли данный топик

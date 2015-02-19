@@ -3,16 +3,18 @@
     img.image src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}"
 
   .inner class="#{:offset if defined?(with_image) && with_image}"
-    .line itemprop="name"
-      - if !defined?(cover_by) || cover_by != :link
-        a.data.name href="#{anime.url}" title="#{localized_name anime}" itemprop="name"
-          = localized_name anime
-      - else
-        .linkeable.name data-href="#{anime.url}" data-title="#{localized_name anime}"
-          = localized_name anime
+    - if content_title != :none
+      .line itemprop="name"
+        - if !defined?(cover_by) || cover_by != :link
+          a.data.name href="#{anime.url}" title="#{localized_name anime}" itemprop="name"
+            = localized_name anime
+        - else
+          .linkeable.name data-href="#{anime.url}" data-title="#{localized_name anime}"
+            = localized_name anime
 
-    .text itemprop="description"
-      = anime.decorate.description_html_truncated
+    - if content_text != :none
+      .text itemprop="description"
+        = anime.decorate.description_html_truncated
 
     - if anime.kind.present?
       = info_line "Тип" do

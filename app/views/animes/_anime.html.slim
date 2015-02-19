@@ -2,6 +2,8 @@
 - content_by ||= :tooltip
 - cover_notice ||= :none
 - cover_title ||= :present
+- content_title ||= :present
+- content_text ||= :present
 
 article.c-column.b-catalog_entry[
     class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} #{:shortened if defined?(shortened) && shortened} #{:in_list if anime.in_list} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
@@ -42,7 +44,7 @@ article.c-column.b-catalog_entry[
         = render partial: 'blocks/tooltip', locals: { template_name: 'animes/content', objects: { anime: anime } }
 
       - elsif content_by == :block
-        = render partial: 'animes/content', locals: { anime: anime, cover_by: cover_by }
+        = render partial: 'animes/content', locals: { anime: anime, cover_by: cover_by, content_title: content_title, content_text: content_text }
 
       - else
         - raise ArgumentError, content_by

@@ -153,3 +153,9 @@ ru:
     proposing: Сбор кандидатов
     started: Запущено
     finished: Завершено
+  AnimeNews:
+    actions:
+      release: релиз
+      anons: анонс
+      ongoing: онгоинг
+      episode: эпизод
