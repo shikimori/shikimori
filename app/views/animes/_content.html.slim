@@ -1,3 +1,6 @@
+- content_title ||= :present
+- content_text ||= :present
+
 .b-catalog_entry-tooltip
   - if defined?(with_image) && with_image
     img.image src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}"
