@@ -17,19 +17,19 @@ describe GroupInvite do
     let(:user) { create :user }
     let(:group_invite) { build :group_invite, src: user, dst: user, group: group }
 
-    describe 'cannot_be_banned' do
+    describe '#banned?' do
       let!(:ban) { create :group_ban, group: group, user: user }
       before { group_invite.save }
       it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.banned')] }
     end
 
-    describe 'cannot_be_invited' do
-      let!(:invite) { create :group_invite, src: user, dst: user, group_id: group.id }
+    describe '#invited?' do
+      let!(:invite) { create :group_invite, src: user, dst: user, group_id: group.id, status: GroupInviteStatus::Accepted }
       before { group_invite.save }
       it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.invited')] }
     end
 
-    describe 'cannot_be_joined' do
+    describe '#joined?' do
       let!(:join) { create :group_role, user: user, group: group }
       before { group_invite.save }
       it { expect(group_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.group_invite.attributes.base.joined')] }

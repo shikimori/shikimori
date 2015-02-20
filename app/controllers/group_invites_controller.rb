@@ -12,12 +12,12 @@ class GroupInvitesController < ShikimoriController
 
   def accept
     @resource.accept!
-    render json: { notice: 'Вы вступили в клуб' }
+    render json: { notice: 'Приглашение принято' }
   end
 
   def reject
     @resource.reject!
-    render json: { }
+    render json: { notice: 'Приглашение отклонено' }
   end
 
 private
