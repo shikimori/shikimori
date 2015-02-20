@@ -45,12 +45,12 @@ module MessagesHelper # для truncate в messages helper
         end
 
       when MessageType::Banned
-        msg = "Вы забанены на #{message.linked.duration.humanize}"
+        msg = "Вы забанены на #{message.linked ? message.linked.duration.humanize : '???'}"
 
-        if message.linked.comment
+        if message.linked && message.linked.comment
           "#{msg} за комментарий #{format_entity_name message}"
         else
-          "#{msg}. Причина: \"#{message.linked.reason}\""
+          "#{msg}. Причина: \"#{message.linked ? message.linked.reason : '???'}\""
         end
 
       when MessageType::Private
