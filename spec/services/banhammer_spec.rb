@@ -33,7 +33,7 @@ describe Banhammer do
     end
   end
 
-  describe '#abusive?',:focus do
+  describe '#abusive?' do
     it { expect(banhammer.abusive? 'х*о').to be_falsy }
     it { expect(banhammer.abusive? 'тест').to be_falsy }
     it { expect(banhammer.abusive? '!!!').to be_falsy }

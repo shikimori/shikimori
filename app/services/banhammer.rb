@@ -60,9 +60,7 @@ private
   def abusiveness text = self.comment.body
     text
       .scan(ABUSE)
-      .flatten
-      .select(&:present?)
-      .select {|v| v !~ NOT_ABUSE }
+      .select {|group| group.select(&:present?).select {|v| v !~ NOT_ABUSE }.any? }
       .size
   end
 end
