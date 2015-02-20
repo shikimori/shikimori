@@ -5,7 +5,7 @@ class TopicDecorator < BaseDecorator
   def display_title
     if !preview?
       user.nickname
-    elsif generated_news?
+    elsif generated_news? || object.class == AniMangaComment
       h.localized_name object.linked
     elsif contest? || object.respond_to?(:title)
       object.title
