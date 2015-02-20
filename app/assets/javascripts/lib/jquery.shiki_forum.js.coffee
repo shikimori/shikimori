@@ -10,7 +10,7 @@
 
 class @ShikiForum extends ShikiView
   initialize: ($root) ->
-    @on 'faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
+    @on 'faye:comment:marked faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
       $topic = @$(".b-topic##{data.topic_id}")
       if $topic.exists()
         $topic.trigger e.type, data

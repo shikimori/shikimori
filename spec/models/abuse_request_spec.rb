@@ -44,7 +44,7 @@ describe AbuseRequest do
     let(:user) { create :user }
     subject(:abuse_request) { create :abuse_request, user: user }
 
-    describe 'take' do
+    describe '#take' do
       before { abuse_request.take user }
       its(:approver) { should eq user }
 
@@ -54,7 +54,7 @@ describe AbuseRequest do
       end
     end
 
-    describe 'reject' do
+    describe '#reject' do
       before { abuse_request.reject user }
       its(:approver) { should eq user }
 
@@ -96,7 +96,7 @@ describe AbuseRequest do
     end
   end
 
-  context 'class_methods' do
+  context 'class methods' do
     describe '#has_changes?' do
       let(:user) { create :user }
       subject { AbuseRequest.has_changes? }

@@ -1,5 +1,5 @@
 class FayeService
-  pattr_initialize :actor, :faye
+  pattr_initialize :actor, :publisher_faye_id
 
   def create trackable
     if trackable.save
@@ -29,8 +29,20 @@ class FayeService
     end
   end
 
+  def offtopic comment, value
+    ids = comment.mark 'offtopic', value
+    publisher.publish_marks ids, 'offtopic', comment.offtopic?
+    ids
+  end
+
+  def review comment, value
+    ids = comment.mark 'review', value
+    publisher.publish_marks ids, 'review', comment.review?
+    ids
+  end
+
 private
   def publisher
-    FayePublisher.new @actor, @faye
+    FayePublisher.new @actor, @publisher_faye_id
   end
 end

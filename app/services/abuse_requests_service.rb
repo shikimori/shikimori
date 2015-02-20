@@ -4,24 +4,19 @@ class AbuseRequestsService
     #5779 # Lumennes
   ]
 
-  def initialize comment, reporter
-    @comment = comment
-    @reporter = reporter
-  end
+  pattr_initialize :comment, :reporter
 
-  def offtopic
-    if @reporter.abuse_requests_moderator? || (
-        @comment.can_be_edited_by?(@reporter) && (!@comment.offtopic? || @comment.can_cancel_offtopic?(@reporter))
-      )
-      @comment.mark 'offtopic', !@comment.offtopic?
+  def offtopic faye_token
+    if allowed_offtopic_change?
+      FayeService.new(@reporter, faye_token).offtopic(@comment, !@comment.offtopic?)
     else
       make_request :offtopic, !@comment.offtopic?
     end
   end
 
-  def review
-    if @comment.user_id == @reporter.id || @reporter.abuse_requests_moderator?
-      @comment.mark 'review', !@comment.review?
+  def review faye_token
+    if allowed_review_change?
+      FayeService.new(@reporter, faye_token).review(@comment, !@comment.review?)
     else
       make_request :review, !@comment.review?
     end
@@ -47,5 +42,16 @@ private
     []
   rescue ActiveRecord::RecordNotUnique
     []
+  end
+
+  def allowed_review_change?
+    @comment.user_id == @reporter.id || @reporter.abuse_requests_moderator?
+  end
+
+  def allowed_offtopic_change?
+   @reporter.abuse_requests_moderator? || (
+        @comment.can_be_edited_by?(@reporter) &&
+        (!@comment.offtopic? || @comment.can_cancel_offtopic?(@reporter))
+      )
   end
 end

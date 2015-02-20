@@ -88,4 +88,54 @@ describe FayeService do
       end
     end
   end
+
+  describe '#offtopic' do
+    let(:comment) { create :comment, commentable: topic, offtopic: !is_offtopic }
+    subject(:act) { service.offtopic comment, is_offtopic }
+    let(:is_offtopic) { true }
+
+    before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+    before { expect_any_instance_of(FayePublisher).to receive(:publish_marks).with [comment.id], 'offtopic', is_offtopic }
+
+    it { should eq [comment.id] }
+
+    describe 'comment' do
+      before { act }
+
+      context 'offtopic' do
+        let(:is_offtopic) { true }
+        it { expect(comment).to be_offtopic }
+      end
+
+      context 'not offtopic' do
+        let(:is_offtopic) { false }
+        it { expect(comment).to_not be_offtopic }
+      end
+    end
+  end
+
+  describe '#review' do
+    let(:comment) { create :comment, commentable: topic, review: !is_review }
+    subject(:act) { service.review comment, is_review }
+    let(:is_review) { true }
+
+    before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+    before { expect_any_instance_of(FayePublisher).to receive(:publish_marks).with [comment.id], 'review', is_review }
+
+    it { should eq [comment.id] }
+
+    describe 'comment' do
+      before { act }
+
+      context 'review' do
+        let(:is_review) { true }
+        it { expect(comment).to be_review }
+      end
+
+      context 'not review' do
+        let(:is_review) { false }
+        it { expect(comment).to_not be_review }
+      end
+    end
+  end
 end

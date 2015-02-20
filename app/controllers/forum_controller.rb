@@ -101,14 +101,14 @@ private
 
     @faye_subscriptions = case @section.permalink
       when Section::static[:all].permalink
-        Section.real.map {|v| "section-#{v[:id]}" } +
-          (user_signed_in? ? current_user.groups.map { |v| "group-#{v[:id]}" } : [])
+        Section.real.map {|v| "section-#{v.id}" } +
+          (user_signed_in? ? current_user.groups.map { |v| "group-#{v.id}" } : [])
 
       #when Section::static[:feed].permalink
         #["user-#{current_user.id}", FayePublisher::BroadcastFeed]
 
       else
-        ["section-#{@section.permalink}"]
+        ["section-#{@section.id}"]
     end.to_json if user_signed_in?
 
     if params[:linked]# || (params[:topic] && !params[:topic].kind_of?(Hash))

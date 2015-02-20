@@ -28,13 +28,13 @@ class Moderation::AbuseRequestsController < ShikimoriController
 
   def offtopic
     @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).offtopic
+    @ids = AbuseRequestsService.new(@comment, current_user).offtopic(faye_token)
     render :create
   end
 
   def review
     @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).review
+    @ids = AbuseRequestsService.new(@comment, current_user).review(faye_token)
     render :create
   end
 

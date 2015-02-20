@@ -11,7 +11,7 @@ $moderation = (node) ->
 
   # принятие или отказ запроса
   $('.moderation .take, .moderation .deny').on 'ajax:success', ->
-    $comment(@).data('shiki_object')._reload()
+    $comment(@).shiki()._reload()
     $moderation(@).hide()
 
   $('.p-anime_video_reports .collapsed').on 'click', ->
@@ -46,6 +46,6 @@ $moderation = (node) ->
 
     # сабмит формы бана пользователю
     $form.on 'ajax:success', (e) ->
-      $comment(@).data('shiki_object')._reload()
+      $comment(@).shiki()._reload()
       $(@).closest('.ban-form').empty()
       $moderation(@).find('.moderation-buttons').hide()

@@ -3,7 +3,7 @@
     $('.b-shiki_editor')
       .shiki_editor()
       .on 'preview:params', ->
-        body: $(@).data('shiki_object').$textarea.val()
+        body: $(@).shiki().$textarea.val()
         target_id: $('#change_item_id').val()
         target_type: $('#change_model').val()
 
@@ -43,6 +43,6 @@
       .on 'autocomplete:success autocomplete:text', (e, result) ->
         @value = if Object.isString(result) then result else result.value
         $('.b-gallery').data(tags: @value)
-        $('.b-gallery').data('shiki_object').refresh()
+        $('.b-gallery').shiki().refresh()
 
     $('.b-gallery').imageboard()

@@ -21,36 +21,31 @@ class FayePublisher
       publish_message trackable, event, channels
 
     else
-      publish_data trackable, event, channels
+      publish_data trackable, channels
     end
+  end
+
+  def publish_marks comment_ids, mark_kind, mark_value
+    Comment
+      .includes(:commentable)
+      .where(id: comment_ids[0..100])
+      .order(id: :desc)
+      .each {|v| publish_mark v, mark_kind, mark_value }
   end
 
 private
   # отправка уведомлений о новом комментарии
   def publish_comment comment, event, channels
-    topic = comment.commentable
-
     # уведомление в открытые топики
     data = {
       event: "comment:#{event}",
       actor: @actor.nickname,
       actor_avatar: @actor.decorate.avatar_url(16),
       actor_avatar_2x: @actor.decorate.avatar_url(32),
-      topic_id: topic.id,
+      topic_id: comment.commentable_id,
       comment_id: comment.id
     }
-    topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
-    mixed_channels = channels + subscribed_channels(topic) +
-      ["#{@namespace}/#{topic_type}-#{topic.id}"]
-
-    # уведомление в открытые разделы
-    if topic.kind_of? GroupComment
-      mixed_channels += ["#{@namespace}/group-#{topic.linked_id}"]
-    elsif topic.respond_to? :section_id
-      mixed_channels += ["#{@namespace}/section-#{topic.section_id}"]
-    end
-
-    publish_data data, event, mixed_channels
+    publish_data data, comment_channels(comment, channels)
   end
 
   # отправка уведомлений о новом топике
@@ -66,7 +61,7 @@ private
     mixed_channels = channels + subscribed_channels(topic) +
       ["#{@namespace}/section-#{topic.section_id}", "#{@namespace}/topic-#{topic.id}"]
 
-    publish_data data, event, mixed_channels
+    publish_data data, mixed_channels
   end
 
   # отправка уведомлений о новом топике
@@ -80,11 +75,27 @@ private
     }
 
     mixed_channels = channels + ["#{@namespace}/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
-    publish_data data, event, mixed_channels
+    publish_data data, mixed_channels
+  end
+
+  # отправка уведомлений о пометке комментария либо оффтопиком, либо отзывов
+  def publish_mark comment, mark_kind, mark_value
+    # уведомление в открытые топики
+    data = {
+      event: 'comment:marked',
+      actor: @actor.nickname,
+      actor_avatar: @actor.decorate.avatar_url(16),
+      actor_avatar_2x: @actor.decorate.avatar_url(32),
+      topic_id: comment.commentable_id,
+      comment_id: comment.id,
+      mark_kind: mark_kind,
+      mark_value: mark_value
+    }
+    publish_data data, comment_channels(comment, [])
   end
 
   # отправка произвольных уведомлений
-  def publish_data data, event, channels
+  def publish_data data, channels
     return if channels.empty?
     run_event_machine
     channels = ["/#{BroadcastFeed}"] if channels.empty?
@@ -106,6 +117,21 @@ private
   end
 
 private
+  def comment_channels comment, channels
+    topic = comment.commentable
+    topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
+
+    mixed_channels = channels + subscribed_channels(topic) +
+      ["#{@namespace}/#{topic_type}-#{topic.id}"]
+
+    # уведомление в открытые разделы
+    if topic.kind_of? GroupComment
+      mixed_channels += ["#{@namespace}/group-#{topic.linked_id}"]
+    elsif topic.respond_to? :section_id
+      mixed_channels += ["#{@namespace}/section-#{topic.section_id}"]
+    end
+  end
+
   def faye_client
     @faye_client ||= Faye::Client.new "http://localhost:9292#{config[:endpoint]}"
   end

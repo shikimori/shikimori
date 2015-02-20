@@ -322,7 +322,7 @@ class @ShikiEditor extends ShikiView
 
     # замена комментария после успешного сохранения
     @on 'ajax:success', (e, response) ->
-      $comment.data('shiki_object')._replace response.html
+      $comment.shiki()._replace response.html
 
   _type: ->
     @$textarea.data('item_type')

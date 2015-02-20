@@ -33,7 +33,9 @@ class AbuseRequest < ActiveRecord::Base
 
     before_transition pending: :accepted do |abuse_request, transition|
       abuse_request.approver = transition.args.first
-      abuse_request.comment.mark abuse_request.kind, abuse_request.value
+      FayeService
+        .new(abuse_request.approver, '')
+        .send(abuse_request.kind, abuse_request.comment, abuse_request.value)
     end
 
     before_transition pending: :rejected do |abuse_request, transition|

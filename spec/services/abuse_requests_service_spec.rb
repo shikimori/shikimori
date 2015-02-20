@@ -2,9 +2,10 @@ describe AbuseRequestsService do
   let(:service) { AbuseRequestsService.new comment, user }
   let(:user) { create :user, id: 99 }
   let(:comment) { create :comment }
+  let(:faye_token) { 'test' }
 
   describe '#offtopic' do
-    subject(:act) { service.offtopic }
+    subject(:act) { service.offtopic faye_token }
     let(:comment) { create :comment, user: user }
 
     it { expect{act}.to_not change AbuseRequest, :count }
@@ -38,7 +39,7 @@ describe AbuseRequestsService do
   end
 
   describe '#review' do
-    subject(:act) { service.review }
+    subject(:act) { service.review faye_token }
     let(:comment) { create :comment, user: user }
 
     it { expect{act}.to_not change AbuseRequest, :count }
@@ -58,7 +59,12 @@ describe AbuseRequestsService do
 
   [:review, :offtopic, :abuse, :spoiler].each do |method|
     describe method.to_s do
-      subject(:act) { service.send method }
+      if method == :review || method == :offtopic
+        subject(:act) { service.send method, faye_token }
+      else
+        subject(:act) { service.send method }
+      end
+
       let(:user) { create :user, id: 99 }
       let(:comment) { create :comment }
 
