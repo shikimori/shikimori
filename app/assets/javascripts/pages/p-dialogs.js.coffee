@@ -4,7 +4,7 @@
 
   $('textarea:appeared').focus()
 
-  $('.l-page').on 'postloader:success', '.b-postloader', ->
+  $('.l-page').on 'postloader:success', ->
     $('.b-dialog.unprocessed').shiki_dialog().process()
     $('.b-message.unprocessed').shiki_message().process()
 
