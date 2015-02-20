@@ -37,13 +37,13 @@ class AnimesCollectionController < ShikimoriController
     keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
 
   rescue BadStatusError
-    redirect_to send("#{klass.table_name}_url", url_params(status: nil)), status: :moved_permanently
+    redirect_to send("#{klass.table_name}_url", url_params(status: nil)), status: 301
 
   rescue BadSeasonError
-    redirect_to send("#{klass.table_name}_url", url_params(season: nil)), status: :moved_permanently
+    redirect_to send("#{klass.table_name}_url", url_params(season: nil)), status: 301
 
   rescue ForceRedirect => e
-    redirect_to e.url, status: :moved_permanently
+    redirect_to e.url, status: 301
   end
 
   # меню каталога аниме/манги

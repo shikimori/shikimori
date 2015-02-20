@@ -32,7 +32,7 @@ class PeopleController < ShikimoriController
   end
 
   def favoured
-    redirect_to @resource.url if @resource.all_favoured.none?
+    redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
     page_title 'В избранном'
   end
 
@@ -71,6 +71,6 @@ private
   end
 
   def role_redirect
-    redirect_to seyu_url(@resource) if @resource.main_role?(:seyu)
+    redirect_to seyu_url(@resource), status: 301 if @resource.main_role?(:seyu)
   end
 end

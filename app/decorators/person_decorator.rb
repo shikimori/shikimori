@@ -135,7 +135,7 @@ class PersonDecorator < DbEntryDecorator
       .select {|v| v != role }
       .map {|v| roles_counts v }
 
-    roles_counts(role) > other_roles.max
+    roles_counts(role) >= other_roles.max
   end
 
   def seyu_favoured?

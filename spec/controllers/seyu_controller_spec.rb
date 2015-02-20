@@ -1,5 +1,6 @@
 describe SeyuController do
   let!(:seyu) { create :person, name: 'test', seyu: true }
+  let!(:role) { create :person_role, anime: create(:anime), person: seyu, role: 'Japanese' }
 
   describe '#index' do
     let!(:person_2) { create :person, seyu: false }
@@ -10,15 +11,15 @@ describe SeyuController do
   end
 
   describe '#show' do
+    let!(:seyu) { create :person, :with_thread, seyu: true }
     before { get :show, id: seyu.to_param }
 
     context 'seyu' do
-      let!(:seyu) { create :person, :with_thread, seyu: true }
       it { expect(response).to have_http_status :success }
     end
 
     context 'person' do
-      let!(:seyu) { create :person, seyu: false }
+      let!(:role) { }
       it { expect(response).to redirect_to person_url(seyu) }
     end
   end

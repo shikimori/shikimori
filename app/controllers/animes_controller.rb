@@ -21,28 +21,35 @@ class AnimesController < ShikimoriController
   end
 
   def characters
-    redirect_to @resource.url if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
+    if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
+      redirect_to @resource.url, status: 301
+    end
     page_title "Персонажи #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def staff
-    redirect_to @resource.url if @resource.roles.people.none?
+    redirect_to @resource.url, status: 301 if @resource.roles.people.none?
     page_title "Создатели #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def files
-    redirect_to @resource.url unless user_signed_in?
+    redirect_to @resource.url, status: 301 unless user_signed_in?
     page_title 'Файлы'
   end
 
   def similar
-    redirect_to @resource.url if @resource.related.similar.none?
+    redirect_to @resource.url, status: 301 if @resource.related.similar.none?
     page_title(@resource.anime? ? 'Похожие аниме' : 'Похожая манга')
   end
 
   def screenshots
-    redirect_to @resource.url if @resource.screenshots.none?
+    redirect_to @resource.url, status: 301 if @resource.screenshots.none?
     page_title 'Кадры'
+  end
+
+  def videos
+    redirect_to @resource.url, status: 301 if @resource.videos.none?
+    page_title 'Видео'
   end
 
   def cosplay
@@ -50,13 +57,9 @@ class AnimesController < ShikimoriController
     @limit = 2
     @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
 
-    redirect_to @resource.url if @collection.none?
+    redirect_to @resource.url, status: 301 if @collection.none?
 
     page_title 'Косплей'
-  end
-
-  def videos
-    page_title 'Видео'
   end
 
   def chronology
@@ -77,7 +80,7 @@ class AnimesController < ShikimoriController
   end
 
   def reviews
-    redirect_to @resource.url if @resource.comment_reviews_count.zero?
+    redirect_to @resource.url, status: 301 if @resource.comment_reviews_count.zero?
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
     #@canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
@@ -87,12 +90,12 @@ class AnimesController < ShikimoriController
   end
 
   def favoured
-    redirect_to @resource.url if @resource.all_favoured.none?
+    redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
     page_title 'В избранном'
   end
 
   def clubs
-    redirect_to @resource.url if @resource.all_linked_clubs.none?
+    redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
     page_title 'Клубы'
   end
 

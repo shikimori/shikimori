@@ -49,7 +49,7 @@ class TopicsController < ForumController
           @topic.to_param != params[:id] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && !@topic.kind_of?(ContestComment))
         )
       )
-      return redirect_to topic_url(@topic), status: :moved_permanently
+      return redirect_to topic_url(@topic), status: 301
     end
 
     super

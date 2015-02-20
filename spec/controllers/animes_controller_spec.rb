@@ -60,6 +60,7 @@ describe AnimesController do
   end
 
   describe '#videos' do
+    let!(:video) { create :video, :confirmed, anime: anime }
     before { get :videos, id: anime.to_param }
     it { expect(response).to have_http_status :success }
   end

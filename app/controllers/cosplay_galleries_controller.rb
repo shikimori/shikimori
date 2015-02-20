@@ -47,13 +47,13 @@ class CosplayGalleriesController < ShikimoriController
     end
 
     if params[:gallery] && @gallery.to_param != params[:gallery]
-      redirect_to cosplayer_path(@cosplayer, @gallery), status: :moved_permanently and return
+      redirect_to cosplayer_path(@cosplayer, @gallery), status: 301 and return
     end
     if @cosplayer.to_param != params[:cosplayer]
       if params[:gallery]
-        redirect_to cosplayer_path(@cosplayer, @gallery), status: :moved_permanently and return
+        redirect_to cosplayer_path(@cosplayer, @gallery), status: 301 and return
       else
-        redirect_to @cosplayer, status: :moved_permanently and return
+        redirect_to @cosplayer, status: 301 and return
       end
     end
 

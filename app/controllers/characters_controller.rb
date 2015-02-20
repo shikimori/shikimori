@@ -20,19 +20,19 @@ class CharactersController < PeopleController
 
   # все сэйю персонажа
   def seyu
-    redirect_to @resource.url if @resource.seyu.none?
+    redirect_to @resource.url, status: 301 if @resource.seyu.none?
     page_title 'Сэйю'
   end
 
   # все аниме персонажа
   def animes
-    redirect_to @resource.url if @resource.animes.none?
+    redirect_to @resource.url, status: 301 if @resource.animes.none?
     page_title 'Анимеграфия'
   end
 
   # вся манга персонажа
   def mangas
-    redirect_to @resource.url if @resource.mangas.none?
+    redirect_to @resource.url, status: 301 if @resource.mangas.none?
     page_title 'Мангаграфия'
   end
 
@@ -46,12 +46,12 @@ class CharactersController < PeopleController
   end
 
   def favoured
-    redirect_to @resource.url if @resource.all_favoured.none?
+    redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
     page_title 'В избранном'
   end
 
   def clubs
-    redirect_to @resource.url if @resource.all_linked_clubs.none?
+    redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
     page_title 'Клубы'
   end
 

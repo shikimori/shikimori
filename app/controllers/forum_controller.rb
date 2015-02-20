@@ -92,7 +92,7 @@ private
   # построние окружения форума
   # TODO: отрефакторить
   def build_background
-    redirect_to :root, status: :moved_permanently and return false if params[:format] == 'user'
+    redirect_to :root, status: 301 and return false if params[:format] == 'user'
 
     params[:section] ||= Section::static[:all][:permalink]
 
