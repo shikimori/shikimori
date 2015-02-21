@@ -1,7 +1,7 @@
 describe BbCodes::VideoTag do
   let(:tag) { BbCodes::VideoTag.instance }
 
-  describe 'format' do
+  describe '#format' do
     subject { tag.format text }
 
     context 'youtube' do
@@ -114,7 +114,7 @@ describe BbCodes::VideoTag do
     end
   end
 
-  describe 'preprocess' do
+  describe '#preprocess' do
     subject { tag.preprocess text }
     let(:url) { "https://www.youtube.com/watch?v=GFhdjskj#t=123" }
     let(:text) { "[url=#{url}]test[/url][url=#{url}]test[/url]" }

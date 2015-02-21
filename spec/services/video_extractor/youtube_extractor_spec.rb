@@ -29,13 +29,24 @@ describe VideoExtractor::YoutubeExtractor do
         its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc?start=123' }
       end
 
-      context 'params after' do
+      context '& params after' do
         let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&ff=vcxvcx' }
         its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
       end
 
-      context 'params before' do
+      context '&amp; params after' do
+        let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&amp;ff=vcxvcx' }
+        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+      end
+
+      context '& params before' do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc' }
+        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+        it { should be_present }
+      end
+
+      context '&amp; params before' do
+        let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&amp;v=VdwKZ6JDENc' }
         its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
         it { should be_present }
       end
@@ -45,7 +56,7 @@ describe VideoExtractor::YoutubeExtractor do
         its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc?start=123' }
         it { should be_present }
       end
-  end
+    end
 
     context 'invalid url' do
       let(:url) { 'http://vk.com/video98023184_165811692zzz' }

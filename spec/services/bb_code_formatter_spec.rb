@@ -203,9 +203,15 @@ describe BbCodeFormatter do
     end
 
     describe '[youtube]', vcr: { cassette_name: 'youtube_video' } do
-      let(:hash) { "og2a5lngYeQ" }
-      let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
-      it { should include '<a class="c-video b-video unprocessed youtube' }
+      context 'direct link' do
+        let(:text) { "https://www.youtube.com/watch?v=og2a5lngYeQ" }
+        it { should include '<a class="c-video b-video unprocessed youtube' }
+      end
+
+      context 'link with &' do
+        let(:text) { "https://www.youtube.com/watch?feature=player_embedded&v=aX9j5KokIeE" }
+        it { should include '<a class="c-video b-video unprocessed youtube' }
+      end
     end
 
     describe '[url]' do
