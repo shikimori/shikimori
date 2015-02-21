@@ -63,6 +63,13 @@ describe CharactersController do
     it { expect(response).to redirect_to section_topic_url(id: character.thread, section: section, linked: character) }
   end
 
+  describe '#cosplay' do
+    let(:cosplay_gallery) { create :cosplay_gallery }
+    let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: character }
+    before { get :cosplay, id: anime.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#art' do
     before { get :art, id: character.to_param }
     it { expect(response).to have_http_status :success }

@@ -52,16 +52,6 @@ class AnimesController < ShikimoriController
     page_title 'Видео'
   end
 
-  def cosplay
-    @page = [params[:page].to_i, 1].max
-    @limit = 2
-    @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
-
-    redirect_to @resource.url, status: 301 if @collection.none?
-
-    page_title 'Косплей'
-  end
-
   def chronology
     page_title(@resource.anime? ? 'Хронология аниме' : 'Хронология манги')
   end
@@ -87,6 +77,16 @@ class AnimesController < ShikimoriController
 
   def art
     page_title 'Арт с имиджборд'
+  end
+
+  def cosplay
+    @page = [params[:page].to_i, 1].max
+    @limit = 2
+    @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
+
+    redirect_to @resource.url, status: 301 if @collection.none?
+
+    page_title 'Косплей'
   end
 
   def favoured

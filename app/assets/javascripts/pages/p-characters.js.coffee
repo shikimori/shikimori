@@ -14,11 +14,17 @@
     $.scrollTo $editor, ->
       $editor.focus()
 
-# арт с имиджборд по персонажу
+# арт с имиджборд
 @on 'page:load', 'characters_art', ->
   $('.b-gallery').imageboard()
 
-# редактирование персонажа
+# косплей
+@on 'page:load', 'characters_cosplay', ->
+  $('.b-gallery').gallery()
+  $('.l-content').on 'postloader:success', ->
+    $('.b-gallery').gallery()
+
+# редактирование
 @on 'page:load', 'characters_edit', ->
   $('.b-shiki_editor')
     .shiki_editor()

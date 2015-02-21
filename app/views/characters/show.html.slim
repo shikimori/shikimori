@@ -20,11 +20,10 @@
               = info_line 'По-японски', @resource.japanese
               = info_line 'Прочие', @resource.altname
 
-              - if @resource.tags.present?# || @resource.cosplay.galleries.any?
+              - if @resource.tags.present? || @resource.cosplay?
                 .additional-links
-                  /- if @resource.cosplay.galleries.any?
-                    span.link Косплей
-                    /= "#{@resource.cosplay.galleries.size} #{Russian.p @resource.cosplay.galleries.size, 'галерея косплея', 'галереи косплея', 'галерей косплея'}"
+                  - if @resource.cosplay?
+                    span.linkeable data-href="#{cosplay_character_url @resource}" Косплей
 
                   - if @resource.tags.present?
                     span.linkeable data-href="#{art_character_url @resource}" Арт с имиджборд

@@ -1,5 +1,6 @@
 class CharacterDecorator < PersonDecorator
-  instance_cache :seyu, :changes, :all_animes, :all_mangas, :limited_animes, :limited_mangas
+  instance_cache :seyu, :changes, :all_animes, :all_mangas, :cosplay?
+  instance_cache :limited_animes, :limited_mangas
 
   def url
     h.character_url object
@@ -29,6 +30,11 @@ class CharacterDecorator < PersonDecorator
 
   def mangas limit = nil
     decorated_entries object.mangas.limit(limit)
+  end
+
+  # есть ли косплей
+  def cosplay?
+    CosplayGalleriesQuery.new(object).fetch(1,1).any?
   end
 
 private

@@ -52,13 +52,6 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#cosplay' do
-    let(:cosplay_gallery) { create :cosplay_gallery }
-    let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: anime }
-    before { get :cosplay, id: anime.to_param }
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#videos' do
     let!(:video) { create :video, :confirmed, anime: anime }
     before { get :videos, id: anime.to_param }
@@ -73,6 +66,13 @@ describe AnimesController do
 
   describe '#art' do
     before { get :art, id: anime.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#cosplay' do
+    let(:cosplay_gallery) { create :cosplay_gallery }
+    let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: anime }
+    before { get :cosplay, id: anime.to_param }
     it { expect(response).to have_http_status :success }
   end
 

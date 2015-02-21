@@ -45,6 +45,16 @@ class CharactersController < PeopleController
     page_title 'Арт с имиджборд'
   end
 
+  def cosplay
+    @page = [params[:page].to_i, 1].max
+    @limit = 2
+    @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
+
+    redirect_to @resource.url, status: 301 if @collection.none?
+
+    page_title 'Косплей'
+  end
+
   def favoured
     redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
     page_title 'В избранном'
