@@ -22,14 +22,14 @@ describe Banhammer do
   describe '#ban' do
     let!(:user_banhammer) { create :user, :banhammer }
     let(:comment) { create :comment, body: text }
-    let(:text) { 'test хуй test' }
+    let(:text) { 'test хуй test хуй' }
     subject(:ban) { banhammer.send :ban }
 
     it do
       expect(ban).to be_kind_of Ban
       expect(ban).to have_attributes(user_id: comment.user.id, comment_id: comment.id, moderator_id: user_banhammer.id)
-      expect(ban.duration).to eql BanDuration.new('15m')
-      expect(comment.body).to eq "test [color=#ff4136]###[/color] test\n\n[ban=#{ban.id}]"
+      expect(ban.duration).to eql BanDuration.new('30m')
+      expect(comment.body).to eq "test [color=#ff4136]###[/color] test [color=#ff4136]###[/color]\n\n[ban=#{ban.id}]"
     end
   end
 
@@ -38,6 +38,7 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'тест').to be_falsy }
     it { expect(banhammer.abusive? '!!!').to be_falsy }
     it { expect(banhammer.abusive? '*!!!*').to be_falsy }
+    it { expect(banhammer.abusive? 'N*O*K').to be_falsy }
 
     it { expect(banhammer.abusive? 'хуй').to be_truthy }
     it { expect(banhammer.abusive? 'ху*').to be_truthy }
