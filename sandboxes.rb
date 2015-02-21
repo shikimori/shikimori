@@ -11,7 +11,10 @@ Topic.includes(:user).each {|v| v.user.subscribe(v) }
 reload!
 galleries = CosplayGallery.without_topic.to_a;
 CosplayComment.delete_all;
-120.times { galleries.sample.send :generate_thread };
+1.times do
+  topic = galleries.sample.send(:generate_thread)
+  FayePublisher.new(User.first).publish topic, :created, []
+end;
 
 ###########################
 # заполнение контеста голосами пользователей
