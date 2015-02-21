@@ -1,36 +1,46 @@
 class CosplayGallery < ActiveRecord::Base
-  #acts_as_voteable
+  acts_as_voteable
 
   has_many :image, -> { where(deleted: false).limit(1) },
-    class_name: 'CosplayImage'
+    class_name: CosplayImage.name
 
   has_many :images, -> { where(deleted: false).order(:position) },
-    class_name: 'CosplayImage',
+    class_name: CosplayImage.name,
     dependent: :destroy
 
   has_many :deleted_images, -> { where(deleted: true).order(:position) },
-    class_name: 'CosplayImage'
+    class_name: CosplayImage.name
 
-  has_many :links, class_name: 'CosplayGalleryLink', dependent: :destroy
+  has_many :links, class_name: CosplayGalleryLink.name, dependent: :destroy
   has_many :cosplayers,
     through: :links,
     source: :linked,
-    source_type: 'Cosplayer'
+    source_type: Cosplayer.name
 
   has_many :animes,
     through: :links,
     source: :linked,
-    source_type: 'Anime'
+    source_type: Anime.name
 
   has_many :mangas,
     through: :links,
     source: :linked,
-    source_type: 'Manga'
+    source_type: Manga.name
 
   has_many :characters,
     through: :links,
     source: :linked,
-    source_type: 'Character'
+    source_type: Character.name
+
+  has_one :thread, -> { where linked_type: CosplayGallery.name },
+    class_name: CosplayComment.name,
+    foreign_key: :linked_id,
+    dependent: :destroy
+
+  scope :visible, -> { where confirmed: true, deleted: false }
+
+  #after_create :generate_thread
+  #after_save :sync_thread
 
   accepts_nested_attributes_for :images, :deleted_images
 
@@ -61,7 +71,7 @@ class CosplayGallery < ActiveRecord::Base
   end
 
   # полное название галереи
-  def title linked
+  def title linked = self.send(:any_linked)
     titles = title_components(linked).map {|c| c.map(&:name).join(' и ') }
     "Косплей #{titles.first} от #{titles.second}".html_safe
   end
@@ -78,5 +88,31 @@ class CosplayGallery < ActiveRecord::Base
   # удалена ли модератором галерея
   def deleted?
     deleted
+  end
+
+  def self.without_topic
+    visible
+      .includes(:animes, :mangas, :characters, :thread)
+      .select {|v| !v.thread.present? }
+      .select {|v| v.animes.any? || v.mangas.any? || v.characters.any? }
+  end
+
+private
+  def sync_thread
+    thread.update_attribute :title, name if thread.title != name
+  end
+
+  # создание AniMangaComment для элемента сразу после создания
+  def generate_thread
+    create_thread!(
+      user_id: User::Cosplayer_ID,
+      linked: self,
+      section_id: Section::COSPLAY_ID,
+      title: title
+    )
+  end
+
+  def any_linked
+    animes.first || mangas.first || characters.first
   end
 end

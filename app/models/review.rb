@@ -86,7 +86,7 @@ class Review < ActiveRecord::Base
 
   def to_offtopic!
     thread.class.record_timestamps = false
-    thread.update_column :section_id, Section::OfftopicId
+    thread.update_column :section_id, Section::OFFTOPIC_ID
     thread.class.record_timestamps = true
   end
 

@@ -28,7 +28,7 @@ class Entry < ActiveRecord::Base
   SpecialInnerTypes = ['AnimeNews', 'MangaNews']
 
   # все производные классы
-  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment']
+  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
 
   # видимые топики
   scope :wo_generated, -> { wo_episodes.where("(comments_count > 0 and generated = true) or generated = false ") }
@@ -131,6 +131,11 @@ class Entry < ActiveRecord::Base
     self.class == ReviewComment
   end
 
+  # топик ли это косплей?
+  def cosplay?
+    self.class == CosplayComment
+  end
+
   def user_image_ids(value=self.value)
     (value || '').split(',').map(&:to_i).select { |v| v > 0 }
   end
@@ -159,7 +164,7 @@ class Entry < ActiveRecord::Base
 private
   # проверка, что linked при его наличии нужного типа
   def validates_linked
-    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Group|Review|Contest)$/
+    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Group|Review|Contest|CosplayGallery)$/
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end

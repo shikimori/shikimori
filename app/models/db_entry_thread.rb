@@ -1,5 +1,14 @@
 class DbEntryThread < Topic
-  SectionIDs = { 'Anime' => 1, 'Manga' => 6, 'Character' => 7, 'Person' => 14, 'Group' => Section::GroupsId, 'Review' => 12, 'Contest' => Section::ContestsId }
+  SectionIDs = {
+    'Anime' => 1,
+    'Manga' => 6,
+    'Character' => 7,
+    'Person' => 14,
+    'Group' => Section::GROUPS_ID,
+    'Review' => 12,
+    'Contest' => Section::CONTESTS_ID,
+    'CosplayGallery' => Section::COSPLAY_ID
+  }
 
   attr_defaults section_id: -> { SectionIDs[linked_type] }
   attr_defaults user_id: -> { BotsService.get_poster.id }

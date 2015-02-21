@@ -71,7 +71,7 @@ describe Review do
 
     describe '#to_offtopic' do
       before { review.reject! user }
-      it { expect(review.thread.section_id).to eq Section::OfftopicId }
+      it { expect(review.thread.section_id).to eq Section::OFFTOPIC_ID }
     end
   end
 

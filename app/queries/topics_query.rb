@@ -53,7 +53,7 @@ private
 
   def exclude_hentai query
     query
-      .joins('left join animes on animes.id=linked_id')
+      .joins("left join animes on animes.id=linked_id and linked_type='Anime'")
       .where("animes.id is null or animes.censored=false")
   end
 

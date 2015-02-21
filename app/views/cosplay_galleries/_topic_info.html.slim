@@ -1,0 +1,41 @@
+- cache [topic, topic.preview?, gallery, russian_names_key] do
+  .cosplay-info
+    .line
+      .key = gallery.cosplayers.one? ? 'Косплеит' : 'Косплеят'
+      .value
+        - gallery.cosplayers.each do |cosplayer|
+          .cosplayer = cosplayer.name
+
+    - if gallery.characters.any?
+      .line
+        .key Персонаж#{'и' unless gallery.characters.one?}
+        .value
+          - gallery.characters.each do |character|
+            a.bubbled href="#{character_url character}"
+              = localized_name character
+
+    - if gallery.animes.any?
+      .line
+        .key Аниме
+        .value
+          - gallery.animes.each do |anime|
+            a.bubbled href="#{anime_url anime}"
+              = localized_name anime
+
+    - elsif gallery.mangas.any?
+      .line
+        .key Манга
+        .value
+          - gallery.mangas.each do |manga|
+            a.bubbled href="#{manga_url manga}"
+              = localized_name manga
+
+    - if topic.preview? && gallery.images.size > CosplayComment::IMAGES_IN_PREVIEW
+      .line
+        .key В галерее
+        .value #{gallery.images.size} #{Russian.p gallery.images.size, 'кадр', 'кадра', 'кадров'}
+
+  - if topic.preview?
+    = BbCodeFormatter.instance.format_comment topic.preview_wall
+  - else
+    = render topic.linked

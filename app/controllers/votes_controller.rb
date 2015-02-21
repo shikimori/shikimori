@@ -14,7 +14,7 @@ class VotesController < ShikimoriController
     raise Forbidden if @vote.voteable.user_id == current_user.id
 
     if @vote.save
-      render json: { notice: 'Ваш голос учтён' }
+      render json: { } # notice: 'Ваш голос учтён'
     else
       render json: @vote.errors, status: :unprocessable_entity
     end

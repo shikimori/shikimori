@@ -6,6 +6,14 @@ Comment.includes(:user).includes(:commentable).each {|v| v.user.subscribe(v.comm
 Topic.includes(:user).each {|v| v.user.subscribe(v) }
 
 ###########################
+# генерация топиков косплея
+###########################
+reload!
+galleries = CosplayGallery.without_topic.to_a;
+CosplayComment.delete_all;
+120.times { galleries.sample.send :generate_thread };
+
+###########################
 # заполнение контеста голосами пользователей
 ###########################
 Contest.last.current_round.matches.each {|match| (rand*200).to_i.times { match.votes.create(user_id: users.sample.id, item_id: (rand > 0.5 ? match.left_id : match.right_id), ip: users.sample.current_sign_in_ip) rescue nil } }

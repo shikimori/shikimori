@@ -15,10 +15,14 @@ class @ShikiTopic extends ShikiEditable
     @$editor = @$('.b-shiki_editor')
     @editor = new ShikiEditor(@$editor) if @$editor.length # редактора не будет у неавторизованных пользователей
     @is_preview = @$root.hasClass('preview')
+    @is_cosplay = @$root.hasClass('b-cosplay')
 
     if @is_preview
       @$body.imagesLoaded @_check_height
       @_check_height()
+
+    if @is_cosplay && !@is_preview
+      @$('.b-cosplay_gallery .b-gallery').gallery()
 
     # ответ на топик
     $('.item-reply', @$inner).on 'click', =>
@@ -55,7 +59,7 @@ class @ShikiTopic extends ShikiEditable
         @_hide_editor()
 
     # голосование за/против рецензии
-    @$('.vote').on 'ajax:before', ->
+    @$('.voteable .vote').on 'ajax:before', ->
       $(@).addClass('selected')
       $(@).siblings('.vote').removeClass('selected')
 

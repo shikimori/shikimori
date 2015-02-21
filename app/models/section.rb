@@ -8,12 +8,11 @@ class Section < ActiveRecord::Base
   # разделы, в которые можно создавать топики из интерфейса
   PUBLIC_SECTIONS = %w{ o a m c p s }
 
-  NewsId = [2,6]
-  AnimeNewsId = 2
-  GroupsId = 10
-  OfftopicId = 8
-  ContestsId = 13
-  TestId = 5
+  ANIME_NEWS_ID = 2
+  GROUPS_ID = 10
+  OFFTOPIC_ID = 8
+  CONTESTS_ID = 13
+  COSPLAY_ID = 15
 
   def to_param
     permalink

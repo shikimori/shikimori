@@ -81,8 +81,12 @@ $comments_left_margin: 24px
 
       .b-user16
         display: inline-block
-        font-size: 13px
-        padding-right: 10px
+        font-size: 12px
+        float: right
+        padding-right: 5px
+
+        img
+          margin-top: 1px
 
       .date
         color: $date
@@ -107,6 +111,30 @@ $comments_left_margin: 24px
           &:active
             color: inherit !important
             text-decoration: inherit
+
+    .voteable
+      color: #123
+      display: inline-block
+      line-height: $line_height
+
+      .vote
+        +link_color(#123)
+        cursor: pointer
+        display: inline-block
+        margin-left: 14px
+
+        &:before
+          font-family: 'shikimori'
+          padding-right: 5px
+
+        &.yes:before
+          content: '\e844'
+
+        &.no:before
+          content: '\e845'
+
+        &.selected
+          color: $link
 
   &>.b-comments
     margin-top: 5px

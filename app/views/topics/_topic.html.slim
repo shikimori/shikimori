@@ -3,7 +3,7 @@
 - else
   article.b-topic.shiki-object.unprocessed[
       id="#{topic.id}"
-      class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'b-generated_news' if topic.generated_news?}"
+      class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'b-cosplay' if topic.cosplay?} #{'b-generated_news' if topic.generated_news?}"
       data-user_nickname="#{topic.user.nickname}"
       data-generated="#{topic.generated?}"
       data-faye="#{topic.faye_channel}"
@@ -42,22 +42,24 @@
         .body
           - if topic.generated_news?
             = render topic.linked.decorate, cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
+          - elsif topic.cosplay?
+            = render partial: 'cosplay_galleries/topic_info', locals: { topic: topic, gallery: topic.linked }
           - else
             - if topic.review?
               = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
             = topic.html_body
 
         footer
-          - if topic.show_author_in_footer?
-            a.b-user16 href="#{profile_url topic.user}" title="#{topic.user.nickname}"
-              img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
-              span = topic.user.nickname
-
-          - if topic.review? && user_signed_in? && topic.linked.user_id != current_user.id
-            p
+          - if topic.review? && topic.linked.user_id != current_user.id
+            .voteable
               span Эта рецензия полезна?
-              span.vote class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
-              span.vote class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
+              .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
+              .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
+          - elsif topic.cosplay?
+            .voteable
+              span Тебе нравится?
+              .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
+              .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
 
           p.tags
             - if user_signed_in?
@@ -70,6 +72,11 @@
               - if topic.tag.present? && !topic.news? && !topic.review?
                 span.tag title="#{topic.tag}" data-href="#{subsection_url topic}" = topic.tag
               span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
+
+          - if topic.show_author_in_footer?
+            a.b-user16 href="#{profile_url topic.user}" title="#{topic.user.nickname}"
+              img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
+              span = topic.user.nickname
 
       - unless topic.viewed?
         .appear-marker class="appear-topic-#{topic.id}" data-appear_url="#{appear_path}"

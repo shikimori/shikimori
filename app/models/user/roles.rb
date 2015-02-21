@@ -4,6 +4,7 @@ class User
     Morr_ID = 1
     Banhammer_ID = 6942
     Blackchestnut_ID = 1077
+    Cosplayer_ID = 1680
 
     # access rights
     Admins = [Morr_ID, Blackchestnut_ID]

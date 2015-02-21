@@ -59,10 +59,13 @@ header.head
           = render 'people/menu', resource: @topic.linked.decorate
 
         - elsif @topic.linked.kind_of? Group
-            = render 'clubs/menu', resource: @topic.linked.decorate
+          = render 'clubs/menu', resource: @topic.linked.decorate
 
         - elsif @topic.linked.kind_of? Contest
-            = render 'contests/menu', resource: @topic.linked.decorate
+          = render 'contests/menu', resource: @topic.linked.decorate
+
+        - elsif @topic.linked.kind_of? CosplayGallery
+          = render 'forum/menu', presenter: @news
 
         - else raise "unknown linked: #{@linekd.class}"
 
