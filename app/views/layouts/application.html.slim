@@ -2,7 +2,6 @@ doctype html
 html
   head
     = render partial: 'application/head'
-    = render partial: 'anime_online/adlabs/main_script' if AnimeOnline::AdsPolicy.is_viewed?(request.host, current_user)
   body[
       class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} "
       id="#{controller_name}_#{action_name}"
@@ -13,6 +12,9 @@ html
       data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
     ]
     .turbolinks
+
+    = render partial: 'anime_online/adlabs/main_script' if AnimeOnline::AdsPolicy.is_viewed?(request.host, current_user)
+
     - if defined?(notice) && notice
       p.flash-notice
         == notice
