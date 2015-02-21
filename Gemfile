@@ -13,7 +13,7 @@ gem 'redis'
 gem 'slim-rails'
 gem 'coffee-rails'
 
-gem 'sass-rails', '5.0.0.beta1'
+gem 'sass-rails'
 gem 'compass-rails'
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
 
@@ -25,7 +25,7 @@ gem 'unicorn'
 
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
-#gem 'attr_extras'
+gem 'attr_extras'
 gem 'state_machine'
 gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'nokogiri'
@@ -35,7 +35,6 @@ gem 'metrika'
 gem 'simple_form'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable' # https://github.com/rails-api/active_model_serializers/issues/641
 gem 'virtus'
-gem 'attr_extras'
 
 #gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
