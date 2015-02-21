@@ -2,14 +2,14 @@
   img.avatar src="#{entry.image.url :preview}" title="#{entry.name}"
   .name
     - if defined?(render_link) && render_link
-      a href="#{send url_builder, entry}"
-        == entry.name
+      a href="#{send url_builder, entry}" == entry_name
     - else
-      == [entry.name, entry.russian].compact.join(' / ')
+      == entry_name
+
     - if defined?(render_after_name) && render_after_name
       == render_after_name
+
   .animes
     - (entry.animes+entry.mangas).shuffle.take(3).each do |entry|
-      div
-        a href="#{url_for entry}"
-          == entry.name
+      div: a href="#{url_for entry}"
+        = localized_name entry
