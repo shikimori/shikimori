@@ -50,16 +50,17 @@
             = topic.html_body
 
         footer
-          - if topic.review? && topic.linked.user_id != current_user.id
-            .voteable
-              span Эта рецензия полезна?
-              .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
-              .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
-          - elsif topic.cosplay?
-            .voteable
-              span Тебе нравится?
-              .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
-              .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
+          - if user_signed_in?
+            - if topic.review? && topic.linked.user_id != current_user.id
+              .voteable
+                span Эта рецензия полезна?
+                .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
+                .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
+            - elsif topic.cosplay?
+              .voteable
+                span Тебе нравится?
+                .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
+                .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
 
           p.tags
             - if user_signed_in?
