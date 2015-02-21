@@ -2,12 +2,13 @@
   - if defined?(with_headline)
     h3
       | Косплей&nbsp;
-      - cosplay_gallery.title_components(@resource).first.each do |component|
-        a.bubbled href="#{url_for component}" = localized_name component
-        - if component != cosplay_gallery.title_components(@resource).first.last
-          | &nbsp;и&nbsp;
-        - else
-          | &nbsp;
+      - if cosplay_gallery.title_components(@resource).first.first != @resource
+        - cosplay_gallery.title_components(@resource).first.each do |component|
+          a.bubbled href="#{url_for component}" = localized_name component
+          - if component != cosplay_gallery.title_components(@resource).first.last
+            | &nbsp;и&nbsp;
+          - else
+            | &nbsp;
       | от&nbsp;
       = cosplay_gallery.title_components(@resource).second.map(&:name).join(' и ')
 
