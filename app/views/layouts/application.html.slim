@@ -12,6 +12,9 @@ html
       data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
     ]
     .turbolinks
+
+    = render partial: 'anime_online/adlabs/main_script' if AnimeOnline::AdsPolicy.is_viewed?(request.host, current_user)
+
     - if defined?(notice) && notice
       p.flash-notice
         == notice
