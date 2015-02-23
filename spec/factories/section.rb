@@ -39,6 +39,12 @@ FactoryGirl.define do
       name 'Клубы'
     end
 
+    trait :cosplay do
+      id { DbEntryThread::SectionIDs['CosplayGallery'] }
+      permalink 'cosplay'
+      name 'Косплей'
+    end
+
     trait :reviews do
       id { DbEntryThread::SectionIDs['Review'] }
       permalink 'reviews'

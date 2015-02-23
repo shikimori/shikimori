@@ -34,7 +34,6 @@ Site::Application.routes.draw do
     end
   end
 
-
   namespace :moderation do
     resources :user_changes, only: [:show, :index, :create] do
       collection do
@@ -290,6 +289,11 @@ Site::Application.routes.draw do
         get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
         get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
       end
+    end
+
+    resources :cosplay_galleries, only: [] do
+      get :publishing, on: :collection
+      post :publish, on: :member
     end
 
     resources :clubs do

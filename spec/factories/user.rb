@@ -49,6 +49,10 @@ FactoryGirl.define do
       id User::Banhammer_ID
     end
 
+    trait :cosplayer do
+      id User::Cosplayer_ID
+    end
+
     trait :without_password do
       password nil
 

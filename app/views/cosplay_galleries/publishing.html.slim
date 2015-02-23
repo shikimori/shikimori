@@ -1,0 +1,9 @@
+header.head
+  h1 Публикация косплея
+
+- @collection.each do |cosplay_gallery|
+  a href="#{publish_cosplay_gallery_url cosplay_gallery}" data-method="post" Опубликовать
+  = render cosplay_gallery, with_headline: true
+
+javascript:
+  $('.b-gallery').gallery()
