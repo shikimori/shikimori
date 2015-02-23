@@ -4,7 +4,9 @@ class ProxyWorker
 
   def perform is_api
     if is_api
-      api_import
+      Retryable.retryable tries: 2, on: [OpenURI::HTTPError], sleep: 1 do
+        api_import
+      end
     else
       ProxyParser.new.import
     end
