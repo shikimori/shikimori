@@ -130,6 +130,8 @@ private
     elsif topic.respond_to? :section_id
       mixed_channels += ["#{@namespace}/section-#{topic.section_id}"]
     end
+
+    mixed_channels
   end
 
   def faye_client
