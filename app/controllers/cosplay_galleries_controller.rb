@@ -3,7 +3,7 @@ class CosplayGalleriesController < ShikimoriController
   before_action :check_access
 
   def publishing
-    @collection = CosplayGallery.without_topic.to_a.shuffle.take(100)
+    @collection = CosplayGallery.without_topic.to_a.shuffle.take(10)
   end
 
   def publish
