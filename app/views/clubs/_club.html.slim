@@ -1,14 +1,14 @@
 .b-club.c-colum id="#{club.id}" class="#{content_by}" class="#{content_by} item-#{club_counter if defined? club_counter}"
   - if content_by == :detailed
-    a href="#{club_url club}" title="#{club.name}"
+    a href="#{club_url club, subdomain: false}" title="#{club.name}"
       img.logo src="#{club.logo.url :x48}" srcset="#{club.logo.url :x96} 2x" alt="#{club.name}" title="#{club.name}"
-    a.name href="#{club_url club}" title="#{club.name}"
+    a.name href="#{club_url club, subdomain: false}" title="#{club.name}"
       = club.name
     .info
       = "#{club.members_count} #{Russian.p club.members_count, 'участник', 'участника', 'участников'}"
 
   - elsif content_by == :avatar
-    a href="#{club_url club}" title="#{club.name}"
+    a href="#{club_url club, subdomain: false}" title="#{club.name}"
       img.logo src="#{club.logo.url :x48}" srcset="#{club.logo.url :x96} 2x" alt="#{club.name}" title="#{club.name}"
 
   - else
