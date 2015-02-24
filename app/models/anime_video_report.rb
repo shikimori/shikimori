@@ -49,7 +49,9 @@ class AnimeVideoReport < ActiveRecord::Base
     before_transition pending: :accepted do |report, transition|
       report.approver = transition.args.first
       video = report.anime_video
-      video.send(report.kind)
+
+      video.send "#{report.kind}!"
+
       report.process_doubles(:accepted)
       report.process_conflict(:uploaded, :rejected)
     end
@@ -99,8 +101,7 @@ class AnimeVideoReport < ActiveRecord::Base
       )
   end
 
-  private
-
+private
   def auto_check
     AnimeOnline::ReportWorker.delay_for(10.seconds).perform_async id
   end

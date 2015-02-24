@@ -66,7 +66,7 @@ describe CharactersController do
   describe '#cosplay' do
     let(:cosplay_gallery) { create :cosplay_gallery }
     let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: character }
-    before { get :cosplay, id: anime.to_param }
+    before { get :cosplay, id: character.to_param }
     it { expect(response).to have_http_status :success }
   end
 

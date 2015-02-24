@@ -13,6 +13,10 @@ FactoryGirl.define do
       video.stub :create_episode_notificaiton
     end
 
+    trait :uploaded do
+      state 'uploaded'
+    end
+
     trait :with_notification do
       #after(:create) { |video| video.send(:create_episode_notificaiton) }
       after(:build) { |video| video.unstub :create_episode_notificaiton }

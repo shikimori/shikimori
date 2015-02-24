@@ -23,11 +23,11 @@ FactoryGirl.define do
     end
 
     trait :with_video do
-      anime_video
+      anime_video { FactoryGirl.create :anime_video, :uploaded }
     end
 
     trait :with_user do
-      user
+      user { FactoryGirl.create :user, :user }
     end
   end
 end

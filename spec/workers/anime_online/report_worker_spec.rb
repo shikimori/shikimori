@@ -1,6 +1,7 @@
 describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_worker' } do
   let(:report) { create :anime_video_report, kind: 'broken', state: 'pending', anime_video: anime_video, user: user }
-  let(:anime_video) { create :anime_video, url: url }
+  let(:anime_video) { create :anime_video, url: url, anime: anime }
+  let(:anime) { create :anime }
 
   subject { AnimeOnline::ReportWorker.new.perform report.id }
 
@@ -81,7 +82,7 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
     end
 
     context 'uploaded' do
-      let(:anime_video) { create :anime_video }
+      let(:anime_video) { create :anime_video, :uploaded, anime: anime }
       let(:report) { create :anime_video_report, anime_video: anime_video, kind: 'uploaded', state: 'pending', user: user }
       before { AnimeOnline::Uploaders.reset }
 
@@ -96,7 +97,7 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
     end
 
     context 'trust_accept_broken' do
-      let(:anime_video) { create :anime_video, url: "http://rutube.ru/1" }
+      let(:anime_video) { create :anime_video, url: "http://rutube.ru/1", anime: anime }
       let(:report) { create :anime_video_report, anime_video: anime_video, kind: "broken", state: "pending", user: user }
       before { AnimeOnline::Activists.reset }
 

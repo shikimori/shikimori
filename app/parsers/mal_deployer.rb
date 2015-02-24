@@ -16,8 +16,11 @@ module MalDeployer
 
     # изменения самого элемента
     data[:entry]
-        .except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
-        .each {|k,v| entry[k] = v }
+      .except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
+      .each do |field,value|
+        entry[field] = value
+      end
+
     entry.mal_scores = data[:scores] if data.include? :scores
 
     entry.image = reload_image entry, data if reload_image? entry, data
