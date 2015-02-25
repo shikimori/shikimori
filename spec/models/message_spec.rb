@@ -238,7 +238,17 @@ describe Message do
 
         context 'private message' do
           let(:kind) { MessageType::Private }
-          it { should be_able_to :create, message }
+
+          context 'not banned forever' do
+            let(:from_user) { build_stubbed :user, :user, read_only_at: 1.year.from_now - 1.week }
+            it { should be_able_to :create, message }
+          end
+
+          context 'banned forever' do
+            let(:from_user) { build_stubbed :user, :user, read_only_at: 1.year.from_now + 1.week }
+            it { should_not be_able_to :create, message }
+          end
+
           it { should be_able_to :edit, message }
           it { should be_able_to :update, message }
 

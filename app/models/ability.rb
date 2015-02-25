@@ -138,7 +138,8 @@ class Ability
         (message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
     can [:create], Message do |message|
-      message.kind == MessageType::Private && message.from_id == @user.id
+      forever_banned = (@user.read_only_at || Time.zone.now) - 1.year > Time.zone.now
+      message.kind == MessageType::Private && message.from_id == @user.id && !forever_banned
     end
     can [:edit, :update], Message do |message|
       message.kind == MessageType::Private &&
