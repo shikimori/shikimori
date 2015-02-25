@@ -8,7 +8,7 @@ class PersonDecorator < DbEntryDecorator
 
   ROLES = {
     seyu: ['Japanese', 'English', 'Italian', 'Hungarian', 'German', 'Brazilian', 'French', 'Spanish', 'Korean'],
-    composer: ['Music'],
+    composer: ['Music', 'Theme Song Composition'],
     producer: ['Chief Producer', 'Producer', 'Director', 'Episode Director'],
     mangaka: ['Original Creator', 'Story & Art', 'Story']
   }
@@ -101,10 +101,10 @@ class PersonDecorator < DbEntryDecorator
       'Режиссёр аниме'
     elsif main_role?(:mangaka)
       'Автор манги'
-    elsif main_role?(:seyu)
-      'Сэйю'
     elsif main_role?(:composer)
       'Композитор'
+    elsif main_role?(:seyu)
+      'Сэйю'
     elsif has_anime? && has_manga?
       'Участник аниме и манга проектов'
     elsif has_anime?
@@ -135,7 +135,7 @@ class PersonDecorator < DbEntryDecorator
       .select {|v| v != role }
       .map {|v| roles_counts v }
 
-    roles_counts(role) >= other_roles.max
+     roles_counts(role) >= other_roles.max && !roles_counts(role).zero?
   end
 
   def seyu_favoured?

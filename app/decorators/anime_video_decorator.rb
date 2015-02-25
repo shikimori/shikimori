@@ -1,5 +1,4 @@
-class AnimeVideoDecorator < BaseDecorator#AnimeVideoPreviewDecorator
-
+class AnimeVideoDecorator < BaseDecorator
   def views_count
     if watch_view_count && watch_view_count > 0
       "#{watch_view_count} #{Russian.p watch_view_count, 'просмотр', 'просмотра', 'просмотров'}"
