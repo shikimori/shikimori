@@ -439,7 +439,7 @@ describe AnimeVideo do
     subject { Ability.new user }
     let(:uploaded_video) { build :anime_video, state: 'uploaded' }
     let(:working_video) { build :anime_video, state: 'working' }
-    let(:broken_video) { build :anime_video, state: 'working' }
+    let(:broken_video) { build :anime_video, state: 'broken' }
 
     describe 'guest' do
       let(:user) { }
