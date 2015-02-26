@@ -60,7 +60,7 @@ class AnimeVideo < ActiveRecord::Base
       transition uploaded: :working
     end
 
-    before_transition working: [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
+    after_transition working: [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
   end
 
   def hosting
