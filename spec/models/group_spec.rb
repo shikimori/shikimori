@@ -154,7 +154,7 @@ describe Group do
 
   describe 'permissions' do
     let(:club) { build_stubbed :group, join_policy: join_policy }
-    let(:user) { build_stubbed :user }
+    let(:user) { build_stubbed :user, :user }
     let(:join_policy) { :free_join }
     subject { Ability.new user }
 

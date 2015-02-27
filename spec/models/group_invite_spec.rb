@@ -93,7 +93,7 @@ describe GroupInvite do
   end
 
   describe 'permissions' do
-    let(:user) { build_stubbed :user }
+    let(:user) { build_stubbed :user, :user }
     subject { Ability.new user }
 
     context 'existing_invite' do

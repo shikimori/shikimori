@@ -1,4 +1,3 @@
-
 describe Person do
   describe 'relations' do
     it { should have_many :person_roles }

@@ -344,7 +344,7 @@ describe Contest do
     end
 
     context 'user' do
-      subject { Ability.new build_stubbed(:user) }
+      subject { Ability.new build_stubbed(:user, :user) }
       it { should be_able_to :see_contest, contest }
       it { should_not be_able_to :manage, contest }
     end

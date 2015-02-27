@@ -89,7 +89,7 @@ describe Entry do
   end
 
   context 'permissions' do
-    let(:user) { build_stubbed :user }
+    let(:user) { build_stubbed :user, :user }
     let(:entry) { build_stubbed :entry, user: user }
 
     pending 'ability specs'

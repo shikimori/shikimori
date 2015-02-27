@@ -77,7 +77,7 @@ describe Review do
 
   describe 'permissions' do
     let(:review) { build_stubbed :review }
-    let(:user) { build_stubbed :user }
+    let(:user) { build_stubbed :user, :user }
     subject { Ability.new user }
 
     context 'review owner' do

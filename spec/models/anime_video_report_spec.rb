@@ -307,7 +307,7 @@ describe AnimeVideoReport do
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user }
+      let(:user) { build_stubbed :user, :user }
       it { should_not be_able_to :manage, report }
 
       context 'uploaded' do

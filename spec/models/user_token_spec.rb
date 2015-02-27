@@ -10,7 +10,7 @@ describe UserToken do
   end
 
   describe 'permissions' do
-    let(:user) { build_stubbed :user }
+    let(:user) { build_stubbed :user, :user }
     subject { Ability.new user }
 
     context 'owner' do

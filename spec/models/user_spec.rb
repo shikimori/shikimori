@@ -239,8 +239,8 @@ describe User do
 
   describe 'permissions' do
     let(:preferences) { build_stubbed(:user_preferences, profile_privacy: profile_privacy) }
-    let(:profile) { build_stubbed :user, preferences: preferences }
-    let(:user) { build_stubbed :user }
+    let(:profile) { build_stubbed :user, :user, preferences: preferences }
+    let(:user) { build_stubbed :user, :user }
     let(:friend_link) { build_stubbed :friend_link, dst: user }
     subject { Ability.new user }
 
@@ -254,7 +254,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
           it { should be_able_to :access_list, profile }
         end
 
@@ -277,7 +277,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
           it { should be_able_to :access_list, profile }
         end
 
@@ -300,7 +300,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
           it { should be_able_to :access_list, profile }
         end
 
@@ -323,7 +323,7 @@ describe User do
         end
 
         context 'friend' do
-          let(:profile) { build_stubbed :user, friend_links: [friend_link], preferences: preferences }
+          let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
           it { should_not be_able_to :access_list, profile }
         end
 
@@ -339,7 +339,7 @@ describe User do
     end
 
     describe 'access_messages' do
-      let(:profile) { build_stubbed :user }
+      let(:profile) { build_stubbed :user, :user }
 
       context 'owner' do
         let(:user) { profile }
@@ -357,7 +357,7 @@ describe User do
     end
 
     describe 'edit & update' do
-      let(:profile) { build_stubbed :user }
+      let(:profile) { build_stubbed :user, :user }
 
       context 'own profile' do
         let(:user) { profile }

@@ -56,7 +56,7 @@ describe GroupRole do
 
   describe 'permissions' do
     let(:club) { build_stubbed :group, join_policy: join_policy }
-    let(:user) { build_stubbed :user }
+    let(:user) { build_stubbed :user, :user }
     subject { Ability.new user }
 
     describe 'join' do
