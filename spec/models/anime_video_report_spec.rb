@@ -164,6 +164,13 @@ describe AnimeVideoReport do
           it { expect(other_report.reload.state).to eq 'rejected' }
         end
       end
+
+      context 'Fix : https://github.com/morr/shikimori/issues/414' do
+        let(:anime_video) { create(:anime_video, kind: 'unknown', state: 'working') }
+        subject(:report) { create(:anime_video_report, anime_video: anime_video, kind: 'broken', state: 'pending') }
+        it { is_expected.to be_accepted }
+        it { expect(subject.anime_video).to be_broken }
+      end
     end
 
     describe '#reject' do
