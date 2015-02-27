@@ -1,11 +1,23 @@
+@import compass/css3/transition
 @import compass/utilities/general/clearfix
-@import mixins/responsive
+@import mixins/block
 @import mixins/column
 @import mixins/input
-@import mixins/block
 @import mixins/link
+@import mixins/responsive
 
 .p-animes_collection-index, .p-mangas_collection-index, .p-recommendations-index
+  .l-content
+    &.ajax_request
+      &:before
+        +opacity(0.6)
+        background: #fff
+        content: ' '
+        height: 100%
+        position: absolute
+        width: 100%
+        z-index: 1
+
   .b-postloader
     clear: left
     margin-bottom: 0
