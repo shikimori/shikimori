@@ -1,11 +1,18 @@
+@import compass/css3/transition
 @import compass/utilities/general/clearfix
-@import mixins/responsive
+@import mixins/block
 @import mixins/column
 @import mixins/input
-@import mixins/block
 @import mixins/link
+@import mixins/responsive
 
 .p-animes_collection-index, .p-mangas_collection-index, .p-recommendations-index
+  .l-content
+    +transition(opacity 0.5s ease)
+
+    &.ajax_request
+      +opacity(0.4)
+
   .b-postloader
     clear: left
     margin-bottom: 0
