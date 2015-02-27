@@ -209,3 +209,4 @@ class @PaginatedCatalog
     else
       @$link_next.addClass "disabled"
 
+    @$pagination.toggle !(@$link_next.hasClass('disabled') && @$link_prev.hasClass('disabled'))
