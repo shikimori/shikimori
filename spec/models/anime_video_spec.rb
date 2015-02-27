@@ -331,7 +331,7 @@ describe AnimeVideo do
 
     describe '#uploader' do
       let(:anime_video) { build_stubbed :anime_video, state: state }
-      let(:user) { create :user, nickname: 'foo' }
+      let(:user) { create :user, :user, nickname: 'foo' }
       subject { anime_video.uploader }
 
       context 'with_uploader' do
@@ -409,7 +409,7 @@ describe AnimeVideo do
       end
 
       context 'with_current_user' do
-        let(:current_user) { create :user }
+        let(:current_user) { create :user, :user }
         let(:moderated_update) { video.moderated_update params, current_user }
         before { moderated_update }
         subject { Version.last }
@@ -457,7 +457,7 @@ describe AnimeVideo do
     end
 
     describe 'user' do
-      let(:user) { build_stubbed :user }
+      let(:user) { build_stubbed :user, :user }
       it { should be_able_to :new, uploaded_video }
       it { should be_able_to :create, uploaded_video }
       it { should_not be_able_to :new, working_video }
