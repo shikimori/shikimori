@@ -8,10 +8,15 @@
 
 .p-animes_collection-index, .p-mangas_collection-index, .p-recommendations-index
   .l-content
-    +transition(opacity 0.5s ease)
-
     &.ajax_request
-      +opacity(0.4)
+      &:before
+        +opacity(0.6)
+        background: #fff
+        content: ' '
+        height: 100%
+        position: absolute
+        width: 100%
+        z-index: 1
 
   .b-postloader
     clear: left

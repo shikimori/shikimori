@@ -2,7 +2,7 @@ var AjaxCacher = (function() {
   var store = {};
   var queue = [];
   var queue_limit = 30;
-  var enabled = false;
+  var enabled = true;//false;
 
   // обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы, если очередь разрослась
   function update_queue(url, no_delete) {
@@ -22,9 +22,9 @@ var AjaxCacher = (function() {
   }
 
   return {
-    enable: function() {
-      enabled = true;
-    },
+    //enable: function() {
+      //enabled = true;
+    //},
     cache: function(url) {
       var uri = get_uri_part(url);
       if (!enabled || uri in store || uri == '') {

@@ -33,7 +33,6 @@ class @PaginatedCatalog
   _history_page_changed: =>
     url = location.href
 
-    console.log "_history_page_changed: #{url}"
     @filters.parse(url) if url != @filters.last_compiled
     @_fetch_ajax_content(url, true)#.call this, url, null, true
 
@@ -117,6 +116,8 @@ class @PaginatedCatalog
   _fetch_ajax_content: (url, break_pending) ->
     if url.indexOf(location.protocol + "//" + location.host) == -1
       url = location.protocol + "//" + location.host + url
+    if url.indexOf('.json') == -1
+      url = "#{url}.json"
 
     $.ajax
       url: url
@@ -140,14 +141,17 @@ class @PaginatedCatalog
           xhr.abort()
 
           if 'abort' of cached_data && 'setRequestHeader' of cached_data
-            cached_data
-              .success(xhr.success)
-              .complete(xhr.complete)
-              .error(xhr.error)
+            #cached_data
+              #.success(xhr.success)
+              #.complete(xhr.complete)
+              #.error(xhr.error)
           else
-            xhr.success(cached_data, url)
+            @_process_ajax_content cached_data, url
+            @pending_request = null
+            @$content.removeClass('ajax_request')
 
-        pending_request = xhr
+        else
+          pending_request = xhr
 
         # если подгрузка следующей страницы при прокруте, то никаких индикаций загрузки не надо
         #return if $postloader
@@ -166,16 +170,42 @@ class @PaginatedCatalog
         @$content.removeClass('ajax_request')
 
       error: (xhr, status, error) =>
-        #@pending_request = null
         $.flash alert: "Пожалуста, повторите попытку позже"
-        #$(".ajax").trigger("ajax:failure").unbind "ajax:success"
-        history.back()
-
+        #history.back()
 
   #process_ajax = (data, url, $postloader) ->
     #(if $postloader then process_ajax_postload(data, url, $postloader) else process_ajax_response(data, url))
 
   # обработка контента, полученного от аякс-запроса
   _process_ajax_content: (data, url) ->
-    console.log '_process_ajax_content'
-    console.log data
+    # отслеживание страниц в гугл аналитике и яндекс метрике
+    if '_gaq' of window
+      _gaq.push [
+        '_trackPageview'
+        url.replace(/\.json$/, '')
+      ]
+    if 'yaCounter7915231' of window
+      yaCounter7915231.hit url.replace(/\.json$/, "") 
+
+    document.title = "#{data.title} / Шикимори"
+
+    @$content.html data.content
+
+    $('.head.ajaxable h1').html data.title
+    $('.head.ajaxable .notice').html data.notice
+
+    @$link_current.html data.current_page
+    @$link_total.html data.total_pages
+
+    @$link_prev.attr(href: data.prev_page || '', action: data.prev_page)
+    if data.prev_page
+      @$link_prev.removeClass "disabled"
+    else
+      @$link_prev.addClass "disabled"
+
+    @$link_next.attr(href: data.next_page || '', action: data.next_page)
+    if data.next_page
+      @$link_next.removeClass "disabled"
+    else
+      @$link_next.addClass "disabled"
+
