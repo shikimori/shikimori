@@ -103,6 +103,9 @@ private
     channels.each do |channel|
       faye_client.publish channel, data.merge(token: config[:server_token], publisher_faye_id: @publisher_faye_id)
     end
+
+  rescue RuntimeError => e
+    raise unless e.message =~ /eventmachine not initialized/
   end
 
   def subscribed_channels target
