@@ -11,6 +11,7 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
       @pending = AnimeVideoReport
         .includes(:user, anime_video: :author)
         .pending
+        .order(id: :desc)
         .limit(20)
     end
   end
