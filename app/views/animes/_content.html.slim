@@ -28,7 +28,7 @@
           .tag.linkeable data-href="#{anime.catalog_url season: anime.year}"
             = "#{anime.year} год"
         - if anime.rating.present? && anime.rating != 'None'
-          .tag.linkeable data-href="#{anime.catalog_url rating: t("RatingShort.#{anime.rating}")}"
+          .tag.linkeable data-href="#{anime.catalog_url rating: t("RatingShort.#{anime.rating}").sub('+', '')}"
             = t "RatingShort.#{anime.rating}"
 
     - if anime.respond_to?(:studios) && anime.real_studios.any?
