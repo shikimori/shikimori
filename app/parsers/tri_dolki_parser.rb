@@ -1,5 +1,3 @@
-require 'progressbar'
-
 class TriDolkiParser < SiteParserWithCache
   alias :super_load_cache :load_cache
 

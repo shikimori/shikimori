@@ -218,7 +218,6 @@ Message.wo_antispam do
 end
 
 exit
-#require 'progressbar'
 #require 'rake_tasks'
 #AniDbParser.new.fetch_animes
 #ap FansubsParser.process('One Piece')

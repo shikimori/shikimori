@@ -1,5 +1,3 @@
-require 'progressbar'
-
 # TODO: переделать матчинг аниме на NameMatcher по аналогии с FindAnimeImporter
 #class WorldArtParser < SiteParserWithCache
   #AnimeUrl = "http://www.world-art.ru/animation/animation.php?id=%d"
