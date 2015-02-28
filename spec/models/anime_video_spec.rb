@@ -174,10 +174,10 @@ describe AnimeVideo do
           it { expect(EpisodeNotification.all).to have(1).item }
         end
 
-        context 'not need notification if video kind is unknown' do
-          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
-          it { expect(EpisodeNotification.all).to be_empty }
-        end
+        #context 'not need notification if video kind is unknown' do
+          #let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
+          #it { expect(EpisodeNotification.all).to be_empty }
+        #end
       end
     end
   end

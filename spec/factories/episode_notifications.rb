@@ -5,5 +5,6 @@ FactoryGirl.define do
     is_raw false
     is_subtitles false
     is_fandub false
+    is_unknown false
   end
 end

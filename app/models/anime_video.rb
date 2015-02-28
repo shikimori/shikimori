@@ -20,7 +20,7 @@ class AnimeVideo < ActiveRecord::Base
 
   before_save :check_ban
   before_save :check_copyright
-  after_create :create_episode_notificaiton, if: -> { !unknown? && single? }
+  after_create :create_episode_notificaiton, if: :single?
 
   PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false"
   XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true"
@@ -120,9 +120,8 @@ private
   end
 
   def remove_episode_notification
-    notify = EpisodeNotification
+    EpisodeNotification
       .where(anime_id: anime_id, episode: episode)
-      .first
-    !unknown? && notify && notify.update("is_#{kind}" => false)
+      .update_all("is_#{kind}" => false)
   end
 end

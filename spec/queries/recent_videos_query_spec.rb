@@ -7,12 +7,12 @@ describe RecentVideosQuery do
   let(:anime_adult) { create :anime, :ongoing, :with_video, rating: Anime::ADULT_RATINGS.first }
   let(:anime_g) { create :anime, :ongoing, :with_video, rating: 'G - All Ages' }
 
-  let!(:episode_notification_1) { create :episode_notification, id: 1, episode: 1, anime: anime_ongoing, updated_at: 10.minutes.ago }
-  let!(:episode_notification_2) { create :episode_notification, id: 2, episode: 2, anime: anime_ongoing, updated_at: 9.minutes.ago }
-  let!(:episode_notification_3) { create :episode_notification, id: 3, episode: 1, anime: anime_adult, updated_at: 8.minutes.ago }
-  let!(:episode_notification_4) { create :episode_notification, id: 4, episode: 1, anime: anime_recent, updated_at: 7.minutes.ago }
-  let!(:episode_notification_5) { create :episode_notification, id: 5, episode: 1, anime: anime_old, updated_at: 6.minutes.ago }
-  let!(:episode_notification_6) { create :episode_notification, id: 6, episode: 1, anime: anime_g, updated_at: 5.minutes.ago }
+  let!(:episode_notification_1) { create :episode_notification, id: 1, episode: 1, anime: anime_ongoing, updated_at: 10.minutes.ago, is_fandub: true }
+  let!(:episode_notification_2) { create :episode_notification, id: 2, episode: 2, anime: anime_ongoing, updated_at: 9.minutes.ago, is_fandub: true }
+  let!(:episode_notification_3) { create :episode_notification, id: 3, episode: 1, anime: anime_adult, updated_at: 8.minutes.ago, is_fandub: true }
+  let!(:episode_notification_4) { create :episode_notification, id: 4, episode: 1, anime: anime_recent, updated_at: 7.minutes.ago, is_fandub: true }
+  let!(:episode_notification_5) { create :episode_notification, id: 5, episode: 1, anime: anime_old, updated_at: 6.minutes.ago, is_fandub: true }
+  let!(:episode_notification_6) { create :episode_notification, id: 6, episode: 1, anime: anime_g, updated_at: 5.minutes.ago, is_fandub: true }
 
   describe '#fetch' do
     subject { query.fetch 1, 10 }

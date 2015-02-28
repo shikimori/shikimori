@@ -3,4 +3,6 @@ class EpisodeNotification < ActiveRecord::Base
 
   boolean_attribute :subtitles
   boolean_attribute :fandub
+  boolean_attribute :raw
+  boolean_attribute :unknown
 end
