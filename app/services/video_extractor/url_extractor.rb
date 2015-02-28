@@ -68,6 +68,8 @@ private
       $1
     elsif html =~ %r{(#{HTTP}video.yandex.ru#{CONTENT})}
       $1
+    elsif html =~ %r{(#{HTTP}flashx.tv#{CONTENT})}
+      $1
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
       "http://rutube.ru/play/embed/#{$1}"
 

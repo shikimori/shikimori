@@ -166,14 +166,19 @@ describe VideoExtractor::UrlExtractor do
       it { should eq 'http://www.youtube.com/embed/pmLm4phNjB4' }
     end
 
-    describe 'i_ua' do
+    describe 'video.yandex' do
       let(:html) { "<iframe width=\"730\" height=\"480\" frameborder=\"0\" src=\"http://video.yandex.ru/iframe/dashaset08/pwq0ljt7p4.5028/\"></iframe>" }
       it { should eq 'http://video.yandex.ru/iframe/dashaset08/pwq0ljt7p4.5028/' }
     end
 
-    describe 'i_ua' do
+    describe 'i.ua' do
       let(:html) { "<OBJECT width=\"730\" height=\"480\"><PARAM name=\"movie\" value=\"http://i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead\"></PARAM><EMBED src=\"http://i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead\" type=\"application/x-shockwave-flash\" width=\"730\" height=\"480\"></EMBED></OBJECT>" }
       it { should eq 'http://i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead' }
+    end
+
+    describe 'flashx.tv' do
+      let(:html) { '<IFRAME SRC="http://www.flashx.tv/embed-g5yfee5j0acc.html" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=852 HEIGHT=504></IFRAME>' }
+      it { should eq 'http://www.flashx.tv/embed-g5yfee5j0acc.html' }
     end
   end
 end

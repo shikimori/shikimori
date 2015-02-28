@@ -43,7 +43,8 @@ class FindAnimeParser < ReadMangaParser
       author ||= node.css('.video-info').to_html[/<span class="additional">.*?<\/span>(?:<\/span>)?([\s\S]*)<span/, 1].try :strip
 
       embed_source = node.css('.embed_source').first
-      video_url = VideoExtractor::UrlExtractor.new(embed_source.attr 'value').extract
+      video_url = VideoExtractor::UrlExtractor
+        .new(embed_source.attr 'value').extract if embed_source
 
       ParsedVideo.new(
         episode: episode,
