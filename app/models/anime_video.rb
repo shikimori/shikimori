@@ -22,8 +22,10 @@ class AnimeVideo < ActiveRecord::Base
   before_save :check_copyright
   after_create :create_episode_notificaiton, if: :single?
 
-  PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false"
-  XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true"
+  R_OVA_EPISODES = 2
+  ADULT_OVA_CONDITION = "(animes.rating in ('#{Anime::SUB_ADULT_RATINGS.join "','"}') and ((animes.kind = 'OVA' and animes.episodes <= #{R_OVA_EPISODES}) or animes.kind = 'Special'))"
+  PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false and not #{ADULT_OVA_CONDITION}"
+  XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true or #{ADULT_OVA_CONDITION}"
 
   scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
   scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }

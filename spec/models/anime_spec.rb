@@ -345,16 +345,46 @@ describe Anime do
     subject { anime.adult? }
 
     context 'by_rating' do
-      let(:anime) { build :anime, rating: rating }
+      let(:anime) { build :anime, rating: rating, episodes: episodes, kind: kind }
+      let(:episodes) { 1 }
+      let(:kind) { 'OVA' }
 
-      context 'false' do
+      context 'G - All Ages' do
         let(:rating) { 'G - All Ages' }
         it { should be_falsy }
       end
 
-      context 'true' do
+      context 'R+ - Mild Nudity' do
         let(:rating) { 'R+ - Mild Nudity' }
-        it { should be_truthy }
+
+        context 'TV' do
+          let(:kind) { 'TV' }
+          it { should be_falsy }
+        end
+
+        context 'OVA' do
+          let(:kind) { 'OVA' }
+
+          context '1 episode' do
+            let(:episodes) { 1 }
+            it { should be_truthy }
+          end
+
+          context '2 episodes' do
+            let(:episodes) { 2 }
+            it { should be_truthy }
+          end
+
+          context '3 episodes' do
+            let(:episodes) { 3 }
+            it { should be_falsy }
+          end
+        end
+
+        context 'Special' do
+          let(:kind) { 'OVA' }
+          it { should be_truthy }
+        end
       end
     end
 

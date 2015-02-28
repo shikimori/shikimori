@@ -5,6 +5,7 @@ class Anime < DbEntry
   include AniManga
   EXCLUDED_ONGOINGS = [966,1199,1960,2406,4459,6149,7511,7643,8189,8336,8631,8687,9943,9947,10506,10797,10995,12393,13165,13433,13457,13463,15111,15749,16908,18227,18845,18941,19157,19445,19825,20261,21447,21523,24403,24969,24417,24835,25503,27687,26453,26163,27519]
   ADULT_RATINGS = ['Rx - Hentai']
+  SUB_ADULT_RATINGS = ['R+ - Mild Nudity']
 
   # Fields
   serialize :english
@@ -475,6 +476,9 @@ class Anime < DbEntry
   end
 
   def adult?
-    censored || ADULT_RATINGS.include?(rating)
+    censored || ADULT_RATINGS.include?(rating) || (
+      SUB_ADULT_RATINGS.include?(rating) &&
+      ((kind == 'OVA' && episodes <= AnimeVideo::R_OVA_EPISODES) || kind == 'Special')
+    )
   end
 end
