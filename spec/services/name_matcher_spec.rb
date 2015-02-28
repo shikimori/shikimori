@@ -254,6 +254,12 @@ describe NameMatcher do
       it { should eq [anime] }
     end
 
+    describe 'heroine -> kanojo ' do
+      subject { matcher.matches 'Saenai Heroine no Sodatekata' }
+      let!(:anime) { create :anime, kind: 'TV', name: 'Saenai Kanojo no Sodate-kata' }
+      it { should eq [anime] }
+    end
+
     describe '"o" as "ou"' do
       subject { matcher.matches 'Rouaaaa' }
       let!(:anime) { create :anime, kind: 'TV', name: 'Roaaaa' }

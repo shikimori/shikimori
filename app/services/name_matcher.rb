@@ -132,6 +132,8 @@ private
     phrases = multiply_phrases phrases, /\b2\b/, 'II'
     phrases = multiply_phrases phrases, /\bi\b/, ''
 
+    phrases = multiply_phrases phrases, /kanojo/, 'heroine'
+
     phrases = multiply_phrases phrases, /magika/, 'magica'
     phrases = multiply_phrases phrases, /(?<= )2$/, '2nd season'
     phrases = multiply_phrases phrases, /(?<= )3$/, '3rd season'
