@@ -1,7 +1,7 @@
 describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
   let(:parser) { ReadMangaParser.new }
 
-  it { expect(parser.fetch_pages_num).to eq 84 }
+  it { expect(parser.fetch_pages_num).to eq 87 }
   it { expect(parser.fetch_page_links(0).size).to eq(ReadMangaParser::PageSize) }
   it { expect(parser.fetch_page_links(parser.fetch_pages_num - 1).last).to eq 'wild_kiss' }
 
@@ -35,7 +35,7 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
         russian: 'День за днем, за годом год',
         description: 'Как же весело и легко играть вместе в детстве! Совершенно не важно кто мальчик, а кто девочка. И как же всё становится непросто, когда подросший мальчик понимает, что его подружка не просто партнер по играм, а ДЕВОЧКА!',
         source: 'http://animanga.ru',
-        score: 9.33,
+        score: 9.32,
         kind: 'One Shot',
         read_first_url: '/hibiutsuroi/vol0/0?mature=1',
       })
@@ -56,10 +56,10 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
     it 'with linked source' do
       expect(parser.fetch_entry('home_tutor_hitman_reborn')).to eq({
         id: 'home_tutor_hitman_reborn',
-        names: ["Учитель мафиози Реборн", "Home Tutor Hitman Reborn!", "Katekyo Hitman Reborn!"],
+        names: ["Учитель мафиози Реборн", "Home Tutor Hitman Reborn!"],
         russian: 'Учитель мафиози Реборн',
-        description: "Савада Тсунаёши — на первый взгляд самый обыкновенный мальчик. Слегка невезуч, слегка неуклюж, слегка паникёр. Хотя, может, и не слегка. И все в его жизни скучно и безрадостно, до того волшебного момента, как пред его взором предстаёт чудо-ребёнок Реборн. Который на деле оказывается давно зарекомендовавшим себя в мафиозном мире киллером. Реборн мило радует Тсуну, что отныне тот назначается наследником крупнейшей мафиозной семьи Вонгола, и что он, Реборн, обязуется сделать из него надлежащего босса. С этого дня жизнь Савады кардинально меняется...",
-        source: 'http://animanga.ru',
+        description: "Тсунаёши Савада— на первый взгляд самый обыкновенный мальчик. Слегка невезуч, слегка неуклюж, слегка паникёр. Хотя, может, и не слегка. И все в его жизни скучно и безрадостно, до того волшебного момента, как пред его взором предстаёт чудо-ребёнок Реборн, который на деле оказывается давно зарекомендовавшим себя в мафиозном мире киллером. Реборн мило радует Тсуну, что отныне тот назначается наследником крупнейшей мафиозной семьи Вонгола, и что он, Реборн, обязуется сделать из него надлежащего босса. С этого дня жизнь Савады кардинально меняется...",
+        source: 'http://readmanga.ru/home_tutor_hitman_reborn',
         score: 9.24,
         kind: 'Manga',
         read_first_url: '/home_tutor_hitman_reborn/vol0/0?mature=1',
@@ -73,7 +73,7 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
       expect(entry[:names]).to eq ["Trinity Blood Rage Against the Moons"]
       expect(entry[:russian]).to eq "Trinity Blood Rage Against the Moons"
       expect(entry[:description]).to eq "Красивые иллюстрации к роману, выполненные THORES Shibamoto."
-      expect(entry[:score]).to eq 9.11
+      expect(entry[:score]).to eq 9.18
       expect(entry[:source]).to eq "http://readmanga.ru/trinity_blood_rage_against_the_moons"
     end
   end

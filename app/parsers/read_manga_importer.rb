@@ -22,9 +22,9 @@ class ReadMangaImporter
 
     print "preparing import entries for import...\n" if Rails.env != 'test'
     import_data = prepare_import_data(
-        options[:id] ?
-        [ @parser.fetch_entry(options[:id]) ] :
-        @parser.fetch_pages(options[:pages])
+        options[:ids] ?
+          Array(options[:ids]).map {|id| @parser.fetch_entry id } :
+          @parser.fetch_pages(options[:pages])
       )
     print "fetched #{import_data.size} import\n" if Rails.env != 'test'
 
@@ -52,10 +52,11 @@ class ReadMangaImporter
 
   # выборка из базы id элементов с пользовательскими правками
   def prepare_user_changed_ids
-    UserChange.where(model: 'manga', status: [UserChangeStatus::Accepted, UserChangeStatus::Taken], column: 'description')
-              .select(:item_id)
-              .map(&:item_id)
-              .uniq
+    UserChange
+      .where(model: 'manga', status: [UserChangeStatus::Accepted, UserChangeStatus::Taken], column: 'description')
+      .select(:item_id)
+      .map(&:item_id)
+      .uniq
   end
 
   # подготовка того, что импортировать
@@ -63,14 +64,14 @@ class ReadMangaImporter
     data.map do |entry|
       entry[:names] = entry[:names].map {|v| SiteParserWithCache.fix_name(v) }
       entry[:names] << SiteParserWithCache.fix_name(entry[:russian])
+      entry[:names].uniq!
       entry
     end
   end
 
   # импорт данных в базу
-  def merge_data(db_data, import_data, ids_with_description)
+  def merge_data db_data, import_data, ids_with_description
     matched = 0
-    #pbar = ProgressBar.new("merging into database", import_data.size) if Rails.env != 'test'
 
     import_data.each do |import_entry|
       db_data.each do |db_entry|
@@ -90,15 +91,13 @@ class ReadMangaImporter
           break
         end
       end
-      #pbar.inc if Rails.env != 'test'
     end
-    #pbar.finish if Rails.env != 'test'
 
     matched
   end
 
   # одинаковые ли элементы?
-  def entries_matched?(import_entry, db_entry)
+  def entries_matched? import_entry, db_entry
     link = ReadMangaImportData::CustomLinks[import_entry[:id]]
 
     !(self.class::Prefix == AdultMangaImporter::Prefix && import_entry[:kind] == 'One Shot' && db_entry[:entry].manga?) && # адалт ваншоты с мангами не матчим

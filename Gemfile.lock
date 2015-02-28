@@ -69,12 +69,6 @@ GIT
     quote_extractor (0.0.2)
 
 GIT
-  remote: git://github.com/morr/ruby-progressbar.git
-  revision: d9336451f1356b9f3a4ff65c59a4ca122f9dc50c
-  specs:
-    ruby-progressbar (0.0.9)
-
-GIT
   remote: git://github.com/morr/turbolinks.git
   revision: 14f4ee2215d32bdb8fcd51c49ae65ed3f46488eb
   branch: master
@@ -761,7 +755,6 @@ DEPENDENCIES
   rspec-its
   rspec-mocks
   rspec-rails
-  ruby-progressbar!
   ruby-svd!
   russian!
   rvm1-capistrano3

@@ -61,12 +61,10 @@ class WikipediaImporter
 
   # обработка пачек аниме и манги
   def process_bundles
-    pbar = ProgressBar.new("processing bundles...", @bundles.size)
+    print "processing #{@bundles.size} bundles"
     @bundles.each do |bundle|
       import_chars(filter_chars(get_chars(bundle)), bundle)
-      pbar.inc
     end
-    pbar.finish
   end
 
   # импорт описаний персонажей

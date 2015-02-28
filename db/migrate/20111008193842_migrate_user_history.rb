@@ -14,7 +14,6 @@ class MigrateUserHistory < ActiveRecord::Migration
       sum
     end
 
-    pbar = ProgressBar.new("migration", history.size)
     history.each do |entry|
       use_prior = entry.action == UserHistoryAction::Rate || entry.action == UserHistoryAction::Episodes
 
@@ -23,9 +22,7 @@ class MigrateUserHistory < ActiveRecord::Migration
 
       mapping[entry.user.id][entry.action][entry.target.id] = entry.value.to_i if use_prior
 
-      pbar.inc
     end
-    pbar.finish
     UserHistory.record_timestamps = true
   end
 

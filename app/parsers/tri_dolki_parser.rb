@@ -61,13 +61,10 @@ class TriDolkiParser < SiteParserWithCache
   # парсинг страниц сайта
   def fetch_entries
     store = @cache[:store].select {|k,v| (v == nil || v[:images].empty?) && k.include?('cosplay') }
-    pbar = ProgressBar.new("fetching entries", store.size)
     store.each do |id,entry|
       fetch_entry(id)
-      pbar.inc
       sleep 1
     end
-    pbar.finish
     save_cache
   end
 
@@ -141,13 +138,11 @@ class TriDolkiParser < SiteParserWithCache
 
     # импорт галерей
     added_galleries = 0
-    pbar = ProgressBar.new("fetching cosplay galleries", @cache[:store].size)
     data.each do |group|
       next unless group
       group.each do |entry|
         gallery = CosplayGallery.find_or_create_by_cos_rain_id(entry[:url])
         if gallery.confirmed
-          pbar.inc
           next
         end
         #next unless gallery.created_at + 30.days > DateTime.now
@@ -200,10 +195,8 @@ class TriDolkiParser < SiteParserWithCache
         end
 
         added_galleries += 1
-        pbar.inc
       end
     end
-    pbar.finish
     print "fetched #{added_galleries} galleries\n"
   end
 end

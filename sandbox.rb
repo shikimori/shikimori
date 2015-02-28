@@ -322,12 +322,9 @@ exit
 #LatestAnimeImages.new.perform
 
 #data = CosplayImage.all
-#pbar = ProgressBar.new("processing images...", data.size)
 #data.each do |v|
   #v.image.reprocess!
-  #pbar.inc
 #end
-#pbar.finish
 
 
 #SangakuComplexParser.new.fetch_posts

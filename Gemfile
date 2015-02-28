@@ -59,7 +59,6 @@ gem 'newrelic_rpm'
 gem 'exception_notification', github: 'smartinez87/exception_notification'
 gem 'slack-notifier'
 gem 'awesome_print'
-gem 'ruby-progressbar', github: 'morr/ruby-progressbar'
 gem 'htmldiff', github: 'myobie/htmldiff'
 
 gem 'retryable'

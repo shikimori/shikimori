@@ -59,14 +59,11 @@ class AniDbParser < SiteParserWithCache
       ]
 
     begin
-      pbar = ProgressBar.new("fetching animes info", animes.size) if (Rails.env == 'development' || Rails.env == 'test')
       #animes.each do |anime_id, anime|
       animes.parallel(:threads => 100, :timeout => 30) do |anime_id, anime|
         fetch_score(anime)
         #ap anime[:scores] if !anime.include?(:scores) || anime[:scores].empty? || anime[:scores].sum == 0
-        @mutex.synchronize { pbar.inc } if (Rails.env == 'development' || Rails.env == 'test')
       end
-      pbar.finish if (Rails.env == 'development' || Rails.env == 'test')
     rescue Exception => e
       print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
     end
@@ -208,13 +205,10 @@ class AniDbParser < SiteParserWithCache
                               :anime => a} }
     print "fetched #{animes.size} animes from database\n"
     #@cache[:animes] = Hash[*@cache[:animes].select {|k,v| [8287].include?(k) }.flatten]
-    pbar = ProgressBar.new("preparing cached data", @cache[:animes].size)
     @cache[:animes].each do |k,v|
       v[:d_names] = v[:names].map {|v| HTMLEntities.new.decode(fix_name(v)) }
       #v[:d_names] = v[:names].map {|v| fix_name(v) }
-      pbar.inc
     end
-    pbar.finish
 
     # допиливание базы руками, чтобы все корректно смержилось
     @cache[:animes][4932][:d_names] = ['kara no kyoukai 1: fukan fuukei']
@@ -223,7 +217,6 @@ class AniDbParser < SiteParserWithCache
     @cache[:animes][8395][:d_names] = ['Mirai Nikki']
 
     found = 0
-    pbar = ProgressBar.new("merging with AniDb animes", @cache[:animes].size)
     @cache[:animes].each do |w_id, w_anime|
       animes.each do |anime|
         next if anime[:ani_db_id] && anime[:ani_db_id] > 0
@@ -232,9 +225,7 @@ class AniDbParser < SiteParserWithCache
           found += 1
         end
       end
-      pbar.inc
     end
-    pbar.finish
     print "%d intersections found\n" % found
   end
 
@@ -296,7 +287,6 @@ class AniDbParser < SiteParserWithCache
     s.save
 
     found = 0
-    pbar = ProgressBar.new("merging with AniDb studios", @cache[:studios].size)
     @cache[:studios].each do |w_id, w_studio|
       studios.each do |studio|
         if studio.name.downcase == w_studio[:name].downcase
@@ -312,23 +302,17 @@ class AniDbParser < SiteParserWithCache
           found += 1
         end
       end
-      pbar.inc
     end
-    pbar.finish
     print "%d intersections found\n" % found
 
     found = 0
-    pbar = ProgressBar.new("looking for partially matched AniDb studios", studios.select {|v| !v.ani_db_id }.size)
     studios.select {|v| !v.ani_db_id }.each do |studio|
       @cache[:studios].each do |w_id, w_studio|
         if studio.filtered_name.downcase == Studio.filtered_name(w_studio[:name]).downcase
           ap [w_id, studio.id]
         end
       end
-      pbar.inc
     end
-    pbar.finish
     print "%d intersections found\n" % found
-
   end
 end

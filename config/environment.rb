@@ -13,5 +13,4 @@ require Rails.root.join('lib/boolean_attribute')
 
 require 'quote_extractor'
 require 'acts_as_voteable'
-require 'progressbar'
 require 'open-uri'

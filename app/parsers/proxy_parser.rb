@@ -63,13 +63,11 @@ private
   def test(proxies, ip)
     verified_proxies = []
 
-    pbar = ProgressBar.new("testing proxies", proxies.size)
+    print "testing #{proxies.size} proxies"
 
     proxies.parallel(threads: 750, timeout: 15) do |proxy|
       verified_proxies << proxy if anonymouse?(proxy, ip)
-      pbar.inc
     end
-    pbar.finish
 
     verified_proxies
   end
