@@ -15,7 +15,7 @@
             prev_url: (@page > 1 ? anime_dashboard_page_url(page: @page-1) : nil)
 
     .l-menu
-      - if AnimeOnline::AdsPolicy.is_viewed? request.host, current_user
+      - if AnimeOnline::AdsPolicy.show_ad? request.host, current_user
         .ads_container
           = render partial: 'anime_online/blocks/ads_240x400'
 

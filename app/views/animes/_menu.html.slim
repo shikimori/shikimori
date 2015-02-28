@@ -1,5 +1,5 @@
 .b-animes-menu
-  - if @anime_online_ad && AnimeOnline::AdsPolicy.is_viewed?(request.host, current_user)
+  - if @anime_online_ad && AnimeOnline::AdsPolicy.show_ad?(request.host, current_user)
     = render partial: 'anime_online/blocks/ads_240x400'
 
   - elsif !@itemtype
