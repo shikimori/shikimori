@@ -24,6 +24,7 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
     it { expect(parser.extract_source('Death Note - Kira Revival Project')).to eq 'http://deathnote.ru' }
     it { expect(parser.extract_source('Описание с goldenwind.ucoz.org')).to eq 'http://goldenwind.ucoz.org' }
     it { expect(parser.extract_source('bla-bla-bla')).to be_nil }
+    it { expect(parser.extract_source('Описание взято с сайта eden404.ru')).to eq 'http://eden404.ru' }
   end
 
   describe 'fetches entry' do
