@@ -25,56 +25,72 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
     it { expect(parser.extract_source('Описание с goldenwind.ucoz.org')).to eq 'http://goldenwind.ucoz.org' }
     it { expect(parser.extract_source('bla-bla-bla')).to be_nil }
     it { expect(parser.extract_source('Описание взято с сайта eden404.ru')).to eq 'http://eden404.ru' }
+    it { expect(parser.extract_source('Описание взято с сайта переводчиков insomniateam.ru')).to eq 'http://insomniateam.ru' }
   end
 
   describe 'fetches entry' do
     it 'common entry' do
-      expect(parser.fetch_entry('hibiutsuroi')).to eq({
-        id: 'hibiutsuroi',
-        names: ['День за днем, за годом год', 'Hibiutsuroi'],
-        russian: 'День за днем, за годом год',
-        description: 'Как же весело и легко играть вместе в детстве! Совершенно не важно кто мальчик, а кто девочка. И как же всё становится непросто, когда подросший мальчик понимает, что его подружка не просто партнер по играм, а ДЕВОЧКА!',
-        source: 'http://animanga.ru',
-        score: 9.32,
-        kind: 'One Shot',
-        read_first_url: '/hibiutsuroi/vol0/0?mature=1',
-      })
+      entry = parser.fetch_entry('hibiutsuroi')
+
+      expect(entry[:id]).to eq 'hibiutsuroi'
+      expect(entry[:names]).to eq ['День за днем, за годом год', 'Hibiutsuroi']
+      expect(entry[:russian]).to eq 'День за днем, за годом год'
+      expect(entry[:description]).to eq 'Как же весело и легко играть вместе в детстве! Совершенно не важно кто мальчик, а кто девочка. И как же всё становится непросто, когда подросший мальчик понимает, что его подружка не просто партнер по играм, а ДЕВОЧКА!'
+      expect(entry[:source]).to eq 'http://animanga.ru'
+      expect(entry[:score]).to eq 9.32
+      expect(entry[:kind]).to eq 'One Shot'
+      expect(entry[:read_first_url]).to eq '/hibiutsuroi/vol0/0?mature=1'
     end
 
     it 'w/o source' do
-      parser.fetch_entry('chihaya_full') == {
-        id: 'chihaya_full',
-        names: ["Яркая Чихая", "Chihaya Full", "Chihayafuru"],
-        russian: 'Яркая Чихая',
-        description: "Всю свою жизнь Чихая мечтала о том, что ее сестра станет лучшей моделью Японии, пока молчаливый и неприметный Арата – новенький в их классе – не заставил ее понять, что присвоенную мечту нельзя назвать своей и над ее осуществлением нужно трудиться.\nАрата играет в традиционную японскую карточную игру по мотивам «Песен ста поэтов», и его игра захватывает Чихаю. Сыграв с ним, Чихая понимает, что нашла свое собственное увлечение. Теперь она хочет стать лучшим игроком в мире, Королевой Каруты.",
-        source: 'http://readmanga.ru/chihaya_full',
-        score: 9.71,
-        kind: 'Manga'
-      }
+      entry = parser.fetch_entry('chihaya_full')
+
+      expect(entry[:id]).to eq 'chihaya_full'
+      expect(entry[:names]).to eq ['Яркая Чихая', 'Chihaya Full']
+      expect(entry[:russian]).to eq 'Яркая Чихая'
+      expect(entry[:description]).to eq "Всю свою жизнь Чихая мечтала о том, что ее сестра станет лучшей моделью Японии, пока молчаливый и неприметный Арата – новенький в их классе – не заставил ее понять, что присвоенную мечту нельзя назвать своей и над ее осуществлением нужно трудиться.\nАрата играет в традиционную японскую карточную игру по мотивам «Песен ста поэтов», и его игра захватывает Чихаю. Сыграв с ним, Чихая понимает, что нашла свое собственное увлечение. Теперь она хочет стать лучшим игроком в мире, Королевой Каруты."
+      expect(entry[:source]).to eq 'http://readmanga.ru/chihaya_full'
+      expect(entry[:score]).to eq 9.72
+      expect(entry[:kind]).to eq 'Manga'
     end
 
     it 'with linked source' do
-      expect(parser.fetch_entry('home_tutor_hitman_reborn')).to eq({
-        id: 'home_tutor_hitman_reborn',
-        names: ["Учитель мафиози Реборн", "Home Tutor Hitman Reborn!"],
-        russian: 'Учитель мафиози Реборн',
-        description: "Тсунаёши Савада— на первый взгляд самый обыкновенный мальчик. Слегка невезуч, слегка неуклюж, слегка паникёр. Хотя, может, и не слегка. И все в его жизни скучно и безрадостно, до того волшебного момента, как пред его взором предстаёт чудо-ребёнок Реборн, который на деле оказывается давно зарекомендовавшим себя в мафиозном мире киллером. Реборн мило радует Тсуну, что отныне тот назначается наследником крупнейшей мафиозной семьи Вонгола, и что он, Реборн, обязуется сделать из него надлежащего босса. С этого дня жизнь Савады кардинально меняется...",
-        source: 'http://readmanga.ru/home_tutor_hitman_reborn',
-        score: 9.24,
-        kind: 'Manga',
-        read_first_url: '/home_tutor_hitman_reborn/vol0/0?mature=1',
-      })
+      entry = parser.fetch_entry('home_tutor_hitman_reborn')
+
+      expect(entry[:id]).to eq 'home_tutor_hitman_reborn'
+      expect(entry[:names]).to eq ["Учитель мафиози Реборн", "Home Tutor Hitman Reborn!"]
+      expect(entry[:russian]).to eq 'Учитель мафиози Реборн'
+      expect(entry[:description]).to eq "Тсунаёши Савада— на первый взгляд самый обыкновенный мальчик. Слегка невезуч, слегка неуклюж, слегка паникёр. Хотя, может, и не слегка. И все в его жизни скучно и безрадостно, до того волшебного момента, как пред его взором предстаёт чудо-ребёнок Реборн, который на деле оказывается давно зарекомендовавшим себя в мафиозном мире киллером. Реборн мило радует Тсуну, что отныне тот назначается наследником крупнейшей мафиозной семьи Вонгола, и что он, Реборн, обязуется сделать из него надлежащего босса. С этого дня жизнь Савады кардинально меняется..."
+      expect(entry[:source]).to eq 'http://readmanga.ru/home_tutor_hitman_reborn'
+      expect(entry[:score]).to eq 9.24
+      expect(entry[:kind]).to eq 'Manga'
+      expect(entry[:read_first_url]).to eq '/home_tutor_hitman_reborn/vol0/0?mature=1'
     end
+
+    it 'with domain source' do
+      entry = parser.fetch_entry('the_magician_s_bride')
+
+      expect(entry[:id]).to eq 'the_magician_s_bride'
+      expect(entry[:names]).to eq ['Невеста чародея', "The Magician's Bride"]
+      expect(entry[:russian]).to eq 'Невеста чародея'
+      expect(entry[:description]).to eq 'Хатори Тисэ только 16, но она уже пережила все тяготы жизни. У нее нет никого, а жизнь же ее не имеет никакого смысла. Но внезапно, уже успевшие заржаветь шестерёнки судьбы начинают двигаться. В тяжелый для нее момент таинственный маг предложил ей помощь, от которой она не могла отказаться. Но кто же он? Он похож скорее на демона чем на человека. Поможет ли он ей, или же ввергнет в пучины тьмы?'
+      expect(entry[:source]).to eq 'http://eden404.ru'
+      expect(entry[:score]).to eq 9.75
+      expect(entry[:kind]).to eq 'Manga'
+      expect(entry[:read_first_url]).to eq '/the_magician_s_bride/vol1/1?mature=1'
+    end
+
 
     it 'w/o russian' do
       entry = parser.fetch_entry 'trinity_blood_rage_against_the_moons'
-      expect(entry[:id]).to eq "trinity_blood_rage_against_the_moons"
-      expect(entry[:kind]).to eq "One Shot"
-      expect(entry[:names]).to eq ["Trinity Blood Rage Against the Moons"]
-      expect(entry[:russian]).to eq "Trinity Blood Rage Against the Moons"
-      expect(entry[:description]).to eq "Красивые иллюстрации к роману, выполненные THORES Shibamoto."
+
+      expect(entry[:id]).to eq 'trinity_blood_rage_against_the_moons'
+      expect(entry[:kind]).to eq 'One Shot'
+      expect(entry[:names]).to eq ['Trinity Blood Rage Against the Moons']
+      expect(entry[:russian]).to eq 'Trinity Blood Rage Against the Moons'
+      expect(entry[:description]).to eq 'Красивые иллюстрации к роману, выполненные THORES Shibamoto.'
       expect(entry[:score]).to eq 9.18
-      expect(entry[:source]).to eq "http://readmanga.ru/trinity_blood_rage_against_the_moons"
+      expect(entry[:source]).to eq 'http://readmanga.ru/trinity_blood_rage_against_the_moons'
     end
   end
 
@@ -82,7 +98,6 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
     entries = ['rosario_to_vampire', 'crepuscule__yamchi', 'corpse_demon', 'scarlet_prince', 'zero_sum_original_antology_series_arcana']
 
     expect(parser).to receive(:fetch_entry).exactly(entries.size).times
-
     expect(parser.fetch_entries(entries).size).to eq(entries.size)
   end
 

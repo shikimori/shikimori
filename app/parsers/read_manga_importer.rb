@@ -26,7 +26,7 @@ class ReadMangaImporter
           Array(options[:ids]).map {|id| @parser.fetch_entry id } :
           @parser.fetch_pages(options[:pages])
       )
-    print "fetched #{import_data.size} import\n" if Rails.env != 'test'
+    print "fetched #{import_data.size} entries\n" if Rails.env != 'test'
 
     matched = merge_data(db_data, import_data, ids_with_description)
     print "%d matches found\n" % matched if Rails.env != 'test'

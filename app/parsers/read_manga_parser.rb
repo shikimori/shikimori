@@ -108,8 +108,7 @@ class ReadMangaParser < SiteParserWithCache
         when 2 then (!entry[:russian] || (entry[:russian] && !entry[:russian].include?(':'))) ? names : []
         when 3 then ["#{names[0]}: #{names[1]}", "#{names[1]}: #{names[2]}"]
         when 4 then ["#{names[0]}: #{names[1]}", "#{names[2]}: #{names[3]}"]
-        else
-          names
+        else names
       end
     end
   end
@@ -150,7 +149,7 @@ class ReadMangaParser < SiteParserWithCache
     if line =~ /
         ^
           (?: [Ии]сточник:? \s? )?
-          (?: [Оо]писание \s взято \s с:? (?: \s сайта)? \s? )?
+          (?: [Оо]писание \s взято \s с:? (?: \s сайта)? \s? (?: \s переводчиков)? :? \s? )?
           (?: [Бб]олее \s подробоно:? \s? )?
           (?: [Сс]айт \s переводчиков:? \s? )?
           (?: [Вв]зят[оь] \s с:? \s? )?

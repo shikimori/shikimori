@@ -183,6 +183,7 @@ module ReadMangaImportData
       shaman_king: 50,
       shaman_king__flowers: 16572,
       monster: 1,
+      the_magician_s_bride: 61189,
       boundary_of_emptiness: 23947,
       dance_in_the_vampire_bund: 7627,
       treat_me_gently: 1964,
