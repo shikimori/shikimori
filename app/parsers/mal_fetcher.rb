@@ -50,15 +50,13 @@ module MalFetcher
     characters, people = fetch_entry_characters(id)
     recommendations = fetch_entry_recommendations(id)
     scores = fetch_entry_scores(id)
-    images = fetch_entry_images(id)
 
     {
       :entry => entry,
       :characters => characters,
       :people => people,
       :recommendations => recommendations,
-      :scores => scores,
-      :images => images
+      :scores => scores
     }
   end
 
@@ -157,23 +155,6 @@ module MalFetcher
       end
     }
     scores
-  end
-
-  # загрузка картинок элемента
-  def fetch_entry_images(id)
-    content = get(entry_url(id) + '/1/pics')
-
-    images = []
-
-    doc = Nokogiri::HTML(content).css('.'+type.camelize+'_Gallery')
-    doc.each do |image_node|
-      image = image_node['href']
-
-      unless images.include? image
-        images << image
-      end
-    end
-    images
   end
 
   # загрузка изображений элемента

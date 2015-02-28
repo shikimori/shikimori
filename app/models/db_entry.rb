@@ -4,11 +4,6 @@ class DbEntry < ActiveRecord::Base
   def self.inherited klass
     super
 
-    klass.has_many :images, -> { where owner_type: klass.name },
-      class_name: AttachedImage.name,
-      foreign_key: :owner_id,
-      dependent: :destroy
-
     klass.has_one :thread, -> { where linked_type: klass.name },
       class_name: klass.thread_klass.name,
       foreign_key: :linked_id,

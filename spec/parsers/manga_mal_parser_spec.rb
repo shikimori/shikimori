@@ -89,12 +89,7 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
     expect(scores.size).to eq(10)
   end
 
-  it 'fetches manga images' do
-    images = parser.fetch_entry_images(manga_id)
-    expect(images.size).to be >= 5
-  end
-
   it 'fetches the whole entry' do
-    expect(parser.fetch_entry(manga_id).size).to eq(6)
+    expect(parser.fetch_entry(manga_id)).to have(5).items
   end
 end

@@ -26,7 +26,6 @@ describe Manga do
 
     it { should have_many :reviews }
 
-    it { should have_many :images }
     it { should have_attached_file :image }
 
     it { should have_many :recommendation_ignores }

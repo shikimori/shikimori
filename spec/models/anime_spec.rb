@@ -25,7 +25,6 @@ describe Anime do
     it { should have_many :cosplay_gallery_links }
     it { should have_many :cosplay_galleries }
 
-    it { should have_many :images }
     it { should have_attached_file :image }
 
     it { should have_many :screenshots }

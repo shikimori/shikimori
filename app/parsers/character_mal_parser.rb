@@ -17,11 +17,9 @@ class CharacterMalParser < BaseMalParser
   # загрузка всей информации по персонажу
   def fetch_entry id
     entry = fetch_entry_data id
-    images = fetch_entry_pictures id
 
     {
       entry: entry,
-      images: images
     }
   end
 

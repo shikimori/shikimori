@@ -8,7 +8,6 @@ module MalDeployer
 
     deploy_related entry, data[:entry][:related] if data[:entry].include? :related
     deploy_recommendations entry, data[:recommendations] if data.include? :recommendations
-    deploy_attached_images entry, data[:images] if data.include? :images
     deploy_characters entry, data[:characters] if data.include? :characters
     deploy_people entry, data[:people] if data.include? :people
 
@@ -85,26 +84,6 @@ module MalDeployer
     ActiveRecord::Base.connection.
       execute("insert into #{klass.table_name} (src_id, dst_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
-  end
-
-  # загрузка привязанных картинок
-  def deploy_attached_images entry, images
-    # уже загруженные картинки
-    existed_images = AttachedImage.where(owner_id: entry.id, owner_type: entry.class.name).select(:url).map(&:url)
-    (images - existed_images).each do |url|
-      begin
-        unless Rails.env.test? || url.include?("na_series.gif") || url.include?("na.gif")
-          io = mal_image url, false
-        end
-
-        AttachedImage.create! url: url, owner: entry, image: Rails.env.test? ? '' : (io && io.original_filename.blank? ? nil : io)
-
-      rescue ActiveRecord::RecordInvalid => e
-        raise unless e.message =~ /is not recognized by the 'identify' command/
-      rescue OpenURI::HTTPError => e
-        raise unless e.message == "404 Not Found"
-      end
-    end
   end
 
   # загрузка связанных элементов
