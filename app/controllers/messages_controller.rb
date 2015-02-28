@@ -61,7 +61,7 @@ class MessagesController < ProfilesController
   end
 
   def mark_read
-    ids = params[:ids].split(',').map {|v| v.sub(/message-/, '').to_i }
+    ids = (params[:ids] || '').split(',').map {|v| v.sub(/message-/, '').to_i }
 
     Message
       .where(id: ids, to_id: current_user.id)
