@@ -1,7 +1,7 @@
 p.m5
   b Жалоба на видео
 
-= simple_form_for [:moderation, anime_video_report], remote: true do |f|
+= simple_form_for [:moderation, anime_video_report], remote: true, authenticity_token: true do |f|
   = f.input :anime_video_id, as: :hidden
   = f.input :user_id, as: :hidden
   = f.input :state, as: :hidden
