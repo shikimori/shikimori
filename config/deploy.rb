@@ -35,7 +35,6 @@ set :linked_dirs, %w{
 
   public/images/anime
   public/images/anime_fixed
-  public/images/attached_image
   public/images/character
   public/images/cosplay_image
   public/images/group
