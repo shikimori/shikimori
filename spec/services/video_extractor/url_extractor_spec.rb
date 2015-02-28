@@ -180,5 +180,10 @@ describe VideoExtractor::UrlExtractor do
       let(:html) { '<IFRAME SRC="http://www.flashx.tv/embed-g5yfee5j0acc.html" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=852 HEIGHT=504></IFRAME>' }
       it { should eq 'http://www.flashx.tv/embed-g5yfee5j0acc.html' }
     end
+
+    describe 'vidbull.com' do
+      let(:html) { '<IFRAME SRC="http://vidbull.com/embed-z8cyfxvok8nm-720x405.html" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360></IFRAME>' }
+      it { should eq 'http://vidbull.com/embed-z8cyfxvok8nm-720x405.html' }
+    end
   end
 end

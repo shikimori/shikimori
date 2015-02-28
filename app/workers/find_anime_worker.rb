@@ -23,6 +23,8 @@ class FindAnimeWorker
       when :last_15_entries
         ids = parser.fetch_page_links(0).take(15)
         importer.import ids: ids, last_episodes: true
+
+      else raise "unknown mode: #{mode}"
     end
   end
 
