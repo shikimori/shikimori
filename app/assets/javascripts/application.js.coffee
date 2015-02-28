@@ -12,6 +12,7 @@
 #= require pages/p-dialogs
 #= require pages/p-messages
 #= require pages/p-userlist_comparer
+#= require pages/p-translations
 #= require_directory ./pages/p-reviews
 #= require_directory ./pages/p-profiles
 #= require_directory ./pages/p-user_rates

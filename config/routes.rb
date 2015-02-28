@@ -296,6 +296,8 @@ Site::Application.routes.draw do
       post :publish, on: :member
     end
 
+    resource :translations, only: [:show]
+
     resources :clubs do
       member do
         get :comments
@@ -311,8 +313,6 @@ Site::Application.routes.draw do
         get '/page/:page', action: :index, as: :page
       end
 
-      #get 'translation/planned' => 'translation#planned', on: :member, as: :translation_planned, type: 'translation_planned'
-      #get 'translation/finished' => 'translation#finished', on: :member, as: :translation_finished, type: 'translation_finished'
       resources :group_roles, only: [:create, :destroy] do
         get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
       end

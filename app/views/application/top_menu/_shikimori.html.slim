@@ -39,6 +39,6 @@ a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#
       a.entry href='/s/85018-FAQ-Chasto-zadavaemye-voprosy' title='Часто задаваемые вопросы' FAQ
       a.entry href='#{moderation_bans_url}' title='Журнал модерации' Журнал модерации
     - if user_signed_in?
-        a.entry class="#{:active if params[:controller] == 'translation'}" href="/clubs/2/translation/planned" title="Переводы" Переводы
+        a.entry class="#{:active if params[:controller] == 'translations'}" href="#{translations_url}" title="Аниме без описаний" Аниме без описаний
     - if user_signed_in? && current_user.cosplay_moderator?
         a.entry class="#{:active if params[:controller] == 'cosplay'}" href="#{mod_cosplay_index_url}" title="Косплей" Косплей
