@@ -8,7 +8,11 @@ class AnimesCollectionController < ShikimoriController
     mylist_redirect_check
     build_background
 
-    params[:is_adult] = AnimeOnlineDomain::adult_host?(request) unless shikimori?
+    unless shikimori?
+      params[:is_adult] = AnimeOnlineDomain::adult_host?(request)
+      params[:with_censored] = params[:is_adult]
+    end
+
     query = AniMangaQuery.new(klass, params, current_user).fetch
 
     if params[:search]
