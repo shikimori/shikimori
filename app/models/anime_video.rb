@@ -48,7 +48,7 @@ class AnimeVideo < ActiveRecord::Base
       transition [:working, :uploaded] => :wrong
     end
     event :ban do
-      transition working: :banned
+      transition :working => :banned
     end
     event :reject do
       transition [:uploaded, :wrong, :broken, :banned] => :rejected
@@ -57,10 +57,10 @@ class AnimeVideo < ActiveRecord::Base
       transition [:uploaded, :broken, :wrong, :banned] => :working
     end
     event :uploaded do
-      transition uploaded: :working
+      transition :uploaded => :working
     end
 
-    after_transition working: [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
+    after_transition [:working, :uploaded] => [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
   end
 
   def hosting

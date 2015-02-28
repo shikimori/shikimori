@@ -14,6 +14,7 @@ private
   def episode_ids
     EpisodeNotification
       .joins(:anime)
+      .where('is_subtitles = true or is_fandub = true')
       .where(is_adult ? AnimeVideo::XPLAY_CONDITION : AnimeVideo::PLAY_CONDITION)
       .group(:anime_id)
       .select('max(episode_notifications.id) as id')

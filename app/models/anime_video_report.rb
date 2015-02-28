@@ -73,7 +73,7 @@ class AnimeVideoReport < ActiveRecord::Base
     end
   end
 
-  def find_doubles(state = 'pending')
+  def find_doubles state = 'pending'
     AnimeVideoReport.where(
       kind: kind,
       state: state,
@@ -81,14 +81,14 @@ class AnimeVideoReport < ActiveRecord::Base
     )
   end
 
-  def process_doubles(to_state)
+  def process_doubles to_state
     find_doubles.update_all(
       approver_id: approver.id,
       state: to_state
     )
   end
 
-  def process_conflict(conflict_kind, to_state)
+  def process_conflict conflict_kind, to_state
     AnimeVideoReport
       .where(
         kind: conflict_kind,
