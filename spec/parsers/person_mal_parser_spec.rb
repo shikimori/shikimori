@@ -29,7 +29,7 @@ describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
   end
 
   it 'fetches the whole entry' do
-    expect(parser.fetch_entry(person_id).size).to eq(2)
+    expect(parser.fetch_entry(person_id)).to have(1).item
   end
 
   describe 'import' do
