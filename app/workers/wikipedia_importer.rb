@@ -80,7 +80,7 @@ class WikipediaImporter
       .pluck(:character_id)
       .uniq
     char_item_ids = UserChange
-      .where(model: 'character')
+      .where(model: Character.name)
       .where(status: [UserChangeStatus::Accepted, UserChangeStatus::Taken])
       .where(column: 'description')
       .select(:item_id)

@@ -41,9 +41,9 @@ class ReadMangaImporter
     all_mangas.map do |m|
       {
         names: [SiteParserWithCache.fix_name(m.name)] +
-                (m.english ? m.english.map {|v| SiteParserWithCache.fix_name(v) } : []) +
-                (m.synonyms ? m.synonyms.map {|v| SiteParserWithCache.fix_name(v) } : []) +
-                (m.japanese ? m.japanese.map {|v| SiteParserWithCache.fix_name(v) } : []),
+          (m.english ? m.english.map {|v| SiteParserWithCache.fix_name(v) } : []) +
+          (m.synonyms ? m.synonyms.map {|v| SiteParserWithCache.fix_name(v) } : []) +
+          (m.japanese ? m.japanese.map {|v| SiteParserWithCache.fix_name(v) } : []),
         entry: m,
         id: m[:id]
       }
@@ -53,7 +53,7 @@ class ReadMangaImporter
   # выборка из базы id элементов с пользовательскими правками
   def prepare_user_changed_ids
     UserChange
-      .where(model: 'manga', status: [UserChangeStatus::Accepted, UserChangeStatus::Taken], column: 'description')
+      .where(model: Manga.name, status: [UserChangeStatus::Accepted, UserChangeStatus::Taken], column: 'description')
       .select(:item_id)
       .map(&:item_id)
       .uniq
