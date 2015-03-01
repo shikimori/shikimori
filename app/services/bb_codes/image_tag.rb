@@ -10,7 +10,7 @@ class BbCodes::ImageTag
         (?: \s h(?:eight)?=(?<height>\d+) )?
       )*
     \]
-  /x
+  /xi
 
   def format text, text_hash
     text.gsub REGEXP do |matched|
@@ -28,9 +28,9 @@ private
   def html_for user_image, width, height, klass, text_hash
     if user_image.width <= 250 && user_image.height <= 250
       if klass
-        "<img src=\"#{user_image.image.url :original, false}\" class=\"#{klass}\"/>"
+        "<img src=\"#{ImageUrlGenerator.instance.url user_image, :original}\" class=\"#{klass}\"/>"
       else
-        "<img src=\"#{user_image.image.url :original, false}\"/>"
+        "<img src=\"#{ImageUrlGenerator.instance.url user_image, :original}\"/>"
       end
 
     else
@@ -50,8 +50,8 @@ private
         nil
       end
 
-      "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url sizes_html ? :preview : :thumbnail, false}\" class=\"#{klass if klass}\"#{sizes_html}/>\
+      "<a href=\"#{ImageUrlGenerator.instance.url user_image, :original}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
+<img src=\"#{ImageUrlGenerator.instance.url user_image, sizes_html ? :preview : :thumbnail}\" class=\"#{klass if klass}\"#{sizes_html}/>\
 <span class=\"marker\">#{user_image.width}x#{user_image.height}</span></a>"
     end
   end

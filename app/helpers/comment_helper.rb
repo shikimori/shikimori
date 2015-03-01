@@ -204,7 +204,7 @@ module CommentHelper
     text.gsub(/\[(anime|manga)_poster=(\d+)\]/) do
       entry = ($1 == 'anime' ? Anime : Manga).find_by_id($2)
       if entry
-        "<a href=\"#{url_for entry}\" title=\"#{entry.name}\"><img class=\"poster-image\" src=\"#{entry.image.url :preview}\" title=\"#{entry.name}\" alt=\"#{entry.name}\"/></a>"
+        "<a href=\"#{url_for entry}\" title=\"#{entry.name}\"><img class=\"poster-image\" src=\"#{ImageUrlGenerator.instance.url entry, :preview}\" srcset=\"#{ImageUrlGenerator.instance.url entry, :original} 2x\" title=\"#{entry.name}\" alt=\"#{entry.name}\"/></a>"
       else
         ''
       end
