@@ -122,12 +122,7 @@ $with = (selector, $root) ->
   $with('.bubbled', $root)
     .addClass('bubbled-processed')
     .removeClass('bubbled')
-    .tooltip $.extend(
-      offset: [
-        -35
-        10
-      ]
-    , tooltip_options)
+    .tooltip($.extend(offset: [-35, 10, -10], tooltip_options))
 
   $with('.b-spoiler.unprocessed', $root).spoiler()
 
