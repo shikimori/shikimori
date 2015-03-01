@@ -114,14 +114,6 @@ describe MalDeployer do
           end
         end
 
-        describe 'attached images' do
-          it 'created and linked to entry' do
-            expect {
-              parser.deploy_attached_images(entry, data[:images])
-            }.to change(AttachedImage, :count).by(data[:images].size)
-          end
-        end
-
         describe 'characters' do
           it 'linked to entry' do
             expect {
