@@ -1,0 +1,40 @@
+javascript:
+  (function (d, w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter28763636 = new Ya.Metrika({id:28763636,
+                      webvisor:true,
+                      clickmap:true,
+                      trackLinks:true,
+                      accurateTrackBounce:true});
+          } catch(e) { }
+      });
+
+      var n = d.getElementsByTagName("script")[0],
+          s = d.createElement("script"),
+          f = function () { n.parentNode.insertBefore(s, n); };
+      s.type = "text/javascript";
+      s.async = true;
+      s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+      if (w.opera == "[object Opera]") {
+          d.addEventListener("DOMContentLoaded", f, false);
+      } else { f(); }
+  })(document, window, "yandex_metrika_callbacks");
+
+  // для совместимости счётчиков с турболинками
+  $(document).on('page:before-change', function() {
+    window.turbolinks_referer = location.href;
+  });
+
+  $(document).on('page:load', function() {
+    if (window.turbolinks_referer) {
+      if (window.yaCounter28763636) {
+        window.yaCounter28763636.hit(location.href, $('title').html(), window.turbolinks_referer);
+      }
+      if (window.ga) {
+        window.ga('send', 'pageview');
+      }
+    }
+  });
+
