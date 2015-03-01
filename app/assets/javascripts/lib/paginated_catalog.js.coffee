@@ -67,7 +67,7 @@ class @PaginatedCatalog
     if @_is_pages_limit()
       $content.find('.b-postloader').data locked: true
 
-    process_current_dom()
+    @$content.process()
 
   # наступил ли лимит прокрутки страниц?
   _is_pages_limit: ->
@@ -185,11 +185,13 @@ class @PaginatedCatalog
         url.replace(/\.json$/, '')
       ]
     if 'yaCounter7915231' of window
-      yaCounter7915231.hit url.replace(/\.json$/, "") 
+      yaCounter7915231.hit url.replace(/\.json$/, "")
 
     document.title = "#{data.title} / Шикимори"
 
-    @$content.html data.content
+    @$content
+      .html(data.content)
+      .process()
 
     $('.head.ajaxable h1').html data.title
     $('.head.ajaxable .notice').html data.notice
