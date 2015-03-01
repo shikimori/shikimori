@@ -3,6 +3,23 @@ class MangasVerifier
   sidekiq_options unique: true,
                   retry: false
 
+  BAD_DESCRIPTIONS = [
+    "description ilike '%adultmanga%'",
+    "description ilike '%doramatv%'",
+    "description ilike '%readmanga%'",
+    "description ilike '%findanime%'",
+    "description ilike '%ru'",
+    "description ilike '%com'",
+    "description ilike '%org'",
+    "description ilike '%info'",
+    "description ilike '%http://%'",
+    "description ilike '%www.%'",
+    "description ilike '%ucoz%'",
+    "description ilike '%Удалено по просьбе%'",
+    "description ilike '%Редактировать описание'",
+    "description ilike '%Описание представлено'"
+  ]
+
   def perform
     MangaMalParser.import bad_entries if bad_entries.any?
     raise "Broken manga descriptions found: #{bad_descriptions.join ', '}" if bad_descriptions.any?
@@ -14,23 +31,10 @@ class MangasVerifier
   end
 
   def bad_descriptions
-    @bad_descriptions ||= Manga.where("
-        description ilike '%adultmanga%' or
-        description ilike '%doramatv%' or
-        description ilike '%readmanga%' or
-        description ilike '%findanime%' or
-        description ilike '%ru' or
-        description ilike '%com' or
-        description ilike '%org' or
-        description ilike '%info' or
-        description ilike '%http://%' or
-        description ilike '%www.%' or
-        description ilike '%ucoz%' or
-        description ilike '%Удалено по просьбе%' or
-        description ilike '%Редактировать описание' or
-        description ilike '%Описание представлено'
-      ")
+    @bad_descriptions ||= Manga
+      .where(BAD_DESCRIPTIONS.join(' or '))
       .where.not(id: [2423])
+      .where.not(id: ChangedItemsQuery.new(Manga).fetch_ids)
       .pluck(:id)
   end
 end

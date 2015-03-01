@@ -79,13 +79,7 @@ class WikipediaImporter
       .group(:id)
       .pluck(:character_id)
       .uniq
-    char_item_ids = UserChange
-      .where(model: Character.name)
-      .where(status: [UserChangeStatus::Accepted, UserChangeStatus::Taken])
-      .where(column: 'description')
-      .select(:item_id)
-      .map(&:item_id)
-      .uniq
+    char_item_ids = ChangedItemsQuery.new(Character).fetch_ids
 
     db_chars = Character
       .where(id: char_ids)

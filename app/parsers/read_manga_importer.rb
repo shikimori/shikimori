@@ -18,7 +18,7 @@ class ReadMangaImporter
     db_data = prepare_db_data
     print "fetched #{db_data.size} entries\n" if Rails.env != 'test'
 
-    ids_with_description = prepare_user_changed_ids
+    ids_with_description = ChangedItemsQuery.new(Manga).fetch_ids
 
     print "preparing import entries for import...\n" if Rails.env != 'test'
     import_data = prepare_import_data(
@@ -48,15 +48,6 @@ class ReadMangaImporter
         id: m[:id]
       }
     end
-  end
-
-  # выборка из базы id элементов с пользовательскими правками
-  def prepare_user_changed_ids
-    UserChange
-      .where(model: Manga.name, status: [UserChangeStatus::Accepted, UserChangeStatus::Taken], column: 'description')
-      .select(:item_id)
-      .map(&:item_id)
-      .uniq
   end
 
   # подготовка того, что импортировать
