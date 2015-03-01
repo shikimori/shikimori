@@ -40,9 +40,9 @@ module AniManga
     #end
   #end
 
-  def russian
-    self[:russian] ? self[:russian].gsub(/\.? *\((?:С|с)езон .*\)$|\.? *\((?:С|с)езон .*\)$|\.? *\(.* (?:С|с)езон\)$|\.? *(\[|\()(?:TV|ТВ|OVA|ONA|ОВА|Movie).*(\]|\))$|(?: - )?\(?(?:Ф|ф)ильм[^,]*?\)?$/i, '').strip : nil
-  end
+  #def russian
+    #self[:russian] ? self[:russian].gsub(/\.? *\((?:С|с)езон .*\)$|\.? *\((?:С|с)езон .*\)$|\.? *\(.* (?:С|с)езон\)$|\.? *(\[|\()(?:TV|ТВ|OVA|ONA|ОВА|Movie).*(\]|\))$|(?: - )?\(?(?:Ф|ф)ильм[^,]*?\)?$/i, '').strip : nil
+  #end
 
   def ongoing?(ignore_excludes=false)
     ((aired_on != nil && aired_on < (Date.today - AniManga::OngoingToReleasedDays.days) && [AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status)) ||
