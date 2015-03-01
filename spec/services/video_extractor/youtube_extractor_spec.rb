@@ -10,7 +10,7 @@ describe VideoExtractor::YoutubeExtractor do
 
         its(:hosting) { should eq :youtube }
         its(:image_url) { should eq 'http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg' }
-        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+        its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc' }
       end
 
       context 'youtu.be' do
@@ -18,7 +18,7 @@ describe VideoExtractor::YoutubeExtractor do
 
         its(:hosting) { should eq :youtube }
         its(:image_url) { should eq 'http://img.youtube.com/vi/n5qqfOXRRaA/mqdefault.jpg' }
-        its(:player_url) { should eq 'http://youtube.com/v/n5qqfOXRRaA?start=3m3s' }
+        its(:player_url) { should eq 'http://youtube.com/embed/n5qqfOXRRaA?start=3m3s' }
       end
 
       context 'with time' do
@@ -26,34 +26,34 @@ describe VideoExtractor::YoutubeExtractor do
 
         its(:hosting) { should eq :youtube }
         its(:image_url) { should eq 'http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg' }
-        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc?start=123' }
+        its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc?start=123' }
       end
 
       context '& params after' do
         let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&ff=vcxvcx' }
-        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+        its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc' }
       end
 
       context '&amp; params after' do
         let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc&amp;ff=vcxvcx' }
-        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+        its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc' }
       end
 
       context '& params before' do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc' }
-        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+        its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc' }
         it { should be_present }
       end
 
       context '&amp; params before' do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&amp;v=VdwKZ6JDENc' }
-        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+        its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc' }
         it { should be_present }
       end
 
       context 'params_surrounded' do
         let(:url) { 'http://youtube.com/watch?sdfdsf=dfdfs&v=VdwKZ6JDENc&ff=vcxvcx#t=123' }
-        its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc?start=123' }
+        its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc?start=123' }
         it { should be_present }
       end
     end

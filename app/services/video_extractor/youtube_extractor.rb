@@ -20,7 +20,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
   end
 
   def player_url
-    "http://youtube.com/v/#{matches[:key]}" + (matches[:time].present? ? "?start=#{matches[:time]}" : '')
+    "http://youtube.com/embed/#{matches[:key]}" + (matches[:time].present? ? "?start=#{matches[:time]}" : '')
   end
 
   def matches
