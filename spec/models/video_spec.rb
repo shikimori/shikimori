@@ -78,7 +78,7 @@ describe Video do
 
     its(:hosting) { should eq 'youtube' }
     its(:image_url) { should eq 'http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg' }
-    its(:player_url) { should eq 'http://youtube.com/v/VdwKZ6JDENc' }
+    its(:player_url) { should eq 'http://youtube.com/embed/VdwKZ6JDENc' }
 
     describe 'url=' do
       let(:clean_url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }

@@ -10,18 +10,18 @@ describe BbCodes::VideoTag do
 
       context 'without time' do
         let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
-        it { should include "data-href=\"http://youtube.com/v/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
+        it { should include "data-href=\"http://youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
       end
 
       context 'with time' do
         let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
         it { should include "<a class=\"c-video b-video unprocessed youtube" }
-        it { should include "data-href=\"http://youtube.com/v/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
+        it { should include "data-href=\"http://youtube.com/embed/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
       end
 
       context 'with text' do
         let(:text) { "zzz https://www.youtube.com/watch?v=#{hash}" }
-        it { should include "data-href=\"http://youtube.com/v/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
+        it { should include "data-href=\"http://youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
       end
 
       context 'with params', vcr: { cassette_name: 'youtube' } do
