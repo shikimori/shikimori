@@ -28,11 +28,11 @@ class TopicDecorator < BaseDecorator
   # картинка топика(аватарка автора)
   def avatar
     if special? && linked.respond_to?(:image) && !(news? && !generated? && !preview?)
-      linked.image.url(:x48)
+      ImageUrlGenerator.instance.url linked, :x48
     elsif special? && linked.respond_to?(:logo)
-      linked.logo.url(:x48)
+      ImageUrlGenerator.instance.url linked, :x48
     elsif review?
-      linked.target.image.url(:x48)
+      ImageUrlGenerator.instance.url linked.target, :x48
     else
       user.avatar_url(48)
     end
@@ -40,11 +40,11 @@ class TopicDecorator < BaseDecorator
 
   def avatar2x
     if special? && linked.respond_to?(:image) && !(news? && !generated? && !preview?)
-      linked.image.url(:x96)
+      ImageUrlGenerator.instance.url linked, :x96
     elsif special? && linked.respond_to?(:logo)
-      linked.logo.url(:x96)
+      ImageUrlGenerator.instance.url linked, :x96
     elsif review?
-      linked.target.image.url(:x96)
+      ImageUrlGenerator.instance.url linked.target, :x96
     else
       user.avatar_url(80)
     end
