@@ -56,7 +56,7 @@ class UserDecorator < BaseDecorator
       if User::CensoredAvatarIds.include?(id) && (!h.user_signed_in? || (h.user_signed_in? && !User::CensoredAvatarIds.include?(h.current_user.id)))
         "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
       else
-        avatar.url "x#{size}".to_sym
+        ImageUrlGenerator.instance.url object, "x#{size}".to_sym
       end
     else
       "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
