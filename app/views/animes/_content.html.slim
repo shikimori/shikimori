@@ -3,7 +3,7 @@
 
 .b-catalog_entry-tooltip
   - if defined?(with_image) && with_image
-    img.image src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}"
+    img.image src="#{cdn_image anime, :preview}" srcset="#{cdn_image anime, :original} 2x" alt="#{localized_name anime}"
 
   .inner class="#{:offset if defined?(with_image) && with_image}"
     - if content_title != :none

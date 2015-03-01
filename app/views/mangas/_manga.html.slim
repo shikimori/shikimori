@@ -2,4 +2,4 @@
 - content_by ||= :tooltip
 - cover_notice ||= :none
 
-= render partial: 'animes/anime', object: manga, locals: { cover_by: cover_by, content_by: content_by, cover_notice: cover_notice, shortened: defined?(shortened) ? shortened : nil, anime_counter: defined?(manga_counter) ? manga_counter : nil }
+= render partial: 'animes/anime', object: manga, locals: { cover_by: cover_by, content_by: content_by, cover_notice: cover_notice, anime_counter: defined?(manga_counter) ? manga_counter : nil }

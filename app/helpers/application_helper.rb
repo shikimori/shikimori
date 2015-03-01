@@ -22,6 +22,10 @@ module ApplicationHelper
     content_for :title, page_title
   end
 
+  def cdn_image entry, image_size
+    ImageUrlGenerator.instance.url entry, image_size
+  end
+
   def attachment_url file, style = :original, with_timestamp = true
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end

@@ -69,5 +69,9 @@ FactoryGirl.define do
         FactoryGirl.create(:anime_calendar, anime: anime)
       end
     end
+
+    trait :with_image do
+      image { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
+    end
   end
 end

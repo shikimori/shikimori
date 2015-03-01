@@ -1,4 +1,4 @@
-a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="#{rel if defined? rel}"
+a.b-image href="#{cdn_image image, :original}" id="#{image.id}" rel="#{rel if defined? rel}"
   - if defined?(topic_poster_edit) || can?(:destroy, image)
     .mobile-edit
     .controls
@@ -8,4 +8,4 @@ a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="#{rel if def
       - else
         .confirm title="Подтвердить удаление" data-remote="true" action="#{url_for image}" data-method="delete" data-type="json"
       .cancel title="Отменить удаление"
-  img src="#{image.image.url :preview}"
+  img src="#{cdn_image image, :preview}"

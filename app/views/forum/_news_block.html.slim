@@ -1,7 +1,7 @@
 li.entry
   a href="#{entry.generated? ? url_for(entry.linked) : topic_url(entry)}" title="#{{entry.generated? ? entry.linked.name : h(entry.title)}}" rel="#{entry.generated? ? '' : :history}"
     .image-name
-      img src="#{entry.linked ? entry.linked.image.url(:x48) : entry.user.avatar_url(48)}" srcset="#{entry.linked ? entry.linked.image.url(:x96) : entry.user.avatar_url(80)} 2x" alt="#{{entry.linked ? entry.linked.name : h(entry.user.nickname)}}" title="#{{entry.linked ? entry.linked.name : h(entry.user.nickname)}}"
+      img src="#{entry.linked ? cdn_image(entry.linked, :x48) : entry.user.avatar_url(48)}" srcset="#{entry.linked ? cdn_image(entry.linked, :x96) : entry.user.avatar_url(80)} 2x" alt="#{{entry.linked ? entry.linked.name : h(entry.user.nickname)}}" title="#{{entry.linked ? entry.linked.name : h(entry.user.nickname)}}"
       span.title
         == entry.linked ? entry.linked.name : entry.user.nickname
     span.misc

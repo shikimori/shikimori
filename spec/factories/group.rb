@@ -55,5 +55,9 @@ FactoryGirl.define do
         group.unstub :join_owner
       end
     end
+
+    trait :with_logo do
+      logo { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
+    end
   end
 end

@@ -26,10 +26,6 @@ header.head
 .subcontent.cc.m0.animes-5
   = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
 
-.subheadline.m10 tooltipped shortened
-.cc.m0.animes-5
-  = render partial: 'animes/anime', collection: Anime.where(id: [245, 11741, 4282, 10408, 16894]).decorate, locals: { cover_notice: :studio, content_by: :tooltip, shortened: true }
-
 .block
   .subheadline @font-face: shikimori
   .fonts-test

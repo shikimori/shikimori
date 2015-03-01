@@ -1,9 +1,6 @@
 span.image-decor
   span.image-cutter
-    - if defined?(shortened) && shortened
-      img src="#{anime.image.url :short}" alt="#{localized_name anime}" title="#{localized_name anime}"
-    - else
-      img src="#{anime.image.url :preview}" srcset="#{anime.image.url :original} 2x" alt="#{localized_name anime}" title="#{localized_name anime}"
+    img src="#{cdn_image anime, :preview}" srcset="#{cdn_image anime, :original} 2x" alt="#{localized_name anime}" title="#{localized_name anime}"
 
 - if cover_title != :none
   - if cover_by == :link

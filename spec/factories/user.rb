@@ -60,5 +60,9 @@ FactoryGirl.define do
         user.stub(:password_required?).and_return false
       end
     end
+
+    trait :with_avatar do
+      avatar { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
+    end
   end
 end

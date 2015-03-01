@@ -12,8 +12,6 @@
 
       .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 4 : 6}"
         = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
-      /div
-        = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip, shortened: (data[:kind] != 'TV' && data[:kind] != 'Movie')
 
 - else
   .cc-4.m0

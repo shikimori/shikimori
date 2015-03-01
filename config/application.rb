@@ -8,6 +8,7 @@ Bundler.require(:default, Rails.env)
 
 module Site
   DOMAIN = 'shikimori.org'
+  STATIC_SUBDOMAINS = ['nyaa', 'kawai', 'moe', 'desu', 'dere']
 
   class Application < Rails::Application
 

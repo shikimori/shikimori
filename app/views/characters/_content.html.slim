@@ -1,6 +1,6 @@
 .b-catalog_entry-tooltip
   - if defined?(with_image) && with_image
-    img.image src="#{character.image.url :preview}" srcset="#{character.image.url :original} 2x" alt="#{localized_name character}"
+    img.image src="#{cdn_image character, :preview}" srcset="#{cdn_image character, :original} 2x" alt="#{localized_name character}"
 
   .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
     .line itemprop="name"
@@ -16,13 +16,13 @@
         .link
           .title = t "Name.#{character.best_works.first.object.class}"
           a.bubbled href="#{url_for character.best_works.first}" title="#{character.best_works.first.name}"
-            img src="#{character.best_works.first.image.url :x48}" srcset="#{character.best_works.first.image.url :x96} 2x"
+            img src="#{cdn_image character.best_works.first, :x48}" srcset="#{cdn_image character.best_works.first, :x96} 2x"
 
         - if character.seyu.any?
           .link
             .title Сэйю
             a.bubbled href="#{seyu_url character.seyu.first}" title="#{character.seyu.first.name}"
-              img src="#{character.seyu.first.image.url :x48}" srcset="#{character.seyu.first.image.url :x96} 2x"
+              img src="#{cdn_image character.seyu.first, :x48}" srcset="#{cdn_image character.seyu.first, :x96} 2x"
 
     .text itemprop="description"
       = character.decorate.description_html_truncated 250

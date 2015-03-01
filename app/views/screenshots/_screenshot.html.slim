@@ -1,6 +1,6 @@
 a.c-screenshot.b-image[
     class="#{"entry-#{screenshot_counter+1}" if defined? screenshot_counter}"
-    href="#{screenshot.image.url :original}"
+    href="#{cdn_image screenshot, :original}"
     title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" rel="screenshot"
   ]
   - if defined? edition
@@ -13,4 +13,4 @@ a.c-screenshot.b-image[
     .move-controls
       .move-left title="Переместить влево"
       .move-right title="Переместить вправо"
-  img src="#{screenshot.image.url :x166}" srcset="#{screenshot.image.url :x332}" title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_kind screenshot.anime}" data-id="#{screenshot.id}"
+  img src="#{cdn_image screenshot, :x166}" srcset="#{cdn_image screenshot, :x332}" title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_kind screenshot.anime}" data-id="#{screenshot.id}"
