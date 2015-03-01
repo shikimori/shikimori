@@ -7,6 +7,7 @@ class AnimeLinksVerifier
     find_anime_errors = bad_entries FindAnimeImporter
     hentai_anime_errors = bad_entries HentaiAnimeImporter
 
+    puts (find_anime_errors + hentai_anime_errors)
     raise "Ambiguous anime links found: #{find_anime_errors.join ', '}" if find_anime_errors.any?
     raise "Ambiguous anime links found: #{hentai_anime_errors.join ', '}" if hentai_anime_errors.any?
   end
