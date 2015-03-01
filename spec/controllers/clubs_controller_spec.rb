@@ -60,7 +60,23 @@ describe ClubsController do
     let(:club) { create :group, :with_thread, owner: user }
 
     context 'when success' do
-      before { patch :update, id: club.id, club: { name: 'newnewtest' } }
+      let!(:group_role) { }
+      let(:admin_ids) { }
+      let(:kick_ids) { }
+      before { patch :update, id: club.id, club: { name: 'newnewtest', admin_ids: admin_ids }, kick_ids: kick_ids }
+
+      context 'with kick_ids' do
+        let(:user_2) { create :user }
+        let!(:group_role) { create :group_role, group: club, user: user_2 }
+        let(:kick_ids) { [user_2.id] }
+        it { expect(club.reload.group_roles_count).to be_zero }
+      end
+
+      context 'with admin_ids' do
+        let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
+        let(:admin_ids) { [user.id] }
+        it { expect(club.reload.group_roles_count).to eq 1 }
+      end
 
       it { expect(response).to redirect_to edit_club_url(resource) }
       it { expect(resource.name).to eq 'newnewtest' }

@@ -52,24 +52,24 @@ describe Group do
       let(:group) { create :group }
       before { group.join user }
 
-      context 'common_user' do
-        it { expect(group.joined? user).to be true }
-        it { expect(group.admin? user).to be false }
+      it { expect(group.reload.group_roles_count).to eq 1 }
+      it { expect(group.joined? user).to be true }
+
+      context 'user' do
+        it { expect(group.admin? user).to be_falsy }
       end
 
-      context "club_owner" do
+      context 'club_owner' do
         let(:group) { create :group, owner: user }
-        it { expect(group.admin? user).to be true }
+        it { expect(group.admin? user).to be_truthy }
       end
-    end
 
-    describe '#leave' do
-      let(:user) { create :user }
-      let(:group) { create :group }
-      let(:group_role) { create :group_role, user: user, group: group }
-      before { group.leave user }
+      describe '#leave' do
+        before { group.reload.leave user }
 
-      it { expect(group.joined? user).to be false }
+        it { expect(group.joined? user).to be false }
+        it { expect(group.reload.group_roles_count).to be_zero }
+      end
     end
 
     describe '#member_role' do

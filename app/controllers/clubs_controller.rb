@@ -122,12 +122,9 @@ private
         resource.animes = []
         resource.mangas = []
         resource.characters = []
-        resource.admins = []
         resource.banned_users = []
+        resource.member_roles.where(role: 'admin').destroy_all
 
-        resource.object.members
-          .where(id: update_params['admin_ids'])
-          .each {|member| resource.leave member }
         resource.update update_params
       end
     end
