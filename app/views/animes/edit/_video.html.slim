@@ -9,8 +9,9 @@
       = f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false
       = f.input :name
 
-    = f.submit 'Сохранить'
-    a.cancel href="#{resource.url}" Отмена
+    .buttons
+      = f.submit 'Сохранить'
+      a.cancel href="#{resource.url}" Отмена
 
 - if @resource.videos.any? || @resource.changes[:videos].any?
   .block.videos-deleter

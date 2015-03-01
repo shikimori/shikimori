@@ -45,15 +45,32 @@ describe Moderation::UserChangesController do
 
     context 'authenticated' do
       include_context :authenticated, :user
-      before { post :create, user_change: params, is_applied: is_applied }
-      let(:is_applied) { }
+      before { post :create, user_change: params, apply: apply }
+      let(:apply) { }
 
       context 'with changes' do
-        it { expect(response).to redirect_to anime_url(anime) }
-        it { expect(resource).to be_persisted }
-        it { expect(resource).to have_attributes params }
-        it { expect(resource.user_id).to eq user.id }
-        it { expect(resource.status).to eq UserChangeStatus::Pending }
+        context 'with apply' do
+          let(:apply) { true }
+
+          context 'user_changes_moderator' do
+            let(:user) { create :user, :user_changes_moderator }
+            it { expect(response).to redirect_to anime_url(anime) }
+            it { expect(resource.status).to eq UserChangeStatus::Taken }
+          end
+
+          context 'user' do
+            it { expect(response).to redirect_to anime_url(anime) }
+            it { expect(resource.status).to eq UserChangeStatus::Pending }
+          end
+        end
+
+        context 'without apply' do
+          it { expect(response).to redirect_to anime_url(anime) }
+          it { expect(resource).to be_persisted }
+          it { expect(resource).to have_attributes params }
+          it { expect(resource.user_id).to eq user.id }
+          it { expect(resource.status).to eq UserChangeStatus::Pending }
+        end
       end
 
       context 'no changes' do

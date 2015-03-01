@@ -33,7 +33,7 @@
   if $('.edit-page.video').exists()
     $('form.new_video').on 'ajax:success', (e) ->
       Turbolinks.visit.bind(Turbolinks, location.href).delay(500)
-      $root.image_editable()
+      #$root.image_editable()
 
     $('.videos-deleter .b-video').image_editable()
 

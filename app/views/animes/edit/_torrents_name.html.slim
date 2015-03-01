@@ -6,5 +6,8 @@
   .block
     = f.input :value, as: :string, label: 'Название на торрентах'
 
-  = f.submit 'Сохранить'
-  a.cancel href="#{resource.url}" Отмена
+  .buttons
+    - if current_user.user_changes_moderator?
+      = f.submit 'Применить', class: 'apply', name: 'apply'
+    = f.submit 'Сохранить'
+    a.cancel href="#{resource.url}" Отмена
