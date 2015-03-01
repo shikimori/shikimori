@@ -96,7 +96,8 @@ class ReadMangaParser < SiteParserWithCache
     entry[:names] = [
         h1_tag.css('.name').text,
         h1_tag.css('.eng-name').text,
-        h1_tag.css('.jp-name').text
+        h1_tag.css('.jp-name').text,
+        h1_tag.css('.original-name').text,
       ]
     entry[:names] = entry[:names].compact.map(&:strip).select(&:present?).map {|v| v.sub(/ \[ТВ.*?\]$/, '') }
     entry[:russian] = entry[:names].first

@@ -4,10 +4,10 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
   it { expect(parser.fetch_pages_num).to eq 42 }
   it { expect(parser.fetch_page_links(0)).to have(FindAnimeParser::PageSize).items }
 
-  describe 'fetch_entry' do
+  describe '#fetch_entry' do
     subject(:entry) { parser.fetch_entry identifier }
 
-    describe 'common_entry' do
+    describe 'common entry' do
       let(:identifier) { 'attack_on_titan' }
 
       its(:id) { should eq 'attack_on_titan' }
@@ -20,28 +20,33 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
       its(:videos) { should have(26).items }
       its(:year) { should eq 2013 }
 
-      describe 'last_episode' do
+      describe 'last episode' do
         subject { entry.videos.first }
         it { should eq episode: 26, url: 'http://findanime.ru/attack_on_titan/series26?mature=1' }
       end
 
-      describe 'first_episode' do
+      describe 'first episode' do
         subject { entry.videos.last }
         it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
       end
     end
 
-    describe 'additioanl_names' do
+    describe 'names' do
+      let(:identifier) { 'how_to_train_the_ordinary_girl_to_be_a_heroine' }
+      its(:names) { should eq ["Как воспитать из обычной девушки героиню", "How to Train the Ordinary Girl to be a Heroine", "Saenai Kanojo no Sodate-kata", "Как создать скучную героиню", "Как воспитать героиню", "Saekano", "冴えない彼女の育てかた"] }
+    end
+
+    describe 'additioanl names' do
       let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
       its(:names) { should eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
     end
 
-    describe 'inline_videos' do
+    describe 'inline videos' do
       let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
       its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they___ova/series0?mature=1'}] }
     end
 
-    describe 'episode_0_or_movie' do
+    describe 'episode 0 or movie' do
       let(:identifier) { 'seikai_no_dansho___tanjyou_ova' }
       its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/seikai_no_dansho___tanjyou_ova/series0?mature=1'}] }
     end
@@ -57,7 +62,7 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
     end
   end
 
-  describe 'fetch_videos' do
+  describe '#fetch_videos' do
     subject(:videos) { parser.fetch_videos episode, url }
     let(:episode) { 1 }
     let(:url) { 'http://findanime.ru/strike_the_blood/series1?mature=1' }
@@ -91,7 +96,7 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
     #end
   end
 
-  describe 'extract_language' do
+  describe '#extract_language' do
     subject { parser.extract_language text }
 
     describe :английские_сабы do
@@ -105,7 +110,7 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
     end
   end
 
-  describe 'extract_kind' do
+  describe '#extract_kind' do
     subject { parser.extract_kind text }
 
     describe :озвучка do
@@ -149,7 +154,7 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
     end
   end
 
-  describe 'fetch_pages' do
+  describe '#fetch_pages' do
     before { allow(parser).to receive(:fetch_entry).and_return id: true }
     let(:pages) { 3 }
 
