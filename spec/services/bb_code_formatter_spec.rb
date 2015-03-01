@@ -244,9 +244,9 @@ describe BbCodeFormatter do
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
-      it { should eq "<a href=\"#{user_image.image.url :original, false}\" \
+      it { should eq "<a href=\"#{user_image.image.url :original}\" \
 rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\"/>\
+<img src=\"#{user_image.image.url :thumbnail}\" class=\"\"/>\
 <span class=\"marker\">1000x1000</span>\
 </a>" }
     end
