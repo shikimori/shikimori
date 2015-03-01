@@ -16,5 +16,5 @@
     .container
       .grid_sizer
       - cosplay_gallery.images.each do |image|
-        a.b-image href="#{image.image.url :original}" id="#{image.id}" rel="cosplay_gallery_#{cosplay_gallery.id}"
-          img src="#{image.image.url :preview}"
+        a.b-image href="#{cdn_image image, :original}" id="#{image.id}" rel="cosplay_gallery_#{cosplay_gallery.id}"
+          img src="#{cdn_image image, :preview}"

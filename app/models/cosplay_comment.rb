@@ -13,7 +13,7 @@ class CosplayComment < AniMangaComment
 private
   def images_bb_codes
     linked.images.limit(IMAGES_IN_PREVIEW).each.map do |image|
-      "[url=#{image.image.url}][img]#{image.image.url :preview}[/img][/url]"
+      "[url=#{ImageUrlGenerator.instance.url image, :original}][img]#{ImageUrlGenerator.instance.url image, :preview}[/img][/url]"
     end.join('')
   end
 end
