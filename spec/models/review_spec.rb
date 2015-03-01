@@ -34,7 +34,7 @@ describe Review do
     end
 
     describe 'visible' do
-      subject { Review.visible }
+      subject { Review.visible.order(:id) }
       let!(:review1) { create :review, state: :pending }
       let!(:review2) { create :review, state: :accepted, approver: user }
       let!(:review3) { create :review, state: :rejected, approver: user }
