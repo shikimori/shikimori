@@ -1,9 +1,9 @@
 class AnimeLinksVerifier
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  retry: false
+  sidekiq_options unique: true, dead: false
+  sidekiq_retry_in { 60 * 60 * 24 }
 
-  def perform
+  def perform return_errors = false
     find_anime_errors = bad_entries FindAnimeImporter
     hentai_anime_errors = bad_entries HentaiAnimeImporter
 
