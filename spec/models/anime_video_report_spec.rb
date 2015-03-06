@@ -315,14 +315,19 @@ describe AnimeVideoReport do
         it { should_not be_able_to :create, report }
       end
 
-      context 'broken' do
-        let(:kind) { :broken }
-        it { should be_able_to :create, report }
-      end
+      [:wrong, :broken].each do |kind|
+        context kind.to_s do
+          let(:kind) { kind }
 
-      context 'wrong' do
-        let(:kind) { :wrong }
-        it { should be_able_to :create, report }
+          context 'not banned' do
+            it { should be_able_to :create, report }
+          end
+
+          context 'banned' do
+            let(:user) { build_stubbed :user, :user, :banned }
+            it { should_not be_able_to :create, report }
+          end
+        end
       end
     end
 

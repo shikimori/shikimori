@@ -61,6 +61,14 @@ FactoryGirl.define do
       end
     end
 
+    trait :banned do
+      read_only_at 1.year.from_now - 1.week
+    end
+
+    trait :forever_banned do
+      read_only_at 1.year.from_now + 1.week
+    end
+
     trait :with_avatar do
       avatar { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
     end

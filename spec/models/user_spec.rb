@@ -235,6 +235,26 @@ describe User do
         it { should be false }
       end
     end
+
+    describe '#forever_banned?' do
+      let(:user) { build :user, read_only_at: read_only_at }
+
+      context 'banned not long ago' do
+        let(:read_only_at) { 11.month.from_now }
+        it { expect(user.forever_banned?).to be false }
+      end
+
+      context 'not banned' do
+        let(:read_only_at) { nil }
+        it { expect(user.forever_banned?).to be false }
+      end
+
+      context 'banned long ago' do
+        let(:read_only_at) { 13.month.from_now }
+        it { expect(user.forever_banned?).to be true }
+      end
+
+    end
   end
 
   describe 'permissions' do

@@ -69,7 +69,7 @@ class Ability
     end
 
     can [:new, :create, :update], Group do |group|
-      group.owner?(@user) || group.admin?(@user)
+      !@user.banned? && (group.owner?(@user) || group.admin?(@user))
     end
     can :join, Group do |group|
       !group.joined?(@user) && (
@@ -88,10 +88,10 @@ class Ability
     end
     can :upload, Group do |group|
       if group.upload_policy == GroupUploadPolicy::ByStaff
-        group.owner?(@user) || group.admin?(@user)
+        !@user.banned? && (group.owner?(@user) || group.admin?(@user))
 
       elsif group.upload_policy == GroupUploadPolicy::ByMembers
-        group.joined?(@user) && group.display_images
+        !@user.banned? && (group.joined?(@user) && group.display_images)
 
       else
         raise ArgumentError, group.upload_policy
@@ -123,10 +123,14 @@ class Ability
       topic.user_id == @user.id
     end
     can [:update], [Topic, AnimeNews, MangaNews] do |topic|
-      topic.user_id == @user.id && topic.created_at + 3.months > Time.zone.now
+      !@user.banned? && (
+        topic.user_id == @user.id && topic.created_at + 3.months > Time.zone.now
+      )
     end
     can [:destroy], [Topic, AnimeNews, MangaNews] do |topic|
-      topic.user_id == @user.id && topic.created_at + 4.hours > Time.zone.now
+      !@user.banned? && (
+        topic.user_id == @user.id && topic.created_at + 4.hours > Time.zone.now
+      )
     end
 
     can [:mark_read], Message # пометка сообщений прочтёнными
@@ -138,8 +142,7 @@ class Ability
         (message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
     can [:create], Message do |message|
-      forever_banned = (@user.read_only_at || Time.zone.now) - 1.year > Time.zone.now
-      message.kind == MessageType::Private && message.from_id == @user.id && !forever_banned
+      !@user.forever_banned? && message.kind == MessageType::Private && message.from_id == @user.id
     end
     can [:edit, :update], Message do |message|
       message.kind == MessageType::Private &&
@@ -147,13 +150,13 @@ class Ability
     end
 
     can [:create], AnimeVideoReport do |report|
-      report.user_id == @user.id && (report.broken? || report.wrong?)
+      !@user.banned? && report.user_id == @user.id && (report.broken? || report.wrong?)
     end
     can [:new, :create], AnimeVideo do |anime_video|
-      anime_video.uploaded?
+      !@user.banned? && anime_video.uploaded?
     end
     can [:edit, :update], AnimeVideo do |anime_video|
-      anime_video.uploaded? || anime_video.working?
+      !@user.banned? && (anime_video.uploaded? || anime_video.working?)
     end
   end
 

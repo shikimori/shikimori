@@ -82,7 +82,15 @@ describe Review do
 
     context 'review owner' do
       let(:review) { build_stubbed :review, user: user }
-      it { should be_able_to :manage, review }
+
+      context 'not banned' do
+        it { should be_able_to :manage, review }
+      end
+
+      context 'banned' do
+        let(:user) { build_stubbed :user, :banned }
+        it { should be_able_to :manage, review }
+      end
     end
 
     context 'reviews moderator' do

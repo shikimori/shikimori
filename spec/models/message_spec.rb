@@ -240,12 +240,12 @@ describe Message do
           let(:kind) { MessageType::Private }
 
           context 'not banned forever' do
-            let(:from_user) { build_stubbed :user, :user, read_only_at: 1.year.from_now - 1.week }
+            let(:from_user) { build_stubbed :user, :user, :banned }
             it { should be_able_to :create, message }
           end
 
           context 'banned forever' do
-            let(:from_user) { build_stubbed :user, :user, read_only_at: 1.year.from_now + 1.week }
+            let(:from_user) { build_stubbed :user, :user, :forever_banned }
             it { should_not be_able_to :create, message }
           end
 

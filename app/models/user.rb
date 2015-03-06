@@ -295,6 +295,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def forever_banned?
+    (read_only_at || Time.zone.now) - 1.year > Time.zone.now
+  end
+
 private
   # создание первой записи в историю - о регистрации на сайте
   def create_history_entry

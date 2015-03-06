@@ -152,7 +152,7 @@ describe Group do
     end
   end
 
-  describe 'permissions' do
+  describe 'permissions',:focus do
     let(:club) { build_stubbed :group, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user }
     let(:join_policy) { :free_join }
@@ -162,9 +162,21 @@ describe Group do
       let(:group_role) { build_stubbed :group_role, :admin, user: user }
       let(:club) { build_stubbed :group, owner: user, join_policy: join_policy, member_roles: [group_role] }
       it { should be_able_to :see_club, club }
-      it { should be_able_to :update, club }
-      it { should be_able_to :upload, club }
-      it { should be_able_to :new, club }
+
+      context 'not banned' do
+        it { should be_able_to :update, club }
+        it { should be_able_to :upload, club }
+        it { should be_able_to :new, club }
+        it { should be_able_to :create, club }
+      end
+
+      context 'banned' do
+        let(:user) { build_stubbed :user, :user, :banned }
+        it { should_not be_able_to :update, club }
+        it { should_not be_able_to :upload, club }
+        it { should_not be_able_to :new, club }
+        it { should_not be_able_to :create, club }
+      end
 
       describe 'invite' do
         context 'free_join' do
@@ -189,8 +201,17 @@ describe Group do
       let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy }
 
       it { should be_able_to :see_club, club }
-      it { should be_able_to :update, club }
-      it { should be_able_to :upload, club }
+
+      context 'not banned' do
+        it { should be_able_to :update, club }
+        it { should be_able_to :upload, club }
+      end
+
+      context 'banned' do
+        let(:user) { build_stubbed :user, :user, :banned }
+        it { should_not be_able_to :update, club }
+        it { should_not be_able_to :upload, club }
+      end
 
       describe 'invite' do
         context 'free_join' do

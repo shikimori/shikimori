@@ -445,6 +445,7 @@ describe AnimeVideo do
       let(:user) { }
       it { should be_able_to :new, uploaded_video }
       it { should be_able_to :create, uploaded_video }
+
       it { should_not be_able_to :new, working_video }
       it { should_not be_able_to :create, working_video }
       it { should_not be_able_to :new, broken_video }
@@ -458,8 +459,10 @@ describe AnimeVideo do
 
     describe 'user' do
       let(:user) { build_stubbed :user, :user }
+
       it { should be_able_to :new, uploaded_video }
       it { should be_able_to :create, uploaded_video }
+
       it { should_not be_able_to :new, working_video }
       it { should_not be_able_to :create, working_video }
       it { should_not be_able_to :new, broken_video }
