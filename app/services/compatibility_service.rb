@@ -1,6 +1,9 @@
 class CompatibilityService
+  METRIC = Recommendations::Metrics::Pearson
+  NORMALIZATION = Recommendations::Normalizations::ZScore
+
   def self.fetch user1, user2
-    Rails.cache.fetch("compatibility_#{user1.cache_key}_#{user2.cache_key}_#{@metric.class}_#{@normalization.class}") do
+    Rails.cache.fetch("compatibility_#{user1.cache_key}_#{user2.cache_key}_#{METRIC}_#{NORMALIZATION}") do
       {
         anime: new(user1, user2, Anime).fetch,
         manga: new(user1, user2, Manga).fetch
@@ -15,16 +18,16 @@ class CompatibilityService
 
     #@normalization = Recommendations::Normalizations::None.new
     #@normalization = Recommendations::Normalizations::ConstCut.new
-    @normalization = Recommendations::Normalizations::ZScore.new
+    @normalization = NORMALIZATION.new
     @rates_fetcher = Recommendations::RatesFetcher.new @klass
 
-    @metric = Recommendations::Metrics::Pearson.new
+    @metric = METRIC.new
     @metric.klass = @klass
     @metric.normalization = @normalization
   end
 
   def fetch
-    normalize @metric.compare(@user1.id, user_rates(@user1) || {}, @user2.id, user_rates(@user2) || {})
+    normalize @metric.compare(@user1.id, user_rates(@user1), @user2.id, user_rates(@user2))
   end
 
   def normalize compatibility
@@ -37,8 +40,8 @@ class CompatibilityService
   end
 
   def user_rates user
-    @rates_fetcher.user_cache_key = user.cache_key
-    @rates_fetcher.user_ids = [user.id]
+    @rates_fetcher.user_cache_key = [@user1.cache_key, @user2.cache_key].sort.join(',')
+    @rates_fetcher.user_ids = [@user1.id, @user2.id]
     @rates_fetcher.fetch(@normalization)[user.id] || {}
   end
 end

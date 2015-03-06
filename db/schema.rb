@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228153402) do
+ActiveRecord::Schema.define(version: 20150305115728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -831,11 +831,12 @@ ActiveRecord::Schema.define(version: 20150228153402) do
   create_table "svds", force: :cascade do |t|
     t.binary   "entry_ids"
     t.binary   "lsa"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.string   "scale",      limit: 255, default: "full"
-    t.string   "kind",       limit: 255
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "scale",         limit: 255, default: "full"
+    t.string   "kind",          limit: 255
     t.binary   "user_ids"
+    t.string   "normalization"
   end
 
   create_table "taggings", force: :cascade do |t|

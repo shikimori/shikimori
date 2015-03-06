@@ -9,8 +9,9 @@ class Recommendations::RatesFetcher
   attr_writer :with_deletion
   attr_writer :user_cache_key
 
-  def initialize klass
+  def initialize klass, user_ids=nil
     @klass = klass
+    @user_ids = user_ids
     @data = {}
     @by_user = true
     @with_deletion = true
@@ -18,17 +19,20 @@ class Recommendations::RatesFetcher
 
   # кешируемые нормализованные оценки по всем или конкретным пользователям
   def fetch normalization
-    @data["#{cache_key}_#{normalization.class.name}"] ||= begin
-      raw_data = Rails.cache.fetch cache_key, expires_in: 2.weeks do
-        if @with_deletion
-          fetch_rates(@klass).delete_if {|k,v| v.size < MinimumScores }
-        else
-          fetch_rates(@klass)
-        end
+    key = "#{cache_key}_#{normalization.class.name}"
+    @data[key] ||= Rails.cache.fetch key, expires_in: 2.weeks do
+      fetch_raw.each_with_object({}) do |(user_id, data), memo|
+        memo[user_id] = normalization.normalize data, user_id
       end
+    end
+  end
 
-      raw_data.each do |user_id,data|
-        normalization.normalize data, user_id
+  def fetch_raw
+    @raw_data ||= Rails.cache.fetch cache_key, expires_in: 2.weeks do
+      if @with_deletion
+        fetch_rates(@klass).delete_if {|k,v| v.size < MinimumScores }
+      else
+        fetch_rates(@klass)
       end
     end
   end

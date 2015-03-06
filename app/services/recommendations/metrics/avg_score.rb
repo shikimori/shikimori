@@ -1,14 +1,19 @@
 class Recommendations::Metrics::AvgScore < Recommendations::Metrics::MetricBase
-  def initialize(entries_fetcher)
-    @entries_fetcher = entries_fetcher
-  end
+  def predict user_id, threshold, without_user_rates
+    votes = {}
+    totals = {}
 
-  def learn(user_id, user_rates, all_rates)
-  end
+    @all_rates_normalized.each do |sampler_id, scores|
+      scores.each do |id,score|
+        next if score.try(:nan?)
 
-  def predict(user_id, threshold, without_user_rates)
-    @entries_fetcher.fetch.each_with_object({}) do |(k,v),memo|
-      memo[v.id] = v.score
+        votes[id] = (votes[id] || 0) + 1
+        totals[id] = (totals[id] || 0) + score
+      end
+    end
+
+    votes.each_with_object({}) do |(id, votes_num), memo|
+      memo[id] = totals[id] / votes_num
     end
   end
 end

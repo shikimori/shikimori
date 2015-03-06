@@ -2,7 +2,7 @@ header.head
   h1 Тест системы рекомендаций
   p.notice Здесь расположены тестовые выборки по различным вариантам подбора рекомендаций
 
-img.m5 src="https://api.monosnap.com/image/download?id=ybg90kD4G9PZd0hWskxkzOslm"
+/img.m5 src="https://api.monosnap.com/image/download?id=ybg90kD4G9PZd0hWskxkzOslm"
 
 /.subheadline.orange Экспериментально повышающие точность предсказания методы
 /.subcontent
@@ -11,23 +11,35 @@ img.m5 src="https://api.monosnap.com/image/download?id=ybg90kD4G9PZd0hWskxkzOslm
   /p Приравнением к 5 все оценки ниже 5 (0.1 к точности)
 
 - @users.each do |user|
-  .subheadline class="#{'blue' if user.id == -1}"
-    = user.nickname
+  h3.subheadline class="#{'blue' if user.id == -1}"
+    - if user.id != -1
+      - rates = Recommendations::RatesFetcher.new(Anime, [user.id]).fetch(Recommendations::Normalizations::None.new)[user.id].values
+      | #{user.nickname}&nbsp;&nbsp;&nbsp;
+      span style="font-weight: normal; font-size: 14px" mean #{Recommendations::Normalizations::NormalizationBase.new.mean(rates, user.id).round 2}, sigma #{Recommendations::Normalizations::NormalizationBase.new.sigma(rates, user.id).round 2}
+    - else
+      = user.nickname
+
   .subcontent
     table.b-table
       tr
-        th Метрика
-        th style="width: 50px; text-align: center;" RMSE
+        th style="width: 450px; text-align: left;" Метрика
+        /th style="width: 190px; text-align: left;" RMSE normalized
+        th style="width: 50px; text-align: left;" RMSE
       tr.border
         th colspan="2"
+
       - @metrics.each do |metric, results|
         tr
           td.name #{metric}#{" (лучшее / среднее / медианное / худшее)" if user.id == -1}
-          td.num style="white-space: nowrap; text-align: center;"
+          /td.num style="white-space: nowrap; text-align: left;"
             - if user.id == -1
-              == "%.2f / <b>%.2f</b> / %.2f / %.2f" % [results.values.min, results.values.sum / results.keys.size, results.values.sort[results.size/2], results.values.max]
+                == "%.2f / %.2f / <b>%.2f</b> / %.2f" % [results.values.map(&:first).min, results.values.map(&:first).sum / results.keys.size, results.values.map(&:first).sort[results.size/2], results.values.map(&:first).max]
             - else
-              - if results[user.id]
-                = "%.2f" % results[user.id]
-              - else
-                | -
+              = "%.2f" % results[user.id].first
+          td.num style="white-space: nowrap; text-align: left;"
+            - if user.id == -1
+                == "%.2f / %.2f / <b>%.2f</b> / %.2f" % [results.values.map(&:second).min, results.values.map(&:second).sum / results.keys.size, results.values.map(&:second).sort[results.size/2], results.values.map(&:second).max]
+            - else
+              = "%.2f" % results[user.id].second
+  br
+  br

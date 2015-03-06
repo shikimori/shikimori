@@ -10,6 +10,8 @@ class Recommendations::Sampler
     @rates_fetcher = rates_fetcher
     @normalization = normalization
 
+    @no_normalization = Recommendations::Normalizations::None.new
+
     @user_cache_key = user_cache_key
 
     @metric.klass = @klass
@@ -18,17 +20,31 @@ class Recommendations::Sampler
   end
 
   def rmse user_id, threshold
-    data = rankings(user_id, threshold, false)
+    NamedLogger.recommendations.info "calculating #{@metric.class.name.sub(/.*:/, '')} #{@normalization.class.name.sub(/.*:/, '')} RMSE for user[#{user_id}]".light_red
 
-    rates = user_rates(user_id).map do |target_id, score|
-      {
-        target_id: target_id,
-        gain_score: score,
-        score: data[target_id]
-      }
-    end.select {|v| v[:score].present? }
+    scores_predicted = rankings(user_id, threshold, false)
+    scores_gain = user_rates(user_id, @no_normalization)
+    #scores_normalized = user_rates(user_id, @no_normalization)
 
-    Math.sqrt(rates.map {|v| (v[:score] - v[:gain_score])**2}.sum * 1.0 / rates.size)
+    rates = scores_gain
+      .map do |target_id, _|
+        next unless scores_predicted[target_id]
+
+        #puts "#{target_id}: #{scores_gain[target_id].round(1)} -> #{scores_predicted[target_id].round(1)} (#{scores_normalized[target_id].round(1)})"
+        {
+          target_id: target_id,
+          gain_score: scores_gain[target_id],
+          predicted_score: scores_predicted[target_id]
+        }
+      end
+      .compact
+      #.select {|v| v[:predicted_score] > 0 && v[:predicted_score] < 10 }
+
+    [
+      #Math.sqrt(rates.map {|v| (v[:normalized_score] - v[:gain_normalized_score])**2}.sum * 1.0 / rates.size),
+      0,
+      Math.sqrt(rates.map {|v| (v[:predicted_score] - v[:gain_score])**2}.sum * 1.0 / rates.size)
+    ]
   end
 
   def recommend user_id, threshold
@@ -40,19 +56,23 @@ class Recommendations::Sampler
     Hash[data]
   end
 
-  def user_rates user_id
-    @user_rates ||= Rails.cache.fetch "#{@user_cache_key}_#{@normalization.class}_user_rates", expires_in: 2.weeks do
-      fetcher = @rates_fetcher.clone
-      fetcher.user_ids = [user_id]
-      fetcher.user_cache_key = @user_cache_key
-      z = fetcher.fetch(@normalization)[user_id]
+  def user_rates user_id, normalization
+    cache_key = [:sampler, @user_cache_key, normalization.class]
+
+    @user_rates ||= {}
+    @user_rates[cache_key.join('_')] ||= Rails.cache.fetch(cache_key, expires_in: 2.weeks) do
+      @rates_fetcher.fetch(normalization)
     end
+
+    @user_rates[cache_key.join('_')][user_id]
   end
 
 private
   def rankings user_id, threshold, without_user_rates
-    return {} if user_rates(user_id).nil?
-    @metric.learn user_id, user_rates(user_id), @rates_fetcher.fetch(@normalization)
+    #return {} if user_rates(user_id, @normalization).nil?
+    #raise 'invalid data or changed user list. try Rails.cache.clear' if user_rates(user_id, @normalization).first.second != @rates_fetcher.fetch(@normalization)[user_id].first.second
+
+    @metric.learn user_id, user_rates(user_id, @no_normalization), user_rates(user_id, @normalization), @rates_fetcher.fetch(@normalization)
     @metric.predict user_id, threshold, without_user_rates
   end
 end

@@ -1,23 +1,18 @@
 class Recommendations::Metrics::SvdMetric < Recommendations::Metrics::MetricBase
-  def initialize(svd)
+  def initialize svd
     @svd = svd
+    @ranks = {}
   end
 
-  def compare(user_id, user_rates, sampler_id, sampler_rates)
-    return 0 unless user_rates && sampler_rates
-
+  def compare user_id, user_rates, sampler_id, sampler_rates
     if @svd.user_ids.include?(sampler_id)
-      ranks = Rails.cache.fetch "svd_rank_#{@svd.id}_#{user_id}_#{user_rates.size}", expires_in: 2.weeks do
-        @svd.rank(user_rates)
-      end
-      ranks[sampler_id] || 0
-
-    else
-      0
-    end
+      rank_key = "svd_rank_#{@svd.id}_#{user_id}_#{user_rates.size}"
+      @ranks[rank_key] ||= Rails.cache.fetch(rank_key, expires_in: 2.weeks) { @svd.rank(user_rates) }
+      @ranks[rank_key][sampler_id]
+    end || Float::NAN
   end
 
-  def cache_key(*args)
-    "#{super(*args)}_svd##{@svd.id}"
+  def cache_key *args
+    super(*args) + [:svd, @svd.id]
   end
 end

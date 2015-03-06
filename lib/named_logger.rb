@@ -13,6 +13,7 @@ private
     logfile = File.open(Rails.root.join('log', "#{name}.log"), 'a')
     logfile.sync = true
 
+    #logger = NamedLoggerProxy.new ActiveResource::BufferedLogger.new(logfile)
     logger = NamedLoggerProxy.new ActiveSupport::Logger.new(logfile)
     logger.formatter = CommonLogFormatter.new
     logger

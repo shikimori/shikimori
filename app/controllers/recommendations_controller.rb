@@ -1,10 +1,11 @@
 # TODO: отрефакторить толстый контроллер
 class RecommendationsController < AnimesCollectionController
   before_filter :authenticate_user!, if: -> { json? }
+  layout false, only: [:test]
 
   CookieName = 'rec_type'
   THRESHOLDS = {
-    Anime => [150, 350, 500, 700, 1000],
+    Anime => [250, 500, 700, 1000, 1250],
     Manga => [15, 45, 100, 150]
   }
 
@@ -67,61 +68,70 @@ class RecommendationsController < AnimesCollectionController
     @limit = [500, params[:users].to_i.abs].min
     @threshold = [200, [0, params[:threshold].to_i].max].min
 
-    users = [user_signed_in? ? current_user : nil].compact +
-        User.where(id: [1,1945,2033]) + User.find(1).friends
-    @users = users
-        .compact
-        .uniq
-        .select {|v| v.nickname != 'Con_Affetto' && v.anime_rates.where { score > 0 }.size > 50 }
-        .sort_by {|v| user_signed_in? ? [v.id == current_user.id ? 1 : 2, v.id] : v.id }
-        .take(@limit)
+    users = [user_signed_in? ? current_user.object : nil].compact +
+      User.where(id: [1]) + SiteStatistics.new.newsmakers + SiteStatistics.new.thanks_to + User.find(1).friends
+    @users = users.compact.uniq# .select {|v| [2].include? v.id }
+      .select {|v| v.anime_rates.where('score > 0').size > 50 }
+      .sort_by {|v| user_signed_in? ? [v.id == current_user.id ? 1 : 2, v.id] : v.id }
+      .take(@limit)
     user_ids = @users.map(&:id)
+
+    @rates_fetcher = Recommendations::RatesFetcher.new Anime
+    entries_fetcher = Recommendations::EntriesFetcher.new Anime
+
+    avg = Recommendations::Metrics::AvgScore.new
+    euclid = Recommendations::Metrics::Euclid.new
+    pearson = Recommendations::Metrics::Pearson.new
+    svd = Recommendations::Metrics::SvdMetric.new(Svd.where(normalization: :none).last!)
+    svd_mean_centering = Recommendations::Metrics::SvdMetric.new(Svd.where(normalization: :mean_centering).last!)
+    svd_z_score = Recommendations::Metrics::SvdMetric.new(Svd.where(normalization: :z_score).last!)
 
     no_norm = Recommendations::Normalizations::None.new
     mean_centering = Recommendations::Normalizations::MeanCentering.new
     z_score = Recommendations::Normalizations::ZScore.new
+    #z_score_centering = Recommendations::Normalizations::ZScoreCentering.new
 
-    rates_fetcher = Recommendations::RatesFetcher.new Anime
-    entries_fetcher = Recommendations::EntriesFetcher.new Anime
+    @all_user_ids = (user_ids + @rates_fetcher.fetch(no_norm).keys).uniq.take(@limit)
 
-    all_user_ids = (user_ids + rates_fetcher.fetch(no_norm).keys).uniq.take(@limit)
+    #avg = Recommendations::Sampler.new Anime, Recommendations::Metrics::AvgScore.new(entries_fetcher), rates_fetcher, no_norm, ''
+    #euclid = Recommendations::Sampler.new Anime, Recommendations::Metrics::Euclid.new, rates_fetcher, no_norm, ''
 
-    avg = Recommendations::Sampler.new Anime, Recommendations::Metrics::AvgScore.new(entries_fetcher), rates_fetcher, no_norm, ''
-    euclid = Recommendations::Sampler.new Anime, Recommendations::Metrics::Euclid.new, rates_fetcher, no_norm, ''
+    #pearson = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, no_norm, ''
+    #pearson_mean = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, mean_centering, ''
+    #pearson_z = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, z_score, ''
 
-    pearson = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, no_norm, ''
-    pearson_mean = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, mean_centering, ''
-    pearson_z = Recommendations::Sampler.new Anime, Recommendations::Metrics::Pearson.new, rates_fetcher, z_score, ''
+    ##svd_full = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.full), rates_fetcher, z_score, ''
+    #svd = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.partial), rates_fetcher, no_norm, ''
+    #svd_mean = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.partial), rates_fetcher, mean_centering, ''
+    #svd_z = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.partial), rates_fetcher, z_score, ''
 
-    svd_full = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.full), rates_fetcher, z_score, ''
-    svd_partial = Recommendations::Sampler.new Anime, Recommendations::Metrics::SvdMetric.new(Svd.partial), rates_fetcher, z_score, ''
 
+    NamedLogger.recommendations.info 'sampling started'.light_green
     @metrics = {
-      #'Average Score' => all_user_ids.each_with_object({}) do |user_id,memo|
-        #memo[user_id] = avg.rmse user_id, @threshold
-      #end,
-      #'Euclid' => all_user_ids.each_with_object({}) do |user_id,memo|
-        #memo[user_id] = euclid.rmse user_id, @threshold
-      #end,
-      #'Pearson' => all_user_ids.each_with_object({}) do |user_id,memo|
-        #memo[user_id] = pearson.rmse user_id, @threshold
-      #end,
-      #'Pearson Mean-centering' => all_user_ids.each_with_object({}) do |user_id,memo|
-        #memo[user_id] = pearson_mean.rmse user_id, @threshold
-      #end,
-      'Pearson Z-score' => all_user_ids.each_with_object({}) do |user_id,memo|
-        memo[user_id] = pearson_z.rmse user_id, @threshold
-      end,
-      #'SVD full' => all_user_ids.each_with_object({}) do |user_id,memo|
-        #memo[user_id] = svd_full.rmse user_id, @threshold
-      #end,
-      #'SVD Z-score' => all_user_ids.each_with_object({}) do |user_id,memo|
-        #memo[user_id] = svd_partial.rmse user_id, @threshold
-      #end
+      ##'Average no normalization' => calc(avg, no_norm),
+      ##'Average Mean-centering normalization' => calc(avg, mean_centering),
+      ##'Average Z-score normalization' => calc(avg, z_score),
+      #'Euclid no normalization' => calc(euclid, no_norm),
+      #'Euclid Mean-centering normalization' => calc(euclid, mean_centering),
+      'Euclid Z-score normalization' => calc(euclid, z_score),
+      #'Pearson' => calc(pearson, no_norm),
+      #'Pearson Mean-centering normalization' => calc(pearson, mean_centering),
+      'Pearson Z-score' => calc(pearson, z_score),
+      'SVD no normalization' => calc(svd, no_norm),
+      #'SVD Mean-centering normalization' => calc(svd_mean_centering, mean_centering),
+      'SVD Z-score normalization' => calc(svd_z_score, z_score),
     }
-    @metrics.each {|metric, data| data.select! {|k,v| !v.nan? } }
+    NamedLogger.recommendations.info 'sampling finished'.light_green
+    #@metrics.each {|metric, data| data.select! {|k,v| !v.nan? } }
 
-    @users = [User.new(nickname: "Статтистика (#{all_user_ids.size} человек)")] + @users
+    @users = [User.new(nickname: "Статистика (#{@all_user_ids.size} человек)")] + @users
     @users[0].id = -1
+  end
+
+  def calc metric, normalization
+    @all_user_ids.each_with_object({}) do |user_id, memo|
+      sampler = Recommendations::Sampler.new Anime, metric, @rates_fetcher, normalization, user_id
+      memo[user_id] = sampler.rmse user_id, @threshold
+    end
   end
 end

@@ -1,5 +1,5 @@
 SidekiqUniqueJobs::Config.unique_args_enabled = true
-SidekiqUniqueJobs::Config.default_expiration = 2.days
+SidekiqUniqueJobs::Config.default_expiration = 30.days
 
 Sidekiq.configure_client do |config|
   config.redis = { namespace: "shiki_#{Rails.env}", url: "redis://localhost:6379/#{Rails.application.config.redis_db}" }

@@ -3,7 +3,7 @@ describe RecommendationsController do
     describe type do
       describe '#index' do
         context 'with_params' do
-          before { get :index, klass: type, metric: 'pearson', threshold: RecommendationsController::THRESHOLDS[Anime].first }
+          before { get :index, klass: type, metric: 'pearson', threshold: RecommendationsController::THRESHOLDS[type.capitalize.constantize].first }
           it { expect(response).to have_http_status :success }
         end
 

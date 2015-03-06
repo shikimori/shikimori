@@ -39,6 +39,7 @@ Site::Application.configure do
 
   #if defined? Rails::Console
     #ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ###ActiveRecord::Base.logger.level = 3
     ##ActiveRecord::Base.logger.level = 1
     #ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
     #Dalli.logger = Logger.new(STDOUT)

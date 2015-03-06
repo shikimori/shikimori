@@ -7,10 +7,10 @@ GIT
 
 GIT
   remote: git://github.com/gemhome/rmagick.git
-  revision: db4e87a3c888c36118bc3ce58e466bcda134460f
+  revision: 8ed258c40ff2cd936edd6803c4b68da1b6fe4d1b
   branch: master
   specs:
-    rmagick (2.13.3)
+    rmagick (2.13.4)
 
 GIT
   remote: git://github.com/itsNikolay/magnific-popup-rails.git
@@ -164,7 +164,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts-as-taggable-on (3.4.4)
+    acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     addressable (2.3.7)
     apipie-rails (0.3.1)
@@ -192,8 +192,7 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
-    capistrano (3.3.5)
-      capistrano-stats (~> 1.1.0)
+    capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
@@ -203,7 +202,6 @@ GEM
     capistrano-rails (1.1.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-stats (1.1.1)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -213,10 +211,10 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
-    chunky_png (1.3.3)
+    chunky_png (1.3.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.5)
+    cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coercible (1.0.0)
@@ -246,7 +244,7 @@ GEM
       compass (~> 1.0.0)
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
-    connection_pool (2.1.1)
+    connection_pool (2.1.2)
     cookiejar (0.3.2)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -288,7 +286,7 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     eventmachine (1.0.7)
-    execjs (2.3.0)
+    execjs (2.4.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -354,7 +352,7 @@ GEM
     i18n (0.7.0)
     icalendar (1.1.6)
     ice_nine (0.11.1)
-    jbuilder (2.2.8)
+    jbuilder (2.2.9)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     json (1.8.2)
@@ -382,7 +380,7 @@ GEM
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nenv (0.2.0)
@@ -484,7 +482,7 @@ GEM
     rails-assets-jquery (2.1.3)
     rails-assets-jquery-bridget (1.1.0)
       rails-assets-jquery (>= 1.4.2, < 3)
-    rails-assets-matches-selector (1.0.2)
+    rails-assets-matches-selector (1.0.3)
     rails-assets-outlayer (1.3.0)
       rails-assets-doc-ready (~> 1.0.0)
       rails-assets-eventEmitter (>= 4.2, < 5)
@@ -554,7 +552,7 @@ GEM
       capistrano (~> 3.0)
       sshkit (>= 1.2)
     safe_yaml (1.0.4)
-    sass (3.4.12)
+    sass (3.4.13)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -572,7 +570,7 @@ GEM
       redis-namespace (>= 1.3.1)
     sidekiq-limit_fetch (2.3.0)
       sidekiq (>= 2.6.5, < 4.0)
-    sidekiq-unique-jobs (3.0.9)
+    sidekiq-unique-jobs (3.0.11)
       sidekiq (>= 2.6)
     simple_form (3.1.0)
       actionpack (~> 4.0)
@@ -607,7 +605,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sshkit (1.6.1)
+    sshkit (1.7.1)
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -627,7 +625,7 @@ GEM
     truncate_html (0.9.3)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.7.0)
+    uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode (0.4.4.2)
@@ -683,6 +681,7 @@ DEPENDENCIES
   capybara
   clockwork!
   coffee-rails
+  colorize
   compass-rails
   dalli
   database_cleaner

@@ -1,19 +1,38 @@
 class Recommendations::Normalizations::ZScore < Recommendations::Normalizations::MeanCentering
-  def normalize(ratings, user_id)
-    super ratings, user_id
+  alias_method :mean_ratings, :normalize
 
-    deviation = sigma ratings.values, user_id
+  def normalize ratings, user_id
+    mean_ratings = mean_ratings(ratings, user_id)
+    mean_deviation = sigma(mean_ratings.values, user_id)
 
-    ratings.each do |target_id, score|
-      ratings[target_id] = ratings[target_id] / deviation
+    mean_ratings.each_with_object({}) do |(target_id, score), memo|
+      memo[target_id] = score / mean_deviation
     end
   end
 
-  def score(score, user_id, ratings)
-    super(score, user_id, ratings) / sigma(ratings.values, user_id)
+  def score score, user_id, ratings
+    mean_ratings = mean_ratings(ratings, user_id)
+    mean_deviation = _sigma(mean_ratings.values)
+    mean_score = _mean(ratings.values)
+
+    (score - mean_score) / mean_deviation
   end
 
-  def total_sigma(scores, user_id)
-    sigma scores, user_id
+  def restore_score normalized_score, user_id, ratings
+    mean_ratings = mean_ratings(ratings, user_id)
+    mean_deviation = _sigma(mean_ratings.values)
+    mean_score = _mean(ratings.values)
+
+    normalized_score * mean_deviation + mean_score
+  end
+
+  # mean, используемый для приведения реокмендованной оценке к 10 бальной шкале
+  def restorable_mean scores
+    _mean scores
+  end
+
+  # sigma, используемый для приведения реокмендованной оценке к 10 бальной шкале
+  def restorable_sigma scores
+    _sigma scores
   end
 end

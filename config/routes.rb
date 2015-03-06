@@ -544,7 +544,7 @@ Site::Application.routes.draw do
     if Rails.env.development?
       get "recommendations/test(/:users(/:threshold))(/user/:user)" => 'recommendations#test', defaults: { users: 10, threshold: 0 }
     end
-    get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index', as: :recommendations, klass: /anime|manga/, metric: /euclid|pearson|pearson_mean|pearson_z|svd/, votes: /\d+/
+    get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index', as: :recommendations, klass: /anime|manga/, metric: /euclid|euclid_z|pearson|pearson_mean|pearson_z|svd|svd_z|svd_mean/, votes: /\d+/
     get "recommendations/anime" => 'recommendations#index', as: :recommendations_anime, klass: Anime.name.downcase
     get "recommendations/manga" => 'recommendations#index', as: :recommendations_manga, klass: Manga.name.downcase
     resources :recommendation_ignores, only: [:create] do
@@ -554,13 +554,14 @@ Site::Application.routes.draw do
     end
 
     # userlist comparer
-    get "comparer/:list_type/:user_1/vs/:user_2#{ani_manga_format}" => 'userlist_comparer#show', as: :userlist_comparer,
-                                                                                                constraints: {
-                                                                                                  list_type: /anime|manga/,
-                                                                                                  user_1: /[^\/]+?/,
-                                                                                                  user_2: /[^\/]+?/,
-                                                                                                  format: /json/
-                                                                                                }
+    get "comparer/:list_type/:user_1/vs/:user_2#{ani_manga_format}" => 'userlist_comparer#show',
+      as: :userlist_comparer,
+      constraints: {
+        list_type: /anime|manga/,
+        user_1: /[^\/]+?/,
+        user_2: /[^\/]+?/,
+        format: /json/
+      }
 
     # studios
     resources :studios, only: [:index]
