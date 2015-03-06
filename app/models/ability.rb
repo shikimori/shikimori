@@ -114,7 +114,7 @@ class Ability
     #end
 
     can :manage, Review do |review|
-      review.user_id == @user.id
+      !@user.banned? && review.user_id == @user.id
     end
 
     can :manage, Device, user_id: @user.id

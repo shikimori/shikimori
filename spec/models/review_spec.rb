@@ -89,7 +89,7 @@ describe Review do
 
       context 'banned' do
         let(:user) { build_stubbed :user, :banned }
-        it { should be_able_to :manage, review }
+        it { should_not be_able_to :manage, review }
       end
     end
 
