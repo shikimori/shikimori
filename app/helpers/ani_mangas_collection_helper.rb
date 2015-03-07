@@ -6,7 +6,13 @@ module AniMangasCollectionHelper
       { kind: 'Movie', color: 'orange' },
       { kind: 'OVA/ONA', color: 'green' },
       { kind: 'Special', color: 'purple' },
-      { kind: 'Music', color: 'skyblue' }
+      { kind: 'Music', color: 'skyblue' },
+
+      { kind: 'Manga', color: 'blue' },
+      { kind: 'Manhwa', color: 'green' },
+      { kind: 'Novel', color: 'purple' },
+      { kind: 'Manhua', color: 'orange' },
+      { kind: 'One-Shot', color: 'skyblue' }
     ]
   end
 end

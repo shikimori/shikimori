@@ -1,4 +1,4 @@
-@on 'page:load', 'recommendations_index', ->
+@on 'page:load', 'recommendations_index', 'recommendations_favourites', ->
   # если страница ещё не готова, перегрузимся через 5 секунд
   if $('p.pending').exists()
     url = location.href
@@ -7,6 +7,7 @@
     ).delay 5000
 
   $('body').on 'mouseover', '.b-catalog_entry', ->
+    return unless USER_SIGNED_IN
     $node = $(@)
     return if $node.hasClass 'entry-ignored'
 

@@ -12,6 +12,26 @@ class FavouritesQuery
       .limit(limit)
   end
 
+  def global_top klass, limit, user
+    fav_ids = FavouritesQuery.new.top_favourite_ids(klass, limit)
+
+    in_list_ids = !user ? [] : user
+      .send("#{klass.name.downcase}_rates")
+      .where.not(status: UserRate.statuses['planned'])
+      .pluck(:target_id)
+
+    ignored_ids = !user ? [] : user
+      .recommendation_ignores
+      .where(target_type: klass.name)
+      .pluck(:target_id)
+
+    klass
+      .where(id: fav_ids - in_list_ids - ignored_ids)
+      .where.not(kind: 'Special')
+      .where.not(kind: 'Music')
+      .sort_by {|v| fav_ids.index v.id }
+  end
+
   # получение списка людей, добавивших сущность в избранное
   def favoured_by entry, limit
     User

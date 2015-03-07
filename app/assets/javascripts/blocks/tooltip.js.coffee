@@ -33,6 +33,6 @@ $.tools.tooltip.addEffect 'opacity', (done) ->
         @getTip().find('.link').hide()
 
 @ANIME_TOOLTIP_OPTIONS = $.extend {}, @tooltip_options,
-  offset: [-4, 10, -10]
+  offset: [-4, 10, -40]
   position: 'top right'
   predelay: 350

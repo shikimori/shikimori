@@ -47,6 +47,9 @@ class AniMangaQuery
 
   # выборка аниме или манги по заданным параметрам
   def fetch page = nil, limit = nil
+    @query = @query.preload(:genres) # важно! не includes
+    @query = @query.preload(@klass == Anime ? :studios : :publishers) # важно! не includes
+
     type!
     censored!
     disable_music!

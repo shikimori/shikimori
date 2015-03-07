@@ -1,0 +1,38 @@
+header.head.ajaxable
+  h1
+    = @page_title.last
+
+  - if @klass == Anime
+    a.misc href="#{recommendations_favourites_manga_url}" переключиться на мангу
+  - else
+    a.misc href="#{recommendations_favourites_anime_url}" переключиться на аниме
+
+  .notice
+    p Здесь мы собрали список #{@klass == Anime ? 'лучших аниме' : 'лучшей манги'} по предпочтениям пользователей нашего сайта.
+    - if @klass == Anime
+      p Не нашли для себя ничего интересного?
+        Выберите аниме по вкусу и жанру из топика <span class="linkeable" data-href="http://shikimori.org/o/104346-spisok-otbornyh-i-vkusnyh-animeh">"отборных и вкусных анимех"</span> на нашем форуме.
+    p
+      ' А если вы хотите получить персонализированные рекомендации,
+      ' основанные на ваших #{@klass == Anime ? 'зрительских' : 'читательских'} предпочтениях, то
+      - unless user_signed_in?
+        ' зарегистрируйтесь на сайте, заполните список #{@klass == Anime ? 'аниме' : 'манги'} и
+      | загляните на страницу <span class="linkeable" data-href="#{recommendations_url(klass: @klass.name.downcase)}">персонализированных рекомендаций</span> #{@klass == Anime ? 'аниме' : 'манги'}.
+
+.block
+  - if @entries.any?
+    - kinds_with_colors.each do |data|
+      - next unless @entries[data[:kind]]
+
+      .headline.m10 class="#{data[:color]}"
+        = t "#{@klass.name}.Plural.#{data[:kind]}"
+
+      - if klass == Anime
+        .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 5 : 8}"
+          = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
+      - else
+        .m0 class="cc-#{data[:kind] != 'One Shot' ? 5 : 8}"
+          = render @entries[data[:kind]], cover_notice: :publisher, content_by: :inline_tooltip
+
+  - else
+    p.b-nothing_here Ничего нет.

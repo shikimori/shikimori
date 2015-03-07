@@ -15,6 +15,10 @@ span.misc
     - if anime.real_studios.any?
       span.studio = anime.real_studios.first.name
 
+  - elsif cover_notice == :publisher
+    - if anime.publishers.any?
+      span.publisher = anime.publishers.first.name
+
   - elsif cover_notice == :year_kind
     span.right = anime.year
 

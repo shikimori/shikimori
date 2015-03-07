@@ -83,11 +83,6 @@ module ApplicationHelper
     text.gsub('href="/', "href=\"http://#{Site::DOMAIN}/").gsub('src="/', "src=\"http://#{Site::DOMAIN}/")
   end
 
-  # активны ли рекомендации манги
-  def manga_recommendations?
-    cookies[RecommendationsController::CookieName] == Manga.name.downcase
-  end
-
   def time_ago_in_words date, format_string=nil, original=false
     if original || date + 1.day > DateTime.now
       format_string ? format_string % super(date) : super(date)

@@ -14,12 +14,21 @@ a.entry class="#{:selected if params[:controller] == 'mangas' || (params[:contro
 a.entry.rel href="#{section_url :news}" title="Новости" Новости
 a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры
 
-.entry
-  - if user_signed_in? && current_user.show_contest_link?
-    a.contest href="#{current_contests_url}" title="Активный опрос" data-count="#{current_user.unvoted_contests}"
-  a href="#{contests_url}" title="Опросы" Опросы
+- if user_signed_in?
+  .entry
+    - current_user.show_contest_link?
+      a.contest href="#{current_contests_url}" title="Активный опрос" data-count="#{current_user.unvoted_contests}"
+    a href="#{contests_url}" title="Опросы" Опросы
 
-a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{recommendations_url(:klass => manga_recommendations? ? 'manga' : 'anime')}" title="Рекомендации" Рекомендации
+  .entry class="#{:selected if params[:controller] == 'recommendations'}"
+    .submenu-toggler
+    .submenu-activator Рекомендации
+    .submenu
+      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{recommendations_favourites_anime_url}" Избранное
+      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="http://shikimori.org/o/104346-spisok-otbornyh-i-vkusnyh-animeh" Советы с форума
+      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}" Персонализированное
+- else
+  a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{recommendations_favourites_anime_url}" title="Какие аниме посмотреть" Какие аниме посмотреть
 
 .entry class="#{:selected if params[:controller] == 'users' || params[:controller] == 'groups'}"
   .submenu-toggler

@@ -23,4 +23,32 @@ describe FavouritesQuery do
 
     it { expect(query.top_favourite_ids Person, 2).to eq [person.id, person_2.id] }
   end
+
+  describe 'global_top' do
+    let(:anime_1) { create :anime }
+    let(:anime_2) { create :anime }
+    let(:anime_3) { create :anime }
+
+    let!(:user_1) { create :user, favourite_persons: [create(:favourite, linked: anime_2)] }
+    let!(:user_2) { create :user, favourite_persons: [create(:favourite, linked: anime_2)] }
+    let!(:user_3) { create :user, favourite_persons: [create(:favourite, linked: anime_1)] }
+
+    context 'without user' do
+      it { expect(query.global_top Anime, 100, nil).to eq [anime_2, anime_1] }
+    end
+
+    context 'with user' do
+      it { expect(query.global_top Anime, 100, user_4).to eq [anime_2, anime_1] }
+
+      context 'anime in list' do
+        let!(:user_rate) { create :user_rate, user: user_4, target: anime_2, status: 'watching' }
+        it { expect(query.global_top Anime, 100, user_4).to eq [anime_1] }
+      end
+
+      context 'anime in recommendations ingnores' do
+        let!(:recommendation_ignore) { create :recommendation_ignore, user: user_4, target: anime_2 }
+        it { expect(query.global_top Anime, 100, user_4).to eq [anime_1] }
+      end
+    end
+  end
 end

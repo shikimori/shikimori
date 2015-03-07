@@ -540,6 +540,8 @@ Site::Application.routes.draw do
     post 'votes/:type/:id/yes' => 'votes#create', voting: 'yes', as: :vote_yes
     post 'votes/:type/:id/no' => 'votes#create', voting: 'no', as: :vote_no
 
+    get 'kakie-anime-postmotret' => 'recommendations#favourites', as: :recommendations_favourites_anime, action: :favourites, klass: Anime.name.downcase
+    get 'kakuyu-mangu-pochitat' => 'recommendations#favourites', as: :recommendations_favourites_manga, action: :favourites, klass: Manga.name.downcase
     # recommendations
     if Rails.env.development?
       get "recommendations/test(/:users(/:threshold))(/user/:user)" => 'recommendations#test', defaults: { users: 10, threshold: 0 }

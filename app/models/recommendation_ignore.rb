@@ -1,5 +1,5 @@
 class RecommendationIgnore < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, touch: true
   belongs_to :target, polymorphic: true
 
   # заблокировать франшизу для пользователя
@@ -12,6 +12,7 @@ class RecommendationIgnore < ActiveRecord::Base
       RecommendationIgnore.new user_id: user.id, target_id: id, target_type: entry.class.name
     end
     RecommendationIgnore.import entries
+    user.touch
 
     (ids + [entry.id]).uniq
 

@@ -1,27 +1,29 @@
 # TODO: отрефакторить толстый контроллер
 class RecommendationsController < AnimesCollectionController
-  before_filter :authenticate_user!, if: -> { json? }
+  before_action :authenticate_user!, if: -> { json? }
+  before_action :set_title
   layout false, only: [:test]
 
-  CookieName = 'rec_type'
+  COOKIE_NAME = 'recommendations_url'
   THRESHOLDS = {
     Anime => [250, 500, 700, 1000, 1250],
     Manga => [15, 45, 100, 150]
   }
 
   def index
-    @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
     @threshold = params[:threshold].to_i
     @metric = params[:metric]
 
     redirect_to recommendations_url(url_params(metric: 'pearson_z')) and return if @metric.blank?
-    unless THRESHOLDS[@klass].include? @threshold
-      redirect_to recommendations_url(url_params(threshold: THRESHOLDS[@klass][-1]))
+    unless THRESHOLDS[klass].include? @threshold
+      redirect_to recommendations_url(url_params(threshold: THRESHOLDS[klass][-1]))
       return
     end
 
+    page_title 'Персонализированные рекомендации'
+
     # запоминание текущего типа рекомендаций в куку, чтобы в меню верхнем ссылка корректная была
-    cookies[CookieName] = @klass.name.downcase if @klass.name.downcase != cookies[CookieName]
+    cookies[COOKIE_NAME] = request.url unless params[:page]
 
     # параметры для аниме контроллера
     params[:template] = 'index'
@@ -33,10 +35,7 @@ class RecommendationsController < AnimesCollectionController
       User.find_by_nickname(SearchHelper.unescape(params[:user])) || User.find_by_id(params[:user])
     end
 
-    @page_title = "Рекомендации #{@klass == Anime ? 'аниме' : 'манги'}"
-    @title_notice = "На данной странице отображен список #{@klass == Anime ? 'аниме' : 'манги'}, автоматически #{@klass == Anime ? 'подобранных' : 'подобранной'} сайтом, исходя из оценок похожих на вас людей"
-
-    @rankings = Recommendations::Fetcher.new(user, @klass, @metric, @threshold).fetch
+    @rankings = Recommendations::Fetcher.new(user, klass, @metric, @threshold).fetch
 
     if @rankings.present?
       @entries = []
@@ -61,6 +60,24 @@ class RecommendationsController < AnimesCollectionController
           render json: { pending: true }
         end
       end
+    end
+  end
+
+  def favourites
+    page_title klass == Anime ? 'Какие аниме посмотреть' : 'Какую мангу почитать'
+
+    @entries = Rails.cache.fetch [:favourites_recommendations, :v6, klass, current_user], expires_in: 1.week do
+      all_entries = FavouritesQuery.new.global_top klass, 500, current_user
+      all_entries
+        .group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
+        .each_with_object({}) do |(kind, group), memo|
+          limit = if klass == Anime
+            kind == 'TV' ? 15 : (kind == 'Movie' ? 10 : 8)
+          else
+            kind == 'Manga' ? 15 : (kind == 'One Shot' ? 8 : 10)
+          end
+          memo[kind] = group.take(limit).map(&:decorate)
+        end
     end
   end
 
@@ -133,5 +150,9 @@ class RecommendationsController < AnimesCollectionController
       sampler = Recommendations::Sampler.new Anime, metric, @rates_fetcher, normalization, user_id
       memo[user_id] = sampler.rmse user_id, @threshold
     end
+  end
+
+  def set_title
+    page_title I18n.t "Name.#{klass.name}"
   end
 end

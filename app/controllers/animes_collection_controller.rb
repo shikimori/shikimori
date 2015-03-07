@@ -132,8 +132,6 @@ private
   # выборка из датасорса без пагинации
   def fetch_wo_pagination(query)
     entries = AniMangaQuery.new(klass, params).order(query)
-      .preload(:genres) # важно! не includes
-      .preload(klass == Anime ? :studios : :publishers) # важно! не includes
       .decorate
       .to_a
     apply_in_list(entries)
@@ -202,7 +200,7 @@ private
 
   def build_page_title entry_data
     @page_title ||= klass.title_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
-    @page_title.sub! 'Лучшие аниме', 'Аниме' if user_signed_in?
+    @page_title.sub! 'Лучшие аниме', 'Аниме' if user_signed_in? && @page_title.is_a?(String)
   end
 
   def build_page_description entry_data
