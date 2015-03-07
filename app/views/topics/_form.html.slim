@@ -16,7 +16,7 @@
   .m20
     = f.input :section_id, as: :select, include_blank: false,
       collection: Section.public,
-      input_html: { disabled: topic.persisted? }
+      input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
   .m20
     = f.input :title
@@ -53,6 +53,7 @@
         = render partial: 'images/image', collection: topic.user_images, locals: { topic_poster_edit: true }
       input type="file" multiple="multiple"
 
-  = f.submit
-  - if topic.persisted?
-    a.cancel href="#{topic_url topic}" Отмена
+  .buttons
+    - if topic.persisted?
+      a.cancel href="#{topic_url topic}" Отмена
+    = f.submit

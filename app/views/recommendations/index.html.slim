@@ -28,7 +28,7 @@ header.head.misc
         a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][3]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][3], user: params[:user]}" сильная
         - if @klass == Anime
           a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][4]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][4], user: params[:user]}" полная
-      .hint Чем слабее выбрана фильтрация, тем больше вы получите результатов, и тем "неожиданнее" они могут оказаться.
+      .hint Чем слабее выбрана фильтрация, тем больше вы получите результатов, и тем неожиданнее они могут оказаться.
   .notice
     p На этой странице для вас автоматически подбираются рекомендации к
       #{@klass == Anime ? 'просмотру' : 'чтению'} на основе вашего списка

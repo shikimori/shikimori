@@ -9,6 +9,7 @@ class RecommendationsController < AnimesCollectionController
     Anime => [250, 500, 700, 1000, 1250],
     Manga => [15, 45, 100, 150]
   }
+  TOPIC_URL = 'http://shikimori.org/s/104346-spisok-otbornyh-i-vkusnyh-animeh'
 
   def index
     @threshold = params[:threshold].to_i

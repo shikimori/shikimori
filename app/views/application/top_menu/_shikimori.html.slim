@@ -25,7 +25,7 @@ a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры
     .submenu-activator Рекомендации
     .submenu
       a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{recommendations_favourites_anime_url}" Избранное
-      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="http://shikimori.org/o/104346-spisok-otbornyh-i-vkusnyh-animeh" Советы с форума
+      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{RecommendationsController::TOPIC_URL}" Советы с форума
       a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}" Персонализированное
 - else
   a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{recommendations_favourites_anime_url}" title="Какие аниме посмотреть" Какие аниме посмотреть

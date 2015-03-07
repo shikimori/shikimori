@@ -19,10 +19,10 @@ header.head.ajaxable
 
     aside.l-menu
       - if user_signed_in? || turbolinks_request?
-          = render 'menu', social: true, klass: klass
+        = render 'menu', social: true, klass: klass
       - else
-          .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
-            .ajax-loading title="Загрузка..."
+        .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
+          .ajax-loading title="Загрузка..."
 
 - if user_signed_in? && !current_user.preferences.postload_in_catalog
   = render 'pagination'
