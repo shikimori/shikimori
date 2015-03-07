@@ -161,7 +161,7 @@ class Ability
   end
 
   def moderator_ability
-    can :manage, [Topic, AnimeNews, MangaNews]
+    can :manage, [Topic, AnimeNews, MangaNews, Review]
   end
 
   def contests_moderator_ability

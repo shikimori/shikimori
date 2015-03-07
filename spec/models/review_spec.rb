@@ -98,6 +98,11 @@ describe Review do
       it { should be_able_to :manage, review }
     end
 
+    context 'forum moderator' do
+      let(:user) { build_stubbed :user, :reviews_moderator }
+      it { should be_able_to :manage, review }
+    end
+
     context 'user' do
       it { should be_able_to :read, review }
       it { should_not be_able_to :new, review }
