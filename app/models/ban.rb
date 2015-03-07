@@ -25,7 +25,7 @@ class Ban < ActiveRecord::Base
   end
 
   def suggest_duration
-    minutes = 30 + 30 * ((UsersQuery.new(user_id: user_id).bans_count ** 3) /2 - 1)
+    minutes = 30 + 30 * ((UsersQuery.new(user_id: user_id).bans_count ** 3) / 2 - 1)
     BanDuration.new(minutes).to_s
   end
 
