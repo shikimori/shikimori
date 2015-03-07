@@ -1,5 +1,6 @@
 @import compass/css3/transition
 @import mixins/image_editable
+@import mixins/pretty_list
 
 .p-recommendations-index
   .b-options-floated
@@ -26,3 +27,9 @@
       .content
         display: none !important
 
+  .no-rankings
+    .fail
+      color: $red
+
+    ul
+      +pretty_list

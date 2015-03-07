@@ -64,7 +64,7 @@ class Recommendations::Sampler
       @rates_fetcher.fetch(normalization)
     end
 
-    @user_rates[cache_key.join('_')][user_id]
+    @user_rates[cache_key.join('_')][user_id] || {}
   end
 
 private
