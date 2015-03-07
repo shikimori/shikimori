@@ -37,7 +37,7 @@ private
       {
         name: tr.css('.tableTitle').first.text.gsub(/^(.*), The$/, 'The \1'),
         status: convert_status(tr.css('.tableStatus').first.text.strip),
-        score: tr.css('.tableRating img').first.attr('name').to_f*2,
+        score: tr.css('.tableRating .rateme').first.attr('name').to_f*2,
         year: tr.css('.tableYear').first.text.to_i,
       }.merge(@klass == Anime ? {
         episodes: tr.css('.tableEps').first.text.to_i
