@@ -18,7 +18,7 @@
     #scores.sum.should > 120
   #end
 
-  #it 'fetch_anime', :focus do
+  #it 'fetch_anime' do
     #parser.fetch_anime(2629).should == {
       #id: 2629,
       #names: [

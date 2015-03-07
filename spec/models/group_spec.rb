@@ -152,7 +152,7 @@ describe Group do
     end
   end
 
-  describe 'permissions',:focus do
+  describe 'permissions' do
     let(:club) { build_stubbed :group, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user }
     let(:join_policy) { :free_join }
