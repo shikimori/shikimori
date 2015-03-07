@@ -1,6 +1,6 @@
 describe AbuseRequestsService do
   let(:service) { AbuseRequestsService.new comment, user }
-  let(:user) { create :user, id: 99 }
+  let!(:user) { create :user, id: 99 }
   let(:comment) { create :comment }
   let(:faye_token) { 'test' }
 
