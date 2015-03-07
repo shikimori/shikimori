@@ -9,15 +9,17 @@ header.head.misc
 
   - if user_signed_in?
     .b-header_filters style="#{'display: none;' if @entries.nil?}"
-      .filter-line
-        span.title Метод:
-        /a class="#{:current if @metric == 'pearson'}" href="#{recommendations_url metric: 'pearson', threshold: @threshold, user: params[:user]}" пирсон
-        a class="#{:current if @metric == 'pearson_z'}" href="#{recommendations_url metric: 'pearson_z', threshold: @threshold, user: params[:user]}" пирсон_z
-        /a class="#{:current if @metric == 'pearson_mean'}" href="#{recommendations_url metric: 'pearson_mean', threshold: @threshold, user: params[:user]}" пирсон_mean
-        /a class="#{:current if @metric == 'euclid'}" href="#{recommendations_url metric: 'euclid', threshold: @threshold, user: params[:user]}" эвклид
-        - if @klass == Anime
-          a class="#{:current if @metric == 'svd'}" href="#{recommendations_url metric: 'svd', threshold: @threshold, user: params[:user]}" svd
-          /a class="#{:current if @metric == 'svd_full'}" href="#{recommendations_url metric: 'svd_full', threshold: @threshold, user: params[:user]}" svd_full
+      - if @klass == Anime
+        .filter-line
+          span.title Метод:
+          /a class="#{:current if @metric == 'pearson'}" href="#{recommendations_url metric: 'pearson', threshold: @threshold, user: params[:user]}" пирсон
+          a class="#{:current if @metric == 'pearson_z'}" href="#{recommendations_url metric: 'pearson_z', threshold: @threshold, user: params[:user]}" пирсон_z
+          /a class="#{:current if @metric == 'pearson_mean'}" href="#{recommendations_url metric: 'pearson_mean', threshold: @threshold, user: params[:user]}" пирсон_mean
+          /a class="#{:current if @metric == 'euclid'}" href="#{recommendations_url metric: 'euclid', threshold: @threshold, user: params[:user]}" эвклид
+            a class="#{:current if @metric == 'svd'}" href="#{recommendations_url metric: 'svd', threshold: @threshold, user: params[:user]}" svd
+            /a class="#{:current if @metric == 'svd_full'}" href="#{recommendations_url metric: 'svd_full', threshold: @threshold, user: params[:user]}" svd_full
+        .hint Сайт умеет подбирать рекомендации двумя принципиально отличающимися алгоритмами, дающими различные результаты. Выбирайте по своему вкусу.
+
       .filter-line
         span.title Фильтрация:
         a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][0]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][0], user: params[:user]}" нет
@@ -26,6 +28,7 @@ header.head.misc
         a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][3]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][3], user: params[:user]}" сильная
         - if @klass == Anime
           a class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][4]}" href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][4], user: params[:user]}" полная
+      .hint Чем слабее выбрана фильтрация, тем больше вы получите результатов, и тем "неожиданнее" они могут оказаться.
   .notice
     p Данный раздел предназначен для автоматического подбора рекомендаций к #{@klass == Anime ? 'просмотру' : 'чтению'} на основе вашего списка #{@klass == Anime ? 'аниме' : 'манги'}. Исходя из поставленных вами оценок, находятся другие пользователи сайта, имеющие схожие предпочтения, и на основе их списков составляется каталог того, что возможно было бы вам интересно.
 
