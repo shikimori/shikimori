@@ -2,8 +2,9 @@ class Banhammer
   vattr_initialize :comment
 
   Z = '[!@#$%&*^]'
+  X = '[\s.,-:?!)(]'
   ABUSE = /
-    (?<= \s|\A|^ )
+    (?<= #{X}|\A|^ )
     (
       (н[аaеe])? # нахуй, хуй, хуйло, ***, хуйня
         (х|x|#{Z})(у|y|#{Z})(й|#{Z})
@@ -24,10 +25,10 @@ class Banhammer
       (е|e|ё|#{Z})(б|b|#{Z})(а|a|#{Z}) ((т|t|#{Z})(ь|#{Z}))? | # ебать, ёба
       (3|з|z|#{Z})(а|a|#{Z})(е|e|#{Z})(б|b|#{Z})(и|#{Z})(с|c|#{Z})(ь|#{Z}) # заебись
     )
-    (?= \s|\Z|$ )
+    (?= #{X}|\Z|$ )
     /imx
 
-  NOT_ABUSE = /(\s|\A|^) #{Z}{1,7} (\s|\Z|$)/imx
+  NOT_ABUSE = /(#{X}|\A|^) #{Z}{1,7} (#{X}|\Z|$)/imx
 
   def release
     ban if abusive?
