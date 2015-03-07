@@ -45,6 +45,8 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'х*й').to be_truthy }
     it { expect(banhammer.abusive? 'хуйло').to be_truthy }
     it { expect(banhammer.abusive? 'бля').to be_truthy }
+    it { expect(banhammer.abusive? 'блять').to be_truthy }
+    it { expect(banhammer.abusive? 'блядь').to be_truthy }
     it { expect(banhammer.abusive? 'нах').to be_truthy }
     it { expect(banhammer.abusive? 'пох').to be_truthy }
     it { expect(banhammer.abusive? 'охуел').to be_truthy }
@@ -52,6 +54,8 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'похер').to be_truthy }
     it { expect(banhammer.abusive? 'нахер').to be_truthy }
     it { expect(banhammer.abusive? 'херня').to be_truthy }
+    it { expect(banhammer.abusive? 'хера').to be_truthy }
+    it { expect(banhammer.abusive? 'херь').to be_truthy }
     it { expect(banhammer.abusive? 'сука').to be_truthy }
     it { expect(banhammer.abusive? 'с*ка').to be_truthy }
     it { expect(banhammer.abusive? 'су*а').to be_truthy }
