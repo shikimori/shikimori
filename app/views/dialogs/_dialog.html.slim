@@ -15,10 +15,10 @@
         span.item-delete-cancel title="Отмена"
 
     header
-      span.linkeable data-href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
+      span.linkeable data-href="#{profile_url dialog.target_user}"
         img src="#{dialog.target_user.avatar_url 48}" srcset="#{dialog.target_user.avatar_url 80} 2x" alt="#{dialog.target_user.nickname}"
       .name-date
-        a href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
+        a href="#{profile_url dialog.target_user}"
           = dialog.target_user.nickname
 
         time.dialog-time datetime="#{dialog.created_at.iso8601}"
@@ -29,7 +29,7 @@
 
     .body
       - if dialog.my_message?
-        = render dialog.message, message_url: profile_dialog_url(dialog.user, dialog.target_user)
+        = render dialog.message
 
       - else
         = dialog.html_body

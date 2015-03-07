@@ -47,13 +47,13 @@
 
     header
       - unless message.generated_news?
-        span.linkeable data-href="#{local_assigns[:message_url] || message.url}"
+        span.linkeable data-href="#{message.url}"
           img src="#{message.image}" srcset="#{message.image_2x} 2x" alt="#{message.title}"
       .name-date
         - if message.generated_news?
           .b-anime_status_tag class="#{message.linked.action}" = message.linked.localized_action
 
-        a href="#{local_assigns[:message_url] || message.url}"
+        a href="#{message.url}"
           = message.title
 
         - if message.persisted?
