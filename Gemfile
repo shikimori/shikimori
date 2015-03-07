@@ -20,7 +20,7 @@ gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
 
-gem 'rmagick', require: 'RMagick', github: 'gemhome/rmagick', branch: 'master' # dependence: sudo apt-get install libmagickwand-dev
+gem 'rmagick', require: 'rmagick', github: 'gemhome/rmagick', branch: 'master' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'
 
 gem 'actionpack-action_caching'
