@@ -12,11 +12,9 @@ span.image-decor
 
 span.misc
   - if cover_notice == :studio
-    - if anime.real_studios.any?
+    - if anime.respond_to?(:studios) && anime.real_studios.any?
       span.studio = anime.real_studios.first.name
-
-  - elsif cover_notice == :publisher
-    - if anime.publishers.any?
+    - elsif anime.respond_to?(:publishers) && anime.publishers.any?
       span.publisher = anime.publishers.first.name
 
   - elsif cover_notice == :year_kind
