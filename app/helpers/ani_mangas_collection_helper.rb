@@ -12,7 +12,8 @@ module AniMangasCollectionHelper
       { kind: 'Manhwa', color: 'green' },
       { kind: 'Novel', color: 'purple' },
       { kind: 'Manhua', color: 'orange' },
-      { kind: 'One-Shot', color: 'skyblue' }
+      { kind: 'One-Shot', color: 'skyblue' },
+      { kind: 'Doujin', color: 'pink' }
     ]
   end
 end

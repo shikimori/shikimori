@@ -8,10 +8,14 @@
       - next unless @entries[data[:kind]]
 
       .headline.m10 class="#{data[:color]}"
-        = t "Anime.Plural.#{data[:kind]}"
+        = t "#{@klass.name}.Plural.#{data[:kind]}"
 
-      .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 4 : 6}"
-        = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
+      - if @klass == Anime
+        .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 4 : 6}"
+          = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
+      - else
+        .m0 class="cc-#{data[:kind] == 'Doujin' || data[:kind] == 'One Shot' ? 6 : 4}"
+          = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
 
 - else
   .cc-4.m0
