@@ -119,22 +119,8 @@ class PagesController < ShikimoriController
 
     @proxies_count = Proxy.count
 
-    socket = TCPSocket.open 'localhost', '11211'
-    socket.send "stats\r\n", 0
-
-    statistics = []
-    loop do
-      data = socket.recv(4096)
-      if !data || data.length == 0
-        break
-      end
-      statistics << data
-      if statistics.join.split(/\n/)[-1] =~ /END/
-        break
-      end
-    end
-    stat = statistics.join.split("\r\n").select {|v| v =~ /STAT (?:bytes|limit_maxbytes) / }.map {|v| v.match(/\d+/)[0].to_f }
-    @memcached_space = ((stat[0]/stat[1]) * 100).round(2) # ((1 - (stat[0]-stat[1]) / stat[0])*100).round(2)
+    memcached_stats = Rails.cache.stats['localhost:11211']
+    @memcached_space = (memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f).round 2
 
     @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
 
