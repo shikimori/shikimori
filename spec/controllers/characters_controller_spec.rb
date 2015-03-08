@@ -75,6 +75,11 @@ describe CharactersController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#images' do
+    before { get :images, id: character.to_param }
+    it { expect(response).to redirect_to art_character_url(character) }
+  end
+
   describe '#favoured' do
     let!(:favoured) { create :favourite, linked: character }
     before { get :favoured, id: character.to_param }

@@ -45,6 +45,10 @@ class CharactersController < PeopleController
     page_title 'Арт с имиджборд'
   end
 
+  def images
+    redirect_to art_character_url(@resource), status: 301
+  end
+
   def cosplay
     @page = [params[:page].to_i, 1].max
     @limit = 2

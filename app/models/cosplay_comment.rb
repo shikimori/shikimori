@@ -6,6 +6,11 @@ class CosplayComment < AniMangaComment
     "Косплей #{gallery_linked.name}"
   end
 
+  def text
+    title
+  end
+
+
   def preview_wall
     "[wall]#{images_bb_codes}[/wall]"
   end

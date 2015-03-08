@@ -69,6 +69,11 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#images' do
+    before { get :images, id: anime.to_param }
+    it { expect(response).to redirect_to art_anime_url(character) }
+  end
+
   describe '#cosplay' do
     let(:cosplay_gallery) { create :cosplay_gallery }
     let!(:cosplay_link) { create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: anime }

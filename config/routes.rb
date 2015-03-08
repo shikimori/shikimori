@@ -404,6 +404,7 @@ Site::Application.routes.draw do
           get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
           get :chronology
           get :art
+          get :images
           get :related
           get :favoured
           get :clubs
@@ -463,6 +464,7 @@ Site::Application.routes.draw do
         get :mangas
         get :comments
         get :art
+        get :images
         get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
         get :favoured
         get :clubs
