@@ -14,8 +14,7 @@
 
   $('.b-show_more').show_more()
 
-  @init_history() if USER_SIGNED_IN && DAY_REGISTERED
-
+  @init_history() if USER_SIGNED_IN && DAY_REGISTERED && IGNORE_COPYRIGHT
 
 @init_history = ->
   # генерация истории аниме/манги

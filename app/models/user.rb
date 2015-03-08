@@ -299,6 +299,7 @@ class User < ActiveRecord::Base
     (read_only_at || Time.zone.now) - 1.year > Time.zone.now
   end
 
+  # регистрация более суток тому назад
   def day_registered?
     created_at + 1.day <= Time.zone.now
   end

@@ -71,7 +71,7 @@ describe AnimesController do
 
   describe '#images' do
     before { get :images, id: anime.to_param }
-    it { expect(response).to redirect_to art_anime_url(character) }
+    it { expect(response).to redirect_to art_anime_url(anime) }
   end
 
   describe '#cosplay' do

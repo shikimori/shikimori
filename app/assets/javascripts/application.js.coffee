@@ -26,6 +26,7 @@ $ =>
   @ENV = $body.data 'env'
   @USER_SIGNED_IN = $body.data 'user-signed-in'
   @DAY_REGISTERED = $body.data 'day-registered'
+  @IGNORE_COPYRIGHT = $body.data 'ignore-copyright'
 
   @OPTIONS =
     comments_auto_collapsed: $body.data('comments-auto-collapsed')

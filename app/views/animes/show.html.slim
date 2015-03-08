@@ -39,7 +39,7 @@
           .block
             = render 'animes/info', entry: @resource, details: true
 
-          - if @resource.anime? && !@resource.anons?
+          - if @resource.anime? && !@resource.anons? && ignore_copyright?
             .block
               - if @resource.anime_videos?
                 .watch-online.subheadline.blue

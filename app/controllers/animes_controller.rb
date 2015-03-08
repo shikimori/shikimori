@@ -33,7 +33,7 @@ class AnimesController < ShikimoriController
   end
 
   def files
-    redirect_to @resource.url, status: 301 unless user_signed_in?
+    redirect_to @resource.url, status: 301 unless user_signed_in? && ignore_copyright?
     page_title 'Файлы'
   end
 

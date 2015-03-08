@@ -142,13 +142,13 @@ class AniMangaDecorator < DbEntryDecorator
   # показывать ли блок файлов
   def files?
     h.user_signed_in? && h.current_user.day_registered? &&
-      anime? && !anons? && display_sensitive?
+      anime? && !anons? && display_sensitive? && ignore_copyright?
   end
 
   # показывать ли ссылки, если аниме или манга для взрослых?
   def display_sensitive?
     !object.censored? ||
-      (h.user_signed_in? && h.current_user.created_at < DateTime.now - 6.months)
+      (h.user_signed_in? && h.current_user.day_registered?)
   end
 
   # есть ли видео для просмотра онлайн?
