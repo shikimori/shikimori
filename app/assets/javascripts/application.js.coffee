@@ -25,6 +25,7 @@ $ =>
   $body = $(document.body)
   @ENV = $body.data 'env'
   @USER_SIGNED_IN = $body.data 'user-signed-in'
+  @DAY_REGISTERED = $body.data 'day-registered'
 
   @OPTIONS =
     comments_auto_collapsed: $body.data('comments-auto-collapsed')

@@ -253,7 +253,20 @@ describe User do
         let(:read_only_at) { 13.month.from_now }
         it { expect(user.forever_banned?).to be true }
       end
+    end
 
+    describe '#day_registered?' do
+      let(:user) { build :user, created_at: created_at }
+
+      context 'created_at not day ago' do
+        let(:created_at) { 23.hours.ago }
+        it { expect(user.day_registered?).to be false }
+      end
+
+      context 'created_at day ago' do
+        let(:created_at) { 25.hours.ago }
+        it { expect(user.day_registered?).to be true }
+      end
     end
   end
 

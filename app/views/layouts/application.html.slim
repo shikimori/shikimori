@@ -8,6 +8,7 @@ html
       style="#{body_background}"
       data-env="#{Rails.env}"
       data-user-signed-in="#{user_signed_in?}"
+      data-day-registered="#{user_signed_in? && current_user.day_registered?}"
       data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
       data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
     ]

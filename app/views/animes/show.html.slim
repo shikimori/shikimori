@@ -44,7 +44,7 @@
               - if @resource.anime_videos?
                 .watch-online.subheadline.blue
                   span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
-              - elsif user_signed_in?
+              - elsif user_signed_in? && current_user.day_registered?
                 .watch-online.subheadline.blue
                   a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
 

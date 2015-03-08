@@ -299,6 +299,10 @@ class User < ActiveRecord::Base
     (read_only_at || Time.zone.now) - 1.year > Time.zone.now
   end
 
+  def day_registered?
+    created_at + 1.day <= Time.zone.now
+  end
+
 private
   # создание первой записи в историю - о регистрации на сайте
   def create_history_entry

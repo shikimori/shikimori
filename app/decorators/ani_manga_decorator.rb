@@ -141,7 +141,8 @@ class AniMangaDecorator < DbEntryDecorator
 
   # показывать ли блок файлов
   def files?
-    h.user_signed_in? && anime? && !anons? && display_sensitive?
+    h.user_signed_in? && h.current_user.day_registered? &&
+      anime? && !anons? && display_sensitive?
   end
 
   # показывать ли ссылки, если аниме или манга для взрослых?

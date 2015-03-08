@@ -14,7 +14,7 @@
 
   $('.b-show_more').show_more()
 
-  @init_history() if USER_SIGNED_IN
+  @init_history() if USER_SIGNED_IN && DAY_REGISTERED
 
 
 @init_history = ->
