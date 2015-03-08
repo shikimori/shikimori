@@ -49,5 +49,6 @@ a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры
       a.entry href='#{moderation_bans_url}' title='Журнал модерации' Журнал модерации
     - if user_signed_in?
         a.entry class="#{:active if params[:controller] == 'translations'}" href="#{translations_url}" title="Аниме без описаний" Аниме без описаний
-    - if user_signed_in? && current_user.cosplay_moderator?
+        a.entry href="http://shikimori.org/api/doc" API
+    /- if user_signed_in? && current_user.cosplay_moderator?
         a.entry class="#{:active if params[:controller] == 'cosplay'}" href="#{mod_cosplay_index_url}" title="Косплей" Косплей
