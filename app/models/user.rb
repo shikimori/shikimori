@@ -93,7 +93,8 @@ class User < ActiveRecord::Base
     url: "/images/user/:style/:id.:extension",
     path: ":rails_root/public/images/user/:style/:id.:extension"
 
-  validates :nickname, presence: true, name: true, length: { maximum: MAX_NICKNAME_LENGTH }
+  validates :nickname, presence: true
+  validates :nickname, name: true, length: { maximum: MAX_NICKNAME_LENGTH }, if: -> { new_record? || changes['nickname'] }
   validates :email, presence: true, if: -> { persisted? && changes['email'] }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
