@@ -39,6 +39,7 @@ describe Banhammer do
     it { expect(banhammer.abusive? '!!!').to be_falsy }
     it { expect(banhammer.abusive? '*!!!*').to be_falsy }
     it { expect(banhammer.abusive? 'N*O*K').to be_falsy }
+    it { expect(banhammer.abusive? '^O^').to be_falsy }
 
     it { expect(banhammer.abusive? 'хуй').to be_truthy }
     it { expect(banhammer.abusive? 'хуйня').to be_truthy }

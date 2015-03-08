@@ -30,7 +30,8 @@ class Banhammer
     (?= #{X}|\Z|$ )
     /imx
 
-  NOT_ABUSE = /(#{X}|\A|^) #{Z}{1,7} (#{X}|\Z|$)/imx
+  ABUSE_SYMBOL = /#{Z}/
+  NOT_ABUSE = /(#{X}|\A|^) (#{Z}{1,7}) (#{X}|\Z|$)/imx
 
   def release
     ban if abusive?
@@ -68,7 +69,12 @@ private
   def abusiveness text = self.comment.body
     text
       .scan(ABUSE)
-      .select {|group| group.select(&:present?).select {|v| v !~ NOT_ABUSE }.any? }
+      .select do |group|
+        group.select(&:present?).select do |match|
+          match.size >= 3 && match !~ NOT_ABUSE &&
+            match.scan(ABUSE_SYMBOL).size <= (match.size / 2).floor
+        end.any?
+      end
       .size
   end
 end
