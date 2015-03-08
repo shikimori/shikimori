@@ -1,4 +1,5 @@
 @import "globals";
+@import "mixins/retina";
 
 .tooltip-inner {
   background: #F7F7F7;
@@ -55,33 +56,6 @@
     list-style-position: inside!important;
   }
 }
-/*.tooltip-details,*/
-/*.tooltip-details p,*/
-/*.tooltip-details .prgrph,*/
-/*.tooltip-details .spoiler {*/
-  /*font-size: 11px;*/
-  /*margin-bottom: 4px;*/
-  /*line-height: 20px!important;*/
-/*}*/
-/*.tooltip-details {*/
-  /*.role, .name {*/
-    /*margin-bottom: 0!important;*/
-  /*}*/
-  /*.item-block {*/
-    /*height: 160px;*/
-  /*}*/
-  /*ul {*/
-    /*margin-left: 0!important;*/
-    /*li {*/
-      /*list-style-position: inside!important;*/
-    /*}*/
-  /*}*/
-  /*h3 {*/
-    /*color:#333333;*/
-    /*font-size:14px;*/
-    /*margin:4px 0 0;*/
-  /*}*/
-/*}*/
 .tooltip-img {
   float: left;
   padding: 0 10px 10px 0;
@@ -101,7 +75,7 @@
 }
 
 .tooltip-arrow {
-  background: inline-image("/bubble/popup-arrow-left.png") no-repeat scroll 0 0 transparent !important;
+  @include background-inline-retina('/bubble/popup-arrow-left', 'png', 22px, 26px);
   height:26px;
   position:absolute;
   right:100%;
@@ -110,7 +84,7 @@
   z-index:10;
 }
 .tooltip-left .tooltip-arrow {
-  background: inline-image("/bubble/popup-arrow-right.png") no-repeat scroll 0 0 transparent !important;
+  @include background-inline-retina('/bubble/popup-arrow-right', 'png', 22px, 26px);
   left: 100%;
   right: none;
 }

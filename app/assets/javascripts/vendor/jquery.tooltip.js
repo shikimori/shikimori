@@ -253,10 +253,11 @@
 
           // remote tooltip
           } else if (!trigger.data('local-tooltip') && (trigger.data('href') || trigger.attr('href'))) {
-            tip = $(conf.defaultTemplate).addClass(conf.tipClass)
-                                         .css('z-index', parseInt(trigger.parents('.tooltip').css('z-index')) || 1)
-                                         .hide()
-                                         .appendTo(document.body);
+            tip = $(conf.defaultTemplate)
+              .addClass(conf.tipClass)
+              .css('z-index', parseInt(trigger.parents('.tooltip').css('z-index')) || 1)
+              .hide()
+              .appendTo(document.body);
 
             _.delay(function() {
               tip.find('.tooltip-details').load(trigger.data('tooltip_url') || trigger.data('href') || (trigger.attr('href') + '/tooltip'), function() {

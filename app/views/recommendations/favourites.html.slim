@@ -21,6 +21,7 @@ header.head.ajaxable
 
 .block
   - if @entries.any?
+    - content_by = user_signed_in? || turbolinks_request? ? :inline_tooltip : :tooltip
     - kinds_with_colors.each do |data|
       - next unless @entries[data[:kind]]
 
@@ -29,10 +30,10 @@ header.head.ajaxable
 
       - if klass == Anime
         .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 5 : 8}"
-          = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
+          = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
       - else
         .m0 class="cc-#{data[:kind] != 'One Shot' ? 5 : 8}"
-          = render @entries[data[:kind]], cover_notice: :studio, content_by: :inline_tooltip
+          = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
 
   - else
     p.b-nothing_here Ничего нет.

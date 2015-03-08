@@ -12,7 +12,7 @@ p.warning Перед внесением изменений обязательн�
     = f.input :source, label: 'Источник (адрес страницы, откуда взят текст)'
 
   .buttons
+    a.cancel href="#{resource.url}" Отмена
     - if current_user.user_changes_moderator?
       = f.submit 'Применить', class: 'apply', name: 'apply'
     = f.submit 'Сохранить'
-    a.cancel href="#{resource.url}" Отмена

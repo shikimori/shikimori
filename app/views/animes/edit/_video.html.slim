@@ -10,8 +10,8 @@
       = f.input :name
 
     .buttons
-      = f.submit 'Сохранить'
       a.cancel href="#{resource.url}" Отмена
+      = f.submit 'Сохранить'
 
 - if @resource.videos.any? || @resource.changes[:videos].any?
   .block.videos-deleter
