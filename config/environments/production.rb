@@ -57,7 +57,7 @@ Site::Application.configure do
   config.cache_store = :dalli_store, 'localhost', {
     namespace: 'shikimori_production',
     compress: true,
-    value_max_bytes: 1024 * 1024 * 128
+    value_max_bytes: 1024 * 1024 * 32
   }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
