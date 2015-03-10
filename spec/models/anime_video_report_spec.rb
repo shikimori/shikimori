@@ -145,7 +145,7 @@ describe AnimeVideoReport do
 
     describe '#accept' do
       before { other_report }
-      before { report.accept approver }
+      before { report.accept! approver }
       its(:approver) { should eq approver }
 
       context 'video was working' do
@@ -171,6 +171,17 @@ describe AnimeVideoReport do
         it { is_expected.to be_accepted }
         it { expect(subject.anime_video).to be_broken }
       end
+
+    end
+
+    context 'Fix : https://github.com/morr/shikimori/issues/427' do
+      let(:url) { 'http://vkontakte.ru/video_ext.php?oid=154832837&id=161510385&hash=b66257a02ef35fc0&hd=3' }
+      let!(:other_video) { create(:anime_video, kind: 'fandub', state: 'working', url: url) }
+      let!(:anime_video) { create(:anime_video, kind: 'fandub', state: 'working', url: url) }
+      let!(:report) { create(:anime_video_report, anime_video: anime_video, kind: 'broken', state: 'pending', approver_id: approver.id) }
+      before { report.accept! approver }
+      it { expect(report).to be_accepted }
+      it { expect(anime_video).to be_broken }
     end
 
     describe '#reject' do
