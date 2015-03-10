@@ -44,7 +44,7 @@ class AnimeVideo < ActiveRecord::Base
     state :copyrighted
 
     event :broken do
-      transition [:working, :uploaded] => :broken
+      transition [:working, :uploaded, :rejected] => :broken
     end
     event :wrong do
       transition [:working, :uploaded] => :wrong

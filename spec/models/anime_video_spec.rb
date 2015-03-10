@@ -204,6 +204,12 @@ describe AnimeVideo do
       it { should be_banned }
     end
 
+    context 'FIX : https://github.com/morr/shikimori/issues/428' do
+      subject(:video) { create(:anime_video, state: 'rejected') }
+      before { video.broken }
+      it { is_expected.to be_broken }
+    end
+
     describe 'remove_episode_notification' do
       [:fandub, :raw, :subtitles].each do |kind|
         [:broken, :wrong, :ban].each do |action|
