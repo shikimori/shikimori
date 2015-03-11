@@ -1,3 +1,4 @@
+@import compass/css3/opacity
 @import compass/css3/transition
 @import compass/typography/text/ellipsis
 @import compass/utilities/general/clearfix
@@ -183,7 +184,11 @@
 
   .anime-rate
     +block
+    +transition(opacity 0.5s ease)
     width: auto
+
+    &.ajax_request
+      +opacity(0.4)
 
     .add-to-list
       +link

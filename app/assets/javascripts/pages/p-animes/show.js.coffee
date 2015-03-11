@@ -120,6 +120,8 @@
       $('.anime-rate .cancel').click()
 
     # клик на изменение user_rate - подгрузка и показ формы
+    .on 'ajax:before', '.item-edit', (e, edit_html) -> $('.anime-rate').addClass 'ajax_request'
+    .on 'ajax:complete', '.item-edit', (e, edit_html) -> $('.anime-rate').removeClass 'ajax_request'
     .on 'ajax:success', '.item-edit', (e, edit_html) ->
       $show = $('.anime-rate .rate-show')
       $show
