@@ -42,7 +42,7 @@ class TopicsController < ForumController
   def show
     @topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
     # новости аниме без комментариев поисковым системам не скармливаем
-    noindex if Entry::SpecialTypes.include?(@topic.class.name) && @topic.comments_count == 0
+    noindex && nofollow if @topic.generated? && @topic.comments_count.zero?
 
     if ((@topic.news? || @topic.review?) && params[:linked].present?) || (
         !@topic.news? && !@topic.review? && (
