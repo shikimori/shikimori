@@ -9,9 +9,11 @@
     .subheadline Редактирование видео
     .block
       = f.input :episode
-      = f.input :url, input_html: { disabled: true }
+      = f.input :url, input_html: { disabled: !current_user.video_moderator? }
       = f.input :author_name, hint: 'не обязательно'
       = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
+      - if current_user.video_moderator?
+        = f.input :state, as: :select, include_blank: false, collection: AnimeVideo.state_machine.states.map(&:name).select { |state| ![:banned, :copyrighted].include?(state) }
 
     .block
       = f.submit 'Сохранить'
