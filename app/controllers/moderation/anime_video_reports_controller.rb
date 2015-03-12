@@ -26,6 +26,15 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
+  def accept_edit
+    @resource.accept! current_user
+    redirect_to edit_video_online_url(
+      @resource.anime_video.anime_id,
+      @resource.anime_video,
+      host: AnimeOnlineDomain.host(@resource.anime_video.anime)
+    )
+  end
+
   def reject
     @resource.reject! current_user
     redirect_to_back_or_to moderation_anime_video_reports_url

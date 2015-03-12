@@ -6,9 +6,21 @@ ru:
         subtitles: сабы
         fandub: озвучка
         unknown: озвучка
+      #state: &states
+        #working: работает
+        #uploaded: загружено, требует проверки
+        #rejected: отказано
+        #broken: сломано
+        #wrong: не к этому аниме
+        #banned: banned
+        #copyrighted: copyrighted
     new:
       kind:
         <<: *kinds
+      #state:
+        #<<: *states
     edit:
       kind:
         <<: *kinds
+      #state:
+        #<<: *states

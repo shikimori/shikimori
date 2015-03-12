@@ -100,6 +100,7 @@ ru:
         url: Url на видео
         episode: Эпизод
         kind: Тип видео
+        state: Статус
         author_name: Автор (озвучки,субтитров)
       video:
         url: Ссылка
@@ -204,6 +205,14 @@ ru:
         raw: оригинал
         subtitles: сабы
         fandub: озвучка
+      state:
+        working: работает
+        uploaded: загружено, требует проверки
+        rejected: отказано
+        broken: сломано
+        wrong: не к этому аниме
+        banned: banned
+        copyrighted: copyrighted
 
     anime_video_report:
       kind:
