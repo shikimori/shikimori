@@ -72,6 +72,7 @@ Site::Application.routes.draw do
 
       member do
         get :accept
+        get :accept_edit
         get :reject
         get :work
         get :cancel

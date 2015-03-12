@@ -28,6 +28,7 @@
       - if user_signed_in? && current_user.video_moderator?
         - if report.pending?
           span.moderation
+            a href="#{accept_edit_moderation_anime_video_report_url report.id}" подтвердить+редактировать
             a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
             a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
         - else
