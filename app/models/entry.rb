@@ -128,7 +128,7 @@ class Entry < ActiveRecord::Base
 
   # топик ли это обзора?
   def review?
-    self.class == ReviewComment
+    self.class == ReviewComment && section_id != Section::OFFTOPIC_ID
   end
 
   # топик ли это косплей?
