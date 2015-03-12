@@ -1,7 +1,8 @@
+# получить новый токен https://oauth.yandex.ru/authorize?response_type=token&client_id=<идентификатор приложения>
 class YandexMetrika
-  APP_ID = 'ef0aa97bc35b4ccbada9e0d79aeb17f7'
-  APP_SECRET = 'f873d40b9ec54c479c0560fb5d365dab'
-  APP_TOKEN = 'a7ead542b7b54482be10a27598ec2731'
+  APP_ID = 'b658b57e3a5b4370a0448fc9ba85f129'
+  APP_SECRET = '51bd8685f0074421895b4965eec15250'
+  APP_TOKEN = 'c751573157874acea30ba2ec46b9f6db'
   APP_COUNTER_ID = 7915231
 
   def traffic_for_months months

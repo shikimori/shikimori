@@ -8,13 +8,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Accept:
       - application/x-yametrika+json
       Content-Type:
       - application/x-yametrika+json
       Authorization:
-      - Bearer a7ead542b7b54482be10a27598ec2731
+      - Bearer c751573157874acea30ba2ec46b9f6db
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -25,7 +25,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 06 Jan 2015 23:36:41 GMT
+      - Thu, 12 Mar 2015 18:27:18 GMT
       Content-Type:
       - application/x-yametrika+json
       Transfer-Encoding:
@@ -52,13 +52,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Accept:
       - application/x-yametrika+json
       Content-Type:
       - application/x-yametrika+json
       Authorization:
-      - Bearer a7ead542b7b54482be10a27598ec2731
+      - Bearer c751573157874acea30ba2ec46b9f6db
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -69,7 +69,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 06 Jan 2015 23:36:41 GMT
+      - Thu, 12 Mar 2015 18:27:18 GMT
       Content-Type:
       - application/x-yametrika+json
       Transfer-Encoding:
@@ -96,13 +96,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Accept:
       - application/x-yametrika+json
       Content-Type:
       - application/x-yametrika+json
       Authorization:
-      - Bearer a7ead542b7b54482be10a27598ec2731
+      - Bearer c751573157874acea30ba2ec46b9f6db
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -113,7 +113,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 06 Jan 2015 23:36:41 GMT
+      - Thu, 12 Mar 2015 18:27:19 GMT
       Content-Type:
       - application/x-yametrika+json
       Transfer-Encoding:
@@ -140,13 +140,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Accept:
       - application/x-yametrika+json
       Content-Type:
       - application/x-yametrika+json
       Authorization:
-      - Bearer a7ead542b7b54482be10a27598ec2731
+      - Bearer c751573157874acea30ba2ec46b9f6db
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -157,7 +157,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 06 Jan 2015 23:36:42 GMT
+      - Thu, 12 Mar 2015 18:27:19 GMT
       Content-Type:
       - application/x-yametrika+json
       Transfer-Encoding:
@@ -184,13 +184,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Accept:
       - application/x-yametrika+json
       Content-Type:
       - application/x-yametrika+json
       Authorization:
-      - Bearer a7ead542b7b54482be10a27598ec2731
+      - Bearer c751573157874acea30ba2ec46b9f6db
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -201,7 +201,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 06 Jan 2015 23:36:42 GMT
+      - Thu, 12 Mar 2015 18:27:20 GMT
       Content-Type:
       - application/x-yametrika+json
       Transfer-Encoding:
@@ -228,13 +228,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Accept:
       - application/x-yametrika+json
       Content-Type:
       - application/x-yametrika+json
       Authorization:
-      - Bearer a7ead542b7b54482be10a27598ec2731
+      - Bearer c751573157874acea30ba2ec46b9f6db
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -245,7 +245,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 06 Jan 2015 23:36:43 GMT
+      - Thu, 12 Mar 2015 18:27:20 GMT
       Content-Type:
       - application/x-yametrika+json
       Transfer-Encoding:
