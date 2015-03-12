@@ -1,5 +1,5 @@
 = cache [report, user_signed_in? && current_user.video_moderator?] do
-  .b-log_entry.video style='width: 985px;'
+  .b-log_entry.video
     span.id-label #
     span: a href="#{play_video_online_index_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
       = report.id
@@ -22,12 +22,12 @@
         = report.approver.nickname
 
     .spoiler.collapse
-      span.action.half-hidden style='display: none; position: absolute; right: 0px; top: 30px;' развернуть
+      span.action.half-hidden развернуть
     .collapsed.spoiler подробности
-    .spoiler.target.info style='display: none;'
+    .spoiler.target.info
       - if user_signed_in? && current_user.video_moderator?
         - if report.pending?
-          span.moderation style='position: absolute; right: 0px;'
+          span.moderation
             a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
             a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
         - else
