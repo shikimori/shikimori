@@ -65,74 +65,70 @@
         .remove()
       $container.append data.content
 
-  # user ratings
-  $scores_user = $('.anime-rate .b-rate')
-  $scores_user.rateable() if $scores_user.is(':visible')
 
-  $('.anime-rate')
+  # user ratings
+  $rate = $('.anime-rate')
+  $('.b-rate', $rate).rateable()
+
+  $rate
+    .on 'ajax:before', (e, edit_html) ->
+      $rate.addClass 'ajax_request'
+
+    .on 'ajax:success ajax:complete', (e, edit_html) ->
+      $rate.removeClass 'ajax_request'
+
     # клик по добавлению в свой список
-    .on 'click', '.add-to-list', ->
+    .on 'click', '.add-trigger', ->
       $form = $(@).closest('form')
 
       $form.find('.user_rate_status input').val $(@).data('status')
       $form.submit()
 
-    # клик по раскрытию вариантов добавления в список
-    .on 'click', '.expand-options', ->
-      $(@).toggleClass 'selected'
+    # по изменению статуса в списке
+    .on 'click', '.edit-trigger', ->
+      # закрытие развёрнутого меню
+      $rate.find('.expanded .arrow').click()
 
-      $options = $('.anime-rate .expanded-options')
-
-      unless $options.data 'height'
-        $options
-          .data height: $options.height()
-          .css(height: 0)
-          .show()
-
-      (=>
-        if $(@).hasClass 'selected'
-          $options.css height: $options.data('height')
-          $('.anime-rate .add-to-list:not(.option)').hide()
-        else
-          $options.css height: 0
-          $('.anime-rate .add-to-list:not(.option)').show()
-      ).delay()
+      if $('.rate-edit', $rate).is(':visible')
+        $('.rate-edit', $rate).find('.cancel').click()
+        false
 
     # отмена редактирования user_rate
     .on 'click', '.cancel', ->
-      $show = $('.anime-rate .rate-show').show()
-      $edit = $('.anime-rate .rate-edit').hide()
+      $show = $('.rate-show', $rate).show()
+      $edit = $('.rate-edit', $rate).hide()
 
-      $('.anime-rate .rate-container').css
-        height: $show.data('height')
+      $rate.css height: $('.b-add_to_list').outerHeight(true) + $show.data('height')
+      (-> $rate.css height: '').delay(500)
 
     # сабмит формы user_rate
     .on 'ajax:success', '.new_user_rate, .increment, .remove', (e, html) ->
-      $('.anime-rate').html html
-      $('.anime-rate .b-rate').rateable()
+      $rate.html html
+      $('.b-rate', $rate).rateable()
 
     # завершение редактирования user_rate
     .on 'ajax:success', '.edit_user_rate', (e, html) ->
-      $('.anime-rate .rate-show').replaceWith($(html).find('.rate-show'))
-      $('.anime-rate .rate-show').data height: $('.anime-rate .rate-show').height()
-      $('.anime-rate .b-rate').rateable()
-
-      $('.anime-rate .cancel').click()
+      $rate.html html
+      $('.b-rate', $rate).rateable()
 
     # клик на изменение user_rate - подгрузка и показ формы
-    .on 'ajax:before', (e, edit_html) -> console.log('before');$('.anime-rate').addClass 'ajax_request'
-    .on 'ajax:success ajax:complete', (e, edit_html) -> console.log('complete');$('.anime-rate').removeClass 'ajax_request'
-    .on 'ajax:success', '.item-edit', (e, edit_html) ->
-      $show = $('.anime-rate .rate-show')
+    .on 'ajax:success', '.edit-trigger', (e, edit_html) ->
+      e.stopImmediatePropagation()
+
+      $show = $('.rate-show', $rate)
       $show
-        .data(height: $show.height())
+        .data(height: $show.outerHeight(true))
         .hide()
 
-      $edit = $('.anime-rate .rate-edit')
+      $edit = $('.rate-edit', $rate)
+      $edit.html(edit_html)
+
       $edit
-        .html(edit_html)
-        .data(height: $edit.height())
+        .data(height: $edit.outerHeight(true))
         .show()
 
-      $('.anime-rate .rate-container').css height: $show.data('height')
-      (-> $('.anime-rate .rate-container').css height: $edit.data('height')).delay()
+      $rate.css height: $('.b-add_to_list').outerHeight(true) + $show.data('height')
+      (->
+        $rate.css height: $('.b-add_to_list').outerHeight(true) + $edit.data('height')
+      ).delay()
+      (-> $rate.css height: '').delay(500)

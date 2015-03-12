@@ -1,0 +1,60 @@
+@import mixins/hover_underlined
+@import mixins/icons
+
+.b-add_to_list
+  margin-bottom: 10px
+
+  .trigger, .option
+    background: #daf1ff
+    border: 1px solid #bce6ff
+    border-left-width: 5px
+    color: #4bf
+    font-size: 14px
+    font-weight: bold
+    line-height: 2.2
+    max-width: 227px
+    padding: 0 5px
+
+    .text
+      +hover_underlined
+      +link_color
+      cursor: pointer
+
+  .plus
+    +link_color
+    +menu_icon('+')
+    &:before
+      line-height: inherit
+
+  .edit
+    +link_color
+    +menu_icon('\e842')
+    &:before
+      line-height: inherit
+
+  &.expanded .arrow
+    +menu_icon('\e81c')
+    &:before
+      line-height: inherit
+
+  .arrow
+    +menu_icon('\e846')
+    +link_color($gray-color)
+    float: right
+    &:before
+      line-height: inherit
+
+  .expanded-options
+    +transition(height 0.3s ease)
+    display: none
+
+    .option
+      font-weight: normal
+      font-size: 13px
+      border-top: none
+
+      .text
+        padding-left: 5px
+
+    .remove-trigger .text
+      color: $red

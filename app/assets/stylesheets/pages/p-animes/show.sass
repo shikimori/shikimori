@@ -184,7 +184,8 @@
 
   .anime-rate
     +block
-    +transition(opacity 0.5s ease)
+    +transition(opacity 0.5s ease, height 0.3s ease)
+    overflow: hidden
     width: auto
 
     &.ajax_request
@@ -196,22 +197,12 @@
       +lte_ipad
         line-height: 2
 
-    .expand-options
-      +icon_button('\006d')
-
-    .expanded-options
-      +transition(height 0.3s ease)
-      display: none
-
-    .rate-container
-      +transition(height 0.3s ease)
-      overflow: hidden
-
     .rate-show
       margin-bottom: 5px
 
       .rate-number
         float: right
+        margin-right: 7px
 
         .b-input
           display: inline
@@ -226,7 +217,7 @@
         .item-add
           margin-left: 10px
 
-      .status
+      .episodes
         margin-bottom: 5px
 
       .note
@@ -246,6 +237,3 @@
         a
           +link
           float: right
-
-      textarea
-        width: 195px
