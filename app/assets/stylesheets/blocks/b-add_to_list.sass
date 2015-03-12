@@ -11,7 +11,7 @@
     color: #4bf
     font-size: 14px
     font-weight: bold
-    line-height: 2.2
+    line-height: 30px
     max-width: 227px
     padding: 0 5px
 
@@ -35,6 +35,7 @@
   &.expanded .arrow
     +menu_icon('\e81c')
     &:before
+      margin-right: 0
       line-height: inherit
 
   .arrow
@@ -42,6 +43,7 @@
     +link_color($gray-color)
     float: right
     &:before
+      margin-right: 0
       line-height: inherit
 
   .expanded-options

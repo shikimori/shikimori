@@ -5,6 +5,7 @@
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
+@import mixins/hover_underlined
 @import mixins/icons
 @import mixins/plashka
 @import mixins/responsive
@@ -235,5 +236,9 @@
         margin-bottom: 10px
 
         a
-          +link
+          +hover_underlined
+          color: $red
           float: right
+
+          &:hover
+            color: red
