@@ -52,20 +52,21 @@ link rel="yandex-tableau-widget" href="http://#{Site::DOMAIN}/yandex-tableau-wid
 = display_meta_tags site: 'Шикимори', separator: '/', reverse: true
 = csrf_meta_tag
 
-= stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
-- if anime_online?
-  = stylesheet_link_tag 'anime_online/application', media: 'all', data: { 'turbolinks-track' => ''}
-- elsif manga_online?
-  = stylesheet_link_tag 'manga_online/application', media: 'all', data: { 'turbolinks-track' => ''}
+- unless Rails.env.test?
+  = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
+  - if anime_online?
+    = stylesheet_link_tag 'anime_online/application', media: 'all', data: { 'turbolinks-track' => ''}
+  - elsif manga_online?
+    = stylesheet_link_tag 'manga_online/application', media: 'all', data: { 'turbolinks-track' => ''}
 
-= yield :head
+  = yield :head
 
-= javascript_include_tag :core, data: { 'turbolinks-track' => ''}
-= javascript_include_tag :application, data: { 'turbolinks-track' => ''}
-- if anime_online?
-  = javascript_include_tag 'anime_online/application', data: { 'turbolinks-track' => ''}
-- elsif manga_online?
-  = javascript_include_tag 'manga_online/application', data: { 'turbolinks-track' => ''}
+  = javascript_include_tag :core, data: { 'turbolinks-track' => ''}
+  = javascript_include_tag :application, data: { 'turbolinks-track' => ''}
+  - if anime_online?
+    = javascript_include_tag 'anime_online/application', data: { 'turbolinks-track' => ''}
+  - elsif manga_online?
+    = javascript_include_tag 'manga_online/application', data: { 'turbolinks-track' => ''}
 
 - if Rails.env.production?
   = render partial: "application/counters/#{domain_folder}"

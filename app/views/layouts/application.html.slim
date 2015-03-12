@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    = render partial: 'application/head'
+    = render 'application/head'
   body[
       class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} "
       id="#{controller_name}_#{action_name}"
@@ -22,7 +22,7 @@ html
       p.flash-alert
         == alert
     header.l-top_menu
-      = render partial: 'application/top_menu'
+      = render 'application/top_menu'
 
     section.l-page *itemprop style="#{page_background}"
       - if user_signed_in? && current_user.admin? && !Rails.env.development?
@@ -40,7 +40,7 @@ html
         = yield
 
       footer.l-footer
-        = render partial: 'application/footer'
+        = render 'application/footer'
 
     #shade
     .b-to-top
