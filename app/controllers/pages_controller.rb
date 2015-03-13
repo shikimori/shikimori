@@ -119,8 +119,10 @@ class PagesController < ShikimoriController
 
     @proxies_count = Proxy.count
 
-    memcached_stats = Rails.cache.stats['localhost:11211']
-    @memcached_space = (memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f).round 2
+    unless Rails.env.test?
+      memcached_stats = Rails.cache.stats['localhost:11211']
+      @memcached_space = (memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f).round 2
+    end
 
     @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
 
