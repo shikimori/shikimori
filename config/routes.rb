@@ -616,7 +616,7 @@ Site::Application.routes.draw do
       end
     end
 
-    resources :profiles, path: '/', constraints: { id: /[^\/]+/ }, only: [:show, :update] do
+    resources :profiles, path: '/', constraints: { id: /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x }, only: [:show, :update] do
       member do
         get :friends
         get :favourites
