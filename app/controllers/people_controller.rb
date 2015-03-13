@@ -11,8 +11,9 @@ class PeopleController < ShikimoriController
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   def index
+    noindex
     page_title search_title
-    page_title SearchHelper.unescape(params[:search])
+    #page_title SearchHelper.unescape(params[:search])
 
     search_query.fetch.to_sql
     @collection = postload_paginate(params[:page], 48) { search_query.fetch }
