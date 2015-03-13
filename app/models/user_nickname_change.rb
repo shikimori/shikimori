@@ -4,7 +4,6 @@ class UserNicknameChange < ActiveRecord::Base
   validates :user, :value, presence: true
   validates :value, uniqueness: { scope: [:user_id] }
 
-  MINIMUM_LIFE_INTERVAL = 1.day
   MINIMUM_COMMENTS_COUNT = 10
 
   before_create :should_log?
@@ -13,10 +12,9 @@ class UserNicknameChange < ActiveRecord::Base
 private
 
   def should_log?
-    !!(user && user.persisted? &&
-      user.created_at + MINIMUM_LIFE_INTERVAL < Time.zone.now &&
-      user.changes['nickname'][0] !~ /^Новый пользователь\d+/ &&
-      user.comments.count > MINIMUM_COMMENTS_COUNT)
+    !!(user && user.persisted? && user.day_registered? &&
+      user.changes['nickname'][0] !~ /^Новый пользователь\d+/
+    )
   end
 
   def notify_friends

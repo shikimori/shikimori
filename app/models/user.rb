@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   MAX_NICKNAME_LENGTH = 20
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
+  MINIMUM_LIFE_INTERVAL = 1.day
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :async
 
@@ -302,7 +303,7 @@ class User < ActiveRecord::Base
 
   # регистрация более суток тому назад
   def day_registered?
-    created_at + 1.day <= Time.zone.now
+    created_at + MINIMUM_LIFE_INTERVAL <= Time.zone.now
   end
 
 private

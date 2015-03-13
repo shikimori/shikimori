@@ -11,19 +11,19 @@ describe UserNicknameChange do
 
   describe '#create' do
     let!(:user) { create :user, nickname: nickname, created_at: created_at }
-    let(:created_at) { Time.zone.now - UserNicknameChange::MINIMUM_LIFE_INTERVAL - 1.hour }
+    let(:created_at) { Time.zone.now - User::MINIMUM_LIFE_INTERVAL - 1.hour }
     let(:comments_count) { UserNicknameChange::MINIMUM_COMMENTS_COUNT + 1 }
     let(:nickname) { 'test' }
 
     before { allow(user).to receive_message_chain(:comments, :count).and_return comments_count }
 
     describe 'sohuld_log?' do
-      context 'less than UserNicknameChange::MINIMUM_LIFE_INTERVAL after registration' do
-        let(:created_at) { Time.zone.now - UserNicknameChange::MINIMUM_LIFE_INTERVAL + 1.hour }
+      context 'less than User::MINIMUM_LIFE_INTERVAL after registration' do
+        let(:created_at) { Time.zone.now - User::MINIMUM_LIFE_INTERVAL + 1.hour }
         it { expect{user.update nickname: 'test'}.to_not change(UserNicknameChange, :count) }
       end
 
-      context 'more than UserNicknameChange::MINIMUM_LIFE_INTERVAL after registration' do
+      context 'more than User::MINIMUM_LIFE_INTERVAL after registration' do
         context 'less than MINIMUM_COMMENTS_COUNT user commens' do
           let(:comments_count) { UserNicknameChange::MINIMUM_COMMENTS_COUNT - 1 }
           it { expect{user.update nickname: 'test'}.to_not change(UserNicknameChange, :count) }
