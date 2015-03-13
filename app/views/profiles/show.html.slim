@@ -1,3 +1,6 @@
+- content_for :head do
+  = auto_discovery_link_tag :rss, profile_url(@resource, format: :rss), title: "История пользователя #{@resource.nickname}"
+
 .profile-head
   - if @resource.history.any?
     .c-history class="x#{@resource.formatted_history.size}"

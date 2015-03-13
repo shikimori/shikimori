@@ -1,6 +1,7 @@
 = render layout: 'profiles/page' do
-  /- if @page == 1
-    = auto_discovery_link_tag :rss, profile_url(@resource, format: :rss), title: "История пользователя #{@resource.nickname}"
+  - if @page == 1
+    - content_for :head do
+      = auto_discovery_link_tag :rss, profile_url(@resource, format: :rss), title: "История пользователя #{@resource.nickname}"
 
   h2.subheadline.m10 = @page_title.last
   /- if @page == 1 && interval == @collection.keys.first

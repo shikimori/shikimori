@@ -568,13 +568,8 @@ Site::Application.routes.draw do
         format: /json/
       }
 
-    # studios
     resources :studios, only: [:index]
-    #get "studios" => 'studios#index', as: :studios
-
-    # proxies
     resources :proxies, only: [:index]
-    #get 'proxies' => 'proxies#index'
 
     # news
     get 'entries/:id' => 'entries#show', as: :entry_body, constraints: { format: /json/ }
@@ -619,10 +614,8 @@ Site::Application.routes.draw do
         get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :unsubscribe
       end
     end
-    #get 'messages/:name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :rss_notifications
-    #get 'messages/:name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :messages_unsubscribe
 
-    resources :profiles, path: '/', constraints: { id: /[^\/]+/ }, only: [:show, :update] do
+    resources :profiles, path: '/', constraints: { id: /(?:[^\/](?!rss$))+/ }, only: [:show, :update] do
       member do
         get :friends
         get :favourites
@@ -641,6 +634,7 @@ Site::Application.routes.draw do
         get 'videos(/page/:page)' => :videos, as: :videos
       end
 
+      get 'manga' => redirect {|params, request| request.url.sub('/manga', '') } # редирект со старых урлов
       get 'list/history' => redirect {|params, request| request.url.sub('/list/history', '/history') } # редирект со старых урлов
       resources :user_history, only: [], path: '/history' do
         collection do
