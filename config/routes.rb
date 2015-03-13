@@ -482,6 +482,7 @@ Site::Application.routes.draw do
 
     resources :people, only: [:show] do
       member do
+        get 'time' => redirect {|params, request| request.url.sub('/time', '') } # редирект со старых урлов
         get 'works(order-by/:order_by)' => :works, order_by: /date/, as: :works
         get :comments
         get :favoured
