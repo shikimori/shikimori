@@ -641,6 +641,7 @@ Site::Application.routes.draw do
         get 'videos(/page/:page)' => :videos, as: :videos
       end
 
+      get 'list/history' => redirect {|params, request| request.url.sub('/list/history', '/history') } # редирект со старых урлов
       resources :user_history, only: [], path: '/history' do
         collection do
           get '(:page)' => :index, as: :index

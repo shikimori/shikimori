@@ -148,8 +148,22 @@ class ProfilesController < ShikimoriController
 
 private
   def fetch_resource
-    user = User.find_by! nickname: User.param_to(params[:profile_id] || params[:id])
-    @resource = @user = UserProfileDecorator.new user
+    nickname = User.param_to(params[:profile_id] || params[:id])
+    user = User.find_by nickname: nickname
+
+    unless user
+      nickname_change = UserNicknameChange.where(value: nickname).order(:id).first
+
+      if nickname_change
+        id_key = params[:profile_id] ? :profile_id : :id
+        return redirect_to url_for(url_params(id_key => nickname_change.user.to_param)), status: 301
+      else
+        raise NotFound, nickname
+      end
+    end
+
+    @resource = UserProfileDecorator.new user
+    @user = @resource
 
     page_title @resource.nickname
   end
