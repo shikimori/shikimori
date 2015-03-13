@@ -2,6 +2,7 @@ class UserHistoryController < ProfilesController
   ENTRIES_PER_PAGE = 90
 
   def index
+    noindex
     redirect_to @resource.url unless @resource.history.any?
     authorize! :access_list, @resource
 

@@ -6,6 +6,7 @@ class SeyuController < PeopleController
   end
 
   def roles
+    noindex
     page_title 'Роли в аниме'
   end
 

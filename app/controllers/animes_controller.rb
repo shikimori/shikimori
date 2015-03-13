@@ -21,6 +21,7 @@ class AnimesController < ShikimoriController
   end
 
   def characters
+    noindex
     if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
       redirect_to @resource.url, status: 301
     end
@@ -28,31 +29,37 @@ class AnimesController < ShikimoriController
   end
 
   def staff
+    noindex
     redirect_to @resource.url, status: 301 if @resource.roles.people.none?
     page_title "Создатели #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def files
+    noindex
     redirect_to @resource.url, status: 301 unless user_signed_in? && ignore_copyright?
     page_title 'Файлы'
   end
 
   def similar
+    noindex
     redirect_to @resource.url, status: 301 if @resource.related.similar.none?
     page_title(@resource.anime? ? 'Похожие аниме' : 'Похожая манга')
   end
 
   def screenshots
+    noindex
     redirect_to @resource.url, status: 301 if @resource.screenshots.none?
     page_title 'Кадры'
   end
 
   def videos
+    noindex
     redirect_to @resource.url, status: 301 if @resource.videos.none?
     page_title 'Видео'
   end
 
   def chronology
+    noindex
     page_title(@resource.anime? ? 'Хронология аниме' : 'Хронология манги')
   end
 
@@ -61,11 +68,13 @@ class AnimesController < ShikimoriController
   #end
 
   def related
+    noindex
     page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
   end
 
   # TODO: удалить после 05.2015
   def comments
+    noindex
     redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
@@ -76,10 +85,12 @@ class AnimesController < ShikimoriController
   end
 
   def art
+    noindex
     page_title 'Арт с имиджборд'
   end
 
   def images
+    noindex
     redirect_to @resource.art_url, status: 301
   end
 
@@ -94,11 +105,13 @@ class AnimesController < ShikimoriController
   end
 
   def favoured
+    noindex
     redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
     page_title 'В избранном'
   end
 
   def clubs
+    noindex
     redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
     page_title 'Клубы'
   end

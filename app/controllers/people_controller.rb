@@ -23,15 +23,18 @@ class PeopleController < ShikimoriController
   end
 
   def works
+    noindex
     page_title 'Участие в проектах'
   end
 
   # TODO: удалить после 05.2015
   def comments
+    noindex
     redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
   def favoured
+    noindex
     redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
     page_title 'В избранном'
   end

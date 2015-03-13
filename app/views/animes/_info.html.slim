@@ -88,7 +88,7 @@
   - if entry.files? || entry.tags.present? || entry.cosplay?
     .additional-links
       - if entry.cosplay?
-        span.linkeable data-href="#{entry.cosplay_url}" Косплей
+        a href="#{entry.cosplay_url}" title="Косплей" Косплей
 
       - if entry.tags.present?
         span.linkeable data-href="#{entry.art_url}" Арт с имиджборд

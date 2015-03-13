@@ -11,21 +11,25 @@ class ProfilesController < ShikimoriController
   end
 
   def friends
+    noindex
     redirect_to @resource.url if @resource.friends.none?
     page_title 'Друзья'
   end
 
   def clubs
+    noindex
     redirect_to @resource.url if @resource.clubs.none?
     page_title 'Клубы'
   end
 
   def favourites
+    noindex
     redirect_to @resource.url if @resource.favourites.none?
     page_title 'Избранное'
   end
 
   def feed
+    noindex
     redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
     page_title 'Лента'
   end
@@ -35,6 +39,7 @@ class ProfilesController < ShikimoriController
   #end
 
   def reviews
+    noindex
     collection = postload_paginate(params[:page], 5) do
       @resource.reviews.order(id: :desc)
     end
@@ -47,6 +52,7 @@ class ProfilesController < ShikimoriController
   end
 
   def comments
+    noindex
     collection = postload_paginate(params[:page], 20) do
       Comment
         .where(user: @resource)
@@ -61,6 +67,7 @@ class ProfilesController < ShikimoriController
   end
 
   def comments_reviews
+    noindex
     collection = postload_paginate(params[:page], 20) do
       Comment
         .where(user: @resource, review: true)
@@ -72,6 +79,7 @@ class ProfilesController < ShikimoriController
   end
 
   def changes
+    noindex
     @collection = postload_paginate(params[:page], 30) do
       @resource.user_changes.order(id: :desc)
     end
@@ -80,6 +88,7 @@ class ProfilesController < ShikimoriController
   end
 
   def videos
+    noindex
     @collection = postload_paginate(params[:page], 30) do
       AnimeVideoReport
         .where(user: @resource)
@@ -91,6 +100,7 @@ class ProfilesController < ShikimoriController
   end
 
   def ban
+    noindex
     @ban = Ban.new user_id: @resource.id
     page_title 'История банов'
   end

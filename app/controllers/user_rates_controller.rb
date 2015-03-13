@@ -13,6 +13,7 @@ class UserRatesController < ProfilesController
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
 
   def index
+    noindex
     @page = (params[:page] || 1).to_i
     @limit = UserListDecorator::ENTRIES_PER_PAGE
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch

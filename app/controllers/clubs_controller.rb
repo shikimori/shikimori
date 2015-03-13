@@ -9,12 +9,14 @@ class ClubsController < ShikimoriController
   breadcrumb 'Клубы', :clubs_url
 
   def index
+    noindex
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 48].max, 96].min
     @collection, @add_postloader = ClubsQuery.new.postload @page, @limit
   end
 
   def show
+    noindex
   end
 
   def new
@@ -52,30 +54,36 @@ class ClubsController < ShikimoriController
   end
 
   def members
+    noindex
     page_title 'Участники клуба'
   end
 
   # TODO: удалить после 05.2015
   def comments
+    noindex
     redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
   def animes
+    noindex
     redirect_to club_url(@resource) if @resource.animes.none?
     page_title 'Аниме клуба'
   end
 
   def mangas
+    noindex
     redirect_to club_url(@resource) if @resource.mangas.none?
     page_title 'Манга клуба'
   end
 
   def characters
+    noindex
     redirect_to club_url(@resource) if @resource.characters.none?
     page_title 'Персонажи клуба'
   end
 
   def images
+    noindex
     page_title 'Картинки клуба'
   end
 
