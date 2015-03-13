@@ -42,4 +42,14 @@ class AnimeDecorator < AniMangaDecorator
   def aired_on
     anons? && next_episode_at ? next_episode_at : object.aired_on
   end
+
+  # тип элемента для schema.org
+  def itemtype
+    'http://schema.org/Movie'
+    #if kind == 'Movie'
+      #'http://schema.org/Movie'
+    #elsif kind == 'TV'
+      #'http://schema.org/TVSeries'
+    #end
+  end
 end

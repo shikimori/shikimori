@@ -156,17 +156,6 @@ class AniMangaDecorator < DbEntryDecorator
     object.respond_to?(:anime_videos) && object.anime_videos.available.any?
   end
 
-  # тип элемента для schema.org
-  def itemtype
-    if kind == 'Movie'
-      'http://schema.org/Movie'
-    elsif kind == 'TV'
-      'http://schema.org/TVSeries'
-    else
-      'http://schema.org/CreativeWork'
-    end
-  end
-
 private
   def format_menu_topic topic, order
     {
