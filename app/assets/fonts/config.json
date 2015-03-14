@@ -95,45 +95,15 @@
       "src": "fontawesome"
     },
     {
-      "uid": "872d9516df93eb6b776cc4d94bd97dac",
-      "css": "video",
-      "code": 59436,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "1400d5103edd2fa6d2d61688fee79a5a",
-      "css": "ok-squared",
-      "code": 59445,
-      "src": "fontawesome"
-    },
-    {
       "uid": "44e04715aecbca7f266a17d5a7863c68",
       "css": "plus",
       "code": 43,
       "src": "fontawesome"
     },
     {
-      "uid": "1a5cfa186647e8c929c2b17b9fc4dac1",
-      "css": "plus-squared",
-      "code": 59443,
-      "src": "fontawesome"
-    },
-    {
       "uid": "861ab06e455e2de3232ebef67d60d708",
       "css": "minus",
       "code": 45,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "f755a58fb985eeb70bd47d9b31892a34",
-      "css": "minus-squared",
-      "code": 59447,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "e35de5ea31cd56970498e33efbcb8e36",
-      "css": "link-ext-alt",
-      "code": 59446,
       "src": "fontawesome"
     },
     {
@@ -257,54 +227,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "47a1f80457068fbeab69fdb83d7d0817",
-      "css": "youtube-play",
-      "code": 59435,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "2c2ca8a96b31781c9c8056d05c0a8980",
-      "css": "blank",
-      "code": 59444,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "7222571caa5c15f83dcfd447c58d68d9",
-      "css": "search-1",
-      "code": 115,
-      "src": "entypo"
-    },
-    {
-      "uid": "ecf8edb95c3f45eb433b4cce7ba9f740",
-      "css": "users",
-      "code": 59428,
-      "src": "entypo"
-    },
-    {
-      "uid": "6274e0601f2feef7eced89146e708de0",
-      "css": "user-add",
-      "code": 114,
-      "src": "entypo"
-    },
-    {
-      "uid": "3def559c3c39b8500882e02892b7daa8",
-      "css": "picture",
-      "code": 59401,
-      "src": "entypo"
-    },
-    {
-      "uid": "3a230e539a4f3b904debd04c6c155034",
-      "css": "help",
-      "code": 59452,
-      "src": "entypo"
-    },
-    {
-      "uid": "513ac180ff85bd275f2b736720cbbf5e",
-      "css": "home-1",
-      "code": 59427,
-      "src": "entypo"
-    },
-    {
       "uid": "44b9e75612c5fad5505edd70d071651f",
       "css": "attach-1",
       "code": 59414,
@@ -371,18 +293,6 @@
       "src": "entypo"
     },
     {
-      "uid": "ddecf5ad7935e3fb1b70dac6ed00d06a",
-      "css": "language",
-      "code": 59439,
-      "src": "entypo"
-    },
-    {
-      "uid": "191bcf63575a78def53c907c3d3bf7f0",
-      "css": "floppy",
-      "code": 59437,
-      "src": "entypo"
-    },
-    {
       "uid": "076f940ac56adee91dd43d6fd77dd0cf",
       "css": "user-add-1",
       "code": 59430,
@@ -401,27 +311,9 @@
       "src": "iconic"
     },
     {
-      "uid": "f886d2d6cc8cb1b1117e26819a7bc282",
-      "css": "article-alt",
-      "code": 59438,
-      "src": "iconic"
-    },
-    {
-      "uid": "c30b64ea0091fb65b8e084b9a4c4088a",
-      "css": "signal",
-      "code": 59421,
-      "src": "iconic"
-    },
-    {
       "uid": "ae3so8q0b0n2h8esv9flua2nmwswa8fd",
       "css": "mail-2",
       "code": 59423,
-      "src": "modernpics"
-    },
-    {
-      "uid": "cy7vw87w1slwyalc4vd8cdhrb50asud3",
-      "css": "th-list",
-      "code": 59434,
       "src": "modernpics"
     },
     {
@@ -458,12 +350,6 @@
       "uid": "ee382df412dfdf65191b52ae33160abc",
       "css": "star-empty",
       "code": 59433,
-      "src": "mfglabs"
-    },
-    {
-      "uid": "41c01fe7bfa79a93a2a2971a7f347fc0",
-      "css": "camera",
-      "code": 59441,
       "src": "mfglabs"
     },
     {
@@ -521,12 +407,6 @@
       "src": "zocial"
     },
     {
-      "uid": "e36d581e4f2844db345bddc205d15dda",
-      "css": "group",
-      "code": 59422,
-      "src": "elusive"
-    },
-    {
       "uid": "d881e6436253ef6cffe0f3fb10562643",
       "css": "rss",
       "code": 59418,
@@ -555,12 +435,6 @@
       "css": "fire",
       "code": 59395,
       "src": "elusive"
-    },
-    {
-      "uid": "2d070116ca776192ee8e8c7e00c4d5a6",
-      "css": "block",
-      "code": 59440,
-      "src": "websymbols"
     }
   ]
 }

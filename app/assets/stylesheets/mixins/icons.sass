@@ -28,6 +28,10 @@ $icon_mobile_size: 30px
     text-align: center
     width: $icon_desktop_size
 
+    // For safety - reset parent styles, that can break glyph codes
+    font-variant: normal
+    text-transform: none
+
   +lte_ipad
     white-space: nowrap
     //margin-bottom: 10px
