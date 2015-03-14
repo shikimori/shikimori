@@ -12,3 +12,4 @@ exceptions:
     - 'ActionController::InvalidAuthenticityToken'
     - 'ActionController::UnknownFormat'
     - 'ActiveRecord::RecordNotFound'
+    - 'Unicorn::ClientShutdown'
