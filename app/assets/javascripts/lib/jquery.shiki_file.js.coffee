@@ -33,8 +33,6 @@
           headers: CSRF.headers,
           error: (err, file) ->
             switch err
-              when 'BrowserNotSupported'
-                $.flash alert: 'Ваш браузер не поддерживает данный функционал'
 
               when 'TooManyFiles'
                 $.flash alert: "Слишком много файлов: максимум #{options.maxfiles} за раз"
@@ -44,6 +42,10 @@
 
               when 'Unprocessable Entity'
                 $.flash alert: 'Пожалуйста, повторите попытку позже'
+
+              #when 'BrowserNotSupported'
+              else
+                $.flash alert: 'Ваш браузер не поддерживает данный функционал'
 
             global_lock = false
 
@@ -69,9 +71,7 @@
             global_lock = false
 
             $progress_container.removeClass 'active'
-            _.delay ->
-              $progress_bar.width '0%'
-            , 250
+            (-> $progress_bar.width '0%').delay 250
 
           docOver: ->
             return if $node.data('placeholder_displayed') || !$node.is(':visible')

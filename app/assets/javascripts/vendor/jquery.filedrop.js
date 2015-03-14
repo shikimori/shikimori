@@ -298,15 +298,7 @@
 
             reader.index = fileIndex;
             if (files[fileIndex].size > max_file_size) {
-              opts.error(errors[2], files[fileIndex], fileIndex);
-              // Remove from queue
-              processingQueue.forEach(function(value, key) {
-                if (value === fileIndex) {
-                  processingQueue.splice(key, 1);
-                }
-              });
-              filesRejected++;
-              return true;
+              throw errors[2];
             }
 
             reader.onerror = function(e) {
@@ -342,13 +334,15 @@
               processingQueue.splice(key, 1);
             }
           });
-          opts.error(errors[0]);
-          return false;
+          //opts.error(errors[0]);
+          opts.error(err);
         }
 
         // If we still have work to do,
         if (workQueue.length > 0) {
           process();
+        } else {
+          afterAll();
         }
       };
 
