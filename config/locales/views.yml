@@ -3,7 +3,7 @@ ru:
     page:
       kind: &kinds
         raw: оригинал
-        subtitles: сабы
+        subtitles: субтитры
         fandub: озвучка
         unknown: озвучка
       #state: &states
