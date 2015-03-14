@@ -16,7 +16,7 @@ $(document).on 'click appear', '.b-postloader', (e) ->
     $data = $('<div>').append("#{data.content}#{data.postloader}")
     $insert_content = $data.children()
 
-    filter_present_entries $data, filter if filter
+    filter_present_entries($data, $postloader.parent(), filter) if filter
     $postloader.trigger 'postloader:before', [$data, data]
     $postloader.replaceWith $insert_content
     $insert_content.first().trigger 'postloader:success'
@@ -25,8 +25,8 @@ $(document).on 'click appear', '.b-postloader', (e) ->
     $postloader.data locked: false
 
 # удаляем уже имеющиеся подгруженные элементы
-filter_present_entries = ($new_entries, filter) ->
-  present_ids = $(".#{filter}").toArray().map (v) -> v.id
+filter_present_entries = ($new_entries, $root, filter) ->
+  present_ids = $(".#{filter}", $root).toArray().map (v) -> v.id
 
   exclude_selector = present_ids.map (id) ->
       ".#{filter}##{id}"

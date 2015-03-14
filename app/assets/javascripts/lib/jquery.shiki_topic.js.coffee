@@ -186,7 +186,7 @@ class @ShikiTopic extends ShikiEditable
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
     filter = 'b-comment'
-    present_ids = $(".#{filter}").toArray().map (v) -> v.id
+    present_ids = $(".#{filter}", @$root).toArray().map (v) -> v.id
 
     exclude_selector = present_ids.map (id) ->
         ".#{filter}##{id}"
