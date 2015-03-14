@@ -49,7 +49,7 @@ link rel="yandex-tableau-widget" href="http://#{Site::DOMAIN}/yandex-tableau-wid
 - if defined?(@current_page) && @current_page > 1
   - @meta_tags[:title] = (@meta_tags[:title].class == Array ? @meta_tags[:title] << "Страница #{@current_page}" : "Страница #{@current_page} / #{@meta_tags[:title]}")
 
-= display_meta_tags site: 'Шикимори', separator: '/', reverse: true
+= display_meta_tags separator: '/', reverse: true
 = csrf_meta_tag
 
 - unless Rails.env.test?

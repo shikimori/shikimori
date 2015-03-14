@@ -1,5 +1,6 @@
 class AnimesController < ShikimoriController
   before_action :authenticate_user!, only: [:edit]
+  before_action -> { page_title I18n.t("Name.#{resource_klass.name}") }
   before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :resource_redirect, if: -> { @resource }
@@ -17,7 +18,6 @@ class AnimesController < ShikimoriController
   # отображение аниме или манги
   def show
     @itemtype = @resource.itemtype
-    page_title "#{@resource.russian_kind} #{@resource.name}", true
   end
 
   def characters
@@ -205,15 +205,6 @@ class AnimesController < ShikimoriController
   #end
 
 private
-  # класс текущего элемента
-  #def klass
-    #@klass ||= Object.const_get(self.class.name.underscore.split('_')[0].singularize.camelize)
-  #end
-
-  #def fetch_resource
-    #@resource = klass.find(resource_id.to_i).decorate
-  #end
-
   def set_breadcrumbs
     if @resource.anime?
       breadcrumb 'Список аниме', animes_url

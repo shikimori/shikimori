@@ -187,7 +187,7 @@ class @PaginatedCatalog
     if 'yaCounter7915231' of window
       yaCounter7915231.hit url.replace(/\.json$/, "")
 
-    document.title = "#{data.title} / Шикимори"
+    document.title = "#{data.title}"
 
     @$content
       .html(data.content)
