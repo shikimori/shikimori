@@ -1,0 +1,3 @@
+[submodule "lib/malgraph4"]
+	path = lib/malgraph4
+	url = git@github.com:morr/malgraph4.git
