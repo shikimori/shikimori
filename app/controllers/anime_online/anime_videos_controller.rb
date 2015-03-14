@@ -100,11 +100,7 @@ private
   end
 
   def save_preferences
-    if @video && @video.persisted? && @video.valid?
-      cookies[:preference_kind] = @video.kind
-      cookies[:preference_hosting] = @video.hosting
-      cookies[:preference_author_id] = @video.anime_video_author_id
-    end
+    @player.remember_video_preferences if @player
   end
 
   def valid_host?

@@ -5,6 +5,10 @@ class AnimeOnline::VideoPlayer
   vattr_initialize :anime
   instance_cache :nav, :videos, :current_video, :last_episode, :episode_videos
 
+  PREFERENCES_KIND = 'anime_video_kind'
+  PREFERENCES_HOSTING = 'anime_video_hosting'
+  PREFERENCES_AUTHOR = 'anime_video_author'
+
   def nav
     AnimeOnline::VideoPlayerNavigation.new self
   end
@@ -34,7 +38,7 @@ class AnimeOnline::VideoPlayer
       video = if video_id > 0
         current_videos.find {|v| v.id == video_id }
       else
-        try_select_by h.cookies[:preference_kind], h.cookies[:preference_hosting], h.cookies[:preference_author_id].to_i
+        try_select_by h.cookies[PREFERENCES_KIND], h.cookies[PREFERENCES_HOSTING], h.cookies[PREFERENCES_AUTHOR]
       end
 
       video.decorate if video
@@ -138,19 +142,28 @@ class AnimeOnline::VideoPlayer
     )
   end
 
+  def remember_video_preferences
+    if current_video && current_video.persisted? && current_video.valid?
+      h.cookies[PREFERENCES_KIND] = current_video.kind
+      h.cookies[PREFERENCES_HOSTING] = current_video.hosting
+      h.cookies[PREFERENCES_AUTHOR] = cleanup_author_name(current_video.author_name)
+    end
+  end
+
 private
   def videos
     @anime.anime_videos
+      .includes(:author)
       .select { |v| all? || v.allowed? }
       .select { |v| h.mobile? ? v.mobile_compatible? : true }
       .sort_by { |v| [v.episode.zero? ? 1 : 0, v.episode] }
       .group_by(&:episode)
   end
 
-  def try_select_by kind, hosting, author_id
+  def try_select_by kind, hosting, fixed_author_name
     by_kind = current_videos.select {|v| v.kind == kind }
     by_hosting = by_kind.select {|v| v.hosting == hosting }
-    by_author = by_hosting.select {|v| v.anime_video_author_id == author_id }
+    by_author = by_hosting.select {|v| cleanup_author_name(v.author_name) == fixed_author_name }
 
     by_author.first || by_hosting.first || by_kind.first || current_videos.first
   end
@@ -161,5 +174,9 @@ private
 
   def video_id
     h.params[:video_id].to_i
+  end
+
+  def cleanup_author_name name
+    (name || '').sub(/(?<!^)\(.*\)/, '').strip
   end
 end
