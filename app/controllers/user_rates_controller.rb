@@ -22,16 +22,22 @@ class UserRatesController < ProfilesController
   end
 
   def create
-    @user_rate.save rescue PG::Error
-    render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+    if (@user_rate.save rescue PG::Error)
+      render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+    else
+      render json: @user_rate.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def edit
   end
 
   def update
-    @user_rate.update update_params
-    render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+    if @user_rate.update update_params
+      render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+    else
+      render json: @user_rate.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def increment

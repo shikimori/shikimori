@@ -12,4 +12,8 @@ module Responders::JsonResponder
       super
     end
   end
+
+  def json_resource_errors
+    { errors: resource.errors.full_messages }
+  end
 end

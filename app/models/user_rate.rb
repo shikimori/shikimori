@@ -20,6 +20,7 @@ class UserRate < ActiveRecord::Base
 
   validates :target, :user, presence: true
   validates :user_id, uniqueness: { scope: [:target_id, :target_type] }
+  validates :text, length: { maximum: 2048 }
 
   def self.create_or_find user_id, target_id, target_type
     UserRate.where(user_id: user_id, target_id: target_id, target_type: target_type).first ||
