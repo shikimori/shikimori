@@ -3,7 +3,7 @@ class AnimeOnline::VideoPlayer
   prepend ActiveCacher.instance
 
   vattr_initialize :anime
-  instance_cache :nav, :videos, :current_video, :last_episode
+  instance_cache :nav, :videos, :current_video, :last_episode, :episode_videos
 
   def nav
     AnimeOnline::VideoPlayerNavigation.new self
@@ -87,12 +87,13 @@ class AnimeOnline::VideoPlayer
     end
   end
 
-  # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
   def episode_videos
     return [] if current_videos.blank?
-    current_videos.sort_by do |v|
-      [v.kind.fandub? || v.kind.unknown? ? '' : v.kind, v.vk? ? '' : v.hosting, v.author ? v.author.name : '']
-    end
+
+    current_videos
+      .map(&:decorate)
+      .uniq(&:sort_criteria)
+      .sort_by(&:sort_criteria)
   end
 
   # список типов коллекции видео

@@ -42,6 +42,15 @@ class AnimeVideoDecorator < BaseDecorator
     h.viewed_video_online_url(anime, id)
   end
 
+  # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
+  def sort_criteria
+    [
+      kind.fandub? || kind.unknown? ? '' : kind,
+      vk? ? '' : hosting,
+      author ? author.name : ''
+    ]
+  end
+
   #delegate_all
 
   #def description
