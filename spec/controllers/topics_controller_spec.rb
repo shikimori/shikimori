@@ -2,7 +2,7 @@ describe TopicsController do
   let!(:anime_section) { create :section, id: 1, permalink: 'a', name: 'Аниме' }
   let!(:offtopic_section) { create :section, :offtopic }
 
-  let(:user) { create :user, :user }
+  let(:user) { create :user, :user, :day_registered }
   let(:anime) { create :anime }
 
   let!(:topic) { create :topic, section: anime_section, user: user }

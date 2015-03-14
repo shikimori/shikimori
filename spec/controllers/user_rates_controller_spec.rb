@@ -1,5 +1,5 @@
 describe UserRatesController do
-  include_context :authenticated
+  include_context :authenticated, :user
 
   describe '#index' do
     let!(:user_rate) { create :user_rate, user: user }

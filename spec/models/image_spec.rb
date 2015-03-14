@@ -14,7 +14,7 @@ describe Image do
   end
 
   describe 'permissions' do
-    let(:user) { build_stubbed :user, :user }
+    let(:user) { build_stubbed :user, :user, :day_registered }
     let(:join_policy) { :free_join }
     subject { Ability.new user }
 
