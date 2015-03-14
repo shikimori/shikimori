@@ -69,6 +69,10 @@ FactoryGirl.define do
       read_only_at 1.year.from_now + 1.week
     end
 
+    trait :day_registered do
+      created_at 25.hours.ago
+    end
+
     trait :with_avatar do
       avatar { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
     end

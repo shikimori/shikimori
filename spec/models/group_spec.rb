@@ -154,7 +154,7 @@ describe Group do
 
   describe 'permissions' do
     let(:club) { build_stubbed :group, join_policy: join_policy }
-    let(:user) { build_stubbed :user, :user }
+    let(:user) { build_stubbed :user, :user, :day_registered }
     let(:join_policy) { :free_join }
     subject { Ability.new user }
 
@@ -162,6 +162,12 @@ describe Group do
       let(:group_role) { build_stubbed :group_role, :admin, user: user }
       let(:club) { build_stubbed :group, owner: user, join_policy: join_policy, member_roles: [group_role] }
       it { should be_able_to :see_club, club }
+
+      context 'newly registered' do
+        let(:user) { build_stubbed :user, :user }
+        it { should_not be_able_to :new, club }
+        it { should_not be_able_to :create, club }
+      end
 
       context 'not banned' do
         it { should be_able_to :update, club }

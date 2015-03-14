@@ -77,7 +77,7 @@ describe Review do
 
   describe 'permissions' do
     let(:review) { build_stubbed :review }
-    let(:user) { build_stubbed :user, :user }
+    let(:user) { build_stubbed :user, :user, :day_registered }
     subject { Ability.new user }
 
     context 'review owner' do
@@ -85,6 +85,11 @@ describe Review do
 
       context 'not banned' do
         it { should be_able_to :manage, review }
+      end
+
+      context 'newly registered' do
+        let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
+        it { should_not be_able_to :manage, review }
       end
 
       context 'banned' do

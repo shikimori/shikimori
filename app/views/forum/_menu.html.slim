@@ -1,6 +1,6 @@
 .block.forum
   .subheadline-buttons
-    - if user_signed_in?
+    - if user_signed_in? && can?(:new, Topic.new(user: current_user))
       a.new-topic href="#{@forum_view.new_topic_url}" title="Создать топик"
   .subheadline.m5 Форум
   div

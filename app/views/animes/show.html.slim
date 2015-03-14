@@ -23,6 +23,7 @@
           .icon-actions
             - unless current_user.banned?
               span.new_comment title="Комментировать"
+            - if can? :new, Review.new(user: current_user)
               a.new_review href="#{@resource.new_review_url}" title="Написать обзор"
             span.fav-add style="#{'display: none;' if @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное" data-kind=""
             span.fav-remove style="#{'display: none;' unless @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного" data-kind=""

@@ -69,7 +69,7 @@ class Ability
     end
 
     can [:new, :create, :update], Group do |group|
-      !@user.banned? && (group.owner?(@user) || group.admin?(@user))
+      !@user.banned? && @user.day_registered? && (group.owner?(@user) || group.admin?(@user))
     end
     can :join, Group do |group|
       !group.joined?(@user) && (
@@ -109,18 +109,15 @@ class Ability
     can :create, GroupInvite do |group_invite|
       group_invite.src_id == @user.id && group_invite.group.joined?(@user)
     end
-    #can :create, GroupInvite do |group_invite|
-      #can? :invite, group_invite.group
-    #end
 
     can :manage, Review do |review|
-      !@user.banned? && review.user_id == @user.id
+      !@user.banned? && @user.day_registered? && review.user_id == @user.id
     end
 
     can :manage, Device, user_id: @user.id
 
     can [:new, :create], [Topic, AnimeNews, MangaNews] do |topic|
-      topic.user_id == @user.id
+      !@user.banned? && @user.day_registered? && topic.user_id == @user.id
     end
     can [:update], [Topic, AnimeNews, MangaNews] do |topic|
       !@user.banned? && (

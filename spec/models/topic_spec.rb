@@ -28,7 +28,7 @@ describe Topic do
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user, :user }
+      let(:user) { build_stubbed :user, :user, :day_registered }
 
       it { should_not be_able_to :new, topic }
       it { should_not be_able_to :create, topic }
@@ -39,10 +39,18 @@ describe Topic do
         let(:topic) { build_stubbed :topic, user: user, created_at: created_at }
         let(:created_at) { Time.zone.now }
 
-        it { should be_able_to :new, topic }
-        it { should be_able_to :create, topic }
-        it { should be_able_to :update, topic }
-        it { should be_able_to :destroy, topic }
+        context 'day registered' do
+          it { should be_able_to :new, topic }
+          it { should be_able_to :create, topic }
+          it { should be_able_to :update, topic }
+          it { should be_able_to :destroy, topic }
+        end
+
+        context 'newly registered' do
+          let(:user) { build_stubbed :user, :user }
+          it { should_not be_able_to :new, topic }
+          it { should_not be_able_to :create, topic }
+        end
 
         context '3 hours ago topic' do
           let(:created_at) { 239.minutes.ago }
