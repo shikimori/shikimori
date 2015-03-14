@@ -263,6 +263,12 @@
       "src": "entypo"
     },
     {
+      "uid": "a204f0fa972408eaae5a363c444991b2",
+      "css": "login",
+      "code": 114,
+      "src": "entypo"
+    },
+    {
       "uid": "884cfc3e6e2d456dd2a2ca0dbb9e6337",
       "css": "left-open-big",
       "code": 59454,
@@ -385,7 +391,7 @@
     {
       "uid": "12db1f260b5b2ccd1aa4d8942cc7f6dd",
       "css": "vk",
-      "code": 59472,
+      "code": 118,
       "src": "zocial"
     },
     {
@@ -397,13 +403,13 @@
     {
       "uid": "6f7586c6f99798c3c1de6123d1f6cfa9",
       "css": "facebook-1",
-      "code": 59473,
+      "code": 102,
       "src": "zocial"
     },
     {
       "uid": "90d3360c550556afb7e5d3ea58a34e43",
       "css": "tumblr-1",
-      "code": 59474,
+      "code": 116,
       "src": "zocial"
     },
     {
