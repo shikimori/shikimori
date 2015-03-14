@@ -3,7 +3,7 @@ list_cache = []
 filter_timer = null
 
 @on 'page:load', 'user_rates_index', ->
-  apply_list_handlers $('.b-user_rates')
+  apply_list_handlers $('.l-content')
   update_list_cache()
 
   # графики
@@ -53,12 +53,12 @@ filter = ->
   # разворачивание свёрнутых элементов
   filter_value = $('.filter input').val().toLowerCase()
   $entries = $('tr.selectable')
-  _(list_cache).each (block) ->
+  list_cache.each (index, block) ->
     visible = false
-    i = 0
+    num = 0
 
-    while i < block.rows.length
-      entry = block.rows[i]
+    while num < block.rows.length
+      entry = block.rows[num]
       if entry.title.indexOf(filter_value) >= 0
         visible = true
 
@@ -69,11 +69,9 @@ filter = ->
       else if entry.display != 'none'
         entry.display = 'none'
         entry.node.style.display = 'none'
-      i++
+      num++
 
     block.$nodes.toggle visible  if block.toggable
-    block.$only_show.show() if block.$only_show and visible
-    return
 
   $.force_appear()
 
@@ -86,16 +84,8 @@ update_list_cache = ->
       title: String($(@).data('title')).toLowerCase()
       display: @style.display
     ).toArray()
-    $nodes = $table.add($table.prev(':not(.collapse-merged)'))
 
-    # если текущая таблица подгружена пагинацией, тоесть она без заголовка, то...
-    if $nodes.length is 1
-      klass = $table.prev().attr('class').match(/status-\d/)[0]
-      $only_show = $(".#{klass}:not(.collapse-merged)")
-      $only_show = $only_show.add($only_show.next())
-
-    $nodes: $nodes
-    $only_show: $only_show
+    $nodes: $table
     rows: rows
     toggable: !$table.next('.b-postloader').length
 
@@ -103,8 +93,8 @@ update_list_cache = ->
 # обработчики для списка
 apply_list_handlers = ($root) ->
   # хендлер подгрузки очередной страницы
-  $('.b-postloader').on 'postloader:before', insert_next_page
-  $('l-content').on 'postloader:success', process_next_page
+  $('.b-postloader', $root).on 'postloader:before', insert_next_page
+  $('.l-content').on 'postloader:success', process_next_page
 
   # открытие блока с редактирование записи по клику на строку с аниме
   $('tr.editable', $root).on 'click', (e) ->
@@ -276,21 +266,21 @@ apply_new_value_handlers = ($new_value) ->
 # подгрузка очередной страницы списка
 insert_next_page = (e, $data) ->
   $header = $data.find('header:first')
+  $present_header = $("header.#{$header.attr 'class'}")
 
   # при подгрузке могут быть 2 случая:
   # 1. подгружается совершенно новый блок, и тогда $header будет пустым
   # 2. погружается дальнейший контент уже существующего блока, и тогда...
-  if $("header.#{$header.attr 'class'}").exists()
-    # заголовок скрываем, ставим ему класс collapse-merged и collapse-ignored(чтобы раскрытие collapsed работало корректно),
-    # а так же таблице ставим класс merged и скрываем её заголовок
-    $header
-      .addClass('collapse-merged')
-      .addClass('collapse-ignored')
-      .hide()
-        .next()
-        .addClass('collapse-merged')
-          .find('tr:first,tr.border')
-          .hide()
+
+  if $present_header.exists()
+    # присоединяем к уже существующей таблице новую таблицу
+    $rows = $header.next().find('tbody,tfoot')
+
+    $rows.detach().appendTo $present_header.next()
+    apply_list_handlers $rows
+
+    $header.next().remove()
+    $header.remove()
 
   apply_list_handlers $data
 
@@ -298,3 +288,4 @@ process_next_page = ->
   update_list_cache()
   $input = $('.filter input')
   $input.trigger('keyup') unless _.isEmpty($input.val())
+  $.force_appear()

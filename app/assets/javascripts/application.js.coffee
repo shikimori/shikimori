@@ -138,4 +138,4 @@ $with = (selector, $root) ->
 
   # сворачиваение всех нужных блоков "свернуть"
   _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
-    $with("#collapse-#{v}", $root).trigger 'click', true
+    $with("#collapse-#{v}", $root).filter(':not(.triggered)').trigger 'click', true

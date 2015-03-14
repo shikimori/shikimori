@@ -1,5 +1,6 @@
 $(document).on 'click', '.collapse', (e, custom) ->
   is_hide = $(@).children('.action').html().match(/свернуть/)
+  $(@).toggleClass 'triggered', is_hide
 
   # блок-заглушка, в которую сворачивается контент
   $placeholder = $(@).next()
