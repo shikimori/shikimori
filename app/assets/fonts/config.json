@@ -227,6 +227,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "7222571caa5c15f83dcfd447c58d68d9",
+      "css": "search-1",
+      "code": 115,
+      "src": "entypo"
+    },
+    {
+      "uid": "3def559c3c39b8500882e02892b7daa8",
+      "css": "picture",
+      "code": 59421,
+      "src": "entypo"
+    },
+    {
       "uid": "44b9e75612c5fad5505edd70d071651f",
       "css": "attach-1",
       "code": 59414,
