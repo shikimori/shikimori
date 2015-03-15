@@ -47,8 +47,9 @@ class AnimeVideoDecorator < BaseDecorator
     [
       kind.fandub? || kind.unknown? ? '' : kind,
       vk? ? '' : hosting,
-      author ? author.name : '',
-      id
+      author_name || '',
+      id,
+      author_name.present? ? '' : rand.to_s,
     ]
   end
 
