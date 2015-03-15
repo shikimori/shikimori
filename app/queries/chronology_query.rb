@@ -1,8 +1,5 @@
 class ChronologyQuery
-  def initialize entry, with_specials
-    @entry = entry
-    @with_specials = with_specials
-  end
+  pattr_initialize :entry, :with_specials
 
   def fetch
     relations = fetch_related [@entry.id], {}
