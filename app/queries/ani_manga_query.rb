@@ -392,12 +392,14 @@ private
             then #{klass.table_name}.name else #{klass.table_name}.russian end)"
 
       when 'episodes'
-        if klass == Anime
-          "(case when #{klass.table_name}.episodes = 0
-            then  #{klass.table_name}.episodes_aired else #{klass.table_name}.episodes end) desc"
-        else
-          "#{klass.table_name}.chapters desc"
-        end
+        "(case when #{klass.table_name}.episodes = 0
+          then  #{klass.table_name}.episodes_aired else #{klass.table_name}.episodes end) desc"
+
+      when 'chapters'
+        "#{klass.table_name}.chapters desc"
+
+      when 'volumes'
+        "#{klass.table_name}.volumes desc"
 
       when 'status'
         "(case when #{klass.table_name}.status='Not yet aired' or #{klass.table_name}.status='Not yet published'
