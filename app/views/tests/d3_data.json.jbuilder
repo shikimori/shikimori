@@ -1,5 +1,6 @@
 json.nodes(@entries.map { |entry|
   {
+    aired_at: (entry.aired_on || Time.zone.now).to_time.to_i,
     name: localized_name(entry),
     image_url: cdn_image(entry, :x96),
     group: 1
