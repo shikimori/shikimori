@@ -32,7 +32,6 @@ private
     end
   end
 
-  # [9627,11737] - сделать пулреквест
   def cache
     {
       animes: banned_franchise_coupling[:animes],
