@@ -76,12 +76,6 @@ class PagesController < ShikimoriController
     render text: request.user_agent
   end
 
-  # тестовая страница
-  def test
-    @traffic = Rails.cache.fetch("traffic_#{Date.today}") { YandexMetrika.new.traffic_for_months 18 }
-  rescue Faraday::ConnectionFailed
-  end
-
   # страница для теста эксепшенов
   def raise_exception
     raise 'test'

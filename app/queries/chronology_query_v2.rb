@@ -2,16 +2,22 @@ class ChronologyQueryV2
   pattr_initialize :entry
 
   def fetch
-    relations = fetch_related [@entry.id], {}
-
     future = DateTime.now + 10.years
     @entry.class
-      .where(id: relations.keys)
+      .where(id: related_entries.keys)
       .sort_by { |v| [v.aired_on || future, v.id] }
       .reverse
   end
 
+  def links
+    related_entries.flat_map {|source_id, related| related }
+  end
+
 private
+  def related_entries
+    @related_entries ||= fetch_related [@entry.id], {}
+  end
+
   def fetch_related ids, relations
     ids_to_fetch = ids - relations.keys
 

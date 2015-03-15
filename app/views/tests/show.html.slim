@@ -1,9 +1,9 @@
 - content_for :head do
-  = stylesheet_link_tag :test
+  = stylesheet_link_tag 'tests/show'
 
 - content_for :tail do
   = javascript_include_tag 'highcharts.v3.0.5.min'
-  = javascript_include_tag :test
+  = javascript_include_tag 'tests/show'
 
 header.head
   h1 Тестовая страница

@@ -16,6 +16,7 @@ gem 'coffee-rails'
 gem 'sass-rails'
 gem 'compass-rails'
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
+gem 'd3_rails'
 
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
