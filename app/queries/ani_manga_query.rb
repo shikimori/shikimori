@@ -383,6 +383,8 @@ private
 
   # sql представление сортировки датасорса
   def self.order_sql field, klass
+    field = 'chapters' if klass == Manga && field == 'episodes'
+
     case field
       when 'name'
         "#{klass.table_name}.name"
