@@ -35,13 +35,24 @@ private
   # [9627,11737] - сделать пулреквест
   def cache
     {
-      animes: [
-        [9627,11737],
-        [18507,17819],
-        [18153,17813],
-        [10954,3932,1986,6970,1845],
-        [14663,13161,11859]
-      ]
+      animes: banned_franchise_coupling[:animes],
+      mangas: banned_franchise_coupling[:mangas]
     }
+  end
+
+  def banned_franchise_coupling
+    @banned ||= malgraph_data
+      .each_with_object({animes: [], mangas: []}) do |group, memo|
+        if group.first.starts_with? 'A'
+          memo[:animes] << group.map {|v| v.sub(/^A/, '').to_i }
+        else
+          memo[:mangas] << group.map {|v| v.sub(/^M/, '').to_i }
+        end
+      end
+  end
+
+  def malgraph_data
+    data = open(Rails.root.join 'lib/malgraph4/data/banned-franchise-coupling.lst').read
+    LstParser.new.parse(data)
   end
 end
