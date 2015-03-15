@@ -108,6 +108,7 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
+  gem 'capistrano-git-submodule-strategy', require: false
 
   gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 end
