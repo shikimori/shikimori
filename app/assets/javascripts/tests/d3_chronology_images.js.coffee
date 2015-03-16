@@ -142,14 +142,33 @@ class @ChronologyImages
           class: 'node'
         .call(@d3_force.drag)
 
+    @d3_node.append('title').text (d) -> d.name
+
     @d3_node.append('svg:image')
       .attr
         class: 'node'
         width: @image_w
         height: @image_h
         'xlink:href': (d) -> d.image_url
+      .on 'click', (d) ->
+        location.href = d.url
+      .on 'mouseover', (d) ->
+        $(@).siblings('text').show()
+      .on 'mouseleave', (d) ->
+        $(@).siblings('text').hide()
 
-    #node.append('title').text (d) -> d.name
+    # A copy of the text with a thick white stroke for legibility.
+    @d3_node.append('svg:text')
+      .attr
+        x: 0
+        y: 95
+        class: 'shadow'
+      .text (d) -> d.name
+    @d3_node.append('svg:text')
+      .attr
+        x: 0
+        y: 95
+      .text (d) -> d.name
 
   # обсчёт координат объектов
   tick: =>

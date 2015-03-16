@@ -1,55 +1,53 @@
+body
+  font-family: "Helvetica Neue",Arial,Verdana,sans-serif
+  line-height: 1.65
+
 h1
   font-size: 20px
 
 svg
   border: 1px dashed #ddd
 
-svg.images
-  //.node
-    stroke: #fff
-    stroke-width: 1.5px
-
-  .link
-    stroke: #666
-    //stroke-opacity: .6
-    stroke-width: 1px
-
-    &.side_story
-      stroke-dasharray: 0,2 1
-
-    &.spin_off,
-    &.alternative_setting,
-    &.alternative_version,
-    &.other
-      stroke: #ccc
-      stroke-dasharray: 0,2 1
-
-svg.circels
-  path.link
-    fill: none
-    stroke: #666
-    stroke-width: 2px
-
-  //#.data(['adaptation','side_story','spin_off','sequel','alternative_version','prequel','other','summary','alternative_setting','character','parent_story','full_story'])
-
-  path.link.licensing
-    stroke: lightgreen
-
-  path.link.side_story,
-  path.link.spin_off,
-  path.link.alternative_setting,
-  path.link.alternative_version,
-    stroke-dasharray: 0,2 1
-
-  circle
-    fill: #ccc
-    stroke: #333
-    stroke-width: 3px
-
   text
-    font: 14px sans-serif
+    font-size: 14px
     pointer-events: none
+    display: none
 
-  text.shadow
-    stroke: #fff
-    stroke-width: 4px
+    &.shadow
+      stroke: #fff
+      stroke-width: 3px
+
+  &.images
+    //.node
+      stroke: #fff
+      stroke-width: 1.5px
+
+    .node
+      cursor: pointer
+
+    .link
+      stroke: #666
+      //stroke-opacity: .6
+      stroke-width: 1px
+
+      // 'adaptation', 'side_story', 'spin_off', 'sequel', 'alternative_version', 'prequel', 'other', 'summary', 'alternative_setting', 'character', 'parent_story', 'full_story'])
+      &.side_story
+        stroke-dasharray: 0,2 1
+
+      &.spin_off,
+      &.alternative_setting,
+      &.alternative_version,
+      &.other
+        stroke: #ccc
+        stroke-dasharray: 0,2 1
+
+  &.circels
+    path.link
+      fill: none
+      stroke: #666
+      stroke-width: 2px
+
+    circle
+      fill: #ccc
+      stroke: #333
+      stroke-width: 3px

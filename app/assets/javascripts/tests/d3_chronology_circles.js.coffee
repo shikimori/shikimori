@@ -89,8 +89,6 @@ class @ChronologyCircles
       .size([@w, @h])
       .nodes(@graph.nodes)
       .links(@graph.links)
-      #.linkDistance(80)
-      #.charge(-500)
 
   render: ->
     # svg тег
@@ -151,37 +149,6 @@ class @ChronologyCircles
         y: '.31em'
       #.text (d) -> d.name
 
-    ## линии
-    #@link = svg.selectAll('.link')
-      #.data(@graph.links)
-      #.enter()
-        #.append('line')
-          #.attr
-            #class: 'link'
-            ##x1: @w / 2 - @image_w / 2.0
-            ##x2: @w / 2 - @image_h / 2.0
-            ##y1: @h / 2 - @image_w / 2.0
-            ##y2: @h / 2 - @image_h / 2.0
-
-    ## картинки
-    #@node = svg.selectAll('.node')
-      #.data(@graph.nodes)
-      #.enter()
-        #.append('g')
-        #.attr
-          #class: 'node'
-          ##transform: "translate(#{@w / 2 - @image_w / 2.0}, #{@h / 2 - @image_h / 2.0})"
-        #.call(@d3_force.drag)
-
-    #node.append('svg:image')
-      #.attr
-        #class: 'node'
-        #width: @image_w
-        #height: @image_h
-        #'xlink:href': (d) -> d.image_url
-
-    #node.append('title').text (d) -> d.name
-
   # обсчёт координат объектов
   _tick: =>
     @d3_path.attr
@@ -206,48 +173,3 @@ class @ChronologyCircles
 
     @d3_text.attr 'transform', (d) =>
       "translate(#{d.x},#{d.y})"
-
-    #@node.attr
-      #transform: (d) =>
-        #if @_is_const_mode()
-          #"translate(#{@_bounded_x(d.x) - @image_w / 2.0}, #{@_y_by_date(d.date) - @image_h / 2.0})"
-        #else
-          #"translate(#{@_bounded_x(d.x) - @image_w / 2.0}, #{@_bounded_y(d.y) - @image_h / 2.0})"
-
-    #@link.attr
-      #x1: (d) => @_bounded_x(d.source.x)
-      #y1: (d) => if @_is_const_mode() then @_y_by_date(d.source.date) else @_bounded_y(d.source.y)
-      #x2: (d) => @_bounded_x(d.target.x)
-      #y2: (d) => if @_is_const_mode() then @_y_by_date(d.target.date) else @_bounded_y(d.target.y)
-
-    #node.each(@_collide(0.5))
-
-  ## функцция для обсчёта коллизий
-  #_collide: (alpha) =>
-    #quadtree = d3.geom.quadtree(@graph.nodes)
-
-    #(d) =>
-      #rb = 2 * @r
-      #nx1 = d.x - rb
-      #nx2 = d.x + rb
-      #ny1 = d.y - rb
-      #ny2 = d.y + rb
-
-      #quadtree.visit (quad, x1, y1, x2, y2) =>
-        #if quad.point && quad.point != d
-          #x = d.x - quad.point.x
-          #y = d.y - quad.point.y
-          #l = Math.sqrt(x * x + y * y)
-
-          #if l < rb
-            #l = (l - rb) / l * alpha
-
-            #x *= l
-            #y *= l
-
-            #d.x = @_bounded_x(d.x - x)
-            #d.y = @_bounded_y(d.y - y)
-            #quad.point.x = @_bounded_x(quad.point.x + x)
-            #quad.point.y = @_bounded_y(quad.point.y + y)
-
-        #x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1
