@@ -72,7 +72,7 @@ class @ChronologyImages
       .nodes(@graph.nodes)
       .links(@graph.links)
 
-    # масштабрирование x в интервале [min,max] в долях от max_x
+  # масштабрирование x в интервале [min,max] в долях от max_x
   _scale: (x, opt) ->
     percent = (x - opt.from_min) / (opt.from_max - opt.from_min)
     percent = Math.min(1, Math.max(percent, 0))
@@ -103,9 +103,8 @@ class @ChronologyImages
         height: @h
         class: 'images'
 
-    # Per-relation markers, as they don't inherit styles.
     # 'adaptation','side_story','spin_off','sequel','alternative_version','prequel','other','summary','alternative_setting','character','parent_story','full_story'
-    svg.append("svg:defs").selectAll("marker")
+    svg.append('svg:defs').selectAll('marker')
         .data(['sequel', 'prequel'])
       .enter().append('svg:marker')
         .attr
@@ -150,8 +149,8 @@ class @ChronologyImages
         width: @image_w
         height: @image_h
         'xlink:href': (d) -> d.image_url
-      .on 'click', (d) ->
-        location.href = d.url
+      #.on 'click', (d) ->
+        #location.href = d.url
       .on 'mouseover', (d) ->
         $(@).siblings('text').show()
       .on 'mouseleave', (d) ->
@@ -181,35 +180,16 @@ class @ChronologyImages
 
     @d3_link.attr
       d: @link_arc
-      #x1: (d) => @_bounded_x(d.source.x)
-      #y1: (d) => if @_is_const_mode() then @_y_by_date(d.source.date) else @_bounded_y(d.source.y)
-      #x2: (d) => @_bounded_x(d.target.x)
-      #y2: (d) => if @_is_const_mode() then @_y_by_date(d.target.date) else @_bounded_y(d.target.y)
 
     @d3_node.each(@_collide(0.5))
 
-  # функция для обсчёта координат линий
-  #link_arc: (d) =>
-    ##targetX = d.target.x - @r
-    ##targetY = d.target.y - @r
-    ##dx = targetX - d.source.x
-    ##dy = targetY - d.source.y
-    ##dr = if (d.straight == 0) then Math.sqrt(dx * dx + dy * dy) else 0
-
-    #if d.source.id < d.target.id
-      ##"M" + d.source.x + "," + d.source.y + " L " + targetX + "," + targetY
-      #"M#{@_bounded_x d.source.x},#{@_bounded_y d.source.y}" +
-        #" L #{@_bounded_x d.target.x},#{@_bounded_y d.target.y}"
-
+  # функцция для обсчёта линий 
   link_arc: (d) =>
-    # Total difference in x and y from source to target
     diff_x = @_bounded_x(d.target.x) - @_bounded_x(d.source.x)
     diff_y = @_bounded_y(d.target.y) - @_bounded_y(d.source.y)
 
-    # Length of path from center of source node to center of target node
     path_length = Math.sqrt((diff_x * diff_x) + (diff_y * diff_y))
 
-    # x and y distances from center to outside edge of target node
     offset_x = (diff_x * (@r + 5) * 2) / path_length
     offset_y = (diff_y * (@r + 5) * 2) / path_length
 
