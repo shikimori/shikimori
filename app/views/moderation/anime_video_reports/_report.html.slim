@@ -28,9 +28,11 @@
       - if user_signed_in? && current_user.video_moderator?
         - if report.pending?
           span.moderation
-            a href="#{accept_edit_moderation_anime_video_report_url report.id}" подтвердить+редактировать
-            a href="#{reject_moderation_anime_video_report_url report.id}" отклонить
-            a href="#{accept_moderation_anime_video_report_url report.id}" подтвердить
+            a href="#{accept_edit_moderation_anime_video_report_url(report.id)}" подтвердить и редактировать
+            - if report.anime_video.vk? && report.broken?
+              a href="#{accept_cut_vk_hd_moderation_anime_video_report_url(report.id)}" подтвердить и убрать hd
+            a href="#{reject_moderation_anime_video_report_url(report.id)}" отклонить
+            a href="#{accept_moderation_anime_video_report_url(report.id)}" подтвердить
         - else
           span.moderation
             a href="#{cancel_moderation_anime_video_report_url report.id}" отменить
