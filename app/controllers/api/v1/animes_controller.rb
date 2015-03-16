@@ -53,6 +53,32 @@ class Api::V1::AnimesController < Api::V1::ApiController
     respond_with @collection
   end
 
+  def chronology
+    query = ChronologyQueryV2.new(@resource.object)
+    @entries = query.fetch
+    @links = query.links
+
+    render json: {
+      nodes: @entries.map do |entry|
+        {
+          id: entry.id,
+          date: (entry.aired_on || Time.zone.now).to_time.to_i,
+          name: UsersHelper.localized_name(entry, current_user),
+          image_url: ImageUrlGenerator.instance.url(entry, :x96),
+          url: url_for(entry)
+        }
+      end,
+      links: @links.map do |link|
+        {
+          source: @entries.index {|v| v.id == link.source_id },
+          target: @entries.index {|v| v.id == link.anime_id },
+          weight: @links.count {|v| v.source_id == link.source_id },
+          relation: link.relation.downcase.gsub(/[ -]/, '_')
+        }
+      end
+    }
+  end
+
 private
   def cache_key
     Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{params[:mylist].present? ? current_user.try(:cache_key) : nil}"

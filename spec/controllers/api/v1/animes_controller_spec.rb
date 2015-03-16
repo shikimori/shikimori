@@ -55,6 +55,17 @@ describe Api::V1::AnimesController, :show_in_doc do
     specify { expect(assigns(:collection).size).to eq(1) }
   end
 
+  describe '#chronology' do
+    let(:anime) { create :anime }
+    let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
+    before { get :chronology, id: anime.id, format: :json }
+
+    it { expect(response).to have_http_status :success }
+    it { expect(response.content_type).to eq 'application/json' }
+    specify { expect(assigns(:entries).size).to eq(1) }
+    specify { expect(assigns(:links).size).to eq(1) }
+  end
+
   describe '#screenshots' do
     let(:anime) { create :anime }
     let!(:screenshot) { create :screenshot, anime: anime }

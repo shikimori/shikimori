@@ -90,6 +90,7 @@ Site::Application.routes.draw do
           get :similar
           get :related
           get :screenshots
+          get :chronology
         end
       end
       resource :calendar, only: [:show]
