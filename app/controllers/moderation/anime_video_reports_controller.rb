@@ -35,6 +35,12 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
     )
   end
 
+  def accept_cut_vk_hd
+    @resource.accept! current_user
+    AnimeOnline::VideoVkService.new(@resource.anime_video).cut_hd!
+    redirect_to_back_or_to moderation_anime_video_reports_url
+  end
+
   def reject
     @resource.reject! current_user
     redirect_to_back_or_to moderation_anime_video_reports_url
