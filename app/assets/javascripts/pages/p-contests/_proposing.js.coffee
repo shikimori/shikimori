@@ -16,16 +16,19 @@
       .parents('.suggestion')
       .find('.show')
 
-  suggest_placeholder = if $('.proposing .item-suggest').data('member_type') == 'anime'
+  $suggest = $('.proposing .item-suggest')
+  suggest_placeholder = if $suggest.data('member_type') == 'anime'
     'Название аниме...'
   else
     'Имя персонажа...'
 
-  $('.proposing .item-suggest').completable suggest_placeholder
-  $('.proposing .item-suggest').on 'autocomplete:success', (e, id, text, label) ->
-    $(@).val text
-    $(@).parents('form').find('#contest_suggestion_item_id').val id
-    $(@).parents('form').submit()
+  $suggest
+    .prop placeholder: suggest_placeholder
+    .completable()
+    .on 'autocomplete:success', (e, entry) ->
+      $(@).val entry.name
+      $(@).parents('form').find('#contest_suggestion_item_id').val entry.id
+      $(@).parents('form').submit()
 
   $('.proposing form').on 'submit', ->
     if _.isEmpty $(@).find('#contest_suggestion_item_id').val()

@@ -1,7 +1,7 @@
 @on 'page:load', 'contests_edit', ->
   $suggest = $('.edit.contest .member-suggest')
 
-  placeholder = if $suggest.data('member_type') == 'anime'
+  suggest_placeholder = if $suggest.data('member_type') == 'anime'
     'Название аниме...'
   else
     'Имя персонажа...'
@@ -19,7 +19,7 @@
     $('.member-suggest').trigger 'blur'
 
   $suggest
-    .prop placeholder: placeholder
+    .prop placeholder: suggest_placeholder
     .completable()
     .on 'autocomplete:success', (e, entry) ->
       $variants = $(@).parent().find('.variants')
