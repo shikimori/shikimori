@@ -133,7 +133,7 @@ class @ChronologyImages
           refX: 10, refY: 0
           id: String,
           markerWidth: 6, markerHeight: 6, orient: 'auto'
-          stroke: '#666', fill: '#666'
+          stroke: '#123', fill: '#123'
           viewBox: '0 -5 10 10'
       .append('svg:path')
         .attr
