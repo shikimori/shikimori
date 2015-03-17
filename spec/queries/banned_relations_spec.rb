@@ -15,7 +15,7 @@ describe BannedRelations do
     it { expect(query.manga :bad_key).to eq [] }
   end
 
-  describe '#cache', :focus do
+  describe '#cache' do
     it { expect(query.send(:cache)).to have(2).items }
     it { expect(query.send(:cache)[:animes]).to have_at_least(30).items }
     it { expect(query.send(:cache)[:mangas]).to have_at_least(10).items }
