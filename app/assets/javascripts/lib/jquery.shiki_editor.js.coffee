@@ -50,7 +50,11 @@ class @ShikiEditor extends ShikiView
           false
 
     @$form
-      .on 'ajax:before', @_shade
+      .on 'ajax:before', =>
+        if @$textarea.val()
+          @_shade()
+        else
+          false
       .on 'ajax:complete', @_unshade
       .on 'ajax:success', =>
         @_hide_preview()
