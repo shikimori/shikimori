@@ -4,7 +4,8 @@ json.nodes(@entries.map { |entry|
     date: (entry.aired_on || Time.zone.now).to_time.to_i,
     name: localized_name(entry),
     image_url: cdn_image(entry, :x96),
-    url: url_for(entry)
+    url: url_for(entry),
+    weight: @links.count {|v| v.source_id == entry.id }
   }
 })
 

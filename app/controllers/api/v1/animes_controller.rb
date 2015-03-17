@@ -65,7 +65,8 @@ class Api::V1::AnimesController < Api::V1::ApiController
           date: (entry.aired_on || Time.zone.now).to_time.to_i,
           name: UsersHelper.localized_name(entry, current_user),
           image_url: ImageUrlGenerator.instance.url(entry, :x96),
-          url: url_for(entry)
+          url: url_for(entry),
+          weight: @links.count {|v| v.source_id == entry.id },
         }
       end,
       links: @links.map do |link|
@@ -75,7 +76,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
           weight: @links.count {|v| v.source_id == link.source_id },
           relation: link.relation.downcase.gsub(/[ -]/, '_')
         }
-      end
+      end.select {|v| v[:source] && v[:target] }
     }
   end
 
