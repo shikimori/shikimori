@@ -182,11 +182,13 @@ class @ChronologyImages
         x: 0
         y: 95
         class: 'shadow'
+      #.text (d) -> "(#{d.id}) #{d.name}"
       .text (d) -> d.name
     @d3_node.append('svg:text')
       .attr
         x: 0
         y: 95
+      #.text (d) -> "(#{d.id}) #{d.name}"
       .text (d) -> d.name
 
   # обсчёт координат объектов
