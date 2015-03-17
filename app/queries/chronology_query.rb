@@ -1,43 +1,36 @@
 class ChronologyQuery
-  pattr_initialize :entry, :with_specials
+  pattr_initialize :entry
 
   def fetch
-    relations = fetch_related [@entry.id], {}
-
     future = DateTime.now + 10.years
     @entry.class
-      .where(id: relations.keys)
+      .where(id: related_entries.keys)
       .sort_by { |v| [v.aired_on || future, v.id] }
       .reverse
   end
 
+  def links
+    related_entries.flat_map {|source_id, related| related }
+  end
+
 private
-  def related_klass
-    @entry.anime? ? RelatedAnime : RelatedManga
-  end
-
-  def related_field
-    @entry.anime? ? :anime_id : :manga_id
-  end
-
-  def bad_relations
-    if @entry.manga?
-      [20566,25482,13721,27327]
-    else
-      [6115,17819,17791,17815,17813,17811,13309,13529,13375,13373]
-    end
+  def related_entries
+    @related_entries ||= fetch_related [@entry.id], {}
   end
 
   def fetch_related ids, relations
     ids_to_fetch = ids - relations.keys
 
-    fetched_ids = groupped_relation(ids_to_fetch).map do |source_id, group|
-      relations[source_id] = bad_relations.include?(source_id) ? [] : group
+    fetched_ids = groupped_relation(ids_to_fetch).flat_map do |source_id, group|
+      relations[source_id] = group.select do |relation|
+        #puts "#{source_id}\t#{relation.anime_id}\t#{banned?(source_id, relation)}\t#{relations.keys.join(',')}"
+        !banned?(source_id, relation) &&
+          relations.keys.none? {|v| banned? v, relation }
+      end
 
-      relations[source_id]
-        .select { |v| v.relation != 'Character' }
-        .map { |v| v.send related_field }
-    end.flatten
+      relations[source_id]# .select { |v| v.relation != 'Character' }
+        .map { |v| v[related_field] }
+    end
 
     if fetched_ids.any?
       fetch_related fetched_ids, relations
@@ -55,10 +48,35 @@ private
       query = query.joins("
         inner join #{@entry.class.table_name} on
           #{@entry.class.table_name}.id=#{@entry.class.name.downcase}_id
-          and #{@entry.class.table_name}.kind != 'Special'
         ")
     end
 
     query.group_by(&:source_id)
+  end
+
+  def anime?
+    @entry.anime?
+  end
+
+  def related_klass
+    anime? ? RelatedAnime : RelatedManga
+  end
+
+  def related_field
+    anime? ? :anime_id : :manga_id
+  end
+
+  def banned? source_id, relation
+    item_relations = if anime?
+      relations.anime(source_id)
+    else
+      relations.manga(source_id)
+    end
+
+    item_relations.include? relation.anime_id
+  end
+
+  def relations
+    BannedRelations.instance
   end
 end

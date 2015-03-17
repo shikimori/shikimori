@@ -16,7 +16,7 @@ class TestsController < ShikimoriController
   end
 
   #def d3_data
-    #query = ChronologyQueryV2.new(Anime.find params[:anime_id])
+    #query = ChronologyQuery.new(Anime.find params[:anime_id])
     #@entries = query.fetch
     #@links = query.links
   #end

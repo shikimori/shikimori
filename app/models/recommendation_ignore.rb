@@ -4,7 +4,7 @@ class RecommendationIgnore < ActiveRecord::Base
 
   # заблокировать франшизу для пользователя
   def self.block entry, user
-    ids = ChronologyQuery.new(entry, false).fetch.map(&:id) + [entry.id]
+    ids = ChronologyQuery.new(entry).fetch.map(&:id) + [entry.id]
     imported = RecommendationIgnore.where(user_id: user.id, target_id: ids, target_type: entry.class.name).pluck(:target_id)
     ids = ids - imported
 

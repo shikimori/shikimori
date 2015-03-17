@@ -54,7 +54,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
   end
 
   def chronology
-    query = ChronologyQueryV2.new(@resource.object)
+    query = ChronologyQuery.new(@resource.object)
     @entries = query.fetch
     @links = query.links
 

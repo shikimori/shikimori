@@ -1,38 +1,47 @@
 describe ChronologyQuery do
+  let(:query) { ChronologyQuery }
+
   before :all do
     RSpec::Mocks.with_temporary_scope do
-      @anime1 = create :anime, kind: 'Special'
-      @anime2 = create :anime
-      @anime3 = create :anime
-      @anime4 = create :anime, id: 6115
-      @anime5 = create :anime
+      @anime_1 = create :anime, id: 1, aired_on: 1.years.ago
+      @anime_2 = create :anime, id: 2, aired_on: 2.years.ago
+      @anime_3 = create :anime, id: 3, aired_on: 3.years.ago
     end
 
-    create :related_anime, source_id: @anime1.id, anime_id: @anime2.id
-    create :related_anime, source_id: @anime2.id, anime_id: @anime1.id
+    @related_1_2 = create :related_anime, source_id: @anime_1.id, anime_id: @anime_2.id
+    @related_2_1 = create :related_anime, source_id: @anime_2.id, anime_id: @anime_1.id
 
-    create :related_anime, source_id: @anime2.id, anime_id: @anime3.id
-    create :related_anime, source_id: @anime3.id, anime_id: @anime2.id
+    @related_2_3 = create :related_anime, source_id: @anime_2.id, anime_id: @anime_3.id
+    @related_3_2 = create :related_anime, source_id: @anime_3.id, anime_id: @anime_2.id
+  end
 
-    create :related_anime, source_id: @anime2.id, anime_id: @anime4.id
-    create :related_anime, source_id: @anime4.id, anime_id: @anime2.id
+  after { BannedRelations.instance.clear_cache! }
 
-    create :related_anime, source_id: @anime4.id, anime_id: @anime5.id
-    create :related_anime, source_id: @anime5.id, anime_id: @anime4.id
+  describe '#relations' do
+    before { allow(BannedRelations.instance).to receive(:cache)
+      .and_return animes: [[@anime_1.id,@anime_3.id]] }
+
+    it { expect(query.new(@anime_1).links).to eq [@related_1_2, @related_2_1] }
   end
 
   describe '#fetch' do
-    subject { ChronologyQuery.new(anime, with_specials).fetch }
-    let(:anime) { @anime2 }
+    describe 'direct ban' do
+      before { allow(BannedRelations.instance).to receive(:cache)
+        .and_return animes: [[@anime_1.id,@anime_2.id]] }
 
-    describe 'with specials' do
-      let(:with_specials) { true }
-      it { is_expected.to have(4).items }
+      it { expect(query.new(@anime_1).fetch.map(&:id)).to eq [@anime_1.id] }
+      it { expect(query.new(@anime_2).fetch.map(&:id)).to eq [@anime_2.id, @anime_3.id] }
+      it { expect(query.new(@anime_3).fetch.map(&:id)).to eq [@anime_2.id, @anime_3.id] }
     end
 
-    describe 'without specials' do
-      let(:with_specials) { false }
-      it { is_expected.to have(3).items }
+
+    describe 'indirect ban' do
+      before { allow(BannedRelations.instance).to receive(:cache)
+        .and_return animes: [[@anime_1.id,@anime_3.id]] }
+
+      it { expect(query.new(@anime_1).fetch.map(&:id)).to eq [@anime_1.id, @anime_2.id] }
+      it { expect(query.new(@anime_2).fetch.map(&:id)).to eq [@anime_1.id, @anime_2.id, @anime_3.id] }
+      it { expect(query.new(@anime_3).fetch.map(&:id)).to eq [@anime_2.id, @anime_3.id] }
     end
   end
 end
