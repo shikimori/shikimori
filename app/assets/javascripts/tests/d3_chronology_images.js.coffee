@@ -66,11 +66,11 @@ class @ChronologyImages
         # смещение пропорционально количеству связей
         d.y += @_scale d.weight, from_min: 2, from_max: 7, to_min: 0, to_max: 150
 
-      if d.date == @max_date
-        d.fixed = true
-        d.y -= 20
-        # смещение пропорционально количеству связей
-        d.y -= @_scale d.weight, from_min: 2, from_max: 7, to_min: 0, to_max: 150
+      #if d.date == @max_date
+        #d.fixed = true
+        #d.y -= 20
+        ## смещение пропорционально количеству связей
+        #d.y -= @_scale d.weight, from_min: 2, from_max: 7, to_min: 0, to_max: 150
 
   # d3 объекты
   _prepare_d3: ->
