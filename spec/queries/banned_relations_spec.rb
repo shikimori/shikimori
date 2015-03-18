@@ -1,6 +1,8 @@
 describe BannedRelations do
   let(:query) { BannedRelations.instance }
 
+  after { BannedRelations.instance.clear_cache! }
+
   describe '#animes & #anime' do
     before { allow(query).to receive(:cache).and_return animes: [[1,2],[2,3]] }
     it { expect(query.animes).to eq 1 => [2], 2 => [1,3], 3 => [2] }
