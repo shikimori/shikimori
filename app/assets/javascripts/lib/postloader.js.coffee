@@ -14,9 +14,10 @@ $(document).on 'click appear', '.b-postloader', (e) ->
 
   $.getJSON url, (data) ->
     $data = $('<div>').append("#{data.content}#{data.postloader}")
-    $insert_content = $data.children()
 
     filter_present_entries($data, $postloader.parent(), filter) if filter
+    $insert_content = $data.children()
+
     $postloader.trigger 'postloader:before', [$data, data]
     $postloader.replaceWith $insert_content
     $insert_content.first().trigger 'postloader:success'
