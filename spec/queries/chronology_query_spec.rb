@@ -1,5 +1,6 @@
 describe ChronologyQuery do
   let(:query) { ChronologyQuery }
+  after { BannedRelations.instance.clear_cache! }
 
   before :all do
     raise 'rebel animes in database!' unless Anime.count.zero?
@@ -15,8 +16,6 @@ describe ChronologyQuery do
     @related_2_3 = create :related_anime, source_id: @anime_2.id, anime_id: @anime_3.id
     @related_3_2 = create :related_anime, source_id: @anime_3.id, anime_id: @anime_2.id
   end
-
-  after { BannedRelations.instance.clear_cache! }
 
   describe '#relations' do
     before { allow(BannedRelations.instance).to receive(:cache)

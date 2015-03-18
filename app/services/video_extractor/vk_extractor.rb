@@ -21,9 +21,9 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
 
     {
       image: og_image[:content],
-      oid: og_video[:content][/oid=(\w+)/, 1],
-      vid: og_video[:content][/vid=(\w+)/, 1],
-      hash2: og_video[:content][/embed_hash=(\w+)/, 1],
+      oid: og_video[:content][/oid=([-\w]+)/, 1],
+      vid: og_video[:content][/vid=([-\w]+)/, 1],
+      hash2: og_video[:content][/embed_hash=([-\w]+)/, 1],
     } if og_image && og_video
   end
 end

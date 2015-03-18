@@ -1,6 +1,5 @@
 describe BannedRelations do
   let(:query) { BannedRelations.instance }
-
   after { BannedRelations.instance.clear_cache! }
 
   describe '#animes & #anime' do

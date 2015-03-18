@@ -1,6 +1,7 @@
 describe RecommendationIgnoresController do
   let(:user) { create :user }
   before { sign_in user }
+  after { BannedRelations.instance.clear_cache! }
 
   describe '#create' do
     let(:anime) { create :anime, kind: 'Special' }
