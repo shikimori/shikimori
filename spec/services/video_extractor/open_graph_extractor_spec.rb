@@ -8,16 +8,16 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       let(:url) { 'http://coub.com/view/bqn2pda' }
 
       its(:hosting) { should eq :coub }
-      its(:image_url) { should eq 'http://cdn1.akamai.coub.com/coub/simple/cw_image/5539bc828be/56c75c0364d0a378cc3b9/timeline_1381592378_00032.jpg' }
-      its(:player_url) { should eq 'http://c-cdn.coub.com/fb-player.swf?coubID=bqn2pda' }
+      its(:image_url) { should eq 'http://ell.akamai.coub.com/get/bucket:32.11/p/coub/simple/cw_image/5539bc828be/56c75c0364d0a378cc3b9/med_1409156756_1381592378_00032.jpg' }
+      its(:player_url) { should eq 'http://c-cdn.coub.com/fb-player.swf?bot_type=unknown&coubID=bqn2pda' }
     end
 
     context 'twitch' do
       let(:url) { 'http://www.twitch.tv/joindotared/c/3661348' }
 
       its(:hosting) { should eq :twitch }
-      its(:image_url) { should eq 'http://static-cdn.jtvnw.net/jtv.thumbs/archive-500512971-630x473.jpg' }
-      its(:player_url) { should eq 'http://secure.twitch.tv/swflibs/TwitchPlayer.swf?videoId=c3661348&playerType=facebook' }
+      its(:image_url) { should eq 'http://static-cdn.jtvnw.net/jtv_user_pictures/joindotared-profile_image-3280e012c28e251e-600x600.jpeg' }
+      its(:player_url) { should eq 'http://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=joindotared&playerType=facebook' }
     end
 
     context 'rutube' do
@@ -32,8 +32,8 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       let(:url) { 'http://vimeo.com/85212054' }
 
       its(:hosting) { should eq :vimeo }
-      its(:image_url) { should eq 'http://b.vimeocdn.com/ts/463/402/463402969_1280.jpg' }
-      its(:player_url) { should eq 'http://vimeo.com/moogaloop.swf?clip_id=85212054' }
+      its(:image_url) { should eq 'https://i.vimeocdn.com/video/463402969_1280x720.jpg' }
+      its(:player_url) { should eq 'https://player.vimeo.com/video/85212054?autoplay=1' }
     end
 
     context 'myvi' do
@@ -41,7 +41,7 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
 
       its(:hosting) { should eq :myvi }
       its(:image_url) { should eq 'http://images.myvi.ru/animeicon/25/e6/58917.jpg' }
-      its(:player_url) { should eq 'http://myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJAyvz_PY1mzRg1SqIreeFh7U1' }
+      its(:player_url) { should eq 'http://myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJA4JzsT1kQ7a35LOr3hG3K7g1' }
     end
 
     context 'sibnet' do
@@ -61,7 +61,7 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       let(:url) { 'http://video.yandex.ru/users/allod2008/view/78' }
 
       its(:hosting) { should eq :yandex }
-      its(:image_url) { should eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/2.320x240.jpg' }
+      its(:image_url) { should eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
       its(:player_url) { should eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
     end
 

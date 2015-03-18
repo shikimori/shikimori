@@ -7,9 +7,7 @@ describe VideoExtractor::UrlExtractor do
       it { should eq html }
     end
 
-    context 'short' do
-      subject { VCR.use_cassette(:vk_video) { extract } }
-
+    context 'short', vcr: { cassette_name: 'url_extractor' } do
       context 'with_dash' do
         let(:html) { 'http://vk.com/video-42313379_167267838' }
         let(:extracted_url) { 'https://vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded&hd=1' }

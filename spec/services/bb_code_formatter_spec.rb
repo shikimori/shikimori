@@ -197,12 +197,12 @@ describe BbCodeFormatter do
       it { should eq '<div class="b-shiki_wall unprocessed"></div>' }
     end
 
-    describe '[vkontakte]', vcr: { cassette_name: 'vk_video' } do
+    describe '[vkontakte]', vcr: { cassette_name: 'bb_code_formatter' } do
       let(:text) { "http://vk.com/video98023184_165811692" }
       it { should include '<a class="c-video b-video unprocessed vk' }
     end
 
-    describe '[youtube]', vcr: { cassette_name: 'youtube_video' } do
+    describe '[youtube]', vcr: { cassette_name: 'bb_code_formatter' } do
       context 'direct link' do
         let(:text) { "https://www.youtube.com/watch?v=og2a5lngYeQ" }
         it { should include '<a class="c-video b-video unprocessed youtube' }

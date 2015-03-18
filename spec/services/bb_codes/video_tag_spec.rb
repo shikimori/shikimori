@@ -24,7 +24,7 @@ describe BbCodes::VideoTag do
         it { should include "data-href=\"http://youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
       end
 
-      context 'with params', vcr: { cassette_name: 'youtube' } do
+      context 'with params', vcr: { cassette_name: 'video_tag' } do
         let(:text) { 'https://vk.com/video-61933528_167061553?hash=w4ertfg' }
         it { should match /\A<.*>\Z/ }
       end
@@ -35,7 +35,7 @@ describe BbCodes::VideoTag do
       end
     end
 
-    context 'vk', vcr: { cassette_name: 'vk_video' } do
+    context 'vk', vcr: { cassette_name: 'video_tag' } do
       let(:oid) { '98023184' }
       let(:vid) { '165811692' }
       let(:hash2) { '6d9a4c5f93270892' }
@@ -57,7 +57,7 @@ describe BbCodes::VideoTag do
       end
     end
 
-    context 'open_graph', vcr: { cassette_name: 'open_graph_video' } do
+    context 'open_graph', vcr: { cassette_name: 'video_tag' } do
       context 'coub' do
         let(:text) { 'http://coub.com/view/bqn2pda' }
         it { should include "<a class=\"c-video b-video unprocessed coub" }

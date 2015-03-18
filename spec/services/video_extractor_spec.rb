@@ -8,7 +8,7 @@ describe VideoExtractor do
       its(:hosting) { should be :youtube }
     end
 
-    context 'vk', vcr: { cassette_name: 'vk_video' } do
+    context 'vk', vcr: { cassette_name: 'video_extractor' } do
       let(:url) { 'http://vk.com/video98023184_165811692' }
       it { should be_kind_of VideoData }
       its(:hosting) { should be :vk }

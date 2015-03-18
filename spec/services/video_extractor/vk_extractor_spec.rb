@@ -1,4 +1,4 @@
-describe VideoExtractor::VkExtractor, vcr: { cassette_name: 'vk_video' } do
+describe VideoExtractor::VkExtractor, vcr: { cassette_name: 'vk_extractor' } do
   let(:service) { VideoExtractor::VkExtractor.new url }
 
   describe 'fetch' do

@@ -1,9 +1,9 @@
-describe AnimeVideosService, vcr: { cassette_name: 'anime_video_service' } do
+describe AnimeVideosService do
   let(:anime) { create :anime }
 
   let(:service) { AnimeVideosService.new video_params }
 
-  describe '#create' do
+  describe '#create', vcr: { cassette_name: 'anime_video_service' } do
     let(:video_params) {{ state: state, kind: kind, author_name: 'test', episode: 3, url: 'https://vk.com/video-16326869_166521208', source: 'test', anime_id: anime.id }}
     let(:user) { }
     let(:state) { 'working' }
