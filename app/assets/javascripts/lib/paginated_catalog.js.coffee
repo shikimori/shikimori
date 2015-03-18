@@ -116,8 +116,6 @@ class @PaginatedCatalog
   _fetch_ajax_content: (url, break_pending) ->
     if url.indexOf(location.protocol + "//" + location.host) == -1
       url = location.protocol + "//" + location.host + url
-    if url.indexOf('.json') == -1
-      url = "#{url}.json"
 
     $.ajax
       url: url
@@ -182,10 +180,10 @@ class @PaginatedCatalog
     if '_gaq' of window
       _gaq.push [
         '_trackPageview'
-        url.replace(/\.json$/, '')
+        url
       ]
     if 'yaCounter7915231' of window
-      yaCounter7915231.hit url.replace(/\.json$/, "")
+      yaCounter7915231.hit url
 
     document.title = "#{data.title}"
 
