@@ -12,7 +12,6 @@ describe RecommendationIgnore do
 
     describe 'block' do
       before do
-        create :related_anime, source_id: anime1.id, anime_id: anime2.id
         create :related_anime, source_id: anime2.id, anime_id: anime1.id
 
         create :related_anime, source_id: anime2.id, anime_id: anime3.id

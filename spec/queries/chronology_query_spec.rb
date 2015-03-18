@@ -2,6 +2,7 @@ describe ChronologyQuery do
   let(:query) { ChronologyQuery }
 
   before :all do
+    raise 'rebel animes in database!' unless Anime.count.zero?
     RSpec::Mocks.with_temporary_scope do
       @anime_1 = create :anime, id: 1, aired_on: 1.years.ago
       @anime_2 = create :anime, id: 2, aired_on: 2.years.ago
