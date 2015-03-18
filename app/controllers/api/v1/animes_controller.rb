@@ -55,8 +55,8 @@ class Api::V1::AnimesController < Api::V1::ApiController
 
   def chronology
     query = ChronologyQuery.new(@resource.object)
-    @entries = query.fetch
-    @links = query.links
+    @entries = query.fetch#.select {|v| [5081,15689].include?(v.id) }
+    @links = query.links#.select {|v| [5081,15689].include?(v.source_id) && [5081,15689].include?(v.anime_id) }
 
     render json: {
       nodes: @entries.map do |entry|
