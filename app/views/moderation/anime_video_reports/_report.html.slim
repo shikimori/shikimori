@@ -1,7 +1,7 @@
 = cache [report, user_signed_in? && current_user.video_moderator?] do
   .b-log_entry.video
     span.id-label #
-    span: a href="#{play_video_online_index_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
+    span: a target='_blank' href="#{play_video_online_index_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
       = report.id
     span.date #{report.created_at.strftime '%d.%m.%Y'}
     .b-user16
