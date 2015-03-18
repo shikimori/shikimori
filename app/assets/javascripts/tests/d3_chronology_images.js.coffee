@@ -12,16 +12,8 @@ class @ChronologyImages
   # базовые константы
   _prepare_data: ->
     @max_weight = @graph.links.map((v) -> v.weight).max() * 1.0
-    original_size = @graph.nodes.length
-    size_scale = (original_size - @max_weight) / original_size
-
-    @size = if size_scale < 0.5
-      # актуально для naruto (20) и detective conan (235)
-      original_size * @_scale(size_scale, from_min: 0, from_max: 0.5, to_min: 0.4, to_max: 0.6)
-    else
-      original_size
-
-    console.log "nodes: #{@size} (#{original_size}), max_weight: #{@max_weight}, size_scale: #{size_scale}"
+    @size = original_size = @graph.nodes.length
+    console.log "nodes: #{@size}, max_weight: #{@max_weight}"
 
     # изображение
     @image_w = 48
@@ -60,7 +52,7 @@ class @ChronologyImages
       if d.date == @min_date
         d.fixed = true
         # смещение пропорционально количеству связей
-        d.y += @_scale d.weight, from_min: 4, from_max: 9, to_min: 0, to_max: 175
+        d.y += @_scale d.weight, from_min: 4, from_max: 20, to_min: 0, to_max: 700
 
       if d.date == @max_date
         d.fixed = true
@@ -78,12 +70,12 @@ class @ChronologyImages
         max_width = if @max_weight < 3
           @_scale @size, from_min: 2, from_max: 6, to_min: 100, to_max: 300
         else
-          300
+          @_scale @max_weight, from_min: 30, from_max: 80, to_min: 300, to_max: 1500
 
         @_scale 300 * (d.weight / @max_weight),
           from_min: 0
           from_max: 300
-          to_min: 90
+          to_min: 120
           to_max: max_width
 
       .size([@w, @h])
@@ -246,10 +238,10 @@ class @ChronologyImages
 
     (d) =>
       rb = 2 * @r
-      nx1 = d.x - @rx
-      nx2 = d.x + @rx
-      ny1 = d.y - @ry
-      ny2 = d.y + @ry
+      nx1 = d.x - @rx * 2 # rb
+      nx2 = d.x + @rx * 2 # rb
+      ny1 = d.y - @ry * 2 # rb
+      ny2 = d.y + @ry * 2 # rb
 
       quadtree.visit (quad, x1, y1, x2, y2) =>
         if quad.point && quad.point != d
