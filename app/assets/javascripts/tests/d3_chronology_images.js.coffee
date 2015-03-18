@@ -64,7 +64,13 @@ class @ChronologyImages
   _prepare_d3: ->
     # математический объект для обсчёта координат
     @d3_force = d3.layout.force()
-      .charge(-2000)
+      .charge (d) ->
+        if d.weight > 7
+          -3000
+        if d.weight > 20
+          -4000
+        else
+          -2000
       .friction 0.7
       .linkDistance (d) =>
         max_width = if @max_weight < 3
