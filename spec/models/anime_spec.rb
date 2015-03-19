@@ -188,10 +188,8 @@ describe Anime do
     end
 
     describe 'check_aired_episodes' do
-      let (:episodes_aired) { 1 }
-      before (:each) do
-        @anime = create :anime, episodes_aired: episodes_aired, episodes: 24, status: AniMangaStatus::Ongoing
-      end
+      let(:episodes_aired) { 1 }
+      before { @anime = create :anime, episodes_aired: episodes_aired, episodes: 24, status: AniMangaStatus::Ongoing }
 
       it 'adds AnimeNews' do
         expect {

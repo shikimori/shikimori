@@ -16,6 +16,7 @@ describe ChronologyQuery do
     @related_2_3 = create :related_anime, source_id: @anime_2.id, anime_id: @anime_3.id
     @related_3_2 = create :related_anime, source_id: @anime_3.id, anime_id: @anime_2.id
   end
+  after(:all) { Anime.destroy_all }
 
   describe '#relations' do
     before { allow(BannedRelations.instance).to receive(:cache)

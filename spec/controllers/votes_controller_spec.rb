@@ -1,16 +1,16 @@
 describe VotesController do
-  let (:user) { FactoryGirl.create :user }
-  let (:entry) { FactoryGirl.create :review }
-  let (:defaults) { { id: entry.to_param, type: entry.class.name, voting: 'yes' } }
+  let(:user) { FactoryGirl.create :user }
+  let(:entry) { FactoryGirl.create :review }
+  let(:defaults) { { id: entry.to_param, type: entry.class.name, voting: 'yes' } }
 
-  describe "create" do
-    it "forbidden" do
+  describe '#create' do
+    it 'forbidden' do
       post :create, defaults
       expect(response).to be_redirect
     end
 
     describe 'sign_in user' do
-      before (:each) { sign_in user }
+      before { sign_in user }
 
       it 'success' do
         post :create, defaults
