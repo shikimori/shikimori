@@ -1,3 +1,21 @@
+@on 'page:load', 'animes_franchise', 'mangas_franchise', ->
+  try
+    ShikiMath.rspec()
+
+    $graph = $('.graph')
+    d3.json $graph.data('api-url'), (error, data) ->
+      new ChronologyImages(data).render_to $graph[0]
+
+      $('.graph .node').on 'click', ->
+        $('.entry-info').html 'Загрузка...'
+        $.get($(@).data('url') + '/tooltip').success (html) ->
+          $('.sticked-tooltip').html html
+
+      $(".node##{$graph.data 'id'}").click()
+
+  catch e
+    document.write e.message || e
+
 class @ChronologyImages
   START_MARKERS = ['prequel']
   END_MARKERS = ['sequel']
@@ -110,8 +128,8 @@ class @ChronologyImages
       to_min: @ry
       to_max: @h - @ry
 
-  render: ->
-    @_append_svg()
+  render_to: (target) ->
+    @_append_svg target
     @_append_markers()
     @_append_links()
     @_append_nodes()
@@ -120,13 +138,10 @@ class @ChronologyImages
     @d3_force.start().on('tick', @_tick)
 
   # svg тег
-  _append_svg: ->
-    @d3_svg = d3.select('body')
+  _append_svg: (target) ->
+    @d3_svg = d3.select(target)
       .append('svg')
-      .attr
-        width: @w
-        height: @h
-        class: 'images'
+      .attr width: @w, height: @h
 
   # линии
   _append_links: ->
@@ -146,11 +161,12 @@ class @ChronologyImages
       .enter().append('svg:g')
         .attr
           class: 'node'
+          id: (d) -> d.id
+          'data-url': (d) -> d.url
         .call(@d3_force.drag)
 
     @d3_node.append('svg:image')
       .attr
-        class: 'node'
         width: @image_w
         height: @image_h
         'xlink:href': (d) -> d.image_url

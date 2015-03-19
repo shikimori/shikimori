@@ -90,7 +90,7 @@ Site::Application.routes.draw do
           get :similar
           get :related
           get :screenshots
-          get :chronology
+          get :franchise
         end
       end
       resource :calendar, only: [:show]
@@ -99,6 +99,7 @@ Site::Application.routes.draw do
           get :roles
           get :similar
           get :related
+          get :franchise
         end
       end
 
@@ -408,10 +409,13 @@ Site::Application.routes.draw do
           get :screenshots
           get :videos
           get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
+
+          get :related
           get :chronology
+          get :franchise
+
           get :art
           get :images
-          get :related
           get :favoured
           get :clubs
 

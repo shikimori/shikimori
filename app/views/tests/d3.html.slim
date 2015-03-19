@@ -2,9 +2,13 @@ doctype html
 html
   head
     title D3 force layout
-    /= stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
-    /= javascript_include_tag :application, data: { 'turbolinks-track' => ''}
+    /= stylesheet_link_tag :application, media: 'all'
+    = stylesheet_link_tag 'blocks/b-catalog_entry'
+    = stylesheet_link_tag 'blocks/b-catalog_entry-tooltip'
+    /= javascript_include_tag :application
     = stylesheet_link_tag 'tests/d3'
     = javascript_include_tag 'tests/d3'
-  body data-anime_id="#{@anime.id}"
+  body
     h1 "#{localized_name @anime}" relations graph test
+    .sticked-tooltip
+    .graph data-id="#{@anime.id}"

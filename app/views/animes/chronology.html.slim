@@ -1,7 +1,0 @@
-= render layout: 'page' do
-  .b-options-floated.mobile-support
-    a href="#{@resource.related_url}" Напрямую
-    span.link.selected Вся хронология
-  .subheadline.m10 = @page_title.last
-  .cc-5
-    = render @resource.chronology, cover_notice: :year_kind

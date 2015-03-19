@@ -1,0 +1,61 @@
+@import compass/css3/opacity
+@import compass/css3/transition
+@import compass/utilities/general/clearfix
+@import globals/variables
+
+.p-animes-franchise, .p-mangas-franchise
+  background: #FFF
+  padding: 20px 20px 40px 20px
+
+  .sticked-tooltip
+    +transition(opacity 0.5s ease)
+    background: #FFF
+    border: 1px solid #999
+    min-height: 170px
+    padding: 7px
+    position: fixed
+    right: 20px
+    top: 10px
+    width: 500px
+
+    &.ajax_request
+      +opacity(0.4)
+
+  .graph
+    svg
+      border: 1px dashed #ddd
+
+    .node
+      image
+        cursor: pointer
+        //opacity: 0.2
+
+      path
+        stroke: #666
+        fille: none
+
+      text
+        font-size: 14px
+        pointer-events: none
+
+        &.title
+          display: none
+
+        &.shadow
+          stroke: #fff
+          stroke-width: 3px
+
+    .link
+      stroke: #666
+      stroke-width: 1px
+
+      // 'adaptation', 'side_story', 'spin_off', 'sequel', 'alternative_version', 'prequel', 'other', 'summary', 'alternative_setting', 'character', 'parent_story', 'full_story'])
+      &.side_story
+        stroke-dasharray: 0,2 1
+
+      &.spin_off,
+      &.alternative_setting,
+      &.alternative_version,
+      &.other
+        stroke: #ccc
+        stroke-dasharray: 0,2 1

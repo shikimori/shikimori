@@ -5,7 +5,7 @@ html
   body[
       class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} "
       id="#{controller_name}_#{action_name}"
-      style="#{body_background}"
+      style="#{body_background unless @blank_layout}"
       data-env="#{Rails.env}"
       data-user-signed-in="#{user_signed_in?}"
       data-day-registered="#{user_signed_in? && current_user.day_registered?}"
@@ -21,26 +21,31 @@ html
     - if defined?(alert) && alert
       p.flash-alert
         == alert
-    header.l-top_menu
-      = render 'application/top_menu'
 
-    section.l-page *itemprop style="#{page_background}"
-      - if user_signed_in? && current_user.admin? && !Rails.env.development?
-        javascript:
-          $(function() {
-            $('.admin_panel').load('/apanel');
-          });
-          $('.admin_panel .reload').live('click', function() {
-            $(this).hide();
-            $('.admin_panel').load('/apanel');
-          });
-        .admin_panel
+    - if @blank_layout
+      = yield
 
-      div
-        = yield
+    - else
+      header.l-top_menu
+        = render 'application/top_menu'
 
-      footer.l-footer
-        = render 'application/footer'
+      section.l-page *itemprop style="#{page_background}"
+        - if user_signed_in? && current_user.admin? && !Rails.env.development?
+          javascript:
+            $(function() {
+              $('.admin_panel').load('/apanel');
+            });
+            $('.admin_panel .reload').live('click', function() {
+              $(this).hide();
+              $('.admin_panel').load('/apanel');
+            });
+          .admin_panel
+
+        div
+          = yield
+
+        footer.l-footer
+          = render 'application/footer'
 
     #shade
     .b-to-top

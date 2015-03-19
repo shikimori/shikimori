@@ -58,19 +58,23 @@ class AnimesController < ShikimoriController
     page_title 'Видео'
   end
 
+  def related
+    redirect_to @resource.franchise_url, status: 301
+  end
+
   def chronology
+    redirect_to @resource.franchise_url, status: 301
+  end
+
+  def franchise
     noindex
     page_title(@resource.anime? ? 'Хронология аниме' : 'Хронология манги')
+    @blank_layout = true
   end
 
   #def recent
     #1/0
   #end
-
-  def related
-    noindex
-    page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
-  end
 
   # TODO: удалить после 05.2015
   def comments
