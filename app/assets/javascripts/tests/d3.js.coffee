@@ -1,7 +1,6 @@
 #= require jquery
 #= require core/sugar
 #= require d3
-#= require tests/d3
 
 $ ->
   try
@@ -10,12 +9,12 @@ $ ->
     $graph = $('.graph')
     anime_id = $graph.data('id')
 
-    d3.json "/api/animes/#{anime_id}/franchise.json", (error, data) ->
+    d3.json "/api/animes/#{anime_id}/franchise", (error, data) ->
       new ChronologyImages(data).render_to $graph[0]
 
       # trigger select on current element
       node = $(".node##{anime_id}")[0]
-      d3.select(node).on('dblclick')(node.__data__)
+      d3.select(node).on('click')(node.__data__)
 
   catch e
     document.write e.message || e
@@ -24,17 +23,29 @@ class @ChronologyNode
   constructor: (data, width, height) ->
     $.extend(@, data)
 
+    @selected = false
     @init_w = @w = width
     @init_h = @h = height
     @_calc_rs()
 
   deselect: ->
-    @charge = null
+    @selected = false
+
+    @_d3_kind().style display: 'none'
     @_animate(@init_w, @init_h)
 
   select: ->
-    @_animate(@init_w * 2, @init_h * 2)
+    @selected = true
+
+    @_d3_kind().style display: 'inline'
+    @_animate(@init_w * 1.5, @init_h * 1.5)
     @_load_tooltip()
+
+  year_x: (w = @w) ->
+    w - 2
+
+  year_y: (h = @h) ->
+    h - 2
 
   _calc_rs: ->
     @rx = @w / 2.0
@@ -49,6 +60,12 @@ class @ChronologyNode
   _d3_image: ->
     @_image_elem ||= @_d3_node().selectAll('image')
 
+  _d3_year: ->
+    @_year_elem ||= @_d3_node().selectAll('.year')
+
+  _d3_kind: ->
+    @_kind_elem ||= @_d3_node().selectAll('.kind')
+
   _d3_border: ->
     @_border_elem ||= @_d3_node().selectAll('path.border')
 
@@ -57,8 +74,22 @@ class @ChronologyNode
 
     iw = d3.interpolate(@w, new_width)
     ih = d3.interpolate(@h, new_height)
-    #io = if to_initial then (-> 0) else d3.interpolate(0, 4)
     io = if to_initial then d3.interpolate(4, 0) else d3.interpolate(0, 4)
+
+    @_d3_year()
+      .transition()
+      .duration(500)
+      .ease('linear')
+      .attr
+        x: @year_x(new_width)
+        y: @year_y(new_height)
+
+    @_d3_kind()
+      .transition()
+      .duration(500)
+      .ease('linear')
+      .attr
+        x: @year_x(new_width)
 
     @_d3_image()
       .transition()
@@ -78,11 +109,11 @@ class @ChronologyNode
           @h = h + o2
           @_calc_rs()
 
-          #border_path = if o > 0
-            #"M #{-o},#{-o} #{w+o},#{-o} #{w+o},#{h+o} #{-o},#{h+o} #{-o},#{-o}"
-          #else
-            #"M 0,0 #{@init_w},0 #{@init_w},#{@init_h} 0,#{@init_h} 0,0"
-          border_path = "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
+          border_path = if to_initial
+            ""
+          else
+            "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
+
           @_d3_border().attr d: border_path
           @_d3_image_container().attr transform: "translate(#{o}, #{o})"
 
@@ -114,8 +145,6 @@ class @ChronologyImages
     @size = original_size = @nodes_data.length
     console.log "nodes: #{@size}, max_weight: #{@max_weight}"
 
-    @r = Math.max(@image_w, @image_h) / 2.0 + 5
-
     # вся область
     @w = if @size < 30
       @_scale @size,
@@ -144,20 +173,22 @@ class @ChronologyImages
       if d.date == @min_date
         d.fixed = true
         # смещение пропорционально количеству связей
-        d.y += @_scale d.weight, from_min: 4, from_max: 20, to_min: 50, to_max: 700
+        d.y += @_scale d.weight, from_min: 4, from_max: 20, to_min: 0, to_max: 700
 
       if d.date == @max_date
         d.fixed = true
         d.y -= 20
         # смещение пропорционально количеству связей
-        d.y -= @_scale d.weight, from_min: 4, from_max: 9, to_min: 50, to_max: 150
+        d.y -= @_scale d.weight, from_min: 4, from_max: 9, to_min: 0, to_max: 150
 
   # d3 объекты
   _prepare_d3: ->
     # математический объект для обсчёта координат
     @d3_force = d3.layout.force()
       .charge (d) ->
-        if d.weight > 7
+        if d.selected
+          -5000
+        else if d.weight > 7
           -3000
         else if d.weight > 20
           -4000
@@ -174,7 +205,7 @@ class @ChronologyImages
         @_scale 300 * (d.weight / @max_weight),
           from_min: 0
           from_max: 300
-          to_min: 120
+          to_min: 150
           to_max: max_width
 
       .size([@w, @h])
@@ -188,12 +219,16 @@ class @ChronologyImages
     opt.to_min + (opt.to_max - opt.to_min) * percent
 
   # ограничение x координаты по ширине рабочей зоны
-  _bounded_x: (x) =>
-    Math.max(@r, Math.min(@w - @r, x))
+  _bounded_x: (d, x = d.x) =>
+    min = d.rx + 5
+    max = @w - d.rx - 5
+    Math.max(min, Math.min(max, x))
 
   # ограничение y координаты по высоте рабочей зоны
-  _bounded_y: (y) =>
-    Math.max(@r, Math.min(@h - @r, y))
+  _bounded_y: (d, y = d.y) =>
+    min = d.ry + 5
+    max = @w - d.ry - 5
+    Math.max(min, Math.min(max, y))
 
   # y координата по дате
   _y_by_date: (date) =>
@@ -250,37 +285,54 @@ class @ChronologyImages
         .attr
           class: 'node'
           id: (d) -> d.id
-        .call(@d3_force.drag)
-        .on('dblclick', @_node_selected)
+        .call(@d3_force.drag()
+          #.on('dragstart', -> $(@).children('text').hide())
+          #.on('dragend', -> $(@).children('text').show())
+        )
+        .on 'click', (d) =>
+          return if d3.event?.defaultPrevented
+          @_node_selected(d)
+          @d3_force.start()
+        #.on 'mouseover', (d) ->
+          #$(@).children('text').show()
+        #.on 'mouseleave', (d) ->
+          #$(@).children('text').hide()
 
     @d3_node.append('svg:path')
       .attr
         class: 'border'
         d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
 
-    @d3_node.append('svg:g')
+    @d3_image_container = @d3_node.append('svg:g')
       .attr class: 'image-container'
-      .append('svg:image')
-        .attr
-          width: @image_w
-          height: @image_h
-          'xlink:href': (d) -> d.image_url
-      #.on 'click', (d) ->
-        #location.href = d.url
-      #.on 'mouseover', (d) ->
-        #$(@).siblings('text').show()
-      #.on 'mouseleave', (d) ->
-        #$(@).siblings('text').hide()
 
-    ## A copy of the text with a thick white stroke for legibility.
-    #@d3_node.append('svg:text')
-      #.attr x: 0, y: 95, class: 'title shadow'
-      ##.text (d) -> "(#{d.id}) #{d.name}"
-      #.text (d) -> d.name
-    #@d3_node.append('svg:text')
-      #.attr x: 0, y: 95, class: 'title'
-      ##.text (d) -> "(#{d.id}) #{d.name}"
-      #.text (d) -> d.name
+    @d3_image_container.append('svg:image')
+      .attr
+        width: @image_w
+        height: @image_h
+        'xlink:href': (d) -> d.image_url
+
+    # year
+    @d3_image_container.append('svg:text')
+      .attr
+        x: (d) -> d.year_x()
+        y: (d) -> d.year_y()
+        class: 'year shadow'
+      .text (d) -> d.year
+    @d3_image_container.append('svg:text')
+      .attr
+        x: (d) -> d.year_x()
+        y: (d) -> d.year_y()
+        class: 'year'
+      .text (d) -> d.year
+
+    # kind
+    @d3_image_container.append('svg:text')
+      .attr x: @image_w - 2, y: 0 , class: 'kind shadow'
+      .text (d) -> d.kind
+    @d3_image_container.append('svg:text')
+      .attr x: @image_w - 2, y: 0, class: 'kind'
+      .text (d) -> d.kind
 
   # маркеры
   _append_markers: ->
@@ -322,7 +374,7 @@ class @ChronologyImages
   _tick: =>
     @d3_node.attr
       transform: (d) =>
-        "translate(#{@_bounded_x(d.x) - d.rx}, #{@_bounded_y(d.y) - d.ry})"
+        "translate(#{@_bounded_x(d) - d.rx}, #{@_bounded_y(d) - d.ry})"
 
     @d3_link.attr
       d: @_link_truncated
@@ -339,11 +391,11 @@ class @ChronologyImages
     rx2 = d.target.rx
     ry2 = d.target.ry
 
-    x1 = @_bounded_x(d.source.x)
-    y1 = @_bounded_y(d.source.y)
+    x1 = @_bounded_x(d.source)
+    y1 = @_bounded_y(d.source)
 
-    x2 = @_bounded_x(d.target.x)
-    y2 = @_bounded_y(d.target.y)
+    x2 = @_bounded_x(d.target)
+    y2 = @_bounded_y(d.target)
 
     coords = ShikiMath.square_cutted_line x1,y1, x2,y2, rx1,ry1, rx2,ry2
 
@@ -378,10 +430,10 @@ class @ChronologyImages
             x *= l
             y *= l
 
-            d.x = @_bounded_x(d.x - x)
-            d.y = @_bounded_y(d.y - y)
-            quad.point.x = @_bounded_x(quad.point.x + x)
-            quad.point.y = @_bounded_y(quad.point.y + y)
+            d.x = @_bounded_x(d, d.x - x)
+            d.y = @_bounded_y(d, d.y - y)
+            quad.point.x = @_bounded_x(quad.point, quad.point.x + x)
+            quad.point.y = @_bounded_y(quad.point, quad.point.y + y)
 
         x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1
 

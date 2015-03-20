@@ -66,6 +66,8 @@ class Api::V1::AnimesController < Api::V1::ApiController
           name: UsersHelper.localized_name(entry, current_user),
           image_url: ImageUrlGenerator.instance.url(entry, :x96),
           url: url_for(entry),
+          year: entry.aired_on.try(:year),
+          kind: UsersHelper.localized_kind(entry, current_user, true),
           weight: @links.count {|v| v.source_id == entry.id },
         }
       end,

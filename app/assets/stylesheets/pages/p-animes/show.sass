@@ -11,20 +11,23 @@
 @import mixins/responsive
 
 .p-animes-show, .p-mangas-show
+  .c-screenshots, .c-videos
+    margin-bottom: $block_offset * 1.5 !important
+
   .cc.no-video
     .c-screenshots
-      +block_m
+      +block // +block_m
 
     .c-videos
-      +block_m
+      +block_m // +block_m
 
   .cc.one-video
     +gte_ipad
       .c-screenshots
-        +column_bm(2, 0.75)
+        +column(2, 0.75) // +column_bm(2, 0.75)
 
       .c-videos
-        +column_bm(2, 0.25)
+        +column(2, 0.25) // +column_bm(2, 0.25)
 
       .c-screenshot
         +column(3)
@@ -41,7 +44,7 @@
   .cc.two-videos
     +gte_ipad
       .c-screenshots, .c-videos
-        +column_bm(2)
+        +column(2) // +column_bm(2)
 
     +widescreen
       .c-screenshot, .c-video

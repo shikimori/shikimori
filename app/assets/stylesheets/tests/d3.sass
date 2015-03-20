@@ -33,14 +33,18 @@ h1
 
     path
       stroke: #666
-      fill: none
+      fill: #fff
 
     text
-      font-size: 14px
       pointer-events: none
 
-      &.title
+      &.kind
+        alignment-baseline: before-edge
         display: none
+
+      &.year, &.kind
+        font-size: 10px
+        text-anchor: end
 
       &.shadow
         stroke: #fff
