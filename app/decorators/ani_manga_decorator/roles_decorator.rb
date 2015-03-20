@@ -1,6 +1,8 @@
 class AniMangaDecorator::RolesDecorator < BaseDecorator
   instance_cache :main_people, :main_characters, :supporting_characters, :people
 
+  IMPORTANT_ROLES = ['Director', 'Original Creator', 'Story & Art', 'Story', 'Art']
+
   # есть ли хоть какие-то роли?
   def any?
     object.person_roles.any?
@@ -12,7 +14,7 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
       .person_roles.directors
       .references(:people)
       .where.not(people: { name: nil })
-        .select { |v| !(v.role.split(',') & ['Director', 'Original Creator', 'Story & Art', 'Story', 'Art']).empty? }
+        .select { |v| !(v.role.split(',') & IMPORTANT_ROLES).empty? }
         .uniq { |v| v.person.name }
         .map {|v| RoleEntry.new v.person, v.role }
         .sort_by(&:formatted_role)
@@ -23,7 +25,9 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
     object
       .person_roles.people
       .map {|v| RoleEntry.new v.person, v.role }
-      .sort_by(&:formatted_role)
+      .sort_by do |v|
+        [-(v.role.split(',') & IMPORTANT_ROLES).size, v.formatted_role]
+      end
   end
 
   # главные персонажи аниме

@@ -1,5 +1,14 @@
 = render layout: 'page' do
   .block.m0
     h2.subheadline.m10 = @page_title.last
-    .cc.eight-characters
-      = render @resource.roles.people
+    div
+      - @resource.roles.people.each do |person|
+        .person
+          a.image.bubbled href="#{person_url person}" title="#{localized_name person}"
+            img src="#{cdn_image person, :x48}" srcset="#{cdn_image person, :x96} 2x" alt="#{localized_name person}"
+          .name-role
+            a.name.bubbled href="#{person_url person}" title="#{localized_name person}"
+              = localized_name person
+            .roles
+              - person.formatted_roles.split(',').map(&:strip).each do |role|
+                span = role
