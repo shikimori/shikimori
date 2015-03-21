@@ -1,0 +1,10 @@
+header.head.misc
+  h1
+    a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+    = @resource.headline
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+.sticked-tooltip
+  .close
+  .inner
+.graph data-id="#{@resource.id}" data-api-url="#{@resource.anime? ? franchise_api_anime_url(@resource) : franchise_api_manga_url(@resource)}"

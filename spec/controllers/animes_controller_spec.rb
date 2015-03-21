@@ -58,9 +58,22 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#related' do
+    let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
+    before { get :related, id: anime.to_param }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#chronology' do
     let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
     before { get :chronology, id: anime.to_param }
+    after { BannedRelations.instance.clear_cache! }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#franchise' do
+    let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
+    before { get :franchise, id: anime.to_param }
     after { BannedRelations.instance.clear_cache! }
     it { expect(response).to have_http_status :success }
   end
@@ -92,12 +105,6 @@ describe AnimesController do
     let(:group) { create :group, :with_thread, :with_member }
     let!(:group_link) { create :group_link, linked: anime, group: group }
     before { get :clubs, id: anime.to_param }
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe '#related' do
-    let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
-    before { get :related, id: anime.to_param }
     it { expect(response).to have_http_status :success }
   end
 

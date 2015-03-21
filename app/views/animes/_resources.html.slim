@@ -1,3 +1,60 @@
+- if @resource.related.related.any? || @resource.roles.main_people.any?
+  .cc-2.m0
+    / связанное
+    .c-column.block_m
+      /.subheadline.m5
+        span.link.linkeable data-href="#{@resource.franchise_url}" Связанное
+      .b-options-floated.mobile-support
+        span.link.linkeable data-href="#{@resource.related_url}" Напрямую
+        span.link.linkeable data-href="#{@resource.chronology_url}" Хронология
+        span.link.linkeable data-href="#{@resource.franchise_url}" Франшиза
+      .subheadline.m5 Связанное
+      div
+        = render partial: 'animes/relation_note',
+          collection: @resource.related.related.take([@resource.roles.main_people.size, 3].max)
+
+        - if @resource.related.related.size > [@resource.roles.main_people.size, 3].max
+          .b-show_more + показать остальное (#{@resource.related.related.size - [@resource.roles.main_people.size, 3].max})
+          .b-show_more-more
+            = render partial: 'animes/relation_note',
+              collection: @resource.related.related[[@resource.roles.main_people.size, 3].max..-1]
+
+            .hide-more
+              | &mdash; спрятать
+
+    / авторы
+    - if @resource.roles.main_people.any?
+      .c-column.block_m
+        .subheadline.m5
+          span.linkeable data-href="#{@resource.staff_url}" Авторы
+        div
+          = render partial: 'people/role_note',
+            collection: @resource.roles.main_people
+
+- if @resource.roles.main_characters.any?
+  .cc.m0.eight-characters
+    .c-characters.m0
+      .subheadline.m10
+        span.linkeable data-href="#{@resource.characters_url}" Главные герои
+      .cc.m0
+        = render @resource.roles.main_characters
+
+/- if @resource.roles.main_characters.any? || @resource.roles.main_people.any?
+  .cc.m0 class="#{@resource.roles.grouping_class}"
+    /- if @resource.roles.main_characters.any?
+      .c-characters.m0
+        .subheadline.m10
+          span.linkeable data-href="#{@resource.characters_url}" Главные герои
+        .cc.m0
+          = render @resource.roles.main_characters
+
+    /- if @resource.roles.main_people.any?
+      .c-people.m0
+        .subheadline.m10
+          span.linkeable data-href="#{@resource.staff_url}" Создатели
+        .cc.m0
+          = render @resource.roles.main_people
+
 - if @resource.screenshots(5).any? || @resource.videos(5).any?
   .cc.m0 class="#{@resource.videos(5).any? && @resource.screenshots(5).any? ? (@resource.videos(5).one? ? 'one-video' : 'two-videos') : 'no-video'}"
     .c-screenshots
@@ -14,35 +71,19 @@
         .cc
           = render @resource.videos(5)
 
-- if @resource.roles.main_characters.any? || @resource.roles.main_people.any?
-  .cc.m0 class="#{@resource.roles.grouping_class}"
-    - if @resource.roles.main_characters.any?
-      .c-characters.m0
-        .subheadline.m10
-          span.linkeable data-href="#{@resource.characters_url}" Главные герои
-        .cc.m0
-          = render @resource.roles.main_characters
-
-    - if @resource.roles.main_people.any?
-      .c-people.m0
-        .subheadline.m10
-          span.linkeable data-href="#{@resource.staff_url}" Создатели
-        .cc.m0
-          = render @resource.roles.main_people
-
-- if @resource.related.related.any?
-  .b-options-floated.mobile-support
-    span.link.selected Напрямую
-    span.link.linkeable data-href="#{@resource.chronology_url}" Вся хронология
-  .subheadline.m10 Связанное
-  .cc.m0
-    - if @resource.related.many?
-      = render partial: 'animes/anime', collection: @resource.related.related[0..AnimeDecorator::VISIBLE_RELATED-1], locals: { cover_notice: :relation }
-      .related-shower style="display: block;" Показать остальное
-      .related-hidden
-        = render partial: 'animes/anime', collection: @resource.related.related[AnimeDecorator::VISIBLE_RELATED..-1], locals: { cover_notice: :relation }
-    - else
-      = render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_notice: :relation }
+/- if @resource.related.related.any?
+  /.b-options-floated.mobile-support
+    /span.link.selected Напрямую
+    /span.link.linkeable data-href="#{@resource.chronology_url}" Вся хронология
+  /.subheadline.m10 Связанное
+  /.cc.m0
+    /- if @resource.related.many?
+      /= render partial: 'animes/anime', collection: @resource.related.related[0..AnimeDecorator::VISIBLE_RELATED-1], locals: { cover_notice: :relation }
+      /.related-shower style="display: block;" Показать остальное
+      /.related-hidden
+        /= render partial: 'animes/anime', collection: @resource.related.related[AnimeDecorator::VISIBLE_RELATED..-1], locals: { cover_notice: :relation }
+    /- else
+      /= render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_notice: :relation }
 
 - if @resource.related.similar.any?
   .subheadline.m10

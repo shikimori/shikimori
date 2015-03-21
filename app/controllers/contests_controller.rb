@@ -60,7 +60,7 @@ class ContestsController < ShikimoriController
     page_title @resource.title
     page_title 'Турнирная сетка'
 
-    render 'grid', layout: false
+    @blank_layout = true
   end
 
   def edit

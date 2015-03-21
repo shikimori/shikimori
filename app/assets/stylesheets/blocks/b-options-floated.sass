@@ -11,7 +11,7 @@
   position: absolute
   right: 10px
 
-  +iphone
+  +lte_ipad
     line-height: $line_height
 
   // страница персонажа - переключение типов
@@ -81,6 +81,16 @@
 
       &:after
         display: none
+
+  &.before-two-buttons
+    +gt_ipad
+      padding-right: 70px
+
+    +ipad
+      padding-right: 130px
+
+    +iphone
+      padding-right: 0
 
   &.mobile-support
     +iphone-portrait

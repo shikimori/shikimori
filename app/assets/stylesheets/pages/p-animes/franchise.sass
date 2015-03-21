@@ -1,0 +1,89 @@
+@import compass/css3/border-radius
+@import compass/css3/opacity
+@import compass/css3/transition
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/link
+
+.p-animes-franchise, .p-mangas-franchise
+  background: #FFF
+  padding: 20px 20px 40px 20px
+
+  .sticked-tooltip
+    +transition(opacity 0.5s ease)
+    background: #FFF
+    border: 1px solid #999
+    display: none
+    min-height: 170px
+    padding: 7px
+    position: fixed
+    right: 20px
+    top: 10px
+    width: 500px
+
+    .close
+      +border-radius(15px)
+      +link_color(#555555)
+      background: #fff
+      cursor: pointer
+      font-family: Courier
+      font-size: 13px
+      position: absolute
+      right: 5px
+      text-align: center
+      top: 4px
+      width: 15px
+      z-index: 2
+
+      &:after
+        content: '\2715'
+
+    &.ajax_request
+      +opacity(0.4)
+
+  .graph
+    svg
+      border: 1px dashed #ddd
+
+    .node
+      image
+        cursor: pointer
+        //opacity: 0.2
+
+      path.border_outer, path.border_inner
+        shape-rendering: crispEdges
+        stroke: #123
+
+      &.selected
+        path.border_inner
+          stroke: #fff
+
+      text
+        pointer-events: none
+
+        &.kind
+          alignment-baseline: before-edge
+          display: none
+
+        &.year, &.kind
+          font-size: 10px
+          text-anchor: end
+
+        &.shadow
+          stroke: #fff
+          stroke-width: 3px
+
+    .link
+      stroke: #666
+      stroke-width: 1px
+
+      // 'adaptation', 'side_story', 'spin_off', 'sequel', 'alternative_version', 'prequel', 'other', 'summary', 'alternative_setting', 'character', 'parent_story', 'full_story'])
+      &.side_story
+        stroke-dasharray: 0,2 1
+
+      &.spin_off,
+      &.alternative_setting,
+      &.alternative_version,
+      &.other
+        stroke: #ccc
+        stroke-dasharray: 0,2 1

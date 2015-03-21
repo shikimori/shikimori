@@ -1,19 +1,29 @@
 module UsersHelper
-  def self.localized_name entry, current_user
-    if entry.class == Genre
-      # жанры
-      if !current_user || (current_user && current_user.preferences.russian_genres? && entry.russian.present?)
-        entry.russian || entry.name
-      else
-        entry.name
-      end
+  class << self
+    def localized_name entry, current_user
+      if entry.class == Genre
+        # жанры
+        if !current_user || (current_user && current_user.preferences.russian_genres? && entry.russian.present?)
+          entry.russian || entry.name
+        else
+          entry.name
+        end
 
-    else
-      # аниме
-      if current_user && current_user.preferences.russian_names? && entry.respond_to?(:russian) && entry.russian.present?
-        entry.russian.html_safe
       else
-        entry.name.html_safe
+        # аниме
+        if current_user && current_user.preferences.russian_names? && entry.respond_to?(:russian) && entry.russian.present?
+          entry.russian.html_safe
+        else
+          entry.name.html_safe
+        end
+      end
+    end
+
+    def localized_kind entry, current_user, short=false
+      if !current_user || (current_user && current_user.preferences.russian_genres?)
+        I18n.t "#{entry.decorated? ? entry.object.class.name : entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
+      else
+        entry.kind
       end
     end
   end
@@ -25,11 +35,7 @@ module UsersHelper
 
   # тип с учётом настроек отображения русского языка
   def localized_kind entry, short=false
-    if !current_user || (current_user && current_user.preferences.russian_genres?)
-      I18n.t "#{entry.decorated? ? entry.object.class.name : entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
-    else
-      entry.kind
-    end
+    UsersHelper.localized_kind entry, current_user, short
   end
 
   def page_background

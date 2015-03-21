@@ -1,7 +1,16 @@
 = render layout: 'page' do
-  .b-options-floated.mobile-support
+  .b-options-floated.mobile-support.mobile-landscape.before-two-buttons
     span.link.selected Напрямую
     a href="#{@resource.chronology_url}" Вся хронология
-  .subheadline.m10 = @page_title.last
-  .cc-5
-    = render @resource.related.related, cover_notice: :relation
+    a href="#{@resource.franchise_url}" Франшиза
+  .subheadline-buttons
+    span.item-list_switcher class="#{:selected if cookies['related_view'] != 'posters'}" data-name="related_view" data-value="list"
+    span.item-posters_switcher class="#{:selected if cookies['related_view'] == 'posters'}" data-name="related_view" data-value="posters"
+  .subheadline.m5 = @page_title.last
+
+  - if cookies['related_view'] == 'posters'
+    .cc-5
+      = render @resource.related.related, cover_notice: :relation
+  - else
+    div
+      = render partial: 'animes/relation_note', collection: @resource.related.related

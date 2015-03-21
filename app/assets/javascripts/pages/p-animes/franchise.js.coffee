@@ -1,25 +1,25 @@
-#= require jquery
-#= require core/sugar
-#= require d3
-
-$ ->
+@on 'page:load', 'animes_franchise', 'mangas_franchise', ->
   try
     ShikiMath.rspec()
 
     $graph = $('.graph')
-    anime_id = $graph.data('id')
-
-    d3.json "/api/animes/#{anime_id}/franchise", (error, data) ->
+    d3.json $graph.data('api-url'), (error, data) ->
       new ChronologyImages(data).render_to $graph[0]
 
-      # trigger select on current element
-      node = $(".node##{anime_id}")[0]
-      d3.select(node).on('click')(node.__data__)
+      $('.sticked-tooltip .close').on 'click', ->
+        node = $('.node.selected')[0]
+        d3.select(node).on('click')(node.__data__)
+
+      #node = $(".node##{$graph.data 'id'}")[0]
+      #d3.select(node).on('click')(node.__data__)
 
   catch e
     document.write e.message || e
 
 class @ChronologyNode
+  SELECT_SCALE = 2
+  BORDER_OFFSET = 3
+
   constructor: (data, width, height) ->
     $.extend(@, data)
 
@@ -28,18 +28,19 @@ class @ChronologyNode
     @init_h = @h = height
     @_calc_rs()
 
-  deselect: ->
+  deselect: (_bound_x, _bound_y) ->
     @selected = false
 
-    @_d3_kind().style display: 'none'
-    @_animate(@init_w, @init_h)
+    #@_d3_kind().style display: 'none'
+    @_hide_tooltip()
+    @_animate(@init_w, @init_h, _bound_x, _bound_y)
 
-  select: ->
+  select: (_bound_x, _bound_y) ->
     @selected = true
 
-    @_d3_kind().style display: 'inline'
-    @_animate(@init_w * 1.5, @init_h * 1.5)
+    #@_d3_kind().style display: 'inline'
     @_load_tooltip()
+    @_animate(@init_w * SELECT_SCALE, @init_h * SELECT_SCALE, _bound_x, _bound_y)
 
   year_x: (w = @w) ->
     w - 2
@@ -50,6 +51,62 @@ class @ChronologyNode
   _calc_rs: ->
     @rx = @w / 2.0
     @ry = @h / 2.0
+
+  _animate: (new_width, new_height, _bound_x, _bound_y) ->
+    if @selected
+      io = d3.interpolate(0, BORDER_OFFSET)
+      iw = d3.interpolate(@w, new_width)
+      ih = d3.interpolate(@h, new_height)
+      @_d3_node().attr class: 'node selected'
+    else
+      io = d3.interpolate(BORDER_OFFSET, 0)
+      iw = d3.interpolate(@w - BORDER_OFFSET*2, new_width)
+      ih = d3.interpolate(@h - BORDER_OFFSET*2, new_height)
+      @_d3_node().attr class: 'node'
+
+    @_d3_node()
+      .transition()
+      .duration(500)
+      .tween 'animation', =>
+        (t) =>
+          #t = 1
+          o = io(t)
+          o2 = o*2
+          w = iw(t)
+          h = ih(t)
+
+          width_increment = w + o2 - @w
+          height_increment = h + o2 - @h
+
+          #@x -= width_increment / 2.0
+          #@px -= width_increment / 2.0
+          #@y -= height_increment / 2.0
+          #@py -= height_increment / 2.0
+
+          @w += width_increment
+          @h += height_increment
+
+          @_calc_rs()
+
+          outer_border_path = "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
+
+          @_d3_node().attr transform: "translate(#{_bound_x(@) - @rx}, #{_bound_y(@) - @ry})"
+          @_d3_outer_border().attr d: outer_border_path
+          @_d3_image_container().attr transform: "translate(#{o}, #{o})"
+          @_d3_inner_border().attr d: "M 0,0 #{w},0 #{w},#{h} 0,#{h} 0,0"
+
+          @_d3_image().attr width: w, height: h
+          @_d3_year().attr x: @year_x(w), y: @year_y(h)
+          #@_d3_kind().attr x: @year_x(w)
+
+  _hide_tooltip: ->
+    $('.sticked-tooltip').hide()
+
+  _load_tooltip: ->
+    $('.sticked-tooltip').show().addClass('ajax_request')
+    $.get(@url + '/tooltip').success (html) ->
+      $('.sticked-tooltip').removeClass('ajax_request')
+      $('.sticked-tooltip .inner').html html
 
   _d3_node: ->
     @_node_elem ||= d3.select $(".node##{@id}")[0]
@@ -63,64 +120,14 @@ class @ChronologyNode
   _d3_year: ->
     @_year_elem ||= @_d3_node().selectAll('.year')
 
-  _d3_kind: ->
-    @_kind_elem ||= @_d3_node().selectAll('.kind')
+  #_d3_kind: ->
+    #@_kind_elem ||= @_d3_node().selectAll('.kind')
 
-  _d3_border: ->
-    @_border_elem ||= @_d3_node().selectAll('path.border')
+  _d3_outer_border: ->
+    @_outer_border_elem ||= @_d3_node().selectAll('path.border_outer')
 
-  _animate: (new_width, new_height) ->
-    to_initial = new_width == @init_w
-
-    iw = d3.interpolate(@w, new_width)
-    ih = d3.interpolate(@h, new_height)
-    io = if to_initial then d3.interpolate(4, 0) else d3.interpolate(0, 4)
-
-    @_d3_year()
-      .transition()
-      .duration(500)
-      .ease('linear')
-      .attr
-        x: @year_x(new_width)
-        y: @year_y(new_height)
-
-    @_d3_kind()
-      .transition()
-      .duration(500)
-      .ease('linear')
-      .attr
-        x: @year_x(new_width)
-
-    @_d3_image()
-      .transition()
-      .duration(500)
-      .ease('linear')
-      .attr
-        width: new_width
-        height: new_height
-      .tween 'side-effects', =>
-        (t) =>
-          o = io(t)
-          o2 = o*2
-          w = iw(t)
-          h = ih(t)
-
-          @w = w + o2
-          @h = h + o2
-          @_calc_rs()
-
-          border_path = if to_initial
-            ""
-          else
-            "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
-
-          @_d3_border().attr d: border_path
-          @_d3_image_container().attr transform: "translate(#{o}, #{o})"
-
-  _load_tooltip: ->
-    $('.sticked-tooltip').addClass('ajax_request')
-    $.get(@url + '/tooltip').success (html) ->
-      $('.sticked-tooltip').removeClass('ajax_request').html html
+  _d3_inner_border: ->
+    @_inner_border_elem ||= @_d3_node().selectAll('path.border_inner')
 
 
 class @ChronologyImages
@@ -184,7 +191,7 @@ class @ChronologyImages
   # d3 объекты
   _prepare_d3: ->
     # математический объект для обсчёта координат
-    @d3_force = d3.layout.force()
+    window.d3_force = @d3_force = d3.layout.force()
       .charge (d) ->
         if d.selected
           -5000
@@ -219,13 +226,13 @@ class @ChronologyImages
     opt.to_min + (opt.to_max - opt.to_min) * percent
 
   # ограничение x координаты по ширине рабочей зоны
-  _bounded_x: (d, x = d.x) =>
+  _bound_x: (d, x = d.x) =>
     min = d.rx + 5
     max = @w - d.rx - 5
     Math.max(min, Math.min(max, x))
 
   # ограничение y координаты по высоте рабочей зоны
-  _bounded_y: (d, y = d.y) =>
+  _bound_y: (d, y = d.y) =>
     min = d.ry + 5
     max = @w - d.ry - 5
     Math.max(min, Math.min(max, y))
@@ -250,14 +257,16 @@ class @ChronologyImages
   # выбран какой-то из узлов
   _node_selected: (d) =>
     if @selected_node
-      @selected_node.deselect()
+      @selected_node.deselect(@_bound_x, @_bound_y)
 
       if @selected_node == d
         return @selected_node = null
 
-    @selected_node = d
-    @selected_node.select()
 
+    #@d3_force.stop()
+    @selected_node = d
+    @selected_node.select(@_bound_x, @_bound_y)
+      #.each('end', => @d3_force.start())
     @d3_force.start()
 
   # svg тег
@@ -292,7 +301,6 @@ class @ChronologyImages
         .on 'click', (d) =>
           return if d3.event?.defaultPrevented
           @_node_selected(d)
-          @d3_force.start()
         #.on 'mouseover', (d) ->
           #$(@).children('text').show()
         #.on 'mouseleave', (d) ->
@@ -300,11 +308,16 @@ class @ChronologyImages
 
     @d3_node.append('svg:path')
       .attr
-        class: 'border'
-        d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
+        class: 'border_outer'
+        d: ""
 
     @d3_image_container = @d3_node.append('svg:g')
       .attr class: 'image-container'
+
+    @d3_image_container.append('svg:path')
+      .attr
+        class: 'border_inner'
+        d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
 
     @d3_image_container.append('svg:image')
       .attr
@@ -327,12 +340,12 @@ class @ChronologyImages
       .text (d) -> d.year
 
     # kind
-    @d3_image_container.append('svg:text')
-      .attr x: @image_w - 2, y: 0 , class: 'kind shadow'
-      .text (d) -> d.kind
-    @d3_image_container.append('svg:text')
-      .attr x: @image_w - 2, y: 0, class: 'kind'
-      .text (d) -> d.kind
+    #@d3_image_container.append('svg:text')
+      #.attr x: @image_w - 2, y: 0 , class: 'kind shadow'
+      #.text (d) -> d.kind
+    #@d3_image_container.append('svg:text')
+      #.attr x: @image_w - 2, y: 0, class: 'kind'
+      #.text (d) -> d.kind
 
   # маркеры
   _append_markers: ->
@@ -374,7 +387,7 @@ class @ChronologyImages
   _tick: =>
     @d3_node.attr
       transform: (d) =>
-        "translate(#{@_bounded_x(d) - d.rx}, #{@_bounded_y(d) - d.ry})"
+        "translate(#{@_bound_x(d) - d.rx}, #{@_bound_y(d) - d.ry})"
 
     @d3_link.attr
       d: @_link_truncated
@@ -391,11 +404,11 @@ class @ChronologyImages
     rx2 = d.target.rx
     ry2 = d.target.ry
 
-    x1 = @_bounded_x(d.source)
-    y1 = @_bounded_y(d.source)
+    x1 = @_bound_x(d.source)
+    y1 = @_bound_y(d.source)
 
-    x2 = @_bounded_x(d.target)
-    y2 = @_bounded_y(d.target)
+    x2 = @_bound_x(d.target)
+    y2 = @_bound_y(d.target)
 
     coords = ShikiMath.square_cutted_line x1,y1, x2,y2, rx1,ry1, rx2,ry2
 
@@ -430,10 +443,10 @@ class @ChronologyImages
             x *= l
             y *= l
 
-            d.x = @_bounded_x(d, d.x - x)
-            d.y = @_bounded_y(d, d.y - y)
-            quad.point.x = @_bounded_x(quad.point, quad.point.x + x)
-            quad.point.y = @_bounded_y(quad.point, quad.point.y + y)
+            d.x = @_bound_x(d, d.x - x)
+            d.y = @_bound_y(d, d.y - y)
+            quad.point.x = @_bound_x(quad.point, quad.point.x + x)
+            quad.point.y = @_bound_y(quad.point, quad.point.y + y)
 
         x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1
 

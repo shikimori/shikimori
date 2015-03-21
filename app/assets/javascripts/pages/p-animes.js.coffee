@@ -3,6 +3,11 @@
 @on 'page:load', '.animes', '.mangas', ->
   init_animes_menu()
 
+  # переключалка между видом списком и видом с постерами
+  $('.item-list_switcher, .item-posters_switcher').on 'click', ->
+    $.cookie $(@).data('name'), $(@).data('value'), expires: 730, path: "/"
+    Turbolinks.visit location.href
+
 @init_animes_menu = ->
   # графики
   $("#rates_scores_stats").bar
