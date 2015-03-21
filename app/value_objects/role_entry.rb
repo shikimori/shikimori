@@ -16,16 +16,11 @@ class RoleEntry < SimpleDelegator
 
 private
   def translated_role is_full
-    roles = @role
+    @role
       .split(/, */)
       .map {|v| I18n.t "Role.#{v}" }
       .sort
+      .take(is_full ? 10 : 1)
       .join(', ')
-
-    if roles.size > 1 && is_full
-      roles
-    else
-      roles.first
-    end
   end
 end

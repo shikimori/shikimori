@@ -1,0 +1,48 @@
+@import mixins/clear_left
+@import mixins/comma_separated
+@import mixins/link
+
+.b-db_entry-note
+  +clear_left
+  border-top: 1px dashed #DDD
+  margin-bottom: 10px
+  padding-top: 7px
+
+  &:first-child
+    border-top: none
+    padding-top: 0
+
+  &:last-child
+    margin-bottom: 0
+
+  .image
+    float: left
+    margin-top: 5px
+
+    img
+      width: 32px
+
+  .name-with-note
+    margin-left: 42px
+    line-height: $line_height
+
+    .name
+      font-weight: bold
+
+    a
+      +link
+
+    .note
+      margin-top: -1px
+
+      span
+        +comma_separated
+
+    .additional
+      color: $gray-color-2
+      font-size: 12px
+
+      span
+        +comma_separated
+
+

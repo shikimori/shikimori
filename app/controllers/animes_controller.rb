@@ -59,16 +59,18 @@ class AnimesController < ShikimoriController
   end
 
   def related
-    redirect_to @resource.franchise_url, status: 301
+    noindex
+    page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
   end
 
   def chronology
-    redirect_to @resource.franchise_url, status: 301
+    noindex
+    page_title(@resource.anime? ? 'Хронология' : 'Хронология')
   end
 
   def franchise
     noindex
-    page_title(@resource.anime? ? 'Хронология аниме' : 'Хронология манги')
+    page_title(@resource.anime? ? 'Франшиза' : 'Франшиза')
     @blank_layout = true
   end
 

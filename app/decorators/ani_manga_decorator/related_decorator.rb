@@ -28,9 +28,9 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
   end
 
   # достаточно ли большое число связанных аниме?
-  def many?
-    related.size > AnimeDecorator::VISIBLE_RELATED
-  end
+  #def many?
+    #related.size > AnimeDecorator::VISIBLE_RELATED
+  #end
 
   def all
     object

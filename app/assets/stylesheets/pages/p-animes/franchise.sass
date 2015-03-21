@@ -11,6 +11,7 @@
     +transition(opacity 0.5s ease)
     background: #FFF
     border: 1px solid #999
+    display: none
     min-height: 170px
     padding: 7px
     position: fixed
@@ -30,9 +31,14 @@
         cursor: pointer
         //opacity: 0.2
 
-      path
-        stroke: #666
+      path.border_inner
         fill: #fff
+        stroke: #123
+
+      path.border_outer
+        fill: #fff
+        shape-rendering: crispEdges
+        stroke: #123
 
       text
         pointer-events: none

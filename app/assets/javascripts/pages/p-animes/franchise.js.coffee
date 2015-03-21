@@ -1,5 +1,4 @@
 @on 'page:load', 'animes_franchise', 'mangas_franchise', ->
-  return
   try
     ShikiMath.rspec()
 
@@ -7,18 +6,16 @@
     d3.json $graph.data('api-url'), (error, data) ->
       new ChronologyImages(data).render_to $graph[0]
 
-      $('.graph .node').on 'click', ->
-        $('.entry-info').html 'Загрузка...'
-        $.get($(@).data('url') + '/tooltip').success (html) ->
-          $('.sticked-tooltip').html html
-
-      node = $(".node##{anime_id}")[0]
-      d3.select(node).on('click')(node.__data__)
+      node = $(".node##{$graph.data 'id'}")[0]
+      #d3.select(node).on('click')(node.__data__)
 
   catch e
     document.write e.message || e
 
 class @ChronologyNode
+  SELECT_SCALE = 1
+  BORDER_OFFSET = 4
+
   constructor: (data, width, height) ->
     $.extend(@, data)
 
@@ -30,15 +27,16 @@ class @ChronologyNode
   deselect: ->
     @selected = false
 
-    @_d3_kind().style display: 'none'
+    #@_d3_kind().style display: 'none'
+    @_hide_tooltip()
     @_animate(@init_w, @init_h)
 
   select: ->
     @selected = true
 
-    @_d3_kind().style display: 'inline'
-    @_animate(@init_w * 1.5, @init_h * 1.5)
+    #@_d3_kind().style display: 'inline'
     @_load_tooltip()
+    @_animate(@init_w * SELECT_SCALE, @init_h * SELECT_SCALE)
 
   year_x: (w = @w) ->
     w - 2
@@ -49,6 +47,48 @@ class @ChronologyNode
   _calc_rs: ->
     @rx = @w / 2.0
     @ry = @h / 2.0
+
+  _animate: (new_width, new_height) ->
+    io = if @selected then d3.interpolate(0, BORDER_OFFSET) else d3.interpolate(BORDER_OFFSET, 0)
+    iw = if @selected then d3.interpolate(@w, new_width) else d3.interpolate(@w - BORDER_OFFSET*2, new_width)
+    ih = if @selected then d3.interpolate(@h, new_height) else d3.interpolate(@h - BORDER_OFFSET*2, new_height)
+
+    @_d3_node()
+      .transition()
+      .duration(500)
+      .tween 'animation', =>
+        (t) =>
+          #t = 1
+          o = io(t)
+          o2 = o*2
+          w = iw(t)
+          h = ih(t)
+
+          @w = w + o2
+          @h = h + o2
+          @_calc_rs()
+
+          #@px = @x
+          #@py = @y
+
+          border_path = "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
+
+          @_d3_node().attr transform: "translate(#{@x - @rx}, #{@y - @ry})"
+          @_d3_outer_border().attr d: border_path
+          @_d3_image_container().attr transform: "translate(#{o}, #{o})"
+          @_d3_inner_border().attr d: "M 0,0 #{w},0 #{w},#{h} 0,#{h} 0,0"
+
+          @_d3_image().attr width: w, height: h
+          @_d3_year().attr x: @year_x(w), y: @year_y(h)
+          @_d3_kind().attr x: @year_x(w)
+
+  _hide_tooltip: ->
+    $('.sticked-tooltip').hide()
+
+  _load_tooltip: ->
+    #$('.sticked-tooltip').show().addClass('ajax_request')
+    #$.get(@url + '/tooltip').success (html) ->
+      #$('.sticked-tooltip').removeClass('ajax_request').html html
 
   _d3_node: ->
     @_node_elem ||= d3.select $(".node##{@id}")[0]
@@ -65,61 +105,11 @@ class @ChronologyNode
   _d3_kind: ->
     @_kind_elem ||= @_d3_node().selectAll('.kind')
 
-  _d3_border: ->
-    @_border_elem ||= @_d3_node().selectAll('path.border')
+  _d3_outer_border: ->
+    @_outer_border_elem ||= @_d3_node().selectAll('path.border_outer')
 
-  _animate: (new_width, new_height) ->
-    to_initial = new_width == @init_w
-
-    iw = d3.interpolate(@w, new_width)
-    ih = d3.interpolate(@h, new_height)
-    io = if to_initial then d3.interpolate(4, 0) else d3.interpolate(0, 4)
-
-    @_d3_year()
-      .transition()
-      .duration(500)
-      .ease('linear')
-      .attr
-        x: @year_x(new_width)
-        y: @year_y(new_height)
-
-    @_d3_kind()
-      .transition()
-      .duration(500)
-      .ease('linear')
-      .attr
-        x: @year_x(new_width)
-
-    @_d3_image()
-      .transition()
-      .duration(500)
-      .ease('linear')
-      .attr
-        width: new_width
-        height: new_height
-      .tween 'side-effects', =>
-        (t) =>
-          o = io(t)
-          o2 = o*2
-          w = iw(t)
-          h = ih(t)
-
-          @w = w + o2
-          @h = h + o2
-          @_calc_rs()
-
-          border_path = if to_initial
-            ""
-          else
-            "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
-
-          @_d3_border().attr d: border_path
-          @_d3_image_container().attr transform: "translate(#{o}, #{o})"
-
-  _load_tooltip: ->
-    $('.sticked-tooltip').addClass('ajax_request')
-    $.get(@url + '/tooltip').success (html) ->
-      $('.sticked-tooltip').removeClass('ajax_request').html html
+  _d3_inner_border: ->
+    @_inner_border_elem ||= @_d3_node().selectAll('path.border_inner')
 
 
 class @ChronologyImages
@@ -183,11 +173,11 @@ class @ChronologyImages
   # d3 объекты
   _prepare_d3: ->
     # математический объект для обсчёта координат
-    @d3_force = d3.layout.force()
+    window.d3_force = @d3_force = d3.layout.force()
       .charge (d) ->
-        if d.selected
-          -5000
-        else if d.weight > 7
+        #if d.selected
+          #-5000
+        if d.weight > 7
           -3000
         else if d.weight > 20
           -4000
@@ -254,10 +244,12 @@ class @ChronologyImages
       if @selected_node == d
         return @selected_node = null
 
+
+    #@d3_force.stop()
     @selected_node = d
     @selected_node.select()
-
-    @d3_force.start()
+      #.each('end', => @d3_force.start())
+    #@d3_force.start()
 
   # svg тег
   _append_svg: (target) ->
@@ -291,7 +283,6 @@ class @ChronologyImages
         .on 'click', (d) =>
           return if d3.event?.defaultPrevented
           @_node_selected(d)
-          @d3_force.start()
         #.on 'mouseover', (d) ->
           #$(@).children('text').show()
         #.on 'mouseleave', (d) ->
@@ -299,11 +290,16 @@ class @ChronologyImages
 
     @d3_node.append('svg:path')
       .attr
-        class: 'border'
-        d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
+        class: 'border_outer'
+        d: ""
 
     @d3_image_container = @d3_node.append('svg:g')
       .attr class: 'image-container'
+
+    @d3_image_container.append('svg:path')
+      .attr
+        class: 'border_inner'
+        d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
 
     @d3_image_container.append('svg:image')
       .attr
