@@ -27,6 +27,11 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     related.size == 1
   end
 
+  # одно ли что-либо, кроме адаптаций?
+  def chronology?
+    related.any? {|v| v.relation.downcase != 'adaptation' }
+  end
+
   # достаточно ли большое число связанных аниме?
   #def many?
     #related.size > AnimeDecorator::VISIBLE_RELATED

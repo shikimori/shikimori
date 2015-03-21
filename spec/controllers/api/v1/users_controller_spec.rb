@@ -8,16 +8,20 @@ describe Api::V1::UsersController, :show_in_doc do
 
     before { get :index, page: 1, limit: 1, search: 'Te', format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(2) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(2).items
+    end
   end
 
   describe '#show' do
     before { get :show, id: user.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 
   describe '#whoami' do
@@ -54,8 +58,10 @@ describe Api::V1::UsersController, :show_in_doc do
 
     before { get :anime_rates, id: user.id, status: 1, limit: 250, page: 1, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    specify { expect(assigns(:rates).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(assigns(:rates)).to have(1).item
+    end
   end
 
   describe '#manga_rates' do
@@ -64,8 +70,10 @@ describe Api::V1::UsersController, :show_in_doc do
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
     before { get :manga_rates, id: user.id, status: 1, limit: 250, page: 1, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    specify { expect(assigns(:rates).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(assigns(:rates)).to have(1).item
+    end
   end
 
   describe '#clubs' do

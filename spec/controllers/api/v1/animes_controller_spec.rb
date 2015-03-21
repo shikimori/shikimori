@@ -9,17 +9,21 @@ describe Api::V1::AnimesController, :show_in_doc do
     before { sign_in user }
     before { get :index, page: 1, limit: 1, type: 'TV', season: '2014', genre: genre.id.to_s, studio: studio.id.to_s, duration: 'F', rating: 'NC-17', search: 'Te', order: 'ranked', mylist: '1', format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
   end
 
   describe '#show' do
     let(:anime) { create :anime, :with_thread }
     before { get :show, id: anime.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 
   describe '#similar' do
@@ -27,9 +31,11 @@ describe Api::V1::AnimesController, :show_in_doc do
     let!(:similar) { create :similar_anime, src: anime }
     before { get :similar, id: anime.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
   end
 
   describe '#roles' do
@@ -40,9 +46,11 @@ describe Api::V1::AnimesController, :show_in_doc do
     let!(:role_2) { create :person_role, anime: anime, person: person, role: 'Director' }
     before { get :roles, id: anime.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(2) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(2).items
+    end
   end
 
   describe '#related' do
@@ -50,20 +58,23 @@ describe Api::V1::AnimesController, :show_in_doc do
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
     before { get :related, id: anime.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
   end
 
-  describe '#chronology' do
+  describe '#franchise' do
     let(:anime) { create :anime }
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
-    before { get :chronology, id: anime.id, format: :json }
+    before { get :franchise, id: anime.id, format: :json }
+    after { BannedRelations.instance.clear_cache! }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:entries).size).to eq(1) }
-    specify { expect(assigns(:links).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 
   describe '#screenshots' do
@@ -71,8 +82,10 @@ describe Api::V1::AnimesController, :show_in_doc do
     let!(:screenshot) { create :screenshot, anime: anime }
     before { get :screenshots, id: anime.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
   end
 end

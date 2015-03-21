@@ -21,54 +21,66 @@ class AnimesController < ShikimoriController
   end
 
   def characters
-    noindex
     if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
-      redirect_to @resource.url, status: 301
+      return redirect_to @resource.url, status: 301
     end
+
+    noindex
     page_title "Персонажи #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def staff
+    return redirect_to @resource.url, status: 301 if @resource.roles.people.none?
+
     noindex
-    redirect_to @resource.url, status: 301 if @resource.roles.people.none?
     page_title "Создатели #{@resource.anime? ? 'аниме' : 'манги'}"
   end
 
   def files
+    return redirect_to @resource.url, status: 301 unless user_signed_in? && ignore_copyright?
+
     noindex
-    redirect_to @resource.url, status: 301 unless user_signed_in? && ignore_copyright?
     page_title 'Файлы'
   end
 
   def similar
+    return redirect_to @resource.url, status: 301 if @resource.related.similar.none?
+
     noindex
-    redirect_to @resource.url, status: 301 if @resource.related.similar.none?
     page_title(@resource.anime? ? 'Похожие аниме' : 'Похожая манга')
   end
 
   def screenshots
+    return redirect_to @resource.url, status: 301 if @resource.screenshots.none?
+
     noindex
-    redirect_to @resource.url, status: 301 if @resource.screenshots.none?
     page_title 'Кадры'
   end
 
   def videos
+    return redirect_to @resource.url, status: 301 if @resource.videos.none?
+
     noindex
-    redirect_to @resource.url, status: 301 if @resource.videos.none?
     page_title 'Видео'
   end
 
   def related
+    return redirect_to @resource.url, status: 301 unless @resource.related.any?
+
     noindex
     page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
   end
 
   def chronology
+    return redirect_to @resource.url, status: 301 unless @resource.related.chronology?
+
     noindex
     page_title(@resource.anime? ? 'Хронология' : 'Хронология')
   end
 
   def franchise
+    return redirect_to @resource.url, status: 301 unless @resource.related.chronology?
+
     noindex
     page_title(@resource.anime? ? 'Франшиза' : 'Франшиза')
     @blank_layout = true
@@ -80,12 +92,11 @@ class AnimesController < ShikimoriController
 
   # TODO: удалить после 05.2015
   def comments
-    noindex
-    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
+    return redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
   def reviews
-    redirect_to @resource.url, status: 301 if @resource.comment_reviews_count.zero?
+    return redirect_to @resource.url, status: 301 if @resource.comment_reviews_count.zero?
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
     #@canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
@@ -96,8 +107,7 @@ class AnimesController < ShikimoriController
   end
 
   def images
-    noindex
-    redirect_to @resource.art_url, status: 301
+    return redirect_to @resource.art_url, status: 301
   end
 
   def cosplay
@@ -105,20 +115,22 @@ class AnimesController < ShikimoriController
     @limit = 2
     @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
 
-    redirect_to @resource.url, status: 301 if @collection.none?
+    return redirect_to @resource.url, status: 301 if @collection.none?
 
     page_title 'Косплей'
   end
 
   def favoured
+    return redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
+
     noindex
-    redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
     page_title 'В избранном'
   end
 
   def clubs
+    return redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
+
     noindex
-    redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
     page_title 'Клубы'
   end
 

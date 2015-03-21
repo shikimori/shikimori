@@ -6,8 +6,10 @@ describe Api::V1::CommentsController do
   describe '#show', :show_in_doc do
     before { get :show, id: comment.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 
   describe '#index', :show_in_doc do
@@ -16,8 +18,10 @@ describe Api::V1::CommentsController do
 
     before { get :index, commentable_type: User.name, commentable_id: user.id, page: 1, limit: 10, desc: '1', format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 
   describe '#create' do
@@ -26,16 +30,20 @@ describe Api::V1::CommentsController do
     context 'success', :show_in_doc do
       before { post :create, comment: { commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: false, review: false }, format: :json }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
-      specify { expect(assigns(:comment)).to be_persisted }
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+        expect(assigns(:comment)).to be_persisted
+      end
     end
 
     context 'failure' do
       before { post :create, comment: { body: 'test', offtopic: false, review: false }, format: :json }
 
-      it { expect(response).to have_http_status 422 }
-      it { expect(response.content_type).to eq 'application/json' }
+      it do
+        expect(response).to have_http_status 422
+        expect(response.content_type).to eq 'application/json'
+      end
     end
   end
 
@@ -46,9 +54,11 @@ describe Api::V1::CommentsController do
     context 'success', :show_in_doc do
       before { make_request }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
-      specify { expect(assigns(:comment).body).to eq 'testzxc' }
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+        expect(assigns(:comment).body).to eq 'testzxc'
+      end
     end
 
     context 'forbidden' do
@@ -63,8 +73,10 @@ describe Api::V1::CommentsController do
 
     context 'success', :show_in_doc do
       before { make_request }
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+      end
     end
 
     context 'forbidden' do

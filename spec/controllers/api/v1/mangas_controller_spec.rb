@@ -9,17 +9,21 @@ describe Api::V1::MangasController, :show_in_doc do
     before { sign_in user }
     before { get :index, page: 1, limit: 1, type: 'Manga', season: '2014', genre: genre.id.to_s, publisher: publisher.id.to_s, rating: 'NC-17', search: 'Te', order: 'ranked', mylist: '1', format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
   end
 
   describe '#show' do
     let(:manga) { create :manga, :with_thread }
     before { get :show, id: manga.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 
   describe '#similar' do
@@ -27,9 +31,11 @@ describe Api::V1::MangasController, :show_in_doc do
     let!(:similar) { create :similar_manga, src: manga }
     before { get :similar, id: manga.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
   end
 
   describe '#roles' do
@@ -40,9 +46,11 @@ describe Api::V1::MangasController, :show_in_doc do
     let!(:role_2) { create :person_role, manga: manga, person: person, role: 'Director' }
     before { get :roles, id: manga.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(2) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(2).items
+    end
   end
 
   describe '#related' do
@@ -50,8 +58,22 @@ describe Api::V1::MangasController, :show_in_doc do
     let!(:similar) { create :related_manga, source: manga, manga: create(:manga), relation: 'Adaptation' }
     before { get :related, id: manga.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(1) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
+  end
+
+  describe '#franchise' do
+    let(:manga) { create :manga }
+    let!(:similar) { create :related_manga, source: manga, manga: create(:manga), relation: 'Adaptation' }
+    before { get :franchise, id: manga.id, format: :json }
+    after { BannedRelations.instance.clear_cache! }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 end

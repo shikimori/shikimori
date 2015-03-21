@@ -3,5 +3,6 @@ FactoryGirl.define do
     source nil
     anime nil
     manga nil
+    relation 'test'
   end
 end

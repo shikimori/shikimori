@@ -7,8 +7,9 @@
           span.link.linkeable data-href="#{@resource.franchise_url}" Связанное
         .b-options-floated.mobile-support
           span.link.linkeable data-href="#{@resource.related_url}" Напрямую
-          span.link.linkeable data-href="#{@resource.chronology_url}" Хронология
-          span.link.linkeable data-href="#{@resource.franchise_url}" Франшиза
+          - if @resource.related.chronology?
+            span.link.linkeable data-href="#{@resource.chronology_url}" Хронология
+            span.link.linkeable data-href="#{@resource.franchise_url}" Франшиза
         .subheadline.m5 Связанное
         div
           = render partial: 'animes/relation_note',

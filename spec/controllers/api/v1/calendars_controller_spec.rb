@@ -12,9 +12,12 @@ describe Api::V1::CalendarsController, :show_in_doc do
     end
 
     before { get :show, format: :json }
-    specify { expect(assigns(:collection).size).to eq(4) }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(collection).to have(4).items
+
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
   end
 end

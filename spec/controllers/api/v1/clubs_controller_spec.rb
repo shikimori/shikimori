@@ -10,9 +10,11 @@ describe Api::V1::ClubsController, :show_in_doc do
 
     before { get :index, page: 1, limit: 1, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
-    specify { expect(assigns(:collection).size).to eq(2) }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(2).items
+    end
   end
 
   describe '#show' do
