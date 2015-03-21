@@ -314,16 +314,16 @@ class @ChronologyImages
     @d3_image_container = @d3_node.append('svg:g')
       .attr class: 'image-container'
 
-    @d3_image_container.append('svg:path')
-      .attr
-        class: 'border_inner'
-        d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
-
     @d3_image_container.append('svg:image')
       .attr
         width: @image_w
         height: @image_h
         'xlink:href': (d) -> d.image_url
+
+    @d3_image_container.append('svg:path')
+      .attr
+        class: 'border_inner'
+        d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
 
     # year
     @d3_image_container.append('svg:text')
