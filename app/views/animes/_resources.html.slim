@@ -1,26 +1,27 @@
 - if @resource.related.related.any? || @resource.roles.main_people.any?
   .cc-2.m0
     / связанное
-    .c-column.block_m
-      /.subheadline.m5
-        span.link.linkeable data-href="#{@resource.franchise_url}" Связанное
-      .b-options-floated.mobile-support
-        span.link.linkeable data-href="#{@resource.related_url}" Напрямую
-        span.link.linkeable data-href="#{@resource.chronology_url}" Хронология
-        span.link.linkeable data-href="#{@resource.franchise_url}" Франшиза
-      .subheadline.m5 Связанное
-      div
-        = render partial: 'animes/relation_note',
-          collection: @resource.related.related.take([@resource.roles.main_people.size, 3].max)
+    - if @resource.related.related.any?
+      .c-column.block_m
+        /.subheadline.m5
+          span.link.linkeable data-href="#{@resource.franchise_url}" Связанное
+        .b-options-floated.mobile-support
+          span.link.linkeable data-href="#{@resource.related_url}" Напрямую
+          span.link.linkeable data-href="#{@resource.chronology_url}" Хронология
+          span.link.linkeable data-href="#{@resource.franchise_url}" Франшиза
+        .subheadline.m5 Связанное
+        div
+          = render partial: 'animes/relation_note',
+            collection: @resource.related.related.take([@resource.roles.main_people.size, 3].max)
 
-        - if @resource.related.related.size > [@resource.roles.main_people.size, 3].max
-          .b-show_more + показать остальное (#{@resource.related.related.size - [@resource.roles.main_people.size, 3].max})
-          .b-show_more-more
-            = render partial: 'animes/relation_note',
-              collection: @resource.related.related[[@resource.roles.main_people.size, 3].max..-1]
+          - if @resource.related.related.size > [@resource.roles.main_people.size, 3].max
+            .b-show_more + показать остальное (#{@resource.related.related.size - [@resource.roles.main_people.size, 3].max})
+            .b-show_more-more
+              = render partial: 'animes/relation_note',
+                collection: @resource.related.related[[@resource.roles.main_people.size, 3].max..-1]
 
-            .hide-more
-              | &mdash; спрятать
+              .hide-more
+                | &mdash; спрятать
 
     / авторы
     - if @resource.roles.main_people.any?
