@@ -54,32 +54,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
   end
 
   def franchise
-    query = ChronologyQuery.new(@resource.object)
-    @entries = query.fetch#.select {|v| [5081,15689].include?(v.id) }
-    @links = query.links#.select {|v| [5081,15689].include?(v.source_id) && [5081,15689].include?(v.anime_id) }
-
-    render json: {
-      nodes: @entries.map do |entry|
-        {
-          id: entry.id,
-          date: (entry.aired_on || Time.zone.now).to_time.to_i,
-          name: UsersHelper.localized_name(entry, current_user),
-          image_url: ImageUrlGenerator.instance.url(entry, :x96),
-          url: url_for(entry),
-          year: entry.aired_on.try(:year),
-          kind: UsersHelper.localized_kind(entry, current_user, true),
-          weight: @links.count {|v| v.source_id == entry.id },
-        }
-      end,
-      links: @links.map do |link|
-        {
-          source: @entries.index {|v| v.id == link.source_id },
-          target: @entries.index {|v| v.id == link.anime_id },
-          weight: @links.count {|v| v.source_id == link.source_id },
-          relation: link.relation.downcase.gsub(/[ -]/, '_')
-        }
-      end.select {|v| v[:source] && v[:target] }
-    }
+    respond_with @resource, serializer: FranchiseSerializer
   end
 
 private

@@ -1,7 +1,9 @@
+@import compass/css3/border-radius
 @import compass/css3/opacity
 @import compass/css3/transition
 @import compass/utilities/general/clearfix
 @import globals/variables
+@import mixins/link
 
 .p-animes-franchise, .p-mangas-franchise
   background: #FFF
@@ -19,6 +21,23 @@
     top: 10px
     width: 500px
 
+    .close
+      +border-radius(15px)
+      +link_color(#555555)
+      background: #fff
+      cursor: pointer
+      font-family: Courier
+      font-size: 13px
+      position: absolute
+      right: 5px
+      text-align: center
+      top: 4px
+      width: 15px
+      z-index: 2
+
+      &:after
+        content: '\2715'
+
     &.ajax_request
       +opacity(0.4)
 
@@ -31,14 +50,13 @@
         cursor: pointer
         //opacity: 0.2
 
-      path.border_inner
-        fill: #fff
-        stroke: #123
-
-      path.border_outer
-        fill: #fff
+      path.border_outer, path.border_inner
         shape-rendering: crispEdges
         stroke: #123
+
+      &.selected
+        path.border_inner
+          stroke: #fff
 
       text
         pointer-events: none

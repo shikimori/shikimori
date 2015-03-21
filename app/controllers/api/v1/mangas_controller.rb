@@ -45,6 +45,10 @@ class Api::V1::MangasController < Api::V1::ApiController
     respond_with @collection
   end
 
+  def franchise
+    respond_with @resource, serializer: FranchiseSerializer
+  end
+
 private
   def cache_key
     Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{params[:mylist].present? ? current_user.try(:cache_key) : nil}"
