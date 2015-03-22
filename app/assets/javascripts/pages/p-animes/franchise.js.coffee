@@ -261,7 +261,7 @@ class @Franchiese
     # начинаем рисовать
     @d3_force.start().on('tick', @_tick)
     @d3_force.tick() for i in [0..@size*@size]
-    @d3_force.stop().friction(0.5)
+    @d3_force.stop()
 
   # выбран какой-то из узлов
   _node_selected: (d) =>
