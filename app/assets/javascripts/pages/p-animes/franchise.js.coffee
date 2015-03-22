@@ -142,7 +142,7 @@ class @Franchise
   END_MARKERS = ['sequel']
 
   constructor: (data) ->
-    # изображение
+    # image sizes
     @image_w = 48
     @image_h = 75
 
@@ -151,15 +151,14 @@ class @Franchise
 
     @_prepare_data()
     @_position_nodes()
-    @_prepare_d3()
+    @_prepare_force()
 
-  # базовые константы
   _prepare_data: ->
     @max_weight = @links_data.map((v) -> v.weight).max() * 1.0
     @size = original_size = @nodes_data.length
     console.log "nodes: #{@size}, max_weight: #{@max_weight}"
 
-    # вся область
+    # screen sizes
     @w = if @size < 30
       @_scale @size,
         from_min: 0
@@ -174,11 +173,11 @@ class @Franchise
         to_max: 2000
     @h = @w
 
-    # даты
+    # dates for positioning on Y axis
     @min_date = @nodes_data.map((v) -> v.date).min() * 1.0
     @max_date = @nodes_data.map((v) -> v.date).max() * 1.0
 
-  # начальное позиционирование узлов
+  # initial nodes positioning
   _position_nodes: ->
     @nodes_data.each (d) =>
       d.y = @_y_by_date(d.date)
@@ -186,18 +185,17 @@ class @Franchise
 
       if d.date == @min_date
         d.fixed = true
-        # смещение пропорционально количеству связей
+        # move it proportionally to its relations count
         d.y += @_scale d.weight, from_min: 4, from_max: 20, to_min: 0, to_max: 700
 
       if d.date == @max_date
         d.fixed = true
         d.y -= 20
-        # смещение пропорционально количеству связей
+        # move it proportionally to its relations count
         d.y -= @_scale d.weight, from_min: 4, from_max: 9, to_min: 0, to_max: 150
 
-  # d3 объекты
-  _prepare_d3: ->
-    # математический объект для обсчёта координат
+  # configure d3 force object
+  _prepare_force: ->
     window.d3_force = @d3_force = d3.layout.force()
       .charge (d) ->
         if d.selected
@@ -226,25 +224,25 @@ class @Franchise
       .nodes(@nodes_data)
       .links(@links_data)
 
-  # масштабрирование x в интервале [min,max] в долях от max_x
+  # scale X which expected to be in [from_min..from_max] to new value in [to_min...to_max]
   _scale: (x, opt) ->
     percent = (x - opt.from_min) / (opt.from_max - opt.from_min)
     percent = Math.min(1, Math.max(percent, 0))
     opt.to_min + (opt.to_max - opt.to_min) * percent
 
-  # ограничение x координаты по ширине рабочей зоны
+  # bound X coord to be within screen area
   _bound_x: (d, x = d.x) =>
     min = d.rx + 5
     max = @w - d.rx - 5
     Math.max(min, Math.min(max, x))
 
-  # ограничение y координаты по высоте рабочей зоны
+  # bound Y coord to be within screen area
   _bound_y: (d, y = d.y) =>
     min = d.ry + 5
     max = @w - d.ry - 5
     Math.max(min, Math.min(max, y))
 
-  # y координата по дате
+  # determine Y coord by date (oldest to top, newest to bottom)
   _y_by_date: (date) =>
     @_scale date,
       from_min: @min_date
@@ -258,12 +256,11 @@ class @Franchise
     @_append_links()
     @_append_nodes()
 
-    # начинаем рисовать
     @d3_force.start().on('tick', @_tick)
     @d3_force.tick() for i in [0..@size*@size]
     @d3_force.stop()
 
-  # выбран какой-то из узлов
+  # handler for node selection
   _node_selected: (d) =>
     if @selected_node
       @selected_node.deselect(@_bound_x, @_bound_y, @_tick)
@@ -276,13 +273,13 @@ class @Franchise
     @selected_node.select(@_bound_x, @_bound_y, @_tick)
 
 
-  # svg тег
+  # svg tag
   _append_svg: (target) ->
     @d3_svg = d3.select(target)
       .append('svg')
       .attr width: @w, height: @h
 
-  # линии
+  # lines between nodes
   _append_links: ->
     @d3_link = @d3_svg.append('svg:g').selectAll('.link')
       .data(@links_data)
@@ -293,7 +290,7 @@ class @Franchise
           'marker-end': (d) -> 'url(#' + d.relation + ')' if END_MARKERS.find(d.relation)
           'marker-mid': (d) -> 'url(#' + d.relation + '_label)'
 
-  # картинки
+  # nodes (images + borders + year)
   _append_nodes: ->
     @d3_node = @d3_svg.append('.svg:g').selectAll('.node')
       .data(@nodes_data)
@@ -313,13 +310,8 @@ class @Franchise
         #.on 'mouseleave', (d) ->
           #$(@).children('text').hide()
 
-    @d3_node.append('svg:path')
-      .attr
-        class: 'border_outer'
-        d: ""
-
-    @d3_image_container = @d3_node.append('svg:g')
-      .attr class: 'image-container'
+    @d3_node.append('svg:path').attr(class: 'border_outer', d: "")
+    @d3_image_container = @d3_node.append('svg:g').attr(class: 'image-container')
 
     @d3_image_container.append('svg:image')
       .attr
@@ -354,11 +346,11 @@ class @Franchise
       #.attr x: @image_w - 2, y: 0, class: 'kind'
       #.text (d) -> d.kind
 
-  # маркеры
+  # markers for links between nodes
   _append_markers: ->
     @d3_defs = @d3_svg.append('svg:defs')
 
-    # размер стрелки
+    # arrow size
     aw = 8
     @d3_defs.append('svg:marker')
       .attr
@@ -390,7 +382,7 @@ class @Franchise
             #else
               #"M0,-5L10,0L0,5"
 
-  # обсчёт координат объектов
+  # move nodes and links accordingly to coords calculated by d3.force
   _tick: =>
     @d3_node.attr
       transform: (d) =>
@@ -399,9 +391,10 @@ class @Franchise
     @d3_link.attr
       d: @_link_truncated
 
+    # collistion detection between nodes
     @d3_node.each(@_collide(0.5))
 
-  # функцция для получения координат линий
+  # math for obtaining coords for links between rectangular nodes
   _link_truncated: (d) =>
     return unless d.source.id < d.target.id
 
@@ -425,7 +418,8 @@ class @Franchise
     else
       "M#{x1},#{y1} L#{x2},#{y2}"
 
-  # функцция для обсчёта коллизий
+  # math for collision detection. originally it was designed for circle
+  # nodes so it is not absolutely accurate for rectangular nodes
   _collide: (alpha) =>
     quadtree = d3.geom.quadtree(@nodes_data)
 
@@ -457,13 +451,20 @@ class @Franchise
 
         x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1
 
+# some math that i use for graph calculations
 class @ShikiMath
+  # detecting whether point is above or below a line
+  # x,y - point
+  # x1,y1 - point 1 of line
+  # x2,y2 - point 2 of line
   @is_above: (x,y, x1,y1, x2,y2) ->
     dx = x2 - x1
     dy = y2 - y1
 
     dy*x - dx*y + dx*y1 - dy*x1 <= 0
 
+  # detecting in which "sector" point x2,y2 is located accordingly to
+  # rectangular node with center in x1,y1 and width=rx*2 and height=ry*2
   @sector: (x1,y1, x2,y2, rx,ry) ->
     # left_bottom to right_top
     lb_to_rt = @is_above x2,y2, x1-rx,y1-ry,x1,y1
@@ -479,6 +480,8 @@ class @ShikiMath
     else
       'left'
 
+  # math for obtaining coords for link between two rectangular nodes
+  # with center in xN,yN and width=rxN*2 and height=ryN*2
   @square_cutted_line: (x1,y1, x2,y2, rx1,ry1, rx2,ry2) ->
     dx = x2 - x1
     dy = y2 - y1
@@ -522,6 +525,7 @@ class @ShikiMath
     y2: f_y2
     sector: target_sector
 
+  # tests for math
   @rspec: ->
     # is_above
     @_assert true, @is_above(-1,2, -1,-1, 1,1)
