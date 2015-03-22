@@ -210,6 +210,12 @@ describe AnimeVideo do
       it { is_expected.to be_broken }
     end
 
+    context 'Fix : https://github.com/morr/shikimori/issues/440' do
+      subject(:video) { create(:anime_video, state: 'rejected') }
+      before { video.wrong }
+      it { is_expected.to be_wrong }
+    end
+
     describe 'remove_episode_notification' do
       [:fandub, :raw, :subtitles].each do |kind|
         [:broken, :wrong, :ban].each do |action|
