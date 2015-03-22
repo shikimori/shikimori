@@ -172,6 +172,14 @@ describe AnimeVideoReport do
         it { expect(subject.anime_video).to be_broken }
       end
 
+      context 'Accept with broken url' do
+        let(:anime_video) do
+          v = build :anime_video, url: '//youtube.ru/foo', state: 'working'
+          v.save(validate: false)
+          v
+        end
+        it { is_expected.to be_accepted }
+      end
     end
 
     context 'Fix : https://github.com/morr/shikimori/issues/427' do

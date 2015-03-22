@@ -15,7 +15,7 @@ class AnimeVideo < ActiveRecord::Base
   enumerize :language, in: [:russian, :english], predicates: true
 
   validates :anime, :source, :kind, presence: true
-  validates :url, presence: true, url: true, uniqueness: { scope: :anime_id }
+  validates :url, presence: true, url: true, uniqueness: { scope: :anime_id }, if: -> { new_record? || changes['url'] }
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
   before_save :check_ban
