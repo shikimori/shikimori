@@ -1,4 +1,6 @@
 @on 'page:load', 'anime_videos_new', 'anime_videos_edit', 'anime_videos_create', 'anime_videos_update', ->
+  once_submit $('form')
+
   $video_url = $('#anime_video_url')
   $episode = $('#anime_video_episode')
 
@@ -30,3 +32,10 @@
 preview_video = (url) ->
   $('.video-preview iframe').attr src: url
   $('.buttons').show()
+
+once_submit = ($form) ->
+  $form.on 'submit', ->
+    if $form.data('blocked')
+      false
+    else
+      $form.data blocked: true
