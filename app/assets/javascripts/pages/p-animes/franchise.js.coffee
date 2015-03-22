@@ -1,10 +1,11 @@
-@on 'page:load', 'animes_franchise', 'mangas_franchise', ->
+@on 'page:load', 'animes_franchise', 'mangas_franchise', =>
   try
     ShikiMath.rspec()
 
     $graph = $('.graph')
-    d3.json $graph.data('api-url'), (error, data) ->
-      new ChronologyImages(data).render_to $graph[0]
+    d3.json $graph.data('api-url'), (error, data) =>
+      @franchiese = new Franchiese(data)
+      @franchiese.render_to $graph[0]
 
       $('.sticked-tooltip .close').on 'click', ->
         node = $('.node.selected')[0]
@@ -16,7 +17,7 @@
   catch e
     document.write e.message || e
 
-class @ChronologyNode
+class @FranchieseNode
   SELECT_SCALE = 2
   BORDER_OFFSET = 3
 
@@ -24,23 +25,28 @@ class @ChronologyNode
     $.extend(@, data)
 
     @selected = false
+    @fixed = false
+
     @init_w = @w = width
     @init_h = @h = height
     @_calc_rs()
 
-  deselect: (_bound_x, _bound_y) ->
+  deselect: (bound_x, bound_y, tick) ->
     @selected = false
+    @fixed = @pfixed
 
     #@_d3_kind().style display: 'none'
     @_hide_tooltip()
-    @_animate(@init_w, @init_h, _bound_x, _bound_y)
+    @_animate(@init_w, @init_h, bound_x, bound_y, tick)
 
-  select: (_bound_x, _bound_y) ->
+  select: (bound_x, bound_y, tick) ->
     @selected = true
+    @pfixed = @fixed # prior fixed
+    @fixed = true
 
     #@_d3_kind().style display: 'inline'
     @_load_tooltip()
-    @_animate(@init_w * SELECT_SCALE, @init_h * SELECT_SCALE, _bound_x, _bound_y)
+    @_animate(@init_w * SELECT_SCALE, @init_h * SELECT_SCALE, bound_x, bound_y, tick)
 
   year_x: (w = @w) ->
     w - 2
@@ -52,7 +58,7 @@ class @ChronologyNode
     @rx = @w / 2.0
     @ry = @h / 2.0
 
-  _animate: (new_width, new_height, _bound_x, _bound_y) ->
+  _animate: (new_width, new_height, bound_x, bound_y, tick) ->
     if @selected
       io = d3.interpolate(0, BORDER_OFFSET)
       iw = d3.interpolate(@w, new_width)
@@ -90,7 +96,7 @@ class @ChronologyNode
 
           outer_border_path = "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
 
-          @_d3_node().attr transform: "translate(#{_bound_x(@) - @rx}, #{_bound_y(@) - @ry})"
+          @_d3_node().attr transform: "translate(#{bound_x(@) - @rx}, #{bound_y(@) - @ry})"
           @_d3_outer_border().attr d: outer_border_path
           @_d3_image_container().attr transform: "translate(#{o}, #{o})"
           @_d3_inner_border().attr d: "M 0,0 #{w},0 #{w},#{h} 0,#{h} 0,0"
@@ -98,6 +104,7 @@ class @ChronologyNode
           @_d3_image().attr width: w, height: h
           @_d3_year().attr x: @year_x(w), y: @year_y(h)
           #@_d3_kind().attr x: @year_x(w)
+          tick()
 
   _hide_tooltip: ->
     $('.sticked-tooltip').hide()
@@ -130,7 +137,7 @@ class @ChronologyNode
     @_inner_border_elem ||= @_d3_node().selectAll('path.border_inner')
 
 
-class @ChronologyImages
+class @Franchiese
   START_MARKERS = ['prequel']
   END_MARKERS = ['sequel']
 
@@ -140,7 +147,7 @@ class @ChronologyImages
     @image_h = 75
 
     @links_data = data.links
-    @nodes_data = data.nodes.map (data) => new ChronologyNode(data, @image_w, @image_h)
+    @nodes_data = data.nodes.map (data) => new FranchieseNode(data, @image_w, @image_h)
 
     @_prepare_data()
     @_position_nodes()
@@ -202,7 +209,7 @@ class @ChronologyImages
         else
           -2000
 
-      .friction 0.7
+      .friction 0.9
       .linkDistance (d) =>
         max_width = if @max_weight < 3
           @_scale @size, from_min: 2, from_max: 6, to_min: 100, to_max: 300
@@ -253,21 +260,21 @@ class @ChronologyImages
 
     # начинаем рисовать
     @d3_force.start().on('tick', @_tick)
+    @d3_force.tick() for i in [0..@size*@size]
+    @d3_force.stop().friction(0.5)
 
   # выбран какой-то из узлов
   _node_selected: (d) =>
     if @selected_node
-      @selected_node.deselect(@_bound_x, @_bound_y)
+      @selected_node.deselect(@_bound_x, @_bound_y, @_tick)
 
       if @selected_node == d
-        return @selected_node = null
+        @selected_node = null
+        return
 
-
-    #@d3_force.stop()
     @selected_node = d
-    @selected_node.select(@_bound_x, @_bound_y)
-      #.each('end', => @d3_force.start())
-    @d3_force.start()
+    @selected_node.select(@_bound_x, @_bound_y, @_tick)
+
 
   # svg тег
   _append_svg: (target) ->
