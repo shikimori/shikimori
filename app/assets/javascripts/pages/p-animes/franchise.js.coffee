@@ -4,8 +4,8 @@
 
     $graph = $('.graph')
     d3.json $graph.data('api-url'), (error, data) =>
-      @franchiese = new Franchiese(data)
-      @franchiese.render_to $graph[0]
+      @franchise = new Franchise(data)
+      @franchise.render_to $graph[0]
 
       $('.sticked-tooltip .close').on 'click', ->
         node = $('.node.selected')[0]
@@ -17,7 +17,7 @@
   catch e
     document.write e.message || e
 
-class @FranchieseNode
+class @FranchiseNode
   SELECT_SCALE = 2
   BORDER_OFFSET = 3
 
@@ -137,7 +137,7 @@ class @FranchieseNode
     @_inner_border_elem ||= @_d3_node().selectAll('path.border_inner')
 
 
-class @Franchiese
+class @Franchise
   START_MARKERS = ['prequel']
   END_MARKERS = ['sequel']
 
@@ -147,7 +147,7 @@ class @Franchiese
     @image_h = 75
 
     @links_data = data.links
-    @nodes_data = data.nodes.map (data) => new FranchieseNode(data, @image_w, @image_h)
+    @nodes_data = data.nodes.map (data) => new FranchiseNode(data, @image_w, @image_h)
 
     @_prepare_data()
     @_position_nodes()
