@@ -12,7 +12,7 @@
     .search.mobile-search-toggler title="Поиск"
 
   .menu.menu-userbox
-    .entry.userbox
+    .entry.userbox class="#{:sign_in unless user_signed_in?}"
       - if user_signed_in?
         - if current_user.unread_count > 0
           a.unread-count href="#{current_user.unread_messages_url}" title="Почта"

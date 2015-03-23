@@ -15,7 +15,7 @@
 
   $('form .proposing .take').on 'click', ->
     $(@).parent().hide()
-    $('.member-suggest').trigger 'autocomplete:success', [$(@).data('id'), $(@).data('text')]
+    $('.member-suggest').trigger 'autocomplete:success', [{id: $(@).data('id'), name: $(@).data('text')}]
     $('.member-suggest').trigger 'blur'
 
   $suggest

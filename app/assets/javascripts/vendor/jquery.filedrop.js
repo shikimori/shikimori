@@ -341,7 +341,7 @@
         // If we still have work to do,
         if (workQueue.length > 0) {
           process();
-        } else {
+        } else if (!processingQueue.length) {
           afterAll();
         }
       };
