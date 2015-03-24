@@ -16,13 +16,13 @@ class User
     Translators = (Admins + UserChangesModerators + [28, 19, 31, 41, 942]).uniq
     ContestsModerators = (Admins + [1483]).uniq # 1483 - Zula
     CosplayModerators = (Admins + [2043, 2046]).uniq # 2043 - laitqwerty, 2046 - Котейка
-    VideoModerators = (Admins + []).uniq
     # 11496 - АлхимиК, 4099 - sttany, 12771 - spinosa, 13893 - const, 11883 - Tenno Haruka, 5064 - Heretic, 5779 - Lumennes,
     # 14633 - Dracule404, 5255 - GArtem, 7028 - Drako Black, 15905 - Youkai_Ririko, 3954 - Xellos("ゼロス"),
     # 16750 - hichigo shirosaki, 16774 - torch8870, 10026 - Johnny_W, 20455 - Doflein, 10026 - Black_Heart, 12023 - Wooterland,
     # 8237 - AmahiRazu, 17423 - Ryhiy, 11834 - .ptax.log, 21347 - アナスタシア, 4792 - artemeliy, 19638 - milaha007, 10342 - gazig, 7028 - Hentai master
     # 20483 - Крипке, 16858 - ✿Yuki Yu✿, 34724 - Edge
     TrustedVideoUploaders = (Admins + [11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905, 3954, 16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 7028, 20483, 16858, 34724]).uniq
+    VideoModerators = (Admins + TrustedVideoUploaders).uniq
 
     # администратор ли пользователь?
     def admin?
