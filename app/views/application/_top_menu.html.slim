@@ -12,8 +12,8 @@
     .search.mobile-search-toggler title="Поиск"
 
   .menu.menu-userbox
-    .entry.userbox class="#{:sign_in unless user_signed_in?}"
-      - if user_signed_in?
+    - if user_signed_in?
+      .entry.userbox
         - if current_user.unread_count > 0
           a.unread-count href="#{current_user.unread_messages_url}" title="Почта"
             = [99, current_user.unread_count].min
@@ -41,8 +41,9 @@
           a.entry href="#{edit_profile_url current_user, subdomain: nil}" Настройки
           a.entry href="#{destroy_user_session_url subdomain: nil}" Выход
 
-      - else
-        span#sign_in data-href="#{new_user_session_url subdomain: nil}" title="Вход"
+    - else
+      .entry.userbox.linkeable data-href="#{new_user_session_url subdomain: nil}" title="Вход"
+        span#sign_in
 
   .menu.menu-search
     .entry.main-search
