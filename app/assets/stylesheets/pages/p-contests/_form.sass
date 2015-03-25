@@ -7,19 +7,12 @@
 
 .p-contests-edit
   .variants
-    margin-bottom: 5px
-    +clear_left
 
     .variant
       +ellipsis
-      +gte_ipad
-        +column(3)
 
-      +iphone_landscape
-        +column(2)
-
-      +iphone_portrait
-        +column(1)
+      a
+        float: none
 
   .contest_actions
     +block_m
@@ -28,3 +21,15 @@
       +link
       display: block
       line-height: $line_height
+
+  .action-misc
+    color: #9da2a8
+    display: block
+    font-size: 11px
+    line-height: $line_height
+
+    &.warn
+      color: $red
+
+  .grid
+    +link

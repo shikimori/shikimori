@@ -1,4 +1,4 @@
-= simple_form_for contest, html: { class: "edit contest #{contest.strategy_type}" } do |f|
+= simple_form_for contest, html: { class: "b-form edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
     .b-errors
       .subheadline Ошибки
@@ -74,13 +74,28 @@
   - if contest.persisted?
     - if contest.created? || contest.proposing?
       .block
-        input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
+        - if contest.anime?
+          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_animes_url search: ''}"
+        - else
+          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя персонажа" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_characters_url search: ''}"
+
+        /input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
         .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
 
-        = hidden_field_tag 'members[]', ''
+        = hidden_field_tag 'contest[member_ids][]', ''
         .variants
           - contest.members.uniq(&:id).each do |member|
             .variant
+              = check_box_tag 'contest[member_ids][]', member.id, checked: true
+              - if contest.anime?
+                a.bubbled href="#{anime_url member}"
+                  = member.name
+                  span.b-bracket-details
+                    = member.score
+              - else
+                a.bubbled href="#{character_url member}" = member.name
+
+            /.variant
               = hidden_field_tag 'members[]', member.id
               a.bubbled href="#{url_for member}"
                 = member.name

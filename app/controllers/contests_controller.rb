@@ -53,8 +53,8 @@ class ContestsController < ShikimoriController
 
   # турнирная сетка
   def grid
-    redirect_to contests_url and return if @resource.created?
-    redirect_to contest_url(@resource) and return if @resource.proposing?
+    return redirect_to contests_url if @resource.created? && !(user_signed_in? && current_user.contests_moderator?)
+    return redirect_to contest_url(@resource) if @resource.proposing? && !(user_signed_in? && current_user.contests_moderator?)
     noindex
 
     page_title @resource.title
@@ -90,11 +90,14 @@ class ContestsController < ShikimoriController
   end
 
   def update
-    if (@resource.created? || @resource.proposing?) && params[:members]
+    if (@resource.created? || @resource.proposing?) && params[:contest][:member_ids]
       @resource.links = []
-      params[:members].map(&:to_i).select {|v| v != 0 }.each do |v|
-        @resource.members << @resource.member_klass.find(v)
-      end
+      params[:contest][:member_ids]
+        .map(&:to_i)
+        .select {|v| v != 0 }
+        .each do |v|
+          @resource.members << @resource.member_klass.find(v)
+        end
     end
 
     if @resource.update contest_params

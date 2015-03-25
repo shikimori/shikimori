@@ -1,4 +1,4 @@
-@on 'page:load', 'contests_show', ->
+@on 'page:load', 'contests_show', 'contests_edit', ->
   return unless $('.proposing').exists()
 
   $voters = (node) ->
@@ -15,24 +15,6 @@
     $(node)
       .parents('.suggestion')
       .find('.show')
-
-  $suggest = $('.proposing .item-suggest')
-  suggest_placeholder = if $suggest.data('member_type') == 'anime'
-    'Название аниме...'
-  else
-    'Имя персонажа...'
-
-  $suggest
-    .prop placeholder: suggest_placeholder
-    .completable()
-    .on 'autocomplete:success', (e, entry) ->
-      $(@).val entry.name
-      $(@).parents('form').find('#contest_suggestion_item_id').val entry.id
-      $(@).parents('form').submit()
-
-  $('.proposing form').on 'submit', ->
-    if _.isEmpty $(@).find('#contest_suggestion_item_id').val()
-      false
 
   $('.proposing .suggestion .show').on 'click', ->
     $voters(@).show()
@@ -52,3 +34,19 @@
 
   $('.proposing .suggestion .show').on 'ajax:success', (e, html) ->
     $voters(@).html(html)
+
+
+@on 'page:load', 'contests_show', ->
+  return unless $('.proposing').exists()
+
+  $suggest = $('.proposing .item-suggest')
+  $suggest
+    .completable()
+    .on 'autocomplete:success', (e, entry) ->
+      $(@).val entry.name
+      $(@).parents('form').find('#contest_suggestion_item_id').val entry.id
+      $(@).parents('form').submit()
+
+  $('.proposing form').on 'submit', ->
+    if _.isEmpty $(@).find('#contest_suggestion_item_id').val()
+      false

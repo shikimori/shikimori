@@ -8,7 +8,7 @@
         = f.hidden_field :item_type
         = f.hidden_field :item_id
         - if contest.can_propose?
-          input.item-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.suggestion_url}"
+          input.item-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.suggestion_url}" placeholder="#{contest.anime? ? 'Название аниме' : 'Имя персонажа'}"
         .block
           .subheadline
             - if contest.can_propose?
