@@ -16,7 +16,7 @@ a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры
 
 - if user_signed_in?
   .entry
-    - current_user.show_contest_link?
+    - if current_user.show_contest_link?
       a.contest href="#{current_contests_url}" title="Активный опрос" data-count="#{current_user.unvoted_contests}"
     a href="#{contests_url}" title="Опросы" Опросы
 
