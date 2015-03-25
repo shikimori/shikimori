@@ -10,6 +10,8 @@ describe ContestsController do
   end
 
   describe '#grid' do
+    let(:user) { create :user, :user }
+
     context 'created' do
       let(:contest) { create :contest, user: user }
       before { get :grid, id: contest.to_param }
