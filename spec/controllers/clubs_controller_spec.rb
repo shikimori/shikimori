@@ -8,8 +8,10 @@ describe ClubsController do
 
     describe 'no_pagination' do
       before { get :index }
-      it { expect(response).to have_http_status :success }
-      it { expect(assigns :collection).to eq [club] }
+      it do
+        expect(collection).to eq [club]
+        expect(response).to have_http_status :success
+      end
     end
 
     describe 'pagination' do
@@ -43,15 +45,19 @@ describe ClubsController do
 
     context 'when success' do
       before { post :create, club: { name: 'test', owner_id: user.id } }
-      it { expect(response).to redirect_to edit_club_url(resource) }
-      it { expect(resource).to be_persisted }
+      it do
+        expect(resource).to be_persisted
+        expect(response).to redirect_to edit_club_url(resource)
+      end
     end
 
     context 'when validation errors' do
       before { post :create, club: { owner_id: user.id } }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(resource).to be_new_record }
+      it do
+        expect(resource).to be_new_record
+        expect(response).to have_http_status :success
+      end
     end
   end
 
@@ -60,34 +66,46 @@ describe ClubsController do
     let(:club) { create :group, :with_thread, owner: user }
 
     context 'when success' do
-      let!(:group_role) { }
-      let(:admin_ids) { }
-      let(:kick_ids) { }
-      before { patch :update, id: club.id, club: { name: 'newnewtest', admin_ids: admin_ids }, kick_ids: kick_ids }
-
       context 'with kick_ids' do
         let(:user_2) { create :user }
         let!(:group_role) { create :group_role, group: club, user: user_2 }
         let(:kick_ids) { [user_2.id] }
-        it { expect(club.reload.group_roles_count).to be_zero }
+
+        before { patch :update, id: club.id, club: { name: 'newnewtest' }, kick_ids: kick_ids }
+
+        it do
+          expect(club.reload.group_roles_count).to be_zero
+          expect(resource.name).to eq 'newnewtest'
+          expect(resource).to be_valid
+          expect(response).to redirect_to edit_club_url(resource)
+        end
       end
 
       context 'with admin_ids' do
+        let(:user_2) { create :user }
         let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
-        let(:admin_ids) { [user.id] }
-        it { expect(club.reload.group_roles_count).to eq 1 }
-      end
+        let!(:group_role_2) { create :group_role, group: club, user: user_2 }
+        let(:admin_ids) { [user.id, user_2.id] }
 
-      it { expect(response).to redirect_to edit_club_url(resource) }
-      it { expect(resource.name).to eq 'newnewtest' }
-      it { expect(resource).to be_valid }
+        before { patch :update, id: club.id, club: { name: 'newnewtest', admin_ids: admin_ids } }
+
+        it do
+          expect(club.reload.group_roles_count).to eq 2
+          expect(club.admins).to eq [user, user_2]
+          expect(resource.name).to eq 'newnewtest'
+          expect(resource).to be_valid
+          expect(response).to redirect_to edit_club_url(resource)
+        end
+      end
     end
 
     context 'when validation errors' do
       before { patch 'update', id: club.id, club: { name: '' } }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(resource).to_not be_valid }
+      it do
+        expect(resource).to_not be_valid
+        expect(response).to have_http_status :success
+      end
     end
   end
 
@@ -98,12 +116,10 @@ describe ClubsController do
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
     before { post :upload, id: club.to_param, image: image }
 
-    it { expect(response).to redirect_to club_url(club) }
-    it { expect(club.images.size).to eq(1) }
-
-    context 'image' do
-      subject { club.images.first }
-      its(:uploader) { should eq user }
+    it do
+      expect(club.images).to have(1).item
+      expect(club.images.first.uploader).to eq user
+      expect(response).to redirect_to club_url(club)
     end
   end
 

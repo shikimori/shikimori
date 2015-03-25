@@ -131,7 +131,9 @@ private
         resource.mangas = []
         resource.characters = []
         resource.banned_users = []
+
         resource.member_roles.where(role: 'admin').destroy_all
+        resource.member_roles.where(user_id: params[:club][:admin_ids]).destroy_all
 
         resource.update update_params
       end
