@@ -38,6 +38,10 @@ class AnimeVideoReport < ActiveRecord::Base
       transition pending: :accepted
     end
 
+    event :accept_only do
+      transition pending: :accepted
+    end
+
     event :reject do
       transition pending: :rejected
     end
@@ -48,9 +52,8 @@ class AnimeVideoReport < ActiveRecord::Base
 
     before_transition pending: :accepted do |report, transition|
       report.approver = transition.args.first
-      video = report.anime_video
 
-      video.send "#{report.kind}!"
+      report.anime_video.send "#{report.kind}!" unless transition.event == :accept_only
 
       report.process_doubles(:accepted)
       report.process_conflict(:uploaded, :rejected)
