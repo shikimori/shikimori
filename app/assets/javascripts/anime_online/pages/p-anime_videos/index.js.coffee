@@ -1,7 +1,4 @@
 @on 'page:load', 'anime_videos_index', ->
-  #$('.cc-player_controls .show-options').click()
-  #$('.cc-player_controls .report').click()
-
   $('.b-show_more').show_more()
 
   resize_video_player()
@@ -48,6 +45,15 @@
   $('.cc-anime_video_report-new form').on 'ajax:success', ->
     $.notice 'Жалоба успешно отправлена и вскоре будет рассмотрена модератором. Домо аригато'
     hide_report()
+
+  # инкремент числа просмотров
+  $player = $('.b-video_player')
+  video_url = location.href
+  if $player.data('watch-delay')
+    (->
+      if video_url == location.href
+        $.post $player.data('watch-url')
+    ).delay $player.data('watch-delay')
 
 show_report = ->
   $('.cc-player_controls .report').addClass 'selected'

@@ -34,6 +34,11 @@ Site::Application.routes.draw do
     end
   end
 
+  resources :user_images, only: [:create]
+  resources :messages, only: [:create] do
+    post :preview, on: :collection
+  end
+
   namespace :moderation do
     resources :user_changes, only: [:show, :index, :create] do
       collection do
@@ -327,7 +332,6 @@ Site::Application.routes.draw do
       post :accept, on: :member
       post :reject, on: :member
     end
-    resources :user_images, only: [:create]
     resources :images, only: [:destroy]
 
     # statistics
@@ -611,13 +615,12 @@ Site::Application.routes.draw do
     get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
 
     # messages edit & rss & email bounce
-    resources :messages, only: [:create, :show, :edit, :update, :destroy] do
+    # create & preview урлы объявлены выше, глобально
+    resources :messages, only: [:show, :edit, :update, :destroy] do
       collection do
         get 'chosen/:ids' => :chosen, as: :chosen
 
         post :mark_read
-        post :preview
-
         post :bounce
 
         get ':name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :feed

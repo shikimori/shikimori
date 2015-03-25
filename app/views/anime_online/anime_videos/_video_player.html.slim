@@ -1,4 +1,4 @@
-.b-video_player
+.b-video_player data-watch-delay="#{@video.watch_increment_delay}" data-watch-url="#{track_view_video_online_url @anime, @video}"
   .player-area
     /.player-placeholder &nbsp;
     - if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
