@@ -29,4 +29,4 @@
 
       - if !user_signed_in? || current_user.preferences.postload_in_catalog
         - if @next_page.present?
-          = render 'blocks/postloader', url: "#{@next_page}.json", next_url: @next_page, prev_url: @prev_page, filter: nil
+          = render 'blocks/postloader', url: @next_page, next_url: @next_page, prev_url: @prev_page, filter: nil

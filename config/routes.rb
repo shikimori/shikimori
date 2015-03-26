@@ -9,9 +9,6 @@ Site::Application.routes.draw do
     passwords: 'users/passwords'
   }
 
-  resources :genres, only: [:index, :edit, :update] do
-    get :tooltip, on: :member
-  end
 
   resources :animes, only: [] do
     get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
@@ -385,6 +382,10 @@ Site::Application.routes.draw do
     get 'cosplay/:gallery/comments' => 'cosplayers#comments', as: :cosplay_comments
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
+
+    resources :genres, only: [:index, :edit, :update] do
+      get :tooltip, on: :member
+    end
 
     # tags
     #get 'tags/autocomplete/:search' => 'tags#autocomplete', as: :autocomplete_tags, format: :json

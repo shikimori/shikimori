@@ -12,6 +12,7 @@ article.c-column.b-catalog_entry.c-person[
   a.cover[
       class="#{'anime-tooltip' if content_by == :tooltip}"
       href="#{person_url person}"
+      data-tooltip_url="#{tooltip_person_url person, subdomain: false}"
     ]
     span.image-decor
       span.image-cutter

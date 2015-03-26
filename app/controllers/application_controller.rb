@@ -108,7 +108,7 @@ class ApplicationController < ActionController::Base
 
 private
   def set_layout
-    if request.xhr?
+    if request.xhr? || (request.headers['rack.cors'] && request.headers['rack.cors'].hit)
       false
     else
       'application'

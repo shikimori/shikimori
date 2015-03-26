@@ -23,6 +23,7 @@ gem 'non-stupid-digest-assets'
 
 gem 'rmagick', require: 'rmagick', github: 'gemhome/rmagick', branch: 'master' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'
+gem 'rack-cors'
 
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'

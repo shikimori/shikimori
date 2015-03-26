@@ -54,7 +54,7 @@
 
     = info_line 'Жанры' do
       - anime.main_genres.each do |genre|
-        .linkeable.tag temprop="genre" class="#{:bubbled if genre.description}" data-predelay="250" data-tooltip_url="#{tooltip_genre_url genre}" data-href="#{anime.catalog_url genre: genre.to_param}"
+        .linkeable.tag temprop="genre" class="#{:bubbled if genre.description}" data-predelay="250" data-tooltip_url="#{tooltip_genre_url genre, subdomain: false}" data-href="#{anime.catalog_url genre: genre.to_param}"
           = localized_name genre
 
     - if anime.with_score?

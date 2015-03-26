@@ -160,6 +160,8 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     addressable (2.3.7)
+    airbrussh (0.2.1)
+      sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.3.1)
       json
     arel (6.0.0)
@@ -455,6 +457,7 @@ GEM
     rack (1.6.0)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
+    rack-cors (0.3.1)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -663,6 +666,7 @@ DEPENDENCIES
   activerecord-import
   acts-as-taggable-on
   acts_as_voteable!
+  airbrussh
   amatch!
   apipie-rails
   attr_extras
@@ -733,6 +737,7 @@ DEPENDENCIES
   quote_extractor!
   rabl
   rack-contrib
+  rack-cors
   rails (= 4.2.0)
   rails-assets-eventEmitter!
   rails-assets-eventie!

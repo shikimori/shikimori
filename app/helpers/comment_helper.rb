@@ -226,9 +226,7 @@ module CommentHelper
     Contest => [/(\[contest(?:=(\d+))?\]([^\[]*?)\[\/contest\])/, nil],
     Ban => [/(\[ban(?:=(\d+))\])/, nil]
   }
-  @@type_matchers.each do |klass,data|
-    matcher, preloader = data
-
+  @@type_matchers.each do |klass, (matcher, preloader)|
     define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
         if klass == Comment || klass == Entry || klass == Message
@@ -298,7 +296,7 @@ module CommentHelper
             id = $2.nil? ? $3.to_i : $2.to_i
             entry = klass.find(id)
             title = $2.nil? ? entry.name : $3
-            preload = preloader ? " class=\"bubbled\" data-href=\"#{send preloader, entry}\"" : nil
+            preload = preloader ? " class=\"bubbled\" data-tooltip_url=\"#{send preloader, entry, subdomain: false}\"" : nil
             url = if entry.kind_of? UserChange
               moderation_user_change_url entry
             elsif entry.kind_of? Group

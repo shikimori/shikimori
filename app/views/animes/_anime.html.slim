@@ -19,6 +19,7 @@ article.c-column.b-catalog_entry[
         href="#{anime.respond_to?(:url) ? anime.url : url_for(anime)}"
         title="#{anime.name}"
         data-local-tooltip="#{content_by == :inline_tooltip}"
+        data-tooltip_url="#{anime.anime? ? tooltip_anime_url(anime, subdomain: false) : tooltip_manga_url(anime, subdomain: false)}"
         data-relative="#{content_by == :inline_tooltip}"
         data-offset-left="#{-15 if content_by == :inline_tooltip}"
       ]
@@ -30,6 +31,7 @@ article.c-column.b-catalog_entry[
         data-href="#{anime.respond_to?(:url) ? anime.url : url_for(anime)}"
         data-title="#{anime.name}"
         data-local-tooltip="#{content_by == :inline_tooltip}"
+        data-tooltip_url="#{anime.anime? ? tooltip_anime_url(anime, subdomain: false) : tooltip_manga_url(anime, subdomain: false)}"
         data-relative="#{content_by == :inline_tooltip}"
         data-offset-left="#{-15 if content_by == :inline_tooltip}"
       ]
