@@ -160,7 +160,7 @@ class UserChange < ActiveRecord::Base
       item.send("#{column}=", sanitize(value))
     end
 
-    item.source = source if item.respond_to? :source
+    item.source = source if description? && item.respond_to?(:source)
     self.status = taken ? UserChangeStatus::Taken : UserChangeStatus::Accepted
     self.status = UserChangeStatus::Accepted if description? && self.prior.blank?
     save
