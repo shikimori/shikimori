@@ -57,11 +57,18 @@ class Recommendations::Sampler
   end
 
   def user_rates user_id, normalization
-    cache_key = [:sampler, @user_cache_key, normalization.class]
+    cache_key = [:sampler, :v2, @user_cache_key, normalization.class]
 
     @user_rates ||= {}
     @user_rates[cache_key.join('_')] ||= Rails.cache.fetch(cache_key, expires_in: 2.weeks) do
-      @rates_fetcher.fetch(normalization)
+      if Rails.env.development? # в девелопмента можно грузить всё из кеша
+        @rates_fetcher.fetch(normalization)
+      else # а на продакшене текущий список пользователя и список закешированный будет отличаться
+        fetcher = @rates_fetcher.clone
+        fetcher.user_ids = [user_id]
+        fetcher.user_cache_key = @user_cache_key
+        fetcher.fetch(@normalization)[user_id]
+      end
     end
 
     @user_rates[cache_key.join('_')][user_id] || {}
