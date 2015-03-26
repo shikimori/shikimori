@@ -9,7 +9,7 @@ set :scm, :git
 set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
 set :keep_releases, 5
-set :format, :pretty
+#set :format, :pretty
 set :log_level, :info
 # set :pty, true # https://github.com/capistrano/capistrano#a-word-about-ptys
 

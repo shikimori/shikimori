@@ -110,6 +110,7 @@ group :development do
   gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
   gem 'capistrano-git-submodule-strategy', require: false
+  gem 'airbrussh', require: false
 
   gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 end
