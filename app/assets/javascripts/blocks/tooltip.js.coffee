@@ -20,6 +20,9 @@ $.tools.tooltip.addEffect 'opacity', (done) ->
   onBeforeShow: ->
     $trigger = @getTrigger()
 
+    # удаляем тултипы у всего внутри
+    $trigger.find('[title]').attr(title: '')
+
     $close = @getTip().find('.close')
     unless $close.data('binded')
       $close
