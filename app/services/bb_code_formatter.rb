@@ -87,8 +87,8 @@ class BbCodeFormatter
   end
 
   # замена имён персонажей на ббкоды
-  def character_names *args
-    CharactersService.instance.process(*args)
+  def character_names text, entry
+    CharactersNamesService.instance.process(text, entry)
   end
 
   # обработка обращений к пользователю

@@ -1,5 +1,5 @@
-describe CharactersService do
-  let(:processor) { CharactersService.instance }
+describe CharactersNamesService do
+  let(:processor) { CharactersNamesService.instance }
 
   let(:anime) { create :anime }
   let(:character1) { create :character, japanese: 'ドイツ', russian: 'Ода Нобунага', name: 'Oda Nobunaga' }
@@ -33,13 +33,10 @@ describe CharactersService do
       end
     end
 
-    describe 'english' do
-      it 'works' do
-        expect(processor.process("test Вася [#{character1.name}]", anime)).to eq(
-          "test [character=#{character1.id}]Вася[/character]"
-        )
-
-      end
+    it 'english' do
+      expect(processor.process("test Вася [#{character1.name}]", anime)).to eq(
+        "test [character=#{character1.id}]Вася[/character]"
+      )
     end
 
     describe 'japanese' do

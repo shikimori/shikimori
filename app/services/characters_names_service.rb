@@ -1,4 +1,4 @@
-class CharactersService
+class CharactersNamesService
   include Singleton
 
   RussianReplacements = %w{
@@ -90,7 +90,7 @@ private
 
   # регексп, по которому в тексте будет производиться финальная замена
   def build_regexp name
-    %r{(?<![\[\]\(\)])\b#{name}\b(?![\[\]\(\)]\/?(?:character|person))(\s*(?:\(|\[).*?(?:\)|\]))?}
+    %r{(?<![\[\]\(\)])\b#{name}\b(?! ?[\[\]\(\)]\/?(?:character|person))(\s*(?:\(|\[).*?(?:\)|\]))?}
   end
 
   # разбивка имён по пробелам
