@@ -71,7 +71,11 @@ class Recommendations::Sampler
       end
     end
 
-    @user_rates[cache_key.join('_')][user_id] || {}
+    if Rails.env.development? # в девелопмента можно грузить всё из кеша
+      @user_rates[cache_key.join('_')][user_id] || {}
+    else
+      @user_rates[cache_key.join('_')] || {}
+    end
   end
 
 private
