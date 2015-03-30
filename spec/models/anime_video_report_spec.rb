@@ -180,6 +180,19 @@ describe AnimeVideoReport do
         end
         it { is_expected.to be_accepted }
       end
+
+      context 'Accept already broken video' do
+        let(:anime_video) { create(:anime_video, state: 'broken') }
+        it { is_expected.to be_accepted }
+        it { expect(subject.anime_video).to be_broken }
+      end
+
+      context 'Accept already wrong video' do
+        let(:anime_video) { create(:anime_video, state: 'wrong') }
+        let(:report_kind) { 'wrong' }
+        it { is_expected.to be_accepted }
+        it { expect(subject.anime_video).to be_wrong }
+      end
     end
 
     context 'Fix : https://github.com/morr/shikimori/issues/427' do

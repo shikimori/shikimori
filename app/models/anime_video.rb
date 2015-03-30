@@ -44,10 +44,10 @@ class AnimeVideo < ActiveRecord::Base
     state :copyrighted
 
     event :broken do
-      transition [:working, :uploaded, :rejected] => :broken
+      transition [:working, :uploaded, :broken, :rejected] => :broken
     end
     event :wrong do
-      transition [:working, :uploaded, :rejected] => :wrong
+      transition [:working, :uploaded, :wrong, :rejected] => :wrong
     end
     event :ban do
       transition :working => :banned
