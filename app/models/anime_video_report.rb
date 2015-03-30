@@ -69,10 +69,6 @@ class AnimeVideoReport < ActiveRecord::Base
       report.approver = transition.args.first
       prev_state = report.uploaded? ? 'uploaded' : 'working'
       report.anime_video.update_attribute :state, prev_state
-      report.find_doubles(transition.from).update_all(
-        approver_id: report.approver.id,
-        state: transition.to
-      )
     end
   end
 

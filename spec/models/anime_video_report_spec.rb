@@ -312,13 +312,13 @@ describe AnimeVideoReport do
           let(:report_kind) { 'broken' }
           let(:report_kind_other) { 'wrong' }
           before do
-            report_1.accept approver
-            report_1.cancel approver
+            report_1.accept! approver
+            report_1.cancel! approver
           end
 
-          specify { expect(report_2.reload).to be_pending }
+          specify { expect(report_2.reload).to be_accepted }
           specify { expect(report_2.reload.approver_id).to eq approver.id }
-          specify { expect(report_3.reload).to be_pending }
+          specify { expect(report_3.reload).to be_accepted }
           specify { expect(report_3.reload.approver_id).to eq approver.id }
           specify { expect(report_other_kind.reload).to be_pending }
           specify { expect(report_other_kind.reload.approver_id).to be_nil }
