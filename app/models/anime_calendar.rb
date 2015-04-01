@@ -222,7 +222,11 @@ class AnimeCalendar < ActiveRecord::Base
     'maho shojo lyrical nanoha vivid' => 25939,
     'nagato yuki-chan no shoshitsu' => 26351,
     'danna ga nani o itteiru ka wakaranai ken 2-sure-me' => 29067,
-    'yahari ore no seishun love come wa machigatteiru. zoku' => 23847
+    'yahari ore no seishun love come wa machigatteiru. zoku' => 23847,
+    'grisaia no meikyu' => 29093,
+    'yamada-kun to 7-nin no majo' => 28677,
+    'shokugeki no soma' => 28171,
+    'sidonia no kishi: dai-kyu wakusei seneki' => 24893
   }
 
   EpisodesDiff = {
