@@ -211,6 +211,18 @@ class AnimeCalendar < ActiveRecord::Base
     'shinmai mao no testament' => 23233,
     'kamisama hajimemashita 2' => 25681,
     'binan koko chikyu boei-bu love!' => 27727,
+    'arslan senki' => 28249,
+    'baby steps 2' => 27663,
+    'denpa kyoshi - he is an ultimate teacher' => 29589,
+    'fate/stay night: unlimited blade works 2' => 28701,
+    'kyokai no rinne' => 28423,
+    'tesagure! bukatsu-mono: spin-off puru purun sharumu to asobo' => 28835,
+    'takamiya nasuno desu!' => 28861,
+    'teekyu (4)' => 26395,
+    'maho shojo lyrical nanoha vivid' => 25939,
+    'nagato yuki-chan no shoshitsu' => 26351,
+    'danna ga nani o itteiru ka wakaranai ken 2-sure-me' => 29067,
+    'yahari ore no seishun love come wa machigatteiru. zoku' => 23847
   }
 
   EpisodesDiff = {
