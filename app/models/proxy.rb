@@ -40,7 +40,7 @@ class Proxy < ActiveRecord::Base
     # выполнение запроса через прокси или из кеша
     def process url, options, method
       if @@use_cache && File.exists?(cache_path(url, options)) && (DateTime.now - 1.month < File.ctime(cache_path(url, options)))
-        log "CACHE #{url} (#{cache_path(url, options)})", options
+        NamedLogger.proxy.info "CACHE #{url} (#{cache_path(url, options)})"
         return File.open(cache_path(url, options), "r") { |h| h.read }
       end
 
@@ -173,7 +173,7 @@ class Proxy < ActiveRecord::Base
 
     # выполнение get запроса без прокси
     def no_proxy_get url, options
-      log "GET #{url}", options
+      NamedLogger.proxy.info "GET #{url}"
 
       resp = get_open_uri URI.encode(url)
       file = if resp.meta["content-encoding"] == "gzip"
@@ -211,7 +211,7 @@ class Proxy < ActiveRecord::Base
         'Content-Type' => 'application/x-www-form-urlencoded'
       }
 
-      log "POST #{url} #{data}", options
+      NamedLogger.proxy.info "POST #{url} #{data}"
       resp = http.post(path, data, headers)
       resp.body
     rescue Exception => e

@@ -15,7 +15,7 @@ class ImportListWorker
       when :updated
         Object.const_get("#{klass.name}MalParser").new.fetch_list_pages(limit: pages_limit, url_getter: :updated_catalog_url)
 
-      when :all # 1742 pages for manga
+      when :all # 1742 pages for manga, 529 pages for anime
         Object.const_get("#{klass.name}MalParser").new.fetch_list_pages(limit: pages_limit, url_getter: :all_catalog_url)
 
       when :anons
