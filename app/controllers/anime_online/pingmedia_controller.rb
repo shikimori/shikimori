@@ -12,6 +12,6 @@ class AnimeOnline::PingmediaController < ShikimoriController
   def iframe_240x400
   end
 
-  def iframe_468x60
+  def iframe_728x90
   end
 end

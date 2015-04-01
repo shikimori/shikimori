@@ -208,7 +208,7 @@ Site::Application.routes.draw do
     get 'pingmedia/google' => 'anime_online/pingmedia#google'
     get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
     get 'pingmedia/iframe_240x400' => 'anime_online/pingmedia#iframe_240x400', as: :pingmedia_iframe_240x400
-    get 'pingmedia/iframe_468x60' => 'anime_online/pingmedia#iframe_468x60', as: :pingmedia_iframe_468x60
+    get 'pingmedia/iframe_728x90' => 'anime_online/pingmedia#iframe_728x90', as: :pingmedia_iframe_728x90
 
     get 'robots.txt' => 'robots#anime_online'
   end
