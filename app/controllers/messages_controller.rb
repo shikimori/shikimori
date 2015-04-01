@@ -112,7 +112,7 @@ class MessagesController < ProfilesController
       Message
         .where(to_id: @user.id)
         .where.not(kind: MessageType::Private)
-        .order('read, created_at desc')
+        .order(:read, created_at: :desc)
         .includes(:linked)
         .limit(25)
         .to_a

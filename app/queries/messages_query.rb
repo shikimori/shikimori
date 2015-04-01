@@ -42,7 +42,7 @@ private
 
   def order_by_type
     case @messages_type
-      when :private then [:read, :id]
+      when :private then 'read, (case when read=true then -id else id end)'
       else [:read, id: :desc]
     end
   end
