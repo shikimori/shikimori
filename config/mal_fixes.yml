@@ -30,6 +30,8 @@
     :episodes: 178
   2829:
     :episodes: 26
+  5042:
+    :status: "Finished Airing"
   6336:
     :synonyms:
       - "Kidou Senshi Gundam Unicorn"
@@ -92,6 +94,8 @@
     :aired_on: 2012-01-08
   10620:
     :name: "Mirai Nikki"
+  10779:
+    :status: "Finished Airing"
   11111:
     :japanese:
       - "アナザー"
@@ -137,6 +141,10 @@
     :aired_on: 2013-04-01
   20507:
     :aired_on: 2014-01-05
+  27945:
+    :status: "Finished Airing"
+  29089:
+    :status: "Finished Airing"
 
 :character:
   66:
