@@ -1,9 +1,10 @@
 = auto_discovery_link_tag :rss, feed_messages_url(@user.to_param, MessagesController.rss_key(@user)), title: 'RSS'
 
 = render layout: 'page' do
-  .messages-action
-    a href="#{read_all_profile_messages_url @resource, messages_type: @messages_type}" data-method="post" data-confirm="Пометить все сообщения этого раздела прочитанными?" Прочитать всё
-    a href="#{delete_all_profile_messages_url @resource, messages_type: @messages_type}" data-method="post" data-confirm="Пометить все сообщения этого раздела?" Удалить всё
+  - unless @messages_type == :private
+    .messages-action
+      a href="#{read_all_profile_messages_url @resource, messages_type: @messages_type}" data-method="post" data-confirm="Пометить все сообщения этого раздела прочитанными?" Прочитать всё
+      a href="#{delete_all_profile_messages_url @resource, messages_type: @messages_type}" data-method="post" data-confirm="Пометить все сообщения этого раздела?" Удалить всё
   = render 'dialogs/navigation'
   .subheadline
     = @page_title.last

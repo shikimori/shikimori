@@ -40,11 +40,11 @@ private
   end
 
   def add_title
-    page_title 'Почта'
+    page_title 'Переписка'
   end
 
   def add_breadcrumb
-    breadcrumb 'Почта', profile_dialogs_url(@resource)
+    breadcrumb 'Переписка', profile_dialogs_url(@resource)
     @back_url = profile_dialogs_url(@resource)
   end
 end

@@ -22,7 +22,7 @@ class MessagesController < ProfilesController
     @collection, @add_postloader = MessagesQuery.new(@resource, @messages_type).postload @page, @limit
     @collection = @collection.map(&:decorate)
 
-    page_title @messages_type == :news ? 'Новости сайта' : 'Уведомления сайта'
+    page_title @messages_type == :news ? ('Новости сайта') : (@messages_type == :private ? 'Личные сообщения' : 'Уведомления сайта')
   end
 
   def show

@@ -674,11 +674,11 @@ Site::Application.routes.draw do
         get '(page/:page)' => :index, as: :index, on: :collection
       end
 
-      resources :messages, only: [], messages_type: /news|notifications/ do
+      resources :messages, only: [], messages_type: /news|notifications|private/ do
         collection do
           get ':messages_type(/page/:page)' => :index, as: :index
-          post 'read/:messages_type/all' => :read_all, as: :read_all
-          post 'delete/:messages_type/all' => :delete_all, as: :delete_all
+          post 'read/:messages_type/all' => :read_all, as: :read_all, messages_type: /news|notifications/
+          post 'delete/:messages_type/all' => :delete_all, as: :delete_all, messages_type: /news|notifications/
         end
       end
     end

@@ -1,7 +1,12 @@
 /.b-options-floated.mobile-support.mobile-landscape
 .b-options-floated.mobile-support
   a class="#{:selected if params[:controller] == 'dialogs'}" href="#{profile_dialogs_url @resource}"
-    | Почта
+    | Переписка
+    - if @resource.unread_messages > 0
+      span.brackets = @resource.unread_messages
+
+  a class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'private'}" href="#{index_profile_messages_url @resource, messages_type: :private}"
+    | Личные сообщения
     - if @resource.unread_messages > 0
       span.brackets = @resource.unread_messages
 
