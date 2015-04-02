@@ -12,6 +12,11 @@ $(document).on 'click appear', '.b-postloader', (e) ->
 
   $postloader.data locked: true
 
+  #$.ajax
+    #url: url
+    #type: 'GET'
+    #dataType: 'json'
+    #success: (data) ->
   $.getJSON url, (data) ->
     $data = $('<div>').append("#{data.content}#{data.postloader}")
 
