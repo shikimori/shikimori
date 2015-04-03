@@ -18,6 +18,10 @@
 
         columns = $root.data 'columns'
 
+        # при разворачивании спойлеров выше, запускаем ресайз
+        # хак для корректной работы галерей аниме внутри спойлеров
+        $root.on 'spoiler:opened', handle_resize
+
         # разбиваем по группам
         $root.children().toArray().inGroupsOf(columns).each (group) ->
           # определяем высоту самого низкого постера
