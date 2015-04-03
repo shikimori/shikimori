@@ -84,12 +84,12 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
     expect(recs.size).to be >= 17
   end
 
-  it 'fetches manga scores' do
-    scores = parser.fetch_entry_scores(manga_id)
-    expect(scores.size).to eq(10)
-  end
+  #it 'fetches manga scores' do
+    #scores = parser.fetch_entry_scores(manga_id)
+    #expect(scores.size).to eq(10)
+  #end
 
   it 'fetches the whole entry' do
-    expect(parser.fetch_entry(manga_id)).to have(5).items
+    expect(parser.fetch_entry(manga_id)).to have(4).items
   end
 end

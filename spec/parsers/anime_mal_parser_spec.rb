@@ -73,13 +73,13 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(recs.size).to be >= 55
   end
 
-  it 'fetches anime scores' do
-    scores = parser.fetch_entry_scores(anime_id)
-    expect(scores.size).to eq(10)
-  end
+  #it 'fetches anime scores' do
+    #scores = parser.fetch_entry_scores(anime_id)
+    #expect(scores.size).to eq(10)
+  #end
 
   it 'fetches the whole entry' do
-    expect(parser.fetch_entry(anime_id)).to have(5).items
+    expect(parser.fetch_entry(anime_id)).to have(4).items
   end
 
   #describe 'import' do

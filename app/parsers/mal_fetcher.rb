@@ -49,14 +49,14 @@ module MalFetcher
     entry = fetch_entry_data(id)
     characters, people = fetch_entry_characters(id)
     recommendations = fetch_entry_recommendations(id)
-    scores = fetch_entry_scores(id)
+    #scores = fetch_entry_scores(id)
 
     {
       :entry => entry,
       :characters => characters,
       :people => people,
       :recommendations => recommendations,
-      :scores => scores
+      #:scores => scores
     }
   end
 
@@ -143,19 +143,19 @@ module MalFetcher
   end
 
   # загрузка оценок элемента
-  def fetch_entry_scores(id)
-    content = get(entry_url(id) + '/1/stats')
+  #def fetch_entry_scores(id)
+    #content = get(entry_url(id) + '/1/stats')
 
-    scores_regexp = /<td width="20">(\d+)<\/td>[\s\S]+?<td><div.*?<small>\((\d+) votes\)/
-    scores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    content.gsub(scores_regexp).each { |v|
-      if v.match(scores_regexp)
-        next if $1.to_i > 10
-        scores[$1.to_i - 1] = $2.to_i
-      end
-    }
-    scores
-  end
+    #scores_regexp = /<td width="20">(\d+)<\/td>[\s\S]+?<td><div.*?<small>\((\d+) votes\)/
+    #scores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    #content.gsub(scores_regexp).each { |v|
+      #if v.match(scores_regexp)
+        #next if $1.to_i > 10
+        #scores[$1.to_i - 1] = $2.to_i
+      #end
+    #}
+    #scores
+  #end
 
   # загрузка изображений элемента
   def fetch_entry_pictures(id)
