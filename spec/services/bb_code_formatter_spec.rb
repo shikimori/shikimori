@@ -264,6 +264,12 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       it { should eq "<img class=\"b-poster\" src=\"#{url}\" />" }
     end
 
+    describe '[entries]' do
+      let(:character) { create :character }
+      let(:text) { "[characters ids=#{character.id}]" }
+      it { should include "b-catalog_entry" }
+    end
+
     describe '[spoiler=text]' do
       let(:text) { '[spoiler=1]test[/spoiler]' }
       it { should_not include '[spoiler' }

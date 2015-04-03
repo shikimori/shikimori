@@ -56,6 +56,7 @@ class BbCodeFormatter
     text = BbCodes::ImageTag.instance.format text, text_hash
     text = BbCodes::ImgTag.instance.format text, text_hash
     text = BbCodes::PosterTag.instance.format text
+    text = BbCodes::EntriesTag.instance.format text
     text = BbCodes::HrTag.instance.format text
 
     text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img

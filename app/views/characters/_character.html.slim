@@ -1,4 +1,5 @@
 - cover_by ||= :link
+- cover_title ||= :present
 - content_by ||= :tooltip
 
 article.c-column.b-catalog_entry.c-character[
@@ -12,14 +13,16 @@ article.c-column.b-catalog_entry.c-character[
       class="#{'anime-tooltip' if content_by == :tooltip}"
       href="#{character_url character}"
       data-tooltip_url="#{tooltip_character_url character, subdomain: false}"
+      data-delay="150"
     ]
     span.image-decor
       span.image-cutter
         img src="#{cdn_image character, :preview}" srcset="#{cdn_image character, :original} 2x" alt="#{localized_name character}" title="#{localized_name character}"
 
-    - if cover_by == :link
-      span.title.two_lined itemprop="name"
-        = localized_name character
+    - if cover_title != :none
+      - if cover_by == :link
+        span.title.two_lined itemprop="name"
+          = localized_name character
 
   - unless content_by == :tooltip || content_by == :none
     .content

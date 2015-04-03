@@ -34,6 +34,7 @@ article.c-column.b-catalog_entry[
         data-tooltip_url="#{anime.anime? ? tooltip_anime_url(anime, subdomain: false) : tooltip_manga_url(anime, subdomain: false)}"
         data-relative="#{content_by == :inline_tooltip}"
         data-offset-left="#{-15 if content_by == :inline_tooltip}"
+        data-delay="150"
       ]
       = render partial: 'animes/cover', object: anime, as: :anime, locals: { cover_title: cover_title, cover_by: cover_by, cover_notice: cover_notice }
 

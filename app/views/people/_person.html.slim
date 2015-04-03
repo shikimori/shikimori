@@ -1,4 +1,5 @@
 - cover_by ||= :link
+- cover_title ||= :present
 - content_by ||= :tooltip
 
 article.c-column.b-catalog_entry.c-person[
@@ -13,19 +14,21 @@ article.c-column.b-catalog_entry.c-person[
       class="#{'anime-tooltip' if content_by == :tooltip}"
       href="#{person_url person}"
       data-tooltip_url="#{tooltip_person_url person, subdomain: false}"
+      data-delay="150"
     ]
     span.image-decor
       span.image-cutter
         img src="#{cdn_image person, :preview}" srcset="#{cdn_image person, :original} 2x" alt="#{localized_name person}" title="#{localized_name person}"
 
-    - if cover_by == :link
-      span.title class="#{:two_lined unless person.kind_of?(RoleEntry)}" itemprop="name"
-        == localized_name person
+    - if cover_title != :none
+      - if cover_by == :link
+        span.title class="#{:two_lined unless person.kind_of?(RoleEntry)}" itemprop="name"
+          == localized_name person
 
-    - if person.kind_of? RoleEntry
-      span.misc.centered
-        span.role itemprop="jobTitle"
-          = person.formatted_role
+      - if person.kind_of? RoleEntry
+        span.misc.centered
+          span.role itemprop="jobTitle"
+            = person.formatted_role
 
   - unless content_by == :tooltip || content_by == :none
     .content

@@ -47,6 +47,9 @@ $ =>
   if match = location.hash.match(/^#(comment-\d+)$/)
     $("a[name=#{match[1]}]").closest('.b-comment').yellowFade()
 
+  # отдельный эвент для ресайзов
+  $(window).on 'resize', $.throttle(750, -> $(document.body).trigger 'resize:throttled')
+
 $(document).on 'page:restore', (e, is_dom_content_loaded) ->
   $(document.body).process()
 
@@ -78,60 +81,3 @@ $(document).on 'page:load', (e, is_dom_content_loaded) ->
 #turbolinks_compatibility = ->
   #$('#fancybox-wrap').remove()
   #$.fancybox.init()
-
-# поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
-$with = (selector, $root) ->
-  if $root.is(selector)
-    $root.find(selector).add($root)
-  else
-    $root.find(selector)
-
-# обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
-@process_current_dom = (root = document.body) ->
-  $root = $(root)
-
-  # то, что должно превратиться в ссылки
-  $with('.linkeable', $root)
-    .change_tag('a')
-    .removeClass('linkeable')
-
-  # стена картинок
-  $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
-  $with('.b-forum.unprocessed', $root).shiki_forum()
-  $with('.b-topic.unprocessed', $root).shiki_topic()
-  $with('.b-comment.unprocessed', $root).shiki_comment()
-
-  # блоки, загружаемые аяксом
-  $with('.postloaded[data-href]', $root).each ->
-    $this = $(@)
-    return unless $this.is(':visible')
-    $this.load $this.data('href'), ->
-      $this
-        .removeClass('postloaded')
-        .process()
-        .trigger('postloaded:success')
-
-    $this.attr 'data-href', null
-
-  # подгружаемые тултипы
-  $with('.anime-tooltip', $root)
-    .tooltip(ANIME_TOOLTIP_OPTIONS)
-    .removeClass('anime-tooltip')
-  $with('.bubbled', $root)
-    .addClass('bubbled-processed')
-    .removeClass('bubbled')
-    .tooltip($.extend(offset: [-35, 10, -10], tooltip_options))
-
-  $with('.b-spoiler.unprocessed', $root).spoiler()
-
-  $with('.b-video.unprocessed', $root).shiki_video()
-  $with('img.check-width', $root)
-    .removeClass('check-width')
-    .normalize_image(append_marker: true)
-  $with('.b-image.unprocessed', $root)
-    .removeClass('unprocessed')
-    .magnific_rel_gallery()
-
-  # сворачиваение всех нужных блоков "свернуть"
-  _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
-    $with("#collapse-#{v}", $root).filter(':not(.triggered)').trigger 'click', true

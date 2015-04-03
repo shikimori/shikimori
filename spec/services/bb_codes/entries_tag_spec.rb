@@ -1,0 +1,63 @@
+describe BbCodes::EntriesTag do
+  let(:tag) { BbCodes::EntriesTag.instance }
+
+  describe '#format' do
+    let(:html) { tag.format text }
+
+    describe 'type' do
+      context 'animes' do
+        let(:anime_1) { create :anime }
+        let(:anime_2) { create :anime }
+        let(:text) { "[animes ids=#{anime_1.id},#{anime_2.id}]" }
+
+        it('has default number of columns') { expect(html).to include "<div class='cc-#{BbCodes::EntriesTag::DEFAULT_COLUMNS} m0'>" }
+        it('has entries') { expect(html.scan('b-catalog_entry')).to have(2).items }
+        it('has titles') { expect(html).to include "<a class=\"title " }
+      end
+
+      context 'mangas' do
+        let(:manga) { create :manga }
+        let(:text) { "[mangas ids=#{manga.id}]" }
+
+        it { expect(html.scan('b-catalog_entry')).to have(1).items }
+      end
+
+      context 'characters' do
+        let(:character) { create :character }
+        let(:text) { "[characters ids=#{character.id}]" }
+
+        it { expect(html.scan('b-catalog_entry')).to have(1).items }
+      end
+
+      context 'people' do
+        let(:person) { create :person }
+        let(:text) { "[people ids=#{person.id}]" }
+
+        it { expect(html.scan('b-catalog_entry')).to have(1).items }
+      end
+    end
+
+    describe 'columns' do
+      let(:anime) { create :anime }
+      let(:text) { "[animes ids=#{anime.id} columns=4]" }
+
+      it { expect(html).to include "<div class='cc-4 m0'" }
+    end
+
+    describe 'cover_notice' do
+      let(:anime) { create :anime, aired_on: Time.zone.parse('1987-01-01') }
+      let(:text) { "[animes ids=#{anime.id} cover_notice=year_kind]" }
+
+      it('has entry') { expect(html).to include 'b-catalog_entry' }
+      it('has year') { expect(html).to include '1987' }
+    end
+
+    describe 'wall' do
+      let(:anime) { create :anime, aired_on: Time.zone.parse('1987-01-01') }
+      let(:text) { "[animes ids=#{anime.id} wall columns=8]" }
+
+      it('has entry') { expect(html).to include 'b-catalog_entry' }
+      it('has aligned posters') { expect(html).to include 'cc-8-g0 align-posters unprocessed' }
+    end
+  end
+end

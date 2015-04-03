@@ -2,17 +2,17 @@ describe BbCodes::ImgTag do
   let(:tag) { BbCodes::ImgTag.instance }
   let(:text_hash) { 'hash' }
 
-  describe 'format' do
+  describe '#format' do
     subject { tag.format text, text_hash }
     let(:url) { 'http://site.com/site-url' }
     let(:text) { "[img]#{url}[/img]" }
 
-    context 'common_case' do
+    context 'common case' do
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{url}\" class=\"check-width\"/></a>" }
     end
 
-    context 'multiple_images' do
+    context 'multiple images' do
       let(:url_2) { 'http://site.com/site-url-2' }
       let(:text) { "[img]#{url}[/img] [img]#{url_2}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
@@ -20,19 +20,19 @@ describe BbCodes::ImgTag do
 <img src=\"#{url_2}\" class=\"check-width\"/></a>" }
     end
 
-    context 'with_sizes' do
+    context 'with sizes' do
       let(:text) { "[img 400x500]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{url}\" class=\"\" width=\"400\" height=\"500\"/></a>" }
     end
 
-    context 'with_width' do
+    context 'with width' do
       let(:text) { "[img w=400]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{url}\" class=\"\" width=\"400\"/></a>" }
     end
 
-    context 'with_height' do
+    context 'with height' do
       let(:text) { "[img h=500]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{url}\" class=\"\" height=\"500\"/></a>" }
@@ -44,13 +44,13 @@ describe BbCodes::ImgTag do
 <img src=\"#{url}\" class=\"\" width=\"400\" height=\"500\"/></a>" }
     end
 
-    context 'with_class' do
+    context 'with class' do
       let(:text) { "[img class=zxc]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{url}\" class=\"check-width zxc\"/></a>" }
     end
 
-    context 'inside_url' do
+    context 'inside url' do
       let(:link) { '/test' }
       let(:text) { "[url=#{link}][img]#{url}[/img][/url]" }
       it { should eq "<a href=\"#{link}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
