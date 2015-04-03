@@ -26,6 +26,7 @@
           min_height = $(min_height_node).find('.image-cutter').outerHeight()
 
           # и ставим её для всех постеров ряда
-          $(group).find('.image-cutter').css 'max-height', min_height
+          if min_height > 0
+            $(group).find('.image-cutter').css 'max-height', min_height
 
 ) jQuery
