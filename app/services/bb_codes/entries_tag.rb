@@ -40,7 +40,7 @@ class BbCodes::EntriesTag
       entries_count += ids.size
 
       entries = fetch_entreis ids, type_to_klass($~[:type]), entries_count
-      entries_html = entries.map do |entry|
+      entries_html = entries.sort_by {|v| ids.index(v.id) }.map do |entry|
         entry_to_html entry, cover_title, cover_notice
       end
 
