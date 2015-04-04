@@ -670,7 +670,10 @@ Site::Application.routes.draw do
       end
 
       resources :dialogs, only: [:index, :show, :destroy] do
-        get 'page/:page' => :show, as: :show, on: :member
+        member do
+          get 'page/:page' => :show, as: :show
+          get 'reply/:reply_message_id' => :show, as: :reply
+        end
         get '(page/:page)' => :index, as: :index, on: :collection
       end
 

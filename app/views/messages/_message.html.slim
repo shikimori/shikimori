@@ -32,7 +32,11 @@
           - else
             - if message.kind == MessageType::Private
               span.item-quote title="Цитировать"
-              span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="Ответить"
+              - if local_assigns[:reply_as_link]
+                a.item-reply href="#{reply_profile_dialog_url message.to.to_param, message.from.to_param, message}" title="Ответить"
+              - else
+                span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="Ответить"
+
             - if can?(:edit, message) && message.kind == MessageType::Private
               span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="Изменить"
             - if can? :destroy, message

@@ -18,6 +18,10 @@ class DialogsController < ProfilesController
 
     target_user = User.find_by!(nickname: User.param_to(params[:id]))
     @dialog = Dialog.new(@resource, Message.new(to_id: target_user.id, from_id: @resource.id))
+    @replied_message = if params[:reply_message_id]
+      message = Message.find_by(id: params[:reply_message_id])
+      message if message && can?(:read, message)
+    end
 
     @collection, @add_postloader = DialogQuery
       .new(@resource, @dialog.target_user)
@@ -40,11 +44,11 @@ private
   end
 
   def add_title
-    page_title 'Переписка'
+    page_title 'Почта'
   end
 
   def add_breadcrumb
-    breadcrumb 'Переписка', profile_dialogs_url(@resource)
+    breadcrumb 'Почта', profile_dialogs_url(@resource)
     @back_url = profile_dialogs_url(@resource)
   end
 end

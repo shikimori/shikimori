@@ -1,6 +1,9 @@
 = render layout: 'page' do
   = render 'navigation'
-  .subheadline = @page_title.last
+  .subheadline
+    = @page_title.last
+    - if params[:controller] == 'dialogs' && params[:action] == 'index'
+      a.misc-link href="#{index_profile_messages_url @resource, messages_type: :private}" непрочитанное от старого к новому
   .block
     = render partial: 'dialog', collection: @collection
     - if @add_postloader

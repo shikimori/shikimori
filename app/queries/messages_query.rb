@@ -5,21 +5,20 @@ class MessagesQuery < QueryObjectBase
 
   def query
     Message
-      .where(kind: kinds_by_type)
+      .where(where_by_type)
       .where(id_field => @user.id, del_field => false)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .includes(:linked, :from, :to)
       .order(*order_by_type)
   end
 
-  def kinds_by_type
+  def where_by_type
     case @messages_type
-      when :private then [MessageType::Private]
-      when :sent then [MessageType::Private]
-      when :news then NEWS_KINDS
-
-      when :notifications
-        [
+      when :private then { kind: [MessageType::Private], read: false }
+      when :sent then { kind: [MessageType::Private] }
+      when :news then { kind: NEWS_KINDS }
+      when :notifications then {
+        kind: [
           MessageType::FriendRequest,
           MessageType::GroupRequest,
           MessageType::Notification,
@@ -29,9 +28,8 @@ class MessagesQuery < QueryObjectBase
           MessageType::NicknameChanged,
           MessageType::Banned,
           MessageType::Warned
-        ]
-
-      else '-1'
+        ]}
+      else raise ArgumentError, "unknown type: #{@messages_type}"
     end
   end
 

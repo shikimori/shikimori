@@ -6,7 +6,8 @@
         .b-new_marker.active
     aside.buttons
       .main-controls
-        a.item-reply href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}" title="Ответить"
+        - if dialog.message.from != current_user
+          a.item-reply href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}" title="Ответить"
         span.item-delete title="Удалить"
         span.item-cancel title="Отмена"
 

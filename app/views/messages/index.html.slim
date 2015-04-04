@@ -12,7 +12,7 @@
     .b-topic.unprocessed data-no-faye="true"
       .b-comments
         - if @collection.any?
-          = render @collection
+          = render @collection, reply_as_link: @messages_type == :private
           - if @add_postloader
             = render 'blocks/postloader', filter: 'b-message', url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @page+1)
         - else

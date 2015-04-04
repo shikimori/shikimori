@@ -12,9 +12,9 @@ describe MessagesQuery do
   describe '#fetch' do
     subject { query.fetch 1, 1 }
 
-    context 'inbox' do
-      let!(:private_2) { create :message, kind: MessageType::Private, to: user, from: user_2, dst_del: true }
-      let(:messages_type) { :inbox }
+    context 'private' do
+      let!(:private_2) { create :message, kind: MessageType::Private, to: user, from: user_2, dst_del: true, read: false }
+      let(:messages_type) { :private }
 
       it { expect(subject).to have(1).item }
       its(:first) { should eq private }
