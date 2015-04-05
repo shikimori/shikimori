@@ -7,6 +7,10 @@ FactoryGirl.define do
 
     notifications User::DEFAULT_NOTIFICATIONS
 
+    after :build do |user|
+      user.stub :ensure_api_access_token
+    end
+
     trait :preferences do
       after :create do |user|
         FactoryGirl.create :user_preferences, user: user
