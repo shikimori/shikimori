@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include UserNotifications
   include Commentable
   include User::Roles
+  include User::TokenAuthenticatable
 
   MAX_NICKNAME_LENGTH = 20
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes

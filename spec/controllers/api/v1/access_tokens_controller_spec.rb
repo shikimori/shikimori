@@ -1,0 +1,16 @@
+describe Api::V1::AccessTokensController, :show_in_doc do
+  describe '#show' do
+    let(:token) { 'user_api_access_token' }
+    let(:nickname) { 'user_nickname' }
+    let(:password) { 'user_password' }
+    let!(:user) { create :user, nickname: nickname, password: password, authentication_token: token }
+
+    before { get :show, nickname: nickname, password: password }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(JSON.parse(response.body)).to eq 'api_access_token' => token
+    end
+  end
+end

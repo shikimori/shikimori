@@ -140,6 +140,7 @@ Site::Application.routes.draw do
         end
       end
 
+      resource :access_token, only: [:show]
       resource :authenticity_token, only: [:show]
 
       devise_scope :user do
