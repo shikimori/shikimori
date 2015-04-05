@@ -2,7 +2,7 @@ require 'cancan/matchers'
 
 describe Api::V1::DevicesController, :show_in_doc do
   before { sign_in user }
-  let(:user) { create :user }
+  let(:user) { create :user, :user }
 
   describe '#index' do
     let!(:device_1) { create :device, user: user }
