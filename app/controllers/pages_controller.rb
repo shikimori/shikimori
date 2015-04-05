@@ -68,7 +68,7 @@ class PagesController < ShikimoriController
       to_id: User::Admins.first,
       kind: MessageType::Private
     )
-    @feedback_message.location = request.env["HTTP_REFERER"] || request.url
+    @feedback_message.location = request.env['HTTP_REFERER'] || request.url
   end
 
   # отображение юзер-агента пользователя

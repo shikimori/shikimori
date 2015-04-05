@@ -108,7 +108,11 @@ class ApplicationController < ActionController::Base
 
 private
   def set_layout
-    if request.xhr? || (request.headers['rack.cors'] && request.headers['rack.cors'].hit)
+    if request.xhr? || (
+        request.headers['HTTP_REFERER'] &&
+        URI.parse(request.headers['HTTP_REFERER']).host != URI.parse(request.url).host &&
+        request.headers['rack.cors'] && request.headers['rack.cors'].hit
+      )
       false
     else
       'application'
