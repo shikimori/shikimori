@@ -63,7 +63,8 @@ private
         "#{name}".to_sym => entry,
         cover_title: cover_title,
         cover_notice: cover_notice
-      }
+      },
+      formats: [:html]
     )
   end
 
