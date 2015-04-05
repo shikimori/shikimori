@@ -92,7 +92,7 @@ private
   end
 
   def userlist?
-    @params[:controller] == 'user_lists'
+    !!@params[:userlist]
   end
 
   def search?

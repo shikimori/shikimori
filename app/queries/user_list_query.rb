@@ -3,7 +3,7 @@ class UserListQuery
     @klass = klass
     @user = user
 
-    @params = params.clone.merge(klass: @klass)
+    @params = params.clone.merge(klass: @klass, userlist: true)
   end
 
   def fetch
