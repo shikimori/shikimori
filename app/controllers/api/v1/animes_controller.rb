@@ -53,6 +53,8 @@ class Api::V1::AnimesController < Api::V1::ApiController
     respond_with @collection
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/animes/:id/franchise'
   def franchise
     respond_with @resource, serializer: FranchiseSerializer
   end

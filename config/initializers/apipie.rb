@@ -14,5 +14,15 @@ Do not make more than 3 requests per second by ip address for mobile application
 Do not make more than 10 requests per second from your webserver.
 
 Message me (http://shikimori.org/morr or takandar@gmail.com) if you have any questions or you need more data in api.
+
+
+
+Authentication:
+1. Retrieve an api access token from http://shikimori.org/api/doc/1/access_tokens/show.html
+2. Add X-User-Nickname & X-User-Api-Access-Token request headers to each your api request
+
+X-User-Nickname=user_nickname
+
+X-User-Api-Access-Token=user_api_access_token
 DICK
 end
