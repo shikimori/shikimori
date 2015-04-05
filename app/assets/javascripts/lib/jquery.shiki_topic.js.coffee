@@ -49,11 +49,9 @@ class @ShikiTopic extends ShikiEditable
         else
           @$('.b-comments').prepend $new_comment
 
-        $new_comment
-          .shiki_comment()
-          .shiki_message()
-          .process()
-          .yellowFade()
+        $new_comment.filter('.b-comment').shiki_comment()
+        $new_comment.filter('.b-message').shiki_message()
+        $new_comment.process().yellowFade()
 
         @editor.cleanup()
         @_hide_editor()
@@ -215,10 +213,10 @@ class @ShikiTopic extends ShikiEditable
         .on 'ajax:success', (e, html) ->
           $html = $(html)
           $placeholder.replaceWith $html
-          $html
-            .shiki_comment()
-            .shiki_message()
-            .process()
+
+          $html.filter('.b-comment').shiki_comment()
+          $html.filter('.b-message').shiki_message()
+          $html.process()
 
     if $placeholder.data('ids').indexOf(trackable_id) == -1
       $placeholder.data
