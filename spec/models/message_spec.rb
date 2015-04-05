@@ -251,16 +251,17 @@ describe Message do
 
           it { should be_able_to :edit, message }
           it { should be_able_to :update, message }
+          it { should be_able_to :destroy, message }
 
-          context 'new message' do
-            let(:created_at) { 1.minute.ago }
-            it { should be_able_to :destroy, message }
-          end
+          #context 'new message' do
+            #let(:created_at) { 1.minute.ago }
+            #it { should be_able_to :destroy, message }
+          #end
 
-          context 'old message' do
-            let(:created_at) { 11.minute.ago }
-            it { should_not be_able_to :destroy, message }
-          end
+          #context 'old message' do
+            #let(:created_at) { 11.minute.ago }
+            #it { should_not be_able_to :destroy, message }
+          #end
         end
 
         context 'other type messages' do
@@ -275,7 +276,7 @@ describe Message do
           let(:created_at) { 11.minutes.ago }
           it { should_not be_able_to :edit, message }
           it { should_not be_able_to :update, message }
-          it { should_not be_able_to :destroy, message }
+          it { should be_able_to :destroy, message }
         end
       end
 
