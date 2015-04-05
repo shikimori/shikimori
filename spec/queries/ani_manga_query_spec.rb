@@ -87,7 +87,7 @@ describe AniMangaQuery do
           expect(fetch(mylist: "#{UserRate.statuses[:planned]}").size).to eq(3)
         end
         it 'userlist' do
-          expect(fetch(controller: 'user_lists').size).to eq(3)
+          expect(fetch(userlist: true).size).to eq(3)
         end
         it 'with_censored' do
           expect(fetch(with_censored: true).size).to eq(3)
@@ -127,7 +127,7 @@ describe AniMangaQuery do
         end
 
         it 'userlist' do
-          expect(fetch(controller: 'user_lists').size).to eq(3)
+          expect(fetch(userlist: true).size).to eq(3)
         end
       end
     end

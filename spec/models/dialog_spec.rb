@@ -62,7 +62,7 @@ describe Dialog do
   describe '#new_message' do
     subject { dialog.new_message }
     it { should be_kind_of Message }
-    it { should have_attributes(body: nil, from_id: user.id, to_id: target_user.id, kind: MessageType::Private) }
+    it { should have_attributes(body: '', from_id: user.id, to_id: target_user.id, kind: MessageType::Private) }
     it { should be_new_record }
   end
 
