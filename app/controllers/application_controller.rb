@@ -117,6 +117,8 @@ private
     else
       'application'
     end
+  rescue URI::InvalidURIError
+    'application'
   end
 
   # before фильтры с настройкой сайта
