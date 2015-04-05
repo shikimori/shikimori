@@ -176,6 +176,16 @@ ru:
           accepted: принято
           rejected: отклонено
 
+      anime_video:
+        states:
+          working: работает
+          uploaded: загружено, требует проверки
+          rejected: отказано
+          broken: сломано
+          wrong: не к этому аниме
+          banned: banned
+          copyrighted: copyrighted
+
   enumerize:
     strategy_type:
       double_elimination: Вылет после двух поражений

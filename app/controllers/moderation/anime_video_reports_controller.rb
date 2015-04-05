@@ -3,6 +3,7 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
 
   def index
     @page_title = 'Модерация видео'
+    @moderators = User.where(id: User::VideoModerators)
     @processed = postload_paginate(params[:page], 20) do
       AnimeVideoReport.includes(:user, anime_video: :author).processed
     end
