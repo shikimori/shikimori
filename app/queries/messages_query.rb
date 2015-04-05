@@ -14,6 +14,7 @@ class MessagesQuery < QueryObjectBase
 
   def where_by_type
     case @messages_type
+      when :inbox then { kind: [MessageType::Private] }
       when :private then { kind: [MessageType::Private], read: false }
       when :sent then { kind: [MessageType::Private] }
       when :news then { kind: NEWS_KINDS }
