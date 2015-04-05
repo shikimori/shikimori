@@ -3,7 +3,7 @@ describe Api::V1::AccessTokensController, :show_in_doc do
     let(:token) { 'user_api_access_token' }
     let(:nickname) { 'user_nickname' }
     let(:password) { 'user_password' }
-    let!(:user) { create :user, nickname: nickname, password: password, authentication_token: token }
+    let!(:user) { create :user, nickname: nickname, password: password, api_access_token: token }
 
     before { get :show, nickname: nickname, password: password }
 
