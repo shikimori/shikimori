@@ -2,14 +2,14 @@ require 'cancan/matchers'
 
 describe Api::V1::UserRatesController do
   context 'token authentication' do
-    let!(:user) { create :user, authentication_token: 'zzzxxxccc' }
+    let!(:user) { create :user, api_access_token: 'zzzxxxccc' }
 
-    describe '#create',:focus do
+    describe '#create' do
       let(:target) { create :anime }
       let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
       before do
         @request.headers['X-User-Nickname'] = user.nickname
-        @request.headers['X-User-Api-Access-Token'] = user.authentication_token
+        @request.headers['X-User-Api-Access-Token'] = user.api_access_token
         post :create, user_rate: create_params, format: :json
       end
 
