@@ -1,3 +1,5 @@
+# сервис через который должны создаваться/изменяться/удаляться все объекты,
+# отображаемые на форуме и имеющие realtime обновления
 class FayeService
   pattr_initialize :actor, :publisher_faye_id
 
@@ -20,11 +22,10 @@ class FayeService
   end
 
   def destroy trackable
-    publisher.publish trackable, :deleted
-
     if trackable.kind_of?(Message)
       trackable.delete_by @actor
     else
+      publisher.publish trackable, :deleted
       trackable.destroy
     end
   end

@@ -66,15 +66,16 @@ describe FayeService do
   describe '#destroy' do
     subject { service.destroy trackable }
 
-    before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
-    before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(trackable.class), :deleted }
-
     context 'comment' do
+      before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+      before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(trackable.class), :deleted }
       let(:trackable) { create :comment, user: user }
       it { should_not be_persisted }
     end
 
     context 'message' do
+      before { expect(FayePublisher).to_not receive :new }
+
       context 'private' do
         let(:trackable) { create :message, :private, to: user }
 
