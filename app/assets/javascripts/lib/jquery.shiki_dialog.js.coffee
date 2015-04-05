@@ -27,5 +27,10 @@ class @ShikiDialog extends ShikiEditable
       $markers.css.bind($markers).delay(1, opacity: 0)
       $markers.hide.bind($markers).delay(500)
 
+    # по клику на Ответить помечаем комментарий прочитанным
+    @$('.item-reply').on 'click', (e) =>
+      @$('.b-new_marker.active').click()
+      true
+
   _type: -> 'dialog'
   _type_label: -> 'Диалог'
