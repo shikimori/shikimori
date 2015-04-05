@@ -9,7 +9,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
     limit = [[params[:limit].to_i, 1].max, 30].min
     page = [params[:page].to_i, 1].max
 
-    @collection = Rails.cache.fetch cache_key do
+    @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
       AniMangaQuery
         .new(Anime, params, current_user)
         .fetch(page, limit)
