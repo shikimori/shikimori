@@ -6,6 +6,7 @@ class @ShikiView
   constructor: ($root) ->
     @_initialize($root)
     @initialize(@$root)
+    @_after_initialize()
 
   on: ->
     @$root.on.apply(@$root, arguments)
@@ -23,6 +24,9 @@ class @ShikiView
     @$root.data shiki_object: @
     @$inner = @$('>.inner')
     return unless @$inner.exists()
+
+  # колбек после инициализации
+  _after_initialize: ->
 
   # проверка высоты комментария. урезание, если текст слишком длинный (точно такой же код в shiki_topic)
   _check_height: =>

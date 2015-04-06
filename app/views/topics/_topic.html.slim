@@ -4,6 +4,7 @@
   article.b-topic.shiki-object.unprocessed[
       id="#{topic.id}"
       class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'b-cosplay' if topic.cosplay?} #{'b-generated_news' if topic.generated_news?}"
+      data-user_id="#{topic.user.id}"
       data-user_nickname="#{topic.user.nickname}"
       data-generated="#{topic.generated?}"
       data-faye="#{topic.faye_channel}"

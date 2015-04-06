@@ -65,6 +65,40 @@ class @ShikiEditable extends ShikiView
       @_replace "<div class='b-comment-info b-#{@_type()}'><span>#{message}</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a></div>"
       false # очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе
 
+  # колбек после инициализации
+  _after_initialize: ->
+    super()
+
+    if @$body
+      # выделение текста в комментарии
+      @$body.on 'mouseup', =>
+        text = $.getSelectionText()
+        return unless text
+
+        # скрываем все кнопки цитаты
+        $('.item-quote').hide()
+
+        @$root.data(selected_text: text)
+        $quote = $('.item-quote', @$inner).css(display: 'inline-block')
+
+        _.delay ->
+          $(document).one 'click', ->
+            unless $.getSelectionText().length
+              $quote.hide()
+            else
+              _.delay ->
+                $quote.hide() unless $.getSelectionText().length
+              , 250
+
+      # цитирование комментария
+      $('.item-quote', @$inner).on 'click', (e) =>
+        ids = [@$root.prop('id'), @$root.data('user_id'), @$root.data('user_nickname')]
+        selected_text = @$root.data('selected_text')
+        type = @_type()[0]
+        quote = "[quote=#{type}#{ids.join ';'}]#{selected_text}[/quote]\n"
+
+        @$root.trigger 'comment:reply', [quote, @_is_offtopic?()]
+
   # закрытие кнопок в мобильной версии
   _close_aside: ->
     $('.item-mobile', @$inner).click() if $('.item-mobile', @$inner).is('.selected')

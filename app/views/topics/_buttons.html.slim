@@ -1,5 +1,6 @@
 aside.buttons
   .main-controls
+    span.item-quote title="Цитировать"
     span.item-reply title="#{topic.generated? ? 'Написать' : 'Ответить'}"
 
     - if topic.object.kind_of?(GroupComment) && current_user.subscribed?(topic.object)

@@ -20,35 +20,6 @@ class @ShikiComment extends ShikiEditable
       else
         @_check_height()
 
-    # выделение текста в комментарии
-    @$body.on 'mouseup', =>
-      text = $.getSelectionText()
-      return unless text
-
-      # скрываем все кнопки цитаты
-      $('.item-quote').hide()
-
-      @$root.data(selected_text: text)
-      $quote = @$('.item-quote').css(display: 'inline-block')
-
-      _.delay ->
-        $(document).one 'click', ->
-          unless $.getSelectionText().length
-            $quote.hide()
-          else
-            _.delay ->
-              $quote.hide() unless $.getSelectionText().length
-            , 250
-
-    # цитирование комментария
-    @$('.item-quote').on 'click', =>
-      ids = [@$root.prop('id'), @$root.data('user_id'), @$root.data('user_nickname')]
-      selected_text = @$root.data('selected_text')
-      type = @_type()[0]
-      quote = "[quote=#{type}#{ids.join ';'}]#{selected_text}[/quote]\n"
-
-      @$root.trigger 'comment:reply', [quote, @_is_offtopic()]
-
     # ответ на комментарий
     @$('.item-reply').on 'ajax:success', (e, response) =>
       reply = "[#{response.kind}=#{response.id}]#{response.user}[/#{response.kind}], "

@@ -194,6 +194,7 @@ module CommentHelper
       .gsub(/\[quote\]/, '<blockquote>')
       .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
       .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[message=\1 quote]\3[/message]</div>')
+      .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[entry=\1 quote]\3[/entry]</div>')
       .gsub(/\[quote=([^\]]+)\]/, '<blockquote><div class="quoteable">[user]\1[/user]</div>')
       .gsub(/\[\/quote\](?:\r\n|\r|\n|<br \/>)?/, '</blockquote>')
   end
@@ -219,7 +220,7 @@ module CommentHelper
     UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :tooltip_moderation_user_change_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
     Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
-    Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote>)\](?<text>[^\[]*?)\[\/entry\])/, nil],
+    Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/entry\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Group => [/(\[group(?:=(\d+))?\]([^\[]*?)\[\/group\])/, nil],
