@@ -1,4 +1,6 @@
 class UserDecorator < BaseDecorator
+  include Translation
+
   delegate_all
   instance_cache :is_friended?, :mutual_friended?, :history
 
@@ -18,7 +20,7 @@ class UserDecorator < BaseDecorator
     [can_vote_1?, can_vote_2?, can_vote_3?].count {|v| v }
   end
 
-  # добавлен ли пользователь в друзья ткущему пользователю
+  # добавлен ли пользователь в друзья текущему пользователю
   def is_friended?
     h.current_user && h.current_user.friend_links.any? {|v| v.dst_id == id }
   end
@@ -33,11 +35,11 @@ class UserDecorator < BaseDecorator
 
   def last_online
     if object.admin? || object.banhammer? || object.bot?
-      'всегда на сайте'
+      t 'always_online'
     elsif DateTime.now - 5.minutes <= last_online_at || object.id == User::GuestID
-      'сейчас на сайте'
+      t 'online'
     else
-      "онлайн #{h.time_ago_in_words last_online_at, nil, true} назад"
+      t 'offline', time_ago: h.time_ago_in_words(last_online_at, nil, true)
     end
   end
 
