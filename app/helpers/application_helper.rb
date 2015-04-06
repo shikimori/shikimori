@@ -89,7 +89,7 @@ module ApplicationHelper
 
   def time_ago_in_words date, format_string=nil, original=false
     if original || date + 1.day > DateTime.now
-      format_string ? format_string % super(date) : super(date)
+      format_string ? format_string % time_ago_in_words(date) : time_ago_in_words(date)
     else
       Russian::strftime(date, "%e %B %Y")
     end
