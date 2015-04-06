@@ -1,0 +1,11 @@
+# l18n file for all decorators
+ru:
+  user_decorator:
+    always_online: всегда на сайта
+    online: сейчас на сайте
+    offline: онлайн %{time_ago} назад
+  user_profile_decorator:
+    male: муж
+    female: жен
+    no_personal_data: Нет личных данных
+    personal_data_hidden: Личные данные скрыты

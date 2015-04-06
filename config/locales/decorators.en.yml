@@ -1,0 +1,5 @@
+en:
+  user_decorator:
+    always_online: always online
+    online: online
+    offline: last online %{time_ago} ago
