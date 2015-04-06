@@ -10,12 +10,13 @@ class UserlistComparerController < ShikimoriController
     @klass = Object.const_get(params[:list_type].downcase.capitalize)
     params[:klass] = @klass
 
-    @user_1 = User.find_by_nickname(User.param_to params[:user_1])
-    @user_2 = User.find_by_nickname(User.param_to params[:user_2])
+    @user_1 = User.find_by(nickname: User.param_to(params[:user_1]))
+    @user_2 = User.find_by(nickname: User.param_to(params[:user_2]))
 
     if @user_1.blank? || @user_2.blank?
-      redirect_to :root, alert: "Невозможно сравнить списки, пользователь #{User.param_to @user_1.blank? ? params[:user_1] : params[:user_2]} не найден"
-      return
+      blank_user = @user_1.blank? ? params[:user_1] : params[:user_2]
+      return redirect_to :root,
+        alert: "Невозможно сравнить списки, пользователь #{ERB::Util.html_escape blank_user} не найден"
     end
 
     @cache_key = "#{@user_1.cache_key}_#{@user_2.cache_key}_list_comparer_#{Digest::MD5.hexdigest(params.to_yaml)}"
