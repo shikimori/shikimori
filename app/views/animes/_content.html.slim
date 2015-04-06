@@ -59,9 +59,10 @@
 
     - if anime.with_score?
       .rating[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
-        meta itemprop="bestRating" content="10"
-        meta itemprop="ratingValue" content="#{anime.score}"
-        meta itemprop="ratingCount" content="#{(anime.mal_scores.sum/37).to_i}"
+        - if anime.mal_scores && anime.mal_scores.sum > 0
+          meta itemprop="bestRating" content="10"
+          meta itemprop="ratingValue" content="#{anime.score}"
+          meta itemprop="ratingCount" content="#{(anime.mal_scores.sum/37).to_i}"
 
         span = '%.2f' % anime.score
         span.text рейтинг
