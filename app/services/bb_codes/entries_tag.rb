@@ -17,7 +17,7 @@ class BbCodes::EntriesTag
     \]
   /imx
   DEFAULT_COLUMNS = 5
-  MAX_ENTRIES = 300
+  MAX_ENTRIES = 500
 
   def format text
     # ограничение, чтобы нельзя было слишком много элементов вставить
@@ -37,6 +37,9 @@ class BbCodes::EntriesTag
         cover_title = :present
       end
 
+      if ids.size + entries_count > MAX_ENTRIES
+        next "[color=red]limit exceeded (#{MAX_ENTRIES} max)[/color]"
+      end
       entries_count += ids.size
 
       entries = fetch_entreis ids, type_to_klass($~[:type]), entries_count
@@ -69,9 +72,7 @@ private
   end
 
   def fetch_entreis ids, klass, current_count
-    klass
-      .where(id: ids)
-      .limit [0, MAX_ENTRIES - current_count].max
+    klass.where(id: ids)
   end
 
   def type_to_klass type
