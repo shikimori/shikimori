@@ -1,4 +1,5 @@
 class AnimeVideoPreviewDecorator < Draper::Decorator
+  include Translation
   delegate_all
 
   def name
@@ -23,11 +24,11 @@ class AnimeVideoPreviewDecorator < Draper::Decorator
 
   def score
     if object.score >= 8
-      'отлично'
+      t 'excellent'
     elsif object.score >= 6
-      'хорошо'
+      t 'good'
     else
-      'нормально'
+      t 'okay'
     end
   end
 end
