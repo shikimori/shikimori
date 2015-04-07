@@ -1,4 +1,3 @@
-# l18n file for all decorators
 ru:
   user_decorator:
     always_online: всегда на сайта
@@ -9,3 +8,15 @@ ru:
     female: жен
     no_personal_data: Нет личных данных
     personal_data_hidden: Личные данные скрыты
+    aka: Также %{known} как
+    compatibility:
+      zero: нет совместимости
+      low: слабая совместимость
+      moderate: средняя совместимость
+      high: высокая совместимость
+      full: полная совместимость
+  anime_video_preview_decorator:
+    score:
+      excellent: отлично
+      good: хорошо
+      okay: нормально
