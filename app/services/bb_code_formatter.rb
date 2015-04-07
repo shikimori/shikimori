@@ -17,16 +17,19 @@ class BbCodeFormatter
   end
 
   MALWARE_DOMAINS = /(https?:\/\/)?images.webpark.ru/i
+  MIN_PARAGRAPH_SIZE = 110
 
   # форматирование описания чего-либо
   def format_description text, entry
     if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre) || entry.kind_of?(Group)
-      paragraphs format_comment(text)
+      format_comment paragraphs(text)
+
     elsif entry.respond_to? :characters
-      paragraphs format_comment(character_names(text, entry))
+      format_comment character_names(paragraphs(text), entry)
+
     else
       #format_comment text
-      paragraphs format_comment(text)
+      format_comment paragraphs(text)
     end
   end
 
@@ -58,6 +61,7 @@ class BbCodeFormatter
     text = BbCodes::PosterTag.instance.format text
     text = BbCodes::EntriesTag.instance.format text
     text = BbCodes::HrTag.instance.format text
+    text = BbCodes::PTag.instance.format text
 
     text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img
     text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
@@ -84,7 +88,22 @@ class BbCodeFormatter
 
   # замена концов строк на параграфы
   def paragraphs text
-    text.gsub(/(.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x, '<div class="prgrph">\1</div>').html_safe
+    #text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
+      #if line.size >= MIN_PARAGRAPH_SIZE
+        ##"<div class=\"prgrph\">#{$~[:line]}</div>"
+        #"<div class=\"prgrph\">#{line.gsub(/\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}</div>"
+      #else
+        #line
+      #end
+    #end.html_safe
+    text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
+      if line.size >= MIN_PARAGRAPH_SIZE
+        #"<div class=\"prgrph\">#{$~[:line]}</div>"
+        "[p]#{line.gsub(/\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
+      else
+        line
+      end
+    end.html_safe
   end
 
   # замена имён персонажей на ббкоды

@@ -1,27 +1,28 @@
 describe BbCodeFormatter do
   let(:processor) { BbCodeFormatter.instance }
 
-  it :remove_wiki_codes do
+  it '#remove_wiki_codes' do
     expect(processor.remove_wiki_codes("[[test]]")).to eq "test"
     expect(processor.remove_wiki_codes("[[test|123]]")).to eq "123"
   end
 
   describe '#paragraphs' do
     subject { processor.paragraphs text }
+    let(:long_line) { 'x' * BbCodeFormatter::MIN_PARAGRAPH_SIZE }
 
     describe '\n' do
-      let(:text) { "123\n456\n789" }
-      it { should eq '<div class="prgrph">123</div><div class="prgrph">456</div><div class="prgrph">789</div>' }
+      let(:text) { "#{long_line}1\n#{long_line}2\n333" }
+      it { should eq "[p]#{long_line}1[/p][p]#{long_line}2[/p]333" }
     end
 
     describe '<br>' do
-      let(:text) { "123<br>456<br />789" }
-      it { should eq '<div class="prgrph">123</div><div class="prgrph">456</div><div class="prgrph">789</div>' }
+      let(:text) { "#{long_line}1<br>#{long_line}2<br />333" }
+      it { should eq "[p]#{long_line}1[/p][p]#{long_line}2[/p]333" }
     end
 
     describe '&lt;br&gt;' do
-      let(:text) { "123&lt;br&gt;456&lt;br/&gt;789" }
-      it { should eq '<div class="prgrph">123</div><div class="prgrph">456</div><div class="prgrph">789</div>' }
+      let(:text) { "#{long_line}1&lt;br&gt;#{long_line}2&lt;br/&gt;333" }
+      it { should eq "[p]#{long_line}1[/p][p]#{long_line}2[/p]333" }
     end
   end
 
@@ -239,6 +240,11 @@ describe BbCodeFormatter do
     describe '[hr]' do
       let(:text) { '[hr]' }
       it { should eq '<hr />' }
+    end
+
+    describe '[p]' do
+      let(:text) { '[p]test[/p]' }
+      it { should eq '<div class="prgrph">test</div>' }
     end
 
     describe '[image]' do

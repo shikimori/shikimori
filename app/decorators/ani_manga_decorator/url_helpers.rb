@@ -97,6 +97,11 @@ module AniMangaDecorator::UrlHelpers
     h.send "#{klass_lower}_reviews_url", object
   end
 
+  # адрес обзора
+  def review_url review
+    h.send "#{klass_lower}_review_url", object, review
+  end
+
   # адрес создания обзора
   def new_review_url
     h.send "new_#{klass_lower}_review_url", object,

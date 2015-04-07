@@ -37,5 +37,5 @@
     = render 'comments/shiki_editor', text: review.text, field_name: 'review[text]'
 
   .buttons
-    a.cancel href="#{resource.url}" Отмена
+    a.cancel href="#{review.persisted? ? resource.review_url(review) : resource.url}" Отмена
     = f.submit
