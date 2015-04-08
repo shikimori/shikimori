@@ -1,4 +1,6 @@
 class Api::V1::AccessTokensController < Api::V1::ApiController
+  skip_before_action :verify_authenticity_token
+
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/access_token', 'Get an access token by GET'
   def show
