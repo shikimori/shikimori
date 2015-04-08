@@ -20,6 +20,8 @@ module UsersHelper
     end
 
     def localized_kind entry, current_user, short=false
+      return '' unless entry.kind.present?
+
       if !current_user || (current_user && current_user.preferences.russian_genres?)
         I18n.t "#{entry.decorated? ? entry.object.class.name : entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
       else

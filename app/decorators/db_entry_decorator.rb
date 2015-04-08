@@ -37,7 +37,9 @@ class DbEntryDecorator < BaseDecorator
         .gsub(/\n/, "<br />")
         .strip
 
-      BbCodeFormatter.instance.paragraphs text
+      BbCodes::PTag.instance.format(
+        BbCodeFormatter.instance.paragraphs(text)
+      ).html_safe
     else
       '<p class="b-nothing_here">Нет описания</p>'.html_safe
     end
