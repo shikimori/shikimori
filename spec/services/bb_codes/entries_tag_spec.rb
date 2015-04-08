@@ -12,7 +12,6 @@ describe BbCodes::EntriesTag do
 
         it('has default number of columns') { expect(html).to include "<div class='cc-#{BbCodes::EntriesTag::DEFAULT_COLUMNS} m0'>" }
         it('has entries') { expect(html.scan('b-catalog_entry')).to have(2).items }
-        it('has titles') { expect(html).to include "<a class=\"title " }
 
         context 'max entries limit' do
           before { stub_const 'BbCodes::EntriesTag::MAX_ENTRIES', 2 }

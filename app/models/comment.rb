@@ -5,6 +5,8 @@ class Comment < ActiveRecord::Base
   include Antispam
   include Viewable
 
+  MIN_REVIEW_SIZE = 215
+
   # assiciations
   belongs_to :user
   belongs_to :commentable, polymorphic: true
@@ -28,6 +30,7 @@ class Comment < ActiveRecord::Base
 
   before_create :check_access
   before_create :filter_quotes
+  before_create :cancel_review
 
   after_create :increment_comments
   after_create :creation_callbacks
@@ -67,6 +70,12 @@ class Comment < ActiveRecord::Base
   # фильтрафия цитирования более двух уровней вложенности
   def filter_quotes
     self.body = QuoteExtractor.filter(body, 2)
+  end
+
+  # отмена метки отзыва для коротких комментариев
+  def cancel_review
+    self.review = false if review? && body.size < MIN_REVIEW_SIZE
+    true
   end
 
   # для комментируемого объекта вызов колбеков, если они определены

@@ -43,6 +43,21 @@ describe Comment do
       it { expect(comment).to receive :filter_quotes }
     end
 
+    describe '#cancel_review' do
+      let(:comment) { build :comment, body: body, review: true }
+      before { comment.save }
+
+      context 'long comment' do
+        let(:body) { 'x' * Comment::MIN_REVIEW_SIZE }
+        it { expect(comment).to be_review }
+      end
+
+      context 'short comment' do
+        let(:body) { 'x' * (Comment::MIN_REVIEW_SIZE - 1) }
+        it { expect(comment).to_not be_review }
+      end
+    end
+
     describe '#increment_comments' do
       let(:comment) { build :comment }
       after { comment.save }
