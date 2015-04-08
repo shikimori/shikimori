@@ -21,6 +21,8 @@ class BbCodeFormatter
 
   # форматирование описания чего-либо
   def format_description text, entry
+    text ||= ''
+
     if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre) || entry.kind_of?(Group)
       format_comment paragraphs(text)
 
@@ -35,7 +37,9 @@ class BbCodeFormatter
 
   # форматирование текста комментариев
   def format_comment original_text
-    text = (original_text || '').strip
+    original_text ||= ''
+
+    text = original_text.strip
     text = remove_wiki_codes text
     text = strip_malware text
     text = user_mention text
