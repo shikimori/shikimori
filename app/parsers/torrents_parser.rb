@@ -64,10 +64,7 @@ class TorrentsParser
     return [] if IgnoredTorrents.include?(episode_name)
     num = parse_episodes_num(episode_name).select {|v| v < 1000 }
 
-    # для гинтамы особый фикс
-    if episode_name =~ /gintama/i
-      num.map {|v| v - 252 }
-    elsif episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
+    if episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
       num.map {|v| v - 104 }
     elsif episode_name =~ /Yu-Gi-Oh![ _]Zexal[ _]II/i
       num.map {|v| v - 73 }

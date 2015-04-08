@@ -47,8 +47,8 @@ describe TorrentsParser do
   end
 
   it 'gintama' do
-    expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] gintama 253 (MBS 1280x720 x264 AAC).mp3')).to eq [1]
-    expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] gintama 250 (MBS 1280x720 x264 AAC).mp3')).to eq []
+    expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] gintama 253 (MBS 1280x720 x264 AAC).mp3')).to eq [253]
+    expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] gintama 250 (MBS 1280x720 x264 AAC).mp3')).to eq [250]
   end
 
   describe 'episodes with #' do
