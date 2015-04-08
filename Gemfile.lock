@@ -91,14 +91,6 @@ GIT
       activemodel (>= 3.0)
 
 GIT
-  remote: git://github.com/smartinez87/exception_notification.git
-  revision: 922b2c4d4a947c49fba2a4d08aa43693399b9731
-  specs:
-    exception_notification (4.1.0)
-      actionmailer (>= 3.0.4)
-      activesupport (>= 3.0.4)
-
-GIT
   remote: git://github.com/yaroslav/russian.git
   revision: 6da1fe45cbff7c812faaa1bebf25b47b1f14377a
   specs:
@@ -578,10 +570,6 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    slack-notifier (1.1.0)
-    slackistrano (0.1.9)
-      capistrano (>= 3.0.1)
-      json
     slim (3.0.3)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -691,7 +679,6 @@ DEPENDENCIES
   devise-async
   draper
   enumerize
-  exception_notification!
   factory_girl_rails
   faye
   faye-redis
@@ -767,8 +754,6 @@ DEPENDENCIES
   sidekiq-unique-jobs
   simple_form
   sinatra (>= 1.3.0)
-  slack-notifier
-  slackistrano
   slim-rails
   spring
   spring-commands-rspec

@@ -54,12 +54,11 @@ gem 'sidekiq-unique-jobs'
 gem 'sidekiq-limit_fetch'
 gem 'sinatra', '>= 1.3.0', require: nil
 
-#gem 'formtastic'
-gem 'bb-ruby'
+gem 'bb-ruby' # TODO: выпилить
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 gem 'newrelic_rpm'
-gem 'exception_notification', github: 'smartinez87/exception_notification'
-gem 'slack-notifier'
+#gem 'exception_notification', github: 'smartinez87/exception_notification'
+#gem 'slack-notifier'
 gem 'awesome_print'
 gem 'htmldiff', github: 'myobie/htmldiff'
 
@@ -108,7 +107,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  gem 'slackistrano', require: false
+  #gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
   gem 'capistrano-git-submodule-strategy', require: false
   gem 'airbrussh', require: false
