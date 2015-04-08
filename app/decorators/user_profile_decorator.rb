@@ -103,7 +103,7 @@ class UserProfileDecorator < UserDecorator
       info << 'Личные данные скрыты'
     end
 
-    info << "на сайте с <span class=\"reg-date\">#{h.l created_at, format: :with_month_name} г.</span>".html_safe
+    info << "на сайте с <span class=\"reg-date\">#{localized_registration} г.</span>".html_safe
 
     info
   end
@@ -195,7 +195,20 @@ class UserProfileDecorator < UserDecorator
   end
 
 private
+
   def all_compatibility
     CompatibilityService.fetch self, h.current_user if h.user_signed_in?
+  end
+
+  def localized_registration
+    if Time.zone.now - created_at > 2.years
+      Russian::strftime created_at, '%Y'
+
+    elsif Time.zone.now - created_at > 2.months
+      Russian::strftime created_at, '%b %Y'
+
+    else
+      h.l created_at, format: :with_month_name
+    end
   end
 end
