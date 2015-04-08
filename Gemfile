@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '4.2.0'
-gem 'railties', '4.2.0'
+gem 'rails'
+gem 'railties'
 #gem 'bower-rails'
 
 gem 'pg'
@@ -176,5 +176,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery-bridget'
   gem 'rails-assets-packery'
   # когда в master вольют https://github.com/dimsemenov/Magnific-Popup/pull/394 , то строку ниже заменить на её комментарий
-  gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails' # заменить на #gem 'rails-assets-magnific-popup'
+  gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails' # заменить на #gem 'rails-assets-magnific-popup', когда в нём пофиксят турболинки
 end
