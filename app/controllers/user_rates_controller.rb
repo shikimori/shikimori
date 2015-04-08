@@ -143,7 +143,8 @@ class UserRatesController < ProfilesController
 
   rescue Exception => e
     if Rails.env.production?
-      ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? @resource.nickname : nil })
+      #ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? @resource.nickname : nil })
+      Honeybadger.notify(e, env: request.env, data: { nickname: user_signed_in? ? @resource.nickname : nil })
       redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
     else
       raise
