@@ -47,10 +47,7 @@ class BbCodeFormatter
     text = ERB::Util.h(text)
     text = bb_codes text
 
-    text = cleanup text
-
-    #Nokogiri::HTML::DocumentFragment.parse(text).to_html.html_safe
-    text.html_safe
+    cleanup_html(text).html_safe
   end
 
   # обработка ббкодов текста
@@ -93,14 +90,6 @@ class BbCodeFormatter
 
   # замена концов строк на параграфы
   def paragraphs text
-    #text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
-      #if line.size >= MIN_PARAGRAPH_SIZE
-        ##"<div class=\"prgrph\">#{$~[:line]}</div>"
-        #"<div class=\"prgrph\">#{line.gsub(/\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}</div>"
-      #else
-        #line
-      #end
-    #end.html_safe
     text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
       if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/
         "[p]#{line.gsub(/\r\n|\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
@@ -117,7 +106,7 @@ class BbCodeFormatter
 
   # обработка обращений к пользователю
   def user_mention text
-    text.gsub /@([^\n\r,]{1,20})/ do |matched|
+    text.gsub(/@([^\n\r,]{1,20})/) do |matched|
       nickname = $1
       text = []
 
@@ -126,7 +115,7 @@ class BbCodeFormatter
 
         break if user
         break if nickname !~ / |\./
-        nickname = nickname.sub /(.*)((?: |\.).*)/, '\1'
+        nickname = nickname.sub(/(.*)((?: |\.).*)/, '\1')
         text << $2
       end
 
@@ -143,13 +132,17 @@ class BbCodeFormatter
   end
 
   # удаление мусора из текста
-  def cleanup text
-    text
+  def cleanup_html text
+    text = text
       .gsub(/!!!+/, '!')
       .gsub(/\?\?\?+/, '?')
       .gsub(/\.\.\.\.+/, '.')
       .gsub(/\)\)\)+/, ')')
       .gsub(/\(\(\(+/, '(')
       .gsub(/(<img .*? class="smiley" \/>)\s*<img .*? class="smiley" \/>(?:\s*<img .*? class="smiley" \/>)+/, '\1')
+
+    Nokogiri::HTML::DocumentFragment
+      .parse(text)
+      .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
   end
 end

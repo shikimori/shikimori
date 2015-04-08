@@ -9,52 +9,52 @@ describe BbCodes::ImgTag do
 
     context 'common case' do
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"check-width\"/></a>" }
+<img src=\"#{url}\" class=\"check-width\"></a>" }
     end
 
     context 'multiple images' do
       let(:url_2) { 'http://site.com/site-url-2' }
       let(:text) { "[img]#{url}[/img] [img]#{url_2}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"check-width\"/></a> <a href=\"#{url_2}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url_2}\" class=\"check-width\"/></a>" }
+<img src=\"#{url}\" class=\"check-width\"></a> <a href=\"#{url_2}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
+<img src=\"#{url_2}\" class=\"check-width\"></a>" }
     end
 
     context 'with sizes' do
       let(:text) { "[img 400x500]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"\" width=\"400\" height=\"500\"/></a>" }
+<img src=\"#{url}\" class=\"\" width=\"400\" height=\"500\"></a>" }
     end
 
     context 'with width' do
       let(:text) { "[img w=400]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"\" width=\"400\"/></a>" }
+<img src=\"#{url}\" class=\"\" width=\"400\"></a>" }
     end
 
     context 'with height' do
       let(:text) { "[img h=500]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"\" height=\"500\"/></a>" }
+<img src=\"#{url}\" class=\"\" height=\"500\"></a>" }
     end
 
     context 'with width&height' do
       let(:text) { "[img width=400 height=500]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"\" width=\"400\" height=\"500\"/></a>" }
+<img src=\"#{url}\" class=\"\" width=\"400\" height=\"500\"></a>" }
     end
 
     context 'with class' do
       let(:text) { "[img class=zxc]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"check-width zxc\"/></a>" }
+<img src=\"#{url}\" class=\"check-width zxc\"></a>" }
     end
 
     context 'inside url' do
       let(:link) { '/test' }
       let(:text) { "[url=#{link}][img]#{url}[/img][/url]" }
       it { should eq "<a href=\"#{link}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"check-width\"/></a>" }
+<img src=\"#{url}\" class=\"check-width\"></a>" }
     end
   end
 end

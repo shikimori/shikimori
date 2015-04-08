@@ -28,9 +28,9 @@ private
   def html_for user_image, width, height, klass, text_hash
     if user_image.width <= 250 && user_image.height <= 250
       if klass
-        "<img src=\"#{ImageUrlGenerator.instance.url user_image, :original}\" class=\"#{klass}\"/>"
+        "<img src=\"#{ImageUrlGenerator.instance.url user_image, :original}\" class=\"#{klass}\">"
       else
-        "<img src=\"#{ImageUrlGenerator.instance.url user_image, :original}\"/>"
+        "<img src=\"#{ImageUrlGenerator.instance.url user_image, :original}\">"
       end
 
     else
@@ -51,7 +51,7 @@ private
       end
 
       "<a href=\"#{ImageUrlGenerator.instance.url user_image, :original}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{ImageUrlGenerator.instance.url user_image, sizes_html ? :preview : :thumbnail}\" class=\"#{klass if klass}\"#{sizes_html}/>\
+<img src=\"#{ImageUrlGenerator.instance.url user_image, sizes_html ? :preview : :thumbnail}\" class=\"#{klass if klass}\"#{sizes_html}>\
 <span class=\"marker\">#{user_image.width}x#{user_image.height}</span></a>"
     end
   end

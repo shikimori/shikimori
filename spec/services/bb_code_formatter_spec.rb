@@ -154,21 +154,21 @@ describe BbCodeFormatter do
   describe '#format_comment' do
     subject { processor.format_comment text }
 
-    describe 'cleanup' do
+    describe '#cleanup' do
       describe 'smileys' do
         describe 'multiple with spaces' do
           let(:text) { ":):D:-D" }
-          it { should eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\" />" }
+          it { should eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\">" }
         end
 
         describe 'multiple' do
           let(:text) { ":):D :-D" }
-          it { should eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\" />" }
+          it { should eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\">" }
         end
 
         describe 'different' do
           let(:text) { ':D:D:D:D:tea2:' }
-          it { should eq '<img src="/images/smileys/:D.gif" alt=":D" title=":D" class="smiley" />' }
+          it { should eq '<img src="/images/smileys/:D.gif" alt=":D" title=":D" class="smiley">' }
         end
       end
 
@@ -195,6 +195,11 @@ describe BbCodeFormatter do
       describe '(((' do
         let(:text) { '(((' }
         it { should eq '(' }
+      end
+
+      describe 'bad html' do
+        let(:text) { '[quote][spoiler]test[/quote][/spoiler]' }
+        it { should eq '<blockquote><div class="b-spoiler unprocessed"><label>спойлер</label><div class="content"><div class="before"></div><div class="inner">test</div><div class="after"></div></div></div></blockquote>' }
       end
     end
 
@@ -244,7 +249,7 @@ describe BbCodeFormatter do
 
     describe '[hr]' do
       let(:text) { '[hr]' }
-      it { should eq '<hr />' }
+      it { should eq '<hr>' }
     end
 
     describe '[p]' do
@@ -257,7 +262,7 @@ describe BbCodeFormatter do
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
       it { should eq "<a href=\"#{user_image.image.url :original}\" \
 rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :thumbnail}\" class=\"\"/>\
+<img src=\"#{user_image.image.url :thumbnail}\" class=\"\">\
 <span class=\"marker\">1000x1000</span>\
 </a>" }
     end
@@ -266,13 +271,13 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[img]#{url}[/img]" }
       it { should eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"check-width\"/></a>" }
+<img src=\"#{url}\" class=\"check-width\"></a>" }
     end
 
     describe '[poster]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[poster]#{url}[/poster]" }
-      it { should eq "<img class=\"b-poster\" src=\"#{url}\" />" }
+      it { should eq "<img class=\"b-poster\" src=\"#{url}\">" }
     end
 
     describe '[entries]' do

@@ -3,6 +3,6 @@ describe BbCodes::HrTag do
 
   describe '#format' do
     subject { tag.format '[hr][hr]' }
-    it { should eq '<hr /><hr />' }
+    it { should eq '<hr><hr>' }
   end
 end
