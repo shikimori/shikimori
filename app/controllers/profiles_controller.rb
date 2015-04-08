@@ -6,7 +6,7 @@ class ProfilesController < ShikimoriController
 
   def show
     if user_signed_in? && current_user.id == @resource.id
-      MessagesService.new(@resource).read_messages(kind: MessageType::ProfileCommented)
+      MessagesService.new(@resource.object).read_messages(kind: MessageType::ProfileCommented)
     end
   end
 

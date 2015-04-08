@@ -1,6 +1,7 @@
 @import compass/typography/text/ellipsis
 @import mixins/clear_left
 @import mixins/column
+@import mixins/icons
 @import mixins/link
 
 .p-profiles-show
@@ -102,6 +103,9 @@
         display: none
 
   .about
+    .item-edit
+      +icon_button('\e842')
+
     a
       +link
 

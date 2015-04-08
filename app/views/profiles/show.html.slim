@@ -191,6 +191,9 @@
 
   - if @resource.about_html.present?
     .about.block
+      - if @resource.own_profile?
+        .subheadline-buttons
+          a.item-edit href="#{edit_profile_url @resource, page: 'profile'}"
       .subheadline Обо мне
       = @resource.about_html
 
