@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
   include Antispam
   include Viewable
 
-  MIN_REVIEW_SIZE = 215
+  MIN_REVIEW_SIZE = 230
 
   # assiciations
   belongs_to :user
