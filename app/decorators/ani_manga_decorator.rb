@@ -10,7 +10,7 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :is_favoured, :favoured, :rate, :changes, :roles, :related
   instance_cache :friend_rates, :recent_rates, :chronology
   instance_cache :preview_reviews_thread, :main_reviews_thread
-  instance_cache :rates_scores_stats, :rates_statuses_stats
+  instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 
   # топики
   def topics
@@ -97,11 +97,6 @@ class AniMangaDecorator < DbEntryDecorator
     @comment_reviews ||= comment_reviews_count > 0
   end
 
-  # есть ли хоть какая-то статистика тут?
-  def with_stats?
-    (object.mal_scores || object.ani_db_scores || object.world_art_scores) && (object.mal_scores && object.mal_scores.sum != 0)
-  end
-
   # оценки друзей
   def friend_rates
     if h.user_signed_in?
@@ -118,8 +113,11 @@ class AniMangaDecorator < DbEntryDecorator
     end
   end
 
-  def total_rates
-    rates_statuses_stats.map {|v| v[:value] }.sum
+  # число оценок от пользователей сайта
+  def rates_size
+    Rails.cache.fetch [object, :rates], expires_in: 4.days do
+      rates_statuses_stats.map {|v| v[:value] }.sum
+    end
   end
 
   # оценки пользователей сайта

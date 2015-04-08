@@ -15,8 +15,8 @@
   .block
     .subheadline В списках у людей
     #rates_statuses_stats data-stats="#{resource.rates_statuses_stats.to_json}" data-bar="horizontal"
-    - unless resource.total_rates.zero?
-      .total-rates В #{resource.total_rates > 1 ? 'списках' : 'списке'} у #{resource.total_rates} #{Russian.p resource.total_rates, 'человека', 'человек', 'человек'}
+    - unless resource.rates_size.zero?
+      .total-rates В #{resource.rates_size > 1 ? 'списках' : 'списке'} у #{resource.rates_size} #{Russian.p resource.rates_size, 'человека', 'человек', 'человек'}
 
   - if resource.friend_rates.any?
     .block

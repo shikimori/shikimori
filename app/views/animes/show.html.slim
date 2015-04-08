@@ -56,8 +56,8 @@
               .scores
                 meta itemprop="bestRating" content="10"
                 meta itemprop="ratingValue" content="#{@resource.score}"
-                - if @resource.total_rates > 0
-                  meta itemprop="ratingCount" content="#{@resource.total_rates}"
+                - if @resource.rates_size > 0
+                  meta itemprop="ratingCount" content="#{@resource.rates_size}"
                 = render 'blocks/rate', score: @resource.score
 
           - if @resource.genres.any?
