@@ -25,7 +25,7 @@ describe CommentsController do
     before { sign_in user }
 
     context 'success' do
-      let(:comment_params) {{ commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: true, review: true }}
+      let(:comment_params) {{ commentable_id: topic.id, commentable_type: topic.class.name, body: 'x'*Comment::MIN_REVIEW_SIZE, offtopic: true, review: true }}
       before { post :create, comment: comment_params }
 
       it { expect(response).to have_http_status :success }

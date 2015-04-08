@@ -390,7 +390,7 @@ describe UserRate do
 
     describe '#text_html' do
       subject { build :user_rate, text: "[b]test[/b]\ntest" }
-      its(:text_html) { should eq '<strong>test</strong><br />test' }
+      its(:text_html) { should eq '<strong>test</strong><br>test' }
     end
 
     describe '#status_name' do

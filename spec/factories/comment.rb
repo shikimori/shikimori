@@ -6,7 +6,7 @@ FactoryGirl.define do
     offtopic false
     review false
 
-    after(:build) do |comment|
+    after :build do |comment|
       comment.stub :check_antispam
       comment.stub :check_access
       comment.stub :filter_quotes
@@ -15,6 +15,11 @@ FactoryGirl.define do
       comment.stub :subscribe
       comment.stub :notify_quotes
       comment.stub :release_the_banhammer!
+    end
+
+    trait :review do
+      review true
+      body 'x' * Comment::MIN_REVIEW_SIZE
     end
 
     trait :with_subscribe do

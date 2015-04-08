@@ -120,7 +120,7 @@ describe AnimesController do
   describe '#reviews' do
     let!(:section) { create :section, :anime }
     let(:anime) { create :anime, :with_thread }
-    let!(:comment) { create :comment, commentable: anime.thread, review: true, body: ('x' * Comment::MIN_REVIEW_SIZE) }
+    let!(:comment) { create :comment, :review, commentable: anime.thread }
     before { get :reviews, id: anime.to_param }
 
     it { expect(response).to have_http_status :success }

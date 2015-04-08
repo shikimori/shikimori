@@ -2,9 +2,9 @@ describe CommentsQuery do
   let(:query) { CommentsQuery.new User.name, user.id, review }
   let(:user) { build_stubbed :user }
   let(:review) { false }
-  let!(:comment1) { create :comment, user: user, commentable: user, review: true }
+  let!(:comment1) { create :comment, :review, user: user, commentable: user }
   let!(:comment2) { create :comment, user: user, commentable: user }
-  let!(:comment3) { create :comment, user: user, commentable: user, review: true }
+  let!(:comment3) { create :comment, :review, user: user, commentable: user }
   let!(:comment4) { create :comment, user: user, commentable: user }
   let!(:comment5) { create :comment, user: user, commentable: build_stubbed(:user) }
 

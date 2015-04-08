@@ -146,7 +146,7 @@ describe UserStats do
 
   describe '#comments_reviews_count' do
     let(:topic) { create :topic, user: user }
-    let!(:comment) { create :comment, user: user, commentable: topic, review: true }
+    let!(:comment) { create :comment, :review, user: user, commentable: topic }
     let!(:comment_2) { create :comment, user: user, commentable: topic }
     subject { stats.comments_reviews_count }
 
