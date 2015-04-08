@@ -1,5 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_filter :authenticate_user!, only: [:messages, :unread_messages]
+  before_action :authenticate_user!, only: [:messages, :unread_messages]
+  before_action :authorize_lists_access, only: [:anime_rates, :manga_rates]
 
   respond_to :json
 
@@ -123,10 +124,14 @@ class Api::V1::UsersController < Api::V1::ApiController
 
 private
   def user
-    User.find_by(id: params[:id]) || User.find_by(nickname: params[:id]) || raise(NotFound, params[:id])
+    @user ||= User.find_by(id: params[:id]) || User.find_by(nickname: params[:id]) || raise(NotFound, params[:id])
   end
 
   def decorator
     user.decorate
+  end
+
+  def authorize_lists_access
+    authorize! :access_list, user
   end
 end
