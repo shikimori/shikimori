@@ -33,7 +33,6 @@
           headers: CSRF.headers,
           error: (err, file) ->
             switch err
-
               when 'TooManyFiles'
                 $.flash alert: "Слишком много файлов: максимум #{options.maxfiles} за раз"
 
@@ -73,7 +72,7 @@
             $progress_container.removeClass 'active'
             (-> $progress_bar.width '0%').delay 250
 
-          docOver: ->
+          docOver: (e) ->
             return if $node.data('placeholder_displayed') || !$node.is(':visible')
 
             $node.data placeholder_displayed: true
@@ -94,15 +93,13 @@
               $placeholder.css opacity: 0.75
 
           docLeave: (e) ->
-            #return
             return unless $node.data 'placeholder_displayed'
 
             $placeholder = $node.parent()
-                .find('.drag-placeholder')
-                .css opacity: 0
-            _.delay ->
-              $placeholder.remove()
-            , 350
+              .find('.drag-placeholder')
+              .css(opacity: 0)
+
+            (-> $placeholder.remove()).delay 350
             $node.data placeholder_displayed: false
 
           uploadStarted: (i, file, len) ->

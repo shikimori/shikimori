@@ -28,6 +28,8 @@
  * Мои изменения:
  *  1) в функцию drop (105 строка) добавлен параметр custom_files
  *  2) добавлена корреткное восстановление состояния после возникновения ошибки (301, 344 строки)
+ *  3) в функцию drop (108 строка) добавлен вызов afterAll()
+ *  4) добавлена функция not_files (488 строка), проверяющая эвент на filedrag. эта функция вставлена во многие обработчики
  *
  */
 
@@ -100,11 +102,14 @@
 
     function drop(e, custom_files) {
       if( opts.drop.call(this, e) === false ) return false;
-      if(!custom_files && !e.dataTransfer)
+      if(!custom_files && (!e.dataTransfer || not_files(e))) {
+        afterAll();
         return;
+      }
       files = custom_files || e.dataTransfer.files;
       if (files === null || files === undefined || files.length === 0) {
         opts.error(errors[0]);
+        afterAll();
         return false;
       }
       files_count = files.length;
@@ -480,6 +485,14 @@
       return undefined;
     }
 
+    function not_files(e) {
+      //console.log(e);
+      //if(e.dataTransfer) { console.log(e.dataTransfer.types); }
+
+      return !(e.dataTransfer && e.dataTransfer.types &&
+        (e.dataTransfer.types[0] == 'Files' || e.dataTransfer.types[1] == 'Files'));
+    }
+
     function rename(name) {
       return opts.rename(name);
     }
@@ -493,12 +506,20 @@
     }
 
     function dragEnter(e) {
+      if (not_files(e)) {
+        return;
+      }
+
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.dragEnter.call(this, e);
     }
 
     function dragOver(e) {
+      if (not_files(e)) {
+        return;
+      }
+
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.docOver.call(this, e);
@@ -512,12 +533,20 @@
     }
 
     function docDrop(e) {
+      if (not_files(e)) {
+        return;
+      }
+
       e.preventDefault();
       opts.docLeave.call(this, e);
       return false;
     }
 
     function docEnter(e) {
+      if (not_files(e)) {
+        return;
+      }
+
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.docEnter.call(this, e);
@@ -525,6 +554,10 @@
     }
 
     function docOver(e) {
+      if (not_files(e)) {
+        return;
+      }
+
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.docOver.call(this, e);
