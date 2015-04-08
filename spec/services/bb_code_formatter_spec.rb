@@ -24,6 +24,11 @@ describe BbCodeFormatter do
       let(:text) { "#{long_line}1&lt;br&gt;#{long_line}2&lt;br/&gt;333" }
       it { should eq "[p]#{long_line}1[/p][p]#{long_line}2[/p]333" }
     end
+
+    describe '[*]' do
+      let(:text) { "[list]\n [*]#{long_line}\r\n[/list]" }
+      it { should eq "[list]\n [*]#{long_line}\r\n[/list]" }
+    end
   end
 
   describe '#user_mention' do

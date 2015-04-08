@@ -45,6 +45,7 @@ class BbCodeFormatter
 
     text = cleanup text
 
+    #Nokogiri::HTML::DocumentFragment.parse(text).to_html.html_safe
     text.html_safe
   end
 
@@ -97,9 +98,8 @@ class BbCodeFormatter
       #end
     #end.html_safe
     text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
-      if line.size >= MIN_PARAGRAPH_SIZE
-        #"<div class=\"prgrph\">#{$~[:line]}</div>"
-        "[p]#{line.gsub(/\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
+      if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/
+        "[p]#{line.gsub(/\r\n|\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
       else
         line
       end
