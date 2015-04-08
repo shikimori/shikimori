@@ -55,7 +55,7 @@ class ProfilesController < ShikimoriController
     noindex
     collection = postload_paginate(params[:page], 20) do
       Comment
-        .where(user: @resource)
+        .where(user: @resource.object)
         .where(params[:search].present? ?
           "body ilike #{ActiveRecord::Base.sanitize "%#{SearchHelper.unescape params[:search]}%"}" :
           nil)
@@ -70,7 +70,7 @@ class ProfilesController < ShikimoriController
     noindex
     collection = postload_paginate(params[:page], 20) do
       Comment
-        .where(user: @resource, review: true)
+        .where(user: @resource.object, review: true)
         .order(id: :desc)
     end
     @collection = collection.map {|v| SolitaryCommentDecorator.new v }
@@ -91,7 +91,7 @@ class ProfilesController < ShikimoriController
     noindex
     @collection = postload_paginate(params[:page], 30) do
       AnimeVideoReport
-        .where(user: @resource)
+        .where(user: @resource.object)
         .includes(:user, anime_video: :author)
         .order(id: :desc)
     end
