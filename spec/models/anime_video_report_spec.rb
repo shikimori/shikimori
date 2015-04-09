@@ -195,6 +195,22 @@ describe AnimeVideoReport do
       end
     end
 
+    # Возможно при множественной модерации одной жалобы модераторами, либо если успел вперд sidekiq.
+    context 'Accept already accepted - https://github.com/morr/shikimori/issues/463' do
+      let(:anime) { create(:anime) }
+      let(:anime_video) { create(:anime_video, :uploaded, anime: anime) }
+      let(:user) { create(:user, id: 43311) }
+      let(:approver_1) { create(:user) }
+      let(:approver_2) { create(:user) }
+      let(:report) { create(:anime_video_report, anime_video: anime_video, kind: 'uploaded', state: 'pending', user: user) }
+      before do
+        report.reload.accept! approver_1
+        report.reload.accept! approver_2
+      end
+      it { expect(report).to be_accepted }
+      it { expect(report.approver).to eq approver_1 }
+    end
+
     context 'Fix : https://github.com/morr/shikimori/issues/427' do
       let(:url) { 'http://vkontakte.ru/video_ext.php?oid=154832837&id=161510385&hash=b66257a02ef35fc0&hd=3' }
       let!(:other_video) { create(:anime_video, kind: 'fandub', state: 'working', url: url) }

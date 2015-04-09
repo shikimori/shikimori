@@ -35,7 +35,7 @@ class AnimeVideoReport < ActiveRecord::Base
     end
 
     event :accept do
-      transition pending: :accepted
+      transition [:pending, :accepted] => :accepted
     end
 
     event :accept_only do
