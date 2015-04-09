@@ -21,8 +21,8 @@ class User
     VideoModerators = (Admins + [11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905, 3954, 23616]).uniq
     # 16750 - hichigo shirosaki, 16774 - torch8870, 10026 - Johnny_W, 20455 - Doflein, 10026 - Black_Heart, 12023 - Wooterland,
     # 8237 - AmahiRazu, 17423 - Ryhiy, 11834 - .ptax.log, 21347 - アナスタシア, 4792 - artemeliy, 19638 - milaha007, 10342 - gazig
-    # 20483 - Крипке, 16858 - ✿Yuki Yu✿, 34724 - Edge, 28601 - Ankalimon
-    TrustedVideoUploaders = (Admins + VideoModerators + [16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 20483, 16858, 34724, 28601]).uniq
+    # 20483 - Крипке, 16858 - ✿Yuki Yu✿, 34724 - Edge, 28601 - Ankalimon, 25082 - SkywalterDBZ
+    TrustedVideoUploaders = (Admins + VideoModerators + [16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 20483, 16858, 34724, 28601, 25082]).uniq
 
     # администратор ли пользователь?
     def admin?
