@@ -20,7 +20,10 @@
 
         # при разворачивании спойлеров выше, запускаем ресайз
         # хак для корректной работы галерей аниме внутри спойлеров
-        $root.on 'spoiler:opened', handle_resize
+        unless $root.data('spoiler_binded')
+          $root
+            .data(spoiler_binded: true)
+            .on('spoiler:opened', => $root.align_posters())
 
         # разбиваем по группам
         $root.children().toArray().inGroupsOf(columns).each (group) ->
