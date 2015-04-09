@@ -1,9 +1,9 @@
 class AnimeOnline::AnimeVideosController < AnimesController
-  load_and_authorize_resource only: [:new, :create, :edit, :update]
+  load_and_authorize_resource only: [:new, :create, :edit, :update, :destroy]
 
   before_action :actualize_resource, only: [:new, :create, :edit, :update]
   before_action :authenticate_user!, only: [:viewed]
-  before_action :add_breadcrumb, except: [:index]
+  before_action :add_breadcrumb, except: [:index, :destroy]
 
   before_action { @anime_online_ad = true }
   after_action :save_preferences, only: :index
@@ -48,6 +48,11 @@ class AnimeOnline::AnimeVideosController < AnimesController
       page_title 'Изменение видео'
       render :edit
     end
+  end
+
+  def destroy
+    @resource.destroy
+    redirect_to play_video_online_index_url(@anime.id, @resource.episode), notice: 'Видео удалено'
   end
 
   def help

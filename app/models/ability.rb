@@ -156,6 +156,9 @@ class Ability
     can [:edit, :update], AnimeVideo do |anime_video|
       !@user.banned? && (anime_video.uploaded? || anime_video.working?)
     end
+    can [:destroy], AnimeVideo do |anime_video|
+      !@user.banned? && (anime_video.uploader == @user && anime_video.created_at > 1.week.ago)
+    end
   end
 
   def moderator_ability

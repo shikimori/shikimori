@@ -169,8 +169,10 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
   describe 'extract_url' do
     before { post :extract_url, anime_id: anime.id, url: 'http://vk.com/foo' }
-    it { expect(response.content_type).to eq 'application/json' }
-    it { expect(response).to have_http_status :success }
+    it do
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
+    end
   end
 
   describe '#help' do
@@ -204,13 +206,28 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
     context 'with user_rate' do
       let!(:user_rate) { create :user_rate, target: anime, user: user, episodes: 1 }
-      it { expect(assigns(:user_rate).episodes).to eq video.episode }
-      it { expect(response).to have_http_status :success }
+      it do
+        expect(assigns(:user_rate).episodes).to eq video.episode
+        expect(response).to have_http_status :success
+      end
     end
 
     context 'without user_rate' do
-      it { expect(assigns(:user_rate).episodes).to eq video.episode }
-      it { expect(response).to have_http_status :success }
+      it do
+        expect(assigns(:user_rate).episodes).to eq video.episode
+        expect(response).to have_http_status :success
+      end
+    end
+  end
+
+  describe '#destroy',:focus do
+    include_context :authenticated, :admin
+    let(:video) { create :anime_video, episode: 10, anime: anime }
+    before { delete :destroy, anime_id: anime.to_param, id: video.id }
+
+    it do
+      expect(resource).to be_destroyed
+      expect(response).to redirect_to play_video_online_index_url(anime.id, video.episode)
     end
   end
 end

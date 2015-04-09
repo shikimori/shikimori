@@ -26,11 +26,15 @@
     +clearfix
     padding-top: 10px
 
-    .cc-navigation, .cc-optional_controls
+    .cc-navigation
       +clear_left
-
       &>.c-control
         +column(3)
+
+    .cc-optional_controls
+      +clear_left
+      &>.c-control
+        +column(4)
 
     .cc-anime_video_report-new
       +block
@@ -126,6 +130,10 @@
         +icon_button("\e817")
       &.watched, &.watched .icon
         color: $green !important
+
+    .delete
+      .icon
+        +icon_button("\e815")
 
     .report
       //color: $red !important

@@ -480,10 +480,28 @@ describe AnimeVideo do
       it { should_not be_able_to :new, broken_video }
       it { should_not be_able_to :create, broken_video }
 
+      it { should_not be_able_to :destroy, uploaded_video }
+
       it { should be_able_to :edit, uploaded_video }
       it { should be_able_to :update, uploaded_video }
       it { should be_able_to :edit, working_video }
       it { should be_able_to :update, working_video }
+    end
+
+    describe 'video uploader', :focus do
+      let(:user) { create :user, :user }
+      let(:video) { build_stubbed :anime_video, created_at: created_at, state: 'uploaded' }
+      let!(:upload_report) { create :anime_video_report, anime_video: video, user: user, kind: 'uploaded' }
+
+      context 'video created long ago' do
+        let(:created_at) { 1.week.ago - 1.day }
+        it { should_not be_able_to :destroy, video }
+      end
+
+      context 'video created not long ago' do
+        let(:created_at) { 1.week.ago + 1.day }
+        it { should be_able_to :destroy, video }
+      end
     end
   end
 end
