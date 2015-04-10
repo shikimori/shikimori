@@ -90,7 +90,7 @@ ru:
         is_comments_auto_collapsed: Сворачивать длинные комментарии
         is_comments_auto_loaded: Автоподгрузка новых комментариев
 
-        profile_privacy: Могут видеть мой список
+        list_privacy: Могут видеть мой список
         russian_genres: Русские названия жанров
         russian_names: Русские названия аниме и манги
         mylist_in_catalog: Подсвечивать находящееся в моём списке в каталоге аниме
@@ -196,7 +196,7 @@ ru:
       anime: Аниме
       character: Персонажи
 
-    profile_privacy:
+    list_privacy:
       public: Все посетители сайта
       users: Зарегистрированные пользователи сайта
       friends: Только мои друзья

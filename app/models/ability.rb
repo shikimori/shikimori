@@ -25,7 +25,7 @@ class Ability
 
   def guest_ability
     can :access_list, User do |user|
-      user.preferences.profile_privacy_public?
+      user.preferences.list_privacy_public?
     end
     can :see_contest, Contest
     can :see_club, Group
@@ -53,9 +53,9 @@ class Ability
     end
 
     can :access_list, User do |user|
-      if user == @user || user.preferences.profile_privacy_public? || user.preferences.profile_privacy_users?
+      if user == @user || user.preferences.list_privacy_public? || user.preferences.list_privacy_users?
         true
-      elsif user.preferences.profile_privacy_friends? && user.friended?(@user)
+      elsif user.preferences.list_privacy_friends? && user.friended?(@user)
         true
       else
         false

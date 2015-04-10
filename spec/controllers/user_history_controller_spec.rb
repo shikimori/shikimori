@@ -17,7 +17,7 @@ describe UserHistoryController do
       end
 
       context 'has no access to list' do
-        let(:user) { create :user, preferences: create(:user_preferences, profile_privacy: :owner) }
+        let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
         before { sign_out user }
         it { expect{make_request}.to raise_error CanCan::AccessDenied }
       end

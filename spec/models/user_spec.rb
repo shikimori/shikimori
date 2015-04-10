@@ -271,15 +271,15 @@ describe User do
   end
 
   describe 'permissions' do
-    let(:preferences) { build_stubbed(:user_preferences, profile_privacy: profile_privacy) }
+    let(:preferences) { build_stubbed(:user_preferences, list_privacy: list_privacy) }
     let(:profile) { build_stubbed :user, :user, preferences: preferences }
     let(:user) { build_stubbed :user, :user }
     let(:friend_link) { build_stubbed :friend_link, dst: user }
     subject { Ability.new user }
 
     describe 'access_list' do
-      context 'public profile_privacy' do
-        let(:profile_privacy) { :public }
+      context 'public list_privacy' do
+        let(:list_privacy) { :public }
 
         context 'owner' do
           let(:user) { profile }
@@ -301,8 +301,8 @@ describe User do
         end
       end
 
-      context 'users profile_privacy' do
-        let(:profile_privacy) { :users }
+      context 'users list_privacy' do
+        let(:list_privacy) { :users }
 
         context 'owner' do
           let(:user) { profile }
@@ -324,8 +324,8 @@ describe User do
         end
       end
 
-      context 'friends profile_privacy' do
-        let(:profile_privacy) { :friends }
+      context 'friends list_privacy' do
+        let(:list_privacy) { :friends }
 
         context 'owner' do
           let(:user) { profile }
@@ -347,8 +347,8 @@ describe User do
         end
       end
 
-      context 'owner profile_privacy' do
-        let(:profile_privacy) { :owner }
+      context 'owner list_privacy' do
+        let(:list_privacy) { :owner }
 
         context 'owner' do
           let(:user) { profile }

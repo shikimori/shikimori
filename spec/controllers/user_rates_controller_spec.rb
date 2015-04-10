@@ -11,7 +11,7 @@ describe UserRatesController do
     end
 
     context 'has no access to list' do
-      let(:user) { create :user, preferences: create(:user_preferences, profile_privacy: :owner) }
+      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
       before { sign_out user }
       it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
@@ -78,7 +78,7 @@ describe UserRatesController do
     end
 
     context 'has no access' do
-      let(:user) { create :user, preferences: create(:user_preferences, profile_privacy: :owner) }
+      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
       before { sign_out user }
       it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
@@ -90,7 +90,7 @@ describe UserRatesController do
     let!(:anime_2) { create :anime, name: 'Zombie-Loan Specials' }
 
     context 'has no access' do
-      let(:user) { create :user, preferences: create(:user_preferences, profile_privacy: :owner) }
+      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
       before { sign_out user }
       it { expect{post :import, profile_id: user.to_param}.to raise_error CanCan::AccessDenied }
     end

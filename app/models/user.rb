@@ -375,9 +375,9 @@ end
 
     #if h.user_signed_in? && h.current_user.id == id
       #true
-    #elsif preferences.profile_privacy_owner? || (!h.user_signed_in? && preferences.profile_privacy_users?)
+    #elsif preferences.list_privacy_owner? || (!h.user_signed_in? && preferences.list_privacy_users?)
       #false
-    #elsif preferences.profile_privacy_friends? && !mutual_friended?
+    #elsif preferences.list_privacy_friends? && !mutual_friended?
       #false
     #else
       #true

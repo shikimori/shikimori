@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410183323) do
+ActiveRecord::Schema.define(version: 20150410183721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -932,7 +932,7 @@ ActiveRecord::Schema.define(version: 20150410183323) do
     t.boolean "show_smileys",                           default: true
     t.boolean "show_social_buttons",                    default: true
     t.boolean "show_hentai_images",                     default: false
-    t.string  "profile_privacy",            limit: 255, default: "public"
+    t.string  "list_privacy",               limit: 255, default: "public"
     t.boolean "volumes_in_manga",                       default: false,    null: false
     t.boolean "is_comments_auto_collapsed",             default: true
     t.boolean "is_comments_auto_loaded",                default: true
