@@ -66,25 +66,25 @@ describe SpentTimeDuration do
 
       context 'no rewatches' do
         let(:rewatches) { 0 }
-        it { is_expected.to eq 160 }
+        it { is_expected.to eq Manga::VOLUME_DURATION * read_volumes }
       end
 
       context '2 rewatches' do
         let(:rewatches) { 2 }
 
         context 'chapters rewatches > volumes rewatches' do
-          it { is_expected.to eq 70 * Manga::CHAPTER_DURATION * 2 + 160 }
+          it { is_expected.to eq 70 * Manga::CHAPTER_DURATION * 2 + Manga::VOLUME_DURATION * read_volumes }
         end
 
         context 'chapters rewatches < volumes rewatches' do
         let(:entry_volumes) { 8 }
-          it { is_expected.to eq 8 * Manga::VOLUME_DURATION * 2 + 160 }
+          it { is_expected.to eq 8 * Manga::VOLUME_DURATION * 2 + Manga::VOLUME_DURATION * read_volumes }
         end
       end
 
       context 'MAXIMUM_REWATCHES rewatches' do
         let(:rewatches) { SpentTimeDuration::MAXIMUM_REWATCHES }
-        it { is_expected.to eq 160 }
+        it { is_expected.to eq Manga::VOLUME_DURATION * read_volumes }
       end
     end
   end
