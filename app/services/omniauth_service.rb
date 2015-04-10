@@ -51,6 +51,7 @@ private
   def fill_common_fields
     @user.nickname = @omni.info.nickname if @user.nickname.blank? && @omni.info.nickname.present?
     @user.nickname = @omni.info.name if @user.nickname.blank? && @omni.info.name.present?
+    @user.name = @omni.info.name if @user.name.blank? && @omni.info.name.present?
     @user.email = @omni.info.email if @user.email.blank? && @omni.info.email.present?
     @user.about = @omni.info.description if @user.about.blank?
     @user.website = @omni.info.urls.values.select(&:present?).first if @user.website.blank? && @omni.info.urls.kind_of?(Hash)
