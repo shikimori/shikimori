@@ -176,6 +176,9 @@ class Ability
 
   def video_moderator_ability
     can :manage, AnimeVideoReport
+    can [:new, :create], AnimeVideo do |anime_video|
+      !@user.banned? && (anime_video.uploaded? || anime_video.working?)
+    end
   end
 
   def admin_ability
