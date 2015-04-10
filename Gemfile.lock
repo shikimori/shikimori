@@ -731,7 +731,6 @@ DEPENDENCIES
   rails-assets-eventie!
   rails-assets-jquery!
   rails-assets-jquery-bridget!
-  rails-assets-outlayer!
   rails-assets-packery!
   railties
   rake
