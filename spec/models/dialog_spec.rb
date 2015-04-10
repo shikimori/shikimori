@@ -55,8 +55,8 @@ describe Dialog do
 
     before { dialog.destroy }
 
-    it { expect(message_from.reload.src_del).to be_truthy }
-    it { expect(message_to.reload.dst_del).to be_truthy }
+    it { expect(message_from.reload.is_deleted_by_from).to be_truthy }
+    it { expect(message_to.reload.is_deleted_by_to).to be_truthy }
   end
 
   describe '#new_message' do

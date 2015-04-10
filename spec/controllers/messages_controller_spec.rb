@@ -118,7 +118,7 @@ describe MessagesController do
       it do
         expect(response).to have_http_status :success
         expect(response.content_type).to eq 'application/json'
-        expect(resource.src_del).to be_truthy
+        expect(resource.is_deleted_by_from).to be_truthy
       end
     end
 

@@ -95,9 +95,9 @@ class Message < ActiveRecord::Base
 private
   def delete_by! user
     if from == user
-      update! src_del: true
+      update! is_deleted_by_from: true
     elsif to == user
-      update! dst_del: true, read: true
+      update! is_deleted_by_to: true, read: true
     else
       raise ArgumentError, "unknown deleter: #{user}"
     end

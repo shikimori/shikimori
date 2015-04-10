@@ -15,24 +15,24 @@ describe DialogQuery do
 
     describe 'message_to_1' do
       context 'deleted by receiver' do
-        let!(:message_to_1) { create :message, from: target_user, to: user, dst_del: true, created_at: 2.hours.ago }
+        let!(:message_to_1) { create :message, from: target_user, to: user, is_deleted_by_to: true, created_at: 2.hours.ago }
         it { should eq [message_from_1] }
       end
 
       context 'deleted by sender' do
-        let!(:message_to_1) { create :message, from: target_user, to: user, src_del: true, created_at: 2.hours.ago }
+        let!(:message_to_1) { create :message, from: target_user, to: user, is_deleted_by_from: true, created_at: 2.hours.ago }
         it { should eq [message_to_1, message_from_1] }
       end
     end
 
     describe 'message_from_1' do
       context 'deleted by receiver' do
-        let!(:message_from_1) { create :message, from: user, to: target_user, dst_del: true, created_at: 2.hours.ago, id: id+1 }
+        let!(:message_from_1) { create :message, from: user, to: target_user, is_deleted_by_to: true, created_at: 2.hours.ago, id: id+1 }
         it { should eq [message_to_1, message_from_1] }
       end
 
       context 'deleted by sender' do
-        let!(:message_from_1) { create :message, from: user, to: target_user, src_del: true, created_at: 2.hours.ago, id: id+1 }
+        let!(:message_from_1) { create :message, from: user, to: target_user, is_deleted_by_from: true, created_at: 2.hours.ago, id: id+1 }
         it { should eq [message_to_1] }
       end
     end

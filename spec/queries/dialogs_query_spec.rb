@@ -30,8 +30,8 @@ describe DialogsQuery do
     end
 
     context 'deleted messages' do
-      let!(:message_to_1) { create :message, from: target_user, to: user, dst_del: true }
-      let!(:message_from_1) { create :message, from: user, to: target_user, src_del: true }
+      let!(:message_to_1) { create :message, from: target_user, to: user, is_deleted_by_to: true }
+      let!(:message_from_1) { create :message, from: user, to: target_user, is_deleted_by_from: true }
       it { should have(1).item }
     end
   end

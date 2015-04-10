@@ -57,9 +57,9 @@ private
 
   def del_field
     if @messages_type == :sent
-      :src_del
+      :is_deleted_by_from
     else
-      :dst_del
+      :is_deleted_by_to
     end
   end
 end

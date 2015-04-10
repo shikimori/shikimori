@@ -80,7 +80,7 @@ describe FayeService do
         let(:trackable) { create :message, :private, to: user }
 
         it { should be_persisted }
-        its(:dst_del) { should be_truthy }
+        its(:is_deleted_by_to) { should be_truthy }
       end
 
       context 'notification' do

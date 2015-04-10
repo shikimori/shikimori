@@ -324,8 +324,8 @@ class MessagesController < ProfilesController
       #return
     #end
     #message = messages.first
-    #message.update_attributes(src_del: true) if message.from_id == current_user.id
-    #message.update_attributes(dst_del: true, read: true) if message.to_id == current_user.id
+    #message.update_attributes(is_deleted_by_from: true) if message.from_id == current_user.id
+    #message.update_attributes(is_deleted_by_to: true, read: true) if message.to_id == current_user.id
 
     #render json: { notice: 'Сообщение удалено' }
   #end

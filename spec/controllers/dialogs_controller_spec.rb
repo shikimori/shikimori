@@ -27,6 +27,6 @@ describe DialogsController do
 
     it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
-    it { expect(message.reload.src_del).to be_truthy }
+    it { expect(message.reload.is_deleted_by_from).to be_truthy }
   end
 end
