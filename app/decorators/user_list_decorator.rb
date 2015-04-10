@@ -115,9 +115,9 @@ private
     end
     stats[:days] = (data.sum do |v|
       if anime?
-        (v.episodes + v.rewatches * v.target.episodes) * v.target.duration
+        SpentTimeDuration.new(v).anime_hours v.target.episodes, v.target.duration
       else
-        (v.chapters + v.rewatches * v.target.chapters) * v.target.duration
+        SpentTimeDuration.new(v).manga_hours v.target.chapters, v.target.volumes
       end
     end.to_f / 60 / 24).round(2)
 

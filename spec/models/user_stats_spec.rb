@@ -26,7 +26,7 @@ describe UserStats do
     context 'with manga' do
       let!(:anime_rate) { create :user_rate, :completed, user: user, target: anime }
       let!(:manga_rate) { create :user_rate, :completed, user: user, target: manga }
-      it { should eq SpentTime.new(1.3) }
+      it { should eq SpentTime.new(1.0) }
     end
   end
 

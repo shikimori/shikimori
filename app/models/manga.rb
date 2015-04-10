@@ -2,7 +2,9 @@
 class Manga < DbEntry
   include AniManga
   EXCLUDED_ONGOINGS = [-1]
-  DURATION = 8
+
+  CHAPTER_DURATION = 8
+  VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
 
   serialize :english
   serialize :japanese

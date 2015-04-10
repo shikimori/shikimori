@@ -16,10 +16,9 @@ class UserStatisticsQuery
     @anime_rates = @user
       .anime_rates
       .joins('join animes on animes.id = target_id')
-      .select('user_rates.*, animes.rating, animes.kind, animes.duration, animes.episodes as entry_episodes, animes.episodes_aired as entry_episodes_aired')
-      .each do |v|
-        v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
-      end
+      .select('user_rates.*, animes.rating, animes.kind, animes.duration,
+        animes.episodes as entry_episodes, animes.episodes_aired as entry_episodes_aired')
+      .map { |anime| ExtendedUserRate.new anime }
 
     @anime_valuable_rates = @anime_rates.select {|v| v.completed? || v.watching? || v.rewatching? }
     @anime_history = @user
@@ -34,10 +33,11 @@ class UserStatisticsQuery
     @manga_rates = @user
       .manga_rates
       .joins('join mangas on mangas.id = target_id')
-      .select("user_rates.*, mangas.rating, #{Manga::DURATION} as duration, mangas.kind, mangas.chapters as entry_episodes, 0 as entry_episodes_aired")
-      .each do |v|
-        v[:rating] = I18n.t("RatingShort.#{v[:rating]}") if v[:rating] != 'None'
-      end
+      .select("user_rates.*, mangas.rating, mangas.kind, #{Manga::CHAPTER_DURATION} as duration,
+        mangas.chapters as entry_episodes, 0 as entry_episodes_aired,
+        mangas.chapters as entry_chapters, mangas.volumes as entry_volumes")
+      .map { |manga| ExtendedUserRate.new manga }
+
     @manga_valuable_rates = @manga_rates.select {|v| v.completed? || v.watching? || v.rewatching? }
     @manga_history = @user
       .history
