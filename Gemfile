@@ -86,7 +86,7 @@ gem 'responders' # для json responder'а, который нужен для р
 gem 'zaru'
 
 gem 'postmark-rails' # email delivery service
-gem 'apipie-rails'
+gem 'apipie-rails', '0.3.3' # 0.3.4 сломан
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 

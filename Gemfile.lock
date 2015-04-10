@@ -154,7 +154,7 @@ GEM
     addressable (2.3.8)
     airbrussh (0.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    apipie-rails (0.3.4)
+    apipie-rails (0.3.3)
       json
     arel (6.0.0)
     attr_extras (4.4.0)
@@ -657,7 +657,7 @@ DEPENDENCIES
   acts_as_voteable!
   airbrussh
   amatch!
-  apipie-rails
+  apipie-rails (= 0.3.3)
   attr_extras
   attribute-defaults
   awesome_print
