@@ -157,7 +157,7 @@ GEM
     apipie-rails (0.3.4)
       json
     arel (6.0.0)
-    attr_extras (4.3.0)
+    attr_extras (4.4.0)
     attribute-defaults (0.7.0)
       activerecord (>= 4.0.0, < 5.0.0)
     awesome_print (1.6.1)
@@ -377,7 +377,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    newrelic_rpm (3.11.1.284)
+    newrelic_rpm (3.11.2.286)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     non-stupid-digest-assets (1.0.4)
@@ -464,7 +464,7 @@ GEM
       sprockets-rails
     rails-assets-classie (1.0.1)
     rails-assets-doc-ready (1.0.4)
-      rails-assets-eventie (~> 1.0.3)
+      rails-assets-eventie (>= 1, < 2)
     rails-assets-eventEmitter (4.2.11)
     rails-assets-eventie (1.0.6)
     rails-assets-get-size (1.2.2)
