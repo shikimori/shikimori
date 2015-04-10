@@ -25,8 +25,8 @@
             - if message.read
               span.item-delete title="Удалить"
             - else
-              span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{accept_group_invite_url message.subject}" title="Принять"
-              span.item-request-reject data-remote="true" data-method="post" data-type="json" action="#{reject_group_invite_url message.subject}" title="Отклонить"
+              span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{accept_group_invite_url message.linked}" title="Принять"
+              span.item-request-reject data-remote="true" data-method="post" data-type="json" action="#{reject_group_invite_url message.linked}" title="Отклонить"
               span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
 
           - else

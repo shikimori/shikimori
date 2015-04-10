@@ -29,7 +29,7 @@ private
       kind: MessageType::GroupRequest,
       from: src,
       to: dst,
-      linked: group,
+      linked: self,
       body: "Приглашение на вступление в клуб [group]#{group_id}[/group]."
     )
 

@@ -52,7 +52,7 @@ describe GroupInvite do
       message = Message.last
       expect(message.from_id).to eq src.id
       expect(message.to_id).to eq dst.id
-      expect(message.subject).to eq invite.id
+      expect(message.linked).to eq invite
       expect(message.kind).to eq MessageType::GroupRequest
     end
 

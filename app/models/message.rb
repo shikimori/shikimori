@@ -65,10 +65,6 @@ class Message < ActiveRecord::Base
     self.body = QuoteExtractor.filter(body, 2) if body
   end
 
-  def subject
-    self.kind == MessageType::GroupRequest ? self[:subject].to_i : self[:subject]
-  end
-
   def html_body
     BbCodeFormatter.instance.format_comment body
   end

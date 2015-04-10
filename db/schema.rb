@@ -978,7 +978,6 @@ ActiveRecord::Schema.define(version: 20150410185348) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "name",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nickname",               limit: 255
@@ -1000,6 +999,7 @@ ActiveRecord::Schema.define(version: 20150410185348) do
     t.datetime "reset_password_sent_at"
     t.string   "remember_token",         limit: 255
     t.string   "api_access_token"
+    t.string   "name",                   limit: 255
   end
 
   add_index "users", ["api_access_token"], name: "index_users_on_api_access_token", unique: true, using: :btree
