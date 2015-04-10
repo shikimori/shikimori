@@ -23,7 +23,7 @@ class UserStats
 
   def spent_time
     anime_time = @stats.anime_rates.sum {|v| SpentTimeDuration.new(v).anime_hours v.entry_episodes, v.duration }
-    manga_time = @stats.manga_rates.sum {|v| SpentTimeDuration.new(v).anime_hours v.entry_chapters, v.entry_volumes }
+    manga_time = @stats.manga_rates.sum {|v| SpentTimeDuration.new(v).manga_hours v.entry_chapters, v.entry_volumes }
 
     SpentTime.new((anime_time + manga_time) / 60.0 / 24)
   end
