@@ -34,9 +34,10 @@ class ReadMangaImporter
 
   # выборка из базы того, куда импортироватьс
   def prepare_db_data
-    all_mangas = Manga.select([:id, :name, :english, :japanese, :synonyms, :russian, :description, :description_html, :read_manga_scores, :read_manga_id, :source, :kind])
-                      .order(:kind)
-                      .all
+    all_mangas = Manga
+      .select([:id, :name, :english, :japanese, :synonyms, :russian, :description, :read_manga_scores, :read_manga_id, :source, :kind])
+      .order(:kind)
+      .all
 
     all_mangas.map do |m|
       {

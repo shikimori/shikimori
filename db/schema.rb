@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410182517) do
+ActiveRecord::Schema.define(version: 20150410182650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 20150410182517) do
     t.datetime "next_episode_at"
     t.string   "tags",               limit: 255
     t.string   "source",             limit: 255
-    t.text     "description_html"
     t.string   "torrents_name",      limit: 255
     t.float    "site_score",                     default: 0.0,   null: false
   end
@@ -605,7 +604,6 @@ ActiveRecord::Schema.define(version: 20150410182517) do
     t.string   "tags",               limit: 255
     t.string   "source",             limit: 255
     t.string   "read_manga_id",      limit: 255
-    t.text     "description_html"
     t.decimal  "read_manga_scores",              precision: 8, scale: 2, default: 0.0
     t.float    "site_score",                                             default: 0.0,   null: false
     t.datetime "parsed_at"
