@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410182650) do
+ActiveRecord::Schema.define(version: 20150410183323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -918,16 +918,13 @@ ActiveRecord::Schema.define(version: 20150410182650) do
     t.boolean "anime_in_profile",                       default: true
     t.boolean "manga_in_profile",                       default: true
     t.string  "default_sort",               limit: 255, default: "name",   null: false
-    t.boolean "clubs_in_profile",                       default: true
     t.boolean "comments_in_profile",                    default: true
     t.boolean "postload_in_catalog",                    default: true
     t.date    "statistics_start_on"
-    t.boolean "manga_first",                            default: false
     t.boolean "russian_names",                          default: false
     t.boolean "about_on_top",                           default: false
     t.boolean "russian_genres",                         default: true,     null: false
     t.boolean "mylist_in_catalog",                      default: false,    null: false
-    t.boolean "statistics_in_profile",                  default: true
     t.boolean "menu_contest",                           default: true,     null: false
     t.string  "page_background",            limit: 255
     t.boolean "page_border",                            default: false
