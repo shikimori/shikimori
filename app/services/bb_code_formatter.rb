@@ -27,7 +27,7 @@ class BbCodeFormatter
       format_comment paragraphs(text)
 
     elsif entry.respond_to? :characters
-      format_comment character_names(paragraphs(text), entry)
+      format_comment paragraphs(character_names(text, entry)) # очень важно сначала персонажей, а только потом параграфы
 
     else
       #format_comment text
