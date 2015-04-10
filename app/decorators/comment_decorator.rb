@@ -8,7 +8,9 @@ class CommentDecorator < Draper::Decorator
 
   def html_body
     if comment.persisted?
-      Rails.cache.fetch([:body, h.russian_names_key, comment]) { comment.html_body }
+      Rails.cache.fetch([:body, h.russian_names_key, comment]) do
+        comment.html_body
+      end
     else
       comment.html_body
     end
