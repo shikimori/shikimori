@@ -220,7 +220,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     end
   end
 
-  describe '#destroy',:focus do
+  describe '#destroy' do
     include_context :authenticated, :admin
     let(:video) { create :anime_video, episode: 10, anime: anime }
     before { delete :destroy, anime_id: anime.to_param, id: video.id }

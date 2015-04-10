@@ -488,7 +488,7 @@ describe AnimeVideo do
       it { should be_able_to :update, working_video }
     end
 
-    describe 'video uploader', :focus do
+    describe 'video uploader' do
       let(:user) { create :user, :user }
       let(:video) { build_stubbed :anime_video, created_at: created_at, state: 'uploaded' }
       let!(:upload_report) { create :anime_video_report, anime_video: video, user: user, kind: 'uploaded' }
