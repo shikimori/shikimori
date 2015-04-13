@@ -177,7 +177,10 @@ class Comment < ActiveRecord::Base
 
   def html_body
     fixed_body = if commentable_id == 82468 && commentable_type == Entry.name
-      body.gsub('[poster=', '[image=').gsub('[poster]', '[img]').gsub('[/poster]', '[/img]')
+      body
+        .gsub('[poster=', '[image=')
+        .gsub('[poster]', '[img]')
+        .gsub(/\[img.*?\]/, '[img]')
     else
       body
     end
@@ -187,7 +190,7 @@ class Comment < ActiveRecord::Base
 
   # идентификатор для рсс ленты
   def guid
-    "comment-#{self.id}"
+    "comment-#{id}"
   end
 
   # оффтопик ли это?

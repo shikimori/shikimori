@@ -108,12 +108,6 @@ describe Comment do
     it { expect(user.subscribed?(comment.commentable)).to be_truthy }
   end
 
-  it 'should set html_body' do
-    comment = create :comment
-    comment.body = '[b]bold[/b]'
-    expect(comment.html_body).to eq '<strong>bold</strong>'
-  end
-
   describe 'notification when quoted' do
     let(:user) { create :user }
     let(:user2) { create :user }
@@ -246,5 +240,29 @@ describe Comment do
     its(:valid?) { should be_falsy }
 
     it { expect(subject.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
+  end
+
+  describe '#instance_methods', :focus do
+    describe '#html_body' do
+      let(:comment) { build :comment, body: body }
+      let(:body) { '[b]bold[/b]' }
+
+      it { expect(comment.html_body).to eq '<strong>bold</strong>' }
+
+      describe 'offtopic comment' do
+        let(:comment) { build :comment, body: body, commentable_id: 82468, commentable_type: Entry.name }
+
+        describe 'poster' do
+          let(:body) { '[poster]http:///test.com[/poster]' }
+          it { expect(comment.html_body).to_not include 'b-poster' }
+        end
+
+        describe 'img' do
+          let(:body) { '[img w=747 h=1047]http:///test.com[/img]' }
+          it { expect(comment.html_body).to_not include 'width=' }
+          it { expect(comment.html_body).to_not include 'height=' }
+        end
+      end
+    end
   end
 end
