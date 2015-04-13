@@ -165,7 +165,9 @@ class AnimeSpiritParser
       .gsub(/^#{LEFT_SEPARATOR}|#{RIGHT_SEPARATOR}$/, '')
       .strip
 
-    author == '' ? nil : author
+    return nil if author.blank?
+    return nil if author.downcase.start_with?('филлер')
+    author
   end
 
 private

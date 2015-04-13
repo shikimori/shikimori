@@ -30,6 +30,14 @@ describe AnimeSpiritParser, vcr: { cassette_name: 'anime_spirit_parser' } do
       end
     end
 
+    context 'Fix :author => "Филлер!" or "филлер" - https://github.com/morr/shikimori/issues/437' do
+      let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/4320-naruto-uragannye-xroniki-naruto-shippuuden.html' }
+      context 'video' do
+        subject { entry[:videos].last }
+        its(:author) { is_expected.to eq 'NIKITOS' }
+      end
+    end
+
     context 'binbougami' do
       let(:link) { 'http://www.animespirit.ru/anime/rs/series-rus/7837-nishhebog-zhe-binbougami-ga.html' }
 
