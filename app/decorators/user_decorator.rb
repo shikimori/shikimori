@@ -66,6 +66,7 @@ class UserDecorator < BaseDecorator
   end
 
 private
+
   def years
     DateTime.now.year - birth_on.year if birth_on
   end
