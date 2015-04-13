@@ -306,6 +306,61 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       it { should eq 'malware.domain' }
     end
 
+    describe '[b]' do
+      let(:text) { '[u]test[/u]' }
+      it { should eq '<span style="text-decoration: underline;">test</span>' }
+    end
+
+    describe '[i]' do
+      let(:text) { '[u]test[/u]' }
+      it { should eq '<span style="text-decoration: underline;">test</span>' }
+    end
+
+    describe '[u]' do
+      let(:text) { '[u]test[/u]' }
+      it { should eq '<span style="text-decoration: underline;">test</span>' }
+    end
+
+    describe '[s]' do
+      let(:text) { '[s]test[/s]' }
+      it { should eq '<del>test</del>' }
+    end
+
+    describe '[size]' do
+      let(:text) { '[size=13]test[/size]' }
+      it { should eq '<span style="font-size: 13px;">test</span>' }
+    end
+
+    describe '[center]' do
+      let(:text) { '[center]test[/center]' }
+      it { should eq '<center>test</center>' }
+    end
+
+    describe '[right]' do
+      let(:text) { '[right]test[/right]' }
+      it { should eq '<div class="right-text">test</div>' }
+    end
+
+    describe '[solid]' do
+      let(:text) { '[solid]test[/solid]' }
+      it { should eq '<div class="solid">test</div>' }
+    end
+
+    describe '[color]' do
+      let(:text) { '[color=red]test[/color]' }
+      it { should eq '<span style="color: red;">test</span>' }
+    end
+
+    describe '[url]' do
+      let(:text) { '[url]http://test.com[/url]' }
+      it { should eq '<a href="http://test.com">test.com</a>' }
+    end
+
+    describe '[ul]' do
+      let(:text) { '[list][*]первая строка[*]вторая строка[/list]' }
+      it { should eq '<ul><li>первая строка</li><li>вторая строка</li></ul>' }
+    end
+
     describe '[quote]' do
       context 'simple' do
         let(:text) { '[quote]test[/quote]zz' }
@@ -319,12 +374,12 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
 
       context 'link inside with space' do
         let(:text) { '[quote] http://test.ru/ [/quote]\ntest' }
-        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a> </blockquote>\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru</a> </blockquote>\ntest' }
       end
 
       context 'link inside w/o space' do
         let(:text) { '[quote] http://test.ru/[/quote]\ntest' }
-        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a></blockquote>\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru</a></blockquote>\ntest' }
       end
     end
   end

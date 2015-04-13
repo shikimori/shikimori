@@ -2,8 +2,8 @@ class BbCodes::PTag
   include Singleton
 
   def format text
-    text
-      .gsub(/\[p\]/mi, '<div class="prgrph">')
-      .gsub(/\[\/p\]/mi, '</div>')
+    text.gsub(
+      /\[p\] ([\s\S]*?) \[\/p\]/mix,
+      '<div class="prgrph">\1</div>')
   end
 end

@@ -165,7 +165,6 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    bb-ruby (1.0.4)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -464,7 +463,7 @@ GEM
       sprockets-rails
     rails-assets-classie (1.0.1)
     rails-assets-doc-ready (1.0.4)
-      rails-assets-eventie (>= 1, < 2)
+      rails-assets-eventie (~> 1.0.3)
     rails-assets-eventEmitter (4.2.11)
     rails-assets-eventie (1.0.6)
     rails-assets-get-size (1.2.2)
@@ -657,7 +656,6 @@ DEPENDENCIES
   attr_extras
   attribute-defaults
   awesome_print
-  bb-ruby
   better_errors
   binding_of_caller
   browser
@@ -727,7 +725,7 @@ DEPENDENCIES
   rails-assets-eventie!
   rails-assets-jquery!
   rails-assets-jquery-bridget!
-  rails-assets-packery!
+  rails-assets-packery (= 1.3.2)!
   railties
   rake
   rb-fchange

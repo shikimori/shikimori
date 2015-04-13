@@ -113,6 +113,14 @@ class String
       .downcase
   end
 
+  def without_http
+    sub %r{\A(?:https?:)?//}, ''
+  end
+
+  def extract_domain
+    without_http.sub(%r{/.*}, '')
+  end
+
   def pretext?
     self =~ Pretext
   end

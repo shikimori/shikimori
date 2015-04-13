@@ -8,6 +8,16 @@ class BbCodeFormatter
   include CommentHelper
   include Rails.application.routes.url_helpers
 
+  HASH_TAGS = [BbCodes::ImageTag, BbCodes::ImgTag]
+  TAGS = [
+    BbCodes::VideoTag, BbCodes::PosterTag, BbCodes::EntriesTag,
+    BbCodes::WallTag, BbCodes::HrTag, BbCodes::PTag,
+    BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
+    BbCodes::SizeTag, BbCodes::CenterTag, BbCodes::RightTag,
+    BbCodes::ColorTag, BbCodes::SolidTag, BbCodes::UrlTag,
+    BbCodes::ListTag,
+  ]
+
   default_url_options[:host] ||= if Rails.env.development?
     'shikimori.dev'
   elsif Rails.env.beta?
@@ -54,18 +64,17 @@ class BbCodeFormatter
   # TODO: перенести весь код ббкодов сюда или в связанные классы
   def bb_codes original_text
     text_hash = XXhash.xxh32 original_text, 0
-
     text = original_text.gsub %r{\r\n|\r|\n}, '<br />'
 
-    text = BbCodes::VideoTag.instance.format text
-    text = BbCodes::ImageTag.instance.format text, text_hash
-    text = BbCodes::ImgTag.instance.format text, text_hash
-    text = BbCodes::PosterTag.instance.format text
-    text = BbCodes::EntriesTag.instance.format text
-    text = BbCodes::HrTag.instance.format text
-    text = BbCodes::PTag.instance.format text
+    HASH_TAGS.each do |tag_klass|
+      text = tag_klass.instance.format text, text_hash
+    end
 
-    text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img
+    TAGS.each do |tag_klass|
+      text = tag_klass.instance.format text
+    end
+
+    #text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img, :size
     text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
     text = text.gsub '<ul><br />', '<ul>'
     text = text.gsub '</ul><br />', '</ul>'

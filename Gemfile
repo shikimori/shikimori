@@ -54,7 +54,6 @@ gem 'sidekiq-unique-jobs'
 gem 'sidekiq-limit_fetch'
 gem 'sinatra', '>= 1.3.0', require: nil
 
-gem 'bb-ruby' # TODO: выпилить
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 gem 'newrelic_rpm'
 #gem 'exception_notification', github: 'smartinez87/exception_notification'
@@ -174,7 +173,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-eventie'
   gem 'rails-assets-eventEmitter'
   gem 'rails-assets-jquery-bridget'
-  gem 'rails-assets-packery'
+  gem 'rails-assets-packery', '1.3.2'
   # когда в master вольют https://github.com/dimsemenov/Magnific-Popup/pull/394 , то строку ниже заменить на её комментарий
   gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails' # заменить на #gem 'rails-assets-magnific-popup', когда в нём пофиксят турболинки
 end

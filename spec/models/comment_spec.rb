@@ -242,7 +242,7 @@ describe Comment do
     it { expect(subject.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
   end
 
-  describe '#instance_methods', :focus do
+  describe '#instance_methods' do
     describe '#html_body' do
       let(:comment) { build :comment, body: body }
       let(:body) { '[b]bold[/b]' }
