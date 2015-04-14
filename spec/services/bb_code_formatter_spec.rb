@@ -307,13 +307,13 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
     end
 
     describe '[b]' do
-      let(:text) { '[u]test[/u]' }
-      it { should eq '<span style="text-decoration: underline;">test</span>' }
+      let(:text) { '[b]test[/b]' }
+      it { should eq '<strong>test</strong>' }
     end
 
     describe '[i]' do
-      let(:text) { '[u]test[/u]' }
-      it { should eq '<span style="text-decoration: underline;">test</span>' }
+      let(:text) { '[i]test[/i]' }
+      it { should eq '<em>test</em>' }
     end
 
     describe '[u]' do
@@ -356,9 +356,14 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       it { should eq '<a href="http://test.com">test.com</a>' }
     end
 
-    describe '[ul]' do
+    describe '[list]' do
       let(:text) { '[list][*]первая строка[*]вторая строка[/list]' }
-      it { should eq '<ul><li>первая строка</li><li>вторая строка</li></ul>' }
+      it { should eq '<ul class="b-list"><li>первая строка</li><li>вторая строка</li></ul>' }
+    end
+
+    describe '[h3]' do
+      let(:text) { '[h3]test[/h3]' }
+      it { should eq '<h3>test</h3>' }
     end
 
     describe '[quote]' do

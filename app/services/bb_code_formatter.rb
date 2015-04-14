@@ -15,7 +15,7 @@ class BbCodeFormatter
     BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
     BbCodes::SizeTag, BbCodes::CenterTag, BbCodes::RightTag,
     BbCodes::ColorTag, BbCodes::SolidTag, BbCodes::UrlTag,
-    BbCodes::ListTag,
+    BbCodes::ListTag, BbCodes::H3Tag
   ]
 
   default_url_options[:host] ||= if Rails.env.development?
@@ -64,7 +64,7 @@ class BbCodeFormatter
   # TODO: перенести весь код ббкодов сюда или в связанные классы
   def bb_codes original_text
     text_hash = XXhash.xxh32 original_text, 0
-    text = original_text.gsub %r{\r\n|\r|\n}, '<br />'
+    text = original_text.gsub %r{\r\n|\r|\n}, '<br>'
 
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash
@@ -76,8 +76,8 @@ class BbCodeFormatter
 
     #text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img, :size
     text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
-    text = text.gsub '<ul><br />', '<ul>'
-    text = text.gsub '</ul><br />', '</ul>'
+    text = text.gsub '<ul><br>', '<ul>'
+    text = text.gsub '</ul><br>', '</ul>'
 
     BbCodeReplacers.each do |processor|
       text = send processor, text

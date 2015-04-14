@@ -6,7 +6,7 @@ header.head
 .b-brief
   .moderators
     = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
-  ul
+  ul.b-list
     li: p Рецензия должна в целом соответствовать <a href="http://shikimori.org/animes/1-Cowboy-Bebop/reviews/new">критериям</a>.
     li: p Отклонённые рецензии превращаются в топик оффтопика без возможности восстановления.
     li: p Отклоняйте рецензии, содержащие троллинг, "быдлоязык", написанные с целью вызывать срач.

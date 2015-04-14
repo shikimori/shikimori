@@ -4,7 +4,6 @@
 @import mixins/block
 @import mixins/forum_entry
 @import mixins/plashka
-@import mixins/pretty_list
 @import mixins/responsive
 @import mixins/tag
 
@@ -60,10 +59,6 @@ $comments_left_margin: 24px
     &>header
       .name-date a
         font-size: 15px
-
-    &>.body
-      ul
-        +pretty_list
 
     &>footer
       +ellipsis
