@@ -35,7 +35,7 @@ class SiteStatistics
   end
 
   def thanks_to
-    User.where(id: [2,11,19,861,950,1945,864,6452]).order(:id)
+    User.where(id: [2,11,19,861,950,1945,864,6452,28133]).order(:id)
   end
 
   def user_changes_moderators
