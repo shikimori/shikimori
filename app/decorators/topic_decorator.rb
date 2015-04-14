@@ -14,6 +14,14 @@ class TopicDecorator < BaseDecorator
     end
   end
 
+  def body
+    if review?
+      linked.text
+    else
+      object.body
+    end
+  end
+
   # текст топика
   def html_body
     Rails.cache.fetch [object, linked, h.russian_names_key, 'body'], expires_in: 2.weeks do

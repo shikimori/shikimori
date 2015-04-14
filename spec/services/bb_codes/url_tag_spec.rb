@@ -35,6 +35,11 @@ describe BbCodes::UrlTag do
         it { should eq "<a href=\"#{url}\">site.com</a>." }
       end
 
+      context 'with comma' do
+        let(:text) { "#{url}, test" }
+        it { should eq "<a href=\"#{url}\">site.com</a>, test" }
+      end
+
       context 'in tag' do
         let(:text) { "[zz]#{url}[/zz]" }
         it { should eq "[zz]#{url}[/zz]" }

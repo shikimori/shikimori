@@ -10,14 +10,6 @@ class TopicSerializer < ActiveModel::Serializer
     UserSerializer.new object.user
   end
 
-  def body
-    object.text
-  end
-
-  def html_body
-    BbCodeFormatter.instance.format_comment body
-  end
-
   def linked
     case object.linked_type
       when Anime.name then AnimeSerializer.new object.linked
