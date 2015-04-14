@@ -3,7 +3,7 @@ class BaseMalParser < SiteParserWithCache
   include MalFetcher
   include MalDeployer
 
-  EntriesPerPage = 20
+  EntriesPerPage = 50
   RelatedAdaptationName = "Adaptation"
 
   # инициализация кеша

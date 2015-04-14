@@ -71,7 +71,6 @@ module MalFetcher
     characters_doc = doc.css("div#content table > tr > td > div > table")
     staff_doc = characters_doc.pop unless content.include?('Add staff</a> for this anime') || content.include?('Edit Manga Information')
 
-    characters_doc.shift
     characters_doc.each do |character_doc|
       node = character_doc.css("td")[1]
 
