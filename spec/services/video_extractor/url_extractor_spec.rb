@@ -49,6 +49,13 @@ describe VideoExtractor::UrlExtractor do
       it { should eq 'http://vk.com/video_ext.php?oid=31645372&id=163523215&hash=3fba843aaeb2a8ae&hd=1' }
     end
 
+    describe 'vk - remove &hd=? from url' do
+      [1, 2, 3].each do |quality|
+        let(:html) { "http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&hd=#{quality}" }
+        it { should eq 'http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+      end
+    end
+
     describe 'myvi_1' do
       let(:html) { "<object style=\"height: 390px; width: 640px\"><param name=\"movie\" value=\"http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0\"><param name=\"allowFullScreen\" value=\"true\"><param name=\"allowScriptAccess\" value=\"always\"><embed src=\"http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowScriptAccess=\"always\" width=\"730\" height=\"480\"></object>" }
       it { should eq 'http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0' }

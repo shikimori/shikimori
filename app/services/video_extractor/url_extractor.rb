@@ -37,7 +37,7 @@ private
 
   def parsed_url
     if html =~ %r{(#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
-      $1.sub(/&hd=\d/, '&hd=3')
+      $1.sub(/&hd=\d/, '')
     elsif html =~ %r{(#{HTTP}myvi.ru/(?:ru/flash/)?player#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
