@@ -18,7 +18,7 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
       context 'with_videos' do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
-        let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9&hd=3', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
+        let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
         it { expect{subject}.to change(videos, :count).by 7 }
 
         describe 'anime_video' do

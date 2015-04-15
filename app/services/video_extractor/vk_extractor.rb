@@ -10,7 +10,7 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   end
 
   def player_url
-    "https://vk.com/video_ext.php?oid=#{parsed_data[:oid]}&id=#{parsed_data[:vid]}&hash=#{parsed_data[:hash2]}&hd=1"
+    "https://vk.com/video_ext.php?oid=#{parsed_data[:oid]}&id=#{parsed_data[:vid]}&hash=#{parsed_data[:hash2]}"
   end
 
   def parse_data html

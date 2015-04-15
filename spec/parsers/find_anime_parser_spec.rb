@@ -75,7 +75,7 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
       subject { videos.first }
 
       its(:episode) { should eq episode }
-      its(:url) { should eq "https://vk.com/video_ext.php?oid=-51137404&id=166106853&hash=ccd5e4a17d189206&hd=3" }
+      its(:url) { should eq "https://vk.com/video_ext.php?oid=-51137404&id=166106853&hash=ccd5e4a17d189206" }
       its(:kind) { should eq :raw }
       its(:language) { should eq :russian }
       its(:source) { should eq "http://findanime.ru/strike_the_blood/series1?mature=1" }
@@ -88,12 +88,6 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
       its(:kind) { should eq :fandub }
       its(:author) { should eq 'JazzWay Anime' }
     end
-
-    #describe :special do
-      #subject { videos.find {|v| v.author == 'JAM & Ancord & Nika Lenina' } }
-      #its(:url) { should eq 'http://vk.com/video_ext.php?oid=-23431986&id=166249671&hash=dafc64b82410643c&hd=3' }
-      #its(:kind) { should eq :fandub }
-    #end
   end
 
   describe '#extract_language' do

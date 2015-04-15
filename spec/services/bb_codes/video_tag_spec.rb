@@ -43,7 +43,7 @@ describe BbCodes::VideoTag do
       context 'without text' do
         let(:text) { "http://vk.com/video#{oid}_#{vid}" }
         it { should include "<a class=\"c-video b-video unprocessed vk" }
-        it { should include "data-href=\"https://vk.com/video_ext.php?oid=#{oid}&amp;id=#{vid}&amp;hash=#{hash2}&amp;hd=1\" href=\"http://vk.com/video#{oid}_#{vid}\"" }
+        it { should include "data-href=\"https://vk.com/video_ext.php?oid=#{oid}&amp;id=#{vid}&amp;hash=#{hash2}\" href=\"http://vk.com/video#{oid}_#{vid}\"" }
       end
 
       context 'width text' do

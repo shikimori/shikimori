@@ -61,7 +61,7 @@ describe HentaiAnimeParser, vcr: { cassette_name: 'hentai_anime_parser' } do
         subject { videos.last }
 
         its(:episode) { should eq episode }
-        its(:url) { should eq 'http://vk.com/video_ext.php?oid=169326160&id=163223486&hash=c2f14f4582b787b2&hd=3' }
+        its(:url) { should eq 'http://vk.com/video_ext.php?oid=169326160&id=163223486&hash=c2f14f4582b787b2' }
         its(:kind) { should eq :subtitles }
         its(:language) { should eq :english }
         its(:source) { should eq 'http://hentai-anime.ru/sextra_credit/series1' }

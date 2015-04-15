@@ -10,7 +10,7 @@ describe VideoExtractor::VkExtractor, vcr: { cassette_name: 'vk_extractor' } do
 
         its(:hosting) { should eq :vk }
         its(:image_url) { should eq 'http://cs514511.vk.me/u98023184/video/l_81cce630.jpg' }
-        its(:player_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892&hd=1' }
+        its(:player_url) { should eq 'https://vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892' }
       end
 
       context 'dash' do
