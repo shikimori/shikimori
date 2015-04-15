@@ -10,14 +10,14 @@ describe VideoExtractor::UrlExtractor do
     context 'short', vcr: { cassette_name: 'url_extractor' } do
       context 'with_dash' do
         let(:html) { 'http://vk.com/video-42313379_167267838' }
-        let(:extracted_url) { 'https://vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded&hd=1' }
+        let(:extracted_url) { 'https://vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
 
         it { should eq extracted_url }
       end
 
       context 'without_dash' do
         let(:html) { 'https://vk.com/video135375095_163446262' }
-        let(:extracted_url) { 'https://vk.com/video_ext.php?oid=135375095&id=163446262&hash=8574b5f5752c28d4&hd=1' }
+        let(:extracted_url) { 'https://vk.com/video_ext.php?oid=135375095&id=163446262&hash=8574b5f5752c28d4' }
 
         it { should eq extracted_url }
       end
