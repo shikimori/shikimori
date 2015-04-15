@@ -25,7 +25,7 @@ describe VideoExtractor::UrlExtractor do
 
    context 'frame' do
       let(:html) { '<iframe width="607" src="'+extracted_url+'" height="360" frameborder="0"></iframe>' }
-      let(:extracted_url) { 'http://vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded&hd=3' }
+      let(:extracted_url) { 'http://vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
       it { should eq extracted_url }
     end
 
@@ -36,17 +36,17 @@ describe VideoExtractor::UrlExtractor do
 
     describe 'vk_1' do
       let(:html) { "<iframe src=\"http://vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2&hd=1\" width=\"730\" height=\"480\" frameborder=\"0\"></iframe>" }
-      it { should eq 'http://vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2&hd=3' }
+      it { should eq 'http://vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2' }
     end
 
     describe 'vk_2' do
       let(:html) { '<iframe src="http://vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc&hd=3" width="730" height="480" frameborder="0"></iframe>' }
-      it { should eq 'http://vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc&hd=3' }
+      it { should eq 'http://vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc' }
     end
 
     describe 'vk_3' do
       let(:html) { '<iframe src="http://vk.com/video_ext.php?oid=31645372&amp;id=163523215&amp;hash=3fba843aaeb2a8ae&amp;hd=1" width="730" height="480" frameborder="0"></iframe>' }
-      it { should eq 'http://vk.com/video_ext.php?oid=31645372&id=163523215&hash=3fba843aaeb2a8ae&hd=1' }
+      it { should eq 'http://vk.com/video_ext.php?oid=31645372&id=163523215&hash=3fba843aaeb2a8ae' }
     end
 
     describe 'vk - remove &hd=? from url' do
