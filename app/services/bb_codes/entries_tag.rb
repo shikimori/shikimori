@@ -76,7 +76,7 @@ private
   end
 
   def type_to_klass type
-    case type
+    case type.downcase
       when 'animes' then Anime
       when 'mangas' then Manga
       when 'characters' then Character
