@@ -201,11 +201,13 @@ private
   end
 
   def localized_registration
+    #spent_time = SpentTime.new((Time.zone.now - created_at) / 1.day)
+    #I18n.spent_time(spent_time, true).sub(/ и .*/, '')
     if Time.zone.now - created_at > 2.years
       Russian::strftime created_at, '%Y'
 
     elsif Time.zone.now - created_at > 2.months
-      Russian::strftime created_at, '%b %Y'
+      Russian::strftime(created_at, '%d %B %Y').sub(/^\d+ /, '')
 
     else
       h.l created_at, format: :with_month_name

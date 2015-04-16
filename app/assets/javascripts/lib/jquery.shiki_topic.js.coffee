@@ -118,7 +118,7 @@ class @ShikiTopic extends ShikiEditable
         .animated_expand()
         .process()
 
-      if $shower.data 'infinite'
+      if true#$shower.data 'infinite'
         limit = $shower.data('limit')
         count = $shower.data('count') - limit
 
@@ -132,12 +132,12 @@ class @ShikiTopic extends ShikiEditable
             )
         else
           $shower.remove()
-      else
-        $shower
-          .html($shower.data 'html') # изначально data 'html' устанавливает обработчик click-loader
-          .removeClass('click-loader')
-          .hide()
-        @$('.comments-hider').show()
+      #else
+        #$shower
+          #.html($shower.data 'html') # изначально data 'html' устанавливает обработчик click-loader
+          #.removeClass('click-loader')
+          #.hide()
+        #@$('.comments-hider').show()
 
     # отображение комментариев
     @$('.comments-shower').on 'click', (e) =>

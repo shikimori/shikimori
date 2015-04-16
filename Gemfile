@@ -32,7 +32,7 @@ gem 'state_machine'
 gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'nokogiri'
 gem 'paperclip'
-gem 'russian', github: 'yaroslav/russian'
+gem 'rs_russian'
 gem 'metrika'
 gem 'simple_form'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable' # https://github.com/rails-api/active_model_serializers/issues/641

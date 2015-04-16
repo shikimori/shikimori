@@ -91,13 +91,6 @@ GIT
       activemodel (>= 3.0)
 
 GIT
-  remote: git://github.com/yaroslav/russian.git
-  revision: 6da1fe45cbff7c812faaa1bebf25b47b1f14377a
-  specs:
-    russian (0.6.0)
-      i18n (>= 0.5.0)
-
-GIT
   remote: git://github.com/zph/clockwork.git
   revision: ac95a6c6b11527bf11c6970f2c1865004cc2559f
   branch: master
@@ -512,6 +505,10 @@ GEM
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     retryable (2.0.1)
+    rs_russian (0.8.1)
+      activesupport (>= 3.0.0, < 5.0.0)
+      i18n (>= 0.6.0, < 0.8.0)
+      unicode (~> 0.4.4)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -735,6 +732,7 @@ DEPENDENCIES
   responders
   retryable
   rmagick!
+  rs_russian
   rspec
   rspec-collection_matchers
   rspec-core
@@ -743,7 +741,6 @@ DEPENDENCIES
   rspec-mocks
   rspec-rails
   ruby-svd!
-  russian!
   rvm1-capistrano3
   sass-rails
   shoulda-matchers

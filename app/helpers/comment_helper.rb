@@ -196,7 +196,7 @@ module CommentHelper
       .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[message=\1 quote]\3[/message]</div>')
       .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[entry=\1 quote]\3[/entry]</div>')
       .gsub(/\[quote=([^\]]+)\]/, '<blockquote><div class="quoteable">[user]\1[/user]</div>')
-      .gsub(/\[\/quote\](?:\r\n|\r|\n|<br \/>)?/, '</blockquote>')
+      .gsub(/\[\/quote\](?:\r\n|\r|\n|<br>)?/, '</blockquote>')
   end
 
   def posters_to_html text, poster=nil
