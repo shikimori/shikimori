@@ -3,7 +3,7 @@ module UsersHelper
     def localized_name entry, current_user
       if entry.class == Genre
         # жанры
-        if !current_user || (current_user && current_user.preferences.russian_genres? && entry.russian.present?)
+        if !current_user || (current_user && current_user.preferences.try(:russian_genres?) && entry.russian.present?)
           entry.russian || entry.name
         else
           entry.name
@@ -11,7 +11,7 @@ module UsersHelper
 
       else
         # аниме
-        if current_user && current_user.preferences.russian_names? && entry.respond_to?(:russian) && entry.russian.present?
+        if current_user && current_user.preferences.try(:russian_names?) && entry.respond_to?(:russian) && entry.russian.present?
           entry.russian.html_safe
         else
           entry.name.html_safe

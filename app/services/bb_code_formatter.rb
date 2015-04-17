@@ -140,7 +140,7 @@ class BbCodeFormatter
     user_mention(text)
   end
 
-  # удаление мусора из текста
+  # удаление мусора из текста и нормализация битых тегов
   def cleanup_html text
     text = text
       .gsub(/!!!+/, '!')
