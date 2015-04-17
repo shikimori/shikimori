@@ -85,7 +85,10 @@ private
   end
 
   def create_params
-    params.require(:anime_video).permit(:episode, :author_name, :url, :anime_id, :source, :kind, :state)
+    params.
+      require(:anime_video).
+      permit(:episode, :author_name, :url, :anime_id, :source, :kind).
+      merge(state: :uploaded)
   end
 
   def update_params

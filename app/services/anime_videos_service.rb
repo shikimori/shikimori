@@ -18,9 +18,13 @@ class AnimeVideosService
 
 private
   def created_video
-    @video ||= AnimeVideo.create params.except(:url) do |video|
+    @video ||= AnimeVideo.create(video_params) do |video|
       video.url = fetch_url params[:url]
     end
+  end
+
+  def video_params
+    params.except(:url)
   end
 
   def fetch_url video_url
