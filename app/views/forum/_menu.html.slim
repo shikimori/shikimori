@@ -46,7 +46,7 @@
           li.entry
             a href="#{section_topic_url section: entry.thread.section, id: entry.thread}" title="#{entry.thread.title}"
               .image-name
-                img src="#{ImageUrlGenerator.instance.url entry.target, :x48}" srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x" alt="#{{entry.target.name}}" title="#{{entry.target.name}}"
+                img src="#{ImageUrlGenerator.instance.url entry.target, :x48}" srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x" alt="#{localized_name entry.target}" title="#{localized_name entry.target}"
                 span.title
                   == entry.target.name
               span.misc

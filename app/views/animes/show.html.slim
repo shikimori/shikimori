@@ -1,9 +1,9 @@
 = render layout: 'page' do
   meta itemprop="url" content="#{{@resource.url}}"
-  meta itemprop="headline" content="#{{@resource.name}}"
+  meta itemprop="headline" content="#{@resource.name}"
 
   - if @resource.russian
-    meta itemprop="alternativeHeadline" content="#{{@resource.russian}}"
+    meta itemprop="alternativeHeadline" content="#{@resource.russian}"
 
   - if @resource.kind == 'Movie' && (@resource.aired_on || @resource.released_on)
     meta itemprop="datePublished" content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
@@ -17,7 +17,7 @@
     .c-image
       .block
         .anime-image
-          center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+          center: img src="#{attachment_url @resource.image}" title="#{localized_name @resource}" alt="#{localized_name @resource}"
 
         - if user_signed_in?
           .icon-actions

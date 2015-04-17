@@ -1,7 +1,7 @@
 .b-clubs-menu
   - if resource.logo.exists?
     .b-menu_logo
-      center: a href="#{resource.url}" title="#{{resource.name}}"
+      center: a href="#{resource.url}" title="#{resource.name}"
         img src="#{resource.logo.url :main}" alt="#{resource.name}" title="#{resource.name}"
 
   = render 'clubs/actions', resource: resource

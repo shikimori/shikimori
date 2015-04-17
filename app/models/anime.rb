@@ -124,14 +124,7 @@ class Anime < DbEntry
   end
 
   def name
-    #self[:name] ? self[:name].gsub(/\(movie\)$/i, '').gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip.html_safe : nil
-    if self[:name]
-      # временный костыль после миграции на 1.9.3
-      (self[:name].encoding.name == 'ASCII-8BIT' ? self[:name].encode('utf-8', undef: :replace, invalid: :replace, replace: '') : self[:name]).
-        gsub(/\(movie\)$/i, '').gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip.html_safe
-    else
-      nil
-    end
+    super.gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if super.present?
   end
 
   def self.latest

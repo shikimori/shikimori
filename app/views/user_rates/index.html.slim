@@ -28,7 +28,7 @@
 
       aside.l-menu
         .block.avatar
-          center: a href="#{@resource.url}" title="#{{@resource.name}}"
+          center: a href="#{@resource.url}" title="#{localized_name @resource}"
             img src="#{@resource.avatar_url 160}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
 
         .block.mini-charts

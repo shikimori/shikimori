@@ -1,7 +1,7 @@
 - unless @itemtype
   .block.logo
-    center: a href="#{@resource.url}" title="#{{@resource.name}}"
-      img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+    center: a href="#{@resource.url}" title="#{localized_name @resource}"
+      img src="#{attachment_url @resource.image}" title="#{localized_name @resource}" alt="#{localized_name @resource}"
 
 /- if user_signed_in?
   /.block.actions

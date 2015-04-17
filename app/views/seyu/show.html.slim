@@ -1,7 +1,7 @@
 = render layout: 'page' do
   .b-db_entry
     .c-image
-      center: img src="#{attachment_url @resource.image}" title="#{{@resource.name}}" alt="#{{@resource.name}}"
+      center: img src="#{attachment_url @resource.image}" title="#{localized_name @resource}" alt="#{localized_name @resource}"
 
       - if user_signed_in?
         .icon-actions
