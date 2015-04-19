@@ -129,9 +129,9 @@ class @ShikiTopic extends ShikiEditable
             skip: @$comments_loader.data('skip') + limit
             count: count
 
-          @$comments_loader.html("Загрузить ещё #{_.min [limit, count]} " +
+          @$comments_loader.html("Загрузить ещё #{Math.min(limit, count)} " +
             (if count > limit then "из #{count} " else '') +
-            "#{p count, 'комментарий', 'комментария', 'комментариев'}")
+            "#{p Math.min(limit, count), 'комментарий', 'комментария', 'комментариев'}")
           @$comments_collapser.show()
         else
           @$comments_loader.remove()
