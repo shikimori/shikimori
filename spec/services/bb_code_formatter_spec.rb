@@ -379,12 +379,12 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
 
       context 'link inside with space' do
         let(:text) { '[quote] http://test.ru/ [/quote]\ntest' }
-        it { should eq '<blockquote> <a href="http://test.ru/">test.ru</a> </blockquote>\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a> </blockquote>\ntest' }
       end
 
       context 'link inside w/o space' do
         let(:text) { '[quote] http://test.ru/[/quote]\ntest' }
-        it { should eq '<blockquote> <a href="http://test.ru/">test.ru</a></blockquote>\ntest' }
+        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a></blockquote>\ntest' }
       end
     end
   end
