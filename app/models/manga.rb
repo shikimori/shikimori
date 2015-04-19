@@ -89,7 +89,7 @@ class Manga < DbEntry
   scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
 
   def name
-    super.gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if super.present?
+    self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
   end
 
   # тип манги на русском

@@ -124,7 +124,7 @@ class Anime < DbEntry
   end
 
   def name
-    super.gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if super.present?
+    self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
   end
 
   def self.latest
