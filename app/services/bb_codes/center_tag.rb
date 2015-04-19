@@ -3,8 +3,7 @@ class BbCodes::CenterTag
 
   def format text
     text.gsub(
-      /\[center\] ([\s\S]*?) \[\/center\]/mix,
+      /\[center\] (.*?) \[\/center\]/mix,
       '<center>\1</center>')
-
   end
 end

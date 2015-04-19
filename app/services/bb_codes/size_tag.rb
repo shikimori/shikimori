@@ -3,7 +3,7 @@ class BbCodes::SizeTag
 
   def format text
     text.gsub(
-      /\[size=(\d+)\] ([\s\S]*?) \[\/size\]/mix,
+      /\[size=(\d+)\] (.*?) \[\/size\]/mix,
       '<span style="font-size: \1px;">\2</span>')
   end
 end

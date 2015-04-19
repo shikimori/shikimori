@@ -3,7 +3,7 @@ class BbCodes::ColorTag
 
   def format text
     text.gsub(
-      /\[color=(\#[\da-f]+|\w+)\] ([\s\S]*?) \[\/color\]/mix,
+      /\[color=(\#[\da-f]+|\w+)\] (.*?) \[\/color\]/mix,
       '<span style="color: \1;">\2</span>')
   end
 end

@@ -3,7 +3,7 @@ class BbCodes::WallTag
 
   def format text
     text.gsub(
-      /\[wall\] ([\s\S]*?) \[\/wall\]/mix,
+      /\[wall\] (.*?) \[\/wall\]/mix,
       '<div class="b-shiki_wall unprocessed">\1</div>')
   end
 end

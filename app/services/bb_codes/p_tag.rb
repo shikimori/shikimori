@@ -3,7 +3,7 @@ class BbCodes::PTag
 
   def format text
     text.gsub(
-      /\[p\] ([\s\S]*?) \[\/p\]/mix,
+      /\[p\] (.*?) \[\/p\]/mix,
       '<div class="prgrph">\1</div>')
   end
 end

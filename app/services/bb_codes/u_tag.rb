@@ -3,7 +3,7 @@ class BbCodes::UTag
 
   def format text
     text.gsub(
-      /\[u\] ([\s\S]*?) \[\/u\]/mix,
+      /\[u\] (.*?) \[\/u\]/mix,
       '<span style="text-decoration: underline;">\1</span>')
   end
 end

@@ -7,7 +7,7 @@ class BbCodes::UrlTag
       \[\/url\]
     |
       \[url=(?<url>.*?)\]
-        (?<text> [\s\S]*?)
+        (?<text> .*?)
       \[\/url\]
     |
       (?<= \s|^|>)
@@ -15,7 +15,7 @@ class BbCodes::UrlTag
           https?:\/\/(?:www\.)?
           ( [^\s<\[\].,;:] | [.,;:] (?!=\s|$|<|\[|\]|\ ) )+
         )
-  /imx
+  /mix
 
   def format text
     text.gsub REGEXP do

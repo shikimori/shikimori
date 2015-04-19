@@ -3,7 +3,7 @@ class BbCodes::ListTag
 
   LIST_REGEXP = /
     \[list\]
-      (?<ul> [\s\S]*?)
+      (?<ul> .*?)
     \[\/list\]
   /mix
 
@@ -11,7 +11,6 @@ class BbCodes::ListTag
     \[\*\] (?<li>
       (?: (?! \[\* | \[\/list\] | <br><br>). )+
     ) (?<brs><br><br>)?
-
   /mix
 
   def format text
