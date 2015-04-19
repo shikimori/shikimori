@@ -120,8 +120,8 @@ class Comment < ActiveRecord::Base
           .capitalize
           .constantize
           .includes(:user)
-          .find(quote[1])
-          .user
+          .find_by(id: quote[1])
+          .try(:user)
       end
 
       # игнорируем цитаты без юзера
