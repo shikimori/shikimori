@@ -1,12 +1,14 @@
 .b-comments
   - if topic.folded?
     .comments-hider Скрыть #{topic.reviews_only? ? 'отзывы' : 'комментарии'}
-    .comments-shower.click-loader[
-        data-href-template="#{topic.comments_url}" data-infinite="#{!topic.preview?}"
+    .comments-collapser свернуть
+    .comments-expander Показать комментарии
+    .comments-loader.click-loader[
+        data-href-template="#{topic.comments_url}"
         data-skip="#{topic.comments_limit}" data-limit="#{topic.fold_limit}"
         data-count="#{topic.folded_comments}"
       ]
-      = topic.show_hidden_comments_text
+      .text = topic.show_hidden_comments_text
 
   - if topic.comments.any?
     = render partial: 'comments/comment', collection: topic.comments

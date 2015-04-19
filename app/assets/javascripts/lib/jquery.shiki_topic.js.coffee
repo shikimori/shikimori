@@ -11,9 +11,16 @@
 class @ShikiTopic extends ShikiEditable
   initialize: ($root) ->
     @$body = @$inner.children('.body')
+
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
     @editor = new ShikiEditor(@$editor) if @$editor.length # редактора не будет у неавторизованных пользователей
+
+    @$comments_loader = @$('.comments-loader')
+    @$comments_hider = @$('.comments-hider')
+    @$comments_collapser = @$('.comments-collapser')
+    @$comments_expander = @$('.comments-expander')
+
     @is_preview = @$root.hasClass('preview')
     @is_cosplay = @$root.hasClass('b-cosplay')
 
@@ -97,60 +104,71 @@ class @ShikiTopic extends ShikiEditable
     # клик скрытию редактора
     @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
 
-    # подготовка к подгрузке новых комментов
-    @$('.comments-shower').on 'ajax:before', (e, html) ->
-      new_url = $(@).data('href-template').replace('SKIP', $(@).data('skip'))
-      $(@)
-        .data
-          href: new_url
-          #html: $(@).html()
-        #.html("<div class=\"ajax-loading vk-like\" title=\"Загрузка...\" />")
+    @$comments_loader
+      # подготовка к подгрузке новых комментов
+      .on 'ajax:before', =>
+        new_url = @$comments_loader.data('href-template').replace('SKIP', @$comments_loader.data('skip'))
+        @$comments_loader.data(href: new_url)
 
-    # подгрузка новых комментов
-    @$('.comments-shower').on 'ajax:success', (e, html) =>
-      $shower = $(e.target)
+    @$comments_loader
+      # подгрузка новых комментов
+      .on 'ajax:success', (e, html) =>
+        $new_comments = $("<div class='comments-loaded'></div>").html html
+        @_filter_present_entries($new_comments)
 
-      $new_comments = $("<div class='comments-loaded'></div>").html html
-      @_filter_present_entries($new_comments)
+        $new_comments
+          .insertAfter(@$comments_loader)
+          .animated_expand()
+          .process()
 
-      $new_comments
-        .insertAfter($shower)
-        .animated_expand()
-        .process()
-
-      if $shower.data 'infinite'
-        limit = $shower.data('limit')
-        count = $shower.data('count') - limit
+        limit = @$comments_loader.data('limit')
+        count = @$comments_loader.data('count') - limit
 
         if count > 0
-          $shower.data
-            skip: $shower.data('skip') + limit
+          @$comments_loader.data
+            skip: @$comments_loader.data('skip') + limit
             count: count
 
-          $shower.html "Показать #{p _.min([limit, count]), 'предыдущий', 'предыдущие', 'предыдущие'} #{_.min [limit, count]}&nbsp;#{p count, 'комментарий', 'комментария', 'комментариев'}" + (
-              if count > limit then "<span class=\"expandable-comments-count\">&nbsp;(из #{count})</span>" else ""
-            )
+          @$comments_loader.html("Загрузить ещё #{_.min [limit, count]} " +
+            (if count > limit then "из #{count} " else '') +
+            "#{p count, 'комментарий', 'комментария', 'комментариев'}")
+          @$comments_collapser.show()
         else
-          $shower.remove()
-      else
-        $shower
-          .html($shower.data 'html') # изначально data 'html' устанавливает обработчик click-loader
-          .removeClass('click-loader')
-          .hide()
-        @$('.comments-hider').show()
+          @$comments_loader.remove()
+          @$comments_loader = null
+          @$comments_hider.show()
+          @$comments_collapser.remove()
 
-    # отображение комментариев
-    @$('.comments-shower').on 'click', (e) =>
-      unless @$('.comments-shower').is('.click-loader')
-        @$('.comments-shower').hide()
-        @$('.comments-loaded').animated_expand()
-        @$('.comments-hider').show()
+      # отображение комментариев
+      .on 'click', (e) =>
+        unless @$comments_loader.is('.click-loader')
+          @$comments_loader.hide()
+          @$('.comments-loaded').animated_expand()
+          @$comments_hider.show()
 
     # скрытие комментариев
-    @$('.comments-hider').on 'click', (e) =>
-      @$('.comments-hider').hide()
+    @$comments_hider.on 'click', =>
+      @$comments_hider.hide()
       @$('.comments-loaded').animated_collapse()
-      @$('.comments-shower').show()
+      @$comments_expander.show()
+
+    # сворачивание комментариев
+    @$comments_collapser.on 'click', =>
+      @$comments_collapser.hide()
+      @$comments_loader.hide()
+      @$comments_expander.show()
+      @$('.comments-loaded').animated_collapse()
+
+    # разворачивание комментариев
+    @$comments_expander.on 'click', (e) =>
+      @$comments_expander.hide()
+      @$('.comments-loaded').animated_expand()
+
+      if @$comments_loader
+        @$comments_loader.show()
+        @$comments_collapser.show()
+      else
+        @$comments_hider.show()
 
     # realtime обновления
     # изменение / удаление комментария
