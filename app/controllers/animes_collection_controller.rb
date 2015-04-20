@@ -177,14 +177,16 @@ private
   end
 
   # присоединение параметра в списке ли пользователя элемент?
-  def apply_in_list(entries)
+  def apply_in_list entries
     return entries unless user_signed_in? && current_user.preferences.mylist_in_catalog?
 
-    rates = Set.new current_user.send("#{klass.name.downcase}_rates")
+    rates = current_user.send("#{klass.name.downcase}_rates")
       .where(target_id: entries.map(&:id))
-      .select(:target_id)
-      .map(&:target_id)
-    entries.each { |entry| entry.in_list = rates.include? entry.id }
+      .select(:target_id, :status)
+
+    entries.each do |entry|
+      entry.in_list = rates.find {|v| v.target_id == entry.id }.try(:status)
+    end
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент

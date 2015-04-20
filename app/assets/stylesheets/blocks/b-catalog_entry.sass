@@ -1,3 +1,5 @@
+//@import compass/css3/opacity
+//@import compass/css3/transition
 @import compass/typography/text/ellipsis
 @import globals
 @import mixins/column
@@ -138,6 +140,56 @@ $max_width: 167px
     .tooltip-inner
       min-height: 20px
       width: 270px
+
+  &.planned, &.watching, &.completed, &.rewatching, &.on_hold, &.dropped
+    .image-decor
+      position: relative
+
+      &::after
+        //+transition(opacity 0.5s ease)
+        border-radius: 30px
+        border: 2px solid #fff
+        bottom: 2px
+        font-family: shikimori
+        font-size: 16px
+        height: 30px
+        line-height: 30px
+        position: absolute
+        right: 2px
+        text-align: center
+        width: 30px
+
+      //&:hover::after
+        +opacity(0)
+
+
+  &.planned .image-decor::after
+    background: $link
+    color: #fff
+    //content: '\e843'
+    //content: '\e817'
+    content: '\e824'
+
+  &.on_hold .image-decor::after
+    background: $gray-color-2
+    color: #fff
+    content: '\e833'
+
+  &.watching .image-decor::after,
+  &.rewatching .image-decor::after
+    background: $link
+    color: #fff
+    content: '\e823'
+
+  &.completed .image-decor::after
+    background: $released_tag
+    color: #fff
+    content: '\e817'
+
+  &.dropped .image-decor::after
+    background: $anons_tag
+    color: #fff
+    content: '\e813'
 
   //&.in_list
     //.image-decor
