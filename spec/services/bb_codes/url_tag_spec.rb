@@ -20,6 +20,11 @@ describe BbCodes::UrlTag do
         let(:url) { 'http://shikimori.org/animes' }
         it { should eq "<a href=\"#{url}\">/animes</a>" }
       end
+
+      context 'encoded url' do
+        let(:url) { 'http://shikimori.org/%D0%92%D0%B8%D0%BD%D0%BD%D0%B8' }
+        it { should eq "<a href=\"#{url}\">/Винни</a>" }
+      end
     end
 
     context 'with text' do

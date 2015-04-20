@@ -21,6 +21,7 @@ class BbCodes::UrlTag
   def format text
     text.gsub REGEXP do
       url = $~[:url]
+
       text = if $~[:text]
         $~[:text]
       else
@@ -33,7 +34,7 @@ class BbCodes::UrlTag
         end
       end
 
-      "<a href=\"#{url}\">#{text}</a>"
+      "<a href=\"#{url}\">#{URI.decode text}</a>"
     end
   end
 end
