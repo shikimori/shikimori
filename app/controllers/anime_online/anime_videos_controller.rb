@@ -85,10 +85,9 @@ private
   end
 
   def create_params
-    params.
-      require(:anime_video).
-      permit(:episode, :author_name, :url, :anime_id, :source, :kind).
-      merge(state: :uploaded)
+    params
+      .require(:anime_video)
+      .permit(:episode, :author_name, :url, :anime_id, :source, :kind, :state)
   end
 
   def update_params
@@ -125,7 +124,7 @@ private
     new_video_online_url(
       'anime_video[anime_id]' => video.anime_id,
       'anime_video[source]' => video.source,
-      'anime_video[state]' => video.state,
+      'anime_video[state]' => :uploaded,
       'anime_video[kind]' => video.kind,
       'anime_video[episode]' => video.episode + 1,
       'anime_video[author_name]' => video.author_name,
