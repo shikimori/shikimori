@@ -1,7 +1,7 @@
 # TODO: отрефакторить толстый контроллер
 class RecommendationsController < AnimesCollectionController
   before_action :authenticate_user!, if: -> { json? }
-  before_action :set_title
+  before_action -> { page_title I18n.t("Name.#{klass.name}") }
   layout false, only: [:test]
 
   COOKIE_NAME = 'recommendations_url'
@@ -15,10 +15,9 @@ class RecommendationsController < AnimesCollectionController
     @threshold = params[:threshold].to_i
     @metric = params[:metric]
 
-    redirect_to recommendations_url(url_params(metric: 'pearson_z')) and return if @metric.blank?
+    return redirect_to recommendations_url(url_params(metric: 'pearson_z')) if @metric.blank?
     unless THRESHOLDS[klass].include? @threshold
-      redirect_to recommendations_url(url_params(threshold: THRESHOLDS[klass][-1]))
-      return
+      return redirect_to recommendations_url(url_params(threshold: THRESHOLDS[klass][-1]))
     end
 
     page_title 'Персонализированные рекомендации'
@@ -151,9 +150,5 @@ class RecommendationsController < AnimesCollectionController
       sampler = Recommendations::Sampler.new Anime, metric, @rates_fetcher, normalization, user_id
       memo[user_id] = sampler.rmse user_id, @threshold
     end
-  end
-
-  def set_title
-    page_title I18n.t "Name.#{klass.name}"
   end
 end
