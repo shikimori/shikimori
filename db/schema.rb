@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410185348) do
+ActiveRecord::Schema.define(version: 20150420062510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -923,7 +923,7 @@ ActiveRecord::Schema.define(version: 20150410185348) do
     t.boolean "russian_names",                          default: false
     t.boolean "about_on_top",                           default: false
     t.boolean "russian_genres",                         default: true,     null: false
-    t.boolean "mylist_in_catalog",                      default: false,    null: false
+    t.boolean "mylist_in_catalog",                      default: true,     null: false
     t.boolean "menu_contest",                           default: true,     null: false
     t.string  "page_background",            limit: 255
     t.boolean "page_border",                            default: false
@@ -978,6 +978,7 @@ ActiveRecord::Schema.define(version: 20150410185348) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.string   "name",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nickname",               limit: 255
@@ -999,7 +1000,6 @@ ActiveRecord::Schema.define(version: 20150410185348) do
     t.datetime "reset_password_sent_at"
     t.string   "remember_token",         limit: 255
     t.string   "api_access_token"
-    t.string   "name",                   limit: 255
   end
 
   add_index "users", ["api_access_token"], name: "index_users_on_api_access_token", unique: true, using: :btree
