@@ -180,6 +180,7 @@ class Comment < ActiveRecord::Base
       body
         .gsub('[poster=', '[image=')
         .gsub('[poster]', '[img]')
+        .gsub('[/poster]', '[/img]')
         .gsub(/\[img.*?\]/, '[img]')
     else
       body
