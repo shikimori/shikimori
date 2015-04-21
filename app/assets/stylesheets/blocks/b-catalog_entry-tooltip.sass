@@ -9,12 +9,15 @@
   line-height: $line_height
   position: relative
 
+  .entry-tooltip_container
+    +clear_left
+
   .image
     width: 160px
     float: left
 
   .inner
-    padding-bottom: $block_offset // нужно т.к. .rating с абсолютным позиционированием. чтобы контекнт на рейтинг не налез
+    //padding-bottom: $block_offset // нужно т.к. .rating с абсолютным позиционированием. чтобы контент на рейтинг не налез
 
     &.offset
       margin-left: 180px
@@ -100,3 +103,17 @@
 
         img
           width: 48px
+
+  .b-add_to_list
+    margin: 10px 0 0 0
+    width: 196px
+
+    .trigger, .add-trigger
+      max-width: none
+
+  .no-offset .b-add_to_list
+    padding-bottom: 34px
+    width: auto
+
+  .rate-edit, .rate-show
+    display: none

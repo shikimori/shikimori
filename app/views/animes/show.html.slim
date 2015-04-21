@@ -29,9 +29,7 @@
             span.fav-remove style="#{'display: none;' unless @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного" data-kind=""
             a.edit href="#{@resource.edit_url}" title="Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}"
 
-      - if user_signed_in?
-        .anime-rate
-          = render 'user_rates/user_rate', user_rate: @resource.rate || @resource.rates.build(user_id: current_user.id), entry: @resource
+      = render 'user_rates/user_rate', user_rate: @resource.rate || @resource.rates.build(user_id: current_user.try(:id)), entry: @resource
 
     .c-about
       .cc

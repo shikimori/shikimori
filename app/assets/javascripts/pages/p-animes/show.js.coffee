@@ -16,8 +16,8 @@
   (->
     # клик по смотреть онлайн
     $('.watch-online a').on 'click', ->
-      episode = parseInt($('.anime-rate .current-episodes').html())
-      total_episodes = parseInt($('.anime-rate .total-episodes').html()) || 9999
+      episode = parseInt($('.b-user_rate .current-episodes').html())
+      total_episodes = parseInt($('.b-user_rate .total-episodes').html()) || 9999
       watch_episode = if !episode || episode == total_episodes then 1 else episode + 1
 
       $(@).attr href: $(@).attr('href').replace(/\d+$/, watch_episode)
@@ -64,71 +64,3 @@
         .children(':not(.shiki-editor)')
         .remove()
       $container.append data.content
-
-
-  # user ratings
-  $rate = $('.anime-rate')
-  $('.b-rate', $rate).rateable()
-
-  $rate
-    .on 'ajax:before', (e, edit_html) ->
-      $rate.addClass 'ajax_request'
-
-    .on 'ajax:success ajax:complete', (e, edit_html) ->
-      $rate.removeClass 'ajax_request'
-
-    # клик по добавлению в свой список
-    .on 'click', '.add-trigger', ->
-      $form = $(@).closest('form')
-
-      $form.find('.user_rate_status input').val $(@).data('status')
-      $form.submit()
-
-    # по изменению статуса в списке
-    .on 'click', '.edit-trigger', ->
-      # закрытие развёрнутого меню
-      $rate.find('.expanded .arrow').click()
-
-      if $('.rate-edit', $rate).is(':visible')
-        $('.rate-edit', $rate).find('.cancel').click()
-        false
-
-    # отмена редактирования user_rate
-    .on 'click', '.cancel', ->
-      $show = $('.rate-show', $rate).show()
-      $edit = $('.rate-edit', $rate).hide()
-
-      $rate.css height: $('.b-add_to_list').outerHeight(true) + $show.data('height')
-      (-> $rate.css height: '').delay(500)
-
-    # сабмит формы user_rate
-    .on 'ajax:success', '.new_user_rate, .increment, .remove', (e, html) ->
-      $rate.html html
-      $('.b-rate', $rate).rateable()
-
-    # завершение редактирования user_rate
-    .on 'ajax:success', '.edit_user_rate', (e, html) ->
-      $rate.html html
-      $('.b-rate', $rate).rateable()
-
-    # клик на изменение user_rate - подгрузка и показ формы
-    .on 'ajax:success', '.edit-trigger', (e, edit_html) ->
-      e.stopImmediatePropagation()
-
-      $show = $('.rate-show', $rate)
-      $show
-        .data(height: $show.outerHeight(true))
-        .hide()
-
-      $edit = $('.rate-edit', $rate)
-      $edit.html(edit_html)
-
-      $edit
-        .data(height: $edit.outerHeight(true))
-        .show()
-
-      $rate.css height: $('.b-add_to_list').outerHeight(true) + $show.data('height')
-      (->
-        $rate.css height: $('.b-add_to_list').outerHeight(true) + $edit.data('height')
-      ).delay()
-      (-> $rate.css height: '').delay(500)

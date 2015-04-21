@@ -43,6 +43,8 @@
 
   $with('.b-spoiler.unprocessed', $root).spoiler()
 
+  $with('.b-user_rate.unprocessed', $root).user_rate_button()
+
   $with('.b-video.unprocessed', $root).shiki_video()
   $with('img.check-width', $root)
     .removeClass('check-width')

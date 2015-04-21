@@ -1,12 +1,10 @@
-@import compass/css3/opacity
-@import compass/css3/transition
 @import compass/typography/text/ellipsis
 @import compass/utilities/general/clearfix
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
-@import mixins/hover_underlined
 @import mixins/icons
+@import mixins/link
 @import mixins/plashka
 @import mixins/responsive
 
@@ -190,63 +188,3 @@
 
   .studio-logo
     max-width: 195px
-
-  .anime-rate
-    +block
-    +transition(opacity 0.5s ease, height 0.3s ease)
-    overflow: hidden
-    width: auto
-
-    &.ajax_request
-      +opacity(0.4)
-
-    .add-to-list
-      +link
-
-      +lte_ipad
-        line-height: 2
-
-    .rate-show
-      margin-bottom: 5px
-
-      .rate-number
-        float: right
-        margin-right: 7px
-
-        .b-input
-          display: inline
-
-        label
-          display: none
-
-        input
-          text-align: center
-          width: 25px
-
-        .item-add
-          margin-left: 10px
-
-      .episodes
-        margin-bottom: 5px
-
-      .note
-        color: $gray-color-0
-        margin-top: 5px
-
-    .rate-edit
-      display: none
-
-      .b-input.integer input
-        width: 45px
-
-      .remove
-        +clearfix
-        margin-bottom: 10px
-
-        a
-          +hover_underlined
-          color: $red
-          float: right
-
-          &:hover
-            color: red

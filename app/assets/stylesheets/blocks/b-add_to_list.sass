@@ -20,6 +20,9 @@
       +link_color
       cursor: pointer
 
+      &:after
+        content: attr(data-text)
+
   .plus
     +link_color
     +menu_icon('+')
@@ -32,13 +35,13 @@
     &:before
       line-height: inherit
 
-  &.expanded .arrow
+  &.expanded .trigger-arrow
     +menu_icon('\e81c')
     &:before
       margin-right: 0
       line-height: inherit
 
-  .arrow
+  .trigger-arrow
     +menu_icon('\e846')
     +link_color($gray-color)
     float: right
