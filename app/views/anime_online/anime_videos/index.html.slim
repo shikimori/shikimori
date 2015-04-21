@@ -25,13 +25,13 @@
     .c-episodes
       .title Эпизоды
       - if @player.videos.any?
-        - @player.videos.take(10).each do |(episode, videos)|
+        - @player.videos.take(13).each do |(episode, videos)|
           .episode
             a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
               span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
               span.episode-kinds = @player.kinds videos
               span.episode-hostings = @player.hostings videos
-        - if @player.videos.size > 10
+        - if @player.videos.size > 13
           .b-show_more + показать всё
           .b-show_more-more
             - @player.videos.to_a.slice(10,9999).each do |(episode, videos)|
