@@ -44,10 +44,12 @@ article.c-column.b-catalog_entry[
   - unless content_by == :tooltip || content_by == :none
     .content
       - if content_by == :inline_tooltip
-        = render partial: 'blocks/tooltip', locals: { template_name: 'animes/content', objects: { anime: anime } }
+        = render partial: 'blocks/tooltip',
+          locals: { template_name: 'animes/content', objects: { anime: anime } }
 
       - elsif content_by == :block
-        = render partial: 'animes/content', locals: { anime: anime, cover_by: cover_by, content_title: content_title, content_text: content_text }
+        = render partial: 'animes/content',
+          locals: { anime: anime, cover_by: cover_by, content_title: content_title, content_text: content_text, no_flexible_button: local_assigns[:no_flexible_button] }
 
       - else
         - raise ArgumentError, content_by

@@ -71,5 +71,5 @@
       - else
         .data
 
-  div class="#{'no-offset' unless local_assigns[:with_image]}"
+  div class="#{'flexible-button' if !local_assigns[:with_image] && !local_assigns[:no_flexible_button]}"
     = render 'user_rates/user_rate', user_rate: anime.rate || anime.rates.build(user_id: current_user.try(:id)), entry: anime, button_only: true
