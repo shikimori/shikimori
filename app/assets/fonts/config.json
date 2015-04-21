@@ -227,12 +227,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "cda0cdcfd38f5f1d9255e722dad42012",
-      "css": "spinner",
-      "code": 59427,
-      "src": "fontawesome"
-    },
-    {
       "uid": "7222571caa5c15f83dcfd447c58d68d9",
       "css": "search-1",
       "code": 115,
@@ -344,6 +338,12 @@
       "uid": "96a3aff31cec6cfbe6177151b3a44d20",
       "css": "quote-left-alt",
       "code": 34,
+      "src": "iconic"
+    },
+    {
+      "uid": "929ff290f0be577d2a2d587d5a53eec1",
+      "css": "play-1",
+      "code": 59427,
       "src": "iconic"
     },
     {
