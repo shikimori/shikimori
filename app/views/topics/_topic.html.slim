@@ -43,8 +43,7 @@
         .body
           - if topic.generated_news?
             = render topic.linked.decorate,
-              cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none,
-              no_flexible_button: true
+              cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
           - elsif topic.cosplay?
             = render partial: 'cosplay_galleries/topic_info', locals: { topic: topic, gallery: topic.linked }
           - else

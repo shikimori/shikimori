@@ -67,8 +67,7 @@
     .body
       - if message.generated_news?
         = render message.linked.linked.decorate,
-          cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none,
-          no_flexible_button: true
+          cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
       - else
         == get_message_body message
 
