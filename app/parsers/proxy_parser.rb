@@ -2,8 +2,10 @@ require 'thread_pool'
 
 # http://pastebin.com/r2Xz6i0M
 class ProxyParser
-  TestUrl = "http://#{Site::DOMAIN}#{ProxyTest::TestPage}"
-  IpUrl ="http://#{Site::DOMAIN}#{ProxyTest::WhatIsMyIpPage}"
+  TEST_URL = "http://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
+  WHAT_IS_MY_IP_URL ="http://#{Site::DOMAIN}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
+
+  HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
 
   # импорт проксей
   def import
@@ -13,7 +15,7 @@ class ProxyParser
 
   # парсинг проксей из внешних источников
   def fetch
-    parsed_proxies = sources.map {|url| parse(url) }.flatten.uniq
+    parsed_proxies = parse_proxies
     print "found %i proxies\n" % [parsed_proxies.size]
 
     proxies = (Proxy.all.map { |v| { ip: v.ip, port: v.port } } + parsed_proxies).uniq.map do |proxy_hash|
@@ -22,7 +24,7 @@ class ProxyParser
     print "%i after merge with previously parsed\n" % [proxies.size]
 
     print "getting own ip... "
-    ip = open(IpUrl).read.strip
+    ip = open(WHAT_IS_MY_IP_URL).read.strip
     print "#{ip}\n"
 
     verified_proxies = test(proxies, ip)
@@ -32,7 +34,7 @@ class ProxyParser
   end
 
   # сохранение проксей в базу
-  def save(proxies)
+  def save proxies
     ActiveRecord::Base.transaction do
       if proxies.any?
         Proxy.delete_all
@@ -60,7 +62,7 @@ private
   end
 
   # проверка проксей на работоспособность
-  def test(proxies, ip)
+  def test proxies, ip
     verified_proxies = []
 
     print "testing #{proxies.size} proxies"
@@ -73,9 +75,9 @@ private
   end
 
   # анонимна ли прокся?
-  def anonymouse?(proxy, ip)
-    content = Proxy.get(TestUrl, timeout: 10, proxy: proxy)
-    content && content.include?(ProxyTest::SuccessConfirmationMessage) && !content.include?(ip)
+  def anonymouse? proxy, ip
+    content = Proxy.get(TEST_URL, timeout: 10, proxy: proxy)
+    content && content.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) && !content.include?(ip)
   end
 
   # источники проксей
@@ -85,13 +87,22 @@ private
       #Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
   end
 
+  def parse_proxies
+    source_proxies = sources.map {|url| parse url }.flatten
+    hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
+      { ip: proxy['ip'], port: proxy['port'].to_i }
+    end
+
+    (source_proxies + hideme_proxies).uniq
+  end
+
   #Proxies24Url = 'http://www.proxies24.org/'
   #Proxies24Url = 'http://proxy-server-free.blogspot.ru/'
 
   # http://forum.antichat.ru/thread59009.html
   Sources = [
     'http://alexa.lr2b.com/proxylist.txt',
-    'http://www.cybersyndrome.net/pla.html',
+    #'http://www.cybersyndrome.net/pla.html',
 
     #'http://www.freeproxy.ch/proxy.txt',
     #'http://elite-proxies.blogspot.com/',

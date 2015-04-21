@@ -123,7 +123,8 @@ class Proxy < ActiveRecord::Base
               [ options[:required_text] ]
             end
 
-            raise "#{proxy.to_s} banned" unless requires.all? { |text| content.include?(text) }
+            stripped_content = content.gsub(/[ \n\r]+/, '').downcase
+            raise "#{proxy.to_s} banned" unless requires.all? { |text| stripped_content.include?(text.gsub(/[ \n\r]+/, '').downcase) }
           end
 
           # проверка на забаненны тексты
@@ -167,7 +168,7 @@ class Proxy < ActiveRecord::Base
       if url =~ /myanimelist.net/
         'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
       else
-        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:18.0) Gecko/20100101 Firefox/18.0'
+        'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
       end
     end
 
