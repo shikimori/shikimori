@@ -5,10 +5,8 @@
   margin-bottom: 10px
 
   .trigger, .option
-    background: #daf1ff
     border: 1px solid #bce6ff
     border-left-width: 5px
-    color: #4bf
     font-size: 14px
     font-weight: bold
     line-height: 30px
@@ -17,11 +15,14 @@
 
     .text
       +hover_underlined
-      +link_color
+      //+link_color
       cursor: pointer
 
       &:after
         content: attr(data-text)
+
+  .trigger .text:after
+    margin-left: 2px
 
   .plus
     +link_color
@@ -29,11 +30,75 @@
     &:before
       line-height: inherit
 
+  &.planned
+    .trigger, .option
+      background: #daf1ff
+      border-color: #bce6ff
+      color: $link
+
+    .trigger-arrow
+      +link_color($gray-color)
+
+    .edit
+      +menu_icon('\e824')
+
+  &.on_hold
+    .trigger, .option
+      background: #EBEEF1
+      border-color: #DBE0E6
+      color: $gray-color-2
+
+    .trigger-arrow
+      color: $gray-color-2
+
+    .edit
+      +menu_icon('\e833')
+      color: $gray-color-2
+
+  &.watching,
+  &.rewatching
+    .trigger, .option
+      background: #daf1ff
+      border-color: #bce6ff
+      color: $link
+
+    .trigger-arrow
+      +link_color($gray-color)
+
+    .edit
+      +menu_icon('\e823')
+
+  &.completed
+    .trigger, .option
+      background: #EEF6DC
+      border-color: #E0EFC0
+      color: $released_tag
+
+    .trigger-arrow
+      color: $released_tag
+
+    .edit
+      +menu_icon('\e817')
+      color: $released_tag
+
+  &.dropped
+    .trigger, .option
+      background: #FEDDDF
+      border-color: #FEC2C5
+      color: #FC575E
+
+    .trigger-arrow
+      color: #FC575E
+
+    .edit
+      +menu_icon('\e813')
+      color: #FC575E
+
   .edit
-    +link_color
-    +menu_icon('\e842')
+    //+link_color
+    //+menu_icon('\e842')
     &:before
-      line-height: inherit
+      line-height: inherit !important
 
   &.expanded .trigger-arrow
     +menu_icon('\e81c')
@@ -43,8 +108,9 @@
 
   .trigger-arrow
     +menu_icon('\e846')
-    +link_color($gray-color)
+    //+link_color($gray-color)
     float: right
+
     &:before
       margin-right: 0
       line-height: inherit

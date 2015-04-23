@@ -1,8 +1,9 @@
 @import globals/variables
 @import mixins/clear_left
-@import mixins/link
-@import mixins/tag
 @import mixins/comma_separated
+@import mixins/link
+@import mixins/responsive
+@import mixins/tag
 
 .b-catalog_entry-tooltip
   +clear_left
@@ -107,6 +108,23 @@
   .b-add_to_list
     margin: 10px 0 0 0
     width: 196px
+
+    .trigger
+      font-size: 13px
+      line-height: 25px
+
+    .option
+      font-size: 12px
+
+    +lte_ipad
+      width: 215px
+
+      .trigger
+        font-size: 14px
+        line-height: 30px
+
+      .option
+        font-size: 13px
 
     .trigger, .add-trigger, .remove-trigger
       max-width: none
