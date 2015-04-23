@@ -3,8 +3,6 @@ class AnimeOnline::DashboardController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = 8
 
-    is_adult = AnimeOnlineDomain::adult_host? request
-
     @recent_videos, @add_postloader = RecentVideosQuery.new(is_adult).postload(@page, @limit)
     @recent_videos = @recent_videos.map {|v| AnimeWithEpisode.new v.anime.decorate, v }
 
@@ -27,5 +25,11 @@ class AnimeOnline::DashboardController < ShikimoriController
   end
 
   def pingmedia_test_2
+  end
+
+  private
+
+  def is_adult
+    @is_adult ||= AnimeOnlineDomain::adult_host? request
   end
 end
