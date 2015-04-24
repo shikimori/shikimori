@@ -38,7 +38,8 @@ class UsersController < ShikimoriController
           User
             .where.not(id: 1)
             .where.not(last_online_at: nil)
-            .order('(case when last_online_at>current_sign_in_at then last_online_at else current_sign_in_at end) desc')
+            .order('(case when last_online_at > coalesce(current_sign_in_at, now()::date - 365)
+              then last_online_at else coalesce(current_sign_in_at, now()::date - 365) end) desc')
         end
       end
 
