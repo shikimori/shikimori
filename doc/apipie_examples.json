@@ -39,7 +39,7 @@
   "animes#franchise": [
     {
       "verb": "GET",
-      "path": "/api/animes/34/franchise",
+      "path": "/api/animes/24/franchise",
       "versions": [
         "1"
       ],
@@ -51,11 +51,11 @@
         ],
         "nodes": [
           {
-            "id": 34,
-            "date": 1429857387,
-            "name": "anime_33",
+            "id": 24,
+            "date": 1429859053,
+            "name": "anime_23",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "http://test.host/animes/34-anime_33",
+            "url": "http://test.host/animes/24-anime_23",
             "year": null,
             "kind": "Сериал",
             "weight": 1
@@ -74,11 +74,11 @@
       "versions": [
         "1"
       ],
-      "query": "duration=F&genre=3&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=1&type=TV",
+      "query": "duration=F&genre=1&limit=1&mylist=1&order=ranked&page=1&rating=NC-17&search=Te&season=2014&studio=2&type=TV",
       "request_data": null,
       "response_data": [
         {
-          "id": 29,
+          "id": 23,
           "name": "Test",
           "russian": null,
           "image": {
@@ -87,7 +87,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/animes/29-test",
+          "url": "/animes/23-test",
           "kind": "TV",
           "ongoing": false,
           "anons": false,
@@ -103,7 +103,7 @@
   "animes#related": [
     {
       "verb": "GET",
-      "path": "/api/animes/32/related",
+      "path": "/api/animes/28/related",
       "versions": [
         "1"
       ],
@@ -114,8 +114,8 @@
           "relation": "Adaptation",
           "relation_russian": "Адаптация",
           "anime": {
-            "id": 33,
-            "name": "anime_32",
+            "id": 29,
+            "name": "anime_28",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -123,7 +123,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/animes/33-anime_32",
+            "url": "/animes/29-anime_28",
             "kind": "TV",
             "ongoing": false,
             "anons": false,
@@ -141,7 +141,7 @@
   "animes#roles": [
     {
       "verb": "GET",
-      "path": "/api/animes/25/roles",
+      "path": "/api/animes/21/roles",
       "versions": [
         "1"
       ],
@@ -157,14 +157,14 @@
           ],
           "character": null,
           "person": {
-            "id": 6,
-            "name": "prson_6",
+            "id": 3,
+            "name": "prson_3",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/people/6-prson_6"
+            "url": "/people/3-prson_3"
           }
         },
         {
@@ -175,16 +175,16 @@
             "Главные герои"
           ],
           "character": {
-            "id": 5,
-            "name": "character_5",
-            "russian": "персонаж_5",
+            "id": 4,
+            "name": "character_4",
+            "russian": "персонаж_4",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/characters/5-character_5"
+            "url": "/characters/4-character_4"
           },
           "person": null
         }
@@ -197,7 +197,7 @@
   "animes#screenshots": [
     {
       "verb": "GET",
-      "path": "/api/animes/28/screenshots",
+      "path": "/api/animes/20/screenshots",
       "versions": [
         "1"
       ],
@@ -205,8 +205,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/images/screenshot/original/b267e091bf49af7f8b484392392f91a663273f7e.jpg?1429857387",
-          "preview": "/images/screenshot/preview/b267e091bf49af7f8b484392392f91a663273f7e.jpg?1429857387"
+          "original": "/images/screenshot/original/1b568458fc77728929b99c89b78a8b4fbcea9ef7.jpg?1429859052",
+          "preview": "/images/screenshot/preview/1b568458fc77728929b99c89b78a8b4fbcea9ef7.jpg?1429859052"
         }
       ],
       "code": "200",
@@ -217,15 +217,15 @@
   "animes#show": [
     {
       "verb": "GET",
-      "path": "/api/animes/27",
+      "path": "/api/animes/19",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 27,
-        "name": "anime_27",
+        "id": 19,
+        "name": "anime_19",
         "russian": null,
         "image": {
           "original": "/assets/globals/missing_original.jpg",
@@ -233,7 +233,7 @@
           "x96": "/assets/globals/missing_x96.jpg",
           "x64": "/assets/globals/missing_x64.jpg"
         },
-        "url": "/animes/27-anime_27",
+        "url": "/animes/19-anime_19",
         "kind": "TV",
         "ongoing": false,
         "anons": false,
@@ -256,9 +256,9 @@
         "description": "",
         "description_html": "<p class=\"b-nothing_here\">Нет описания</p>",
         "favoured": false,
-        "thread_id": 7,
+        "thread_id": 13,
         "world_art_id": 0,
-        "myanimelist_id": 27,
+        "myanimelist_id": 19,
         "ani_db_id": 0,
         "rates_scores_stats": [
 
@@ -282,7 +282,7 @@
   "animes#similar": [
     {
       "verb": "GET",
-      "path": "/api/animes/30/similar",
+      "path": "/api/animes/26/similar",
       "versions": [
         "1"
       ],
@@ -290,8 +290,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 31,
-          "name": "anime_30",
+          "id": 27,
+          "name": "anime_26",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -299,7 +299,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/animes/31-anime_30",
+          "url": "/animes/27-anime_26",
           "kind": "TV",
           "ongoing": false,
           "anons": false,
@@ -322,8 +322,52 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "+CbkJJVIxMRcGfztDNDfncdHwVXO/ZwppvWunwgG+05ydH3e2GNOiLHgPwGCP9P9FRFOYcojJdtA9IgieGV/DQ=="
+        "authenticity_token": "sqYyaWqMjQofDAZgmf61Fj7/WyUb/Rs6siSTdC84llTXKIBefP4m6iZuf/hqarZzx297eeWcMyBh6xeomCJ1rA=="
       },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "bans#index": [
+    {
+      "verb": "GET",
+      "path": "/api/bans",
+      "versions": [
+        "1"
+      ],
+      "query": "limit=1&page=1",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 2,
+          "user_id": 10,
+          "comment": null,
+          "moderator_id": 10,
+          "reason": "reason",
+          "created_at": "2015-04-24T10:04:11.357+03:00",
+          "duration_minutes": 180
+        },
+        {
+          "id": 1,
+          "user_id": 10,
+          "comment": {
+            "id": 7,
+            "commentable_id": 9,
+            "commentable_type": "Entry",
+            "body": "comment_body_6\n\n[ban=1]",
+            "user_id": 10,
+            "created_at": "2015-04-24T10:04:11.297+03:00",
+            "updated_at": "2015-04-24T10:04:11.354+03:00",
+            "review": false,
+            "offtopic": false
+          },
+          "moderator_id": 10,
+          "reason": "reason",
+          "created_at": "2015-04-24T10:04:11.323+03:00",
+          "duration_minutes": 180
+        }
+      ],
       "code": "200",
       "show_in_doc": 1,
       "recorded": true
@@ -344,6 +388,72 @@
           "next_episode_at": "2015-04-23T00:00:00.000+00:00",
           "duration": null,
           "anime": {
+            "id": 31,
+            "name": "anime_30",
+            "russian": null,
+            "image": {
+              "original": "/assets/globals/missing_original.jpg",
+              "preview": "/assets/globals/missing_preview.jpg",
+              "x96": "/assets/globals/missing_x96.jpg",
+              "x64": "/assets/globals/missing_x64.jpg"
+            },
+            "url": "/animes/31-anime_30",
+            "kind": "TV",
+            "ongoing": true,
+            "anons": false,
+            "episodes": 0,
+            "episodes_aired": 0
+          }
+        },
+        {
+          "next_episode": 1,
+          "next_episode_at": "2015-05-01T10:04:06.379+03:00",
+          "duration": 1860.0,
+          "anime": {
+            "id": 35,
+            "name": "anime_34",
+            "russian": null,
+            "image": {
+              "original": "/assets/globals/missing_original.jpg",
+              "preview": "/assets/globals/missing_preview.jpg",
+              "x96": "/assets/globals/missing_x96.jpg",
+              "x64": "/assets/globals/missing_x64.jpg"
+            },
+            "url": "/animes/35-anime_34",
+            "kind": "TV",
+            "ongoing": false,
+            "anons": true,
+            "episodes": 0,
+            "episodes_aired": 0
+          }
+        },
+        {
+          "next_episode": 1,
+          "next_episode_at": "2015-05-01T10:04:06.379+03:00",
+          "duration": 1860.0,
+          "anime": {
+            "id": 36,
+            "name": "anime_35",
+            "russian": null,
+            "image": {
+              "original": "/assets/globals/missing_original.jpg",
+              "preview": "/assets/globals/missing_preview.jpg",
+              "x96": "/assets/globals/missing_x96.jpg",
+              "x64": "/assets/globals/missing_x64.jpg"
+            },
+            "url": "/animes/36-anime_35",
+            "kind": "TV",
+            "ongoing": false,
+            "anons": true,
+            "episodes": 0,
+            "episodes_aired": 0
+          }
+        },
+        {
+          "next_episode": 1,
+          "next_episode_at": "2015-05-01T10:04:06.379+03:00",
+          "duration": 1860.0,
+          "anime": {
             "id": 37,
             "name": "anime_36",
             "russian": null,
@@ -354,72 +464,6 @@
               "x64": "/assets/globals/missing_x64.jpg"
             },
             "url": "/animes/37-anime_36",
-            "kind": "TV",
-            "ongoing": true,
-            "anons": false,
-            "episodes": 0,
-            "episodes_aired": 0
-          }
-        },
-        {
-          "next_episode": 1,
-          "next_episode_at": "2015-05-01T09:36:17.830+03:00",
-          "duration": 1860.0,
-          "anime": {
-            "id": 41,
-            "name": "anime_40",
-            "russian": null,
-            "image": {
-              "original": "/assets/globals/missing_original.jpg",
-              "preview": "/assets/globals/missing_preview.jpg",
-              "x96": "/assets/globals/missing_x96.jpg",
-              "x64": "/assets/globals/missing_x64.jpg"
-            },
-            "url": "/animes/41-anime_40",
-            "kind": "TV",
-            "ongoing": false,
-            "anons": true,
-            "episodes": 0,
-            "episodes_aired": 0
-          }
-        },
-        {
-          "next_episode": 1,
-          "next_episode_at": "2015-05-01T09:36:17.830+03:00",
-          "duration": 1860.0,
-          "anime": {
-            "id": 42,
-            "name": "anime_41",
-            "russian": null,
-            "image": {
-              "original": "/assets/globals/missing_original.jpg",
-              "preview": "/assets/globals/missing_preview.jpg",
-              "x96": "/assets/globals/missing_x96.jpg",
-              "x64": "/assets/globals/missing_x64.jpg"
-            },
-            "url": "/animes/42-anime_41",
-            "kind": "TV",
-            "ongoing": false,
-            "anons": true,
-            "episodes": 0,
-            "episodes_aired": 0
-          }
-        },
-        {
-          "next_episode": 1,
-          "next_episode_at": "2015-05-01T09:36:17.830+03:00",
-          "duration": 1860.0,
-          "anime": {
-            "id": 43,
-            "name": "anime_42",
-            "russian": null,
-            "image": {
-              "original": "/assets/globals/missing_original.jpg",
-              "preview": "/assets/globals/missing_preview.jpg",
-              "x96": "/assets/globals/missing_x96.jpg",
-              "x64": "/assets/globals/missing_x64.jpg"
-            },
-            "url": "/animes/43-anime_42",
             "kind": "TV",
             "ongoing": false,
             "anons": true,
@@ -436,29 +480,29 @@
   "characters#show": [
     {
       "verb": "GET",
-      "path": "/api/characters/6",
+      "path": "/api/characters/1",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 6,
-        "name": "character_6",
-        "russian": "персонаж_6",
+        "id": 1,
+        "name": "character_1",
+        "russian": "персонаж_1",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
           "x96": "/assets/globals/missing_x96.jpg",
           "x64": "/assets/globals/missing_x64.jpg"
         },
-        "url": "/characters/6-character_6",
+        "url": "/characters/1-character_1",
         "altname": null,
         "japanese": null,
         "description": "",
         "description_html": "<p class=\"b-nothing_here\">Нет описания</p>",
         "favoured": false,
-        "thread_id": 15,
+        "thread_id": 1,
         "seyu": [
 
         ],
@@ -485,8 +529,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 24,
-          "name": "anime_24",
+          "id": 18,
+          "name": "anime_18",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -494,7 +538,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/animes/24-anime_24",
+          "url": "/animes/18-anime_18",
           "kind": "TV",
           "ongoing": false,
           "anons": false,
@@ -518,16 +562,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 4,
-          "name": "character_4",
-          "russian": "персонаж_4",
+          "id": 3,
+          "name": "character_3",
+          "russian": "персонаж_3",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/characters/4-character_4"
+          "url": "/characters/3-character_3"
         }
       ],
       "code": "200",
@@ -538,7 +582,7 @@
   "clubs#images": [
     {
       "verb": "GET",
-      "path": "/api/clubs/4/images",
+      "path": "/api/clubs/2/images",
       "versions": [
         "1"
       ],
@@ -547,9 +591,9 @@
       "response_data": [
         {
           "id": 2,
-          "original": "/images/image/original/2.jpg?1429857386",
-          "main": "/images/image/main/2.jpg?1429857386",
-          "preview": "/images/image/preview/2.jpg?1429857386"
+          "original": "/images/image/original/2.jpg?1429859051",
+          "main": "/images/image/main/2.jpg?1429859051",
+          "preview": "/images/image/preview/2.jpg?1429859051"
         }
       ],
       "code": "200",
@@ -568,8 +612,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 6,
-          "name": "club_6",
+          "id": 5,
+          "name": "club_5",
           "logo": {
             "original": "/images/static/missing_logo_x215.png",
             "main": "/images/static/missing_logo_x215.png",
@@ -579,8 +623,8 @@
           }
         },
         {
-          "id": 5,
-          "name": "club_5",
+          "id": 4,
+          "name": "club_4",
           "logo": {
             "original": "/images/static/missing_logo_x215.png",
             "main": "/images/static/missing_logo_x215.png",
@@ -598,7 +642,7 @@
   "clubs#mangas": [
     {
       "verb": "GET",
-      "path": "/api/clubs/2/mangas",
+      "path": "/api/clubs/3/mangas",
       "versions": [
         "1"
       ],
@@ -606,16 +650,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 14,
-          "name": "manga_13",
-          "russian": "манга_14",
+          "id": 4,
+          "name": "manga_4",
+          "russian": "манга_4",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/mangas/14-manga_13",
+          "url": "/mangas/4-manga_4",
           "ongoing": false,
           "anons": false,
           "volumes": 0,
@@ -630,7 +674,7 @@
   "clubs#members": [
     {
       "verb": "GET",
-      "path": "/api/clubs/9/members",
+      "path": "/api/clubs/6/members",
       "versions": [
         "1"
       ],
@@ -638,19 +682,19 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 34,
-          "nickname": "user_48",
-          "avatar": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=48&d=identicon",
+          "id": 18,
+          "nickname": "user_44",
+          "avatar": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/8a1d6081822d1e099293845eac47c44f?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         }
       ],
       "code": "200",
@@ -661,15 +705,15 @@
   "clubs#show": [
     {
       "verb": "GET",
-      "path": "/api/clubs/3",
+      "path": "/api/clubs/1",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 3,
-        "name": "club_3",
+        "id": 1,
+        "name": "club_1",
         "logo": {
           "original": "/images/static/missing_logo_x215.png",
           "main": "/images/static/missing_logo_x215.png",
@@ -681,16 +725,16 @@
         "description_html": "<p class=\"b-nothing_here\">Нет описания</p>",
         "mangas": [
           {
-            "id": 15,
-            "name": "manga_14",
-            "russian": "манга_15",
+            "id": 3,
+            "name": "manga_3",
+            "russian": "манга_3",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/mangas/15-manga_14",
+            "url": "/mangas/3-manga_3",
             "ongoing": false,
             "anons": false,
             "volumes": 0,
@@ -699,41 +743,41 @@
         ],
         "characters": [
           {
-            "id": 3,
-            "name": "character_3",
-            "russian": "персонаж_3",
+            "id": 2,
+            "name": "character_2",
+            "russian": "персонаж_2",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/characters/3-character_3"
+            "url": "/characters/2-character_2"
           }
         ],
-        "thread_id": 4,
+        "thread_id": 10,
         "user_role": "member",
         "members": [
           {
-            "id": 23456810,
-            "nickname": "user_37",
-            "avatar": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=48&d=identicon",
+            "id": 23456815,
+            "nickname": "user_34",
+            "avatar": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/d1277e7d3f14c35a92aa8d3eaf5ce9f1?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           }
         ],
         "animes": [
           {
-            "id": 23,
-            "name": "anime_23",
+            "id": 17,
+            "name": "anime_17",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -741,7 +785,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/animes/23-anime_23",
+            "url": "/animes/17-anime_17",
             "kind": "TV",
             "ongoing": false,
             "anons": false,
@@ -752,9 +796,9 @@
         "images": [
           {
             "id": 1,
-            "original": "/images/image/original/1.jpg?1429857386",
-            "main": "/images/image/main/1.jpg?1429857386",
-            "preview": "/images/image/preview/1.jpg?1429857386"
+            "original": "/images/image/original/1.jpg?1429859051",
+            "main": "/images/image/main/1.jpg?1429859051",
+            "preview": "/images/image/preview/1.jpg?1429859051"
           }
         ]
       },
@@ -773,7 +817,7 @@
       "query": null,
       "request_data": {
         "comment": {
-          "commentable_id": 10,
+          "commentable_id": 4,
           "commentable_type": "Entry",
           "body": "test",
           "offtopic": false,
@@ -781,32 +825,32 @@
         }
       },
       "response_data": {
-        "id": 6,
-        "user_id": 23456814,
-        "commentable_id": 10,
+        "id": 5,
+        "user_id": 23456792,
+        "commentable_id": 4,
         "commentable_type": "Entry",
         "body": "test",
         "html_body": "test",
-        "created_at": "2015-04-24T09:36:28.245+03:00",
-        "updated_at": "2015-04-24T09:36:28.245+03:00",
+        "created_at": "2015-04-24T10:04:09.168+03:00",
+        "updated_at": "2015-04-24T10:04:09.168+03:00",
         "offtopic": false,
         "review": false,
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456814,
-          "nickname": "user_53",
-          "avatar": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=48&d=identicon",
+          "id": 23456792,
+          "nickname": "user_4",
+          "avatar": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/ae463d853ca951cb944cba6f0d4546b5?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/6365a6a744ae0effdfe540a2485baac7?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         }
       },
       "code": "201",
@@ -817,7 +861,7 @@
   "comments#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/comments/7",
+      "path": "/api/comments/6",
       "versions": [
         "1"
       ],
@@ -838,65 +882,65 @@
       "versions": [
         "1"
       ],
-      "query": "commentable_id=23456811&commentable_type=User&desc=1&limit=10&page=1",
+      "query": "commentable_id=23456791&commentable_type=User&desc=1&limit=10&page=1",
       "request_data": null,
       "response_data": [
         {
-          "id": 3,
-          "user_id": 23456811,
-          "commentable_id": 23456811,
+          "id": 4,
+          "user_id": 23456791,
+          "commentable_id": 23456791,
           "commentable_type": "User",
-          "body": "comment_body_3",
-          "html_body": "comment_body_3",
-          "created_at": "2015-04-24T09:36:27.966+03:00",
-          "updated_at": "2015-04-24T09:36:27.966+03:00",
+          "body": "comment_body_4",
+          "html_body": "comment_body_4",
+          "created_at": "2015-04-24T10:04:09.076+03:00",
+          "updated_at": "2015-04-24T10:04:09.076+03:00",
           "offtopic": false,
           "review": false,
           "viewed": true,
           "can_be_edited": null,
           "user": {
-            "id": 23456811,
-            "nickname": "user_50",
-            "avatar": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=48&d=identicon",
+            "id": 23456791,
+            "nickname": "user_3",
+            "avatar": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           }
         },
         {
-          "id": 2,
-          "user_id": 23456811,
-          "commentable_id": 23456811,
+          "id": 3,
+          "user_id": 23456791,
+          "commentable_id": 23456791,
           "commentable_type": "User",
-          "body": "comment_body_2",
-          "html_body": "comment_body_2",
-          "created_at": "2015-04-24T09:36:27.959+03:00",
-          "updated_at": "2015-04-24T09:36:27.959+03:00",
+          "body": "comment_body_3",
+          "html_body": "comment_body_3",
+          "created_at": "2015-04-24T10:04:09.069+03:00",
+          "updated_at": "2015-04-24T10:04:09.069+03:00",
           "offtopic": false,
           "review": false,
           "viewed": true,
           "can_be_edited": null,
           "user": {
-            "id": 23456811,
-            "nickname": "user_50",
-            "avatar": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=48&d=identicon",
+            "id": 23456791,
+            "nickname": "user_3",
+            "avatar": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/93fbc44d739e2075f03052d79f23e479?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           }
         }
       ],
@@ -908,39 +952,39 @@
   "comments#show": [
     {
       "verb": "GET",
-      "path": "/api/comments/4",
+      "path": "/api/comments/2",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 4,
-        "user_id": 23456812,
-        "commentable_id": 8,
+        "id": 2,
+        "user_id": 23456790,
+        "commentable_id": 3,
         "commentable_type": "Entry",
-        "body": "comment_body_4",
-        "html_body": "comment_body_4",
-        "created_at": "2015-04-24T09:36:28.072+03:00",
-        "updated_at": "2015-04-24T09:36:28.072+03:00",
+        "body": "comment_body_2",
+        "html_body": "comment_body_2",
+        "created_at": "2015-04-24T10:04:09.014+03:00",
+        "updated_at": "2015-04-24T10:04:09.014+03:00",
         "offtopic": false,
         "review": false,
         "viewed": true,
         "can_be_edited": null,
         "user": {
-          "id": 23456812,
-          "nickname": "user_51",
-          "avatar": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=48&d=identicon",
+          "id": 23456790,
+          "nickname": "user_2",
+          "avatar": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/1f949321e9a49aa071f813b9a3bac0d8?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         }
       },
       "code": "200",
@@ -951,7 +995,7 @@
   "comments#update": [
     {
       "verb": "PATCH",
-      "path": "/api/comments/5",
+      "path": "/api/comments/1",
       "versions": [
         "1"
       ],
@@ -962,32 +1006,32 @@
         }
       },
       "response_data": {
-        "id": 5,
-        "user_id": 23456813,
-        "commentable_id": 9,
+        "id": 1,
+        "user_id": 23456789,
+        "commentable_id": 2,
         "commentable_type": "Entry",
         "body": "testzxc",
         "html_body": "testzxc",
-        "created_at": "2015-04-24T09:36:28.140+03:00",
-        "updated_at": "2015-04-24T09:36:28.167+03:00",
+        "created_at": "2015-04-24T10:04:08.825+03:00",
+        "updated_at": "2015-04-24T10:04:08.905+03:00",
         "offtopic": false,
         "review": false,
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456813,
-          "nickname": "user_52",
-          "avatar": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=48&d=identicon",
+          "id": 23456789,
+          "nickname": "user_1",
+          "avatar": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/6a2e452ffe17de492a27ecd8eebd30aa?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         }
       },
       "code": "200",
@@ -1005,19 +1049,19 @@
       "query": null,
       "request_data": {
         "device": {
-          "user_id": 23456809,
+          "user_id": 23456812,
           "token": "test",
           "platform": "ios",
           "name": "test"
         }
       },
       "response_data": {
-        "id": 4,
-        "user_id": 23456809,
+        "id": 1,
+        "user_id": 23456812,
         "token": "test",
         "platform": "ios",
-        "created_at": "2015-04-24T09:36:23.961+03:00",
-        "updated_at": "2015-04-24T09:36:23.961+03:00",
+        "created_at": "2015-04-24T10:04:11.106+03:00",
+        "updated_at": "2015-04-24T10:04:11.106+03:00",
         "name": "test"
       },
       "code": "201",
@@ -1028,7 +1072,7 @@
   "devices#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/devices/1",
+      "path": "/api/devices/2",
       "versions": [
         "1"
       ],
@@ -1051,12 +1095,12 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
-          "user_id": 23456808,
+          "id": 3,
+          "user_id": 23456814,
           "token": "MyString",
           "platform": "ios",
-          "created_at": "2015-04-24T09:36:23.837+03:00",
-          "updated_at": "2015-04-24T09:36:23.837+03:00",
+          "created_at": "2015-04-24T10:04:11.205+03:00",
+          "updated_at": "2015-04-24T10:04:11.205+03:00",
           "name": null
         }
       ],
@@ -1089,7 +1133,7 @@
   "mangas#franchise": [
     {
       "verb": "GET",
-      "path": "/api/mangas/10/franchise",
+      "path": "/api/mangas/7/franchise",
       "versions": [
         "1"
       ],
@@ -1101,11 +1145,11 @@
         ],
         "nodes": [
           {
-            "id": 10,
-            "date": 1429857383,
-            "name": "manga_9",
+            "id": 7,
+            "date": 1429859054,
+            "name": "manga_6",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "http://test.host/mangas/10-manga_9",
+            "url": "http://test.host/mangas/7-manga_6",
             "year": null,
             "kind": "Манга",
             "weight": 1
@@ -1124,20 +1168,20 @@
       "versions": [
         "1"
       ],
-      "query": "genre=1&limit=1&mylist=1&order=ranked&page=1&publisher=2&rating=NC-17&search=Te&season=2014&type=Manga",
+      "query": "genre=3&limit=1&mylist=1&order=ranked&page=1&publisher=2&rating=NC-17&search=Te&season=2014&type=Manga",
       "request_data": null,
       "response_data": [
         {
-          "id": 4,
+          "id": 6,
           "name": "Test",
-          "russian": "манга_4",
+          "russian": "манга_6",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/mangas/4-test",
+          "url": "/mangas/6-test",
           "ongoing": false,
           "anons": false,
           "volumes": 0,
@@ -1152,7 +1196,7 @@
   "mangas#related": [
     {
       "verb": "GET",
-      "path": "/api/mangas/8/related",
+      "path": "/api/mangas/12/related",
       "versions": [
         "1"
       ],
@@ -1164,16 +1208,16 @@
           "relation_russian": "Адаптация",
           "anime": null,
           "manga": {
-            "id": 9,
-            "name": "manga_8",
-            "russian": "манга_9",
+            "id": 13,
+            "name": "manga_12",
+            "russian": "манга_13",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/mangas/9-manga_8",
+            "url": "/mangas/13-manga_12",
             "ongoing": false,
             "anons": false,
             "volumes": 0,
@@ -1205,14 +1249,14 @@
           ],
           "character": null,
           "person": {
-            "id": 1,
-            "name": "prson_1",
+            "id": 4,
+            "name": "prson_4",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/people/1-prson_1"
+            "url": "/people/4-prson_4"
           }
         },
         {
@@ -1223,16 +1267,16 @@
             "Главные герои"
           ],
           "character": {
-            "id": 1,
-            "name": "character_1",
-            "russian": "персонаж_1",
+            "id": 5,
+            "name": "character_5",
+            "russian": "персонаж_5",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/characters/1-character_1"
+            "url": "/characters/5-character_5"
           },
           "person": null
         }
@@ -1245,23 +1289,23 @@
   "mangas#show": [
     {
       "verb": "GET",
-      "path": "/api/mangas/3",
+      "path": "/api/mangas/9",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 3,
-        "name": "manga_3",
-        "russian": "манга_3",
+        "id": 9,
+        "name": "manga_8",
+        "russian": "манга_9",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
           "x96": "/assets/globals/missing_x96.jpg",
           "x64": "/assets/globals/missing_x64.jpg"
         },
-        "url": "/mangas/3-manga_3",
+        "url": "/mangas/9-manga_8",
         "ongoing": false,
         "anons": false,
         "volumes": 0,
@@ -1282,9 +1326,9 @@
         "description": null,
         "description_html": "<p class=\"b-nothing_here\">Нет описания</p>",
         "favoured": false,
-        "thread_id": 1,
+        "thread_id": 14,
         "read_manga_id": null,
-        "myanimelist_id": 3,
+        "myanimelist_id": 9,
         "genres": [
 
         ],
@@ -1301,7 +1345,7 @@
   "mangas#similar": [
     {
       "verb": "GET",
-      "path": "/api/mangas/6/similar",
+      "path": "/api/mangas/10/similar",
       "versions": [
         "1"
       ],
@@ -1309,16 +1353,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 7,
-          "name": "manga_6",
-          "russian": "манга_7",
+          "id": 11,
+          "name": "manga_10",
+          "russian": "манга_11",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/mangas/7-manga_6",
+          "url": "/mangas/11-manga_10",
           "ongoing": false,
           "anons": false,
           "volumes": 0,
@@ -1333,87 +1377,21 @@
   "people#show": [
     {
       "verb": "GET",
-      "path": "/api/people/7",
+      "path": "/api/people/1",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 7,
-        "name": "prson_7",
+        "id": 1,
+        "name": "prson_1",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
           "x64": "/assets/globals/missing_x64.jpg"
         },
-        "url": "/people/7-prson_7",
-        "japanese": null,
-        "job_title": "Режиссёр аниме",
-        "birthday": null,
-        "website": null,
-        "groupped_roles": [
-          [
-            "Продюсер",
-            1
-          ]
-        ],
-        "roles": [
-
-        ],
-        "works": [
-          {
-            "anime": {
-              "id": 44,
-              "name": "anime_43",
-              "russian": null,
-              "image": {
-                "original": "/assets/globals/missing_original.jpg",
-                "preview": "/assets/globals/missing_preview.jpg",
-                "x96": "/assets/globals/missing_x96.jpg",
-                "x64": "/assets/globals/missing_x64.jpg"
-              },
-              "url": "/animes/44-anime_43",
-              "kind": "TV",
-              "ongoing": false,
-              "anons": false,
-              "episodes": 0,
-              "episodes_aired": 0
-            },
-            "manga": null,
-            "role": "Продюсер"
-          }
-        ],
-        "thread_id": null,
-        "person_favoured": false,
-        "producer": false,
-        "producer_favoured": false,
-        "mangaka": false,
-        "mangaka_favoured": false,
-        "seyu": false,
-        "seyu_favoured": false
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "GET",
-      "path": "/api/people/8",
-      "versions": [
-        "1"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": {
-        "id": 8,
-        "name": "prson_8",
-        "image": {
-          "original": "/assets/globals/missing_original.jpg",
-          "preview": "/assets/globals/missing_preview.jpg",
-          "x64": "/assets/globals/missing_x64.jpg"
-        },
-        "url": "/people/8-prson_8",
+        "url": "/people/1-prson_1",
         "japanese": null,
         "job_title": "Режиссёр аниме",
         "birthday": null,
@@ -1437,6 +1415,72 @@
         "mangaka": false,
         "mangaka_favoured": false,
         "seyu": true,
+        "seyu_favoured": false
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api/people/2",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 2,
+        "name": "prson_2",
+        "image": {
+          "original": "/assets/globals/missing_original.jpg",
+          "preview": "/assets/globals/missing_preview.jpg",
+          "x64": "/assets/globals/missing_x64.jpg"
+        },
+        "url": "/people/2-prson_2",
+        "japanese": null,
+        "job_title": "Режиссёр аниме",
+        "birthday": null,
+        "website": null,
+        "groupped_roles": [
+          [
+            "Продюсер",
+            1
+          ]
+        ],
+        "roles": [
+
+        ],
+        "works": [
+          {
+            "anime": {
+              "id": 2,
+              "name": "anime_2",
+              "russian": null,
+              "image": {
+                "original": "/assets/globals/missing_original.jpg",
+                "preview": "/assets/globals/missing_preview.jpg",
+                "x96": "/assets/globals/missing_x96.jpg",
+                "x64": "/assets/globals/missing_x64.jpg"
+              },
+              "url": "/animes/2-anime_2",
+              "kind": "TV",
+              "ongoing": false,
+              "anons": false,
+              "episodes": 0,
+              "episodes_aired": 0
+            },
+            "manga": null,
+            "role": "Продюсер"
+          }
+        ],
+        "thread_id": null,
+        "person_favoured": false,
+        "producer": false,
+        "producer_favoured": false,
+        "mangaka": false,
+        "mangaka_favoured": false,
+        "seyu": false,
         "seyu_favoured": false
       },
       "code": "200",
@@ -1516,10 +1560,10 @@
         }
       },
       "response_data": {
-        "id": 43,
+        "id": 7,
         "nickname": "test",
-        "email": "email70@factory.com",
-        "avatar": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=32&d=identicon"
+        "email": "email27@factory.com",
+        "avatar": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=32&d=identicon"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -1537,9 +1581,9 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
-          "name": "studio_2",
-          "filtered_name": "studio_2",
+          "id": 1,
+          "name": "studio_1",
+          "filtered_name": "studio_1",
           "real": false,
           "image": null
         }
@@ -1569,34 +1613,34 @@
   "topics#show": [
     {
       "verb": "GET",
-      "path": "/api/topics/14",
+      "path": "/api/topics/7",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 14,
-        "title": "topic_2",
+        "id": 7,
+        "title": "topic_1",
         "body": "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
         "html_body": "<div class=\"prgrph\">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>",
-        "created_at": "2015-04-24T09:36:29.052+03:00",
+        "created_at": "2015-04-24T10:04:09.547+03:00",
         "comments_count": 0,
         "section": null,
         "user": {
-          "id": 41,
-          "nickname": "user_57",
-          "avatar": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=48&d=identicon",
+          "id": 5,
+          "nickname": "user_7",
+          "avatar": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/1c15f03ad633e991c06b84e1d22a1c3b?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         },
         "type": "ReviewComment",
         "linked_id": 1,
@@ -1604,8 +1648,8 @@
         "linked": {
           "id": 1,
           "target": {
-            "id": 46,
-            "name": "anime_45",
+            "id": 3,
+            "name": "anime_3",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -1613,7 +1657,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/animes/46-anime_45",
+            "url": "/animes/3-anime_3",
             "kind": "TV",
             "ongoing": false,
             "anons": false,
@@ -1621,19 +1665,19 @@
             "episodes_aired": 0
           },
           "user": {
-            "id": 40,
-            "nickname": "user_56",
-            "avatar": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=48&d=identicon",
+            "id": 4,
+            "nickname": "user_6",
+            "avatar": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/1ac3436833a6d0fd4c5c518aacb5801c?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -1644,7 +1688,7 @@
           "music": 1,
           "characters": 1,
           "animation": 1,
-          "created_at": "2015-04-24T09:36:28.984+03:00"
+          "created_at": "2015-04-24T10:04:09.467+03:00"
         },
         "viewed": true,
         "last_comment_viewed": null
@@ -1657,22 +1701,6 @@
   "user_rates#cleanup": [
     {
       "verb": "POST",
-      "path": "/api/user_rates/anime/cleanup",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": {
-      },
-      "response_data": {
-        "notice": "Выполнена очистка вашего аниме списка и вашей истории по аниме"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
       "path": "/api/user_rates/manga/cleanup",
       "versions": [
         "1"
@@ -1682,6 +1710,22 @@
       },
       "response_data": {
         "notice": "Выполнена очистка вашего манги списка и вашей истории по манге"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/anime/cleanup",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнена очистка вашего аниме списка и вашей истории по аниме"
       },
       "code": "200",
       "show_in_doc": 0,
@@ -1698,8 +1742,8 @@
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456798,
-          "target_id": 10,
+          "user_id": 23456803,
+          "target_id": 13,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -1722,23 +1766,23 @@
         "text_html": "test",
         "rewatches": 5,
         "user": {
-          "id": 23456798,
-          "nickname": "user_11",
-          "avatar": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=48&d=identicon",
+          "id": 23456803,
+          "nickname": "user_19",
+          "avatar": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/97746e3ffa5f9652a86cfa3b3e172b6a?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         },
         "anime": {
-          "id": 10,
-          "name": "anime_10",
+          "id": 13,
+          "name": "anime_13",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -1746,7 +1790,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/animes/10-anime_10",
+          "url": "/animes/13-anime_13",
           "kind": "TV",
           "ongoing": false,
           "anons": false,
@@ -1763,7 +1807,7 @@
   "user_rates#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/user_rates/1",
+      "path": "/api/user_rates/2",
       "versions": [
         "1"
       ],
@@ -1778,7 +1822,7 @@
   "user_rates#increment": [
     {
       "verb": "POST",
-      "path": "/api/user_rates/4/increment",
+      "path": "/api/user_rates/6/increment",
       "versions": [
         "1"
       ],
@@ -1786,7 +1830,7 @@
       "request_data": {
       },
       "response_data": {
-        "id": 4,
+        "id": 6,
         "score": 0,
         "status": 1,
         "status_name": "Watching",
@@ -1797,23 +1841,23 @@
         "text_html": null,
         "rewatches": 0,
         "user": {
-          "id": 23456799,
-          "nickname": "user_12",
-          "avatar": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=48&d=identicon",
+          "id": 23456806,
+          "nickname": "user_22",
+          "avatar": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/f0a54bb04495b180957e00c1e56e99bf?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/46403805dbe9d77c97779afd5b7fefb9?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         },
         "anime": {
-          "id": 11,
-          "name": "anime_11",
+          "id": 15,
+          "name": "anime_15",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -1821,7 +1865,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/animes/11-anime_11",
+          "url": "/animes/15-anime_15",
           "kind": "TV",
           "ongoing": false,
           "anons": false,
@@ -1838,22 +1882,6 @@
   "user_rates#reset": [
     {
       "verb": "POST",
-      "path": "/api/user_rates/anime/reset",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": {
-      },
-      "response_data": {
-        "notice": "Выполнен сброс оценок в вашем аниме списке"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
       "path": "/api/user_rates/manga/reset",
       "versions": [
         "1"
@@ -1865,6 +1893,22 @@
         "notice": "Выполнен сброс оценок в вашем манги списке"
       },
       "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/user_rates/anime/reset",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+      },
+      "response_data": {
+        "notice": "Выполнен сброс оценок в вашем аниме списке"
+      },
+      "code": "200",
       "show_in_doc": 0,
       "recorded": true
     }
@@ -1872,7 +1916,7 @@
   "user_rates#update": [
     {
       "verb": "PATCH",
-      "path": "/api/user_rates/2",
+      "path": "/api/user_rates/1",
       "versions": [
         "1"
       ],
@@ -1889,7 +1933,7 @@
         }
       },
       "response_data": {
-        "id": 2,
+        "id": 1,
         "score": 10,
         "status": 1,
         "status_name": "Watching",
@@ -1900,23 +1944,23 @@
         "text_html": "test",
         "rewatches": 5,
         "user": {
-          "id": 23456790,
-          "nickname": "user_2",
-          "avatar": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon",
+          "id": 23456794,
+          "nickname": "user_9",
+          "avatar": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/5e9b8188593c19e229d293ae40d40b37?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/b28adc8ca47ceea5b02c7881cdc5c80e?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         },
         "anime": {
-          "id": 2,
-          "name": "anime_2",
+          "id": 4,
+          "name": "anime_4",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -1924,7 +1968,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x64": "/assets/globals/missing_x64.jpg"
           },
-          "url": "/animes/2-anime_2",
+          "url": "/animes/4-anime_4",
           "kind": "TV",
           "ongoing": false,
           "anons": false,
@@ -1941,7 +1985,7 @@
   "users#anime_rates": [
     {
       "verb": "GET",
-      "path": "/api/users/24/anime_rates",
+      "path": "/api/users/44/anime_rates",
       "versions": [
         "1"
       ],
@@ -1949,7 +1993,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 11,
+          "id": 12,
           "score": 0,
           "status": 1,
           "status_name": "Watching",
@@ -1960,23 +2004,23 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 24,
-            "nickname": "user_35",
-            "avatar": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=48&d=identicon",
+            "id": 44,
+            "nickname": "user_58",
+            "avatar": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/600c2b7dda9affa041e4e0aea24df11d?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/c3d378aa1ee576448d93f191319942b8?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           },
           "anime": {
-            "id": 22,
-            "name": "anime_22",
+            "id": 46,
+            "name": "anime_45",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -1984,7 +2028,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/animes/22-anime_22",
+            "url": "/animes/46-anime_45",
             "kind": "TV",
             "ongoing": false,
             "anons": false,
@@ -2002,7 +2046,7 @@
   "users#bans": [
     {
       "verb": "GET",
-      "path": "/api/users/15/bans",
+      "path": "/api/users/40/bans",
       "versions": [
         "1"
       ],
@@ -2010,22 +2054,22 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 1,
-          "user_id": 15,
+          "id": 3,
+          "user_id": 40,
           "comment": {
-            "id": 1,
-            "commentable_id": 3,
+            "id": 8,
+            "commentable_id": 16,
             "commentable_type": "Entry",
-            "body": "comment_body_1\n\n[ban=1]",
-            "user_id": 15,
-            "created_at": "2015-04-24T09:36:25.255+03:00",
-            "updated_at": "2015-04-24T09:36:25.343+03:00",
+            "body": "comment_body_7\n\n[ban=3]",
+            "user_id": 40,
+            "created_at": "2015-04-24T10:04:15.366+03:00",
+            "updated_at": "2015-04-24T10:04:15.380+03:00",
             "review": false,
             "offtopic": false
           },
-          "moderator_id": 15,
+          "moderator_id": 40,
           "reason": "reason",
-          "created_at": "2015-04-24T09:36:25.328+03:00",
+          "created_at": "2015-04-24T10:04:15.371+03:00",
           "duration_minutes": 180
         }
       ],
@@ -2037,7 +2081,7 @@
   "users#clubs": [
     {
       "verb": "GET",
-      "path": "/api/users/14/clubs",
+      "path": "/api/users/26/clubs",
       "versions": [
         "1"
       ],
@@ -2045,8 +2089,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 1,
-          "name": "club_1",
+          "id": 9,
+          "name": "club_9",
           "logo": {
             "original": "/images/static/missing_logo_x215.png",
             "main": "/images/static/missing_logo_x215.png",
@@ -2064,7 +2108,7 @@
   "users#favourites": [
     {
       "verb": "GET",
-      "path": "/api/users/8/favourites",
+      "path": "/api/users/37/favourites",
       "versions": [
         "1"
       ],
@@ -2073,50 +2117,32 @@
       "response_data": {
         "animes": [
           {
-            "id": 16,
-            "name": "anime_16",
+            "id": 40,
+            "name": "anime_39",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/animes/16-anime_16"
+            "url": "/animes/40-anime_39"
           }
         ],
         "mangas": [
           {
-            "id": 12,
-            "name": "manga_11",
-            "russian": "манга_12",
+            "id": 15,
+            "name": "manga_14",
+            "russian": "манга_15",
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/mangas/12-manga_11"
+            "url": "/mangas/15-manga_14"
           }
         ],
         "characters": [
           {
-            "id": 2,
-            "name": "character_2",
-            "russian": "персонаж_2",
+            "id": 6,
+            "name": "character_6",
+            "russian": "персонаж_6",
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/characters/2-character_2"
+            "url": "/characters/6-character_6"
           }
         ],
         "people": [
-          {
-            "id": 2,
-            "name": "prson_2",
-            "russian": null,
-            "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/2-prson_2"
-          }
-        ],
-        "mangakas": [
-          {
-            "id": 3,
-            "name": "prson_3",
-            "russian": null,
-            "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/3-prson_3"
-          }
-        ],
-        "seyu": [
           {
             "id": 5,
             "name": "prson_5",
@@ -2125,13 +2151,31 @@
             "url": "/people/5-prson_5"
           }
         ],
-        "producers": [
+        "mangakas": [
           {
-            "id": 4,
-            "name": "prson_4",
+            "id": 6,
+            "name": "prson_6",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/4-prson_4"
+            "url": "/people/6-prson_6"
+          }
+        ],
+        "seyu": [
+          {
+            "id": 8,
+            "name": "prson_8",
+            "russian": null,
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/people/8-prson_8"
+          }
+        ],
+        "producers": [
+          {
+            "id": 7,
+            "name": "prson_7",
+            "russian": null,
+            "image": "/assets/globals/missing_x64.jpg",
+            "url": "/people/7-prson_7"
           }
         ]
       },
@@ -2143,7 +2187,7 @@
   "users#friends": [
     {
       "verb": "GET",
-      "path": "/api/users/17/friends",
+      "path": "/api/users/36/friends",
       "versions": [
         "1"
       ],
@@ -2151,19 +2195,19 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 16,
-          "nickname": "user_33",
-          "avatar": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon",
+          "id": 35,
+          "nickname": "user_54",
+          "avatar": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/4b6d8536fc80755f066dc1d93cb01f9a?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/2b5d8f60a83b4f70295583bfeee8b89a?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         }
       ],
       "code": "200",
@@ -2174,7 +2218,7 @@
   "users#history": [
     {
       "verb": "GET",
-      "path": "/api/users/12/history",
+      "path": "/api/users/39/history",
       "versions": [
         "1"
       ],
@@ -2182,12 +2226,12 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 17,
-          "created_at": "2015-04-24T09:36:24.942+03:00",
+          "id": 18,
+          "created_at": "2015-04-24T10:04:15.266+03:00",
           "description": "Запланировано",
           "target": {
-            "id": 21,
-            "name": "anime_21",
+            "id": 45,
+            "name": "anime_44",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -2195,7 +2239,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/animes/21-anime_21",
+            "url": "/animes/45-anime_44",
             "kind": "TV",
             "ongoing": false,
             "anons": false,
@@ -2204,8 +2248,8 @@
           }
         },
         {
-          "id": 16,
-          "created_at": "2015-04-24T09:36:24.924+03:00",
+          "id": 17,
+          "created_at": "2015-04-24T10:04:15.253+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null
         }
@@ -2226,34 +2270,34 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 18,
+          "id": 28,
           "nickname": "Test1",
-          "avatar": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=48&d=identicon",
+          "avatar": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/5de9216374a855be421d1ef48c04fbe5?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/b72e1f00bea614f3cad879338b9f34e8?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         },
         {
-          "id": 19,
+          "id": 29,
           "nickname": "Test2",
-          "avatar": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=48&d=identicon",
+          "avatar": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=48&d=identicon",
           "image": {
-            "x160": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=160&d=identicon",
-            "x148": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=148&d=identicon",
-            "x80": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=80&d=identicon",
-            "x64": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=64&d=identicon",
-            "x48": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=48&d=identicon",
-            "x32": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=32&d=identicon",
-            "x16": "http://www.gravatar.com/avatar/8dcf4d204aaddca2370ee7d9abf747c9?s=16&d=identicon"
+            "x160": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=160&d=identicon",
+            "x148": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=148&d=identicon",
+            "x80": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=80&d=identicon",
+            "x64": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=64&d=identicon",
+            "x48": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=48&d=identicon",
+            "x32": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=32&d=identicon",
+            "x16": "http://www.gravatar.com/avatar/d5fd23e393f4aeef257effcd40816a86?s=16&d=identicon"
           },
-          "last_online_at": "2015-04-24T09:36:17.914+03:00"
+          "last_online_at": "2015-04-24T10:04:06.440+03:00"
         }
       ],
       "code": "200",
@@ -2264,7 +2308,7 @@
   "users#manga_rates": [
     {
       "verb": "GET",
-      "path": "/api/users/10/manga_rates",
+      "path": "/api/users/27/manga_rates",
       "versions": [
         "1"
       ],
@@ -2272,7 +2316,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 10,
+          "id": 11,
           "score": 0,
           "status": 1,
           "status_name": "Reading",
@@ -2283,32 +2327,32 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 10,
-            "nickname": "user_29",
-            "avatar": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=48&d=identicon",
+            "id": 27,
+            "nickname": "user_51",
+            "avatar": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/7e094fdba5a34dc1a5bf788bf5f89abf?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/ad24dc9194dc19128772742bc7e2fe7c?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           },
           "anime": null,
           "manga": {
-            "id": 13,
-            "name": "manga_12",
-            "russian": "манга_13",
+            "id": 14,
+            "name": "manga_13",
+            "russian": "манга_14",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/mangas/13-manga_12",
+            "url": "/mangas/14-manga_13",
             "ongoing": false,
             "anons": false,
             "volumes": 0,
@@ -2324,7 +2368,7 @@
   "users#messages": [
     {
       "verb": "GET",
-      "path": "/api/users/5/messages",
+      "path": "/api/users/32/messages",
       "versions": [
         "1"
       ],
@@ -2332,18 +2376,18 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 1,
+          "id": 3,
           "kind": "anons",
           "read": false,
           "body": "anime [b]anons[/b]",
           "html_body": "anime <strong>anons</strong>",
-          "created_at": "2015-04-24T09:36:24.107+03:00",
+          "created_at": "2015-04-24T10:04:14.692+03:00",
           "linked": {
-            "id": 15,
-            "topic_url": "http://test.host/news/2-entry-title-1",
-            "thread_id": 2,
+            "id": 39,
+            "topic_url": "http://test.host/news/15-entry-title-6",
+            "thread_id": 15,
             "type": "Anime",
-            "name": "anime_15",
+            "name": "anime_38",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -2351,7 +2395,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x64": "/assets/globals/missing_x64.jpg"
             },
-            "url": "/animes/15-anime_15",
+            "url": "/animes/39-anime_38",
             "kind": "TV",
             "ongoing": false,
             "anons": false,
@@ -2359,34 +2403,34 @@
             "episodes_aired": 0
           },
           "from": {
-            "id": 6,
-            "nickname": "user_26",
-            "avatar": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=48&d=identicon",
+            "id": 33,
+            "nickname": "user_52",
+            "avatar": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/427df2197270e75f45a6c0a50dcf36c6?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/2eab62df45cd81280513bc1558406a70?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           },
           "to": {
-            "id": 5,
+            "id": 32,
             "nickname": "Test",
-            "avatar": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=48&d=identicon",
+            "avatar": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=48&d=identicon",
             "image": {
-              "x160": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=160&d=identicon",
-              "x148": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=148&d=identicon",
-              "x80": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=80&d=identicon",
-              "x64": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=64&d=identicon",
-              "x48": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=48&d=identicon",
-              "x32": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=32&d=identicon",
-              "x16": "http://www.gravatar.com/avatar/895b8e3a25b3a11062fb56d86016f508?s=16&d=identicon"
+              "x160": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=160&d=identicon",
+              "x148": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=148&d=identicon",
+              "x80": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=80&d=identicon",
+              "x64": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=64&d=identicon",
+              "x48": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=48&d=identicon",
+              "x32": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=32&d=identicon",
+              "x16": "http://www.gravatar.com/avatar/04a248ff909319a965eb8244f8c6d66a?s=16&d=identicon"
             },
-            "last_online_at": "2015-04-24T09:36:17.914+03:00"
+            "last_online_at": "2015-04-24T10:04:06.440+03:00"
           }
         }
       ],
@@ -2398,26 +2442,26 @@
   "users#show": [
     {
       "verb": "GET",
-      "path": "/api/users/11",
+      "path": "/api/users/38",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 11,
+        "id": 38,
         "nickname": "Test",
-        "avatar": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=48&d=identicon",
+        "avatar": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=48&d=identicon",
         "image": {
-          "x160": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=160&d=identicon",
-          "x148": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=148&d=identicon",
-          "x80": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=80&d=identicon",
-          "x64": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=64&d=identicon",
-          "x48": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=48&d=identicon",
-          "x32": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=32&d=identicon",
-          "x16": "http://www.gravatar.com/avatar/399f386c52876a62fa0924b32c026bb1?s=16&d=identicon"
+          "x160": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=160&d=identicon",
+          "x148": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=148&d=identicon",
+          "x80": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=80&d=identicon",
+          "x64": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=64&d=identicon",
+          "x48": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=48&d=identicon",
+          "x32": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=32&d=identicon",
+          "x16": "http://www.gravatar.com/avatar/d8ceeba626bedf005ef036925af8d04f?s=16&d=identicon"
         },
-        "last_online_at": "2015-04-24T09:36:17.914+03:00",
+        "last_online_at": "2015-04-24T10:04:06.440+03:00",
         "name": null,
         "sex": null,
         "full_years": null,
@@ -2634,7 +2678,7 @@
   "users#unread_messages": [
     {
       "verb": "GET",
-      "path": "/api/users/9/unread_messages",
+      "path": "/api/users/31/unread_messages",
       "versions": [
         "1"
       ],
@@ -2660,19 +2704,19 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 21,
+        "id": 41,
         "nickname": "Test",
-        "avatar": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=48&d=identicon",
+        "avatar": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=48&d=identicon",
         "image": {
-          "x160": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=160&d=identicon",
-          "x148": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=148&d=identicon",
-          "x80": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=80&d=identicon",
-          "x64": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=64&d=identicon",
-          "x48": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=48&d=identicon",
-          "x32": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=32&d=identicon",
-          "x16": "http://www.gravatar.com/avatar/f791c42a4867d7363f7c82147f9dc026?s=16&d=identicon"
+          "x160": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=160&d=identicon",
+          "x148": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=148&d=identicon",
+          "x80": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=80&d=identicon",
+          "x64": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=64&d=identicon",
+          "x48": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=48&d=identicon",
+          "x32": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=32&d=identicon",
+          "x16": "http://www.gravatar.com/avatar/0f518b28a3813b5d6bf5af7bd28f08e4?s=16&d=identicon"
         },
-        "last_online_at": "2015-04-24T09:36:17.914+03:00"
+        "last_online_at": "2015-04-24T10:04:06.440+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -2687,19 +2731,19 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 22,
+        "id": 42,
         "nickname": "Test",
-        "avatar": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=48&d=identicon",
+        "avatar": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=48&d=identicon",
         "image": {
-          "x160": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=160&d=identicon",
-          "x148": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=148&d=identicon",
-          "x80": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=80&d=identicon",
-          "x64": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=64&d=identicon",
-          "x48": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=48&d=identicon",
-          "x32": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=32&d=identicon",
-          "x16": "http://www.gravatar.com/avatar/59a09ad895c83ee656161cd80f1dabef?s=16&d=identicon"
+          "x160": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=160&d=identicon",
+          "x148": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=148&d=identicon",
+          "x80": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=80&d=identicon",
+          "x64": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=64&d=identicon",
+          "x48": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=48&d=identicon",
+          "x32": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=32&d=identicon",
+          "x16": "http://www.gravatar.com/avatar/69aacee69bbcb564f15ede620840cfa2?s=16&d=identicon"
         },
-        "last_online_at": "2015-04-24T09:36:17.914+03:00"
+        "last_online_at": "2015-04-24T10:04:06.440+03:00"
       },
       "code": "200",
       "show_in_doc": 0,
@@ -2714,19 +2758,19 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 23,
+        "id": 43,
         "nickname": "Test",
-        "avatar": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=48&d=identicon",
+        "avatar": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=48&d=identicon",
         "image": {
-          "x160": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=160&d=identicon",
-          "x148": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=148&d=identicon",
-          "x80": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=80&d=identicon",
-          "x64": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=64&d=identicon",
-          "x48": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=48&d=identicon",
-          "x32": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=32&d=identicon",
-          "x16": "http://www.gravatar.com/avatar/c30134f171b090b2be1ebfbb4bdeb6f1?s=16&d=identicon"
+          "x160": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=160&d=identicon",
+          "x148": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=148&d=identicon",
+          "x80": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=80&d=identicon",
+          "x64": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=64&d=identicon",
+          "x48": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=48&d=identicon",
+          "x32": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=32&d=identicon",
+          "x16": "http://www.gravatar.com/avatar/e4cd0360497d005f79d967dce6f0ea10?s=16&d=identicon"
         },
-        "last_online_at": "2015-04-24T09:36:17.914+03:00"
+        "last_online_at": "2015-04-24T10:04:06.440+03:00"
       },
       "code": "200",
       "show_in_doc": 0,

@@ -5,7 +5,7 @@ FactoryGirl.define do
     moderator nil
     abuse_request nil
     duration 180
-    reason 'reason'
+    reason 'moderator comment'
 
     trait :no_callbacks do
       after(:build) do |o|

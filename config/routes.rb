@@ -143,6 +143,8 @@ Site::Application.routes.draw do
       resource :access_token, only: [:show, :create]
       resource :authenticity_token, only: [:show]
 
+      resources :bans, only: [:index]
+
       devise_scope :user do
         resources :sessions, only: [:create]
       end
