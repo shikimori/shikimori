@@ -11,6 +11,8 @@ a.c-video.b-video.unprocessed[
       .cancel title="Отменить удаление"
 
   img src="#{video.image_url}" data-id="#{video.id}"
+  - if video.name.present?
+    span.name title="#{video.name}" = video.name
   span.marker
     - if defined? video_counter
       = video.kind
