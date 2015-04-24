@@ -138,4 +138,12 @@ describe Api::V1::UsersController, :show_in_doc do
       it { expect(response).to have_http_status :success }
     end
   end
+
+  describe '#bans' do
+    let(:user) { create :user }
+    let!(:ban) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
+
+    before { get :bans, id: user.id, format: :json }
+    it { expect(response).to have_http_status :success }
+  end
 end

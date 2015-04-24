@@ -122,6 +122,11 @@ class Api::V1::UsersController < Api::V1::ApiController
       .decorate
   end
 
+  api :GET, '/users/:id/bans', "Show user's bans"
+  def bans
+    respond_with user.bans.reverse
+  end
+
 private
   def user
     @user ||= User.find_by(id: params[:id]) || User.find_by(nickname: params[:id]) || raise(NotFound, params[:id])

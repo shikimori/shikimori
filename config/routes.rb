@@ -160,6 +160,7 @@ Site::Application.routes.draw do
           get :history
           get :anime_rates
           get :manga_rates
+          get :bans
         end
       end
     end
