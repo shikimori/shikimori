@@ -5,8 +5,8 @@
 @import mixins/brackets_surrounded
 @import mixins/clear_left
 @import mixins/column
-@import mixins/dash_separated
 @import mixins/comma_separated
+@import mixins/dash_separated
 @import mixins/hover_underlined
 @import mixins/link
 @import mixins/menu-blocks
@@ -94,8 +94,11 @@
         span
           +dash_separated(5px)
 
-          //&:last-child
-            font-style: italic
+        .reg-date
+          border-bottom: 1px dashed #bbb
+          cursor: default
+          display: inline-block
+          line-height: 1.1
 
       .misc
         margin-left: 1px

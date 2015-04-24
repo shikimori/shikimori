@@ -103,7 +103,7 @@ class UserProfileDecorator < UserDecorator
       info << 'Личные данные скрыты'
     end
 
-    info << "на сайте с <span class=\"reg-date\">#{localized_registration} г.</span>".html_safe
+    info << "на сайте с <span class=\"reg-date\" title=\"#{localized_registration false}\">#{localized_registration true} г.</span>".html_safe
 
     info
   end
@@ -200,17 +200,19 @@ private
     CompatibilityService.fetch self, h.current_user if h.user_signed_in?
   end
 
-  def localized_registration
-    #spent_time = SpentTime.new((Time.zone.now - created_at) / 1.day)
-    #I18n.spent_time(spent_time, true).sub(/ и .*/, '')
-    if Time.zone.now - created_at > 2.years
+  def localized_registration shortened
+    if !shortened
+      Russian::strftime created_at, '%e %B %Y г.'
+
+    elsif Time.zone.now - created_at < 2.months
+      h.l created_at, format: :with_month_name
+
+    elsif Time.zone.now - created_at > 2.years
       Russian::strftime created_at, '%Y'
 
-    elsif Time.zone.now - created_at > 2.months
-      Russian::strftime(created_at, '%d %B %Y').sub(/^\d+ /, '')
+    else# Time.zone.now - created_at > 2.months
+      Russian::strftime(created_at, '%e %B %Y').sub(/^\d+ /, '')
 
-    else
-      h.l created_at, format: :with_month_name
     end
   end
 end
