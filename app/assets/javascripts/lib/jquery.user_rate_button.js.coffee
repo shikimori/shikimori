@@ -15,7 +15,7 @@ class @UserRateButton extends ShikiView
     @$('.b-rate').rateable()
 
     # клик по раскрытию вариантов добавления в список
-    @on 'click', '.trigger-arrow', @toggle_list
+    @on 'click', '.trigger-arrow', @_toggle_list
     # клик по добавлению в свой список
     @on 'click', '.add-trigger', ->
       $form = $(@).closest('form')
@@ -47,23 +47,18 @@ class @UserRateButton extends ShikiView
       @$root.removeClass 'ajax_request'
 
     # отмена редактирования user_rate
-    @on 'click', '.cancel', @cancel_edition
+    @on 'click', '.cancel', @_cancel_edition
 
     # сабмит формы user_rate
-    @on 'ajax:success', '.new_user_rate, .increment, .remove', (e, html) =>
-      @$root.html html
-      @$('.b-rate').rateable()
-
+    @on 'ajax:success', '.new_user_rate, .increment, .remove', @_replace_button
     # завершение редактирования user_rate
-    @on 'ajax:success', '.edit_user_rate', (e, html) =>
-      @$root.html html
-      @$('.b-rate').rateable()
+    @on 'ajax:success', '.edit_user_rate', @_replace_button
 
     # клик на изменение user_rate - подгрузка и показ формы
-    @on 'ajax:success', '.edit-trigger', @show_edition_form
+    @on 'ajax:success', '.edit-trigger', @_show_edition_form
 
   # раскрытие/сворачивание списка
-  toggle_list: =>
+  _toggle_list: =>
     @$('.b-add_to_list').toggleClass('expanded')
 
     unless @$('.expanded-options').data 'height'
@@ -80,7 +75,7 @@ class @UserRateButton extends ShikiView
     ).delay()
 
   # отмена редактирования user_rate
-  cancel_edition: =>
+  _cancel_edition: =>
     $show = @$('.rate-show').show()
     $edit = @$('.rate-edit').hide()
 
@@ -88,7 +83,7 @@ class @UserRateButton extends ShikiView
     (=> @$root.css height: '').delay(500)
 
   # показ формы редактирования
-  show_edition_form: (e, edit_html) =>
+  _show_edition_form: (e, edit_html) =>
     e.stopImmediatePropagation()
 
     $show = @$('.rate-show')
@@ -108,3 +103,17 @@ class @UserRateButton extends ShikiView
       @$root.css height: @$('.b-add_to_list').outerHeight(true) + $edit.data('height')
     ).delay()
     (=> @$root.css height: '').delay(500)
+
+  # замена кнопки на новую
+  _replace_button: (e, html) =>
+    $new_root = $(html)
+      .data('button_only', @button_only)
+      .replaceAll(@$root)
+      .user_rate_button()
+
+    @$catalog_entry = $(".b-catalog_entry.c-#{$new_root.data('target_type').toLowerCase()}##{$new_root.data 'target_id'}")
+    if @$catalog_entry.exists()
+      @$catalog_entry
+        .removeClass(@$catalog_entry.data('rate-status'))
+        .addClass($new_root.data('status'))
+        .data('rate-status': $new_root.data('status'))

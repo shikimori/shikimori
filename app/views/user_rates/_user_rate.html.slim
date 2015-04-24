@@ -1,4 +1,9 @@
-.b-user_rate.unprocessed data-button_only="#{!!local_assigns[:button_only]}" data-unauthorized="#{"Это действие требует <a href=\"#{new_user_session_url}\">регистрации</a> на сайте."}"
+.b-user_rate.unprocessed[
+    data-status="#{user_rate.status if user_rate.persisted?}"
+    data-target_id="#{user_rate.target_id}"
+    data-target_type="#{user_rate.target_type}"
+    data-button_only="#{!!local_assigns[:button_only]}" data-unauthorized="#{"Это действие требует <a href=\"#{new_user_session_url}\">регистрации</a> на сайте."}"
+  ]
   .b-add_to_list class="#{user_rate.persisted? ? user_rate.status : 'planned'}"
     = simple_form_for user_rate, remote: true, authenticity_token: true, html: { 'data-type' => :html } do |f|
       = f.input :user_id, as: :hidden
