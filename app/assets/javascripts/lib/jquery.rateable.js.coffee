@@ -3,6 +3,7 @@
     @each ->
       $stars = $('.stars-container', @)
       $hover = $('.hover', @)
+      $hoverable_trigger = $('.hoverable-trigger', @)
 
       $score = $('.score', @)
       $text_score = $('.text-score', @)
@@ -16,7 +17,7 @@
       initial_score = parseInt($text_score.text()) || 0
       new_score = null
 
-      $stars.on 'mousemove', (e) ->
+      $hoverable_trigger.on 'mousemove', (e) ->
         offset = $(e.target).offset().left
         raw_score = (e.clientX - offset) * 10.0 / $stars.width()
         new_score = if raw_score > 0.5
@@ -30,10 +31,10 @@
           .html(new_score)
           .attr(class: "#{without_score $text_score} score-#{new_score}")
 
-      $stars.on 'mouseover', (e) ->
+      $hoverable_trigger.on 'mouseover', (e) ->
         $score.addClass 'hovered'
 
-      $stars.on 'mouseout', (e) ->
+      $hoverable_trigger.on 'mouseout', (e) ->
         $score.removeClass 'hovered'
         $score_notice.html(notices[initial_score] || '&nbsp;')
         $hover.attr(class: without_score $hover)
@@ -42,7 +43,7 @@
           .attr(class: "#{without_score $text_score} score-#{initial_score}")
           .html(initial_score)
 
-      $stars.on 'click', (e) ->
+      $hoverable_trigger.on 'click', (e) ->
         if with_input
           initial_score = new_score
           $(@).trigger('mouseout')
