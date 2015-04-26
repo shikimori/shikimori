@@ -75,7 +75,7 @@
       .key У #{I18n.t("Genetive.#{entry.object.class.name}").downcase}:
       - if entry.reviews_count > 0
         span.linkeable data-href="#{entry.reviews_url}"
-          = "#{entry.reviews_count} #{Russian.p entry.reviews_count, 'рецензия', 'рецензиии', 'рецензиий'}"
+          = "#{entry.reviews_count} #{Russian.p entry.reviews_count, 'рецензия', 'рецензии', 'рецензиий'}"
 
       - if entry.comment_reviews_count > 0
         span.linkeable data-href="#{entry.comments_reviews_url}"
