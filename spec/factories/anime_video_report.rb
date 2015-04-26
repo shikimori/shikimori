@@ -4,8 +4,16 @@ FactoryGirl.define do
     state 'pending'
     user_agent 'ipad'
 
+    trait :broken do
+      kind 'broken'
+    end
+
     trait :uploaded do
       kind 'uploaded'
+    end
+
+    trait :wrong do
+      kind 'wrong'
     end
 
     trait :accepted do
@@ -14,6 +22,10 @@ FactoryGirl.define do
 
     trait :rejected do
       state 'rejected'
+    end
+
+    trait :pending do
+      state 'pending'
     end
 
     after :build do |v|

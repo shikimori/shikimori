@@ -86,8 +86,8 @@ class SiteStatistics
     User.where(id: newsmarker_ids).sort_by {|v| newsmarker_ids.index(v.id) }
   end
 
-  def top_video_uploaders
-    AnimeOnline::Uploaders.current_top(52)
+  def top_video_contributors
+    AnimeOnline::Contributors.top(52)
   end
 
 private

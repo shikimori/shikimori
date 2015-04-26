@@ -3,8 +3,6 @@ class AnimeOnline::DashboardController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = 8
 
-    is_adult = AnimeOnlineDomain::adult_host? request
-
     @recent_videos, @add_postloader = RecentVideosQuery.new(is_adult).postload(@page, @limit)
     @recent_videos = @recent_videos.map {|v| AnimeWithEpisode.new v.anime.decorate, v }
 
@@ -17,7 +15,7 @@ class AnimeOnline::DashboardController < ShikimoriController
         .order(score: :desc)
         .limit(15).decorate
 
-      @contributors = AnimeOnline::Uploaders.current_top(20, is_adult).map(&:decorate)
+      @contributors = AnimeOnline::Contributors.top(20, is_adult).map(&:decorate)
       @seasons = AniMangaSeason.menu_seasons
       @seasons.delete_at(2)
     end
@@ -27,5 +25,11 @@ class AnimeOnline::DashboardController < ShikimoriController
   end
 
   def pingmedia_test_2
+  end
+
+  private
+
+  def is_adult
+    @is_adult ||= AnimeOnlineDomain::adult_host? request
   end
 end

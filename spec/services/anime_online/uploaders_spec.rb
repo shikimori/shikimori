@@ -3,38 +3,6 @@ require 'spec_helper'
 describe AnimeOnline::Uploaders do
   before { AnimeOnline::Uploaders.reset }
 
-  describe '.current_top' do
-    let(:user_1) { create :user, :user }
-    let(:user_2) { create :user, :user }
-
-    subject { AnimeOnline::Uploaders.current_top 20, is_adult }
-    let(:is_adult) { nil }
-
-    let(:anime_pg) { create :anime, :pg_13 }
-    let(:anime_rx) { create :anime, :rx_hentai }
-
-    let(:anime_video_pg) { create :anime_video, anime: anime_pg }
-    let(:anime_video_rx) { create :anime_video, anime: anime_rx }
-
-    let!(:report_1) { create :anime_video_report, :uploaded, :accepted, user: user_1, anime_video: anime_video_pg }
-    let!(:report_2_1) { create :anime_video_report, :uploaded, :accepted, user: user_2, anime_video: anime_video_rx }
-    let!(:report_2_2) { create :anime_video_report, :uploaded, :accepted, user: user_2, anime_video: anime_video_rx }
-
-    context 'ordered' do
-      it { should eq [user_2, user_1] }
-    end
-
-    context 'is_adult=true' do
-      let(:is_adult) { true }
-      it { should eq [user_2] }
-    end
-
-    context 'is_adult=false' do
-      let(:is_adult) { false }
-      it { should eq [user_1] }
-    end
-  end
-
   describe '.responsible' do
     subject { AnimeOnline::Uploaders.responsible }
     let(:user_enough_accepted) { build_stubbed :user }
