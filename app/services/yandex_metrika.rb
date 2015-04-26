@@ -25,9 +25,13 @@ private
   def traffic from, to
     client
       .get_counter_stat_traffic_summary(APP_COUNTER_ID, group: :day, date1: from, date2: to)['data']
-      .reverse
       .map do |entry|
-        TrafficEntry.new entry['date'].sub(/(\d{4})(\d\d)(\d\d)/, '\1-\2-\3'), entry['visitors'], entry['visits'], entry['page_views']
-      end
+        TrafficEntry.new(
+          entry['date'].sub(/(\d{4})(\d\d)(\d\d)/, '\1-\2-\3'),
+          entry['visitors'],
+          entry['visits'],
+          entry['page_views']
+        )
+      end.sort_by(&:date)
   end
 end
