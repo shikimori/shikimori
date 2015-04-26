@@ -15,7 +15,7 @@ class AnimeOnline::DashboardController < ShikimoriController
         .order(score: :desc)
         .limit(15).decorate
 
-      @contributors = AnimeOnline::Uploaders.current_top(20, is_adult).map(&:decorate)
+      @contributors = AnimeOnline::Contributors.top(20, is_adult).map(&:decorate)
       @seasons = AniMangaSeason.menu_seasons
       @seasons.delete_at(2)
     end

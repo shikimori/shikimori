@@ -21,7 +21,7 @@ class AnimeOnline::Contributors
         .includes(:user)
         .select(
           :user_id,
-          "sum(case when kind='uploaded' then #{UPLOAD_SCORE} when kind='broken' then #{BROKEN_SCORE} when kind='wrong' then #{WRONG_SCORE} else 0 end) as score")
+          "sum(case when #{AnimeVideoReport.table_name}.kind='uploaded' then #{UPLOAD_SCORE} when #{AnimeVideoReport.table_name}.kind='broken' then #{BROKEN_SCORE} when #{AnimeVideoReport.table_name}.kind='wrong' then #{WRONG_SCORE} else 0 end) as score")
         .where(state: :accepted, kind: kinds)
         .where.not(user_id: User::GuestID)
         .group(:user_id)

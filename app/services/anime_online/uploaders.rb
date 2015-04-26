@@ -1,15 +1,6 @@
 class AnimeOnline::Uploaders
   ENOUGH_TO_TRUST = 50
 
-  # FIX : Проверить использование этого метода, если пусто, то удалить. / @Blackchestnut /
-  def self.top
-    current_top + User::TrustedVideoUploaders
-  end
-
-  def self.current_top limit=20, is_adult=nil
-    AnimeOnline::Contributors.uploaders_top(limit, is_adult)
-  end
-
   def self.responsible
     active_users = AnimeVideoReport
       .select(:user_id, 'count(*) as videos')
@@ -27,7 +18,7 @@ class AnimeOnline::Uploaders
   end
 
   def self.trusted? user_id
-    @trusted ||= (top + responsible).uniq
+    @trusted ||= (User::TrustedVideoUploaders + responsible).uniq
     @trusted.include? user_id
   end
 
