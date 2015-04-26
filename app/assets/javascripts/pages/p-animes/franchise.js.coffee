@@ -113,7 +113,7 @@ class @FranchiseNode
     $('.sticked-tooltip').show().addClass('ajax_request')
     $.get(@url + '/tooltip').success (html) ->
       $('.sticked-tooltip').removeClass('ajax_request')
-      $('.sticked-tooltip .inner').html html
+      $('.sticked-tooltip .inner').html(html).process()
 
   _d3_node: ->
     @_node_elem ||= d3.select $(".node##{@id}")[0]
