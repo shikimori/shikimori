@@ -1,5 +1,5 @@
 class AnimeOnline::Contributors
-  UPLOAD_SCORE = 2
+  UPLOAD_SCORE = 10
   BROKEN_SCORE = 1
   WRONG_SCORE = 1
 
@@ -23,6 +23,7 @@ class AnimeOnline::Contributors
           :user_id,
           "sum(case when kind='uploaded' then #{UPLOAD_SCORE} when kind='broken' then #{BROKEN_SCORE} when kind='wrong' then #{WRONG_SCORE} else 0 end) as score")
         .where(state: :accepted, kind: kinds)
+        .where.not(user_id: User::GuestID)
         .group(:user_id)
         .order('score desc')
         .limit(limit)

@@ -1,4 +1,6 @@
 describe AnimeOnline::Contributors do
+  before { stub_const 'AnimeOnline::Contributors::UPLOAD_SCORE', 2 }
+
   describe '.top' do
     subject { AnimeOnline::Contributors.top }
 
@@ -68,6 +70,12 @@ describe AnimeOnline::Contributors do
       it { is_expected.to have(2).items }
       its(:first) { is_expected.to eq user_uploader }
       its(:second) { is_expected.to eq user_checker }
+    end
+
+    context 'ignore guest' do
+      let(:user) { create :user, :guest }
+      let!(:report) { create :anime_video_report, :broken, :accepted, user: user }
+      it { is_expected.to be_empty }
     end
   end
 end
