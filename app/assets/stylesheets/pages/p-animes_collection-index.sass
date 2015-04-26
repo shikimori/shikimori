@@ -12,7 +12,7 @@
 .p-recommendations-favourites
   .l-content
     &.ajax_request
-      &:before
+      &::before
         +opacity(0.6)
         background: #fff
         content: ' '
@@ -30,6 +30,9 @@
 
     .tooltip-left
       margin-left: -30px
+
+    .image-decor::after
+      display: block
 
   .pagination
     clear: both
