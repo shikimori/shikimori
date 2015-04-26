@@ -50,7 +50,7 @@ Site::Application.configure do
     SqlLogging::Statistics.show_sql_backtrace = false
   end
 
-  Slim::Engine.set_default_options pretty: false
+  Slim::Engine.set_options pretty: false
 
   #if defined? BetterErrors
     #BetterErrors::Middleware.allow_ip! '127.0.0.1'

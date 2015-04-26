@@ -6,6 +6,13 @@ GIT
       tins (~> 0.3)
 
 GIT
+  remote: git://github.com/gemhome/rmagick.git
+  revision: d287616e5c565f919e9c036672d7aff45e7a8951
+  branch: master
+  specs:
+    rmagick (2.14.0)
+
+GIT
   remote: git://github.com/itsNikolay/magnific-popup-rails.git
   revision: 03502062efff48c133fc348b611738ba85a5b5ba
   specs:
@@ -496,7 +503,6 @@ GEM
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     retryable (2.0.1)
-    rmagick (2.14.0)
     rs_russian (0.8.1)
       activesupport (>= 3.0.0, < 5.0.0)
       i18n (>= 0.6.0, < 0.8.0)
@@ -723,7 +729,7 @@ DEPENDENCIES
   redis
   responders
   retryable
-  rmagick
+  rmagick!
   rs_russian
   rspec
   rspec-collection_matchers
