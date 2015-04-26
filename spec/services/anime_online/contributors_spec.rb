@@ -85,7 +85,7 @@ describe AnimeOnline::Contributors do
       let(:user_2) { create :user, :user }
       let!(:report_1) { create :anime_video_report, :uploaded, :accepted, user: user_1 }
       let!(:report_2) { create :anime_video_report, :uploaded, :accepted, user: user_2 }
-      it { is_expected.to eq [user_1] }
+      it { is_expected.to have(1).item }
     end
 
     context 'adult filter' do
