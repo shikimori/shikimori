@@ -43,12 +43,12 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
-  def sort_criteria
+  def sort_criteria with_id
     [
       kind.fandub? || kind.unknown? ? '' : kind,
       vk? ? '' : hosting,
       author_name || '',
-      id,
+      with_id ? id : '',
       author_name.present? ? '' : rand.to_s,
     ]
   end

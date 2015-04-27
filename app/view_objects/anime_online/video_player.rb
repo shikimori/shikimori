@@ -94,10 +94,9 @@ class AnimeOnline::VideoPlayer
   def episode_videos
     return [] if current_videos.blank?
 
-    current_videos
-      .map(&:decorate)
-      .uniq(&:sort_criteria)
-      .sort_by(&:sort_criteria)
+    current_videos.map(&:decorate)
+      .uniq {|v| v.sort_criteria(false) }
+      .sort_by {|v| v.sort_criteria(true) }
   end
 
   # список типов коллекции видео
