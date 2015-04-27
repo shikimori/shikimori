@@ -323,7 +323,7 @@ GEM
     hike (1.2.3)
     hiredis (0.5.2)
     hitimes (1.2.2)
-    honeybadger (2.0.11)
+    honeybadger (2.0.12)
     htmlentities (4.3.3)
     http_parser.rb (0.6.0)
     httparty (0.13.3)
