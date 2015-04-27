@@ -39,16 +39,13 @@
             a.c-control.delete href="#{video_online_url @resource, @video}" data-method="delete" data-confirm="Вы уверены? Видео будет безвозвратно удалено"
               .icon
               .label Удалить
-          .c-control.report
-            .icon
-            .label Пожаловаться
 
     .c-column
       .cc-anime_video_report-new
         = render 'moderation/anime_video_reports/form', anime_video_report: @player.new_report
 
       .cc-options
-        .c-column.cc-2a
+        .c-buttons.cc-3a
           - if user_signed_in?
             - if @video.in_list?
               a.c-column.c-control.increment-user_rate class="#{:watched if @video.watched?}" data-remote="true" data-method="post" href="#{@video.viewed_url}"
@@ -63,27 +60,29 @@
             .c-column.c-control.show-options
               .icon
               .label Опции
+
           - else
             - unless @player.current_video.copyright_ban?
               a.c-column.c-control.upload href="#{@player.new_video_url}"
                 .icon
                 .label Загрузить
-            .c-column.c-control.report
-              .icon
-              .label Пожаловаться
+
+          .c-column.c-control.report
+            .icon
+            .label Пожаловаться
 
         - if @video.uploader || @video.views_count
-          .c-column.c-video_stats class="#{:single unless @video.views_count && @video.uploader}"
+          .c-video_stats class="#{:single unless @video.views_count && @video.uploader}"
             - if @video.views_count
               .views_count
                 = @video.views_count
             - if @video.uploader
               .uploader
-                span
-                  - if @video.uploader.female?
-                    | Добавила
-                  - else
-                    | Добавил
+                /span
+                  /- if @video.uploader.female?
+                    /| Добавила
+                  /- else
+                    /| Добавил
                 .b-user16
                   a href="#{profile_url @video.uploader, subdomain: false}" title="#{@video.uploader.nickname}"
                     img src="#{@video.uploader.avatar_url 16}" srcset="#{@video.uploader.avatar_url 32} 2x" alt="#{@video.uploader.nickname}"

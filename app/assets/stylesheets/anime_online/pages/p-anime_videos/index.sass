@@ -1,7 +1,8 @@
+@import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/column
-@import mixins/responsive
 @import mixins/link
+@import mixins/responsive
 
 .p-anime_videos-index
   .ads_container
@@ -27,6 +28,7 @@
       padding-top: 10px
 
     .views_count
+      +ellipsis
       color: $gray-color-2
 
     .uploader
