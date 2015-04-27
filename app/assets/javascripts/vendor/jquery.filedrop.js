@@ -494,10 +494,15 @@
 
     function not_files(e) {
       //console.log(e);
-      //if(e.dataTransfer) { console.log(e.dataTransfer.types); }
 
-      return !(e.dataTransfer && e.dataTransfer.types &&
-        (e.dataTransfer.types[0] == 'Files' || e.dataTransfer.types[1] == 'Files'));
+      if (e.dataTransfer && e.dataTransfer.types && e.dataTransfer.types.length) {
+        for (var i = 0; i < e.dataTransfer.types.length; i++) {
+          if (e.dataTransfer.types[i].toLowerCase() == 'files') {
+            return false;
+          }
+        }
+      }
+      return true;
     }
 
     function rename(name) {
