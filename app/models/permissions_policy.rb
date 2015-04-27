@@ -29,7 +29,7 @@ module PermissionsPolicy
     include Defaults
 
     def can_be_edited_by?(user)
-      super
+      super || (user.id == self.user_id && self.review? && self.created_at + 1.year > Time.zone.now)
     end
 
     def can_be_deleted_by?(user)
