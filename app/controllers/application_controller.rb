@@ -134,6 +134,10 @@ private
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
+  def default_url_options options = {}
+    options.merge locale: I18n.locale
+  end
+
   # гугловский бот со странным format иногда ходит
   def fix_googlebot
     if request.format.to_s =~ %r%\*\/\*%

@@ -237,40 +237,40 @@ ru:
         broken: видео сломано
         wrong: видео не к тому аниме
 
-  date_time:
-    week:
-      one: неделя
-      few: недели
-      many: недель
-    day:
-      one: день
-      few: дня
-      many: дней
-    hour:
-      one: час
-      few: часа
-      many: часов
-    minute:
-      one: минута
-      few: минуты
-      many: минут
+  #date_time:
+    #week:
+      #one: неделя
+      #few: недели
+      #many: недель
+    #day:
+      #one: день
+      #few: дня
+      #many: дней
+    #hour:
+      #one: час
+      #few: часа
+      #many: часов
+    #minute:
+      #one: минута
+      #few: минуты
+      #many: минут
 
-    intervals:
-      today: сегодня
-      yesterday: вчера
-      week: в течение недели
-      two_weeks: две недели назад
-      three_weeks: три недели назад
-      four_weeks: четыре недели назад
-      month: месяц назад
-      two_months: два месяца назад
-      three_months: три месяца назад
-      four_months: четыре месяца назад
-      five_months: пять месяцев назад
-      half_year: более полугода назад
-      year: почти год назад
-      two_years: более года назад
-      many_years: совсем давно
+    #intervals:
+      #today: сегодня
+      #yesterday: вчера
+      #week: в течение недели
+      #two_weeks: две недели назад
+      #three_weeks: три недели назад
+      #four_weeks: четыре недели назад
+      #month: месяц назад
+      #two_months: два месяца назад
+      #three_months: три месяца назад
+      #four_months: четыре месяца назад
+      #five_months: пять месяцев назад
+      #half_year: более полугода назад
+      #year: почти год назад
+      #two_years: более года назад
+      #many_years: совсем давно
 
   # в bans#create отображаются
   messages:

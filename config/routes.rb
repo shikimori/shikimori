@@ -9,7 +9,6 @@ Site::Application.routes.draw do
     passwords: 'users/passwords'
   }
 
-
   resources :animes, only: [] do
     get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
   end

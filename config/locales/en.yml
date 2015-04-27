@@ -1,21 +1,17 @@
 en:
-  time:
-    formats:
-      with_month_name: '%B %e, %Y'
-
   activerecord:
     attributes:
       contest:
         title: Title
         description: Description
-        matches_per_round: Число голосований этапа
-        match_duration: Длительность голосования
-        matches_interval: Число дней между этапами
-        user_vote_key: Ключ в таблице пользователя
+        matches_per_round: Matches per round
+        match_duration: Match duration
+        matches_interval: Round interval
+        user_vote_key: User vote key
         strategy_type: Strategy
         member_type: Member type
         started_on: Started on
-        suggestions_per_user: Число вариантов номинаций от одного пользователя
+        suggestions_per_user: Number of candidates from one user
       ban:
         reason: Reason
         duration: Duration
@@ -92,9 +88,9 @@ en:
         profile_privacy: Can See My Lists
         russian_genres: Anime Genres in English
         russian_names: Anime and Mange Titles in English
-        mylist_in_catalog: Подсвечивать находящееся в моём списке в каталоге аниме
+        mylist_in_catalog: Highlight Anime from My Lists
         postload_in_catalog: Autoload Pages in Anime Catalog
-        volumes_in_manga: Show Mange Volumes
+        volumes_in_manga: Show Manga Volumes
       anime_video:
         url: Video Link
         episode: Episode
@@ -132,22 +128,21 @@ en:
         kind: Reason
         message: Report
 
-    # сообщения валидаций
     errors:
       messages:
         taken: Already Taken
       models:
         comments:
-          not_a_moderator: '[ban] теги трогать нельзя'
+          not_a_moderator: 'Cannot touch [ban] tags'
           not_a_club_member: Join the club to leave comments
           in_club_black_list: You're banned in this club. Commenting is disabled
         messages:
-          ignored: You can't send message to this user
+          ignored: You can't send messages to this user
 
         group_invite:
           attributes:
             base:
-              banned: User has been banned in this club. Invitation is forbidden
+              banned: User is banned in this club. Invitation is forbidden
               invited: User has already been invited to this club
               joined: User is a member of this club
             dst:
@@ -164,8 +159,8 @@ en:
     state_machines:
       contest:
         states:
-          created: подготавливается
-          proposing: сбор номинантов
+          created: being prepared
+          proposing: proposing candidates
           started: active
           finished: finished
 
@@ -181,15 +176,15 @@ en:
           uploaded: uploaded but needs approval
           rejected: rejected
           broken: broken
-          wrong: не к этому аниме
+          wrong: wrong anime
           banned: banned
           copyrighted: copyrighted
 
   enumerize:
     strategy_type:
-      double_elimination: Вылет после двух поражений
-      play_off: Вылет после первого поражения
-      swiss: Швейцарская система
+      double_elimination: Double elimination
+      play_off: Olympic system
+      swiss: Swiss system
 
     member_type:
       anime: Anime
@@ -219,7 +214,7 @@ en:
         uploaded: uploaded but needs approval
         rejected: rejected
         broken: broken
-        wrong: не к этому аниме
+        wrong: wrong anime
         banned: banned
         copyrighted: copyrighted
 
@@ -227,47 +222,51 @@ en:
       kind:
         uploaded: new video
         broken: video broken
-        wrong: видео не к тому аниме
+        wrong: wrong anime
 
-  date_time:
-    week:
-      one: неделя
-      few: недели
-      many: недель
-    day:
-      one: день
-      few: дня
-      many: дней
-    hour:
-      one: час
-      few: часа
-      many: часов
-    minute:
-      one: минута
-      few: минуты
-      many: минут
+  time:
+    formats:
+      with_month_name: '%B %e, %Y'
 
-    intervals:
-      today: сегодня
-      yesterday: вчера
-      week: в течение недели
-      two_weeks: две недели назад
-      three_weeks: три недели назад
-      four_weeks: четыре недели назад
-      month: месяц назад
-      two_months: два месяца назад
-      three_months: три месяца назад
-      four_months: четыре месяца назад
-      five_months: пять месяцев назад
-      half_year: более полугода назад
-      year: почти год назад
-      two_years: более года назад
-      many_years: совсем давно
+  #date_time:
+    #week:
+      #one: week
+      #few: weeks
+      #many: weeks
+    #day:
+      #one: day
+      #few: days
+      #many: days
+    #hour:
+      #one: hour
+      #few: hours
+      #many: hours
+    #minute:
+      #one: minute
+      #few: minutes
+      #many: minutes
+
+    #intervals:
+      #today: today
+      #yesterday: yesterday
+      #week: during the week
+      #two_weeks: two weeks ago
+      #three_weeks: three weeks ago
+      #four_weeks: four weeks ago
+      #month: a month ago
+      #two_months: two months ago
+      #three_months: three months ago
+      #four_months: four months ago
+      #five_months: five months ago
+      #half_year: more than half a year ago
+      #year: almost a year ago
+      #two_years: more than one year ago
+      #many_years: a long, long time ago
 
   # в bans#create отображаются
   messages:
-    user_banned: User has been banned
-    user_warned: User has been warned
+    user_banned: User is banned
+    user_warned: User is warned
 
   will_paginate:
     previous_label: '<'
