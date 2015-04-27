@@ -1,5 +1,6 @@
 .results
-  - cache [:results, :v3, contest, russian_names_key, russian_genres_key] do
+  /- cache [:results, :v3, contest, russian_names_key, russian_genres_key] do
+  div
     - contest.results.each_with_index do |entry, index|
       .subheadline.m10 #{index+1} место
       .cc-result
