@@ -10,7 +10,7 @@ class CharacterMalParser < BaseMalParser
                     where
                       pr.#{type}_id is not null
                       and c.id is null").
-          each {|v| ids << v['character_id'].to_i }
+          each {|v| ids << v["#{type}_id"].to_i }
     ids
   end
 
