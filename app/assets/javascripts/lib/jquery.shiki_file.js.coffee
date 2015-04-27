@@ -82,7 +82,7 @@
             text = if global_lock then 'Дождитесь загрузки файлов' else 'Перетаскивайте сюда картинки'
             cls = if global_lock then 'disallowed' else 'allowed'
 
-            $placeholder = $("<div class='drag-placeholder #{cls}' style='width:#{width}px!important;height:#{height}px;line-height:#{Math.max(height, 75)}px;'>#{text}</div>")
+            $placeholder = $("<div data-text='#{text}' class='drag-placeholder #{cls}' style='width:#{width}px!important;height:#{height}px;line-height:#{Math.max(height, 75)}px;'></div>")
               .css(opacity: 0)
               .on('drop', (e) -> $node.trigger e)
               .on('dragenter', -> $(@).addClass 'hovered')

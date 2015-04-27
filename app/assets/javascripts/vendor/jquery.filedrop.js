@@ -414,8 +414,8 @@
           xhr.setRequestHeader(k, v);
         });
 
-          if(!xhr.sendAsBinary){
-              xhr.sendAsBinary = function(datastr) {
+          if(!xhr._sendAsBinary){
+              xhr._sendAsBinary = function(datastr) {
                   function byteValue(x) {
                       return x.charCodeAt(0) & 0xff;
                   }
@@ -424,8 +424,8 @@
                   this.send(ui8a.buffer);
               }
           }
-          
-        xhr.sendAsBinary(builder);
+
+        xhr._sendAsBinary(builder);
 
         global_progress[global_progress_index] = 0;
         globalProgress();
