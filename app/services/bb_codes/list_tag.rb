@@ -2,7 +2,7 @@ class BbCodes::ListTag
   include Singleton
 
   LIST_REGEXP = /
-    \[list\]
+    \[list\] (?: <br>)?
       (?<ul> .*?)
     \[\/list\]
   /mix
