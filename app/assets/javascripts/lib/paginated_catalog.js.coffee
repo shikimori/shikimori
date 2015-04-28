@@ -168,8 +168,10 @@ class @PaginatedCatalog
         @$content.removeClass('ajax_request')
 
       error: (xhr, status, error) =>
-        $.flash alert: "Пожалуста, повторите попытку позже"
-        #history.back()
+        if xhr?.responseText?.includes('age-restricted-warning')
+          Turbolinks.visit location.href
+        else
+          $.flash alert: "Пожалуста, повторите попытку позже"
 
   #process_ajax = (data, url, $postloader) ->
     #(if $postloader then process_ajax_postload(data, url, $postloader) else process_ajax_response(data, url))

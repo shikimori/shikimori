@@ -20,7 +20,7 @@
       font-family: 'PT Sans', sans-serif;
       text-align: center;
     }
-    .error-404 {
+    .age-restricted-warning {
       color: #fc575e;
       font-weight: bold;
       font-size: 42pt;
@@ -57,7 +57,7 @@
 
 <body>
   <div class="dialog">
-    <p class="error-404">Доступ<br>ограничен 18+</p>
+    <p class="age-restricted-warning">Доступ<br>ограничен 18+</p>
     <h1>Эта страница содержит "взрослый" контент, просматривать который могут только совершеннолетние.</h1>
     <p>Вам уже есть 18 лет?</p>
     <p><span class="confirm" onclick="$.cookie('<%=ShikimoriController::COOKIE_AGE_OVER_18 %>', true, {expires: 9999, path: '/'}); location.reload()">Да</span>&nbsp;&nbsp;&nbsp;<a href="<%=root_url %>">Нет</a></p>
