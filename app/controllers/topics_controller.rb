@@ -43,6 +43,7 @@ class TopicsController < ForumController
     @topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @topic.generated? && @topic.comments_count.zero?
+    raise AgeRestricted if @topic.linked && @topic.linked.try(:censored?) && censored_forbidden?
 
     if ((@topic.news? || @topic.review?) && params[:linked].present?) || (
         !@topic.news? && !@topic.review? && (
