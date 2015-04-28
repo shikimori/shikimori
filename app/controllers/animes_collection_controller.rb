@@ -17,7 +17,7 @@ class AnimesCollectionController < ShikimoriController
 
     if params[:search]
       noindex && nofollow
-      raise AgeRestricted if params[:search] =~ /\b(?:sex|секс|porno?|порно)\b/
+      raise AgeRestricted if params[:search] =~ /\b(?:sex|секс|porno?|порно)\b/ && censored_forbidden?
       @page_title = "Поиск “#{SearchHelper.unescape params[:search]}”"
     end
 
@@ -41,7 +41,7 @@ class AnimesCollectionController < ShikimoriController
 
     description @description.join(' ')
     keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
-    raise AgeRestricted if @entry_data[:genre] && @entry_data[:genre].any?(&:censored?)
+    raise AgeRestricted if @entry_data[:genre] && @entry_data[:genre].any?(&:censored?) && censored_forbidden?
 
   rescue BadStatusError
     redirect_to send("#{klass.table_name}_url", url_params(status: nil)), status: 301

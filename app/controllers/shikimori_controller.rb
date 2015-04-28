@@ -33,9 +33,7 @@ class ShikimoriController < ApplicationController
       page_title @resource.title
     end
 
-    if @resource.respond_to?(:censored?) && @resource.censored? && censored_forbidden?
-      raise AgeRestricted
-    end
+    raise AgeRestricted if @resource.respond_to?(:censored?) && @resource.censored? && censored_forbidden?
   end
 
   def censored_forbidden?
