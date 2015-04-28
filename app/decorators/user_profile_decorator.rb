@@ -203,6 +203,7 @@ private
   def localized_registration shortened
     if !shortened
       Russian::strftime created_at, '%e %B %Y г.'
+      #created_at.strftime '%d.%m.%Y'
 
     elsif Time.zone.now - created_at < 2.months
       h.l created_at, format: :with_month_name

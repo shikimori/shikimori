@@ -24,13 +24,10 @@ Disallow: /animes/*rss
 Disallow: /animes/order-by/*
 Disallow: /mangas/*rss
 Disallow: /mangas/order-by/*
-Disallow: /*/stats
-Disallow: /*/message
-Disallow: /*/settings
+Disallow: /animes/search/*
+Disallow: /mangas/search/*
 Disallow: /*/comments
-Disallow: /*/menu
 Disallow: /*/tooltip
-Disallow: /*/talk
 Disallow: /groups/9-Hentai*
 Disallow: /messages/*
 Disallow: /*undefined

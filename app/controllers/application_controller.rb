@@ -41,12 +41,15 @@ class ApplicationController < ActionController::Base
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
 
-    raise e if remote_addr == '127.0.0.1'
+    raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
 
     if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, ActionController::UnknownFormat, NotFound].include?(e.class)
       @page_title = 'Страница не найдена'
       @sub_layout = nil
       render 'pages/page404.html', layout: false, status: 404
+
+    elsif e.is_a?(AgeRestricted)
+      render 'pages/age_restricted', layout: nil, status: 404
 
     elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
       render text: e.message, status: 403

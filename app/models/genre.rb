@@ -4,6 +4,7 @@ class Genre < ActiveRecord::Base
 
   HentaiID = 12
   YaoiID = 33
+  YuriID = 34
 
   Merged = {
     45 => 41
@@ -98,5 +99,9 @@ class Genre < ActiveRecord::Base
 
   def to_param
     "%d-%s" % [id, self.english.gsub(' ', '-')]
+  end
+
+  def censored?
+    id == HentaiID || id == YaoiID || id == YuriID
   end
 end

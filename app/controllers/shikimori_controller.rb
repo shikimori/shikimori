@@ -1,5 +1,6 @@
 class ShikimoriController < ApplicationController
   before_action { noindex && nofollow unless shikimori? }
+  COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
   def self.page_title value
     before_action do
@@ -31,6 +32,14 @@ class ShikimoriController < ApplicationController
     elsif @resource.respond_to? :title
       page_title @resource.title
     end
+
+    if @resource.respond_to?(:censored?) && @resource.censored? && censored_forbidden?
+      raise AgeRestricted
+    end
+  end
+
+  def censored_forbidden?
+    cookies[COOKIE_AGE_OVER_18] != 'true'
   end
 
   def resource_redirect

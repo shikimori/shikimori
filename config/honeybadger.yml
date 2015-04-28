@@ -9,6 +9,7 @@ exceptions:
     - 'NotFound'
     - 'Unauthorized'
     - 'Forbidden'
+    - 'AgeRestricted'
     - 'ActionController::InvalidAuthenticityToken'
     - 'ActionController::UnknownFormat'
     - 'ActiveRecord::RecordNotFound'
