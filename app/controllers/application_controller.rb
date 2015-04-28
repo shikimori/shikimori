@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
       render 'pages/page404.html', layout: false, status: 404
 
     elsif e.is_a?(AgeRestricted)
-      render 'pages/age_restricted', layout: nil#, status: 404
+      render 'pages/age_restricted', layout: nil, status: 404
 
     elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
       render text: e.message, status: 403
