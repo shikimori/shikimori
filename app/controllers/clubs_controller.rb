@@ -12,6 +12,7 @@ class ClubsController < ShikimoriController
     noindex
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 48].max, 96].min
+
     @collection, @add_postloader = ClubsQuery.new.postload @page, @limit
   end
 
@@ -120,7 +121,7 @@ private
     params
       .require(:club)
       .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,
-        :comment_policy, :logo,
+        :comment_policy, :logo, :is_censored,
         anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], banned_user_ids: [])
   end
 

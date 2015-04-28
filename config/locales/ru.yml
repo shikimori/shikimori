@@ -118,6 +118,7 @@ ru:
         comment_policies:
           free_comment: Свободное для всех
           members_comment: Только для участников клуба
+        is_censored: Содержит материалы для взрослых (18+)
       group_invite:
         dst: Пользователь
       topic:

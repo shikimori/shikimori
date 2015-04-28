@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420062510) do
+ActiveRecord::Schema.define(version: 20150428210649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -527,6 +527,7 @@ ActiveRecord::Schema.define(version: 20150420062510) do
     t.string   "permalink",         limit: 255
     t.boolean  "display_images",                default: true
     t.integer  "comment_policy",                default: 1,           null: false
+    t.boolean  "is_censored",                   default: false,       null: false
   end
 
   create_table "ignores", force: :cascade do |t|

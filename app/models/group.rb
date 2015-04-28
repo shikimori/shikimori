@@ -48,6 +48,8 @@ class Group < ActiveRecord::Base
   enum join_policy: { free_join: 1, admin_invite_join: 50, owner_invite_join: 100 }
   enum comment_policy: { free_comment: 1, members_comment: 100 }
 
+  boolean_attribute :censored
+
   before_save :update_permalink
   after_create :join_owner
   after_create :generate_thread

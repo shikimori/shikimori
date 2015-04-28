@@ -1,5 +1,5 @@
 class GroupSerializer < ActiveModel::Serializer
-  attributes :id, :name, :logo
+  attributes :id, :name, :logo, :is_censored
 
   def logo
     {
