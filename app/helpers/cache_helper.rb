@@ -2,7 +2,7 @@ module CacheHelper
   def self.cache_settings
     {
       cache_path: proc { "#{params[:controller]}_#{params[:action]}" +
-        Digest::MD5.hexdigest("#{request.path}|#{params.to_json}") +
+        Digest::MD5.hexdigest("#{request.path}|#{params.to_json}|#{cookies[COOKIE_AGE_OVER_18].to_json}") +
         "_#{json?}_#{request.xhr?}_#{turbolinks_request?}_#{request.host}" },
       unless: proc { user_signed_in? },
       expires_in: 2.days
