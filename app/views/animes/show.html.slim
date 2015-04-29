@@ -106,15 +106,15 @@
       .ajax-loading.vk-like title="Загрузка..."
 
   - if user_signed_in? || @resource.comments_count > 0
-    - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
-      .b-options-floated.mobile-support
+    .b-options-floated.mobile-support
+      - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
         span.linkeable data-href="#{@resource.comments_reviews_url}"
           | Все отзывы
           span.brackets = @resource.comment_reviews_count
 
-        span.linkeable data-href="#{@resource.comments_all_url}"
-          | Все комментарии
-          span.brackets = @resource.comments_count
+      span.linkeable data-href="#{@resource.comments_all_url}"
+        | Все комментарии
+        span.brackets = @resource.comments_count
 
     - if @resource.comments_count > 0
       .subheadline.m3
