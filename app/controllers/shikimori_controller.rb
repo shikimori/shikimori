@@ -37,7 +37,7 @@ class ShikimoriController < ApplicationController
   end
 
   def censored_forbidden?
-    cookies[COOKIE_AGE_OVER_18] != 'true'
+    cookies[COOKIE_AGE_OVER_18] != 'true' && params[:format] != 'rss'
   end
 
   def resource_redirect
