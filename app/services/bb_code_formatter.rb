@@ -47,7 +47,9 @@ class BbCodeFormatter
 
   # форматирование текста комментариев
   def format_comment original_text
-    text = ('' || original_text).fix_encoding.strip
+    original_text ||= ''
+
+    text = original_text.strip
     text = remove_wiki_codes text
     text = strip_malware text
     text = user_mention text
