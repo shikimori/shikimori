@@ -11,3 +11,6 @@
 class @ShikiMessage extends ShikiComment
   _type: -> 'message'
   _type_label: -> 'Сообщение'
+
+  initialize: ($root) ->
+    super $root

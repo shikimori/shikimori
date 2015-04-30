@@ -92,9 +92,12 @@ class @ShikiTopic extends ShikiEditable
 
         $filtered_appeared.remove()
 
-        $markers.removeClass 'active'
-        $markers.css.bind($markers).delay(interval, opacity: 0)
-        $markers.hide.bind($markers).delay(interval + 500)
+        if $markers.data('reappear')
+          $markers.addClass 'off'
+        else
+          $markers.removeClass 'active'
+          $markers.css.bind($markers).delay(interval, opacity: 0)
+          $markers.hide.bind($markers).delay(interval + 500)
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>

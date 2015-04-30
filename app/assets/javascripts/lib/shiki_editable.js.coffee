@@ -2,6 +2,7 @@ class @ShikiEditable extends ShikiView
   # внутренняя инициализация
   _initialize: ($root) ->
     super $root
+    $new_marker = $('.b-new_marker', @$inner)
 
     # cancel control in mobile expanded aside
     $('.item-cancel', @$inner).on 'click', =>
@@ -33,9 +34,26 @@ class @ShikiEditable extends ShikiView
       @$root.find('>.b-height_shortener').click()
 
     # по клику на 'новое' пометка прочитанным
-    $('.b-new_marker', @$inner).on 'click', =>
-      # эвент appear обрабатывается в shiki-topic
-      @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
+    $new_marker.on 'click', =>
+      if $('.b-new_marker', @$inner).hasClass('off')
+        $new_marker.removeClass('off').data(manual: true)
+        $.ajax
+          url: $new_marker.data 'reappear_url'
+          type: 'POST'
+          data:
+            ids: $root.attr('id')
+
+      else if $('.b-new_marker', @$inner).data('manual')
+        $new_marker.addClass('off')
+        $.ajax
+          url: $new_marker.data 'appear_url'
+          type: 'POST'
+          data:
+            ids: $root.attr('id')
+
+      else
+        # эвент appear обрабатывается в shiki-topic
+        @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
 
     # realtime уведомление об изменении
     @on "faye:#{@_type()}:updated", (e, data) =>

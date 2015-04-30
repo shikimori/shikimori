@@ -65,7 +65,7 @@ class MessagesController < ProfilesController
 
     Message
       .where(id: ids, to_id: current_user.id)
-      .update_all(read: true)
+      .update_all(read: params[:unread] ? false : true)
 
     head 200
   end
