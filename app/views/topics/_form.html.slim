@@ -30,10 +30,18 @@
       label.string.optional.control-label for="topic_linked"
         = t 'activerecord.attributes.topic.linked'
         .cleanup очистить
-      input.string.optional type="text" id="topic_linked" placeholder="Название аниме" data-autocomplete="#{autocomplete_animes_url search: ''}"
+      input.string.optional#topic_linked[
+        type="text"
+        data-anime-placeholder="Название аниме"
+        data-manga-placeholder="Название манги"
+        data-character-placeholder="Имя персонажа"
+        data-anime-autocomplete="#{autocomplete_animes_url search: ''}"
+        data-manga-autocomplete="#{autocomplete_mangas_url search: ''}"
+        data-character-autocomplete="#{autocomplete_characters_url search: ''}"
+      ]
       /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url search: ''}"
 
-    .topic-video
+    /.topic-video
       - if topic.linked.present?
         a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
     .topic-link

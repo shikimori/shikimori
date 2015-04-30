@@ -1,7 +1,16 @@
 @on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $('.b-form.edit_topic, .b-form.new_topic')
+  $topic_linked = $('#topic_linked', $form)
+
+  # переключение раздела
+  $('#topic_section_id', $form).on 'change', ->
+    $topic_linked
+      .data autocomplete: $topic_linked.data("#{linked_type().toLowerCase()}-autocomplete")
+      .attr placeholder: $topic_linked.data("#{linked_type().toLowerCase()}-placeholder")
+      .trigger('flushCache')
 
   $('.b-shiki_editor', $form).shiki_editor()
+  $('#topic_section_id', $form).trigger('change')
 
   # сброс привязанного к топику
   $('.topic_linked .cleanup', $form).on 'click', ->
@@ -11,18 +20,22 @@
     $('#topic_linked', $form).val('')
 
   # выбор привязанного к топику
-  $('#topic_linked', $form).completable()
+  $topic_linked.completable()
     .on 'autocomplete:success', (e, entry) ->
       $('#topic_linked_id', $form).val(entry.id)
-      $('#topic_linked_type', $form).val(if is_anime() then 'Anime' else 'Manga')
+      $('#topic_linked_type', $form).val(linked_type())
       @value = ''
 
-      type = if is_anime() then 'anime' else 'manga'
-      $('topic-link', $form)
-        .html("<a href='/#{type}s/#{entry.id}' class='bubbled'>#{entry.name}</a>")
+      $('.topic-link', $form)
+        .html("<a href='/#{linked_type().toLowerCase()}s/#{entry.id}' class='bubbled'>#{entry.name}</a>")
         .process()
+      #$('.topic-video', $form).html "<a href='/#{type}s/#{entry.id}/edit/videos' target='_blank'>добавить видео</a>"
 
-      $('.topic-video', $form).html "<a href='/#{type}s/#{entry.id}/edit/videos' target='_blank'>добавить видео</a>"
+    .on 'keypress', (e) ->
+      if e.keyCode == 10 || e.keyCode == 13
+        e.preventDefault()
+        false
+
 
   # создание/редактирование топика
   $form.on 'submit', ->
@@ -67,8 +80,10 @@ reset_wall = ($wall) ->
   $wall.find('img').css(width: '', height: '')
   $wall.addClass('unprocessed').shiki_wall()
 
-is_anime = ->
-  $('#topic_type').val() == 'AnimeNews'
-
-is_manga = ->
-  $('#topic_type').val() == 'MangaNews'
+linked_type = ->
+  if $('#topic_section_id').val() == '7'
+    'Character'
+  else if $('#topic_section_id').val() == '6'
+    'Manga'
+  else
+    'Anime'
