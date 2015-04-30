@@ -37,9 +37,14 @@ class DbEntryDecorator < BaseDecorator
         .gsub(/\n/, "<br />")
         .strip
 
-      BbCodes::PTag.instance.format(
+      text = BbCodes::PTag.instance.format(
         BbCodeFormatter.instance.paragraphs(text)
       ).html_safe
+
+      Nokogiri::HTML::DocumentFragment
+        .parse(text)
+        .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        .html_safe
     else
       '<p class="b-nothing_here">Нет описания</p>'.html_safe
     end
