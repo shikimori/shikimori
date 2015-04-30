@@ -142,8 +142,9 @@ private
     genres = bang_split(@genre.split(','), true).each {|k,v| v.flatten! } if @genre
     hentai = @genre && genres[:include].include?(Genre::HentaiID)
     yaoi = @genre && genres[:include].include?(Genre::YaoiID)
+    yuri = @genre && genres[:include].include?(Genre::YuriID)
 
-    unless hentai || yaoi || mylist? || userlist? || uncensored? || search? || @publisher || @studio
+    unless hentai || yaoi || yuri || mylist? || userlist? || uncensored? || search? || @publisher || @studio
       @query = @query.where(censored: false)
     end
   end
