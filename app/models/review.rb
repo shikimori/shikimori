@@ -57,14 +57,16 @@ class Review < ActiveRecord::Base
 
   # создание ReviewComment для элемента сразу после создания
   def generate_thread
-    ReviewComment.create!(
-      linked_id: self.id,
-      linked_type: self.class.name,
-      user: user,
-      title: "Обзор #{target.class == Anime ? 'аниме' : 'манги'} #{entry.name}",
-      created_at: created_at,
-      updated_at: updated_at,
-    )
+    FayeService
+      .new(user, '')
+      .create(ReviewComment.new(
+        linked_id: self.id,
+        linked_type: self.class.name,
+        user: user,
+        title: "Обзор #{target.class == Anime ? 'аниме' : 'манги'} #{entry.name}",
+        created_at: created_at,
+        updated_at: updated_at,
+      ))
   end
 
   # хз что это за хрень и почему ReviewComment.first.linked.target возвращает сам обзор. я так и не понял
