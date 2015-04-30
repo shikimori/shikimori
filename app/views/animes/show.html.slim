@@ -88,8 +88,14 @@
         .m20
           / .text должен быть вложен в блок с отступом, иначе при сокращении
           / длинного текста между height shortener и текстом будет отступ
-          .text itemprop="description"
-            = @resource.description_html
+          .text
+            - if @resource.show_mal_description?
+              .lang-trigger
+                | [<span>eng</span>]
+              .english
+                = @resource.description_mal
+            .russian itemprop="description"
+              = @resource.description_html
 
         = render 'blocks/source', entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url
 

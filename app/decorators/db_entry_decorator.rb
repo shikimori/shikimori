@@ -15,6 +15,10 @@ class DbEntryDecorator < BaseDecorator
     object.source
   end
 
+  def show_mal_description?
+    h.user_signed_in? && object.respond_to?(:description_mal) && object.description_mal.present? && description.present?
+  end
+
   def description_html
     if description.present?
       Rails.cache.fetch [:description, h.russian_names_key, object] do
