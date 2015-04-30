@@ -93,20 +93,26 @@ ru:
     Not yet published: Анонс
     Publishing: Выходит
   Rating:
-    G - All Ages: "Для всех возрастов"
-    PG - Children: "Рекомендуется присутствие родителей"
-    PG-13 - Teens 13 or older: "До 13 лет просмотр с родителями"
-    R+ - Mild Nudity: "До 17 лет просмотр с родителями"
-    R - 17+ (violence & profanity): "Запрет на просмотр до 17 лет"
-    R - 17+ (violence &amp; profanity): "Запрет на просмотр до 17 лет"
-    Rx - Hentai: "Только для совершеннолетних"
+    G - All Ages: &rating_g Для всех возрастов
+    PG - Children: &rating_pg Рекомендуется присутствие родителей
+    PG-13 - Teens 13 or older: &rating_pg До 13 лет просмотр с родителями
+    R+ - Mild Nudity: &rating_r_plus До 17 лет просмотр с родителями
+    R - 17+ (violence & profanity): &rating_r17 Запрет на просмотр до 17 лет
+    Rx - Hentai: &rating_rx Только для совершеннолетних
+
+    G: *rating_g
+    PG: *rating_pg
+    PG-13: *rating_pg
+    NC-17: *rating_r17
+    R+: *rating_r_plus
+    R: *rating_r_plus # todo: выпилить после https://github.com/morr/shikimori/issues/496
+    Rx: *rating_rx
   RatingShort:
     G - All Ages: G
     PG - Children: PG
     PG-13 - Teens 13 or older: PG-13
-    R+ - Mild Nudity: R+
     R - 17+ (violence & profanity): NC-17
-    R - 17+ (violence &amp; profanity): NC-17
+    R+ - Mild Nudity: R+
     Rx - Hentai: Rx
   User:
     ContactsPrivacy:

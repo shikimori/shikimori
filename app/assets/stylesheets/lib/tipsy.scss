@@ -1,6 +1,11 @@
+@import "compass/css3/box-shadow";
+
 // https://github.com/jaz303/tipsy
 .tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
   .tipsy-inner { background-color: #123; color: #FFF; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }
+
+  /* shadow */
+  .tipsy-inner { @include box-shadow(0 0 10px #fff); }
 
   /* Rounded corners */
   .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }

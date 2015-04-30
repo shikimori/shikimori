@@ -185,10 +185,11 @@
     .block.ratings
       .subheadline Рейтинг
       ul.block-list.ratings.anime-params
-        - AniMangaQuery::Ratings.keys.reverse.each do |v|
-          li class="rating-#{v}"
+        - AniMangaQuery::Ratings.keys.reverse.each do |rating|
+          li class="rating-#{rating}"
             input type="checkbox" autocomplete="off"
-            = v
+            = rating
+            span.b-question.b-tooltipped.unprocessed data-title="#{t "Rating.#{rating}"}" data-direction="top"
 
   .block.genres
     .subheadline Жанр
@@ -197,6 +198,8 @@
         - @genres.sort_by {|v| [v.position, localized_name(v)] }.each do |genre|
           - next if genre.id == Genre::ThrillerDupID
           - next if genre.censored? && !user_signed_in?
-          li class="#{:bubbled if genre.description} genre-#{genre.to_param} #{:m10 if genre.position % 10 == 0}" data-predelay="150" data-href="#{tooltip_genre_url genre, subdomain: false}"
+          li class="genre-#{genre.to_param} #{:m10 if genre.position % 10 == 0}"
             input type="checkbox" autocomplete="off"
             = localized_name genre
+            - if genre.description.present?
+              span.b-question.bubbled data-title="#{genre.description}" data-predelay="150" data-href="#{tooltip_genre_url genre, subdomain: false}"

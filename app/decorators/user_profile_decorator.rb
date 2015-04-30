@@ -103,7 +103,7 @@ class UserProfileDecorator < UserDecorator
       info << 'Личные данные скрыты'
     end
 
-    info << "на сайте с <span class=\"reg-date\" title=\"#{localized_registration false}\">#{localized_registration true} г.</span>".html_safe
+    info << "на сайте с <span class='b-tooltipped unprocessed' data-direction='right' title='#{localized_registration false}'>#{localized_registration true} г.</span>".html_safe
 
     info
   end

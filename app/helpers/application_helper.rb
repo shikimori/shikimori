@@ -30,7 +30,7 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
-  def rus_date date, fix_1_1=false
+  def rus_date date, fix_1_1=false, short_month=true
     return unless date
 
     if fix_1_1
@@ -39,7 +39,7 @@ module ApplicationHelper
       elsif fix_1_1 && date.day == 1
         Russian::strftime date, '%B %Y г.'
       else
-        Russian::strftime(date, '%e %b %Y г.').strip
+        Russian::strftime(date, short_month ? '%e %b %Y г.' : '%e %B %Y г.').strip
       end
     else
       Russian::strftime(date, '%e %B %Y г.').strip

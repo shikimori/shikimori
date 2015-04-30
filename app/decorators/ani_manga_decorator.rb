@@ -154,6 +154,51 @@ class AniMangaDecorator < DbEntryDecorator
     object.respond_to?(:anime_videos) && object.anime_videos.available.any?
   end
 
+  def release_date_text
+    return unless released_on || aired_on
+    parts = []
+
+    if status == AniMangaStatus::Released || status == AniMangaStatus::Finished
+      if released_on && aired_on && released_on.year != aired_on.year
+        # в 2011-2012 гг.
+        parts << "в #{aired_on.year}-#{released_on.year} гг."
+      else
+        if released_on
+          # 2 марта 2011
+          parts << "#{h.rus_date released_on, true}"
+        else
+          # с 1 марта 2011
+          parts << "с #{h.rus_date aired_on, true}"
+        end
+      end
+
+    elsif status == AniMangaStatus::Anons
+      parts << "на #{h.rus_date aired_on, true}" if aired_on
+
+    else # ongoings
+      parts << "с #{h.rus_date aired_on, true, true}" if aired_on
+      parts << "до #{h.rus_date released_on, true, true}" if released_on
+    end
+
+    parts.join(' ').html_safe if parts.any?
+  end
+
+  def release_date_tooltip
+    return unless [AniMangaStatus::Released, AniMangaStatus::Finished].include?(status) && (released_on || aired_on)
+
+    if released_on && aired_on && released_on.year != aired_on.year
+      # вышло в 2011-2012 гг.
+      if released_on.day != 1 && released_on.month != 1 && aired_on.day != 1 && aired_on.month != 1
+        tooltip = "С #{h.rus_date aired_on, true, false} по #{h.rus_date released_on, true, false}"
+      end
+    else
+      # вышло в 2011 г.
+      if released_on && aired_on
+        tooltip = "С #{h.rus_date aired_on, true, false} по #{h.rus_date released_on, true, false}"
+      end
+    end
+  end
+
 private
   def format_menu_topic topic, order
     {

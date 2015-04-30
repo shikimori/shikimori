@@ -36,7 +36,7 @@
         .c-info-left
           .subheadline Информация
           .block
-            = render 'animes/info', entry: @resource, details: true
+            = render 'animes/info', entry: @resource
 
           - if @resource.anime? && !@resource.anons? && ignore_copyright?
             .block

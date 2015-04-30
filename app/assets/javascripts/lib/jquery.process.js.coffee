@@ -32,6 +32,22 @@
 
     $this.attr 'data-href', null
 
+  # чёрные мелкие тултипы
+  $with('.b-tooltipped.unprocessed', $root)
+    .removeClass('unprocessed')
+    .each ->
+      $tip = $(@)
+      gravity = switch $tip.data('direction')
+        when 'top' then 's'
+        when 'bottom' then 'n'
+        when 'right' then 'w'
+        else 'e'
+
+      $tip.tipsy
+        gravity: gravity
+        html: true
+        prependTo: document.body
+
   # подгружаемые тултипы
   $with('.anime-tooltip', $root)
     .tooltip(ANIME_TOOLTIP_OPTIONS)

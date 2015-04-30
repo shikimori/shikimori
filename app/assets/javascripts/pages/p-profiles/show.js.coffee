@@ -8,7 +8,7 @@
     $('.ignore-action').toggle()
 
   # тултип на никнейм
-  $('h1.aliases, .reg-date').tipsy
+  $('h1.aliases').tipsy
     gravity: 'w'
     html: true
     prependTo: document.body

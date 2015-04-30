@@ -18,52 +18,17 @@
       span.b-anime_status_tag class="#{entry.status.downcase.gsub ' ', '_'}"
         = t "AniMangaStatus.#{entry.status}"
       | &nbsp;
-      - if [AniMangaStatus::Released, AniMangaStatus::Finished].include?(entry.status) && (entry.released_on || entry.aired_on)
-        - if entry.released_on && entry.aired_on && entry.released_on.year != entry.aired_on.year
-          / вышло в 2011-2012 гг.
-          = "в #{entry.aired_on.year}-#{entry.released_on.year} гг."
-          - if entry.released_on.day != 1 && entry.released_on.month != 1 && entry.aired_on.day != 1 && entry.aired_on.month != 1
-            - if defined?(details) && details
-              |  (
-              span.b-notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
-              | )
-        - else
-          / вышло в 2011 г.
-          - if entry.released_on && entry.aired_on
-            = "в #{(entry.released_on || entry.aired_on).year} г."
-            / С 1 марта 2011 по 2 января 2012
-            - if defined?(details) && details
-              |  (
-              span.b-notice.status-date title="С #{rus_date entry.aired_on, true} по #{rus_date entry.released_on, true}" ?
-              | )
-          - elsif (entry.released_on || entry.aired_on).day != 1 || (entry.released_on || entry.aired_on).month != 1
-            / 1 марта 2011
-            = rus_date(entry.aired_on || entry.released_on, true)
-          - else
-            / в 2011 г.
-            = "в #{(entry.released_on || entry.aired_on).year} г."
+
+      - if entry.release_date_tooltip
+        span.b-tooltipped.unprocessed data-direction="right" data-title="#{entry.release_date_tooltip}"
+          = entry.release_date_text
       - else
-        - if entry.aired_on
-          - if entry.released_on || entry.status == AniMangaStatus::Ongoing || entry.status == AniMangaStatus::Publishing
-            | с&nbsp;
-          - elsif entry.status == AniMangaStatus::Anons && !entry.released_on
-            | на&nbsp;
-          span.dark.anime-alt
-            = rus_date entry.aired_on, true
-          | &nbsp;
-        - if entry.released_on
-          br
-          | по&nbsp;
-          span.dark.anime-alt
-            = rus_date entry.released_on, true
+        = entry.release_date_text
 
   - if entry.rating.present? && entry.rating != 'None'
     = info_line 'Рейтинг' do
-      = t "RatingShort.#{entry.rating}"
-      - if defined?(details) && details
-        |  (
-        span.b-notice.rating title="#{t "Rating.#{entry.rating}"}" ?
-        | )
+      span.b-tooltipped.unprocessed data-title="#{t "Rating.#{entry.rating}"}" data-direction="right"
+        = t "RatingShort.#{entry.rating}"
 
   - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)
     = info_line 'Альтернативные названия' do
