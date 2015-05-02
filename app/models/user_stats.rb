@@ -61,7 +61,17 @@ class UserStats
   end
 
   def spent_time_in_words
-    I18n.spent_time spent_time, true
+    I18n.spent_time spent_time, false
+  end
+
+  def spent_time_in_days
+    days = if spent_time.days > 10
+      spent_time.days.to_i
+    else
+      spent_time.days.round(1)
+    end
+
+    "#{days.zero? ? 0 : days} #{Russian.p days, 'день', 'дня', 'дней', 'дней'}"
   end
 
   def spent_time_label

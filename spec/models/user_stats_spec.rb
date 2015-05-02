@@ -135,6 +135,51 @@ describe UserStats do
     end
   end
 
+  describe '#spent_time_in_days', :focus do
+    before { allow(stats).to receive(:spent_time).and_return SpentTime.new(interval) }
+    subject { stats.spent_time_in_days }
+
+    context 'none' do
+      let(:interval) { 0 }
+      it { should eq '0 дней' }
+    end
+
+    context '30 minutes' do
+      let(:interval) { 1 / 24.0 / 2 }
+      it { should eq '0 дней' }
+    end
+
+    context '1 hour' do
+      let(:interval) { 1 / 24.0 }
+      it { should eq '0 дней' }
+    end
+
+    context '2.5 hours' do
+      let(:interval) { 1 / 24.0 * 2.5 }
+      it { should eq '0.1 дней' }
+    end
+
+    context '2.5 days' do
+      let(:interval) { 2.5 }
+      it { should eq '2.5 дней' }
+    end
+
+    context '10.50 days' do
+      let(:interval) { 10.5 }
+      it { should eq '10 дней' }
+    end
+
+    context '3 weeks' do
+      let(:interval) { 21 }
+      it { should eq '21 день' }
+    end
+
+    context '1.25 years' do
+      let(:interval) { 365 * 1.25 }
+      it { should eq '456 дней' }
+    end
+  end
+
   describe '#comments_count' do
     let(:topic) { create :topic, user: user }
     let!(:comment) { create_list :comment, 2, user: user, commentable: topic }

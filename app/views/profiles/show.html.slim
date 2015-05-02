@@ -120,7 +120,10 @@
       .lifetime.b-stat_bar
         .title
           - if @resource.stats.spent_time.days > 0
-            .value = @resource.stats.spent_time_in_words
+            .value.b-tooltipped.unprocessed[
+              data-title="#{@resource.stats.spent_time_in_days}"
+              data-direction="top"
+            ] = @resource.stats.spent_time_in_words
             .label = @resource.stats.spent_time_label
           - else
             | Нет просмотров аниме
