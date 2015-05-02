@@ -1,6 +1,8 @@
 class Api::V1::ApiController < ShikimoriController
   responders :json # для рендеринга контента на patch и put запросы
+  skip_before_action :touch_last_online
   before_action :authenticate_user_from_token!
+  before_action :touch_last_online
   skip_before_action :verify_authenticity_token, if: -> { request.headers['X-User-Nickname'] && request.headers['X-User-Api-Access-Token'] }
 
   resource_description do

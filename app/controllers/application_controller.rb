@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
   before_action :fix_googlebot
-  before_action :touch_last_online unless Rails.env.test?
+  before_action :touch_last_online
   before_action :mailer_set_url_options
   before_action :force_vary_accept
 
