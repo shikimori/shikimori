@@ -71,6 +71,8 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'пизда').to be_truthy }
     it { expect(banhammer.abusive? 'пиздуй').to be_truthy }
     it { expect(banhammer.abusive? 'пиздец').to be_truthy }
+
+    it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to be_falsy }
   end
 
   describe '#abusiveness' do
@@ -103,8 +105,13 @@ describe Banhammer do
       it { should eq '30m' }
     end
 
-    context 'had bans' do
-      let(:user) { build_stubbed :user, bans: [build_stubbed(:ban)] }
+    context 'had bans less than 1.5 days ago' do
+      let(:user) { build_stubbed :user, bans: [build_stubbed(:ban, created_at: 1.day.ago), build_stubbed(:ban, created_at: 1.day.ago)] }
+      it { should eq '1d' }
+    end
+
+    context 'had bans more than 1.5 days ago' do
+      let(:user) { build_stubbed :user, bans: [build_stubbed(:ban, created_at: 2.days.ago), build_stubbed(:ban, created_at: 2.days.ago)] }
       it { should eq '2h' }
     end
   end

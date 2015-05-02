@@ -56,7 +56,15 @@ private
   end
 
   def ban_duration
-    multiplier = BanDuration.new(comment.user.bans.any? ? '2h' : '15m').to_i
+    duration = if comment.user.bans.size >= 2 && comment.user.bans.last.created_at > 36.hours.ago
+      '1d'
+    elsif comment.user.bans.any?
+      '2h'
+    else
+      '15m'
+    end
+
+    multiplier = BanDuration.new(duration).to_i
     BanDuration.new(multiplier * abusiveness).to_s
   end
 
@@ -67,14 +75,17 @@ private
   end
 
   def abusiveness text = self.comment.body
-    text
-      .scan(ABUSE)
-      .select do |group|
-        group.select(&:present?).select do |match|
-          match.size >= 3 && match !~ NOT_ABUSE &&
-            match.scan(ABUSE_SYMBOL).size <= (match.size / 2).floor
-        end.any?
-      end
-      .size
+    @abusivenesses ||= {}
+    @abusivenesses[text] ||=
+      text
+        .gsub(BbCodes::UrlTag::REGEXP, '')
+        .scan(ABUSE)
+        .select do |group|
+          group.select(&:present?).select do |match|
+            match.size >= 3 && match !~ NOT_ABUSE &&
+              match.scan(ABUSE_SYMBOL).size <= (match.size / 2).floor
+          end.any?
+        end
+        .size
   end
 end
