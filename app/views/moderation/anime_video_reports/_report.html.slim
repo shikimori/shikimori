@@ -32,9 +32,6 @@
             a href="#{accept_moderation_anime_video_report_url(report.id)}" подтвердить
             a.accept_edit href="#{accept_edit_moderation_anime_video_report_url(report.id)}"
               | подтвердить и редактировать
-            - if report.anime_video.vk? && report.broken?
-              a.accept_cut_vk_hd href="#{accept_cut_vk_hd_moderation_anime_video_report_url(report.id)}"
-                | подтвердить и убрать hd
         - else
           span.moderation
             a href="#{cancel_moderation_anime_video_report_url report.id}" отменить
