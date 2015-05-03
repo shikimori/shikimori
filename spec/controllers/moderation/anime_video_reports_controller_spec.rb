@@ -33,12 +33,6 @@ describe Moderation::AnimeVideoReportsController do
     it { expect(anime_video.reload).to be_working }
   end
 
-  describe '#accept_cut_vk_hd' do
-    before { get :accept_edit, id: anime_video_report.id }
-    it { expect(anime_video_report.reload).to be_accepted }
-    it { expect(anime_video.reload).to be_working }
-  end
-
   describe '#create' do
     let(:anime_video_report) {}
     let(:params) {{ kind: 'broken', anime_video_id: anime_video.id, user_id: user.id, message: 'test' }}

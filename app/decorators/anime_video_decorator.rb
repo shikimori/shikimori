@@ -6,11 +6,7 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def player_url
-    if vk? && reports.any? {|r| r.broken? }
-      "#{url}#{url.include?('?') ? '&' : '?' }quality=360"
-    else
-      url
-    end
+    url
   end
 
   def in_list?

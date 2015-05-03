@@ -75,7 +75,6 @@ Site::Application.routes.draw do
       member do
         get :accept
         get :accept_edit
-        get :accept_cut_vk_hd
         get :reject
         get :work
         get :cancel
