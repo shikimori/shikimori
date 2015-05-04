@@ -3,8 +3,10 @@ class ChronologyQuery
 
   def fetch
     future = DateTime.now + 10.years
+
     @entry.class
-      .where(id: related_entries.keys)
+      .where(id: related_entries.keys +
+        related_entries.values.flatten.map(&:anime_id))
       .sort_by { |v| [v.aired_on || future, v.id] }
       .reverse
   end
@@ -14,6 +16,7 @@ class ChronologyQuery
   end
 
 private
+
   def related_entries
     @related_entries ||= fetch_related [@entry.id], {}
   end
