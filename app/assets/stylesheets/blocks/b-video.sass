@@ -1,3 +1,4 @@
+//@import compass/css3/opacity
 @import globals/variables
 @import mixins/image_editable
 @import mixins/media_marker
@@ -28,11 +29,15 @@
 
   .name
     +media_marker
-    top: 0
+    //+opacity(0.85)
     bottom: auto
+    max-width: 100%
+    padding-left: 0
+    top: 0
 
   .marker
     +media_marker
+    //+opacity(0.85)
 
   &.vk
     img
