@@ -63,7 +63,7 @@ describe Topic do
         end
 
         context '2 months ago topic' do
-          let(:created_at) { 89.days.ago }
+          let(:created_at) { 86.days.ago }
           it { should be_able_to :update, topic }
         end
 
