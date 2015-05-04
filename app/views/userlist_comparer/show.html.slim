@@ -3,7 +3,7 @@ header.head
     span Сравнение списка #{@klass == Anime ? 'аниме' : 'манги' }
   p.notice
     span На данной странице сравниваются списки пользователе <a href="#{profile_url @user_1}">#{@user_1.nickname}</a> и <a href="#{profile_url @user_2}">#{@user_2.nickname}</a>.&nbsp;
-    span <span style="background: #f2fff2; padding: 0 2px;">Зёленый</span> цвет означает совпадение оценок, а <span style="background: #fff2f2 padding: 0 2px;">красный</span> - различие.&nbsp;
+    span <span style="background: #f2fff2; padding: 0 2px;">Зёленый</span> цвет означает совпадение оценок, а <span style="background: #fff2f2; padding: 0 2px;">красный</span> - различие.&nbsp;
     span Чем насыщененй цвет, тем сильнее <span style="background: #e6ffe6 padding: 0 2px;">сходство</span> или <span style="background: #ffe6e6 padding: 0 2px;">различие</span> в оценках.
   p.notice <span style="color: red">Важно!</span> Оценки сравниваются не по прямому совпадению цифр, а с учётом усреднённых оценок, которые ставит каждый пользователь. Поэтому в некоторых случаях оценки 6 и 8 могут отображаться как сильно совпадающие, а оценки 8 и 8 как сильно различающиеся.
 
