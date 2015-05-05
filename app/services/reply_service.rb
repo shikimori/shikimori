@@ -33,7 +33,10 @@ class ReplyService
 private
 
   def update_comment new_body
-    comment.update body: new_body
+    comment.update_columns(
+      body: new_body,
+      updated_at: comment.updated_at + 1.second
+    )
     faye.set_replies comment
   end
 
