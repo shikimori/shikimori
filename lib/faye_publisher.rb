@@ -33,6 +33,16 @@ class FayePublisher
       .each {|v| publish_mark v, mark_kind, mark_value }
   end
 
+  def publish_replies comment, replies_html
+    data = {
+      event: "comment:set_replies",
+      topic_id: comment.commentable_id,
+      comment_id: comment.id,
+      replies_html: replies_html,
+    }
+    publish_data data, comment_channels(comment, [])
+  end
+
 private
   # отправка уведомлений о новом комментарии
   def publish_comment comment, event, channels

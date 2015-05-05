@@ -14,12 +14,7 @@ describe Message do
   after(:all) { Message.antispam = true }
 
   describe 'callbacks' do
-    let(:user) { build_stubbed :user }
-
-    it 'should filter nested quotes in body' do
-      message = create :message, body: '[quote][quote=test][quote][/quote][/quote][/quote]', from: user, to: user
-      expect(message.body).to eq('[quote][quote=test][/quote][/quote]')
-    end
+    let(:user) { build_stubbed :user, :user }
 
     describe 'antispam' do
       before { Message.antispam = true }

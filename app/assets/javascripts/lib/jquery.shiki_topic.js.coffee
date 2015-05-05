@@ -175,7 +175,7 @@ class @ShikiTopic extends ShikiEditable
 
     # realtime обновления
     # изменение / удаление комментария
-    @on 'faye:comment:updated faye:message:updated faye:comment:deleted faye:message:deleted', (e, data) =>
+    @on 'faye:comment:updated faye:message:updated faye:comment:deleted faye:message:deleted faye:comment:set_replies', (e, data) =>
       e.stopImmediatePropagation()
       trackable_type = e.type.match(/comment|message/)[0]
       trackable_id = data["#{trackable_type}_id"]

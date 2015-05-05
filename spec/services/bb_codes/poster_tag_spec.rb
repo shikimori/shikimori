@@ -1,7 +1,7 @@
 describe BbCodes::PosterTag do
   let(:tag) { BbCodes::PosterTag.instance }
 
-  describe 'format' do
+  describe '#format' do
     subject { tag.format text }
 
     context 'external image' do

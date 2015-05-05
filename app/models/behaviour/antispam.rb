@@ -7,13 +7,18 @@ module Antispam
   end
 
   module ClassMethods
-    def antispam= val
-      @antispam = val
-    end
+    attr_accessor :antispam
 
-    def wo_antispam &block
+    def wo_antispam
       @antispam = false
       val = yield
+      @antispam = true
+      val
+    end
+
+    def create_wo_antispam! options
+      @antispam = false
+      val = create!(options)
       @antispam = true
       val
     end

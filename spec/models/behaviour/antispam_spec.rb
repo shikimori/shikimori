@@ -4,8 +4,8 @@ class WithAntispam < ActiveRecord::Base; include Antispam; end
 
 describe Antispam do
   it 'antispam?' do
-    expect(WithAntispam.with_antispam?).to be_truthy
-    expect(NoAntispam.with_antispam?).to be_falsy
+    expect(WithAntispam).to be_with_antispam
+    expect(NoAntispam).to_not be_with_antispam
   end
 
   describe Comment do

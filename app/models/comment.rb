@@ -40,6 +40,7 @@ class Comment < ActiveRecord::Base
 
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
+  after_destroy :remove_replies
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
@@ -93,56 +94,40 @@ class Comment < ActiveRecord::Base
   rescue ActiveRecord::RecordNotFound
   end
 
+  # убираение комментария из ответов
+  def remove_replies
+    notified_comments = []
+
+    ExtractQuoted.new(body).perform.each do |(quoted_comment,_)|
+      if quoted_comment && !notified_comments.include?(quoted_comment.id)
+        notified_comments << quoted_comment.id
+        ReplyService.new(quoted_comment).remove_reply self
+      end
+    end
+  end
+
   # уведомление для цитируемых пользователей о том, что им ответили
   def notify_quotes
+    notified_comments = []
     notified_users = []
-    body.scan(/\[(quote|comment|entry|mention)=([^\]]+)\](?:(?:\[quote.*?\][\s\S]*?\[\/quote\]|[\s\S])*?)\[\/(?:quote|comment|entry|mention)\]/).each do |quote|
-      type = quote[0]
 
-      quoted_user = if type == 'quote'
-        if quote[1] =~ /\d+;(\d+);.*/
-          User.find_by_id $1.to_i
-        else
-          User.find_by_nickname quote[1]
-        end
-
-      elsif type == 'mention'
-        User.find_by_id quote[1]
-
-      else
-        type
-          .capitalize
-          .constantize
-          .includes(:user)
-          .find_by(id: quote[1])
-          .try(:user)
+    ExtractQuoted.new(body).perform.each do |(quoted_comment,quoted_user)|
+      if quoted_comment && !notified_comments.include?(quoted_comment.id)
+        notified_comments << quoted_comment.id
+        ReplyService.new(quoted_comment).append_reply self
       end
 
-      # игнорируем цитаты без юзера
-      next unless quoted_user
-      # игнорируем цитаты самому себе
-      next if quoted_user.id == self.user_id
-      # игнорируем пользователей, которым уже создали уведомления
-      next if notified_users.include?(quoted_user.id)
-      # игнорируем пользователей, у которых уже есть не прочитанные уведомления о текущей теме
-      #next if Message.where(
-          #to_id: quoted_user.id,
-          #kind: MessageType::QuotedByUser,
-          #read: false,
-          #linked_type: self.class.name
-        #).includes(:linked)
-         #.any? {|v| v.linked && v.linked.commentable_id == self.commentable.id && v.linked.commentable_type == self.commentable_type }
+      # игнорируем цитаты самому себе и пользователей, которым уже создали уведомления
+      if quoted_user && quoted_user.id != self.user_id && !notified_users.include?(quoted_user.id)
+        notified_users << quoted_user.id
 
-      Message.wo_antispam do
-        Message.create!(
+        Message.create_wo_antispam!(
           from_id: user_id,
           to_id: quoted_user.id,
           kind: MessageType::QuotedByUser,
           linked: self
         )
       end
-
-      notified_users << quoted_user.id
     end
   end
 

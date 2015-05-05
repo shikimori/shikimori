@@ -93,6 +93,12 @@ describe Comment do
       after { comment.save }
       it { expect_any_instance_of(Banhammer).to receive(:release) }
     end
+
+    describe '#remove_replies' do
+      let(:comment) { create :comment }
+      after { comment.destroy }
+      it { expect(comment).to receive :remove_replies }
+    end
   end
 
   describe '#instance_methods' do

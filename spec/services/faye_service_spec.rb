@@ -139,4 +139,14 @@ describe FayeService do
       end
     end
   end
+
+  describe '#set_replies' do
+    let(:comment) { create :comment, commentable: topic, user: user }
+    let(:replied_comment) { create :comment, commentable: topic, user: user }
+
+    before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+    after { service.set_replies comment }
+
+    it { expect_any_instance_of(FayePublisher).to receive(:publish_replies).with comment, anything }
+  end
 end

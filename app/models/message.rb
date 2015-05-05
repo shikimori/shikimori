@@ -1,5 +1,6 @@
 # TODO: refactor kind = MessageType::... в enumerize kind или в enum kind
 class Message < ActiveRecord::Base
+  include Antispam
   # для совместимости с comment
   #attr_accessor :topic_name, :topic_url
 
@@ -13,26 +14,11 @@ class Message < ActiveRecord::Base
   validates :from, :to, presence: true
   validates :body, presence: true, if: -> { kind == MessageType::Private }
 
-  before_create :filter_quotes
-  before_save :antispam
-
   after_create :send_email
 
-  cattr_writer :antispam
-  # включен ли антиспам
-  @@antispam = true
-
-  # выполнение кода без антиспама
-  def self.wo_antispam &block
-    @@antispam = false
-    val = yield
-    @@antispam = true
-    val
-  end
-
   # Защита от спама
-  def antispam
-    return unless @@antispam
+  def check_antispam
+    return unless with_antispam?
     return if id != nil
     return if BotsService.posters.include?(from_id)
     return if kind == MessageType::Notification
@@ -58,11 +44,6 @@ class Message < ActiveRecord::Base
      'news',
      'notifications'
     ].include?(params[:type]) && !self.read
-  end
-
-  # фильтрафия цитирования более двух уровней вложенности
-  def filter_quotes
-    self.body = QuoteExtractor.filter(body, 2) if body
   end
 
   def html_body

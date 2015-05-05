@@ -72,6 +72,11 @@ class @ShikiComment extends ShikiEditable
     @$('.moderation-ban').on 'ajax:success', 'form', (e, response) =>
       @_replace response.html
 
+    # изменение ответов
+    @on 'faye:comment:set_replies', (e, data) =>
+      @$('.b-replies').remove()
+      $(data.replies_html).appendTo(@$body).process()
+
   # пометка комментария маркером (оффтопик/отзыв)
   mark: (kind, value) ->
     @$(".item-#{kind}").toggleClass('selected', value)

@@ -42,6 +42,18 @@ class FayeService
     ids
   end
 
+  # уведомление о том, что у комментария изменился блок с ответами
+  def set_replies comment
+    replies_text = if comment.body =~ BbCodes::RepliesTag::REGEXP
+      $~[:tag]
+    else
+      ''
+    end
+    replies_html = BbCodeFormatter.instance.format_comment replies_text
+
+    publisher.publish_replies comment, replies_html
+  end
+
 private
   def publisher
     FayePublisher.new @actor, @publisher_faye_id

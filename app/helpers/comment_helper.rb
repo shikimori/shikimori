@@ -242,12 +242,13 @@ module CommentHelper
           begin
             comment = klass.find $~[:id]
             user = comment.respond_to?(:user) ? comment.user : comment.from
+            name = $~[:text].present? ? $~[:text] : user.nickname
 
             if $~[:quote].present?
               text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
 <img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{ERB::Util.h user.nickname}\" /><span>#{ERB::Util.h user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
             else
-              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{$~[:text]}</span></a>"
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{name}</span></a>"
             end
 
           rescue
