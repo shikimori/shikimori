@@ -1,5 +1,6 @@
 @import compass/typography/text/ellipsis
 @import mixins/link
+@import mixins/comma_separated
 
 .b-club
   &.avatar
@@ -27,6 +28,24 @@
     font-weight: bold
 
   .info
-    color: $date
     display: inline
     font-size: 11px
+
+    .grouped
+      +comma_separated(4px)
+
+    .number
+      color: $gray-color-2
+      padding-right: 4px
+
+    .value
+      color: $gray-color
+
+    &.author
+      display: block
+
+      .b-user16
+        //font-size: 12px
+
+        img
+          margin-top: 1px

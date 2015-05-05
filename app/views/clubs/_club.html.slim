@@ -8,7 +8,18 @@
     a.name href="#{club_url club, subdomain: false}" title="#{club.name}"
       = club.name
     .info
-      = "#{club.members_count} #{Russian.p club.members_count, 'участник', 'участника', 'участников'}"
+      span.grouped
+        span.number #{club.members_count}
+        span.value #{Russian.p club.members_count, 'участник', 'участника', 'участников'}
+      span.grouped
+        span.number #{number_with_delimiter club.thread.comments_count, delimiter: ' '}
+        span.value #{club.thread.comments_count < 1000 ? Russian.p(club.thread.comments_count, 'комментарий', 'комментария', 'комментариев') : 'комментариев'}
+    .info.author
+      .b-user16
+        a href="#{profile_url club.owner}" title="#{club.owner.nickname}"
+          img src="#{club.owner.avatar_url 16}" srcset="#{club.owner.avatar_url 32} 2x" alt="#{club.owner.nickname}" title="#{club.owner.nickname}"
+          span
+            = club.owner.nickname
 
   - elsif content_by == :avatar
     a href="#{club_url club, subdomain: false}" title="#{club.name}"
