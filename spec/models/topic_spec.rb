@@ -67,10 +67,10 @@ describe Topic do
           it { should be_able_to :update, topic }
         end
 
-        context '3 months ago topic' do
-          let(:created_at) { 94.days.ago }
-          it { should_not be_able_to :update, topic }
-        end
+        #context '3 months ago topic' do
+          #let(:created_at) { 94.days.ago }
+          #it { should_not be_able_to :update, topic }
+        #end
       end
 
       context 'moderator' do

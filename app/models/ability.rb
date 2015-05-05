@@ -121,7 +121,7 @@ class Ability
     end
     can [:update], [Topic, AnimeNews, MangaNews] do |topic|
       !@user.banned? && (
-        topic.user_id == @user.id && topic.created_at + 3.months > Time.zone.now
+        topic.user_id == @user.id# && topic.created_at + 3.months > Time.zone.now
       )
     end
     can [:destroy], [Topic, AnimeNews, MangaNews] do |topic|
