@@ -366,6 +366,11 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       it { should eq '<h3>test</h3>' }
     end
 
+    describe '[replies]' do
+      let(:text) { '[replies=1]' }
+      it { should include "<div class=\"b-replies single\"><span class=\"bubbled\" data-href=\"http://shikimori.org/comments/1.html\"></span></div>" }
+    end
+
     describe '[quote]' do
       context 'simple' do
         let(:text) { '[quote]test[/quote]zz' }
