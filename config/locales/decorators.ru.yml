@@ -1,4 +1,31 @@
 ru:
+  anime_video_preview_decorator:
+    score:
+      excellent: отлично
+      good: хорошо
+      okay: нормально
+  character_decorator:
+    job_title:
+      character: Персонаж
+      anime_character: Персонаж аниме
+      manga_character: Персонаж манги
+      anime_manga_character: Персонаж аниме и манги
+  person_decorator:
+    job_title:
+      producer: Режиссер аниме
+      mangaka: Автор манги
+      composer: Композитор
+      seyu: Сэйю
+      anime_manga_projects_participant: Участник аниме и манга проектов
+      anime_projects_participant: Участник аниме проектов
+      manga_projects_participant: Участник манга проектов
+    occupation:
+      anime_manga: Аниме и манга
+      anime: Аниме
+      manga: Манга
+      projects: Проекты
+  topic_decorator:
+    show_hidden_comments_text_html: Показать %{previous} %{comment_count}&nbsp;%{comments}%{total_comments}
   user_decorator:
     always_online: всегда на сайта
     online: сейчас на сайте
@@ -15,8 +42,3 @@ ru:
       moderate: средняя совместимость
       high: высокая совместимость
       full: полная совместимость
-  anime_video_preview_decorator:
-    score:
-      excellent: отлично
-      good: хорошо
-      okay: нормально

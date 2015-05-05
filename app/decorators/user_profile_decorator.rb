@@ -67,7 +67,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def nicknames_tooltip
-    t('aka', known: (object.female? ? 'известна' : 'известен')) +
+    i18n_t('aka', known: (object.female? ? 'известна' : 'известен')) +
       nickname_changes
         .map {|v| "<b style='white-space: nowrap'>#{h.h v.value}</b>" }
         .join("<span color='#555'>,</span> ")
@@ -91,8 +91,8 @@ class UserProfileDecorator < UserDecorator
 
     if h.can? :access_list, self
       info << h.h(name)
-      info << t('male') if male?
-      info << t('female') if female?
+      info << i18n_t('male') if male?
+      info << i18n_t('female') if female?
       unless object.birth_on.blank?
         info << "#{full_years} #{Russian.p full_years, 'год', 'года', 'лет'}" if full_years > 9
       end
@@ -100,9 +100,9 @@ class UserProfileDecorator < UserDecorator
       info << website
 
       info.select!(&:present?)
-      info << t('no_personal_data') if info.empty?
+      info << i18n_t('no_personal_data') if info.empty?
     else
-      info << t('personal_data_hidden')
+      info << i18n_t('personal_data_hidden')
     end
 
     info << "на сайте с <span class='b-tooltipped unprocessed' data-direction='right' title='#{localized_registration false}'>#{localized_registration true} г.</span>".html_safe
@@ -139,15 +139,15 @@ class UserProfileDecorator < UserDecorator
     number = compatibility(klass)
 
     if number < 5
-      t 'compatibility.zero'
+      i18n_t 'compatibility.zero'
     elsif number < 25
-      t 'compatibility.low'
+      i18n_t 'compatibility.low'
     elsif number < 40
-      t 'compatibility.moderate'
+      i18n_t 'compatibility.moderate'
     elsif number < 60
-      t 'compatibility.high'
+      i18n_t 'compatibility.high'
     else
-      t 'compatibility.full'
+      i18n_t 'compatibility.full'
     end
   end
 

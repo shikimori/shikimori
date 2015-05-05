@@ -1,4 +1,5 @@
 class PersonDecorator < DbEntryDecorator
+  include Translation
   decorates_finders
 
   rails_cache :best_works
@@ -98,31 +99,31 @@ class PersonDecorator < DbEntryDecorator
     #if role?(:producer) && role?(:mangaka)
       #'Режиссёр аниме и автор манги'
     if main_role?(:producer)
-      'Режиссёр аниме'
+      i18n_t 'job_title.producer'
     elsif main_role?(:mangaka)
-      'Автор манги'
+      i18n_t 'job_title.mangaka'
     elsif main_role?(:composer)
-      'Композитор'
+      i18n_t 'job_title.composer'
     elsif main_role?(:seyu)
-      'Сэйю'
+      i18n_t 'job_title.seyu'
     elsif has_anime? && has_manga?
-      'Участник аниме и манга проектов'
+      i18n_t 'job_title.anime_manga_projects_participant'
     elsif has_anime?
-      'Участник аниме проектов'
+      i18n_t 'job_title.anime_projects_participant'
     elsif has_manga?
-      'Участник манга проектов'
+      i18n_t 'job_title.manga_projects_participant'
     end
   end
 
   def occupation
     if has_anime? && has_manga?
-      'Аниме и манга'
+      i18n_t 'occupation.anime_manga'
     elsif has_anime?
-      'Аниме'
+      i18n_t 'occupation.anime'
     elsif has_manga?
-      'Манга'
+      i18n_t 'occupation.manga'
     else
-      'Проекты'
+      i18n_t 'occupation.projects'
     end
   end
 
@@ -178,6 +179,7 @@ class PersonDecorator < DbEntryDecorator
   end
 
 private
+
   def all_roles
     object.person_roles.includes(:anime).includes(:manga).to_a
   end

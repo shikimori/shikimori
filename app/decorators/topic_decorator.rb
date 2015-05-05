@@ -1,4 +1,5 @@
 class TopicDecorator < BaseDecorator
+  include Translation
   instance_cache :comments
 
   # имя топика
@@ -185,16 +186,28 @@ class TopicDecorator < BaseDecorator
   # текст для свёрнутых комментариев
   def show_hidden_comments_text
     num = [folded_comments, fold_limit].min
-    #prior_word = Russian.p num, 'предыдущий', 'предыдущие', 'предыдущие'
     comment_word = if reviews_only?
-      Russian.p num, 'отзыв', 'отзыва', 'отзывов'
+      i18n_i 'review', num, :accusative
     else
-      Russian.p num, 'комментарий', 'комментария', 'комментариев'
+      i18n_i 'comment', num, :accusative
     end
 
+<<<<<<< HEAD
     (
       "Загрузить ещё #{num} %s#{comment_word}" % ("из #{folded_comments} " if folded_comments > fold_limit)
     ).html_safe
+=======
+    i18n_t 'show_hidden_comments_text' do |options|
+      options[:comment_count] = num
+      options[:previous] = prior_word
+      options[:comments] = comment_word
+
+      if folded_comments < fold_limit
+        options[:total_comments] =
+          "<span class=\"expandable-comments-count\">&nbsp;(#{i18n_i 'out_of'} #{folded_comments})</span>"
+      end
+    end.html_safe
+>>>>>>> add method to inflect words and accept block for translate to process complex options
   end
 
   def new_comment
@@ -205,6 +218,7 @@ class TopicDecorator < BaseDecorator
   def reviews_only!
     @force_reviews = true
   end
+
   def reviews_only?
     !!@force_reviews
   end

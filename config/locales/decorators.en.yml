@@ -1,4 +1,31 @@
 en:
+  anime_video_preview_decorator:
+    score:
+      excellent: excellent
+      good: good
+      okay: okay
+  character_decorator:
+    job_title:
+      character: Character
+      anime_character: Anime character
+      manga_character: Manga character
+      anime_manga_character: Anime and manga character
+  person_decorator:
+    job_title:
+      producer: Producer
+      mangaka: Mangaka
+      composer: Composer
+      seyu: Seyu
+      anime_manga_projects_participant: Anime and manga projects participant
+      anime_projects_participant: Anime projects participant
+      manga_projects_participant: Manga projects participant
+    occupation:
+      anime_manga: Anime and manga
+      anime: Anime
+      manga: Manga
+      projects: Projects
+  topic_decorator:
+    show_hidden_comments_text_html: Display %{comment_count}&nbsp;%{previous} %{comments}%{total_comments}
   user_decorator:
     always_online: always online
     online: online
@@ -14,8 +41,3 @@ en:
     moderate_compatibility: medium compatibility
     high_compatibility: high compatibility
     full_compatibility: full compatibility
-  anime_video_preview_decorator:
-    score:
-      excellent: excellent
-      good: good
-      okay: okay

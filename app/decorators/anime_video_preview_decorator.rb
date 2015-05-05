@@ -24,11 +24,11 @@ class AnimeVideoPreviewDecorator < Draper::Decorator
 
   def score
     if object.score >= 8
-      t 'excellent'
+      i18n_t 'score.excellent'
     elsif object.score >= 6
-      t 'good'
+      i18n_t 'score.good'
     else
-      t 'okay'
+      i18n_t 'score.okay'
     end
   end
 end

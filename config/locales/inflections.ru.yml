@@ -1,0 +1,19 @@
+ru:
+  inflections:
+    comment:
+      accusative:
+        one: комментарий
+        few: комментария
+        many: комментариев
+    out_of:
+      default: из
+    review:
+      accusative:
+        one: отзыв
+        few: отзыва
+        many: отзывов
+    view:
+      subjective:
+        one: просмотр
+        few: просмотра
+        many: просмотров
