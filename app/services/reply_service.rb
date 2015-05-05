@@ -9,7 +9,7 @@ class ReplyService
       new_ids = (ids + [replied_comment.id]).sort.uniq
       comment.body.sub current_tag, "[replies=#{new_ids.join ','}]"
     else
-      comment.body + "[replies=#{replied_comment.id}]"
+      comment.body + "\n\n[replies=#{replied_comment.id}]"
     end
 
     update_comment new_body

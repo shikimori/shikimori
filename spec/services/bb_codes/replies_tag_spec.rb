@@ -6,7 +6,7 @@ describe BbCodes::RepliesTag do
     let(:comment) { create :comment }
 
     context 'one reply' do
-      let(:text) { "[replies=1]" }
+      let(:text) { "<br><br>[replies=1]" }
       it { should eq "<div class=\"b-replies single\">[comment=1][/comment]</div>" }
     end
 

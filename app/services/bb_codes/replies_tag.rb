@@ -3,6 +3,7 @@ class BbCodes::RepliesTag
 
   REGEXP = /
     (?<tag>
+      (?: \n|<br>)*
       \[
         replies=(?<ids> [\d,]+ )
       \]
