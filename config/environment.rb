@@ -11,6 +11,5 @@ require Rails.root.join('lib/responders/json_responder')
 require Rails.root.join('lib/named_logger')
 require Rails.root.join('lib/boolean_attribute')
 
-require 'quote_extractor'
 require 'acts_as_voteable'
 require 'open-uri'

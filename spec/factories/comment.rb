@@ -9,7 +9,6 @@ FactoryGirl.define do
     after :build do |comment|
       comment.stub :check_antispam
       comment.stub :check_access
-      comment.stub :filter_quotes
       comment.stub :increment_comments
       comment.stub :creation_callbacks
       comment.stub :subscribe

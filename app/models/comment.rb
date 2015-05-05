@@ -29,7 +29,6 @@ class Comment < ActiveRecord::Base
   before_validation :forbid_ban_change
 
   before_create :check_access
-  before_create :filter_quotes
   before_create :cancel_review
 
   after_create :increment_comments
@@ -65,11 +64,6 @@ class Comment < ActiveRecord::Base
     if commentable.respond_to?(:can_be_commented_by?)
       return false unless commentable.can_be_commented_by?(self)
     end
-  end
-
-  # фильтрафия цитирования более двух уровней вложенности
-  def filter_quotes
-    self.body = QuoteExtractor.filter(body, 2)
   end
 
   # отмена метки отзыва для коротких комментариев

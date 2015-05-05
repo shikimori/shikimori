@@ -55,13 +55,6 @@ GIT
       rb-inotify (>= 0.9)
 
 GIT
-  remote: git://github.com/morr/quote_extractor.git
-  revision: 827319d861c6253363a240bddc549027bafd2bde
-  tag: v0.0.2
-  specs:
-    quote_extractor (0.0.2)
-
-GIT
   remote: git://github.com/morr/turbolinks.git
   revision: 14f4ee2215d32bdb8fcd51c49ae65ed3f46488eb
   branch: master
@@ -711,7 +704,6 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer
   quiet_assets
-  quote_extractor!
   rabl
   rack-contrib
   rack-cors

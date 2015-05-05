@@ -70,7 +70,6 @@ gem 'draper'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 
 gem 'unicode' # для downcase русских слов
-gem 'quote_extractor', github: 'morr/quote_extractor', tag: 'v0.0.2'
 gem 'icalendar' # для аниме календраря
 gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
