@@ -62,6 +62,13 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
   end
 
+  it 'fetches anime related' do
+    data = parser.fetch_entry_data(22043)
+
+    expect(data[:name]).to eq 'Fairy Tail (2014)'
+    expect(data[:related]).to have(2).items
+  end
+
   it 'fetches anime characters' do
     characters, people = parser.fetch_entry_characters(anime_id)
     expect(characters.size).to be >= 29

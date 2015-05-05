@@ -23,7 +23,7 @@ class AnimeMalParser < BaseMalParser
     entry[:id] = id
     entry[:description_mal] = parse_synopsis(content)
 
-    parse_block(entry, :related, /<h2>Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
+    parse_block(entry, :related, /Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
     #unless entry[:related].nil?
       #entry[:related_mangas] = entry[:related].select {|k,v| k == RelatedAdaptationName }
       #entry[:related_animes] = entry[:related].select {|k,v| k != RelatedAdaptationName }
