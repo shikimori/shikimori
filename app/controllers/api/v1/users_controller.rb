@@ -30,9 +30,15 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with UserProfileDecorator.new(user), serializer: UserProfileSerializer
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/users/:id/info', 'Show user's brief info'
+  def info
+    respond_with user, serializer: UserInfoSerializer
+  end
+
   api :GET, "/users/whoami", "Show current user's brief info"
   def whoami
-    respond_with current_user
+    respond_with current_user, serializer: UserInfoSerializer
   end
 
   api :GET, "/users/:id/friends", "Show user's friends"

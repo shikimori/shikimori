@@ -24,6 +24,15 @@ describe Api::V1::UsersController, :show_in_doc do
     end
   end
 
+  describe '#info' do
+    before { get :info, id: user.id, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
   describe '#whoami' do
     describe 'signed_in' do
       before { sign_in user }

@@ -153,6 +153,7 @@ Site::Application.routes.draw do
           get :whoami
         end
         member do
+          get :info
           get :friends
           get :clubs
           get :favourites
