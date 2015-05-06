@@ -17,7 +17,7 @@ module MalDeployer
     data[:entry]
       .except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
       .each do |field,value|
-        entry[field] = value
+        entry[field] = value if entry.respond_to?(field)
       end
 
     entry.mal_scores = data[:scores] if data.include? :scores
