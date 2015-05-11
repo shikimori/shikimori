@@ -200,6 +200,7 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
 private
+
   def format_menu_topic topic, order
     {
       date: h.time_ago_in_words(topic.send(order), "%s назад"),

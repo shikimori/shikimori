@@ -91,7 +91,7 @@ module ApplicationHelper
     if original || date + 1.day > DateTime.now
       format_string ? format_string % super(date) : super(date)
     else
-      Russian::strftime(date, "%e %B %Y")
+      I18n.l date, format: '%e %B %Y'
     end
   end
 

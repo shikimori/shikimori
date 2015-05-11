@@ -36,8 +36,9 @@ en:
     no_personal_data: No personal data
     personal_data_hidden: Personal data hidden
     aka: Also known as
-    zero_compatibility: no compatibility
-    low_compatibility: low compatibility
-    moderate_compatibility: medium compatibility
-    high_compatibility: high compatibility
-    full_compatibility: full compatibility
+    compatibility:
+      zero: no compatibility
+      low: low compatibility
+      moderate: medium compatibility
+      high: high compatibility
+      full: full compatibility
