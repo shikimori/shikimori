@@ -14,7 +14,7 @@ class Ban < ActiveRecord::Base
   after_create :mention_in_comment
   after_create :accept_abuse_request
 
-  ACTIVE_DURATION = 3.month
+  ACTIVE_DURATION = 2.month
 
   def duration= value
     self[:duration] = BanDuration.new(value).to_i unless value.nil?
