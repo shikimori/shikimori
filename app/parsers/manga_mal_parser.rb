@@ -33,7 +33,7 @@ class MangaMalParser < BaseMalParser
     entry[:id] = id
     entry[:description_mal] = parse_synopsis(content)
 
-    parse_block(entry, :related, /<h2>Related Manga?<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
+    parse_block(entry, :related, /Related Manga?<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
 
     entry[:english] = parse_line("English", content, true)
     entry[:japanese] = parse_line("Japanese", content, true)
