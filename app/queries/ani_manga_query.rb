@@ -17,6 +17,11 @@ class AniMangaQuery
     'F' => "(duration > 30)"
   }
   DefaultOrder = 'ranked'
+  GENRES_EXCLUDED_BY_SEX = {
+    'male' => [Genre::YaoiID, Genre::ShounenAiID],
+    'female' => [Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID],
+    '' => [Genre::YaoiID, Genre::ShounenAiID, Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID]
+  }
 
   def initialize klass, params, user=nil
     @params = params
@@ -162,13 +167,7 @@ private
   def exclude_ai_genres!
     return unless @exclude_ai_genres && @user
 
-    excludes = if @user.male?
-      [Genre::YaoiID, Genre::ShounenAiID]
-    elsif @user.female?
-      [Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID]
-    else
-      [Genre::YaoiID, Genre::ShounenAiID, Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID]
-    end
+    excludes = GENRES_EXCLUDED_BY_SEX[@user.sex || '']
 
     @genre = if @genre.present?
       "#{@genre},!#{excludes.join ',!'}"

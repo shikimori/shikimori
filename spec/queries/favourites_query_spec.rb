@@ -4,7 +4,7 @@ describe FavouritesQuery do
   let!(:user_1) { create :user, favourite_persons: [create(:favourite, linked: person)] }
   let!(:user_2) { create :user, favourite_persons: [create(:favourite, linked: person)] }
   let!(:user_3) { create :user, favourite_persons: [create(:favourite, linked: person)] }
-  let!(:user_4) { create :user }
+  let!(:user_4) { create :user, sex: 'male' }
 
   let(:query) { FavouritesQuery.new }
 
@@ -47,6 +47,11 @@ describe FavouritesQuery do
 
       context 'anime in recommendations ingnores' do
         let!(:recommendation_ignore) { create :recommendation_ignore, user: user_4, target: anime_2 }
+        it { expect(query.global_top Anime, 100, user_4).to eq [anime_1] }
+      end
+
+      context 'anime in genres excluded by sex' do
+        let(:anime_2) { create :anime, genres: [create(:genre, id: Genre::ShounenAiID)] }
         it { expect(query.global_top Anime, 100, user_4).to eq [anime_1] }
       end
     end

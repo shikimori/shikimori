@@ -25,10 +25,17 @@ class FavouritesQuery
       .where(target_type: klass.name)
       .pluck(:target_id)
 
+    # выкидываем жанры по гендерному признаку§
+    ai_censored_ids = Anime
+      .joins(:genres)
+      .where(genres: { id: AniMangaQuery::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || ''] })
+      .select(:id)
+
     klass
       .where(id: fav_ids - in_list_ids - ignored_ids)
       .where.not(kind: 'Special')
       .where.not(kind: 'Music')
+      .where.not(id: ai_censored_ids)
       .sort_by {|v| fav_ids.index v.id }
   end
 

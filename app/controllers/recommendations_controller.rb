@@ -69,9 +69,10 @@ class RecommendationsController < AnimesCollectionController
   def favourites
     page_title klass == Anime ? 'Какие аниме посмотреть' : 'Какую мангу почитать'
 
-    @entries = Rails.cache.fetch [:favourites_recommendations, :v1, klass, current_user], expires_in: 1.week do
-      all_entries = FavouritesQuery.new.global_top klass, klass == Anime ? 500 : 1000, current_user
-      all_entries
+    cache_key = [:favourites_recommendations, :v1, klass, current_user, current_user.try(:sex)]
+    @entries = Rails.cache.fetch cache_key, expires_in: 1.week do
+      FavouritesQuery.new
+        .global_top(klass, klass == Anime ? 500 : 1000, current_user)
         .group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
         .each_with_object({}) do |(kind, group), memo|
           limit = if klass == Anime

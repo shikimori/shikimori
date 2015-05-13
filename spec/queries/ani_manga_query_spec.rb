@@ -338,7 +338,7 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'exclude_ai_genres', :focus do
+    describe 'exclude_ai_genres' do
       let!(:common_anime) { create :anime, id: 1 }
       let!(:anime_yaoi) { create :anime, id: 2, genres: [yaoi] }
       let!(:anime_hentai) { create :anime, id: 3, genres: [hentai] }
