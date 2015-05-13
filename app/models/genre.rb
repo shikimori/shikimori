@@ -5,6 +5,8 @@ class Genre < ActiveRecord::Base
   HentaiID = 12
   YaoiID = 33
   YuriID = 34
+  ShounenAiID = 28
+  ShoujoAiID = 26
 
   Merged = {
     45 => 41

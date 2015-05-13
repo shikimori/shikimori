@@ -32,7 +32,7 @@ class RecommendationsController < AnimesCollectionController
     user = if params[:user].blank? || !user_signed_in? || (user_signed_in? && current_user.id != 1 && current_user.id != 1945) # 1945 - Silicium
       user_signed_in? ? current_user.object : nil
     else
-      User.find_by_nickname(SearchHelper.unescape(params[:user])) || User.find_by_id(params[:user])
+      User.find_by(nickname: SearchHelper.unescape(params[:user])) || User.find_by(id: params[:user])
     end
 
     @rankings = Recommendations::Fetcher.new(user, klass, @metric, @threshold).fetch
@@ -43,10 +43,13 @@ class RecommendationsController < AnimesCollectionController
       if @rankings.any?
         params[:ids_with_sort] = @rankings
 
-        params[:exclude_ids] = user.send("#{klass.name.downcase}_rates").includes(klass.name.downcase.to_sym).inject([]) do |result, v|
-          result << v.target_id unless v.planned?
-          result
-        end
+        params[:exclude_ai_genres] = true
+        params[:exclude_ids] = user
+          .send("#{klass.name.downcase}_rates")
+          .includes(klass.name.downcase.to_sym).inject([]) do |result, v|
+            result << v.target_id unless v.planned?
+            result
+          end
       end
 
       super

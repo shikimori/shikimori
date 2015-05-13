@@ -338,6 +338,36 @@ describe AniMangaQuery do
       end
     end
 
+    describe 'exclude_ai_genres', :focus do
+      let!(:common_anime) { create :anime, id: 1 }
+      let!(:anime_yaoi) { create :anime, id: 2, genres: [yaoi] }
+      let!(:anime_hentai) { create :anime, id: 3, genres: [hentai] }
+      let!(:anime_yuri) { create :anime, id: 4, genres: [yuri] }
+      let!(:anime_shounen_ai) { create :anime, id: 5, genres: [shounen_ai] }
+      let!(:anime_shoujo_ai) { create :anime, id: 6, genres: [shoujo_ai] }
+
+      let(:yaoi) { create :genre, id: Genre::YaoiID }
+      let(:yuri) { create :genre, id: Genre::YuriID }
+      let(:hentai) { create :genre, id: Genre::HentaiID }
+      let(:shounen_ai) { create :genre, id: Genre::ShounenAiID }
+      let(:shoujo_ai) { create :genre, id: Genre::ShoujoAiID }
+
+      let(:options) {{ exclude_ai_genres: true }}
+
+      it do
+        # male
+        expect(fetch options, build_stubbed(:user, sex: 'male')).to eq(
+          [common_anime, anime_hentai, anime_yuri, anime_shoujo_ai])
+
+        # female
+        expect(fetch options, build_stubbed(:user, sex: 'female')).to eq(
+          [common_anime, anime_yaoi, anime_shounen_ai])
+
+        # unknown gender
+        expect(fetch options, build_stubbed(:user)).to eq([common_anime])
+      end
+    end
+
     describe 'exclude_ids' do
       let!(:anime_1) { create :anime, id: 1 }
       let!(:anime_2) { create :anime, id: 2 }

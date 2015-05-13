@@ -38,6 +38,7 @@ class AniMangaQuery
     @mylist = params[:mylist]
     @search = SearchHelper.unescape params[:search]
 
+    @exclude_ai_genres = params[:exclude_ai_genres]
     @exclude_ids = params[:exclude_ids]
 
     @user = user
@@ -54,6 +55,7 @@ class AniMangaQuery
     censored!
     disable_music!
 
+    exclude_ai_genres!
     associations!
 
     rating!
@@ -153,6 +155,25 @@ private
   def disable_music!
     unless @type =~ /Music/ || mylist? || userlist?
       @query = @query.where.not(kind: 'Music')
+    end
+  end
+
+  # отключение всего зацензуренной для парней/девушек
+  def exclude_ai_genres!
+    return unless @exclude_ai_genres && @user
+
+    excludes = if @user.male?
+      [Genre::YaoiID, Genre::ShounenAiID]
+    elsif @user.female?
+      [Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID]
+    else
+      [Genre::YaoiID, Genre::ShounenAiID, Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID]
+    end
+
+    @genre = if @genre.present?
+      "#{@genre},!#{excludes.join ',!'}"
+    else
+      "!#{excludes.join ',!'}"
     end
   end
 

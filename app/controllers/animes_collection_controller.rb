@@ -137,6 +137,7 @@ private
     entries = AniMangaQuery.new(klass, params).order(query)
       .decorate
       .to_a
+
     apply_in_list(entries)
       .group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
   end
@@ -252,6 +253,6 @@ private
   end
 
   def filtered_params
-    params.except :format, :exclude_ids, :ids_with_sort, :template, :is_adult
+    params.except :format, :exclude_ids, :ids_with_sort, :template, :is_adult, :exclude_ai_genres
   end
 end

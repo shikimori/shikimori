@@ -4,7 +4,7 @@
 #   nil - запущен подбор, пока ничего не готово
 #   массив id - массив с id рекомендованных элементов
 class Recommendations::Fetcher < UserDataFetcherBase
-  def initialize(user, klass, metric, threshold)
+  def initialize user, klass, metric, threshold
     @user = user
     @klass = klass
     @metric = metric
