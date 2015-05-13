@@ -5,6 +5,10 @@
     - if params[:controller] == 'dialogs' && params[:action] == 'index'
       a.misc-link href="#{index_profile_messages_url @resource, messages_type: :private}" непрочитанное от старого к новому
   .block
-    = render partial: 'dialog', collection: @collection
+    - if @collection.empty?
+      .b-nothing_here Нет почты
+    - else
+      = render partial: 'dialog', collection: @collection
+
     - if @add_postloader
       = render 'blocks/postloader', filter: 'b-dialog', url: index_profile_dialogs_url(@resource, page: @page+1)
