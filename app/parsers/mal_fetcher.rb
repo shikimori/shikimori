@@ -214,7 +214,7 @@ private
   end
 
   def parse_synopsis(content)
-    content.match(/<h2>Synopsis<\/h2>([\s\S]*?)<\/td>/) ? cleanup($1) : ""
+    content.match(/Synopsis<\/h2>([\s\S]*?)<\/td>/) ? cleanup($1) : ""
   end
 
   def parse_line(line_name, content, multiple_results)
