@@ -58,6 +58,11 @@ describe BbCodes::UrlTag do
         it { should eq "<a href=\"#{url}\">#{url.without_http}</a>, test" }
       end
 
+      context 'with bracket' do
+        let(:text) { "#{url})" }
+        it { should eq "<a href=\"#{url}\">#{url.without_http}</a>)" }
+      end
+
       context 'in tag' do
         let(:text) { "[zz]#{url}[/zz]" }
         it { should eq "[zz]#{url}[/zz]" }
