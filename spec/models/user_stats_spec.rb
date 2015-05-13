@@ -6,27 +6,43 @@ describe UserStats do
   subject(:stats) { UserStats.new user, nil }
 
   describe '#spent_time' do
-    subject { stats.spent_time }
-
     context 'watching' do
       let!(:anime_rate) { create :user_rate, :watching, user: user, anime: anime, episodes: 12 }
-      it { should eq SpentTime.new(0.5) }
+      it do
+        expect(stats.anime_spent_time).to eq SpentTime.new(0.5)
+        expect(stats.manga_spent_time).to eq SpentTime.new(0)
+        expect(stats.spent_time).to eq SpentTime.new(0.5)
+      end
     end
 
     context 'completed' do
       let!(:anime_rate) { create :user_rate, :completed, user: user, anime: anime }
-      it { should eq SpentTime.new(1) }
+      it do
+        expect(stats.anime_spent_time).to eq SpentTime.new(1)
+        expect(stats.manga_spent_time).to eq SpentTime.new(0)
+        expect(stats.spent_time).to eq SpentTime.new(1)
+      end
     end
 
     context 'completed & rewatched' do
       let!(:anime_rate) { create :user_rate, :completed, user: user, anime: anime, rewatches: 2 }
-      it { should eq SpentTime.new(3) }
+
+      it do
+        expect(stats.anime_spent_time).to eq SpentTime.new(3)
+        expect(stats.manga_spent_time).to eq SpentTime.new(0)
+        expect(stats.spent_time).to eq SpentTime.new(3)
+      end
     end
 
     context 'with manga' do
       let!(:anime_rate) { create :user_rate, :completed, user: user, target: anime }
       let!(:manga_rate) { create :user_rate, :completed, user: user, target: manga }
-      it { should eq SpentTime.new(1.3) }
+
+      it do
+        expect(stats.anime_spent_time).to eq SpentTime.new(1.0)
+        expect(stats.manga_spent_time).to eq SpentTime.new(0.3)
+        expect(stats.spent_time).to eq SpentTime.new(1.3)
+      end
     end
   end
 
@@ -135,48 +151,53 @@ describe UserStats do
     end
   end
 
-  describe '#spent_time_in_days', :focus do
-    before { allow(stats).to receive(:spent_time).and_return SpentTime.new(interval) }
+  describe '#spent_time_in_days' do
+    before { allow(stats).to receive(:anime_spent_time).and_return SpentTime.new(anime_interval) }
+    before { allow(stats).to receive(:manga_spent_time).and_return SpentTime.new(manga_interval) }
+
+    let(:manga_interval) { 0 }
     subject { stats.spent_time_in_days }
 
     context 'none' do
-      let(:interval) { 0 }
-      it { should eq '0 дней' }
+      let(:anime_interval) { 0 }
+      it { should eq 'Всего 0 дней' }
     end
 
     context '30 minutes' do
-      let(:interval) { 1 / 24.0 / 2 }
-      it { should eq '0 дней' }
+      let(:anime_interval) { 1 / 24.0 / 2 }
+      it { should eq 'Всего 0 дней' }
     end
 
     context '1 hour' do
-      let(:interval) { 1 / 24.0 }
-      it { should eq '0 дней' }
+      let(:anime_interval) { 1 / 24.0 }
+      it { should eq 'Всего 0 дней' }
     end
 
     context '2.5 hours' do
-      let(:interval) { 1 / 24.0 * 2.5 }
-      it { should eq '0.1 дней' }
+      let(:anime_interval) { 1 / 24.0 * 2.5 }
+      it { should eq 'Всего 0.1 дней' }
     end
 
     context '2.5 days' do
-      let(:interval) { 2.5 }
-      it { should eq '2.5 дней' }
+      let(:anime_interval) { 1.5 }
+      let(:manga_interval) { 1.1 }
+      it { should eq 'Всего 2.6 дней: 1.5 дней аниме и 1.1 дней манга' }
     end
 
     context '10.50 days' do
-      let(:interval) { 10.5 }
-      it { should eq '10 дней' }
+      let(:anime_interval) { 10.5 }
+      it { should eq 'Всего 10 дней аниме' }
     end
 
     context '3 weeks' do
-      let(:interval) { 21 }
-      it { should eq '21 день' }
+      let(:anime_interval) { 0 }
+      let(:manga_interval) { 21 }
+      it { should eq 'Всего 21 день манга' }
     end
 
     context '1.25 years' do
-      let(:interval) { 365 * 1.25 }
-      it { should eq '456 дней' }
+      let(:anime_interval) { 365 * 1.25 }
+      it { should eq 'Всего 456 дней аниме' }
     end
   end
 

@@ -1,7 +1,7 @@
 class UserStats
   prepend ActiveCacher.instance
 
-  instance_cache :graph_statuses, :spent_time
+  instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time, :spent_time
   instance_cache :comments_count, :comments_reviews_count, :reviews_count, :user_changes_count, :uploaded_videos_count
 
   def initialize user, current_user
@@ -21,11 +21,18 @@ class UserStats
     #GrapthTime.new spent_time
   #end
 
-  def spent_time
-    anime_time = @stats.anime_rates.sum {|v| SpentTimeDuration.new(v).anime_hours v.entry_episodes, v.duration }
-    manga_time = @stats.manga_rates.sum {|v| SpentTimeDuration.new(v).manga_hours v.entry_chapters, v.entry_volumes }
+  def anime_spent_time
+    time = @stats.anime_rates.sum {|v| SpentTimeDuration.new(v).anime_hours v.entry_episodes, v.duration }
+    SpentTime.new time / 60.0 / 24
+  end
 
-    SpentTime.new((anime_time + manga_time) / 60.0 / 24)
+  def manga_spent_time
+    time = @stats.manga_rates.sum {|v| SpentTimeDuration.new(v).manga_hours v.entry_chapters, v.entry_volumes }
+    SpentTime.new time / 60.0 / 24
+  end
+
+  def spent_time
+    SpentTime.new anime_spent_time.days + manga_spent_time.days
   end
 
   def spent_time_percent
@@ -65,13 +72,27 @@ class UserStats
   end
 
   def spent_time_in_days
-    days = if spent_time.days > 10
-      spent_time.days.to_i
-    else
-      spent_time.days.round(1)
-    end
+    anime_days = anime_spent_time.days > 10 ? anime_spent_time.days.to_i : anime_spent_time.days.round(1)
+    manga_days = manga_spent_time.days > 10 ? manga_spent_time.days.to_i : manga_spent_time.days.round(1)
+    total_days = spent_time.days > 10 ? spent_time.days.to_i : spent_time.days.round(1)
 
-    "#{days.zero? ? 0 : days} #{Russian.p days, 'день', 'дня', 'дней', 'дней'}"
+    days_text = "Всего #{total_days.zero? ? 0 : total_days} " +
+      Russian.p(total_days, 'день', 'дня', 'дней', 'дней')
+
+    if anime_spent_time.days >= 1 && manga_spent_time.days >= 1
+      "#{days_text}: " +
+        "#{anime_days} #{Russian.p(anime_days, 'день', 'дня', 'дней', 'дней')} аниме" +
+        " и #{manga_days} #{Russian.p(manga_days, 'день', 'дня', 'дней', 'дней')} манга"
+
+    elsif anime_spent_time.days >= 1
+      "#{days_text} аниме"
+
+    elsif manga_spent_time.days >= 1
+      "#{days_text} манга"
+
+    else
+      days_text
+    end
   end
 
   def spent_time_label
