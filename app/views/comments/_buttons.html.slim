@@ -1,10 +1,20 @@
 aside.buttons
   .main-controls
     span.item-quote title="Цитировать"
-    span.item-reply data-action="#{comment_url comment}" data-type="json" data-remote="true" title="Ответить"
+    span.item-reply[
+      data-action="#{comment_url comment}"
+      data-type="json"
+      data-remote="true"
+      title="Ответить"
+    ]
 
     - if comment.can_be_edited_by? current_user
-      span.item-edit data-action="#{edit_comment_path comment}" data-type="html" data-remote="true" title="Изменить"
+      span.item-edit[
+        data-action="#{edit_comment_path comment}"
+        data-type="html"
+        data-remote="true"
+        title="Изменить"
+      ]
 
     - if comment.can_be_deleted_by? current_user
       span.item-delete title="Удалить"
@@ -14,18 +24,56 @@ aside.buttons
 
   - if comment.can_be_deleted_by?(current_user) && comment.respond_to?(:commentable)
     .delete-controls
-      span.item-delete-confirm action="#{comment_url comment}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
+      span.item-delete-confirm[
+        action="#{comment_url comment}"
+        data-type="json"
+        data-remote="true"
+        data-method="delete"
+        title="Удалить"
+      ]
       span.item-delete-cancel title="Отмена"
 
   .moderation-controls
     - if current_user.moderator?
-      span.item-ban data-action="#{new_comment_ban_path comment}" data-method="get" data-type="html" data-remote="true" title="Забанить"
+      span.item-ban[
+        data-action="#{new_comment_ban_path comment}"
+        data-method="get"
+        data-type="html"
+        data-remote="true"
+        title="Забанить"
+      ]
     - else
-      span.item-abuse data-action="#{abuse_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это нарушение правил"
-      span.item-spoiler data-action="#{spoiler_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это спойлер"
+      span.item-abuse[
+        data-action="#{abuse_comment_abuse_requests_url comment}"
+        data-method="post"
+        data-type="json"
+        data-remote="true"
+        title="Это нарушение правил"
+      ]
+      span.item-spoiler[
+        data-action="#{spoiler_comment_abuse_requests_url comment}"
+        data-method="post"
+        data-type="json"
+        data-remote="true"
+        title="Это спойлер"
+      ]
 
     - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
-      span.item-review class="#{:selected if comment.review?}" data-action="#{review_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это отзыв"
+      span.item-review[
+        class="#{:selected if comment.review?}"
+        data-action="#{review_comment_abuse_requests_url comment}"
+        data-method="post"
+        data-type="json"
+        data-remote="true"
+        title="Это отзыв"
+      ]
 
-    span.item-offtopic class="#{:selected if comment.offtopic?}" data-action="#{offtopic_comment_abuse_requests_url comment}" data-method="post" data-type="json" data-remote="true" title="Это оффтопик"
+    span.item-offtopic[
+      class="#{:selected if comment.offtopic?}"
+      data-action="#{offtopic_comment_abuse_requests_url comment}"
+      data-method="post"
+      data-type="json"
+      data-remote="true"
+      title="Это оффтопик"
+    ]
     span.item-moderation-cancel title="Отмена"
