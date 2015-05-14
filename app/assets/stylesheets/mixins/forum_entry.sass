@@ -145,8 +145,16 @@ $aside_width: 280px
           .item-spoiler
             +icon_expandable('Это спойлер')
           .item-review
-            +icon_expandable('Это (не) отзыв')
+            +icon_expandable('Это отзыв')
+            &.selected
+              color: $green
+              &:after
+                content: 'Это не отзыв'
           .item-offtopic
-            +icon_expandable('Это (не) оффтопик')
+            +icon_expandable('Это оффтопик')
+            &.selected
+              color: $red
+              &:after
+                content: 'Это не оффтопик'
           .item-moderation-cancel
             +icon_expandable('Отмена')
