@@ -26,7 +26,8 @@ describe ProfilesController do
     end
 
     context 'with clubs' do
-      let!(:club_role) { create :group_role, user: user }
+      let(:club) { create :group, :with_thread }
+      let!(:club_role) { create :group_role, user: user, group: club }
       before { get :clubs, id: user.to_param }
       it { expect(response).to have_http_status :success }
     end
