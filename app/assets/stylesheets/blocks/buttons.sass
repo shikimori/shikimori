@@ -59,12 +59,8 @@
 
   .item-save
     +icon_button("\e80e")
-  .item-review
-    +icon_button("\e80f")
   .item-moderation
     +icon_button("\e806")
-  .item-offtopic
-    +icon_button("\e810")
   .item-preview
     +icon_button("\e811")
   .item-unpreview
@@ -89,10 +85,18 @@
     +icon_button("\e813")
   .item-subscribe
     +icon_button("\e819")
+  .item-offtopic
+    +icon_button("\e82b")
+    &.selected
+      color: $red
+  .item-review
+    +icon_button("\e80f")
+    &.selected
+      color: $green
   .item-spoiler
-    +icon_button("\e81b")
+    +icon_button("\e82d")
   .item-abuse
-    +icon_button("\e803")
+    +icon_button("\e82c")
   .item-ban
     +icon_button("\e80a")
 

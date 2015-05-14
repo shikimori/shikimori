@@ -14,6 +14,8 @@
         /- unless abuse_request.offtopic?
           span class="b-#{abuse_request.kind}_marker"
             /= abuse_request.kind_text
+      - if abuse_request.reason.present?
+        p Причина: #{abuse_request.reason}
 
     - if abuse_request.pending?
       .moderation

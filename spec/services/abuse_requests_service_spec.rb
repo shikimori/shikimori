@@ -60,9 +60,11 @@ describe AbuseRequestsService do
   [:review, :offtopic, :abuse, :spoiler].each do |method|
     describe method.to_s do
       if method == :review || method == :offtopic
+        let(:reason) { nil }
         subject(:act) { service.send method, faye_token }
       else
-        subject(:act) { service.send method }
+        let(:reason) { 'zxcvbn' }
+        subject(:act) { service.send method, reason }
       end
 
       let(:user) { create :user, id: 99 }
@@ -74,15 +76,15 @@ describe AbuseRequestsService do
       describe 'abuse_request' do
         before { act }
         subject { user.abuse_requests.last }
-        its(:kind) { should eq method.to_s }
-        its(:value) { should be_truthy }
-        its(:comment_id) { should eq comment.id }
+
+        it { expect(subject).to have_attributes kind: method.to_s, value: true, comment_id: comment.id, reason: reason }
       end
 
       context 'abusive user' do
         let(:user) { create :user, id: AbuseRequestsService::ABUSIVE_USERS.first }
         before { act }
         subject { user.abuse_requests.last }
+
         it { should be_nil }
       end
 

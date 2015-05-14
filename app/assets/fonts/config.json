@@ -161,12 +161,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "c76b7947c957c9b78b11741173c8349b",
-      "css": "attention",
-      "code": 59408,
-      "src": "fontawesome"
-    },
-    {
       "uid": "5408be43f7c42bccee419c6be53fdef5",
       "css": "doc-text",
       "code": 59405,
@@ -248,12 +242,6 @@
       "uid": "44b9e75612c5fad5505edd70d071651f",
       "css": "attach-1",
       "code": 59414,
-      "src": "entypo"
-    },
-    {
-      "uid": "8538a2249db7f07ae75411886732fb87",
-      "css": "bookmarks",
-      "code": 59407,
       "src": "entypo"
     },
     {
@@ -467,6 +455,24 @@
       "src": "elusive"
     },
     {
+      "uid": "67a9d2e5512b8aa812eff7da6d36bffc",
+      "css": "ok-circled",
+      "code": 59407,
+      "src": "elusive"
+    },
+    {
+      "uid": "711fdb6caa365d5b69d4a72da2009cf6",
+      "css": "exclamation",
+      "code": 59435,
+      "src": "elusive"
+    },
+    {
+      "uid": "3c0ef77f5fbb5c933c23f2c437d8cab8",
+      "css": "error-alt",
+      "code": 59436,
+      "src": "elusive"
+    },
+    {
       "uid": "d881e6436253ef6cffe0f3fb10562643",
       "css": "rss",
       "code": 59418,
@@ -479,6 +485,12 @@
       "src": "elusive"
     },
     {
+      "uid": "545d79e9787941a08fb80642102850d4",
+      "css": "adjust",
+      "code": 59437,
+      "src": "elusive"
+    },
+    {
       "uid": "e2d87e7631c608efe71762a9f4c95e75",
       "css": "check",
       "code": 59429,
@@ -488,12 +500,6 @@
       "uid": "cc8e2a0eff0356811984b84a868524f8",
       "css": "check-empty",
       "code": 59416,
-      "src": "elusive"
-    },
-    {
-      "uid": "dc73bee1d58539abe8c96b958bf4c931",
-      "css": "fire",
-      "code": 59395,
       "src": "elusive"
     }
   ]

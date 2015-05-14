@@ -40,13 +40,13 @@ class Moderation::AbuseRequestsController < ShikimoriController
 
   def abuse
     @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).abuse
+    @ids = AbuseRequestsService.new(@comment, current_user).abuse params[:reason]
     render :create
   end
 
   def spoiler
     @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).spoiler
+    @ids = AbuseRequestsService.new(@comment, current_user).spoiler params[:reason]
     render :create
   end
 

@@ -10,7 +10,7 @@ class AbuseRequestsService
     if allowed_offtopic_change?
       FayeService.new(@reporter, faye_token).offtopic(@comment, !@comment.offtopic?)
     else
-      make_request :offtopic, !@comment.offtopic?
+      make_request :offtopic, !@comment.offtopic?, nil
     end
   end
 
@@ -18,26 +18,27 @@ class AbuseRequestsService
     if allowed_review_change?
       FayeService.new(@reporter, faye_token).review(@comment, !@comment.review?)
     else
-      make_request :review, !@comment.review?
+      make_request :review, !@comment.review?, nil
     end
   end
 
-  def abuse
-    make_request :abuse, true
+  def abuse reason
+    make_request :abuse, true, reason
   end
 
-  def spoiler
-    make_request :spoiler, true
+  def spoiler reason
+    make_request :spoiler, true, reason
   end
 
 private
-  def make_request kind, value
+  def make_request kind, value, reason
     AbuseRequest.create!(
       comment_id: @comment.id,
       user_id: @reporter.id,
       kind: kind,
       value: value,
-      state: 'pending'
+      state: 'pending',
+      reason: reason
     ) unless ABUSIVE_USERS.include?(@reporter.id)
     []
   rescue ActiveRecord::RecordNotUnique

@@ -48,24 +48,16 @@ aside.buttons
         data-method="post"
         data-type="json"
         data-remote="true"
-        title="Это нарушение правил"
+        data-reason-prompt="Уточните, что за нарушение (заполнять не обязательно)"
+        title="Нарушение правил"
       ]
       span.item-spoiler[
         data-action="#{spoiler_comment_abuse_requests_url comment}"
         data-method="post"
         data-type="json"
         data-remote="true"
-        title="Это спойлер"
-      ]
-
-    - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
-      span.item-review[
-        class="#{:selected if comment.review?}"
-        data-action="#{review_comment_abuse_requests_url comment}"
-        data-method="post"
-        data-type="json"
-        data-remote="true"
-        title="Это отзыв"
+        data-reason-prompt="Уточните, что именно является спойлером (заполнять не обязательно)"
+        title="Спойлер"
       ]
 
     span.item-offtopic[
@@ -74,6 +66,17 @@ aside.buttons
       data-method="post"
       data-type="json"
       data-remote="true"
-      title="Это оффтопик"
+      title="Оффтопик"
     ]
+
+    - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
+      span.item-review[
+        class="#{:selected if comment.review?}"
+        data-action="#{review_comment_abuse_requests_url comment}"
+        data-method="post"
+        data-type="json"
+        data-remote="true"
+        title="Отзыв"
+      ]
+
     span.item-moderation-cancel title="Отмена"
