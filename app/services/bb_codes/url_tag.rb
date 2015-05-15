@@ -25,8 +25,6 @@ class BbCodes::UrlTag
       text = if $~[:text]
         $~[:text]
       else
-        url = $~[:url]
-
         if url.without_http =~ /(\w+\.)?shikimori.\w+\/(?<path>.+)/
           "/#{$~[:path]}"
         else
@@ -34,7 +32,8 @@ class BbCodes::UrlTag
         end
       end
 
-      "<a href=\"#{url}\">#{URI.decode text}</a>"
+      decoded_text = URI.decode text
+      "<a href=\"#{url}\">#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
     end
   end
 end

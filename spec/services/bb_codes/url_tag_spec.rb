@@ -67,6 +67,11 @@ describe BbCodes::UrlTag do
         let(:text) { "[zz]#{url}[/zz]" }
         it { should eq "[zz]#{url}[/zz]" }
       end
+
+      context 'russian link' do
+        let(:text) { 'http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/' }
+        it { should eq '<a href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
+      end
     end
   end
 end

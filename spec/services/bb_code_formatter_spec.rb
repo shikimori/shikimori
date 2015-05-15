@@ -392,5 +392,10 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
         it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a></blockquote>\ntest' }
       end
     end
+
+    describe 'russian link' do
+      let(:text) { 'http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/' }
+      it { should eq '<a href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
+    end
   end
 end
