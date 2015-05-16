@@ -47,16 +47,40 @@
       .moderation
         - if user_change[:locked]
           p сначала предыдущие правки
+
         - elsif user_change.pending?
           - if user_change.column == 'torrents_name' && user_signed_in? && !current_user.admin?
             p эту правку посмотрит morr
+
           - elsif user_signed_in? && current_user.user_changes_moderator?
             - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? user_change.column
-              a href="#{take_moderation_user_change_url user_change, is_applied: true}" data-method="post" title="Применить правку" принять
-            a href="#{take_moderation_user_change_url user_change}" data-method="post" title="Применить правку, но НЕ учтывать пользователя среди авторов" взять
-            a href="#{deny_moderation_user_change_url user_change}" data-method="post" title="Отменить правку и послать пользователю уведомление об этом" отклонить
+              a.b-tooltipped.unprocessed[
+                href="#{take_moderation_user_change_url user_change, is_applied: true}"
+                data-method="post"
+                data-direction="top"
+                title="Применить правку"
+              ] принять
+
+            a.b-tooltipped.unprocessed[
+              href="#{take_moderation_user_change_url user_change}"
+              data-method="post"
+              data-direction="top"
+              title="Применить правку, но НЕ учтывать пользователя среди авторов"
+            ] взять
+            a.b-tooltipped.unprocessed.user_change-deny[
+              data-href="#{deny_moderation_user_change_url user_change}"
+              data-method="post"
+              data-direction="top"
+              title="Отменить правку и послать пользователю уведомление об этом"
+              data-reason-prompt="Сообщение автору правки с причиной отказа (заполнять не обязательно)"
+            ] отклонить
           - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == user_change.user_id)
-            a href="#{deny_moderation_user_change_url user_change, is_deleted: true}" data-method="post" title="Отменить правку и не посылать пользователю уведомление об этом" удалить
+            a.b-tooltipped.unprocessed[
+              href="#{deny_moderation_user_change_url user_change, is_deleted: true}"
+              data-method="post"
+              data-direction="top"
+              title="Отменить правку и не посылать пользователю уведомление об этом"
+            ] удалить
       .clearfix
 
       - if user_change.screenshots?

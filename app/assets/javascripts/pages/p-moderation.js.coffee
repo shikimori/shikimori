@@ -18,6 +18,16 @@ $moderation = (node) ->
     $iframe = $('iframe', $(@).parent())
     $iframe.attr src: $iframe.data('url')
 
+  # вопрос о причине отказа для правки
+  $('.user_change-deny').on 'click', (e) ->
+    href = $(@).data('href')
+    reason = prompt $(@).data('reason-prompt')
+
+    if reason == null
+      false
+    else
+      $(@).attr href: "#{href}?reason=#{reason}"
+
   ## NOTE: порядок следования функций ajax:success важен
   ## редактирвоание коммента
   #$(document.body).on 'ajax:success', '.shiki-editor', (e, data) ->

@@ -43,8 +43,13 @@ class @ShikiComment extends ShikiEditable
       @_close_aside()
 
     @$('.item-spoiler,.item-abuse').on 'ajax:before', (e) ->
-      $(@).data form:
-        reason: prompt($(@).data('reason-prompt'))
+      reason = prompt $(@).data('reason-prompt')
+
+      if reason == null
+        false
+      else
+        $(@).data form:
+          reason: reason
 
     # пометка комментария обзором/оффтопиком
     @$('.item-review,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
