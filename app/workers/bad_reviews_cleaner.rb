@@ -2,7 +2,7 @@ class BadReviewsCleaner
   include Sidekiq::Worker
   sidekiq_options unique: true
 
-  MINIMUM_VOTES = 50
+  MINIMUM_VOTES = 35
 
   def perform
     bad_reviews.each do |review|
