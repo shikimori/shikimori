@@ -11,7 +11,11 @@
   = f.input :user_id, as: :hidden
   = f.input :linked_id, as: :hidden
   = f.input :linked_type, as: :hidden
-  = f.input :type, as: :hidden
+
+  .m20
+    = f.input :type, as: :select, include_blank: false,
+      collection: [['Топик', 'Topic'], ['Аниме новость', 'AnimeNews'], ['Манга новость', 'MangaNews']],
+      input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
   .m20
     = f.input :section_id, as: :select, include_blank: false,
@@ -20,7 +24,6 @@
 
   .m20
     = f.input :title
-    /= f.input :type, collection: [Topic.name.to_sym, AnimeNews.name.to_sym, MangaNews.name.to_sym], include_blank: false
 
   .b-shiki_editor.unprocessed.block
     = render 'comments/shiki_editor', text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip, field_name: 'topic[text]'
