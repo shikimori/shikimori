@@ -39,6 +39,6 @@ private
     votes_count = review_votes.size * 1.0
     votes_against = review_votes.count {|v| !v.voting }
 
-    votes_count > MINIMUM_VOTES && (votes_against / votes_count) >= 0.8
+    votes_count >= MINIMUM_VOTES && (votes_against / votes_count) >= 0.8
   end
 end
