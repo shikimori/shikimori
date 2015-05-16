@@ -31,6 +31,7 @@ module Clockwork
     ProxyWorker.perform_async(false)
     FindAnimeWorker.perform_async :last_3_entries
     AnimeSpiritWorker.perform_async :last_3_entries
+    BadReviewsCleaner.perform_async
   end
 
   every 1.day, 'daily.stuff', at: '00:02' do

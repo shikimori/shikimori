@@ -12,6 +12,7 @@ class TopicsQuery
   end
 
 private
+
   def prepare_query
     Entry
       .with_viewed(@user)
