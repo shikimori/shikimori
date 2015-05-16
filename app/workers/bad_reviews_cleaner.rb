@@ -15,7 +15,6 @@ private
   def reviews
     @reviews ||= Review
       .where(state: 'pending')
-      .where('created_at < ?', 1.day.ago)
       .to_a
   end
 
