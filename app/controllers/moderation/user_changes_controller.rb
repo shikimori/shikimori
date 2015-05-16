@@ -81,7 +81,7 @@ class Moderation::UserChangesController < ShikimoriController
     @resource = UserChange.find(params[:id])
 
     if @resource.apply current_user.id, !params[:is_applied]
-      Message.create(
+      Message.create_wo_antispam!(
         from_id: current_user.id,
         to_id: @resource.user_id,
         kind: MessageType::Notification,
@@ -101,14 +101,14 @@ class Moderation::UserChangesController < ShikimoriController
 
     if @resource.deny current_user.id, params[:is_deleted]
       type = @resource.item.class.name.downcase
-      Message.create(
+      Message.create_wo_antispam!(
         from_id: current_user.id,
         to_id: @resource.user_id,
         kind: MessageType::Notification,
         body: "Ваша [user_change=#{@resource.id}]правка[/user_change] для " +
-          "[#{type}]#{@resource.item.id}[/#{type}] отклонена." +
+          "[#{type}]#{@resource.item.id}[/#{type}] отклонена" +
           (params[:reason].present? ?
-            "\n[quote=#{current_user.nickname}]#{params[:reason]}[/quote]" : '')
+            " по причине: [quote=#{current_user.nickname}]#{params[:reason]}[/quote]" : '.')
       ) if !params[:is_deleted] && @resource.user_id != current_user.id
 
       redirect_to_back_or_to moderation_user_changes_url
