@@ -32,7 +32,8 @@ class CommonLogFormatter < Logger::Formatter
     if severity == 'INFO'
       "[#{time.to_s :short}] #{msg2str msg}\n"
     else
-      "[#{time.to_s :short}] %5s - #{msg2str msg}\n" % [severity]
+      formatted_severity = "%5s" % severity
+      "[#{time.to_s :short}] #{formatted_severity} - #{msg2str msg}\n"
     end
   end
 end
