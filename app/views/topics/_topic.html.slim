@@ -38,7 +38,9 @@
               = topic.date
 
         - if topic.review? && topic.linked.votes_count > 0
-          p.votes-count = topic.linked.votes_text
+          p.votes-count
+            = topic.linked.votes_text
+            span.warn перенесено в оффтоп
 
         .body
           - if topic.generated_news?
