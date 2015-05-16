@@ -52,14 +52,12 @@ class Ban < ActiveRecord::Base
   end
 
   def notify_user
-    Message.wo_antispam do
-      Message.create!({
-        from_id: moderator.id,
-        to_id: user.id,
-        kind: warning? ? MessageType::Warned : MessageType::Banned,
-        linked: self
-      })
-    end
+    Message.create_wo_antispam!(
+      from_id: moderator.id,
+      to_id: user.id,
+      kind: warning? ? MessageType::Warned : MessageType::Banned,
+      linked: self
+    )
   end
 
   def mention_in_comment

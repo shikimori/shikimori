@@ -53,6 +53,15 @@ class Review < ActiveRecord::Base
     before_transition pending: :rejected do |review, transition|
       review.approver = transition.args.first
       review.to_offtopic!
+
+      Message.create_wo_antispam!(
+        from_id: review.approver_id,
+        to_id: review.user_id,
+        kind: MessageType::Notification,
+        body: "Ваша [entry=#{review.thread.id}]реценция[/entry] перенесена в оффтоп" +
+          (transition.args.second ?
+           " по причине: [quote=#{review.approver.nickname}]#{transition.args.second}[/quote]" : '')
+      )
     end
   end
 
