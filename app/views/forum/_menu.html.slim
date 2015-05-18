@@ -1,3 +1,11 @@
+.block.naruto
+  a href="http://naruto.kg-portal.ru/"
+    center
+      img[
+        src="http://kawai.shikimori.org/images/user_image/original/40225/95246.jpg"
+        srcset="http://moe.shikimori.org/images/user_image/original/40225/95247.jpg 2x"
+      ]
+
 .block.forum
   .subheadline-buttons
     - if user_signed_in? && can?(:new, Topic.new(user: current_user))
