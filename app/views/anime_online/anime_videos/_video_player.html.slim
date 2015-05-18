@@ -7,7 +7,7 @@
         param name="allowFullScreen" value="true"
         param name="allowScriptAccess" value="always"
         embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
-    - elsif @video.hosting == 'rutube.ru' && @video.player_url =~ /http:\/\/(?:video\.)?rutube.ru\/(?:video\/)?(.*)/
+    - elsif @video.hosting == 'rutube.ru' && (@video.player_url =~ /http:\/\/video\.rutube.ru\/(.*)/ || @video.player_url =~ /http:\/\/rutube.ru\/video\/(.*)/)
       iframe src="http://rutube.ru/play/embed/#{$1}" frameborder='0' webkitAllowFullScreen='true' mozallowfullscreen='true' allowfullscreen='true'
     - else
       iframe src="#{@video.player_url}"
