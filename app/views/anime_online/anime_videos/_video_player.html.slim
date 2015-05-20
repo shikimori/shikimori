@@ -1,16 +1,6 @@
 .b-video_player data-watch-delay="#{@video.watch_increment_delay}" data-watch-url="#{track_view_video_online_url @anime, @video}"
   .player-area
-    / FIX : Move this code to player_url
-    - if @video.hosting == 'myvi.ru' || (@video.hosting == 'sibnet.ru' && @video.url.include?('.swf?'))
-      object
-        param name="movie" value="#{@video.url}"
-        param name="allowFullScreen" value="true"
-        param name="allowScriptAccess" value="always"
-        embed src="#{@video.player_url}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"
-    - elsif @video.hosting == 'rutube.ru' && (@video.player_url =~ /http:\/\/video\.rutube.ru\/(.*)/ || @video.player_url =~ /http:\/\/rutube.ru\/video\/(.*)/)
-      iframe src="http://rutube.ru/play/embed/#{$1}" frameborder='0' webkitAllowFullScreen='true' mozallowfullscreen='true' allowfullscreen='true'
-    - else
-      iframe src="#{@video.player_url}"
+    = @video.player_html
 
   .cc-player_controls.cc-2a
     .c-column

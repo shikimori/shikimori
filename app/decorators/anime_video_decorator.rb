@@ -5,6 +5,34 @@ class AnimeVideoDecorator < BaseDecorator
     end
   end
 
+  def player_html
+    if hosting == 'myvi.ru' || (hosting == 'sibnet.ru' && url.include?('.swf?'))
+      h.content_tag(:object) do
+        h.content_tag(:param, name: 'movie', value: "#{url}") {} +
+        h.content_tag(:param, name: 'allowFullScreen', value: 'true') {} +
+        h.content_tag(:param, name: 'allowScriptAccess', value: 'always') {} +
+        h.content_tag(
+          :embed,
+          src: "#{url}",
+          type: 'application/x-shockwave-flash',
+          allowfullscreen: 'true',
+          allowScriptAccess: 'always'
+        ) {}
+      end
+    elsif hosting == 'rutube.ru' && (url =~ /http:\/\/rutube.ru\/video\/(.*)/)
+      h.content_tag(
+        :iframe,
+        src: "http://rutube.ru/play/embed/#{$1}",
+        frameborder: '0',
+        webkitAllowFullScreen: 'true',
+        mozallowfullscreen: 'true',
+        allowfullscreen: 'true'
+      ) {}
+    else
+      h.content_tag(:iframe, src: url) {}
+    end
+  end
+
   def player_url
     url
   end
