@@ -199,7 +199,7 @@ describe BbCodeFormatter do
 
       describe 'bad html' do
         let(:text) { '[quote][spoiler]test[/quote][/spoiler]' }
-        it { should eq '<blockquote><div class="b-spoiler unprocessed"><label>спойлер</label><div class="content"><div class="before"></div><div class="inner">test</div><div class="after"></div></div></div></blockquote>' }
+        it { should eq '<div class="b-quote"><div class="b-spoiler unprocessed"><label>спойлер</label><div class="content"><div class="before"></div><div class="inner">test</div></div><div class="after"></div></div></div>' }
       end
     end
 
@@ -374,22 +374,22 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
     describe '[quote]' do
       context 'simple' do
         let(:text) { '[quote]test[/quote]zz' }
-        it { should eq '<blockquote>test</blockquote>zz' }
+        it { should eq '<div class="b-quote">test</div>zz' }
       end
 
       context 'simple with \\n' do
         let(:text) { '[quote]test[/quote]\nzz' }
-        it { should eq '<blockquote>test</blockquote>\nzz' }
+        it { should eq '<div class="b-quote">test</div>\nzz' }
       end
 
       context 'link inside with space' do
         let(:text) { '[quote] http://test.ru/ [/quote]\ntest' }
-        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a> </blockquote>\ntest' }
+        it { should eq '<div class="b-quote"> <a href="http://test.ru/">test.ru/</a> </div>\ntest' }
       end
 
       context 'link inside w/o space' do
         let(:text) { '[quote] http://test.ru/[/quote]\ntest' }
-        it { should eq '<blockquote> <a href="http://test.ru/">test.ru/</a></blockquote>\ntest' }
+        it { should eq '<div class="b-quote"> <a href="http://test.ru/">test.ru/</a></div>\ntest' }
       end
     end
 

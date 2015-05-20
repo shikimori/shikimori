@@ -191,12 +191,12 @@ module CommentHelper
     return text unless text.include?("[quote") && text.include?("[/quote]")
 
     text
-      .gsub(/\[quote\]/, '<blockquote>')
-      .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
-      .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[message=\1 quote]\3[/message]</div>')
-      .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\]/, '<blockquote><div class="quoteable">[entry=\1 quote]\3[/entry]</div>')
-      .gsub(/\[quote=([^\]]+)\]/, '<blockquote><div class="quoteable">[user]\1[/user]</div>')
-      .gsub(/\[\/quote\](?:\r\n|\r|\n|<br>)?/, '</blockquote>')
+      .gsub(/\[quote\]/, '<div class="b-quote">')
+      .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\]/, '<div class="b-quote"><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
+      .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]/, '<div class="b-quote"><div class="quoteable">[message=\1 quote]\3[/message]</div>')
+      .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\]/, '<div class="b-quote"><div class="quoteable">[entry=\1 quote]\3[/entry]</div>')
+      .gsub(/\[quote=([^\]]+)\]/, '<div class="b-quote"><div class="quoteable">[user]\1[/user]</div>')
+      .gsub(/\[\/quote\](?:\r\n|\r|\n|<br>)?/, '</div>')
   end
 
   def posters_to_html text, poster=nil

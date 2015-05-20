@@ -126,7 +126,8 @@ class ProfilesController < ShikimoriController
       end
     else
       Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
-        @resource.update update_params
+        params = update_params[:nickname].blank? ? update_params.merge(nickname: @resource.nickname) : update_params
+        @resource.update params
       end
     end
 
@@ -147,6 +148,7 @@ class ProfilesController < ShikimoriController
   end
 
 private
+
   def fetch_resource
     nickname = User.param_to(params[:profile_id] || params[:id])
     user = User.find_by nickname: nickname
