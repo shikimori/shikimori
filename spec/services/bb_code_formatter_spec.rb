@@ -29,6 +29,11 @@ describe BbCodeFormatter do
       let(:text) { "[list]\n [*]#{long_line}\r\n[/list]" }
       it { should eq "[list]\n [*]#{long_line}\r\n[/list]" }
     end
+
+    describe '[quote]' do
+      let(:text) { "[quote]zzz" }
+      it { should eq "[quote]\nzzz" }
+    end
   end
 
   describe '#user_mention' do
@@ -377,7 +382,12 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
         it { should eq '<div class="b-quote">test</div>zz' }
       end
 
-      context 'simple with \\n' do
+      context 'simple with \\n before' do
+        let(:text) { "[quote]\ntest[/quote]zz" }
+        it { should eq '<div class="b-quote">test</div>zz' }
+      end
+
+      context 'simple with \\n after' do
         let(:text) { '[quote]test[/quote]\nzz' }
         it { should eq '<div class="b-quote">test</div>\nzz' }
       end
