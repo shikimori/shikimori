@@ -29,7 +29,7 @@ module PermissionsPolicy
     include Defaults
 
     def can_be_edited_by?(user)
-      super
+      super || (user && commentable_type == User.name && commentable_id == user.id && user_id == user.id)
     end
 
     def can_be_deleted_by?(user)
