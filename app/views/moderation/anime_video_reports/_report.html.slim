@@ -47,20 +47,25 @@
       p
         span Тип:
         span = report.anime_video.kind
+
       - if report.anime_video.author
         p
           span Автор:
           span = report.anime_video.author.name.to_s.html_safe
+
       - if report.user_agent.present?
         p
           span user_agent:
           span = report.user_agent
+
       - if report.message.present?
         p
           span Комментарий:
           span = report.message
-      p
-        span Doubles:
-        span = report.doubles
+
+      - if report.doubles > 0
+        p
+          span Повторных жалоб:
+          span = report.doubles
 
       iframe data-url="#{report.anime_video.url}" width="650" height="370"
