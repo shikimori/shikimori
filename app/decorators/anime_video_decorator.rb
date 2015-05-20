@@ -19,7 +19,7 @@ class AnimeVideoDecorator < BaseDecorator
           allowScriptAccess: 'always'
         ) {}
       end
-    elsif hosting == 'rutube.ru' && (url =~ /http:\/\/video\.rutube.ru\/(.*)/)
+    elsif hosting == 'rutube.ru' && url =~ /http:\/\/video\.rutube.ru\/(.*)/
       h.content_tag(
         :iframe,
         src: "http://rutube.ru/play/embed/#{$1}",
