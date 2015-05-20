@@ -24,7 +24,7 @@ class BbCodes::EntriesTag
     entries_count = 0
 
     text.gsub REGEXP do |matched|
-      ids = $~[:ids].split(',').map(&:to_i)
+      ids = $~[:ids].split(',').map(&:to_i).select {|v| v < 2147483647 }
 
       is_wall = $~[:wall].present?
       if is_wall
@@ -42,7 +42,7 @@ class BbCodes::EntriesTag
       end
       entries_count += ids.size
 
-      entries = fetch_entreis ids, type_to_klass($~[:type]), entries_count
+      entries = fetch_entries ids, type_to_klass($~[:type]), entries_count
       entries_html = entries.sort_by {|v| ids.index(v.id) }.map do |entry|
         entry_to_html entry, cover_title, cover_notice
       end
@@ -71,7 +71,7 @@ private
     )
   end
 
-  def fetch_entreis ids, klass, current_count
+  def fetch_entries ids, klass, current_count
     klass.where(id: ids)
   end
 
