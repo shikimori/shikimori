@@ -9,7 +9,7 @@ class AniMangaQuery
     'PG' => ['PG - Children'],
     'PG-13' => ['PG-13 - Teens 13 or older'],
     'R' => ['R+ - Mild Nudity'],
-    'NC-17' => ['R - 17+ (violence & profanity)', 'R - 17+ (violence &amp; profanity)', 'Rx - Hentai'],
+    'NC-17' => ['R - 17+ (violence & profanity)', 'Rx - Hentai'],
   }
   Durations = {
     'S' => "(duration >= 0 and duration <= 10)",

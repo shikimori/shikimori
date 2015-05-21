@@ -138,7 +138,11 @@ class UserStats
   end
 
   def ratings list_type
-    @stats.by_criteria(:rating, ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx'].reverse)[list_type.to_sym]#, -> v { v[:rating] != 'None' }
+    @stats
+      .by_criteria(:rating, AniMangaQuery::Ratings.values.flatten.reverse)[list_type.to_sym]
+      .each do |stat|
+        stat[:name] = I18n.t "RatingShort.#{stat[:name]}"
+      end
   end
 
   def genres
