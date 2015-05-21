@@ -166,6 +166,15 @@ describe BbCodeFormatter do
           it { should eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\">" }
         end
 
+        describe 'multiline smileys' do
+          let(:text) { "раз :D :D\nдва :D :D\nтри" }
+          it do
+            is_expected.to include 'раз'
+            is_expected.to include 'два'
+            is_expected.to include 'три'
+          end
+        end
+
         describe 'multiple' do
           let(:text) { ":):D :-D" }
           it { should eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\">" }

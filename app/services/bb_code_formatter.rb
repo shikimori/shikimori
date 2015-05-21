@@ -152,7 +152,7 @@ class BbCodeFormatter
       .gsub(/\.\.\.\.+/, '.')
       .gsub(/\)\)\)+/, ')')
       .gsub(/\(\(\(+/, '(')
-      .gsub(/(<img .*? class="smiley" \/>)\s*<img .*? class="smiley" \/>(?:\s*<img .*? class="smiley" \/>)+/, '\1')
+      .gsub(/(<img [^>]*? class="smiley" \/>)\s*<img [^>]*? class="smiley" \/>(?:\s*<img .*? class="smiley" \/>)+/, '\1')
 
     Nokogiri::HTML::DocumentFragment
       .parse(text)
