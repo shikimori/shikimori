@@ -13,9 +13,7 @@ class PeopleController < ShikimoriController
   def index
     noindex
     page_title search_title
-    #page_title SearchHelper.unescape(params[:search])
 
-    search_query.fetch.to_sql
     @collection = postload_paginate(params[:page], 48) { search_query.fetch }
   end
 
