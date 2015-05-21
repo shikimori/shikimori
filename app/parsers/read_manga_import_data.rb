@@ -206,6 +206,7 @@ module ReadMangaImportData
       bus_gamer: 162,
       forget_me_not: 3780,
       the_irregular_at_magic_high_school: 33699,
+      ibitsu__ryou_haruto: 16688,
       dogs__hardcore_twins: -1,
       the_lord_of_the_rings_dj___touch: -1,
       naruto_doujinshi__sakura: -1,
@@ -219,7 +220,7 @@ module ReadMangaImportData
       heaven_s_love: 6980,
       one_more_marionnette: -1,
       marionette: -1,
-      marionette_theater_by_the_moonlight_battery: -1
+      marionette_theater_by_the_moonlight_battery: -1,
       #katekyo_hitman_reborn__dj___sanctuary: -1
     }.inject({}) {|rez,v| rez[v[0].to_s] = v[1] and rez }
 end
