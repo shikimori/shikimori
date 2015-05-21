@@ -14,7 +14,12 @@
       .trigger
         .trigger-arrow
         - if user_rate.persisted?
-          .text.edit-trigger data-remote="true" data-type="html" data-action="#{edit_user_rate_url user_rate}" data-text="#{user_rate.status_name}"
+          .text.edit-trigger[
+              data-remote="true"
+              data-type="html"
+              data-action="#{edit_user_rate_url user_rate}"
+              data-text="#{user_rate.score > 0 ? "#{user_rate.status_name}&nbsp;&nbsp;&ndash;&nbsp;&nbsp;#{user_rate.score}".html_safe : user_rate.status_name}"
+            ]
             .edit
         - else
           .text.add-trigger data-status="#{UserRate.statuses[:planned]}" data-text="Добавить в список"
@@ -26,7 +31,13 @@
             .option.add-trigger data-status="#{status}"
               .text data-text="#{title}"
         - if user_rate.persisted?
-          .option.remove-trigger data-remote="true" data-type="html" data-action="#{user_rate_url user_rate}" data-method="delete" value="Удалить из списка"
+          .option.remove-trigger[
+              data-remote="true"
+              data-type="html"
+              data-action="#{user_rate_url user_rate}"
+              data-method="delete"
+              value="Удалить из списка"
+            ]
             .text data-text="Удалить из списка"
 
   - if user_rate.persisted?
@@ -41,7 +52,12 @@
             span.total-episodes
               = entry.episodes
           - if user_rate.episodes != entry.episodes || user_rate.episodes.zero?
-            span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
+            span.item-add.increment[
+              data-action="#{increment_user_rate_url user_rate}"
+              data-remote="true"
+              data-type="html"
+              data-method="post"
+            ]
         .episodes Эпизоды
 
       - else
@@ -53,7 +69,12 @@
             span.total-episodes
               = entry.chapters
           - if user_rate.chapters != entry.chapters || user_rate.chapters.zero?
-            span.item-add.increment data-action="#{increment_user_rate_url user_rate}" data-remote="true" data-type="html" data-method="post"
+            span.item-add.increment[
+              data-action="#{increment_user_rate_url user_rate}"
+              data-remote="true"
+              data-type="html"
+              data-method="post"
+            ]
         .episodes Главы
 
       = simple_form_for user_rate, remote: true, authenticity_token: true, html: { 'data-type' => :html } do |f|
