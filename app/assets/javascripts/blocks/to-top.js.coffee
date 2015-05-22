@@ -18,8 +18,6 @@ $(document).on 'page:load', ->
     scroll_binded = true
 
     $(window).on 'scroll:throttled', ->
-      console.log to_top_visible
-
       if $(window).scrollTop() != 0
         unless to_top_visible
           $to_top.fadeIn()

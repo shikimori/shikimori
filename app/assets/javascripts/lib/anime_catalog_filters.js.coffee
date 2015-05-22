@@ -135,6 +135,9 @@ DEFAULT_LIST_SORT = "ranked"
         @set key, value
       else
         data[key].push value
+
+      return if key == 'search'
+
       $li = $("li.#{key}-#{remove_bang value}", $root)
 
       # если такого элемента нет, то создаем его
