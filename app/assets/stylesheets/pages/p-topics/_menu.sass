@@ -1,4 +1,5 @@
 @import mixins/icons
+@import mixins/image_editable
 @import mixins/menu-blocks
 
 .p-topics .l-menu
@@ -9,8 +10,14 @@
   .mylist .entry
     +menu-block-with-image
 
-  .naruto img
-    max-width: 100%
+  .naruto
+    +image_editable
+
+    img
+      max-width: 100%
+
+    &.deleted
+      display: none
 
   .groups .entry img
     width: 35px

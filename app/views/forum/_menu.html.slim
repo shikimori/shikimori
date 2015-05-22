@@ -1,4 +1,12 @@
-.block.naruto
+.block.naruto[
+    class="#{:deleted if cookies['landing_naruto_hidden'] == 'true'}"
+    data-cookie-name="landing_naruto_hidden"
+  ]
+  .controls
+    .delete title="Спрятать баннер"
+    .confirm title="Подтверждаю"
+    .cancel title="Отмена"
+
   a href="http://naruto.kg-portal.ru/"
     center
       img[

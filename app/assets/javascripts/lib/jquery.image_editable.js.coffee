@@ -16,8 +16,9 @@
 
         # отмена удаления
         $('.cancel', $root).on 'click', ->
-          $root.removeClass('deletable')
-          $root.removeClass('mobile-editing')
+          $root
+            .removeClass('deletable')
+            .removeClass('mobile-editing')
           false
 
         # подтверждение удаления
