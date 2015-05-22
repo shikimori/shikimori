@@ -15,14 +15,19 @@
 
     .text
       +hover_underlined
-      //+link_color
       cursor: pointer
 
       &:after
         content: attr(data-text)
 
-  .trigger .text:after
-    margin-left: 2px
+    &.trigger .text
+      display: inline
+
+      &:after
+        margin-left: 2px
+
+    .score-label
+      display: inline
 
   .plus
     +link_color
