@@ -22,6 +22,9 @@ $quote_even: #f6f6f6
     margin: -4px 0 0 -3px
     position: relative
 
+    a
+      padding-right: 4px
+
     &:before
       color: #333
       content: '"'
@@ -31,13 +34,13 @@ $quote_even: #f6f6f6
       position: relative
       top: 2px
 
-  blockquote
+  .b-quote
     background: $quote_even
     margin-left: 5px !important
 
-    blockquote
+    .b-quote
       background: $quote_odd
 
-      blockquote
+      .b-quote
         background: $quote_even
 
