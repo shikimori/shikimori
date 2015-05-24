@@ -1,0 +1,6 @@
+en:
+  inflections:
+    out_of:
+      zero: out of
+      one: out of
+      other: out of

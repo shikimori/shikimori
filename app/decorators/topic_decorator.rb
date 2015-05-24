@@ -192,22 +192,14 @@ class TopicDecorator < BaseDecorator
       i18n_i 'comment', num, :accusative
     end
 
-<<<<<<< HEAD
-    (
-      "Загрузить ещё #{num} %s#{comment_word}" % ("из #{folded_comments} " if folded_comments > fold_limit)
-    ).html_safe
-=======
-    i18n_t 'show_hidden_comments_text' do |options|
+    i18n_t 'show_hidden_comments_text_html' do |options|
       options[:comment_count] = num
-      options[:previous] = prior_word
-      options[:comments] = comment_word
+      options[:comment_word] = comment_word
 
-      if folded_comments < fold_limit
-        options[:total_comments] =
-          "<span class=\"expandable-comments-count\">&nbsp;(#{i18n_i 'out_of'} #{folded_comments})</span>"
+      options[:out_of_total_comments] = if folded_comments > fold_limit
+        "#{i18n_i 'out_of'} #{folded_comments}"
       end
     end.html_safe
->>>>>>> add method to inflect words and accept block for translate to process complex options
   end
 
   def new_comment

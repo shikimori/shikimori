@@ -1,4 +1,6 @@
 ru:
+  ani_manga_decorator:
+    time_ago_format: '%s назад'
   anime_video_preview_decorator:
     score:
       excellent: отлично
@@ -25,11 +27,13 @@ ru:
       manga: Манга
       projects: Проекты
   topic_decorator:
-    show_hidden_comments_text_html: Показать %{previous} %{comment_count}&nbsp;%{comments}%{total_comments}
+    show_hidden_comments_text_html: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}
   user_decorator:
     always_online: всегда на сайта
     online: сейчас на сайте
     offline: онлайн %{time_ago} назад
+  user_history_decorator:
+    time_ago: '%{time_ago} назад'
   user_profile_decorator:
     male: муж
     female: жен

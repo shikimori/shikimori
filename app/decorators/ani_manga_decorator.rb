@@ -1,4 +1,5 @@
 class AniMangaDecorator < DbEntryDecorator
+  include Translation
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers
 
@@ -203,7 +204,7 @@ private
 
   def format_menu_topic topic, order
     {
-      date: h.time_ago_in_words(topic.send(order), "%s назад"),
+      date: h.time_ago_in_words(topic.send(order), i18n_t('time_ago_format')),
       id: topic.id,
       name: topic.to_s,
       title: topic.title,
