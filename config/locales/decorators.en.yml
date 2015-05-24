@@ -28,13 +28,14 @@ en:
       projects: Projects
   topic_decorator:
     show_hidden_comments_text_html: Display %{comment_count} %{out_of_total_comments} %{comment_word}
-  user_decorator:
+  user_decorator: &user_decorator
     always_online: always online
     online: online
     offline: last online %{time_ago} ago
   user_history_decorator:
     time_ago: '%{time_ago} ago'
   user_profile_decorator:
+    <<: *user_decorator
     male: male
     female: female
     no_personal_data: No personal data
