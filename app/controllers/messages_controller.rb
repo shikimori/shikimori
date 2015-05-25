@@ -71,13 +71,13 @@ class MessagesController < ProfilesController
   end
 
   def read_all
-    MessagesService.new(@resource.object).read_messages type: @messages_type
-    redirect_to index_profile_messages_url(@resource, @messages_type), notice: 'Сообщения прочитаны'
+    MessagesService.new(current_user).read_messages type: @messages_type
+    redirect_to index_profile_messages_url(current_user, @messages_type), notice: 'Сообщения прочитаны'
   end
 
   def delete_all
-    MessagesService.new(@resource.object).delete_messages type: @messages_type
-    redirect_to index_profile_messages_url(@resource, @messages_type), notice: 'Сообщения удалены'
+    MessagesService.new(current_user).delete_messages type: @messages_type
+    redirect_to index_profile_messages_url(current_user, @messages_type), notice: 'Сообщения удалены'
   end
 
   def chosen
