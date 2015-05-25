@@ -34,7 +34,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
     respond_with @resource
   end
 
-  api :POST, '/messages/mark_read', 'Mark messages as read/unread'
+  api :POST, '/messages/mark_read', 'Mark messages as read or unread'
   param :ids, :undef
   def mark_read
     ids = (params[:ids] || '').split(',').map(&:to_i)

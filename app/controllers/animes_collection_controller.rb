@@ -77,7 +77,7 @@ private
     @entry_data = {}
 
     if params[:type] =~ /^[a-z]+$/
-      raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(type: params[:type].capitalize.sub('Tv', 'TV').sub('Ova', 'OVA').sub('Ona', 'ONA')))
+      raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(type: params[:type].capitalize.sub('Tv', 'TV').sub('Ova', 'OVA').sub('Ona', 'ONA')))
     end
     [:genre, :studio, :publisher].each do |kind|
       if params[kind]
@@ -90,12 +90,12 @@ private
         filter_klass = kind.to_s.capitalize.constantize
         all_param_ids.each do |id|
           if filter_klass::Merged.include? id
-            raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)))
+            raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(kind.to_sym => params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)))
           end
         end
 
         next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_entry_data.first.to_param
-        raise ForceRedirect, self.send("#{klass.table_name}_url", params.merge(kind => all_entry_data.first.to_param))
+        raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(kind.to_sym => all_entry_data.first.to_param))
       end
     end
     build_page_title @entry_data
