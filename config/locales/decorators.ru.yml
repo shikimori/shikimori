@@ -1,6 +1,8 @@
 ru:
-  ani_manga_decorator:
+  ani_manga_decorator: &ani_manga_decorator
     time_ago_format: '%s назад'
+  anime_decorator:
+    <<: *ani_manga_decorator
   anime_video_preview_decorator:
     score:
       excellent: отлично
@@ -12,7 +14,9 @@ ru:
       anime_character: Персонаж аниме
       manga_character: Персонаж манги
       anime_manga_character: Персонаж аниме и манги
-  person_decorator:
+  manga_decorator:
+    <<: *ani_manga_decorator
+  person_decorator: &person_decorator
     job_title:
       producer: Режиссер аниме
       mangaka: Автор манги
@@ -26,6 +30,8 @@ ru:
       anime: Аниме
       manga: Манга
       projects: Проекты
+  seyu_decorator:
+    <<: *person_decorator
   topic_decorator:
     show_hidden_comments_text_html: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}
   user_decorator: &user_decorator

@@ -1,4 +1,6 @@
 class BanDuration
+  include Translation
+
   delegate :to_i, :zero?, :minutes, to: :value
   attr_reader :value
 
@@ -37,7 +39,7 @@ class BanDuration
 
       if value > 0
         key = type.to_s.singularize
-        duration = Russian.p value, I18n.t("date_time.#{key}.one"), I18n.t("date_time.#{key}.few"), I18n.t("date_time.#{key}.many")
+        duration = i18n_i "datetime.#{key}", value
 
         memo << "#{value} #{duration}"
       end

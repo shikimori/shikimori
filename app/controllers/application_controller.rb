@@ -135,7 +135,7 @@ private
   end
 
   def default_url_options options = {}
-    options.merge locale: I18n.locale
+    Rails.env.development? ? options.merge(locale: I18n.locale) : options
   end
 
   # гугловский бот со странным format иногда ходит
