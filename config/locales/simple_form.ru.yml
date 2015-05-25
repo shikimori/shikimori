@@ -37,6 +37,10 @@ ru:
           AnimeNews: Новость об аниме
           MangaNews: Новость о манге
 
+    hints:
+      user_change:
+        reason: Не обязательно
+
   helpers:
     submit:
       user: &user_buttons

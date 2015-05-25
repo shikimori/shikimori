@@ -44,6 +44,11 @@ describe UserRate do
     let(:volumes) { 15 }
     let(:chapters) { 100 }
 
+    describe '#text=' do
+      let(:user_rate) { build :user_rate, text: 'a' * 3000 }
+      it { expect(user_rate.text).to have(UserRate::MAXIMUM_TEXT_SIZE).items }
+    end
+
     describe '#anime?' do
       subject { user_rate.anime? }
 

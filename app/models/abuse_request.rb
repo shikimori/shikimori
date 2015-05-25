@@ -2,14 +2,16 @@ class AbuseRequest < ActiveRecord::Base
   include PermissionsPolicy
   extend Enumerize
 
+  MAXIMUM_REASON_SIZE = 255
+
   belongs_to :comment
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
   enumerize :kind, in: [:offtopic, :review, :spoiler, :abuse], predicates: true
 
-  validates :user, presence: true
-  validates :comment, presence: true
+  validates :user, :comment, presence: true
+  validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
   scope :pending, -> { where state: 'pending', kind: ['offtopic', 'review'] }
   scope :abuses, -> { where state: 'pending', kind: ['spoiler', 'abuse'] }
@@ -43,6 +45,14 @@ class AbuseRequest < ActiveRecord::Base
 
     before_transition pending: :rejected do |abuse_request, transition|
       abuse_request.approver = transition.args.first
+    end
+  end
+
+  def reason= value
+    if !value || value.size <= MAXIMUM_REASON_SIZE
+      super
+    else
+      super value[0..MAXIMUM_REASON_SIZE-1]
     end
   end
 

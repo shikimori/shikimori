@@ -10,6 +10,7 @@ p.warning Перед внесением изменений обязательн�
       = render 'comments/shiki_editor', text: resource.description, field_name: 'user_change[value]'
 
     = f.input :source, label: 'Источник (адрес страницы, откуда взят текст)'
+    = f.input :reason
 
   .buttons
     a.cancel href="#{resource.url}" Отмена

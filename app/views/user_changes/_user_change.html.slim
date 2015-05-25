@@ -83,6 +83,11 @@
             ] удалить
       .clearfix
 
+      - if user_change.reason.present?
+        .reason
+          span Причина:
+          = user_change.reason
+
       - if user_change.screenshots?
         - if user_change.action == UserChange::ScreenshotsPosition
           .screenshots-compare

@@ -130,6 +130,7 @@ ru:
         section_id: Раздел
       user_change:
         source: Источник
+        reason: Комментарий для модератора
       anime_video_report:
         kind: Причина
         message: Сообщение модератору

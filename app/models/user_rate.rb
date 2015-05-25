@@ -4,6 +4,8 @@ class UserRate < ActiveRecord::Base
   MAXIMUM_EPISODES = 2000
   MAXIMUM_SCORE = 10
 
+  MAXIMUM_TEXT_SIZE = 2048
+
   enum status: { planned: 0, watching: 1, completed: 2, rewatching: 9, on_hold: 3, dropped: 4 }
 
   belongs_to :target, polymorphic: true
@@ -20,11 +22,19 @@ class UserRate < ActiveRecord::Base
 
   validates :target, :user, presence: true
   validates :user_id, uniqueness: { scope: [:target_id, :target_type] }
-  validates :text, length: { maximum: 2048 }
+  validates :text, length: { maximum: MAXIMUM_TEXT_SIZE }
 
   def self.create_or_find user_id, target_id, target_type
     UserRate.where(user_id: user_id, target_id: target_id, target_type: target_type).first ||
       UserRate.create(user_id: user_id, target_id: target_id, target_type: target_type, status: :planned)
+  end
+
+  def text= value
+    if !value || value.size <= MAXIMUM_TEXT_SIZE
+      super
+    else
+      super value[0..MAXIMUM_TEXT_SIZE-1]
+    end
   end
 
   def anime?

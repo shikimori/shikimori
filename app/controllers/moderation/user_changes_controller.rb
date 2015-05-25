@@ -1,4 +1,3 @@
-# TODO: переделать авторизацию на cancancan
 class Moderation::UserChangesController < ShikimoriController
   include ActionView::Helpers::SanitizeHelper
   before_filter :authenticate_user!, only: [:index, :take, :deny]
@@ -121,6 +120,6 @@ private
   def user_change_params
     params
       .require(:user_change)
-      .permit(:model, :column, :item_id, :value, :source, :action)
+      .permit(:model, :column, :item_id, :value, :source, :action, :reason)
   end
 end

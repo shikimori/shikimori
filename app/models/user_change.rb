@@ -8,15 +8,18 @@ class UserChange < ActiveRecord::Base
   VideoUpload = "video_upload"
   VideoDeletion = "video_deletion"
 
+  MAXIMUM_REASON_SIZE = 255
+
   include HTMLDiff
   include ActionView::Helpers::SanitizeHelper
 
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  validates_numericality_of :user_id
-  validates_numericality_of :item_id
-  validates_presence_of :model
+  validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
+
+  validates :user_id, :item_id, numericality: true
+  validates :model, presence: true
   #validates_presence_of :column
   #validates_presence_of :value
 
@@ -29,6 +32,14 @@ class UserChange < ActiveRecord::Base
     # есть ли не прнятые изменения
     def has_changes?
       pending_count > 0
+    end
+  end
+
+  def reason= value
+    if !value || value.size <= MAXIMUM_REASON_SIZE
+      super
+    else
+      super value[0..MAXIMUM_REASON_SIZE-1]
     end
   end
 

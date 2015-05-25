@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514094209) do
+ActiveRecord::Schema.define(version: 20150525065835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -867,6 +867,7 @@ ActiveRecord::Schema.define(version: 20150514094209) do
     t.datetime "updated_at"
     t.string   "source",      limit: 255
     t.string   "action",      limit: 255
+    t.string   "reason"
   end
 
   add_index "user_changes", ["status", "model", "item_id"], name: "i_user_changes", using: :btree
