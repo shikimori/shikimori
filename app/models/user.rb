@@ -78,6 +78,7 @@ class User < ActiveRecord::Base
   has_many :devices, dependent: :destroy
 
   has_many :user_tokens
+  has_many :user_images
 
   has_attached_file :avatar,
     styles: {

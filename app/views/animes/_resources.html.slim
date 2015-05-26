@@ -57,21 +57,21 @@
         .cc.m0
           = render @resource.roles.main_people
 
-- if @resource.screenshots(5).any? || @resource.videos(5).any?
-  .cc.m0 class="#{@resource.videos(5).any? && @resource.screenshots(5).any? ? (@resource.videos(5).one? ? 'one-video' : 'two-videos') : 'no-video'}"
-    - if @resource.screenshots(5).any?
+- if @resource.screenshots(4).any? || @resource.videos(4).any?
+  .cc.m0 class="#{@resource.videos(4).any? && @resource.screenshots(4).any? ? (@resource.videos(4).one? ? 'one-video' : 'two-videos') : 'no-video'}"
+    - if @resource.screenshots(4).any?
       .c-screenshots
         .subheadline.m10
           span.linkeable data-href="#{@resource.screenshots_url}" Кадры
         .cc
-          = render @resource.screenshots(5)
+          = render @resource.screenshots(4)
 
-    - if @resource.videos(5).any?
+    - if @resource.videos(4).any?
       .c-videos
         .subheadline.m10
           span.linkeable data-href="#{@resource.videos_url}" Видео
         .cc
-          = render @resource.videos(5)
+          = render @resource.videos(4)
 
 /- if @resource.related.related.any?
   /.b-options-floated.mobile-support

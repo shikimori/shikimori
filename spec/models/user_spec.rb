@@ -48,6 +48,9 @@ describe User do
     it { should have_many :group_bans }
 
     it { should have_many :devices }
+
+    it { should have_many :user_tokens }
+    it { should have_many :user_images }
   end
 
   let(:user) { create :user }
