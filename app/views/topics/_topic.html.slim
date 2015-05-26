@@ -85,6 +85,6 @@
               span = topic.user.nickname
 
       - unless topic.viewed?
-        .appear-marker class="appear-topic-#{topic.id}" data-appear_url="#{appear_path}"
+        .appear-marker class="appear-topic-#{topic.id}" data-appear_url="#{api_appear_url}"
 
     = render partial: 'topics/comments', locals: { topic: topic }

@@ -173,6 +173,8 @@ Site::Application.routes.draw do
           get :bans
         end
       end
+
+      post 'appear/read' => 'appear#read', as: :appear
     end
   end
 
@@ -259,6 +261,7 @@ Site::Application.routes.draw do
     get 'topics/:id/tooltip(/:test)' => 'topics#tooltip', as: :topic_tooltip
     get 'entries/:id/tooltip(/:test)' => 'entries#tooltip', as: :entry_tooltip # это для совместимости, чтобы уже сформированные урлы не сломались
 
+    # TODO: delete after 01.07.2015
     #get 'appear/read/:ids' => 'appear#read'
     post 'appear/read' => 'appear#read', as: :appear
 

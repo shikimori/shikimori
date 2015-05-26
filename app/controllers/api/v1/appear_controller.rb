@@ -1,8 +1,9 @@
-# TODO: delete after 01.07.2015
-class AppearController < ApplicationController
+class Api::V1::AppearController < Api::V1::ApiController
   before_filter :authenticate_user!
 
   # пометка элементов прочитанными
+  api :POST, '/appear/read', 'Mark comments or topics as read'
+  param :ids, :undef
   def read
     type_ids = (params[:ids] || '').split(',').each_with_object({}) do |v,memo|
       data = v.split('-')
@@ -15,10 +16,11 @@ class AppearController < ApplicationController
       klass_view = (klass.name + 'View').constantize
 
       # прочтённые сущности
-      existed_ids = klass.where(id: ids).select(:id).map(&:id)
+      existed_ids = klass.where(id: ids).pluck(:id)
 
       # записи о прочтении прочтённых сущностей
-      existed_views = klass_view.where(user_id: current_user.id, klass_id_key => existed_ids)
+      existed_views = klass_view
+        .where(user_id: current_user.id, klass_id_key => existed_ids)
         .select(klass_id_key)
         .map { |v| v[klass_id_key] }
 
@@ -40,8 +42,8 @@ class AppearController < ApplicationController
       ).update_all(read: true)
     end
 
-    render json: {}
   rescue ActiveRecord::RecordNotUnique
-    render json: {}
+  ensure
+    head 200
   end
 end
