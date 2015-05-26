@@ -32,7 +32,7 @@ class Dialog
   def messages
     @messages ||= DialogQuery
       .new(user, target_user)
-      .fetch(1, DialogQuery::ALL)
+      .fetch(1, DialogQuery::ALL, false)
       .map(&:decorate)
   end
 

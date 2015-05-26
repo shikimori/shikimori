@@ -135,7 +135,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
 private
   def user
-    @user ||= User.find_by(id: params[:id]) || User.find_by(nickname: params[:id]) || raise(NotFound, params[:id])
+    @user ||= User.find_by(id: params[:id]) || User.find_by(nickname: User.param_to(params[:id])) || raise(NotFound, params[:id])
   end
 
   def decorator

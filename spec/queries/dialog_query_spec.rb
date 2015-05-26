@@ -10,7 +10,7 @@ describe DialogQuery do
   let!(:message_to_2) { create :message, from: user, to: user_3, id: id+2 }
 
   describe '#fetch' do
-    subject(:fetch) { query.fetch 1, 1 }
+    subject(:fetch) { query.fetch 1, 1, true }
     it { should eq [message_to_1, message_from_1] }
 
     describe 'message_to_1' do

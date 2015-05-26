@@ -7,9 +7,7 @@ class Api::V1::FriendsController < Api::V1::ApiController
     @user = User.find params[:id]
 
     if current_user.friends.include?(@user)
-      render json: [
-        "#{@user.nickname} уже среди ваших друзей"
-      ], status: :unprocessable_entity
+      render json: ["#{@user.nickname} уже среди ваших друзей"], status: :unprocessable_entity
     else
       current_user.friends << @user
 
@@ -27,9 +25,7 @@ class Api::V1::FriendsController < Api::V1::ApiController
         )
       end
 
-      render json: {
-        notice: "#{@user.nickname} добавлен#{'а' if @user.female?} в друзья"
-      }
+      render json: { notice: "#{@user.nickname} добавлен#{'а' if @user.female?} в друзья" }
     end
   end
 
@@ -39,8 +35,6 @@ class Api::V1::FriendsController < Api::V1::ApiController
     @user = User.find(params[:id])
 
     current_user.friends.delete @user
-    render json: {
-      notice: "#{@user.nickname} удален#{'а' if @user.female?} из друзей"
-    }
+    render json: { notice: "#{@user.nickname} удален#{'а' if @user.female?} из друзей" }
   end
 end

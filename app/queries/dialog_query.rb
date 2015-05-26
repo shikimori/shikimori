@@ -3,9 +3,14 @@ class DialogQuery
 
   ALL = 999
 
-  def fetch page, limit
-    dynamic_limit = page > 1 ? limit : 3
-    dynamic_offset = page > 1 && limit != ALL ? limit - 3 : 0
+  def fetch page, limit, dynamic
+    if dynamic
+      dynamic_limit = page > 1 ? limit : 3
+      dynamic_offset = page > 1 && limit != ALL ? limit - 3 : 0
+    else
+      dynamic_limit = limit
+      dynamic_offset = 0
+    end
 
     Message
       .where(kind: MessageType::Private)
@@ -22,7 +27,7 @@ class DialogQuery
 
   def postload page, limit
     dynamic_limit = page > 1 ? limit : 3
-    collection = fetch page, limit
+    collection = fetch page, limit, true
 
     if collection.size == dynamic_limit+1
       [collection.drop(1), true]

@@ -183,6 +183,8 @@ Site::Application.routes.draw do
         post '/', action: :create, on: :member
         delete '/', action: :destroy, on: :member
       end
+
+      resources :dialogs, only: [:index, :show, :destroy]
     end
   end
 
