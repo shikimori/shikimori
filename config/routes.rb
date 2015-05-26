@@ -174,7 +174,15 @@ Site::Application.routes.draw do
         end
       end
 
-      post 'appear/read' => 'appear#read', as: :appear
+      resources :appears, only: [:create], controller: 'appear'
+      resources :friends, only: [] do
+        post '/', action: :create, on: :member
+        delete '/', action: :destroy, on: :member
+      end
+      resources :ignores, only: [] do
+        post '/', action: :create, on: :member
+        delete '/', action: :destroy, on: :member
+      end
     end
   end
 
@@ -284,6 +292,7 @@ Site::Application.routes.draw do
     # рестарт джобы
     get "job/:id/restart" => 'jobs#restart', as: 'restart_job'
 
+    # TODO: delete after 01.07.2015
     # френд реквесты
     post ':id/friend' => 'friends#create', as: :friend_add
     delete ':id/friend' => 'friends#destroy', as: :friend_remove

@@ -5,12 +5,12 @@ describe Api::V1::AppearController do
   let!(:comment) { create :comment, commentable_id: topic.id, commentable_type: topic.class.name, user_id: user2.id }
   let!(:comment2) { create :comment, commentable_id: topic.id, commentable_type: topic.class.name }
 
-  describe 'read' do
+  describe '#create' do
     let(:user) { create :user }
 
     it 'authorized' do
       expect {
-        post :read, ids: "comment-#{comment.id}"
+        post :create, ids: "comment-#{comment.id}"
       }.to change(CommentView, :count).by 0
 
       expect(response).to be_redirect
@@ -26,7 +26,7 @@ describe Api::V1::AppearController do
 
       it 'one view' do
         expect {
-          post :read, ids: "comment-#{comment.id}"
+          post :create, ids: "comment-#{comment.id}"
         }.to change(CommentView, :count).by 1
 
       end
@@ -34,21 +34,21 @@ describe Api::V1::AppearController do
       it 'multiple views', :show_in_doc do
         expect {
           expect {
-            post :read, ids: "comment-#{comment.id},comment-#{comment2.id},entry-#{topic.id}"
+            post :create, ids: "comment-#{comment.id},comment-#{comment2.id},entry-#{topic.id}"
           }.to change(CommentView, :count).by 2
         }.to change(EntryView, :count).by 1
       end
 
       it 'only once' do
         expect {
-          post :read, ids: "comment-#{comment.id}"
-          post :read, ids: "comment-#{comment.id}"
+          post :create, ids: "comment-#{comment.id}"
+          post :create, ids: "comment-#{comment.id}"
         }.to change(CommentView, :count).by 1
       end
 
       it 'no views for unexisted' do
         expect {
-          post :read, ids: "comment-999999"
+          post :create, ids: "comment-999999"
         }.to change(CommentView, :count).by 0
       end
 
@@ -69,7 +69,7 @@ describe Api::V1::AppearController do
         expect(message.to_id).to eq user.id
         expect(message.kind).to eq MessageType::QuotedByUser
 
-        post :read, ids: "comment-#{reply_comment.id}", log: true
+        post :create, ids: "comment-#{reply_comment.id}", log: true
 
         # то самое уведомление должно стать прочитанным
         message = Message.find(message.id)

@@ -1,7 +1,6 @@
-# TODO: delete after 01.07.2015
-describe IgnoresController do
+describe Api::V1::IgnoresController do
   let(:user) { create :user }
-  let(:user_2) { create :user }
+  let(:user_2) { create :user, id: 1234567, nickname: 'user_1234567' }
 
   describe '#create' do
     let(:make_request) { post :create, id: user_2.id }
@@ -14,7 +13,7 @@ describe IgnoresController do
     context 'authorized' do
       include_context :authenticated, :user
 
-      context 'not yet ignored' do
+      context 'not yet ignored', :show_in_doc do
         before { make_request }
 
         it { expect(response).to have_http_status :success }
@@ -41,14 +40,16 @@ describe IgnoresController do
       it { expect(response).to redirect_to new_user_session_url }
     end
 
-    context 'authorized' do
+    context 'authorized', :show_in_doc do
       include_context :authenticated, :user
 
       before { make_request }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(user.reload.ignores?(user_2)).to be_falsy }
-      it { expect(user.reload.ignores).to be_empty }
+      it do
+        expect(user.reload.ignores? user_2).to eq false
+        expect(user.ignores).to be_empty
+        expect(response).to have_http_status :success
+      end
     end
   end
 end

@@ -1,7 +1,8 @@
-# TODO: delete after 01.07.2015
-class FriendsController < ShikimoriController
+class Api::V1::FriendsController < Api::V1::ApiController
   before_filter :authenticate_user!
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :POST, '/friends/:id', 'Create a friend'
   def create
     @user = User.find params[:id]
 
@@ -32,6 +33,8 @@ class FriendsController < ShikimoriController
     end
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :DELETE, '/friends/:id', 'Destroy a friend'
   def destroy
     @user = User.find(params[:id])
 

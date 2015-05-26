@@ -36,10 +36,10 @@
 
           - else
             a.talk href="#{profile_dialog_url current_user, @resource}" title="Написать"
-            span.fav-add.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в друзья"
-            span.fav-remove.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из друзей"
-            span.ignore-add.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" title="Добавить в игнор"
-            span.ignore-remove.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" title="Удалить из игнора"
+            span.fav-add.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{api_friend_url @resource.id}" data-method="post" data-type="json" title="Добавить в друзья"
+            span.fav-remove.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{api_friend_url @resource.id}" data-method="delete" data-type="json" title="Удалить из друзей"
+            span.ignore-add.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{api_ignore_url @resource.id}" data-method="post" data-type="json" title="Добавить в игнор"
+            span.ignore-remove.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{api_ignore_url @resource.id}" data-method="delete" data-type="json" title="Удалить из игнора"
             - if can? :edit, @resource
               a.settings href="#{edit_profile_url @resource}" title="Настройки"
             - if current_user.moderator?

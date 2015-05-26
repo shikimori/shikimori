@@ -1,7 +1,6 @@
-# TODO: delete after 01.07.2015
-describe FriendsController do
+describe Api::V1::FriendsController do
   let(:user) { create :user }
-  let(:user2) { create :user }
+  let(:user2) { create :user, id: 1234567, nickname: 'user_1234567' }
 
   let(:create_request) { post :create, id: user2.id }
   let(:destroy_request) { delete :destroy, id: user2.id }
@@ -15,7 +14,7 @@ describe FriendsController do
     context 'authorized' do
       include_context :authenticated, :user
 
-      it 'success' do
+      it 'success', :show_in_doc do
         create_request
         expect(response).to be_success
 
@@ -59,7 +58,7 @@ describe FriendsController do
     context 'authorized' do
       include_context :authenticated, :user
 
-      it 'success' do
+      it 'success', :show_in_doc do
         destroy_request
 
         expect(response).to be_success

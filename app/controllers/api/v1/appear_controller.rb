@@ -2,9 +2,9 @@ class Api::V1::AppearController < Api::V1::ApiController
   before_filter :authenticate_user!
 
   # пометка элементов прочитанными
-  api :POST, '/appear/read', 'Mark comments or topics as read'
+  api :POST, '/appear', 'Mark comments or topics as read'
   param :ids, :undef
-  def read
+  def create
     type_ids = (params[:ids] || '').split(',').each_with_object({}) do |v,memo|
       data = v.split('-')
       (memo[data[0]] ||= []) << data[1].to_i
