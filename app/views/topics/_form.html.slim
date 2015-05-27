@@ -65,6 +65,5 @@
       input type="file" multiple="multiple"
 
   .buttons
-    - if topic.persisted?
-      a.cancel href="#{topic_url topic}" Отмена
-    = f.submit
+    a.cancel href="#{topic.persisted? ? topic_url(topic) : root_url}" Отмена
+    = f.button :magic_submit

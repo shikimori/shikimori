@@ -49,10 +49,15 @@ en:
             submit: Login
             disable_with: Logging in&#133;
 
-      group_invite:
-        show: &send
-          submit: Send
-          disable_with: Sending&#133;
+      group_invite: &send
+        submit: Send
+        disable_with: Sending&#133;
+
+      comment: &send
+        edit:
+          submit: Save
+        submit: Comment
+        disable_with: Saving&#133;
 
       anime_video_report:
         index:

@@ -69,6 +69,13 @@ ru:
         submit: Отправить
         disable_with: Отправляется&#133;
 
+      comment:
+        edit:
+          submit: Сохранить
+          disable_with: Сохраняется&#133;
+        submit: Написать
+        disable_with: Отправляется&#133;
+
       anime_video_report:
         index:
           <<: *send

@@ -10,32 +10,6 @@
         .b-offtopic_marker.active class="#{:off unless comment.offtopic?}"
 
 aside.buttons
-  /.preview-controls
-    /- unless options[:no_save]
-      - if options[:editable]
-        span.item-apply title="Сохранить"
-        - if options[:editable].kind_of?(ActiveRecord::Base)
-          span.item-cancel data-type="html" action="#{url_for options[:editable]}" data-remote="true" title="Отмена"
-      - else
-        span.item-save title="Сохранить"
-    span.item-apply title="Сохранить"
-    span.item-unpreview title="Вернуться к редактированию"
-
-  /.item-controls
-    /- unless options[:no_save]
-      - if options[:editable]
-        span.item-apply title="Сохранить"
-        - if options[:editable].kind_of?(ActiveRecord::Base) && options[:editable].persisted?
-          span.item-cancel data-type="html" action="#{options[:editable].kind_of?(Entry) ? topic_url(options[:editable]) : url_for(options[:editable])}" data-remote="true" title="Отмена"
-      - else
-        span.item-save title="Написать"
-    /- unless options[:editable]
-      - if options[:object].class == AniMangaComment
-        span.item-review class="#{:selected if options[:review]}" title="Это отзыв"
-      span.item-offtopic class="#{:selected if options[:offtopic]}" title="Это оффтопик"
-    /span.item-apply title="Сохранить"
-    /span.item-preview title="Предпросмотр"
-
   .editor-controls
     span.editor-bold title="Жирный"
     span.editor-italic title="Курсив"
@@ -123,13 +97,13 @@ footer
 
   - if defined?(f)
     - if comment.persisted?
-      = f.submit 'Сохранить'
+      = f.button :magic_submit
       .button.preview data-preview_url="#{preview_url}" Предпросмотр
       .unpreview.link Вернуться к редактированию
       .cancel Отмена
 
     - else
-      = f.submit 'Написать'
+      = f.button :magic_submit
       .unpreview.link Вернуться к редактированию
       .button.preview data-preview_url="#{preview_url}" Предпросмотр
       .hide Скрыть
