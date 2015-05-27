@@ -24,3 +24,32 @@ en:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
 
+    magic_submit:
+      default:
+        new:
+          submit: Create
+          retry: Try again
+        edit:
+          submit: Save
+
+      users:
+        registrations:
+          new:
+            submit: Register
+            disable_with: Registering&#133;
+
+        passwords:
+          new:
+            submit: Send instructions
+            disable_with: Sending instructions&#133;
+
+      devise:
+        sessions:
+          new:
+            submit: Login
+            disable_with: Logging in&#133;
+
+      group_invite:
+        show:
+          submit: Send
+          disable_with: Sending&#133;

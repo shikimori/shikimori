@@ -10,4 +10,4 @@
     a.cancel href="#{resource.url}" Отмена
     - if current_user.user_changes_moderator?
       = f.submit 'Применить', class: 'apply', name: 'apply'
-    = f.submit 'Сохранить'
+    = f.button :magic_submit

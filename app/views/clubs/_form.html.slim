@@ -97,6 +97,5 @@
       .variants
 
   .buttons
-    - if @resource.persisted?
-      a.cancel href="#{club_url @resource}" Отмена
-    = f.submit @resource.persisted? ? 'Сохранить' : 'Создать'
+    a.cancel href="#{@resource.persisted? ? club_url(@resource) : clubs_url}" Отмена
+    = f.button :magic_submit

@@ -11,7 +11,7 @@ class VideosController < ShikimoriController
     if @resource.save
       render json: { notice: 'Видео сохранено и будет в ближайшее время рассмотрено модератором. Домо аригато.' }
     else
-      render json: @resource.errors, status: :unprocessable_entity
+      render json: @resource.errors.full_messages, status: :unprocessable_entity
     end
   end
 

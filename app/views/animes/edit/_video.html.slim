@@ -11,7 +11,7 @@
 
     .buttons
       a.cancel href="#{resource.url}" Отмена
-      = f.submit 'Сохранить'
+      = f.button :magic_submit
 
 - if @resource.videos.any? || @resource.changes[:videos].any?
   .block.videos-deleter

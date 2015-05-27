@@ -7,6 +7,6 @@ header.head.m15
     = f.input :email, input_html: { autofocus: true }
 
   .block
-    = f.submit 'Отправить инструкцию'
+    = f.button :magic_submit
     a.cancel href="#{new_user_session_url}" Войти в уже существующий аккаунт
     a.cancel href="#{new_user_registration_url}" Зарегистрировать новый аккаунт

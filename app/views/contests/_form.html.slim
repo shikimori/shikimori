@@ -116,8 +116,9 @@
       .suggestions
         = render 'suggestions', contest: contest
 
-  .actions
-    = f.submit contest.persisted? ? 'Сохранить' : 'Создать', class: 'right'
+  .buttons
+    a.cancel href="#{@resource.persisted? ? contest_url(@resource) : contests_url}" Отмена
+    = f.button :magic_submit
 
   - if contest.persisted?
     - if contest.rounds.any?

@@ -41,6 +41,35 @@ ru:
       user_change:
         reason: Не обязательно
 
+    magic_submit:
+      default:
+        new:
+          submit: Создать
+        edit:
+          submit: Сохранить
+
+      users:
+        registrations:
+          new:
+            submit: Зарегистрироваться
+            disable_with: Регистрация&#133;
+
+        passwords:
+          new:
+            submit: Отправить инструкцию
+            disable_with: Отправляем инструкцию&#133;
+
+      devise:
+        sessions:
+          new:
+            submit: Войти
+            disable_with: Вход&#133;
+
+      group_invite:
+        show:
+          submit: Отправить
+          disable_with: Отправляется&#133;
+
   helpers:
     submit:
       user: &user_buttons

@@ -117,6 +117,7 @@ class Moderation::UserChangesController < ShikimoriController
   end
 
 private
+
   def user_change_params
     params
       .require(:user_change)

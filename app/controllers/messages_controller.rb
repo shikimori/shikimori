@@ -42,7 +42,7 @@ class MessagesController < ProfilesController
       @resource = @resource.decorate
       render :create, notice: 'Сообщение создано'
     else
-      render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не создано'
+      render json: @resource.errors.full_messages, status: :unprocessable_entity, notice: 'Сообщение не создано'
     end
   end
 
@@ -51,7 +51,7 @@ class MessagesController < ProfilesController
       @resource = @resource.decorate
       render :create, notice: 'Сообщение изменено'
     else
-      render json: @resource.errors, status: :unprocessable_entity, notice: 'Сообщение не изменено'
+      render json: @resource.errors.full_messages, status: :unprocessable_entity, notice: 'Сообщение не изменено'
     end
   end
 

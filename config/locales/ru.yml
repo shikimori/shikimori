@@ -129,6 +129,7 @@ ru:
         posters: Постеры
         section_id: Раздел
       user_change:
+        url: Ссылка
         source: Источник
         reason: Комментарий для модератора
       anime_video_report:

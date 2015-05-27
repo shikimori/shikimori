@@ -35,6 +35,8 @@ gem 'paperclip'
 gem 'rs_russian'
 gem 'metrika'
 gem 'simple_form'
+gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
+#gem 'simple_form-magic_submit', path: '/Users/morr/Develop/simple_form-magic_submit/'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable' # https://github.com/rails-api/active_model_serializers/issues/641
 gem 'virtus'
 

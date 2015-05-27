@@ -2,7 +2,7 @@ header.head.m15
   h1 Регистрация
   p.notice На данной странице вы сможете зарегистрироваться на нашем сайте.
 
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :multipart => true }) do |f|
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f|
   - if resource.errors.any?
     .b-errors
       .subheadline Ошибки
@@ -15,7 +15,7 @@ header.head.m15
     = f.input :password
 
   .block
-    = f.submit 'Зарегистрироваться'
+    = f.button :magic_submit
     a.cancel href="#{new_user_session_url}" Войти в уже существующий аккаунт
     a.cancel href="#{new_user_password_url}" Забыли пароль?
 
