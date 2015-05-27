@@ -79,7 +79,7 @@ class UserStats
     days_text = "Всего #{total_days.zero? ? 0 : total_days} " +
       Russian.p(total_days, 'день', 'дня', 'дней', 'дней')
 
-    if anime_spent_time.days >= 1 && manga_spent_time.days >= 1
+    if anime_spent_time.days >= 0.5 && manga_spent_time.days >= 0.5
       "#{days_text}: " +
         "#{anime_days} #{Russian.p(anime_days, 'день', 'дня', 'дней', 'дней')} аниме" +
         " и #{manga_days} #{Russian.p(manga_days, 'день', 'дня', 'дней', 'дней')} манга"
