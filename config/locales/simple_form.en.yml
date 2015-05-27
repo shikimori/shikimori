@@ -50,6 +50,10 @@ en:
             disable_with: Logging in&#133;
 
       group_invite:
-        show:
+        show: &send
           submit: Send
           disable_with: Sending&#133;
+
+      anime_video_report:
+        index:
+          <<: *send
