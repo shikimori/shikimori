@@ -65,10 +65,9 @@ ru:
             submit: Войти
             disable_with: Вход&#133;
 
-      group_invite:
-        show: &send
-          submit: Отправить
-          disable_with: Отправляется&#133;
+      group_invite: &send
+        submit: Отправить
+        disable_with: Отправляется&#133;
 
       anime_video_report:
         index:

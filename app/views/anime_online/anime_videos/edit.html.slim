@@ -15,6 +15,6 @@
       - if current_user.video_moderator?
         = f.input :state, as: :select, include_blank: false, collection: AnimeVideo.state_machine.states.map(&:name).select { |state| ![:banned, :copyrighted].include?(state) }.map{ |state| [I18n.t("activerecord.state_machines.anime_video.states.#{state}"), state] }
 
-    .block
-      = f.submit 'Сохранить'
+    .buttons
+      = f.button :magic_submit
       a.cancel href="#{@back_url}" Отмена
