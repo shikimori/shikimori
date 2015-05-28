@@ -53,11 +53,15 @@ en:
         submit: Send
         disable_with: Sending&#133;
 
-      comment: &send
+      comment: &comment
         edit:
           submit: Save
+          disable_with: Saving&#133;
         submit: Comment
-        disable_with: Saving&#133;
+        disable_with: Posting&#133;
+
+      message:
+        <<: *comment
 
       anime_video_report:
         index:
