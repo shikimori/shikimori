@@ -16,7 +16,7 @@ class Review < ActiveRecord::Base
     dependent: :destroy
 
   validates :user, :target, presence: true
-  validates :text, length: { minimum: 1000, too_short: "слишком короткий (минимум 1000 знаков)" }, if: -> { text !~ /\[youtube\].*\[\/youtube\]/ }
+  validates :text, length: { minimum: 1500, too_short: "слишком короткий (минимум 1500 знаков)" }, if: -> { text !~ /\[youtube\].*\[\/youtube\]/ }
   #validates :text, length: { minimum: 250, too_short: "слишком короткий (минимум 250 знаков)" }, if: -> { text =~ /youtube/ }
   #validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"
   #validates_inclusion_of :animation, in: 1..10, message: "не имеет оценки"
