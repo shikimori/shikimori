@@ -22,7 +22,10 @@ class Api::V1::DialogsController < Api::V1::ApiController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
-    @collection = DialogQuery.new(current_user, @target_user).fetch(@page, @limit, false)
+    @collection = DialogQuery
+      .new(current_user, @target_user)
+      .fetch(@page, @limit, false)
+      .reverse
 
     respond_with @collection
   end

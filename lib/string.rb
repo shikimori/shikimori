@@ -113,6 +113,10 @@ class String
       .downcase
   end
 
+  def with_http
+    sub %r{\A(?!https?://)}, 'http://'
+  end
+
   def without_http
     sub %r{\A(?:https?:)?//}, ''
   end

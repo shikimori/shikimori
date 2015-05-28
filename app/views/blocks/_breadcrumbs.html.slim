@@ -1,5 +1,5 @@
 .b-breadcrumbs
   - breadcrumbs.each do |name, url|
     span[itemscope itemtype="http://data-vocabulary.org/Breadcrumb"]
-      a href="#{url}" title="#{name}" itemprop="url"
+      a.b-link href="#{url}" title="#{name}" itemprop="url"
         span itemprop="title" #{name}

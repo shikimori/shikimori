@@ -253,7 +253,7 @@ module CommentHelper
               text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
 <img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{ERB::Util.h user.nickname}\" /><span>#{ERB::Util.h user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
             else
-              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{name}</span></a>"
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention b-link\" data-href=\"#{url}\"><s>@</s><span>#{name}</span></a>"
             end
 
           rescue
@@ -264,7 +264,7 @@ module CommentHelper
         elsif klass == Review
           begin
             review = Review.find($2)
-            text.gsub!($1, "<a href=\"#{url_for [review.target, review]}\" title=\"Обзор #{review.target.name} от #{review.user.nickname}\">#{$3}</a>")
+            text.gsub!($1, "<a class=\"b-link\" href=\"#{url_for [review.target, review]}\" title=\"Обзор #{review.target.name} от #{review.user.nickname}\">#{$3}</a>")
           rescue
             text
             break
@@ -311,7 +311,8 @@ module CommentHelper
             else
               url_for entry
             end
-            text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.name}\"#{preload}>#{title}</a>"
+            text.gsub! $1, "<a class=\"b-link\" href=\"#{url}\" title=\"#{entry.name}\"#{preload}>#{title}</a>"
+
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, "<b>#{$3}</b>"
             break

@@ -112,9 +112,10 @@
           | Все отзывы
           span.brackets = @resource.comment_reviews_count
 
-      span.linkeable data-href="#{@resource.comments_all_url}"
-        | Все комментарии
-        span.brackets = @resource.comments_count
+      - if @resource.comments_count > 0
+        span.linkeable data-href="#{@resource.comments_all_url}"
+          | Все комментарии
+          span.brackets = @resource.comments_count
 
     - if @resource.comments_count > 0
       .subheadline.m3

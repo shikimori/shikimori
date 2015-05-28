@@ -20,7 +20,11 @@ class BbCodes::UrlTag
 
   def format text
     text.gsub REGEXP do
-      url = $~[:url]
+      url = if $~[:url].starts_with? '/'
+        $~[:url]
+      else
+        $~[:url].with_http
+      end
 
       text = if $~[:text]
         $~[:text]
@@ -33,7 +37,7 @@ class BbCodes::UrlTag
       end
 
       decoded_text = URI.decode text
-      "<a href=\"#{url}\">#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
+      "<a class=\"b-link\" href=\"#{url}\">#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
     end
   end
 end

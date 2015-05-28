@@ -240,20 +240,8 @@ describe BbCodeFormatter do
     end
 
     describe '[url]' do
-      describe '[url=www.small-games.info]www.small-games.info[/url]' do
-        let(:text) { '[url=www.small-games.info]www.small-games.info[/url]' }
-        it { should eq '<a href="http://www.small-games.info">www.small-games.info</a>' }
-      end
-
-      describe '[url=http://www.small-games.info]www.small-games.info[/url]' do
-        let(:text) { '[url=http://www.small-games.info]www.small-games.info[/url]' }
-        it { should eq '<a href="http://www.small-games.info">www.small-games.info</a>' }
-      end
-
-      describe '[url=/test]test[/url]' do
-        let(:text) { '[url=/test]test[/url]' }
-        it { should eq '<a href="/test">test</a>' }
-      end
+      let(:text) { '[url=http://www.small-games.info]www.small-games.info[/url]' }
+      it { should eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
     end
 
     describe '[mention]' do
@@ -367,7 +355,7 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
 
     describe '[url]' do
       let(:text) { '[url]http://test.com[/url]' }
-      it { should eq '<a href="http://test.com">test.com</a>' }
+      it { should eq '<a class="b-link" href="http://test.com">test.com</a>' }
     end
 
     describe '[list]' do
@@ -403,18 +391,18 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
 
       context 'link inside with space' do
         let(:text) { '[quote] http://test.ru/ [/quote]\ntest' }
-        it { should eq '<div class="b-quote"> <a href="http://test.ru/">test.ru/</a> </div>\ntest' }
+        it { should eq '<div class="b-quote"> <a class="b-link" href="http://test.ru/">test.ru/</a> </div>\ntest' }
       end
 
       context 'link inside w/o space' do
         let(:text) { '[quote] http://test.ru/[/quote]\ntest' }
-        it { should eq '<div class="b-quote"> <a href="http://test.ru/">test.ru/</a></div>\ntest' }
+        it { should eq '<div class="b-quote"> <a class="b-link" href="http://test.ru/">test.ru/</a></div>\ntest' }
       end
     end
 
     describe 'russian link' do
       let(:text) { 'http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/' }
-      it { should eq '<a href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
+      it { should eq '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
     end
   end
 end

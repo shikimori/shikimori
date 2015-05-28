@@ -4,7 +4,21 @@ describe String do
   its(:capitalize) { should eq 'Тест' }
   its(:downcase) { should eq 'тест' }
 
-  describe 'without_http' do
+  describe '#with_http' do
+    subject { string.with_http }
+
+    context 'has_http' do
+      let(:string) { 'http://test.org' }
+      it { is_expected.to eq 'http://test.org' }
+    end
+
+    context 'no_http' do
+      let(:string) { 'test.org' }
+      it { is_expected.to eq 'http://test.org' }
+    end
+  end
+
+  describe '#without_http' do
     subject { string.without_http }
 
     context 'has_http' do
