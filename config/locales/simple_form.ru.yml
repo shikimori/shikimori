@@ -61,14 +61,14 @@ ru:
 
       group_invite: &send
         submit: Отправить
-        disable_with: Отправляется&#133;
+        disable_with: Отправка&#133;
 
       comment: &comment
         edit:
           submit: Сохранить
-          disable_with: Сохраняется&#133;
+          disable_with: Сохранение&#133;
         submit: Написать
-        disable_with: Отправляется&#133;
+        disable_with: Отправка&#133;
 
       message:
         <<: *comment
