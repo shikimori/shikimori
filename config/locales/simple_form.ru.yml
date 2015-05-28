@@ -42,12 +42,6 @@ ru:
         reason: Не обязательно
 
     magic_submit:
-      default:
-        new:
-          submit: Создать
-        edit:
-          submit: Сохранить
-
       users:
         registrations:
           new:
@@ -82,6 +76,15 @@ ru:
       anime_video_report:
         index:
           <<: *send
+
+      default:
+        new:
+          submit: Создать
+        edit:
+          submit: Сохранить
+
+        feedback:
+          <<: *comment
 
   helpers:
     submit:
