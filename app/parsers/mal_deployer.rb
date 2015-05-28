@@ -133,9 +133,13 @@ module MalDeployer
       "('#{v[:role]}', #{entry.id}, #{v[:id]}, '#{time}', '#{time}')"
     end
 
-    ActiveRecord::Base.connection.
-      execute("insert into person_roles (role, #{type}_id, person_id, created_at, updated_at)
-                  values #{queries.join(',')}") unless queries.empty?
+    ActiveRecord::Base.connection.execute("
+      insert into
+        person_roles
+        (role, #{type}_id, person_id, created_at, updated_at)
+      values
+        #{queries.join(',')}
+    ") unless queries.empty?
   end
 
   # загрузка картинки с mal
@@ -162,14 +166,15 @@ module MalDeployer
     io && io.original_filename.blank? ? nil : io if data[:entry].include?(:img)
 
   rescue OpenURI::HTTPError => e
-    raise e unless e.message == "404 Not Found"
+    raise e unless e.message == '404 Not Found'
     nil
   end
 
   # надо ли загружать картинку?
   def reload_image? entry, data
-    return false if Rails.env.test? || data[:entry][:img].include?("na_series.gif") || data[:entry][:img].include?("na.gif")
+    return false if Rails.env.test? || data[:entry][:img].include?('na_series.gif') || data[:entry][:img].include?('na.gif')
     return true unless entry.image.exists?
+    return true unless ImageChecker.new(entry.image.path).valid?
 
     interval = if (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.ongoing.any?)
       2.weeks
