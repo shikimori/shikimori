@@ -33,7 +33,7 @@
 
     $body = $('body')
     $body_background = $('#user_preferences_body_background')
-    $('.backgrounds .samples li').on 'click', ->
+    $('.backgrounds .present-backgrounds li').on 'click', ->
       value = $(@).data('background')
       $body_background.val("url(#{value}) repeat").trigger('change')
 
