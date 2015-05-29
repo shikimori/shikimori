@@ -125,36 +125,6 @@ module CommentHelper
 
   BbCodeReplacers = ComplexBbCodes.map { |v| "#{v}_to_html".to_sym }.reverse
 
-  ## TODO: удалить метод
-  #def format_comment text, poster=nil
-    #ActiveSupport::Deprecation.warn "use BbCodeFormatter.instance.format_comment instead.", caller
-    #safe_text = poster && poster.bot? ? text.html_safe : ERB::Util.h(text)
-    #text_hash = XXhash.xxh32 text, 0
-
-    #result = remove_wiki_codes(remove_old_tags(safe_text))
-      #.gsub(/\r\n|\r|\n/, '<br />')
-      #.bbcode_to_html(@@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img)
-      #.gsub(%r{<a href="(?!http|/)}, '<a href="http://')
-      #.gsub('<ul><br />', '<ul>')
-      #.gsub('</ul><br />', '</ul>')
-
-    #BbCodeReplacers.each do |processor|
-      #result = send processor, result
-    #end
-
-    #result = db_entry_mention result
-    #result = anime_to_html result
-    #result = manga_to_html result
-    #result = character_to_html result
-    #result = person_to_html result
-    ##result = spoiler_to_html result
-
-    #if poster && poster.bot?
-      #result = result.gsub('<a href=', '<a rel="nofollow" href=')
-    #end
-    #result.html_safe
-  #end
-
   def db_entry_mention text
     text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes + DbEntryBbCodes).map {|v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|
       name = $1.gsub('&#x27;', "'").gsub('&quot;', '"')
@@ -253,7 +223,7 @@ module CommentHelper
               text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
 <img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{ERB::Util.h user.nickname}\" /><span>#{ERB::Util.h user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
             else
-              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention b-link\" data-href=\"#{url}\"><s>@</s><span>#{name}</span></a>"
+              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{name}</span></a>"
             end
 
           rescue
@@ -303,7 +273,8 @@ module CommentHelper
             id = $2.nil? ? $3.to_i : $2.to_i
             entry = klass.find(id)
             title = $2.nil? ? entry.name : $3
-            preload = preloader ? " class=\"bubbled\" data-tooltip_url=\"#{send preloader, entry, subdomain: false}\"" : nil
+            additional = preloader ? " class=\"bubbled b-link\" data-tooltip_url=\"#{send preloader, entry, subdomain: false}\"" : " class=\"b-link\""
+
             url = if entry.kind_of? UserChange
               moderation_user_change_url entry
             elsif entry.kind_of? Group
@@ -311,7 +282,8 @@ module CommentHelper
             else
               url_for entry
             end
-            text.gsub! $1, "<a class=\"b-link\" href=\"#{url}\" title=\"#{entry.name}\"#{preload}>#{title}</a>"
+
+            text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.name}\"#{additional}>#{title}</a>"
 
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, "<b>#{$3}</b>"
@@ -336,93 +308,4 @@ module CommentHelper
   def remove_wiki_codes(html)
     html.gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1').gsub(/\[\[(.*?)\]\]/, '\1')
   end
-
-private
-  @@custom_tags = {
-    'List Item (alternative)' => [
-      / \[\* (:[^\[]+)? \] (
-          (?:(?!\[\*|\[\/list).)+
-        )
-      /mix,
-      #/\[\*(:[^\[]+)?\]([^(\[|\<)]+)/mi,
-      '<li>\2</li>',
-      'List item (alternative)',
-      '[*]list item',
-      :listitem_alt
-    ],
-    'cut' => [
-      /\[cut\]/i,
-      '',
-      'cut for cutting news',
-      '[cut]',
-      :cut
-    ],
-    'right' => [
-      /\[right\](.*?)\[\/right\]/mi,
-      '<div class="right-text">\1</div>',
-      'right text block',
-      '[right]some text[/right]',
-      :center
-    ],
-    'center' => [
-      /\[center\](.*?)\[\/center\]/mi,
-      '<center>\1</center>',
-      'center text block',
-      '[center]some text[/center]',
-      :center
-    ],
-    'h3' => [
-      /\[h3\](.*?)\[\/h3\](?:<br ?\/?>|\n)?/mi,
-      '<h3>\1</h3>',
-      'h3 tag',
-      '[h3]some text[/h3]',
-      :h3
-    ],
-    'strike' => [
-      /\[s\]([\s\S]*?)\[\/s\]?/mi,
-      '<strike>\1</strike>',
-      'strike',
-      '[s]some text[/s]',
-      :poster
-    ],
-    'solid' => [
-      /\[solid\]([\s\S]*?)\[\/solid\](?:<br ?\/?>|\n)?/mi,
-      '<div class="solid">\1</div>',
-      'solid tag',
-      '[solid]some text[/solid]',
-      :solid
-    ],
-    'collapsed' => [
-      /\[collapsed\](?:<br ?\/?>|\n)?([\s\S]*?)(?:<br ?\/?>|\n)?\[\/collapsed\](?:<br ?\/?>|\n)?/mi,
-      '<div class="collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed tiny" style="display: block;">...</div><div style="display: none;">\1</div>',
-      'collapsed tag',
-      '[collapsed]some text[/collapsed]',
-      :collapsed
-    ],
-    'Link' => [
-      /\[url=(.*?)\](.*?)\[\/url\]/mi,
-      '<a href="\1">\2</a>',
-      'Hyperlink to somewhere else',
-      'Maybe try looking on [url=http://google.com]Google[/url]?',
-      :link2],
-    'Link (Implied)' => [
-      /\[url\](.*?)\[\/url\]/mi,
-      '<a href="\1">\1</a>',
-      'Hyperlink (implied)',
-      "Maybe try looking on [url]http://google.com[/url]",
-      :link2],
-    'Link (Automatic)' => [
-      /(\s|^|>)((https?:\/\/(?:www\.)?)([^\s<\[\]]+))/mi,
-      '\1<a href="\2">\4</a>',
-      'Hyperlink (automatic)',
-      'Maybe try looking on http://www.google.com',
-      :link2],
-    'wall' => [
-      /(?:<br \/>|\n)*\[wall\](.*?)\[\/wall\]/mi,
-      #'<div class="wall">\1</div>',
-      '<div class="b-shiki_wall unprocessed">\1</div>',
-      'wall with images',
-      "[wall]images here[/wall]",
-      :wall]
-  }
 end

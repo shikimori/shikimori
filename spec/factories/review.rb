@@ -3,7 +3,7 @@ FactoryGirl.define do
     association :target, factory: :anime
     user
 
-    text 1188.times.sum {|v| 's' }
+    text { 's' * Review::MINIMUM_LENGTH }
     overall 1
     storyline 1
     music 1

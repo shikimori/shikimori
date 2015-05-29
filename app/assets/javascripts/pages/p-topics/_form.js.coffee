@@ -27,9 +27,9 @@
       @value = ''
 
       $('.topic-link', $form)
-        .html("<a href='/#{linked_type().toLowerCase()}s/#{entry.id}' class='bubbled'>#{entry.name}</a>")
+        .html("<a class='b-link' href='/#{linked_type().toLowerCase()}s/#{entry.id}' class='bubbled'>#{entry.name}</a>")
         .process()
-      #$('.topic-video', $form).html "<a href='/#{type}s/#{entry.id}/edit/videos' target='_blank'>добавить видео</a>"
+      #$('.topic-video', $form).html "<a class='b-link' href='/#{type}s/#{entry.id}/edit/videos' target='_blank'>добавить видео</a>"
 
     .on 'keypress', (e) ->
       if e.keyCode == 10 || e.keyCode == 13
@@ -56,7 +56,7 @@
       progress: $upload.find('.b-upload_progress')
       input: $upload.find('input[type=file]')
     .on 'upload:success', (e, data) ->
-      $image = $("<a href='#{data.url}' rel='new-wall' class='b-image' id='#{data.id}'>\
+      $image = $("<a class='b-link' href='#{data.url}' rel='new-wall' class='b-image' id='#{data.id}'>\
 <img src='#{data.preview}' class=''>
 <div class='mobile-edit'></div><div class='controls'>
 <div class='delete' title='Удалить картинку'></div>\

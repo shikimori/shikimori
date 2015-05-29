@@ -6,6 +6,8 @@ class Review < ActiveRecord::Base
 
   acts_as_voteable
 
+  MINIMUM_LENGTH = 1500
+
   belongs_to :target, polymorphic: true
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
@@ -16,13 +18,9 @@ class Review < ActiveRecord::Base
     dependent: :destroy
 
   validates :user, :target, presence: true
-  validates :text, length: { minimum: 1500, too_short: "слишком короткий (минимум 1500 знаков)" }, if: -> { text !~ /\[youtube\].*\[\/youtube\]/ }
-  #validates :text, length: { minimum: 250, too_short: "слишком короткий (минимум 250 знаков)" }, if: -> { text =~ /youtube/ }
-  #validates_inclusion_of :storyline, in: 1..10, message: "не имеет оценки"
-  #validates_inclusion_of :animation, in: 1..10, message: "не имеет оценки"
-  #validates_inclusion_of :characters, in: 1..10, message: "не имеют оценки"
-  #validates_inclusion_of :music, in: 1..10, message: "не имеет оценки", if: -> { self.target_type != Manga.name  }
-  #validates_inclusion_of :overall, in: 1..10, message: "не задана"
+  validates :text,
+    length: { minimum: MINIMUM_LENGTH, too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)" },
+    if: -> { text !~ /\[youtube\].*\[\/youtube\]/ }
 
   after_create :generate_thread
 

@@ -42,7 +42,7 @@
           $entry = $(
             '<div class="variant">' +
               '<input type="checkbox" name="'+variant_name+'" value="'+entry.id+'" checked="true" />' +
-              '<a href="'+entry.url+'" class="bubbled">'+entry.name+'</a>' +
+              '<a class="b-link" href="'+entry.url+'" class="bubbled">'+entry.name+'</a>' +
             '</div>')
             .appendTo($variants)
             .process()

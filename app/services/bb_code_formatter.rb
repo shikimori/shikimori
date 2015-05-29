@@ -74,7 +74,7 @@ class BbCodeFormatter
     end
 
     #text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img, :size
-    text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
+    #text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
     text = text.gsub '<ul><br>', '<ul>'
     text = text.gsub '</ul><br>', '</ul>'
 

@@ -48,7 +48,7 @@
 
         if data[id].length
           $tooltip.html _.map(data[id], (v, k) ->
-            "<a href=\"#{v.link}\" rel=\"nofollow\">#{v.title}</a>"
+            "<a class='b-link' href=\"#{v.link}\">#{v.title}</a>"
           ).join('')
         else
           $("#history-entry-#{id}-tooltip").children().remove()

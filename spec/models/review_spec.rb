@@ -11,6 +11,7 @@ describe Review do
   describe 'validations' do
     it { should validate_presence_of :user }
     it { should validate_presence_of :target }
+    #it { should validate_length_of(:text).is_at_least Review::MINIMUM_LENGTH }
 
     context 'accepted' do
       subject { build :review, state: 'accepted' }
