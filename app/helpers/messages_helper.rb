@@ -11,14 +11,14 @@ module MessagesHelper # для truncate в messages helper
     case message.kind
       when MessageType::ProfileCommented
         "%s %s что-то в вашем %s..." % [
-            "<a class='b-link'href='#{profile_url message.from}'>#{message.from.nickname}</a>",
+            "<a class='b-link' href='#{profile_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'написала' : 'написал',
-            "<a class='b-link'href='#{profile_url(message.to)}' rel='slider'>профиле</a>"
+            "<a class='b-link' href='#{profile_url(message.to)}' rel='slider'>профиле</a>"
           ]
 
       when MessageType::FriendRequest
         "%s %s вас в список друзей. Занести %s в список ваших друзей?" % [
-            "<a class='b-link'href='#{profile_url message.from}'>#{message.from.nickname}</a>",
+            "<a class='b-link' href='#{profile_url message.from}'>#{message.from.nickname}</a>",
             message.from.sex == 'female' ? 'добавила' : 'добавил',
             message.from.sex == 'female' ? 'её' : 'его'
           ]
@@ -119,6 +119,6 @@ module MessagesHelper # для truncate в messages helper
     end
 
     comment_bubble = "class=\"bubbled\" data-href=\"#{comment_url(id: comment_id)}\"" if comment_id
-    content.sub('<!--',  "<a class='b-link'href=\"#{url}#{"#comment-#{comment_id}" if comment_id}\"#{comment_bubble || ''}>").sub('-->',  '</a>')
+    content.sub('<!--',  "<a class='b-link' href=\"#{url}#{"#comment-#{comment_id}" if comment_id}\"#{comment_bubble || ''}>").sub('-->',  '</a>')
   end
 end
