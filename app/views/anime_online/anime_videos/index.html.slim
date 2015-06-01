@@ -14,7 +14,10 @@
       - if @player.episode_videos.any?
         - @player.episode_videos.each do |video|
           .episode data-id="#{video.id}"
-            a class="#{:active if @video && video.id == @video.id} #{video.state}" href="#{play_video_online_index_url @resource, @player.current_episode, video.id}"
+            a [
+              class="#{:active if @video && video.id == @video.id} #{video.state}"
+              href="#{play_video_online_index_url(@resource, @player.current_episode, video.id, params[:all])}"
+            ]
               span.video-kind = t ".kind.#{video.kind}"
               span.video-hosting = video.hosting
               - if video.author
