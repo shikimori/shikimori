@@ -68,6 +68,7 @@ class User
     # модератор ли видео пользователь?
     def video_moderator?
       VideoModerators.include? self.id
+      true
     end
 
     # ответственный ли за новости пользователь?

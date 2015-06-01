@@ -452,6 +452,8 @@ describe AnimeVideo do
     let(:uploaded_video) { build :anime_video, state: 'uploaded' }
     let(:working_video) { build :anime_video, state: 'working' }
     let(:broken_video) { build :anime_video, state: 'broken' }
+    let(:banned_video) { build :anime_video, state: 'banned' }
+    let(:copyrighted_video) { build :anime_video, state: 'copyrighted' }
 
     describe 'guest' do
       let(:user) { }
@@ -502,6 +504,24 @@ describe AnimeVideo do
         let(:created_at) { 1.week.ago + 1.day }
         it { should be_able_to :destroy, video }
       end
+    end
+
+    describe 'video_moderator' do
+      let(:user) { build_stubbed :user, :video_moderator }
+      it { should be_able_to :new, uploaded_video }
+      it { should be_able_to :create, uploaded_video }
+
+      it { should be_able_to :edit, uploaded_video }
+      it { should be_able_to :update, uploaded_video }
+      it { should be_able_to :edit, working_video }
+      it { should be_able_to :update, working_video }
+      it { should be_able_to :edit, broken_video }
+      it { should be_able_to :update, broken_video }
+
+      it { should_not be_able_to :edit, banned_video }
+      it { should_not be_able_to :update, banned_video }
+      it { should_not be_able_to :edit, copyrighted_video }
+      it { should_not be_able_to :update, copyrighted_video }
     end
   end
 end
