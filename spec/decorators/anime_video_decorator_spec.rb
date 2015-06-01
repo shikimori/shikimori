@@ -7,8 +7,15 @@ describe AnimeVideoDecorator, type: :controller do
     let(:video) { build :anime_video, url: url }
 
     context 'myvi.ru' do
-      let(:url) { 'http://myvi.ru/video' }
-      it { is_expected.to eq "<object><param name=\"movie\" value=\"#{url}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{url}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+      context 'embeded' do
+        let(:url) { 'http://myvi.ru/player/embed/html/ol6hiPjFZDkw26HMFBhPTi8IXSDbsARIEybMzKjm6MbKQZ44GQmiStIBzPFxWba-80' }
+        it { is_expected.to eq "<iframe src=\"#{url}\"></iframe>" }
+      end
+
+      context 'flash' do
+        let(:url) { 'http://myvi.ru/player/flash/o_qym5zt9aPeL9mvSKMfUTRY4FGD0JHrHX6yr_dznWK0yDZy3cUQYVqgAkSbPgJmr0' }
+        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{url}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{url}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+      end
     end
 
     context 'sibnet.ru' do

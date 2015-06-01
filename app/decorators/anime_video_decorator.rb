@@ -6,7 +6,7 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def player_html
-    if hosting == 'myvi.ru' || (hosting == 'sibnet.ru' && url.include?('.swf?'))
+    if (hosting == 'myvi.ru' && url.include?('flash')) || (hosting == 'sibnet.ru' && url.include?('.swf?'))
       h.content_tag(:object) do
         h.content_tag(:param, name: 'movie', value: "#{url}") {} +
         h.content_tag(:param, name: 'allowFullScreen', value: 'true') {} +
