@@ -71,6 +71,7 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'пизда').to be_truthy }
     it { expect(banhammer.abusive? 'пиздуй').to be_truthy }
     it { expect(banhammer.abusive? 'пиздец').to be_truthy }
+    it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to be_truthy }
 
     it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to be_falsy }
   end
