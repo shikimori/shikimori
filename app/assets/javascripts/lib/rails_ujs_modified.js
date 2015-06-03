@@ -91,18 +91,15 @@ jQuery(function ($) {
                             if ('errors' in errors) {
                               errors = errors.errors;
                             }
-                            if (_.size(errors)) {
-                                if (_.isArray(errors)) {
+                            if (Object.size(errors)) {
+                                if (Object.isArray(errors)) {
                                   $.flash({alert: errors.join('<br />')});
                                 } else {
                                   var text = _.map(errors, function(v, k) {
-                                    if ((k == 'nickname' || k == 'email') && v == 'уже существует') {
-                                      v = 'уже используется другим пользователем';
-                                    }
                                     if (k == 'base') {
                                       return v;
                                     } else {
-                                      return "<strong>" + (k in I18N ? I18N[k] : k) + "</strong> " + v;
+                                      return "<strong>" + (k in I18N ? I18N[k] : k) + "</strong> " + (Object.isArray(v) ? v.join(', ') : v);
                                     }
                                   }).join('<br />');
 

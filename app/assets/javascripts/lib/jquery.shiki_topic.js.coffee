@@ -41,12 +41,6 @@ class @ShikiTopic extends ShikiEditable
       @$root.trigger 'comment:reply', [reply]
 
     @$editor
-      .on 'ajax:before', (e) ->
-        $comment_body = $(@).find('textarea')
-        if $comment_body.val().replace(/\n| |\r|\t/g, '') == ''
-          $.alert 'Текст комментария не может быть пустым'
-          false
-
       .on 'ajax:success', (e, response) =>
         $new_comment = $(response.html)
 

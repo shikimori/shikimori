@@ -51,10 +51,12 @@ class @ShikiEditor extends ShikiView
 
     @$form
       .on 'ajax:before', =>
-        if @$textarea.val()
+        if @$textarea.val().replace(/\n| |\r|\t/g, '')
           @_shade()
         else
+          $.alert 'Текст не может быть пустым'
           false
+
       .on 'ajax:complete', @_unshade
       .on 'ajax:success', =>
         @_hide_preview()

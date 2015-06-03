@@ -27,7 +27,7 @@
       @value = ''
 
       $('.topic-link', $form)
-        .html("<a class='b-link' href='/#{linked_type().toLowerCase()}s/#{entry.id}' class='bubbled'>#{entry.name}</a>")
+        .html("<a href='/#{linked_type().toLowerCase()}s/#{entry.id}' class='bubbled b-link'>#{entry.name}</a>")
         .process()
       #$('.topic-video', $form).html "<a class='b-link' href='/#{type}s/#{entry.id}/edit/videos' target='_blank'>добавить видео</a>"
 
@@ -56,7 +56,7 @@
       progress: $upload.find('.b-upload_progress')
       input: $upload.find('input[type=file]')
     .on 'upload:success', (e, data) ->
-      $image = $("<a class='b-link' href='#{data.url}' rel='new-wall' class='b-image' id='#{data.id}'>\
+      $image = $("<a href='#{data.url}' rel='new-wall' class='b-image b-link' id='#{data.id}'>\
 <img src='#{data.preview}' class=''>
 <div class='mobile-edit'></div><div class='controls'>
 <div class='delete' title='Удалить картинку'></div>\
