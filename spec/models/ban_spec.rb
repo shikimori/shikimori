@@ -23,32 +23,32 @@ describe Ban do
   let(:comment) { create :comment, user: user }
   let(:params) {{ user: user, comment: comment, moderator: moderator, duration: duration, reason: reason }}
 
-  context 'hooks' do
-    describe 'set_user' do
+  describe 'callbacks' do
+    describe '#set_user' do
       let(:ban) { build :ban, params }
       after { ban.valid? }
       it { expect(ban).to receive :set_user }
     end
 
-    describe 'ban_user' do
+    describe '#ban_user' do
       let(:ban) { build :ban, params }
       after { ban.save }
       it { expect(ban).to receive :ban_user }
     end
 
-    describe 'mention_in_comment' do
+    describe '#mention_in_comment' do
       let(:ban) { build :ban, params }
       after { ban.save }
       it { expect(ban).to receive :mention_in_comment }
     end
 
-    describe 'notify_user' do
+    describe '#notify_user' do
       let(:ban) { build :ban, params }
       after { ban.save }
       it { expect(ban).to receive :notify_user }
     end
 
-    describe 'accept_abuse_request' do
+    describe '#accept_abuse_request' do
       let(:ban) { build :ban, params }
       after { ban.save }
       it { expect(ban).to receive :accept_abuse_request }
@@ -56,7 +56,7 @@ describe Ban do
   end
 
   describe 'instance methods' do
-    describe 'warning?' do
+    describe '#warning?' do
       subject { ban.warning? }
       let(:ban) { create :ban, :no_callbacks, params }
 
@@ -71,7 +71,7 @@ describe Ban do
       end
     end
 
-    describe 'message' do
+    describe '#message' do
       subject { ban.message }
       let(:ban) { build_stubbed :ban, params }
 
@@ -86,7 +86,7 @@ describe Ban do
       end
     end
 
-    describe 'ban_user' do
+    describe '#ban_user' do
       subject { user.read_only_at.to_i }
       let!(:now) { DateTime.now }
       let!(:ban) { create :ban, params.merge(created_at: now) }
@@ -102,7 +102,7 @@ describe Ban do
       end
     end
 
-    describe 'mention_in_comment' do
+    describe '#mention_in_comment' do
       subject { comment.body }
       let(:comment) { create :comment, user: user, body: "test\n" }
 
@@ -118,14 +118,14 @@ describe Ban do
       end
     end
 
-    describe 'notify_user' do
+    describe '#notify_user' do
       let(:moderator) { create :user }
       subject(:ban) { create :ban, params }
       let(:messages) { Message.where from_id: moderator.id, to_id: user.id, linked_type: Ban.name, kind: MessageType::Banned }
       it { expect{ban}.to change(messages, :count).by 1 }
     end
 
-    describe 'suggest_duration' do
+    describe '#suggest_duration' do
       subject { ban.suggest_duration }
       let(:ban) { build_stubbed :ban, params }
       before { allow_any_instance_of(UsersQuery).to receive(:bans_count).and_return bans_count }
@@ -140,18 +140,18 @@ describe Ban do
         it { should eq '15m' }
       end
 
-      context '2 ban' do
+      context '2 bans' do
         let(:bans_count) { 2 }
         it { should eq '2h' }
       end
 
-      context '8 ban' do
+      context '8 bans' do
         let(:bans_count) { 8 }
         it { should eq '5d 8h' }
       end
     end
 
-    describe 'accept_abuse_request' do
+    describe '#accept_abuse_request' do
       let(:abuse_request) { create :abuse_request, user: user, comment: comment }
       let(:ban) { create :ban, params.merge(abuse_request: abuse_request) }
       subject { ban.abuse_request }

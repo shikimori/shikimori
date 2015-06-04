@@ -15,7 +15,7 @@ module MessagesHelper # для truncate в messages helper
 
       when MessageType::FriendRequest
         "Добавил#{'а' if message.from.female?} вас в список друзей. " +
-         "Добавить #{message.from.female? ? 'её' : 'его'} в список друзей в ответ?"
+         "Добавить #{message.from.female? ? 'её' : 'его'} в свой список друзей в ответ?"
 
       when MessageType::QuotedByUser
         "Написал#{'а' if message.from.female?} что-то вам #{format_entity_name message}"
