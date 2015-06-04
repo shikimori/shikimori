@@ -47,9 +47,6 @@ en:
         disable_with: Sending&#133;
 
       comment: &comment
-        edit:
-          submit: Save
-          disable_with: Saving&#133;
         submit: Comment
         disable_with: Posting&#133;
 
@@ -61,6 +58,10 @@ en:
           <<: *send
 
       default:
+        submit: Save
+        retry: Try saving once again
+        disable_with: Saving&#133;
+
         new:
           submit: Create
           retry: Try again

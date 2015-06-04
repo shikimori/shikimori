@@ -64,9 +64,6 @@ ru:
         disable_with: Отправка&#133;
 
       comment: &comment
-        edit:
-          submit: Сохранить
-          disable_with: Сохранение&#133;
         submit: Написать
         disable_with: Отправка&#133;
 
@@ -78,6 +75,10 @@ ru:
           <<: *send
 
       default:
+        submit: Сохранить
+        retry: Попробовать еще раз
+        disable_with: Сохранение&#133;
+
         new:
           submit: Создать
         edit:
