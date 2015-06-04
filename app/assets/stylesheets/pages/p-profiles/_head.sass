@@ -46,6 +46,7 @@
 
     .avatar
       float: left
+      max-width: 160px
 
       +gte_ipad
         margin: 10px $block_offset $block_offset 0
@@ -63,6 +64,9 @@
 
         +iphone
           display: none
+
+        +ipad
+          overflow: hidden
 
     header
       overflow: hidden

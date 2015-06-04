@@ -23,16 +23,18 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
         describe 'anime_video' do
           before { import }
-          subject { anime.anime_videos.last }
+          let(:imported) { anime.anime_videos.last }
 
-          it { should be_working }
-          its(:anime_id) { should eq anime.id }
-          its(:url) { should eq 'http://video.sibnet.ru/shell.php?videoid=1537766' }
-          its(:source) { should eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1' }
-          its(:episode) { should eq 2 }
-          its(:kind) { should eq 'fandub' }
-          its(:language) { should eq 'russian' }
-          its(:anime_video_author_id) { should be_present }
+          it do
+            expect(imported).to be_working
+            expect(imported.anime_id).to eq anime.id
+            expect(imported.url).to eq 'http://video.sibnet.ru/shell.php?videoid=1537766'
+            expect(imported.source).to eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1'
+            expect(imported.episode).to eq 2
+            expect(imported.kind).to eq 'fandub'
+            expect(imported.language).to eq 'russian'
+            expect(imported.anime_video_author_id).to be_present
+          end
         end
       end
 
