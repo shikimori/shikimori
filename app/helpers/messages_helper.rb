@@ -10,25 +10,15 @@ module MessagesHelper # для truncate в messages helper
     #Rails.logger.info message.to_yaml
     case message.kind
       when MessageType::ProfileCommented
-        "%s %s что-то в вашем %s..." % [
-            "<a href='#{profile_url message.from}'>#{message.from.nickname}</a>",
-            message.from.sex == 'female' ? 'написала' : 'написал',
-            "<a href='#{profile_url(message.to)}' rel='slider'>профиле</a>"
-          ]
+        "Написал#{'а' if message.from.female?} что-то в вашем " +
+          "<a class='b-link' href='#{profile_url message.to}'>профиле</a>..."
 
       when MessageType::FriendRequest
-        "%s %s вас в список друзей. Занести %s в список ваших друзей?" % [
-            "<a href='#{profile_url message.from}'>#{message.from.nickname}</a>",
-            message.from.sex == 'female' ? 'добавила' : 'добавил',
-            message.from.sex == 'female' ? 'её' : 'его'
-          ]
+        "Добавил#{'а' if message.from.female?} вас в список друзей. " +
+         "Добавить #{message.from.female? ? 'её' : 'его'} в список друзей в ответ?"
 
       when MessageType::QuotedByUser
-        "%s %s что-то вам %s" % [
-            "<a href='#{profile_url message.from}'>#{message.from.nickname}</a>",
-            message.from.sex == 'female' ? 'написала' : 'написал',
-            format_entity_name(message)
-          ]
+        "Написал#{'а' if message.from.female?} что-то вам #{format_entity_name message}"
 
       when MessageType::SubscriptionCommented
         "Новые сообщения %s" % [
