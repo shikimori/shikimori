@@ -21,19 +21,29 @@ class @PaginatedCatalog
 
     @filters = new AnimeCatalogFilters base_catalog_path, location.href, @_filter_page_change
 
-    $(window).on 'statechange', @_history_page_changed
-    $(window).one 'page:before-unload', =>
-      $(window).off 'statechange', @_history_page_changed
+    #$(window).on 'popstate', =>
+      #@filters.last_compiled = location.href
+
+  #bind_history: =>
+    #$(window).off 'popstate', @_history_page_changed
+    #$(window).on 'popstate', @_history_page_changed
+
+    #$(window).one 'page:before-unload', =>
+      #$(window).off 'popstate', @_history_page_changed
 
   # выбраны какие-то фильтры, необходимо загрузить страницу
   _filter_page_change: (url) =>
-    History.pushState { timestamp: Date.now() }, null, url
+    if Turbolinks.supported
+      window.history.pushState { turbolinks: true, url: url }, '', url
+      @_history_page_changed()
+    else
+      location.href = url
 
   # урл страницы изменён через history api
   _history_page_changed: =>
     url = location.href
 
-    @filters.parse(url) if url != @filters.last_compiled
+    @filters.parse(url)# if url != @filters.last_compiled
     @_fetch_ajax_content(url, true)#.call this, url, null, true
 
   # клик по ссылке пагинации

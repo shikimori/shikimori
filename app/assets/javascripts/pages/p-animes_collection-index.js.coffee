@@ -1,5 +1,7 @@
 # require social/addthis_widget
 
+paginated_catalog = null
+
 @on 'page:restore', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   # восстановление плюсика у фильтра в актуальное состояние
   $block_filer = $('.block-filter.item-add')
@@ -8,6 +10,8 @@
     $block_filer
       .removeClass('item-add')
       .addClass('item-minus')
+
+  #paginated_catalog.bind_history()
 
 @on 'page:load', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   if $('.l-menu .ajax-loading').exists()
@@ -26,4 +30,4 @@ init_catalog = ->
   else if location.pathname.match(/\/comparer\//)
     base_catalog_path = _(location.pathname.split("/")).first(6).join("/")
 
-  new PaginatedCatalog(base_catalog_path)
+  paginated_catalog = new PaginatedCatalog(base_catalog_path)

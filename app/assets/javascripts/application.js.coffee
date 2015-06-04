@@ -54,9 +54,12 @@ $ =>
 $(document).on 'page:restore', (e, is_dom_content_loaded) ->
   $(document.body).process()
 
-$(document).on 'page:load', (e, is_dom_content_loaded) ->
-  Turbolinks.enableProgressBar false
-  Turbolinks.enableProgressBar true, '.turbolinks'
+$(document).on 'page:load', (e, is_dom_content_loaded) =>
+  if @is_mobile()
+    Turbolinks.enableProgressBar false
+    Turbolinks.enableProgressBar true,  '.turbolinks'
+  else
+    Turbolinks.enableProgressBar true
 
   #unless is_dom_content_loaded
     #turbolinks_compatibility()

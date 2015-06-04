@@ -7,7 +7,7 @@
       .cc-navigation
         a.c-control.prev href="#{@player.prev_url}"
           .icon
-          .label Предыдущее
+          .label Предыдущий
         .c-control.episode-title
           - if @video.episode.zero?
             | Прочее
@@ -16,7 +16,7 @@
             b  ##{@video.episode}
         a.c-control.next href="#{@player.next_url}"
           .icon
-          .label Следующее
+          .label Следующий
 
       - if user_signed_in?
         .cc-optional_controls

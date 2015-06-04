@@ -25,10 +25,10 @@
 
 #= require turbolinks
 
-bindings = {
-  'page:load': [],
+bindings =
+  'page:load': []
   'page:restore': []
-}
+  'page:change': []
 
 $.bridget 'packery', Packery
 
@@ -47,7 +47,7 @@ $.bridget 'packery', Packery
 @is_tablet = ->
   !!@mobile_detect.tablet() || screen.width <= 768
 
-$(document).on 'page:load page:restore', (e) ->
+$(document).on 'page:load page:change page:restore', (e) ->
   for group in bindings[e.type]
     body_classes = if group.conditions.length && group.conditions[0][0] == '.'
       group.conditions

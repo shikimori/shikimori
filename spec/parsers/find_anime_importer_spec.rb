@@ -203,13 +203,13 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
       describe 'unmatched' do
         let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
-        it { expect{subject}.to raise_error MismatchedEntries, "unmatched: #{identifier}" }
+        it { expect{subject}.to raise_error MismatchedEntries, "unmatched:\n#{identifier}\n" }
       end
 
       describe 'ambiguous' do
         let!(:anime_2) { create :anime, name: 'Триплексоголик OVA-1' }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
-        it { expect{subject}.to raise_error MismatchedEntries, "ambiguous: #{identifier} (#{anime_2.id}, #{anime.id})" }
+        it { expect{subject}.to raise_error MismatchedEntries, "ambiguous:\n#{identifier} (#{anime_2.id}, #{anime.id})\n" }
       end
 
       describe 'twice_matched' do
@@ -218,7 +218,7 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
         before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier, identifier2] }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
 
-        it { expect{subject}.to raise_error MismatchedEntries, "twice matched: #{anime.id} (#{identifier}, #{identifier2})" }
+        it { expect{subject}.to raise_error MismatchedEntries, "twice matched:\n#{anime.id} (#{identifier}, #{identifier2})\n" }
 
         it 'does not creates links' do
           expect {

@@ -223,6 +223,7 @@ class AnimesController < ShikimoriController
   #end
 
 private
+
   def set_breadcrumbs
     if @resource.anime?
       breadcrumb 'Список аниме', animes_url
