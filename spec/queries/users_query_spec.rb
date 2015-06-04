@@ -37,9 +37,16 @@ describe UsersQuery do
       context 'bans' do
         let!(:valid_bans) { create_list :ban, 3, :no_callbacks, created_at: DateTime.now - Ban::ACTIVE_DURATION + 1.minute, user: user, comment: comment, moderator: user, abuse_request: abuse_request }
         let!(:invalid_bans) { create :ban, :no_callbacks, created_at: DateTime.now - Ban::ACTIVE_DURATION - 1.minute, user: user, comment: comment, moderator: user, abuse_request: abuse_request }
-
         subject { UsersQuery.new(user_id: user.id).bans_count }
+
         it { should eq 4 }
+
+        context 'banhammer bans' do
+          let(:banhammer) { create :user, :banhammer }
+          let!(:banhammer_ban) { create :ban, :no_callbacks, moderator: banhammer, created_at: DateTime.now - Ban::ACTIVE_DURATION + 1.minute, user: user, comment: comment, abuse_request: abuse_request }
+
+          it { should eq 4 }
+        end
       end
     end
   end
