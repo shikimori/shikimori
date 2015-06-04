@@ -51,16 +51,24 @@ aside.buttons
       span человек
 
     = text_field_tag 'link_value', '', class: 'link-value ac_input'
+
+    span.button.ok data-type="link" OK
+
 .images.hidden-block
   p
     = label_tag :image_value do
       | Вставка изображения:
     = text_field_tag 'image_value', '', class: 'link-value', placeholder: 'Введите адрес картинки...'
+
+    span.button.ok data-type="image" OK
+
 .quotes.hidden-block
   p
     = label_tag :image_value do
       | Цитирование пользователя:
-    = text_field_tag 'image_value', '', class: 'link-value ac_input', placeholder: 'Введите имя пользователя...', 'data-autocomplete' => autocomplete_users_url(search: '')
+    = text_field_tag 'quote_value', '', class: 'link-value ac_input', placeholder: 'Введите имя пользователя...', 'data-autocomplete' => autocomplete_users_url(search: '')
+
+    span.button.ok data-type="quote" OK
 
 = render 'blocks/upload_progress'
 

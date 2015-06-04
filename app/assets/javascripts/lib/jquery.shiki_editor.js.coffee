@@ -96,6 +96,16 @@ class @ShikiEditor extends ShikiView
 
         $button.toggleClass('selected')
 
+    # кнопка сабмита OK
+    @$('.button.ok').on 'click', (e) =>
+      type = $(e.target).data('type')
+
+      $input = @$(".#{type} input[type=text]")
+      if type == 'quote'
+        $input.trigger 'keypress', [keyCode: 13]
+      else
+        $input.trigger 'autocomplete:text', [$input.val()]
+
     # открытие блока ссылки
     @$('.links').on 'click:open', =>
       @$('.links input[type=text]').val('')
@@ -146,7 +156,7 @@ class @ShikiEditor extends ShikiView
 
     # сабмит картинки в текстовом поле
     @$('.images input[type=text]').on 'keypress', (e) =>
-      if e.keyCode is 13
+      if e.keyCode is 10 || e.keyCode is 13
         @$textarea.insertAtCaret '', "[img]#{$(e.target).val()}[/img]"
         @$('.editor-image').trigger('click')
         false
@@ -158,7 +168,7 @@ class @ShikiEditor extends ShikiView
 
     # сабмит цитаты в текстовом поле
     @$('.quotes input[type=text]').on 'keypress', (e) =>
-      if e.keyCode is 13
+      if e.keyCode is 10 || e.keyCode is 13
         @$textarea.insertAtCaret "[quote" + ((if not @value or @value.isBlank() then "" else "=" + @value)) + "]", "[/quote]"
         @$('.editor-quote').trigger('click')
         false
