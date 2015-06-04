@@ -41,7 +41,6 @@ class BbCodeFormatter
       format_comment paragraphs(character_names(text, entry)) # очень важно сначала персонажей, а только потом параграфы
 
     else
-      #format_comment text
       format_comment paragraphs(text)
     end
   end
@@ -99,8 +98,8 @@ class BbCodeFormatter
   # замена концов строк на параграфы
   def paragraphs text
     # препроцессинг контента, чтобы теги параграфов не разрывали содержимое quote тегов
-    text = text.gsub(/(?<quote>\[quote[^\]]*\](?!\r\n|\r|\n|<br>))/) do |line|
-      "#{$~[:quote]}\n"
+    text = text.gsub(/(?<tag>\[(?:quote|list)[^\]]*\](?!\r\n|\r|\n|<br>))/) do |line|
+      "#{$~[:tag]}\n"
     end
 
     text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|

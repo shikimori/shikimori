@@ -30,8 +30,8 @@
     .shiki_editor()
     .on 'preview:params', ->
       body: $(@).shiki().$textarea.val()
-      target_id: $('#change_item_id').val()
-      target_type: $('#change_model').val()
+      target_id: $('#user_change_item_id').val()
+      target_type: $('#user_change_model').val()
 
   if $('.edit-page.tags').exists()
     $('#user_change_value')
