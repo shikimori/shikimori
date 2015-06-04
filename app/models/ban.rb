@@ -14,7 +14,7 @@ class Ban < ActiveRecord::Base
   after_create :mention_in_comment
   after_create :accept_abuse_request
 
-  ACTIVE_DURATION = 2.month
+  ACTIVE_DURATION = 60.days
 
   def duration= value
     self[:duration] = BanDuration.new(value).to_i unless value.nil?
@@ -25,8 +25,17 @@ class Ban < ActiveRecord::Base
   end
 
   def suggest_duration
-    minutes = 30 + 30 * ((UsersQuery.new(user_id: user_id).bans_count ** 3) / 2 - 1)
-    BanDuration.new(minutes).to_s
+    bans_count = UsersQuery.new(user_id: user_id).bans_count
+
+    duration = if bans_count > 15
+      '1w 3d 12h'
+    elsif bans_count <= 5
+      30 + 30 * ((bans_count ** 3) / 2 - 1)
+    else
+      60 * bans_count ** 2
+    end
+
+    BanDuration.new(duration).to_s
   end
 
   def warning?

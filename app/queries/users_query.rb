@@ -15,7 +15,7 @@ class UsersQuery
       .where("created_at > ?", DateTime.now - Ban::ACTIVE_DURATION)
 
     warnings = query.where(duration: 0).count
-    bans = query.where("duration > 0").count
+    bans = query.where.not(duration: 0).count
 
     (warnings > 0 ? 1 : 0) + bans
   end
