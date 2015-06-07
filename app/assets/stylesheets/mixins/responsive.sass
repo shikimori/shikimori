@@ -32,14 +32,17 @@
   @media only screen and (min-width: $ipad)
     @content
 
-=desktop
-  @media only screen and (min-width: $ipad+1)
+=ipad_laptop
+  @media screen and (min-width: $ipad) and (max-width: $laptop_max)
     @content
 
-=widescreen
-  @media only screen and (min-width: $widescreen)
+=laptop
+  @media screen and (min-width: $ipad_max+1) and (max-width: $laptop_max)
     @content
 
+=gt_laptop
+  @media screen and (min-width: $laptop_max+1)
+    @content
 
 // TODO: выпилить миксин
 =responsive($media)

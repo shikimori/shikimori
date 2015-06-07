@@ -43,39 +43,43 @@ aside.buttons
         title="Забанить"
       ]
     - else
-      span.item-abuse[
+      span.item-abuse.b-tooltipped.unprocessed[
         data-action="#{abuse_comment_abuse_requests_url comment}"
         data-method="post"
         data-type="json"
         data-remote="true"
         data-reason-prompt="Уточните, что за нарушение (заполнять не обязательно)"
+        data-direction="top"
         title="Нарушение правил"
       ]
-      span.item-spoiler[
+      span.item-spoiler.b-tooltipped.unprocessed[
         data-action="#{spoiler_comment_abuse_requests_url comment}"
         data-method="post"
         data-type="json"
         data-remote="true"
         data-reason-prompt="Уточните, что именно является спойлером (заполнять не обязательно)"
+        data-direction="top"
         title="Спойлер"
       ]
 
-    span.item-offtopic[
+    span.item-offtopic.b-tooltipped.unprocessed[
       class="#{:selected if comment.offtopic?}"
       data-action="#{offtopic_comment_abuse_requests_url comment}"
       data-method="post"
       data-type="json"
       data-remote="true"
+      data-direction="top"
       title="Оффтопик"
     ]
 
     - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
-      span.item-review[
+      span.item-review.b-tooltipped.unprocessed[
         class="#{:selected if comment.review?}"
         data-action="#{review_comment_abuse_requests_url comment}"
         data-method="post"
         data-type="json"
         data-remote="true"
+        data-direction="top"
         title="Отзыв"
       ]
 

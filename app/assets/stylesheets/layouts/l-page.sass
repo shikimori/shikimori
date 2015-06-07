@@ -1,4 +1,4 @@
-@import globals
+@import globals/variables
 @import mixins/responsive
 @import mixins/column
 
@@ -8,6 +8,9 @@
   margin: 0 auto
   max-width: $site-body-width
   padding: 15px 10px 0 10px
+  +gt_laptop
+    padding: 15px 15px 0 15px
+
   position: relative
   z-index: 1
 

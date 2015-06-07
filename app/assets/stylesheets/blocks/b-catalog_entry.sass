@@ -1,5 +1,3 @@
-//@import compass/css3/opacity
-//@import compass/css3/transition
 @import compass/typography/text/ellipsis
 @import globals
 @import mixins/column
@@ -28,27 +26,23 @@ $max_width: 167px
   .cover
     +link_color(#333333)
     font-size: 12px
+
+    +gt_laptop
+      font-size: 13px
+
     display: block
 
     .image-decor
-      //+image-selectable-decor
-      //border: 1px solid darken($default-image-background, 6%)
       display: block
       line-height: 0px
-      padding: 2.5%
-      max-width: $max_width
-
-      //&:hover
-        border: 1px solid darken($default-image-hover-background, 6%)
-
-      //&:active
-        border: 1px solid darken($default-image-active-background, 9%)
+      //padding: 2.5%
+      //max-width: $max_width
 
       .image-cutter
         display: block
         line-height: 0
-        max-height: 239px
-        max-width: $max_minified_width - 2px
+        //max-height: 239px
+        //max-width: $max_minified_width - 2px
         overflow: hidden
         position: relative // для кнопки удаления в рекомендациях
 
@@ -62,7 +56,7 @@ $max_width: 167px
       font-weight: bold
       line-height: $line_height
       margin-top: 5px
-      max-width: $max_width
+      //max-width: $max_width
 
       &.two_lined
         +two_line_ellipsis
@@ -72,9 +66,10 @@ $max_width: 167px
 
     .misc
       color: #555
+      display: block
       font-size: 11px
       line-height: 17px
-      max-width: $max_width
+      //max-width: $max_width
 
       &.centered
         text-align: center
@@ -113,21 +108,6 @@ $max_width: 167px
   .content
     .tooltip-details
       min-height: 100px
-
-  &.minified
-    .image-decor
-      padding: 0
-      max-width: $max_minified_width
-
-    .title
-      text-align: center
-      max-width: $max_minified_width
-
-      &.left_aligned
-        text-align: left
-
-    .misc
-      max-width: $max_minified_width
 
   &.tooltipped
     .content

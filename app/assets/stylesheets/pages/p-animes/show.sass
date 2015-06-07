@@ -49,12 +49,12 @@
         //+column(2)
         +column_bm(2)
 
-    +widescreen
-      .c-screenshot, .c-video
-        +column(2)
+    //+widescreen
+      //.c-screenshot, .c-video
+        //+column(2)
 
-        &.entry-3, &.entry-4, &.entry-5
-          display: none
+        //&.entry-3, &.entry-4, &.entry-5
+          //display: none
 
     +ipad
       .c-screenshot, .c-video
@@ -79,8 +79,12 @@
           display: none
 
   .c-image
-    .b-user_rate .edit-trigger .score-label
-      display: none
+    .b-user_rate
+      margin: 0 auto
+      max-width: 227px
+
+      .edit-trigger .score-label
+        display: none
 
   .cc
     .c-anime, .c-manga

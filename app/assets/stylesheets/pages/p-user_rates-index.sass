@@ -1,9 +1,18 @@
 @import mixins/brackets_surrounded
+@import mixins/column
 @import mixins/link
 @import mixins/placeholder
 @import mixins/responsive
 
 .p-user_rates-index
+  .l-menu
+    +gte_ipad
+      +column(2, 20/100, 3%)
+  .l-content
+    +gte_ipad
+      +column(2, 80/100, 3%)
+
+
   +iphone
     header.head a.misc
       display: none
