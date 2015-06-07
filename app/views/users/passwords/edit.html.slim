@@ -5,9 +5,11 @@ header.head.m15
 = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :patch, class: 'b-form' } do |f|
   - if resource.errors.any?
     .b-errors.m15
-      .subheadline Ошибка
+      .subheadline Ошибк#{resource.errors.full_messages.one? ? 'а' : 'и'}
       .block
-        p style="color: red" Введённые пароли не совпадают
+        - resource.errors.full_messages.each do |message|
+          p style="color: red"
+            = message.sub('Подтверждение пароля не совпадает с подтверждением', 'Пароль не совпадает с подтверждением')
 
   = f.hidden_field :reset_password_token
 
