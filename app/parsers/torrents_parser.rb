@@ -2,8 +2,6 @@ class TorrentsParser
   PROXY_LOG = ENV['RAILS_ENV'] == 'development' ? true : false
   USE_PROXY = false#ENV['RAILS_ENV'] == 'development' ? false : true
 
-  cattr_accessor :with_proxy
-
   # игнорируемые названия торрентов
   IgnoredTorrents = Set.new [
     'Chuunibyou demo Koi ga Shitai! Lite - 04 (640x360 x264 AAC).mp4',
@@ -213,7 +211,7 @@ private
       timeout: 30,
       ban_texts: ban_texts || MalFetcher.ban_texts,
       log: PROXY_LOG,
-      no_proxy: !(@@with_proxy.nil? ? USE_PROXY : @@with_proxy)
+      no_proxy: true
     )
   end
 end

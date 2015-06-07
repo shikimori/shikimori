@@ -3,8 +3,6 @@ class TorrentsController < ShikimoriController
     @klass = Anime
     anime = Anime.find(params[:id].to_i)
 
-    @original_with_proxy = TorrentsParser.with_proxy
-    TorrentsParser.with_proxy = false
     parser = TokyoToshokanParser
 
     if params[:torrent]['url']
@@ -45,7 +43,5 @@ class TorrentsController < ShikimoriController
     else
       redirect_to :back, alert: params[:torrent]['url'] ? 'Не найдено ни одного нового эпизода' : 'Не удалось добавить новый торрент, проверьте корректность Title'
     end
-  ensure
-    TorrentsParser.with_proxy = @original_with_proxy
   end
 end
