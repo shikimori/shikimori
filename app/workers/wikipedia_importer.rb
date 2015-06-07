@@ -10,15 +10,15 @@ class WikipediaImporter
     @translited_cache = {}
     options = HashWithIndifferentAccess.new options
 
-    Proxy.use_cache = true
-    Proxy.show_log = true
+    #Proxy.use_cache = true
+    #Proxy.show_log = true
 
     @parser = WikipediaParser.new
     prepare_bundles options[:anime_ids], options[:manga_ids]
     process_bundles
 
-    Proxy.use_cache = false
-    Proxy.show_log = false
+    #Proxy.use_cache = false
+    #Proxy.show_log = false
   end
 
   # формирование пачек связанных аниме и манг
