@@ -51,8 +51,7 @@ describe AnimeVideoDecorator, type: :controller do
     context 'youtube.ru' do
       context 'Fix fullscreen for https://www.youtube.com/embed/q89fWhsD5z8' do
         let(:url) { 'https://www.youtube.com/embed/q89fWhsD5z8' }
-        let(:expected_url) { 'https://www.youtube.com/v/q89fWhsD5z8' }
-        it { is_expected.to eq "<iframe src=\"#{expected_url}\"></iframe>" }
+        it { is_expected.to eq "<iframe src=\"#{url}\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe>" }
       end
     end
   end
