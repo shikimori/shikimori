@@ -524,4 +524,12 @@ describe AnimeVideo do
       it { should_not be_able_to :update, copyrighted_video }
     end
   end
+
+  describe '#page_url' do
+    subject { video.page_url }
+    let(:anime) { build_stubbed(:anime, id: 2001) }
+    let(:video) { build_stubbed(:anime_video, id: 76543, episode: 14, anime: anime) }
+
+    it { is_expected.to eq 'play.shikimori.org/animes/2001/video_online/14/76543' }
+  end
 end

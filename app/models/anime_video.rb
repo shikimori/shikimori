@@ -101,6 +101,11 @@ class AnimeVideo < ActiveRecord::Base
     AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
   end
 
+  # Debug only
+  def page_url
+    "#{AnimeOnlineDomain::HOST}/animes/#{anime_id}/video_online/#{episode}/#{id}"
+  end
+
 private
   def check_ban
     self.state = 'banned' if hosting == 'kiwi.kz'
