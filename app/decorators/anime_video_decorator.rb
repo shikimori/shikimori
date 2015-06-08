@@ -28,6 +28,8 @@ class AnimeVideoDecorator < BaseDecorator
         mozallowfullscreen: 'true',
         allowfullscreen: 'true'
       ) {}
+    elsif hosting == 'youtube.com' && url=~ /youtube\.com\/embed\/(.*)/
+      h.content_tag(:iframe, src: "https://www.youtube.com/v/#{$1}") {}
     else
       h.content_tag(:iframe, src: url) {}
     end
