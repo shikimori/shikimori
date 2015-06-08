@@ -51,7 +51,7 @@ class AnimeOnline::VideoPlayer
   #end
 
   def episode_url episode = self.current_episode
-    h.play_video_online_index_url anime, episode
+    h.play_video_online_index_url anime, episode, h.params[:all]
   end
 
   def prev_url
