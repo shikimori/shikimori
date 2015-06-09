@@ -1,7 +1,17 @@
 @import globals
+@import mixins/column
 @import mixins/link
+@import mixins/responsive
 
 .p-userlist_comparer
+  .l-menu
+    +gte_ipad
+      +column(2, 20/100, 3%)
+  .l-content
+    +gte_ipad
+      +column(2, 80/100, 3%)
+
+
   .legend
     padding: 5px 0
 

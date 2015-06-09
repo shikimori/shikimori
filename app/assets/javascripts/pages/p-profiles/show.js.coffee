@@ -16,10 +16,10 @@
   $('.activity .graph').bar
     before: (stats, options, $chart) ->
       # конвертируем даты
-      _.each stats, (v, k) ->
-        stats[k].dates =
-          from: new Date(stats[k].name[0] * 1000)
-          to: new Date(stats[k].name[1] * 1000)
+      stats.each (stat, index) ->
+        stat.dates =
+          from: new Date(stat.name[0] * 1000)
+          to: new Date(stat.name[1] * 1000)
 
       # всякое для тайтлов осей
       options.interval = date_diff(stats[0].dates.from, stats[0].dates.to)
@@ -68,7 +68,6 @@
 
     no_data: ($chart) ->
       $chart.html("<p class=\"stat-sorry\">Недостаточно данных для формирования статистики</p>").removeClass("bar").attr "id", false
-      return
 
 date_diff = (date_earlier, date_later) ->
   one_day = 1000 * 60 * 60 * 24

@@ -104,7 +104,6 @@
 
       var dimension = options.type == 'vertical' ? 'height' : 'width';
 
-
       if (options.x_axis) {
         var x_axis = options.x_axis(entry, index, stats, options);
       } else {
@@ -117,13 +116,17 @@
         var value = '';
       }
 
-      $chart.append("<div class='line'><div class='x_label'>" + x_axis
+      $chart.append(
+        "<div class='line'" +
+          (options.type == 'vertical' ? ' style="width: ' + (100.0 / stats.length) + '%;"' : '')
+        + "><div class='x_label'>" + x_axis
         + "</div><div class='bar-container'><div class='bar " + color
         + (percent > 0 ? ' min' : '') + "' style='" + dimension+ ": "
         + percent + "%'" + " title='" + (title || entry.value) + "'>"
         + "<div class='value" + (percent < 10 ? " narrow" : "") + (entry.value > 99 ? " mini" : "") + "'>"
         + value + "</div>"
-        + "</div></div></div>");
+        + "</div></div></div>"
+      );
     });
 
   }

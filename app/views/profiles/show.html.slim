@@ -47,7 +47,6 @@
             - else
               a.ban href="#{ban_profile_url @resource}" title="История банов"
 
-
     header.head.misc
       h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
         - if params[:action] != 'show'
@@ -116,7 +115,7 @@
 
 .profile-content
   .cc-2.block
-    .c-column
+    .c-column.c-left
       .lifetime.b-stat_bar
         .title
           - if @resource.stats.spent_time.days > 0
@@ -149,12 +148,21 @@
 
       .activity
         .title Активность на сайте
-        - if @resource.stats.activity.any?
-          .graph data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
+        - if @resource.stats.activity(26).any?
+          .graph.x26[
+            data-stats="#{@resource.stats.activity(26).to_json}"
+            data-bar="vertical"
+            data-flattened="true"
+          ]
+          .graph.x34[
+            data-stats="#{@resource.stats.activity(34).to_json}"
+            data-bar="vertical"
+            data-flattened="true"
+          ]
         - else
           .b-nothing_here Нет статистики
 
-    .c-column
+    .c-column.c-right
       .cc-2a.m30
         .c-column.m0
           .subheadline.m10

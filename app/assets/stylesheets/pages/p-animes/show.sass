@@ -14,21 +14,17 @@
 
   .cc.no-video
     .c-screenshots
-      //+block
       +block_m
 
     .c-videos
-      //+block
       +block_m
 
   .cc.one-video
     +gte_ipad
       .c-screenshots
-        //+column(2, 0.75)
         +column_bm(2, 0.75)
 
       .c-videos
-        //+column(2, 0.25)
         +column_bm(2, 0.25)
 
       .c-screenshot
@@ -46,17 +42,9 @@
   .cc.two-videos
     +gte_ipad
       .c-screenshots, .c-videos
-        //+column(2)
         +column_bm(2)
 
-    //+widescreen
-      //.c-screenshot, .c-video
-        //+column(2)
-
-        //&.entry-3, &.entry-4, &.entry-5
-          //display: none
-
-    +ipad
+    +gte_ipad
       .c-screenshot, .c-video
         +column(3)
         &.entry-4, &.entry-5
@@ -138,6 +126,7 @@
     border: 1px solid #F2F2F2
     clear: left
     margin: -5px 0 $block_offset 0
+
   .related-hidden
     display: none
 
