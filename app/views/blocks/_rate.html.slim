@@ -9,10 +9,11 @@
     .stars.score class="score-#{score.round}"
     .stars.hover
     .stars.background
-  .text-score class="score-#{score.round}"
-    = score
-  .score-notice
-    - if score > 0
-      = t "activerecord.attributes.user_rate.scores.#{score.round}"
-    - else
-      | &nbsp;
+  .text-score
+    .score-value class="score-#{score.round}"
+      = score
+    .score-notice
+      - if score > 0
+        = t "activerecord.attributes.user_rate.scores.#{score.round}"
+      - else
+        | &nbsp;

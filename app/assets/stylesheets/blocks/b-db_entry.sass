@@ -10,7 +10,11 @@
   +clear_left
 
   &>.c-image
-    +gte_ipad
+    +gt_laptop
+      +column(2)
+      width: 26%
+
+    +ipad_laptop
       +column(2)
       width: 30.5%
 
@@ -24,7 +28,12 @@
       max-width: 100%
 
   &>.c-about
-    +gte_ipad
+    +gt_laptop
+      +column(2)
+      width: 70%
+      z-index: 1 // без этого нижний блок с description перекрывает текущий
+
+    +ipad_laptop
       +column(2)
       width: 65.5%
       z-index: 1 // без этого нижний блок с description перекрывает текущий
@@ -64,9 +73,17 @@
 
   &>.c-description
     +block
-    margin-left: 34.6%
     padding-top: 1px // из-за странной баги в фаерфоксе
+
+    +gt_laptop
+      margin-left: 30%
+
+    +lte_laptop
+      margin-left: 34.6%
 
     +iphone
       clear: both
       margin-left: 0
+
+    .text
+      margin-left: 4px
