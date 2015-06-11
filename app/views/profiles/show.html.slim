@@ -30,22 +30,82 @@
       - if user_signed_in?
         .profile-actions
           - if @resource.own_profile?
-            a.mail href="#{profile_dialogs_url @resource}" title="Почта"
-            a.settings href="#{edit_profile_url @resource}" title="Настройки"
-            a.ban href="#{ban_profile_url @resource}" title="Мои баны"
+            a.mail.b-tooltipped.unprocessed[
+              href="#{profile_dialogs_url @resource}"
+              title="Почта"
+              data-direction="top"
+            ]
+            a.settings.b-tooltipped.unprocessed[
+              href="#{edit_profile_url @resource}"
+              title="Настройки"
+              data-direction="top"
+            ]
+            a.ban.b-tooltipped.unprocessed[
+              href="#{ban_profile_url @resource}"
+              title="Мои баны"
+              data-direction="top"
+            ]
 
           - else
-            a.talk href="#{profile_dialog_url current_user, @resource}" title="Написать"
-            span.fav-add.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{api_friend_url @resource.id}" data-method="post" data-type="json" title="Добавить в друзья"
-            span.fav-remove.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{api_friend_url @resource.id}" data-method="delete" data-type="json" title="Удалить из друзей"
-            span.ignore-add.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{api_ignore_url @resource.id}" data-method="post" data-type="json" title="Добавить в игнор"
-            span.ignore-remove.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{api_ignore_url @resource.id}" data-method="delete" data-type="json" title="Удалить из игнора"
+            a.talk.b-tooltipped.unprocessed[
+              href="#{profile_dialog_url current_user, @resource}"
+              title="Написать"
+              data-direction="top"
+            ]
+            a.fav-add.friend-action.b-tooltipped.unprocessed[
+              href="#{api_friend_url @resource.id}"
+              style="#{'display: none;' if @resource.is_friended?}"
+              data-remote="true"
+              data-method="post"
+              data-type="json"
+              title="Добавить в друзья"
+              data-direction="top"
+            ]
+            a.fav-remove.friend-action.b-tooltipped.unprocessed[
+              href="#{api_friend_url @resource.id}"
+              style="#{'display: none;' unless @resource.is_friended?}"
+              data-remote="true"
+              data-method="delete"
+              data-type="json"
+              title="Удалить из друзей"
+              data-direction="top"
+            ]
+            a.ignore-add.ignore-action.b-tooltipped.unprocessed[
+              href="#{api_ignore_url @resource.id}"
+              style="#{'display: none;' if @resource.ignored?}"
+              data-remote="true"
+              data-method="post"
+              data-type="json"
+              title="Добавить в игнор"
+              data-direction="top"
+            ]
+            a.ignore-remove.ignore-action.b-tooltipped.unprocessed[
+              href="#{api_ignore_url @resource.id}"
+              style="#{'display: none;' unless @resource.ignored?}"
+              data-remote="true"
+              data-method="delete"
+              data-type="json"
+              title="Удалить из игнора"
+              data-direction="top"
+            ]
             - if can? :edit, @resource
-              a.settings href="#{edit_profile_url @resource}" title="Настройки"
+              a.settings.b-tooltipped.unprocessed[
+                href="#{edit_profile_url @resource}"
+                title="Настройки"
+                data-direction="top"
+              ]
             - if current_user.moderator?
-              a.ban href="#{ban_profile_url @resource}" title="Забанить"
+              a.ban.b-tooltipped.unprocessed[
+                href="#{ban_profile_url @resource}"
+                title="Забанить"
+                data-direction="top"
+              ]
             - else
-              a.ban href="#{ban_profile_url @resource}" title="История банов"
+              a.ban.b-tooltipped.unprocessed[
+                href="#{ban_profile_url @resource}"
+                title="История банов"
+                data-direction="top"
+              ]
 
     header.head.misc
       h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
