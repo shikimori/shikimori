@@ -219,12 +219,21 @@ class Banhammer
 
   ABUSE = /
     (?<= #{X}|\A|^ )
-    ( #{ABUSIVE_WORDS.map {|word| w word }.join ' | '  })
+    (
+      #{ABUSIVE_WORDS.map {|word| w word }.join ' | '}
+    )
     (?= #{X}|\Z|$ )
-  /imx
+  /mix
 
   ABUSE_SYMBOL = /#{Z}/
-  NOT_ABUSE = /(#{X}|\A|^) (#{Z}{1,7}) (#{X}|\Z|$)/imx
+  NOT_ABUSE = /
+    (?:#{X}|\A|^)
+      (?:
+        #{Z}{1,7} |
+        her
+      )
+    (?:#{X}|\Z|$)
+  /mix
 
   def release
     ban if abusive?
