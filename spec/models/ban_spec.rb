@@ -125,7 +125,7 @@ describe Ban do
       it { expect{ban}.to change(messages, :count).by 1 }
     end
 
-    describe '#suggest_duration', :focus do
+    describe '#suggest_duration' do
       subject { ban.suggest_duration }
       let(:ban) { build_stubbed :ban, params }
       before { allow_any_instance_of(UsersQuery).to receive(:bans_count).and_return bans_count }
