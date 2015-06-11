@@ -119,8 +119,8 @@ apply_list_handlers = ($root) ->
 
     # отмена редактирования
     $('.cancel', $tr_edit).on 'click', ->
-      $form.animated_collapse()
-      $tr_edit.remove.bind($tr_edit).delay(550)
+      $form.hide()
+      $tr_edit.remove()
 
     # применение изменений в редактировании
     $form.on 'ajax:success', (e, data) ->

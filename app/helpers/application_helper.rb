@@ -49,10 +49,12 @@ module ApplicationHelper
   def info_line title, value=nil, &block
     value = capture(&block) if value.nil? && block_given?
     if value.present?
-      "<div class='line'>
-        <div class='key'>#{title}:</div>
-        <div class='value'>#{value}</div>
-      </div>".html_safe
+      "<div class='line-container'>
+         <div class='line'>
+           <div class='key'>#{title}:</div>
+           <div class='value'>#{value}</div>
+          </div>
+        </div>".html_safe
     end
   end
 

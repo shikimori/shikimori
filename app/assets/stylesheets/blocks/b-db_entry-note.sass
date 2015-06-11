@@ -1,6 +1,9 @@
+@import mixins/brackets_surrounded
 @import mixins/clear_left
 @import mixins/comma_separated
 @import mixins/link
+@import mixins/responsive
+@import mixins/user_rate-minified
 
 .b-db_entry-note
   +clear_left
@@ -17,32 +20,31 @@
 
   .image
     float: left
-    margin-top: 5px
+    margin-top: 3px
 
     img
-      width: 32px
+      width: 48px
 
-  .name-with-note
-    margin-left: 42px
+  .name-container
+    margin-left: 62px
     line-height: $line_height
 
     .name
+      +link
+      font-size: 14px
       font-weight: bold
 
-    a
-      +link
-
     .note
-      margin-top: -1px
-
       span
         +comma_separated
 
-    .additional
-      color: $gray-color-2
-      font-size: 12px
+      .relation, .additional
+        display: inline-block
+        margin-right: 5px
 
-      span
-        +comma_separated
+      .relation + .additional
+        +brackets_surrounded
 
-
+    .b-user_rate
+      +user_rate-minified
+      margin-top: 9px

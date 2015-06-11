@@ -6,7 +6,7 @@
       $hoverable_trigger = $('.hoverable-trigger', @)
 
       $score = $('.score', @)
-      $text_score = $('.text-score', @)
+      $score_value = $('.score-value', @)
       $score_notice = $('.score-notice', @)
 
       notices = $(@).data('notices')
@@ -14,7 +14,7 @@
       with_input = !!input_selector
       with_submit = !!$(@).data('with_submit')
 
-      initial_score = parseInt($text_score.text()) || 0
+      initial_score = parseInt($score_value.text()) || 0
       new_score = null
 
       $hoverable_trigger.on 'mousemove', (e) ->
@@ -27,9 +27,9 @@
 
         $score_notice.html(notices[new_score] || '&nbsp;')
         $hover.attr(class: "#{without_score $hover} score-#{new_score}")
-        $text_score
+        $score_value
           .html(new_score)
-          .attr(class: "#{without_score $text_score} score-#{new_score}")
+          .attr(class: "#{without_score $score_value} score-#{new_score}")
 
       $hoverable_trigger.on 'mouseover', (e) ->
         $score.addClass 'hovered'
@@ -39,8 +39,8 @@
         $score_notice.html(notices[initial_score] || '&nbsp;')
         $hover.attr(class: without_score $hover)
         $score.attr(class: "#{without_score $score} score-#{initial_score}")
-        $text_score
-          .attr(class: "#{without_score $text_score} score-#{initial_score}")
+        $score_value
+          .attr(class: "#{without_score $score_value} score-#{initial_score}")
           .html(initial_score)
 
       $hoverable_trigger.on 'click', (e) ->

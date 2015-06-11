@@ -22,12 +22,41 @@
         - if user_signed_in?
           .icon-actions
             - unless current_user.banned?
-              span.new_comment title="Комментировать"
+              a.new_comment.b-tooltipped.unprocessed[
+                title="Комментировать"
+                data-direction="top"
+              ]
             - if can? :new, Review.new(user: current_user)
-              a.new_review href="#{@resource.new_review_url}" title="Написать обзор"
-            span.fav-add style="#{'display: none;' if @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное" data-kind=""
-            span.fav-remove style="#{'display: none;' unless @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного" data-kind=""
-            a.edit href="#{@resource.edit_url}" title="Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}"
+              a.new_review.b-tooltipped.unprocessed[
+                href="#{@resource.new_review_url}"
+                title="Написать обзор"
+                data-direction="top"
+              ]
+            a.fav-add.b-tooltipped.unprocessed[
+              href="#{favourites_url @resource.object.class.name, @resource}"
+              style="#{'display: none;' if @resource.favoured?}"
+              title="Добавить в избранное"
+              data-remote="true"
+              data-method="post"
+              data-type="json"
+              data-kind=""
+              data-direction="top"
+            ]
+            a.fav-remove.b-tooltipped.unprocessed[
+              href="#{favourites_url @resource.object.class.name, @resource}"
+              style="#{'display: none;' unless @resource.favoured?}"
+              title="Удалить из избранного"
+              data-remote="true"
+              data-method="delete"
+              data-type="json"
+              data-kind=""
+              data-direction="top"
+            ]
+            a.edit.b-tooltipped.unprocessed[
+              href="#{@resource.edit_url}"
+              title="Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}"
+              data-direction="top"
+            ]
 
       = render 'user_rates/user_rate', user_rate: @resource.rate || @resource.rates.build(user_id: current_user.try(:id)), entry: @resource
 
@@ -37,15 +66,6 @@
           .subheadline Информация
           .block
             = render 'animes/info', entry: @resource
-
-          - if @resource.anime? && !@resource.anons? && ignore_copyright?
-            .block
-              - if @resource.anime_videos?
-                .watch-online.subheadline.blue
-                  span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
-              - elsif user_signed_in? && current_user.day_registered?
-                .watch-online.subheadline.blue
-                  a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
 
         .c-info-right
           - if @resource.with_score?
@@ -57,13 +77,6 @@
                 - if @resource.rates_size > 0
                   meta itemprop="ratingCount" content="#{@resource.rates_size}"
                 = render 'blocks/rate', score: @resource.score
-
-          - if @resource.genres.any?
-            .block
-              .subheadline
-                = @resource.genres.size > 1 ? 'Жанры' : 'Жанр'
-              .block
-                = render 'animes/genres_info', entry: @resource
 
           - if @resource.respond_to?(:studios) && @resource.studios.any?
             .block
@@ -78,6 +91,15 @@
                 = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
               .block
                 = render 'mangas/publishers_info', entry: @resource
+
+          - if @resource.anime? && !@resource.anons? && ignore_copyright?
+            .block
+              - if @resource.anime_videos?
+                .watch-online.subheadline.blue
+                  span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
+              - elsif user_signed_in? && current_user.day_registered?
+                .watch-online.subheadline.blue
+                  a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
 
     .c-description
       .subheadline.m5 Описание

@@ -1,10 +1,37 @@
 @import compass/css3/transition
 @import compass/utilities/general/clearfix
 @import mixins/block
+@import mixins/clear_left
 @import mixins/column
 @import mixins/input
 @import mixins/link
 @import mixins/responsive
+
+.p-animes_collection-index,
+.p-mangas_collection-index,
+.p-recommendations-index
+  .l-menu
+    +gte_ipad
+      +column(2, 20/100, 3%)
+  .l-content
+    +gte_ipad
+      +column(2, 80/100, 3%)
+
+  .cc-entries
+    &>.c-column
+      +gt_laptop
+        +column_b(5)
+
+        .image-cutter
+          max-height: 229px
+          max-width: 156px
+
+.p-recommendations-favourites
+  .cc-entries
+    &>.c-column
+      +gt_laptop
+        .image-cutter
+          max-height: 275px
 
 .p-animes_collection-index,
 .p-mangas_collection-index,
@@ -20,6 +47,22 @@
         position: absolute
         width: 100%
         z-index: 1
+
+  .cc-entries
+    +clear_left
+
+    &>.c-column
+      +gt_laptop
+        +column_b(5)
+
+      +ipad_laptop
+        +column_b(4)
+
+      +iphone-landscape
+        +column_b(3)
+
+      +iphone-portrait
+        +column_b(2)
 
   .b-postloader
     clear: left

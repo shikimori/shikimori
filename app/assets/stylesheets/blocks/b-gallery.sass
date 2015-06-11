@@ -9,7 +9,10 @@
     padding: 2.5px
 
   .b-image, .grid_sizer
-    +gte_ipad
+    +gt_laptop
+      max-width: 20%
+
+    +ipad_laptop
       max-width: 25%
 
     +iphone_landscape

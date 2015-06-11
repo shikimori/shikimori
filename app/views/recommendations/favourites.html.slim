@@ -25,14 +25,14 @@ header.head.ajaxable
     - kinds_with_colors.each do |data|
       - next unless @entries[data[:kind]]
 
-      .headline.m10 class="#{data[:color]}"
+      .headline class="#{data[:color]}"
         = t "#{@klass.name}.Plural.#{data[:kind]}"
 
       - if klass == Anime
-        .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 5 : 8}"
+        .m0 class="cc-#{data[:kind] == 'TV' || data[:kind] == 'Movie' ? 'entries' : 8}"
           = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
       - else
-        .m0 class="cc-#{data[:kind] != 'One Shot' ? 5 : 8}"
+        .m0 class="cc-#{data[:kind] != 'One Shot' ? 'entries' : 8}"
           = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
 
   - else

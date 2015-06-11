@@ -2,18 +2,18 @@ aside.buttons
   .main-controls
     span.item-quote title="Цитировать"
     span.item-reply[
+      title="Ответить"
       data-action="#{comment_url comment}"
       data-type="json"
       data-remote="true"
-      title="Ответить"
     ]
 
     - if comment.can_be_edited_by? current_user
       span.item-edit[
+        title="Изменить"
         data-action="#{edit_comment_path comment}"
         data-type="html"
         data-remote="true"
-        title="Изменить"
       ]
 
     - if comment.can_be_deleted_by? current_user
@@ -25,58 +25,62 @@ aside.buttons
   - if comment.can_be_deleted_by?(current_user) && comment.respond_to?(:commentable)
     .delete-controls
       span.item-delete-confirm[
-        action="#{comment_url comment}"
+        title="Удалить"
+        data-action="#{comment_url comment}"
         data-type="json"
         data-remote="true"
         data-method="delete"
-        title="Удалить"
       ]
       span.item-delete-cancel title="Отмена"
 
   .moderation-controls
     - if current_user.moderator?
       span.item-ban[
+        title="Забанить"
         data-action="#{new_comment_ban_path comment}"
         data-method="get"
         data-type="html"
         data-remote="true"
-        title="Забанить"
       ]
     - else
-      span.item-abuse[
+      span.item-abuse.b-tooltipped.unprocessed[
+        title="Нарушение правил"
         data-action="#{abuse_comment_abuse_requests_url comment}"
         data-method="post"
         data-type="json"
         data-remote="true"
         data-reason-prompt="Уточните, что за нарушение (заполнять не обязательно)"
-        title="Нарушение правил"
+        data-direction="top"
       ]
-      span.item-spoiler[
+      span.item-spoiler.b-tooltipped.unprocessed[
+        title="Спойлер"
         data-action="#{spoiler_comment_abuse_requests_url comment}"
         data-method="post"
         data-type="json"
         data-remote="true"
         data-reason-prompt="Уточните, что именно является спойлером (заполнять не обязательно)"
-        title="Спойлер"
+        data-direction="top"
       ]
 
-    span.item-offtopic[
+    span.item-offtopic.b-tooltipped.unprocessed[
       class="#{:selected if comment.offtopic?}"
+      title="Оффтопик"
       data-action="#{offtopic_comment_abuse_requests_url comment}"
       data-method="post"
       data-type="json"
       data-remote="true"
-      title="Оффтопик"
+      data-direction="top"
     ]
 
     - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
-      span.item-review[
+      span.item-review.b-tooltipped.unprocessed[
         class="#{:selected if comment.review?}"
+        title="Отзыв"
         data-action="#{review_comment_abuse_requests_url comment}"
         data-method="post"
         data-type="json"
         data-remote="true"
-        title="Отзыв"
+        data-direction="top"
       ]
 
     span.item-moderation-cancel title="Отмена"

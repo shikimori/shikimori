@@ -9,7 +9,6 @@
 .b-user_rate
   +block
   +transition(opacity 0.5s ease, height 0.3s ease)
-  overflow: hidden
   width: auto
 
   &.ajax_request
@@ -23,6 +22,9 @@
 
   .rate-show
     margin-bottom: 5px
+
+    .b-form
+      overflow: visible
 
     .rate-number
       float: right

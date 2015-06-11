@@ -14,21 +14,17 @@
 
   .cc.no-video
     .c-screenshots
-      //+block
       +block_m
 
     .c-videos
-      //+block
       +block_m
 
   .cc.one-video
     +gte_ipad
       .c-screenshots
-        //+column(2, 0.75)
         +column_bm(2, 0.75)
 
       .c-videos
-        //+column(2, 0.25)
         +column_bm(2, 0.25)
 
       .c-screenshot
@@ -46,13 +42,11 @@
   .cc.two-videos
     +gte_ipad
       .c-screenshots, .c-videos
-        //+column(2)
         +column_bm(2)
 
-    +widescreen
+    +gte_laptop
       .c-screenshot, .c-video
         +column(2)
-
         &.entry-3, &.entry-4, &.entry-5
           display: none
 
@@ -79,8 +73,12 @@
           display: none
 
   .c-image
-    .b-user_rate .edit-trigger .score-label
-      display: none
+    .b-user_rate
+      margin: 0 auto
+      max-width: 225px
+
+      .edit-trigger .score-label
+        display: none
 
   .cc
     .c-anime, .c-manga
@@ -123,6 +121,9 @@
         &:before
           line-height: 20px
 
+  .c-info-right .b-rate
+    margin: 0 auto
+
   // блок загрузки ресурсов аниме
   .resources-loader.postloaded
     +plashka
@@ -134,8 +135,11 @@
     border: 1px solid #F2F2F2
     clear: left
     margin: -5px 0 $block_offset 0
+
   .related-hidden
     display: none
 
   .studio-logo
+    display: block
+    margin: 0 auto
     max-width: 195px

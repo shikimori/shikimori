@@ -1,11 +1,17 @@
 @import globals/variables
+@import mixins/block
 @import mixins/link
+@import mixins/responsive
+@import mixins/tag
 
 .b-entry-info
   margin-left: 4px
 
+  .line-container
+    margin-bottom: 4px
+
   .line
-    line-height: 1.8
+    line-height: $line-height
 
     .key
       color: $gray-color-2
@@ -17,3 +23,6 @@
 
     a
       +link
+
+    .b-tag
+      +tag

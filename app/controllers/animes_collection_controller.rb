@@ -249,7 +249,9 @@ private
 
   # число аниме/манги на странице
   def entries_per_page
-    user_signed_in? ? 24 : 12
+    #user_signed_in? ? 24 : 12
+    #user_signed_in? ? 40 : 20
+    20
   end
 
   def filtered_params

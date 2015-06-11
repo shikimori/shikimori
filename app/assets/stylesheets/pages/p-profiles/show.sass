@@ -8,6 +8,44 @@
   .profile-content
     overflow: hidden // без этого в фаерфоксе появляется отступ в $block_offset пикселей между .profile-head и .profile-content
 
+    +gt_laptop
+      .c-left
+        +column(2, 0.57)
+      .c-right
+        +column(2, 0.43)
+
+        .cc-2a > .c-column
+          +column(2, 1/2, 7%)
+
+    .activity
+      +gte_ipad
+        +block
+
+      +iphone
+        +block_m
+
+      .title
+        color: #456
+        font-weight: bold
+        margin-bottom: 5px
+
+      .graph
+        height: 140px
+
+        &.x34
+          display: none
+
+        +iphone_landscape
+          &.x34
+            display: block
+          &.x26
+            display: none
+        +gt_laptop
+          &.x34
+            display: block
+          &.x26
+            display: none
+
   .lifetime
     +block
 
@@ -112,21 +150,6 @@
     // чтобы картинки галереи постеров прилегали друг к другу в упор
     .cc-6-g0
       padding: 0 6px
-
-  .activity
-    +gte_ipad
-      +block
-
-    +iphone
-      +block_m
-
-    .title
-      color: #456
-      font-weight: bold
-      margin-bottom: 5px
-
-    .graph
-      height: 140px
 
   .b-comments .item-moderation
     display: none

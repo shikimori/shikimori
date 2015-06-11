@@ -2,7 +2,7 @@
 
 .bar.horizontal {
   box-sizing: initial;
-  width: 215px;
+  /*width: 215px;*/
 
   .line {
     clear: right;
@@ -55,6 +55,7 @@
     /*margin-right: 1px;*/
     /*width: 16px;*/
     width: 3.7037037037037%; // 1 / 27
+    /*width: 2.857142857143%;*/
     overflow: hidden;
     border-right: 1px solid #fff;
 

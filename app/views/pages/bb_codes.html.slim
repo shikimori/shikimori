@@ -187,11 +187,11 @@ header.head
     .name Ссылка на видео
     .example
       .textarea
-        | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
+        | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi https://video.yandex.ru/users/yacinema/view/115/ http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
     .result
       br
       - cache [:demo, :videos, :v1] do
-        = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi http://video.yandex.ru/users/allod2008/view/78 http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
+        = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi https://video.yandex.ru/users/yacinema/view/115/ http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
     .notice
       | Сайт сам распознает ссылки на видео в тексте и преобразовывает их в блок просмотра видео. В данном примере перечислены все поддерживаемые сайтом видео хостинги.
 

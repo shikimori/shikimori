@@ -3,6 +3,7 @@
 
 .b-rate
   white-space: nowrap
+  max-width: 240px
 
   div
     +gte_ipad
@@ -35,16 +36,16 @@
     text-align: center
     width: 100%
 
-    &.score-0
+    .score-0
       visibility: hidden
 
   .score-notice
     color: #123
-    font-family: helvetica,arial,sans-serif
+    font-family: $font-family
     font-size: 11px
     line-height: 1
     margin-top: -5px
-    text-align: right
+    text-align: center
 
   .stars
     &:after

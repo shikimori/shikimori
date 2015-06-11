@@ -25,6 +25,10 @@
       - else
         = entry.release_date_text
 
+  - if entry.genres.any?
+    = info_line entry.genres.size > 1 ? 'Жанры' : 'Жанр' do
+      = render 'animes/genres_info', entry: entry
+
   - if entry.rating.present? && entry.rating != 'None'
     = info_line 'Рейтинг' do
       span.b-tooltipped.unprocessed data-title="#{t "Rating.#{entry.rating}"}" data-direction="right"

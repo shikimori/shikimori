@@ -1,18 +1,16 @@
 @import globals
+@import mixins/column
 @import mixins/link
+@import mixins/responsive
 
 .p-userlist_comparer
-  //.head .notice a
-    +normal-link
+  .l-menu
+    +gte_ipad
+      +column(2, 20/100, 3%)
+  .l-content
+    +gte_ipad
+      +column(2, 80/100, 3%)
 
-  //.menu-left
-    //float: left
-    //width: $menu-width-narrow
-    //margin-right: 30px
-
-    //.filter
-      //float: right
-      //margin-left: 0
 
   .legend
     padding: 5px 0

@@ -6,10 +6,35 @@
       - if user_signed_in?
         .icon-actions
           - unless current_user.banned?
-            span.new_comment title="Комментировать"
-          span.fav-add style="#{'display: none;' if @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="post" data-type="json" title="Добавить в избранное" data-kind=""
-          span.fav-remove style="#{'display: none;' unless @resource.favoured?}" data-remote="true" action="#{favourites_url @resource.object.class.name, @resource}" data-method="delete" data-type="json" title="Удалить из избранного" data-kind=""
-          a.edit href="#{edit_character_url @resource}" title="Редактировать персонажа"
+            a.new_comment.b-tooltipped.unprocessed[
+              title="Комментировать"
+              data-direction="top"
+            ]
+          a.fav-add.b-tooltipped.unprocessed[
+            href="#{favourites_url @resource.object.class.name, @resource}"
+            style="#{'display: none;' if @resource.favoured?}"
+            title="Добавить в избранное"
+            data-remote="true"
+            data-method="post"
+            data-type="json"
+            data-kind=""
+            data-direction="top"
+          ]
+          a.fav-remove.b-tooltipped.unprocessed[
+            href="#{favourites_url @resource.object.class.name, @resource}"
+            style="#{'display: none;' unless @resource.favoured?}"
+            title="Удалить из избранного"
+            data-remote="true"
+            data-method="delete"
+            data-type="json"
+            data-kind=""
+            data-direction="top"
+          ]
+          a.edit.b-tooltipped.unprocessed[
+            href="#{edit_character_url @resource}"
+            title="Редактировать персонажа"
+            data-direction="top"
+          ]
 
     .c-about
       .cc

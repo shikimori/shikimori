@@ -31,7 +31,7 @@ class UserProfileSerializer < UserSerializer
       genres: object.stats.genres,
       studios: object.stats.studios,
       publishers: object.stats.publishers,
-      activity: object.stats.activity
+      activity: object.stats.activity(26)
     }
   end
 

@@ -3,6 +3,7 @@
 @import mixins/hover_underlined
 @import mixins/input
 @import mixins/link
+@import mixins/responsive
 
 header.head
   margin-bottom: 15px
@@ -71,6 +72,8 @@ header.head
   line-height: $line_height
   font-weight: bold
   margin-bottom: 5px
+  +gt_laptop
+    margin-bottom: 10px
   padding: 4px 10px 2px
   text-transform: uppercase
 

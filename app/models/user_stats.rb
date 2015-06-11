@@ -113,8 +113,8 @@ class UserStats
     localize_spent_time time, false
   end
 
-  def activity
-    @stats.by_activity 26
+  def activity size
+    @stats.by_activity size
   end
 
   def list_counts list_type

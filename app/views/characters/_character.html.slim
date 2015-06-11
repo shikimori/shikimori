@@ -3,7 +3,7 @@
 - content_by ||= :tooltip
 
 article.c-column.b-catalog_entry.c-character[
-    class="entry-#{character.id} minified #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} item-#{character_counter if defined? character_counter}"
+    class="entry-#{character.id} #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} item-#{character_counter if defined? character_counter}"
     itemscope itemtype="http://schema.org/Person"
   ]
   meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"
