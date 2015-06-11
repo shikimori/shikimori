@@ -41,7 +41,11 @@
     @content
 
 =lte_laptop
-  @media screen and (man-width: $laptop_max)
+  @media screen and (max-width: $laptop_max)
+    @content
+
+=gte_laptop
+  @media screen and (min-width: $ipad_max+1)
     @content
 
 =gt_laptop

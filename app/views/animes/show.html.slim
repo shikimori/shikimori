@@ -38,15 +38,6 @@
           .block
             = render 'animes/info', entry: @resource
 
-          - if @resource.anime? && !@resource.anons? && ignore_copyright?
-            .block
-              - if @resource.anime_videos?
-                .watch-online.subheadline.blue
-                  span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
-              - elsif user_signed_in? && current_user.day_registered?
-                .watch-online.subheadline.blue
-                  a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
-
         .c-info-right
           - if @resource.with_score?
             .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
@@ -58,7 +49,7 @@
                   meta itemprop="ratingCount" content="#{@resource.rates_size}"
                 = render 'blocks/rate', score: @resource.score
 
-          - if @resource.genres.any?
+          /- if @resource.genres.any?
             .block
               .subheadline
                 = @resource.genres.size > 1 ? 'Жанры' : 'Жанр'
@@ -78,6 +69,15 @@
                 = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
               .block
                 = render 'mangas/publishers_info', entry: @resource
+
+          - if @resource.anime? && !@resource.anons? && ignore_copyright?
+            .block
+              - if @resource.anime_videos?
+                .watch-online.subheadline.blue
+                  span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
+              - elsif user_signed_in? && current_user.day_registered?
+                .watch-online.subheadline.blue
+                  a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
 
     .c-description
       .subheadline.m5 Описание

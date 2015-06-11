@@ -44,7 +44,13 @@
       .c-screenshots, .c-videos
         +column_bm(2)
 
-    +gte_ipad
+    +gte_laptop
+      .c-screenshot, .c-video
+        +column(2)
+        &.entry-3, &.entry-4, &.entry-5
+          display: none
+
+    +ipad
       .c-screenshot, .c-video
         +column(3)
         &.entry-4, &.entry-5
@@ -115,6 +121,9 @@
         &:before
           line-height: 20px
 
+  .c-info-right .b-rate
+    margin: 0 auto
+
   // блок загрузки ресурсов аниме
   .resources-loader.postloaded
     +plashka
@@ -131,4 +140,6 @@
     display: none
 
   .studio-logo
+    display: block
+    margin: 0 auto
     max-width: 195px

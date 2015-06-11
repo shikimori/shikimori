@@ -2,14 +2,22 @@
   .image.linkeable.bubbled data-href="#{relation_note.url}" title="#{localized_name relation_note}"
     img src="#{cdn_image relation_note, :x48}" srcset="#{cdn_image relation_note, :x96} 2x" alt="#{localized_name relation_note}"
 
-  .name-with-note
+  .name-container class="#{:with_note if relation_note.respond_to? :relation}"
     a.name.bubbled href="#{relation_note.url}" title="#{localized_name relation_note}"
       = localized_name relation_note
 
-    - if relation_note.respond_to? :relation
-      .note
-        = t "Relation.#{relation_note.relation}"
-    .additional
-      span = localized_kind relation_note, true
-      - if relation_note.aired_on
-        span #{relation_note.aired_on.year} г.
+    .note
+      - if relation_note.respond_to? :relation
+        .relation = t "Relation.#{relation_note.relation}"
+
+      .additional
+        span = localized_kind relation_note, true
+        - if relation_note.aired_on
+          span #{relation_note.aired_on.year} г.
+
+    - if user_signed_in?
+      = render 'user_rates/user_rate',
+        user_rate: relation_note.rate || relation_note.rates.build(user_id: current_user.try(:id)),
+        entry: relation_note,
+        button_only: true,
+        minified: true

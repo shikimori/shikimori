@@ -25,6 +25,10 @@
       - else
         = entry.release_date_text
 
+  - if entry.genres.any?
+    = info_line entry.genres.size > 1 ? 'Жанры' : 'Жанр' do
+      = render 'animes/genres_info', entry: entry
+
   - if entry.rating.present? && entry.rating != 'None'
     = info_line 'Рейтинг' do
       span.b-tooltipped.unprocessed data-title="#{t "Rating.#{entry.rating}"}" data-direction="right"
@@ -60,3 +64,13 @@
 
       - if entry.files?
         span.link.linkeable data-href="#{entry.files_url}" Файлы
+
+/- if @resource.with_score?
+  .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+    .subheadline.m5 Рейтинг
+    .scores
+      meta itemprop="bestRating" content="10"
+      meta itemprop="ratingValue" content="#{@resource.score}"
+      - if @resource.rates_size > 0
+        meta itemprop="ratingCount" content="#{@resource.rates_size}"
+      = render 'blocks/rate', score: @resource.score
