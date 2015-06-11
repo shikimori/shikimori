@@ -64,13 +64,3 @@
 
       - if entry.files?
         span.link.linkeable data-href="#{entry.files_url}" Файлы
-
-/- if @resource.with_score?
-  .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
-    .subheadline.m5 Рейтинг
-    .scores
-      meta itemprop="bestRating" content="10"
-      meta itemprop="ratingValue" content="#{@resource.score}"
-      - if @resource.rates_size > 0
-        meta itemprop="ratingCount" content="#{@resource.rates_size}"
-      = render 'blocks/rate', score: @resource.score
