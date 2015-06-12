@@ -13,7 +13,7 @@ header.head.m15
     .headline.m10 class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
       = index == -1 ? "Уже должно было выйти" : date_title_for_ongoing(index)
     .collapsed.tiny ...
-    .cc-5.column_bm
+    .cc-entries
       = render partial: 'animes/anime', collection: group, locals: { cover_notice: :next_episode, content_by: :tooltip }
     /.clearfix
 

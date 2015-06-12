@@ -77,7 +77,7 @@
         == get_message_body message
 
       - if message.kind == MessageType::SiteNews && message.linked
-        = link_to 'к новости→', topic_url(message.linked), class: 'right to-entry'
+        = link_to 'к новости→', topic_url(message.linked), class: 'right to-entry b-link'
 
       - if !message.read && message.to == current_user
         .appear-marker class="appear-message-#{message.id}" data-appear_url="#{mark_read_messages_url}" data-disabled="#{[MessageType::FriendRequest, MessageType::GroupRequest].include?(message.kind) ? true : false}"

@@ -1,0 +1,23 @@
+@import mixins/clear_left
+@import mixins/column
+@import mixins/responsive
+
+.p-pages-ongoings
+  .cc-entries
+    margin-bottom: 0
+    +clear_left
+
+    &>.c-column
+      margin-bottom: 30px !important
+
+      +gt_laptop
+        +column_b(6)
+
+      +ipad_laptop
+        +column_b(5)
+
+      +iphone-landscape
+        +column_b(3)
+
+      +iphone-portrait
+        +column_b(2)
