@@ -3,16 +3,22 @@ describe BbCodes::RepliesTag do
 
   describe 'format' do
     subject { tag.format text }
-    let(:comment) { create :comment }
+    let(:comment_1) { create :comment }
+    let(:comment_2) { create :comment }
+
+    context 'no comments' do
+      let(:text) { "<br><br>[replies=12345]" }
+      it { should eq "" }
+    end
 
     context 'one reply' do
-      let(:text) { "<br><br>[replies=1]" }
-      it { should eq "<div class=\"b-replies single\">[comment=1][/comment]</div>" }
+      let(:text) { "<br><br>[replies=#{comment_1.id}]" }
+      it { should eq "<div class=\"b-replies single\">[comment=#{comment_1.id}][/comment]</div>" }
     end
 
     context 'multiple replies' do
-      let(:text) { "[replies=1,2]" }
-      it { should eq "<div class=\"b-replies\">[comment=1][/comment], [comment=2][/comment]</div>" }
+      let(:text) { "[replies=#{comment_1.id},#{comment_2.id},999]" }
+      it { should eq "<div class=\"b-replies\">[comment=#{comment_1.id}][/comment], [comment=#{comment_2.id}][/comment]</div>" }
     end
   end
 end

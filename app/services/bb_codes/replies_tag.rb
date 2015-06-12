@@ -13,9 +13,20 @@ class BbCodes::RepliesTag
 
   def format text
     text.gsub REGEXP do |matched|
-      ids = $~[:ids].split(',')
-      replies = ids.take(DISPLAY_LIMIT).map {|id| "[comment=#{id}][/comment]" }.join(', ')
-      "<div class=\"b-replies#{' single' if ids.one?}\">#{replies}</div>"
+      ids = comment_ids $~[:ids].split(',')
+      replies = ids.map {|id| "[comment=#{id}][/comment]" }.join(', ')
+
+      "<div class=\"b-replies#{' single' if ids.one?}\">#{replies}</div>" if ids.any?
     end
+  end
+
+private
+
+  def comment_ids ids
+    Comment
+      .where(id: ids)
+      .order(:id)
+      .limit(DISPLAY_LIMIT)
+      .pluck(:id)
   end
 end
