@@ -14,6 +14,6 @@
       = score
     .score-notice
       - if score > 0
-        = t "activerecord.attributes.user_rate.scores.#{score.round}"
+        = t "activerecord.attributes.user_rate.scores.#{score.floor}"
       - else
         | &nbsp;
