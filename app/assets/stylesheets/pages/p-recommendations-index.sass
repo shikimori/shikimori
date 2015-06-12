@@ -1,5 +1,29 @@
 @import compass/css3/transition
+@import mixins/clear_left
+@import mixins/column
 @import mixins/image_editable
+@import mixins/responsive
+
+.p-recommendations-favourites
+  .cc-entries
+    +clear_left
+
+    &>.c-column
+      +gt_laptop
+        +column_b(6)
+        .image-cutter
+          max-height: 275px
+
+      +ipad_laptop
+        +column_b(5)
+
+      +iphone-landscape
+        +column_b(3)
+
+      +iphone-portrait
+        +column_b(2)
+
+
 
 .p-recommendations-index,
 .p-recommendations-favourites
