@@ -44,7 +44,6 @@ class Banhammer
     блядовать
     блядский
     блядство
-    блядство
     блядь
     блять
     взъебка
@@ -229,7 +228,7 @@ class Banhammer
   NOT_ABUSE = /
     (?:#{X}|\A|^)
       (?:
-        #{Z}{1,7} |
+        #{Z}{1,12} |
         her
       )
     (?:#{X}|\Z|$)
@@ -282,6 +281,7 @@ private
     @abusivenesses[text] ||=
       text
         .gsub(BbCodes::UrlTag::REGEXP, '')
+        .gsub(BbCodes::ImgTag::REGEXP, '')
         .scan(ABUSE)
         .select do |group|
           group.select(&:present?).select do |match|

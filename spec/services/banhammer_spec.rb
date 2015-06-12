@@ -42,6 +42,9 @@ describe Banhammer do
     it { expect(banhammer.abusive? '^O^').to be_falsy }
     it { expect(banhammer.abusive? 'her').to be_falsy }
 
+    it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to be_falsy }
+    it { expect(banhammer.abusive? '[img]http://shikimori.org/cosplay_galleries/publishing/хуй/test.png[/img]').to be_falsy }
+
     it { expect(banhammer.abusive? 'хуй').to be_truthy }
     it { expect(banhammer.abusive? 'хуйня').to be_truthy }
     it { expect(banhammer.abusive? 'ху*').to be_truthy }
@@ -73,8 +76,6 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'пиздуй').to be_truthy }
     it { expect(banhammer.abusive? 'пиздец').to be_truthy }
     it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to be_truthy }
-
-    it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to be_falsy }
   end
 
   describe '#abusiveness' do
