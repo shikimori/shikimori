@@ -6,6 +6,7 @@ class UserPreferences < ActiveRecord::Base
   belongs_to :user, touch: true
 
   enumerize :list_privacy, in: [:public, :users, :friends, :owner], predicates: { prefix: true }
+  enumerize :body_width, in: [:x1200, :x1000]
   boolean_attribute :comments_auto_collapsed
   boolean_attribute :comments_auto_loaded
 

@@ -10,22 +10,11 @@
 .p-animes_collection-index,
 .p-mangas_collection-index,
 .p-recommendations-index
-  .l-menu
-    +gte_ipad
+  +gte_ipad
+    .l-menu
       +column(2, 20/100, 3%)
-  .l-content
-    +gte_ipad
+    .l-content
       +column(2, 80/100, 3%)
-
-  .cc-entries
-    &>.c-column
-      +gt_laptop
-        +column_b(5)
-
-        .image-cutter
-          max-height: 229px
-          max-width: 156px
-
 
 .p-animes_collection-index,
 .p-mangas_collection-index,
@@ -45,17 +34,26 @@
     +clear_left
 
     &>.c-column
-      +gt_laptop
-        +column_b(5)
-
-      +ipad_laptop
-        +column_b(4)
-
       +iphone-landscape
         +column_b(3)
 
       +iphone-portrait
         +column_b(2)
+
+  &.x1200 .cc-entries > .c-column
+    +gt_laptop
+      +column_b(5)
+
+      .image-cutter
+        max-height: 229px
+        max-width: 156px
+
+    +ipad_laptop
+      +column_b(4)
+
+  &.x1000 .cc-entries > .c-column
+    +gte_ipad
+      +column_b(4)
 
   .b-postloader
     clear: left

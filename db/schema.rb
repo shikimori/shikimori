@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525065835) do
+ActiveRecord::Schema.define(version: 20150612095100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -938,6 +938,7 @@ ActiveRecord::Schema.define(version: 20150525065835) do
     t.boolean "volumes_in_manga",                       default: false,    null: false
     t.boolean "is_comments_auto_collapsed",             default: true
     t.boolean "is_comments_auto_loaded",                default: true
+    t.string  "body_width",                             default: "x1200",  null: false
   end
 
   add_index "user_preferences", ["user_id"], name: "index_profile_settings_on_user_id", using: :btree

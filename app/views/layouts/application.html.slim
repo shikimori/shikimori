@@ -3,7 +3,7 @@ html
   head
     = render 'application/head'
   body[
-      class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} "
+      class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{user_signed_in? ? current_user.preferences.body_width : 'x1200'}"
       id="#{controller_name}_#{action_name}"
       style="#{body_background unless @blank_layout}"
       data-env="#{Rails.env}"

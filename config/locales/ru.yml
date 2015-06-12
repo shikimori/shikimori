@@ -77,6 +77,7 @@ ru:
         overall: Итоговая оценка
 
       user_preferences:
+        body_width: Максимальная ширина сайта
         anime_in_profile: Отображать аниме в профиле
         manga_in_profile: Отображать мангу в профиле
         comments_in_profile: Отображать комментарии в профиле
@@ -189,6 +190,10 @@ ru:
           copyrighted: copyrighted
 
   enumerize:
+    body_width:
+      x1200: 1200 пикселей
+      x1000: 1000 пикселей
+
     strategy_type:
       double_elimination: Вылет после двух поражений
       play_off: Вылет после первого поражения

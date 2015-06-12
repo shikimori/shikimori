@@ -2,11 +2,16 @@
 @import mixins/responsive
 @import mixins/column
 
+.x1200 .l-page
+  max-width: $site-body-width
+
+.x1000 .l-page
+  max-width: 1000px
+
 .l-page
   background: white
   clear: both
   margin: 0 auto
-  max-width: $site-body-width
   padding: 15px 10px 0 10px
   +gt_laptop
     padding: 15px 15px 0 15px
