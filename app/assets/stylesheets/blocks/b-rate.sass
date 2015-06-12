@@ -3,7 +3,11 @@
 
 .b-rate
   white-space: nowrap
+  min-width: 227px
   max-width: 240px
+
+  +iphone_portrait
+    max-width: 270px
 
   div
     +gte_ipad
