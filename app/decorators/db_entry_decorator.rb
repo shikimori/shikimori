@@ -106,9 +106,9 @@ class DbEntryDecorator < BaseDecorator
 private
   def headline_array
     if !h.user_signed_in? || (h.user_signed_in? && !h.current_user.preferences.russian_names?)
-      [name, russian].compact
+      [name, russian].select(&:present?).compact
     else
-      [russian, name].compact
+      [russian, name].select(&:present?).compact
     end
   end
 
