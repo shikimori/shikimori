@@ -60,6 +60,13 @@
         font-size: 11px
         line-height: $line_height
 
+      .b-spoiler
+        .content
+          cursor: default
+
+        .inner
+          border-bottom: none
+
     .present-backgrounds
       +clearfix
       margin-top: 15px
@@ -74,9 +81,6 @@
         cursor: pointer
         margin-right: 20px
         width: 104px
-
-        &:nth-child(8n)
-          margin-right: 0
 
       .bg1
         background: image-url('background/square_bg.png') repeat

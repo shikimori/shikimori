@@ -17,6 +17,12 @@
 
   # styles page
   if $('.edit-page.styles').exists()
+    $('#user_preferences_body_width').on 'change', ->
+      $(document.body)
+        .removeClass('x1000')
+        .removeClass('x1200')
+        .addClass($(@).val())
+
     $page_background = $('#user_preferences_page_background')
     $page = $('.l-page')
     $('.range-slider')
