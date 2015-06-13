@@ -40,20 +40,37 @@
       +iphone-portrait
         +column_b(2)
 
-  &.x1200 .cc-entries > .c-column
-    +gt_laptop
-      +column_b(5)
+  &.x1200
+    .cc-entries > .c-column
+      +gt_laptop
+        +column_b(5)
 
-      .image-cutter
-        max-height: 229px
-        max-width: 156px
+        .image-cutter
+          max-height: 229px
+          max-width: 156px
 
-    +ipad_laptop
-      +column_b(4)
+      +ipad_laptop
+        +column_b(4)
 
-  &.x1000 .cc-entries > .c-column
-    +gte_ipad
-      +column_b(4)
+    +lte_laptop
+      .b-catalog_entry .image-decor::after
+        border-radius: 30px
+        font-size: 16px
+        height: 30px
+        line-height: 30px
+        width: 30px
+
+  &.x1000
+    .cc-entries > .c-column
+      +gte_ipad
+        +column_b(4)
+
+    .b-catalog_entry .image-decor::after
+      border-radius: 30px
+      font-size: 16px
+      height: 30px
+      line-height: 30px
+      width: 30px
 
   .b-postloader
     clear: left
