@@ -1,10 +1,11 @@
 ru:
   datetime:
     release_dates:
-      date: %{date} г.
+      date: '%{date} г.'
       for_date: на %{date} г.
       in_years: в %{from_date}-%{to_date} гг.
       since_date: с %{date} г.
+      since_till_date: с %{from_date} г. по %{to_date} г.
       till_date: до %{date} г.
 
     parts:
