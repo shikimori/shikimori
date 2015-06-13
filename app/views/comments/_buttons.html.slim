@@ -35,12 +35,13 @@ aside.buttons
 
   .moderation-controls
     - if current_user.moderator?
-      span.item-ban[
+      span.item-ban.b-tooltipped.unprocessed[
         title="Забанить"
         data-action="#{new_comment_ban_path comment}"
         data-method="get"
         data-type="html"
         data-remote="true"
+        data-direction="top"
       ]
     - else
       span.item-abuse.b-tooltipped.unprocessed[
