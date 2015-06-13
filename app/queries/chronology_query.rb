@@ -76,7 +76,7 @@ private
       relations.manga(source_id)
     end
 
-    item_relations.include? relation.anime_id
+    item_relations.include?(anime? ? relation.anime_id : relation.manga_id)
   end
 
   def relations
