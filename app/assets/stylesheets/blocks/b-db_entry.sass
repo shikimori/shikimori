@@ -6,17 +6,10 @@
 @import mixins/responsive
 
 .b-db_entry
-  +block_m
-  +clear_left
-
   &>.c-image
-    +gt_laptop
+    // дополнительные стили для gte_ipad определены ниже
+    +gte_ipad
       +column(2)
-      width: 26%
-
-    +ipad_laptop
-      +column(2)
-      width: 30.5%
 
     +iphone-portrait
       +column_b(1)
@@ -24,25 +17,62 @@
     +iphone-landscape
       +column_b(2)
 
-    img
-      max-width: 100%
-
   &>.c-about
-    +gt_laptop
+    // дополнительные стили для gte_ipad определены ниже
+    +gte_ipad
       +column(2)
-      width: 70%
-      z-index: 1 // без этого нижний блок с description перекрывает текущий
-
-    +ipad_laptop
-      +column(2)
-      width: 65.5%
-      z-index: 1 // без этого нижний блок с description перекрывает текущий
 
     +iphone-portrait
       +column(1)
 
     +iphone-landscape
       +column(2)
+
+.x1200 .b-db_entry
+  &>.c-image
+    +gt_laptop
+      width: 26%
+
+    +ipad_laptop
+      width: 30.5%
+
+  &>.c-about
+    +gt_laptop
+      width: 70%
+
+    +ipad_laptop
+      width: 65.5%
+
+  &>.c-description
+    +gt_laptop
+      margin-left: 30%
+
+    +lte_laptop
+      margin-left: 34.6%
+
+.x1000 .b-db_entry
+  &>.c-image
+    +gte_ipad
+      width: 28.5%
+
+  &>.c-about
+    +gte_ipad
+      width: 67.5%
+
+  &>.c-description
+    +gte_ipad
+      margin-left: 32.5%
+
+.b-db_entry
+  +block_m
+  +clear_left
+
+  &>.c-image
+    img
+      max-width: 100%
+
+  &>.c-about
+    z-index: 1 // без этого нижний блок с description перекрывает текущий
 
     .c-info-left, .c-info-right
       +column_bm(2, 0.5, 6%)
@@ -74,12 +104,6 @@
   &>.c-description
     +block
     padding-top: 1px // из-за странной баги в фаерфоксе
-
-    +gt_laptop
-      margin-left: 30%
-
-    +lte_laptop
-      margin-left: 34.6%
 
     +iphone
       clear: both

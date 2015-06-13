@@ -1,8 +1,13 @@
+@import mixins/responsive
 @import mixins/hover_underlined
 @import mixins/icons
 
 .b-add_to_list
   margin-bottom: 10px
+  min-width: 196px
+
+  +lte_ipad
+    min-width: 220px
 
   .trigger, .option
     border: 1px solid #bce6ff
