@@ -1,4 +1,6 @@
 class DbEntryDecorator < BaseDecorator
+  include Translation
+
   instance_cache :description_mal, :description_html, :main_thread, :preview_thread
   instance_cache :linked_clubs, :all_linked_clubs
   instance_cache :favoured, :favoured?, :all_favoured
@@ -46,7 +48,7 @@ class DbEntryDecorator < BaseDecorator
         .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
         .html_safe
     else
-      '<p class="b-nothing_here">Нет описания</p>'.html_safe
+      "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
     end
   end
 

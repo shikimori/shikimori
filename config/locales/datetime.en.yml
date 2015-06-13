@@ -1,5 +1,22 @@
 en:
   datetime:
+    intervals:
+      today: today
+      yesterday: yesterday
+      during_week: during this week
+      week: one week ago
+      two_weeks: two weeks ago
+      three_weeks: three weeks ago
+      month: one month ago
+      two_months: two months ago
+      three_months: three months ago
+      four_months: four months ago
+      five_months: five months ago
+      half_year: half a year ago
+      year: one year ago
+      two_years: two years ago
+      many_years: a long time ago
+
     release_dates:
       date: '%{date}'
       for_date: for %{date}

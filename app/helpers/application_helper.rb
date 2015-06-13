@@ -46,22 +46,6 @@ module ApplicationHelper
     end
   end
 
-  def rus_date date, fix_1_1=false, short_month=true
-    return unless date
-
-    if fix_1_1
-      if date.day == 1 && date.month == 1
-        "#{date.year} г."
-      elsif fix_1_1 && date.day == 1
-        Russian::strftime date, '%B %Y г.'
-      else
-        Russian::strftime(date, short_month ? '%e %b %Y г.' : '%e %B %Y г.').strip
-      end
-    else
-      Russian::strftime(date, '%e %B %Y г.').strip
-    end
-  end
-
   def info_line title, value=nil, &block
     value = capture(&block) if value.nil? && block_given?
     if value.present?

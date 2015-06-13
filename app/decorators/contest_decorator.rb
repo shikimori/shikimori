@@ -170,12 +170,12 @@ class ContestDecorator < DbEntryDecorator
 
       diff = prior_index == -1 || !prior_index ? 0 : prior_index - index
 
-      OpenStruct.new({
+      OpenStruct.new(
         member: member,
         progress: diff == 0 ? nil : (diff > 0 ? "+#{diff}" : "#{diff}"),
         status: diff > 0 ? :positive : :negative,
         position: index+1
-      })
+      )
     end
   end
 

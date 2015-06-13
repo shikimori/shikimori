@@ -1,6 +1,8 @@
 en:
-  ani_manga_decorator:
+  ani_manga_decorator: &ani_manga_decorator
     time_ago_format: '%s ago'
+  anime_decorator:
+    <<: *ani_manga_decorator
   anime_video_preview_decorator:
     score:
       excellent: excellent
@@ -12,7 +14,11 @@ en:
       anime_character: Anime character
       manga_character: Manga character
       anime_manga_character: Anime and manga character
-  person_decorator:
+  db_entry_decorator:
+    no_description: No description
+  manga_decorator:
+    <<: *ani_manga_decorator
+  person_decorator: &person_decorator
     job_title:
       producer: Producer
       mangaka: Mangaka
@@ -26,6 +32,8 @@ en:
       anime: Anime
       manga: Manga
       projects: Projects
+  seyu_decorator:
+    <<: *person_decorator
   topic_decorator:
     show_hidden_comments_text_html: Display %{comment_count} %{out_of_total_comments} %{comment_word}
   user_decorator: &user_decorator

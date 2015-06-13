@@ -14,6 +14,8 @@ ru:
       anime_character: Персонаж аниме
       manga_character: Персонаж манги
       anime_manga_character: Персонаж аниме и манги
+  db_entry_decorator:
+    no_description: Нет описания
   manga_decorator:
     <<: *ani_manga_decorator
   person_decorator: &person_decorator

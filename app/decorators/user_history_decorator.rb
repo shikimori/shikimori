@@ -4,7 +4,7 @@ class UserHistoryDecorator < Draper::Decorator
   delegate_all
 
   def time_ago interval
-    if interval == 'Сегодня'
+    if interval == :today
       i18n_t 'time_ago', time_ago: h.time_ago_in_words(update_at)
     else
       I18n.l updated_at, format: '%-d %B'

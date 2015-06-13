@@ -61,7 +61,7 @@ class TopicDecorator < BaseDecorator
 
   # дата создания топика
   def date
-    Russian::strftime(created_at, "%e %B %Y").strip
+    I18n.l(created_at, format: '%e %B %Y').strip
   end
 
   # надо ли свёртывать длинный контент топика?
