@@ -162,23 +162,29 @@ class AniMangaDecorator < DbEntryDecorator
     if status == AniMangaStatus::Released || status == AniMangaStatus::Finished
       if released_on && aired_on && released_on.year != aired_on.year
         # в 2011-2012 гг.
-        parts << "в #{aired_on.year}-#{released_on.year} гг."
+        parts << i18n_t('datetime.release_dates.in_years', from_date: aired.on, to_date: released_on.year)
+        #parts << "в #{aired_on.year}-#{released_on.year} гг."
       else
         if released_on
           # 2 марта 2011
-          parts << "#{h.rus_date released_on, true}"
+          parts << i18n_t('datetime.release_dates.date', date: h.formatted_date(released_on, true))
+          #parts << "#{h.rus_date released_on, true}"
         else
           # с 1 марта 2011
-          parts << "с #{h.rus_date aired_on, true}"
+          parts << i18n_t('datetime.release_dates.since_date', date: h.formatted_date(aired_on, true))
+          #parts << "с #{h.rus_date aired_on, true}"
         end
       end
 
     elsif status == AniMangaStatus::Anons
-      parts << "на #{h.rus_date aired_on, true}" if aired_on
+      parts << i18n_t('datetime.release_dates.for_date', date: h.formatted_date(aired_on, true)) if aired_on
+      #parts << "на #{h.rus_date aired_on, true}" if aired_on
 
     else # ongoings
-      parts << "с #{h.rus_date aired_on, true, true}" if aired_on
-      parts << "до #{h.rus_date released_on, true, true}" if released_on
+      parts << i18n_t('datetime.release_dates.since_date', date: h.formatted_date(aired_on, true, true)) if aired_on
+      parts << i18n_t('datetime.release_dates.till_date', date: h.formatted_date(released_on, true, true)) if released_on
+      #parts << "с #{h.rus_date aired_on, true, true}" if aired_on
+      #parts << "до #{h.rus_date released_on, true, true}" if released_on
     end
 
     parts.join(' ').html_safe if parts.any?

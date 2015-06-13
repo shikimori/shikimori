@@ -30,6 +30,22 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
+  def formatted_date date, fix_1_1=false, short_month=true
+    return unless date
+
+    if fix_1_1
+      if date.day == 1 && date.month == 1
+        "#{date.year}"
+      elsif fix_1_1 && date.day == 1
+        I18n.l date, format: '%B %Y'
+      else
+        I18n.l(date, format: short_month ? '%e %b %Y' : '%e %B %Y').strip
+      end
+    else
+      I18n.l(date, format: '%e %B %Y').strip
+    end
+  end
+
   def rus_date date, fix_1_1=false, short_month=true
     return unless date
 

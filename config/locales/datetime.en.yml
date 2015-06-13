@@ -1,0 +1,8 @@
+en:
+  datetime:
+    release_dates:
+      date: %{date}
+      for_date: for %{date}
+      in_years: in %{aired_on}-%{released_on}
+      since_date: since %{date}
+      till_date: till %{date}
