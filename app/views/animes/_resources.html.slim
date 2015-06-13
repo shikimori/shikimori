@@ -90,5 +90,5 @@
 - if @resource.related.similar.any?
   .subheadline.m10
     span.linkeable data-href="#{@resource.similar_url}" Похожее
-  .cc.m0
+  .cc.cc-similar
     = render @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED)
