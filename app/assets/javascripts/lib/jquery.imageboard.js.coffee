@@ -15,9 +15,7 @@ class ImageboardGallery
     'panty_pull', 'loli', 'print_panties'
   ]
 
-  #LOADERS = [SafebooruLoader, DanbooruLoader, YandeReLoader, KonachanLoader]
-  LOADERS = [SafebooruLoader, YandeReLoader, KonachanLoader]
-  #LOADERS = [YandeReLoader]
+  LOADERS = [SafebooruLoader, DanbooruLoader, YandeReLoader, KonachanLoader]
 
   # по сколько картинок за раз отображать
   BATCH_SIZE = 12
@@ -136,7 +134,7 @@ class ImageboardGallery
 
   # генерация шаблона картинки
   _image_to_html: (image) ->
-    "<a class='b-image' href='#{image.url}' rel='danbooru' data-tags='#{image.tags}'><img src='#{image.preview}'></a>"
+    "<a class='b-image' href='#{image.url}' rel='danbooru' data-tags='#{image.tags}'><img src='#{image.preview_url}'></a>"
 
   # вставка в галерею готовых картинок
   _deploy_batch: (images) =>

@@ -1,3 +1,5 @@
+var CAMO_URL = "http://shikimori.org/camo?url="
+
 function ImagesLoader(options) {
   // базовый урл борды
   var base_url = options.base_url;
@@ -42,10 +44,10 @@ function ImagesLoader(options) {
 
     return _.map(images, function(image) {
       return {
-        preview: image.preview_url.indexOf('http') == 0 ? image.preview_url : base_url + image.preview_url,
+        preview_url: (options.preview_url_builder || preview_url_builder)(image),
         preview_width: image.preview_width,
         preview_height: image.preview_height,
-        url: (options.local_url_builder || local_url_builder)(image),
+        url: (options.image_url_builder || image_url_builder)(image),
         md5: image.md5,
         tags: image.tags
       };
@@ -58,9 +60,13 @@ function ImagesLoader(options) {
   };
 
   // построитель урла к картинке
-  var local_url_builder = function(image) {
-    return '/danbooru/url/' + image.md5 + '/' + Base64.encode(image.file_url.indexOf('http') == 0 ? image.file_url : base_url + image.file_url) + '.jpg';
+  var image_url_builder = function(image) {
+    return CAMO_URL + image.file_url;
   };
+
+  var preview_url_builder = function(image) {
+    return image.preview_url.indexOf('http') == 0 ? image.preview_url : base_url + image.preview_url;
+  }
 
   return {
     // не закончились ли ещё картинки в галерее
@@ -128,17 +134,24 @@ function SafebooruLoader(forbidden_tags) {
     remote_url_builder: function(base_url, page, limit, tags) {
       return base_url + '/index.php?page=dapi&s=post&q=index&pid=' + (page-1) + '&limit=' + limit + '&tags=' + tags;
     },
-    local_url_builder: function(image) {
+    image_url_builder: function(image) {
       return image.file_url;
     }
   });
 }
 function DanbooruLoader(forbidden_tags) {
+  var BASE_URL = 'http://danbooru.donmai.us';
   return new ImagesLoader({
-    base_url: 'http://danbooru.donmai.us',
+    base_url: BASE_URL,
     data_format: 'JSON',
     forbidden_tags: forbidden_tags,
-    name: 'Danbooru'
+    name: 'Danbooru',
+    image_url_builder: function(image) {
+      return CAMO_URL + BASE_URL + image.file_url;
+    },
+    preview_url_builder: function(image) {
+      return CAMO_URL + BASE_URL + image.preview_url;
+    }
   });
 }
 function YandeReLoader(forbidden_tags) {
@@ -155,6 +168,9 @@ function KonachanLoader(forbidden_tags) {
     base_url: 'http://konachan.com',
     data_format: 'JSON',
     forbidden_tags: forbidden_tags,
-    name: 'Konachan'
+    name: 'Konachan',
+    preview_url_builder: function(image) {
+      return CAMO_URL + image.preview_url;
+    }
   });
 }

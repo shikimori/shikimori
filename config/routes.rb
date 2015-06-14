@@ -388,7 +388,6 @@ Site::Application.routes.draw do
     resources :danbooru, only: [] do
       constraints url: /.*/ do
         get 'yandere/:url' => :yandere, on: :collection
-        get 'url/:md5/:url' => :show, on: :collection
       end
     end
 
