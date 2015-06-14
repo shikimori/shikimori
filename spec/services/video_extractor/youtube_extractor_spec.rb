@@ -63,4 +63,9 @@ describe VideoExtractor::YoutubeExtractor do
       it { should be_nil }
     end
   end
+
+  describe '#exists?', vcr: { cassette_name: 'youtube_extractor' } do
+    let(:url) { 'http://youtu.be/m-QoYo1gpPs' }
+    it { expect(service).to be_exists }
+  end
 end
