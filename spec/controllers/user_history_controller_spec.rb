@@ -41,16 +41,22 @@ describe UserHistoryController do
         let(:entry) { create :anime }
         before { make_request }
 
-        it { expect(response).to have_http_status :success }
-        it { expect(user.history).to be_empty }
+        it do
+          expect(user.history).to have(1).item
+          expect(user.history.first.action).to eq UserHistoryAction::AnimeHistoryClear
+          expect(response).to have_http_status :success
+        end
       end
 
       context 'manga' do
         let(:entry) { create :manga }
         before { make_request }
 
-        it { expect(response).to have_http_status :success }
-        it { expect(user.history).to be_empty }
+        it do
+          expect(user.history).to have(1).item
+          expect(user.history.first.action).to eq UserHistoryAction::MangaHistoryClear
+          expect(response).to have_http_status :success
+        end
       end
     end
   end

@@ -23,6 +23,12 @@ class UserHistoryDecorator < Draper::Decorator
       when UserHistoryAction::Delete
         'Удалено из списка'
 
+      when UserHistoryAction::AnimeHistoryClear
+        'Очистка истории аниме'
+
+      when UserHistoryAction::MangaHistoryClear
+        'Очистка истории манги'
+
       when UserHistoryAction::Status
         UserRate.status_name value.to_i, target.class.name
 

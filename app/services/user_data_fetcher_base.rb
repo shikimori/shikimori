@@ -1,7 +1,7 @@
 class UserDataFetcherBase
   KlassHistories = {
-    Anime => [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport],
-    Manga => [UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport]
+    Anime => [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::AnimeHistoryClear],
+    Manga => [UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport, UserHistoryAction::MangaHistoryClear]
   }
 
   def fetch
@@ -21,6 +21,7 @@ class UserDataFetcherBase
   end
 
 private
+
   def list_cache_key
     "userlist_#{@klass}_#{@user.id}_#{latest_import[:id]}_#{(histories/10).to_i}_#{rates >= Recommendations::RatesFetcher::MinimumScores}"
   end
