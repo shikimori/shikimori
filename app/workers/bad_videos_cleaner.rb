@@ -12,6 +12,7 @@ class BadVideosCleaner
   end
 
 private
+
   def videos
     Video
       .where(state: 'confirmed', hosting: 'youtube')

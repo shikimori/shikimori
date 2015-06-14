@@ -135,7 +135,7 @@ class AnimeCalendar < ActiveRecord::Base
     "phi brain: kami no puzzle 3" => 15651,
     "yozakura quartet ~hana no uta~" => 18497,
     "ore no nonai sentakushi ga" => 19221,
-    "aikatsu!" => 20181,
+    "aikatsu!" => 15061,
     "kuroko no basuke 2" => 16894,
     "yusha ni narenakatta ore wa shibushibu shushoku o ketsui shimashita." => 18677,
     "diabolik lovers" => 17513,
