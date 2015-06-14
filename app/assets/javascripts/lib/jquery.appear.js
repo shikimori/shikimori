@@ -16,14 +16,14 @@
   var defaults = {
     interval: 250,
     force_process: false
-  }
+  };
   var $window = $(window);
 
-  var $prior_appear;
+  var $prior_appeared = [];
 
   function process() {
     check_lock = false;
-    for (var index = 0; index < selectors.length; index++) {
+    for (var index = 0, selectorsLength = selectors.length; index < selectorsLength; index++) {
       var $appeared = $(selectors[index]).filter(function() {
         var $this = $(this);
         return !$this.data('_appear_triggered') && $this.is(':appeared');
@@ -33,14 +33,19 @@
           .data('_appear_triggered', true)
           .trigger('appear', [$appeared]);
 
-      if ($prior_appear) {
-        var $disappeared = $prior_appear.not($appeared);
+      if ($prior_appeared[index]) {
+        var $disappeared = $prior_appeared[index].not($appeared);
         $disappeared
           .data('_appear_triggered', false)
           .trigger('disappear', [$disappeared]);
       }
-      $prior_appear = $appeared;
+      $prior_appeared[index] = $appeared;
     }
+  }
+
+  function add_selector(selector) {
+    selectors.push(selector);
+    $prior_appeared.push();
   }
 
   // "appeared" custom filter
@@ -64,7 +69,7 @@
     } else {
       return false;
     }
-  }
+  };
 
   $.fn.extend({
     // watching for element's appearance in browser viewport
@@ -88,7 +93,7 @@
       if (opts.force_process) {
         setTimeout(process, opts.interval);
       }
-      selectors.push(selector);
+      add_selector(selector);
       return $(selector);
     }
   });
@@ -99,8 +104,15 @@
       if (check_binded) {
         process();
         return true;
-      };
+      }
       return false;
     }
   });
-})(jQuery);
+})(function() {
+  if (typeof module !== 'undefined') {
+    // Node
+    return require('jquery');
+  } else {
+    return jQuery;
+  }
+}());
