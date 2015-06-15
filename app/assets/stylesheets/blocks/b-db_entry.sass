@@ -6,70 +6,59 @@
 @import mixins/responsive
 
 .b-db_entry
-  &>.c-image
-    // дополнительные стили для gte_ipad определены ниже
-    +gte_ipad
-      +column(2)
-
-    +iphone-portrait
-      +column_b(1)
-
-    +iphone-landscape
-      +column_b(2)
-
-  &>.c-about
-    // дополнительные стили для gte_ipad определены ниже
-    +gte_ipad
-      +column(2)
-
-    +iphone-portrait
-      +column(1)
-
-    +iphone-landscape
-      +column(2)
-
-.x1200 .b-db_entry
-  &>.c-image
-    +gt_laptop
-      width: 26%
-
-    +ipad_laptop
-      width: 30.5%
-
-  &>.c-about
-    +gt_laptop
-      width: 70%
-
-    +ipad_laptop
-      width: 65.5%
-
-  &>.c-description
-    +gt_laptop
-      margin-left: 30%
-
-    +lte_laptop
-      margin-left: 34.6%
-
-.x1000 .b-db_entry
-  &>.c-image
-    +gte_ipad
-      width: 28.5%
-
-  &>.c-about
-    +gte_ipad
-      width: 67.5%
-
-  &>.c-description
-    +gte_ipad
-      margin-left: 32.5%
-
-.b-db_entry
   +block_m
   +clear_left
 
   &>.c-image
+    // дополнительные стили для gte_ipad определены ниже
+    +gte_ipad
+      +column(2)
+    +iphone-portrait
+      +column_b(1)
+    +iphone-landscape
+      +column_b(2)
+
     img
       max-width: 100%
+
+  &>.c-about
+    // дополнительные стили для gte_ipad определены ниже
+    +gte_ipad
+      +column(2)
+    +iphone-portrait
+      +column(1)
+    +iphone-landscape
+      +column(2)
+
+  .x1200 &>.c-image
+    +gt_laptop
+      width: 26%
+    +ipad_laptop
+      width: 30.5%
+
+  .x1200 &>.c-about
+    +gt_laptop
+      width: 70%
+    +ipad_laptop
+      width: 65.5%
+
+  .x1200 &>.c-description
+    +gt_laptop
+      margin-left: 30%
+    +ipad_laptop
+      margin-left: 34.6%
+
+  .x1000 &>.c-image
+    +gte_ipad
+      width: 28.5%
+
+  .x1000 &>.c-about
+    +gte_ipad
+      width: 67.5%
+
+  .x1000 &>.c-description
+    +gte_ipad
+      margin-left: 32.5%
 
   &>.c-about
     z-index: 1 // без этого нижний блок с description перекрывает текущий

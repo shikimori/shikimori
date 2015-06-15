@@ -22,12 +22,6 @@
   +responsive(tablet)
     display: none
 
-.x1200 .l-top_menu .inner
-  max-width: $site-body-width
-
-.x1000 .l-top_menu .inner
-  max-width: 1000px
-
 .l-top_menu
   border-bottom: 1px solid #444
   position: relative
@@ -36,6 +30,12 @@
   .inner
     margin: 0 auto
     position: relative
+
+    .x1200 &
+      max-width: $site-body-width
+
+    .x1000 &
+      max-width: 1000px
 
     .logo
       +background-inline-retina('/globals/logo', 'png', 106px, 22px)

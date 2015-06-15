@@ -2,12 +2,6 @@
 @import mixins/responsive
 @import mixins/column
 
-.x1200 .l-page
-  max-width: $site-body-width
-
-.x1000 .l-page
-  max-width: 1000px
-
 .l-page
   background: white
   clear: both
@@ -18,6 +12,12 @@
 
   position: relative
   z-index: 1
+
+  .x1200 &
+    max-width: $site-body-width
+
+  .x1000 &
+    max-width: 1000px
 
   +gt_ipad
     .bordered &

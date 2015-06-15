@@ -405,5 +405,11 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
       let(:text) { 'http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/' }
       it { should eq '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
     end
+
+    describe 'two replies' do
+      let(:text) { '[comment=1260072]Viks[/comment],
+[comment=1260062]Егор Кун[/comment],' }
+      it { should eq '<span class="bubbled" data-href="http://shikimori.org/comments/1260072.html">Viks</span>,<br><span class="bubbled" data-href="http://shikimori.org/comments/1260062.html">Егор Кун</span>,' }
+    end
   end
 end

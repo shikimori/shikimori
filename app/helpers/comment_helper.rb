@@ -228,7 +228,6 @@ module CommentHelper
 
           rescue
             text.gsub! $~[:match], "<span class=\"bubbled\" data-href=\"#{url}\">#{$~[:text]}</span>"
-            break
           end
 
         elsif klass == Review
@@ -237,7 +236,6 @@ module CommentHelper
             text.gsub!($1, "<a class=\"b-link\" href=\"#{url_for [review.target, review]}\" title=\"Обзор #{review.target.name} от #{review.user.nickname}\">#{$3}</a>")
           rescue
             text
-            break
           end
 
         elsif klass == User
@@ -252,7 +250,6 @@ module CommentHelper
             text.gsub! $1, "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
           rescue
             text.gsub! $1, "#{$4}#{is_profile ? '' : ' написал:'}"
-            break
           end
 
         elsif klass == Ban
@@ -265,7 +262,6 @@ module CommentHelper
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, ''
             text.strip!
-            break
           end
 
         else # [tag=id]name[/tag]
@@ -287,10 +283,10 @@ module CommentHelper
 
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, "<b>#{$3}</b>"
-            break
           end
         end
       end
+
       text
     end
   end
