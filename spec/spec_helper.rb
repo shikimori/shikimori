@@ -17,7 +17,7 @@ RSpec.configure do |config|
   end
 
   config.backtrace_exclusion_patterns << /gems/
-  config.order = :random
+  config.order = (ENV['CIRCLE_CI'] ? :defined : :random)
   config.filter_run :focus
 
 # The settings below are suggested to provide a good initial experience

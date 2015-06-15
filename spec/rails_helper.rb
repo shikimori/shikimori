@@ -18,7 +18,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'
   c.hook_into :webmock # or :fakeweb
   c.allow_http_connections_when_no_cassette = false
-  c.default_cassette_options = { match_requests_on: [:method, :uri, :query, :body], record: :new_episodes }
+  c.default_cassette_options = { match_requests_on: [:method, :uri, :query, :body], record: (ENV['CIRCLE_CI'] ? :none : :new_episodes) }
   c.configure_rspec_metadata!
 end
 Capybara.ignore_hidden_elements = false
