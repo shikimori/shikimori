@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612095100) do
+ActiveRecord::Schema.define(version: 20150615193000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150612095100) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", unique: true, using: :btree
+  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", using: :btree
 
   create_table "anime_video_reports", force: :cascade do |t|
     t.integer  "anime_video_id"

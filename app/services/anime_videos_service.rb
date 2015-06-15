@@ -17,6 +17,7 @@ class AnimeVideosService
   end
 
 private
+
   def created_video
     @video ||= AnimeVideo.create(video_params) do |video|
       video.url = fetch_url params[:url]
@@ -29,9 +30,5 @@ private
 
   def fetch_url video_url
     VideoExtractor::UrlExtractor.new(video_url).extract
-  end
-
-  def fetch_author author_name
-    AnimeVideoAuthor.find_or_create_by name: author_name.to_s.strip
   end
 end

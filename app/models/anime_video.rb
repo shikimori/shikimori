@@ -94,11 +94,13 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def author_name= name
-    self.author = AnimeVideoAuthor.find_or_create_by name: name.to_s.strip
+    self.author = AnimeVideoAuthor.find_or_create_by! name: name.to_s.strip
   end
 
   def single?
-    AnimeVideo.where(anime_id: anime_id, episode: episode, kind: kind, language: language).count == 1
+    AnimeVideo
+      .where(anime_id: anime_id, episode: episode, kind: kind, language: language)
+      .one?
   end
 
   # Debug only
