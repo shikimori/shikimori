@@ -211,11 +211,13 @@
         - if @resource.stats.activity(26).any?
           .graph.x26[
             data-stats="#{@resource.stats.activity(26).to_json}"
+            data-intervals_count="26"
             data-bar="vertical"
             data-flattened="true"
           ]
           .graph.x34[
             data-stats="#{@resource.stats.activity(34).to_json}"
+            data-intervals_count="34"
             data-bar="vertical"
             data-flattened="true"
           ]

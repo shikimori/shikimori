@@ -99,6 +99,10 @@ class ProfilesController < ShikimoriController
     page_title 'Видео загрузки и правки'
   end
 
+  def achievements
+    page_title 'Достижения'
+  end
+
   def ban
     noindex
     @ban = Ban.new user_id: @resource.id

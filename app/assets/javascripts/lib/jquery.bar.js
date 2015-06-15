@@ -39,6 +39,8 @@
     $chart.addClass('bar simple '+options.type);
 
     var stats = $chart.data('stats');
+    var intervals_count = $chart.data('intervals_count');
+
     if (!stats || !stats.length) {
       if (options.no_data) {
         options.no_data($chart);
@@ -118,7 +120,7 @@
 
       $chart.append(
         "<div class='line'" +
-          (options.type == 'vertical' ? ' style="width: ' + (100.0 / stats.length) + '%;"' : '')
+          (options.type == 'vertical' ? ' style="width: ' + (100.0 / intervals_count) + '%;"' : '')
         + "><div class='x_label'>" + x_axis
         + "</div><div class='bar-container'><div class='bar " + color
         + (percent > 0 ? ' min' : '') + "' style='" + dimension+ ": "
