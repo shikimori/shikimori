@@ -46,6 +46,12 @@ describe AnimeVideoDecorator, type: :controller do
         let(:url) { 'http://rutube.ru/play/embed/7630847' }
         it { is_expected.to eq "<iframe src=\"#{url}\"></iframe>" }
       end
+
+      context 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' do
+        let(:url) { 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' }
+        let(:expected_url) { 'http://rutube.ru/player.swf?hash=4f4dbbd7882342b057b4c387097e491e' }
+        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{expected_url}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{expected_url}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+      end
     end
 
     context 'youtube.ru' do

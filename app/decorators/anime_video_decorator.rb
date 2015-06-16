@@ -7,27 +7,21 @@ class AnimeVideoDecorator < BaseDecorator
 
   def player_html
     if (hosting == 'myvi.ru' && url.include?('flash')) || (hosting == 'sibnet.ru' && url.include?('.swf?'))
-      h.content_tag(:object) do
-        h.content_tag(:param, name: 'movie', value: "#{url}") {} +
-        h.content_tag(:param, name: 'allowFullScreen', value: 'true') {} +
-        h.content_tag(:param, name: 'allowScriptAccess', value: 'always') {} +
+      flash_player_html(url)
+    elsif hosting == 'rutube.ru' && url =~ /http:\/\/video\.rutube.ru\/(.*)/
+      # Простая фильтрация для http://video.rutube.ru/xxxxxxx
+      if url.size > 30
+        flash_player_html("http://rutube.ru/player.swf?hash=#{$1}")
+      else
         h.content_tag(
-          :embed,
-          src: "#{url}",
-          type: 'application/x-shockwave-flash',
-          allowfullscreen: 'true',
-          allowScriptAccess: 'always'
+          :iframe,
+          src: "http://rutube.ru/play/embed/#{$1}",
+          frameborder: '0',
+          webkitAllowFullScreen: 'true',
+          mozallowfullscreen: 'true',
+          allowfullscreen: 'true'
         ) {}
       end
-    elsif hosting == 'rutube.ru' && url =~ /http:\/\/video\.rutube.ru\/(.*)/
-      h.content_tag(
-        :iframe,
-        src: "http://rutube.ru/play/embed/#{$1}",
-        frameborder: '0',
-        webkitAllowFullScreen: 'true',
-        mozallowfullscreen: 'true',
-        allowfullscreen: 'true'
-      ) {}
     elsif hosting == 'youtube.com' && url=~ /youtube\.com\/embed\/(.*)/
       h.content_tag(:iframe, src: url, frameborder: '0', allowfullscreen: true) {}
     else
@@ -83,11 +77,20 @@ class AnimeVideoDecorator < BaseDecorator
     anime.duration * 60000 / 3 if anime.duration > 0
   end
 
-  #def kinds
-    #@kinds ||= current_videos.map(&:kind).uniq
-  #end
+  private
 
-  #def last_date
-    #@last_date ||= anime_videos.select{|v| v.allowed?}.map(&:created_at).max || created_at
-  #end
+  def flash_player_html(url)
+    h.content_tag(:object) do
+      h.content_tag(:param, name: 'movie', value: "#{url}") {} +
+      h.content_tag(:param, name: 'allowFullScreen', value: 'true') {} +
+      h.content_tag(:param, name: 'allowScriptAccess', value: 'always') {} +
+      h.content_tag(
+        :embed,
+        src: "#{url}",
+        type: 'application/x-shockwave-flash',
+        allowfullscreen: 'true',
+        allowScriptAccess: 'always'
+      ) {}
+    end
+  end
 end
