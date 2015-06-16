@@ -22,8 +22,8 @@
           to: new Date(stat.name[1] * 1000)
 
       # всякое для тайтлов осей
-      options.interval = date_diff(stats[0].dates.from, stats[0].dates.to)
-      options.range = date_diff(stats[0].dates.from, stats[stats.length - 1].dates.to)
+      options.interval = Math.round date_diff(stats[0].dates.from, stats[0].dates.to)
+      options.range = Math.round date_diff(stats[0].dates.from, stats[stats.length - 1].dates.to)
       options.index_label = 0
 
       if options.y_axis
@@ -38,8 +38,11 @@
         $chart.html html.join("")
 
     title: (entry) ->
-      days = date_diff(entry.dates.from, entry.dates.to)
-      entry.value + " " + p(entry.value, "час", "часа", "часов") + " с " + get_russian(entry.dates.from) + " по " + get_russian(entry.dates.to) + " (" + days + " " + p(days, "день", "дня", "дней") + ")"
+      days = date_diff entry.dates.from, entry.dates.to
+
+      "#{entry.value} #{p entry.value, 'час', 'часа', 'часов'} с " +
+        "#{get_russian entry.dates.from} по #{get_russian entry.dates.to} " +
+        if days == Math.round(days) then "(#{days} #{p days, 'день', 'дня', 'дней'})" else "(#{days} дня)"
 
     x_axis: (entry, index, stats, options) ->
       # пропуск, пока индекс меньше следующего_допустимого
@@ -71,7 +74,7 @@
 
 date_diff = (date_earlier, date_later) ->
   one_day = 1000 * 60 * 60 * 24
-  Math.round((date_later.getTime() - date_earlier.getTime()) / one_day)
+  Math.round((date_later.getTime() - date_earlier.getTime()) / one_day * 10) / 10
 
 get_month = (date, full_month_name, rod) ->
   data = if full_month_name

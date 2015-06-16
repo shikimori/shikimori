@@ -119,8 +119,8 @@
       }
 
       $chart.append(
-        "<div class='line'" +
-          (options.type == 'vertical' ? ' style="width: ' + (100.0 / intervals_count) + '%;"' : '')
+        "<div class='line'"
+        + (options.type == 'vertical' ? ' style="width: ' + (100.0 / (intervals_count)) + '%;"' : '')
         + "><div class='x_label'>" + x_axis
         + "</div><div class='bar-container'><div class='bar " + color
         + (percent > 0 ? ' min' : '') + "' style='" + dimension+ ": "

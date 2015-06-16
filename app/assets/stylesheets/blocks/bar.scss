@@ -50,14 +50,10 @@
   position: relative;
 
   .line {
-    display: inline-block;
-    height: inherit;
-    /*margin-right: 1px;*/
-    /*width: 16px;*/
-    width: 3.7037037037037%; // 1 / 27
-    /*width: 2.857142857143%;*/
-    overflow: hidden;
     border-right: 1px solid #fff;
+    height: inherit;
+    overflow: hidden;
+    display: inline-block;
 
     .x_label {
       bottom: -20px;
@@ -67,13 +63,13 @@
       position: absolute;
     }
     .bar-container {
-      height: inherit;
-      width: 30px;
-      display: table-cell;
-      vertical-align: bottom;
+      height: 100%;
+      position: relative;
 
       .bar {
-        width: inherit;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
 
         &:hover .value {
           display: block;
@@ -90,7 +86,7 @@
         line-height: 16px;
         text-align: center;
 
-        width: 15px;
+        width: 100%;
         bottom: -3px;
         position: absolute;
 
