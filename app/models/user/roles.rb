@@ -8,7 +8,7 @@ class User
 
     # access rights
     Admins = [Morr_ID, Blackchestnut_ID]
-    Moderators = (Admins + [921, 11, 188, 93]).uniq # 2 - Adelor, 93 - lena-chan
+    Moderators = (Admins + [921, 11, 188, 93, 861]).uniq # 2 - Adelor, 93 - lena-chan, 861 - Oniii-chan
     ReviewsModerators = (Admins + []).uniq # + Moderators
     UserChangesModerators = (Admins + [11, 921, 188, 94, 942, 392, 16148, 21887]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 942 - Иштаран, 392 - Tehanu, 16148 - Alex Minson, 21887 - Joseph
     AbuseRequestsModerators = (Admins + Moderators + [11, 188, 950]).uniq # Daiver
