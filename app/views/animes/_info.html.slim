@@ -20,7 +20,7 @@
       | &nbsp;
 
       - if entry.release_date_tooltip
-        span.b-tooltipped.unprocessed data-direction="right" data-title="#{entry.release_date_tooltip}"
+        span.b-tooltipped.unprocessed data-direction="right" title="#{entry.release_date_tooltip}"
           = entry.release_date_text
       - else
         = entry.release_date_text
@@ -31,7 +31,7 @@
 
   - if entry.rating.present? && entry.rating != 'None'
     = info_line 'Рейтинг' do
-      span.b-tooltipped.unprocessed data-title="#{t "Rating.#{entry.rating}"}" data-direction="right"
+      span.b-tooltipped.unprocessed title="#{t "Rating.#{entry.rating}"}" data-direction="right"
         = t "RatingShort.#{entry.rating}"
 
   - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)

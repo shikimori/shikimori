@@ -189,7 +189,7 @@
           li class="rating-#{rating}"
             input type="checkbox" autocomplete="off"
             = rating
-            span.b-question.b-tooltipped.unprocessed data-title="#{t "Rating.#{rating}"}" data-direction="top"
+            span.b-question.b-tooltipped.unprocessed title="#{t "Rating.#{rating}"}" data-direction="top"
 
   .block.genres
     .subheadline Жанр
@@ -202,4 +202,4 @@
             input type="checkbox" autocomplete="off"
             = localized_name genre
             - if genre.description.present?
-              span.b-question.bubbled data-title="#{genre.description}" data-predelay="150" data-href="#{tooltip_genre_url genre, subdomain: false}"
+              span.b-question.bubbled title="#{genre.description}" data-predelay="150" data-href="#{tooltip_genre_url genre, subdomain: false}"
