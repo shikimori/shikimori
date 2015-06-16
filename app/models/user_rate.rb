@@ -150,8 +150,11 @@ private
   def log_changed
     if changes['status']
       UserHistory.add user, target, UserHistoryAction::Status, self[:status], UserRate.statuses[changes['status'].first]
+    end
 
-    elsif changes['episodes'] || changes['volumes'] || changes['chapters']
+    if (changes['episodes'] || changes['volumes'] || changes['chapters']) &&
+        (!changes['status'] || changes['status'] == ['planned', 'watching'])
+
       counter = if anime?
         'episodes'
       elsif changes['volumes']

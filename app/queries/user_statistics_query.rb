@@ -94,8 +94,8 @@ class UserStatisticsQuery
     histories = histories.select { |v| cache_keys.include?("#{v.target_id}#{v.target_type}") }
     return {} if histories.empty?
 
-    start_date = histories.map { |v| v.created_at }.min.to_datetime
-    end_date = histories.map { |v| v.updated_at }.max.to_datetime
+    start_date = histories.map { |v| v.created_at }.min.to_datetime.beginning_of_day
+    end_date = histories.map { |v| v.updated_at }.max.to_datetime.end_of_day
 
     distance = [(end_date.to_i - start_date.to_i) / intervals, 86400].max
 
@@ -103,7 +103,7 @@ class UserStatisticsQuery
       from = start_date + (distance*num).seconds
       to = from + distance.seconds - (num == intervals ? 0 : 1.second)
 
-      next if from > DateTime.now || from > end_date + 1.hour
+      next if from > Time.zone.now || from > end_date + 1.hour
 
       history = histories.select { |v| v.updated_at >= from && v.updated_at < to }
 

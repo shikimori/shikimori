@@ -115,6 +115,42 @@ describe UserRate do
       end
     end
 
+    describe '#status_changed, #counter_changed' do
+      subject(:user_rate) { create :user_rate, old_status, target: target }
+      let(:update_params) {{ status: new_status }}
+
+      before { allow(UserHistory).to receive :add }
+      before { user_rate.update update_params }
+
+      context 'to watching with episodes' do
+        let(:target) { build_stubbed :anime, episodes: 20 }
+        let(:old_status) { :planned }
+        let(:new_status) { :watching }
+        let(:new_episodes) { 1 }
+        let(:update_params) {{ status: new_status, episodes: new_episodes }}
+
+        it do
+          expect(user_rate.episodes).to eq new_episodes
+          expect(user_rate.status).to eq new_status.to_s
+
+          expect(UserHistory).to have_received(:add).with(
+            user_rate.user,
+            user_rate.target,
+            UserHistoryAction::Status,
+            UserRate.statuses[new_status],
+            UserRate.statuses[old_status]
+          ).ordered
+          expect(UserHistory).to have_received(:add).with(
+            user_rate.user,
+            user_rate.target,
+            UserHistoryAction::Episodes,
+            new_episodes,
+            0
+          ).ordered
+        end
+      end
+    end
+
     describe '#status_changed' do
       before do
         expect(UserHistory).to receive(:add).with(

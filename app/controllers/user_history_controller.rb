@@ -13,7 +13,6 @@ class UserHistoryController < ProfilesController
     page_title 'История'
   end
 
-
   def reset
     authorize! :edit, @resource
 
