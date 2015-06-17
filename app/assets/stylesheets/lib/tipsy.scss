@@ -2,7 +2,7 @@
 
 // https://github.com/jaz303/tipsy
 .tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
-  .tipsy-inner { background-color: #123; color: #FFF; max-width: 250px; padding: 5px 8px 4px 8px; text-align: center; }
+  .tipsy-inner { background-color: #123; color: #FFF; min-width: 100px; white-space: nowrap; padding: 5px 8px 4px 8px; text-align: center; }
 
   /* shadow */
   .tipsy-inner { @include box-shadow(0 0 10px #fff); }
