@@ -120,7 +120,7 @@ class Anime < DbEntry
 
   # Methods
   def latest?
-    ongoing? || anons? || (aired_on && aired_on > DateTime.now - 1.year)
+    ongoing? || anons? || (aired_on && aired_on > Time.zone.now - 1.year)
   end
 
   def name
@@ -404,7 +404,7 @@ class Anime < DbEntry
         episode_max = episode if episode_max < episode
         self.episodes_aired = episode
         new_episodes << v
-        AnimeNews.create_for_new_episode(self, (v[:pubDate] || DateTime.now) + episode.seconds)
+        AnimeNews.create_for_new_episode(self, (v[:pubDate] || Time.zone.now) + episode.seconds)
       end
     end
     self.episodes_aired = episode_max
@@ -412,18 +412,27 @@ class Anime < DbEntry
     return new_episodes.uniq
   end
 
-  # перед сохранением посмотрим, какой стоит статус, и не надо ли его поменять
+  # перед сохранением посмотрим, какой стоит статус, и не надо ли его откатить
   def check_status
-    # анонс, у которого дата старта больше текущей более, чем на 1 день, не делаем онгоинггом
-    if self.changes["status"] && self.status == AniMangaStatus::Ongoing && self.changes["status"][0] == AniMangaStatus::Anons &&
-         self.aired_on && self.aired_on > DateTime.now + 1.day
-      self.status = AniMangaStatus::Anons
-    end
+    return unless changes['status']
 
-    # онгоинг не может стать Released, пока у него released_on больше текущей даты более, чем на 1 день
-    if self.changes["status"] && self.status == AniMangaStatus::Released && self.changes["status"][0] == AniMangaStatus::Ongoing &&
-         self.released_on && self.released_on > DateTime.now + 1.day
-      self.status = AniMangaStatus::Ongoing
+    # anons => ongoing
+    if changes['status'][0] == AniMangaStatus::Anons && changes['status'][1] == AniMangaStatus::Ongoing
+      # у которого дата старта больше текущей более, чем на 1 день, не делаем онгоинггом
+      if aired_on && aired_on > Time.zone.now + 1.day
+        self.status = AniMangaStatus::Anons
+      end
+
+    # ongoings => released
+    elsif changes['status'][0] == AniMangaStatus::Ongoing && changes['status'][1] == AniMangaStatus::Released
+      # невозможно пока released_on больше текущей даты более, чем на 1 день
+      if released_on && released_on > Time.zone.now + 1.day
+        self.status = AniMangaStatus::Ongoing
+      end
+
+      if episodes_aired > 0 && episodes > 0 && episodes_aired < episodes
+        self.status = AniMangaStatus::Ongoing
+      end
     end
 
     # синхронизация episodes_aired с episodes при переводе в Released
@@ -441,18 +450,18 @@ class Anime < DbEntry
     no_news = false
 
     # анонс, у которого появились вышедшие эпизоды, делаем онгоигом
-    if self.status == AniMangaStatus::Anons && self.changes["episodes_aired"] && self.episodes_aired > 0
+    if status == AniMangaStatus::Anons && changes['episodes_aired'] && episodes_aired > 0
       self.status = AniMangaStatus::Ongoing
       resave = true
     end
     # онгоинг, у которого вышел последний эпизод, делаем релизом
-    if self.status == AniMangaStatus::Ongoing && self.changes["episodes_aired"] && self.episodes_aired == self.episodes && self.episodes != 0
+    if status == AniMangaStatus::Ongoing && changes['episodes_aired'] && episodes_aired == episodes && episodes != 0
       self.status = AniMangaStatus::Released
       resave = true
     end
 
     # при сбросе числа вышедщих эпизодов удаляем новости эпизодов
-    if self.changes["episodes_aired"] && self.episodes_aired == 0 && self.changes["episodes_aired"][0] != nil
+    if changes['episodes_aired'] && episodes_aired == 0 && changes['episodes_aired'][0] != nil
       AnimeNews
         .where(linked_id: id, linked_type: self.class.name)
         .where(action: AnimeHistoryAction::Episode)
@@ -460,18 +469,19 @@ class Anime < DbEntry
       no_news = true
     end
 
-    if self.changes["status"] && self.changes["status"][0] != self.status && !no_news
-      if self.status == AniMangaStatus::Released &&
-          self.changes["id"].nil? &&
-          self.changes["status"].any? &&
-          (self.released_on || self.aired_on) &&
-          ((!self.released_on && self.aired_on > DateTime.now - 15.month) ||
-           (self.released_on && self.released_on > DateTime.now - 1.month))
+    if changes['status'] && changes['status'][0] != status && !no_news
+      if status == AniMangaStatus::Released &&
+          changes['id'].nil? &&
+          changes['status'].any? &&
+          (released_on || aired_on) &&
+          ((!released_on && aired_on > Time.zone.now - 15.month) ||
+           (released_on && released_on > Time.zone.now - 1.month))
         AnimeNews.create_for_new_release(self)
       end
-      AnimeNews.create_for_new_anons(self) if self.status == AniMangaStatus::Anons && self.changes["status"][0] != AniMangaStatus::Ongoing
-      AnimeNews.create_for_new_ongoing(self) if self.status == AniMangaStatus::Ongoing && self.changes["status"][0] != AniMangaStatus::Released
+      AnimeNews.create_for_new_anons(self) if status == AniMangaStatus::Anons && changes['status'][0] != AniMangaStatus::Ongoing
+      AnimeNews.create_for_new_ongoing(self) if status == AniMangaStatus::Ongoing && changes['status'][0] != AniMangaStatus::Released
     end
+
     self.save if resave
   end
 
