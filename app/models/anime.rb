@@ -1,4 +1,4 @@
-# TODO: переделать kind в enumerize (https://github.com/brainspec/enumerize)
+# TODO: переделать kind в enumerize
 # TODO: extract torrents to value object
 # TODO: выпилить matches_for и заменить на использование NameMatcher
 # TODO: move matches_for, name_variants to another object
@@ -389,7 +389,7 @@ class Anime < DbEntry
 
   # добавление новых эпизодов из rss фида
   def check_aired_episodes feed
-    episode_min = self.changes["episodes_aired"] || self.episodes_aired || 0
+    episode_min = self.changes['episodes_aired'] || self.episodes_aired || 0
     episode_max = self.episodes_aired || 0
     @episodes_found = [] unless @episodes_found
 
@@ -425,13 +425,16 @@ class Anime < DbEntry
 
     # ongoings => released
     elsif changes['status'][0] == AniMangaStatus::Ongoing && changes['status'][1] == AniMangaStatus::Released
-      # невозможно пока released_on больше текущей даты более, чем на 1 день
-      if released_on && released_on > Time.zone.now + 1.day
-        self.status = AniMangaStatus::Ongoing
-      end
+      if released_on
+        # one episode left
+        if episodes_aired + 1 == episodes && released_on > Time.zone.today - 1.day
+          self.status = AniMangaStatus::Ongoing
+        end
 
-      if episodes_aired > 0 && episodes > 0 && episodes_aired < episodes
-        self.status = AniMangaStatus::Ongoing
+        # released_on in the future
+        if released_on > Time.zone.today
+          self.status = AniMangaStatus::Ongoing
+        end
       end
     end
 

@@ -58,6 +58,7 @@ describe Anime do
     #anime.episodes_aired.should eq(anime.episodes)
   #end
 
+  # TODO: refactor specs
   describe AnimeNews do
     describe 'created anime' do
       it 'with Ongoing status generates new AnimeNews entry' do
@@ -79,7 +80,6 @@ describe Anime do
       end
     end
 
-    # TODO: refactor specs
     describe 'changed anime' do
       describe 'status' do
         it 'anons with aired_on > now() => ongoing' do
@@ -96,46 +96,78 @@ describe Anime do
           expect(anime.status).to eq(AniMangaStatus::Anons)
         end
 
-        it 'ongoing => released' do
-          anime = create :anime, :with_callbacks, status: AniMangaStatus::Ongoing, released_on: Time.zone.now
-
-          expect{anime.update status: AniMangaStatus::Released}.to change(AnimeNews, :count).by 1
-          expect(anime.status).to eq(AniMangaStatus::Released)
-        end
-
         it "should not crete news for ancient releases" do
           anime = create :anime, :with_callbacks, status: AniMangaStatus::Ongoing
 
           expect{anime.update status: AniMangaStatus::Released, released_on: Time.zone.now - 33.days}.to_not change(AnimeNews, :count)
         end
 
-        it 'ongoing => release if released_on greater than now by 1 day' do
-          anime = create :anime, :with_callbacks, status: AniMangaStatus::Ongoing, released_on: Time.zone.now + 2.days
+        describe 'ongoing => release' do
+          let!(:anime) { create :anime, :with_callbacks, anime_params }
+          let(:anime_params) {{
+            status: AniMangaStatus::Ongoing,
+            episodes: 10,
+            episodes_aired: episodes_aired,
+            aired_on: 5.month.ago,
+            released_on: released_on
+          }}
+          let(:finalize) { anime.update status: AniMangaStatus::Released }
 
-          # более одного дня - не меняем статус
-          expect {
-            anime.update(status: AniMangaStatus::Released)
-          }.to_not change(AnimeNews, :count)
-          expect(anime.status).to eq(AniMangaStatus::Ongoing)
+          let(:released_on) { Time.zone.tomorrow }
+          let(:episodes_aired) { 9 }
 
-          # менее одного дня - меняем статус
-          anime.update(released_on: Time.zone.now + 1.hour)
-          expect {
-            anime.update(status: AniMangaStatus::Released)
-          }.to change(AnimeNews, :count)
-          expect(anime.status).to eq(AniMangaStatus::Released)
-        end
+          context 'released_on is present' do
+            context 'one episode left' do
+              context 'release is in the future' do
+                let(:released_on) { Time.zone.tomorrow }
 
-        it 'ongoing => release if last episode still not aired' do
-          anime = create :anime, :with_callbacks, status: AniMangaStatus::Ongoing, episodes: 10, episodes_aired: 9, released_on: Time.zone.now + 2.days
+                it do
+                  expect{finalize}.to_not change(AnimeNews, :count)
+                  expect(anime.status).to eq(AniMangaStatus::Ongoing)
+                end
+              end
 
-          # более одного дня - не меняем статус
-          expect(anime.status).to eq(AniMangaStatus::Ongoing)
-          expect{anime.update status: AniMangaStatus::Released}.to_not change(AnimeNews, :count)
+              context 'release was yesterday' do
+                let(:released_on) { Time.zone.today - 1.day }
 
-          # менее одного дня - меняем статус
-          expect{anime.update episodes_aired: 10, status: AniMangaStatus::Released}.to change(AnimeNews, :count)
-          expect(anime.status).to eq(AniMangaStatus::Released)
+                it do
+                  expect{finalize}.to change(AnimeNews, :count)
+                  expect(anime.status).to eq(AniMangaStatus::Released)
+                end
+              end
+            end
+
+            context 'more than one episode left' do
+              let(:episodes_aired) { 8 }
+
+              context 'release is in the future' do
+                let(:released_on) { Time.zone.tomorrow }
+
+                it do
+                  expect{finalize}.to_not change(AnimeNews, :count)
+                  expect(anime.status).to eq(AniMangaStatus::Ongoing)
+                end
+              end
+
+              context 'release is today' do
+                let(:released_on) { Time.zone.today }
+
+                it do
+                  expect{finalize}.to change(AnimeNews, :count)
+                  expect(anime.status).to eq(AniMangaStatus::Released)
+                end
+              end
+            end
+          end
+
+          context 'released_on is absent' do
+            let(:released_on) { nil }
+
+            it do
+              expect{finalize}.to change(AnimeNews, :count)
+              expect(anime.status).to eq(AniMangaStatus::Released)
+            end
+          end
         end
 
         it 'Ongoing to Release with released_on more than 2.weeks.ago' do
