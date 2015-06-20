@@ -152,6 +152,7 @@ class UserRatesController < ProfilesController
   end
 
 private
+
   def create_params
     params.require(:user_rate).permit(*Api::V1::UserRatesController::CREATE_PARAMS)
   end

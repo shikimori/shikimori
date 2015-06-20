@@ -1,0 +1,55 @@
+@import mixins/block
+@import mixins/responsive
+@import mixins/clear_left
+@import mixins/column
+
+.p-achievements-franchise
+  background: red
+  .cc-badges
+    +clear_left
+
+    .b-badge
+      +column(7, 1/7, 1%)
+
+.p-achievements-index
+  .cc-achievements
+    +clear_left
+    +block
+
+    .b-achievement
+      +column(2)
+      //+gt_laptop
+        //+column(4)
+      //+gt_laptop
+        //+column(4)
+
+      //+ipad_laptop
+        //+column(3)
+
+      //+iphone_landscape
+        //+column(2)
+
+      //+iphone_portrait
+        //+column(1)
+
+  .cc-badges
+    +clear_left
+
+    .b-badge
+      +column(4, 1/4, 1%)
+
+  .cc-genres, .cc-creators
+    +clear_left
+    +block
+
+    .b-achievement
+      +column(1)
+
+
+  //.cc-special-badges
+    //+clear_left
+    //+block
+
+    //.b-badge
+      //+column(2)
+      //+gt_laptop

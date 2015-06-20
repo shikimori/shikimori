@@ -172,12 +172,12 @@ class UserHistory < ActiveRecord::Base
       end
     end
 
-    entry ||= UserHistory.new({
-        user_id: user.is_a?(Fixnum) ? user : user.id,
-        target_id: item.id,
-        target_type: item.class.name,
-        action: action
-      })
+    entry ||= UserHistory.new(
+      user_id: user.is_a?(Fixnum) ? user : user.id,
+      target_id: item.id,
+      target_type: item.class.name,
+      action: action
+    )
 
     entry.value = value
     entry.prior_value = prior_value

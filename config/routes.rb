@@ -662,7 +662,6 @@ Site::Application.routes.draw do
         get :clubs
         get :ban
         get :feed
-        get :achievements
         #get :stats
         get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
 
@@ -710,6 +709,10 @@ Site::Application.routes.draw do
           post 'read/:messages_type/all' => :read_all, as: :read_all, messages_type: /news|notifications/
           post 'delete/:messages_type/all' => :delete_all, as: :delete_all, messages_type: /news|notifications/
         end
+      end
+
+      resources :achievements, only: [:index] do
+        get :franchise, on: :collection
       end
     end
 

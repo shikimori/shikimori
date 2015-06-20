@@ -1,0 +1,304 @@
+= render layout: 'page' do
+  /h2.subheadline.m10 = @page_title.last
+
+  h2.headline.blue Аниме
+  .cc-achievements
+    /.b-achievement
+      //= image_tag 'http://cs411716.vk.me/v411716809/383b/XjHy9GPtDfo.jpg'
+      //= image_tag 'http://safebooru.org//images/319/3e7117ecbab64428da5f6dc886cf6bd26dae3d0e.png'
+      /= image_tag 'http://i46.tinypic.com/73cbqe.jpg'
+
+      /.title
+        /| It's all the same
+      /.notice Цундере. Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'achievements/anime/list_2.jpg'
+      .about
+        .title Мои силы растут!
+        .info 200 просмотренных аниме
+        .progress: .bar style="width: 35%"
+        .notice Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      / lvl1 - http://i1104.photobucket.com/albums/h337/AceRailgun/NazonoKanojoXPanties.jpg
+      .image = image_tag 'achievements/anime/otaku_4.jpg'
+      .about
+        .title Бла-бла бла-бла-бла
+        .info Отаку 3 уровня
+        .progress: .bar style="width: 90%"
+        .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'http://nyaa.shikimori.org/images/user_image/original/22828/107085.jpg'
+      .about
+        .title Бла-бла бла-бла-бла
+        .info Фудзиеси 1 уровня
+        .progress: .bar style="width: 50%"
+        .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'https://lh3.googleusercontent.com/-jzUK-lDbCe8/Uxi_oCrH71I/AAAAAAAD-Qw/BS7XOdLa9zs/w506-h281/tumblr_myn65gYKRA1su9rppo1_500.png'
+      .about
+        .title Boku no pico
+        .notice Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'http://img01.deviantart.net/b26e/i/2013/313/7/e/__fave_shounen_animes___by_erichankun-d6tku83.png'
+      .about
+        .title Бла-бла бла-бла-бла
+        .info Длинно сёнены 1 уровня
+        .progress: .bar style="width: 20%"
+        .notice Безнадёга. Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'http://i.imgur.com/Arxun3R.gif'
+      .about
+        .title Первоклассная моэта
+        .info Моэ 3 уровня
+        .progress: .bar style="width: 0%"
+        .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'http://i.imgur.com/P0S1kjy.jpg'
+      .about
+        .title It's all the same
+        .info Тсундере 3 уровня
+        .progress: .bar style="width: 70%"
+        .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'achievements/anime/yandere_1.jpg'
+      .about
+        .title Бездна
+        .info Яндере 1 уровня
+        .progress: .bar style="width: 15%"
+        .notice Если долго всматриваться в бездну - бездна начнет всматриваться в тебя.
+        /.notice Спокойна глубина моего моря: никто и не догадывается о том, какие забавные чудовища скрывает оно!
+
+    .b-achievement
+      .image = image_tag 'http://img2.wikia.nocookie.net/__cb20140320202031/cardfight/images/2/29/Old_anime_man..jpg'
+      .about
+        .title Бла-бла бла-бла-бла
+        .info Олдфаг 1 уровня
+        .progress: .bar style="width: 58%"
+        .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .b-achievement
+      .image = image_tag 'http://i.imgur.com/XXYp1Rn.png'
+      .about
+        .title Наши в аниме
+        .notice За просмотр аниме с героями из России и стран бывшего СССР
+
+  .cc-2
+    .c-column
+      .block
+        .b-options-floated
+          a href="#{franchise_profile_achievements_url @resource}" 30 из 99
+        h2.subheadline.green.m10 Франшизы
+        .cc-badges
+          .b-badge
+            = image_tag 'achievements/anime/franchise/ghost_in_the_shell.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/macross_frontier.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/monogatari_series.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/gundam.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/naruto.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/bleach.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/one_piece.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/gintama.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/detective_conan.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/hunter_x_hunter.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/fairy_tail.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/evangelion.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/rurouni_kenshin.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/jojo.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/slayers.jpg'
+          .b-badge
+            = image_tag 'http://savepic.ru/104582.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/tenchi_muyo.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/to_love_ru.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/kara_no_kyoukai.jpg'
+          .b-badge
+            = image_tag 'achievements/anime/franchise/fate_zero.jpg'
+
+        span.b-show_more + показать все
+        .b-show_more-more
+          .cc-badges
+            .b-badge
+              = image_tag 'achievements/anime/franchise/hajime_no_ippo.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/kuroko.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/major.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/natsume.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/spice_and_wolf.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/aria.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/toaru_kagaku_no_railgun.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/sayonara_zetsubou_sensei.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/nodame_cantabile.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/hentalia.jpg'
+            .b-badge
+              = image_tag 'achievements/anime/franchise/junjou_romantica.jpg'
+          .hide-more
+            | &mdash; спрятать
+
+      h2.subheadline.green.m10 Создатели и студии
+      .cc-creators
+        .b-achievement
+          .image = image_tag 'achievements/anime/makoto_shinkai.jpg'
+          .about
+            .title Макото Синкай
+            .progress: .bar style="width :80%"
+            .notice http://shikimori.org/people/1117-makoto-shinkai/works К чёрту сюжет, нет ничего интереснее облаков!
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/hayao_miyazaki.jpg'
+          .about
+            .title Хаяо Миядзаки
+            .progress: .bar style="width :32%"
+            .notice http://shikimori.org/people/1870-hayao-miyazaki/works Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'http://i.ytimg.com/vi/1KPzDWolfT4/maxresdefault.jpg'
+          .about
+            .title Type Moon
+            .progress: .bar style="width: 45%"
+            .notice http://shikimori.org/people/2582-type-moon/works Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/gen_urobuchi.jpg'
+          .about
+            .title Гэн Уробути
+            .progress: .bar style="width: 89%"
+            .notice http://shikimori.org/people/2582-type-moon/works Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/clamp.jpg'
+          .about
+            .title CLAMP
+            .progress: .bar style="width: 13%"
+            .notice http://shikimori.org/people/1877-clamp/works Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+    .c-column
+      h2.subheadline.orange.m10 Жанры
+      .cc-genres
+        .b-achievement
+          .image = image_tag 'http://i.imgur.com/X0qcagv.png'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Хоррор 2 уровня
+            .progress: .bar style="width: 4%"
+            .notice Смерть достаточно близка, чтобы можно было не страшиться жизни.
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/mahou_shoujo_1.jpg'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Махо-сёдзё 1 уровня
+            .progress: .bar style="width: 40%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/sport_2.jpg'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Спорт 2 уровня
+            .progress: .bar style="width: 89%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'http://media.giphy.com/media/3o85xH9psK6q85MExi/giphy.gif'
+          .about
+            .title Ты видел слишком многое
+            .info Сверхестественное 4 уровня
+            .progress: .bar style="width: 100%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'http://kawai.shikimori.org/images/user_image/original/40201/109401.jpg'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Безумие и психологическое 2 уровня
+            .progress: .bar style="width: 39%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/romance_1.jpg'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Романтика 1 уровня
+            .progress: .bar style="width: 28%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/mecha_1.jpg'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Меха 1 уровня
+            .progress: .bar style="width: 59%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'achievements/anime/slice_of_life_1.jpg'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Повседневность 1 уровня
+            .progress: .bar style="width: 18%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'http://desu.shikimori.org/images/user_image/original/40201/108423.jpg'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Боевик 1 уровня
+            .progress: .bar style="width: 78%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+        .b-achievement
+          .image = image_tag 'http://media.giphy.com/media/3oEdvb5pJSJEOzSK6k/giphy.gif'
+          .about
+            .title Бла-бла бла-бла-бла
+            .info Космос и фантастика 4 уровня
+            .progress: .bar style="width: 100%"
+            .notice Бла бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+
+      /.cc-special-badges
+        /.b-badge.special
+          /= image_tag 'achievements/anime/special/yuri_yuri.gif', title: 'Первоклассная моэта'
+
+        /.b-badge.special
+          /= image_tag 'achievements/anime/special/tsundere.jpg', title: "It's all the same shit"
+
+        /.b-badge.special
+          /= image_tag 'achievements/anime/special/ussr.jpg', title: 'За просмотр аниме с героями из стран бывшего СССР'
+
+        /.b-badge.special
+          /= image_tag 'achievements/anime/special/boku_no_pico.jpg', title: 'Вы же не серьёзно?'
+
+    /h2.headline.pink Манга
+
+
