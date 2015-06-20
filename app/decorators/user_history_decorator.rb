@@ -13,72 +13,61 @@ class UserHistoryDecorator < Draper::Decorator
 
   def format
     case action
-      when UserHistoryAction::MalAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::ApMangaImport
-        "Импортирован#{[UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport].include?(action) ? 'о аниме' : 'а манга'} - #{value} #{Russian.p(value.to_i, 'запись', 'записи', 'записей')}"
+      when UserHistoryAction::MalAnimeImport,
+          UserHistoryAction::MalMangaImport,
+          UserHistoryAction::ApAnimeImport,
+          UserHistoryAction::ApMangaImport
+        kind = action =~ /anime/i ? :anime : :manga
+        records = "#{value} #{i18n_i 'record', value.to_i}"
 
-      when UserHistoryAction::Registration
-        'Регистрация на сайте'
+        i18n_t "actions.import.#{kind}", records: records
 
-      when UserHistoryAction::Add
-        'Добавлено в список'
-
-      when UserHistoryAction::Delete
-        'Удалено из списка'
-
-      when UserHistoryAction::AnimeHistoryClear
-        'Очистка истории аниме'
-
-      when UserHistoryAction::MangaHistoryClear
-        'Очистка истории манги'
+      when UserHistoryAction::Registration,
+          UserHistoryAction::Add,
+          UserHistoryAction::Delete,
+          UserHistoryAction::AnimeHistoryClear,
+          UserHistoryAction::MangaHistoryClear
+        i18n_t "actions.#{action}"
 
       when UserHistoryAction::Status
         UserRate.status_name value.to_i, target.class.name
 
       when UserHistoryAction::Episodes, UserHistoryAction::Volumes, UserHistoryAction::Chapters
-        counter = case action
-          when UserHistoryAction::Episodes
-            'episodes'
-          when UserHistoryAction::Volumes
-            'volumes'
-          when UserHistoryAction::Chapters
-            'chapters'
-        end
+        history_episodes = send action
+        target_episodes = target.send action
 
-        if target.send(counter) == send(counter).last
-          if target.kind == 'Movie' && target.send(counter) == 1
-            'Просмотрен фильм'
+        if target_episodes == history_episodes.last
+          kind = if target.anime?
+            target.kind == 'Movie' ? :movie : :anime
           else
-            case action
-              when UserHistoryAction::Episodes
-                'Просмотрены все эпизоды'
-              when UserHistoryAction::Volumes, UserHistoryAction::Chapters
-                "Прочитана #{target == 'Novel' ? 'новелла' : 'манга'}"
-            end
+            target.kind == 'Novel' ? :novel : :manga
           end
+
+          i18n_t "actions.episodes.completed_#{kind}"
+
+        elsif history_episodes.one? && history_episodes.first.zero?
+          kind = target.anime? ? :anime : :manga
+          i18n_t "actions.episodes.reset_#{kind}"
+
         else
-          if send(counter).size == 1 && send(counter).first == 0
-            case action
-              when UserHistoryAction::Episodes
-                'Сброшено число эпизодов'
-              when UserHistoryAction::Volumes, UserHistoryAction::Chapters
-                'Сброшено число томов и глав'
-            end
-          else
-            episodes_text send("watched_#{counter}"), prior_value.to_i, counter
-          end
+          episodes_text send("watched_#{action}"), prior_value.to_i, action
         end
 
       when UserHistoryAction::Rate
-        if value == '0'
-          'Отменена оценка'
+        rate_action = if value == '0'
+          :cancelled
         elsif prior_value && prior_value != '0'
-          "Изменена оценка c <b>#{prior_value}</b> на <b>#{value}</b>"
+          :changed
         else
-          "Оценено на <b>#{value}</b>"
+          :rated
         end
 
+        i18n_t "actions.rate.#{rate_action}", prior_score: prior_value, score: value
+
       when UserHistoryAction::CompleteWithScore
-        "#{UserRate.status_name :completed, target.class.name} и оценено на <b>#{value}</b>"
+        i18n_t 'actions.complete_with_score',
+          status_name: UserRate.status_name(:completed, target.class.name),
+          score: value
 
       else
         target.name
@@ -86,6 +75,7 @@ class UserHistoryDecorator < Draper::Decorator
   end
 
 private
+
   def episodes_text episodes, prior_value, counter
     suffix = counter == 'chapters' ? 'я' : 'й'
 

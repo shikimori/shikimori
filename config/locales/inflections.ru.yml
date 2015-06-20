@@ -7,6 +7,11 @@ ru:
         many: комментариев
     out_of:
       default: из
+    record:
+      subjective:
+        one: запись
+        few: записи
+        many: записей
     review:
       accusative:
         one: отзыв

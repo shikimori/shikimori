@@ -41,6 +41,27 @@ ru:
     online: сейчас на сайте
     offline: онлайн %{time_ago} назад
   user_history_decorator:
+    actions:
+      add: Добавлено в список
+      delete: Удалено из списка
+      complete_with_score: '%{status_name} и оценено на <b>%{score}</b>'
+      episodes:
+        completed_movie: Просмотрен фильм
+        completed_anime: Просмотрены все эпизоды
+        completed_novel: Прочитана новелла
+        completed_manga: Прочитана манга
+        reset_anime: Сброшено число эпизодов
+        reset_manga: Сброшено число томов и глав
+      rate:
+        cancelled: Отменена оценка
+        changed: Изменена оценка c <b>%{prior_score}</b> на <b>%{score}</b>
+        rated: Оценено на <b>%{score}</b>
+      import:
+        anime: Импортировано аниме - %{records}
+        manga: Импортирована манга - %{records}
+      registration: Регистрация на сайте
+      anime_history_clear: Очистка истории аниме
+      manga_history_clear: Очистка истории манги
     time_ago: '%{time_ago} назад'
   user_profile_decorator:
     <<: *user_decorator

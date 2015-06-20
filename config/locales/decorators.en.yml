@@ -41,6 +41,27 @@ en:
     online: online
     offline: last online %{time_ago} ago
   user_history_decorator:
+    actions:
+      add: Added to list
+      delete: Removed from list
+      complete_with_score: '%{status_name} and rated <b>%{score}</b>'
+      episodes:
+        completed_movie: Watched movie
+        completed_anime: Watched all episodes
+        completed_novel: Read novel
+        completed_manga: Read manga
+        reset_anime: Reset episodes count
+        reset_manga: Reset volumes and chapters count
+      rate:
+        cancelled: Rating removed
+        changed: Rating changed from <b>%{prior_score}</b> to <b>%{score}</b>
+        rated: Rated <b>%{score}</b>
+      import:
+        anime: Anime imported - %{records}
+        manga: Manga imported - %{records}
+      registration: Registration
+      anime_history_clear: Anime history cleared
+      manga_history_clear: Manga history cleared
     time_ago: '%{time_ago} ago'
   user_profile_decorator:
     <<: *user_decorator
