@@ -1,5 +1,8 @@
 en:
+  db_entry_decorator: &db_entry_decorator
+    no_description: No description
   ani_manga_decorator: &ani_manga_decorator
+    <<: *db_entry_decorator
     time_ago_format: '%s ago'
   anime_decorator:
     <<: *ani_manga_decorator
@@ -9,16 +12,20 @@ en:
       good: good
       okay: okay
   character_decorator:
+    <<: *db_entry_decorator
     job_title:
       character: Character
       anime_character: Anime character
       manga_character: Manga character
       anime_manga_character: Anime and manga character
-  db_entry_decorator:
-    no_description: No description
+  contest_decorator:
+    <<: *db_entry_decorator
+  group_decorator:
+    <<: *db_entry_decorator
   manga_decorator:
     <<: *ani_manga_decorator
   person_decorator: &person_decorator
+    <<: *db_entry_decorator
     job_title:
       producer: Producer
       mangaka: Mangaka

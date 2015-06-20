@@ -1,5 +1,8 @@
 ru:
+  db_entry_decorator: &db_entry_decorator
+    no_description: Нет описания
   ani_manga_decorator: &ani_manga_decorator
+    <<: *db_entry_decorator
     time_ago_format: '%s назад'
   anime_decorator:
     <<: *ani_manga_decorator
@@ -9,16 +12,20 @@ ru:
       good: хорошо
       okay: нормально
   character_decorator:
+    <<: *db_entry_decorator
     job_title:
       character: Персонаж
       anime_character: Персонаж аниме
       manga_character: Персонаж манги
       anime_manga_character: Персонаж аниме и манги
-  db_entry_decorator:
-    no_description: Нет описания
+  contest_decorator:
+    <<: *db_entry_decorator
+  group_decorator:
+    <<: *db_entry_decorator
   manga_decorator:
     <<: *ani_manga_decorator
   person_decorator: &person_decorator
+    <<: *db_entry_decorator
     job_title:
       producer: Режиссер аниме
       mangaka: Автор манги
