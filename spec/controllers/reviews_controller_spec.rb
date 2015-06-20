@@ -26,7 +26,7 @@ describe ReviewsController do
     include_context :authenticated, :user
     context 'when success' do
       let(:params) {{ user_id: user.id, target_type: anime.class.name,
-        target_id: anime.id, text: 2001.times.sum {|v| 's' },
+        target_id: anime.id, text: 'x' * Review::MINIMUM_LENGTH,
         storyline: 1, characters: 2, animation: 3, music: 4, overall: 5 }}
       before { post :create, anime_id: anime.to_param, type: 'Anime', review: params }
 
@@ -61,7 +61,7 @@ describe ReviewsController do
         user_id: user.id,
         target_type: anime.class.name,
         target_id: anime.id,
-        text: 2001.times.sum {|v| 's' },
+        text: 'x' * Review::MINIMUM_LENGTH,
         storyline: 1,
         characters: 2,
         animation: 3,
