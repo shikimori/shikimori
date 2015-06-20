@@ -78,7 +78,7 @@ ru:
     female: жен
     no_personal_data: Нет личных данных
     personal_data_hidden: Личные данные скрыты
-    aka: Также %{known} как
+    aka: Также %{known} как:&nbsp;
     compatibility:
       zero: нет совместимости
       low: слабая совместимость
