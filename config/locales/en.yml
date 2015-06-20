@@ -53,14 +53,14 @@ en:
             planned: Planning to Watch
             watching: Watching
             rewatching: Rewatching
-            completed: Completed
+            completed: Watched
             on_hold: On Hold
             dropped: Dropped
           manga:
             planned: Planning to Read
             watching: Reading
             rewatching: Rereading
-            completed: Completed
+            completed: Read
             on_hold: On Hold
             dropped: Dropped
       review:
