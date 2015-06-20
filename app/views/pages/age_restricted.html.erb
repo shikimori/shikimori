@@ -63,7 +63,7 @@
       <h1>Эта страница содержит "взрослый" контент, просматривать который могут только совершеннолетние.</h1>
       <p>Вам уже есть 18 лет?</p>
       <p><span class="confirm" onclick="$.cookie('<%=ShikimoriController::COOKIE_AGE_OVER_18 %>', true, {expires: 9999, path: '/'}); location.reload()">Да</span>&nbsp;&nbsp;&nbsp;<a href="<%=root_url %>">Нет</a></p>
-      <img class="image" src="/images/static/restricted.jpg" />
+      <img class="image" src="/images/static/restricted.jpg" srcset="/images/static/restricted@2x.jpg 2x" />
     </div>
   </div>
 </body>
