@@ -30,19 +30,19 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
-  def rus_date date, fix_1_1=false, short_month=true
+  def formatted_date date, fix_1_1=false, short_month=true
     return unless date
 
     if fix_1_1
       if date.day == 1 && date.month == 1
-        "#{date.year} г."
+        "#{date.year}"
       elsif fix_1_1 && date.day == 1
-        Russian::strftime date, '%B %Y г.'
+        I18n.l date, format: '%B %Y'
       else
-        Russian::strftime(date, short_month ? '%e %b %Y г.' : '%e %B %Y г.').strip
+        I18n.l(date, format: short_month ? '%e %b %Y' : '%e %B %Y').strip
       end
     else
-      Russian::strftime(date, '%e %B %Y г.').strip
+      I18n.l(date, format: '%e %B %Y').strip
     end
   end
 
@@ -91,7 +91,7 @@ module ApplicationHelper
     if original || date + 1.day > DateTime.now
       format_string ? format_string % super(date) : super(date)
     else
-      Russian::strftime(date, "%e %B %Y")
+      I18n.l date, format: '%e %B %Y'
     end
   end
 

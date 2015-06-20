@@ -1,7 +1,10 @@
 class AnimeVideoDecorator < BaseDecorator
+  include Translation
+
   def views_count
     if watch_view_count && watch_view_count > 0
-      "#{watch_view_count} #{Russian.p watch_view_count, 'просмотр', 'просмотра', 'просмотров'}"
+      #"#{watch_view_count} #{Russian.p watch_view_count, 'просмотр', 'просмотра', 'просмотров'}"
+      "#{watch_view_count} #{i18n_i 'view', watch_view_count}"
     end
   end
 

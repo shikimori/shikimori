@@ -19,7 +19,7 @@
     .text itemprop="description"
       - if @resource.credentials?
         = info_line 'По-японски', @resource.japanese
-        = info_line 'Дата рождения', rus_date(@resource.birthday, true) if @resource.birthday
+        = info_line 'Дата рождения', formatted_date(@resource.birthday, true) if @resource.birthday
         - if @resource.website_host.present?
           = info_line 'Сайт' do
             a href="#{@resource.website}" rel="nofollow"

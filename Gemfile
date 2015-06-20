@@ -90,6 +90,8 @@ gem 'apipie-rails', '0.3.3' # 0.3.4 сломан
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
+gem 'rails-i18n'
+
 group :beta, :production do
   gem 'honeybadger'
   gem 'lograge'

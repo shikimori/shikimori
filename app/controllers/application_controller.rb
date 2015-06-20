@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   layout :set_layout
+  before_action :set_locale
   before_action :fix_googlebot
   before_action :touch_last_online
   before_action :mailer_set_url_options
@@ -127,6 +128,14 @@ private
   # before фильтры с настройкой сайта
   def mailer_set_url_options
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def default_url_options options = {}
+    Rails.env.development? ? options.merge(locale: I18n.locale) : options
   end
 
   # гугловский бот со странным format иногда ходит

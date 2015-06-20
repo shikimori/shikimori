@@ -1,0 +1,85 @@
+ru:
+  db_entry_decorator: &db_entry_decorator
+    no_description: Нет описания
+  ani_manga_decorator: &ani_manga_decorator
+    <<: *db_entry_decorator
+    time_ago_format: '%s назад'
+  anime_decorator:
+    <<: *ani_manga_decorator
+  anime_video_preview_decorator:
+    score:
+      excellent: отлично
+      good: хорошо
+      okay: нормально
+  character_decorator:
+    <<: *db_entry_decorator
+    job_title:
+      character: Персонаж
+      anime_character: Персонаж аниме
+      manga_character: Персонаж манги
+      anime_manga_character: Персонаж аниме и манги
+  contest_decorator:
+    <<: *db_entry_decorator
+  group_decorator:
+    <<: *db_entry_decorator
+  manga_decorator:
+    <<: *ani_manga_decorator
+  person_decorator: &person_decorator
+    <<: *db_entry_decorator
+    job_title:
+      producer: Режиссер аниме
+      mangaka: Автор манги
+      composer: Композитор
+      seyu: Сэйю
+      anime_manga_projects_participant: Участник аниме и манга проектов
+      anime_projects_participant: Участник аниме проектов
+      manga_projects_participant: Участник манга проектов
+    occupation:
+      anime_manga: Аниме и манга
+      anime: Аниме
+      manga: Манга
+      projects: Проекты
+  seyu_decorator:
+    <<: *person_decorator
+  topic_decorator:
+    show_hidden_comments_text_html: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}
+  user_decorator: &user_decorator
+    always_online: всегда на сайта
+    online: сейчас на сайте
+    offline: онлайн %{time_ago} назад
+  user_history_decorator:
+    actions:
+      add: Добавлено в список
+      delete: Удалено из списка
+      complete_with_score: '%{status_name} и оценено на <b>%{score}</b>'
+      episodes:
+        completed_movie: Просмотрен фильм
+        completed_anime: Просмотрены все эпизоды
+        completed_novel: Прочитана новелла
+        completed_manga: Прочитана манга
+        reset_anime: Сброшено число эпизодов
+        reset_manga: Сброшено число томов и глав
+      rate:
+        cancelled: Отменена оценка
+        changed: Изменена оценка c <b>%{prior_score}</b> на <b>%{score}</b>
+        rated: Оценено на <b>%{score}</b>
+      import:
+        anime: Импортировано аниме - %{records}
+        manga: Импортирована манга - %{records}
+      registration: Регистрация на сайте
+      anime_history_clear: Очистка истории аниме
+      manga_history_clear: Очистка истории манги
+    time_ago: '%{time_ago} назад'
+  user_profile_decorator:
+    <<: *user_decorator
+    male: муж
+    female: жен
+    no_personal_data: Нет личных данных
+    personal_data_hidden: Личные данные скрыты
+    aka: Также %{known} как
+    compatibility:
+      zero: нет совместимости
+      low: слабая совместимость
+      moderate: средняя совместимость
+      high: высокая совместимость
+      full: полная совместимость

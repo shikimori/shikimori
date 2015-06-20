@@ -1,4 +1,5 @@
 class TopicDecorator < BaseDecorator
+  include Translation
   instance_cache :comments
 
   # имя топика
@@ -60,7 +61,7 @@ class TopicDecorator < BaseDecorator
 
   # дата создания топика
   def date
-    Russian::strftime(created_at, "%e %B %Y").strip
+    I18n.l(created_at, format: '%e %B %Y').strip
   end
 
   # надо ли свёртывать длинный контент топика?
@@ -185,16 +186,20 @@ class TopicDecorator < BaseDecorator
   # текст для свёрнутых комментариев
   def show_hidden_comments_text
     num = [folded_comments, fold_limit].min
-    #prior_word = Russian.p num, 'предыдущий', 'предыдущие', 'предыдущие'
     comment_word = if reviews_only?
-      Russian.p num, 'отзыв', 'отзыва', 'отзывов'
+      i18n_i 'review', num, :accusative
     else
-      Russian.p num, 'комментарий', 'комментария', 'комментариев'
+      i18n_i 'comment', num, :accusative
     end
 
-    (
-      "Загрузить ещё #{num} %s#{comment_word}" % ("из #{folded_comments} " if folded_comments > fold_limit)
-    ).html_safe
+    i18n_t 'show_hidden_comments_text_html' do |options|
+      options[:comment_count] = num
+      options[:comment_word] = comment_word
+
+      options[:out_of_total_comments] = if folded_comments > fold_limit
+        "#{i18n_i 'out_of'} #{folded_comments}"
+      end
+    end.html_safe
   end
 
   def new_comment
@@ -205,6 +210,7 @@ class TopicDecorator < BaseDecorator
   def reviews_only!
     @force_reviews = true
   end
+
   def reviews_only?
     !!@force_reviews
   end

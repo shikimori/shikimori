@@ -27,6 +27,7 @@ class Topic < Entry
   end
 
 private
+
   def clear_anime_history
     self.anime_history.topic_id = 0 if self.anime_history
   end

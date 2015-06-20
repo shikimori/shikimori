@@ -1,4 +1,6 @@
 class CharacterDecorator < PersonDecorator
+  include Translation
+
   instance_cache :seyu, :changes, :all_animes, :all_mangas, :cosplay?
   instance_cache :limited_animes, :limited_mangas
 
@@ -11,7 +13,7 @@ class CharacterDecorator < PersonDecorator
   end
 
   def job_title
-    "Персонаж #{[animes.any? ? 'аниме' : nil, mangas.any? ? 'манги' : nil].compact.join(' и ')}"
+    i18n_t "job_title.#{animes.any? ? 'anime_': nil}#{mangas.any? ? 'manga_' : nil}character"
   end
 
   # презентер косплея

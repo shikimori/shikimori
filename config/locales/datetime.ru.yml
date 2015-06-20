@@ -1,5 +1,31 @@
 ru:
   datetime:
+    intervals:
+      today: сегодня
+      yesterday: вчера
+      during_week: в течение недели
+      week: неделя назад
+      two_weeks: две недели назад
+      three_weeks: три недели назад
+      month: месяц назад
+      two_months: два месяца назад
+      three_months: три месяца назад
+      four_months: четыре месяца назад
+      five_months: пять месяцев назад
+      half_year: более полугода назад
+      year: год назад
+      two_years: два года назад
+      many_years: совсем давно
+
+    release_dates:
+      date: '%{date} г.'
+      for_date: на %{date} г.
+      in_years: в %{from_date}-%{to_date} гг.
+      since_date: с %{date} г.
+      since_till_date: с %{from_date} г. по %{to_date} г.
+      till_date: до %{date} г.
+
+    # английские переводы не нужны
     parts:
       second:
         one: секунда

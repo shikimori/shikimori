@@ -1,0 +1,68 @@
+ru:
+  inflections:
+    comment:
+      accusative:
+        one: комментарий
+        few: комментария
+        many: комментариев
+    out_of:
+      default: из
+    record:
+      subjective:
+        one: запись
+        few: записи
+        many: записей
+    review:
+      accusative:
+        one: отзыв
+        few: отзыва
+        many: отзывов
+    view:
+      subjective:
+        one: просмотр
+        few: просмотра
+        many: просмотров
+
+    datetime:
+      second:
+        subjective:
+          one: секунда
+          few: секунды
+          many: секунд
+          other: секунды
+      minute:
+        subjective:
+          one: минута
+          few: минуты
+          many: минут
+          other: минуты
+      hour:
+        subjective:
+          one: час
+          few: часа
+          many: часов
+          other: часа
+      day:
+        subjective:
+          one: день
+          few: дня
+          many: дней
+          other: дня
+      week:
+        subjective:
+          one: неделя
+          few: недели
+          many: недель
+          other: недели
+      month:
+        subjective:
+          one: месяц
+          few: месяца
+          many: месяцев
+          other: месяца
+      year:
+        subjective:
+          one: год
+          few: года
+          many: лет
+          other: года

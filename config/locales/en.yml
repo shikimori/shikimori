@@ -1,0 +1,274 @@
+en:
+  activerecord:
+    attributes:
+      contest:
+        title: Title
+        description: Description
+        matches_per_round: Matches per round
+        match_duration: Match duration
+        matches_interval: Round interval
+        user_vote_key: User vote key
+        strategy_type: Strategy
+        member_type: Member type
+        started_on: Started on
+        suggestions_per_user: Number of candidates from one user
+      ban:
+        reason: Reason
+        duration: Duration
+      user:
+        avatar: Avatar
+        birth_on: Birthday
+        current_password: Current Password
+        email: E-mail
+        location: Location
+        name: Real Name
+        nickname: Nickname
+        password: Password
+        password_confirmation: Password Confirmation
+        sex: Gender
+        website: Website
+      user_rate:
+        status: Status
+        episodes: Episodes
+        chapters: Chapters
+        volumes: Volumes
+        rewatches: Number of Rewatches
+        rerereads: Number of Rereads
+        text: Comments
+        score: Rating
+        scores:
+          '0': ''
+          '1': Worst Ever
+          '2': Terrible
+          '3': Very Bad
+          '4': Bad
+          '5': So-so
+          '6': Good
+          '7': Very Good
+          '8': Excellent
+          '9': Great
+          '10': Masterpiece!
+        statuses:
+          anime:
+            planned: Planning to Watch
+            watching: Watching
+            rewatching: Rewatching
+            completed: Watched
+            on_hold: On Hold
+            dropped: Dropped
+          manga:
+            planned: Planning to Read
+            watching: Reading
+            rewatching: Rereading
+            completed: Read
+            on_hold: On Hold
+            dropped: Dropped
+      review:
+        text: Text
+        storyline: Story
+        animation: Art
+        characters: Characters
+        music: Sound
+        overall: Overall
+
+      user_preferences:
+        anime_in_profile: Show Anime List in Profile
+        manga_in_profile: Show Manga List in Profile
+        comments_in_profile: Show Comments in Profile
+        body_background: Sidebar Background
+        page_border: Transparent Page Border
+        about_on_top: Show Above Stats
+        show_social_buttons: Show Social Media Icons
+        show_smileys: Show Smileys
+        menu_contest: Notify of Polls in Menu
+        show_hentai_images: Allow Nudity
+        is_comments_auto_collapsed: Collapse Long Comments
+        is_comments_auto_loaded: Load New Comments Automatically
+
+        profile_privacy: Can See My Lists
+        russian_genres: Anime Genres in English
+        russian_names: Anime and Manga Titles in English
+        mylist_in_catalog: Highlight Anime from My Lists
+        postload_in_catalog: Autoload Pages in Anime Catalog
+        volumes_in_manga: Show Manga Volumes
+      anime_video:
+        url: Video Link
+        episode: Episode
+        kind: Video Type
+        state: Status
+        author_name: Author (dubbing, subtitles)
+      video:
+        url: Link
+        kind: Type
+        name: Name
+      group:
+        name: Name
+        display_images: Show Images
+        join_policy: Terms of Joining
+        join_policies:
+          free_join: Unrestricted
+          admin_invite_join: Admin Invite Only
+          owner_invite_join: Owner Invite Only
+        comment_policy: Comments Policy
+        comment_policies:
+          free_comment: Unrestricted
+          members_comment: Group Members Only
+      group_invite:
+        dst: User
+      topic:
+        title: Title
+        body: Text
+        type: Type
+        linked: Linked
+        posters: Posters
+        section_id: Section
+      user_change:
+        source: Source
+      anime_video_report:
+        kind: Reason
+        message: Report
+
+    errors:
+      messages:
+        taken: Already Taken
+      models:
+        comments:
+          not_a_moderator: 'Cannot touch [ban] tags'
+          not_a_club_member: Join the club to leave comments
+          in_club_black_list: You're banned in this club. Commenting is disabled
+        messages:
+          ignored: You can't send messages to this user
+
+        group_invite:
+          attributes:
+            base:
+              banned: User is banned in this club. Invitation is forbidden
+              invited: User has already been invited to this club
+              joined: User is a member of this club
+            dst:
+              empty: Empty
+              blank: Blank
+
+        videos:
+          attributes:
+            url:
+              incorrect: incorrect, must be a valid youtube or vkontakte link
+            hosting:
+              incorrect: unsupported video hosting
+
+    state_machines:
+      contest:
+        states:
+          created: being prepared
+          proposing: proposing candidates
+          started: active
+          finished: finished
+
+      review:
+        states:
+          pending: pending approval
+          accepted: accepted
+          rejected: rejected
+
+      anime_video:
+        states:
+          working: working
+          uploaded: uploaded but needs approval
+          rejected: rejected
+          broken: broken
+          wrong: wrong anime
+          banned: banned
+          copyrighted: copyrighted
+
+  enumerize:
+    strategy_type:
+      double_elimination: Double elimination
+      play_off: Olympic system
+      swiss: Swiss system
+
+    member_type:
+      anime: Anime
+      character: Characters
+
+    profile_privacy:
+      public: All Visitors
+      users: Registered Users
+      friends: My Friends Only
+      owner: Only Me
+
+    abuse_request:
+      kind:
+        offtopic: offtopic
+        review: review
+        spoiler: spoiler
+        abuse: abuse
+
+    anime_video:
+      kind:
+        unknown: dub
+        raw: raw
+        subtitles: subtitles
+        fandub: fandub
+      state:
+        working: working
+        uploaded: uploaded but needs approval
+        rejected: rejected
+        broken: broken
+        wrong: wrong anime
+        banned: banned
+        copyrighted: copyrighted
+
+    anime_video_report:
+      kind:
+        uploaded: new video
+        broken: video broken
+        wrong: wrong anime
+
+  time:
+    formats:
+      with_month_name: '%B %e, %Y'
+
+  #date_time:
+    #week:
+      #one: week
+      #few: weeks
+      #many: weeks
+    #day:
+      #one: day
+      #few: days
+      #many: days
+    #hour:
+      #one: hour
+      #few: hours
+      #many: hours
+    #minute:
+      #one: minute
+      #few: minutes
+      #many: minutes
+
+    #intervals:
+      #today: today
+      #yesterday: yesterday
+      #week: during the week
+      #two_weeks: two weeks ago
+      #three_weeks: three weeks ago
+      #four_weeks: four weeks ago
+      #month: a month ago
+      #two_months: two months ago
+      #three_months: three months ago
+      #four_months: four months ago
+      #five_months: five months ago
+      #half_year: more than half a year ago
+      #year: almost a year ago
+      #two_years: more than one year ago
+      #many_years: a long, long time ago
+
+  # в bans#create отображаются
+  messages:
+    user_banned: User is banned
+    user_warned: User is warned
+
+  will_paginate:
+    previous_label: '<'
+    next_label: '>'
+    page_gap: ...
