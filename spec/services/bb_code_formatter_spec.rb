@@ -6,6 +6,16 @@ describe BbCodeFormatter do
     expect(processor.remove_wiki_codes("[[test|123]]")).to eq "123"
   end
 
+  describe '#format_description' do
+    subject { processor.format_description text, anime }
+    let(:anime) { build :anime }
+
+    describe '[spoiler] with [b]' do
+      let(:text) { "[spoiler=[b]z[/b]]x[/spoiler]" }
+      it { should_not include "<br" }
+    end
+  end
+
   describe '#paragraphs' do
     subject { processor.paragraphs text }
     let(:long_line) { 'x' * BbCodeFormatter::MIN_PARAGRAPH_SIZE }

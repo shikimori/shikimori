@@ -98,9 +98,17 @@ class BbCodeFormatter
   # замена концов строк на параграфы
   def paragraphs text
     # препроцессинг контента, чтобы теги параграфов не разрывали содержимое тегов
-    text = text.gsub(/(?<tag>\[(?:quote|list|spoiler)[^\]]*\](?!\r\n|\r|\n|<br>))/) do |line|
-      "#{$~[:tag]}\n"
-    end
+    text = text.gsub(/
+        (?<tag>
+          \[
+            (?:quote|list|spoiler)
+            (\[.*?\] | [^\]])*
+          \]
+          (?!\r\n|\r|\n|<br>)
+        )
+      /mix) do |line|
+        "#{$~[:tag]}\n"
+      end
 
     text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
       if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/
