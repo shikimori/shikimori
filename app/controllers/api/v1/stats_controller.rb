@@ -6,7 +6,14 @@ class Api::V1::StatsController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/stats/active_users', 'Users having at least 1 completed animes and active during last month'
   def active_users
-    ids = User
+    ids = Rails.cache.fetch(:active_users, expires_in: 5.minutes) { user_ids }
+    respond_with ids
+  end
+
+private
+
+  def user_ids
+    User
       .joins(:anime_rates, :preferences)
       .where('last_online_at > ?', 1.month.ago)
       .where(user_rates: { status: 2 })
@@ -15,7 +22,5 @@ class Api::V1::StatsController < Api::V1::ApiController
       .having('count(*) >= ?', MINIMUM_COMPLETED_ANIMES)
       .select('max(users.id) as id')
       .map(&:id)
-
-    respond_with ids
   end
 end
