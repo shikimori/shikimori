@@ -184,6 +184,9 @@ Site::Application.routes.draw do
       end
 
       resources :dialogs, only: [:index, :show, :destroy]
+      resources :stats, only: [] do
+        get :active_users, on: :collection
+      end
     end
   end
 

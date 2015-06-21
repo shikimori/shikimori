@@ -35,8 +35,4 @@ class DialogQuery
       [collection, false]
     end
   end
-
-private
-  def dynamic page, limit
-  end
 end
