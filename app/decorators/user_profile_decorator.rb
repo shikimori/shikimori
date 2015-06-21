@@ -75,7 +75,11 @@ class UserProfileDecorator < UserDecorator
 
   # заигнорен ли пользователь текущим пользователем?
   def ignored?
-    h.current_user.ignores.any? { |v| v.target_id == object.id }
+    if h.user_signed_in?
+      h.current_user.ignores.any? { |v| v.target_id == object.id }
+    else
+      false
+    end
   end
 
   def friends
