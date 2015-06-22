@@ -101,8 +101,8 @@ class @ShikiEditor extends ShikiView
       type = $(e.target).data('type')
 
       $input = @$(".#{type} input[type=text]")
-      if type == 'quote'
-        $input.trigger 'keypress', [keyCode: 13]
+      if type == 'images'
+        $input.trigger 'keypress', [true]
       else
         $input.trigger 'autocomplete:text', [$input.val()]
 
@@ -155,8 +155,8 @@ class @ShikiEditor extends ShikiView
       @$('.images input[type=text]').val('').focus()
 
     # сабмит картинки в текстовом поле
-    @$('.images input[type=text]').on 'keypress', (e) =>
-      if e.keyCode is 10 || e.keyCode is 13
+    @$('.images input[type=text]').on 'keypress', (e, force_submit) =>
+      if e.keyCode is 10 || e.keyCode is 13 || force_submit
         @$textarea.insertAtCaret '', "[img]#{$(e.target).val()}[/img]"
         @$('.editor-image').trigger('click')
         false
