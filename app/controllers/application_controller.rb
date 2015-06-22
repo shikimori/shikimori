@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :touch_last_online
   before_action :mailer_set_url_options
   before_action :force_vary_accept
+  before_action :force_canonical
 
   helper_method :url_params
   helper_method :resource_class
@@ -111,6 +112,7 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
   def set_layout
     if request.xhr? || (
         request.headers['HTTP_REFERER'] &&
@@ -123,6 +125,10 @@ private
     end
   rescue URI::InvalidURIError
     'application'
+  end
+
+  def force_canonical
+    @canonical = request.url.sub /\?[\s\S]*/, '' if request.url.include? '?'
   end
 
   # before фильтры с настройкой сайта
