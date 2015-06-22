@@ -381,6 +381,7 @@ Site::Application.routes.draw do
     end
 
     resource :tests, only: [:show] do
+      get :border
       get 'd3/:anime_id' => :d3, as: :d3
       #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
     end

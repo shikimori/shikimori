@@ -52,7 +52,7 @@ aside.buttons
 
     = text_field_tag 'link_value', '', class: 'link-value ac_input'
 
-    span.button.ok data-type="link" OK
+    span.button.ok data-type="links" OK
 
 .images.hidden-block
   p
@@ -60,7 +60,7 @@ aside.buttons
       | Вставка изображения:
     = text_field_tag 'image_value', '', class: 'link-value', placeholder: 'Введите адрес картинки...'
 
-    span.button.ok data-type="image" OK
+    span.button.ok data-type="images" OK
 
 .quotes.hidden-block
   p
@@ -68,7 +68,7 @@ aside.buttons
       | Цитирование пользователя:
     = text_field_tag 'quote_value', '', class: 'link-value ac_input', placeholder: 'Введите имя пользователя...', 'data-autocomplete' => autocomplete_users_url(search: '')
 
-    span.button.ok data-type="quote" OK
+    span.button.ok data-type="quotes" OK
 
 = render 'blocks/upload_progress'
 

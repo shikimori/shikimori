@@ -1,0 +1,28 @@
+header.head
+  h1 Тест рамки
+  p.description Страница для подбора рамки для ачивки
+
+.block
+  .b-input
+    label for="image_url" Url картинки
+    input id="image_url" value="#{params[:image_url]}"
+
+  .b-input
+    label for="image_border" Цвет рамки
+    input id="image_border" value="#{params[:image_border].try :sub, '@', '#'}"
+
+  .b-input
+    label for="link" Ссылка
+    input id="link" value="" style="width: 100%" disabled="disabled"
+
+.cc-achievements.cc-2
+  .c-column
+    .b-achievement
+      .image
+        .border
+        img
+      .about
+        .title Мои силы растут!
+        .info 200 просмотренных аниме
+        .progress: .bar style="width: 35%"
+        .notice Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.

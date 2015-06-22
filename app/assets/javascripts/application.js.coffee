@@ -18,6 +18,7 @@
 #= require_directory ./pages/p-profiles
 #= require_directory ./pages/p-user_rates
 #= require_directory ./pages/p-topics
+#= require pages/p-tests
 
 # require anime_online/application
 # require manga_online/application

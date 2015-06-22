@@ -7,16 +7,23 @@
   padding-left: 5px
 
   .image
-    margin-left: $block-offset
     float: right
-    width: 250px
     height: 125px
+    margin-left: $block-offset
+    position: relative
+    width: 250px
 
     img
       height: 100%
       max-width: 100%
       width: 100%
 
+    .border
+      border-color: 3px
+      border-style: solid
+      height: 100%
+      position: absolute
+      width: 100%
 
   .about
     overflow: hidden

@@ -15,6 +15,10 @@ class TestsController < ShikimoriController
     render :d3, layout: false
   end
 
+  # страница для теста рамок
+  def border
+  end
+
   #def d3_data
     #query = ChronologyQuery.new(Anime.find params[:anime_id])
     #@entries = query.fetch
