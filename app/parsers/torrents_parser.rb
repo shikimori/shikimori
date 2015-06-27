@@ -216,8 +216,8 @@ class TorrentsParser
       episodes = TorrentsParser.extract_episodes_num(v[:title])
       # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
       next if episodes.none? ||
-        (anime.ongoing? && (episodes.max - episodes_aired) > 1 &&
-          !(episodes.max == 2 && episodes_aired == 0))
+        (anime.ongoing? && (episodes.max - anime.episodes_aired) > 1 &&
+          !(episodes.max == 2 && anime.episodes_aired == 0))
 
       episodes.each do |episode|
         next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
