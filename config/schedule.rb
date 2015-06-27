@@ -76,33 +76,4 @@ end
   #runner "Delayed::Job.enqueue_uniq MalNewJob.new"
 #end
 
-# long tasks
-#every 20.minutes do
-  #rake "torrents:ongoing"
-#end
-
-#every 20.minutes do
-  #rake "site:history:process"
-#end
-
-#every 1.day, at: '0:15 am' do
-  #rake "torrents:latest"
-#end
-
-#every 1.day, at: '1:15 am' do
-  #rake "mal:import:latest"
-#end
-
-#every 1.day, at: '4:15 am' do
-  #rake "mal:deploy:latest"
-#end
-
-#every 1.day, at: ['6:15 am', '1:15 pm', '8:15 pm'] do
-  #rake "mal:import:new"
-#end
-
-#every 1.day, at: ['8:15 am', '3:15 pm', '10:15 pm'] do
-  #rake "mal:deploy:new"
-#end
-
 # Learn more: http://github.com/javan/whenever

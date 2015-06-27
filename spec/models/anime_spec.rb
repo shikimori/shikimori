@@ -216,55 +216,6 @@ describe Anime do
       end
     end
 
-    describe 'check_aired_episodes' do
-      let(:episodes_aired) { 1 }
-      before { @anime = create :anime, episodes_aired: episodes_aired, episodes: 24, status: AniMangaStatus::Ongoing }
-
-      it 'adds AnimeNews' do
-        expect {
-          @anime.check_aired_episodes([
-              {title: "[QTS] Mobile Suit Gundam Unicorn Vol.3 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"},
-              {title: "[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"},
-              {title: "[QTS] Mobile Suit Gundam Unicorn Vol.4 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
-            ])
-        }.to change(AnimeNews, :count).by(3)
-      end
-
-      it 'adds AnimeNews for intervals' do
-        expect {
-          @anime.check_aired_episodes([
-              {title: "[QTS] Mobile Suit Gundam Unicorn Vol.5-9 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
-            ])
-        }.to change(AnimeNews, :count).by(5)
-      end
-
-      it 'updates episodes_aired' do
-        @anime.check_aired_episodes([
-            {title: "[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
-          ])
-        expect(@anime.episodes_aired).to be(2)
-      end
-
-      it "wrong episode number shouldn't affect anime if episodes is specified" do
-        expect {
-          @anime.check_aired_episodes([
-              {title: "[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
-            ])
-          expect(@anime.episodes_aired).to be(episodes_aired)
-        }.to_not change(AnimeNews, :count)
-      end
-
-      it "any episode number should affect anime if episodes is not specified" do
-        @anime.update episodes: 0
-        expect {
-          @anime.check_aired_episodes([
-              {title: "[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv"}
-            ])
-          expect(@anime.episodes_aired).to be 99
-        }.to change(AnimeNews, :count).by 1
-      end
-    end
-
     describe "reset episodes_aired" do
       let!(:anime) { create :anime, :with_callbacks, status: AniMangaStatus::Ongoing, episodes: 20, episodes_aired: 10 }
 
@@ -284,93 +235,7 @@ describe Anime do
     end
   end
 
-  describe 'matches_for' do
-    def positive_match(string, options)
-      expect(build(:anime, options).matches_for(string)).to be_truthy
-    end
-
-    def negative_match(string, options)
-      expect(build(:anime, options).matches_for(string)).to be_falsy
-    end
-
-    it do
-      positive_match('test 123', name: 'test')
-      negative_match('ttest', name: 'test')
-      positive_match('test zxcv', name: 'test zxcv')
-      positive_match('test zxcv bnc', name: 'test zxcv')
-      negative_match('ttest zxcv bnc', name: 'test zxcv')
-      negative_match('[OWA Raws] Kodomo no Jikan ~ Kodomo no Natsu Jikan ~ (DVD 1280x720 h264 AC3 soft-upcon).mp4 ', name: 'Kodomo no Jikan OVA 5')
-      negative_match('[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv', name: 'Toaru Majutsu no Index II Specials')
-      positive_match('[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv', name: 'Toaru Majutsu no Index II')
-      #positive_match('[HQR] Umi monogatari TV [DVDRip 1024x576 h264 aac]', name: 'Umi Monogatari: Anata ga Ite Kureta Koto', kind: 'TV')
-      negative_match('[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'tv')
-      negative_match('[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria†Holic Alive', synonyms: ['Maria+Holic 2', 'Maria Holic 2', 'MariaHolic 2'], kind: 'TV')
-      positive_match('[Leopard-Raws] Maria Holic 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'tv')
-      positive_match('[Leopard-Raws] Bakuman 2 #11 (DVD 704x480 H264 AAC).mp4', name: 'Bakuman 2', kind: 'tv')
-      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'tv', synonyms: ['Testov Test OVA'])
-      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'tv', synonyms: ['Testov Test (OVA)'])
-    end
-
-    it 'II treated like 2' do
-      positive_match('[Zero-Raws] Sekai Ichi Hatsukoi II - 08 (TVS 1280x720 x264 AAC).mp4', name: 'Sekai Ichi Hatsukoi 2', kind: 'TV')
-    end
-
-    it 'minus treated like whitespace' do
-      positive_match('[Zero-Raws] Sekai Ichi Hatsukoi II - 08 (TVS 1280x720 x264 AAC).mp4', name: 'Sekaiichi Hatsukoi 2', synonyms: ['Sekai-ichi Hatsukoi 2'], kind: 'TV')
-    end
-
-    it 'matches names with underscores' do
-      positive_match('[sage]_Sekaiichi_Hatsukoi_2_-_07_[720p][10bit][E5CC0581].mkv', name: 'Sekaiichi Hatsukoi 2', kind: 'TV')
-    end
-
-    it 'matches name with season w/o space' do
-      positive_match('[Leopard-Raws] Bakuman2 - 11 (DVD 704x480 H264 AAC).mp4', name: 'Bakuman 2', kind: 'TV')
-    end
-
-    it 'matches name with season "S" letter' do
-      positive_match('Shinryaku! Ika Musume S2 - 05v2 [94DCBFF3].mkv', name: 'Shinryaku! Ika Musume 2', kind: 'TV')
-    end
-
-    it 'matches name with season "S" letter' do
-      positive_match('Shinryaku! Ika Musume S2 - 05v2 [94DCBFF3].mkv', name: 'Shinryaku! Ika Musume 2', kind: 'TV')
-    end
-
-    it 'matches name with season (TV)' do
-      positive_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikki (TV)', kind: 'TV')
-    end
-
-    it 'matches name with dot' do
-      positive_match('[Leopard-Raws] Aldnoah.Zero - 01 RAW (MX 1280x720 x264 AAC).mp4', name: 'Aldnoah.Zero', kind: 'TV')
-    end
-
-    it 'works for torrents_name' do
-      positive_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikk', torrents_name: 'Mirai Nikki', kind: 'TV')
-    end
-
-    #it 'torrents_name top priority' do
-      #negative_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikki', torrents_name: 'Mirai Nikk', kind: 'TV')
-    #end
-
-    it 'tilda and semicolon' do
-      positive_match('[Zero-Raws] Queen\'s Blade ~Rebellion~ - 01 (AT-X 1280x720 x264 AAC).mp4', name: 'Queen\'s Blade: Rebellion', kind: 'TV')
-    end
-
-    it 'special symbols' do
-      positive_match('[Zero-Raws] Fate kaleid liner Prism Illya - 01 (MX 1280x720 x264 AAC).mp4', name: 'Fate/kaleid liner Prisma☆Illya', kind: 'TV')
-      positive_match('[Zero-Raws] Fatekaleid liner Prism Illya - 01 (MX 1280x720 x264 AAC).mp4', name: 'Fate/kaleid liner Prisma☆Illya', kind: 'TV')
-      positive_match('[Zero-Raws] Fate kaleid liner PrismIllya - 01 (MX 1280x720 x264 AAC).mp4', name: 'Fate/kaleid liner Prisma☆Illya', kind: 'TV')
-    end
-
-    describe 'torrents_name specified' do
-      it 'matches only exact match' do
-        negative_match('[Hien] Hayate no Gotoku! - Can\'t Take My Eyes Off You - 05-06 [BD 1080p H.264 10-bit AAC]', name: 'Hayate no Gotoku! Cuties', torrents_name: 'Hayate no Gotoku! Cuties', kind: 'TV')
-      end
-    end
-  end
-
   describe 'adult?' do
-    subject { anime.adult? }
-
     context 'by_rating' do
       let(:anime) { build :anime, rating: rating, episodes: episodes, kind: kind }
       let(:episodes) { 1 }
@@ -378,7 +243,7 @@ describe Anime do
 
       context 'G - All Ages' do
         let(:rating) { 'G - All Ages' }
-        it { should be_falsy }
+        it { expect(anime).to_not be_adult }
       end
 
       context 'R+ - Mild Nudity' do
@@ -386,7 +251,7 @@ describe Anime do
 
         context 'TV' do
           let(:kind) { :tv }
-          it { should be_falsy }
+          it { expect(anime).to_not be_adult }
         end
 
         context 'OVA' do
@@ -394,23 +259,23 @@ describe Anime do
 
           context '1 episode' do
             let(:episodes) { 1 }
-            it { should be_truthy }
+            it { expect(anime).to be_adult }
           end
 
           context '2 episodes' do
             let(:episodes) { 2 }
-            it { should be_truthy }
+            it { expect(anime).to be_adult }
           end
 
           context '3 episodes' do
             let(:episodes) { 3 }
-            it { should be_falsy }
+            it { expect(anime).to_not be_adult }
           end
         end
 
         context 'Special' do
           let(:kind) { :special }
-          it { should be_truthy }
+          it { expect(anime).to be_adult }
         end
       end
     end
@@ -420,12 +285,12 @@ describe Anime do
 
       context 'false' do
         let(:censored) { false }
-        it { should be_falsy }
+        it { expect(anime).to_not be_adult }
       end
 
       context 'true' do
         let(:censored) { true }
-        it { should be_truthy }
+        it { expect(anime).to be_adult }
       end
     end
   end

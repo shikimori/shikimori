@@ -366,10 +366,6 @@ exit
 #parser.fetch_people(true)
 #parser.apply_fixes
 
-#ap Anime.find(10766).matches_for("[한샛-Raws] Detective Conan - 618 (NTV 1280x720 x264 AAC).mp4")
-#ap Anime.find(9712).matches_for("[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4")
-#ap Anime.find(10163).matches_for("[ReinForce] Astarotte no Omocha! - 01 (TVS 1280x720 x264 AAC).mkv")
-#
 #ap MALParser.fetch_character(8041)
 #c = MALParser.load_cache
 #anime = c[:animes][8795]
@@ -533,35 +529,3 @@ exit
           #ap entry
       #end
     #end
-
-
-#ap Anime.where(AnimeSeason.query_for('ongoing')).size
-#ap Anime.order(:id).all.select {|v| v.ongoing?(true) }.size
-#ap Anime.order(:id).all.select {|v| v.ongoing?(true) } - Anime.where(AnimeSeason.query_for('ongoing'))
-#AnimeHistoryService.process
-#TokyoToshokanParser.grab_ongoings
-#TokyoToshokanParser.grab_ongoings(false, 8937)
-#MALParser.do
-#exit
-#ap Anime.find(8311).
-#matches_for("GOSICK - 01 (1280x720).avi +DDL")
-#fill_torrents_cache#.map {|v| v[:title] }
-#exit
-
-#mutex = Mutex.new
-#animes = Anime.order(:id).all.select {|v| !v.anons? && v.torrents.empty? }
-##animes = Anime.order(:id).all.select {|v| v.ongoing? && !v.anons? }
-#count = animes.count
-#i = 0
-##Parallel.for(animes, :pool_size => 120) do |anime|
-##[animes.first].each do |anime|
-#[Anime.find(8425)].each do |anime|
-##[Anime.find(7724)].each do |anime|
-##[Anime.find(7456)].each do |anime|
-  #cache = anime.fill_torrents_cache
-  #mutex.synchronize {
-    #i += 1
-    #print "%d\t%d\t%d\t%s\n" % [cache.size, count-i, anime.id, anime.name] if cache
-    #print "failed for %d\t%d\t%s\n" % [count-i, anime.id, anime.name] unless cache
-  #}
-#end

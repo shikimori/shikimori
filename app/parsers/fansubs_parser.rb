@@ -33,11 +33,13 @@ class FansubsParser
     return nil unless content
 
     doc = Nokogiri::HTML(content)
-    entries = doc.css('li a').map do |node|
-      extract_entry(node)
-    end.compact.select do |entry|
-      (entry[:type].nil? || entry[:type] == anime.kind) && anime.matches_for(entry[:title])
-    end
+    entries = doc.css('li a')
+      .map { |node| extract_entry node }
+      .compact
+      .select do |entry|
+        (entry[:type].nil? || entry[:type] == anime.kind) &&
+          TorrentsMatcher.new(anime).matches_for(entry[:title])
+      end
 
     entries.map do |entry|
       extract_subtitles(entry)

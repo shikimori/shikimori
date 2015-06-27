@@ -3,7 +3,7 @@ class CleanupBadTorrents < ActiveRecord::Migration
     i = 0
     Anime.where("(released > '2008-01-01' || status = ?) and atype != 'TV' and atype != 'Movie'", AniMangaStatus::Ongoing).all.each do |anime|
       before = anime.torrents
-      after = anime.torrents.select {|v| anime.matches_for(v[:title]) }
+      after = anime.torrents.select {|v| TorrentsMatcher.new(anime).matches_for(v[:title]) }
       if before.size != after.size
         anime.torrents = after
         anime.update_attributes({:episodes_aired => 0})

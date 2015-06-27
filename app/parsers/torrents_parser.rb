@@ -141,10 +141,11 @@ class TorrentsParser
         end
         next if v[:title].include?('Otome') && v[:title].include?('Amnesia') # оно уже закончилось, но портит хизнь для Amnesia
 
-        anime.matches_for(v[:title],
-                          only_name: AnimeWithOnlyNameMatch.include?(anime.id),
-                          exact_name: AnimeWithExactNameMatch.include?(anime.id)
-                         )
+        TorrentsMatcher.new(anime).matches_for(
+          v[:title],
+          only_name: AnimeWithOnlyNameMatch.include?(anime.id),
+          exact_name: AnimeWithExactNameMatch.include?(anime.id)
+        )
       end
 
       matches.any? ? add_episodes(anime, matches) : 0
@@ -178,7 +179,7 @@ class TorrentsParser
 
   # добавление эпизода к аниме
   def self.add_episodes anime, feed
-    new_episodes = anime.check_aired_episodes(feed)
+    new_episodes = check_aired_episodes anime, feed
 
     unless new_episodes.empty?
       print "%d new episodes(s) found for %s\n" % [new_episodes.size, anime.name]
@@ -202,6 +203,35 @@ class TorrentsParser
 
   def self.filter_bad_formats(feed)
     feed.select {|v| v[:title].match(/(?:avi|mkv|mp4|\]|[^\.]{5})$/) }
+  end
+
+  # добавление новых эпизодов из rss фида
+  def self.check_aired_episodes anime, feed
+    episode_min = anime.changes['episodes_aired'] || anime.episodes_aired || 0
+    episode_max = anime.episodes_aired || 0
+
+    new_episodes = []
+
+    feed.reverse.each do |v|
+      episodes = TorrentsParser.extract_episodes_num(v[:title])
+      # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
+      next if episodes.none? ||
+        (anime.ongoing? && (episodes.max - episodes_aired) > 1 &&
+          !(episodes.max == 2 && episodes_aired == 0))
+
+      episodes.each do |episode|
+        next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
+        episode_max = episode if episode_max < episode
+        anime.episodes_aired = episode
+        new_episodes << v
+        AnimeNews.create_for_new_episode(anime, (v[:pubDate] || Time.zone.now) + episode.seconds)
+      end
+    end
+
+    anime.episodes_aired = episode_max
+    anime.save if anime.changed?
+
+    new_episodes.uniq
   end
 
 private
