@@ -76,9 +76,9 @@ class RecommendationsController < AnimesCollectionController
         .group_by { |v| v.anime? && (v.ova? || v.ona?) ? 'OVA/ONA' : v.kind }
         .each_with_object({}) do |(kind, group), memo|
           limit = if klass == Anime
-            kind == :tv ? 18 : (kind == :movie ? 10 : 8)
+            kind == :tv ? 18 : (kind == :movie ? 12 : 8)
           else
-            kind == :manga ? 18 : (kind == :one_shot || kind == :doujin ? 8 : 10)
+            kind == :manga ? 18 : (kind == :one_shot || kind == :doujin ? 8 : 12)
           end
           memo[kind] = group.take(limit).map(&:decorate)
         end
