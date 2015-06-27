@@ -250,7 +250,7 @@ ru:
     anime_video_report:
       kind:
         uploaded: новое видео
-        broken: видео сломано
+        broken: видео не работет
         wrong: видео не к тому аниме
 
   #date_time:
