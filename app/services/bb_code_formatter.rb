@@ -111,7 +111,11 @@ class BbCodeFormatter
       end
 
     text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
-      if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/
+      unbalanced_tags = [:quote,:list,:spoiler].inject(0) do |memo, tag|
+        memo + (line.scan("[#{tag}").size - line.scan("[/#{tag}]").size).abs
+      end
+
+      if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/ && unbalanced_tags.zero?
         "[p]#{line.gsub(/\r\n|\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
       else
         line

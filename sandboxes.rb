@@ -50,7 +50,7 @@ end
 ###########################
 # чистка продублировавшихся сообщений от перезапуска HistoryJob
 ###########################
-Message.where(id: Message.where(linked_id: 116580).group(:to_id).having('count(*) > 1').pluck(:id)).delete_all
+Message.where(id: Message.where(linked_id: 178216).group(:to_id).having('count(*) > 1').select('max(id) as id').map(&:id)).delete_all
 ###########################
 # чистка удалённой на MAL манги, которой нет ни в чьих списках
 ###########################
@@ -249,8 +249,8 @@ end
 ###########################
 # очистка базы от людей/персонажей, оставшихся без аниме и манги
 ###########################
-print '['; Person.includes(:person_roles).all.sort_by(&:id).each {|v| print "#{v.id}," if v.person_roles.none? }; puts ']';
-People.where(id: ...).each(&:destroy)
+print 'ids = ['; Person.includes(:person_roles).all.sort_by(&:id).each {|v| print "#{v.id}," if v.person_roles.none? }; puts ']';
+Person.where(id: ids).each(&:destroy)
 
-print '['; Character.includes(:person_roles).all.sort_by(&:id).each {|v| print "#{v.id}," if v.person_roles.none? }; puts ']';
-Character.where(id: ...).each(&:destroy)
+print 'ids = ['; Character.includes(:person_roles).all.sort_by(&:id).each {|v| print "#{v.id}," if v.person_roles.none? }; puts ']';
+Character.where(id: ids).each(&:destroy)

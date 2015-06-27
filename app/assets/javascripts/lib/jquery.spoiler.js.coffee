@@ -19,6 +19,7 @@
           $content.css(display: 'inline')
 
           $content.find('.prgrph').each ->
+            $content.addClass 'no-cursor'
             $(@)
               .addClass('inner-prgrph')
               .removeClass('prgrph')
