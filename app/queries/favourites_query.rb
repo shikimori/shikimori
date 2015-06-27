@@ -33,8 +33,7 @@ class FavouritesQuery
 
     klass
       .where(id: fav_ids - in_list_ids - ignored_ids)
-      .where.not(kind: 'Special')
-      .where.not(kind: 'Music')
+      .where.not(kind: [:special, :music])
       .where.not(id: ai_censored_ids)
       .sort_by {|v| fav_ids.index v.id }
   end

@@ -118,23 +118,23 @@ private
       with_bang = type.starts_with? '!'
 
       case type
-        when 'TV-13', '!TV-13'
-          query = "(kind = 'TV' and episodes != 0 and episodes <= 16) or (kind = 'TV' and episodes = 0 and episodes_aired <= 16)"
+        when 'tv_13', '!tv_13'
+          query = "(kind = 'tv' and episodes != 0 and episodes <= 16) or (kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
           @query = @query.where(with_bang ? "not(#{query})" : query)
-          with_bang ? nil : 'TV'
+          with_bang ? nil : 'tv'
 
-        when 'TV-24', '!TV-24'
-          query = "(kind = 'TV' and episodes != 0 and episodes >= 17 and episodes <= 28) or (kind = 'TV' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
+        when 'tv_24', '!tv_24'
+          query = "(kind = 'tv' and episodes != 0 and episodes >= 17 and episodes <= 28) or (kind = 'tv' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
           @query = @query.where(with_bang ? "not(#{query})" : query)
-          with_bang ? nil : 'TV'
+          with_bang ? nil : 'tv'
 
-        when 'TV-48', '!TV-48'
-          query = "(kind = 'TV' and episodes != 0 and episodes >= 29) or (kind = 'TV' and episodes = 0 and episodes_aired >= 29)"
+        when 'tv_48', '!tv_48'
+          query = "(kind = 'tv' and episodes != 0 and episodes >= 29) or (kind = 'tv' and episodes = 0 and episodes_aired >= 29)"
           @query = @query.where(with_bang ? "not(#{query})" : query)
-          with_bang ? nil : 'TV'
+          with_bang ? nil : 'tv'
 
         else
-          type.gsub(/-/, ' ')
+          type.gsub(/-| /, '_').downcase
       end
     end.compact
 
@@ -158,8 +158,8 @@ private
 
   # отключение выборки по музыке
   def disable_music!
-    unless @type =~ /Music/ || mylist? || userlist?
-      @query = @query.where.not(kind: 'Music')
+    unless @type =~ /music/ || mylist? || userlist?
+      @query = @query.where.not(kind: :music)
     end
   end
 

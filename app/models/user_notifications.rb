@@ -101,10 +101,10 @@ module UserNotifications
       # Anons
       when AnimeHistoryAction::Anons
         case entry.linked.kind
-          when 'TV'
+          when 'tv'
             self.notifications & ANONS_TV_NOTIFICATIONS != 0
 
-          when 'Movie'
+          when 'movie'
             self.notifications & ANONS_MOVIE_NOTIFICATIONS != 0
 
           else
@@ -115,10 +115,10 @@ module UserNotifications
       when AnimeHistoryAction::Ongoing
         result = false
         case entry.linked.kind
-          when 'TV'
+          when 'tv'
             result = self.notifications & ONGOING_TV_NOTIFICATIONS != 0
 
-          when 'Movie'
+          when 'movie'
             result = self.notifications & ONGOING_MOVIE_NOTIFICATIONS != 0
 
           else
@@ -128,10 +128,10 @@ module UserNotifications
         self.anime_rates.any? do |rate|
           if rate.target_id == entry.linked_id
             case entry.linked.kind
-              when 'TV'
+              when 'tv'
                 self.notifications & MY_ONGOING_TV_NOTIFICATIONS != 0
 
-              when 'Movie'
+              when 'movie'
                 self.notifications & MY_ONGOING_MOVIE_NOTIFICATIONS != 0
 
               else
@@ -145,10 +145,10 @@ module UserNotifications
       # Release
       when AnimeHistoryAction::Release
         result = case entry.linked.kind
-          when 'TV'
+          when 'tv'
             self.notifications & RELEASE_TV_NOTIFICATIONS != 0
 
-          when 'Movie'
+          when 'movie'
             self.notifications & RELEASE_MOVIE_NOTIFICATIONS != 0
 
           else
@@ -159,10 +159,10 @@ module UserNotifications
         self.anime_rates.any? do |rate|
           if rate.target_id == entry.linked_id
             case entry.linked.kind
-              when 'TV'
+              when 'tv'
                 self.notifications & MY_RELEASE_TV_NOTIFICATIONS != 0
 
-              when 'Movie'
+              when 'movie'
                 self.notifications & MY_RELEASE_MOVIE_NOTIFICATIONS != 0
 
               else
@@ -178,10 +178,10 @@ module UserNotifications
         self.anime_rates.any? do |rate|
           if rate.target_id == entry.linked_id
             case entry.linked.kind
-              when 'TV'
+              when 'tv'
                 self.notifications & MY_EPISODE_TV_NOTIFICATIONS != 0
 
-              when 'Movie'
+              when 'movie'
                 self.notifications & MY_EPISODE_MOVIE_NOTIFICATIONS != 0
 
               else

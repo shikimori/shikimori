@@ -1,4 +1,3 @@
-# TODO: переделать kind в enumerize
 # TODO: extract torrents to value object
 # TODO: выпилить matches_for и заменить на использование NameMatcher
 # TODO: move matches_for, name_variants to another object
@@ -105,6 +104,8 @@ class Anime < DbEntry
     path: ":rails_root/public/images/anime/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
+  enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: true
+
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :check_status
@@ -112,7 +113,7 @@ class Anime < DbEntry
 
   # Scopes
   scope :translatable, -> {
-      where("kind = 'TV' or (kind = 'ONA' and score >= 7.0) or (kind = 'OVA' and score >= 7.5) or kind = 'Movie'")
+      where("kind = 'tv' or (kind = 'ona' and score >= 7.0) or (kind = 'ova' and score >= 7.5) or kind = 'movie'")
         .where.not(id: Anime::EXCLUDED_ONGOINGS)
         .where.not(rating: AniMangaQuery::Ratings['G'])
         .order(:ranked)
@@ -140,11 +141,6 @@ class Anime < DbEntry
   def self.anons
     Anime.where(AniMangaStatus.query_for('planned'))
     #Anime.order(:id).all.select {|v| v.anons? }
-  end
-
-  # тип аниме на русском
-  def russian_kind
-    'Аниме'
   end
 
   # есть ли файлы у аниме?
@@ -297,7 +293,7 @@ class Anime < DbEntry
   def name_variants(agains='', options={})
     names = [self.torrents_name || self.name]
     unless options[:only_name] || self.torrents_name
-      if self.kind != 'Special'
+      unless special?
         names.concat(self.english) unless !self.english || self.english.empty?
         names.concat(self.synonyms) unless !self.synonyms || self.synonyms.empty?
       end
@@ -306,7 +302,7 @@ class Anime < DbEntry
     end
 
     names = names.select {|v| v =~ / \(?(?:ova|tv|special|ona)\)?$/i } if names.any? {|v| v =~ / \(?(?:ova|tv|special|ona)\)?$/i }
-    names << self.name + ' tv' if self.name.match(':') && self.kind == 'TV' && !self.name.downcase.include?('tv') && agains.downcase.include?('tv')
+    names << self.name + ' tv' if self.name.match(':') && tv? && !self.name.downcase.include?('tv') && agains.downcase.include?('tv')
     # случай, когда название содержит (tv)
     names << self.name.sub(/\(tv\)/i, '').strip if self.name.downcase.include? '(tv)'
     # тире воспринимаем так же, как пробел
@@ -327,6 +323,7 @@ class Anime < DbEntry
   # совпадает ли название аниме со строкой
   # для совпадения должны совпадать как минимум половина ключевых слов(если их меньше трех, то все)
   # и все спец слова
+  # TODO: вынести из класса
   def matches_for(title, options={only_name: false, exact_name: false})
     title = title.gsub('​', '').gsub('_', ' ')
     if options[:exact_name] || self.torrents_name.present?
@@ -388,6 +385,7 @@ class Anime < DbEntry
   end
 
   # добавление новых эпизодов из rss фида
+  # TODO: вынести из класса
   def check_aired_episodes feed
     episode_min = self.changes['episodes_aired'] || self.episodes_aired || 0
     episode_max = self.episodes_aired || 0
@@ -491,7 +489,7 @@ class Anime < DbEntry
   def adult?
     censored || ADULT_RATINGS.include?(rating) || (
       SUB_ADULT_RATINGS.include?(rating) &&
-      ((kind == 'OVA' && episodes <= AnimeVideo::R_OVA_EPISODES) || kind == 'Special')
+      ((ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || special?)
     )
   end
 end

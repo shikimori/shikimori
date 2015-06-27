@@ -22,7 +22,7 @@ class WellcomeGalleryPresenter < LazyPresenter
         .to_a,
       Anime
         .where(AniMangaStatus.query_for('latest'))
-        .where(kind: 'TV')
+        .where(kind: 'tv')
         .where.not(id: Anime::EXCLUDED_ONGOINGS)
         .where.not(id: AniMangaQuery::AnimeSerials)
         .where.not(rating: 'None')
@@ -33,7 +33,7 @@ class WellcomeGalleryPresenter < LazyPresenter
         .limit(12)
         .to_a,
       Anime
-        .where(kind: 'TV')
+        .where(kind: 'tv')
         .where.not(id: Anime::EXCLUDED_ONGOINGS)
         .where.not(id: AniMangaQuery::AnimeSerials)
         .where.not(rating: 'None')
@@ -44,7 +44,7 @@ class WellcomeGalleryPresenter < LazyPresenter
         .limit(84)
         .to_a,
       Anime
-        .where(kind: 'Movie')
+        .where(kind: 'movie')
         .where.not(id: Anime::EXCLUDED_ONGOINGS)
         .where.not(id: AniMangaQuery::AnimeSerials)
         .where.not(rating: 'None')
@@ -62,7 +62,7 @@ class WellcomeGalleryPresenter < LazyPresenter
         .to_a,
       Anime
         .where(AniMangaStatus.query_for('ongoing'))
-        .where(kind: 'TV')
+        .where(kind: 'tv')
         .where.not(id: Anime::EXCLUDED_ONGOINGS)
         .where.not(id: AniMangaQuery::AnimeSerials)
         .where.not(rating: 'None')

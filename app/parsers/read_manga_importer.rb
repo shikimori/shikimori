@@ -92,7 +92,7 @@ class ReadMangaImporter
   def entries_matched? import_entry, db_entry
     link = ReadMangaImportData::CustomLinks[import_entry[:id]]
 
-    !(self.class::Prefix == AdultMangaImporter::Prefix && import_entry[:kind] == 'One Shot' && db_entry[:entry].manga?) && # адалт ваншоты с мангами не матчим
+    !(self.class::Prefix == AdultMangaImporter::Prefix && import_entry[:kind] == :one_shot && db_entry[:entry].manga?) && # адалт ваншоты с мангами не матчим
       (!link && (import_entry[:names] & db_entry[:names]).any?) || (link && link == db_entry[:id])
   end
 end

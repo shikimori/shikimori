@@ -76,8 +76,8 @@ private
     }
     @entry_data = {}
 
-    if params[:type] =~ /^[a-z]+$/
-      raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(type: params[:type].capitalize.sub('Tv', 'TV').sub('Ova', 'OVA').sub('Ona', 'ONA')))
+    if params[:type] =~ /[A-Z -]/
+      raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(type: params[:type].downcase.sub(/ |-/, '_')))
     end
     [:genre, :studio, :publisher].each do |kind|
       if params[kind]
@@ -139,7 +139,7 @@ private
       .to_a
 
     apply_in_list(entries)
-      .group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
+      .group_by { |v| v.ova? || v.ona? ? 'OVA/ONA' : v.kind }
   end
 
   # выборка из датасорса с пагинацией
@@ -154,7 +154,7 @@ private
     else
       entries = ds
         .where(id: params[:ids_with_sort].keys)
-        .where.not(kind: ['Special', 'Music'])
+        .where.not(kind: [:special, :music])
         .select("#{klass.name.tableize}.id")
         .to_a
       total_pages = (entries.size * 1.0 / entries_per_page).ceil

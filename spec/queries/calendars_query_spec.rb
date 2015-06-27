@@ -5,7 +5,7 @@ describe CalendarsQuery do
 
   let!(:anime2) { create :anime, :ongoing, name: '2', aired_on: Time.zone.now - 1.day }
   let!(:anime3) { create :anime, :ongoing, name: '3', duration: 20 }
-  let!(:anime4) { create :anime, :ongoing, name: '4', kind: 'ONA' }
+  let!(:anime4) { create :anime, :ongoing, :ova, name: '4' }
   let!(:anime5) { create :anime, :ongoing, name: '5', episodes_aired: 0, aired_on: Time.zone.now - 1.day - 1.month }
 
   let!(:anime6) { create :anime, :anons, name: '6' }

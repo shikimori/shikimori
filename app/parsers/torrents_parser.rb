@@ -157,14 +157,14 @@ class TorrentsParser
 
     anons = Anime
       .where(AniMangaStatus.query_for('planned'))
-      .where(kind: ['TV', 'ONA'])
+      .where(kind: ['tv', 'ona'])
       .where(episodes_aired: 0)
       .includes(:anime_calendars)
       .references(:anime_calendars)
       .where('anime_calendars.episode = 1 and anime_calendars.start_at < now()')
       .to_a
 
-    anons.delete_if { |v| v.kind == 'ONA' && v.anime_calendars.empty? }
+    anons.delete_if { |v| v.ona? && v.anime_calendars.empty? }
 
     released = Anime
       .where("released_on >= ?", DateTime.now - 2.weeks)
@@ -172,7 +172,7 @@ class TorrentsParser
       .to_a
 
     (ongoings + anons + released).select do |v|
-      v.kind != 'Special' && !Anime::EXCLUDED_ONGOINGS.include?(v.id) && !TorrentsParser::AnimeIgnored.include?(v.id)
+      !v.special && !Anime::EXCLUDED_ONGOINGS.include?(v.id) && !TorrentsParser::AnimeIgnored.include?(v.id)
     end
   end
 
@@ -205,6 +205,7 @@ class TorrentsParser
   end
 
 private
+
   def self.get url, ban_texts=nil
     Proxy.get(
       url,

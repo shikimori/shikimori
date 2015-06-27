@@ -19,52 +19,52 @@ describe AniMangaQuery do
     end
 
     context 'type' do
-      let!(:anime_1) { create :anime, kind: 'TV', episodes: 13 }
-      let!(:anime_2) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 13 }
-      let!(:anime_3) { create :anime, kind: 'TV', episodes: 6 }
-      let!(:anime_4) { create :anime, kind: 'TV', episodes: 13 }
+      let!(:anime_1) { create :anime, :tv, episodes: 13 }
+      let!(:anime_2) { create :anime, :tv, episodes: 0, episodes_aired: 13 }
+      let!(:anime_3) { create :anime, :tv, episodes: 6 }
+      let!(:anime_4) { create :anime, :tv, episodes: 13 }
 
-      let!(:anime_5) { create :anime, kind: 'TV', episodes: 17 }
-      let!(:anime_6) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 17 }
-      let!(:anime_7) { create :anime, kind: 'TV', episodes: 26 }
+      let!(:anime_5) { create :anime, :tv, episodes: 17 }
+      let!(:anime_6) { create :anime, :tv, episodes: 0, episodes_aired: 17 }
+      let!(:anime_7) { create :anime, :tv, episodes: 26 }
 
-      let!(:anime_8) { create :anime, kind: 'TV', episodes: 29 }
-      let!(:anime_9) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 100 }
+      let!(:anime_8) { create :anime, :tv, episodes: 29 }
+      let!(:anime_9) { create :anime, :tv, episodes: 0, episodes_aired: 100 }
 
-      context 'TV' do
-        before { create :anime, kind: 'Movie' }
+      context 'tv' do
+        before { create :anime, :movie }
         it do
-          expect(fetch type: 'TV').to have(9).items
-          expect(fetch type: '!TV').to have(1).item
+          expect(fetch type: 'tv').to have(9).items
+          expect(fetch type: '!tv').to have(1).item
         end
       end
 
-      context 'TV-13' do
+      context 'tv_13' do
         it do
-          expect(fetch type: 'TV-13').to have(4).items
-          expect(fetch type: '!TV-13').to have(5).items
+          expect(fetch type: 'tv_13').to have(4).items
+          expect(fetch type: '!tv_13').to have(5).items
         end
       end
 
-      context 'TV-24' do
+      context 'tv_24' do
         it do
-          expect(fetch type: 'TV-24').to have(3).items
-          expect(fetch type: '!TV-24').to have(6).items
+          expect(fetch type: 'tv_24').to have(3).items
+          expect(fetch type: '!tv_24').to have(6).items
         end
       end
 
-      context 'TV-48' do
+      context 'tv_48' do
         it do
-          expect(fetch type: 'TV-48').to have(2).items
-          expect(fetch type: '!TV-48').to have(7).items
+          expect(fetch type: 'tv_48').to have(2).items
+          expect(fetch type: '!tv_48').to have(7).items
         end
       end
 
       it 'multiple negative' do
-        expect(fetch type: '!TV-13,!TV-24').to have(2).items
+        expect(fetch type: '!tv_13,!tv_24').to have(2).items
       end
       it 'multiple positive' do
-        expect(fetch type: 'TV-13,TV-24').to have(0).items
+        expect(fetch type: 'tv_13,tv_24').to have(0).items
       end
     end
 
@@ -112,8 +112,8 @@ describe AniMangaQuery do
     end
 
     context 'music' do
-      let!(:anime_1) { create :anime, kind: 'Music' }
-      let!(:anime_2) { create :anime, kind: 'Music' }
+      let!(:anime_1) { create :anime, :music }
+      let!(:anime_2) { create :anime, :music }
       let!(:anime_3) { create :anime }
 
       describe 'no music' do
@@ -452,8 +452,8 @@ describe AniMangaQuery do
     end
 
     describe 'paginated' do
-      let!(:anime_1) { create :anime, kind: 'TV', episodes: 13 }
-      let!(:anime_2) { create :anime, kind: 'TV', episodes: 0, episodes_aired: 13 }
+      let!(:anime_1) { create :anime, :tv, episodes: 13 }
+      let!(:anime_2) { create :anime, :tv, episodes: 0, episodes_aired: 13 }
 
       it 'first page' do
         expect(fetch({}, nil, 1, 1)).to eq [anime_1, anime_2]
@@ -465,10 +465,10 @@ describe AniMangaQuery do
     end
 
     describe 'with_video' do
-      let!(:anime_1) { create :anime, :with_video, kind: 'TV' }
-      let!(:anime_2) { create :anime, kind: 'TV' }
-      let!(:anime_3) { create :anime, kind: 'TV' }
-      let!(:anime_adult) { create :anime, :with_video, kind: 'TV', rating: Anime::ADULT_RATINGS.first }
+      let!(:anime_1) { create :anime, :with_video, :tv }
+      let!(:anime_2) { create :anime, :tv }
+      let!(:anime_3) { create :anime, :tv }
+      let!(:anime_adult) { create :anime, :with_video, :tv, rating: Anime::ADULT_RATINGS.first }
 
       it do
         expect(fetch with_video: true).to eq [anime_1]

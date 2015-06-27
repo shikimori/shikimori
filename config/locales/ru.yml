@@ -190,6 +190,22 @@ ru:
           copyrighted: copyrighted
 
   enumerize:
+    kind:
+      # anime
+      movie: Фильм
+      music: Клип
+      ona: ONA
+      ova: OVA
+      special: Спешл
+      tv: Сериал
+      # manga
+      doujin: Додзинси
+      manga: Манга
+      manhua: Маньхуа
+      manhwa: Манхва
+      novel: Новелла
+      one_shot: Ваншот
+
     body_width:
       x1200: 1200 пикселей
       x1000: 1000 пикселей

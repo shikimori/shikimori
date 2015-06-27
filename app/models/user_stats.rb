@@ -133,7 +133,7 @@ class UserStats
     i18n = !@current_user || (@current_user && @current_user.preferences.russian_genres?) ?
       ':klass.Short.%s' : nil
 
-    all_types = ['TV', 'Movie', 'OVA', 'ONA', 'Music', 'Special'] + ["Manga", "One Shot", "Manhwa", "Manhua", "Novel", "Doujin"]
+    all_types = Anime.kind.values + Manga.kind.values
     @stats.by_criteria(:kind, all_types, i18n)[list_type.to_sym]
   end
 

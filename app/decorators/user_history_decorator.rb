@@ -38,9 +38,9 @@ class UserHistoryDecorator < Draper::Decorator
 
         if target_episodes == history_episodes.last
           kind = if target.anime?
-            target.kind == 'Movie' ? :movie : :anime
+            target.movie? ? :movie : :anime
           else
-            target.kind == 'Novel' ? :novel : :manga
+            target.novel? ? :novel : :manga
           end
 
           i18n_t "actions.episodes.completed_#{kind}"

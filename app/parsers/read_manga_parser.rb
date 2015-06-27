@@ -127,8 +127,8 @@ class ReadMangaParser < SiteParserWithCache
   # перевод русского типа манги в английский
   def extract_kind kind
     case kind
-      when 'Манга' then 'Manga'
-      when 'Сингл' then 'One Shot'
+      when 'Манга' then :manga
+      when 'Сингл' then :one_shot
       else
         raise "unexpected russian kind: '#{kind}'"
     end

@@ -293,7 +293,7 @@ describe Anime do
       expect(build(:anime, options).matches_for(string)).to be_falsy
     end
 
-    it 'works' do
+    it do
       positive_match('test 123', name: 'test')
       negative_match('ttest', name: 'test')
       positive_match('test zxcv', name: 'test zxcv')
@@ -303,12 +303,12 @@ describe Anime do
       negative_match('[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv', name: 'Toaru Majutsu no Index II Specials')
       positive_match('[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv', name: 'Toaru Majutsu no Index II')
       #positive_match('[HQR] Umi monogatari TV [DVDRip 1024x576 h264 aac]', name: 'Umi Monogatari: Anata ga Ite Kureta Koto', kind: 'TV')
-      negative_match('[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'TV')
+      negative_match('[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'tv')
       negative_match('[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria†Holic Alive', synonyms: ['Maria+Holic 2', 'Maria Holic 2', 'MariaHolic 2'], kind: 'TV')
-      positive_match('[Leopard-Raws] Maria Holic 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'TV')
-      positive_match('[Leopard-Raws] Bakuman 2 #11 (DVD 704x480 H264 AAC).mp4', name: 'Bakuman 2', kind: 'TV')
-      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'TV', synonyms: ['Testov Test OVA'])
-      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'TV', synonyms: ['Testov Test (OVA)'])
+      positive_match('[Leopard-Raws] Maria Holic 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'tv')
+      positive_match('[Leopard-Raws] Bakuman 2 #11 (DVD 704x480 H264 AAC).mp4', name: 'Bakuman 2', kind: 'tv')
+      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'tv', synonyms: ['Testov Test OVA'])
+      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'tv', synonyms: ['Testov Test (OVA)'])
     end
 
     it 'II treated like 2' do
@@ -374,7 +374,7 @@ describe Anime do
     context 'by_rating' do
       let(:anime) { build :anime, rating: rating, episodes: episodes, kind: kind }
       let(:episodes) { 1 }
-      let(:kind) { 'OVA' }
+      let(:kind) { :ova }
 
       context 'G - All Ages' do
         let(:rating) { 'G - All Ages' }
@@ -385,12 +385,12 @@ describe Anime do
         let(:rating) { 'R+ - Mild Nudity' }
 
         context 'TV' do
-          let(:kind) { 'TV' }
+          let(:kind) { :tv }
           it { should be_falsy }
         end
 
         context 'OVA' do
-          let(:kind) { 'OVA' }
+          let(:kind) { :ova }
 
           context '1 episode' do
             let(:episodes) { 1 }
@@ -409,7 +409,7 @@ describe Anime do
         end
 
         context 'Special' do
-          let(:kind) { 'OVA' }
+          let(:kind) { :special }
           it { should be_truthy }
         end
       end

@@ -83,6 +83,8 @@ class Manga < DbEntry
     path: ":rails_root/public/images/manga/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
+  enumerize :kind, in: [:doujin, :manga, :manhua, :manhwa, :novel, :one_shot], predicates: true
+
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
@@ -90,11 +92,6 @@ class Manga < DbEntry
 
   def name
     self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
-  end
-
-  # тип манги на русском
-  def russian_kind
-    kind == 'Novel' ? 'Новелла' : 'Манга'
   end
 
   # имя сайта ридманги
@@ -108,11 +105,6 @@ class Manga < DbEntry
       "http://readmanga.ru/#{read_manga_id.sub(ReadMangaImporter::Prefix, '')}" :
       "http://adultmanga.ru/#{read_manga_id.sub(AdultMangaImporter::Prefix, '')}"
   end
-
-  # манга ли это?
-  #def manga?
-    #kind == 'Manga' || kind == 'Manhwa' || kind == 'Manhua'
-  #end
 
   def duration
     Manga::DURATION

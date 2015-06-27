@@ -28,7 +28,7 @@ class Video < ActiveRecord::Base
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
-  default_scope -> { order 'kind desc, name' }
+  default_scope -> { order kind: :desc, name: :asc }
 
   state_machine :state, initial: :uploaded do
     state :uploaded do

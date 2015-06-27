@@ -14,7 +14,7 @@ class TranslationsController < ShikimoriController
     @filtered_groups = @groups.map do |key,values|
       filtered = values.select do |anime|
         def anime.too_short?
-          (ongoing? || anons? || latest?) && score > 7 && kind == 'TV' &&
+          (ongoing? || anons? || latest?) && score > 7 && tv? &&
             rating != 'G - All Ages' &&
             (description || '').size < 450 &&
             description != description_mal &&
@@ -43,20 +43,20 @@ private
     @groups = {}
 
     @groups['Top 100 TV'] = Anime
-      .where(id: Anime.where(kind: 'TV').where.not(ranked: 0).order(:ranked).limit(100). pluck(:id))
+      .where(id: Anime.where(kind: :tv).where.not(ranked: 0).order(:ranked).limit(100). pluck(:id))
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: TRANSLATE_IGNORES)
       .order(:ranked)
 
     @groups['Top 50 OVA'] = Anime
-      .where(id: Anime.where("kind != 'TV' and kind != 'Movie'").where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
+      .where(id: Anime.where.not(kind: [:tv, :movie]).where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: TRANSLATE_IGNORES)
       .where.not(id: added_ids)
       .order(:ranked)
 
     @groups['Top 50 Movies'] = Anime
-      .where(id: Anime.where(kind: 'Movie').where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
+      .where(id: Anime.where(kind: :movie).where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: TRANSLATE_IGNORES)
       .where.not(id: added_ids)
@@ -91,7 +91,7 @@ private
       .animes
       .where('animes.id not in (?)', Anime::EXCLUDED_ONGOINGS)
       .where('animes.id not in (?)', TRANSLATE_IGNORES)
-      .where('animes.kind != ?', 'Music')
+      .where('animes.kind != ?', 'music')
       .where(censored: false)
       .order(:ranked)
       .limit(10)
@@ -175,7 +175,7 @@ private
       .where('score >= 7.5 or status = ?', AniMangaStatus::Anons)
       .where.not(id: TRANSLATE_IGNORES)
       .where.not(rating: AniMangaQuery::Ratings['G'])
-      .where(kind: 'Movie')
+      .where(kind: :movie)
       .order(:ranked)
       .limit(45)
 
@@ -339,7 +339,7 @@ private
       .where.not(rating: AniMangaQuery::Ratings['G'])
       .where('score >= 7.5')
       .where.not(id: TRANSLATE_IGNORES)
-      .where(kind: 'Movie')
+      .where(kind: :movie)
       .where(censored: false)
       .order(:ranked)
       .limit(45)
@@ -347,7 +347,7 @@ private
     @groups['В избранном у пользователей'] = Anime
       .where(id: FavouritesQuery.new.top_favourite_ids(Anime, 300))
       .where.not(id: added_ids)
-      .where.not(kind: ['Special', 'Music'])
+      .where.not(kind: [:special, :music])
       .where(censored: false)
       .order(:ranked)
 

@@ -15,54 +15,54 @@
     ul.block-list.types.anime-params
       / аниме
       - if klass == Anime
-        li.type-TV
+        li.type-tv
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.TV')
           - else
             | TV
 
-        li.type-TV-13.sub
+        li.type-tv_13.sub
           input type="checkbox" autocomplete="off"
-          = t('Anime.TV-13')
+          = t('Anime.TV_13')
 
-        li.type-TV-24.sub
+        li.type-tv_24.sub
           input type="checkbox" autocomplete="off"
-          = t('Anime.TV-24')
+          = t('Anime.TV_24')
 
-        li.type-TV-48.sub
+        li.type-tv_48.sub
           input type="checkbox" autocomplete="off"
-          = t('Anime.TV-48')
+          = t('Anime.TV_48')
 
-        li.type-Movie
+        li.type-movie
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.Movie')
           - else
             | Movie
 
-        li.type-OVA
+        li.type-ova
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.OVA')
           - else
             | OVA
 
-        li.type-ONA
+        li.type-ona
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.ONA')
           - else
             | ONA
 
-        li.type-Special
+        li.type-special
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.Special')
           - else
             | Special
 
-        li.type-Music
+        li.type-music
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Anime.Music')
@@ -70,42 +70,42 @@
             | Music
       / манга
       - else
-        li.type-Manga
+        li.type-manga
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Manga')
           - else
             | Manga
 
-        li.type-Manhua
+        li.type-manhua
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Manhua')
           - else
             | Manhua
 
-        li.type-Manhwa
+        li.type-manhwa
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Manhwa')
           - else
             | Manhwa
 
-        li.type-Novel
+        li.type-novel
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Novel')
           - else
             | Novel
 
-        li.type-One-Shot
+        li.type-one_shot
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.One Shot')
           - else
             | One Shot
 
-        li.type-Doujin
+        li.type-doujin
           input type="checkbox" autocomplete="off"
           - if !current_user || (current_user && current_user.preferences.russian_genres?)
             = t('Manga.Doujin')

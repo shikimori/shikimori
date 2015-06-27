@@ -6,7 +6,7 @@ class Recommendations::EntriesFetcher
   def fetch
     @data ||= Rails.cache.fetch "all_entries_#{@klass.name}_#{@klass.last.id}", expires_in: 2.weeks do
       @klass
-        .where.not(kind: 'Special')
+        .where.not(kind: [:special, :music])
         .select([:id, :score])
         .each_with_object({}) do |v,memo|
           memo[v.id] = v

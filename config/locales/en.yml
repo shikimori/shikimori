@@ -181,6 +181,26 @@ en:
           copyrighted: copyrighted
 
   enumerize:
+    kind:
+      # anime
+      movie: Movie
+      music: Music
+      ona: ONA
+      ova: OVA
+      special: Special
+      tv: TV
+      # manga
+      doujin: Doujin
+      manga: Manga
+      manhua: Manhua
+      manhwa: Manhwa
+      novel: Novel
+      one_shot: One Shot
+
+    body_width:
+      x1200: 1200 pixels
+      x1000: 1000 pixels
+
     strategy_type:
       double_elimination: Double elimination
       play_off: Olympic system

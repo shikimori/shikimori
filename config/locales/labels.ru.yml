@@ -20,22 +20,22 @@ ru:
     OVA: OVA
     Special: Спешл
     TV: Сериал
-    TV-13: Односезонное
-    TV-24: Двухсезонное
-    TV-48: Многосезонное
+    TV_13: Односезонное
+    TV_24: Двухсезонное
+    TV_48: Многосезонное
     Plural:
       TV: TV Сериалы
       Movie: Полнометражные фильмы
       OVA/ONA: OVA / ONA
       Special: Спешиалы
       Music: Клипы
-    Short:
-      Movie: Фильм
-      Music: Клип
-      ONA: ONA
-      OVA: OVA
-      Special: Спешл
-      TV: Сериал
+    #Short:
+      #Movie: Фильм
+      #Music: Клип
+      #ONA: ONA
+      #OVA: OVA
+      #Special: Спешл
+      #TV: Сериал
     Full:
       Movie: Полнометражные аниме
       Music: Клипы
@@ -64,13 +64,13 @@ ru:
       Manhwa: Манхва
       Novel: Новеллы
       One Shot: Ваншоты
-    Short:
-      Doujin: Додзинси
-      Manga: Манга
-      Manhua: Маньхуа
-      Manhwa: Манхва
-      Novel: Новелла
-      One Shot: Ваншот
+    #Short:
+      #Doujin: Додзинси
+      #Manga: Манга
+      #Manhua: Маньхуа
+      #Manhwa: Манхва
+      #Novel: Новелла
+      #One Shot: Ваншот
     Full:
       Doujin: Додзинси
       Manga: Манга

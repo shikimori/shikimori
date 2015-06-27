@@ -8,7 +8,7 @@ FactoryGirl.define do
     duration 0
     score 1
     mal_scores [1,1,1,1,1,1,1,1,1,1]
-    kind 'TV'
+    kind :tv
     rating 'PG-13 - Teens 13 or older'
     censored false
     next_episode_at nil
@@ -39,6 +39,12 @@ FactoryGirl.define do
     end
     trait :with_video do
       after(:create) {|v| FactoryGirl.create :anime_video, anime: v }
+    end
+
+    Anime.kind.values.each do |kind_type|
+      trait kind_type do
+        kind kind_type
+      end
     end
 
     trait :pg_13 do

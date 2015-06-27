@@ -6,7 +6,7 @@ FactoryGirl.define do
     description_mal ''
     score 1
     mal_scores [1,1,1,1,1,1,1,1,1,1]
-    kind "Manga"
+    kind :manga
 
     after(:build) do |anime|
       anime.stub :generate_thread
@@ -15,6 +15,12 @@ FactoryGirl.define do
     trait :with_thread do
       after(:build) do |anime|
         anime.unstub :generate_thread
+      end
+    end
+
+    Manga.kind.values.each do |kind_type|
+      trait kind_type do
+        kind kind_type
       end
     end
   end

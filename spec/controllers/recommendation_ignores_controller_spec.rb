@@ -4,7 +4,7 @@ describe RecommendationIgnoresController do
   after { BannedRelations.instance.clear_cache! }
 
   describe '#create' do
-    let(:anime) { create :anime, kind: 'Special' }
+    let(:anime) { create :anime, :special }
 
     before { post :create, target_type: Anime.name, target_id: anime.id }
 
@@ -14,7 +14,7 @@ describe RecommendationIgnoresController do
   end
 
   describe '#cleanup' do
-    let(:anime1) { create :anime, kind: 'Special' }
+    let(:anime1) { create :anime, :special }
     let(:anime2) { create :anime }
     let(:anime3) { create :anime }
     before do

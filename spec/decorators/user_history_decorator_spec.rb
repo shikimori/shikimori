@@ -58,7 +58,7 @@ describe UserHistoryDecorator do
 
         context 'movie' do
           let(:value) { 1 }
-          let(:target) { build :anime, kind: 'Movie', episodes: value }
+          let(:target) { build :anime, :movie, episodes: value }
           it { is_expected.to eq 'Просмотрен фильм' }
         end
 
@@ -75,7 +75,7 @@ describe UserHistoryDecorator do
 
         context 'novel' do
           let(:action) { UserHistoryAction::Chapters }
-          let(:target) { build :manga, kind: 'Novel', chapters: value }
+          let(:target) { build :manga, :novel, chapters: value }
           it { is_expected.to eq 'Прочитана новелла' }
         end
       end

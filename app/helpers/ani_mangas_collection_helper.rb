@@ -2,18 +2,18 @@ module AniMangasCollectionHelper
   # разбивка по типам
   def kinds_with_colors
     [
-      { kind: 'TV', color: 'blue' },
-      { kind: 'Movie', color: 'orange' },
+      { kind: 'tv', color: 'blue' },
+      { kind: 'movie', color: 'orange' },
       { kind: 'OVA/ONA', color: 'green' },
-      { kind: 'Special', color: 'purple' },
-      { kind: 'Music', color: 'skyblue' },
+      { kind: 'special', color: 'purple' },
+      { kind: 'music', color: 'skyblue' },
 
-      { kind: 'Manga', color: 'blue' },
-      { kind: 'Manhwa', color: 'green' },
-      { kind: 'Novel', color: 'purple' },
-      { kind: 'Manhua', color: 'orange' },
-      { kind: 'One-Shot', color: 'skyblue' },
-      { kind: 'Doujin', color: 'pink' }
+      { kind: 'manga', color: 'blue' },
+      { kind: 'manhwa', color: 'green' },
+      { kind: 'novel', color: 'purple' },
+      { kind: 'manhua', color: 'orange' },
+      { kind: 'one_shot', color: 'skyblue' },
+      { kind: 'doujin', color: 'pink' }
     ]
   end
 end

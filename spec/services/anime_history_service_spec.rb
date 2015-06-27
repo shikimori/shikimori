@@ -43,7 +43,7 @@ describe AnimeHistoryService do
     end
 
     it 'for music anime' do
-      create :anime, status: AniMangaStatus::Anons, kind: 'Music'
+      create :anime, status: AniMangaStatus::Anons, kind: 'music'
       expect{process}.to_not change Message, :count
     end
 

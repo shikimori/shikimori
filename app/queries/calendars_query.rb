@@ -70,10 +70,10 @@ private
       .includes(:episodes_news, :anime_calendars)
       .references(:anime_calendars)
       .where(AniMangaStatus.query_for('ongoing'))
-      .where(kind: ['TV', 'ONA']) # 15133 - спешл Aoi Sekai no Chuushin de
+      .where(kind: [:tv, :ona]) # 15133 - спешл Aoi Sekai no Chuushin de
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
       .where("anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1")
-      .where("kind != 'ONA' or anime_calendars.episode is not null")
+      .where("kind != 'ona' or anime_calendars.episode is not null")
       .where("episodes_aired != 0 or aired_on  is null or aired_on > ?", Time.zone.now - 1.months)
       .order('animes.id')
   end
@@ -84,12 +84,12 @@ private
       .includes(:episodes_news, :anime_calendars)
       .references(:anime_calendars)
       .where(AniMangaStatus.query_for('planned'))
-      .where(kind: ['TV', 'ONA'])
+      .where(kind: [:tv, :ona])
       .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where("anime_calendars.episode=1 or (anime_calendars.episode is null and aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
               from: Time.zone.today - 1.week, to: Time.zone.today + 1.month, new_year: Time.zone.today.beginning_of_year)
-      .where("kind != 'ONA' or anime_calendars.episode is not null")
+      .where("kind != 'ona' or anime_calendars.episode is not null")
       .order('animes.id')
   end
 

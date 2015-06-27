@@ -28,7 +28,7 @@ class AnimeHistoryService
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.map do |entry|
       # новости о уже не существующих элементах, или о зацензуренных элементах, или о музыке не создаём
-      next if entry.class == AnimeNews && (!entry.linked || entry.linked.censored || entry.linked.kind == 'Music')
+      next if entry.class == AnimeNews && (!entry.linked || entry.linked.censored || entry.linked.music?)
       # протухшие новости тоже не нужны
       next if entry.created_at + NewsExpireIn < DateTime.now
 
@@ -107,24 +107,6 @@ class AnimeHistoryService
   end
   def new_release_topic_text(anime, history)
     anime_url = url_for(anime).sub('http://', '')
-    #score_text = case (["TV", "Movie"].include?(anime.kind) ? anime.score : anime.score-0.5)
-      #when 9.0..10.0
-        #"Шедевр! Всем смотреть!"
-      #when 8.5..9.0
-        #"Пожалуй, лучшее аниме сезона. Смотреть обязательно!"
-      #when 7.9..8.5
-        #"Очень, очень хорошо, это стоит посмотреть."
-      #when 7.5..7.9
-        #"Неплохо, советую посмотреть."
-      #when 7.1..7.5
-        #"Можно будет посмотреть, но скорее всего не очень."
-      #when 6.6..7.1
-        #"Как-то слабовато, но возможно стоит посмотреть."
-      #when 6.0..6.6
-        #"Совсем плохо, смотреть не стоит."
-      #when 0.0..6.0
-        #"Полный провал, даже не тратьте своё время."
-    #end
     part = [
       "Зарелизилось",
       "Вышло",

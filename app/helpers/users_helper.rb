@@ -23,7 +23,7 @@ module UsersHelper
       return '' unless entry.kind.present?
 
       if !current_user || (current_user && current_user.preferences.try(:russian_genres?))
-        I18n.t "#{entry.decorated? ? entry.object.class.name : entry.class.name}.#{short ? 'Short.' : ''}#{entry.kind}"
+        entry.kind_text
       else
         entry.kind
       end

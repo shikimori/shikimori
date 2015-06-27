@@ -8,7 +8,7 @@ li.entry
       - if entry.generated?
         - if entry.linked.kind.present?
           span
-            = t "#{entry.linked.class.name}.Short.#{entry.linked.kind}"
+            = entry.linked.kind_text
         span.b-anime_status_tag class="#{entry.action}"
           = entry.title.sub(/ .*/, '').downcase
       - else

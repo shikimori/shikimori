@@ -54,12 +54,13 @@ class FansubsParser
   end
 
 private
+
   # выборка из Nokogiri Node записи об элементе
   def extract_entry(node)
     if node[:href].match(/t=(\d+)/)
       id = $1.to_i
       inner_html = cp1251_to_utf8(node.inner_html)
-      #type = inner_html.match(/<small>\(?(.*?)\)?<\/small>/)[1]#.sub('ТВ', 'TV').sub('Спецвыпуск', 'Special').sub('Фильм', 'Movie')
+
       title = inner_html.gsub(/<.*?>|\(.*?\)/, '').strip
       {
         id: id,
@@ -69,7 +70,10 @@ private
     elsif node[:href].match(/id=(\d+)/)
       id = $1.to_i
       inner_html = cp1251_to_utf8(node.inner_html)
-      type = inner_html.match(/<small>\(?(.*?)\)?<\/small>/)[1].sub('ТВ', 'TV').sub(/Спецвыпуск|Cпецвыпуск/, 'Special').sub('Фильм', 'Movie')
+      type = inner_html.match(/<small>\(?(.*?)\)?<\/small>/)[1]
+        .sub('ТВ', :tv)
+        .sub(/Спецвыпуск|Cпецвыпуск/, :special)
+        .sub('Фильм', :movie)
       title = inner_html.gsub(/<.*?>|\(.*?\)/, '').strip
       {
         id: id,

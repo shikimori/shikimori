@@ -39,7 +39,7 @@ class Recommendations::RatesFetcher
 
   class << self
     def join_query klass
-      "inner join #{klass.table_name} a on a.id = #{UserRate.table_name}.target_id and a.kind != 'Special' and a.kind != 'Music'"
+      "inner join #{klass.table_name} a on a.id = #{UserRate.table_name}.target_id and a.kind != 'special' and a.kind != 'music'"
     end
 
     def rate_query

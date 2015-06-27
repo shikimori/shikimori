@@ -73,12 +73,12 @@ class RecommendationsController < AnimesCollectionController
     @entries = Rails.cache.fetch cache_key, expires_in: 1.week do
       FavouritesQuery.new
         .global_top(klass, klass == Anime ? 500 : 1000, current_user)
-        .group_by { |v| v.kind == 'OVA' || v.kind == 'ONA' ? 'OVA/ONA' : v.kind }
+        .group_by { |v| v.ova? || v.ona? ? 'OVA/ONA' : v.kind }
         .each_with_object({}) do |(kind, group), memo|
           limit = if klass == Anime
-            kind == 'TV' ? 15 : (kind == 'Movie' ? 10 : 8)
+            kind == :tv ? 15 : (kind == :movie ? 10 : 8)
           else
-            kind == 'Manga' ? 15 : (kind == 'One Shot' ? 8 : 10)
+            kind == :manga ? 15 : (kind == :one_shot ? 8 : 10)
           end
           memo[kind] = group.take(limit).map(&:decorate)
         end

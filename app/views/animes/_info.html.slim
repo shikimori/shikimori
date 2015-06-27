@@ -7,7 +7,7 @@
 
   - if entry.respond_to?(:episodes) && entry.duration && entry.duration > 0
     = info_line 'Длительность эпизода' do
-      span itemprop="#{entry.kind == 'Movie' ? 'duration' : ''}"
+      span itemprop="#{entry.movie? ? 'duration' : ''}"
         = humanize_minutes entry.duration
 
   = render 'animes/aired_chapters', entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired

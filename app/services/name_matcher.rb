@@ -161,7 +161,7 @@ private
     phrases = multiply_phrases phrases, /(?<=[wrtpsdfghjklzxcvbnm])o/, 'ou'
 
     phrases = multiply_phrases phrases, /(?<= )([456789])$/, '\1th season'
-    phrases = multiply_phrases phrases, "(#{kind.downcase})", '' if kind && name.include?("(#{kind.downcase})")
+    phrases = multiply_phrases phrases, "(#{kind})", '' if kind && name.include?("(#{kind.downcase})")
 
     phrases.map {|name| fix name }.uniq
   end

@@ -4,7 +4,7 @@ describe Api::V1::CalendarsController, :show_in_doc do
       create :anime
       create :anime, :ongoing, aired_on: Time.zone.now - 1.day
       create :anime, :ongoing, duration: 20
-      create :anime, :ongoing, kind: 'ONA'
+      create :anime, :ongoing, :ona
       create :anime, :ongoing, episodes_aired: 0, aired_on: Time.zone.now - 1.day - 1.month
       create :anime, :anons
       create :anime, :anons
