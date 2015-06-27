@@ -139,7 +139,7 @@ private
       .to_a
 
     apply_in_list(entries)
-      .group_by { |v| v.ova? || v.ona? ? 'OVA/ONA' : v.kind }
+      .group_by { |v| v.anime? && (v.ova? || v.ona?) ? 'OVA/ONA' : v.kind }
   end
 
   # выборка из датасорса с пагинацией
