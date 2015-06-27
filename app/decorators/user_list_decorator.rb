@@ -94,15 +94,16 @@ private
   # аггрегированная статистика по данным
   def list_stats data, reduce=true
     stats = {
-      tv: data.sum {|v| v.target.tv? ? 1 : 0 },
-      movie: data.sum {|v| v.target.movie? ? 1 : 0 },
-      ova: data.sum {|v| v.target.ova? || v.target.ona? ? 1 : 0 },
-      special: data.sum {|v| v.target.special? ? 1 : 0 },
-      music: data.sum {|v| v.target.music? ? 1 : 0 },
-      manga: data.sum {|v| v.target.manga? || v.target.manhwa? || v.target.manhua? ? 1 : 0 },
-      oneshot: data.sum {|v| v.target.one_shot? ? 1 : 0 },
-      novel: data.sum {|v| v.target.novel? ? 1 : 0 },
-      doujin: data.sum {|v| v.target.doujin? ? 1 : 0 }
+      tv: data.sum {|v| v.target.anime? && v.target.tv? ? 1 : 0 },
+      movie: data.sum {|v| v.target.anime? && v.target.movie? ? 1 : 0 },
+      ova: data.sum {|v| v.target.anime? && (v.target.ova? || v.target.ona?) ? 1 : 0 },
+      special: data.sum {|v| v.target.anime? && v.target.special? ? 1 : 0 },
+      music: data.sum {|v| v.target.anime? && v.target.music? ? 1 : 0 },
+
+      manga: data.sum {|v| v.target.manga? && (v.target.kind == :manga || v.target.manhwa? || v.target.manhua?) ? 1 : 0 },
+      oneshot: data.sum {|v| v.target.manga? && v.target.one_shot? ? 1 : 0 },
+      novel: data.sum {|v| v.target.manga? && v.target.novel? ? 1 : 0 },
+      doujin: data.sum {|v| v.target.manga? && v.target.doujin? ? 1 : 0 }
     }
     if anime?
       stats[:episodes] = data.sum(&:episodes)

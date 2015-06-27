@@ -131,7 +131,7 @@ class UserStats
 
   def types list_type
     i18n = !@current_user || (@current_user && @current_user.preferences.russian_genres?) ?
-      ':klass.Short.%s' : nil
+      'enumerize.kind.%s' : nil
 
     all_types = Anime.kind.values + Manga.kind.values
     @stats.by_criteria(:kind, all_types, i18n)[list_type.to_sym]
