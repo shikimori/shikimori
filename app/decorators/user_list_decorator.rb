@@ -99,7 +99,7 @@ private
       ova: data.sum {|v| v.target.ova? || v.target.ona? ? 1 : 0 },
       special: data.sum {|v| v.target.special? ? 1 : 0 },
       music: data.sum {|v| v.target.music? ? 1 : 0 },
-      manga: data.sum {|v| v.target.manga? || v.target.manhwa?, v.target.manhua? ? 1 : 0 },
+      manga: data.sum {|v| v.target.manga? || v.target.manhwa? || v.target.manhua? ? 1 : 0 },
       oneshot: data.sum {|v| v.target.one_shot? ? 1 : 0 },
       novel: data.sum {|v| v.target.novel? ? 1 : 0 },
       doujin: data.sum {|v| v.target.doujin? ? 1 : 0 }
