@@ -21,7 +21,7 @@ class FranchiseSerializer < ActiveModel::Serializer
         image_url: ImageUrlGenerator.instance.url(entry, :x96),
         url: url_for(entry),
         year: entry.aired_on.try(:year),
-        kind: UsersHelper.localized_kind(entry, current_user, true),
+        kind: entry.kind_text,
         weight: all_links.count {|v| v.source_id == entry.id },
       }
     end

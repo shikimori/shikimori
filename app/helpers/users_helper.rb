@@ -19,15 +19,15 @@ module UsersHelper
       end
     end
 
-    def localized_kind entry, current_user, short=false
-      return '' unless entry.kind.present?
+    #def localized_kind entry, current_user, short=false
+      #return '' unless entry.kind.present?
 
-      if !current_user || (current_user && current_user.preferences.try(:russian_genres?))
-        entry.kind_text
-      else
-        entry.kind
-      end
-    end
+      #if !current_user || (current_user && current_user.preferences.try(:russian_genres?))
+        #entry.kind_text
+      #else
+        #entry.kind
+      #end
+    #end
   end
 
   # название с учётом настроек отображения русского языка
@@ -36,9 +36,9 @@ module UsersHelper
   end
 
   # тип с учётом настроек отображения русского языка
-  def localized_kind entry, short=false
-    UsersHelper.localized_kind entry, current_user, short
-  end
+  #def localized_kind entry, short=false
+    #UsersHelper.localized_kind entry, current_user, short
+  #end
 
   def page_background
     if user_signed_in? && current_user.preferences.page_background.to_f > 0

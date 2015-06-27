@@ -13,4 +13,4 @@ a.c-screenshot.b-image[
     .move-controls
       .move-left title="Переместить влево"
       .move-right title="Переместить вправо"
-  img src="#{cdn_image screenshot, :x166}" srcset="#{cdn_image screenshot, :x332}" title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_kind screenshot.anime}" data-id="#{screenshot.id}"
+  img src="#{cdn_image screenshot, :x166}" srcset="#{cdn_image screenshot, :x332}" title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{screenshot.anime.kind_text}" data-id="#{screenshot.id}"

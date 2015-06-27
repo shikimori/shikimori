@@ -1,5 +1,5 @@
 .b-entry-info
-  = info_line 'Тип', localized_kind(entry, true) if entry.kind.present?
+  = info_line 'Тип', entry.kind_text if entry.kind.present?
   = render 'animes/aired_chapters', entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?

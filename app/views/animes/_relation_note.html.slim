@@ -11,7 +11,7 @@
         .relation = t "Relation.#{relation_note.relation}"
 
       .additional
-        span = localized_kind relation_note, true
+        span = relation_note.kind_text
         - if relation_note.aired_on
           span #{relation_note.aired_on.year} г.
 

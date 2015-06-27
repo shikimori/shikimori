@@ -21,7 +21,7 @@ span.misc
     span.right = anime.year
 
     - if anime.kind.present?
-      span = localized_kind anime, true
+      span = anime.kind_text
 
   - elsif cover_notice == :next_episode
     - if time_of_next_episode(anime) != '00:00'

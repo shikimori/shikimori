@@ -28,7 +28,7 @@ class UserRateDecorator < BaseDecorator
   end
 
   def target_kind
-    target.kind.blank? ? '' : h.localized_kind(target, true)
+    target.kind_text
   end
 
   def target_url

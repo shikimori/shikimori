@@ -25,7 +25,7 @@
         = info_line "Тип" do
           - if anime.kind.present?
             .tag.linkeable data-href="#{anime.catalog_url type: anime.kind}"
-              = localized_kind anime, true
+              = anime.kind_text
           - if anime.year.present?
             .tag.linkeable data-href="#{anime.catalog_url season: anime.year}"
               = "#{anime.year} год"
