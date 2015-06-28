@@ -162,6 +162,7 @@ ru:
           attributes:
             url:
               incorrect: некорректен, должна быть работающая ссылка на youtube или vkontakte
+              taken: видео с такой ссылкой уже добавлено
             hosting:
               incorrect: видео с данного хостинга не поддерживается
 
