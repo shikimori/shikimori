@@ -24,11 +24,11 @@ ru:
     TV_24: Двухсезонное
     TV_48: Многосезонное
     Plural:
-      TV: TV Сериалы
-      Movie: Полнометражные фильмы
+      tv: TV Сериалы
+      movie: Полнометражные фильмы
       OVA/ONA: OVA / ONA
-      Special: Спешиалы
-      Music: Клипы
+      special: Спешиалы
+      music: Клипы
     #Short:
       #Movie: Фильм
       #Music: Клип
