@@ -224,7 +224,7 @@ class Banhammer
     (?= #{X}|\Z|$ )
   /mix
 
-  ABUSE_SYMBOL = /#{Z}/
+  ABUSE_SYMBOL = /#{Z}|[\[\]\/]/
   NOT_ABUSE = /
     (?:#{X}|\A|^)
       (?:
