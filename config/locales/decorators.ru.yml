@@ -46,9 +46,10 @@ ru:
   topic_proxy_decorator:
     <<: *topic_decorator
   user_decorator: &user_decorator
-    always_online: всегда на сайта
+    always_online: всегда на сайте
     online: сейчас на сайте
-    offline: онлайн %{time_ago} назад
+    offline: онлайн %{time_ago}%{ago}
+    ago: назад
   user_history_decorator:
     actions:
       add: Добавлено в список

@@ -39,7 +39,9 @@ class UserDecorator < BaseDecorator
     elsif Time.zone.now - 5.minutes <= last_online_at || object.id == User::GuestID
       i18n_t 'online'
     else
-      i18n_t 'offline', time_ago: h.time_ago_in_words(last_online_at)
+      i18n_t 'offline',
+        time_ago: h.time_ago_in_words(last_online_at),
+        ago: (" #{i18n_t 'ago'}" if last_online_at > 1.day.ago)
     end
   end
 

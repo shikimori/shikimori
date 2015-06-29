@@ -88,7 +88,7 @@ module ApplicationHelper
   end
 
   def time_ago_in_words date, format_string=nil, original=false
-    if original || date + 1.day > DateTime.now
+    if original || date > 1.day.ago
       format_string ? format_string % super(date) : super(date)
     else
       I18n.l date, format: '%e %B %Y'
