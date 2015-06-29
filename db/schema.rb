@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627152329) do
+ActiveRecord::Schema.define(version: 20150629104626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1013,10 +1013,10 @@ ActiveRecord::Schema.define(version: 20150627152329) do
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255
     t.integer  "item_id"
-    t.text     "item_diff"
     t.integer  "user_id"
     t.string   "state",      limit: 255
     t.datetime "created_at"
+    t.json     "item_diff"
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree

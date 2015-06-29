@@ -9,10 +9,10 @@ class AnimeVideosService
     created_video
   end
 
-  def update video
+  def update video, current_user
     return if video.author_name == params[:author_name] && video.episode == params[:episode] && video[:kind] == params[:kind]
 
-    video.moderated_update params
+    video.moderated_update params, current_user
     video
   end
 

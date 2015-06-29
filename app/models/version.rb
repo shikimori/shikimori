@@ -12,7 +12,7 @@ class Version < ActiveRecord::Base
     end
 
     before_transition [:pending, :accepted_pending] => :rejected do |version, transition|
-      rollback_params = eval(version.item_diff).inject({}) do |mem, v|
+      rollback_params = version.item_diff.inject({}) do |mem, v|
         mem[v.first] = v.second.first
         mem
       end

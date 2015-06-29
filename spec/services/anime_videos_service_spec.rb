@@ -50,7 +50,7 @@ describe AnimeVideosService do
   describe '#update' do
     let(:video_params) {{ kind: kind, author_name: 'test', episode: 3 }}
     let(:anime_video) { create :anime_video }
-    subject(:video) { service.update anime_video }
+    subject(:video) { service.update anime_video, nil }
 
     context 'valid video' do
       let(:kind) { 'subtitles' }

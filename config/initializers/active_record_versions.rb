@@ -8,13 +8,13 @@ class ActiveRecord::Base
 
   class_attribute :diff_attrs
 
-  def moderated_update params, current_user=nil
+  def moderated_update params, user=nil
     diff_hash = diff params
-    create_version(diff_hash, current_user) unless diff_hash.blank?
+    create_version(diff_hash, user) unless diff_hash.blank?
     update params
   end
 
-  def diff(other_record = nil)
+  def diff other_record = nil
     if other_record.nil?
       old_record, new_record = self.class.find(id), self
     else
@@ -47,11 +47,12 @@ class ActiveRecord::Base
   end
 
 private
-  def diff_each(enum)
+
+  def diff_each enum
     enum.inject({}) do |diff_hash, attr_name|
       attr_name, old_value, new_value = *yield(attr_name)
 
-      unless old_value === new_value
+      unless old_value.to_s == new_value.to_s
         diff_hash[attr_name.to_sym] = [old_value, new_value]
       end
 
@@ -59,13 +60,13 @@ private
     end
   end
 
-  def create_version diff_hash, current_user
+  def create_version diff_hash, user
     Version.create(
       item_type: self.class.name,
       item_id: id,
-      user_id: current_user.try(:id),
+      user_id: user.try(:id),
       state: :accepted_pending,
-      item_diff: diff_hash.to_s,
+      item_diff: diff_hash,
     )
   end
 end

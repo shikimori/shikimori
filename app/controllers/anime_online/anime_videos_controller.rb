@@ -40,10 +40,12 @@ class AnimeOnline::AnimeVideosController < AnimesController
   end
 
   def update
-    @video = AnimeVideosService.new(current_user.video_moderator? ? moderator_update_params : update_params).update(@video)
+    @video = AnimeVideosService
+      .new(current_user.video_moderator? ? moderator_update_params : update_params)
+      .update(@video, current_user)
 
     if @video.valid?
-      redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+      redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео изменено'
     else
       page_title 'Изменение видео'
       render :edit
@@ -80,6 +82,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
   end
 
 private
+
   def new_params
     create_params
   end
