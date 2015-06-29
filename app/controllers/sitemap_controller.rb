@@ -4,7 +4,7 @@ class SitemapController < ShikimoriController
       @animes = Anime
         .where("description != '' or description is not null")
         .where("source = '' or source is null")
-        .where.not(kind: 'Special')
+        .where.not(kind: :special)
         .order(updated_at: :desc)
       @mangas = Manga
         .where("description != '' or description is not null")
@@ -18,8 +18,8 @@ class SitemapController < ShikimoriController
     @anime_sections = [
       #['Последние аниме', animes_url(season: 'latest')],
       ['Каталог аниме', animes_url],
-      ['Аниме сериалы', animes_url(type: 'TV')],
-      ['Полнометражные аниме', animes_url(type: 'Movie')],
+      ['Аниме сериалы', animes_url(type: :tv)],
+      ['Полнометражные аниме', animes_url(type: :movie)],
       ['Аниме лета 2014 года', animes_url(season: 'summer_2011')],
       ['Аниме весны 2014 года', animes_url(season: 'spring_2011')],
       ['Аниме зимы 2014 года', animes_url(season: 'winter_2011')],

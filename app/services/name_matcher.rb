@@ -281,7 +281,7 @@ private
 
     ds
       .select(db_fields)
-      .sort_by {|v| v.kind == 'TV' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
+      .sort_by {|v| v.kind == 'tv' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
   end
 
   def predefined_matches

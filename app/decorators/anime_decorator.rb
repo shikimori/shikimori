@@ -46,9 +46,9 @@ class AnimeDecorator < AniMangaDecorator
   # тип элемента для schema.org
   def itemtype
     'http://schema.org/Movie'
-    #if kind == 'Movie'
+    #if kind == 'movie'
       #'http://schema.org/Movie'
-    #elsif kind == 'TV'
+    #elsif kind == 'tv'
       #'http://schema.org/TVSeries'
     #end
   end

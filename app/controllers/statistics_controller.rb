@@ -8,8 +8,8 @@ class StatisticsController < ShikimoriController
     set_meta_tags description: @page_description
     set_meta_tags keywords: 'история аниме, статистка аниме сериалов, индустрия аниме, рейтинги аниме, студии аниме, жанры аниме'
 
-    @kinds = ['TV', 'Movie', 'OVA', 'ONA', 'Special']
-    @rating_kinds = ['TV', 'Movie', 'OVA']
+    @kinds = ['tv', 'movie', 'ova', 'ona', 'special']
+    @rating_kinds = ['tv', 'movie', 'ova']
 
     @total, @by_kind, @by_rating, @by_genre, @by_studio = Rails.cache.fetch('statistics_data_' % DateTime.now.strftime('%Y-%m')) do
       prepare
@@ -80,7 +80,7 @@ private
     # отключаем второстепенные жанры
     data.each do |kind,stats|
       stats[:series].each do |stat|
-        stat[:visible] = (top_genres[kind].include?(stat[:name]) && stat[:name] != 'Детское') || (kind == 'TV' && stat[:name] == 'Гарем')
+        stat[:visible] = (top_genres[kind].include?(stat[:name]) && stat[:name] != 'Детское') || (kind == 'tv' && stat[:name] == 'Гарем')
       end
     end
 
@@ -159,7 +159,7 @@ private
         }
       end
     end
-    @tv = @animes.select { |v| v.kind == 'TV' }
+    @tv = @animes.select(&:tv?)
   end
 
   # выборка статистики

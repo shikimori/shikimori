@@ -19,7 +19,7 @@ class AnimeVideo < ActiveRecord::Base
   after_create :create_episode_notificaiton, if: :single?
 
   R_OVA_EPISODES = 2
-  ADULT_OVA_CONDITION = "(animes.rating in ('#{Anime::SUB_ADULT_RATINGS.join "','"}') and ((animes.kind = 'OVA' and animes.episodes <= #{R_OVA_EPISODES}) or animes.kind = 'Special'))"
+  ADULT_OVA_CONDITION = "(animes.rating in ('#{Anime::SUB_ADULT_RATINGS.join "','"}') and ((animes.kind = 'ova' and animes.episodes <= #{R_OVA_EPISODES}) or animes.kind = 'Special'))"
   PLAY_CONDITION = "animes.rating not in ('#{Anime::ADULT_RATINGS.join "','"}') and animes.censored = false and not #{ADULT_OVA_CONDITION}"
   XPLAY_CONDITION = "animes.rating in ('#{Anime::ADULT_RATINGS.join "','"}') or animes.censored = true or #{ADULT_OVA_CONDITION}"
 

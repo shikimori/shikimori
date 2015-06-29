@@ -11,7 +11,7 @@ class AnimeOnline::DashboardController < ShikimoriController
         .includes(:genres)
         .where.not(rating: 'G - All Ages')
         .where('score < 9.9')
-        .where(is_adult ? AnimeVideo::XPLAY_CONDITION : { kind: 'TV', censored: false })
+        .where(is_adult ? AnimeVideo::XPLAY_CONDITION : { kind: :tv, censored: false })
         .order(score: :desc)
         .limit(15).decorate
 

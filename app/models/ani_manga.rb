@@ -31,19 +31,6 @@ module AniManga
     name.gsub(/:.*|'$/, '')
   end
 
-  #def description
-    #desc = HTMLEntities.new.decode(self[:description] || self[:description_mal] || '')
-    #if desc.blank?
-      #self.class == Anime ? 'У этого аниме пока ещё нет описания.' : 'У этой манги пока ещё нет описания.'
-    #else
-      #desc.html_safe
-    #end
-  #end
-
-  #def russian
-    #self[:russian] ? self[:russian].gsub(/\.? *\((?:С|с)езон .*\)$|\.? *\((?:С|с)езон .*\)$|\.? *\(.* (?:С|с)езон\)$|\.? *(\[|\()(?:TV|ТВ|OVA|ONA|ОВА|Movie).*(\]|\))$|(?: - )?\(?(?:Ф|ф)ильм[^,]*?\)?$/i, '').strip : nil
-  #end
-
   def ongoing?(ignore_excludes=false)
     ((aired_on != nil && aired_on < (Date.today - AniManga::OngoingToReleasedDays.days) && [AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status)) ||
      (aired_on != nil && [AniMangaStatus::Ongoing, AniMangaStatus::Publishing].include?(status))) &&
@@ -112,13 +99,13 @@ module AniManga
     def keywords_for(season, type, genres, studios, publishers)
       keywords = []
       case type
-        when 'TV'
+        when 'tv'
           keywords << 'аниме сериалы'
 
-        when 'Novel'
+        when 'novel'
           keywords << 'визуальные новеллы'
 
-        when 'Movie'
+        when 'movie'
           keywords << 'полнометражные аниме'
 
         else
@@ -145,22 +132,22 @@ module AniManga
     def description_for(season, type, genres, studios, publishers)
       type_text_prefix = rus_var(self, type) ? 'всех ' : 'всей  '
       type_text = case type
-        when 'TV'
+        when 'tv'
           'аниме сериалов'
 
-        when 'TV-13'
+        when 'tv_13'
           'аниме сериалов длительностью до 16 эпизодов'
 
-        when 'TV-24'
+        when 'tv_24'
           'аниме сериалов длительностью до 28 эпизодов'
 
-        when 'TV-48'
+        when 'tv_48'
           'аниме сериалов длительностью более 28 эпизодов'
 
-        when 'Novel'
+        when 'novel'
           'визуальных новелл'
 
-        when 'Movie'
+        when 'movie'
           'полнометражных аниме'
 
         else
