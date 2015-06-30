@@ -28,6 +28,7 @@ class FindAnimeImporter
   end
 
 private
+
   def service
     self.class::SERVICE
   end
@@ -44,12 +45,13 @@ private
   end
 
   def video_uniq_url?(video)
-    !(!video.valid? &&
-      video.errors.size == 1 &&
-      video.errors[:url].include?([
-        I18n.t('activerecord.errors.messages.taken'),
-        I18n.t('activerecord.errors.models.videos.attributes.url.taken')
-      ]))
+    !(
+      video.errors.one? &&
+      (
+        video.errors[:url].include?(I18n.t 'activerecord.errors.messages.taken') ||
+        video.errors[:url].include?(I18n.t 'activerecord.errors.models.videos.attributes.url.taken')
+      )
+    )
   end
 
   def videos_not_enough?(video)
