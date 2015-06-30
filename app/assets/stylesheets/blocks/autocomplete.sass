@@ -1,10 +1,16 @@
 @import compass/typography/text/ellipsis
+@import mixins/responsive
 
 .ac_results, .completable-block
   border: 1px solid #ddd
   color: #444
   font-size: 11px
   line-height: 16px
+
+  +lte_ipad
+    li
+      line-height: 2
+      font-size: 12px
 
   .year, .kind
     float: right
@@ -34,6 +40,9 @@
   &.menu-suggest
     width: 277px !important
     border-top: none
+
+    +lte_ipad
+      margin-top: -15px
 
     .ac_even, .ac_odd
       /*width: 267px;
