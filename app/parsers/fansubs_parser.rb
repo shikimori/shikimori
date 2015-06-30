@@ -16,7 +16,7 @@ class FansubsParser
   # импорт субтитров для аниме
   def import(anime)
     data = nil
-    anime.name_variants.each do |query|
+    TorrentsMatcher.new(anime).name_variants.each do |query|
       data = find_subtitles(query.gsub(/[^0-9A-Za-z А-Яа-я]/, ' ').gsub(/ +/, ' '), anime)
 
       if data.present?

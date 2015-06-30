@@ -48,20 +48,6 @@ class TorrentsMatcher
     end
   end
 
-private
-
-  def season_parts(title)
-    parts = title.split(' ')
-    return nil if parts.size < 2
-    season = parts[parts.size - 1]
-    keyword = parts[parts.size - 2]
-    if season =~ /(\d|I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII)\b/
-      [keyword.gsub(/\W/, ' ').split(' ').last, season]
-    else
-      nil
-    end
-  end
-
   # все вариации названий аниме
   def name_variants agains='', options={}
     names = [anime.torrents_name || anime.name]
@@ -91,5 +77,19 @@ private
       end
     end
     names.flatten.uniq
+  end
+
+private
+
+  def season_parts(title)
+    parts = title.split(' ')
+    return nil if parts.size < 2
+    season = parts[parts.size - 1]
+    keyword = parts[parts.size - 2]
+    if season =~ /(\d|I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII)\b/
+      [keyword.gsub(/\W/, ' ').split(' ').last, season]
+    else
+      nil
+    end
   end
 end
