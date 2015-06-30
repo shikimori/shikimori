@@ -37,8 +37,7 @@
       &:active
         background-color: #333
 
-// основной поиск
-+responsive(desktop)
++gt_ipad
   .main-search
     padding-left: 0 !important
     padding-right: 9px !important
@@ -70,12 +69,11 @@
     ul.popup
       +transition(height, 0.3s)
       background: #3F3F3F
-      border-top: none
       border: 2px solid #363636
+      border-top: none
       height: 0
       margin-left: -2px
       margin-top: 0
-      margin-top: 5px
       overflow: hidden
       position: absolute
       z-index: 1000
@@ -102,15 +100,14 @@
   .chrome .suggest-placeholder
     margin-top: -3px
 
-
-+responsive(tablet)
++lte_ipad
   .menu-suggest
     display: none !important
 
   .menu-search
     .main-search
-      padding-right: 25px !important
-      padding-left: 10 !important
+      padding-right: 10px !important
+      padding-left: 10px !important
 
     .input
       height: 26px
