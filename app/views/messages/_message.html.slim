@@ -22,7 +22,7 @@
             - if message.read
               span.item-delete title="Удалить"
             - else
-              span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{friend_add_url message.from_id}" title="Принять"
+              span.item-request-confirm data-remote="true" data-method="post" data-type="json" action="#{api_friend_url message.from_id}" title="Принять"
               span.item-request-reject.friend-request title="Отклонить"
               span.item-delete title="Удалить" style="#{'display: none' unless message.read}"
 

@@ -7,7 +7,7 @@ class Api::V1::FriendsController < Api::V1::ApiController
     @user = User.find params[:id]
 
     if current_user.friends.include?(@user)
-      render json: ["#{@user.nickname} уже среди ваших друзей"], status: :unprocessable_entity
+      render json: { notice: "#{@user.nickname} уже среди ваших друзей" }
     else
       current_user.friends << @user
 
