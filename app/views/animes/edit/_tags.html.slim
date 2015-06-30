@@ -5,7 +5,7 @@
     = f.input :item_id, as: :hidden
 
     .block
-      = f.input :value, as: :string, label: 'Тег на имиджбордах', input_html: { 'data-autocomplete' => "#{autocomplete_danbooru_tags_url search: ''}" }
+      = f.input :value, as: :string, label: 'Тег на имиджбордах', input_html: { 'data-autocomplete' => autocomplete_danbooru_index_url }
 
     .buttons
       a.cancel href="#{resource.url}" Отмена

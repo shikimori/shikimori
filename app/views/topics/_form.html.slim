@@ -38,11 +38,11 @@
         data-anime-placeholder="Название аниме"
         data-manga-placeholder="Название манги"
         data-character-placeholder="Имя персонажа"
-        data-anime-autocomplete="#{autocomplete_animes_url search: ''}"
-        data-manga-autocomplete="#{autocomplete_mangas_url search: ''}"
-        data-character-autocomplete="#{autocomplete_characters_url search: ''}"
+        data-anime-autocomplete="#{autocomplete_animes_url}"
+        data-manga-autocomplete="#{autocomplete_mangas_url}"
+        data-character-autocomplete="#{autocomplete_characters_url}"
       ]
-      /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url search: ''}"
+      /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url}"
 
     /.topic-video
       - if topic.linked.present?

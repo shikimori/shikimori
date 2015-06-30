@@ -75,11 +75,11 @@
     - if contest.created? || contest.proposing?
       .block
         - if contest.anime?
-          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_animes_url search: ''}"
+          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_animes_url}"
         - else
-          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя персонажа" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_characters_url search: ''}"
+          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя персонажа" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_characters_url}"
 
-        /input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url(search: '') : autocomplete_characters_url(search: '')}"
+        /input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url : autocomplete_characters_url}"
         .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
 
         = hidden_field_tag 'contest[member_ids][]', ''

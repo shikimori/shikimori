@@ -191,8 +191,10 @@ describe AnimesController do
 
     before { get :autocomplete, search: 'Fff' }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(collection).to eq [anime_1, anime_2] }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(collection).to eq [anime_1, anime_2]
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
+    end
   end
 end

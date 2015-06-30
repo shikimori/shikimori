@@ -39,7 +39,7 @@
             - @resource.unconnected_providers.each do |provider|
               a.b-oauth_token class="#{provider}" href="#{user_omniauth_authorize_url provider}" title="Подключить авторизацию через #{provider.to_s.titleize}"
 
-      input.ignore-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="user[ignored_user_ids][]" data-autocomplete="#{autocomplete_users_url search: ''}"
+      input.ignore-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="user[ignored_user_ids][]" data-autocomplete="#{autocomplete_users_url}"
       .subheadline Игнорируемые пользователи
       .variants
         - @resource.ignored_users.each do |user|

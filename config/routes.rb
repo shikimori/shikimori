@@ -10,10 +10,10 @@ Site::Application.routes.draw do
   }
 
   resources :animes, only: [] do
-    get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+    get :autocomplete, on: :collection, format: :json
   end
   resources :mangas, only: [] do
-    get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+    get :autocomplete, on: :collection, format: :json
   end
 
   # site pages
@@ -349,7 +349,7 @@ Site::Application.routes.draw do
       end
 
       resources :group_roles, only: [:create, :destroy] do
-        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, on: :collection, format: :json, search: /.*/
+        get :autocomplete, on: :collection, format: :json
       end
       resources :group_invites, only: [:create]
     end
@@ -387,8 +387,9 @@ Site::Application.routes.draw do
     end
 
     # картинки с danbooru
-    get 'd/autocomplete/:search' => 'danbooru#autocomplete', as: :autocomplete_danbooru_tags, format: :json
     resources :danbooru, only: [] do
+      get :autocomplete, on: :collection, format: :json
+
       constraints url: /.*/ do
         get 'yandere/:url' => :yandere, on: :collection
       end
@@ -518,7 +519,7 @@ Site::Application.routes.draw do
         get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|tags/
       end
       collection do
-        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get :autocomplete, format: :json
         get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
       end
     end
@@ -532,7 +533,7 @@ Site::Application.routes.draw do
         get :tooltip
       end
       collection do
-        get 'autocomplete(/:kind)/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get 'autocomplete(/:kind)' => :autocomplete, as: :autocomplete, format: :json
         get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
       end
     end
@@ -547,7 +548,7 @@ Site::Application.routes.draw do
         get :tooltip
       end
       collection do
-        get 'autocomplete/:search' => :autocomplete, as: :autocomplete, format: :json, search: /.*/
+        get :autocomplete, format: :json
         get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
       end
     end
@@ -642,7 +643,9 @@ Site::Application.routes.draw do
     # users
     get 'users(/:similar/:klass/(:threshold))(/search/:search)(/page/:page)' => 'users#index', as: :users, page: /\d+/, similar: /similar/, klass: /anime|manga/
     post 'users/search' => 'users#search', as: :users_search
-    get 'users/autocomplete/:search' => 'users#autocomplete', as: :autocomplete_users, format: :json
+    resource :users, only: [] do
+      get :autocomplete, on: :collection, format: :json
+    end
 
     # messages edit & rss & email bounce
     # create & preview урлы объявлены выше, глобально

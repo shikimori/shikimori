@@ -35,19 +35,19 @@ aside.buttons
       span ссылка
 
     = label_tag :link_type_anime do
-      = radio_button_tag 'link_type', :anime, false, 'data-placeholder' => 'Введите название аниме...', 'data-autocomplete' => autocomplete_animes_url(search: '')
+      = radio_button_tag 'link_type', :anime, false, 'data-placeholder' => 'Введите название аниме...', 'data-autocomplete' => autocomplete_animes_url
       span аниме
 
     = label_tag :link_type_manga do
-      = radio_button_tag 'link_type', :manga, false, 'data-placeholder' => 'Введите название манги...', 'data-autocomplete' => autocomplete_mangas_url(search: '')
+      = radio_button_tag 'link_type', :manga, false, 'data-placeholder' => 'Введите название манги...', 'data-autocomplete' => autocomplete_mangas_url
       span манга
 
     = label_tag :link_type_character do
-      = radio_button_tag 'link_type', :character, false, 'data-placeholder' => 'Введите имя персонажа...', 'data-autocomplete' => autocomplete_characters_url(search: '')
+      = radio_button_tag 'link_type', :character, false, 'data-placeholder' => 'Введите имя персонажа...', 'data-autocomplete' => autocomplete_characters_url
       span персонаж
 
     = label_tag :link_type_person do
-      = radio_button_tag 'link_type', :person, false, 'data-placeholder' => 'Введите имя человека...', 'data-autocomplete' => autocomplete_people_url(search: '')
+      = radio_button_tag 'link_type', :person, false, 'data-placeholder' => 'Введите имя человека...', 'data-autocomplete' => autocomplete_people_url
       span человек
 
     = text_field_tag 'link_value', '', class: 'link-value ac_input'
@@ -66,7 +66,7 @@ aside.buttons
   p
     = label_tag :image_value do
       | Цитирование пользователя:
-    = text_field_tag 'quote_value', '', class: 'link-value ac_input', placeholder: 'Введите имя пользователя...', 'data-autocomplete' => autocomplete_users_url(search: '')
+    = text_field_tag 'quote_value', '', class: 'link-value ac_input', placeholder: 'Введите имя пользователя...', 'data-autocomplete' => autocomplete_users_url
 
     span.button.ok data-type="quotes" OK
 
