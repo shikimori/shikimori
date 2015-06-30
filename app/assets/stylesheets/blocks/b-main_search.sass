@@ -2,7 +2,7 @@
 @import globals
 @import mixins/responsive
 
-.main-search
+.b-main_search
   .input
     background-color: #fcfcfc
     border-color: #ddd
@@ -38,7 +38,7 @@
         background-color: #333
 
 +gt_ipad
-  .main-search
+  .b-main_search
     padding-left: 0 !important
     padding-right: 9px !important
 
@@ -101,13 +101,9 @@
     margin-top: -3px
 
 +lte_ipad
-  .menu-suggest
-    display: none !important
-
-  .menu-search
-    .main-search
-      padding-right: 10px !important
-      padding-left: 10px !important
+  .b-main_search
+    padding-right: 10px !important
+    padding-left: 10px !important
 
     .input
       height: 26px

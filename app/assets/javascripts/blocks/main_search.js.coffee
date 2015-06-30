@@ -1,20 +1,14 @@
 # автодополнение
 $(document).on 'page:load', ->
-  $main_search = $('.main-search')
-  $search = $('.main-search input')
-  $popup = $('.main-search .popup')
+  $main_search = $('.b-main_search')
+  $search = $('.b-main_search input')
+  $popup = $('.b-main_search .popup')
 
-  return unless $('.main-search').exists()
+  return unless $('.b-main_search').exists()
 
   # из урла достаём текущий тип поиска
   type = location.pathname.replace(/^\//, "").replace(/\/.*/, "")
   type = $search.data('type') unless searcheables[type]
-
-  # из урла достаём текущее значение поиска
-  #var value = decodeURIComponent(location.pathname.replace(searcheables[type].regexp, '$1'));
-  #if (value != location.pathname && !value.match(/^\d+-\w+/)) {
-  #$search.val(value);
-  #}
 
   # во всплывающей выборке типов устанавливаем текущий тип
   $(".type[data-type=#{type}], .type[data-type=#{type}]", $popup).addClass 'active'
@@ -25,7 +19,7 @@ $(document).on 'page:load', ->
       type: type
       autocomplete: searcheables[type].autocomplete
     .attr(placeholder: searcheables[type].title)
-    .completable($('.main-search .suggest-placeholder'))
+    .completable($('.b-main_search .suggest-placeholder'))
 
     .on 'autocomplete:success', (e, entry) ->
       type = $search.data('type')
@@ -40,19 +34,23 @@ $(document).on 'page:load', ->
 
   $search.on 'parse', ->
     $popup.addClass 'disabled'
-    _.delay ->
-      $('.ac_results:visible').addClass 'menu-suggest'
+    (-> $('.ac_results:visible').addClass 'menu-suggest').delay()
 
   # переключение типа поиска
-  $(".main-search .type").on 'click', ->
-    $this = $(this)
-    return if $this.hasClass("active")
-    $this.addClass("active").siblings().removeClass "active"
-    type = $this.data("type")
-    $search.data("type", type).attr("placeholder", searcheables[type].title).data("autocomplete", searcheables[type].autocomplete).trigger("flushCache").focus()
+  $('.b-main_search .type').on 'click', ->
+    return if $(@).hasClass('active')
+    $(@).addClass('active').siblings().removeClass "active"
+    type = $(@).data('type')
+
+    $search
+      .data(type: type)
+      .attr(placeholder: searcheables[type].title)
+      .data(autocomplete: searcheables[type].autocomplete)
+      .trigger('flushCache')
+      .focus()
 
     # скритие типов
-    $popup.addClass "disabled"
+    $popup.addClass 'disabled'
 
   # включение и отключение выбора типов
   $popup.on 'hover', ->
@@ -71,7 +69,7 @@ $(document).on 'page:load', ->
     $popup.addClass 'disabled' if $('.ac_results:visible').length
 
   $main_search.on 'click', (e) ->
-    $search.trigger('click').trigger('focus') if $(e.target).hasClass('main-search')
+    $search.trigger('click').trigger('focus') if $(e.target).hasClass('b-main_search')
 
   $main_search.hover_delayed ->
     $main_search.addClass 'hovered'
