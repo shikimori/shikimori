@@ -168,7 +168,9 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   end
 
   describe 'extract_url' do
-    before { post :extract_url, anime_id: anime.id, url: 'http://vk.com/foo' }
+    let(:url) { 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' }
+    before { post :extract_url, anime_id: anime.id, url: url }
+
     it do
       expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
