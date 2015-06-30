@@ -1,0 +1,42 @@
+@import compass/typography/text/ellipsis
+
+.ac_results, .completable-block
+  border: 1px solid #ddd
+  color: #444
+  font-size: 11px
+  line-height: 16px
+
+  .year, .kind
+    float: right
+    margin-left: 5px
+
+  .kind
+    margin-left: 0
+
+  .name
+    +ellipsis
+    margin-left: 0
+    color: #222
+
+  .character-suggest
+    .animes div
+      +ellipsis
+      color: #444
+      margin-left: 10px
+      margin-top: 1px
+
+    .avatar
+      float: right
+      height: 64px
+      margin-right: -3px
+      margin-left: 5px
+
+  &.menu-suggest
+    width: 277px !important
+    border-top: none
+
+    .ac_even, .ac_odd
+      /*width: 267px;
+
+      .name
+        color: inherit
