@@ -70,7 +70,13 @@ en:
       registration: Registration
       anime_history_clear: Anime history cleared
       manga_history_clear: Manga history cleared
+      status:
+        completed: completed
     time_ago: '%{time_ago} ago'
+    watched_one_episode: '%{watched} %{number} %{division}'
+    watched_two_episodes: '%{watched} %{number_first} and %{number_second} %{division}'
+    watched_three_episodes: '%{watched} %{number_first}, %{number_second} and %{number_third} %{division}'
+    watched_episodes_range: '%{watched} %{number_first}-%{number_last} %{division}'
   user_profile_decorator:
     <<: *user_decorator
     male: male

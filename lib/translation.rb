@@ -9,13 +9,38 @@ module Translation
     I18n.t key, options
   end
 
+  # только для существительных
   def i18n_i key, count = 1, ru_case = :subjective
     if I18n.locale == :en
       I18n.t "inflections.#{key}", count: count,
         default: key.pluralize(count)
     else
-      I18n.t "inflections.#{key}.#{ru_case}", count: count,
-        default: "inflections.#{key}.default".to_sym
+      I18n.t "inflections.cardinal.#{key}.#{ru_case}", count: count,
+        default: "inflections.cardinal.#{key}.default".to_sym
+    end
+  end
+
+  def i18n_io key, count_key
+    raise ArgumentError unless [:one,:few].include? count_key
+
+    if I18n.locale == :en
+      I18n.t "inflections.#{key}.#{count_key}",
+        default: key.pluralize(count_key == :one ? 1 : 2)
+    else
+      I18n.t "inflections.ordinal.#{key}.#{count_key}"
+    end
+  end
+
+  # только для глаголов
+  def i18n_v key, count = 1
+    if I18n.locale == :en
+      key
+    else
+      if count.kind_of? Integer
+        I18n.t "verbs.#{key}", count: count
+      else
+        I18n.t "verbs.#{key}.#{count}"
+      end
     end
   end
 end

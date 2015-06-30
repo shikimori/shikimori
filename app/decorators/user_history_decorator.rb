@@ -3,6 +3,18 @@ class UserHistoryDecorator < Draper::Decorator
 
   delegate_all
 
+  WATCHED = {
+    UserHistoryAction::Episodes => 'watched',
+    UserHistoryAction::Volumes => 'read',
+    UserHistoryAction::Chapters => 'read'
+  }
+
+  EPISODES = {
+    UserHistoryAction::Episodes => 'episode',
+    UserHistoryAction::Volumes => 'volume',
+    UserHistoryAction::Chapters => 'chapter'
+  }
+
   def time_ago interval
     if interval == :today
       i18n_t 'time_ago', time_ago: h.time_ago_in_words(updated_at)
@@ -30,7 +42,9 @@ class UserHistoryDecorator < Draper::Decorator
         i18n_t "actions.#{action}"
 
       when UserHistoryAction::Status
-        UserRate.status_name value.to_i, target.class.name
+        status_name = UserRate.statuses.find { |k,v| v == value.to_i }.first
+        I18n.t "user_history_decorator.actions.status.#{status_name}",
+          default: UserRate.status_name(value.to_i, target.class.name)
 
       when UserHistoryAction::Episodes, UserHistoryAction::Volumes, UserHistoryAction::Chapters
         history_episodes = send action
@@ -76,76 +90,55 @@ class UserHistoryDecorator < Draper::Decorator
 
 private
 
-  def episodes_text episodes, prior_value, counter
-    suffix = counter == 'chapters' ? 'я' : 'й'
+  def episodes_text episodes, prior_value, division
+    suffix = division == 'chapters' ? '-я' : '-й'
 
     if episodes.last && episodes.last < prior_value
-      "%s #{episodes.last} %s" % [
-        Russian.p(episodes.last, wt('Просмотрен', counter), wt('Просмотрены', counter), wt('Просмотрено', counter)),
-        Russian.p(episodes.last, wt('эпизод', counter), wt('эпизода', counter), wt('эпизодов', counter))
-      ]
+      i18n_t 'watched_one_episode',
+        watched: i18n_v(WATCHED[division], episodes.last),
+        number: episodes.last,
+        division: i18n_i(EPISODES[division], episodes.last),
+        suffix: ''
 
     elsif episodes.size == 1
-      "#{wt 'Просмотрен', counter} #{episodes.first}#{suffix} #{wt 'эпизод', counter}"
+      i18n_t 'watched_one_episode',
+        watched: i18n_v(WATCHED[division], :one),
+        number: episodes.first,
+        division: i18n_io(EPISODES[division], :one),
+        suffix: suffix
 
     elsif episodes.size == 2
-      "#{wt 'Просмотрены', counter} #{episodes.first}#{suffix} и #{episodes.last}#{suffix} #{wt 'эпизоды', counter}"
+      i18n_t 'watched_two_episodes',
+        watched: i18n_v(WATCHED[division], :few),
+        number_first: episodes.first,
+        number_second: episodes.second,
+        division: i18n_io(EPISODES[division], :few),
+        suffix: suffix
 
     elsif episodes.size == 3
-      "#{wt 'Просмотрены', counter} #{episodes.first}#{suffix}, #{episodes.second}#{suffix} и #{episodes.last}#{suffix} #{wt('эпизоды', counter)}"
+      i18n_t 'watched_three_episodes',
+        watched: i18n_v(WATCHED[division], :few),
+        number_first: episodes.first,
+        number_second: episodes.second,
+        number_third: episodes.third,
+        division: i18n_io(EPISODES[division], :few),
+        suffix: suffix
 
     elsif episodes.first == 1
-      "%s #{episodes.last} %s" % [
-        Russian.p(episodes.last, wt('Просмотрен', counter), wt('Просмотрены', counter), wt('Просмотрено', counter)),
-        Russian.p(episodes.last, wt('эпизод', counter), wt('эпизода', counter), wt('эпизодов', counter))
-      ]
+      i18n_t 'watched_one_episode',
+        watched: i18n_v(WATCHED[division], episodes.last),
+        number: episodes.last,
+        division: i18n_i(EPISODES[division], episodes.last),
+        suffix: ''
 
     else
-      "#{wt 'Просмотрены', counter} с #{episodes.first}%s по #{episodes.last}%s #{wt "эпизоды", counter}" % [
-        counter == 'chapters' ? 'й' : 'го',
-        counter == 'chapters' ? 'ю' : suffix
-      ]
-    end
-  end
-
-  def wt label, counter
-    @wt ||= {
-      'Просмотрен' => {
-        'episodes' => 'Просмотрен',
-        'volumes' => 'Прочитан',
-        'chapters' => 'Прочитана'
-      },
-      'Просмотрены' => {
-        'episodes' => 'Просмотрены',
-        'volumes' => 'Прочитаны',
-        'chapters' => 'Прочитаны'
-      },
-      'Просмотрено' => {
-        'episodes' => 'Просмотрено',
-        'volumes' => 'Прочитано',
-        'chapters' => 'Прочитано'
-      },
-      'эпизод' => {
-        'episodes' => 'эпизод',
-        'volumes' => 'том',
-        'chapters' => 'глава'
-      },
-      'эпизода' => {
-        'episodes' => 'эпизода',
-        'volumes' => 'тома',
-        'chapters' => 'главы'
-      },
-      'эпизодов' => {
-        'episodes' => 'эпизодов',
-        'volumes' => 'томов',
-        'chapters' => 'глав'
-      },
-      'эпизоды' => {
-        'episodes' => 'эпизоды',
-        'volumes' => 'тома',
-        'chapters' => 'главы'
-      }
-    }
-    @wt[label][counter]
+      i18n_t 'watched_episodes_range',
+        watched: i18n_v(WATCHED[division], :few),
+        number_first: episodes.first,
+        number_last: episodes.last,
+        division: i18n_io(EPISODES[division], :few),
+        suffix_first: (division == 'chapters' ? '-й' : '-го'),
+        suffix_last: (division == 'chapters' ? '-ю' : suffix)
+    end.capitalize
   end
 end

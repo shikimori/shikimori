@@ -73,6 +73,10 @@ ru:
       anime_history_clear: Очистка истории аниме
       manga_history_clear: Очистка истории манги
     time_ago: '%{time_ago} назад'
+    watched_one_episode: '%{watched} %{number}%{suffix} %{division}'
+    watched_two_episodes: '%{watched} %{number_first}%{suffix} и %{number_second}%{suffix} %{division}'
+    watched_three_episodes: '%{watched} %{number_first}%{suffix}, %{number_second}%{suffix} и %{number_third}%{suffix} %{division}'
+    watched_episodes_range: '%{watched} с %{number_first}%{suffix_first} по %{number_last}%{suffix_last} %{division}'
   user_profile_decorator:
     <<: *user_decorator
     male: муж

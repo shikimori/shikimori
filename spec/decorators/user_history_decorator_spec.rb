@@ -104,21 +104,21 @@ describe UserHistoryDecorator do
           let(:action) { UserHistoryAction::Episodes }
           let(:target) { build :anime, episodes: 10 }
 
-          it { is_expected.to eq 'Просмотрены с 3го по 8й эпизоды' }
+          it { is_expected.to eq 'Просмотрены с 3-го по 8-й эпизоды' }
         end
 
         context 'volumes' do
           let(:action) { UserHistoryAction::Volumes }
           let(:target) { build :manga, volumes: 10 }
 
-          it { is_expected.to eq 'Прочитаны с 3го по 8й тома' }
+          it { is_expected.to eq 'Прочитаны с 3-го по 8-й тома' }
         end
 
         context 'chapters' do
           let(:action) { UserHistoryAction::Chapters }
           let(:target) { build :manga, chapters: 10 }
 
-          it { is_expected.to eq 'Прочитаны с 3й по 8ю главы' }
+          it { is_expected.to eq 'Прочитаны с 3-й по 8-ю главы' }
         end
       end
     end
@@ -187,6 +187,40 @@ describe UserHistoryDecorator do
   end
 
   describe '#episodes_text' do
-    pending
+    subject { decorator.send :episodes_text, value, prior_value, action }
+
+    let(:action) { UserHistoryAction::Episodes }
+    let(:prior_value) { 6 }
+
+    context 'changed episodes to lesser value' do
+      let(:value) { [5] }
+      it { is_expected.to eq 'Просмотрено 5 эпизодов' }
+    end
+
+    context 'watched one episode' do
+      let(:value) { [9] }
+      it { is_expected.to eq 'Просмотрен 9-й эпизод' }
+    end
+
+    context 'watched two episodes' do
+      let(:value) { [7,8] }
+      it { is_expected.to eq 'Просмотрены 7-й и 8-й эпизоды' }
+    end
+
+    context 'watched three episodes' do
+      let(:value) { [7,8,9] }
+      it { is_expected.to eq 'Просмотрены 7-й, 8-й и 9-й эпизоды' }
+    end
+
+    context 'watched few first episodes' do
+      let(:prior_value) { 0 }
+      let(:value) { [1,2,3,4] }
+      it { is_expected.to eq 'Просмотрены 4 эпизода' }
+    end
+
+    context 'watched a few episodes' do
+      let(:value) { [7,8,9,10] }
+      it { is_expected.to eq 'Просмотрены с 7-го по 10-й эпизоды' }
+    end
   end
 end
