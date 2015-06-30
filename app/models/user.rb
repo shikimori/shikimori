@@ -80,6 +80,8 @@ class User < ActiveRecord::Base
   has_many :user_tokens
   has_many :user_images
 
+  has_many :anime_video_reports
+
   has_attached_file :avatar,
     styles: {
       #original: ['300x300>', :png],

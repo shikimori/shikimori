@@ -51,6 +51,8 @@ describe User do
 
     it { should have_many :user_tokens }
     it { should have_many :user_images }
+
+    it { should have_many :anime_video_reports }
   end
 
   let(:user) { create :user }

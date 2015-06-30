@@ -41,7 +41,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def stats
-    UserStats.new object, h.current_user
+    ProfileStats.new object, h.current_user
   end
 
   def list

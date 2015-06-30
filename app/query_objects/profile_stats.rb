@@ -1,4 +1,4 @@
-class UserStats
+class ProfileStats
   prepend ActiveCacher.instance
 
   instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time, :spent_time

@@ -35,7 +35,11 @@ class String
   end
 
   def downcase
-    Unicode.downcase self
+    if encoding.name != 'ASCII-8BIT'
+      Unicode.downcase self
+    else
+      self
+    end
   end
 
   def to_underscore!

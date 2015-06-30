@@ -411,11 +411,11 @@ describe AnimeVideo do
         context 'check_versions' do
           before { moderated_update }
           subject { Version.last }
-          let(:diff_hash) {{ episode: [1,2] }}
+          let(:diff_hash) {{ 'episode' => [1,2] }}
 
           it { should_not be_nil }
           its(:item_id) { should eq video.id }
-          its(:item_diff) { should eq diff_hash.to_s }
+          its(:item_diff) { should eq diff_hash }
           its(:item_type) { should eq video.class.name }
         end
       end
@@ -432,9 +432,9 @@ describe AnimeVideo do
 
     describe '#versions' do
       let(:video) { create :anime_video, episode: 1 }
-      let(:update_params_1) { {episode: 2} }
-      let(:update_params_2) { {episode: 3} }
-      let(:last_diff_hash) { {episode: [2,3]} }
+      let(:update_params_1) {{ episode: 2 }}
+      let(:update_params_2) {{ episode: 3 }}
+      let(:last_diff_hash) {{ 'episode' => [2,3] }}
       before do
         video.moderated_update update_params_1
         video.moderated_update update_params_2
@@ -443,7 +443,7 @@ describe AnimeVideo do
       subject { video.reload.versions }
       it { should_not be_blank }
       it { should have(2).items }
-      it { expect(subject.last.item_diff).to eq last_diff_hash.to_s }
+      it { expect(subject.last.item_diff).to eq last_diff_hash }
     end
   end
 

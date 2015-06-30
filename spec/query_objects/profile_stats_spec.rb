@@ -1,9 +1,9 @@
-describe UserStats do
+describe ProfileStats do
   let(:user) { create :user }
   let(:anime) { create :anime, episodes: 24, duration: 60 }
   let(:manga) { create :manga, chapters: 54 }
 
-  subject(:stats) { UserStats.new user, nil }
+  subject(:stats) { ProfileStats.new user, nil }
 
   describe '#spent_time' do
     context 'watching' do
