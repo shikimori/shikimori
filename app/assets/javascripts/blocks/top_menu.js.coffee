@@ -33,6 +33,7 @@ $(document).on 'page:load', ->
     $('.l-top_menu .menu-search').toggleClass('active')
         .siblings()
         .removeClass 'active'
+    $('.b-main_search input').focus()
 
   #$('.mobile-sign-in-toggler').click ->
     #$('.usernav').trigger 'click'
