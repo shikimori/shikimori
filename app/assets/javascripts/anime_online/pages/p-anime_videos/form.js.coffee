@@ -23,14 +23,14 @@
       type: 'POST'
       dataType: 'json'
       success: (data, status, xhr) ->
-        preview_video data.url
+        preview_video data.player_html
 
   # клик по "Работает и загрузить ещё"
   $('.continue').on 'click', ->
     $('#continue').val('true')
 
-preview_video = (url) ->
-  $('.video-preview iframe').attr src: url
+preview_video = (player_html) ->
+  $('.video-preview').html(player_html)
   $('.buttons').show()
 
 once_submit = ($form) ->
