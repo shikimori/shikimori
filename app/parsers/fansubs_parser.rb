@@ -73,14 +73,14 @@ private
       id = $1.to_i
       inner_html = cp1251_to_utf8(node.inner_html)
       type = inner_html.match(/<small>\(?(.*?)\)?<\/small>/)[1]
-        .sub('ТВ', :tv)
-        .sub(/Спецвыпуск|Cпецвыпуск/, :special)
-        .sub('Фильм', :movie)
+        .sub('ТВ', 'tv')
+        .sub(/Спецвыпуск|Cпецвыпуск/, 'special')
+        .sub('Фильм', 'movie')
       title = inner_html.gsub(/<.*?>|\(.*?\)/, '').strip
       {
         id: id,
         title: HTMLEntities.new.decode(title),
-        type: type,
+        type: type.to_sym,
         link: ArchiveUrl % id
       }
     end

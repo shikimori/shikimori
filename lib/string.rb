@@ -38,7 +38,7 @@ class String
     if encoding.name != 'ASCII-8BIT'
       Unicode.downcase self
     else
-      self
+      Unicode.downcase self.fix_encoding
     end
   end
 
