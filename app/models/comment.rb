@@ -118,7 +118,10 @@ class Comment < ActiveRecord::Base
       end
 
       # игнорируем цитаты самому себе и пользователей, которым уже создали уведомления
-      if quoted_user && quoted_user.id != self.user_id && !notified_users.include?(quoted_user.id)
+      if quoted_user && quoted_user.id != self.user_id &&
+          !notified_users.include?(quoted_user.id) &&
+          !quoted_user.ignores?(user)
+
         notified_users << quoted_user.id
 
         Message.create_wo_antispam!(

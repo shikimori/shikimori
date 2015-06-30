@@ -141,11 +141,17 @@ describe Comment do
       let(:user2) { create :user }
       let(:topic) { create :topic, user: user }
       let(:user_message) { Message.where(to_id: user.id, from_id: user2.id, kind: MessageType::QuotedByUser) }
+
       subject { create :comment, :with_notify_quotes, body: text, commentable: topic, user: user2 }
 
       context 'quote' do
         let(:text) { "[quote=200778;#{user.id};test2]test[/quote]" }
         it { expect{subject}.to change(user_message, :count).by 1 }
+
+        context 'quote by ignored user' do
+          let!(:ignore) { create :ignore, user: user, target: user2 }
+          it { expect{subject}.to_not change user_message, :count }
+        end
       end
 
       context 'comment' do
