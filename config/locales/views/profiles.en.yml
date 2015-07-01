@@ -1,0 +1,15 @@
+en:
+  profiles:
+    show:
+      about: About
+
+      no:
+        stats: No stats
+        friends: No friends
+        favourite: No favourites
+        clubs: No clubs
+
+    stats_bar:
+      anime_list: Anime List
+      manga_list: Manga List
+      similar_users: similar users

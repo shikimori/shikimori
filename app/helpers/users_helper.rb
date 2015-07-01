@@ -3,7 +3,8 @@ module UsersHelper
     def localized_name entry, current_user
       if entry.class == Genre
         # жанры
-        if !current_user || (current_user && current_user.preferences.try(:russian_genres?) && entry.russian.present?)
+        if current_user && current_user.preferences.try(:russian_names?) &&
+            entry.respond_to?(:russian) && entry.russian.present? && I18n.russian?
           entry.russian || entry.name
         else
           entry.name
@@ -11,34 +12,20 @@ module UsersHelper
 
       else
         # аниме
-        if current_user && current_user.preferences.try(:russian_names?) && entry.respond_to?(:russian) && entry.russian.present?
+        if current_user && current_user.preferences.try(:russian_names?) &&
+            entry.respond_to?(:russian) && entry.russian.present? && I18n.russian?
           entry.russian
         else
           entry.name
         end
       end
     end
-
-    #def localized_kind entry, current_user, short=false
-      #return '' unless entry.kind.present?
-
-      #if !current_user || (current_user && current_user.preferences.try(:russian_genres?))
-        #entry.kind_text
-      #else
-        #entry.kind
-      #end
-    #end
   end
 
   # название с учётом настроек отображения русского языка
   def localized_name entry
     UsersHelper.localized_name entry, current_user
   end
-
-  # тип с учётом настроек отображения русского языка
-  #def localized_kind entry, short=false
-    #UsersHelper.localized_kind entry, current_user, short
-  #end
 
   def page_background
     if user_signed_in? && current_user.preferences.page_background.to_f > 0

@@ -6,9 +6,10 @@
     .c-history class="x#{@resource.formatted_history.size}"
       .subheadline.m13
         - if can? :access_list, @resource
-          a href="#{index_profile_user_history_index_url @resource}" История
+          a href="#{index_profile_user_history_index_url @resource}"
+            = i18n_io 'History', :one
         - else
-          | История
+          = i18n_io 'History', :one
       .block-list
         - @resource.formatted_history.each do |entry|
           .entry
@@ -147,8 +148,8 @@
 
   .c-info
     .c-lists-info
-      - @resource.stats.graph_statuses.each do |klass,stats,graph|
-        = render 'stats_bar', klass: klass, stats: stats, graph: graph
+      - @resource.stats.graph_statuses.each do |class_name, stats, graph|
+        = render 'stats_bar', class_name: class_name, stats: stats, graph: graph
 
     - if @resource.stats.social_activity?
       .c-additionals
@@ -222,57 +223,63 @@
             data-flattened="true"
           ]
         - else
-          .b-nothing_here Нет статистики
+          .b-nothing_here = t '.no_stats'
 
     .c-column.c-right
       .cc-2a.m30
         .c-column.m0
           .subheadline.m10
             - if @resource.friends.any? && @resource.friends.size > 12
-              a href="#{friends_profile_url @resource}" Друзья
+              a href="#{friends_profile_url @resource}" title="#{i18n_io 'Friend', :few}"
+                = i18n_io 'Friend', :few
             - else
-              | Друзья
+              = i18n_io 'Friend', :few
           .cc-friends
             - if @resource.friends.any?
               = render @resource.friends.take(12), content_by: :avatar
             - else
-              .b-nothing_here Нет друзей
+              .b-nothing_here = t '.no_friends'
 
         .c-column.m0
           .subheadline.m10
             - if @resource.clubs.any? && @resource.clubs.size > 4
-              a href="#{clubs_profile_url @resource}" Клубы
+              a href="#{clubs_profile_url @resource}" title="#{i18n_io 'Club', :few}"
+                = i18n_io 'Club', :few
             - else
-              | Клубы
+              = i18n_io 'Club', :few
           .b-clubs.one-line
             - if @resource.clubs.any?
               = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
             - else
-              .b-nothing_here Не состоит ни в одном из клубов
+              .b-nothing_here = t '.no_clubs'
 
       .block
         .subheadline.m10
           - if @resource.favourites.any?
-            a href="#{favourites_profile_url @resource}" Избранное
+            a href="#{favourites_profile_url @resource}" title="#{i18n_io 'Favourite', :one}"
+              = i18n_io 'Favourite', :one
           - else
-            | Избранное
+            = i18n_io 'Favourite', :one
         .cc-favourites
           - if @resource.favourites.any?
             = render @resource.favourites, cover_by: :image_link
           - else
-            .b-nothing_here Список избранного пуст
+            .b-nothing_here = t '.no_favourite'
 
   - if @resource.about_html.present?
     .about.block
       - if @resource.own_profile?
         .subheadline-buttons
           a.item-edit href="#{edit_profile_url @resource, page: 'profile'}"
-      .subheadline Обо мне
+      .subheadline
+        = t '.about'
       = @resource.about_html
 
   - if @resource.show_comments?
     .block
-      .subheadline.m3: a href="#{feed_profile_url @resource}" title="Лента" Лента
+      .subheadline.m3
+        a href="#{feed_profile_url @resource}" title="#{i18n_io 'Feed', :one}"
+          = i18n_io 'Feed', :one
       div
         .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
           = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

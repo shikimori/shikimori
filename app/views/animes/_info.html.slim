@@ -16,7 +16,7 @@
   - unless entry.status.blank?
     = info_line 'Статус' do
       span.b-anime_status_tag class="#{entry.status.downcase.gsub ' ', '_'}"
-        = t "AniMangaStatus.#{entry.status}"
+        = entry.status_name.downcase
       | &nbsp;
 
       - if entry.release_date_tooltip
@@ -41,7 +41,7 @@
 
   - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
     .additional-links
-      .key У #{I18n.t("Genetive.#{entry.object.class.name}").downcase}:
+      .key #{t ".#{entry.object.class.name.downcase}_additionals"}:
       - if entry.reviews_count > 0
         span.linkeable data-href="#{entry.reviews_url}"
           = "#{entry.reviews_count} #{Russian.p entry.reviews_count, 'рецензия', 'рецензии', 'рецензиий'}"

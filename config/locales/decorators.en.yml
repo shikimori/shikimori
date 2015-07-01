@@ -41,8 +41,10 @@ en:
       projects: Projects
   seyu_decorator:
     <<: *person_decorator
-  topic_decorator:
+  topic_decorator: &topic_decorator
     show_hidden_comments_text_html: Display %{comment_count} %{out_of_total_comments} %{comment_word}
+  topic_proxy_decorator:
+    <<: *topic_decorator
   user_decorator: &user_decorator
     always_online: always online
     online: online

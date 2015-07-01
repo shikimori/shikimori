@@ -1,6 +1,10 @@
 require 'i18n'
 
 module I18n
+  def self.russian?
+    I18n.locale == :ru
+  end
+
   def self.time_part count, part
     "%s %s" % [count, Russian.p(count, *t("datetime.parts.#{part}").values)]
   end

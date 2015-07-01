@@ -1,5 +1,9 @@
 en:
   activerecord:
+    models:
+      anime: Anime
+      manga: Manga
+
     attributes:
       contest:
         title: Title
@@ -87,8 +91,8 @@ en:
         is_comments_auto_loaded: Load New Comments Automatically
 
         profile_privacy: Can See My Lists
-        russian_genres: Anime Genres in English
-        russian_names: Anime and Manga Titles in English
+        #russian_genres: Anime Genres in Russian
+        #russian_names: Anime and Manga Titles in Russian
         mylist_in_catalog: Highlight Anime from My Lists
         postload_in_catalog: Autoload Pages in Anime Catalog
         volumes_in_manga: Show Manga Volumes

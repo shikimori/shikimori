@@ -4,6 +4,10 @@ ru:
       with_month_name: '%e %b %Y'
 
   activerecord:
+    models:
+      anime: Аниме
+      manga: Манга
+
     # названия полей моделей
     attributes:
       contest:
@@ -194,7 +198,7 @@ ru:
   enumerize:
     language:
       russian: Русский
-      english: Английский
+      english: English
 
     body_width:
       x1200: 1200 пикселей

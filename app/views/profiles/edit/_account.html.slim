@@ -21,6 +21,11 @@
       .block
         = f.input :language, include_blank: false
 
+        - if I18n.russian?
+          = f.simple_fields_for :preferences do |fp|
+            = fp.input :russian_genres
+            = fp.input :russian_names
+
       .block
         = f.input :avatar, label: 'Аватар (160x160)'
         .avatar-edit

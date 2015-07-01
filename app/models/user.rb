@@ -121,6 +121,8 @@ class User < ActiveRecord::Base
 
   enumerize :language, in: [:russian, :english], default: :russian
 
+  accepts_nested_attributes_for :preferences
+
   CensoredAvatarIds = Set.new [4357, 24433]
 
   def self.new_with_session(params, session)

@@ -20,7 +20,7 @@ en:
     release_dates:
       date: '%{date}'
       for_date: for %{date}
-      in_years: in %{aired_on}-%{released_on}
+      in_years: in %{from_date}-%{to_date}
       since_date: since %{date}
       since_till_date: '%{from_date} to %{to_date}'
       till_date: till %{date}

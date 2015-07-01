@@ -18,7 +18,7 @@ private
   def translated_role is_full
     @role
       .split(/, */)
-      .map {|v| I18n.t "Role.#{v}" }
+      .map {|role| I18n.t "Role.#{role}", default: role }
       .sort
       .take(is_full ? 10 : 1)
       .join(', ')

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Translation
+
   #include Mobylette::RespondToMobileRequests
   LOCALES = {
     'russian' => :ru,
@@ -27,6 +29,8 @@ class ApplicationController < ActionController::Base
   helper_method :turbolinks_request?
   helper_method :base_controller_name
   helper_method :ignore_copyright?
+
+  helper_method :i18n_io
 
   unless Rails.env.test?
     rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,

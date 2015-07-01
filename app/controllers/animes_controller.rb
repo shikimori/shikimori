@@ -1,6 +1,6 @@
 class AnimesController < ShikimoriController
   before_action :authenticate_user!, only: [:edit]
-  before_action -> { page_title I18n.t("Name.#{resource_klass.name}") }
+  before_action -> { page_title resource_klass.model_name.human }
   before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :resource_redirect, if: -> { @resource }

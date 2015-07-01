@@ -18,7 +18,7 @@ class UserRatesController < ProfilesController
     @limit = UserListDecorator::ENTRIES_PER_PAGE
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
 
-    page_title "Список #{t("Genetive.#{params[:list_type].capitalize}").downcase}"
+    page_title "Список #{t("Genitive.#{params[:list_type].capitalize}").downcase}"
   end
 
   def create

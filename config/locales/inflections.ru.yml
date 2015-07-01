@@ -93,3 +93,15 @@ ru:
       chapter:
         one: глава
         few: главы
+      friend:
+        one: друг
+        few: друзья
+      club:
+        one: клуб
+        few: клубы
+      favourite:
+        one: избранное
+      feed:
+        one: лента
+      history:
+        one: история

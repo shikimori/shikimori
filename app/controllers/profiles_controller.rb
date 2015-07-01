@@ -13,25 +13,25 @@ class ProfilesController < ShikimoriController
   def friends
     noindex
     redirect_to @resource.url if @resource.friends.none?
-    page_title 'Друзья'
+    page_title i18n_io 'Friend', :few
   end
 
   def clubs
     noindex
     redirect_to @resource.url if @resource.clubs.none?
-    page_title 'Клубы'
+    page_title i18n_io 'Club', :few
   end
 
   def favourites
     noindex
     redirect_to @resource.url if @resource.favourites.none?
-    page_title 'Избранное'
+    page_title i18n_io 'Favourite', :one
   end
 
   def feed
     noindex
     redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
-    page_title 'Лента'
+    page_title i18n_io 'Feed', :one
   end
 
   #def stats
@@ -183,7 +183,8 @@ private
     params.require(:user).permit(
       :avatar, :nickname, :name, :location, :website,
       :sex, :birth_on, :notifications, :about, :language,
-      ignored_user_ids: []
+      ignored_user_ids: [],
+      preferences_attributes: [:id, :russian_names, :russian_genres],
     )
   end
 

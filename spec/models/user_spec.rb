@@ -56,7 +56,7 @@ describe User do
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:locale).in(:russian, :english) }
+    it { is_expected.to enumerize(:language).in(:russian, :english) }
   end
 
   let(:user) { create :user }

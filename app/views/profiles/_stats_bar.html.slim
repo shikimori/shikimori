@@ -1,45 +1,47 @@
-.b-stat_bar class="#{klass.downcase}"
+.b-stat_bar class="#{class_name.downcase}"
   - if @resource.own_profile?
     .compatibility
-      a href="#{users_url similar: 'similar', klass: klass.downcase}" похожие пользователи
-  - elsif @resource.compatibility(klass)
+      a href="#{users_url similar: 'similar', class_name: class_name.downcase}"
+        = t '.similar_users'
+
+  - elsif @resource.compatibility(class_name)
     .compatibility
       - if can? :access_list, @resource
-        a href="#{userlist_comparer_path user_1: current_user, user_2: @resource, list_type: klass.downcase}"
-          = render 'profiles/stats_bar_compatibility', klass: klass
+        a href="#{userlist_comparer_path user_1: current_user, user_2: @resource, list_type: class_name.downcase}"
+          = render 'profiles/stats_bar_compatibility', class_name: class_name
       - else
         span.link-replacement
-          = render 'profiles/stats_bar_compatibility', klass: klass
+          = render 'profiles/stats_bar_compatibility', class_name: class_name
 
   - if can? :access_list, @resource
-    a.title href="#{profile_user_rates_url @resource, list_type: klass.downcase}"
-      = "Список #{t("Genetive.#{klass}").downcase}"
+    a.title href="#{profile_user_rates_url @resource, list_type: class_name.downcase}"
+      = t ".#{class_name.downcase}_list"
   - else
-    .title Список #{t("Genetive.#{klass}").downcase}
+    .title = t ".#{class_name.downcase}_list"
 
   .bar
     - if graph[:completed_percent] > 1
-      .first style="width: #{graph[:completed_percent]}%;" title="#{graph[:completed]} #{UserRate.status_name(:completed, klass).downcase}"
+      .first style="width: #{graph[:completed_percent]}%;" title="#{graph[:completed]} #{UserRate.status_name(:completed, class_name).downcase}"
         == graph[:completed_percent] > 2.5 ? graph[:completed] : '&nbsp;'
 
     - if graph[:incompleted_percent] > 1
-      .second style="width: #{graph[:incompleted_percent]}%" title="#{graph[:incompleted]} не #{UserRate.status_name(:completed, klass).downcase}"
+      .second style="width: #{graph[:incompleted_percent]}%" title="#{graph[:incompleted]} не #{UserRate.status_name(:completed, class_name).downcase}"
         == graph[:incompleted_percent] > 2.5 ? graph[:incompleted] : '&nbsp;'
 
     - if graph[:dropped_percent] > 1
-      .third style="width: #{graph[:dropped_percent]}%;" title="#{graph[:dropped]} #{UserRate.status_name(:dropped, klass).downcase}"
+      .third style="width: #{graph[:dropped_percent]}%;" title="#{graph[:dropped]} #{UserRate.status_name(:dropped, class_name).downcase}"
         == graph[:dropped_percent] > 2.5 ? graph[:dropped] : '&nbsp;'
 
   .stat_names
     - stats.select {|v| v[:size] != 0 }.each do |stat|
       .stat_name
         - if can? :access_list, @resource
-          a href="#{profile_user_rates_url @resource, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
-            = UserRate.status_name(stat[:name], klass).capitalize
+          a href="#{profile_user_rates_url @resource, list_type: class_name.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
+            = UserRate.status_name(stat[:name], class_name).capitalize
             | &nbsp;
             span.size = stat[:size]
         - else
-          = UserRate.status_name(stat[:name], klass).capitalize
+          = UserRate.status_name(stat[:name], class_name).capitalize
           | &nbsp;
           span.size = stat[:size]
 

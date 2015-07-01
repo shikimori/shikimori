@@ -1,0 +1,15 @@
+ru:
+  profiles:
+    show:
+      about: Обо мне
+
+      no:
+        stats: Нет статистики
+        friends: Нет друзей
+        favourite: Список избранного пуст
+        clubs: Не состоит ни в одном из клубов
+
+    stats_bar:
+      anime_list: Список аниме
+      manga_list: Список манги
+      similar_users: похожие пользователи
