@@ -55,6 +55,10 @@ describe User do
     it { should have_many :anime_video_reports }
   end
 
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:locale).in(:russian, :english) }
+  end
+
   let(:user) { create :user }
   let(:user2) { create :user }
   let(:topic) { create :topic }

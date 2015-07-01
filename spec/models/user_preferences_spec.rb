@@ -9,4 +9,9 @@ describe UserPreferences do
     it { should validate_length_of(:list_privacy).is_at_most(255) }
     it { should validate_length_of(:body_background).is_at_most(512) }
   end
+
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:list_privacy).in(:public, :users, :friends, :owner) }
+    it { is_expected.to enumerize(:body_width).in(:x1200, :x1000) }
+  end
 end

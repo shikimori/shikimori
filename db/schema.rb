@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629104626) do
+ActiveRecord::Schema.define(version: 20150630174645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -998,12 +998,13 @@ ActiveRecord::Schema.define(version: 20150629104626) do
     t.datetime "avatar_updated_at"
     t.date     "birth_on"
     t.datetime "read_only_at"
-    t.boolean  "can_vote_1",                         default: false,   null: false
-    t.boolean  "can_vote_2",                         default: false,   null: false
-    t.boolean  "can_vote_3",                         default: false,   null: false
+    t.boolean  "can_vote_1",                         default: false,     null: false
+    t.boolean  "can_vote_2",                         default: false,     null: false
+    t.boolean  "can_vote_3",                         default: false,     null: false
     t.datetime "reset_password_sent_at"
     t.string   "remember_token",         limit: 255
     t.string   "api_access_token"
+    t.string   "language",                           default: "russian"
   end
 
   add_index "users", ["api_access_token"], name: "index_users_on_api_access_token", unique: true, using: :btree

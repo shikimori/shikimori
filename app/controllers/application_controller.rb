@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::Base
   #include Mobylette::RespondToMobileRequests
+  LOCALES = {
+    'russian' => :ru,
+    'english' => :en
+  }
 
   protect_from_forgery with: :exception
 
@@ -137,7 +141,7 @@ private
   end
 
   def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    I18n.locale = params[:locale] || (LOCALES[current_user.language] if user_signed_in?) || I18n.default_locale
   end
 
   #def default_url_options options = {}

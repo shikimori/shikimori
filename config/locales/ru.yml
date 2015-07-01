@@ -32,6 +32,7 @@ ru:
         password_confirmation: Подтверждение пароля
         sex: Пол
         website: Сайт
+        language: Язык интерфейса
       user_rate:
         status: Статус
         episodes: Эпизоды
@@ -191,6 +192,20 @@ ru:
           copyrighted: copyrighted
 
   enumerize:
+    language:
+      russian: Русский
+      english: Английский
+
+    body_width:
+      x1200: 1200 пикселей
+      x1000: 1000 пикселей
+
+    list_privacy:
+      public: Все посетители сайта
+      users: Зарегистрированные пользователи сайта
+      friends: Только мои друзья
+      owner: Никто, кроме меня
+
     kind:
       # anime
       movie: Фильм
@@ -207,10 +222,6 @@ ru:
       novel: Новелла
       one_shot: Ваншот
 
-    body_width:
-      x1200: 1200 пикселей
-      x1000: 1000 пикселей
-
     strategy_type:
       double_elimination: Вылет после двух поражений
       play_off: Вылет после первого поражения
@@ -219,12 +230,6 @@ ru:
     member_type:
       anime: Аниме
       character: Персонажи
-
-    list_privacy:
-      public: Все посетители сайта
-      users: Зарегистрированные пользователи сайта
-      friends: Только мои друзья
-      owner: Никто, кроме меня
 
     abuse_request:
       kind:

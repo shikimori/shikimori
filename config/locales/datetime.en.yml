@@ -24,3 +24,33 @@ en:
       since_date: since %{date}
       since_till_date: '%{from_date} to %{to_date}'
       till_date: till %{date}
+
+    parts:
+      second:
+        zero: seconds
+        one: second
+        other: seconds
+      minute:
+        zero: minutes
+        one: minute
+        other: minutes
+      hour:
+        zero: hours
+        one: hour
+        other: hours
+      day:
+        zero: days
+        one: day
+        other: days
+      week:
+        zero: weeks
+        one: week
+        other: weeks
+      month:
+        zero: months
+        one: month
+        other: months
+      year:
+        zero: years
+        one: year
+        other: years

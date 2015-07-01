@@ -119,6 +119,8 @@ class User < ActiveRecord::Base
       .where('users.id not in (select distinct(user_id) from user_rates)')
   }
 
+  enumerize :language, in: [:russian, :english], default: :russian
+
   CensoredAvatarIds = Set.new [4357, 24433]
 
   def self.new_with_session(params, session)

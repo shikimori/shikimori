@@ -182,7 +182,7 @@ private
   def update_params
     params.require(:user).permit(
       :avatar, :nickname, :name, :location, :website,
-      :sex, :birth_on, :notifications, :about,
+      :sex, :birth_on, :notifications, :about, :language,
       ignored_user_ids: []
     )
   end
