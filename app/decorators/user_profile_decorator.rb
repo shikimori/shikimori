@@ -3,8 +3,6 @@ require_dependency 'studio'
 require_dependency 'publisher'
 
 class UserProfileDecorator < UserDecorator
-  include Translation
-
   instance_cache :all_compatibility, :friends, :ignored?, :stats, :nickname_changes, :clubs, :favourites
 
   def about_above?

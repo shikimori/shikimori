@@ -11,7 +11,7 @@ class UserProfileHistoryDecorator < Draper::Decorator
         .map {|group,entries| format_entries entries }
         .compact
         .each do |entry|
-          entry[:reversed_action] = entry[:action].split(/(?<!\d[йяюо]), /).reverse.join(', ').gsub(/<.*?>/, '')
+          entry[:reversed_action] = entry[:action].split(/(?<!\d[йяюо]), (?!\d)/).reverse.join(', ').gsub(/<.*?>/, '')
         end
     end
   end
