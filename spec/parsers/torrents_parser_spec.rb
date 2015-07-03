@@ -110,50 +110,72 @@ describe TorrentsParser do
 
   describe '#check_aired_episodes' do
     let(:episodes_aired) { 1 }
-    let(:anime) { create :anime, episodes_aired: episodes_aired, episodes: 24, status: AniMangaStatus::Ongoing }
+    let(:episodes) { 24 }
+    let(:anime) { create :anime, episodes_aired: episodes_aired, episodes: episodes, status: :ongoing }
 
-    it 'adds AnimeNews' do
-      expect {
-        TorrentsParser.check_aired_episodes(anime, [
+    subject { TorrentsParser.check_aired_episodes anime, feed }
+
+    describe 'episode' do
+      let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
+
+      it do
+        expect{subject}.to change(AnimeNews, :count).by 1
+        expect(anime.episodes_aired).to eq 2
+      end
+    end
+
+    describe 'few episodes' do
+      let(:feed) do
+        [
           { title: '[QTS] Mobile Suit Gundam Unicorn Vol.3 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' },
           { title: '[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' },
           { title: '[QTS] Mobile Suit Gundam Unicorn Vol.4 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }
-        ])
-      }.to change(AnimeNews, :count).by(3)
+        ]
+      end
+
+      it do
+        expect{subject}.to change(AnimeNews, :count).by 3
+        expect(anime.episodes_aired).to eq 4
+      end
     end
 
-    it 'adds AnimeNews for intervals' do
-      expect {
-        TorrentsParser.check_aired_episodes(anime, [
-          { title: '[QTS] Mobile Suit Gundam Unicorn Vol.5-9 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }
-        ])
-      }.to change(AnimeNews, :count).by(5)
+    describe 'interval' do
+      let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
+
+      it do
+        expect{subject}.to change(AnimeNews, :count).by 5
+        expect(anime.episodes_aired).to eq 6
+      end
     end
 
-    it 'updates episodes_aired' do
-      TorrentsParser.check_aired_episodes(anime, [
-        { title: '[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }
-      ])
-      expect(anime.episodes_aired).to be(2)
+    describe 'interval intersect' do
+      let(:episodes_aired) { 4 }
+      let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
+
+      it do
+        expect{subject}.to change(AnimeNews, :count).by 2
+        expect(anime.episodes_aired).to eq 6
+      end
     end
 
-    it "wrong episode number shouldn't affect anime if episodes is specified" do
-      expect {
-        TorrentsParser.check_aired_episodes(anime, [
-          { title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }
-        ])
-        expect(anime.episodes_aired).to be(episodes_aired)
-      }.to_not change(AnimeNews, :count)
+    describe 'wrong episode number' do
+      let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.3 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
+
+      it do
+        expect{subject}.to_not change AnimeNews, :count
+        expect(anime.episodes_aired).to eq episodes_aired
+      end
     end
 
-    it 'any episode number should affect anime if episodes is not specified' do
-      anime.update episodes: 0
-      expect {
-        TorrentsParser.check_aired_episodes(anime, [
-          { title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }
-        ])
-        expect(anime.episodes_aired).to be 99
-      }.to change(AnimeNews, :count).by 1
+    describe 'any episode number should affect anime if episodes is not specified' do
+      let(:episodes) { 0 }
+      let(:episodes_aired) { 98 }
+      let(:feed) {[ { title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' } ]}
+
+      it do
+        expect{subject}.to change(AnimeNews, :count).by 1
+        expect(anime.episodes_aired).to eq 99
+      end
     end
   end
 end

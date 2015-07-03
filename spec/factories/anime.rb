@@ -58,22 +58,23 @@ FactoryGirl.define do
     end
 
     trait :ongoing do
-      status AniMangaStatus::Ongoing
+      status :ongoing
       aired_on DateTime.now - 2.weeks
       duration 0
     end
 
     trait :released do
-      status AniMangaStatus::Released
+      status :released
     end
 
     trait :anons do
-      status AniMangaStatus::Anons
-      aired_on DateTime.now + 2.weeks
+      status :anons
+      aired_on 2.weeks.from_now
       episodes_aired 0
-      after :create do |anime|
-        FactoryGirl.create(:anime_calendar, anime: anime)
-      end
+
+      #after :create do |anime|
+        #FactoryGirl.create(:anime_calendar, anime: anime)
+      #end
     end
 
     trait :with_image do

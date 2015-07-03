@@ -20,34 +20,21 @@ module AniManga
 
   # временный костыль после миграции на 1.9.3
   def synonyms
-    self[:synonyms] ? self[:synonyms].map {|v| v.encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '') } : []
-  end
-
-  def anons?
-    [AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status)
-  end
-
-  def short_name
-    name.gsub(/:.*|'$/, '')
-  end
-
-  def ongoing?(ignore_excludes=false)
-    ((aired_on != nil && aired_on < (Date.today - AniManga::OngoingToReleasedDays.days) && [AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status)) ||
-     (aired_on != nil && [AniMangaStatus::Ongoing, AniMangaStatus::Publishing].include?(status))) &&
-    !([AniMangaStatus::Anons, AniMangaStatus::Upcoming].include?(status) && aired_on && aired_on.year == Date.today.year && aired_on.month == 1 && aired_on.day == 1) &&
-    !(aired_on != nil && released_on != nil && aired_on < (Date.today - AniManga::OngoingToReleasedDays.days) && released_on < (Date.today - AniManga::OngoingToReleasedDays.days)) &&
-    (!ignore_excludes || !self.class::EXCLUDED_ONGOINGS.include?(id))
+    self[:synonyms] ? self[:synonyms].map {|v| v.encode('utf-8', undef: :replace, invalid: :replace, replace: '') } : []
   end
 
   # если жанров слишком много, то оставляем только 6 основных
   def main_genres
-    all_genres = self.genres.sort_by {|v| Genre::LongNameGenres.include?(v.english) ? 0 : v.id }
-    return all_genres if self.genres.size <= 5
-    selected_genres = self.genres.select {|v| v.main? }
+    all_genres = genres.sort_by {|v| Genre::LongNameGenres.include?(v.english) ? 0 : v.id }
+    return all_genres if genres.size <= 5
+
+    selected_genres = genres.select(&:main?)
+
     all_genres.each do |genre|
       break if selected_genres.size > 5
       selected_genres << genre unless selected_genres.include? genre
     end
+
     selected_genres.sort_by {|v| Genre::LongNameGenres.include?(v.english) ? 0 : v.id }
   end
 
@@ -59,10 +46,6 @@ module AniManga
       @real_st_pub_cache ||= self.send(kind).map {|v| v.real }.select {|v| v.real? }
       @real_st_pub_cache.empty? ? [self.send(kind).first.real] : @real_st_pub_cache
     end
-  end
-
-  def status_name
-    status.present? ? I18n.t("AniMangaStatusUpper.#{status}") : ''
   end
 
   # есть ли оценка?

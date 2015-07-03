@@ -11,8 +11,6 @@ class ForumController < ShikimoriController
                 #:expires_in => 2.days
 
   def index
-    @gallery = WellcomeGalleryPresenter.new if @page == 1 && @section.permalink == Section::static[:all].permalink
-
     @h1 = @linked && @linked.respond_to?(:name) ? @linked.name : @section[:title]
     @page_title = @page == 1 ? @section[:meta_title] : [@section[:meta_title], "Страница #{@page}"]
 

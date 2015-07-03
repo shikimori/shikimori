@@ -1,4 +1,20 @@
 ru:
+  animes_collection:
+    menu:
+      anime:
+        status: &anime_statuses
+          anons: Анонсировано
+          ongoing: Сейчас выходит
+          released: Вышло
+          latest: Недавно вышло
+        kind:
+          tv_13: Короткие
+          tv_24: Средние
+          tv_48: Длинные
+      manga:
+        status:
+          <<: *anime_statuses
+          ongoing: Сейчас издаётся
   animes:
     info:
       anime_additionals: У аниме

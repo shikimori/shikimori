@@ -1,11 +1,18 @@
 class MangaMalParser < BaseMalParser
+  STATUSES = {
+    'Not yet published' => 'anons',
+    'Publishing' => 'ongoing',
+    'Finished' => 'released',
+    'Finished Airing' => 'released'
+  }
+
   # сохранение уже импортированных данных
   def deploy entry, data
     ## для хентая ставим флаг censored
     entry.censored = true if data[:entry][:genres].any? {|v| [Genre::HentaiID, Genre::YaoiID].include? v[:id] }
     ## то, что стоит релизом, не сбрасывать назад в онгоинг при ипорте
-    #data[:entry].delete(:status) if entry.status == AniMangaStatus::Released &&
-                                    #data[:entry][:status] == AniMangaStatus::Ongoing &&
+    #data[:entry].delete(:status) if entry.released? &&
+                                    #data[:entry][:status] == 'ongoing' &&
                                     #entry.episodes_aired == entry.episodes
     super entry, data
   end
@@ -49,7 +56,7 @@ class MangaMalParser < BaseMalParser
     entry[:chapters] = parse_line("Chapters", content, false).to_i
     entry.delete(:chapters) if entry[:chapters] == 0
 
-    entry[:status] = parse_line("Status", content, false)
+    entry[:status] = STATUSES[parse_line("Status", content, false)]
     dates = parse_line("Published", content, false).split(' to ').map do |v|
       parse_date(v)
     end

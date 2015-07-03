@@ -27,34 +27,34 @@ describe MalDeployer do
 
         it 'sets censored for hentai' do
           data[:entry][:genres] = [{id: Genre::HentaiID}]
-          expect(entry.censored).not_to be(true)
+          expect(entry.censored).not_to eq true
           parser.deploy(entry, data)
-          expect(entry.censored).to be(true)
+          expect(entry.censored).to eq true
         end
 
         it "doesn't set censored for non-hentai" do
-          expect(entry.censored).not_to be(true)
+          expect(entry.censored).not_to eq true
           parser.deploy(entry, data)
-          expect(entry.censored).not_to be(true)
+          expect(entry.censored).not_to eq true
         end
 
         it "doesn't change status from Released to Ongoing" do
-          entry.status = AniMangaStatus::Released
+          entry.status = 'released'
           entry.episodes_aired = entry.episodes = 10
 
-          data[:entry][:status] = AniMangaStatus::Ongoing
+          data[:entry][:status] = 'ongoing'
           parser.deploy(entry, data)
-          expect(entry.status).to eq(AniMangaStatus::Released)
+          expect(entry).to be_released
         end if klass == Anime
 
         it "changes status from Released to Ongoing" do
-          entry.status = AniMangaStatus::Released
+          entry.status = 'released'
           entry.episodes_aired = 9
           entry.episodes = 10
 
-          data[:entry][:status] = AniMangaStatus::Ongoing
+          data[:entry][:status] = 'ongoing'
           parser.deploy(entry, data)
-          expect(entry.status).to eq(AniMangaStatus::Ongoing)
+          expect(entry).to be_ongoing
         end if klass == Anime
 
         describe 'genres' do

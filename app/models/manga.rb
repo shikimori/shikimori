@@ -84,6 +84,7 @@ class Manga < DbEntry
     default_url: '/assets/globals/missing_:style.jpg'
 
   enumerize :kind, in: [:doujin, :manga, :manhua, :manhwa, :novel, :one_shot], predicates: true
+  enumerize :status, in: [:anons, :ongoing, :released], predicates: true
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 

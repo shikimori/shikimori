@@ -45,6 +45,8 @@ module Clockwork
     CharactersVerifier.perform_async
     PeopleVerifier.perform_async
     AnimeLinksVerifier.perform_async
+
+    FinishExpiredAnimes.perform_async
   end
 
   every 1.day, 'daily.log-stuff', at: '03:00' do

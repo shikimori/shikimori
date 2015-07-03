@@ -5,112 +5,34 @@
   .block
     .subheadline Статус
     ul.block-list.statuses.anime-params
-      - AniMangaStatus.all.each do |(status,title)|
+      - klass.status.values.each do |status|
         li class="status-#{status}"
           input type="checkbox" autocomplete="off"
-          = title
+          = t ".#{klass.name.downcase}.status.#{status}"
+      li class="status-latest"
+        input type="checkbox" autocomplete="off"
+          = t ".#{klass.name.downcase}.status.latest"
 
   .block
     .subheadline Тип
     ul.block-list.types.anime-params
-      / аниме
-      - if klass == Anime
-        li.type-tv
+      - klass.kind.options.each do |title,kind|
+        li class="type-#{kind}"
           input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Anime.TV')
-          - else
-            | TV
+          = title
 
-        li.type-tv_13.sub
-          input type="checkbox" autocomplete="off"
-          = t('Anime.TV_13')
+        - if kind == 'tv'
+          li.type-tv_13.sub
+            input type="checkbox" autocomplete="off"
+              = t ".anime.kind.tv_13"
 
-        li.type-tv_24.sub
-          input type="checkbox" autocomplete="off"
-          = t('Anime.TV_24')
+          li.type-tv_24.sub
+            input type="checkbox" autocomplete="off"
+              = t ".anime.kind.tv_24"
 
-        li.type-tv_48.sub
-          input type="checkbox" autocomplete="off"
-          = t('Anime.TV_48')
-
-        li.type-movie
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Anime.Movie')
-          - else
-            | Movie
-
-        li.type-ova
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Anime.OVA')
-          - else
-            | OVA
-
-        li.type-ona
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Anime.ONA')
-          - else
-            | ONA
-
-        li.type-special
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Anime.Special')
-          - else
-            | Special
-
-        li.type-music
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Anime.Music')
-          - else
-            | Music
-      / манга
-      - else
-        li.type-manga
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Manga.Manga')
-          - else
-            | Manga
-
-        li.type-manhua
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Manga.Manhua')
-          - else
-            | Manhua
-
-        li.type-manhwa
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Manga.Manhwa')
-          - else
-            | Manhwa
-
-        li.type-novel
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Manga.Novel')
-          - else
-            | Novel
-
-        li.type-one_shot
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Manga.One Shot')
-          - else
-            | One Shot
-
-        li.type-doujin
-          input type="checkbox" autocomplete="off"
-          - if !current_user || (current_user && current_user.preferences.russian_genres?)
-            = t('Manga.Doujin')
-          - else
-            | Doujin
+          li.type-tv_48.sub
+            input type="checkbox" autocomplete="off"
+              = t ".anime.kind.tv_48"
 
   - if defined?(social) && show_social?
     .addthis_toolbox.addthis_default_style

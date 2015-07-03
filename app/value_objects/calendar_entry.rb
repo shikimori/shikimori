@@ -19,7 +19,7 @@ class CalendarEntry < SimpleDelegator
   end
 
   def next_episode
-    @next_episode ||= if status == AniMangaStatus::Ongoing && last_news
+    @next_episode ||= if ongoing? && last_news
       last_news.value.to_i+1
     else
       1
@@ -27,7 +27,7 @@ class CalendarEntry < SimpleDelegator
   end
 
   def last_episode_date
-    @last_episode_date ||= last_news.created_at if status == AniMangaStatus::Ongoing && last_news
+    @last_episode_date ||= last_news.created_at if ongoing? && last_news
   end
 
   def next_episode_at

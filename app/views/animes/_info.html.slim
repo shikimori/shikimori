@@ -16,7 +16,7 @@
   - unless entry.status.blank?
     = info_line 'Статус' do
       span.b-anime_status_tag class="#{entry.status.downcase.gsub ' ', '_'}"
-        = entry.status_name.downcase
+        = entry.status_text.downcase
       | &nbsp;
 
       - if entry.release_date_tooltip

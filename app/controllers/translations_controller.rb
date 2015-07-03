@@ -104,7 +104,7 @@ private
 
     @groups['Онгоинги'] = Anime
       .translatable
-      .where(status: AniMangaStatus::Ongoing)
+      .where(status: :ongoing)
       .where('score != 0 and ranked != 0')
       .where.not(id: added_ids)
       .where.not(id: [10908,11385])
@@ -172,7 +172,7 @@ private
       .where(AniMangaSeason.query_for(DateTime.now.year.to_s))
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
-      .where('score >= 7.5 or status = ?', AniMangaStatus::Anons)
+      .where('score >= 7.5 or status = ?', :anons)
       .where.not(id: TRANSLATE_IGNORES)
       .where.not(rating: AniMangaQuery::Ratings['G'])
       .where(kind: :movie)

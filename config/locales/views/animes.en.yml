@@ -1,4 +1,20 @@
 en:
+  animes_collection:
+    menu:
+      anime:
+        status: &anime_statuses
+          anons: Not yet Aired
+          ongoing: Currently Airing
+          released: Finished Airing
+          latest: Aired Recently
+        kind:
+          tv_13: Short
+          tv_24: Average
+          tv_48: Long
+      manga:
+        status:
+          <<: *anime_statuses
+          ongoing: Сейчас издаётся
   animes:
     info:
       anime_additionals: Anime has

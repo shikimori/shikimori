@@ -41,7 +41,7 @@ class AniMangaPresenter::FilesPresenter < BasePresenter
       torrents = (entry.torrents - torrents_480p - torrents_720p - torrents_1080p).select {|v| v.kind_of?(Hash) }.sort_by do |v|
         v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years
       end.uniq {|v| v[:title] }.reverse
-      if entry.status == AniMangaStatus::Released && (entry.released_on || entry.aired_on) && DateTime.now.to_i - (entry.released_on || entry.aired_on).to_time.to_i > 60*60*24*364
+      if entry.released? && (entry.released_on || entry.aired_on) && DateTime.now.to_i - (entry.released_on || entry.aired_on).to_time.to_i > 60*60*24*364
         torrents_480p = []
         torrents_720p = []
         torrents_1080p = []

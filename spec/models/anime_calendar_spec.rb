@@ -16,14 +16,12 @@ describe AnimeCalendar do
       end
 
       it 'imports calendar' do
-        create :anime, name: 'Naruto Shippuuden', status: AniMangaStatus::Ongoing, aired_on: 1.year.ago
-        expect {
-          AnimeCalendar.parse
-        }.to change(AnimeCalendar, :count)
+        create :anime, :ongoing, name: 'Naruto Shippuuden', aired_on: 1.year.ago
+        expect{AnimeCalendar.parse}.to change(AnimeCalendar, :count)
       end
 
       it 'imports calendar only once' do
-        create :anime, name: 'Naruto Shippuuden', status: AniMangaStatus::Ongoing, aired_on: 1.year.ago
+        create :anime, :ongoing, name: 'Naruto Shippuuden', aired_on: 1.year.ago
         AnimeCalendar.parse
         expect {
           AnimeCalendar.parse
@@ -31,10 +29,8 @@ describe AnimeCalendar do
       end
 
       it 'deletes old entries' do
-        AnimeCalendar.create!(anime: (FactoryGirl.create :anime), start_at: 1.month.ago, episode: 1)
-        expect {
-          AnimeCalendar.parse
-        }.to change(AnimeCalendar, :count).by(-1)
+        AnimeCalendar.create!(anime: (create :anime), start_at: 1.month.ago, episode: 1)
+        expect{AnimeCalendar.parse}.to change(AnimeCalendar, :count).by(-1)
       end
     end
   end

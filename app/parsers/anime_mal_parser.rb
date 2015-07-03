@@ -1,5 +1,11 @@
 # TODO: refactor
 class AnimeMalParser < BaseMalParser
+  STATUSES = {
+    'Not yet aired' => 'anons',
+    'Currently Airing' => 'ongoing',
+    'Finished Airing' => 'released'
+  }
+
   # сохранение уже импортированных данных
   def deploy entry, data
     # для хентая ставим флаг censored
@@ -7,8 +13,8 @@ class AnimeMalParser < BaseMalParser
       entry.censored = true
     end
     # то, что стоит релизом, не сбрасывать назад в онгоинг при ипорте
-    data[:entry].delete(:status) if entry.status == AniMangaStatus::Released &&
-                                    data[:entry][:status] == AniMangaStatus::Ongoing &&
+    data[:entry].delete(:status) if entry.released? &&
+                                    data[:entry][:status] == 'ongoing' &&
                                     entry.episodes_aired == entry.episodes
     # студии
     super
@@ -41,7 +47,7 @@ class AnimeMalParser < BaseMalParser
     entry[:episodes] = parse_line("Episodes", content, false).to_i
     entry.delete(:episodes) if entry[:episodes] == 0
 
-    entry[:status] = parse_line("Status", content, false)
+    entry[:status] = STATUSES[parse_line("Status", content, false)]
     dates = parse_line("Aired", content, false).split(' to ').map do |v|
       parse_date(v)
     end

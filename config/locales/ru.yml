@@ -152,7 +152,6 @@ ru:
           in_club_black_list: Вас внесли в чёрный список клуба. Комментирование невозможно
         messages:
           ignored: Вы не можете писать этому пользователю
-
         group_invite:
           attributes:
             base:
@@ -162,7 +161,6 @@ ru:
             dst:
               empty: не зайдан
               blank: не найден
-
         videos:
           attributes:
             url:
@@ -178,13 +176,11 @@ ru:
           proposing: сбор номинантов
           started: активно
           finished: завершено
-
       review:
         states:
           pending: ожидает рассмотрения
           accepted: принято
           rejected: отклонено
-
       anime_video:
         states:
           working: работает
@@ -196,52 +192,57 @@ ru:
           copyrighted: copyrighted
 
   enumerize:
-    language:
-      russian: Русский
-      english: English
-
-    body_width:
-      x1200: 1200 пикселей
-      x1000: 1000 пикселей
-
-    list_privacy:
-      public: Все посетители сайта
-      users: Зарегистрированные пользователи сайта
-      friends: Только мои друзья
-      owner: Никто, кроме меня
-
-    kind:
-      # anime
-      movie: Фильм
-      music: Клип
-      ona: ONA
-      ova: OVA
-      special: Спешл
-      tv: Сериал
-      # manga
-      doujin: Додзинси
-      manga: Манга
-      manhua: Маньхуа
-      manhwa: Манхва
-      novel: Новелла
-      one_shot: Ваншот
-
-    strategy_type:
-      double_elimination: Вылет после двух поражений
-      play_off: Вылет после первого поражения
-      swiss: Швейцарская система
-
-    member_type:
-      anime: Аниме
-      character: Персонажи
-
+    user:
+      language:
+        russian: Русский
+        english: English
+    user_preference:
+      body_width:
+        x1200: 1200 пикселей
+        x1000: 1000 пикселей
+      list_privacy:
+        public: Все посетители сайта
+        users: Зарегистрированные пользователи сайта
+        friends: Только мои друзья
+        owner: Никто, кроме меня
+    anime:
+      status:
+        anons: Анонс
+        ongoing: Онгоинг
+        released: Вышло
+      kind:
+        movie: Фильм
+        music: Клип
+        ona: ONA
+        ova: OVA
+        special: Спешл
+        tv: Сериал
+    manga:
+      status:
+        anons: Анонс
+        ongoing: Выходит
+        released: Вышло
+      kind:
+        doujin: Додзинси
+        manga: Манга
+        manhua: Маньхуа
+        manhwa: Манхва
+        novel: Новелла
+        one_shot: Ваншот
+    contest:
+      strategy_type:
+        double_elimination: Вылет после двух поражений
+        play_off: Вылет после первого поражения
+        swiss: Швейцарская система
+      member_type:
+        anime: Аниме
+        character: Персонажи
     abuse_request:
       kind:
         offtopic: оффтоп
         review: отзыв
         spoiler: спойлер
         abuse: нарушение
-
     anime_video:
       kind:
         unknown: озвучка
@@ -256,47 +257,11 @@ ru:
         wrong: не к этому аниме
         banned: banned
         copyrighted: copyrighted
-
     anime_video_report:
       kind:
         uploaded: новое видео
         broken: видео не работет
         wrong: видео не к тому аниме
-
-  #date_time:
-    #week:
-      #one: неделя
-      #few: недели
-      #many: недель
-    #day:
-      #one: день
-      #few: дня
-      #many: дней
-    #hour:
-      #one: час
-      #few: часа
-      #many: часов
-    #minute:
-      #one: минута
-      #few: минуты
-      #many: минут
-
-    #intervals:
-      #today: сегодня
-      #yesterday: вчера
-      #week: в течение недели
-      #two_weeks: две недели назад
-      #three_weeks: три недели назад
-      #four_weeks: четыре недели назад
-      #month: месяц назад
-      #two_months: два месяца назад
-      #three_months: три месяца назад
-      #four_months: четыре месяца назад
-      #five_months: пять месяцев назад
-      #half_year: более полугода назад
-      #year: почти год назад
-      #two_years: более года назад
-      #many_years: совсем давно
 
   # в bans#create отображаются
   messages:

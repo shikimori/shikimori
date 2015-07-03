@@ -159,7 +159,7 @@ class AniMangaDecorator < DbEntryDecorator
     return unless released_on || aired_on
     parts = []
 
-    if status == AniMangaStatus::Released || status == AniMangaStatus::Finished
+    if released?
       if released_on && aired_on && released_on.year != aired_on.year
         # в 2011-2012 гг.
         parts << i18n_t('datetime.release_dates.in_years', from_date: aired_on.year, to_date: released_on.year)
@@ -173,7 +173,7 @@ class AniMangaDecorator < DbEntryDecorator
         end
       end
 
-    elsif status == AniMangaStatus::Anons
+    elsif anons?
       parts << i18n_t('datetime.release_dates.for_date', date: h.formatted_date(aired_on, true)) if aired_on
 
     else # ongoings
@@ -187,7 +187,7 @@ class AniMangaDecorator < DbEntryDecorator
   def release_date_tooltip
     return unless released_on && aired_on
     return if released_on.day == 1 || released_on.month == 1 || aired_on.day == 1 || aired_on.month == 1
-    return unless [AniMangaStatus::Released, AniMangaStatus::Finished].include?(status)
+    return unless released?
 
     i18n_t('datetime.release_dates.since_till_date',
       from_date: h.formatted_date(aired_on, true, false),

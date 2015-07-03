@@ -232,13 +232,19 @@ private
   # фильтрация по статусам
   def status!
     return if @status.blank?
-    statuss = bang_split(@status.split(','))
+    statuss = bang_split @status.split(',')
 
-    query = statuss[:include].map {|v| AniMangaStatus.query_for(v, @klass) }
-    @query = @query.where(query.join(" OR ")) unless query.empty?
+    query = statuss[:include].map do |status|
+      AnimeStatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql
+    end
+    @query = @query.where query.join(' OR ') unless query.empty?
 
-    query = statuss[:exclude].map {|v| "NOT (#{AniMangaStatus.query_for(v, @klass)})" }
-    @query = @query.where(query.join(" AND ")) unless query.empty?
+    query = statuss[:exclude].map do |status|
+      'NOT (' +
+        AnimeStatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql +
+        ')'
+    end
+    @query = @query.where query.join(' AND ') unless query.empty?
   end
 
   # фильтрация по наличию в собственном списке

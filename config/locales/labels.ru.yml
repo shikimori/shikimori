@@ -78,20 +78,6 @@ ru:
       Manhwa: Манхва
       Novel: Новеллы
       One Shot: Ваншот манга
-  AniMangaStatus:
-    Currently Airing: онгоинг
-    Finished Airing: вышло
-    Finished: вышло
-    Not yet aired: анонс
-    Not yet published: анонс
-    Publishing: выходит
-  AniMangaStatusUpper:
-    Currently Airing: Онгоинг
-    Finished Airing: Вышло
-    Finished: Вышло
-    Not yet aired: Анонс
-    Not yet published: Анонс
-    Publishing: Выходит
   Rating:
     G - All Ages: &rating_g Для всех возрастов
     PG - Children: &rating_pg Рекомендуется присутствие родителей
@@ -114,11 +100,6 @@ ru:
     R - 17+ (violence & profanity): NC-17
     R+ - Mild Nudity: R+
     Rx - Hentai: Rx
-  User:
-    ContactsPrivacy:
-      users: пользователи
-      friends: друзья
-      all: все
   Relation:
     Adaptation: Адаптация
     Alternative setting: Альтернативная вселенная

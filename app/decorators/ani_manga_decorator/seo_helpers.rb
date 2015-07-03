@@ -4,11 +4,11 @@ module AniMangaDecorator::SeoHelpers
       object.name, object.russian,
       (object.synonyms || '').join(', '),
       (object.english || '').join(', '),
-      "#{anime? ? 'аниме' : 'манга'} #{object.short_name}",
-      "#{object.short_name} персонажи",
-      "#{object.short_name} обсуждение",
-      (cosplay.characters.any? ? "#{object.short_name} косплей" : nil),
-      (reviews? ? "#{object.short_name} обзоры, рецензии, отзывы" : '')
+      "#{anime? ? 'аниме' : 'манга'} #{short_name object}",
+      "#{short_name object} персонажи",
+      "#{short_name object} обсуждение",
+      (cosplay.characters.any? ? "#{short_name object} косплей" : nil),
+      (reviews? ? "#{short_name object} обзоры, рецензии, отзывы" : '')
     ].select(&:present?).join(', ')
   end
 
@@ -23,5 +23,10 @@ module AniMangaDecorator::SeoHelpers
 
     genres[object.id % genres.size - 1]
   end
-end
 
+private
+
+  def short_name entry
+    entry.name.gsub(/:.*|'$/, '')
+  end
+end

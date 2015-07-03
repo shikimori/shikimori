@@ -11,13 +11,13 @@ describe AniMangaDecorator do
     subject(:decorator) { anime.decorate }
 
     context 'no dates' do
-      let(:status) { AniMangaStatus::Finished }
+      let(:status) { :released }
       its(:release_date_text) { is_expected.to be_nil }
       its(:release_date_tooltip) { is_expected.to be_nil }
     end
 
-    context 'finished airing' do
-      let(:status) { AniMangaStatus::Finished }
+    context 'released' do
+      let(:status) { :released }
 
       context 'aired_on & released_on' do
         let(:aired_on) { '02-02-2011' }
@@ -42,8 +42,8 @@ describe AniMangaDecorator do
       end
     end
 
-    context 'currently airing' do
-      let(:status) { AniMangaStatus::Anons }
+    context 'anons' do
+      let(:status) { :anons }
 
       context 'aired_on & released_on' do
         let(:aired_on) { '02-02-2011' }
@@ -68,8 +68,8 @@ describe AniMangaDecorator do
       end
     end
 
-    context 'currently airing' do
-      let(:status) { AniMangaStatus::Ongoing }
+    context 'ongoing' do
+      let(:status) { :ongoing }
 
       context 'aired_on & released_on' do
         let(:aired_on) { '02-02-2011' }

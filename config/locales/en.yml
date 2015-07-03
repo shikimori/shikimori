@@ -1,4 +1,8 @@
 en:
+  time:
+    formats:
+      with_month_name: '%B %e, %Y'
+
   activerecord:
     models:
       anime: Anime
@@ -55,14 +59,14 @@ en:
           '10': Masterpiece!
         statuses:
           anime:
-            planned: Planning to Watch
+            planned: Planned to Watch
             watching: Watching
             rewatching: Rewatching
             completed: Watched
             on_hold: On Hold
             dropped: Dropped
           manga:
-            planned: Planning to Read
+            planned: Planned to Read
             watching: Reading
             rewatching: Rereading
             completed: Read
@@ -143,7 +147,6 @@ en:
           in_club_black_list: You're banned in this club. Commenting is disabled
         messages:
           ignored: You can't send messages to this user
-
         group_invite:
           attributes:
             base:
@@ -153,7 +156,6 @@ en:
             dst:
               empty: Empty
               blank: Blank
-
         videos:
           attributes:
             url:
@@ -168,13 +170,11 @@ en:
           proposing: proposing candidates
           started: active
           finished: finished
-
       review:
         states:
           pending: pending approval
           accepted: accepted
           rejected: rejected
-
       anime_video:
         states:
           working: working
@@ -186,52 +186,57 @@ en:
           copyrighted: copyrighted
 
   enumerize:
-    language:
-      russian: Russian
-      english: English
-
-    body_width:
-      x1200: 1200 pixels
-      x1000: 1000 pixels
-
-    list_privacy:
-      public: All Visitors
-      users: Registered Users
-      friends: My Friends Only
-      owner: Only Me
-
-    kind:
-      # anime
-      movie: Movie
-      music: Music
-      ona: ONA
-      ova: OVA
-      special: Special
-      tv: TV
-      # manga
-      doujin: Doujin
-      manga: Manga
-      manhua: Manhua
-      manhwa: Manhwa
-      novel: Novel
-      one_shot: One Shot
-
-    strategy_type:
-      double_elimination: Double elimination
-      play_off: Olympic system
-      swiss: Swiss system
-
-    member_type:
-      anime: Anime
-      character: Characters
-
+    user:
+      language:
+        russian: Russian
+        english: English
+    user_preference:
+      body_width:
+        x1200: 1200 pixels
+        x1000: 1000 pixels
+      list_privacy:
+        public: All Visitors
+        users: Registered Users
+        friends: My Friends Only
+        owner: Only Me
+    anime:
+      status:
+        anons: Planned
+        ongoing: Ongoing
+        released: Released
+      kind:
+        tv: TV Series
+        movie: Movie
+        music: Music
+        ona: ONA
+        ova: OVA
+        special: Special
+    manga:
+      status:
+        anons: Planned
+        ongoing: Publishing
+        released: Released
+      kind:
+        doujin: Doujin
+        manga: Manga
+        manhua: Manhua
+        manhwa: Manhwa
+        novel: Novel
+        one_shot: One Shot
+    contest:
+      strategy_type:
+        double_elimination: Double elimination
+        play_off: Olympic system
+        swiss: Swiss system
+      member_type:
+        anime: Anime
+        character: Characters
     abuse_request:
       kind:
         offtopic: offtopic
         review: review
         spoiler: spoiler
         abuse: abuse
-
     anime_video:
       kind:
         unknown: dub
@@ -246,51 +251,11 @@ en:
         wrong: wrong anime
         banned: banned
         copyrighted: copyrighted
-
     anime_video_report:
       kind:
         uploaded: new video
         broken: video broken
         wrong: wrong anime
-
-  time:
-    formats:
-      with_month_name: '%B %e, %Y'
-
-  #date_time:
-    #week:
-      #one: week
-      #few: weeks
-      #many: weeks
-    #day:
-      #one: day
-      #few: days
-      #many: days
-    #hour:
-      #one: hour
-      #few: hours
-      #many: hours
-    #minute:
-      #one: minute
-      #few: minutes
-      #many: minutes
-
-    #intervals:
-      #today: today
-      #yesterday: yesterday
-      #week: during the week
-      #two_weeks: two weeks ago
-      #three_weeks: three weeks ago
-      #four_weeks: four weeks ago
-      #month: a month ago
-      #two_months: two months ago
-      #three_months: three months ago
-      #four_months: four months ago
-      #five_months: five months ago
-      #half_year: more than half a year ago
-      #year: almost a year ago
-      #two_years: more than one year ago
-      #many_years: a long, long time ago
 
   # в bans#create отображаются
   messages:

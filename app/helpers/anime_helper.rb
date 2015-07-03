@@ -1,7 +1,7 @@
 module AnimeHelper
   # время выхода следующей серии
-  def time_of_next_episode(anime, main_page=false)
-    episode_start = if anime.status == AniMangaStatus::Anons
+  def time_of_next_episode anime, main_page=false
+    episode_start = if anime.anons?
       (anime.episode_start_at || anime.aired_on).to_datetime
     else
       anime.next_episode_at || anime.episode_start_at || (anime.episodes_news.any? ? anime.episodes_news.sort_by {|v| - v.created_at.to_i }.first.created_at : anime.aired_on) + anime.average_interval

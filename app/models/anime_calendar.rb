@@ -52,7 +52,9 @@ class AnimeCalendar < ActiveRecord::Base
     query += " or id in (#{(calendar.map {|v| v[:anime_id] }.compact + [0]).join(',')})"
 
     #animes = Anime.where(:id => 10464).where(query).inject({}) do |data,anime|
-    animes = (Anime.latest + Anime.ongoing.where(query).to_a + Anime.anons.where(query).to_a)
+    animes = (AnimeStatusQuery.new(Anime.all).by_status(:latest) +
+        Anime.where(status: :ongoing).where(query).to_a +
+        Anime.where(status: :anons).where(query).to_a)
       .select {|v| v.tv? || v.ona? || [15133, 19799].include?(v.id) }.inject({}) do |data,anime|
         data[self.hashname(anime.name)] = anime
         data[anime.id] = anime

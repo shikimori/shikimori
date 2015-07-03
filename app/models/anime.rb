@@ -1,12 +1,13 @@
 # TODO: extract torrents to value object
 # TODO: move check_status, update_news to another object
+# TODO: refacttor serialized fields to postgres arrays
 class Anime < DbEntry
   include AniManga
   EXCLUDED_ONGOINGS = [966,1199,1960,2406,4459,6149,7511,7643,8189,8336,8631,8687,9943,9947,10506,10797,10995,12393,13165,13433,13457,13463,15111,15749,16908,18227,18845,18941,19157,19445,19825,20261,21447,21523,24403,24969,24417,24835,25503,27687,26453,26163,27519,30131,29361,27785,29099,28247,28887,30144,29865,29722,29846,30342,30411,30470,30417,30232]
   ADULT_RATINGS = ['Rx - Hentai']
   SUB_ADULT_RATINGS = ['R+ - Mild Nudity']
 
-  # Fields
+  # TODO: refacttor to postgres array
   serialize :english
   serialize :japanese
   serialize :synonyms
@@ -17,7 +18,6 @@ class Anime < DbEntry
 
   attr_accessor :in_list
 
-  # Relations
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :studios
 
@@ -103,13 +103,13 @@ class Anime < DbEntry
     default_url: '/assets/globals/missing_:style.jpg'
 
   enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: true
+  enumerize :status, in: [:anons, :ongoing, :released], predicates: true
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :check_status
   after_save :update_news
 
-  # scopes
   scope :translatable, -> {
       where("kind = 'tv' or (kind = 'ona' and score >= 7.0) or (kind = 'ova' and score >= 7.5) or kind = 'movie'")
         .where.not(id: Anime::EXCLUDED_ONGOINGS)
@@ -117,40 +117,103 @@ class Anime < DbEntry
         .order(:ranked)
     }
 
-  # Methods
   def latest?
-    ongoing? || anons? || (aired_on && aired_on > Time.zone.now - 1.year)
+    ongoing? || anons? || (aired_on && aired_on > 1.year.ago)
+  end
+
+  def adult?
+    censored || ADULT_RATINGS.include?(rating) || (
+      SUB_ADULT_RATINGS.include?(rating) &&
+      ((ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || special?)
+    )
   end
 
   def name
     self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
   end
 
-  def self.latest
-    #Anime.where(AniMangaSeason.query_for('latest'))
-    Anime.all.select {|v| v.latest? }
+  # название на торрентах. фикс на случай пустой строки
+  def torrents_name
+    self[:torrents_name].present? ? self[:torrents_name] : nil
   end
 
-  def self.ongoing
-    #Anime.order(:id).all.select {|v| v.ongoing? }
-    Anime.where(AniMangaStatus.query_for('ongoing'))
+  # Subtitles
+  def subtitles
+    BlobData.get("anime_%d_subtitles" % id) || {}
   end
 
-  def self.anons
-    Anime.where(AniMangaStatus.query_for('planned'))
-    #Anime.order(:id).all.select {|v| v.anons? }
+  # перед сохранением посмотрим, какой стоит статус, и не надо ли его откатить
+  def check_status
+    return unless changes['status']
+
+    # anons => ongoing
+    if changes['status'][0] == 'anons' && changes['status'][1] == 'ongoing'
+      # у которого дата старта больше текущей более, чем на 1 день, не делаем онгоинггом
+      if aired_on && aired_on > Time.zone.now + 1.day
+        self.status = :anons
+      end
+
+    # ongoings => released
+    elsif changes['status'][0] == 'ongoing' && changes['status'][1] == 'released'
+      if released_on
+        # one episode left
+        if episodes_aired + 1 == episodes && released_on > Time.zone.today - 1.day
+          self.status = :ongoing
+        end
+
+        # released_on in the future
+        if released_on > Time.zone.today
+          self.status = :ongoing
+        end
+      end
+    end
   end
 
-  # есть ли файлы у аниме?
-  def has_files?
-    BlobData.where({key: "anime_%d_torrents" % id} |
-                   {key: "anime_%d_torrents_480p" % id} |
-                   {key: "anime_%d_torrents_720p" % id} |
-                   {key: "anime_%d_torrents_1080p" % id} |
-                   {key: "anime_%d_subtitles" % id}).any?
+  # при сохранении аниме проверка того, что изменилось и создание записей в историю при необходимости
+  def update_news
+    return unless changed?
+
+    resave = false
+    no_news = false
+
+    # анонс, у которого появились вышедшие эпизоды, делаем онгоигом
+    if anons? && changes['episodes_aired'] && episodes_aired > 0
+      self.status = :ongoing
+      resave = true
+    end
+    # онгоинг, у которого вышел последний эпизод, делаем релизом
+    if ongoing? && changes['episodes_aired'] && episodes_aired == episodes && episodes != 0
+      self.status = :released
+      resave = true
+    end
+
+    # при сбросе числа вышедщих эпизодов удаляем новости эпизодов
+    if changes['episodes_aired'] && episodes_aired == 0 && changes['episodes_aired'][0] != nil
+      AnimeNews
+        .where(linked: self)
+        .where(action: AnimeHistoryAction::Episode)
+        .destroy_all
+      no_news = true
+    end
+
+    if changes['status'] && changes['status'][0] != status && !no_news
+      if released? &&
+          changes['id'].nil? &&
+          changes['status'].any? &&
+          (released_on || aired_on) &&
+          ((!released_on && aired_on > Time.zone.now - 15.month) ||
+           (released_on && released_on > Time.zone.now - 1.month))
+        AnimeNews.create_for_new_release(self)
+      end
+      AnimeNews.create_for_new_anons(self) if anons? && changes['status'][0] != 'ongoing'
+      AnimeNews.create_for_new_ongoing(self) if ongoing? && changes['status'][0] != 'released'
+    end
+
+    self.save if resave
   end
 
-  # Torrents
+  # torrents
+  # TODO: extract this shit to another class
   def torrents
     @torrents ||= (BlobData.get("anime_%d_torrents" % id) || []).select {|v| v.respond_to?(:[]) }
   end
@@ -188,98 +251,5 @@ class Anime < DbEntry
   def torrents_1080p=(data)
     BlobData.set("anime_%d_torrents_1080p" % id, data) unless data.empty?
     @torrents_1080p = nil
-  end
-
-  # название на торрентах. фикс на случай пустой строки
-  def torrents_name
-    self[:torrents_name].present? ? self[:torrents_name] : nil
-  end
-
-  # Subtitles
-  def subtitles
-    BlobData.get("anime_%d_subtitles" % id) || {}
-  end
-
-  # перед сохранением посмотрим, какой стоит статус, и не надо ли его откатить
-  def check_status
-    return unless changes['status']
-
-    # anons => ongoing
-    if changes['status'][0] == AniMangaStatus::Anons && changes['status'][1] == AniMangaStatus::Ongoing
-      # у которого дата старта больше текущей более, чем на 1 день, не делаем онгоинггом
-      if aired_on && aired_on > Time.zone.now + 1.day
-        self.status = AniMangaStatus::Anons
-      end
-
-    # ongoings => released
-    elsif changes['status'][0] == AniMangaStatus::Ongoing && changes['status'][1] == AniMangaStatus::Released
-      if released_on
-        # one episode left
-        if episodes_aired + 1 == episodes && released_on > Time.zone.today - 1.day
-          self.status = AniMangaStatus::Ongoing
-        end
-
-        # released_on in the future
-        if released_on > Time.zone.today
-          self.status = AniMangaStatus::Ongoing
-        end
-      end
-    end
-
-    # синхронизация episodes_aired с episodes при переводе в Released
-    #if self.changes["status"] && self.status == AniMangaStatus::Released &&
-         #self.episodes_aired > 0 && self.episodes > 0 && self.episodes != self.episodes_aired
-      #self.episodes_aired = self.episodes
-    #end
-  end
-
-  # при сохранении аниме проверка того, что изменилось и создание записей в историю при необходимости
-  def update_news
-    return unless changed?
-
-    resave = false
-    no_news = false
-
-    # анонс, у которого появились вышедшие эпизоды, делаем онгоигом
-    if status == AniMangaStatus::Anons && changes['episodes_aired'] && episodes_aired > 0
-      self.status = AniMangaStatus::Ongoing
-      resave = true
-    end
-    # онгоинг, у которого вышел последний эпизод, делаем релизом
-    if status == AniMangaStatus::Ongoing && changes['episodes_aired'] && episodes_aired == episodes && episodes != 0
-      self.status = AniMangaStatus::Released
-      resave = true
-    end
-
-    # при сбросе числа вышедщих эпизодов удаляем новости эпизодов
-    if changes['episodes_aired'] && episodes_aired == 0 && changes['episodes_aired'][0] != nil
-      AnimeNews
-        .where(linked_id: id, linked_type: self.class.name)
-        .where(action: AnimeHistoryAction::Episode)
-        .destroy_all
-      no_news = true
-    end
-
-    if changes['status'] && changes['status'][0] != status && !no_news
-      if status == AniMangaStatus::Released &&
-          changes['id'].nil? &&
-          changes['status'].any? &&
-          (released_on || aired_on) &&
-          ((!released_on && aired_on > Time.zone.now - 15.month) ||
-           (released_on && released_on > Time.zone.now - 1.month))
-        AnimeNews.create_for_new_release(self)
-      end
-      AnimeNews.create_for_new_anons(self) if status == AniMangaStatus::Anons && changes['status'][0] != AniMangaStatus::Ongoing
-      AnimeNews.create_for_new_ongoing(self) if status == AniMangaStatus::Ongoing && changes['status'][0] != AniMangaStatus::Released
-    end
-
-    self.save if resave
-  end
-
-  def adult?
-    censored || ADULT_RATINGS.include?(rating) || (
-      SUB_ADULT_RATINGS.include?(rating) &&
-      ((ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || special?)
-    )
   end
 end

@@ -239,7 +239,7 @@ describe UserRate do
 
       context 'to completed for ongoing w/o episodes' do
         subject(:user_rate) { create :user_rate, old_status, episodes: old_episodes, target: target }
-        let(:target) { build_stubbed :anime, episodes: 0, status: AniMangaStatus::Ongoing }
+        let(:target) { build_stubbed :anime, :ongoing, episodes: 0 }
 
         let(:old_episodes) { 3 }
         let(:old_status) { :watching }

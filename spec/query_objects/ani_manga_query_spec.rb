@@ -284,19 +284,19 @@ describe AniMangaQuery do
     end
 
     describe 'status' do
-      let!(:anime_1) { create :anime, status: AniMangaStatus::Ongoing, aired_on: Time.zone.now - 1.month }
-      let!(:anime_2) { create :anime, status: AniMangaStatus::Anons }
-      let!(:anime_3) { create :anime, status: AniMangaStatus::Anons }
-      let!(:anime_4) { create :anime, status: AniMangaStatus::Released }
-      let!(:anime_5) { create :anime, status: AniMangaStatus::Released }
-      let!(:anime_6) { create :anime, status: AniMangaStatus::Released, aired_on: 6.months.ago, released_on: 2.months.ago }
+      let!(:anime_1) { create :anime, :ongoing, aired_on: Time.zone.now - 1.month }
+      let!(:anime_2) { create :anime, :anons }
+      let!(:anime_3) { create :anime, :anons }
+      let!(:anime_4) { create :anime, :released }
+      let!(:anime_5) { create :anime, :released }
+      let!(:anime_6) { create :anime, :released, aired_on: 6.months.ago, released_on: 2.months.ago }
 
       it 'inclusive' do
          expect(fetch status: 'ongoing').to have(1).item
+         expect(fetch status: 'latest').to have(1).item
          expect(fetch status: 'planned').to have(2).items
          expect(fetch status: 'released').to have(3).items
          expect(fetch status: 'ongoing,planned').to have(3).items
-         expect(fetch status: 'latest').to have(1).item
       end
 
       it 'exclusive' do

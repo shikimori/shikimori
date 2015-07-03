@@ -157,8 +157,8 @@ class TorrentsParser
     ongoings = Anime.ongoing.to_a
 
     anons = Anime
-      .where(AniMangaStatus.query_for('planned'))
-      .where(kind: ['tv', 'ona'])
+      .where(status: :anons)
+      .where(kind: [:tv, :ona])
       .where(episodes_aired: 0)
       .includes(:anime_calendars)
       .references(:anime_calendars)
@@ -168,8 +168,8 @@ class TorrentsParser
     anons.delete_if { |v| v.ona? && v.anime_calendars.empty? }
 
     released = Anime
-      .where("released_on >= ?", DateTime.now - 2.weeks)
-      .where("episodes_aired >= 5")
+      .where('released_on >= ?', TimeZone.now - 2.weeks)
+      .where('episodes_aired >= 5')
       .to_a
 
     (ongoings + anons + released).select do |v|
@@ -212,19 +212,22 @@ class TorrentsParser
 
     new_episodes = []
 
-    feed.reverse.each do |v|
-      episodes = TorrentsParser.extract_episodes_num(v[:title])
-      # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
-      next if episodes.none? ||
-        (anime.ongoing? && (episodes.max - anime.episodes_aired) > 1 &&
-          !(episodes.max == 2 && anime.episodes_aired == 0))
+    feed.each do |entry|
+      entry[:episodes] = TorrentsParser.extract_episodes_num(entry[:title])
+    end
 
-      episodes.each do |episode|
+    feed.sort_by {|v| v[:episodes].min }.each do |entry|
+      # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
+      next if entry[:episodes].none? ||
+        (anime.ongoing? && (entry[:episodes].min - anime.episodes_aired) > 1 &&
+          !(entry[:episodes].max == 2 && anime.episodes_aired == 0))
+
+      entry[:episodes].each do |episode|
         next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
         episode_max = episode if episode_max < episode
         anime.episodes_aired = episode
-        new_episodes << v
-        AnimeNews.create_for_new_episode(anime, (v[:pubDate] || Time.zone.now) + episode.seconds)
+        new_episodes << entry
+        AnimeNews.create_for_new_episode(anime, (entry[:pubDate] || Time.zone.now) + episode.seconds)
       end
     end
 
