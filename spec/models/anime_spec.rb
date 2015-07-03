@@ -102,7 +102,7 @@ describe Anime do
           expect{anime.update status: :released, released_on: Time.zone.now - 33.days}.to_not change(AnimeNews, :count)
         end
 
-        describe 'ongoing => release' do
+        describe 'ongoing => released' do
           let!(:anime) { create :anime, :with_callbacks, anime_params }
           let(:anime_params) {{
             status: :ongoing,
@@ -170,7 +170,7 @@ describe Anime do
           end
         end
 
-        it 'Ongoing to Release with released_on more than 2.weeks.ago' do
+        it 'Ongoing to Released with released_on more than 2.weeks.ago' do
           anime = create :anime, :with_callbacks, status: :ongoing
 
           anime.update(status: :released, released_on: Time.zone.now - 15.days)
@@ -210,7 +210,7 @@ describe Anime do
         it 'Ongoing with episodes_aired == episodes becomes Released' do
           anime = create :anime, :with_callbacks, status: :ongoing, episodes: 2, aired_on: Time.zone.now - 3.month
 
-          expect{anime.update episodes_aired: 2}.to change(AnimeNews.where(action: AnimeHistoryAction::Release), :count).by 1
+          expect{anime.update episodes_aired: 2}.to change(AnimeNews.where(action: AnimeHistoryAction::Released), :count).by 1
           expect(anime).to be_released
         end
       end

@@ -55,7 +55,7 @@ module UserNotifications
   def unread_news
     ignored_ids = cached_ignores.map(&:target_id) << 0
     @unread_news ||= Message.where(to_id: id)
-        .where(kind: [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews])
+        .where(kind: [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Released, MessageType::SiteNews])
         .where(read: false)
         .where.not(from_id: ignored_ids, to_id: ignored_ids)
         .count
@@ -142,8 +142,8 @@ module UserNotifications
           end
         end
 
-      # Release
-      when AnimeHistoryAction::Release
+      # Released
+      when AnimeHistoryAction::Released
         result = case entry.linked.kind
           when 'tv'
             self.notifications & RELEASE_TV_NOTIFICATIONS != 0

@@ -10,7 +10,7 @@ li.entry
           span
             = entry.linked.kind_text
         span.b-anime_status_tag class="#{entry.action}"
-          = entry.title.sub(/ .*/, '').downcase
+          = t("enumerize.anime.status.#{entry.action}").downcase
       - else
         = entry.title
     span.misc.date

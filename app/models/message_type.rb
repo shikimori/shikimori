@@ -9,7 +9,7 @@ class MessageType
   # уведомление об онгоинге
   Ongoing = AnimeHistoryAction::Ongoing
   # уведомление о релизе
-  Release = AnimeHistoryAction::Release
+  Released = AnimeHistoryAction::Released
   # уведомление о эпизоде
   Episode = AnimeHistoryAction::Episode
   # запрос на добавление в друзья
@@ -32,5 +32,5 @@ class MessageType
   Warned = 'Warned'
 
   RESPONSE_REQUIRED = [FriendRequest, GroupRequest]
-  ANIME_RELATED = [Anons, Ongoing, Release, Episode]
+  ANIME_RELATED = [Anons, Ongoing, Released, Episode]
 end

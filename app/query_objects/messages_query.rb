@@ -1,7 +1,7 @@
 class MessagesQuery < QueryObjectBase
   pattr_initialize :user, :messages_type
 
-  NEWS_KINDS = [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Release, MessageType::SiteNews]
+  NEWS_KINDS = [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Released, MessageType::SiteNews]
 
   def query
     Message

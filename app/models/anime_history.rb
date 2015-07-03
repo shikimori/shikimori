@@ -44,7 +44,7 @@ class AnimeHistory < ActiveRecord::Base
           "Онгоинг"
         end
 
-      when AnimeHistoryAction::Release
+      when AnimeHistoryAction::Released
         if type == :normal
           "Завершение показов"
         else
@@ -65,7 +65,7 @@ class AnimeHistory < ActiveRecord::Base
         subject = anime_history_processor.new_anons_topic_subject(self.anime, self)
         body = anime_history_processor.new_anons_topic_text(self.anime, self)
 
-      when AnimeHistoryAction::Release
+      when AnimeHistoryAction::Released
         subject = anime_history_processor.new_release_topic_subject(self.anime, self)
         body = anime_history_processor.new_release_topic_text(self.anime, self)
 

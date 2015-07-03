@@ -7,8 +7,9 @@ class AnimeOnline::DashboardController < ShikimoriController
     @recent_videos = @recent_videos.map {|v| AnimeWithEpisode.new v.anime.decorate, v }
 
     unless json?
-      @ongoings = Anime.ongoing
+      @ongoings = Anime
         .includes(:genres)
+        .where(status: :ongoing)
         .where.not(rating: 'G - All Ages')
         .where('score < 9.9')
         .where(is_adult ? AnimeVideo::XPLAY_CONDITION : { kind: :tv, censored: false })

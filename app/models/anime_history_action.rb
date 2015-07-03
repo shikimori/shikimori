@@ -2,6 +2,6 @@ class AnimeHistoryAction
   Anons = 'anons'
   Ongoing = 'ongoing'
   Episode = 'episode'
-  Release = 'release'
+  Released = 'released'
   SiteNews = 'SiteNews'
 end

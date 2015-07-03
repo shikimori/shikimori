@@ -22,7 +22,7 @@ class AnimeNews < DbEntryThread
       when AnimeHistoryAction::Anons
         service.new_anons_topic_subject(anime, self)
 
-      when AnimeHistoryAction::Release
+      when AnimeHistoryAction::Released
         service.new_release_topic_subject(anime, self)
 
       when AnimeHistoryAction::Ongoing
@@ -41,7 +41,7 @@ class AnimeNews < DbEntryThread
       when AnimeHistoryAction::Anons
         service.new_anons_topic_text(anime, self)
 
-      when AnimeHistoryAction::Release
+      when AnimeHistoryAction::Released
         service.new_release_topic_text(anime, self)
 
       when AnimeHistoryAction::Ongoing
@@ -88,17 +88,17 @@ class AnimeNews < DbEntryThread
 
   # создание новости о новом релизе
   def self.create_for_new_release(anime)
-    old_release = (anime.released_on && anime.released_on + 2.weeks < DateTime.now)# ||
-                  #(anime.released_on == nil && anime.aired_on && anime.aired_on + 2.weeks < DateTime.now)
+    old_release = (anime.released_on && anime.released_on + 2.weeks < Time.zone.now)# ||
+                  #(anime.released_on == nil && anime.aired_on && anime.aired_on + 2.weeks < Time.zone.now)
 
     last_episode_history = AnimeNews.where(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Episode).last
-    entry = AnimeNews.find_by(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Release) || AnimeNews.create(
+    entry = AnimeNews.find_by(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Released) || AnimeNews.create(
       linked_id: anime.id,
       linked_type: anime.class.name,
-      action: AnimeHistoryAction::Release,
+      action: AnimeHistoryAction::Released,
       generated: true,
       processed: old_release,
-      created_at: old_release ? anime.released_on : DateTime.now
+      created_at: old_release ? anime.released_on : Time.zone.now
     )
 
     anime.released_on = entry.created_at
@@ -142,7 +142,7 @@ class AnimeNews < DbEntryThread
           "Онгоинг"
         end
 
-      when AnimeHistoryAction::Release
+      when AnimeHistoryAction::Released
         if type == :normal
           "Завершение показов"
         else

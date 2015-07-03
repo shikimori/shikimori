@@ -35,7 +35,7 @@ en:
         password_confirmation: Password Confirmation
         sex: Gender
         website: Website
-        language: Language
+        language: Language (в разработке)
       user_rate:
         status: Status
         episodes: Episodes

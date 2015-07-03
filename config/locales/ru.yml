@@ -36,7 +36,7 @@ ru:
         password_confirmation: Подтверждение пароля
         sex: Пол
         website: Сайт
-        language: Язык интерфейса
+        language: Язык интерфейса (в разработке)
       user_rate:
         status: Статус
         episodes: Эпизоды
