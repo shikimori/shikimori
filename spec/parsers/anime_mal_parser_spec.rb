@@ -52,7 +52,7 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data[:studios]).not_to be_empty
     expect(data).to include(:duration)
 
-    expect(data).to include(:rating)
+    expect(data[:rating]).to eq 'r'
     expect(data).to include(:score)
     expect(data).to include(:ranked)
     expect(data).to include(:popularity)

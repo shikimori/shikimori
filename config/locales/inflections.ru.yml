@@ -105,3 +105,20 @@ ru:
         one: лента
       history:
         one: история
+      producer:
+        one: студия
+        few: студии
+      publisher:
+        one: издатль
+        few: издатели
+      loading:
+        one: загрузка
+      comment:
+        one: комментарий
+        few: комментарии
+      summary:
+        one: отзыв
+        few: отзывы
+      genre:
+        one: жанр
+        few: жанры

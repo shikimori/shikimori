@@ -1,20 +1,32 @@
 .b-entry-info
-  = info_line 'Тип', entry.kind_text if entry.kind.present?
-  = render 'animes/aired_chapters', entry: entry, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired
+  = info_line Anime.human_attribute_name(:kind), entry.kind_text if entry.kind.present?
+  = render 'animes/aired_chapters',
+    entry: entry,
+    field_label: Anime.human_attribute_name(:episodes),
+    counter: :episodes,
+    counter_aired: :episodes_aired
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
-    = info_line "#{entry.episodes_aired > 0 ? 'Следующий' : 'Первый'} эпизод", Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
+    = info_line t(entry.episodes_aired > 0 ? '.next_episode' : '.first_episdoe'), Russian.strftime(entry.next_episode_at, '%e %b %H:%M').strip
 
   - if entry.respond_to?(:episodes) && entry.duration && entry.duration > 0
-    = info_line 'Длительность эпизода' do
+    = info_line Anime.human_attribute_name(:duration) do
       span itemprop="#{entry.movie? ? 'duration' : ''}"
         = humanize_minutes entry.duration
 
-  = render 'animes/aired_chapters', entry: entry, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired
-  = render 'animes/aired_chapters', entry: entry, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired
+  = render 'animes/aired_chapters',
+    entry: entry,
+    field_label: Manga.human_attribute_name(:volumes),
+    counter: :volumes,
+    counter_aired: :volumes_aired
+  = render 'animes/aired_chapters',
+    entry: entry,
+    field_label: Manga.human_attribute_name(:chapters),
+    counter: :chapters,
+    counter_aired: :chapters_aired
 
   - unless entry.status.blank?
-    = info_line 'Статус' do
+    = info_line Anime.human_attribute_name(:status) do
       span.b-anime_status_tag class="#{entry.status.downcase.gsub ' ', '_'}"
         = entry.status_text.downcase
       | &nbsp;
@@ -26,13 +38,16 @@
         = entry.release_date_text
 
   - if entry.genres.any?
-    = info_line entry.genres.size > 1 ? 'Жанры' : 'Жанр' do
+    = info_line i18n_io('Genre', entry.genres.size > 1 ? :few : :one) do
       = render 'animes/genres_info', entry: entry
 
-  - if entry.rating.present? && entry.rating != 'None'
-    = info_line 'Рейтинг' do
-      span.b-tooltipped.unprocessed title="#{t "Rating.#{entry.rating}"}" data-direction="right"
-        = t "RatingShort.#{entry.rating}"
+  - if entry.rating.present? && !entry.rating_none?
+    = info_line Anime.human_attribute_name(:rating) do
+      span.b-tooltipped.unprocessed[
+          title="#{{t("enumerize.anime.rating.hint.#{entry.rating}").gsub ' ', '&nbsp;'}}"
+          data-direction="right"
+        ]
+        = entry.rating_text
 
   - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)
     = info_line 'Альтернативные названия' do

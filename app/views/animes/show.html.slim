@@ -23,19 +23,19 @@
           .icon-actions
             - unless current_user.banned?
               a.new_comment.b-tooltipped.unprocessed[
-                title="Комментировать"
+                title="#{{t '.actions.comment'}}"
                 data-direction="top"
               ]
             - if can? :new, Review.new(user: current_user)
               a.new_review.b-tooltipped.unprocessed[
                 href="#{@resource.new_review_url}"
-                title="Написать обзор"
+                title="#{{t '.actions.review'}}"
                 data-direction="top"
               ]
             a.fav-add.b-tooltipped.unprocessed[
               href="#{favourites_url @resource.object.class.name, @resource}"
               style="#{'display: none;' if @resource.favoured?}"
-              title="Добавить в избранное"
+              title="#{{t '.actions.add_to_favourite'}}"
               data-remote="true"
               data-method="post"
               data-type="json"
@@ -45,7 +45,7 @@
             a.fav-remove.b-tooltipped.unprocessed[
               href="#{favourites_url @resource.object.class.name, @resource}"
               style="#{'display: none;' unless @resource.favoured?}"
-              title="Удалить из избранного"
+              title="#{{t '.actions.remove_from_favourite'}}"
               data-remote="true"
               data-method="delete"
               data-type="json"
@@ -54,7 +54,7 @@
             ]
             a.edit.b-tooltipped.unprocessed[
               href="#{@resource.edit_url}"
-              title="Редактировать #{@resource.anime? ? 'аниме' : 'мангу'}"
+              title="#{{t ".actions.edit_#{@resource.object.class.name.downcase}"}}"
               data-direction="top"
             ]
 
@@ -63,14 +63,14 @@
     .c-about
       .cc
         .c-info-left
-          .subheadline Информация
+          .subheadline = t '.information'
           .block
             = render 'animes/info', entry: @resource
 
         .c-info-right
           - if @resource.with_score?
             .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
-              .subheadline.m5 Рейтинг
+              .subheadline.m5 = Anime.human_attribute_name(:score)
               .scores
                 meta itemprop="bestRating" content="10"
                 meta itemprop="ratingValue" content="#{@resource.score}"
@@ -81,14 +81,14 @@
           - if @resource.respond_to?(:studios) && @resource.studios.any?
             .block
               .subheadline.m10
-                = @resource.real_studios.size > 1 ? 'Студии' : 'Студия'
+                = i18n_io 'Producer', @resource.real_studios.size > 1 ? :few : :one
               .block
                 = render 'animes/studios_info', entry: @resource
 
           - if @resource.respond_to?(:publishers) && @resource.publishers.any?
             .block
               .subheadline
-                = @resource.real_publishers.size > 1 ? 'Издатели' : 'Издатель'
+                = i18n_io 'Publisher', @resource.real_publishers.size > 1 ? :few : :one
               .block
                 = render 'mangas/publishers_info', entry: @resource
 
@@ -102,7 +102,7 @@
                   a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
 
     .c-description
-      .subheadline.m5 Описание
+      .subheadline.m5 = t '.description'
       .block
         meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
         meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
@@ -125,23 +125,23 @@
     = render 'resources'
   - else
     .resources-loader.postloaded data-href="#{@resource.resources_url}"
-      .ajax-loading.vk-like title="Загрузка..."
+      .ajax-loading.vk-like title="#{i18n_io 'Loading', :one}..."
 
   - if user_signed_in? || @resource.comments_count > 0
     .b-options-floated.mobile-support
       - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
         span.linkeable data-href="#{@resource.comments_reviews_url}"
-          | Все отзывы
+          = t '.all_summaries'
           span.brackets = @resource.comment_reviews_count
 
       - if @resource.comments_count > 0
         span.linkeable data-href="#{@resource.comments_all_url}"
-          | Все комментарии
+          = t '.all_comments'
           span.brackets = @resource.comments_count
 
     - if @resource.comments_count > 0
       .subheadline.m3
-        = @resource.comment_reviews? ? 'Отзывы' : 'Комментарии'
+        = i18n_io @resource.comment_reviews? ? 'Summary' : 'Comment', :few
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
         = render 'topics/comments', topic: @resource.preview_reviews_thread

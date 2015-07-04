@@ -69,7 +69,7 @@ data.each do |anime_dir, files|
       target_file = "%s/%s_#{index}_%03d.jpg" % [target_path, anime_name, i]
       duration = %x{ffprobe -i #{Shellwords.escape file_path} -show_format|grep duration}.strip.split('=')[1].to_i
 
-      grab_type = if duration > 420
+      grab_type = if duration > 500
         files.size == 1 ? :one_long : :many_long
       else
         files.size == 1 ? :one_short : :many_short

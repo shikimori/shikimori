@@ -48,7 +48,7 @@ describe AnimeVideo do
         end
 
         context 'by_reting' do
-          before { create :anime_video, anime: create(:anime, rating: 'None') }
+          before { create :anime_video, anime: create(:anime, rating: :none) }
           it { should have(1).item }
         end
       end
@@ -61,9 +61,7 @@ describe AnimeVideo do
 
         context 'by_rating' do
           before do
-            Anime::ADULT_RATINGS.each { |rating|
-              create :anime_video, anime: create(:anime, rating: rating)
-            }
+            create :anime_video, anime: create(:anime, rating: Anime::ADULT_RATING)
           end
 
           it { should be_blank }
@@ -81,7 +79,7 @@ describe AnimeVideo do
         end
 
         context 'by_reting' do
-          before { create :anime_video, anime: create(:anime, rating: 'None') }
+          before { create :anime_video, anime: create(:anime, rating: :none) }
           it { should be_blank }
         end
       end
@@ -93,7 +91,7 @@ describe AnimeVideo do
         end
 
         context 'by_rating' do
-          before { create :anime_video, anime: create(:anime, rating: Anime::ADULT_RATINGS.first) }
+          before { create :anime_video, anime: create(:anime, rating: Anime::ADULT_RATING) }
           it { should have(1).item }
         end
       end

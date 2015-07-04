@@ -42,6 +42,7 @@ class AnimesCollectionController < ShikimoriController
     description @description.join(' ')
     keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
     raise AgeRestricted if @entry_data[:genre] && @entry_data[:genre].any?(&:censored?) && censored_forbidden?
+    raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
 
   rescue BadStatusError
     redirect_to send("#{klass.table_name}_url", url_params(status: nil)), status: 301

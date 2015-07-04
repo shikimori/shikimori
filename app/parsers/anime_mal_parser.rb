@@ -5,6 +5,15 @@ class AnimeMalParser < BaseMalParser
     'Currently Airing' => 'ongoing',
     'Finished Airing' => 'released'
   }
+  RATINGS = {
+    'None' => 'none',
+    'G - All Ages' => 'g',
+    'PG - Children' => 'pg',
+    'PG-13 - Teens 13 or older' => 'pg_13',
+    'R - 17+ (violence & profanity)' => 'r',
+    'R+ - Mild Nudity' => 'r_plus',
+    'Rx - Hentai' => 'rx'
+  }
 
   # сохранение уже импортированных данных
   def deploy entry, data
@@ -63,7 +72,7 @@ class AnimeMalParser < BaseMalParser
     entry[:duration] = parse_line("Duration", content, false)
     entry[:duration] = (entry[:duration].match(/(\d+) hr./) ? $1.to_i*60 : 0) +
                         (entry[:duration].match(/(\d+) min./) ? $1.to_i : 0)
-    entry[:rating] = parse_line("Rating", content, false)
+    entry[:rating] = RATINGS[parse_line("Rating", content, false)]
     entry[:score] = parse_line("Score", content, false).match(/([\d.]+)/) ? $1.to_f : 0
     entry[:score] = 9.99 if entry[:score] >= 10
     entry[:ranked] = parse_line("Ranked", content, false).match(/(\d+)/) ? $1.gsub(",", "").to_i : 0

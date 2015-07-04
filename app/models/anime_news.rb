@@ -1,15 +1,9 @@
 class AnimeNews < DbEntryThread
+  enumerize :action, in: [:anons, :ongoing, :released, :episode]
+
   attr_defaults section_id: -> { SectionIDs[Anime.name] }
   attr_defaults title: -> { generate_title linked }
   attr_defaults text: -> { generate_text linked }
-
-  def localized_action
-    if action == AnimeHistoryAction::Episode
-      I18n.t("AnimeNews.actions.#{action}").capitalize + " #{value}"
-    else
-      I18n.t("AnimeNews.actions.#{action}").capitalize
-    end
-  end
 
   # получение названия для новости
   def generate_title(anime)

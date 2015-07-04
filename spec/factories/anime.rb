@@ -9,7 +9,7 @@ FactoryGirl.define do
     score 1
     mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind :tv
-    rating 'PG-13 - Teens 13 or older'
+    rating :pg_13
     censored false
     next_episode_at nil
 
@@ -48,12 +48,12 @@ FactoryGirl.define do
     end
 
     trait :pg_13 do
-      rating 'PG-13 - Teens 13 or older'
+      rating :pg_13
       censored false
     end
 
     trait :rx_hentai do
-      rating 'Rx - Hentai'
+      rating :rx
       censored true
     end
 

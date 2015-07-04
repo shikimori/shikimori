@@ -9,6 +9,16 @@ en:
       manga: Manga
 
     attributes:
+      anime: &anime_attributes
+        kind: Type
+        episodes: Episodes
+        duration: Episode duration
+        status: Status
+        score: Score
+      manga:
+        <<: *anime_attributes
+        volumes: Volumes
+        chapters: Chapters
       contest:
         title: Title
         description: Description
@@ -35,7 +45,7 @@ en:
         password_confirmation: Password Confirmation
         sex: Gender
         website: Website
-        language: Language (в разработке)
+        language: Language
       user_rate:
         status: Status
         episodes: Episodes
@@ -190,7 +200,7 @@ en:
       language:
         russian: Russian
         english: English
-    user_preference:
+    user_preferences:
       body_width:
         x1200: 1200 pixels
         x1000: 1000 pixels
@@ -211,6 +221,20 @@ en:
         ona: ONA
         ova: OVA
         special: Special
+      rating:
+        g: G
+        pg: PG
+        pg_13: PG-13
+        r: R-17
+        r_plus: R+
+        rx: Rx
+        hint:
+          g: G - All ages
+          pg: PG - Children
+          pg_13: PG-13 - Teens 13 or older
+          r: 17+ recommended (violence & profanity)
+          r_plus: R+ - Mild Nudity (may also contain violence & profanity)
+          rx: Rx - Hentai (extreme sexual content/nudity)
     manga:
       status:
         anons: Planned
@@ -237,6 +261,12 @@ en:
         review: review
         spoiler: spoiler
         abuse: abuse
+    anime_news:
+      action:
+        anons: planned
+        ongoing: ongoing
+        released: released
+        episode: episode
     anime_video:
       kind:
         unknown: dub

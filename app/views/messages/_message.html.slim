@@ -60,7 +60,7 @@
           img src="#{message.image}" srcset="#{message.image_2x} 2x" alt="#{message.title}"
       .name-date
         - if message.generated_news?
-          .b-anime_status_tag class="#{message.linked.action}" = message.linked.localized_action
+          .b-anime_status_tag class="#{message.linked.action}" = message.linked.action_text
 
         a href="#{message.url}"
           = message.title

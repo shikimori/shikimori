@@ -211,26 +211,26 @@ describe AniMangaQuery do
     end
 
     describe 'rating' do
-      let!(:anime_1) { create :anime, rating: AniMangaQuery::Ratings['NC-17'][0] }
-      let!(:anime_2) { create :anime, rating: AniMangaQuery::Ratings['NC-17'][1] }
-      let!(:anime_3) { create :anime, rating: AniMangaQuery::Ratings['G'][0] }
-      let!(:anime_4) { create :anime, rating: AniMangaQuery::Ratings['R'][0] }
+      let!(:anime_1) { create :anime, rating: :r }
+      let!(:anime_2) { create :anime, rating: :r }
+      let!(:anime_3) { create :anime, rating: :g }
+      let!(:anime_4) { create :anime, rating: :r_plus }
 
       it 'inclusive' do
-        expect(fetch rating: 'NC-17').to have(2).items
-        expect(fetch rating: 'G').to have(1).item
-        expect(fetch rating: 'NC-17,G').to have(3).items
+        expect(fetch rating: 'r').to have(2).items
+        expect(fetch rating: 'g').to have(1).item
+        expect(fetch rating: 'r,g').to have(3).items
       end
 
       it 'exclusive' do
-        expect(fetch rating: '!NC-17').to have(2).items
-        expect(fetch rating: '!G').to have(3).items
-        expect(fetch rating: '!NC-17,!G').to have(1).item
+        expect(fetch rating: '!r').to have(2).items
+        expect(fetch rating: '!g').to have(3).items
+        expect(fetch rating: '!r,!g').to have(1).item
       end
 
       it 'both' do
-        expect(fetch rating: 'NC-17,!G').to have(2).items
-        expect(fetch rating: '!NC-17,G').to have(1).item
+        expect(fetch rating: 'r,!g').to have(2).items
+        expect(fetch rating: '!r,g').to have(1).item
       end
     end
 
@@ -468,7 +468,7 @@ describe AniMangaQuery do
       let!(:anime_1) { create :anime, :with_video, :tv }
       let!(:anime_2) { create :anime, :tv }
       let!(:anime_3) { create :anime, :tv }
-      let!(:anime_adult) { create :anime, :with_video, :tv, rating: Anime::ADULT_RATINGS.first }
+      let!(:anime_adult) { create :anime, :with_video, :tv, rating: Anime::ADULT_RATING }
 
       it do
         expect(fetch with_video: true).to eq [anime_1]

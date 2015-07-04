@@ -3,7 +3,7 @@
     = render 'animes_collection/mylist', klass: klass
 
   .block
-    .subheadline Статус
+    .subheadline = Anime.human_attribute_name(:status)
     ul.block-list.statuses.anime-params
       - klass.status.values.each do |status|
         li class="status-#{status}"
@@ -14,7 +14,7 @@
           = t ".#{klass.name.downcase}.status.latest"
 
   .block
-    .subheadline Тип
+    .subheadline = Anime.human_attribute_name(:kind)
     ul.block-list.types.anime-params
       - klass.kind.options.each do |title,kind|
         li class="type-#{kind}"
@@ -105,13 +105,18 @@
             = t("#{klass}.Duration.#{v}")
 
     .block.ratings
-      .subheadline Рейтинг
+      .subheadline = Anime.human_attribute_name :score
       ul.block-list.ratings.anime-params
-        - AniMangaQuery::Ratings.keys.reverse.each do |rating|
+        - Anime.rating.options.each do |title,rating|
+          - next if rating == 'none'
+          - next if rating == 'rx' && !user_signed_in?
           li class="rating-#{rating}"
             input type="checkbox" autocomplete="off"
-            = rating
-            span.b-question.b-tooltipped.unprocessed title="#{t "Rating.#{rating}"}" data-direction="top"
+            = title
+            span.b-question.b-tooltipped.unprocessed[
+              title="#{{t("enumerize.anime.rating.hint.#{rating}").gsub ' ', '&nbsp;'}}"
+              data-direction="top"
+            ]
 
   .block.genres
     .subheadline Жанр

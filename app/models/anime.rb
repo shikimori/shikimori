@@ -3,9 +3,11 @@
 # TODO: refacttor serialized fields to postgres arrays
 class Anime < DbEntry
   include AniManga
+
   EXCLUDED_ONGOINGS = [966,1199,1960,2406,4459,6149,7511,7643,8189,8336,8631,8687,9943,9947,10506,10797,10995,12393,13165,13433,13457,13463,15111,15749,16908,18227,18845,18941,19157,19445,19825,20261,21447,21523,24403,24969,24417,24835,25503,27687,26453,26163,27519,30131,29361,27785,29099,28247,28887,30144,29865,29722,29846,30342,30411,30470,30417,30232]
-  ADULT_RATINGS = ['Rx - Hentai']
-  SUB_ADULT_RATINGS = ['R+ - Mild Nudity']
+
+  ADULT_RATING = 'rx'
+  SUB_ADULT_RATING = 'r_plus'
 
   # TODO: refacttor to postgres array
   serialize :english
@@ -104,6 +106,7 @@ class Anime < DbEntry
 
   enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: true
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
+  enumerize :rating, in: [:none, :g, :pg, :pg_13, :r, :r_plus, :rx], predicates: { prefix: true }
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
@@ -122,8 +125,8 @@ class Anime < DbEntry
   end
 
   def adult?
-    censored || ADULT_RATINGS.include?(rating) || (
-      SUB_ADULT_RATINGS.include?(rating) &&
+    censored || ADULT_RATING == rating || (
+      SUB_ADULT_RATING == rating &&
       ((ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || special?)
     )
   end

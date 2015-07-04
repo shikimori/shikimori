@@ -10,6 +10,16 @@ ru:
 
     # названия полей моделей
     attributes:
+      anime: &anime_attributes
+        kind: Тип
+        episodes: Эпизоды
+        duration: Длительность эпизода
+        status: Статус
+        score: Рейтинг
+      manga:
+        <<: *anime_attributes
+        volumes: Тома
+        chapters: Главы
       contest:
         title: Название
         description: Описание
@@ -36,7 +46,7 @@ ru:
         password_confirmation: Подтверждение пароля
         sex: Пол
         website: Сайт
-        language: Язык интерфейса (в разработке)
+        language: Язык интерфейса
       user_rate:
         status: Статус
         episodes: Эпизоды
@@ -196,7 +206,7 @@ ru:
       language:
         russian: Русский
         english: English
-    user_preference:
+    user_preferences:
       body_width:
         x1200: 1200 пикселей
         x1000: 1000 пикселей
@@ -217,6 +227,20 @@ ru:
         ova: OVA
         special: Спешл
         tv: Сериал
+      rating:
+        g: G
+        pg: PG
+        pg_13: PG-13
+        r: R-17
+        r_plus: R+
+        rx: Rx
+        hint:
+          g: G - Нет возрастных ограничений
+          pg: PG - Рекомендуется присутствие родителей
+          pg_13: PG-13 - Детям до 13 лет просмотр не желателен
+          r: R-17 Лицам до 17 лет обязательно присутствие взрослогоc
+          r_plus: R+ - Лицам до 17 лет просмотр запрещен
+          rx: Rx - Хентай
     manga:
       status:
         anons: Анонс
@@ -243,6 +267,12 @@ ru:
         review: отзыв
         spoiler: спойлер
         abuse: нарушение
+    anime_news:
+      action:
+        released: релиз
+        anons: анонс
+        ongoing: онгоинг
+        episode: эпизод
     anime_video:
       kind:
         unknown: озвучка

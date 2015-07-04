@@ -16,6 +16,21 @@ en:
           <<: *anime_statuses
           ongoing: Сейчас издаётся
   animes:
+    page:
+      information: Information
+      description: Description
+      all_summaries: All summaries
+      all_comments: All comments
+      actions:
+        comment: Comment
+        review: Write&nbsp;review
+        add_to_favourite: Add&nbsp;to&nbsp;Favourite
+        remove_from_favourite: Remove&nbsp;from&nbsp;Favourite
+        edit_anime: Edit&nbsp;Anime
+        edit_manga: Edit&nbsp;Manga
+
     info:
+      next_episode: Next episode
+      first_episode: First episode
       anime_additionals: Anime has
       manga_additionals: Manga has

@@ -4,13 +4,6 @@ class AniMangaQuery
   AnimeFeatured = [7724,5081,6746,7,4224,2418,3958,849,2562,1698,2025,2251,1601,5909,3549,396,5630,2966,957,4177,1606,1559,102,240,3358,877,5781,7054,3655,245,3702,4898,2926,4081,4066,5530,3974,6408,1575,5114,5680,9253]
   AnimeSerials = [1604,6702,6033,235,21,1735,170,738,1482,820,15,2076,249,22,45,627,269,28]
 
-  Ratings = {
-    'G' => ['G - All Ages'],
-    'PG' => ['PG - Children'],
-    'PG-13' => ['PG-13 - Teens 13 or older'],
-    'R' => ['R+ - Mild Nudity'],
-    'NC-17' => ['R - 17+ (violence & profanity)', 'Rx - Hentai'],
-  }
   Durations = {
     'S' => "(duration >= 0 and duration <= 10)",
     'D' => "(duration > 10 and duration <= 30)",
@@ -147,11 +140,14 @@ private
   # включение цензуры
   def censored!
     genres = bang_split(@genre.split(','), true).each {|k,v| v.flatten! } if @genre
-    hentai = @genre && genres[:include].include?(Genre::HentaiID)
-    yaoi = @genre && genres[:include].include?(Genre::YaoiID)
-    yuri = @genre && genres[:include].include?(Genre::YuriID)
+    ratings = bang_split @rating.split(',') if @rating
 
-    unless hentai || yaoi || yuri || mylist? || userlist? || uncensored? || search? || @publisher || @studio
+    rx = ratings && ratings[:include].include?(Anime::ADULT_RATING)
+    hentai = genres && genres[:include].include?(Genre::HentaiID)
+    yaoi = genres && genres[:include].include?(Genre::YaoiID)
+    yuri = genres && genres[:include].include?(Genre::YuriID)
+
+    unless rx || hentai || yaoi || yuri || mylist? || userlist? || uncensored? || search? || @publisher || @studio
       @query = @query.where(censored: false)
     end
   end
@@ -199,12 +195,10 @@ private
     ratings = bang_split @rating.split(',')
 
     if ratings[:include].any?
-      includes = ratings[:include].map {|rating| Ratings[rating] }.flatten
-      @query = @query.where(rating: includes)
+      @query = @query.where(rating: ratings[:include])
     end
     if ratings[:exclude].any?
-      excludes = ratings[:exclude].map {|rating| Ratings[rating] }.flatten
-      @query = @query.where.not(rating: excludes)
+      @query = @query.where.not(rating: ratings[:exclude])
     end
   end
 
