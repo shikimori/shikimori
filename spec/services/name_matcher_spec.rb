@@ -253,7 +253,6 @@ describe NameMatcher do
       let!(:anime) { create :anime, :tv, name: "Yu-Gi-Oh! 5D's" }
       it { should eq [anime] }
     end
-
     describe '"u" as "uu"' do
       subject { matcher.matches 'Kyuu' }
       let!(:anime) { create :anime, :tv, name: 'Kyu' }
@@ -305,6 +304,12 @@ describe NameMatcher do
     describe 'multiple replacements' do
       subject { matcher.matches 'Rou Kyuu Bu! SS' }
       let!(:anime) { create :anime, :tv, name: 'Ro-Kyu-Bu! SS' }
+      it { should eq [anime] }
+    end
+
+    describe 'multiple replacements #2' do
+      subject { matcher.matches 'Tamagotchi! Tama Tomo Daishū GO!' }
+      let!(:anime) { create :anime, :tv, name: 'Tamagotchi! Tamatomo Daishuu GO' }
       it { should eq [anime] }
     end
 

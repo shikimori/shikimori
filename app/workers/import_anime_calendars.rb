@@ -7,7 +7,7 @@ class ImportAnimeCalendars
   def perform
     calendars = match parse calendars_data
     import calendars
-    ap filter(calendars)
+    #ap filter(calendars)
     process_results calendars
   end
 
@@ -47,8 +47,12 @@ private
 
   def match calendars
     calendars.each do |calendar|
-      matches = matcher.matches calendar[:title]
-      calendar[:anime] = matches.first if matches.one?
+      if FIXES[:matches][calendar[:title]]
+        calendar[:anime] = Anime.find(FIXES[:matches][calendar[:title]])
+      else
+        matches = matcher.matches calendar[:title]
+        calendar[:anime] = matches.first if matches.one?
+      end
     end
   end
 

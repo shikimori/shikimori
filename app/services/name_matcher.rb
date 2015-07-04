@@ -7,51 +7,6 @@ class NameMatcher
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
 
-  UNACCENTS = {
-    'A' => /[ÀÁÂÃÄÅĀĂǍẠẢẤẦẨẪẬẮẰẲẴẶǺĄ]/,
-    'a' => /[àáâãäåāăǎạảấầẩẫậắằẳẵặǻą]/,
-    'C' => /[ÇĆĈĊČ]/,
-    'c' => /[çćĉċč]/,
-    'D' => /[ÐĎĐ]/,
-    'd' => /[ďđ]/,
-    'E' => /[ÈÉÊËĒĔĖĘĚẸẺẼẾỀỂỄỆ]/,
-    'e' => /[èéêëēĕėęěẹẻẽếềểễệ]/,
-    'G' => /[ĜĞĠĢ]/,
-    'g' => /[ĝğġģ]/,
-    'H' => /[ĤĦ]/,
-    'h' => /[ĥħ]/,
-    'I' => /[ÌÍÎÏĨĪĬĮİǏỈỊ]/,
-    'J' => /[Ĵ]/,
-    'j' => /[ĵ]/,
-    'K' => /[Ķ]/,
-    'k' => /[ķ]/,
-    'L' => /[ĹĻĽĿŁ]/,
-    'l' => /[ĺļľŀł]/,
-    'N' => /[ÑŃŅŇ]/,
-    'n' => /[ñńņňŉ]/,
-    'O' => /[ÒÓÔÕÖØŌŎŐƠǑǾỌỎỐỒỔỖỘỚỜỞỠỢ]/,
-    'o' => /[òóôõöøōŏőơǒǿọỏốồổỗộớờởỡợð]/,
-    'R' => /[ŔŖŘ]/,
-    'r' => /[ŕŗř]/,
-    'S' => /[ŚŜŞŠ]/,
-    's' => /[śŝşš]/,
-    'T' => /[ŢŤŦ]/,
-    't' => /[ţťŧ]/,
-    'U' => /[ÙÚÛÜŨŪŬŮŰŲƯǓǕǗǙǛỤỦỨỪỬỮỰ]/,
-    'u' => /[ùúûüũūŭůűųưǔǖǘǚǜụủứừửữự]/,
-    'W' => /[ŴẀẂẄ]/,
-    'w' => /[ŵẁẃẅ]/,
-    'Y' => /[ÝŶŸỲỸỶỴ]/,
-    'y' => /[ýÿŷỹỵỷỳ]/,
-    'Z' => /[ŹŻŽ]/,
-    'z' => /[źżž]/,
-    # Ligatures
-    'AE' => /[Æ]/,
-    'ae' => /[æ]/,
-    'OE' => /[Œ]/,
-    'oe' => /[œ]/
-  }
-
   # конструктор
   def initialize klass, ids=nil, services=[]
     # в каком порядке будем обходить кеш
@@ -116,6 +71,7 @@ class NameMatcher
   end
 
 private
+
   # фикс имени - вырезание из него всего, что можно
   def fix name
     (name || '')
@@ -130,6 +86,11 @@ private
   end
 
   def matching_groups names, with_split
+    #ap variants(names)
+    #ap @cache
+
+  #tamagotchitamatomodaishhuugo
+
     found_matches = variants(names, with_split).each_with_object({}) do |variant,memo|
       @match_order.each do |group|
         memo[group] ||= []
@@ -187,7 +148,7 @@ private
     phrases = multiply_phrases phrases, / series \d$/, ''
     phrases = multiply_phrases phrases, /\bspecial\b/, 'specials'
 
-    phrases = multiply_phrases phrases, '!', ''
+    3.times { phrases = multiply_phrases phrases, '!', '' }
 
     # разлинчные варианты написания одних и тех же слов и фраз
     phrases = multiply_phrases phrases, ' and ', ' & '
@@ -196,7 +157,7 @@ private
     phrases = multiply_phrases phrases, ' wo ', ' o '
     phrases = multiply_phrases phrases, 'u', 'h'
 
-    UNACCENTS.each do |word, matches|
+    String::UNACCENTS.each do |word, matches|
       phrases = multiply_phrases phrases, matches, word.downcase
     end
 
