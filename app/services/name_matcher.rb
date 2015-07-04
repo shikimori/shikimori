@@ -2,10 +2,55 @@
 class NameMatcher
   attr_reader :cache
 
-  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :episodes, :rating, :censored]
-  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :kind, :aired_on, :chapters, :rating, :censored]
+  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :status, :kind, :aired_on, :episodes, :rating, :censored]
+  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :status,:kind, :aired_on, :chapters, :rating, :censored]
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
+
+  UNACCENTS = {
+    'A' => /[ÀÁÂÃÄÅĀĂǍẠẢẤẦẨẪẬẮẰẲẴẶǺĄ]/,
+    'a' => /[àáâãäåāăǎạảấầẩẫậắằẳẵặǻą]/,
+    'C' => /[ÇĆĈĊČ]/,
+    'c' => /[çćĉċč]/,
+    'D' => /[ÐĎĐ]/,
+    'd' => /[ďđ]/,
+    'E' => /[ÈÉÊËĒĔĖĘĚẸẺẼẾỀỂỄỆ]/,
+    'e' => /[èéêëēĕėęěẹẻẽếềểễệ]/,
+    'G' => /[ĜĞĠĢ]/,
+    'g' => /[ĝğġģ]/,
+    'H' => /[ĤĦ]/,
+    'h' => /[ĥħ]/,
+    'I' => /[ÌÍÎÏĨĪĬĮİǏỈỊ]/,
+    'J' => /[Ĵ]/,
+    'j' => /[ĵ]/,
+    'K' => /[Ķ]/,
+    'k' => /[ķ]/,
+    'L' => /[ĹĻĽĿŁ]/,
+    'l' => /[ĺļľŀł]/,
+    'N' => /[ÑŃŅŇ]/,
+    'n' => /[ñńņňŉ]/,
+    'O' => /[ÒÓÔÕÖØŌŎŐƠǑǾỌỎỐỒỔỖỘỚỜỞỠỢ]/,
+    'o' => /[òóôõöøōŏőơǒǿọỏốồổỗộớờởỡợð]/,
+    'R' => /[ŔŖŘ]/,
+    'r' => /[ŕŗř]/,
+    'S' => /[ŚŜŞŠ]/,
+    's' => /[śŝşš]/,
+    'T' => /[ŢŤŦ]/,
+    't' => /[ţťŧ]/,
+    'U' => /[ÙÚÛÜŨŪŬŮŰŲƯǓǕǗǙǛỤỦỨỪỬỮỰ]/,
+    'u' => /[ùúûüũūŭůűųưǔǖǘǚǜụủứừửữự]/,
+    'W' => /[ŴẀẂẄ]/,
+    'w' => /[ŵẁẃẅ]/,
+    'Y' => /[ÝŶŸỲỸỶỴ]/,
+    'y' => /[ýÿŷỹỵỷỳ]/,
+    'Z' => /[ŹŻŽ]/,
+    'z' => /[źżž]/,
+    # Ligatures
+    'AE' => /[Æ]/,
+    'ae' => /[æ]/,
+    'OE' => /[Œ]/,
+    'oe' => /[œ]/
+  }
 
   # конструктор
   def initialize klass, ids=nil, services=[]
@@ -26,7 +71,7 @@ class NameMatcher
 
     if found
       entries = found.second.flatten.compact.uniq
-      entries.size == 1 ? entries : AmbiguousMatcher.new(entries, options).resolve
+      entries.one? ? entries : AmbiguousMatcher.new(entries, options).resolve
     else
       []
     end
@@ -150,11 +195,13 @@ private
     phrases = multiply_phrases phrases, ' o ', ' wo '
     phrases = multiply_phrases phrases, ' wo ', ' o '
     phrases = multiply_phrases phrases, 'u', 'h'
+
+    UNACCENTS.each do |word, matches|
+      phrases = multiply_phrases phrases, matches, word.downcase
+    end
+
     phrases = multiply_phrases phrases, 'ß', 'ss'
-    phrases = multiply_phrases phrases, 'ü', 'u'
-    phrases = multiply_phrases phrases, 'â', 'a'
-    phrases = multiply_phrases phrases, 'è', 'e'
-    phrases = multiply_phrases phrases, 'ō', 'o'
+    phrases = multiply_phrases phrases, '×', 'x'
 
     phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
     phrases = multiply_phrases phrases, /s(?!h)/, 'sh'
@@ -172,8 +219,7 @@ private
 
   # все возможные варианты написания имён
   def variants names, with_splits=true
-    [names]
-      .flatten
+    Array(names)
       .map(&:downcase)
       .map {|name| phrase_variants name, nil, with_splits }
       .flatten

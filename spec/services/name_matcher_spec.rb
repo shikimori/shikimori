@@ -1,7 +1,7 @@
 describe NameMatcher do
   let(:matcher) { NameMatcher.new Anime }
 
-  describe 'match' do
+  describe '#match' do
     describe 'single match' do
       let!(:anime) { create :anime, :tv, name: 'My anime', synonyms: ['My little anime', 'My : little anime', 'My Little Anime', 'MyAnim'] }
 
@@ -140,6 +140,18 @@ describe NameMatcher do
       it { should eq [anime] }
     end
 
+    describe 'with year' do
+      subject { matcher.matches 'JoJo no Kimyou na Bouken (2014)' }
+      let!(:anime) { create :anime, :tv, name: 'JoJo no Kimyou na Bouken', aired_on: '2014-05-05' }
+      it { should eq [anime] }
+    end
+
+    describe 'with year at end' do
+      subject { matcher.matches 'The Genius Bakabon 1975' }
+      let!(:anime) { create :anime, :tv, name: 'The Genius Bakabon', aired_on: DateTime.parse('1975-01-01') }
+      it { should eq [anime] }
+    end
+
     describe 'short lines in brackets' do
       subject { matcher.matches 'Cyborg009 (1968ver.)' }
       let!(:anime) { create :anime, :tv, name: 'Cyborg 009' }
@@ -149,12 +161,6 @@ describe NameMatcher do
     describe 'reversed words' do
       subject { matcher.matches 'Lain - Serial Experiments' }
       let!(:anime) { create :anime, :tv, name: 'Serial Experiments Lain' }
-      it { should eq [anime] }
-    end
-
-    describe 'year at end' do
-      subject { matcher.matches 'The Genius Bakabon 1975' }
-      let!(:anime) { create :anime, :tv, name: 'The Genius Bakabon', aired_on: DateTime.parse('1975-01-01') }
       it { should eq [anime] }
     end
 
@@ -233,6 +239,12 @@ describe NameMatcher do
     describe '"ü" as "u"' do
       subject { matcher.matches 'Weiss Kreuz Gluhen' }
       let!(:anime) { create :anime, :tv, name: 'Weiss Kreuz Glühen' }
+      it { should eq [anime] }
+    end
+
+    describe '"ū" as "u"' do
+      subject { matcher.matches 'Weiss Kreuz Gluhen' }
+      let!(:anime) { create :anime, :tv, name: 'Weiss Kreuz Glūhen' }
       it { should eq [anime] }
     end
 
