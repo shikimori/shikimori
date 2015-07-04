@@ -18,7 +18,7 @@ class UserRatesController < ProfilesController
     @limit = UserListDecorator::ENTRIES_PER_PAGE
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
 
-    page_title "Список #{t("Genitive.#{params[:list_type].capitalize}").downcase}"
+    page_title i18n_p("#{params[:list_type]}_list")
   end
 
   def create
@@ -154,11 +154,11 @@ class UserRatesController < ProfilesController
 private
 
   def create_params
-    params.require(:user_rate).permit(*Api::V1::UserRatesController::CREATE_PARAMS)
+    params.require(:user_rate).permit *Api::V1::UserRatesController::CREATE_PARAMS
   end
 
   def update_params
-    params.require(:user_rate).permit(*Api::V1::UserRatesController::UPDATE_PARAMS)
+    params.require(:user_rate).permit *Api::V1::UserRatesController::UPDATE_PARAMS
   end
 
   def authorize_list_access

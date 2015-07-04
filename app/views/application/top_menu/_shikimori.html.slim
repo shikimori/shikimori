@@ -1,6 +1,6 @@
 .entry class="#{:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime')}"
   .submenu-toggler
-  a href="#{animes_url}" title="Аниме" Аниме
+  a href="#{animes_url}" title="#{Anime.model_name.human}" = Anime.model_name.human
   .submenu
     a.entry href="#{animes_url type: nil, status: 'ongoing'}" title="Аниме онгоинги" Онгоинги
     - AniMangaSeason.menu_seasons.each do |season, short_title, full_title|
@@ -9,7 +9,11 @@
 
 a.entry.calendar class="#{:selected if params[:controller] == 'pages' && params[:action] == 'ongoings'}" href="#{ongoings_pages_url}" title="Календарь"
 
-a.entry class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}" href="#{mangas_url}" title="Манга" Манга
+a.entry[
+  class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}"
+  href="#{mangas_url}"
+  title="#{Manga.model_name.human}"
+] = Manga.model_name.human
 
 a.entry.rel href="#{section_url :news}" title="Новости" Новости
 a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры

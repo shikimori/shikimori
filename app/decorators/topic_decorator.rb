@@ -187,7 +187,7 @@ class TopicDecorator < BaseDecorator
   def show_hidden_comments_text
     num = [folded_comments, fold_limit].min
     comment_word = if reviews_only?
-      i18n_i 'review', num, :accusative
+      i18n_i 'summary', num, :accusative
     else
       i18n_i 'comment', num, :accusative
     end

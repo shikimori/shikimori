@@ -23,14 +23,12 @@ class ApplicationController < ActionController::Base
   helper_method :json?
   helper_method :domain_folder
   helper_method :adaptivity_class
-  helper_method :shikimori?
-  helper_method :anime_online?
-  helper_method :manga_online?
+  helper_method :shikimori?, :anime_online?, :manga_online?
   helper_method :turbolinks_request?
   helper_method :base_controller_name
   helper_method :ignore_copyright?
 
-  helper_method :i18n_io
+  helper_method :i18n_i, :i18n_io, :i18n_p
 
   unless Rails.env.test?
     rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,

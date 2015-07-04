@@ -29,7 +29,7 @@
           - if anime.year.present?
             .tag.linkeable data-href="#{anime.catalog_url season: anime.year}"
               = "#{anime.year} год"
-          - unless anime.rating_none?
+          - if anime.anime? && !anime.rating_none?
             .tag.linkeable data-href="#{anime.catalog_url rating: anime.rating}"
               = anime.rating_text
 

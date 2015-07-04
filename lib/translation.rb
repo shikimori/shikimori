@@ -49,4 +49,13 @@ module Translation
       key
     end
   end
+
+  # для перевода частовстречаемых фраз и слов
+  def i18n_p key
+    if I18n.russian?
+      I18n.t "phrases.#{key}"
+    else
+      key.gsub('_', ' ').capitalize
+    end
+  end
 end

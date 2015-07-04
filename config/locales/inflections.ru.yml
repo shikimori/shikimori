@@ -2,10 +2,28 @@ ru:
   inflections:
     cardinal:
       comment:
+        subjective:
+          one: комментарий
+          few: комментария
+          many: комментариев
         accusative:
           one: комментарий
           few: комментария
           many: комментариев
+      summary:
+        subjective:
+          one: глава
+          few: главы
+          many: глав
+        accusative:
+          one: отзыв
+          few: отзыва
+          many: отзывов
+      review:
+        subjective:
+          one: рецензия
+          few: рецензии
+          many: рецензиий
       out_of:
         default: из
       record:
@@ -13,11 +31,6 @@ ru:
           one: запись
           few: записи
           many: записей
-      review:
-        accusative:
-          one: отзыв
-          few: отзыва
-          many: отзывов
       view:
         subjective:
           one: просмотр
@@ -71,7 +84,6 @@ ru:
           one: эпизод
           few: эпизода
           many: эпизодов
-
       volume:
         subjective:
           one: том

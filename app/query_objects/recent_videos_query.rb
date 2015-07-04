@@ -6,8 +6,8 @@ private
     EpisodeNotification
       .where(id: episode_ids)
       .joins(:anime)
-      .where("animes.status = 'ongoing' or released_on > ?", 1.month.ago)
-      .where.not(animes: { rating: 'G - All Ages' }, id: Anime::EXCLUDED_ONGOINGS)
+      .where("animes.status = 'ongoing' or animes.released_on > ?", 1.month.ago)
+      .where.not(animes: { rating: :g }, id: Anime::EXCLUDED_ONGOINGS)
       .order('episode_notifications.updated_at desc')
   end
 

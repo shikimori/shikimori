@@ -24,7 +24,6 @@ class UserProfileSerializer < UserSerializer
       },
       ratings: {
         anime: object.stats.ratings(:anime),
-        manga: object.stats.ratings(:manga)
       },
       has_anime?: object.stats.anime?,
       has_manga?: object.stats.manga?,

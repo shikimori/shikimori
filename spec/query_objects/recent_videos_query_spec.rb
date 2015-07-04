@@ -5,7 +5,7 @@ describe RecentVideosQuery do
   let(:anime_recent) { create :anime, :released, released_on: 2.weeks.ago }
   let(:anime_old) { create :anime, :released, released_on: 6.weeks.ago }
   let(:anime_adult) { create :anime, :ongoing, :with_video, rating: Anime::ADULT_RATING }
-  let(:anime_g) { create :anime, :ongoing, :with_video, rating: 'G - All Ages' }
+  let(:anime_g) { create :anime, :ongoing, :with_video, rating: :g }
 
   let!(:episode_notification_1) { create :episode_notification, id: 1, episode: 1, anime: anime_ongoing, updated_at: 10.minutes.ago, is_fandub: true }
   let!(:episode_notification_2) { create :episode_notification, id: 2, episode: 2, anime: anime_ongoing, updated_at: 9.minutes.ago, is_fandub: true }

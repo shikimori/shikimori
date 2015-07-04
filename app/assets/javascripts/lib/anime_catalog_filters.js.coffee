@@ -33,7 +33,7 @@ DEFAULT_LIST_SORT = "ranked"
       text = value + " год"
 
     value = value.replace(/\./g, "")
-    $li = $("<li class=\"" + key + "-" + value + "\"><input type=\"checkbox\"/>" + text + "</li>")
+    $li = $("<li class='#{key}-#{value}'><input type='checkbox'/>#{text}</li>")
 
     # для сезонов вставляем не в начало, а после предыдущего года
     if target_year

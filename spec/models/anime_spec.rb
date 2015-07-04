@@ -242,12 +242,12 @@ describe Anime do
       let(:kind) { :ova }
 
       context 'G - All Ages' do
-        let(:rating) { 'G - All Ages' }
+        let(:rating) { :g }
         it { expect(anime).to_not be_adult }
       end
 
       context 'R+ - Mild Nudity' do
-        let(:rating) { 'R+ - Mild Nudity' }
+        let(:rating) { :r_plus }
 
         context 'TV' do
           let(:kind) { :tv }

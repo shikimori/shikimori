@@ -22,8 +22,12 @@
           - unless current_user.unread_count > 0
             span.graphics-arrow-down
         .submenu.right
-          a.entry href="#{profile_user_rates_url current_user, list_type: 'anime', subdomain: nil}" Аниме
-          a.entry href="#{profile_user_rates_url current_user, list_type: 'manga', subdomain: nil}" Манга
+          a.entry[
+            href="#{profile_user_rates_url current_user, list_type: 'anime', subdomain: nil}"
+          ] = i18n_p 'anime_list'
+          a.entry[
+            href="#{profile_user_rates_url current_user, list_type: 'manga', subdomain: nil}"
+          ] = i18n_p 'manga_list'
           a.entry href="#{current_user.unread_messages_url}"
             span Почта
             - if current_user.unread_count > 0

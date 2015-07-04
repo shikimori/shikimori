@@ -130,16 +130,19 @@ class ProfileStats
   end
 
   def types list_type
-    all_types = Anime.kind.values + Manga.kind.values
-    @stats.by_criteria(:kind, all_types, 'enumerize.kind.%s')[list_type.to_sym]
+    @stats.by_criteria(
+      :kind,
+      list_type.to_s.capitalize.constantize.kind.values,
+      "enumerize.#{list_type}.kind.%s"
+    )[list_type.to_sym]
   end
 
   def ratings list_type
-    @stats
-      .by_criteria(:rating, AniMangaQuery::Ratings.values.flatten.reverse)[list_type.to_sym]
-      .each do |stat|
-        stat[:name] = I18n.t "RatingShort.#{stat[:name]}"
-      end
+    @stats.by_criteria(
+      :rating,
+      list_type.to_s.capitalize.constantize.rating.values,
+      "enumerize.#{list_type}.rating.%s"
+    )[list_type.to_sym]
   end
 
   def genres
