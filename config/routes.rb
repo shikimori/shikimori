@@ -232,10 +232,10 @@ Site::Application.routes.draw do
       end
     end
 
-    get 'pingmedia/google' => 'anime_online/pingmedia#google'
-    get 'pingmedia/google_leaderboard' => 'anime_online/pingmedia#google_leaderboard'
     get 'pingmedia/iframe_240x400' => 'anime_online/pingmedia#iframe_240x400', as: :pingmedia_iframe_240x400
     get 'pingmedia/iframe_728x90' => 'anime_online/pingmedia#iframe_728x90', as: :pingmedia_iframe_728x90
+    get 'pingmedia/iframe_240x400_advertur' => 'anime_online/pingmedia#iframe_240x400_advertur', as: :pingmedia_iframe_240x400_advertur
+    get 'pingmedia/iframe_728x90_advertur' => 'anime_online/pingmedia#iframe_728x90_advertur', as: :pingmedia_iframe_728x90_advertur
 
     get 'robots.txt' => 'robots#anime_online'
   end
