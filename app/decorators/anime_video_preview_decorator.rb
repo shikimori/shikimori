@@ -3,7 +3,7 @@ class AnimeVideoPreviewDecorator < Draper::Decorator
   delegate_all
 
   def name
-    if russian
+    if object.russian && I18n.russian?
       "#{object.russian} / #{object.name}"
     else
       object.name

@@ -36,6 +36,27 @@ ru:
           one: просмотр
           few: просмотра
           many: просмотров
+      episode:
+        subjective:
+          one: эпизод
+          few: эпизода
+          many: эпизодов
+      volume:
+        subjective:
+          one: том
+          few: тома
+          many: томов
+      chapter:
+        subjective:
+          one: глава
+          few: главы
+          many: глав
+      years_old:
+        subjective:
+          one: год
+          few: года
+          many: лет
+
       datetime:
         second:
           subjective:
@@ -79,21 +100,6 @@ ru:
             few: года
             many: лет
             other: года
-      episode:
-        subjective:
-          one: эпизод
-          few: эпизода
-          many: эпизодов
-      volume:
-        subjective:
-          one: том
-          few: тома
-          many: томов
-      chapter:
-        subjective:
-          one: глава
-          few: главы
-          many: глав
 
     ordinal:
       episode:

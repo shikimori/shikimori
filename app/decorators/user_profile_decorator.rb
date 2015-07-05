@@ -96,7 +96,7 @@ class UserProfileDecorator < UserDecorator
       info << i18n_t('male') if male?
       info << i18n_t('female') if female?
       unless object.birth_on.blank?
-        info << "#{full_years} #{Russian.p full_years, 'год', 'года', 'лет'}" if full_years > 9
+        info << "#{full_years} #{i18n_i 'years_old', full_years}" if full_years > 12
       end
       info << location
       info << website
@@ -107,7 +107,10 @@ class UserProfileDecorator < UserDecorator
       info << i18n_t('personal_data_hidden')
     end
 
-    info << "на сайте с <span class='b-tooltipped unprocessed' data-direction='right' title='#{localized_registration false}'>#{localized_registration true} г.</span>".html_safe
+    info << ("#{i18n_t 'registered_since'} " +
+      "<span class='b-tooltipped unprocessed' data-direction='right' title='#{localized_registration(false).gsub ' ', '&nbsp;'}'>" +
+      "#{localized_registration true}" +
+      "</span>").html_safe
 
     info
   end
@@ -205,19 +208,14 @@ private
   end
 
   def localized_registration shortened
-    if !shortened
-      Russian::strftime created_at, '%e %B %Y г.'
-      #created_at.strftime '%d.%m.%Y'
+    if created_at > 2.months.ago || !shortened
+      h.l created_at, format: :full
 
-    elsif Time.zone.now - created_at < 2.months
-      h.l created_at, format: :with_month_name
+    elsif created_at > 2.years.ago
+      h.l created_at, format: :month_year
 
-    elsif Time.zone.now - created_at > 2.years
-      Russian::strftime created_at, '%Y'
-
-    else# Time.zone.now - created_at > 2.months
-      Russian::strftime(created_at, '%e %B %Y').sub(/^\d+ /, '')
-
+    else
+      h.l created_at, format: :year
     end
   end
 end
