@@ -45,3 +45,8 @@ ru:
 
     studios_info:
       studio_animes: Аниме студии %{studio_name}
+
+  mangas: &animes
+    <<: *animes
+    publishers_info:
+      publisher_mangas: Манга издателя %{publisher_name}

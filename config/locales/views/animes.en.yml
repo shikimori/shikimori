@@ -19,7 +19,7 @@ en:
         status:
           <<: *anime_statuses
           ongoing: Сейчас издаётся
-  animes:
+  animes: &animes
     page:
       information: Information
       description: Description
@@ -45,3 +45,8 @@ en:
 
     studios_info:
       studio_animes: "%{studio_name} animes"
+
+  mangas:
+    <<: *animes
+    publishers_info:
+      publisher_mangas: "%{publisher_name} mangas"

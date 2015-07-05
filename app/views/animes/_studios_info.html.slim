@@ -6,5 +6,7 @@
         alt="#{t '.studio_animes', studio_name: studio.name}"
       ]
   - else
-    a.b-tag href="#{animes_url studio: studio}" title="#{t ".studio_animes", studio_name: studio.name}"
-      = "#{studio.name}\n"
+    a.b-tag[
+      href="#{animes_url studio: studio}"
+      title="#{t ".studio_animes", studio_name: studio.name}"
+    ] = "#{studio.name}\n"
