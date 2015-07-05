@@ -8,25 +8,27 @@ class StatisticsController < ShikimoriController
     set_meta_tags description: @page_description
     set_meta_tags keywords: 'история аниме, статистка аниме сериалов, индустрия аниме, рейтинги аниме, студии аниме, жанры аниме'
 
-    @kinds = ['tv', 'movie', 'ova', 'ona', 'special']
+    @kinds = Anime.kind.values
     @rating_kinds = ['tv', 'movie', 'ova']
 
-    @total, @by_kind, @by_rating, @by_genre, @by_studio = Rails.cache.fetch('statistics_data_' % DateTime.now.strftime('%Y-%m')) do
-      prepare
-      [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
-    end
+    @total, @by_kind, @by_rating, @by_genre, @by_studio =
+      begin #Rails.cache.fetch('statistics_data_' % Time.zone.now.strftime('%Y-%m')) do
+        prepare
+        [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
+      end
 
     @topic = Topic.find(81906).decorate
   end
 
 private
+
   # общая статистика
   def total_stats
     grouped = @animes.group_by(&:kind).sort
 
     by_kind = {
       name: 'Тип',
-      data: grouped.map do |kind,group|
+      data: grouped.map do |kind, group|
         {
           name: kind,
           y: group.size
@@ -35,7 +37,7 @@ private
     }
     by_score = {
       name: 'Оценка',
-      data: grouped.map do |kind,group|
+      data: grouped.map do |kind, group|
         group.group_by do |v|
           if v.score >= 8
             '8+'
@@ -44,7 +46,7 @@ private
           else
             '6-'
           end
-        end.sort.map do |score,group|
+        end.sort.map do |score, group|
           {
             name: score,
             y: group.size
@@ -61,20 +63,21 @@ private
 
   # статистика по рейтингу
   def stats_by_rating
-    ratings = ['G', 'PG', 'PG-13', 'R+', 'NC-17', 'Rx']
-    @rating_kinds.each_with_object({}) do |kind,rez|
-      rez[kind] = stats_data(@animes.select { |v| v.kind == kind && v.ru_rating.present? }, :ru_rating, ratings)
+    ratings = Anime.rating.values.select { |v| v != 'none' }
+
+    @rating_kinds.each_with_object({}) do |kind, memo|
+      memo[kind] = stats_data(@animes.select { |v| v.kind == kind && !v.rating_none? }, :rating, ratings)
     end
   end
 
   # статистика по жанрам
   def stats_by_genre
-    top_genres = @rating_kinds.each_with_object({}) do |kind,rez|
-      rez[kind] = normalize(stats_data(@animes.select { |v| v.kind == kind }.map(&:mapped_genres).flatten, :genre, @genres), 4)[:series].map { |v| v[:name] }
+    top_genres = @rating_kinds.each_with_object({}) do |kind, memo|
+      memo[kind] = normalize(stats_data(@animes.select { |v| v.kind == kind }.map(&:mapped_genres).flatten, :genre, @genres), 4)[:series].map { |v| v[:name] }
     end
 
-    data = @rating_kinds.each_with_object({}) do |kind,rez|
-      rez[kind] = stats_data(@animes.select { |v| v.kind == kind }.map(&:mapped_genres).flatten, :genre, @genres)
+    data = @rating_kinds.each_with_object({}) do |kind, memo|
+      memo[kind] = stats_data(@animes.select { |v| v.kind == kind }.map(&:mapped_genres).flatten, :genre, @genres)
     end
 
     # отключаем второстепенные жанры
@@ -121,8 +124,8 @@ private
   # подготовка общих данных
   def prepare
     @genres = Genre.order(:position).all.map(&:russian)
-    @studios_by_id = Studio.all.each_with_object({}) do |v,rez|
-      rez[v.id] = v
+    @studios_by_id = Studio.all.each_with_object({}) do |v, memo|
+      memo[v.id] = v
     end
     @studios = @studios_by_id.select { |v| v.real? }.map { |k,v| v.filtered_name }
 
@@ -135,7 +138,7 @@ private
       .where('aired_on <= ?', finish_on)
       .where(kind: @kinds)
       .select([:id, :aired_on, :kind, :rating, :score])
-      .order(:aired_on)
+      .order(aired_on: :desc).limit(500)#.order(:aired_on)
       .eager_load(:genres, :studios) # не использовать includes для HABTM ассоциаций!!! оно дико тормозит на больших объёмах данных
       .each do |anime|
         anime.singleton_class.class_eval do
@@ -144,7 +147,7 @@ private
       end
 
     @animes.each do |entry|
-      entry.ru_rating = I18n.t "RatingShort.#{entry.rating}" if entry.rating != 'None'
+      entry.ru_rating = entry.rating_text
 
       entry.mapped_genres = entry.genres.map do |genre|
         {
@@ -166,18 +169,21 @@ private
   def stats_data(animes, grouping, categories)
     years = animes.group_by { |v| Russian.strftime(v[:aired_on], '%Y') }.keys
 
-    groups = categories.each_with_object({}) do |group,rez|
-      rez[group] = nil
+    groups = categories.each_with_object({}) do |group, memo|
+      memo[group] = nil
     end
 
-    data = animes.group_by {|v| v.respond_to?(grouping) ? v.send(grouping) : v[grouping] }.each_with_object(groups) do |entry,data|
-      next unless data.include? entry[0]
-      data[entry[0]] = years.each_with_object({}) { |v,rez| rez[v] = 0 }
+    data = animes
+      .group_by {|v| v.respond_to?(grouping) ? v.send(grouping) : v[grouping] }
+      .each_with_object(groups) do |entry,data|
+        next unless data.include? entry[0]
+        data[entry[0]] = years.each_with_object({}) { |v, memo| memo[v] = 0 }
 
-      entry[1].group_by { |v| Russian.strftime(v[:aired_on], '%Y') }.each do |k,v|
-        data[entry[0]][k] = v.size
+        entry[1].group_by { |v| Russian.strftime(v[:aired_on], '%Y') }.each do |k,v|
+          data[entry[0]][k] = v.size
+        end
       end
-    end.select { |k,v| v.present? }
+      .select { |k,v| v.present? }
 
     {
       categories: years,
