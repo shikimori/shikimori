@@ -28,6 +28,9 @@ class AnimeOnline::DashboardController < ShikimoriController
   def pingmedia_test_2
   end
 
+  def advertur_test
+  end
+
   private
 
   def is_adult
