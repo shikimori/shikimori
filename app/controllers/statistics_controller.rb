@@ -1,6 +1,8 @@
 class StatisticsController < ShikimoriController
   respond_to :html
-  YearsAgo = 26.years
+  YEARS_AGO = 26.years
+
+  include CacheHelper
 
   def index
     @page_title = 'История аниме'
@@ -8,11 +10,11 @@ class StatisticsController < ShikimoriController
     set_meta_tags description: @page_description
     set_meta_tags keywords: 'история аниме, статистка аниме сериалов, индустрия аниме, рейтинги аниме, студии аниме, жанры аниме'
 
-    @kinds = Anime.kind.values
+    @kinds = Anime.kind.values#.select {|v| v != 'music' }
     @rating_kinds = ['tv', 'movie', 'ova']
 
     @total, @by_kind, @by_rating, @by_genre, @by_studio =
-      begin #Rails.cache.fetch('statistics_data_' % Time.zone.now.strftime('%Y-%m')) do
+      Rails.cache.fetch([:statistics, russian_genres_key, Time.zone.today]) do
         prepare
         [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
       end
@@ -30,7 +32,7 @@ private
       name: 'Тип',
       data: grouped.map do |kind, group|
         {
-          name: kind,
+          name: I18n.t("enumerize.anime.kind.#{kind}"),
           y: group.size
         }
       end
@@ -92,7 +94,7 @@ private
 
   # статистика по студиям
   def stats_by_studio
-    animes_10 = @tv.select { |v| v.aired_on >= DateTime.parse("#{DateTime.now.year}-01-01") - 10.years }
+    animes_10 = @tv.select { |v| v.aired_on >= Time.zone.parse("#{Time.zone.now.year}-01-01") - 10.years }
     #top_studios = normalize(stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios), 0.75)[:series].map { |v| v[:name] }
 
     data = stats_data(animes_10.map(&:mapped_studios).flatten, :studio, @studios + ['Прочее'])
@@ -123,14 +125,14 @@ private
 
   # подготовка общих данных
   def prepare
-    @genres = Genre.order(:position).all.map(&:russian)
+    @genres = Genre.order(:position).all.map {|v| UsersHelper.localized_name v, current_user }
     @studios_by_id = Studio.all.each_with_object({}) do |v, memo|
       memo[v.id] = v
     end
     @studios = @studios_by_id.select { |v| v.real? }.map { |k,v| v.filtered_name }
 
-    start_on = DateTime.parse("#{DateTime.now.year}-01-01") - YearsAgo
-    finish_on = DateTime.parse("#{DateTime.now.year}-01-01") - 1.day + 1.year
+    start_on = Time.zone.parse("#{Time.zone.now.year}-01-01") - YEARS_AGO
+    finish_on = Time.zone.parse("#{Time.zone.now.year}-01-01") - 1.day + 1.year
 
     @animes = Anime
       .where.not(aired_on: nil)
@@ -138,20 +140,18 @@ private
       .where('aired_on <= ?', finish_on)
       .where(kind: @kinds)
       .select([:id, :aired_on, :kind, :rating, :score])
-      .order(aired_on: :desc).limit(500)#.order(:aired_on)
+      .order(:aired_on)
       .eager_load(:genres, :studios) # не использовать includes для HABTM ассоциаций!!! оно дико тормозит на больших объёмах данных
       .each do |anime|
         anime.singleton_class.class_eval do
-          attr_accessor :ru_rating, :mapped_genres, :mapped_studios
+          attr_accessor :mapped_genres, :mapped_studios
         end
       end
 
     @animes.each do |entry|
-      entry.ru_rating = entry.rating_text
-
       entry.mapped_genres = entry.genres.map do |genre|
         {
-          genre: genre.russian,
+          genre: UsersHelper.localized_name(genre, current_user),
           aired_on: entry.aired_on
         }
       end
@@ -189,7 +189,7 @@ private
       categories: years,
       series: data.map do |k,v|
         {
-          name: k,
+          name: [:kind, :rating].include?(grouping) ? I18n.t("enumerize.anime.#{grouping}.#{k}") : k,
           data: v.values
         }
       end

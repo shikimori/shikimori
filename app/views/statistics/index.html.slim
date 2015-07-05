@@ -29,8 +29,10 @@ javascript:
   .forum-nav.by_rating
     nav.sections
       - @rating_kinds.each do |kind|
-        a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
-          = kind
+        a[
+          data-kind="#{kind}"
+          class="control #{:selected if kind == @kinds.first}"
+        ] = t "enumerize.anime.kind.#{kind}"
 
   p Распределение по годам с учётом возрастного рейтинга:
   #by_rating style="min-width: 400px; height: 400px; margin: 0 auto"
@@ -41,8 +43,10 @@ javascript:
   .forum-nav.by_genre
     nav.sections
       - @rating_kinds.each do |kind|
-        a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
-          = kind
+        a[
+          data-kind="#{kind}"
+          class="control #{:selected if kind == @kinds.first}"
+        ] = t "enumerize.anime.kind.#{kind}"
   p Как с годами менялись жанровые предпочтения зрителей:
   #by_genre style="width: 975px; height: 600px; margin: 0 auto"
   p Практически полностью исчезла с экранов меха и каждый год снижается доля приключений с фантастикой, но всё больше и больше делают мистики. Про смену ориентации на более взрослую аудиторию писалось выше, и здесь мы видим подтверждение: растёт число этти, гаремников, сейненов и даже появляется немного дзёсея.
@@ -52,8 +56,10 @@ javascript:
   .forum-nav.by_studio
     nav.sections
       - ['tv'].each do |kind|
-        a data-kind="#{kind}" class="control #{' selected' if kind == @kinds.first}"
-          = kind
+        a[
+          data-kind="#{kind}"
+          class="control #{:selected if kind == @kinds.first}"
+        ] = t "enumerize.anime.kind.#{kind}"
   p Аниме последнего десятилетия в разрезе по студиям:
   /= spoiler('большой график со всеми более-менее крупными студиями двухтысячных годов') do
   #by_studio style="width: 975px; height: 800px; margin: 0 auto"
