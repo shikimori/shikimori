@@ -87,6 +87,7 @@ class AniMangaQuery
   end
 
 private
+
   def mylist?
     @mylist && @mylist !~ /^(!\w+,?)+$/
   end
@@ -229,13 +230,15 @@ private
     statuss = bang_split @status.split(',')
 
     query = statuss[:include].map do |status|
-      AnimeStatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql
+      #AnimeStatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql
+      AnimeStatusQuery.new(@klass.all).by_status(status).to_sql.sub(/^.* WHERE /, '')
     end
     @query = @query.where query.join(' OR ') unless query.empty?
 
     query = statuss[:exclude].map do |status|
       'NOT (' +
-        AnimeStatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql +
+        AnimeStatusQuery.new(@klass.all).by_status(status).to_sql.sub(/^.* WHERE /, '') +
+        #AnimeStatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql +
         ')'
     end
     @query = @query.where query.join(' AND ') unless query.empty?

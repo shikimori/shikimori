@@ -6,7 +6,7 @@ class AnimeStatusQuery
   def by_status status
     case status.to_sym
       when :anons, :ongoing, :released
-        relation.where(status: status.to_sym)
+        relation.where(status: status.to_s)
 
       # TODO: remove
       when :planned
