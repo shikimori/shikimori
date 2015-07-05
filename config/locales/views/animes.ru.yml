@@ -42,3 +42,6 @@ ru:
       cosplay: Косплей
       art: Арт с имиджборд
       files: Файлы
+
+    studios_info:
+      studio_animes: Аниме студии %{studio_name}

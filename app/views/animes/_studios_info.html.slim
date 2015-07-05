@@ -1,6 +1,10 @@
 - entry.real_studios.uniq(&:name).each do |studio|
   - if studio.image.exists? && entry.real_studios.uniq(&:name).size == 1
-    = link_to image_tag(studio.image.url, class: 'studio-logo', alt: "#{t "Name.#{entry.object.class.name}"} студии #{studio.name}", title: "#{t "Name.#{entry.object.class.name}"} студии #{studio.name}"), animes_url(studio: studio), title: "#{t "Name.#{entry.object.class.name}"} студии #{studio.name}"
+    a href="#{animes_url studio: studio}" title="#{t '.studio_animes', studio_name: studio.name}"
+      img.studio-logo[
+        src="#{studio.image.url}"
+        alt="#{t '.studio_animes', studio_name: studio.name}"
+      ]
   - else
-    a.b-tag href="#{animes_url studio: studio}" title="#{t "Name.#{entry.object.class.name}"} студии #{studio.name}"
+    a.b-tag href="#{animes_url studio: studio}" title="#{t ".studio_animes", studio_name: studio.name}"
       = "#{studio.name}\n"

@@ -42,3 +42,6 @@ en:
       cosplay: Cosplay
       art: Imageboard
       files: Files
+
+    studios_info:
+      studio_animes: "%{studio_name} animes"
