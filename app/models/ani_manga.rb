@@ -58,13 +58,13 @@ module AniManga
   end
 
   module ClassMethods
-    def title_for(season, type, genres, studios, publishers)
+    def title_for season, type, genres, studios, publishers
       types = type ? type.gsub(/-/, ' ').split(',').select {|v| !v.starts_with? '!' } : nil
 
       type_name = type && types.any? ?
-          types.map {|v| I18n.t("#{self.name}.Full.#{v}", default: self.name) }
-               .join(types.count == 2 ? ' и ' : ', ') :
-          I18n.t("Name.#{self.name}", default: self.name)
+        types.map {|v| I18n.t "enumerize.#{self.name.downcase}.kind.plural.#{v}", default: self.model_name.human }
+          .join(types.count == 2 ? ' и ' : ', ') :
+        self.model_name.human
 
       genre_name = !genres.nil? && genres.count == 1 ? genres.first.format_for_title(type_name, self.rus_var(self, type_name)) : nil
 
@@ -112,7 +112,7 @@ module AniManga
       keywords.join ' '
     end
 
-    def description_for(season, type, genres, studios, publishers)
+    def description_for season, type, genres, studios, publishers
       type_text_prefix = rus_var(self, type) ? 'всех ' : 'всей  '
       type_text = case type
         when 'tv'
