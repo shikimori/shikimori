@@ -22,7 +22,9 @@ class NameMatcher
   # поиск всех подходящих id аниме по переданным наваниям
   # возможные опции: year и episodes
   def matches names, options={}
-    found = matching_groups(names, false).first || matching_groups(names, true).first
+    found = matching_groups(Array(names).map {|v| fix v }).first ||
+      matching_groups(variants(names, false)).first ||
+      matching_groups(variants(names, true)).first
 
     if found
       entries = found.second.flatten.compact.uniq
@@ -85,13 +87,8 @@ private
       #.gsub(/([A-z])0(\d)/, '\1\2')
   end
 
-  def matching_groups names, with_split
-    #ap variants(names)
-    #ap @cache
-
-  #tamagotchitamatomodaishhuugo
-
-    found_matches = variants(names, with_split).each_with_object({}) do |variant,memo|
+  def matching_groups fixed_names
+    found_matches = fixed_names.each_with_object({}) do |variant,memo|
       @match_order.each do |group|
         memo[group] ||= []
         memo[group] << @cache[group][variant] if @cache[group][variant]
@@ -148,7 +145,7 @@ private
     phrases = multiply_phrases phrases, / series \d$/, ''
     phrases = multiply_phrases phrases, /\bspecial\b/, 'specials'
 
-    3.times { phrases = multiply_phrases phrases, '!', '' }
+    phrases = multiply_phrases phrases, '!', ''
 
     # разлинчные варианты написания одних и тех же слов и фраз
     phrases = multiply_phrases phrases, ' and ', ' & '
@@ -166,7 +163,7 @@ private
 
     phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
     phrases = multiply_phrases phrases, /s(?!h)/, 'sh'
-    phrases = multiply_phrases phrases, /(?<=[wrtpsdfghjklzxcvbnm])o/, 'ou'
+    phrases = multiply_phrases phrases, /(?<=[wrtpsdfghjklzxcvbnmy])o(?!u)/, 'ou'
 
     phrases = multiply_phrases phrases, /(?<= )([456789])$/, '\1th season'
     phrases = multiply_phrases phrases, "(#{kind})", '' if kind && name.include?("(#{kind.downcase})")
@@ -174,9 +171,44 @@ private
     phrases.map {|name| fix name }.uniq
   end
 
+  # рекурсивная замена фразы на альтернативы
+  # медленнее второго варианта на 40%
+  #def multiply_phrases phrases, from, to, nesting=1
+    #raise 'infinite loop' if nesting > 50
+
+    #multiplies = phrases.flat_map do |phrase|
+      #replaced = phrase.sub(from, to).strip
+
+      #if replaced != phrase
+        #multiply_phrases [replaced], from, to, nesting+1
+      #end
+    #end
+
+    #(phrases + multiplies.compact).uniq
+  #end
+
+  # множественная замена фразы на альтернативы
   def multiply_phrases phrases, from, to
-    (phrases + phrases.map {|v| v.sub(from, to).strip }).uniq
+    multiplies = []
+
+    phrases.each do |phrase|
+      next_phrase = phrase
+
+      10.times do
+        replaced = next_phrase.sub(from, to).strip
+
+        if replaced != next_phrase
+          multiplies << replaced
+          next_phrase = replaced
+        else
+          break
+        end
+      end
+    end
+
+    multiplies.any? ? phrases + multiplies : phrases
   end
+
 
   # все возможные варианты написания имён
   def variants names, with_splits=true

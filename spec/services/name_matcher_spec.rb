@@ -146,6 +146,13 @@ describe NameMatcher do
       it { should eq [anime] }
     end
 
+    describe 'with year #2' do
+      subject { matcher.matches 'Fairy Tail (2014)' }
+      let!(:anime) { create :anime, :tv, name: 'Fairy Tail (2014)' }
+      let!(:anime_2) { create :anime, :tv, name: 'Fairy Tail' }
+      it { should eq [anime] }
+    end
+
     describe 'with year at end' do
       subject { matcher.matches 'The Genius Bakabon 1975' }
       let!(:anime) { create :anime, :tv, name: 'The Genius Bakabon', aired_on: DateTime.parse('1975-01-01') }
@@ -179,6 +186,13 @@ describe NameMatcher do
     describe '!' do
       subject { matcher.matches 'Upotte' }
       let!(:anime) { create :anime, :tv, name: 'Upotte!!' }
+      it { should eq [anime] }
+    end
+
+    describe '! #2' do
+      subject { matcher.matches 'WORKING!!!' }
+      let!(:anime) { create :anime, :tv, name: 'Working!!!' }
+      let!(:anime_2) { create :anime, :tv, name: 'Working!!' }
       it { should eq [anime] }
     end
 
@@ -274,6 +288,19 @@ describe NameMatcher do
     describe '"o" as "ou"' do
       subject { matcher.matches 'Rouaaaa' }
       let!(:anime) { create :anime, :tv, name: 'Roaaaa' }
+      it { should eq [anime] }
+    end
+
+    describe '"o" as "ou" #2' do
+      subject { matcher.matches 'Monster Musume no Iru Nichijō' }
+      let!(:anime) { create :anime, :tv, name: 'Monster Musume no Iru Nichijou' }
+      it { should eq [anime] }
+      #it { .times { matcher.matches 'Monster Musume no Iru Nichijō' } }
+    end
+
+    describe '"o" as "ou" #3' do
+      subject { matcher.matches 'Kūsen Madōshi Kōhosei no Kyōkan' }
+      let!(:anime) { create :anime, :tv, name: 'Kuusen Madoushi Kouhosei no Kyoukan' }
       it { should eq [anime] }
     end
 

@@ -5,6 +5,7 @@ describe ImportAnimeCalendars do
     let!(:ongoing) { create :anime, :ongoing, name: 'Fairy Tail' }
     let!(:anons) { create :anime, :anons, name: 'Prison School' }
     let!(:released) { create :anime, :released, name: 'Yokai Watch' }
+
     let!(:config_match) { create :anime, :anons, id: 30230, name: 'Diamond no Ace: Second Season' }
 
     before { worker.perform }

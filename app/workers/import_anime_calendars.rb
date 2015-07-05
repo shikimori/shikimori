@@ -19,7 +19,7 @@ private
 
     Rails.cache.write 'calendar_unrecognized', (names - imported)
 
-    { imported: imported, unrecognized: names - imported }
+    { imported: imported, unrecognized: names - imported - FIXES[:ignores] }
   end
 
   def import calendars
@@ -49,8 +49,12 @@ private
     calendars.each do |calendar|
       if FIXES[:matches][calendar[:title]]
         calendar[:anime] = Anime.find(FIXES[:matches][calendar[:title]])
+
       else
-        matches = matcher.matches calendar[:title]
+        matches = matcher.matches calendar[:title], status: :anons
+        matches = matcher.matches calendar[:title], status: :ongoing if matches.blank?
+        matches = matcher.matches calendar[:title] if matches.blank?
+
         calendar[:anime] = matches.first if matches.one?
       end
     end
