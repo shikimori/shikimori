@@ -303,6 +303,13 @@ en:
         uploaded: new video
         broken: video broken
         wrong: wrong anime
+    user_history_action:
+      action:
+        ap_anime_import: Imported from Anime-Planet
+        ap_manga_import: Imported from Anime-Planet
+        mal_anime_import: Imported from MyAnimeList
+        mal_manga_import: Imported from MyAnimeList
+        registration: Registration
 
   # в bans#create отображаются
   messages:

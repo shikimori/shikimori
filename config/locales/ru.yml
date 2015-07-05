@@ -310,6 +310,13 @@ ru:
         uploaded: новое видео
         broken: видео не работет
         wrong: видео не к тому аниме
+    user_history_action:
+      action:
+        ap_anime_import: Импорт с Anime-Planet
+        ap_manga_import: Импорт с Anime-Planet
+        mal_anime_import: Импорт с MyAnimeList
+        mal_manga_import: Импорт с MyAnimeList
+        registration: Регистрация на сайте
 
   # в bans#create отображаются
   messages:

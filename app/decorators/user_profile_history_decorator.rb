@@ -44,7 +44,7 @@ private
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
         url: "http://#{Site::DOMAIN}",
-        short_name: 'Регистрация на сайте',
+        short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         special?: true
       }
     elsif [UserHistoryAction::MalAnimeImport, UserHistoryAction::MalMangaImport].include? entry.action
@@ -54,7 +54,7 @@ private
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
         url: 'http://myanimelist.net',
-        short_name: 'Импорт с MyAnimeList',
+        short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         special?: true
       }
     elsif [UserHistoryAction::ApAnimeImport, UserHistoryAction::ApMangaImport].include? entry.action
@@ -64,7 +64,7 @@ private
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
         url: 'http://anime-planet.com',
-        short_name: 'Импорт с Anime-Planet',
+        short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         special?: true
       }
     elsif entry.target.nil?
@@ -82,4 +82,3 @@ private
     end
   end
 end
-
