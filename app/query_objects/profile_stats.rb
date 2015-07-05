@@ -140,7 +140,7 @@ class ProfileStats
   def ratings list_type
     @stats.by_criteria(
       :rating,
-      list_type.to_s.capitalize.constantize.rating.values,
+      list_type.to_s.capitalize.constantize.rating.values.select { |v| v != 'none' },
       "enumerize.#{list_type}.rating.%s"
     )[list_type.to_sym]
   end
