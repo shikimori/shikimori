@@ -12,9 +12,9 @@ ru:
           many: комментариев
       summary:
         subjective:
-          one: глава
-          few: главы
-          many: глав
+          one: отзыв
+          few: отзыва
+          many: отзывов
         accusative:
           one: отзыв
           few: отзыва
