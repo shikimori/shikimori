@@ -204,7 +204,7 @@ Site::Application.routes.draw do
 
     get 'pingmedia_test_1', to: 'anime_online/dashboard#pingmedia_test_1', as: :pingmedia_test_1
     get 'pingmedia_test_2', to: 'anime_online/dashboard#pingmedia_test_2', as: :pingmedia_test_2
-    get 'admilk_test', to: 'anime_online/dashboard#admilk_test', as: :admilk_test
+    get 'advertur_test', to: 'anime_online/dashboard#advertur_test', as: :advertur_test
 
     get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
