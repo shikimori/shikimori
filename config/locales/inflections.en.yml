@@ -4,6 +4,10 @@ en:
       zero: out of
       one: out of
       other: out of
+    years_old:
+      zero: y.o.
+      one: y.o.
+      other: y.o.
 
     datetime:
       second:

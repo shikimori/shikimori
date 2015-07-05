@@ -1,6 +1,6 @@
 # NOTE use ActionView::Helpers::TranslationHelper#translate to translate views
 module Translation
-  # перевод фразы из декоратора
+  # перевод фраз из декораторов, сервисов и т.д.
   def i18n_t key, options = {}
     yield options if block_given?
     # raises exception if no translation found
@@ -10,7 +10,7 @@ module Translation
     I18n.t key, options
   end
 
-  # только для существительных
+  # только для существительных с количественными числительными
   def i18n_i key, count = 1, ru_case = :subjective
     if I18n.russian?
       I18n.t "inflections.cardinal.#{key}.#{ru_case}", count: count,
@@ -21,7 +21,7 @@ module Translation
     end
   end
 
-  # только для количественных существительных
+  # только для существительных с порядковыми числительными
   def i18n_io key, count_key
     raise ArgumentError unless [:one,:few].include? count_key
 

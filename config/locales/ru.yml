@@ -1,7 +1,9 @@
 ru:
   time:
     formats:
-      with_month_name: '%e %b %Y'
+      full: '%e %b %Y г.'
+      month_year: '%B %Y г.'
+      year: '%Y г.'
 
   activerecord:
     models:

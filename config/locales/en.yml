@@ -1,7 +1,9 @@
 en:
   time:
     formats:
-      with_month_name: '%B %e, %Y'
+      full: '%B %e, %Y'
+      month_year: '%B %Y'
+      year: '%Y'
 
   activerecord:
     models:
