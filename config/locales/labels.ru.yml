@@ -1,34 +1,34 @@
 ru:
-  Name:
-    Anime: Аниме
-    Character: Персонаж
-    Manga: Манга
+  #Name:
+    #Anime: Аниме
+    #Character: Персонаж
+    #Manga: Манга
   Deleted:
     Anime: Удалённое аниме
     Character: Удалённый персонаж
     Manga: Удалённая манга
     Review: Удалённая рецензия
-  Genitive:
-    Anime: Аниме
-    Manga: Манги
-    Character: Персонажа
-    Group: Клуба
-  Anime:
-    Movie: Полнометражное
-    Music: Клип
-    ONA: ONA
-    OVA: OVA
-    Special: Спешл
-    TV: Сериал
-    TV_13: Односезонное
-    TV_24: Двухсезонное
-    TV_48: Многосезонное
-    Plural:
-      tv: TV Сериалы
-      movie: Полнометражные фильмы
-      OVA/ONA: OVA / ONA
-      special: Спешиалы
-      music: Клипы
+  #Genitive:
+    #Anime: Аниме
+    #Manga: Манги
+    #Character: Персонажа
+    #Group: Клуба
+  #Anime:
+    #Movie: Полнометражное
+    #Music: Клип
+    #ONA: ONA
+    #OVA: OVA
+    #Special: Спешл
+    #TV: Сериал
+    #TV_13: Односезонное
+    #TV_24: Двухсезонное
+    #TV_48: Многосезонное
+    #Plural:
+      #tv: TV Сериалы
+      #movie: Полнометражные фильмы
+      #OVA/ONA: OVA / ONA
+      #special: Спешиалы
+      #music: Клипы
     #Short:
       #Movie: Фильм
       #Music: Клип
@@ -36,34 +36,34 @@ ru:
       #OVA: OVA
       #Special: Спешл
       #TV: Сериал
-    Full:
-      Movie: Полнометражные аниме
-      Music: Клипы
-      ONA: ONA
-      OVA: OVA
-      Special: Спешиалы
-      TV: Аниме сериалы
-      TV 13: Односезонные аниме сериалы
-      TV 24: Двухсезонные аниме сериалы
-      TV 48: Многосезонные аниме сериалы
-    Duration:
-      S: До 10 минут
-      D: До 30 минут
-      F: Более 30 минут
-  Manga:
-    Doujin: Додзинси
-    Manga: Манга
-    Manhua: Маньхуа
-    Manhwa: Манхва
-    Novel: Новелла
-    One Shot: Ваншот
-    Plural:
-      Doujin: Додзинси
-      Manga: Манга
-      Manhua: Маньхуа
-      Manhwa: Манхва
-      Novel: Новеллы
-      One Shot: Ваншоты
+    #Full:
+      #Movie: Полнометражные аниме
+      #Music: Клипы
+      #ONA: ONA
+      #OVA: OVA
+      #Special: Спешиалы
+      #TV: Аниме сериалы
+      #TV 13: Односезонные аниме сериалы
+      #TV 24: Двухсезонные аниме сериалы
+      #TV 48: Многосезонные аниме сериалы
+    #Duration:
+      #S: До 10 минут
+      #D: До 30 минут
+      #F: Более 30 минут
+  #Manga:
+    #Doujin: Додзинси
+    #Manga: Манга
+    #Manhua: Маньхуа
+    #Manhwa: Манхва
+    #Novel: Новелла
+    #One Shot: Ваншот
+    #Plural:
+      #Doujin: Додзинси
+      #Manga: Манга
+      #Manhua: Маньхуа
+      #Manhwa: Манхва
+      #Novel: Новеллы
+      #One Shot: Ваншоты
     #Short:
       #Doujin: Додзинси
       #Manga: Манга
@@ -71,13 +71,13 @@ ru:
       #Manhwa: Манхва
       #Novel: Новелла
       #One Shot: Ваншот
-    Full:
-      Doujin: Додзинси
-      Manga: Манга
-      Manhua: Маньхуа
-      Manhwa: Манхва
-      Novel: Новеллы
-      One Shot: Ваншот манга
+    #Full:
+      #Doujin: Додзинси
+      #Manga: Манга
+      #Manhua: Маньхуа
+      #Manhwa: Манхва
+      #Novel: Новеллы
+      #One Shot: Ваншот манга
   Relation:
     Adaptation: Адаптация
     Alternative setting: Альтернативная вселенная

@@ -17,8 +17,7 @@ module Translation
         default: "inflections.cardinal.#{key}.default".to_sym
 
     else
-      I18n.t "inflections.#{key}", count: count,
-        default: key.pluralize(count)
+      I18n.t "inflections.#{key}", count: count, default: key.pluralize(count)
     end
   end
 
@@ -55,7 +54,7 @@ module Translation
     if I18n.russian?
       I18n.t "phrases.#{key}"
     else
-      key.gsub('_', ' ').capitalize
+      I18n.t "phrases.#{key}", default: key.gsub('_', ' ').capitalize
     end
   end
 end

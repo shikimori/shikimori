@@ -221,12 +221,20 @@ ru:
         ongoing: Онгоинг
         released: Вышло
       kind:
+        tv: TV Сериал
         movie: Фильм
         music: Клип
         ona: ONA
         ova: OVA
         special: Спешл
-        tv: Сериал
+        plural:
+          tv: TV Сериалы
+          movie: Полнометражные фильмы
+          music: Клипы
+          ona: ONA
+          ova: OVA
+          special: Спешиалы
+          ova/ona: OVA/ONA
       rating:
         g: G
         pg: PG
@@ -253,6 +261,13 @@ ru:
         manhwa: Манхва
         novel: Новелла
         one_shot: Ваншот
+        plural:
+          doujin: Додзинси
+          manga: Манга
+          manhua: Маньхуа
+          manhwa: Манхва
+          novel: Новеллы
+          one_shot: Ваншоты
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

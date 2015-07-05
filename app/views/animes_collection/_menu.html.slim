@@ -102,7 +102,7 @@
         - AniMangaQuery::Durations.keys.each do |v|
           li class="duration-#{v}"
             input type="checkbox" autocomplete="off"
-            = t("#{klass}.Duration.#{v}")
+            = t ".anime.duration.#{v}"
 
     .block.ratings
       .subheadline = Anime.human_attribute_name :score

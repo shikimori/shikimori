@@ -14,7 +14,7 @@ class SubtitlesImporter
 
   def import_ongoings
     print "getting subtitles for ongoings...\n"
-    animes = Anime.ongoing
+    animes = Anime.where(state: :ongoing)
     get_fansubs animes
   end
 

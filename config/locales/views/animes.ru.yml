@@ -11,6 +11,10 @@ ru:
           tv_13: Короткие
           tv_24: Средние
           tv_48: Длинные
+        duration:
+          S: До 10 минут
+          D: До 30 минут
+          F: Более 30 минут
       manga:
         status:
           <<: *anime_statuses

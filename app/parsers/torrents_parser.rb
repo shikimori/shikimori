@@ -58,7 +58,7 @@ class TorrentsParser
     /#{END_OF_NAME}_(\d+)-(\d+),_?(\d+)_raw_720/i
   ]
 
-  def self.extract_episodes_num(episode_name)
+  def self.extract_episodes_num episode_name
     return [] if IgnoredTorrents.include?(episode_name)
     num = parse_episodes_num(episode_name).select {|v| v < 1000 }
 
@@ -79,7 +79,7 @@ class TorrentsParser
     end.select {|v| v > 0 }
   end
 
-  def self.parse_episodes_num(episode_name)
+  def self.parse_episodes_num episode_name
     fixed_name = episode_name.gsub ' ', '_'
     EPISODE_FOR_HISTORY_REGEXES.each do |regex|
       return [$1.to_i] if fixed_name.match(regex)
@@ -154,7 +154,7 @@ class TorrentsParser
 
   # выгрузка онгоингов из базы
   def self.get_ongoings
-    ongoings = Anime.ongoing.to_a
+    ongoings = Anime.where(status: :ongoing).to_a
 
     anons = Anime
       .where(status: :anons)
@@ -168,7 +168,7 @@ class TorrentsParser
     anons.delete_if { |v| v.ona? && v.anime_calendars.empty? }
 
     released = Anime
-      .where('released_on >= ?', TimeZone.now - 2.weeks)
+      .where('released_on >= ?', 2.weeks.ago)
       .where('episodes_aired >= 5')
       .to_a
 
@@ -212,24 +212,24 @@ class TorrentsParser
 
     new_episodes = []
 
-    feed.each do |entry|
-      entry[:episodes] = TorrentsParser.extract_episodes_num(entry[:title])
-    end
+    feed
+      .each { |v| v[:episodes] = TorrentsParser.extract_episodes_num v[:title] }
+      .select { |v| v[:episodes].any? }
+      .sort_by { |v| v[:episodes].min }
+      .each do |entry|
+        # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
+        next if entry[:episodes].none? ||
+          (anime.ongoing? && (entry[:episodes].min - anime.episodes_aired) > 1 &&
+            !(entry[:episodes].max == 2 && anime.episodes_aired == 0))
 
-    feed.sort_by {|v| v[:episodes].min }.each do |entry|
-      # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
-      next if entry[:episodes].none? ||
-        (anime.ongoing? && (entry[:episodes].min - anime.episodes_aired) > 1 &&
-          !(entry[:episodes].max == 2 && anime.episodes_aired == 0))
-
-      entry[:episodes].each do |episode|
-        next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
-        episode_max = episode if episode_max < episode
-        anime.episodes_aired = episode
-        new_episodes << entry
-        AnimeNews.create_for_new_episode(anime, (entry[:pubDate] || Time.zone.now) + episode.seconds)
+        entry[:episodes].each do |episode|
+          next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
+          episode_max = episode if episode_max < episode
+          anime.episodes_aired = episode
+          new_episodes << entry
+          AnimeNews.create_for_new_episode(anime, (entry[:pubDate] || Time.zone.now) + episode.seconds)
+        end
       end
-    end
 
     anime.episodes_aired = episode_max
     anime.save if anime.changed?

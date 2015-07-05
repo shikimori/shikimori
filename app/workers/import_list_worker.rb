@@ -18,14 +18,8 @@ class ImportListWorker
       when :all # 87100 mangas, 10580 animes
         Object.const_get("#{klass.name}MalParser").new.fetch_list_pages(limit: pages_limit, url_getter: :all_catalog_url)
 
-      when :anons
-        Anime.anons.pluck(:id)
-
-      when :ongoing
-        Anime.ongoing.pluck(:id)
-
-      when :latest
-        Anime.latest.map(&:id)
+      when :anons, :ongoing, :latest
+        AnimeStatusQuery.new(Anime.all).by_status(source).pluck(:id)
 
       else
         raise "unknown source: #{source}"

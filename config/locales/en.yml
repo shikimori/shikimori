@@ -221,6 +221,13 @@ en:
         ona: ONA
         ova: OVA
         special: Special
+        plural:
+          tv: TV Series
+          movie: Movies
+          music: Music
+          ona: ONA
+          ova: OVA
+          special: Specials
       rating:
         g: G
         pg: PG
@@ -247,6 +254,13 @@ en:
         manhwa: Manhwa
         novel: Novel
         one_shot: One Shot
+        plural:
+          doujin: Doujin
+          manga: Manga
+          manhua: Manhua
+          manhwa: Manhwa
+          novel: Novels
+          one_shot: One Shots
     contest:
       strategy_type:
         double_elimination: Double elimination

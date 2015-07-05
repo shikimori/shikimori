@@ -11,6 +11,10 @@ en:
           tv_13: Short
           tv_24: Average
           tv_48: Long
+        duration:
+          S: Less than 10 minutes
+          D: Less than 30 minutes
+          F: More than 30 minutes
       manga:
         status:
           <<: *anime_statuses
