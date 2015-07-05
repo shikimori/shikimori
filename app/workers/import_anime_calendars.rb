@@ -7,7 +7,6 @@ class ImportAnimeCalendars
   def perform
     calendars = match parse calendars_data
     import calendars
-    #ap filter(calendars)
     process_results calendars
   end
 
@@ -48,14 +47,10 @@ private
   def match calendars
     calendars.each do |calendar|
       if FIXES[:matches][calendar[:title]]
-        calendar[:anime] = Anime.find(FIXES[:matches][calendar[:title]])
+        calendar[:anime] = find_anime FIXES[:matches][calendar[:title]]
 
       else
-        matches = matcher.matches calendar[:title], status: :anons
-        matches = matcher.matches calendar[:title], status: :ongoing if matches.blank?
-        matches = matcher.matches calendar[:title] if matches.blank?
-
-        calendar[:anime] = matches.first if matches.one?
+        calendar[:anime] = match_anime calendar[:title]
       end
     end
   end
@@ -81,5 +76,30 @@ private
 
   def matcher
     @matcher ||= NameMatcher.new Anime
+  end
+
+  def find_anime anime_id
+    @db_cache ||= {}
+
+    if @db_cache.keys.include? anime_id
+      @db_cache[anime_id]
+    else
+      @db_cache[anime_id] = Anime.find_by id: anime_id
+    end
+  end
+
+  def match_anime name
+    @matches_cache ||= {}
+
+    if @matches_cache.keys.include? name
+      @matches_cache[name]
+
+    else
+      matches = matcher.matches name, status: :anons
+      matches = matcher.matches name, status: :ongoing if matches.blank?
+      matches = matcher.matches name if matches.blank?
+
+      @matches_cache[name] = matches.one? ? matches.first : nil
+    end
   end
 end
