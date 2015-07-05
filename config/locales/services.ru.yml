@@ -1,2 +1,13 @@
 ru:
-
+  list_compare_service:
+    group_by_key:
+      both: В обоих списках
+      user_only: Только в списке %{nickname}
+    user_rate_status:
+      planned: в планах
+      dropped: брошено
+  notifications_service:
+    female_nickname_changed: Ваша подруга %{old_nickname} изменила никнейм на %{new_nickname}.
+    male_nickname_changed: Ваш друг %{old_nickname} изменил никнейм на %{new_nickname}.
+  omniauth_service:
+    new_user: Новый пользователь

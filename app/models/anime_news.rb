@@ -3,7 +3,7 @@ class AnimeNews < DbEntryThread
 
   attr_defaults section_id: -> { SectionIDs[Anime.name] }
   attr_defaults title: -> { generate_title linked }
-  attr_defaults text: -> { generate_text linked }
+  attr_defaults text: -> { 'text' }
 
   # получение названия для новости
   def generate_title(anime)
@@ -24,25 +24,6 @@ class AnimeNews < DbEntryThread
     end
   end
 
-  # получение текста для новости
-  def generate_text(anime)
-    service = AnimeHistoryService.new
-
-    case action
-      when AnimeHistoryAction::Episode
-        service.new_episode_topic_text(anime, self)
-
-      when AnimeHistoryAction::Anons
-        service.new_anons_topic_text(anime, self)
-
-      when AnimeHistoryAction::Released
-        service.new_release_topic_text(anime, self)
-
-      when AnimeHistoryAction::Ongoing
-        service.new_ongoing_topic_text(anime, self)
-    end
-  end
-
   # создание новости о новом эпизоде
   def self.create_for_new_episode(anime, pubDate)
     AnimeNews.find_by(
@@ -50,7 +31,7 @@ class AnimeNews < DbEntryThread
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Episode,
       value: anime.episodes_aired.to_s,
-    ) || AnimeNews.create(
+    ) || AnimeNews.create!(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Episode,
@@ -62,7 +43,7 @@ class AnimeNews < DbEntryThread
 
   # создание новости о новом анонсе
   def self.create_for_new_anons(anime)
-    AnimeNews.find_or_create_by(
+    AnimeNews.find_or_create_by!(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Anons,
@@ -72,7 +53,7 @@ class AnimeNews < DbEntryThread
 
   # создание новости о новом онгоинге
   def self.create_for_new_ongoing(anime)
-    AnimeNews.find_or_create_by(
+    AnimeNews.find_or_create_by!(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Ongoing,
@@ -85,8 +66,11 @@ class AnimeNews < DbEntryThread
     old_release = (anime.released_on && anime.released_on + 2.weeks < Time.zone.now)# ||
                   #(anime.released_on == nil && anime.aired_on && anime.aired_on + 2.weeks < Time.zone.now)
 
-    last_episode_history = AnimeNews.where(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Episode).last
-    entry = AnimeNews.find_by(linked_id: anime.id, linked_type: anime.class.name, action: AnimeHistoryAction::Released) || AnimeNews.create(
+    entry = AnimeNews.find_by(
+      linked_id: anime.id,
+      linked_type: anime.class.name,
+      action: AnimeHistoryAction::Released
+    ) || AnimeNews.create!(
       linked_id: anime.id,
       linked_type: anime.class.name,
       action: AnimeHistoryAction::Released,

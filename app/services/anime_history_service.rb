@@ -55,72 +55,21 @@ class AnimeHistoryService
     end
   end
 
+  # TODO localize this later
   def new_episode_topic_subject(anime, history)
     "%s эпизод %s" % [history.value, anime.name]
-  end
-
-  def new_episode_topic_text(anime, history)
-    part = history.value.to_i == anime.episodes ?
-        'последний' :
-        (anime.episodes > 0 ? "#{history.value} из #{anime.episodes}" : history.value)
-    "Вышел #{part} эпизод [anime=#{anime.id}]#{filter_name anime.name}[/anime]."
   end
 
   def new_anons_topic_subject(anime, history)
     "%s %s" % [history.to_s(:short), anime.name]
   end
-  def new_anons_topic_text(anime, history)
-    part = [
-      "Состоялся анонс",
-      "Было анонсировано",
-      "Анонсированно",
-      "Объявлено о выпуске",
-      "Появилась информация об",
-      "Запланировано создание"
-    ].sample
-    "#{part} аниме [anime=#{anime.id}]#{filter_name anime.name}[/anime]. #{history.to_s(:full)}."
-  end
 
   def new_ongoing_topic_subject(anime, history)
     "%s %s" % [history.to_s(:short), anime.name]
   end
-  def new_ongoing_topic_text(anime, history)
-    part1 = [
-      "[anime=#{anime.id}]#{filter_name anime.name}[/anime] стало онгоингом",
-      "Начат показ [anime=#{anime.id}]#{filter_name anime.name}[/anime]",
-      "[anime=#{anime.id}]#{filter_name anime.name}[/anime] теперь онгоинг"
-    ]
-    part2 = [
-      "первый эпизод скоро появится на торрентах",
-      "первый эпизод скоро появится в сети",
-      "первый эпизод вскоре появится на торрентах",
-      "первый эпизод вскоре появится в сети",
-      "вскоре появится первый эпизод",
-      "скоро будет доступен первый эпизод",
-      "скоро появится первый эпизод"
-    ]
-    "%s, %s." % [part1.sample, part2.sample]
-  end
 
   def new_release_topic_subject(anime, history)
     "%s %s" % [history.to_s(:short), anime.name]
-  end
-  def new_release_topic_text(anime, history)
-    anime_url = url_for(anime).sub('http://', '')
-    part = [
-      "Зарелизилось",
-      "Вышло",
-      "Зарелизилось аниме",
-      "Закончилось аниме",
-      "Вышло аниме"
-    ].sample
-    text = "#{part} [anime=#{anime.id}]#{filter_name anime.name}[/anime]"
-    text += if anime.score != 0 && anime.score < 9.9
-       ", средняя оценка пользователей #{anime.score}."
-    else
-      '.'
-    end
-    text
   end
 
   def filter_name name

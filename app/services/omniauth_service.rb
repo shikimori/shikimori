@@ -1,4 +1,6 @@
 class OmniauthService
+  include Translation
+
   def initialize user, omniauth_data
     @omni = omniauth_data
     @user = user
@@ -13,7 +15,7 @@ class OmniauthService
     @user.nickname = @user.nickname[0..User::MAX_NICKNAME_LENGTH-1] if @user.nickname.length >= User::MAX_NICKNAME_LENGTH
     build_token
 
-    @user.nickname = 'Новый пользователь' if @user.nickname.blank?
+    @user.nickname = i18n_t 'new_user' if @user.nickname.blank?
     @user.email = generate_email if @user.email.blank?
   end
 

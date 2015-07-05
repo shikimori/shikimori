@@ -8,7 +8,7 @@ describe AnimeHistoryService do
     end
 
     it 'for new Anonsed Anime' do
-      create :anime, :with_callbacks, status: :anons
+      create :anime, :with_callbacks, :anons
       expect{AnimeHistoryService.process}.to change(Message, :count).by users.size
     end
 

@@ -1,4 +1,6 @@
 class ListCompareService
+  include Translation
+
   def self.fetch(user1, user2, params)
     new(user1, user2, params).fetch
   end
@@ -71,13 +73,13 @@ private
   def group_by_key(key)
     case key
       when :both
-        'В обоих списках'
+        i18n_t 'group_by_key.both'
 
       when :user_1_only
-        "Только в списке #{@user1.nickname}"
+        i18n_t 'group_by_key.user_only', nickname: @user1.nickname
 
       when :user_2_only
-        "Только в списке #{@user2.nickname}"
+        i18n_t 'group_by_key.user_only', nickname: @user2.nickname
     end
   end
 
@@ -118,18 +120,18 @@ private
     end
 
     entry[:rate_1_title] = if entry[:rate_1] && user1_rates[id].dropped?
-      '<span class="notice">брошено</span>'
+      "<span class='notice'>#{i18n_t 'user_rate_status.dropped'}</span>"
     elsif !entry[:rate_1] && user1_rates.include?(id) && user1_rates[id].planned?
-      '<span class="notice">в планах</span>'
+      "<span class='notice'>#{i18n_t 'user_rate_status.planned'}</span>"
     else
       #"#{entry[:rate_1] || '&ndash;'}&nbsp;&nbsp;|&nbsp;&nbsp;#{entry[:norm_rate_1] if entry[:norm_rate_1]}"
       entry[:rate_1] || '&ndash;'
     end
 
     entry[:rate_2_title] = if entry[:rate_2] && user2_rates[id].dropped?
-      '<span class="notice">брошено</span>'
+      "<span class='notice'>#{i18n_t 'user_rate_status.dropped'}</span>"
     elsif !entry[:rate_2] && user2_rates.include?(id) && user2_rates[id].planned?
-      '<span class="notice">в планах</span>'
+      "<span class='notice'>#{i18n_t 'user_rate_status.planned'}</span>"
     else
       #"#{entry[:rate_2] || '&ndash;'}&nbsp;&nbsp;|&nbsp;&nbsp;#{entry[:norm_rate_2] if entry[:norm_rate_2]}"
       entry[:rate_2] || '&ndash;'
