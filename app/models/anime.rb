@@ -113,13 +113,6 @@ class Anime < DbEntry
   before_save :check_status
   after_save :update_news
 
-  scope :translatable, -> {
-      where("kind = 'tv' or (kind = 'ona' and score >= 7.0) or (kind = 'ova' and score >= 7.5) or kind = 'movie'")
-        .where.not(id: Anime::EXCLUDED_ONGOINGS)
-        .where.not(rating: AniMangaQuery::Ratings['G'])
-        .order(:ranked)
-    }
-
   def latest?
     ongoing? || anons? || (aired_on && aired_on > 1.year.ago)
   end
