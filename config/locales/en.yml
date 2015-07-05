@@ -223,6 +223,9 @@ en:
         special: Special
         plural:
           tv: TV Series
+          tv_13: Short TV Series
+          tv_24: Average TV Series
+          tv_48: Long TV Series
           movie: Movies
           music: Music
           ona: ONA
