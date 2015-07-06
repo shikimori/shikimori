@@ -16,6 +16,11 @@ describe String do
       let(:string) { 'test.org' }
       it { is_expected.to eq 'http://test.org' }
     end
+
+    context 'no_protocol' do
+      let(:string) { '//youtube.ru/foo' }
+      it { is_expected.to eq 'http://youtube.ru/foo' }
+    end
   end
 
   describe '#without_http' do

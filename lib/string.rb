@@ -121,7 +121,7 @@ class String
   end
 
   def with_http
-    sub %r{\A(?!https?://)}, 'http://'
+    sub %r{\A (?!https?://) (//(?=\w))? }mix, 'http://'
   end
 
   def without_http

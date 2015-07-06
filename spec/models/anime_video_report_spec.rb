@@ -146,6 +146,7 @@ describe AnimeVideoReport do
     describe '#accept' do
       before { other_report }
       before { report.accept! approver }
+
       its(:approver) { should eq approver }
 
       context 'video was working' do
