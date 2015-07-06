@@ -228,6 +228,7 @@ Site::Application.routes.draw do
           get '(/:episode)(/:video_id)(/:all)', action: :index, as: :play,
             episode: /\d+/, video_id: /\d+/, all: /all/
           post :extract_url
+          get :extract_url if Rails.env.development?
         end
       end
     end
