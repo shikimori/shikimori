@@ -122,20 +122,7 @@ class ProfilesController < ShikimoriController
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
     params[:user][:notifications] = params[:user][:notifications].sum {|k,v| v.to_i } + MessagesController::DISABLED_CHECKED_NOTIFICATIONS if params[:user][:notifications].present?
 
-    update_successfull = if params[:user][:password].present? || params[:user][:email].present?
-      if @resource.encrypted_password.present?
-        @resource.update_with_password password_params
-      else
-        @resource.update password_params
-      end
-    else
-      Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
-        params = update_params[:nickname].blank? ? update_params.merge(nickname: @resource.nickname) : update_params
-        @resource.update params
-      end
-    end
-
-    if update_successfull
+    if update_profile
       sign_in @resource, bypass: true if params[:user][:password].present?
 
       if params[:page] == 'account'
@@ -194,5 +181,22 @@ private
 
   def password_params
     params.required(:user).permit(:password, :current_password, :email)
+  end
+
+  def update_profile
+    if params[:user][:password].present? || params[:user][:email].present?
+      if @resource.encrypted_password.present?
+        @resource.update_with_password password_params
+      else
+        @resource.update password_params
+      end
+    else
+      params = update_params[:nickname].blank? ? update_params.merge(nickname: @resource.nickname) : update_params
+      @resource.update params
+    end
+
+  rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
+    @resource.errors.add :nickname, :taken
+    false
   end
 end
