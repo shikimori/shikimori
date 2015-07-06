@@ -33,17 +33,17 @@
           - if @resource.own_profile?
             a.mail.b-tooltipped.unprocessed[
               href="#{profile_dialogs_url @resource}"
-              title="Почта"
+              title="#{i18n_p 'mail'}"
               data-direction="top"
             ]
             a.settings.b-tooltipped.unprocessed[
               href="#{edit_profile_url @resource}"
-              title="Настройки"
+              title="#{i18n_p 'settings'}"
               data-direction="top"
             ]
             a.ban.b-tooltipped.unprocessed[
               href="#{ban_profile_url @resource}"
-              title="Мои баны"
+              title="#{i18n_p 'my_bans'}"
               data-direction="top"
             ]
 
@@ -129,9 +129,9 @@
   .c-mobile-actions
     - if user_signed_in?
       - if @resource.own_profile?
-        a href="#{profile_dialogs_url @resource}" Почта
-        a href="#{edit_profile_url @resource}" Настройки
-        a href="#{ban_profile_url @resource}" Мои баны
+        a href="#{profile_dialogs_url @resource}" = i18n_p 'mail'
+        a href="#{edit_profile_url @resource}" = i18n_p 'settings'
+        a href="#{ban_profile_url @resource}" = i18n_p 'my_bans'
 
       - else
         a href="#{profile_dialog_url current_user, @resource}" Написать

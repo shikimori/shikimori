@@ -30,8 +30,6 @@ ru:
           few: правки контента
           many: правок контента
 
-      out_of:
-        default: из
       record:
         subjective:
           one: запись

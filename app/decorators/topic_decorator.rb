@@ -197,7 +197,7 @@ class TopicDecorator < BaseDecorator
       options[:comment_word] = comment_word
 
       options[:out_of_total_comments] = if folded_comments > fold_limit
-        "#{i18n_i 'out_of'} #{folded_comments}"
+        "#{i18n_p('out_of').downcase} #{folded_comments}"
       end
     end.html_safe
   end

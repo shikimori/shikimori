@@ -1,9 +1,5 @@
 en:
   inflections:
-    out_of:
-      zero: out of
-      one: out of
-      other: out of
     years_old:
       zero: y.o.
       one: y.o.
