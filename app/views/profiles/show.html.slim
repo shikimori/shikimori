@@ -56,37 +56,37 @@
             a.fav-add.friend-action.b-tooltipped.unprocessed[
               href="#{api_friend_url @resource.id}"
               style="#{'display: none;' if @resource.is_friended?}"
+              title="#{t '.add_to_friends'}"
               data-remote="true"
               data-method="post"
               data-type="json"
-              title="#{t '.add_to_friends'}"
               data-direction="top"
             ]
             a.fav-remove.friend-action.b-tooltipped.unprocessed[
               href="#{api_friend_url @resource.id}"
               style="#{'display: none;' unless @resource.is_friended?}"
+              title="#{t '.remove_from_friends'}"
               data-remote="true"
               data-method="delete"
               data-type="json"
-              title="#{t '.remove_from_friends'}"
               data-direction="top"
             ]
             a.ignore-add.ignore-action.b-tooltipped.unprocessed[
               href="#{api_ignore_url @resource.id}"
               style="#{'display: none;' if @resource.ignored?}"
+              title="#{t '.add_to_ignored'}"
               data-remote="true"
               data-method="post"
               data-type="json"
-              title="#{t '.add_to_ignored'}"
               data-direction="top"
             ]
             a.ignore-remove.ignore-action.b-tooltipped.unprocessed[
               href="#{api_ignore_url @resource.id}"
               style="#{'display: none;' unless @resource.ignored?}"
+              title="#{t '.remove_from_ignored'}"
               data-remote="true"
               data-method="delete"
               data-type="json"
-              title="#{t '.remove_from_ignored'}"
               data-direction="top"
             ]
             - if can? :edit, @resource
@@ -135,10 +135,35 @@
 
       - else
         a href="#{profile_dialog_url current_user, @resource}" Написать
-        span.friend-action style="#{'display: none;' if @resource.is_friended?}" data-remote="true" action="#{friend_add_url @resource.id}" data-method="post" data-type="json" Добавить в друзья
-        span.friend-action style="#{'display: none;' unless @resource.is_friended?}" data-remote="true" action="#{friend_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из друзей
-        span.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" Добавить в игнор
-        span.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из игнора
+        span.friend-action[
+          style="#{'display: none;' if @resource.is_friended?}"
+          data-remote="true"
+          data-action="#{friend_add_url @resource.id}"
+          data-method="post"
+          data-type="json"
+        ] = t '.add_to_friends'
+        span.friend-action[
+          style="#{'display: none;' unless @resource.is_friended?}"
+          data-remote="true"
+          data-action="#{friend_remove_url @resource.id}"
+          data-method="delete"
+          data-type="json"
+        ] = t '.remove_from_friends'
+        span.ignore-action[
+          style="#{'display: none;' if @resource.ignored?}"
+          data-remote="true"
+          data-action="#{ignore_add_url @resource.id}"
+          data-method="post"
+          data-type="json"
+        ] = t '.add_to_ignored'
+        span.ignore-action[
+          style="#{'display: none;' unless @resource.ignored?}"
+          data-remote="true"
+          data-action="#{ignore_remove_url @resource.id}"
+          data-method="delete"
+          data-type="json"
+        ] = t '.remove_from_ignored'
+
         - if current_user.moderator?
           a href="#{ban_profile_url @resource}" = i18n_p 'ban_user'
         - else
