@@ -44,7 +44,7 @@
   - if entry.rating.present? && !entry.rating_none?
     = info_line Anime.human_attribute_name(:rating) do
       span.b-tooltipped.unprocessed[
-          title="#{{t("enumerize.anime.rating.hint.#{entry.rating}").gsub ' ', '&nbsp;'}}"
+          title="#{t "enumerize.anime.rating.hint.#{entry.rating}"}"
           data-direction="right"
         ]
         = entry.rating_text

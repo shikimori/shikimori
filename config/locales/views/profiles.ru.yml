@@ -3,6 +3,11 @@ ru:
     show:
       activity: Активность
       about: Обо мне
+      add_to_friends: Добавить в друзья
+      remove_from_friends: Удалить из друзей
+      add_to_ignored: Добавить в игнор
+      remove_from_ignored: Удалить из игнора
+      bans_history: История банов
 
       no:
         stats: Нет статистики

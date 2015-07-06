@@ -33,12 +33,12 @@
           - if @resource.own_profile?
             a.mail.b-tooltipped.unprocessed[
               href="#{profile_dialogs_url @resource}"
-              title="#{i18n_p 'mail'}"
+              title="#{i18n_p 'my_mail'}"
               data-direction="top"
             ]
             a.settings.b-tooltipped.unprocessed[
               href="#{edit_profile_url @resource}"
-              title="#{i18n_p 'settings'}"
+              title="#{i18n_p 'my_profile_settings'}"
               data-direction="top"
             ]
             a.ban.b-tooltipped.unprocessed[
@@ -59,7 +59,7 @@
               data-remote="true"
               data-method="post"
               data-type="json"
-              title="Добавить в друзья"
+              title="#{t '.add_to_friends'}"
               data-direction="top"
             ]
             a.fav-remove.friend-action.b-tooltipped.unprocessed[
@@ -68,7 +68,7 @@
               data-remote="true"
               data-method="delete"
               data-type="json"
-              title="Удалить из друзей"
+              title="#{t '.remove_from_friends'}"
               data-direction="top"
             ]
             a.ignore-add.ignore-action.b-tooltipped.unprocessed[
@@ -77,7 +77,7 @@
               data-remote="true"
               data-method="post"
               data-type="json"
-              title="Добавить в игнор"
+              title="#{t '.add_to_ignored'}"
               data-direction="top"
             ]
             a.ignore-remove.ignore-action.b-tooltipped.unprocessed[
@@ -86,19 +86,19 @@
               data-remote="true"
               data-method="delete"
               data-type="json"
-              title="Удалить из игнора"
+              title="#{t '.remove_from_ignored'}"
               data-direction="top"
             ]
             - if can? :edit, @resource
               a.settings.b-tooltipped.unprocessed[
                 href="#{edit_profile_url @resource}"
-                title="Настройки"
+                title="#{i18n_p 'user_profile_settings'}"
                 data-direction="top"
               ]
             - if current_user.moderator?
               a.ban.b-tooltipped.unprocessed[
                 href="#{ban_profile_url @resource}"
-                title="Забанить"
+                title="#{i18n_p 'ban_user'}"
                 data-direction="top"
               ]
             - else
@@ -129,8 +129,8 @@
   .c-mobile-actions
     - if user_signed_in?
       - if @resource.own_profile?
-        a href="#{profile_dialogs_url @resource}" = i18n_p 'mail'
-        a href="#{edit_profile_url @resource}" = i18n_p 'settings'
+        a href="#{profile_dialogs_url @resource}" = i18n_p 'my_mail'
+        a href="#{edit_profile_url @resource}" = i18n_p 'my_profile_settings'
         a href="#{ban_profile_url @resource}" = i18n_p 'my_bans'
 
       - else
@@ -140,11 +140,11 @@
         span.ignore-action style="#{'display: none;' if @resource.ignored?}" data-remote="true" action="#{ignore_add_url @resource.id}" data-method="post" data-type="json" Добавить в игнор
         span.ignore-action style="#{'display: none;' unless @resource.ignored?}" data-remote="true" action="#{ignore_remove_url @resource.id}" data-method="delete" data-type="json" Удалить из игнора
         - if current_user.moderator?
-          a href="#{ban_profile_url @resource}" Забанить
+          a href="#{ban_profile_url @resource}" = i18n_p 'ban_user'
         - else
-          a href="#{ban_profile_url @resource}" История банов
+          a href="#{ban_profile_url @resource}" = t '.bans_history'
         - if can? :edit, @resource
-          a href="#{edit_profile_url @resource}" Настройки
+          a href="#{edit_profile_url @resource}" = i18n_p 'user_profile_settings'
 
   .c-info
     .c-lists-info
@@ -256,10 +256,10 @@
       .block
         .subheadline.m10
           - if @resource.favourites.any?
-            a href="#{favourites_profile_url @resource}" title="#{i18n_io 'Favourite', :one}"
-              = i18n_io 'Favourite', :one
+            a href="#{favourites_profile_url @resource}" title="#{i18n_p 'favorites'}"
+              = i18n_p 'favorites'
           - else
-            = i18n_io 'Favourite', :one
+            = i18n_p 'favorites'
         .cc-favourites
           - if @resource.favourites.any?
             = render @resource.favourites, cover_by: :image_link

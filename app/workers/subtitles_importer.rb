@@ -14,13 +14,13 @@ class SubtitlesImporter
 
   def import_ongoings
     print "getting subtitles for ongoings...\n"
-    animes = Anime.where(state: :ongoing)
+    animes = Anime.where(status: :ongoing)
     get_fansubs animes
   end
 
   def import_latest
     print "getting parallel subtitles for latests...\n"
-    animes = Anime.where(AniMangaStatus.query_for('latest')).all
+    animes = AnimeStatusQuery.new(Anime.all).by_status(:latest)
     get_fansubs animes
   end
 

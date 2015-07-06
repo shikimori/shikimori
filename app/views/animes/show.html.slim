@@ -23,19 +23,19 @@
           .icon-actions
             - unless current_user.banned?
               a.new_comment.b-tooltipped.unprocessed[
-                title="#{{t '.actions.comment'}}"
+                title="#{t '.actions.comment'}"
                 data-direction="top"
               ]
             - if can? :new, Review.new(user: current_user)
               a.new_review.b-tooltipped.unprocessed[
                 href="#{@resource.new_review_url}"
-                title="#{{t '.actions.review'}}"
+                title="#{t '.actions.review'}"
                 data-direction="top"
               ]
             a.fav-add.b-tooltipped.unprocessed[
               href="#{favourites_url @resource.object.class.name, @resource}"
               style="#{'display: none;' if @resource.favoured?}"
-              title="#{{t '.actions.add_to_favourite'}}"
+              title="#{t '.actions.add_to_favorites'}"
               data-remote="true"
               data-method="post"
               data-type="json"
@@ -45,7 +45,7 @@
             a.fav-remove.b-tooltipped.unprocessed[
               href="#{favourites_url @resource.object.class.name, @resource}"
               style="#{'display: none;' unless @resource.favoured?}"
-              title="#{{t '.actions.remove_from_favourite'}}"
+              title="#{t '.actions.remove_from_favorites'}"
               data-remote="true"
               data-method="delete"
               data-type="json"
@@ -54,7 +54,7 @@
             ]
             a.edit.b-tooltipped.unprocessed[
               href="#{@resource.edit_url}"
-              title="#{{t ".actions.edit_#{@resource.object.class.name.downcase}"}}"
+              title="#{t ".actions.edit_#{@resource.object.class.name.downcase}"}"
               data-direction="top"
             ]
 
@@ -125,7 +125,7 @@
     = render 'resources'
   - else
     .resources-loader.postloaded data-href="#{@resource.resources_url}"
-      .ajax-loading.vk-like title="#{i18n_io 'Loading', :one}..."
+      .ajax-loading.vk-like title="#{i18n_io 'loading'}..."
 
   - if user_signed_in? || @resource.comments_count > 0
     .b-options-floated.mobile-support

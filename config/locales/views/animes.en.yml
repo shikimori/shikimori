@@ -27,11 +27,11 @@ en:
       all_comments: All comments
       actions:
         comment: Comment
-        review: Write&nbsp;review
-        add_to_favourite: Add&nbsp;to&nbsp;Favourite
-        remove_from_favourite: Remove&nbsp;from&nbsp;Favourite
-        edit_anime: Edit&nbsp;Anime
-        edit_manga: Edit&nbsp;Manga
+        review: Write review
+        add_to_favorites: Add to Favorites
+        remove_from_favorites: Remove from Favorites
+        edit_anime: Edit Anime
+        edit_manga: Edit Manga
 
     info:
       next_episode: Next episode

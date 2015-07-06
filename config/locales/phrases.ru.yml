@@ -3,6 +3,11 @@ ru:
     out_of: из
     anime_list: Список аниме
     manga_list: Список манги
-    mail: Почта
-    settings: Настройки
+    my_mail: Почта
+    my_profile_settings: Настройки профиля
+    user_profile_settings: Настройки профиля
     my_bans: Мои баны
+    ban_user: Забанить пользователя
+    favorites: Избравнное
+    feed: Лента
+    loading: Загрузка

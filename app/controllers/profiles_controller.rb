@@ -25,13 +25,13 @@ class ProfilesController < ShikimoriController
   def favourites
     noindex
     redirect_to @resource.url if @resource.favourites.none?
-    page_title i18n_io 'Favourite', :one
+    page_title i18n_p 'favorites'
   end
 
   def feed
     noindex
     redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
-    page_title i18n_io 'Feed', :one
+    page_title i18n_p 'feed'
   end
 
   #def stats

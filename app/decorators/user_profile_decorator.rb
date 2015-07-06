@@ -65,7 +65,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def nicknames_tooltip
-    i18n_t('aka', known: (object.female? ? 'известна' : 'известен')) +
+    i18n_t('aka', known: (object.female? ? 'известна' : 'известен')) + ':&nbsp;' +
       nickname_changes
         .map {|v| "<b style='white-space: nowrap'>#{h.h v.value}</b>" }
         .join("<span color='#555'>,</span> ")
@@ -107,8 +107,8 @@ class UserProfileDecorator < UserDecorator
       info << i18n_t('personal_data_hidden')
     end
 
-    info << ("#{i18n_t 'registered_since'} " +
-      "<span class='b-tooltipped unprocessed' data-direction='right' title='#{localized_registration(false).gsub ' ', '&nbsp;'}'>" +
+    info << ("#{i18n_t 'member_since'} " +
+      "<span class='b-tooltipped unprocessed' data-direction='right' title='#{localized_registration false}'>" +
       "#{localized_registration true}" +
       "</span>").html_safe
 

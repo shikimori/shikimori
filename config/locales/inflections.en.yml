@@ -4,8 +4,6 @@ en:
       zero: y.o.
       one: y.o.
       other: y.o.
-    feed:
-      one: comments
 
     datetime:
       second:

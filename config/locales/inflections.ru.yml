@@ -121,10 +121,6 @@ ru:
       club:
         one: клуб
         few: клубы
-      favourite:
-        one: избранное
-      feed:
-        one: лента
       history:
         one: история
       producer:
@@ -133,8 +129,6 @@ ru:
       publisher:
         one: издатль
         few: издатели
-      loading:
-        one: загрузка
       comment:
         one: комментарий
         few: комментарии

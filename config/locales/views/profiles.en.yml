@@ -3,11 +3,16 @@ en:
     show:
       activity: Activity
       about: About myself
+      add_to_friends: Add to Friends
+      remove_from_friends: Remove from Friends
+      add_to_ignored: Add to Ignored
+      remove_from_ignored: Remove from Ignored
+      bans_history: Bans History
 
       no:
         stats: No stats
         friends: No friends
-        favourite: No favourites
+        favourite: No favorites
         clubs: No clubs
 
     stats_bar:

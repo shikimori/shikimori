@@ -27,11 +27,11 @@ ru:
       all_comments: Все комментарии
       actions:
         comment: Комментировать
-        review: Написать&nbsp;обзор
-        add_to_favourite: Добавить&nbsp;в&nbsp;избранное
-        remove_from_favourite: Удалить&nbsp;из&nbsp;избранного
-        edit_anime: Редактировать&nbsp;аниме
-        edit_manga: Редактировать&nbsp;мангу
+        review: Написать обзор
+        add_to_favorites: Добавить в избранное
+        remove_from_favorites: Удалить из избранного
+        edit_anime: Редактировать аниме
+        edit_manga: Редактировать мангу
 
     info:
       next_episode: Следующий эпизод

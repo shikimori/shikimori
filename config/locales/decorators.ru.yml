@@ -83,11 +83,11 @@ ru:
     female: жен
     no_personal_data: Нет личных данных
     personal_data_hidden: Личные данные скрыты
-    aka: Также %{known} как:&nbsp;
+    aka: Также %{known} как
     compatibility:
       zero: нет совместимости
       low: слабая совместимость
       moderate: средняя совместимость
       high: высокая совместимость
       full: полная совместимость
-    registered_since: на сайте с
+    member_since: на сайте с
