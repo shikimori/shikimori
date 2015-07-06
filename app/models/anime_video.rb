@@ -61,6 +61,10 @@ class AnimeVideo < ActiveRecord::Base
     after_transition [:working, :uploaded] => [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
   end
 
+  def url= value
+    self[:url] = value.present? ? value.with_http : value
+  end
+
   def hosting
     parts = URI.parse(url).host.split('.')
     domain = "#{parts[-2]}.#{parts[-1]}"
@@ -110,6 +114,7 @@ class AnimeVideo < ActiveRecord::Base
   end
 
 private
+
   def check_ban
     self.state = 'banned' if hosting == 'kiwi.kz'
   end

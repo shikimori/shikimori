@@ -249,6 +249,20 @@ describe AnimeVideo do
   end
 
   describe 'instance methods' do
+    describe '#url=' do
+      let(:video) { build :anime_video, url: url }
+
+      context 'normal url' do
+        let(:url) { 'http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
+        it { expect(video.url).to eq url }
+      end
+
+      context 'url w/o http' do
+        let(:url) { 'vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
+        it { expect(video.url).to eq "http://#{url}" }
+      end
+    end
+
     describe '#hosting' do
       subject { build(:anime_video, url: url).hosting }
 
