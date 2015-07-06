@@ -248,6 +248,7 @@ private
     duration = ban_duration
 
     comment.update_column :body, censored_body
+    # TODO localize ban reason later
     Ban.create!(
       user: comment.user,
       comment: comment,

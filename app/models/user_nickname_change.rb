@@ -12,8 +12,11 @@ class UserNicknameChange < ActiveRecord::Base
 private
 
   def should_log?
+    new_user_ru = I18n.t 'omniauth_service.new_user', locale: :ru
+    new_user_en = I18n.t 'omniauth_service.new_user', locale: :en
+
     !!(user && user.persisted? && user.day_registered? &&
-      user.changes['nickname'][0] !~ /^Новый пользователь\d+/
+      user.changes['nickname'][0] !~ /^(#{new_user_ru}|#{new_user_en})\d+/
     )
   end
 
