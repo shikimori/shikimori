@@ -104,6 +104,9 @@ class String
       matched += 1 if RussianRange.cover?(char.ord) || char == ' '
     end
     matched >= size / 2
+
+  rescue ArgumentError
+    false
   end
 
   def permalinked
