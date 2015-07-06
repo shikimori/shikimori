@@ -65,6 +65,7 @@ class AnimeVideo < ActiveRecord::Base
     parts = URI.parse(url).host.split('.')
     domain = "#{parts[-2]}.#{parts[-1]}"
     domain == 'vkontakte.ru' ? 'vk.com' : domain
+  rescue URI::InvalidURIError
   end
 
   def vk?
