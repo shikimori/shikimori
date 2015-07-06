@@ -14,3 +14,4 @@ exceptions:
     - 'ActionController::UnknownFormat'
     - 'ActiveRecord::RecordNotFound'
     - 'Unicorn::ClientShutdown'
+    - 'MismatchedEntries'
