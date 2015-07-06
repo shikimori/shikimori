@@ -250,7 +250,7 @@ $.Autocompleter = function(input, options) {
       return;
     }
 
-    var currentValue = search_escape($input.val());
+    var currentValue = encodeURIComponent($input.val());//search_escape($input.val());
 
     if ( !skipPrevCheck && currentValue == previousValue )
       return;

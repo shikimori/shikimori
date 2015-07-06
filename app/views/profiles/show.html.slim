@@ -153,26 +153,26 @@
 
     - if @resource.stats.social_activity?
       .c-additionals
-        b Активность:
+        b #{t '.activity'}:
         - if @resource.stats.reviews_count > 0
           div: a href="#{reviews_profile_url @resource}"
-            = "#{@resource.stats.reviews_count} #{Russian.p @resource.stats.reviews_count, 'рецензия', 'рецензии', 'рецензий'}"
+            = "#{@resource.stats.reviews_count} #{i18n_i 'review', @resource.stats.reviews_count}"
 
         - if @resource.stats.comments_reviews_count > 0
           div: a href="#{comments_reviews_profile_url @resource}"
-            = "#{@resource.stats.comments_reviews_count} #{Russian.p @resource.stats.comments_reviews_count, 'отзыв', 'отзыва', 'отзывов'}"
+            = "#{@resource.stats.comments_reviews_count} #{i18n_i 'summary', @resource.stats.comments_reviews_count}"
 
         - if @resource.stats.content_changes_count > 0
           div: a href="#{changes_profile_url @resource}"
-            = "#{@resource.stats.content_changes_count} #{Russian.p @resource.stats.content_changes_count, 'правка', 'правки', 'правок'} контента"
+            = "#{@resource.stats.content_changes_count} #{i18n_i 'content_change', @resource.stats.content_changes_count}"
 
-        - if @resource.stats.videos_changes_count > 0
+        - if I18n.russian? && @resource.stats.videos_changes_count > 0
           div: a href="#{videos_profile_url @resource}"
             = "#{@resource.stats.videos_changes_count} #{Russian.p @resource.stats.videos_changes_count, 'правка', 'правки', 'правок'} видео"
 
         - if @resource.stats.comments_count > 0
           div: a href="#{comments_profile_url @resource}"
-            = "#{@resource.stats.comments_count} #{Russian.p @resource.stats.comments_count, 'комментарий', 'комментария', 'комментариев'}"
+            = "#{@resource.stats.comments_count} #{i18n_i 'comment', @resource.stats.comments_count}"
 
 .profile-content
   .cc-2.block

@@ -1,6 +1,7 @@
 ru:
   profiles:
     show:
+      activity: Активность
       about: Обо мне
 
       no:

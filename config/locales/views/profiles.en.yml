@@ -1,7 +1,8 @@
 en:
   profiles:
     show:
-      about: About
+      activity: Activity
+      about: About myself
 
       no:
         stats: No stats

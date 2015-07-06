@@ -24,6 +24,12 @@ ru:
           one: рецензия
           few: рецензии
           many: рецензиий
+      content_change:
+        subjective:
+          one: правка контента
+          few: правки контента
+          many: правок контента
+
       out_of:
         default: из
       record:
