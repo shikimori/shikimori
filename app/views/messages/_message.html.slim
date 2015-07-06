@@ -62,7 +62,7 @@
         - if message.generated_news?
           .b-anime_status_tag class="#{message.linked.action}" = message.linked.action_text
 
-        a href="#{message.url}"
+        a href="#{message.url}" title="#{message.title}"
           = message.title
 
         - if message.persisted?

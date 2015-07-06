@@ -13,13 +13,13 @@ class AnimeHistoryService
 
     users = User
       .includes(anime_rates: [:anime])
-      .references(:user_rates)#.where(id: 1)
+      .references(:user_rates).where(id: 1)
       .where('user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))',
               Anime.name, entries.map(&:linked_id))
       .to_a
 
     users += User
-      .where.not(id: users.map(&:id))#.where(id: 1)
+      .where.not(id: users.map(&:id)).where(id: 1)
       .each {|v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 

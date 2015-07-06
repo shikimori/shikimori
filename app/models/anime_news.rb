@@ -1,9 +1,17 @@
 class AnimeNews < DbEntryThread
-  enumerize :action, in: [:anons, :ongoing, :released, :episode]
+  enumerize :action, in: [:anons, :ongoing, :released, :episode], predicates: true
 
   attr_defaults section_id: -> { SectionIDs[Anime.name] }
   attr_defaults title: -> { generate_title linked }
   attr_defaults text: -> { 'text' }
+
+  def action_text
+    if episode?
+      "#{super} #{value}"
+    else
+      super
+    end
+  end
 
   # получение названия для новости
   def generate_title(anime)
