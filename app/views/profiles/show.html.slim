@@ -278,8 +278,8 @@
   - if @resource.show_comments?
     .block
       .subheadline.m3
-        a href="#{feed_profile_url @resource}" title="#{i18n_io 'Feed', :one}"
-          = i18n_io 'Feed', :one
+        a href="#{feed_profile_url @resource}" title="#{i18n_p 'feed'}"
+          = i18n_p 'feed'
       div
         .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
           = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }
