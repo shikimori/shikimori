@@ -311,8 +311,8 @@ private
   end
 
   def field_search_query field
-    term = @search
-    pterm = @search.gsub(' ', '% ')
+    term = @search.gsub(/\\(['"])/, '\1')
+    pterm = term.gsub(' ', '% ')
     queries = []
 
     table_field = transalted_field "#{table_name}.#{field}"
