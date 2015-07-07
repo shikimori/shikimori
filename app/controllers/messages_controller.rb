@@ -290,7 +290,7 @@ class MessagesController < ProfilesController
     #if message.save
       ## отправка увекдомления получателю
       #if message.kind == MessageType::Private && !message.to.email.blank? && (message.to.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0)
-        #Sendgrid.delay_for(10.minutes).private_message_email(message)
+        #ShikiMailer.delay_for(10.minutes).private_message_email(message)
       #end
 
       #render json: {
@@ -331,12 +331,12 @@ class MessagesController < ProfilesController
   #end
 
   # ключ к rss ленте уведомлений
-  def self.rss_key(user)
+  def self.rss_key user
     Digest::SHA1.hexdigest("notifications_feed_for_user_##{user.id}!")
   end
 
   # ключ к отписке от сообщений
-  def self.unsubscribe_key(user, kind)
+  def self.unsubscribe_key user, kind
     Digest::SHA1.hexdigest("unsubscribe_#{kind}_messages_for_user_##{user.id}!")
   end
 
@@ -365,8 +365,8 @@ class MessagesController < ProfilesController
     #}
   #end
 
-
 private
+
   def faye
     FayeService.new current_user || User.find(User::GuestID), faye_token
   end

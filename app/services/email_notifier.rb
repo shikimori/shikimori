@@ -7,7 +7,7 @@ class EmailNotifier
   def private_message message
     return if notifications_disabled?(message.to)
 
-    Sendgrid
+    ShikiMailer
       .delay_for(delay_interval(message.to))
       .private_message_email(message)
   end

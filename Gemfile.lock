@@ -415,12 +415,6 @@ GEM
     pg (0.18.2)
     pghero (1.1.0)
       activerecord
-    postmark (1.5.0)
-      json
-      rake
-    postmark-rails (0.10.0)
-      actionmailer (>= 3.0.0)
-      postmark (~> 1.5.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -714,7 +708,6 @@ DEPENDENCIES
   paperclip
   pg
   pghero
-  postmark-rails
   pry-byebug
   pry-rails
   pry-stack_explorer

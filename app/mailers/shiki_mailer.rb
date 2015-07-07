@@ -1,8 +1,8 @@
-class Sendgrid < ActionMailer::Base
+class ShikiMailer < ActionMailer::Base
   include Routing
-  default from: "mail@#{Site::DOMAIN}"
+  default from: "noreply@#{Site::DOMAIN}"
 
-  def test email = 'takandar@gmail.com'
+  def test_mail email = 'takandar@gmail.com'
     return if generated?(email)
 
     mail(to: email, subject: 'Test', body: 'test body')
@@ -34,11 +34,11 @@ class Sendgrid < ActionMailer::Base
     end
   end
 
-  def mail options, *args
-    super
-  rescue Postmark::InvalidMessageError => e
-    User.find_by_email(options[:to]).notify_bounced_email
-  end
+  #def mail options, *args
+    #super
+  #rescue Postmark::InvalidMessageError => e
+    #User.find_by_email(options[:to]).notify_bounced_email
+  #end
 
 private
   def generated? email

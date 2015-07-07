@@ -213,6 +213,6 @@ Message.wo_antispam do
 
 Прошу прощения за доставленные неудобства :bow:"
     )
-    Sendgrid.delay.private_message_email(message)
+    ShikiMailer.delay.private_message_email(message)
   end
 end

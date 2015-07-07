@@ -242,7 +242,7 @@ Message.wo_antispam do
   [url=http://img43.imageshack.us/img43/9965/88820130613005332.png][img]http://img43.imageshack.us/img43/9965/88820130613005332.th.png[/img][/url]
   Прошу прощения за доставленные неудобства :bow:"
     })
-    #Sendgrid.delay.private_message_email(message)
+    #ShikiMailer.delay.private_message_email(message)
   end
 end
 

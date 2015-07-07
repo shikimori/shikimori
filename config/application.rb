@@ -64,27 +64,33 @@ module Site
     config.assets.precompile += [ Proc.new { |path| !%w(.js .css).include?(File.extname(path)) }, /.*.(css|js)$/ ]
 
     config.action_mailer.default_url_options = { host: Site::DOMAIN }
-    config.action_mailer.delivery_method = :postmark
-    config.action_mailer.postmark_settings = { api_key: Rails.application.secrets.postmark[:api_key] }
-
+    config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      address: "smtp.gmail.com",
+      address: 'smtp.mandrillapp.com',
       port: 587,
-      domain: Site::DOMAIN,
-      user_name: Rails.application.secrets.smtp[:login],
-      password: Rails.application.secrets.smtp[:password],
-      authentication: 'plain',
-      enable_starttls_auto: true
+      user_name: Rails.application.secrets.mandrill[:user_name],
+      password: Rails.application.secrets.mandrill[:api_key],
+      domain: Site::DOMAIN
     }
 
-    config.generators do |g|
-      g.fixture_replacement :factory_girl, dir: 'spec/factories'
-      g.template_engine :slim
-      g.stylesheets false
-      g.helperfalse
-      g.helper_specs false
-      g.view_specs false
-      g.test_framework :rspec
+    #config.action_mailer.smtp_settings = {
+      #address: "smtp.gmail.com",
+      #port: 587,
+      #domain: Site::DOMAIN,
+      #user_name: Rails.application.secrets.smtp[:login],
+      #password: Rails.application.secrets.smtp[:password],
+      #authentication: 'plain',
+      #enable_starttls_auto: true
+    #}
+
+    config.generators do |generator|
+      generator.fixture_replacement :factory_girl, dir: 'spec/factories'
+      generator.template_engine :slim
+      generator.stylesheets false
+      generator.helperfalse
+      generator.helper_specs false
+      generator.view_specs false
+      generator.test_framework :rspec
     end
   end
 end
