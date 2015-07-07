@@ -341,7 +341,7 @@ class MessagesController < ProfilesController
   end
 
   def bounce
-    emails = params[:mandrill_events].map { |event| event['msg']['email'] }
+    emails = JSON.parse(params[:mandrill_events]).map { |event| event['msg']['email'] }
     NamedLogger.bounce.info emails
     User.where(email: emails).each(&:notify_bounced_email)
     head 200
