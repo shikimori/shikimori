@@ -36,14 +36,16 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     data = parser.fetch_entry_data(anime_id)
 
     expect(data[:name]).to eq 'Cowboy Bebop'
-    expect(data).to include(:description_mal)
+    expect(data[:kind]).to eq 'tv'
+    expect(data[:status]).to eq 'released'
+    expect(data[:description_mal]).to be_present
     expect(data[:related]).not_to be_empty
     expect(data).to include(:english)
     expect(data).to include(:synonyms)
     expect(data[:japanese]).to eq ['カウボーイビバップ']
     expect(data).to include(:kind)
 
-    expect(data).to include(:episodes)
+    expect(data[:episodes]).to eq 26
 
     expect(data).to include(:released_on)
     expect(data).to include(:aired_on)
@@ -62,11 +64,16 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
   end
 
+  it 'fetches anime data #2' do
+    data = parser.fetch_entry_data(21039)
+    expect(data[:description_mal]).to eq 'Continuation of <em>Gatchaman Crowds</em> series.'
+  end
+
   it 'fetches anime related' do
     data = parser.fetch_entry_data(22043)
 
     expect(data[:name]).to eq 'Fairy Tail (2014)'
-    expect(data[:related]).to have(2).items
+    expect(data[:related]).to have(3).items
   end
 
   it 'fetches anime characters' do
