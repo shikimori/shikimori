@@ -101,21 +101,21 @@ aside.buttons
   .preview
 
 footer
-  a.about-bb_codes href="#{bb_codes_pages_url}" target="_blank" справка по бб-кодам
+  a.about-bb_codes href="#{bb_codes_pages_url}" target="_blank" = t '.bb_codes_guide'
 
   - if defined?(f)
     - if comment.persisted?
       = f.button :magic_submit
-      .button.preview data-preview_url="#{preview_url}" Предпросмотр
-      .unpreview.link Вернуться к редактированию
+      .button.preview data-preview_url="#{preview_url}" = t '.preview'
+      .unpreview.link = t '.back_to_editing'
       .cancel Отмена
 
     - else
       = f.button :magic_submit
-      .unpreview.link Вернуться к редактированию
-      .button.preview data-preview_url="#{preview_url}" Предпросмотр
+      .unpreview.link = t '.back_to_editing'
+      .button.preview data-preview_url="#{preview_url}" = t '.preview'
       .hide Скрыть
 
   - else
-    .button.preview data-preview_url="#{preview_url}" Предпросмотр
-    .button.unpreview Вернуться к редактированию
+    .button.preview data-preview_url="#{preview_url}" = t '.preview'
+    .button.unpreview = t '.back_to_editing'

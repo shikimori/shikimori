@@ -39,8 +39,8 @@ private
     filtered_videos = videos.select {|episode| last_episodes ? episode[:episode] > last_episode - 3 : true }
 
     fetch_videos(filtered_videos, anime, imported_videos).each do |video|
-      binding.pry if !video.valid? && Rails.env.development?
-      video.save! if video_uniq_url?(video) && videos_not_enough?(video)
+      #binding.pry if !video.valid? && Rails.env.development?
+      video.save! if video.valid? && video_uniq_url?(video) && videos_not_enough?(video)
     end
   end
 

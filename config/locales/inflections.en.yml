@@ -1,9 +1,9 @@
 en:
   inflections:
     years_old:
-      zero: y.o.
-      one: y.o.
-      other: y.o.
+      zero: yo
+      one: yo
+      other: yo
 
     datetime:
       second:

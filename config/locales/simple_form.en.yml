@@ -47,7 +47,7 @@ en:
         disable_with: Sending&#133;
 
       comment: &comment
-        submit: Comment
+        submit: Send
         disable_with: Posting&#133;
 
       message:

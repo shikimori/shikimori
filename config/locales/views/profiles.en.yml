@@ -3,6 +3,7 @@ en:
     show:
       activity: Activity
       about: About myself
+      send_message: Send Message
       add_to_friends: Add to Friends
       remove_from_friends: Remove from Friends
       add_to_ignored: Add to Ignored

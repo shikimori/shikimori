@@ -3,7 +3,7 @@ html
   head
     = render 'application/head'
   body[
-      class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{user_signed_in? ? current_user.preferences.body_width : 'x1200'}"
+      class="p-#{controller_name} #{"p-#{base_controller_name}" if base_controller_name} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{user_signed_in? ? current_user.preferences.body_width : 'x1200'} #{I18n.locale}"
       id="#{controller_name}_#{action_name}"
       style="#{body_background unless @blank_layout}"
       data-env="#{Rails.env}"
@@ -12,6 +12,7 @@ html
       data-ignore-copyright="#{ignore_copyright?}"
       data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
       data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
+      data-locale="#{I18n.locale}"
     ]
     .turbolinks
 

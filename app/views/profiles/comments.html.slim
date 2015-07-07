@@ -16,4 +16,4 @@
       - if @add_postloader
         = render 'blocks/postloader', filter: 'b-comment', url: comments_profile_url(page: @page+1, search: params[:search])
     - else
-      p.b-nothing_here Нет комментариев
+      p.b-nothing_here = i18n_p 'no_comments'

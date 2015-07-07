@@ -10,7 +10,6 @@ ru:
       anime: Аниме
       manga: Манга
 
-    # названия полей моделей
     attributes:
       anime: &anime_attributes
         kind: Тип
@@ -153,7 +152,6 @@ ru:
         kind: Причина
         message: Сообщение модератору
 
-    # сообщения валидаций
     errors:
       messages:
         taken: уже используется
@@ -176,7 +174,7 @@ ru:
         videos:
           attributes:
             url:
-              incorrect: некорректен, должна быть работающая ссылка на youtube или vkontakte
+              incorrect: некорректен, должна быть работающая ссылка на youtube или vk.com
               taken: видео с такой ссылкой уже добавлено
             hosting:
               incorrect: видео с данного хостинга не поддерживается

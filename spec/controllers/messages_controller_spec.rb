@@ -9,7 +9,7 @@ describe MessagesController do
   describe '#bounce' do
     let(:user) { create :user }
     before { sign_out user }
-    before { post :bounce, Email: user.email }
+    before { post :bounce, mandrill_events: [{msg: {email: user.email}}].to_json }
 
     it do
       expect(response).to have_http_status :success
