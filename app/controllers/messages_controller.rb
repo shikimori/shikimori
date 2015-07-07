@@ -341,8 +341,9 @@ class MessagesController < ProfilesController
   end
 
   def bounce
-    NamedLogger.bounce.info params.to_yaml
-    #User.where(email: params[:Email]).each(&:notify_bounced_email)
+    emails = params[:mandrill_events].map { |event| event['msg']['email'] }
+    NamedLogger.bounce.info emails
+    User.where(email: emails).each(&:notify_bounced_email)
     head 200
   end
 
