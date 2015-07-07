@@ -21,7 +21,7 @@ class DanbooruController < ShikimoriController
 
     render json: json
 
-  rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ECONNREFUSED
+  rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, OpenURI::HTTPError
     @retries ||= 2
     @retries -= 1
 
