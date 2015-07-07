@@ -35,7 +35,7 @@ module Clockwork
   end
 
   every 1.day, 'daily.stuff', at: '00:02' do
-    AnimeCalendarsImporter.perform_async
+    ImportAnimeCalendars.perform_async
     ContestsWorker.perform_async
     SakuhindbImporter.perform_async with_fail: false
     ReadMangaLinksWorker.perform_async
