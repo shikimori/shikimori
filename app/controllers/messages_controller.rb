@@ -341,7 +341,8 @@ class MessagesController < ProfilesController
   end
 
   def bounce
-    User.where(email: params[:Email]).each(&:notify_bounced_email)
+    NamedLogger.bounce.info params.to_yaml
+    #User.where(email: params[:Email]).each(&:notify_bounced_email)
     head 200
   end
 
