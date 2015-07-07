@@ -1,5 +1,6 @@
 class ProfileStats
   prepend ActiveCacher.instance
+  include Translation
 
   instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time, :spent_time
   instance_cache :comments_count, :comments_reviews_count, :reviews_count, :user_changes_count, :uploaded_videos_count
@@ -96,16 +97,15 @@ class ProfileStats
   end
 
   def spent_time_label
-    gender_label = 'Время'#@user.male? ? 'Провёл' : 'Провела'
-    kind_label = if anime? && manga?
-      'аниме и мангой'
+    i18n_key = if anime? && manga?
+      'anime_manga'
     elsif manga?
-      'мангой'
+      'manga'
     else
-      'аниме'
+      'anime'
     end
 
-    "#{gender_label} за #{kind_label}"
+    i18n_t "time_spent.#{i18n_key}"
   end
 
   def time_since_signup
