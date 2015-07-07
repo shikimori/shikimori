@@ -44,6 +44,7 @@ describe Banhammer do
 
     it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to be_falsy }
     it { expect(banhammer.abusive? '[img]http://shikimori.org/cosplay_galleries/publishing/хуй/test.png[/img]').to be_falsy }
+    it { expect(banhammer.abusive? '[poster]http://shikimori.org/cosplay_galleries/publishing/хуй/test.png[/poster]').to be_falsy }
     it { expect(banhammer.abusive? '###[/quote]').to be_falsy }
 
     it { expect(banhammer.abusive? 'хуй').to be_truthy }

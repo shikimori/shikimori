@@ -283,6 +283,7 @@ private
       text
         .gsub(BbCodes::UrlTag::REGEXP, '')
         .gsub(BbCodes::ImgTag::REGEXP, '')
+        .gsub(BbCodes::PosterTag::REGEXP, '')
         .scan(ABUSE)
         .select do |group|
           group.select(&:present?).select do |match|
