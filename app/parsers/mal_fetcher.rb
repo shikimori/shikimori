@@ -227,6 +227,25 @@ private
     end
   end
 
+  def parse_score(content)
+    line = parse_line('Score', content, false).gsub(/\<(.+?)\>.+<\/\1>/, '').strip
+    if line =~ /^n\/a/i
+      0
+    else
+      score = line.match(/([\d.]+)/) ? $1.to_f : 0
+      score >= 10 ? 9.99 : score
+    end
+  end
+
+  def parse_ranked(content)
+    line = parse_line('Ranked', content, false).gsub(/\<(.+?)\>.+<\/\1>/, '').strip
+    if line =~ /^n\/a/i
+      0
+    else
+      line.match(/([\d.]+)/) ? $1.to_f : 0
+    end
+  end
+
   def parse_date(date)
     begin
       if date.match(/^\w+\s+\d+,$/)

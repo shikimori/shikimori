@@ -73,9 +73,9 @@ class AnimeMalParser < BaseMalParser
     entry[:duration] = (entry[:duration].match(/(\d+) hr./) ? $1.to_i*60 : 0) +
                         (entry[:duration].match(/(\d+) min./) ? $1.to_i : 0)
     entry[:rating] = RATINGS[parse_line("Rating", content, false)]
-    entry[:score] = parse_line("Score", content, false).match(/([\d.]+)/) ? $1.to_f : 0
-    entry[:score] = 9.99 if entry[:score] >= 10
-    entry[:ranked] = parse_line("Ranked", content, false).match(/(\d+)/) ? $1.gsub(",", "").to_i : 0
+
+    entry[:score] = parse_score(content)
+    entry[:ranked] = parse_ranked(content)
     entry[:popularity] = parse_line("Popularity", content, false).match(/(\d+)/) ? $1.to_i : 0
     entry[:members] = parse_line("Members", content, false).gsub(",", "").to_i
     entry[:favorites] = parse_line("Favorites", content, false).gsub(",", "").to_i

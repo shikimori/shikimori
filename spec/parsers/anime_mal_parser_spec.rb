@@ -55,8 +55,8 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data).to include(:duration)
 
     expect(data[:rating]).to eq 'r'
-    expect(data).to include(:score)
-    expect(data).to include(:ranked)
+    expect(data[:score]).to eq 8.83
+    expect(data[:ranked]).to eq 20
     expect(data).to include(:popularity)
     expect(data).to include(:members)
     expect(data).to include(:favorites)
@@ -64,9 +64,15 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
   end
 
-  it 'fetches anime data #2' do
+  it 'correct synopsis' do
     data = parser.fetch_entry_data(21039)
     expect(data[:description_mal]).to eq 'Continuation of <em>Gatchaman Crowds</em> series.'
+  end
+
+  it 'correct score & ranked' do
+    data = parser.fetch_entry_data(31143)
+    expect(data[:ranked]).to eq 0
+    expect(data[:score]).to eq 0
   end
 
   it 'fetches anime related' do
