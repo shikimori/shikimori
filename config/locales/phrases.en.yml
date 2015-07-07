@@ -1,6 +1,9 @@
 en:
   phrases:
+    out_of: out of
     my_bans: My Bans
+    anime_list: Anime List
+    manga_list: Manga List
     my_profile_settings: My Profile Settings
     user_profile_settings: User Profile Settings
     my_mail: My Messages & Notifications
