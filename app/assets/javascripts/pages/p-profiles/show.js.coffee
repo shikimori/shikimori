@@ -59,7 +59,7 @@
           options.index_label = index + 3
 
         else if options.prior.dates.from.getMonth() != from.getMonth()
-          label = moment(from).format('MMM')
+          label = moment(from).format('MMM').capitalize()
           options.index_label = index + 3
 
         else if options.range <= 120 and entry.value > 0
