@@ -1,8 +1,8 @@
-// https://raw.githubusercontent.com/moment/moment/develop/locale/ru.js
 //! moment.js locale configuration
 //! locale : russian (ru)
 //! author : Viktorminator : https://github.com/Viktorminator
 //! Author : Menelion Elensúle : https://github.com/Oire
+// https://raw.githubusercontent.com/moment/moment/develop/locale/ru.js
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
