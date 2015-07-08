@@ -211,7 +211,7 @@
             ] = @resource.stats.spent_time_in_words
             .label = @resource.stats.spent_time_label
           - else
-            | Нет просмотров аниме
+            = t '.no_spent_time'
 
         .bar
           .cuts
@@ -233,7 +233,7 @@
           .time class="#{:checked if @resource.stats.spent_time.years >= 1}" #{i18n_i 'datetime.year'}
 
       .activity
-        .title Активность на сайте
+        .title = t '.activity_graph'
         - if @resource.stats.activity(26).any?
           .graph.x26[
             data-stats="#{@resource.stats.activity(26).to_json}"

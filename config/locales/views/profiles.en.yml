@@ -2,13 +2,15 @@ en:
   profiles:
     show:
       activity: Activity
-      about: About myself
+      about: About me
       send_message: Send Message
       add_to_friends: Add to Friends
       remove_from_friends: Remove from Friends
       add_to_ignored: Add to Ignored
       remove_from_ignored: Remove from Ignored
       bans_history: Bans History
+      no_spent_time: No spent time
+      activity_graph: Activity Graph
 
       no:
         stats: No stats
