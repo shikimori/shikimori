@@ -2,7 +2,6 @@
 #= require core/jquery-migrate-1.2.1
 #= require_tree ./core
 
-#= require moment
 #= require d3
 #= require eventie
 #= require eventEmitter
