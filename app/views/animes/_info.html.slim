@@ -38,7 +38,7 @@
         = entry.release_date_text
 
   - if entry.genres.any?
-    = info_line i18n_io('Genre', entry.genres.size > 1 ? :few : :one) do
+    = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
       = render 'animes/genres_info', entry: entry
 
   - if entry.rating.present? && !entry.rating_none?

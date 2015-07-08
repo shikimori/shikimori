@@ -12,11 +12,10 @@ ru:
       no_spent_time: Нет просмотров аниме
       activity_graph: Активность на сайте
 
-      no:
-        stats: Нет статистики
-        friends: Нет друзей
-        favourite: Список избранного пуст
-        clubs: Не состоит ни в одном из клубов
+      no_stats: Нет статистики
+      no_friends: Нет друзей
+      no_favourite: Список избранного пуст
+      no_clubs: Не состоит ни в одном из клубов
 
     stats_bar:
       similar_users: похожие пользователи

@@ -29,10 +29,13 @@ $ =>
   @USER_SIGNED_IN = $body.data 'user-signed-in'
   @DAY_REGISTERED = $body.data 'day-registered'
   @IGNORE_COPYRIGHT = $body.data 'ignore-copyright'
+  @LOCALE = $body.data 'locale'
 
   @OPTIONS =
     comments_auto_collapsed: $body.data('comments-auto-collapsed')
     comments_auto_loaded: $body.data('comments-auto-loaded')
+
+  moment.locale(LOCALE)
 
   $(document).trigger 'page:load', true
 

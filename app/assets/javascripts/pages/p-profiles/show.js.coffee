@@ -41,7 +41,7 @@
       days = date_diff entry.dates.from, entry.dates.to
 
       "#{entry.value} #{p entry.value, 'час', 'часа', 'часов'} с " +
-        "#{get_russian entry.dates.from} по #{get_russian entry.dates.to} " +
+        "#{moment(entry.dates.from).format('DD MMMM')} по #{moment(entry.dates.to).format('DD MMMM')} " +
         if days == Math.round(days) then "(#{days} #{p days, 'день', 'дня', 'дней'})" else "(#{days} дня)"
 
     x_axis: (entry, index, stats, options) ->
@@ -59,7 +59,7 @@
           options.index_label = index + 3
 
         else if options.prior.dates.from.getMonth() != from.getMonth()
-          label = get_month(from, options.interval < 8 && index != stats.length - 1)
+          label = moment(from).format('MMM')
           options.index_label = index + 3
 
         else if options.range <= 120 and entry.value > 0
@@ -70,22 +70,8 @@
       label || ""
 
     no_data: ($chart) ->
-      $chart.html("<p class=\"stat-sorry\">Недостаточно данных для формирования статистики</p>").removeClass("bar").attr "id", false
+      $chart.html("<p class=\"stat-sorry\">#{$chart.data 'no_stat_text'}</p>").removeClass("bar").attr "id", false
 
 date_diff = (date_earlier, date_later) ->
   one_day = 1000 * 60 * 60 * 24
   Math.round((date_later.getTime() - date_earlier.getTime()) / one_day * 10) / 10
-
-get_month = (date, full_month_name, rod) ->
-  data = if full_month_name
-    if rod
-      [ 'Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ]
-    else
-      [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ]
-  else
-    [ 'Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Нбр', 'Дек' ]
-
-  data[date.getMonth()]
-
-get_russian = (date) ->
-  date.getDate() + " " + get_month(date, true, true)

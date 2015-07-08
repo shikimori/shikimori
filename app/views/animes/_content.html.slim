@@ -22,7 +22,7 @@
           = anime.decorate.description_html_truncated
 
       - if anime.kind.present?
-        = info_line "Тип" do
+        = info_line Anime.human_attribute_name(:kind) do
           - if anime.kind.present?
             .tag.linkeable data-href="#{anime.catalog_url type: anime.kind}"
               = anime.kind_text
@@ -34,27 +34,39 @@
               = anime.rating_text
 
       - if anime.respond_to?(:studios) && anime.real_studios.any?
-        = info_line "Студи#{anime.real_studios.size > 1 ? 'и' : 'я'}" do
+        = info_line i18n_io('Studio', anime.real_studios.one? ? :one : :few) do
           - anime.real_studios.each do |studio|
             .tag.linkeable data-href="#{anime.catalog_url studio: studio.to_param}"
               = studio.name
 
       - if anime.respond_to?(:publishers) && anime.real_publishers.any?
-        = info_line "Издател#{anime.real_publishers.size > 1 ? 'и' : 'ь'}" do
+        = info_line i18n_io('Publisher', anime.real_publishers.one? ? :one : :few) do
           - anime.real_publishers.each do |publisher|
             .tag.linkeable data-href="#{anime.catalog_url publisher: publisher.to_param}"
               = publisher.name
 
       - if anime.respond_to?(:episodes) && (anime.episodes > 0 || anime.episodes_aired > 0)
-        = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }, formats: :html
+        = render partial: 'animes/aired_chapters', formats: :html,
+          locals: { entry: anime,
+            field_label: Anime.human_attribute_name(:episodes),
+            counter: :episodes,
+            counter_aired: :episodes_aired }
 
       - if anime.respond_to?(:volumes) && anime.volumes > 0
-        = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Тома', counter: :volumes, counter_aired: :volumes_aired }, formats: :html
+        = render partial: 'animes/aired_chapters', formats: :html,
+          locals: { entry: anime,
+            field_label: Manga.human_attribute_name(:volumes),
+            counter: :volumes,
+            counter_aired: :volumes_aired }
 
       - if anime.respond_to?(:chapters) && anime.chapters > 0
-        = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Главы', counter: :chapters, counter_aired: :chapters_aired }, formats: :html
+        = render partial: 'animes/aired_chapters', formats: :html,
+          locals: { entry: anime,
+            field_label: Manga.human_attribute_name(:chapters),
+            counter: :chapters,
+            counter_aired: :chapters_aired }
 
-      = info_line 'Жанры' do
+      = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
         - anime.main_genres.each do |genre|
           .linkeable.tag temprop="genre" class="#{:bubbled if genre.description}" data-predelay="250" data-tooltip_url="#{tooltip_genre_url genre, subdomain: false}" data-href="#{anime.catalog_url genre: genre.to_param}"
             = localized_name genre
@@ -67,7 +79,7 @@
             meta itemprop="ratingCount" content="#{anime.rates_size}"
 
           span = '%.2f' % anime.score
-          span.text рейтинг
+          span.text = Anime.human_attribute_name(:score).downcase
       - else
         .data
 

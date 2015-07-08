@@ -12,11 +12,10 @@ en:
       no_spent_time: No spent time
       activity_graph: Activity Graph
 
-      no:
-        stats: No stats
-        friends: No friends
-        favourite: No favorites
-        clubs: No clubs
+      no_stats: No stats
+      no_friends: No friends
+      no_favourite: No favorites
+      no_clubs: No clubs
 
     stats_bar:
       similar_users: similar users

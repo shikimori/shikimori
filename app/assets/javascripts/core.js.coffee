@@ -16,6 +16,7 @@
 #= require get-size
 #= require outlayer
 #= require packery
+#= require moment
 
 #= require_tree ./vendor
 #= require ./lib/shiki_view
