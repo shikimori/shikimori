@@ -22,7 +22,7 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_html
-    if description.present? && I18n.russian?
+    if description.present?# && I18n.russian?
       Rails.cache.fetch [:description, h.russian_names_key, object] do
         BbCodeFormatter.instance.format_description description, object
       end
@@ -106,6 +106,7 @@ class DbEntryDecorator < BaseDecorator
   end
 
 private
+
   def headline_array
     if I18n.russian?
       if !h.user_signed_in? || (h.user_signed_in? && !h.current_user.preferences.russian_names?)
