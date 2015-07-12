@@ -3,10 +3,9 @@ module Translation
   # перевод фраз из декораторов, сервисов и т.д.
   def i18n_t key, options = {}
     yield options if block_given?
-    # raises exception if no translation found
     I18n.t! "#{self.class.name.underscore}.#{key}", options
+
   rescue I18n::MissingTranslationData
-    # fallback to default helper if fuzzy search fails
     I18n.t key, options
   end
 
@@ -15,7 +14,6 @@ module Translation
     if I18n.russian?
       I18n.t "inflections.cardinal.#{key}.#{ru_case}", count: count,
         default: "inflections.cardinal.#{key}.default".to_sym
-
     else
       I18n.t "inflections.#{key}", count: count, default: key.gsub('_', ' ').pluralize(count)
     end

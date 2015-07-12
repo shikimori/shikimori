@@ -138,3 +138,13 @@ ru:
       genre:
         one: жанр
         few: жанры
+
+  i18n:
+    inflections:
+      gender:
+        m: male
+        f: female
+        n: neuter
+        male: :@m
+        female: :@f
+        default: m
