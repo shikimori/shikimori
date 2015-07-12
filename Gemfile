@@ -91,6 +91,7 @@ gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
 gem 'rails-i18n'
+gem 'i18n-inflector-rails'
 
 group :beta, :production do
   gem 'honeybadger'
