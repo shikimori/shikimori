@@ -8,7 +8,7 @@ ru:
       remove_from_friends: Удалить из друзей
       add_to_ignored: Добавить в игнор
       remove_from_ignored: Удалить из игнора
-      bans_history: История банов
+      ban_history: История банов
       no_spent_time: Нет просмотров аниме
       activity_graph: Активность на сайте
 
@@ -16,6 +16,10 @@ ru:
       no_friends: Нет друзей
       no_favourite: Список избранного пуст
       no_clubs: Не состоит ни в одном из клубов
+
+      back_to_page: Назад на страницу
+      banned: '@{f:забанена|m:забанен}'
+      no_stat_text: Недостаточно данных для формирования статистики
 
     stats_bar:
       similar_users: похожие пользователи

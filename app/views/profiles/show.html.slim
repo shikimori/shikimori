@@ -104,14 +104,14 @@
             - else
               a.ban.b-tooltipped.unprocessed[
                 href="#{ban_profile_url @resource}"
-                title="История банов"
+                title="#{t '.ban_history'}"
                 data-direction="top"
               ]
 
     header.head.misc
       h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
         - if params[:action] != 'show'
-          a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+          a.back href="#{@resource.url}" title="#{t '.back_to_page'} #{{@resource.name}}"
         = @resource.nickname
 
       .misc
@@ -120,7 +120,7 @@
         - unless @resource.own_profile?
           span = @resource.last_online
         - if @resource.banned?
-          span.banned забанен#{'а' if @resource.female?}
+          span.banned = t '.banned'
 
       .notice
         - @resource.common_info.each do |entry|
@@ -167,7 +167,7 @@
         - if current_user.moderator?
           a href="#{ban_profile_url @resource}" = i18n_p 'ban_user'
         - else
-          a href="#{ban_profile_url @resource}" = t '.bans_history'
+          a href="#{ban_profile_url @resource}" = t '.ban_history'
         - if can? :edit, @resource
           a href="#{edit_profile_url @resource}" = i18n_p 'user_profile_settings'
 
@@ -240,14 +240,14 @@
             data-intervals_count="26"
             data-bar="vertical"
             data-flattened="true"
-            data-no_stat_text="Недостаточно данных для формирования статистики"
+            data-no_stat_text="#{t '.no_stat_text'}"
           ]
           .graph.x34[
             data-stats="#{@resource.stats.activity(34).to_json}"
             data-intervals_count="34"
             data-bar="vertical"
             data-flattened="true"
-            data-no_stat_text="Недостаточно данных для формирования статистики"
+            data-no_stat_text="#{t '.no_stat_text'}"
           ]
         - else
           .b-nothing_here = t '.no_stats'

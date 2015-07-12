@@ -199,4 +199,8 @@ private
     @resource.errors.add :nickname, :taken
     false
   end
+
+  def gender
+    @resource.sex
+  end
 end

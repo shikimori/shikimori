@@ -8,7 +8,7 @@ en:
       remove_from_friends: Remove from Friends
       add_to_ignored: Add to Ignored
       remove_from_ignored: Remove from Ignored
-      bans_history: Bans History
+      ban_history: Ban History
       no_spent_time: No spent time
       activity_graph: Activity Graph
 
@@ -16,6 +16,10 @@ en:
       no_friends: No friends
       no_favourite: No favorites
       no_clubs: No clubs
+
+      back_to_page: Back to page
+      banned: banned
+      no_stat_text: Not sufficient data to display statistics
 
     stats_bar:
       similar_users: similar users
