@@ -1,0 +1,20 @@
+en:
+  profiles_controller:
+    profile: Profile
+    friends: Friends
+    clubs: Clubs
+    favorites: Favorites
+    feed: Feed
+    reviews: Reviews
+    comments: Comments
+    summaries: Summaries
+    content_changes: Content changes
+    video_uploads_and_changes: Video uploads and changes
+    achievements: Achievements
+    ban_history: Ban history
+    settings: Settings
+    users: Users
+
+    flash:
+      changes_saved: Changes saved
+      changes_not_saved: Changes not saved!

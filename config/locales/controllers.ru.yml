@@ -1,0 +1,20 @@
+ru:
+  profiles_controller:
+    profile: Профиль
+    friends: Друзья
+    clubs: Клубы
+    favorites: Избранное
+    feed: Лента
+    reviews: Рецензии
+    comments: Комментарии
+    summaries: Отзывы
+    content_changes: Правки контента
+    video_uploads_and_changes: Видео загрузки и правки
+    achievements: Достижения
+    ban_history: История банов
+    settings: Настройки
+    users: Пользователи
+
+    flash:
+      changes_saved: Изменения сохранены
+      changes_not_saved: Изменения не сохранены!
