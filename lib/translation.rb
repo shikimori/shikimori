@@ -11,17 +11,20 @@ module Translation
 
   # только для существительных с количественными числительными
   def i18n_i key, count = 1, ru_case = :subjective
+    count_key = count_key count
+
     if I18n.russian?
-      I18n.t "inflections.cardinal.#{key}.#{ru_case}", count: count,
+      I18n.t "inflections.cardinal.#{key}.#{ru_case}.#{count_key}",
         default: "inflections.cardinal.#{key}.default".to_sym
     else
-      I18n.t "inflections.#{key}", count: count, default: key.gsub('_', ' ').pluralize(count)
+      I18n.t "inflections.#{key}.#{count_key}",
+        default: key.gsub('_', ' ').pluralize(count)
     end
   end
 
   # только для существительных с порядковыми числительными
   def i18n_io key, count_key
-    raise ArgumentError unless [:one,:few].include? count_key
+    raise ArgumentError unless [:one, :few].include? count_key
 
     translation = if I18n.russian?
       I18n.t "inflections.ordinal.#{key.downcase}.#{count_key}"
@@ -53,6 +56,14 @@ module Translation
       I18n.t "phrases.#{key}"
     else
       I18n.t "phrases.#{key}", default: key.gsub('_', ' ').capitalize
+    end
+  end
+
+  def count_key count
+    if count.kind_of? Integer
+      { one: 1, few: 2 }.key(count) || :many
+    else
+      count
     end
   end
 end
