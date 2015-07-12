@@ -120,7 +120,7 @@
         - unless @resource.own_profile?
           span = @resource.last_online
         - if @resource.banned?
-          span.banned = t '.banned'
+          span.banned = t '.banned', gender: @resource.sex
 
       .notice
         - @resource.common_info.each do |entry|
@@ -257,10 +257,10 @@
         .c-column.m0
           .subheadline.m10
             - if @resource.friends.any? && @resource.friends.size > 12
-              a href="#{friends_profile_url @resource}" title="#{i18n_io 'Friend', :few}"
-                = i18n_io 'Friend', :few
+              a href="#{friends_profile_url @resource}" title="#{t 'profiles_controller.friends'}"
+                = t 'profiles_controller.friends'
             - else
-              = i18n_io 'Friend', :few
+              = t 'profiles_controller.friends'
           .cc-friends
             - if @resource.friends.any?
               = render @resource.friends.take(12), content_by: :avatar
@@ -270,10 +270,10 @@
         .c-column.m0
           .subheadline.m10
             - if @resource.clubs.any? && @resource.clubs.size > 4
-              a href="#{clubs_profile_url @resource}" title="#{i18n_io 'Club', :few}"
-                = i18n_io 'Club', :few
+              a href="#{clubs_profile_url @resource}" title="#{t 'profiles_controller.clubs'}"
+                = t 'profiles_controller.clubs'
             - else
-              = i18n_io 'Club', :few
+              = t 'profiles_controller.clubs'
           .b-clubs.one-line
             - if @resource.clubs.any?
               = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
@@ -283,10 +283,10 @@
       .block
         .subheadline.m10
           - if @resource.favourites.any?
-            a href="#{favourites_profile_url @resource}" title="#{i18n_p 'favorites'}"
-              = i18n_p 'favorites'
+            a href="#{favourites_profile_url @resource}" title="#{t 'profiles_controller.favorites'}"
+              = t 'profiles_controller.favorites'
           - else
-            = i18n_p 'favorites'
+            = t 'profiles_controller.favorites'
         .cc-favourites
           - if @resource.favourites.any?
             = render @resource.favourites, cover_by: :image_link
@@ -305,8 +305,8 @@
   - if @resource.show_comments?
     .block
       .subheadline.m3
-        a href="#{feed_profile_url @resource}" title="#{i18n_p 'feed'}"
-          = i18n_p 'feed'
+        a href="#{feed_profile_url @resource}" title="#{t 'profiles_controller.feed'}"
+          = t 'profiles_controller.feed'
       div
         .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
           = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

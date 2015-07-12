@@ -2,7 +2,7 @@ class ProfilesController < ShikimoriController
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
 
-  page_title 'Профиль'
+  page_title i18n_t 'profile'
 
   def show
     if user_signed_in? && current_user.id == @resource.id
@@ -13,25 +13,25 @@ class ProfilesController < ShikimoriController
   def friends
     noindex
     redirect_to @resource.url if @resource.friends.none?
-    page_title i18n_io 'Friend', :few
+    page_title i18n_t 'friends'
   end
 
   def clubs
     noindex
     redirect_to @resource.url if @resource.clubs.none?
-    page_title i18n_io 'Club', :few
+    page_title i18n_t 'clubs'
   end
 
   def favourites
     noindex
     redirect_to @resource.url if @resource.favourites.none?
-    page_title i18n_p 'favorites'
+    page_title i18n_t 'favorites'
   end
 
   def feed
     noindex
     redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
-    page_title i18n_p 'feed'
+    page_title i18n_t 'feed'
   end
 
   #def stats
@@ -48,7 +48,7 @@ class ProfilesController < ShikimoriController
       TopicDecorator.new review.thread
     end
 
-    page_title 'Рецензии'
+    page_title i18n_t 'reviews'
   end
 
   def comments
@@ -63,7 +63,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map {|v| SolitaryCommentDecorator.new v }
 
-    page_title 'Комментарии'
+    page_title i18n_t 'comments'
   end
 
   def comments_reviews
@@ -75,7 +75,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map {|v| SolitaryCommentDecorator.new v }
 
-    page_title 'Отзывы'
+    page_title i18n_t 'summaries'
   end
 
   def changes
@@ -84,7 +84,7 @@ class ProfilesController < ShikimoriController
       @resource.user_changes.order(id: :desc)
     end
 
-    page_title 'Правки контента'
+    page_title i18n_t 'content_changes'
   end
 
   def videos
@@ -96,22 +96,22 @@ class ProfilesController < ShikimoriController
         .order(id: :desc)
     end
 
-    page_title 'Видео загрузки и правки'
+    page_title i18n_t 'video_uploads_and_changes'
   end
 
   def achievements
-    page_title 'Достижения'
+    page_title i18n_t 'achievements'
   end
 
   def ban
     noindex
     @ban = Ban.new user_id: @resource.id
-    page_title 'История банов'
+    page_title i18n_t 'ban_history'
   end
 
   def edit
     authorize! :edit, @resource
-    page_title 'Настройки'
+    page_title i18n_t 'settings'
     @page = params[:page] || 'account'
     @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
   end
@@ -120,7 +120,11 @@ class ProfilesController < ShikimoriController
     authorize! :update, @resource
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
-    params[:user][:notifications] = params[:user][:notifications].sum {|k,v| v.to_i } + MessagesController::DISABLED_CHECKED_NOTIFICATIONS if params[:user][:notifications].present?
+    if params[:user][:notifications].present?
+      params[:user][:notifications] =
+        params[:user][:notifications].sum {|k,v| v.to_i } +
+        MessagesController::DISABLED_CHECKED_NOTIFICATIONS
+    end
 
     if update_profile
       sign_in @resource, bypass: true if params[:user][:password].present?
@@ -130,9 +134,9 @@ class ProfilesController < ShikimoriController
         @resource.update associations_params
       end
 
-      redirect_to edit_profile_url(@resource, page: params[:page]), notice: 'Изменения сохранены'
+      redirect_to edit_profile_url(@resource, page: params[:page]), notice: i18n_t('changes_saved')
     else
-      flash[:alert] = 'Изменения не сохранены!'
+      flash[:alert] = i18n_t('changes_not_saved')
       edit
       render :edit
     end
@@ -162,7 +166,7 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb 'Пользователи', users_url
+    breadcrumb i18n_t('users'), users_url
     breadcrumb @resource.nickname, @resource.url
   end
 
@@ -198,9 +202,5 @@ private
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
     @resource.errors.add :nickname, :taken
     false
-  end
-
-  def gender
-    @resource.sex
   end
 end

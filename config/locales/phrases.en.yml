@@ -1,15 +1,16 @@
 en:
   phrases:
-    out_of: out of
     anime_list: Anime List
+    ban_user: Ban User
+    cancel: Cancel
+    female: female
+    loading: Loading
+    male: male
     manga_list: Manga List
+    my_bans: My Bans
     my_mail: My Messages & Notifications
     my_profile_settings: My Profile Settings
-    user_profile_settings: User Profile Settings
-    my_bans: My Bans
-    ban_user: Ban User
-    favorites: Favorites
-    feed: Comments
-    loading: Loadiag
     no_comments: No comments
+    out_of: out of
     seyu: Seyu
+    user_profile_settings: User Profile Settings

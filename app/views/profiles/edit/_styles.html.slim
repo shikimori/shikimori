@@ -12,14 +12,14 @@
     = f.input :menu_contest
 
   .backgrounds
-    p Фон центральной области
+    p = t '.page_background'
     = f.input :page_background, as: :hidden
     .range-slider.noUiSlider
 
     = f.input :page_border
     = f.input :body_background, hint: 'Выбирайте либо среди списка картинок ниже, либо вставьте в поле адрес вашей собственной картинки. Поддерживается всё, что работает для css свойства background-image.'
     .samples
-      p Примеры:
+      p #{t '.examples'}:
       div == spoiler_to_html "[spoiler=Одна картинка]<div class='b-quote'>url(http://desu.shikimori.org/images/user_image/original/1/100613.jpg) no-repeat</div>" + '<br><a href="http://dere.shikimori.org/images/user_image/original/1/106489.jpg?1434111542" rel="68989828" class="b-image unprocessed"><img src="http://dere.shikimori.org/images/user_image/thumbnail/1/106489.jpg?1434111542" class=""><span class="marker">1439x804</span></a>' +  "[/spoiler]"
       /[image=106489]
       div == spoiler_to_html "[spoiler=Одна повторяющаяся картинка]<div class='b-quote'>url(http://shikimori.org/assets/background/congruent_pentagon.png) repeat</div>" + '<br><a href="http://nyaa.shikimori.org/images/user_image/original/1/106490.jpg?1434111584" rel="68989828" class="b-image unprocessed"><img src="http://nyaa.shikimori.org/images/user_image/thumbnail/1/106490.jpg?1434111584" class=""><span class="marker">1430x804</span></a>' + "[/spoiler]"
@@ -66,5 +66,5 @@
       li.bg34 data-background="/assets/background/skulls.png"
 
   .buttons
-    a.cancel href="#{profile_url @resource}" Отмена
+    a.cancel href="#{profile_url @resource}" = i18n_p 'cancel'
     = f.button :magic_submit

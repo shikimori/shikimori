@@ -1,15 +1,15 @@
 header.head.misc
   h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
     - if params[:action] != 'show' || @back_url
-      a.back href="#{@back_url || @resource.url}" title="Назад на страницу #{{@resource.name}}"
+      a.back href="#{@back_url || @resource.url}" title="#{t '.back_to_page'} #{{@resource.name}}"
     = @resource.nickname
 
   - if params[:controller] == 'user_rates'
     - if params[:list_type] == 'anime' && @resource.stats.manga? && @resource.preferences.manga_in_profile?
-      a.misc href="#{profile_user_rates_url @resource, list_type: 'manga'}" title="к манге" к манге
+      a.misc href="#{profile_user_rates_url @resource, list_type: 'manga'}" title="#{t '.to_manga'}" = t '.to_manga'
 
     - if params[:list_type] == 'manga' && @resource.stats.anime? && @resource.preferences.anime_in_profile?
-      a.misc href="#{profile_user_rates_url @resource, list_type: 'anime'}" title="к аниме" к аниме
+      a.misc href="#{profile_user_rates_url @resource, list_type: 'anime'}" title="#{t '.to_anime'}" = t '.to_anime'
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

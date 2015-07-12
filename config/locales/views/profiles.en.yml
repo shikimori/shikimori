@@ -21,5 +21,36 @@ en:
       banned: banned
       no_stat_text: Not sufficient data to display statistics
 
+    page:
+      back_to_page: Back to page
+      to_anime: to anime
+      to_manga: to manga
+      erorrs: Errors
+      account: Account
+      profile: Profile
+      site_appearance_html: Site&nbsp;appearance
+      anime_and_manga_list_html: Anime&nbsp;and&nbsp;manga&nbsp;list
+      notifications: Notifications
+      misc: Misc
+
+    edit:
+      account:
+        nickname: Login (nickname)
+        change_email_and_password: Change email and password
+        under_development: Under development
+        avatar: Avatar
+        connected_accounts: Connected accounts
+        not_connected_accounts: Not connected accounts
+        ignored_users: Ignored users
+        username: User name
+
+      profile:
+        display_activity_graph_since: Display activity graph since
+        about_me: About me
+
+      styles:
+        page_background: Page background
+        examples: Examples
+
     stats_bar:
       similar_users: similar users

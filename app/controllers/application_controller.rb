@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   include Translation
-
-  before_action :set_gender
-  inflection_method :gender
+  extend Translation
 
   #include Mobylette::RespondToMobileRequests
   LOCALES = {
@@ -121,14 +119,6 @@ class ApplicationController < ActionController::Base
   end
 
 private
-
-  def gender
-    @gender
-  end
-
-  def set_gender
-    @gender = current_user.sex if user_signed_in?
-  end
 
   def set_layout
     if request.xhr? || (

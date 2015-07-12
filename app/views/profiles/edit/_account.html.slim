@@ -5,21 +5,21 @@
   .cc-2
     .c-column.block_m
       .block
-        = f.input :nickname, label: 'Логин (никнейм)'
+        = f.input :nickname, label: "#{t '.nickname'}"
         = f.input :email, input_html: { disabled: true }
 
         .change-password
-          a href="#{edit_profile_url @resource, page: 'password'}" Изменить email и пароль
+          a href="#{edit_profile_url @resource, page: 'password'}" = t '.change_email_and_password'
 
         = f.input :name
         = f.input :location
         = f.input :website
-        = f.input :sex, as: :select, collection: [['муж.', :male], ['жен.', :female]]
+        = f.input :sex, as: :select, collection: [["#{i18n_p 'male'}", :male], ["#{i18n_p 'female'}", :female]]
         = f.input :birth_on, include_blank: true, start_year: Date.today.year - 90, end_year: Date.today.year - 8
 
     .c-column.block_m
       .block
-        = f.input :language, include_blank: false, hint: 'В разработке'
+        = f.input :language, include_blank: false, hint: "#{t '.under_development'}"
 
         - if I18n.russian?
           = f.simple_fields_for :preferences do |fp|
@@ -27,7 +27,7 @@
             = fp.input :russian_names
 
       .block
-        = f.input :avatar, label: 'Аватар (160x160)'
+        = f.input :avatar, label: "#{t '.avatar'} (160x160)"
         .avatar-edit
           - if @resource.avatar.exists?
             img src="#{@resource.avatar_url}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
@@ -35,21 +35,26 @@
 
       - if @resource.user_tokens.any?
         .block
-          .subheadline Подключенная авторизация
+          .subheadline = t '.connected_accounts'
           .value.oauth.remove
             - @resource.user_tokens.each do |token|
               a.b-oauth_token class="#{token.provider}" href="#{user_token_url token}" data-method="delete" data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?" title="Отключить авторизацию через #{token.provider.to_s.titleize}"
 
       - if @resource.unconnected_providers.any?
         .block
-          .subheadline Не подключенные сервисы
+          .subheadline = t '.not_connected_accounts'
           .value.oauth.add
             - @resource.unconnected_providers.each do |provider|
               a.b-oauth_token class="#{provider}" href="#{user_omniauth_authorize_url provider}" title="Подключить авторизацию через #{provider.to_s.titleize}"
 
 
-      input.ignore-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="user[ignored_user_ids][]" data-autocomplete="#{autocomplete_users_url}"
-      .subheadline Игнорируемые пользователи
+      input.ignore-suggest.subheadline-input.downgrade_landscape[
+        type="text"
+        placeholder="#{t '.username'}"
+        data-variant_name="user[ignored_user_ids][]"
+        data-autocomplete="#{autocomplete_users_url}"
+      ]
+      .subheadline = t '.ignored_users'
       .variants
         - @resource.ignored_users.each do |user|
           .variant
@@ -57,5 +62,5 @@
             a href="#{profile_url user}" = user.nickname
 
   .buttons
-    a.cancel href="#{profile_url @resource}" Отмена
+    a.cancel href="#{profile_url @resource}" = i18n_p 'cancel'
     = f.button :magic_submit

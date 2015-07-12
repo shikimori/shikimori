@@ -21,5 +21,36 @@ ru:
       banned: '@{f:забанена|m:забанен}'
       no_stat_text: Недостаточно данных для формирования статистики
 
+    page:
+      back_to_page: Назад на страницу
+      to_anime: к аниме
+      to_manga: к манге
+      erorrs: Ошибки
+      account: Аккаунт
+      profile: Профиль
+      site_appearance_html: Внешний&nbsp;вид&nbsp;сайта
+      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
+      notifications: Уведомления
+      misc: Прочее
+
+    edit:
+      account:
+        nickname: Логин (никнейм)
+        change_email_and_password: Изменить email и пароль
+        under_development: В разработке
+        avatar: Аватар
+        connected_accounts: Подключенная авторизация
+        not_connected_accounts: Неподключенные сервисы
+        ignored_users: Игнорируемые пользователи
+        username: Имя пользователя
+
+      profile:
+        display_activity_graph_since: Отображать график активности начиная с даты
+        about_me: О себе
+
+      styles:
+        page_background: Фон центральной области
+        examples: Примеры
+
     stats_bar:
       similar_users: похожие пользователи
