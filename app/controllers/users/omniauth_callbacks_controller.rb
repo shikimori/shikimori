@@ -2,21 +2,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :set_omniauth_data
 
   def twitter
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation, PG::Error], sleep: 1 do
-      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
-    end
+    omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
   end
 
   def vkontakte
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation, PG::Error], sleep: 1 do
-      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
-    end
+    omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
   end
 
   def facebook
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation, PG::Error], sleep: 1 do
-      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
-    end
+    omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
   end
 
 private
@@ -52,14 +46,16 @@ private
       return
     end
 
-    user.save
+    user.save rescue PG::UniqueViolation
+
     if user.errors.any?
       nickname = user.nickname
       email = user.email
+
       (2..100).each do |i|
         user.nickname = "#{nickname}#{i}" if user.errors.include?(:nickname)
         user.email = email.sub('@', "+#{i}@") if user.errors.include?(:email)
-        break if user.save
+        break if (user.save rescue PG::UniqueViolation)
       end
     end
 
