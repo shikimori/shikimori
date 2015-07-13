@@ -226,11 +226,11 @@
           /.third style="width: 58%"
           .third style="width: #{100 - @resource.stats.spent_time_percent}%"
         .times
-          .time class="#{:checked if @resource.stats.spent_time.weeks >= 1}" #{i18n_i 'datetime.week'}
-          .time class="#{:checked if @resource.stats.spent_time.months >= 1}" #{i18n_i 'datetime.month'}
-          .time class="#{:checked if @resource.stats.spent_time.months_3 >= 1}" 3 #{i18n_i 'datetime.month', 3}
-          .time class="#{:checked if @resource.stats.spent_time.months_6 >= 1}" 6 #{i18n_i 'datetime.month', 6}
-          .time class="#{:checked if @resource.stats.spent_time.years >= 1}" #{i18n_i 'datetime.year'}
+          .time class="#{:checked if @resource.stats.spent_time.weeks >= 1}" 1 #{t 'datetime.parts.week', count: 1}
+          .time class="#{:checked if @resource.stats.spent_time.months >= 1}" 1 #{t 'datetime.parts.month', count: 1}
+          .time class="#{:checked if @resource.stats.spent_time.months_3 >= 1}" 3 #{t 'datetime.parts.month', count: 3}
+          .time class="#{:checked if @resource.stats.spent_time.months_6 >= 1}" 6 #{t 'datetime.parts.month', count: 6}
+          .time class="#{:checked if @resource.stats.spent_time.years >= 1}" 1 #{t 'datetime.parts.year', count: 1}
 
       .activity
         .title = t '.activity_graph'
