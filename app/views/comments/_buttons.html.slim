@@ -20,7 +20,7 @@ aside.buttons
       span.item-delete title="Удалить"
 
     span.item-moderation title="Пожаловаться"
-    span.item-cancel title="Отмена"
+    span.item-cancel title="#{i18n_p 'cancel'}"
 
   - if comment.can_be_deleted_by?(current_user) && comment.respond_to?(:commentable)
     .delete-controls
@@ -31,7 +31,7 @@ aside.buttons
         data-remote="true"
         data-method="delete"
       ]
-      span.item-delete-cancel title="Отмена"
+      span.item-delete-cancel title="#{i18n_p 'cancel'}"
 
   .moderation-controls
     - if current_user.moderator?
@@ -84,4 +84,4 @@ aside.buttons
         data-direction="top"
       ]
 
-    span.item-moderation-cancel title="Отмена"
+    span.item-moderation-cancel title="#{i18n_p 'cancel'}"

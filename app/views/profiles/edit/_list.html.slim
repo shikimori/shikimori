@@ -19,14 +19,14 @@
       span.warn Это действие необратимо!
       span Подтвердите намерение сбросить все выставленные оценки для аниме (сами аниме из списка не удалятся).
     a.control href="#{reset_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
-    span.link.cancel Отмена
+    span.link.cancel = i18n_p 'cancel'
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение сбросить все выставленные оценки для манги (сама манга из списка не удалится).
     a.control href="#{reset_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
-    span.link.cancel Отмена
+    span.link.cancel = i18n_p 'cancel'
 
 .profile-action
   .mischeadline История моего списка
@@ -39,14 +39,14 @@
       span.warn Это действие необратимо!
       span Подтвердите намерение удалить всю историю изменений своего списка аниме.
     a.control href="#{reset_profile_user_history_index_url @resource, :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
-    span.link.cancel Отмена
+    span.link.cancel = i18n_p 'cancel'
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение удалить всю историю изменений своего списка манги.
     a.control href="#{reset_profile_user_history_index_url @resource, :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
-    span.link.cancel Отмена
+    span.link.cancel = i18n_p 'cancel'
 
 .profile-action
   .mischeadline Содержимое моего списка
@@ -59,11 +59,11 @@
       span.warn Это действие необратимо!
       span Подтвердите намерение очистить свой список аниме и удалить всю историю по аниме.
     a.control href="#{cleanup_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список аниме и потерять всю историю?" Да, подтверждаю
-    span.link.cancel Отмена
+    span.link.cancel = i18n_p 'cancel'
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение очистить свой список манги и удалить всю историю по манге.
     a.control href="#{cleanup_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список манги и потерять всю историю?" Да, подтверждаю
-    span.link.cancel Отмена
+    span.link.cancel = i18n_p 'cancel'

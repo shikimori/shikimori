@@ -47,12 +47,12 @@
             - if can? :destroy, message
               span.item-delete title="Удалить"
 
-          span.item-cancel title="Отмена"
+          span.item-cancel title="#{i18n_p 'cancel'}"
 
         - if can? :destroy, message
           .delete-controls
             span.item-delete-confirm action="#{message_url message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
-            span.item-delete-cancel title="Отмена"
+            span.item-delete-cancel title="#{i18n_p 'cancel'}"
 
     header
       - unless message.generated_news?

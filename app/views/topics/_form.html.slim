@@ -65,5 +65,7 @@
       input type="file" multiple="multiple"
 
   .buttons
-    a.cancel href="#{topic.persisted? ? topic_url(topic) : root_url}" Отмена
+    a.cancel[
+      href="#{topic.persisted? ? topic_url(topic) : root_url}"
+    ] = i18n_p 'cancel'
     = f.button :magic_submit

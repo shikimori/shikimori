@@ -2,7 +2,7 @@ span.item-content-editor-buttons
   span.edit-controls
     /span.control.item-change = defined?(change_icon_only) && change_icon_only ? '' : 'Изменить'
     /*span.control.item-change title="Изменить"*/
-    span.control.item-cancel Отмена
+    span.control.item-cancel = i18n_p 'cancel'
     - unless defined?(save_to_all) && save_to_all
       span.control.item-save Сохранить
     - if user_signed_in? && \
@@ -27,4 +27,4 @@ span.item-content-editor-buttons
   span.delete-controls
     = form_tag apply_path, :method => :delete do
       span.control.item-delete-confirm title="Удалить"
-    span.control.item-delete-cancel title="Отмена"
+    span.control.item-delete-cancel title="#{i18n_p 'cancel'}"
