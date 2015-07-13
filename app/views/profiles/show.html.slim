@@ -33,17 +33,17 @@
           - if @resource.own_profile?
             a.mail.b-tooltipped.unprocessed[
               href="#{profile_dialogs_url @resource}"
-              title="#{i18n_p 'my_mail'}"
+              title="#{t '.my_mail'}"
               data-direction="top"
             ]
             a.settings.b-tooltipped.unprocessed[
               href="#{edit_profile_url @resource}"
-              title="#{i18n_p 'my_profile_settings'}"
+              title="#{t '.my_profile_settings'}"
               data-direction="top"
             ]
             a.ban.b-tooltipped.unprocessed[
               href="#{ban_profile_url @resource}"
-              title="#{i18n_p 'my_bans'}"
+              title="#{t '.my_bans'}"
               data-direction="top"
             ]
 
@@ -92,7 +92,7 @@
             - if can? :edit, @resource
               a.settings.b-tooltipped.unprocessed[
                 href="#{edit_profile_url @resource}"
-                title="#{i18n_p 'user_profile_settings'}"
+                title="#{t '.user_profile_settings'}"
                 data-direction="top"
               ]
             - if current_user.moderator?
@@ -129,9 +129,9 @@
   .c-mobile-actions
     - if user_signed_in?
       - if @resource.own_profile?
-        a href="#{profile_dialogs_url @resource}" = i18n_p 'my_mail'
-        a href="#{edit_profile_url @resource}" = i18n_p 'my_profile_settings'
-        a href="#{ban_profile_url @resource}" = i18n_p 'my_bans'
+        a href="#{profile_dialogs_url @resource}" = t '.my_mail'
+        a href="#{edit_profile_url @resource}" = t '.my_profile_settings'
+        a href="#{ban_profile_url @resource}" = t '.my_bans'
 
       - else
         a href="#{profile_dialog_url current_user, @resource}" = t '.send_message'
@@ -169,7 +169,7 @@
         - else
           a href="#{ban_profile_url @resource}" = t '.ban_history'
         - if can? :edit, @resource
-          a href="#{edit_profile_url @resource}" = i18n_p 'user_profile_settings'
+          a href="#{edit_profile_url @resource}" = t '.user_profile_settings'
 
   .c-info
     .c-lists-info

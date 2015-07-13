@@ -1,47 +1,49 @@
 ru:
   profiles:
     show:
-      activity: Активность
       about: Обо мне
-      send_message: Написать
-      add_to_friends: Добавить в друзья
-      remove_from_friends: Удалить из друзей
-      add_to_ignored: Добавить в игнор
-      remove_from_ignored: Удалить из игнора
-      ban_history: История банов
-      no_spent_time: Нет просмотров аниме
+      activity: Активность
       activity_graph: Активность на сайте
-
-      no_stats: Нет статистики
-      no_friends: Нет друзей
-      no_favourite: Список избранного пуст
-      no_clubs: Не состоит ни в одном из клубов
-
+      add_to_friends: Добавить в друзья
+      add_to_ignored: Добавить в игнор
       back_to_page: Назад на страницу
+      ban_history: История банов
       banned: '@{f:забанена|m:забанен}'
+      my_bans: Мои баны
+      my_mail: Почта
+      my_profile_settings: Настройки профиля
+      no_clubs: Не состоит ни в одном из клубов
+      no_favourite: Список избранного пуст
+      no_friends: Нет друзей
+      no_spent_time: Нет просмотров аниме
       no_stat_text: Недостаточно данных для формирования статистики
+      no_stats: Нет статистики
+      remove_from_friends: Удалить из друзей
+      remove_from_ignored: Удалить из игнора
+      send_message: Написать
+      user_profile_settings: Настройки профиля
 
     page:
-      back_to_page: Назад на страницу
-      to_anime: к аниме
-      to_manga: к манге
-      erorrs: Ошибки
       account: Аккаунт
+      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
+      back_to_page: Назад на страницу
+      erorrs: Ошибки
+      misc: Прочее
+      notifications: Уведомления
       profile: Профиль
       site_appearance_html: Внешний&nbsp;вид&nbsp;сайта
-      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
-      notifications: Уведомления
-      misc: Прочее
+      to_anime: к аниме
+      to_manga: к манге
 
     edit:
       account:
-        nickname: Логин (никнейм)
-        change_email_and_password: Изменить email и пароль
-        under_development: В разработке
         avatar: Аватар
+        change_email_and_password: Изменить email и пароль
         connected_accounts: Подключенные сервисы
-        not_connected_accounts: Неподключенные сервисы
         ignored_users: Игнорируемые пользователи
+        nickname: Логин (никнейм)
+        not_connected_accounts: Неподключенные сервисы
+        under_development: В разработке
         username: Имя пользователя
 
       profile:

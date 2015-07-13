@@ -1,25 +1,27 @@
 en:
   profiles:
     show:
-      activity: Activity
       about: About me
-      send_message: Send Message
-      add_to_friends: Add to Friends
-      remove_from_friends: Remove from Friends
-      add_to_ignored: Add to Ignored
-      remove_from_ignored: Remove from Ignored
-      ban_history: Ban History
-      no_spent_time: No spent time
+      activity: Activity
       activity_graph: Activity Graph
-
-      no_stats: No stats
-      no_friends: No friends
-      no_favourite: No favorites
-      no_clubs: No clubs
-
+      add_to_friends: Add to Friends
+      add_to_ignored: Add to Ignored
       back_to_page: Back to page
+      ban_history: Ban History
       banned: banned
+      my_bans: My Bans
+      my_mail: My Messages & Notifications
+      my_profile_settings: My Profile Settings
+      no_clubs: No clubs
+      no_favourite: No favorites
+      no_friends: No friends
+      no_spent_time: No spent time
       no_stat_text: Not sufficient data to display statistics
+      no_stats: No stats
+      remove_from_friends: Remove from Friends
+      remove_from_ignored: Remove from Ignored
+      send_message: Send Message
+      user_profile_settings: User Profile Settings
 
     page:
       back_to_page: Back to page
