@@ -7,6 +7,6 @@ class PersonRoleSerializer < ActiveModel::Serializer
   end
 
   def roles_russian
-    roles.map {|role| I18n.t "Role.#{role}" }
+    roles.map {|role| I18n.t "Role.#{role}", default: role }
   end
 end
