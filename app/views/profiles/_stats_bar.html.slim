@@ -15,9 +15,9 @@
 
   - if can? :access_list, @resource
     a.title href="#{profile_user_rates_url @resource, list_type: class_name.downcase}"
-      = i18n_p "#{class_name.downcase}_list"
+      = t "#{class_name.downcase}_list"
   - else
-    .title = i18n_p "#{class_name.downcase}_list"
+    .title = t "#{class_name.downcase}_list"
 
   .bar
     - if graph[:completed_percent] > 1

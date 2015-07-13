@@ -51,15 +51,6 @@ module Translation
     end
   end
 
-  # для перевода частовстречаемых фраз и слов
-  def i18n_p key
-    if I18n.russian?
-      I18n.t "phrases.#{key}"
-    else
-      I18n.t "phrases.#{key}", default: key.gsub('_', ' ').capitalize
-    end
-  end
-
   def count_key count
     if count.kind_of? Integer
       { one: 1, few: 2 }.key(count) || :many

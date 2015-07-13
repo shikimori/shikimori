@@ -14,7 +14,7 @@
         = f.input :name
         = f.input :location
         = f.input :website
-        = f.input :sex, as: :select, collection: [["#{i18n_p 'male'}", :male], ["#{i18n_p 'female'}", :female]]
+        = f.input :sex, as: :select, collection: [["#{t 'male'}", :male], ["#{t 'female'}", :female]]
         = f.input :birth_on, include_blank: true, start_year: Date.today.year - 90, end_year: Date.today.year - 8
 
     .c-column.block_m
@@ -62,5 +62,5 @@
             a href="#{profile_url user}" = user.nickname
 
   .buttons
-    a.cancel href="#{profile_url @resource}" = i18n_p 'cancel'
+    a.cancel href="#{profile_url @resource}" = t 'cancel'
     = f.button :magic_submit

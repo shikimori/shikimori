@@ -18,7 +18,7 @@ class UserRatesController < ProfilesController
     @limit = UserListDecorator::ENTRIES_PER_PAGE
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
 
-    page_title i18n_p("#{params[:list_type]}_list")
+    page_title t("#{params[:list_type]}_list")
   end
 
   def create

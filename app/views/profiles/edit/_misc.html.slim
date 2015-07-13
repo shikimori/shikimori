@@ -6,7 +6,7 @@
     = f.input :is_comments_auto_loaded
 
   .buttons
-    a.cancel href="#{profile_url @resource}" = i18n_p 'cancel'
+    a.cancel href="#{profile_url @resource}" = t 'cancel'
     = f.button :magic_submit
 
 .profile-action
@@ -20,11 +20,11 @@
       span.warn Это действие необратимо!
       span Подтвердите намерение восстановить все заблокированные вами рекомендации для аниме.
     a.control href="#{cleanup_recommendation_ignores_path target_type: :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для аниме?" Да, подтверждаю
-    span.link.cancel = i18n_p 'cancel'
+    span.link.cancel = t 'cancel'
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение восстановить все заблокированные вами рекомендации для манги.
     a.control href="#{cleanup_recommendation_ignores_path target_type: :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для манги?" Да, подтверждаю
-    span.link.cancel = i18n_p 'cancel'
+    span.link.cancel = t 'cancel'

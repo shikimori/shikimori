@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   helper_method :base_controller_name
   helper_method :ignore_copyright?
 
-  helper_method :i18n_i, :i18n_io, :i18n_p
+  helper_method :i18n_i, :i18n_io
 
   unless Rails.env.test?
     rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,

@@ -1,15 +1,14 @@
 en:
-  phrases:
-    anime_list: Anime List
-    ban_user: Ban User
-    cancel: Cancel
-    changes_not_saved: Changes not saved!
-    changes_saved: Changes saved
-    female: female
-    loading: Loading
-    male: male
-    manga_list: Manga List
-    no_comments: No comments
-    out_of: out of
-    seyu: Seyu
-    users: Users
+  anime_list: Anime List
+  ban_user: Ban User
+  cancel: Cancel
+  changes_not_saved: Changes not saved!
+  changes_saved: Changes saved
+  female: female
+  loading: Loading
+  male: male
+  manga_list: Manga List
+  no_comments: No comments
+  out_of: out of
+  seyu: Seyu
+  users: Users

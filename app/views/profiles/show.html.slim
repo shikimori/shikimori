@@ -98,7 +98,7 @@
             - if current_user.moderator?
               a.ban.b-tooltipped.unprocessed[
                 href="#{ban_profile_url @resource}"
-                title="#{i18n_p 'ban_user'}"
+                title="#{t 'ban_user'}"
                 data-direction="top"
               ]
             - else
@@ -165,7 +165,7 @@
         ] = t '.remove_from_ignored'
 
         - if current_user.moderator?
-          a href="#{ban_profile_url @resource}" = i18n_p 'ban_user'
+          a href="#{ban_profile_url @resource}" = t 'ban_user'
         - else
           a href="#{ban_profile_url @resource}" = t '.ban_history'
         - if can? :edit, @resource

@@ -40,5 +40,5 @@
   .buttons
     a.cancel[
       href="#{review.persisted? ? resource.review_url(review) : resource.url}"
-    ] = i18n_p 'cancel'
+    ] = t 'cancel'
     = f.submit

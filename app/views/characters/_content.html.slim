@@ -21,7 +21,7 @@
 
         - if character.seyu.any?
           .link
-            .title = i18n_p 'seyu'
+            .title = t 'seyu'
             a.bubbled href="#{seyu_url character.seyu.first}" title="#{character.seyu.first.name}"
               img src="#{cdn_image character.seyu.first, :x48}" srcset="#{cdn_image character.seyu.first, :x96} 2x"
 

@@ -13,7 +13,7 @@
   - if topic.comments.any?
     = render partial: 'comments/comment', collection: topic.comments
   - else
-    p.no_comments = i18n_p 'no_comments'
+    p.no_comments = t 'no_comments'
 
 - if user_signed_in?
   .editor-container

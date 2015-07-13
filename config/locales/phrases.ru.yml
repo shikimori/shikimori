@@ -1,15 +1,14 @@
 ru:
-  phrases:
-    anime_list: Список аниме
-    ban_user: Забанить пользователя
-    cancel: Отмена
-    changes_not_saved: Изменения не сохранены!
-    changes_saved: Изменения сохранены
-    female: жен.
-    loading: Загрузка
-    male: муж.
-    manga_list: Список манги
-    no_comments: Нет комментариев
-    out_of: из
-    seyu: Сэйю
-    users: Пользователи
+  anime_list: Список аниме
+  ban_user: Забанить пользователя
+  cancel: Отмена
+  changes_not_saved: Изменения не сохранены!
+  changes_saved: Изменения сохранены
+  female: жен.
+  loading: Загрузка
+  male: муж.
+  manga_list: Список манги
+  no_comments: Нет комментариев
+  out_of: из
+  seyu: Сэйю
+  users: Пользователи

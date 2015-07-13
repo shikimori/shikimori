@@ -21,7 +21,7 @@ aside.buttons
 
     - if can? :destroy, topic
       span.item-delete.short title="Удалить"
-    span.item-cancel title="#{i18n_p 'cancel'}"
+    span.item-cancel title="#{t 'cancel'}"
 
   - if can? :destroy, topic
     .delete-controls
@@ -32,4 +32,4 @@ aside.buttons
         data-method="delete"
         title="Удалить"
       ]
-      span.item-delete-cancel title="#{i18n_p 'cancel'}"
+      span.item-delete-cancel title="#{t 'cancel'}"

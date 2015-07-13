@@ -7,7 +7,7 @@
     = f.input :value, as: :string, label: 'Название на торрентах'
 
   .buttons
-    a.cancel href="#{resource.url}" = i18n_p 'cancel'
+    a.cancel href="#{resource.url}" = t 'cancel'
     - if current_user.user_changes_moderator?
       = f.submit 'Применить', class: 'apply', name: 'apply'
     = f.button :magic_submit

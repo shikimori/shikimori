@@ -103,5 +103,5 @@
         = check_box_tag 'user[notifications][nickname_change_notifications]', User::NICKNAME_CHANGE_NOTIFICATIONS, @resource.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS != 0, disabled: MessagesController::DISABLED_NOTIFICATIONS & User::NICKNAME_CHANGE_NOTIFICATIONS != 0, 'autocomplete' => :off
 
   .buttons
-    a.cancel href="#{profile_url @resource}" = i18n_p 'cancel'
+    a.cancel href="#{profile_url @resource}" = t 'cancel'
     = f.button :magic_submit
