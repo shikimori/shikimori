@@ -134,9 +134,9 @@ class ProfilesController < ShikimoriController
         @resource.update associations_params
       end
 
-      redirect_to edit_profile_url(@resource, page: params[:page]), notice: i18n_t('changes_saved')
+      redirect_to edit_profile_url(@resource, page: params[:page]), notice: i18n_p('changes_saved')
     else
-      flash[:alert] = i18n_t('changes_not_saved')
+      flash[:alert] = i18n_p('changes_not_saved')
       edit
       render :edit
     end
@@ -166,7 +166,7 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb i18n_t('users'), users_url
+    breadcrumb i18n_p('users'), users_url
     breadcrumb @resource.nickname, @resource.url
   end
 

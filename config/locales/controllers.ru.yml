@@ -14,7 +14,3 @@ ru:
     ban_history: История банов
     settings: Настройки
     users: Пользователи
-
-    flash:
-      changes_saved: Изменения сохранены
-      changes_not_saved: Изменения не сохранены!

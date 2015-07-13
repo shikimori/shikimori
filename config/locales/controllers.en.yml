@@ -14,7 +14,3 @@ en:
     ban_history: Ban history
     settings: Settings
     users: Users
-
-    flash:
-      changes_saved: Changes saved
-      changes_not_saved: Changes not saved!

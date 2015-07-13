@@ -3,6 +3,8 @@ ru:
     anime_list: Список аниме
     ban_user: Забанить пользователя
     cancel: Отмена
+    changes_not_saved: Изменения не сохранены!
+    changes_saved: Изменения сохранены
     female: жен.
     loading: Загрузка
     male: муж.
@@ -11,6 +13,7 @@ ru:
     my_mail: Почта
     my_profile_settings: Настройки профиля
     no_comments: Нет комментариев
-    seyu: Сэйю
     out_of: из
+    seyu: Сэйю
     user_profile_settings: Настройки профиля
+    users: Пользователи

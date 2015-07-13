@@ -3,6 +3,8 @@ en:
     anime_list: Anime List
     ban_user: Ban User
     cancel: Cancel
+    changes_not_saved: Changes not saved!
+    changes_saved: Changes saved
     female: female
     loading: Loading
     male: male
@@ -14,3 +16,4 @@ en:
     out_of: out of
     seyu: Seyu
     user_profile_settings: User Profile Settings
+    users: Users
