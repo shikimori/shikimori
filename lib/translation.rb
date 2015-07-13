@@ -52,10 +52,19 @@ module Translation
   end
 
   def count_key count
-    if count.kind_of? Integer
-      { one: 1, few: 2 }.key(count) || :many
+    return count unless count.kind_of? Integer
+
+    number = count % 100
+    return :many if number >= 5 && number <= 20
+
+    number %= 10
+
+    if number == 1
+      :one
+    elsif number >= 2 && number <= 4
+      :few
     else
-      count
+      :many
     end
   end
 end
