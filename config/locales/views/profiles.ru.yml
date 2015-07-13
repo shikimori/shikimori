@@ -51,6 +51,11 @@ ru:
       styles:
         page_background: Фон центральной области
         examples: Примеры
+        body_background_hint: Выбирайте либо среди списка картинок ниже, либо вставьте в поле адрес вашей собственной картинки. Поддерживается всё, что работает для css свойства background-image.
+        spoiler_one_picture: Одна картинка
+        spoiler_one_repeated_picture: Одна повторяющаяся картинка
+        spoiler_two_pictures: 'Две картинки: одна слева, другая справа'
+        spoiler_one_black_picture: Картинка с чёрным фоном
 
     stats_bar:
       similar_users: похожие пользователи

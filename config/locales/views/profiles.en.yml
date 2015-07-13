@@ -51,6 +51,11 @@ en:
       styles:
         page_background: Page background
         examples: Examples
+        body_background_hint: Choose a picture below or insert your own picture URL. Whatever works for background-image CSS property is supported.
+        spoiler_one_picture: One picture
+        spoiler_one_repeated_picture: One picture is repeated
+        spoiler_two_pictures: 'Two pictures: one on the left side, another on the right side'
+        spoiler_one_black_picture: Picture with black background
 
     stats_bar:
       similar_users: similar users
