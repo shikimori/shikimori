@@ -1,12 +1,12 @@
 = render layout: 'page' do
   - if @resource.roles.main_characters.any?
     .block.m0
-      h2.subheadline.m10 = t 'Role.Main'
+      h2.subheadline.m10 = t '.main_characters'
       .cc.eight-characters
         = render @resource.roles.main_characters
 
   - if @resource.roles.supporting_characters.any?
     .block.m0
-      h2.subheadline.m10 = t 'Role.Supporting'
+      h2.subheadline.m10 = t '.supporting_characters'
       .cc.eight-characters
         = render @resource.roles.supporting_characters

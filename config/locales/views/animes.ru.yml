@@ -32,6 +32,20 @@ ru:
         remove_from_favorites: Удалить из избранного
         edit_anime: Редактировать аниме
         edit_manga: Редактировать мангу
+      main_characters: Главные герои
+      supporting_characters: Второстепенные персонажи
+
+    resources:
+      staff: Авторы
+      videos: Видео
+      screenshots: Кадры
+      linked: Связанное
+      similar: Похожее
+      linked_directly: Связанное Напрямую
+      chronology: Хронология
+      franchise: Франшиза
+      show_all: показать остальное
+      hide: спрятать
 
     info:
       next_episode: Следующий эпизод

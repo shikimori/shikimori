@@ -32,6 +32,20 @@ en:
         remove_from_favorites: Remove from Favorites
         edit_anime: Edit Anime
         edit_manga: Edit Manga
+      main_characters: Main Characters
+      supporting_characters: Supporrting Characters
+
+    resources:
+      staff: Staff
+      videos: Videos
+      screenshots: Screenshots
+      linked: Linked
+      similar: Similar
+      linked_directly: Linked Directly
+      chronology: Chronology
+      franchise: Franchise
+      show_all: show all
+      hide: hide
 
     info:
       next_episode: Next episode
