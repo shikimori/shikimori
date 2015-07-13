@@ -440,6 +440,8 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-utf8_sanitizer (1.3.1)
+      rack (~> 1.0)
     rails (4.2.3)
       actionmailer (= 4.2.3)
       actionpack (= 4.2.3)
@@ -715,6 +717,7 @@ DEPENDENCIES
   rabl
   rack-contrib
   rack-cors
+  rack-utf8_sanitizer
   rails
   rails-assets-eventEmitter!
   rails-assets-eventie!

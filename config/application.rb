@@ -37,7 +37,8 @@ module Site
     config.filter_parameters += [:password]
 
     config.middleware.use 'Redirecter' unless Rails.env.development?
-    config.middleware.insert_before 0, 'ProxyTest'
+    config.middleware.insert 0, 'Rack::UTF8Sanitizer'
+    config.middleware.insert 0, 'ProxyTest'
     config.middleware.use 'Rack::JSONP'
 
     config.middleware.insert_before 0, 'Rack::Cors' do
