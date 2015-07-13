@@ -66,6 +66,13 @@ describe AniMangaDecorator do
         its(:release_date_text) { is_expected.to eq 'на 3 марта 2012 г.' }
         its(:release_date_tooltip) { is_expected.to be_nil }
       end
+
+      context 'aired_on wo day' do
+        let(:aired_on) { '01-03-2012' }
+
+        its(:release_date_text) { is_expected.to eq 'на март 2012 г.' }
+        its(:release_date_tooltip) { is_expected.to be_nil }
+      end
     end
 
     context 'ongoing' do

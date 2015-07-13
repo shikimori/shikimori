@@ -181,7 +181,7 @@ class AniMangaDecorator < DbEntryDecorator
       parts << i18n_t('datetime.release_dates.till_date', date: h.formatted_date(released_on, true, true)) if released_on
     end
 
-    parts.join(' ').html_safe if parts.any?
+    parts.join(' ').downcase.html_safe if parts.any?
   end
 
   def release_date_tooltip

@@ -25,7 +25,6 @@ ru:
       since_till_date: с %{from_date} г. по %{to_date} г.
       till_date: до %{date} г.
 
-    # английские переводы не нужны
     parts:
       second:
         one: секунда
@@ -62,3 +61,5 @@ ru:
         few: года
         many: лет
         other: года
+
+
