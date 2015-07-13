@@ -1,5 +1,6 @@
 class BbCodes::VideoTag
   include Singleton
+  MAXIMUM_VIDEOS = 20
 
   def format text
     times = 0
@@ -7,7 +8,7 @@ class BbCodes::VideoTag
       is_youtube = $~[:url].include? 'youtube.com/'
       times += 1 unless is_youtube
 
-      if times <= 10 || is_youtube
+      if times <= MAXIMUM_VIDEOS || is_youtube
         $~[:text] + to_html($~[:url])
       else
         $~[:text] + $~[:url]
