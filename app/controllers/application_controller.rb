@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Translation
+  extend Translation
 
   #include Mobylette::RespondToMobileRequests
   LOCALES = {

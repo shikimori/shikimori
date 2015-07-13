@@ -8,7 +8,7 @@ ru:
       remove_from_friends: Удалить из друзей
       add_to_ignored: Добавить в игнор
       remove_from_ignored: Удалить из игнора
-      bans_history: История банов
+      ban_history: История банов
       no_spent_time: Нет просмотров аниме
       activity_graph: Активность на сайте
 
@@ -16,6 +16,46 @@ ru:
       no_friends: Нет друзей
       no_favourite: Список избранного пуст
       no_clubs: Не состоит ни в одном из клубов
+
+      back_to_page: Назад на страницу
+      banned: '@{f:забанена|m:забанен}'
+      no_stat_text: Недостаточно данных для формирования статистики
+
+    page:
+      back_to_page: Назад на страницу
+      to_anime: к аниме
+      to_manga: к манге
+      erorrs: Ошибки
+      account: Аккаунт
+      profile: Профиль
+      site_appearance_html: Внешний&nbsp;вид&nbsp;сайта
+      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
+      notifications: Уведомления
+      misc: Прочее
+
+    edit:
+      account:
+        nickname: Логин (никнейм)
+        change_email_and_password: Изменить email и пароль
+        under_development: В разработке
+        avatar: Аватар
+        connected_accounts: Подключенная авторизация
+        not_connected_accounts: Неподключенные сервисы
+        ignored_users: Игнорируемые пользователи
+        username: Имя пользователя
+
+      profile:
+        display_activity_graph_since: Отображать график активности начиная с даты
+        about_me: О себе
+
+      styles:
+        page_background: Фон центральной области
+        examples: Примеры
+        body_background_hint: Выбирайте либо среди списка картинок ниже, либо вставьте в поле адрес вашей собственной картинки. Поддерживается всё, что работает для css свойства background-image.
+        spoiler_one_picture: Одна картинка
+        spoiler_one_repeated_picture: Одна повторяющаяся картинка
+        spoiler_two_pictures: 'Две картинки: одна слева, другая справа'
+        spoiler_one_black_picture: Картинка с чёрным фоном
 
     stats_bar:
       similar_users: похожие пользователи

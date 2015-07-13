@@ -332,6 +332,12 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    i18n-inflector (2.6.7)
+      i18n (>= 0.4.1)
+    i18n-inflector-rails (1.0.7)
+      actionpack (>= 3.0.0)
+      i18n-inflector (~> 2.6)
+      railties (>= 3.0.0)
     icalendar (2.3.0)
     ice_nine (0.11.1)
     jbuilder (2.3.0)
@@ -689,6 +695,7 @@ DEPENDENCIES
   honeybadger
   htmldiff!
   htmlentities
+  i18n-inflector-rails
   icalendar
   jbuilder
   letter_opener

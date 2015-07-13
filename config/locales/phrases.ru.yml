@@ -1,15 +1,16 @@
 ru:
   phrases:
-    out_of: из
     anime_list: Список аниме
+    ban_user: Забанить пользователя
+    cancel: Отмена
+    female: жен.
+    loading: Загрузка
+    male: муж.
     manga_list: Список манги
+    my_bans: Мои баны
     my_mail: Почта
     my_profile_settings: Настройки профиля
-    user_profile_settings: Настройки профиля
-    my_bans: Мои баны
-    ban_user: Забанить пользователя
-    favorites: Избранное
-    feed: Лента
-    loading: Загрузка
     no_comments: Нет комментариев
     seyu: Сэйю
+    out_of: из
+    user_profile_settings: Настройки профиля

@@ -115,12 +115,6 @@ ru:
       chapter:
         one: глава
         few: главы
-      friend:
-        one: друг
-        few: друзья
-      club:
-        one: клуб
-        few: клубы
       history:
         one: история
       producer:
@@ -138,3 +132,13 @@ ru:
       genre:
         one: жанр
         few: жанры
+
+  i18n:
+    inflections:
+      gender:
+        m: мужской
+        f: женский
+        n: средний
+        male: :@m
+        female: :@f
+        default: m

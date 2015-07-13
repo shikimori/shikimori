@@ -67,7 +67,7 @@ class ShikimoriController < ApplicationController
     @breadcrumbs[title] = url
   end
 
-  def page_title title, replace=false
+  def page_title title, replace = false
     if replace
       @page_title = []
     else

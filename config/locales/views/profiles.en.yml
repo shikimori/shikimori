@@ -8,7 +8,7 @@ en:
       remove_from_friends: Remove from Friends
       add_to_ignored: Add to Ignored
       remove_from_ignored: Remove from Ignored
-      bans_history: Bans History
+      ban_history: Ban History
       no_spent_time: No spent time
       activity_graph: Activity Graph
 
@@ -16,6 +16,46 @@ en:
       no_friends: No friends
       no_favourite: No favorites
       no_clubs: No clubs
+
+      back_to_page: Back to page
+      banned: banned
+      no_stat_text: Not sufficient data to display statistics
+
+    page:
+      back_to_page: Back to page
+      to_anime: to anime
+      to_manga: to manga
+      erorrs: Errors
+      account: Account
+      profile: Profile
+      site_appearance_html: Site&nbsp;appearance
+      anime_and_manga_list_html: Anime&nbsp;and&nbsp;manga&nbsp;list
+      notifications: Notifications
+      misc: Misc
+
+    edit:
+      account:
+        nickname: Login (nickname)
+        change_email_and_password: Change email and password
+        under_development: Under development
+        avatar: Avatar
+        connected_accounts: Connected accounts
+        not_connected_accounts: Not connected accounts
+        ignored_users: Ignored users
+        username: User name
+
+      profile:
+        display_activity_graph_since: Display activity graph since
+        about_me: About me
+
+      styles:
+        page_background: Page background
+        examples: Examples
+        body_background_hint: Choose a picture below or insert your own picture URL. Whatever works for background-image CSS property is supported.
+        spoiler_one_picture: One picture
+        spoiler_one_repeated_picture: One picture is repeated
+        spoiler_two_pictures: 'Two pictures: one on the left side, another on the right side'
+        spoiler_one_black_picture: Picture with black background
 
     stats_bar:
       similar_users: similar users

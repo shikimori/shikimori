@@ -104,14 +104,14 @@
             - else
               a.ban.b-tooltipped.unprocessed[
                 href="#{ban_profile_url @resource}"
-                title="История банов"
+                title="#{t '.ban_history'}"
                 data-direction="top"
               ]
 
     header.head.misc
       h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
         - if params[:action] != 'show'
-          a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+          a.back href="#{@resource.url}" title="#{t '.back_to_page'} #{{@resource.name}}"
         = @resource.nickname
 
       .misc
@@ -120,7 +120,7 @@
         - unless @resource.own_profile?
           span = @resource.last_online
         - if @resource.banned?
-          span.banned забанен#{'а' if @resource.female?}
+          span.banned = t '.banned', gender: @resource.sex
 
       .notice
         - @resource.common_info.each do |entry|
@@ -167,7 +167,7 @@
         - if current_user.moderator?
           a href="#{ban_profile_url @resource}" = i18n_p 'ban_user'
         - else
-          a href="#{ban_profile_url @resource}" = t '.bans_history'
+          a href="#{ban_profile_url @resource}" = t '.ban_history'
         - if can? :edit, @resource
           a href="#{edit_profile_url @resource}" = i18n_p 'user_profile_settings'
 
@@ -240,14 +240,14 @@
             data-intervals_count="26"
             data-bar="vertical"
             data-flattened="true"
-            data-no_stat_text="Недостаточно данных для формирования статистики"
+            data-no_stat_text="#{t '.no_stat_text'}"
           ]
           .graph.x34[
             data-stats="#{@resource.stats.activity(34).to_json}"
             data-intervals_count="34"
             data-bar="vertical"
             data-flattened="true"
-            data-no_stat_text="Недостаточно данных для формирования статистики"
+            data-no_stat_text="#{t '.no_stat_text'}"
           ]
         - else
           .b-nothing_here = t '.no_stats'
@@ -257,10 +257,10 @@
         .c-column.m0
           .subheadline.m10
             - if @resource.friends.any? && @resource.friends.size > 12
-              a href="#{friends_profile_url @resource}" title="#{i18n_io 'Friend', :few}"
-                = i18n_io 'Friend', :few
+              a href="#{friends_profile_url @resource}" title="#{t 'profiles_controller.friends'}"
+                = t 'profiles_controller.friends'
             - else
-              = i18n_io 'Friend', :few
+              = t 'profiles_controller.friends'
           .cc-friends
             - if @resource.friends.any?
               = render @resource.friends.take(12), content_by: :avatar
@@ -270,10 +270,10 @@
         .c-column.m0
           .subheadline.m10
             - if @resource.clubs.any? && @resource.clubs.size > 4
-              a href="#{clubs_profile_url @resource}" title="#{i18n_io 'Club', :few}"
-                = i18n_io 'Club', :few
+              a href="#{clubs_profile_url @resource}" title="#{t 'profiles_controller.clubs'}"
+                = t 'profiles_controller.clubs'
             - else
-              = i18n_io 'Club', :few
+              = t 'profiles_controller.clubs'
           .b-clubs.one-line
             - if @resource.clubs.any?
               = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
@@ -283,10 +283,10 @@
       .block
         .subheadline.m10
           - if @resource.favourites.any?
-            a href="#{favourites_profile_url @resource}" title="#{i18n_p 'favorites'}"
-              = i18n_p 'favorites'
+            a href="#{favourites_profile_url @resource}" title="#{t 'profiles_controller.favorites'}"
+              = t 'profiles_controller.favorites'
           - else
-            = i18n_p 'favorites'
+            = t 'profiles_controller.favorites'
         .cc-favourites
           - if @resource.favourites.any?
             = render @resource.favourites, cover_by: :image_link
@@ -305,8 +305,8 @@
   - if @resource.show_comments?
     .block
       .subheadline.m3
-        a href="#{feed_profile_url @resource}" title="#{i18n_p 'feed'}"
-          = i18n_p 'feed'
+        a href="#{feed_profile_url @resource}" title="#{t 'profiles_controller.feed'}"
+          = t 'profiles_controller.feed'
       div
         .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
           = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }
