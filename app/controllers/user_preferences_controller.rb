@@ -11,11 +11,13 @@ class UserPreferencesController < ProfilesController
 
     else
       flash[:alert] = 'Изменения не сохранены!'
-      edit and render :edit
+      edit
+      render :edit
     end
   end
 
 private
+
   def user_preferences_params
     params.require(:user_preferences).permit(
       :anime_in_profile, :manga_in_profile,

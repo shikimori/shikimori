@@ -63,9 +63,11 @@ class MessagesController < ProfilesController
   def mark_read
     ids = (params[:ids] || '').split(',').map {|v| v.sub(/message-/, '').to_i }
 
-    Message
-      .where(id: ids, to_id: current_user.id)
-      .update_all(read: params[:unread] ? false : true)
+    Retryable.retryable tries: 2, on: [PG::TRDeadlockDetected], sleep: 1 do
+      Message
+        .where(id: ids, to_id: current_user.id)
+        .update_all(read: params[:unread] ? false : true)
+    end
 
     head 200
   end
