@@ -40,6 +40,7 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
   end
 
 private
+
   def approver
     BotsService.get_poster
   end
@@ -56,6 +57,8 @@ private
   end
 
   def get url
-    open(url).read.fix_encoding
+    Retryable.retryable tries: 2, on: [Errno::ECONNRESET], sleep: 1 do
+      open(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.fix_encoding
+    end
   end
 end
