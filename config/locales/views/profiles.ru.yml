@@ -39,7 +39,7 @@ ru:
         change_email_and_password: Изменить email и пароль
         under_development: В разработке
         avatar: Аватар
-        connected_accounts: Подключенная авторизация
+        connected_accounts: Подключенные сервисы
         not_connected_accounts: Неподключенные сервисы
         ignored_users: Игнорируемые пользователи
         username: Имя пользователя
