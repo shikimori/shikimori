@@ -149,12 +149,17 @@ class AnimeOnline::VideoPlayer
     end
   end
 
+  def compatible?(video)
+    return true unless h.mobile?
+    video.vk? || !!(h.request.user_agent =~ /Android/)
+  end
+
 private
   def videos
     @anime.anime_videos
       .includes(:author)
       .select { |v| all? || v.allowed? }
-      .select { |v| h.mobile? ? v.mobile_compatible? : true }
+      .select { |v| compatible?(v) }
       .sort_by { |v| [v.episode.zero? ? 1 : 0, v.episode, v.id] }
       .group_by(&:episode)
   end

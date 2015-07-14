@@ -332,27 +332,6 @@ describe AnimeVideo do
       end
     end
 
-    describe '#mobile_compatible?' do
-      let(:anime_video) { build :anime_video, url: url }
-      subject { anime_video.mobile_compatible? }
-
-      context 'true' do
-        context 'vk_com' do
-          let(:url) { 'http://vk.com?video=1' }
-          it { should be_truthy }
-        end
-
-        context 'vkontakte_com' do
-          let(:url) { 'http://vkontakte.ru?video=1' }
-          it { should be_truthy }
-        end
-      end
-      context 'false' do
-        let(:url) { 'http://rutube.ru?video=1' }
-        it { should be_falsy }
-      end
-    end
-
     describe '#uploader' do
       let(:anime_video) { build_stubbed :anime_video, state: state }
       let(:user) { create :user, :user, nickname: 'foo' }

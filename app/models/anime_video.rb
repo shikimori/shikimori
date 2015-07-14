@@ -84,10 +84,6 @@ class AnimeVideo < ActiveRecord::Base
     CopyrightBanAnimeIDs.include? anime_id
   end
 
-  def mobile_compatible?
-    vk?
-  end
-
   def uploader
     @uploader ||= if uploaded? || working?
       AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').last.try(:user)
