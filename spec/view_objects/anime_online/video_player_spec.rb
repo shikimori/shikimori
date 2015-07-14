@@ -1,5 +1,6 @@
 describe AnimeOnline::VideoPlayer do
   let(:decorator) { AnimeOnline::VideoPlayer.new anime }
+  let(:anime) { build :anime }
 
   #describe 'description' do
     #let(:anime) { build :anime, description: 'test' }
@@ -118,6 +119,47 @@ describe AnimeOnline::VideoPlayer do
       let!(:video_1) { create :anime_video, episode: 1, anime: anime }
       let!(:video_2) { create :anime_video, episode: 2, anime: anime }
       it { should eq 2 }
+    end
+  end
+
+  describe '#compatible?' do
+    subject { decorator.compatible?(video) }
+    let(:video) { build :anime_video, url: url }
+    let(:url) { 'http://rutube.ru?video=1' }
+    let(:h) { OpenStruct.new request: request, mobile?: is_mobile }
+    let(:request) { OpenStruct.new user_agent: user_agent }
+    let(:user_agent) { 'Mozilla/5.0 (Windows 2000; U) Opera 6.01 [en]' }
+    before { allow(decorator).to receive(:h).and_return h }
+
+    context 'desktop' do
+      let(:is_mobile) { false }
+      it { is_expected.to eq true }
+    end
+
+    context 'mobile' do
+      let(:is_mobile) { true }
+
+      context 'not vk' do
+        it { is_expected.to eq false }
+      end
+
+      context 'vk' do
+        let(:url) { 'http://vk.com?video=1' }
+        it { is_expected.to eq true }
+      end
+
+      context 'android' do
+        let(:user_agent) { 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' }
+
+        context 'not vk' do
+          it { is_expected.to eq true }
+        end
+
+        context 'vk' do
+          let(:url) { 'http://vk.com?video=1' }
+          it { is_expected.to eq true }
+        end
+      end
     end
   end
 
