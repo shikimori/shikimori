@@ -777,3 +777,6 @@ DEPENDENCIES
   will_paginate!
   xxhash
   zaru
+
+BUNDLED WITH
+  1.10.5
