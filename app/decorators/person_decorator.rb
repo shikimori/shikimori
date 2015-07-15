@@ -46,7 +46,7 @@ class PersonDecorator < DbEntryDecorator
 
   def groupped_roles
     flatten_roles.each_with_object({}) do |role, memo|
-      role_name = I18n.t("Role.#{role}")
+      role_name = I18n.t("role.#{role}", default: role)
       memo[role_name] ||= 0
       memo[role_name] += 1
     end.sort_by {|v| [-v.second, v.first] }
