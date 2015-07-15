@@ -34,6 +34,9 @@ ru:
         edit_manga: Редактировать мангу
       main_characters: Главные герои
       supporting_characters: Второстепенные персонажи
+      linked_directly: Напрямую
+      chronology: Хронология
+      franchise: Франшиза
 
     resources:
       staff: Авторы
@@ -41,9 +44,6 @@ ru:
       screenshots: Кадры
       linked: Связанное
       similar: Похожее
-      linked_directly: Связанное Напрямую
-      chronology: Хронология
-      franchise: Франшиза
       show_all: показать остальное
       hide: спрятать
 

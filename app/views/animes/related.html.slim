@@ -1,9 +1,9 @@
 = render layout: 'page' do
   - if @resource.related.chronology?
     .b-options-floated.mobile-support.mobile-landscape.before-two-buttons
-      span.link.selected Напрямую
-      a href="#{@resource.chronology_url}" Вся хронология
-      a href="#{@resource.franchise_url}" Франшиза
+      span.link.selected = t '.linked_directly'
+      a href="#{@resource.chronology_url}" = t '.chronology'
+      a href="#{@resource.franchise_url}" = t '.franchise'
   .subheadline-buttons
     span.item-list_switcher class="#{:selected if cookies['related_view'] != 'posters'}" data-name="related_view" data-value="list"
     span.item-posters_switcher class="#{:selected if cookies['related_view'] == 'posters'}" data-name="related_view" data-value="posters"

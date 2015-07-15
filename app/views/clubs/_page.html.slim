@@ -4,7 +4,7 @@
 header.head
   h1 class="#{:censored if @resource && @resource.name.present? && @resource.censored?}"
     - if params[:action] != 'show' && @resource && @resource.persisted?
-      a.back href="#{club_url @resource}" title="Назад на страницу клуба"
+      a.back href="#{club_url @resource}" title="#{t '.back_to_page'} клуба"
     - if @resource.name.present?
       = @resource.name
     - else

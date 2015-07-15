@@ -27,11 +27,13 @@ header.head
         top: -32px
 
       &:after
-        content: 'назад'
+        //left: 5px
+        content: attr(data-text)
         font-size: 9px
-        left: 5px
         position: absolute
+        text-align: center
         top: -9px
+        width: 35px
 
       &:hover:after
         border-bottom: 1px solid $link_hover

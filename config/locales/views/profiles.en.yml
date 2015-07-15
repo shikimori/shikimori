@@ -6,7 +6,6 @@ en:
       activity_graph: Activity Graph
       add_to_friends: Add to Friends
       add_to_ignored: Add to Ignored
-      back_to_page: Back to page
       ban_history: Ban History
       banned: banned
       my_bans: My Bans
@@ -24,16 +23,15 @@ en:
       user_profile_settings: User Profile Settings
 
     page:
-      back_to_page: Back to page
-      to_anime: to anime
-      to_manga: to manga
-      erorrs: Errors
       account: Account
+      anime_and_manga_list_html: Anime&nbsp;and&nbsp;manga&nbsp;list
+      erorrs: Errors
+      misc: Misc
+      notifications: Notifications
       profile: Profile
       site_appearance_html: Site&nbsp;appearance
-      anime_and_manga_list_html: Anime&nbsp;and&nbsp;manga&nbsp;list
-      notifications: Notifications
-      misc: Misc
+      to_anime: to anime
+      to_manga: to manga
 
     edit:
       account:

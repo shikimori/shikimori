@@ -5,11 +5,11 @@
       .c-column.block_m
         /.subheadline.m5
           span.link.linkeable data-href="#{@resource.franchise_url}" Связанное
-        .b-options-floated.mobile-support
-          span.link.linkeable data-href="#{@resource.related_url}" = t '.linked_directly'
+        .b-options-floated.mobile-support.mobile-landscape
+          span.link.linkeable data-href="#{@resource.related_url}" = t 'animes.page.linked_directly'
           - if @resource.related.chronology?
-            span.link.linkeable data-href="#{@resource.chronology_url}" = t '.chronology'
-            span.link.linkeable data-href="#{@resource.franchise_url}" = t '.franchise'
+            span.link.linkeable data-href="#{@resource.chronology_url}" = t 'animes.page.chronology'
+            span.link.linkeable data-href="#{@resource.franchise_url}" = t 'animes.page.franchise'
         .subheadline.m5 = t '.linked'
         div
           = render partial: 'animes/relation_note',

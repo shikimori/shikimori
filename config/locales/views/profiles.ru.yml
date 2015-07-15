@@ -6,7 +6,6 @@ ru:
       activity_graph: Активность на сайте
       add_to_friends: Добавить в друзья
       add_to_ignored: Добавить в игнор
-      back_to_page: Назад на страницу
       ban_history: История банов
       banned: '@{f:забанена|m:забанен}'
       my_bans: Мои баны
@@ -26,7 +25,6 @@ ru:
     page:
       account: Аккаунт
       anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
-      back_to_page: Назад на страницу
       erorrs: Ошибки
       misc: Прочее
       notifications: Уведомления

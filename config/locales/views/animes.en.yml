@@ -34,6 +34,9 @@ en:
         edit_manga: Edit Manga
       main_characters: Main Characters
       supporting_characters: Supporrting Characters
+      linked_directly: Linked Directly
+      chronology: Chronology
+      franchise: Franchise
 
     resources:
       staff: Staff
@@ -41,9 +44,6 @@ en:
       screenshots: Screenshots
       linked: Linked
       similar: Similar
-      linked_directly: Linked Directly
-      chronology: Chronology
-      franchise: Franchise
       show_all: show all
       hide: hide
 

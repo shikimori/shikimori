@@ -1,7 +1,11 @@
 header.head.misc
   h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
     - if params[:action] != 'show' || @back_url
-      a.back href="#{@back_url || @resource.url}" title="#{t '.back_to_page'} #{{@resource.name}}"
+      a.back[
+        href="#{@back_url || @resource.url}"
+        title="#{t 'back_to_page'} #{{@resource.name}}"
+        data-text="#{t 'back'}"
+      ]
     = @resource.nickname
 
   - if params[:controller] == 'user_rates'

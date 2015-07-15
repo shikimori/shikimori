@@ -8,7 +8,11 @@ header.head
       = @resource.headline
   - else
     h2
-      a.back href="#{@resource.url}" title="Назад на страницу #{{@resource.name}}"
+      a.back[
+        href="#{@resource.url}"
+        title="#{t 'back_to_page'} #{{@resource.name}}"
+        data-text="#{t 'back'}"
+      ]
       = @resource.headline
 
   p.notice

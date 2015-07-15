@@ -75,14 +75,14 @@ class AnimesController < ShikimoriController
     return redirect_to @resource.url, status: 301 unless @resource.related.chronology?
 
     noindex
-    page_title(@resource.anime? ? 'Хронология' : 'Хронология')
+    page_title t('animes.page.chronology')
   end
 
   def franchise
     return redirect_to @resource.url, status: 301 unless @resource.related.chronology?
 
     noindex
-    page_title(@resource.anime? ? 'Франшиза' : 'Франшиза')
+    page_title t('animes.page.franchise')
     @blank_layout = true
   end
 

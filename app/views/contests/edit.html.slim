@@ -1,7 +1,11 @@
 header.head
   h2
     - unless @resource.created?
-      a.back href="#{contest_url @resource}" title="Назад на страницу опроса"
+      a.back[
+        href="#{contest_url @resource}"
+        title="Назад на страницу опроса"
+        data-text="#{t 'back'}"
+      ]
     = @page_title.last
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
