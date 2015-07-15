@@ -35,8 +35,8 @@ ru:
 
     edit:
       account:
-        avatar: Аватар
         change_email_and_password: Изменить email и пароль
+        under_development: В разработке
         connected_accounts: Подключенные сервисы
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)

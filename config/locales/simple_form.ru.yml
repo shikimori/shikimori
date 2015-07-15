@@ -11,6 +11,7 @@ ru:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Пожалуйста, исправьте следующие ошибки:"
+
     # Labels and hints examples
     # labels:
     #   defaults:
@@ -25,6 +26,10 @@ ru:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
 
+    labels:
+      user:
+        nickname: Логин (никнейм)
+        avatar: Аватар (160x160)
 
     placeholders:
       topic:
@@ -36,6 +41,10 @@ ru:
           Topic: Топик
           AnimeNews: Новость об аниме
           MangaNews: Новость о манге
+      user:
+        sex:
+          male: муж.
+          female: жен.
 
     hints:
       user_change:

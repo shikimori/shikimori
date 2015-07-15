@@ -35,10 +35,8 @@ en:
 
     edit:
       account:
-        nickname: Login (nickname)
         change_email_and_password: Change email and password
         under_development: Under development
-        avatar: Avatar
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
         ignored_users: Ignored users
