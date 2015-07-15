@@ -9,6 +9,8 @@ ru:
     models:
       anime: Аниме
       manga: Манга
+      character: Персонаж
+      user: Пользователь
 
     attributes:
       anime: &anime_attributes

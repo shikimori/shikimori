@@ -9,6 +9,8 @@ en:
     models:
       anime: Anime
       manga: Manga
+      character: Character
+      user: User
 
     attributes:
       anime: &anime_attributes
