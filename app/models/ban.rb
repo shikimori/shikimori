@@ -1,4 +1,6 @@
 class Ban < ActiveRecord::Base
+  include Translation
+
   belongs_to :user
   belongs_to :moderator, class_name: User.name
   belongs_to :comment, touch: true
@@ -47,11 +49,12 @@ class Ban < ActiveRecord::Base
   end
 
   def message
-    if warning?
-      "предупреждение. #{BbCodeFormatter.instance.format_comment reason}."
-    else
-      "бан на #{duration.humanize}. #{BbCodeFormatter.instance.format_comment reason}."
-    end.sub /\.+\Z/, '.'
+    i18n_key = warning? ? 'warn_message' : 'ban_message'
+
+    i18n_t(i18n_key,
+      duration: duration.humanize,
+      reason: BbCodeFormatter.instance.format_comment(reason)
+    ).sub /\.+\Z/, '.'
   end
 
   # callbacks

@@ -52,8 +52,14 @@ module Translation
   end
 
   def count_key count
-    return count unless count.kind_of? Integer
+    if count.kind_of? Integer
+      I18n.russian? ? ru_count_key(count) : en_count_key(count)
+    else
+      count
+    end
+  end
 
+  def ru_count_key count
     number = count % 100
     return :many if number >= 5 && number <= 20
 
@@ -65,6 +71,16 @@ module Translation
       :few
     else
       :many
+    end
+  end
+
+  def en_count_key count
+    if count.zero?
+      :zero
+    elsif count == 1
+      :one
+    else
+      :other
     end
   end
 end

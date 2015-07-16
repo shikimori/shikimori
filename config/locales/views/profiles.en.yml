@@ -24,12 +24,12 @@ en:
 
     page:
       account: Account
-      anime_and_manga_list_html: Anime&nbsp;and&nbsp;manga&nbsp;list
+      anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
       erorrs: Errors
       misc: Misc
       notifications: Notifications
       profile: Profile
-      site_appearance_html: Site&nbsp;appearance
+      site_appearance_html: Site&nbsp;Appearance
       to_anime: to anime
       to_manga: to manga
 

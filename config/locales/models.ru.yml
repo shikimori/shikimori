@@ -1,0 +1,4 @@
+ru:
+  ban:
+    warn_message: предупреждение. %{reason}.
+    ban_message: бан на %{duration}. %{reason}.

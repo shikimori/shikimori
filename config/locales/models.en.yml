@@ -1,0 +1,4 @@
+en:
+  ban:
+    warn_message: warned. %{reason}.
+    ban_message: banned on %{duration}. %{reason}.
