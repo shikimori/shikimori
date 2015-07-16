@@ -14,13 +14,15 @@ module Translation
   def i18n_i key, count = 1, ru_case = :subjective
     count_key = count_key count
 
-    if I18n.russian?
-      I18n.t "inflections.cardinal.#{key}.#{ru_case}.#{count_key}",
-        default: "inflections.cardinal.#{key}.default".to_sym
+    translation = if I18n.russian?
+      I18n.t "inflections.cardinal.#{key.downcase}.#{ru_case}.#{count_key}",
+        default: "inflections.cardinal.#{key.downcase}.default".to_sym
     else
-      I18n.t "inflections.#{key}.#{count_key}",
-        default: key.gsub('_', ' ').pluralize(count)
+      I18n.t "inflections.#{key.downcase}.#{count_key}",
+        default: key.downcase.gsub('_', ' ').pluralize(count)
     end
+
+    key != key.downcase ? translation.capitalize : translation
   end
 
   # только для существительных с порядковыми числительными

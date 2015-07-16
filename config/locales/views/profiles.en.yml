@@ -25,7 +25,7 @@ en:
     page:
       account: Account
       anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
-      erorrs: Errors
+      errors: Errors
       misc: Misc
       notifications: Notifications
       profile: Profile
@@ -54,6 +54,27 @@ en:
         spoiler_one_repeated_picture: One picture is repeated
         spoiler_two_pictures: 'Two pictures: one on the left side, another on the right side'
         spoiler_one_black_picture: Picture with black background
+
+      import:
+        list_import_export: List import / export
+        what_to_import: What to import?
+        what_to_export: What to export?
+        where_to_import: Where to import from?
+        import_list: Import list
+        export_list: Export list
+        replace_existing_records: Replace existing records on %{domain}?
+        no_import_new_records: No, import new records only
+        yes_full_import: Yes, full import
+        login_on: Login on
+        import: Import
+        try_something_else: Try something else
+        mal_xml_file: MAL XML file
+        you_can_get_it_here: you can get it here
+        found: Found
+        do_not_import: Do not import
+        import_as_dropped: Import as Dropped
+        what_to_do_with_status: What to do with status
+        there_is_no_such_status_on_shikimori: there is no such status on shikimori
 
     stats_bar:
       similar_users: similar users

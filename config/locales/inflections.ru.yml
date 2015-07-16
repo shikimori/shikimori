@@ -29,7 +29,6 @@ ru:
           one: правка контента
           few: правки контента
           many: правок контента
-
       record:
         subjective:
           one: запись
@@ -60,6 +59,18 @@ ru:
           one: год
           few: года
           many: лет
+      anime:
+        accusative:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+      manga:
+        accusative:
+          one: мангу
+          few: манги
+          many: манг
+          other: манги
 
       datetime:
         second:
