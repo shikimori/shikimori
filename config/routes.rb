@@ -145,6 +145,9 @@ Site::Application.routes.draw do
           end
         end
       end
+      resources :nickname_changes, only: [] do
+        delete :cleanup, on: :collection
+      end
 
       resource :access_token, only: [:show, :create]
       resource :authenticity_token, only: [:show]

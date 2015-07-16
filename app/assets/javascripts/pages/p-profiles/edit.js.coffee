@@ -77,6 +77,21 @@
         .find('.cancel')
         .click()
 
+    # nickname changes cleanup
+    # выбор варианта
+    $('.nickname-changes .controls .link').on 'click', ->
+      $('.nickname-changes .controls').hide()
+      $('.nickname-changes .form').show()
+
+    # отмена
+    $('.nickname-changes .cancel').on 'click', ->
+      $('.nickname-changes .controls').show()
+      $('.nickname-changes .form').hide()
+
+    # успешное завершение
+    $('.nickname-changes a').on 'ajax:success', ->
+      $('.nickname-changes .cancel').click()
+
   # list page
   if $('.edit-page.list').exists()
     # импорт / экспорт

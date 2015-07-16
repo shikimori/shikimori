@@ -74,7 +74,7 @@ describe Api::V1::UserRatesController do
 
       context 'anime' do
         let(:entry) { create :anime }
-        before { post :cleanup, type: :anime }
+        before { delete :cleanup, type: :anime }
 
         it do
           expect(response).to have_http_status :success
@@ -85,7 +85,7 @@ describe Api::V1::UserRatesController do
 
       context 'manga' do
         let(:entry) { create :manga }
-        before { post :cleanup, type: :manga }
+        before { delete :cleanup, type: :manga }
 
         it do
           expect(response).to have_http_status :success

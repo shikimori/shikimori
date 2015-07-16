@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :vote do
+    user
     voteable { FactoryGirl.create(:anime) }
-    user { FactoryGirl.create(:user) }
   end
 end

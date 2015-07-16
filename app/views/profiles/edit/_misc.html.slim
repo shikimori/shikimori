@@ -9,7 +9,7 @@
     a.cancel href="#{profile_url @resource}" = t 'cancel'
     = f.button :magic_submit
 
-.profile-action
+.profile-action.block
   .mischeadline Рекомендации аниме и манги
   .controls
     p.link data-type="anime" Восстановить отклонённые вами рекомендации аниме
@@ -19,12 +19,41 @@
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение восстановить все заблокированные вами рекомендации для аниме.
-    a.control href="#{cleanup_recommendation_ignores_path target_type: :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для аниме?" Да, подтверждаю
+    a.control[
+      href="#{cleanup_recommendation_ignores_path target_type: :anime}"
+      data-method="delete"
+      data-remote="true"
+      data-type="json"
+      data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для аниме?"
+    ] Да, подтверждаю
     span.link.cancel = t 'cancel'
 
   .form.manga
     p
       span.warn Это действие необратимо!
       span Подтвердите намерение восстановить все заблокированные вами рекомендации для манги.
-    a.control href="#{cleanup_recommendation_ignores_path target_type: :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для манги?" Да, подтверждаю
+    a.control[
+      href="#{cleanup_recommendation_ignores_path target_type: :manga}"
+      data-method="delete"
+      data-remote="true"
+      data-type="json"
+      data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для манги?"
+    ] Да, подтверждаю
+    span.link.cancel = t 'cancel'
+
+.nickname-changes
+  .controls
+    p.link Очистить историю изменения никнеймов
+
+  .form
+    p
+      span.warn Это действие необратимо!
+      span Подтвердите намерение очистить историю изменения ваших никнеймов.
+    a.control[
+      href="#{cleanup_api_nickname_changes_url}"
+      data-method="delete"
+      data-remote="true"
+      data-type="json"
+      data-confirm="Вы действительно хотите очистить историю изменения ваших никнеймов?"
+    ] Да, подтверждаю
     span.link.cancel = t 'cancel'
