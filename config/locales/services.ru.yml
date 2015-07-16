@@ -11,3 +11,6 @@ ru:
     male_nickname_changed: Ваш друг %{old_nickname} изменил никнейм на %{new_nickname}.
   omniauth_service:
     new_user: Новый пользователь
+  bb_codes/replies_tag:
+    reply: 'Ответ: '
+    replies: 'Ответы: '

@@ -1,5 +1,6 @@
 class BbCodes::RepliesTag
   include Singleton
+  include Translation
 
   REGEXP = /
     (?<tag>
@@ -16,7 +17,9 @@ class BbCodes::RepliesTag
       ids = comment_ids $~[:ids].split(',')
       replies = ids.map {|id| "[comment=#{id}][/comment]" }.join(', ')
 
-      "<div class=\"b-replies#{' single' if ids.one?}\">#{replies}</div>" if ids.any?
+      "<div class=\"b-replies#{' single' if ids.one?}\" " +
+        "data-reply-text=\"#{i18n_t 'reply'}\" " +
+        "data-replies-text=\"#{i18n_t 'replies'}\">#{replies}</div>" if ids.any?
     end
   end
 

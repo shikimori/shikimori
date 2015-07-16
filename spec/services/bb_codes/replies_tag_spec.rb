@@ -13,12 +13,12 @@ describe BbCodes::RepliesTag do
 
     context 'one reply' do
       let(:text) { "<br><br>[replies=#{comment_1.id}]" }
-      it { should eq "<div class=\"b-replies single\">[comment=#{comment_1.id}][/comment]</div>" }
+      it { should eq "<div class=\"b-replies single\" data-reply-text=\"Ответ: \" data-replies-text=\"Ответы: \">[comment=#{comment_1.id}][/comment]</div>" }
     end
 
     context 'multiple replies' do
       let(:text) { "[replies=#{comment_1.id},#{comment_2.id},999]" }
-      it { should eq "<div class=\"b-replies\">[comment=#{comment_1.id}][/comment], [comment=#{comment_2.id}][/comment]</div>" }
+      it { should eq "<div class=\"b-replies\" data-reply-text=\"Ответ: \" data-replies-text=\"Ответы: \">[comment=#{comment_1.id}][/comment], [comment=#{comment_2.id}][/comment]</div>" }
     end
   end
 end

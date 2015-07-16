@@ -11,3 +11,6 @@ en:
     male_nickname_changed: Your friend %{old_nickname} changed nickname to %{new_nickname}.
   omniauth_service:
     new_user: New user
+  bb_codes/replies_tag:
+    reply: 'Reply: '
+    replies: 'Replies: '
