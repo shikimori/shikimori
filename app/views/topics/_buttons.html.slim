@@ -17,7 +17,7 @@ aside.buttons
     - if can? :edit, topic
       a.item-edit.short[
         href="#{topic.edit_url}"
-        title="Изменить"
+        title="#{t 'actions.edit'}"
       ]
 
     - if can? :destroy, topic

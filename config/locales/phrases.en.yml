@@ -4,9 +4,11 @@ en:
     ban_user: Ban User
     cancel: Cancel
     delete: Delete
+    edit: Edit
     quote: Quote
     reject: Reject
     reply: Reply
+    upload: Upload
   anime_list: Anime List
   back: back
   back_to_page: Back to page

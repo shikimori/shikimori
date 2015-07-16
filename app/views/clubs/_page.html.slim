@@ -4,13 +4,16 @@
 header.head
   h1 class="#{:censored if @resource && @resource.name.present? && @resource.censored?}"
     - if params[:action] != 'show' && @resource && @resource.persisted?
-      a.back href="#{club_url @resource}" title="#{t '.back_to_page'} клуба"
+      a.back href="#{club_url @resource}" title="Назад на страницу клуба"
     - if @resource.name.present?
       = @resource.name
     - else
       | Новый клуб
   - if can?(:edit, @resource) && @resource.persisted?
-    a.edit href="#{edit_club_url @resource}" title="Изменить клуб" изменить
+    a.edit[
+      href="#{edit_club_url @resource}"
+      title="Изменить клуб"
+    ] = t('actions.edit').downcase
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

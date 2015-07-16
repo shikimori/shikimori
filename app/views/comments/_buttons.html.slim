@@ -10,7 +10,7 @@ aside.buttons
 
     - if comment.can_be_edited_by? current_user
       span.item-edit[
-        title="Изменить"
+        title="#{t 'actions.edit'}"
         data-action="#{edit_comment_path comment}"
         data-type="html"
         data-remote="true"

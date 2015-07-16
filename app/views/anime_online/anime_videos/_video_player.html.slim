@@ -23,10 +23,10 @@
           - unless @player.current_video.copyright_ban?
             a.c-control.upload href="#{@player.new_video_url}"
               .icon
-              .label Загрузить
+              .label #{t 'actions.upload'}
           a.c-control.edit href="#{edit_video_online_url @resource, @video}"
             .icon
-            .label Изменить
+            .label #{t 'actions.edit'}
           - if can? :destroy, @video
             a.c-control.delete href="#{video_online_url @resource, @video}" data-method="delete" data-confirm="Вы уверены? Видео будет безвозвратно удалено"
               .icon
@@ -57,7 +57,7 @@
             - unless @player.current_video.copyright_ban?
               a.c-column.c-control.upload href="#{@player.new_video_url}"
                 .icon
-                .label Загрузить
+                .label #{t 'actions.upload'}
 
           .c-column.c-control.report
             .icon
