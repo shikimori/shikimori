@@ -8,7 +8,9 @@ class VideoExtractor::BaseExtractor
   end
 
   def fetch
-    VideoData.new hosting, image_url, player_url if valid_url? && opengraph_page?
+    Retryable.retryable tries: 2, on: [Errno::ECONNRESET, Net::ReadTimeout], sleep: 1 do
+      VideoData.new hosting, image_url, player_url if valid_url? && opengraph_page?
+    end
 
   rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError, SocketError, TypeError
   end

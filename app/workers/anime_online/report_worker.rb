@@ -57,7 +57,7 @@ private
   end
 
   def get url
-    Retryable.retryable tries: 2, on: [Errno::ECONNRESET], sleep: 1 do
+    Retryable.retryable tries: 2, on: [Errno::ECONNRESET, Net::ReadTimeout], sleep: 1 do
       open(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.fix_encoding
     end
   end
