@@ -1,10 +1,4 @@
 ru:
-  time:
-    formats:
-      full: '%e %b %Y г.'
-      month_year: '%B %Y г.'
-      year: '%Y г.'
-
   activerecord:
     models:
       anime: Аниме

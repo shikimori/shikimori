@@ -50,6 +50,10 @@ ru:
     online: сейчас на сайте
     offline: онлайн %{time_ago}%{ago}
     ago: назад
+    registration_formats:
+      full: '%e %b %Y г.'
+      month_year: '%d %B %Y г.'
+      year: '%Y г.'
   user_history_decorator:
     actions:
       add: Добавлено в список

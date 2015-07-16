@@ -1,10 +1,4 @@
 en:
-  time:
-    formats:
-      full: '%B %e, %Y'
-      month_year: '%B %Y'
-      year: '%Y'
-
   activerecord:
     models:
       anime: Anime

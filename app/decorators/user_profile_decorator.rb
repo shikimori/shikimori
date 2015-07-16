@@ -198,7 +198,8 @@ class UserProfileDecorator < UserDecorator
   end
 
   def unconnected_providers
-    User.omniauth_providers.select {|v| v != :google_apps && v != :yandex } - user_tokens.map {|v| v.provider.to_sym }
+    User.omniauth_providers.select {|v| v != :google_apps && v != :yandex } -
+      user_tokens.map {|v| v.provider.to_sym }
   end
 
 private
@@ -209,13 +210,16 @@ private
 
   def localized_registration shortened
     if created_at > 2.months.ago || !shortened
-      h.l created_at, format: :full
+      h.l created_at, format: i18n_t('registration_formats.full')
 
     elsif created_at > 2.years.ago
-      h.l created_at, format: :month_year
+      h.l(
+        created_at, format: i18n_t('registration_formats.month_year')
+      ).sub(/^\d+ /, '') # замена делается т.к. в русском варианте
+      # если брать перевод даты без %d, то месяц будет в неправильном падеже
 
     else
-      h.l created_at, format: :year
+      h.l created_at, format: i18n_t('registration_formats.year')
     end
   end
 end

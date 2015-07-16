@@ -50,6 +50,10 @@ en:
     online: online
     offline: last online %{time_ago}%{ago}
     ago: ago
+    registration_formats:
+      full: '%B %e, %Y'
+      month_year: '%B %Y'
+      year: '%Y'
   user_history_decorator:
     actions:
       add: Added to list
