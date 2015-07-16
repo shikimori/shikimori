@@ -8,7 +8,7 @@
     = f.input :reason
 
   .buttons
-    a.cancel href="#{resource.url}" = t 'cancel'
+    a.cancel href="#{resource.url}" = t 'actions.cancel'
     - if current_user.user_changes_moderator?
       = f.submit 'Применить', class: 'apply', name: 'apply'
     = f.button :magic_submit

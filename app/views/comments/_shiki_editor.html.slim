@@ -11,23 +11,53 @@
 
 aside.buttons
   .editor-controls
-    span.editor-bold title="Жирный"
-    span.editor-italic title="Курсив"
-    span.editor-underline title="Подчёркнутый"
-    span.editor-strike title="Зачёркнутый"
+    span.editor-bold.b-tooltipped.unprocessed[
+      title="#{t '.bold'}"
+      data-direction="top"
+    ]
+    span.editor-italic.b-tooltipped.unprocessed[
+      title="#{t '.italic'}"
+      data-direction="top"
+    ]
+    span.editor-underline.b-tooltipped.unprocessed[
+      title="#{t '.underline'}"
+      data-direction="top"
+    ]
+    span.editor-strike.b-tooltipped.unprocessed[
+      title="#{t '.striked'}"
+      data-direction="top"
+    ]
 
-    span.editor-link title="Ссылка"
-    span.editor-image title="Адрес изображения"
-    span.editor-quote title="Цитата"
-    span.editor-spoiler title="Спойлер"
+    span.editor-link.b-tooltipped.unprocessed[
+      title="#{t '.link'}"
+      data-direction="top"
+    ]
+    span.editor-image.b-tooltipped.unprocessed[
+      title="#{t '.image_link'}"
+      data-direction="top"
+    ]
+    span.editor-quote.b-tooltipped.unprocessed[
+      title="#{t '.quote'}"
+      data-direction="top"
+    ]
+    span.editor-spoiler.b-tooltipped.unprocessed[
+      title="#{t '.spoiler'}"
+      data-direction="top"
+    ]
 
-    span.editor-file title="Загрузить изображение"
+    span.editor-file.b-tooltipped.unprocessed[
+        title="#{t '.upload_image'}"
+        data-direction="top"
+      ]
       span
         input type="file"
     span.editor-upload
-    span.editor-smiley title="Смайлик"
-.smileys.hidden-block data-href="#{smileys_comments_url(subdomain: false)}"
-  .ajax-loading title="Загрузка..."
+    span.editor-smiley.b-tooltipped.unprocessed[
+      title="#{t '.smiley'}"
+      data-direction="top"
+    ]
+.smileys.hidden-block data-href="#{smileys_comments_url subdomain: false}"
+  .ajax-loading title="#{t 'loading'}"
 .links.hidden-block
   p
     = label_tag :link_type_url do
@@ -90,12 +120,12 @@ aside.buttons
 
       = f.input :body, as: :text,
         input_html: { class: "b-#{f.object.class.name.downcase} editor-area",
-          placeholder: (browser.ie? ? '' : 'Текст комментария'), tabindex: 0,
+          placeholder: (browser.ie? ? '' : t('.comment')), tabindex: 0,
           'data-upload_url' => user_images_url(linked_type: Comment.name),
           'data-item_type' => item_type }
     - else
       = text_area_tag field_name, text, class: 'comment_body editor-area',
-        placeholder: (browser.ie? ? '' : 'Текст'), tabindex: 0,
+        placeholder: (browser.ie? ? '' : t('.text')), tabindex: 0,
         'data-upload_url' => user_images_url(linked_type: nil),
         'data-item_type' => item_type
   .preview
@@ -108,13 +138,13 @@ footer
       = f.button :magic_submit
       .button.preview data-preview_url="#{preview_url}" = t '.preview'
       .unpreview.link = t '.back_to_editing'
-      .cancel = t 'cancel'
+      .cancel = t 'actions.cancel'
 
     - else
       = f.button :magic_submit
       .unpreview.link = t '.back_to_editing'
       .button.preview data-preview_url="#{preview_url}" = t '.preview'
-      .hide Скрыть
+      .hide = t '.hide'
 
   - else
     .button.preview data-preview_url="#{preview_url}" = t '.preview'

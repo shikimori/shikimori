@@ -36,7 +36,6 @@
         e.preventDefault()
         false
 
-
   # создание/редактирование топика
   $form.on 'submit', ->
     $posters = $('.wall-ids', $form).empty()

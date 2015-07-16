@@ -111,7 +111,7 @@ class ProfilesController < ShikimoriController
 
   def edit
     authorize! :edit, @resource
-    page_title i18n_t 'settings'
+    page_title t(:settings)
     @page = params[:page] || 'account'
     @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
   end

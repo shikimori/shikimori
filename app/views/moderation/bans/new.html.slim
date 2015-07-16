@@ -8,6 +8,6 @@
 
   = f.submit 'Забанить', class: 'button submit'
   - if defined? ban_in_profile
-    a.cancel href="#{profile_url @ban.user}" = t 'cancel'
+    a.cancel href="#{profile_url @ban.user}" = t 'actions.cancel'
   - else
-    .cancel = t 'cancel'
+    .cancel = t 'actions.cancel'

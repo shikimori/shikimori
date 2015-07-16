@@ -125,7 +125,7 @@
     = render 'resources'
   - else
     .resources-loader.postloaded data-href="#{@resource.resources_url}"
-      .ajax-loading.vk-like title="#{t 'loading'}..."
+      .ajax-loading.vk-like title="#{t 'loading'}"
 
   - if user_signed_in? || @resource.comments_count > 0
     .b-options-floated.mobile-support

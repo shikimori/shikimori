@@ -1,13 +1,20 @@
 ru:
+  actions:
+    accept: Принять
+    ban_user: Забанить пользователя
+    cancel: Отмена
+    delete: Удалить
+    quote: Цитировать
+    reject: Отклонить
+    reply: Ответить
   anime_list: Список аниме
   back: назад
   back_to_page: Назад на страницу
-  ban_user: Забанить пользователя
-  cancel: Отмена
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
   female: жен.
-  loading: Загрузка
+  loading: Загрузка...
+  mail: Почта
   male: муж.
   manga_list: Список манги
   mangaka: Мангака
@@ -15,5 +22,7 @@ ru:
   out_of: из
   person: Человек
   producer: Режиссёр
+  settings: Настройки
   seyu: Сэйю
+  shikimori: Шикимори
   users: Пользователи

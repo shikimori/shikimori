@@ -1,21 +1,21 @@
 .to-top-fix
 .inner
   - if request.path == '/' && !user_signed_in?
-    span.linkeable data-href="#{root_url}" data-title="Шикимори"
+    span.linkeable data-href="#{root_url}" data-title="#{t :shikimori}"
       .logo
   - else
-    a href="#{root_url}" title="Шикимори"
+    a href="#{root_url}" title="#{t :shikimori}"
       .logo
 
   .menu-mobile
-    .menu.mobile-menu-toggler title="Основное меню"
-    .search.mobile-search-toggler title="Поиск"
+    .menu.mobile-menu-toggler title="#{t '.main_menu'}"
+    .search.mobile-search-toggler title="#{t '.search'}"
 
   .menu.menu-userbox
     - if user_signed_in?
       .entry.userbox
         - if current_user.unread_count > 0
-          a.unread-count href="#{current_user.unread_messages_url}" title="Почта"
+          a.unread-count href="#{current_user.unread_messages_url}" title="#{t :mail}"
             = [99, current_user.unread_count].min
         a.avatar href="#{current_user.url}" title="#{current_user.nickname}"
           img.avatar src="#{current_user.avatar_url 20}" srcset="#{current_user.avatar_url 48} 2x" title="#{current_user.nickname}" alt="#{current_user.nickname}"
@@ -29,7 +29,7 @@
             href="#{profile_user_rates_url current_user, list_type: 'manga', subdomain: nil}"
           ] = t 'manga_list'
           a.entry href="#{current_user.unread_messages_url}"
-            span Почта
+            span = t :mail
             - if current_user.unread_count > 0
               | &nbsp;
               span.sep.zero.inline
@@ -42,11 +42,14 @@
               span.sep.zero.inline
                 | ]
 
-          a.entry href="#{edit_profile_url current_user, subdomain: nil}" Настройки
-          a.entry href="#{destroy_user_session_url subdomain: nil}" Выход
+          a.entry href="#{edit_profile_url current_user, subdomain: nil}" = t :settings
+          a.entry href="#{destroy_user_session_url subdomain: nil}" = t '.sign_out'
 
     - else
-      .entry.userbox.linkeable data-href="#{new_user_session_url subdomain: nil}" title="Вход"
+      .entry.userbox.linkeable[
+          data-href="#{new_user_session_url subdomain: nil}"
+          title="#{t '.sign_in'}"
+        ]
         span#sign_in
 
   .menu.menu-search
@@ -68,7 +71,7 @@
   .menu.menu-items
     = render "application/top_menu/#{domain_folder}"
     - if user_signed_in?
-      a.entry.sign_out href="#{destroy_user_session_url}" Выход
+      a.entry.sign_out href="#{destroy_user_session_url}" = '.sign_out'
 
   .moderation style="#{page_background}"
     - if user_signed_in?
@@ -93,3 +96,4 @@
           .mod-block
             span Видео:
             a href="#{moderation_anime_video_reports_url}" title="Модерация видео" #{AnimeVideoReport.pending.count}
+

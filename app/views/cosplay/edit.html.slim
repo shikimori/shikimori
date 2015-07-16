@@ -168,7 +168,7 @@ header.head.misc
                 = ff.label :position, 'Позиция'
                 = ff.text_field :position, class: 'common'
               p.m3
-                = ff.label :deleted, 'Удалить'
+                = ff.label :deleted, t(:delete)
                 = ff.check_box :deleted
             .images-list
               = render partial: 'images/image.html', object: ff.object, locals: {group_name: 'images', style: :original}

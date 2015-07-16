@@ -119,7 +119,7 @@
   .buttons
     a.cancel[
       href="#{@resource.persisted? ? contest_url(@resource) : contests_url}"
-    ] = t 'cancel'
+    ] = t 'actions.cancel'
     = f.button :magic_submit
 
   - if contest.persisted?

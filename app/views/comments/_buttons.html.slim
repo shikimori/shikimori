@@ -1,8 +1,8 @@
 aside.buttons
   .main-controls
-    span.item-quote title="Цитировать"
+    span.item-quote title="#{t 'actions.quote'}"
     span.item-reply[
-      title="Ответить"
+      title="#{t 'actions.reply'}"
       data-action="#{comment_url comment}"
       data-type="json"
       data-remote="true"
@@ -17,26 +17,26 @@ aside.buttons
       ]
 
     - if comment.can_be_deleted_by? current_user
-      span.item-delete title="Удалить"
+      span.item-delete title="#{t 'actions.delete'}"
 
     span.item-moderation title="Пожаловаться"
-    span.item-cancel title="#{t 'cancel'}"
+    span.item-cancel title="#{t 'actions.cancel'}"
 
   - if comment.can_be_deleted_by?(current_user) && comment.respond_to?(:commentable)
     .delete-controls
       span.item-delete-confirm[
-        title="Удалить"
+        title="#{t 'actions.delete'}"
         data-action="#{comment_url comment}"
         data-type="json"
         data-remote="true"
         data-method="delete"
       ]
-      span.item-delete-cancel title="#{t 'cancel'}"
+      span.item-delete-cancel title="#{t 'actions.cancel'}"
 
   .moderation-controls
     - if current_user.moderator?
       span.item-ban.b-tooltipped.unprocessed[
-        title="Забанить"
+        title="#{t 'actions.ban_user'}"
         data-action="#{new_comment_ban_path comment}"
         data-method="get"
         data-type="html"
@@ -84,4 +84,4 @@ aside.buttons
         data-direction="top"
       ]
 
-    span.item-moderation-cancel title="#{t 'cancel'}"
+    span.item-moderation-cancel title="#{t 'actions.cancel'}"

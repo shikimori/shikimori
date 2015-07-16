@@ -30,7 +30,7 @@
           - if can? :destroy, @video
             a.c-control.delete href="#{video_online_url @resource, @video}" data-method="delete" data-confirm="Вы уверены? Видео будет безвозвратно удалено"
               .icon
-              .label Удалить
+              .label = t 'actions.delete'
 
     .c-column
       .cc-anime_video_report-new

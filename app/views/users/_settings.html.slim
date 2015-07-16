@@ -11,7 +11,7 @@
   a class="#{:selected if params[:page] == 'list'}" href="#{user_settings_url @user, page: 'list'}" Список аниме и манги
   a class="#{:selected if params[:page] == 'notifications'}" href="#{user_settings_url @user, page: 'notifications'}" Уведомления
   a class="#{:selected if params[:page] == 'misc'}" href="#{user_settings_url @user, page: 'misc'}" Прочее
-.subheadline.m10 Настройки
+.subheadline.m10 = t :settings
 
 .subcontent
   = render partial: "users/settings/#{params[:page]}", formats: :html

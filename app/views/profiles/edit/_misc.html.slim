@@ -6,7 +6,7 @@
     = f.input :is_comments_auto_loaded
 
   .buttons
-    a.cancel href="#{profile_url @resource}" = t 'cancel'
+    a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
     = f.button :magic_submit
 
 .profile-action.block
@@ -26,7 +26,7 @@
       data-type="json"
       data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для аниме?"
     ] Да, подтверждаю
-    span.link.cancel = t 'cancel'
+    span.link.cancel = t 'actions.cancel'
 
   .form.manga
     p
@@ -39,7 +39,7 @@
       data-type="json"
       data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для манги?"
     ] Да, подтверждаю
-    span.link.cancel = t 'cancel'
+    span.link.cancel = t 'actions.cancel'
 
 .nickname-changes
   .controls
@@ -56,4 +56,4 @@
       data-type="json"
       data-confirm="Вы действительно хотите очистить историю изменения ваших никнеймов?"
     ] Да, подтверждаю
-    span.link.cancel = t 'cancel'
+    span.link.cancel = t 'actions.cancel'

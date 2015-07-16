@@ -15,35 +15,64 @@ a.entry[
   title="#{Manga.model_name.human}"
 ] = Manga.model_name.human
 
-a.entry.rel href="#{section_url :news}" title="Новости" Новости
-a.entry.rel href="#{section_url :reviews}" title="Обзоры" Обзоры
+a.entry.rel[
+  href="#{section_url :news}"
+  title="#{t '.news'}"
+] = t '.news'
+a.entry.rel[
+  href="#{section_url :reviews}"
+  title="#{t '.reviews'}"
+] = t '.reviews'
 
 - if user_signed_in?
   .entry
     - if current_user.show_contest_link?
-      a.contest href="#{current_contests_url}" title="Активный опрос" data-count="#{current_user.unvoted_contests}"
-    a href="#{contests_url}" title="Опросы" Опросы
+      a.contest href="#{current_contests_url}" title="#{t '.current_contest'}" data-count="#{current_user.unvoted_contests}"
+    a href="#{contests_url}" title="#{t '.contests'}" = t '.contests'
 
   .entry class="#{:selected if params[:controller] == 'recommendations'}"
     .submenu-toggler
-    .submenu-activator Рекомендации
+    .submenu-activator = t '.recommendations'
     .submenu
-      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{recommendations_favourites_anime_url}" Избранное
-      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{RecommendationsController::TOPIC_URL}" Советы с форума
-      a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}" Персонализированное
+      a.entry[
+        class="#{:selected if params[:controller] == 'recommendations'}"
+        href="#{recommendations_favourites_anime_url}"
+      ] = t '.favourite_recommendations'
+      a.entry[
+        class="#{:selected if params[:controller] == 'recommendations'}"
+        href="#{RecommendationsController::TOPIC_URL}"
+      ] = t '.community_recommendations'
+      a.entry[
+        class="#{:selected if params[:controller] == 'recommendations'}"
+        href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}"
+      ] = t '.personalized_recommendations'
 - else
-  a.entry class="#{:selected if params[:controller] == 'recommendations'}" href="#{recommendations_favourites_anime_url}" title="Какие аниме посмотреть" Какие аниме посмотреть
+  a.entry[
+    class="#{:selected if params[:controller] == 'recommendations'}"
+    href="#{recommendations_favourites_anime_url}"
+    title="Какие аниме посмотреть"
+  ] Какие аниме посмотреть
 
 .entry class="#{:selected if params[:controller] == 'users' || params[:controller] == 'groups'}"
   .submenu-toggler
-  .submenu-activator Сообщество
+  .submenu-activator = t '.community'
   .submenu
-    a.entry class="#{:active if params[:controller] == 'users'}" href="#{users_url}" title="Пользователи" Пользователи
-    a.entry class="#{:active if params[:controller] == 'groups'}" href="#{clubs_url}" title="Клубы" Клубы
+    a.entry[
+      class="#{:active if params[:controller] == 'users'}"
+      href="#{users_url}"
+      title="#{t :users}"
+    ] = t :users
+    a.entry[
+      class="#{:active if params[:controller] == 'groups'}"
+      href="#{clubs_url}"
+      title="#{t '.clubs'}"
+    ] = t '.clubs'
 
-.entry class="#{:selected if (params[:controller] == 'pages' && params[:action] == 'about') || (params[:controller] == 'statistics' && params[:action] == 'index')}"
+.entry[
+    class="#{:selected if (params[:controller] == 'pages' && params[:action] == 'about') || (params[:controller] == 'statistics' && params[:action] == 'index')}"
+  ]
   .submenu-toggler
-  .submenu-activator Инфо
+  .submenu-activator = t '.info'
   .submenu
     a.entry class="#{:active if params[:controller] == 'statistics' && params[:action] == 'index'}" href="#{anime_history_url}" title="Индустрия аниме" data-no-turbolink="true" Индустрия аниме
     a.entry class="#{:active if params[:controller] == 'pages' && params[:action] == 'about'}" href="#{about_pages_url}" title="О сайте" data-no-turbolink="true" О сайте

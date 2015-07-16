@@ -86,7 +86,7 @@ header.head
       .b-options-floated
         span Всего:&nbsp;&nbsp;
         a.selected #{@statistics.users_count}
-      .subheadline Пользователи
+      .subheadline = t :users
       .block.users-chart data-stats="#{@statistics.users.to_json}"
 
     .c-chart

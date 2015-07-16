@@ -15,7 +15,7 @@
       span#manga.control data-target="#{export_profile_user_rates_url @resource, :manga}"
         span.link Мангу
       span.cancel
-        span.link = t 'cancel'
+        span.link = t 'actions.cancel'
 
   #import_phase_1
     p Откуда будем импортировать?
@@ -27,7 +27,7 @@
       span#anime_planet.control data-final-step="import_anime_planet" title="anime-planet.com"
         span.link AnimePlanet
       span.cancel
-        span.link = t 'cancel'
+        span.link = t 'actions.cancel'
     /img src="/images/import/myanimelist.gif" id="myanimelist" alt="myanimelist.net" title="myanimelist.net" data-final-step="import_mal"
     /img src="/images/import/anime-planet.png" id="anime_planet" alt="anime-planet.com" title="anime-planet.com" data-final-step="import_anime_planet"
 
@@ -39,7 +39,7 @@
       span#manga.control data-klass="manga" data-anime-planet-status="Read"
         span.link Мангу
       span.cancel
-        span.link = t 'cancel'
+        span.link = t 'actions.cancel'
 
   #import_phase_3
     p Будем ли заменять уже добавленное на #{Site::DOMAIN}?
@@ -49,7 +49,7 @@
       span#full_import.control data-rewrite="1"
         span.link Да, полный импорт
       span.cancel
-        span.link = t 'cancel'
+        span.link = t 'actions.cancel'
 
   #import_phase_4
     p.m5
@@ -64,7 +64,7 @@
       span#direct_mal.control
         span.link Попробовать иначе
       span.cancel.control
-        span.link = t 'cancel'
+        span.link = t 'actions.cancel'
 
   #import_xml
     = form_tag import_profile_user_rates_url(@resource.object), multipart: true do
@@ -81,7 +81,7 @@
         span#to_final_step.control.submit
           span.link Импортировать
         span class="cancel control"
-          span.link = t 'cancel'
+          span.link = t 'actions.cancel'
 
   #import_mal
     = form_tag import_profile_user_rates_url(@resource.object) do
@@ -98,7 +98,7 @@
         span.import.submit.control
           span.link Импортировать
         span.cancel.control
-          span.link = t 'cancel'
+          span.link = t 'actions.cancel'
 
   #import_anime_planet
     = form_tag import_profile_user_rates_url(@resource.object) do

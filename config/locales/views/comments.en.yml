@@ -3,4 +3,17 @@ en:
     shiki_editor:
       preview: Preview
       bb_codes_guide: BBCode Guide
-      back_to_editing: Back to editor
+      back_to_editing: Back to Editor
+      hide: Hide
+      bold: Bold
+      italic: Italic
+      underline: Underlined
+      striked: Deleted
+      link: Link
+      image_link: Image Link
+      quote: Quote
+      spoiler: Spoiler
+      upload_image: Upload Image
+      smiley: Smiley
+      text: Text
+      comment: Comment text

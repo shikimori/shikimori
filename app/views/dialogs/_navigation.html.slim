@@ -1,7 +1,7 @@
 /.b-options-floated.mobile-support.mobile-landscape
 .b-options-floated.mobile-support
   a class="#{:selected if params[:controller] == 'dialogs'}" href="#{profile_dialogs_url @resource}"
-    | Почта
+    = t :mail
     - if @resource.unread_messages > 0
       span.brackets = @resource.unread_messages
 

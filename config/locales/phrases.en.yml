@@ -1,13 +1,20 @@
 en:
+  actions:
+    accept: Accept
+    ban_user: Ban User
+    cancel: Cancel
+    delete: Delete
+    quote: Quote
+    reject: Reject
+    reply: Reply
   anime_list: Anime List
   back: back
   back_to_page: Back to page
-  ban_user: Ban User
-  cancel: Cancel
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   female: female
-  loading: Loading
+  loading: Loading...
+  mail: Mail
   male: male
   manga_list: Manga List
   mangaka: Mangaka
@@ -15,5 +22,7 @@ en:
   out_of: out of
   person: Person
   producer: Director
+  settings: Settings
   seyu: Seyu
+  shikimori: Shikimori
   users: Users

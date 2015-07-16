@@ -8,7 +8,7 @@
 
   /.item-save = @resource.persisted? ? 'Сохранить' : 'Создать'
   .block
-    .subheadline Настройки
+    .subheadline = t :settings
     = f.input :name
 
     = f.input :join_policy, collection: GroupDecorator.join_policy_options, include_blank: false
@@ -99,5 +99,5 @@
   .buttons
     a.cancel[
       href="#{@resource.persisted? ? club_url(@resource) : clubs_url}"
-    ] = t 'cancel'
+    ] = t 'actions.cancel'
     = f.button :magic_submit

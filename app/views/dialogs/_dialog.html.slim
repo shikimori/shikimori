@@ -7,13 +7,19 @@
     aside.buttons
       .main-controls
         - if dialog.message.from != current_user
-          a.item-reply href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}" title="Ответить"
-        span.item-delete title="Удалить"
-        span.item-cancel title="#{t 'cancel'}"
+          a.item-reply href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}" title="#{t 'actions.reply'}"
+        span.item-delete title="#{t 'actions.delete'}"
+        span.item-cancel title="#{t 'actions.cancel'}"
 
       .delete-controls
-        span.item-delete-confirm action="#{profile_dialog_url dialog.user, dialog.message}" data-type="json" data-remote="true" data-method="delete" title="Удалить"
-        span.item-delete-cancel title="#{t 'cancel'}"
+        span.item-delete-confirm[
+          action="#{profile_dialog_url dialog.user, dialog.message}"
+          data-type="json"
+          data-remote="true"
+          data-method="delete"
+          title="#{t 'actions.delete'}"
+        ]
+        span.item-delete-cancel title="#{t 'actions.cancel'}"
 
     header
       span.linkeable data-href="#{profile_url dialog.target_user}"

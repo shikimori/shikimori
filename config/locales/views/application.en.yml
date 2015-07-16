@@ -1,0 +1,22 @@
+en:
+  application:
+    top_menu:
+      sign_in: Sign In
+      sign_out: Sign Out
+
+      shikimori: &shikimori
+        community: Community
+        clubs: Clubs
+        info: Info
+        news: News
+        reviews: Reviews
+        contests: Contests
+        current_contest: Current Contest
+        search: Search
+        main_menu: Main Menu
+        recommendations: Recommendations
+        favourite_recommendations: Favourite
+        community_recommendations: By community
+        personalized_recommendations: Personalized
+      anime_online:
+        <<: *shikimori

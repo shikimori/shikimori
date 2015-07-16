@@ -98,7 +98,7 @@
             - if current_user.moderator?
               a.ban.b-tooltipped.unprocessed[
                 href="#{ban_profile_url @resource}"
-                title="#{t 'ban_user'}"
+                title="#{t 'actions.ban_user'}"
                 data-direction="top"
               ]
             - else
@@ -109,12 +109,15 @@
               ]
 
     header.head.misc
-      h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
+      h1[
+          class="#{'aliases' if @resource.nickname_changes?}"
+          title="#{@resource.nicknames_tooltip if @resource.nickname_changes?}"
+        ]
         - if params[:action] != 'show'
           a.back[
             href="#{@resource.url}"
-            title="#{t 'back_to_page'} #{{@resource.name}}"
-            data-text="#{t 'back'}"
+            title="#{t 'actions.back_to_page'} #{{@resource.name}}"
+            data-text="#{t 'actions.back'}"
           ]
         = @resource.nickname
 
@@ -169,7 +172,7 @@
         ] = t '.remove_from_ignored'
 
         - if current_user.moderator?
-          a href="#{ban_profile_url @resource}" = t 'ban_user'
+          a href="#{ban_profile_url @resource}" = t 'actions.ban_user'
         - else
           a href="#{ban_profile_url @resource}" = t '.ban_history'
         - if can? :edit, @resource

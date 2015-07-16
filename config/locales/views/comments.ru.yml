@@ -4,3 +4,16 @@ ru:
       preview: Предпросмотр
       bb_codes_guide: справка по бб-кодам
       back_to_editing: Вернуться к редактированию
+      hide: Скрыть
+      bold: Жирный
+      italic: Курсив
+      underline: Подчёркнутый
+      striked: Зачёркнутый
+      link: Ссылка
+      image_link: Ссылка на картинку
+      quote: Цитата
+      spoiler: Спойлер
+      upload_image: Загрузить изображение
+      smiley: Смайлик
+      text: Текст
+      comment: Текст комментария

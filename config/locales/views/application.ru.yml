@@ -1,0 +1,22 @@
+ru:
+  application:
+    top_menu:
+      sign_out: Выход
+      sign_in: Вход
+
+      shikimori: &shikimori
+        community: Сообщество
+        clubs: Клубы
+        info: Инфо
+        news: Новости
+        reviews: Обзоры
+        contests: Опросы
+        current_contest: Текущий опрос
+        search: Поиск
+        main_menu: Основное меню
+        recommendations: Рекомендации
+        favourite_recommendations: Избранное
+        community_recommendations: От сообщества
+        personalized_recommendations: Персонализированное
+      anime_online:
+        <<: *shikimori
