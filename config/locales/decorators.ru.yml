@@ -51,7 +51,7 @@ ru:
     offline: онлайн %{time_ago}%{ago}
     ago: назад
     registration_formats:
-      full: '%e %b %Y г.'
+      full: &full_date '%e %B %Y г.'
       month_year: '%d %B %Y г.'
       year: '%Y г.'
   user_history_decorator:
