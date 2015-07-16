@@ -3,6 +3,8 @@ en:
     top_menu:
       sign_in: Sign In
       sign_out: Sign Out
+      search: Search
+      main_menu: Main Menu
 
       shikimori: &shikimori
         community: Community
@@ -12,8 +14,6 @@ en:
         reviews: Reviews
         contests: Contests
         current_contest: Current Contest
-        search: Search
-        main_menu: Main Menu
         recommendations: Recommendations
         favourite_recommendations: Favourite
         community_recommendations: By community

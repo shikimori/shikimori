@@ -3,6 +3,8 @@ ru:
     top_menu:
       sign_out: Выход
       sign_in: Вход
+      search: Поиск
+      main_menu: Основное меню
 
       shikimori: &shikimori
         community: Сообщество
@@ -12,8 +14,6 @@ ru:
         reviews: Обзоры
         contests: Опросы
         current_contest: Текущий опрос
-        search: Поиск
-        main_menu: Основное меню
         recommendations: Рекомендации
         favourite_recommendations: Избранное
         community_recommendations: От сообщества
