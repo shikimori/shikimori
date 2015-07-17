@@ -27,6 +27,8 @@
 
         # разбиваем по группам
         $root.children().toArray().inGroupsOf(columns).each (group) ->
+          group = group.compact()
+
           # определяем высоту самого низкого постера
           min_height_node = group.min (node) ->
             $(node).find('.image-cutter').outerHeight()
