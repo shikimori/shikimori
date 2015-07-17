@@ -49,7 +49,7 @@ private
   end
 
   def exclude_generated query
-    query.send @section && @section.permalink == 'news' ? :wo_episodes : :wo_generated
+    query.send @section && @section.permalink == 'news' ? :wo_episodes : :wo_empty_generated
   end
 
   def exclude_hentai query

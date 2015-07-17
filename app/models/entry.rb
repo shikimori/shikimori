@@ -31,7 +31,8 @@ class Entry < ActiveRecord::Base
   Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
 
   # видимые топики
-  scope :wo_generated, -> { wo_episodes.where("(comments_count > 0 and generated = true) or generated = false ") }
+  #scope :wo_empty_generated, -> { wo_episodes.where("(comments_count > 0 and generated = true) or generated = false ") }
+  scope :wo_empty_generated, -> { where '(comments_count > 0 and generated = true) or generated = false' }
   # топики без топиков о выходе эпизодов
   scope :wo_episodes, -> { where 'action is null or action != ?', AnimeHistoryAction::Episode }
 
@@ -77,11 +78,10 @@ class Entry < ActiveRecord::Base
   end
 
   # колбек, срабатываемый при добавлении коммента
-  def comment_added(comment)
-    self.updated_at = Time.now
+  def comment_added comment
+    self.updated_at = Time.zone.now
     self.created_at = self.updated_at if self.comments_count == 1
     self.save
-    #self.mark_as_viewed(comment.user_id, comment)
   end
 
   # колбек, срабатываемый при удалении коммента

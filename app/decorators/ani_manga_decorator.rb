@@ -17,7 +17,7 @@ class AniMangaDecorator < DbEntryDecorator
   def topics
     object
       .topics
-      .wo_generated
+      .wo_empty_generated
       .includes(:section)
       .limit(TopicsPerPage)
       .map { |topic| format_menu_topic topic, :updated_at }
