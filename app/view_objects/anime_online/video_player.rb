@@ -156,7 +156,11 @@ class AnimeOnline::VideoPlayer
   end
 
   def episode_thread
-    thread = anime.object.topics.find_by(type: AnimeNews.name, action: :episode, value: 1)
+    thread = anime.object.topics.find_by(
+      type: AnimeNews.name,
+      action: :episode,
+      value: current_episode
+    )
 
     if thread
       TopicDecorator.new(thread)
