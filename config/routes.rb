@@ -35,6 +35,28 @@ Site::Application.routes.draw do
     post :preview, on: :collection
   end
 
+  # комментарии
+  resources :comments do
+    resources :bans, only: [:new], controller: 'moderation/bans'
+    resources :abuse_requests, controller: 'moderation/abuse_requests', only: [] do
+      resources :bans, only: [:new], controller: 'moderation/bans'
+
+      collection do
+        post :abuse
+        post :spoiler
+        post :offtopic
+        post :review
+      end
+    end
+
+    collection do
+      get :smileys
+      post :preview
+      get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
+      get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
+    end
+  end
+
   namespace :moderation do
     resources :user_changes, only: [:show, :index, :create] do
       collection do
@@ -307,28 +329,6 @@ Site::Application.routes.draw do
     # игнор лист
     post ':id/ignore' => 'ignores#create', as: :ignore_add
     delete ':id/ignore' => 'ignores#destroy', as: :ignore_remove
-
-    # комментарии
-    resources :comments do
-      resources :bans, only: [:new], controller: 'moderation/bans'
-      resources :abuse_requests, controller: 'moderation/abuse_requests', only: [] do
-        resources :bans, only: [:new], controller: 'moderation/bans'
-
-        collection do
-          post :abuse
-          post :spoiler
-          post :offtopic
-          post :review
-        end
-      end
-
-      collection do
-        get :smileys
-        post :preview
-        get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
-        get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
-      end
-    end
 
     resources :cosplay_galleries, only: [] do
       get :publishing, on: :collection

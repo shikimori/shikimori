@@ -4,6 +4,7 @@ class AnimeOnline::VideoPlayer
 
   vattr_initialize :anime
   instance_cache :nav, :videos, :current_video, :last_episode, :episode_videos
+  instance_cache :episode_thread
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_HOSTING = 'anime_video_hosting'
@@ -149,12 +150,21 @@ class AnimeOnline::VideoPlayer
     end
   end
 
-  def compatible?(video)
+  def compatible? video
     return true unless h.mobile?
     video.vk? || !!(h.request.user_agent =~ /Android/)
   end
 
+  def episode_thread
+    thread = anime.object.topics.find_by(type: AnimeNews.name, action: :episode, value: 1)
+
+    if thread
+      TopicDecorator.new(thread)
+    end
+  end
+
 private
+
   def videos
     @anime.anime_videos
       .includes(:author)
