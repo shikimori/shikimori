@@ -49,7 +49,8 @@
         .b-nothing_here Нет эпизодов
 
   - if @player.episode_thread
-    .subheadline.m3 = i18n_io 'Comment', :few
-    div
-      .b-topic.unprocessed data-faye="#{@player.episode_thread.faye_channel}"
-        = render 'topics/comments', topic: @player.episode_thread
+    .block.clearfix
+      .subheadline.m3 = i18n_io 'Comment', :few
+      div
+        .b-topic.unprocessed data-faye="#{@player.episode_thread.faye_channel}"
+          = render 'topics/comments', topic: @player.episode_thread
