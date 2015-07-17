@@ -18,6 +18,9 @@ class Api::V1::CommentsController < Api::V1::ApiController
     @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
 
+    raise MissingApiParameter, :commentable_type if params[:commentable_type].blank?
+    raise MissingApiParameter, :commentable_id if params[:commentable_id].blank?
+
     respond_with CommentsQuery
       .new(params[:commentable_type], params[:commentable_id])
       .fetch(@page, @limit, @desc)

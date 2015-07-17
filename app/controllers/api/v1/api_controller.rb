@@ -9,7 +9,17 @@ class Api::V1::ApiController < ShikimoriController
     api_version '1'
   end
 
+  rescue_from MissingApiParameter, with: :missing_api_parameter
+
 private
+
+  def missing_api_parameter exception
+    render json: [
+      "missing parameter: #{exception.message}"
+    ], status: :unprocessable_entity
+
+  end
+
   def authenticate_user_from_token!
     user_nickname = request.headers['X-User-Nickname']
     user_token = request.headers['X-User-Api-Access-Token']

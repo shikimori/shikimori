@@ -1,0 +1,2 @@
+class MissingApiParameter < ArgumentError
+end
