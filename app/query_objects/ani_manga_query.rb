@@ -334,14 +334,14 @@ private
       ]
 
       if field == :english || field == :synonyms || field == :name || field == :russian
-        queries << "#{table_field} ilike #{Entry.sanitize term.broken_translit}" if field != :russian
+        queries << "#{table_field} ilike #{Entry.sanitize term.broken_translit.gsub(/'/, '')}" if field != :russian
         queries << "#{table_field} ilike #{Entry.sanitize "% #{term}%"}"
         queries << "#{table_field} ilike #{Entry.sanitize "% _#{term}%"}"
         queries << "#{table_field} ilike #{Entry.sanitize "% #{term}%"}"
         queries << "#{table_field} ilike #{Entry.sanitize "%#{term}%"}"
 
         if term != pterm
-          queries << "#{table_field} ilike #{Entry.sanitize "#{pterm.broken_translit}%"}"
+          queries << "#{table_field} ilike #{Entry.sanitize "#{pterm.broken_translit.gsub(/'/, '')}%"}"
         end
       end
 
