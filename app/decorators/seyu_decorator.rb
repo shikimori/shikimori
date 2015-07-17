@@ -31,7 +31,8 @@ class SeyuDecorator < PersonDecorator
     # группировка по персонажам и аниме
     @characters = []
     backindex = {}
-    characters.includes(:animes).each do |char|
+
+    characters.includes(:animes).uniq.each do |char|
       entry = nil
       char.animes.each do |anime|
         if backindex.include?(anime.id)

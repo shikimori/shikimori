@@ -22,7 +22,7 @@ class CharactersController < PeopleController
   def seyu
     noindex
     redirect_to @resource.url, status: 301 if @resource.seyu.none?
-    page_title 'Сэйю'
+    page_title t(:seyu)
   end
 
   # все аниме персонажа

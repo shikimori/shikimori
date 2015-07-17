@@ -57,7 +57,7 @@
         - if @resource.seyu.present?
           .c-info-right
             .subheadline.m10
-              .linkeable href="#{seyu_character_url @resource}" Сэйю
+              .linkeable href="#{seyu_character_url @resource}" = t :seyu
               /- if @resource.seyu.size > 3
                 | Сэйю <span>#{@resource.seyu.size}</span>
               /- else

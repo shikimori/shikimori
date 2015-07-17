@@ -9,7 +9,7 @@ class CharacterDecorator < PersonDecorator
   end
 
   def seyu
-    object.seyu.to_a
+    object.seyu.uniq.to_a
   end
 
   def job_title
