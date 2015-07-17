@@ -55,6 +55,12 @@ en:
         spoiler_two_pictures: 'Two pictures: one on the left side, another on the right side'
         spoiler_one_black_picture: Picture with black background
 
+      list:
+        scores_in_my_list: Scores in my list
+        reset_all_scores: Reset all %{kind} scores
+        confirm_that_you_want_to_reset_scores: Confirm that you want to reset all %{kind_genitive} scores (%{kind_subjective} won't be removed from list).
+        are_you_sure_to_reset_all_scores: Are you sure to remove to reset all %{kind} scores?
+
       import:
         list_import_export: List import / export
         what_to_import: What to import?

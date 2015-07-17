@@ -60,12 +60,32 @@ ru:
           few: года
           many: лет
       anime:
+        subjective:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+        genitive:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
         accusative:
           one: аниме
           few: аниме
           many: аниме
           other: аниме
       manga:
+        subjective:
+          one: манга
+          few: манги
+          many: манг
+          other: манги
+        genitive:
+          one: манги
+          few: манг
+          many: манг
+          other: манг
         accusative:
           one: мангу
           few: манги
@@ -152,4 +172,5 @@ ru:
         n: средний
         male: :@m
         female: :@f
+        neuter: :@n
         default: m

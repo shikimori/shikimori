@@ -57,6 +57,12 @@ ru:
         spoiler_two_pictures: 'Две картинки: одна слева, другая справа'
         spoiler_one_black_picture: Картинка с чёрным фоном
 
+      list:
+        scores_in_my_list: Оценки в моём списке
+        reset_all_scores: Сбросить все оценки %{kind}
+        confirm_that_you_want_to_reset_scores: 'Подтвердите намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
+        are_you_sure_to_reset_all_scores: Вы действительно хотите сбросить все выставленные вами оценки для %{kind}?
+
       import:
         list_import_export: Импорт / экспорт списка
         what_to_import: Что будем импортировать?

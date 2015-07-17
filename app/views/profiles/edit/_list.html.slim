@@ -9,23 +9,43 @@
   = render 'profiles/edit/import'
 
 .profile-action
-  .mischeadline Оценки в моём списке
+  .mischeadline = t '.scores_in_my_list'
   .controls
-    p.link data-type="anime" Сбросить все оценки аниме
-    p.link data-type="manga" Сбросить все оценки манги
+    p.link data-type='anime' = t '.reset_all_scores', kind: i18n_i('anime', 1, :genitive)
+    p.link data-type='manga' = t '.reset_all_scores', kind: i18n_i('manga', 1, :genitive)
 
   .form.anime
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение сбросить все выставленные оценки для аниме (сами аниме из списка не удалятся).
-    a.control href="#{reset_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span
+        = t '.confirm_that_you_want_to_reset_scores',
+          kind_genitive: i18n_i('anime', 1, :genitive),
+          kind_subjective: i18n_i('anime', 1, :subjective),
+          gender: 'neuter'
+    a.control[
+      href="#{reset_api_user_rates_url :anime}"
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.are_you_sure_to_reset_all_scores', kind: i18n_i('anime', 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
   .form.manga
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение сбросить все выставленные оценки для манги (сама манга из списка не удалится).
-    a.control href="#{reset_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span
+        = t '.confirm_that_you_want_to_reset_scores',
+          kind_genitive: i18n_i('manga', 1, :genitive),
+          kind_subjective: i18n_i('manga', 1, :subjective),
+          gender: 'female'
+    a.control[
+      href="#{reset_api_user_rates_url :manga}"
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.are_you_sure_to_reset_all_scores', kind: i18n_i('manga', 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
 .profile-action
@@ -36,14 +56,14 @@
 
   .form.anime
     p
-      span.warn Это действие необратимо!
+      span.warn = t 'this_action_cant_be_undone'
       span Подтвердите намерение удалить всю историю изменений своего списка аниме.
     a.control href="#{reset_profile_user_history_index_url @resource, :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
     span.link.cancel = t 'actions.cancel'
 
   .form.manga
     p
-      span.warn Это действие необратимо!
+      span.warn = t 'this_action_cant_be_undone'
       span Подтвердите намерение удалить всю историю изменений своего списка манги.
     a.control href="#{reset_profile_user_history_index_url @resource, :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
     span.link.cancel = t 'actions.cancel'
