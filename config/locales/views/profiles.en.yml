@@ -56,14 +56,21 @@ en:
         spoiler_one_black_picture: Picture with black background
 
       list:
-        scores_in_my_list: Scores in my list
+        my_list_scores: Scores in my list
         reset_scores: Reset all %{kind} scores
         confirm_to_reset_scores: Confirm that you want to reset all %{kind_genitive} scores (%{kind_subjective} won't be removed from list).
         sure_to_reset_scores: Are you sure you want to reset all %{kind} scores?
+
         my_list_history: My list history
         remove_history_of_list_changes: Remove all history of %{kind} list changes?
         confirm_to_remove_history_of_list_changes: Confirm that you want to remove all history of your %{kind} list changes.
         sure_to_remove_history_of_list_changes: Are you sure you want to remove all history of %{kind} list changes?
+
+        my_list_contents: My list contents
+        clear_list_completely: Clear my %{kind} list completely
+        confirm_to_clear_list_completely: Подтвердите намерение очистить свой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
+        confirm_to_clear_list_completely: Confirm that you want to clear your %{kind_genitive} list completely and remove all of its history.
+        sure_to_clear_list_completely: Are you sure you want to clear your %{kind} list and lose all of its history?
 
       import:
         list_import_export: List import / export

@@ -65,6 +65,11 @@ ru:
           few: аниме
           many: аниме
           other: аниме
+        dative:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
         genitive:
           one: аниме
           few: аниме
@@ -81,6 +86,11 @@ ru:
           few: манги
           many: манг
           other: манги
+        dative:
+          one: манге
+          few: мангам
+          many: мангам
+          other: мангам
         genitive:
           one: манги
           few: манг
