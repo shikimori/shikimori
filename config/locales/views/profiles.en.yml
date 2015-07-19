@@ -57,9 +57,13 @@ en:
 
       list:
         scores_in_my_list: Scores in my list
-        reset_all_scores: Reset all %{kind} scores
-        confirm_that_you_want_to_reset_scores: Confirm that you want to reset all %{kind_genitive} scores (%{kind_subjective} won't be removed from list).
-        are_you_sure_to_reset_all_scores: Are you sure to remove to reset all %{kind} scores?
+        reset_scores: Reset all %{kind} scores
+        confirm_to_reset_scores: Confirm that you want to reset all %{kind_genitive} scores (%{kind_subjective} won't be removed from list).
+        sure_to_reset_scores: Are you sure you want to reset all %{kind} scores?
+        my_list_history: My list history
+        remove_history_of_list_changes: Remove all history of %{kind} list changes?
+        confirm_to_remove_history_of_list_changes: Confirm that you want to remove all history of your %{kind} list changes.
+        sure_to_remove_history_of_list_changes: Are you sure you want to remove all history of %{kind} list changes?
 
       import:
         list_import_export: List import / export

@@ -59,9 +59,13 @@ ru:
 
       list:
         scores_in_my_list: Оценки в моём списке
-        reset_all_scores: Сбросить все оценки %{kind}
-        confirm_that_you_want_to_reset_scores: 'Подтвердите намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
-        are_you_sure_to_reset_all_scores: Вы действительно хотите сбросить все выставленные вами оценки для %{kind}?
+        reset_scores: Сбросить все оценки %{kind}
+        confirm_to_reset_scores: 'Подтвердите намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
+        sure_to_reset_scores: Вы действительно хотите сбросить все выставленные вами оценки для %{kind}?
+        my_list_history: История моего списка
+        remove_history_of_list_changes: Удалить всю историю изменений списка %{kind}?
+        confirm_to_remove_history_of_list_changes: Подтвердите намерение удалить всю историю изменений своего списка %{kind}.
+        sure_to_remove_history_of_list_changes: Вы действительно хотите удалить всю историю своего списка %{kind}?
 
       import:
         list_import_export: Импорт / экспорт списка
