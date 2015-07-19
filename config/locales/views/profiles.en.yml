@@ -68,7 +68,6 @@ en:
 
         my_list_contents: My list contents
         clear_list_completely: Clear my %{kind} list completely
-        confirm_to_clear_list_completely: Подтвердите намерение очистить свой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
         confirm_to_clear_list_completely: Confirm that you want to clear your %{kind_genitive} list completely and remove all of its history.
         sure_to_clear_list_completely: Are you sure you want to clear your %{kind} list and lose all of its history?
 
