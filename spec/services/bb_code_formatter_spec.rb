@@ -381,7 +381,7 @@ rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
     describe '[replies]' do
       let(:text) { "[replies=#{comment.id}]" }
       let!(:comment) { create :comment }
-      it { should include "<div class=\"b-replies single\">" }
+      it { should include "<div class=\"b-replies single\"" }
     end
 
     describe '[quote]' do
