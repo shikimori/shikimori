@@ -1,5 +1,5 @@
 en:
-  profiles_controller:
+  profiles_controller: &profiles_controller
     profile: Profile
     friends: Friends
     clubs: Clubs
@@ -13,3 +13,5 @@ en:
     achievements: Achievements
     ban_history: Ban history
     users: Users
+  user_preferences_controller:
+    <<: *profiles_controller

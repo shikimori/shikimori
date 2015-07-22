@@ -29,7 +29,6 @@ ru:
           one: правка контента
           few: правки контента
           many: правок контента
-
       record:
         subjective:
           one: запись
@@ -60,6 +59,48 @@ ru:
           one: год
           few: года
           many: лет
+      anime:
+        subjective:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+        dative:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+        genitive:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+        accusative:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+      manga:
+        subjective:
+          one: манга
+          few: манги
+          many: манги
+          other: манги
+        dative:
+          one: манге
+          few: мангам
+          many: мангам
+          other: мангам
+        genitive:
+          one: манги
+          few: манги
+          many: манги
+          other: манги
+        accusative:
+          one: мангу
+          few: манги
+          many: манги
+          other: манги
 
       datetime:
         second:
@@ -141,4 +182,5 @@ ru:
         n: средний
         male: :@m
         female: :@f
+        neuter: :@n
         default: m

@@ -52,7 +52,7 @@ en:
         rewatches: Number of Rewatches
         rerereads: Number of Rereads
         text: Comments
-        score: Rating
+        score: Score
         scores:
           '0': ''
           '1': Worst Ever

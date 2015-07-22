@@ -9,61 +9,111 @@
   = render 'profiles/edit/import'
 
 .profile-action
-  .mischeadline Оценки в моём списке
+  .mischeadline = t '.my_list_scores'
   .controls
-    p.link data-type="anime" Сбросить все оценки аниме
-    p.link data-type="manga" Сбросить все оценки манги
+    p.link data-type='anime' = t '.reset_scores', kind: i18n_i(:anime, 1, :genitive)
+    p.link data-type='manga' = t '.reset_scores', kind: i18n_i(:manga, 1, :genitive)
 
   .form.anime
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение сбросить все выставленные оценки для аниме (сами аниме из списка не удалятся).
-    a.control href="#{reset_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для аниме?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span
+        = t '.confirm_to_reset_scores',
+            kind_genitive: i18n_i(:anime, 1, :genitive),
+            kind_subjective: i18n_i(:anime, 1, :subjective),
+            gender: 'neuter'
+    a.control[
+      href="#{reset_api_user_rates_url :anime}"
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:anime, 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
   .form.manga
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение сбросить все выставленные оценки для манги (сама манга из списка не удалится).
-    a.control href="#{reset_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите сбросить все выставленные вами оценки для манги?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span
+        = t '.confirm_to_reset_scores',
+            kind_genitive: i18n_i(:manga, 1, :genitive),
+            kind_subjective: i18n_i(:manga, 1, :subjective),
+            gender: 'female'
+    a.control[
+      href="#{reset_api_user_rates_url :manga}"
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:manga, 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
 .profile-action
-  .mischeadline История моего списка
+  .mischeadline = t '.my_list_history'
   .controls
-    p.link data-type="anime" Удалить всю историю изменений списка аниме
-    p.link data-type="manga" Удалить всю историю изменений списка манги
+    p.link data-type='anime' = t '.remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
+    p.link data-type='manga' = t '.remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
 
   .form.anime
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение удалить всю историю изменений своего списка аниме.
-    a.control href="#{reset_profile_user_history_index_url @resource, :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
+    a.control[
+      href="#{reset_profile_user_history_index_url @resource, :anime}"
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
   .form.manga
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение удалить всю историю изменений своего списка манги.
-    a.control href="#{reset_profile_user_history_index_url @resource, :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите удалить всю историю своего списка аниме?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
+    a.control[
+      href="#{reset_profile_user_history_index_url @resource, :manga}"
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
 .profile-action
-  .mischeadline Содержимое моего списка
+  .mischeadline = t '.my_list_contents'
   .controls
-    p.link data-type="anime" Очистить полностью список аниме
-    p.link data-type="manga" Очистить полностью список манги
+    p.link data-type='anime' = t '.clear_list_completely', kind: i18n_i(:anime, 1, :genitive)
+    p.link data-type='manga' = t '.clear_list_completely', kind: i18n_i(:manga, 1, :genitive)
 
   .form.anime
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение очистить свой список аниме и удалить всю историю по аниме.
-    a.control href="#{cleanup_api_user_rates_url :anime}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список аниме и потерять всю историю?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span
+        = t '.confirm_to_clear_list_completely',
+            kind_genitive: i18n_i(:anime, 1, :genitive),
+            kind_dative: i18n_i(:anime, 1, :dative)
+    a.control[
+      href="#{cleanup_api_user_rates_url :anime}"
+      data-method='delete'
+      data-remote='true'
+      data-type="json"
+      data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:anime, 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
   .form.manga
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение очистить свой список манги и удалить всю историю по манге.
-    a.control href="#{cleanup_api_user_rates_url :manga}" data-method="delete" data-remote="true" data-type="json" data-confirm="Вы действительно хотите очистить свой список манги и потерять всю историю?" Да, подтверждаю
+      span.warn = t 'this_action_cant_be_undone'
+      span
+        = t '.confirm_to_clear_list_completely',
+            kind_genitive: i18n_i(:manga, 1, :genitive),
+            kind_dative: i18n_i(:manga, 1, :dative)
+    a.control[
+      href="#{cleanup_api_user_rates_url :manga}"
+      data-method='delete'
+      data-remote='true'
+      data-type="json"
+      data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:manga, 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'

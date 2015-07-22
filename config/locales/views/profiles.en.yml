@@ -25,7 +25,7 @@ en:
     page:
       account: Account
       anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
-      erorrs: Errors
+      errors: Errors
       misc: Misc
       notifications: Notifications
       profile: Profile
@@ -35,10 +35,8 @@ en:
 
     edit:
       account:
-        nickname: Login (nickname)
         change_email_and_password: Change email and password
         under_development: Under development
-        avatar: Avatar
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
         ignored_users: Ignored users
@@ -56,6 +54,43 @@ en:
         spoiler_one_repeated_picture: One picture is repeated
         spoiler_two_pictures: 'Two pictures: one on the left side, another on the right side'
         spoiler_one_black_picture: Picture with black background
+
+      list:
+        my_list_scores: Scores in my list
+        reset_scores: Reset all %{kind} scores
+        confirm_to_reset_scores: Confirm that you want to reset all %{kind_genitive} scores (%{kind_subjective} won't be removed from list).
+        sure_to_reset_scores: Are you sure you want to reset all %{kind} scores?
+
+        my_list_history: My list history
+        remove_history_of_list_changes: Remove all history of %{kind} list changes?
+        confirm_to_remove_history_of_list_changes: Confirm that you want to remove all history of your %{kind} list changes.
+        sure_to_remove_history_of_list_changes: Are you sure you want to remove all history of %{kind} list changes?
+
+        my_list_contents: My list contents
+        clear_list_completely: Clear my %{kind} list completely
+        confirm_to_clear_list_completely: Confirm that you want to clear your %{kind_genitive} list completely and remove all of its history.
+        sure_to_clear_list_completely: Are you sure you want to clear your %{kind} list and lose all of its history?
+
+      import:
+        list_import_export: List import / export
+        what_to_import: What to import?
+        what_to_export: What to export?
+        where_to_import: Where to import from?
+        import_list: Import list
+        export_list: Export list
+        replace_existing_records: Replace existing records on %{domain}?
+        no_import_new_records: No, import new records only
+        yes_full_import: Yes, full import
+        login_on: Login on
+        import: Import
+        try_something_else: Try something else
+        mal_xml_file: MAL XML file
+        you_can_get_it_here: you can get it here
+        found: Found
+        do_not_import: Do not import
+        import_as_dropped: Import as Dropped
+        what_to_do_with_status: What to do with status
+        there_is_no_such_status_on_shikimori: there is no such status on shikimori
 
     stats_bar:
       similar_users: similar users

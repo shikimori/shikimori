@@ -10,7 +10,7 @@ class UserPreferencesController < ProfilesController
       end
 
     else
-      flash[:alert] = 'Изменения не сохранены!'
+      flash[:alert] = t 'changes_not_saved'
       edit
       render :edit
     end

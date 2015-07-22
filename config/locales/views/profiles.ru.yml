@@ -25,7 +25,7 @@ ru:
     page:
       account: Аккаунт
       anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
-      erorrs: Ошибки
+      errors: Ошибки
       misc: Прочее
       notifications: Уведомления
       profile: Профиль
@@ -35,8 +35,8 @@ ru:
 
     edit:
       account:
-        avatar: Аватар
         change_email_and_password: Изменить email и пароль
+        under_development: В разработке
         connected_accounts: Подключенные сервисы
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
@@ -56,6 +56,43 @@ ru:
         spoiler_one_repeated_picture: Одна повторяющаяся картинка
         spoiler_two_pictures: 'Две картинки: одна слева, другая справа'
         spoiler_one_black_picture: Картинка с чёрным фоном
+
+      list:
+        my_list_scores: Оценки в моём списке
+        reset_scores: Сбросить все оценки %{kind}
+        confirm_to_reset_scores: 'Подтвердите намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
+        sure_to_reset_scores: Вы действительно хотите сбросить все выставленные вами оценки для %{kind}?
+
+        my_list_history: История моего списка
+        remove_history_of_list_changes: Удалить всю историю изменений списка %{kind}?
+        confirm_to_remove_history_of_list_changes: Подтвердите намерение удалить всю историю изменений своего списка %{kind}.
+        sure_to_remove_history_of_list_changes: Вы действительно хотите удалить всю историю своего списка %{kind}?
+
+        my_list_contents: Содержимое моего списка
+        clear_list_completely: Очистить полностью список %{kind}
+        confirm_to_clear_list_completely: Подтвердите намерение очистить свой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
+        sure_to_clear_list_completely: Вы действительно хотите очистить свой список %{kind} и потерять всю историю?
+
+      import:
+        list_import_export: Импорт / экспорт списка
+        what_to_import: Что будем импортировать?
+        what_to_export: Что будем экспортировать?
+        where_to_import: Откуда будем импортировать?
+        import_list: Импортировать список
+        export_list: Экспортировать список
+        replace_existing_records: Будем ли заменять уже добавленное на %{domain}?
+        no_import_new_records: Нет, импорт только нового
+        yes_full_import: Да, полный импорт
+        login_on: Логин на
+        import: Импортировать
+        try_something_else: Попробовать иначе
+        mal_xml_file: XML файл формата MAL
+        you_can_get_it_here: взять его можно отсюда
+        found: Найдено
+        do_not_import: Не импортировать
+        import_as_dropped: Импортировать как Dropped (Брошено)
+        what_to_do_with_status: Что будем делать со статусом
+        there_is_no_such_status_on_shikimori: такого статуса нет на шикимори
 
     stats_bar:
       similar_users: похожие пользователи

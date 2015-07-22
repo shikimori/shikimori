@@ -1,5 +1,5 @@
 ru:
-  profiles_controller:
+  profiles_controller: &profiles_controller
     profile: Профиль
     friends: Друзья
     clubs: Клубы
@@ -13,3 +13,5 @@ ru:
     achievements: Достижения
     ban_history: История банов
     users: Пользователи
+  user_preferences_controller:
+    <<: *profiles_controller

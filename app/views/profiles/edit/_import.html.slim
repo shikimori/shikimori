@@ -1,24 +1,24 @@
-.mischeadline Импорт / экспорт списка
+.mischeadline = t '.list_import_export'
 #import_form
   #import-export
     p
       p#to_import.control data-next-step="import_phase_1"
-        span.link Импортировать список
+        span.link = t '.import_list'
       p#to_export.control data-next-step="export_phase"
-        span.link Экспортировать список
+        span.link = t '.export_list'
 
   #export_phase
-    p Что будем экспортировать?
+    p = t '.what_to_export'
     p
       span#anime.control data-target="#{export_profile_user_rates_url @resource, :anime}"
-        span.link Аниме
+        span.link = i18n_i 'Anime', 1, :accusative
       span#manga.control data-target="#{export_profile_user_rates_url @resource, :manga}"
-        span.link Мангу
+        span.link = i18n_i 'Manga', 1, :accusative
       span.cancel
         span.link = t 'actions.cancel'
 
   #import_phase_1
-    p Откуда будем импортировать?
+    p = t '.what_to_import'
     p
       /span#myanimelist.control data-final-step="import_mal" title="myanimelist.net"
         span.link MyAnimeList
@@ -32,37 +32,37 @@
     /img src="/images/import/anime-planet.png" id="anime_planet" alt="anime-planet.com" title="anime-planet.com" data-final-step="import_anime_planet"
 
   #import_phase_2
-    p Что будем импортировать?
+    p = t '.what_to_import'
     p
       span#anime.control data-klass="anime" data-anime-planet-status="Watch"
-        span.link Аниме
+        span.link = i18n_i 'Anime', 1, :accusative
       span#manga.control data-klass="manga" data-anime-planet-status="Read"
-        span.link Мангу
+        span.link = i18n_i 'Manga', 1, :accusative
       span.cancel
         span.link = t 'actions.cancel'
 
   #import_phase_3
-    p Будем ли заменять уже добавленное на #{Site::DOMAIN}?
+    p = t '.replace_existing_records', domain: Site::DOMAIN
     p
       span#partial_import.control data-rewrite="0"
-        span.link Нет, импорт только нового
+        span.link = t '.no_import_new_records'
       span#full_import.control data-rewrite="1"
-        span.link Да, полный импорт
+        span.link = t '.yes_full_import'
       span.cancel
         span.link = t 'actions.cancel'
 
   #import_phase_4
     p.m5
       = label_tag :import_login do
-        | Логин на&nbsp;
+        | #{t '.login_on'}&nbsp;
         span#import_service_name
         br
       = text_field_tag 'import[login]', @resource.nickname, class: :common
     p.form-buttons
       span#to_final_step.control.submit
-        span.link Импортировать
+        span.link = t '.import'
       span#direct_mal.control
-        span.link Попробовать иначе
+        span.link = t '.try_something_else'
       span.cancel.control
         span.link = t 'actions.cancel'
 
@@ -74,21 +74,21 @@
 
       p.m5
         = label_tag :import_login do
-          | XML файл формата MAL <a href="http://myanimelist.net/panel.php?go=export" target="_blank">взять его можно отсюда</a>
+          | #{t '.mal_xml_file'} <a href="http://myanimelist.net/panel.php?go=export" target="_blank">#{t '.you_can_get_it_here'}</a>
           br
         = file_field_tag :file, class: :common
       p.form-buttons
         span#to_final_step.control.submit
-          span.link Импортировать
+          span.link = t '.import'
         span class="cancel control"
           span.link = t 'actions.cancel'
 
   #import_mal
     = form_tag import_profile_user_rates_url(@resource.object) do
       p
-        | Найдено&nbsp;
+        | #{t '.found'}&nbsp;
         span#import_found
-        |  записей.
+        |  #{i18n_i 'record', :many}.
       = hidden_field_tag :rewrite
       = hidden_field_tag :data
       = hidden_field_tag :mal_login
@@ -96,7 +96,7 @@
       = hidden_field_tag :list_type, :mal
       p.form-buttons
         span.import.submit.control
-          span.link Импортировать
+          span.link = t '.import'
         span.cancel.control
           span.link = t 'actions.cancel'
 
@@ -110,11 +110,11 @@
       = hidden_field_tag :list_type, :anime_planet
 
       p
-        | Что будем делать со статусом Won't&nbsp;
+        | #{t '.what_to_do_with_status'} Won't&nbsp;
         span#import_anime_planet_status
-        | (такого статуса нет на шикимори)?
+        | (#{t '.there_is_no_such_status_on_shikimori'})?
       p.form-buttons
         span#nil.control data-wont-watch-strategy=""
-          span.link Не импортировать
+          span.link = t '.do_not_import'
         span#dropped.control data-wont-watch-strategy="dropped"
-          span.link Импортировать как Dropped (Брошено)
+          span.link = t '.import_as_dropped'
