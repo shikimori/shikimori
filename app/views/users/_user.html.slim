@@ -15,11 +15,11 @@
       - user.history.formatted.each do |entry|
         .line
           - if entry[:special?]
-            span.date = time_ago_in_words entry[:created_at], "%s назад"
+            time.date datetime="#{entry[:created_at].iso8601}"
             span.event = entry[:short_name]
           - else
             a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-offset-left="-14"
-              span.date = time_ago_in_words entry[:created_at], "%s назад"
+              time.date datetime="#{entry[:created_at].iso8601}"
               span.event = entry[:name]
 
   - elsif content_by == :avatar || content_by == :avatar_fixed_margin

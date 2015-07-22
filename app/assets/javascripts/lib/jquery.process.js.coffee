@@ -9,6 +9,8 @@
 @process_current_dom = (root = document.body) ->
   $root = $(root)
 
+  $with('time', $root).livetime()
+
   # то, что должно превратиться в ссылки
   $with('.linkeable', $root)
     .change_tag('a')

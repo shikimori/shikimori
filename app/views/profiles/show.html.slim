@@ -20,8 +20,7 @@
                   == entry[:name]
               span.misc title="#{entry[:reversed_action]}"
                 = entry[:reversed_action]
-              span.misc.date
-                = time_ago_in_words entry[:created_at], "%s назад"
+              time.misc.date.unprocessed datetime="#{entry[:created_at].iso8601}"
 
   .c-brief
     .avatar

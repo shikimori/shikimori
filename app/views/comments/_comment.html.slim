@@ -55,8 +55,10 @@
                 = comment.user.nickname
 
             - if comment.persisted?
-              time itemprop="commentTime" datetime="#{comment.created_at.iso8601}"
-                = time_ago_in_words comment.created_at, "%s назад"
+              time[
+                itemprop="commentTime"
+                datetime="#{comment.created_at.iso8601}"
+              ]
 
       .body itemprop="commentText"
         = comment.html_body

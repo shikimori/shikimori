@@ -67,8 +67,7 @@
                   == entry.target.name
               span.misc
                 = "Рецензия #{entry.user.nickname}"
-              span.misc.date
-                = time_ago_in_words(entry.created_at, "%s назад")
+              time.misc.date datetime="#{entry.created_at.iso8601}"
 
 - cache "site_block/groups/#{presenter.groups_key}", expires_in: 6.hours do
   .block.groups
@@ -122,8 +121,7 @@
                     == entry[:name]
                 span.misc title="#{entry[:reversed_action]}"
                   = entry[:reversed_action]
-                span.misc.date
-                  = time_ago_in_words entry[:created_at]
+                time.misc.date datetime="#{entry[:created_at].iso8601}"
 
 /.block.seasons
   h2.subheadline.m8 Сезоны аниме

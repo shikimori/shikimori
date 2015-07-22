@@ -29,7 +29,6 @@
           = dialog.target_user.nickname
 
         time.dialog-time datetime="#{dialog.created_at.iso8601}"
-          = time_ago_in_words dialog.created_at, "%s назад"
 
         a.to_dialog href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
           | <<< перейти к диалогу

@@ -91,7 +91,6 @@
 
         - if message.persisted?
           time datetime="#{message.created_at.iso8601}"
-            = time_ago_in_words message.created_at, "%s назад"
 
     .body
       - if message.generated_news?

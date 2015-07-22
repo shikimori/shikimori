@@ -59,11 +59,6 @@ class TopicDecorator < BaseDecorator
     end
   end
 
-  # дата создания топика
-  def date
-    I18n.l(created_at, format: '%e %B %Y').strip
-  end
-
   # надо ли свёртывать длинный контент топика?
   def should_shorten?
     !news? || (news? && generated?) || (news? && object.body !~ /\[wall\]/)

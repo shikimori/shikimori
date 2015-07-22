@@ -13,5 +13,4 @@ li.entry
           = entry.action_text
       - else
         = entry.title
-    span.misc.date
-      = time_ago_in_words entry.created_at, "%s назад"
+    time.misc.date datetime="#{entry.created_at.iso8601}"
