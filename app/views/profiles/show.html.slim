@@ -21,6 +21,7 @@
               span.misc title="#{entry[:reversed_action]}"
                 = entry[:reversed_action]
               time.misc.date.unprocessed datetime="#{entry[:created_at].iso8601}"
+                = l entry[:created_at], format: '%e %B %Y'
 
   .c-brief
     .avatar

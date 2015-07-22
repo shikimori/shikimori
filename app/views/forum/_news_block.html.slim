@@ -14,3 +14,4 @@ li.entry
       - else
         = entry.title
     time.misc.date datetime="#{entry.created_at.iso8601}"
+      = l entry.created_at, format: '%e %B %Y'

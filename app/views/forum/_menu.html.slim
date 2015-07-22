@@ -68,6 +68,7 @@
               span.misc
                 = "Рецензия #{entry.user.nickname}"
               time.misc.date datetime="#{entry.created_at.iso8601}"
+                = l entry.created_at, format: '%e %B %Y'
 
 - cache "site_block/groups/#{presenter.groups_key}", expires_in: 6.hours do
   .block.groups

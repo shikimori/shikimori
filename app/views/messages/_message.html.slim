@@ -91,6 +91,7 @@
 
         - if message.persisted?
           time datetime="#{message.created_at.iso8601}"
+            = l message.created_at, format: '%e %B %Y'
 
     .body
       - if message.generated_news?

@@ -16,10 +16,12 @@
         .line
           - if entry[:special?]
             time.date datetime="#{entry[:created_at].iso8601}"
+              = l entry[:created_at], format: '%e %B %Y'
             span.event = entry[:short_name]
           - else
             a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-offset-left="-14"
               time.date datetime="#{entry[:created_at].iso8601}"
+                = l entry[:created_at], format: '%e %B %Y'
               span.event = entry[:name]
 
   - elsif content_by == :avatar || content_by == :avatar_fixed_margin

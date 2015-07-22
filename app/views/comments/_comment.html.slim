@@ -58,7 +58,7 @@
               time[
                 itemprop="commentTime"
                 datetime="#{comment.created_at.iso8601}"
-              ]
+              ] = l comment.created_at, format: '%e %B %Y'
 
       .body itemprop="commentText"
         = comment.html_body
