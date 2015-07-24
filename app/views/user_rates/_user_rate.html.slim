@@ -86,7 +86,7 @@
               data-type="html"
               data-method="post"
             ]
-        .episodes = UserRate.human_attribute_name :episodes
+        .episodes = UserRate.human_attribute_name :chapters
 
       = simple_form_for user_rate, remote: true, authenticity_token: true, html: { 'data-type' => :html } do |f|
         = f.input :score, as: :hidden
