@@ -9,7 +9,10 @@ class DbEntryDecorator < BaseDecorator
   MAX_FAVOURITES = 12
 
   def headline
-    headline_array.join(' <span class="sep inline">/</span> ').html_safe
+    headline_array
+      .map { |name| h.h name }
+      .join(' <span class="sep inline">/</span> ')
+      .html_safe
   end
 
   # хак, т.к. source переопределяется в декораторе
