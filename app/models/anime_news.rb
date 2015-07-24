@@ -110,12 +110,12 @@ class AnimeNews < DbEntryThread
         elsif type == :full
           if self.anime.aired_on
             if self.anime.aired_on.day == 1 && self.anime.aired_on.month == 1
-              "Выход %s на %d год" % [["запланирован", "назначен", "объявлен", "планируется"].sample, self.anime.aired_on.year]
+              "Выход запланирован на %d год" % [self.anime.aired_on.year]
             else
-              "Дата выхода %s на %s года" % [["запланирована", "назначена", "объявлена", "планируется"].sample, Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')]
+              "Дата выхода объявлена на %s года" % [Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')]
             end
           else
-            ["Дата выхода пока не известна", "Дата выхода пока не объявлена"].sample
+            "Дата выхода пока не объявлена"
           end
         else
           "Анонс"

@@ -51,6 +51,9 @@ module MessagesHelper # для truncate в messages helper
           message.html_body
         end
 
+      when MessageType::Ongoing, MessageType::Anons, MessageType::Episode, MessageType::Released
+        message.linked.to_s(:full)
+
       else
         BbCodeFormatter.instance.format_comment cut(message.body || message.linked.text)
     end

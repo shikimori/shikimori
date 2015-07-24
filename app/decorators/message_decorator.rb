@@ -26,6 +26,7 @@ class MessageDecorator < BaseDecorator
   end
 
 private
+
   def anime_related?
     MessageType::ANIME_RELATED.include? kind
   end
