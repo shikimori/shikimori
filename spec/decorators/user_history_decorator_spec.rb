@@ -202,6 +202,12 @@ describe UserHistoryDecorator do
       it { is_expected.to eq 'Просмотрен 9-й эпизод' }
     end
 
+    context 'read one chapter' do
+      let(:action) { UserHistoryAction::Chapters }
+      let(:value) { [7] }
+      it { is_expected.to eq 'Прочитана 7-я глава' }
+    end
+
     context 'watched two episodes' do
       let(:value) { [7,8] }
       it { is_expected.to eq 'Просмотрены 7-й и 8-й эпизоды' }

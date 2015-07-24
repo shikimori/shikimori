@@ -4,9 +4,9 @@ class UserHistoryDecorator < Draper::Decorator
   delegate_all
 
   WATCHED = {
-    UserHistoryAction::Episodes => 'watched',
-    UserHistoryAction::Volumes => 'read',
-    UserHistoryAction::Chapters => 'read'
+    UserHistoryAction::Episodes => 'watched_episodes',
+    UserHistoryAction::Volumes => 'read_volumes',
+    UserHistoryAction::Chapters => 'read_chapters'
   }
 
   EPISODES = {

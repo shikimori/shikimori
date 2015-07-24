@@ -1,10 +1,14 @@
 ru:
   verbs:
-    watched:
+    watched_episodes:
       one: просмотрен
       few: просмотрены
       many: просмотрено
-    read:
+    read_volumes:
       one: прочитан
+      few: прочитаны
+      many: прочитано
+    read_chapters:
+      one: прочитана
       few: прочитаны
       many: прочитано
