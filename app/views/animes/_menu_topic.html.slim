@@ -1,6 +1,13 @@
 li
   - if defined?(with_tooltip) && with_tooltip && topic[:tooltip]
-    span.entry class="#{' person-tooltip' if topic[:tooltip]}" title="#{topic[:title]}" data-do-not-use-title="true" data-offset-left-right="42" data-place-to-left="true"
+    span.entry.linkeable[
+        class="#{'person-tooltip' if topic[:tooltip]}"
+        title="#{topic[:title]}"
+        data-do-not-use-title="true"
+        data-offset-left-right="42"
+        data-place-to-left="true"
+        data-href="#{topic[:url]}"
+      ]
       span.date
         = topic[:date]
       span.name

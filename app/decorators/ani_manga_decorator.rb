@@ -201,6 +201,7 @@ private
     {
       date: h.time_ago_in_words(topic.send(order), i18n_t('time_ago_format')),
       id: topic.id,
+      #name: topic.to_s,
       name: topic.to_s,
       title: topic.title,
       tooltip: topic.action == AnimeHistoryAction::Episode,
