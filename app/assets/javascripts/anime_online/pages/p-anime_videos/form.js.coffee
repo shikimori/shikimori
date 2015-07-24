@@ -3,9 +3,10 @@
 
   $video_url = $('#anime_video_url')
   $episode = $('#anime_video_episode')
+  $video_preview = $('.video-preview')
 
-  if $video_url.val() != ''
-    preview_video $video_url.val()
+  if $video_preview.data('player_html')
+    preview_video $video_preview.data('player_html')
 
   if $episode.val() == ''
     $episode.focus()
@@ -14,7 +15,7 @@
 
   # клик по "Проверить видео"
   $('.do-preview').on 'click', ->
-    $('.video-preview').show()
+    $('.video-preview').removeClass('hidden')
 
     $.ajax
       url: $(@).data 'href'
@@ -30,8 +31,10 @@
     $('#continue').val('true')
 
 preview_video = (player_html) ->
-  $('.video-preview').html(player_html)
-  $('.buttons').show()
+  $('.video-preview')
+    .show()
+    .html(player_html)
+  $('.create-buttons').show()
 
 once_submit = ($form) ->
   $form.on 'submit', ->

@@ -35,21 +35,18 @@ class AnimeOnline::VideoPlayer
   end
 
   def current_video
-    unless current_videos.blank?
-      video = if video_id > 0
+    video = if current_videos.any?
+      if video_id > 0
         current_videos.find {|v| v.id == video_id }
       else
         try_select_by h.cookies[PREFERENCES_KIND], h.cookies[PREFERENCES_HOSTING], h.cookies[PREFERENCES_AUTHOR]
       end
-
-      video.decorate if video
     end
-  end
 
-  # TODO move to VideoDecorator
-  #def current_author
-    #h.truncate h.strip_tags(current_video.author.name), :length => 20, :omission => '...' if current_video && current_video.author
-  #end
+    video = AnimeVideo.find_by(id: h.params[:video_id]) if !video && h.params[:video_id]
+
+    video.decorate if video
+  end
 
   def episode_url episode = self.current_episode
     h.play_video_online_index_url anime, episode, h.params[:all]
