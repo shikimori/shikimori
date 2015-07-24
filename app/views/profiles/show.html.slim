@@ -20,8 +20,10 @@
                   == entry[:name]
               span.misc title="#{entry[:reversed_action]}"
                 = entry[:reversed_action]
-              time.misc.date.unprocessed datetime="#{entry[:created_at].iso8601}"
-                = l entry[:created_at], format: '%e %B %Y'
+              time.misc.date.unprocessed[
+                datetime="#{entry[:created_at].iso8601}"
+                utctime="#{entry[:created_at].utc}"
+              ] = l entry[:created_at], format: '%e %B %Y'
 
   .c-brief
     .avatar

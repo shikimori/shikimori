@@ -90,8 +90,10 @@
           = message.title
 
         - if message.persisted?
-          time datetime="#{message.created_at.iso8601}"
-            = l message.created_at, format: '%e %B %Y'
+          time[
+            datetime="#{message.created_at.iso8601}"
+            utctime="#{message.created_at.utc}"
+          ] = l message.created_at, format: '%e %B %Y'
 
     .body
       - if message.generated_news?

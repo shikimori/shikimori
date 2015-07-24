@@ -13,5 +13,7 @@ li.entry
           = entry.action_text
       - else
         = entry.title
-    time.misc.date datetime="#{entry.created_at.iso8601}"
-      = l entry.created_at, format: '%e %B %Y'
+    time.misc.date[
+      datetime="#{entry.created_at.iso8601}"
+      utctime="#{entry.created_at.utc}"
+    ] = l entry.created_at, format: '%e %B %Y'

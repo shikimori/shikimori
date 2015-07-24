@@ -83,8 +83,10 @@
                   == entry.target.name
               span.misc
                 = t '.user_review', author: entry.user.nickname
-              time.misc.date datetime="#{entry.created_at.iso8601}"
-                = l entry.created_at, format: '%e %B %Y'
+              time.misc.date[
+                datetime="#{entry.created_at.iso8601}"
+                utctime="#{entry.created_at.utc}"
+              ] = l entry.created_at, format: '%e %B %Y'
 
 - cache [:site_block, :groups, I18n.locale, presenter.groups_key], expires_in: 6.hours do
   .block.groups
@@ -146,7 +148,10 @@
                     == entry[:name]
                 span.misc title="#{entry[:reversed_action]}"
                   = entry[:reversed_action]
-                time.misc.date datetime="#{entry[:created_at].iso8601}"
+                time.misc.date[
+                  datetime="#{entry[:created_at].iso8601}"
+                  utctime="#{entry[:created_at].utc}"
+                ] = l entry[:created_at], format: '%e %B %Y'
 
 /.block.seasons
   h2.subheadline.m8 Сезоны аниме
