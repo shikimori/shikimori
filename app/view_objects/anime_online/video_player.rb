@@ -35,7 +35,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def current_video
-    video = if current_videos.any?
+    video = if current_videos.present?
       if video_id > 0
         current_videos.find {|v| v.id == video_id }
       else
