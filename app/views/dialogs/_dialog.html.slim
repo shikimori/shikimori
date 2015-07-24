@@ -30,7 +30,7 @@
 
         time.dialog-time[
           datetime="#{dialog.created_at.iso8601}"
-          utctime="#{dialog.created_at.utc}"
+          data-momentjs-time="#{l dialog.created_at, format: :momentjs}"
         ] = l dialog.created_at, format: '%e %B %Y'
 
         a.to_dialog href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"

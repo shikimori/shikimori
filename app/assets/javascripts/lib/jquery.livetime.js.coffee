@@ -18,7 +18,7 @@
     $node = $(node)
 
     timeinfo = $(node).data('timeinfo') ||
-      moment: moment($node.attr('utctime'))
+      moment: moment($node.data('momentjs-time'))
       value: $node.text()
 
     new_value = timeinfo.moment.fromNow()

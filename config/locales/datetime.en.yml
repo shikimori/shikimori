@@ -1,4 +1,8 @@
 en:
+  time:
+    formats:
+      momentjs: '%Y-%m-%d %H:%M:%S'
+
   datetime:
     intervals:
       today: today

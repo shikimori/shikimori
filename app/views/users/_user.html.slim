@@ -17,14 +17,14 @@
           - if entry[:special?]
             time.date[
               datetime="#{entry[:created_at].iso8601}"
-              utctime="#{entry[:created_at].utc}"
+              data-momentjs-time="#{l entry[:created_at], format: :momentjs}"
             ] = l entry[:created_at], format: '%e %B %Y'
             span.event = entry[:short_name]
           - else
             a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-offset-left="-14"
               time.date[
                 datetime="#{entry[:created_at].iso8601}"
-                utctime="#{entry[:created_at].utc}"
+                data-momentjs-time="#{l entry[:created_at], format: :momentjs}"
               ] = l entry[:created_at], format: '%e %B %Y'
               span.event = entry[:name]
 
