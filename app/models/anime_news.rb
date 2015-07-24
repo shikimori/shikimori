@@ -94,46 +94,40 @@ class AnimeNews < DbEntryThread
   def to_s(type=:short)
     case self.action
       when AnimeHistoryAction::Episode
-        "#{self.value} эпизод"
+        "Вышел #{self.value} эпизод"
 
       when AnimeHistoryAction::Anons
-        if type == :normal
-          if self.anime.aired_on
-            if self.anime.aired_on.day == 1 && self.anime.aired_on.month == 1
-              "Анонсировано на %d год" % self.anime.aired_on.year
-            else
-              "Анонсировано на %s года" % Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')
-            end
-          else
-            "Анонсировано, пока без даты"
-          end
-        elsif type == :full
-          if self.anime.aired_on
-            if self.anime.aired_on.day == 1 && self.anime.aired_on.month == 1
-              "Выход запланирован на %d год" % [self.anime.aired_on.year]
-            else
-              "Дата выхода объявлена на %s года" % [Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')]
-            end
-          else
-            "Дата выхода пока не объявлена"
-          end
-        else
-          "Анонс"
-        end
+        #if type == :normal
+          #if self.anime.aired_on
+            #if self.anime.aired_on.day == 1 && self.anime.aired_on.month == 1
+              #"Анонсировано на %d год" % self.anime.aired_on.year
+            #else
+              #"Анонсировано на %s года" % Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')
+            #end
+          #else
+            #"Анонсировано, пока без даты"
+          #end
+
+        #elsif type == :full
+          #if self.anime.aired_on
+            #if self.anime.aired_on.day == 1 && self.anime.aired_on.month == 1
+              #"Выход запланирован на %d год" % [self.anime.aired_on.year]
+            #else
+              #"Дата выхода объявлена на %s года" % [Russian::strftime(self.anime.aired_on, "%d %B %Y").sub(/\b0(\d)\b/, '\1')]
+            #end
+          #else
+            #"Дата выхода пока не объявлена"
+          #end
+
+        #else
+          "Анонсировано аниме"
+        #end
 
       when AnimeHistoryAction::Ongoing
-        if type == :normal
-          "Начало показов"
-        else
-          "Онгоинг"
-        end
+        "Начало показа аниме"
 
       when AnimeHistoryAction::Released
-        if type == :normal
-          "Завершение показов"
-        else
-          "Релиз"
-        end
+        "Завершение показа аниме"
 
       else
         title
