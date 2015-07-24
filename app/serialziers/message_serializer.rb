@@ -7,6 +7,10 @@ class MessageSerializer < ActiveModel::Serializer
   has_one :from
   has_one :to
 
+  def body
+    object.body || (object.linked.to_s if object.linked)
+  end
+
   def html_body
     get_message_body object
   end
