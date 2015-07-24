@@ -13,7 +13,7 @@
       .additional
         span = relation_note.kind_text
         - if relation_note.aired_on
-          span #{relation_note.aired_on.year} г.
+          span = t '.year', year: relation_note.aired_on.year
 
     - if user_signed_in?
       = render 'user_rates/user_rate',
