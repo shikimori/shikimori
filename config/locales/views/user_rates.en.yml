@@ -1,0 +1,6 @@
+en:
+  user_rates:
+    user_rate:
+      add_to_list: Add to my List
+      remove_from_my_list: Remove from my List
+      please_sign_in: This action requires <a href=\"%{url}\">registration</a>.

@@ -1,0 +1,6 @@
+ru:
+  user_rates:
+    user_rate:
+      add_to_list: Добавить в список
+      remove_from_my_list: Удалить из списка
+      please_sign_in: Это действие требует <a href=\"%{url}\">регистрации</a> на сайте.
