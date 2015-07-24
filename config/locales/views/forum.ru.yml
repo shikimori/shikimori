@@ -1,0 +1,18 @@
+ru:
+  forum:
+    menu:
+      clubs: Клубы
+      contests: Опросы
+      create_topic: Создать тему
+      forum: Форум
+      hide: '&mdash; спрятать'
+      my_list: Мой список
+      new_club: Создан новый клуб
+      reviews: Реценции
+      show_more: '+ показать ещё'
+      sticked_topics: Прикреплённое
+      to_clubs: К клубам
+      to_contests: К опросам
+      to_news: К новостям
+      to_reviews: К рецензиям
+      user_review: 'Рецензия %{author}'

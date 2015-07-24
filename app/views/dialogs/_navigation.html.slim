@@ -11,12 +11,11 @@
       /span.brackets = @resource.unread_messages
 
   a class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'news'}" href="#{index_profile_messages_url @resource, messages_type: :news}"
-    | Новости
+    = t :news
     - if @resource.unread_news > 0
       span.brackets = @resource.unread_news
 
   a class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'notifications'}" href="#{index_profile_messages_url @resource, messages_type: :notifications}"
-    | Уведомления
+    = t '.notifications'
     - if @resource.unread_notifications > 0
       span.brackets = @resource.unread_notifications
-

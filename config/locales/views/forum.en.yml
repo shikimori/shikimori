@@ -1,0 +1,18 @@
+en:
+  forum:
+    menu:
+      clubs: Clubs
+      contests: Contests
+      create_topic: Create a Topic
+      forum: Forum
+      hide: '&mdash; hide'
+      my_list: My List
+      new_club: New club
+      reviews: Reviews
+      show_more: '+ show more'
+      sticked_topics: Sticked Topics
+      to_clubs: To Clubs
+      to_contests: To Contests
+      to_news: To News
+      to_reviews: To Reviews
+      user_review: "%{author}'s review"
