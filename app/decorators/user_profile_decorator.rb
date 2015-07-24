@@ -59,9 +59,13 @@ class UserProfileDecorator < UserDecorator
   end
 
   def nickname_changes
-    object
-      .nickname_changes
-      .select {|v| v.value != object.nickname }
+    query = if h.user_signed_in? && h.current_user.moderator?
+      UserNicknameChange.unscoped.where(user: object)
+    else
+      object.nickname_changes
+    end
+
+    query.select {|v| v.value != object.nickname }
   end
 
   def nicknames_tooltip

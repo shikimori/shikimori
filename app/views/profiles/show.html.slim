@@ -110,7 +110,7 @@
 
     header.head.misc
       h1[
-          class="#{'aliases' if @resource.nickname_changes?}"
+          class="#{:aliases if @resource.nickname_changes?}"
           title="#{@resource.nicknames_tooltip if @resource.nickname_changes?}"
         ]
         - if params[:action] != 'show'
