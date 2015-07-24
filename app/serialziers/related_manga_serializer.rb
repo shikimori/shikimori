@@ -3,6 +3,6 @@ class RelatedMangaSerializer < ActiveModel::Serializer
   has_one :anime, :manga
 
   def relation_russian
-    I18n.t "Relation.#{object.relation}"
+    I18n.t "relation.#{object.relation}"
   end
 end

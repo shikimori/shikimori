@@ -224,16 +224,16 @@ ru:
         ova: OVA
         special: Спешл
         plural:
+          movie: Полнометражные аниме
+          music: Аниме клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешиалы
           tv: Аниме сериалы
           tv_13: Короткие аниме сериалы
           tv_24: Средние аниме сериалы
           tv_48: Длинные аниме сериалы
-          movie: Полнометражные аниме
-          music: Аниме клипы
-          ona: ONA
-          ova: OVA
-          special: Спешиалы
-          ova/ona: OVA/ONA
       rating:
         g: G
         pg: PG

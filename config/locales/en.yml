@@ -224,15 +224,16 @@ en:
         ova: OVA
         special: Special
         plural:
+          movie: Movies
+          music: Music
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Specials
           tv: TV Series
           tv_13: Short TV Series
           tv_24: Average TV Series
           tv_48: Long TV Series
-          movie: Movies
-          music: Music
-          ona: ONA
-          ova: OVA
-          special: Specials
       rating:
         g: G
         pg: PG
