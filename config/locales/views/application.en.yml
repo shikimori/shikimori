@@ -15,8 +15,8 @@ en:
         contests: Contests
         current_contest: Current Contest
         recommendations: Recommendations
-        favourite_recommendations: Favourite
-        community_recommendations: Community
+        favourite_recommendations: Favorites
+        community_recommendations: From the Community
         personalized_recommendations: Personalized
       anime_online:
         <<: *shikimori
