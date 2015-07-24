@@ -169,7 +169,6 @@ class UserChange < ActiveRecord::Base
       self.prior = item[column]
       # send на случай переопределение сеттера
       #item.send("#{column}=", sanitize(value))
-      1/0
       item.send "#{column}=", value
     end
 
