@@ -9,6 +9,8 @@ class UserNicknameChange < ActiveRecord::Base
   before_create :should_log?
   after_create :notify_friends
 
+  default_scope -> { where is_deleted: false }
+
 private
 
   def should_log?

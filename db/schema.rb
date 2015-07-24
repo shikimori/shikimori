@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704085102) do
+ActiveRecord::Schema.define(version: 20150724203120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -910,6 +910,7 @@ ActiveRecord::Schema.define(version: 20150704085102) do
     t.string   "value",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_deleted",             default: false
   end
 
   add_index "user_nickname_changes", ["user_id", "value"], name: "index_user_nickname_changes_on_user_id_and_value", unique: true, using: :btree
