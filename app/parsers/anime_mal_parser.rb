@@ -32,13 +32,16 @@ class AnimeMalParser < BaseMalParser
   # загрузка информации по манге
   def fetch_entry_data id
     content = get entry_url(id)
+    doc = Nokogiri::HTML(content)
 
     entry = {}
     entry[:name] = parse_h1(content)
     entry[:id] = id
     entry[:description_mal] = parse_synopsis(content)
 
-    parse_block(entry, :related, /Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
+    #parse_block(entry, :related, /Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
+    entry[:related] = parse_related doc
+
     #unless entry[:related].nil?
       #entry[:related_mangas] = entry[:related].select {|k,v| k == RelatedAdaptationName }
       #entry[:related_animes] = entry[:related].select {|k,v| k != RelatedAdaptationName }

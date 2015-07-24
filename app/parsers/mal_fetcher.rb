@@ -259,4 +259,13 @@ private
       nil
     end
   end
+
+  def parse_related doc
+    doc.css('table.anime_detail_related_anime tr').each_with_object({}) do |tr, memo|
+      tds = tr.css('td')
+      memo[tds.first.text.sub(/:$/, '')] = tds.last.css('a')
+        .map { |link| $1.to_i if link.attr('href') =~ /(\d+)/ }
+        .compact
+    end
+  end
 end

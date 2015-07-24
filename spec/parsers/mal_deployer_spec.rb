@@ -1,7 +1,8 @@
 describe MalDeployer do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
 
-  [[AnimeMalParser, Anime], [MangaMalParser, Manga]].each do |parser_klass, klass|
+  #[[AnimeMalParser, Anime], [MangaMalParser, Manga]].each do |parser_klass, klass|
+  [[MangaMalParser, Manga]].each do |parser_klass, klass|
     describe parser_klass, vcr: { cassette_name: "#{klass.name.downcase}_mal_deployer" } do
       describe klass do
         let(:parser) {

@@ -59,7 +59,7 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
     expect(data).to include(:members)
     expect(data).to include(:favorites)
 
-    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/manga/1/4743.jpg'
+    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/manga/1/157935.jpg'
   end
 
   it 'fetches manga characters' do
