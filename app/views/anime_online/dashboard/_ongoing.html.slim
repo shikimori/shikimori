@@ -1,9 +1,14 @@
 .ongoing
   a href="#{anime_url anime}" title="#{localized_name anime}"
     .image-name
-      img src="#{anime.image.url :x48}" srcset="#{anime.image.url :x96} 2x" alt="#{localized_name anime}" title="#{localized_name anime}"
+      img[
+        src="#{anime.image.url :x48}"
+        srcset="#{anime.image.url :x96} 2x"
+        alt="#{localized_name anime}"
+        title="#{localized_name anime}"
+      ]
       span.title
-        == localized_name anime
+        = localized_name anime
     .misc
       - if anime.episodes_aired > 0
         = render partial: 'animes/aired_chapters', locals: { entry: anime, field_label: 'Эпизоды', counter: :episodes, counter_aired: :episodes_aired }

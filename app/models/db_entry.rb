@@ -17,7 +17,7 @@ class DbEntry < ActiveRecord::Base
 
     klass.after_create :generate_thread
     klass.after_save :sync_thread
-    klass.before_save :filter_russian, if: -> { changes['russian'] }
+    #klass.before_save :filter_russian, if: -> { changes['russian'] }
   end
 
   def to_param
@@ -35,6 +35,7 @@ class DbEntry < ActiveRecord::Base
   end
 
 private
+
   # создание топика для элемента сразу после создания элемента
   def generate_thread
     create_thread! linked: self, generated: true, title: name
@@ -50,9 +51,9 @@ private
     end
   end
 
-  def filter_russian
-    self.russian = CGI::escapeHTML russian
-  end
+  #def filter_russian
+    #self.russian = CGI::escapeHTML russian
+  #end
 
   def self.thread_klass
     if self == Anime || self == Manga

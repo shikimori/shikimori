@@ -1,6 +1,10 @@
 .b-db_entry-note
   .image.linkeable.bubbled data-href="#{relation_note.url}" title="#{localized_name relation_note}"
-    img src="#{cdn_image relation_note, :x48}" srcset="#{cdn_image relation_note, :x96} 2x" alt="#{localized_name relation_note}"
+    img[
+      src="#{cdn_image relation_note, :x48}"
+      srcset="#{cdn_image relation_note, :x96} 2x"
+      alt="#{localized_name relation_note}"
+    ]
 
   .name-container class="#{:with_note if relation_note.respond_to? :relation}"
     a.name.bubbled href="#{relation_note.url}" title="#{localized_name relation_note}"

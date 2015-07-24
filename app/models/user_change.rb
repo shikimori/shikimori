@@ -11,7 +11,7 @@ class UserChange < ActiveRecord::Base
   MAXIMUM_REASON_SIZE = 255
 
   include HTMLDiff
-  include ActionView::Helpers::SanitizeHelper
+  #include ActionView::Helpers::SanitizeHelper
 
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
@@ -168,7 +168,9 @@ class UserChange < ActiveRecord::Base
     else
       self.prior = item[column]
       # send на случай переопределение сеттера
-      item.send("#{column}=", sanitize(value))
+      #item.send("#{column}=", sanitize(value))
+      1/0
+      item.send "#{column}=", value
     end
 
     item.source = source if description? && item.respond_to?(:source)

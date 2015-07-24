@@ -1,7 +1,11 @@
 .b-catalog_entry-tooltip
   - if defined?(with_image) && with_image
     a href="#{character_url character}" title="#{localized_name character}"
-      img.image src="#{cdn_image character, :preview}" srcset="#{cdn_image character, :original} 2x" alt="#{localized_name character}"
+      img.image[
+        src="#{cdn_image character, :preview}"
+        srcset="#{cdn_image character, :original} 2x"
+        alt="#{localized_name character}"
+      ]
 
   .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
     .line itemprop="name"
