@@ -5,12 +5,30 @@
       == @resource.errors.full_messages.join('<br>')
 
   .b-options-floated.mobile-support.mobile-landscape
-    a class="#{:selected if @page == 'account' || @page == 'password'}" href="#{edit_profile_url @resource, page: 'account'}" = t '.account'
-    a class="#{:selected if @page == 'profile'}" href="#{edit_profile_url @resource, page: 'profile'}" = t '.profile'
-    a class="#{:selected if @page == 'styles'}" href="#{edit_profile_url @resource, page: 'styles'}" = t '.site_appearance_html'
-    a class="#{:selected if @page == 'list'}" href="#{edit_profile_url @resource, page: 'list'}" = t '.anime_and_manga_list_html'
-    a class="#{:selected if @page == 'notifications'}" href="#{edit_profile_url @resource, page: 'notifications'}" = t '.notifications'
-    a class="#{:selected if @page == 'misc'}" href="#{edit_profile_url @resource, page: 'misc'}" = t '.misc'
+    a[
+      class="#{:selected if @page == 'account' || @page == 'password'}"
+      href="#{edit_profile_url @resource, page: 'account'}"
+    ] = t '.account'
+    a[
+      class="#{:selected if @page == 'profile'}"
+      href="#{edit_profile_url @resource, page: 'profile'}"
+    ] = t '.profile'
+    a[
+      class="#{:selected if @page == 'styles'}"
+      href="#{edit_profile_url @resource, page: 'styles'}"
+    ] = t '.site_appearance_html'
+    a[
+      class="#{:selected if @page == 'list'}"
+      href="#{edit_profile_url @resource, page: 'list'}"
+    ] = t '.anime_and_manga_list_html'
+    a[
+      class="#{:selected if @page == 'notifications'}"
+      href="#{edit_profile_url @resource, page: 'notifications'}"
+    ] = t :notifications
+    a[
+      class="#{:selected if @page == 'misc'}"
+      href="#{edit_profile_url @resource, page: 'misc'}"
+    ] = t '.misc'
   h2.subheadline.m10 = @page_title.last
 
   .block.edit-page class="#{@page}"

@@ -3,9 +3,9 @@ en:
     menu:
       anime:
         status: &anime_statuses
-          anons: Not yet Aired
-          ongoing: Currently Airing
-          released: Finished Airing
+          anons: Announced
+          ongoing: Airing
+          released: Finished
           latest: Aired Recently
         kind:
           tv_13: Short
@@ -28,8 +28,8 @@ en:
       actions:
         comment: Comment
         review: Write review
-        add_to_favorites: Add to Favorites
-        remove_from_favorites: Remove from Favorites
+        add_to_favorites: Add to Favorite
+        remove_from_favorites: Remove from Favorite
         edit_anime: Edit Anime
         edit_manga: Edit Manga
       main_characters: Main Characters

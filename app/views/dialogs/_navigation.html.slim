@@ -1,7 +1,9 @@
 /.b-options-floated.mobile-support.mobile-landscape
 .b-options-floated.mobile-support
-  a class="#{:selected if params[:controller] == 'dialogs'}" href="#{profile_dialogs_url @resource}"
-    = t :mail
+  a[
+    class="#{:selected if params[:controller] == 'dialogs'}"
+    href="#{profile_dialogs_url @resource}"
+    ] = t :mail
     - if @resource.unread_messages > 0
       span.brackets = @resource.unread_messages
 
@@ -10,12 +12,16 @@
     /- if @resource.unread_messages > 0
       /span.brackets = @resource.unread_messages
 
-  a class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'news'}" href="#{index_profile_messages_url @resource, messages_type: :news}"
-    = t :news
+  a[
+      class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'news'}"
+      href="#{index_profile_messages_url @resource, messages_type: :news}"
+    ] = t :news
     - if @resource.unread_news > 0
       span.brackets = @resource.unread_news
 
-  a class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'notifications'}" href="#{index_profile_messages_url @resource, messages_type: :notifications}"
-    = t '.notifications'
+  a[
+      class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'notifications'}"
+      href="#{index_profile_messages_url @resource, messages_type: :notifications}"
+    ] = t :notifications
     - if @resource.unread_notifications > 0
       span.brackets = @resource.unread_notifications
