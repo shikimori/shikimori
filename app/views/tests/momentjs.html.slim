@@ -22,18 +22,6 @@ javascript:
 
     var $div6 = $('.test6');
     $div6.html(moment($div6.data('datetime')).subtract(MOMENT_DIFF).fromNow());
-
-    //var $div2 = $('.test2 .date');
-    //$div2.html(moment($div2.data('datetime')).fromNow());
-
-    //var $div3 = $('.test3 .date');
-    //$div3.html(moment(new Date($div3.data('datetime'))).fromNow());
-
-    //var $div4 = $('.test4 .date');
-    //$div4.html(moment.utc($div4.data('datetime')).fromNow());
-
-    //var $div5 = $('.test5 .date');
-    //$div5.html(moment.utc($div5.data('datetime')).fromNow());
   });
 
 header.head
@@ -90,20 +78,3 @@ header.head
     .m10
       p: b 30 minutes ago - server&local diff
       .test6 data-datetime="#{30.seconds.ago.iso8601}"
-
-
-/.block.test2
-  /.subheadline test2 #{30.minutes.ago.iso8601.sub('T', ' ')}
-  /div.date data-datetime="#{30.minutes.ago.iso8601.sub('T', ' ')}"
-
-/.block.test3
-  /.subheadline test3 #{30.minutes.ago}
-  /div.date data-datetime="#{30.minutes.ago}"
-
-/.block.test4
-  /.subheadline test4 #{30.minutes.ago.utc}
-  /div.date data-datetime="#{30.minutes.ago.utc}"
-
-/.block.test5
-  /.subheadline test5 #{30.minutes.ago.utc.to_s.sub(' UTC', '')}
-  /div.date data-datetime="#{30.minutes.ago.utc.to_s.sub(' UTC', '')}"
