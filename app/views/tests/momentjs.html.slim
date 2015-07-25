@@ -5,6 +5,9 @@ javascript:
     $('.moment_diff').html(MOMENT_DIFF);
     $('.server_time').html(moment($(document.body).data('server-time')).format());
 
+    var $div1 = $('.test1');
+    $div1.html(moment($div1.data('datetime')).fromNow());
+
     var $div2 = $('.test2');
     $div2.html(moment($div2.data('datetime')).add(MOMENT_DIFF).fromNow());
 
@@ -12,10 +15,13 @@ javascript:
     $div3.html(moment($div3.data('datetime')).subtract(MOMENT_DIFF).fromNow());
 
     var $div4 = $('.test4');
-    $div4.html(moment($div4.data('datetime')).add(MOMENT_DIFF).fromNow());
+    $div4.html(moment($div4.data('datetime')).fromNow());
 
     var $div5 = $('.test5');
-    $div5.html(moment($div5.data('datetime')).subtract(MOMENT_DIFF).fromNow());
+    $div5.html(moment($div5.data('datetime')).add(MOMENT_DIFF).fromNow());
+
+    var $div6 = $('.test6');
+    $div6.html(moment($div6.data('datetime')).subtract(MOMENT_DIFF).fromNow());
 
     //var $div2 = $('.test2 .date');
     //$div2.html(moment($div2.data('datetime')).fromNow());
@@ -62,7 +68,7 @@ header.head
   .c-column
     .m10
       p: b 30 minutes ago
-      time datetime="#{30.minutes.ago.iso8601}"
+      .test1 datetime="#{30.minutes.ago.iso8601}"
 
     .m10
       p: b 30 minutes ago + server&local diff
@@ -75,15 +81,15 @@ header.head
   .c-column
     .m10
       p: b 30 seconds ago
-      time datetime="#{30.seconds.ago.iso8601}"
+      .test4 datetime="#{30.seconds.ago.iso8601}"
 
     .m10
       p: b 30 seconds ago + server&local diff
-      .test4 data-datetime="#{30.seconds.ago.iso8601}"
+      .test5 data-datetime="#{30.seconds.ago.iso8601}"
 
     .m10
       p: b 30 minutes ago - server&local diff
-      .test5 data-datetime="#{30.seconds.ago.iso8601}"
+      .test6 data-datetime="#{30.seconds.ago.iso8601}"
 
 
 /.block.test2
