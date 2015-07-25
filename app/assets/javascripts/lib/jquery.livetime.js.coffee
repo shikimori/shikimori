@@ -24,9 +24,7 @@
     else
       node_time = moment($node.attr('datetime')).subtract(MOMENT_DIFF).add(2, 'seconds')
 
-      #console.log [node_time.format(), moment().format(), moment().isBefore(node_time)]
-      #moment: if moment().isBefore(node_time) then moment() else node_time
-      moment: node_time
+      moment: if moment().isBefore(node_time) then moment() else node_time
       value: $node.text()
 
     new_value = timeinfo.moment.fromNow()
