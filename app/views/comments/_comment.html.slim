@@ -58,7 +58,6 @@
               time[
                 itemprop="commentTime"
                 datetime="#{comment.created_at.iso8601}"
-                data-momentjs-time="#{comment.created_at.utc.to_s.gsub(' UTC', '')}"
               ] = l comment.created_at, format: '%e %B %Y'
 
       .body itemprop="commentText"

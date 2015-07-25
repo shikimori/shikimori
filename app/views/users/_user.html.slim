@@ -24,7 +24,6 @@
             a.bubbled href="#{entry[:url]}" title="#{entry[:name]}" data-offset-left="-14"
               time.date[
                 datetime="#{entry[:created_at].iso8601}"
-                data-momentjs-time="#{entry[:created_at].utc.to_s.gsub(' UTC', '')}"
               ] = l entry[:created_at], format: '%e %B %Y'
               span.event = entry[:name]
 

@@ -85,7 +85,6 @@
                 = t '.user_review', author: entry.user.nickname
               time.misc.date[
                 datetime="#{entry.created_at.iso8601}"
-                data-momentjs-time="#{entry.created_at.utc.to_s.gsub(' UTC', '')}"
               ] = l entry.created_at, format: '%e %B %Y'
 
 - cache [:site_block, :groups, I18n.locale, presenter.groups_key], expires_in: 6.hours do

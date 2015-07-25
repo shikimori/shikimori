@@ -1,0 +1,31 @@
+javascript:
+  $(function() {
+    var $div2 = $('.test2 .date');
+    $div2.html(moment($div2.data('datetime')).fromNow());
+
+    var $div3 = $('.test3 .date');
+    $div3.html(moment(new Date($div3.data('datetime'))).fromNow());
+
+    var $div4 = $('.test4 .date');
+    $div4.html(moment.utc($div4.data('datetime')).fromNow());
+  });
+
+header.head
+  h1 Тест разницы времени
+  p.description Страница для теста парсинга дат
+
+.block
+  .subheadline test1
+  time datetime="#{30.minutes.ago.iso8601}"
+
+.block.test2
+  .subheadline test2
+  div.date data-datetime="#{30.minutes.ago.iso8601.sub('T', ' ')}"
+
+.block.test3
+  .subheadline test3
+  div.date data-datetime="#{30.minutes.ago}"
+
+.block.test4
+  .subheadline test4
+  div.date data-datetime="#{30.minutes.ago.utc}"

@@ -37,7 +37,6 @@
             time[
               itemprop="commentTime"
               datetime="#{topic.created_at.iso8601}"
-              data-momentjs-time="#{topic.created_at.utc.to_s.gsub(' UTC', '')}"
             ] = l topic.created_at, format: '%e %B %Y'
 
         - if topic.review? && topic.linked.votes_count > 0

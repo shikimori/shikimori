@@ -36,7 +36,6 @@ $ =>
     comments_auto_loaded: $body.data('comments-auto-loaded')
 
   moment.locale(LOCALE)
-  moment.tz.setDefault('UTC')
 
   $(document).trigger 'page:load', true
 
