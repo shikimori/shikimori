@@ -2,20 +2,20 @@ javascript:
   $(function() {
     $('.date').html(new Date());
     $('.moment').html(moment().format());
-    $('.moment_diff').html(moment_diff);
+    $('.moment_diff').html(MOMENT_DIFF);
     $('.server_time').html(moment($(document.body).data('server-time')).format());
 
     var $div2 = $('.test2');
-    $div2.html(moment($div2.data('datetime')).add(window.moment_diff).fromNow());
+    $div2.html(moment($div2.data('datetime')).add(MOMENT_DIFF).fromNow());
 
     var $div3 = $('.test3');
-    $div3.html(moment($div3.data('datetime')).subtract(window.moment_diff).fromNow());
+    $div3.html(moment($div3.data('datetime')).subtract(MOMENT_DIFF).fromNow());
 
     var $div4 = $('.test4');
-    $div4.html(moment($div4.data('datetime')).add(window.moment_diff).fromNow());
+    $div4.html(moment($div4.data('datetime')).add(MOMENT_DIFF).fromNow());
 
     var $div5 = $('.test5');
-    $div5.html(moment($div5.data('datetime')).subtract(window.moment_diff).fromNow());
+    $div5.html(moment($div5.data('datetime')).subtract(MOMENT_DIFF).fromNow());
 
     //var $div2 = $('.test2 .date');
     //$div2.html(moment($div2.data('datetime')).fromNow());

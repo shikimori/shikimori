@@ -36,7 +36,7 @@ $ =>
     comments_auto_loaded: $body.data('comments-auto-loaded')
 
   moment.locale(LOCALE)
-  @moment_diff = moment($body.data('server-time')).diff(new Date())
+  @MOMENT_DIFF = moment($body.data('server-time')).diff(new Date())
 
   $(document).trigger 'page:load', true
 
