@@ -18,7 +18,7 @@
     $node = $(node)
 
     timeinfo = $(node).data('timeinfo') ||
-      moment: moment($node.attr('datetime')).subtract(MOMENT_DIFF).add('1 second')
+      moment: moment($node.attr('datetime')).subtract(MOMENT_DIFF).add(1, 'second')
       value: $node.text()
 
     new_value = timeinfo.moment.fromNow()
