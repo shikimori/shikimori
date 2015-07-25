@@ -22,7 +22,7 @@
                 = entry[:reversed_action]
               time.misc.date.unprocessed[
                 datetime="#{entry[:created_at].iso8601}"
-                data-momentjs-time="#{l entry[:created_at], format: :momentjs}"
+                data-momentjs-time="#{entry[:created_at].utc}"
               ] = l entry[:created_at], format: '%e %B %Y'
 
   .c-brief

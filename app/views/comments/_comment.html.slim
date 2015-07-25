@@ -58,7 +58,7 @@
               time[
                 itemprop="commentTime"
                 datetime="#{comment.created_at.iso8601}"
-                data-momentjs-time="#{l comment.created_at, format: :momentjs}"
+                data-momentjs-time="#{comment.created_at.utc}"
               ] = l comment.created_at, format: '%e %B %Y'
 
       .body itemprop="commentText"

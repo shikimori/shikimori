@@ -1,7 +1,7 @@
 en:
-  time:
-    formats:
-      momentjs: '%Y-%m-%d %H:%M:%S'
+  #time:
+    #formats:
+      #momentjs: '%Y-%m-%d %H:%M:%S'
 
   datetime:
     intervals:

@@ -92,7 +92,7 @@
         - if message.persisted?
           time[
             datetime="#{message.created_at.iso8601}"
-            data-momentjs-time="#{l message.created_at, format: :momentjs}"
+            data-momentjs-time="#{message.created_at.utc}"
           ] = l message.created_at, format: '%e %B %Y'
 
     .body
