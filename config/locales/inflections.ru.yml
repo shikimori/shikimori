@@ -101,6 +101,18 @@ ru:
           few: манги
           many: манги
           other: манги
+      type:
+        subjective:
+          one: тип
+          few: типа
+          many: типов
+          other: типы
+      email:
+        subjective:
+          one: письмо
+          few: письма
+          many: писем
+          other: письма
 
       datetime:
         second:

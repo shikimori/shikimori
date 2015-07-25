@@ -94,5 +94,21 @@ ru:
         what_to_do_with_status: Что будем делать со статусом
         there_is_no_such_status_on_shikimori: такого статуса нет на шикимори
 
+      notifications:
+        type_of_notification: Тип уведомления
+        new_anons: Новый анонс, появление нового анонсированного аниме на сайте
+        new_ongoing_any: Новый онгоинг (выход первой серии любого онгоинга)
+        new_ongoing_my: Новый онгоинг (выход первой серии только добавленного в мой список онгоинга)
+        new_release_any: Новый релиз (выход последней серии любого онгоинга)
+        new_release_my: Новый релиз (выход последней серии только добавленного в мой список онгоинга)
+        new_episode: Выход эпизода добавленного в мой список онгоинга
+        email_notifications: Уведомления на e-mail
+        one_email_per_notification: По одному письму на каждое уведомления
+        group_notifications_and_send_daily_email: Группировать уведомления и слать мне один раз в сутки
+        dont_send_notifications: Не слать уведомления мне на e-mail
+        private_messages: Письма
+        send_pm_to_email: Отсылать личные сообщения мне на e-mail
+        notifications_about_friend_nickname_change: Уведомления о смене ников друзей
+
     stats_bar:
       similar_users: похожие пользователи
