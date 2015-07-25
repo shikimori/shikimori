@@ -1,38 +1,103 @@
 javascript:
   $(function() {
-    var $div2 = $('.test2 .date');
-    $div2.html(moment($div2.data('datetime')).fromNow());
+    $('.date').html(new Date());
+    $('.moment').html(moment().format());
+    $('.moment_diff').html(moment_diff);
+    $('.server_time').html(moment($(document.body).data('server-time')).format());
 
-    var $div3 = $('.test3 .date');
-    $div3.html(moment(new Date($div3.data('datetime'))).fromNow());
+    var $div2 = $('.test2');
+    $div2.html(moment($div2.data('datetime')).add(window.moment_diff).fromNow());
 
-    var $div4 = $('.test4 .date');
-    $div4.html(moment.utc($div4.data('datetime')).fromNow());
+    var $div3 = $('.test3');
+    $div3.html(moment($div3.data('datetime')).subtract(window.moment_diff).fromNow());
 
-    var $div5 = $('.test5 .date');
-    $div5.html(moment.utc($div5.data('datetime')).fromNow());
+    var $div4 = $('.test4');
+    $div4.html(moment($div4.data('datetime')).add(window.moment_diff).fromNow());
+
+    var $div5 = $('.test5');
+    $div5.html(moment($div5.data('datetime')).subtract(window.moment_diff).fromNow());
+
+    //var $div2 = $('.test2 .date');
+    //$div2.html(moment($div2.data('datetime')).fromNow());
+
+    //var $div3 = $('.test3 .date');
+    //$div3.html(moment(new Date($div3.data('datetime'))).fromNow());
+
+    //var $div4 = $('.test4 .date');
+    //$div4.html(moment.utc($div4.data('datetime')).fromNow());
+
+    //var $div5 = $('.test5 .date');
+    //$div5.html(moment.utc($div5.data('datetime')).fromNow());
   });
 
 header.head
-  h1 Тест разницы времени
+  h1 Тест вычисления времени
   p.description Страница для теста парсинга дат
 
 .block
-  .subheadline test1 #{30.minutes.ago.iso8601}
-  time datetime="#{30.minutes.ago.iso8601}"
+  .m10
+    p: b User Agent
+    = request.user_agent
 
-.block.test2
-  .subheadline test2 #{30.minutes.ago.iso8601.sub('T', ' ')}
-  div.date data-datetime="#{30.minutes.ago.iso8601.sub('T', ' ')}"
+  .cc-2
+    .c-column
+      .m10
+        p: b new Date()
+        .date
 
-.block.test3
-  .subheadline test3 #{30.minutes.ago}
-  div.date data-datetime="#{30.minutes.ago}"
+      .m10
+        p: b moment().format()
+        .moment
 
-.block.test4
-  .subheadline test4 #{30.minutes.ago.utc}
-  div.date data-datetime="#{30.minutes.ago.utc}"
+    .c-column
+      .m10
+        p: b moment($(document.body).data('server-time')).format()
+        .server_time
 
-.block.test5
-  .subheadline test5 #{30.minutes.ago.utc.to_s.sub(' UTC', '')}
-  div.date data-datetime="#{30.minutes.ago.utc.to_s.sub(' UTC', '')}"
+      .m10
+        p: b server&local diff
+        .moment_diff
+
+  .cc-2
+    .c-column
+      .m10
+        p: b 30 minutes ago
+        time datetime="#{30.minutes.ago.iso8601}"
+
+      .m10
+        p: b 30 minutes ago + server&local diff
+        .test2 data-datetime="#{30.minutes.ago.iso8601}"
+
+      .m10
+        p: b 30 minutes ago - server&local diff
+        .test3 data-datetime="#{30.minutes.ago.iso8601}"
+
+    .c-column
+      .m10
+        p: b 30 seconds ago
+        time datetime="#{30.seconds.ago.iso8601}"
+
+      .m10
+        p: b 30 seconds ago + server&local diff
+        .test4 data-datetime="#{30.seconds.ago.iso8601}"
+
+      .m10
+        p: b 30 minutes ago - server&local diff
+        .test5 data-datetime="#{30.seconds.ago.iso8601}"
+
+
+/.block.test2
+  /.subheadline test2 #{30.minutes.ago.iso8601.sub('T', ' ')}
+  /div.date data-datetime="#{30.minutes.ago.iso8601.sub('T', ' ')}"
+
+/.block.test3
+  /.subheadline test3 #{30.minutes.ago}
+  /div.date data-datetime="#{30.minutes.ago}"
+
+/.block.test4
+  /.subheadline test4 #{30.minutes.ago.utc}
+  /div.date data-datetime="#{30.minutes.ago.utc}"
+
+/.block.test5
+  /.subheadline test5 #{30.minutes.ago.utc.to_s.sub(' UTC', '')}
+  /div.date data-datetime="#{30.minutes.ago.utc.to_s.sub(' UTC', '')}"

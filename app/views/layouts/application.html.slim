@@ -13,6 +13,7 @@ html
       data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
       data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
       data-locale="#{I18n.locale}"
+      data-server-time="#{Time.zone.now.iso8601}"
     ]
     .turbolinks
 
