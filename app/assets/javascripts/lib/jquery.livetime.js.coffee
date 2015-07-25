@@ -17,8 +17,16 @@
   update_time = (node) ->
     $node = $(node)
 
-    timeinfo = $(node).data('timeinfo') ||
-      moment: moment($node.attr('datetime')).subtract(MOMENT_DIFF).add(1, 'second')
+    cached_time = $(node).data('timeinfo')
+
+    timeinfo = if cached_time
+      cached_time
+    else
+      node_time = moment($node.attr('datetime')).subtract(MOMENT_DIFF).add(2, 'seconds')
+
+      #console.log [node_time.format(), moment().format(), moment().isBefore(node_time)]
+      #moment: if moment().isBefore(node_time) then moment() else node_time
+      moment: node_time
       value: $node.text()
 
     new_value = timeinfo.moment.fromNow()
