@@ -17,6 +17,7 @@
 #= require outlayer
 #= require packery
 
+#= require ./vendor/moment
 #= require_tree ./vendor
 #= require ./lib/shiki_view
 #= require ./lib/shiki_editable
