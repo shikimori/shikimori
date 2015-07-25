@@ -8,6 +8,9 @@ javascript:
 
     var $div4 = $('.test4 .date');
     $div4.html(moment.utc($div4.data('datetime')).fromNow());
+
+    var $div5 = $('.test5 .date');
+    $div5.html(moment.utc($div5.data('datetime')).fromNow());
   });
 
 header.head
@@ -15,17 +18,21 @@ header.head
   p.description Страница для теста парсинга дат
 
 .block
-  .subheadline test1
+  .subheadline test1 #{30.minutes.ago.iso8601}
   time datetime="#{30.minutes.ago.iso8601}"
 
 .block.test2
-  .subheadline test2
+  .subheadline test2 #{30.minutes.ago.iso8601.sub('T', ' ')}
   div.date data-datetime="#{30.minutes.ago.iso8601.sub('T', ' ')}"
 
 .block.test3
-  .subheadline test3
+  .subheadline test3 #{30.minutes.ago}
   div.date data-datetime="#{30.minutes.ago}"
 
 .block.test4
-  .subheadline test4
+  .subheadline test4 #{30.minutes.ago.utc}
   div.date data-datetime="#{30.minutes.ago.utc}"
+
+.block.test5
+  .subheadline test5 #{30.minutes.ago.utc.to_s.sub(' UTC', '')}
+  div.date data-datetime="#{30.minutes.ago.utc.to_s.sub(' UTC', '')}"
