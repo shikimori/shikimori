@@ -15,5 +15,5 @@ li.entry
         = entry.title
     time.misc.date[
       datetime="#{entry.created_at.iso8601}"
-      data-momentjs-time="#{entry.created_at.utc}"
+      data-momentjs-time="#{entry.created_at.utc.to_s.gsub(' UTC', '')}"
     ] = l entry.created_at, format: '%e %B %Y'
