@@ -24,11 +24,12 @@ en:
 
     page:
       account: Account
-      anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
-      errors: Errors
-      misc: Misc
       profile: Profile
       site_appearance_html: Site&nbsp;Appearance
+      anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
+      notifications: Notifications
+      misc: Misc
+      errors: Errors
       to_anime: to anime
       to_manga: to manga
 
@@ -105,7 +106,17 @@ en:
         dont_send_notifications: "Don't send notifications to my e-mail"
         private_messages: Private messages
         send_pm_to_email: Send private messages to e-mail
+        misc: Miscellaneous
         notifications_about_friend_nickname_change: "Notifications about friends' nickname change"
+
+      misc:
+        anime_manga_recommendations: Anime and manga recommendations
+        restore_rejected_recommendations: Restore rejected %{kind} recommendations
+        confirm_to_restore_recommendations: Confirm that you want to restore all your rejected %{kind} recommendations.
+        sure_to_restore_recommendations: Are you sure you want to restore all your rejected %{kind} recommendations?
+        clear_history_of_nickname_changes: Clear history of nickname changes
+        confirm_to_clear_history_of_nickname_changes: Confirm that you want to clear all history of your nickname changes.
+        sure_to_clear_history_of_nickname_changes: Are you sure you want to clear all history of your nickname changes?
 
     stats_bar:
       similar_users: similar users

@@ -24,12 +24,12 @@ ru:
 
     page:
       account: Аккаунт
-      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
-      errors: Ошибки
-      misc: Прочее
-      notifications: Уведомления
       profile: Профиль
       site_appearance_html: Внешний&nbsp;вид&nbsp;сайта
+      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
+      notifications: Уведомления
+      misc: Прочее
+      errors: Ошибки
       to_anime: к аниме
       to_manga: к манге
 
@@ -108,7 +108,17 @@ ru:
         dont_send_notifications: Не слать уведомления мне на e-mail
         private_messages: Письма
         send_pm_to_email: Отсылать личные сообщения мне на e-mail
+        misc: Прочее
         notifications_about_friend_nickname_change: Уведомления о смене ников друзей
+
+      misc:
+        anime_manga_recommendations: Рекомендации аниме и манги
+        restore_rejected_recommendations: Восстановить отклонённые вами рекомендации %{kind}
+        confirm_to_restore_recommendations: Подтвердите намерение восстановить все заблокированные вами рекомендации для %{kind}.
+        sure_to_restore_recommendations: Вы действительно хотите восстановить все заблокированные вами рекомендации для %{kind}?
+        clear_history_of_nickname_changes: Очистить историю изменения никнеймов
+        confirm_to_clear_history_of_nickname_changes: Подтвердите намерение очистить историю изменения ваших никнеймов.
+        sure_to_clear_history_of_nickname_changes: Вы действительно хотите очистить историю изменения ваших никнеймов?
 
     stats_bar:
       similar_users: похожие пользователи

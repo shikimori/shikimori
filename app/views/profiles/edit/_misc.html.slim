@@ -1,5 +1,5 @@
 = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
-  input type="hidden" name="page" value="#{@page}"
+  input type='hidden' name='page' value="#{@page}"
   .block
     = f.input :show_hentai_images
     = f.input :is_comments_auto_collapsed
@@ -10,50 +10,50 @@
     = f.button :magic_submit
 
 .profile-action.block
-  .mischeadline Рекомендации аниме и манги
+  .mischeadline = t '.anime_manga_recommendations'
   .controls
-    p.link data-type="anime" Восстановить отклонённые вами рекомендации аниме
-    p.link data-type="manga" Восстановить отклонённые вами рекомендации манги
+    p.link data-type='anime' = t '.restore_rejected_recommendations', kind: i18n_i('anime', 1, :genitive)
+    p.link data-type='manga' = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
 
   .form.anime
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение восстановить все заблокированные вами рекомендации для аниме.
+      span.warn = t 'this_action_cant_be_undone'
+      span = t '.confirm_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)
     a.control[
       href="#{cleanup_recommendation_ignores_path target_type: :anime}"
-      data-method="delete"
-      data-remote="true"
-      data-type="json"
-      data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для аниме?"
-    ] Да, подтверждаю
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
   .form.manga
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение восстановить все заблокированные вами рекомендации для манги.
+      span.warn = t 'this_action_cant_be_undone'
+      span = t '.confirm_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)
     a.control[
       href="#{cleanup_recommendation_ignores_path target_type: :manga}"
-      data-method="delete"
-      data-remote="true"
-      data-type="json"
-      data-confirm="Вы действительно хотите восстановить все заблокированные вами рекомендации для манги?"
-    ] Да, подтверждаю
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
 
 .nickname-changes
   .controls
-    p.link Очистить историю изменения никнеймов
+    p.link = t '.clear_history_of_nickname_changes'
 
   .form
     p
-      span.warn Это действие необратимо!
-      span Подтвердите намерение очистить историю изменения ваших никнеймов.
+      span.warn = t 'this_action_cant_be_undone'
+      span = t '.confirm_to_clear_history_of_nickname_changes'
     a.control[
       href="#{cleanup_api_nickname_changes_url}"
-      data-method="delete"
-      data-remote="true"
-      data-type="json"
-      data-confirm="Вы действительно хотите очистить историю изменения ваших никнеймов?"
-    ] Да, подтверждаю
+      data-method='delete'
+      data-remote='true'
+      data-type='json'
+      data-confirm="#{t '.sure_to_clear_history_of_nickname_changes'}"
+    ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
