@@ -3,9 +3,9 @@ header.head.ajaxable
     = @page_title.last
 
   - if @klass == Anime
-    a.misc href="#{recommendations_favourites_manga_url}" переключиться на мангу
+    a.misc href="#{recommendations_favourites_manga_url}" = t 'switch_to_manga'
   - else
-    a.misc href="#{recommendations_favourites_anime_url}" переключиться на аниме
+    a.misc href="#{recommendations_favourites_anime_url}" = t 'switch_to_anime'
 
   .notice
     p Здесь мы собрали список #{@klass == Anime ? 'лучших аниме' : 'лучшей манги'} по предпочтениям пользователей нашего сайта.

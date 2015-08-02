@@ -1,0 +1,15 @@
+en:
+  recommendations:
+    index:
+      method: Method
+      recommendation_hint: Shikimori can generate recommendations using two completely different algorithms yielding different results. Choose the one you like.
+      filtering: Filtering
+      filtering_type:
+        none: none
+        soft: soft
+        moderate: moderate
+        hard: hard
+        full: full
+      filtering_hint: The softer filtering the more recommendations you can get and the more surprising they can turn out to be.
+      about: Here you can get automatic %{kind} recommendations based on your %{kind} list.
+      how_it_works: Based on your scores shikimori finds users having similar tastes. By analyzing their lists shikimori generates a catalogue of %{kind} you might like.

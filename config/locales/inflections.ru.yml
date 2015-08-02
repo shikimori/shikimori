@@ -113,6 +113,18 @@ ru:
           few: письма
           many: писем
           other: письма
+      watching:
+        dative:
+          one: просмотру
+          few: просмотрам
+          many: просмотрам
+          other: просмотрам
+      reading:
+        dative:
+          one: чтению
+          few: чтениям
+          many: чтениям
+          other: чтениям
 
       datetime:
         second:

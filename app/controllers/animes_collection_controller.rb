@@ -214,20 +214,20 @@ private
   def build_page_description entry_data
     order_name = case params[:order] || AniMangaQuery::DefaultOrder
       when 'name'
-        'в алфавитном порядке'
+        i18n_t 'order.in_alphabetical_order'
 
       when 'popularity'
-        'по популярности'
+        i18n_t 'order.by_popularity'
 
       when 'ranked'
-        'по рейтингу'
+        i18n_t 'order.by_ranking'
 
       # TODO: удалить released_at после 01.05.2014
       when 'released_on', 'released_at'
-        'по дате выхода'
+        i18n_t 'order.by_release_date'
 
       when 'id'
-        'по дате добавления'
+        i18n_t 'order.by_add_date'
     end
     @description = klass.description_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
 
