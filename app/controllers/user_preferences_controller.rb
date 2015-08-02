@@ -6,7 +6,7 @@ class UserPreferencesController < ProfilesController
       if params[:user].present?
         super
       else
-        redirect_to edit_profile_path(@resource, params[:page]), notice: 'Изменения сохранены'
+        redirect_to edit_profile_path(@resource, params[:page]), notice: t('changes_saved')
       end
 
     else

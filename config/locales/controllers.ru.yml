@@ -15,3 +15,6 @@ ru:
     users: Пользователи
   user_preferences_controller:
     <<: *profiles_controller
+  recommendations_controller:
+    what_anime_to_watch: Какие аниме посмотреть
+    what_manga_to_read: Какую мангу почитать

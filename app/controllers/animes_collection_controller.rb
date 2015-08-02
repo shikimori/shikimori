@@ -60,6 +60,7 @@ class AnimesCollectionController < ShikimoriController
   end
 
 private
+
   # класс текущего элемента
   def klass
     @klass ||= Object.const_get(params[:klass].to_s.camelize)

@@ -158,7 +158,7 @@ module AniManga
           ""
 
         when 'latest'
-          prefix = rus_var(self, type) ? " недвано вышедших " : " недвано вышедшей "
+          prefix = rus_var(self, type) ? " недавно вышедших " : " недавно вышедшей "
           type_text_prefix = nil
           ""
 
