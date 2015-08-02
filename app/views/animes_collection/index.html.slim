@@ -22,7 +22,7 @@ header.head.ajaxable
         = render 'menu', social: true, klass: klass
       - else
         .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_url", rating: params[:rating], subdomain: false}"
-          .ajax-loading title="Загрузка..."
+          .ajax-loading title="#{t 'loading'}"
 
 - if user_signed_in? && !current_user.preferences.postload_in_catalog
   = render 'pagination'

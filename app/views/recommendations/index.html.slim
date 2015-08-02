@@ -80,21 +80,21 @@ header.head.misc
     p = t '.about',
           action: (@klass == Anime ? i18n_i(:watching, 1, :dative) : i18n_i(:reading, 1, :dative)),
           kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
-    p = t '.how_it_works', kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
+    p = t '.how_it_works',
+          kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
 
 - if @rankings && @rankings.empty?
   .no-rankings
-    p.fail Не удалось подобрать рекоменадции!
+    p.fail = t '.cant_generate_recommendations'
     p
-      ' Для успешного подбора рекомендаций необходимо
       - if @klass == Anime
-        | наличие в вашем аниме списке 20-30 просмотренных и оценённых тайтлов.
+        = t '.anime_recommendations_generation_requirements'
       - else
-        | наличие в вашем манга списке 20-30 прочитанных и оценённых произведений.
+        = t '.manga_recommendations_generation_requirements'
 
 - elsif !@rankings
-  p.pending Подбираем для вас рекомендации. Пожалуйста, подождите, процесс может занять некоторое время.
-  .ajax-loading.vk-like.left title="Загрузка..."
+  p.pending = t '.generating_recommendations'
+  .ajax-loading.vk-like.left title="#{t 'loading'}"
 
 - else
   = render 'animes_collection/pagination'
@@ -112,7 +112,7 @@ header.head.misc
             = render 'animes_collection/menu', klass: klass
         - else
             .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
-              .ajax-loading title="Загрузка..."
+              .ajax-loading title="#{t 'loading'}"
 
   - if user_signed_in? && !current_user.preferences.postload_in_catalog
     = render 'animes_collection/pagination'

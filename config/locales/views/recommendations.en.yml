@@ -10,6 +10,10 @@ en:
         moderate: moderate
         hard: hard
         full: full
-      filtering_hint: The softer filtering the more recommendations you can get and the more surprising they can turn out to be.
-      about: Here you can get automatic %{kind} recommendations based on your %{kind} list.
+      filtering_hint: The softer filtering the more recommendations you can get and the more surprising they can be.
+      about: Here you can get automatically generated %{kind} recommendations based on your %{kind} list.
       how_it_works: Based on your scores shikimori finds users having similar tastes. By analyzing their lists shikimori generates a catalogue of %{kind} you might like.
+      cant_generate_recommendations: Can't generate recommendations!
+      anime_recommendations_generation_requirements: You've got to have at least 20-30 watched and scored entries in your anime list to get personalized recommendations.
+      manga_recommendations_generation_requirements: You've got to have at least 20-30 read and scored entries in your manga list to get personalized recommendations.
+      generating_recommendations: Generating recommendations... Please wait - it might take some time.

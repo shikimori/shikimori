@@ -32,7 +32,7 @@ header.head.misc
 .ajax
   - if params[:similar] && @similar_ids.nil?
     p.pending Ищем похожих на вас пользователей. Пожалуйста, подождите, процесс может занять некоторое время.
-    .ajax-loading.vk-like.left title="Загрузка..."
+    .ajax-loading.vk-like.left title="#{t 'loading'}"
     .clearfix
 
   - elsif params[:similar] && @similar_ids.empty?
