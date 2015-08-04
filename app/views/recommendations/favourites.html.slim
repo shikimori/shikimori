@@ -8,7 +8,8 @@ header.head.ajaxable
     a.misc href="#{recommendations_favourites_anime_url}" = t 'switch_to_anime'
 
   .notice
-    p Здесь мы собрали список #{@klass == Anime ? 'лучших аниме' : 'лучшей манги'} по предпочтениям пользователей нашего сайта.
+    p = t '.here_we_have_put_together',
+          kind: (@klass == Anime ? i18n_i('the_best_anime', 1, :genitive) : i18n_i('the_best_manga', 1, :genitive))
     - if @klass == Anime
       p Не нашли для себя ничего интересного?
         Выберите аниме по вкусу и жанру из топика <span class="linkeable" data-href="#{RecommendationsController::TOPIC_URL}">"отборных и вкусных анимех"</span> на нашем форуме.
@@ -36,4 +37,4 @@ header.head.ajaxable
           = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
 
   - else
-    p.b-nothing_here Ничего нет.
+    p.b-nothing_here = t 'nothing_found'

@@ -125,6 +125,18 @@ ru:
           few: чтениям
           many: чтениям
           other: чтениям
+      the_best_anime:
+        genitive:
+          one: лучшего аниме
+          few: лучших аниме
+          many: лучших аниме
+          other: лучших аниме
+      the_best_manga:
+        genitive:
+          one: лучшей манги
+          few: лучших манг
+          many: лучших манг
+          other: лучших манг
 
       datetime:
         second:

@@ -17,3 +17,6 @@ en:
       anime_recommendations_generation_requirements: You've got to have at least 20-30 watched and scored entries in your anime list to get personalized recommendations.
       manga_recommendations_generation_requirements: You've got to have at least 20-30 read and scored entries in your manga list to get personalized recommendations.
       generating_recommendations: Generating recommendations... Please wait - it might take some time.
+
+    favourites:
+      here_we_have_put_together: Here we have put together a list of %{kind} according to shikimori users' preferences.
