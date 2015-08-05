@@ -24,12 +24,12 @@ ru:
 
     page:
       account: Аккаунт
-      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
-      errors: Ошибки
-      misc: Прочее
-      notifications: Уведомления
       profile: Профиль
       site_appearance_html: Внешний&nbsp;вид&nbsp;сайта
+      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
+      notifications: Уведомления
+      misc: Прочее
+      errors: Ошибки
       to_anime: к аниме
       to_manga: к манге
 
@@ -93,6 +93,32 @@ ru:
         import_as_dropped: Импортировать как Dropped (Брошено)
         what_to_do_with_status: Что будем делать со статусом
         there_is_no_such_status_on_shikimori: такого статуса нет на шикимори
+
+      notifications:
+        type_of_notification: Тип уведомления
+        new_anons: Новый анонс, появление нового анонсированного аниме на сайте
+        new_ongoing_any: Новый онгоинг (выход первой серии любого онгоинга)
+        new_ongoing_my: Новый онгоинг (выход первой серии только добавленного в мой список онгоинга)
+        new_release_any: Новый релиз (выход последней серии любого онгоинга)
+        new_release_my: Новый релиз (выход последней серии только добавленного в мой список онгоинга)
+        new_episode: Выход эпизода добавленного в мой список онгоинга
+        email_notifications: Уведомления на e-mail
+        one_email_per_notification: По одному письму на каждое уведомления
+        group_notifications_and_send_daily_email: Группировать уведомления и слать мне один раз в сутки
+        dont_send_notifications: Не слать уведомления мне на e-mail
+        private_messages: Письма
+        send_pm_to_email: Отсылать личные сообщения мне на e-mail
+        misc: Прочее
+        notifications_about_friend_nickname_change: Уведомления о смене ников друзей
+
+      misc:
+        anime_manga_recommendations: Рекомендации аниме и манги
+        restore_rejected_recommendations: Восстановить отклонённые вами рекомендации %{kind}
+        confirm_to_restore_recommendations: Подтвердите намерение восстановить все заблокированные вами рекомендации для %{kind}.
+        sure_to_restore_recommendations: Вы действительно хотите восстановить все заблокированные вами рекомендации для %{kind}?
+        clear_history_of_nickname_changes: Очистить историю изменения никнеймов
+        confirm_to_clear_history_of_nickname_changes: Подтвердите намерение очистить историю изменения ваших никнеймов.
+        sure_to_clear_history_of_nickname_changes: Вы действительно хотите очистить историю изменения ваших никнеймов?
 
     stats_bar:
       similar_users: похожие пользователи

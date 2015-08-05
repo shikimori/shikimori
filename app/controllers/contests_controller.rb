@@ -106,9 +106,9 @@ class ContestsController < ShikimoriController
       # сброс сгенерённых
       @resource.prepare if @resource.can_start? && @resource.rounds.any?
 
-      redirect_to edit_contest_url(@resource), notice: 'Изменения сохранены'
+      redirect_to edit_contest_url(@resource), notice: t('changes_saved')
     else
-      flash[:alert] = 'Изменения не сохранены!'
+      flash[:alert] = t 'changes_not_saved'
       edit
       render :edit
     end

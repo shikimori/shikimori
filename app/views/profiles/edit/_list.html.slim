@@ -1,6 +1,6 @@
 .block
   = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
-    input type="hidden" name="page" value="#{@page}"
+    input type='hidden' name='page' value="#{@page}"
 
     = f.input :volumes_in_manga
     = f.button :magic_submit
@@ -97,7 +97,7 @@
       href="#{cleanup_api_user_rates_url :anime}"
       data-method='delete'
       data-remote='true'
-      data-type="json"
+      data-type='json'
       data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:anime, 1, :genitive)}"
     ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'
@@ -113,7 +113,7 @@
       href="#{cleanup_api_user_rates_url :manga}"
       data-method='delete'
       data-remote='true'
-      data-type="json"
+      data-type='json'
       data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:manga, 1, :genitive)}"
     ] = t 'yes_i_confirm'
     span.link.cancel = t 'actions.cancel'

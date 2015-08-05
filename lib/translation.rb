@@ -47,17 +47,18 @@ module Translation
       else
         I18n.t "verbs.#{key}.#{count}"
       end
-
     else
       key
     end
   end
 
+  # слова из phrases.*.yml переводятся напрямую через I18n
+
   def count_key count
     if count.kind_of? Integer
       I18n.russian? ? ru_count_key(count) : en_count_key(count)
     else
-      count
+      count == :plural ? :other : count
     end
   end
 

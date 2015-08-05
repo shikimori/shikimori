@@ -46,9 +46,9 @@ class ClubsController < ShikimoriController
     end
 
     if update_club(@resource, update_params)
-      redirect_to edit_club_url(@resource), notice: 'Изменения сохранены'
+      redirect_to edit_club_url(@resource), notice: t('changes_saved')
     else
-      flash[:alert] = 'Изменения не сохранены!'
+      flash[:alert] = t 'changes_not_saved'
       edit
       render :edit
     end

@@ -24,17 +24,18 @@ en:
 
     page:
       account: Account
-      anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
-      errors: Errors
-      misc: Misc
       profile: Profile
       site_appearance_html: Site&nbsp;Appearance
+      anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
+      notifications: Notifications
+      misc: Misc
+      errors: Errors
       to_anime: to anime
       to_manga: to manga
 
     edit:
       account:
-        change_email_and_password: Change email and password
+        change_email_and_password: Change e-mail and password
         under_development: Under development
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
@@ -90,6 +91,32 @@ en:
         import_as_dropped: Import as Dropped
         what_to_do_with_status: What to do with status
         there_is_no_such_status_on_shikimori: there is no such status on shikimori
+
+      notifications:
+        type_of_notification: Type of notification
+        new_anons: New announcement, new announced anime on site
+        new_ongoing_any: New ongoing (first episode of any ongoing)
+        new_ongoing_my: New ongoing (first episode of added to my list ongoing)
+        new_release_any: New release (last episode of any ongoing)
+        new_release_my: New release (last episode of added to my list ongoing)
+        new_episode: New episode of added to my list ongoing
+        email_notifications: E-mail notifications
+        one_email_per_notification: Send one e-mail per notification
+        group_notifications_and_send_daily_email: Group notifications and send daily e-mail
+        dont_send_notifications: "Don't send notifications to my e-mail"
+        private_messages: Private messages
+        send_pm_to_email: Send private messages to e-mail
+        misc: Miscellaneous
+        notifications_about_friend_nickname_change: "Notifications about friends' nickname change"
+
+      misc:
+        anime_manga_recommendations: Anime and manga recommendations
+        restore_rejected_recommendations: Restore rejected %{kind} recommendations
+        confirm_to_restore_recommendations: Confirm that you want to restore all your rejected %{kind} recommendations.
+        sure_to_restore_recommendations: Are you sure you want to restore all your rejected %{kind} recommendations?
+        clear_history_of_nickname_changes: Clear history of nickname changes
+        confirm_to_clear_history_of_nickname_changes: Confirm that you want to clear all history of your nickname changes.
+        sure_to_clear_history_of_nickname_changes: Are you sure you want to clear all history of your nickname changes?
 
     stats_bar:
       similar_users: similar users
