@@ -1,4 +1,4 @@
-= simple_form_for contest, html: { class: "b-form edit contest #{contest.strategy_type}" } do |f|
+= simple_form_for contest, html: { class: "b-form block edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
     .b-errors
       .subheadline Ошибки
@@ -122,10 +122,10 @@
     ] = t 'actions.cancel'
     = f.button :magic_submit
 
-  - if contest.persisted? && contest.rounds.any?
-    .block.clearfix
-      - contest.rounds.each do |round|
-        .block
-          .subheadline
-            = round.title
-          = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(round)
+- if contest.persisted? && contest.rounds.any?
+  .clearfix
+    - contest.rounds.each do |round|
+      .block
+        .subheadline
+          = round.title
+        = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(round)
