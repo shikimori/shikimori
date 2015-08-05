@@ -122,8 +122,8 @@
     ] = t 'actions.cancel'
     = f.button :magic_submit
 
-  - if contest.persisted?
-    - if contest.rounds.any?
+  - if contest.persisted? && contest.rounds.any?
+    .block.clearfix
       - contest.rounds.each do |round|
         .block
           .subheadline
