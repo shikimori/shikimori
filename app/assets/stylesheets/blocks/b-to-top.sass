@@ -35,8 +35,12 @@
       +opacity(0.6)
 
     .arrow
-      +text-shadow(0px 0px 1px #fff)
-      color: #123
+      &:before
+        font-family: shikimori
+        +text-shadow(0px 0px 1px #fff)
+        color: #123
+        content: '\e803'
+
 
   &:active
     .slide
