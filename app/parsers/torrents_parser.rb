@@ -64,6 +64,8 @@ class TorrentsParser
 
     if episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
       num.map {|v| v - 104 }
+    elsif episode_name =~ /THE.iDOLM@STER.Cinderella.Girls/i
+      num.map {|v| v - 13 }
     elsif episode_name =~ /Yu-Gi-Oh![ _]Zexal[ _]II/i
       num.map {|v| v - 73 }
     elsif episode_name =~ /stardust[ _]crusaders/i
