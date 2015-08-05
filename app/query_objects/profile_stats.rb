@@ -133,7 +133,7 @@ class ProfileStats
     @stats.by_criteria(
       :kind,
       list_type.to_s.capitalize.constantize.kind.values,
-      "enumerize.#{list_type}.kind.%s"
+      "enumerize.#{list_type}.kind.short.%s"
     )[list_type.to_sym]
   end
 

@@ -234,6 +234,13 @@ en:
           tv_13: Short TV Series
           tv_24: Average TV Series
           tv_48: Long TV Series
+        short:
+          tv: TV Series
+          movie: Movie
+          music: Music
+          ona: ONA
+          ova: OVA
+          special: Special
       rating:
         g: G
         pg: PG
@@ -267,6 +274,13 @@ en:
           manhwa: Manhwa
           novel: Novels
           one_shot: One Shots
+        short:
+          doujin: Doujin
+          manga: Manga
+          manhua: Manhua
+          manhwa: Manhwa
+          novel: Novel
+          one_shot: One Shot
     contest:
       strategy_type:
         double_elimination: Double elimination

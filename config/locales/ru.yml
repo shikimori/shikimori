@@ -234,6 +234,13 @@ ru:
           tv_13: Короткие аниме сериалы
           tv_24: Средние аниме сериалы
           tv_48: Длинные аниме сериалы
+        short:
+          tv: Сериал
+          movie: Фильм
+          music: Клип
+          ona: ONA
+          ova: OVA
+          special: Спешл
       rating:
         g: G
         pg: PG
@@ -267,6 +274,13 @@ ru:
           manhwa: Манхва
           novel: Новеллы
           one_shot: Ваншоты
+        short:
+          doujin: Додзинси
+          manga: Манга
+          manhua: Маньхуа
+          manhwa: Манхва
+          novel: Новелла
+          one_shot: Ваншот
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений
