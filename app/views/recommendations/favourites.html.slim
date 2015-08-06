@@ -11,8 +11,10 @@ header.head.ajaxable
     p = t '.here_we_have_put_together',
           kind: (@klass == Anime ? i18n_i('the_best_anime', 1, :genitive) : i18n_i('the_best_manga', 1, :genitive))
     - if @klass == Anime
-      p Не нашли для себя ничего интересного?
-        Выберите аниме по вкусу и жанру из топика <span class="linkeable" data-href="#{RecommendationsController::TOPIC_URL}">"отборных и вкусных анимех"</span> на нашем форуме.
+      p
+        = t '.not_interested'
+        '
+        == t '.pick_anime_to_your_liking', url: RecommendationsController::TOPIC_URL
     p
       ' А если вы хотите получить персонализированные рекомендации,
       ' основанные на ваших #{@klass == Anime ? 'зрительских' : 'читательских'} предпочтениях, то
