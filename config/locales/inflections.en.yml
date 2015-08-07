@@ -34,3 +34,8 @@ en:
         zero: years
         one: year
         other: years
+  i18n:
+    inflections:
+      user_signed_in:
+        signed_in: signed in
+        not_signed_in: not signed in

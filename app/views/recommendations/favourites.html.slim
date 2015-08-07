@@ -16,11 +16,14 @@ header.head.ajaxable
         '
         == t '.pick_anime_to_your_liking', url: RecommendationsController::TOPIC_URL
     p
-      ' А если вы хотите получить персонализированные рекомендации,
-      ' основанные на ваших #{@klass == Anime ? 'зрительских' : 'читательских'} предпочтениях, то
-      - unless user_signed_in?
-        ' зарегистрируйтесь на сайте, заполните список #{@klass == Anime ? 'аниме' : 'манги'} и
-      | загляните на страницу <span class="linkeable" data-href="#{recommendations_url(klass: @klass.name.downcase)}">персонализированных рекомендаций</span> #{@klass == Anime ? 'аниме' : 'манги'}.
+      = t '.get_personalized_recommendations',
+          preference_type: (@klass == Anime ? i18n_i(:viewing, :plural, :genitive) : i18n_i(:reading, :plural, :genitive)),
+          kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
+      /' А если вы хотите получить персонализированные рекомендации,
+        /основанные на ваших #{@klass == Anime ? 'зрительских' : 'читательских'} предпочтениях, то
+      /- unless user_signed_in?
+        /' зарегистрируйтесь на сайте, заполните список #{@klass == Anime ? 'аниме' : 'манги'} и
+      /| загляните на страницу <span class="linkeable" data-href="#{recommendations_url(klass: @klass.name.downcase)}">персонализированных рекомендаций</span> #{@klass == Anime ? 'аниме' : 'манги'}.
 
 .block
   - if @entries.any?

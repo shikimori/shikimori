@@ -22,3 +22,6 @@ ru:
       here_we_have_put_together: Здесь мы собрали список %{kind} по предпочтениям пользователей нашего сайта.
       not_interested: Не нашли для себя ничего интересного?
       pick_anime_to_your_liking: Выберите аниме по вкусу и жанру из топика <span class='linkeable' data-href='%{url}'>"отборных и вкусных анимех"</span> на нашем форуме.
+      get_personalized_recommendations: >
+        А если вы хотите получить персонализированные рекомендации,
+        основанные на ваших %{preference_type} предпочтениях, то
