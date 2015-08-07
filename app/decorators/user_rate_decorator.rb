@@ -28,7 +28,7 @@ class UserRateDecorator < BaseDecorator
   end
 
   def target_kind
-    h.t "enumerize.#{anime? ? :anime : :manga}.kind.short.#{target.kind}"
+    h.t "enumerize.#{anime? ? :anime : :manga}.kind.short.#{target.kind}" if target.kind
   end
 
   def target_url
