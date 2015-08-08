@@ -21,11 +21,6 @@ header.head.ajaxable
           kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive)),
           user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
           url: recommendations_url(klass: @klass.name.downcase)
-      /' А если вы хотите получить персонализированные рекомендации,
-        /основанные на ваших #{@klass == Anime ? 'зрительских' : 'читательских'} предпочтениях, то
-      /- unless user_signed_in?
-        /' зарегистрируйтесь на сайте, заполните список #{@klass == Anime ? 'аниме' : 'манги'} и
-      /| загляните на страницу <span class="linkeable" data-href="#{recommendations_url(klass: @klass.name.downcase)}">персонализированных рекомендаций</span> #{@klass == Anime ? 'аниме' : 'манги'}.
 
 .block
   - if @entries.any?
