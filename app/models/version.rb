@@ -4,8 +4,11 @@ class Version < ActiveRecord::Base
 
   state_machine :state, initial: :pending do
     state :accepted
-    state :accepted_pending
+    state :auto_accepted
     state :rejected
+
+    state :taken
+    state :deleted
 
     event :accept do
       transition [:pending, :accepted_pending] => :accepted
