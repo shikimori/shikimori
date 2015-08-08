@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724203120) do
+ActiveRecord::Schema.define(version: 20150807173356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150724203120) do
     t.string   "source",             limit: 255
     t.string   "torrents_name",      limit: 255
     t.float    "site_score",                     default: 0.0,   null: false
+    t.text     "desynced",                       default: [],    null: false, array: true
   end
 
   add_index "animes", ["kind"], name: "index_animes_on_kind", using: :btree
@@ -609,6 +610,7 @@ ActiveRecord::Schema.define(version: 20150724203120) do
     t.decimal  "read_manga_scores",              precision: 8, scale: 2, default: 0.0
     t.float    "site_score",                                             default: 0.0,   null: false
     t.datetime "parsed_at"
+    t.text     "desynced",                                               default: [],    null: false, array: true
   end
 
   add_index "mangas", ["kind"], name: "index_mangas_on_kind", using: :btree

@@ -20,6 +20,17 @@ describe MalDeployer do
           expect(entry.imported_at).not_to be(nil)
         end
 
+        it 'ignores desynced fields' do
+          entry.desynced = ['genres', 'studios', 'publishers', 'name']
+          entry.name = 'test'
+          parser.deploy(entry, data)
+
+          expect(entry.name).to eq 'test'
+          expect(entry.genres).to be_empty
+          expect(entry.studios).to be_empty if entry.respond_to? :studios
+          expect(entry.publishers).to be_empty if entry.respond_to? :publishers
+        end
+
         it 'updates mal_scores' do
           parser.deploy(entry, data)
           expect(entry.mal_scores.size).to eq(10)

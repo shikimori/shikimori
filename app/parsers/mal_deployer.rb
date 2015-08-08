@@ -2,9 +2,15 @@
 module MalDeployer
   # применение импортированных данных к элементу и сохранение элемента в базу
   def deploy entry, data
-    deploy_genres entry, data[:entry][:genres] if data[:entry].include? :genres
-    deploy_studios entry, data[:entry][:studios] if data[:entry].include? :studios
-    deploy_publishers entry, data[:entry][:publishers] if data[:entry].include? :publishers
+    if data[:entry].include?(:genres) && !entry.desynced.include?('genres')
+      deploy_genres entry, data[:entry][:genres]
+    end
+    if data[:entry].include?(:studios) && !entry.desynced.include?('studios')
+      deploy_studios entry, data[:entry][:studios]
+    end
+    if data[:entry].include?(:publishers) && !entry.desynced.include?('publishers')
+      deploy_publishers entry, data[:entry][:publishers] 
+    end
 
     deploy_related entry, data[:entry][:related] if data[:entry].include? :related
     deploy_recommendations entry, data[:recommendations] if data.include? :recommendations
@@ -16,13 +22,16 @@ module MalDeployer
     # изменения самого элемента
     data[:entry]
       .except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
-      .each do |field,value|
+      .except(*entry.desynced.map(&:to_sym))
+      .each do |field, value|
         entry[field] = value if entry.respond_to?(field)
       end
 
     entry.mal_scores = data[:scores] if data.include? :scores
 
-    entry.image = reload_image entry, data if reload_image? entry, data
+    if !entry.desynced.include?('image') && reload_image?(entry, data)
+      entry.image = reload_image entry, data
+    end
 
     # дата импорта и сохранение элемента, делать надо обязательно в последнюю очередь
     entry.imported_at = Time.zone.now
