@@ -1,11 +1,9 @@
 FactoryGirl.define do
   factory :version do
-    item_id 1
-    item_type "MyString"
-    item_diff "{}"
-    user_id 1
-    state "MyString"
-
+    item nil
+    user nil
+    state :pending
+    item_diff name: ['a', 'b']
   end
 
   factory :version_anime_video, parent: :version do

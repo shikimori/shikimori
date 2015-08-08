@@ -8,7 +8,7 @@ class AniMangaDecorator < DbEntryDecorator
   VISIBLE_RELATED = 7
 
   instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count, :cosplay?
-  instance_cache :is_favoured, :favoured, :rate, :changes, :roles, :related
+  instance_cache :is_favoured, :favoured, :rate, :changes, :versions, :roles, :related
   instance_cache :friend_rates, :recent_rates, :chronology
   instance_cache :preview_reviews_thread, :main_reviews_thread
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
@@ -69,8 +69,13 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   # презентер пользовательских изменений
+  # TODO: удалить
   def changes
     ChangesDecorator.new object
+  end
+
+  def versions
+    VersionsQuery.new object
   end
 
   # объект с ролями аниме

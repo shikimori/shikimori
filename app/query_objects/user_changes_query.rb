@@ -22,6 +22,7 @@ class UserChangesQuery
   end
 
 private
+
   def video_presence_filter
     if @field.to_sym == :video
       {

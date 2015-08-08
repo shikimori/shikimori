@@ -17,3 +17,8 @@
     .subheadline История правок
     .block
       = render @resource.changes[@page.to_sym]
+
+  - if @resource.versions[@page.to_sym].any?
+    .subheadline История правок
+    .block
+      = render @resource.versions[@page.to_sym]

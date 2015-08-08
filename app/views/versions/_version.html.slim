@@ -1,0 +1,140 @@
+= cache [version, user_signed_in? && current_user.user_changes_moderator?, current_user && current_user.admin?] do
+  .b-log_entry
+    span.id-label #
+    span = version.id
+    span.date
+      = version.created_at.strftime('%d.%m.%Y')
+
+    .b-user16
+      a href="#{profile_url version.user}" title="#{version.user.nickname}"
+        img src="#{version.user.avatar_url 16}" srcset="#{version.user.avatar_url 32} 2x" alt="#{version.user.nickname}" title="#{version.user.nickname}"
+        span = version.user.nickname
+
+    span.column
+      /= version.column
+    span.id
+      - if version.item
+        a.bubbled href="#{url_for version.item}" = version.item.name
+      - else
+        = t "Deleted.#{version.model}"
+
+    /- if version.screenshots?
+      /- if version.action == UserChange::ScreenshotsPosition
+        /span Порядок кадров
+      /- elsif version.action == UserChange::ScreenshotsUpload
+        /span #{version.value.include?(',') ? 'Новые кадры' : 'Новый кадр'}
+      /- else
+        /span #{version.value.include?(',') ? 'Удаление кадров' : 'Удаление кадра'}
+
+    /- if version.video?
+      /- if version.action == UserChange::VideoUpload
+        /span Новое видео
+      /- elsif version.action == UserChange::VideoDeletion
+        /span Удаление видео
+
+    /span.state class="#{version.status.downcase}"
+      /= t "UserChangeStatus.#{version.status}"
+
+    /- if version.moderator.present?
+      /span
+        /= version.moderator.nickname
+
+    .spoiler.collapse
+      span.action.half-hidden style="display: none;" развернуть
+    .collapsed.spoiler изменения
+
+    .spoiler.target style="display: none;"
+      /.moderation
+        /- if version[:locked]
+          /p сначала предыдущие правки
+
+        /- elsif version.pending?
+          /- if version.column == 'torrents_name' && user_signed_in? && !current_user.admin?
+            /p эту правку посмотрит morr
+
+          /- elsif user_signed_in? && current_user.user_changes_moderator?
+            /- unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? version.column
+              /a.b-tooltipped.unprocessed[
+                /href="#{take_moderation_user_change_url version, is_applied: true}"
+                /data-method="post"
+                /data-direction="top"
+                /title="Применить правку"
+              /] принять
+
+            /a.b-tooltipped.unprocessed[
+              /href="#{take_moderation_user_change_url version}"
+              /data-method="post"
+              /data-direction="top"
+              /title="Применить правку, но НЕ учтывать пользователя среди авторов"
+            /] взять
+            /a.b-tooltipped.unprocessed.user_change-deny[
+              /data-href="#{deny_moderation_user_change_url version}"
+              /data-method="post"
+              /data-direction="top"
+              /title="Отменить правку и послать пользователю уведомление об этом"
+              /data-reason-prompt="Сообщение автору правки с причиной отказа (заполнять не обязательно)"
+            /] отклонить
+          /- if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == version.user_id)
+            /a.b-tooltipped.unprocessed[
+              /href="#{deny_moderation_user_change_url version, is_deleted: true}"
+              /data-method="post"
+              /data-direction="top"
+              /title="Отменить правку и не посылать пользователю уведомление об этом"
+            /] удалить
+      /.clearfix
+
+      /- if version.reason.present?
+        /.reason
+          /span Причина:
+          /= version.reason
+
+      /- if version.screenshots?
+        /- if version.action == UserChange::ScreenshotsPosition
+          /.screenshots-compare
+            /.after
+              /p Стало
+              /- version.positioned_screenshots.each do |image|
+                /img src="#{image.image.url :preview, false}"
+            /.before
+              /p Было
+              // для не принятых правок берём текущие скриншоты, а при просмотре истории отображаем запомненные
+              /- (version.pending? ? version.current_screenshots : version.positioned_screenshots(version.prior)).each do |image|
+                /img src="#{image.image.url :preview, false}"
+        /- else
+          /.cc.m0
+            /= render partial: 'screenshots/screenshot', collection: version.attached_screenshots
+
+      /- elsif version.video?
+        /.b-quote
+          /.quoteable
+            /= version.attached_video.kind
+            /span.name
+              /= version.attached_video.name
+          /== BbCodeFormatter.instance.format_comment version.attached_video.url
+      /- else
+        /.comment-block
+          /- if version.prior || version.pending?
+            /.b-quote
+              /.quoteable Было
+              /p
+                /= version.prior || version.current_prior
+          /.b-quote
+            /.quoteable
+              /- if version.prior || version.pending?
+                /| Стало
+              /- else
+                /| Изменение
+            /p
+              /= version.value
+          /- if version.prior || version.pending?
+            /.b-quote
+              /.quoteable Изменения
+              /p
+                /= sanitize version.get_diff
+          /- if version.source.present?
+            /p.source
+              /b Источник:&nbsp;
+              /a href="#{version.source}"
+                /= h(version.source).sub(/^https?:\/\//, '')
+
+      /span.closing

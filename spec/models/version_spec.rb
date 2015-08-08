@@ -1,8 +1,13 @@
 describe Version do
+  describe 'relations' do
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :moderator }
+    it { is_expected.to belong_to :item }
+  end
+
   describe 'validations' do
-    it { should validate_presence_of :item_type }
-    it { should validate_presence_of :item_id }
-    it { should validate_presence_of :item_diff }
+    it { is_expected.to validate_presence_of :item }
+    it { is_expected.to validate_presence_of :item_diff }
   end
 
   describe 'state_machine' do
@@ -18,13 +23,13 @@ describe Version do
 
       describe 'from accepted_pending' do
         let(:state) { :accepted_pending }
-        it { should be_accepted }
+        it { is_expected.to be_accepted }
         specify { expect(video.reload.episode).to eq 2 }
       end
 
       describe 'from pending' do
         let(:state) { :pending }
-        it { should be_accepted }
+        it { is_expected.to be_accepted }
         specify { expect(video.reload.episode).to eq 2 }
       end
     end
@@ -35,13 +40,13 @@ describe Version do
       describe 'from accepted_pending' do
         let(:state) { :accepted_pending }
         subject { version }
-        it { should be_rejected }
+        it { is_expected.to be_rejected }
         specify { expect(video.reload.episode).to eq 1 }
       end
 
       describe 'from pending' do
         let(:state) { :pending }
-        it { should be_rejected }
+        it { is_expected.to be_rejected }
         specify { expect(video.reload.episode).to eq 1 }
       end
     end

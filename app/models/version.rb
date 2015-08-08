@@ -1,6 +1,10 @@
 # TODO : Перед откатом хорошо бы проверять возможность отката текущей версии (если {:episode=>[1, 2]}, то episode должен быть 2). @blackchestnut
 class Version < ActiveRecord::Base
-  validates :item_type, :item_id, :item_diff, presence: true
+  belongs_to :user
+  belongs_to :moderator, class_name: User
+  belongs_to :item, polymorphic: true
+
+  validates :item, :item_diff, presence: true
 
   state_machine :state, initial: :pending do
     state :accepted
@@ -25,9 +29,5 @@ class Version < ActiveRecord::Base
     event :reject do
       transition [:pending, :accepted_pending] => :rejected
     end
-  end
-
-  def item
-    item_type.constantize.find item_id
   end
 end
