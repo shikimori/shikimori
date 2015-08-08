@@ -39,17 +39,16 @@ module Translation
     key != key.downcase ? translation.capitalize : translation
   end
 
+  # только для прилагательных
+  def i18n_a key, count_key, ru_case = :subjective
+    raise ArgumentError unless [:one, :few].include? count_key
+
+    I18n.russian? ? I18n.t("adjectives.#{key}.#{ru_case}.#{count_key}") : key
+  end
+
   # только для глаголов
   def i18n_v key, count = 1
-    if I18n.russian?
-      if count.kind_of? Integer
-        I18n.t "verbs.#{key}", count: count
-      else
-        I18n.t "verbs.#{key}.#{count}"
-      end
-    else
-      key
-    end
+    I18n.russian? ?  I18n.t("verbs.#{key}.#{count_key count}") : key
   end
 
   # слова из phrases.*.yml переводятся напрямую через I18n
@@ -58,7 +57,7 @@ module Translation
     if count.kind_of? Integer
       I18n.russian? ? ru_count_key(count) : en_count_key(count)
     else
-      count == :plural ? :other : count
+      count
     end
   end
 

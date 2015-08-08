@@ -137,18 +137,6 @@ ru:
           few: лучших манг
           many: лучших манг
           other: лучших манг
-      viewing:
-        genitive:
-          one: '@{m:зрительского|f:зрительской}'
-          few: зрительских
-          many: зрительских
-          other: зрительских
-      reading:
-        genitive:
-          one: '@{m:читательского|f:читательской}'
-          few: читательских
-          many: читательских
-          other: читательских
 
       datetime:
         second:
