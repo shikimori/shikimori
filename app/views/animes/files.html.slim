@@ -53,26 +53,30 @@
                   == sub[:title].encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '').blank? ? 'ссылка' : sub[:title].encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '')
 
   - if user_signed_in? && current_user.admin?
-    .subheadline Новый торрент
-    .subcontent
-      = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
-        .m5
-          p Link
-          = text_field_tag 'torrent[link]', params[:torrent] ? params[:torrent]['link'] : '', class: 'common', size: 100
-        .m5
-          p PubDate
-          = text_field_tag 'torrent[pubDate]', params[:torrent] ? params[:torrent]['pubDate'] : '', class: 'common', size: 40
-        .m15
-          p Title
-          = text_field_tag 'torrent[title]', params[:torrent] ? params[:torrent]['title'] : '', class: 'common', size: 100
-        .m5
-          = submit_tag 'Добавить', class: 'button'
+    .block
+      .subheadline Новый торрент
+      .subcontent
+        = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
+          .m5
+            p Link
+            = text_field_tag 'torrent[link]', params[:torrent] ? params[:torrent]['link'] : '', class: 'common', size: 100
+          .m5
+            p PubDate
+            = text_field_tag 'torrent[pubDate]', params[:torrent] ? params[:torrent]['pubDate'] : '', class: 'common', size: 40
+          .m15
+            p Title
+            = text_field_tag 'torrent[title]', params[:torrent] ? params[:torrent]['title'] : '', class: 'common', size: 100
+          .m5
+            = submit_tag 'Добавить', class: 'button'
 
-    .subheadline Распарсить страницу
-    .subcontent
-      = form_tag torrent_anime_path(@resource.object), method: :post do |f|
-        .m15
-          p URL
-          = text_field_tag 'torrent[url]', params[:torrent] ? params[:torrent]['url'] : '', class: 'common', size: 100
-        .m5
-          = submit_tag 'Выполнить', class: 'button'
+    .block
+      .subheadline-buttons
+        a.item-edit href="#{@resource.edit_url :torrents_name}"
+      .subheadline Распарсить страницу
+      .subcontent
+        = form_tag torrent_anime_path(@resource.object), method: :post do |f|
+          .m15
+            p URL
+            = text_field_tag 'torrent[url]', params[:torrent] ? params[:torrent]['url'] : '', class: 'common', size: 100
+          .m5
+            = submit_tag 'Выполнить', class: 'button'

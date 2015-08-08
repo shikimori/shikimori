@@ -14,7 +14,7 @@ span.item-content-editor-buttons
           /- if defined?(save_to_all) && save_to_all
             /= 'Сохранить'
           /- else
-            /= defined?(change_icon_only) && change_icon_only ? '' : 'Применить'
+            /= defined?(change_icon_only) && change_icon_only ? '' : t('actions.apply')
 
         = text_area_tag "#{item_name}[#{defined?(field) ? field : 'description'}]", '', :style => 'display: none'
         - if defined?(with_source)

@@ -1,6 +1,7 @@
 ru:
   actions:
     accept: Принять
+    apply: Применить
     ban_user: Забанить пользователя
     cancel: Отмена
     delete: Удалить

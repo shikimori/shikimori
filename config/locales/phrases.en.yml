@@ -1,6 +1,7 @@
 en:
   actions:
     accept: Accept
+    apply: Apply
     ban_user: Ban User
     cancel: Cancel
     delete: Delete
