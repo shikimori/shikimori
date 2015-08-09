@@ -41,6 +41,7 @@ header.head
       - if @versions.pending.size == @versions.per_page_limit
         .m5
         .b-nothing_here Это ещё не всё. Прочие правки будут доступны после принятия отображённых выше.
+
     - else
       .b-nothing_here Очередь пуста
 
@@ -48,4 +49,4 @@ header.head
 .block
   = render partial: 'versions/version', collection: @versions.processed
   - if @versions.postloader?
-    = render partial: 'blocks/postloader', locals: { url: @versions.next_page_url }
+    = render 'blocks/postloader', url: @versions.next_page_url

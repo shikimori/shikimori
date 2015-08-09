@@ -18,8 +18,15 @@ describe Moderation::VersionsController do
   end
 
   describe '#index' do
-    before { get :index }
-    it { expect(response).to have_http_status :success }
+    describe 'html' do
+      before { get :index }
+      it { expect(response).to have_http_status :success }
+    end
+
+    describe 'json' do
+      before { get :index, page: 2, format: :json }
+      it { expect(response).to have_http_status :success }
+    end
   end
 
   describe '#accept' do

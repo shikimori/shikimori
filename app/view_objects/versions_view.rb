@@ -1,9 +1,9 @@
 class VersionsView < ViewObjectBase
-  instance_cache :moderators, :pending, :processed_query
+  instance_cache :moderators, :pending, :processed, :processed_query
   per_page_limit 25
 
   def processed
-    processed_query.first
+    processed_query.first.map(&:decorate)
   end
 
   def postloader?
@@ -20,7 +20,7 @@ class VersionsView < ViewObjectBase
   end
 
   def next_page_url
-    h.index_moderation_user_changes_url page: page+1
+    h.index_moderation_versions_url page: page+1
   end
 
   def moderators
@@ -32,8 +32,6 @@ class VersionsView < ViewObjectBase
 private
 
   def processed_query
-    Moderation::ProcessedVersionsQuery.new
-      .fetch(page, per_page_limit)
-      .map(&:decorate)
+    Moderation::ProcessedVersionsQuery.new.postload page, per_page_limit
   end
 end

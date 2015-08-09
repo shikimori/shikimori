@@ -1,1 +1,6 @@
-= version.item
+a.bubbled[
+  href=play_video_online_index_url(version.item.anime, version.item.episode, version.item.id, domain: AnimeOnlineDomain.host(version.item.anime), subdomain: false)
+  data-tooltip_url=tooltip_anime_url(version.item.anime)
+]
+  | episode ##{version.item.episode} #{version.item.anime.name}
+
