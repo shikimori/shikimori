@@ -1,7 +1,10 @@
 describe VersionDecorator do
   let(:decorator) { version.decorate }
-  let(:version) { build_stubbed :version, item_diff: { name: [1,2], russian: [3,4] }, user: user }
+  let(:version) { build_stubbed :version, user: user, item: anime, state: state,
+    item_diff: { name: ['1','2'], russian: ['3','4'] } }
   let(:user) { build_stubbed :user }
+  let(:anime) { build_stubbed :anime }
+  let(:state) { 'pending' }
 
   describe '#user' do
     context 'site user' do
@@ -21,5 +24,23 @@ describe VersionDecorator do
 
   describe '#changes_template' do
     it { expect(decorator.changes_tempalte :name).to eq 'versions/text_diff' }
+  end
+
+  describe '#old_value' do
+    context 'pending' do
+      let(:state) { 'pending' }
+      it { expect(decorator.old_value :name).to eq anime.name }
+    end
+
+
+    context 'rejected' do
+      let(:state) { 'rejected' }
+      it { expect(decorator.old_value :name).to eq anime.name }
+    end
+
+    context 'other' do
+      let(:state) { 'accepted' }
+      it { expect(decorator.old_value :name).to eq version.item_diff['name'].first }
+    end
   end
 end

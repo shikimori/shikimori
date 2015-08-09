@@ -199,6 +199,14 @@ ru:
           wrong: не к этому аниме
           banned: banned
           copyrighted: copyrighted
+      version:
+        states:
+          pending: ожидает рассмотрения
+          accepted: принято
+          auto_accepted: принято автоматически
+          taken: взято
+          rejected: отклонено
+          deleted: удалено
 
   enumerize:
     user:

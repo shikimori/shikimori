@@ -13,38 +13,86 @@ describe Version do
   end
 
   describe 'state_machine' do
-    let(:anime) { create :anime }
+    let(:anime) { build_stubbed :anime }
     let(:video) { create :anime_video, anime: anime, episode: 2 }
-    let(:diff_hash) {{ episode: [1,2] }}
-    let(:version) { create :version_anime_video, item_id: video.id, item_diff: diff_hash, state: state }
+    let(:moderator) { build_stubbed :user }
+    subject(:version) { create :version_anime_video, item_id: video.id, item_diff: { episode: [1,2] }, state: state }
 
-    subject { version }
+    before { allow(version).to receive :apply_changes! }
+    before { allow(version).to receive :rollback_changes! }
 
     describe '#accept' do
-      before { version.accept }
+      before { version.accept! moderator }
 
       describe 'from pending' do
         let(:state) { :pending }
-        it { is_expected.to be_accepted }
-        specify { expect(video.reload.episode).to eq 2 }
+
+        it do
+          expect(version).to be_accepted
+          expect(version.moderator).to eq moderator
+          expect(version).to have_received :apply_changes!
+          expect(version).to_not have_received :rollback_changes!
+        end
+      end
+    end
+
+    describe '#take' do
+      before { version.take! moderator }
+
+      describe 'from pending' do
+        let(:state) { :pending }
+
+        it do
+          expect(version).to be_taken
+          expect(version.moderator).to eq moderator
+          expect(version).to have_received :apply_changes!
+          expect(version).to_not have_received :rollback_changes!
+        end
       end
     end
 
     describe '#reject' do
-      before { version.reject }
+      before { version.reject! moderator }
 
       describe 'from accepted_pending' do
         let(:state) { :accepted_pending }
-        subject { version }
-        it { is_expected.to be_rejected }
-        specify { expect(video.reload.episode).to eq 1 }
+
+        it do
+          expect(version).to be_rejected
+          expect(version).to_not have_received :apply_changes!
+          expect(version).to have_received :rollback_changes!
+        end
       end
 
       describe 'from pending' do
         let(:state) { :pending }
-        it { is_expected.to be_rejected }
-        specify { expect(video.reload.episode).to eq 1 }
+
+        it do
+          expect(version).to be_rejected
+          expect(version.moderator).to eq moderator
+          expect(version).to_not have_received :apply_changes!
+          expect(version).to_not have_received :rollback_changes!
+        end
       end
+    end
+  end
+
+  describe 'instance methods' do
+    let(:anime) { create :anime, episodes: 10 }
+    let(:version) { create :version, item: anime, item_diff: { episodes: [1,2] } }
+
+    describe '#apply_changes' do
+      before { version.apply_changes! }
+
+      it do
+        expect(anime.reload.episodes).to eq 2
+        expect(version.reload.item_diff['episodes'].first).to eq 10
+      end
+    end
+
+    describe '#rollback_changes' do
+      before { version.rollback_changes! }
+      it { expect(anime.reload.episodes).to eq 1 }
     end
   end
 

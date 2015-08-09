@@ -2,15 +2,15 @@
   .old-value
     b
       ' #{t '.before'}:
-    = old_value
+    = version.old_value(field)
 
   .new-value
     b
       ' #{t '.after'}:
-    = new_value
+    = version.new_value(field)
 
-  - if old_value.present? && new_value.present?
+  - if version.old_value(field).present? && version.new_value(field).present?
     .diff-value
       b
         ' Diff:
-      = sanitize version.field_diff field
+      = sanitize version.field_diff(field)

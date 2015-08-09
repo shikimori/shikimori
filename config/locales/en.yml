@@ -199,6 +199,14 @@ en:
           wrong: wrong anime
           banned: banned
           copyrighted: copyrighted
+      version:
+        states:
+          pending: awaiting moderation
+          accepted: accepted
+          auto_accepted: accepted automatically
+          taken: taken
+          rejected: rejected
+          deleted: deleted
 
   enumerize:
     user:

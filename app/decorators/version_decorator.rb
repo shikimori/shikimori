@@ -14,6 +14,18 @@ class VersionDecorator < BaseDecorator
   end
 
   def field_diff field
-    diff item_diff[field][0], item_diff[field][1]
+    diff old_value(field), new_value(field)
+  end
+
+  def new_value field
+    item_diff[field.to_s][1]
+  end
+
+  def old_value field
+    if pending? || rejected?
+      object.current_value field
+    else
+      item_diff[field.to_s].first
+    end
   end
 end

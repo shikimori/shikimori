@@ -34,12 +34,12 @@ div
       /- elsif version.action == UserChange::VideoDeletion
         /span Удаление видео
 
-    /span.state class="#{version.status.downcase}"
-      /= t "UserChangeStatus.#{version.status}"
+    span.state class="#{version.state.downcase}"
+      = version.human_state_name
 
-    /- if version.moderator.present?
-      /span
-        /= version.moderator.nickname
+    - if version.moderator.present?
+      span
+        = version.moderator.nickname
 
     .spoiler.collapse
       span.action.half-hidden style="display: none;" = t '.show'
@@ -82,7 +82,7 @@ div
                 data-reason-prompt="#{t '.reject_reason'}"
               ] = t '.reject'
 
-          - if can?(:destroy, version) && version.can_delete?
+          - if can?(:destroy, version) && version.can_to_deleted?
             a.b-tooltipped.unprocessed[
               href="#{moderation_version_url version}"
               data-method="DELETE"
@@ -108,8 +108,7 @@ div
             = version.reason
 
         - version.item_diff.each do |field, (old_value, new_value)|
-          = render version.changes_tempalte(field), version: version,
-            field: field, old_value: old_value, new_value: new_value
+          = render version.changes_tempalte(field), version: version, field: field
       /- if version.screenshots?
         /- if version.action == UserChange::ScreenshotsPosition
           /.screenshots-compare
