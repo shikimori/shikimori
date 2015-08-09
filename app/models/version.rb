@@ -15,7 +15,16 @@ class Version < ActiveRecord::Base
     state :deleted
 
     event :accept do
-      transition [:pending, :accepted_pending] => :accepted
+      transition [:pending] => :accepted
+    end
+    event :take do
+      transition [:pending] => :taken
+    end
+    event :reject do
+      transition [:pending, :accepted_pending] => :rejected
+    end
+    event :delete do
+      transition [:pending] => :deleted
     end
 
     before_transition [:pending, :accepted_pending] => :rejected do |version, transition|
@@ -24,10 +33,6 @@ class Version < ActiveRecord::Base
         mem
       end
       version.item.update rollback_params
-    end
-
-    event :reject do
-      transition [:pending, :accepted_pending] => :rejected
     end
   end
 end
