@@ -20,7 +20,7 @@ class RecommendationsController < AnimesCollectionController
       return redirect_to recommendations_url(url_params(threshold: THRESHOLDS[klass][-1]))
     end
 
-    page_title 'Персонализированные рекомендации'
+    page_title i18n_t 'personalized_recommendations'
 
     # запоминание текущего типа рекомендаций в куку, чтобы в меню верхнем ссылка корректная была
     cookies[COOKIE_NAME] = request.url unless params[:page]
@@ -67,7 +67,7 @@ class RecommendationsController < AnimesCollectionController
   end
 
   def favourites
-    page_title klass == Anime ? 'Какие аниме посмотреть' : 'Какую мангу почитать'
+    page_title klass == Anime ? i18n_t('what_anime_to_watch') : i18n_t('what_manga_to_read')
 
     cache_key = [:favourites_recommendations, :v1, klass, current_user, current_user.try(:sex)]
     @entries = Rails.cache.fetch cache_key, expires_in: 1.week do

@@ -1,0 +1,28 @@
+en:
+  recommendations:
+    index:
+      method: Method
+      recommendation_hint: Shikimori can generate recommendations using two completely different algorithms yielding different results. Choose the one you like.
+      filtering: Filtering
+      filtering_type:
+        none: none
+        soft: soft
+        moderate: moderate
+        hard: hard
+        full: full
+      filtering_hint: The softer filtering the more recommendations you can get and the more surprising they can be.
+      about: Here you can get automatically generated %{kind} recommendations based on your %{kind} list.
+      how_it_works: Based on your scores shikimori finds users having similar tastes. By analyzing their lists shikimori generates a catalogue of %{kind} you might like.
+      cant_generate_recommendations: Can't generate recommendations!
+      anime_recommendations_generation_requirements: You've got to have at least 20-30 watched and scored entries in your anime list to get personalized recommendations.
+      manga_recommendations_generation_requirements: You've got to have at least 20-30 read and scored entries in your manga list to get personalized recommendations.
+      generating_recommendations: Generating recommendations... Please wait - it might take some time.
+
+    favourites:
+      here_we_have_put_together: Here we've put together a list of %{kind} according to shikimori users' preferences.
+      not_interested: Still not interested?
+      pick_anime_to_your_liking: Pick anime to your liking by genre in <span class='linkeable' data-href='%{url}'>"selected and yummy animes"</span> topic on our forum.
+      get_personalized_recommendations: >
+        And if you want to get personalized recommendations based on your %{kind} preferences
+        @{not_signed_in:sign up, populate %{kind} list and}
+        visit <span class='linkeable' data-href='%{url}'>personalized recommendations</span> page.

@@ -25,7 +25,7 @@ header.head
       = render partial: 'forum/gallery', formats: :html
     - else
       .welcome-gallery-loader data-remote="#{welcome_gallery_url}"
-        .ajax-loading title="Загрузка..."
+        .ajax-loading title="#{t 'loading'}"
 
   .menu-slide-inner
     .l-content

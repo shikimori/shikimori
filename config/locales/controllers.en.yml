@@ -15,3 +15,15 @@ en:
     users: Users
   user_preferences_controller:
     <<: *profiles_controller
+  animes_collection_controller: &animes_collection_controller
+    order:
+      in_alphabetical_order: in alphabetical order
+      by_popularity: by popularity
+      by_ranking: by ranking
+      by_released_date: by release date
+      by_add_date: by date when added on site
+  recommendations_controller:
+    <<: *animes_collection_controller
+    personalized_recommendations: Personalized recommendations
+    what_anime_to_watch: What anime I should watch
+    what_manga_to_read: What manga I should read

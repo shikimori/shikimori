@@ -3,21 +3,24 @@ header.head.ajaxable
     = @page_title.last
 
   - if @klass == Anime
-    a.misc href="#{recommendations_favourites_manga_url}" переключиться на мангу
+    a.misc href="#{recommendations_favourites_manga_url}" = t 'switch_to_manga'
   - else
-    a.misc href="#{recommendations_favourites_anime_url}" переключиться на аниме
+    a.misc href="#{recommendations_favourites_anime_url}" = t 'switch_to_anime'
 
   .notice
-    p Здесь мы собрали список #{@klass == Anime ? 'лучших аниме' : 'лучшей манги'} по предпочтениям пользователей нашего сайта.
+    p = t '.here_we_have_put_together',
+          kind: (@klass == Anime ? i18n_i('the_best_anime', 1, :genitive) : i18n_i('the_best_manga', 1, :genitive))
     - if @klass == Anime
-      p Не нашли для себя ничего интересного?
-        Выберите аниме по вкусу и жанру из топика <span class="linkeable" data-href="#{RecommendationsController::TOPIC_URL}">"отборных и вкусных анимех"</span> на нашем форуме.
+      p
+        = t '.not_interested'
+        '
+        == t '.pick_anime_to_your_liking', url: RecommendationsController::TOPIC_URL
     p
-      ' А если вы хотите получить персонализированные рекомендации,
-      ' основанные на ваших #{@klass == Anime ? 'зрительских' : 'читательских'} предпочтениях, то
-      - unless user_signed_in?
-        ' зарегистрируйтесь на сайте, заполните список #{@klass == Anime ? 'аниме' : 'манги'} и
-      | загляните на страницу <span class="linkeable" data-href="#{recommendations_url(klass: @klass.name.downcase)}">персонализированных рекомендаций</span> #{@klass == Anime ? 'аниме' : 'манги'}.
+      == t '.get_personalized_recommendations',
+          preference_type: (@klass == Anime ? i18n_a(:viewing, :few, :genitive) : i18n_a(:reading, :few, :genitive)),
+          kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive)),
+          user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
+          url: recommendations_url(klass: @klass.name.downcase)
 
 .block
   - if @entries.any?
@@ -36,4 +39,4 @@ header.head.ajaxable
           = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
 
   - else
-    p.b-nothing_here Ничего нет.
+    p.b-nothing_here = t 'nothing_found'

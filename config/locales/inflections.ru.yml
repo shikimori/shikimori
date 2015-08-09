@@ -113,6 +113,30 @@ ru:
           few: письма
           many: писем
           other: письма
+      watching:
+        dative:
+          one: просмотру
+          few: просмотрам
+          many: просмотрам
+          other: просмотрам
+      reading:
+        dative:
+          one: чтению
+          few: чтениям
+          many: чтениям
+          other: чтениям
+      the_best_anime:
+        genitive:
+          one: лучшего аниме
+          few: лучших аниме
+          many: лучших аниме
+          other: лучших аниме
+      the_best_manga:
+        genitive:
+          one: лучшей манги
+          few: лучших манг
+          many: лучших манг
+          other: лучших манг
 
       datetime:
         second:
@@ -196,3 +220,6 @@ ru:
         female: :@f
         neuter: :@n
         default: m
+      user_signed_in:
+        signed_in: залогинен
+        not_signed_in: не залогинен

@@ -1,0 +1,10 @@
+ru:
+  adjectives:
+    viewing:
+      genitive:
+        one: '@{m:зрительского|f:зрительской}'
+        few: зрительских
+    reading:
+      genitive:
+        one: '@{m:читательского|f:читательской}'
+        few: читательских
