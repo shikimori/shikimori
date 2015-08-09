@@ -4,11 +4,17 @@
 header.head
   h1 class="#{:censored if @resource && @resource.name.present? && @resource.censored?}"
     - if params[:action] != 'show' && @resource && @resource.persisted?
-      a.back href="#{club_url @resource}" title="#{t '.back_to_clubs_page'}"
+      a.back[
+        href="#{club_url @resource}"
+        title="#{t '.back_to_clubs_page'}"
+        data-text=t('back')
+      ]
+
     - if @resource.name.present?
       = @resource.name
     - else
       = t '.new_club'
+
   - if can?(:edit, @resource) && @resource.persisted?
     a.edit[
       href="#{edit_club_url @resource}"
