@@ -4,8 +4,8 @@
 @import mixins/responsive
 @import mixins/link
 
-$feedback_height: 160px
-$feedback_width: 31px
+$feedback_height: 140px
+$feedback_width: 25px
 $feedback_top: 270px
 
 $feedback_color_from: #6a95ca
@@ -47,12 +47,14 @@ $feedback_color_to: #4b80c0
       +transform(rotate(-90deg))
       -moz-transform-origin: left top
       -webkit-transform-origin: left top
-      transform-origin: left top
-      padding: 5px 8px
-      width: $feedback_height
+      font-size: 12px
       height: $feedback_width
-      margin-top: $feedback_height
       line-height: $line_height
+      margin-top: $feedback_height
+      padding: 3px 8px
+      transform-origin: left top
+      white-space: nowrap
+      width: $feedback_height
 
       &:hover
         +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%), lighten($feedback_color_to, 3%))
