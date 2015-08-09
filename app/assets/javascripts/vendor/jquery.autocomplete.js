@@ -379,7 +379,9 @@ $.Autocompleter = function(input, options) {
         // limit abortion to this input
         port: "autocomplete" + input.name,
         dataType: options.dataType,
-        url: url() + "?search=" + lastWord(term),
+        url: url().match(/\?/) ?
+          url() + "&search=" + lastWord(term) :
+          url() + "?search=" + lastWord(term),
         success: function(data) {
           var parsed = options.parse && options.parse(data) || parse(data);
           cache.add(term, parsed);
