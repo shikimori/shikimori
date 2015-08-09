@@ -40,7 +40,6 @@ en:
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
         ignored_users: Ignored users
-        username: User name
 
       profile:
         display_activity_graph_since: Display activity graph since

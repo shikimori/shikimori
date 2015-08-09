@@ -7,12 +7,18 @@ ru:
     page:
       back_to_clubs_page: Назад на страницу клуба
       new_club: Новый клуб
-      edit_club: Изменить клуб
+      edit_club: &edit_club Изменить клуб
 
     form:
       required_option_for_adult_clubs: Обязательная опция для клубов со "взрослыми" картинками и текстами
       anime_title: Название аниме
       manga_title: Название манги
       character_name: Имя персонажа
-      username: Имя пользователя
       remove_users: Удаление пользователей
+
+    actions:
+      edit_club: *edit_club
+      upload_image_title: Также картинки загружать можно, перетаскивая файлы на страницу клуба
+      invite_to_club: Пригласить в клуб
+      join_club: Вступить в клуб
+      leave_club: Уйти из клуба

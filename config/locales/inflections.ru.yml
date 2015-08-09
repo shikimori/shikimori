@@ -185,6 +185,18 @@ ru:
           few: бана
           many: банов
           other: баны
+      action:
+        subjective:
+          one: действие
+          few: действия
+          many: действий
+          other: действия
+      invitation:
+        subjective:
+          one: приглашение
+          few: приглашения
+          many: приглашений
+          other: приглашения
 
       datetime:
         second:

@@ -1,35 +1,41 @@
 - if user_signed_in? && resource.persisted?
   .block.actions
-    .subheadline Действия
+    .subheadline = i18n_i 'action', :other
     ul.block-list
       - if can? :edit, resource
         li.r-iphone.edit-entry
-          a href="#{edit_club_url resource}" Изменить клуб
+          a href="#{edit_club_url resource}" = t '.edit_club'
 
       - if can? :upload, resource
-        li.upload title="Так же картинки загружать можно перетаскивая файлы на страницу клуба"
+        li.upload title=t('.upload_image_title')
           = form_tag upload_club_url(resource), method: :post, multipart: true do
-            span Загрузить изображение
-            input type="file" name="image"
+            span = t 'actions.upload_image'
+            input type='file' name='image'
 
       - if can? :invite, resource
-        li.invite Пригласить в клуб
+        li.invite = t '.invite_to_club'
 
       - if can?(:join, resource) && !resource.joined?(current_user)
         li.join-group.join
-          a href="#{club_group_roles_path resource, 'group_role[user_id]' => current_user.id, 'group_role[group_id]' => resource.id}" data-method="post" Вступить в клуб
+          a[
+            href="#{club_group_roles_path resource, 'group_role[user_id]' => current_user.id, 'group_role[group_id]' => resource.id}"
+            data-method='post'
+          ] = t '.join_club'
 
       - if can?(:leave, resource) && resource.joined?(current_user)
         li.leave-group.leave
-          a href="#{club_group_role_path resource, resource.member_role(current_user)}" data-method="delete" Уйти из клуба
+          a[
+            href="#{club_group_role_path resource, resource.member_role(current_user)}"
+            data-method='delete'
+          ] = t '.leave_club'
 
   .block.invite
-    .subheadline Приглашение
+    .subheadline = i18n_i 'invitation'
     / TODO: после переименования group в club, заменить код на: simple_form_for [resource, resource.new_invite] do |f|
     = simple_form_for resource.new_invite, url: club_group_invites_path(resource), remote: true, authenticity_token: true, html: { 'data-type' => :json } do |f|
       = f.input :group_id, as: :hidden
       = f.input :src_id, as: :hidden
-      = f.input :dst_id, as: :string, placeholder: 'Имя пользователя'
+      = f.input :dst_id, as: :string, placeholder: t('username')
 
       = f.button :magic_submit
       .cancel = t 'cancel'

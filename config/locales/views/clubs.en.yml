@@ -7,12 +7,18 @@ en:
     page:
       back_to_clubs_page: Back to clubs page
       new_club: New club
-      edit_club: Edit club
+      edit_club: &edit_club Edit club
 
     form:
       required_option_for_adult_clubs: Required option for clubs with "adult" images and texts
       anime_title: Anime title
       manga_title: Manga title
       character_name: Character name
-      username: User name
       remove_users: Remove users
+
+    actions:
+      edit_club: *edit_club
+      upload_image_title: Also you can upload images by dragging files onto club page
+      invite_to_club: Invite to the club
+      join_club: Join the club
+      leave_club: Leave the club

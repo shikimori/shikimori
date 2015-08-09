@@ -42,7 +42,6 @@ ru:
         nickname: Логин (никнейм)
         not_connected_accounts: Неподключенные сервисы
         under_development: В разработке
-        username: Имя пользователя
 
       profile:
         display_activity_graph_since: Отображать график активности начиная с даты
