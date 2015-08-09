@@ -4,13 +4,15 @@ class GroupRolesController < ShikimoriController
   # вступление в клуб
   def create
     @resource.group.join current_user
-    redirect_to club_url(@resource.group), notice: "Вы вступили в клуб \"#{@resource.group.name}\""
+    redirect_to club_url(@resource.group),
+      notice: i18n_t('.you_have_joined_club', club_name: @resource.group.name)
   end
 
   # выход из клуба
   def destroy
     @resource.group.leave current_user
-    redirect_to club_url(@resource.group), notice: "Вы покинули клуб \"#{@resource.group.name}\""
+    redirect_to club_url(@resource.group),
+      notice: i18n_t('.you_have_left_club', club_name: @resource.group.name)
   end
 
   def autocomplete
