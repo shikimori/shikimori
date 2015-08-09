@@ -1,8 +1,8 @@
 class MigrateRussianUserChanges < ActiveRecord::Migration
   def up
-    UserChange.
-      where(column: 'russian').
-      each do |user_change|
+    UserChange
+      .where(column: 'russian')
+      .each do |user_change|
         Version.create(
           user_id: user_change.user_id,
           state: user_change.status.downcase,
@@ -18,9 +18,7 @@ class MigrateRussianUserChanges < ActiveRecord::Migration
           reason: user_change.reason,
           created_at: user_change.created_at,
         )
-        user_change
-      end.
-      each(&:destroy)
+      end
   end
 
   def down

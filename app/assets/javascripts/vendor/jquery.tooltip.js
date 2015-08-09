@@ -204,7 +204,6 @@
 
     // trigger --> show
     trigger.bind(evt[0], function(e) {
-
       clearTimeout(pretimer);
       var predelay = trigger.data('predelay') || conf.predelay;
       if (predelay) {

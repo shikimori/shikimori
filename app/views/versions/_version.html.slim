@@ -7,8 +7,13 @@ div
       = version.created_at.strftime('%d.%m.%Y')
 
     .b-user16
-      a href="#{profile_url version.user}" title="#{version.user.nickname}"
-        img src="#{version.user.avatar_url 16}" srcset="#{version.user.avatar_url 32} 2x" alt="#{version.user.nickname}" title="#{version.user.nickname}"
+      a href="#{profile_url version.user}" title=version.user.nickname
+        img[
+          src="#{version.user.avatar_url 16}"
+          srcset="#{version.user.avatar_url 32} 2x"
+          alt=version.user.nickname
+          title=version.user.nickname
+        ]
         span = version.user.nickname
 
     span.column
@@ -16,9 +21,10 @@ div
 
     span.id
       - if version.item
-        a.bubbled href="#{url_for version.item}" = version.item.name
+        a.bubbled href=url_for(version.item)
+          = version.item.name
       - else
-        = t "deleted.#{version.model}"
+        = t("deleted.#{version.item_type.downcase}").downcase
 
     /- if version.screenshots?
       /- if version.action == UserChange::ScreenshotsPosition
