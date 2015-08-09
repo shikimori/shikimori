@@ -141,9 +141,12 @@ ru:
         linked: Связанное
         posters: Постеры
         section_id: Раздел
+      # TODO: удалить после удаления модели
       user_change:
         source: Источник
         reason: Комментарий для модератора
+      version:
+        reason: Причина правки
       anime_video_report:
         kind: Причина
         message: Сообщение модератору

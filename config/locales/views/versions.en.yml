@@ -1,6 +1,20 @@
 en:
   versions:
     version:
-      changes: changes
-      expand: expand
-      apply_change: Apply change
+      accept: accept
+      accept_changes: Accept changes
+      accept_with_author: Accept changes and add user to description authors
+      accept_wo_author: Accept changes and do not add user to description authors
+      delete: delete
+      delete_changes: Delete changes
+      reject: reject
+      reject_changes: Reject changes
+      reject_reason: Reject reason (optional)
+      show: show
+      show_changes: show details
+      take: take
+
+    text_diff:
+      before: Before change
+      after: After change
+      change: Change

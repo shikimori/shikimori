@@ -1,0 +1,16 @@
+.diff
+  .old-value
+    b
+      ' #{t '.before'}:
+    = old_value
+
+  .new-value
+    b
+      ' #{t '.after'}:
+    = new_value
+
+  - if old_value.present? && new_value.present?
+    .diff-value
+      b
+        ' Diff:
+      = sanitize version.field_diff field

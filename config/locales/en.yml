@@ -141,9 +141,12 @@ en:
         linked: Linked
         posters: Posters
         section_id: Section
+      # TODO: удалить после удаления модели
       user_change:
         source: Source
         reason: Message to moderators
+      version:
+        reason: Change reason
       anime_video_report:
         kind: Reason
         message: Message to moderators
