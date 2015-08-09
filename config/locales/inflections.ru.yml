@@ -197,6 +197,18 @@ ru:
           few: приглашения
           many: приглашений
           other: приглашения
+      member:
+        subjective:
+          one: участник
+          few: участника
+          many: участников
+          other: участники
+      administration:
+        subjective:
+          one: администрация
+          few: администрации
+          many: администраций
+          other: администрации
 
       datetime:
         second:
