@@ -30,6 +30,9 @@ class MessageType
   Banned = 'Banned'
   # уведомление о предупреждении
   Warned = 'Warned'
+  # уведомление о принятии/отказе правки
+  VersionAccepted = 'VersionAccepted'
+  VersionRejected = 'VersionRejected'
 
   RESPONSE_REQUIRED = [FriendRequest, GroupRequest]
   ANIME_RELATED = [Anons, Ongoing, Released, Episode]

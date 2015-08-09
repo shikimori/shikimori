@@ -7,6 +7,16 @@ describe Moderation::VersionsController do
   let(:state) { 'pending' }
   let(:anime) { create :anime }
 
+  describe '#show' do
+    before { get :show, id: version.id }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#tooltip' do
+    before { get :tooltip, id: version.id }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#accept' do
     before { post :accept, id: version.id }
 
@@ -26,7 +36,7 @@ describe Moderation::VersionsController do
   end
 
   describe '#reject' do
-    before { post :reject, id: version.id }
+    before { post :reject, id: version.id, reason: 'test' }
 
     it do
       expect(resource).to be_rejected

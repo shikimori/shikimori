@@ -20,6 +20,8 @@ describe Version do
 
     before { allow(version).to receive :apply_changes! }
     before { allow(version).to receive :rollback_changes! }
+    before { allow(version).to receive :notify_acceptance }
+    before { allow(version).to receive :notify_rejection }
 
     describe '#accept' do
       before { version.accept! moderator }
@@ -32,6 +34,8 @@ describe Version do
           expect(version.moderator).to eq moderator
           expect(version).to have_received :apply_changes!
           expect(version).to_not have_received :rollback_changes!
+          expect(version).to have_received :notify_acceptance
+          expect(version).to_not have_received :notify_rejection
         end
       end
     end
@@ -47,12 +51,14 @@ describe Version do
           expect(version.moderator).to eq moderator
           expect(version).to have_received :apply_changes!
           expect(version).to_not have_received :rollback_changes!
+          expect(version).to have_received :notify_acceptance
+          expect(version).to_not have_received :notify_rejection
         end
       end
     end
 
     describe '#reject' do
-      before { version.reject! moderator }
+      before { version.reject! moderator, 'reason' }
 
       describe 'from accepted_pending' do
         let(:state) { :accepted_pending }
@@ -61,6 +67,8 @@ describe Version do
           expect(version).to be_rejected
           expect(version).to_not have_received :apply_changes!
           expect(version).to have_received :rollback_changes!
+          expect(version).to_not have_received :notify_acceptance
+          expect(version).to_not have_received :notify_rejection
         end
       end
 
@@ -72,6 +80,8 @@ describe Version do
           expect(version.moderator).to eq moderator
           expect(version).to_not have_received :apply_changes!
           expect(version).to_not have_received :rollback_changes!
+          expect(version).to_not have_received :notify_acceptance
+          expect(version).to have_received(:notify_rejection).with 'reason'
         end
       end
     end
@@ -94,6 +104,38 @@ describe Version do
       before { version.rollback_changes! }
       it { expect(anime.reload.episodes).to eq 1 }
     end
+
+    describe '#notify_acceptance' do
+      let(:version) { create :version, item: anime, item_diff: { episodes: [1,2] },
+        user: user, moderator: moderator }
+      let(:user) { create :user }
+
+      context 'user == moderator' do
+        let(:moderator) { user }
+        it { expect{version.notify_acceptance}.to_not change(user.messages, :count) }
+      end
+
+      context 'user != moderator' do
+        let(:moderator) { create :user }
+        it { expect{version.notify_acceptance}.to change(user.messages, :count).by 1 }
+      end
+    end
+
+    describe '#notify_rejection' do
+      let(:version) { create :version, item: anime, item_diff: { episodes: [1,2] },
+        user: user, moderator: moderator }
+      let(:user) { create :user }
+
+      context 'user == moderator' do
+        let(:moderator) { user }
+        it { expect{version.notify_rejection 'z'}.to_not change(user.messages, :count) }
+      end
+
+      context 'user != moderator' do
+        let(:moderator) { create :user }
+        it { expect{version.notify_rejection 'z'}.to change(user.messages, :count).by 1 }
+      end
+    end
   end
 
   describe 'permissions' do
@@ -110,12 +152,16 @@ describe Version do
       describe 'own version' do
         let(:version) { build_stubbed :version, user_id: User::GuestID }
 
+        it { is_expected.to be_able_to :show, version }
+        it { is_expected.to be_able_to :tooltip, version }
         it { is_expected.to be_able_to :create, version }
         it { is_expected.to_not be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
       end
 
       describe 'user version' do
+        it { is_expected.to be_able_to :show, version }
+        it { is_expected.to be_able_to :tooltip, version }
         it { is_expected.to_not be_able_to :create, version }
         it { is_expected.to_not be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
@@ -129,12 +175,16 @@ describe Version do
       describe 'own version' do
         let(:version) { build_stubbed :version, user: user }
 
+        it { is_expected.to be_able_to :show, version }
+        it { is_expected.to be_able_to :tooltip, version }
         it { is_expected.to be_able_to :create, version }
         it { is_expected.to be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
       end
 
       describe 'user version' do
+        it { is_expected.to be_able_to :show, version }
+        it { is_expected.to be_able_to :tooltip, version }
         it { is_expected.to_not be_able_to :create, version }
         it { is_expected.to_not be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }

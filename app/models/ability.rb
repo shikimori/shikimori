@@ -46,6 +46,7 @@ class Ability
     can [:create], Version do |version|
       version.user_id == User::GuestID
     end
+    can [:show, :tooltip], Version
   end
 
   def user_ability

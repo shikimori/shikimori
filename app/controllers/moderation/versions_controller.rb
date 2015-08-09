@@ -3,6 +3,15 @@ class Moderation::VersionsController < ShikimoriController
 
   page_title i18n_t('content_changes')
 
+  def show
+    noindex
+    page_title i18n_t('content_change', version_id: @resource.id, author: @resource.user.nickname)
+  end
+
+  def tooltip
+    noindex
+  end
+
   # применение предложенного пользователем изменения
   def accept
     @resource.accept current_user
@@ -15,7 +24,7 @@ class Moderation::VersionsController < ShikimoriController
   end
 
   def reject
-    @resource.reject current_user
+    @resource.reject current_user, params[:reason]
     redirect_to_back_or_to moderation_versions_url, notice: i18n_t('changes_rejected')
   end
 

@@ -5,9 +5,9 @@ $comment = (node) ->
 $moderation = (node) ->
   $(node).closest('.b-abuse_request').find('.b-request_resolution .moderation')
 
-@on 'page:load', ->
+$ ->
   # вопрос о причине отказа для правки
-  $('.user_change-deny').on 'click', (e) ->
+  $(document.body).on 'click', '.user_change-deny', (e) ->
     href = $(@).data('href')
     reason = prompt $(@).data('reason-prompt')
 

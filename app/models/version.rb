@@ -1,5 +1,6 @@
-# TODO: Перед откатом хорошо бы проверять возможность отката текущей версии (если {:episode=>[1, 2]}, то episode должен быть 2). @blackchestnut
 class Version < ActiveRecord::Base
+  #include Translation
+
   belongs_to :user
   belongs_to :moderator, class_name: User
   belongs_to :item, polymorphic: true
@@ -14,30 +15,29 @@ class Version < ActiveRecord::Base
     state :taken
     state :deleted
 
-    event :accept do
-      transition [:pending] => :accepted
-    end
-    event :take do
-      transition [:pending] => :taken
-    end
-    event :reject do
-      transition [:pending, :accepted_pending] => :rejected
-    end
+    event(:accept) { transition :pending => :accepted }
+    event(:take) { transition :pending => :taken }
+    event(:reject) { transition [:pending, :accepted_pending] => :rejected }
+    event(:to_deleted) { transition :pending => :deleted }
 
-    event :to_deleted do
-      transition [:pending] => :deleted
-    end
-
-    before_transition [:pending] => [:accepted, :taken] do |version, transition|
+    before_transition :pending => [:accepted, :taken] do |version, transition|
       version.apply_changes!
     end
 
-    before_transition [:accepted_pending] => :rejected do |version, transition|
+    before_transition :accepted_pending => :rejected do |version, transition|
       version.rollback_changes!
     end
 
-    before_transition [:pending] => [:accepted, :taken, :rejected, :deleted] do |version, transition|
+    before_transition :pending => [:accepted, :taken, :rejected, :deleted] do |version, transition|
       version.update moderator: transition.args.first if transition.args.first
+    end
+
+    after_transition :pending => [:accepted, :taken] do |version, transition|
+      version.notify_acceptance
+    end
+
+    after_transition :pending => [:rejected] do |version, transition|
+      version.notify_rejection transition.args.second
     end
   end
 
@@ -61,5 +61,24 @@ class Version < ActiveRecord::Base
 
   def current_value field
     item.send field
+  end
+
+  def notify_acceptance
+    Message.create_wo_antispam!(
+      from_id: moderator_id,
+      to_id: user_id,
+      kind: MessageType::VersionAccepted,
+      linked: self
+    ) unless user_id == moderator_id
+  end
+
+  def notify_rejection reason
+    Message.create_wo_antispam!(
+      from_id: moderator_id,
+      to_id: user_id,
+      kind: MessageType::VersionRejected,
+      linked: self,
+      body: reason
+    ) unless user_id == moderator_id
   end
 end

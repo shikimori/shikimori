@@ -1,7 +1,26 @@
 class MessagesQuery < QueryObjectBase
   pattr_initialize :user, :messages_type
 
-  NEWS_KINDS = [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Released, MessageType::SiteNews]
+  NEWS_KINDS = [
+    MessageType::Anons,
+    MessageType::Ongoing,
+    MessageType::Episode,
+    MessageType::Released,
+    MessageType::SiteNews
+  ]
+  NOTIFICATION_KINDS = [
+    MessageType::FriendRequest,
+    MessageType::GroupRequest,
+    MessageType::Notification,
+    MessageType::ProfileCommented,
+    MessageType::QuotedByUser,
+    MessageType::SubscriptionCommented,
+    MessageType::NicknameChanged,
+    MessageType::Banned,
+    MessageType::Warned,
+    MessageType::VersionAccepted,
+    MessageType::VersionRejected,
+  ]
 
   def query
     Message
@@ -18,23 +37,13 @@ class MessagesQuery < QueryObjectBase
       when :private then { kind: [MessageType::Private], read: false }
       when :sent then { kind: [MessageType::Private] }
       when :news then { kind: NEWS_KINDS }
-      when :notifications then {
-        kind: [
-          MessageType::FriendRequest,
-          MessageType::GroupRequest,
-          MessageType::Notification,
-          MessageType::ProfileCommented,
-          MessageType::QuotedByUser,
-          MessageType::SubscriptionCommented,
-          MessageType::NicknameChanged,
-          MessageType::Banned,
-          MessageType::Warned
-        ]}
+      when :notifications then { kind: NOTIFICATION_KINDS }
       else raise ArgumentError, "unknown type: #{@messages_type}"
     end
   end
 
 private
+
   def ignores_ids
     @ignores_ids ||= @user.ignores.map(&:target_id) << 0
   end

@@ -5,7 +5,7 @@ module CommentHelper
   #include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :version, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -193,6 +193,7 @@ module CommentHelper
     Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :tooltip_character_url],
     Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :tooltip_person_url],
     UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :tooltip_moderation_user_change_url],
+    Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderation_version_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
     Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
     Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/entry\])/, nil],
@@ -273,13 +274,15 @@ module CommentHelper
 
             url = if entry.kind_of? UserChange
               moderation_user_change_url entry
+            elsif entry.kind_of? Version
+              moderation_version_url entry
             elsif entry.kind_of? Group
               club_url entry
             else
               url_for entry
             end
 
-            text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.name}\"#{additional}>#{title}</a>"
+            text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.respond_to?(:name) ? name : title}\"#{additional}>#{title}</a>"
 
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, "<b>#{$3}</b>"

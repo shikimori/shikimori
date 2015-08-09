@@ -99,7 +99,7 @@
         = render message.linked.linked.decorate,
           cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
       - else
-        == get_message_body message
+        = message.generate_body
 
       - if message.kind == MessageType::SiteNews && message.linked
         = link_to 'к новости→', topic_url(message.linked), class: 'right to-entry b-link'

@@ -1,0 +1,5 @@
+header.head
+  h1
+    = @page_title.last
+
+= render 'versions/version', version: @resource.decorate

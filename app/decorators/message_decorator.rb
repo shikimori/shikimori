@@ -1,4 +1,6 @@
 class MessageDecorator < BaseDecorator
+  include Translation
+
   def image
     anime_related? ? anime.image.url(:x48) : from.avatar_url(48)
   end
@@ -23,6 +25,37 @@ class MessageDecorator < BaseDecorator
 
   def generated_news?
     linked.respond_to?(:generated_news?) && linked.generated_news?
+  end
+
+  def generate_body
+    case kind
+      when MessageType::VersionAccepted
+        BbCodeFormatter.instance.format_comment i18n_t('version_accepted',
+          version_id: linked.id,
+          item_type: linked.item_type.downcase,
+          item_id: linked.item_id
+        )
+
+      when MessageType::VersionRejected
+        if object.body.present?
+          BbCodeFormatter.instance.format_comment i18n_t('version_rejected_with_reason',
+            version_id: linked.id,
+            item_type: linked.item_type.downcase,
+            item_id: linked.item_id,
+            moderator: linked.moderator.nickname,
+            reason: object.body
+          )
+        else
+          BbCodeFormatter.instance.format_comment i18n_t('version_rejected',
+            version_id: linked.id,
+            item_type: linked.item_type.downcase,
+            item_id: linked.item_id
+          )
+        end
+
+      else
+        h.get_message_body object
+    end
   end
 
 private

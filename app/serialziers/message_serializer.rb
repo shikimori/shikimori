@@ -1,7 +1,5 @@
 class MessageSerializer < ActiveModel::Serializer
   include TopicsHelper
-  include MessagesHelper
-  include CommentHelper
 
   attributes :id, :kind, :read, :body, :html_body, :created_at, :linked
   has_one :from
@@ -12,7 +10,7 @@ class MessageSerializer < ActiveModel::Serializer
   end
 
   def html_body
-    get_message_body object
+    object.generate_body
   end
 
   def linked
