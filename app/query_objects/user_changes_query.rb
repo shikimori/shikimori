@@ -1,3 +1,4 @@
+# TODO: удалить после миграция UserChange на Version
 class UserChangesQuery
   def initialize entry, field
     @entry = entry

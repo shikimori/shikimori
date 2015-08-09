@@ -17,6 +17,11 @@ en:
   back_to_page: Back to page
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
+  deleted:
+    anime: Удалённое аниме
+    character: Удалённый персонаж
+    manga: Удалённая манга
+    review: Удалённая рецензия
   female: female
   image_uploaded: Image uploaded
   loading: Loading...

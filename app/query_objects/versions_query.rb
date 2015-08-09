@@ -9,6 +9,7 @@ class VersionsQuery
       .where.not(state: :deleted)
       .includes(:user, :moderator)
       .order(created_at: :desc)
+      .decorate
   end
 
   def [] field

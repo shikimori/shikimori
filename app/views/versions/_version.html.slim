@@ -11,12 +11,13 @@
         span = version.user.nickname
 
     span.column
-      /= version.column
+      = version.changed_fields.join ', '
+
     span.id
       - if version.item
         a.bubbled href="#{url_for version.item}" = version.item.name
       - else
-        = t "Deleted.#{version.model}"
+        = t "deleted.#{version.model}"
 
     /- if version.screenshots?
       /- if version.action == UserChange::ScreenshotsPosition
@@ -40,11 +41,19 @@
         /= version.moderator.nickname
 
     .spoiler.collapse
-      span.action.half-hidden style="display: none;" развернуть
-    .collapsed.spoiler изменения
+      span.action.half-hidden style="display: none;" = t '.expand'
+    .collapsed.spoiler = t '.changes'
 
     .spoiler.target style="display: none;"
-      /.moderation
+      .moderation
+        - if version.processable?
+          a.b-tooltipped.unprocessed[
+            href="#{apply_moderation_version_url version}"
+            data-method="post"
+            data-direction="top"
+            title="#{t '.apply_change'}"
+          ] = t 'apply'
+
         /- if version[:locked]
           /p сначала предыдущие правки
 
@@ -137,4 +146,4 @@
               /a href="#{version.source}"
                 /= h(version.source).sub(/^https?:\/\//, '')
 
-      /span.closing
+      span.closing

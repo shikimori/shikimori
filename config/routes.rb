@@ -71,6 +71,19 @@ Site::Application.routes.draw do
       end
     end
 
+    resources :versions, only: [:show, :index, :create] do
+      collection do
+        get '(/page/:page)' => :index, as: :index
+      end
+
+      member do
+        get :tooltip
+        post :apply
+        post :take
+        post :reject
+      end
+    end
+
     resources :bans, only: [:create, :index] do
       get '/page/:page', action: :index, as: :page, on: :collection
     end

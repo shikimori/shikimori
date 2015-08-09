@@ -17,6 +17,11 @@ ru:
   back_to_page: Назад на страницу
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
+  deleted:
+    anime: Deleted anime
+    character: Deleted character
+    manga: Deleted manga
+    review: Deleted review
   female: жен.
   image_uploaded: Изображение загружено
   loading: Загрузка...

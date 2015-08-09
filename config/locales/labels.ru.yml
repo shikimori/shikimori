@@ -4,11 +4,11 @@ ru:
     #Anime: Аниме
     #Character: Персонаж
     #Manga: Манга
-  Deleted:
-    Anime: Удалённое аниме
-    Character: Удалённый персонаж
-    Manga: Удалённая манга
-    Review: Удалённая рецензия
+  #Deleted:
+    #Anime: Удалённое аниме
+    #Character: Удалённый персонаж
+    #Manga: Удалённая манга
+    #Review: Удалённая рецензия
   #Genitive:
     #Anime: Аниме
     #Manga: Манги
