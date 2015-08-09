@@ -17,6 +17,11 @@ describe Moderation::VersionsController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#index' do
+    before { get :index }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#accept' do
     before { post :accept, id: version.id }
 

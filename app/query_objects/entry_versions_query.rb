@@ -1,4 +1,4 @@
-class VersionsQuery
+class EntryVersionsQuery
   pattr_initialize :entry
 
   # TODO: вставить проверку изменяемого поля

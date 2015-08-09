@@ -13,8 +13,17 @@ class VersionDecorator < BaseDecorator
     'versions/text_diff'
   end
 
+  def item_template
+    if item.kind_of? AnimeVideo
+      'versions/anime_video'
+
+    else
+      'versions/db_entry'
+    end
+  end
+
   def field_diff field
-    diff old_value(field), new_value(field)
+    diff old_value(field).to_s, new_value(field).to_s
   end
 
   def new_value field

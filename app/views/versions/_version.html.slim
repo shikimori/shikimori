@@ -21,8 +21,7 @@ div
 
     span.id
       - if version.item
-        a.bubbled href=url_for(version.item)
-          = version.item.name
+        = render version.item_template, version: version
       - else
         = t("deleted.#{version.item_type.downcase}").downcase
 

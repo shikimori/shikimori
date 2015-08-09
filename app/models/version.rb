@@ -1,11 +1,12 @@
 class Version < ActiveRecord::Base
-  #include Translation
+  MAXIMUM_REASON_SIZE = 255
 
   belongs_to :user
   belongs_to :moderator, class_name: User
   belongs_to :item, polymorphic: true
 
   validates :item, :item_diff, presence: true
+  validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
   state_machine :state, initial: :pending do
     state :accepted
@@ -38,6 +39,24 @@ class Version < ActiveRecord::Base
 
     after_transition :pending => [:rejected] do |version, transition|
       version.notify_rejection transition.args.second
+    end
+  end
+
+  class << self
+    def pending_count
+      Version.where(state: :pending).size
+    end
+
+    def has_changes?
+      pending_count > 0
+    end
+  end
+
+  def reason= value
+    if !value || value.size <= MAXIMUM_REASON_SIZE
+      super
+    else
+      super value[0..MAXIMUM_REASON_SIZE-1]
     end
   end
 

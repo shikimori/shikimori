@@ -1,4 +1,4 @@
-describe VersionsQuery do
+describe EntryVersionsQuery do
   let(:query) { VersionsQuery.new anime }
   let(:anime) { build_stubbed :anime }
 

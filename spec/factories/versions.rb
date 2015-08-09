@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :version do
-    item nil
+    item { build_stubbed :anime }
     user nil
     state :pending
     item_diff name: ['a', 'b']

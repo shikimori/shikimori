@@ -12,6 +12,11 @@ class Moderation::VersionsController < ShikimoriController
     noindex
   end
 
+  def index
+    raise Forbidden unless current_user.user_changes_moderator?
+    @versions = VersionsView.new
+  end
+
   # применение предложенного пользователем изменения
   def accept
     @resource.accept current_user

@@ -1,7 +1,4 @@
-class ForumView
-  include Draper::ViewHelpers
-  prepend ActiveCacher.instance
-
+class ForumView < ViewObjectBase
   pattr_initialize :resource
   instance_cache :section, :linked, :new_topic_section
 
@@ -31,6 +28,7 @@ class ForumView
   end
 
 private
+
   def new_topic_section
     if section.id
       section

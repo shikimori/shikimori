@@ -16,8 +16,7 @@ $ ->
     else
       $(@).attr href: "#{href}?reason=#{reason}"
 
-@on 'page:load', 'bans_index', 'abuse_requests_index',
-    'versions_index', 'user_changes_index', 'review_index', 'anime_video_reports_index', ->
+@on 'page:load', 'bans_index', 'abuse_requests_index', 'user_changes_index', 'review_index', 'anime_video_reports_index', ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
 
