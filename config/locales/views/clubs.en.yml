@@ -1,0 +1,18 @@
+en:
+  clubs:
+    index:
+      create_new_club: Create new club
+      list_of_all_clubs: List of all clubs sorted by their members' activity
+
+    page:
+      back_to_clubs_page: Back to clubs page
+      new_club: New club
+      edit_club: Edit club
+
+    form:
+      required_option_for_adult_clubs: Required option for clubs with "adult" images and texts
+      anime_title: Anime title
+      manga_title: Manga title
+      character_name: Character name
+      username: User name
+      remove_users: Remove users

@@ -1,0 +1,18 @@
+ru:
+  clubs:
+    index:
+      create_new_club: Создать новый клуб
+      list_of_all_clubs: Список всех клубов сайта в порядке активности участников
+
+    page:
+      back_to_clubs_page: Назад на страницу клуба
+      new_club: Новый клуб
+      edit_club: Изменить клуб
+
+    form:
+      required_option_for_adult_clubs: Обязательная опция для клубов со "взрослыми" картинками и текстами
+      anime_title: Название аниме
+      manga_title: Название манги
+      character_name: Имя персонажа
+      username: Имя пользователя
+      remove_users: Удаление пользователей

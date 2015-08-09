@@ -137,6 +137,54 @@ ru:
           few: лучших манг
           many: лучших манг
           other: лучших манг
+      club:
+        subjective:
+          one: клуб
+          few: клуба
+          many: клубов
+          other: клубы
+      error:
+        subjective:
+          one: ошибка
+          few: ошибки
+          many: ошибок
+          other: ошибки
+      description:
+        subjective:
+          one: описание
+          few: описания
+          many: описаний
+          other: описания
+      logo:
+        subjective:
+          one: логотип
+          few: логотипа
+          many: логотипов
+          other: логотипы
+      character:
+        subjective:
+          one: персонаж
+          few: персонажа
+          many: персонажей
+          other: персонажи
+      admin:
+        subjective:
+          one: админ
+          few: админа
+          many: админов
+          other: админы
+      moderator:
+        subjective:
+          one: модератор
+          few: модератора
+          many: модераторов
+          other: модераторы
+      ban:
+        subjective:
+          one: бан
+          few: бана
+          many: банов
+          other: баны
 
       datetime:
         second:

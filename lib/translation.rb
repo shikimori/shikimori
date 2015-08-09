@@ -19,7 +19,7 @@ module Translation
         default: "inflections.cardinal.#{key.downcase}.default".to_sym
     else
       I18n.t "inflections.#{key.downcase}.#{count_key}",
-        default: key.to_s.downcase.gsub('_', ' ').pluralize(count)
+        default: key.to_s.downcase.gsub('_', ' ').pluralize(count_key == :one ? 1 : 2)
     end
 
     key != key.downcase ? translation.capitalize : translation

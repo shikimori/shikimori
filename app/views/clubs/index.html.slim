@@ -1,8 +1,8 @@
 header.head.misc
   h1 = @page_title.last
   - if can? :new, Group.new(owner: current_user)
-    a.misc href="#{new_club_url 'club[owner_id]' => current_user.id}" title="Создать новый клуб" создать
-  p.notice.clearfix Список всех клубов сайта в порядке активности участников
+    a.misc href="#{new_club_url 'club[owner_id]' => current_user.id}" title="#{t '.create_new_club'}" = t 'action.create'
+  p.notice.clearfix = t '.list_of_all_clubs'
 
 .b-clubs.index
   = render partial: 'club', collection: @collection, locals: { content_by: :detailed }

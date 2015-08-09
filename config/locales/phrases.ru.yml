@@ -4,6 +4,7 @@ ru:
     apply: Применить
     ban_user: Забанить пользователя
     cancel: Отмена
+    create: Создать
     delete: Удалить
     edit: Изменить
     quote: Цитировать
@@ -16,6 +17,7 @@ ru:
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
   female: жен.
+  image_uploaded: Изображение загружено
   loading: Загрузка...
   mail: Почта
   male: муж.

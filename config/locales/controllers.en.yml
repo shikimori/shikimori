@@ -27,3 +27,13 @@ en:
     personalized_recommendations: Personalized recommendations
     what_anime_to_watch: What anime I should watch
     what_manga_to_read: What manga I should read
+  clubs_controller:
+    clubs: Clubs
+    new_club: New club
+    club_created: Club created
+    edit_club: Edit club
+    club_members: Club members
+    club_anime: Club anime
+    club_manga: Club manga
+    club_characters: Club characters
+    club_images: Club images

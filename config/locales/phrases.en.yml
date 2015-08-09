@@ -4,6 +4,7 @@ en:
     apply: Apply
     ban_user: Ban User
     cancel: Cancel
+    create: Create
     delete: Delete
     edit: Edit
     quote: Quote
@@ -16,6 +17,7 @@ en:
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   female: female
+  image_uploaded: Image uploaded
   loading: Loading...
   mail: Mail
   male: male
