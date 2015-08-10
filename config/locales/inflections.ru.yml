@@ -6,10 +6,12 @@ ru:
           one: комментарий
           few: комментария
           many: комментариев
+          other: комментарии
         accusative:
           one: комментарий
           few: комментария
           many: комментариев
+          other: комментарии
       summary:
         subjective:
           one: отзыв
@@ -209,6 +211,24 @@ ru:
           few: администрации
           many: администраций
           other: администрации
+      image:
+        subjective:
+          one: изображение
+          few: изображения
+          many: изображений
+          other: изображения
+      picture:
+        subjective:
+          one: картинка
+          few: картинки
+          many: картинок
+          other: картинки
+      discussion:
+        subjective:
+          one: обсуждение
+          few: обсуждения
+          many: обсуждений
+          other: обсуждения
 
       datetime:
         second:

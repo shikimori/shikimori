@@ -10,10 +10,10 @@
     .info
       span.grouped
         span.number #{club.members_count}
-        span.value #{Russian.p club.members_count, 'участник', 'участника', 'участников'}
+        span.value = i18n_i 'member', club.members_count
       span.grouped
         span.number #{number_with_delimiter club.thread.comments_count, delimiter: ' '}
-        span.value #{club.thread.comments_count < 1000 ? Russian.p(club.thread.comments_count, 'комментарий', 'комментария', 'комментариев') : 'комментариев'}
+        span.value #{club.thread.comments_count < 1000 ? i18n_i('comment', club.thread.comments_count) : i18n_i('comment', :many)}
     .info.author
       .b-user16
         a href="#{profile_url club.owner}" title="#{club.owner.nickname}"
