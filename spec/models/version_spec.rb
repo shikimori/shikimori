@@ -19,8 +19,8 @@ describe Version do
     let(:moderator) { build_stubbed :user }
     subject(:version) { create :version_anime_video, item_id: video.id, item_diff: { episode: [1,2] }, state: state }
 
-    before { allow(version).to receive :apply_changes! }
-    before { allow(version).to receive :rollback_changes! }
+    before { allow(version).to receive(:apply_changes).and_return true }
+    before { allow(version).to receive(:rollback_changes).and_return true }
     before { allow(version).to receive :notify_acceptance }
     before { allow(version).to receive :notify_rejection }
 
@@ -33,8 +33,8 @@ describe Version do
         it do
           expect(version).to be_accepted
           expect(version.moderator).to eq moderator
-          expect(version).to have_received :apply_changes!
-          expect(version).to_not have_received :rollback_changes!
+          expect(version).to have_received :apply_changes
+          expect(version).to_not have_received :rollback_changes
           expect(version).to have_received :notify_acceptance
           expect(version).to_not have_received :notify_rejection
         end
@@ -50,8 +50,8 @@ describe Version do
         it do
           expect(version).to be_taken
           expect(version.moderator).to eq moderator
-          expect(version).to have_received :apply_changes!
-          expect(version).to_not have_received :rollback_changes!
+          expect(version).to have_received :apply_changes
+          expect(version).to_not have_received :rollback_changes
           expect(version).to have_received :notify_acceptance
           expect(version).to_not have_received :notify_rejection
         end
@@ -66,8 +66,8 @@ describe Version do
 
         it do
           expect(version).to be_rejected
-          expect(version).to_not have_received :apply_changes!
-          expect(version).to have_received :rollback_changes!
+          expect(version).to_not have_received :apply_changes
+          expect(version).to have_received :rollback_changes
           expect(version).to_not have_received :notify_acceptance
           expect(version).to have_received :notify_rejection
         end
@@ -79,8 +79,8 @@ describe Version do
         it do
           expect(version).to be_rejected
           expect(version.moderator).to eq moderator
-          expect(version).to_not have_received :apply_changes!
-          expect(version).to_not have_received :rollback_changes!
+          expect(version).to_not have_received :apply_changes
+          expect(version).to_not have_received :rollback_changes
           expect(version).to_not have_received :notify_acceptance
           expect(version).to have_received(:notify_rejection).with 'reason'
         end
@@ -116,7 +116,7 @@ describe Version do
     end
 
     describe '#apply_changes' do
-      before { version.apply_changes! }
+      before { version.apply_changes }
 
       it do
         expect(anime.reload.episodes).to eq 2
@@ -125,7 +125,7 @@ describe Version do
     end
 
     describe '#rollback_changes' do
-      before { version.rollback_changes! }
+      before { version.rollback_changes }
       it { expect(anime.reload.episodes).to eq 1 }
     end
 

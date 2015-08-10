@@ -17,16 +17,19 @@ class Version < ActiveRecord::Base
     state :deleted
 
     event(:accept) { transition :pending => :accepted }
+    event(:auto_accept) { transition :pending => :auto_accepted }
     event(:take) { transition :pending => :taken }
     event(:reject) { transition [:pending, :auto_accepted] => :rejected }
     event(:to_deleted) { transition :pending => :deleted }
 
-    before_transition :pending => [:accepted, :taken] do |version, transition|
-      version.apply_changes!
+    before_transition :pending => [:accepted, :auto_accepted, :taken] do |version, transition|
+      version.apply_changes ||
+        raise(StateMachine::InvalidTransition.new version, transition.machine, transition.event)
     end
 
     before_transition :auto_accepted => :rejected do |version, transition|
-      version.rollback_changes!
+      version.rollback_changes ||
+        raise(StateMachine::InvalidTransition.new version, transition.machine, transition.event)
     end
 
     before_transition [:pending, :auto_accepted] => [:accepted, :taken, :rejected, :deleted] do |version, transition|
@@ -60,22 +63,25 @@ class Version < ActiveRecord::Base
     end
   end
 
-  def apply_changes!
+  def apply_changes
     attributes = item_diff.each_with_object({}) do |(field,changes), memo|
       memo[field] = changes.second
       changes[0] = current_value field
     end
 
-    item.update! attributes
-    save!
+    if item.update attributes
+      save
+    else
+      false
+    end
   end
 
-  def rollback_changes!
+  def rollback_changes
     attributes = item_diff.each_with_object({}) do |(field,changes), memo|
       memo[field] = changes.first
     end
 
-    item.update! attributes
+    item.update attributes
   end
 
   def current_value field

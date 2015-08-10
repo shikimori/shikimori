@@ -1,4 +1,4 @@
-# TODO: миграция всех user_change на Version
+# TODO: заменено на VersionsController. Удалить, мигрировав данные на versions.
 class UserChange < ActiveRecord::Base
   # TODO: rename to "Contribution"
   ScreenshotsPosition = "screenshots_position"

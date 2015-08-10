@@ -19,8 +19,8 @@
       = render 'versions/reason'
 
       .buttons
-        = f.button :magic_submit
         a.cancel href="#{@back_url}" = t 'actions.cancel'
+        = f.button :magic_submit
 
   - if @video.versions.any?
     .subheadline История правок

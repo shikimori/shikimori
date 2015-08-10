@@ -1,3 +1,4 @@
+# TODO: заменено на VersionsController. . Удалить, мигрировав данные на versions.
 class Moderation::UserChangesController < ShikimoriController
   include ActionView::Helpers::SanitizeHelper
   before_filter :authenticate_user!, only: [:index, :take, :deny]

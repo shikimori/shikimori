@@ -184,6 +184,18 @@ describe AnimesController do
     end
   end
 
+  describe '#update' do
+    include_context :back_redirect
+    before { patch :update, id: anime.id, anime: changes }
+    let(:changes) {{ russian: 'test' }}
+
+    it do
+      expect(resource).to_not have_attributes changes
+      expect(resource.versions[:russian]).to have(1).item
+      expect(response).to redirect_to back_url
+    end
+  end
+
   describe '#autocomplete' do
     let!(:anime_1) { create :anime, name: 'zzz Ffff' }
     let!(:anime_2) { create :anime, name: 'Fffff' }

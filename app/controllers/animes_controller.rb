@@ -147,7 +147,6 @@ class AnimesController < ShikimoriController
     render json: @resource.files.episodes_data
   end
 
-  # редактирование аниме
   def edit
     noindex
     page_title 'Редактирование'
@@ -163,13 +162,16 @@ class AnimesController < ShikimoriController
     )
   end
 
-  # тултип
   def tooltip
   end
 
-  # автодополнение
   def autocomplete
     @collection = AniMangaQuery.new(resource_klass, params, current_user).complete
+  end
+
+  def update
+    Versioneer.new(@resource.object).premoderate(anime_params, current_user, params[:reason])
+    redirect_to_back_or_to @resource.url, notice: i18n_t('changes_accepted')
   end
 
   # rss лента новых серий и сабов аниме
@@ -223,6 +225,12 @@ class AnimesController < ShikimoriController
   #end
 
 private
+
+  def anime_params
+    params
+      .require(:anime)
+      .permit(:name, :russian, :torrents_name, :episodes, :kind)
+  end
 
   def set_breadcrumbs
     if @resource.anime?

@@ -42,8 +42,10 @@ describe AnimeVideosService do
     context 'invalid video' do
       let(:kind) {  }
 
-      it { expect(video).to_not be_valid }
-      it { expect(video).to_not be_persisted }
+      it do
+        expect(video).to_not be_valid
+        expect(video).to_not be_persisted
+      end
     end
   end
 
@@ -64,7 +66,7 @@ describe AnimeVideosService do
       end
     end
 
-    context 'invalid video' do
+    context 'invalid video', :focus do
       let(:kind) {  }
       it { expect(video).to_not be_valid }
     end
