@@ -22,7 +22,7 @@ ru:
     character: Deleted character
     manga: Deleted manga
     review: Deleted review
-    animevideo: Deleted video
+    anime_video: Deleted video
   female: жен.
   image_uploaded: Изображение загружено
   loading: Загрузка...
@@ -34,6 +34,7 @@ ru:
   no_comments: Нет комментариев
   nothing_found: Ничего нет.
   notifications: Уведомления
+  optional: Не обязательно
   out_of: из
   person: Человек
   producer: Режиссёр

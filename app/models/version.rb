@@ -18,18 +18,18 @@ class Version < ActiveRecord::Base
 
     event(:accept) { transition :pending => :accepted }
     event(:take) { transition :pending => :taken }
-    event(:reject) { transition [:pending, :accepted_pending] => :rejected }
+    event(:reject) { transition [:pending, :auto_accepted] => :rejected }
     event(:to_deleted) { transition :pending => :deleted }
 
     before_transition :pending => [:accepted, :taken] do |version, transition|
       version.apply_changes!
     end
 
-    before_transition :accepted_pending => :rejected do |version, transition|
+    before_transition :auto_accepted => :rejected do |version, transition|
       version.rollback_changes!
     end
 
-    before_transition :pending => [:accepted, :taken, :rejected, :deleted] do |version, transition|
+    before_transition [:pending, :auto_accepted] => [:accepted, :taken, :rejected, :deleted] do |version, transition|
       version.update moderator: transition.args.first if transition.args.first
     end
 
@@ -37,7 +37,7 @@ class Version < ActiveRecord::Base
       version.notify_acceptance
     end
 
-    after_transition :pending => [:rejected] do |version, transition|
+    after_transition [:pending, :auto_accepted] => [:rejected] do |version, transition|
       version.notify_rejection transition.args.second
     end
   end

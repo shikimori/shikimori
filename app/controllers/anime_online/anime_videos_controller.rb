@@ -43,7 +43,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
   def update
     @video = AnimeVideosService
       .new(current_user.video_moderator? ? moderator_update_params : update_params)
-      .update(@video, current_user)
+      .update(@video, current_user, params[:reason])
       .decorate
 
     if @video.valid?

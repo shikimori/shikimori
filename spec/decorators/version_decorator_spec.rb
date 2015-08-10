@@ -19,7 +19,7 @@ describe VersionDecorator do
   end
 
   describe '#changed_fields' do
-    it { expect(decorator.changed_fields).to eq ['Name', 'Russian'] }
+    it { expect(decorator.changed_fields).to eq ['Название', 'Русское название'] }
   end
 
   describe '#changes_template' do

@@ -13,6 +13,8 @@ en:
         duration: Episode duration
         status: Status
         score: Score
+        name: Name
+        russian: Russian name
       manga:
         <<: *anime_attributes
         volumes: Volumes

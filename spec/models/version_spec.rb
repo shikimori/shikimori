@@ -61,15 +61,15 @@ describe Version do
     describe '#reject' do
       before { version.reject! moderator, 'reason' }
 
-      describe 'from accepted_pending' do
-        let(:state) { :accepted_pending }
+      describe 'from auto_accepted' do
+        let(:state) { :auto_accepted }
 
         it do
           expect(version).to be_rejected
           expect(version).to_not have_received :apply_changes!
           expect(version).to have_received :rollback_changes!
           expect(version).to_not have_received :notify_acceptance
-          expect(version).to_not have_received :notify_rejection
+          expect(version).to have_received :notify_rejection
         end
       end
 

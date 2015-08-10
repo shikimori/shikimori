@@ -13,6 +13,8 @@ ru:
         duration: Длительность эпизода
         status: Статус
         score: Рейтинг
+        name: Название
+        russian: Русское название
       manga:
         <<: *anime_attributes
         volumes: Тома

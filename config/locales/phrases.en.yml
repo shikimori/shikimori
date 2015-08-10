@@ -22,7 +22,7 @@ en:
     character: Удалённый персонаж
     manga: Удалённая манга
     review: Удалённая рецензия
-    animevideo: Удалённое видео
+    anime_video: Удалённое видео
   female: female
   image_uploaded: Image uploaded
   loading: Loading...
@@ -34,6 +34,7 @@ en:
   no_comments: No comments
   nothing_found: Nothing found.
   notifications: Notifications
+  optional: Optional
   out_of: out of
   person: Person
   producer: Director

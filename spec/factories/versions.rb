@@ -8,6 +8,6 @@ FactoryGirl.define do
 
   factory :version_anime_video, parent: :version do
     item_type AnimeVideo.name
-    state :accepted_pending
+    state :auto_accepted
   end
 end
