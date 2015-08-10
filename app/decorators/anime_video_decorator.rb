@@ -79,7 +79,11 @@ class AnimeVideoDecorator < BaseDecorator
     anime.duration * 60000 / 3 if anime.duration > 0
   end
 
-  private
+  def versions
+    @versions ||= VersionsQuery.new(object).all
+  end
+
+private
 
   def flash_player_html(url)
     h.content_tag(:object) do

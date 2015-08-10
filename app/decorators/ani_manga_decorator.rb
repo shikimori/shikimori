@@ -75,7 +75,7 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def versions
-    EntryVersionsQuery.new object
+    VersionsQuery.new object
   end
 
   # объект с ролями аниме
