@@ -7,7 +7,7 @@ class VersionDecorator < BaseDecorator
 
   def changed_fields
     item_diff.keys.map do |attribute|
-      item.class.human_attribute_name attribute
+      item_type.constantize.human_attribute_name attribute
     end
   end
 
@@ -16,7 +16,7 @@ class VersionDecorator < BaseDecorator
   end
 
   def item_template
-    if item.kind_of? AnimeVideo
+    if item_type == AnimeVideo.name
       'versions/anime_video'
 
     else

@@ -14,7 +14,7 @@ class VersionsView < ViewObjectBase
     Version
       .includes(:user, :moderator)
       .where(state: :pending)
-      .order(:id)
+      .order(:created_at)
       .limit(per_page_limit)
       .decorate
   end
