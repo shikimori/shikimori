@@ -115,6 +115,7 @@ ru:
         kind: Тип видео
         state: Статус
         author_name: Автор (озвучки,субтитров)
+        anime_video_author_id: Автор (озвучки,субтитров)
       video:
         url: Ссылка
         kind: Тип

@@ -107,13 +107,13 @@ div
 
       .change-details
         - if version.reason.present?
-          .reason
-            b
+          .reason class="#{:m15 unless version.item_diff.keys.one?}"
+            span
               ' #{Version.human_attribute_name :reason}:
             = version.reason
 
         - version.item_diff.each do |field, (old_value, new_value)|
-          = render version.changes_tempalte(field), version: version, field: field
+          = render version.changes_tempalte(field), version: version, field: field, only_one: version.item_diff.keys.one?
       /- if version.screenshots?
         /- if version.action == UserChange::ScreenshotsPosition
           /.screenshots-compare

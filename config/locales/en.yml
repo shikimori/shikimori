@@ -115,6 +115,7 @@ en:
         kind: Video Type
         state: Status
         author_name: Author (dubbing, subtitles)
+        anime_video_author_id: Author (dubbing, subtitles)
       video:
         url: Link
         kind: Type

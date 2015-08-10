@@ -19,7 +19,7 @@ describe VersionDecorator do
   end
 
   describe '#changed_fields' do
-    it { expect(decorator.changed_fields).to eq ['name', 'russian'] }
+    it { expect(decorator.changed_fields).to eq ['Name', 'Russian'] }
   end
 
   describe '#changes_template' do
@@ -51,6 +51,23 @@ describe VersionDecorator do
     context 'other' do
       let(:state) { 'accepted' }
       it { expect(decorator.old_value :name).to eq version.item_diff['name'].first }
+    end
+  end
+
+  describe '#field_value' do
+    describe 'anime_video_author_id' do
+      context 'present author' do
+        let(:author) { create :anime_video_author }
+        it { expect(decorator.field_value :anime_video_author_id, author.id).to eq author.name }
+      end
+
+      context 'no author' do
+        it { expect(decorator.field_value :anime_video_author_id, '').to be_nil }
+      end
+    end
+
+    describe 'other fields' do
+      it { expect(decorator.field_value :name, 'test').to eq 'test' }
     end
   end
 end

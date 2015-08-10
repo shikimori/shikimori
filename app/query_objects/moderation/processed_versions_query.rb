@@ -6,6 +6,6 @@ private
     Version
       .includes(:user, :moderator)
       .where.not(state: :pending)
-      .order(:id)
+      .order(id: :desc)
   end
 end

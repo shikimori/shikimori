@@ -2,10 +2,10 @@ describe Moderation::ProcessedVersionsQuery do
   let(:query) { Moderation::ProcessedVersionsQuery.new }
 
   let(:user) { create :user }
-  let!(:version_1) { create :version, state: 'taken', id: 1 }
-  let!(:version_2) { create :version, state: 'pending', id: 5 }
-  let!(:version_3) { create :version, state: 'accepted', id: 3 }
-  let!(:version_4) { create :version, state: 'deleted', id: 4 }
+  let!(:version_1) { create :version, state: 'taken', id: 4 }
+  let!(:version_2) { create :version, state: 'pending', id: 3 }
+  let!(:version_3) { create :version, state: 'accepted', id: 2 }
+  let!(:version_4) { create :version, state: 'deleted', id: 1 }
 
   describe '#fetch' do
     subject { query.fetch page, limit }
@@ -37,4 +37,3 @@ describe Moderation::ProcessedVersionsQuery do
     end
   end
 end
-

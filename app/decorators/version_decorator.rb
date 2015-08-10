@@ -6,7 +6,9 @@ class VersionDecorator < BaseDecorator
   end
 
   def changed_fields
-    item_diff.keys
+    item_diff.keys.map do |attribute|
+      item.class.human_attribute_name attribute
+    end
   end
 
   def changes_tempalte field
@@ -27,14 +29,24 @@ class VersionDecorator < BaseDecorator
   end
 
   def new_value field
-    item_diff[field.to_s][1]
+    field_value field, item_diff[field.to_s][1]
   end
 
   def old_value field
-    if pending? || rejected?
-      object.current_value field
+    value = if pending? || rejected?
+      object.current_value(field)
     else
       item_diff[field.to_s].first
+    end
+
+    field_value field, value
+  end
+
+  def field_value field, value
+    if field.to_s == 'anime_video_author_id'
+      AnimeVideoAuthor.find_by(id: value).try :name
+    else
+      value
     end
   end
 end

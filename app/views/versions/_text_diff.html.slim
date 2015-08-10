@@ -1,16 +1,17 @@
-.diff
-  .old-value
-    b
-      ' #{t '.before'}:
+ul.diff
+  - unless local_assigns[:only_one]
+    li.field-name
+      = version.item.class.human_attribute_name field
+
+  li.old-value
+    span #{t '.before'}:
     = version.old_value(field)
 
-  .new-value
-    b
-      ' #{t '.after'}:
+  li.new-value
+    span #{t '.after'}:
     = version.new_value(field)
 
   - if version.old_value(field).present? && version.new_value(field).present?
-    .diff-value
-      b
-        ' Diff:
+    li.diff-value
+      span Diff:
       = sanitize version.field_diff(field)
