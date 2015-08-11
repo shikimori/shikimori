@@ -6,7 +6,7 @@ class Review < ActiveRecord::Base
 
   acts_as_voteable
 
-  MINIMUM_LENGTH = 3000
+  MINIMUM_LENGTH = 5000
 
   belongs_to :target, polymorphic: true
   belongs_to :user
