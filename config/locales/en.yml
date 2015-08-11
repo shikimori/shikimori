@@ -20,8 +20,8 @@ en:
         score: Score
         screenshots: Screenshots
         status: Status
-        tags: Imageboards Tag
-        torrents_name: Torrents Name
+        tags: Imageboards tag
+        torrents_name: Torrents name
         videos: Videos
       manga:
         <<: *anime_attributes
