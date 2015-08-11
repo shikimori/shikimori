@@ -1,7 +1,7 @@
 class MigrateUserChangesToVersions < ActiveRecord::Migration
   def up
     UserChange
-      .where(column: ['tags', 'russian','torrents_name'])
+      .where(column: %w{description tags russian torrents_name})
       .each do |user_change|
         next if user_change.prior.blank? && user_change.value.blank?
 
