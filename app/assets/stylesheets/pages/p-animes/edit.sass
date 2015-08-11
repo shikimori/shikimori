@@ -1,10 +1,31 @@
 @import compass/utilities/general/clearfix
 @import globals/variables
+@import mixins/link
+@import mixins/brackets_surrounded
 
 .p-animes-edit, .p-mangas-edit
   p.warning
     color: $red
     margin-bottom: $block_offset / 2
+
+  .b-list
+    .field
+      display: inline-block
+      color: $gray-color-2
+
+      &:after
+        content: ':'
+
+    .value
+      display: inline-block
+      margin-left: 5px
+
+    .edit
+      +link
+      //+brackets_surrounded
+      display: inline-block
+      margin-left: 5px
+      text-transform: lowercase
 
   .screenshots-uploader
     .cc

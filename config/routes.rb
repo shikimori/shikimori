@@ -59,6 +59,7 @@ Site::Application.routes.draw do
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
   namespace :moderation do
+    # TODO: выпилить после мигарции на versions
     resources :user_changes, only: [:show, :index, :create] do
       collection do
         get '(/page/:page)' => :index, as: :index
@@ -491,6 +492,7 @@ Site::Application.routes.draw do
           patch 'apply'
 
           get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|screenshots|video|torrents_name|tags/
+          get 'versions/page/:page' => :versions, as: :versions
 
           get 'cosplay/:anything' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
         end

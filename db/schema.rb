@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810095510) do
+ActiveRecord::Schema.define(version: 20150811095205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20150810095510) do
     t.string   "tags",               limit: 255
     t.text     "russian"
     t.string   "source",             limit: 255
+    t.text     "desynced",                       default: [], null: false, array: true
   end
 
   add_index "characters", ["japanese"], name: "index_characters_on_japanese", using: :btree
@@ -663,6 +664,7 @@ ActiveRecord::Schema.define(version: 20150810095510) do
     t.boolean  "producer",                       default: false
     t.boolean  "mangaka",                        default: false
     t.boolean  "seyu",                           default: false
+    t.text     "desynced",                       default: [],    null: false, array: true
   end
 
   add_index "people", ["name"], name: "index_people_on_name", using: :btree

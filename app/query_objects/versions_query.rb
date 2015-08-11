@@ -1,13 +1,13 @@
-class VersionsQuery
+class VersionsQuery < QueryObjectBase
   pattr_initialize :entry
+  decorate_page true
 
   def all
-    entry_versions(@entry)
-      .decorate
+    query.decorate
   end
 
   def by_field field
-    entry_versions(@entry)
+    query
       .where("(item_diff->>:field) is not null", field: field)
       .decorate
   end
@@ -19,9 +19,9 @@ class VersionsQuery
 
 private
 
-  def entry_versions entry
+  def query
     Version
-      .where(item: @entry)
+      .where(item: entry)
       .where.not(state: :deleted)
       .includes(:user, :moderator)
       .order(created_at: :desc)

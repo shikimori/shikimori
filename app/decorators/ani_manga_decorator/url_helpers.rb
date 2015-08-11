@@ -137,6 +137,10 @@ module AniMangaDecorator::UrlHelpers
     h.play_video_online_index_url object, episode: 1, domain: AnimeOnlineDomain::HOST, subdomain: false
   end
 
+  def next_versions_page
+    h.send "versions_#{klass_lower}_url", object, page: (h.params[:page] || 1).to_i + 1
+  end
+
   def upload_first_video_online_url
     h.new_video_online_url(object,
       'anime_video[anime_id]' => id,

@@ -8,8 +8,8 @@ class AniMangaDecorator < DbEntryDecorator
   VISIBLE_RELATED = 7
 
   instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count, :cosplay?
-  instance_cache :is_favoured, :favoured, :rate, :changes, :versions, :roles, :related
-  instance_cache :friend_rates, :recent_rates, :chronology
+  instance_cache :is_favoured, :favoured, :rate, :changes, :versions, :versions_page
+  instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
   instance_cache :preview_reviews_thread, :main_reviews_thread
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 
@@ -76,6 +76,10 @@ class AniMangaDecorator < DbEntryDecorator
 
   def versions
     VersionsQuery.new object
+  end
+
+  def versions_page
+    versions.postload (h.params[:page] || 1).to_i, 15
   end
 
   # объект с ролями аниме

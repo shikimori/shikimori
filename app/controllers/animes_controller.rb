@@ -150,7 +150,7 @@ class AnimesController < ShikimoriController
   def edit
     noindex
     page_title 'Редактирование'
-    @page = params[:page] || 'description'
+    @page = params[:page]
 
     @user_change = UserChange.new(
       model: @resource.object.class.name,
@@ -162,6 +162,9 @@ class AnimesController < ShikimoriController
     )
   end
 
+  def versions
+  end
+
   def tooltip
   end
 
@@ -170,7 +173,13 @@ class AnimesController < ShikimoriController
   end
 
   def update
-    Versioneer.new(@resource.object).premoderate(anime_params, current_user, params[:reason])
+    version = Versioneer.new(@resource.object).premoderate(anime_params, current_user, params[:reason])
+
+    if version.persisted? && can?(:manage, version)
+      version.accept current_user if params[:apply]
+      version.take current_user if params[:take]
+    end
+
     redirect_to_back_or_to @resource.url, notice: i18n_t('changes_accepted')
   end
 

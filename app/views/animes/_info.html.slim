@@ -42,7 +42,7 @@
       = render 'animes/genres_info', entry: entry
 
   - if entry.rating.present? && !entry.rating_none?
-    = info_line Anime.human_attribute_name(:score) do
+    = info_line Anime.human_attribute_name(:rating) do
       span.b-tooltipped.unprocessed[
           title="#{t "enumerize.anime.rating.hint.#{entry.rating}"}"
           data-direction="right"

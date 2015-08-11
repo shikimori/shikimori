@@ -1,4 +1,7 @@
 class QueryObjectBase
+  extend DslAttribute
+  dsl_attribute :decorate_page
+
   def fetch page, limit
     query
       .offset(limit * (page-1))
@@ -6,7 +9,10 @@ class QueryObjectBase
   end
 
   def postload page, limit
-    collection = fetch(page, limit).to_a
+    collection = decorate_page ?
+      fetch(page, limit).decorate.to_a :
+      fetch(page, limit).to_a
+
     [collection.take(limit), collection.size == limit+1]
   end
 end
