@@ -150,8 +150,10 @@ class AnimesController < ShikimoriController
   def edit
     noindex
     page_title i18n_t('entry_edit')
+
     @page = params[:page]
 
+    # TODO: удалить после выпиливания UserChange
     @user_change = UserChange.new(
       model: @resource.object.class.name,
       item_id: @resource.id,
@@ -162,6 +164,7 @@ class AnimesController < ShikimoriController
     )
   end
 
+  # список изменений аниме
   def versions
   end
 
@@ -180,7 +183,7 @@ class AnimesController < ShikimoriController
       version.take current_user if params[:take]
     end
 
-    redirect_to_back_or_to @resource.url, notice: i18n_t('changes_accepted')
+    redirect_to_back_or_to @resource.url, notice: i18n_t("changes_#{version.state}")
   end
 
   # rss лента новых серий и сабов аниме
@@ -258,9 +261,16 @@ private
       breadcrumb UsersHelper.localized_name(@resource.main_genre, current_user), send("#{@resource.object.class.name.downcase.pluralize}_url", genre: @resource.main_genre.to_param)
     end
 
-    # все страницы, кроме animes#show
-    if @resource && (params[:action] != 'show' || params[:controller] == 'reviews')
-      breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
+    if @resource
+      # все страницы, кроме animes#show
+      if (params[:action] != 'show' || params[:controller] == 'reviews')
+        breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
+      end
+
+      if params[:action] == 'edit' && params[:page].present?
+        @back_url = @resource.edit_url
+        breadcrumb i18n_t('edit'), @resource.edit_url
+      end
     end
   end
 end

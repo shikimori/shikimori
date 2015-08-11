@@ -64,16 +64,13 @@ class Version < ActiveRecord::Base
   end
 
   def apply_changes
-    attributes = item_diff.each_with_object({}) do |(field,changes), memo|
-      memo[field] = changes.second
+    item_diff.each do |(field,changes)|
       changes[0] = current_value field
+      item.send "#{field}=", changes.second
+      item.desynced << field if item.respond_to?(:desynced) && item.class::DESYNCABLE.include?(field)
     end
 
-    if item.update attributes
-      save
-    else
-      false
-    end
+    item.save && save
   end
 
   def rollback_changes

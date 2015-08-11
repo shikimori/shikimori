@@ -162,8 +162,8 @@ describe AnimesController do
         it { expect(response).to have_http_status :success }
       end
 
-      describe 'video' do
-        let(:page) { 'video' }
+      describe 'videos' do
+        let(:page) { 'videos' }
         it { expect(response).to have_http_status :success }
       end
 

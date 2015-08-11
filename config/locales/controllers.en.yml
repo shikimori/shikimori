@@ -58,8 +58,11 @@ en:
     changes_deleted: Changes deleted
     changes_failed: These changes cannot be applied
   animes_controller: &animes_controller
-    changes_accepted: Content changes have been saved successfully and will be moderated soon. Thanks!
+    changes_pending: Content changes have been saved successfully and will be moderated soon. Thanks!
+    changes_accepted: &changes_accepted Content changes have been applied successfully.
+    changes_taken: *changes_accepted
     entry_edit: Edit Anime
+    edit: Edit
   mangas_controller:
     <<: *animes_controller
     entry_edit: Edit Manga

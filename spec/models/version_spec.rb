@@ -115,11 +115,12 @@ describe Version do
       it { expect(version.reason).to have(Version::MAXIMUM_REASON_SIZE).items }
     end
 
-    describe '#apply_changes' do
+    describe '#apply_changes', :focus do
       before { version.apply_changes }
 
       it do
         expect(anime.reload.episodes).to eq 2
+        expect(anime.desynced).to include 'episodes'
         expect(version.reload.item_diff['episodes'].first).to eq 10
       end
     end

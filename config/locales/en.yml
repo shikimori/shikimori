@@ -20,6 +20,7 @@ en:
         score: Score
         screenshots: Screenshots
         status: Status
+        tags: Imageboards Tag
         torrents_name: Torrents Name
         videos: Videos
       manga:
@@ -270,6 +271,7 @@ en:
         r_plus: R+
         rx: Rx
         hint:
+          none: No rating
           g: G - All ages
           pg: PG - Children
           pg_13: PG-13 - Teens 13 or older

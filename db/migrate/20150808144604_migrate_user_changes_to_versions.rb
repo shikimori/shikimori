@@ -1,7 +1,7 @@
-class MigrateRussianUserChanges < ActiveRecord::Migration
+class MigrateUserChangesToVersions < ActiveRecord::Migration
   def up
     UserChange
-      .where(column: ['russian','torrents_name'])
+      .where(column: ['tags', 'russian','torrents_name'])
       .each do |user_change|
         next if user_change.prior.blank? && user_change.value.blank?
 
@@ -24,6 +24,6 @@ class MigrateRussianUserChanges < ActiveRecord::Migration
   end
 
   def down
-    raise ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration unless Rails.env.development?
   end
 end

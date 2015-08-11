@@ -3,7 +3,7 @@
   = render 'versions/reason'
 
   .buttons
-    a.cancel href="#{resource.url}" = t 'actions.cancel'
+    a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
     - if current_user.user_changes_moderator?
       = f.submit t('actions.apply'), class: 'apply', name: 'apply'
     - else

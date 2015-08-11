@@ -1,5 +1,7 @@
 = simple_form_for resource do |f|
-  = f.input :torrents_name
+  = f.input :rating,
+    collection: Anime.rating.values.map {|v| [t("enumerize.anime.rating.hint.#{v}"), v] },
+    include_blank: false
   = render 'versions/reason'
 
   .buttons

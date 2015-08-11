@@ -58,8 +58,11 @@ ru:
     changes_deleted: Изменения удалены
     changes_failed: Невозможно применить изменения
   animes_controller: &animes_controller
-    changes_accepted: Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
+    changes_pending: Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
+    changes_accepted: &changes_accepted Изменения сохранены
+    changes_taken: *changes_accepted
     entry_edit: Редактирование аниме
+    edit: Редактирование
   mangas_controller:
     <<: *animes_controller
     entry_edit: Редактирование манги

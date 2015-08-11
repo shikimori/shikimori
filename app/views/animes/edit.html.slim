@@ -51,8 +51,8 @@
         = render @resource.versions[@page.to_sym]
 
   - else
-    .cc-2
-      .c-column
+    .block.cc-2
+      .c-column.m0
         ul.b-list
           li
             .field = @resource.class.human_attribute_name :name
@@ -90,7 +90,7 @@
             li
               .field = @resource.class.human_attribute_name :rating
               .value = @resource.rating_text
-              a.edit href="#{@resource.edit_url :name}" = t 'actions.edit'
+              a.edit href="#{@resource.edit_url :rating}" = t 'actions.edit'
 
         ul.b-list
           li
@@ -98,7 +98,7 @@
             .value.under_development = t('under_development').downcase
             /a.edit href="#{@resource.edit_url :genres}" = t 'actions.edit'
 
-      .c-column
+      .c-column.m0
         ul.b-list
           li
             .field = @resource.class.human_attribute_name :poster
@@ -122,6 +122,12 @@
               .field = @resource.class.human_attribute_name :videos
               .value #{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}
               a.edit href="#{@resource.edit_url :videos}" = t 'actions.edit'
+
+          ul.b-list
+            li
+              .field = @resource.class.human_attribute_name :tags
+              .value = @resource.tags
+              a.edit href="#{@resource.edit_url :tags}" = t 'actions.edit'
 
           - if user_signed_in? && current_user.admin?
             ul.b-list
