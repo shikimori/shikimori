@@ -38,7 +38,7 @@
     $('.videos-deleter .b-video').image_editable()
 
   if $('.edit-page.tags').exists()
-    $('#user_change_value')
+    $('#anime_tags, #manga_tags, #character_tags')
       .completable()
       .on 'autocomplete:success autocomplete:text', (e, result) ->
         @value = if Object.isString(result) then result else result.value
