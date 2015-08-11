@@ -8,13 +8,20 @@ ru:
 
     attributes:
       anime: &anime_attributes
-        kind: Тип
-        episodes: Эпизоды
+        description: Описание
         duration: Длительность эпизода
-        status: Статус
-        score: Рейтинг
+        episodes: Эпизоды
+        genres: Жанры
+        kind: Тип
         name: Название
+        poster: Постер
+        rating: Рейтинг
         russian: Русское название
+        score: Рейтинг
+        screenshots: Кадры
+        status: Статус
+        torrents_name: Название на торрентах
+        videos: Видео
       manga:
         <<: *anime_attributes
         volumes: Тома

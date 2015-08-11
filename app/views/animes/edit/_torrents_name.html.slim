@@ -1,13 +1,10 @@
-= simple_form_for [:moderation, user_change] do |f|
-  = f.input :model, as: :hidden
-  = f.input :column, as: :hidden
-  = f.input :item_id, as: :hidden
-
-  .block
-    = f.input :value, as: :string, label: 'Название на торрентах'
+= simple_form_for resource do |f|
+  = f.input :torrents_name
+  = render 'versions/reason'
 
   .buttons
     a.cancel href="#{resource.url}" = t 'actions.cancel'
     - if current_user.user_changes_moderator?
       = f.submit t('actions.apply'), class: 'apply', name: 'apply'
-    = f.button :magic_submit
+    - else
+      = f.button :magic_submit

@@ -1,15 +1,17 @@
 class MigrateRussianUserChanges < ActiveRecord::Migration
   def up
     UserChange
-      .where(column: 'russian')
+      .where(column: ['russian','torrents_name'])
       .each do |user_change|
+        next if user_change.prior.blank? && user_change.value.blank?
+
         Version.create(
           user_id: user_change.user_id,
           state: user_change.status.downcase,
           item_id: user_change.item_id,
           item_type: user_change.model,
           item_diff: {
-            'russian' => [
+            user_change.column => [
               user_change.prior,
               user_change.value,
             ]
@@ -22,6 +24,6 @@ class MigrateRussianUserChanges < ActiveRecord::Migration
   end
 
   def down
-    #raise ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration
   end
 end

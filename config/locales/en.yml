@@ -8,13 +8,20 @@ en:
 
     attributes:
       anime: &anime_attributes
-        kind: Type
-        episodes: Episodes
+        description: Description
         duration: Episode duration
-        status: Status
-        score: Score
+        episodes: Episodes
+        genres: Genres
+        kind: Type
         name: Name
+        poster: Poster
+        rating: Rating
         russian: Russian name
+        score: Score
+        screenshots: Screenshots
+        status: Status
+        torrents_name: Torrents Name
+        videos: Videos
       manga:
         <<: *anime_attributes
         volumes: Volumes

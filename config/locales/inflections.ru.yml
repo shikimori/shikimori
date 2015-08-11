@@ -103,6 +103,18 @@ ru:
           few: манги
           many: манги
           other: манги
+      screenshot:
+        subjective:
+          one: кадр
+          few: кадра
+          many: кадров
+          other: кадры
+      video:
+        subjective:
+          one: видео
+          few: видео
+          many: видео
+          other: видео
       type:
         subjective:
           one: тип

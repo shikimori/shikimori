@@ -1,7 +1,6 @@
 @import compass/utilities/general/clearfix
 @import globals/variables
 @import mixins/link
-@import mixins/brackets_surrounded
 
 .p-animes-edit, .p-mangas-edit
   p.warning
@@ -20,10 +19,13 @@
       display: inline-block
       margin-left: 5px
 
+      &.under_development
+        font-size: 11px
+
     .edit
       +link
-      //+brackets_surrounded
       display: inline-block
+      font-size: 11px
       margin-left: 5px
       text-transform: lowercase
 
