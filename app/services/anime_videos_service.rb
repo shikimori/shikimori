@@ -29,6 +29,7 @@ private
 
   def create_version video, current_user, reason
     Versioneer.new(video).postmoderate params, current_user, reason
+  rescue StateMachine::InvalidTransition
   end
 
   def create_report video, user
