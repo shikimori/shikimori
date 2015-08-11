@@ -59,5 +59,7 @@ ru:
     changes_failed: Невозможно применить изменения
   animes_controller: &animes_controller
     changes_accepted: Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
+    entry_edit: Редактирование аниме
   mangas_controller:
     <<: *animes_controller
+    entry_edit: Редактирование манги

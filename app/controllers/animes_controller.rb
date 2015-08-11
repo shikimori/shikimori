@@ -149,7 +149,7 @@ class AnimesController < ShikimoriController
 
   def edit
     noindex
-    page_title 'Редактирование'
+    page_title i18n_t('entry_edit')
     @page = params[:page]
 
     @user_change = UserChange.new(

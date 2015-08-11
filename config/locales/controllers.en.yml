@@ -59,5 +59,7 @@ en:
     changes_failed: These changes cannot be applied
   animes_controller: &animes_controller
     changes_accepted: Content changes have been saved successfully and will be moderated soon. Thanks!
+    entry_edit: Edit Anime
   mangas_controller:
     <<: *animes_controller
+    entry_edit: Edit Manga

@@ -131,7 +131,7 @@
                 a.edit href="#{@resource.edit_url :torrents_name}" = t 'actions.edit'
 
     - if @resource.versions_page.first.any?
-      .subheadline История правок
+      .subheadline = t '.changes_history'
       .block
         = render @resource.versions_page.first
 
