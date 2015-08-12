@@ -2,23 +2,19 @@ class ShikimoriController < ApplicationController
   before_action { noindex && nofollow unless shikimori? }
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
-  def self.page_title value
-    before_action do
-      if @page_title.present?
-        @page_title.unshift value
-      else
-        page_title value
-      end
+  def add_page_title value
+    if @page_title.present?
+      @page_title.unshift value
+    else
+      page_title value
     end
   end
 
-  def self.breadcrumb value, url_builder
-    before_action do
-      if @breadcrumbs.present?
-        @breadcrumbs = Hash[@breadcrumbs.to_a.unshift([value, send(url_builder)])]
-      else
-        breadcrumb value, send(url_builder)
-      end
+  def add_breadcrumb value, url_builder
+    if @breadcrumbs.present?
+      @breadcrumbs = Hash[@breadcrumbs.to_a.unshift([value, send(url_builder)])]
+    else
+      breadcrumb value, send(url_builder)
     end
   end
 

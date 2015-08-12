@@ -5,8 +5,10 @@ class ClubsController < ShikimoriController
   before_action :resource_redirect, if: :resource_id
   before_action :set_breadcrumbs, if: :resource_id
 
-  page_title i18n_t 'clubs'
-  breadcrumb i18n_t('clubs'), :clubs_url
+  before_action do
+    add_page_title i18n_t('clubs')
+    add_breadcrumb i18n_t('clubs'), :clubs_url
+  end
 
   def index
     noindex

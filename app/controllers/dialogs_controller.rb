@@ -39,6 +39,7 @@ class DialogsController < ProfilesController
   end
 
 private
+
   def authorize_messages_access
     authorize! :access_messages, @resource
   end

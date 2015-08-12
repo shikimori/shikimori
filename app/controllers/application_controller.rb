@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Translation
-  extend Translation
 
   #include Mobylette::RespondToMobileRequests
   LOCALES = {
@@ -135,7 +134,7 @@ private
   end
 
   def force_canonical
-    @canonical = request.url.sub /\?[\s\S]*/, '' if request.url.include? '?'
+    @canonical = request.url.sub(/\?[\s\S]*/, '') if request.url.include? '?'
   end
 
   # before фильтры с настройкой сайта
@@ -144,7 +143,9 @@ private
   end
 
   def set_locale
-    I18n.locale = params[:locale] || (LOCALES[current_user.language] if user_signed_in?) || I18n.default_locale
+    I18n.locale = params[:locale] ||
+      (LOCALES[current_user.language] if user_signed_in?) ||
+      I18n.default_locale
   end
 
   def default_url_options options = {}

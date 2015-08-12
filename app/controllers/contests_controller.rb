@@ -6,8 +6,10 @@ class ContestsController < ShikimoriController
 
   before_action :set_breadcrumbs
 
-  page_title 'Опросы'
-  breadcrumb 'Опросы', :contests_url
+  before_action do
+    add_page_title 'Опросы'
+    add_breadcrumb 'Опросы', :contests_url
+  end
 
   def current
     if user_signed_in?
