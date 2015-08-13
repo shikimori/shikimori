@@ -27,13 +27,13 @@
           /a.edit href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
 
         li
+          .field = Character.human_attribute_name :description
+          a.edit href="#{@resource.edit_field_url :description}" = t 'actions.edit'
+
+        li
           .field = Character.human_attribute_name :cosplay
           .value.under_development = t('under_development').downcase
           /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
-
-        li
-          .field = Character.human_attribute_name :description
-          a.edit href="#{@resource.edit_field_url :description}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :tags
