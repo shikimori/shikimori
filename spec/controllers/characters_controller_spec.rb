@@ -1,5 +1,6 @@
 describe CharactersController do
   let!(:character) { create :character }
+  include_examples :db_entry_controller, :character
 
   describe '#index' do
     let!(:character_2) { create :character, name: 'zzz' }
@@ -93,44 +94,11 @@ describe CharactersController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#tooltip' do
-    before { get :tooltip, id: character.to_param }
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#autocomplete' do
     let!(:character_1) { create :character, name: 'Fffff' }
     before { get :autocomplete, search: 'Fff' }
 
     it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
-  end
-
-  describe '#edit' do
-    context 'guest' do
-      let(:page) { nil }
-      before { get :edit, id: character.to_param }
-      it { expect(response).to redirect_to new_user_session_url }
-    end
-
-    context 'authenticated' do
-      include_context :authenticated, :user
-      before { get :edit, id: character.to_param, page: page }
-
-      describe 'description' do
-        let(:page) { nil }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'russian' do
-        let(:page) { 'russian' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'tags' do
-        let(:page) { 'tags' }
-        it { expect(response).to have_http_status :success }
-      end
-    end
   end
 end

@@ -1,13 +1,4 @@
 module AniMangaDecorator::UrlHelpers
-  # адрес аниме
-  def url subdomain=true
-    if anime?
-      h.anime_url object, subdomain: subdomain
-    else
-      h.manga_url object, subdomain: subdomain
-    end
-  end
-
   def stats_url
     h.send "stats_#{klass_lower}_url", object
   end
@@ -107,11 +98,6 @@ module AniMangaDecorator::UrlHelpers
     h.send "new_#{klass_lower}_review_url", object,
       'review[user_id]' => h.current_user.id,
       'review[target_id]' => id, 'review[target_type]' => object.class.name
-  end
-
-  # адрес редактирования
-  def edit_url page=nil
-    h.send "edit_#{klass_lower}_url", object, page: page
   end
 
   # адрес ресурсов аниме

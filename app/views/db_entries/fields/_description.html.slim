@@ -1,23 +1,5 @@
 p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://#{Site::DOMAIN}/clubs/2-Perevody">правилами</a>.
 
-/= simple_form_for [:moderation, user_change] do |f|
-  /= f.input :model, as: :hidden
-  /= f.input :column, as: :hidden
-  /= f.input :item_id, as: :hidden
-
-  /.block
-    /.b-shiki_editor.unprocessed.block
-      /= render 'comments/shiki_editor', text: resource.description, field_name: 'user_change[value]'
-
-    /= f.input :source, label: 'Источник (адрес страницы, откуда взят текст)
-    /= f.input :reason
-
-  /.buttons
-    /a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
-    /- if current_user.user_changes_moderator?
-      /= f.submit t('actions.apply'), class: 'apply', name: 'apply'
-    /= f.button :magic_submit
-
 = simple_form_for resource do |f|
   .b-shiki_editor.unprocessed.block[
       data-target_id="#{@resource.id}"

@@ -108,6 +108,26 @@ class DbEntryDecorator < BaseDecorator
     FavouritesQuery.new.favoured_by object, 2000
   end
 
+  def versions
+    VersionsQuery.new object
+  end
+
+  def versions_page
+    versions.postload (h.params[:page] || 1).to_i, 15
+  end
+
+  def url subdomain=true
+    h.send "#{klass_lower}_url", object, subdomain: subdomain
+  end
+
+  def edit_url
+    h.send "edit_#{klass_lower}_url", object
+  end
+
+  def edit_field_url field
+    h.send "edit_field_#{klass_lower}_url", object, field: field
+  end
+
 private
 
   def headline_array

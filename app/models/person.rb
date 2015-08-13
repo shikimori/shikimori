@@ -1,5 +1,5 @@
 class Person < DbEntry
-  DESYNCABLE = %w{name}
+  DESYNCABLE = %w{name japanese}
 
   has_many :person_roles, dependent: :destroy
   has_many :animes, -> { order :id }, through: :person_roles

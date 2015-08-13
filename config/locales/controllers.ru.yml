@@ -66,3 +66,6 @@ ru:
   mangas_controller:
     <<: *animes_controller
     entry_edit: Редактирование манги
+  characters_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование персонажа

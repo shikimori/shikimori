@@ -66,3 +66,6 @@ en:
   mangas_controller:
     <<: *animes_controller
     entry_edit: Edit Manga
+  characters_controller:
+    <<: *animes_controller
+    entry_edit: Edit Character

@@ -28,6 +28,11 @@ ru:
         <<: *anime_attributes
         volumes: Тома
         chapters: Главы
+      character:
+        description: Описание
+        name: Английское имя
+        russian: Русское имя
+        tags: Тег имиджборд
       contest:
         title: Название
         description: Описание

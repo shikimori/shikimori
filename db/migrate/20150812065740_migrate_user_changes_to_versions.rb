@@ -21,7 +21,6 @@ class MigrateUserChangesToVersions < ActiveRecord::Migration
           created_at: user_change.created_at,
           type: pick_type(user_change)
         )
-        version.fix_state if user_change.column == 'description'
       end
   end
 

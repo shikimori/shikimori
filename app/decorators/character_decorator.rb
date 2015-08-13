@@ -39,7 +39,12 @@ class CharacterDecorator < PersonDecorator
     CosplayGalleriesQuery.new(object).fetch(1,1).any?
   end
 
+  def edit_url page=nil
+    h.edit_character_url object, page: page
+  end
+
 private
+
   def decorated_entries query
     query
       .decorate

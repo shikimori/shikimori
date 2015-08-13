@@ -28,6 +28,11 @@ en:
         <<: *anime_attributes
         volumes: Volumes
         chapters: Chapters
+      character:
+        description: Description
+        name: Name
+        russian: Russian name
+        tags: Imageboards tag
       contest:
         title: Title
         description: Description

@@ -68,12 +68,9 @@ class AniMangaDecorator < DbEntryDecorator
     thread
   end
 
-  def versions
-    VersionsQuery.new object
-  end
-
-  def versions_page
-    versions.postload (h.params[:page] || 1).to_i, 15
+  # TODO: удалить после миграции на Version
+  def changes
+    ChangesDecorator.new object
   end
 
   # объект с ролями аниме

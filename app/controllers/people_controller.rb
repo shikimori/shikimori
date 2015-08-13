@@ -1,4 +1,4 @@
-class PeopleController < ShikimoriController
+class PeopleController < DbEntryController
   respond_to :html, only: [:show, :tooltip]
   respond_to :html, :json, only: :index
   respond_to :json, only: :autocomplete

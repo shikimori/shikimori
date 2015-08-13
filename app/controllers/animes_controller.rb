@@ -1,5 +1,4 @@
-class AnimesController < ShikimoriController
-  before_action :authenticate_user!, only: [:edit]
+class AnimesController < DbEntryController
   before_action -> { page_title resource_klass.model_name.human }
   before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
@@ -147,107 +146,16 @@ class AnimesController < ShikimoriController
     render json: @resource.files.episodes_data
   end
 
-  def edit
-    noindex
-    page_title i18n_t('entry_edit')
-
-    @page = params[:page]
-
-    # TODO: удалить после выпиливания UserChange
-    @user_change = UserChange.new(
-      model: @resource.object.class.name,
-      item_id: @resource.id,
-      column: @page,
-      source: @resource.source,
-      value: @resource[@page],
-      action: params[:page] == 'screenshots' ? UserChange::ScreenshotsPosition : nil
-    )
-  end
-
-  # список изменений аниме
-  def versions
-  end
-
-  def tooltip
-  end
-
   def autocomplete
     @collection = AniMangaQuery.new(resource_klass, params, current_user).complete
   end
 
-  def update
-    version = Versioneer.new(@resource.object).premoderate(anime_params, current_user, params[:reason])
-
-    if version.persisted? && can?(:manage, version)
-      version.accept current_user if params[:apply]
-      version.take current_user if params[:take]
-    end
-
-    redirect_to_back_or_to @resource.url, notice: i18n_t("changes_#{version.state}")
-  end
-
-  # rss лента новых серий и сабов аниме
-  #def rss
-    #anime = Anime.find(params[:id].to_i)
-
-    #case params[:type]
-      #when 'torrents'
-        #data = anime.torrents
-        #title = "Торренты #{anime.name}"
-
-      #when 'torrents_480p'
-        #data = anime.torrents_480p
-        #title = "Серии 480p #{anime.name}"
-
-      #when 'torrents_720p'
-        #data = anime.torrents_720p
-        #title = "Серии 720p #{anime.name}"
-
-      #when 'torrents_1080p'
-        #data = anime.torrents_1080p
-        #title = "Серии 1080p #{anime.name}"
-
-      #when 'subtitles'
-        #if anime.subtitles.include? params[:group]
-          #data = anime.subtitles[params[:group]][:feed].reverse
-        #else
-          #data = []
-        #end
-        #title = "Субтитры #{anime.name}"
-    #end
-
-    #feed = RSS::Maker.make("2.0") do |feed|
-      #feed.channel.title = title
-      #feed.channel.link = request.url
-      #feed.channel.description = "%s, найденные сайтом." % title
-      #feed.items.do_sort = true # sort items by date
-
-      #data.select {|v| v[:title] }.reverse.each do |item|
-        #entry = feed.items.new_item
-
-        #entry.title = item[:title].html_safe
-        #entry.link = item[:link].html_safe
-        #entry.description = "Seeders: %d, Leechers: %d" % [item[:seed], item[:leech]] if item[:seed] || item[:leech]
-        #entry.date = item[:pubDate] != nil ? Time.at(item[:pubDate].to_i) : Time.now
-      #end
-    #end
-
-    #response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
-    #render text: feed
-  #end
-
 private
 
-  def anime_params
+  def update_params
     params
       .require(:anime)
       .permit(:russian, :torrents_name, :tags, :description, :source, *Anime::DESYNCABLE)
-  end
-
-  def manga_params
-    params
-      .require(:manga)
-      .permit(:russian, :tags, :description, :source, *Manga::DESYNCABLE)
   end
 
   def set_breadcrumbs
@@ -273,7 +181,7 @@ private
         breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
       end
 
-      if params[:action] == 'edit' && params[:page].present?
+      if params[:action] == 'edit_field' && params[:field].present?
         @back_url = @resource.edit_url
         breadcrumb i18n_t('edit'), @resource.edit_url
       end

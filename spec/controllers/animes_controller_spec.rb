@@ -1,5 +1,6 @@
 describe AnimesController do
   let(:anime) { create :anime }
+  include_examples :db_entry_controller, :anime
 
   describe '#show' do
     let(:anime) { create :anime, :with_thread }
@@ -138,118 +139,6 @@ describe AnimesController do
 
   describe '#episode_torrents' do
     before { get :episode_torrents, id: anime.to_param }
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe '#edit' do
-    context 'guest' do
-      let(:page) { nil }
-      before { get :edit, id: anime.to_param }
-      it { expect(response).to redirect_to new_user_session_url }
-    end
-
-    context 'authenticated' do
-      include_context :authenticated, :user
-      before { get :edit, id: anime.to_param, page: page }
-
-      describe 'description' do
-        let(:page) { nil }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'russian' do
-        let(:page) { 'russian' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'videos' do
-        let(:page) { 'videos' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'screenshots' do
-        let(:page) { 'screenshots' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'torrents_name' do
-        let(:page) { 'torrents_name' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'tags' do
-        let(:page) { 'tags' }
-        it { expect(response).to have_http_status :success }
-      end
-    end
-  end
-
-  describe '#update' do
-    include_context :back_redirect
-    let(:make_request) { patch :update, id: anime.id, anime: changes, apply: apply, take: take }
-    let(:changes) {{ russian: 'test' }}
-    let(:role) { :user }
-
-    describe 'save' do
-      let(:apply) { }
-      let(:take) { }
-      before { make_request }
-
-      it do
-        expect(resource).to_not have_attributes changes
-        expect(resource.versions[:russian]).to have(1).item
-        expect(resource.versions[:russian].first).to be_pending
-        expect(response).to redirect_to back_url
-      end
-    end
-
-    describe 'apply' do
-      let(:apply) { 'Apply' }
-      let(:take) { }
-
-      context 'common user' do
-        include_context :authenticated, :user
-        before { make_request }
-
-        it do
-          expect(resource).to_not have_attributes changes
-          expect(resource.versions[:russian]).to have(1).item
-          expect(resource.versions[:russian].first).to be_pending
-          expect(response).to redirect_to back_url
-        end
-      end
-
-      context 'moderator' do
-        include_context :authenticated, :user_changes_moderator
-        before { make_request }
-
-        it do
-          expect(resource).to have_attributes changes
-          expect(resource.versions[:russian]).to have(1).item
-          expect(resource.versions[:russian].first).to be_accepted
-          expect(response).to redirect_to back_url
-        end
-      end
-    end
-
-    describe 'take' do
-      let(:apply) { }
-      let(:take) { 'Take' }
-
-      include_context :authenticated, :user_changes_moderator
-      before { make_request }
-
-      it do
-        expect(resource).to have_attributes changes
-        expect(resource.versions[:russian]).to have(1).item
-        expect(resource.versions[:russian].first).to be_taken
-        expect(response).to redirect_to back_url
-      end
-    end
-  end
-
-  describe '#versions' do
-    before { get :versions, id: anime.to_param, page: 2, format: :json }
     it { expect(response).to have_http_status :success }
   end
 
