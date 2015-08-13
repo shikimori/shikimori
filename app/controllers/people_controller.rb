@@ -1,11 +1,12 @@
-class PeopleController < DbEntryController
+class PeopleController < DbEntriesController
   respond_to :html, only: [:show, :tooltip]
   respond_to :html, :json, only: :index
   respond_to :json, only: :autocomplete
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :role_redirect, if: -> { resource_id && params[:action] != 'tooltip' }
+  before_action :role_redirect, if: -> { resource_id && !['tooltip','update'].include?(params[:action]) }
+  before_action :set_breadcrumbs, if: -> { @resource }
 
   helper_method :search_url
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
@@ -48,6 +49,12 @@ class PeopleController < DbEntryController
 
 private
 
+  def update_params
+    params
+      .require(:person)
+      .permit(:russian, *Person::DESYNCABLE)
+  end
+
   def search_title
     if params[:kind] == 'producer'
       'Поиск режиссёров'
@@ -73,6 +80,13 @@ private
   end
 
   def role_redirect
-    redirect_to seyu_url(@resource), status: 301 if @resource.main_role?(:seyu)
+    redirect_to request.url.sub(/\/people\//, '/seyu/'), status: 301 if @resource.main_role?(:seyu)
+  end
+
+  def set_breadcrumbs
+    if params[:action] == 'edit_field' && params[:field].present?
+      @back_url = @resource.edit_url
+      breadcrumb i18n_t('edit'), @resource.edit_url
+    end
   end
 end

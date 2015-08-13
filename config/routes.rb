@@ -29,7 +29,8 @@ Site::Application.routes.draw do
   resources :mangas, only: [], concerns: [:autocompletable]
   resources :characters, only: [], concerns: [:autocompletable]
   resources :people, only: [], concerns: [:autocompletable]
-  resource :users, only: [], concerns: [:autocompletable]
+  resources :seyu, only: [], concerns: [:autocompletable]
+  resources :users, only: [], concerns: [:autocompletable]
 
   # site pages
   resources :pages, path: '/', only: [] do
@@ -551,7 +552,6 @@ Site::Application.routes.draw do
 
     resources :seyu, only: [:show, :edit, :update] do
       concerns :db_entry, fields: /russian|name|japanese/
-      concerns :autocompletable
       concerns :searcheable
 
       get :roles, on: :member

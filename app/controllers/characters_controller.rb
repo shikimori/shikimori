@@ -1,7 +1,6 @@
 # TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
   skip_before_action :role_redirect
-  before_action :set_breadcrumbs, if: -> { @resource }
 
   before_action { page_title 'Персонажи' }
 
@@ -107,12 +106,5 @@ private
 
   def search_query
     CharactersQuery.new params
-  end
-
-  def set_breadcrumbs
-    if params[:action] == 'edit_field' && params[:field].present?
-      @back_url = @resource.edit_url
-      breadcrumb i18n_t('edit'), @resource.edit_url
-    end
   end
 end

@@ -69,3 +69,9 @@ en:
   characters_controller:
     <<: *animes_controller
     entry_edit: Edit Character
+  people_controller:
+    <<: *animes_controller
+    entry_edit: Edit Person
+  seyu_controller:
+    <<: *animes_controller
+    entry_edit: Edit Seyu

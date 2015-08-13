@@ -1,5 +1,5 @@
-class DbEntryController < ShikimoriController
-  before_action :authenticate_user!, only: [:edit, :update]
+class DbEntriesController < ShikimoriController
+  before_action :authenticate_user!, only: [:edit, :edit_field, :update]
 
   def tooltip
     noindex
@@ -30,7 +30,6 @@ class DbEntryController < ShikimoriController
     render template: 'db_entries/edit_field'
   end
 
-
   def update
     version = Versioneer.new(@resource.object).premoderate(update_params, current_user, params[:reason])
 
@@ -39,6 +38,6 @@ class DbEntryController < ShikimoriController
       version.take current_user if params[:take]
     end
 
-    redirect_to_back_or_to @resource.url, notice: i18n_t("changes_#{version.state}")
+    redirect_to @resource.edit_url, notice: i18n_t("changes_#{version.state}")
   end
 end

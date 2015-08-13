@@ -31,8 +31,13 @@ ru:
       character:
         description: Описание
         name: Английское имя
+        poster: Постер
         russian: Русское имя
         tags: Тег имиджборд
+      person:
+        name: Английское имя
+        poster: Постер
+        russian: Русское имя
       contest:
         title: Название
         description: Описание

@@ -115,7 +115,7 @@ describe Version do
       it { expect(version.reason).to have(Version::MAXIMUM_REASON_SIZE).items }
     end
 
-    describe '#apply_changes', :focus do
+    describe '#apply_changes' do
       before { version.apply_changes }
 
       it do

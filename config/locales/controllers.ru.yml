@@ -69,3 +69,9 @@ ru:
   characters_controller:
     <<: *animes_controller
     entry_edit: Редактирование персонажа
+  people_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование человека
+  seyu_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование сэйю

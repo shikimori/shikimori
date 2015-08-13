@@ -1,4 +1,4 @@
-class AnimesController < DbEntryController
+class AnimesController < DbEntriesController
   before_action -> { page_title resource_klass.model_name.human }
   before_action :fetch_resource, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }

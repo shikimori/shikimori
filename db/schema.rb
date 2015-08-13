@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813110600) do
+ActiveRecord::Schema.define(version: 20150813213000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -665,6 +665,7 @@ ActiveRecord::Schema.define(version: 20150813110600) do
     t.boolean  "mangaka",                        default: false
     t.boolean  "seyu",                           default: false
     t.text     "desynced",                       default: [],    null: false, array: true
+    t.string   "russian"
   end
 
   add_index "people", ["name"], name: "index_people_on_name", using: :btree

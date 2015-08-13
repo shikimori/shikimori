@@ -27,10 +27,6 @@ class Person < DbEntry
     #role.include?('Director')
   #end
 
-  def russian
-    nil
-  end
-
   def source
     nil
   end

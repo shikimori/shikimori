@@ -1,4 +1,4 @@
-@on 'page:load', 'animes_edit', 'mangas_edit', 'characters_edit', ->
+@on 'page:load', '.db_entries-edit_field', ->
   if $('.edit-page.description').exists()
     $editor = $('.b-shiki_editor')
     $editor

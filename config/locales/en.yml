@@ -31,8 +31,13 @@ en:
       character:
         description: Description
         name: Name
+        poster: Poster
         russian: Russian name
         tags: Imageboards tag
+      person:
+        name: Name
+        poster: Poster
+        russian: Russian name
       contest:
         title: Title
         description: Description

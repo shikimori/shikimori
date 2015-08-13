@@ -71,7 +71,7 @@
 
     .block
       .subheadline-buttons
-        a.item-edit href="#{@resource.edit_url :torrents_name}"
+        a.item-edit href="#{@resource.edit_field_url :torrents_name}"
       .subheadline Распарсить страницу
       .subcontent
         = form_tag torrent_anime_path(@resource.object), method: :post do |f|

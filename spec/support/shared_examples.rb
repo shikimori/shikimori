@@ -20,7 +20,7 @@ shared_examples :db_entry_controller do |entry_name|
 
     context 'authenticated' do
       include_context :authenticated, :user
-      before { get :edit, id: entry.to_param, page: page }
+      before { get :edit, id: entry.to_param }
 
       describe 'russian' do
         let(:page) { 'russian' }
@@ -28,9 +28,26 @@ shared_examples :db_entry_controller do |entry_name|
       end
     end
   end
-  
+
+  describe '#edit_field' do
+    context 'guest' do
+      let(:page) { nil }
+      before { get :edit_field, id: entry.to_param, field: 'russian' }
+      it { expect(response).to redirect_to new_user_session_url }
+    end
+
+    context 'authenticated' do
+      include_context :authenticated, :user
+      before { get :edit_field, id: entry.to_param, field: 'russian' }
+
+      describe 'russian' do
+        let(:page) { 'russian' }
+        it { expect(response).to have_http_status :success }
+      end
+    end
+  end
+
   describe '#update' do
-    include_context :back_redirect
     let(:make_request) { patch :update,
       { id: entry.id, apply: apply, take: take }.merge(entry_name => changes) }
     let(:changes) {{ russian: 'test' }}
@@ -46,7 +63,7 @@ shared_examples :db_entry_controller do |entry_name|
         expect(resource).to_not have_attributes changes
         expect(resource.versions[:russian]).to have(1).item
         expect(resource.versions[:russian].first).to be_pending
-        expect(response).to redirect_to back_url
+        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
     end
 
@@ -62,7 +79,7 @@ shared_examples :db_entry_controller do |entry_name|
           expect(resource).to_not have_attributes changes
           expect(resource.versions[:russian]).to have(1).item
           expect(resource.versions[:russian].first).to be_pending
-          expect(response).to redirect_to back_url
+          expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
         end
       end
 
@@ -74,7 +91,7 @@ shared_examples :db_entry_controller do |entry_name|
           expect(resource).to have_attributes changes
           expect(resource.versions[:russian]).to have(1).item
           expect(resource.versions[:russian].first).to be_accepted
-          expect(response).to redirect_to back_url
+          expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
         end
       end
     end
@@ -90,7 +107,7 @@ shared_examples :db_entry_controller do |entry_name|
         expect(resource).to have_attributes changes
         expect(resource.versions[:russian]).to have(1).item
         expect(resource.versions[:russian].first).to be_taken
-        expect(response).to redirect_to back_url
+        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
     end
   end

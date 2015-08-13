@@ -2,11 +2,7 @@
 @import globals/variables
 @import mixins/link
 
-.p-animes-edit, .p-mangas-edit, .p-characters-edit
-  p.warning
-    color: $red
-    margin-bottom: $block_offset / 2
-
+.p-db_entries-edit
   .b-list
     .field
       display: inline-block
@@ -28,17 +24,3 @@
       font-size: 11px
       margin-left: 5px
       text-transform: lowercase
-
-  .screenshots-uploader
-    .cc
-      min-height: 19px
-
-      .move-controls
-        display: none !important
-
-  .screenshots-positioner
-    +clearfix
-
-    .cc
-      clear: right
-      margin-bottom: 20px
