@@ -33,6 +33,5 @@ p.warning Перед внесением изменений обязательн�
     a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
     - if current_user.user_changes_moderator?
       = f.submit t('actions.apply'), class: 'apply', name: 'apply'
-      = f.submit t('actions.take'), class: 'apply', name: 'take'
     - else
       = f.button :magic_submit

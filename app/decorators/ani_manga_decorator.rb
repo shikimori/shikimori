@@ -68,12 +68,6 @@ class AniMangaDecorator < DbEntryDecorator
     thread
   end
 
-  # презентер пользовательских изменений
-  # TODO: удалить
-  def changes
-    ChangesDecorator.new object
-  end
-
   def versions
     VersionsQuery.new object
   end

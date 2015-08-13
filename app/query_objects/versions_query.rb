@@ -12,6 +12,16 @@ class VersionsQuery < QueryObjectBase
       .decorate
   end
 
+  def authors
+    query
+      .where("(item_diff->>:field) is not null", field: 'description')
+      .where(state: :accepted)
+      .except(:order)
+      .order(created_at: :asc)
+      .map(&:user)
+      .uniq
+  end
+
   def [] field
     @versions ||= {}
     @versions[field.to_s] ||= by_field field

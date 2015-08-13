@@ -8,7 +8,7 @@
     - if @resource.versions[@page.to_sym].any?
       .subheadline История правок
       .block
-        = render @resource.versions[@page.to_sym]
+        = render partial: 'versions/version', collection: @resource.versions[@page.to_sym]
 
   - else
     .block.cc-2

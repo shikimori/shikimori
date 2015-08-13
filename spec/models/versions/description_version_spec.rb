@@ -7,15 +7,15 @@ describe Versions::DescriptionVersion do
       let(:state) { 'accepted' }
 
       context 'big changes' do
-        let(:old) { 'aaaaaaaaaa' }
-        let(:new) { 'aaaaaaaabb' }
+        let(:old) { 'aaaaaaa aa' }
+        let(:new) { 'aaaaaaa bb' }
 
         it { expect(version).to be_accepted }
       end
 
       context 'small changes' do
-        let(:old) { 'aaaaaaaaaa' }
-        let(:new) { 'aaaaaaaaab' }
+        let(:old) { 'aaaaaaaa a' }
+        let(:new) { 'aaaaaaaa b' }
 
         it { expect(version).to be_taken }
       end
@@ -25,15 +25,15 @@ describe Versions::DescriptionVersion do
       let(:state) { 'taken' }
 
       context 'big changes' do
-        let(:old) { 'aaaaaaaaaa' }
-        let(:new) { 'aaaaaaaabb' }
+        let(:old) { 'aaaaaaa aa' }
+        let(:new) { 'aaaaaaa bb' }
 
         it { expect(version).to be_accepted }
       end
 
       context 'small changes' do
-        let(:old) { 'aaaaaaaaaa' }
-        let(:new) { 'aaaaaaaaab' }
+        let(:old) { 'aaaaaaaa a' }
+        let(:new) { 'aaaaaaaa b' }
         it { expect(version).to be_taken }
       end
     end

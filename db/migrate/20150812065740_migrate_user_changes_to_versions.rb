@@ -5,7 +5,7 @@ class MigrateUserChangesToVersions < ActiveRecord::Migration
       .each do |user_change|
         next if user_change.prior.blank? && user_change.value.blank?
 
-        Version.create(
+        version = Version.create(
           user_id: user_change.user_id,
           state: user_change.status.downcase,
           item_id: user_change.item_id,
@@ -21,6 +21,7 @@ class MigrateUserChangesToVersions < ActiveRecord::Migration
           created_at: user_change.created_at,
           type: pick_type(user_change)
         )
+        version.fix_state if user_change.column == 'description'
       end
   end
 

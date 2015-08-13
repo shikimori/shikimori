@@ -15,24 +15,37 @@ describe MeasureChanges do
     end
 
     context 'size decrease' do
-      let(:old) { 'aaaaaaaaaa' }
-      let(:new) { 'aaaaaaaaa' }
+      let(:old) { 'aaaaaaa aa' }
+      let(:new) { 'aaaaaaa a' }
       it { expect(service).to_not be_enough }
     end
 
     context 'size increase' do
-      let(:old) { 'aaaaaaaaaa' }
+      let(:old) { 'aaaaaaaaa ' }
 
-      context 'small increase' do
-        let(:new) { 'aaaaaaaaaaaa' }
+      context '< 20% increase' do
+        let(:new) { 'aaaaaaaaa a' }
         it { expect(service).to_not be_enough }
       end
 
-      context '>= 25% increase' do
-        let(:new) { 'aaaaaaaaaaaaa' }
+      context '>= 20% increase' do
+        let(:new) { 'aaaaaaaaa aa' }
         it { expect(service).to be_enough }
       end
     end
 
+    context 'content change' do
+      let(:old) { 'aa aa aa aa aa' }
+
+      context '< 20% change' do
+        let(:new) { 'aa aa aa aa bb' }
+        it { expect(service).to_not be_enough }
+      end
+
+      context '>= 20% change' do
+        let(:new) { 'aa aa aa bb bb' }
+        it { expect(service).to be_enough }
+      end
+    end
   end
 end
