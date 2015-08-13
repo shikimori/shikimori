@@ -37,6 +37,7 @@ class Version < ActiveRecord::Base
     end
 
     after_transition :pending => [:accepted, :taken] do |version, transition|
+      version.fix_state if version.respond_to? :fix_state
       version.notify_acceptance
     end
 

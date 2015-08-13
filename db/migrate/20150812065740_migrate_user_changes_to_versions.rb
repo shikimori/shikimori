@@ -19,11 +19,22 @@ class MigrateUserChangesToVersions < ActiveRecord::Migration
           moderator_id: user_change.approver_id,
           reason: user_change.reason,
           created_at: user_change.created_at,
+          type: pick_type(user_change)
         )
       end
   end
 
   def down
     raise ActiveRecord::IrreversibleMigration unless Rails.env.development?
+  end
+
+private
+
+  def pick_type user_change
+    if user_change.column == 'description'
+      Versions::DescriptionVersion.name
+    else
+      nil
+    end
   end
 end

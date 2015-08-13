@@ -6,6 +6,9 @@ FactoryGirl.define do
     item_diff name: ['a', 'b']
   end
 
+  factory :description_version, parent: :version, class: 'Versions::DescriptionVersion' do
+  end
+
   factory :version_anime_video, parent: :version do
     item_type AnimeVideo.name
     state :auto_accepted

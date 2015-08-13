@@ -1,11 +1,12 @@
 @on 'page:load', 'animes_edit', 'mangas_edit', ->
   if $('.edit-page.description').exists()
-    $('.b-shiki_editor')
+    $editor = $('.b-shiki_editor')
+    $editor
       .shiki_editor()
       .on 'preview:params', ->
         body: $(@).shiki().$textarea.val()
-        target_id: $('#user_change_item_id').val()
-        target_type: $('#user_change_model').val()
+        target_id: $editor.data('target_id')
+        target_type: $editor.data('target_type')
 
   if $('.edit-page.screenshots').exists()
     $('.c-screenshot').shiki_image()

@@ -46,6 +46,14 @@ en:
           male: male
           female: female
 
+    hints:
+      version:
+        reason: &optional Optional
+      anime: &anime_hints
+        source: *optional
+      manga:
+        <<: *anime_hints
+
     magic_submit:
       users:
         registrations:

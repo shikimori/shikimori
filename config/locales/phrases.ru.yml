@@ -14,6 +14,8 @@ ru:
     save_apply: Сохранить & Принять
     upload: Загрузить
     upload_image: Загрузить изображение
+    take: Взять
+    upload: Загрузить
   anime_list: Список аниме
   back: назад
   back_to_page: Назад на страницу
@@ -41,7 +43,6 @@ ru:
   no_comments: Нет комментариев
   nothing_found: Ничего нет.
   notifications: Уведомления
-  optional: Не обязательно
   out_of: из
   person: Человек
   producer: Режиссёр

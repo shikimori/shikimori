@@ -17,11 +17,22 @@ describe Versioneer do
 
       expect(version).to be_persisted
       expect(version).to be_pending
+      expect(version.class).to eq Version
       expect(version.user).to eq author
       expect(version.reason).to eq reason
       expect(version.item_diff).to eq result_diff
       expect(version.item).to eq anime
       expect(version.moderator).to be_nil
+    end
+
+    describe 'description change' do
+      let(:changes) {{ description: 'zzz', source: '7' }}
+
+      it do
+        expect(version).to be_persisted
+        expect(version).to be_pending
+        expect(version.class).to eq Versions::DescriptionVersion
+      end
     end
   end
 
@@ -34,6 +45,7 @@ describe Versioneer do
 
       expect(version).to be_persisted
       expect(version).to be_auto_accepted
+      expect(version.class).to eq Version
       expect(version.user).to eq author
       expect(version.reason).to eq reason
       expect(version.item_diff).to eq result_diff

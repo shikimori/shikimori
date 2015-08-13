@@ -1,49 +1,9 @@
 = render layout: 'page' do
-  /.b-options-floated.mobile-support.mobile-landscape
-    /a[
-      /class="#{:selected if @page == 'common'}"
-      /href="#{@resource.edit_url}"
-    /] Описание
-    /a[
-      /class="#{:selected if @page == 'description'}"
-      /href="#{@resource.edit_url :description}"
-    /] Описание
-    /a[
-      /class="#{:selected if @page == 'russian'}"
-      /href="#{@resource.edit_url :russian}"
-    /] Русское название
-
-    /- if @resource.anime?
-      /a[
-        /class="#{:selected if @page == 'screenshots'}"
-        /href="#{@resource.edit_url :screenshots}"
-      /] Кадры
-      /a[
-        /class="#{:selected if @page == 'video'}"
-        /href="#{@resource.edit_url :video}"
-      /] Видео
-
-    /a[
-      /class="#{:selected if @page == 'tags'}"
-      /href="#{@resource.edit_url :tags}"
-    /] Тег имиджборд
-
-    /- if @resource.anime? && current_user.admin?
-      /a[
-        /class="#{:selected if @page == 'torrents_name'}"
-        /href="#{@resource.edit_url :torrents_name}"
-      /] Название на торрентах
-
   h2.subheadline.m10 = @page_title.last
 
   - if @page
     .block.edit-page class="#{@page}"
       = render "animes/edit/#{@page}", resource: @resource, user_change: @user_change
-
-    - if @resource.changes[@page.to_sym].any?
-      .subheadline История правок
-      .block
-        = render @resource.changes[@page.to_sym]
 
     - if @resource.versions[@page.to_sym].any?
       .subheadline История правок
@@ -139,7 +99,7 @@
     - if @resource.versions_page.first.any?
       .subheadline = t '.changes_history'
       .block
-        = render @resource.versions_page.first
+        = render partial: 'versions/version', collection: @resource.versions_page.first
 
         - if @resource.versions_page.second
           = render 'blocks/postloader', url: @resource.next_versions_page

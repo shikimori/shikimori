@@ -3,7 +3,7 @@ en:
     accept: Accept
     apply: Apply
     apply: Apply
-    ban_user: Ban user
+    ban_user: Ban User
     cancel: Cancel
     create: Create
     delete: Delete
@@ -11,6 +11,7 @@ en:
     quote: Quote
     reject: Reject
     reply: Reply
+    take: Take
     upload: Upload
     upload_image: Upload image
     save_apply: Save & Apply
@@ -41,7 +42,6 @@ en:
   no_comments: No comments
   nothing_found: Nothing found.
   notifications: Notifications
-  optional: Optional
   out_of: out of
   person: Person
   producer: Director

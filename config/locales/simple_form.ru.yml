@@ -47,8 +47,12 @@ ru:
           female: жен.
 
     hints:
-      user_change:
-        reason: Не обязательно
+      version:
+        reason: &optional Не обязательно
+      anime: &anime_hints
+        source: *optional
+      manga:
+        <<: *anime_hints
 
     magic_submit:
       users:

@@ -241,13 +241,13 @@ private
   def anime_params
     params
       .require(:anime)
-      .permit(:russian, :torrents_name, :tags, *Anime::DESYNCABLE)
+      .permit(:russian, :torrents_name, :tags, :description, :source, *Anime::DESYNCABLE)
   end
 
   def manga_params
     params
       .require(:manga)
-      .permit(:russian, :tags, *Manga::DESYNCABLE)
+      .permit(:russian, :tags, :description, :source, *Manga::DESYNCABLE)
   end
 
   def set_breadcrumbs
