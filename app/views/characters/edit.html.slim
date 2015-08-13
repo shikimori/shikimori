@@ -14,12 +14,22 @@
           .value = @resource.russian
           a.edit href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
 
+        li
+          .field = Character.human_attribute_name :japanese
+          .value = @resource.japanese
+          a.edit href="#{@resource.edit_field_url :japanese}" = t 'actions.edit'
+
     .c-column.m0
       ul.b-list
         li
           .field = Character.human_attribute_name :poster
           .value.under_development = t('under_development').downcase
           /a.edit href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
+
+        li
+          .field = Character.human_attribute_name :cosplay
+          .value.under_development = t('under_development').downcase
+          /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :description
@@ -29,6 +39,11 @@
           .field = Character.human_attribute_name :tags
           .value = @resource.tags
           a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+
+  - if @resource.desynced.any?
+    .block
+      b Desynced:
+      span  #{@resource.desynced.join(', ')}
 
   - if @resource.versions_page.first.any?
     .subheadline = t '.changes_history'

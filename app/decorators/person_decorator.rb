@@ -22,18 +22,9 @@ class PersonDecorator < DbEntryDecorator
     h.person_url object
   end
 
-  def website_host
-    begin
-      URI.parse(website).host
-    rescue
-    end
-  end
-
-  def website
-    if object.website.present?
-      'http://%s' % object.website.sub(/^(https?:\/\/)?/, '')
-    else
-      nil
+  def website_html
+    if website_host.present?
+      h.link_to website_host, website_url, rel: 'nofollow', class: 'b-link'
     end
   end
 
@@ -190,5 +181,20 @@ private
 
   def roles_counts role
     flatten_roles.count {|v| ROLES[role].include? v }
+  end
+
+  def website_host
+    begin
+      URI.parse(website).host
+    rescue
+    end
+  end
+
+  def website_url
+    if object.website.present?
+      'http://%s' % object.website.sub(/^(https?:\/\/)?/, '')
+    else
+      nil
+    end
   end
 end

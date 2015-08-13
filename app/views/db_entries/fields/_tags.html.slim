@@ -1,20 +1,5 @@
-/.block
-  /= simple_form_for [:moderation, user_change] do |f|
-    /= f.input :model, as: :hidden
-    /= f.input :column, as: :hidden
-    /= f.input :item_id, as: :hidden
-
-    /.block
-      /= f.input :value, as: :string, label: 'Тег на имиджбордах', input_html: { 'data-autocomplete' => autocomplete_danbooru_index_url }
-
-    /.buttons
-      /a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
-      /- if current_user.user_changes_moderator?
-        /= f.submit t('actions.apply'), class: 'apply', name: 'apply'
-      /= f.button :magic_submit
-
 .block
-  = simple_form_for resource do |f|
+  = simple_form_for resource.object do |f|
     = f.input :tags, input_html: { 'data-autocomplete' => autocomplete_danbooru_index_url }
     = render 'versions/reason'
 

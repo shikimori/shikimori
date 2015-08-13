@@ -8,6 +8,7 @@ ru:
 
     attributes:
       anime: &anime_attributes
+        cosplay: Косплей
         description: Описание
         duration: Длительность эпизода
         episodes: Эпизоды
@@ -28,16 +29,18 @@ ru:
         <<: *anime_attributes
         volumes: Тома
         chapters: Главы
-      character:
+      character: &character_attributes
+        cosplay: Косплей
         description: Описание
+        japanese: Японское имя
         name: Английское имя
         poster: Постер
         russian: Русское имя
         tags: Тег имиджборд
       person:
-        name: Английское имя
-        poster: Постер
-        russian: Русское имя
+        <<: *character_attributes
+        birthday: Дата рождения
+        website: Сайт
       contest:
         title: Название
         description: Описание

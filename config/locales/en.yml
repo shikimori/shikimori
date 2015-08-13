@@ -8,6 +8,7 @@ en:
 
     attributes:
       anime: &anime_attributes
+        cosplay: Cosplay
         description: Description
         duration: Episode duration
         episodes: Episodes
@@ -28,16 +29,18 @@ en:
         <<: *anime_attributes
         volumes: Volumes
         chapters: Chapters
-      character:
+      character: &character_attributes
+        cosplay: Cosplay
         description: Description
+        japanese: Japanese name
         name: Name
         poster: Poster
         russian: Russian name
         tags: Imageboards tag
       person:
-        name: Name
-        poster: Poster
-        russian: Russian name
+        <<: *character_attributes
+        birthday: Birthday
+        website: Website
       contest:
         title: Title
         description: Description

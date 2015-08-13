@@ -520,11 +520,11 @@ Site::Application.routes.draw do
     end
 
     resources :mangas, only: [:edit, :update] do
-      concerns :db_entry, fields: /description|russian|name|kind|rating|tags|volumes|chapters/
+      concerns :db_entry, fields: /name|russian|description|kind|rating|tags|volumes|chapters/
     end
 
     resources :characters, only: [:show, :edit, :update] do
-      concerns :db_entry, fields: /description|russian|tags|name|japanese/
+      concerns :db_entry, fields: /name|russian|japanese|description|tags|japanese/
       concerns :searcheable
 
       member do
@@ -539,7 +539,7 @@ Site::Application.routes.draw do
     end
 
     resources :people, only: [:show, :edit, :update] do
-      concerns :db_entry, fields: /russian|name|japanese/
+      concerns :db_entry, fields: /name|russian|japanese|website|birthday/
       concerns :searcheable
 
       member do
@@ -551,7 +551,7 @@ Site::Application.routes.draw do
     get 'mangakas/search/:search(/page/:page)' => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
 
     resources :seyu, only: [:show, :edit, :update] do
-      concerns :db_entry, fields: /russian|name|japanese/
+      concerns :db_entry, fields: /name|russian|japanese|website|birthday/
       concerns :searcheable
 
       get :roles, on: :member

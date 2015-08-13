@@ -68,7 +68,10 @@ class Version < ActiveRecord::Base
     item_diff.each do |(field,changes)|
       changes[0] = current_value field
       item.send "#{field}=", changes.second
-      item.desynced << field if item.respond_to?(:desynced) && item.class::DESYNCABLE.include?(field)
+
+      if item.respond_to?(:desynced) && item.class::DESYNCABLE.include?(field)
+        item.desynced << field unless item.desynced.include?(field)
+      end
     end
 
     item.save && save
