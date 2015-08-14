@@ -210,7 +210,7 @@ private
   end
 
   def parse_h1(content)
-    content.match(/<h1><div.*?<\/div>(.*?)<\/h1>/) ? cleanup($1.gsub(/<(\w+).*?>.*?<\/\1>/, '')) : ""
+    content.match(/<span itemprop=\"name\">(.*?)<\/span>/) ? cleanup($1.gsub(/<(\w+).*?>.*?<\/\1>/, '')) : ""
   end
 
   def parse_synopsis(content)
