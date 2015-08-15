@@ -31,7 +31,7 @@ class DbEntriesController < ShikimoriController
   end
 
   def update
-    version = Versioneer.new(@resource.object).premoderate(update_params, current_user, params[:reason])
+    version = Versioneers::FieldsVersioneer.new(@resource.object).premoderate(update_params, current_user, params[:reason])
 
     if version.persisted? && can?(:manage, version)
       version.accept current_user if params[:apply]

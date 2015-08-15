@@ -42,6 +42,7 @@ class ScreenshotsController < ShikimoriController
   end
 
 private
+
   # класс текущего элемента
   def klass
     @klass ||= Object.const_get(self.class.name.underscore.split('_')[0].singularize.camelize)

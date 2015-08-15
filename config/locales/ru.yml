@@ -355,7 +355,7 @@ ru:
     anime_video_report:
       kind:
         uploaded: новое видео
-        broken: видео не работет
+        broken: видео не работает
         wrong: видео не к тому аниме
     user_history_action:
       action:

@@ -10,7 +10,6 @@
               title="Комментировать"
               data-direction="top"
             ]
-          /a.edit href="#{edit_character_url @resource}" title="Редактировать персонажа"
 
           - if @resource.main_role?(:producer) || @resource.producer_favoured?
             a.fav-add.b-tooltipped.unprocessed[

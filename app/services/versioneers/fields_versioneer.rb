@@ -1,4 +1,4 @@
-class Versioneer
+class Versioneers::FieldsVersioneer
   pattr_initialize :item
 
   def premoderate params, author=nil, reason=nil

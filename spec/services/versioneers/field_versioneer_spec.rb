@@ -1,5 +1,5 @@
-describe Versioneer do
-  let(:service) { Versioneer.new anime }
+describe Versioneers::FieldsVersioneer do
+  let(:service) { Versioneers::FieldsVersioneer.new anime }
   let(:anime) { create :anime, name: 'test', episodes: 3, episodes_aired: 5 }
   let(:changes) {{ name: 'zzz', episodes: 7, episodes_aired: 5 }}
   let(:author) { build_stubbed :user }

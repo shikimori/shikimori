@@ -1,6 +1,6 @@
 = render layout: 'characters/page' do
   .subheadline-buttons
-    a.item-edit href="#{edit_character_url @resource, :tags}"
+    a.item-edit href="#{@resource.edit_field_url :tags}"
   .b-options-floated.mobile-support.r-edit = @resource.tags || 'нет'
   .subheadline.m10 = @page_title.last
 
