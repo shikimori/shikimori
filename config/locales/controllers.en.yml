@@ -75,3 +75,6 @@ en:
   seyu_controller:
     <<: *animes_controller
     entry_edit: Edit Seyu
+  screenshots_controller:
+    pending_deletion: Request have been accepted successfully and will be moderated soon. Thanks!
+    screenshot_deleted: Screenshot deleted

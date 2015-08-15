@@ -4,7 +4,7 @@ describe Versioneers::ScreenshotsVersioneer do
   let(:user) { create :user }
 
   describe '#upload' do
-    let(:image) { Rack::Test::UploadedFile.new 'spec/images/anime.jpg', 'image/jpg'  }
+    let(:image) { Rack::Test::UploadedFile.new 'spec/images/anime.jpg', 'image/jpg' }
 
     let!(:present_version) { }
     subject!(:result) { versioneer.upload image, user }

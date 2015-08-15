@@ -2,23 +2,10 @@ class ScreenshotsController < ShikimoriController
   before_filter :authenticate_user!
 
   def create
-    @entry = Anime.find params[:id]
-    image = params[:image]# || File.open('/home/morr/Pictures/Workspace 1_042.png')
+    anime = Anime.find params[:id]
+    @screenshot, @version = versioneer(anime).upload params[:image], current_user
 
-    unless %x(file #{image.tempfile.path}) =~ /image/
-      render json: { error: 'Загруженный файл не является изображением' }
-      return
-    end
-
-    @screenshot = @entry.screenshots.build({
-      image: image,
-      position: 99999,
-      url: rand()
-    })
-    @screenshot.status = Screenshot::Uploaded
-
-    if @screenshot.save
-      @screenshot.suggest_acception(current_user)
+    if @screenshot.persisted?
       render json: {
         html: render_to_string(@screenshot, locals: { edition: true })
       }
@@ -34,17 +21,16 @@ class ScreenshotsController < ShikimoriController
 
     if @screenshot.status == Screenshot::Uploaded
       @screenshot.destroy
-      render json: { notice: 'Скриншот удалён.' }
+      render json: { notice: i18n_t('screenshot_deleted') }
     else
-      @screenshot.suggest_deletion current_user
-      render json: { notice: 'Запрос на удаление принят и будет рассмотрен модератором. Домо аригато.' }
+      @version = versioneer(@screenshot.anime).delete @screenshot.id, current_user
+      render json: { notice: i18n_t('pending_deletion') }
     end
   end
 
 private
 
-  # класс текущего элемента
-  def klass
-    @klass ||= Object.const_get(self.class.name.underscore.split('_')[0].singularize.camelize)
+  def versioneer anime
+    Versioneers::ScreenshotsVersioneer.new anime
   end
 end

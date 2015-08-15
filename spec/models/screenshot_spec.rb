@@ -7,5 +7,6 @@ describe Screenshot do
   describe 'validations' do
     it { should validate_presence_of :url }
     it { should validate_attachment_presence :image }
+    it { should validate_presence_of :anime }
   end
 end
