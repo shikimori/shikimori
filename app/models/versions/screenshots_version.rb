@@ -4,6 +4,15 @@ class Versions::ScreenshotsVersion < Version
     reposition: 'reposition',
     delete: 'delete'
   }
+  KEY = 'screenshots'
+
+  def action
+    item_diff['action']
+  end
+
+  def screenshots
+    @screenshots ||= Screenshot.where id: item_diff[KEY]
+  end
 
   #item_diff: {
     #action: 'upload',
@@ -12,7 +21,7 @@ class Versions::ScreenshotsVersion < Version
 
   #item_diff: {
     #action: 'position',
-    #ids: [...]
+    #ids: [[...], [...]]
   #}
 
   #item_diff: {

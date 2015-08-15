@@ -55,28 +55,12 @@ div
         .moderation
           - if can?(:manage, version)
             - if version.can_accept?
-              - if version.changed_fields.include?('description')
-                a.b-tooltipped.unprocessed[
-                  href="#{accept_moderation_version_url version}"
-                  data-method="POST"
-                  data-direction="top"
-                  title="#{t '.accept_with_author'}"
-                ] = t '.accept'
-
-                a.b-tooltipped.unprocessed[
-                  href="#{take_moderation_version_url version}"
-                  data-method="POST"
-                  data-direction="top"
-                  title="#{t '.accept_wo_author'}"
-                ] = t '.take'
-
-              - else
-                  a.b-tooltipped.unprocessed[
-                    href="#{accept_moderation_version_url version}"
-                    data-method="POST"
-                    data-direction="top"
-                    title="#{t '.accept_changes'}"
-                  ] = t '.accept'
+              a.b-tooltipped.unprocessed[
+                href="#{accept_moderation_version_url version}"
+                data-method="POST"
+                data-direction="top"
+                title="#{t '.accept_changes'}"
+              ] = t '.accept'
 
             - if version.can_reject?
               a.b-tooltipped.unprocessed.user_change-deny[
@@ -111,8 +95,11 @@ div
             span #{Version.human_attribute_name :reason}:
             = version.reason
 
-        - version.item_diff.each do |field, (old_value, new_value)|
-          = render version.changes_tempalte(field), version: version, field: field, only_one: version.item_diff.keys.one?
+        - if version.kind_of? Versions::ScreenshotsVersion
+          = render "versions/screenshots_#{version.action}", version: version
+        - else
+          - version.item_diff.each do |field, (old_value, new_value)|
+            = render version.changes_tempalte(field), version: version, field: field, only_one: version.item_diff.keys.one?
       /- if version.screenshots?
         /- if version.action == UserChange::ScreenshotsPosition
           /.screenshots-compare

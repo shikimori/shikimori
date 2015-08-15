@@ -1,6 +1,8 @@
 class Versioneers::ScreenshotsVersioneer
   pattr_initialize :item
 
+  KEY = Versions::ScreenshotsVersion::KEY
+
   UPLOAD = Versions::ScreenshotsVersion::ACTIONS[:upload]
   REPOSITION = Versions::ScreenshotsVersion::ACTIONS[:reposition]
   DELETE = Versions::ScreenshotsVersion::ACTIONS[:delete]
@@ -10,7 +12,7 @@ class Versioneers::ScreenshotsVersioneer
 
     if screenshot.save
       version = find_version(author, UPLOAD) || build_version(author, UPLOAD)
-      version.item_diff['ids'] << screenshot.id
+      version.item_diff[KEY] << screenshot.id
       version.save
     end
 
@@ -19,14 +21,14 @@ class Versioneers::ScreenshotsVersioneer
 
   def delete screenshot_id, author
     version = find_version(author, DELETE) || build_version(author, DELETE)
-    version.item_diff['ids'] << screenshot_id
+    version.item_diff[KEY] << screenshot_id
     version.save
     version
   end
 
   def reposition ordered_ids, author
     version = build_version author, REPOSITION
-    version.item_diff['ids'] = [
+    version.item_diff[KEY] = [
       item.screenshots.pluck(:id),
       ordered_ids
     ]
@@ -57,7 +59,7 @@ private
       item: item,
       item_diff: {
         action: action,
-        ids: []
+        KEY => []
       },
       user: author,
     )
