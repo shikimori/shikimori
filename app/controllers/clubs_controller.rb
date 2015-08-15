@@ -3,12 +3,9 @@ class ClubsController < ShikimoriController
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :set_breadcrumbs, if: :resource_id
 
-  before_action do
-    add_page_title i18n_t('clubs')
-    add_breadcrumb i18n_t('clubs'), :clubs_url
-  end
+  before_action :set_breadcrumbs, if: :resource_id
+  before_action { page_title i18n_t 'clubs' }
 
   def index
     noindex
@@ -112,6 +109,7 @@ private
   end
 
   def set_breadcrumbs
+    breadcrumb i18n_t('clubs'), clubs_url
     breadcrumb @resource.name, club_url(@resource) if params[:action] != 'show'
   end
 

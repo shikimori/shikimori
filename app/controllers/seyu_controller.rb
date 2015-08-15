@@ -1,5 +1,5 @@
 class SeyuController < PeopleController
-  before_action { add_page_title 'Сейю' }
+  before_action { page_title 'Сейю' }
 
   def show
     @itemtype = @resource.itemtype

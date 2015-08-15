@@ -3,7 +3,7 @@ class CharactersController < PeopleController
   before_action :authenticate_user!, only: [:edit]
   skip_before_action :role_redirect
 
-  before_action { add_page_title 'Персонажи' }
+  before_action { page_title 'Персонажи' }
 
   #caches_action :index, CacheHelper.cache_settings
   #caches_action :page, :show, :tooltip,

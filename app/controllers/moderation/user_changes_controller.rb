@@ -3,7 +3,7 @@ class Moderation::UserChangesController < ShikimoriController
   before_filter :authenticate_user!, only: [:index, :take, :deny]
   PENDING_PER_PAGE = 40
 
-  before_action { add_page_title 'Правки пользователей' }
+  before_action { page_title 'Правки пользователей' }
 
   def show
     noindex
