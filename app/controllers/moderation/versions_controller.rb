@@ -40,6 +40,6 @@ private
     redirect_to_back_or_to moderation_versions_url, notice: i18n_t(success_message)
 
   rescue StateMachine::InvalidTransition
-    redirect_to_back_or_to moderation_versions_url, notice: i18n_t('changes_failed')
+    redirect_to_back_or_to moderation_versions_url, alert: i18n_t('changes_failed')
   end
 end

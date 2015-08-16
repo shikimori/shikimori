@@ -6,7 +6,9 @@ class VersionDecorator < BaseDecorator
   end
 
   def changed_fields
-    if kind_of? Versions::ScreenshotsVersion
+    if kind_of? Versions::VideoVersion
+      [i18n_t("field_name.video_#{action}")]
+    elsif kind_of? Versions::ScreenshotsVersion
       [i18n_t("field_name.screenshots_#{action}")]
     else
       item_diff.keys.map { |attribute| item_type.constantize.human_attribute_name attribute }

@@ -1,49 +1,46 @@
 describe VideosController do
   include_context :authenticated, :user_changes_moderator
 
+  let(:anime) { create :anime }
   let(:url) { 'http://youtube.com/watch?v=l1YX30AmYsA' }
   let(:name) { 'test' }
   let(:kind) { Video::PV }
-  let(:anime_id) { create(:anime).id }
 
   let(:json) { JSON.parse response.body }
 
-  describe 'create' do
-    describe 'response' do
-      before { post :create, id: anime_id, video: { url: url, kind: kind, name: name } }
+  describe '#create' do
+    include_context :back_redirect
+    before { post :create, anime_id: anime.id, video: { url: url, kind: kind, name: name } }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(resource).to be_uploaded }
-      it { expect(resource).to have_attributes(url: url, name: name, kind: kind, anime_id: anime_id, uploader_id: user.id) }
-      it { expect(resource).to be_persisted }
-      it { expect(response.content_type).to eq 'application/json' }
-    end
+    it do
+      expect(assigns :video).to be_uploaded
+      expect(assigns :video).to have_attributes(
+        url: url,
+        name: name,
+        kind: kind,
+        anime_id: anime.id,
+        uploader_id: user.id
+      )
+      expect(assigns :video).to be_persisted
 
-    describe 'apply' do
-      before { post :create, id: anime_id, apply: 1, video: { url: url, kind: kind, name: name } }
-      it { expect(resource).to be_confirmed }
-      it { expect(response).to have_http_status :success }
-    end
+      expect(assigns :version).to be_persisted
+      expect(assigns(:version).item_diff['action']).to eq(
+        Versions::VideoVersion::ACTIONS[:upload])
 
-    describe 'apply wo_permissions' do
-      include_context :authenticated, :user
-      before { post :create, id: anime_id, apply: 1, video: { url: url, kind: kind, name: name } }
-      it { expect(resource).to be_uploaded }
-      it { expect(response).to have_http_status :success }
+      expect(response).to redirect_to back_url
     end
   end
 
-  describe 'destroy' do
-    let(:video) { create :video, state: 'confirmed' }
-    before { post :destroy, id: video.id }
+  describe '#destroy' do
+    let(:video) { create :video, :confirmed }
+    before { post :destroy, anime_id: anime.id, id: video.id }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(assigns :version).to be_persisted
+      expect(assigns(:version).item_diff['action']).to eq(
+        Versions::VideoVersion::ACTIONS[:delete])
 
-    it 'suggest video deletion' do
-      expect {
-        post :destroy, id: video.id
-      }.to change(UserChange.where(action: UserChange::VideoDeletion), :count).by 1
+      expect(response).to have_http_status :success
     end
   end
 end

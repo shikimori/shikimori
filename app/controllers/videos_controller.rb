@@ -1,27 +1,21 @@
 class VideosController < ShikimoriController
   before_action :authenticate_user!
+  before_action :fetch_anime
 
   def create
-    @entry = Anime.find params[:id]
-    @resource = @entry.videos.build video_params
-    @resource.state = 'uploaded'
+    @video, @version = versioneer.upload video_params, current_user
 
-    @resource.state = 'confirmed' if params[:apply].present? && current_user.user_changes_moderator?
-
-    if @resource.save
-      render json: { notice: 'Видео сохранено и будет в ближайшее время рассмотрено модератором. Домо аригато.' }
-    else
-      render json: @resource.errors.full_messages, status: :unprocessable_entity
-    end
+    redirect_to_back_or_to(
+      @anime.decorate.edit_field_url(:screenshots),
+      @video.persisted? ?
+        { notice: i18n_t('pending_version') } :
+        { alert: @video.errors.full_messages.join(', ') }
+    )
   end
 
   def destroy
-    @resource = Video.find params[:id]
-    @resource.suggest_deletion current_user
-
-    render json: {
-      notice: 'Запрос на удаление принят и будет рассмотрен модератором. Домо аригато.'
-    }
+    @version = versioneer.delete params[:id], current_user
+    render json: { notice: i18n_t('pending_version') }
   end
 
 private
@@ -31,5 +25,14 @@ private
       .require(:video)
       .permit(:url, :kind, :name)
       .merge(uploader_id: current_user.id)
+  end
+
+  def versioneer
+    Versioneers::VideosVersioneer.new @anime
+  end
+
+
+  def fetch_anime
+    @anime = Anime.find params[:anime_id]
   end
 end

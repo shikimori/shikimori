@@ -1,9 +1,5 @@
-/.item-editor-container.videos data-kind="#{@resource.object.class.name.downcase}"
-  /= render partial: 'blocks/editor/buttons', locals: { apply_path: self.send("apply_#{@resource.object.class.name.downcase}_url", @resource), item_name: @resource.object.class.name.downcase }, formats: :html
-  /.subheadline Добавление нового ролика
-  .subcontent.item-content-editor.m30
 .block
-  = simple_form_for [@resource, Video.new], remote: true, authenticity_token: true, html: { 'data-type' => :json } do |f|
+  = simple_form_for [@resource, Video.new] do |f|
     .block
       = f.input :url, hint: Video::SAVEABLE_HOSTINGS.join(', ')
       = f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false
@@ -18,11 +14,3 @@
     .subheadline.m10 Изменение видео роликов
     .cc
       = render @resource.videos, edition: true
-    /.videos
-      /.subheadline Изменение видео роликов
-      /.subcontent
-        /.videos-list.expanded
-          /= render partial: 'videos/video', collection: @resource.videos, locals: { entry: @resource, expanded: true, with_deletion: true }, formats: :html
-
-  /.no-change-details
-    /= render partial: 'blocks/editor/changes', locals: { changes: @resource.changes[:video], moderation: true }, formats: :html

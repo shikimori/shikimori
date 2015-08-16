@@ -10,7 +10,7 @@ class Video < ActiveRecord::Base
   validates :anime_id, :uploader_id, :url, :kind, presence: true
   validates_uniqueness_of :url,
     case_sensitive: true,
-    scope: [:anime_id, :state],
+    scope: [:anime_id],
     conditions: -> { where.not state: :deleted }
 
   before_create :check_url

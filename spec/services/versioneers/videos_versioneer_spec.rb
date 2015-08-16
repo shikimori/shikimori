@@ -3,11 +3,12 @@ describe Versioneers::VideosVersioneer do
   let(:anime) { create :anime }
   let(:user) { create :user }
 
-  describe '#upload' do
+  describe '#upload',:focus do
     let(:params) {{
       url: 'http://youtube.com/watch?v=l1YX30AmYsA',
       name: 'test',
-      kind: Video::PV
+      kind: Video::PV,
+      uploader_id: user.id
     }}
 
     subject!(:result) { versioneer.upload params, user }
@@ -31,7 +32,7 @@ describe Versioneers::VideosVersioneer do
         item: anime,
         item_diff: {
           'action' => Versioneers::VideosVersioneer::UPLOAD,
-          Versioneers::VideosVersioneer::KEY => video.id
+          Versioneers::VideosVersioneer::KEY => [video.id]
         },
         user: user,
       )
@@ -52,7 +53,7 @@ describe Versioneers::VideosVersioneer do
         item: anime,
         item_diff: {
           'action' => Versioneers::VideosVersioneer::DELETE,
-          Versioneers::VideosVersioneer::KEY => video.id
+          Versioneers::VideosVersioneer::KEY => [video.id]
         },
         user: user,
       )

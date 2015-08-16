@@ -75,6 +75,8 @@ ru:
   seyu_controller:
     <<: *animes_controller
     entry_edit: Редактирование сэйю
-  screenshots_controller:
+  screenshots_controller: &screenshots_controller
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
     screenshot_deleted: Скриншот удалён
+  videos_controller:
+    pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!

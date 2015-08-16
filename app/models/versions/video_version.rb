@@ -3,14 +3,14 @@ class Versions::VideoVersion < Version
     upload: 'upload',
     delete: 'delete'
   }
-  KEY = 'video'
+  KEY = 'videos'
 
   def action
     item_diff['action']
   end
 
   def video
-    @video ||= Video.find item_diff[KEY]
+    @video ||= Video.find item_diff[KEY].first
   end
 
   def apply_changes

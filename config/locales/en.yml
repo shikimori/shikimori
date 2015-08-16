@@ -141,7 +141,7 @@ en:
         author_name: Author (dubbing, subtitles)
         anime_video_author_id: Author (dubbing, subtitles)
       video:
-        url: Link
+        url: Url
         kind: Type
         name: Name
       group:

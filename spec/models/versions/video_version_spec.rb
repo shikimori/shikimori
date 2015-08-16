@@ -7,13 +7,13 @@ describe Versions::VideoVersion do
   describe '#video' do
     let(:video) { create :video }
 
-    let(:version) { build :video_version, item_diff: { video: video.id } }
+    let(:version) { build :video_version, item_diff: { videos: [video.id] } }
     it { expect(version.video).to eq video }
   end
 
   describe '#apply_changes' do
     let(:version) { build :video_version,
-      item_diff: { action: action, video: video.id } }
+      item_diff: { action: action, videos: [video.id] } }
 
     context 'upload' do
       let(:video) { create :video, :uploaded }

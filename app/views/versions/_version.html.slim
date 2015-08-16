@@ -74,33 +74,12 @@ div
             span #{Version.human_attribute_name :reason}:
             = version.reason
 
-        - if version.kind_of? Versions::ScreenshotsVersion
+        - if version.kind_of? Versions::VideoVersion
+          = render version.video
+        - elsif version.kind_of? Versions::ScreenshotsVersion
           = render "versions/screenshots_#{version.action}", version: version
         - else
           - version.item_diff.each do |field, (old_value, new_value)|
             = render version.changes_tempalte(field), version: version, field: field, only_one: version.item_diff.keys.one?
-      /- if version.screenshots?
-        /- if version.action == UserChange::ScreenshotsPosition
-          /.screenshots-compare
-            /.after
-              /p Стало
-              /- version.positioned_screenshots.each do |image|
-                /img src="#{image.image.url :preview, false}"
-            /.before
-              /p Было
-              // для не принятых правок берём текущие скриншоты, а при просмотре истории отображаем запомненные
-              /- (version.pending? ? version.current_screenshots : version.positioned_screenshots(version.prior)).each do |image|
-                /img src="#{image.image.url :preview, false}"
-        /- else
-          /.cc.m0
-            /= render partial: 'screenshots/screenshot', collection: version.attached_screenshots
-
-      /- elsif version.video?
-        /.b-quote
-          /.quoteable
-            /= version.attached_video.kind
-            /span.name
-              /= version.attached_video.name
-          /== BbCodeFormatter.instance.format_comment version.attached_video.url
 
       span.closing
