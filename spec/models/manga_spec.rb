@@ -32,7 +32,11 @@ describe Manga do
     it { should have_many :manga_chapters }
   end
 
-  describe :scopes do
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :name }
+  end
+
+  describe 'scopes' do
     before do
       [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|
         create :manga, read_manga_id: read_manga_id

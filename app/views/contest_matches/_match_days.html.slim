@@ -8,7 +8,13 @@
 
     - group.each do |match|
       span.group #{match.group}
-      .match-link.cc-2a class="#{match.voted_for_class} #{match.right ? match.state_with_voted : (match.started? ? 'voted' : match.state)}" data-remote="true" data-action="#{contest_contest_match_url contest, match}" data-type="html" data-id="#{match.id}"
+      .match-link.cc-2a[
+          class="#{match.voted_for_class} #{match.right ? match.state_with_voted : (match.started? ? 'voted' : match.state)}"
+          data-remote="true"
+          data-action="#{contest_contest_match_url contest, match}"
+          data-type="html"
+          data-id="#{match.id}"
+        ]
         .c-column class="#{match.status match.left_id}"
           - if match.left
             - if match.finished?

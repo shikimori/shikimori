@@ -577,7 +577,7 @@ Site::Application.routes.draw do
       end
 
       resources :contest_suggestions, path: 'suggestions', only: [:show, :create, :destroy]
-      resources :contest_matches, path: 'matches', only: [] do
+      resources :contest_matches, path: 'matches', only: [:show] do
         post 'vote/:variant' => 'contest_matches#vote', as: 'vote', on: :member
       end
     end

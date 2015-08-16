@@ -34,7 +34,7 @@ describe UserChangesQuery do
     context 'video' do
       let(:anime) { build_stubbed :anime }
       let!(:video_1) { create :video, :confirmed, anime: anime, uploader: user4 }
-      let!(:video_2) { create :video, :deleted, anime: anime, uploader: user4 }
+      let!(:video_2) { create :video, :deleted, anime: anime, uploader: user4, url: 'http://www.youtube.com/watch?v=XIFBhnJHpWE' }
       let!(:user_change_11) { create :user_change, model: Anime.name, column: 'video', item_id: anime.id, value: video_1.id, user: user3, status: UserChangeStatus::Accepted }
       let!(:user_change_12) { create :user_change, model: Anime.name, column: 'video', item_id: anime.id, value: video_2.id, user: user2, status: UserChangeStatus::Accepted }
 

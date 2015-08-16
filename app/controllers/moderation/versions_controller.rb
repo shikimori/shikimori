@@ -1,7 +1,7 @@
 class Moderation::VersionsController < ShikimoriController
   load_and_authorize_resource
 
-  page_title i18n_t('content_changes')
+  before_action { page_title i18n_t('content_changes') }
 
   def show
     noindex

@@ -13,7 +13,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
   end
   def create
     faye.create @resource
-    respond_with @resource
+    respond_with @resource.decorate
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -24,14 +24,14 @@ class Api::V1::MessagesController < Api::V1::ApiController
   end
   def update
     faye.update @resource, update_params
-    respond_with @resource
+    respond_with @resource.decorate
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, '/messages/:id', 'Destroy a message'
   def destroy
     faye.destroy @resource
-    respond_with @resource
+    respond_with @resource.decorate
   end
 
   api :POST, '/messages/mark_read', 'Mark messages as read or unread'

@@ -142,6 +142,12 @@ private
 
   # имя класса текущего элемента в нижнем регистре
   def klass_lower
-    object.class.name.downcase
+    if respond_to?(:anime?) && anime?
+      Anime.name.downcase
+    elsif respond_to?(:manga?) && manga?
+      Manga.name.downcase
+    else
+      object.class.name.downcase
+    end
   end
 end

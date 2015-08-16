@@ -64,20 +64,20 @@
             .value #{@resource.screenshots.size} #{i18n_i 'screenshot', @resource.screenshots.size}
             a.edit href="#{@resource.edit_field_url :screenshots}" = t 'actions.edit'
 
-        li
-          .field = @resource.class.human_attribute_name :videos
-          .value #{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}
-          a.edit href="#{@resource.edit_field_url :videos}" = t 'actions.edit'
+          li
+            .field = @resource.class.human_attribute_name :videos
+            .value #{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}
+            a.edit href="#{@resource.edit_field_url :videos}" = t 'actions.edit'
 
-        li
-          .field = Anime.human_attribute_name :cosplay
-          .value.under_development = t('under_development').downcase
-          /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
+          li
+            .field = Anime.human_attribute_name :cosplay
+            .value.under_development = t('under_development').downcase
+            /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
 
-        li
-          .field = @resource.class.human_attribute_name :tags
-          .value = @resource.tags
-          a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+          li
+            .field = @resource.class.human_attribute_name :tags
+            .value = @resource.tags
+            a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
 
         - if user_signed_in? && current_user.admin?
           li

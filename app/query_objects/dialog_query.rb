@@ -22,6 +22,7 @@ class DialogQuery
       .order(id: :desc)
       .offset(dynamic_limit * (page-1) - dynamic_offset)
       .limit(dynamic_limit + 1)
+      .decorate
       .reverse
   end
 

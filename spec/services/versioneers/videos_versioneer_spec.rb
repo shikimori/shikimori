@@ -3,7 +3,7 @@ describe Versioneers::VideosVersioneer do
   let(:anime) { create :anime }
   let(:user) { create :user }
 
-  describe '#upload',:focus do
+  describe '#upload' do
     let(:params) {{
       url: 'http://youtube.com/watch?v=l1YX30AmYsA',
       name: 'test',

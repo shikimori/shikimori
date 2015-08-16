@@ -87,6 +87,7 @@ class Manga < DbEntry
   enumerize :kind, in: [:doujin, :manga, :manhua, :manhwa, :novel, :one_shot], predicates: true
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
 
+  validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
