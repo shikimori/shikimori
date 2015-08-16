@@ -2,7 +2,7 @@ class ProfilesController < ShikimoriController
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
 
-  page_title i18n_t 'profile'
+  before_action { page_title i18n_t 'profile' }
 
   def show
     if user_signed_in? && current_user.id == @resource.id

@@ -6,10 +6,12 @@ ru:
           one: комментарий
           few: комментария
           many: комментариев
+          other: комментарии
         accusative:
           one: комментарий
           few: комментария
           many: комментариев
+          other: комментарии
       summary:
         subjective:
           one: отзыв
@@ -137,6 +139,96 @@ ru:
           few: лучших манг
           many: лучших манг
           other: лучших манг
+      club:
+        subjective:
+          one: клуб
+          few: клуба
+          many: клубов
+          other: клубы
+      error:
+        subjective:
+          one: ошибка
+          few: ошибки
+          many: ошибок
+          other: ошибки
+      description:
+        subjective:
+          one: описание
+          few: описания
+          many: описаний
+          other: описания
+      logo:
+        subjective:
+          one: логотип
+          few: логотипа
+          many: логотипов
+          other: логотипы
+      character:
+        subjective:
+          one: персонаж
+          few: персонажа
+          many: персонажей
+          other: персонажи
+      admin:
+        subjective:
+          one: админ
+          few: админа
+          many: админов
+          other: админы
+      moderator:
+        subjective:
+          one: модератор
+          few: модератора
+          many: модераторов
+          other: модераторы
+      ban:
+        subjective:
+          one: бан
+          few: бана
+          many: банов
+          other: баны
+      action:
+        subjective:
+          one: действие
+          few: действия
+          many: действий
+          other: действия
+      invitation:
+        subjective:
+          one: приглашение
+          few: приглашения
+          many: приглашений
+          other: приглашения
+      member:
+        subjective:
+          one: участник
+          few: участника
+          many: участников
+          other: участники
+      administration:
+        subjective:
+          one: администрация
+          few: администрации
+          many: администраций
+          other: администрации
+      image:
+        subjective:
+          one: изображение
+          few: изображения
+          many: изображений
+          other: изображения
+      picture:
+        subjective:
+          one: картинка
+          few: картинки
+          many: картинок
+          other: картинки
+      discussion:
+        subjective:
+          one: обсуждение
+          few: обсуждения
+          many: обсуждений
+          other: обсуждения
 
       datetime:
         second:

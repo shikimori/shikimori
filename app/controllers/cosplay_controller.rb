@@ -249,6 +249,7 @@ class CosplayController < ShikimoriController
   end
 
 private
+
   def breadcrumbs
     crumbs = { 'Модерация косплея' => mod_cosplay_index_url }
   end

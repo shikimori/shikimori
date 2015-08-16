@@ -3,10 +3,9 @@ class ClubsController < ShikimoriController
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :set_breadcrumbs, if: :resource_id
 
-  page_title 'Клубы'
-  breadcrumb 'Клубы', :clubs_url
+  before_action :set_breadcrumbs
+  before_action { page_title i18n_t 'clubs' }
 
   def index
     noindex
@@ -21,7 +20,7 @@ class ClubsController < ShikimoriController
   end
 
   def new
-    page_title 'Новый клуб'
+    page_title i18n_t 'new_club'
     @resource = @resource.decorate
   end
 
@@ -29,7 +28,7 @@ class ClubsController < ShikimoriController
     @resource = @resource.decorate
 
     if @resource.save
-      redirect_to edit_club_url(@resource), notice: 'Клуб создан'
+      redirect_to edit_club_url(@resource), notice: i18n_t('club_created')
     else
       new
       render :new
@@ -37,7 +36,7 @@ class ClubsController < ShikimoriController
   end
 
   def edit
-    page_title 'Изменение клуба'
+    page_title i18n_t 'edit_club'
   end
 
   def update
@@ -56,7 +55,7 @@ class ClubsController < ShikimoriController
 
   def members
     noindex
-    page_title 'Участники клуба'
+    page_title i18n_t 'club_members'
   end
 
   # TODO: удалить после 05.2015
@@ -68,24 +67,24 @@ class ClubsController < ShikimoriController
   def animes
     noindex
     redirect_to club_url(@resource) if @resource.animes.none?
-    page_title 'Аниме клуба'
+    page_title i18n_t 'club_anime'
   end
 
   def mangas
     noindex
     redirect_to club_url(@resource) if @resource.mangas.none?
-    page_title 'Манга клуба'
+    page_title i18n_t 'club_manga'
   end
 
   def characters
     noindex
     redirect_to club_url(@resource) if @resource.characters.none?
-    page_title 'Персонажи клуба'
+    page_title i18n_t 'club_characters'
   end
 
   def images
     noindex
-    page_title 'Картинки клуба'
+    page_title i18n_t 'club_images'
   end
 
   def upload
@@ -100,7 +99,7 @@ class ClubsController < ShikimoriController
         html: render_to_string(partial: 'images/image', object: image, locals: { rel: 'club' }, formats: :html)
       }
     else
-      redirect_to club_url(@resource), notice: 'Изображение загружено'
+      redirect_to club_url(@resource), notice: t('image_uploaded')
     end
   end
 
@@ -110,7 +109,11 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb @resource.name, club_url(@resource) if params[:action] != 'show'
+    breadcrumb i18n_t('clubs'), clubs_url
+
+    if resource_id.present? && params[:action] != 'show'
+      breadcrumb @resource.name, club_url(@resource)
+    end
   end
 
   def update_params

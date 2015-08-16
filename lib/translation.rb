@@ -2,9 +2,7 @@ module Translation
   # перевод фраз из декораторов, сервисов и т.д.
   def i18n_t key, options = {}
     yield options if block_given?
-
-    klass = self.instance_of?(Class) ? self : self.class
-    I18n.t! "#{klass.name.underscore}.#{key}", options
+    I18n.t! "#{self.class.name.underscore}.#{key}", options
 
   rescue I18n::MissingTranslationData
     I18n.t key, options
@@ -19,7 +17,7 @@ module Translation
         default: "inflections.cardinal.#{key.downcase}.default".to_sym
     else
       I18n.t "inflections.#{key.downcase}.#{count_key}",
-        default: key.to_s.downcase.gsub('_', ' ').pluralize(count)
+        default: key.to_s.downcase.gsub('_', ' ').pluralize(count_key == :one ? 1 : 2)
     end
 
     key != key.downcase ? translation.capitalize : translation

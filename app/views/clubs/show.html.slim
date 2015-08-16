@@ -8,7 +8,8 @@
   - if @resource.images(12).any?
     .block
       .subheadline.m5
-        span.linkeable data-href="#{images_club_url @resource}" Картинки
+        span.linkeable data-href="#{images_club_url @resource}"
+          = i18n_i 'picture', :other
       .b-gallery data-upload="#{can? :upload, @resource}"
         = render 'blocks/upload_progress'
         .container data-upload_url="#{upload_club_url @resource}"
@@ -18,7 +19,8 @@
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
     .subheadline.m3
       - if @resource.preview_thread.comments_count > 0
-        .linkeable data-href="#{comments_club_url @resource}" Обсуждение
+        .linkeable data-href="#{comments_club_url @resource}"
+          = i18n_i 'discussion', :other
       - else
         | Обсуждение
     div

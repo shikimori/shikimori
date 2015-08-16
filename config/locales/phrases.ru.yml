@@ -4,18 +4,21 @@ ru:
     apply: Применить
     ban_user: Забанить пользователя
     cancel: Отмена
+    create: Создать
     delete: Удалить
     edit: Изменить
     quote: Цитировать
     reject: Отклонить
     reply: Ответить
     upload: Загрузить
+    upload_image: Загрузить изображение
   anime_list: Список аниме
   back: назад
   back_to_page: Назад на страницу
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
   female: жен.
+  image_uploaded: Изображение загружено
   loading: Загрузка...
   mail: Почта
   male: муж.
@@ -34,5 +37,6 @@ ru:
   switch_to_anime: переключиться на аниме
   switch_to_manga: переключиться на мангу
   this_action_cant_be_undone: Это действие необратимо!
+  username: Имя пользователя
   users: Пользователи
   yes_i_confirm: Да, подтверждаю

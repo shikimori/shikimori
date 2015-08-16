@@ -13,7 +13,17 @@ en:
     achievements: Achievements
     ban_history: Ban history
     users: Users
+  achievements_controller:
+    <<: *profiles_controller
+  dialogs_controller:
+    <<: *profiles_controller
+  messages_controller:
+    <<: *profiles_controller
+  user_history_controller:
+    <<: *profiles_controller
   user_preferences_controller:
+    <<: *profiles_controller
+  user_rates_controller:
     <<: *profiles_controller
   animes_collection_controller: &animes_collection_controller
     order:
@@ -27,3 +37,16 @@ en:
     personalized_recommendations: Personalized recommendations
     what_anime_to_watch: What anime I should watch
     what_manga_to_read: What manga I should read
+  clubs_controller:
+    clubs: Clubs
+    new_club: New club
+    club_created: Club created
+    edit_club: Edit club
+    club_members: Club members
+    club_anime: Club anime
+    club_manga: Club manga
+    club_characters: Club characters
+    club_images: Club images
+  group_roles_controller:
+    you_have_joined_club: You have joined the club "%{club_name}"
+    you_have_left_club: You have left the club "%{club_name}"

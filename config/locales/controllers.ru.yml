@@ -13,7 +13,17 @@ ru:
     achievements: Достижения
     ban_history: История банов
     users: Пользователи
+  achievements_controller:
+    <<: *profiles_controller
+  dialogs_controller:
+    <<: *profiles_controller
+  messages_controller:
+    <<: *profiles_controller
+  user_history_controller:
+    <<: *profiles_controller
   user_preferences_controller:
+    <<: *profiles_controller
+  user_rates_controller:
     <<: *profiles_controller
   animes_collection_controller: &animes_collection_controller
     order:
@@ -27,3 +37,16 @@ ru:
     personalized_recommendations: Персонализированные рекомендации
     what_anime_to_watch: Какие аниме посмотреть
     what_manga_to_read: Какую мангу почитать
+  clubs_controller:
+    clubs: Клубы
+    new_club: Новый клуб
+    club_created: Клуб создан
+    edit_club: Изменение клуба
+    club_members: Участники клуба
+    club_anime: Аниме клуба
+    club_manga: Манга клуба
+    club_characters: Персонажи клуба
+    club_images: Картинки клуба
+  group_roles_controller:
+    you_have_joined_club: Вы вступили в клуб "%{club_name}"
+    you_have_left_club: Вы покинули клуб "%{club_name}"

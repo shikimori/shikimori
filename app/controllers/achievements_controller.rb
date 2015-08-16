@@ -1,6 +1,6 @@
 class AchievementsController < ProfilesController
   before_action :additional_breadcrumbs, except: [:index]
-  page_title 'Достижения'
+  before_action { page_title 'Достижения' }
 
   def index
   end

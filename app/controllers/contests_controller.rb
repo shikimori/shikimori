@@ -5,9 +5,7 @@ class ContestsController < ShikimoriController
   before_action :resource_redirect, if: -> { @resource }
 
   before_action :set_breadcrumbs
-
-  page_title 'Опросы'
-  breadcrumb 'Опросы', :contests_url
+  before_action { page_title 'Опросы' }
 
   def current
     if user_signed_in?
@@ -151,8 +149,10 @@ class ContestsController < ShikimoriController
   end
 
 private
+
   # хлебные крошки
   def set_breadcrumbs
+    breadcrumb 'Опросы', contests_url
     breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'edit' && !@resource.created?
     breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'grid' && !@resource.created?
     breadcrumb @resource.title, contest_url(@resource) if params[:round].present?

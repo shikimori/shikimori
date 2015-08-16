@@ -2,26 +2,6 @@ class ShikimoriController < ApplicationController
   before_action { noindex && nofollow unless shikimori? }
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
-  def self.page_title value
-    before_action do
-      if @page_title.present?
-        @page_title.unshift value
-      else
-        page_title value
-      end
-    end
-  end
-
-  def self.breadcrumb value, url_builder
-    before_action do
-      if @breadcrumbs.present?
-        @breadcrumbs = Hash[@breadcrumbs.to_a.unshift([value, send(url_builder)])]
-      else
-        breadcrumb value, send(url_builder)
-      end
-    end
-  end
-
   def fetch_resource
     @resource ||= resource_klass.find(resource_id)
     @resource = @resource.decorate

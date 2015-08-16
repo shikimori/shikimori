@@ -1,7 +1,7 @@
 = simple_form_for @resource, as: :club, url: (@resource.persisted? ? club_url(@resource) : clubs_url), html: { multipart: true } do |f|
   - if @resource.errors.any?
     .b-errors
-      .subheadline Ошибки
+      .subheadline = i18n_i 'error', :other
       == @resource.errors.full_messages.join('<br>')
 
   = f.input :owner_id, as: :hidden
@@ -14,18 +14,18 @@
     = f.input :join_policy, collection: GroupDecorator.join_policy_options, include_blank: false
     = f.input :comment_policy, collection: GroupDecorator.comment_policy_options, include_blank: false
     = f.input :display_images
-    = f.input :is_censored, hint: 'Обязательная опция для клубов со "взрослыми" картинками и текстами'
+    = f.input :is_censored, hint: t('.required_option_for_adult_clubs')
 
   /.block
     /.subheadline: a href="#{images_club_url @resource}" Картинки
 
   .block
-    .subheadline Описание
+    .subheadline = i18n_i 'description'
     .b-shiki_editor.unprocessed
       = render 'comments/shiki_editor', text: @resource.description, field_name: 'club[description]'
 
   .block
-    .subheadline.m10 Логотип
+    .subheadline.m10 = i18n_i 'logo'
     - if @resource.logo.exists?
       img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
     = f.input :logo, label: false
@@ -33,17 +33,28 @@
   - if @resource.persisted?
     .block.cc-2a
       .c-column
-        input.anime-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="club[anime_ids][]" data-autocomplete="#{autocomplete_animes_url}"
-        .subheadline Аниме
+        input.anime-suggest.subheadline-input.downgrade_landscape[
+          type='text'
+          placeholder=t('.anime_title')
+          data-variant_name='club[anime_ids][]'
+          data-autocomplete="#{autocomplete_animes_url}"
+        ]
+        .subheadline = i18n_i 'anime'
         .variants
           - @resource.all_animes.uniq(&:id).each do |anime|
             .variant
               = check_box_tag 'club[anime_ids][]', anime.id, checked: true
               a.bubbled href="#{anime_url anime}"
                 = anime.name
+
       .c-column
-        input.manga-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название манги" data-variant_name="club[manga_ids][]" data-autocomplete="#{autocomplete_mangas_url}"
-        .subheadline Манга
+        input.manga-suggest.subheadline-input.downgrade_landscape[
+          type='text'
+          placeholder=t('.manga_title')
+          data-variant_name='club[manga_ids][]'
+          data-autocomplete="#{autocomplete_mangas_url}"
+        ]
+        .subheadline = i18n_i 'manga'
         .variants
           - @resource.all_mangas.uniq(&:id).each do |manga|
             .variant
@@ -52,8 +63,13 @@
                 = manga.name
 
     .block
-      input.character-suggest.subheadline-input type="text" placeholder="Имя персонажа" data-variant_name="club[character_ids][]" data-autocomplete="#{autocomplete_characters_url}"
-      .subheadline Персонажи
+      input.character-suggest.subheadline-input[
+        type='text'
+        placeholder=t('.character_name')
+        data-variant_name='club[character_ids][]'
+        data-autocomplete="#{autocomplete_characters_url}"
+      ]
+      .subheadline = i18n_i 'character', :other
       .variants
         - @resource.all_characters.uniq(&:id).each do |character|
           .variant
@@ -63,9 +79,14 @@
 
     /- if @resource && @resource.admins.include?(current_user)
       div style="display: none;"
-        .subheadline Модераторы
+        .subheadline = i18n_i 'moderator', :other
         .m30
-          input.moderator-suggest.subheadline-input type="text" placeholder="Имя пользователя" data-variant_name="club[moderator_ids][]" data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
+          input.moderator-suggest.subheadline-input[
+            type='text'
+            placeholder=t('username')
+            data-variant_name='club[moderator_ids][]'
+            data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
+          ]
           .variants
             - @resource.moderators.each do |user|
               .variant
@@ -74,8 +95,13 @@
 
     .cc-2a
       .c-column
-        input.admin-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="club[admin_ids][]" data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
-        .subheadline Админы
+        input.admin-suggest.subheadline-input.downgrade_landscape[
+          type='text'
+          placeholder=t('username')
+          data-variant_name='club[admin_ids][]'
+          data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
+        ]
+        .subheadline = i18n_i 'admin', :other
         .variants
           - @resource.admins.each do |user|
             .variant
@@ -83,8 +109,13 @@
               a href="#{profile_url user}" = user.nickname
 
       .c-column
-        input.ban-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя пользователя" data-variant_name="club[banned_user_ids][]" data-autocomplete="#{autocomplete_users_url}"
-        .subheadline Баны
+        input.ban-suggest.subheadline-input.downgrade_landscape[
+          type='text'
+          placeholder=t('username')
+          data-variant_name='club[banned_user_ids][]'
+          data-autocomplete="#{autocomplete_users_url}"
+        ]
+        .subheadline = i18n_i 'ban', :other
         .variants
           - @resource.banned_users.each do |user|
             .variant
@@ -92,8 +123,13 @@
               a href="#{profile_url user}" = user.nickname
 
     .block
-      input.kick-suggest.subheadline-input type="text" placeholder="Имя пользователя" data-variant_name="kick_ids[]" data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
-      .subheadline Удаление пользователей
+      input.kick-suggest.subheadline-input[
+        type='text'
+        placeholder=t('username')
+        data-variant_name='kick_ids[]'
+        data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
+      ]
+      .subheadline = t '.remove_users'
       .variants
 
   .buttons

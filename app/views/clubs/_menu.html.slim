@@ -1,26 +1,29 @@
 .b-clubs-menu
   - if resource.logo.exists?
     .b-menu_logo
-      center: a href="#{resource.url}" title="#{resource.name}"
-        img src="#{resource.logo.url :main}" alt="#{resource.name}" title="#{resource.name}"
+      center: a href=resource.url title=resource.name
+        img src=resource.logo.url(:main) alt=resource.name title=resource.name
 
   = render 'clubs/actions', resource: resource
 
-  - [[resource.animes, 'Аниме', :animes_club_url], [resource.mangas, 'Манга', :mangas_club_url], [resource.characters, 'Персонажи', :characters_club_url]].each do |collection, name, url_builder|
+  - [[resource.animes, i18n_i('anime'), :animes_club_url],
+     [resource.mangas, i18n_i('manga'), :mangas_club_url],
+     [resource.characters, i18n_i('character', :other), :characters_club_url]].each do |collection, name, url_builder|
     - if collection.any?
       .block
-        .subheadline: a href="#{send url_builder, resource}" title="#{name}"
+        .subheadline: a href=send(url_builder, resource) title=name
           = name
         .cc-4a
           = render collection, cover_by: :image_link
 
   - if resource.members.any?
     .subheadline.m10
-      span.linkeable data-href="#{members_club_url resource}" Участники
+      span.linkeable data-href=members_club_url(resource)
+        = i18n_i 'member', :other
     .cc.members
       = render resource.members, content_by: :avatar
 
   - if resource.admins.any?
-    .subheadline.m10 Администрация
+    .subheadline.m10 = i18n_i 'administration'
     .cc-4.admin
       = render resource.admins, content_by: :named_avatar
