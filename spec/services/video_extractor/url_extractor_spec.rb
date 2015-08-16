@@ -190,5 +190,10 @@ describe VideoExtractor::UrlExtractor do
       let(:html) { '<IFRAME SRC="http://vidbull.com/embed-z8cyfxvok8nm-720x405.html" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=640 HEIGHT=360></IFRAME>' }
       it { should eq 'http://vidbull.com/embed-z8cyfxvok8nm-720x405.html' }
     end
+
+    describe 'mipix.eu' do
+      let(:html) { '<iframe src="https://mipix.eu/translations/embed/274265" width="853" height="480" allowfullscreen frameborder="0"></iframe>' }
+      it { should eq 'https://mipix.eu/translations/embed/274265' }
+    end
   end
 end
