@@ -76,6 +76,8 @@ class TorrentsParser
       num.map {|v| v > 175 ? v - 175 : v }
     elsif episode_name =~ /kyousou[ _]?giga/i
       num.map {|v| v + 1 }
+    elsif episode_name =~ /\[SOFCJ-Raws\] Dragon Ball Kai/i
+      num.map {|v| v - 159 }
     else
       num
     end.select {|v| v > 0 }
