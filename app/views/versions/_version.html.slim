@@ -25,20 +25,6 @@ div
       - else
         = t("deleted.#{version.item_type.underscore}").downcase
 
-    /- if version.screenshots?
-      /- if version.action == UserChange::ScreenshotsPosition
-        /span Порядок кадров
-      /- elsif version.action == UserChange::ScreenshotsUpload
-        /span #{version.value.include?(',') ? 'Новые кадры' : 'Новый кадр'}
-      /- else
-        /span #{version.value.include?(',') ? 'Удаление кадров' : 'Удаление кадра'}
-
-    /- if version.video?
-      /- if version.action == UserChange::VideoUpload
-        /span Новое видео
-      /- elsif version.action == UserChange::VideoDeletion
-        /span Удаление видео
-
     span.state class="#{version.state.downcase}"
       = version.human_state_name
 
@@ -80,13 +66,6 @@ div
               title="#{t '.delete_changes'}"
             ] = t '.delete'
 
-        /- if version[:locked]
-          /p сначала предыдущие правки
-
-        /- elsif version.pending?
-          /- if version.column == 'torrents_name' && user_signed_in? && !current_user.admin?
-            /p эту правку посмотрит morr
-
       .clearfix
 
       .change-details
@@ -123,30 +102,5 @@ div
             /span.name
               /= version.attached_video.name
           /== BbCodeFormatter.instance.format_comment version.attached_video.url
-      /- else
-        /.comment-block
-          /- if version.prior || version.pending?
-            /.b-quote
-              /.quoteable Было
-              /p
-                /= version.prior || version.current_prior
-          /.b-quote
-            /.quoteable
-              /- if version.prior || version.pending?
-                /| Стало
-              /- else
-                /| Изменение
-            /p
-              /= version.value
-          /- if version.prior || version.pending?
-            /.b-quote
-              /.quoteable Изменения
-              /p
-                /= sanitize version.get_diff
-          /- if version.source.present?
-            /p.source
-              /b Источник:&nbsp;
-              /a href="#{version.source}"
-                /= h(version.source).sub(/^https?:\/\//, '')
 
       span.closing

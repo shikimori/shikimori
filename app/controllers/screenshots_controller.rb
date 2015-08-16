@@ -1,9 +1,9 @@
 class ScreenshotsController < ShikimoriController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+  before_action :fetch_anime
 
   def create
-    anime = Anime.find params[:id]
-    @screenshot, @version = versioneer(anime).upload params[:image], current_user
+    @screenshot, @version = versioneer.upload params[:image], current_user
 
     if @screenshot.persisted?
       render json: {
@@ -23,14 +23,27 @@ class ScreenshotsController < ShikimoriController
       @screenshot.destroy
       render json: { notice: i18n_t('screenshot_deleted') }
     else
-      @version = versioneer(@screenshot.anime).delete @screenshot.id, current_user
-      render json: { notice: i18n_t('pending_deletion') }
+      @version = versioneer.delete @screenshot.id, current_user
+      render json: { notice: i18n_t('pending_version') }
     end
+  end
+
+  def reposition
+    @version = versioneer.reposition params[:ids].split(','), current_user
+
+    redirect_to_back_or_to(
+      @anime.decorate.edit_field_url(:screenshots),
+      notice: i18n_t('pending_version')
+    )
   end
 
 private
 
-  def versioneer anime
-    Versioneers::ScreenshotsVersioneer.new anime
+  def versioneer
+    Versioneers::ScreenshotsVersioneer.new @anime
+  end
+
+  def fetch_anime
+    @anime = Anime.find params[:anime_id]
   end
 end

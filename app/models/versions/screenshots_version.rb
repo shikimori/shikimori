@@ -11,9 +11,11 @@ class Versions::ScreenshotsVersion < Version
   end
 
   def screenshots
-    @screenshots ||= Screenshot.where(
-      id: action == ACTIONS[:reposition] ? item_diff[KEY][1] : item_diff[KEY]
-    )
+    ids = action == ACTIONS[:reposition] ? item_diff[KEY][1] : item_diff[KEY]
+    @screenshots ||= Screenshot
+      .includes(:anime)
+      .where(id: ids)
+      .sort_by {|v| ids.index v.id }
   end
 
   def apply_changes

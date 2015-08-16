@@ -1,5 +1,4 @@
 class AniMangaDecorator < DbEntryDecorator
-  include Translation
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers
 

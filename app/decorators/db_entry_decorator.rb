@@ -1,6 +1,4 @@
 class DbEntryDecorator < BaseDecorator
-  include Translation
-
   instance_cache :description_mal, :description_html, :main_thread, :preview_thread
   instance_cache :linked_clubs, :all_linked_clubs
   instance_cache :favoured, :favoured?, :all_favoured

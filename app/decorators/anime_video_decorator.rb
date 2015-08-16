@@ -1,6 +1,4 @@
 class AnimeVideoDecorator < BaseDecorator
-  include Translation
-
   def name
     "episode ##{episode} #{h.localized_name anime}"
   end

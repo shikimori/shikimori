@@ -1,4 +1,4 @@
-.b-brief.screenshots-uploader data-upload_url="#{screenshots_url @resource}"
+.b-brief.screenshots-uploader data-upload_url="#{anime_screenshots_url @resource}"
   p.m5 Перед загрузкой кадров, пожалуйста, удостоверьтесь, что загружаемое удовлетворяет следующим условиям:
   ul.b-list.m10
     li
@@ -25,12 +25,12 @@
     .cc
       = render @resource.screenshots, edition: true
 
-    = simple_form_for [:moderation, user_change] do |f|
-      = f.input :model, as: :hidden
-      = f.input :column, as: :hidden
-      = f.input :item_id, as: :hidden
-      = f.input :action, as: :hidden
-      = f.input :value, as: :hidden
+    = form_tag reposition_anime_screenshots_url(@resource), method: :post do
+      input#entry_ids name="ids" type="hidden"
 
       .buttons
-        = f.button :magic_submit
+        input.btn-primary.btn-submit.btn[
+          type="submit"
+          value="#{t 'simple_form.magic_submit.default.submit'}"
+          data-disable-with="#{{t 'simple_form.magic_submit.default.disable_with'}}"
+        ]

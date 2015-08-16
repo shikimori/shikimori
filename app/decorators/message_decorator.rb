@@ -1,6 +1,4 @@
 class MessageDecorator < BaseDecorator
-  include Translation
-
   def image
     anime_related? ? anime.image.url(:x48) : from.avatar_url(48)
   end

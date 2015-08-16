@@ -102,3 +102,8 @@ en:
       Your [version=%{version_id}]content change[/version] for [%{item_type}]%{item_id}[/%{item_type}] was rejected.
     version_rejected_with_reason: >-
       Your [version=%{version_id}]content change[/version] for [%{item_type}]%{item_id}[/%{item_type}] was rejected because of [quote=%{moderator}]%{reason}[/quote]
+  version_decorator:
+    field_name:
+      screenshots_upload: Screenshots upload
+      screenshots_delete: Screenshots delete
+      screenshots_reposition: Screenshots order

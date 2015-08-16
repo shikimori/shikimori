@@ -31,7 +31,7 @@ class Versioneers::ScreenshotsVersioneer
     version = build_version author, REPOSITION
     version.item_diff[KEY] = [
       item.screenshots.pluck(:id),
-      ordered_ids
+      ordered_ids.map(&:to_i)
     ]
     version.save
     version

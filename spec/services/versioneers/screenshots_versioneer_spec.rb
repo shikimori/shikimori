@@ -216,7 +216,7 @@ describe Versioneers::ScreenshotsVersioneer do
     let(:screenshot_1) { create :screenshot, anime: anime, position: 0, url: rand }
     let(:screenshot_2) { create :screenshot, anime: anime, position: 1, url: rand }
 
-    subject!(:version) { versioneer.reposition [screenshot_2.id, screenshot_1.id], user }
+    subject!(:version) { versioneer.reposition [screenshot_2.id.to_s, screenshot_1.id.to_s], user }
 
     it do
       expect(version).to be_persisted

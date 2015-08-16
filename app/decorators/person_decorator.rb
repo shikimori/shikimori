@@ -1,5 +1,4 @@
 class PersonDecorator < DbEntryDecorator
-  include Translation
   decorates_finders
 
   rails_cache :best_works

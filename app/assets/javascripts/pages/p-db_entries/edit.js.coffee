@@ -15,7 +15,7 @@
     $('form', $screenshots_positioner).on 'submit', ->
       $images = $('.c-screenshot:not(.deleted) img', $screenshots_positioner)
       ids = $images.map -> $(@).data('id')
-      $screenshots_positioner.find('#user_change_value').val $.makeArray(ids).join(',')
+      $screenshots_positioner.find('#entry_ids').val $.makeArray(ids).join(',')
 
     $screenshots_uploader = $('.screenshots-uploader')
     $screenshots_uploader.shikiFile

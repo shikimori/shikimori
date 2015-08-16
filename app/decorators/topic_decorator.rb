@@ -1,5 +1,4 @@
 class TopicDecorator < BaseDecorator
-  include Translation
   instance_cache :comments
 
   # имя топика

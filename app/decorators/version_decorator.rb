@@ -6,8 +6,11 @@ class VersionDecorator < BaseDecorator
   end
 
   def changed_fields
-    keys = kind_of?(Versions::ScreenshotsVersion) ? [Versions::ScreenshotsVersion::KEY] : item_diff.keys
-    keys.map { |attribute| item_type.constantize.human_attribute_name attribute }
+    if kind_of? Versions::ScreenshotsVersion
+      [i18n_t("field_name.screenshots_#{action}")]
+    else
+      item_diff.keys.map { |attribute| item_type.constantize.human_attribute_name attribute }
+    end
   end
 
   def changes_tempalte field
